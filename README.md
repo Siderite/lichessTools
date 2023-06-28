@@ -1,0 +1,33 @@
+# LiChess Tools, by Siderite
+Chrome extension add extra functionalities to the https://lichess.org web site:
+ - randomly play one of the next moves with Ctrl-RightArrow
+     - configurable probability to play a move by putting prc:<number> in the move comment, where number is a percentage between 1 and 100
+ - highlights for the last move of variations in the analysis/study board
+     - also showing which of the last moves that have not ended in mate have no comment
+ - highlights the transpositions to the current move in the analysis/study board
+ - play multiple variations in Interactive lesson mode in the same chapter! (using the prc: notations if present)
+ - automatically open/hide/convert to menu the Friends box at page load
+ - sound alert when one of your friends starts playing a game (for various time controls)
+ - changing the shortcut for playing the next best computer move from Space to Ctrl-Space
+ - a minimum chess engine level (if it is idle in a lower state, it runs until it gets to that level)
+ - sticky Interactive lesson Preview mode (remains in Preview when switching between chapters)
+ - use keyboard shortcuts (i, m, b, Alt-i, Alt-m, Alt-b) for inaccuracies, mistakes and blunders in analysis
+ - show player country flags next to their names (if they have their country specified in the profile)
+ - import multiple PGNs in analysis mode and merge them into one
+ - show the order of arrows and circles in analysis/study
+ - add an item in the Watch menu to go to last watched game (and from there to the previously watched game and so on)
+ - show opening name in TV game and mini games
+ - opening explorer button to quickly switch between you and the selected user
+ - ability to remove usernames from opening explorer selection
+ - show history section (last two games) for user TV
+ - copy branches from analysis/study to clipboard
+ - TV games have a link to the game in the title and can be bookmarked during the game
+ - languages supported: English, Romanian
+ - extension options in the Preferences menu in LiChess
+ - next moves from transpositions are now available in the analysis move list
+ - study move list context menu item to automatically go to the last move of every variation and add a comment with the computer evaluation
+ - option to save preferences in incognito mode, too (you have to set it from Preferences first!)
+ - buttona to change chapter names from the Event or Black/White PGN tags in the chapter edit form
+ - custom styles for study comments
+ - study chapter navigation controls (including random chapter)
+ - auto save and button to reload PGNs in Analysis mode (recover from accidental reloads) 

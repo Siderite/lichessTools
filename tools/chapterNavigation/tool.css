@@ -1,0 +1,16 @@
+body.lichessTools .lichessTools-chapterControls div[role="footer"] {
+  display:flex;
+  justify-content: space-around;
+}
+
+body.lichessTools .lichessTools-chapterControls div[role="footer"] button {
+  flex-grow: 1;
+}
+
+body.lichessTools div.study__side.lichessTools-chapterControls {
+  flex-grow:1;
+}
+
+body.lichessTools div.study__side.lichessTools-chapterControls div.study__chapters {
+  flex-grow:1;
+}

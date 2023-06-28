@@ -1,0 +1,5 @@
+body.lichessTools div.form-group button.lichessTools-changeNameButton {
+  max-width: 25em;
+  text-wrap: wrap !important;
+  text-transform: initial;
+}

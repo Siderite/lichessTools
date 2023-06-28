@@ -1,0 +1,9 @@
+body.lichessTools a.lichessTools-previousGame {
+  opacity:0.5;
+  cursor: not-allowed;
+}
+
+body.lichessTools a.lichessTools-previousGame[href] {
+  opacity:1;
+  cursor: pointer;
+}
