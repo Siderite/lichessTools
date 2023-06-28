@@ -1,0 +1,8 @@
+body.lichessTools div.analyse__tools .lichessTools-transpositions {
+  font-style:italic;
+}
+
+body.lichessTools .analyse .tview2 move.lichessTools-highlight {
+    border: solid 1px gray;
+    border-radius: 10px;
+}

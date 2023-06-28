@@ -1,0 +1,16 @@
+function handleUpdate(result) {
+  const hasUpdate=result?.status=='update_available';
+  if (!hasUpdate) return;
+  const a=document.querySelector('div.link a.update');
+  a.addEventListener('click',ev=>{
+    ev.preventDefault();
+    chrome.tabs.create({ url:'chrome://extensions' });
+  });
+  a.classList.add('needsIt');
+}
+
+const manifest=chrome.runtime.getManifest();
+document.querySelector('h2').setAttribute('title',manifest.description);
+document.querySelector('#mainTitle').innerText=manifest.name+' v'+manifest.version;
+//document.querySelector('div.link a.rate').setAttribute('href','https://chrome.google.com/webstore/detail/lichess-tools-by-siderite/'+chrome.runtime.id);
+chrome.runtime.requestUpdateCheck(handleUpdate);

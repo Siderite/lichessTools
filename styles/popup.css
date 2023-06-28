@@ -1,0 +1,42 @@
+body {
+  width: 19rem;
+  padding: 0.5em;
+}
+
+h2 {
+  margin-bottom:0.5em;
+}
+
+h2 a {
+  float:right;
+}
+
+div.content {
+  margin:5px;
+}
+
+.link {
+  display: flex;
+  justify-content: space-around;
+}
+
+.link .update {
+  display:none;
+  color: red;
+}
+
+.link .update.needsIt {
+  display:initial;
+  animation: fire 1.5s ease-in-out infinite alternate;
+}
+
+
+@keyframes fire {
+  0% {
+    text-shadow: 0 .008em .127em #fefcc9,.055em -0.066em .2em #feec85,-0.111em -0.127em .272em #ffae34,.111em -0.272em .411em #ec760c,-0.111em -0.456em .416em #cd4606,0 -0.533em .577em #973716,.055em -0.55em .533em #451b0e
+  }
+
+  100% {
+    text-shadow: 0 0 .111em #fefcc9,.055em -0.055em .166em #fefcc9,-0.111em -0.111em .222em #feec85,.122em -0.233em .333em #ffae34,-0.122em -0.322em .277em #ec760c,0 -0.456em .444em #cd4606,.055em -0.5em .444em #973716
+  }
+}

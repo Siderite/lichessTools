@@ -1,0 +1,19 @@
+body.lichessTools *[data-icon].lichessTools-icon-rotate:before {
+  transform: rotate(-60deg);
+}
+
+body.lichessTools.lichessTools-evaluationStarted #analyse-cm a[data-role="evaluateTerminations"]:before {
+  content:'\E03F';
+  color:red;
+}
+
+body.lichessTools .lichessTools-liveStatus {
+  position: relative;
+  display:none;
+  top: 3em;
+  margin-left: 1em;
+}
+
+body.lichessTools.lichessTools-evaluationStarted .lichessTools-liveStatus {
+  display:inherit;
+}

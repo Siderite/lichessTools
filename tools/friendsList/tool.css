@@ -1,0 +1,74 @@
+
+body.lichessTools section.lichessTools-onlineFriends .user-link:before {
+  font-size: 0.9em;
+  padding: 0.6rem 0.7rem;
+  padding-left: 0;
+  color: #2e7cc4;
+}
+
+/* sorry for the important, but it has to fight off the Prettier Lichess style */
+body.lichessTools #topnav.hover section.lichessTools-onlineFriends div[role="group"] {
+  max-height: 70vh;
+  overflow-y: auto !important;
+}
+
+/* sorry for the important, but it has to fight off the Prettier Lichess style */
+body.lichessTools #topnav section.lichessTools-onlineFriends > a.lichessTools-somePlaying {
+  color: #1b78d0 !important;
+}
+
+body.lichessTools.dark #topnav section.lichessTools-onlineFriends > a.lichessTools-somePlaying {
+  color: #3692e7 !important;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system #topnav section.lichessTools-onlineFriends > a.lichessTools-somePlaying {
+    color: #3692e7 !important;
+  }
+}
+
+body.lichessTools #topnav section.lichessTools-onlineFriends a:hover {
+  padding-left: 0.7rem !important;
+}
+
+
+body.lichessTools #topnav section.lichessTools-onlineFriends a i {
+  margin-right:0.5em;
+}
+
+body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:hover:before {
+  content:'\E025' !important;
+}
+
+body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:hover {
+  transform: scale(1.25);
+}
+
+body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:before {
+  color: #9fff9f;
+}
+
+body.lichessTools.dark #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:before {
+  color: #3692e7;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:before {
+    color: #9fff9f;
+  }
+}
+
+body.lichessTools.dark #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:before {
+  color: #9fff9f;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:before {
+    color: #3692e7;
+  }
+}
+
+/* fix for Lichess Unrated extension conflict */
+body.lichessTools.dynamicContentShown section.lichessTools-onlineFriends .user-link {
+  visibility:inherit;
+}
