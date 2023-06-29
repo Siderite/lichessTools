@@ -22,7 +22,10 @@
         'openFriends.default': 'Default',
         'openFriends.open': 'Open',
         'openFriends.hidden': 'Hidden',
-        'openFriends.menu': 'Menu'
+        'openFriends.menu': 'Menu',
+        'watchGames':'Watch games',
+        'enablePlayAlert':'Unmute playing alert',
+        'mutePlayAlert':'Mute playing alert'
       },
       'ro-RO':{
         'onlineFriends': '%s prieteni online',
@@ -35,14 +38,17 @@
         'openFriends.open': 'Deschis\u0103',
         'openFriends.hidden': 'Ascuns\u0103',
         'openFriends.menu': 'Meniu',
-
+        'watchGames':'Vezi partide',
+        'enablePlayAlert':'Permite alerte c\u00E2nd joac\u0103',
+        'mutePlayAlert':'Nu permite alerte c\u00E2nd joac\u0103'
       }
     }
 
     updateFriendsMenu=()=>{
-      const $=this.lichessTools.$;
+      const parent=this.lichessTools;
+      const $=parent.$;
       const trans=this.lichessTools.translator;
-      const myName=$('body').attr('data-user'); //TODO unify current user API
+      const myName=parent.getUserId();
       if (!myName) return;
       if (!$('#topnav section.lichessTools-onlineFriends').length) {
         const friendsUrl='/@/'+myName+'/following';
@@ -89,6 +95,69 @@
       menu.toggleClass('lichessTools-somePlaying',!!friendsPlaying);
       items.forEach(e=>$(e).remove());
     };
+
+    rows={};
+    updateFriendsPage=(friends,data)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=this.lichessTools.translator;
+      const myName=parent.getUserId();
+      if (!myName) return;
+      if (!parent.isFriendsPage()) return;
+      const watchGamesTitle=trans.noarg('watchGames');
+      const enablePlayingAlertTitle=trans.noarg('enablePlayAlert');
+      const mutePlayingAlertTitle=trans.noarg('mutePlayAlert');
+      const hasAlerts=parent.currentOptions.friendsPlaying; //TODO figure out something not hacky
+      if (!hasAlerts) {
+        $('table.slist div.relation-actions a.lichessTools-mute').remove();
+      }
+      $('table.slist div.relation-actions').each((i,e)=>{
+        const row=$(e).closest('tr');
+        const userLink=$('td:first-child a[href]',row).attr('href');
+        if (!userLink) return;
+        const m=/\/@\/([^\/\?#]+)/.exec(userLink);
+        const user=(m&&m[1]).toLowerCase();
+        if (!user) return;
+        this.rows[user]=row;
+        if (!$(e).find('a.lichessTools-tv')[0]) {
+          $('<a class="btn-rack__btn lichessTools-tv" data-icon="&#xE025;"></a>')
+            .attr('href','/@/'+user+'/tv')
+            .attr('title',watchGamesTitle)
+            .prependTo(e);
+        }
+        if (hasAlerts && !$(e).find('a.lichessTools-mute')[0]) {
+          $('<a class="btn-rack__btn lichessTools-mute" data-icon="&#xE00F;"></a>')
+            .attr('title',mutePlayingAlertTitle)
+            .on('click',ev=>{
+              ev.preventDefault();
+              parent.lichess.pubsub.emit('mutePlayer',user);
+            })
+            .appendTo(e);
+        }
+      });
+      const mutedPlayers=parent.currentOptions.mutedPlayers||[];
+      for (const user in this.rows) {
+        const row=this.rows[user];
+        if (!row) continue;
+        const isMuted=mutedPlayers.includes(user);
+        row.toggleClass('lichessTools-muted',isMuted);
+        $('a.lichessTools-mute',row) 
+           .attr('title',isMuted?enablePlayingAlertTitle:mutePlayingAlertTitle);
+      }
+      if (!data?.playing) return;
+      const online=data.d.map(e=>e.toLowerCase().replace(/^\w+\s/, ''));
+      const playing=data.playing.map(e=>e.toLowerCase().replace(/^\w+\s/, ''));
+      for (const user in this.rows) {
+        const row=this.rows[user];
+        if (!row) continue;
+        const isOnline=online.includes(user);
+        row.toggleClass('lichessTools-online',isOnline)
+           .toggleClass('lichessTools-playing',playing.includes(user));
+        $('td:first-child>a',row)
+           .toggleClass('online',isOnline)
+           .toggleClass('offline',!isOnline);
+      }
+    };
     
     async start() {
       const parent=this.lichessTools;
@@ -99,6 +168,9 @@
       const setInterval=parent.global.setInterval;
       const clearInterval=parent.global.clearInterval;
       lichess.pubsub.off('socket.in.following_onlines', this.updateFriendsMenu);
+      lichess.pubsub.off('socket.in.following_onlines', this.updateFriendsPage);
+      lichess.pubsub.on('socket.in.following_onlines', this.updateFriendsPage); //TODO add option
+      this.updateFriendsPage();
 
       const openFriendsBox=()=> {
         let interval;

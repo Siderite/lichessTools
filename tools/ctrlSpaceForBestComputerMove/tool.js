@@ -27,8 +27,6 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.spaceDisabled;
       this.logOption('Ctrl-Space to play best computer move', value);
-      const mousetrap = parent.global.Mousetrap;
-      if (!mousetrap) return;
       if (!this.oldSpaceHandler) {
         this.oldSpaceHandler = parent.getKeyHandler('space');
         if (!this.oldSpaceHandler) return;

@@ -51,11 +51,11 @@
     }
 
     getKeyHandler(combo, onlyMine) {
-      const mousetrap=this.global.Mousetrap;
+      const mousetrap=this.lichess.mousetrap;
       if (!mousetrap) return null;
-      for (const key in mousetrap._callbacks) {
-        const arr=mousetrap._callbacks[key];
-        const index=arr.findIndex(k=>k.combo==combo);
+      for (const key in mousetrap.bindings) {
+        const arr=mousetrap.bindings[key];
+        const index=arr.findIndex(b=>b.combination==combo);
         if (index>=0) {
           return !onlyMine||arr[index].lichessTools
             ? arr[index].callback
@@ -65,16 +65,16 @@
     }
 
     unbindKeyHandler(combo, onlyMine) {
-      const mousetrap=this.global.Mousetrap;
+      const mousetrap=this.lichess.mousetrap;
       if (!mousetrap) return null;
-      for (const key in mousetrap._callbacks) {
-        const arr=mousetrap._callbacks[key];
-        this.arrayRemoveAll(arr,k=>(!onlyMine||k.lichessTools)&&k.combo===combo);
+      for (const key in mousetrap.bindings) {
+        const arr=mousetrap.bindings[key];
+        this.arrayRemoveAll(arr,b=>(!onlyMine||b.lichessTools)&&b.combination===combo);
       }
     }
 
     bindKeyHandler(combo, func, notMine) {
-      const mousetrap=this.global.Mousetrap;
+      const mousetrap=this.lichess.mousetrap;
       if (!mousetrap) return null;
       const handler=this.getKeyHandler(combo);
       if (handler) {
@@ -83,9 +83,9 @@
       }
       mousetrap.bind(combo,func);
       if (!notMine) {
-        for (const key in mousetrap._callbacks) {
-          const arr=mousetrap._callbacks[key];
-          const item=arr.find(k=>k.combo==combo);
+        for (const key in mousetrap.bindings) {
+          const arr=mousetrap.bindings[key];
+          const item=arr.find(b=>b.combination==combo);
           if (item) {
             item.lichessTools=true;
           }
@@ -248,18 +248,23 @@
     }
 
     traverse=(node, state, path)=>{
+      if (!node) node=this.lichess?.analysis?.tree.root;
       if (!state) {
         state={
           lastMoves:[],
-          positions:{}
+          positions:{},
+          glyphs:{},
+          nodeIndex:+(node?.nodeIndex)||0
         };
         if (!this.isTreeviewVisible()) return state;
       }
-      if (node.comp) {
+      if (!node || node.comp) {
         return state;
       }
       path=(path||'')+node.id;
       node.path=path;
+      node.nodeIndex=state.nodeIndex;
+      state.nodeIndex++;
       node.isCommentedOrMate=this.isCommented(node)||this.isMate(node);
       node.position=this.getNodePosition(node);
       let pos=state.positions[node.position];
@@ -282,24 +287,32 @@
       } else {
         state.lastMoves.push(node);
       }
+      if (node.glyphs) {
+        for (const glyph of node.glyphs) {
+          const arr=state.glyphs[glyph.symbol]||[];
+          arr.push(node);
+          state.glyphs[glyph.symbol]=arr;
+        }
+      }
       return state;
     };
 
-    getGamebookDescendants=(node,depth,currentDepth,isInteractive)=>{
-      if (!depth) depth=0;
-      if (!currentDepth) currentDepth=1;
-      const arr=[];
-      if (currentDepth<=depth&&node?.children) { 
-        for (const child of node.children) {
-          if (isInteractive && !child.gamebook) continue;
-          arr.push(child);
-          arr.push.apply(arr,this.getGamebookDescendants(child,depth,currentDepth+1,isInteractive));
-        }
-      }
-      return arr;
-    };
-
     populatePercent=(nodes, isInteractive, depth)=> {
+
+      const getGamebookDescendants=(node,depth,currentDepth,isInteractive)=>{
+        if (!depth) depth=0;
+        if (!currentDepth) currentDepth=1;
+        const arr=[];
+        if (currentDepth<=depth&&node?.children) { 
+          for (const child of node.children) {
+            if (isInteractive && !child.gamebook) continue;
+            arr.push(child);
+            arr.push.apply(arr,getGamebookDescendants(child,depth,currentDepth+1,isInteractive));
+          }
+        }
+        return arr;
+      };
+
       const console=this.global.console;
       let total=0;
       const defaultPrc=[];
@@ -330,8 +343,8 @@
         const list=[];
         let weightTotal=0;
         for (const node of defaultPrc) {
-          const descendants=this.getGamebookDescendants(node,depth,1,isInteractive);
-          const weight=1+descendants.length;
+          const descendants=getGamebookDescendants(node,depth,1,isInteractive);
+          const weight=1+descendants.filter(n=>n.children?.length>1).length;
           list.push({node:node,weight:weight});
           weightTotal+=weight;
         }
@@ -349,7 +362,7 @@
       depth=+depth||8;
       const lichess=this.lichess;
       if (!node.children?.length) return;
-      const isInteractive = !!lichess.analysis.study&&lichess.analysis.study.gamebookPlay();
+      const isInteractive = !!lichess.analysis.study?.gamebookPlay();
       const total = this.populatePercent(node.children, isInteractive, depth);
       const index=Math.random()*total;
       let acc=0;
@@ -364,7 +377,32 @@
     getUserId=()=>{
       return this.lichess?.analysis?.opts.userId || this.$('body').attr('data-user');
     };
-  
+
+    isFriendsPage=()=>{
+      return /\/following([\?#].*)?$/.test(this.global.location.href);
+    };
+
+
+    findGlyphNode=(color,symbol)=>{
+      const analysis=this.lichess?.analysis;
+      if (!analysis) return;
+      const state=this.traverse();
+      const arr=state.glyphs[symbol];
+      if (!arr?.length) return;
+      const index=analysis.node.nodeIndex;
+      return arr.find(n=>n.ply%2===(color==='white'?1:0) && n.nodeIndex>index)||arr.find(n=>n.ply%2===(color==='white'?1:0));
+    };
+
+    jumpToGlyphSymbol=(color,symbol)=>{
+      const analysis=this.lichess?.analysis;
+      if (!analysis) return;
+      const node=this.findGlyphNode(color,symbol);
+      if (node) {
+        analysis.userJumpIfCan(node.path);
+        analysis.redraw();
+      }
+    };
+ 
     intl={
       lichessTools:this,
       defaultLanguage:'en-US',
@@ -462,8 +500,9 @@
       this.lichess=lichess;
       this.translator = this.lichess.trans(this.intl.siteI18n);
       await this.applyOptions();
+      const debouncedApplyOptions=this.debounce(this.applyOptions,250);
       this.lichess.storage.make('lichessTools.reloadOptions').listen(() => {
-        this.applyOptions();
+        debouncedApplyOptions();
       });
     }
 

@@ -93,7 +93,7 @@
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.customEngineLevel;
-      this.logOption('Custom engine level', value);
+      this.logOption('Custom engine level', value || 'Not set');
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!analysis) return;

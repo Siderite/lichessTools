@@ -91,7 +91,7 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       if (!lichess.analysis||!parent.isTreeviewVisible()) return;
-      this.state=parent.traverse(lichess.analysis.tree.root);
+      this.state=parent.traverse();
       this.highlightLastMoves();
       this.highlightUncommented();
       this.highlightTranspositions();

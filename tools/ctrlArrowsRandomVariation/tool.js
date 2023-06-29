@@ -48,8 +48,6 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.ctrlArrows;
       this.logOption('Ctrl-arrows for random variation', value);
-      const mousetrap = parent.global.Mousetrap;
-      if (!mousetrap) return;
       const handler = parent.getKeyHandler('ctrl+right');
       parent.unbindKeyHandler('ctrl+right',true);
       parent.unbindKeyHandler('ctrl+left',true);

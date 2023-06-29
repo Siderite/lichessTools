@@ -4,5 +4,5 @@ body.lichessTools div.analyse__tools .lichessTools-transpositions {
 
 body.lichessTools .analyse .tview2 move.lichessTools-highlight {
     border: solid 1px gray;
-    border-radius: 10px;
+    border-radius: 3px;
 }

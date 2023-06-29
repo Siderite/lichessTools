@@ -72,3 +72,29 @@ body.lichessTools.dark #topnav section.lichessTools-onlineFriends a.lichessTools
 body.lichessTools.dynamicContentShown section.lichessTools-onlineFriends .user-link {
   visibility:inherit;
 }
+
+
+/* sorry for the important, but it has to fight off the Prettier Lichess style */
+body.lichessTools tr.lichessTools-playing a.lichessTools-tv {
+  color: #1b78d0 !important;
+}
+
+body.lichessTools.dark tr.lichessTools-playing a.lichessTools-tv {
+  color: #3692e7 !important;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system tr.lichessTools-playing a.lichessTools-tv {
+    color: #3692e7 !important;
+  }
+}
+
+body.lichessTools tr.lichessTools-muted a.lichessTools-mute {
+  transform: rotate(45deg);
+  opacity: 0.3;
+}
+
+body.lichessTools tr.lichessTools-online {
+  border: solid 1px #808080;
+  border-radius:2.5em;
+}
