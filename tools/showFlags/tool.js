@@ -48,6 +48,7 @@
       return dict;
     };
 
+    cacheExpiration=10*86400000;
     get flagCache() {
        var global=this.lichessTools.global;
        if (this._flagCache) return this._flagCache;
@@ -61,6 +62,17 @@
        }
        return this._flagCache;
     }
+    saveCache=()=>{
+      this.lichessTools.global.localStorage.setItem('LiChessTools.flagCache',JSON.stringify(this.flagCache));
+    };
+    debouncedSaveCache=this.lichessTools.debounce(()=>{
+      const cache=this.flagCache;
+      for(const url of Object.keys(cache)) {
+        const time=cache[url].time;
+        if (new Date().getTime()-new Date(time)>this.cacheExpiration) delete cache[url];
+      }
+      this.saveCache();
+    },100);
     processFlags=()=> {
       const parent=this.lichessTools;
       const $=parent.$;
@@ -71,7 +83,7 @@
       if (!firstUrl) return;
       const textEl=$(dict[firstUrl]);
       const item=this.flagCache[firstUrl];
-      const img=item?.time && new Date().getTime()-new Date(item.time)<10*86400000 && item.data;
+      const img=item?.time && new Date().getTime()-new Date(item.time)<this.cacheExpiration && item.data;
       if (img) {
         textEl.each((i,e)=>{
           if ($(e).next().is('img.flag')) return;
@@ -91,9 +103,9 @@
           const el=$(m[0]);
           img=$('img',el);
           if (img.length) {
-            img.attr('title',el.attr('title')||el.text());
-            img.addClass('lichessTools-wave');
-            img.addClass('lichessTools');
+            img.attr('title',el.attr('title')||el.text())
+               .addClass('lichessTools-wave')
+               .addClass('lichessTools');
           } else {
             img=null;
           }
@@ -102,7 +114,7 @@
           data:img?img[0].outerHTML:'noflag',
           time:new Date().getTime()
         };
-		this.lichessTools.global.localStorage.setItem('LiChessTools.flagCache',JSON.stringify(this.flagCache));
+		this.debouncedSaveCache();
       }).catch(e=>{ 
         console.warn('Failed fetching '+firstUrl);
         if (e.response?.status==404) {

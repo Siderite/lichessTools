@@ -30,4 +30,21 @@ Chrome extension add extra functionalities to the https://lichess.org web site:
  - buttona to change chapter names from the Event or Black/White PGN tags in the chapter edit form
  - custom styles for study comments
  - study chapter navigation controls (including random chapter)
- - auto save and button to reload PGNs in Analysis mode (recover from accidental reloads) 
+ - auto save and button to reload PGNs in Analysis mode (recover from accidental reloads)
+ - enhanced Friends list now shows live online status and TV links, plus allows the option to "mute" playing alerts for each player
+
+Version 2 breaking changes:
+ - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move
+ - practice voice assist was funny, but not terribly useful. It is removed in V2, unless popular outcry calls for it back
+ - the functionality of the "jump to glyph" was changed by lichess, so I had to reimplement it for the analysis keyboard shortcuts
+    - just be aware that the i,m,b keys used by lichess for game analysis only only go on the mainline, while with LiChess Tools they cycle to moves in all variations
+ - showing the order of circles/arrows is now off by default
+ - saving TV games in the browser's history was ugly and prone to errors. Quite invasive, too. I've removed it. You can still use the Last viewed game menu item to cycle through games.
+    - now a game is considered viewed at any time when it is opened, not only when you are there to see it end
+ - the mechanism to automatically show the Event tag value instead of "Chapter X" as study chapter titles has been removed
+    - instead, when editing a chapter, you now have options to quickly change the title to the Event tag content or from the White/Black tags 
+ - analysis PGN is saved automatically and copied automatically in the PGN box on reload. You will have to press the button import the PGN, though.
+
+URLs:
+ - extension page: https://siderite.dev/blog/new-chrome-extension-lichess-tools/
+ - GitHub page: https://github.com/Siderite/lichessTools

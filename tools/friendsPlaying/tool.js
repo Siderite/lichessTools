@@ -74,7 +74,8 @@
   playFriendSound=async (username)=>{
     this.lichessTools.global.console.log(username + ' playing');
     const now=new Date().getTime();
-    let silent=!this.lichessTools.isAudioAllowed();
+    const isMuted=(this.lichessTools.currentOptions.mutedPlayers||[]).includes(username?.toLowerCase());
+    let silent=isMuted || !this.lichessTools.isAudioAllowed();
     if (!silent) {
       let friendSoundTime=this.lichessTools.lichess.storage.get('LiChessTools.friendSound');
       if (friendSoundTime) {
@@ -95,11 +96,27 @@
     this.sayPlaying(username, silent);
   };
 
+  mutePlayer=async user=>{
+    user=user?.toLowerCase();
+    const parent=this.lichessTools;
+    const mutedPlayers=parent.currentOptions.mutedPlayers||[];
+    if (mutedPlayers.includes(user)) {
+      parent.arrayRemoveAll(mutedPlayers,u=>u==user);
+    } else {
+      mutedPlayers.push(user);
+    }
+    parent.currentOptions.mutedPlayers=mutedPlayers;
+    await parent.saveOptions(parent.currentOptions);
+    parent.lichess.storage.fire('lichessTools.reloadOptions');
+  };
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.openFriends;
+      const value=parent.currentOptions.friendsPlaying;
       this.logOption('Sound alert when friends start playing', value);
+      if (parent.currentOptions.mutedPlayers?.length) {
+        this.logOption(' ... muted', parent.currentOptions.mutedPlayers.join(','));
+      }
       const lichess=parent.lichess;
       if (!lichess) return;
       const setInterval=parent.global.setInterval;
@@ -107,8 +124,10 @@
       lichess.sound.loadOggOrMp3('friendPlaying', lichess.sound.baseUrl + '/piano/GenericNotify')
       this.beep = lichess.sound.soundSetSounds.get('friendPlaying')
       lichess.pubsub.off('socket.in.following_playing', this.playFriendSound);
+      lichess.pubsub.off('mutePlayer', this.mutePlayer);
       if (value) {
         lichess.pubsub.on('socket.in.following_playing', this.playFriendSound);
+        lichess.pubsub.on('mutePlayer', this.mutePlayer);
       }
     }
   }

@@ -230,7 +230,7 @@
         this.setTerminationsEvaluation(false);
         return;
       }
-      this.state=parent.traverse(lichess.analysis.tree.root);
+      this.state=parent.traverse();
       const nodes=this.state.lastMoves.filter(n=>n.id&&!n.isCommentedOrMate&&(!n.terminationEvaluated||new Date()-n.terminationEvaluated>10000));
       if (!this.evaluateTerminationsTotal) this.evaluateTerminationsTotal=nodes.length;
       const percent=(this.evaluateTerminationsTotal-nodes.length)+'/'+this.evaluateTerminationsTotal;

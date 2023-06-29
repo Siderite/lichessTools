@@ -37,7 +37,7 @@
       if (!currNode) return;
       const tools=$('div.analyse__tools');
       let fork=$('div.lichessTools-transpositions',tools).remove();
-      this.state=parent.traverse(analysis.tree.root);
+      this.state=parent.traverse();
       if (!currNode.transposition||currNode.transposition.length<=1) return;
       fork=$('<div>')
         .addClass('analyse__fork lichessTools-transpositions')

@@ -29,8 +29,6 @@
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!analysis) return;
-      const mousetrap = parent.global.Mousetrap;
-      if (!mousetrap) return;
       const currentPlayer=analysis.getOrientation();
       const otherPlayer=currentPlayer=='white'?'black':'white';
       if (!this.oldHandlers) {
@@ -48,12 +46,12 @@
       parent.unbindKeyHandler('alt+b',true);
 
       if (value) {
-        parent.bindKeyHandler('i',()=>analysis.jumpToGlyphSymbol(currentPlayer,'?!'));
-        parent.bindKeyHandler('m',()=>analysis.jumpToGlyphSymbol(currentPlayer,'?'));
-        parent.bindKeyHandler('b',()=>analysis.jumpToGlyphSymbol(currentPlayer,'??'));
-        parent.bindKeyHandler('alt+i',()=>analysis.jumpToGlyphSymbol(otherPlayer,'?!'));
-        parent.bindKeyHandler('alt+m',()=>analysis.jumpToGlyphSymbol(otherPlayer,'?'));
-        parent.bindKeyHandler('alt+b',()=>analysis.jumpToGlyphSymbol(otherPlayer,'??'));
+        parent.bindKeyHandler('i',()=>parent.jumpToGlyphSymbol(currentPlayer,'?!'));
+        parent.bindKeyHandler('m',()=>parent.jumpToGlyphSymbol(currentPlayer,'?'));
+        parent.bindKeyHandler('b',()=>parent.jumpToGlyphSymbol(currentPlayer,'??'));
+        parent.bindKeyHandler('alt+i',()=>parent.jumpToGlyphSymbol(otherPlayer,'?!'));
+        parent.bindKeyHandler('alt+m',()=>parent.jumpToGlyphSymbol(otherPlayer,'?'));
+        parent.bindKeyHandler('alt+b',()=>parent.jumpToGlyphSymbol(otherPlayer,'??'));
       } else {
         if (this.oldHandlers) {
           parent.bindKeyHandler('i',this.oldHandlers['i'],true);
