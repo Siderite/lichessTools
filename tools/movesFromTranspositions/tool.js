@@ -38,13 +38,17 @@
       const tools=$('div.analyse__tools');
       let fork=$('div.lichessTools-transpositions',tools).remove();
       this.state=parent.traverse();
-      if (!currNode.transposition||currNode.transposition.length<=1) return;
+      let transpositions=currNode.transposition;
+      if (parent.transpositionBehavior?.excludeSameLine) {
+        transpositions=transpositions?.filter(n=>n===currNode||(n.path&&!n.path.startsWith(currNode.path)&&!currNode.path.startsWith(n.path)));
+      }  
+      if (!transpositions||transpositions.length<=1) return;
       fork=$('<div>')
         .addClass('analyse__fork lichessTools-transpositions')
         .attr('title',trans.noarg('transpositionBox'))
         .insertAfter($('.analyse__fork, .analyse__moves',tools).last());
-      const arr=currNode.transposition.filter(n=>n!=currNode);
-      for (const node of arr) {
+      transpositions=transpositions.filter(n=>n!=currNode);
+      for (const node of transpositions) {
         for (let child of node.children) {
           const path=node.path+child.id;
           let forkMove=$('move',fork).filter((i,e)=>$(e).attr('p')==path);

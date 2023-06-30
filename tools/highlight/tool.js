@@ -70,8 +70,12 @@
       const lichess=parent.lichess;
       const toHighlight=[];
       if (this.options.transposition) {
-        const transpositions=lichess.analysis.node.transposition;
-        if (transpositions) {
+        const currentNode=lichess.analysis.node;
+        let transpositions=currentNode.transposition;
+        if (parent.transpositionBehavior?.excludeSameLine) {
+          transpositions=transpositions?.filter(n=>n===currentNode||(n.path&&!n.path.startsWith(currentNode.path)&&!currentNode.path.startsWith(n.path)));
+        }  
+        if (transpositions?.length>1) {
           for (const node of transpositions) {
             if (!node.path) continue;
             const elem=parent.getElementForNode(node);

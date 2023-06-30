@@ -6,6 +6,7 @@ lichessTools.loadTool(LiChessTools.Tools.InterceptTimeouts);
 lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
+lichessTools.loadTool(LiChessTools.Tools.TranspositionBehavior);
 
 lichessTools.loadTool(LiChessTools.Tools.CtrlSpaceForBestComputerMove);
 lichessTools.loadTool(LiChessTools.Tools.FriendsList);
