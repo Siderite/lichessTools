@@ -67,6 +67,11 @@
       this.lichessTools.lichess.sound.say(translation, false, true, this.lichessTools.isTranslated);
       //this.lichessTools.lichess.sound.say(eventType, false, true, false); // Event name cannot be translated
     } catch(e) {
+      if (e.toString().includes('Failed to fetch')) {
+        this.lichessTools.global.console.debug('Failed to fetch net error, retrying sayPlaying in 1s');
+        this.lichessTools.global.setTimeout(()=>sayPlaying(username,silent),1000);
+        return;
+      }
       this.lichessTools.global.console.warn('sayPlaying error',e);
     }
   }

@@ -1,0 +1,11 @@
+body.lichessTools.lichessTools-keyMode-pgn div.analyse__tools div.analyse__fork {
+  border: 1px solid #808080;
+}
+
+body.lichessTools.lichessTools-keyMode-ceval div.analyse__tools div.pv_box {
+  border: 1px solid #808080;
+}
+
+body.lichessTools.lichessTools-keyMode-explorer section.explorer-box tbody {
+  border: 1px solid #808080;
+}

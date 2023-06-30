@@ -9,8 +9,8 @@ lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
 lichessTools.loadTool(LiChessTools.Tools.TranspositionBehavior);
 
 lichessTools.loadTool(LiChessTools.Tools.CtrlSpaceForBestComputerMove);
-lichessTools.loadTool(LiChessTools.Tools.FriendsList);
 lichessTools.loadTool(LiChessTools.Tools.FriendsRefresh);
+lichessTools.loadTool(LiChessTools.Tools.FriendsList);
 lichessTools.loadTool(LiChessTools.Tools.FriendsPlaying);
 lichessTools.loadTool(LiChessTools.Tools.Highlight);
 lichessTools.loadTool(LiChessTools.Tools.CtrlArrowsRandomVariation);
@@ -33,6 +33,7 @@ lichessTools.loadTool(LiChessTools.Tools.AnalysisContextActions);
 lichessTools.loadTool(LiChessTools.Tools.MovesFromTranspositions);
 lichessTools.loadTool(LiChessTools.Tools.ExtendedInteractiveLesson);
 lichessTools.loadTool(LiChessTools.Tools.SaveOptionsForIncognito);
+lichessTools.loadTool(LiChessTools.Tools.HideCrosstable);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);
 
