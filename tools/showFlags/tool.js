@@ -40,15 +40,14 @@
         const m= /\/@\/([^\/]+)\/?$/.exec(url);
         const userId=m&&m[1];
         if (!userId) return;
-        url='/@/'+userId;
-        const list = dict[url]||[];
+        const list = dict[userId]||[];
         list.push(textEl);
-        dict[url]=list;
+        dict[userId.toLowerCase()]=list;
       });
       return dict;
     };
 
-    cacheExpiration=10*86400000;
+    cacheExpiration=86400000;
     get flagCache() {
        var global=this.lichessTools.global;
        if (this._flagCache) return this._flagCache;
@@ -62,69 +61,105 @@
        }
        return this._flagCache;
     }
+    get countryCache() {
+       var global=this.lichessTools.global;
+       if (this._countryCache) return this._countryCache;
+       try {
+         const temp=global.localStorage.getItem('LiChessTools.countryCache')
+         if (temp) global.console.debug('Size of country cache:',temp.length);
+         this._countryCache=temp?JSON.parse(temp):{};
+       } catch(e) {
+         global.console.warn('Error parsing country cache:',e);
+         this._countryCache={}
+       }
+       return this._countryCache;
+    }
     saveCache=()=>{
-      this.lichessTools.global.localStorage.setItem('LiChessTools.flagCache',JSON.stringify(this.flagCache));
-    };
-    debouncedSaveCache=this.lichessTools.debounce(()=>{
       const cache=this.flagCache;
       for(const url of Object.keys(cache)) {
         const time=cache[url].time;
         if (new Date().getTime()-new Date(time)>this.cacheExpiration) delete cache[url];
       }
-      this.saveCache();
-    },100);
-    processFlags=()=> {
+      this.lichessTools.global.localStorage.setItem('LiChessTools.countryCache',JSON.stringify(this.countryCache));
+      this.lichessTools.global.localStorage.setItem('LiChessTools.flagCache',JSON.stringify(this.flagCache));
+    };
+    debouncedSaveCache=this.lichessTools.debounce(this.saveCache,100);
+    processFlags=async ()=> {
       const parent=this.lichessTools;
       const $=parent.$;
       const flagsEnabled=parent.currentOptions.showFlags;
       if (!flagsEnabled) return;
       const dict=this.getElementsForFlag();
-      const firstUrl=Object.keys(dict)[0];
-      if (!firstUrl) return;
-      const textEl=$(dict[firstUrl]);
-      const item=this.flagCache[firstUrl];
-      const img=item?.time && new Date().getTime()-new Date(item.time)<this.cacheExpiration && item.data;
-      if (img) {
-        textEl.each((i,e)=>{
-          if ($(e).next().is('img.flag')) return;
-          if (img==='noflag') {
-            $(e).addClass('lichessTools-noflag');
-          } else {
-            $(e).after(img);
-          }
-        });
-        this.processFlags();
-        return;
-      }
-      parent.net.fetch(firstUrl+'/mini').then(html=>{
-        const m=/<span class="upt__info__top__country".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
-        let img=null;
-        if (m) {
-          const el=$(m[0]);
-          img=$('img',el);
-          if (img.length) {
-            img.attr('title',el.attr('title')||el.text())
-               .addClass('lichessTools-wave')
-               .addClass('lichessTools');
-          } else {
-            img=null;
-          }
-        }
-        this.flagCache[firstUrl]={ 
-          data:img?img[0].outerHTML:'noflag',
-          time:new Date().getTime()
-        };
-		this.debouncedSaveCache();
-      }).catch(e=>{ 
-        console.warn('Failed fetching '+firstUrl);
-        if (e.response?.status==404) {
-          this.flagCache[firstUrl]={ 
-            data:'noflag',
-            time:new Date().getTime()
-          };
-        }
-        this.debouncedProcessFlags();
+      const data=Object.keys(dict).map(userId=>{
+        const item=this.flagCache[userId];
+        return item || { id:userId };
       });
+      let toSaveCache=false;
+      const userIds=data.filter(i=>!i.countryName).map(i=>i.id).slice(0,200);
+      if (userIds.length) {
+        const json = await parent.net.fetch('/api/users',{ method:'POST',body:userIds.join(',') });
+        const users=JSON.parse(json);
+        for (const user of users) {
+          const item = data.find(i=>i.id===user.id)
+          if (item) item.country=user.profile?.country||'noflag';
+        }
+        let firstToProcess=null;
+        for (const item of data) {
+          if (!item.country) {
+            continue;
+          }
+          if (item.country==='noflag') {
+            item.countryName='noflag';
+            item.time=new Date().getTime();
+            this.flagCache[item.id]=item;
+            toSaveCache=true;
+            continue;
+          }
+          item.countryName=this.countryCache[item.country];
+          if (item.countryName) {
+            item.time=new Date().getTime();
+            this.flagCache[item.id]=item;
+            toSaveCache=true;
+          }
+          if (!item.countryName && !firstToProcess) {
+            firstToProcess=item;
+          }
+        }
+        if (firstToProcess) {
+          const html=await parent.net.fetch('/@/'+firstToProcess.id+'/mini');
+          const m=/<span class="upt__info__top__country".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
+          if (m) {
+            const el=$(m[0]);
+            firstToProcess.countryName=el.text()||el.attr('title');
+          }
+          if (firstToProcess.countryName) {
+            this.countryCache[firstToProcess.country]=firstToProcess.countryName;
+            firstToProcess.time=new Date().getTime();
+            this.flagCache[firstToProcess.id]=firstToProcess;
+            toSaveCache=true;
+          }
+        }
+      }
+      if (toSaveCache) {
+		this.debouncedSaveCache();
+      }
+      for (const item of data) {
+        if (!item.countryName) continue;
+        const elems=dict[item.id];
+        for (const elem of elems) {
+          if (item.countryName=='noflag') {
+            elem.addClass('lichessTools-noflag');
+          } else {
+            elem.after($('<img>')
+              .addClass('flag')
+              .addClass('lichessTools')
+              .addClass('lichessTools-wave')
+              .attr('title',item.countryName)
+              .attr('src',parent.lichess.assetUrl('images/flags/'+item.country+'.png'))
+            );
+          }
+        }
+      }
       this.debouncedProcessFlags();
     };
     debouncedProcessFlags=this.lichessTools.debounce(this.processFlags,500);

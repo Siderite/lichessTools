@@ -48,7 +48,7 @@
     withOpening=async (gameId,data)=>{
       const parent=this.lichessTools;
       const url='/api/games/export/_ids?opening=true&moves=false&accuracy';
-      await parent.timeout(this.openingTimeout);
+      await parent.timeout(this.openingTimeout+500);
       this.openingTimeout+=1000;
       const pgn = await parent.net.fetch(url, {
         method: 'POST',
