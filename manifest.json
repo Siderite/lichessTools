@@ -66,6 +66,7 @@
         "tools/friendsList/tool.css",
         "tools/preferences/tool.css",
         "tools/highlight/tool.css",
+        "tools/analysisKeyShortcuts/tool.css",
         "tools/showFlags/tool.css",
         "tools/showOpening/tool.css",
         "tools/previousGameMenu/tool.css",
