@@ -38,22 +38,28 @@
       const tools=$('div.analyse__tools');
       let fork=$('div.lichessTools-transpositions',tools).remove();
       this.state=parent.traverse();
-      if (!currNode.transposition||currNode.transposition.length<=1) return;
+      let transpositions=currNode.transposition;
+      if (parent.transpositionBehavior?.excludeSameLine) {
+        transpositions=transpositions?.filter(n=>n===currNode||(n.path&&!n.path.startsWith(currNode.path)&&!currNode.path.startsWith(n.path)));
+      }  
+      if (!transpositions||transpositions.length<=1) return;
       fork=$('<div>')
         .addClass('analyse__fork lichessTools-transpositions')
         .attr('title',trans.noarg('transpositionBox'))
         .insertAfter($('.analyse__fork, .analyse__moves',tools).last());
-      const arr=currNode.transposition.filter(n=>n!=currNode);
-      for (const node of arr) {
+      transpositions=transpositions.filter(n=>n!=currNode);
+      const noDuplicates=parent.transpositionBehavior?.groupSameMove;
+      for (const node of transpositions) {
         for (let child of node.children) {
           const path=node.path+child.id;
           let forkMove=$('move',fork).filter((i,e)=>$(e).attr('p')==path);
           if (forkMove.length) continue;
+          if (noDuplicates && $('div.analyse__fork san').filter((i,e)=>$(e).text()===child.san).length) continue;
           let targetElem=parent.getElementForPath(path);
-          forkMove=$(targetElem).clone();
-          const text='T'+Math.ceil(child.ply/2)+(child.ply%2?'.':'...')+''+child.san;
-          forkMove.text(text);
-          forkMove
+          forkMove=$('<move>')
+            .attr('p',path)
+            .append($('<index>').addClass('sbhint'+child.ply).text('T'+Math.ceil(child.ply/2)+(child.ply%2?'.':'...')))
+            .append($('<san>').text(child.san))
             .on('mouseover',function() {
               $('.analyse__fork move').removeClass('selected');
               $(targetElem).addClass('lichessTools-highlight');

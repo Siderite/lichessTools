@@ -1,5 +1,5 @@
 # LiChess Tools, by Siderite
-Chrome extension add extra functionalities to the https://lichess.org web site:
+Chrome extension adds extra functionalities to the https://lichess.org web site:
  - randomly play one of the next moves with Ctrl-RightArrow
      - configurable probability to play a move by putting prc:<number> in the move comment, where number is a percentage between 1 and 100
  - highlights for the last move of variations in the analysis/study board
