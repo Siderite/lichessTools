@@ -29,7 +29,7 @@
       const child = parent.getRandomVariation(node);
       if (!lichess.analysis) return;
       if (child) {
-        lichess.analysis.userJumpIfCan(lichess.analysis.path+child.id);
+        lichess.analysis.userJump(child.path||(node.path+child.id));
         lichess.analysis.redraw();
       }
     };

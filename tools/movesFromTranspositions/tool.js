@@ -48,16 +48,18 @@
         .attr('title',trans.noarg('transpositionBox'))
         .insertAfter($('.analyse__fork, .analyse__moves',tools).last());
       transpositions=transpositions.filter(n=>n!=currNode);
+      const noDuplicates=parent.transpositionBehavior?.groupSameMove;
       for (const node of transpositions) {
         for (let child of node.children) {
           const path=node.path+child.id;
           let forkMove=$('move',fork).filter((i,e)=>$(e).attr('p')==path);
           if (forkMove.length) continue;
+          if (noDuplicates && $('div.analyse__fork san').filter((i,e)=>$(e).text()===child.san).length) continue;
           let targetElem=parent.getElementForPath(path);
-          forkMove=$(targetElem).clone();
-          const text='T'+Math.ceil(child.ply/2)+(child.ply%2?'.':'...')+''+child.san;
-          forkMove.text(text);
-          forkMove
+          forkMove=$('<move>')
+            .attr('p',path)
+            .append($('<index>').addClass('sbhint'+child.ply).text('T'+Math.ceil(child.ply/2)+(child.ply%2?'.':'...')))
+            .append($('<san>').text(child.san))
             .on('mouseover',function() {
               $('.analyse__fork move').removeClass('selected');
               $(targetElem).addClass('lichessTools-highlight');

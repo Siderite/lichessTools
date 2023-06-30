@@ -363,10 +363,20 @@
       const lichess=this.lichess;
       if (!node.children?.length) return;
       const isInteractive = !!lichess.analysis.study?.gamebookPlay();
-      const total = this.populatePercent(node.children, isInteractive, depth);
+      const arr=[...node.children];
+      if (this.transpositionBehavior?.consideredVariations && node.transposition) {
+        let transpositions=node.transposition.filter(n=>n!==node);
+        if (this.transpositionBehavior?.excludeSameLine) {
+          transpositions=transpositions?.filter(n=>n.path&&!n.path.startsWith(node.path)&&!node.path.startsWith(n.path));
+        }
+        for (const child of transpositions) {
+          arr.push.apply(arr,child.children||[]);
+        }
+      }
+      const total = this.populatePercent(arr, isInteractive, depth);
       const index=Math.random()*total;
       let acc=0;
-      for (const child of node.children) {
+      for (const child of arr) {
         acc+=child.prc;
         if (index<=acc) {
           return child;

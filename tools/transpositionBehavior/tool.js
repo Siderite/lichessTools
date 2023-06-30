@@ -6,8 +6,8 @@
         name:'transpositionBehavior',
         category: 'study',
         type:'multiple',
-        possibleValues: ['excludeSameLine'],//,'consideredVariations','groupSameMove'],
-        defaultValue: 'consideredVariations'
+        possibleValues: ['excludeSameLine','groupSameMove','consideredVariations'],
+        defaultValue: false
       }
     ];
 
@@ -34,9 +34,9 @@
       this.logOption('Behavior of transpositions', value);
       // this just sets a global basket of parameters for use of other extensions
       parent.transpositionBehavior={
-        'excludeSameLine': parent.isOptionSet(value,'excludeSameLine'),
-        'consideredVariations': parent.isOptionSet(value,'consideredVariations'),
-        'groupSameMove': parent.isOptionSet(value,'groupSameMove')
+        excludeSameLine: parent.isOptionSet(value,'excludeSameLine'),
+        consideredVariations: parent.isOptionSet(value,'consideredVariations'),
+        groupSameMove: parent.isOptionSet(value,'groupSameMove')
       };
     }
 
