@@ -100,7 +100,7 @@
       this.highlightUncommented();
       this.highlightTranspositions();
     };
-
+    debouncedTraverseTree=this.lichessTools.debounce(this.traverseTree,800);
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.highlight;
@@ -114,13 +114,11 @@
         transposition:parent.isOptionSet(value,'transposition'),
         get isSet() { return this.lastMove || this.notCommented || this.transposition; }
       };
-      lichess.pubsub.off('redraw', this.traverseTree);
-      if (this.disposeElementHandler) this.disposeElementHandler();
-      this.elementCache={};
+      lichess.pubsub.off('redraw', this.debouncedTraverseTree);
       if (this.options.isSet) {
-        lichess.pubsub.on('redraw', this.traverseTree);
+        lichess.pubsub.on('redraw', this.debouncedTraverseTree);
       }
-      this.traverseTree();
+      this.debouncedTraverseTree();
     }
   }
   LiChessTools.Tools.Highlight=HighlightTool;

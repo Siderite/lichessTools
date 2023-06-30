@@ -68,29 +68,23 @@
         const parPath = analysis.path.slice(0,-2);
         const parNode = analysis.tree.nodeAtPath(parPath);
         const inPgn = !!node.gamebook;
-        const isOnValidBranch=true;
+        const nextMoves=parent.getNextMoves(node);
         if (!inPgn) {
           state.feedback = 'bad';
           if (!state.comment) {
             state.comment = parNode.children[0].gamebook?.deviation;
           }
-        } else if ((isOnValidBranch && !node.children[0]) ||
-            (!isOnValidBranch && !analysis.tree.pathIsMainline(parPath))) {
+        } else if (!nextMoves.length) {
           state.feedback = 'end';
         } else if ($this.isMyMove()) {
           state.feedback = 'play';
           state.hint = node.gamebook?.hint;
           if (!state.hint) {
-            const hint=trans.pluralSame('nextMovesCount',node.children.filter(c=>c.gamebook).length);
+            const hint=trans.pluralSame('nextMovesCount',nextMoves.filter(c=>c.gamebook).length);
             state.hint=hint;
           }
-        } else if (isOnValidBranch) {
-          state.feedback = 'good';
         } else {
-          state.feedback = 'bad';
-          if (!state.comment) {
-            state.comment = parNode.children[0].gamebook?.deviation;
-          }
+          state.feedback = 'good';
         }
         $this.state = state;
         if (!state.comment) {

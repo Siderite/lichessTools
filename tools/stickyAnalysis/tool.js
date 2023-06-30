@@ -76,7 +76,7 @@
         .insertBefore('div.analyse__underboard .pgn button[data-icon="\uE03A"]');
       const savedPgn=parent.currentOptions.prevAnalysis;
       if (savedPgn) {
-        if (analysis.node.children?.length==0) this.retrievePgn();
+        if (analysis.tree.root.children?.length==0) this.retrievePgn();
         reloadPgnButton.show();
       }
     }

@@ -218,10 +218,11 @@
 
     resetCache=()=>{
       const $=this.$;
-      this.elementCache={};
+      this.elementCache=new Map();
       const container=$('div.analyse__moves');
-      $('move',container).each((i,e)=>this.elementCache[$(e).attr('p')||'']=e);
+      $('move',container).each((i,e)=>this.elementCache.set($(e).attr('p')||'',e));
       container.data('cached',true);
+      this.global.console.debug('Element cache reset');
     };
 
     getElementForPath(path) {
@@ -231,10 +232,10 @@
       if (!cached) {
         this.resetCache();
       }
-      let elem = this.elementCache&&this.elementCache[path];
+      let elem = this.elementCache?.get(path);
       if (!elem?.parentNode) {
         this.resetCache();
-        elem = this.elementCache[path];
+        elem = this.elementCache.get(path);
       }
       if (path && !elem) {
         this.global.console.warn('Could not find elem for path '+path,this.global.location.href);
@@ -358,21 +359,25 @@
       return total;
     };
 
+    getNextMoves=(node)=>{
+      const arr=[...node.children];
+      if (!this.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
+      let transpositions=node.transposition.filter(n=>n!==node);
+      if (this.transpositionBehavior?.excludeSameLine) {
+        transpositions=transpositions?.filter(n=>n.path&&!n.path.startsWith(node.path)&&!node.path.startsWith(n.path));
+      }
+      for (const child of transpositions) {
+        arr.push.apply(arr,child.children||[]);
+      }
+      return arr;
+    };
+
     getRandomVariation=(node, depth)=>{
       depth=+depth||8;
       const lichess=this.lichess;
-      if (!node.children?.length) return;
+      const arr=this.getNextMoves(node);
+      if (!arr.length) return;
       const isInteractive = !!lichess.analysis.study?.gamebookPlay();
-      const arr=[...node.children];
-      if (this.transpositionBehavior?.consideredVariations && node.transposition) {
-        let transpositions=node.transposition.filter(n=>n!==node);
-        if (this.transpositionBehavior?.excludeSameLine) {
-          transpositions=transpositions?.filter(n=>n.path&&!n.path.startsWith(node.path)&&!node.path.startsWith(n.path));
-        }
-        for (const child of transpositions) {
-          arr.push.apply(arr,child.children||[]);
-        }
-      }
       const total = this.populatePercent(arr, isInteractive, depth);
       const index=Math.random()*total;
       let acc=0;
