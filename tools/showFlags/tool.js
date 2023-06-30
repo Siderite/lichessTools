@@ -421,6 +421,9 @@
         if (!item.countryName) continue;
         const elems=dict[item.id];
         for (const elem of elems) {
+          const next=elem.next();
+          if (next.is('img.flag')) return;
+          if (next.has('img.flag').length) return;
           if (item.countryName=='noflag') {
             elem.addClass('lichessTools-noflag');
           } else {
