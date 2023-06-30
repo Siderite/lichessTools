@@ -56,7 +56,8 @@
         "tools/movesFromTranspositions/tool.js",
         "tools/extendedInteractiveLesson/tool.js",
         "tools/saveOptionsForIncognito/tool.js",
-
+        "tools/hideCrosstable/tool.js",
+ 
         "tools/preferences/tool.js",
  
         "scripts/lichessTools-init.js"
@@ -76,7 +77,8 @@
         "tools/commentStyling/tool.css",
         "tools/analysisContextActions/tool.css",
         "tools/movesFromTranspositions/tool.css",
-        "tools/extendedInteractiveLesson/tool.css"
+        "tools/extendedInteractiveLesson/tool.css",
+        "tools/hideCrosstable/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"

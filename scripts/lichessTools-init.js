@@ -33,6 +33,7 @@ lichessTools.loadTool(LiChessTools.Tools.AnalysisContextActions);
 lichessTools.loadTool(LiChessTools.Tools.MovesFromTranspositions);
 lichessTools.loadTool(LiChessTools.Tools.ExtendedInteractiveLesson);
 lichessTools.loadTool(LiChessTools.Tools.SaveOptionsForIncognito);
+lichessTools.loadTool(LiChessTools.Tools.HideCrosstable);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);
 

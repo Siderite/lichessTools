@@ -1,0 +1,22 @@
+
+body.lichessTools main.round div.crosstable {
+  filter: blur(10px);
+}
+
+body.lichessTools main.round div.crosstable.lichessTools-hideCrosstableEnabled {
+  filter: blur(10px);
+  cursor:pointer;
+}
+
+body.lichessTools main.round div.crosstable.lichessTools-showCrosstable {
+  transition: all 1s linear;
+  filter: none;
+}
+
+body.lichessTools main.round div.crosstable * {
+  pointer-events:none;
+}
+
+body.lichessTools main.round div.crosstable.lichessTools-showCrosstable * {
+  pointer-events:initial;
+}
