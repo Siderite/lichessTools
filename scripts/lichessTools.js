@@ -481,7 +481,11 @@
         const text=await response.text();
         return text;
       } catch(e) {
-        this.lichessTools.global.console.log('Fetch for '+url+' failed: ',e);
+        if (e.toString().includes('Failed to fetch')) {
+          this.lichessTools.global.console.log('Fetch for '+url+' failed: ',e);
+        } else {
+          this.lichessTools.global.console.warn('Fetch for '+url+' failed: ',e);
+        }
         throw e;
       };
     }

@@ -4,7 +4,7 @@
     friendsInterval=0;
     async start() {
       const parent=this.lichessTools;
-      const value=(parent.currentOptions.friendsPlaying||['true','open','menu'].includes(parent.currentOptions.openFriends));
+      const value=(parent.currentOptions.friendsPlaying||['true','open','menu'].includes(parent.currentOptions.openFriends)||parent.currentOptions.liveFriendsPage);
       const lichess=parent.lichess;
       if (!lichess) return;
       const setInterval=parent.global.setInterval;

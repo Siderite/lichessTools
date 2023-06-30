@@ -1,6 +1,8 @@
 (()=>{
   class FriendsListTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['FriendsRefresh'];
+
     preferences=[
       {
         name:'openFriends',
@@ -8,6 +10,13 @@
         type:'single',
         possibleValues: ['default','open','menu','hidden'],
         defaultValue: 'menu'
+      },
+      {
+        name:'liveFriendsPage',
+        category: 'friends',
+        type:'single',
+        possibleValues: [false,true],
+        defaultValue: true
       }
     ];
 
@@ -25,7 +34,8 @@
         'openFriends.menu': 'Menu',
         'watchGames':'Watch games',
         'enablePlayAlert':'Unmute playing alert',
-        'mutePlayAlert':'Mute playing alert'
+        'mutePlayAlert':'Mute playing alert',
+        'options.liveFriendsPage':'Live friends page'
       },
       'ro-RO':{
         'onlineFriends': '%s prieteni online',
@@ -40,7 +50,8 @@
         'openFriends.menu': 'Meniu',
         'watchGames':'Vezi partide',
         'enablePlayAlert':'Permite alerte c\u00E2nd joac\u0103',
-        'mutePlayAlert':'Nu permite alerte c\u00E2nd joac\u0103'
+        'mutePlayAlert':'Nu permite alerte c\u00E2nd joac\u0103',
+        'options.liveFriendsPage':'Pagin\u0103 prieteni live'
       }
     }
 
@@ -107,7 +118,7 @@
       const watchGamesTitle=trans.noarg('watchGames');
       const enablePlayingAlertTitle=trans.noarg('enablePlayAlert');
       const mutePlayingAlertTitle=trans.noarg('mutePlayAlert');
-      const hasAlerts=parent.currentOptions.friendsPlaying; //TODO figure out something not hacky
+      const hasAlerts=parent.currentOptions.friendsPlaying;
       if (!hasAlerts) {
         $('table.slist div.relation-actions a.lichessTools-mute').remove();
       }
@@ -169,7 +180,12 @@
       const clearInterval=parent.global.clearInterval;
       lichess.pubsub.off('socket.in.following_onlines', this.updateFriendsMenu);
       lichess.pubsub.off('socket.in.following_onlines', this.updateFriendsPage);
-      lichess.pubsub.on('socket.in.following_onlines', this.updateFriendsPage); //TODO add option
+      if (parent.currentOptions.liveFriendsPage) {
+        lichess.pubsub.on('socket.in.following_onlines', this.updateFriendsPage);
+      } else {
+        $('.lichessTools-online').removeClass('lichessTools-online');
+        $('.lichessTools-playing').removeClass('lichessTools-playing');
+      }
       this.updateFriendsPage();
 
       const openFriendsBox=()=> {
