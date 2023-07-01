@@ -361,7 +361,7 @@
     processFlags=async ()=> {
       const parent=this.lichessTools;
       const $=parent.$;
-      const flagsEnabled=parent.currentOptions.showFlags;
+      const flagsEnabled=parent.currentOptions.getValue('showFlags');
       if (!flagsEnabled) return;
       const dict=this.getElementsForFlag();
       const data=Object.keys(dict).map(userId=>{
@@ -421,6 +421,9 @@
         if (!item.countryName) continue;
         const elems=dict[item.id];
         for (const elem of elems) {
+          const next=elem.next();
+          if (next.is('img.flag')) return;
+          if (next.has('img.flag').length) return;
           if (item.countryName=='noflag') {
             elem.addClass('lichessTools-noflag');
           } else {
@@ -440,7 +443,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.showFlags;
+      const value=parent.currentOptions.getValue('showFlags');
       this.logOption('Show player flags', value);
       const lichess=parent.lichess;
       if (!lichess) return;

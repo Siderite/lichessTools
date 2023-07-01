@@ -99,7 +99,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.openingExplorerUsers;
+      const value=parent.currentOptions.getValue('openingExplorerUsers');
       this.logOption('Opening explorer player features', value);
       const lichess=parent.lichess;
       const analysis=lichess?.analysis;

@@ -17,3 +17,18 @@ body.lichessTools .lichessTools-liveStatus {
 body.lichessTools.lichessTools-evaluationStarted .lichessTools-liveStatus {
   display:inherit;
 }
+
+/*sorry for the important, but I have to fight off Prettier LiChess :) */
+body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
+    background: lawngreen !important;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system .analyse .tview2 move.lichessTools-transpositionAll {
+      background: darkgreen !important;
+  }
+}
+
+body.lichessTools.dark .analyse .tview2 move.lichessTools-transpositionAll {
+    background: darkgreen !important;
+}

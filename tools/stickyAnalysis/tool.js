@@ -34,7 +34,7 @@
         pgn='[Orientation "Black"]\r\n[StartFlipped "1"]\r\n'+pgn;
       }
       if (this.prevPgn===pgn) return;
-      const savedPgn=parent.currentOptions.prevAnalysis;
+      const savedPgn=parent.currentOptions.getValue('prevAnalysis');
       if (savedPgn!=pgn) {
         parent.currentOptions.prevAnalysis=pgn;
         parent.saveOptions(parent.currentOptions);
@@ -45,15 +45,15 @@
 
     retrievePgn=()=> {
       const parent=this.lichessTools;
-      const savedPgn=parent.currentOptions.prevAnalysis;
+      const savedPgn=parent.currentOptions.getValue('prevAnalysis');
       if (!savedPgn) return;
-      $('.analyse__underboard .pgn textarea').val(savedPgn);//[0]?.select();
+      $('.analyse__underboard .pgn textarea').val(savedPgn);
       lichess.analysis.pgnInput=savedPgn;
     };
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.stickyAnalysis;
+      const value=parent.currentOptions.getValue('stickyAnalysis');
       this.logOption('Sticky analysis', value);
       const lichess=parent.lichess;
       const $=parent.$;
@@ -74,7 +74,7 @@
         .attr('title',title)
         .on('click',this.retrievePgn)
         .insertBefore('div.analyse__underboard .pgn button[data-icon="\uE03A"]');
-      const savedPgn=parent.currentOptions.prevAnalysis;
+      const savedPgn=parent.currentOptions.getValue('prevAnalysis');
       if (savedPgn) {
         if (analysis.tree.root.children?.length==0) this.retrievePgn();
         reloadPgnButton.show();

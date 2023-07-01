@@ -119,7 +119,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.enhancedImport;
+      const value=parent.currentOptions.getValue('enhancedImport');
       this.logOption('Enhanced PGN import', value);
       const lichess=parent.lichess;
       const trans=parent.translator;

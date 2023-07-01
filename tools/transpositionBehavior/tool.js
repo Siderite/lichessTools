@@ -30,7 +30,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.transpositionBehavior;
+      const value=parent.currentOptions.getValue('transpositionBehavior');
       this.logOption('Behavior of transpositions', value);
       // this just sets a global basket of parameters for use of other extensions
       parent.transpositionBehavior={

@@ -86,7 +86,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.showOpening;
+      const value=parent.currentOptions.getValue('showOpening');
       this.logOption('Show game opening names', value);
       const lichess=parent.lichess;
       if (!lichess) return;

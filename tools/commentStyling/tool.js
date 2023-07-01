@@ -50,7 +50,7 @@
       const analysis=lichess?.analysis;
       const study=analysis?.study;
       if (!study) return;
-      if (!parent.currentOptions.commentStyling) {
+      if (!parent.currentOptions.getValue('commentStyling')) {
         $('.study__buttons span.lichessTools-colors').remove();
         return;
       }
@@ -123,7 +123,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.commentStyling;
+      const value=parent.currentOptions.getValue('commentStyling');
       this.logOption('Styling for study comments', value);
       const lichess=parent.lichess;
       const study=lichess?.analysis?.study;

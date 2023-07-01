@@ -29,7 +29,7 @@
     storeGameId=(gameId)=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      const prevGames=parent.currentOptions.prevGames||[];
+      const prevGames=parent.currentOptions.getValue('prevGames')||[];
       if (prevGames.find(g=>g==gameId)) return;
       parent.global.console.debug('Putting /'+gameId+' in history');
 
@@ -44,7 +44,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.previousGameMenu;
+      const value=parent.currentOptions.getValue('previousGameMenu');
       this.logOption('Previous viewed game menu item', value);
       const lichess=parent.lichess;
       if (!lichess) return;
@@ -61,7 +61,7 @@
 
       const translatedText=trans.noarg('lastViewedGame');
       const translatedTitle=trans.noarg('lastViewedGameTitle');
-      const games=parent.currentOptions.prevGames||[];
+      const games=parent.currentOptions.getValue('prevGames')||[];
       const item=$('<a/>')
         .addClass('lichessTools-previousGame')
         .text(translatedText)

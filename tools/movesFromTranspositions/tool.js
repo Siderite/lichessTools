@@ -78,7 +78,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.stickyAnalysis;
+      const value=parent.currentOptions.getValue('stickyAnalysis');
       this.logOption('Next moves from transpositions', value);
       const lichess=parent.lichess;
       const $=parent.$;

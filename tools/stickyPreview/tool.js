@@ -52,7 +52,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.stickyPreview;
+      const value=parent.currentOptions.getValue('stickyPreview');
       this.logOption('Sticky study Preview when switching chapters', value);
       const lichess=parent.lichess;
       const study=lichess?.analysis?.study;

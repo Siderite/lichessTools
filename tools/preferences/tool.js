@@ -8,7 +8,8 @@
         'preferencesSaved': 'Your preferences have been saved',
         'rateThisText': 'Rate this!',
         'rateThisTitle': 'Ratings help me a lot',
-        'blogLinkTitle': 'The page of the extension. Leave me a message.'
+        'blogLinkTitle': 'The page of the extension. Leave me a message.',
+        'enableExtension': 'Enable LiChess Tools extension'
       },
       'ro-RO':{
         yes: 'Da',
@@ -16,7 +17,8 @@
         'preferencesSaved': 'Preferin\u0163ele tale au fost salvate',
         'rateThisText': 'D\u0103-i o not\u0103!',
         'rateThisTitle': 'Notele date m\u0103 ajut\u0103 foarte mult',
-        'blogLinkTitle': 'Pagina extensiei. Trimite-mi un mesaj.'
+        'blogLinkTitle': 'Pagina extensiei. Trimite-mi un mesaj.',
+        'enableExtension': 'Activeaz\u0103 extensia LiChess Tools'
       }
     }
 
@@ -36,7 +38,10 @@
     const showSaved= ()=> {
       $('.saved').removeClass('none');
       this.lichessTools.global.setTimeout(()=>$('.saved').addClass('none'),2000);
-    }
+    };
+    const checkGlobalSwitch=()=>{
+      $('body').toggleClass('lichessTools-globalDisable',!currentOptions.enableLichessTools);
+    };
 
     //TODO add link to translation project
     let html=`<div class="account box box-pad">
@@ -48,7 +53,19 @@
                  href="https://siderite.dev/blog/new-chrome-extension-lichess-tools" target="_blank">siderite.dev</a>
             </div>
             <form>
-            `;
+<table class="allows lichessTools-globalSwitch">
+    <tbody>
+        <tr>
+            <td>$trans(enableExtension)</td>
+            <td>
+                <div class="toggle">
+                    <input id="enableLichessTools" name="enableLichessTools" value="true" type="checkbox" class="form-control cmn-toggle"/>
+                    <label for="enableLichessTools"/>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>            `;
         
     const categs={};
     for (const tool of tools) {
@@ -162,9 +179,11 @@
           currentOptions[optionName]=value;
           applyOptions(currentOptions).then(function() {
             lichess.storage.fire('lichessTools.reloadOptions');
+            checkGlobalSwitch();
             showSaved();
           }).catch(e=>{ throw e; });
       },500));
+      checkGlobalSwitch();
     };
 
 
@@ -173,6 +192,7 @@
       const $=parent.$;
       const location=parent.global.location;
       const trans=parent.translator;
+      this.logOption('Integration in Preferences', true);
       if (!$('main.account').length) return;
       if ($('a.lichessTools-menu').length) return;
       const openPreferences=this.openPreferences;

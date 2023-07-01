@@ -25,7 +25,7 @@
     oldSpaceHandler=null;
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.spaceDisabled;
+      const value=parent.currentOptions.getValue('spaceDisabled');
       this.logOption('Ctrl-Space to play best computer move', value);
       if (!this.oldSpaceHandler) {
         this.oldSpaceHandler = parent.getKeyHandler('space');

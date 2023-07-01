@@ -28,7 +28,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.userTvHistory;
+      const value=parent.currentOptions.getValue('userTvHistory');
       this.logOption('User TV history', value);
       const lichess=parent.lichess;
       if (!lichess) return;

@@ -32,7 +32,7 @@
     async start() {
       const parent=this.lichessTools;
       const trans=parent.translator;
-      const value=parent.currentOptions.hideCrosstable;
+      const value=parent.currentOptions.getValue('hideCrosstable');
       this.logOption('Hide crosstable', value);
       const elem=$('main.round div.crosstable')
         .toggleClass('lichessTools-showCrosstable',!value)

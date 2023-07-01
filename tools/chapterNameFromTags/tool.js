@@ -70,7 +70,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.chapterNameFromTags;
+      const value=parent.currentOptions.getValue('chapterNameFromTags');
       this.logOption('Chapter name from tags', value);
       const lichess=parent.lichess;
       const $=parent.$;

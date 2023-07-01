@@ -103,7 +103,7 @@
     debouncedTraverseTree=this.lichessTools.debounce(this.traverseTree,800);
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.highlight;
+      const value=parent.currentOptions.getValue('highlight');
       this.logOption('Highlighting', value);
       const lichess=parent.lichess;
       if (!lichess) return;

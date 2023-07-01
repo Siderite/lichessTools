@@ -32,6 +32,8 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - study chapter navigation controls (including random chapter)
  - auto save and button to reload PGNs in Analysis mode (recover from accidental reloads)
  - enhanced Friends list now shows live online status and TV links, plus allows the option to "mute" playing alerts for each player
+ - hide score tally crosstable during play
+ - select move from variations, computer list or explorer by pressing . (dot), Ctrl-. and Shift-. respectively, then a digit key
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move
