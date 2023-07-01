@@ -27,7 +27,7 @@
       const analysis=lichess.analysis;
       if (!analysis) return;
       if (analysis.practice) return;
-      const customEngineDepth=+parent.currentOptions.customEngineLevel;
+      const customEngineDepth=+(parent.currentOptions.getValue('customEngineLevel'));
       const ceval = analysis.ceval;
       const state=ceval.getState();
       const cloud=ceval.showingCloud();
@@ -79,7 +79,7 @@
           if (node.autoDeeper>(node.startDepth||oldMaxLevel)) {
             return node.autoDeeper;
           }
-          const customEngineDepth=parent.currentOptions.customEngineLevel;
+          const customEngineDepth=+(parent.currentOptions.getValue('customEngineLevel'));
           if (customEngineDepth && oldMaxLevel<customEngineDepth) {
             return customEngineDepth;
           } else {
@@ -92,7 +92,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.customEngineLevel;
+      const value=+(parent.currentOptions.getValue('customEngineLevel'));
       this.logOption('Custom engine level', value || 'Not set');
       const lichess=parent.lichess;
       const analysis=lichess.analysis;

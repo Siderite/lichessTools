@@ -118,7 +118,7 @@
       const watchGamesTitle=trans.noarg('watchGames');
       const enablePlayingAlertTitle=trans.noarg('enablePlayAlert');
       const mutePlayingAlertTitle=trans.noarg('mutePlayAlert');
-      const hasAlerts=parent.currentOptions.friendsPlaying;
+      const hasAlerts=parent.currentOptions.getValue('friendsPlaying');
       if (!hasAlerts) {
         $('table.slist div.relation-actions a.lichessTools-mute').remove();
       }
@@ -146,7 +146,7 @@
             .appendTo(e);
         }
       });
-      const mutedPlayers=parent.currentOptions.mutedPlayers||[];
+      const mutedPlayers=parent.currentOptions.getValue('mutedPlayers')||[];
       for (const user in this.rows) {
         const row=this.rows[user];
         if (!row) continue;
@@ -172,7 +172,7 @@
     
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.openFriends;
+      const value=parent.currentOptions.getValue('openFriends');
       this.logOption('Online friend list', value);
       const lichess=parent.lichess;
       if (!lichess) return;
@@ -180,7 +180,7 @@
       const clearInterval=parent.global.clearInterval;
       lichess.pubsub.off('socket.in.following_onlines', this.updateFriendsMenu);
       lichess.pubsub.off('socket.in.following_onlines', this.updateFriendsPage);
-      if (parent.currentOptions.liveFriendsPage) {
+      if (parent.currentOptions.getValue('liveFriendsPage')) {
         lichess.pubsub.on('socket.in.following_onlines', this.updateFriendsPage);
       } else {
         $('.lichessTools-online').removeClass('lichessTools-online');

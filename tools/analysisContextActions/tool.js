@@ -262,7 +262,7 @@
       const trans=parent.translator;
       const analysis=lichess.analysis;
       const study=analysis?.study;
-      const customEngineDepth=parent.currentOptions.customEngineLevel;
+      const customEngineDepth=parent.currentOptions.getValue('customEngineLevel');
       if (ev) ev.preventDefault();
       if (!study||!parent.isTreeviewVisible()) return;
       if (this.evaluateTerminationsStarted) {
@@ -395,7 +395,7 @@
       const study=analysis?.study;
       if (!analysis) return;
       if (analysis.practice) return;
-      const customEngineDepth=parent.currentOptions.customEngineLevel;
+      const customEngineDepth=parent.currentOptions.getValue('customEngineLevel');
       const ceval = analysis.ceval;
       if (!ceval.enabled()||analysis.threatMode()) {
         this.setTerminationsEvaluation(false);
@@ -414,7 +414,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.analysisContextActions;
+      const value=parent.currentOptions.getValue('analysisContextActions');
       this.logOption('Analysis context actions', value);
       const lichess=parent.lichess;
       const $=parent.$;

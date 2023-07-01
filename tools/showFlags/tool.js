@@ -361,7 +361,7 @@
     processFlags=async ()=> {
       const parent=this.lichessTools;
       const $=parent.$;
-      const flagsEnabled=parent.currentOptions.showFlags;
+      const flagsEnabled=parent.currentOptions.getValue('showFlags');
       if (!flagsEnabled) return;
       const dict=this.getElementsForFlag();
       const data=Object.keys(dict).map(userId=>{
@@ -443,7 +443,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.showFlags;
+      const value=parent.currentOptions.getValue('showFlags');
       this.logOption('Show player flags', value);
       const lichess=parent.lichess;
       if (!lichess) return;

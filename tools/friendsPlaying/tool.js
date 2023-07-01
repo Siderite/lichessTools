@@ -66,7 +66,7 @@
       if (silent) {
         return;
       }
-      if (gameType && !this.lichessTools.isOptionSet(this.lichessTools.currentOptions.friendsPlaying,gameType)) return;
+      if (gameType && !this.lichessTools.isOptionSet(this.lichessTools.currentOptions.getValue('friendsPlaying'),gameType)) return;
       await this.lichessTools.timeout(500);
       this.beep.play();
       let translation=this.lichessTools.translator.plural('playing',1,username)+', '+this.lichessTools.translator.noarg('gameType-'+gameType);
@@ -88,7 +88,7 @@
   playFriendSound=async (username)=>{
     this.lichessTools.global.console.log(username + ' playing');
     const now=new Date().getTime();
-    const isMuted=(this.lichessTools.currentOptions.mutedPlayers||[]).includes(username?.toLowerCase());
+    const isMuted=(this.lichessTools.currentOptions.getValue('mutedPlayers')||[]).includes(username?.toLowerCase());
     
     let silent=isMuted;
     if (silent && !this.lichessTools.isAudioAllowed()) {
@@ -118,7 +118,7 @@
   mutePlayer=async user=>{
     user=user?.toLowerCase();
     const parent=this.lichessTools;
-    const mutedPlayers=parent.currentOptions.mutedPlayers||[];
+    const mutedPlayers=parent.currentOptions.getValue('mutedPlayers')||[];
     if (mutedPlayers.includes(user)) {
       parent.arrayRemoveAll(mutedPlayers,u=>u==user);
     } else {
@@ -132,10 +132,10 @@
     async start() {
       const parent=this.lichessTools;
       const trans=parent.translator;
-      const value=parent.currentOptions.friendsPlaying;
+      const value=parent.currentOptions.getValue('friendsPlaying');
       this.logOption('Sound alert when friends start playing', value);
-      if (parent.currentOptions.mutedPlayers?.length) {
-        this.logOption(' ... muted', parent.currentOptions.mutedPlayers.join(','));
+      if (parent.currentOptions.getValue('mutedPlayers')?.length) {
+        this.logOption(' ... muted', parent.currentOptions.getValue('mutedPlayers').join(','));
       }
       const lichess=parent.lichess;
       if (!lichess) return;

@@ -3,7 +3,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.fixWakeLock;
+      const value=parent.currentOptions.getValue('fixWakeLock');
       this.logOption('Fix wakelock in debug mode', value);
       const navigator=parent.global.navigator;
       const document=parent.global.document;

@@ -527,6 +527,7 @@
 
     getDefaultOptions() {
       const options={
+        enableLichessTools: true,
         showOptionsTableInConsole: false,
         fixWakeLock: true
       };
@@ -591,11 +592,16 @@
         options=this.translateOldOptions();
       }
       const defaults=this.getDefaultOptions();
-      return {
+      options = {
         loaded:!!options,
         ...defaults,
         ...options
       };
+      options.getValue=function(optionName, optionValue) {
+        if (!this.enableLichessTools) return false;
+        return this[optionName]
+      };
+      return options;
     }
 
     applyOptions=async (options)=>{
@@ -606,7 +612,7 @@
       }
       this.currentOptions=options;
       const console=this.global.console;
-      const group=options.showOptionsTableInConsole
+      const group=options.getValue('showOptionsTableInConsole')
         ? console.group
         : console.groupCollapsed;
       group('Applying LiChess Tools options...');

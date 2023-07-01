@@ -231,7 +231,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.extendedInteractiveLesson;
+      const value=parent.currentOptions.getValue('extendedInteractiveLesson');
       this.logOption('Extended interactive lessons', value);
       const $=parent.$;
       const lichess=parent.lichess;

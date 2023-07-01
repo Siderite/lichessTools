@@ -32,7 +32,7 @@
 
     ensureShapeRank=()=>{
       const parent=this.lichessTools;
-      const shapeRankEnabled=parent.currentOptions.shapeRank;
+      const shapeRankEnabled=parent.currentOptions.getValue('shapeRank');
       const cg=lichess.analysis?.chessground;
       const drawable=cg?.state.drawable;
       if (!drawable) return;
@@ -79,7 +79,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.shapeRank;
+      const value=parent.currentOptions.getValue('shapeRank');
       this.logOption('Show the order of arrows and circles', value);
       const lichess=parent.lichess;
       const analysis=lichess?.analysis;

@@ -62,7 +62,7 @@
       this.oldSaveOptions=parent.saveOptions.bind(parent);
       parent.saveOptions=async (options)=>{
         await this.oldSaveOptions(options);
-        if (!parent.currentOptions.saveOptionsForIncognito) return;
+        if (!parent.currentOptions.getValue('saveOptionsForIncognito')) return;
         const userId=parent.getUserId();
         const gameId = await this.getStorageGameId(userId);
         if (!gameId) return;
@@ -84,7 +84,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.saveOptionsForIncognito;
+      const value=parent.currentOptions.getValue('saveOptionsForIncognito');
       this.logOption('Save options in incognito mode', value);
     }
   }

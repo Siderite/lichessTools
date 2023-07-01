@@ -65,3 +65,12 @@ body.lichessTools.dark nav.page-menu__menu a.lichessTools-menu span {
 body.lichessTools .lichessTools-fire {
   animation: lichessTools-fire 1.5s ease-in-out infinite alternate;
 }
+
+body.lichessTools .lichessTools-globalSwitch {
+  margin:0;
+}
+
+body.lichessTools.lichessTools-globalDisable .lichessTools-preferences div.account form > div {
+  pointer-events:none;
+  opacity:0.5;
+}

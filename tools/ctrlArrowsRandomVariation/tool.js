@@ -46,7 +46,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.ctrlArrows;
+      const value=parent.currentOptions.getValue('ctrlArrows');
       this.logOption('Ctrl-arrows for random variation', value);
       const handler = parent.getKeyHandler('ctrl+right');
       parent.unbindKeyHandler('ctrl+right',true);

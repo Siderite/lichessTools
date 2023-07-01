@@ -30,7 +30,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.tvGameLinkAndBookmark;
+      const value=parent.currentOptions.getValue('tvGameLinkAndBookmark');
       this.logOption('Link and bookmark for TV games', value);
       const lichess=parent.lichess;
       if (!lichess) return;

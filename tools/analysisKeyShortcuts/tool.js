@@ -100,7 +100,7 @@
 
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.keyShortcuts;
+      const value=parent.currentOptions.getValue('keyShortcuts');
       this.logOption('Extra analysis key shortcuts', value);
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
