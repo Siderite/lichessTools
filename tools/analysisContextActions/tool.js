@@ -8,7 +8,7 @@
         name:'analysisContextActions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['copyPgn','moveEval'],
+        possibleValues: ['copyPgn','moveEval','showTranspos'],
         defaultValue: 'copyPgn,moveEval'
       }
     ];
@@ -19,6 +19,7 @@
         'options.analysisContextActions': 'Extra context menu options',
         'analysisContextActions.copyPgn': 'Copy branch as PGN',
         'analysisContextActions.moveEval': 'Engine evaluation for last moves',
+        'analysisContextActions.showTranspos': 'Highlight all transpositions',
         'extractVariationText': 'Copy branch as PGN',
         'extractVariationTitle': 'LiChess Tools - copy branch and continuations to clipboard',
         'errorGeneratingPGN': 'Error generating PGN',
@@ -27,13 +28,16 @@
         'setCustomEngineDepth': 'You need to set a minimum engine depth for this feature!',
         'evaluateTerminationsText': 'Evaluate terminating moves',
         'evaluateTerminationsTitle': 'LiChess Tools - Add evaluation comment to all branch terminating moves',
-        'evaluateTerminationsStarted': 'Evaluation commenting started: %s'
+        'evaluateTerminationsStarted': 'Evaluation commenting started: %s',
+        'showTransposText': 'Highlight all transpositions',
+        'showTransposTitle': 'LiChess Tools - Highlight all transpositions'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.analysisContextActions': 'Op\u0163iuni \u00een plus \u00een meniul context',
         'analysisContextActions.copyPgn': 'Copiaz\u0103 varia\u0163iunea ca PGN',
         'analysisContextActions.moveEval': 'Evaluare mut\u0103rile finale',
+        'analysisContextActions.showTranspos': 'Arat\u0103 toate transpozi\u0163iile',
         'extractVariationText': 'Copiaz\u0103 varia\u0163iunea ca PGN',
         'extractVariationTitle': 'LiChess Tools - copiaz\u0103 varia\u0163iunea \u015Fi continuarile ca PGN',
         'errorGeneratingPGN': 'Eroare generare PGN',
@@ -43,6 +47,8 @@
         'evaluateTerminationsText': 'Evalueaz\u0103 mut\u0103rile finale',
         'evaluateTerminationsTitle': 'LiChess Tools - Adaug\u0103 comentarii cu evaluarea mut\u0103rilor finale din fiecare ramur\u0103',
         'evaluateTerminationsStarted': 'Comentarea cu evalu\u0103ri pornit\u0103: %s',
+        'showTransposText': 'Arat\u0103 toate transpozi\u0163iile',
+        'showTransposTitle': 'LiChess Tools - Arat\u0103 toate transpozi\u0163iile'
       }
     }
 
@@ -302,6 +308,32 @@
         checkState(resolve);
       }); 
     };
+
+    
+    showTranspos=()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
+      if (!analysis) return;
+      const highlighted=$('move.lichessTools-transpositionAll');
+      if (highlighted.length) {
+        highlighted.removeClass('lichessTools-transpositionAll');
+        return;
+      }
+      this.state=parent.traverse();
+      const transpositions=[];
+      for (const position in this.state.positions) {
+        const pos=this.state.positions[position];
+        if (pos?.length>1) {
+          transpositions.push.apply(transpositions,pos);
+        }
+      }
+      for (const node of transpositions) {
+        if (!node.path) continue;
+        const elem=parent.getElementForNode(node);
+        $(elem).addClass('lichessTools-transpositionAll');
+      }
+    };
     
     analysisContextMenu=()=>{
       const parent=this.lichessTools;
@@ -337,6 +369,18 @@
           .attr('data-role','evaluateTerminations')
           .text(text).attr('title',title)
           .on('click',this.evaluateTerminations)
+          .appendTo(menu);
+      }
+    
+      if (this.options.showTranspos 
+         &&!menu.has('a[data-role="showTranspos"]').length) {
+        const text=trans.noarg('showTransposText');
+        const title=trans.noarg('showTransposTitle');
+        $('<a>')
+          .attr('data-icon','T')
+          .attr('data-role','showTranspos')
+          .text(text).attr('title',title)
+          .on('click',this.showTranspos)
           .appendTo(menu);
       }
     }
@@ -379,7 +423,8 @@
       this.options={
         copyPgn:parent.isOptionSet(value,'copyPgn'),
         moveEval:parent.isOptionSet(value,'moveEval'),
-        get isSet() { return this.copyPgn || this.moveEval; }
+        showTranspos:parent.isOptionSet(value,'showTranspos'),
+        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos; }
       };
       clearInterval(this.engineCheckInterval);
       lichess.pubsub.off('redraw',this.analysisContextMenu);
