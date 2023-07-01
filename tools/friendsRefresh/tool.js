@@ -2,9 +2,11 @@
   class FriendsRefreshTool extends LiChessTools.Tools.ToolBase {
 
     friendsInterval=0;
+    friendsFrequency=5000;
     async start() {
       const parent=this.lichessTools;
       const value=(parent.currentOptions.getValue('friendsPlaying')||['true','open','menu'].includes(parent.currentOptions.getValue('openFriends'))||parent.currentOptions.getValue('liveFriendsPage'));
+      this.logOption('Friend list refresh', value?this.friendsFrequency+'ms':'No');
       const lichess=parent.lichess;
       if (!lichess) return;
       const setInterval=parent.global.setInterval;
@@ -17,7 +19,7 @@
           if (!$('#friend_box .content_wrap').is('.none')) {
             lichess.pubsub.emit("socket.send", "following_onlines");
           }
-        }, 5000);
+        }, this.friendsFrequency);
       }
     }
 

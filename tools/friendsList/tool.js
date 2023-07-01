@@ -174,6 +174,7 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('openFriends');
       this.logOption('Online friend list', value);
+      this.logOption('Live friends page', parent.currentOptions.getValue('liveFriendsPage'));
       const lichess=parent.lichess;
       if (!lichess) return;
       const setInterval=parent.global.setInterval;

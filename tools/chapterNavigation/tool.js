@@ -90,7 +90,7 @@
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('chapterNavigation');
-      this.logOption('Study chapter navigation controls', value);
+      this.logOption('Study chapter navigation', value);
       const lichess=parent.lichess;
       const $=parent.$;
       const study=lichess?.analysis?.study;

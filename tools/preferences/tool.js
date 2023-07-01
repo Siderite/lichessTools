@@ -192,6 +192,7 @@
       const $=parent.$;
       const location=parent.global.location;
       const trans=parent.translator;
+      this.logOption('Integration in Preferences', true);
       if (!$('main.account').length) return;
       if ($('a.lichessTools-menu').length) return;
       const openPreferences=this.openPreferences;
