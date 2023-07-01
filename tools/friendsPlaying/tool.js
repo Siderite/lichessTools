@@ -91,8 +91,8 @@
     const isMuted=(this.lichessTools.currentOptions.getValue('mutedPlayers')||[]).includes(username?.toLowerCase());
     
     let silent=isMuted;
-    if (silent && !this.lichessTools.isAudioAllowed()) {
-      silent=false;
+    if (!silent && !this.lichessTools.isAudioAllowed()) {
+      silent=true;
       this.showAudioNotAllowed();
     }
     if (!silent) {
