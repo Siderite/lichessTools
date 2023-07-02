@@ -72,10 +72,15 @@
       const gameId=tvOptions.gameId || lichess.analysis?.data?.game?.id;
       if (!gameId||gameId=='synthetic') return;
       const metaSection = $('div.game__meta section').eq(0);
-      $('.lichessTools-opening',metaSection).remove();
       const result = await this.withOpening(gameId);
-      if (!result) return;
-      metaSection.append($('<span/>').addClass('lichessTools-opening').text(result.opening));
+      if (!result) {
+        $('.lichessTools-opening',metaSection).remove();
+        return;
+      }
+      if (!$('span.lichessTools-opening',metaSection).length) {
+        metaSection.append($('<span/>').addClass('lichessTools-opening'));
+      }
+      $('span.lichessTools-opening',metaSection).text(result.opening);
       await this.miniGameOpening();
     };
     refreshOpeningDebounced=this.lichessTools.debounce(this.refreshOpening,2000);

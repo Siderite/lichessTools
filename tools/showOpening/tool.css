@@ -1,5 +1,8 @@
 body.lichessTools div.game__meta .lichessTools-opening {
   display:flex;
+  height:3em;
+  align-items: center;
+  overflow:hidden;
 }
 
 body.lichessTools div.game__meta .lichessTools-opening:before {
@@ -16,4 +19,5 @@ body.lichessTools a.mini-game .lichessTools-opening {
   margin: 3px 0.5em 0.3em 0.7em;
   display: inline-block;
   opacity: 0.7;
+  height:auto;
 }

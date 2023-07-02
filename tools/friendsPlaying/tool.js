@@ -51,55 +51,41 @@
     }
   };
 
-  sayPlaying=async function(username, silent) {
-    let gameType='unknown';
-    let eventType='';
-    let variant='';
-    try {
-      const text = await this.lichessTools.net.fetch({url:'/api/games/user/{username}?max=1&tags=true&ongoing=true&finished=false',args:{username:username}});
-      if (text) {
-        gameType=this.lichessTools.getGameTime(this.lichessTools.getPgnTag(text,'TimeControl'));
-        eventType=this.lichessTools.getPgnTag(text,'Event');
-        variant=this.lichessTools.getPgnTag(text,'Variant');
-        this.lichessTools.global.console.log('  ... '+eventType+' ('+gameType+','+variant+')'+(silent?' silent':''));
-      }
-      if (silent) {
-        return;
-      }
-      if (gameType && !this.lichessTools.isOptionSet(this.lichessTools.currentOptions.getValue('friendsPlaying'),gameType)) return;
-      await this.lichessTools.timeout(500);
-      this.beep.play();
-      let translation=this.lichessTools.translator.plural('playing',1,username)+', '+this.lichessTools.translator.noarg('gameType-'+gameType);
-      if (variant&&variant!='Standard') {
-        translation+=' '+variant;
-      }
-      this.lichessTools.lichess.sound.say(translation, false, true, this.lichessTools.isTranslated);
-      //this.lichessTools.lichess.sound.say(eventType, false, true, false); // Event name cannot be translated
-    } catch(e) {
-      if (e.toString().includes('Failed to fetch')) {
-        this.lichessTools.global.console.debug('Failed to fetch net error, retrying sayPlaying in 1s');
-        this.lichessTools.global.setTimeout(()=>sayPlaying(username,silent),1000);
-        return;
-      }
-      this.lichessTools.global.console.warn('sayPlaying error',e);
-    }
-  }
-
   playFriendSound=async (username)=>{
     this.lichessTools.global.console.log(username + ' playing');
     const now=new Date().getTime();
     const isMuted=(this.lichessTools.currentOptions.getValue('mutedPlayers')||[]).includes(username?.toLowerCase());
-    
-    let silent=isMuted;
+    let silent=isMuted?'muted':'';
     if (!silent && !this.lichessTools.isAudioAllowed()) {
-      silent=true;
+      silent='audioNotAllowed';
       this.showAudioNotAllowed();
     }
     if (!silent) {
       let friendSoundTime=this.lichessTools.lichess.storage.get('LiChessTools.friendSound');
       if (friendSoundTime) {
         friendSoundTime=this.lichessTools.global.JSON.parse(friendSoundTime).value.time;
-        if (now-friendSoundTime<1000) silent=true;
+        if (now-friendSoundTime<1000) silent='tooSoon';
+      }
+    }
+    let gameType='unknown';
+    let eventType='';
+    let variant='';
+    let text='';
+    try {
+      text = await this.lichessTools.net.fetch({url:'/api/games/user/{username}?max=1&tags=true&ongoing=true&finished=false',args:{username:username}});
+    } catch(e) {
+      if (e.toString().includes('Failed to fetch')) {
+        this.lichessTools.global.console.debug('Failed to fetch net error');
+        return;
+      }
+      this.lichessTools.global.console.warn('playFriendSound game fetch error',e);
+    }
+    if (text) {
+      gameType=this.lichessTools.getGameTime(this.lichessTools.getPgnTag(text,'TimeControl'));
+      eventType=this.lichessTools.getPgnTag(text,'Event');
+      variant=this.lichessTools.getPgnTag(text,'Variant');
+      if (!silent && gameType && !this.lichessTools.isOptionSet(this.lichessTools.currentOptions.getValue('friendsPlaying'),gameType)) {
+        silent='wrongGameType';
       }
     }
     if (!silent) {
@@ -109,10 +95,21 @@
       let item=lichess.storage.get('LiChessTools.friendSound');
       if (item) {
         item=this.lichessTools.global.JSON.parse(item).value;
-        if (id!=item.id) silent=true;
+        if (id!=item.id) silent='lostBid';
       }
     }
-    this.sayPlaying(username, silent);
+    this.lichessTools.global.console.log('  ... '+eventType+' ('+gameType+','+variant+') '+silent);
+    if (silent) {
+      return;
+    }
+    await this.lichessTools.timeout(500);
+    this.beep.play();
+    let translation=this.lichessTools.translator.plural('playing',1,username)+', '+this.lichessTools.translator.noarg('gameType-'+gameType);
+    if (variant&&variant!='Standard') {
+      translation+=' '+variant;
+    }
+    this.lichessTools.lichess.sound.say(translation, false, true, this.lichessTools.isTranslated);
+    //this.lichessTools.lichess.sound.say(eventType, false, true, false); // Event name cannot be translated
   };
 
   mutePlayer=async user=>{

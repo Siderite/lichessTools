@@ -5,7 +5,11 @@
     friendsFrequency=5000;
     async start() {
       const parent=this.lichessTools;
-      const value=(parent.currentOptions.getValue('friendsPlaying')||['true','open','menu'].includes(parent.currentOptions.getValue('openFriends'))||parent.currentOptions.getValue('liveFriendsPage'));
+      const value=(
+           parent.currentOptions.getValue('friendsPlaying')
+        || ['true','open','menu'].includes(parent.currentOptions.getValue('openFriends'))
+        || (parent.currentOptions.getValue('liveFriendsPage') && parent.isFriendsPage())
+      );
       this.logOption('Friend list refresh', value?this.friendsFrequency+'ms':'No');
       const lichess=parent.lichess;
       if (!lichess) return;

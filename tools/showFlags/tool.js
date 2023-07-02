@@ -421,6 +421,7 @@
         if (!item.countryName) continue;
         const elems=dict[item.id];
         for (const elem of elems) {
+          if (!elem[0]?.parentNode) return;
           const next=elem.next();
           if (next.is('img.flag')) return;
           if (next.has('img.flag').length) return;

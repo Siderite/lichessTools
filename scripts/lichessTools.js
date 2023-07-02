@@ -466,6 +466,7 @@
         const status=+(response.status);
         if (status>=400) {
           if (status==429) {
+            console.debug('429 received!');
             const translation=this.lichessTools.translator.noarg('serverOverload');
             this.lichessTools.announce(translation);
             this.slowMode=true;
@@ -515,7 +516,6 @@
     }
   
     async start(lichess) {
-      this.$('body').addClass('lichessTools');
       this.lichess=lichess;
       this.translator = this.lichess.trans(this.intl.siteI18n);
       await this.applyOptions();
@@ -611,6 +611,7 @@
         options = await this.getOptions();
       }
       this.currentOptions=options;
+      this.$('body').toggleClass('lichessTools',options.enableLichessTools);
       const console=this.global.console;
       const group=options.getValue('showOptionsTableInConsole')
         ? console.group

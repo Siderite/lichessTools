@@ -26,7 +26,7 @@
 
     showCrosstable=(ev)=>{
       ev.preventDefault();
-      $(ev.currentTarget).toggleClass('lichessTools-showCrosstable');
+      $('body').toggleClass('lichessTools-showCrosstable');
     };
 
     async start() {
@@ -35,9 +35,10 @@
       const value=parent.currentOptions.getValue('hideCrosstable');
       this.logOption('Hide crosstable', value);
       const elem=$('main.round div.crosstable')
-        .toggleClass('lichessTools-showCrosstable',!value)
-        .toggleClass('lichessTools-hideCrosstableEnabled',value)
         .off('click',this.showCrosstable);
+      $('body')
+        .toggleClass('lichessTools-showCrosstable',!value)
+        .toggleClass('lichessTools-hideCrosstableEnabled',value);
       if (value) {
         elem
           .attr('title',trans.noarg('hideCrosstableTitle'))
