@@ -1,14 +1,9 @@
 body.lichessTools img.flag {
   max-height: 1.25em;
-  /*max-height:24px;*/
   align-self: center;
   /*justify-self: end;/* conflict with LiTags extension */
   vertical-align: baseline;
   margin-left:5px;
-}
-
-body.lichessTools div.chat__members img.flag {
-  display:none;
 }
 
 body.lichessTools div.player img.flag {
@@ -27,7 +22,8 @@ body.lichessTools td.player {
 body.lichessTools .lichessTools-onlineFriends img.flag,
 div.complete-list img.flag,
 .crosstable__users img.flag,
-#friend_box img.flag {
+#friend_box img.flag,
+body.lichessTools div.chat__members img.flag {
   display:none;
 }
 

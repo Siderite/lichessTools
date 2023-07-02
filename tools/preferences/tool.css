@@ -1,4 +1,5 @@
-body.lichessTools div.lichessTools-preferences p.saved {
+/* CSS in preferences should not be under body.lichessTools, as the class can be removed when the extension is disabled */
+div.lichessTools-preferences p.saved {
   position: fixed;
   bottom: 1rem;
   width: auto;
@@ -6,29 +7,29 @@ body.lichessTools div.lichessTools-preferences p.saved {
   z-index:10;
 }
 
-body.lichessTools div.lichessTools-preferences div.links {
+div.lichessTools-preferences div.links {
   margin-top: -1em;
   margin-bottom: 1em;
 }
 
-body.lichessTools div.lichessTools-preferences h1 {
+div.lichessTools-preferences h1 {
   width:fit-content;
 }
 
-body.lichessTools div.lichessTools-preferences h1:hover ~ div.links a {
+div.lichessTools-preferences h1:hover ~ div.links a {
   animation: lichessTools-fire 1.5s ease-in-out infinite alternate;
 }
 
 
-body.lichessTools div.lichessTools-preferences div.links .blog {
+div.lichessTools-preferences div.links .blog {
   float:right;
 }
 
-body.lichessTools div.lichessTools-preferences form > div {
+div.lichessTools-preferences form > div {
   padding-top:3em;
 }
 
-body.lichessTools div.lichessTools-preferences h3 {
+div.lichessTools-preferences h3 {
   float:right;
   position: relative;
   top: -0.75em;
@@ -36,16 +37,16 @@ body.lichessTools div.lichessTools-preferences h3 {
 }
 
 
-body.lichessTools nav.page-menu__menu a.lichessTools-menu span {
+nav.page-menu__menu a.lichessTools-menu span {
   filter: drop-shadow(0px 0px 5px black);
 }
 
-body.lichessTools.dark nav.page-menu__menu a.lichessTools-menu span {
+body.dark nav.page-menu__menu a.lichessTools-menu span {
   filter: drop-shadow(0px 0px 5px white);
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.system nav.page-menu__menu a.lichessTools-menu span {
+  body.system nav.page-menu__menu a.lichessTools-menu span {
     filter: drop-shadow(0px 0px 5px white);
   }
 }
@@ -62,15 +63,15 @@ body.lichessTools.dark nav.page-menu__menu a.lichessTools-menu span {
 }
 
 
-body.lichessTools .lichessTools-fire {
+.lichessTools-fire {
   animation: lichessTools-fire 1.5s ease-in-out infinite alternate;
 }
 
-body.lichessTools .lichessTools-globalSwitch {
+.lichessTools-globalSwitch {
   margin:0;
 }
 
-body.lichessTools.lichessTools-globalDisable .lichessTools-preferences div.account form > div {
+body.lichessTools-globalDisable .lichessTools-preferences div.account form > div {
   pointer-events:none;
   opacity:0.5;
 }
