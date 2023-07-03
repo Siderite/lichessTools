@@ -16,11 +16,15 @@
     intl={
       'en-US':{
         'options.analysis': 'Analysis',
-        'options.stickyAnalysis': 'Autosave analysis for reload'
+        'options.stickyAnalysis': 'Autosave analysis for reload',
+        'reloadPgnText':'Reload PGN',
+        'reloadPgnTitle':'LiChess Tools - Reload PGN'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
-        'options.stickyAnalysis': 'Salveaz\u0103 automat analiza pentru re\u00eencarcare'
+        'options.stickyAnalysis': 'Salveaz\u0103 automat analiza pentru re\u00eencarcare',
+        'reloadPgnText':'Re\u00eencarc\u0103 PGN',
+        'reloadPgnTitle':'LiChess Tools - Re\u00eencarc\u0103 PGN'
       }
     }
 
