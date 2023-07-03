@@ -17,7 +17,7 @@
         'options.enhancedImport': 'Enhanced PGN import',
         'mergeSuccess': 'LiChess Tools - merged %s PGNs',
         'mergeSuccess:one': 'LiChess Tools - imported one PGN'
-            },
+      },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.enhancedImport': 'Import PGN extins',
