@@ -155,15 +155,15 @@
         $('a.lichessTools-mute',row) 
            .attr('title',isMuted?enablePlayingAlertTitle:mutePlayingAlertTitle);
       }
-      if (!data?.playing) return;
-      const online=data.d.map(e=>e.toLowerCase().replace(/^\w+\s/, ''));
-      const playing=data.playing.map(e=>e.toLowerCase().replace(/^\w+\s/, ''));
+      const online=data?.d?.map(e=>e.toLowerCase().replace(/^\w+\s/, ''))||[];
+      const playing=data?.playing?.map(e=>e.toLowerCase().replace(/^\w+\s/, ''))||[];
       for (const user in this.rows) {
         const row=this.rows[user];
         if (!row) continue;
         const isOnline=online.includes(user);
+        const isPlaying=playing.includes(user);
         row.toggleClass('lichessTools-online',isOnline)
-           .toggleClass('lichessTools-playing',playing.includes(user));
+           .toggleClass('lichessTools-playing',isPlaying);
         $('td:first-child>a',row)
            .toggleClass('online',isOnline)
            .toggleClass('offline',!isOnline);

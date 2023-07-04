@@ -169,10 +169,10 @@
           prevNode.children=[node]
         }
         let pgn=renderNodesTxt(varNode,false);
-        if (analysis.getOrientation()!='white') {
+        if (analysis.getOrientation()!='white' && !/\[Orientation|\[StartFlipped/.test(pgn)) {
           pgn='[StartFlipped "1"]\r\n[Orientation "Black"]\r\n'+pgn;
         }
-        if (varNode.fen && !/\s+1$/.test(varNode.fen)) {
+        if (varNode.fen && varNode.fen!='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
           pgn='[FEN "'+varNode.fen+'"]\r\n'+pgn;
         }
         navigator.clipboard.writeText(pgn).then(()=>{

@@ -34,7 +34,7 @@
       const $=parent.$;
       let pgn=$('.analyse__underboard .pgn textarea').val();
       if (!pgn) return;
-      if (lichess.analysis.getOrientation()!="white") {
+      if (lichess.analysis.getOrientation()!="white" && !/\[Orientation|\[StartFlipped/.test(pgn)) {
         pgn='[Orientation "Black"]\r\n[StartFlipped "1"]\r\n'+pgn;
       }
       if (this.prevPgn===pgn) return;
