@@ -1,0 +1,9 @@
+body.lichessTools div.form-actions-secondary.destructive select.lichessTools-removeAll {
+  border:none;
+  color:#cc3333;
+}
+
+body.lichessTools div.form-actions-secondary.destructive select.lichessTools-removeAll option {
+  border:none;
+  color:inherit;
+}

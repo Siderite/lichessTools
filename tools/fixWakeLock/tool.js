@@ -8,9 +8,10 @@
       const navigator=parent.global.navigator;
       const document=parent.global.document;
       if (!navigator.wakeLock) return;
-      navigator.wakeLock.request=parent.unwrapFunction(navigator.wakeLock.request);
+      navigator.wakeLock.request=parent.unwrapFunction(navigator.wakeLock.request,'fixWakeLock');
       if (!value) return;
       navigator.wakeLock.request=parent.wrapFunction(navigator.wakeLock.request,{
+        id:'fixWakeLock',
         before:($this)=>{
           return document.visibilityState==='visible';
         },

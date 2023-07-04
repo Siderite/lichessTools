@@ -22,8 +22,12 @@
       }
     }
 
-    isWrappedFunction(func) {
-      return !!func?.__originalFunction;
+    isWrappedFunction(func,id) {
+      if (!func) return false;
+      if (!id || func.__wrapId===id) {
+        return !!func.__originalFunction;
+      }
+      return this.isWrappedFunction(func.__originalFunction,id);
     }
   
     wrapFunction(func,options) {
@@ -43,11 +47,17 @@
         return result;
       };
       wrappedFunc.__originalFunction=func;
+      wrappedFunc.__wrapId=options.id;
       return wrappedFunc;
     }
 
-    unwrapFunction(func) {
-      return func?.__originalFunction || func;
+    unwrapFunction(func,id) {
+      if (!func) return;
+      if (!id || func.__wrapId===id) {
+        return func.__originalFunction || func;
+      }
+      func.__originalFunction=this.unwrapFunction(func.__originalFunction,id);
+      return func;
     }
 
     getKeyHandler(combo, onlyMine) {

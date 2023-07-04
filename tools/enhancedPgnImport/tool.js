@@ -126,9 +126,10 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
-      lichess.analysis.changePgn=parent.unwrapFunction(lichess.analysis.changePgn);
+      lichess.analysis.changePgn=parent.unwrapFunction(lichess.analysis.changePgn,'enhancedImport');
       if (!value) return;
       lichess.analysis.changePgn=parent.wrapFunction(lichess.analysis.changePgn,{
+        id:'enhancedImport',
         before:($this,input,andReload)=>{
           return false;
         },

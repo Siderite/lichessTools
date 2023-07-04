@@ -5,6 +5,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - highlights for the last move of variations in the analysis/study board
      - also showing which of the last moves that have not ended in mate have no comment
  - highlights the transpositions to the current move in the analysis/study board
+     - also an option to show all transpositions in the PGN
  - play multiple variations in Interactive lesson mode in the same chapter! (using the prc: notations if present)
  - automatically open/hide/convert to menu the Friends box at page load
  - sound alert when one of your friends starts playing a game (for various time controls)
@@ -27,7 +28,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - next moves from transpositions are now available in the analysis move list
  - study move list context menu item to automatically go to the last move of every variation and add a comment with the computer evaluation
  - option to save preferences in incognito mode, too (you have to set it from Preferences first!)
- - buttona to change chapter names from the Event or Black/White PGN tags in the chapter edit form
+ - buttons to change chapter names from the Event or Black/White PGN tags in the chapter edit form
  - custom styles for study comments
  - study chapter navigation controls (including random chapter)
  - auto save and button to reload PGNs in Analysis mode (recover from accidental reloads)
@@ -35,6 +36,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - hide score tally crosstable during play
  - select move from variations, computer list or explorer by pressing . (dot), Ctrl-. and Shift-. respectively, then a digit key
  - global enable/disable extension switch
+ - for the currently selected chapter, the ability to selectively remove just the comments, glyphs or drawn shapes
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move

@@ -12,13 +12,22 @@
         console.debug('redraw');
         lichess.pubsub.emit('redraw');
       }, 100);
-      lichess.analysis.redraw=parent.wrapFunction(lichess.analysis.redraw,{ after: emit });
-      lichess.analysis.reloadData=parent.wrapFunction(lichess.analysis.reloadData,{ after: emit });
-      /*if (lichess.analysis.study?.redraw) {
-        lichess.analysis.study.redraw=parent.wrapFunction(lichess.analysis.study.redraw,{ after: emit });
-      }*/
+      lichess.analysis.redraw=parent.unwrapFunction(lichess.analysis.redraw,'redraw'); 
+      lichess.analysis.redraw=parent.wrapFunction(lichess.analysis.redraw,{ 
+        id:'redraw',
+        after: emit
+      });
+      lichess.analysis.reloadData=parent.unwrapFunction(lichess.analysis.reloadData,'redraw'); 
+      lichess.analysis.reloadData=parent.wrapFunction(lichess.analysis.reloadData,{ 
+        id:'redraw',
+        after: emit
+      });
       if (lichess.analysis.gamebookPlay()?.redraw) {
-        lichess.analysis.gamebookPlay().redraw=parent.wrapFunction(lichess.analysis.gamebookPlay().redraw,{ after: emit });
+        lichess.analysis.gamebookPlay().redraw=parent.unwrapFunction(lichess.analysis.gamebookPlay().redraw,'redraw'); 
+        lichess.analysis.gamebookPlay().redraw=parent.wrapFunction(lichess.analysis.gamebookPlay().redraw,{ 
+          id:'redraw',
+          after: emit
+        });
       }
     }
   }
