@@ -143,6 +143,7 @@
             .on('click',ev=>{
               ev.preventDefault();
               parent.lichess.pubsub.emit('mutePlayer',user);
+              this.updateFriendsPage();
             })
             .appendTo(e);
         }
