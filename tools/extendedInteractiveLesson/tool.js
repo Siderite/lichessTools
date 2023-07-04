@@ -247,8 +247,9 @@
         extendedInteractive:parent.isOptionSet(value,'extendedInteractive')
       };
       $('body').toggleClass('lichessTools-extendedInteractiveLesson',this.options.extendedInteractive);
-      if (!parent.isWrappedFunction(study.setGamebookOverride)) {
+      if (!parent.isWrappedFunction(study.setGamebookOverride,'extendedInteractive')) {
         study.setGamebookOverride=parent.wrapFunction(study.setGamebookOverride,{
+          id:'extendedInteractive',
           before:($this,o)=> {
             if (!o && !study.members.canContribute()) {
               o='play';

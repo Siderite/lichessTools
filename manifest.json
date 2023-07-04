@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Lichess Tools, by Siderite",
   "short_name": "Lichess Tools",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev",
@@ -56,6 +56,7 @@
         "tools/extendedInteractiveLesson/tool.js",
         "tools/saveOptionsForIncognito/tool.js",
         "tools/hideCrosstable/tool.js",
+        "tools/chapterClearArtifacts/tool.js",
  
         "tools/preferences/tool.js",
  
@@ -79,7 +80,8 @@
         "tools/analysisContextActions/tool.css",
         "tools/movesFromTranspositions/tool.css",
         "tools/extendedInteractiveLesson/tool.css",
-        "tools/hideCrosstable/tool.css"
+        "tools/hideCrosstable/tool.css",
+        "tools/chapterClearArtifacts/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"

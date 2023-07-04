@@ -65,6 +65,7 @@
       if (shapeRankEnabled) {
         if (!parent.isWrappedFunction(drawable.onChange)) {
           drawable.onChange=parent.wrapFunction(drawable.onChange,{
+            id:'shapeRank',
             before:($this,shapes)=>this.clearRankShapes(shapes),
             after:reshape
           });
@@ -73,7 +74,7 @@
         reshape(null,null,drawable.shapes);
         cg.redrawAll();
       } else {
-        drawable.onChange=parent.unwrapFunction(drawable.onChange);
+        drawable.onChange=parent.unwrapFunction(drawable.onChange,'shapeRank');
       } 
     };
 

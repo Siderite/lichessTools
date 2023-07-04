@@ -8,6 +8,10 @@
         item.target.removeEventListener(item.type, item.listener, item.useCapture);
       }
     };
+    getEventHandlers=(target,type)=>{
+      const items=this.eventHandlers.filter(eh=>eh.target===target && eh.type===type);
+      return items.map(i=>i.listener);
+    };
 
     async init() {
       const EventTarget=this.lichessTools.global.EventTarget;
@@ -30,6 +34,7 @@
       });
 
       this.lichessTools.removeEventHandlers=this.removeEventHandlers;
+      this.lichessTools.getEventHandlers=this.getEventHandlers;
     }
   }
   LiChessTools.Tools.InterceptEventHandlers=InterceptEventHandlersTool;

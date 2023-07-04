@@ -76,9 +76,10 @@
       const $=parent.$;
       const study=lichess?.analysis?.study;
       if (!study) return;
-      lichess.contentLoaded=parent.unwrapFunction(lichess.contentLoaded);
+      study.chapters.editForm.toggle=parent.unwrapFunction(study.chapters.editForm.toggle,'chapterNameFromTags');
       if (!value) return;
       study.chapters.editForm.toggle=parent.wrapFunction(study.chapters.editForm.toggle,{
+        id:'chapterNameFromTags',
         after:($this,result,data)=>{
           const interval=parent.global.setInterval(()=>{
             const input=$('#chapter-name');

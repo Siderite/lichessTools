@@ -74,6 +74,7 @@
       if (!analysis) return;
       const ceval=analysis.ceval;
       ceval.effectiveMaxDepth=parent.wrapFunction(ceval.effectiveMaxDepth,{
+        id:'customEngineLevel',
         after:($this,oldMaxLevel)=>{
           const node=analysis.node;
           if (node.autoDeeper>(node.startDepth||oldMaxLevel)) {
@@ -99,7 +100,7 @@
       if (!analysis) return;
       parent.global.clearInterval(this.engineCheckInterval);
       const ceval=analysis.ceval;
-      ceval.effectiveMaxDepth=parent.unwrapFunction(ceval.effectiveMaxDepth);
+      ceval.effectiveMaxDepth=parent.unwrapFunction(ceval.effectiveMaxDepth,'customEngineLevel');
       if (value) {
         this.injectCeval();
         this.engineCheckInterval=parent.global.setInterval(this.checkEngineLevel,1000);
