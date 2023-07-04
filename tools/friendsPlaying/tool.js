@@ -52,7 +52,7 @@
   };
 
   playFriendSound=async (username)=>{
-    this.lichessTools.global.console.log(username + ' playing');
+    this.lichessTools.global.console.debug(username + ' playing');
     const now=new Date().getTime();
     const isMuted=(this.lichessTools.currentOptions.getValue('mutedPlayers')||[]).includes(username?.toLowerCase());
     let silent=isMuted?'muted':'';
@@ -98,7 +98,7 @@
         if (id!=item.id) silent='lostBid';
       }
     }
-    this.lichessTools.global.console.log('  ... '+eventType+' ('+gameType+','+variant+') '+silent);
+    this.lichessTools.global.console.debug('  ... '+eventType+' ('+gameType+','+variant+') '+silent);
     if (silent) {
       return;
     }

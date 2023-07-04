@@ -59,6 +59,10 @@
         const trans=parent.translator;
         const $this=analysis.gamebookPlay();
         const node = analysis.node;
+        if (!node.gamebook && !analysis.tree.root.gamebook) {
+          // weird behavior after finishing a lesson and switching to analysis and back
+          this.addGameBookToAllNodes();
+        }
         const nodeComment = (node.comments || [])[0];
         const state = {
             init: analysis.path === '',
@@ -88,8 +92,12 @@
         }
         $this.state = state;
         if (!state.comment) {
-            if (state.feedback === 'good') parent.global.setTimeout($this.next, analysis.path ? 1000 : 300);
-          else if (state.feedback === 'bad') parent.global.setTimeout($this.retry, 800);
+          if (state.feedback === 'good') {
+            parent.global.setTimeout($this.next, analysis.path ? 1000 : 300);
+          }
+          else if (state.feedback === 'bad') {
+            parent.global.setTimeout($this.retry, 800);
+          }
         }
         switch(state.feedback) {
           case 'good':
@@ -160,6 +168,7 @@
       }
     };
 
+    originalUserJump=null;
     patchGamebook=()=>{
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
@@ -176,18 +185,13 @@
         gp.solution=this.extendedGamebook.solution;
         gp.extendedInteractiveLessons=true;
         // stop the original setTimeout gp.next()
-        if (parent.clearLastTimeout) {
-          parent.clearLastTimeout();
-          parent.global.setTimeout(function() {
-            if (!gp.state.comment) gp.next();
-          },analysis.path==''?1000:300);
-        } else {
-          const tempJump = analysis.userJump;
+        if (!this.originalUserJump) this.originalUserJump=analysis.userJump; 
+        if (analysis.node.path=='') {
           analysis.userJump=function() {};
-          parent.global.setTimeout(function() {
-            analysis.userJump=tempJump;
+          parent.global.setTimeout(()=>{
+            analysis.userJump=this.originalUserJump;
             if (!gp.state.comment) gp.next();
-          },analysis.path==''?1000:300);
+          },analysis.path==''?1100:400);
         }
       } else if (!this.options.extendedInteractive && gp.extendedInteractiveLessons) {
         gp.makeState=gp.oldMakeState;
@@ -208,7 +212,7 @@
       $('.gamebook-buttons').attr('data-label',translation);
       translation=trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attr('data-label',translation);
-      if (!gp) return;
+      //if (!gp) return;
       const solutionButton=$('.gamebook-buttons .solution');
       if (solutionButton.length && !$('.gamebook-buttons .lichessTools-recreatedSolution').length) {
         parent.removeEventHandlers(solutionButton[0],'click');

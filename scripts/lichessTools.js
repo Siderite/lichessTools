@@ -228,7 +228,7 @@
     getElementForPath(path) {
       const $=this.$;
       const container=$('div.analyse__moves');
-      var cached=container.data('cached');
+      const cached=container.data('cached');
       if (!cached) {
         this.resetCache();
       }

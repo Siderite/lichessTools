@@ -75,16 +75,16 @@ body.lichessTools.dynamicContentShown section.lichessTools-onlineFriends .user-l
 
 
 /* sorry for the important, but it has to fight off the Prettier Lichess style */
-body.lichessTools tr.lichessTools-playing a.lichessTools-tv {
+body.lichessTools tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
   color: #1b78d0 !important;
 }
 
-body.lichessTools.dark tr.lichessTools-playing a.lichessTools-tv {
+body.lichessTools.dark tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
   color: #3692e7 !important;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.system tr.lichessTools-playing a.lichessTools-tv {
+  body.lichessTools.system tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
     color: #3692e7 !important;
   }
 }

@@ -9,7 +9,6 @@ lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
 lichessTools.loadTool(LiChessTools.Tools.TranspositionBehavior);
 
 lichessTools.loadTool(LiChessTools.Tools.CtrlSpaceForBestComputerMove);
-lichessTools.loadTool(LiChessTools.Tools.FriendsRefresh);
 lichessTools.loadTool(LiChessTools.Tools.FriendsList);
 lichessTools.loadTool(LiChessTools.Tools.FriendsPlaying);
 lichessTools.loadTool(LiChessTools.Tools.Highlight);

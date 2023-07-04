@@ -89,7 +89,7 @@
           rep.push($('<span>').addClass(cls).text(text.slice(pos)));
         }
         if (rep.length) {
-          for (var i=rep.length-1; i>=0; i--) {
+          for (let i=rep.length-1; i>=0; i--) {
             $(node).after(rep[i]);
           }
           $(node).remove();
