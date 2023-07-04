@@ -323,7 +323,7 @@
 
     cacheExpiration=86400000; //1 day
     get flagCache() {
-       var global=this.lichessTools.global;
+       const global=this.lichessTools.global;
        if (this._flagCache) return this._flagCache;
        try {
          const temp=global.localStorage.getItem('LiChessTools.flagCache')
@@ -336,7 +336,7 @@
        return this._flagCache;
     }
     get countryCache() {
-       var global=this.lichessTools.global;
+       const global=this.lichessTools.global;
        if (this._countryCache) return this._countryCache;
        try {
          const temp=global.localStorage.getItem('LiChessTools.countryCache')

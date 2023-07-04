@@ -29,7 +29,7 @@
     setupButtons=async (studyId,chapterId)=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      var pgn=await lichessTools.net.fetch({url:'/study/{studyId}/{chapterId}.pgn',args:{studyId,chapterId}});
+      const pgn=await lichessTools.net.fetch({url:'/study/{studyId}/{chapterId}.pgn',args:{studyId,chapterId}});
       if (!pgn) return;
       const trans=parent.translator;
       const event=parent.getPgnTag(pgn,'Event');

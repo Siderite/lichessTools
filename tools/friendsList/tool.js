@@ -1,8 +1,6 @@
 (()=>{
   class FriendsListTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['FriendsRefresh'];
-
     preferences=[
       {
         name:'openFriends',
@@ -57,6 +55,8 @@
 
     updateFriendsMenu=()=>{
       const parent=this.lichessTools;
+      const value=parent.currentOptions.getValue('openFriends');
+      if (value!=='menu') return;
       const $=parent.$;
       const trans=this.lichessTools.translator;
       const myName=parent.getUserId();
@@ -108,7 +108,7 @@
     };
 
     rows={};
-    updateFriendsPage=(friends,data)=>{
+    updateFriendsPage=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=this.lichessTools.translator;
@@ -122,6 +122,7 @@
       if (!hasAlerts) {
         $('table.slist div.relation-actions a.lichessTools-mute').remove();
       }
+      this.rows={};
       $('table.slist div.relation-actions').each((i,e)=>{
         const row=$(e).closest('tr');
         const userLink=$('td:first-child a[href]',row).attr('href');
@@ -154,14 +155,8 @@
         row.toggleClass('lichessTools-muted',isMuted);
         $('a.lichessTools-mute',row) 
            .attr('title',isMuted?enablePlayingAlertTitle:mutePlayingAlertTitle);
-      }
-      const online=data?.d?.map(e=>e.toLowerCase().replace(/^\w+\s/, ''))||[];
-      const playing=data?.playing?.map(e=>e.toLowerCase().replace(/^\w+\s/, ''))||[];
-      for (const user in this.rows) {
-        const row=this.rows[user];
-        if (!row) continue;
-        const isOnline=online.includes(user);
-        const isPlaying=playing.includes(user);
+        const isOnline=this.user_data.online.includes(user);
+        const isPlaying=this.user_data.playing.includes(user);
         row.toggleClass('lichessTools-online',isOnline)
            .toggleClass('lichessTools-playing',isPlaying);
         $('td:first-child>a',row)
@@ -169,54 +164,133 @@
            .toggleClass('offline',!isOnline);
       }
     };
+
+    getUserId=(user)=>user?.toLowerCase().replace(/^\w+\s/, '');
+    user_data={
+      online:[],
+      playing:[]
+    };
+    following_onlines=(friends,data)=>{
+      console.debug('following_onlines',data);
+      if (this.onlinesInterval) {
+        clearInterval(this.onlinesInterval);
+        this.onlinesInterval=0;
+        this.onFirstFollowingOnlines();
+      }
+      const parent=this.lichessTools;
+      const $=parent.$;
+      this.user_data.online=data?.d?.map(this.getUserId)||[];
+      this.user_data.playing=data?.playing?.map(this.getUserId)||[];
+      this.updateFriendsPage();
+      this.updateFriendsMenu();
+    };
+    enters=(user,data)=>{
+      console.debug('enters',user,data?.isPlaying);
+      const parent=this.lichessTools;
+      user=this.getUserId(user);
+      if (!this.user_data.online.includes(user)) this.user_data.online.push(user);
+      const isPlaying=data?.playing;
+      if (isPlaying) {
+        if (!this.user_data.playing.includes(user)) this.user_data.playing.push(user);
+      } else {
+        parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
+      }
+      this.updateFriendsPage();
+      this.updateFriendsMenu();
+    };
+    leaves=(user)=>{
+      console.debug('leaves',user);
+      const parent=this.lichessTools;
+      user=this.getUserId(user);
+      parent.arrayRemoveAll(this.user_data.online,u=>u===user);
+      parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
+      this.updateFriendsPage();
+      this.updateFriendsMenu();
+    };
+    playing=(user)=>{
+      console.debug('playing',user);
+      user=this.getUserId(user);
+      if (!this.user_data.playing.includes(user)) this.user_data.playing.push(user);
+      this.updateFriendsPage();
+      this.updateFriendsMenu();
+    };
+    stopped_playing=(user)=>{
+      console.debug('stopped_playing',user);
+      const parent=this.lichessTools;
+      user=this.getUserId(user);
+      parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
+      this.updateFriendsPage();
+      this.updateFriendsMenu();
+    };
+
+    onFirstFollowingOnlines=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const friendsBoxMode=parent.currentOptions.getValue('openFriends');
+
+      switch(friendsBoxMode) {
+        case true:
+        case 'true':
+        case 'open':
+        case 'menu': {
+          if ($('#friend_box .content_wrap').is('.none')) {
+            $('.friend_box_title').trigger('click');
+          }
+        }
+        break;
+        case 'hidden':
+        default: {
+        }
+        break;
+      }           
+    };
     
     async start() {
       const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('openFriends');
-      this.logOption('Online friend list', value);
-      this.logOption('Live friends page', parent.currentOptions.getValue('liveFriendsPage'));
+      const $=parent.$;
+      const friendsBoxMode=parent.currentOptions.getValue('openFriends');
+      const liveFriendsPage=parent.currentOptions.getValue('liveFriendsPage');
+      this.logOption('Online friend list', friendsBoxMode);
+      this.logOption('Live friends page', liveFriendsPage);
       const lichess=parent.lichess;
       if (!lichess) return;
       const setInterval=parent.global.setInterval;
       const clearInterval=parent.global.clearInterval;
-      lichess.pubsub.off('socket.in.following_onlines', this.updateFriendsMenu);
-      lichess.pubsub.off('socket.in.following_onlines', this.updateFriendsPage);
-      if (parent.currentOptions.getValue('liveFriendsPage')) {
-        lichess.pubsub.on('socket.in.following_onlines', this.updateFriendsPage);
-      } else {
-        $('.lichessTools-online').removeClass('lichessTools-online');
-        $('.lichessTools-playing').removeClass('lichessTools-playing');
+      lichess.pubsub.off('socket.in.following_onlines', this.following_onlines);
+      lichess.pubsub.off('socket.in.following_enters', this.enters);
+      lichess.pubsub.off('socket.in.following_leaves', this.leaves);
+      lichess.pubsub.off('socket.in.following_playing', this.playing);
+      lichess.pubsub.off('socket.in.following_stopped_playing', this.stopped_playing);
+      if (friendsBoxMode=='menu'||(liveFriendsPage&&parent.isFriendsPage())) {
+          lichess.pubsub.on('socket.in.following_onlines', this.following_onlines);
+          lichess.pubsub.on('socket.in.following_enters', this.enters);
+          lichess.pubsub.on('socket.in.following_leaves', this.leaves);
+          lichess.pubsub.on('socket.in.following_playing', this.playing);
+          lichess.pubsub.on('socket.in.following_stopped_playing', this.stopped_playing);
       }
-      this.updateFriendsPage();
-
-      const openFriendsBox=()=> {
-        let interval;
-        $('.friend_box_title')
-          .on('click',()=>{
-            this.lichessTools.global.clearInterval(interval);
-          });
-          interval = this.lichessTools.global.setInterval(()=> {
-          if ($('#friend_box .content_wrap').is('.none')) {
-            $('.friend_box_title').trigger('click');
-            this.lichessTools.global.clearInterval(interval);
-          }
-        },2000);
+      if (parent.isFriendsPage()) {
+        if (!liveFriendsPage) {
+          $('.lichessTools-online').removeClass('lichessTools-online');
+          $('.lichessTools-playing').removeClass('lichessTools-playing');
+        }
+        this.updateFriendsPage();
       }
 
-      switch(value) {
+      this.onlinesInterval=setInterval(()=>{
+        if (!this.onlinesInterval) return;
+        lichess.pubsub.emit("socket.send", "following_onlines");
+      },1000);
+
+      switch(friendsBoxMode) {
         case true:
         case 'true':
         case 'open': {
           $('#friend_box').show();
-          openFriendsBox();
           $('#topnav section.lichessTools-onlineFriends').remove();
         }
         break;
         case 'menu': {
           $('#friend_box').hide();
-          openFriendsBox();
-          lichess.pubsub.on('socket.in.following_onlines', this.updateFriendsMenu);
-          this.updateFriendsMenu();
         }
         break;
         case 'hidden': {

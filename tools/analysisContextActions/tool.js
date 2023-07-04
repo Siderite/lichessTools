@@ -273,7 +273,7 @@
         analysis.threatMode(false);
       }
       if (!customEngineDepth) {
-        var dependsOnCustomEngineDepth = trans.noarg('setCustomEngineDepth');
+        const dependsOnCustomEngineDepth = trans.noarg('setCustomEngineDepth');
         announce(dependsOnCustomEngineDepth);
         return;
       }

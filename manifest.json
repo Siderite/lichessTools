@@ -33,7 +33,6 @@
 
         "tools/ctrlSpaceForBestComputerMove/tool.js",
         "tools/friendsList/tool.js",
-        "tools/friendsRefresh/tool.js",
         "tools/friendsPlaying/tool.js",
         "tools/highlight/tool.js",
         "tools/ctrlArrowsRandomVariation/tool.js",
