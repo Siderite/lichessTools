@@ -34,6 +34,7 @@ lichessTools.loadTool(LiChessTools.Tools.ExtendedInteractiveLesson);
 lichessTools.loadTool(LiChessTools.Tools.SaveOptionsForIncognito);
 lichessTools.loadTool(LiChessTools.Tools.HideCrosstable);
 lichessTools.loadTool(LiChessTools.Tools.ChapterClearArtifacts);
+lichessTools.loadTool(LiChessTools.Tools.CustomChatButtons);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);
 

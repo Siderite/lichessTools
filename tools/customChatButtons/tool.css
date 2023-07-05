@@ -1,0 +1,64 @@
+body.lichessTools input.lichessTools-editButtons {
+  text-decoration: underline;
+}
+
+body.lichessTools input.lichessTools-deleteButtons {
+  color: red;
+}
+
+body.lichessTools section.mchat div.mchat__presets span.lichessTools-deleteButton {
+  display:none;
+}
+
+body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span.lichessTools-deleteButton {
+  display:inline;
+}
+body.lichessTools section.mchat.lichessTools-deleteButtons div.mchat__presets span.lichessTools-deleteButton {
+  display:inline;
+}
+
+body.lichessTools section.mchat div.mchat__presets span.lichessTools-addButton {
+  display:none;
+}
+
+body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span.lichessTools-addButton {
+  display:inline;
+}
+
+body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span.lichessTools-addButton.lichessTools-disabled {
+  opacity:0.1;
+}
+
+body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span:not([data-role]) {
+  border:dashed 1px gray;
+}
+
+body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span:hover:not([data-role]) {
+  background-color: red;
+}
+
+body.lichessTools section.mchat.lichessTools-deleteButtons div.mchat__presets span:not([data-role]) {
+  border:dashed 1px red;
+}
+body.lichessTools section.mchat.lichessTools-deleteButtons div.mchat__presets span:hover:not([data-role]) {
+  background-color: red;
+}
+
+body.lichessTools div.mchat__presets span[data-role] {
+  max-width:30px;
+  padding:1px;
+}
+
+body.lichessTools .lichessTools-jiggle {
+  animation: lichessTools-jiggle 0.1s infinite;
+  transform: rotate(-1deg);
+}
+
+@keyframes lichessTools-jiggle {
+  0% {
+    transform: rotate(-0.5deg);
+  }
+  50% {
+    transform: rotate(0.5deg);
+  }
+}
