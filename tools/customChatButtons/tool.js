@@ -39,7 +39,7 @@
     };
     getButtons=()=>{
       const parent=this.lichessTools;
-      let buttons=parent.currentOptions.getValue('customChatButtons')||this.getDefaultButtons();
+      let buttons=parent.currentOptions['customChatButtons.buttons']||this.getDefaultButtons();
       buttons=buttons[this.group];
       if (!buttons) buttons=this.getDefaultButtons()[this.group];
       if (!buttons) {
@@ -60,7 +60,7 @@
 
     saveButtons=async buttons=>{
       const parent=this.lichessTools;
-      parent.currentOptions.customChatButtons=buttons;
+      parent.currentOptions['customChatButtons.buttons']=buttons;
       await parent.saveOptions(parent.currentOptions);
       parent.lichess.storage.fire('lichessTools.reloadOptions');
     };
@@ -76,7 +76,7 @@
       const $=parent.$;
       const isAddButton=$(item.elem).is('.lichessTools-addButton');
       if (isAddButton) return;
-      const buttons=parent.currentOptions.getValue('customChatButtons')||this.getDefaultButtons();
+      const buttons=parent.currentOptions['customChatButtons.buttons']||this.getDefaultButtons();
       const groupButtons=buttons[this.group];
       const existingButtons=$('section.mchat div.mchat__presets span:not([data-role])').get();
       const index=existingButtons.indexOf(item.elem);
@@ -93,7 +93,7 @@
     updateButton=item=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      const buttons=parent.currentOptions.getValue('customChatButtons')||this.getDefaultButtons();
+      const buttons=parent.currentOptions['customChatButtons.buttons']||this.getDefaultButtons();
       const groupButtons=buttons[this.group];
       const isAddButton=$(item.elem).is('.lichessTools-addButton');
       if (isAddButton) {
