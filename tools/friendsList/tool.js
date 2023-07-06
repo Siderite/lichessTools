@@ -110,7 +110,11 @@
         items.delete(friendMenu[0]);
       });
       menu.toggleClass('lichessTools-somePlaying',!!friendsPlaying);
-      items.forEach(e=>$(e).remove());
+      items.forEach(e=>{
+        const img=$(e).next();
+        if (img.is('img.flag')) img.remove();
+        $(e).remove();
+      });
     };
 
     rows={};

@@ -6,7 +6,7 @@
     preferences=[
       {
         name:'openingExplorerUsers',
-        category: 'study',
+        category: 'analysis',
         type:'multiple',
         possibleValues: ['switchWithMe','deleteUser'],
         defaultValue: 'switchWithMe,deleteUser'

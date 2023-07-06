@@ -10,6 +10,9 @@ body.lichessTools section.lichessTools-onlineFriends .user-link:before {
 body.lichessTools #topnav.hover section.lichessTools-onlineFriends div[role="group"] {
   max-height: 70vh;
   overflow-y: auto !important;
+  opacity: 1 !important;
+  margin-top: 0 !important;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%) !important;
 }
 
 /* sorry for the important, but it has to fight off the Prettier Lichess style */

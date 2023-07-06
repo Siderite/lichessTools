@@ -526,6 +526,7 @@
     }
   
     async start(lichess) {
+      if (!lichess) return;
       this.lichess=lichess;
       this.translator = this.lichess.trans(this.intl.siteI18n);
       await this.applyOptions();

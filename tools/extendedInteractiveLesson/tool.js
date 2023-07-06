@@ -36,22 +36,9 @@
       }
     }
 
-
     extendedGamebook={
       goodMoves:0,
       badMoves:0,
-      showScore: ()=>{
-        const parent=this.lichessTools;
-        const trans=parent.translator;
-        if (!this.options.showFinalScore) return;
-        if (this.extendedGamebook.goodMoves+this.extendedGamebook.badMoves==0) return;
-        const score = this.extendedGamebook.goodMoves/(this.extendedGamebook.goodMoves+this.extendedGamebook.badMoves);
-        const finalScoreText = trans.pluralSame('finalScore',Math.round(100*score));
-        const el=$('<span/>').addClass('lichessTools-score').text(finalScoreText).attr('title',this.extendedGamebook.goodMoves+'/'+this.extendedGamebook.badMoves);
-        parent.global.setTimeout(()=>$('div.gamebook .comment .content').append(el),100);
-        this.extendedGamebook.goodMoves=0;
-        this.extendedGamebook.badMoves=0;
-      },
       makeState:()=>{
         const parent=this.lichessTools;
         const analysis=parent.lichess.analysis;
@@ -99,28 +86,6 @@
             parent.global.setTimeout($this.retry, 800);
           }
         }
-        switch(state.feedback) {
-          case 'good':
-            if (this.extendedGamebook.askedForSolution) {
-              this.extendedGamebook.badMoves++;
-            } else {
-              this.extendedGamebook.goodMoves++;
-            }
-            break;
-          case 'bad':
-            this.extendedGamebook.badMoves++;
-            break;
-          case 'end':
-            if (this.extendedGamebook.askedForSolution) {
-              this.extendedGamebook.badMoves++;
-            } else {
-              this.extendedGamebook.goodMoves++;
-            }
-            $('.gamebook-buttons .lichessTools-recreatedSolution').remove();
-            this.extendedGamebook.showScore();
-          break;
-        }
-        this.extendedGamebook.askedForSolution=false;
       },
       retry: ()=>{
         const parent=this.lichessTools;
@@ -137,14 +102,13 @@
         if (!$this) return;
         if (!$this.isMyMove()) {
           const child=parent.getRandomVariation(analysis.node);
-          if (child) analysis.userJump(analysis.path+child.id);
+          if (child) analysis.userJump(child.path||(analysis.path+child.id));
         } 
         $this.redraw();
       },
       solution: ()=>{
         const parent=this.lichessTools;
         const analysis=parent.lichess.analysis;
-        this.extendedGamebook.askedForSolution=true;
         const child=parent.getRandomVariation(analysis.node);
         if (child) {
           const shapes=[{
@@ -168,37 +132,114 @@
       }
     };
 
+    showScore=()=>{
+      const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
+      const trans=parent.translator;
+      const gp=analysis.gamebookPlay();
+      if (!this.options.showFinalScore) return;
+      gp.goodMoves=+(gp.goodMoves)||0;
+      gp.badMoves=+(gp.badMoves)||0;
+      if (gp.goodMoves+gp.badMoves==0) return;
+      const score = gp.goodMoves/(gp.goodMoves+gp.badMoves);
+      const finalScoreText = trans.pluralSame('finalScore',Math.round(100*score));
+      const el=$('<span/>').addClass('lichessTools-score').text(finalScoreText).attr('title',gp.goodMoves+'/'+gp.badMoves);
+      parent.global.setTimeout(()=>$('div.gamebook .comment .content').append(el),100);
+      gp.goodMoves=0;
+      gp.badMoves=0;
+    };
+
+    replaceFunction=(func,newFunc,id)=>{
+      const parent=this.lichessTools;
+      return parent.wrapFunction(func,{
+        id: id,
+        before: ()=>false,
+        after:($this,result,...args)=>{
+          return newFunc(...args);
+        }
+      });
+    };
+
     originalUserJump=null;
     patchGamebook=()=>{
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
       const gp=analysis.gamebookPlay();
       if (!gp) return;
-      if (this.options.extendedInteractive && !gp.extendedInteractiveLessons) {
-        if (!gp.oldMakeState) gp.oldMakeState=gp.makeState;
-        if (!gp.oldRetry) gp.oldRetry=gp.retry;
-        if (!gp.oldNext) gp.oldNext=gp.next;
-        if (!gp.oldSolution) gp.oldSolution=gp.solution;
-        gp.makeState=this.extendedGamebook.makeState;
-        gp.retry=this.extendedGamebook.retry;
-        gp.next=this.extendedGamebook.next;
-        gp.solution=this.extendedGamebook.solution;
-        gp.extendedInteractiveLessons=true;
+      if (this.options.extendedInteractive && !gp.isExtendedInteractiveLessons) {
+        gp.makeState=this.replaceFunction(gp.makeState,this.extendedGamebook.makeState,'extendedInteractiveLessons');
+        gp.retry=this.replaceFunction(gp.retry,this.extendedGamebook.retry,'extendedInteractiveLessons');
+        gp.next=this.replaceFunction(gp.next,this.extendedGamebook.next,'extendedInteractiveLessons');
+        gp.solution=this.replaceFunction(gp.solution,this.extendedGamebook.solution,'extendedInteractiveLessons');
+        gp.isExtendedInteractiveLessons=true;
         // stop the original setTimeout gp.next()
         if (!this.originalUserJump) this.originalUserJump=analysis.userJump; 
-        if (analysis.node.path=='') {
+        if (analysis.node.path==='') {
           analysis.userJump=function() {};
           parent.global.setTimeout(()=>{
             analysis.userJump=this.originalUserJump;
             if (!gp.state.comment) gp.next();
           },analysis.path==''?1100:400);
         }
-      } else if (!this.options.extendedInteractive && gp.extendedInteractiveLessons) {
-        gp.makeState=gp.oldMakeState;
-        gp.retry=gp.oldRetry;
-        gp.next=gp.oldNext;
-        gp.redraw=gp.oldRedraw;
-        gp.extendedInteractiveLessons=false;
+      } else if (!this.options.extendedInteractive && gp.isExtendedInteractiveLessons) {
+        gp.makeState=parent.unwrapFunction(gp.makeState,'extendedInteractiveLessons');
+        gp.retry=parent.unwrapFunction(gp.retry,'extendedInteractiveLessons');
+        gp.next=parent.unwrapFunction(gp.next,'extendedInteractiveLessons');
+        gp.solution=parent.unwrapFunction(gp.solution,'extendedInteractiveLessons');
+        gp.isExtendedInteractiveLessons=true;
+      }
+      if (this.options.showFinalScore && !gp.isShowScore) {
+        gp.makeState=parent.wrapFunction(gp.makeState,{
+          id:'showScore',
+          after: ($this, result, ...args)=>{
+            gp.goodMoves=+(gp.goodMoves)||0;
+            gp.badMoves=+(gp.badMoves)||0;
+            const state=$this.state;
+            switch(state.feedback) {
+              case 'good':
+                if (gp.askedForSolution) {
+                  gp.badMoves++;
+                } else {
+                  gp.goodMoves++;
+                }
+              break;
+              case 'bad':
+                gp.badMoves++;
+              break;
+              case 'end':
+                if (gp.askedForSolution) {
+                  gp.badMoves++;
+                } else {
+                  gp.goodMoves++;
+                }
+              $('.gamebook-buttons .lichessTools-recreatedSolution').remove();
+              this.showScore();
+            break;
+          }
+          gp.askedForSolution=false;
+          }
+        });
+        gp.next=parent.wrapFunction(gp.next,{
+          id:'showScore',
+          before: ($this, ...args)=>{
+            if (gp.root.node.path=='') {
+              gp.goodMoves=0;
+              gp.badMoves=0;
+            }
+          }
+        });
+        gp.solution=parent.wrapFunction(gp.solution,{
+          id:'showScore',
+          after: ($this, result, ...args)=>{
+            gp.askedForSolution=true;
+          }
+        });
+        gp.isShowScore=true;
+      } else if (!this.options.showFinalScore && gp.isShowScore) {
+        gp.makeState=parent.unwrapFunction(gp.makeState,'showScore');
+        gp.next=parent.unwrapFunction(gp.next,'showScore');
+        gp.solution=parent.unwrapFunction(gp.solution,'showScore');
+        gp.isShowScore=false;
       }
     };
 
@@ -255,8 +296,6 @@
               o='play';
             }
             if (o=='play') {
-              this.extendedGamebook.goodMoves=0;
-              this.extendedGamebook.badMoves=0;
               // fix lichess bug where entering Preview mode with engine on keeps engine running
               if (analysis.ceval.enabled()) {
                 analysis.ceval.stop();
@@ -275,14 +314,14 @@
             analysis.redraw();
           }
         });
-        this.patchGamebook();
-        lichess.pubsub.off('redraw',this.addCssLabels);
-        lichess.pubsub.off('chapterChange',this.patchGamebook);
-        if (this.options.extendedInteractive) {
-          lichess.pubsub.on('redraw',this.addCssLabels);
-          lichess.pubsub.on('chapterChange',this.patchGamebook);
-        }
       }
+      lichess.pubsub.off('redraw',this.addCssLabels);
+      lichess.pubsub.off('chapterChange',this.patchGamebook);
+      if (this.options.extendedInteractive) {
+        lichess.pubsub.on('redraw',this.addCssLabels);
+        lichess.pubsub.on('chapterChange',this.patchGamebook);
+      }
+      this.patchGamebook();
     }
   }
 
