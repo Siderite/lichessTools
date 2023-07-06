@@ -33,7 +33,10 @@
         'watchGames':'Watch games',
         'enablePlayAlert':'Unmute playing alert',
         'mutePlayAlert':'Mute playing alert',
-        'options.liveFriendsPage':'Live friends page'
+        'options.liveFriendsPage':'Live friends page',
+        'hideOfflineTitle': 'Offline players',
+        'hideNotPlayingTitle': 'Non-playing players',
+        'hideMutedTitle': 'Muted players'
       },
       'ro-RO':{
         'onlineFriends': '%s prieteni online',
@@ -49,7 +52,10 @@
         'watchGames':'Vezi partide',
         'enablePlayAlert':'Permite alerte c\u00E2nd joac\u0103',
         'mutePlayAlert':'Nu permite alerte c\u00E2nd joac\u0103',
-        'options.liveFriendsPage':'Pagin\u0103 prieteni live'
+        'options.liveFriendsPage':'Pagin\u0103 prieteni live',
+        'hideOfflineTitle': 'Juc\u0103tori offline',
+        'hideNotPlayingTitle': 'Juc\u0103tori care nu joac\u0103',
+        'hideMutedTitle': 'Juc\u0103tori cu alert\u0103 nepermis\u0103'
       }
     }
 
@@ -115,29 +121,37 @@
       const myName=parent.getUserId();
       if (!myName) return;
       if (!parent.isFriendsPage()) return;
+      if (!$('.lichessTools-liveButtons').length) {
+        $('<div>')
+          .addClass('lichessTools-liveButtons')
+          .append($('<i data-icon="&#xE012;" data-role="hideOffline">').attr('title',trans.noarg('hideOfflineTitle')).on('click',()=>{ $('body').toggleClass('lichessTools-hideOffline'); }))
+          .append($('<i data-icon="&#xE025;" data-role="hideNotPlaying">').attr('title',trans.noarg('hideNotPlayingTitle')).on('click',()=>{ $('body').toggleClass('lichessTools-hideNotPlaying'); }))
+          .append($('<i data-icon="&#xE00F;" data-role="hideMuted">').attr('title',trans.noarg('hideMutedTitle')).on('click',()=>{ $('body').toggleClass('lichessTools-hideMuted'); }))
+          .insertAfter('main.box div.box__top');
+      }
       const watchGamesTitle=trans.noarg('watchGames');
       const enablePlayingAlertTitle=trans.noarg('enablePlayAlert');
       const mutePlayingAlertTitle=trans.noarg('mutePlayAlert');
       const hasAlerts=parent.currentOptions.getValue('friendsPlaying');
-      if (!hasAlerts) {
-        $('table.slist div.relation-actions a.lichessTools-mute').remove();
-      }
+      $('body').toggleClass('lichessTools-alerts',hasAlerts);
       this.rows={};
-      $('table.slist div.relation-actions').each((i,e)=>{
-        const row=$(e).closest('tr');
+      const table=$('table.slist div.relation-actions').closest('table');
+      $('tr',table).each((i,tr)=>{
+        const row=$(tr);
+        const actions=$('div.relation-actions',tr);
         const userLink=$('td:first-child a[href]',row).attr('href');
         if (!userLink) return;
         const m=/\/@\/([^\/\?#]+)/.exec(userLink);
         const user=(m&&m[1]).toLowerCase();
         if (!user) return;
         this.rows[user]=row;
-        if (!$(e).find('a.lichessTools-tv')[0]) {
+        if (!actions.find('a.lichessTools-tv')[0]) {
           $('<a class="btn-rack__btn lichessTools-tv" data-icon="&#xE025;"></a>')
             .attr('href','/@/'+user+'/tv')
             .attr('title',watchGamesTitle)
-            .prependTo(e);
+            .prependTo(actions);
         }
-        if (hasAlerts && !$(e).find('a.lichessTools-mute')[0]) {
+        if (hasAlerts && !actions.find('a.lichessTools-mute')[0]) {
           $('<a class="btn-rack__btn lichessTools-mute" data-icon="&#xE00F;"></a>')
             .attr('title',mutePlayingAlertTitle)
             .on('click',ev=>{
@@ -145,9 +159,27 @@
               parent.lichess.pubsub.emit('mutePlayer',user);
               this.updateFriendsPage();
             })
-            .appendTo(e);
+            .appendTo(actions);
         }
       });
+      let secondUpdate=false;
+      for (const user of this.user_data.online) {
+        let row=this.rows[user];
+        if (row) continue;
+        row=$(`<tr class="paginated">
+    <td><a class="user-link ulpt" href="/@/`+user+`"><i class="line"></i>`+user+`</a></td>
+    <td>?</td>
+    <td>?</td>
+    <td><div class="relation-actions btn-rack"></div></td>
+</tr>`);
+        $('tbody',table).append(row);
+        this.rows[user]=row;
+        secondUpdate=true;
+      }
+      if (secondUpdate) {
+        this.updateFriendsPage();
+        return;
+      }
       const mutedPlayers=parent.currentOptions.getValue('mutedPlayers')||[];
       for (const user in this.rows) {
         const row=this.rows[user];
@@ -211,6 +243,7 @@
     playing=(user)=>{
       console.debug('playing',user);
       user=this.getUserId(user);
+      if (!this.user_data.online.includes(user)) this.user_data.online.push(user);
       if (!this.user_data.playing.includes(user)) this.user_data.playing.push(user);
       this.updateFriendsPage();
       this.updateFriendsMenu();

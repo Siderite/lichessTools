@@ -1,5 +1,5 @@
 body.lichessTools input.lichessTools-editButtons {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 body.lichessTools input.lichessTools-deleteButtons {
@@ -30,18 +30,18 @@ body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span
 }
 
 body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span:not([data-role]) {
-  border:dashed 1px gray;
+  border:dashed 1px gray !important;
 }
 
 body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span:hover:not([data-role]) {
-  background-color: red;
+  background-color: red !important;
 }
 
 body.lichessTools section.mchat.lichessTools-deleteButtons div.mchat__presets span:not([data-role]) {
-  border:dashed 1px red;
+  border:dashed 1px red !important;
 }
 body.lichessTools section.mchat.lichessTools-deleteButtons div.mchat__presets span:hover:not([data-role]) {
-  background-color: red;
+  background-color: red !important;
 }
 
 body.lichessTools div.mchat__presets span[data-role] {

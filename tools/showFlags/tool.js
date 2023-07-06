@@ -321,7 +321,7 @@
       return dict;
     };
 
-    cacheExpiration=86400000; //1 day
+    cacheExpiration=2*86400000; //2 days
     get flagCache() {
        const global=this.lichessTools.global;
        if (this._flagCache) return this._flagCache;
@@ -366,7 +366,11 @@
       const dict=this.getElementsForFlag();
       const data=Object.keys(dict).map(userId=>{
         const item=this.flagCache.get(userId);
-        return item || { id:userId };
+        if (item) {
+          item.time=new Date().getTime()
+          return item;
+        }
+        return { id:userId };
       });
       let toSaveCache=false;
       const userIds=data.filter(i=>!i.countryName).map(i=>i.id).slice(0,200);

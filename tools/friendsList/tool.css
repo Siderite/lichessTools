@@ -98,3 +98,56 @@ body.lichessTools tr.lichessTools-online {
   border: solid 1px #808080;
   border-radius:2.5em;
 }
+
+body.lichessTools div.lichessTools-liveButtons {
+  float:right;
+  padding-right: var(--box-padding);
+  height:3em;
+}
+
+body.lichessTools div.lichessTools-liveButtons i {
+  padding: 1em;
+  cursor:pointer;
+}
+
+body.lichessTools div.lichessTools-liveButtons i
+{
+  display:inline-flex;
+}
+
+body.lichessTools.lichessTools-hideOffline div.lichessTools-liveButtons i[data-role="hideOffline"]:before {
+  opacity:0.2;
+}
+
+body.lichessTools.lichessTools-hideOffline tr:not(.lichessTools-online) {
+  display:none;
+}
+
+body.lichessTools.lichessTools-hideNotPlaying div.lichessTools-liveButtons i[data-role="hideNotPlaying"]:before {
+  opacity:0.2;
+}
+
+body.lichessTools.lichessTools-hideNotPlaying tr:not(.lichessTools-playing) {
+  display:none;
+}
+
+body.lichessTools.lichessTools-hideMuted div.lichessTools-liveButtons i[data-role="hideMuted"]:before {
+  opacity:0.2;
+}
+
+body.lichessTools.lichessTools-hideMuted tr.lichessTools-muted {
+  display:none;
+}
+
+body.lichessTools:not(.lichessTools-alerts) table.slist div.relation-actions a.lichessTools-mute {
+  display:none;
+}
+
+body.lichessTools div.lichessTools-liveButtons i[data-role="hideMuted"]:before {
+  transform: rotate(45deg);
+}
+
+body.lichessTools:not(.lichessTools-alerts) div.lichessTools-liveButtons i[data-role="hideMuted"] {
+  display:none;
+}
+
