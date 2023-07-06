@@ -66,6 +66,7 @@
     };
 
     jiggle=elem=>{
+      this.setEditMode(this.editMode);
       const parent=this.lichessTools;
       elem.addClass('lichessTools-jiggle');
       parent.global.setTimeout(()=>elem.removeClass('lichessTools-jiggle'),1000);
