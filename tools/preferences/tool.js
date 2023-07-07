@@ -84,9 +84,10 @@
       const categ=categs[key];
       html+='<div><h3>$trans(options.'+key+')</h3>';
       for (const pref of categ) {
+        html+=`<section data-pref="${pref.name}"><h2>$trans(options.${pref.name})</h2>`;
         switch(pref.type) {
           case 'single': {
-            html+=`<section><h2>$trans(options.${pref.name})</h2><group class="radio">`;
+            html+=`<group class="radio">`;
             for (const val of pref.possibleValues) {
               const textKey=typeof val==='boolean'
                 ? (val?'yes':'no')
@@ -96,11 +97,11 @@
                   <label>$trans(${textKey})</label>
                 </div>`;
             }
-            html+=`</group></section>`;
+            html+=`</group>`;
           }
           break;
           case 'multiple': {
-            html+=`<section><h2>$trans(options.${pref.name})</h2><group class="radio">`;
+            html+=`<group class="radio">`;
             for (const val of pref.possibleValues) {
               const textKey=typeof val==='boolean'
                 ? (val?'yes':'no')
@@ -110,20 +111,20 @@
                   <label>$trans(${textKey})</label>
                 </div>`;
             }
-            html+=`</group></section>`;
+            html+=`</group>`;
           }
           break;
           case 'number': {
-            html+=`<section><h2>$trans(options.${pref.name})</h2><group>
+            html+=`<group>
                 <div>
                   <input class="form-control" type="number" name="${pref.name}"/>
-                </div>
-              </group></section>`;
+                </div></group>`;
           }
           break;
           default:
             throw new Error('Preference type '+pref.type+' not supported');
         }
+        html+=`</section>`;
       }
       html+=`</div>`;
     }
@@ -184,8 +185,23 @@
           }).catch(e=>{ throw e; });
       },500));
       checkGlobalSwitch();
+      this.addInfo();
     };
 
+    addInfo() {
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('div.page-menu__content section[data-pref]').each((i,e)=>{
+        const pref=$(e).attr('data-pref');
+        $('<a>')
+          .addClass('lichessTools-infoIcon')
+          .attr('title','User manual (EN)')
+          .attr('data-icon','\uE005')
+          .attr('href','https://siderite.dev/blog/lichess-tools---user-manual/#'+pref)
+          .attr('target','_blank')
+          .prependTo(e);
+      });
+    };
 
     async start() {
       const parent=this.lichessTools;
