@@ -75,7 +75,7 @@
             .append($('<a/>').attr('href',friendsUrl)
                       .attr('title',title)
                       .on('mouseover',()=>{
-                         lichess.pubsub.emit("socket.send", "following_onlines");
+                         this.requestOnlines();
                       }))
             .append('<div role="group"/>'));
       }
@@ -83,13 +83,15 @@
       const group=$('#topnav section.lichessTools-onlineFriends > div',section);
       const menu=$('#topnav section.lichessTools-onlineFriends > a',section);
       const friends = $('#friend_box a.user-link');
-      const text=trans.pluralSame('onlineFriends',friends.length);
+      const text=trans.pluralSame('onlineFriends',this.user_data.online.length);
       menu.text(text);
+      menu.toggleClass('lichessTools-somePlaying',!!this.user_data.playing.length);
       const items=new Set($('a.user-link',group).get());
-      let friendsPlaying=0;
       friends.each((i,e)=>{
         const href=$(e).attr('href');
-        const isPlaying=!!$(e).nextAll('a.tv').length;
+        const m=/\/@\/([^\/\?#]+)/.exec(href);
+        const user=this.getUserId(m&&m[1]);
+        const isPlaying=this.user_data.playing.includes(user);
         let friendMenu=group.find('a').filter((i,e2)=>$(e2).attr('href')==href);
         if (!friendMenu.length) {
           friendMenu=$(e).clone()
@@ -102,14 +104,10 @@
             }
           });
         }
-        if (isPlaying) {
-          friendsPlaying++;
-        }
         friendMenu
           .toggleClass('lichessTools-playing',isPlaying);
         items.delete(friendMenu[0]);
       });
-      menu.toggleClass('lichessTools-somePlaying',!!friendsPlaying);
       items.forEach(e=>{
         const img=$(e).next();
         if (img.is('img.flag')) img.remove();
@@ -146,7 +144,7 @@
         const userLink=$('td:first-child a[href]',row).attr('href');
         if (!userLink) return;
         const m=/\/@\/([^\/\?#]+)/.exec(userLink);
-        const user=(m&&m[1]).toLowerCase();
+        const user=this.getUserId(m&&m[1]);
         if (!user) return;
         this.rows[user]=row;
         if (!actions.find('a.lichessTools-tv')[0]) {
@@ -203,6 +201,7 @@
     };
 
     getUserId=(user)=>user?.toLowerCase().replace(/^\w+\s/, '');
+
     user_data={
       online:[],
       playing:[]
@@ -282,6 +281,8 @@
         break;
       }           
     };
+
+    requestOnlines=()=>this.lichessTools.lichess.pubsub.emit("socket.send", "following_onlines");
     
     async start() {
       const parent=this.lichessTools;
@@ -316,7 +317,7 @@
 
       this.onlinesInterval=setInterval(()=>{
         if (!this.onlinesInterval) return;
-        lichess.pubsub.emit("socket.send", "following_onlines");
+        this.requestOnlines();
       },1000);
 
       switch(friendsBoxMode) {

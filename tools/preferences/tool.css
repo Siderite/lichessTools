@@ -1,4 +1,14 @@
 /* CSS in preferences should not be under body.lichessTools, as the class can be removed when the extension is disabled */
+
+div.lichessTools-preferences section[data-pref] {
+  position:relative;
+}
+
+div.lichessTools-preferences section[data-pref] a.lichessTools-infoIcon {
+  position:absolute;
+  right:-2em;
+}
+
 div.lichessTools-preferences p.saved {
   position: fixed;
   bottom: 1rem;
