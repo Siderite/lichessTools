@@ -212,7 +212,6 @@
                 } else {
                   gp.goodMoves++;
                 }
-              $('.gamebook-buttons .lichessTools-recreatedSolution').remove();
               this.showScore();
             break;
           }
@@ -253,13 +252,6 @@
       $('.gamebook-buttons').attr('data-label',translation);
       translation=trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attr('data-label',translation);
-      //if (!gp) return;
-      const solutionButton=$('.gamebook-buttons .solution');
-      if (solutionButton.length && !$('.gamebook-buttons .lichessTools-recreatedSolution').length) {
-        parent.removeEventHandlers(solutionButton[0],'click');
-        solutionButton
-          .on('click',gp.solution);
-      }
     };
 
     addGameBookToAllNodes=(node)=>{
@@ -301,7 +293,7 @@
                 analysis.ceval.stop();
                 analysis.ceval.isDeeper(false);
               }
-              this.addGameBookToAllNodes();
+              if (this.options.extendedInteractive) this.addGameBookToAllNodes();
             }
             // fix lichess bug with going to analysis after lesson finishes and showing the bad moves, too
             if (o=='analyse' && study.members.canContribute()) {
@@ -319,6 +311,8 @@
       lichess.pubsub.off('chapterChange',this.patchGamebook);
       if (this.options.extendedInteractive) {
         lichess.pubsub.on('redraw',this.addCssLabels);
+      }
+      if (this.options.extendedInteractive||this.options.showFinalScore) {
         lichess.pubsub.on('chapterChange',this.patchGamebook);
       }
       this.patchGamebook();
