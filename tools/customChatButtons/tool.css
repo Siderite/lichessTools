@@ -1,5 +1,5 @@
 body.lichessTools input.lichessTools-editButtons {
-  text-decoration: underline !important;
+  text-decoration: underline;
 }
 
 body.lichessTools input.lichessTools-deleteButtons {
@@ -30,18 +30,18 @@ body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span
 }
 
 body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span:not([data-role]) {
-  border:dashed 1px gray !important;
+  border:dashed 1px gray;
 }
 
 body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span:hover:not([data-role]) {
-  background-color: red !important;
+  background-color: red;
 }
 
 body.lichessTools section.mchat.lichessTools-deleteButtons div.mchat__presets span:not([data-role]) {
-  border:dashed 1px red !important;
+  border:dashed 1px red;
 }
 body.lichessTools section.mchat.lichessTools-deleteButtons div.mchat__presets span:hover:not([data-role]) {
-  background-color: red !important;
+  background-color: red;
 }
 
 body.lichessTools div.mchat__presets span[data-role] {
@@ -61,4 +61,26 @@ body.lichessTools .lichessTools-jiggle {
   50% {
     transform: rotate(0.5deg);
   }
+}
+
+
+
+/* Prettier Lichess CSS */
+
+body.lichessTools.lichessTools-prettier input.lichessTools-editButtons {
+  text-decoration: underline !important;
+}
+body.lichessTools.lichessTools-prettier section.mchat.lichessTools-editButtons div.mchat__presets span:not([data-role]) {
+  border:dashed 1px gray !important;
+}
+
+body.lichessTools.lichessTools-prettier section.mchat.lichessTools-editButtons div.mchat__presets span:hover:not([data-role]) {
+  background-color: red !important;
+}
+
+body.lichessTools.lichessTools-prettier section.mchat.lichessTools-deleteButtons div.mchat__presets span:not([data-role]) {
+  border:dashed 1px red !important;
+}
+body.lichessTools.lichessTools-prettier section.mchat.lichessTools-deleteButtons div.mchat__presets span:hover:not([data-role]) {
+  background-color: red !important;
 }

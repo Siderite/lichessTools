@@ -6,7 +6,7 @@
         name:'themes',
         category: 'general',
         type:'single',
-        possibleValues: ['default','transparent'],
+        possibleValues: ['default','demo'],
         defaultValue: 'default'
       }
     ];
@@ -16,13 +16,13 @@
         'options.general': 'General',
         'options.themes': 'Apply a style theme',
         'themes.default':'None',
-        'themes.transparent':'Transparent background'
+        'themes.demo':'Demo theme'
       },
       'ro-RO':{
         'options.general': 'General',
-        'options.themes': 'Aplic\u0103 o tema de stil',
+        'options.themes': 'Aplic\u0103 o tem\u0103 de stil',
         'themes.default':'Nici una',
-        'themes.transparent':'Fundal transparent'
+        'themes.demo':'Tem\u0103 demo'
       }
     }
 

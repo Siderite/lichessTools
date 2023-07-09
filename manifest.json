@@ -68,7 +68,7 @@
         "scripts/lichessTools-init.js"
       ],
       "css": [
-        "tools/themes/transparent.css",
+        "tools/themes/demo.css",
         "tools/friendsList/tool.css",
         "tools/preferences/tool.css",
         "tools/friendsPlaying/tool.css",
