@@ -235,13 +235,18 @@
       const $=parent.$;
       const study=lichess?.analysis?.study;
       if (!study) return;
+      study.vm.toolTab=lichessTools.unwrapFunction(study.vm.toolTab,'chapterClearArtifacts');
       study.chapters.editForm.toggle=parent.unwrapFunction(study.chapters.editForm.toggle,'chapterClearArtifacts');
-      parent.global.clearInterval(this.setupTagDeleteInterval);
       if (!value) {
         $('table.study__tags button.lichessTools-deleteTag').remove();
         return;
       }
-      this.setupTagDeleteInterval=parent.global.setInterval(this.setupTagDelete,500);
+      study.vm.toolTab=lichessTools.wrapFunction(study.vm.toolTab,{
+        id:'chapterClearArtifacts',
+        after: ($this, result, ...args)=>{
+          parent.global.setTimeout(this.setupTagDelete,100);
+        }
+      });
       study.chapters.editForm.toggle=parent.wrapFunction(study.chapters.editForm.toggle,{
         id:'chapterClearArtifacts',
         after:($this,result,data)=>{
