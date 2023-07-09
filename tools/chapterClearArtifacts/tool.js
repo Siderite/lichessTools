@@ -28,7 +28,7 @@
         'removeAll_title': 'LiChess Tools - selective removal of artifacts',
         'removeAll_tagsText': '... PGN tags',
         'removeAll_tagsQuestion': 'Clear all PGN tags for this chapter?',
-        'deleteTagTitle': 'Delete %s tag'
+        'deleteTagTitle': 'LiChess Tools - Delete %s tag'
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -44,7 +44,7 @@
         'removeAll_title': 'LiChess Tools - \u015Ftergere selectiv\u0103 de artifacte',
         'removeAll_tagsText': '... etichete PGN',
         'removeAll_tagsQuestion': '\u015Eterge toate etichetele PGN din acest capitol?',
-        'deleteTagTitle': '\u015Eterge eticheta %s'
+        'deleteTagTitle': 'LiChess Tools - \u015Eterge eticheta %s'
       }
     }
 
