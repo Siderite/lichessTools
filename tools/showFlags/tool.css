@@ -19,10 +19,8 @@ body.lichessTools td.player {
   display:inline-flex;
 }
 
-body.lichessTools .lichessTools-onlineFriends img.flag,
 div.complete-list img.flag,
 .crosstable__users img.flag,
-#friend_box img.flag,
 body.lichessTools div.chat__members img.flag {
   display:none;
 }

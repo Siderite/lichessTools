@@ -30,6 +30,7 @@
         "tools/emitRedraw/tool.js",
         "tools/emitChapterChange/tool.js",
         "tools/transpositionBehavior/tool.js",
+        "tools/themes/tool.js",
 
         "tools/ctrlSpaceForBestComputerMove/tool.js",
         "tools/friendsList/tool.js",
@@ -64,6 +65,7 @@
         "scripts/lichessTools-init.js"
       ],
       "css": [
+        "tools/themes/transparent.css",
         "tools/friendsList/tool.css",
         "tools/preferences/tool.css",
         "tools/friendsPlaying/tool.css",

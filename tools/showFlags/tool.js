@@ -301,6 +301,7 @@
       const $=parent.$;
       const dict = {};
       $('.user-link,a[href^="/@/"]').each((i,e)=> {
+        if ($(e).closest('#friend_box,.lichessTools-onlineFriends').length) return;
         let textEl = $('a.text',e);
         if (!textEl.length) textEl=$(e);
         if (textEl.is('.lichessTools-noflag')) return;
@@ -453,14 +454,15 @@
       const lichess=parent.lichess;
       if (!lichess) return;
       const $=parent.$;
-      $('img.flag.lichessTools').remove();
       lichess.pubsub.off('content-loaded',this.debouncedProcessFlags);
       lichess.pubsub.off('socket.in.crowd',this.debouncedProcessFlags);
-      if (!value) return;
-
-      this.debouncedProcessFlags();
-      lichess.pubsub.on('content-loaded',this.debouncedProcessFlags);
-      lichess.pubsub.on('socket.in.crowd',this.debouncedProcessFlags);
+      if (value) {
+        this.debouncedProcessFlags();
+        lichess.pubsub.on('content-loaded',this.debouncedProcessFlags);
+        lichess.pubsub.on('socket.in.crowd',this.debouncedProcessFlags);
+      } else {
+        $('img.flag.lichessTools').remove();
+      }
     }
 
   }

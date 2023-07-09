@@ -42,10 +42,10 @@
         const tvOptions=parent.getTvOptions();
         const gameId=tvOptions.gameId || lichess.analysis?.data.game?.id;
         if (!gameId||gameId=='synthetic') return;
-        if (!header.parent().is('a')) {
+        if (parent.isOptionSet(value,'link') && !header.parent().is('a')) {
           header.wrap($('<a>').attr('href','/'+gameId+(tvOptions.isBlack?'/black':'')));
         }
-        if (!header.has('a.bookmark').length) {
+        if (parent.isOptionSet(value,'bookmark') && !header.has('a.bookmark').length) {
           const title = trans.noarg('bookmarkGame');
           $('div.setup',header)
             .prepend(

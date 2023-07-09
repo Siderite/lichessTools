@@ -36,8 +36,13 @@
       const trans=parent.translator;
       const tvOptions=parent.getTvOptions();
       if (!tvOptions.isTv || !tvOptions.user) return;
-      $('div.tv-history').remove();
-      if (!value) return;
+      if (!value) {
+        $('div.tv-history').remove();
+        return;
+      }
+      if ($('div.tv-history').length) {
+        return;
+      }
       let text = await parent.net.fetch({url:'/api/games/user/{user}?max=2&tags=true&ongoing=false&finished=true',args:{user:tvOptions.user}});
       if (!text) return;
       const matches=[...text.matchAll(new RegExp('\\[Site.*?\\/([^"\\/]+)"\\][\\s\\S]*?\\[(Black|White)\\s+"'+parent.escapeRegex(tvOptions.user)+'"\\]','gi'))];

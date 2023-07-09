@@ -9,7 +9,6 @@ body.lichessTools.lichessTools-hideCrosstableEnabled main.round div.crosstable {
 }
 
 body.lichessTools.lichessTools-showCrosstable main.round div.crosstable {
-  transition: all 0.5s linear;
   filter: none;
 }
 
