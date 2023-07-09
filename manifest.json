@@ -60,6 +60,7 @@
         "tools/hideCrosstable/tool.js",
         "tools/chapterClearArtifacts/tool.js",
         "tools/customChatButtons/tool.js",
+        "tools/mobileShowGauge/tool.js",
  
         "tools/preferences/tool.js",
  
@@ -85,7 +86,8 @@
         "tools/movesFromTranspositions/tool.css",
         "tools/extendedInteractiveLesson/tool.css",
         "tools/hideCrosstable/tool.css",
-        "tools/customChatButtons/tool.css"
+        "tools/customChatButtons/tool.css",
+        "tools/mobileShowGauge/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"

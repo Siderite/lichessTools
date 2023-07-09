@@ -1,0 +1,9 @@
+@media (max-width: 799.3px) {
+  body.lichessTools main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge {
+    width:0.5em;
+    height: var(--cg-height);
+    position: absolute;
+    right: 0;
+    display: block;
+  }
+}
