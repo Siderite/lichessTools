@@ -57,14 +57,14 @@
     const isMuted=(this.lichessTools.currentOptions.getValue('mutedPlayers')||[]).includes(username?.toLowerCase());
     let silent=isMuted?'muted':'';
     if (!silent && !this.lichessTools.isAudioAllowed()) {
-      silent='audioNotAllowed';
+      silent+='audioNotAllowed';
       this.showAudioNotAllowed();
     }
     if (!silent) {
       let friendSoundTime=this.lichessTools.lichess.storage.get('LiChessTools.friendSound');
       if (friendSoundTime) {
         friendSoundTime=this.lichessTools.global.JSON.parse(friendSoundTime).value.time;
-        if (now-friendSoundTime<1000) silent='tooSoon';
+        if (now-friendSoundTime<1000) silent+='tooSoon';
       }
     }
     let gameType='unknown';
@@ -85,7 +85,7 @@
       eventType=this.lichessTools.getPgnTag(text,'Event');
       variant=this.lichessTools.getPgnTag(text,'Variant');
       if (!silent && gameType && !this.lichessTools.isOptionSet(this.lichessTools.currentOptions.getValue('friendsPlaying'),gameType)) {
-        silent='wrongGameType';
+        silent+='wrongGameType';
       }
     }
     if (!silent) {
@@ -95,7 +95,7 @@
       let item=lichess.storage.get('LiChessTools.friendSound');
       if (item) {
         item=this.lichessTools.global.JSON.parse(item).value;
-        if (id!=item.id) silent='lostBid';
+        if (id!=item.id) silent+='lostBid';
       }
     }
     this.lichessTools.global.console.debug('  ... '+eventType+' ('+gameType+','+variant+') '+silent);

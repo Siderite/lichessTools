@@ -1,6 +1,8 @@
 (()=>{
   class ExtendedInteractiveLessonTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['RandomVariation'];
+
     preferences=[
       {
         name:'extendedInteractiveLesson',

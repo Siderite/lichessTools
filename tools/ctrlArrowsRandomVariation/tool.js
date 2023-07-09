@@ -1,6 +1,8 @@
 (()=>{
   class CtrlArrowsRandomVariationTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['RandomVariation'];
+
     preferences=[
       {
         name:'ctrlArrows',

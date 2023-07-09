@@ -30,6 +30,7 @@
         "tools/emitRedraw/tool.js",
         "tools/emitChapterChange/tool.js",
         "tools/transpositionBehavior/tool.js",
+        "tools/randomVariation/tool.js",
         "tools/themes/tool.js",
 
         "tools/ctrlSpaceForBestComputerMove/tool.js",
