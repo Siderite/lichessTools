@@ -24,8 +24,11 @@
         'removeAll_glyphsQuestion': 'Clear all glyphs in this chapter?',
         'removeAll_shapesText': '... drawn shapes',
         'removeAll_shapesQuestion': 'Clear all drawn shapes in this chapter?',
-        'removeAll_allText': '... all',
-        'removeAll_title': 'LiChess Tools - selective removal of artifacts'
+        'removeAll_allText': '... all but PGN tags',
+        'removeAll_title': 'LiChess Tools - selective removal of artifacts',
+        'removeAll_tagsText': '... PGN tags',
+        'removeAll_tagsQuestion': 'Clear all PGN tags for this chapter?',
+        'deleteTagTitle': 'Delete %s tag'
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -37,8 +40,11 @@
         'removeAll_glyphsQuestion': '\u015Eterge toate simbolurile din acest capitol?',
         'removeAll_shapesText': '...figurile desenate',
         'removeAll_shapesQuestion': '\u015Eterge toate figurile desenate din acest capitol?',
-        'removeAll_allText': '... tot',
-        'removeAll_title': 'LiChess Tools - \u015Ftergere selectiv\u0103 de artifacte'
+        'removeAll_allText': '... tot \u00een afar\u0103 de etichete PGN',
+        'removeAll_title': 'LiChess Tools - \u015Ftergere selectiv\u0103 de artifacte',
+        'removeAll_tagsText': '... etichete PGN',
+        'removeAll_tagsQuestion': '\u015Eterge toate etichetele PGN din acest capitol?',
+        'deleteTagTitle': '\u015Eterge eticheta %s'
       }
     }
 
@@ -86,6 +92,24 @@
         await this.removeAllGlyphs(child,chapterId);
       }
     };
+    removeAllTags=async (chapterId)=>{
+      const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
+      if (!analysis) return;
+      const study=analysis.study;
+      if (!study) return;
+      if (!chapterId) chapterId=study.chapters.editForm.current()?.id;
+      if (!chapterId) return;
+      for (const tag of study.data?.chapter?.tags||[]) {
+        await parent.timeout(300);
+        study.makeChange('setTag', 
+        {
+          chapterId: chapterId,
+          name: tag[0],
+          value: ''
+       });
+      }
+    };
     removeAllShapes=async (node, chapterId)=>{
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
@@ -126,35 +150,81 @@
                       .append($('<option value="comments">').text(trans.noarg('removeAll_commentsText')))
                       .append($('<option value="glyphs">').text(trans.noarg('removeAll_glyphsText')))
                       .append($('<option value="shapes">').text(trans.noarg('removeAll_shapesText')))
+                      .append($('<option value="tags">').text(trans.noarg('removeAll_tagsText')))
                       .append($('<option value="all">').text(trans.noarg('removeAll_allText')))
                       .on('change',async (ev)=>{
                         const elem=$(ev.currentTarget);
                         const value=elem.val();
                         switch(value) {
-                          case 'comments':if (parent.global.confirm(trans.noarg('removeAll_commentsQuestion'))) {
-                                          elem.after(parent.lichess.spinnerHtml).remove();
-                                          await this.removeAllComments();break;
-                          }
-                          case 'glyphs':if (parent.global.confirm(trans.noarg('removeAll_glyphsQuestion'))) {
-                                          elem.after(parent.lichess.spinnerHtml).remove();
-                                          await this.removeAllGlyphs();break;
-                          }
-                          case 'shapes':if (parent.global.confirm(trans.noarg('removeAll_shapesQuestion'))) {
-                                          elem.after(parent.lichess.spinnerHtml).remove();
-                                          await this.removeAllShapes();
-                                          analysis.withCg(cg=>{
-                                            cg.setShapes([]);
-                                            cg.redrawAll();
-                                          });
-                          }
+                          case 'comments':
+                            if (parent.global.confirm(trans.noarg('removeAll_commentsQuestion'))) {
+                              elem.after(parent.lichess.spinnerHtml).remove();
+                              await this.removeAllComments();
+                            }
                           break;
-                          case 'all':oldHandler();break;
+                          case 'glyphs':
+                            if (parent.global.confirm(trans.noarg('removeAll_glyphsQuestion'))) {
+                              elem.after(parent.lichess.spinnerHtml).remove();
+                              await this.removeAllGlyphs();
+                            }
+                          break;
+                          case 'shapes':
+                            if (parent.global.confirm(trans.noarg('removeAll_shapesQuestion'))) {
+                              elem.after(parent.lichess.spinnerHtml).remove();
+                              await this.removeAllShapes();
+                              analysis.withCg(cg=>{
+                                cg.setShapes([]);
+                                cg.redrawAll();
+                              });
+                            }
+                          break;
+                          case 'tags':
+                            if (parent.global.confirm(trans.noarg('removeAll_tagsQuestion'))) {
+                              elem.after(parent.lichess.spinnerHtml).remove();
+                              await this.removeAllTags();
+                            }
+                          break;
+                          case 'all':
+                            oldHandler();
+                          break;
                         }
                         study.chapters.editForm.current(null);
                         study.chapters.editForm.redraw();
                       })
                   )
             .remove();
+    };
+    setupTagDelete=()=>{
+      const parent=this.lichessTools;
+      const trans=parent.translator;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const analysis=lichess.analysis;
+      if (!analysis) return;
+      const study=analysis.study;
+      if (!study) return;
+      const tags=study.data?.chapter?.tags;
+      const chapterId=study.data?.chapter?.id;
+      if (!chapterId || !tags?.length) return;
+      const table=$('table.study__tags');
+      if (!table.length) return;
+      $('th',table).each((i,e)=>{
+        const tagName=$(e).text();
+        if (!tags.find(t=>t[0]===tagName)) return;
+        if ($('button.lichessTools-deleteTag',e).length) return;
+        $('<button class="lichessTools-deleteTag">').text('\uE071')
+          .attr('title',trans.pluralSame('deleteTagTitle',tagName))
+          .on('click',ev=>{
+            ev.preventDefault();
+            study.makeChange('setTag', 
+            {
+              chapterId: chapterId,
+              name: tagName,
+              value: ''
+            });
+          })
+          .prependTo(e);
+      });
     };
 
     async start() {
@@ -166,7 +236,12 @@
       const study=lichess?.analysis?.study;
       if (!study) return;
       study.chapters.editForm.toggle=parent.unwrapFunction(study.chapters.editForm.toggle,'chapterClearArtifacts');
-      if (!value) return;
+      parent.global.clearInterval(this.setupTagDeleteInterval);
+      if (!value) {
+        $('table.study__tags button.lichessTools-deleteTag').remove();
+        return;
+      }
+      this.setupTagDeleteInterval=parent.global.setInterval(this.setupTagDelete,500);
       study.chapters.editForm.toggle=parent.wrapFunction(study.chapters.editForm.toggle,{
         id:'chapterClearArtifacts',
         after:($this,result,data)=>{

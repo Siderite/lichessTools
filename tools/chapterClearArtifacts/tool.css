@@ -7,3 +7,12 @@ body.lichessTools div.form-actions-secondary.destructive select.lichessTools-rem
   border:none;
   color:inherit;
 }
+
+body.lichessTools table.study__tags button.lichessTools-deleteTag {
+  font-family: lichess;
+  color: red;
+  background: transparent;
+  border: none;
+  vertical-align: top;
+  margin-right:0.5em;
+}

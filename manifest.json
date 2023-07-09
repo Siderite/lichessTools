@@ -87,6 +87,7 @@
         "tools/movesFromTranspositions/tool.css",
         "tools/extendedInteractiveLesson/tool.css",
         "tools/hideCrosstable/tool.css",
+        "tools/chapterClearArtifacts/tool.css",
         "tools/customChatButtons/tool.css",
         "tools/mobileExperience/tool.css"
       ],
