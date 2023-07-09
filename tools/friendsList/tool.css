@@ -280,6 +280,9 @@ body.lichessTools div.site-buttons .lichessTools-onlineFriends.lichessTools-on {
   }
 }
 
+body.lichessTools div.site-buttons .lichessTools-onlineFriends .dropdown {
+  box-shadow: 4px 4px gray;
+}
 
 /* Unrated CSS */
 body.lichessTools.dynamicContentShown section.lichessTools-onlineFriends .user-link {
