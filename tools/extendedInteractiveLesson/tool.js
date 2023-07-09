@@ -30,8 +30,8 @@
         'options.extendedInteractiveLesson': 'Lec\u0163ii interactive extinse',
         'extendedInteractiveLesson.extendedInteractive':'Joac\u0103 toate varia\u0163iunile',
         'extendedInteractiveLesson.showFinalScore':'Arat\u0103 scorul',
-        'extendedInteractiveLesson': 'Lectie Interactiva extins\u0103',
-        'extendedInteractiveLessonLong': 'Lectie Interactiva extins\u0103 - LiChess Tools',
+        'extendedInteractiveLesson': 'Lectie Interactiv\u0103 extins\u0103',
+        'extendedInteractiveLessonLong': 'Lectie Interactiv\u0103 extins\u0103 - LiChess Tools',
         'finalScore': 'Scor final: %s%',
         'nextMovesCount': 'F\u0103 una din %s mut\u0103ri acceptate',
         'nextMovesCount:one': 'O singur\u0103 mutare de f\u0103cut'

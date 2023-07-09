@@ -24,7 +24,7 @@
         'options.analysis': 'General',                                                                     
         'options.mobileExperience': 'Op\u0163iuni pentru aparate mobile',
         'mobileExperience.showGauge':'Arat\u0103 banda de evaluare pe ecrane \u00eenguste',
-        'mobileExperience.hideOctopus':'Ascunde mascota caracati\u0163a'
+        'mobileExperience.hideOctopus':'Ascunde mascota caracati\u0163\u0103'
       }
     }
 

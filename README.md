@@ -37,6 +37,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - select move from variations, computer list or explorer by pressing . (dot), Ctrl-. and Shift-. respectively, then a digit key
  - global enable/disable extension switch
  - for the currently selected chapter, the ability to selectively remove just the comments, glyphs or drawn shapes
+ - mobile device settings (use Kiwi browser on mobiles, it allows extensions)
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move
