@@ -1,6 +1,8 @@
 (()=>{
   class ExtendedInteractiveLessonTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['RandomVariation','DetectThirdParties'];
+
     preferences=[
       {
         name:'extendedInteractiveLesson',
@@ -28,8 +30,8 @@
         'options.extendedInteractiveLesson': 'Lec\u0163ii interactive extinse',
         'extendedInteractiveLesson.extendedInteractive':'Joac\u0103 toate varia\u0163iunile',
         'extendedInteractiveLesson.showFinalScore':'Arat\u0103 scorul',
-        'extendedInteractiveLesson': 'Lectie Interactiva extins\u0103',
-        'extendedInteractiveLessonLong': 'Lectie Interactiva extins\u0103 - LiChess Tools',
+        'extendedInteractiveLesson': 'Lectie Interactiv\u0103 extins\u0103',
+        'extendedInteractiveLessonLong': 'Lectie Interactiv\u0103 extins\u0103 - LiChess Tools',
         'finalScore': 'Scor final: %s%',
         'nextMovesCount': 'F\u0103 una din %s mut\u0103ri acceptate',
         'nextMovesCount:one': 'O singur\u0103 mutare de f\u0103cut'
@@ -212,7 +214,6 @@
                 } else {
                   gp.goodMoves++;
                 }
-              $('.gamebook-buttons .lichessTools-recreatedSolution').remove();
               this.showScore();
             break;
           }
@@ -253,13 +254,6 @@
       $('.gamebook-buttons').attr('data-label',translation);
       translation=trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attr('data-label',translation);
-      //if (!gp) return;
-      const solutionButton=$('.gamebook-buttons .solution');
-      if (solutionButton.length && !$('.gamebook-buttons .lichessTools-recreatedSolution').length) {
-        parent.removeEventHandlers(solutionButton[0],'click');
-        solutionButton
-          .on('click',gp.solution);
-      }
     };
 
     addGameBookToAllNodes=(node)=>{
@@ -301,7 +295,7 @@
                 analysis.ceval.stop();
                 analysis.ceval.isDeeper(false);
               }
-              this.addGameBookToAllNodes();
+              if (this.options.extendedInteractive) this.addGameBookToAllNodes();
             }
             // fix lichess bug with going to analysis after lesson finishes and showing the bad moves, too
             if (o=='analyse' && study.members.canContribute()) {
@@ -319,6 +313,8 @@
       lichess.pubsub.off('chapterChange',this.patchGamebook);
       if (this.options.extendedInteractive) {
         lichess.pubsub.on('redraw',this.addCssLabels);
+      }
+      if (this.options.extendedInteractive||this.options.showFinalScore) {
         lichess.pubsub.on('chapterChange',this.patchGamebook);
       }
       this.patchGamebook();

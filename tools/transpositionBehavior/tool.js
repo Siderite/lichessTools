@@ -23,7 +23,7 @@
         'options.study': 'Studiu',
         'options.transpositionBehavior': 'Comportament/defini\u0163ie a transpozi\u0163iilor',
         'transpositionBehavior.excludeSameLine': 'Exclude dac\u0103 \u00een aceea\u015Fi varia\u0163iune',
-        'transpositionBehavior.consideredVariations': 'Joac\u0103 mut\u0103ri de le transpozi\u0163ii',
+        'transpositionBehavior.consideredVariations': 'Joac\u0103 mut\u0103ri de la transpozi\u0163ii',
         'transpositionBehavior.groupSameMove': 'Nu ad\u0103uga mut\u0103ri identice'
       }
     }

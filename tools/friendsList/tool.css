@@ -1,3 +1,17 @@
+body.lichessTools section.lichessTools-onlineFriends .data-count:after {
+  top: 0.5em;
+  background: #1b78d0;
+}
+
+body.lichessTools.dark section.lichessTools-onlineFriends .data-count:after {
+  background: #3692e7;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system section.lichessTools-onlineFriends .data-count:after {
+    background: #3692e7;
+  }
+}
 
 body.lichessTools section.lichessTools-onlineFriends .user-link:before {
   font-size: 0.9em;
@@ -154,3 +168,125 @@ body.lichessTools:not(.lichessTools-alerts) div.lichessTools-liveButtons i[data-
   display:none;
 }
 
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown {
+  overflow: hidden;
+  width: 15em;
+  max-width: 100vw;
+  right: 0;
+}
+
+body.lichessTools.dark .lichessTools-onlineFriends div.links.dropdown {
+  border-radius: 3px 0 0 3px;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system .lichessTools-onlineFriends div.links.dropdown {
+    border-radius: 3px 0 0 3px;
+  }
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown .pager.prev {
+  border-bottom: 1px solid #404040;
+}
+@media not print and (prefers-color-scheme: dark) {
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown .pager {
+  display: block;
+  padding: 0.5rem;
+  text-align: center;
+}
+}
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown .pager {
+  cursor: pointer;
+  color: #3692e7;
+  transition: all 150ms;
+}
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown .pager.prev.disabled:before {
+  visibility:hidden;
+}
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown .pager.next.disabled {
+  display:none;
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a {
+  display: flex;
+  padding: 0.6rem 0.6rem 0.6rem 1rem;
+  border-bottom: 1px solid #404040;
+  position: relative;
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover {
+  background: #f7f6f5;
+}
+
+body.lichessTools.dark .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover {
+  background: #302e2c;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover {
+    background: #302e2c;
+  }
+}
+
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a i {
+  margin-right: 1rem;
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing i {
+  color: #5faf5f;
+}
+
+body.lichessTools.dark .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing i {
+  color: #9fff9f;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing i {
+    color: #9fff9f;
+  }
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a span.content {
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown .hideNotPlaying {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem;
+  box-shadow:none;
+}
+
+/* sorry for the important, but it has to fight off the Prettier Lichess style */
+body.lichessTools .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying > button.toggle {
+  color: #1b78d0 !important;
+}
+
+body.lichessTools.dark .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying > button.toggle {
+  color: #3692e7 !important;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying > button.toggle {
+    color: #3692e7 !important;
+  }
+}
+
+body.lichessTools div.site-buttons .lichessTools-onlineFriends {
+  display:none;
+}
+
+body.lichessTools div.site-buttons .lichessTools-onlineFriends.lichessTools-on {
+  display:block;
+}
+
+@media (max-width: 979.29px) {
+  body.lichessTools div.site-buttons .lichessTools-onlineFriends {
+    display:block;
+  }
+  body.lichessTools #topnav .lichessTools-onlineFriends {
+    display:none;
+  }
+}

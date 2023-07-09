@@ -25,7 +25,13 @@
     getStorageGameId=async (myName)=>{
       const parent=this.lichessTools;
       if (this.storageGameId) return this.storageGameId;
-      const text=await parent.net.fetch({url:'/api/games/user/{myName}?max=1&moves=false&sort=dateAsc',args:{myName:myName}});
+      let text='';
+      try{
+        text=await parent.net.fetch({url:'/api/games/user/{myName}?max=1&moves=false&sort=dateAsc',args:{myName:myName}});
+      } catch(e) {
+        if (e.response?.status==404) return;
+        throw e;
+      }
       const m=/\[Site\s*"[^"]*\/(\w{8})"\]/.exec(text||'');
       this.storageGameId=m&&m[1];
       return this.storageGameId;
@@ -38,6 +44,7 @@
         let options=await this.oldGetOptions();
         if (options.loaded) return options;
         const userId=parent.getUserId();
+        if (!userId) return options;
         const gameId = await this.getStorageGameId(userId);
         if (!gameId) return options;
         const text=await parent.net.fetch({url:'/{gameId}/note',args:{gameId:gameId}});

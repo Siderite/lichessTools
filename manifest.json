@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Lichess Tools, by Siderite",
   "short_name": "Lichess Tools",
-  "version": "2.0.12",
+  "version": "2.0.14",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev",
@@ -30,6 +30,9 @@
         "tools/emitRedraw/tool.js",
         "tools/emitChapterChange/tool.js",
         "tools/transpositionBehavior/tool.js",
+        "tools/randomVariation/tool.js",
+        "tools/themes/tool.js",
+        "tools/detectThirdParties/tool.js",
 
         "tools/ctrlSpaceForBestComputerMove/tool.js",
         "tools/friendsList/tool.js",
@@ -58,12 +61,14 @@
         "tools/hideCrosstable/tool.js",
         "tools/chapterClearArtifacts/tool.js",
         "tools/customChatButtons/tool.js",
+        "tools/mobileExperience/tool.js",
  
         "tools/preferences/tool.js",
  
         "scripts/lichessTools-init.js"
       ],
       "css": [
+        "tools/themes/transparent.css",
         "tools/friendsList/tool.css",
         "tools/preferences/tool.css",
         "tools/friendsPlaying/tool.css",
@@ -82,7 +87,8 @@
         "tools/movesFromTranspositions/tool.css",
         "tools/extendedInteractiveLesson/tool.css",
         "tools/hideCrosstable/tool.css",
-        "tools/customChatButtons/tool.css"
+        "tools/customChatButtons/tool.css",
+        "tools/mobileExperience/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"

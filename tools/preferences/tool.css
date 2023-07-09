@@ -1,12 +1,28 @@
 /* CSS in preferences should not be under body.lichessTools, as the class can be removed when the extension is disabled */
 
+
+nav.page-menu__menu a.lichessTools-menu span {
+  filter: drop-shadow(0px 0px 5px black);
+}
+
+body.dark nav.page-menu__menu a.lichessTools-menu span {
+  filter: drop-shadow(0px 0px 5px white);
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.system nav.page-menu__menu a.lichessTools-menu span {
+    filter: drop-shadow(0px 0px 5px white);
+  }
+}
+
+
 div.lichessTools-preferences section[data-pref] {
   position:relative;
 }
 
 div.lichessTools-preferences section[data-pref] a.lichessTools-infoIcon {
   position:absolute;
-  right:-2em;
+  right:-1.5em;
 }
 
 div.lichessTools-preferences p.saved {
@@ -46,22 +62,6 @@ div.lichessTools-preferences h3 {
   font-size:x-large;
 }
 
-
-nav.page-menu__menu a.lichessTools-menu span {
-  filter: drop-shadow(0px 0px 5px black);
-}
-
-body.dark nav.page-menu__menu a.lichessTools-menu span {
-  filter: drop-shadow(0px 0px 5px white);
-}
-
-@media not print and (prefers-color-scheme: dark) {
-  body.system nav.page-menu__menu a.lichessTools-menu span {
-    filter: drop-shadow(0px 0px 5px white);
-  }
-}
-
-
 @keyframes lichessTools-fire {
   0% {
     text-shadow: 0 .008em .127em #fefcc9,.055em -0.066em .2em #feec85,-0.111em -0.127em .272em #ffae34,.111em -0.272em .411em #ec760c,-0.111em -0.456em .416em #cd4606,0 -0.533em .577em #973716,.055em -0.55em .533em #451b0e
@@ -73,11 +73,11 @@ body.dark nav.page-menu__menu a.lichessTools-menu span {
 }
 
 
-.lichessTools-fire {
+div.lichessTools-preferences .lichessTools-fire {
   animation: lichessTools-fire 1.5s ease-in-out infinite alternate;
 }
 
-.lichessTools-globalSwitch {
+div.lichessTools-preferences .lichessTools-globalSwitch {
   margin:0;
 }
 

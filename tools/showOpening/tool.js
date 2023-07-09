@@ -98,7 +98,18 @@
       const $=parent.$;
       lichess.pubsub.off('ply',this.refreshOpeningSub);
       lichess.pubsub.off('content-loaded',this.miniGameOpening);
+      if (lichess.socket?.settings?.events?.endData) {
+        lichess.socket.settings.events.endData=parent.unwrapFunction(lichess.socket.settings.events.endData,'showOpening');
+      }
       if (value) {
+        if (lichess.socket?.settings?.events?.endData) {
+          lichess.socket.settings.events.endData=parent.wrapFunction(lichess.socket.settings.events.endData,{
+            id:'showOpening',
+            after: ($this,result,...args)=>{
+              this.refreshOpeningDebounced();
+            }
+          });
+        }
         lichess.pubsub.on('ply',this.refreshOpeningSub);
         lichess.pubsub.on('content-loaded',this.miniGameOpening);
         this.refreshOpening();
