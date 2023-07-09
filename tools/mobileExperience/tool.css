@@ -1,0 +1,27 @@
+@media (max-width: 799.3px) {
+  body.lichessTools main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge {
+    width:0.5em !important; /* fighting Prettier Lichess */
+    height: var(--cg-height);
+    position: absolute;
+    right: 0;
+    display: block;
+    z-index: 1;
+  }
+}
+
+body.lichessTools main.analyse.lichessTools-hideOctopus img.mascot {
+  display: none;
+}
+
+body.lichessTools main.analyse.lichessTools-hideOctopus .gamebook .comment:after {
+  left:15%;
+  transform: skew(136deg) rotate(45deg);
+}
+
+body.lichessTools main.analyse.lichessTools-hideOctopus .gamebook .floor:after {
+  display:none;
+}
+
+body.lichessTools main.analyse.lichessTools-hideOctopus .gamebook {
+  margin-left: inherit !important; /* fighting Prettier Lichess */
+}

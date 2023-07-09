@@ -60,6 +60,10 @@ body.lichessTools .analyse .gamebook span.lichessTools-score {
 	float:right;
 }
 
+body.lichessTools.lichessTools-prettier .analyse .gamebook span.lichessTools-score {
+    filter: brightness(200%);
+}
+
 body.lichessTools.dark .analyse .gamebook span.lichessTools-score {
     filter: brightness(200%);
 }

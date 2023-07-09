@@ -8,10 +8,11 @@ lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
 lichessTools.loadTool(LiChessTools.Tools.TranspositionBehavior);
 lichessTools.loadTool(LiChessTools.Tools.RandomVariation);
+lichessTools.loadTool(LiChessTools.Tools.DetectThirdParties);
 //lichessTools.loadTool(LiChessTools.Tools.Themes);
 
 lichessTools.loadTool(LiChessTools.Tools.HideCrosstable);
-lichessTools.loadTool(LiChessTools.Tools.MobileShowGauge);
+lichessTools.loadTool(LiChessTools.Tools.MobileExperience);
 lichessTools.loadTool(LiChessTools.Tools.CtrlSpaceForBestComputerMove);
 lichessTools.loadTool(LiChessTools.Tools.FriendsList);
 lichessTools.loadTool(LiChessTools.Tools.FriendsPlaying);
