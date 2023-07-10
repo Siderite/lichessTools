@@ -358,9 +358,9 @@
       }
       lichess.pubsub.off('redraw',this.analysisControls);
       lichess.pubsub.on('redraw',this.analysisControls);
-      lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'chapterClearArtifacts');
+      lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'extendedInteractiveLesson');
       lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
-        id:'chapterClearArtifacts',
+        id:'extendedInteractiveLesson',
         after: ($this, result, ...args)=>{
           parent.global.setTimeout(this.analysisControls,100);
         }

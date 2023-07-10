@@ -170,7 +170,6 @@
             .append($('<a/>').attr('href',friendsUrl)
                       .attr('title',title)
                       .attr('class','data-count')
-                      .attr('data-count',this.user_data.playing.length)
                       .on('mouseover',()=>{
                          this.requestOnlines();
                       })
@@ -190,6 +189,8 @@
       const text=trans.pluralSame('onlineFriends',this.user_data.online.length);
       menu.text(text);
       menu.toggleClass('lichessTools-somePlaying',!!this.user_data.playing.length);
+      $('section.lichessTools-onlineFriends > a')
+        .attr('data-count',this.user_data.playing.length);
       const items=new Set($('a.user-link',group).get());
       friends.each((i,e)=>{
         const href=$(e).attr('href');
