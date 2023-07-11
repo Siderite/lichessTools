@@ -62,13 +62,14 @@
         "tools/chapterClearArtifacts/tool.js",
         "tools/customChatButtons/tool.js",
         "tools/mobileExperience/tool.js",
+        "tools/explorerPractice/tool.js",
  
         "tools/preferences/tool.js",
  
         "scripts/lichessTools-init.js"
       ],
       "css": [
-        "tools/themes/transparent.css",
+        "tools/themes/demo.css",
         "tools/friendsList/tool.css",
         "tools/preferences/tool.css",
         "tools/friendsPlaying/tool.css",
@@ -87,8 +88,10 @@
         "tools/movesFromTranspositions/tool.css",
         "tools/extendedInteractiveLesson/tool.css",
         "tools/hideCrosstable/tool.css",
+        "tools/chapterClearArtifacts/tool.css",
         "tools/customChatButtons/tool.css",
-        "tools/mobileExperience/tool.css"
+        "tools/mobileExperience/tool.css",
+        "tools/explorerPractice/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"

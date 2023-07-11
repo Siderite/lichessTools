@@ -1,0 +1,16 @@
+/* Demo */
+
+body.lichessTools.lichessTools-theme_demo {
+  background: linear-gradient(138deg,#e0e0e0,#adadad);
+  font-family: cursive !important;
+}
+
+body.lichessTools.dark.lichessTools-theme_demo {
+  background: linear-gradient(138deg,#000000,#333333);
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system.lichessTools-theme_demo {
+    background: linear-gradient(138deg,#000000,#333333);
+  }
+}

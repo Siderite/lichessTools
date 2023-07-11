@@ -1,6 +1,6 @@
 @media (max-width: 799.3px) {
   body.lichessTools main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge {
-    width:0.5em !important; /* fighting Prettier Lichess */
+    width:0.5em;
     height: var(--cg-height);
     position: absolute;
     right: 0;
@@ -22,6 +22,15 @@ body.lichessTools main.analyse.lichessTools-hideOctopus .gamebook .floor:after {
   display:none;
 }
 
-body.lichessTools main.analyse.lichessTools-hideOctopus .gamebook {
-  margin-left: inherit !important; /* fighting Prettier Lichess */
+
+/* Prettier Lichess CSS */
+
+body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .gamebook {
+  margin-left: inherit !important;
+}
+
+@media (max-width: 799.3px) {
+  body.lichessTools.lichessTools-prettier main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge {
+    width:0.5em !important;
+  }
 }

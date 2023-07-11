@@ -38,6 +38,8 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - global enable/disable extension switch
  - for the currently selected chapter, the ability to selectively remove just the comments, glyphs or drawn shapes
  - mobile device settings (use Kiwi browser on mobiles, it allows extensions)
+ - custom user CSS themes (you can create PRs for them or ask me to include them, but you are maintaining them!)
+ - delete all PGN tags in bulk or pick individual ones from the current chapter
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move

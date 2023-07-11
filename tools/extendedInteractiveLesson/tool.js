@@ -1,7 +1,7 @@
 (()=>{
   class ExtendedInteractiveLessonTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['RandomVariation','DetectThirdParties'];
+    dependencies=['EmitRedraw','EmitChapterChange','RandomVariation','DetectThirdParties'];
 
     preferences=[
       {
@@ -23,7 +23,8 @@
         'extendedInteractiveLessonLong': 'Extended Interactive lesson - LiChess Tools',
         'finalScore': 'Final score: %s%',
         'nextMovesCount': 'Make one of %s accepted moves',
-        'nextMovesCount:one': 'Only one accepted move to make'
+        'nextMovesCount:one': 'Only one accepted move to make',
+        'interactiveLessonsText': 'Interactive lessons'
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -34,7 +35,8 @@
         'extendedInteractiveLessonLong': 'Lectie Interactiv\u0103 extins\u0103 - LiChess Tools',
         'finalScore': 'Scor final: %s%',
         'nextMovesCount': 'F\u0103 una din %s mut\u0103ri acceptate',
-        'nextMovesCount:one': 'O singur\u0103 mutare de f\u0103cut'
+        'nextMovesCount:one': 'O singur\u0103 mutare de f\u0103cut',
+        'interactiveLessonsText': 'Lec\u0163ii interactive'
       }
     }
 
@@ -249,7 +251,6 @@
       const $=parent.$;
       const trans=parent.translator;
       const analysis=parent.lichess.analysis;
-      const gp=analysis.gamebookPlay();
       let translation=trans.noarg('extendedInteractiveLesson');
       $('.gamebook-buttons').attr('data-label',translation);
       translation=trans.noarg('extendedInteractiveLessonLong')
@@ -266,6 +267,52 @@
       for (const child of node.children) {
         this.addGameBookToAllNodes(child);
       }
+    };
+
+    analysisControls=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
+      if (!analysis?.study?.data?.chapter?.gamebook) return;
+      const container=$('div.analyse__tools div.action-menu');
+      if (!container.length) return;
+      if (!$('.lichessTools-actionMenu').length) {
+        const html=`<h2 class="lichessTools-actionMenu">$trans(interactiveLessonsText)</h2>
+    <div class="setting abset-extendedInteractive" title="LiChess Tools - $trans(extendedInteractiveLesson.extendedInteractive)">
+      <div class="switch">
+        <input id="abset-extendedInteractive" class="cmn-toggle" type="checkbox" checked="">
+        <label for="abset-extendedInteractive"></label>
+      </div>
+      <label for="abset-extendedInteractive">$trans(extendedInteractiveLesson.extendedInteractive)</label>
+    </div>
+    <div class="setting abset-showScore" title="LiChess Tools - $trans(extendedInteractiveLesson.showFinalScore)">
+      <div class="switch">
+        <input id="abset-showScore" class="cmn-toggle" type="checkbox" checked="">
+        <label for="abset-showScore"></label>
+      </div>
+      <label for="abset-showScore">$trans(extendedInteractiveLesson.showFinalScore)</label>
+    </div>`.replace(/\$trans\(([^\)]+)\)/g,m=>{
+          return parent.htmlEncode(trans.noarg(m.slice(7,-1)));
+        });
+        $(html).insertBefore($('h2',container).eq(0));
+        $('#abset-extendedInteractive,#abset-showScore')
+          .on('change',()=>{
+            const arr=[];
+            const options=parent.currentOptions
+            if ($('#abset-extendedInteractive').is(':checked')) arr.push('extendedInteractive');
+            if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
+            options.extendedInteractiveLesson=arr.join(',');
+            parent.applyOptions(options).then(()=>{
+              lichess.storage.fire('lichessTools.reloadOptions');
+            }).catch(e=>{ throw e; });
+          });
+      }
+      $('#abset-extendedInteractive')
+        .prop('checked',this.options.extendedInteractive);
+      $('#abset-showScore')
+        .prop('checked',this.options.showFinalScore);
     };
 
     async start() {
@@ -309,6 +356,16 @@
           }
         });
       }
+      lichess.pubsub.off('redraw',this.analysisControls);
+      lichess.pubsub.on('redraw',this.analysisControls);
+      lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'extendedInteractiveLesson');
+      lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
+        id:'extendedInteractiveLesson',
+        after: ($this, result, ...args)=>{
+          parent.global.setTimeout(this.analysisControls,100);
+        }
+      });
+      this.analysisControls();
       lichess.pubsub.off('redraw',this.addCssLabels);
       lichess.pubsub.off('chapterChange',this.patchGamebook);
       if (this.options.extendedInteractive) {

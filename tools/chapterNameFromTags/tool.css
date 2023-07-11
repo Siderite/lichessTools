@@ -1,5 +1,11 @@
 body.lichessTools div.form-group button.lichessTools-changeNameButton {
   max-width: 25em;
-  text-wrap: wrap !important;
+  text-wrap: wrap;
   text-transform: initial;
+}
+
+/* Prettier Lichess CSS */
+
+body.lichessTools.lichessTools-prettier div.form-group button.lichessTools-changeNameButton {
+  text-wrap: wrap !important;
 }

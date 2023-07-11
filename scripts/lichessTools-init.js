@@ -9,7 +9,7 @@ lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
 lichessTools.loadTool(LiChessTools.Tools.TranspositionBehavior);
 lichessTools.loadTool(LiChessTools.Tools.RandomVariation);
 lichessTools.loadTool(LiChessTools.Tools.DetectThirdParties);
-//lichessTools.loadTool(LiChessTools.Tools.Themes);
+lichessTools.loadTool(LiChessTools.Tools.Themes);
 
 lichessTools.loadTool(LiChessTools.Tools.HideCrosstable);
 lichessTools.loadTool(LiChessTools.Tools.MobileExperience);
@@ -35,6 +35,7 @@ lichessTools.loadTool(LiChessTools.Tools.CommentStyling);
 lichessTools.loadTool(LiChessTools.Tools.AnalysisContextActions);
 lichessTools.loadTool(LiChessTools.Tools.MovesFromTranspositions);
 lichessTools.loadTool(LiChessTools.Tools.ExtendedInteractiveLesson);
+lichessTools.loadTool(LiChessTools.Tools.ExplorerPractice);
 lichessTools.loadTool(LiChessTools.Tools.SaveOptionsForIncognito);
 lichessTools.loadTool(LiChessTools.Tools.ChapterClearArtifacts);
 lichessTools.loadTool(LiChessTools.Tools.CustomChatButtons);

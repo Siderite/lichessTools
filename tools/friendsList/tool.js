@@ -170,7 +170,6 @@
             .append($('<a/>').attr('href',friendsUrl)
                       .attr('title',title)
                       .attr('class','data-count')
-                      .attr('data-count',this.user_data.playing.length)
                       .on('mouseover',()=>{
                          this.requestOnlines();
                       })
@@ -190,6 +189,8 @@
       const text=trans.pluralSame('onlineFriends',this.user_data.online.length);
       menu.text(text);
       menu.toggleClass('lichessTools-somePlaying',!!this.user_data.playing.length);
+      $('section.lichessTools-onlineFriends > a')
+        .attr('data-count',this.user_data.playing.length);
       const items=new Set($('a.user-link',group).get());
       friends.each((i,e)=>{
         const href=$(e).attr('href');
@@ -326,16 +327,17 @@
       this.updateFriendsMenu();
       this.updateFriendsButton();
     };
-    enters=(user,data)=>{
-      console.debug('enters',user,data?.isPlaying);
+    enters=(userName,data)=>{
+      console.debug('enters',userName,data);
       const parent=this.lichessTools;
-      user=this.getUserId(user);
-      if (!this.user_data.online.includes(user)) this.user_data.online.push(user);
+      const userId=this.getUserId(userName);
+      this.user_data.names[userId]=userName;
+      if (!this.user_data.online.includes(userId)) this.user_data.online.push(userId);
       const isPlaying=data?.playing;
       if (isPlaying) {
-        if (!this.user_data.playing.includes(user)) this.user_data.playing.push(user);
+        if (!this.user_data.playing.includes(userId)) this.user_data.playing.push(userId);
       } else {
-        parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
+        parent.arrayRemoveAll(this.user_data.playing,u=>u===userId);
       }
       this.updateFriendsPage();
       this.updateFriendsMenu();
@@ -345,6 +347,7 @@
       console.debug('leaves',user);
       const parent=this.lichessTools;
       user=this.getUserId(user);
+      this.user_data.names[user]=undefined;
       parent.arrayRemoveAll(this.user_data.online,u=>u===user);
       parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
       this.updateFriendsPage();

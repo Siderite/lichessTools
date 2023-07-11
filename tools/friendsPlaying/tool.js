@@ -6,7 +6,7 @@
         name:'friendsPlaying',
         category: 'friends',
         type:'multiple',
-        possibleValues: ['ultrabullet','bullet','blitz','rapid','classical'],
+        possibleValues: ['ultrabullet','bullet','blitz','rapid','classical','standard'],
         valuePrefix:'gameType-',
         defaultValue: false
       }
@@ -21,6 +21,7 @@
         'gameType-blitz': 'Blitz',
         'gameType-bullet': 'Bullet',
         'gameType-ultrabullet': 'Ultrabullet',
+        'gameType-standard': 'Standard only',
         'options.friendsPlaying': 'Sound and voice alert when friends start playing',
         'audioNotAllowedTitle': 'LiChess Tools - Audio allowed only after user action'
       },
@@ -32,6 +33,7 @@
         'gameType-blitz': 'Blitz',
         'gameType-bullet': 'Bullet',
         'gameType-ultrabullet': 'Ultrabullet',
+        'gameType-standard': 'Doar Standard',
         'options.friendsPlaying': 'Alert\u0103 sonor\u0103 \u015Fi vocal\u0103 c\u00E2nd joac\u0103 prieteni',
         'audioNotAllowedTitle': 'LiChess Tools - Audio permis numai dup\u0103 ac\u0163iune utilizator'
       }
@@ -56,6 +58,9 @@
     const now=new Date().getTime();
     const isMuted=(this.lichessTools.currentOptions.getValue('mutedPlayers')||[]).includes(username?.toLowerCase());
     let silent=isMuted?'muted':'';
+    if (!silent && this.lichessTools.lichess.quietMode) {
+      silent+='quietMode';
+    }
     if (!silent && !this.lichessTools.isAudioAllowed()) {
       silent+='audioNotAllowed';
       this.showAudioNotAllowed();
@@ -86,6 +91,9 @@
       variant=this.lichessTools.getPgnTag(text,'Variant');
       if (!silent && gameType && !this.lichessTools.isOptionSet(this.lichessTools.currentOptions.getValue('friendsPlaying'),gameType)) {
         silent+='wrongGameType';
+      }
+      if (!silent && this.lichessTools.isOptionSet(this.lichessTools.currentOptions.getValue('friendsPlaying'),'standard')) {
+        if (!/^standard$/i.test(variant)) silent+='notStandard';
       }
     }
     if (!silent) {
@@ -145,7 +153,7 @@
       parent.$('body').removeClass('lichessTools-audioNotAllowed');
       clearInterval(this.audioCheckTimeout);
       $('div.lichessTools-audioNotAllowedIcon').remove();
-      if (value) {
+      if (value!==false && value?.toString().replace(/,standard/i,'')) {
         lichess.pubsub.on('socket.in.following_playing', this.playFriendSound);
         lichess.pubsub.on('mutePlayer', this.mutePlayer);
         if (!$('div.lichessTools-audioNotAllowedIcon').length) {

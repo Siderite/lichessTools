@@ -6,9 +6,8 @@ body.lichessTools .analyse .tview2 move.lichessTools-lastInLine.lichessTools-unc
     border-bottom: 1px solid red;
 }
 
-/*sorry for the important, but I have to fight off Prettier LiChess :) */
 body.lichessTools .analyse .tview2 move.lichessTools-transposition {
-    background: lawngreen !important;
+    background: lawngreen;
 }
 
 body.lichessTools .analyse .tview2 move.lichessTools-lastInLine {
@@ -17,7 +16,7 @@ body.lichessTools .analyse .tview2 move.lichessTools-lastInLine {
 
 @media not print and (prefers-color-scheme: dark) {
   body.lichessTools.system .analyse .tview2 move.lichessTools-transposition {
-      background: darkgreen !important;
+      background: darkgreen;
   }
 
   body.lichessTools.system .analyse .tview2 move.lichessTools-lastInLine {
@@ -27,9 +26,26 @@ body.lichessTools .analyse .tview2 move.lichessTools-lastInLine {
 }
 
 body.lichessTools.dark .analyse .tview2 move.lichessTools-transposition {
-    background: darkgreen !important;
+    background: darkgreen;
 }
 
 body.lichessTools.dark .analyse .tview2 move.lichessTools-lastInLine {
     filter: brightness(200%);
+}
+
+
+/* Prettier Lichess CSS */
+
+body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition {
+    background: lawngreen !important;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.lichessTools-prettier.system .analyse .tview2 move.lichessTools-transposition {
+      background: darkgreen !important;
+  }
+}
+
+body.lichessTools.lichessTools-prettier.dark .analyse .tview2 move.lichessTools-transposition {
+    background: darkgreen !important;
 }

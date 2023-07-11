@@ -1,0 +1,9 @@
+body.lichessTools section.explorer-box span.lichessTools-explorerPractice {
+  padding: 0 7px;
+  cursor: pointer;
+}
+
+body.lichessTools section.explorer-box.lichessTools-explorerPracticeOn table.moves {
+  display:none;
+}
+
