@@ -82,7 +82,7 @@ body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson b
   content:'\e06f' !important;
 }
 
-body.lichessTools.lichessTools-prettier main.analyse.gauge-on div.eval-gauge {
+body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson main.analyse.gauge-on div.eval-gauge {
   width:0.5em !important;
 }
 

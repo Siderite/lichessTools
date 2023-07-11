@@ -62,6 +62,7 @@
         "tools/chapterClearArtifacts/tool.js",
         "tools/customChatButtons/tool.js",
         "tools/mobileExperience/tool.js",
+        "tools/explorerPractice/tool.js",
  
         "tools/preferences/tool.js",
  
@@ -89,7 +90,8 @@
         "tools/hideCrosstable/tool.css",
         "tools/chapterClearArtifacts/tool.css",
         "tools/customChatButtons/tool.css",
-        "tools/mobileExperience/tool.css"
+        "tools/mobileExperience/tool.css",
+        "tools/explorerPractice/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"

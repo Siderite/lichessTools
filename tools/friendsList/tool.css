@@ -49,8 +49,8 @@ body.lichessTools #topnav section.lichessTools-onlineFriends a i {
   margin-right:0.5em;
 }
 
-body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:hover:before {
-  content:'\E025';
+body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:before {
+  content:'\E025' !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:hover {
@@ -316,11 +316,6 @@ body.lichessTools.lichessTools-prettier.dark #topnav section.lichessTools-online
 body.lichessTools.lichessTools-prettier #topnav section.lichessTools-onlineFriends a:hover {
   padding-left: 0.7rem !important;
 }
-
-body.lichessTools.lichessTools-prettier #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:hover:before {
-  content:'\E025' !important;
-}
-
 
 body.lichessTools.lichessTools-prettier tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
   color: #1b78d0 !important;
