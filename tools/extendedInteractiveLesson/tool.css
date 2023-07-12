@@ -86,6 +86,7 @@ body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson m
   width:0.5em !important;
 }
 
+/*
 body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson #main-wrap main.analyse:not(.gauge-on) div.analyse__tools,
 body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson #main-wrap main.analyse:not(.gauge-on) div.analyse__controls {
   left:0 !important;
@@ -113,3 +114,4 @@ body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson #
     grid-template-columns: 100% !important;
   }
 }
+*/

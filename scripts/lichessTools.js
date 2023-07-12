@@ -449,7 +449,8 @@
       const options={
         enableLichessTools: true,
         showOptionsTableInConsole: false,
-        fixWakeLock: true
+        fixWakeLock: true,
+        fixAbortController: true
       };
       for (const tool of this.tools) {
         if (!tool.preferences) continue;

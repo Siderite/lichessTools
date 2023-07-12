@@ -78,6 +78,9 @@
         container = $('<div class="lichessTools-onlineFriends"/>')
           .append($('<button class="toggle link">')
                       .attr('title',title)
+                      .on('mouseover',()=>{
+                         this.requestOnlines();
+                      })
                       .append($('<span class="data-count">')
                                 .attr('data-icon','\uE059'))
           )
@@ -148,7 +151,12 @@
           .on('click',ev=>{
             if (!$(ev.currentTarget).is('.lichessTools-playing')) return;
             ev.preventDefault();
-            parent.global.location.href='/@/'+userId+'/tv';
+            const tvUrl='/@/'+userId+'/tv';
+            if (ev.ctrlKey) {
+              parent.global.open(tvUrl,'_blank','noopener');
+            } else {
+              parent.global.location.href=tvUrl;
+            }
           })
           .appendTo(notifs);
       }
@@ -206,7 +214,12 @@
             .on('click',ev=>{
               if (!$(ev.currentTarget).is('.lichessTools-playing')) return;
               ev.preventDefault();
-              parent.global.location.href='/@/'+user+'/tv';
+              const tvUrl='/@/'+user+'/tv';
+              if (ev.ctrlKey) {
+                parent.global.open(tvUrl,'_blank','noopener');
+              } else {
+                parent.global.location.href=tvUrl;
+              }
             });
         }
         friendMenu
@@ -396,7 +409,7 @@
       }           
     };
 
-    requestOnlines=()=>this.lichessTools.lichess.pubsub.emit("socket.send", "following_onlines");
+    requestOnlines=this.lichessTools.debounce(()=>this.lichessTools.lichess.pubsub.emit("socket.send", "following_onlines"),250);
 
     menuParent='#topnav';
     
