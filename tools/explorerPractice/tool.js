@@ -112,7 +112,7 @@
       if (!analysis) return;
       if (analysis.study) return;
       lichess.pubsub.off('redraw',this.process);
-      $('main.analyse div.analyse__controls').off('click',this.process);
+      $('main.analyse div.analyse__controls').off('click touchend',this.process);
       parent.unbindKeyHandler('shift+l');
       if (!value) {
         $('section.explorer-box span.lichessTools-explorerPractice').remove();
@@ -123,7 +123,7 @@
         this.process();
       });
       lichess.pubsub.on('redraw',this.process);
-      $('main.analyse div.analyse__controls').on('click',this.process);
+      $('main.analyse div.analyse__controls').on('click touchend',this.process);
       this.process();
     }
 
