@@ -78,7 +78,7 @@
         container = $('<div class="lichessTools-onlineFriends"/>')
           .append($('<button class="toggle link">')
                       .attr('title',title)
-                      .on('mouseover',()=>{
+                      .on('mouseover click',()=>{
                          this.requestOnlines();
                       })
                       .append($('<span class="data-count">')
@@ -179,7 +179,9 @@
                       .attr('title',title)
                       .attr('class','data-count')
                       .on('mouseover',()=>{
-                         this.requestOnlines();
+                         if (!$('body').is('.mobile')) {
+                           this.requestOnlines();
+                         }
                       })
                       .on('click',ev=>{
                          if ($('body').is('.mobile')) {
