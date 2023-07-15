@@ -49,7 +49,7 @@
 </g>`});
       analysis.chessground.setAutoShapes(shapes);
     };
-    drawGlyphs=this.lichessTools.debounce(this.drawGlyphsDirect,100);
+    drawGlyphs=this.lichessTools.debounce(this.drawGlyphsDirect,250);
 
     async start() {
       const parent=this.lichessTools;
