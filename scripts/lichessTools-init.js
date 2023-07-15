@@ -40,6 +40,7 @@ lichessTools.loadTool(LiChessTools.Tools.ExplorerPractice);
 lichessTools.loadTool(LiChessTools.Tools.SaveOptionsForIncognito);
 lichessTools.loadTool(LiChessTools.Tools.ChapterClearArtifacts);
 lichessTools.loadTool(LiChessTools.Tools.CustomChatButtons);
+lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);
 lichessTools.loadTool(LiChessTools.Tools.UserTvHistory);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);

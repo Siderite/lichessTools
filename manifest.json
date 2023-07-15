@@ -64,6 +64,7 @@
         "tools/customChatButtons/tool.js",
         "tools/mobileExperience/tool.js",
         "tools/explorerPractice/tool.js",
+        "tools/additionalGlyphs/tool.js",
  
         "tools/preferences/tool.js",
  
