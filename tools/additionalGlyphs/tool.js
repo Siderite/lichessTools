@@ -6,7 +6,7 @@
     preferences=[
       {
         name:'additionalGlyphs',
-        category: 'analysis',
+        category: 'study',
         type:'single',
         possibleValues: [false,true],
         defaultValue: true
@@ -15,12 +15,12 @@
 
     intl={
       'en-US':{
-        'options.analysis': 'Analysis',
-        'options.stickyAnalysis': 'Additional glyphs'
+        'options.study': 'Study',
+        'options.additionalGlyphs': 'Additional glyphs'
       },
       'ro-RO':{
-        'options.analysis': 'Analiz\u0103',
-        'options.stickyAnalysis': 'Simboluri in plus'
+        'options.study': 'Studiu',
+        'options.additionalGlyphs': 'Simboluri in plus'
       }
     }
 
@@ -73,6 +73,7 @@
         id:'additionalGlyphs',
         after:this.drawGlyphs
       });
+      this.drawGlyphs();
     }
 
   }
