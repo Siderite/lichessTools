@@ -70,6 +70,10 @@
       const $=parent.$;
       const trans=parent.translator;
       const analysis=lichess?.analysis;
+      if (lichess.analysis.gamebookPlay()) {
+        this.isRunning=false;
+        return;
+      };
       const explorerContainer=$('section.explorer-box').eq(0);
       if (!explorerContainer.length) {
         this.isRunning=false;
@@ -95,7 +99,7 @@
       }
       if (!analysis.explorer?.enabled()) this.isRunning=false;
       button.toggleClass('active',!!this.isRunning);
-      explorerContainer.toggleClass('lichessTools-explorerPracticeOn',!!this.isRunning);
+      explorerContainer.toggleClass('lichessTools-explorerPracticeInAnalysis',this.isRunning && !analysis.study);
       if (analysis.turnColor()===analysis.getOrientation()) {
         this.inPlayMove=false;
       }
@@ -110,7 +114,7 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
-      if (analysis.study) return;
+      if (lichess.analysis.gamebookPlay()) return;
       lichess.pubsub.off('redraw',this.process);
       $('main.analyse div.analyse__controls').off('click touchend',this.process);
       parent.unbindKeyHandler('shift+l');

@@ -93,7 +93,9 @@
         }
         break;
         default:
-          g.console.warn('Unknown key move mode',this.makeMoveMode);
+          if (this.makeMoveMode) {
+            g.console.warn('Unknown key move mode',this.makeMoveMode);
+          }
           return;
       }
     };

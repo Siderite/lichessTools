@@ -1,0 +1,80 @@
+(()=>{
+  class AdditionalGlyphsTool extends LiChessTools.Tools.ToolBase {
+
+    dependencies=['EmitRedraw'];
+
+    preferences=[
+      {
+        name:'additionalGlyphs',
+        category: 'analysis',
+        type:'single',
+        possibleValues: [false,true],
+        defaultValue: true
+      }
+    ];
+
+    intl={
+      'en-US':{
+        'options.analysis': 'Analysis',
+        'options.stickyAnalysis': 'Additional glyphs'
+      },
+      'ro-RO':{
+        'options.analysis': 'Analiz\u0103',
+        'options.stickyAnalysis': 'Simboluri in plus'
+      }
+    }
+
+    drawGlyphsDirect=()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const analysis=lichess?.analysis;
+      if (!analysis?.chessground) return;
+      const glyph=analysis.node.glyphs?.at(0)?.symbol;
+      if (!glyph) return;
+      if (['!','?','!!','??','?!','!?'].includes(glyph)) return;
+      const orig=analysis.node.uci.slice(-2);
+      const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type==='glyph')||[];
+      shapes.push({
+        type:'glyph',
+        orig:orig,
+        customSvg:`<defs>
+    <filter id="shadow">
+        <feDropShadow dx="4" dy="7" stdDeviation="5" flood-opacity="0.5"/>
+    </filter>
+</defs>
+<g transform="translate(77 -18) scale(0.4)">
+    <circle style="fill:#557766;filter:url(#shadow)" cx="50" cy="50" r="50"/>
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" style="font-size: 7em;font-family: Noto Sans;" fill="#fff">${glyph}</text>
+</g>`});
+      analysis.chessground.setAutoShapes(shapes);
+    };
+    drawGlyphs=this.lichessTools.debounce(this.drawGlyphsDirect,100);
+
+    async start() {
+      const parent=this.lichessTools;
+      const value=parent.currentOptions.getValue('additionalGlyphs');
+      this.logOption('Aditional glyphs', value);
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const analysis=lichess?.analysis;
+      if (!analysis) return;
+      const study=analysis.study;
+      if (!study) return;
+      lichess.pubsub.off('redraw',this.drawGlyphs);
+      study.glyphForm.toggleGlyph=parent.unwrapFunction(study.glyphForm?.toggleGlyph,'additionalGlyphs');
+      if (!value) {
+        const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type==='glyph')||[];
+        analysis.chessground.setAutoShapes(shapes);
+        return;
+      }
+      lichess.pubsub.on('redraw',this.drawGlyphs);
+      study.glyphForm.toggleGlyph=parent.wrapFunction(study.glyphForm.toggleGlyph,{
+        id:'additionalGlyphs',
+        after:this.drawGlyphs
+      });
+    }
+
+  }
+  LiChessTools.Tools.AdditionalGlyphs=AdditionalGlyphsTool;
+})();

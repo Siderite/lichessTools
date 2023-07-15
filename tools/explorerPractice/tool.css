@@ -3,7 +3,7 @@ body.lichessTools section.explorer-box span.lichessTools-explorerPractice {
   cursor: pointer;
 }
 
-body.lichessTools section.explorer-box.lichessTools-explorerPracticeOn table.moves {
+body.lichessTools section.explorer-box.lichessTools-explorerPracticeInAnalysis table.moves {
   display:none;
 }
 

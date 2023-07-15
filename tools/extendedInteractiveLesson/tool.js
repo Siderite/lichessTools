@@ -24,7 +24,9 @@
         'finalScore': 'Final score: %s%',
         'nextMovesCount': 'Make one of %s accepted moves',
         'nextMovesCount:one': 'Only one accepted move to make',
-        'interactiveLessonsText': 'Interactive lessons'
+        'interactiveLessonsText': 'Interactive lessons',
+        'addDeviationText':'Explain why other moves are wrong',
+        'addDeviationTitle':'LiChess Tools - explain why moves from here not in the PGN are wrong'
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -36,7 +38,9 @@
         'finalScore': 'Scor final: %s%',
         'nextMovesCount': 'F\u0103 una din %s mut\u0103ri acceptate',
         'nextMovesCount:one': 'O singur\u0103 mutare de f\u0103cut',
-        'interactiveLessonsText': 'Lec\u0163ii interactive'
+        'interactiveLessonsText': 'Lec\u0163ii interactive',
+        'addDeviationText':'Explic\u0103 de ce alte mut\u0103ri sunt gre\u015Fite',
+        'addDeviationTitle':'LiChess Tools - explic\u0103 de ce mut\u0103ri de aici lips\u0103 din PGN sunt gre\u015Fite'
       }
     }
 
@@ -246,7 +250,32 @@
       }
     };
 
-    addCssLabels=()=>{
+    addDeviation=()=>{
+      const parent=this.lichessTools;
+      const trans=parent.translator;
+      const analysis=parent.lichess.analysis;
+      const node=analysis.tree.nodeAtPath(analysis.contextMenuPath);
+      let gamebook=node.gamebook;
+      if (!gamebook) {
+        gamebook={};
+        node.gamebook=gamebook;
+      }
+      const text=trans.noarg('addDeviationText');
+      const deviation = parent.global.prompt(text,gamebook.deviation);
+      if (!deviation) return;
+      gamebook.deviation=deviation;
+      const chapterId=analysis.study.currentChapter().id;
+      analysis.study.makeChange('setGamebook',{
+        ch: chapterId,
+        path: node.path,
+        gamebook: gamebook
+      });
+      if (analysis.node===node) {
+        $('div.gamebook-edit div.deviation textarea').val(deviation);
+      }
+    };
+
+    alterUI=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
@@ -255,6 +284,20 @@
       $('.gamebook-buttons').attr('data-label',translation);
       translation=trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attr('data-label',translation);
+
+      if (!this.options.extendedInteractive) return;
+      const menu=$('#analyse-cm');
+      if (!menu.length) return;
+      if (!analysis?.study?.data?.chapter?.gamebook) return;
+      if (menu.has('a[data-role="addDeviation"]').length) return;
+      const text=trans.noarg('addDeviationText');
+      const title=trans.noarg('addDeviationTitle');
+      $('<a>')
+        .attr('data-icon','\uE05E')
+        .attr('data-role','addDeviation')
+        .text(text).attr('title',title)
+        .on('click',this.addDeviation)
+        .appendTo(menu);
     };
 
     addGameBookToAllNodes=(node)=>{
@@ -366,10 +409,10 @@
         }
       });
       this.analysisControls();
-      lichess.pubsub.off('redraw',this.addCssLabels);
+      lichess.pubsub.off('redraw',this.alterUI);
       lichess.pubsub.off('chapterChange',this.patchGamebook);
       if (this.options.extendedInteractive) {
-        lichess.pubsub.on('redraw',this.addCssLabels);
+        lichess.pubsub.on('redraw',this.alterUI);
       }
       if (this.options.extendedInteractive||this.options.showFinalScore) {
         lichess.pubsub.on('chapterChange',this.patchGamebook);
