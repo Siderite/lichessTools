@@ -254,13 +254,13 @@
       const parent=this.lichessTools;
       const trans=parent.translator;
       const analysis=parent.lichess.analysis;
-      const text=trans.noarg('addDeviationText');
       const node=analysis.tree.nodeAtPath(analysis.contextMenuPath);
       let gamebook=node.gamebook;
       if (!gamebook) {
         gamebook={};
         node.gamebook=gamebook;
       }
+      const text=trans.noarg('addDeviationText');
       const deviation = parent.global.prompt(text,gamebook.deviation);
       if (!deviation) return;
       gamebook.deviation=deviation;
