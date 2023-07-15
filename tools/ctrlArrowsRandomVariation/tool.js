@@ -24,14 +24,20 @@
       }
     }
 
+    prevPositions=[];
     playRandomVariation=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const node = lichess.analysis.node;
+      const path = lichess.analysis.path;
       const child = parent.getRandomVariation(node);
       if (!lichess.analysis) return;
       if (child) {
-        lichess.analysis.userJump(child.path||(node.path+child.id));
+        this.prevPositions.push({
+          path:path,
+          position:parent.getNodePosition(node)
+        });
+        lichess.analysis.userJump(child.path||(path+child.id));
         lichess.analysis.redraw();
       }
     };
@@ -42,7 +48,19 @@
       if (!lichess.analysis) return;
       const path = lichess.analysis.path;
       if (!path) return;
-      lichess.analysis.userJumpIfCan(path.slice(0,-2));
+      const prevPath=path.slice(0,-2);
+      const pos=this.prevPositions.at(-1);
+      if (pos&&pos.path!=prevPath) {
+        const prevNode=lichess.analysis.tree.nodeAtPath(prevPath);
+        if (parent.getNodePosition(prevNode)==pos.position) {
+          this.prevPositions.splice(-1,1);
+          lichess.analysis.userJump(pos.path);
+          lichess.analysis.redraw();
+          return;
+        }
+        this.prevPositions=[];
+      }
+      lichess.analysis.userJumpIfCan(prevPath);
       lichess.analysis.redraw();
     };
 
