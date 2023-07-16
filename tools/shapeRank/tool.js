@@ -57,7 +57,7 @@
           drawnShapes.push(rankShape);
         }
         if (rank) {
-          drawable.shapes=drawnShapes.concat(shapes);
+          drawable.shapes=drawnShapes.concat(shapes.filter(s=>s.type!=='rank'));
           cg.redrawAll();
         }
       };
