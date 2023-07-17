@@ -73,6 +73,12 @@
       const explorer=lichess.analysis?.explorer;
       const trans=parent.translator;
       if (!explorer) return;
+      let previousUsers=lichess.storage.get('explorer.player.name.previous');
+      previousUsers=previousUsers?JSON.parse(previousUsers):[];
+      if (previousUsers.length<=0) {
+        $('div.explorer-title button.lichessTools-switchWithMe').remove();
+        return;
+      }
       if ($('div.explorer-title button.lichessTools-switchWithMe').length) return;
       const translatedText=trans.noarg('switchWithMe');
       const translatedTitle=trans.noarg('switchWithMeTitle');

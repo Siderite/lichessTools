@@ -44,12 +44,12 @@
     </filter>
 </defs>
 <g transform="translate(77 -18) scale(0.4)">
-    <circle style="fill:#557766;filter:url(#shadow)" cx="50" cy="50" r="50"/>
-    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" style="font-size: 7em;font-family: Noto Sans;" fill="#fff">${glyph}</text>
+    <circle style="fill:#576;filter:url(#shadow)" cx="50" cy="50" r="50"/>
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" style="font-size: 6em;font-family: Noto Sans, sans-serif;" fill="#fff">${glyph}</text>
 </g>`});
       analysis.chessground.setAutoShapes(shapes);
     };
-    drawGlyphs=this.lichessTools.debounce(this.drawGlyphsDirect,100);
+    drawGlyphs=this.lichessTools.debounce(this.drawGlyphsDirect,250);
 
     async start() {
       const parent=this.lichessTools;
@@ -64,7 +64,7 @@
       lichess.pubsub.off('redraw',this.drawGlyphs);
       study.glyphForm.toggleGlyph=parent.unwrapFunction(study.glyphForm?.toggleGlyph,'additionalGlyphs');
       if (!value) {
-        const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type==='glyph')||[];
+        const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
         analysis.chessground.setAutoShapes(shapes);
         return;
       }
