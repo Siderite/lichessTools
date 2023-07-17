@@ -56,9 +56,10 @@
       if (!lichess.analysis.chessground.state.drawable.current) return;
       const pos=[e.targetTouches[0].clientX,e.targetTouches[0].clientY];
       const square=lichess.analysis.chessground.getKeyAtDomPos(pos);
-      lichess.analysis.chessground.state.drawable.current.pos=pos;
-      lichess.analysis.chessground.state.drawable.current.mouseSq=square;
-      lichess.analysis.chessground.state.drawable.current.dest=square;
+      const current=lichess.analysis.chessground.state.drawable.current;
+      current.pos=pos;
+      current.mouseSq=square;
+      current.dest=square;
       lichess.analysis.chessground.state.dom.redraw();
     };
     touchEnd=e=>{
@@ -119,6 +120,7 @@
                 ? null
                 : this.brushes[index];
               parent.lichess.analysis.chessground.state.drawable.enabled=!this.drawingBrush;
+              parent.lichess.analysis.chessground.state.movable.showDests=!this.drawingBrush;
               for (const brush of this.brushes) {
                 $(ev.target)
                   .toggleClass('lichessTools-'+brush+'Brush',this.drawingBrush==brush);
