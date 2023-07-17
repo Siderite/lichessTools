@@ -42,6 +42,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - delete all PGN tags in bulk or pick individual ones from the current chapter
  - practice with Explorer (computer makes moves based on what masters, lichess or a specific player played in that position)
  - additional glyphs on board
+ - drawing of arrows and circles on mobile
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move

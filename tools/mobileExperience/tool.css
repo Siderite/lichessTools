@@ -27,20 +27,24 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   flex: 0 0 2em;
 }
 body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-greenBrush {
-  background:green;
+  background:#629924;
   color:white;
 }
 body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-redBrush {
-  background:red;
+  background:#992424;
   color:white;
 }
 body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-blueBrush {
-  background:blue;
+  background:#362499;
   color:white;
 }
 body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
-  background:yellow;
+  background:#979924;
   color:black;
+}
+
+body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
+  flex: 1 1 1em;
 }
 
 /* Prettier Lichess CSS */
