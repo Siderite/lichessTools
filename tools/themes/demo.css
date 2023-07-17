@@ -2,7 +2,7 @@
 
 body.lichessTools.lichessTools-theme_demo {
   background: linear-gradient(138deg,#e0e0e0,#adadad);
-  font-family: cursive !important;
+  font-family: Verdana,Georgia,Arial !important;
 }
 
 body.lichessTools.dark.lichessTools-theme_demo {
