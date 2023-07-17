@@ -43,6 +43,10 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichess
   color:black;
 }
 
+body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
+  flex: 1 1 1em;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .gamebook {

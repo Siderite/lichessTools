@@ -28,10 +28,10 @@
     playRandomVariation=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
+      if (!lichess.analysis) return;
       const node = lichess.analysis.node;
       const path = lichess.analysis.path;
       const child = parent.getRandomVariation(node);
-      if (!lichess.analysis) return;
       if (child) {
         this.prevPositions.push({
           path:path,
