@@ -22,6 +22,26 @@ body.lichessTools main.analyse.lichessTools-hideOctopus .gamebook .floor:after {
   display:none;
 }
 
+body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
+  padding-bottom: 0.5em;
+  flex: 0 0 2em;
+}
+body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-greenBrush {
+  background:green;
+  color:white;
+}
+body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-redBrush {
+  background:red;
+  color:white;
+}
+body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-blueBrush {
+  background:blue;
+  color:white;
+}
+body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
+  background:yellow;
+  color:black;
+}
 
 /* Prettier Lichess CSS */
 

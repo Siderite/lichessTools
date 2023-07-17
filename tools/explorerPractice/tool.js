@@ -99,7 +99,7 @@
       }
       if (!analysis.explorer?.enabled()) this.isRunning=false;
       button.toggleClass('active',!!this.isRunning);
-      explorerContainer.toggleClass('lichessTools-explorerPracticeInAnalysis',this.isRunning && !analysis.study);
+      explorerContainer.toggleClass('lichessTools-explorerPracticeInAnalysis',!!this.isRunning && !analysis.study);
       if (analysis.turnColor()===analysis.getOrientation()) {
         this.inPlayMove=false;
       }
