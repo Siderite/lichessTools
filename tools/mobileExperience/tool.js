@@ -76,8 +76,13 @@
     };
 
     handleGesture=(shape)=>{
-      lichess.analysis.chessground.state.drawable.shapes.push({...shape});
-      lichess.analysis.chessground.state.drawable.onChange(lichess.analysis.chessground.state.drawable.shapes);
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const drawable=lichess.analysis.chessground.state.drawable;
+      const existing=drawable.shapes.find(s=>s.orig===shape.orig && s.dest===shape.dest && s.brush===shape.brush);
+      parent.arrayRemoveAll(drawable.shapes,s=>s.orig===shape.orig && s.dest===shape.dest);
+      if (!existing) drawable.shapes.push(shape);
+      drawable.onChange(drawable.shapes);
     };
 
     brushes=['green','red','blue','yellow'];
