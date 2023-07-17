@@ -95,7 +95,7 @@
           .on('touchend',this.touchEnd);
         if (!$('div.analyse__controls div.features button.lichessTools-shapeDrawing').length) {
           $('<button class="fbt">')
-            .attr('data-icon','\u2642')
+            .attr('data-icon','\u21D7')
             .attr('title',trans.noarg('shapeDrawingText'))
             .addClass('lichessTools-shapeDrawing')
             .appendTo('div.analyse__controls div.features');
