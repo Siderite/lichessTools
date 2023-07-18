@@ -32,7 +32,11 @@
       if (!analysis?.chessground) return;
       const glyph=analysis.node.glyphs?.at(0)?.symbol;
       if (!glyph) return;
-      if (['!','?','!!','??','?!','!?'].includes(glyph)) return;
+      if (['!','?','!!','??','?!','!?'].includes(glyph) || lichess.storage.get('analyse.show-move-annotation')!=='true') {
+        const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
+        analysis.chessground.setAutoShapes(shapes);
+        return;
+      }
       const orig=analysis.node.uci.slice(-2);
       const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type==='glyph')||[];
       shapes.push({

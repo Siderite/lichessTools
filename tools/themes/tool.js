@@ -6,7 +6,7 @@
         name:'themes',
         category: 'general',
         type:'single',
-        possibleValues: ['default','demo'],
+        possibleValues: ['default','demo','justExplorer'],
         defaultValue: 'default'
       }
     ];
@@ -16,13 +16,15 @@
         'options.general': 'General',
         'options.themes': 'Apply a style theme',
         'themes.default':'None',
-        'themes.demo':'Demo theme'
+        'themes.demo':'Demo theme',
+        'themes.justExplorer':'Just Explorer'
       },
       'ro-RO':{
         'options.general': 'General',
         'options.themes': 'Aplic\u0103 o tem\u0103 de stil',
         'themes.default':'Nici una',
-        'themes.demo':'Tem\u0103 demo'
+        'themes.demo':'Tem\u0103 demo',
+        'themes.justExplorer':'Doar Explorator'
       }
     }
 
