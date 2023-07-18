@@ -16,7 +16,7 @@
         category: 'general',
         type:'single',
         possibleValues: [1,2,3,4],
-        defaultValue: '4'
+        defaultValue: 4
       }
     ];
 
@@ -175,8 +175,10 @@
                 this.drawingBrush=index>=this.options.colorCount
                   ? null
                   : this.brushes[index];
-                parent.lichess.analysis.chessground.state.drawable.enabled=!this.drawingBrush;
-                parent.lichess.analysis.chessground.state.movable.showDests=!this.drawingBrush;
+                const cg=parent.lichess.analysis.chessground;
+                cg.state.drawable.enabled=!this.drawingBrush;
+                cg.state.movable.showDests=!this.drawingBrush;
+                cg.state.draggable.enabled=!this.drawingBrush;
                 for (const brush of this.brushes) {
                   $(ev.target)
                     .toggleClass('lichessTools-'+brush+'Brush',this.drawingBrush==brush);
