@@ -38,6 +38,7 @@
       if (!drawable) return;
 
       const reshape=($this,result,shapes)=>{
+        this.clearRankShapes(shapes);
         const dict={}
         for (const shape of shapes) {
           const rankShape={
@@ -57,13 +58,13 @@
           drawnShapes.push(rankShape);
         }
         if (rank) {
-          drawable.shapes=drawnShapes.concat(shapes.filter(s=>s.type!=='rank'));
-          cg.redrawAll();
+          drawable.shapes=drawnShapes.concat(shapes);
+          if (!cg.state.draggable.current) cg.redrawAll();
         }
       };
 
       if (shapeRankEnabled) {
-        if (!parent.isWrappedFunction(drawable.onChange)) {
+        if (!parent.isWrappedFunction(drawable.onChange,'shapeRank')) {
           drawable.onChange=parent.wrapFunction(drawable.onChange,{
             id:'shapeRank',
             before:($this,shapes)=>this.clearRankShapes(shapes),
@@ -72,7 +73,7 @@
         } 
         //drawable.onChange(drawable.shapes);
         reshape(null,null,drawable.shapes);
-        cg.redrawAll();
+        //cg.redrawAll();
       } else {
         drawable.onChange=parent.unwrapFunction(drawable.onChange,'shapeRank');
       } 
@@ -93,8 +94,8 @@
         parent.global.setTimeout(this.ensureShapeRank,500); //TODO without the timeout something clears the shapes in about 250ms at first page load (probably a web socket event)
       } else {
         this.clearRankShapes(cg.state.drawable.shapes);
-        cg.redrawAll();
       }
+      cg.redrawAll();
     }
 
   }

@@ -82,7 +82,7 @@
 
     for (const key in categs) {
       const categ=categs[key];
-      html+='<div><h3>$trans(options.'+key+')</h3>';
+      html+='<div><h3><label for="chk_'+key+'">$trans(options.'+key+')</label></h3><input type="checkbox" id="chk_'+key+'" class="categoryToggle">';
       for (const pref of categ) {
         html+=`<section data-pref="${pref.name}"><h2>$trans(options.${pref.name})</h2>`;
         switch(pref.type) {
@@ -141,7 +141,7 @@
       .append(html)
       .addClass('lichessTools-preferences');
     $('form',container).append(saved);
-    $('input',container)
+    $('input:not(.categoryToggle)',container)
       .each((i,e)=>{
         const type=$(e).prop('type');
         const isCheckable=type=='radio'||type=='checkbox';
