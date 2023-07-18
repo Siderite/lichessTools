@@ -10,6 +10,13 @@
         type:'multiple',
         possibleValues: ['showGauge','hideOctopus','shapeDrawing','randomNextMove'],
         defaultValue: 'showGauge,randomNextMove'
+      },
+      {
+        name:'colorCount',
+        category: 'general',
+        type:'single',
+        possibleValues: [1,2,3,4],
+        defaultValue: '4'
       }
     ];
 
@@ -17,22 +24,32 @@
       'en-US':{
         'options.analysis': 'General',
         'options.mobileExperience': 'Mobile device features',
+        'options.colorCount': 'Colors for shapes on mobile',
         'mobileExperience.showGauge':'Evaluation gauge',
         'mobileExperience.hideOctopus':'Hide the octopus mascot',
         'mobileExperience.shapeDrawing':'Draw arrows and circles',
         'mobileExperience.randomNextMove':'Random move button',
         'shapeDrawingTitle': 'LiChess Tools - draw arrows and circles',
-        'randomNextMoveTitle': 'LiChess Tools - random move'
+        'randomNextMoveTitle': 'LiChess Tools - random move',
+        'colorCount.1': 'one',
+        'colorCount.2': 'two',
+        'colorCount.3': 'three',
+        'colorCount.4': 'four',
       },
       'ro-RO':{
         'options.analysis': 'General',                                                                     
         'options.mobileExperience': 'Op\u0163iuni pentru aparate mobile',
+        'options.colorCount': 'Culori pentru s\u0103ge\u0163i pe mobile',
         'mobileExperience.showGauge':'Band\u0103 de evaluare',
         'mobileExperience.hideOctopus':'Ascunde mascota caracati\u0163\u0103',
         'mobileExperience.shapeDrawing':'Deseneaz\u0103 s\u0103ge\u0163i \u015Fi cercuri',
         'mobileExperience.randomNextMove':'Buton mutare aleatoare',
         'shapeDrawingTitle': 'LiChess Tools - deseneaz\u0103 s\u0103ge\u0163i \u015Fi cercuri',
-        'randomNextMoveTitle': 'LiChess Tools - mutare aleatoare'
+        'randomNextMoveTitle': 'LiChess Tools - mutare aleatoare',
+        'colorCount.1': 'unu',
+        'colorCount.2': 'doi',
+        'colorCount.3': 'trei',
+        'colorCount.4': 'patru',
       }
     }
 
@@ -107,6 +124,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
+      $('body').toggleClass('lichessTools-mobileExperience',!!(this.options.shapeDrawing||this.options.randomNextMove));
       $('main.analyse').toggleClass('lichessTools-gaugeOnMobile',this.options.showGauge);
       $('main.analyse').toggleClass('lichessTools-hideOctopus',this.options.hideOctopus);
       if ($('body').is('.mobile')) {
@@ -154,7 +172,7 @@
               if ($(ev.target).is('button.lichessTools-shapeDrawing')) {
                 ev.preventDefault();
                 let index=this.brushes.indexOf(this.drawingBrush)+1;
-                this.drawingBrush=index>=this.brushes.length
+                this.drawingBrush=index>=this.options.colorCount
                   ? null
                   : this.brushes[index];
                 parent.lichess.analysis.chessground.state.drawable.enabled=!this.drawingBrush;
@@ -198,13 +216,15 @@
         hideOctopus:parent.isOptionSet(value,'hideOctopus'),
         shapeDrawing:parent.isOptionSet(value,'shapeDrawing'),
         randomNextMove:parent.isOptionSet(value,'randomNextMove'),
+        colorCount: parent.currentOptions.getValue('colorCount')
       };
       const lichess=parent.lichess;
       lichess.pubsub.off('redraw',this.handleRedraw);
       lichess.pubsub.off('chapterChange',this.handleRedraw);
-      if (this.options.showGauge || this.options.hideOctopus || this.options.shapeDrawing) {
+      if (this.options.showGauge || this.options.hideOctopus || this.options.shapeDrawing || this.options.randomNextMove) {
         lichess.pubsub.on('redraw',this.handleRedraw);
         lichess.pubsub.on('chapterChange',this.handleRedraw);
+        this.handleRedraw();
       }
     }
 

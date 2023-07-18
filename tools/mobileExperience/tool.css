@@ -45,6 +45,27 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichess
 
 body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
   flex: 1 1 1em;
+}                     
+
+@media (max-width: 500px) {
+  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls {
+    display: inline-grid;
+  }
+  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls div.features {
+    grid-row: 1;
+    grid-column: 1/span 8;
+  }
+  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button[data-act="menu"] {
+    grid-row: 1;
+    grid-column: 9/span 2;
+  }
+  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls div.jumps {
+    grid-row: 2;
+    grid-column: 2/span 8;
+  }
+  body.lichessTools.mobile.lichessTools-mobileExperience .lichessTools-liveStatus {
+    top: 5em;
+  }
 }
 
 /* Prettier Lichess CSS */
