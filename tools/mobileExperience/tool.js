@@ -104,7 +104,7 @@
       const existing=drawable.shapes.find(s=>s.orig===shape.orig && s.dest===shape.dest && s.brush===shape.brush);
       parent.arrayRemoveAll(drawable.shapes,s=>s.orig===shape.orig && s.dest===shape.dest);
       if (!existing) drawable.shapes.push(shape);
-      drawable.onChange(drawable.shapes);
+      if (drawable.onChange) drawable.onChange(drawable.shapes);
     };
 
     playRandomVariation=()=>{
