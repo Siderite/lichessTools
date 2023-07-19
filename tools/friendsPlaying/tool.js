@@ -146,8 +146,7 @@
       if (!lichess) return;
       const setInterval=parent.global.setInterval;
       const clearInterval=parent.global.clearInterval;
-      lichess.sound.loadOggOrMp3('friendPlaying', lichess.sound.baseUrl + '/piano/GenericNotify')
-      this.beep = lichess.sound.soundSetSounds.get('friendPlaying')
+      this.beep = await lichess.sound.load('friendPlaying', lichess.sound.baseUrl + '/piano/GenericNotify');
       lichess.pubsub.off('socket.in.following_playing', this.playFriendSound);
       lichess.pubsub.off('mutePlayer', this.mutePlayer);
       parent.$('body').removeClass('lichessTools-audioNotAllowed');
