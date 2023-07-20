@@ -41,12 +41,22 @@
 
   showAudioNotAllowed=()=>{
     const parent=this.lichessTools;
+    const trans=parent.translator;
     const isAudioAllowed=parent.isAudioAllowed();
+    const noAutoPlay=parent.$('#warn-no-autoplay')
+      .toggleClass('shown',!isAudioAllowed);
+    const title=trans.noarg('audioNotAllowedTitle');
     if (isAudioAllowed) {
-      parent.$('body').removeClass('lichessTools-audioNotAllowed');
+      //parent.$('body').removeClass('lichessTools-audioNotAllowed');
       parent.global.clearInterval(this.audioCheckTimeout);
+      if (noAutoPlay.attr('title')===title) {
+        noAutoPlay.removeAttr('title');
+      }
     } else {
-      parent.$('body').addClass('lichessTools-audioNotAllowed');
+      //parent.$('body').addClass('lichessTools-audioNotAllowed');
+      if (!noAutoPlay.attr('title')) {
+        noAutoPlay.attr('title',title);
+      }
       if (!this.audioCheckTimeout) {
         this.audioCheckTimeout=parent.global.setInterval(this.showAudioNotAllowed,1000);
       }
@@ -149,19 +159,19 @@
       this.beep = await lichess.sound.load('friendPlaying', lichess.sound.baseUrl + '/piano/GenericNotify');
       lichess.pubsub.off('socket.in.following_playing', this.playFriendSound);
       lichess.pubsub.off('mutePlayer', this.mutePlayer);
-      parent.$('body').removeClass('lichessTools-audioNotAllowed');
+      //parent.$('body').removeClass('lichessTools-audioNotAllowed');
       clearInterval(this.audioCheckTimeout);
-      $('div.lichessTools-audioNotAllowedIcon').remove();
+      //$('div.lichessTools-audioNotAllowedIcon').remove();
       if (value!==false && value?.toString().replace(/,standard/i,'')) {
         lichess.pubsub.on('socket.in.following_playing', this.playFriendSound);
         lichess.pubsub.on('mutePlayer', this.mutePlayer);
-        if (!$('div.lichessTools-audioNotAllowedIcon').length) {
+        /*if (!$('div.lichessTools-audioNotAllowedIcon').length) {
           $('<div>')
             .addClass('lichessTools-audioNotAllowedIcon')
             .attr('title',trans.noarg('audioNotAllowedTitle'))
             .attr('data-icon','\uE073')
             .prependTo('#top > .site-buttons');
-        }
+        }*/
       }
     }
   }
