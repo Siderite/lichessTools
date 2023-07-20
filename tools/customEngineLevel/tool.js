@@ -29,6 +29,7 @@
       if (analysis.practice) return;
       const customEngineDepth=+(parent.currentOptions.getValue('customEngineLevel'));
       const ceval = analysis.ceval;
+      if (!ceval.enabled()) return;
       const state=ceval.getState();
       const cloud=ceval.showingCloud();
       const isIdle = state===2 || cloud;
