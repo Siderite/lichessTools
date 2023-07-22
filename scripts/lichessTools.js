@@ -414,17 +414,21 @@
   
     tools=[];
     loadTool(toolClass) {
-      const tool=new toolClass(this);
-      this.tools.push(tool);
-      if (tool.intl) {
-        for (const lang in tool.intl) {
-          this.intl[lang]={...this.intl[lang],...tool.intl[lang]};
+      try {
+        const tool=new toolClass(this);
+        this.tools.push(tool);
+        if (tool.intl) {
+          for (const lang in tool.intl) {
+            this.intl[lang]={...this.intl[lang],...tool.intl[lang]};
+          }
         }
-      }
-      if (tool.dependencies) {
-        for (const name of tool.dependencies) {
-          if (!this.tools.find(t=>t.name===name)) throw new Error('Tool '+tool.name+' has a dependency on '+name+' which was not loaded');
+        if (tool.dependencies) {
+          for (const name of tool.dependencies) {
+            if (!this.tools.find(t=>t.name===name)) throw new Error('Tool '+tool.name+' has a dependency on '+name+' which was not loaded');
+          }
         }
+      } catch(e) {
+        console.error(e);
       }
     }
 

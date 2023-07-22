@@ -45,12 +45,12 @@
       }
       const current=analysis.explorer?.current();
       if (!current) return;
-      const total=current.white+current.draws+current.black;
+      const moves=[...current.moves];
+      const total=moves.map(m=>m.total=m.black+m.draws+m.white).reduce((acc,val)=>acc+val,0);
       const index=Math.random()*total;
       let acc=0;
-      for (const move of current.moves) {
-        const moveTotal=move.white+move.draws+move.black;
-        acc+=moveTotal;
+      for (const move of moves) {
+        acc+=move.total;
         if (index<=acc) {
           this.inPlayMove=true;
           analysis.playUci(move.uci);
@@ -59,8 +59,6 @@
       }
       if (this.isRunning) {
         parent.announce(trans.noarg('outOfMoves'));
-        //this.isRunning=false;
-        //this.process();
       }
     };
 
