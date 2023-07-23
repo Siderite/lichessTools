@@ -66,6 +66,7 @@
         "tools/mobileExperience/tool.js",
         "tools/explorerPractice/tool.js",
         "tools/additionalGlyphs/tool.js",
+        "tools/extraChart/tool.js",
  
         "tools/preferences/tool.js",
  
