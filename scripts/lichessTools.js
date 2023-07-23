@@ -356,9 +356,12 @@
         || 'standard';
       if (variant!='standard') return;
 
-      const orientation=container.closest('.cg-wrap').is('.orientation-white')?'white':'black';
       const width=container.width()/8;
       const parentOffset=container.offset();
+      const orientation=container.closest('.cg-wrap').is('.orientation-black')?'black':'white';
+      const getKey=orientation=='white'
+        ? res=>res.x+','+res.y
+        : res=>(7-res.x)+','+(7-res.y);
 
       const lastMove={};
       $('square.last-move',container).each((i,s)=>{
@@ -368,11 +371,7 @@
           x:Math.floor((offset.left-parentOffset.left)/width),
           y:Math.floor((offset.top-parentOffset.top)/width)
         };
-        if (orientation=='black') {
-          res.x=7-res.x;
-          res.y=7-res.y;
-        }
-        lastMove[res.x+','+res.y]=true;
+        lastMove[getKey(res)]=true;
       });
 
       let turn='white';
@@ -385,12 +384,8 @@
           x:Math.floor((offset.left-parentOffset.left)/width),
           y:Math.floor((offset.top-parentOffset.top)/width)
         };
-        if (orientation=='black') {
-          res.x=7-res.x;
-          res.y=7-res.y;
-        }
         res.p=map[res.type];
-        const key=res.x+','+res.y;
+        const key=getKey(res);
         if (piece.is('.white')) {
           res.p=res.p?.toUpperCase();
           if (lastMove[key]) turn='black'; 
@@ -399,22 +394,24 @@
       });
 
       let pos='';
+      let s=0;
+      const putEmpties=()=>{
+        if (!s) return;
+        pos+=s;
+        s=0;
+      };
       for (let y=0; y<8; y++) {
-        let s=0;
         for (let x=0; x<8; x++) {
           const key=x+','+y;
           const p=pieceDict[key]?.p;
           if (p) {
-            if (s>0) {
-              pos+=s;
-              s=0;
-            }
+            putEmpties();
             pos+=p;
           } else {
             s++;
           }
         }
-        if (s>0) pos+=s;
+        putEmpties();
       }
       pos+=turn[0];
       return pos;
