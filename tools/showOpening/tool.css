@@ -21,3 +21,10 @@ body.lichessTools a.mini-game .lichessTools-opening {
   opacity: 0.7;
   height:auto;
 }
+
+body.lichessTools div.analyse__wiki .lichessTools-opening {
+  font-size: 1.2em;
+  width: 100%;
+  display: block;
+  text-align: center;
+}

@@ -336,6 +336,85 @@
         analysis.redraw();
       }
     };
+
+    getPositionFromBoard=(el)=>{
+      const map={
+        'king':'k',
+        'queen':'q',
+        'rook':'r',
+        'bishop':'b',
+        'knight':'n',
+        'pawn':'p'
+      }
+      const elem=$(el).is('cg-container')
+        ? el
+        : $('cg-container',el)[0]
+      const container=$(elem);
+      const variantElem=container.closest('div.round__app, main')[0];
+      const variant=variantElem
+        && Array.from(variantElem.classList).find(c=>c.startsWith('variant-'))?.slice('variant-'.length)
+        || 'standard';
+      if (variant!='standard') return;
+
+      const orientation=container.closest('.cg-wrap').is('.orientation-white')?'white':'black';
+      const width=container.width()/8;
+      const parentOffset=container.offset();
+      const pieces=$('piece',container).get();
+      const result=pieces
+        .map(p=>{
+            const piece=$(p);
+            const offset=piece.offset();
+            const res={
+              color:piece.is('.white')?'white':'black',
+              type:Array.from(p.classList).filter(c=>!['black','white'].includes(c))[0],
+              x:Math.floor((offset.left-parentOffset.left)/width),
+              y:Math.floor((offset.top-parentOffset.top)/width)
+            };
+            if (orientation=='black') {
+              res.x=7-res.x;
+              res.y=7-res.y;
+            }
+            res.p=map[res.type];
+            if (res.color=='white') res.p=res.p?.toUpperCase();
+            return res;
+        })
+        .filter(r=>r.p);
+      const turnPiece=$('square.last-move',container).get()
+        .map(s=>{
+            const square=$(s);
+            const offset=square.offset();
+            const res={
+              x:Math.floor((offset.left-parentOffset.left)/width),
+              y:Math.floor((offset.top-parentOffset.top)/width)
+            };
+            if (orientation=='black') {
+              res.x=7-res.x;
+              res.y=7-res.y;
+            }
+            return res;
+        })
+        .map(s=>result.find(r=>r.x==s.x && r.y==s.y))
+        .find(r=>r);
+      const turn=turnPiece?.color=='white'?'black':'white';
+      let pos='';
+      for (let y=0; y<8; y++) {
+        let s=0;
+        for (let x=0; x<8; x++) {
+          const p=result.find(r=>r.x==x && r.y==y);
+          if (p) {
+            if (s>0) pos+=s;
+            s=0;
+            pos+=p.p;
+          } else {
+            s++;
+            continue;
+          }
+        }
+        if (s>0) pos+=s;
+      }
+      pos+=turn=='white'?'w':'b'
+      return pos;
+    };
  
     intl={
       lichessTools:this,

@@ -14,11 +14,13 @@
     intl={
       'en-US':{
         'options.general': 'General',
-        'options.showOpening': 'Show game opening names'
+        'options.showOpening': 'Show game opening names',
+        'openingNameTitle': 'LiChess Tools - opening name'
       },
       'ro-RO':{
         'options.general': 'General',
-        'options.showOpening': 'Arat\u0103 numele deschiderii \u00een partide'
+        'options.showOpening': 'Arat\u0103 numele deschiderii \u00een partide',
+        'openingNameTitle': 'LiChess Tools - numele deschiderii'
       }
     }
 
@@ -38,16 +40,34 @@
         const result = await this.withOpening(gameId,el);
         if (!result) return;
         const opening=result.opening;
-        const container=result.data;
+        const container=result.el;
         if ($('.lichessTools-opening',container).length) return;
         $(container).append($('<span class="lichessTools-opening"/>').text(opening).attr('title',opening));
       }
     };
 
     openingTimeout=0;
-    withOpening=async (gameId,data)=>{
+    withOpening=async (gameId,el,ply)=>{
       const parent=this.lichessTools;
-      const url='/api/games/export/_ids?opening=true&moves=false&accuracy';
+      if (parent.opening_dict) {
+        const pos=parent.getPositionFromBoard(el);
+        if (pos) {
+          const opening=parent.opening_dict.get(pos);
+          if (opening) {
+            return {opening,el};
+          }
+        }
+      }
+
+      if (!gameId || gameId=='synthetic') return;
+
+      const data=el?.openingData;
+      if (data) {
+        const now=new Date().getTime();
+        if (el.maxPly>14 || now-data.time<2000) return {opening:data.opening,el};
+      }
+
+      const url='/api/games/export/_ids?tags=true&opening=true&moves=false&clocks=false&evals=false';
       await parent.timeout(this.openingTimeout+500);
       this.openingTimeout+=1000;
       const pgn = await parent.net.fetch(url, {
@@ -61,33 +81,38 @@
       if (!opening || opening=='?') {
         return;
       }
-      return {opening,data};
+      if (el) {
+        el.openingData={ time:new Date().getTime(), opening:opening };
+        if (ply) {
+          el.maxPly=Math.max(ply,+el.maxPly||0);
+        }
+      }
+      return {opening,el};
     };
 
-    refreshOpening=async ()=>{
+    refreshOpening=async (ply)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
+      if ($('body').is('.playing')) return;
+      const trans=parent.translator;
       const tvOptions=parent.getTvOptions();
       const gameId=tvOptions.gameId || lichess.analysis?.data?.game?.id;
-      if (!gameId||gameId=='synthetic') return;
-      const metaSection = $('div.game__meta section').eq(0);
-      const result = await this.withOpening(gameId);
+      const metaSection = $('div.game__meta section, div.analyse__wiki.empty').eq(0);
+      const result = await this.withOpening(gameId,$('main.round, main.analyse')[0],ply);
       if (!result) {
         $('.lichessTools-opening',metaSection).remove();
         return;
       }
       if (!$('span.lichessTools-opening',metaSection).length) {
-        metaSection.append($('<span/>').addClass('lichessTools-opening'));
+        metaSection.append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
       }
       $('span.lichessTools-opening',metaSection).text(result.opening);
-      await this.miniGameOpening();
+      if (!ply) {
+        await this.miniGameOpening();
+      }
     };
-    refreshOpeningDebounced=this.lichessTools.debounce(this.refreshOpening,2000);
-    refreshOpeningSub=(ply)=>{
-      if (ply>10) return;
-      this.refreshOpeningDebounced();
-    };
+    refreshOpeningDebounced=this.lichessTools.debounce(this.refreshOpening,500);
 
     async start() {
       const parent=this.lichessTools;
@@ -96,7 +121,7 @@
       const lichess=parent.lichess;
       if (!lichess) return;
       const $=parent.$;
-      lichess.pubsub.off('ply',this.refreshOpeningSub);
+      lichess.pubsub.off('ply',this.refreshOpeningDebounced);
       lichess.pubsub.off('content-loaded',this.miniGameOpening);
       if (lichess.socket?.settings?.events?.endData) {
         lichess.socket.settings.events.endData=parent.unwrapFunction(lichess.socket.settings.events.endData,'showOpening');
@@ -110,7 +135,7 @@
             }
           });
         }
-        lichess.pubsub.on('ply',this.refreshOpeningSub);
+        lichess.pubsub.on('ply',this.refreshOpeningDebounced);
         lichess.pubsub.on('content-loaded',this.miniGameOpening);
         this.refreshOpening();
       } else {
