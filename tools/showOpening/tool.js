@@ -118,6 +118,7 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('showOpening');
       this.logOption('Show game opening names', value);
+      this.logOption(' ... cached openings', parent.opening_dict?.size);
       const lichess=parent.lichess;
       if (!lichess) return;
       const $=parent.$;
