@@ -359,60 +359,64 @@
       const orientation=container.closest('.cg-wrap').is('.orientation-white')?'white':'black';
       const width=container.width()/8;
       const parentOffset=container.offset();
-      const pieces=$('piece',container).get();
-      const result=pieces
-        .map(p=>{
-            const piece=$(p);
-            const offset=piece.offset();
-            const res={
-              color:piece.is('.white')?'white':'black',
-              type:Array.from(p.classList).filter(c=>!['black','white'].includes(c))[0],
-              x:Math.floor((offset.left-parentOffset.left)/width),
-              y:Math.floor((offset.top-parentOffset.top)/width)
-            };
-            if (orientation=='black') {
-              res.x=7-res.x;
-              res.y=7-res.y;
-            }
-            res.p=map[res.type];
-            if (res.color=='white') res.p=res.p?.toUpperCase();
-            return res;
-        })
-        .filter(r=>r.p);
-      const turnPiece=$('square.last-move',container).get()
-        .map(s=>{
-            const square=$(s);
-            const offset=square.offset();
-            const res={
-              x:Math.floor((offset.left-parentOffset.left)/width),
-              y:Math.floor((offset.top-parentOffset.top)/width)
-            };
-            if (orientation=='black') {
-              res.x=7-res.x;
-              res.y=7-res.y;
-            }
-            return res;
-        })
-        .map(s=>result.find(r=>r.x==s.x && r.y==s.y))
-        .find(r=>r);
-      const turn=turnPiece?.color=='white'?'black':'white';
+
+      const lastMove={};
+      $('square.last-move',container).each((i,s)=>{
+        const square=$(s);
+        const offset=square.offset();
+        const res={
+          x:Math.floor((offset.left-parentOffset.left)/width),
+          y:Math.floor((offset.top-parentOffset.top)/width)
+        };
+        if (orientation=='black') {
+          res.x=7-res.x;
+          res.y=7-res.y;
+        }
+        lastMove[res.x+','+res.y]=true;
+      });
+
+      let turn='white';
+      const pieceDict={};
+      $('piece',container).each((i,p)=>{
+        const piece=$(p);
+        const offset=piece.offset();
+        const res={
+          type:Array.from(p.classList).find(c=>!['black','white'].includes(c)),
+          x:Math.floor((offset.left-parentOffset.left)/width),
+          y:Math.floor((offset.top-parentOffset.top)/width)
+        };
+        if (orientation=='black') {
+          res.x=7-res.x;
+          res.y=7-res.y;
+        }
+        res.p=map[res.type];
+        const key=res.x+','+res.y;
+        if (piece.is('.white')) {
+          res.p=res.p?.toUpperCase();
+          if (lastMove[key]) turn='black'; 
+        }
+        if (res.p) pieceDict[key]=res;
+      });
+
       let pos='';
       for (let y=0; y<8; y++) {
         let s=0;
         for (let x=0; x<8; x++) {
-          const p=result.find(r=>r.x==x && r.y==y);
+          const key=x+','+y;
+          const p=pieceDict[key]?.p;
           if (p) {
-            if (s>0) pos+=s;
-            s=0;
-            pos+=p.p;
+            if (s>0) {
+              pos+=s;
+              s=0;
+            }
+            pos+=p;
           } else {
             s++;
-            continue;
           }
         }
         if (s>0) pos+=s;
       }
-      pos+=turn=='white'?'w':'b'
+      pos+=turn[0];
       return pos;
     };
  
