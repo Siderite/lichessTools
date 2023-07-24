@@ -213,6 +213,7 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('mobileExperience');
       this.logOption('Mobile experience', value);
+      this.logOption('...color count', parent.currentOptions.getValue('colorCount'));
       this.options={
         showGauge:parent.isOptionSet(value,'showGauge'),
         hideOctopus:parent.isOptionSet(value,'hideOctopus'),

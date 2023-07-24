@@ -5,9 +5,9 @@
       {
         name:'themes',
         category: 'general',
-        type:'single',
-        possibleValues: ['default','demo','justExplorer'],
-        defaultValue: 'default'
+        type:'multiple',
+        possibleValues: ['demo','justExplorer'],
+        defaultValue: ''
       }
     ];
 
@@ -37,8 +37,10 @@
       for (const theme of installedThemes) {
         $('body').removeClass(theme);
       }
-      if (value!='default') {
-        $('body').addClass('lichessTools-theme_'+value);
+      if (value) {
+        value.split(',').forEach(theme=>{
+          $('body').addClass('lichessTools-theme_'+theme.trim());
+        });
       }
     }
 

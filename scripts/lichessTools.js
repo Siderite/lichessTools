@@ -336,6 +336,86 @@
         analysis.redraw();
       }
     };
+
+    getPositionFromBoard=(el)=>{
+      const map={
+        'king':'k',
+        'queen':'q',
+        'rook':'r',
+        'bishop':'b',
+        'knight':'n',
+        'pawn':'p'
+      }
+      const elem=$(el).is('cg-container')
+        ? el
+        : $('cg-container',el)[0]
+      const container=$(elem);
+      const variantElem=container.closest('div.round__app, main')[0];
+      const variant=variantElem
+        && Array.from(variantElem.classList).find(c=>c.startsWith('variant-'))?.slice('variant-'.length)
+        || 'standard';
+      if (variant!='standard') return;
+
+      const width=container.width()/8;
+      const parentOffset=container.offset();
+      const orientation=container.closest('.cg-wrap').is('.orientation-black')?'black':'white';
+      const getKey=orientation=='white'
+        ? res=>res.x+','+res.y
+        : res=>(7-res.x)+','+(7-res.y);
+
+      const lastMove={};
+      $('square.last-move',container).each((i,s)=>{
+        const square=$(s);
+        const offset=square.offset();
+        const res={
+          x:Math.floor((offset.left-parentOffset.left)/width),
+          y:Math.floor((offset.top-parentOffset.top)/width)
+        };
+        lastMove[getKey(res)]=true;
+      });
+
+      let turn='white';
+      const pieceDict={};
+      $('piece',container).each((i,p)=>{
+        const piece=$(p);
+        const offset=piece.offset();
+        const res={
+          type:Array.from(p.classList).find(c=>!['black','white'].includes(c)),
+          x:Math.floor((offset.left-parentOffset.left)/width),
+          y:Math.floor((offset.top-parentOffset.top)/width)
+        };
+        res.p=map[res.type];
+        const key=getKey(res);
+        if (piece.is('.white')) {
+          res.p=res.p?.toUpperCase();
+          if (lastMove[key]) turn='black'; 
+        }
+        if (res.p) pieceDict[key]=res;
+      });
+
+      let pos='';
+      let s=0;
+      const putEmpties=()=>{
+        if (!s) return;
+        pos+=s;
+        s=0;
+      };
+      for (let y=0; y<8; y++) {
+        for (let x=0; x<8; x++) {
+          const key=x+','+y;
+          const p=pieceDict[key]?.p;
+          if (p) {
+            putEmpties();
+            pos+=p;
+          } else {
+            s++;
+          }
+        }
+        putEmpties();
+      }
+      pos+=turn[0];
+      return pos;
+    };
  
     intl={
       lichessTools:this,
