@@ -6,8 +6,8 @@
         name:'extraChart',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['material','freedom','control'],
-        defaultValue: 'material,freedom,control'
+        possibleValues: ['material','freedom','control','bril'],
+        defaultValue: 'material,freedom,control,bril'
       }
     ];
 
@@ -17,20 +17,23 @@
         'options.extraChart': 'Extra analysis charting',
         'extraChart.material': 'Material',
         'extraChart.freedom': 'Freedom',
-        'extraChart.control': 'Control'
+        'extraChart.control': 'Control',
+        'extraChart.bril': '?'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.extraChart': 'Grafice de analiz\u0103 \u00een plus',
         'extraChart.material': 'Material',
         'extraChart.freedom': 'Libertate',
-        'extraChart.control': 'Control'
+        'extraChart.control': 'Control',
+        'extraChart.bril': '?'
       }
     }
 
     type='line';
-    smoothing=true;
+    smoothing=false;
     opacity='80';
+    dashStyle='ShortDash';
 
     material=node=>{
       const points={
@@ -217,7 +220,7 @@
       return mainline
         .slice(1)
         .map(node => {
-          let cp=this.freedom(node).freedom*100;
+          let cp=this.freedom(node).freedom*20;
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
           };
@@ -228,11 +231,32 @@
       return mainline
         .slice(1)
         .map(node => {
-          let cp=this.freedom(node).control*100;
+          let cp=this.freedom(node).control*30;
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
           };
         });
+      };
+
+
+    getBrilData = (mainline) => {
+      let prev=0;
+      return mainline
+        .slice(1)
+        .map((node,i) => {
+          let val=this.freedom(node);
+          let cp=(node.eval?.cp||0)-(val.control*30+val.freedom*20+this.material(node)*100)/3;
+          if (!node.eval || node.eval.mate || (cp-prev>0 && node.ply%2==0) || (cp-prev<0 && node.ply%2==1)) {
+            prev=cp;
+            return;
+          }
+          prev=cp;
+          return {
+            x: i,
+            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+          };
+        })
+        .filter(p=>p);
       };
 
 
@@ -241,14 +265,15 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       if (!lichess.analysis) return;
-      const Highcharts=parent.global.Highcharts;
+      const Highcharts=parent.global?.Highcharts;
       if (!Highcharts) return;
 
       const chart=Highcharts.charts.find(c=>$(c.renderTo).is('#acpl-chart,.study__server-eval')&&$(c.renderTo).offset().left);
       if (!chart) return;
 
-      chart.series.find(s=>s.name==='Material')?.remove();
-      if (this.options.material) {
+      let existing = chart.series.find(s=>s.name==='Material');
+      if (existing && !this.options.material) existing.remove();
+      if (!existing && this.options.material) {
         chart.addSeries({
           name: 'Material',
           color: '#55BF3B'+this.opacity,
@@ -257,12 +282,14 @@
           enableMouseTracking: false,
           marker: {
             enabled: false
-          }
+          },
+          dashStyle:this.dashStyle
         });
       }
 
-      chart.series.find(s=>s.name==='Freedom')?.remove();
-      if (this.options.freedom) {
+      existing = chart.series.find(s=>s.name==='Freedom');
+      if (existing && !this.options.freedom) existing.remove();
+      if (!existing && this.options.freedom) {
         chart.addSeries({
           name: 'Freedom',
           color: '#553BBF'+this.opacity,
@@ -271,12 +298,14 @@
           enableMouseTracking: false,
           marker: {
             enabled: false
-          }
+          },
+          dashStyle:this.dashStyle
         });
       }
 
-      chart.series.find(s=>s.name==='Control')?.remove();
-      if (this.options.control) {
+      existing = chart.series.find(s=>s.name==='Control');
+      if (existing && !this.options.control) existing.remove();
+      if (!existing && this.options.control) {
         chart.addSeries({
           name: 'Control',
           color: '#BF9090'+this.opacity,
@@ -285,7 +314,24 @@
           enableMouseTracking: false,
           marker: {
             enabled: false
-          }
+          },
+          dashStyle:this.dashStyle
+        });
+      }
+
+      existing = chart.series.find(s=>s.name==='Bril');
+      if (existing && !this.options.bril) existing.remove();
+      if (!existing && this.options.bril) {
+        chart.addSeries({
+          name: 'Bril',
+          color: '#E0E0FF'+this.opacity,
+          type: this.type,
+          data: this.smooth(this.getBrilData(lichess.analysis.mainline)),
+          enableMouseTracking: false,
+          marker: {
+            enabled: false
+          },
+          dashStyle:this.dashStyle
         });
       }
     };
@@ -297,7 +343,8 @@
       this.options={
         material:parent.isOptionSet(value,'material'),
         freedom:parent.isOptionSet(value,'freedom'),
-        control:parent.isOptionSet(value,'control')
+        control:parent.isOptionSet(value,'control'),
+        bril:parent.isOptionSet(value,'bril'),
       };
       const lichess=parent.lichess;
       const $=parent.$;
