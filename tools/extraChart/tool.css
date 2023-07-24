@@ -1,0 +1,48 @@
+body.lichessTools.dark .highcharts-series path {
+    filter: brightness(200%);
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system  .highcharts-series path {
+      filter: brightness(200%);
+  }
+}
+
+
+body.lichessTools .highcharts-series-1 path {
+  stroke-dasharray: 7 3;
+  stroke-width: 1.5px !important;
+  stroke: #258F0B !important;
+  opacity:0.5;
+}
+
+body.lichessTools .highcharts-series-2 path {
+  stroke-dasharray: 7 3;
+  stroke-width: 1.5px !important;
+  stroke: #250B8F !important;
+  opacity:0.5;
+}
+
+body.lichessTools .highcharts-series-3 path {
+  stroke-dasharray: 7 3;
+  stroke-width: 1.5px !important;
+  stroke: #BF3030 !important;
+  opacity:0.5;
+}
+
+body.lichessTools .highcharts-series-4 path {
+  stroke-dasharray: 1 0;
+  stroke-width: 1.5px !important;
+  stroke: #000000 !important;
+  opacity:0.5;
+}
+
+body.lichessTools.dark .highcharts-series-4 path {
+  stroke: #FFFFFF !important;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system  .highcharts-series-4 path {
+  stroke: #FFFFFF !important;
+  }
+}

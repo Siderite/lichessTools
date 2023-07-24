@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Lichess Tools, by Siderite",
   "short_name": "Lichess Tools",
-  "version": "2.0.30",
+  "version": "2.0.31",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev",
@@ -97,7 +97,8 @@
         "tools/chapterClearArtifacts/tool.css",
         "tools/customChatButtons/tool.css",
         "tools/mobileExperience/tool.css",
-        "tools/explorerPractice/tool.css"
+        "tools/explorerPractice/tool.css",
+        "tools/extraChart/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"

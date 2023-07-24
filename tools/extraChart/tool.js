@@ -31,9 +31,6 @@
     }
 
     type='line';
-    smoothing=false;
-    opacity='80';
-    dashStyle='ShortDash';
 
     material=node=>{
       const points={
@@ -184,27 +181,6 @@
       return { freedom: result, control: ctrl };
     };
 
-    smooth=arr=>{
-      if (!this.smoothing) return arr;
-      return arr.map((p,i)=>{
-        const next=arr[i+1];
-        const next2=arr[i+2];
-        const result=[];
-        let total=0;
-        result.push(p.y);
-        total++;
-        if (next) {
-          result.push(next.y*0.66);
-          total+=0.66
-        }
-        if (next2) {
-          result.push(next2.y*0.33);
-          total+=0.33;
-        }
-        return result.reduce((x,a)=>a+x,0)/total;
-      });
-    };
-
     getMaterialData = (mainline) => {
       return mainline
         .slice(1)
@@ -265,6 +241,7 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       if (!lichess.analysis) return;
+      if (!lichess.analysis.tree.root.eval) return;
       const Highcharts=parent.global?.Highcharts;
       if (!Highcharts) return;
 
@@ -276,14 +253,13 @@
       if (!existing && this.options.material) {
         chart.addSeries({
           name: 'Material',
-          color: '#55BF3B'+this.opacity,
+          styledMode: true,
           type: this.type,
-          data: this.smooth(this.getMaterialData(lichess.analysis.mainline)),
+          data: this.getMaterialData(lichess.analysis.mainline),
           enableMouseTracking: false,
           marker: {
             enabled: false
-          },
-          dashStyle:this.dashStyle
+          }
         });
       }
 
@@ -292,14 +268,13 @@
       if (!existing && this.options.freedom) {
         chart.addSeries({
           name: 'Freedom',
-          color: '#553BBF'+this.opacity,
+          styledMode: true,
           type: this.type,
-          data: this.smooth(this.getFreedomData(lichess.analysis.mainline)),
+          data: this.getFreedomData(lichess.analysis.mainline),
           enableMouseTracking: false,
           marker: {
             enabled: false
-          },
-          dashStyle:this.dashStyle
+          }
         });
       }
 
@@ -308,14 +283,13 @@
       if (!existing && this.options.control) {
         chart.addSeries({
           name: 'Control',
-          color: '#BF9090'+this.opacity,
+          styledMode: true,
           type: this.type,
-          data: this.smooth(this.getControlData(lichess.analysis.mainline)),
+          data: this.getControlData(lichess.analysis.mainline),
           enableMouseTracking: false,
           marker: {
             enabled: false
-          },
-          dashStyle:this.dashStyle
+          }
         });
       }
 
@@ -324,14 +298,13 @@
       if (!existing && this.options.bril) {
         chart.addSeries({
           name: 'Bril',
-          color: '#E0E0FF'+this.opacity,
+          styledMode: true,
           type: this.type,
-          data: this.smooth(this.getBrilData(lichess.analysis.mainline)),
+          data: this.getBrilData(lichess.analysis.mainline),
           enableMouseTracking: false,
           marker: {
             enabled: false
-          },
-          dashStyle:this.dashStyle
+          }
         });
       }
     };
