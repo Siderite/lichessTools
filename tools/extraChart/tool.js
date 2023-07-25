@@ -6,8 +6,8 @@
         name:'extraChart',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['material','freedom','control','bril'],
-        defaultValue: 'material,freedom,control,bril'
+        possibleValues: ['material','principled'],
+        defaultValue: 'material,principled'
       }
     ];
 
@@ -16,29 +16,27 @@
         'options.analysis': 'Analysis',
         'options.extraChart': 'Extra analysis charting',
         'extraChart.material': 'Material',
-        'extraChart.freedom': 'Freedom',
-        'extraChart.control': 'Control',
-        'extraChart.bril': '?'
+        'extraChart.principled': 'Principled',
+        'chartInfoTitle':'LiChess Tools - extra charting'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.extraChart': 'Grafice de analiz\u0103 \u00een plus',
         'extraChart.material': 'Material',
-        'extraChart.freedom': 'Libertate',
-        'extraChart.control': 'Control',
-        'extraChart.bril': '?'
+        'extraChart.principled': 'Principial',
+        'chartInfoTitle':'LiChess Tools - grafice \u00een plus'
       }
     }
 
     type='line';
 
-    material=node=>{
+    simple_material=node=>{
       const points={
-        'q':9,
-        'r':5,
-        'b':3,
-        'n':3,
-        'p':1
+        'q':900,
+        'r':500,
+        'b':310,
+        'n':300,
+        'p':100
       };
       let result=0;
       if (!node.fen) return result;
@@ -53,204 +51,66 @@
       return result;
     };
 
-    getControlBoard=()=>{
-      const result=[];
-      for (let i=0; i<8; i++) result.push(Array(8).fill(0));
-      return result;
-    };
-
-    getBoard=fen=>{
-      const result=[];
-      for (let i=0; i<8; i++) result.push(Array(8));
-      fen=fen.split(' ')[0];
-      let x=0;
-      let y=0;
-      for (let i=0; i<fen.length; i++) {
-        const ch=fen[i];
-        if ('kqrbnp'.indexOf(ch.toLowerCase())>=0) {
-          result[y][x]=ch;
-          x++;
-          continue;
-        }
-        if (ch=='/') {
-          x=0;
-          y++;
-          continue;
-        }
-        x+=(+ch);
-      }
-      return result;
-    };
-
-    onBoard=(x,y)=>x>=0&&x<8&&y>=0&&y<8;
-
-    pieceFreedom=(ch,x,y,board,control)=>{
-      const m=ch===ch.toUpperCase()?1:-1;
-      let result=0;
-      switch(ch.toLowerCase()) {
-        case 'k':
-          for (let dx=-1; dx<=1; dx++) {
-            for (let dy=-1; dy<=1; dy++) {
-              if (!dx&&!dy) continue;
-              if (!this.onBoard(x+dx,y+dy)) continue;
-              control[y+dy][x+dx]+=m;
-              if (!board[y+dy][x+dx]) result++;
-            }
-          }
-          break;
-        case 'q':
-          for (let dx=-1; dx<=1; dx++) {
-            for (let dy=-1; dy<=1; dy++) {
-              if (!dx&&!dy) continue;
-              for (let i=1; i<8; i++) {
-                if (!this.onBoard(x+dx*i,y+dy*i)) break;
-                control[y+dy*i][x+dx*i]+=m;
-                if (!board[y+dy*i][x+dx*i]) result++;
-                  else break;
-              }
-            }
-          }
-          break;
-        case 'r':
-          for (let dx=-1; dx<=1; dx++) {
-            for (let dy=-1; dy<=1; dy++) {
-              if ((dx&&dy)||(!dx&&!dy)) continue;
-              for (let i=1; i<8; i++) {
-                if (!this.onBoard(x+dx*i,y+dy*i)) break;
-                control[y+dy*i][x+dx*i]+=m;
-                if (!board[y+dy*i][x+dx*i]) result++;
-                  else break;
-              }
-            }
-          }
-          break;
-        case 'b':
-          for (let dx=-1; dx<=1; dx++) {
-            for (let dy=-1; dy<=1; dy++) {
-              if (!dx||!dy) continue;
-              for (let i=1; i<8; i++) {
-                if (!this.onBoard(x+dx*i,y+dy*i)) break;;
-                control[y+dy*i][x+dx*i]+=m;
-                if (!board[y+dy*i][x+dx*i]) result++;
-                  else break;
-              }
-            }
-          }
-          break;
-        case 'n':
-          for (let dx=-1; dx<=1; dx++) {
-            for (let dy=-1; dy<=1; dy++) {
-              if (!dx||!dy) continue;
-              if (this.onBoard(x+dx*1,y+dy*2)&&!board[y+dy*2][x+dx*1]) {
-                control[y+dy*2][x+dx*1]+=m;
-                result++;
-              }
-              if (this.onBoard(x+dx*2,y+dy*1)&&!board[y+dy*1][x+dx*2]) {
-                control[y+dy*1][x+dx*2]+=m;
-                result++;
-              }
-            }
-          }
-          break;
-        case 'p':
-          if (this.onBoard(x,y-m)&&!board[y-m][x]) result++;
-          if (this.onBoard(x-1,y-m)&&!board[y-m][x-1]) control[y-m][x-1]+=m;
-          if (this.onBoard(x+1,y-m)&&!board[y-m][x+1]) control[y-m][x+1]+=m;
-          break;
-      }
-      return m*result;
-    };
-
-    freedom=node=>{
-      const board=this.getBoard(node.fen);
-      const control=this.getControlBoard();
-      let result=0;
-      for (let y=0; y<8; y++) {
-        for (let x=0; x<8; x++) {
-          const ch=board[y][x];
-          if (!ch) continue;
-          result+=this.pieceFreedom(ch,x,y,board,control);
-        }
-      }
-      let ctrl=0;
-      for (let y=0; y<8; y++) {
-        for (let x=0; x<8; x++) {
-          ctrl+=Math.sign(control[y][x]);
-        }
-      }
-      return { freedom: result, control: ctrl };
-    };
+    evaluator=new LiChessTools.Evaluator();
+    material=node=>{
+      return this.evaluator.evaluate(node.fen)*(node.ply%2?-1:1);
+    }
 
     getMaterialData = (mainline) => {
       return mainline
         .slice(1)
-        .map(node => {
-          let cp=this.material(node)*100;
+        .map((node,x) => {
+          const cp=this.material(node);
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            x: x
           };
         });
     };
 
-    getFreedomData = (mainline) => {
+    getPrincipledData = (mainline) => {
       return mainline
         .slice(1)
-        .map(node => {
-          let cp=this.freedom(node).freedom*20;
+        .map((node,x) => {
+          const evl=this.material(node);
+          const mat=this.simple_material(node)
+          let val=evl-mat;
+          const cp=val*10;
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
-          };
-        });
-    };
-
-    getControlData = (mainline) => {
-      return mainline
-        .slice(1)
-        .map(node => {
-          let cp=this.freedom(node).control*30;
-          return {
-            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
-          };
-        });
-      };
-
-
-    getBrilData = (mainline) => {
-      let prev=0;
-      return mainline
-        .slice(1)
-        .map((node,i) => {
-          let val=this.freedom(node);
-          let cp=(node.eval?.cp||0)-(val.control*30+val.freedom*20+this.material(node)*100)/3;
-          if (!node.eval || node.eval.mate || (cp-prev>0 && node.ply%2==0) || (cp-prev<0 && node.ply%2==1)) {
-            prev=cp;
-            return;
-          }
-          prev=cp;
-          return {
-            x: i,
-            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            x: x,
+            color: node.ply%2?'#FFFFFF':'#909090'
           };
         })
-        .filter(p=>p);
-      };
-
+        .filter(r=>r);
+    };
 
     generateCharts=()=>{
-
       const parent=this.lichessTools;
       const lichess=parent.lichess;
+      const trans=parent.translator;
       if (!lichess.analysis) return;
-      if (!lichess.analysis.tree.root.eval) return;
+      if (!lichess.analysis.tree.root.eval&&!lichess.analysis.tree.root.children.at(0)?.eval) return;
       const Highcharts=parent.global?.Highcharts;
       if (!Highcharts) return;
 
-      const chart=Highcharts.charts.find(c=>$(c.renderTo).is('#acpl-chart,.study__server-eval')&&$(c.renderTo).offset().left);
+      const chart=Highcharts.charts.find(c=>$(c.renderTo).is('#acpl-chart,.study__server-eval'));
       if (!chart) return;
-
-      let existing = chart.series.find(s=>s.name==='Material');
-      if (existing && !this.options.material) existing.remove();
-      if (!existing && this.options.material) {
+      if (!this.options.material&&!this.options.principled) {
+        $('div.lichessTools-chartInfo',chart.renderTo).remove();
+        return;
+      }
+      if (!$('div.lichessTools-chartInfo',chart.renderTo).length) {
+        $('<div class="lichessTools-chartInfo">')
+          .attr('title',trans.noarg('chartInfoTitle'))
+          .append($('<a target="_blank">')
+                    .attr('data-icon','\uE05D')
+                    .attr('href','https://siderite.dev/blog/lichess-tools---user-manual#extraChart'))
+          .appendTo(chart.renderTo);
+      }
+      const existingMaterial = chart.series.find(s=>s.name==='Material');
+      if (existingMaterial && !this.options.material) existingMaterial.remove();
+      if (!existingMaterial && this.options.material) {
         chart.addSeries({
           name: 'Material',
           styledMode: true,
@@ -263,44 +123,14 @@
         });
       }
 
-      existing = chart.series.find(s=>s.name==='Freedom');
-      if (existing && !this.options.freedom) existing.remove();
-      if (!existing && this.options.freedom) {
+      const existingPrincipled = chart.series.find(s=>s.name==='Principled');
+      if (existingPrincipled && !this.options.principled) existingPrincipled.remove();
+      if (!existingPrincipled && this.options.principled) {
         chart.addSeries({
-          name: 'Freedom',
+          name: 'Principled',
           styledMode: true,
           type: this.type,
-          data: this.getFreedomData(lichess.analysis.mainline),
-          enableMouseTracking: false,
-          marker: {
-            enabled: false
-          }
-        });
-      }
-
-      existing = chart.series.find(s=>s.name==='Control');
-      if (existing && !this.options.control) existing.remove();
-      if (!existing && this.options.control) {
-        chart.addSeries({
-          name: 'Control',
-          styledMode: true,
-          type: this.type,
-          data: this.getControlData(lichess.analysis.mainline),
-          enableMouseTracking: false,
-          marker: {
-            enabled: false
-          }
-        });
-      }
-
-      existing = chart.series.find(s=>s.name==='Bril');
-      if (existing && !this.options.bril) existing.remove();
-      if (!existing && this.options.bril) {
-        chart.addSeries({
-          name: 'Bril',
-          styledMode: true,
-          type: this.type,
-          data: this.getBrilData(lichess.analysis.mainline),
+          data: this.getPrincipledData(lichess.analysis.mainline),
           enableMouseTracking: false,
           marker: {
             enabled: false
@@ -315,9 +145,7 @@
       this.logOption('Extra charting', value);
       this.options={
         material:parent.isOptionSet(value,'material'),
-        freedom:parent.isOptionSet(value,'freedom'),
-        control:parent.isOptionSet(value,'control'),
-        bril:parent.isOptionSet(value,'bril'),
+        principled:parent.isOptionSet(value,'principled')
       };
       const lichess=parent.lichess;
       const $=parent.$;
