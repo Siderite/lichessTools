@@ -9,7 +9,8 @@
         'rateThisText': 'Rate this!',
         'rateThisTitle': 'Ratings help me a lot',
         'blogLinkTitle': 'The page of the extension. Leave me a message.',
-        'enableExtension': 'Enable LiChess Tools extension'
+        'enableExtension': 'Enable LiChess Tools extension',
+        'author': 'by %s'
       },
       'ro-RO':{
         yes: 'Da',
@@ -18,7 +19,8 @@
         'rateThisText': 'D\u0103-i o not\u0103!',
         'rateThisTitle': 'Notele date m\u0103 ajut\u0103 foarte mult',
         'blogLinkTitle': 'Pagina extensiei. Trimite-mi un mesaj.',
-        'enableExtension': 'Activeaz\u0103 extensia LiChess Tools'
+        'enableExtension': 'Activeaz\u0103 extensia LiChess Tools',
+        'author': 'de %s'
       }
     }
 
@@ -84,7 +86,11 @@
       const categ=categs[key];
       html+='<div><h3><label for="chk_'+key+'">$trans(options.'+key+')</label></h3><input type="checkbox" id="chk_'+key+'" class="categoryToggle">';
       for (const pref of categ) {
-        html+=`<section data-pref="${pref.name}"><h2>$trans(options.${pref.name})</h2>`;
+        html+=`<section data-pref="${pref.name}"><h2>$trans(options.${pref.name})`;
+        if (pref.author) {
+          html+='<span class="lichessTools-author">$trans(author,'+htmlEncode(pref.author)+')</span>';
+        }
+        html+='</h2>';
         switch(pref.type) {
           case 'single': {
             html+=`<group class="radio">`;
@@ -130,8 +136,8 @@
     }
 
     html+=`</form><div>`;
-    html=html.replace(/\$trans\(([^\)]+)\)/g,m=>{
-      return htmlEncode(trans.noarg(m.slice(7,-1)));
+    html=html.replace(/\$trans\(([^\),]+?)(?:\s*,\s*([^\)]+?))?\)/g,function(m,name,value) {
+      return htmlEncode(value?trans.pluralSame(name,value):trans.noarg(name));
     });
 
     const container=$('div.page-menu__content');

@@ -10,9 +10,13 @@ body.lichessTools div.form-actions-secondary.destructive select.lichessTools-rem
 
 body.lichessTools table.study__tags button.lichessTools-deleteTag {
   font-family: lichess;
-  color: red;
+  color: #A08080;
   background: transparent;
   border: none;
   vertical-align: top;
   margin-right:0.5em;
+}
+
+body.lichessTools table.study__tags th {
+  width:20%;
 }
