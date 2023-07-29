@@ -159,9 +159,10 @@
               parent.announce(announcement);
             }
             if (andReload) {
-              $this.redraw();
               const newPgn=$('div.pgn textarea').val();
               data=oldChangePgn(newPgn,false);
+              $this.explorer.reload()
+              $this.redraw();
             } else {
               parent.global.console.debug('Returning data from the first PGN in the input');
             }
