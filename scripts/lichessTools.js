@@ -226,15 +226,17 @@
       return this.$('div.tview2').length>0;
     };
 
-    isInViewport=(element) => {
+    rectIntersection=(r1,r2)=>{
+      const intersection = Math.max(0, Math.min(r1.x+r1.width, r2.x+r2.width) - Math.max(r1.x, r2.x)) * Math.max(0, Math.min(r1.y+r1.height, r2.y+r2.height) - Math.max(r1.y, r2.y));
+      const minArea=Math.min(r1.width*r1.height,r2.width*r2.height);
+      return minArea?intersection/minArea:0;
+    };
+
+    inViewport=(element) => {
       if (!element.offsetParent) return false;
       const rect = element.getBoundingClientRect();
-      return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-      );
+      const port = new DOMRect(0,0,$(window).width(),$(window).height());
+      return this.rectIntersection(rect,port);
     };
 
     resetCache=()=>{
