@@ -62,11 +62,10 @@
       if (!this.options.smooth) return points;
       const threshold=0.3;
       const toRemove=[];;
-      for (let i=0;i<points.length-3;i++) {
-        const avg=(points[i].y+points[i+2].y+points[i+3].y)/3;
+      for (let i=0;i<points.length-2;i++) {
+        const avg=(points[i].y+points[i+2].y)/2;
         if (Math.abs(points[i].y-avg)>threshold) continue;
         if (Math.abs(points[i+2].y-avg)>threshold) continue;
-        if (Math.abs(points[i+3].y-avg)>threshold) continue;
 
         if (Math.abs(points[i+1].y-avg)<=threshold) continue;
         toRemove.push(i+1);
@@ -95,13 +94,11 @@
         .map((node,x) => {
           const evl=this.material(node);
           const mat=this.simple_material(node)
-console.debug(evl,mat);
           let val=evl-mat;
           const cp=val*5;
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
-            x: x,
-            color: node.ply%2?'#FFFFFF':'#909090'
+            x: x
           };
         })
         .filter(r=>r);
@@ -116,7 +113,7 @@ console.debug(evl,mat);
       const Highcharts=parent.global?.Highcharts;
       if (!Highcharts) return;
 
-      const chart=Highcharts.charts.find(c=>$(c.renderTo).is('#acpl-chart,.study__server-eval') && parent.isInViewport(c.renderTo));
+      const chart=Highcharts.charts.find(c=>$(c.renderTo).is('#acpl-chart,.study__server-eval') && parent.inViewport(c.renderTo)>0);
       if (!chart) return;
       if (!this.options.material&&!this.options.principled) {
         $('div.lichessTools-chartInfo',chart.renderTo).remove();
