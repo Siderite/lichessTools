@@ -226,6 +226,17 @@
       return this.$('div.tview2').length>0;
     };
 
+    isInViewport=(element) => {
+      if (!element.offsetParent) return false;
+      const rect = element.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    };
+
     resetCache=()=>{
       const $=this.$;
       this.elementCache=new Map();

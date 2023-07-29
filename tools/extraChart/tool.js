@@ -115,7 +115,7 @@
       const Highcharts=parent.global?.Highcharts;
       if (!Highcharts) return;
 
-      const chart=Highcharts.charts.find(c=>$(c.renderTo).is('#acpl-chart,.study__server-eval'));
+      const chart=Highcharts.charts.find(c=>$(c.renderTo).is('#acpl-chart,.study__server-eval') && parent.isInViewport(c.renderTo));
       if (!chart) return;
       if (!this.options.material&&!this.options.principled) {
         $('div.lichessTools-chartInfo',chart.renderTo).remove();
