@@ -9,7 +9,8 @@
         category: 'analysis',
         type:'multiple',
         possibleValues: ['switchWithMe','deleteUser'],
-        defaultValue: 'switchWithMe,deleteUser'
+        defaultValue: 'switchWithMe,deleteUser',
+        advanced: true
       }
     ];
 

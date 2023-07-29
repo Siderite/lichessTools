@@ -16,7 +16,8 @@
         category: 'general',
         type:'single',
         possibleValues: [1,2,3,4],
-        defaultValue: 4
+        defaultValue: 4,
+        advanced: true
       }
     ];
 
@@ -213,7 +214,7 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('mobileExperience');
       this.logOption('Mobile experience', value);
-      this.logOption('...color count', parent.currentOptions.getValue('colorCount'));
+      this.logOption('... color count', parent.currentOptions.getValue('colorCount'));
       this.options={
         showGauge:parent.isOptionSet(value,'showGauge'),
         hideOctopus:parent.isOptionSet(value,'hideOctopus'),

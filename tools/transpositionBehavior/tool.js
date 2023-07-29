@@ -7,7 +7,8 @@
         category: 'study',
         type:'multiple',
         possibleValues: ['excludeSameLine','groupSameMove','consideredVariations'],
-        defaultValue: false
+        defaultValue: false,
+        advanced: true
       }
     ];
 

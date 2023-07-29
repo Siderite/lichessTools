@@ -126,3 +126,11 @@ div.lichessTools-preferences span.lichessTools-author {
   font-size: small;
   font-style: italic;
 }
+
+div.lichessTools-preferences section.lichessTools-advancedPreference {
+  display:none;
+}
+
+body.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-advancedPreference {
+  display:block;
+}

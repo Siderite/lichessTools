@@ -9,7 +9,8 @@
         category: 'analysis',
         type:'multiple',
         possibleValues: ['lastMove','notCommented','transposition'],
-        defaultValue: 'lastMove,notCommented,transposition'
+        defaultValue: 'lastMove,notCommented,transposition',
+        advanced: true
       }
     ];
 

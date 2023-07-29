@@ -6,7 +6,8 @@
         name:'customEngineLevel',
         category: 'analysis',
         type:'number',
-        defaultValue: undefined
+        defaultValue: undefined,
+        advanced: true
       }
     ];
 

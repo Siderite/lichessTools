@@ -7,7 +7,8 @@
         category: 'analysis',
         type:'multiple',
         possibleValues: ['material','principled','smooth'],
-        defaultValue: 'material,principled'
+        defaultValue: 'material,principled',
+        advanced: true
       }
     ];
 
