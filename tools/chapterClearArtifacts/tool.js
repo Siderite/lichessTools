@@ -203,6 +203,7 @@
       if (!analysis) return;
       const study=analysis.study;
       if (!study) return;
+      if (!study.vm.mode.write) return;
       const tags=study.data?.chapter?.tags;
       const chapterId=study.data?.chapter?.id;
       if (!chapterId || !tags?.length) return;
