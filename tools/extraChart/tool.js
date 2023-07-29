@@ -55,12 +55,12 @@
 
     evaluator=new LiChessTools.Evaluator();
     material=node=>{
-      return this.evaluator.evaluate(node.fen)*(node.ply%2?-1:1);
+      return this.evaluator.evaluate(node.fen);//*(node.ply%2?-1:1);
     }
 
     smooth = (points)=>{
       if (!this.options.smooth) return points;
-      const threshold=0.5;
+      const threshold=0.3;
       const toRemove=[];;
       for (let i=0;i<points.length-3;i++) {
         const avg=(points[i].y+points[i+2].y+points[i+3].y)/3;
@@ -81,7 +81,7 @@
       return mainline
         .slice(1)
         .map((node,x) => {
-          const cp=this.material(node);
+          const cp=this.simple_material(node);
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             x: x
@@ -95,8 +95,9 @@
         .map((node,x) => {
           const evl=this.material(node);
           const mat=this.simple_material(node)
+console.debug(evl,mat);
           let val=evl-mat;
-          const cp=val*10;
+          const cp=val*5;
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             x: x,
