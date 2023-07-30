@@ -117,12 +117,29 @@
           for (let dx=-1; dx<=1; dx++) {
             for (let dy=-1; dy<=1; dy++) {
               if (!dx&&!dy) continue;
+              const isDiagonal=dx&&dy;
+              const isForward=dy===-m;
               for (let i=1; i<8; i++) {
                 if (!this.onBoard(x+dx*i,y+dy*i)) break;
                 const pc=board[y+dy*i][x+dx*i];
                 if (!pc) continue;
                 const pm=pc===pc.toUpperCase()?1:-1;
-                if (m!=pm) result+=points[pc.toLowerCase()];
+                if (m!=pm) {
+                  result+=points[pc.toLowerCase()];
+                } else {
+                  if (pc.toLowerCase()==='q') continue;
+                  if (isDiagonal&&pc.toLowerCase()==='b') continue;
+                  if (!isDiagonal&&pc.toLowerCase()==='r') continue;
+                  if ((isForward&&pc.toLowerCase()==='p')||pc.toLowerCase()==='k') {
+                    const ppc=this.onBoard(x+dx*(i+1),y+dy*(i+1)) && board[y+dy*(i+1)][x+dx*(i+1)];
+                    if (ppc) {
+                      const ppm=ppc===ppc.toUpperCase()?1:-1;
+                      if (m!=ppm) {
+                        result+=points[ppc.toLowerCase()];
+                      }
+                    }
+                  }
+                }
                 break;
               }
             }
@@ -137,7 +154,21 @@
                 const pc=board[y+dy*i][x+dx*i];
                 if (!pc) continue;
                 const pm=pc===pc.toUpperCase()?1:-1;
-                if (m!=pm) result+=points[pc.toLowerCase()];
+                if (m!=pm) {
+                  result+=points[pc.toLowerCase()];
+                } else {
+                  if (pc.toLowerCase()==='q') continue;
+                  if (pc.toLowerCase()==='r') continue;
+                  if (pc.toLowerCase()==='k') {
+                    const ppc=this.onBoard(x+dx*(i+1),y+dy*(i+1)) && board[y+dy*(i+1)][x+dx*(i+1)];
+                    if (ppc) {
+                      const ppm=ppc===ppc.toUpperCase()?1:-1;
+                      if (m!=ppm) {
+                        result+=points[ppc.toLowerCase()];
+                      }
+                    }
+                  }
+                }
                 break;
               }
             }
@@ -147,12 +178,27 @@
           for (let dx=-1; dx<=1; dx++) {
             for (let dy=-1; dy<=1; dy++) {
               if (!dx||!dy) continue;
+              const isForward=dy===-m;
               for (let i=1; i<8; i++) {
                 if (!this.onBoard(x+dx*i,y+dy*i)) break;;
                 const pc=board[y+dy*i][x+dx*i];
                 if (!pc) continue;
                 const pm=pc===pc.toUpperCase()?1:-1;
-                if (m!=pm) result+=points[pc.toLowerCase()];
+                if (m!=pm) {
+                  result+=points[pc.toLowerCase()];
+                } else {
+                  if (pc.toLowerCase()==='q') continue;
+                  if (pc.toLowerCase()==='b') continue;
+                  if ((isForward&&pc.toLowerCase()==='p')||pc.toLowerCase()==='k') {
+                    const ppc=this.onBoard(x+dx*(i+1),y+dy*(i+1)) && board[y+dy*(i+1)][x+dx*(i+1)];
+                    if (ppc) {
+                      const ppm=ppc===ppc.toUpperCase()?1:-1;
+                      if (m!=ppm) {
+                        result+=points[ppc.toLowerCase()];
+                      }
+                    }
+                  }
+                }
                 break;
               }
             }
