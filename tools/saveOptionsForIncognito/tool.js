@@ -7,7 +7,8 @@
         category: 'general',
         type:'single',
         possibleValues: [false,true],
-        defaultValue: false
+        defaultValue: false,
+        advanced: true
       }
     ];
 

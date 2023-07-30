@@ -7,7 +7,8 @@
       this.options={
         isPrettier:!!parent.global.getComputedStyle(parent.global.document.documentElement).getPropertyValue('--main-shadow')
       };
-      this.logOption('Detect third parties', this.options);
+      
+      this.logOption('Detected third parties', Object.keys(this.options).filter(k=>this.options[k]).join(', ')||'none');
       $('body').toggleClass('lichessTools-prettier',this.options.isPrettier);
     }
 

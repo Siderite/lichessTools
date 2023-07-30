@@ -7,7 +7,8 @@
         category: 'general',
         type:'multiple',
         possibleValues: ['demo','justExplorer'],
-        defaultValue: ''
+        defaultValue: '',
+        advanced: true
       }
     ];
 
@@ -32,7 +33,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const value=parent.currentOptions.getValue('themes');
-      this.logOption('Themes', value);
+      this.logOption('Themes', value||'none');
       const installedThemes=Array.from($('body')[0]?.classList)?.filter(c=>c.startsWith('lichessTools-theme_'));
       for (const theme of installedThemes) {
         $('body').removeClass(theme);

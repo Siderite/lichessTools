@@ -45,6 +45,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - drawing of arrows and circles on mobile
  - collapsable preference categories
  - extra computer analysis metrics
+ - the many preferences now can be filtered by advanced or basic and the categories can be collapsed
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move

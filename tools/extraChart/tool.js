@@ -6,8 +6,9 @@
         name:'extraChart',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['material','principled','smooth'],
-        defaultValue: 'material,principled'
+        possibleValues: ['material','principled','tension','smooth'],
+        defaultValue: 'material,principled,smooth',
+        advanced: true
       }
     ];
 
@@ -17,16 +18,20 @@
         'options.extraChart': 'Extra analysis charting',
         'extraChart.material': 'Material',
         'extraChart.principled': 'Principled',
+        'extraChart.tension': 'Max tension',
         'extraChart.smooth': 'Chart smoothing',
-        'chartInfoTitle':'LiChess Tools - extra charting'
+        'chartInfoTitle':'LiChess Tools - extra charting',
+        'tensionLineTitle': 'Max tension'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.extraChart': 'Grafice de analiz\u0103 \u00een plus',
         'extraChart.material': 'Material',
         'extraChart.principled': 'Principial',
+        'extraChart.tension': 'Tensiune maxim\u0103',
         'extraChart.smooth': 'Netezire grafice',
-        'chartInfoTitle':'LiChess Tools - grafice \u00een plus'
+        'chartInfoTitle':'LiChess Tools - grafice \u00een plus',
+        'tensionLineTitle': 'Tensiune maxim\u0103'
       }
     }
 
@@ -34,6 +39,7 @@
 
     simple_material=node=>{
       const points={
+        'k':0,
         'q':900,
         'r':500,
         'b':310,
@@ -54,9 +60,204 @@
     };
 
     evaluator=new LiChessTools.Evaluator();
-    material=node=>{
+    heuristic=node=>{
       return this.evaluator.evaluate(node.fen);//*(node.ply%2?-1:1);
     }
+
+    getBoard=fen=>{
+      const result=[];
+      for (let i=0; i<8; i++) result.push(Array(8));
+      fen=fen.split(' ')[0];
+      let x=0;
+      let y=0;
+      for (let i=0; i<fen.length; i++) {
+        const ch=fen[i];
+        if ('kqrbnp'.indexOf(ch.toLowerCase())>=0) {
+          result[y][x]=ch;
+          x++;
+          continue;
+        }
+        if (ch=='/') {
+          x=0;
+          y++;
+          continue;
+        }
+        x+=(+ch);
+      }
+      return result;
+    };
+
+    onBoard=(x,y)=>x>=0&&x<8&&y>=0&&y<8;
+
+    pieceTension=(ch,x,y,board,control)=>{
+      const points={
+        'k':0,
+        'q':900,
+        'r':500,
+        'b':310,
+        'n':300,
+        'p':100
+      };
+      const m=ch===ch.toUpperCase()?1:-1;
+      let result=0;
+      switch(ch.toLowerCase()) {
+        case 'k':
+          for (let dx=-1; dx<=1; dx++) {
+            for (let dy=-1; dy<=1; dy++) {
+              if (!dx&&!dy) continue;
+              if (!this.onBoard(x+dx,y+dy)) continue;
+              const pc=board[y+dy][x+dx];
+              if (!pc) continue;
+              const pm=pc===pc.toUpperCase()?1:-1;
+              if (m!=pm) result+=points[pc.toLowerCase()];
+            }
+          }
+          break;
+        case 'q':
+          for (let dx=-1; dx<=1; dx++) {
+            for (let dy=-1; dy<=1; dy++) {
+              if (!dx&&!dy) continue;
+              const isDiagonal=dx&&dy;
+              const isForward=dy===-m;
+              for (let i=1; i<8; i++) {
+                if (!this.onBoard(x+dx*i,y+dy*i)) break;
+                const pc=board[y+dy*i][x+dx*i];
+                if (!pc) continue;
+                const pm=pc===pc.toUpperCase()?1:-1;
+                if (m!=pm) {
+                  result+=points[pc.toLowerCase()];
+                } else {
+                  if (pc.toLowerCase()==='q') continue;
+                  if (isDiagonal&&pc.toLowerCase()==='b') continue;
+                  if (!isDiagonal&&pc.toLowerCase()==='r') continue;
+                  if ((isForward&&pc.toLowerCase()==='p')||pc.toLowerCase()==='k') {
+                    const ppc=this.onBoard(x+dx*(i+1),y+dy*(i+1)) && board[y+dy*(i+1)][x+dx*(i+1)];
+                    if (ppc) {
+                      const ppm=ppc===ppc.toUpperCase()?1:-1;
+                      if (m!=ppm) {
+                        result+=points[ppc.toLowerCase()];
+                      }
+                    }
+                  }
+                }
+                break;
+              }
+            }
+          }
+          break;
+        case 'r':
+          for (let dx=-1; dx<=1; dx++) {
+            for (let dy=-1; dy<=1; dy++) {
+              if ((dx&&dy)||(!dx&&!dy)) continue;
+              for (let i=1; i<8; i++) {
+                if (!this.onBoard(x+dx*i,y+dy*i)) break;
+                const pc=board[y+dy*i][x+dx*i];
+                if (!pc) continue;
+                const pm=pc===pc.toUpperCase()?1:-1;
+                if (m!=pm) {
+                  result+=points[pc.toLowerCase()];
+                } else {
+                  if (pc.toLowerCase()==='q') continue;
+                  if (pc.toLowerCase()==='r') continue;
+                  if (pc.toLowerCase()==='k') {
+                    const ppc=this.onBoard(x+dx*(i+1),y+dy*(i+1)) && board[y+dy*(i+1)][x+dx*(i+1)];
+                    if (ppc) {
+                      const ppm=ppc===ppc.toUpperCase()?1:-1;
+                      if (m!=ppm) {
+                        result+=points[ppc.toLowerCase()];
+                      }
+                    }
+                  }
+                }
+                break;
+              }
+            }
+          }
+          break;
+        case 'b':
+          for (let dx=-1; dx<=1; dx++) {
+            for (let dy=-1; dy<=1; dy++) {
+              if (!dx||!dy) continue;
+              const isForward=dy===-m;
+              for (let i=1; i<8; i++) {
+                if (!this.onBoard(x+dx*i,y+dy*i)) break;;
+                const pc=board[y+dy*i][x+dx*i];
+                if (!pc) continue;
+                const pm=pc===pc.toUpperCase()?1:-1;
+                if (m!=pm) {
+                  result+=points[pc.toLowerCase()];
+                } else {
+                  if (pc.toLowerCase()==='q') continue;
+                  if (pc.toLowerCase()==='b') continue;
+                  if ((isForward&&pc.toLowerCase()==='p')||pc.toLowerCase()==='k') {
+                    const ppc=this.onBoard(x+dx*(i+1),y+dy*(i+1)) && board[y+dy*(i+1)][x+dx*(i+1)];
+                    if (ppc) {
+                      const ppm=ppc===ppc.toUpperCase()?1:-1;
+                      if (m!=ppm) {
+                        result+=points[ppc.toLowerCase()];
+                      }
+                    }
+                  }
+                }
+                break;
+              }
+            }
+          }
+          break;
+        case 'n':
+          for (let dx=-1; dx<=1; dx++) {
+            for (let dy=-1; dy<=1; dy++) {
+              if (!dx||!dy) continue;
+              if (this.onBoard(x+dx*1,y+dy*2)) {
+                const pc=board[y+dy*2][x+dx*1];
+                if (pc) {
+                  const pm=pc===pc.toUpperCase()?1:-1;
+                  if (m!=pm) result+=points[pc.toLowerCase()];
+                }
+              }
+              if (this.onBoard(x+dx*2,y+dy*1)) {
+                const pc=board[y+dy*1][x+dx*2];
+                if (pc) {
+                  const pm=pc===pc.toUpperCase()?1:-1;
+                  if (m!=pm) result+=points[pc.toLowerCase()];
+                }
+              }
+            }
+          }
+          break;
+        case 'p':
+          if (this.onBoard(x-1,y-m)) {
+            const pc=board[y-m][x-1];
+            if (pc) {
+              const pm=pc===pc.toUpperCase()?1:-1;
+              if (m!=pm) result+=points[pc.toLowerCase()];
+            }
+          }
+          if (this.onBoard(x+1,y-m)) {
+            const pc=board[y-m][x+1];
+            if (pc) {
+              const pm=pc===pc.toUpperCase()?1:-1;
+              if (m!=pm) result+=points[pc.toLowerCase()];
+            }
+          }
+          break;
+      }
+      return result;
+    };
+
+    tension=node=>{
+      const board=this.getBoard(node.fen);
+      let result=0;
+      for (let y=0; y<8; y++) {
+        for (let x=0; x<8; x++) {
+          const ch=board[y][x];
+          if (!ch) continue;
+          const pt=this.pieceTension(ch,x,y,board);
+          result+=pt;
+        }
+      }
+      return result;
+    };
 
     smooth = (points)=>{
       if (!this.options.smooth) return points;
@@ -92,16 +293,31 @@
       return mainline
         .slice(1)
         .map((node,x) => {
-          const evl=this.material(node);
+          const evl=this.heuristic(node);
           const mat=this.simple_material(node)
-          let val=evl-mat;
-          const cp=val*5;
+          let val=evl-mat-89;
+          const cp=val*3;
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             x: x
           };
         })
         .filter(r=>r);
+    };
+
+    getMaxTension = (mainline) => {
+      let maxVal=-1000;
+      let maxX=0;
+      mainline
+        .slice(1)
+        .forEach((node,x) => {
+          const val=this.tension(node);
+          if (maxVal<val) {
+            maxVal=val;
+            maxX=x;
+          }
+        });
+      return maxX;
     };
 
     generateCharts=()=>{
@@ -157,6 +373,23 @@
         });
       }
 
+      const existingTension = chart.xAxis[0].plotLinesAndBands.find(l=>l.id==='Tension');
+      if (existingTension && !this.options.tension) chart.xAxis[0].removePlotLine('Tension');
+      if (!existingTension && this.options.tension) {
+        chart.xAxis[0].addPlotLine({
+          id: 'Tension',
+          color: 'red',
+          dashStyle: 'dot',
+          zIndex: 3,
+          width: 2,
+          value: this.getMaxTension(lichess.analysis.mainline),
+          label: {
+            text:trans.noarg('tensionLineTitle'),
+            style: { color: '#707070' }
+          }
+        });
+      }
+
       this.prevType=this.type;
     };
 
@@ -167,6 +400,7 @@
       this.options={
         material:parent.isOptionSet(value,'material'),
         principled:parent.isOptionSet(value,'principled'),
+        tension:parent.isOptionSet(value,'tension'),
         smooth:parent.isOptionSet(value,'smooth')
       };
       this.type=this.options.smooth?'spline':'line';

@@ -10,6 +10,7 @@
         'rateThisTitle': 'Ratings help me a lot',
         'blogLinkTitle': 'The page of the extension. Leave me a message.',
         'enableExtension': 'Enable LiChess Tools extension',
+        'advancedPreferencesLabel': 'Advanced preferences',
         'author': 'by %s'
       },
       'ro-RO':{
@@ -20,6 +21,7 @@
         'rateThisTitle': 'Notele date m\u0103 ajut\u0103 foarte mult',
         'blogLinkTitle': 'Pagina extensiei. Trimite-mi un mesaj.',
         'enableExtension': 'Activeaz\u0103 extensia LiChess Tools',
+        'advancedPreferencesLabel': 'Preferin\u0163e avansate',
         'author': 'de %s'
       }
     }
@@ -44,6 +46,9 @@
     const checkGlobalSwitch=()=>{
       $('body').toggleClass('lichessTools-globalDisable',!currentOptions.enableLichessTools);
     };
+    const checkAdvanced=()=>{
+      $('body').toggleClass('lichessTools-advancedPreferences',!!currentOptions.getValue('advancedPreferences'));
+    };
 
     //TODO add link to translation project
     let html=`<div class="account box box-pad">
@@ -63,6 +68,15 @@
                 <div class="toggle">
                     <input id="enableLichessTools" name="enableLichessTools" value="true" type="checkbox" class="form-control cmn-toggle"/>
                     <label for="enableLichessTools"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>$trans(advancedPreferencesLabel)</td>
+            <td>
+                <div class="toggle">
+                    <input id="advancedPreferences" name="advancedPreferences" value="true" type="checkbox" class="form-control cmn-toggle"/>
+                    <label for="advancedPreferences"/>
                 </div>
             </td>
         </tr>
@@ -86,7 +100,9 @@
       const categ=categs[key];
       html+='<div><h3><label for="chk_'+key+'">$trans(options.'+key+')</label></h3><input type="checkbox" id="chk_'+key+'" class="categoryToggle">';
       for (const pref of categ) {
-        html+=`<section data-pref="${pref.name}"><h2>$trans(options.${pref.name})`;
+        html+=`<section data-pref="${pref.name}"`;
+        if (pref.advanced) html+=' class="lichessTools-advancedPreference"'
+        html+=`><h2>$trans(options.${pref.name})`;
         if (pref.author) {
           html+='<span class="lichessTools-author">$trans(author,'+htmlEncode(pref.author)+')</span>';
         }
@@ -187,10 +203,12 @@
           applyOptions(currentOptions).then(function() {
             lichess.storage.fire('lichessTools.reloadOptions');
             checkGlobalSwitch();
+            checkAdvanced();
             showSaved();
           }).catch(e=>{ throw e; });
       },500));
       checkGlobalSwitch();
+      checkAdvanced();
       this.addInfo();
     };
 
@@ -215,6 +233,7 @@
       const location=parent.global.location;
       const trans=parent.translator;
       this.logOption('Integration in Preferences', true);
+      this.logOption(' ... show advanced', !!parent.currentOptions.getValue('advancedPreferences'));
       if (!$('main.account').length) return;
       if ($('a.lichessTools-menu').length) return;
       const openPreferences=this.openPreferences;

@@ -7,7 +7,8 @@
         category: 'TV',
         type:'multiple',
         possibleValues: ['link','bookmark'],
-        defaultValue: 'link,bookmark'
+        defaultValue: 'link,bookmark',
+        advanced: true
       }
     ];
 
