@@ -39,7 +39,7 @@
         return;
       }
       const orig=analysis.node.uci.slice(-2);
-      const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type==='glyph')||[];
+      const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
       shapes.push({
         type:'glyph',
         orig:orig,
@@ -67,6 +67,7 @@
       const study=analysis.study;
       if (!study) return;
       lichess.pubsub.off('redraw',this.drawGlyphs);
+      parent.global.clearInterval(this.interval);
       study.glyphForm.toggleGlyph=parent.unwrapFunction(study.glyphForm?.toggleGlyph,'additionalGlyphs');
       if (!value) {
         const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
@@ -78,7 +79,13 @@
         id:'additionalGlyphs',
         after:this.drawGlyphs
       });
-      this.drawGlyphs();
+      this.interval=parent.global.setInterval(()=>{
+        const autoShapes=JSON.stringify(analysis.chessground.state.drawable.autoShapes);
+        if (autoShapes!=this.prevAutoShapes) {
+          this.prevAutoShapes=autoShapes;
+          this.drawGlyphs();
+        }
+      },500);
     }
 
   }
