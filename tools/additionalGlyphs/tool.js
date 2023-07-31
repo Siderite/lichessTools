@@ -65,20 +65,23 @@
       const analysis=lichess?.analysis;
       if (!analysis) return;
       const study=analysis.study;
-      if (!study) return;
       lichess.pubsub.off('redraw',this.drawGlyphs);
       parent.global.clearInterval(this.interval);
-      study.glyphForm.toggleGlyph=parent.unwrapFunction(study.glyphForm?.toggleGlyph,'additionalGlyphs');
+      if (study) {
+        study.glyphForm.toggleGlyph=parent.unwrapFunction(study.glyphForm?.toggleGlyph,'additionalGlyphs');
+      }
       if (!value) {
         const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
         analysis.chessground.setAutoShapes(shapes);
         return;
       }
       lichess.pubsub.on('redraw',this.drawGlyphs);
-      study.glyphForm.toggleGlyph=parent.wrapFunction(study.glyphForm.toggleGlyph,{
-        id:'additionalGlyphs',
-        after:this.drawGlyphs
-      });
+      if (study) {
+        study.glyphForm.toggleGlyph=parent.wrapFunction(study.glyphForm.toggleGlyph,{
+          id:'additionalGlyphs',
+          after:this.drawGlyphs
+        });
+      }
       this.interval=parent.global.setInterval(()=>{
         const autoShapes=JSON.stringify(analysis.chessground.state.drawable.autoShapes);
         if (autoShapes!=this.prevAutoShapes) {
