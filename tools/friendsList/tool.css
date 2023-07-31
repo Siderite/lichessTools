@@ -49,7 +49,7 @@ body.lichessTools #topnav section.lichessTools-onlineFriends a i {
   margin-right:0.5em;
 }
 
-body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:before {
+body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:before {
   content:'\E025' !important;
 }
 
