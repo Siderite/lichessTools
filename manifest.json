@@ -78,6 +78,8 @@
         "tools/themes/demo.css",
         "tools/themes/justExplorer.css",
 
+        "tools/detectThirdParties/tool.css",
+
         "tools/friendsList/tool.css",
         "tools/preferences/tool.css",
         "tools/friendsPlaying/tool.css",
