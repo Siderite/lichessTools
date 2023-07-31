@@ -1,6 +1,27 @@
 (()=>{
   class FixWakeLockTool extends LiChessTools.Tools.ToolBase {
 
+    preferences=[
+      {
+        name:'fixWakeLock',
+        category: 'general',
+        type:'single',
+        possibleValues: [true,false],
+        defaultValue: true,
+        advanced: true,
+        hidden: true
+      }
+    ];
+
+    intl={
+      'en-US':{
+        'options.fixWakeLock': 'Fix WakeLock'
+      },
+      'ro-RO':{
+        'options.fixWakeLock': 'Resolv\u0103 WakeLock'
+      }
+    }
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('fixWakeLock');

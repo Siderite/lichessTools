@@ -21,7 +21,7 @@
       },
       'ro-RO':{
         'options.study': 'Studiu',
-        'options.additionalGlyphs': 'Simboluri in plus'
+        'options.additionalGlyphs': 'Simboluri \u00een plus'
       }
     }
 

@@ -42,6 +42,8 @@ lichessTools.loadTool(LiChessTools.Tools.ChapterClearArtifacts);
 lichessTools.loadTool(LiChessTools.Tools.CustomChatButtons);
 lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);
 lichessTools.loadTool(LiChessTools.Tools.ExtraChart);
+lichessTools.loadTool(LiChessTools.Tools.KeyboardHelp);
+
 lichessTools.loadTool(LiChessTools.Tools.UserTvHistory);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);

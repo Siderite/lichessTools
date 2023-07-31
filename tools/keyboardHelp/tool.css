@@ -1,0 +1,14 @@
+body.lichessTools .lichessTools-title {
+  filter:invert(1);
+}
+
+body.lichessTools .lichessTools-disabled {
+  text-decoration:line-through;
+  opacity:0.5;
+}
+
+body.lichessTools td.keys then {
+  font-size:smaller;
+  padding-left:0.2em;
+  padding-right:0.2em;
+}

@@ -35,7 +35,7 @@
         'gameType-ultrabullet': 'Ultrabullet',
         'gameType-standard': 'Doar Standard',
         'options.friendsPlaying': 'Alert\u0103 sonor\u0103 \u015Fi vocal\u0103 c\u00E2nd joac\u0103 prieteni',
-        'audioNotAllowedTitle': 'LiChess Tools - Audio permis numai dup\u0103 ac\u0163iune utilizator'
+        'audioNotAllowedTitle': 'LiChess Tools - Sunete permise doar dup\u0103 ac\u0163iune utilizator'
       }
     }
 
