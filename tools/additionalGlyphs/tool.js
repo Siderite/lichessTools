@@ -33,7 +33,7 @@
       if (!analysis?.chessground) return;
       const glyph=analysis.node.glyphs?.at(0)?.symbol;
       if (!glyph) return;
-      if (['!','?','!!','??','?!','!?'].includes(glyph) || lichess.storage.get('analyse.show-move-annotation')!=='true') {
+      if (['!','?','!!','??','?!','!?'].includes(glyph) || lichess.storage.get('analyse.show-move-annotation')==='false') {
         const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
         analysis.chessground.setAutoShapes(shapes);
         return;
