@@ -134,3 +134,9 @@ div.lichessTools-preferences section.lichessTools-advancedPreference {
 body.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-advancedPreference {
   display:block;
 }
+
+/* Prettier Lichess CSS */
+
+body.lichessTools-prettier div.lichessTools-preferences table.lichessTools-globalSwitch tr:nth-child(odd) td {
+  background-color: #434548 !important;
+}

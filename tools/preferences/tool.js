@@ -1,6 +1,18 @@
 (()=>{
   class PreferencesTool extends LiChessTools.Tools.ToolBase {
 
+    preferences=[
+      {
+        name:'advancedPreferences',
+        category: 'general',
+        type:'single',
+        possibleValues: [true,false],
+        defaultValue: false,
+        advanced: true,
+        hidden: true
+      }
+    ];
+
     intl={
       'en-US':{
         yes: 'Yes',
@@ -10,7 +22,8 @@
         'rateThisTitle': 'Ratings help me a lot',
         'blogLinkTitle': 'The page of the extension. Leave me a message.',
         'enableExtension': 'Enable LiChess Tools extension',
-        'advancedPreferencesLabel': 'Advanced preferences',
+        'advancedPreferences': 'Advanced preferences',
+        'options.advancedPreferences': 'Advanced preferences',
         'author': 'by %s'
       },
       'ro-RO':{
@@ -21,7 +34,8 @@
         'rateThisTitle': 'Notele date m\u0103 ajut\u0103 foarte mult',
         'blogLinkTitle': 'Pagina extensiei. Trimite-mi un mesaj.',
         'enableExtension': 'Activeaz\u0103 extensia LiChess Tools',
-        'advancedPreferencesLabel': 'Preferin\u0163e avansate',
+        'advancedPreferences': 'Preferin\u0163e avansate',
+        'options.advancedPreferences': 'Preferin\u0163e avansate',
         'author': 'de %s'
       }
     }
@@ -72,7 +86,7 @@
             </td>
         </tr>
         <tr>
-            <td>$trans(advancedPreferencesLabel)</td>
+            <td>$trans(advancedPreferences)</td>
             <td>
                 <div class="toggle">
                     <input id="advancedPreferences" name="advancedPreferences" value="true" type="checkbox" class="form-control cmn-toggle"/>
@@ -87,6 +101,7 @@
     for (const tool of tools) {
       if (!tool.preferences) continue;
       for (const pref of tool.preferences) {
+        if (pref.hidden) continue;
         let categ=categs[pref.category];
         if (!categ) {
           categ=[];

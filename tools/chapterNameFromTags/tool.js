@@ -23,7 +23,7 @@
         'options.study': 'Studiu',
         'options.chapterNameFromTags': 'Schimb\u0103 numele capitolului din taguri PGN',
         'changeNameToText':' "%s"',
-        'changeNameToTitle':'LiChess Tools - Schimb\u0103 usor numele'
+        'changeNameToTitle':'LiChess Tools - Schimb\u0103 u\u015For numele'
       }
     }
 

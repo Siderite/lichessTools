@@ -59,6 +59,31 @@
       }
       if (this.isRunning) {
         parent.announce(trans.noarg('outOfMoves'));
+        const ceval=analysis.node.ceval;
+        if (!ceval && !analysis.ceval.enabled()) {
+          analysis.toggleCeval();
+          this.stopCeval=true;
+        }
+        if (ceval) {
+          if (!analysis.node.glyphs?.length) {
+            const boardSign=analysis.getOrientation()=='black'?-1:1;
+            const winValue=(ceval.cp||Math.sign(ceval.mate)*1000)*boardSign;
+            let symbol='\uD83D\uDE10';
+            if (winValue<-200) symbol='\uD83D\uDE22';
+            else if (winValue<0) symbol='\uD83D\uDE1E';
+            else if (winValue<200) symbol='\uD83D\uDE0C';
+            else if (winValue>=200) symbol='\uD83D\uDE01';
+            analysis.node.glyphs=[{
+              "symbol": symbol,
+              "name": "Final evaluation"
+            }];
+            analysis.redraw();
+          }
+          if (this.stopCeval && ceval.depth>12 && analysis.ceval.enabled()) {
+            analysis.toggleCeval();
+            this.stopCeval=false;
+          }
+        }
       }
     };
 
@@ -100,6 +125,7 @@
       explorerContainer.toggleClass('lichessTools-explorerPracticeInAnalysis',!!this.isRunning && !analysis.study);
       if (analysis.turnColor()===analysis.getOrientation()) {
         this.inPlayMove=false;
+        this.stopCeval=false;
       }
       if (this.isRunning) parent.global.setTimeout(this.playMove,500);
     };

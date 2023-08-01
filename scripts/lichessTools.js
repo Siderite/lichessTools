@@ -545,10 +545,7 @@
     getDefaultOptions() {
       const options={
         enableLichessTools: true,
-        advancedPreferences: false,
-        showOptionsTableInConsole: false,
-        fixWakeLock: true,
-        fixAbortController: true
+        showOptionsTableInConsole: false
       };
       for (const tool of this.tools) {
         if (!tool.preferences) continue;

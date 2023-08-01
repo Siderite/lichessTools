@@ -14,6 +14,7 @@ body.lichessTools .highcharts-series-1 path {
   stroke-width: 1.5px !important;
   stroke: #258F0B !important;
   opacity:0.5;
+  filter: drop-shadow(0px 0px 1px white);
 }
 
 body.lichessTools .highcharts-series-2 path {
@@ -21,10 +22,12 @@ body.lichessTools .highcharts-series-2 path {
   stroke-width: 1.5px !important;
   stroke: #250B8F !important;
   opacity:0.5;
+  filter: drop-shadow(0px 0px 1px white);
 }
 
 body.lichessTools .lichessTools-chartInfo {
   position: absolute;
   left: 1.5em;
   top: 0;
+  filter: drop-shadow(0px 0px 1px white);
 }

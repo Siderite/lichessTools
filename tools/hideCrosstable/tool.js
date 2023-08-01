@@ -21,7 +21,7 @@
       'ro-RO':{
         'options.play': 'Joc',
         'options.hideCrosstable': 'Ascunde lista de scoruri',
-        'hideCrosstableTitle':'LiChess Tools - arat\u0103/ascunde lista de scor'
+        'hideCrosstableTitle':'LiChess Tools - arat\u0103/ascunde lista de scoruri'
       }
     }
 
