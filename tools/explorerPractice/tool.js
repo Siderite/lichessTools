@@ -77,7 +77,7 @@
               "symbol": symbol,
               "name": "Final evaluation"
             }];
-            analysis.redraw();
+            parent.emitRedraw();
           }
           if (this.stopCeval && ceval.depth>12 && analysis.ceval.enabled()) {
             analysis.toggleCeval();

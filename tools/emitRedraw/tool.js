@@ -10,7 +10,7 @@
         parent.redrawData={};
         console.debug('redraw');
         lichess.pubsub.emit('redraw');
-      }, 100);
+      }, 50);
       parent.emitRedraw=emit;
       lichess.analysis.redraw=parent.unwrapFunction(lichess.analysis.redraw,'redraw'); 
       lichess.analysis.redraw=parent.wrapFunction(lichess.analysis.redraw,{ 
