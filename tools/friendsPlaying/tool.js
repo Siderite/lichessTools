@@ -143,7 +143,7 @@
     }
     parent.currentOptions.mutedPlayers=mutedPlayers;
     await parent.saveOptions(parent.currentOptions);
-    parent.lichess.storage.fire('lichessTools.reloadOptions');
+    parent.fireReloadOptions();
   };
 
     async start() {

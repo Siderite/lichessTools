@@ -221,7 +221,7 @@
           else if (value==='false') value=false;
           currentOptions[optionName]=value;
           applyOptions(currentOptions).then(function() {
-            lichess.storage.fire('lichessTools.reloadOptions');
+            parent.fireReloadOptions();
             checkGlobalSwitch();
             checkAdvanced();
             showSaved();

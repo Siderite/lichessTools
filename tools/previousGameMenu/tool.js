@@ -14,7 +14,7 @@
     intl={
       'en-US':{
         'options.TV': 'TV',
-        'options.previousGameMenu': 'Previous viewed game menu item',
+        'options.previousGameMenu': 'Previously viewed game menu item',
         'lastViewedGame': 'Last viewed game',
         'lastViewedGameTitle': 'LiChess Tools - Open last viewed TV game'
       },
