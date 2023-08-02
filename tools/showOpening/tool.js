@@ -24,7 +24,12 @@
       }
     }
 
+    isGamesPage=()=>{
+       return /^\/games(\/|$)?/i.test(this.lichessTools.global.location.pathname);
+    };
+
     miniGameOpening=async (el)=>{
+      if (isGamesPage()) return;
       const parent=this.lichessTools;
       const $=parent.$;
       if (!el) el=$('body');
