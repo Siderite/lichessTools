@@ -29,7 +29,7 @@
     };
 
     miniGameOpening=async (el)=>{
-      if (isGamesPage()) return;
+      if (this.isGamesPage()) return;
       const parent=this.lichessTools;
       const $=parent.$;
       if (!el) el=$('body');
