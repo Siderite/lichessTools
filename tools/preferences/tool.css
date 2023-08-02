@@ -135,8 +135,19 @@ body.lichessTools-advancedPreferences div.lichessTools-preferences section.liche
   display:block;
 }
 
+body.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-advancedPreference h2:after {
+  opacity:0.3;
+}
+
+
 /* Prettier Lichess CSS */
 
 body.lichessTools-prettier div.lichessTools-preferences table.lichessTools-globalSwitch tr:nth-child(odd) td {
   background-color: #434548 !important;
+}
+
+
+body.lichessTools-prettier.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-advancedPreference h2:after {
+  background: gray !important;
+  opacity:1;
 }

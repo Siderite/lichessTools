@@ -24,7 +24,12 @@
       }
     }
 
+    isGamesPage=()=>{
+       return /^\/games(\/|$)?/i.test(this.lichessTools.global.location.pathname);
+    };
+
     miniGameOpening=async (el)=>{
+      if (this.isGamesPage()) return;
       const parent=this.lichessTools;
       const $=parent.$;
       if (!el) el=$('body');
@@ -45,6 +50,7 @@
         $(container).append($('<span class="lichessTools-opening"/>').text(opening).attr('title',opening));
       }
     };
+    miniGameOpeningDebounced=this.lichessTools.debounce(this.miniGameOpening,500);
 
     openingTimeout=0;
     withOpening=async (gameId,el,ply)=>{

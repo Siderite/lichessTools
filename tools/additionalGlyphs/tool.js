@@ -54,7 +54,7 @@
 </g>`});
       analysis.chessground.setAutoShapes(shapes);
     };
-    drawGlyphs=this.lichessTools.debounce(this.drawGlyphsDirect,250);
+    drawGlyphs=this.lichessTools.debounce(this.drawGlyphsDirect,50);
 
     async start() {
       const parent=this.lichessTools;
@@ -86,9 +86,9 @@
         const autoShapes=JSON.stringify(analysis.chessground.state.drawable.autoShapes);
         if (autoShapes!=this.prevAutoShapes) {
           this.prevAutoShapes=autoShapes;
-          this.drawGlyphs();
+          this.drawGlyphsDirect();
         }
-      },500);
+      },100);
     }
 
   }

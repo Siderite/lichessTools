@@ -10,6 +10,14 @@
         type:'single',
         possibleValues: [false,true],
         defaultValue: true
+      },
+      {
+        name:'explorerPracticeOptions',
+        category: 'analysis',
+        type:'multiple',
+        possibleValues: ['showSmileys'],
+        defaultValue: 'showSmileys',
+        advanced: true
       }
     ];
 
@@ -17,14 +25,18 @@
       'en-US':{
         'options.analysis': 'Analysis',
         'options.explorerPractice': 'Practice against moves from Opening Explorer',
+        'options.explorerPracticeOptions': 'Explorer Practice options',
         'explorerPracticeTitle': 'LiChess Tools - practice against Explorer moves',
-        'outOfMoves':'Out of Explorer moves'
+        'outOfMoves':'Out of Explorer moves',
+        'explorerPracticeOptions.showSmileys': 'Show emojis when out of moves'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.explorerPractice': 'Practic\u0103 contra mut\u0103ri din Explorator',
+        'options.explorerPracticeOptions': 'Op\u0163iuni pentru Practic\u0103 cu Exploratorul',
         'explorerPracticeTitle': 'LiChess Tools - practic\u0103 contra mut\u0103ri din Explorator',
-        'outOfMoves':'Numai sunt mut\u0103ri \u00een Explorator'
+        'outOfMoves':'Numai sunt mut\u0103ri \u00een Explorator',
+        'explorerPracticeOptions.showSmileys': 'Arat\u0103 emoji c\u00E2nd nu mai sunt mut\u0103ri'
       }
     }
 
@@ -57,32 +69,32 @@
           return;
         }
       }
-      if (this.isRunning) {
-        parent.announce(trans.noarg('outOfMoves'));
-        const ceval=analysis.node.ceval;
-        if (!ceval && !analysis.ceval.enabled()) {
-          analysis.toggleCeval();
-          this.stopCeval=true;
+      if (!this.isRunning) return;
+      parent.announce(trans.noarg('outOfMoves'));
+      if (!this.options.showSmileys) return;
+      const ceval=analysis.node.ceval;
+      if (!ceval && !analysis.ceval.enabled()) {
+        analysis.toggleCeval();
+        this.stopCeval=true;
+      }
+      if (ceval) {
+        if (!analysis.node.glyphs?.length) {
+          const boardSign=analysis.getOrientation()=='black'?-1:1;
+          const winValue=(ceval.cp||Math.sign(ceval.mate)*1000)*boardSign;
+          let symbol='\uD83D\uDE10';
+          if (winValue<-200) symbol='\uD83D\uDE22';
+          else if (winValue<0) symbol='\uD83D\uDE1E';
+          else if (winValue<200) symbol='\uD83D\uDE0C';
+          else if (winValue>=200) symbol='\uD83D\uDE01';
+          analysis.node.glyphs=[{
+            "symbol": symbol,
+            "name": "Final evaluation"
+          }];
+          parent.emitRedraw();
         }
-        if (ceval) {
-          if (!analysis.node.glyphs?.length) {
-            const boardSign=analysis.getOrientation()=='black'?-1:1;
-            const winValue=(ceval.cp||Math.sign(ceval.mate)*1000)*boardSign;
-            let symbol='\uD83D\uDE10';
-            if (winValue<-200) symbol='\uD83D\uDE22';
-            else if (winValue<0) symbol='\uD83D\uDE1E';
-            else if (winValue<200) symbol='\uD83D\uDE0C';
-            else if (winValue>=200) symbol='\uD83D\uDE01';
-            analysis.node.glyphs=[{
-              "symbol": symbol,
-              "name": "Final evaluation"
-            }];
-            analysis.redraw();
-          }
-          if (this.stopCeval && ceval.depth>12 && analysis.ceval.enabled()) {
-            analysis.toggleCeval();
-            this.stopCeval=false;
-          }
+        if (this.stopCeval && ceval.depth>12 && analysis.ceval.enabled()) {
+          analysis.toggleCeval();
+          this.stopCeval=false;
         }
       }
     };
@@ -133,7 +145,12 @@
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('explorerPractice');
+      const options=parent.currentOptions.getValue('explorerPracticeOptions');
+      this.options={
+        showSmileys:parent.isOptionSet(options,'showSmileys')
+      };
       this.logOption('Explorer practice', value);
+      this.logOption(' ... options', options);
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;

@@ -24,7 +24,8 @@
         'enableExtension': 'Enable LiChess Tools extension',
         'advancedPreferences': 'Advanced preferences',
         'options.advancedPreferences': 'Advanced preferences',
-        'author': 'by %s'
+        'author': 'by %s',
+        'lichessTools': 'LiChess Tools'
       },
       'ro-RO':{
         yes: 'Da',
@@ -36,26 +37,30 @@
         'enableExtension': 'Activeaz\u0103 extensia LiChess Tools',
         'advancedPreferences': 'Preferin\u0163e avansate',
         'options.advancedPreferences': 'Preferin\u0163e avansate',
-        'author': 'de %s'
+        'author': 'de %s',
+        'lichessTools': 'LiChess Tools'
       }
     }
 
   openPreferences=()=>{
-    const $=this.lichessTools.$;
-    const trans=this.lichessTools.translator;
-    const tools=this.lichessTools.tools;
-    const htmlEncode=this.lichessTools.htmlEncode;
-    const currentOptions=this.lichessTools.currentOptions;
-    const applyOptions=this.lichessTools.applyOptions;
-    const lichess=this.lichessTools.lichess;
-    const isOptionSet=this.lichessTools.isOptionSet;
+    const parent=this.lichessTools;
+    const $=parent.$;
+    const trans=parent.translator;
+    const tools=parent.tools;
+    const htmlEncode=parent.htmlEncode;
+    const currentOptions=parent.currentOptions;
+    const applyOptions=parent.applyOptions;
+    const lichess=parent.lichess;
+    const isOptionSet=parent.isOptionSet;
+
+    parent.global.document.title=parent.global.document.title?.replace(/^\w+/,trans.noarg('lichessTools'));
 
     $('nav.page-menu__menu.subnav a.active').removeClass('active');
     $('a.lichessTools-menu').addClass('active');
 
     const showSaved= ()=> {
       $('.saved').removeClass('none');
-      this.lichessTools.global.setTimeout(()=>$('.saved').addClass('none'),2000);
+      parent.global.setTimeout(()=>$('.saved').addClass('none'),2000);
     };
     const checkGlobalSwitch=()=>{
       $('body').toggleClass('lichessTools-globalDisable',!currentOptions.enableLichessTools);
@@ -204,7 +209,7 @@
           label.attr('for',id);
         }
       })
-      .on('change keyup paste click',this.lichessTools.debounce(function() {
+      .on('change keyup paste',parent.debounce(function() {
           const type=$(this).prop('type');
           const isCheckable=type=='radio'||type=='checkbox';
           const optionName=$(this).attr('name');

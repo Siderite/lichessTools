@@ -326,7 +326,7 @@
       playing:[]
     };
     following_onlines=(friends,data)=>{
-      console.debug('following_onlines',data);
+      //console.debug('following_onlines',data);
       if (this.onlinesInterval) {
         clearInterval(this.onlinesInterval);
         this.onlinesInterval=0;
@@ -343,7 +343,7 @@
       this.updateFriendsButton();
     };
     enters=(userName,data)=>{
-      console.debug('enters',userName,data);
+      //console.debug('enters',userName,data);
       const parent=this.lichessTools;
       const userId=this.getUserId(userName);
       this.user_data.names[userId]=userName;
@@ -359,7 +359,7 @@
       this.updateFriendsButton();
     };
     leaves=(user)=>{
-      console.debug('leaves',user);
+      //console.debug('leaves',user);
       const parent=this.lichessTools;
       user=this.getUserId(user);
       this.user_data.names[user]=undefined;
@@ -370,7 +370,7 @@
       this.updateFriendsButton();
     };
     playing=(user)=>{
-      console.debug('playing',user);
+      //console.debug('playing',user);
       user=this.getUserId(user);
       if (!this.user_data.online.includes(user)) this.user_data.online.push(user);
       if (!this.user_data.playing.includes(user)) this.user_data.playing.push(user);
@@ -379,7 +379,7 @@
       this.updateFriendsButton();
     };
     stopped_playing=(user)=>{
-      console.debug('stopped_playing',user);
+      //console.debug('stopped_playing',user);
       const parent=this.lichessTools;
       user=this.getUserId(user);
       parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
