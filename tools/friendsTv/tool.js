@@ -115,9 +115,10 @@
           const blackElo=parent.getPgnTag(text,'BlackElo');
           const whiteElo=parent.getPgnTag(text,'WhiteElo');
           const isBlack=userId===this.getUserId(black);
-          const opening=parent.htmlEncode(parent.getPgnTag(text,'Opening'));
+          let opening=parent.currentOptions.getValue('showOpening') && parent.htmlEncode(parent.getPgnTag(text,'Opening'));
+          if (opening=='?') opening='';
           const variant=parent.getPgnTag(text,'Variant')?.toLowerCase();
-          const html=`<a href="/${gameId}" class="mini-game mini-game-${gameId} mini-game--init ${variant} is2d" data-live="${gameId}" data-state=",${isBlack?'black':'white'},">
+          let html=`<a href="/${gameId}" class="mini-game mini-game-${gameId} mini-game--init ${variant} is2d" data-live="${gameId}" data-state=",${isBlack?'black':'white'},">
 <span class="mini-game__player">
   <span class="mini-game__user">
     ${!isBlack?black:white}    
@@ -136,9 +137,11 @@
     <span class="rating">${isBlack?blackElo:whiteElo}</span>
   </span>
   <span class="mini-game__clock mini-game__clock--${isBlack?'black':'white'}" data-time="0"></span>
-</span>
-<span class="lichessTools-opening" title="${opening}">${opening}</span>
-</a>`;
+</span>`;
+          if (opening) {
+            html+=`<span class="lichessTools-opening" title="${opening}">${opening}</span>`;
+          }
+          html+='</a>';
 
           $(html).appendTo(container);
         } catch(e) {
