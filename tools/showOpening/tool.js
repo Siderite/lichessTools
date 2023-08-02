@@ -45,6 +45,7 @@
         $(container).append($('<span class="lichessTools-opening"/>').text(opening).attr('title',opening));
       }
     };
+    miniGameOpeningDebounced=this.lichessTools.debounce(this.miniGameOpening,500);
 
     openingTimeout=0;
     withOpening=async (gameId,el,ply)=>{

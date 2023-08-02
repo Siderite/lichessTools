@@ -69,6 +69,7 @@
         "tools/extraChart/tool.js",
         "tools/extraChart/raccoon.js",
         "tools/keyboardHelp/tool.js",
+        "tools/friendsTv/tool.js",
  
         "tools/preferences/tool.js",
  
@@ -103,7 +104,8 @@
         "tools/mobileExperience/tool.css",
         "tools/explorerPractice/tool.css",
         "tools/extraChart/tool.css",
-        "tools/keyboardHelp/tool.css"
+        "tools/keyboardHelp/tool.css",
+        "tools/friendsTv/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"

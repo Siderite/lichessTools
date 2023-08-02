@@ -14,7 +14,8 @@
 
     intl={
       'en-US':{
-        playing:'%s playing',
+        'options.friends': 'Friends',
+        'playing':'%s playing',
         'gameType-unknown': '',
         'gameType-classical': 'Classical',
         'gameType-rapid': 'Rapid',
@@ -26,7 +27,8 @@
         'audioNotAllowedTitle': 'LiChess Tools - Audio allowed only after user action'
       },
       'ro-RO':{
-      playing:'Joac\u0103 %s',
+        'options.friends': 'Prieteni',
+        'playing':'Joac\u0103 %s',
         'gameType-unknown': '',
         'gameType-classical': 'Classical',
         'gameType-rapid': 'Rapid',
