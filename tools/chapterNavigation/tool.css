@@ -3,6 +3,10 @@ body.lichessTools .lichessTools-chapterControls div[role="footer"] {
   justify-content: space-around;
 }
 
+body.lichessTools .lichessTools-chapterControls:not(:has(div.study__chapters)) div[role="footer"] {
+  display:none;
+}
+
 body.lichessTools .lichessTools-chapterControls div[role="footer"] button {
   flex-grow: 1;
 }
