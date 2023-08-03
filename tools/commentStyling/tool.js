@@ -51,11 +51,11 @@
       const analysis=lichess?.analysis;
       const study=analysis?.study;
       if (!study) return;
-      if (!parent.currentOptions.getValue('commentStyling')) {
+      if (!study.vm.mode.write || !parent.currentOptions.getValue('commentStyling')) {
         $('.study__buttons span.lichessTools-colors').remove();
         return;
       }
-      if (!$('.study__buttons span.lichessTools-colors').length&&lichess.analysis.study.vm.mode.write) {
+      if (study.vm.mode.write && !$('.study__buttons span.lichessTools-colors').length) {
         const button=$('<span>')
           .attr('title',trans.noarg('commentStyleCycle'))
           .attr('data-icon','\uE029') //'\uE01E')
