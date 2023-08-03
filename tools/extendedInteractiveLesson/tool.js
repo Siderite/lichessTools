@@ -348,7 +348,7 @@
             if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
             options.extendedInteractiveLesson=arr.join(',');
             parent.applyOptions(options).then(()=>{
-              lichess.storage.fire('lichessTools.reloadOptions');
+              parent.fireReloadOptions();
             }).catch(e=>{ throw e; });
           });
       }

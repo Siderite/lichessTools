@@ -89,7 +89,10 @@
       if (!analysis) return;
       lichess.pubsub.off('redraw',this.ensureShapeRank);
       const cg=analysis?.chessground;
-      if (!cg) return;
+      if (!cg) {
+        parent.global.setTimeout(this.start.bind(this),1000);
+        return;
+      }
       if (value) {
         lichess.pubsub.on('redraw',this.ensureShapeRank);
         parent.global.setTimeout(this.ensureShapeRank,500); //TODO without the timeout something clears the shapes in about 250ms at first page load (probably a web socket event)

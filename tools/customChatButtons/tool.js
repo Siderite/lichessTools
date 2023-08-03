@@ -62,7 +62,7 @@
       const parent=this.lichessTools;
       parent.currentOptions['customChatButtons.buttons']=buttons;
       await parent.saveOptions(parent.currentOptions);
-      parent.lichess.storage.fire('lichessTools.reloadOptions');
+      parent.fireReloadOptions();
     };
 
     jiggle=elem=>{

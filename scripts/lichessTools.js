@@ -542,6 +542,8 @@
       });
     }
 
+    fireReloadOptions=()=> this.lichess.storage.fire('lichessTools.reloadOptions');
+
     getDefaultOptions() {
       const options={
         enableLichessTools: true,
