@@ -17,13 +17,13 @@
         'options.study': 'Study',
         'options.previousStudyMenu': 'Last visited study menu',
         'previousStudyText': 'Previous study',
-        'previousStudyTitle': 'LiChess Tools - Last visited study'
+        'previousStudyTitle': 'LiChess Tools - "%s"'
       },
       'ro-RO':{
         'options.study': 'Studiu',
         'options.previousStudyMenu': 'Meniu pentru ultimul studiu vizitat',
         'previousStudyText': 'Studiul anterior',
-        'previousStudyTitle': 'LiChess Tools - ultimul studiu vizitat'
+        'previousStudyTitle': 'LiChess Tools - "%s"'
       }
     }
 
@@ -33,22 +33,26 @@
       this.logOption('Last study menu', value);
       const lichess=parent.lichess;
       const trans=parent.translator;
-      let studyId=lichess?.analysis?.study?.data?.id;
-      if (studyId) {
-        parent.currentOptions['previousStudyMenu.studyId']=studyId;
+      const study=lichess?.analysis?.study;
+      if (study) {
+        parent.currentOptions['previousStudyMenu.study']={
+          id:study.data.id,
+          name:study.data.name
+        };
         await parent.saveOptions(parent.currentOptions);
         parent.fireReloadOptions();
       }
       const container=$('#topnav section a[href="/learn"]+div[role="group"]');
       $('a.lichessTools-previousStudy',container).remove();
       if (!value) return;
-      studyId=parent.currentOptions.getValue('previousStudyMenu.studyId');
-      if (!studyId) return;
+      let studyData=parent.currentOptions.getValue('previousStudyMenu.study');
+      if (!studyData) return;
       $('<a/>')
-        .attr('href','/study/'+studyId)
+        .attr('href','/study/'+studyData.id)
         .addClass('lichessTools-previousStudy')
         .text(trans.noarg('previousStudyText'))
-        .attr('title',trans.noarg('previousStudyTitle'))
+        .attr('title',trans.pluralSame('previousStudyTitle',studyData.name))
+        .append($('<span>').text(studyData.name))
         .appendTo(container);
     }
 
