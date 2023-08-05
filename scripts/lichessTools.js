@@ -628,6 +628,10 @@
       } else {
         options = await this.getOptions();
       }
+      if (this.prevOptions===JSON.stringify(options)) {
+        return;
+      }
+      this.prevOptions=JSON.stringify(options);
       this.currentOptions=options;
       this.$('body').toggleClass('lichessTools',options.enableLichessTools);
       const console=this.global.console;

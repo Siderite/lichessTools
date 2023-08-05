@@ -40,7 +40,6 @@
           name:study.data.name
         };
         await parent.saveOptions(parent.currentOptions);
-        parent.fireReloadOptions();
       }
       const container=$('#topnav section a[href="/learn"]+div[role="group"]');
       $('a.lichessTools-previousStudy',container).remove();
