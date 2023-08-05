@@ -258,7 +258,8 @@
         id:'chapterClearArtifacts',
         after:($this,result,data)=>{
           const interval=parent.global.setInterval(()=>{
-            const currentChapterId=study.currentChapter().id;
+            const currentChapterId=study.currentChapter()?.id;
+            if (!currentChapterId) return;
             const studyChapterId=study.chapters?.editForm?.current()?.id;
             if (currentChapterId!==studyChapterId) return;
             const modal=$('#modal-wrap.edit-'+currentChapterId);
