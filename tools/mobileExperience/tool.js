@@ -16,7 +16,7 @@
         category: 'general',
         type:'single',
         possibleValues: [1,2,3,4],
-        defaultValue: 4,
+        defaultValue: 1,
         advanced: true
       }
     ];
