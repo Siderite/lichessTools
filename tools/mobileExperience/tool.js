@@ -55,53 +55,56 @@
     }
 
     touchStart=e=>{
-      if (!this.drawingBrush) return;
+      if (!this.drawingBrush || !this.chessground) return;
       e.preventDefault();
       e.stopPropagation();
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
       const pos=[e.targetTouches[0].clientX,e.targetTouches[0].clientY];
-      const square=lichess.analysis.chessground.getKeyAtDomPos(pos);
-      lichess.analysis.chessground.state.drawable.current={
+      const square=this.chessground.getKeyAtDomPos(pos);
+      this.chessground.state.drawable.current={
         orig: square,
         brush: this.drawingBrush,
-        snapToValidMove: lichess.analysis.chessground.state.drawable.defaultSnapToValidMove,
+        snapToValidMove: this.chessground.state.drawable.defaultSnapToValidMove,
         pos: pos
       };
-      lichess.analysis.chessground.state.dom.redraw();
+      this.chessground.state.dom.redraw();
     };
     touchMove=e=>{
+      if (!this.drawingBrush || !this.chessground) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
-      if (!lichess.analysis.chessground.state.drawable.current) return;
+      if (!this.chessground.state.drawable.current) return;
       const pos=[e.targetTouches[0].clientX,e.targetTouches[0].clientY];
-      const square=lichess.analysis.chessground.getKeyAtDomPos(pos);
-      const current=lichess.analysis.chessground.state.drawable.current;
+      const square=this.chessground.getKeyAtDomPos(pos);
+      const current=this.chessground.state.drawable.current;
       current.pos=pos;
       current.mouseSq=square;
       current.dest=square;
-      lichess.analysis.chessground.state.dom.redraw();
+      this.chessground.state.dom.redraw();
     };
     touchEnd=e=>{
+      if (!this.drawingBrush || !this.chessground) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
-      if (!lichess.analysis.chessground.state.drawable.current) return;
+      if (!this.chessground.state.drawable.current) return;
       e.preventDefault();
       e.stopPropagation();
       const pos=[e.changedTouches[0].clientX,e.changedTouches[0].clientY];
-      const square=lichess.analysis.chessground.getKeyAtDomPos(pos);
-      this.handleGesture(lichess.analysis.chessground.state.drawable.current);
-      lichess.analysis.chessground.state.drawable.current=undefined;
-      lichess.analysis.chessground.state.dom.redraw();
+      const square=this.chessground.getKeyAtDomPos(pos);
+      this.handleGesture(this.chessground.state.drawable.current);
+      this.chessground.state.drawable.current=undefined;
+      this.chessground.state.dom.redraw();
+      lichess.pubsub.emit('shapeRank');
     };
 
     handleGesture=(shape)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
-      const drawable=lichess.analysis.chessground.state.drawable;
+      const drawable=this.chessground.state.drawable;
       const existing=drawable.shapes.find(s=>s.orig===shape.orig && s.dest===shape.dest && s.brush===shape.brush);
       parent.arrayRemoveAll(drawable.shapes,s=>s.orig===shape.orig && s.dest===shape.dest);
       if (!existing) drawable.shapes.push(shape);
@@ -120,22 +123,86 @@
       }
     };
 
+    initializeOverlayWrap=()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const wrap=$('<div class="cg-wrap lichessTools-boardOverlay">')
+        .appendTo('main.round div.main-board')
+        .hide();
+      const cg=Chessground(wrap[0],{
+        fen: '8/8/8/8/8/8/8/8 w KQkq - 0 1',
+        draggable: { 
+          enabled: false
+        },
+        movable: {
+          showDests: false
+        },
+        drawable: {
+          enabled: false,
+          defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true)
+        },
+        disableContextMenu: true
+      });
+      wrap[0].chessground=cg;
+      return wrap;
+    };
+
     brushes=['green','red','blue','yellow'];
+    toggleBrush=(ev)=>{
+      let index=this.brushes.indexOf(this.drawingBrush)+1;
+      this.drawingBrush=index>=this.options.colorCount
+        ? null
+        : this.brushes[index];
+      const state=this.chessground.state;
+      state.drawable.enabled=!this.drawingBrush;
+      state.movable.showDests=!this.drawingBrush;
+      state.draggable.enabled=!this.drawingBrush;
+      for (const brush of this.brushes) {
+        $(ev.target)
+          .toggleClass('lichessTools-'+brush+'Brush',this.drawingBrush==brush);
+      }
+    };
+
     handleRedraw=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
+      if (!$('body').is('.mobile')) return;
       const trans=parent.translator;
+      const isAnalyse=!!$('main.analyse').length;
+      const isRound=!!$('main.round').length;
       $('body').toggleClass('lichessTools-mobileExperience',!!(this.options.shapeDrawing||this.options.randomNextMove));
-      $('main.analyse').toggleClass('lichessTools-gaugeOnMobile',this.options.showGauge);
-      $('main.analyse').toggleClass('lichessTools-hideOctopus',this.options.hideOctopus);
-      if ($('body').is('.mobile')) {
-        if (this.options.shapeDrawing) {
-          $('div.cg-wrap:not(.lichessTools-shapeDrawing)')
+
+      let wrap=null;
+      if (isAnalyse) {
+        $('main.analyse')
+          .toggleClass('lichessTools-gaugeOnMobile',this.options.showGauge)
+          .toggleClass('lichessTools-hideOctopus',this.options.hideOctopus);
+        wrap=$('main.analyse div.cg-wrap');
+        this.chessground=parent.lichess.analysis.chessground;
+      };
+      if (isRound) {
+        wrap=$('div.cg-wrap.lichessTools-boardOverlay','main.round');
+        if (!wrap.length) {
+          wrap=this.initializeOverlayWrap();
+        }
+        this.chessground=wrap[0].chessground;
+      }
+      if (this.options.shapeDrawing) {
+        if (!wrap.is('.lichessTools-shapeDrawing')) {
+          wrap
             .addClass('lichessTools-shapeDrawing')
             .on('touchstart',this.touchStart)
             .on('touchmove',this.touchMove)
             .on('touchend',this.touchEnd);
         }
+      } else {
+        wrap
+          .removeClass('lichessTools-shapeDrawing')
+          .off('touchstart',this.touchStart)
+          .off('touchmove',this.touchMove)
+          .off('touchend',this.touchEnd);
+      }
+      if (isAnalyse) {
         let addHandler=false;
         if (this.options.shapeDrawing) {
           if (!$('div.analyse__controls div.features button.lichessTools-shapeDrawing').length) {
@@ -172,18 +239,7 @@
               this.originalHandler(ev);
               if ($(ev.target).is('button.lichessTools-shapeDrawing')) {
                 ev.preventDefault();
-                let index=this.brushes.indexOf(this.drawingBrush)+1;
-                this.drawingBrush=index>=this.options.colorCount
-                  ? null
-                  : this.brushes[index];
-                const cg=parent.lichess.analysis.chessground;
-                cg.state.drawable.enabled=!this.drawingBrush;
-                cg.state.movable.showDests=!this.drawingBrush;
-                cg.state.draggable.enabled=!this.drawingBrush;
-                for (const brush of this.brushes) {
-                  $(ev.target)
-                    .toggleClass('lichessTools-'+brush+'Brush',this.drawingBrush==brush);
-                }
+                this.toggleBrush(ev);
               }
               if ($(ev.target).is('button.lichessTools-randomNextMove')) {
                 ev.preventDefault();
@@ -192,20 +248,31 @@
             });
           }
         }
-      } else {
-        $('div.cg-wrap.lichessTools-shapeDrawing')
-          .removeClass('lichessTools-shapeDrawing')
-          .off('touchstart',this.touchStart)
-          .off('touchmove',this.touchMove)
-          .off('touchend',this.touchEnd);
-        $('div.analyse__controls div.features button.lichessTools-shapeDrawing').remove();
-        $('div.analyse__controls div.jumps button.lichessTools-randomNextMove').remove();
-        if (this.originalHandler) {
-          const elem=$('.analyse__controls')[0];
-          if (elem && this.originalHandler) {
-            parent.removeEventHandlers(elem,'touchstart');
-            $('div.analyse__controls').on('touchstart',this.originalHandler);
+        if (!this.options.shapeDrawing && this.options.randomNextMove) {
+          if (this.originalHandler) {
+            const elem=$('.analyse__controls')[0];
+            if (elem && this.originalHandler) {
+              parent.removeEventHandlers(elem,'touchstart');
+              $('div.analyse__controls').on('touchstart',this.originalHandler);
+            }
           }
+        }
+      }
+      if (isRound) {
+        if (this.options.shapeDrawing) {
+          const container=$('div.rcontrols div.ricons');
+          if (!$('button.lichessTools-shapeDrawing',container).length) {
+            $('<button class="fbt lichessTools-shapeDrawing">')
+              .attr('data-icon','\u21D7')
+              .attr('title',trans.noarg('shapeDrawingTitle'))
+              .insertBefore($('button.board-menu-toggle',container))
+              .on('touchstart',ev=>{
+                this.toggleBrush(ev);
+                wrap.toggle(!!this.drawingBrush);
+              });
+          }
+        } else {
+          $('div.rcontrols div.ricons button.lichessTools-shapeDrawing').remove();
         }
       }
     };

@@ -26,19 +26,19 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   padding-bottom: 0.5em;
   flex: 0 0 2em;
 }
-body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-greenBrush {
+body.lichessTools button.lichessTools-shapeDrawing.lichessTools-greenBrush {
   background:#629924;
   color:white;
 }
-body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-redBrush {
+body.lichessTools button.lichessTools-shapeDrawing.lichessTools-redBrush {
   background:#992424;
   color:white;
 }
-body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-blueBrush {
+body.lichessTools button.lichessTools-shapeDrawing.lichessTools-blueBrush {
   background:#362499;
   color:white;
 }
-body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
+body.lichessTools button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
   background:#979924;
   color:black;
 }
@@ -66,6 +66,18 @@ body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
   body.lichessTools.mobile.lichessTools-mobileExperience .lichessTools-liveStatus {
     top: 5em;
   }
+}
+
+body.lichessTools div.lichessTools-boardOverlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 10000;
+}
+body.lichessTools div.lichessTools-boardOverlay cg-board,
+body.lichessTools div.lichessTools-boardOverlay coords
+{
+  opacity:0;
 }
 
 /* Prettier Lichess CSS */
