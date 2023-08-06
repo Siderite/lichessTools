@@ -8,7 +8,7 @@
         name:'mobileExperience',
         category: 'general',
         type:'multiple',
-        possibleValues: ['showGauge','hideOctopus','shapeDrawing','randomNextMove'],
+        possibleValues: ['showGauge','hideOctopus','shapeDrawing','shapeDrawingRound','randomNextMove'],
         defaultValue: 'showGauge,randomNextMove'
       },
       {
@@ -28,7 +28,8 @@
         'options.colorCount': 'Colors for shapes on mobile',
         'mobileExperience.showGauge':'Evaluation gauge',
         'mobileExperience.hideOctopus':'Hide the octopus mascot',
-        'mobileExperience.shapeDrawing':'Draw arrows and circles',
+        'mobileExperience.shapeDrawing':'Analysis arrows',
+        'mobileExperience.shapeDrawingRound':'Game arrows',
         'mobileExperience.randomNextMove':'Random move button',
         'shapeDrawingTitle': 'LiChess Tools - draw arrows and circles',
         'randomNextMoveTitle': 'LiChess Tools - random move',
@@ -43,7 +44,8 @@
         'options.colorCount': 'Culori pentru s\u0103ge\u0163i pe mobile',
         'mobileExperience.showGauge':'Band\u0103 de evaluare',
         'mobileExperience.hideOctopus':'Ascunde mascota caracati\u0163\u0103',
-        'mobileExperience.shapeDrawing':'Deseneaz\u0103 s\u0103ge\u0163i \u015Fi cercuri',
+        'mobileExperience.shapeDrawing':'S\u0103ge\u0163i \u00een analiz\u0103',
+        'mobileExperience.shapeDrawingRound':'S\u0103ge\u0163i \u00een joc',
         'mobileExperience.randomNextMove':'Buton mutare aleatoare',
         'shapeDrawingTitle': 'LiChess Tools - deseneaz\u0103 s\u0103ge\u0163i \u015Fi cercuri',
         'randomNextMoveTitle': 'LiChess Tools - mutare aleatoare',
@@ -170,24 +172,29 @@
       const trans=parent.translator;
       const isAnalyse=!!$('main.analyse').length;
       const isRound=!!$('main.round').length;
-      $('body').toggleClass('lichessTools-mobileExperience',!!(this.options.shapeDrawing||this.options.randomNextMove));
+      $('body').toggleClass('lichessTools-mobileExperience',!!(this.options.shapeDrawing||this.options.shapeDrawingRound||this.options.randomNextMove));
 
       let wrap=null;
+      this.chessground=null;
       if (isAnalyse) {
         $('main.analyse')
           .toggleClass('lichessTools-gaugeOnMobile',this.options.showGauge)
           .toggleClass('lichessTools-hideOctopus',this.options.hideOctopus);
         wrap=$('main.analyse div.cg-wrap');
-        this.chessground=parent.lichess.analysis.chessground;
+        if (this.options.shapeDrawing) {
+          this.chessground=parent.lichess.analysis.chessground;
+        }
       };
       if (isRound) {
-        wrap=$('div.cg-wrap.lichessTools-boardOverlay','main.round');
-        if (!wrap.length) {
-          wrap=this.initializeOverlayWrap();
+        wrap=$('main.round div.cg-wrap.lichessTools-boardOverlay');
+        if (this.options.shapeDrawingRound) {
+          if (!wrap.length) {
+            wrap=this.initializeOverlayWrap();
+          }
+          this.chessground=wrap[0].chessground;
         }
-        this.chessground=wrap[0].chessground;
       }
-      if (this.options.shapeDrawing) {
+      if (this.options.shapeDrawing||this.options.shapeDrawingRound) {
         if (!wrap.is('.lichessTools-shapeDrawing')) {
           wrap
             .addClass('lichessTools-shapeDrawing')
@@ -197,7 +204,7 @@
         }
       } else {
         wrap
-          .removeClass('lichessTools-shapeDrawing')
+          ?.removeClass('lichessTools-shapeDrawing')
           .off('touchstart',this.touchStart)
           .off('touchmove',this.touchMove)
           .off('touchend',this.touchEnd);
@@ -248,7 +255,7 @@
             });
           }
         }
-        if (!this.options.shapeDrawing && this.options.randomNextMove) {
+        if (!this.options.shapeDrawing && !this.options.randomNextMove) {
           if (this.originalHandler) {
             const elem=$('.analyse__controls')[0];
             if (elem && this.originalHandler) {
@@ -259,7 +266,7 @@
         }
       }
       if (isRound) {
-        if (this.options.shapeDrawing) {
+        if (this.options.shapeDrawingRound) {
           const container=$('div.rcontrols div.ricons');
           if (!$('button.lichessTools-shapeDrawing',container).length) {
             $('<button class="fbt lichessTools-shapeDrawing">')
@@ -268,10 +275,11 @@
               .insertBefore($('button.board-menu-toggle',container))
               .on('touchstart',ev=>{
                 this.toggleBrush(ev);
-                wrap.toggle(!!this.drawingBrush);
+                wrap?.toggle(!!this.drawingBrush);
               });
           }
         } else {
+          wrap?.remove();
           $('div.rcontrols div.ricons button.lichessTools-shapeDrawing').remove();
         }
       }
@@ -286,17 +294,18 @@
         showGauge:parent.isOptionSet(value,'showGauge'),
         hideOctopus:parent.isOptionSet(value,'hideOctopus'),
         shapeDrawing:parent.isOptionSet(value,'shapeDrawing'),
+        shapeDrawingRound:parent.isOptionSet(value,'shapeDrawingRound'),
         randomNextMove:parent.isOptionSet(value,'randomNextMove'),
         colorCount: parent.currentOptions.getValue('colorCount')
       };
       const lichess=parent.lichess;
       lichess.pubsub.off('redraw',this.handleRedraw);
       lichess.pubsub.off('chapterChange',this.handleRedraw);
-      if (this.options.showGauge || this.options.hideOctopus || this.options.shapeDrawing || this.options.randomNextMove) {
+      if (this.options.showGauge || this.options.hideOctopus || this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove) {
         lichess.pubsub.on('redraw',this.handleRedraw);
         lichess.pubsub.on('chapterChange',this.handleRedraw);
-        this.handleRedraw();
       }
+      this.handleRedraw();
     }
 
   }
