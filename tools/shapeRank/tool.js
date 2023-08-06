@@ -34,8 +34,7 @@
     ensureShapeRank=()=>{
       const parent=this.lichessTools;
       const shapeRankEnabled=parent.currentOptions.getValue('shapeRank');
-      const cg=lichess.analysis?.chessground;
-      const drawable=cg?.state.drawable;
+      const drawable=this.chessground?.state.drawable;
       if (!drawable) return;
 
       const reshape=($this,result,shapes)=>{
@@ -60,7 +59,7 @@
         }
         if (rank) {
           drawable.shapes=drawnShapes.concat(shapes);
-          if (!cg.state.draggable.current) cg.redrawAll();
+          if (!this.chessground.state.draggable.current) this.chessground.redrawAll();
         }
       };
 
@@ -72,9 +71,7 @@
             after:reshape
           });
         } 
-        //drawable.onChange(drawable.shapes);
         reshape(null,null,drawable.shapes);
-        //cg.redrawAll();
       } else {
         drawable.onChange=parent.unwrapFunction(drawable.onChange,'shapeRank');
       } 
@@ -86,20 +83,21 @@
       this.logOption('Show the order of arrows and circles', value);
       const lichess=parent.lichess;
       const analysis=lichess?.analysis;
-      if (!analysis) return;
-      lichess.pubsub.off('redraw',this.ensureShapeRank);
-      const cg=analysis?.chessground;
-      if (!cg) {
+      this.chessground=analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
+      if (!this.chessground) {
         parent.global.setTimeout(this.start.bind(this),1000);
         return;
       }
+      lichess.pubsub.off('shapeRank',this.ensureShapeRank);
+      lichess.pubsub.off('redraw',this.ensureShapeRank);
       if (value) {
+        lichess.pubsub.on('shapeRank',this.ensureShapeRank);
         lichess.pubsub.on('redraw',this.ensureShapeRank);
         parent.global.setTimeout(this.ensureShapeRank,500); //TODO without the timeout something clears the shapes in about 250ms at first page load (probably a web socket event)
       } else {
-        this.clearRankShapes(cg.state.drawable.shapes);
+        this.clearRankShapes(this.chessground.state.drawable.shapes);
       }
-      cg.redrawAll();
+      this.chessground.redrawAll();
     }
 
   }

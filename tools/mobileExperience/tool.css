@@ -26,19 +26,19 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   padding-bottom: 0.5em;
   flex: 0 0 2em;
 }
-body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-greenBrush {
+body.lichessTools button.lichessTools-shapeDrawing.lichessTools-greenBrush {
   background:#629924;
   color:white;
 }
-body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-redBrush {
+body.lichessTools button.lichessTools-shapeDrawing.lichessTools-redBrush {
   background:#992424;
   color:white;
 }
-body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-blueBrush {
+body.lichessTools button.lichessTools-shapeDrawing.lichessTools-blueBrush {
   background:#362499;
   color:white;
 }
-body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
+body.lichessTools button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
   background:#979924;
   color:black;
 }
@@ -67,6 +67,33 @@ body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
     top: 5em;
   }
 }
+
+body.lichessTools div.lichessTools-boardOverlay {
+  z-index: 2;
+}
+
+body.lichessTools div.lichessTools-boardOverlay.lichessTools-passthrough {
+  pointer-events:none;
+}
+
+body.lichessTools div.lichessTools-boardOverlay cg-board,
+body.lichessTools div.lichessTools-boardOverlay coords
+{
+  opacity:0;
+}
+
+body.lichessTools.mobile main.lichessTools-standardButtons rm6 div.buttons {
+  display:flex;
+}
+
+body.lichessTools.mobile main.lichessTools-standardButtons rm6 div.buttons > a {
+  align-self: center;
+}
+
+body.lichessTools.mobile main.lichessTools-standardButtons div.col1-moves > button[data-ply] {
+  display:none;
+}
+
 
 /* Prettier Lichess CSS */
 
