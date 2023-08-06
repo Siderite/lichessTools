@@ -82,6 +82,19 @@ body.lichessTools div.lichessTools-boardOverlay coords
   opacity:0;
 }
 
+body.lichessTools.mobile main.lichessTools-standardButtons rm6 div.buttons {
+  display:flex;
+}
+
+body.lichessTools.mobile main.lichessTools-standardButtons rm6 div.buttons > a {
+  align-self: center;
+}
+
+body.lichessTools.mobile main.lichessTools-standardButtons div.col1-moves > button[data-ply] {
+  display:none;
+}
+
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .gamebook {
