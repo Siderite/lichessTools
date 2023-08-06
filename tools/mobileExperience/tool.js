@@ -130,7 +130,7 @@
       const lichess=parent.lichess;
       const wrap=$('<div class="cg-wrap lichessTools-boardOverlay">')
         .appendTo('main.round div.main-board')
-        .hide();
+        .addClass('lichessTools-passthrough');
       const cg=Chessground(wrap[0],{
         fen: '8/8/8/8/8/8/8/8 w KQkq - 0 1',
         draggable: { 
@@ -275,7 +275,7 @@
               .insertBefore($('button.board-menu-toggle',container))
               .on('touchstart',ev=>{
                 this.toggleBrush(ev);
-                wrap?.toggle(!!this.drawingBrush);
+                wrap?.toggleClass('lichessTools-passthrough',!this.drawingBrush);
               });
           }
         } else {
@@ -283,6 +283,13 @@
           $('div.rcontrols div.ricons button.lichessTools-shapeDrawing').remove();
         }
       }
+    };
+
+    clearShapes=()=>{
+      const isRound=!!$('main.round').length;
+      if (!isRound||!this.chessground) return;
+      this.chessground.state.drawable.shapes=[];
+      this.chessground.state.dom.redraw();
     };
 
     async start() {
@@ -304,6 +311,12 @@
       if (this.options.showGauge || this.options.hideOctopus || this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove) {
         lichess.pubsub.on('redraw',this.handleRedraw);
         lichess.pubsub.on('chapterChange',this.handleRedraw);
+      }
+      lichess.pubsub.off('ply',this.clearShapes);
+      $('main.round div.cg-wrap:not(.lichessTools-boardOverlay)').off('click',this.clearShapes);
+      if (this.options.shapeDrawingRound) {
+        lichess.pubsub.on('ply',this.clearShapes);
+        $('main.round div.cg-wrap:not(.lichessTools-boardOverlay)').on('click',this.clearShapes);
       }
       this.handleRedraw();
     }

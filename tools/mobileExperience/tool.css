@@ -71,6 +71,11 @@ body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
 body.lichessTools div.lichessTools-boardOverlay {
   z-index: 2;
 }
+
+body.lichessTools div.lichessTools-boardOverlay.lichessTools-passthrough {
+  pointer-events:none;
+}
+
 body.lichessTools div.lichessTools-boardOverlay cg-board,
 body.lichessTools div.lichessTools-boardOverlay coords
 {
