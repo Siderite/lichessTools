@@ -107,3 +107,24 @@ body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .g
     width: 1em !important;
   }
 }
+
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons > button:hover {
+  background: initial !important;
+  color: initial !important;
+}
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-greenBrush:hover {
+  background:#629924 !important;
+  color:white !important;
+}
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-redBrush:hover {
+  background:#992424 !important;
+  color:white !important;
+}
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-blueBrush:hover {
+  background:#362499 !important;
+  color:white !important;
+}
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-yellowBrush:hover {
+  background:#979924 !important;
+  color:black !important;
+}

@@ -16,7 +16,8 @@
         category: 'general',
         type:'multiple',
         possibleValues: ['shapeDrawingRound','standardButtons'],
-        defaultValue: ''
+        defaultValue: '',
+        advanced: true
       },
       {
         name:'colorCount',

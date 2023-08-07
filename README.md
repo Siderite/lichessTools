@@ -42,7 +42,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - delete all PGN tags in bulk or pick individual ones from the current chapter
  - practice with Explorer (computer makes moves based on what masters, lichess or a specific player played in that position)
  - additional glyphs on board
- - drawing of arrows and circles on mobile
+ - drawing of arrows and circles on mobile (for analysis, study, games, puzzles, TV)
  - collapsable preference categories
  - extra computer analysis metrics
  - the many preferences now can be filtered by advanced or basic and the categories can be collapsed
