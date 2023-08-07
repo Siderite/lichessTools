@@ -88,9 +88,11 @@
       }
       lichess.pubsub.off('shapeRank',this.ensureShapeRank);
       lichess.pubsub.off('redraw',this.ensureShapeRank);
+      lichess.pubsub.off('ply',this.ensureShapeRank);
       if (value) {
         lichess.pubsub.on('shapeRank',this.ensureShapeRank);
         lichess.pubsub.on('redraw',this.ensureShapeRank);
+        lichess.pubsub.on('ply',this.ensureShapeRank);
         parent.global.setTimeout(this.ensureShapeRank,500); //TODO without the timeout something clears the shapes in about 250ms at first page load (probably a web socket event)
       } else {
         this.clearRankShapes(this.chessground.state.drawable.shapes);
