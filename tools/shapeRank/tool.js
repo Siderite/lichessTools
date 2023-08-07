@@ -33,7 +33,9 @@
 
     ensureShapeRank=()=>{
       const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
       const shapeRankEnabled=parent.currentOptions.getValue('shapeRank');
+      this.chessground=analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
       const drawable=this.chessground?.state.drawable;
       if (!drawable) return;
 
@@ -71,7 +73,7 @@
             after:reshape
           });
         } 
-        reshape(null,null,drawable.shapes);
+        reshape(null,null,[...drawable.shapes]);
       } else {
         drawable.onChange=parent.unwrapFunction(drawable.onChange,'shapeRank');
       } 
@@ -88,11 +90,9 @@
       }
       lichess.pubsub.off('shapeRank',this.ensureShapeRank);
       lichess.pubsub.off('redraw',this.ensureShapeRank);
-      lichess.pubsub.off('ply',this.ensureShapeRank);
       if (value) {
         lichess.pubsub.on('shapeRank',this.ensureShapeRank);
         lichess.pubsub.on('redraw',this.ensureShapeRank);
-        lichess.pubsub.on('ply',this.ensureShapeRank);
         parent.global.setTimeout(this.ensureShapeRank,500); //TODO without the timeout something clears the shapes in about 250ms at first page load (probably a web socket event)
       } else {
         this.clearRankShapes(this.chessground.state.drawable.shapes);
