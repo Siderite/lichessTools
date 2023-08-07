@@ -219,7 +219,11 @@
     }
 
     getNodePosition(node) {
-      return node.fen.split('-')[0].trim();
+      return this.getFenPosition(node.fen);
+    }
+
+    getFenPosition(fen) {
+      return fen.split('-')[0].trim();
     }
 
     isTreeviewVisible=()=>{

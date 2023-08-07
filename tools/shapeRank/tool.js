@@ -102,7 +102,7 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('shapeRank');
       this.logOption('Show the order of arrows and circles', value);
-      await this.waitForChessground();
+      await this.waitForChessground(value);
     }
 
   }

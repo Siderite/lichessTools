@@ -5,3 +5,10 @@ body.lichessTools a.lichessTools-previousStudy span {
   max-height: 2.5em;
   overflow: hidden;
 }
+
+/* Prettier */
+body.lichessTools.lichessTools-prettier nav#topnav a.lichessTools-previousStudy {
+  flex-direction: column;
+  align-items: flex-start !important;
+  justify-content: center;
+}

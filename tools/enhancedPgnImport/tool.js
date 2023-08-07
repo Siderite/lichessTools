@@ -138,33 +138,34 @@
           let data=null;
           try {
             const pgns=this.splitPgn(input);
-            parent.global.console.debug('...merging '+pgns.length+' PGNs');
-            let merge=false;
-            let error=false;
-            for (let i=pgns.length-1;i>=0; i--) {
-              const pgn=pgns[i];
-              try{
-                if (i>0) {
-                  $this.initialize(pgn,merge);
-                } else {
-                  $this.reloadData(pgn,merge);
-                }
-                merge=andReload;
-              } catch(ex) {
-                console.warn('Error loading PGN',ex, pgns.length-i-1);
-              }
-            }
-            if (!error) {
-              const announcement = trans.pluralSame('mergeSuccess',pgns.length);
-              parent.announce(announcement);
-            }
             if (andReload) {
+              parent.global.console.debug('...merging '+pgns.length+' PGNs');
+              let merge=false;
+              let error=false;
+              for (let i=pgns.length-1;i>=0; i--) {
+                const pgn=pgns[i];
+                try{
+                  if (i>0) {
+                    $this.initialize(pgn,merge);
+                  } else {
+                    $this.reloadData(pgn,merge);
+                  }
+                  merge=andReload;
+                } catch(ex) {
+                  console.warn('Error loading PGN',ex, pgns.length-i-1);
+                }
+              }
+              if (!error) {
+                const announcement = trans.pluralSame('mergeSuccess',pgns.length);
+                parent.announce(announcement);
+              }
               const newPgn=$('div.pgn textarea').val();
               data=oldChangePgn(newPgn,false);
               $this.explorer.reload()
               $this.redraw();
             } else {
-              parent.global.console.debug('Returning data from the first PGN in the input');
+              //parent.global.console.debug('Returning data from the first PGN in the input');
+              data=pgns[0];
             }
           } catch(ex){
             parent.global.console.warn('Enhanced import failed',ex);
