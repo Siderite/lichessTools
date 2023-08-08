@@ -33,7 +33,9 @@
 
     ensureShapeRank=()=>{
       const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
       const shapeRankEnabled=parent.currentOptions.getValue('shapeRank');
+      this.chessground=analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
       const drawable=this.chessground?.state.drawable;
       if (!drawable) return;
 
@@ -71,21 +73,19 @@
             after:reshape
           });
         } 
-        reshape(null,null,drawable.shapes);
+        reshape(null,null,[...drawable.shapes]);
       } else {
         drawable.onChange=parent.unwrapFunction(drawable.onChange,'shapeRank');
       } 
     };
 
-    async start() {
+    waitForChessground=(value)=>{
       const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('shapeRank');
-      this.logOption('Show the order of arrows and circles', value);
       const lichess=parent.lichess;
       const analysis=lichess?.analysis;
       this.chessground=analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
       if (!this.chessground) {
-        parent.global.setTimeout(this.start.bind(this),1000);
+        parent.global.setTimeout(this.waitForChessground.bind(this),1000);
         return;
       }
       lichess.pubsub.off('shapeRank',this.ensureShapeRank);
@@ -98,6 +98,13 @@
         this.clearRankShapes(this.chessground.state.drawable.shapes);
       }
       this.chessground.redrawAll();
+    };
+
+    async start() {
+      const parent=this.lichessTools;
+      const value=parent.currentOptions.getValue('shapeRank');
+      this.logOption('Show the order of arrows and circles', value);
+      await this.waitForChessground(value);
     }
 
   }

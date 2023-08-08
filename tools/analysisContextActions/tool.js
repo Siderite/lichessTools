@@ -27,10 +27,10 @@
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
         'setCustomEngineDepth': 'You need to set a minimum engine depth for this feature!',
         'evaluateTerminationsText': 'Evaluate terminating moves',
-        'evaluateTerminationsTitle': 'LiChess Tools - Add evaluation comment to all branch terminating moves',
+        'evaluateTerminationsTitle': 'LiChess Tools - add evaluation comment to all branch terminating moves',
         'evaluateTerminationsStarted': 'Evaluation commenting started: %s',
         'showTransposText': 'Highlight all transpositions',
-        'showTransposTitle': 'LiChess Tools - Highlight all transpositions'
+        'showTransposTitle': 'LiChess Tools - highlight all transpositions'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -45,10 +45,10 @@
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
         'setCustomEngineDepth': 'Trebuie s\u0103 setezi un nivel minim pentru motorul de analiz\u0103!',
         'evaluateTerminationsText': 'Evalueaz\u0103 mut\u0103rile finale',
-        'evaluateTerminationsTitle': 'LiChess Tools - Adaug\u0103 comentarii cu evaluarea mut\u0103rilor finale din fiecare ramur\u0103',
+        'evaluateTerminationsTitle': 'LiChess Tools - adaug\u0103 comentarii cu evaluarea mut\u0103rilor finale din fiecare ramur\u0103',
         'evaluateTerminationsStarted': 'Comentarea cu evalu\u0103ri pornit\u0103: %s',
         'showTransposText': 'Arat\u0103 toate transpozi\u0163iile',
-        'showTransposTitle': 'LiChess Tools - Arat\u0103 toate transpozi\u0163iile'
+        'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile'
       }
     }
 
@@ -121,6 +121,7 @@
         for (let i = 1; i < node.children.length; i++) {
           const child = node.children[i];
           s += ` (${plyPrefix(child)}${fixCrazySan(child.san)}`;
+          s += renderComments(child);
           const variation = renderNodesTxt(child, false);
           if (variation) s += ' ' + variation;
           s += ')';
@@ -175,12 +176,19 @@
         if (varNode.fen && varNode.fen!='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
           pgn='[FEN "'+varNode.fen+'"]\r\n'+pgn;
         }
-        navigator.clipboard.writeText(pgn).then(()=>{
-          const announcement = trans.noarg('PGNCopiedToClipboard');
-          announce(announcement);
-        }).catch(e=>{
-          const announcement = trans.noarg('errorCopyingPGN');
-          announce(announcement);
+        parent.global.navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
+          if (['granted','prompt'].includes(result.state)) {
+            parent.global.navigator.clipboard.writeText(pgn).then(()=>{
+              const announcement = trans.noarg('PGNCopiedToClipboard');
+              announce(announcement);
+            }).catch(e=>{
+              const announcement = trans.noarg('errorCopyingPGN');
+              announce(announcement);
+            });
+          } else {
+            const announcement = trans.noarg('errorCopyingPGN');
+            announce(announcement);
+          }
         });
       } catch (e) {
         console.warn('Error generating PGN:',e);

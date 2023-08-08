@@ -219,7 +219,11 @@
     }
 
     getNodePosition(node) {
-      return node.fen.split('-')[0].trim();
+      return this.getFenPosition(node.fen);
+    }
+
+    getFenPosition(fen) {
+      return fen.split('-')[0].trim();
     }
 
     isTreeviewVisible=()=>{
@@ -534,6 +538,10 @@
     async start(lichess) {
       if (!lichess) return;
       this.lichess=lichess;
+      const age=lichess.info?.date
+        ? (new Date().getTime()-new Date(lichess.info.date).getTime())/86400000
+        : 0;
+      console.debug('%c lichess.org code age: '+Math.round(age)+' days', age<7?'background: red;':'');
       this.translator = this.lichess.trans(this.intl.siteI18n);
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);
