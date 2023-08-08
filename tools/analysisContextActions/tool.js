@@ -30,7 +30,8 @@
         'evaluateTerminationsTitle': 'LiChess Tools - add evaluation comment to all branch terminating moves',
         'evaluateTerminationsStarted': 'Evaluation commenting started: %s',
         'showTransposText': 'Highlight all transpositions',
-        'showTransposTitle': 'LiChess Tools - highlight all transpositions'
+        'showTransposTitle': 'LiChess Tools - highlight all transpositions',
+        'clipboardDenied':'Clipboard access denied'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -48,12 +49,13 @@
         'evaluateTerminationsTitle': 'LiChess Tools - adaug\u0103 comentarii cu evaluarea mut\u0103rilor finale din fiecare ramur\u0103',
         'evaluateTerminationsStarted': 'Comentarea cu evalu\u0103ri pornit\u0103: %s',
         'showTransposText': 'Arat\u0103 toate transpozi\u0163iile',
-        'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile'
+        'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile',
+        'clipboardDenied':'Acces refuzat la clipboard'
       }
     }
 
 
-    exportPgn=(path)=>{
+    exportPgn=async (path)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const announce=parent.announce;
@@ -176,20 +178,20 @@
         if (varNode.fen && varNode.fen!='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
           pgn='[FEN "'+varNode.fen+'"]\r\n'+pgn;
         }
-        parent.global.navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
-          if (['granted','prompt'].includes(result.state)) {
-            parent.global.navigator.clipboard.writeText(pgn).then(()=>{
-              const announcement = trans.noarg('PGNCopiedToClipboard');
-              announce(announcement);
-            }).catch(e=>{
-              const announcement = trans.noarg('errorCopyingPGN');
-              announce(announcement);
-            });
-          } else {
-            const announcement = trans.noarg('errorCopyingPGN');
+        const result=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
+        if (['granted','prompt'].includes(result.state)) {
+          try {
+            await parent.global.navigator.clipboard.writeText(pgn);
+            const announcement = trans.noarg('PGNCopiedToClipboard');
+            announce(announcement);
+          } catch(e) {
+            const announcement = trans.noarg('clipboardDenied');
             announce(announcement);
           }
-        });
+        } else {
+          const announcement = trans.noarg('clipboardDenied');
+          announce(announcement);
+        }
       } catch (e) {
         console.warn('Error generating PGN:',e);
         const announcement = trans.noarg('errorGeneratingPGN');
@@ -262,7 +264,7 @@
       analysis.redraw();
     };
     
-    evaluateTerminations=(ev)=>{
+    evaluateTerminations=async (ev)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -286,7 +288,8 @@
         return;
       }
       this.setTerminationsEvaluation(true);
-      this.ensureCevalRunning().then(this.doEvaluation);
+      await this.ensureCevalRunning()
+      this.doEvaluation();
     };
     
     ensureCevalRunning=()=>{

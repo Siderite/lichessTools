@@ -209,7 +209,7 @@
           label.attr('for',id);
         }
       })
-      .on('change keyup paste',parent.debounce(function() {
+      .on('change keyup paste',parent.debounce(async function() {
           const type=$(this).prop('type');
           const isCheckable=type=='radio'||type=='checkbox';
           const optionName=$(this).attr('name');
@@ -220,12 +220,11 @@
           if (value==='true') value=true; 
           else if (value==='false') value=false;
           currentOptions[optionName]=value;
-          applyOptions(currentOptions).then(function() {
-            parent.fireReloadOptions();
-            checkGlobalSwitch();
-            checkAdvanced();
-            showSaved();
-          }).catch(e=>{ throw e; });
+          await applyOptions(currentOptions);
+          parent.fireReloadOptions();
+          checkGlobalSwitch();
+          checkAdvanced();
+          showSaved();
       },500));
       checkGlobalSwitch();
       checkAdvanced();
