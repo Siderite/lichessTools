@@ -8,8 +8,8 @@
         name:'analysisContextActions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['copyPgn','moveEval','showTranspos'],//,'mergePgn'],
-        defaultValue: 'copyPgn,moveEval,mergePgn'
+        possibleValues: ['copyPgn','moveEval','showTranspos'],
+        defaultValue: 'copyPgn,moveEval'
       }
     ];
 
@@ -30,12 +30,7 @@
         'evaluateTerminationsTitle': 'LiChess Tools - add evaluation comment to all branch terminating moves',
         'evaluateTerminationsStarted': 'Evaluation commenting started: %s',
         'showTransposText': 'Highlight all transpositions',
-        'showTransposTitle': 'LiChess Tools - highlight all transpositions',
-        'noMergePoint':'No merge point found',
-        'duplicateVariations':'Merging would duplicate variations',
-        'readClipboardDenied':'Access to clipboard denied',
-        'mergePgnText':'Merge PGN here',
-        'mergePgnTitle':'LiChess Tools - merge PGN here'
+        'showTransposTitle': 'LiChess Tools - highlight all transpositions'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -53,12 +48,7 @@
         'evaluateTerminationsTitle': 'LiChess Tools - adaug\u0103 comentarii cu evaluarea mut\u0103rilor finale din fiecare ramur\u0103',
         'evaluateTerminationsStarted': 'Comentarea cu evalu\u0103ri pornit\u0103: %s',
         'showTransposText': 'Arat\u0103 toate transpozi\u0163iile',
-        'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile',
-        'noMergePoint':'Nu am g\u0103sit punct de alipire',
-        'duplicateVariations':'Alipirea ar duplica varia\u0163iuni',
-        'readClipboardDenied':'Acces refuzat la clipboard',
-        'mergePgnText':'Alipe\u015Fte PGN-ul aici',
-        'mergePgnTitle':'LiChess Tools - alipe\u015Fte PGN-ul aici'
+        'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile'
       }
     }
 
@@ -352,93 +342,6 @@
         $(elem).addClass('lichessTools-transpositionAll');
       }
     };
-
-    isPgn=(text)=>{
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      return !!lichess.analysis.changePgn(text,false);
-    };
-
-    couldHaveClipboardPgn=()=>{
-      const parent=this.lichessTools;
-      return new Promise((resolve,reject)=>{
-        parent.global.navigator.permissions.query({ name: 'clipboard-read' }).then((result) => {
-          if (['granted'].includes(result.state)) {
-            parent.global.navigator.clipboard.readText()
-              .then(text=>{
-                resolve(this.isPgn(text));
-              })
-              .catch(e=>resolve(null));
-          } else {
-            resolve(null);
-          }
-        });
-      });
-    };
-
-    updatePly=(nodes,ply)=>{
-      for (const node of nodes||[]) {
-        node.ply=ply;
-        this.updatePly(node.children,ply+1);
-      }
-    };
-
-    mergePgnFromClipboard=()=>{
-      const parent=this.lichessTools;
-      const analysis=parent.lichess.analysis;
-      const announce=parent.announce;
-      const menuNode=analysis.tree.nodeAtPath(analysis.contextMenuPath);
-      return new Promise((resolve,reject)=>{
-        parent.global.navigator.permissions.query({ name: 'clipboard-read' }).then((result) => {
-          if (['granted','prompt'].includes(result.state)) {
-            parent.global.navigator.clipboard.readText()
-              .then(text=>{
-                const pgn=analysis.changePgn(text,false);
-                if (!pgn?.treeParts?.length) return;
-                const nodePos=parent.getNodePosition(menuNode);
-                let index=-1;
-                for (let i=0; i<pgn.treeParts.length; i++) {
-                  if (pgn.sidelines[i].length) {
-                    const announcement = trans.noarg('noMergePoint');
-                    announce(announcement);
-                    return;
-                  }
-                  if (parent.getFenPosition(pgn.treeParts[i].fen)===nodePos) {
-                    index=i;
-                    break;
-                  }
-                }
-                if (index<0) {
-                  const announcement = trans.noarg('noMergePoint');
-                  announce(announcement);
-                  return;
-                }
-                if (pgn.treeParts[index+1]) {
-                  const duplicates=[pgn.treeParts[index+1]].concat(pgn.sidelines[index+1]).filter(p=>!!menuNode.children.find(c=>c.uci===p.uci));
-                  if (duplicates.length) {
-                    const announcement = trans.noarg('duplicateVariations');
-                    announce(announcement);
-                    return;
-                  }
-                }
-                const part=pgn.treeParts[index];
-                index++;
-                while (index<pgn.treeParts.length) {
-                  pgn.treeParts[index-1].children=[pgn.treeParts[index]].concat(pgn.sidelines[index]);
-                  index++;
-                }
-                this.updatePly(part.children,menuNode.ply+1);
-                menuNode.children.push.apply(menuNode.children,part.children);
-                analysis.redraw();
-              })
-              .catch(e=>resolve(null));
-          } else {
-            const announcement = trans.noarg('readClipboardDenied');
-            announce(announcement);
-          }
-        });
-      });
-    };
     
     analysisContextMenu=()=>{
       const parent=this.lichessTools;
@@ -488,21 +391,6 @@
           .on('click',this.showTranspos)
           .appendTo(menu);
       }
-
-      if (this.options.mergePgn
-         &&!menu.has('a[data-role="mergePgn"]').length) {
-        this.couldHaveClipboardPgn().then(r=>{
-          if (r===false) return;
-          const text=trans.noarg('mergePgnText');
-          const title=trans.noarg('mergePgnTitle');
-          $('<a>')
-            .attr('data-icon','\uE070')
-            .attr('data-role','mergePgn')
-            .text(text).attr('title',title)
-            .on('click',this.mergePgnFromClipboard)
-            .appendTo(menu);
-        });
-      }
     }
 
     checkEngineLevel=()=>{
@@ -544,8 +432,7 @@
         copyPgn:parent.isOptionSet(value,'copyPgn'),
         moveEval:parent.isOptionSet(value,'moveEval'),
         showTranspos:parent.isOptionSet(value,'showTranspos'),
-        mergePgn:parent.isOptionSet(value,'mergePgn'),
-        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.mergePgn; }
+        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos; }
       };
       clearInterval(this.engineCheckInterval);
       lichess.pubsub.off('redraw',this.analysisContextMenu);
