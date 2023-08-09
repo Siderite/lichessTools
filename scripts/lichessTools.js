@@ -175,7 +175,8 @@
 
     isAudioAllowed() {
       if (this.audioAllowed) return true;
-      if (!navigator.userActivation.hasBeenActive) return false;
+      // TODO maybe readd when Chrome allows knowing if the 'sound' permission has been granted for the site
+      //if (!navigator.userActivation.hasBeenActive) return false;
       const ac=new AudioContext();
       const state=ac.state!='suspended';
       this.audioAllowed=state;
