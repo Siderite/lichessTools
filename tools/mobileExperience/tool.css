@@ -94,8 +94,17 @@ body.lichessTools.mobile main.lichessTools-standardButtons div.col1-moves > butt
   display:none;
 }
 
-body.lichessTools.mobile main div.rcontrols {
-  max-width:90vw;
+body.lichessTools.mobile main div.rcontrols .fbt {
+  font-size: 1.2em;
+}
+
+body.lichessTools.mobile main div.rcontrols .fbt {
+  font-size: 1.2em;
+  padding: 0.1em 1.2em;
+}
+
+body.lichessTools.mobile main div.rcontrols .board-menu-toggle {
+  margin-left: 1.2em;
 }
 
 /* Prettier Lichess CSS */
