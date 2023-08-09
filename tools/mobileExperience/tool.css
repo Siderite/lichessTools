@@ -94,6 +94,9 @@ body.lichessTools.mobile main.lichessTools-standardButtons div.col1-moves > butt
   display:none;
 }
 
+body.lichessTools.mobile main div.rcontrols {
+  max-width:90vw;
+}
 
 /* Prettier Lichess CSS */
 
@@ -108,23 +111,28 @@ body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .g
   }
 }
 
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons > button:hover {
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons > button:hover ,
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons > button:hover {
   background: initial !important;
   color: initial !important;
 }
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-greenBrush:hover {
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-greenBrush:hover ,
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons >  button.lichessTools-shapeDrawing.lichessTools-greenBrush:hover {
   background:#629924 !important;
   color:white !important;
 }
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-redBrush:hover {
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-redBrush:hover ,
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons >  button.lichessTools-shapeDrawing.lichessTools-redBrush:hover {
   background:#992424 !important;
   color:white !important;
 }
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-blueBrush:hover {
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-blueBrush:hover ,
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons >  button.lichessTools-shapeDrawing.lichessTools-blueBrush:hover {
   background:#362499 !important;
   color:white !important;
 }
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-yellowBrush:hover {
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-yellowBrush:hover ,
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons >  button.lichessTools-shapeDrawing.lichessTools-yellowBrush:hover {
   background:#979924 !important;
   color:black !important;
 }

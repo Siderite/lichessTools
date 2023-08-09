@@ -341,15 +341,14 @@
         });
         $(html).insertBefore($('h2',container).eq(0));
         $('#abset-extendedInteractive,#abset-showScore')
-          .on('change',()=>{
+          .on('change',async ()=>{
             const arr=[];
             const options=parent.currentOptions
             if ($('#abset-extendedInteractive').is(':checked')) arr.push('extendedInteractive');
             if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
             options.extendedInteractiveLesson=arr.join(',');
-            parent.applyOptions(options).then(()=>{
-              parent.fireReloadOptions();
-            }).catch(e=>{ throw e; });
+            await parent.applyOptions(options);
+            parent.fireReloadOptions();
           });
       }
       $('#abset-extendedInteractive')
