@@ -142,6 +142,7 @@
 
     showScore=()=>{
       const parent=this.lichessTools;
+      const Math=parent.global.Math;
       const analysis=parent.lichess.analysis;
       const trans=parent.translator;
       const gp=analysis.gamebookPlay();

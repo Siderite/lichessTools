@@ -462,6 +462,14 @@
     lichessTools:this,
     slowMode: false,
     slowModeTimeout: null,
+    json: async function(url,options) {
+      if (!options) options={};
+      if (!options.headers) options.headers={};
+      options.headers.Accept||='application/json';
+      options.headers['x-requested-with']||='XMLHttpRequest';
+      const json=await this.fetch(url,options);
+      return json&&JSON.parse(json);
+    },
     fetch: async function(url,options) {
       try{
         let args=null;

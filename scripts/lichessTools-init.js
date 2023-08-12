@@ -45,6 +45,7 @@ lichessTools.loadTool(LiChessTools.Tools.ExtraChart);
 lichessTools.loadTool(LiChessTools.Tools.KeyboardHelp);
 lichessTools.loadTool(LiChessTools.Tools.FriendsTv);
 lichessTools.loadTool(LiChessTools.Tools.PreviousStudyMenu);
+lichessTools.loadTool(LiChessTools.Tools.TimelineNotify);
 
 lichessTools.loadTool(LiChessTools.Tools.UserTvHistory);
 

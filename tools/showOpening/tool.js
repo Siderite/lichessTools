@@ -55,6 +55,7 @@
     openingTimeout=0;
     withOpening=async (gameId,el,ply)=>{
       const parent=this.lichessTools;
+      const Math=parent.global.Math;
       if (parent.opening_dict) {
         const pos=parent.getPositionFromBoard(el);
         if (pos) {

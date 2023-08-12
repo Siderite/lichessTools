@@ -52,9 +52,9 @@
               ev.preventDefault();
               const user=$(this).prev().text();
               let previousUsers=lichess.storage.get('explorer.player.name.previous');
-              previousUsers=previousUsers?JSON.parse(previousUsers):[];
+              previousUsers=previousUsers?parent.global.JSON.parse(previousUsers):[];
               previousUsers=previousUsers.filter(u=>u!=user);
-              lichess.storage.set('explorer.player.name.previous',JSON.stringify(previousUsers));
+              lichess.storage.set('explorer.player.name.previous',parent.global.JSON.stringify(previousUsers));
               $('.lichessTools-deleteUser',container).remove();
               const currentUser=explorer.config.data.playerName.value();
               if (currentUser==user) {
@@ -75,7 +75,7 @@
       const trans=parent.translator;
       if (!explorer) return;
       let previousUsers=lichess.storage.get('explorer.player.name.previous');
-      previousUsers=previousUsers?JSON.parse(previousUsers):[];
+      previousUsers=previousUsers?parent.global.JSON.parse(previousUsers):[];
       if (previousUsers.length<=0) {
         $('div.explorer-title button.lichessTools-switchWithMe').remove();
         return;
@@ -90,7 +90,7 @@
         .on('click',function(ev) {
           ev.preventDefault();
           let previousUsers=lichess.storage.get('explorer.player.name.previous');
-          previousUsers=previousUsers?JSON.parse(previousUsers):[];
+          previousUsers=previousUsers?parent.global.JSON.parse(previousUsers):[];
           const myName=explorer.config.myName;
           const currentUser=explorer.config.data.playerName.value();
           const user=currentUser!=myName

@@ -62,6 +62,7 @@
     actionChapterControls=(ev)=>{
       ev.preventDefault();
       const parent=this.lichessTools;
+      const Math=parent.global.Math;
       const $=parent.$;
       const study=parent.lichess.analysis?.study;
       if (!study) return;

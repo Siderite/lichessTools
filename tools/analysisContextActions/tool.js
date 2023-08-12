@@ -136,6 +136,7 @@
       }
     
       function clone(n2, withoutChildren) {
+        const JSON=parent.global.JSON;
         const n1={
           children: [],
           eval: n2.eval,
@@ -211,6 +212,7 @@
       if (!this.evaluateTerminationsStarted) return;
       if (!ceval) return;
       const parent=this.lichessTools;
+      const Math=parent.global.Math;
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!node.id||node.isCommentedOrMate) return;

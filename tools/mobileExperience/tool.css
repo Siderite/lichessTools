@@ -25,6 +25,8 @@ body.lichessTools main.analyse.lichessTools-hideOctopus .gamebook .floor:after {
 body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   padding-bottom: 0.5em;
   flex: 0 0 2em;
+  background: initial; /* fix for Kiwi mobile hover bug */
+  color: initial;
 }
 body.lichessTools button.lichessTools-shapeDrawing.lichessTools-greenBrush {
   background:#629924;
@@ -94,8 +96,17 @@ body.lichessTools.mobile main.lichessTools-standardButtons div.col1-moves > butt
   display:none;
 }
 
-body.lichessTools.mobile main div.rcontrols {
-  max-width:90vw;
+body.lichessTools.mobile main div.rcontrols .fbt {
+  font-size: 1.2em;
+}
+
+body.lichessTools.mobile main div.rcontrols .fbt {
+  font-size: 1.2em;
+  padding: 0.1em 1.2em;
+}
+
+body.lichessTools.mobile main div.rcontrols .board-menu-toggle {
+  margin-left: 1.2em;
 }
 
 /* Prettier Lichess CSS */

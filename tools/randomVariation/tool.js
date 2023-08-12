@@ -39,6 +39,7 @@
 
     populatePercent=(nodes, isInteractive, depth)=> {
       const parent=this.lichessTools;
+      const Math=parent.global.Math;
       const getGamebookDescendants=(node,depth,currentDepth,isInteractive)=>{
         if (!depth) depth=0;
         if (!currentDepth) currentDepth=1;
@@ -115,6 +116,7 @@
 
     getRandomVariation=(node, depth)=>{
       const parent=this.lichessTools;
+      const Math=parent.global.Math;
       depth=+depth||this.depth;
       const lichess=parent.lichess;
       const arr=this.getNextMoves(node);

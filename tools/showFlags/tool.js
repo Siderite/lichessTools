@@ -325,11 +325,12 @@
     cacheExpiration=2*86400000; //2 days
     get flagCache() {
        const global=this.lichessTools.global;
+       const lichess=this.lichessTools.lichess;
        if (this._flagCache) return this._flagCache;
        try {
-         const temp=global.localStorage.getItem('LiChessTools.flagCache')
+         const temp=lichess.storage.get('LiChessTools.flagCache')
          if (temp) global.console.debug('Size of flag cache:',temp.length);
-         this._flagCache=new Map(temp?JSON.parse(temp):{});
+         this._flagCache=new Map(temp?global.JSON.parse(temp):{});
        } catch(e) {
          global.console.warn('Error parsing flag cache:',e);
          this._flagCache=new Map()
@@ -338,11 +339,12 @@
     }
     get countryCache() {
        const global=this.lichessTools.global;
+       const lichess=this.lichessTools.lichess;
        if (this._countryCache) return this._countryCache;
        try {
-         const temp=global.localStorage.getItem('LiChessTools.countryCache')
+         const temp=lichess.storage.get('LiChessTools.countryCache')
          if (temp) global.console.debug('Size of country cache:',temp.length);
-         this._countryCache=new Map(temp?JSON.parse(temp):this.countries);
+         this._countryCache=new Map(temp?global.JSON.parse(temp):this.countries);
        } catch(e) {
          global.console.warn('Error parsing country cache:',e);
          this._countryCache=new Map(this.countries);
@@ -350,13 +352,15 @@
        return this._countryCache;
     }
     saveCache=()=>{
+      const global=this.lichessTools.global;
+      const lichess=this.lichessTools.lichess;
       const cache=this.flagCache;
       for(const userId of cache.keys()) {
         const time=cache.get(userId).time;
         if (new Date().getTime()-new Date(time)>this.cacheExpiration) cache.delete(userId);
       }
-      this.lichessTools.global.localStorage.setItem('LiChessTools.countryCache',JSON.stringify([...this.countryCache]));
-      this.lichessTools.global.localStorage.setItem('LiChessTools.flagCache',JSON.stringify([...this.flagCache]));
+      lichess.storage.set('LiChessTools.countryCache',global.JSON.stringify([...this.countryCache]));
+      lichess.storage.set('LiChessTools.flagCache',global.JSON.stringify([...this.flagCache]));
     };
     debouncedSaveCache=this.lichessTools.debounce(this.saveCache,100);
     processFlags=async ()=> {
@@ -377,7 +381,7 @@
       const userIds=data.filter(i=>!i.countryName).map(i=>i.id).slice(0,200);
       if (userIds.length) {
         const json = await parent.net.fetch('/api/users',{ method:'POST',body:userIds.join(',') });
-        const users=JSON.parse(json);
+        const users=parent.global.JSON.parse(json);
         for (const user of users) {
           const item = data.find(i=>i.id===user.id)
           if (item) item.country=user.profile?.country||'noflag';

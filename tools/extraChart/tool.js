@@ -273,6 +273,8 @@
     };
 
     smooth = (points)=>{
+      const parent=this.lichessTools;
+      const Math=parent.global.Math;
       if (!this.options.smooth) return points;
       const threshold=0.3;
       const toRemove=[];;
@@ -291,6 +293,8 @@
     }
 
     getMaterialData = (mainline) => {
+      const parent=this.lichessTools;
+      const Math=parent.global.Math;
       return mainline
         .slice(1)
         .map((node,x) => {
@@ -303,6 +307,8 @@
     };
 
     getPrincipledData = (mainline) => {
+      const parent=this.lichessTools;
+      const Math=parent.global.Math;
       return mainline
         .slice(1)
         .map((node,x) => {
