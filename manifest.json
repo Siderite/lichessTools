@@ -71,6 +71,7 @@
         "tools/keyboardHelp/tool.js",
         "tools/friendsTv/tool.js",
         "tools/previousStudyMenu/tool.js",
+        "tools/timelineNotify/tool.js",
  
         "tools/preferences/tool.js",
  

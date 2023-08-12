@@ -53,7 +53,10 @@
     const lichess=parent.lichess;
     const isOptionSet=parent.isOptionSet;
 
-    parent.global.document.title=parent.global.document.title?.replace(/^\w+/,trans.noarg('lichessTools'));
+    const lichessToolsText=trans.noarg('lichessTools');
+    if (parent.global.document.title.indexOf(lichessToolsText)<0) {
+      parent.global.document.title=parent.global.document.title?.replace(/^[^\s]+/,lichessToolsText);
+    }
 
     $('nav.page-menu__menu.subnav a.active').removeClass('active');
     $('a.lichessTools-menu').addClass('active');
