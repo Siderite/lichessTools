@@ -52,7 +52,7 @@
 
       const toggle=$('#top div.site-buttons #notify-toggle span');
       const app=$('#top div.site-buttons #notify-app');
-      const notifications=$('div.notifications',app);
+      let notifications=$('div.notifications',app);
 
       const count=+toggle.attr('data-count')||0;
       const justNotified=+(lichess.storage.get('just-notified'))||0;
@@ -68,6 +68,11 @@
         .attr('aria-label',title);
       let elem = $('a.site_notification.lichessTools-timelineNotify',notifications);
       if (newEntries.length) {
+        if (!notifications.length) {
+          const emptyDiv=$('div.empty',app).removeAttr('data-icon').empty();
+          notifications=$('<div class="notifications">')
+            .appendTo(emptyDiv);
+        }
         if (!elem.length) {
           elem=$(`<a class="site_notification lichessTools-timelineNotify" href="/timeline">
                <i data-icon="\uE058"></i>
@@ -95,8 +100,14 @@
       const value=parent.currentOptions.getValue('timelineNotify');
       this.logOption('Post notifications', value);
       lichess.pubsub.off('content-loaded',this.processTimeline);
+      parent.global.clearInterval(this.interval);
       if (!value) return;
       lichess.pubsub.on('content-loaded',this.processTimeline);
+      this.interval=parent.global.setInterval(()=>{
+        if ($('div.shown #notify-app div.empty.text').length) {
+          this.processTimeline(true);
+        }
+      },500);
       if (!this.readAllStorage) {
         this.readAllStorage = lichess.storage.make('notify-read-all');
         this.readAllStorage.listen(this.setAllRead);
