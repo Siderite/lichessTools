@@ -54,7 +54,7 @@
           if (m) {
             let newOptions;
             try {
-              newOptions=JSON.parse(m[2]);
+              newOptions=parent.global.JSON.parse(m[2]);
             } catch {
               newOptions=null;
             }
@@ -81,7 +81,7 @@
         }
         const data=new URLSearchParams();
         const existingNote=(m&&m[1])||text||'';
-        const optionsJson=JSON.stringify(options);
+        const optionsJson=parent.global.JSON.stringify(options);
         data.append('text',existingNote+'\r\n---- LiChess Tools Preferences ----\r\n'+optionsJson);
         parent.net.fetch('/'+encodeURIComponent(gameId)+'/note', {
           method: 'POST',

@@ -42,6 +42,7 @@
 
     playMove=()=>{
       const parent=this.lichessTools;
+      const Math=parent.global.Math;
       const lichess=parent.lichess;
       const trans=parent.translator;
       const $=parent.$;

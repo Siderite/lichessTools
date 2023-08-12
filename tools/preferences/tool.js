@@ -44,6 +44,7 @@
 
   openPreferences=()=>{
     const parent=this.lichessTools;
+    const Math=parent.global.Math;
     const $=parent.$;
     const trans=parent.translator;
     const tools=parent.tools;

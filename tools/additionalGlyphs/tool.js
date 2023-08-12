@@ -83,7 +83,7 @@
         });
       }
       this.interval=parent.global.setInterval(()=>{
-        const autoShapes=JSON.stringify(analysis.chessground?.state.drawable.autoShapes);
+        const autoShapes=parent.global.JSON.stringify(analysis.chessground?.state.drawable.autoShapes);
         if (autoShapes!=this.prevAutoShapes) {
           this.prevAutoShapes=autoShapes;
           this.drawGlyphsDirect();
