@@ -25,6 +25,8 @@ body.lichessTools main.analyse.lichessTools-hideOctopus .gamebook .floor:after {
 body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   padding-bottom: 0.5em;
   flex: 0 0 2em;
+}
+body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing:hover {
   background: initial; /* fix for Kiwi mobile hover bug */
   color: initial;
 }
