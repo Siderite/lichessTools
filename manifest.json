@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Lichess Tools, by Siderite",
   "short_name": "Lichess Tools",
-  "version": "2.1",
+  "version": "2.1.1",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev",
@@ -72,6 +72,7 @@
         "tools/friendsTv/tool.js",
         "tools/previousStudyMenu/tool.js",
         "tools/timelineNotify/tool.js",
+        "tools/explorerEval/tool.js",
  
         "tools/preferences/tool.js",
  
@@ -108,7 +109,8 @@
         "tools/extraChart/tool.css",
         "tools/keyboardHelp/tool.css",
         "tools/friendsTv/tool.css",
-        "tools/previousStudyMenu/tool.css"
+        "tools/previousStudyMenu/tool.css",
+        "tools/explorerEval/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"
