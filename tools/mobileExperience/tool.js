@@ -137,12 +137,13 @@
       }
     };
 
-    initializeOverlayWrap=()=>{
+    initializeOverlayWrap=async ()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const wrap=$('<div class="cg-wrap lichessTools-boardOverlay">')
         .appendTo('main div.main-board')
         .addClass('lichessTools-passthrough');
+      await lichess.loadIife('javascripts/vendor/chessground.min.js');
       const cg=Chessground(wrap[0],{
         fen: '8/8/8/8/8/8/8/8 w KQkq - 0 1',
         draggable: { 
@@ -177,7 +178,7 @@
       }
     };
 
-    handleRedraw=()=>{
+    handleRedraw=async ()=>{
       const parent=this.lichessTools;
       const $=parent.$;
       if (!$('body').is('.mobile')) return;
@@ -203,7 +204,7 @@
         wrap=$('main div.cg-wrap.lichessTools-boardOverlay');
         if (this.options.shapeDrawingRound) {
           if (!wrap.length) {
-            wrap=this.initializeOverlayWrap();
+            wrap=await this.initializeOverlayWrap();
           }
           this.chessground=wrap[0].chessground;
         }
