@@ -17,10 +17,13 @@
     intl={
       'en-US':{
         'options.analysis': 'Analysis',
-        'options.explorerEval': 'Show evaluation of explorer moves'      },
+        'options.explorerEval': 'Show evaluation of explorer moves',
+        'notAllowedByCSP': 'Lichess does not allow connection to chessdb'
+       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
-        'options.explorerEval': 'Arat\u0103 evaluarea mut\u0103rilor \u00een Explorator'
+        'options.explorerEval': 'Arat\u0103 evaluarea mut\u0103rilor \u00een Explorator',
+        'notAllowedByCSP': 'Lichess nu permite conexiunea la chessdb'
       }
     }
 
@@ -83,7 +86,7 @@
 
     rebind=()=>{
       const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('explorerEval');
+      const value=this.CSP?false:parent.currentOptions.getValue('explorerEval');
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;
@@ -106,6 +109,20 @@
       }
     };
 
+    secCheck=e=>{
+      if (this.CSP) return;
+      if (!e.blockedURI?.includes('chessdb.cn')) {
+        this.CSP=false;
+        return;
+      }
+      this.CSP=true;
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const trans=parent.translator;
+      const text=trans.noarg('notAllowedByCSP');
+      lichess.announce({ msg: text });
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('explorerEval');
@@ -116,7 +133,9 @@
       if (!analysis) return;
       const explorer = analysis.explorer;
       lichess.pubsub.off('redraw',this.rebind);
+      $(parent.global.document).off('securitypolicyviolation',this.secCheck)
       if (!value) return;
+      $(parent.global.document).on('securitypolicyviolation',this.secCheck);
       lichess.pubsub.on('redraw',this.rebind);
       this.rebind();
     }
