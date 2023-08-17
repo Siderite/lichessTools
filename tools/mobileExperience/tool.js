@@ -145,7 +145,11 @@
         .addClass('lichessTools-passthrough');
       let Chessground = parent.global.Chessground;
       if (!Chessground) {
-        await lichess.loadIife('javascripts/vendor/chessground.min.js');
+        try {
+          await lichess.loadIife('compiled/chessground.min.js');
+        } catch(e) {
+          await lichess.loadIife('javascripts/vendor/chessground.min.js');
+        }
         Chessground = parent.global.Chessground;
       }
       const cg=Chessground(wrap[0],{
