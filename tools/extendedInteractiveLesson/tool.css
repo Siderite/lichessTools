@@ -81,37 +81,3 @@ body.lichessTools.lichessTools-prettier .analyse .gamebook span.lichessTools-sco
 body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson button.preview::before {
   content:'\e06f' !important;
 }
-
-/*
-body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson main.analyse.gauge-on div.eval-gauge {
-  width:0.5em !important;
-}
-
-body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson #main-wrap main.analyse:not(.gauge-on) div.analyse__tools,
-body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson #main-wrap main.analyse:not(.gauge-on) div.analyse__controls {
-  left:0 !important;
-}
-
-@media (min-width: 1261px) {
-  body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson #main-wrap .analyse:not(main.has-relay-tour) {
-    grid-template-columns:
-      minmax(230px, 20vw) 2vmin minmax( calc(70vmin * var(--board-scale)), calc( 100vh * var(--board-scale) - calc( var(--site-header-height) + var(--site-header-margin) ) - 3rem ) ) 2em minmax(240px, 400px) !important;
-  }
-}
-
-@media (max-width: 1260px) {
-  body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson #main-wrap .analyse {
-    grid-template-columns: 
-      minmax( calc(70vmin * var(--board-scale)), calc( 100vh * var(--board-scale) - calc( var(--site-header-height) + var(--site-header-margin) ) - 3rem ) ) 2em minmax(240px, 400px) !important;
-  }
-  body.lichessTools.lichessTools-prettier main.analyse.gauge-on aside.analyse__side {
-    margin-left: 0 !important;
-  }
-}
-
-@media (max-width: 799px) {
-  body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson #main-wrap .analyse {
-    grid-template-columns: 100% !important;
-  }
-}
-*/

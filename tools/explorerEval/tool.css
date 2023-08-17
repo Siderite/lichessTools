@@ -1,0 +1,45 @@
+body.lichessTools td.lichessTools-explorerEval {
+  font-size:smaller;
+}
+
+body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
+  color:#A03030;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system td.lichessTools-explorerEval.lichessTools-bad {
+      color: #A08080;
+  }
+}
+
+body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-bad {
+    color: #A08080;
+}
+
+body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
+  color:#104010;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system td.lichessTools-explorerEval.lichessTools-good {
+      color: #80A080;
+  }
+}
+
+body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-good {
+    color: #80A080;
+}
+
+body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
+  color:#10A010;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system td.lichessTools-explorerEval.lichessTools-best {
+      color: #80FF80;
+  }
+}
+
+body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-best {
+    color: #80FF80;
+}

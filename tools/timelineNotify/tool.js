@@ -61,9 +61,9 @@
       const notify=await parent.net.json('/notify?page=1');
       const newCount=notify.unread+(isNew?1:0);
       let title=toggle.attr('title');
-      title=title.replaceAll(count.toString(),newCount.toString());
+      title=title?.replaceAll(count.toString(),newCount.toString());
       toggle
-        .attr('data-count',newCount)
+        .attr('data-count',newCount||undefined)
         .attr('title',title)
         .attr('aria-label',title);
       let elem = $('a.site_notification.lichessTools-timelineNotify',notifications);
