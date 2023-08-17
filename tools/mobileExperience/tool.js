@@ -143,7 +143,11 @@
       const wrap=$('<div class="cg-wrap lichessTools-boardOverlay">')
         .appendTo('main div.main-board')
         .addClass('lichessTools-passthrough');
-      await lichess.loadIife('javascripts/vendor/chessground.min.js');
+      let Chessground = parent.global.Chessground;
+      if (!Chessground) {
+        await lichess.loadIife('javascripts/vendor/chessground.min.js');
+        Chessground = parent.global.Chessground;
+      }
       const cg=Chessground(wrap[0],{
         fen: '8/8/8/8/8/8/8/8 w KQkq - 0 1',
         draggable: { 
