@@ -49,6 +49,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - a friends tab in the Current Games section, to see just the games of the people you follow
  - a menu entry to go directly to the last visited study
  - notification on unread timeline posts and comments from the blogs, forums or people you follow
+ - showing evaluation on Explorer moves from local computer analysis
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move
