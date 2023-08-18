@@ -42,21 +42,18 @@
       const reshape=($this,result,shapes)=>{
         this.clearRankShapes(shapes);
         const dict={}
+        const drawnShapes = [];
+        let rank=0;
         for (const shape of shapes) {
+          if (dict[shape.orig]) continue;
+          rank++;
           const rankShape={
             type: 'rank',
             brush: shape.brush,
             orig: shape.orig,
-            customSvg:'<text x="10%" y="50%" font-size="200%" fill="black" stroke="'+shape.brush+'">(RANK)</text>'
+            customSvg:parent.makeSvg('<text x="10%" y="50%" font-size="200%" fill="black" stroke="'+shape.brush+'">'+rank+'</text>',this.chessground)
           };
-          dict[rankShape.orig]=rankShape;
-        }
-        const drawnShapes = [];
-        let rank=0;
-        for (const key in dict) {
-          rank++;
-          const rankShape=dict[key];
-          rankShape.customSvg=rankShape.customSvg.replaceAll('(RANK)',rank);
+          dict[rankShape.orig]=true;
           drawnShapes.push(rankShape);
         }
         if (rank) {
