@@ -9,7 +9,7 @@
         category: 'analysis',
         type:'multiple',
         possibleValues: ['ceval','stats'],
-        defaultValue: 'ceval,stats',
+        defaultValue: 'ceval',
         advanced: true
       }
     ];
