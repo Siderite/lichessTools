@@ -73,7 +73,12 @@
       if (!this.isRunning) return;
       parent.announce(trans.noarg('outOfMoves'));
       if (!this.options.showSmileys) return;
-      const ceval=analysis.node.ceval;
+      let ceval=analysis.node.ceval;
+      if (!ceval && parent.isMate(analysis.node)) {
+        ceval={
+          mate: -(analysis.node.ply%2?-1:1)
+        };
+      }
       if (!ceval && !analysis.ceval.enabled()) {
         analysis.toggleCeval();
         this.stopCeval=true;
