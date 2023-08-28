@@ -434,6 +434,14 @@
       pos+=turn[0];
       return pos;
     };
+
+    makeSvg=(svgText,chessground)=>{
+      if (!chessground?.packageVersion) return svgText;
+      return {
+        html: svgText,
+        center: 'orig'
+      };
+    }
  
     intl={
       lichessTools:this,

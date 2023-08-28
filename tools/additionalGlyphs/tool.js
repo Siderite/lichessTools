@@ -31,7 +31,8 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis?.chessground) return;
-      const glyph=analysis.node.glyphs?.at(0)?.symbol;
+      let glyph=analysis.node.glyphs?.at(0)?.symbol;
+      if (!glyph && parent.isMate(analysis.node)) glyph='#';
       if (!glyph) return;
       if (['!','?','!!','??','?!','!?'].includes(glyph) || lichess.storage.get('analyse.show-move-annotation')==='false') {
         const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
@@ -40,18 +41,20 @@
       }
       const orig=analysis.node.uci.slice(-2);
       const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
-      shapes.push({
-        type:'glyph',
-        orig:orig,
-        customSvg:`<defs>
+      const svg=`<defs>
     <filter id="shadow">
         <feDropShadow dx="4" dy="7" stdDeviation="5" flood-opacity="0.5"/>
     </filter>
 </defs>
-<g transform="translate(77 -18) scale(0.4)">
-    <circle style="fill:#576;filter:url(#shadow)" cx="50" cy="50" r="50"/>
-    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" style="font-size: 6em;font-family: Noto Sans, sans-serif;" fill="#fff">${glyph}</text>
-</g>`});
+<g transform="translate(77 -18) scale(0.4)" class="lichessTools-emoticon">
+    <circle/>
+    <text x="50%" y="50%">${glyph}</text>
+</g>`;
+      
+      shapes.push({
+        type:'glyph',
+        orig:orig,
+        customSvg:parent.makeSvg(svg,analysis.chessground)});
       analysis.chessground.setAutoShapes(shapes);
     };
     drawGlyphs=this.lichessTools.debounce(this.drawGlyphsDirect,50);

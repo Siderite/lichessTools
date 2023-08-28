@@ -3,6 +3,11 @@ body.lichessTools section.explorer-box span.lichessTools-explorerPractice {
   cursor: pointer;
 }
 
+body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
+  color:white;
+  transform:scale(1.2);
+}
+
 body.lichessTools section.explorer-box.lichessTools-explorerPracticeInAnalysis table.moves {
   display:none;
 }

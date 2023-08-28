@@ -47,11 +47,15 @@
       const trans=parent.translator;
       const $=parent.$;
       const analysis=lichess?.analysis;
-      if (this.inPlayMove) return;
       if (analysis.turnColor()===analysis.getOrientation()) {
+        this.inPlayMove=false;
+        this.stopCeval=false;
         return;
       }
       if (!analysis.explorer?.enabled()) return;
+      if (this.inPlayMove===analysis.node.fen) {
+        return;
+      }
       if (analysis.explorer?.loading()) {
         parent.global.setTimeout(this.process,500);
         return;
@@ -65,8 +69,8 @@
       for (const move of moves) {
         acc+=move.total;
         if (index<=acc) {
-          this.inPlayMove=true;
           analysis.playUci(move.uci);
+          this.inPlayMove=analysis.node.fen;
           return;
         }
       }
@@ -74,7 +78,7 @@
       parent.announce(trans.noarg('outOfMoves'));
       if (!this.options.showSmileys) return;
       const ceval=analysis.node.ceval;
-      if (!ceval && !analysis.ceval.enabled()) {
+      if (!ceval && !analysis.ceval.enabled() && !parent.isMate(analysis.node)) {
         analysis.toggleCeval();
         this.stopCeval=true;
       }
@@ -84,12 +88,14 @@
           const winValue=(ceval.cp||Math.sign(ceval.mate)*1000)*boardSign;
           let symbol='\uD83D\uDE10';
           if (winValue<-200) symbol='\uD83D\uDE22';
-          else if (winValue<0) symbol='\uD83D\uDE1E';
-          else if (winValue<200) symbol='\uD83D\uDE0C';
+          else if (winValue<-20) symbol='\uD83D\uDE41';
+          else if (winValue<20) symbol='\uD83D\uDE10';
+          else if (winValue<200) symbol='\uD83D\uDE42';
           else if (winValue>=200) symbol='\uD83D\uDE01';
           analysis.node.glyphs=[{
-            "symbol": symbol,
-            "name": "Final evaluation"
+            symbol: symbol,
+            name: 'Final evaluation',
+            type: 'nonStandard'
           }];
           parent.emitRedraw();
         }
@@ -136,12 +142,9 @@
       if (!analysis.explorer?.enabled()) this.isRunning=false;
       button.toggleClass('active',!!this.isRunning);
       explorerContainer.toggleClass('lichessTools-explorerPracticeInAnalysis',!!this.isRunning && !analysis.study);
-      if (analysis.turnColor()===analysis.getOrientation()) {
-        this.inPlayMove=false;
-        this.stopCeval=false;
-      }
       if (this.isRunning) parent.global.setTimeout(this.playMove,500);
     };
+    processDebounced=this.lichessTools.debounce(this.process,500);
 
     async start() {
       const parent=this.lichessTools;
@@ -156,10 +159,11 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
-      if (lichess.analysis.gamebookPlay()) return;
-      lichess.pubsub.off('redraw',this.process);
+      if (analysis.gamebookPlay()) return;
+      lichess.pubsub.off('redraw',this.processDebounced);
       $('main.analyse div.analyse__controls').off('click touchend',this.process);
       parent.unbindKeyHandler('shift+l');
+      analysis.userJump=parent.unwrapFunction(analysis.userJump,'explorerPractice');
       if (!value) {
         $('section.explorer-box span.lichessTools-explorerPractice').remove();
         return;
@@ -168,8 +172,14 @@
         this.isRunning=!this.isRunning;
         this.process();
       });
-      lichess.pubsub.on('redraw',this.process);
+      lichess.pubsub.on('redraw',this.processDebounced);
       $('main.analyse div.analyse__controls').on('click touchend',this.process);
+      analysis.userJump=parent.wrapFunction(analysis.userJump,{
+        id: 'explorerPractice',
+        after: ($this, result,...args)=>{
+          this.inPlayMove=false;
+        }
+      });
       this.process();
     }
 
