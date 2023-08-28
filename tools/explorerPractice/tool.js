@@ -77,13 +77,8 @@
       if (!this.isRunning) return;
       parent.announce(trans.noarg('outOfMoves'));
       if (!this.options.showSmileys) return;
-      let ceval=analysis.node.ceval;
-      if (!ceval && parent.isMate(analysis.node)) {
-        ceval={
-          mate: -(analysis.node.ply%2?-1:1)
-        };
-      }
-      if (!ceval && !analysis.ceval.enabled()) {
+      const ceval=analysis.node.ceval;
+      if (!ceval && !analysis.ceval.enabled() && !parent.isMate(analysis.node)) {
         analysis.toggleCeval();
         this.stopCeval=true;
       }
@@ -97,8 +92,9 @@
           else if (winValue<200) symbol='\uD83D\uDE0C';
           else if (winValue>=200) symbol='\uD83D\uDE01';
           analysis.node.glyphs=[{
-            "symbol": symbol,
-            "name": "Final evaluation"
+            symbol: symbol,
+            name: 'Final evaluation',
+            type: 'nonStandard'
           }];
           parent.emitRedraw();
         }
