@@ -2,6 +2,11 @@ body.lichessTools td.lichessTools-explorerEval {
   font-size:smaller;
 }
 
+body.lichessTools td.lichessTools-explorerEval.lichessTools-stat {
+  color:#808080;
+}
+
+
 body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
   color:#A03030;
 }
