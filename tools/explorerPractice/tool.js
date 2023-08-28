@@ -88,8 +88,9 @@
           const winValue=(ceval.cp||Math.sign(ceval.mate)*1000)*boardSign;
           let symbol='\uD83D\uDE10';
           if (winValue<-200) symbol='\uD83D\uDE22';
-          else if (winValue<0) symbol='\uD83D\uDE1E';
-          else if (winValue<200) symbol='\uD83D\uDE0C';
+          else if (winValue<-20) symbol='\uD83D\uDE41';
+          else if (winValue<20) symbol='\uD83D\uDE10';
+          else if (winValue<200) symbol='\uD83D\uDE42';
           else if (winValue>=200) symbol='\uD83D\uDE01';
           analysis.node.glyphs=[{
             symbol: symbol,
