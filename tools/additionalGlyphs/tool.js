@@ -46,9 +46,9 @@
         <feDropShadow dx="4" dy="7" stdDeviation="5" flood-opacity="0.5"/>
     </filter>
 </defs>
-<g transform="translate(77 -18) scale(0.4)">
-    <circle style="fill:#576;filter:url(#shadow)" cx="50" cy="50" r="50"/>
-    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" style="font-size: 6em;font-family: Noto Sans, sans-serif;" fill="#fff">${glyph}</text>
+<g transform="translate(77 -18) scale(0.4)" class="lichessTools-emoticon">
+    <circle/>
+    <text x="50%" y="50%">${glyph}</text>
 </g>`;
       
       shapes.push({

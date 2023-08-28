@@ -106,6 +106,7 @@
         "tools/customChatButtons/tool.css",
         "tools/mobileExperience/tool.css",
         "tools/explorerPractice/tool.css",
+        "tools/additionalGlyphs/tool.css",
         "tools/extraChart/tool.css",
         "tools/keyboardHelp/tool.css",
         "tools/friendsTv/tool.css",
