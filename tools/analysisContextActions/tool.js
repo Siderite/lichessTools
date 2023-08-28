@@ -77,7 +77,8 @@
       function renderComments(node) {
         let s='';
         for (const glyph of node.glyphs||[]) {
-          s+=glyph.symbol;
+          if (glyph.type!='nonStandard') // from tools like Explorer Practice
+            s+=glyph.symbol;
         }
         for (const comment of node.comments||[]) {
           s+='{'+comment.text+'}';
