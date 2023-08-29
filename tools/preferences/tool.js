@@ -250,7 +250,9 @@
           ev.preventDefault();
           const text=feedbackTextarea.val();
           feedbackTextarea.val('').css('height','');
-          lichess.socket.send('msgSend',{"dest":"totalnoob69","text":text});
+          if (text) {
+            lichess.socket.send('msgSend',{"dest":"totalnoob69","text":text});
+          }
         });
       checkGlobalSwitch();
       checkAdvanced();
