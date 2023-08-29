@@ -436,7 +436,7 @@
     };
 
     makeSvg=(svgText,chessground)=>{
-      if (!chessground?.packageVersion) return svgText;
+      if (window.Chessground) return svgText; //ugly hack because you cannot know what chessground version you got
       return {
         html: svgText,
         center: 'orig'

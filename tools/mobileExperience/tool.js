@@ -143,7 +143,7 @@
       const wrap=$('<div class="cg-wrap lichessTools-boardOverlay">')
         .appendTo('main div.main-board')
         .addClass('lichessTools-passthrough');
-      let Chessground = parent.global.Chessground;
+      let Chessground = parent.global.Chessground||lichess.makeChessground;
       if (!Chessground) {
         try {
           await lichess.loadIife('compiled/chessground.min.js');
@@ -151,6 +151,10 @@
           await lichess.loadIife('javascripts/vendor/chessground.min.js');
         }
         Chessground = parent.global.Chessground;
+      }
+      if (!Chessground) {
+        console.error('Could not create a Chessground!');
+        return;
       }
       const cg=Chessground(wrap[0],{
         fen: '8/8/8/8/8/8/8/8 w KQkq - 0 1',

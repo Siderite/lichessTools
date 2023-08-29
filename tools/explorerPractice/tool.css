@@ -4,9 +4,21 @@ body.lichessTools section.explorer-box span.lichessTools-explorerPractice {
 }
 
 body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
-  color:white;
+  color:black;
   transform:scale(1.2);
 }
+
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system section.explorer-box span.lichessTools-explorerPractice.active:before {
+      color: white;
+  }
+}
+
+body.lichessTools.dark section.explorer-box span.lichessTools-explorerPractice.active:before {
+    color: white;
+}
+
 
 body.lichessTools section.explorer-box.lichessTools-explorerPracticeInAnalysis table.moves {
   display:none;
