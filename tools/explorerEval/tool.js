@@ -20,14 +20,20 @@
         'options.explorerEval': 'Show evaluation of explorer moves',
         'notAllowedByCSP': 'Lichess does not allow connection to chessdb',
         'explorerEval.ceval': 'From computer eval',
-        'explorerEval.stats': 'From winning stats'
+        'explorerEval.stats': 'From winning stats',
+        'fromCevalTitle': 'LiChess Tools - from computer eval',
+        'fromStatsTitle': 'LiChess Tools - from winning stats',
+        'evaluationTitle': 'LiChess Tools - move evaluation'
        },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.explorerEval': 'Arat\u0103 evaluarea mut\u0103rilor \u00een Explorator',
         'notAllowedByCSP': 'Lichess nu permite conexiunea la chessdb',
         'explorerEval.ceval': 'Din evaluare computer',
-        'explorerEval.stats': 'Din statistici'
+        'explorerEval.stats': 'Din statistici',
+        'fromCevalTitle': 'LiChess Tools - din evaluare computer',
+        'fromStatsTitle': 'LiChess Tools - din statistici',
+        'evaluationTitle': 'LiChess Tools - evaluare mutare'
       }
     }
 
@@ -36,12 +42,15 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
+      const trans=parent.translator;
       const analysis=lichess?.analysis;
       const container=$('section.explorer-box table.moves');
       if (!container.length) return;
       if ($('th',container).length==3) {
         $('<th>')
             .addClass('lichessTools-explorerEval')
+            .text('E')
+            .attr('title',trans.noarg('evaluationTitle'))
             .insertAfter($('th:nth-child(1)',container));
       }
       $('tr[data-uci],tr.sum',container).each((i,e)=>{
@@ -56,20 +65,25 @@
         if (!explorerItem) return;
         let text='';
         let rank=-1;
+        let title=null;
         if (move) {
           text=move.mate?('M'+move.mate):(Math.round(move.cp/10)/10);
+          title=trans.noarg('fromCevalTitle');
           rank=move.rank;
           explorerItem.cp=move.cp;
           explorerItem.mate=move.mate;
         } else if (this.options.stats) {
           const wr=(explorerItem.white+explorerItem.draws/2)/(explorerItem.white+explorerItem.draws+explorerItem.black);
-          const cp = -Math.log(1/wr-1)*330
+          let cp = -Math.log(1/wr-1)*330
+          if (!Number.isFinite(cp)) cp=Math.sign(cp)*10000;
           text=Math.round(cp/10)/10;
+          title=trans.noarg('fromStatsTitle');
           explorerItem.cp=cp;
           explorerItem.mate=undefined;
         }
         $('td.lichessTools-explorerEval',e)
           .text(text)
+          .attr('title',title)
           .toggleClass('lichessTools-stat',rank===-1)
           .toggleClass('lichessTools-bad',rank===0)
           .toggleClass('lichessTools-good',rank===1)
