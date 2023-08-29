@@ -4,21 +4,30 @@ body.lichessTools svg.cg-custom-svgs svg g.lichessTools-emoticon circle {
   r: 50;
   fill: #576;
   filter: url(#shadow);
+  stroke-width:4;
+  stroke:white;
 }
 
-body.lichessTools.mobile svg.cg-custom-svgs svg g.lichessTools-emoticon circle {
+body.lichessTools.mobile svg.cg-custom-svgs g.lichessTools-emoticon circle {
   r: 75;
 }
 
+body.lichessTools.mobile svg.cg-custom-svgs g[cgHash] > circle {
+  r: 0.3;
+}
+
 body.lichessTools svg.cg-custom-svgs svg g.lichessTools-emoticon text {
-  font-size: 6em;
+  font-size: 5em;
   font-family: Noto Sans, sans-serif;
-  dominant-baseline: middle;
+  dominant-baseline: central;
   text-anchor: middle;
   fill: #ffffff;
 }
 
+body.lichessTools.mobile svg.cg-custom-svgs g.lichessTools-emoticon text {
+  font-size: 8em;
+}
 
-body.lichessTools.mobile svg.cg-custom-svgs svg g.lichessTools-emoticon text {
-  font-size: 9em;
+body.lichessTools.mobile svg.cg-custom-svgs g[cgHash] > text {
+  font-size: 0.025em;
 }

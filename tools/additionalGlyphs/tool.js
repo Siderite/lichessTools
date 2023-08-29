@@ -41,12 +41,7 @@
       }
       const orig=analysis.node.uci.slice(-2);
       const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
-      const svg=`<defs>
-    <filter id="shadow">
-        <feDropShadow dx="4" dy="7" stdDeviation="5" flood-opacity="0.5"/>
-    </filter>
-</defs>
-<g transform="translate(77 -18) scale(0.4)" class="lichessTools-emoticon">
+      const svg=`<g transform="translate(77 -18) scale(0.4)" class="lichessTools-emoticon">
     <circle/>
     <text x="50%" y="50%">${glyph}</text>
 </g>`;
@@ -54,7 +49,8 @@
       shapes.push({
         type:'glyph',
         orig:orig,
-        customSvg:parent.makeSvg(svg,analysis.chessground)});
+        customSvg:parent.makeSvg(svg,analysis.chessground)
+      });
       analysis.chessground.setAutoShapes(shapes);
     };
     drawGlyphs=this.lichessTools.debounce(this.drawGlyphsDirect,50);
