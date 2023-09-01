@@ -6,8 +6,8 @@
         name:'extraChart',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['material','principled','tension','smooth'],
-        defaultValue: 'material,principled,tension,smooth',
+        possibleValues: ['material','principled','tension','smooth','gauge'],
+        defaultValue: 'material,principled,tension,smooth,gauge',
         advanced: true
       }
     ];
@@ -20,6 +20,7 @@
         'extraChart.principled': 'Principled',
         'extraChart.tension': 'Max tension',
         'extraChart.smooth': 'Chart smoothing',
+        'extraChart.gauge': 'on Eval gauge',
         'chartInfoTitle':'LiChess Tools - extra charting',
         'tensionLineTitle': 'Max tension'
       },
@@ -30,6 +31,7 @@
         'extraChart.principled': 'Principial',
         'extraChart.tension': 'Tensiune maxim\u0103',
         'extraChart.smooth': 'Netezire grafice',
+        'extraChart.gauge': 'pe bara de Eval',
         'chartInfoTitle':'LiChess Tools - grafice \u00een plus',
         'tensionLineTitle': 'Tensiune maxim\u0103'
       }
@@ -417,6 +419,7 @@
     };
 
     generateTicks=()=>{
+      if (!this.options.gauge) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -459,7 +462,8 @@
         material:parent.isOptionSet(value,'material'),
         principled:parent.isOptionSet(value,'principled'),
         tension:parent.isOptionSet(value,'tension'),
-        smooth:parent.isOptionSet(value,'smooth')
+        smooth:parent.isOptionSet(value,'smooth'),
+        gauge:parent.isOptionSet(value,'gauge')
       };
       this.type=this.options.smooth?'spline':'line';
       const lichess=parent.lichess;
@@ -467,9 +471,11 @@
       parent.global.clearInterval(this.interval);
       this.generateCharts();
       if (!value) {
-        //TODO remove ticks
-        this.prevFen=null;
         return;
+      }
+      if (!this.options.gauge) {
+        $('div.eval-gauge tick.lichessTools-material,div.eval-gauge tick.lichessTools-principled').remove();
+        this.prevFen=null;
       }
       this.interval=parent.global.setInterval(()=>{
         this.generateCharts();
