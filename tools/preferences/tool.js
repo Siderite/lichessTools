@@ -203,9 +203,12 @@
         const optionName=$(e).attr('name');
         const optionValue=$(e).attr('value');
         const currentValue=currentOptions[optionName];
+        const preferences=this.lichessTools.tools
+          .find(t=>t.preferences?.find(p=>p.name==optionName))?.preferences
+          .find(p=>p.name==optionName);
         if (currentValue!==undefined) {
           if (isCheckable) {
-            const checked = isOptionSet(currentValue,optionValue);
+            const checked = isOptionSet(currentValue,optionValue,preferences?.defaultValue);
             $(e).prop('checked',checked);
           }
           else {

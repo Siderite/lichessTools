@@ -151,10 +151,14 @@
       return text.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
     };
 
-    isOptionSet=(optionValues, searchValue)=>{
+    isOptionSet=(optionValues, searchValue, defaultValue)=>{
       if (optionValues===undefined || optionValues===null) return false;
       if (new RegExp(','+this.escapeRegex(searchValue)+',','i').test(','+optionValues+',')) return true;
-      if (optionValues===true || optionValues==='true') return searchValue!==false && searchValue!=='false';
+      if (optionValues===true || optionValues==='true') {
+        if (searchValue===false || searchValue==='false') return false;
+        if (defaultValue) return new RegExp(','+this.escapeRegex(searchValue)+',','i').test(','+defaultValue+',');
+        return true; 
+      }
       return false;
     };  
 
