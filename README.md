@@ -44,12 +44,13 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - additional glyphs on board
  - drawing of arrows and circles on mobile (for analysis, study, games, puzzles, TV)
  - collapsable preference categories
- - extra computer analysis metrics
+ - extra computer analysis metrics on charts and eval gauge
  - the many preferences now can be filtered by advanced or basic and the categories can be collapsed
  - a friends tab in the Current Games section, to see just the games of the people you follow
  - a menu entry to go directly to the last visited study
  - notification on unread timeline posts and comments from the blogs, forums or people you follow
  - showing evaluation on Explorer moves from local computer analysis/chessdb/winning stats
+ - scroll lock on mobiles while playing
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move

@@ -49,7 +49,6 @@
           rank++;
           const rankShape={
             type: 'rank',
-            brush: shape.brush,
             orig: shape.orig,
             customSvg:parent.makeSvg('<text x="10%" y="50%" font-size="200%" fill="black" stroke="'+shape.brush+'">'+rank+'</text>',this.chessground)
           };

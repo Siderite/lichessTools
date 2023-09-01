@@ -242,7 +242,7 @@
     };
 
     inViewport=(element) => {
-      if (!element.offsetParent) return false;
+      if (!element?.offsetParent) return false;
       const rect = element.getBoundingClientRect();
       const port = new DOMRect(0,0,$(window).width(),$(window).height());
       return this.rectIntersection(rect,port);
