@@ -312,10 +312,10 @@
       return mainline
         .slice(1)
         .map((node,x) => {
-          const evl=this.heuristic(node);
+          const evl=this.heuristic(node)-28;
           const mat=this.simple_material(node)
-          let val=evl-mat-89;
-          const cp=val*3;
+          let val=evl-mat;
+          const cp=val*2;
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             x: x
@@ -416,6 +416,41 @@
       this.prevType=this.type;
     };
 
+    generateTicks=()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+      const analysis=lichess.analysis;
+      if (!analysis) return;
+      const node=analysis.node;
+      const container=$('div.eval-gauge');
+      if (!parent.inViewport(container[0])) return;
+      if (node.fen==this.prevFen) return;
+      this.prevFen=node.fen;
+      const mat=this.simple_material(node);
+      const material = 2 / (1 + Math.exp(-0.004 * mat)) - 1;
+      const evl=this.heuristic(node)-28;
+      const val=(evl-mat)*2;
+      const principled = 2 / (1 + Math.exp(-0.004 * val)) - 1;
+      let matElem=$('tick.lichessTools-material',container);
+      if (!matElem.length) {
+        matElem=$('<tick>')
+          .addClass('lichessTools-material')
+          .appendTo(container);
+      }
+      const matPerc=Math.round((1-material*0.95)*50)+'%';
+      matElem.css('top',matPerc);
+      let priElem=$('tick.lichessTools-principled',container);
+      if (!priElem.length) {
+        priElem=$('<tick>')
+          .addClass('lichessTools-principled')
+          .appendTo(container);
+      }
+      const priPerc=Math.round((1-principled*0.95)*50)+'%';
+      priElem.css('top',priPerc);
+    }
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('extraChart');
@@ -431,8 +466,15 @@
       const $=parent.$;
       parent.global.clearInterval(this.interval);
       this.generateCharts();
-      if (!value) return;
-      this.interval=parent.global.setInterval(this.generateCharts,1000);
+      if (!value) {
+        //TODO remove ticks
+        this.prevFen=null;
+        return;
+      }
+      this.interval=parent.global.setInterval(()=>{
+        this.generateCharts();
+        this.generateTicks();
+      },1000);
     }
 
   }
