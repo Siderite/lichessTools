@@ -44,7 +44,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - additional glyphs on board
  - drawing of arrows and circles on mobile (for analysis, study, games, puzzles, TV)
  - collapsable preference categories
- - extra computer analysis metrics
+ - extra computer analysis metrics on charts and eval gauge
  - the many preferences now can be filtered by advanced or basic and the categories can be collapsed
  - a friends tab in the Current Games section, to see just the games of the people you follow
  - a menu entry to go directly to the last visited study
