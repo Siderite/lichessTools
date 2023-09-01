@@ -111,6 +111,15 @@ body.lichessTools.mobile main div.rcontrols .board-menu-toggle {
   margin-left: 1.2em;
 }
 
+body.lichessTools.mobile.playing.lichessTools-lockBoard {
+  overflow-y:hidden;
+}
+
+body.lichessTools.mobile:not(.lichessTools-lockBoard) div.lichessTools-lockBoard {
+  transform: rotate(60deg);
+  opacity:0.3;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .gamebook {

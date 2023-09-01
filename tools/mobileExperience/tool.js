@@ -8,7 +8,7 @@
         name:'mobileExperience',
         category: 'general',
         type:'multiple',
-        possibleValues: ['showGauge','hideOctopus','shapeDrawing','randomNextMove'],
+        possibleValues: ['showGauge','hideOctopus','shapeDrawing','randomNextMove','lockBoard'],
         defaultValue: 'showGauge,randomNextMove'
       },
       {
@@ -35,6 +35,7 @@
         'options.mobileExperience': 'Mobile device features',
         'options.mobileExperienceRound': 'Mobile device game features',
         'options.colorCount': 'Colors for shapes on mobile',
+        'mobileExperience.lockBoard':'Scroll lock when playing',
         'mobileExperience.showGauge':'Evaluation gauge',
         'mobileExperience.hideOctopus':'Hide the octopus mascot',
         'mobileExperience.shapeDrawing':'Analysis arrows',
@@ -47,12 +48,14 @@
         'colorCount.2': 'two',
         'colorCount.3': 'three',
         'colorCount.4': 'four',
+        'lockBoardTitle': 'LiChess Tools - scroll lock'
       },
       'ro-RO':{
         'options.analysis': 'General',                                                                     
         'options.mobileExperience': 'Op\u0163iuni pentru aparate mobile',
         'options.mobileExperienceRound': 'Op\u0163iuni pentru joc pe aparate mobile',
         'options.colorCount': 'Culori pentru s\u0103ge\u0163i pe mobile',
+        'mobileExperience.lockBoard':'Blocare scroll c\u00e2nd joci',
         'mobileExperience.showGauge':'Band\u0103 de evaluare',
         'mobileExperience.hideOctopus':'Ascunde mascota caracati\u0163\u0103',
         'mobileExperience.shapeDrawing':'S\u0103ge\u0163i \u00een analiz\u0103',
@@ -65,6 +68,7 @@
         'colorCount.2': 'doi',
         'colorCount.3': 'trei',
         'colorCount.4': 'patru',
+        'lockBoardTitle': 'LiChess Tools - blocare scroll'
       }
     }
 
@@ -326,10 +330,13 @@
       const mobileExperience=parent.currentOptions.getValue('mobileExperience');
       const mobileExperienceRound=parent.currentOptions.getValue('mobileExperienceRound');
       const colorCount=parent.currentOptions.getValue('colorCount');
+      const $=parent.$;
+      const trans=parent.translator;
       this.logOption('Mobile experience', mobileExperience);
       this.logOption('... color count', parent.currentOptions.getValue('colorCount'));
       this.options={
         showGauge:parent.isOptionSet(mobileExperience,'showGauge'),
+        lockBoard:parent.isOptionSet(mobileExperience,'lockBoard'),
         hideOctopus:parent.isOptionSet(mobileExperience,'hideOctopus'),
         shapeDrawing:parent.isOptionSet(mobileExperience,'shapeDrawing'),
         randomNextMove:parent.isOptionSet(mobileExperience,'randomNextMove'),
@@ -346,6 +353,23 @@
       }
       const isRound=!!$('main.round,main.puzzle').length;
       if (isRound) {
+        let lockBoardElem=$('#top div.site-buttons div.lichessTools-lockBoard');
+        if (this.options.lockBoard) {
+          $('body').addClass('lichessTools-lockBoard');
+          if (!lockBoardElem.length) {
+            lockBoardElem=$('<div></div>')
+              .addClass('lichessTools-lockBoard')
+              .attr('data-icon','\uE054')
+              .attr('title',trans.noarg('lockBoardTitle'))
+              .on('click',()=>{
+                $('body').toggleClass('lichessTools-lockBoard');
+              })
+              .prependTo($('#top div.site-buttons'));
+          }
+        } else {
+          $('body').removeClass('lichessTools-lockBoard');
+          lockBoardElem.remove();
+        }
         lichess.pubsub.off('ply',this.clearShapes);
         $('main div.cg-wrap:not(.lichessTools-boardOverlay)').off('click',this.clearShapes);
         if (this.options.shapeDrawingRound) {
