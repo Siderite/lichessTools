@@ -25,7 +25,9 @@
         'advancedPreferences': 'Advanced preferences',
         'options.advancedPreferences': 'Advanced preferences',
         'author': 'by %s',
-        'lichessTools': 'LiChess Tools'
+        'lichessTools': 'LiChess Tools',
+        'feedbackButtonTitle': 'Send feedback about LiChess Tools',
+        'feedbackTitle': 'Feedback'
       },
       'ro-RO':{
         yes: 'Da',
@@ -38,7 +40,9 @@
         'advancedPreferences': 'Preferin\u0163e avansate',
         'options.advancedPreferences': 'Preferin\u0163e avansate',
         'author': 'de %s',
-        'lichessTools': 'LiChess Tools'
+        'lichessTools': 'LiChess Tools',
+        'feedbackButtonTitle': 'Trimite p\u0103reri despre LiChess Tools',
+        'feedbackTitle': 'P\u0103reri'
       }
     }
 
@@ -104,7 +108,12 @@
             </td>
         </tr>
     </tbody>
-</table>            `;
+</table>
+<h3>$trans(feedbackTitle)</h3>
+<div class="feedback">
+  <textarea enterkeyhint="send"></textarea>
+  <button data-icon="&#xE03A;" title="$trans(feedbackButtonTitle)"></button>
+</div>`;
         
     const categs={};
     for (const tool of tools) {
@@ -194,9 +203,12 @@
         const optionName=$(e).attr('name');
         const optionValue=$(e).attr('value');
         const currentValue=currentOptions[optionName];
+        const preferences=this.lichessTools.tools
+          .find(t=>t.preferences?.find(p=>p.name==optionName))?.preferences
+          .find(p=>p.name==optionName);
         if (currentValue!==undefined) {
           if (isCheckable) {
-            const checked = isOptionSet(currentValue,optionValue);
+            const checked = isOptionSet(currentValue,optionValue,preferences?.defaultValue);
             $(e).prop('checked',checked);
           }
           else {
@@ -230,6 +242,21 @@
           checkAdvanced();
           showSaved();
       },500));
+      const feedbackTextarea = $('div.feedback textarea',container)
+        .on('input keypress paste send',function(ev) {
+          if (this.clientHeight<this.scrollHeight) {
+            $(this).height(this.scrollHeight);
+          }
+        }); 
+      $('div.feedback button',container)
+        .on('click',ev=>{
+          ev.preventDefault();
+          const text=feedbackTextarea.val();
+          feedbackTextarea.val('').css('height','');
+          if (text) {
+            lichess.socket.send('msgSend',{"dest":"totalnoob69","text":text});
+          }
+        });
       checkGlobalSwitch();
       checkAdvanced();
       this.addInfo();

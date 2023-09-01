@@ -11,7 +11,7 @@
       if (!lichess.analysis||!lichess.analysis.study) return;
       let previousChapterId=null;
       lichess.pubsub.on('redraw', () => {
-        const currChapterId=lichess.analysis.study.currentChapter().id;
+        const currChapterId=lichess.analysis.study.currentChapter()?.id;
         if (previousChapterId!=currChapterId) {
           lichess.pubsub.emit('chapterChange');
         }

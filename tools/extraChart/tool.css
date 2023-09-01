@@ -31,3 +31,17 @@ body.lichessTools .lichessTools-chartInfo {
   top: 0;
   filter: drop-shadow(0px 0px 1px white);
 }
+
+body.lichessTools tick.lichessTools-material {
+  height:0;
+  border-top: 5px #00FF00 solid;
+  border-bottom:none;
+  transition: top 0.5s;
+}
+
+body.lichessTools tick.lichessTools-principled {
+  height:0;
+  border-top: 5px #0040FF solid;
+  border-bottom:none;
+  transition: top 0.5s;
+}

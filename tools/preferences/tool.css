@@ -140,6 +140,32 @@ body.lichessTools-advancedPreferences div.lichessTools-preferences section.liche
 }
 
 
+div.lichessTools-preferences div.feedback {
+  display:flex;
+  padding-top:0;
+}
+
+div.lichessTools-preferences div.feedback textarea {
+  outline: 0;
+  flex: 1 1 100%;
+  border-radius: 1.5em;
+  resize: none;
+  overflow:none;
+}
+
+div.lichessTools-preferences div.feedback button {
+  background: #629924; 
+  color:white;
+  outline: 0;
+  margin-left: 1em;
+  border-radius: 50%;
+  flex: 0 0 3em;
+  font-size:1.5em;
+  border:none;
+  height:3em;
+}
+
+
 /* Prettier Lichess CSS */
 
 body.lichessTools-prettier div.lichessTools-preferences table.lichessTools-globalSwitch tr:nth-child(odd) td {

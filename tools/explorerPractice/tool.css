@@ -24,3 +24,9 @@ body.lichessTools section.explorer-box.lichessTools-explorerPracticeInAnalysis t
   display:none;
 }
 
+
+/* Prettier Lichess CSS */
+
+body.lichessTools.lichessTools-prettier section.explorer-box span.lichessTools-explorerPractice.active:before {
+  color:black;
+}

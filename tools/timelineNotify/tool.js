@@ -7,9 +7,25 @@
       {
         name:'timelineNotify',
         category: 'general',
-        type:'single',
-        possibleValues: [false,true],
-        defaultValue: false,
+        type:'multiple',
+        possibleValues: [
+          'forum-post',
+          'ublog-post',
+          'blog-post',
+          'stream-start',
+          'simul-create',
+          'simul-join',
+          'team-create',
+          'team-join',
+          'tour-join',
+          'follow',
+          'study-like',
+          'ublog-post-like'/*,
+          'game-end',
+          'plan-start',
+          'plan-renew'*/
+        ],
+        defaultValue: 'forum-post,ublog-post',
         advanced: true
       }
     ];
@@ -20,14 +36,44 @@
         'options.timelineNotify': 'Timeline notifications',
         'timeline': 'Timeline',
         'timelineNotification': 'You have %s new entries',
-        'timelineNotifyTitle': 'LiChess Tools - go to Timeline'
+        'timelineNotifyTitle': 'LiChess Tools - go to Timeline',
+        'timelineNotify.forum-post': 'Forum post',
+        'timelineNotify.ublog-post': 'Blog post',
+        'timelineNotify.blog-post': 'Lichess announcement',
+        'timelineNotify.stream-start': 'Stream start',
+        'timelineNotify.simul-create': 'Simul create',
+        'timelineNotify.simul-join': 'Simul join',
+        'timelineNotify.team-create': 'Team create',
+        'timelineNotify.team-join': 'Team join',
+        'timelineNotify.tour-join': 'Tournament join',
+        'timelineNotify.follow': 'Following',
+        'timelineNotify.study-like': 'Study like',
+        'timelineNotify.ublog-post-like': 'Blog post like',
+        'timelineNotify.game-end': 'Game end',
+        'timelineNotify.plan-start': 'Become patron',
+        'timelineNotify.plan-renew': 'Renew patron'
       },
       'ro-RO':{
         'options.general': 'General',
         'options.timelineNotify': 'Notific\u0103ri la activitate recent\u0103',
         'timeline': 'Activitate recent\u0103',
-        'timelineNotification': 'Ai %s intr\u0103ri noi',
-        'timelineNotifyTitle': 'LiChess Tools - c\u0103tre Activitate recent\u0103'
+        'timelineNotification': 'Ai %s \u00eentr\u0103ri noi',
+        'timelineNotifyTitle': 'LiChess Tools - c\u0103tre Activitate recent\u0103',
+        'timelineNotify.forum-post': 'Post pe forum',
+        'timelineNotify.ublog-post': 'Post pe blog',
+        'timelineNotify.blog-post': 'Anun\u0163 Lichess',
+        'timelineNotify.stream-start': 'Stream live',
+        'timelineNotify.simul-create': 'Creare simultan\u0103',
+        'timelineNotify.simul-join': 'Participare la simultan\u0103',
+        'timelineNotify.team-create': 'Creare echip\u0103',
+        'timelineNotify.team-join': 'Intrare echip\u0103',
+        'timelineNotify.tour-join': 'Intrare turneu',
+        'timelineNotify.follow': 'Urm\u0103rire',
+        'timelineNotify.study-like': 'Studiu pl\u0103cut',
+        'timelineNotify.ublog-post-like': 'Post pe blog pl\u0103cut',
+        'timelineNotify.game-end': 'Sf\u00e2r\u015fit de joc',
+        'timelineNotify.plan-start': 'Devenire patron',
+        'timelineNotify.plan-renew': 'Re\u00eennoire patron'
       }
     }
 
@@ -48,7 +94,7 @@
       const timeline=await parent.net.json('/timeline?nb=100');
       const newEntries=timeline.entries
         .filter(e=>e.date>this.lastRead)
-        .filter(e=>['forum-post','blog-post'].includes(e.type));
+        .filter(e=>this.types.includes(e.type));
 
       const toggle=$('#top div.site-buttons #notify-toggle span');
       const app=$('#top div.site-buttons #notify-app');
@@ -98,6 +144,11 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const value=parent.currentOptions.getValue('timelineNotify');
+      switch(value) {
+        case true: this.types=this.preferences[0].defaultValue.split(','); break;
+        case false: this.types=[]; break;
+        default: this.types=value?.split(','); break;
+      }
       this.logOption('Post notifications', value);
       lichess.pubsub.off('content-loaded',this.processTimeline);
       parent.global.clearInterval(this.interval);
