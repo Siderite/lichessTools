@@ -19,7 +19,7 @@
 */
 "use strict";
 let Raccoon = function(options) {
-    this.options=options;
+    options=options||{};
 
     const MAX_MOVES           = 2048;
     const BOARD_SQUARE_NUM    = 120;
@@ -2800,7 +2800,7 @@ let Raccoon = function(options) {
         let mg = game_eval[PHASE.MG], eg = game_eval[PHASE.EG];
         let p = phase();
         let tempo = 0;
-        if (this.options.addTempo) {
+        if (options.addTempo) {
           tempo = 28 * ((board.turn === COLORS.WHITE) ? 1 : -1);
         }
         eg *= scale_factor(eg)/64;
