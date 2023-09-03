@@ -18,7 +18,9 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 "use strict";
-let Raccoon = function() {
+let Raccoon = function(options) {
+    this.options=options;
+
     const MAX_MOVES           = 2048;
     const BOARD_SQUARE_NUM    = 120;
 
@@ -2796,7 +2798,11 @@ let Raccoon = function() {
     function main_evaluate(){//-- https://hxim.github.io/Stockfish-Evaluation-Guide/
         let game_eval = game_evaluation();
         let mg = game_eval[PHASE.MG], eg = game_eval[PHASE.EG];
-        let p = phase(), tempo = 28 * ((board.turn === COLORS.WHITE) ? 1 : -1);
+        let p = phase();
+        let tempo = 0;
+        if (this.options.addTempo) {
+          tempo = 28 * ((board.turn === COLORS.WHITE) ? 1 : -1);
+        }
         eg *= scale_factor(eg)/64;
         return (((mg * p + ((eg * (128 - p)) << 0)) / 128) << 0) + tempo;
     }

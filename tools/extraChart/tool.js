@@ -314,7 +314,7 @@
       return mainline
         .slice(1)
         .map((node,x) => {
-          const evl=this.heuristic(node)-28;
+          const evl=this.heuristic(node);
           const mat=this.simple_material(node)
           let val=evl-mat;
           const cp=val*2;
@@ -433,7 +433,7 @@
       this.prevFen=node.fen;
       const mat=this.simple_material(node);
       const material = 2 / (1 + Math.exp(-0.004 * mat)) - 1;
-      const evl=this.heuristic(node)-28;
+      const evl=this.heuristic(node);
       const val=(evl-mat)*2;
       const principled = 2 / (1 + Math.exp(-0.004 * val)) - 1;
       let matElem=$('tick.lichessTools-material',container);
