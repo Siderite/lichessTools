@@ -65,7 +65,7 @@ body.lichessTools .game__meta .user-link+img.flag+i[data-icon] {
   }
 }
 
-body.lichessTools .lichessTools-wave {
+body.lichessTools .lichessTools-flag+img.flag {
   transform-origin: left;
-  animation: lichessTools-wave 15s linear infinite;
+  animation: lichessTools-wave 10s linear infinite;
 }
