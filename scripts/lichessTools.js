@@ -228,9 +228,13 @@
     }
 
     getFenPosition(fen) {
-      let index=fen.indexOf('-')-1;
-      while (fen[index]==' ') index--;
-      return fen.slice(0,index+1);
+      let index=fen.length-1;
+      let spaces=0;
+      while (index>=0 && spaces<2) {
+        if (fen[index]===' ') spaces++;
+        index--;
+      }
+      return fen.slice(0,index+1); 
     }
 
     isTreeviewVisible=()=>{
