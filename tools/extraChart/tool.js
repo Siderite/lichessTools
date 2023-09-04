@@ -71,7 +71,15 @@
     getBoard=fen=>{
       const result=[];
       for (let i=0; i<8; i++) result.push(Array(8));
-      fen=fen.split(' ')[0];
+      const splits=fen.split(' ');
+      fen=splits[0];
+      let enpassant=splits[3];
+      if (enpassant!='-') {
+        result.enpassant={ 
+          x: enpassant.charCodeAt(0)-97, 
+          y: enpassant.charCodeAt(1)-49
+        };
+      }
       let x=0;
       let y=0;
       for (let i=0; i<fen.length; i++) {
@@ -235,6 +243,9 @@
               if (m!=pm) {
                 underAttack.push({x:x-1,y:y-m,pc:pc});
               }
+            } else if (board.enpassant && board.enpassant.x==x-1 && board.enpassant.y==y-m) {
+              const pm=-m;
+              underAttack.push({x:x-1,y:y-m,pc:pm==1?'P':'p'});
             }
           }
           if (this.onBoard(x+1,y-m)) {
@@ -244,6 +255,9 @@
               if (m!=pm) {
                 underAttack.push({x:x+1,y:y-m,pc:pc});
               }
+            } else if (board.enpassant && board.enpassant.x==x+1 && board.enpassant.y==y-m) {
+              const pm=-m;
+              underAttack.push({x:x+1,y:y-m,pc:pm==1?'P':'p'});
             }
           }
           break;
