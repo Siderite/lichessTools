@@ -101,7 +101,7 @@
 
     onBoard=(x,y)=>x>=0&&x<8&&y>=0&&y<8;
 
-    pieceTension=(ch,x,y,board,control)=>{
+    pieceTension=(ch,x,y,board,control,withSupport)=>{
       const m=ch===ch.toUpperCase()?1:-1;
       let underAttack=[];
       switch(ch.toLowerCase()) {
@@ -114,7 +114,14 @@
               if (!pc) continue;
               const pm=pc===pc.toUpperCase()?1:-1;
               if (m!=pm) {
-                underAttack.push({x:x+dx,y:y+dy,pc:pc});
+                underAttack.push({
+                  sx:x,
+                  sy:y,
+                  spc:ch,
+                  x:x+dx,
+                  y:y+dy,
+                  pc:pc
+                });
               }
             }
           }
@@ -131,17 +138,31 @@
                 if (!pc) continue;
                 const pm=pc===pc.toUpperCase()?1:-1;
                 if (m!=pm) {
-                  underAttack.push({x:x+dx*i,y:y+dy*i,pc:pc});
-                } else {
+                  underAttack.push({
+                    sx:x,
+                    sy:y,
+                    spc:ch,
+                    x:x+dx*i,
+                    y:y+dy*i,
+                    pc:pc
+                  });
+                } else if (withSupport) {
                   if (pc.toLowerCase()==='q') continue;
-                  if (isDiagonal&&pc.toLowerCase()==='b') continue;
+                  if (&&isDiagonal&&pc.toLowerCase()==='b') continue;
                   if (!isDiagonal&&pc.toLowerCase()==='r') continue;
                   if ((isForward&&pc.toLowerCase()==='p')||pc.toLowerCase()==='k') {
                     const ppc=this.onBoard(x+dx*(i+1),y+dy*(i+1)) && board[y+dy*(i+1)][x+dx*(i+1)];
                     if (ppc) {
                       const ppm=ppc===ppc.toUpperCase()?1:-1;
                       if (m!=ppm) {
-                        underAttack.push({x:x+dx*(i+1),y:y+dy*(i+1),pc:pc});
+                        underAttack.push({
+                          sx:x,
+                          sy:y,
+                          spc:ch,
+                          x:x+dx*(i+1),
+                          y:y+dy*(i+1),
+                          pc:pc
+                        });
                       }
                     }
                   }
@@ -161,8 +182,15 @@
                 if (!pc) continue;
                 const pm=pc===pc.toUpperCase()?1:-1;
                 if (m!=pm) {
-                  underAttack.push({x:x+dx*i,y:y+dy*i,pc:pc});
-                } else {
+                  underAttack.push({
+                    sx:x,
+                    sy:y,
+                    spc:ch,
+                    x:x+dx*i,
+                    y:y+dy*i,
+                    pc:pc
+                  });
+                } else if (withSupport) {
                   if (pc.toLowerCase()==='q') continue;
                   if (pc.toLowerCase()==='r') continue;
                   if (pc.toLowerCase()==='k') {
@@ -170,7 +198,14 @@
                     if (ppc) {
                       const ppm=ppc===ppc.toUpperCase()?1:-1;
                       if (m!=ppm) {
-                        underAttack.push({x:x+dx*(i+1),y:y+dy*(i+1),pc:pc});
+                        underAttack.push({
+                          sx:x,
+                          sy:y,
+                          spc:ch,
+                          x:x+dx*(i+1),
+                          y:y+dy*(i+1),
+                          pc:pc
+                        });
                       }
                     }
                   }
@@ -191,8 +226,15 @@
                 if (!pc) continue;
                 const pm=pc===pc.toUpperCase()?1:-1;
                 if (m!=pm) {
-                  underAttack.push({x:x+dx*i,y:y+dy*i,pc:pc});
-                } else {
+                  underAttack.push({
+                    sx:x,
+                    sy:y,
+                    spc:ch,
+                    x:x+dx*i,
+                    y:y+dy*i,
+                    pc:pc
+                  });
+                } else if (withSupport) {
                   if (pc.toLowerCase()==='q') continue;
                   if (pc.toLowerCase()==='b') continue;
                   if ((isForward&&pc.toLowerCase()==='p')||pc.toLowerCase()==='k') {
@@ -200,7 +242,14 @@
                     if (ppc) {
                       const ppm=ppc===ppc.toUpperCase()?1:-1;
                       if (m!=ppm) {
-                        underAttack.push({x:x+dx*(i+1),y:y+dy*(i+1),pc:pc});
+                        underAttack.push({
+                          sx:x,
+                          sy:y,
+                          spc:ch,
+                          x:x+dx*(i+1),
+                          y:y+dy*(i+1),
+                          pc:pc
+                        });
                       }
                     }
                   }
@@ -219,7 +268,14 @@
                 if (pc) {
                   const pm=pc===pc.toUpperCase()?1:-1;
                   if (m!=pm) {
-                    underAttack.push({x:x+dx*1,y:y+dy*2,pc:pc});
+                    underAttack.push({
+                      sx:x,
+                      sy:y,
+                      spc:ch,
+                      x:x+dx*1,
+                      y:y+dy*2,
+                      pc:pc
+                    });
                   }
                 }
               }
@@ -228,7 +284,14 @@
                 if (pc) {
                   const pm=pc===pc.toUpperCase()?1:-1;
                   if (m!=pm) {
-                    underAttack.push({x:x+dx*2,y:y+dy*1,pc:pc});
+                    underAttack.push({
+                      sx:x,
+                      sy:y,
+                      spc:ch,
+                      x:x+dx*2,
+                      y:y+dy*1,
+                      pc:pc
+                    });
                   }
                 }
               }
@@ -241,11 +304,25 @@
             if (pc) {
               const pm=pc===pc.toUpperCase()?1:-1;
               if (m!=pm) {
-                underAttack.push({x:x-1,y:y-m,pc:pc});
+                underAttack.push({
+                  sx:x,
+                  sy:y,
+                  spc:ch,
+                  x:x-1,
+                  y:y-m,
+                  pc:pc
+                });
               }
             } else if (board.enpassant && board.enpassant.x==x-1 && board.enpassant.y==y-m) {
               const pm=-m;
-              underAttack.push({x:x-1,y:y-m,pc:pm==1?'P':'p'});
+              underAttack.push({
+                sx:x,
+                sy:y,
+                spc:ch,
+                x:x-1,
+                y:y-m,
+                pc:pm==1?'P':'p'
+              });
             }
           }
           if (this.onBoard(x+1,y-m)) {
@@ -253,11 +330,25 @@
             if (pc) {
               const pm=pc===pc.toUpperCase()?1:-1;
               if (m!=pm) {
-                underAttack.push({x:x+1,y:y-m,pc:pc});
+                underAttack.push({
+                  sx:x,
+                  sy:y,
+                  spc:ch,
+                  x:x+1,
+                  y:y-m,
+                  pc:pc
+                });
               }
             } else if (board.enpassant && board.enpassant.x==x+1 && board.enpassant.y==y-m) {
               const pm=-m;
-              underAttack.push({x:x+1,y:y-m,pc:pm==1?'P':'p'});
+              underAttack.push({
+                sx:x,
+                sy:y,
+                spc:ch,
+                x:x+1,
+                y:y-m,
+                pc:pm==1?'P':'p'
+              });
             }
           }
           break;
@@ -280,7 +371,7 @@
         for (let x=0; x<8; x++) {
           const ch=board[y][x];
           if (!ch) continue;
-          const ua=this.pieceTension(ch,x,y,board);
+          const ua=this.pieceTension(ch,x,y,board,true);
           underAttack.push.apply(underAttack,ua);
         }
       }
