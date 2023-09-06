@@ -73,11 +73,17 @@
           explorerItem.cp=move.cp;
           explorerItem.mate=move.mate;
         } else if (this.options.stats) {
-          const wr=(explorerItem.white+explorerItem.draws/2)/(explorerItem.white+explorerItem.draws+explorerItem.black);
+          const total=explorerItem.white+explorerItem.draws+explorerItem.black;
+          const wr=(explorerItem.white+explorerItem.draws/2)/total;
           let cp = -Math.log(1/wr-1)*330
-          if (!Number.isFinite(cp)) cp=Math.sign(cp)*10000;
-          text=Math.round(cp/10)/10;
-          title=trans.noarg('fromStatsTitle');
+          if (Number.isFinite(cp)) {
+            if (total>=100) {
+              title=trans.noarg('fromStatsTitle');
+              text=Math.round(cp/10)/10;
+            }
+          } else {
+            cp=Math.sign(cp)*10000;
+          }
           explorerItem.cp=cp;
           explorerItem.mate=undefined;
         }

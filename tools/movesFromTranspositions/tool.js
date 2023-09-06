@@ -38,25 +38,38 @@
       const currNode = analysis.node;
       if (!currNode) return;
       const tools=$('div.analyse__tools');
-      let fork=$('div.lichessTools-transpositions',tools).remove();
+      let fork=$('div.lichessTools-transpositions',tools);
       this.state=parent.traverse();
       let transpositions=currNode.transposition;
       if (parent.transpositionBehavior?.excludeSameLine) {
         transpositions=transpositions?.filter(n=>n===currNode||(n.path&&!n.path.startsWith(currNode.path)&&!currNode.path.startsWith(n.path)));
       }  
-      if (!transpositions||transpositions.length<=1) return;
-      fork=$('<div>')
-        .addClass('analyse__fork lichessTools-transpositions')
-        .attr('title',trans.noarg('transpositionBox'))
-        .insertAfter($('.analyse__fork, .analyse__moves',tools).last());
+      if (!transpositions||transpositions.length<=1) {
+        fork.remove();
+        return;
+      }
+      if (!fork.length) {
+        fork=$('<div>')
+          .addClass('analyse__fork lichessTools-transpositions')
+          .attr('title',trans.noarg('transpositionBox'));
+      }
+      if (!fork.prev().is('.analyse__fork')) {
+        fork.insertAfter($('.analyse__fork, .analyse__moves',tools).last());
+      }
       transpositions=transpositions.filter(n=>n!=currNode);
       const noDuplicates=parent.transpositionBehavior?.groupSameMove;
+      const transpoData=transpositions.map(n=>n.uci).join(',')+(noDuplicates?'ND':'D');
+      if (fork.data('transpositions')==transpoData) return;
+      fork.data('transpositions',transpoData);
+      fork.empty();
+      const sans=currNode.children.map(c=>c.san);
       for (const node of transpositions) {
-        for (let child of node.children) {
+        for (const child of node.children) {
           const path=node.path+child.id;
           let forkMove=$('move',fork).filter((i,e)=>$(e).attr('p')==path);
           if (forkMove.length) continue;
-          if (noDuplicates && $('div.analyse__fork san').filter((i,e)=>$(e).text()===child.san).length) continue;
+          if (noDuplicates && sans.includes(child.san)) continue;
+          sans.push(child.san);
           let targetElem=parent.getElementForPath(path);
           forkMove=$('<move>')
             .attr('p',path)

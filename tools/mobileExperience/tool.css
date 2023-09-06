@@ -113,6 +113,8 @@ body.lichessTools.mobile main div.rcontrols .board-menu-toggle {
 
 body.lichessTools.mobile.playing.lichessTools-lockBoard {
   overflow-y:hidden;
+  touch-action: pan-x pan-y;
+  position:fixed;
 }
 
 body.lichessTools.mobile:not(.lichessTools-lockBoard) div.lichessTools-lockBoard {

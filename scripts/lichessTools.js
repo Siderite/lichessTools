@@ -41,8 +41,8 @@
           ? func.apply(this, arguments)
           : null;
         if (options?.after) {
-			const newResult=options.after(this,result,...arguments);
-            if (newResult!==undefined) result=newResult;
+          const newResult=options.after(this,result,...arguments);
+          if (newResult!==undefined) result=newResult;
         }
         return result;
       };
@@ -220,7 +220,7 @@
     }
 
     isMate(node) {
-      return node.san&&/#$/.test(node.san);
+      return node.san?.endsWith('#');
     }
 
     getNodePosition(node) {
@@ -228,7 +228,13 @@
     }
 
     getFenPosition(fen) {
-      return fen.split('-')[0].trim();
+      let index=fen.length-1;
+      let spaces=0;
+      while (index>=0 && spaces<2) {
+        if (fen[index]===' ') spaces++;
+        index--;
+      }
+      return fen.slice(0,index+1); 
     }
 
     isTreeviewVisible=()=>{
@@ -280,19 +286,26 @@
       return this.getElementForPath(path);
     }
 
-    traverse=(node, state, path)=>{
-      if (!node) node=this.lichess?.analysis?.tree.root;
-      if (!state) {
-        state={
-          lastMoves:[],
-          positions:{},
-          glyphs:{},
-          nodeIndex:+(node?.nodeIndex)||0
-        };
-        if (!this.isTreeviewVisible()) return state;
-      }
-      if (!node || node.comp) {
+    traverse=(snode)=>{
+      if (!snode) snode=this.lichess?.analysis?.tree.root;
+      const state={
+        lastMoves:[],
+        positions:{},
+        glyphs:{},
+        nodeIndex:+(snode?.nodeIndex)||0
+      };
+      if (!snode || snode.comp) {
         return state;
+      }
+      const nodes=[{
+        node: snode,
+        path: ''
+      }];
+      while (nodes.length) {
+      let {node,path}={...nodes.shift()};
+      if (!this.isTreeviewVisible()) return;
+      if (!node || node.comp) {
+        continue;
       }
       path=(path||'')+node.id;
       node.path=path;
@@ -313,19 +326,19 @@
       } else {
         node.transposition=null;
       }
-      if (node.children.length) {
-        for (const child of node.children) {
-          this.traverse(child, state, path);
-        }
-      } else {
-        state.lastMoves.push(node);
-      }
       if (node.glyphs) {
         for (const glyph of node.glyphs) {
           const arr=state.glyphs[glyph.symbol]||[];
           arr.push(node);
           state.glyphs[glyph.symbol]=arr;
         }
+      }
+      if (!node.children.length) {
+        state.lastMoves.push(node);
+      }
+      for (const child of node.children) {
+        nodes.push({node:child,path:path});
+      }
       }
       return state;
     };
@@ -360,6 +373,7 @@
     };
 
     getPositionFromBoard=(el)=>{
+      if (!el) return;
       const map={
         'king':'k',
         'queen':'q',
@@ -372,11 +386,9 @@
         ? el
         : $('cg-container',el)[0]
       const container=$(elem);
-      const variantElem=container.closest('div.round__app, main')[0];
-      const variant=variantElem
-        && Array.from(variantElem.classList).find(c=>c.startsWith('variant-'))?.slice('variant-'.length)
-        || 'standard';
-      if (variant!='standard') return;
+      const variantElem=container.closest('div.round__app, main, a.mini-game');
+      const isStandard = variantElem.is('.standard,.variant-standard');
+      if (!isStandard) return;
 
       const width=container.width()/8;
       const parentOffset=container.offset();
@@ -442,8 +454,8 @@
     makeSvg=(svgText,chessground)=>{
       if (window.Chessground) return svgText; //ugly hack because you cannot know what chessground version you got
       return {
-        html: svgText,
-        center: 'orig'
+        html: svgText
+        //,center: 'orig'
       };
     }
  

@@ -304,7 +304,7 @@
         if ($(e).closest('#friend_box,.lichessTools-onlineFriends').length) return;
         let textEl = $('a.text',e);
         if (!textEl.length) textEl=$(e);
-        if (textEl.is('.lichessTools-noflag')) return;
+        if (textEl.is('.lichessTools-noflag,.lichessTools-flag')) return;
         const next=textEl.next();
         if (next.is('img.flag')) return;
         if (next.has('img.flag').length) return;
@@ -437,12 +437,12 @@
           if (item.countryName=='noflag') {
             elem.addClass('lichessTools-noflag');
           } else {
+            elem.addClass('lichessTools-flag');
             elem.after($('<img>')
               .addClass('flag')
-              .addClass('lichessTools')
-              .addClass('lichessTools-wave')
               .attr('title',item.countryName)
               .attr('src',parent.lichess.assetUrl('images/flags/'+item.country+'.png'))
+              .css('animation-duration',Math.round(5+Math.random()*15)+'s')
             );
           }
         }
@@ -465,7 +465,8 @@
         lichess.pubsub.on('content-loaded',this.debouncedProcessFlags);
         lichess.pubsub.on('socket.in.crowd',this.debouncedProcessFlags);
       } else {
-        $('img.flag.lichessTools').remove();
+        $('.lichessTools-flag+img.flag').remove();
+        $('.lichessTools-flag').removeClass('lichessTools-flag');
       }
     }
 

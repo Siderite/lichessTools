@@ -35,7 +35,7 @@
         'options.mobileExperience': 'Mobile device features',
         'options.mobileExperienceRound': 'Mobile device game features',
         'options.colorCount': 'Colors for shapes on mobile',
-        'mobileExperience.lockBoard':'Scroll lock when playing',
+        'mobileExperience.lockBoard':'Screen lock when playing',
         'mobileExperience.showGauge':'Evaluation gauge',
         'mobileExperience.hideOctopus':'Hide the octopus mascot',
         'mobileExperience.shapeDrawing':'Analysis arrows',
@@ -48,14 +48,14 @@
         'colorCount.2': 'two',
         'colorCount.3': 'three',
         'colorCount.4': 'four',
-        'lockBoardTitle': 'LiChess Tools - scroll lock'
+        'lockBoardTitle': 'LiChess Tools - screen lock'
       },
       'ro-RO':{
         'options.analysis': 'General',                                                                     
         'options.mobileExperience': 'Op\u0163iuni pentru aparate mobile',
         'options.mobileExperienceRound': 'Op\u0163iuni pentru joc pe aparate mobile',
         'options.colorCount': 'Culori pentru s\u0103ge\u0163i pe mobile',
-        'mobileExperience.lockBoard':'Blocare scroll c\u00e2nd joci',
+        'mobileExperience.lockBoard':'Fixare ecran c\u00e2nd joci',
         'mobileExperience.showGauge':'Band\u0103 de evaluare',
         'mobileExperience.hideOctopus':'Ascunde mascota caracati\u0163\u0103',
         'mobileExperience.shapeDrawing':'S\u0103ge\u0163i \u00een analiz\u0103',
@@ -68,7 +68,7 @@
         'colorCount.2': 'doi',
         'colorCount.3': 'trei',
         'colorCount.4': 'patru',
-        'lockBoardTitle': 'LiChess Tools - blocare scroll'
+        'lockBoardTitle': 'LiChess Tools - fixare ecran'
       }
     }
 
