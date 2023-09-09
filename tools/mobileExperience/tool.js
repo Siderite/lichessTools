@@ -353,11 +353,11 @@
       }
       const isRound=!!$('main.round,main.puzzle').length;
       if (isRound) {
-        let lockBoardElem=$('#top div.site-buttons div.lichessTools-lockBoard');
-        if (this.options.lockBoard) {
+        const lockBoardElem=$('#top div.site-buttons div.lichessTools-lockBoard');
+        if (this.options.lockBoard && $('body').is('.mobile.playing')) {
           $('body').addClass('lichessTools-lockBoard');
           if (!lockBoardElem.length) {
-            lockBoardElem=$('<div></div>')
+            $('<div></div>')
               .addClass('lichessTools-lockBoard')
               .attr('data-icon','\uE054')
               .attr('title',trans.noarg('lockBoardTitle'))

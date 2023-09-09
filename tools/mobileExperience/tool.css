@@ -122,6 +122,12 @@ body.lichessTools.mobile:not(.lichessTools-lockBoard) div.lichessTools-lockBoard
   opacity:0.3;
 }
 
+
+body.lichessTools:not(.mobile) div.lichessTools-lockBoard,
+body.lichessTools:not(.playing) div.lichessTools-lockBoard {
+  display:none;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .gamebook {

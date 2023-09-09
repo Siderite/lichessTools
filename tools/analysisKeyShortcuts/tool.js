@@ -120,9 +120,11 @@
       parent.unbindKeyHandler('i');
       parent.unbindKeyHandler('m');
       parent.unbindKeyHandler('b');
+      parent.unbindKeyHandler('g');
       parent.unbindKeyHandler('alt+i',true);
       parent.unbindKeyHandler('alt+m',true);
       parent.unbindKeyHandler('alt+b',true);
+      parent.unbindKeyHandler('alt+g',true);
 
       parent.unbindKeyHandler('.',true);
       parent.unbindKeyHandler('ctrl+.',true);
@@ -138,9 +140,11 @@
         parent.bindKeyHandler('i',()=>parent.jumpToGlyphSymbol(currentPlayer,'?!'));
         parent.bindKeyHandler('m',()=>parent.jumpToGlyphSymbol(currentPlayer,'?'));
         parent.bindKeyHandler('b',()=>parent.jumpToGlyphSymbol(currentPlayer,'??'));
+        parent.bindKeyHandler('g',()=>parent.jumpToGlyphSymbol(currentPlayer,['!','!?','!!']));
         parent.bindKeyHandler('alt+i',()=>parent.jumpToGlyphSymbol(otherPlayer,'?!'));
         parent.bindKeyHandler('alt+m',()=>parent.jumpToGlyphSymbol(otherPlayer,'?'));
         parent.bindKeyHandler('alt+b',()=>parent.jumpToGlyphSymbol(otherPlayer,'??'));
+        parent.bindKeyHandler('alt+g',()=>parent.jumpToGlyphSymbol(otherPlayer,['!','!?','!!']));
 
         parent.bindKeyHandler('.',()=>this.prepareMove('pgn'));
         parent.bindKeyHandler('ctrl+.',()=>this.prepareMove('ceval'));

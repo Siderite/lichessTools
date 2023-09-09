@@ -45,3 +45,7 @@ body.lichessTools tick.lichessTools-principled {
   border-bottom:none;
   transition: top 0.5s;
 }
+
+body.lichessTools div.symbol.lichessTools-goodMoves {
+  color: #ea45d8;
+}
