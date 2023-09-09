@@ -6,7 +6,7 @@
         name:'extraChart',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['material','principled','tension','potential','smooth','gauge'],
+        possibleValues: ['material','principled','tension','potential','brilliant','smooth','gauge'],
         defaultValue: 'material,principled,tension,smooth,gauge',
         advanced: true
       }
@@ -20,11 +20,14 @@
         'extraChart.principled': 'Principled',
         'extraChart.tension': 'Max tension',
         'extraChart.potential': 'Max potential',
+        'extraChart.brilliant': 'Find interesting moves',
         'extraChart.smooth': 'Chart smoothing',
         'extraChart.gauge': 'on Eval gauge',
         'chartInfoTitle':'LiChess Tools - extra charting',
         'tensionLineTitle': 'Max tension',
-        'potentialLineTitle': 'Max potential'
+        'potentialLineTitle': 'Max potential',
+        'goodMovesText':'good/brilliant/interesting moves',
+        'goodMovesTitle':'LiChess Tools - good/brilliant/interesting moves'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -33,11 +36,14 @@
         'extraChart.principled': 'Principial',
         'extraChart.tension': 'Tensiune maxim\u0103',
         'extraChart.potential': 'Poten\u0163ial maxim',
+        'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
         'extraChart.smooth': 'Netezire grafice',
         'extraChart.gauge': 'pe bara de Eval',
         'chartInfoTitle':'LiChess Tools - grafice \u00een plus',
         'tensionLineTitle': 'Tensiune maxim\u0103',
-        'potentialLineTitle': 'Poten\u0163ial maxim'
+        'potentialLineTitle': 'Poten\u0163ial maxim',
+        'goodMovesText':'mut\u0103ri bune/briliante/interesante',
+        'goodMovesTitle':'LiChess Tools - mut\u0103ri bune/briliante/interesante'
       }
     }
 
@@ -53,7 +59,7 @@
     };
 
 
-    simple_material=(node,isTotal)=>{
+    simple_material=(node,isTotal,side)=>{
       let result=0;
       if (!node.fen) return result;
       const board=node.fen.split(' ')[0];
@@ -61,9 +67,11 @@
         const p=this.pieceMaterial[ch.toLowerCase()];
         if (p) {
           const m=ch===ch.toUpperCase()?1:-1;
-          result+=isTotal
-            ? p
-            : m*p;
+          if (!side || side==m) {
+            result+=isTotal
+              ? p
+              : m*p;
+          }
         }
       }
       return result;
@@ -401,21 +409,51 @@
       return underAttack;
     };
 
-    materialWon=(board,x,y)=>{
+    findPieces=(board,piece)=>{
+      const result=[];
+      for (let y=0; y<8; y++) {
+        for (let x=0; x<8; x++) {
+          if (board[y][x]==piece) result.push({x:x,y:y});
+        }
+      }
+      return result;
+    };
+
+    isPromotion=(node)=>{
+      return node.san?.includes('=');
+    };
+
+    inCheck=(fen)=>{
+      const side=fen.split(' ')[1]=='w'?1:-1;
+      const board=this.getBoard(fen);
+      const king=this.findPieces(board,side==1?'K':'k')[0];
       const moves=this.getAllCapturingMoves(board)
-        .filter(m=>m.x==x&&m.y==y)
-        .sort((m1,m2)=>this.pieceMaterial[m1.spc]-this.pieceMaterial[m2.spc]);
-      if (!moves.length) return 0;
+        .filter(m=>m.m!=side && m.x==king.x && m.y==king.y);
+      return !!moves.length;
+    };
+
+    materialWon=(board,x,y)=>{
+      const parent=this.lichessTools;
+      const Math=parent.global.Math;
+      board=JSON.parse(JSON.stringify(board));
       const ch=board[y][x];
-      const m=ch===ch.toUpperCase()?1:-1;
-      let result=this.pieceMaterial[ch.toLowerCase()]*-m; //capture piece
+      if (!ch) return 0;
+      const side=ch===ch.toUpperCase()?-1:1;
+      const moves=this.getAllCapturingMoves(board)
+        .filter(m=>m.x==x&&m.y==y&&m.m==side)
+        .sort((m1,m2)=>this.pieceMaterial[m1.spc.toLowerCase()]-this.pieceMaterial[m2.spc.toLowerCase()]);
       const move=moves[0];
+      if (!move) return 0;
+      let result=this.pieceMaterial[ch.toLowerCase()]*side; //capture piece
       board[y][x]=move.spc;
       board[move.sy][move.sx]=null;
-      return result+this.materialWon(board,x,y);
+      result+=this.materialWon(board,x,y);
+      return Math.sign(result)!=side?0:result;
     };
 
     maxMaterialWon=(board,m)=>{
+      const parent=this.lichessTools;
+      const Math=parent.global.Math;
       let mx=0;
       for (let y=0; y<8; y++) {
         for (let x=0; x<8; x++) {
@@ -481,7 +519,83 @@
             x: x
           };
         })
-        .filter(r=>r);
+        .filter(r=>!!r);
+    };
+
+    setBrilliant = (mainline) => {
+      if (mainline.brilliantInit) return;
+      const parent=this.lichessTools;
+      const Math=parent.global.Math;
+      let refreshSerie=false;
+      const serie=parent.global.Highcharts?.charts?.at(0)?.series?.at(0);
+      const result=mainline
+        .slice(1)
+        .map((node,x) => {
+          if (node.ply<3) return 0;
+          const m=node.ply%2?1:-1;
+          const p1=node;
+          const p2=mainline[node.ply-1];
+          const p3=mainline[node.ply-2];
+          const cp1=p1.eval?.cp;
+          const cp2=p2.eval?.cp;
+          if ((cp1-cp2)*m<-25) return 0;
+          if (Math.abs(cp1)>75 && Math.sign(m)!=Math.sign(cp1)) return 0;
+          if (this.inCheck(p2.fen)) return 0;
+          if (this.isPromotion(p1)) return 0;
+          const move={
+            sx: p1.uci.charCodeAt(0)-97, 
+            sy: p1.uci.charCodeAt(1)-49,
+            x: p1.uci.charCodeAt(2)-97, 
+            y: p1.uci.charCodeAt(3)-49
+          };
+          let board=this.getBoard(p2.fen);
+          const mwStartUci=this.materialWon(board,move.sx,move.sy)/100;
+          board=this.getBoard(p1.fen);
+          const mwEndUci=this.materialWon(board,move.x,move.y)/100;
+          const mat3=this.simple_material(p3,true,m)/100;
+          const mat1=this.simple_material(p1,true,m)/100;
+          const delta=(mat3-mat1);
+          if (mwStartUci*m+1+delta<mwEndUci*m) {
+            return 1;
+          }
+          board=this.getBoard(p3.fen);
+          const mmw3=this.maxMaterialWon(board,m)/100;
+          board=this.getBoard(p1.fen);
+          const mmw1=this.maxMaterialWon(board,m)/100;
+          const bril=mmw1*m-mmw3*m-delta;
+          if (bril>4) {
+            return bril;
+          }
+          return 0;
+        })
+        .map((v,x)=>{
+          if (v) {
+            const symbol='!?';
+            const glyphs=mainline[x+1].glyphs||[];
+            if (!glyphs.length) { //find(g=>g.symbol==symbol)
+              glyphs.push({
+                symbol: symbol,
+                name: 'Brilliant',
+                type: 'nonStandard'
+              });
+              mainline[x+1].glyphs=glyphs;
+            }
+            if (serie) {
+              serie.data[x].marker={enabled:true,radius:5,fillColor:'#ea45d8'};
+              refreshSerie=true;
+            }
+          }
+          return {
+            x:x,
+            y:v
+          };
+        })
+        .filter(r=>!!r);
+      if (refreshSerie) {
+        serie.setData(serie.data);
+      }
+      mainline.brilliantInit=true;
+      return result;
     };
 
     getMaxTension = (mainline) => {
@@ -503,6 +617,8 @@
     };
 
     getMaxPotential = (mainline) => {
+      const parent=this.lichessTools;
+      const Math=parent.global.Math;
       let maxM=-1000;
       let maxX=0;
       mainline
@@ -518,6 +634,45 @@
         });
       return maxX;
     };
+
+    showGoodMoves=()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const trans=parent.translator;
+      const $=parent.$;
+      const hcElem=$('div.highcharts-container')[0];
+      let state=hcElem?.traverseState;
+      if (!state) {
+        state=parent.traverse();
+        if (hcElem) hcElem.traverseState=state;
+      }
+      const arr=[].concat.apply([],['!','!?','!!'].map(s=>state.glyphs[s]).filter(a=>!!a?.length));
+      if (!arr.length) return;
+      const fill=(container,count,color)=>{
+        let elem=$('div.lichessTools-goodMoves',container);
+        if (!elem.length) {
+          elem=$('<div></div>')
+               .addClass('lichessTools-goodMoves')
+               .addClass('advice-summary__error')
+               .text(' '+trans.noarg('goodMovesText'))
+               .prepend($('<strong></strong>'))
+               .attr('title',trans.noarg('goodMovesTitle'))
+               .on('click',(ev)=>{
+                 ev.preventDefault();
+                  parent.jumpToGlyphSymbol(color,['!','!?','!!']);
+               })
+               .insertAfter($('div.advice-summary__player',container));
+        }
+        elem.toggleClass('symbol',!!count);
+        $('strong',elem).text(count||0);
+      };
+      let container=$('div.advice-summary__side').get(0);
+      let count=arr.filter(n=>n.ply%2==1).length;
+      fill(container,count,'white');
+      container=$('div.advice-summary__side').get(1);
+      count=arr.filter(n=>n.ply%2==0).length;
+      fill(container,count,'black');
+    }
 
     generateCharts=()=>{
       const parent=this.lichessTools;
@@ -608,12 +763,19 @@
         });
       }
 
+      if (this.options.brilliant) {
+        this.setBrilliant(lichess.analysis.mainline);
+
+        this.showGoodMoves();
+      }
+
       this.prevType=this.type;
     };
 
     generateTicks=()=>{
       if (!this.options.gauge) return;
       const parent=this.lichessTools;
+      const Math=parent.global.Math;
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
@@ -656,6 +818,7 @@
         principled:parent.isOptionSet(value,'principled'),
         tension:parent.isOptionSet(value,'tension'),
         potential:parent.isOptionSet(value,'potential'),
+        brilliant:parent.isOptionSet(value,'brilliant'),
         smooth:parent.isOptionSet(value,'smooth'),
         gauge:parent.isOptionSet(value,'gauge')
       };

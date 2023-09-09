@@ -21,9 +21,11 @@
         'nextBlunder': 'Next blunder (all lines)',
         'nextMistake': 'Next mistake (all lines)',
         'nextInaccuracy': 'Next inaccuracy (all lines)',
+        'nextGood': 'Next good/brilliant/interesting',
         'nextOpponentBlunder': 'Next opponent blunder',
         'nextOpponentMistake': 'Next opponent mistake',
         'nextOpponentInaccuracy': 'Next opponent inaccuracy',
+        'nextOpponentGood': 'Next opponent good/brilliant/interesting',
         'variationLine': 'N-th variation',
         'cevalLine': 'N-th computer evaluation line',
         'explorerLine': 'N-th Explorer line',
@@ -40,9 +42,11 @@
         'nextBlunder': 'Urm\u0103toarea gaf\u0103 (toate liniile)',
         'nextMistake': 'Urm\u0103toarea gre\u015Feal\u0103 (toate liniile)',
         'nextInaccuracy': 'Urm\u0103toarea inexactitate (toate liniile)',
+        'nextGood': 'Urm\u0103toarea bun\u0103/briliant\u0103/interesant\u0103',
         'nextOpponentBlunder': 'Urm\u0103toarea gaf\u0103 a adversarului',
         'nextOpponentMistake': 'Urm\u0103toarea gre\u015Feal\u0103 a adversarului',
         'nextOpponentInaccuracy': 'Urm\u0103toarea inexactitate a adversarului',
+        'nextGood': 'Urm\u0103toarea bun\u0103/briliant\u0103/interesant\u0103 a adversarului',
         'variationLine': 'A N-a varia\u0163iune',
         'cevalLine': 'A N-a mutare din evaluarea calculatorului',
         'explorerLine': 'A N-a mutare din Explorator',
@@ -97,9 +101,11 @@
         row(['b'],'nextBlunder');
         row(['m'],'nextMistake');
         row(['i'],'nextInaccuracy');
+        row(['g'],'nextGood');
         row(['alt','b'],'nextOpponentBlunder');
         row(['alt','m'],'nextOpponentMistake');
         row(['alt','i'],'nextOpponentInaccuracy');
+        row(['alt','g'],'nextOpponentGood');
         row(['.','!then','1-9'],'variationLine');
         row(['ctrl','.','!then','1-9'],'cevalLine');
         row(['shift','.','!then','1-9'],'explorerLine');

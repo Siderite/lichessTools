@@ -25,6 +25,14 @@
       }
     }
 
+    isStandardGlyph=(glyph)=>{
+      if (!this.standardGlyphs) return glyph!='#';
+      for (const key in this.standardGlyphs) {
+        if (this.standardGlyphs[key].find(g=>g.symbol==glyph)) return true;
+      }
+      return false;
+    }
+
     drawGlyphsDirect=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -34,7 +42,7 @@
       let glyph=analysis.node.glyphs?.at(0)?.symbol;
       if (!glyph && parent.isMate(analysis.node)) glyph='#';
       if (!glyph) return;
-      if (!['#'].includes(glyph) || lichess.storage.get('analyse.show-move-annotation')==='false') {
+      if (this.isStandardGlyph(glyph) || lichess.storage.get('analyse.show-move-annotation')==='false') {
         const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
         analysis.chessground.setAutoShapes(shapes);
         return;
@@ -73,6 +81,9 @@
         const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
         analysis.chessground.setAutoShapes(shapes);
         return;
+      }
+      if (!this.standardGlyphs) {
+        this.standardGlyphs=JSON.parse(await lichessTools.net.fetch(lichess.assetUrl('glyphs.json')));
       }
       lichess.pubsub.on('redraw',this.drawGlyphs);
       if (study) {

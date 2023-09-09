@@ -353,13 +353,16 @@
 
 
     findGlyphNode=(color,symbol)=>{
+      if (typeof symbol === 'string') symbol=[symbol];
       const analysis=this.lichess?.analysis;
       if (!analysis) return;
       const state=this.traverse();
-      const arr=state.glyphs[symbol];
-      if (!arr?.length) return;
+      const arr=[].concat.apply([],symbol.map(s=>state.glyphs[s]).filter(a=>!!a?.length));
+      if (!arr.length) return;
+      arr.sort((n1,n2)=>n1.nodeIndex-n2.nodeIndex);
       const index=analysis.node.nodeIndex;
-      return arr.find(n=>n.ply%2===(color==='white'?1:0) && n.nodeIndex>index)||arr.find(n=>n.ply%2===(color==='white'?1:0));
+      const plyColor=color==='white'?1:0;
+      return arr.find(n=>n.ply%2===plyColor && n.nodeIndex>index)||arr.find(n=>n.ply%2===plyColor);
     };
 
     jumpToGlyphSymbol=(color,symbol)=>{
