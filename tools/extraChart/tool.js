@@ -148,7 +148,7 @@
                   });
                 } else if (withSupport) {
                   if (pc.toLowerCase()==='q') continue;
-                  if (&&isDiagonal&&pc.toLowerCase()==='b') continue;
+                  if (isDiagonal&&pc.toLowerCase()==='b') continue;
                   if (!isDiagonal&&pc.toLowerCase()==='r') continue;
                   if ((isForward&&pc.toLowerCase()==='p')||pc.toLowerCase()==='k') {
                     const ppc=this.onBoard(x+dx*(i+1),y+dy*(i+1)) && board[y+dy*(i+1)][x+dx*(i+1)];
