@@ -6,7 +6,7 @@
         name:'extraChart',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['material','principled','tension','smooth','gauge'],
+        possibleValues: ['material','principled','tension','potential','smooth','gauge'],
         defaultValue: 'material,principled,tension,smooth,gauge',
         advanced: true
       }
@@ -19,10 +19,12 @@
         'extraChart.material': 'Material',
         'extraChart.principled': 'Principled',
         'extraChart.tension': 'Max tension',
+        'extraChart.potential': 'Max potential',
         'extraChart.smooth': 'Chart smoothing',
         'extraChart.gauge': 'on Eval gauge',
         'chartInfoTitle':'LiChess Tools - extra charting',
-        'tensionLineTitle': 'Max tension'
+        'tensionLineTitle': 'Max tension',
+        'potentialLineTitle': 'Max potential'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -30,29 +32,33 @@
         'extraChart.material': 'Material',
         'extraChart.principled': 'Principial',
         'extraChart.tension': 'Tensiune maxim\u0103',
+        'extraChart.potential': 'Poten\u0163ial maxim',
         'extraChart.smooth': 'Netezire grafice',
         'extraChart.gauge': 'pe bara de Eval',
         'chartInfoTitle':'LiChess Tools - grafice \u00een plus',
-        'tensionLineTitle': 'Tensiune maxim\u0103'
+        'tensionLineTitle': 'Tensiune maxim\u0103',
+        'potentialLineTitle': 'Poten\u0163ial maxim'
       }
     }
 
     type='line';
 
+    pieceMaterial={
+      'k':0,
+      'q':900,
+      'r':500,
+      'b':310,
+      'n':300,
+      'p':100
+    };
+
+
     simple_material=(node,isTotal)=>{
-      const points={
-        'k':0,
-        'q':900,
-        'r':500,
-        'b':310,
-        'n':300,
-        'p':100
-      };
       let result=0;
       if (!node.fen) return result;
       const board=node.fen.split(' ')[0];
       for (const ch of board) {
-        const p=points[ch.toLowerCase()];
+        const p=this.pieceMaterial[ch.toLowerCase()];
         if (p) {
           const m=ch===ch.toUpperCase()?1:-1;
           result+=isTotal
@@ -101,9 +107,11 @@
 
     onBoard=(x,y)=>x>=0&&x<8&&y>=0&&y<8;
 
-    pieceTension=(ch,x,y,board,control,withSupport)=>{
+    pieceTension=(x,y,board,withSupport)=>{
+      const underAttack=[];
+      var ch=board[y][x];
+      if (!ch) return underAttack;
       const m=ch===ch.toUpperCase()?1:-1;
-      let underAttack=[];
       switch(ch.toLowerCase()) {
         case 'k':
           for (let dx=-1; dx<=1; dx++) {
@@ -115,6 +123,7 @@
               const pm=pc===pc.toUpperCase()?1:-1;
               if (m!=pm) {
                 underAttack.push({
+                  m:m,
                   sx:x,
                   sy:y,
                   spc:ch,
@@ -139,6 +148,7 @@
                 const pm=pc===pc.toUpperCase()?1:-1;
                 if (m!=pm) {
                   underAttack.push({
+                    m:m,
                     sx:x,
                     sy:y,
                     spc:ch,
@@ -156,6 +166,7 @@
                       const ppm=ppc===ppc.toUpperCase()?1:-1;
                       if (m!=ppm) {
                         underAttack.push({
+                          m:m,
                           sx:x,
                           sy:y,
                           spc:ch,
@@ -183,6 +194,7 @@
                 const pm=pc===pc.toUpperCase()?1:-1;
                 if (m!=pm) {
                   underAttack.push({
+                    m:m,
                     sx:x,
                     sy:y,
                     spc:ch,
@@ -199,6 +211,7 @@
                       const ppm=ppc===ppc.toUpperCase()?1:-1;
                       if (m!=ppm) {
                         underAttack.push({
+                          m:m,
                           sx:x,
                           sy:y,
                           spc:ch,
@@ -227,6 +240,7 @@
                 const pm=pc===pc.toUpperCase()?1:-1;
                 if (m!=pm) {
                   underAttack.push({
+                    m:m,
                     sx:x,
                     sy:y,
                     spc:ch,
@@ -243,6 +257,7 @@
                       const ppm=ppc===ppc.toUpperCase()?1:-1;
                       if (m!=ppm) {
                         underAttack.push({
+                          m:m,
                           sx:x,
                           sy:y,
                           spc:ch,
@@ -269,6 +284,7 @@
                   const pm=pc===pc.toUpperCase()?1:-1;
                   if (m!=pm) {
                     underAttack.push({
+                      m:m,
                       sx:x,
                       sy:y,
                       spc:ch,
@@ -285,6 +301,7 @@
                   const pm=pc===pc.toUpperCase()?1:-1;
                   if (m!=pm) {
                     underAttack.push({
+                      m:m,
                       sx:x,
                       sy:y,
                       spc:ch,
@@ -305,6 +322,7 @@
               const pm=pc===pc.toUpperCase()?1:-1;
               if (m!=pm) {
                 underAttack.push({
+                  m:m,
                   sx:x,
                   sy:y,
                   spc:ch,
@@ -316,6 +334,7 @@
             } else if (board.enpassant && board.enpassant.x==x-1 && board.enpassant.y==y-m) {
               const pm=-m;
               underAttack.push({
+                m:m,
                 sx:x,
                 sy:y,
                 spc:ch,
@@ -331,6 +350,7 @@
               const pm=pc===pc.toUpperCase()?1:-1;
               if (m!=pm) {
                 underAttack.push({
+                  m:m,
                   sx:x,
                   sy:y,
                   spc:ch,
@@ -342,6 +362,7 @@
             } else if (board.enpassant && board.enpassant.x==x+1 && board.enpassant.y==y-m) {
               const pm=-m;
               underAttack.push({
+                m:m,
                 sx:x,
                 sy:y,
                 spc:ch,
@@ -357,26 +378,58 @@
     };
 
     tension=node=>{
-      const points={
-        'k':0,
-        'q':900,
-        'r':500,
-        'b':310,
-        'n':300,
-        'p':100
-      };
       const board=this.getBoard(node.fen);
-      let underAttack=[];
+      const underAttack=[];
       for (let y=0; y<8; y++) {
         for (let x=0; x<8; x++) {
-          const ch=board[y][x];
-          if (!ch) continue;
-          const ua=this.pieceTension(ch,x,y,board,true);
+          const ua=this.pieceTension(x,y,board,true);
           underAttack.push.apply(underAttack,ua);
         }
       }
-      const result=[...new Set(underAttack.map(i=>i.x+','+i.y+'='+i.pc))].map(i=>i.split('=')[1].toLowerCase()).reduce((acc,val)=>points[val]+acc,0);
+      const result=[...new Set(underAttack.map(i=>i.x+','+i.y+'='+i.pc))].map(i=>i.split('=')[1].toLowerCase()).reduce((acc,val)=>this.pieceMaterial[val]+acc,0);
       return result;
+    };
+
+    getAllCapturingMoves=(board)=>{
+      const underAttack=[];
+      for (let y=0; y<8; y++) {
+        for (let x=0; x<8; x++) {
+          const ua=this.pieceTension(x,y,board,false);
+          underAttack.push.apply(underAttack,ua);
+        }
+      }
+      return underAttack;
+    };
+
+    materialWon=(board,x,y)=>{
+      const moves=this.getAllCapturingMoves(board)
+        .filter(m=>m.x==x&&m.y==y)
+        .sort((m1,m2)=>this.pieceMaterial[m1.spc]-this.pieceMaterial[m2.spc]);
+      if (!moves.length) return 0;
+      const ch=board[y][x];
+      const m=ch===ch.toUpperCase()?1:-1;
+      let result=this.pieceMaterial[ch.toLowerCase()]*-m; //capture piece
+      const move=moves[0];
+      board[y][x]=move.spc;
+      board[move.sy][move.sx]=null;
+      return result+this.materialWon(board,x,y);
+    };
+
+    maxMaterialWon=(board,m)=>{
+      let mx=0;
+      for (let y=0; y<8; y++) {
+        for (let x=0; x<8; x++) {
+          const ch=board[y][x];
+          if (!ch) continue; // no piece
+          const pm=ch===ch.toUpperCase()?1:-1;
+          if (pm==m) continue; // wrong turn
+          const mw=this.materialWon(board,x,y);
+          if (Math.sign(mw)==m && Math.abs(mw)>mx) {
+            mx=Math.abs(mw);
+          }
+        }
+      }
+      return mx*m;
     };
 
     smooth = (points)=>{
@@ -449,6 +502,23 @@
       return maxX;
     };
 
+    getMaxPotential = (mainline) => {
+      let maxM=-1000;
+      let maxX=0;
+      mainline
+        .slice(1)
+        .forEach((node,x) => {
+          const board=this.getBoard(node.fen);
+          const m=node.ply%2?-1:1;
+          const maxMaterial=Math.abs(this.maxMaterialWon(board,m));
+          if (maxM<maxMaterial) {
+            maxM=maxMaterial;
+            maxX=x;
+          }
+        });
+      return maxX;
+    };
+
     generateCharts=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -515,7 +585,25 @@
           value: x,
           label: {
             text:trans.noarg('tensionLineTitle'),
-            style: { color: '#707070' }
+            style: { color: '#A07070' }
+          }
+        });
+      }
+
+      const existingPotential = chart.xAxis[0].plotLinesAndBands.find(l=>l.id==='Potential');
+      if (existingPotential && !this.options.potential) chart.xAxis[0].removePlotLine('Potential');
+      if (!existingPotential && this.options.potential) {
+        const x=this.getMaxPotential(lichess.analysis.mainline);
+        chart.xAxis[0].addPlotLine({
+          id: 'Potential',
+          color: 'green',
+          dashStyle: 'dot',
+          zIndex: 3,
+          width: 2,
+          value: x,
+          label: {
+            text:trans.noarg('potentialLineTitle'),
+            style: { color: '#70A070' }
           }
         });
       }
@@ -567,6 +655,7 @@
         material:parent.isOptionSet(value,'material'),
         principled:parent.isOptionSet(value,'principled'),
         tension:parent.isOptionSet(value,'tension'),
+        potential:parent.isOptionSet(value,'potential'),
         smooth:parent.isOptionSet(value,'smooth'),
         gauge:parent.isOptionSet(value,'gauge')
       };
