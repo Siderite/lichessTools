@@ -8,8 +8,8 @@
         name:'explorerEval',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['ceval','stats'],
-        defaultValue: 'ceval',
+        possibleValues: ['ceval','db','stats'],
+        defaultValue: 'ceval,stats,db',
         advanced: true
       }
     ];
@@ -21,8 +21,11 @@
         'notAllowedByCSP': 'Lichess does not allow connection to chessdb',
         'explorerEval.ceval': 'From computer eval',
         'explorerEval.stats': 'From winning stats',
+        'explorerEval.db': 'From cloud',
         'fromCevalTitle': 'LiChess Tools - from computer eval',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
+        'fromChessDbTitle': 'LiChess Tools - from ChessDb',
+        'fromLichessTitle': 'LiChess Tools - from cloud',
         'evaluationTitle': 'LiChess Tools - move evaluation'
        },
       'ro-RO':{
@@ -31,8 +34,11 @@
         'notAllowedByCSP': 'Lichess nu permite conexiunea la chessdb',
         'explorerEval.ceval': 'Din evaluare computer',
         'explorerEval.stats': 'Din statistici',
+        'explorerEval.db': 'Din cloud',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer',
         'fromStatsTitle': 'LiChess Tools - din statistici',
+        'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
+        'fromLichessTitle': 'LiChess Tools - de la Lichess',
         'evaluationTitle': 'LiChess Tools - evaluare mutare'
       }
     }
@@ -68,8 +74,17 @@
         let title=null;
         if (move) {
           text=move.mate?('M'+move.mate):(Math.round(move.cp/10)/10);
-          title=trans.noarg('fromCevalTitle');
           rank=move.rank;
+          switch(rank) {
+            case null: title=trans.noarg('fromCevalTitle'); break;
+            case 1: 
+            case 2: 
+            case 3: 
+              title=trans.noarg('fromChessDbTitle'); 
+            break;
+            case 5: title=trans.noarg('fromLichessTitle'); break;
+          }
+          
           explorerItem.cp=move.cp;
           explorerItem.mate=move.mate;
         } else if (this.options.stats) {
@@ -93,7 +108,8 @@
           .toggleClass('lichessTools-stat',rank===-1)
           .toggleClass('lichessTools-bad',rank===0)
           .toggleClass('lichessTools-good',rank===1)
-          .toggleClass('lichessTools-best',rank===2);
+          .toggleClass('lichessTools-best',rank===2)
+          .toggleClass('lichessTools-cloud',rank===5);
       });
     }
 
@@ -106,6 +122,10 @@
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;
       let result = this.cache[fen];
+      if (result) {
+        this.showEvaluations(result);
+        return;
+      }
       if (this.CSP) {
         const ceval=analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval;
         const pvs=this.options.ceval
@@ -127,12 +147,49 @@
             };
             this.cache[fen]=result;
           }
+        } else if (this.options.db) {
+          const json=await parent.net.fetch({
+            url:'/api/cloud-eval?fen={fen}&multiPv=5',
+            args:{ fen: fen }
+          }).catch(e=>console.debug('Error getting cloud eval',e));
+          if (json) {
+            const obj=parent.global.JSON.parse(json);
+            result={
+              depth: obj.depth,
+              moves: obj.pvs?.map(m=>{
+                return {
+                  uci: m.moves?.split(' ')[0],
+                  cp: m.cp,
+                  mate: m.mate,
+                  rank: 5
+                };
+              })
+            };
+            if (result.depth) {
+              const json=await parent.net.fetch({
+                url:'/api/cloud-eval?fen={fen}&multiPv=10',
+                args:{ fen: fen }
+              }).catch(e=>console.debug('Error getting cloud eval',e));
+              if (json) {
+                const obj=parent.global.JSON.parse(json);
+                obj.pvs?.forEach(m=>{
+                  const uci=m.moves?.split(' ')[0];
+                  if (result.moves.find(rm=>rm.uci==uci)) return;
+                  result.moves.push({
+                    uci: uci,
+                    cp: m.cp,
+                    mate: m.mate,
+                    rank: 5
+                  });
+                });
+              }
+            }
+            if (result.depth) {
+              this.cache[fen]=result;
+            }
+          }
         }
-      } else {
-        if (result) {
-          this.showEvaluations(result);
-          return;
-        }
+      } else if (this.options.db) {
         const json=await parent.net.fetch({
           url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
           args:{ fen: fen }
@@ -149,7 +206,7 @@
             };
           })
         };
-        if (result) {
+        if (result.moves?.length) {
           this.cache[fen]=result;
         }
       }
@@ -205,6 +262,7 @@
       this.options={
         ceval: parent.isOptionSet(value,'ceval'),
         stats: parent.isOptionSet(value,'stats'),
+        db: parent.isOptionSet(value,'db'),
         get isSet() { return this.ceval || this.stats; }
       };
       const lichess=parent.lichess;
