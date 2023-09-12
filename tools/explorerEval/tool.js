@@ -151,6 +151,8 @@
           const json=await parent.net.fetch({
             url:'/api/cloud-eval?fen={fen}&multiPv=5',
             args:{ fen: fen }
+          },{
+            ignoreStatuses:[404]
           }).catch(e=>console.debug('Error getting cloud eval',e));
           if (json) {
             const obj=parent.global.JSON.parse(json);
@@ -169,6 +171,8 @@
               const json=await parent.net.fetch({
                 url:'/api/cloud-eval?fen={fen}&multiPv=10',
                 args:{ fen: fen }
+              },{
+                ignoreStatuses:[404]
               }).catch(e=>console.debug('Error getting cloud eval',e));
               if (json) {
                 const obj=parent.global.JSON.parse(json);
