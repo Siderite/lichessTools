@@ -49,3 +49,17 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
 body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-best {
     color: #80FF80;
 }
+
+body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
+  color:#1010CF;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system td.lichessTools-explorerEval.lichessTools-cloud {
+      color: #8080AF;
+  }
+}
+
+body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-cloud {
+    color: #8080AF;
+}
