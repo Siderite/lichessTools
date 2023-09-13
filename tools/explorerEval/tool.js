@@ -26,7 +26,8 @@
         'fromStatsTitle': 'LiChess Tools - from winning stats',
         'fromChessDbTitle': 'LiChess Tools - from ChessDb',
         'fromLichessTitle': 'LiChess Tools - from cloud',
-        'evaluationTitle': 'LiChess Tools - move evaluation'
+        'evaluationTitle': 'LiChess Tools - move evaluation',
+        'evalWarning': 'LiChess Tools - pay attention'
        },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -39,7 +40,8 @@
         'fromStatsTitle': 'LiChess Tools - din statistici',
         'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
         'fromLichessTitle': 'LiChess Tools - din cloud',
-        'evaluationTitle': 'LiChess Tools - evaluare mutare'
+        'evaluationTitle': 'LiChess Tools - evaluare mutare',
+        'evalWarning': 'LiChess Tools - aten\u0163ie'
       }
     }
 
@@ -72,6 +74,13 @@
         let text='';
         let rank=-1;
         let title=null;
+        const total=explorerItem.white+explorerItem.draws+explorerItem.black;
+        const wr=(explorerItem.white+explorerItem.draws/2)/total;
+        let cp = -Math.log(1/wr-1)*330
+        const isInfinite=!Number.isFinite(cp);
+        if (isInfinite) {
+          cp=Math.sign(cp)*10000;
+        }
         if (move) {
           text=move.mate?('M'+move.mate):(Math.round(move.cp/10)/10);
           rank=move.rank;
@@ -87,17 +96,17 @@
           
           explorerItem.cp=move.cp;
           explorerItem.mate=move.mate;
-        } else if (this.options.stats) {
-          const total=explorerItem.white+explorerItem.draws+explorerItem.black;
-          const wr=(explorerItem.white+explorerItem.draws/2)/total;
-          let cp = -Math.log(1/wr-1)*330
-          if (Number.isFinite(cp)) {
-            if (total>=100) {
-              title=trans.noarg('fromStatsTitle');
-              text=Math.round(cp/10)/10;
+
+          if (!isInfinite&&total>=100) {
+            const sim=Math.round(Math.abs(move.cp-cp)/(Math.abs(move.cp)+Math.abs(cp))*100);
+            if (sim>=20) {
+              explorerItem.diff=Math.abs(move.cp-cp);
             }
-          } else {
-            cp=Math.sign(cp)*10000;
+          }
+        } else if (this.options.stats) {
+          if (!isInfinite&&total>=100) {
+            title=trans.noarg('fromStatsTitle');
+            text=Math.round(cp/10)/10;
           }
           explorerItem.cp=cp;
           explorerItem.mate=undefined;
@@ -110,6 +119,15 @@
           .toggleClass('lichessTools-good',rank===1)
           .toggleClass('lichessTools-best',rank===2)
           .toggleClass('lichessTools-cloud',rank===5);
+        if (explorerItem.diff>200) {
+          $(e)
+            .addClass('lichessTools-warning')
+            .attr('title',trans.noarg('evalWarning'));
+        } else {
+          $(e)
+            .removeClass('lichessTools-warning')
+            .removeAttr('title');
+        }
       });
     }
 

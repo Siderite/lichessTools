@@ -67,3 +67,11 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
 body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-cloud {
     color: #8080AF;
 }
+
+body.lichessTools tr.lichessTools-warning:after {
+  content:'\26A0';
+  position: relative;
+  font-size: smaller;
+  margin-left: -1em;
+  color:gray;
+}
