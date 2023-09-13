@@ -122,32 +122,40 @@
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;
       let result = this.cache[fen];
-      if (result) {
-        this.showEvaluations(result);
-        return;
-      }
       if (this.CSP) {
         const ceval=analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval;
         const pvs=this.options.ceval
           ? ceval?.pvs
           : null;
         if (pvs) {
-          const prevDepth=+(result?.depth);
-          if (!(prevDepth>ceval.depth)) {
+          if (!result) {
             result={
-              depth: ceval.depth,
-              moves: pvs.map(p=>{
-                return {
-                  uci: p.moves?.at(0),
-                  cp: p.cp,
-                  mate: p.mate,
-                  rank: null
-                };
-              })
+              moves: []
             };
-            this.cache[fen]=result;
           }
+          pvs.forEach(p=>{
+            const uci=p.moves?.at(0);
+            const existingMove=result.moves.find(m=>m.uci==uci);
+            if (existingMove&&ceval.depth>existingMove.depth) {
+              existingMove.depth=ceval.depth;
+              existingMove.cp=p.cp;
+              existingMove.mate=p.mate;
+            } else {
+              result.moves.push({
+                depth: ceval.depth,
+                uci: uci,
+                cp: p.cp,
+                mate: p.mate,
+                rank: null
+              });
+            }
+          });
+          this.cache[fen]=result;
         } else if (this.options.db) {
+          if (result) {
+            this.showEvaluations(result);
+            return;
+          }
           const json=await parent.net.fetch({
             url:'/api/cloud-eval?fen={fen}&multiPv=5',
             args:{ fen: fen }
@@ -157,9 +165,9 @@
           if (json) {
             const obj=parent.global.JSON.parse(json);
             result={
-              depth: obj.depth,
-              moves: obj.pvs?.map(m=>{
+              moves: obj?.pvs?.map(m=>{
                 return {
+                  depth: obj.depth,
                   uci: m.moves?.split(' ')[0],
                   cp: m.cp,
                   mate: m.mate,
@@ -167,7 +175,7 @@
                 };
               })
             };
-            if (result.depth) {
+            if (result.moves) {
               const json=await parent.net.fetch({
                 url:'/api/cloud-eval?fen={fen}&multiPv=10',
                 args:{ fen: fen }
@@ -180,6 +188,7 @@
                   const uci=m.moves?.split(' ')[0];
                   if (result.moves.find(rm=>rm.uci==uci)) return;
                   result.moves.push({
+                    depth: obj.depth,
                     uci: uci,
                     cp: m.cp,
                     mate: m.mate,
@@ -188,21 +197,25 @@
                 });
               }
             }
-            if (result.depth) {
+            if (result.moves) {
               this.cache[fen]=result;
             }
           }
         }
       } else if (this.options.db) {
+        if (result) {
+          this.showEvaluations(result);
+          return;
+        }
         const json=await parent.net.fetch({
           url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
           args:{ fen: fen }
         });
         const obj=parent.global.JSON.parse(json);
         result={
-          depth: 50, //assumed
           moves: obj.moves?.map(m=>{
             return {
+              depth: 50, //assumed
               uci: m.uci,
               cp: m.winrate?whosMove*m.score:null,
               mate:m.winrate?null:whosMove*Math.sign(m.score)*(30000-Math.abs(m.score)),
