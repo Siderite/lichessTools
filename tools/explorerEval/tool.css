@@ -1,3 +1,7 @@
+body.lichessTools th.lichessTools-explorerEval {
+  text-align:center;
+}
+
 body.lichessTools td.lichessTools-explorerEval {
   font-size:smaller;
 }
