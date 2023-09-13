@@ -9,7 +9,7 @@
         category: 'analysis',
         type:'multiple',
         possibleValues: ['ceval','db','stats'],
-        defaultValue: 'ceval,stats,db',
+        defaultValue: 'ceval,db',
         advanced: true
       }
     ];
@@ -38,7 +38,7 @@
         'fromCevalTitle': 'LiChess Tools - din evaluare computer',
         'fromStatsTitle': 'LiChess Tools - din statistici',
         'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
-        'fromLichessTitle': 'LiChess Tools - de la Lichess',
+        'fromLichessTitle': 'LiChess Tools - din cloud',
         'evaluationTitle': 'LiChess Tools - evaluare mutare'
       }
     }
@@ -267,7 +267,7 @@
         ceval: parent.isOptionSet(value,'ceval'),
         stats: parent.isOptionSet(value,'stats'),
         db: parent.isOptionSet(value,'db'),
-        get isSet() { return this.ceval || this.stats; }
+        get isSet() { return this.ceval || this.db || this.stats; }
       };
       const lichess=parent.lichess;
       const $=parent.$;
@@ -277,6 +277,7 @@
       lichess.pubsub.off('redraw',this.rebind);
       $(parent.global.document).off('securitypolicyviolation',this.secCheck)
       if (!this.options.isSet) return;
+      this.cache={};
       $(parent.global.document).on('securitypolicyviolation',this.secCheck);
       lichess.pubsub.on('redraw',this.rebind);
       this.rebind();
