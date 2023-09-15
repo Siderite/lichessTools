@@ -301,7 +301,8 @@
       const $=parent.$;
       const dict = {};
       $('.user-link,a[href^="/@/"]').each((i,e)=> {
-        if ($(e).closest('#friend_box,.lichessTools-onlineFriends').length) return;
+        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members').length) return;
+
         let textEl = $('a.text',e);
         if (!textEl.length) textEl=$(e);
         if (textEl.is('.lichessTools-noflag,.lichessTools-flag')) return;

@@ -26,6 +26,8 @@
     }
 
     isStandardGlyph=(glyph)=>{
+      return ['!','?','!!','??','?!','!?'].includes(glyph);
+      //TODO remove line above when glyph display is done on lichess side
       if (!this.standardGlyphs) return glyph!='#';
       for (const key in this.standardGlyphs) {
         if (this.standardGlyphs[key].find(g=>g.symbol==glyph)) return true;

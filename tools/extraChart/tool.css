@@ -47,5 +47,15 @@ body.lichessTools tick.lichessTools-principled {
 }
 
 body.lichessTools div.symbol.lichessTools-goodMoves {
-  color: #ea45d8;
+  color: #009914;
+}
+
+body.lichessTools.dark div.symbol.lichessTools-goodMoves {
+  color: #168226;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system div.symbol.lichessTools-goodMoves {
+    color: #168226;
+  }
 }

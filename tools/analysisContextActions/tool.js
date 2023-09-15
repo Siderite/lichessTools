@@ -8,8 +8,8 @@
         name:'analysisContextActions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['copyPgn','moveEval','showTranspos'],
-        defaultValue: 'copyPgn,moveEval'
+        possibleValues: ['copyPgn','moveEval','showTranspos','removeSuperfluous'],
+        defaultValue: 'copyPgn,moveEval,removeSuperfluous'
       }
     ];
 
@@ -20,6 +20,7 @@
         'analysisContextActions.copyPgn': 'Copy branch as PGN',
         'analysisContextActions.moveEval': 'Engine evaluation for last moves',
         'analysisContextActions.showTranspos': 'Highlight all transpositions',
+        'analysisContextActions.removeSuperfluous': 'Remove superfluous entries',
         'extractVariationText': 'Copy branch as PGN',
         'extractVariationTitle': 'LiChess Tools - copy branch and continuations to clipboard',
         'errorGeneratingPGN': 'Error generating PGN',
@@ -39,6 +40,7 @@
         'analysisContextActions.copyPgn': 'Copiaz\u0103 varia\u0163iunea ca PGN',
         'analysisContextActions.moveEval': 'Evaluare mut\u0103ri finale',
         'analysisContextActions.showTranspos': 'Arat\u0103 toate transpozi\u0163iile',
+        'analysisContextActions.removeSuperfluous': 'Elimin\u0103 ce e \u00een plus',
         'extractVariationText': 'Copiaz\u0103 varia\u0163iunea ca PGN',
         'extractVariationTitle': 'LiChess Tools - copiaz\u0103 varia\u0163iunea \u015Fi continu\u0163rile ca PGN',
         'errorGeneratingPGN': 'Eroare generare PGN',
@@ -397,6 +399,10 @@
           .on('click',this.showTranspos)
           .appendTo(menu);
       }
+
+      if (this.options.removeSuperfluous) {
+        $('a[data-icon="\uE056"],a.glyph-icon',menu).remove();
+      }
     }
 
     checkEngineLevel=()=>{
@@ -438,7 +444,8 @@
         copyPgn:parent.isOptionSet(value,'copyPgn'),
         moveEval:parent.isOptionSet(value,'moveEval'),
         showTranspos:parent.isOptionSet(value,'showTranspos'),
-        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos; }
+        removeSuperfluous:parent.isOptionSet(value,'removeSuperfluous'),
+        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous; }
       };
       clearInterval(this.engineCheckInterval);
       lichess.pubsub.off('redraw',this.analysisContextMenu);

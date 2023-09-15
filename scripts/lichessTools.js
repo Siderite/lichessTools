@@ -512,10 +512,11 @@
         }
         if (this.slowMode) await this.lichessTools.timeout(1000);
         const response=await this.lichessTools.global.fetch(url,options);
+        const status=+(response.status);
+        if (options?.ignoreStatuses?.includes(status)) return null;
         if (!response.ok) {
           this.lichessTools.global.console.warn('fetch: '+url+': ['+response.type+'] '+response.status+' ('+response.statusText+')');
         }
-        const status=+(response.status);
         if (status>=400) {
           if (status==429) {
             console.debug('429 received!');

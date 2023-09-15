@@ -8,8 +8,8 @@
         name:'explorerEval',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['ceval','stats'],
-        defaultValue: 'ceval',
+        possibleValues: ['ceval','db','stats'],
+        defaultValue: 'ceval,db',
         advanced: true
       }
     ];
@@ -21,9 +21,13 @@
         'notAllowedByCSP': 'Lichess does not allow connection to chessdb',
         'explorerEval.ceval': 'From computer eval',
         'explorerEval.stats': 'From winning stats',
+        'explorerEval.db': 'From cloud',
         'fromCevalTitle': 'LiChess Tools - from computer eval',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
-        'evaluationTitle': 'LiChess Tools - move evaluation'
+        'fromChessDbTitle': 'LiChess Tools - from ChessDb',
+        'fromLichessTitle': 'LiChess Tools - from cloud',
+        'evaluationTitle': 'LiChess Tools - move evaluation',
+        'evalWarning': 'LiChess Tools - pay attention'
        },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -31,9 +35,13 @@
         'notAllowedByCSP': 'Lichess nu permite conexiunea la chessdb',
         'explorerEval.ceval': 'Din evaluare computer',
         'explorerEval.stats': 'Din statistici',
+        'explorerEval.db': 'Din cloud',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer',
         'fromStatsTitle': 'LiChess Tools - din statistici',
-        'evaluationTitle': 'LiChess Tools - evaluare mutare'
+        'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
+        'fromLichessTitle': 'LiChess Tools - din cloud',
+        'evaluationTitle': 'LiChess Tools - evaluare mutare',
+        'evalWarning': 'LiChess Tools - aten\u0163ie'
       }
     }
 
@@ -49,7 +57,7 @@
       if ($('th',container).length==3) {
         $('<th>')
             .addClass('lichessTools-explorerEval')
-            .text('E')
+            .text('\u2924')
             .attr('title',trans.noarg('evaluationTitle'))
             .insertAfter($('th:nth-child(1)',container));
       }
@@ -66,23 +74,40 @@
         let text='';
         let rank=-1;
         let title=null;
+        const total=explorerItem.white+explorerItem.draws+explorerItem.black;
+        const wr=(explorerItem.white+explorerItem.draws/2)/total;
+        let cp = -Math.log(1/wr-1)*330
+        const isInfinite=!Number.isFinite(cp);
+        if (isInfinite) {
+          cp=Math.sign(cp)*10000;
+        }
         if (move) {
           text=move.mate?('M'+move.mate):(Math.round(move.cp/10)/10);
-          title=trans.noarg('fromCevalTitle');
           rank=move.rank;
+          switch(rank) {
+            case null: title=trans.noarg('fromCevalTitle'); break;
+            case 1: 
+            case 2: 
+            case 3: 
+              title=trans.noarg('fromChessDbTitle'); 
+            break;
+            case 5: title=trans.noarg('fromLichessTitle'); break;
+          }
+          
           explorerItem.cp=move.cp;
           explorerItem.mate=move.mate;
-        } else if (this.options.stats) {
-          const total=explorerItem.white+explorerItem.draws+explorerItem.black;
-          const wr=(explorerItem.white+explorerItem.draws/2)/total;
-          let cp = -Math.log(1/wr-1)*330
-          if (Number.isFinite(cp)) {
-            if (total>=100) {
-              title=trans.noarg('fromStatsTitle');
-              text=Math.round(cp/10)/10;
+
+          if (total>=100) {
+            const moveCp=move.mate?Math.sign(move.mate)*(10000-Math.abs(move.mate)*100):move.cp;
+            const sim=Math.round(Math.abs(moveCp-cp)/(Math.abs(moveCp)+Math.abs(cp))*100);
+            if (sim>=20) {
+              explorerItem.diff=Math.abs(moveCp-cp);
             }
-          } else {
-            cp=Math.sign(cp)*10000;
+          }
+        } else if (this.options.stats) {
+          if (!isInfinite&&total>=100) {
+            title=trans.noarg('fromStatsTitle');
+            text=Math.round(cp/10)/10;
           }
           explorerItem.cp=cp;
           explorerItem.mate=undefined;
@@ -93,7 +118,17 @@
           .toggleClass('lichessTools-stat',rank===-1)
           .toggleClass('lichessTools-bad',rank===0)
           .toggleClass('lichessTools-good',rank===1)
-          .toggleClass('lichessTools-best',rank===2);
+          .toggleClass('lichessTools-best',rank===2)
+          .toggleClass('lichessTools-cloud',rank===5);
+        if (explorerItem.diff>200) {
+          $(e)
+            .addClass('lichessTools-warning')
+            .attr('title',trans.noarg('evalWarning'));
+        } else {
+          $(e)
+            .removeClass('lichessTools-warning')
+            .removeAttr('title');
+        }
       });
     }
 
@@ -105,53 +140,108 @@
       const analysis=lichess?.analysis;
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;
-      let result = this.cache[fen];
-      if (this.CSP) {
-        const ceval=analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval;
-        const pvs=this.options.ceval
-          ? ceval?.pvs
-          : null;
-        if (pvs) {
-          const prevDepth=+(result?.depth);
-          if (!(prevDepth>ceval.depth)) {
-            result={
-              depth: ceval.depth,
-              moves: pvs.map(p=>{
-                return {
-                  uci: p.moves?.at(0),
-                  cp: p.cp,
-                  mate: p.mate,
-                  rank: null
-                };
-              })
-            };
-            this.cache[fen]=result;
+      const result = this.cache[fen] || { moves: [] };
+      let newMoves=[];
+      if (this.options.db && !result.moves?.length) {
+        if (this.CSP) {
+          const json=await parent.net.fetch({
+            url:'/api/cloud-eval?fen={fen}&multiPv=5',
+            args:{ fen: fen }
+          },{
+            ignoreStatuses:[404]
+          }).catch(e=>console.debug('Error getting cloud eval',e));
+          if (json) {
+            const obj=parent.global.JSON.parse(json);
+            newMoves=obj?.pvs?.map(m=>{
+              return {
+                depth: obj.depth,
+                uci: m.moves?.split(' ')[0],
+                cp: m.cp,
+                mate: m.mate,
+                rank: 5
+              };
+            });
+            if (newMoves?.length) {
+              const json=await parent.net.fetch({
+                url:'/api/cloud-eval?fen={fen}&multiPv=10',
+                args:{ fen: fen }
+              },{
+                ignoreStatuses:[404]
+              }).catch(e=>console.debug('Error getting cloud eval',e));
+              if (json) {
+                const obj=parent.global.JSON.parse(json);
+                obj.pvs?.forEach(m=>{
+                  const uci=m.moves?.split(' ')[0];
+                  if (newMoves.find(nm=>nm.uci==uci)) return;
+                  newMoves.push({
+                    depth: obj.depth,
+                    uci: uci,
+                    cp: m.cp,
+                    mate: m.mate,
+                    rank: 5
+                  });
+                });
+              }
+            }
           }
-        }
-      } else {
-        if (result) {
-          this.showEvaluations(result);
-          return;
-        }
-        const json=await parent.net.fetch({
-          url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
-          args:{ fen: fen }
-        });
-        const obj=parent.global.JSON.parse(json);
-        result={
-          depth: 50, //assumed
-          moves: obj.moves?.map(m=>{
+        } else {
+          const json=await parent.net.fetch({
+            url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
+            args:{ fen: fen }
+          }).catch(e=>console.debug('Error getting cloud eval',e));
+          const obj=parent.global.JSON.parse(json);
+          newMoves=obj.moves?.map(m=>{
             return {
+              depth: 50, //assumed
               uci: m.uci,
               cp: m.winrate?whosMove*m.score:null,
               mate:m.winrate?null:whosMove*Math.sign(m.score)*(30000-Math.abs(m.score)),
               rank: m.rank
             };
-          })
-        };
-        if (result) {
-          this.cache[fen]=result;
+          });
         }
+        if (newMoves?.length) {
+          newMoves.forEach(nm=>{
+            const uci=nm.moves?.at(0);
+            const existingMove=result.moves.find(m=>m.uci==uci);
+            if (existingMove) {
+              if (nm.depth>existingMove.depth) {
+                existingMove.depth=nm.depth;
+                existingMove.cp=nm.cp;
+                existingMove.mate=nm.mate;
+              }
+            } else {
+              result.moves.push(nm);
+            }
+          });
+        }
+      }
+      const ceval=analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval;
+      const pvs=this.options.ceval
+        ? ceval?.pvs
+        : null;
+      if (pvs?.length) {
+        pvs.forEach(p=>{
+          const uci=p.moves?.at(0);
+          const existingMove=result.moves.find(m=>m.uci==uci);
+          if (existingMove&&ceval.depth>existingMove.depth) {
+            existingMove.depth=ceval.depth;
+            existingMove.cp=p.cp;
+            existingMove.mate=p.mate;
+            existingMove.rank=null;
+          } else {
+            result.moves.push({
+              depth: ceval.depth,
+              uci: uci,
+              cp: p.cp,
+              mate: p.mate,
+              rank: null
+            });
+          }
+        });
+      }
+      if (result.moves?.length) {
+        this.cache[fen]=result;
       }
       this.showEvaluations(result);
     };
@@ -205,7 +295,8 @@
       this.options={
         ceval: parent.isOptionSet(value,'ceval'),
         stats: parent.isOptionSet(value,'stats'),
-        get isSet() { return this.ceval || this.stats; }
+        db: parent.isOptionSet(value,'db'),
+        get isSet() { return this.ceval || this.db || this.stats; }
       };
       const lichess=parent.lichess;
       const $=parent.$;
@@ -215,6 +306,7 @@
       lichess.pubsub.off('redraw',this.rebind);
       $(parent.global.document).off('securitypolicyviolation',this.secCheck)
       if (!this.options.isSet) return;
+      this.cache={};
       $(parent.global.document).on('securitypolicyviolation',this.secCheck);
       lichess.pubsub.on('redraw',this.rebind);
       this.rebind();
