@@ -97,10 +97,11 @@
           explorerItem.cp=move.cp;
           explorerItem.mate=move.mate;
 
-          if (!isInfinite&&total>=100) {
-            const sim=Math.round(Math.abs(move.cp-cp)/(Math.abs(move.cp)+Math.abs(cp))*100);
+          if (total>=100) {
+            const moveCp=move.mate?Math.sign(move.mate)*(10000-Math.abs(move.mate)*100):move.cp;
+            const sim=Math.round(Math.abs(moveCp-cp)/(Math.abs(moveCp)+Math.abs(cp))*100);
             if (sim>=20) {
-              explorerItem.diff=Math.abs(move.cp-cp);
+              explorerItem.diff=Math.abs(moveCp-cp);
             }
           }
         } else if (this.options.stats) {
@@ -187,7 +188,7 @@
           const json=await parent.net.fetch({
             url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
             args:{ fen: fen }
-          });
+          }).catch(e=>console.debug('Error getting cloud eval',e));
           const obj=parent.global.JSON.parse(json);
           newMoves=obj.moves?.map(m=>{
             return {

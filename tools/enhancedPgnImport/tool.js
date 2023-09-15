@@ -164,7 +164,6 @@
               $this.explorer.reload()
               $this.redraw();
             } else {
-              //parent.global.console.debug('Returning data from the first PGN in the input');
               data=pgns[0];
             }
           } catch(ex){
