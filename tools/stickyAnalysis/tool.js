@@ -17,15 +17,11 @@
     intl={
       'en-US':{
         'options.analysis': 'Analysis',
-        'options.stickyAnalysis': 'Autosave analysis for reload',
-        'reloadPgnText':'Reload PGN',
-        'reloadPgnTitle':'LiChess Tools - Reload PGN'
+        'options.stickyAnalysis': 'Autosave analysis for reload'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
-        'options.stickyAnalysis': 'Salveaz\u0103 automat analiza pentru re\u00eencarcare',
-        'reloadPgnText':'Re\u00eencarc\u0103 PGN',
-        'reloadPgnTitle':'LiChess Tools - Re\u00eencarc\u0103 PGN'
+        'options.stickyAnalysis': 'Salveaz\u0103 automat analiza pentru re\u00eencarcare'
       }
     }
 
@@ -45,7 +41,6 @@
         parent.saveOptions(parent.currentOptions);
       }
       this.prevPgn=pgn;
-      $('div.analyse__underboard .pgn .lichessTools-reloadPGN').toggle(!!pgn);
     }
 
     retrievePgn=()=> {
@@ -66,23 +61,12 @@
       if (!analysis) return;
       if (analysis.study) return;
       const trans=parent.translator;
-      $('div.analyse__underboard .pgn .lichessTools-reloadPGN').remove();
       lichess.pubsub.off('redraw',this.saveAnalysisPgn);
       if (!value) return;
       lichess.pubsub.on('redraw',this.saveAnalysisPgn);
-      const text=trans.noarg('reloadPgnText');
-      const title=trans.noarg('reloadPgnTitle');
-      const reloadPgnButton = $('<button class="button button-thin action text" data-icon="&#xE043;">')
-        .hide()
-        .addClass('lichessTools-reloadPGN')
-        .text(text)
-        .attr('title',title)
-        .on('click',this.retrievePgn)
-        .insertBefore('div.analyse__underboard .pgn button[data-icon="\uE03A"]');
       const savedPgn=parent.currentOptions.getValue('prevAnalysis');
       if (savedPgn) {
         if (analysis.tree.root.children?.length==0) this.retrievePgn();
-        reloadPgnButton.show();
       }
     }
 
