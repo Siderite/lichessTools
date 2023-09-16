@@ -43,7 +43,7 @@
         if (studyName&&text.startsWith(studyName+':')) {
           text=text.slice(studyName.length+1).trim();
         }
-        const eventButton=$('<button class="button button-empty">')
+        const eventButton=$('<button type="button" class="button button-empty">')
           .addClass('lichessTools-changeNameButton')
           .text(trans.pluralSame('changeNameToText',text))
           .attr('title',trans.noarg('changeNameToTitle'))

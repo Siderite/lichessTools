@@ -161,7 +161,7 @@
       const whosMove=analysis.node.ply%2?-1:1;
       const result = this.cache[fen] || { moves: [] };
       let newMoves=[];
-      if (this.options.db && !result.moves?.length) {
+      if (this.options.db && !parent.net.slowMode && !result.moves?.length) {
         if (this.CSP) {
           let obj=await this.jsonWith404({
             url:'/api/cloud-eval?fen={fen}&multiPv=5',
