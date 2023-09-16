@@ -77,7 +77,9 @@
       lichess.pubsub.off('redraw',this.drawGlyphs);
       parent.global.clearInterval(this.interval);
       if (study) {
-        study.glyphForm.toggleGlyph=parent.unwrapFunction(study.glyphForm?.toggleGlyph,'additionalGlyphs');
+        if (lichess.socket) {
+          lichess.socket.handle=parent.unwrapFunction(lichess.socket.handle,'additionalGlyphs');
+        }
       }
       if (!value) {
         const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
@@ -89,10 +91,14 @@
       }
       lichess.pubsub.on('redraw',this.drawGlyphs);
       if (study) {
-        study.glyphForm.toggleGlyph=parent.wrapFunction(study.glyphForm.toggleGlyph,{
-          id:'additionalGlyphs',
-          after:this.drawGlyphs
-        });
+        if (lichess.socket) {
+          lichess.socket.handle=parent.wrapFunction(lichess.socket.handle,{
+            id:'additionalGlyphs',
+            after:($this,result,m)=>{
+              if (m.t=='glyphs') this.drawGlyphs();
+            }
+          });
+        }
       }
       this.interval=parent.global.setInterval(()=>{
         const autoShapes=parent.global.JSON.stringify(analysis.chessground?.state.drawable.autoShapes);
