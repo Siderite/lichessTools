@@ -56,7 +56,7 @@
       }
       if (white?.trim()&&black?.trim()) {
         const text=white+' - '+black;
-        const namesButton=$('<button class="button button-empty">')
+        const namesButton=$('<button type="button" class="button button-empty">')
           .addClass('lichessTools-changeNameButton')
           .text(trans.pluralSame('changeNameToText',text))
           .attr('title',trans.noarg('changeNameToTitle'))
