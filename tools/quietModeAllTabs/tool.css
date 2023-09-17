@@ -1,0 +1,8 @@
+body.lichessTools a.lichessTools-quietMode:before {
+  display:inline-block;
+}
+
+body.lichessTools a.lichessTools-quietMode.lichessTools-forcedQuietMode:before {
+  transform: rotate(45deg);
+  opacity: 0.3;
+}

@@ -15,46 +15,103 @@
     intl={
       'en-US':{
         'options.play': 'Play',
-        'options.quietModeAllTabs': 'Quiet mode on all tabs'
+        'options.quietModeAllTabs': 'Quiet mode on all tabs',
+        'quietModeDisableText':'Disable quiet mode',
+        'quietModeEnableText':'Enable quiet mode',
+        'quietModeDisableTitle':'LiChess Tools - disable quiet mode',
+        'quietModeEnableTitle':'LiChess Tools - enable quiet mode'
       },
       'ro-RO':{
         'options.play': 'Joc',
-        'options.quietModeAllTabs': 'Mod silen\u0163ios \u00een toate taburile'
+        'options.quietModeAllTabs': 'Mod silen\u0163ios \u00een toate taburile',
+        'quietModeDisableText':'Opre\u015Fte mod silen\u0163ios',
+        'quietModeEnableText':'Porne\u015Fte mod silen\u0163ios',
+        'quietModeDisableTitle':'LiChess Tools - opre\u015Fte mod silen\u0163ios',
+        'quietModeEnableTitle':'LiChess Tools - porne\u015Fte mod silen\u0163ios'
       }
     }
+
+    addQuietModeMenu=(isOpening)=>{
+      if (!isOpening) return;
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+      const container=$('div.site-buttons div.dasher #dasher_app div.links');
+      if (this.options.enabled) {
+        if (!container.children().length) {
+          parent.global.setTimeout(()=>this.addQuietModeMenu(isOpening),500);
+          return;
+        }
+        let elem=$('a.lichessTools-quietMode',container);
+        if (!elem.length) {
+          elem=$('<a class="text lichessTools-quietMode">')
+            .attr('data-icon','\uE00F')
+            .on('click',ev=>{
+              ev.preventDefault();
+              lichess.forcedQuietMode=!lichess.quietMode;
+              if (lichess.quietMode && !lichess.forcedQuietMode) lichess.quietMode=false;
+              this.addQuietModeMenu(true);
+            })
+            .appendTo(container);
+        }
+        const text=lichess.quietMode
+          ? trans.noarg('quietModeDisableText')
+          : trans.noarg('quietModeEnableText');
+        const title=lichess.quietMode
+          ? trans.noarg('quietModeDisableTitle')
+          : trans.noarg('quietModeEnableTitle');
+        elem
+          .text(text)
+          .attr('title',title)
+          .toggleClass('lichessTools-forcedQuietMode',!!lichess.quietMode);
+      } else {
+        $('a.lichessTools-quietMode',container).remove();
+      }
+    };
 
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('quietModeAllTabs');
       this.logOption('Quiet mode all tabs', value);
+      this.options={
+        enabled:value
+      };
       const lichess=parent.lichess;
-      let quietMode=lichess.quietMode;
-      if (quietMode) {
-        parent.global.setTimeout(()=>{
-          console.debug('Firing quiet mode event'); 
-          lichess.storage.fire('lichessTools.quietMode','true');
-        },500);
-      }
-      delete lichess.quietMode;
-      lichess.quietMode=!!quietMode;
-      this.quietModeHandler?.remove();
+      const descriptor=Object.getOwnPropertyDescriptor(lichess,'quietMode');
+      const isProperty=descriptor?.get && descriptor?.set;
+      lichess.pubsub.off('dasher.toggle',this.addQuietModeMenu);
       if (!value) {
+        if (isProperty) {
+          delete lichess.quietMode;
+          delete lichess.forcedQuietMode;
+          lichess.quietMode=false;
+        }
         return;
       }
-      this.quietModeHandler=lichess.storage.make('lichessTools.quietMode').listen((ev) => {
-        console.debug('Event quiet mode to ',ev.value); 
-        quietMode=ev.value=='true';
-      });
-      Object.defineProperty(lichess,'quietMode',{
-        get: ()=>quietMode,
-        set: val=>{ 
-          console.debug('Setting quiet mode to ',val); 
-          quietMode=val;
-          lichess.storage.fire('lichessTools.quietMode',`${!!val}`);
-        }
-      });
+      lichess.pubsub.on('dasher.toggle',this.addQuietModeMenu);
+      if (!isProperty) {
+        const quietMode=lichess.quietMode;
+        Object.defineProperty(lichess,'forcedQuietMode',{
+          get: function () {
+            return this.storage.get('LichessTools.forcedQuietMode')=='true';
+          },
+          set: function (val) { 
+            this.storage.set('LichessTools.forcedQuietMode',`${!!val}`);
+          }
+        });
+        Object.defineProperty(lichess,'quietMode',{
+          get: function () {
+            if (this.forcedQuietMode) return true;
+            return this.storage.get('LichessTools.quietMode')=='true';
+          },
+          set: function(val) { 
+            this.storage.set('LichessTools.quietMode',`${!!val}`);
+          }
+        });
+        if (quietMode) lichess.quietMode=true;
+      }
     }
-
   }
   LiChessTools.Tools.QuietModeAllTabs=QuietModeAllTabsTool;
 })();

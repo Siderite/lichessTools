@@ -85,6 +85,7 @@
 
         "tools/detectThirdParties/tool.css",
 
+        "tools/quietModeAllTabs/tool.css",
         "tools/friendsList/tool.css",
         "tools/preferences/tool.css",
         "tools/friendsPlaying/tool.css",
