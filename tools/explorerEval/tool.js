@@ -157,6 +157,8 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;
+      const explorerMoves = analysis.explorer?.current()?.moves;
+      if (!explorerMoves?.length) return;
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;
       const result = this.cache[fen] || { moves: [] };
@@ -177,7 +179,7 @@
                 rank: 5
               };
             });
-            if (newMoves?.length) {
+            if (newMoves?.length && !parent.net.slowMode) {
               obj=await this.jsonWith404({
                 url:'/api/cloud-eval?fen={fen}&multiPv=10',
                 args:{ fen: fen }

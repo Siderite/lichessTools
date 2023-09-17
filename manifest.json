@@ -35,6 +35,7 @@
         "tools/themes/tool.js",
         "tools/detectThirdParties/tool.js",
 
+        "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",
         "tools/friendsList/tool.js",
         "tools/friendsPlaying/tool.js",
