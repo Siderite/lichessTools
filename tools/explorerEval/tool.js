@@ -54,7 +54,7 @@
       const analysis=lichess?.analysis;
       const container=$('section.explorer-box table.moves');
       if (!container.length) return;
-      if ($('th',container).length==3) {
+      if (!$('th.lichessTools-explorerEval',container).length) {
         $('<th>')
             .addClass('lichessTools-explorerEval')
             .text('\u2924')
@@ -62,7 +62,7 @@
             .insertAfter($('th:nth-child(1)',container));
       }
       $('tr[data-uci],tr.sum',container).each((i,e)=>{
-        if ($('td',e).length==4) {
+        if (!$('td.lichessTools-explorerEval',e).length) {
           $('<td>')
             .addClass('lichessTools-explorerEval')
             .insertAfter($('td:nth-child(1)',e));
