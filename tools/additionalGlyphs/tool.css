@@ -31,3 +31,7 @@ body.lichessTools.mobile svg.cg-custom-svgs g.lichessTools-emoticon text {
 body.lichessTools.mobile svg.cg-custom-svgs g[cgHash] > text {
   font-size: 0.025em;
 }
+
+body.lichessTools.mobile svg.cg-custom-svgs>g>g * {
+  scale:1.3;
+}

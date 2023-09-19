@@ -132,27 +132,45 @@
       });
     }
 
+    jsonWith404=async (url,options)=>{
+      const parent=this.lichessTools;
+      const key=parent.global.JSON.stringify(url);
+      let result = this.cache[key];
+      if (result!==undefined) return result;
+      options=options||{};
+      options.ignoreStatuses=[404];
+      try {
+        const json = await parent.net.fetch(url,options);
+        result=json
+          ? parent.global.JSON.parse(json)
+          : null;
+        this.cache[key]=result;
+      } catch(e) {
+        parent.global.console.debug('Error fetching 404 JSON API',url,e);
+      }
+      return result;
+    };
+
     cache={};
     doEvaluation=async ()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;
+      const explorerMoves = analysis.explorer?.current()?.moves;
+      if (!explorerMoves?.length) return;
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;
       const result = this.cache[fen] || { moves: [] };
       let newMoves=[];
-      if (this.options.db && !result.moves?.length) {
+      if (this.options.db && !parent.net.slowMode && !result.moves?.length) {
         if (this.CSP) {
-          const json=await parent.net.fetch({
+          let obj=await this.jsonWith404({
             url:'/api/cloud-eval?fen={fen}&multiPv=5',
             args:{ fen: fen }
-          },{
-            ignoreStatuses:[404]
-          }).catch(e=>console.debug('Error getting cloud eval',e));
-          if (json) {
-            const obj=parent.global.JSON.parse(json);
-            newMoves=obj?.pvs?.map(m=>{
+          });
+          if (obj) {
+            newMoves=obj.pvs?.map(m=>{
               return {
                 depth: obj.depth,
                 uci: m.moves?.split(' ')[0],
@@ -161,15 +179,12 @@
                 rank: 5
               };
             });
-            if (newMoves?.length) {
-              const json=await parent.net.fetch({
+            if (newMoves?.length && !parent.net.slowMode) {
+              obj=await this.jsonWith404({
                 url:'/api/cloud-eval?fen={fen}&multiPv=10',
                 args:{ fen: fen }
-              },{
-                ignoreStatuses:[404]
-              }).catch(e=>console.debug('Error getting cloud eval',e));
-              if (json) {
-                const obj=parent.global.JSON.parse(json);
+              });
+              if (obj) {
                 obj.pvs?.forEach(m=>{
                   const uci=m.moves?.split(' ')[0];
                   if (newMoves.find(nm=>nm.uci==uci)) return;
@@ -185,11 +200,10 @@
             }
           }
         } else {
-          const json=await parent.net.fetch({
+          const obj=await this.jsonWith404({
             url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
             args:{ fen: fen }
-          }).catch(e=>console.debug('Error getting cloud eval',e));
-          const obj=parent.global.JSON.parse(json);
+          });
           newMoves=obj.moves?.map(m=>{
             return {
               depth: 50, //assumed

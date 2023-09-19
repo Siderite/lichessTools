@@ -26,8 +26,6 @@
     }
 
     isStandardGlyph=(glyph)=>{
-      return ['!','?','!!','??','?!','!?'].includes(glyph);
-      //TODO remove line above when glyph display is done on lichess side
       if (!this.standardGlyphs) return glyph!='#';
       for (const key in this.standardGlyphs) {
         if (this.standardGlyphs[key].find(g=>g.symbol==glyph)) return true;
@@ -51,15 +49,14 @@
       }
       const orig=analysis.node.uci.slice(-2);
       const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
-      const svg=`<g transform="translate(77 -18) scale(0.4)" class="lichessTools-emoticon">
-    <circle/>
-    <text x="50%" y="50%">${glyph}</text>
-</g>`;
       
       shapes.push({
         type:'glyph',
         orig:orig,
-        customSvg:parent.makeSvg(svg,analysis.chessground)
+        label:{
+          fill: '#557766',
+          text: glyph
+        }
       });
       analysis.chessground.setAutoShapes(shapes);
     };
@@ -77,22 +74,29 @@
       lichess.pubsub.off('redraw',this.drawGlyphs);
       parent.global.clearInterval(this.interval);
       if (study) {
-        study.glyphForm.toggleGlyph=parent.unwrapFunction(study.glyphForm?.toggleGlyph,'additionalGlyphs');
+        if (lichess.socket) {
+          lichess.socket.handle=parent.unwrapFunction(lichess.socket.handle,'additionalGlyphs');
+        }
       }
       if (!value) {
         const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
         analysis.chessground.setAutoShapes(shapes);
         return;
       }
-      if (!this.standardGlyphs) {
+      // TODO remove standardGlyphs logic after making sure lichess renders glyphs natively
+      /*if (!this.standardGlyphs) {
         this.standardGlyphs=JSON.parse(await lichessTools.net.fetch(lichess.assetUrl('glyphs.json')));
-      }
+      }*/
       lichess.pubsub.on('redraw',this.drawGlyphs);
       if (study) {
-        study.glyphForm.toggleGlyph=parent.wrapFunction(study.glyphForm.toggleGlyph,{
-          id:'additionalGlyphs',
-          after:this.drawGlyphs
-        });
+        if (lichess.socket) {
+          lichess.socket.handle=parent.wrapFunction(lichess.socket.handle,{
+            id:'additionalGlyphs',
+            after:($this,result,m)=>{
+              if (m.t=='glyphs') this.drawGlyphs();
+            }
+          });
+        }
       }
       this.interval=parent.global.setInterval(()=>{
         const autoShapes=parent.global.JSON.stringify(analysis.chessground?.state.drawable.autoShapes);

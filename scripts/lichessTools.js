@@ -524,7 +524,7 @@
             this.lichessTools.announce(translation);
             this.slowMode=true;
             this.lichessTools.global.clearTimeout(this.slowModeTimeout);
-            this.slowModeTimeout=this.lichessTools.global.setTimeout(()=>this.slowMode=false,30000);
+            this.slowModeTimeout=this.lichessTools.global.setTimeout(()=>this.slowMode=false,60000);
           }
           const err = new Error('Response status: '+status);
           err.response=response;
