@@ -38,18 +38,22 @@
       const analysis=lichess?.analysis;
       const container=$('section.explorer-box table.moves');
       if (!container.length) return;
+      if (!result?.total) {
+        $('.lichessTools-explorerGambits',container).remove();
+        return;
+      }
       if (!$('th.lichessTools-explorerGambits',container).length) {
         $('<th>')
             .addClass('lichessTools-explorerGambits')
             .text('\u2604')
             .attr('title',trans.noarg('gambitTitle'))
-            .insertAfter($('th:nth-child(1)',container));
+            .appendTo($('thead tr',container));
       }
       $('tr[data-uci],tr.sum',container).each((i,e)=>{
         if (!$('td.lichessTools-explorerGambits',e).length) {
           $('<td>')
             .addClass('lichessTools-explorerGambits')
-            .insertAfter($('td:nth-child(1)',e));
+            .appendTo(e);
         }
         const uci=$(e).attr('data-uci');
         let move=moves?.find(m=>m.uci==uci);

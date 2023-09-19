@@ -3,6 +3,7 @@ body.lichessTools th.lichessTools-explorerGambits {
 }
 
 body.lichessTools td.lichessTools-explorerGambits {
+  text-align:center;
   font-size:smaller;
 }
 

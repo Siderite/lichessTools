@@ -53,6 +53,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - scroll lock on mobiles while playing
  - finding interesting moves and allowing cycling through interesting/good/brilliant moves just like with blunders
  - quiet mode on all tabs and manual button for setting quiet mode
+ - explorer gambits shows which move to make to play a gambit
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move
