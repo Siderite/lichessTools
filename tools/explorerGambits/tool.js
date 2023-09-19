@@ -57,9 +57,11 @@
         let text='';
         let title=undefined;
         if ($(e).is('.sum')) {
-          const nr=result.total;
-          title=trans.pluralSame('gambitRowTitle',nr);
-          text=nr;
+          const nr=result?.total;
+          if (nr) {
+            title=trans.pluralSame('gambitRowTitle',nr);
+            text=nr;
+          }
         } else {
           if (!explorerItem) return;
           if (move) {
