@@ -86,6 +86,7 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;
+      if (!analysis.explorer?.enabled()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!explorerMoves?.length) return;
       const fen=analysis.node.fen;
