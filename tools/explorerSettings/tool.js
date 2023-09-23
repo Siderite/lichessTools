@@ -1,6 +1,8 @@
 (()=>{
   class ExplorerSettingsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['EmitRedraw'];
+
     preferences=[
       {
         name:'explorerSettings',
@@ -45,7 +47,7 @@
       parent.fireReloadOptions();
     };
 
-    showSettings=()=>{
+    showSettingsDirect=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -63,7 +65,7 @@
                 const value=parent.currentOptions.getValue('explorerEval');
                 const hidden=parent.isOptionSet(value,'hidden');
                 this.setOption('explorerEval',hidden?value.split(',').filter(s=>s!='hidden').join(','):value+',hidden');
-                this.showSettings();
+                this.showSettingsDirect();
               }))
         }
         if (parent.tools.find(t=>t.name==='ExplorerGambits')) {
@@ -73,7 +75,7 @@
                 ev.preventDefault();
                 const value=parent.currentOptions.getValue('explorerGambits');
                 this.setOption('explorerGambits',!value);
-                this.showSettings();
+                this.showSettingsDirect();
               }))
         }
         if (parent.tools.find(t=>t.name==='ExplorerPractice')) {
@@ -83,7 +85,7 @@
                 ev.preventDefault();
                 const value=parent.currentOptions.getValue('explorerPractice');
                 this.setOption('explorerPractice',!value);
-                this.showSettings();
+                this.showSettingsDirect();
               }))
         }
         if (parent.tools.find(t=>t.name==='OpeningExplorerUsers')) {
@@ -94,7 +96,7 @@
                 const value=parent.currentOptions.getValue('openingExplorerUsers');
                 const meButton=parent.isOptionSet(value,'switchWithMe');
                 this.setOption('openingExplorerUsers',meButton?value.split(',').filter(s=>s!='switchWithMe').join(','):value+',switchWithMe');
-                this.showSettings();
+                this.showSettingsDirect();
               }));
         }
         section=$('<section class="lichessTools-explorerSettings">')
@@ -117,6 +119,7 @@
       $('button.lichessTools-meButton',section)
         .attr('aria-pressed',value.toString());
     };
+    showSettings=this.lichessTools.debounce(this.showSettingsDirect,100);
 
     async start() {
       const parent=this.lichessTools;
@@ -128,13 +131,15 @@
       if (!explorer) return;
       explorer.config.toggleOpen=parent.unwrapFunction(explorer.config.toggleOpen,'explorerSettings');
       $('section.explorer-box section.lichessTools-explorerSettings').remove();
+      lichess.pubsub.off('redraw',this.showSettings);
       if (!value) return;
       explorer.config.toggleOpen=parent.wrapFunction(explorer.config.toggleOpen,{
         id:'explorerSettings',
         after:($this,result)=>{
-          parent.global.setTimeout(this.showSettings,100);
+          this.showSettings();
         }
       });
+      lichess.pubsub.on('redraw',this.showSettings);
       this.showSettings();
     }
 

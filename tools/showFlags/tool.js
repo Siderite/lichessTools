@@ -330,8 +330,12 @@
        if (this._flagCache) return this._flagCache;
        try {
          const temp=lichess.storage.get('LiChessTools.flagCache')
-         if (temp) global.console.debug('Size of flag cache:',temp.length);
-         this._flagCache=new Map(temp?global.JSON.parse(temp):{});
+         if (temp) {
+           global.console.debug('Size of flag cache:',temp.length);
+           this._flagCache=new Map(temp?global.JSON.parse(temp):{});
+         } else {
+           this._flagCache=new Map();
+         }
        } catch(e) {
          global.console.warn('Error parsing flag cache:',e);
          this._flagCache=new Map()
@@ -344,8 +348,12 @@
        if (this._countryCache) return this._countryCache;
        try {
          const temp=lichess.storage.get('LiChessTools.countryCache')
-         if (temp) global.console.debug('Size of country cache:',temp.length);
-         this._countryCache=new Map(temp?global.JSON.parse(temp):this.countries);
+         if (temp) {
+           global.console.debug('Size of country cache:',temp.length);
+           this._countryCache=new Map(temp?global.JSON.parse(temp):this.countries);
+         } else {
+           this._countryCache=new Map(this.countries);
+         }
        } catch(e) {
          global.console.warn('Error parsing country cache:',e);
          this._countryCache=new Map(this.countries);
@@ -439,12 +447,14 @@
             elem.addClass('lichessTools-noflag');
           } else {
             elem.addClass('lichessTools-flag');
+            const flagUrl=parent.lichess.assetUrl('images/flags/'+item.country+'.png');
             elem.after($('<img>')
               .addClass('flag')
               .attr('title',item.countryName)
-              .attr('src',parent.lichess.assetUrl('images/flags/'+item.country+'.png'))
+              .attr('src',flagUrl)
               .css('animation-duration',Math.round(5+Math.random()*15)+'s')
             );
+            parent.net.logNetwork(flagUrl,1000,0); //approximate flag size in bytes
           }
         }
       }
