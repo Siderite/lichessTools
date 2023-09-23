@@ -49,6 +49,7 @@ lichessTools.loadTool(LiChessTools.Tools.PreviousStudyMenu);
 lichessTools.loadTool(LiChessTools.Tools.TimelineNotify);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerEval);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerGambits);
+lichessTools.loadTool(LiChessTools.Tools.ExplorerSettings);
 
 lichessTools.loadTool(LiChessTools.Tools.UserTvHistory);
 

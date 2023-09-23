@@ -8,7 +8,7 @@
         name:'explorerEval',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['ceval','db','stats'],
+        possibleValues: ['ceval','db','stats','hidden'],
         defaultValue: 'ceval,db',
         advanced: true
       }
@@ -22,6 +22,7 @@
         'explorerEval.ceval': 'From computer eval',
         'explorerEval.stats': 'From winning stats',
         'explorerEval.db': 'From cloud',
+        'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
         'fromChessDbTitle': 'LiChess Tools - from ChessDb',
@@ -36,6 +37,7 @@
         'explorerEval.ceval': 'Din evaluare computer',
         'explorerEval.stats': 'Din statistici',
         'explorerEval.db': 'Din cloud',
+        'explorerEval.hidden': 'Ascunde',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer',
         'fromStatsTitle': 'LiChess Tools - din statistici',
         'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
@@ -311,15 +313,17 @@
         ceval: parent.isOptionSet(value,'ceval'),
         stats: parent.isOptionSet(value,'stats'),
         db: parent.isOptionSet(value,'db'),
-        get isSet() { return this.ceval || this.db || this.stats; }
+        hidden: parent.isOptionSet(value,'hidden'),
+        get isSet() { return !this.hidden && (this.ceval || this.db || this.stats); }
       };
       const lichess=parent.lichess;
       const $=parent.$;
-      const analysis=lichess?.analysis;
-      if (!analysis) return;
-      const explorer = analysis.explorer;
+      const explorer=lichess?.analysis?.explorer;
+      if (!explorer) return;
       lichess.pubsub.off('redraw',this.rebind);
       $(parent.global.document).off('securitypolicyviolation',this.secCheck)
+      $('th.lichessTools-explorerEval,td.lichessTools-explorerEval').remove();
+      explorer.setNode=parent.unwrapFunction(explorer.setNode,'explorerEval');
       if (!this.options.isSet) return;
       this.cache={};
       $(parent.global.document).on('securitypolicyviolation',this.secCheck);

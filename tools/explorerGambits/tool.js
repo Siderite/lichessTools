@@ -128,10 +128,11 @@
       this.options={ enabled: value };
       const lichess=parent.lichess;
       const $=parent.$;
-      const analysis=lichess?.analysis;
-      if (!analysis) return;
-      const explorer = analysis.explorer;
+      const explorer=lichess?.analysis?.explorer;
+      if (!explorer) return;
       lichess.pubsub.off('redraw',this.checkGambits);
+      $('th.lichessTools-explorerGambits,td.lichessTools-explorerGambits').remove();
+      explorer.setNode=parent.unwrapFunction(explorer.setNode,'explorerGambits');
       if (!value) return;
       lichess.pubsub.on('redraw',this.checkGambits);
       this.checkGambits();

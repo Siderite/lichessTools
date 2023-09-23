@@ -76,6 +76,7 @@
         "tools/explorerEval/tool.js",
         "tools/explorerGambits/tool.js",
         "tools/explorerGambits/gambits.js",
+        "tools/explorerSettings/tool.js",
  
         "tools/preferences/tool.js",
  
@@ -116,7 +117,8 @@
         "tools/friendsTv/tool.css",
         "tools/previousStudyMenu/tool.css",
         "tools/explorerEval/tool.css",
-        "tools/explorerGambits/tool.css"
+        "tools/explorerGambits/tool.css",
+        "tools/explorerSettings/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"
