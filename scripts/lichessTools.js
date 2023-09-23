@@ -489,6 +489,37 @@
     lichessTools:this,
     slowMode: false,
     slowModeTimeout: null,
+    logNetwork: function(url,size,status) {
+      const now=new Date().getTime();
+      const obj=this.lichessTools.global.JSON.parse(this.lichessTools.global.localStorage.getItem('LiChessTools2.fetch')||'null')||{ size:0, arr:[], minTime:now };
+      obj.size+=size;
+      obj.arr.push({
+        time: now,
+        url:url,
+        size:size,
+        status:status
+      });
+      let index=obj.arr.findLastIndex(i=>now-(i.time||0)>60000);
+      if (index<0) index=obj.arr.length;
+      const stats=obj.arr
+        .slice(0,index)
+        .reduce((a,v)=>{
+          return { 
+            size: v.size+a.size,
+            minTime:Math.min(v.time,a.minTime)
+          }
+        },{ size:0, minTime: 9999999999999 });
+      if (now-obj.minTime>86400000*7) {
+        obj.arr=obj.arr.filter(i=>now-i.time<86400000*6);
+        obj.minTime=obj.arr[0].time;
+        obj.size=obj.arr.reduce((a,v)=>a+v.size,0);
+      }
+      const text=this.lichessTools.global.JSON.stringify(obj);
+      this.lichessTools.global.localStorage.setItem('LiChessTools2.fetch',text);
+      const rate=stats.size?Math.round(8*stats.size/(now-stats.minTime)):0;
+      console.debug('Fetch log size:',text.length);
+      console.debug('  ... Bandwith logged:',obj.size,'Rate:',rate,'kbps');
+    },
     json: async function(url,options) {
       if (!options) options={};
       if (!options.headers) options.headers={};
@@ -513,11 +544,15 @@
         if (this.slowMode) await this.lichessTools.timeout(1000);
         const response=await this.lichessTools.global.fetch(url,options);
         const status=+(response.status);
-        if (options?.ignoreStatuses?.includes(status)) return null;
+        if (options?.ignoreStatuses?.includes(status)) {
+          this.logNetwork(url,(options?.body?.length||0),status);
+          return null;
+        }
         if (!response.ok) {
           this.lichessTools.global.console.warn('fetch: '+url+': ['+response.type+'] '+response.status+' ('+response.statusText+')');
         }
         if (status>=400) {
+          this.logNetwork(url,(options?.body?.length||0),status);
           if (status==429) {
             console.debug('429 received!');
             const translation=this.lichessTools.translator.noarg('serverOverload');
@@ -533,6 +568,7 @@
           throw err;
         }
         const text=await response.text();
+        this.logNetwork(url,(options?.body?.length||0)+(text?.length||0),status);
         return text;
       } catch(e) {
         if (e.toString().includes('Failed to fetch')) {
@@ -578,7 +614,7 @@
       const age=lichess.info?.date
         ? (new Date().getTime()-new Date(lichess.info.date).getTime())/86400000
         : 0;
-      console.debug('%c lichess.org code age: '+Math.round(age)+' days', age<7?'background: red;':'');
+      console.debug('%c lichess.org code age: '+Math.round(age*10)/10+' days', age<7?'background: red;':'');
       this.translator = this.lichess.trans(this.intl.siteI18n);
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);

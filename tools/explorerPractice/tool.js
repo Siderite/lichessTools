@@ -32,9 +32,9 @@
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
-        'options.explorerPractice': 'Practic\u0103 contra mut\u0103ri din Explorator',
-        'options.explorerPracticeOptions': 'Op\u0163iuni pentru Practic\u0103 cu Exploratorul',
-        'explorerPracticeTitle': 'LiChess Tools - practic\u0103 contra mut\u0103ri din Explorator',
+        'options.explorerPractice': 'Antrenament contra mut\u0103ri din Explorator',
+        'options.explorerPracticeOptions': 'Op\u0163iuni pentru Antrenament cu Exploratorul',
+        'explorerPracticeTitle': 'LiChess Tools - antrenament contra mut\u0103ri din Explorator',
         'outOfMoves':'Numai sunt mut\u0103ri \u00een Explorator',
         'explorerPracticeOptions.showSmileys': 'Arat\u0103 emoji c\u00E2nd nu mai sunt mut\u0103ri'
       }

@@ -8,7 +8,7 @@
         name:'explorerEval',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['ceval','db','stats'],
+        possibleValues: ['ceval','db','stats','hidden'],
         defaultValue: 'ceval,db',
         advanced: true
       }
@@ -22,6 +22,7 @@
         'explorerEval.ceval': 'From computer eval',
         'explorerEval.stats': 'From winning stats',
         'explorerEval.db': 'From cloud',
+        'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
         'fromChessDbTitle': 'LiChess Tools - from ChessDb',
@@ -36,6 +37,7 @@
         'explorerEval.ceval': 'Din evaluare computer',
         'explorerEval.stats': 'Din statistici',
         'explorerEval.db': 'Din cloud',
+        'explorerEval.hidden': 'Ascunde',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer',
         'fromStatsTitle': 'LiChess Tools - din statistici',
         'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
@@ -54,7 +56,7 @@
       const analysis=lichess?.analysis;
       const container=$('section.explorer-box table.moves');
       if (!container.length) return;
-      if ($('th',container).length==3) {
+      if (!$('th.lichessTools-explorerEval',container).length) {
         $('<th>')
             .addClass('lichessTools-explorerEval')
             .text('\u2924')
@@ -62,7 +64,7 @@
             .insertAfter($('th:nth-child(1)',container));
       }
       $('tr[data-uci],tr.sum',container).each((i,e)=>{
-        if ($('td',e).length==4) {
+        if (!$('td.lichessTools-explorerEval',e).length) {
           $('<td>')
             .addClass('lichessTools-explorerEval')
             .insertAfter($('td:nth-child(1)',e));
@@ -157,6 +159,7 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;
+      if (!analysis.explorer?.enabled()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!explorerMoves?.length) return;
       const fen=analysis.node.fen;
@@ -310,15 +313,17 @@
         ceval: parent.isOptionSet(value,'ceval'),
         stats: parent.isOptionSet(value,'stats'),
         db: parent.isOptionSet(value,'db'),
-        get isSet() { return this.ceval || this.db || this.stats; }
+        hidden: parent.isOptionSet(value,'hidden'),
+        get isSet() { return !this.hidden && (this.ceval || this.db || this.stats); }
       };
       const lichess=parent.lichess;
       const $=parent.$;
-      const analysis=lichess?.analysis;
-      if (!analysis) return;
-      const explorer = analysis.explorer;
+      const explorer=lichess?.analysis?.explorer;
+      if (!explorer) return;
       lichess.pubsub.off('redraw',this.rebind);
       $(parent.global.document).off('securitypolicyviolation',this.secCheck)
+      $('th.lichessTools-explorerEval,td.lichessTools-explorerEval').remove();
+      explorer.setNode=parent.unwrapFunction(explorer.setNode,'explorerEval');
       if (!this.options.isSet) return;
       this.cache={};
       $(parent.global.document).on('securitypolicyviolation',this.secCheck);

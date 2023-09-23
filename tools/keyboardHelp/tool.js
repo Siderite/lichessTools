@@ -64,7 +64,7 @@
       const lichess=parent.lichess;
       const trans=parent.translator;
       const $=parent.$;
-      const table=$('#modal-wrap.keyboard-help div.scrollable > table tbody');
+      const table=$('div.keyboard-help > table tbody');
       if (!table.length) return;
       if (table[0].hasLichessTools) return;
       table[0].hasLichessTools=true;

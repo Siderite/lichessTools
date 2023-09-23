@@ -201,6 +201,13 @@
         gp.makeState=parent.wrapFunction(gp.makeState,{
           id:'showScore',
           after: ($this, result, ...args)=>{
+            // fix lichess bug where entering Preview mode keeps using Explorer endpoints in the background
+            if (this.explorerEnabled===undefined) {
+              this.explorerEnabled=analysis.explorer.enabled();
+            }
+            if (this.explorerEnabled) {
+              analysis.explorer.enabled(false);
+            }
             gp.goodMoves=+(gp.goodMoves)||0;
             gp.badMoves=+(gp.badMoves)||0;
             const state=$this.state;
@@ -386,6 +393,10 @@
                 analysis.ceval.isDeeper(false);
               }
               if (this.options.extendedInteractive) this.addGameBookToAllNodes();
+            } else {
+              if (this.explorerEnabled && !analysis.explorer.enabled()) {
+                analysis.explorer.enabled(true);
+              }
             }
             // fix lichess bug with going to analysis after lesson finishes and showing the bad moves, too
             if (o=='analyse' && study.members.canContribute()) {
