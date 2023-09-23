@@ -111,4 +111,6 @@ History of features added to LiChess Tools in time
   - Playing a game on any browser tab will silence notifications and sound alerts on all of the others (quiet mode)
   - Button to manually set/unset quiet mode
 19 Sep
-  - Added the number of gambits that can be achieved from current position on Explorer moves
+  - Show the number of gambits that can be achieved from current position on Explorer moves
+23 Sep
+  - Added preferences buttons on Explorer settings form
