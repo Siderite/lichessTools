@@ -325,13 +325,14 @@
 
     cacheExpiration=2*86400000; //2 days
     get flagCache() {
-       const global=this.lichessTools.global;
-       const lichess=this.lichessTools.lichess;
+       const parent=this.lichessTools;
+       const global=parent.global;
+       const lichess=parent.lichess;
        if (this._flagCache) return this._flagCache;
        try {
          const temp=lichess.storage.get('LiChessTools.flagCache')
          if (temp) {
-           global.console.debug('Size of flag cache:',temp.length);
+           parent.debug && global.console.debug('Size of flag cache:',temp.length);
            this._flagCache=new Map(temp?global.JSON.parse(temp):{});
          } else {
            this._flagCache=new Map();
@@ -343,22 +344,23 @@
        return this._flagCache;
     }
     get countryCache() {
-       const global=this.lichessTools.global;
-       const lichess=this.lichessTools.lichess;
-       if (this._countryCache) return this._countryCache;
-       try {
-         const temp=lichess.storage.get('LiChessTools.countryCache')
-         if (temp) {
-           global.console.debug('Size of country cache:',temp.length);
-           this._countryCache=new Map(temp?global.JSON.parse(temp):this.countries);
-         } else {
-           this._countryCache=new Map(this.countries);
-         }
-       } catch(e) {
-         global.console.warn('Error parsing country cache:',e);
-         this._countryCache=new Map(this.countries);
-       }
-       return this._countryCache;
+      const parent=this.lichessTools;
+      const global=parent.global;
+      const lichess=parent.lichess;
+      if (this._countryCache) return this._countryCache;
+      try {
+        const temp=lichess.storage.get('LiChessTools.countryCache')
+        if (temp) {
+          parent.debug && global.console.debug('Size of country cache:',temp.length);
+          this._countryCache=new Map(temp?global.JSON.parse(temp):this.countries);
+        } else {
+          this._countryCache=new Map(this.countries);
+        }
+      } catch(e) {
+        global.console.warn('Error parsing country cache:',e);
+        this._countryCache=new Map(this.countries);
+      }
+      return this._countryCache;
     }
     saveCache=()=>{
       const global=this.lichessTools.global;

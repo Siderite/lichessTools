@@ -9,6 +9,14 @@
     $=null;
     global=null;
     lichess=null;
+
+    get debug() {
+      const debug = this.global.localStorage.getItem('LiChessTools2.debug');
+      return debug==='true';
+    }
+    set debug(value) {
+      this.global.localStorage.setItem('LiChessTools2.debug',(!!value).toString());
+    }
   
     arrayRemoveAll(arr,predicate) {
       if (!arr) return;
@@ -260,7 +268,7 @@
       const container=$('div.analyse__moves');
       $('move',container).each((i,e)=>this.elementCache.set($(e).attr('p')||'',e));
       container.data('cached',true);
-      this.global.console.debug('Element cache reset');
+      this.debug && this.global.console.debug('Element cache reset');
     };
 
     getElementForPath(path) {
@@ -517,8 +525,8 @@
       const text=this.lichessTools.global.JSON.stringify(obj);
       this.lichessTools.global.localStorage.setItem('LiChessTools2.fetch',text);
       const rate=stats.size?Math.round(8*stats.size/(now-stats.minTime)):0;
-      console.debug('Fetch log size:',text.length);
-      console.debug('  ... Bandwith logged:',obj.size,'Rate:',rate,'kbps');
+      this.lichessTools.debug && console.debug('Fetch log size:',text.length);
+      this.lichessTools.debug && console.debug('  ... Bandwith logged:',obj.size,'Rate:',rate,'kbps');
     },
     json: async function(url,options) {
       if (!options) options={};
