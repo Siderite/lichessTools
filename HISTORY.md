@@ -1,5 +1,7 @@
 History of features added to LiChess Tools in time (reversed order)
 
+01 Oct
+  - Option to persist settings used on study create/edit for new studies
 23 Sep
   - Added preferences buttons on Explorer settings form
 19 Sep

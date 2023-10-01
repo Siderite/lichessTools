@@ -31,7 +31,7 @@
       const $=parent.$;
       const prevGames=parent.currentOptions.getValue('prevGames')||[];
       if (prevGames.find(g=>g==gameId)) return;
-      parent.global.console.debug('Putting /'+gameId+' in history');
+      parent.debug && parent.global.console.debug('Putting /'+gameId+' in history');
 
       prevGames.push(gameId);
       if (prevGames.length>10) {
