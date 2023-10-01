@@ -77,7 +77,8 @@
         "tools/explorerGambits/tool.js",
         "tools/explorerGambits/gambits.js",
         "tools/explorerSettings/tool.js",
- 
+        "tools/stickyStudySettings/tool.js",
+
         "tools/preferences/tool.js",
  
         "scripts/lichessTools-init.js"

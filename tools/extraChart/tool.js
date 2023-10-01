@@ -580,7 +580,7 @@
               });
               mainline[x+1].glyphs=glyphs;
             }
-            if (serie) {
+            if (serie?.data[x]) {
               serie.data[x].marker={enabled:true,radius:5,fillColor:'#ea45d8'};
               refreshSerie=true;
             }
