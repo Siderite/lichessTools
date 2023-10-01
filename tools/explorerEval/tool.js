@@ -153,6 +153,33 @@
       return result;
     };
 
+    cache404={};
+    setCached404= (path)=>path?this._setCached404(path,this.cache404):false;
+    getCached404= (path)=>path?this._getCached404(path,this.cache404):false;
+    _setCached404= (path,node)=>{
+      const key=path?.slice(0,2);
+      if (key) {
+        let newNode=node[key];
+        if (!newNode) {
+          newNode=path==key?true:{};
+          node[key]=newNode;
+        }
+        this._setCached404(path?.slice(2),newNode);
+      }
+    };
+    _getCached404= (path,node)=>{
+      const key=path?.slice(0,2);
+      if (!key) {
+        return false;
+      }
+      const newNode=node[key];
+      if (newNode===true) return true;
+      if (!newNode) {
+        return false;
+      }
+      return this._getCached404(path?.slice(2),newNode);
+    };
+
     cache={};
     doEvaluation=async ()=>{
       const parent=this.lichessTools;
@@ -164,9 +191,13 @@
       if (!explorerMoves?.length) return;
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;
-      const result = this.cache[fen] || { moves: [] };
+      let result = this.cache[fen];
+      if (this.getCached404(analysis.path)) {
+        result={ moves:[] };
+      }
       let newMoves=[];
-      if (this.options.db && !parent.net.slowMode && !result.moves?.length) {
+      if (this.options.db && !parent.net.slowMode && result===undefined) {
+        result={ moves: [] };
         if (this.CSP) {
           let obj=await this.jsonWith404({
             url:'/api/cloud-eval?fen={fen}&multiPv=5',
@@ -201,6 +232,8 @@
                 });
               }
             }
+          } else {
+            this.setCached404(analysis.path);
           }
         } else {
           const obj=await this.jsonWith404({
@@ -233,6 +266,7 @@
           });
         }
       }
+      result = result || { moves: [] };
       const ceval=analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval;
       const pvs=this.options.ceval
         ? ceval?.pvs
