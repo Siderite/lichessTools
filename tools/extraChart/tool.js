@@ -661,6 +661,12 @@
                  ev.preventDefault();
                   parent.jumpToGlyphSymbol(color,['!','!?','!!']);
                })
+               .on('mouseenter',(ev)=>{
+                 $(hcElem).addClass('lichessTools-showGood-'+color);
+               })
+               .on('mouseleave',(ev)=>{
+                 $(hcElem).removeClass('lichessTools-showGood-'+color);
+               })
                .insertAfter($('div.advice-summary__player',container));
         }
         elem.toggleClass('symbol',!!count);
@@ -672,6 +678,27 @@
       container=$('div.advice-summary__side').get(1);
       count=arr.filter(n=>n.ply%2==0).length;
       fill(container,count,'black');
+
+      const serie=parent.global.Highcharts?.charts?.at(0)?.series?.at(0);
+      if (serie) {
+        let refreshSerie=false;
+        for (let i=0; i<serie.data.length; i++) {
+          if (serie.data[i].marker) continue;
+          const move=lichess.analysis.mainline[i+1];
+          const glyph=move?.glyphs?.at(0);
+          if (!glyph) continue;
+          if (!['!','!!','!?'].includes(glyph.symbol)) continue;
+          serie.data[i].marker={
+            enabled:true,
+            radius:5,
+            fillColor:'#0099140'+(i%2)
+          };
+          refreshSerie=true;
+        }
+        if (refreshSerie) {
+          serie.setData(serie.data);
+        }
+      }
     }
 
     generateCharts=()=>{

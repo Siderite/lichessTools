@@ -59,3 +59,11 @@ body.lichessTools.dark div.symbol.lichessTools-goodMoves {
     color: #168226;
   }
 }
+
+body.lichessTools div.lichessTools-showGood-white path[fill="#00991400"] {
+  fill:#009914;
+}
+
+body.lichessTools div.lichessTools-showGood-black path[fill="#00991401"] {
+  fill:#009914;
+}
