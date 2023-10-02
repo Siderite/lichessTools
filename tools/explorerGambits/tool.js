@@ -1,7 +1,7 @@
 (()=>{
   class ExplorerGambitsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw'];
+    dependencies=['EmitRedraw','ChessOps'];
 
     preferences=[
       {
@@ -29,6 +29,14 @@
       }
     }
 
+    computeFen=(fen,uci)=>{
+      const co=this.lichessTools.chessops;
+      fen=co.fen.parseFen(fen).unwrap();
+      const ch=co.Chess.fromSetup(fen).unwrap();
+      ch.play(co.parseUci(uci));
+      return co.fen.makeFen(ch.toSetup());
+    };
+
     showGambits(result) {
       const moves=result?.moves;
       const parent=this.lichessTools;
@@ -49,6 +57,8 @@
             .attr('title',trans.noarg('gambitTitle'))
             .appendTo($('thead tr',container));
       }
+      const side=analysis.getOrientation();
+      const fen=analysis.node.fen;
       $('tr[data-uci],tr.sum',container).each((i,e)=>{
         if (!$('td.lichessTools-explorerGambits',e).length) {
           $('<td>')
@@ -56,7 +66,18 @@
             .appendTo(e);
         }
         const uci=$(e).attr('data-uci');
-        let move=moves?.find(m=>m.uci==uci);
+        let move=null;
+        if (uci) {
+          const moveFen=this.computeFen(fen,uci);
+          const pos=moveFen.split(' ').slice(0,4).join('').replaceAll('/','');
+          const moveResult=parent.gambit_dict[side].get(pos);
+          move=moveResult
+            ? {
+                uci:uci,
+                nr: moveResult.total||1
+              }
+            : moves?.find(m=>m.uci==uci);
+        }
         const explorerItem=(analysis.explorer.current()?.moves||[]).find(i=>i.uci==uci);
         let text='';
         let title=undefined;

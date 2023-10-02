@@ -141,7 +141,7 @@
       const study=analysis?.study;
       if (!study) return;
       const trans=parent.translator;
-      const modal=$('#modal-wrap');
+      const modal=$('div.dialog-content');
       if (!modal.length) return;
       const button=$('div.form-actions-secondary.destructive button:first-child',modal);
       if (!button.length) return;
@@ -262,7 +262,7 @@
             if (!currentChapterId) return;
             const studyChapterId=study.chapters?.editForm?.current()?.id;
             if (currentChapterId!==studyChapterId) return;
-            const modal=$('#modal-wrap.edit-'+currentChapterId);
+            const modal=$('div.dialog-content.edit-'+currentChapterId);
             if (!modal.length) return;
             parent.global.clearInterval(interval);
             this.setupButtons();

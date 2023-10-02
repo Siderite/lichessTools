@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+02 Oct
+  - Button to create study chapter after the selected one
+  - Textarea showing the current study chapter PGN, similar to Analysis, but without the import functionality
 01 Oct
   - Option to persist settings used on study create/edit for new studies
 23 Sep

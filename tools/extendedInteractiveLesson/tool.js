@@ -121,12 +121,12 @@
         if (child) {
           const shapes=[{
             orig:child.uci.slice(0,2),
-            dest:child.uci.slice(2),
+            dest:child.uci.slice(2,4),
             brush:'green'
           }];
           if (child.promotion) {
             shapes.push({
-              orig:child.uci.slice(2),
+              orig:child.uci.slice(2,4),
               piece: {
                 color:analysis.turnColor(),
                 role:child.promotion,

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Lichess Tools, by Siderite",
   "short_name": "Lichess Tools",
-  "version": "2.1.17",
+  "version": "2.1.19",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev",
@@ -34,6 +34,8 @@
         "tools/randomVariation/tool.js",
         "tools/themes/tool.js",
         "tools/detectThirdParties/tool.js",
+        "tools/chessops/tool.js",
+        "tools/exportPGN/tool.js",
 
         "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",
@@ -78,6 +80,8 @@
         "tools/explorerGambits/gambits.js",
         "tools/explorerSettings/tool.js",
         "tools/stickyStudySettings/tool.js",
+        "tools/chapterInsert/tool.js",
+        "tools/chapterPgnArea/tool.js",
 
         "tools/preferences/tool.js",
  
@@ -119,7 +123,8 @@
         "tools/previousStudyMenu/tool.css",
         "tools/explorerEval/tool.css",
         "tools/explorerGambits/tool.css",
-        "tools/explorerSettings/tool.css"
+        "tools/explorerSettings/tool.css",
+        "tools/chapterPgnArea/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"

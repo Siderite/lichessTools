@@ -47,7 +47,7 @@
         analysis.chessground.setAutoShapes(shapes);
         return;
       }
-      const orig=analysis.node.uci.slice(-2);
+      const orig=analysis.node.uci.slice(2,4);
       const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
       
       shapes.push({
