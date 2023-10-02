@@ -11,6 +11,7 @@ lichessTools.loadTool(LiChessTools.Tools.TranspositionBehavior);
 lichessTools.loadTool(LiChessTools.Tools.RandomVariation);
 lichessTools.loadTool(LiChessTools.Tools.DetectThirdParties);
 lichessTools.loadTool(LiChessTools.Tools.Themes);
+lichessTools.loadTool(LiChessTools.Tools.ChessOps);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
 lichessTools.loadTool(LiChessTools.Tools.HideCrosstable);

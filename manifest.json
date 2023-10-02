@@ -34,6 +34,7 @@
         "tools/randomVariation/tool.js",
         "tools/themes/tool.js",
         "tools/detectThirdParties/tool.js",
+        "tools/chessops/tool.js",
 
         "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",
