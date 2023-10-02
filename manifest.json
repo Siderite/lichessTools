@@ -79,6 +79,7 @@
         "tools/explorerGambits/gambits.js",
         "tools/explorerSettings/tool.js",
         "tools/stickyStudySettings/tool.js",
+        "tools/chapterInsert/tool.js",
 
         "tools/preferences/tool.js",
  

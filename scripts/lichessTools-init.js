@@ -52,6 +52,7 @@ lichessTools.loadTool(LiChessTools.Tools.ExplorerEval);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerGambits);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerSettings);
 lichessTools.loadTool(LiChessTools.Tools.StickyStudySettings);
+lichessTools.loadTool(LiChessTools.Tools.ChapterInsert);
 
 lichessTools.loadTool(LiChessTools.Tools.UserTvHistory);
 
