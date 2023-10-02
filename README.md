@@ -55,6 +55,8 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - quiet mode on all tabs and manual button for setting quiet mode
  - explorer gambits shows which move to make to play a gambit
  - persist last study settings when creating new studies
+ - button to create chapter after the selected one
+ - PGN textarea in studies, similar to Analysis
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move
