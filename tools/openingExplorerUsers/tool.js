@@ -41,6 +41,8 @@
       if (!explorer) return;
       const container=$('div.explorer__config__player__choice');
       if (!container.length) return;
+      if ($('button.remove',container).length) return; // lichess will add its own functionality to remove users
+      // TODO remove this when lichess functionality is published and stable
       const participants=explorer.config.participants;
       $('button:not(.button-green,.lichessTools-deleteUser)',container).filter((i,e)=>!$(e).next().is('.lichessTools-deleteUser'))
         .each((i,e)=>{
