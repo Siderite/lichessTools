@@ -16,13 +16,17 @@
         'options.analysis': 'Analysis',
         'options.enhancedImport': 'Enhanced PGN import',
         'mergeSuccess': 'LiChess Tools - merged %s PGNs',
-        'mergeSuccess:one': 'LiChess Tools - imported one PGN'
+        'mergeSuccess:one': 'LiChess Tools - imported one PGN',
+        'mergeError': 'LiChess Tools - merged %s PGNs. Error: ',
+        'differentFensError': 'cannot merge PGNs with different starting positions'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.enhancedImport': 'Import PGN extins',
         'mergeSuccess': 'LiChess Tools - am combinat %s PGNuri',
-        'mergeSuccess:one': 'LiChess Tools - am importat un PGN'
+        'mergeSuccess:one': 'LiChess Tools - am importat un PGN',
+        'mergeError': 'LiChess Tools - am combinat %s PGNuri. Eroare: ',
+        'differentFensError': 'nu pot combina PGNuri cu pozi\u0163ii de start diferite'
       }
     }
 
@@ -136,12 +140,34 @@
         after:($this,result,input,andReload)=>{
           const oldChangePgn=$this.changePgn.__originalFunction.bind($this);
           let data=null;
+          let successfulPGNs=0;
+          let lastError=null;
           try {
-            const pgns=this.splitPgn(input);
+            let pgns=this.splitPgn(input);
             if (andReload) {
               parent.global.console.debug('...merging '+pgns.length+' PGNs');
+              const pgnsByFen=[];
+              let maxItem={ count:-1 };
+              for (const pgn of pgns) {
+                const fen=pgn?.game?.fen;
+                if (!fen) continue;
+                let item=pgnsByFen.find(i=>i.fen==fen);
+                if (item) {
+                  item.count++;
+                } else {
+                  item={fen:fen, count:1};
+                  pgnsByFen.push(item);
+                }
+                if (item.count>maxItem.count) {
+                  maxItem=item;
+                }
+              }
+              if (pgnsByFen.length>1) {
+                lastError=trans.noarg('differentFensError');
+                console.warn('Error loading PGN',lastError);
+                pgns=pgns.filter(pgn=>pgn?.game?.fen==maxItem.fen);
+              }
               let merge=false;
-              let error=false;
               for (let i=pgns.length-1;i>=0; i--) {
                 const pgn=pgns[i];
                 try{
@@ -151,14 +177,16 @@
                     $this.reloadData(pgn,merge);
                   }
                   merge=andReload;
+                  successfulPGNs++;
                 } catch(ex) {
+                  lastError=ex;
                   console.warn('Error loading PGN',ex, pgns.length-i-1);
                 }
               }
-              if (!error) {
-                const announcement = trans.pluralSame('mergeSuccess',pgns.length);
-                parent.announce(announcement);
-              }
+              const announcement = lastError
+                ? trans.pluralSame('mergeError',successfulPGNs)+lastError
+                : trans.pluralSame('mergeSuccess',successfulPGNs);
+              parent.announce(announcement);
               const newPgn=$('div.pgn textarea').val();
               data=oldChangePgn(newPgn,false);
               $this.explorer.reload()
@@ -170,6 +198,7 @@
             parent.global.console.warn('Enhanced import failed',ex);
             data=oldChangePgn(input,andReload);
           }
+          if (lastError) parent.global.console.debug('...merged only '+successfulPGNs+' PGNs');
           return data;
         }
       });
