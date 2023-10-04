@@ -103,6 +103,7 @@
 
     cache={};
     findGambits=async ()=>{
+      if (!this.options.enabled) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
