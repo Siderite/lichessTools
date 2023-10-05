@@ -1,5 +1,7 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Oct
+  - check for Explorer user delete feature in lichess and disable ours
 02 Oct
   - Button to create study chapter after the selected one
   - Textarea showing the current study chapter PGN, similar to Analysis, but without the import functionality
