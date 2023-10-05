@@ -64,8 +64,8 @@
         'mobileExperienceRound.standardButtons':'Butoane standard',
         'shapeDrawingTitle': 'LiChess Tools - deseneaz\u0103 s\u0103ge\u0163i \u015Fi cercuri',
         'randomNextMoveTitle': 'LiChess Tools - mutare aleatoare',
-        'colorCount.1': 'unu',
-        'colorCount.2': 'doi',
+        'colorCount.1': 'una',
+        'colorCount.2': 'dou\u0103',
         'colorCount.3': 'trei',
         'colorCount.4': 'patru',
         'lockBoardTitle': 'LiChess Tools - fixare ecran'
