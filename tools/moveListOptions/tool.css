@@ -1,0 +1,19 @@
+body.lichessTools .tview2.lichessTools-indentedVariations inline {
+  display: block;
+  padding-left: 7px
+}
+
+body.lichessTools .tview2.lichessTools-indentedVariations lines inline::before {
+  margin-top: .45em;
+  margin-left: -8px;
+  content: " ";
+  border-left: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  position: absolute;
+  width: 8px;
+  height: 6px
+}
+
+body.lichessTools .tview2.lichessTools-indentedVariations inline::after {
+  content: none;
+}
