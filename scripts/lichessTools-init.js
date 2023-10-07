@@ -55,6 +55,8 @@ lichessTools.loadTool(LiChessTools.Tools.ExplorerSettings);
 lichessTools.loadTool(LiChessTools.Tools.StickyStudySettings);
 lichessTools.loadTool(LiChessTools.Tools.ChapterInsert);
 lichessTools.loadTool(LiChessTools.Tools.ChapterPgnArea);
+lichessTools.loadTool(LiChessTools.Tools.MoveListOptions);
+
 
 lichessTools.loadTool(LiChessTools.Tools.UserTvHistory);
 

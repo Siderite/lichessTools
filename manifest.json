@@ -82,6 +82,7 @@
         "tools/stickyStudySettings/tool.js",
         "tools/chapterInsert/tool.js",
         "tools/chapterPgnArea/tool.js",
+        "tools/moveListOptions/tool.js",
 
         "tools/preferences/tool.js",
  
@@ -124,7 +125,8 @@
         "tools/explorerEval/tool.css",
         "tools/explorerGambits/tool.css",
         "tools/explorerSettings/tool.css",
-        "tools/chapterPgnArea/tool.css"
+        "tools/chapterPgnArea/tool.css",
+        "tools/moveListOptions/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"
