@@ -21,7 +21,7 @@
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
-        'options.moveListOptions': 'Op\u0163uni pentru list\u0103 mut\u0103ri',
+        'options.moveListOptions': 'Op\u0163iuni pentru list\u0103 mut\u0103ri',
         'moveListOptions.indentedVariations':'Varia\u0163iuni indentate'
       }
     }
