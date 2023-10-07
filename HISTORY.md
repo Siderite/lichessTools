@@ -1,7 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Oct
+  - Option and toggle in Analysis Menu to change the move list functionality (only option so far: Indented Variations, showing even inlined variations as tree branches)
 04 Oct
-  - check for Explorer user delete feature in lichess and disable ours
+  - removed Explorer Players removal feature, as it has been implemented natively in Lichess
 02 Oct
   - Button to create study chapter after the selected one
   - Textarea showing the current study chapter PGN, similar to Analysis, but without the import functionality
