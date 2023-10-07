@@ -87,6 +87,10 @@
               analysis.userJumpIfCan(path);
               analysis.redraw();
             }).appendTo(fork);
+          const glyph=child.glyphs?.at(0);
+          if (glyph) {
+            forkMove.append($('<glyph>').attr('title',glyph.name).text(glyph.symbol));
+          } 
         }
       }
     };
