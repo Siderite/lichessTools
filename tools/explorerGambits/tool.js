@@ -51,6 +51,7 @@
         return;
       }
       if (!$('th.lichessTools-explorerGambits',container).length) {
+        $('thead tr td:has(div.bar)',container).addClass('lichessTools-bar');
         $('<th>')
             .addClass('lichessTools-explorerGambits')
             .text('\u2604')
@@ -60,6 +61,7 @@
       const side=analysis.getOrientation();
       const fen=analysis.node.fen;
       $('tr[data-uci],tr.sum',container).each((i,e)=>{
+        $('td:has(div.bar)',e).addClass('lichessTools-bar');
         if (!$('td.lichessTools-explorerGambits',e).length) {
           $('<td>')
             .addClass('lichessTools-explorerGambits')
