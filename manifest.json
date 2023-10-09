@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Lichess Tools, by Siderite",
   "short_name": "Lichess Tools",
-  "version": "2.1.23",
+  "version": "2.1.24",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev",
@@ -36,7 +36,7 @@
         "tools/themes/tool.js",
         "tools/detectThirdParties/tool.js",
         "tools/chessops/tool.js",
-        "tools/exportPGN/tool.js",
+        "tools/exportPgn/tool.js",
 
         "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",

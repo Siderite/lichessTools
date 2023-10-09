@@ -314,7 +314,7 @@
         const text=trans.noarg('addBookmarkText');
         const title=trans.noarg('addBookmarkTitle');
         menuItem=$('<a>')
-          .attr('data-icon','\uE004')
+          .attr('data-icon','\uE062')
           .attr('data-role','bookmark')
           .text(text).attr('title',title)
           .on('click',this.addOrRemoveBookmark)

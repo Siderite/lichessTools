@@ -82,3 +82,7 @@ body.lichessTools .tview2 .lichessTools-childCollapsed {
 body.lichessTools .tview2 comment.lichessTools-empty {
   display:none !important;
 }
+
+body.lichessTools #analyse-cm a[data-role="bookmark"]:before {
+  transform: scaleX(-1);
+}
