@@ -17,6 +17,7 @@
       const EventTarget=this.lichessTools.global.EventTarget;
       const wrap=this.lichessTools.wrapFunction;
       EventTarget.prototype.addEventListener=wrap(EventTarget.prototype.addEventListener,{
+        id: 'interceptEventHandlers',
         before:(target,type,listener,options)=>{
           const useCapture = typeof options==='boolean'
             ? options
@@ -25,6 +26,7 @@
         }
       });
       EventTarget.prototype.removeEventListener=wrap(EventTarget.prototype.removeEventListener,{
+        id: 'interceptEventHandlers',
         before:(target,type,listener,options)=>{
           const useCapture = typeof options==='boolean'
             ? options

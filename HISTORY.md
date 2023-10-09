@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+09 Oct
+  - Option to change add bookmarks to the move list, allowing for collapse/expand and linking
+
 07 Oct
   - Option and toggle in Analysis Menu to change the move list functionality (only option so far: Indented Variations, showing even inlined variations as tree branches)
 

@@ -279,7 +279,7 @@
         this.resetCache();
       }
       let elem = this.elementCache?.get(path);
-      if (!elem?.parentNode) {
+      if (!elem?.offsetParent) {
         this.resetCache();
         elem = this.elementCache.get(path);
       }
@@ -294,7 +294,7 @@
       return this.getElementForPath(path);
     }
 
-    traverse=(snode)=>{
+    traverse=(snode, func)=>{
       if (!snode) snode=this.lichess?.analysis?.tree.root;
       const state={
         lastMoves:[],
@@ -310,43 +310,44 @@
         path: ''
       }];
       while (nodes.length) {
-      let {node,path}={...nodes.shift()};
-      if (!this.isTreeviewVisible()) return;
-      if (!node || node.comp) {
-        continue;
-      }
-      path=(path||'')+node.id;
-      node.path=path;
-      node.nodeIndex=state.nodeIndex;
-      state.nodeIndex++;
-      node.isCommentedOrMate=this.isCommented(node)||this.isMate(node);
-      node.position=this.getNodePosition(node);
-      let pos=state.positions[node.position];
-      if (!pos) {
-        pos=[];
-        state.positions[node.position]=pos;
-      }
-      pos.push(node);
-      if (pos.length>1) {
-        for (const transpoNode of pos) {
-          transpoNode.transposition=pos;
+        let {node,path}={...nodes.shift()};
+        if (!this.isTreeviewVisible()) return;
+        if (!node || node.comp) {
+          continue;
         }
-      } else {
-        node.transposition=null;
-      }
-      if (node.glyphs) {
-        for (const glyph of node.glyphs) {
-          const arr=state.glyphs[glyph.symbol]||[];
-          arr.push(node);
-          state.glyphs[glyph.symbol]=arr;
+        path=(path||'')+node.id;
+        node.path=path;
+        node.nodeIndex=state.nodeIndex;
+        state.nodeIndex++;
+        node.isCommentedOrMate=this.isCommented(node)||this.isMate(node);
+        node.position=this.getNodePosition(node);
+        let pos=state.positions[node.position];
+        if (!pos) {
+          pos=[];
+          state.positions[node.position]=pos;
         }
-      }
-      if (!node.children.length) {
-        state.lastMoves.push(node);
-      }
-      for (const child of node.children) {
-        nodes.push({node:child,path:path});
-      }
+        pos.push(node);
+        if (pos.length>1) {
+          for (const transpoNode of pos) {
+            transpoNode.transposition=pos;
+          }
+        } else {
+          node.transposition=null;
+        }
+        if (node.glyphs) {
+          for (const glyph of node.glyphs) {
+            const arr=state.glyphs[glyph.symbol]||[];
+            arr.push(node);
+            state.glyphs[glyph.symbol]=arr;
+          }
+        }
+        if (!node.children.length) {
+          state.lastMoves.push(node);
+        }
+        if (func) func(node,state);
+        for (const child of node.children) {
+          nodes.push({node:child,path:path});
+        }
       }
       return state;
     };
