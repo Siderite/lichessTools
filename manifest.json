@@ -36,7 +36,7 @@
         "tools/themes/tool.js",
         "tools/detectThirdParties/tool.js",
         "tools/chessops/tool.js",
-        "tools/exportPGN/tool.js",
+        "tools/exportPgn/tool.js",
 
         "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",
