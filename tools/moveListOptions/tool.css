@@ -32,3 +32,53 @@ body.lichessTools .tview2.lichessTools-indentedVariations lines move:has(+inline
 body.lichessTools .tview2.lichessTools-indentedVariations inline::after {
   content: none;
 }
+
+body.lichessTools .tview2 move.lichessTools-bookmark {
+  margin-top:1em;
+  position:relative;
+  overflow:visible;
+}
+
+body.lichessTools .tview2 move.lichessTools-bookmark bookmark {
+  position:absolute;
+  top:-1.5em;
+  left:-0.5em;
+}
+
+body.lichessTools .tview2 move.lichessTools-bookmark bookmark label {
+  font-size:smaller;
+  color: orange;
+}
+
+
+body.lichessTools .tview2 move.lichessTools-bookmark button {
+  visibility:hidden;
+}
+
+body.lichessTools .tview2 move.lichessTools-bookmark button:before {
+  visibility:visible;
+  content:'-';
+  width: 1em;
+  height: 1em;
+  display:inline-flex;
+  border: 1px solid gray;
+  border-radius:5px;
+  justify-content: center;
+  align-content:center;
+  flex-wrap:wrap;
+  background:none;
+  margin-right:3px;
+  vertical-align:middle;
+}
+
+body.lichessTools .tview2 move.lichessTools-bookmark.lichessTools-collapsed button:before {
+  content:'+';
+}
+
+body.lichessTools .tview2 .lichessTools-childCollapsed {
+  display:none !important;
+}
+
+body.lichessTools .tview2 comment.lichessTools-empty {
+  display:none !important;
+}

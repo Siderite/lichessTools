@@ -29,6 +29,9 @@
 
 
     getCommentNodes=(elem)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+
       let commentNodes=[];
       $(elem).each((i,e)=>{
         $(e).contents().each((i2,e2)=>{
@@ -98,6 +101,8 @@
       }
     }
 
+    debouncedAddCommentClasses=this.lichessTools.debounce(this.addCommentClasses,200);
+
     cycleCommentColor=(ev)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -119,8 +124,6 @@
       parent.saveComment(comment);
       $('#comment-text').val(comment);
     };
-
-    debouncedAddCommentClasses=this.lichessTools.debounce(this.addCommentClasses,200);
 
     async start() {
       const parent=this.lichessTools;
