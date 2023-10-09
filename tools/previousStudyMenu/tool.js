@@ -1,6 +1,8 @@
 (()=>{
   class PreviousStudyMenuTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['EmitRedraw'];
+
     preferences=[
       {
         name:'previousStudyMenu',
@@ -27,10 +29,8 @@
       }
     }
 
-    async start() {
+    updateStudy=async ()=>{
       const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('previousStudyMenu');
-      this.logOption('Last study menu', value);
       const lichess=parent.lichess;
       const trans=parent.translator;
       const study=lichess?.analysis?.study;
@@ -41,18 +41,31 @@
         };
         await parent.saveOptions(parent.currentOptions);
       }
+      const studyData=parent.currentOptions.getValue('previousStudyMenu.study');
       const container=$('#topnav section a[href="/learn"]+div[role="group"]');
       $('a.lichessTools-previousStudy',container).remove();
-      if (!value) return;
-      let studyData=parent.currentOptions.getValue('previousStudyMenu.study');
-      if (!studyData) return;
-      $('<a/>')
-        .attr('href','/study/'+studyData.id)
-        .addClass('lichessTools-previousStudy')
-        .text(trans.noarg('previousStudyText'))
-        .attr('title',trans.pluralSame('previousStudyTitle',studyData.name))
-        .append($('<span>').text(studyData.name))
-        .appendTo(container);
+      if (this.options.enabled && studyData) {
+        $('<a/>')
+          .attr('href','/study/'+studyData.id)
+          .addClass('lichessTools-previousStudy')
+          .text(trans.noarg('previousStudyText'))
+          .attr('title',trans.pluralSame('previousStudyTitle',studyData.name))
+          .append($('<span>').text(studyData.name))
+          .appendTo(container);
+      }
+    };
+
+    async start() {
+      const parent=this.lichessTools;
+      const value=parent.currentOptions.getValue('previousStudyMenu');
+      this.logOption('Last study menu', value);
+      this.options={ enabled: value };
+      const lichess=parent.lichess;
+      await this.updateStudy();
+      lichess.pubsub.off('redraw',this.updateStudy);
+      if (value) {
+        lichess.pubsub.on('redraw',this.updateStudy);
+      }
     }
 
   }
