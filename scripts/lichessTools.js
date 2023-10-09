@@ -279,7 +279,7 @@
         this.resetCache();
       }
       let elem = this.elementCache?.get(path);
-      if (!elem?.parentNode) {
+      if (!elem?.offsetParent) {
         this.resetCache();
         elem = this.elementCache.get(path);
       }
