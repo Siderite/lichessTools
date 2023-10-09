@@ -1,6 +1,8 @@
 (()=>{
   class ShowFlagsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['EmitPuzzleChange'];
+
     preferences=[
       {
         name:'showFlags',
@@ -464,6 +466,15 @@
     };
     debouncedProcessFlags=this.lichessTools.debounce(this.processFlags,500);
 
+    resetFlags=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('.lichessTools-flag+img.flag').remove();
+      $('.lichessTools-flag').removeClass('lichessTools-flag');
+      $('.lichessTools-noflag').removeClass('lichessTools-noflag');
+      this.processFlags();
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('showFlags');
@@ -473,13 +484,16 @@
       const $=parent.$;
       lichess.pubsub.off('content-loaded',this.debouncedProcessFlags);
       lichess.pubsub.off('socket.in.crowd',this.debouncedProcessFlags);
+      lichess.pubsub.off('puzzleChange',this.resetFlags);
       if (value) {
         this.debouncedProcessFlags();
         lichess.pubsub.on('content-loaded',this.debouncedProcessFlags);
         lichess.pubsub.on('socket.in.crowd',this.debouncedProcessFlags);
+        lichess.pubsub.on('puzzleChange',this.resetFlags);
       } else {
         $('.lichessTools-flag+img.flag').remove();
         $('.lichessTools-flag').removeClass('lichessTools-flag');
+        $('.lichessTools-noflag').removeClass('lichessTools-noflag');
       }
     }
 
