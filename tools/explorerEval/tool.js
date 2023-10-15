@@ -161,7 +161,11 @@
       if (key) {
         let newNode=node[key];
         if (!newNode) {
-          newNode=path==key?true:{};
+          if (path==key) {
+            node[key]=true;
+            return;
+          }
+          newNode={};
           node[key]=newNode;
         }
         this._setCached404(path?.slice(2),newNode);
