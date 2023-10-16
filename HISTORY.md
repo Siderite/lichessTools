@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Oct
+  - Option to not see cloud values in computer evaluation
+
 09 Oct
   - Option to change add bookmarks to the move list, allowing for collapse/expand and linking
 
