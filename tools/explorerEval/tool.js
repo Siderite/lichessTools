@@ -200,7 +200,7 @@
         result={ moves:[] };
       }
       let newMoves=[];
-      if (this.options.db && !parent.net.slowMode && result===undefined) {
+      if (this.options.db && !parent.net.slowMode && result===undefined && !analysis.ceval.enabled()) {
         result={ moves: [] };
         if (this.CSP) {
           let obj=await this.jsonWith404({
