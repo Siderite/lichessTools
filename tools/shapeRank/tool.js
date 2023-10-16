@@ -36,44 +36,42 @@
       const analysis=parent.lichess.analysis;
       this.chessground=analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
       const drawable=this.chessground?.state.drawable;
-      if (!drawable) return;
+      if (!drawable||!this.options.enabled) return;
 
-      const reshape=($this,result,shapes)=>{
-        this.clearRankShapes(shapes);
-        if (!this.options.enabled) return;
-        const dict={}
-        const drawnShapes = [];
-        let rank=0;
-        for (const shape of shapes) {
-          if (dict[shape.orig]) continue;
-          rank++;
-          const rankShape={
-            type: 'rank',
-            orig: shape.orig,
-            dest: false, // fix lichess bug where this is found as the shape to erase
-            customSvg:parent.makeSvg('<text x="10%" y="50%" font-size="200%" fill="black" stroke="'+shape.brush+'">'+rank+'</text>',this.chessground)
-          };
-          dict[rankShape.orig]=true;
-          drawnShapes.push(rankShape);
-        }
-        if (rank) {
-          drawable.shapes=drawnShapes.concat(shapes);
-          if (!this.chessground.state.draggable.current) this.chessground.redrawAll();
-        }
-      };
-
-      if (this.options.enabled) {
-        if (!parent.isWrappedFunction(drawable.onChange,'shapeRank')) {
-          drawable.onChange=parent.wrapFunction(drawable.onChange,{
-            id:'shapeRank',
-            before:($this,shapes)=>this.clearRankShapes(shapes),
-            after:reshape
-          });
-        } 
-        reshape(null,null,[...drawable.shapes]);
-      } else {
-        drawable.onChange=parent.unwrapFunction(drawable.onChange,'shapeRank');
-      } 
+      const descriptor=Object.getOwnPropertyDescriptor(drawable,'shapes');
+      const isProperty=descriptor?.get && descriptor?.set;
+      if (!isProperty) {
+        const tool=this;
+        drawable._shapes=drawable.shapes;
+        Object.defineProperty(drawable,'shapes',{
+          get: function () {
+            if (!tool.options.enabled) return this._shapes;
+            const shapes=this._shapes?.filter(s=>s.type!='rank');
+            if (shapes) {
+              const dict={}
+              const drawnShapes = [];
+              let rank=0;
+              for (const shape of shapes) {
+                if (dict[shape.orig]) continue;
+                rank++;
+                const rankShape={
+                  type: 'rank',
+                  orig: shape.orig,
+                  dest: false, // fix lichess bug where this is found as the shape to erase
+                  customSvg:parent.makeSvg('<text x="10%" y="50%" font-size="200%" fill="black" stroke="'+shape.brush+'">'+rank+'</text>',this.chessground)
+                };
+                dict[rankShape.orig]=true;
+                drawnShapes.push(rankShape);
+              }
+              this._shapes=drawnShapes.concat(shapes);
+            }
+            return this._shapes;
+          },
+          set: function (shapes) {
+            this._shapes=shapes;
+          }
+        });
+      }
     };
 
     waitForChessground=()=>{

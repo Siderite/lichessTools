@@ -206,8 +206,8 @@
       $('.tview2').toggleClass('lichessTools-indentedVariations',this.options.indentedVariations);
       const container=$('div.analyse__tools div.action-menu');
       if (!container.length) return;
-      if (!$('.abset-extendedInteractive',container).length) {
-        const html=`<div class="setting abset-extendedInteractive" title="LiChess Tools - $trans(moveListOptions.indentedVariations)">
+      if (!$('.abset-indentedVariations',container).length) {
+        const html=`<div class="setting abset-indentedVariations" title="LiChess Tools - $trans(moveListOptions.indentedVariations)">
       <div class="switch">
         <input id="abset-indentedVariations" class="cmn-toggle" type="checkbox" checked="">
         <label for="abset-indentedVariations"></label>
