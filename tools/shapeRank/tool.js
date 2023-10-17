@@ -44,6 +44,7 @@
         const tool=this;
         drawable._shapes=drawable.shapes;
         Object.defineProperty(drawable,'shapes',{
+          configurable:true,
           get: function () {
             if (!tool.options.enabled) return this._shapes;
             const shapes=this._shapes?.filter(s=>s.type!='rank');
