@@ -245,8 +245,17 @@
       return fen.slice(0,index+1); 
     }
 
+    treeviewVisibleCache={
+      time:0,
+      value:true
+    };
     isTreeviewVisible=()=>{
-      return this.$('div.tview2').length>0;
+      const now=new Date().getTime();
+      if (now-this.treeviewVisibleCache.time>2500) {
+        this.treeviewVisibleCache.value=(this.$('div.tview2').length>0);
+        this.treeviewVisibleCache.time=now;
+      }
+      return this.treeviewVisibleCache.value;
     };
 
     rectIntersection=(r1,r2)=>{

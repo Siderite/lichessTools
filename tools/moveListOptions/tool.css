@@ -29,6 +29,7 @@ body.lichessTools .tview2.lichessTools-indentedVariations lines move:has(+inline
   margin-left: -2em;
 }
 
+body.lichessTools .tview2.lichessTools-indentedVariations inline::before,
 body.lichessTools .tview2.lichessTools-indentedVariations inline::after {
   content: none;
 }
