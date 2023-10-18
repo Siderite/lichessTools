@@ -79,7 +79,7 @@
           state.feedback = 'play';
           state.hint = node.gamebook?.hint;
           if (!state.hint) {
-            const hint=trans.pluralSame('nextMovesCount',nextMoves.filter(c=>c.gamebook).length);
+            const hint=trans.pluralSame('nextMovesCount',new Set(nextMoves.filter(c=>c.gamebook).map(c=>c.uci)).size);
             state.hint=hint;
           }
         } else {
@@ -117,13 +117,15 @@
       solution: ()=>{
         const parent=this.lichessTools;
         const analysis=parent.lichess.analysis;
-        const child=parent.getRandomVariation(analysis.node);
-        if (child) {
-          const shapes=[{
+        const children=parent.getNextMoves(analysis.node).filter(c=>c.gamebook);
+        if (!children) return;
+        const shapes=[];
+        for (const child of children) {
+          shapes.push({
             orig:child.uci.slice(0,2),
             dest:child.uci.slice(2,4),
             brush:'green'
-          }];
+          });
           if (child.promotion) {
             shapes.push({
               orig:child.uci.slice(2,4),
@@ -135,8 +137,8 @@
               brush: 'green'
             });
           }
-          analysis.chessground.setShapes(shapes);
         }
+        analysis.chessground.setShapes(shapes);
       }
     };
 
@@ -406,6 +408,8 @@
           },
           after:($this,result,o)=> {
             this.patchGamebook();
+            const gp=analysis.gamebookPlay();
+            gp?.makeState();
             analysis.redraw();
           }
         });
