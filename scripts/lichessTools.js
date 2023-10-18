@@ -249,12 +249,12 @@
       time:0,
       value:true
     };
-    isTreeviewVisible=()=>{
+    isTreeviewVisible=(forced)=>{
       const now=new Date().getTime();
-      if (now-this.treeviewVisibleCache.time>2500) {
+      if (forced || now-this.treeviewVisibleCache.time>1000) {
         this.treeviewVisibleCache.value=(this.$('div.tview2').length>0);
-        this.treeviewVisibleCache.time=now;
       }
+      this.treeviewVisibleCache.time=now;
       return this.treeviewVisibleCache.value;
     };
 
@@ -293,7 +293,9 @@
         elem = this.elementCache.get(path);
       }
       if (path && !elem) {
-        this.global.console.warn('Could not find elem for path '+path,this.global.location.href);
+        if (this.isTreeviewVisible(true)) {
+          this.global.console.warn('Could not find elem for path '+path,this.global.location.href);
+        }
       }
       return elem;
     }

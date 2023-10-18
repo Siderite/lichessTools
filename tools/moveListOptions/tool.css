@@ -1,15 +1,16 @@
-body.lichessTools .tview2.lichessTools-indentedVariations inline,
-body.lichessTools .tview2.lichessTools-indentedVariations move:has(+inline) {
+body.lichessTools .tview2.lichessTools-indentedVariations inline
+{
   padding-left: 7px;
   display: block;
 }
 
-body.lichessTools .tview2.lichessTools-indentedVariations move:has(+inline) {
+body.lichessTools .tview2.lichessTools-indentedVariations move+inline {
   padding-left: 2em;
+  display: block;
 }
 
 body.lichessTools .tview2.lichessTools-indentedVariations lines inline::before,
-body.lichessTools .tview2.lichessTools-indentedVariations lines move:has(+inline)::before {
+body.lichessTools .tview2.lichessTools-indentedVariations lines move+inline::before {
   margin-top: .45em;
   margin-left: -8px;
   content: " ";
@@ -21,7 +22,7 @@ body.lichessTools .tview2.lichessTools-indentedVariations lines move:has(+inline
 }
 
 /* a bit of a hack to avoid conflict with highlight tool */
-body.lichessTools .tview2.lichessTools-indentedVariations lines move.lichessTools-lastInLine:has(+inline)::before {
+body.lichessTools .tview2.lichessTools-indentedVariations lines move.lichessTools-lastInLine+inline::before {
   filter: brightness(0.5);
 }
 
