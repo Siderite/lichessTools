@@ -251,10 +251,10 @@
     };
     isTreeviewVisible=(forced)=>{
       const now=new Date().getTime();
-      if (forced || now-this.treeviewVisibleCache.time>1000) {
+      if (forced || now-this.treeviewVisibleCache.time>100) {
         this.treeviewVisibleCache.value=(this.$('div.tview2').length>0);
+        this.treeviewVisibleCache.time=now;
       }
-      this.treeviewVisibleCache.time=now;
       return this.treeviewVisibleCache.value;
     };
 
@@ -306,7 +306,10 @@
     }
 
     traverse=(snode, func)=>{
-      if (!snode) snode=this.lichess?.analysis?.tree.root;
+      if (!snode) {
+        snode=this.lichess?.analysis?.tree.root;
+        this.isTreeviewVisible(true);
+      }
       const state={
         lastMoves:[],
         positions:{},

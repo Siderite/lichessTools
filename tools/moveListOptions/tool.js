@@ -151,8 +151,8 @@
           if (node.bookmark) {
             if (node.bookmark.label!=bookmark) {
               node.bookmark.label=bookmark;
-              this.setBookmark(elem,node.bookmark);
             }
+            this.setBookmark(elem,node.bookmark);
           } else {
             node.bookmark={
               label:bookmark,
@@ -222,6 +222,7 @@
             const arr=[];
             const options=parent.currentOptions
             if ($('#abset-indentedVariations').is(':checked')) arr.push('indentedVariations');
+            if (this.options.bookmarks) arr.push('bookmarks');
             options.moveListOptions=arr.join(',');
             await parent.applyOptions(options);
             parent.fireReloadOptions();
@@ -342,6 +343,7 @@
         id:'moveListOptions',
         after: ($this, result, ...args)=>{
           parent.global.setTimeout(this.analysisControls,100);
+          parent.emitRedraw();
         }
       });
       this.analysisControls();
