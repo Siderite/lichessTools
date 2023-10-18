@@ -93,6 +93,7 @@
       if (!isProperty) {
         const quietMode=lichess.quietMode;
         Object.defineProperty(lichess,'forcedQuietMode',{
+          configurable:true,
           get: function () {
             return this.storage.get('LichessTools.forcedQuietMode')=='true';
           },
@@ -101,6 +102,7 @@
           }
         });
         Object.defineProperty(lichess,'quietMode',{
+          configurable:true,
           get: function () {
             if (this.forcedQuietMode) return true;
             return this.storage.get('LichessTools.quietMode')=='true';

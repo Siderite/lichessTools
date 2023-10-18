@@ -161,7 +161,11 @@
       if (key) {
         let newNode=node[key];
         if (!newNode) {
-          newNode=path==key?true:{};
+          if (path==key) {
+            node[key]=true;
+            return;
+          }
+          newNode={};
           node[key]=newNode;
         }
         this._setCached404(path?.slice(2),newNode);
@@ -196,7 +200,7 @@
         result={ moves:[] };
       }
       let newMoves=[];
-      if (this.options.db && !parent.net.slowMode && result===undefined) {
+      if (this.options.db && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
         result={ moves: [] };
         if (this.CSP) {
           let obj=await this.jsonWith404({
