@@ -29,6 +29,10 @@
           after: emit
         });
       }
+      lichess.pubsub.off('ply',emit);
+      lichess.pubsub.on('ply',emit);
+      lichess.pubsub.off('analysis.change',emit);
+      lichess.pubsub.on('analysis.change',emit);
     }
   }
   LiChessTools.Tools.EmitRedraw=EmitRedrawTool;

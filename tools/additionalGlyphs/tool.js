@@ -26,11 +26,7 @@
     }
 
     isStandardGlyph=(glyph)=>{
-      if (!this.standardGlyphs) return glyph!='#';
-      for (const key in this.standardGlyphs) {
-        if (this.standardGlyphs[key].find(g=>g.symbol==glyph)) return true;
-      }
-      return false;
+      return glyph!='#';
     }
 
     drawGlyphsDirect=()=>{
@@ -83,10 +79,6 @@
         analysis.chessground.setAutoShapes(shapes);
         return;
       }
-      // TODO remove standardGlyphs logic after making sure lichess renders glyphs natively
-      /*if (!this.standardGlyphs) {
-        this.standardGlyphs=JSON.parse(await lichessTools.net.fetch(lichess.assetUrl('glyphs.json')));
-      }*/
       lichess.pubsub.on('redraw',this.drawGlyphs);
       if (study) {
         if (lichess.socket) {
