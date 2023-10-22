@@ -1,7 +1,21 @@
 body.lichessTools .lichessTools-chapterControls div[role="footer"] {
   display:flex;
   justify-content: space-around;
+  background: #f8f8f8;
+  height:2.5em;
+  align-items: stretch;
 }
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system .lichessTools-chapterControls div[role="footer"] {
+    background: #2D2B29;
+  }
+}
+
+body.lichessTools.dark .lichessTools-chapterControls div[role="footer"] {
+  background: #2D2B29;
+}
+
 
 body.lichessTools .lichessTools-chapterControls:not(:has(div.study__chapters)) div[role="footer"] {
   display:none;

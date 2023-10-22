@@ -37,11 +37,11 @@
       let container=$('div.study__side div[role="footer"]');
       if (!container.length&&list.length>1) {
         container=$(`<div role="footer">
-          <button class="fbt" data-act="first" data-icon="&#xE04A;"/>
-          <button class="fbt" data-act="prev" data-icon="&#xE04C;"/>
-          <button class="fbt" data-act="random" data-icon="&#xE035;"/>
-          <button class="fbt" data-act="next" data-icon="&#xE04B;"/>
-          <button class="fbt" data-act="last" data-icon="&#xE049;"/>
+          <button class="fbt" data-act="first" data-icon="&#x219E;"/>
+          <button class="fbt" data-act="prev" data-icon="&#x2190;"/>
+          <button class="fbt" data-act="random" data-icon="&#x21AF;"/>
+          <button class="fbt" data-act="next" data-icon="&#x2192;"/>
+          <button class="fbt" data-act="last" data-icon="&#x21A0;"/>
         </div>`)
           .on('click',this.actionChapterControls)
           .attr('title',trans.noarg('chapterControlsTitle'))

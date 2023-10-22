@@ -22,7 +22,11 @@
         'addBookmarkText':'Add/Remove bookmark',
         'addBookmarkTitle':'LiChess Tools - Add/Remove bookmark',
         'addBookmarkPrompt':'Add/Remove bookmark',
-        'collapseExpandTitle':'LiChess Tools - Collapse/Expand'
+        'collapseExpandTitle':'LiChess Tools - Collapse/Expand',
+        'URLCopiedToClipboard': 'URL copied to clipboard',
+        'clipboardDenied':'Clipboard access denied',
+        'getBookmarkUrlText':'Get bookmark link',
+        'getBookmarkUrlTitle':'LiChess Tools - get bookmark link'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -32,7 +36,11 @@
         'addBookmarkText':'Adaug\u0103/Elimin\u0103 bookmark',
         'addBookmarkTitle':'LiChess Tools - Adaug\u0103/Elimin\u0103 bookmark',
         'addBookmarkPrompt':'Adaug\u0103/Elimin\u0103 bookmark',
-        'collapseExpandTitle':'LiChess Tools - Colapseaz\u0103/Expandeaz\u0103'
+        'collapseExpandTitle':'LiChess Tools - Colapseaz\u0103/Expandeaz\u0103',
+        'URLCopiedToClipboard': 'URL copiat \u00een clipboard',
+        'clipboardDenied':'Acces refuzat la clipboard',
+        'getBookmarkUrlText':'Link la bookmark',
+        'getBookmarkUrlTitle':'LiChess Tools - link la bookmark'
       }
     }
 
@@ -151,8 +159,8 @@
           if (node.bookmark) {
             if (node.bookmark.label!=bookmark) {
               node.bookmark.label=bookmark;
-              this.setBookmark(elem,node.bookmark);
             }
+            this.setBookmark(elem,node.bookmark);
           } else {
             node.bookmark={
               label:bookmark,
@@ -222,6 +230,7 @@
             const arr=[];
             const options=parent.currentOptions
             if ($('#abset-indentedVariations').is(':checked')) arr.push('indentedVariations');
+            if (this.options.bookmarks) arr.push('bookmarks');
             options.moveListOptions=arr.join(',');
             await parent.applyOptions(options);
             parent.fireReloadOptions();
@@ -295,6 +304,34 @@
       $('#comment-text').val(comment);
     };
 
+    getBookmarkUrl=async (bookmark)=>{
+      const label=bookmark?.label;
+      if (!label) return;
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const announce=parent.announce;
+      const trans=parent.translator;
+      const analysis=lichess.analysis;
+      const study=analysis?.study;
+      if (!study) return;
+
+      const url=parent.global.location.origin+'/study/'+study.data.id+'/'+study.currentChapter().id+'#'+label;
+      const result=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
+      if (['granted','prompt'].includes(result.state)) {
+        try {
+          await parent.global.navigator.clipboard.writeText(url);
+          const announcement = trans.noarg('URLCopiedToClipboard');
+          announce(announcement);
+        } catch(e) {
+          const announcement = trans.noarg('clipboardDenied');
+          announce(announcement);
+        }
+      } else {
+        const announcement = trans.noarg('clipboardDenied');
+        announce(announcement);
+      }
+    };
+
     analysisContextMenu=()=>{
       if (!this.options.bookmarks);
       const parent=this.lichessTools;
@@ -308,17 +345,35 @@
       const menu=$('#analyse-cm');
       if (!menu.length) return;
       
-      if (!this.options.bookmarks || !study?.vm.mode.write) return;
-      let menuItem=$('a[data-role="bookmark"]',menu);
-      if (!menuItem.length) {
-        const text=trans.noarg('addBookmarkText');
-        const title=trans.noarg('addBookmarkTitle');
-        menuItem=$('<a>')
-          .attr('data-icon','\uE062')
-          .attr('data-role','bookmark')
-          .text(text).attr('title',title)
-          .on('click',this.addOrRemoveBookmark)
-          .appendTo(menu);
+      if (!this.options.bookmarks) return;
+      if (study?.vm.mode.write) {
+        let menuItem=$('a[data-role="bookmark"]',menu);
+        if (!menuItem.length) {
+          const text=trans.noarg('addBookmarkText');
+          const title=trans.noarg('addBookmarkTitle');
+          menuItem=$('<a>')
+            .attr('data-icon','\uE062')
+            .attr('data-role','bookmark')
+            .text(text).attr('title',title)
+            .on('click',this.addOrRemoveBookmark)
+            .appendTo(menu);
+        }
+      }
+      if (analysis.contextMenuPath) {
+        const node=analysis.tree.nodeAtPath(analysis.contextMenuPath);
+        if (node?.bookmark?.label) {
+          let menuItem=$('a[data-role="bookmarkUrl"]',menu);
+          if (!menuItem.length) {
+            const text=trans.noarg('getBookmarkUrlText');
+            const title=trans.noarg('getBookmarkUrlTitle');
+            menuItem=$('<a>')
+              .attr('data-icon','\uE016')
+              .attr('data-role','bookmarkUrl')
+              .text(text).attr('title',title)
+              .on('click',()=>this.getBookmarkUrl(node.bookmark))
+              .appendTo(menu);
+          }
+        }
       }
     }
 
@@ -342,6 +397,7 @@
         id:'moveListOptions',
         after: ($this, result, ...args)=>{
           parent.global.setTimeout(this.analysisControls,100);
+          parent.emitRedraw();
         }
       });
       this.analysisControls();

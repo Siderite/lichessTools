@@ -23,12 +23,12 @@
       'en-US':{
         'options.analysis': 'Analysis',
         'options.customEngineLevel': 'Minimum analysis engine depth',
-        'options.noCloud': 'No cloud computer evaluations'
+        'options.noCloud': 'Always use local engine for evaluation'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.customEngineLevel': 'Nivel minim pentru motorul de analiz\u0103',
-        'options.noCloud': 'F\u0103r\u0103 evalu\u0103ri computer din cloud'
+        'options.noCloud': 'Folose\u015fte numai motorul local pentru evalu\u0103ri'
       }
     }
 
