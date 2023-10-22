@@ -54,17 +54,21 @@
       const analysis=lichess?.analysis;
       const study=analysis?.study;
       if (!study) return;
-      if (!study.vm.mode.write || !parent.currentOptions.getValue('commentStyling')) {
+      if (!parent.currentOptions.getValue('commentStyling')) {
         $('.study__buttons span.lichessTools-colors').remove();
         return;
       }
-      if (study.vm.mode.write && !$('.study__buttons span.lichessTools-colors').length) {
-        const button=$('<span>')
-          .attr('title',trans.noarg('commentStyleCycle'))
-          .attr('data-icon','\uE029') //'\uE01E')
-          .addClass('lichessTools-colors')
-          .on('click',this.cycleCommentColor)
-          .insertAfter('.study__buttons span.comments');
+      if (!study.vm.mode.write) {
+        $('.study__buttons span.lichessTools-colors').remove();
+      } else {
+        if (!$('.study__buttons span.lichessTools-colors').length) {
+          const button=$('<span>')
+            .attr('title',trans.noarg('commentStyleCycle'))
+            .attr('data-icon','\uE029') //'\uE01E')
+            .addClass('lichessTools-colors')
+            .on('click',this.cycleCommentColor)
+            .insertAfter('.study__buttons span.comments');
+        }
       }
 
       const commentNodes=this.getCommentNodes($('div.analyse__moves comment, div.gamebook .comment .content'));
