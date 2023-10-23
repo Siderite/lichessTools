@@ -276,17 +276,11 @@
       this.elementCache=new Map();
       const container=$('div.analyse__moves');
       $('move',container).each((i,e)=>this.elementCache.set($(e).attr('p')||'',e));
-      container.data('cached',true);
       this.debug && this.global.console.debug('Element cache reset');
     };
 
     getElementForPath(path) {
       const $=this.$;
-      const container=$('div.analyse__moves');
-      const cached=container.data('cached');
-      if (!cached) {
-        this.resetCache();
-      }
       let elem = this.elementCache?.get(path);
       if (!elem?.offsetParent) {
         this.resetCache();

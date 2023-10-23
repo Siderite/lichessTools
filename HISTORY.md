@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 Oct
+  - Context menu on bookmarked positions to get the URL of the position
+
 16 Oct
   - Option to not see cloud values in computer evaluation
 

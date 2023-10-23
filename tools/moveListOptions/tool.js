@@ -160,14 +160,13 @@
             if (node.bookmark.label!=bookmark) {
               node.bookmark.label=bookmark;
             }
-            this.setBookmark(elem,node.bookmark);
           } else {
             node.bookmark={
               label:bookmark,
               collapsed:false
             };
-            this.setBookmark(elem,node.bookmark);
           }
+          this.setBookmark(elem,node.bookmark);
         } else {
           if (node.bookmark) {
             node.bookmark=null;
