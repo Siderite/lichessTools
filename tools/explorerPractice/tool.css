@@ -15,7 +15,8 @@ body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active
   }
 }
 
-body.lichessTools.dark section.explorer-box span.lichessTools-explorerPractice.active:before {
+body.lichessTools.dark section.explorer-box span.lichessTools-explorerPractice.active:before, 
+body.lichessTools.transp section.explorer-box span.lichessTools-explorerPractice.active:before {
     color: white;
 }
 

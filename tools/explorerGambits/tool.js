@@ -60,7 +60,8 @@
       }
       const side=analysis.getOrientation();
       const fen=analysis.node.fen;
-      $('tr[data-uci],tr.sum',container).each((i,e)=>{
+      let sum=0;
+      $('tr[data-uci]',container).each((i,e)=>{
         $('td:has(div.bar)',e).addClass('lichessTools-bar');
         if (!$('td.lichessTools-explorerGambits',e).length) {
           $('<td>')
@@ -83,20 +84,26 @@
         const explorerItem=(analysis.explorer.current()?.moves||[]).find(i=>i.uci==uci);
         let text='';
         let title=undefined;
-        if ($(e).is('.sum')) {
-          const nr=result?.total;
-          if (nr) {
-            title=trans.pluralSame('gambitRowTitle',nr);
-            text=nr;
-          }
-        } else {
-          if (!explorerItem) return;
-          if (move) {
-            const nr=move.nr||1;
-            title=trans.pluralSame('gambitRowTitle',nr);
-            text=nr;
-          }
+        if (!explorerItem) return;
+        if (move) {
+          const nr=move.nr||1;
+          title=trans.pluralSame('gambitRowTitle',nr);
+          text=nr;
+          sum+=nr;
         }
+        $('td.lichessTools-explorerGambits',e)
+          .text(text)
+          .attr('title',title);
+      });
+      $('tr.sum',container).each((i,e)=>{
+        $('td:has(div.bar)',e).addClass('lichessTools-bar');
+        if (!$('td.lichessTools-explorerGambits',e).length) {
+          $('<td>')
+            .addClass('lichessTools-explorerGambits')
+            .appendTo(e);
+        }
+        const title=trans.pluralSame('gambitRowTitle',sum);
+        const text=sum;
         $('td.lichessTools-explorerGambits',e)
           .text(text)
           .attr('title',title);
