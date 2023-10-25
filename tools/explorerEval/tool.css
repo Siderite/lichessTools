@@ -68,10 +68,18 @@ body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-cloud {
     color: #8080AF;
 }
 
-body.lichessTools tr.lichessTools-warning:after {
+body.lichessTools tr.lichessTools-warning-red:after,
+body.lichessTools tr.lichessTools-warning-green:after {
   content:'\26A0';
   position: relative;
   font-size: smaller;
   margin-left: -1em;
-  color:gray;
+}
+
+body.lichessTools tr.lichessTools-warning-red:after {
+  color:#A08080;
+}
+
+body.lichessTools tr.lichessTools-warning-green:after {
+  color:#80A080;
 }

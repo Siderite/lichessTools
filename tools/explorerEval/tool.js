@@ -54,6 +54,7 @@
       const $=parent.$;
       const trans=parent.translator;
       const analysis=lichess?.analysis;
+      const orientation=analysis.getOrientation()=='black'?-1:1;
       const container=$('section.explorer-box table.moves');
       if (!container.length) return;
       if (!$('th.lichessTools-explorerEval',container).length) {
@@ -104,6 +105,9 @@
             const sim=Math.round(Math.abs(moveCp-cp)/(Math.abs(moveCp)+Math.abs(cp))*100);
             if (sim>=20) {
               explorerItem.diff=Math.abs(moveCp-cp);
+              explorerItem.signVal=orientation*(Math.abs(moveCp)>Math.abs(cp)
+                ? moveCp
+                : cp);
             }
           }
         } else if (this.options.stats) {
@@ -114,6 +118,7 @@
           explorerItem.cp=cp;
           explorerItem.mate=undefined;
         }
+        
         $('td.lichessTools-explorerEval',e)
           .text(text)
           .attr('title',title)
@@ -122,14 +127,14 @@
           .toggleClass('lichessTools-good',rank===1)
           .toggleClass('lichessTools-best',rank===2)
           .toggleClass('lichessTools-cloud',rank===5);
+        $(e)
+          .removeClass('lichessTools-warning-red')
+          .removeClass('lichessTools-warning-green')
+          .removeAttr('title');
         if (explorerItem.diff>200) {
           $(e)
-            .addClass('lichessTools-warning')
+            .addClass(explorerItem.signVal<0?'lichessTools-warning-red':'lichessTools-warning-green')
             .attr('title',trans.noarg('evalWarning'));
-        } else {
-          $(e)
-            .removeClass('lichessTools-warning')
-            .removeAttr('title');
         }
       });
     }
