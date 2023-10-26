@@ -56,7 +56,8 @@ body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons::befo
 }
 
 body.mobile.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons::before {
-  font-size:smaller;
+  font-size:xx-small;
+  padding: 0.5em;
 }
 
 body.lichessTools .analyse .gamebook span.lichessTools-score {

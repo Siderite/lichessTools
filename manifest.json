@@ -92,6 +92,7 @@
       "css": [
         "tools/themes/performance.css",
         "tools/themes/justExplorer.css",
+        "tools/themes/mobile.css",
 
         "tools/detectThirdParties/tool.css",
 

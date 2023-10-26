@@ -1,5 +1,6 @@
 /* Performance */
 
+body.lichessTools.lichessTools-theme_performance,
 body.lichessTools.lichessTools-theme_performance * {
   transition: none !important;
   transition-property: none !important;

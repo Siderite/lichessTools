@@ -52,7 +52,7 @@ body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
 }                     
 
 @media (max-width: 500px) {
-  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls {
+  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls:not(.lichessTools-liveStatus) {
     display: inline-grid;
   }
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls div.features {
@@ -67,8 +67,9 @@ body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
     grid-row: 2;
     grid-column: 2/span 8;
   }
-  body.lichessTools.mobile.lichessTools-mobileExperience .lichessTools-liveStatus {
+  body.lichessTools.mobile.lichessTools-evaluationStarted.lichessTools-mobileExperience .lichessTools-liveStatus {
     top: 5em;
+    display: inline-grid;
   }
 }
 

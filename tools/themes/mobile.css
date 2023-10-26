@@ -1,0 +1,69 @@
+/* Mobile */
+
+body.lichessTools.lichessTools-theme_mobile.mobile {
+  --site-header-height: 30px;
+  --site-header-margin: 4px;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile #top {
+  --dropdown-top: 30px;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse {
+  grid-template-areas:
+    "board"
+    "controls"
+    "tools"
+    "under"
+    "side"
+    "round-training"
+    "chat"
+    "uchat";
+  grid-template-rows: auto;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse .analyse__moves  {
+  min-height:20em;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse .main-board {
+  margin-top:1.2rem;
+  margin-bottom:1.2rem;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse .gamebook {
+  margin-top:4px;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse .gamebook .floor {
+  margin-top:0;
+  max-height:6em;
+  align-items:center;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse .gamebook .floor img.mascot {
+  height:5em;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse .feedback {
+  height:auto;
+  min-height:5rem;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse .analyse-controls {
+  margin-top:0;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"] span {
+  display:none;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"]:after {
+  content:"\2630";
+  height: 100%;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+}
+
