@@ -72,6 +72,7 @@
             this._shapes=shapes;
           }
         });
+        analysis.chessground.redrawAll();
       }
     };
 
