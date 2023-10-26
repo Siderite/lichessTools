@@ -67,6 +67,18 @@
         const parPath = analysis.path.slice(0,-2);
         const parNode = analysis.tree.nodeAtPath(parPath);
         const inPgn = !!node.gamebook;
+        if (!inPgn) {
+          const position=parent.getNodePosition(node);
+          const candidate=parent.getNextMoves(parNode).filter(c=>c.gamebook).find(c=>parent.getNodePosition(c)==position);
+          if (candidate) {
+            if (candidate.path!==undefined) {
+              analysis.userJump(candidate.path);
+              return this.extendedGamebook.makeState();
+            } else {
+              parent.global.console.warn('Node has no path',candidate);
+            }
+          }
+        }
         const nextMoves=parent.getNextMoves(node);
         if (!inPgn) {
           state.feedback = 'bad';
@@ -411,6 +423,9 @@
             const gp=analysis.gamebookPlay();
             gp?.makeState();
             analysis.redraw();
+            if (o=='play') {
+              analysis.userJump(analysis.path);
+            }
           }
         });
       }
