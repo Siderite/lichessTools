@@ -1,5 +1,11 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 Oct
+  - Added the mobile theme
+
+23 Oct
+  - Added the performance theme, removed the demo theme
+
 22 Oct
   - Context menu on bookmarked positions to get the URL of the position
 
