@@ -16,6 +16,10 @@ body.lichessTools.dark .lichessTools-chapterControls div[role="footer"] {
   background: #2D2B29;
 }
 
+body.lichessTools.transp .lichessTools-chapterControls div[role="footer"] {
+  background: transparent;
+}
+
 
 body.lichessTools .lichessTools-chapterControls:not(:has(div.study__chapters)) div[role="footer"] {
   display:none;

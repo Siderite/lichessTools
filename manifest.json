@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Lichess Tools, by Siderite",
   "short_name": "Lichess Tools",
-  "version": "2.1.29",
+  "version": "2.1.30",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev",
@@ -90,8 +90,9 @@
         "scripts/lichessTools-init.js"
       ],
       "css": [
-        "tools/themes/demo.css",
+        "tools/themes/performance.css",
         "tools/themes/justExplorer.css",
+        "tools/themes/mobile.css",
 
         "tools/detectThirdParties/tool.css",
 
