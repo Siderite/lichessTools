@@ -41,6 +41,10 @@ body.lichessTools .tview2 move.lichessTools-bookmark {
   overflow:visible;
 }
 
+body.lichessTools .tview2 move.lichessTools-bookmark:has(+comment+comment) {
+  margin-top:2em;
+}
+
 body.lichessTools .tview2 move.lichessTools-bookmark bookmark {
   position:absolute;
   top:-1.5em;
@@ -88,3 +92,11 @@ body.lichessTools .tview2 comment.lichessTools-empty {
 body.lichessTools #analyse-cm a[data-role="bookmark"]:before {
   transform: scaleX(-1);
 }
+
+body.lichessTools .tview2 move.lichessTools-bookmark+comment {
+  vertical-align: baseline;
+}
+
+body.lichessTools .tview2 lines line:has(>move:nth-child(1)>bookmark):before {
+  content:none;
+} 
