@@ -196,7 +196,8 @@
         if (!m) continue;
         node.textContent=text.slice(0,m.index)+text.slice(m.index+m[0].length);
         const comment=$(node).closest('comment');
-        comment.toggleClass('lichessTools-empty',!comment.text());
+        const isEmpty=!Array.from(comment[0].childNodes||[]).filter(n=>n.nodeType==3).find(n=>!!n.nodeValue?.trim());
+        comment.toggleClass('lichessTools-empty',isEmpty);
       }
     }
 

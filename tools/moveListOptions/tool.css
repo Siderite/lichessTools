@@ -39,10 +39,11 @@ body.lichessTools .tview2 move.lichessTools-bookmark {
   margin-top:1em;
   position:relative;
   overflow:visible;
+  vertical-align:super;
 }
 
 body.lichessTools .tview2 move.lichessTools-bookmark:has(+comment+comment) {
-  margin-top:2em;
+  display:block;
 }
 
 body.lichessTools .tview2 move.lichessTools-bookmark bookmark {
@@ -99,4 +100,8 @@ body.lichessTools .tview2 move.lichessTools-bookmark+comment {
 
 body.lichessTools .tview2 lines line:has(>move:nth-child(1)>bookmark):before {
   content:none;
+}
+
+body.lichessTools .tview2 comment span.by {
+  vertical-align:middle;
 } 
