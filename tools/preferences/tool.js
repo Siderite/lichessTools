@@ -305,7 +305,7 @@
         .attr('href','/account/preferences/display#lichessTools')
 	    .append($('<span>').text(trans.noarg('LiChess Tools')));
 
-      $('nav.page-menu__menu.subnav a[href*=privacy]').before(prefElem);
+      $('.page-menu__menu a[href*=privacy]').before(prefElem);
     }
 
   }
