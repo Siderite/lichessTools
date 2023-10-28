@@ -55,6 +55,11 @@ body.lichessTools .tview2 move.lichessTools-bookmark bookmark {
 body.lichessTools .tview2 move.lichessTools-bookmark bookmark label {
   font-size:smaller;
   color: orange;
+  display: inline-block;
+  max-width: 20em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align:middle;
 }
 
 

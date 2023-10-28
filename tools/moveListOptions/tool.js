@@ -131,7 +131,9 @@
             });
           $(elem).addClass('lichessTools-bookmark');
         }
-        $('label',bookmarkElem).text(bookmark.label?.replaceAll('_',' '));
+        $('label',bookmarkElem)
+          .text(bookmark.label?.replaceAll('_',' '))
+          .attr('title',bookmark.label?.replaceAll('_',' '));
         this.collapseMove(elem,!!bookmark.collapsed);
       } else {
         this.collapseMove(elem,false);
