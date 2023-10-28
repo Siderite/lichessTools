@@ -131,7 +131,9 @@
             });
           $(elem).addClass('lichessTools-bookmark');
         }
-        $('label',bookmarkElem).text(bookmark.label);
+        $('label',bookmarkElem)
+          .text(bookmark.label?.replaceAll('_',' '))
+          .attr('title',bookmark.label?.replaceAll('_',' '));
         this.collapseMove(elem,!!bookmark.collapsed);
       } else {
         this.collapseMove(elem,false);
@@ -196,7 +198,8 @@
         if (!m) continue;
         node.textContent=text.slice(0,m.index)+text.slice(m.index+m[0].length);
         const comment=$(node).closest('comment');
-        comment.toggleClass('lichessTools-empty',!comment.text());
+        const isEmpty=!Array.from(comment[0].childNodes||[]).filter(n=>n.nodeType==3).find(n=>!!n.nodeValue?.trim());
+        comment.toggleClass('lichessTools-empty',isEmpty);
       }
     }
 
@@ -248,8 +251,9 @@
       this.hash=parent.global.location.hash;
       if (!this.hash) return;
       let destinationNode=null;
+      const hash=parent.global.decodeURIComponent(this.hash?.slice(1)?.toLowerCase());
       parent.traverse(null,(node,state)=>{
-        if (node.bookmark?.label?.toLowerCase()==this.hash?.slice(1)?.toLowerCase()) {
+        if (node.bookmark?.label?.toLowerCase()==hash) {
           if (destinationNode) {
             parent.announce('You have multiple bookmarks with the same label: '+node.bookmark.label);
           } else {
@@ -314,7 +318,7 @@
       const study=analysis?.study;
       if (!study) return;
 
-      const url=parent.global.location.origin+'/study/'+study.data.id+'/'+study.currentChapter().id+'#'+label;
+      const url=parent.global.location.origin+'/study/'+study.data.id+'/'+study.currentChapter().id+'#'+parent.global.encodeURIComponent(label);
       const result=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
       if (['granted','prompt'].includes(result.state)) {
         try {
