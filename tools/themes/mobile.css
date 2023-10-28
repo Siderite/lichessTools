@@ -22,6 +22,19 @@ body.lichessTools.lichessTools-theme_mobile.mobile .analyse {
   grid-template-rows: auto;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse:has(.action-menu) .analyse__underboard,
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse:has(.action-menu) .analyse__side {
+  display:none;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse .action-menu {
+  min-height:50vh;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse .explorer-box  {
+  min-height:20em;
+}
+
 body.lichessTools.lichessTools-theme_mobile.mobile .analyse .analyse__moves  {
   min-height:20em;
 }
