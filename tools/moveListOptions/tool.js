@@ -26,7 +26,11 @@
         'URLCopiedToClipboard': 'URL copied to clipboard',
         'clipboardDenied':'Clipboard access denied',
         'getBookmarkUrlText':'Get bookmark link',
-        'getBookmarkUrlTitle':'LiChess Tools - get bookmark link'
+        'getBookmarkUrlTitle':'LiChess Tools - get bookmark link',
+        'collapseAllText':'Collapse all bookmarks',
+        'collapseAllTitle':'LiChess Tools - Collapse all bookmarks',
+        'expandAllText':'Expand all bookmarks',
+        'expandAllTitle':'LiChess Tools - Expand all bookmarks'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -40,7 +44,11 @@
         'URLCopiedToClipboard': 'URL copiat \u00een clipboard',
         'clipboardDenied':'Acces refuzat la clipboard',
         'getBookmarkUrlText':'Link la bookmark',
-        'getBookmarkUrlTitle':'LiChess Tools - link la bookmark'
+        'getBookmarkUrlTitle':'LiChess Tools - link la bookmark',
+        'collapseAllText':'Colapseaz\u0103 toate bookmarkurile',
+        'collapseAllTitle':'LiChess Tools - Colapseaz\u0103 toate bookmarkurile',
+        'expandAllText':'Expandeaz\u0103 toate bookmarkurile',
+        'expandAllTitle':'LiChess Tools - Expandeaz\u0103 toate bookmarkurile'
       }
     }
 
@@ -335,8 +343,20 @@
       }
     };
 
+    collapseExpandAll=()=>{
+      if (!this.options.bookmarks) return;
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const anyCollapsed=$('move.lichessTools-collapsed').eq(0)[0];
+      if (anyCollapsed) {
+        $('move.lichessTools-bookmark.lichessTools-collapsed bookmark button').trigger('click');
+      } else {
+        $('move.lichessTools-bookmark:not(.lichessTools-collapsed) bookmark button').trigger('click');
+      }
+    };
+
     analysisContextMenu=()=>{
-      if (!this.options.bookmarks);
+      if (!this.options.bookmarks) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -376,6 +396,30 @@
               .on('click',()=>this.getBookmarkUrl(node.bookmark))
               .appendTo(menu);
           }
+
+          menuItem=$('a[data-role="collapseAll"]',menu);
+          if (!menuItem.length) {
+            menuItem=$('<a>')
+              .attr('data-role','collapseAll')
+              .on('click',()=>this.collapseExpandAll())
+              .appendTo(menu);
+          }
+          const anyCollapsed=$('move.lichessTools-collapsed').eq(0)[0];
+          let text=undefined;
+          let title=undefined;
+          let icon=undefined;
+          if (anyCollapsed) {
+            text=trans.noarg('expandAllText');
+            title=trans.noarg('expandAllTitle');
+            icon='\uE042';
+          } else {
+            text=trans.noarg('collapseAllText');
+            title=trans.noarg('collapseAllTitle');
+            icon='\uE043';
+          }
+          menuItem
+            .attr('data-icon',icon)
+            .text(text).attr('title',title);
         }
       }
     }
