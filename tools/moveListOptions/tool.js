@@ -9,7 +9,7 @@
         category: 'analysis',
         type:'multiple',
         possibleValues: ['indentedVariations','bookmarks'],
-        defaultValue: false
+        defaultValue: 'bookmarks'
       }
     ];
 
