@@ -1,7 +1,7 @@
 (()=>{
   class HighlightTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw'];
+    dependencies=['EmitRedraw','DetectThirdParties'];
 
     preferences=[
       {

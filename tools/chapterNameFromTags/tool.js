@@ -1,6 +1,8 @@
 (()=>{
   class ChapterNameFromTagsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['DetectThirdParties'];
+
     preferences=[
       {
         name:'chapterNameFromTags',

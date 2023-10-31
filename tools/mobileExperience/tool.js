@@ -1,7 +1,7 @@
 (()=>{
   class MobileExperienceTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw','EmitChapterChange','RandomVariation'];
+    dependencies=['EmitRedraw','EmitChapterChange','RandomVariation','DetectThirdParties'];
 
     preferences=[
       {
