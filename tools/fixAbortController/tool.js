@@ -6,7 +6,7 @@
         name:'fixAbortController',
         category: 'general',
         type:'single',
-        possibleValues: [true,false],
+        possibleValues: [false,true],
         defaultValue: true,
         advanced: true,
         hidden: true

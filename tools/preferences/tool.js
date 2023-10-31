@@ -8,7 +8,7 @@
         name:'advancedPreferences',
         category: 'general',
         type:'single',
-        possibleValues: [true,false],
+        possibleValues: [false,true],
         defaultValue: false,
         advanced: true,
         hidden: true

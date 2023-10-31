@@ -35,6 +35,7 @@
         "tools/randomVariation/tool.js",
         "tools/themes/tool.js",
         "tools/detectThirdParties/tool.js",
+        "tools/cliCommands/tool.js",
         "tools/chessops/tool.js",
         "tools/exportPgn/tool.js",
 
