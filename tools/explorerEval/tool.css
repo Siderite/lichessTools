@@ -22,7 +22,8 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
   }
 }
 
-body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-bad {
+body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-bad,
+body.lichessTools.transp td.lichessTools-explorerEval.lichessTools-bad {
     color: #A08080;
 }
 
@@ -36,7 +37,8 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
   }
 }
 
-body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-good {
+body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-good,
+body.lichessTools.transp td.lichessTools-explorerEval.lichessTools-good {
     color: #80A080;
 }
 
@@ -50,7 +52,8 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
   }
 }
 
-body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-best {
+body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-best,
+body.lichessTools.transp td.lichessTools-explorerEval.lichessTools-best {
     color: #80FF80;
 }
 
@@ -64,7 +67,8 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
   }
 }
 
-body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-cloud {
+body.lichessTools.dark td.lichessTools-explorerEval.lichessTools-cloud,
+body.lichessTools.transp td.lichessTools-explorerEval.lichessTools-cloud {
     color: #8080AF;
 }
 
