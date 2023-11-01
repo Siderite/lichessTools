@@ -47,6 +47,7 @@
     };
 
     retries=0;
+    maxRetries=10;
 
     boot=async ()=>{
       const parent=this.lichessTools;
@@ -60,23 +61,24 @@
       if (!this.oldkeydown) {
         const focusin=parent.getEventHandlers(input,'focusin')[0];
         if (!focusin) {
-          if (this.retries>5) {
+          if (this.retries>this.maxRetries) {
             parent.global.console.warn('Could not get focusin event for ',input);
             return;
           }
           this.retries++;
-          parent.global.setTimeout(this.boot,500);
+          parent.global.setTimeout(this.boot,100);
           return;
         }
         this.oldkeydown=parent.getEventHandlers(input,'keydown')[0];
         if (!this.oldkeydown) {
           $(input).trigger('focus');
-          if (this.retries>5) {
+          $('body').removeClass('clinput');
+          if (this.retries>this.maxRetries) {
             parent.global.console.warn('Could not get keydown event for ',input);
             return;
           }
           this.retries++;
-          parent.global.setTimeout(this.boot,500);
+          parent.global.setTimeout(this.boot,100);
           return;
         }
         $(input).trigger('blur');
