@@ -51,6 +51,7 @@
           lineDiv.append($('<p>').text(line));
         }
         $('<div class="command">')
+          .attr('data-key',key)
           .attr('title','LiChess Tools')
           .append(lineDiv)
           .append($('<span>').text(lines.at(-1)))
