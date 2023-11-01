@@ -1,5 +1,11 @@
 History of features added to LiChess Tools in time (reversed order)
 
+31 Oct
+  - Expanded move list and Hide left side Analysis options
+
+29 Oct
+  - Bookmark collapse/expand all
+
 26 Oct
   - Added the mobile theme
 

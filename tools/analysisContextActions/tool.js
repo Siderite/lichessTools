@@ -1,7 +1,7 @@
 (()=>{
   class AnalysisContextActionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw','CustomEngineLevel','ExportPGN'];
+    dependencies=['EmitRedraw','CustomEngineLevel','ExportPGN','DetectThirdParties'];
 
     preferences=[
       {

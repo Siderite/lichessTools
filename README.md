@@ -60,6 +60,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Move list options: bookmarks allows tagging variations with a label, collapse/expand them, link to them
  - Option to not see cloud values in computer evaluation
  - Context menu on bookmarked positions to get the URL of the position
+ - Move list options: Expanded move list and Hide left side in Analysis
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move

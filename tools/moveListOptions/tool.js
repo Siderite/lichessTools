@@ -1,15 +1,15 @@
 (()=>{
   class MoveListOptionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw','EmitChapterChange'];
+    dependencies=['EmitRedraw','EmitChapterChange','DetectThirdParties'];
 
     preferences=[
       {
         name:'moveListOptions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['indentedVariations','bookmarks'],
-        defaultValue: false
+        possibleValues: ['indentedVariations','bookmarks','fullWidthAnalysis','hideLeftSide'],
+        defaultValue: 'bookmarks'
       }
     ];
 
@@ -19,6 +19,8 @@
         'options.moveListOptions': 'Move list options',
         'moveListOptions.indentedVariations':'Indented variations',
         'moveListOptions.bookmarks':'Bookmarks',
+        'moveListOptions.fullWidthAnalysis':'Expanded move list',
+        'moveListOptions.hideLeftSide':'Hide left side',
         'addBookmarkText':'Add/Remove bookmark',
         'addBookmarkTitle':'LiChess Tools - Add/Remove bookmark',
         'addBookmarkPrompt':'Add/Remove bookmark',
@@ -26,13 +28,19 @@
         'URLCopiedToClipboard': 'URL copied to clipboard',
         'clipboardDenied':'Clipboard access denied',
         'getBookmarkUrlText':'Get bookmark link',
-        'getBookmarkUrlTitle':'LiChess Tools - get bookmark link'
+        'getBookmarkUrlTitle':'LiChess Tools - get bookmark link',
+        'collapseAllText':'Collapse all bookmarks',
+        'collapseAllTitle':'LiChess Tools - Collapse all bookmarks',
+        'expandAllText':'Expand all bookmarks',
+        'expandAllTitle':'LiChess Tools - Expand all bookmarks'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.moveListOptions': 'Op\u0163iuni pentru list\u0103 mut\u0103ri',
         'moveListOptions.indentedVariations':'Varia\u0163iuni indentate',
         'moveListOptions.bookmarks':'Bookmarkuri',
+        'moveListOptions.fullWidthAnalysis':'list\u0103 mut\u0103ri l\u0103rgit\u0103',
+        'moveListOptions.hideLeftSide':'Ascunde partea st\u00e2ng\u0103',
         'addBookmarkText':'Adaug\u0103/Elimin\u0103 bookmark',
         'addBookmarkTitle':'LiChess Tools - Adaug\u0103/Elimin\u0103 bookmark',
         'addBookmarkPrompt':'Adaug\u0103/Elimin\u0103 bookmark',
@@ -40,7 +48,11 @@
         'URLCopiedToClipboard': 'URL copiat \u00een clipboard',
         'clipboardDenied':'Acces refuzat la clipboard',
         'getBookmarkUrlText':'Link la bookmark',
-        'getBookmarkUrlTitle':'LiChess Tools - link la bookmark'
+        'getBookmarkUrlTitle':'LiChess Tools - link la bookmark',
+        'collapseAllText':'Colapseaz\u0103 toate bookmarkurile',
+        'collapseAllTitle':'LiChess Tools - Colapseaz\u0103 toate bookmarkurile',
+        'expandAllText':'Expandeaz\u0103 toate bookmarkurile',
+        'expandAllTitle':'LiChess Tools - Expandeaz\u0103 toate bookmarkurile'
       }
     }
 
@@ -216,6 +228,7 @@
       $('.tview2').toggleClass('lichessTools-indentedVariations',this.options.indentedVariations);
       const container=$('div.analyse__tools div.action-menu');
       if (!container.length) return;
+
       if (!$('.abset-indentedVariations',container).length) {
         const html=`<div class="setting abset-indentedVariations" title="LiChess Tools - $trans(moveListOptions.indentedVariations)">
       <div class="switch">
@@ -229,17 +242,61 @@
         $(html).insertAfter($('div.abset-inline',container).eq(0));
         $('#abset-indentedVariations')
           .on('change',async ()=>{
-            const arr=[];
-            const options=parent.currentOptions
-            if ($('#abset-indentedVariations').is(':checked')) arr.push('indentedVariations');
-            if (this.options.bookmarks) arr.push('bookmarks');
-            options.moveListOptions=arr.join(',');
+            this.options.indentedVariations=$('#abset-indentedVariations').is(':checked');
+            const options=parent.currentOptions;
+            options.moveListOptions=this.options.getString();
             await parent.applyOptions(options);
             parent.fireReloadOptions();
           });
       }
       $('#abset-indentedVariations')
         .prop('checked',this.options.indentedVariations);
+
+      if (!$('.abset-fullWidthAnalysis',container).length) {
+        const html=`<div class="setting abset-fullWidthAnalysis" title="LiChess Tools - $trans(moveListOptions.fullWidthAnalysis)">
+      <div class="switch">
+        <input id="abset-fullWidthAnalysis" class="cmn-toggle" type="checkbox" checked="">
+        <label for="abset-fullWidthAnalysis"></label>
+      </div>
+      <label for="abset-fullWidthAnalysis">$trans(moveListOptions.fullWidthAnalysis)</label>
+    </div>`.replace(/\$trans\(([^\)]+)\)/g,m=>{
+          return parent.htmlEncode(trans.noarg(m.slice(7,-1)));
+        });
+        $(html).insertAfter($('div.abset-indentedVariations',container).eq(0));
+        $('#abset-fullWidthAnalysis')
+          .on('change',async ()=>{
+            this.options.fullWidthAnalysis=$('#abset-fullWidthAnalysis').is(':checked');
+            const options=parent.currentOptions;
+            options.moveListOptions=this.options.getString();
+            await parent.applyOptions(options);
+            parent.fireReloadOptions();
+          });
+      }
+      $('#abset-fullWidthAnalysis')
+        .prop('checked',this.options.fullWidthAnalysis);
+
+      if (!$('.abset-hideLeftSide',container).length) {
+        const html=`<div class="setting abset-hideLeftSide" title="LiChess Tools - $trans(moveListOptions.hideLeftSide)">
+      <div class="switch">
+        <input id="abset-hideLeftSide" class="cmn-toggle" type="checkbox" checked="">
+        <label for="abset-hideLeftSide"></label>
+      </div>
+      <label for="abset-hideLeftSide">$trans(moveListOptions.hideLeftSide)</label>
+    </div>`.replace(/\$trans\(([^\)]+)\)/g,m=>{
+          return parent.htmlEncode(trans.noarg(m.slice(7,-1)));
+        });
+        $(html).insertAfter($('div.abset-fullWidthAnalysis',container).eq(0));
+        $('#abset-hideLeftSide')
+          .on('change',async ()=>{
+            this.options.hideLeftSide=$('#abset-hideLeftSide').is(':checked');
+            const options=parent.currentOptions;
+            options.moveListOptions=this.options.getString();
+            await parent.applyOptions(options);
+            parent.fireReloadOptions();
+          });
+      }
+      $('#abset-hideLeftSide')
+        .prop('checked',this.options.hideLeftSide);
     };
 
     hashChange=()=>{
@@ -335,8 +392,20 @@
       }
     };
 
+    collapseExpandAll=()=>{
+      if (!this.options.bookmarks) return;
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const anyCollapsed=$('move.lichessTools-collapsed').eq(0)[0];
+      if (anyCollapsed) {
+        $('move.lichessTools-bookmark.lichessTools-collapsed bookmark button').trigger('click');
+      } else {
+        $('move.lichessTools-bookmark:not(.lichessTools-collapsed) bookmark button').trigger('click');
+      }
+    };
+
     analysisContextMenu=()=>{
-      if (!this.options.bookmarks);
+      if (!this.options.bookmarks) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -376,6 +445,30 @@
               .on('click',()=>this.getBookmarkUrl(node.bookmark))
               .appendTo(menu);
           }
+
+          menuItem=$('a[data-role="collapseAll"]',menu);
+          if (!menuItem.length) {
+            menuItem=$('<a>')
+              .attr('data-role','collapseAll')
+              .on('click',()=>this.collapseExpandAll())
+              .appendTo(menu);
+          }
+          const anyCollapsed=$('move.lichessTools-collapsed').eq(0)[0];
+          let text=undefined;
+          let title=undefined;
+          let icon=undefined;
+          if (anyCollapsed) {
+            text=trans.noarg('expandAllText');
+            title=trans.noarg('expandAllTitle');
+            icon='\uE042';
+          } else {
+            text=trans.noarg('collapseAllText');
+            title=trans.noarg('collapseAllTitle');
+            icon='\uE043';
+          }
+          menuItem
+            .attr('data-icon',icon)
+            .text(text).attr('title',title);
         }
       }
     }
@@ -391,12 +484,22 @@
       if (!analysis) return;
       this.options={
         indentedVariations:parent.isOptionSet(value,'indentedVariations'),
-        bookmarks:parent.isOptionSet(value,'bookmarks')
+        bookmarks:parent.isOptionSet(value,'bookmarks'),
+        fullWidthAnalysis:parent.isOptionSet(value,'fullWidthAnalysis'),
+        hideLeftSide:parent.isOptionSet(value,'hideLeftSide'),
+        getString:function() {
+          const arr=[];
+          if (this.indentedVariations) arr.push('indentedVariations');
+          if (this.bookmarks) arr.push('bookmarks');
+          if (this.fullWidthAnalysis) arr.push('fullWidthAnalysis');
+          if (this.hideLeftSide) arr.push('hideLeftSide');
+          return arr.join(',');
+        }
       };
       lichess.pubsub.off('redraw',this.analysisControls);
       lichess.pubsub.on('redraw',this.analysisControls);
-      lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'moveListOptions');
-      lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
+      analysis.actionMenu.toggle=lichessTools.unwrapFunction(analysis.actionMenu.toggle,'moveListOptions');
+      analysis.actionMenu.toggle=lichessTools.wrapFunction(analysis.actionMenu.toggle,{
         id:'moveListOptions',
         after: ($this, result, ...args)=>{
           parent.global.setTimeout(this.analysisControls,100);
@@ -427,12 +530,13 @@
         parent.global.setTimeout(this.hashChange,100);
       }
 
-
       lichess.pubsub.off('redraw',this.analysisContextMenu);
       if (this.options.bookmarks) {
         lichess.pubsub.on('redraw',this.analysisContextMenu);
       }
 
+      $('body').toggleClass('lichessTools-fullWidthAnalysis',this.options.fullWidthAnalysis);
+      $('body').toggleClass('lichessTools-hideLeftSide',this.options.hideLeftSide);
     }
   }
 

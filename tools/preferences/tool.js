@@ -1,12 +1,14 @@
 (()=>{
   class PreferencesTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['DetectThirdParties'];
+
     preferences=[
       {
         name:'advancedPreferences',
         category: 'general',
         type:'single',
-        possibleValues: [true,false],
+        possibleValues: [false,true],
         defaultValue: false,
         advanced: true,
         hidden: true

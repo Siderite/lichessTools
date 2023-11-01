@@ -1,6 +1,8 @@
 (()=>{
   class CustomChatButtonsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['DetectThirdParties'];
+
     preferences=[
       {
         name:'customChatButtons',
