@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+02 Nov
+  - added board command to show/hide the board on demand
+
 31 Oct
   - Expanded move list and Hide left side Analysis options
 

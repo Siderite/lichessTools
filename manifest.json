@@ -86,6 +86,8 @@
         "tools/chapterPgnArea/tool.js",
         "tools/moveListOptions/tool.js",
 
+        "tools/hideBoardCommand/tool.js",
+
         "tools/preferences/tool.js",
  
         "scripts/lichessTools-init.js"
@@ -129,7 +131,9 @@
         "tools/explorerGambits/tool.css",
         "tools/explorerSettings/tool.css",
         "tools/chapterPgnArea/tool.css",
-        "tools/moveListOptions/tool.css"
+        "tools/moveListOptions/tool.css",
+
+        "tools/hideBoardCommand/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"
