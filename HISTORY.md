@@ -2,6 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 02 Nov
   - added board command to show/hide the board on demand
+  - added 'trap value' command to calculate the trap value of a position (see https://medium.com/applied-data-science/how-to-calculate-the-trappiest-openings-in-chess-2bc24a6345f7)
 
 31 Oct
   - Expanded move list and Hide left side Analysis options
