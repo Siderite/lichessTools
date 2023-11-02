@@ -1,7 +1,7 @@
 (()=>{
   class HideBoardCommandTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['HideBoardCommand'];
+    dependencies=['CliCommands'];
 
     preferences=[
       {

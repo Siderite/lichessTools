@@ -87,6 +87,7 @@
         "tools/moveListOptions/tool.js",
 
         "tools/hideBoardCommand/tool.js",
+        "tools/trapValueCommand/tool.js",
 
         "tools/preferences/tool.js",
  

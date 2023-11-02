@@ -60,6 +60,7 @@ lichessTools.loadTool(LiChessTools.Tools.ChapterPgnArea);
 lichessTools.loadTool(LiChessTools.Tools.MoveListOptions);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
+lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
 
 lichessTools.loadTool(LiChessTools.Tools.UserTvHistory);
 
