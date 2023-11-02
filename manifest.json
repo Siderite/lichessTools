@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Lichess Tools, by Siderite",
   "short_name": "Lichess Tools",
-  "version": "2.1.35",
+  "version": "2.1.37",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev",
@@ -86,6 +86,9 @@
         "tools/chapterPgnArea/tool.js",
         "tools/moveListOptions/tool.js",
 
+        "tools/hideBoardCommand/tool.js",
+        "tools/trapValueCommand/tool.js",
+
         "tools/preferences/tool.js",
  
         "scripts/lichessTools-init.js"
@@ -129,7 +132,9 @@
         "tools/explorerGambits/tool.css",
         "tools/explorerSettings/tool.css",
         "tools/chapterPgnArea/tool.css",
-        "tools/moveListOptions/tool.css"
+        "tools/moveListOptions/tool.css",
+
+        "tools/hideBoardCommand/tool.css"
       ],
       "matches": [
         "*://lichess.org/*"

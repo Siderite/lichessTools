@@ -87,6 +87,7 @@
     processTimeline=async (el)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
+      if (lichess.quietMode) return;
       const $=parent.$;
       const trans=parent.translator;
       if (el!==true && !$(el).is('div.notifications')) return;

@@ -1,0 +1,10 @@
+body.lichessTools.lichessTools-hideBoard main.analyse
+{
+  --col3-uniboard-width:0;
+}
+
+body.lichessTools.lichessTools-hideBoard main.analyse .analyse__board,
+body.lichessTools.lichessTools-hideBoard main.analyse .analyse__underboard
+{
+  visibility:hidden;
+}
