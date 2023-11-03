@@ -156,7 +156,9 @@
 
     setBookmarks=()=>{
       const parent=this.lichessTools;
+      const $=parent.$;
       const r=/bkm:([^\s]+)\s*/s;
+      const thereAreBookmarks=!!$('bookmark').eq(0).length;
 
       parent.traverse(null,(node,state)=>{
         let bookmark=null;
@@ -168,7 +170,6 @@
             break;
           }
         }
-        const elem=parent.getElementForNode(node);
         if (bookmark) {
           if (node.bookmark) {
             if (node.bookmark.label!=bookmark) {
@@ -180,11 +181,15 @@
               collapsed:false
             };
           }
+          const elem=parent.getElementForNode(node);
           this.setBookmark(elem,node.bookmark);
         } else {
           if (node.bookmark) {
             node.bookmark=null;
-            this.setBookmark(elem,null);
+            if (thereAreBookmarks) {
+              const elem=parent.getElementForNode(node);
+              this.setBookmark(elem,null);
+            }
           }
         }
       });
