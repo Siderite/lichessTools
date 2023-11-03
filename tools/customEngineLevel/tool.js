@@ -112,7 +112,7 @@
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!analysis) return;
-      $('.tview2').toggleClass('lichessTools-noCloud',this.options.indentedVariations);
+      $('.tview2').toggleClass('lichessTools-noCloud',this.options.noCloud);
       const container=$('div.analyse__tools div.action-menu');
       if (!container.length) return;
       if (!$('.abset-noCloud',container).length) {

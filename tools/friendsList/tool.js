@@ -408,7 +408,7 @@
       }           
     };
 
-    requestOnlines=this.lichessTools.debounce(()=>this.lichessTools.lichess.pubsub.emit("socket.send", "following_onlines"),250);
+    requestOnlines=()=>this.lichessTools.lichess.pubsub.emit("socket.send", "following_onlines");
 
     menuParent='#topnav';
     
@@ -452,31 +452,31 @@
         case true:
         case 'true':
         case 'open': {
-          $('#friend_box').show();
+          $('#friend_box').css('display','block');
           $('section.lichessTools-onlineFriends',$(this.menuParent)).remove();
           $('.site-buttons .lichessTools-onlineFriends').remove();
         }
         break;
         case 'menu':
         {
-          $('#friend_box').hide();
+          $('#friend_box').css('display','none');
         }
         break;
         case 'button':
         {
-          $('#friend_box').hide();
+          $('#friend_box').css('display','none');
           $('section.lichessTools-onlineFriends',$(this.menuParent)).remove();
         }
         break;
         case 'hidden': {
           $('#friend_box .content_wrap').addClass('none');
-          $('#friend_box').hide();
+          $('#friend_box').css('display','none');
           $('section.lichessTools-onlineFriends',$(this.menuParent)).remove();
           $('.site-buttons .lichessTools-onlineFriends').remove();
         }
         break;
         default: {
-          $('#friend_box').show();
+          $('#friend_box').css('display','block')
           $('section.lichessTools-onlineFriends',$(this.menuParent)).remove();
           $('.site-buttons .lichessTools-onlineFriends').remove();
         }
