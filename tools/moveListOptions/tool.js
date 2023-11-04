@@ -551,7 +551,6 @@
                 .appendTo(menu);
             }
           }
-
         }
       }
     }
