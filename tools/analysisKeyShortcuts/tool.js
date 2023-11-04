@@ -108,8 +108,6 @@
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!analysis) return;
-      const currentPlayer=analysis.getOrientation();
-      const otherPlayer=currentPlayer=='white'?'black':'white';
       if (!this.oldHandlers) {
         this.oldHandlers={
           i:parent.getKeyHandler('i'),
@@ -137,14 +135,14 @@
       }
 
       if (value) {
-        parent.bindKeyHandler('i',()=>parent.jumpToGlyphSymbol(currentPlayer,'?!'));
-        parent.bindKeyHandler('m',()=>parent.jumpToGlyphSymbol(currentPlayer,'?'));
-        parent.bindKeyHandler('b',()=>parent.jumpToGlyphSymbol(currentPlayer,'??'));
-        parent.bindKeyHandler('g',()=>parent.jumpToGlyphSymbol(currentPlayer,['!','!?','!!']));
-        parent.bindKeyHandler('alt+i',()=>parent.jumpToGlyphSymbol(otherPlayer,'?!'));
-        parent.bindKeyHandler('alt+m',()=>parent.jumpToGlyphSymbol(otherPlayer,'?'));
-        parent.bindKeyHandler('alt+b',()=>parent.jumpToGlyphSymbol(otherPlayer,'??'));
-        parent.bindKeyHandler('alt+g',()=>parent.jumpToGlyphSymbol(otherPlayer,['!','!?','!!']));
+        parent.bindKeyHandler('i',()=>parent.jumpToGlyphSymbols('?!'));
+        parent.bindKeyHandler('m',()=>parent.jumpToGlyphSymbols('?'));
+        parent.bindKeyHandler('b',()=>parent.jumpToGlyphSymbols('??'));
+        parent.bindKeyHandler('g',()=>parent.jumpToGlyphSymbols(['!','!?','!!']));
+        parent.bindKeyHandler('alt+i',()=>parent.jumpToGlyphSymbols('?!',true));
+        parent.bindKeyHandler('alt+m',()=>parent.jumpToGlyphSymbols('?',true));
+        parent.bindKeyHandler('alt+b',()=>parent.jumpToGlyphSymbols('??',true));
+        parent.bindKeyHandler('alt+g',()=>parent.jumpToGlyphSymbols(['!','!?','!!'],true));
 
         parent.bindKeyHandler('.',()=>this.prepareMove('pgn'));
         parent.bindKeyHandler('ctrl+.',()=>this.prepareMove('ceval'));

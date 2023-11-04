@@ -368,13 +368,12 @@
       return /\/following([\?#].*)?$/.test(this.global.location.href);
     };
 
-
-    findGlyphNode=(color,symbol)=>{
-      if (typeof symbol === 'string') symbol=[symbol];
+    findGlyphNode=(color,symbols)=>{
+      if (typeof symbols === 'string') symbols=[symbols];
       const analysis=this.lichess?.analysis;
       if (!analysis) return;
       const state=this.traverse();
-      const arr=[].concat.apply([],symbol.map(s=>state.glyphs[s]).filter(a=>!!a?.length));
+      const arr=[].concat.apply([],symbols.map(s=>state.glyphs[s]).filter(a=>!!a?.length));
       if (!arr.length) return;
       arr.sort((n1,n2)=>n1.nodeIndex-n2.nodeIndex);
       const index=analysis.node.nodeIndex;
@@ -382,14 +381,21 @@
       return arr.find(n=>n.ply%2===plyColor && n.nodeIndex>index)||arr.find(n=>n.ply%2===plyColor);
     };
 
-    jumpToGlyphSymbol=(color,symbol)=>{
+    jumpToGlyphSymbols=(symbols,side)=>{
       const analysis=this.lichess?.analysis;
       if (!analysis) return;
-      const node=this.findGlyphNode(color,symbol);
-      if (node) {
-        analysis.userJumpIfCan(node.path);
-        analysis.redraw();
+      let color='white';
+      if (['undefined','boolean'].includes(typeof side)) {
+        color=analysis.getOrientation();
+        if (side) {
+          color=color=='black'?'white':'black';
+        }
+      } else {
+        color=side;
       }
+      const node=this.findGlyphNode(color,symbols);
+      if (!node) return;
+      analysis.userJumpIfCan(node.path);
     };
 
     getPositionFromBoard=(el)=>{
