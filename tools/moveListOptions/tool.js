@@ -333,8 +333,7 @@
           }
         }
       });
-      if (destinationNode) {
-        parent.assertPathSet(destinationNode);
+      if (destinationNode?.path) {
         lichess.analysis.userJump(destinationNode.path);
         lichess.analysis.redraw();
       }
@@ -353,8 +352,6 @@
       if (!path) return;
       const node=analysis.tree.nodeAtPath(path);
       if (!node) return;
-      if (node.path===undefined) parent.traverse();
-      parent.assertPathSet(node);
       const elem=parent.getElementForNode(node);
       if (!elem) return;
       const oldLabel=node.bookmark?.label;
@@ -378,7 +375,7 @@
       comment=m
         ? comment.replace(r,label?'bkm:'+label+' ':'')
         : (label?'bkm:'+label+' ':'')+comment;
-      parent.saveComment(comment,node.path);
+      parent.saveComment(comment,path);
       $('#comment-text').val(comment);
     };
 

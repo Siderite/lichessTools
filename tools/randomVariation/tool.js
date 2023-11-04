@@ -102,12 +102,10 @@
 
     getNextMoves=(node)=>{
       const parent=this.lichessTools;
-      if (node.path===undefined) parent.traverse();
-      parent.assertPathSet(node);
       const arr=[...node.children];
       if (!parent.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
       let transpositions=node.transposition.filter(n=>n!==node);
-      if (parent.transpositionBehavior?.excludeSameLine) {
+      if (parent.transpositionBehavior?.excludeSameLine && node.path!==undefined) {
         transpositions=transpositions?.filter(n=>n.path&&!n.path.startsWith(node.path)&&!node.path.startsWith(n.path));
       }
       for (const child of transpositions) {
