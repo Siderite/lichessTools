@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Nov
+  - added Split study chapter at bookmark functionality
+
 03 Nov
   - added the move colorize theme
 

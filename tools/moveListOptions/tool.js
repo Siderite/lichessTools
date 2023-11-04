@@ -33,7 +33,7 @@
         'collapseAllTitle':'LiChess Tools - Collapse all bookmarks',
         'expandAllText':'Expand all bookmarks',
         'expandAllTitle':'LiChess Tools - Expand all bookmarks',
-        'bookmarkSplitConfirmationText':'Sure you want to split the chapter on this bookmark?',
+        'bookmarkSplitConfirmationText':'Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW',
         'bookmarkSplitText':'Split chapter here',
         'bookmarkSplitTitle':'LiChess Tools - create a new chapter with following moves and delete from here',
         'chapterLink':'Continue here: %s'
@@ -57,7 +57,7 @@
         'collapseAllTitle':'LiChess Tools - Colapseaz\u0103 toate bookmarkurile',
         'expandAllText':'Expandeaz\u0103 toate bookmarkurile',
         'expandAllTitle':'LiChess Tools - Expandeaz\u0103 toate bookmarkurile',
-        'bookmarkSplitConfirmationText':'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?',
+        'bookmarkSplitConfirmationText':'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?\r\nASTA VA \u015ETERGE MUT\u0102RILE URM\u0102TOARE DIN ACEST CAPITOL',
         'bookmarkSplitText':'Taie un nou capitol de aici',
         'bookmarkSplitTitle':'LiChess Tools - creaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare \u015Fi \u015Fterge-le de aici',
         'chapterLink':'Continu\u0103 aici: %s'
