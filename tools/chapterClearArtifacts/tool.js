@@ -49,6 +49,12 @@
       }
     }
 
+    clearTagSelect=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('.study__tags select.button').val('');
+    };
+
     removeAllComments=async (node,chapterId)=>{
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
@@ -98,7 +104,6 @@
     };
     removeAllTags=async (chapterId)=>{
       const parent=this.lichessTools;
-      const $=parent.$;
       const analysis=parent.lichess.analysis;
       if (!analysis) return;
       const study=analysis.study;
@@ -114,7 +119,7 @@
           value: ''
        });
       }
-      $('.study__tags select.buttons').val('');
+      this.clearTagSelect();
     };
     removeAllShapes=async (node, chapterId)=>{
       const parent=this.lichessTools;
@@ -233,6 +238,7 @@
               name: tagName,
               value: ''
             });
+            if (tags.length==1) this.clearTagSelect();
           })
           .prependTo(e);
       });
