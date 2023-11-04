@@ -9,32 +9,60 @@ body.lichessTools.lichessTools-theme_moveColorize div.tview2>move {
   filter: drop-shadow(1px 1px 1px #FF000080);
 }
 
+body.lichessTools.lichessTools-theme_moveColorize div.tview2 line::before {
+  margin-top:1.2em;
+}
+
 body.lichessTools.lichessTools-theme_moveColorize div.tview2 line move {
   font-size: 1.3em;
-  filter: drop-shadow(1px 1px 1px #FFA50080);
+  filter: drop-shadow(1px 1px 1px #00FFFF80);
+}
+
+body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line::before {
+  margin-top:1.1em;
 }
 
 body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line move {
   font-size: 1.2em;
-  filter: drop-shadow(1px 1px 1px #FFFF0080);
+  filter: drop-shadow(1px 1px 1px #0000FF80);
+}
+
+body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line line::before {
+  margin-top:1.0em;
 }
 
 body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line line move {
   font-size: 1.1em;
-  filter: drop-shadow(1px 1px 1px #00800080);
+  filter: drop-shadow(1px 1px 1px #FFA50080);
+}
+
+body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line line line::before {
+  margin-top:0.95em;
 }
 
 body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line line line move {
   font-size: 1.0em;
-  filter: drop-shadow(1px 1px 1px #00FFFF80);
+  filter: drop-shadow(1px 1px 1px #00800080);
+}
+
+body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line line line line::before {
+  margin-top:0.9em;
 }
 
 body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line line line line move {
   font-size: 0.95em;
-  filter: drop-shadow(1px 1px 1px #0000FF80);
+  filter: drop-shadow(1px 1px 1px #FF00FF80);
+}
+
+body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line line line line line::before {
+  margin-top:0.9em;
 }
 
 body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line line line line line move {
   font-size: 0.9em;
-  filter: drop-shadow(1px 1px 1px #FF00FF80);
+  filter: drop-shadow(1px 1px 1px #FFFF0080);
+}
+
+body.lichessTools.lichessTools-theme_moveColorize div.tview2 line line line line line line line::before {
+  margin-top:0.8em;
 }
