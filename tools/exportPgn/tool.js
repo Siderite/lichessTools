@@ -132,7 +132,7 @@
     
       try{
         const nodes=lichess.analysis.tree.getNodeList(path);
-        const startIndex=fromPosition?nodes.length-1:0;
+        const startIndex=fromPosition?Math.max(0,nodes.length-1):0;
         let prevNode=null;
         let varNode=null;
         for (let i=startIndex; i<nodes.length; i++) {
@@ -142,7 +142,7 @@
           prevNode=node;
           if (!varNode) varNode=node;
         }
-        let pgn=renderNodesTxt(varNode,false);
+        let pgn=renderNodesTxt(varNode,fromPosition);
         if (analysis.getOrientation()!='white' && !/\[Orientation|\[StartFlipped/.test(pgn)) {
           pgn='[StartFlipped "1"]\r\n[Orientation "Black"]\r\n'+pgn;
         }

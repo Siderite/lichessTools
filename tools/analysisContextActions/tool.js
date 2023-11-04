@@ -61,7 +61,7 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
-      if (!analysis) return;
+      if (analysis?.contextMenuPath===undefined) return;
       parent.exportPgn(analysis.contextMenuPath,true,fromPosition);
     };
     

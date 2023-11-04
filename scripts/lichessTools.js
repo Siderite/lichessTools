@@ -213,14 +213,22 @@
       };
     };
 
-    saveComment=(text, path)=>{
+    getNodeComment(node) {
+      const userId=this.getUserId();
+      const comment=(node?.comments||[]).find(c=>c?.by?.id==userId)?.text;
+      return comment;
+    }
+
+    saveComment=(text, path, chapterId)=>{
       const analysis=this.lichess?.analysis;
+      if (!chapterId) chapterId=analysis.study.currentChapter().id;
+      if (!path) path=analysis.path;
       analysis.study.makeChange('setComment', 
         {
-          ch: analysis.study.currentChapter().id,
-          path: path || analysis.path,
+          ch: chapterId,
+          path: path,
           text
-       });
+        });
     };
 
     isCommented(node) {
