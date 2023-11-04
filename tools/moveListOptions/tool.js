@@ -332,6 +332,7 @@
         }
       });
       if (destinationNode) {
+        parent.assertPathSet(destinationNode);
         lichess.analysis.userJump(destinationNode.path);
         lichess.analysis.redraw();
       }
@@ -350,6 +351,8 @@
       if (!path) return;
       const node=analysis.tree.nodeAtPath(path);
       if (!node) return;
+      if (node.path===undefined) parent.traverse();
+      parent.assertPathSet(node);
       const elem=parent.getElementForNode(node);
       if (!elem) return;
       const oldLabel=node.bookmark?.label;

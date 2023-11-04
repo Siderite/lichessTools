@@ -197,7 +197,7 @@
         gp.isExtendedInteractiveLessons=true;
         // stop the original setTimeout gp.next()
         if (!this.originalUserJump) this.originalUserJump=analysis.userJump; 
-        if (analysis.node.path==='') {
+        if (analysis.node.id==='') {
           analysis.userJump=function() {};
           parent.global.setTimeout(()=>{
             analysis.userJump=this.originalUserJump;
@@ -251,7 +251,7 @@
         gp.next=parent.wrapFunction(gp.next,{
           id:'showScore',
           before: ($this, ...args)=>{
-            if (gp.root.node.path=='') {
+            if (gp.root.node.id=='') {
               gp.goodMoves=0;
               gp.badMoves=0;
             }
@@ -276,7 +276,8 @@
       const parent=this.lichessTools;
       const trans=parent.translator;
       const analysis=parent.lichess.analysis;
-      const node=analysis.tree.nodeAtPath(analysis.contextMenuPath);
+      const nodePath=analysis.contextMenuPath;
+      const node=analysis.tree.nodeAtPath(nodePath);
       let gamebook=node.gamebook;
       if (!gamebook) {
         gamebook={};
@@ -289,7 +290,7 @@
       const chapterId=analysis.study.currentChapter().id;
       analysis.study.makeChange('setGamebook',{
         ch: chapterId,
-        path: node.path,
+        path: nodePath,
         gamebook: gamebook
       });
       if (analysis.node===node) {

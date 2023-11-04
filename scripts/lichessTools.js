@@ -302,7 +302,13 @@
       return elem;
     }
 
+    assertPathSet(node) {
+      if (!node) return;
+      if (node.path===undefined) throw 'Path for node '+node.id+'( '+node.san+') not set!';
+    }
+
     getElementForNode(node) {
+      this.assertPathSet(node);
       const path=node.path||'';
       return this.getElementForPath(path);
     }
@@ -403,6 +409,7 @@
       }
       const node=this.findGlyphNode(color,symbols);
       if (!node) return;
+      this.assertPathSet(node);
       analysis.userJumpIfCan(node.path);
     };
 

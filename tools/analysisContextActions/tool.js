@@ -76,6 +76,7 @@
       const evalText="eval: "+(ceval.mate ?'#'+ceval.mate :Math.round(ceval.cp/10)/10);
       const cur=analysis.study.currentChapter();
       node.terminationEvaluated=new Date();
+      parent.assertPathSet(node);
       parent.saveComment(evalText, node.path);
       this.doEvaluation();
     };
@@ -119,6 +120,7 @@
         }
         return;
       }
+      parent.assertPathSet(node);
       analysis.userJumpIfCan(node.path);
       analysis.redraw();
     };
@@ -199,6 +201,7 @@
         }
       }
       for (const node of transpositions) {
+        parent.assertPathSet(node);
         if (!node.path) continue;
         const elem=parent.getElementForNode(node);
         $(elem).addClass('lichessTools-transpositionAll');

@@ -56,6 +56,8 @@
       const study=analysis.study;
       if (!study) return;
       if (!node) node=analysis.tree.root;
+      if (node.path===undefined) parent.traverse();
+      parent.assertPathSet(node);
       if (!chapterId) chapterId=study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       for (const comment of node.comments||[]) {
@@ -78,6 +80,7 @@
       const study=analysis.study;
       if (!study) return;
       if (!node) node=analysis.tree.root;
+      parent.assertPathSet(node);
       if (!chapterId) chapterId=study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       for (const glyph of node.glyphs||[]) {
@@ -118,6 +121,7 @@
       const study=analysis.study;
       if (!study) return;
       if (!node) node=analysis.tree.root;
+      parent.assertPathSet(node);
       if (!chapterId) chapterId=study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       if (node.shapes?.length) {
