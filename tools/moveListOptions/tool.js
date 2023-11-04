@@ -133,7 +133,7 @@
       }
     }
 
-    setBookmark=(elem, bookmark)=>{
+    setBookmark=(elem, node, bookmark)=>{
       if (!elem) return;
       const parent=this.lichessTools;
       const trans=parent.translator;
@@ -151,6 +151,8 @@
             });
           $(elem).addClass('lichessTools-bookmark');
         }
+        $('button',bookmarkElem)
+          .toggleClass('lichessTools-noChildren',!node.children?.length);
         $('label',bookmarkElem)
           .text(bookmark.label?.replaceAll('_',' '))
           .attr('title',bookmark.label?.replaceAll('_',' '));
@@ -190,13 +192,13 @@
             };
           }
           const elem=parent.getElementForNode(node);
-          this.setBookmark(elem,node.bookmark);
+          this.setBookmark(elem,node,node.bookmark);
         } else {
           if (node.bookmark) {
             node.bookmark=null;
             if (thereAreBookmarks) {
               const elem=parent.getElementForNode(node);
-              this.setBookmark(elem,null);
+              this.setBookmark(elem,node,null);
             }
           }
         }
@@ -364,7 +366,7 @@
             collapsed:node.bookmark?.collapsed||false
           }
         : null;
-      this.setBookmark(elem,node.bookmark);
+      this.setBookmark(elem,node,node.bookmark);
 
       const myName=parent.getUserId();
       let index=(node.comments||[]).findIndex(c=>c.by.id==myName);
