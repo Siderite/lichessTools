@@ -37,13 +37,13 @@
       if (!analysis||!parent.isTreeviewVisible()) return;
       const currNode = analysis.node;
       if (!currNode) return;
+      const nodePath=analysis.path;
       const tools=$('div.analyse__tools');
       let fork=$('div.lichessTools-transpositions',tools);
       this.state=parent.traverse();
-      parent.assertPathSet(currNode);
       let transpositions=currNode.transposition;
       if (parent.transpositionBehavior?.excludeSameLine) {
-        transpositions=transpositions?.filter(n=>n===currNode||(n.path&&!n.path.startsWith(currNode.path)&&!currNode.path.startsWith(n.path)));
+        transpositions=transpositions?.filter(n=>n===currNode||(n.path&&!n.path.startsWith(nodePath)&&!nodePath.startsWith(n.path)));
       }  
       if (!transpositions||transpositions.length<=1) {
         fork.remove();
@@ -65,7 +65,9 @@
       fork.empty();
       const sans=currNode.children.map(c=>c.san);
       for (const node of transpositions) {
-        parent.assertPathSet(node);
+        if (node.path===undefined) {
+          continue;
+        }
         for (const child of node.children) {
           const path=node.path+child.id;
           let forkMove=$('move',fork).filter((i,e)=>$(e).attr('p')==path);

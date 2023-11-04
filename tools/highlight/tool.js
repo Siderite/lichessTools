@@ -72,15 +72,13 @@
       const toHighlight=[];
       if (this.options.transposition) {
         const currentNode=lichess.analysis.node;
-        if (currentNode.path===undefined) parent.traverse();
-        parent.assertPathSet(currentNode);
+        if (currentNode.path===undefined) return;
         let transpositions=currentNode.transposition;
         if (parent.transpositionBehavior?.excludeSameLine) {
           transpositions=transpositions?.filter(n=>n===currentNode||(n.path&&!n.path.startsWith(currentNode.path)&&!currentNode.path.startsWith(n.path)));
         }  
         if (transpositions?.length>1) {
           for (const node of transpositions) {
-            parent.assertPathSet(node);
             if (!node.path) continue;
             const elem=parent.getElementForNode(node);
             if (elem) {
