@@ -98,6 +98,7 @@
     };
     removeAllTags=async (chapterId)=>{
       const parent=this.lichessTools;
+      const $=parent.$;
       const analysis=parent.lichess.analysis;
       if (!analysis) return;
       const study=analysis.study;
@@ -113,6 +114,7 @@
           value: ''
        });
       }
+      $('.study__tags select.buttons').val('');
     };
     removeAllShapes=async (node, chapterId)=>{
       const parent=this.lichessTools;
