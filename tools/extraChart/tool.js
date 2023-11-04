@@ -659,7 +659,7 @@
                .attr('title',trans.noarg('goodMovesTitle'))
                .on('click',(ev)=>{
                  ev.preventDefault();
-                  parent.jumpToGlyphSymbol(color,['!','!?','!!']);
+                  parent.jumpToGlyphSymbols(['!','!?','!!'],color);
                })
                .on('mouseenter',(ev)=>{
                  $(hcElem).addClass('lichessTools-showGood-'+color);

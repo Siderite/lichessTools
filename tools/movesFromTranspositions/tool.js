@@ -40,6 +40,7 @@
       const tools=$('div.analyse__tools');
       let fork=$('div.lichessTools-transpositions',tools);
       this.state=parent.traverse();
+      parent.assertPathSet(currNode);
       let transpositions=currNode.transposition;
       if (parent.transpositionBehavior?.excludeSameLine) {
         transpositions=transpositions?.filter(n=>n===currNode||(n.path&&!n.path.startsWith(currNode.path)&&!currNode.path.startsWith(n.path)));
@@ -64,6 +65,7 @@
       fork.empty();
       const sans=currNode.children.map(c=>c.san);
       for (const node of transpositions) {
+        parent.assertPathSet(node);
         for (const child of node.children) {
           const path=node.path+child.id;
           let forkMove=$('move',fork).filter((i,e)=>$(e).attr('p')==path);

@@ -56,12 +56,13 @@
       }
     }
    
-    extractVariationAsPGN=()=>{
+    extractVariationAsPGN=(ev)=>{
+      const fromPosition=ev.shiftKey;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
-      if (!analysis) return;
-      parent.exportPgn(analysis.contextMenuPath,true);
+      if (analysis?.contextMenuPath===undefined) return;
+      parent.exportPgn(analysis.contextMenuPath,true,fromPosition);
     };
     
     addEvalComment=(node,ceval)=>{
@@ -75,6 +76,7 @@
       const evalText="eval: "+(ceval.mate ?'#'+ceval.mate :Math.round(ceval.cp/10)/10);
       const cur=analysis.study.currentChapter();
       node.terminationEvaluated=new Date();
+      parent.assertPathSet(node);
       parent.saveComment(evalText, node.path);
       this.doEvaluation();
     };
@@ -118,6 +120,7 @@
         }
         return;
       }
+      parent.assertPathSet(node);
       analysis.userJumpIfCan(node.path);
       analysis.redraw();
     };
@@ -198,6 +201,7 @@
         }
       }
       for (const node of transpositions) {
+        parent.assertPathSet(node);
         if (!node.path) continue;
         const elem=parent.getElementForNode(node);
         $(elem).addClass('lichessTools-transpositionAll');

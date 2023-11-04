@@ -32,7 +32,11 @@
         'collapseAllText':'Collapse all bookmarks',
         'collapseAllTitle':'LiChess Tools - Collapse all bookmarks',
         'expandAllText':'Expand all bookmarks',
-        'expandAllTitle':'LiChess Tools - Expand all bookmarks'
+        'expandAllTitle':'LiChess Tools - Expand all bookmarks',
+        'bookmarkSplitConfirmationText':'Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW',
+        'bookmarkSplitText':'Split chapter here',
+        'bookmarkSplitTitle':'LiChess Tools - create a new chapter with following moves and delete from here',
+        'chapterLink':'Continue here: %s'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -52,7 +56,11 @@
         'collapseAllText':'Colapseaz\u0103 toate bookmarkurile',
         'collapseAllTitle':'LiChess Tools - Colapseaz\u0103 toate bookmarkurile',
         'expandAllText':'Expandeaz\u0103 toate bookmarkurile',
-        'expandAllTitle':'LiChess Tools - Expandeaz\u0103 toate bookmarkurile'
+        'expandAllTitle':'LiChess Tools - Expandeaz\u0103 toate bookmarkurile',
+        'bookmarkSplitConfirmationText':'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?\r\nASTA VA \u015ETERGE MUT\u0102RILE URM\u0102TOARE DIN ACEST CAPITOL',
+        'bookmarkSplitText':'Taie un nou capitol de aici',
+        'bookmarkSplitTitle':'LiChess Tools - creaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare \u015Fi \u015Fterge-le de aici',
+        'chapterLink':'Continu\u0103 aici: %s'
       }
     }
 
@@ -125,7 +133,7 @@
       }
     }
 
-    setBookmark=(elem, bookmark)=>{
+    setBookmark=(elem, node, bookmark)=>{
       if (!elem) return;
       const parent=this.lichessTools;
       const trans=parent.translator;
@@ -143,6 +151,8 @@
             });
           $(elem).addClass('lichessTools-bookmark');
         }
+        $('button',bookmarkElem)
+          .toggleClass('lichessTools-noChildren',!node.children?.length);
         $('label',bookmarkElem)
           .text(bookmark.label?.replaceAll('_',' '))
           .attr('title',bookmark.label?.replaceAll('_',' '));
@@ -182,13 +192,13 @@
             };
           }
           const elem=parent.getElementForNode(node);
-          this.setBookmark(elem,node.bookmark);
+          this.setBookmark(elem,node,node.bookmark);
         } else {
           if (node.bookmark) {
             node.bookmark=null;
             if (thereAreBookmarks) {
               const elem=parent.getElementForNode(node);
-              this.setBookmark(elem,null);
+              this.setBookmark(elem,node,null);
             }
           }
         }
@@ -324,6 +334,7 @@
         }
       });
       if (destinationNode) {
+        parent.assertPathSet(destinationNode);
         lichess.analysis.userJump(destinationNode.path);
         lichess.analysis.redraw();
       }
@@ -342,6 +353,8 @@
       if (!path) return;
       const node=analysis.tree.nodeAtPath(path);
       if (!node) return;
+      if (node.path===undefined) parent.traverse();
+      parent.assertPathSet(node);
       const elem=parent.getElementForNode(node);
       if (!elem) return;
       const oldLabel=node.bookmark?.label;
@@ -353,7 +366,7 @@
             collapsed:node.bookmark?.collapsed||false
           }
         : null;
-      this.setBookmark(elem,node.bookmark);
+      this.setBookmark(elem,node,node.bookmark);
 
       const myName=parent.getUserId();
       let index=(node.comments||[]).findIndex(c=>c.by.id==myName);
@@ -407,6 +420,58 @@
       } else {
         $('move.lichessTools-bookmark:not(.lichessTools-collapsed) bookmark button').trigger('click');
       }
+    };
+
+    bookmarkSplit=async ()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const trans=parent.translator;
+      const analysis=lichess.analysis;
+      const study=analysis?.study;
+      const nodePath=analysis?.contextMenuPath;
+      if (!study || nodePath===undefined) return;
+      const pgn = await parent.exportPgn(nodePath,false,true);
+      if (!pgn) return;
+      const node=analysis.tree.nodeAtPath(nodePath);
+      const label = node?.bookmark?.label;
+      if (!label) return;
+      if (!parent.global.confirm(trans.noarg('bookmarkSplitConfirmationText'))) return;
+      for (const child of node.children||[]) {
+        const path=nodePath+child.id;
+        study.deleteNode(path);
+        analysis.tree.deleteNodeAt(path);
+      }
+      const position=study.data?.position;
+      if (!position) throw 'Cannot find study position!';
+      const setup=study.data?.chapter?.setup;
+      study.chapters.newForm.submit({ 
+        name:label.replaceAll('_',' '),
+        pgn:pgn,
+        variant:setup?.variant?.key||'standard',
+        orientation:setup?.orientation||'white',
+        mode:'normal',
+        isDefaultName:false
+      })
+      let commentText=parent.getNodeComment(node);
+      if (commentText) commentText+='\r\n';
+
+      while(study.currentChapter().id==position.chapterId) {
+        await parent.timeout(50);
+      }
+      const newChapterId=study.currentChapter().id;
+      const chapterUrl=parent.global.location.origin+'/study/'+study.data.id+'/'+newChapterId;
+      const chapterText=trans.pluralSame('chapterLink',chapterUrl);
+      study.setChapter(position.chapterId);
+      
+      while(study.currentChapter().id!=position.chapterId) {
+        await parent.timeout(50);
+      }
+      analysis.userJump(nodePath);
+
+      while(analysis.path!=nodePath) {
+        await parent.timeout(50);
+      }
+      parent.saveComment(commentText+chapterText, nodePath, position.chapterId);
     };
 
     analysisContextMenu=()=>{
@@ -474,6 +539,20 @@
           menuItem
             .attr('data-icon',icon)
             .text(text).attr('title',title);
+
+          if (study?.vm.mode.write && node.children?.length) {
+            let menuItem=$('a[data-role="bookmarkSplit"]',menu);
+            if (!menuItem.length) {
+              const text=trans.noarg('bookmarkSplitText');
+              const title=trans.noarg('bookmarkSplitTitle');
+              menuItem=$('<a>')
+                .attr('data-icon','\u2704')
+                .attr('data-role','bookmarkSplit')
+                .text(text).attr('title',title)
+                .on('click',this.bookmarkSplit)
+                .appendTo(menu);
+            }
+          }
         }
       }
     }

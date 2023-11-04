@@ -49,6 +49,12 @@
       }
     }
 
+    clearTagSelect=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('.study__tags select.button').val('');
+    };
+
     removeAllComments=async (node,chapterId)=>{
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
@@ -56,6 +62,8 @@
       const study=analysis.study;
       if (!study) return;
       if (!node) node=analysis.tree.root;
+      if (node.path===undefined) parent.traverse();
+      parent.assertPathSet(node);
       if (!chapterId) chapterId=study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       for (const comment of node.comments||[]) {
@@ -78,6 +86,7 @@
       const study=analysis.study;
       if (!study) return;
       if (!node) node=analysis.tree.root;
+      parent.assertPathSet(node);
       if (!chapterId) chapterId=study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       for (const glyph of node.glyphs||[]) {
@@ -110,6 +119,7 @@
           value: ''
        });
       }
+      this.clearTagSelect();
     };
     removeAllShapes=async (node, chapterId)=>{
       const parent=this.lichessTools;
@@ -118,6 +128,7 @@
       const study=analysis.study;
       if (!study) return;
       if (!node) node=analysis.tree.root;
+      parent.assertPathSet(node);
       if (!chapterId) chapterId=study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       if (node.shapes?.length) {
@@ -227,6 +238,7 @@
               name: tagName,
               value: ''
             });
+            if (tags.length==1) this.clearTagSelect();
           })
           .prependTo(e);
       });

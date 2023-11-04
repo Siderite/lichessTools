@@ -25,7 +25,7 @@
     }
 
 
-    exportPgn=async (path,copyToClipboard)=>{
+    exportPgn=async (path,copyToClipboard,fromPosition)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const announce=parent.announce;
@@ -132,20 +132,17 @@
     
       try{
         const nodes=lichess.analysis.tree.getNodeList(path);
-        const varNode=nodes.length>1
-          ? clone(nodes[0],true)
-          : nodes[0];
-        let prevNode=varNode;
-        for (let i=1; i<nodes.length-1; i++) {
-          const node=clone(nodes[i],true);
-          prevNode.children=[node];
+        const startIndex=fromPosition?Math.max(0,nodes.length-1):0;
+        let prevNode=null;
+        let varNode=null;
+        for (let i=startIndex; i<nodes.length; i++) {
+          const isLast=i==nodes.length-1;
+          const node=clone(nodes[i],!isLast);
+          if (prevNode) prevNode.children=[node];
           prevNode=node;
+          if (!varNode) varNode=node;
         }
-        if (nodes.length>1) {
-          const node=clone(nodes[nodes.length-1]);
-          prevNode.children=[node]
-        }
-        let pgn=renderNodesTxt(varNode,false);
+        let pgn=renderNodesTxt(varNode,fromPosition);
         if (analysis.getOrientation()!='white' && !/\[Orientation|\[StartFlipped/.test(pgn)) {
           pgn='[StartFlipped "1"]\r\n[Orientation "Black"]\r\n'+pgn;
         }

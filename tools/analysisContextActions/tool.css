@@ -28,6 +28,7 @@ body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
   }
 }
 
+body.lichessTools.transp .analyse .tview2 move.lichessTools-transpositionAll,
 body.lichessTools.dark .analyse .tview2 move.lichessTools-transpositionAll {
     background: darkgreen;
 }
@@ -44,6 +45,7 @@ body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-trans
   }
 }
 
-body.lichessTools.lichessTools-prettier.dark .analyse .tview2 move.lichessTools-transpositionAll {
+body.lichessTools.lichessTools-prettier.dark .analyse .tview2 move.lichessTools-transpositionAll,
+body.lichessTools.lichessTools-prettier.transp .analyse .tview2 move.lichessTools-transpositionAll {
     background: darkgreen !important;
 }

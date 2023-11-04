@@ -1,5 +1,11 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Nov
+  - added Split study chapter at bookmark functionality
+
+03 Nov
+  - added the move colorize theme
+
 02 Nov
   - added board command to show/hide the board on demand
   - added 'trap value' command to calculate the trap value of a position (see https://medium.com/applied-data-science/how-to-calculate-the-trappiest-openings-in-chess-2bc24a6345f7)

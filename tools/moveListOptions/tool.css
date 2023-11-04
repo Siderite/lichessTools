@@ -87,6 +87,10 @@ body.lichessTools .tview2 move.lichessTools-bookmark.lichessTools-collapsed butt
   content:'+';
 }
 
+body.lichessTools .tview2 move.lichessTools-bookmark button.lichessTools-noChildren:before {
+  display:none;
+}
+
 body.lichessTools .tview2 .lichessTools-childCollapsed {
   display:none !important;
 }
