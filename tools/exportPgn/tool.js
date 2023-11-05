@@ -24,6 +24,15 @@
       }
     }
 
+    getGlyphs=async ()=>{
+      if (!this.glyphs) {
+        const parent=this.lichessTools;
+        const lichess=parent.lichess;
+        const json = await parent.net.fetch(lichess.assetUrl('glyphs.json'));
+        this.glyphs=parent.global.JSON.parse(json);
+      }
+      return this.glyphs;
+    };
 
     exportPgn=async (path,copyToClipboard,fromPosition)=>{
       const parent=this.lichessTools;
@@ -47,8 +56,11 @@
       function renderComments(node) {
         let s='';
         for (const glyph of node.glyphs||[]) {
-          if (glyph.type!='nonStandard') // from tools like Explorer Practice
-            s+=glyph.symbol;
+          if (glyph.id) { // tools like Explorer Practice don't set id
+            s+=glyph.id>=1&&glyph.id<=6
+                ? glyph.symbol
+                : ' $'+glyph.id;
+          }
         }
         for (const comment of node.comments||[]) {
           s+='{'+comment.text+'}';
