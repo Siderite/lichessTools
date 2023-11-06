@@ -1,7 +1,7 @@
 (()=>{
   class ChapterNavigationTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw','EmitChapterChange'];
+    dependencies=['EmitRedraw','EmitChapterChange','DetectThirdParties'];
 
     preferences=[
       {

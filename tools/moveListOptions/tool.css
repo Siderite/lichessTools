@@ -252,3 +252,13 @@ body.lichessTools.lichessTools-analysisPopup.transp div.analyse__controls {
     display:none !important;
   }
 }
+
+body.lichessTools.lichessTools-prettier.lichessTools-analysisPopup #main-wrap div.analyse__tools,
+body.lichessTools.lichessTools-prettier.lichessTools-analysisPopup #main-wrap div.analyse__controls {
+  position:fixed !important;
+  left:0 !important;
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-analysisPopup div.analyse__controls {
+  background:var(--backgroundColor);
+}

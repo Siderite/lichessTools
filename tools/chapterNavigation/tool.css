@@ -36,3 +36,12 @@ body.lichessTools div.study__side.lichessTools-chapterControls {
 body.lichessTools div.study__side.lichessTools-chapterControls div.study__chapters {
   flex-grow:1;
 }
+
+/* Prettier */
+body.lichessTools.lichessTools-prettier .lichessTools-chapterControls div[role="footer"] {
+  background:var(--backgroundColor);
+}
+
+body.lichessTools.lichessTools-prettier section.mchat {
+  margin-top:2px !important;
+}
