@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+06 Nov
+  - changed Shift-Split study chapter at bookmark to delete following moves (default leaves them there)
+
 05 Nov
   - added Shift-Split study chapter at bookmark to not delete following moves
   - fixed major bookmark and export PGN glyphs bugs

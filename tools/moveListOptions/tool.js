@@ -36,7 +36,7 @@
         'bookmarkSplitConfirmationText':'Sure you want to split the chapter on this bookmark?',
         'bookmarkSplitConfirmationDeleteText':'Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW',
         'bookmarkSplitText':'Split chapter here',
-        'bookmarkSplitTitle':'LiChess Tools - create a new chapter with following moves and delete from here\r\nPress Shift to not delete them',
+        'bookmarkSplitTitle':'LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here',
         'chapterLink':'Continue here: %s'
       },
       'ro-RO':{
@@ -61,7 +61,7 @@
         'bookmarkSplitConfirmationText':'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?',
         'bookmarkSplitConfirmationDeleteText':'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?\r\nASTA VA \u015ETERGE MUT\u0102RILE URM\u0102TOARE DIN ACEST CAPITOL',
         'bookmarkSplitText':'Taie un nou capitol de aici',
-        'bookmarkSplitTitle':'LiChess Tools - creaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare \u015Fi \u015Fterge-le de aici\r\nApas\u0103 Shift ca sa nu le stergi',
+        'bookmarkSplitTitle':'LiChess Tools - creaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare\r\nApas\u0103 Shift ca s\u0103 la \u015Ftergi de aici',
         'chapterLink':'Continu\u0103 aici: %s'
       }
     }
@@ -423,7 +423,7 @@
     };
 
     bookmarkSplit=async (ev)=>{
-      const deleteMoves=!ev.shiftKey;
+      const deleteMoves=ev.shiftKey;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const trans=parent.translator;
