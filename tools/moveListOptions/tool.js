@@ -170,7 +170,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const r=/bkm:([^\s]+)\s*/s;
-      const thereAreBookmarks=!!$('bookmark').eq(0).length;
+      const thereAreBookmarks=!!parent.global.document.querySelector('bookmark');
 
       parent.traverse(null,(node,state)=>{
         let bookmark=null;
