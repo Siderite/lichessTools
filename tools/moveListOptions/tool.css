@@ -165,8 +165,11 @@ body.lichessTools.lichessTools-analysisPopup {
   overflow-y:hidden;
 }
 
-
 body.lichessTools.lichessTools-analysisPopup a.lichessTools-analysisPopup {
+  display: none;
+}
+
+body.lichessTools.lichessTools-analysisPopup button[data-act="practice"] {
   display: none;
 }
 
@@ -177,7 +180,7 @@ body.lichessTools.lichessTools-analysisPopup div.analyse__tools {
   height:calc(100vh - 3rem);
   width:100vw;
   z-index:1000000;
-  background:black;
+  background:#edebe9;
   overflow-y:auto;
 }
 
@@ -188,13 +191,22 @@ body.lichessTools.lichessTools-analysisPopup div.analyse__controls {
   height:3rem;
   width:100vw;
   z-index:1000000;
-  background:black;
+  background:#edebe9;
 }
 
-body.lichessTools.lichessTools-analysisPopup button[data-act="practice"] {
-  display: none;
+body.lichessTools.lichessTools-analysisPopup.dark div.analyse__tools,
+body.lichessTools.lichessTools-analysisPopup.dark div.analyse__controls,
+body.lichessTools.lichessTools-analysisPopup.transp div.analyse__tools,
+body.lichessTools.lichessTools-analysisPopup.transp div.analyse__controls {
+  background:#101010;
 }
 
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.lichessTools-analysisPopup.system div.analyse__tools,
+  body.lichessTools.lichessTools-analysisPopup.system div.analyse__controls {
+      background: #101010;
+  }
+}
 
 /* Prettier */
 @media (min-width: 1261px) {
