@@ -152,6 +152,50 @@ body.lichessTools .tview2 comment span.by {
   }
 }
 
+body.lichessTools a.lichessTools-analysisPopup {
+  flex: 0 99 auto;
+  line-height: 38px;
+  color: #b0b0b0;
+  font-size: .9em;
+  padding-right: 0.5em;
+  overflow: hidden;
+}
+
+body.lichessTools.lichessTools-analysisPopup {
+  overflow-y:hidden;
+}
+
+
+body.lichessTools.lichessTools-analysisPopup a.lichessTools-analysisPopup {
+  display: none;
+}
+
+body.lichessTools.lichessTools-analysisPopup div.analyse__tools {
+  position:fixed;
+  top:0;
+  left:0;
+  height:calc(100vh - 3rem);
+  width:100vw;
+  z-index:1000000;
+  background:black;
+  overflow-y:auto;
+}
+
+body.lichessTools.lichessTools-analysisPopup div.analyse__controls {
+  position:fixed;
+  top:calc(100vh - 3rem);
+  left:0;
+  height:3rem;
+  width:100vw;
+  z-index:1000000;
+  background:black;
+}
+
+body.lichessTools.lichessTools-analysisPopup button[data-act="practice"] {
+  display: none;
+}
+
+
 /* Prettier */
 @media (min-width: 1261px) {
   body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis #main-wrap:has(main.analyse) {

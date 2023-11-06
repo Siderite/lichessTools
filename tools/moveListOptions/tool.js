@@ -8,7 +8,7 @@
         name:'moveListOptions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['indentedVariations','bookmarks','fullWidthAnalysis','hideLeftSide'],
+        possibleValues: ['indentedVariations','bookmarks','fullWidthAnalysis','hideLeftSide','analysisPopup'],
         defaultValue: 'bookmarks'
       }
     ];
@@ -21,6 +21,7 @@
         'moveListOptions.bookmarks':'Bookmarks',
         'moveListOptions.fullWidthAnalysis':'Expanded move list',
         'moveListOptions.hideLeftSide':'Hide left side',
+        'moveListOptions.analysisPopup':'Open in new window',
         'addBookmarkText':'Add/Remove bookmark',
         'addBookmarkTitle':'LiChess Tools - Add/Remove bookmark',
         'addBookmarkPrompt':'Add/Remove bookmark',
@@ -37,7 +38,8 @@
         'bookmarkSplitConfirmationDeleteText':'Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW',
         'bookmarkSplitText':'Split chapter here',
         'bookmarkSplitTitle':'LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here',
-        'chapterLink':'Continue here: %s'
+        'chapterLink':'Continue here: %s',
+        'analysisPopupButtonTitle':'LiChess Tools - move list in another window (use SYNC button)'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -46,6 +48,7 @@
         'moveListOptions.bookmarks':'Bookmarkuri',
         'moveListOptions.fullWidthAnalysis':'list\u0103 mut\u0103ri l\u0103rgit\u0103',
         'moveListOptions.hideLeftSide':'Ascunde partea st\u00e2ng\u0103',
+        'moveListOptions.analysisPopup':'Deschide \u00een alt\u0103 fereastr\u0103',
         'addBookmarkText':'Adaug\u0103/Elimin\u0103 bookmark',
         'addBookmarkTitle':'LiChess Tools - Adaug\u0103/Elimin\u0103 bookmark',
         'addBookmarkPrompt':'Adaug\u0103/Elimin\u0103 bookmark',
@@ -62,7 +65,8 @@
         'bookmarkSplitConfirmationDeleteText':'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?\r\nASTA VA \u015ETERGE MUT\u0102RILE URM\u0102TOARE DIN ACEST CAPITOL',
         'bookmarkSplitText':'Taie un nou capitol de aici',
         'bookmarkSplitTitle':'LiChess Tools - creaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare\r\nApas\u0103 Shift ca s\u0103 la \u015Ftergi de aici',
-        'chapterLink':'Continu\u0103 aici: %s'
+        'chapterLink':'Continu\u0103 aici: %s',
+        'analysisPopupButtonTitle':'LiChess Tools - list\u0103 mut\u0103ri \u00een alt\u0103 fereastr\u0103 (folose\u015Fte butonul SYNC)'
       }
     }
 
@@ -560,6 +564,32 @@
       }
     }
 
+    setupAnalysisPopup=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      const container=$('div.analyse__tools div.ceval');
+      let button=$('a.lichessTools-analysisPopup',container);
+      if (this.options.analysisPopup) {
+        if (!button.length) {
+          button=$('<a class="lichessTools-analysisPopup">')
+            .attr('data-icon','\uE024')
+            .attr('title',trans.noarg('analysisPopupButtonTitle'))
+            .on('click',ev=>{
+              ev.preventDefault();
+              this.popup?.close();
+              this.popup=parent.global.open(parent.global.location.href,'lichessTools-moves','fullscreen=yes,menubar=no,location=no,status=no,titlebar=no,toolbar=no,');
+              this.popup.addEventListener('DOMContentLoaded',()=>$('body',this.popup.document).addClass('lichessTools-analysisPopup'));
+              parent.global.addEventListener('unload',()=>{
+                this.popup.close();
+              });
+            })
+            .insertAfter($('help,div.engine',container));
+        }
+      } else {
+        button.remove();
+      }
+    };
 
     async start() {
       const parent=this.lichessTools;
@@ -574,12 +604,14 @@
         bookmarks:parent.isOptionSet(value,'bookmarks'),
         fullWidthAnalysis:parent.isOptionSet(value,'fullWidthAnalysis'),
         hideLeftSide:parent.isOptionSet(value,'hideLeftSide'),
+        analysisPopup:parent.isOptionSet(value,'analysisPopup'),
         getString:function() {
           const arr=[];
           if (this.indentedVariations) arr.push('indentedVariations');
           if (this.bookmarks) arr.push('bookmarks');
           if (this.fullWidthAnalysis) arr.push('fullWidthAnalysis');
           if (this.hideLeftSide) arr.push('hideLeftSide');
+          if (this.analysisPopup) arr.push('analysisPopup');
           return arr.join(',');
         }
       };
@@ -624,6 +656,11 @@
 
       $('body').toggleClass('lichessTools-fullWidthAnalysis',this.options.fullWidthAnalysis);
       $('body').toggleClass('lichessTools-hideLeftSide',this.options.hideLeftSide);
+      lichess.pubsub.off('redraw',this.setupAnalysisPopup);
+      if (analysis.study && this.options.analysisPopup) {
+        lichess.pubsub.on('redraw',this.setupAnalysisPopup);
+        this.setupAnalysisPopup();
+      }
     }
   }
 
