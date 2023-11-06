@@ -568,9 +568,10 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
+      const study=parent.lichess.analysis?.study;
       const container=$('div.analyse__tools div.ceval');
       let button=$('a.lichessTools-analysisPopup',container);
-      if (this.options.analysisPopup) {
+      if (this.options.analysisPopup && study) {
         if (!button.length) {
           button=$('<a class="lichessTools-analysisPopup">')
             .attr('data-icon','\uE024')
@@ -659,8 +660,8 @@
       lichess.pubsub.off('redraw',this.setupAnalysisPopup);
       if (analysis.study && this.options.analysisPopup) {
         lichess.pubsub.on('redraw',this.setupAnalysisPopup);
-        this.setupAnalysisPopup();
       }
+      this.setupAnalysisPopup();
     }
   }
 
