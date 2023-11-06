@@ -112,21 +112,31 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;
+      const study=analysis?.study;
+      if (!study) return;
+      const node=analysis.node;
+      const path=analysis.path;
       if (ev) ev.preventDefault();
       const classes=['red','orange','yellow','green','lightgreen','cyan','lightblue','blue','violet','magenta','pink','underline','strikethrough','italic','bold','cursive',''];
+
+      const r=/^\s*cls:([^\s]*)\s?/;
       const myName=parent.getUserId();
-      let index=(analysis.node.comments||[]).findIndex(c=>c.by.id==myName);
-      let comment=index<0
-        ? ''
-        : analysis.node.comments[index].text;
-      const m=/^\s*cls:([^\s]*)\s?/.exec(comment);
-      let cls=m&&m[1];
-      index=classes.indexOf(cls)+1;
+      const comments=(node.comments||[])
+                 .filter(c=>c.by?.id==myName || r.test(c.text));
+      let commentText=comments.map(c=>c.text).join('\r\n\r\n');
+      r.lastIndex=0;
+      const m=r.exec(commentText);
+      let cls=m?.at(1);
+      let index=classes.indexOf(cls)+1;
       if (index==classes.length) index=0;
       cls=classes[index];
-      comment=(cls?'cls:'+cls+' ':'')+comment.slice(m?m[0].length:0);
-      parent.saveComment(comment);
-      $('#comment-text').val(comment);
+      commentText=(cls?'cls:'+cls+' ':'')+commentText.replace(r,'').trim();
+      const chapterId=study.currentChapter().id;
+      for(const comment of comments.filter(c=>c.by?.id!=myName)) {
+        study.commentForm.delete(chapterId,path,comment.id)
+      }
+      parent.saveComment(commentText,path);
+      $('#comment-text').val(commentText);
     };
 
     async start() {
