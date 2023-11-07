@@ -645,6 +645,7 @@
 
     async init() {
       for (const tool of this.tools) {
+        if (!tool?.init) continue;
         await tool.init();
       }
     }
@@ -762,6 +763,7 @@
         : console.groupCollapsed;
       group('Applying LiChess Tools options...');
       for (const tool of this.tools) {
+        if (!tool?.start) continue;
         await tool.start();
       }
       console.groupEnd();
