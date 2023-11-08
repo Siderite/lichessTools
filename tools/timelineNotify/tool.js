@@ -150,7 +150,12 @@
         case false: this.types=[]; break;
         default: this.types=value?.split(','); break;
       }
-      this.logOption('Post notifications', value);
+      this.logOption('Timeline notifications', value);
+      if (!parent.userLoggedIn()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
+
       lichess.pubsub.off('content-loaded',this.processTimeline);
       parent.global.clearInterval(this.interval);
       if (!value) return;

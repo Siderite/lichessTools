@@ -75,6 +75,37 @@ body.lichessTools.dark .analyse .gamebook span.lichessTools-score {
   }
 }
 
+body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
+body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
+  background: #1b78d0;
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move {
+  background: #c6ddf3;
+}
+
+body.lichessTools.dark.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
+body.lichessTools.dark.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected,
+body.lichessTools.transp.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
+body.lichessTools.transp.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
+  background: #3692e7;
+}
+
+body.lichessTools.dark.lichessTools-extendedInteractiveLesson div.analyse__fork move,
+body.lichessTools.transp.lichessTools-extendedInteractiveLesson div.analyse__fork move {
+  background: #184065b3;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
+  body.lichessTools.system.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
+    background: #3692e7;
+  }
+
+body.lichessTools.system.lichessTools-extendedInteractiveLesson div.analyse__fork move {
+    background: #184065b3;
+  }
+}
 
 
 /* Prettier Lichess CSS */

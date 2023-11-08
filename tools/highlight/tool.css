@@ -52,3 +52,7 @@ body.lichessTools.lichessTools-prettier.dark .analyse .tview2 move.lichessTools-
 body.lichessTools.lichessTools-prettier.transp .analyse .tview2 move.lichessTools-transposition {
     background: darkgreen !important;
 }
+
+body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-lastInLine {
+    filter: brightness(150%);
+}

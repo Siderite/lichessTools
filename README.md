@@ -57,7 +57,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - button to create chapter after the selected one
  - PGN textarea in studies, similar to Analysis
  - Move list options: indented variations shows all variations as tree branches, not inline
- - Move list options: bookmarks allows tagging variations with a label, collapse/expand them, link to them, split chapter by them
+ - Move list options: bookmarks allows tagging variations with a label, collapse/expand them, link to them, split chapter by them, open another window with just the analysis tools (move list, explorer, computer eval)
  - Option to not see cloud values in computer evaluation
  - Context menu on bookmarked positions to get the URL of the position
  - Move list options: Expanded move list and Hide left side in Analysis

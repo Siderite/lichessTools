@@ -116,12 +116,12 @@ body.lichessTools .tview2 comment span.by {
 }
 
 @media (min-width: 1259.3px) {
-  body.lichessTools.lichessTools-fullWidthAnalysis #main-wrap:has(main.analyse) {
+  body.lichessTools.lichessTools-fullWidthAnalysis #main-wrap:has(main.analyse:not(.has-relay-tour):has(div.analyse__tools)) {
     grid-template-columns: var(--main-margin) 0fr minmax(auto, var(--main-max-width)) 0fr var(--main-margin);
     min-height:calc(100vh - var(--site-header-height) - var(--site-header-margin) - 3rem);
   }
 
-  body.lichessTools.lichessTools-fullWidthAnalysis main.analyse {
+  body.lichessTools.lichessTools-fullWidthAnalysis main.analyse:not(.has-relay-tour) {
     --tools-width:1fr;
     --left-side-width:350px;
     grid-template-columns: minmax(calc(var(--left-side-width) - 100px), var(--left-side-width)) 2vmin var(--col3-uniboard-width) var(--gauge-gap) minmax(240px,var(--tools-width));
@@ -133,35 +133,93 @@ body.lichessTools .tview2 comment span.by {
                          "uchat   . under .     round-training";
   }
 
-  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-fullWidthAnalysis) #main-wrap:has(main.analyse) {
+  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-fullWidthAnalysis) #main-wrap:has(main.analyse:not(.has-relay-tour)) {
     grid-template-columns: var(--main-margin) 0fr minmax(auto, var(--main-max-width)) 1fr var(--main-margin);
   }
 
-  body.lichessTools.lichessTools-hideLeftSide main.analyse {
+  body.lichessTools.lichessTools-hideLeftSide main.analyse:not(.has-relay-tour) {
     --left-side-width:1em;
   }
 
-  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-fullWidthAnalysis) main.analyse {
+  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-fullWidthAnalysis) main.analyse:not(.has-relay-tour) {
     grid-template-columns: 1em 0 var(--col3-uniboard-width) var(--gauge-gap) minmax(240px, 400px);
   }
 
-  body.lichessTools.lichessTools-hideLeftSide main.analyse aside.analyse__side,
-  body.lichessTools.lichessTools-hideLeftSide main.analyse section.mchat,
-  body.lichessTools.lichessTools-hideLeftSide main.analyse div.chat__members {
+  body.lichessTools.lichessTools-hideLeftSide main.analyse:not(.has-relay-tour) aside.analyse__side,
+  body.lichessTools.lichessTools-hideLeftSide main.analyse:not(.has-relay-tour) div.practice__side,
+  body.lichessTools.lichessTools-hideLeftSide main.analyse:not(.has-relay-tour) section.mchat,
+  body.lichessTools.lichessTools-hideLeftSide main.analyse:not(.has-relay-tour) div.chat__members {
     display:none;
+  }
+}
+
+body.lichessTools a.lichessTools-analysisPopup {
+  flex: 0 99 auto;
+  line-height: 38px;
+  color: #b0b0b0;
+  font-size: .9em;
+  padding-right: 0.5em;
+  overflow: hidden;
+}
+
+body.lichessTools.lichessTools-analysisPopup {
+  overflow-y:hidden;
+}
+
+body.lichessTools.lichessTools-analysisPopup a.lichessTools-analysisPopup {
+  display: none;
+}
+
+body.lichessTools.lichessTools-analysisPopup button[data-act="practice"] {
+  display: none;
+}
+
+body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools {
+  position:fixed;
+  top:0;
+  left:0;
+  height:calc(100vh - 3rem);
+  width:100vw;
+  z-index:1000000;
+  background:#edebe9;
+  overflow-y:auto;
+}
+
+body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls {
+  position:fixed;
+  top:calc(100vh - 3rem);
+  left:0;
+  height:3rem;
+  width:100vw;
+  z-index:1000000;
+  background:#edebe9;
+}
+
+body.lichessTools.lichessTools-analysisPopup.dark main.analyse:not(.has-relay-tour) div.analyse__tools,
+body.lichessTools.lichessTools-analysisPopup.dark main.analyse:not(.has-relay-tour) div.analyse__controls,
+body.lichessTools.lichessTools-analysisPopup.transp main.analyse:not(.has-relay-tour) div.analyse__tools,
+body.lichessTools.lichessTools-analysisPopup.transp main.analyse:not(.has-relay-tour) div.analyse__controls {
+  background:#101010;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.lichessTools-analysisPopup.system main.analyse:not(.has-relay-tour) div.analyse__tools,
+  body.lichessTools.lichessTools-analysisPopup.system main.analyse:not(.has-relay-tour) div.analyse__controls {
+      background: #101010;
   }
 }
 
 /* Prettier */
 @media (min-width: 1261px) {
-  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis #main-wrap:has(main.analyse) {
+  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis #main-wrap:has(main.analyse:not(.has-relay-tour):has(div.analyse__tools)) {
     grid-template-columns: var(--main-margin) 0fr minmax(auto, var(--main-max-width)) 0fr var(--main-margin) !important;
     min-height:calc(100vh - var(--site-header-height) - var(--site-header-margin) - 3rem) !important;
   }
 
-  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis #main-wrap main.analyse {
+  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis #main-wrap main.analyse:not(.has-relay-tour) {
     --tools-width:1fr !important;
     --left-side-width:350px !important;
+    --gauge-gap: 3rem;
     grid-template-columns: minmax(calc(var(--left-side-width) - 100px), var(--left-side-width)) 2vmin var(--col3-uniboard-width) var(--gauge-gap) minmax(240px,var(--tools-width)) !important;
     grid-template-rows: var(--meta-height) var(--chat-height) 1fr 2.5em auto !important;
     grid-template-areas: "side    . board gauge tools" 
@@ -171,28 +229,44 @@ body.lichessTools .tview2 comment span.by {
                          "uchat   . under .     round-training" !important;
   }
 
-  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis #main-wrap main.analyse div.analyse__tools,
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse div.analyse__tools,
-  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis #main-wrap main.analyse div.analyse__controls,
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse div.analyse__controls {
+  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis #main-wrap main.analyse:not(.has-relay-tour) div.eval-gauge {
+    width:auto !important;
+    margin-right: 4px;
+  }
+
+  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis #main-wrap main.analyse:not(.has-relay-tour) div.analyse__tools,
+  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse:not(.has-relay-tour) div.analyse__tools,
+  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis #main-wrap main.analyse:not(.has-relay-tour) div.analyse__controls,
+  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse:not(.has-relay-tour) div.analyse__controls {
     left: 0 !important;
   }
 
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-fullWidthAnalysis) #main-wrap:has(main.analyse) {
+  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-fullWidthAnalysis) #main-wrap:has(main.analyse:not(.has-relay-tour)) {
     grid-template-columns: var(--main-margin) 0fr minmax(auto, var(--main-max-width)) 1fr var(--main-margin) !important;
   }
 
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse {
+  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse:not(.has-relay-tour) {
     --left-side-width:1em !important;
   }
 
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-fullWidthAnalysis) #main-wrap main.analyse {
+  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-fullWidthAnalysis) #main-wrap main.analyse:not(.has-relay-tour) {
     grid-template-columns: var(--left-side-width) 0 var(--col3-uniboard-width) var(--gauge-gap) minmax(240px, 400px) !important;
   }
 
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse aside.analyse__side,
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse section.mchat,
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse div.chat__members {
+  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse:not(.has-relay-tour) aside.analyse__side,
+  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse:not(.has-relay-tour) div.practice__side,
+  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse:not(.has-relay-tour) section.mchat,
+  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide #main-wrap main.analyse:not(.has-relay-tour) div.chat__members {
     display:none !important;
   }
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-analysisPopup #main-wrap main.analyse:not(.has-relay-tour) div.analyse__tools,
+body.lichessTools.lichessTools-prettier.lichessTools-analysisPopup #main-wrap main.analyse:not(.has-relay-tour) div.analyse__controls {
+  position:fixed !important;
+  left:0 !important;
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls {
+  background:var(--backgroundColor);
 }

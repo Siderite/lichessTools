@@ -1,34 +1,34 @@
 /* Just Explorer */
 
-body.lichessTools.lichessTools-theme_justExplorer.mobile div.analyse__tools div.ceval {
+body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-relay-tour) div.analyse__tools div.ceval {
   order:1;
 }
 
-body.lichessTools.lichessTools-theme_justExplorer.mobile div.analyse__tools div.pv_box {
+body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-relay-tour) div.analyse__tools div.pv_box {
   order:2;
 }
 
-body.lichessTools.lichessTools-theme_justExplorer.mobile div.analyse__tools div.analyse__moves {
+body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-relay-tour) div.analyse__tools div.analyse__moves {
   order:4;
 }
 
-body.lichessTools.lichessTools-theme_justExplorer.mobile div.analyse__tools div.analyse__fork {
+body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-relay-tour) div.analyse__tools div.analyse__fork {
   order:5;
 }
 
-body.lichessTools.lichessTools-theme_justExplorer.mobile div.analyse__tools section.explorer-box {
+body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-relay-tour) div.analyse__tools section.explorer-box {
   order:3;
 }
 
-body.lichessTools.lichessTools-theme_justExplorer.mobile div.analyse__tools:has(.explorer-box) div.analyse__moves {
+body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-relay-tour) div.analyse__tools:has(.explorer-box) div.analyse__moves {
   display:none;
 }
 
-body.lichessTools.lichessTools-theme_justExplorer.mobile div.analyse__tools:has(.explorer-box) div.analyse__fork {
+body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-relay-tour) div.analyse__tools:has(.explorer-box) div.analyse__fork {
   display:none;
 }
 
-body.lichessTools.lichessTools-theme_justExplorer.mobile div.analyse__tools:has(.explorer-box) div.pv_box {
+body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-relay-tour) div.analyse__tools:has(.explorer-box) div.pv_box {
   display:none;
 }
 

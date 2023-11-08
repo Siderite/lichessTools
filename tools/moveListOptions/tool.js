@@ -8,7 +8,7 @@
         name:'moveListOptions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['indentedVariations','bookmarks','fullWidthAnalysis','hideLeftSide'],
+        possibleValues: ['indentedVariations','bookmarks','fullWidthAnalysis','hideLeftSide','analysisPopup'],
         defaultValue: 'bookmarks'
       }
     ];
@@ -21,6 +21,7 @@
         'moveListOptions.bookmarks':'Bookmarks',
         'moveListOptions.fullWidthAnalysis':'Expanded move list',
         'moveListOptions.hideLeftSide':'Hide left side',
+        'moveListOptions.analysisPopup':'Open in new window',
         'addBookmarkText':'Add/Remove bookmark',
         'addBookmarkTitle':'LiChess Tools - Add/Remove bookmark',
         'addBookmarkPrompt':'Add/Remove bookmark',
@@ -33,10 +34,12 @@
         'collapseAllTitle':'LiChess Tools - Collapse all bookmarks',
         'expandAllText':'Expand all bookmarks',
         'expandAllTitle':'LiChess Tools - Expand all bookmarks',
-        'bookmarkSplitConfirmationText':'Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW',
+        'bookmarkSplitConfirmationText':'Sure you want to split the chapter on this bookmark?',
+        'bookmarkSplitConfirmationDeleteText':'Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW',
         'bookmarkSplitText':'Split chapter here',
-        'bookmarkSplitTitle':'LiChess Tools - create a new chapter with following moves and delete from here',
-        'chapterLink':'Continue here: %s'
+        'bookmarkSplitTitle':'LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here',
+        'chapterLink':'Continue here: %s',
+        'analysisPopupButtonTitle':'LiChess Tools - move list in another window (use SYNC button)'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -45,6 +48,7 @@
         'moveListOptions.bookmarks':'Bookmarkuri',
         'moveListOptions.fullWidthAnalysis':'list\u0103 mut\u0103ri l\u0103rgit\u0103',
         'moveListOptions.hideLeftSide':'Ascunde partea st\u00e2ng\u0103',
+        'moveListOptions.analysisPopup':'Deschide \u00een alt\u0103 fereastr\u0103',
         'addBookmarkText':'Adaug\u0103/Elimin\u0103 bookmark',
         'addBookmarkTitle':'LiChess Tools - Adaug\u0103/Elimin\u0103 bookmark',
         'addBookmarkPrompt':'Adaug\u0103/Elimin\u0103 bookmark',
@@ -57,10 +61,12 @@
         'collapseAllTitle':'LiChess Tools - Colapseaz\u0103 toate bookmarkurile',
         'expandAllText':'Expandeaz\u0103 toate bookmarkurile',
         'expandAllTitle':'LiChess Tools - Expandeaz\u0103 toate bookmarkurile',
-        'bookmarkSplitConfirmationText':'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?\r\nASTA VA \u015ETERGE MUT\u0102RILE URM\u0102TOARE DIN ACEST CAPITOL',
+        'bookmarkSplitConfirmationText':'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?',
+        'bookmarkSplitConfirmationDeleteText':'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?\r\nASTA VA \u015ETERGE MUT\u0102RILE URM\u0102TOARE DIN ACEST CAPITOL',
         'bookmarkSplitText':'Taie un nou capitol de aici',
-        'bookmarkSplitTitle':'LiChess Tools - creaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare \u015Fi \u015Fterge-le de aici',
-        'chapterLink':'Continu\u0103 aici: %s'
+        'bookmarkSplitTitle':'LiChess Tools - creaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare\r\nApas\u0103 Shift ca s\u0103 la \u015Ftergi de aici',
+        'chapterLink':'Continu\u0103 aici: %s',
+        'analysisPopupButtonTitle':'LiChess Tools - list\u0103 mut\u0103ri \u00een alt\u0103 fereastr\u0103 (folose\u015Fte butonul SYNC)'
       }
     }
 
@@ -168,7 +174,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const r=/bkm:([^\s]+)\s*/s;
-      const thereAreBookmarks=!!$('bookmark').eq(0).length;
+      const thereAreBookmarks=!!parent.global.document.querySelector('bookmark');
 
       parent.traverse(null,(node,state)=>{
         let bookmark=null;
@@ -354,7 +360,7 @@
       if (!node) return;
       const elem=parent.getElementForNode(node);
       if (!elem) return;
-      const oldLabel=node.bookmark?.label;
+      const oldLabel=node.bookmark?.label?.replaceAll('_',' ')||'';
       const label=parent.global.prompt(trans.noarg('addBookmarkPrompt'),oldLabel)?.trim()?.replaceAll(/\s+/g,'_');
       if (label===undefined) return;
       node.bookmark=label
@@ -365,18 +371,19 @@
         : null;
       this.setBookmark(elem,node,node.bookmark);
 
+      const r=/bkm:([^\s]+)\s*/gs;
       const myName=parent.getUserId();
-      let index=(node.comments||[]).findIndex(c=>c.by.id==myName);
-      let comment=index<0
-        ? ''
-        : node.comments[index].text;
-      const r=/bkm:([^\s]+)\s*/s;
-      const m=r.exec(comment);
-      comment=m
-        ? comment.replace(r,label?'bkm:'+label+' ':'')
-        : (label?'bkm:'+label+' ':'')+comment;
-      parent.saveComment(comment,path);
-      $('#comment-text').val(comment);
+      const comments=(node.comments||[])
+                 .filter(c=>c.by?.id==myName || r.test(c.text));
+      let commentText=comments.map(c=>c.text).join('\r\n\r\n');
+      r.lastIndex=0;
+      commentText=(label?'bkm:'+label+' ':'')+commentText.replace(r,'').trim();
+      const chapterId=study.currentChapter().id;
+      for(const comment of comments.filter(c=>c.by?.id!=myName)) {
+        study.commentForm.delete(chapterId,node.path,comment.id)
+      }
+      parent.saveComment(commentText,path);
+      $('#comment-text').val(commentText);
     };
 
     getBookmarkUrl=async (bookmark)=>{
@@ -419,7 +426,8 @@
       }
     };
 
-    bookmarkSplit=async ()=>{
+    bookmarkSplit=async (ev)=>{
+      const deleteMoves=ev.shiftKey;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const trans=parent.translator;
@@ -432,14 +440,16 @@
       const node=analysis.tree.nodeAtPath(nodePath);
       const label = node?.bookmark?.label;
       if (!label) return;
-      if (!parent.global.confirm(trans.noarg('bookmarkSplitConfirmationText'))) return;
-      for (const child of node.children||[]) {
-        const path=nodePath+child.id;
-        study.deleteNode(path);
-        analysis.tree.deleteNodeAt(path);
-      }
       const position=study.data?.position;
       if (!position) throw 'Cannot find study position!';
+      if (!parent.global.confirm(trans.noarg(deleteMoves?'bookmarkSplitConfirmationDeleteText':'bookmarkSplitConfirmationText'))) return;
+      if (deleteMoves) {
+        for (const child of node.children||[]) {
+          const path=nodePath+child.id;
+          study.deleteNode(path);
+          analysis.tree.deleteNodeAt(path);
+        }
+      }
       const setup=study.data?.chapter?.setup;
       study.chapters.newForm.submit({ 
         name:label.replaceAll('_',' '),
@@ -449,7 +459,7 @@
         mode:'normal',
         isDefaultName:false
       })
-      let commentText=parent.getNodeComment(node);
+      let commentText=parent.getNodeComment(node)||'';
       if (commentText) commentText+='\r\n';
 
       while(study.currentChapter().id==position.chapterId) {
@@ -554,6 +564,33 @@
       }
     }
 
+    setupAnalysisPopup=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      const study=parent.lichess.analysis?.study;
+      const container=$('div.analyse__tools div.ceval');
+      let button=$('a.lichessTools-analysisPopup',container);
+      if (this.options.analysisPopup && study) {
+        if (!button.length) {
+          button=$('<a class="lichessTools-analysisPopup">')
+            .attr('data-icon','\uE024')
+            .attr('title',trans.noarg('analysisPopupButtonTitle'))
+            .on('click',ev=>{
+              ev.preventDefault();
+              this.popup?.close();
+              this.popup=parent.global.open(parent.global.location.href,'lichessTools-moves','fullscreen=yes,menubar=no,location=no,status=no,titlebar=no,toolbar=no,');
+              this.popup.addEventListener('DOMContentLoaded',()=>$('body',this.popup.document).addClass('lichessTools-analysisPopup'));
+              parent.global.addEventListener('unload',()=>{
+                this.popup.close();
+              });
+            })
+            .insertAfter($('help,div.engine',container));
+        }
+      } else {
+        button.remove();
+      }
+    };
 
     async start() {
       const parent=this.lichessTools;
@@ -568,12 +605,14 @@
         bookmarks:parent.isOptionSet(value,'bookmarks'),
         fullWidthAnalysis:parent.isOptionSet(value,'fullWidthAnalysis'),
         hideLeftSide:parent.isOptionSet(value,'hideLeftSide'),
+        analysisPopup:parent.isOptionSet(value,'analysisPopup'),
         getString:function() {
           const arr=[];
           if (this.indentedVariations) arr.push('indentedVariations');
           if (this.bookmarks) arr.push('bookmarks');
           if (this.fullWidthAnalysis) arr.push('fullWidthAnalysis');
           if (this.hideLeftSide) arr.push('hideLeftSide');
+          if (this.analysisPopup) arr.push('analysisPopup');
           return arr.join(',');
         }
       };
@@ -618,6 +657,11 @@
 
       $('body').toggleClass('lichessTools-fullWidthAnalysis',this.options.fullWidthAnalysis);
       $('body').toggleClass('lichessTools-hideLeftSide',this.options.hideLeftSide);
+      lichess.pubsub.off('redraw',this.setupAnalysisPopup);
+      if (analysis.study && this.options.analysisPopup) {
+        lichess.pubsub.on('redraw',this.setupAnalysisPopup);
+      }
+      this.setupAnalysisPopup();
     }
   }
 

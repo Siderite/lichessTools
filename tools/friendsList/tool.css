@@ -116,31 +116,31 @@ body.lichessTools div.lichessTools-liveButtons i
   display:inline-flex;
 }
 
-body.lichessTools.lichessTools-hideOffline div.lichessTools-liveButtons i[data-role="hideOffline"]:before {
+body.lichessTools main.lichessTools-hideOffline div.lichessTools-liveButtons i[data-role="hideOffline"]:before {
   opacity:0.2;
 }
 
-body.lichessTools.lichessTools-hideOffline tr:not(.lichessTools-online) {
+body.lichessTools main.lichessTools-hideOffline tr:not(.lichessTools-online) {
   display:none;
 }
 
-body.lichessTools.lichessTools-hideNotPlaying div.lichessTools-liveButtons i[data-role="hideNotPlaying"]:before {
+body.lichessTools main.lichessTools-hideNotPlaying div.lichessTools-liveButtons i[data-role="hideNotPlaying"]:before {
   opacity:0.2;
 }
 
-body.lichessTools.lichessTools-hideNotPlaying tr:not(.lichessTools-playing) {
+body.lichessTools main.lichessTools-hideNotPlaying tr:not(.lichessTools-playing) {
   display:none;
 }
 
-body.lichessTools.lichessTools-hideMuted div.lichessTools-liveButtons i[data-role="hideMuted"]:before {
+body.lichessTools main.lichessTools-hideMuted div.lichessTools-liveButtons i[data-role="hideMuted"]:before {
   opacity:0.2;
 }
 
-body.lichessTools.lichessTools-hideMuted tr.lichessTools-muted {
+body.lichessTools main.lichessTools-hideMuted tr.lichessTools-muted {
   display:none;
 }
 
-body.lichessTools:not(.lichessTools-alerts) table.slist div.relation-actions a.lichessTools-mute {
+body.lichessTools main:not(.lichessTools-alerts) table.slist div.relation-actions a.lichessTools-mute {
   display:none;
 }
 
@@ -148,7 +148,7 @@ body.lichessTools div.lichessTools-liveButtons i[data-role="hideMuted"]:before {
   transform: rotate(45deg);
 }
 
-body.lichessTools:not(.lichessTools-alerts) div.lichessTools-liveButtons i[data-role="hideMuted"] {
+body.lichessTools main:not(.lichessTools-alerts) div.lichessTools-liveButtons i[data-role="hideMuted"] {
   display:none;
 }
 
@@ -278,6 +278,31 @@ body.lichessTools div.site-buttons .lichessTools-onlineFriends .dropdown {
   box-shadow: 4px 4px gray;
 }
 
+
+body.lichessTools main.lichessTools-friendsPage table.slist tr {
+  background:none !important;
+  height:5rem;
+}
+
+body.lichessTools main.lichessTools-friendsPage table.slist tbody {
+  background-image: repeating-linear-gradient(#f7f6f5 0 5rem, transparent 5rem 10rem);
+}
+
+body.lichessTools.transp main.lichessTools-friendsPage table.slist tbody {
+  background-image: repeating-linear-gradient(#181614 0 5rem, transparent 5rem 10rem);
+}
+
+body.lichessTools.dark main.lichessTools-friendsPage table.slist tbody {
+  background-image: repeating-linear-gradient(#302e2c 0 5rem, transparent 5rem 10rem);
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system main.lichessTools-friendsPage table.slist tbody {
+    background-image: repeating-linear-gradient(#302e2c 0 5rem, transparent 5rem 10rem);
+  }
+}
+
+
 /* Unrated CSS */
 body.lichessTools.dynamicContentShown section.lichessTools-onlineFriends .user-link {
   visibility:inherit;
@@ -337,4 +362,8 @@ body.lichessTools.lichessTools-prettier.dark .site-buttons div.lichessTools-onli
   body.lichessTools.lichessTools-prettier.system .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying > button.toggle {
     color: #3692e7 !important;
   }
+}
+
+body.lichessTools.lichessTools-prettier main.lichessTools-friendsPage table.slist tbody {
+  background-image: repeating-linear-gradient(var(--backgroundColor) 0 5rem, transparent 5rem 10rem);
 }

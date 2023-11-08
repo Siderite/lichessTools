@@ -39,35 +39,41 @@
       const white=parent.getPgnTag(pgn,'White');
       const black=parent.getPgnTag(pgn,'Black');
       const target=$('#chapter-name').closest('.form-group');
+      $('.lichessTools-changeNameButton',target).remove();
+      const chapterName=$('#chapter-name').val();
       if (event?.trim()) {
         let text=event;
         const studyName=lichess.analysis.study.data.name;
         if (studyName&&text.startsWith(studyName+':')) {
           text=text.slice(studyName.length+1).trim();
         }
-        const eventButton=$('<button type="button" class="button button-empty">')
-          .addClass('lichessTools-changeNameButton')
-          .text(trans.pluralSame('changeNameToText',text))
-          .attr('title',trans.noarg('changeNameToTitle'))
-          .attr('data-icon','\uE041')
-          .on('click',ev=>{
-            ev.preventDefault();
-            $('#chapter-name').val(text)[0].select();
-          });
-        target.append(eventButton);
+        if (text!=chapterName) {
+          const eventButton=$('<button type="button" class="button button-empty">')
+            .addClass('lichessTools-changeNameButton')
+            .text(trans.pluralSame('changeNameToText',text))
+            .attr('title',trans.noarg('changeNameToTitle'))
+            .attr('data-icon','\uE041')
+            .on('click',ev=>{
+              ev.preventDefault();
+              $('#chapter-name').val(text)[0].select();
+            });
+          target.append(eventButton);
+        }
       }
       if (white?.trim()&&black?.trim()) {
         const text=white+' - '+black;
-        const namesButton=$('<button type="button" class="button button-empty">')
-          .addClass('lichessTools-changeNameButton')
-          .text(trans.pluralSame('changeNameToText',text))
-          .attr('title',trans.noarg('changeNameToTitle'))
-          .attr('data-icon','\uE041')
-          .on('click',ev=>{
-            ev.preventDefault();
-            $('#chapter-name').val(text)[0].select();
-          });
-        target.append(namesButton);
+        if (text!=chapterName) {
+          const namesButton=$('<button type="button" class="button button-empty">')
+            .addClass('lichessTools-changeNameButton')
+            .text(trans.pluralSame('changeNameToText',text))
+            .attr('title',trans.noarg('changeNameToTitle'))
+            .attr('data-icon','\uE041')
+            .on('click',ev=>{
+              ev.preventDefault();
+              $('#chapter-name').val(text)[0].select();
+            });
+          target.append(namesButton);
+        }
       }
     };
 

@@ -1,6 +1,8 @@
 (()=>{
   class ThemesTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['DetectThirdParties'];
+
     preferences=[
       {
         name:'themes',

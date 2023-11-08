@@ -1,7 +1,12 @@
 /* Move colorize */
 
+body.lichessTools.lichessTools-theme_moveColorize move {
+  vertical-align: middle;
+}
+
 body.lichessTools.lichessTools-theme_moveColorize comment {
   font-style: italic;
+  vertical-align: middle;
 }
 
 body.lichessTools.lichessTools-theme_moveColorize div.tview2>move {
