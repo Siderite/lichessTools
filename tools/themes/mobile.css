@@ -39,9 +39,9 @@ body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-
   min-height:20em;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .main-board {
+body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse.has-players:not(.has-relay-tour) .main-board {
   margin-top:1.2rem;
-  margin-bottom:1.2rem;
+  margin-bottom:1.8rem;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .gamebook {
@@ -80,3 +80,9 @@ body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"]:after 
   font-size: large;
 }
 
+/** Prettier **/
+
+body.lichessTools.lichessTools-prettier.lichessTools-theme_mobile.mobile  main.analyse.has-players:not(.has-relay-tour) .main-board {
+  margin-top:2rem;
+  margin-bottom:2.5rem;
+}
