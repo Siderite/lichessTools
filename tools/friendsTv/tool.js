@@ -92,6 +92,7 @@
       const $=parent.$;
       const trans=this.lichessTools.translator;
       if (!this.isFriendsTvPage()) return;
+      if (parent.global.document.hidden) return;
       const container = $('main.tv-games div.page-menu__content.now-playing');
       if (!container.length) return;
       const notFound=[...this.users_playing];
@@ -219,13 +220,13 @@
       lichess.pubsub.off('socket.in.following_stopped_playing', this.stopped_playing);
       $(parent.global).off('hashchange',this.hashChange);
       if (value) {
-          lichess.pubsub.on('socket.in.following_onlines', this.following_onlines);
-          lichess.pubsub.on('socket.in.following_enters', this.enters);
-          lichess.pubsub.on('socket.in.following_leaves', this.leaves);
-          lichess.pubsub.on('socket.in.following_playing', this.playing);
-          lichess.pubsub.on('socket.in.following_stopped_playing', this.stopped_playing);
+        lichess.pubsub.on('socket.in.following_onlines', this.following_onlines);
+        lichess.pubsub.on('socket.in.following_enters', this.enters);
+        lichess.pubsub.on('socket.in.following_leaves', this.leaves);
+        lichess.pubsub.on('socket.in.following_playing', this.playing);
+        lichess.pubsub.on('socket.in.following_stopped_playing', this.stopped_playing);
 
-          $(parent.global).on('hashchange',this.hashChange);
+        $(parent.global).on('hashchange',this.hashChange);
       }
 
       this.updateFriendsTvButton();

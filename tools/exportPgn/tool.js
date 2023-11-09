@@ -24,16 +24,6 @@
       }
     }
 
-    getGlyphs=async ()=>{
-      if (!this.glyphs) {
-        const parent=this.lichessTools;
-        const lichess=parent.lichess;
-        const json = await parent.net.fetch(lichess.assetUrl('glyphs.json'));
-        this.glyphs=parent.global.JSON.parse(json);
-      }
-      return this.glyphs;
-    };
-
     exportPgn=async (path,copyToClipboard,fromPosition)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;

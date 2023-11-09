@@ -88,6 +88,7 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       if (lichess.quietMode) return;
+      if (parent.global.document.hidden) return;
       const $=parent.$;
       const trans=parent.translator;
       if (el!==true && !$(el).is('div.notifications')) return;
@@ -170,7 +171,7 @@
         this.readAllStorage.listen(this.setAllRead);
       }
       if (/^\/timeline/i.test(location.pathname)) this.setAllRead();
-      this.processTimeline(true);
+      parent.global.requestAnimationFrame(()=>this.processTimeline(true));
     }
 
   }
