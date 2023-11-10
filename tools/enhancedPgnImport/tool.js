@@ -1,6 +1,8 @@
 (()=>{
   class EnhancedPgnImportTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['EmitRedraw'];
+
     preferences=[
       {
         name:'enhancedImport',
@@ -121,17 +123,36 @@
       return pgns;
     }
 
+    setupBlurOnEscape=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('div.pgn textarea,div.pair input').off('keyup',this.blurOnEscape);
+      if (!this.options.enabled) return;
+      $('div.pgn textarea,div.pair input').on('keyup',this.blurOnEscape);
+    };
+
+    blurOnEscape=ev=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      if (ev.key=='Escape') ev.target.blur();
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('enhancedImport');
       this.logOption('Enhanced PGN import', value);
+      this.options={ enabled: value };
       const lichess=parent.lichess;
       const trans=parent.translator;
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
+      this.setupBlurOnEscape();
+      lichess.pubsub.off('redraw',this.setupBlurOnEscape);
       lichess.analysis.changePgn=parent.unwrapFunction(lichess.analysis.changePgn,'enhancedImport');
       if (!value) return;
+      lichess.pubsub.on('redraw',this.setupBlurOnEscape);
+      
       lichess.analysis.changePgn=parent.wrapFunction(lichess.analysis.changePgn,{
         id:'enhancedImport',
         before:($this,input,andReload)=>{

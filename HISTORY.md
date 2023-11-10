@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+10 Nov
+  - Escape blurs the Analysis board PGN and FEN inputs as part of Enhanced import
+
 07 Nov
   - added move list in new window functionality for studies
 
