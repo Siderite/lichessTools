@@ -86,6 +86,7 @@
         "tools/chapterInsert/tool.js",
         "tools/chapterPgnArea/tool.js",
         "tools/moveListOptions/tool.js",
+        "tools/streamerTv/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -135,6 +136,7 @@
         "tools/explorerSettings/tool.css",
         "tools/chapterPgnArea/tool.css",
         "tools/moveListOptions/tool.css",
+        "tools/streamerTv/tool.css",
 
         "tools/hideBoardCommand/tool.css"
       ],

@@ -58,6 +58,7 @@ lichessTools.loadTool(LiChessTools.Tools.StickyStudySettings);
 lichessTools.loadTool(LiChessTools.Tools.ChapterInsert);
 lichessTools.loadTool(LiChessTools.Tools.ChapterPgnArea);
 lichessTools.loadTool(LiChessTools.Tools.MoveListOptions);
+lichessTools.loadTool(LiChessTools.Tools.StreamerTv);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);

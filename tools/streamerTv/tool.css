@@ -1,0 +1,6 @@
+body.lichessTools .lichessTools-noGames {
+  grid-column: span 100;
+  grid-row: span 100;
+  text-align: center;
+  margin-top: 40%;
+}
