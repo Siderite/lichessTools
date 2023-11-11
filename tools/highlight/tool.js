@@ -96,6 +96,7 @@
     };
 
     highlightMainLine=()=>{
+      if (!this.options.mainLine) return;
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
       if (!analysis) return;

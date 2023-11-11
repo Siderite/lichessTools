@@ -36,7 +36,7 @@ body.lichessTools.transp .analyse .tview2 move.lichessTools-lastInLine {
 }
 
 body.lichessTools.lichessTools-notOnMainline main.analyse cg-board {
-  opacity:0.8;
+  opacity:0.85;
 }
 
 /* Prettier Lichess CSS */
