@@ -58,8 +58,10 @@
         parent.lichess.pubsub.emit=parent.unwrapFunction(parent.lichess.pubsub.emit,'friendsTv');
         parent.lichess.pubsub.emit=parent.wrapFunction(parent.lichess.pubsub.emit,{
           id:'friendsTv',
-          before:($this,name)=>{
+          before:($this,name,info)=>{
             if (name=='socket.in.finish') {
+              const gameId=info.id;
+              $('main.tv-games div.page-menu__content.now-playing a[data-live="'+gameId+'"]').remove();
               return false;
             }
           }
@@ -107,10 +109,11 @@
       });
       for (const userId of notFound) {
         try {
-          const text = await parent.net.fetch({url:'/api/games/user/{username}?max=1&tags=true&ongoing=true&finished=false&opening=true&moves=false',args:{username:userId}});
+          /*const text = await parent.net.fetch({url:'/api/games/user/{username}?max=1&tags=true&ongoing=true&finished=false&opening=true&moves=false',args:{username:userId}});
+          if (!text) continue;
           const url=parent.getPgnTag(text,'Site');
           const gameId=/\/([^\/]+)$/.exec(url)[1];
-          if ($('a[data-live="'+gameId+'"]').length) continue;
+          if ($('a[data-live="'+gameId+'"]',container).length) continue;
           const black=parent.getPgnTag(text,'Black');
           const white=parent.getPgnTag(text,'White');
           const blackElo=parent.getPgnTag(text,'BlackElo');
@@ -136,16 +139,24 @@
     <span class="rating">${isBlack?blackElo:whiteElo}</span>
   </span>
   <span class="mini-game__clock mini-game__clock--${isBlack?'black':'white'}" data-time="0"></span>
-</span></a>`;
+</span></a>`;*/
 
+          const text = await parent.net.fetch({url:'https://lichess.org/@/{username}/mini',args:{username:userId}});
+          if (!text) continue;
+          const html=$('<x>'+text+'</x>').find('a.mini-game');
+          if (!html.length) continue;
+
+          $('label.lichessTools-noGames',container).remove();
           $(html).appendTo(container);
+          parent.lichess.contentLoaded();
+          await parent.timeout(500);
         } catch(e) {
           console.log('Getting TV game for ',userId,e);
         }
       }
-      if (notFound.length) {
+      /*if (notFound.length) {
         parent.lichess.contentLoaded();
-      }
+      }*/
       if ($('a.mini-game',container).length) {
         $('label.lichessTools-noGames',container).remove();
       } else if (!$('label.lichessTools-noGames',container).length) {
