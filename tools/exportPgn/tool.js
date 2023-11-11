@@ -143,17 +143,31 @@
         let arr=[{root: node, current: node}];
         let loop=true;
         while (loop) {
-          const processed=arr.filter(x=>!x.current.children?.length);
-          arr=processed
-              .concat(arr.filter(x=>x.current.children?.length==1).map(x=>{ return { root:x.root, current:x.current.children[0] }; }))
-              .concat(arr.filter(x=>x.current.children?.length>1).flatMap(x=>x.current.children.map((c,i)=>{
-                const res={ root: clone(x.root) };
-                res.current=res.root;
-                while (res.current.children.length==1) res.current=res.current.children[0];
-                res.current.children=[res.current.children[i]];
-                return res;
-              })));
-          loop=arr.length>processed.length;
+          loop=false;
+          const newArr=[];
+          for (const item of arr) {
+            const nrChildren=item.current.children?.length||0;
+            switch(nrChildren) {
+              case 0:
+                newArr.push(item);
+                break;
+              case 1:
+                newArr.push({ root:item.root, current:item.current.children[0] });
+                loop=true;
+                break;
+              default:
+                for (let i=0; i<nrChildren; i++) {
+                  const root=clone(item.root);
+                  const res={ root: root, current: root };
+                  while (res.current.children?.length==1) res.current=res.current.children[0];
+                  res.current.children=[res.current.children[i]];
+                  newArr.push(res);
+                  loop=true;
+                }
+                break;
+            }
+          }
+          arr=newArr;
         }
         return arr.map(x=>x.root);
       }
