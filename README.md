@@ -61,8 +61,8 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Option to not see cloud values in computer evaluation
  - Context menu on bookmarked positions to get the URL of the position
  - Move list options: Expanded move list and Hide left side in Analysis
- - /commands! type /help to get a list
  - a streamers tab in the Current Games section, to see just the games of streamers
+ - /commands! type /help to get a list
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move

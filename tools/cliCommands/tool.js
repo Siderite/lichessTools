@@ -48,7 +48,8 @@
         const lines=helpText.split(/[\r\n]+/);
         const lineDiv=$('<div>');
         for (const line of lines.slice(0,-1)) {
-          lineDiv.append($('<p>').text(line));
+          const spaces=/^\s*/.exec(line)[0].length;
+          lineDiv.append($('<p>').html('&nbsp;'.repeat(spaces)+parent.htmlEncode(line)));
         }
         $('<div class="command">')
           .attr('data-key',key)

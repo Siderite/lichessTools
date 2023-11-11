@@ -90,6 +90,7 @@
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
+        "tools/copyPgnCommand/tool.js",
 
         "tools/preferences/tool.js",
  
@@ -102,6 +103,7 @@
         "tools/themes/moveColorize.css",
 
         "tools/detectThirdParties/tool.css",
+        "tools/cliCommands/tool.css",
 
         "tools/quietModeAllTabs/tool.css",
         "tools/friendsList/tool.css",

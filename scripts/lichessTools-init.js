@@ -62,6 +62,7 @@ lichessTools.loadTool(LiChessTools.Tools.StreamerTv);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
+lichessTools.loadTool(LiChessTools.Tools.CopyPgnCommand);
 
 lichessTools.loadTool(LiChessTools.Tools.UserTvHistory);
 
