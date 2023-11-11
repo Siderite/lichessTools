@@ -8,7 +8,7 @@
         name:'highlight',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['lastMove','notCommented','transposition'],
+        possibleValues: ['lastMove','notCommented','transposition','mainLine'],
         defaultValue: 'lastMove,notCommented,transposition',
         advanced: true
       }
@@ -20,12 +20,14 @@
         'highlight.lastMove': 'Last move in each variation',
         'highlight.notCommented': 'Not commented last moves',
         'highlight.transposition': 'Transpositions to current move',
+        'highlight.mainLine': 'Highlight board when out of main line',
       },
       'ro-RO':{
         'options.highlight': 'Eviden\u0163iaz\u0103 mut\u0103ri \u00een analiz\u0103',
         'highlight.lastMove': 'Ultima mutare din fiecare varia\u0163iune',
         'highlight.notCommented': 'Ultime mut\u0103ri necomentate',
         'highlight.transposition': 'Transpozi\u0163iile la mutarea curent\u0103',
+        'highlight.mainLine': 'Eviden\u0163iaz\u0103 tabla c\u00e2nd nu pe linia principal\u0103',
       }
     }
 
@@ -48,7 +50,7 @@
 
     highlightUncommented=()=>{
       const parent=this.lichessTools;
-      if (!parent.lichess.study) return;
+      if (!parent.lichess?.analysis?.study) return;
       const $=parent.$;
       const toHighlight=[];
       if (this.options.notCommented) {
@@ -93,6 +95,15 @@
       }
     };
 
+    highlightMainLine=()=>{
+      const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
+      if (!analysis) return;
+      const onMainline = analysis.mainline.includes(analysis.node);
+      const $=parent.$;
+      $('body').toggleClass('lichessTools-notOnMainline',!onMainline);
+    };
+
     traverseTree=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -114,10 +125,13 @@
         lastMove:parent.isOptionSet(value,'lastMove'),
         notCommented:parent.isOptionSet(value,'notCommented'),
         transposition:parent.isOptionSet(value,'transposition'),
-        get isSet() { return this.lastMove || this.notCommented || this.transposition; }
+        mainLine:parent.isOptionSet(value,'mainLine'),
+        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine; }
       };
+      lichess.pubsub.off('redraw', this.highlightMainLine);
       lichess.pubsub.off('redraw', this.debouncedTraverseTree);
       if (this.options.isSet) {
+        lichess.pubsub.on('redraw', this.highlightMainLine);
         lichess.pubsub.on('redraw', this.debouncedTraverseTree);
       }
       this.debouncedTraverseTree();

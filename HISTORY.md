@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
   - Streamer TV tab in Current Games
   - Ctrl-click to copy PGN as separate lines
   - added 'copy PGN' command
+  - highlight analysis board when not on mainline
 
 10 Nov
   - Escape blurs the Analysis board PGN and FEN inputs as part of Enhanced import
