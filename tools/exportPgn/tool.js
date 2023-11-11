@@ -24,7 +24,13 @@
       }
     }
 
-    exportPgn=async (path,copyToClipboard,fromPosition)=>{
+    exportPgn=async (path,options)=>{
+      options={
+        copyToClipboard: false,
+        fromPosition: false,
+        separateLines: false,
+        ...options
+      };
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const announce=parent.announce;
@@ -131,10 +137,30 @@
         }
         return n1;
       }
+
+      function getVarNodes(node, separateLines) {
+        if (!separateLines) return [node];
+        let arr=[{root: node, current: node}];
+        let loop=true;
+        while (loop) {
+          const processed=arr.filter(x=>!x.current.children?.length);
+          arr=processed
+              .concat(arr.filter(x=>x.current.children?.length==1).map(x=>{ return { root:x.root, current:x.current.children[0] }; }))
+              .concat(arr.filter(x=>x.current.children?.length>1).flatMap(x=>x.current.children.map((c,i)=>{
+                const res={ root: clone(x.root) };
+                res.current=res.root;
+                while (res.current.children.length==1) res.current=res.current.children[0];
+                res.current.children=[res.current.children[i]];
+                return res;
+              })));
+          loop=arr.length>processed.length;
+        }
+        return arr.map(x=>x.root);
+      }
     
       try{
         const nodes=lichess.analysis.tree.getNodeList(path);
-        const startIndex=fromPosition?Math.max(0,nodes.length-1):0;
+        const startIndex=options.fromPosition?Math.max(0,nodes.length-1):0;
         let prevNode=null;
         let varNode=null;
         for (let i=startIndex; i<nodes.length; i++) {
@@ -144,18 +170,24 @@
           prevNode=node;
           if (!varNode) varNode=node;
         }
-        let pgn=renderNodesTxt(varNode,fromPosition);
-        if (analysis.getOrientation()!='white' && !/\[Orientation|\[StartFlipped/.test(pgn)) {
-          pgn='[StartFlipped "1"]\r\n[Orientation "Black"]\r\n'+pgn;
+        const varNodes=getVarNodes(varNode,options.separateLines);
+        const pgns=[];
+        for (const node of varNodes) {
+          let pgn=renderNodesTxt(node,options.fromPosition);
+          if (analysis.getOrientation()!='white' && !/\[Orientation|\[StartFlipped/.test(pgn)) {
+            pgn='[StartFlipped "1"]\r\n[Orientation "Black"]\r\n'+pgn;
+          }
+          if (node.fen && node.fen!='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
+            pgn='[FEN "'+node.fen+'"]\r\n'+pgn;
+          }
+          pgns.push(pgn);
         }
-        if (varNode.fen && varNode.fen!='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
-          pgn='[FEN "'+varNode.fen+'"]\r\n'+pgn;
-        }
-        if (copyToClipboard) {
-          const result=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
-          if (['granted','prompt'].includes(result.state)) {
+        const result=pgns.join('\r\n\r\n');
+        if (options.copyToClipboard) {
+          const permission=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
+          if (['granted','prompt'].includes(permission.state)) {
             try {
-              await parent.global.navigator.clipboard.writeText(pgn);
+              await parent.global.navigator.clipboard.writeText(result);
               const announcement = trans.noarg('PGNCopiedToClipboard');
               announce(announcement);
             } catch(e) {
@@ -167,7 +199,7 @@
             announce(announcement);
           }
         }
-        return pgn;
+        return result;
       } catch (e) {
         console.warn('Error generating PGN:',e);
         const announcement = trans.noarg('errorGeneratingPGN');

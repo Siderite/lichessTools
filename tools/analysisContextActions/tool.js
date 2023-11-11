@@ -57,12 +57,11 @@
     }
    
     extractVariationAsPGN=(ev)=>{
-      const fromPosition=ev.shiftKey;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (analysis?.contextMenuPath===undefined) return;
-      parent.exportPgn(analysis.contextMenuPath,true,fromPosition);
+      parent.exportPgn(analysis.contextMenuPath,{ copyToClipboard:true, fromPosition: ev.shiftKey, separateLines: ev.ctrlKey });
     };
     
     addEvalComment=(node,ceval)=>{
