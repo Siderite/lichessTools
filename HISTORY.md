@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Nov
+  - Streamer TV tab in Current Games
+
 10 Nov
   - Escape blurs the Analysis board PGN and FEN inputs as part of Enhanced import
 
