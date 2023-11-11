@@ -30,6 +30,28 @@
       }
     };
 
+    explorerItem=(node,value)=>{
+      if (!node) return;
+      const parent=this.lichessTools;
+      const components=[
+        'explorer.speed',
+        'analyse.explorer.player.name',
+        'analyse.explorer.rating',
+        'analyse.explorer.since-2.masters',
+        'explorer.db2.standard',
+        'analyse.explorer.since-2.lichess',
+        'analyse.explorer.until-2.lichess'
+      ];
+      const key=parent.hash(components.map(k=>parent.global.localStorage.getItem(k)||'').join('|'));
+      let explorerItems=node.explorerItems;
+      if (!explorerItems) {
+        explorerItems={};
+        node.explorerItems=explorerItems;
+      }
+      if (value===undefined) return explorerItems[key];
+      explorerItems[key]=value;
+    };
+
     showTrapValue=async (initialPath)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -50,14 +72,14 @@
           analysis.setPath(initialPath);
         }
       }
-      let explorerItem=analysis.node?.explorerItem;
+      let explorerItem=this.explorerItem(analysis.node);
       if (!explorerItem) {
         await explorer.setNode();
         while(explorer.loading()) {
           await parent.timeout(10);
         }
         explorerItem=explorer.current();
-        analysis.node.explorerItem=explorerItem;
+        this.explorerItem(analysis.node,explorerItem||null);
       }
       const total=explorerItem.white+explorerItem.draws+explorerItem.black;
       if (!total) {
@@ -70,7 +92,7 @@
       let count=0;
       let prevTotal=0;
       for (const node of nodes) {
-        explorerItem=node.explorerItem;
+        explorerItem=this.explorerItem(node);
         if (!explorerItem) {
           const path=initialPath.substr(0,node.ply*2);
           analysis.setPath(path);
@@ -79,7 +101,7 @@
             await parent.timeout(10);
           }
           explorerItem=explorer.current();
-          node.explorerItem=explorerItem;
+          this.explorerItem(node,explorerItem||null);
         }
         const isOpponentMove=node.ply%2===(orientation=='black'?0:1);
         const total=explorerItem.white+explorerItem.draws+explorerItem.black;
@@ -91,7 +113,7 @@
       }
       probability=Math.pow(probability,1/count);
       const trapScore=probability*potency;
-      const text=trans.pluralSame('trapValueCommand.valueText',Math.round(trapScore*100));
+      const text=trapScore?trans.pluralSame('trapValueCommand.valueText',Math.round(trapScore*100)):'?';
       parent.announce(text);
       analysis.setPath(initialPath);
       analysis.redraw();

@@ -24,17 +24,13 @@
       }
     }
 
-    getGlyphs=async ()=>{
-      if (!this.glyphs) {
-        const parent=this.lichessTools;
-        const lichess=parent.lichess;
-        const json = await parent.net.fetch(lichess.assetUrl('glyphs.json'));
-        this.glyphs=parent.global.JSON.parse(json);
-      }
-      return this.glyphs;
-    };
-
-    exportPgn=async (path,copyToClipboard,fromPosition)=>{
+    exportPgn=async (path,options)=>{
+      options={
+        copyToClipboard: false,
+        fromPosition: false,
+        separateLines: false,
+        ...options
+      };
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const announce=parent.announce;
@@ -141,10 +137,44 @@
         }
         return n1;
       }
+
+      function getVarNodes(node, separateLines) {
+        if (!separateLines) return [node];
+        let arr=[{root: node, current: node}];
+        let loop=true;
+        while (loop) {
+          loop=false;
+          const newArr=[];
+          for (const item of arr) {
+            const nrChildren=item.current.children?.length||0;
+            switch(nrChildren) {
+              case 0:
+                newArr.push(item);
+                break;
+              case 1:
+                newArr.push({ root:item.root, current:item.current.children[0] });
+                loop=true;
+                break;
+              default:
+                for (let i=0; i<nrChildren; i++) {
+                  const root=clone(item.root);
+                  const res={ root: root, current: root };
+                  while (res.current.children?.length==1) res.current=res.current.children[0];
+                  res.current.children=[res.current.children[i]];
+                  newArr.push(res);
+                  loop=true;
+                }
+                break;
+            }
+          }
+          arr=newArr;
+        }
+        return arr.map(x=>x.root);
+      }
     
       try{
         const nodes=lichess.analysis.tree.getNodeList(path);
-        const startIndex=fromPosition?Math.max(0,nodes.length-1):0;
+        const startIndex=options.fromPosition?Math.max(0,nodes.length-1):0;
         let prevNode=null;
         let varNode=null;
         for (let i=startIndex; i<nodes.length; i++) {
@@ -154,18 +184,24 @@
           prevNode=node;
           if (!varNode) varNode=node;
         }
-        let pgn=renderNodesTxt(varNode,fromPosition);
-        if (analysis.getOrientation()!='white' && !/\[Orientation|\[StartFlipped/.test(pgn)) {
-          pgn='[StartFlipped "1"]\r\n[Orientation "Black"]\r\n'+pgn;
+        const varNodes=getVarNodes(varNode,options.separateLines);
+        const pgns=[];
+        for (const node of varNodes) {
+          let pgn=renderNodesTxt(node,options.fromPosition);
+          if (analysis.getOrientation()!='white' && !/\[Orientation|\[StartFlipped/.test(pgn)) {
+            pgn='[StartFlipped "1"]\r\n[Orientation "Black"]\r\n'+pgn;
+          }
+          if (node.fen && node.fen!='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
+            pgn='[FEN "'+node.fen+'"]\r\n'+pgn;
+          }
+          pgns.push(pgn);
         }
-        if (varNode.fen && varNode.fen!='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
-          pgn='[FEN "'+varNode.fen+'"]\r\n'+pgn;
-        }
-        if (copyToClipboard) {
-          const result=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
-          if (['granted','prompt'].includes(result.state)) {
+        const result=pgns.join('\r\n\r\n');
+        if (options.copyToClipboard) {
+          const permission=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
+          if (['granted','prompt'].includes(permission.state)) {
             try {
-              await parent.global.navigator.clipboard.writeText(pgn);
+              await parent.global.navigator.clipboard.writeText(result);
               const announcement = trans.noarg('PGNCopiedToClipboard');
               announce(announcement);
             } catch(e) {
@@ -177,7 +213,7 @@
             announce(announcement);
           }
         }
-        return pgn;
+        return result;
       } catch (e) {
         console.warn('Error generating PGN:',e);
         const announcement = trans.noarg('errorGeneratingPGN');

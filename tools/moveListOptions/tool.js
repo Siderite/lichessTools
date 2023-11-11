@@ -435,7 +435,7 @@
       const study=analysis?.study;
       const nodePath=analysis?.contextMenuPath;
       if (!study || nodePath===undefined) return;
-      const pgn = await parent.exportPgn(nodePath,false,true);
+      const pgn = await parent.exportPgn(nodePath,{ fromPosition: true });
       if (!pgn) return;
       const node=analysis.tree.nodeAtPath(nodePath);
       const label = node?.bookmark?.label;

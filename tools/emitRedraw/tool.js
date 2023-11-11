@@ -6,6 +6,7 @@
       const lichess=parent.lichess;
       const console=parent.global.console;
       const emit = parent.debounce(() => {
+        if (parent.global.document.hidden) return;
         parent.redrawData={};
         parent.debug && console.debug('redraw');
         lichess.pubsub.emit('redraw');

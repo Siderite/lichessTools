@@ -502,7 +502,17 @@
         //,center: 'orig'
       };
     }
- 
+
+    hash=(text)=>{
+      let hval = 0x811c9dc5;
+      if (!text) return hval;
+      for (let i = 0; i < text.length; i++) {
+        hval = hval ^ (text.charCodeAt(i));
+        hval += (hval << 1) + (hval << 4) + (hval << 7) + (hval << 8) + (hval << 24);
+      }
+      return (hval >>> 0).toString(16);
+    }
+
     intl={
       lichessTools:this,
       defaultLanguage:'en-US',

@@ -101,6 +101,7 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
+      if (parent.global.document.hidden) return;
       if ($('body').is('.playing')) return;
       const trans=parent.translator;
       const tvOptions=parent.getTvOptions();
@@ -145,7 +146,7 @@
         }
         lichess.pubsub.on('ply',this.refreshOpeningDebounced);
         lichess.pubsub.on('content-loaded',this.miniGameOpening);
-        this.refreshOpening();
+        parent.global.requestAnimationFrame(this.refreshOpeningDebounced);
       } else {
         const metaSection = $('div.game__meta section').eq(0);
         $('.lichessTools-opening',metaSection).remove();

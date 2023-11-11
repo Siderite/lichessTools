@@ -33,6 +33,7 @@
       ['AL', 'Albania'],
       ['AM', 'Armenia'],
       ['AM-RA', 'Artsakh'],
+      ['AN', 'Netherlands Antilles'],
       ['AO', 'Angola'],
       ['AQ', 'Antarctica'],
       ['AR', 'Argentina'],
@@ -135,6 +136,7 @@
       ['HR', 'Croatia'],
       ['HT', 'Haiti'],
       ['HU', 'Hungary'],
+      ['IC', 'Canary Islands'],
       ['ID', 'Indonesia'],
       ['IE', 'Ireland'],
       ['IL', 'Israel'],
@@ -290,6 +292,7 @@
       ['_adygea', 'Adygea'],
       ['_belarus-wrw', 'Belarus White-red-white'],
       ['_east-turkestan', 'East Turkestan'],
+      ['_esperanto', 'Esperanto'],
       ['_lichess', 'Lichess'],
       ['_pirate', 'Pirate'],
       ['_rainbow', 'Rainbow'],
@@ -298,6 +301,7 @@
       ['_earth', 'Earth'],
       ['_transgender', 'Transgender']
     ];
+
     getElementsForFlag=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
@@ -376,11 +380,12 @@
       lichess.storage.set('LiChessTools.flagCache',global.JSON.stringify([...this.flagCache]));
     };
     debouncedSaveCache=this.lichessTools.debounce(this.saveCache,100);
+
     processFlags=async ()=> {
       const parent=this.lichessTools;
       const $=parent.$;
-      const flagsEnabled=parent.currentOptions.getValue('showFlags');
-      if (!flagsEnabled) return;
+      if (!this.options.enabled) return;
+      if (parent.global.document.hidden) return;
       const dict=this.getElementsForFlag();
       const data=Object.keys(dict).map(userId=>{
         const item=this.flagCache.get(userId);
@@ -454,6 +459,7 @@
             const flagUrl=parent.lichess.assetUrl('images/flags/'+item.country+'.png');
             elem.after($('<img>')
               .addClass('flag')
+              .attr('loading','lazy')
               .attr('title',item.countryName)
               .attr('src',flagUrl)
               .css('animation-duration',Math.round(5+Math.random()*15)+'s')
@@ -479,6 +485,7 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('showFlags');
       this.logOption('Show player flags', value);
+      this.options={ enabled: value };
       const lichess=parent.lichess;
       if (!lichess) return;
       const $=parent.$;
@@ -486,7 +493,7 @@
       lichess.pubsub.off('socket.in.crowd',this.debouncedProcessFlags);
       lichess.pubsub.off('puzzleChange',this.resetFlags);
       if (value) {
-        this.debouncedProcessFlags();
+        parent.global.requestAnimationFrame(this.debouncedProcessFlags);
         lichess.pubsub.on('content-loaded',this.debouncedProcessFlags);
         lichess.pubsub.on('socket.in.crowd',this.debouncedProcessFlags);
         lichess.pubsub.on('puzzleChange',this.resetFlags);

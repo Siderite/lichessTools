@@ -1,9 +1,9 @@
 (()=>{
-  class FriendsTvTool extends LiChessTools.Tools.ToolBase {
+  class StreamerTvTool extends LiChessTools.Tools.ToolBase {
 
     preferences=[
       {
-        name:'friendsTv',
+        name:'streamerTv',
         category: 'TV',
         type:'single',
         possibleValues: [false,true],
@@ -15,16 +15,16 @@
     intl={
       'en-US':{
         'options.TV': 'TV',
-        'options.friendsTv': 'TV with the games of your friends',
-        'friendsButtonTitle': 'LiChess Tools - games of your friends',
-        'friends': 'Friends',
+        'options.streamerTv': 'TV with the games of live streamers',
+        'streamersButtonTitle': 'LiChess Tools - games of live streamers',
+        'streamers': 'Streamers',
         'noGames': 'No available games'
       },
       'ro-RO':{
         'options.TV': 'TV',
-        'options.friendsTv': 'TV cu jocurile prietenilor t\u0103i',
-        'friendsButtonTitle': 'LiChess Tools - jocurile prietenilor t\u0103i',
-        'friends': 'Prieteni',
+        'options.streamerTv': 'TV cu jocurile streamerilor live',
+        'streamersButtonTitle': 'LiChess Tools - jocurile streamerilor live',
+        'streamers': 'Streameri',
         'noGames': 'Nu sunt jocuri disponibile'
       }
     }
@@ -33,13 +33,13 @@
        return /^\/games(\/|$)?/i.test(this.lichessTools.global.location.pathname);
     };
 
-    isFriendsTvPage=()=>{
-       return /^\/games\/?$/i.test(this.lichessTools.global.location.pathname) && location.hash=='#friends';
+    isStreamerTvPage=()=>{
+       return /^\/games\/?$/i.test(this.lichessTools.global.location.pathname) && location.hash=='#streamers';
     };
 
-    updateFriendsTvButton=()=>{
+    updateStreamerTvButton=()=>{
       const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('friendsTv');
+      const value=parent.currentOptions.getValue('streamerTv');
       const $=parent.$;
       const trans=this.lichessTools.translator;
 
@@ -47,40 +47,44 @@
 
       const container = $('main.tv-games div.tv-channels');
       if (!value) {
-        $('a.lichessTools-friends',container).remove();
+        $('a.lichessTools-streamers',container).remove();
         return;
       }
-      const elem=$('a.lichessTools-friends',container);
-      if (this.isFriendsTvPage()) {
-        parent.global.document.title=parent.global.document.title?.replace(/^.*?\u2022/,trans.noarg('friends')+' \u2022');
+      const elem=$('a.lichessTools-streamers',container);
+      if (this.isStreamerTvPage()) {
+        parent.global.document.title=parent.global.document.title?.replace(/^.*?\u2022/,trans.noarg('streamers')+' \u2022');
 
-        $('a.active:not(.lichessTools-friends)',container).removeClass('active');
-        parent.lichess.pubsub.emit=parent.unwrapFunction(parent.lichess.pubsub.emit,'friendsTv');
+        $('a.active:not(.lichessTools-streamers)',container).removeClass('active');
+        parent.lichess.pubsub.emit=parent.unwrapFunction(parent.lichess.pubsub.emit,'streamerTv');
         parent.lichess.pubsub.emit=parent.wrapFunction(parent.lichess.pubsub.emit,{
-          id:'friendsTv',
+          id:'streamerTv',
           before:($this,name,info)=>{
             if (name=='socket.in.finish') {
               const gameId=info.id;
               $('main.tv-games div.page-menu__content.now-playing a[data-live="'+gameId+'"]').remove();
+              parent.global.clearTimeout(this.timeout);
+              this.timeout=parent.global.setTimeout(this.updateStreamerTvPageDirect,1000);
               return false;
             }
           }
         });
-        //$('main.tv-games[data-rel]').removeAttr('data-rel');
-        //$('main.tv-games .mini-game__result').remove();
       }
       if (elem.length) {
-        elem.toggleClass('active',this.isFriendsTvPage());
+        elem.toggleClass('active',this.isStreamerTvPage());
         return;
       }
-      $(`<a href="/games#friends" class="tv-channel lichessTools-friends"><span data-icon="&#xE065;"><span><strong></strong></span></span></a>`)
-        .attr('title',trans.noarg('friendsButtonTitle'))
-        .insertAfter($('a.best',container))
-        .toggleClass('active',this.isFriendsTvPage())
-        .find('strong').text(trans.noarg('friends'));
+      $(`<a href="/games#streamers" class="tv-channel lichessTools-streamers"><span data-icon="&#xE025;"><span><strong></strong></span></span></a>`)
+        .attr('title',trans.noarg('streamersButtonTitle'))
+        .insertAfter($('a.lichessTools-friends',container)[0]||$('a.best',container)[0])
+        .toggleClass('active',this.isStreamerTvPage())
+        .find('strong').text(trans.noarg('streamers'));
     };
 
+    getUserId=(user)=>user?.toLowerCase().replace(/^\w+\s/, '');
+
     getUsers=(el)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
       return $('span.mini-game__user',el).get()
                .map(e=>{
                  const cl=$(e).clone();
@@ -89,20 +93,21 @@
                });
     };
 
-    updateFriendsTvPageDirect = async ()=>{
+    updateStreamerTvPageDirect = async ()=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=this.lichessTools.translator;
-      if (!this.isFriendsTvPage()) return;
+      if (!this.isStreamerTvPage()) return;
       if (parent.global.document.hidden) return;
       const container = $('main.tv-games div.page-menu__content.now-playing');
       if (!container.length) return;
+      this.users_playing=(await parent.net.json('/api/streamer/live')).map(s=>s.id);
       const notFound=[...this.users_playing];
       $('a.mini-game',container).each((i,e)=>{
         const users=this.getUsers(e);
-        const friends=users.filter(u=>this.users_playing.includes(u));
-        if (friends.length) {
-          parent.arrayRemoveAll(notFound,u=>friends.includes(u));
+        const streamers=users.filter(u=>this.users_playing.includes(u));
+        if (streamers.length) {
+          parent.arrayRemoveAll(notFound,u=>streamers.includes(u));
         } else {
           $(e).remove();
         }
@@ -139,8 +144,8 @@
     <span class="rating">${isBlack?blackElo:whiteElo}</span>
   </span>
   <span class="mini-game__clock mini-game__clock--${isBlack?'black':'white'}" data-time="0"></span>
-</span></a>`;*/
-
+</span></a>`;
+          */
           const text = await parent.net.fetch({url:'https://lichess.org/@/{username}/mini',args:{username:userId}});
           if (!text) continue;
           const html=$('<x>'+text+'</x>').find('a.mini-game');
@@ -154,9 +159,6 @@
           console.log('Getting TV game for ',userId,e);
         }
       }
-      /*if (notFound.length) {
-        parent.lichess.contentLoaded();
-      }*/
       if ($('a.mini-game',container).length) {
         $('label.lichessTools-noGames',container).remove();
       } else if (!$('label.lichessTools-noGames',container).length) {
@@ -164,90 +166,35 @@
           .text(trans.noarg('noGames'))
           .appendTo(container);
       }
+      parent.global.clearTimeout(this.timeout);
+      this.timeout=parent.global.setTimeout(this.updateStreamerTvPage,10000);
     };
-    updateFriendsTvPage=this.lichessTools.debounce(this.updateFriendsTvPageDirect,500);
-
-    getUserId=(user)=>user?.toLowerCase().replace(/^\w+\s/, '');
+    updateStreamerTvPage=this.lichessTools.debounce(this.updateStreamerTvPageDirect,500);
 
     users_playing=[];
 
-    following_onlines=(friends,data)=>{
-      if (this.onlinesInterval) {
-        clearInterval(this.onlinesInterval);
-        this.onlinesInterval=0;
-      }
-      const parent=this.lichessTools;
-      const $=parent.$;
-      this.users_playing=data?.playing?.map(this.getUserId)||[];
-      this.updateFriendsTvPage();
-    };
-    enters=(userName,data)=>{
-      const parent=this.lichessTools;
-      const userId=this.getUserId(userName);
-      const isPlaying=data?.playing;
-      if (isPlaying) {
-        this.users_playing.push(userId);
-        this.updateFriendsTvPage();
-      }
-    };
-    leaves=(user)=>{
-      const parent=this.lichessTools;
-      const userId=this.getUserId(user);
-      parent.arrayRemoveAll(this.users_playing,u=>u===userId);
-      this.updateFriendsTvPage();
-    };
-    playing=(user)=>{
-      const userId=this.getUserId(user);
-      this.users_playing.push(userId);
-      this.updateFriendsTvPage();
-    };
-    stopped_playing=(user)=>{
-      const parent=this.lichessTools;
-      const userId=this.getUserId(user);
-      parent.arrayRemoveAll(this.users_playing,u=>u===userId);
-      this.updateFriendsTvPage();
-    };
-
-    requestOnlines=this.lichessTools.debounce(()=>this.lichessTools.lichess.pubsub.emit("socket.send", "following_onlines"),250);
-    
     hashChange = ()=>{
-      if (this.isFriendsTvPage()) {
-        this.updateFriendsTvButton();
-        this.updateFriendsTvPage();
+      if (this.isStreamerTvPage()) {
+        this.updateStreamerTvButton();
+        this.updateStreamerTvPage();
       }
     };
     
     async start() {
       const parent=this.lichessTools;
       const $=parent.$;
-      const value=parent.currentOptions.getValue('friendsTv');
-      this.logOption('Friends TV', value);
+      const value=parent.currentOptions.getValue('streamerTv');
+      this.logOption('Streamers TV', value);
       const lichess=parent.lichess;
       if (!lichess) return;
-      lichess.pubsub.off('socket.in.following_onlines', this.following_onlines);
-      lichess.pubsub.off('socket.in.following_enters', this.enters);
-      lichess.pubsub.off('socket.in.following_leaves', this.leaves);
-      lichess.pubsub.off('socket.in.following_playing', this.playing);
-      lichess.pubsub.off('socket.in.following_stopped_playing', this.stopped_playing);
       $(parent.global).off('hashchange',this.hashChange);
       if (value) {
-        lichess.pubsub.on('socket.in.following_onlines', this.following_onlines);
-        lichess.pubsub.on('socket.in.following_enters', this.enters);
-        lichess.pubsub.on('socket.in.following_leaves', this.leaves);
-        lichess.pubsub.on('socket.in.following_playing', this.playing);
-        lichess.pubsub.on('socket.in.following_stopped_playing', this.stopped_playing);
-
         $(parent.global).on('hashchange',this.hashChange);
       }
 
-      this.updateFriendsTvButton();
-      //this.updateFriendsTvPage();
-      this.onlinesInterval=setInterval(()=>{
-        if (!this.onlinesInterval) return;
-        this.requestOnlines();
-      },1000);
-
+      this.updateStreamerTvButton();
+      this.updateStreamerTvPage();
     }
   }
-  LiChessTools.Tools.FriendsTv=FriendsTvTool;
+  LiChessTools.Tools.StreamerTv=StreamerTvTool;
 })();

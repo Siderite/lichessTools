@@ -68,8 +68,12 @@
     buttonPageSize=7;
     updateFriendsButton=()=>{
       const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('openFriends');
+      const value=this.options.openFriends;
       if (value!=='menu'&&value!=='button') return;
+      if (parent.global.document.hidden) {
+        parent.global.requestAnimationFrame(parent.debounce(this.updateFriendsButton,500));
+        return;
+      }
       const $=parent.$;
       const trans=this.lichessTools.translator;
       const myName=parent.getUserId();
@@ -166,8 +170,12 @@
 
     updateFriendsMenu=()=>{
       const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('openFriends');
+      const value=this.options.openFriends;
       if (value!=='menu') return;
+      if (parent.global.document.hidden) {
+        parent.global.requestAnimationFrame(parent.debounce(this.updateFriendsMenu,500));
+        return;
+      }
       const $=parent.$;
       const trans=this.lichessTools.translator;
       const myName=parent.getUserId();
@@ -243,6 +251,10 @@
       const myName=parent.getUserId();
       if (!myName) return;
       if (!parent.isFriendsPage()) return;
+      if (parent.global.document.hidden) {
+        parent.global.requestAnimationFrame(parent.debounce(this.updateFriendsPage,500));
+        return;
+      }
       if (!$('.lichessTools-liveButtons').length) {
         $('<div>')
           .addClass('lichessTools-liveButtons')
@@ -254,7 +266,7 @@
       const watchGamesTitle=trans.noarg('watchGames');
       const enablePlayingAlertTitle=trans.noarg('enablePlayAlert');
       const mutePlayingAlertTitle=trans.noarg('mutePlayAlert');
-      const hasAlerts=parent.currentOptions.getValue('friendsPlaying');
+      const hasAlerts=this.options.friendsPlaying;
       $('main').addClass('lichessTools-friendsPage');
       $('main').toggleClass('lichessTools-alerts',hasAlerts);
       this.rows={};
@@ -303,7 +315,7 @@
         this.updateFriendsPage();
         return;
       }
-      const mutedPlayers=parent.currentOptions.getValue('mutedPlayers')||[];
+      const mutedPlayers=this.options.mutedPlayers||[];
       for (const user in this.rows) {
         const row=this.rows[user];
         if (!row) continue;
@@ -389,7 +401,7 @@
     onFirstFollowingOnlines=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      const friendsBoxMode=parent.currentOptions.getValue('openFriends');
+      const friendsBoxMode=this.options.openFriends;
 
       switch(friendsBoxMode) {
         case true:
@@ -409,7 +421,11 @@
       }           
     };
 
-    requestOnlines=()=>this.lichessTools.lichess.pubsub.emit("socket.send", "following_onlines");
+    requestOnlines=()=>{
+      const parent=this.lichessTools;
+      if (parent.global.document.hidden) return;
+      parent.lichess.pubsub.emit("socket.send", "following_onlines");
+    };
 
     menuParent='#topnav';
     
@@ -420,6 +436,12 @@
       const liveFriendsPage=parent.currentOptions.getValue('liveFriendsPage');
       this.logOption('Online friend list', friendsBoxMode);
       this.logOption('Live friends page', liveFriendsPage);
+      this.options={
+        openFriends: friendsBoxMode,
+        liveFriendsPage: liveFriendsPage,
+        friendsPlaying: parent.currentOptions.getValue('friendsPlaying'),
+        mutedPlayers: parent.currentOptions.getValue('mutedPlayers')
+      };
       const lichess=parent.lichess;
       if (!lichess) return;
       const setInterval=parent.global.setInterval;
