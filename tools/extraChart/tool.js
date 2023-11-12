@@ -49,6 +49,17 @@
       }
     }
 
+    colors={
+      originalChart: '#D85000',
+      materialChart: '#258F0B',
+      principledChart: '#250B8F',
+      maxTensionLine: '#FF0000',
+      maxPotentialLine: '#008000',
+      interestingMoves: ()=>this.lichessTools.isDark()
+                              ? '#168226'
+                              : '#009914'
+    };
+
     pieceMaterial={
       'k':0,
       'q':900,
@@ -670,7 +681,8 @@
                  const dataset=chart.data.datasets.at(0);
                  if (!dataset) return;
                  const elems=this.getInterestingMoveElements(color);
-                 dataset.hoverBackgroundColor='#009914';
+                 if (!this.colors.beforeInterestingMoves) this.colors.beforeInterestingMoves=dataset.hoverBackgroundColor||this.colors.originalChart;
+                 dataset.hoverBackgroundColor=this.colors.interestingMoves();
                  chart.setActiveElements(elems);
                  chart.update('none');
                })
@@ -680,7 +692,7 @@
                  const dataset=chart.data.datasets.at(0);
                  if (!dataset) return;
                  const elems=[];
-                 dataset.hoverBackgroundColor='#d85000';
+                 dataset.hoverBackgroundColor=this.colors.beforeInterestingMoves;
                  chart.setActiveElements(elems);
                  chart.update('none');
                })
@@ -740,7 +752,7 @@
           pointRadius: 0,
           pointHitRadius: 0,
           pointHoverRadius: 0,
-          borderColor: '#258F0B',
+          borderColor: this.colors.materialChart,
           order: 1,
           datalabels: { display: false }
         });
@@ -764,7 +776,7 @@
           pointRadius: 0,
           pointHitRadius: 0,
           pointHoverRadius: 0,
-          borderColor: '#250B8F',
+          borderColor: this.colors.principledChart,
           order: 1,
           datalabels: { display: false }
         });
@@ -791,7 +803,7 @@
           pointRadius: 0,
           pointHitRadius: 0,
           pointHoverRadius: 0,
-          borderColor: 'red',
+          borderColor: this.colors.maxTensionLine,
           order: 1,
           datalabels: {
             offset: -5,
@@ -823,7 +835,7 @@
           pointRadius: 0,
           pointHitRadius: 0,
           pointHoverRadius: 0,
-          borderColor: 'green',
+          borderColor: this.colors.maxPotentialLine,
           order: 1,
           datalabels: {
             offset: -5,
