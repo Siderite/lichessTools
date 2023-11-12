@@ -710,15 +710,15 @@
       if (!chart) return;
       if (!this.options.needsChart) {
         $('div.lichessTools-chartInfo',container).remove();
-        return;
-      }
-      if (!$('div.lichessTools-chartInfo',container).length) {
-        $('<div class="lichessTools-chartInfo">')
-          .attr('title',trans.noarg('chartInfoTitle'))
-          .append($('<a target="_blank">')
-                    .attr('data-icon','\uE05D')
-                    .attr('href','https://siderite.dev/blog/lichess-tools---user-manual#extraChart'))
+      } else {
+        if (!$('div.lichessTools-chartInfo',container).length) {
+          $('<div class="lichessTools-chartInfo">')
+            .attr('title',trans.noarg('chartInfoTitle'))
+            .append($('<a target="_blank">')
+              .attr('data-icon','\uE05D')
+              .attr('href','https://siderite.dev/blog/lichess-tools---user-manual#extraChart'))
           .appendTo(container);
+        }
       }
 
       let updateChart=false;
@@ -920,9 +920,7 @@
         gauge:parent.isOptionSet(value,'gauge')
       };
       lichess.pubsub.off('esmLoaded',this.handleEsmLoaded);
-      if (this.options.needsChart) {
-        lichess.pubsub.on('esmLoaded',this.handleEsmLoaded);
-      }
+      lichess.pubsub.on('esmLoaded',this.handleEsmLoaded);
       parent.global.clearInterval(this.interval);
       this.generateCharts();
       if (!value) {
