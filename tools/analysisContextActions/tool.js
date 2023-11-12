@@ -257,7 +257,7 @@
       }
 
       if (this.options.removeSuperfluous) {
-        $('a[data-icon="\uE056"],a.glyph-icon',menu).remove();
+        $('a[data-icon="\uE056"],a[data-icon="\uE070"],a.glyph-icon',menu).remove();
       }
     }
 
