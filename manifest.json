@@ -25,6 +25,7 @@
         "scripts/cash.min.js",
         "scripts/lichessTools.js",
 
+        "tools/emitEsmLoaded/tool.js",
         "tools/interceptEventHandlers/tool.js",
         "tools/interceptTimeouts/tool.js",
         "tools/fixWakeLock/tool.js",
