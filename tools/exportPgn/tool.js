@@ -28,6 +28,7 @@
       options={
         copyToClipboard: false,
         fromPosition: false,
+        toPosition: false,
         separateLines: false,
         ...options
       };
@@ -178,7 +179,7 @@
         let prevNode=null;
         let varNode=null;
         for (let i=startIndex; i<nodes.length; i++) {
-          const isLast=i==nodes.length-1;
+          const isLast=i==nodes.length-1&&!options.toPosition;
           const node=clone(nodes[i],!isLast);
           if (prevNode) prevNode.children=[node];
           prevNode=node;
