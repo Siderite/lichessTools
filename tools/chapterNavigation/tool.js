@@ -76,7 +76,7 @@
         case 'random':
           let newIndex=0;
           do {
-            newIndex=Math.floor(Math.random()*list.length);
+            newIndex=Math.floor(parent.random()*list.length);
           } while(newIndex==index);
           index=newIndex;
         break;

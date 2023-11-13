@@ -221,7 +221,7 @@
         if (label.length) {
           let id=$(e).attr('id');
           if (!id) {
-            id = (Math.random() + 1).toString(36).substring(8);
+            id = (parent.random() + 1).toString(36).substring(8);
             $(e).attr('id',id);
           }
           label.attr('for',id);

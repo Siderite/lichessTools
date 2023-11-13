@@ -107,7 +107,7 @@
       }
     }
     if (!silent) {
-      const id = (this.lichessTools.global.Math.random() + 1).toString(36).substring(8);
+      const id = (this.lichessTools.random() + 1).toString(36).substring(8);
       this.lichessTools.lichess.storage.fire('LiChessTools.friendSound',{ time: now, id: id});
       await this.lichessTools.timeout(200);
       let item=lichess.storage.get('LiChessTools.friendSound');
