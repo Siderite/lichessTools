@@ -141,6 +141,17 @@
       }
     }
 
+    toBookmarkName=(text)=>{
+      let result=text?.trim()?.replace(/\s+/g,'_');
+      if (/^\d+$/.test(result)) result='_'+result;
+      return result;
+    };
+
+    fromBookmarkName=(text)=>{
+      let result=text?.replaceAll('_',' ')?.trim();
+      return result;
+    }
+
     setBookmark=(elem, node, bookmark)=>{
       if (!elem) return;
       const parent=this.lichessTools;
@@ -162,8 +173,8 @@
         $('button',bookmarkElem)
           .toggleClass('lichessTools-noChildren',!node.children?.length);
         $('label',bookmarkElem)
-          .text(bookmark.label?.replaceAll('_',' '))
-          .attr('title',bookmark.label?.replaceAll('_',' '));
+          .text(this.fromBookmarkName(bookmark.label))
+          .attr('title',this.fromBookmarkName(bookmark.label));
         this.collapseMove(elem,!!bookmark.collapsed);
       } else {
         this.collapseMove(elem,false);
@@ -362,8 +373,8 @@
       if (!node) return;
       const elem=parent.getElementForNode(node);
       if (!elem) return;
-      const oldLabel=node.bookmark?.label?.replaceAll('_',' ')||'';
-      const label=parent.global.prompt(trans.noarg('addBookmarkPrompt'),oldLabel)?.trim()?.replaceAll(/\s+/g,'_');
+      const oldLabel=this.fromBookmarkName(node.bookmark?.label)||'';
+      const label=this.toBookmarkName(parent.global.prompt(trans.noarg('addBookmarkPrompt'),oldLabel));
       if (label===undefined) return;
       node.bookmark=label
         ? {
@@ -454,7 +465,7 @@
       }
       const setup=study.data?.chapter?.setup;
       study.chapters.newForm.submit({ 
-        name:label.replaceAll('_',' '),
+        name:this.fromBookmarkName(label),
         pgn:pgn,
         variant:setup?.variant?.key||'standard',
         orientation:setup?.orientation||'white',
