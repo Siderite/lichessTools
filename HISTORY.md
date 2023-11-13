@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+13 Nov
+  - Alt-click to copy PGN until current move
+  - added Move eval button to the right to move the computer evaluation toggle back to the right side
+
 11 Nov
   - Streamer TV tab in Current Games
   - Ctrl-click to copy PGN as separate lines
