@@ -540,11 +540,11 @@
       mainline
         .slice(1)
         .map((node,x) => {
-          if (node.ply<3) return 0;
+          if (x<3) return 0;
           const m=node.ply%2?1:-1;
           const p1=node;
-          const p2=mainline[node.ply-1];
-          const p3=mainline[node.ply-2];
+          const p2=mainline[x-1];
+          const p3=mainline[x-2];
           const cp1=p1.eval?.cp;
           const cp2=p2.eval?.cp;
           if ((cp1-cp2)*m<-25) return 0;
@@ -639,8 +639,8 @@
       const mainline=analysis.mainline;
       const result=[];
       for (let i=0; i<mainline.length; i++) {
-        if (i%2!=side) continue;
         const move=mainline[i];
+        if (move.ply%2!=side) continue;
         const glyph=move?.glyphs?.at(0);
         if (!glyph) continue;
         if (!['!','!!','!?'].includes(glyph.symbol)) continue;
