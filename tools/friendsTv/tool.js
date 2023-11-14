@@ -109,38 +109,6 @@
       });
       for (const userId of notFound) {
         try {
-          /*const text = await parent.net.fetch({url:'/api/games/user/{username}?max=1&tags=true&ongoing=true&finished=false&opening=true&moves=false',args:{username:userId}});
-          if (!text) continue;
-          const url=parent.getPgnTag(text,'Site');
-          const gameId=/\/([^\/]+)$/.exec(url)[1];
-          if ($('a[data-live="'+gameId+'"]',container).length) continue;
-          const black=parent.getPgnTag(text,'Black');
-          const white=parent.getPgnTag(text,'White');
-          const blackElo=parent.getPgnTag(text,'BlackElo');
-          const whiteElo=parent.getPgnTag(text,'WhiteElo');
-          const isBlack=userId===this.getUserId(black);
-          const variant=parent.getPgnTag(text,'Variant')?.toLowerCase();
-          let html=`<a href="/${gameId}" class="mini-game mini-game-${gameId} mini-game--init ${variant} is2d" data-live="${gameId}" data-state=",${isBlack?'black':'white'},">
-<span class="mini-game__player">
-  <span class="mini-game__user">
-    ${!isBlack?black:white}    
-    <span class="rating">${!isBlack?blackElo:whiteElo}</span>
-  </span>
-  <span class="mini-game__clock mini-game__clock--${!isBlack?'black':'white'}" data-time="0"></span>
-</span>
-<span class="cg-wrap">
-  <cg-container>
-    <cg-board></cg-board>
-  </cg-container>
-</span>
-<span class="mini-game__player">
-  <span class="mini-game__user">
-    ${isBlack?black:white}    
-    <span class="rating">${isBlack?blackElo:whiteElo}</span>
-  </span>
-  <span class="mini-game__clock mini-game__clock--${isBlack?'black':'white'}" data-time="0"></span>
-</span></a>`;*/
-
           const text = await parent.net.fetch({url:'https://lichess.org/@/{username}/mini',args:{username:userId}});
           if (!text) continue;
           const html=$('<x>'+text+'</x>').find('a.mini-game');
@@ -154,9 +122,6 @@
           console.log('Getting TV game for ',userId,e);
         }
       }
-      /*if (notFound.length) {
-        parent.lichess.contentLoaded();
-      }*/
       if ($('a.mini-game',container).length) {
         $('label.lichessTools-noGames',container).remove();
       } else if (!$('label.lichessTools-noGames',container).length) {

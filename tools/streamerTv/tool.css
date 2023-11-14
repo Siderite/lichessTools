@@ -4,3 +4,8 @@ body.lichessTools .lichessTools-noGames {
   text-align: center;
   margin-top: 40%;
 }
+
+body.lichessTools .lichessTools-streamerLink {
+  margin-left: 1em;
+  font-size: small;
+}
