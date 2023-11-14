@@ -195,7 +195,6 @@
       return state;
     }
 
-
     getTvOptions=()=>{
       const $=this.$;
       const inAnalysisMode = !!this.lichess.analysis;
@@ -502,6 +501,21 @@
         //,center: 'orig'
       };
     }
+
+    isDark=()=>{
+      const $=this.$;
+      const body=$('body');
+      if (body.is('.light')) return false;
+      if (body.is('.dark,.transp')) return true;
+      return this.global.matchMedia && this.global.matchMedia('(prefers-color-scheme: dark)').matches;
+    };
+
+    random=()=>{
+      const arr = new Uint32Array(2);
+      crypto.getRandomValues(arr);
+      const mantissa = (arr[0] * Math.pow(2,20)) + (arr[1] >>> 12);
+      return mantissa * Math.pow(2,-52);
+    };
 
     hash=(text)=>{
       let hval = 0x811c9dc5;

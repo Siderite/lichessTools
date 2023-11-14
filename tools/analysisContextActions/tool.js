@@ -61,7 +61,7 @@
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (analysis?.contextMenuPath===undefined) return;
-      parent.exportPgn(analysis.contextMenuPath,{ copyToClipboard:true, fromPosition: ev.shiftKey, separateLines: ev.ctrlKey });
+      parent.exportPgn(analysis.contextMenuPath,{ copyToClipboard:true, fromPosition: ev.shiftKey, toPosition: ev.altKey, separateLines: ev.ctrlKey });
     };
     
     addEvalComment=(node,ceval)=>{
@@ -257,7 +257,7 @@
       }
 
       if (this.options.removeSuperfluous) {
-        $('a[data-icon="\uE056"],a.glyph-icon',menu).remove();
+        $('a[data-icon="\uE056"],a[data-icon="\uE070"],a.glyph-icon',menu).remove();
       }
     }
 

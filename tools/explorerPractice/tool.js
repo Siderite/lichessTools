@@ -64,7 +64,7 @@
       if (!current) return;
       const moves=[...current.moves];
       const total=moves.map(m=>m.total=m.black+m.draws+m.white).reduce((acc,val)=>acc+val,0);
-      const index=Math.random()*total;
+      const index=parent.random()*total;
       let acc=0;
       for (const move of moves) {
         acc+=move.total;

@@ -28,6 +28,7 @@
       options={
         copyToClipboard: false,
         fromPosition: false,
+        toPosition: false,
         separateLines: false,
         ...options
       };
@@ -172,13 +173,22 @@
         return arr.map(x=>x.root);
       }
     
+      function addTag(tags,key,value) {
+        const index=tags.findIndex(t=>t.key==key);
+        if (index>=0) {
+          tags[index][1]=value;
+        } else {
+          tags.push([key,value]);
+        }
+      }
+
       try{
-        const nodes=lichess.analysis.tree.getNodeList(path);
+        const nodes=analysis.tree.getNodeList(path);
         const startIndex=options.fromPosition?Math.max(0,nodes.length-1):0;
         let prevNode=null;
         let varNode=null;
         for (let i=startIndex; i<nodes.length; i++) {
-          const isLast=i==nodes.length-1;
+          const isLast=i==nodes.length-1&&!options.toPosition;
           const node=clone(nodes[i],!isLast);
           if (prevNode) prevNode.children=[node];
           prevNode=node;
@@ -186,14 +196,17 @@
         }
         const varNodes=getVarNodes(varNode,options.separateLines);
         const pgns=[];
+        const tags=JSON.parse(JSON.stringify(analysis.study?.data?.chapter?.tags||[]));
+        if (analysis.getOrientation()!='white') {
+          addTag(tags,'StartFlipped','1');
+          addTag(tags,'Orientation','Black');
+        }
+        if (varNode?.fen && varNode.fen!='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
+          addTag(tags,'FEN',varNode.fen);
+        }
+        const tagString=tags.length?tags.map(tag=>'['+tag[0]+' "'+tag[1]+'"]').join('\r\n')+'\r\n':'';
         for (const node of varNodes) {
-          let pgn=renderNodesTxt(node,options.fromPosition);
-          if (analysis.getOrientation()!='white' && !/\[Orientation|\[StartFlipped/.test(pgn)) {
-            pgn='[StartFlipped "1"]\r\n[Orientation "Black"]\r\n'+pgn;
-          }
-          if (node.fen && node.fen!='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
-            pgn='[FEN "'+node.fen+'"]\r\n'+pgn;
-          }
+          const pgn=tagString+renderNodesTxt(node,options.fromPosition);
           pgns.push(pgn);
         }
         const result=pgns.join('\r\n\r\n');

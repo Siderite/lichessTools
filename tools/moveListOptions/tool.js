@@ -8,7 +8,7 @@
         name:'moveListOptions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['indentedVariations','bookmarks','fullWidthAnalysis','hideLeftSide','analysisPopup'],
+        possibleValues: ['indentedVariations','bookmarks','fullWidthAnalysis','hideLeftSide','analysisPopup','fixCevalToggle'],
         defaultValue: 'bookmarks'
       }
     ];
@@ -22,6 +22,7 @@
         'moveListOptions.fullWidthAnalysis':'Expanded move list',
         'moveListOptions.hideLeftSide':'Hide left side',
         'moveListOptions.analysisPopup':'Open in new window',
+        'moveListOptions.fixCevalToggle':'Eval button on the right',
         'addBookmarkText':'Add/Remove bookmark',
         'addBookmarkTitle':'LiChess Tools - Add/Remove bookmark',
         'addBookmarkPrompt':'Add/Remove bookmark',
@@ -49,6 +50,7 @@
         'moveListOptions.fullWidthAnalysis':'list\u0103 mut\u0103ri l\u0103rgit\u0103',
         'moveListOptions.hideLeftSide':'Ascunde partea st\u00e2ng\u0103',
         'moveListOptions.analysisPopup':'Deschide \u00een alt\u0103 fereastr\u0103',
+        'moveListOptions.fixCevalToggle':'Buton evaluare \u00een dreapta',
         'addBookmarkText':'Adaug\u0103/Elimin\u0103 bookmark',
         'addBookmarkTitle':'LiChess Tools - Adaug\u0103/Elimin\u0103 bookmark',
         'addBookmarkPrompt':'Adaug\u0103/Elimin\u0103 bookmark',
@@ -139,6 +141,17 @@
       }
     }
 
+    toBookmarkName=(text)=>{
+      let result=text?.trim()?.replace(/\s+/g,'_');
+      if (/^\d+$/.test(result)) result='_'+result;
+      return result;
+    };
+
+    fromBookmarkName=(text)=>{
+      let result=text?.replaceAll('_',' ')?.trim();
+      return result;
+    }
+
     setBookmark=(elem, node, bookmark)=>{
       if (!elem) return;
       const parent=this.lichessTools;
@@ -160,8 +173,8 @@
         $('button',bookmarkElem)
           .toggleClass('lichessTools-noChildren',!node.children?.length);
         $('label',bookmarkElem)
-          .text(bookmark.label?.replaceAll('_',' '))
-          .attr('title',bookmark.label?.replaceAll('_',' '));
+          .text(this.fromBookmarkName(bookmark.label))
+          .attr('title',this.fromBookmarkName(bookmark.label));
         this.collapseMove(elem,!!bookmark.collapsed);
       } else {
         this.collapseMove(elem,false);
@@ -360,8 +373,8 @@
       if (!node) return;
       const elem=parent.getElementForNode(node);
       if (!elem) return;
-      const oldLabel=node.bookmark?.label?.replaceAll('_',' ')||'';
-      const label=parent.global.prompt(trans.noarg('addBookmarkPrompt'),oldLabel)?.trim()?.replaceAll(/\s+/g,'_');
+      const oldLabel=this.fromBookmarkName(node.bookmark?.label)||'';
+      const label=this.toBookmarkName(parent.global.prompt(trans.noarg('addBookmarkPrompt'),oldLabel));
       if (label===undefined) return;
       node.bookmark=label
         ? {
@@ -452,7 +465,7 @@
       }
       const setup=study.data?.chapter?.setup;
       study.chapters.newForm.submit({ 
-        name:label.replaceAll('_',' '),
+        name:this.fromBookmarkName(label),
         pgn:pgn,
         variant:setup?.variant?.key||'standard',
         orientation:setup?.orientation||'white',
@@ -592,6 +605,12 @@
       }
     };
 
+    setupCevalToggle=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('main.analyse').toggleClass('lichessTools-fixCevalToggle',this.options.fixCevalToggle);
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('moveListOptions');
@@ -606,6 +625,7 @@
         fullWidthAnalysis:parent.isOptionSet(value,'fullWidthAnalysis'),
         hideLeftSide:parent.isOptionSet(value,'hideLeftSide'),
         analysisPopup:parent.isOptionSet(value,'analysisPopup'),
+        fixCevalToggle:parent.isOptionSet(value,'fixCevalToggle'),
         getString:function() {
           const arr=[];
           if (this.indentedVariations) arr.push('indentedVariations');
@@ -613,6 +633,7 @@
           if (this.fullWidthAnalysis) arr.push('fullWidthAnalysis');
           if (this.hideLeftSide) arr.push('hideLeftSide');
           if (this.analysisPopup) arr.push('analysisPopup');
+          if (this.fixCevalToggle) arr.push('fixCevalToggle');
           return arr.join(',');
         }
       };
@@ -662,6 +683,12 @@
         lichess.pubsub.on('redraw',this.setupAnalysisPopup);
       }
       this.setupAnalysisPopup();
+
+      lichess.pubsub.off('redraw',this.setupCevalToggle);
+      if (analysis.study && this.options.fixCevalToggle) {
+        lichess.pubsub.on('redraw',this.setupCevalToggle);
+      }
+      this.setupCevalToggle();
     }
   }
 

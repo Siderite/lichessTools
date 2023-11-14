@@ -123,7 +123,7 @@
       if (!arr.length) return;
       const isInteractive = !!lichess.analysis.study?.gamebookPlay();
       const total = parent.populatePercent(arr, isInteractive, depth);
-      const index=Math.random()*total;
+      const index=parent.random()*total;
       let acc=0;
       for (const child of arr) {
         acc+=child.prc;

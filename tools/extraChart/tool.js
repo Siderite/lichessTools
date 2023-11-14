@@ -1,6 +1,8 @@
 (()=>{
   class ExtraChartTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=[ 'EmitEsmLoaded' ];
+
     preferences=[
       {
         name:'extraChart',
@@ -47,7 +49,16 @@
       }
     }
 
-    type='line';
+    colors={
+      originalChart: '#D85000',
+      materialChart: '#258F0B',
+      principledChart: '#250B8F',
+      maxTensionLine: '#FF0000',
+      maxPotentialLine: '#008000',
+      interestingMoves: ()=>this.lichessTools.isDark()
+                              ? '#168226'
+                              : '#009914'
+    };
 
     pieceMaterial={
       'k':0,
@@ -526,16 +537,14 @@
       if (mainline.brilliantInit) return;
       const parent=this.lichessTools;
       const Math=parent.global.Math;
-      let refreshSerie=false;
-      const serie=parent.global.Highcharts?.charts?.at(0)?.series?.at(0);
-      const result=mainline
+      mainline
         .slice(1)
         .map((node,x) => {
-          if (node.ply<3) return 0;
+          if (x<3) return 0;
           const m=node.ply%2?1:-1;
           const p1=node;
-          const p2=mainline[node.ply-1];
-          const p3=mainline[node.ply-2];
+          const p2=mainline[x-1];
+          const p3=mainline[x-2];
           const cp1=p1.eval?.cp;
           const cp2=p2.eval?.cp;
           if ((cp1-cp2)*m<-25) return 0;
@@ -568,34 +577,20 @@
           }
           return 0;
         })
-        .map((v,x)=>{
-          if (v) {
-            const symbol='!?';
-            const glyphs=mainline[x+1].glyphs||[];
-            if (!glyphs.length) { //find(g=>g.symbol==symbol)
-              glyphs.push({
-                symbol: symbol,
-                name: 'Brilliant',
-                type: 'nonStandard'
-              });
-              mainline[x+1].glyphs=glyphs;
-            }
-            if (serie?.data[x]) {
-              serie.data[x].marker={enabled:true,radius:5,fillColor:'#ea45d8'};
-              refreshSerie=true;
-            }
+        .forEach((v,x)=>{
+          if (!v) return;
+          const symbol='!?';
+          const glyphs=mainline[x+1].glyphs||[];
+          if (!glyphs.length) {
+            glyphs.push({
+              symbol: symbol,
+              name: 'Brilliant',
+              type: 'nonStandard'
+            });
+            mainline[x+1].glyphs=glyphs;
           }
-          return {
-            x:x,
-            y:v
-          };
-        })
-        .filter(r=>!!r);
-      if (refreshSerie) {
-        serie.setData(serie.data);
-      }
+        });
       mainline.brilliantInit=true;
-      return result;
     };
 
     getMaxTension = (mainline) => {
@@ -635,12 +630,31 @@
       return maxX;
     };
 
+    getInterestingMoveElements=(orientation)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
+      if (!analysis) return;
+      const side=orientation=='black'?0:1;
+      const mainline=analysis.mainline;
+      const result=[];
+      for (let i=0; i<mainline.length; i++) {
+        const move=mainline[i];
+        if (move.ply%2!=side) continue;
+        const glyph=move?.glyphs?.at(0);
+        if (!glyph) continue;
+        if (!['!','!!','!?'].includes(glyph.symbol)) continue;
+        result.push({ datasetIndex: 0, index: i-1 });
+      }
+      return result;
+    };
+
     showGoodMoves=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const trans=parent.translator;
       const $=parent.$;
-      const hcElem=$('div.highcharts-container')[0];
+      const hcElem=$('div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready')[0];
       let state=hcElem?.traverseState;
       if (!state) {
         state=parent.traverse();
@@ -659,13 +673,28 @@
                .attr('title',trans.noarg('goodMovesTitle'))
                .on('click',(ev)=>{
                  ev.preventDefault();
-                  parent.jumpToGlyphSymbols(['!','!?','!!'],color);
+                 parent.jumpToGlyphSymbols(['!','!?','!!'],color);
                })
                .on('mouseenter',(ev)=>{
-                 $(hcElem).addClass('lichessTools-showGood-'+color);
+                 const chart=this._chart;
+                 if (!chart) return;
+                 const dataset=chart.data.datasets.at(0);
+                 if (!dataset) return;
+                 const elems=this.getInterestingMoveElements(color);
+                 if (!this.colors.beforeInterestingMoves) this.colors.beforeInterestingMoves=dataset.hoverBackgroundColor||this.colors.originalChart;
+                 dataset.hoverBackgroundColor=this.colors.interestingMoves();
+                 chart.setActiveElements(elems);
+                 chart.update('none');
                })
                .on('mouseleave',(ev)=>{
-                 $(hcElem).removeClass('lichessTools-showGood-'+color);
+                 const chart=this._chart;
+                 if (!chart) return;
+                 const dataset=chart.data.datasets.at(0);
+                 if (!dataset) return;
+                 const elems=[];
+                 dataset.hoverBackgroundColor=this.colors.beforeInterestingMoves;
+                 chart.setActiveElements(elems);
+                 chart.update('none');
                })
                .insertAfter($('div.advice-summary__player',container));
         }
@@ -678,116 +707,144 @@
       container=$('div.advice-summary__side').get(1);
       count=arr.filter(n=>n.ply%2==0).length;
       fill(container,count,'black');
-
-      const serie=parent.global.Highcharts?.charts?.at(0)?.series?.at(0);
-      if (serie) {
-        let refreshSerie=false;
-        for (let i=0; i<serie.data.length; i++) {
-          if (serie.data[i].marker) continue;
-          const move=lichess.analysis.mainline[i+1];
-          const glyph=move?.glyphs?.at(0);
-          if (!glyph) continue;
-          if (!['!','!!','!?'].includes(glyph.symbol)) continue;
-          serie.data[i].marker={
-            enabled:true,
-            radius:5,
-            fillColor:'#0099140'+(i%2)
-          };
-          refreshSerie=true;
-        }
-        if (refreshSerie) {
-          serie.setData(serie.data);
-        }
-      }
     }
 
     generateCharts=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const trans=parent.translator;
+
       if (!lichess.analysis) return;
       if (!lichess.analysis.tree.root.eval&&!lichess.analysis.tree.root.children.at(0)?.eval) return;
-      const Highcharts=parent.global?.Highcharts;
-      if (!Highcharts) return;
-
-      const chart=Highcharts.charts.find(c=>$(c.renderTo).is('#acpl-chart,.study__server-eval') && parent.inViewport(c.renderTo)>0);
+      const container=$('div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
+      if (parent.inViewport(container[0])<=0) return;
+      const chart=this._chart;
       if (!chart) return;
-      if (!this.options.material&&!this.options.principled) {
-        $('div.lichessTools-chartInfo',chart.renderTo).remove();
-        return;
+      if (!this.options.needsChart) {
+        $('div.lichessTools-chartInfo',container).remove();
+      } else {
+        if (!$('div.lichessTools-chartInfo',container).length) {
+          $('<div class="lichessTools-chartInfo">')
+            .attr('title',trans.noarg('chartInfoTitle'))
+            .append($('<a target="_blank">')
+              .attr('data-icon','\uE05D')
+              .attr('href','https://siderite.dev/blog/lichess-tools---user-manual#extraChart'))
+          .appendTo(container);
+        }
       }
-      if (!$('div.lichessTools-chartInfo',chart.renderTo).length) {
-        $('<div class="lichessTools-chartInfo">')
-          .attr('title',trans.noarg('chartInfoTitle'))
-          .append($('<a target="_blank">')
-                    .attr('data-icon','\uE05D')
-                    .attr('href','https://siderite.dev/blog/lichess-tools---user-manual#extraChart'))
-          .appendTo($('.highcharts-container',chart.renderTo));
+
+      let updateChart=false;
+
+      let existingMaterial = chart.data.datasets.findIndex(s=>s.label==='Material');
+      if (existingMaterial>=0 && (this.prevSmooth!=this.options.smooth || !this.options.material)) {
+        chart.data.datasets.splice(existingMaterial,1);
+        existingMaterial=-1;
+        updateChart=true;
       }
-      const existingMaterial = chart.series.find(s=>s.name==='Material');
-      if (existingMaterial && (this.type!=this.prevType || !this.options.material)) existingMaterial.remove();
-      if (!existingMaterial && this.options.material) {
-        chart.addSeries({
-          name: 'Material',
-          styledMode: true,
-          type: this.type,
+      if (existingMaterial<0 && this.options.material) {
+        chart.data.datasets.push({
+          label:'Material',
+          type:'line',
           data: this.smooth(this.getMaterialData(lichess.analysis.mainline)),
-          enableMouseTracking: false,
-          marker: {
-            enabled: false
-          }
+          borderWidth: 2,
+          borderDash:[3,3],
+          cubicInterpolationMode: this.options.smooth?'monotone':undefined,
+          pointRadius: 0,
+          pointHitRadius: 0,
+          pointHoverRadius: 0,
+          borderColor: this.colors.materialChart,
+          order: 1,
+          datalabels: { display: false }
         });
+        updateChart=true;
       }
 
-      const existingPrincipled = chart.series.find(s=>s.name==='Principled');
-      if (existingPrincipled && (this.type!=this.prevType || !this.options.principled)) existingPrincipled.remove();
-      if (!existingPrincipled && this.options.principled) {
-        chart.addSeries({
-          name: 'Principled',
-          styledMode: true,
-          type: this.type,
+      let existingPrincipled = chart.data.datasets.findIndex(s=>s.label==='Principled');
+      if (existingPrincipled>=0 && (this.prevSmooth!=this.options.smooth || !this.options.principled)) {
+        chart.data.datasets.splice(existingPrincipled,1);
+        existingPrincipled=-1;
+        updateChart=true;
+      }
+      if (existingPrincipled<0 && this.options.principled) {
+        chart.data.datasets.push({
+          label:'Principled',
+          type:'line',
           data: this.smooth(this.getPrincipledData(lichess.analysis.mainline)),
-          enableMouseTracking: false,
-          marker: {
-            enabled: false
-          }
+          borderWidth: 2,
+          borderDash:[3,3],
+          cubicInterpolationMode: this.options.smooth?'monotone':undefined,
+          pointRadius: 0,
+          pointHitRadius: 0,
+          pointHoverRadius: 0,
+          borderColor: this.colors.principledChart,
+          order: 1,
+          datalabels: { display: false }
         });
+        updateChart=true;
       }
 
-      const existingTension = chart.xAxis[0].plotLinesAndBands.find(l=>l.id==='Tension');
-      if (existingTension && !this.options.tension) chart.xAxis[0].removePlotLine('Tension');
-      if (!existingTension && this.options.tension) {
+      let existingMaxTension = chart.data.datasets.findIndex(s=>s.label==='Max tension');
+      if (existingMaxTension>=0 && !this.options.tension) {
+        chart.data.datasets.splice(existingMaxTension,1);
+        existingMaxTension=-1;
+        updateChart=true;
+      }
+      if (existingMaxTension<0 && this.options.tension) {
         const x=this.getMaxTension(lichess.analysis.mainline);
-        chart.xAxis[0].addPlotLine({
-          id: 'Tension',
-          color: 'red',
-          dashStyle: 'dot',
-          zIndex: 3,
-          width: 2,
-          value: x,
-          label: {
-            text:trans.noarg('tensionLineTitle'),
-            style: { color: '#A07070' }
+        chart.data.datasets.push({
+          label:'Max tension',
+          type:'line',
+          data: [
+            { x: x, y:-1.05 },
+            { x: x, y:1.05 }
+          ],
+          borderWidth: 1,
+          borderDash:[3,3],
+          pointRadius: 0,
+          pointHitRadius: 0,
+          pointHoverRadius: 0,
+          borderColor: this.colors.maxTensionLine,
+          order: 1,
+          datalabels: {
+            offset: -5,
+            align: 45,
+            rotation: 90,
+            formatter: _=>trans.noarg('tensionLineTitle')
           }
         });
+        updateChart=true;
       }
 
-      const existingPotential = chart.xAxis[0].plotLinesAndBands.find(l=>l.id==='Potential');
-      if (existingPotential && !this.options.potential) chart.xAxis[0].removePlotLine('Potential');
-      if (!existingPotential && this.options.potential) {
+      let existingMaxPotential = chart.data.datasets.findIndex(s=>s.label==='Max potential');
+      if (existingMaxPotential>=0 && !this.options.potential) {
+        chart.data.datasets.splice(existingMaxPotential,1);
+        existingMaxPotential=-1;
+        updateChart=true;
+      }
+      if (existingMaxPotential<0 && this.options.potential) {
         const x=this.getMaxPotential(lichess.analysis.mainline);
-        chart.xAxis[0].addPlotLine({
-          id: 'Potential',
-          color: 'green',
-          dashStyle: 'dot',
-          zIndex: 3,
-          width: 2,
-          value: x,
-          label: {
-            text:trans.noarg('potentialLineTitle'),
-            style: { color: '#70A070' }
+        chart.data.datasets.push({
+          label:'Max potential',
+          type:'line',
+          data: [
+            { x: x, y:-1.05 },
+            { x: x, y:1.05 }
+          ],
+          borderWidth: 1,
+          borderDash:[3,3],
+          pointRadius: 0,
+          pointHitRadius: 0,
+          pointHoverRadius: 0,
+          borderColor: this.colors.maxPotentialLine,
+          order: 1,
+          datalabels: {
+            offset: -5,
+            align: 45,
+            rotation: 90,
+            formatter: _=>trans.noarg('potentialLineTitle')
           }
         });
+        updateChart=true;
       }
 
       if (this.options.brilliant) {
@@ -796,7 +853,8 @@
         this.showGoodMoves();
       }
 
-      this.prevType=this.type;
+      if (updateChart) chart.update('none');
+      this.prevSmooth=this.options.smooth;
     };
 
     generateTicks=()=>{
@@ -836,8 +894,31 @@
       priElem.css('top',priPerc);
     }
 
+    setChart=chart=>{
+      this._chart=chart;
+      chart.options.plugins.tooltip={ ...chart.options.plugins.tooltip,filter: t=>t.datasetIndex===0 };
+      this.generateCharts();
+    };
+
+    handleEsmLoaded=(m)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      if (!m?.acpl) return;
+      if (parent.isWrappedFunction(m.acpl,'extraChart')) return;
+      m.acpl=parent.wrapFunction(m.acpl,{
+        id:'extraChart',
+        after:($this,res)=>{
+          res?.then(chart=>{
+            this.setChart(chart);
+          });
+        }
+      });
+    };
+
     async start() {
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
       const value=parent.currentOptions.getValue('extraChart');
       this.logOption('Extra charting', value);
       this.options={
@@ -847,11 +928,11 @@
         potential:parent.isOptionSet(value,'potential'),
         brilliant:parent.isOptionSet(value,'brilliant'),
         smooth:parent.isOptionSet(value,'smooth'),
+        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.smooth; },
         gauge:parent.isOptionSet(value,'gauge')
       };
-      this.type=this.options.smooth?'spline':'line';
-      const lichess=parent.lichess;
-      const $=parent.$;
+      lichess.pubsub.off('esmLoaded',this.handleEsmLoaded);
+      lichess.pubsub.on('esmLoaded',this.handleEsmLoaded);
       parent.global.clearInterval(this.interval);
       this.generateCharts();
       if (!value) {

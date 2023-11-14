@@ -1,6 +1,7 @@
 window.lichessTools=new LiChessTools(window, cash);
 
 
+lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
 lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);
 lichessTools.loadTool(LiChessTools.Tools.InterceptTimeouts);
 lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);

@@ -1,28 +1,5 @@
-body.lichessTools.dark .highcharts-series path {
-    filter: brightness(200%);
-}
-
-@media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.system  .highcharts-series path {
-      filter: brightness(200%);
-  }
-}
-
-
-body.lichessTools .highcharts-series-1 path {
-  stroke-dasharray: 7 3;
-  stroke-width: 1.5px !important;
-  stroke: #258F0B !important;
-  opacity:0.5;
-  filter: drop-shadow(0px 0px 1px white);
-}
-
-body.lichessTools .highcharts-series-2 path {
-  stroke-dasharray: 7 3;
-  stroke-width: 1.5px !important;
-  stroke: #250B8F !important;
-  opacity:0.5;
-  filter: drop-shadow(0px 0px 1px white);
+body.lichessTools div.study__server-eval.ready {
+  position:relative;
 }
 
 body.lichessTools .lichessTools-chartInfo {
@@ -30,6 +7,7 @@ body.lichessTools .lichessTools-chartInfo {
   left: 1.5em;
   top: 0;
   filter: drop-shadow(0px 0px 1px white);
+  font-size: 1.1em;
 }
 
 body.lichessTools tick.lichessTools-material {
@@ -50,7 +28,8 @@ body.lichessTools div.symbol.lichessTools-goodMoves {
   color: #009914;
 }
 
-body.lichessTools.dark div.symbol.lichessTools-goodMoves {
+body.lichessTools.dark div.symbol.lichessTools-goodMoves,
+body.lichessTools.transp div.symbol.lichessTools-goodMoves {
   color: #168226;
 }
 
@@ -58,12 +37,4 @@ body.lichessTools.dark div.symbol.lichessTools-goodMoves {
   body.lichessTools.system div.symbol.lichessTools-goodMoves {
     color: #168226;
   }
-}
-
-body.lichessTools div.lichessTools-showGood-white path[fill="#00991400"] {
-  fill:#009914;
-}
-
-body.lichessTools div.lichessTools-showGood-black path[fill="#00991401"] {
-  fill:#009914;
 }

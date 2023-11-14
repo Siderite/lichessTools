@@ -60,7 +60,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Move list options: bookmarks allows tagging variations with a label, collapse/expand them, link to them, split chapter by them, open another window with just the analysis tools (move list, explorer, computer eval)
  - Option to not see cloud values in computer evaluation
  - Context menu on bookmarked positions to get the URL of the position
- - Move list options: Expanded move list and Hide left side in Analysis
+ - Move list options: Expanded move list, Hide left side in Analysis, Pop up analysis tools into an entire new window, Move the computer evaluation button to the right
  - a streamers tab in the Current Games section, to see just the games of streamers
  - /commands! type /help to get a list
 
