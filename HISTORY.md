@@ -2,7 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 16 Nov
   - Analysis Wiki FEN search
-  - 
+  - Copy PGN tohere parameter
 
 13 Nov
   - Alt-click to copy PGN until current move
