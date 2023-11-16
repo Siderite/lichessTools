@@ -22,7 +22,14 @@
         'analysisContextActions.showTranspos': 'Highlight all transpositions',
         'analysisContextActions.removeSuperfluous': 'Remove superfluous entries',
         'extractVariationText': 'Copy branch as PGN',
-        'extractVariationTitle': 'LiChess Tools - copy branch and continuations to clipboard\r\nShift-click to copy from position',
+        'extractVariationText_f': 'Copy PGN (fen)',
+        'extractVariationText_s': 'Copy PGN (separate)',
+        'extractVariationText_t': 'Copy PGN (to position)',
+        'extractVariationText_fs': 'Copy PGN (fen,separate)',
+        'extractVariationText_ft': 'Copy PGN (FEN position)',
+        'extractVariationText_st': 'Copy PGN (to position)',
+        'extractVariationText_fst': 'Copy PGN (FEN position)',
+        'extractVariationTitle': 'LiChess Tools - copy branch and continuations to clipboard\r\nShift/Ctrl/Alt-click for options',
         'errorGeneratingPGN': 'Error generating PGN',
         'errorCopyingPGN': 'Error copying PGN to clipboard',
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
@@ -42,7 +49,14 @@
         'analysisContextActions.showTranspos': 'Arat\u0103 toate transpozi\u0163iile',
         'analysisContextActions.removeSuperfluous': 'Elimin\u0103 ce e \u00een plus',
         'extractVariationText': 'Copiaz\u0103 varia\u0163iunea ca PGN',
-        'extractVariationTitle': 'LiChess Tools - copiaz\u0103 varia\u0163iunea \u015Fi continu\u0163rile ca PGN\r\nShift-click ca s\u0103 copiezi de la pozi\u0163ie',
+        'extractVariationText_f': 'Copiaz\u0103 PGN (fen)',
+        'extractVariationText_s': 'Copiaz\u0103 PGN (separate)',
+        'extractVariationText_t': 'Copiaz\u0103 PGN (p\u00e2n\u0103 aici)',
+        'extractVariationText_fs': 'Copiaz\u0103 PGN (fen,separate)',
+        'extractVariationText_ft': 'Copiaz\u0103 PGN (pozi\u0163ie FEN)',
+        'extractVariationText_st': 'Copiaz\u0103 PGN (p\u00e2n\u0103 aici)',
+        'extractVariationText_fst': 'Copiaz\u0103 PGN (pozi\u0163ie FEN)',
+        'extractVariationTitle': 'LiChess Tools - copiaz\u0103 varia\u0163iunea \u015Fi continu\u0163rile ca PGN\r\nShift/Ctrl/Alt-click pentru op\u0163iuni',
         'errorGeneratingPGN': 'Eroare generare PGN',
         'errorCopyingPGN': 'Eroare copiere PGN \u00een clipboard',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
@@ -220,7 +234,7 @@
       if (!menu.length) return;
       
       if (this.options.copyPgn && !menu.has('a[data-role="copyPgn"]').length) {
-        const text=trans.noarg('extractVariationText');
+        const text=trans.noarg('extractVariationText'+(this.suffix||''));
         const title=trans.noarg('extractVariationTitle');
         $('<a>')
           .attr('data-icon','\uE018')
@@ -288,6 +302,21 @@
       }
     };
 
+    alterModifierText=(ev)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const menuItem=$('#analyse-cm a[data-role="copyPgn"]');
+      if (!this.options.copyPgn || !menuItem.length) return;
+      
+      this.suffix=(ev.shiftKey?'f':'')+(ev.ctrlKey?'s':'')+(ev.altKey?'t':'');
+      if (this.suffix) this.suffix='_'+this.suffix;
+      const text=trans.noarg('extractVariationText'+this.suffix);
+      menuItem.text(text);
+    }
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('analysisContextActions');
@@ -305,6 +334,10 @@
       };
       clearInterval(this.engineCheckInterval);
       lichess.pubsub.off('redraw',this.analysisContextMenu);
+      $('body').off('keydown keyup',this.alterModifierText);
+      if (this.options.copyPgn) {
+        $('body').on('keydown keyup',this.alterModifierText);
+      }
       if (this.options.isSet) {
         lichess.pubsub.on('redraw',this.analysisContextMenu);
         this.engineCheckInterval=setInterval(this.checkEngineLevel,1000);
