@@ -88,6 +88,8 @@
         "tools/chapterPgnArea/tool.js",
         "tools/moveListOptions/tool.js",
         "tools/streamerTv/tool.js",
+        "tools/wikiFen/wikiUrls.js",
+        "tools/wikiFen/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
