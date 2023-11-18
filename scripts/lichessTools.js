@@ -218,6 +218,12 @@
       return comment;
     }
 
+    getNodeCommentsText(node) {
+      const userId=this.getUserId();
+      const commentText=(node?.comments||[]).map(c=>c.text).join('\r\n');
+      return commentText;
+    }
+
     saveComment=(text, path, chapterId)=>{
       const analysis=this.lichess?.analysis;
       if (!chapterId) chapterId=analysis.study.currentChapter().id;
