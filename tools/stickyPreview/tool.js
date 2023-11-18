@@ -23,11 +23,24 @@
       }
     }
 
+    get previousOverride() {
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      return lichess?.storage?.get('LichessTools.previousOverride')||'analyse';
+    }
+
+    set previousOverride(value) {
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      if (!lichess) return;
+      lichess.storage.set('LichessTools.previousOverride',value);
+    }
+
     previewHandler=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const study=lichess.analysis?.study;
-      parent.previousOverride=study.vm.gamebookOverride;
+      this.previousOverride=study?.vm?.gamebookOverride;
     };
 
     keepPreviewOn=()=>{
@@ -37,7 +50,7 @@
       const $=parent.$;
       if (!study) return;
       const override=study.vm.gamebookOverride;
-      if (parent.previousOverride=='play' && override!=parent.previousOverride) {
+      if (this.previousOverride=='play' && override!=this.previousOverride) {
         study.setGamebookOverride('play');
         study.redraw();
       }
@@ -45,11 +58,6 @@
       previewButton.off('click',this.previewHandler);
       previewButton.on('click',this.previewHandler);
     };
-
-    async init() {
-      const parent=this.lichessTools;
-      parent.previousOverride='analyse';
-    }
 
     async start() {
       const parent=this.lichessTools;
@@ -61,6 +69,7 @@
       lichess.pubsub.off('chapterChange', this.keepPreviewOn);
       if (value) {
         lichess.pubsub.on('chapterChange', this.keepPreviewOn);
+        this.keepPreviewOn();
       }
     }
 
