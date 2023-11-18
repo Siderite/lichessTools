@@ -116,7 +116,7 @@
       });
       for (const userId of notFound) {
         try {
-          const text = await parent.net.fetch({url:'https://lichess.org/@/{username}/mini',args:{username:userId}});
+          const text = await parent.net.fetch({url:'/@/{username}/mini',args:{username:userId}});
           if (!text) continue;
           const html=$('<x>'+text+'</x>').find('a.mini-game');
           if (!html.length) continue;
