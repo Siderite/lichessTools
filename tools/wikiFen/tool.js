@@ -32,7 +32,7 @@
       this.options={ enabled: value };
       const lichess=parent.lichess;
       const analysis=lichess?.analysis;
-      if (!analysis) return;
+      if (!analysis?.wiki) return;
       analysis.wiki=parent.unwrapFunction(analysis.wiki,'wikiFen');
       if (!value) return;
       analysis.wiki=parent.wrapFunction(analysis.wiki,{
