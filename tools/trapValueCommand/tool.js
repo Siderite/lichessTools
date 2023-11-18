@@ -111,7 +111,9 @@
         }
         prevTotal=total;
       }
-      probability=Math.pow(probability,1/count);
+      if (count>1) {
+        probability=Math.pow(probability,1/count);
+      }
       const trapScore=probability*potency;
       const text=trapScore?trans.pluralSame('trapValueCommand.valueText',Math.round(trapScore*100)):'?';
       parent.announce(text);
