@@ -90,6 +90,7 @@
         "tools/streamerTv/tool.js",
         "tools/wikiFen/wikiUrls.js",
         "tools/wikiFen/tool.js",
+        "tools/transpositionArrows/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
