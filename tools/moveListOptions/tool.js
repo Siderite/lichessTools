@@ -40,7 +40,8 @@
         'bookmarkSplitText':'Split chapter here',
         'bookmarkSplitTitle':'LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here',
         'chapterLink':'Continue here: %s',
-        'analysisPopupButtonTitle':'LiChess Tools - move list in another window (use SYNC button)'
+        'analysisPopupButtonTitle':'LiChess Tools - move list in another window (use SYNC button)',
+        'bookmarkLabelForInteractive':'Bookmark: '
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -68,7 +69,8 @@
         'bookmarkSplitText':'Taie un nou capitol de aici',
         'bookmarkSplitTitle':'LiChess Tools - creaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare\r\nApas\u0103 Shift ca s\u0103 la \u015Ftergi de aici',
         'chapterLink':'Continu\u0103 aici: %s',
-        'analysisPopupButtonTitle':'LiChess Tools - list\u0103 mut\u0103ri \u00een alt\u0103 fereastr\u0103 (folose\u015Fte butonul SYNC)'
+        'analysisPopupButtonTitle':'LiChess Tools - list\u0103 mut\u0103ri \u00een alt\u0103 fereastr\u0103 (folose\u015Fte butonul SYNC)',
+        'bookmarkLabelForInteractive':'Bookmark: '
       }
     }
 
@@ -187,7 +189,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const r=/bkm:([^\s]+)\s*/s;
-      const thereAreBookmarks=!!parent.global.document.querySelector('bookmark');
+      const thereAreBookmarks = !!parent.global.document.querySelector('bookmark');
 
       parent.traverse(null,(node,state)=>{
         let bookmark=null;
@@ -221,13 +223,14 @@
             }
           }
         }
-      });
+      },true);
     };
 
     addCommentBookmarks=()=>{
       if (!this.options.bookmarks) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
+      const trans=parent.translator;
       const $=parent.$;
       const analysis=lichess?.analysis;
       const study=analysis?.study;
@@ -242,10 +245,15 @@
         const text=node.textContent;
         let m=r.exec(text);
         if (!m) continue;
-        node.textContent=text.slice(0,m.index)+text.slice(m.index+m[0].length);
         const comment=$(node).closest('comment');
-        const isEmpty=!Array.from(comment[0].childNodes||[]).filter(n=>n.nodeType==3).find(n=>!!n.nodeValue?.trim());
-        comment.toggleClass('lichessTools-empty',isEmpty);
+        const divComment=$(node).closest('div.comment');
+        if (comment.length) {
+          node.textContent=text.slice(0,m.index)+text.slice(m.index+m[0].length);
+          const isEmpty=!Array.from(comment[0].childNodes||[]).filter(n=>n.nodeType==3).find(n=>!!n.nodeValue?.trim());
+          comment.toggleClass('lichessTools-empty',isEmpty);
+        } else if (divComment.length) {
+          node.textContent=trans.noarg('bookmarkLabelForInteractive')+this.fromBookmarkName(m[1]);
+        }
       }
     }
 
@@ -351,9 +359,9 @@
             destinationNode=node;
           }
         }
-      });
+      },true);
       if (destinationNode?.path) {
-        lichess.analysis.userJump(destinationNode.path);
+        lichess.analysis.jump(destinationNode.path);
         lichess.analysis.redraw();
       }
     };
@@ -486,7 +494,8 @@
       while(study.currentChapter().id!=position.chapterId) {
         await parent.timeout(50);
       }
-      analysis.userJump(nodePath);
+      analysis.jump(nodePath);
+      analysis.redraw();
 
       while(analysis.path!=nodePath) {
         await parent.timeout(50);

@@ -102,11 +102,16 @@ body.lichessTools.transp.lichessTools-extendedInteractiveLesson div.analyse__for
     background: #3692e7;
   }
 
-body.lichessTools.system.lichessTools-extendedInteractiveLesson div.analyse__fork move {
+  body.lichessTools.system.lichessTools-extendedInteractiveLesson div.analyse__fork move {
     background: #184065b3;
   }
 }
 
+body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes line[stroke="#15781B"],
+body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes line[stroke="#882020"] {
+  stroke:white;
+  marker-end:url(#arrowhead-hiliteWhite);
+}
 
 /* Prettier Lichess CSS */
 

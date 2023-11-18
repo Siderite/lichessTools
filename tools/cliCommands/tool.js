@@ -62,7 +62,7 @@
 
     keydown=(ev)=>{
       let help=false;
-      if (ev.code == 'Enter') {
+      if ([ev.code,ev.key].includes('Enter')) {
         const val=ev.target.value?.trim();
         if (!val) return;
         if (val==='/help') help=true;

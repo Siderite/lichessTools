@@ -65,7 +65,7 @@
       parent.global.document.title=parent.global.document.title?.replace(/^[^\s]+/,lichessToolsText);
     }
 
-    $('nav.page-menu__menu.subnav a.active').removeClass('active');
+    $('nav.page-menu__menu a.active').removeClass('active');
     $('a.lichessTools-menu').addClass('active');
 
     const showSaved= ()=> {
@@ -299,7 +299,6 @@
           }
         }
       };
-      f();
       $(parent.global).on('hashchange',f);
 
       const prefElem=$('<a>')
@@ -308,6 +307,7 @@
 	    .append($('<span>').text(trans.noarg('LiChess Tools')));
 
       $('.page-menu__menu a[href*=privacy]').before(prefElem);
+      f();
     }
 
   }
