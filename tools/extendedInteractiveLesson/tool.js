@@ -361,16 +361,24 @@
         <label for="abset-showScore"></label>
       </div>
       <label for="abset-showScore">$trans(extendedInteractiveLesson.showFinalScore)</label>
+    </div>
+    <div class="setting abset-studyLinksSameWindow" title="LiChess Tools - $trans(extendedInteractiveLesson.studyLinksSameWindow)">
+      <div class="switch">
+        <input id="abset-studyLinksSameWindow" class="cmn-toggle" type="checkbox" checked="">
+        <label for="abset-studyLinksSameWindow"></label>
+      </div>
+      <label for="abset-studyLinksSameWindow">$trans(extendedInteractiveLesson.studyLinksSameWindow)</label>
     </div>`.replace(/\$trans\(([^\)]+)\)/g,m=>{
           return parent.htmlEncode(trans.noarg(m.slice(7,-1)));
         });
         $(html).insertBefore($('h2',container).eq(0));
-        $('#abset-extendedInteractive,#abset-showScore')
+        $('#abset-extendedInteractive,#abset-showScore,#abset-studyLinksSameWindow')
           .on('change',async ()=>{
             const arr=[];
             const options=parent.currentOptions
             if ($('#abset-extendedInteractive').is(':checked')) arr.push('extendedInteractive');
             if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
+            if ($('#abset-studyLinksSameWindow').is(':checked')) arr.push('studyLinksSameWindow');
             options.extendedInteractiveLesson=arr.join(',');
             await parent.applyOptions(options);
             parent.fireReloadOptions();
@@ -380,6 +388,8 @@
         .prop('checked',this.options.extendedInteractive);
       $('#abset-showScore')
         .prop('checked',this.options.showFinalScore);
+      $('#abset-studyLinksSameWindow')
+        .prop('checked',this.options.studyLinksSameWindow);
     };
 
     alterStudyLinksDirect=()=>{
