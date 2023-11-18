@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 18 Nov
   - Interactive lesson Preview mode sticks between page reloads as well
   - Option to open links from move list comments that lead to studies in the same window
+  - Transpositions in variation arrows
 
 16 Nov
   - Analysis Wiki FEN search
