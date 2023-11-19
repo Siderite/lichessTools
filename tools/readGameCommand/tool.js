@@ -67,11 +67,11 @@
         if (groups.piece) {
           t+=pieces[groups.piece]+' ';
         }
-        t+=groups.start||'';
+        t+=(groups.start||'').replace(/\ba(\d+)/g,'a-$1');
         if (groups.takes) {
           t+=' takes ';
         }
-        t+=groups.end||'';
+        t+=(groups.end||'').replace(/\ba(\d+)/g,'a-$1');
         if (groups.promotion) {
           t+=' promotes to '+pieces[groups.promotion];
         }
