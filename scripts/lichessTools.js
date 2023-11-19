@@ -553,6 +553,11 @@
       }
     };
 
+    play=async (path, volume)=>{
+      const sound = await this.lichess.sound.load('sound', lichess.sound.baseUrl + path);
+      await sound.play(this.lichess.sound.getVolume()*(+(volume)||0.7));
+    };
+
     isDark=()=>{
       const $=this.$;
       const body=$('body');
