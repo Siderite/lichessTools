@@ -252,7 +252,7 @@
           const isEmpty=!Array.from(comment[0].childNodes||[]).filter(n=>n.nodeType==3).find(n=>!!n.nodeValue?.trim());
           comment.toggleClass('lichessTools-empty',isEmpty);
         } else if (divComment.length) {
-          node.textContent=trans.noarg('bookmarkLabelForInteractive')+this.fromBookmarkName(m[1]);
+          node.textContent=text.replace(r,trans.noarg('bookmarkLabelForInteractive')+this.fromBookmarkName(m[1]));
         }
       }
     }

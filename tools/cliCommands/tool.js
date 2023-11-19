@@ -62,6 +62,10 @@
 
     keydown=(ev)=>{
       let help=false;
+      if ([ev.code,ev.key].includes('Escape')) {
+        ev.target.blur();
+        return;
+      }
       if ([ev.code,ev.key].includes('Enter')) {
         const val=ev.target.value?.trim();
         if (!val) return;

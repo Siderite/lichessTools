@@ -126,7 +126,7 @@
     if (variant&&variant!='Standard') {
       translation+=' '+variant;
     }
-    this.lichessTools.lichess.sound.say(translation, false, true, this.lichessTools.isTranslated);
+    this.lichessTools.speak(translation,{ translated: this.lichessTools.isTranslated });
     //this.lichessTools.lichess.sound.say(eventType, false, true, false); // Event name cannot be translated
   };
 

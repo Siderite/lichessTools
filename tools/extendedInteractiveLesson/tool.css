@@ -107,11 +107,13 @@ body.lichessTools.transp.lichessTools-extendedInteractiveLesson div.analyse__for
   }
 }
 
-body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes line[stroke="#15781B"],
-body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes line[stroke="#882020"] {
+
+body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleGreen"] line,
+body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleRed"] line {
   stroke:white;
   marker-end:url(#arrowhead-hiliteWhite);
 }
+
 
 /* Prettier Lichess CSS */
 

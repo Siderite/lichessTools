@@ -44,7 +44,7 @@
           const path = pathParts.join('/').replace(/[+!#?]/g, '') ?? '';
           if (pathParts.length > 30 || !path || path.length > 255 - 21) return;
           const title = `Chess_Opening_Theory/${path}`;
-          const fen=analysis.node.fen;
+          const fen=analysis.node.fen.split(' ').slice(0,4).map(p=>p.replaceAll('/','')).join('');
           const newTitle=parent.wikiUrls_dict[fen];
           if (!newTitle || newTitle.replaceAll(' ','_')==title) return;
           const originalFunction=analysis.wiki.__originalFunction?.bind($this);
