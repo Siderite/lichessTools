@@ -50,11 +50,12 @@
       let text=node.san||'';
       const glyph=node.glyphs?.at(0)?.symbol;
       const glyphText=this.glyphs[glyph];
-      const commentText=parent.getNodeCommentsText(node)||'';
+      let commentText=parent.getNodeCommentsText(node)||'';
       if (glyphText && !commentText.toLowerCase().includes(glyphText.toLowerCase())) {
         text+=' '+glyphText;
       }
       if (commentText) {
+        commentText=commentText.replace(/\b(\d+)\.(\d+)/g,'$1point$2');
         text+=', '+commentText;
       }
       text=text.replace(/[\r\n\.]+/g,',');

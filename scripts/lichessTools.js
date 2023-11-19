@@ -521,10 +521,10 @@
     }
     speak=async (text,options)=>{
       options={
-        volume:options.volume || this.speechVolume,
-        voiceIndex:options.voiceIndex===undefined ? this.speechVoiceIndex : options.voiceIndex,
-        translated:!!options.translated,
-        rate:options.rate || this.speechRate
+        volume:options?.volume || this.speechVolume,
+        voiceIndex:options?.voiceIndex===undefined ? this.speechVoiceIndex : options.voiceIndex,
+        translated:!!options?.translated,
+        rate:options?.rate || this.speechRate
       };
       try{
         const msg = new SpeechSynthesisUtterance(text);
