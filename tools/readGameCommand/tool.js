@@ -20,11 +20,11 @@
     intl={
       'en-US':{
         'options.readGameCommand': 'Command: read game moves from here',
-        'readGameCommand.helpText': '/readgame [speed] [voice]\r\n default speed = '+this.defaultSpeed+', voice=0\r\n Esc to stop\r\nRead game moves from here'
+        'readGameCommand.helpText': '/readgame [speed] [voice] [instrument]\r\n default speed = '+this.defaultSpeed+', voice=0, instrument=0\r\n Esc to stop\r\nRead game moves from here'
       },
       'ro-RO':{
         'options.readGameCommand': 'Comand\u0103: arat\u0103 valoare capcan\u0103 pentru pozi\u0163ie',
-        'readGameCommand.helpText': '/readgame [vitez\u0103] [voce]\r\n viteza standard = '+this.defaultSpeed+', voce=0\r\n Esc pentru stop\r\nCite\u015Fte mut\u0103rile de aici'
+        'readGameCommand.helpText': '/readgame [vitez\u0103] [voce] [instrument]\r\n viteza standard = '+this.defaultSpeed+', voce=0, instrument=0\r\n Esc pentru stop\r\nCite\u015Fte mut\u0103rile de aici'
       }
     };
 
@@ -52,7 +52,7 @@
       const glyphText=this.glyphs[glyph];
       let commentText=parent.getNodeCommentsText(node)||'';
       if (glyphText && !commentText.toLowerCase().includes(glyphText.toLowerCase())) {
-        text+=' '+glyphText;
+        text+=', '+glyphText;
       }
       if (commentText) {
         commentText=commentText.replace(/\b(\d+)\.(\d+)/g,'$1point$2');
@@ -67,11 +67,11 @@
         if (groups.piece) {
           t+=pieces[groups.piece]+' ';
         }
-        t+=(groups.start||'').replace(/\ba(\d+)/g,'a-$1');
+        t+=(groups.start||'').replace(/\ba/g,'a-');
         if (groups.takes) {
           t+=' takes ';
         }
-        t+=(groups.end||'').replace(/\ba(\d+)/g,'a-$1');
+        t+=(groups.end||'').replace(/\ba/g,'a-');
         if (groups.promotion) {
           t+=' promotes to '+pieces[groups.promotion];
         }
@@ -92,7 +92,8 @@
       return text;
     };
 
-    readGame = async (speed,voiceIndex)=>{
+    instruments=[null,'celesta','clav'];
+    readGame = async (speed,voiceIndex,instrument)=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
@@ -101,6 +102,9 @@
       if (!analysis) return;
       if (!this.options.enabled) return;
 
+      speed=+speed||0;
+      instrument=this.instruments[+instrument];
+
       this.reading=true;
       let node=analysis.node;
       let path=analysis.path;
@@ -108,8 +112,14 @@
         analysis.userJump(path);
         analysis.redraw();
         const text=this.getReadText(node);
-        speed=+speed||0;
-        await parent.speak(text, { rate : speed?100/speed:0, voiceIndex:voiceIndex });
+        if (instrument && node.eval) {
+          const side=analysis.getOrientation()=='black'?-1:1;
+          const cp=node.eval.cp || (Math.sign(node.eval.mate)*100-node.eval.mate) || 0;
+          const q=24 / (1 + Math.exp(-0.004 * cp * side));
+          const sndIndex=parseInt(q).toString().padStart(3,'0');
+          lichessTools.play('/instrument/'+instrument+'/c'+sndIndex,0.05);
+        }
+        await parent.speak(text, { rate : speed?speed/100:0, voiceIndex:voiceIndex });
         if (node!=analysis.node) {
           this.reading=false;
         }
@@ -140,11 +150,12 @@
         $('body').on('keyup',this.keyHandler);
         parent.registerCommand('readGameCommand',{
           handle:(val)=>{
-            const m=/^\s*readgame(?:\s+(?<speed>\d+))?(?:\s+(?<voice>\d+))?/.exec(val);
+            const m=/^\s*readgame(?:\s+(?<speed>\d+))?(?:\s+(?<voice>\d+))?(?:\s+(?<instrument>\d+))?/.exec(val);
             if (!m) return;
             const speed=(+m.groups.speed)||this.defaultSpeed;
             const voice=m.groups.voice===undefined?undefined:(+m.groups.voice)||0;
-            parent.global.setTimeout(()=>this.readGame(speed,voice),100);
+            const instrument=(+m.groups.instrument)||0;
+            parent.global.setTimeout(()=>this.readGame(speed,voice,instrument),100);
             return true;
           },
           getHelp:()=>trans.noarg('readGameCommand.helpText')
