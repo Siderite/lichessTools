@@ -508,6 +508,51 @@
       };
     }
 
+    isIOS = () => {
+      return  /iPhone|iPod|iPad|Macintosh/.test(navigator.userAgent);
+    };
+
+    speechVolume=0.7;
+    speechRate=1;
+    speechVoiceIndex=undefined;
+    get speechVoiceLength() {
+      const voices=window?.speechSynthesis?.getVoices();
+      return voices?.length;
+    }
+    speak=async (text,options)=>{
+      options={
+        volume:options.volume || this.speechVolume,
+        voiceIndex:options.voiceIndex===undefined ? this.speechVoiceIndex : options.voiceIndex,
+        translated:!!options.translated,
+        rate:options.rate || this.speechRate
+      };
+      try{
+        const msg = new SpeechSynthesisUtterance(text);
+        msg.volume = options.volume;
+        msg.lang = options.translated ? document.documentElement.lang : 'en-US';
+        msg.rate = options.rate;
+        if (options.voiceIndex!==undefined) {
+          const voices=window?.speechSynthesis?.getVoices();
+          if (voices) msg.voice=voices[options.voiceIndex];
+        }
+        let resumeMic=false;
+        if (!this.isIOS()) {
+          // speech events are unreliable on iOS, but iphones do their own cancellation
+          msg.onstart = _ => this.lichess.mic.pause();
+          resumeMic=true;
+        }
+        window?.speechSynthesis?.speak(msg);
+        return new Promise(resolve => {
+          msg.onend = msg.onerror = ()=>{
+            if (resumeMic) this.lichess.mic.resume();
+            resolve();
+          }
+        });
+      } catch(e) {
+        if (this.debug) console.debug('Speech error:',e);
+      }
+    };
+
     isDark=()=>{
       const $=this.$;
       const body=$('body');
@@ -711,46 +756,6 @@
       return options;
     }
 
-    translateOldOptions() {
-      const parent=this.lichessTools;
-      let options=this.global.localStorage.getItem('LiChessTools.options');
-      if (!options) return;
-      try{
-        options=JSON.parse(options);
-      } catch {
-        return;
-      }
-      return {
-        "showOptionsTableInConsole": options.showOptionsTableInConsole,
-        "fixWakeLock": options.fixWakeLock,
-        "spaceDisabled": options.spaceDisabled,
-        "openFriends": options.openFriends,
-        "friendsPlaying": options.friendsPlaying,
-        "highlight": [options.lastMoves?"lastMove,notCommented":"",options.transpositions?"transposition":""].join(','),
-        "ctrlArrows": options.randomVariations,
-        "customEngineLevel": options.minDepth,
-        "keyShortcuts": options.shortcuts,
-        "showFlags": options.flags,
-        "shapeRank": options.shapeRank,
-        "showOpening": options.showOpening,
-        "previousGameMenu": options.addPreviousGame,
-        "openingExplorerUsers": options.switchWithMe?"switchWithMe,deleteUser":false,
-        "userTvHistory": options.historyInUserTV,
-        "tvGameLinkAndBookmark": options.linkBookmarkTv?"link,bookmark":false,
-        "chapterNavigation": options.chapterControls,
-        "stickyPreview": options.stickyPreview,
-        "stickyAnalysis": options.stickyAnalysis,
-        "chapterNameFromTags": options.chapterNames,
-        "enhancedImport": true,
-        "commentStyling": options.commentClasses,
-        "analysisContextActions": options.extraAnalysisContext,
-        "movesFromTranspositions": options.forkTranspositions,
-        "extendedInteractiveLesson": options.extendedInteractive?"extendedInteractive,showFinalScore":false,
-        "prevAnalysis": options.prevAnalysis,
-        "prevGames": options.prevGames
-      };
-    }
-
     async getOptions() {
       let options=this.global.localStorage.getItem('LiChessTools2.options');
       if (options) {
@@ -759,8 +764,6 @@
         } catch {
           options=null;
         }
-      } else {
-        options=this.translateOldOptions();
       }
       const defaults=this.getDefaultOptions();
       options = {
