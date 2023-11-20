@@ -115,7 +115,7 @@
         const evl=node.eval || node.ceval;
         if (instrument && evl) {
           const side=analysis.getOrientation()=='black'?-1:1;
-          const cp=evl.cp || (Math.sign(evl.mate)*100-evl.mate) || 0;
+          const cp=evl.cp || (Math.sign(evl.mate)*2000-evl.mate*10) || 0;
           const q=24 / (1 + Math.exp(-0.004 * cp * side));
           const sndIndex=parseInt(q).toString().padStart(3,'0');
           lichessTools.play('/instrument/'+instrument+'/c'+sndIndex,0.05);
