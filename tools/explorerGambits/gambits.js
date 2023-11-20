@@ -7123,12 +7123,12 @@
       ]
     },
     "rnbqkb1rppp1pppp1n1p44P32BP48PPP2PPPRNBQK1NRwKQkq-": {
-      "total": 1,
+      "total": 2,
       "moves": [
         {
           "uci": "c4b3",
           "san": "Bb3",
-          "nr": 1
+          "nr": 2
         }
       ]
     },
@@ -7153,12 +7153,12 @@
       ]
     },
     "rnbqkb1rppp1pppp1n1p44P33P41B6PPP2PPPRNBQK1NRbKQkq-": {
-      "total": 1,
+      "total": 2,
       "moves": [
         {
           "uci": "d6e5",
           "san": "dxe5",
-          "nr": 1
+          "nr": 2
         }
       ]
     },
@@ -7173,12 +7173,12 @@
       ]
     },
     "rnbqkb1rppp1pppp1n64p33P41B6PPP2PPPRNBQK1NRwKQkq-": {
-      "total": 1,
+      "total": 2,
       "moves": [
         {
           "uci": "g1f3",
           "san": "Nf3",
-          "nr": 1
+          "nr": 2
         }
       ]
     },
@@ -7293,12 +7293,12 @@
       ]
     },
     "rnbqkb1rppp1pppp3p43nP32BP48PPP2PPPRNBQK1NRbKQkq-": {
-      "total": 1,
+      "total": 2,
       "moves": [
         {
           "uci": "d5b6",
           "san": "Nb6",
-          "nr": 1
+          "nr": 2
         }
       ]
     },
@@ -7323,12 +7323,12 @@
       ]
     },
     "rnbqkb1rppp1pppp3p43nP33P48PPP2PPPRNBQKBNRwKQkq-": {
-      "total": 2,
+      "total": 3,
       "moves": [
         {
           "uci": "f1c4",
           "san": "Bc4",
-          "nr": 1
+          "nr": 2
         },
         {
           "uci": "g1f3",
@@ -8773,12 +8773,12 @@
       ]
     },
     "rnbqkb1rpppppppp5n24P388PPPP1PPPRNBQKBNRbKQkq-": {
-      "total": 10,
+      "total": 11,
       "moves": [
         {
           "uci": "f6d5",
           "san": "Nd5",
-          "nr": 10
+          "nr": 11
         }
       ]
     },
@@ -8988,8 +8988,13 @@
       ]
     },
     "rnbqkb1rpppppppp5n284P38PPPP1PPPRNBQKBNRwKQkq-": {
-      "total": 14,
+      "total": 15,
       "moves": [
+        {
+          "uci": "e4e5",
+          "san": "e5",
+          "nr": 11
+        },
         {
           "uci": "f1c4",
           "san": "Bc4",
@@ -9004,11 +9009,6 @@
           "uci": "g1f3",
           "san": "Nf3",
           "nr": 1
-        },
-        {
-          "uci": "e4e5",
-          "san": "e5",
-          "nr": 10
         }
       ]
     },
@@ -9103,12 +9103,12 @@
       ]
     },
     "rnbqkb1rpppppppp83nP33P48PPP2PPPRNBQKBNRbKQkq-": {
-      "total": 3,
+      "total": 4,
       "moves": [
         {
           "uci": "d7d6",
           "san": "d6",
-          "nr": 3
+          "nr": 4
         }
       ]
     },
@@ -9123,8 +9123,13 @@
       ]
     },
     "rnbqkb1rpppppppp83nP388PPPP1PPPRNBQKBNRwKQkq-": {
-      "total": 10,
+      "total": 11,
       "moves": [
+        {
+          "uci": "d2d4",
+          "san": "d4",
+          "nr": 4
+        },
         {
           "uci": "g1f3",
           "san": "Nf3",
@@ -9134,11 +9139,6 @@
           "uci": "c2c4",
           "san": "c4",
           "nr": 5
-        },
-        {
-          "uci": "d2d4",
-          "san": "d4",
-          "nr": 3
         },
         {
           "uci": "e5e6",
@@ -14968,17 +14968,17 @@
       ]
     },
     "rnbqkbnrpppppppp884P38PPPP1PPPRNBQKBNRbKQkq-": {
-      "total": 312,
+      "total": 313,
       "moves": [
+        {
+          "uci": "g8f6",
+          "san": "Nf6",
+          "nr": 15
+        },
         {
           "uci": "b8c6",
           "san": "Nc6",
           "nr": 8
-        },
-        {
-          "uci": "g8f6",
-          "san": "Nf6",
-          "nr": 14
         },
         {
           "uci": "b7b6",
@@ -15228,8 +15228,13 @@
       ]
     },
     "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRwKQkq-": {
-      "total": 504,
+      "total": 505,
       "moves": [
+        {
+          "uci": "e2e4",
+          "san": "e4",
+          "nr": 313
+        },
         {
           "uci": "b1c3",
           "san": "Nc3",
@@ -15279,11 +15284,6 @@
           "uci": "e2e3",
           "san": "e3",
           "nr": 5
-        },
-        {
-          "uci": "e2e4",
-          "san": "e4",
-          "nr": 312
         },
         {
           "uci": "f2f3",
