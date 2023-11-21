@@ -103,6 +103,7 @@
       if (parent.global.document.hidden) return;
       const container = $('main.tv-games div.page-menu__content.now-playing');
       if (!container.length) return;
+      container.toggleClass('lichessTools-streamerTv',this.options.enabled);
       this.users_playing=(await parent.net.json('/api/streamer/live')).map(s=>s.id);
       const notFound=[...this.users_playing];
       $('a.mini-game',container).each((i,e)=>{
@@ -160,6 +161,7 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('streamerTv');
       this.logOption('Streamers TV', value);
+      this.options={ enabled: !!value };
       const lichess=parent.lichess;
       if (!lichess) return;
       $(parent.global).off('hashchange',this.hashChange);

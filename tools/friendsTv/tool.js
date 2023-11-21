@@ -97,6 +97,7 @@
       if (parent.global.document.hidden) return;
       const container = $('main.tv-games div.page-menu__content.now-playing');
       if (!container.length) return;
+      container.toggleClass('lichessTools-friendsTv',this.options.enabled);
       const notFound=[...this.users_playing];
       $('a.mini-game',container).each((i,e)=>{
         const users=this.getUsers(e);
@@ -187,6 +188,7 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('friendsTv');
       this.logOption('Friends TV', value);
+      this.options={ enabled: !!value };
       const lichess=parent.lichess;
       if (!lichess) return;
       lichess.pubsub.off('socket.in.following_onlines', this.following_onlines);
