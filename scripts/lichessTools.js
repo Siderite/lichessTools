@@ -612,34 +612,31 @@
     slowModeTimeout: null,
     logNetwork: function(url,size,status) {
       const now=new Date().getTime();
-      const obj=this.lichessTools.global.JSON.parse(this.lichessTools.global.localStorage.getItem('LiChessTools2.fetch')||'null')||{ size:0, arr:[], minTime:now };
-      obj.size+=size;
-      obj.arr.push({
+      if (!this.networkLog) {
+        this.networkLog=this.lichessTools.global.JSON.parse(this.lichessTools.global.localStorage.getItem('LiChessTools2.fetch')||'null')||{ size:0, count:0, arr:[], minTime:now };
+      }
+      this.networkLog.size+=size;
+      this.networkLog.count++;
+      this.networkLog.arr.push({
         time: now,
         url:url,
         size:size,
         status:status
       });
-      let index=obj.arr.findLastIndex(i=>now-(i.time||0)>60000);
-      if (index<0) index=obj.arr.length;
-      const stats=obj.arr
-        .slice(0,index)
-        .reduce((a,v)=>{
-          return { 
-            size: v.size+a.size,
-            minTime:Math.min(v.time,a.minTime)
-          }
-        },{ size:0, minTime: 9999999999999 });
-      if (now-obj.minTime>86400000*7) {
-        obj.arr=obj.arr.filter(i=>now-i.time<86400000*6);
-        obj.minTime=obj.arr[0].time;
-        obj.size=obj.arr.reduce((a,v)=>a+v.size,0);
+      if (this.networkLog.arr.length>20000) {
+        this.networkLog.arr.splice(0,2000);
+        this.storeLog();
       }
-      const text=this.lichessTools.global.JSON.stringify(obj);
+      if (this.lichessTools.debug) {
+        const rate=this.networkLog.size?Math.round(8*this.networkLog.size/(now-this.networkLog.minTime)):0;
+        const logSize=this.lichessTools.global.JSON.stringify(this.networkLog).length;
+        this.lichessTools.global.console.debug('Fetch log size:',logSize);
+        this.lichessTools.global.console.debug('  ... Bandwith logged:',this.networkLog.size,'Rate:',rate,'kbps');
+      }
+    },
+    storeLog: function() {
+      const text=this.lichessTools.global.JSON.stringify(this.networkLog);
       this.lichessTools.global.localStorage.setItem('LiChessTools2.fetch',text);
-      const rate=stats.size?Math.round(8*stats.size/(now-stats.minTime)):0;
-      this.lichessTools.debug && console.debug('Fetch log size:',text.length);
-      this.lichessTools.debug && console.debug('  ... Bandwith logged:',obj.size,'Rate:',rate,'kbps');
     },
     json: async function(url,options) {
       if (!options) options={};
@@ -724,6 +721,9 @@
     }
 
     async init() {
+      window.addEventListener('pagehide',()=>{
+        this.net.storeLog();
+      });
       for (const tool of this.tools) {
         if (!tool?.init) continue;
         await tool.init();
