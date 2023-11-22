@@ -30,7 +30,7 @@
         'themes.default':'Nici una',
         'themes.performance':'Tem\u0103 performan\u0163\u0103',
         'themes.justExplorer':'Doar Explorator',
-        'themes.mobile':'Tem\u0103 mobile',
+        'themes.mobile':'Tem\u0103 mobil',
         'themes.moveColorize':'Colorizare mut\u0103ri'
       }
     }
