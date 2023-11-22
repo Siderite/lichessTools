@@ -308,7 +308,6 @@
       const dict = {};
       $('.user-link,a[href^="/@/"]').each((i,e)=> {
         if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members').length) return;
-        if (!parent.inViewport(e)) return;
 
         let textEl = $('.text',e);
         if (!textEl.length) textEl=$(e);
@@ -465,7 +464,7 @@
         if (!item.countryName) continue;
         const elems=dict[item.id];
         for (const elem of elems) {
-          if (!elem[0]?.parentNode) return;
+          if (!elem[0]?.offsetParent) return;
           const next=elem.next();
           if (next.is('img.flag')) return;
           if (next.has('img.flag').length) return;
@@ -518,8 +517,8 @@
         $('.lichessTools-flag+img.flag').remove();
         $('.lichessTools-flag').removeClass('lichessTools-flag');
         $('.lichessTools-noflag').removeClass('lichessTools-noflag');
-        lichess.storage.set('LiChessTools.flagCache',null);
-        lichess.storage.set('LiChessTools.countryCache',null);
+        lichess.storage.remove('LiChessTools.flagCache');
+        lichess.storage.remove('LiChessTools.countryCache');
       }
     }
 
