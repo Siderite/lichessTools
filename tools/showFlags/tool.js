@@ -308,8 +308,9 @@
       const dict = {};
       $('.user-link,a[href^="/@/"]').each((i,e)=> {
         if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members').length) return;
+        if (!parent.inViewport(e)) return;
 
-        let textEl = $('a.text',e);
+        let textEl = $('.text',e);
         if (!textEl.length) textEl=$(e);
         if (textEl.is('.lichessTools-noflag,.lichessTools-flag')) return;
         const next=textEl.next();
@@ -322,6 +323,22 @@
         const m= /\/@\/([^\/]+)\/?$/.exec(url);
         const userId=m&&m[1];
         if (!userId) return;
+        const list = dict[userId]||[];
+        list.push(textEl);
+        dict[userId.toLowerCase()]=list;
+      });
+      $('span.mini-game__user').each((i,e)=> {
+        if ($(e).is('.lichessTools-noflag,.lichessTools-flag')) return;
+        if (!parent.inViewport(e)) return;
+
+        const userNodeIndex=Array.from(e.childNodes).findIndex(n=>n.nodeType==3);
+        if (userNodeIndex<0) return;
+        const userNode=e.childNodes[userNodeIndex];
+        const userId=userNode.textContent?.trim();
+        const textEl=$('<span>').text(userId);
+        e.insertBefore(textEl[0],userNode);
+        e.removeChild(userNode);
+
         const list = dict[userId]||[];
         list.push(textEl);
         dict[userId.toLowerCase()]=list;
@@ -501,6 +518,8 @@
         $('.lichessTools-flag+img.flag').remove();
         $('.lichessTools-flag').removeClass('lichessTools-flag');
         $('.lichessTools-noflag').removeClass('lichessTools-noflag');
+        lichess.storage.set('LiChessTools.flagCache',null);
+        lichess.storage.set('LiChessTools.countryCache',null);
       }
     }
 
