@@ -90,7 +90,7 @@
       return $('span.mini-game__user',el).get()
                .map(e=>{
                  const cl=$(e).clone();
-                 cl.find('span').remove();
+                 cl.find('span:not(.lichessTools-userText),img').remove();
                  return this.getUserId(cl.text().trim());  
                });
     };

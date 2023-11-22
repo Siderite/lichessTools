@@ -335,7 +335,7 @@
         if (userNodeIndex<0) return;
         const userNode=e.childNodes[userNodeIndex];
         const userId=userNode.textContent?.trim();
-        const textEl=$('<span>').text(userId);
+        const textEl=$('<span>').addClass('lichessTools-userText').text(' '+userId);
         e.insertBefore(textEl[0],userNode);
         e.removeChild(userNode);
 
