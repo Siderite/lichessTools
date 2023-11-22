@@ -402,7 +402,7 @@
         const users=parent.global.JSON.parse(json);
         for (const user of users) {
           const item = data.find(i=>i.id===user.id)
-          if (item) item.country=user.profile?.country||'noflag';
+          if (item) item.country=user.profile?.country||user.profile?.flag||'noflag';
         }
         let firstToProcess=null;
         for (const item of data) {
@@ -428,7 +428,7 @@
         }
         if (firstToProcess) {
           const html=await parent.net.fetch('/@/'+firstToProcess.id+'/mini');
-          const m=/<span class="upt__info__top__country".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
+          const m=/<span class="(?:upt__info__top__country|upt__info__top__flag)".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
           if (m) {
             const el=$(m[0]);
             firstToProcess.countryName=el.text()||el.attr('title');
