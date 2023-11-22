@@ -309,7 +309,7 @@
       $('.user-link,a[href^="/@/"]').each((i,e)=> {
         if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members').length) return;
 
-        let textEl = $('a.text',e);
+        let textEl = $('.text',e);
         if (!textEl.length) textEl=$(e);
         if (textEl.is('.lichessTools-noflag,.lichessTools-flag')) return;
         const next=textEl.next();
@@ -322,6 +322,22 @@
         const m= /\/@\/([^\/]+)\/?$/.exec(url);
         const userId=m&&m[1];
         if (!userId) return;
+        const list = dict[userId]||[];
+        list.push(textEl);
+        dict[userId.toLowerCase()]=list;
+      });
+      $('span.mini-game__user').each((i,e)=> {
+        if ($(e).is('.lichessTools-noflag,.lichessTools-flag')) return;
+        if (!parent.inViewport(e)) return;
+
+        const userNodeIndex=Array.from(e.childNodes).findIndex(n=>n.nodeType==3);
+        if (userNodeIndex<0) return;
+        const userNode=e.childNodes[userNodeIndex];
+        const userId=userNode.textContent?.trim();
+        const textEl=$('<span>').addClass('lichessTools-userText').text(' '+userId);
+        e.insertBefore(textEl[0],userNode);
+        e.removeChild(userNode);
+
         const list = dict[userId]||[];
         list.push(textEl);
         dict[userId.toLowerCase()]=list;
@@ -402,7 +418,7 @@
         const users=parent.global.JSON.parse(json);
         for (const user of users) {
           const item = data.find(i=>i.id===user.id)
-          if (item) item.country=user.profile?.country||'noflag';
+          if (item) item.country=user.profile?.country||user.profile?.flag||'noflag';
         }
         let firstToProcess=null;
         for (const item of data) {
@@ -428,7 +444,7 @@
         }
         if (firstToProcess) {
           const html=await parent.net.fetch('/@/'+firstToProcess.id+'/mini');
-          const m=/<span class="upt__info__top__country".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
+          const m=/<span class="(?:upt__info__top__country|upt__info__top__flag)".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
           if (m) {
             const el=$(m[0]);
             firstToProcess.countryName=el.text()||el.attr('title');
@@ -448,7 +464,7 @@
         if (!item.countryName) continue;
         const elems=dict[item.id];
         for (const elem of elems) {
-          if (!elem[0]?.parentNode) return;
+          if (!elem[0]?.offsetParent) return;
           const next=elem.next();
           if (next.is('img.flag')) return;
           if (next.has('img.flag').length) return;
@@ -501,6 +517,8 @@
         $('.lichessTools-flag+img.flag').remove();
         $('.lichessTools-flag').removeClass('lichessTools-flag');
         $('.lichessTools-noflag').removeClass('lichessTools-noflag');
+        lichess.storage.remove('LiChessTools.flagCache');
+        lichess.storage.remove('LiChessTools.countryCache');
       }
     }
 

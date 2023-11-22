@@ -84,7 +84,7 @@
       return $('span.mini-game__user',el).get()
                .map(e=>{
                  const cl=$(e).clone();
-                 cl.find('span').remove();
+                 cl.find('span:not(.lichessTools-userText),img').remove();
                  return this.getUserId(cl.text().trim());  
                });
     };
@@ -97,6 +97,7 @@
       if (parent.global.document.hidden) return;
       const container = $('main.tv-games div.page-menu__content.now-playing');
       if (!container.length) return;
+      container.toggleClass('lichessTools-friendsTv',this.options.enabled);
       const notFound=[...this.users_playing];
       $('a.mini-game',container).each((i,e)=>{
         const users=this.getUsers(e);
@@ -115,11 +116,13 @@
           if (!html.length) continue;
 
           $('label.lichessTools-noGames',container).remove();
-          $(html).appendTo(container);
-          parent.lichess.contentLoaded();
-          await parent.timeout(500);
+          if (!$('a.mini-game[data-userId="'+userId+'"]',container).length) {
+            $(html).attr('data-userId',userId).appendTo(container);
+            parent.lichess.contentLoaded();
+            await parent.timeout(500);
+          }
         } catch(e) {
-          console.log('Getting TV game for ',userId,e);
+          console.warn('Error getting TV game for ',userId,e);
         }
       }
       if ($('a.mini-game',container).length) {
@@ -181,12 +184,24 @@
         this.updateFriendsTvPage();
       }
     };
+
+    reconnected = ()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      if (!this.isFriendsTvPage()) return;
+      const container = $('main.tv-games div.page-menu__content.now-playing');
+      container.empty();
+            
+      this.hashChange();
+    };
+    
     
     async start() {
       const parent=this.lichessTools;
       const $=parent.$;
       const value=parent.currentOptions.getValue('friendsTv');
       this.logOption('Friends TV', value);
+      this.options={ enabled: !!value };
       const lichess=parent.lichess;
       if (!lichess) return;
       lichess.pubsub.off('socket.in.following_onlines', this.following_onlines);
@@ -195,7 +210,9 @@
       lichess.pubsub.off('socket.in.following_playing', this.playing);
       lichess.pubsub.off('socket.in.following_stopped_playing', this.stopped_playing);
       $(parent.global).off('hashchange',this.hashChange);
+      lichess.pubsub.off('socket.open',this.reconnected);
       if (value) {
+        lichess.pubsub.on('socket.open',this.reconnected);
         lichess.pubsub.on('socket.in.following_onlines', this.following_onlines);
         lichess.pubsub.on('socket.in.following_enters', this.enters);
         lichess.pubsub.on('socket.in.following_leaves', this.leaves);

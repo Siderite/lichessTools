@@ -19,13 +19,6 @@ body.lichessTools td.player {
   display:inline-flex;
 }
 
-/*
-div.complete-list img.flag,
-.crosstable__users img.flag,
-body.lichessTools div.chat__members img.flag {
-  display:none;
-}*/
-
 /* for blog */
 body.lichessTools span.ublog-post-card__content img.flag {
   right: 0px;
@@ -46,6 +39,10 @@ body.lichessTools .ublog-post__markup img.flag {
 /* for berserk mode overlapping the flag */
 body.lichessTools .game__meta .user-link+img.flag+i[data-icon] {
   margin-left:2.5em;
+}
+
+body.lichessTools span.mini-game__user img.flag {
+  font-size: x-small;
 }
 
 @keyframes lichessTools-wave {
