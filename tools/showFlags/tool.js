@@ -355,7 +355,7 @@
          const temp=lichess.storage.get('LiChessTools.flagCache')
          if (temp) {
            parent.debug && global.console.debug('Size of flag cache:',temp.length);
-           this._flagCache=new Map(temp?global.JSON.parse(temp):{});
+           this._flagCache=new Map(parent.jsonParse(temp,{}));
          } else {
            this._flagCache=new Map();
          }
@@ -374,7 +374,7 @@
         const temp=lichess.storage.get('LiChessTools.countryCache')
         if (temp) {
           parent.debug && global.console.debug('Size of country cache:',temp.length);
-          this._countryCache=new Map(temp?global.JSON.parse(temp):this.countries);
+          this._countryCache=new Map(parent.jsonParse(temp,this.countries));
         } else {
           this._countryCache=new Map(this.countries);
         }
@@ -415,7 +415,7 @@
       const userIds=data.filter(i=>!i.countryName).map(i=>i.id).slice(0,200);
       if (userIds.length) {
         const json = await parent.net.fetch('/api/users',{ method:'POST',body:userIds.join(',') });
-        const users=parent.global.JSON.parse(json);
+        const users=parent.jsonParse(json,[]);
         for (const user of users) {
           const item = data.find(i=>i.id===user.id)
           if (item) item.country=user.profile?.country||user.profile?.flag||'noflag';

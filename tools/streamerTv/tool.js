@@ -104,7 +104,8 @@
       const container = $('main.tv-games div.page-menu__content.now-playing');
       if (!container.length) return;
       container.toggleClass('lichessTools-streamerTv',this.options.enabled);
-      this.users_playing=(await parent.net.json('/api/streamer/live')).map(s=>s.id);
+      this.users_playing=(await parent.net.json('/api/streamer/live'))?.map(s=>s.id);
+      if (!this.users_playing) return;
       const notFound=[...this.users_playing];
       $('a.mini-game',container).each((i,e)=>{
         const users=this.getUsers(e);

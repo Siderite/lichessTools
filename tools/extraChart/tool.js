@@ -446,7 +446,7 @@
     materialWon=(board,x,y)=>{
       const parent=this.lichessTools;
       const Math=parent.global.Math;
-      board=JSON.parse(JSON.stringify(board));
+      board=parent.clone(board);
       const ch=board[y][x];
       if (!ch) return 0;
       const side=ch===ch.toUpperCase()?-1:1;
