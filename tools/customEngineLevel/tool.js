@@ -38,7 +38,7 @@
       const analysis=lichess.analysis;
       if (!analysis) return;
       if (analysis.practice) return;
-      let customEngineDepth=+(parent.currentOptions.getValue('customEngineLevel'));
+      let customEngineDepth=this.options.depth;
       if (!customEngineDepth && this.options.noCloud) customEngineDepth=99;
       const ceval = analysis.ceval;
       if (!ceval.enabled()) return;
@@ -59,6 +59,7 @@
             node.autoDeeper=customEngineDepth;
             node.startDepth=step.ceval.depth;
             ceval.goDeeper();
+            analysis.redraw();
           }
         } else {
           if (ceval.isDeeper()) {
@@ -81,30 +82,6 @@
       }
     };
 
-
-    injectCeval=()=>{
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      const analysis=lichess.analysis;
-      if (!analysis) return;
-      const ceval=analysis.ceval;
-      ceval.effectiveMaxDepth=parent.wrapFunction(ceval.effectiveMaxDepth,{
-        id:'customEngineLevel',
-        after:($this,oldMaxLevel)=>{
-          const node=analysis.node;
-          if (node.autoDeeper>(node.startDepth||oldMaxLevel)) {
-            return node.autoDeeper;
-          }
-          const customEngineDepth=+(parent.currentOptions.getValue('customEngineLevel'));
-          if (customEngineDepth && oldMaxLevel<customEngineDepth) {
-            return customEngineDepth;
-          } else {
-            return oldMaxLevel;
-          }
-        }
-      });
-    };
-
     analysisControls=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
@@ -112,6 +89,27 @@
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!analysis) return;
+
+      if (!analysis.practice) {
+        const customDepth=analysis.ceval?.infinite() || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper)
+          ? 99
+          : this.options.depth;
+        if (customDepth && analysis.ceval.enabled() && !analysis.ceval.showingCloud()) {
+          const elem=$('div.ceval div.engine span.info')[0];
+          if (elem) {
+            // lichess keeps a reference to the actual node
+            const textNode = Array.from(elem.childNodes).find(n=>n.nodeType==3);
+            if (textNode) {
+              const infoText=textNode.textContent;
+              const newText=infoText.replace(/(\d+)(?:\/\d+)?/,'$1/'+customDepth);
+              if (infoText!=newText) {
+                textNode.textContent=newText;
+              }
+            }
+          }
+        }
+      }
+
       $('.tview2').toggleClass('lichessTools-noCloud',this.options.noCloud);
       const container=$('div.analyse__tools div.action-menu');
       if (!container.length) return;
@@ -143,9 +141,9 @@
       const value=+(parent.currentOptions.getValue('customEngineLevel'));
       this.logOption('Custom engine level', value || 'Not set');
       this.options={
-        enabled: value,
+        depth: value,
         noCloud: parent.currentOptions.getValue('noCloud'),
-        get isSet() { return this.enabled || this.noCloud; }
+        get isSet() { return this.depth || this.noCloud; }
       };
       this.logOption('Do not show cloud', this.options.noCloud);
       const lichess=parent.lichess;
@@ -153,9 +151,7 @@
       if (!analysis) return;
       parent.global.clearInterval(this.engineCheckInterval);
       const ceval=analysis.ceval;
-      ceval.effectiveMaxDepth=parent.unwrapFunction(ceval.effectiveMaxDepth,'customEngineLevel');
       if (this.options.isSet) {
-        this.injectCeval();
         this.engineCheckInterval=parent.global.setInterval(this.checkEngineLevel,500);
       } else {
         if (ceval.enabled()) {
