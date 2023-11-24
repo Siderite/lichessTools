@@ -42,7 +42,7 @@
         'analyse.explorer.since-2.lichess',
         'analyse.explorer.until-2.lichess'
       ];
-      const key=parent.hash(components.map(k=>parent.global.localStorage.getItem(k)||'').join('|'));
+      const key=parent.hash(components.map(k=>parent.lichess.storage.get(k)||'').join('|'));
       let explorerItems=node.explorerItems;
       if (!explorerItems) {
         explorerItems={};
