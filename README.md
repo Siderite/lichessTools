@@ -19,9 +19,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - add an item in the Watch menu to go to last watched game (and from there to the previously watched game and so on)
  - show opening name in TV game and mini games
  - opening explorer button to quickly switch between you and the selected user
- - show history section (last two games) for user TV
  - copy branches from analysis/study to clipboard
- - TV games have a link to the game in the title and can be bookmarked during the game
  - languages supported: English, Romanian
  - extension options in the Preferences menu in LiChess
  - next moves from transpositions are now available in the analysis move list
@@ -42,10 +40,9 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - practice with Explorer (computer makes moves based on what masters, lichess or a specific player played in that position)
  - additional glyphs on board
  - drawing of arrows and circles on mobile (for analysis, study, games, puzzles, TV)
- - collapsable preference categories
+ - collapsible preference categories
  - extra computer analysis metrics on charts and eval gauge
  - the many preferences now can be filtered by advanced or basic and the categories can be collapsed
- - a friends tab in the Current Games section, to see just the games of the people you follow
  - a menu entry to go directly to the last visited study
  - notification on unread timeline posts and comments from the blogs, forums or people you follow
  - showing evaluation on Explorer moves from local computer analysis/lichess/chessdb/winning stats
@@ -61,10 +58,17 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Option to not see cloud values in computer evaluation
  - Context menu on bookmarked positions to get the URL of the position
  - Move list options: Expanded move list, Hide left side in Analysis, Pop up analysis tools into an entire new window, Move the computer evaluation button to the right
- - a streamers tab in the Current Games section, to see just the games of streamers
  - search Wiki in analysis by position, not move order
- - practice with whatever computer engine you selected, ignoring cloud
+ - practice with whatever computer engine you selected, ignoring cloud and with your specific custom engine level
+ - TV options:
+   - show history section (last two games) for user TV
+   - TV games have a link to the game in the title and can be bookmarked during the game
+   - a friends tab in the Current Games section, to see just the games of the people you follow
+   - a streamers tab in the Current Games section, to see just the games of streamers
  - commands! type /help to get a list
+
+Version 2.2 breaking changes:
+ - Preferences for Custom Analysis Engine and TV options - You need to review your Preferences
 
 Version 2 breaking changes:
  - Ctrl-Space replaces Space as the shortcut for "play best computer move", as Shift-Space is used by lichess to play the first explorer move

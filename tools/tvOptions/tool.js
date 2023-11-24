@@ -8,7 +8,7 @@
         type:'multiple',
         possibleValues: ['link','bookmark','streamerTv','friendsTv','userTvHistory'],
         defaultValue: 'link,bookmark,streamerTv,friendsTv,userTvHistory',
-        advanced: true
+        advanced: false
       }
     ];
 
