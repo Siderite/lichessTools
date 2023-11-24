@@ -101,11 +101,22 @@
 
       if (analysis.practice) {
         if (this.options.practice) {
+          if (!parent.isWrappedFunction(analysis.explorer.fetchTablebaseHit,'customEngineLevel')) {
+            analysis.explorer.fetchTablebaseHit=parent.wrapFunction(analysis.explorer.fetchTablebaseHit,{
+              id:'customEngineLevel',
+              after:($this,result,...args)=>{
+                if (analysis.practice?.running() && this.options.practice && this.options.noCloud) {
+                  return Promise.reject('not in tablebase');
+                }
+              }
+            });
+          }
+
           if (!parent.isWrappedFunction(analysis.practice.onCeval,'customEngineLevel')) {
             analysis.practice.onCeval=parent.wrapFunction(analysis.practice.onCeval,{
               id:'customEngineLevel',
               before:($this,...args)=>{
-                if (this._inOnCeval||analysis.practice.isMyTurn()) return;
+                if (this._inOnCeval||analysis.practice.isMyTurn()||!analysis.practice.running()) return;
                 this._inOnCeval=true;
                 this._ceval=null;
                 this._node=analysis.ceval.lastStarted?.steps?.at(-1);//analysis.node
@@ -139,6 +150,7 @@
           }
         } else {
           analysis.practice.onCeval=parent.unwrapFunction(analysis.practice.onCeval,'customEngineLevel');
+          analysis.explorer.fetchTablebaseHit=parent.unwrapFunction(analysis.explorer.fetchTablebaseHit,'customEngineLevel');
         }
       } else {
         const customDepth=analysis.ceval?.infinite() || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper)
