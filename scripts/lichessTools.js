@@ -11,11 +11,15 @@
     lichess=null;
 
     get debug() {
-      const debug = this.global.localStorage.getItem('LiChessTools2.debug');
-      return debug==='true';
+      if (this._debug===undefined) {
+        const debug = this.global.localStorage.getItem('LiChessTools2.debug');
+        this._debug=(debug==='true');
+      }
+      return this._debug;
     }
     set debug(value) {
-      this.global.localStorage.setItem('LiChessTools2.debug',(!!value).toString());
+      this._debug=!!value;
+      this.global.localStorage.setItem('LiChessTools2.debug',this._debug.toString());
     }
   
     arrayRemoveAll(arr,predicate) {
