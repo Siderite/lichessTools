@@ -93,37 +93,6 @@
       return this.evaluator.evaluate(node.fen);
     }
 
-    getBoard=fen=>{
-      const result=[];
-      for (let i=0; i<8; i++) result.push(Array(8));
-      const splits=fen.split(' ');
-      fen=splits[0];
-      let enpassant=splits[3];
-      if (enpassant!='-') {
-        result.enpassant={ 
-          x: enpassant.charCodeAt(0)-97, 
-          y: enpassant.charCodeAt(1)-49
-        };
-      }
-      let x=0;
-      let y=0;
-      for (let i=0; i<fen.length; i++) {
-        const ch=fen[i];
-        if ('kqrbnp'.indexOf(ch.toLowerCase())>=0) {
-          result[y][x]=ch;
-          x++;
-          continue;
-        }
-        if (ch=='/') {
-          x=0;
-          y++;
-          continue;
-        }
-        x+=(+ch);
-      }
-      return result;
-    };
-
     onBoard=(x,y)=>x>=0&&x<8&&y>=0&&y<8;
 
     pieceTension=(x,y,board,withSupport)=>{
@@ -397,7 +366,8 @@
     };
 
     tension=node=>{
-      const board=this.getBoard(node.fen);
+      const parent=this.lichessTools;
+      const board=parent.getBoardFromFen(node.fen);
       const underAttack=[];
       for (let y=0; y<8; y++) {
         for (let x=0; x<8; x++) {
@@ -435,8 +405,9 @@
     };
 
     inCheck=(fen)=>{
+      const parent=this.lichessTools;
       const side=fen.split(' ')[1]=='w'?1:-1;
-      const board=this.getBoard(fen);
+      const board=parent.getBoardFromFen(fen);
       const king=this.findPieces(board,side==1?'K':'k')[0];
       const moves=this.getAllCapturingMoves(board)
         .filter(m=>m.m!=side && m.x==king.x && m.y==king.y);
@@ -557,9 +528,9 @@
             x: p1.uci.charCodeAt(2)-97, 
             y: p1.uci.charCodeAt(3)-49
           };
-          let board=this.getBoard(p2.fen);
+          let board=parent.getBoardFromFen(p2.fen);
           const mwStartUci=this.materialWon(board,move.sx,move.sy)/100;
-          board=this.getBoard(p1.fen);
+          board=parent.getBoardFromFen(p1.fen);
           const mwEndUci=this.materialWon(board,move.x,move.y)/100;
           const mat3=this.simple_material(p3,true,m)/100;
           const mat1=this.simple_material(p1,true,m)/100;
@@ -567,9 +538,9 @@
           if (mwStartUci*m+1+delta<mwEndUci*m) {
             return 1;
           }
-          board=this.getBoard(p3.fen);
+          board=parent.getBoardFromFen(p3.fen);
           const mmw3=this.maxMaterialWon(board,m)/100;
-          board=this.getBoard(p1.fen);
+          board=parent.getBoardFromFen(p1.fen);
           const mmw1=this.maxMaterialWon(board,m)/100;
           const bril=mmw1*m-mmw3*m-delta;
           if (bril>4) {
@@ -619,7 +590,7 @@
       mainline
         .slice(1)
         .forEach((node,x) => {
-          const board=this.getBoard(node.fen);
+          const board=parent.getBoardFromFen(node.fen);
           const m=node.ply%2?-1:1;
           const maxMaterial=Math.abs(this.maxMaterialWon(board,m));
           if (maxM<maxMaterial) {

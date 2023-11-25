@@ -500,6 +500,37 @@
       return pos;
     };
 
+    getBoardFromFen=fen=>{
+      const result=[];
+      for (let i=0; i<8; i++) result.push(Array(8));
+      const splits=fen.split(' ');
+      fen=splits[0];
+      let enpassant=splits[3];
+      if (enpassant!='-') {
+        result.enpassant={ 
+          x: enpassant.charCodeAt(0)-97, 
+          y: enpassant.charCodeAt(1)-49
+        };
+      }
+      let x=0;
+      let y=0;
+      for (let i=0; i<fen.length; i++) {
+        const ch=fen[i];
+        if ('kqrbnp'.indexOf(ch.toLowerCase())>=0) {
+          result[y][x]=ch;
+          x++;
+          continue;
+        }
+        if (ch=='/') {
+          x=0;
+          y++;
+          continue;
+        }
+        x+=(+ch);
+      }
+      return result;
+    };
+
     makeSvg=(svgText,chessground)=>{
       if (window.Chessground) return svgText; //ugly hack because you cannot know what chessground version you got
       return {
