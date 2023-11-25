@@ -306,8 +306,7 @@
         },1000);
       }
 
-      this.updateTvOptionsButton();
-      this.updateTvOptionsPage();
+      this.hashChange();
 
       const tvOptions = this.options.link||this.options.bookmark||this.options.userTvHistory
         ? parent.getTvOptions()
