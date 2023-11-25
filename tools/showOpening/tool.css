@@ -1,3 +1,4 @@
+body.lichessTools div.chat__members .lichessTools-opening,
 body.lichessTools div.game__meta .lichessTools-opening {
   display:flex;
   height:3em;
@@ -5,6 +6,11 @@ body.lichessTools div.game__meta .lichessTools-opening {
   overflow:hidden;
 }
 
+body.lichessTools div.chat__members .lichessTools-opening {
+  float:left;
+}
+
+body.lichessTools div.chat__members .lichessTools-opening:before,
 body.lichessTools div.game__meta .lichessTools-opening:before {
   margin-right: 0.4em;
   margin-inline: 0 0.4em;

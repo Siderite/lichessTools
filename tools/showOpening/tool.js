@@ -107,7 +107,7 @@
       const trans=parent.translator;
       const tvOptions=parent.getTvOptions();
       const gameId=tvOptions.gameId || lichess.analysis?.data?.game?.id;
-      const metaSection = $('div.game__meta section, div.analyse__wiki.empty').eq(0);
+      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members').eq(0);
       const result = await this.withOpening(gameId,$('main.round, main.analyse')[0],ply);
       if (!result) {
         $('.lichessTools-opening',metaSection).remove();
