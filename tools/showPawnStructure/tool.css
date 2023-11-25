@@ -1,4 +1,5 @@
-body.lichessTools div.game__meta .lichessTools-structure {
+body.lichessTools div.game__meta .lichessTools-structure,
+body.lichessTools div.chat__members .lichessTools-structure {
   display:flex;
   float: right;
   font-size: x-small;
