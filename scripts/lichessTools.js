@@ -421,8 +421,9 @@
       analysis.userJumpIfCan(node.path);
     };
 
-    getPositionFromBoard=(el)=>{
+    getPositionFromBoard=(el,asFen)=>{
       if (!el) return;
+      const $=this.$;
       const map={
         'king':'k',
         'queen':'q',
@@ -495,18 +496,21 @@
           }
         }
         putEmpties();
+        if (asFen && y<7) pos+='/';
       }
+      if (asFen) pos+=' ';
       pos+=turn[0];
       return pos;
     };
 
     getBoardFromFen=fen=>{
+      if (!fen) return null;
       const result=[];
       for (let i=0; i<8; i++) result.push(Array(8));
       const splits=fen.split(' ');
       fen=splits[0];
       let enpassant=splits[3];
-      if (enpassant!='-') {
+      if (enpassant && enpassant!='-') {
         result.enpassant={ 
           x: enpassant.charCodeAt(0)-97, 
           y: enpassant.charCodeAt(1)-49

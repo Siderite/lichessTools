@@ -87,8 +87,8 @@
         "tools/wikiFen/wikiUrls.js",
         "tools/wikiFen/tool.js",
         "tools/transpositionArrows/tool.js",
-
         "tools/tvOptions/tool.js",
+        "tools/showPawnStructure/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -139,6 +139,7 @@
         "tools/explorerSettings/tool.css",
         "tools/chapterPgnArea/tool.css",
         "tools/moveListOptions/tool.css",
+        "tools/showPawnStructure/tool.css",
 
         "tools/tvOptions/tool.css",
 

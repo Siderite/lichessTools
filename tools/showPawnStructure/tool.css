@@ -1,0 +1,35 @@
+body.lichessTools div.game__meta .lichessTools-structure {
+  display:flex;
+  float: right;
+  font-size: x-small;
+  height: 3rem;
+  align-items: center;
+  overflow:hidden;
+}
+
+body.lichessTools a.mini-game .lichessTools-structure {
+  margin: 3px 0.5em 0.3em 0.7em;
+  display: block;
+  opacity: 0.7;
+  height:auto;
+  font-size: x-small;
+}
+
+
+body.lichessTools div.analyse__wiki .lichessTools-structure {
+  font-size: 0.8em;
+  width: 100%;
+  display: block;
+  text-align: right;
+}
+
+body.lichessTools .lichessTools-structure:before {
+  margin-right: 0.4em;
+  margin-inline: 0 0.4em;
+  content: '\260D';
+  transform: scale(1.25);
+  transform-origin: center;
+  align-self: center;
+  color:#808080;
+}
+

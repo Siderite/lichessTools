@@ -59,17 +59,13 @@ lichessTools.loadTool(LiChessTools.Tools.ChapterPgnArea);
 lichessTools.loadTool(LiChessTools.Tools.MoveListOptions);
 lichessTools.loadTool(LiChessTools.Tools.WikiFen);
 lichessTools.loadTool(LiChessTools.Tools.TranspositionArrows);
+lichessTools.loadTool(LiChessTools.Tools.TvOptions);
+lichessTools.loadTool(LiChessTools.Tools.ShowPawnStructure);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
 lichessTools.loadTool(LiChessTools.Tools.CopyPgnCommand);
 lichessTools.loadTool(LiChessTools.Tools.ReadGameCommand);
-
-//lichessTools.loadTool(LiChessTools.Tools.TvGameLinkAndBookmark);
-//lichessTools.loadTool(LiChessTools.Tools.FriendsTv);
-//lichessTools.loadTool(LiChessTools.Tools.StreamerTv);
-//lichessTools.loadTool(LiChessTools.Tools.UserTvHistory);
-lichessTools.loadTool(LiChessTools.Tools.TvOptions);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);
 

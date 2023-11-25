@@ -32,6 +32,7 @@
       if (this.isGamesPage()) return;
       const parent=this.lichessTools;
       const $=parent.$;
+      if (parent.global.document.hidden) return;
       if (!el) el=$('body');
       const elems=$('a[href].mini-game,div.boards>a[href]',el).get();
       if ($(el).is('a[href].mini-game,div.boards>a[href]')) elems.push(el);
