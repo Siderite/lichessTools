@@ -1,11 +1,11 @@
 body.lichessTools div.game__meta .lichessTools-structure,
 body.lichessTools div.chat__members .lichessTools-structure {
+  margin-left:1em;
   display:flex;
-  float: right;
   font-size: x-small;
-  height: 3rem;
   align-items: center;
   overflow:hidden;
+  justify-content:right;
 }
 
 body.lichessTools a.mini-game .lichessTools-structure {
@@ -34,3 +34,6 @@ body.lichessTools .lichessTools-structure:before {
   color:#808080;
 }
 
+body.lichessTools.lichessTools-structureMiniGames a.mini-game:not(:has(.lichessTools-structure)) {
+  padding-bottom:2em;
+}

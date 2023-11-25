@@ -9,7 +9,7 @@
         category: 'general',
         type:'multiple',
         possibleValues: ['enabled','onlyNamed','fuzzy'],
-        defaultValue: false
+        defaultValue: 'onlyNamed,fuzzy'
       }
     ];
 
@@ -116,6 +116,7 @@
       structureText+=result.pawns[they][1]<0?'X':result.pawns[they][1];
       structureText+=result.pawns[me][6]<0?'X':result.pawns[me][6];
       structureText+=result.pawns[they][6]<0?'X':result.pawns[they][6];
+      structureText+=' ';
       structureText+=result.pawns[me][0]<0?'X':result.pawns[me][0];
       structureText+=result.pawns[they][0]<0?'X':result.pawns[they][0];
       structureText+=result.pawns[me][7]<0?'X':result.pawns[me][7];
@@ -140,26 +141,92 @@
       return structureText;
     };
 
-    names={
-     '2XX1XXXT':'Isolani',
-     '2XX12XTT':'Hanging Pawns',
-     '221XX1TM':'Orthodox Exchange',
-     'XX2221XX':'Rauzer Formation',
-     'X12X21TM':'Boleslavsky Wall',
-     'X1210XMT':'Scheveningen',
-     'X1200XMT':'Dragon',
-     'X1202XMT':'Maroczi Bind',
-     'X0212XMT':'Maroczi Bind',
-     'X1212XMT':'Hedgehog',
-     'X1220XMT':'Boleslavsky Hole',
-     '312220XX':'d4 Chain',
-     '223100XX':'e5 Chain',
-     '22X13XMT':'Panov',
-     '220100XX':'Stonewall',
-     '221100XX':'Stonewall',
-     '2X11X1TM':'Slav',
-     '2XX111MT':'Caro'
-    }
+    names = {
+      '2XX1XXXT': {
+        name: 'Isolani',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Queen\'s_Gambit_%E2%80%93_Isolani_formation'
+      },
+      '2XXXX0TX': {
+        name: 'Isolani',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Giuoco_Piano_%E2%80%93_Isolani_formation'
+      },
+      '2XX12XTT': {
+        name: 'Hanging Pawns',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Hanging_pawns'
+      },
+      '221XX1TM': {
+        name: 'Orthodox Exchange',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Carlsbad_formation'
+      },
+      'XX2221XX': {
+        name: 'Rauzer Formation',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Rauzer_formation'
+      },
+      'X12X21TM': {
+        name: 'Boleslavsky Wall',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Boleslavsky_Wall'
+      },
+      'X1210XMT': {
+        name: 'Scheveningen',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Sicilian_%E2%80%93_Scheveningen'
+      },
+      'X1200XMT': {
+        name: 'Dragon',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Sicilian_%E2%80%93_Dragon'
+      },
+      'X1202XMT': {
+        name: 'Maroczi Bind',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Mar%C3%B3czy_Bind'
+      },
+      'X0212XMT': {
+        name: 'Maroczi Bind',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Mar%C3%B3czy_Bind'
+      },
+      'X1212XMT': {
+        name: 'Hedgehog',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Hedgehog'
+      },
+      'X1220XMT': {
+        name: 'Boleslavsky Hole',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Boleslavsky_hole'
+      },
+      '312220XX': {
+        name: 'd5 Chain',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#d5-chain'
+      },
+      '223100XX': {
+        name: 'e5 Chain',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#e5-chain'
+      },
+      '22X13XMT': {
+        name: 'Panov',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Panov_formation'
+      },
+      '220100XX': {
+        name: 'Stonewall',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Stonewall_formation'
+      },
+      '221100XX': {
+        name: 'Botvinnik',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Botvinnik_system'
+      },
+      '2X11X1TM': {
+        name: 'Slav',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Slav_formation'
+      },
+      '2XX111MT': {
+        name: 'Caro',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Caro_formation'
+      },
+      '312XX2TM': {
+        name: 'Modern Benoni',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Modern_Benoni_formation'
+      },
+      '112002XX': {
+        name: 'Closed Sicilian',
+        url: 'https://en.wikipedia.org/wiki/Pawn_structure#Closed_Sicilian_formation'
+      }
+    };
 
     keySimilarity=(k1,k2)=>{
       let diff=0;
@@ -191,12 +258,42 @@
           };
         });
         arr.sort((o1,o2)=>o2.similarity-o1.similarity);
-        if (arr[0].similarity>threshold) {
-          return arr[0].name+(parent.debug?': '+arr[0].similarity:'');
+        if (arr[0].similarity>threshold&&arr[0].similarity!=arr[1].similarity) {
+          return arr[0].name;
         }
       }
       if (this.options.onlyNamed) return null;
-      return key;
+      return { name: key };
+    };
+
+    addStructureAnchor=(el,structureName,structure)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      let structureElem=$('.lichessTools-structure',el);
+      if (!structureName) {
+        structureElem.remove();
+        return;
+      }
+      const isLink=!!structureName.url;
+      if ((isLink && structureElem.is('span'))||(!isLink && structureElem.is('a'))) {
+        structureElem.remove();
+        structureElem=$('.lichessTools-structure',el);
+      }
+      if (!structureElem.length) {
+        structureElem=$('<'+(isLink?'a':'span')+'>')
+          .addClass('lichessTools-structure')
+          .appendTo(el);
+        if (isLink) {
+          structureElem.attr('target','_blank');
+        }
+      }
+      structureElem
+        .text(structureName.name)
+        .attr('title',trans.pluralSame('structureNameTitle',structure));
+      if (isLink) {
+        structureElem.attr('href',structureName.url);
+      }
     };
 
     miniGameStructure=async (el)=>{
@@ -219,15 +316,7 @@
         const board=parent.getBoardFromFen(fen);
         const structure=this.getStructure(board,$(el).attr('data-state').includes('black'));
         const structureName=this.getStructureName(structure);
-        let span=$('.lichessTools-structure',el);
-        if (structureName) {
-          if (!span.length) {
-            span=$('<span class="lichessTools-structure"/>').appendTo(el);
-          }
-          span.text(structureName).attr('title',trans.pluralSame('structureNameTitle',structure));
-        } else {
-          span.remove();
-        }
+        this.addStructureAnchor(el,structureName,structure);
         fen='';
       }
     };
@@ -249,19 +338,7 @@
         return;
       }
       const structureName=this.getStructureName(structure);
-      let span=$('span.lichessTools-structure',metaSection);
-      if (structureName) {
-        if (!span.length) {
-          span=$('<span/>')
-            .addClass('lichessTools-structure')
-            .appendTo(metaSection);
-        }
-        $('span.lichessTools-structure',metaSection)
-          .attr('title',trans.pluralSame('structureNameTitle',structure))
-          .text(structureName);
-      } else {
-        span.remove();
-      }
+      this.addStructureAnchor(metaSection,structureName,structure);
       if (!ply) {
         await this.miniGameStructure();
       }
@@ -283,11 +360,11 @@
       lichess.pubsub.off('socket.in.fen',this.miniGameStructure);
       lichess.pubsub.off('ply',this.refreshStructureDebounced);
       lichess.pubsub.off('redraw',this.refreshStructureDebounced);
-      lichess.pubsub.off('content-loaded',this.miniGameStructure);
+      lichess.pubsub.off('content-loaded',this.miniGameStructureDebounced);
       if (lichess.socket?.settings?.events?.endData) {
         lichess.socket.settings.events.endData=parent.unwrapFunction(lichess.socket.settings.events.endData,'showPawnStructure');
       }
-      if (value) {
+      if (this.options.enabled) {
         if (lichess.socket?.settings?.events?.endData) {
           lichess.socket.settings.events.endData=parent.wrapFunction(lichess.socket.settings.events.endData,{
             id:'showPawnStructure',
@@ -299,11 +376,14 @@
         lichess.pubsub.on('socket.in.fen',this.miniGameStructure);
         lichess.pubsub.on('ply',this.refreshStructureDebounced);
         lichess.pubsub.on('redraw',this.refreshStructureDebounced);
-        lichess.pubsub.on('content-loaded',this.miniGameStructure);
+        lichess.pubsub.on('content-loaded',this.miniGameStructureDebounced);
         parent.global.requestAnimationFrame(this.refreshStructureDebounced);
       } else {
-        const metaSection = $('div.game__meta section').eq(0);
+      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members');
         $('.lichessTools-structure',metaSection).remove();
+      }
+      if (this.isGamesPage()) {
+        $('body').toggleClass('lichessTools-structureMiniGames',this.options.enabled);
       }
     }
 
