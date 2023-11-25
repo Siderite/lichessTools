@@ -366,7 +366,7 @@
           }
         }
       } else {
-        $('div.tv-history').remove();
+        $('div.tv-history.lichessTools-userHistory').remove();
       }
     }
   }
