@@ -140,7 +140,7 @@
                });
     };
 
-    refreshGames=async (playerIds,className,container)=>{
+    refreshGames=async (playerIds,className,container,streamers)=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=this.lichessTools.translator;
@@ -162,13 +162,14 @@
           if (!text) continue;
           const html=$('<x>'+text+'</x>').find('a.mini-game');
           if (!html.length) continue;
-          $('<span>')
-            .addClass(className)
-            .append($('<a rel="noopener nofollow" target="_blank">')
-                      .attr('href','/streamer/'+userId+'/redirect')
-                      .text(trans.noarg('streamerLink')))
-            .appendTo(html);
-
+          if (streamers) {
+            $('<span>')
+              .addClass(className)
+              .append($('<a rel="noopener nofollow" target="_blank">')
+                       .attr('href','/streamer/'+userId+'/redirect')
+                        .text(trans.noarg('streamerLink')))
+              .appendTo(html);
+          }
           $('label.lichessTools-noGames',container).remove();
           if (!$('a.mini-game[data-userId="'+userId+'"]',container).length) {
             $(html).attr('data-userId',userId).appendTo(container);
@@ -191,14 +192,14 @@
       if (this.isStreamerTvPage()) {
         container.toggleClass('lichessTools-streamerTv',this.options.streamerTv);
         const playerIds=(await parent.net.json('/api/streamer/live'))?.map(s=>s.id);
-        await this.refreshGames(playerIds,'lichessTools-streamerTv',container);
+        await this.refreshGames(playerIds,'lichessTools-streamerTv',container,true);
       } else {
         container.removeClass('lichessTools-streamerTv');
       }
       if (this.isFriendsTvPage()) {
         container.toggleClass('lichessTools-friendsTv',this.options.streamerTv);
         const playerIds=this.users_playing;
-        await this.refreshGames(playerIds,'lichessTools-friendsTv',container);
+        await this.refreshGames(playerIds,'lichessTools-friendsTv',container,false);
       } else {
         container.removeClass('lichessTools-friendsTv');
       }
@@ -306,7 +307,10 @@
         },1000);
       }
 
-      this.hashChange();
+      const container = $('main.tv-games div.page-menu__content.now-playing');
+      container.empty();
+      this.updateTvOptionsButton();
+      this.updateTvOptionsPage();
 
       const tvOptions = this.options.link||this.options.bookmark||this.options.userTvHistory
         ? parent.getTvOptions()
