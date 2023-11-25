@@ -234,7 +234,7 @@
       const l=k1.length;
       for (let i=0; i<l; i++) {
         if (k1[i]==k2[i]) continue;
-        const v='0123'.includes(k1[i]) && '0123'.includes(k2[i])
+        const v='123'.includes(k1[i]) && '123'.includes(k2[i])
           ? 0.5
           : 1;
         diff+=v*p;

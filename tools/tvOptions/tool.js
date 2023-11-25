@@ -307,8 +307,9 @@
         },1000);
       }
 
-      const container = $('main.tv-games div.page-menu__content.now-playing');
-      container.empty();
+      if (this.isStreamerTvPage()) {
+        $('a.mini-game:not(:has(.lichessTools-streamerTv))').remove();
+      }
       this.updateTvOptionsButton();
       this.updateTvOptionsPage();
 
