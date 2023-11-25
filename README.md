@@ -65,6 +65,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
    - TV games have a link to the game in the title and can be bookmarked during the game
    - a friends tab in the Current Games section, to see just the games of the people you follow
    - a streamers tab in the Current Games section, to see just the games of streamers
+ - show pawn structures in analysis, TV games and mini-games
  - commands! type /help to get a list
 
 Version 2.2 breaking changes:

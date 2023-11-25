@@ -1,11 +1,14 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 Nov
+  - Show pawn structure
+  - Show opening names in study
+
 24 Nov
   - Practice with computer custom engine options
   - Bump to version 2.2.0. Breaking changes:
     - Merge most TV tools into one
     - Custom analysis engine preferences
-  
 
 18 Nov
   - Interactive lesson Preview mode sticks between page reloads as well
