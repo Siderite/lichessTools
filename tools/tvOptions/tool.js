@@ -288,6 +288,7 @@
       if (this.options.friendsTv || this.options.streamerTv) {
         $(parent.global).on('hashchange',this.hashChange);
         lichess.pubsub.on('socket.close',this.hashChange);
+        parent.global.setTimeout(this.hashChange,100);
       }
 
       lichess.pubsub.off('socket.in.following_onlines', this.following_onlines);
