@@ -11,11 +11,15 @@
     lichess=null;
 
     get debug() {
-      const debug = this.global.localStorage.getItem('LiChessTools2.debug');
-      return debug==='true';
+      if (this._debug===undefined) {
+        const debug = this.global.localStorage.getItem('LiChessTools2.debug');
+        this._debug=(debug==='true');
+      }
+      return this._debug;
     }
     set debug(value) {
-      this.global.localStorage.setItem('LiChessTools2.debug',(!!value).toString());
+      this._debug=!!value;
+      this.global.localStorage.setItem('LiChessTools2.debug',this._debug.toString());
     }
   
     arrayRemoveAll(arr,predicate) {
@@ -421,8 +425,9 @@
       analysis.userJumpIfCan(node.path);
     };
 
-    getPositionFromBoard=(el)=>{
+    getPositionFromBoard=(el,asFen)=>{
       if (!el) return;
+      const $=this.$;
       const map={
         'king':'k',
         'queen':'q',
@@ -495,9 +500,43 @@
           }
         }
         putEmpties();
+        if (asFen && y<7) pos+='/';
       }
+      if (asFen) pos+=' ';
       pos+=turn[0];
       return pos;
+    };
+
+    getBoardFromFen=fen=>{
+      if (!fen) return null;
+      const result=[];
+      for (let i=0; i<8; i++) result.push(Array(8));
+      const splits=fen.split(' ');
+      fen=splits[0];
+      let enpassant=splits[3];
+      if (enpassant && enpassant!='-') {
+        result.enpassant={ 
+          x: enpassant.charCodeAt(0)-97, 
+          y: enpassant.charCodeAt(1)-49
+        };
+      }
+      let x=0;
+      let y=0;
+      for (let i=0; i<fen.length; i++) {
+        const ch=fen[i];
+        if ('kqrbnp'.indexOf(ch.toLowerCase())>=0) {
+          result[y][x]=ch;
+          x++;
+          continue;
+        }
+        if (ch=='/') {
+          x=0;
+          y++;
+          continue;
+        }
+        x+=(+ch);
+      }
+      return result;
     };
 
     makeSvg=(svgText,chessground)=>{
@@ -583,6 +622,26 @@
       return (hval >>> 0).toString(16);
     }
 
+    jsonParse=(funcOrText, defaultValue)=>{
+      let json='unknown';
+      try {
+        json=typeof funcOrText == 'function'
+          ? funcOrText()
+          : funcOrText;
+        if (!json || json==='undefined') return defaultValue;
+        const result = this.global.JSON.parse(json);
+        return result || defaultValue;
+      } catch(ex) {
+        this.global.console.warn('Error parsing JSON: ',json,ex);
+        return defaultValue;
+      }
+    };
+
+    clone=(obj)=>{
+      if (!obj) return obj;
+      return this.global.JSON.parse(this.global.JSON.stringify(obj));
+    };
+
     intl={
       lichessTools:this,
       defaultLanguage:'en-US',
@@ -613,7 +672,7 @@
     logNetwork: function(url,size,status) {
       const now=new Date().getTime();
       if (!this.networkLog) {
-        this.networkLog=this.lichessTools.global.JSON.parse(this.lichessTools.global.localStorage.getItem('LiChessTools2.fetch')||'null')||{ size:0, count:0, arr:[], minTime:now };
+        this.networkLog=this.lichessTools.jsonParse(_=>this.lichessTools.global.localStorage.getItem('LiChessTools2.fetch'),{ size:0, count:0, arr:[], minTime:now });
       }
       this.networkLog.size+=size;
       this.networkLog.count++;
@@ -629,9 +688,10 @@
       }
       if (this.lichessTools.debug) {
         const rate=this.networkLog.size?Math.round(8*this.networkLog.size/(now-this.networkLog.minTime)):0;
+        const avgSize=this.networkLog.size?Math.round(8*this.networkLog.size/this.networkLog.count):0;
         const logSize=this.lichessTools.global.JSON.stringify(this.networkLog).length;
         this.lichessTools.global.console.debug('Fetch log size:',logSize);
-        this.lichessTools.global.console.debug('  ... Bandwith logged:',this.networkLog.size,'Rate:',rate,'kbps');
+        this.lichessTools.global.console.debug('  ... Bandwith logged:',this.networkLog.size,'Rate:',rate,'kbps','Avg call size:',avgSize,'kbps');
       }
     },
     storeLog: function() {
@@ -644,7 +704,7 @@
       options.headers.Accept||='application/json';
       options.headers['x-requested-with']||='XMLHttpRequest';
       const json=await this.fetch(url,options);
-      return json&&JSON.parse(json);
+      return this.lichessTools.jsonParse(json);
     },
     fetch: async function(url,options) {
       try{
@@ -763,13 +823,7 @@
 
     async getOptions() {
       let options=this.global.localStorage.getItem('LiChessTools2.options');
-      if (options) {
-        try{
-          options=JSON.parse(options);
-        } catch {
-          options=null;
-        }
-      }
+      options=this.jsonParse(options);
       const defaults=this.getDefaultOptions();
       options = {
         loaded:!!options,

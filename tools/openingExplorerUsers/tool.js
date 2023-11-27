@@ -38,8 +38,7 @@
       const explorer=lichess.analysis?.explorer;
       const trans=parent.translator;
       if (!explorer) return;
-      let previousUsers=lichess.storage.get('explorer.player.name.previous');
-      previousUsers=previousUsers?parent.global.JSON.parse(previousUsers):[];
+      let previousUsers=parent.jsonParse(_=>lichess.storage.get('explorer.player.name.previous'),[]);
       if (previousUsers.length<=0) {
         $('div.explorer-title button.lichessTools-switchWithMe').remove();
         return;
@@ -53,8 +52,7 @@
         .addClass('lichessTools-switchWithMe')
         .on('click',function(ev) {
           ev.preventDefault();
-          let previousUsers=lichess.storage.get('explorer.player.name.previous');
-          previousUsers=previousUsers?parent.global.JSON.parse(previousUsers):[];
+          let previousUsers=parent.jsonParse(_=>lichess.storage.get('explorer.player.name.previous'),[]);
           const myName=explorer.config.myName;
           const currentUser=explorer.config.data.playerName.value();
           const user=currentUser!=myName

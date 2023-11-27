@@ -32,6 +32,7 @@
       if (this.isGamesPage()) return;
       const parent=this.lichessTools;
       const $=parent.$;
+      if (parent.global.document.hidden) return;
       if (!el) el=$('body');
       const elems=$('a[href].mini-game,div.boards>a[href]',el).get();
       if ($(el).is('a[href].mini-game,div.boards>a[href]')) elems.push(el);
@@ -106,7 +107,7 @@
       const trans=parent.translator;
       const tvOptions=parent.getTvOptions();
       const gameId=tvOptions.gameId || lichess.analysis?.data?.game?.id;
-      const metaSection = $('div.game__meta section, div.analyse__wiki.empty').eq(0);
+      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members').eq(0);
       const result = await this.withOpening(gameId,$('main.round, main.analyse')[0],ply);
       if (!result) {
         $('.lichessTools-opening',metaSection).remove();

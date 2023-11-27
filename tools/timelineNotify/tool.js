@@ -94,6 +94,7 @@
       if (el!==true && !$(el).is('div.notifications')) return;
       this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
       const timeline=await parent.net.json('/timeline?nb=100');
+      if (!timeline) return;
       const newEntries=timeline.entries
         .filter(e=>e.date>this.lastRead)
         .filter(e=>this.types.includes(e.type));

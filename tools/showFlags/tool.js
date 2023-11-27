@@ -355,7 +355,7 @@
          const temp=lichess.storage.get('LiChessTools.flagCache')
          if (temp) {
            parent.debug && global.console.debug('Size of flag cache:',temp.length);
-           this._flagCache=new Map(temp?global.JSON.parse(temp):{});
+           this._flagCache=new Map(parent.jsonParse(temp,{}));
          } else {
            this._flagCache=new Map();
          }
@@ -374,7 +374,7 @@
         const temp=lichess.storage.get('LiChessTools.countryCache')
         if (temp) {
           parent.debug && global.console.debug('Size of country cache:',temp.length);
-          this._countryCache=new Map(temp?global.JSON.parse(temp):this.countries);
+          this._countryCache=new Map(parent.jsonParse(temp,this.countries));
         } else {
           this._countryCache=new Map(this.countries);
         }
@@ -415,7 +415,7 @@
       const userIds=data.filter(i=>!i.countryName).map(i=>i.id).slice(0,200);
       if (userIds.length) {
         const json = await parent.net.fetch('/api/users',{ method:'POST',body:userIds.join(',') });
-        const users=parent.global.JSON.parse(json);
+        const users=parent.jsonParse(json,[]);
         for (const user of users) {
           const item = data.find(i=>i.id===user.id)
           if (item) item.country=user.profile?.country||user.profile?.flag||'noflag';
@@ -497,6 +497,15 @@
       this.processFlags();
     };
 
+    clearCache=()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      this._flagCache=undefined;
+      this._countryCache=undefined;
+      lichess.storage.remove('LiChessTools.flagCache');
+      lichess.storage.remove('LiChessTools.countryCache');
+    }
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('showFlags');
@@ -508,17 +517,19 @@
       lichess.pubsub.off('content-loaded',this.debouncedProcessFlags);
       lichess.pubsub.off('socket.in.crowd',this.debouncedProcessFlags);
       lichess.pubsub.off('puzzleChange',this.resetFlags);
+      $('#form3-flag').off('change',this.clearCache);
       if (value) {
         parent.global.requestAnimationFrame(this.debouncedProcessFlags);
         lichess.pubsub.on('content-loaded',this.debouncedProcessFlags);
         lichess.pubsub.on('socket.in.crowd',this.debouncedProcessFlags);
         lichess.pubsub.on('puzzleChange',this.resetFlags);
+
+        $('#form3-flag').on('change',this.clearCache);
       } else {
         $('.lichessTools-flag+img.flag').remove();
         $('.lichessTools-flag').removeClass('lichessTools-flag');
         $('.lichessTools-noflag').removeClass('lichessTools-noflag');
-        lichess.storage.remove('LiChessTools.flagCache');
-        lichess.storage.remove('LiChessTools.countryCache');
+        this.clearCache();
       }
     }
 

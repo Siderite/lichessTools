@@ -120,11 +120,11 @@
         const n1={
           children: [],
           eval: n2.eval,
-          comments: n2.comments?JSON.parse(JSON.stringify(n2.comments)):[],
-          glyphs: n2.glyphs?JSON.parse(JSON.stringify(n2.glyphs)):[],
-          shapes: n2.shapes?JSON.parse(JSON.stringify(n2.shapes)):[],
-          ceval: n2.ceval?JSON.parse(JSON.stringify(n2.ceval)):null,
-          opening: n2.opening?JSON.parse(JSON.stringify(n2.opening)):null,
+          comments: parent.clone(n2.comments)||[],
+          glyphs: parent.clone(n2.glyphs)||[],
+          shapes: parent.clone(n2.shapes)||[],
+          ceval: parent.clone(n2.ceval)||null,
+          opening: parent.clone(n2.opening)||null,
           id: n2.id,
           ply: n2.ply,
           san:n2.san,
@@ -196,7 +196,7 @@
         }
         const varNodes=getVarNodes(varNode,options.separateLines);
         const pgns=[];
-        const tags=JSON.parse(JSON.stringify(analysis.study?.data?.chapter?.tags||[]));
+        const tags=parent.clone(analysis.study?.data?.chapter?.tags)||[];
         if (analysis.getOrientation()!='white') {
           addTag(tags,'StartFlipped','1');
           addTag(tags,'Orientation','Black');

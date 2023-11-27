@@ -143,14 +143,12 @@
       const parent=this.lichessTools;
       const key=parent.global.JSON.stringify(url);
       let result = this.cache[key];
-      if (result!==undefined) return result;
+      if (result !== undefined) return result;
       options=options||{};
       options.ignoreStatuses=[404];
       try {
         const json = await parent.net.fetch(url,options);
-        result=json
-          ? parent.global.JSON.parse(json)
-          : null;
+        result=parent.jsonParse(json);
         this.cache[key]=result;
       } catch(e) {
         parent.global.console.debug('Error fetching 404 JSON API',url,e);

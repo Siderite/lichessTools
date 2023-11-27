@@ -52,12 +52,7 @@
         if (text) {
           const m=/^(.*?)\r\n---- LiChess Tools Preferences ----\r\n(.*)$/.exec(text);
           if (m) {
-            let newOptions;
-            try {
-              newOptions=parent.global.JSON.parse(m[2]);
-            } catch {
-              newOptions=null;
-            }
+            const newOptions=parent.jsonParse(m[2],null);
             return {
               loaded:!!newOptions,
               ...options,
