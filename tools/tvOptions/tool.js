@@ -75,6 +75,7 @@
           id:'tvOptions',
           before:($this,name,info)=>{
             if (name=='socket.in.finish') {
+              if (!this.isStreamerTvPage()&&!this.isFriendsTvPage()) return;
               const gameId=info.id;
               $('main.tv-games div.page-menu__content.now-playing a[data-live="'+gameId+'"]').remove();
               this.updateTvOptionsPage();
