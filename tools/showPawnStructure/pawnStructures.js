@@ -38,11 +38,11 @@
       url: 'https://en.wikipedia.org/wiki/Pawn_structure#Sicilian_%E2%80%93_Dragon'
     },
     'X2210XMX': {
-      name: 'Maroczi Bind',
+      name: 'Mar\u00f3czi Bind',
       url: 'https://en.wikipedia.org/wiki/Pawn_structure#Mar%C3%B3czy_Bind'
     },
     'X2201XMX': {
-      name: 'Maroczi Bind',
+      name: 'Mar\u00f3czi Bind',
       url: 'https://en.wikipedia.org/wiki/Pawn_structure#Mar%C3%B3czy_Bind'
     },
     'X2211XMX 000010': {
@@ -102,7 +102,7 @@
       url: 'https://thechessworld.com/articles/openings/closed-center-in-kid-and-benoni/'
     },
     '2X320XMT': {
-      name: 'Panov II',
+      name: 'Panov',
       url: 'https://en.wikipedia.org/wiki/Pawn_structure#Panov_formation'
     },
     '32X12XXX': {
@@ -122,11 +122,11 @@
       url: 'https://en.wikipedia.org/wiki/Pawn_structure#d5-chain'
     },
     '2X0210XM': {
-      name: 'French I',
+      name: 'French',
       url: 'https://en.wikipedia.org/wiki/Pawn_structure#e5-chain'
     },
     'X3121XMX': {
-      name: 'French II',
+      name: 'French',
       url: 'https://en.wikipedia.org/wiki/Pawn_structure#e5-chain'
     },
     'XX1X1XMT': {
@@ -146,11 +146,11 @@
       url: 'https://chess-structures.com/2015/04/23/chess-structures-in-practice-the-closed-ruy-lopez/'
     },
     'X20X22XX': {
-      name: 'Najdorf II',
+      name: 'Najdorf',
       url: 'https://thechessworld.com/articles/openings/beating-the-najdorf-common-middlegame-structures/'
     },
     'X2022XMX': {
-      name: 'Najdorf III',
+      name: 'Najdorf',
       url: 'https://thechessworld.com/articles/openings/beating-the-najdorf-common-middlegame-structures/'
     }
   };
