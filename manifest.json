@@ -6,7 +6,7 @@
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
-  "minimum_chrome_version": "111",
+  "minimum_chrome_version": "1",
   "icons": {
     "16": "images/icon-16.png",
     "19": "images/icon-19.png",
