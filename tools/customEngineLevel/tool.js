@@ -117,62 +117,44 @@
 
     };
 
-    async start() {
+
+    determineCevalState=()=>{
       const parent=this.lichessTools;
-      const value=+(parent.currentOptions.getValue('customEngineLevel'));
-      const customEngineOptions=parent.currentOptions.getValue('customEngineOptions');
-      this.logOption('Custom engine level', value || 'Not set');
-      this.logOption('Custom engine options', customEngineOptions);
-      this.options={
-        depth: value,
-        noCloud: parent.isOptionSet(customEngineOptions,'noCloud'),
-        practice: parent.isOptionSet(customEngineOptions,'practice'),
-        get isSet() { return this.depth || this.noCloud || this.practice; }
-      };
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!analysis) return;
 
-      lichess.pubsub.off('redraw',this.analysisControls);
-      lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'customEngineOptions');
-      lichess.pubsub.on('redraw',this.analysisControls);
-      lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
-        id:'customEngineOptions',
-        after: ($this, result, ...args)=>{
-          parent.global.setTimeout(this.analysisControls,100);
-        }
-      });
-      this.analysisControls();
+      if (analysis.practice?.running() && !this.options.practice) return;
+      const node=analysis.ceval.lastStarted?.steps?.at(-1);
+      const curDepth=node?.ceval?.depth;
+      if (analysis.ceval.enabled() && analysis.ceval.showingCloud() && analysis.ceval.canGoDeeper()
+          && (this.options.noCloud || (this.options.depth && curDepth!==undefined && curDepth<this.options.depth)))
+      {
+        node.autoDeeper=this.options.depth;
+        analysis.ceval.goDeeper();
+        analysis.redraw();
+      }
+      if (analysis.ceval.enabled() && !analysis.ceval.showingCloud() && node.autoDeeper
+          && this.options.depth && curDepth!==undefined && curDepth>=this.options.depth)
+      {
+        node.autoDeeper=undefined;
+        analysis.ceval.stop();
+        analysis.redraw();
+      }
+    };
 
-      const determineCevalState=()=>{
-        if (analysis.practice?.running() && !this.options.practice) return;
-        const node=analysis.ceval.lastStarted?.steps?.at(-1);
-        const curDepth=node?.ceval?.depth;
-        if (analysis.ceval.enabled() && analysis.ceval.showingCloud() && analysis.ceval.canGoDeeper()
-            && (this.options.noCloud || (this.options.depth && curDepth!==undefined && curDepth<this.options.depth)))
-        {
-          node.autoDeeper=this.options.depth;
-          analysis.ceval.goDeeper();
-          analysis.redraw();
-        }
-        if (analysis.ceval.enabled() && !analysis.ceval.showingCloud() && node.autoDeeper
-            && this.options.depth && curDepth!==undefined && curDepth>=this.options.depth)
-        {
-          node.autoDeeper=undefined;
-          analysis.ceval.stop();
-          analysis.redraw();
-        }
-      };
+    wrapEval=()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
+      if (!analysis) return;
 
       if (this.options.depth||this.options.noCloud) {
         if (!parent.isWrappedFunction(analysis.evalCache.onCeval,'customEngineOptions')) {
           analysis.evalCache.onCeval=parent.wrapFunction(analysis.evalCache.onCeval,{
             id:'customEngineOptions',
             before:($this,...args)=>{
-              determineCevalState();
-            },
-            after:($this,result,...args)=>{
-              ;
+              this.determineCevalState();
             }
           });
         }
@@ -210,8 +192,44 @@
         analysis.evalCache.fetch=parent.unwrapFunction(analysis.evalCache.fetch,'customEngineOptions');
         analysis.explorer.fetchTablebaseHit=parent.unwrapFunction(analysis.explorer.fetchTablebaseHit,'customEngineOptions');
       }
+    };
 
-      determineCevalState();
+    async start() {
+      const parent=this.lichessTools;
+      const value=+(parent.currentOptions.getValue('customEngineLevel'));
+      const customEngineOptions=parent.currentOptions.getValue('customEngineOptions');
+      this.logOption('Custom engine level', value || 'Not set');
+      this.logOption('Custom engine options', customEngineOptions);
+      this.options={
+        depth: value,
+        noCloud: parent.isOptionSet(customEngineOptions,'noCloud'),
+        practice: parent.isOptionSet(customEngineOptions,'practice'),
+        get isSet() { return this.depth || this.noCloud || this.practice; }
+      };
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
+      if (!analysis) return;
+
+      lichess.pubsub.off('redraw',this.analysisControls);
+      analysis.actionMenu.toggle=lichessTools.unwrapFunction(analysis.actionMenu.toggle,'customEngineOptions');
+      lichess.pubsub.on('redraw',this.analysisControls);
+      analysis.actionMenu.toggle=lichessTools.wrapFunction(analysis.actionMenu.toggle,{
+        id:'customEngineOptions',
+        after: ($this, result, ...args)=>{
+          parent.global.setTimeout(this.analysisControls,100);
+        }
+      });
+      this.analysisControls();
+
+      this.wrapEval();
+      analysis.instanciateEvalCache=parent.wrapFunction(analysis.instanciateEvalCache,{
+        id:'customEngineOptions',
+        after:($this,result,...args)=>{
+          this.wrapEval();
+        }
+      });
+
+      this.determineCevalState();
     }
 
   }
