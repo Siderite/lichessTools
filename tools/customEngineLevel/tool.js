@@ -127,15 +127,17 @@
       if (analysis.practice?.running() && !this.options.practice) return;
       const node=analysis.ceval.lastStarted?.steps?.at(-1);
       const curDepth=node?.ceval?.depth;
-      if (analysis.ceval.enabled() && analysis.ceval.showingCloud() && analysis.ceval.canGoDeeper()
-          && (this.options.noCloud || (this.options.depth && curDepth!==undefined && curDepth<this.options.depth)))
+      if (!analysis.ceval.enabled()) return;
+      if (analysis.ceval.showingCloud() && analysis.ceval.canGoDeeper()
+          && (this.options.noCloud || (this.options.depth && curDepth<this.options.depth)))
       {
-        node.autoDeeper=this.options.depth;
+        node.autoDeeper=true;
         analysis.ceval.goDeeper();
         analysis.redraw();
+        return;
       }
-      if (analysis.ceval.enabled() && !analysis.ceval.showingCloud() && node.autoDeeper
-          && this.options.depth && curDepth!==undefined && curDepth>=this.options.depth)
+      if (!analysis.ceval.showingCloud() && (node.autoDeeper || !analysis.ceval.isDeeper())
+          && this.options.depth && curDepth>=this.options.depth)
       {
         node.autoDeeper=undefined;
         analysis.ceval.stop();
