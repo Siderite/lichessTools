@@ -69,7 +69,7 @@
       name: 'Stonewall',
       url: 'https://en.wikipedia.org/wiki/Pawn_structure#Stonewall_formation'
     },
-    '210210XX 200200': {
+    '122122XX': {
       name: 'Botvinnik',
       url: 'https://en.wikipedia.org/wiki/Pawn_structure#Botvinnik_system'
     },
@@ -152,6 +152,42 @@
     'X2022XMX': {
       name: 'Najdorf',
       url: 'https://thechessworld.com/articles/openings/beating-the-najdorf-common-middlegame-structures/'
+    },
+    '32X10XXX': {
+      name: 'Mar\u00f3czi SymT',
+      url: 'https://en.wikipedia.org/wiki/Pawn_structure#Mar%C3%B3czy_Bind'
+    },
+    '3X210XMT': {
+      name: 'Mar\u00f3czi AsymT',
+      url: 'https://en.wikipedia.org/wiki/Pawn_structure#Mar%C3%B3czy_Bind'
+    },
+    '3X2122XM 00020X': {
+      name: 'KID II TA',
+      url: 'https://en.wikipedia.org/wiki/Pawn_structure#d5-chain'
+    },
+    '3X2122XM 000X00': {
+      name: 'KID II TB',
+      url: 'https://en.wikipedia.org/wiki/Pawn_structure#d5-chain'
+    },
+    '3X2120XM 00020X': {
+      name: 'd5 Chain TA',
+      url: 'https://en.wikipedia.org/wiki/Pawn_structure#d5-chain'
+    },
+    '3X2120XM 000X00': {
+      name: 'd5 Chain TB',
+      url: 'https://en.wikipedia.org/wiki/Pawn_structure#d5-chain'
+    },
+    'X2X1XXXM': {
+      name: 'Lopez Exchange',
+      url: 'https://chess-structures.com/2015/04/23/chess-structures-in-practice-the-closed-ruy-lopez/'
+    },
+    '2X0X11MT': {
+      name: 'Caro',
+      url: 'https://en.wikipedia.org/wiki/Pawn_structure#Caro_formation'
+    },
+    '320120XX': {
+      name: 'd5 Chain',
+      url: 'https://en.wikipedia.org/wiki/Pawn_structure#d5-chain'
     }
   };
 

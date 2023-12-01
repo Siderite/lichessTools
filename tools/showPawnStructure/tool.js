@@ -301,9 +301,11 @@
       if ($('body').is('.playing')) return;
       const trans=parent.translator;
       const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables').eq(0);
-      const fen=parent.getPositionFromBoard($('main'),true);
+      const fen=lichess.analysis?.node?.fen || parent.getPositionFromBoard($('main'),true);
       const board=parent.getBoardFromFen(fen);
-      const structure=this.getStructure(board,$('.cg-wrap').is('.orientation-black'));
+      const analysisOrientation = lichess.analysis?.getOrientation();
+      const isBlackOrientation = (analysisOrientation && analysisOrientation=='black') || $('.cg-wrap').is('.orientation-black');
+      const structure=this.getStructure(board,isBlackOrientation);
       if (!structure) {
         $('.lichessTools-structure',metaSection).remove();
         return;

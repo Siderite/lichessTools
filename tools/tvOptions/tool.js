@@ -54,6 +54,10 @@
        return /^\/games(\/|$)?/i.test(this.lichessTools.global.location.pathname);
     };
 
+    isBestTvPage=()=>{
+       return /^\/games\/best\/?$/i.test(this.lichessTools.global.location.pathname);
+    };
+
     isStreamerTvPage=()=>{
        return /^\/games\/?$/i.test(this.lichessTools.global.location.pathname) && location.hash=='#streamers';
     };
@@ -141,6 +145,17 @@
                });
     };
 
+    refreshTimeControls=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('a.mini-game[data-tc]').each((i,e)=>{
+        const timeControl=parent.getGameTime($(e).attr('data-tc'),true);
+        if (timeControl) {
+          $(e).addClass(timeControl);
+        }
+      });
+    };
+
     refreshGames=async (playerIds,className,container,streamers)=>{
       const parent=this.lichessTools;
       const $=parent.$;
@@ -154,7 +169,7 @@
         if (players.length) {
           parent.arrayRemoveAll(notFound,u=>players.includes(u));
         } else {
-          $(e).remove();
+          $(e).remove()
         }
       });
       for (const userId of notFound) {
@@ -163,6 +178,10 @@
           if (!text) continue;
           const html=$('<x>'+text+'</x>').find('a.mini-game');
           if (!html.length) continue;
+          const timeControl=parent.getGameTime(html.attr('data-tc'),true);
+          if (timeControl) {
+            html.addClass(timeControl);
+          }
           if (streamers) {
             $('<span>')
               .addClass(className)
@@ -190,6 +209,11 @@
       if (parent.global.document.hidden) return;
       const container = $('main.tv-games div.page-menu__content.now-playing');
       if (!container.length) return;
+      if (this.isBestTvPage()) {
+        container.toggleClass('lichessTools-bestTv',this.options.streamerTv||this.options.friendsTv);
+      } else {
+        container.removeClass('lichessTools-bestTv');
+      }
       if (this.isStreamerTvPage()) {
         container.toggleClass('lichessTools-streamerTv',this.options.streamerTv);
         const playerIds=(await parent.net.json('/api/streamer/live'))?.map(s=>s.id);
@@ -213,6 +237,7 @@
       }
       parent.global.clearTimeout(this.timeout);
       this.timeout=parent.global.setTimeout(this.updateTvOptionsPage,10000);
+      this.refreshTimeControls();
     };
     updateTvOptionsPage=this.lichessTools.debounce(this.updateTvOptionsPageDirect,1000);
 
@@ -285,9 +310,11 @@
       if (!lichess) return;
       $(parent.global).off('hashchange',this.hashChange);
       lichess.pubsub.off('socket.close',this.hashChange);
+      lichess.pubsub.off('content-loaded',this.refreshTimeControls);
       if (this.options.friendsTv || this.options.streamerTv) {
         $(parent.global).on('hashchange',this.hashChange);
         lichess.pubsub.on('socket.close',this.hashChange);
+        lichess.pubsub.on('content-loaded',this.refreshTimeControls);
         parent.global.setTimeout(this.hashChange,100);
       }
 

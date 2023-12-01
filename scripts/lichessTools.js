@@ -174,11 +174,16 @@
       return false;
     };  
 
-    getGameTime(timeControl) {
+    getGameTime(timeControl,notPgn) {
       if (!timeControl) return '';
-      const m=/^(\d+)(?:\+(\d+))?$/.exec(timeControl);
+      const m=/^([\d\u00bc\u00bd]+)(?:\+(\d+))?$/.exec(timeControl);
       if (!m) return timeControl;
-      const initial=+m[1];
+      let initial;
+      switch(m[1]) {
+        case '\u00bd': initial=0.5; break;
+        case '\u00bc': initial=0.25; break;
+        default: initial=+m[1]*(notPgn?60:1); break;
+      }
       const increment=m[2]?+m[2]:0;
       const time=initial+40*increment;
       if (!time) return timeControl;
@@ -441,8 +446,8 @@
         : $('cg-container',el)[0]
       const container=$(elem);
       const variantElem=container.closest('div.round__app, main, a.mini-game');
-      const isStandard = variantElem.is('.standard,.variant-standard');
-      if (!isStandard) return;
+      //const isStandard = variantElem.is('.standard,.variant-standard');
+      //if (!isStandard) return;
 
       const width=container.width()/8;
       const parentOffset=container.offset();
