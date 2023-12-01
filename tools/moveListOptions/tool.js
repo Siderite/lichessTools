@@ -663,7 +663,7 @@
       if (lichess.socket) {
         lichess.socket.handle=parent.unwrapFunction(lichess.socket.handle,'moveListOptions');
       }
-      $(window).off('hashchange',this.hashChange);
+      $(parent.global).off('hashchange',this.hashChange);
       if (this.options.bookmarks) {
         lichess.pubsub.on('redraw',this.debouncedAddCommentBookmarks);
         lichess.pubsub.on('chapterChange',this.debouncedAddCommentBookmarks);
@@ -676,7 +676,7 @@
           });
         }
         this.addCommentBookmarks();
-        $(window).on('hashchange',this.hashChange);
+        $(parent.global).on('hashchange',this.hashChange);
         parent.global.setTimeout(this.hashChange,100);
       }
 

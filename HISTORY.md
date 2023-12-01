@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+01 Dec
+  - More pawn structures
+  - adding icons for best, friends and streamer Current Games to show the type/time controls for minigames
+
 25 Nov
   - Show pawn structure
   - Show opening names in study

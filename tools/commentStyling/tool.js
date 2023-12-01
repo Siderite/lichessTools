@@ -64,7 +64,7 @@
         if (!$('.study__buttons span.lichessTools-colors').length) {
           const button=$('<span>')
             .attr('title',trans.noarg('commentStyleCycle'))
-            .attr('data-icon','\uE029') //'\uE01E')
+            .attr('data-icon','\uE029')
             .addClass('lichessTools-colors')
             .on('click',this.cycleCommentColor)
             .insertAfter('.study__buttons span.comments');
