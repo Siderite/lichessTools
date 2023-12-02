@@ -29,10 +29,15 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
+      const analysis=lichess.analysis;
+      if (!analysis) return;
       let pgn=$('.analyse__underboard .pgn textarea').val();
       if (!pgn) return;
-      if (lichess.analysis.getOrientation()!="white" && !/\[Orientation|\[StartFlipped/.test(pgn)) {
+      if (analysis.getOrientation()!="white" && !/\[Orientation|\[StartFlipped/.test(pgn)) {
         pgn='[Orientation "Black"]\r\n[StartFlipped "1"]\r\n'+pgn;
+      }
+      if (!parent.isStartFen(analysis.tree.root.fen)) {
+        pgn='[FEN "'+analysis.tree.root.fen+'"]\r\n'+pgn;
       }
       if (this.prevPgn===pgn) return;
       const savedPgn=parent.currentOptions.getValue('prevAnalysis');

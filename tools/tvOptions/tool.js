@@ -55,7 +55,7 @@
     };
 
     isBestTvPage=()=>{
-       return /^\/games\/best\/?$/i.test(this.lichessTools.global.location.pathname);
+       return /^\/games(\/best)?\/?$/i.test(this.lichessTools.global.location.pathname) && !location.hash;
     };
 
     isStreamerTvPage=()=>{

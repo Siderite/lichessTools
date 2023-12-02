@@ -512,6 +512,10 @@
       return pos;
     };
 
+    isStartFen=(fen)=>{
+      return fen?.startsWith('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
+    };
+
     getBoardFromFen=fen=>{
       if (!fen) return null;
       const result=[];

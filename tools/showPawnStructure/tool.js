@@ -304,7 +304,7 @@
       const fen=lichess.analysis?.node?.fen || parent.getPositionFromBoard($('main'),true);
       const board=parent.getBoardFromFen(fen);
       const analysisOrientation = lichess.analysis?.getOrientation();
-      const isBlackOrientation = (analysisOrientation && analysisOrientation=='black') || $('.cg-wrap').is('.orientation-black');
+      const isBlackOrientation = (analysisOrientation && analysisOrientation=='black') || $('.cg-wrap').eq(0).is('.orientation-black');
       const structure=this.getStructure(board,isBlackOrientation);
       if (!structure) {
         $('.lichessTools-structure',metaSection).remove();
