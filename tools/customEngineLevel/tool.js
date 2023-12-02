@@ -125,7 +125,6 @@
       if (!analysis) return;
 
       if (analysis.practice?.running() && !this.options.practice) return;
-      if (!this.options.depth) return;
       if (!analysis.ceval.enabled()) return;
 
       const node=analysis.ceval.lastStarted?.steps?.at(-1);
