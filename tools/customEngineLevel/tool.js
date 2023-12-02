@@ -125,9 +125,11 @@
       if (!analysis) return;
 
       if (analysis.practice?.running() && !this.options.practice) return;
+      if (!this.options.depth) return;
+      if (!analysis.ceval.enabled()) return;
+
       const node=analysis.ceval.lastStarted?.steps?.at(-1);
       const curDepth=node?.ceval?.depth;
-      if (!analysis.ceval.enabled()) return;
       if (analysis.ceval.showingCloud() && analysis.ceval.canGoDeeper()
           && (this.options.noCloud || (this.options.depth && curDepth<this.options.depth)))
       {
@@ -213,8 +215,10 @@
       if (!analysis) return;
 
       lichess.pubsub.off('redraw',this.analysisControls);
+      lichess.pubsub.off('redraw',this.determineCevalState);
       analysis.actionMenu.toggle=lichessTools.unwrapFunction(analysis.actionMenu.toggle,'customEngineOptions');
       lichess.pubsub.on('redraw',this.analysisControls);
+      lichess.pubsub.on('redraw',this.determineCevalState);
       analysis.actionMenu.toggle=lichessTools.wrapFunction(analysis.actionMenu.toggle,{
         id:'customEngineOptions',
         after: ($this, result, ...args)=>{
