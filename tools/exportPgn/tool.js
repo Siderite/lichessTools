@@ -201,7 +201,7 @@
           addTag(tags,'StartFlipped','1');
           addTag(tags,'Orientation','Black');
         }
-        if (varNode?.fen && varNode.fen!='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
+        if (varNode?.fen && !parent.isStartFen(varNode.fen)) {
           addTag(tags,'FEN',varNode.fen);
         }
         const tagString=tags.length?tags.map(tag=>'['+tag[0]+' "'+tag[1]+'"]').join('\r\n')+'\r\n':'';
