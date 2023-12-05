@@ -651,6 +651,14 @@
       return this.global.JSON.parse(this.global.JSON.stringify(obj));
     };
 
+    isGamePlaying() {
+      const game = this.lichess.analysis?.data?.game;
+      if (!game) return false;
+      if (game.id=='synthetic') return false;
+      if (game.status.id>20) return false;
+      return true;
+    }
+
     intl={
       lichessTools:this,
       defaultLanguage:'en-US',

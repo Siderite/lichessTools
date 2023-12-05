@@ -57,6 +57,7 @@
       const orientation=analysis.getOrientation()=='black'?-1:1;
       const container=$('section.explorer-box table.moves');
       if (!container.length) return;
+      if (parent.isGamePlaying()) return;
       if (!$('th.lichessTools-explorerEval',container).length) {
         $('<th>')
             .addClass('lichessTools-explorerEval')
@@ -194,6 +195,7 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis.explorer?.enabled()) return;
+      if (parent.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!explorerMoves?.length) return;
       const fen=analysis.node.fen;

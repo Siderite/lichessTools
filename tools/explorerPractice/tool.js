@@ -116,6 +116,10 @@
         this.isRunning=false;
         return;
       };
+      if (parent.isGamePlaying())  {
+        this.isRunning=false;
+        return;
+      }
       const explorerContainer=$('section.explorer-box').eq(0);
       if (!explorerContainer.length) {
         this.isRunning=false;
