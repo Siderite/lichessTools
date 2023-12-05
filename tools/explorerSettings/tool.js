@@ -107,14 +107,17 @@
       let value=parent.currentOptions.getValue('explorerEval');
       value=!parent.isOptionSet(value,'hidden');
       $('button.lichessTools-moveEvaluation',section)
-        .attr('aria-pressed',value.toString());
+        .attr('aria-pressed',value.toString())
+        .prop('disabled',parent.isGamePlaying());
       value=parent.currentOptions.getValue('explorerGambits');
       $('button.lichessTools-gambits',section)
-        .attr('aria-pressed',value.toString());
+        .attr('aria-pressed',value.toString())
+        .prop('disabled',parent.isGamePlaying());
       value=parent.currentOptions.getValue('explorerPractice');
       $('button.lichessTools-explorerPractice',section)
-        .attr('aria-pressed',value.toString());
-      value=parent.currentOptions.getValue('openingExplorerUsers');
+        .attr('aria-pressed',value.toString())
+        .prop('disabled',parent.isGamePlaying());
+     
       value=parent.isOptionSet(value,'switchWithMe');
       $('button.lichessTools-meButton',section)
         .attr('aria-pressed',value.toString());

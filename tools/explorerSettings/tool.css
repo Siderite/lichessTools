@@ -1,0 +1,3 @@
+body.lichessTools section.lichessTools-explorerSettings button[disabled] {
+  opacity:0.3;
+}
