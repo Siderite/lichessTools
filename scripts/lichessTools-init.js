@@ -61,6 +61,7 @@ lichessTools.loadTool(LiChessTools.Tools.WikiFen);
 lichessTools.loadTool(LiChessTools.Tools.TranspositionArrows);
 lichessTools.loadTool(LiChessTools.Tools.TvOptions);
 lichessTools.loadTool(LiChessTools.Tools.ShowPawnStructure);
+lichessTools.loadTool(LiChessTools.Tools.ExplorerSnaps);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
