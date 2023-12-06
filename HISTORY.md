@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+06 Dec
+  - save different Explorer settings and toggle between them
+  - click on Explorer sum row to get a random move, weighted on move probabilities
+
 01 Dec
   - More pawn structures
   - adding icons for best, friends and streamer Current Games to show the type/time controls for minigames
