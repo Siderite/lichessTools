@@ -659,6 +659,12 @@
       return true;
     }
 
+    assetUrl(url) {
+      // TODO remove lichess.assetUrl when the lichess code stabilizes
+      const func=(this.lichess.asset?.url || this.lichess.assetUrl).bind(this.lichess);
+      return func(url);
+    }
+
     intl={
       lichessTools:this,
       defaultLanguage:'en-US',

@@ -5,8 +5,9 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       if (!lichess) return;
-      lichess.loadEsm=parent.unwrapFunction(lichess.loadEsm,'emitEsmLoaded');
-      lichess.loadEsm=parent.wrapFunction(lichess.loadEsm,{
+      // TODO remove old lichess.loadEsm when the code stabilizes
+      let loadEsm=parent.unwrapFunction(lichess.asset?.loadEsm || lichess.loadEsm,'emitEsmLoaded');
+      loadEsm=parent.wrapFunction(loadEsm,{
         id:'emitEsmLoaded',
         after: ($this,result,...args)=>{
           result?.then(m=>{
@@ -14,6 +15,11 @@
           });
         }
       });
+      if (lichess.asset?.loadEsm) {
+        lichess.asset={...lichess.asset,loadEsm};
+      } else {
+        lichess.loadEsm=loadEsm;
+      }
     }
   }
   LiChessTools.Tools.EmitEsmLoaded=EmitEsmLoadedTool;

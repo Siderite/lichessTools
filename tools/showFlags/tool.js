@@ -472,7 +472,7 @@
             elem.addClass('lichessTools-noflag');
           } else {
             elem.addClass('lichessTools-flag');
-            const flagUrl=parent.lichess.assetUrl('images/flags/'+item.country+'.png');
+            const flagUrl=parent.assetUrl('images/flags/'+item.country+'.png');
             elem.after($('<img>')
               .addClass('flag')
               .attr('loading','lazy')
