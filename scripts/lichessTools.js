@@ -866,10 +866,10 @@
       } else {
         options = await this.getOptions();
       }
-      if (this.prevOptions===JSON.stringify(options)) {
+      if (this.prevOptions===this.global.JSON.stringify(options)) {
         return;
       }
-      this.prevOptions=JSON.stringify(options);
+      this.prevOptions=this.global.JSON.stringify(options);
       this.currentOptions=options;
       this.$('body').toggleClass('lichessTools',options.enableLichessTools);
       const console=this.global.console;
@@ -885,7 +885,7 @@
     }
 
     async saveOptions(options) {
-      const optionsJson=JSON.stringify(options);
+      const optionsJson=this.global.JSON.stringify(options);
       this.global.localStorage.setItem('LiChessTools2.options',optionsJson);
     }
   }
