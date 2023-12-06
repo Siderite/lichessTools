@@ -15,8 +15,8 @@
         name:'explorerPracticeOptions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['showSmileys'],
-        defaultValue: 'showSmileys',
+        possibleValues: ['showSmileys','sumClick'],
+        defaultValue: 'showSmileys,sumClick',
         advanced: true
       }
     ];
@@ -28,7 +28,9 @@
         'options.explorerPracticeOptions': 'Explorer Practice options',
         'explorerPracticeTitle': 'LiChess Tools - practice against Explorer moves',
         'outOfMoves':'Out of Explorer moves',
-        'explorerPracticeOptions.showSmileys': 'Show emojis when out of moves'
+        'explorerPracticeOptions.showSmileys': 'Show emojis when out of moves',
+        'explorerPracticeOptions.sumClick': 'Click Explorer \u03A3 to make a move',
+        'sumClickTitle':'LiChess Tools - click to make a move'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -36,18 +38,20 @@
         'options.explorerPracticeOptions': 'Op\u0163iuni pentru Antrenament cu Exploratorul',
         'explorerPracticeTitle': 'LiChess Tools - antrenament contra mut\u0103ri din Explorator',
         'outOfMoves':'Numai sunt mut\u0103ri \u00een Explorator',
-        'explorerPracticeOptions.showSmileys': 'Arat\u0103 emoji c\u00E2nd nu mai sunt mut\u0103ri'
+        'explorerPracticeOptions.showSmileys': 'Arat\u0103 emoji c\u00E2nd nu mai sunt mut\u0103ri',
+        'explorerPracticeOptions.sumClick': 'Click pe \u03A3 \u00een Explorator pentru a muta',
+        'sumClickTitle':'LiChess Tools - click pentru a muta'
       }
     }
 
-    playMove=()=>{
+    playMove=(ignoreSide)=>{
       const parent=this.lichessTools;
       const Math=parent.global.Math;
       const lichess=parent.lichess;
       const trans=parent.translator;
       const $=parent.$;
       const analysis=lichess?.analysis;
-      if (analysis.turnColor()===analysis.getOrientation()) {
+      if (!ignoreSide && analysis.turnColor()===analysis.getOrientation()) {
         this.inPlayMove=false;
         this.stopCeval=false;
         return;
@@ -106,6 +110,10 @@
       }
     };
 
+    makeRandomMove=()=>{
+      this.playMove(true);
+    };
+
     process=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -124,6 +132,18 @@
       if (!explorerContainer.length) {
         this.isRunning=false;
         return;
+      }
+      const sumRow=$('tr.sum',explorerContainer);
+      sumRow.off('click',this.makeRandomMove);
+      if (this.options.sumClick) {
+        sumRow
+          .addClass('lichessTools-sumClick')
+          .attr('title',trans.noarg('sumClickTitle'))
+          .on('click',this.makeRandomMove);
+      } else {
+        sumRow
+          .removeClass('lichessTools-sumClick')
+          .removeAttr('title');
       }
       const container=$('div.explorer-title',explorerContainer);
       if (!container.length) {
@@ -155,7 +175,8 @@
       const value=parent.currentOptions.getValue('explorerPractice');
       const options=parent.currentOptions.getValue('explorerPracticeOptions');
       this.options={
-        showSmileys:parent.isOptionSet(options,'showSmileys')
+        showSmileys:parent.isOptionSet(options,'showSmileys'),
+        sumClick:parent.isOptionSet(options,'sumClick')
       };
       this.logOption('Explorer practice', value);
       this.logOption(' ... options', options);

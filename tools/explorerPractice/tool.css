@@ -25,6 +25,10 @@ body.lichessTools section.explorer-box.lichessTools-explorerPracticeInAnalysis t
   display:none;
 }
 
+body.lichessTools .explorer-box .moves tbody tr.sum.lichessTools-sumClick td {
+  cursor:pointer;
+}
+
 
 /* Prettier Lichess CSS */
 
