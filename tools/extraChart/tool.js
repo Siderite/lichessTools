@@ -1,7 +1,7 @@
 (()=>{
   class ExtraChartTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=[ 'EmitEsmLoaded' ];
+    dependencies=[ 'EmitEsmLoaded','EmitChapterChange' ];
 
     preferences=[
       {
@@ -476,7 +476,6 @@
       const parent=this.lichessTools;
       const Math=parent.global.Math;
       return mainline
-        .slice(1)
         .map((node,x) => {
           const cp=this.simple_material(node);
           return {
@@ -490,7 +489,6 @@
       const parent=this.lichessTools;
       const Math=parent.global.Math;
       return mainline
-        .slice(1)
         .map((node,x) => {
           const evl=this.heuristic(node);
           const mat=this.simple_material(node)
@@ -504,12 +502,11 @@
         .filter(r=>!!r);
     };
 
-    setBrilliant = (mainline) => {
-      if (mainline.brilliantInit) return;
+    setBrilliant = (mainline,forced) => {
+      if (!forced && mainline.brilliantInit) return;
       const parent=this.lichessTools;
       const Math=parent.global.Math;
       mainline
-        .slice(1)
         .map((node,x) => {
           if (x<3) return 0;
           const m=node.ply%2?1:-1;
@@ -551,14 +548,14 @@
         .forEach((v,x)=>{
           if (!v) return;
           const symbol='!?';
-          const glyphs=mainline[x+1].glyphs||[];
+          const glyphs=mainline[x].glyphs||[];
           if (!glyphs.length) {
             glyphs.push({
               symbol: symbol,
               name: 'Brilliant',
               type: 'nonStandard'
             });
-            mainline[x+1].glyphs=glyphs;
+            mainline[x].glyphs=glyphs;
           }
         });
       mainline.brilliantInit=true;
@@ -569,7 +566,6 @@
       let maxM=-1000;
       let maxX=0;
       mainline
-        .slice(1)
         .forEach((node,x) => {
           const tension=this.tension(node);
           const totalMaterial=this.simple_material(node,true);
@@ -588,7 +584,6 @@
       let maxM=-1000;
       let maxX=0;
       mainline
-        .slice(1)
         .forEach((node,x) => {
           const board=parent.getBoardFromFen(node.fen);
           const m=node.ply%2?-1:1;
@@ -620,14 +615,16 @@
       return result;
     };
 
-    showGoodMoves=()=>{
+    showGoodMoves=(forced)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const trans=parent.translator;
       const $=parent.$;
+      if (!this.options.brilliant) return;
+
       const hcElem=$('div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready')[0];
       let state=hcElem?.traverseState;
-      if (!state) {
+      if (!state || forced) {
         state=parent.traverse();
         if (hcElem) hcElem.traverseState=state;
       }
@@ -680,7 +677,7 @@
       fill(container,count,'black');
     }
 
-    generateCharts=()=>{
+    generateCharts=(forced)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const trans=parent.translator;
@@ -819,9 +816,9 @@
       }
 
       if (this.options.brilliant) {
-        this.setBrilliant(lichess.analysis.mainline);
+        this.setBrilliant(lichess.analysis.mainline,forced);
 
-        this.showGoodMoves();
+        this.showGoodMoves(forced);
       }
 
       if (updateChart) chart.update('none');
@@ -886,6 +883,8 @@
       });
     };
 
+    forceGenerateCharts=()=>this.generateCharts(true);
+
     async start() {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -906,9 +905,7 @@
       lichess.pubsub.on('esmLoaded',this.handleEsmLoaded);
       parent.global.clearInterval(this.interval);
       this.generateCharts();
-      if (!value) {
-        return;
-      }
+
       if (!this.options.gauge) {
         $('div.eval-gauge tick.lichessTools-material,div.eval-gauge tick.lichessTools-principled').remove();
         this.prevFen=null;
@@ -917,6 +914,10 @@
         this.generateCharts();
         this.generateTicks();
       },1000);
+      lichess.pubsub.off('chapterChange',this.forceGenerateCharts);
+      if (this.options.brilliant) {
+        lichess.pubsub.on('chapterChange',this.forceGenerateCharts);
+      }
     }
 
   }
