@@ -7,7 +7,7 @@ body.lichessTools.lichessTools-extendedInteractiveLesson button.preview::before 
   top:-2px;
 }
 
-body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview::after {
+/*body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview::after {
   content: attr(data-label);
   padding: 2px;
   display: none;
@@ -22,7 +22,7 @@ body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons butt
   color: #4d4d4d;
   background: #e3e3e3;
   pointer-events:none;
-}
+}*/
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview:hover::after {
   display: block;
@@ -45,7 +45,7 @@ body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons {
   position:relative;
 }
 
-body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons::before {
+/*body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons::before {
   content: attr(data-label);
   flex: auto;
   pointer-events:none;
@@ -53,7 +53,7 @@ body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons::befo
   left:0;
   position:absolute;
   z-index: -1;
-}
+}*/
 
 body.mobile.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons::before {
   font-size:xx-small;
