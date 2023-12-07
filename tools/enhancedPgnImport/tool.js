@@ -50,7 +50,7 @@
       const oldChangePgn=analysis.changePgn.__originalFunction.bind(analysis);
       const importPgn=function(pgn,merge) {
         const result = oldChangePgn(pgn,merge);
-        if (pgn) {
+        if (result && pgn) {
           const m=/\[Orientation\s*"Black"|StartFlipped\s*"1"\]/i.test(pgn);
           if (m) result.orientation="black";
         }

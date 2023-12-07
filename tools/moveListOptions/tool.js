@@ -694,7 +694,7 @@
       this.setupAnalysisPopup();
 
       lichess.pubsub.off('redraw',this.setupCevalToggle);
-      if (analysis.study && this.options.fixCevalToggle) {
+      if (analysis && this.options.fixCevalToggle) {
         lichess.pubsub.on('redraw',this.setupCevalToggle);
       }
       this.setupCevalToggle();

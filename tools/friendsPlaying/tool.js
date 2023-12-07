@@ -118,7 +118,7 @@
     }
     await this.lichessTools.timeout(500);
     this.beep.play();
-    let translation=this.lichessTools.translator.plural('playing',1,username)+', '+this.lichessTools.translator.noarg('gameType-'+gameType);
+    let translation=this.lichessTools.translator.plural('playing',1,username?.replace(/[_\-]/g,' '))+', '+this.lichessTools.translator.noarg('gameType-'+gameType);
     if (variant&&variant!='Standard') {
       translation+=' '+variant;
     }

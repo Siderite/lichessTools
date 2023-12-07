@@ -46,6 +46,7 @@
       const analysis=lichess?.analysis;
       const container=$('section.explorer-box table.moves');
       if (!container.length) return;
+      if (parent.isGamePlaying()) return;
       if (!result?.total) {
         $('.lichessTools-explorerGambits',container).remove();
         return;
@@ -118,6 +119,7 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis.explorer?.enabled()) return;
+      if (parent.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!explorerMoves?.length) return;
       const fen=analysis.node.fen;

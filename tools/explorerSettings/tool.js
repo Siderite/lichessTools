@@ -17,6 +17,7 @@
 
     intl={
       'en-US':{
+        'options.analysis': 'Analysis',
         'lichessTools': 'LiChess Tools',
         'moveEvaluationSettingText':'Evaluation',
         'moveEvaluationSettingTitle':'Move evaluation column',
@@ -28,6 +29,7 @@
         'meButtonSettingTitle':'Button to switch player with your user'
        },
       'ro-RO':{
+        'options.analysis': 'Analiz\u0103',
         'lichessTools': 'LiChess Tools',
         'moveEvaluationSettingText':'Evaluare',
         'moveEvaluationSettingTitle':'Coloan\u0103 cu evaluare mut\u0103ri',
@@ -52,7 +54,8 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
-      const container=$('section.explorer-box div.config >div:has(section.speed)');
+      if (!lichess.analysis?.explorer?.config?.data?.open()) return;
+      const container=$('section.explorer-box div.config >div:has(section.date)');
       if (!container.length) return;
       let section=$('section.lichessTools-explorerSettings',container);
       if (!section.length) {
@@ -107,13 +110,17 @@
       let value=parent.currentOptions.getValue('explorerEval');
       value=!parent.isOptionSet(value,'hidden');
       $('button.lichessTools-moveEvaluation',section)
-        .attr('aria-pressed',value.toString());
+        .attr('aria-pressed',value.toString())
+        .prop('disabled',parent.isGamePlaying());
       value=parent.currentOptions.getValue('explorerGambits');
       $('button.lichessTools-gambits',section)
-        .attr('aria-pressed',value.toString());
+        .attr('aria-pressed',value.toString())
+        .prop('disabled',parent.isGamePlaying());
       value=parent.currentOptions.getValue('explorerPractice');
       $('button.lichessTools-explorerPractice',section)
-        .attr('aria-pressed',value.toString());
+        .attr('aria-pressed',value.toString())
+        .prop('disabled',parent.isGamePlaying());
+     
       value=parent.currentOptions.getValue('openingExplorerUsers');
       value=parent.isOptionSet(value,'switchWithMe');
       $('button.lichessTools-meButton',section)

@@ -298,18 +298,21 @@
         }
       });
       let secondUpdate=false;
-      for (const user of this.user_data.online) {
-        let row=this.rows[user];
-        if (row) continue;
-        row=$(`<tr class="paginated">
-    <td><a class="user-link ulpt" href="/@/`+user+`"><i class="line"></i>`+user+`</a></td>
-    <td>?</td>
-    <td>?</td>
-    <td><div class="relation-actions btn-rack"></div></td>
-</tr>`);
-        $('tbody',table).append(row);
-        this.rows[user]=row;
-        secondUpdate=true;
+      const hasPages=!!$('tr.pager',table).length;
+      if (!hasPages) {
+        for (const user of this.user_data.online) {
+          let row=this.rows[user];
+          if (row) continue;
+          row=$(`<tr class="paginated">
+      <td><a class="user-link ulpt" href="/@/`+user+`"><i class="line"></i>`+user+`</a></td>
+      <td>?</td>
+      <td>?</td>
+      <td><div class="relation-actions btn-rack"></div></td>
+  </tr>`);
+          $('tbody',table).append(row);
+          this.rows[user]=row;
+          secondUpdate=true;
+        }
       }
       if (secondUpdate) {
         this.updateFriendsPage();

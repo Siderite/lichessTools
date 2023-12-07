@@ -651,6 +651,20 @@
       return this.global.JSON.parse(this.global.JSON.stringify(obj));
     };
 
+    isGamePlaying() {
+      const game = this.lichess.analysis?.data?.game;
+      if (!game) return false;
+      if (game.id=='synthetic') return false;
+      if (game.status.id>20) return false;
+      return true;
+    }
+
+    assetUrl(url) {
+      // TODO remove lichess.assetUrl when the lichess code stabilizes
+      const func=(this.lichess.asset?.url || this.lichess.assetUrl).bind(this.lichess);
+      return func(url);
+    }
+
     intl={
       lichessTools:this,
       defaultLanguage:'en-US',
@@ -852,10 +866,10 @@
       } else {
         options = await this.getOptions();
       }
-      if (this.prevOptions===JSON.stringify(options)) {
+      if (this.prevOptions===this.global.JSON.stringify(options)) {
         return;
       }
-      this.prevOptions=JSON.stringify(options);
+      this.prevOptions=this.global.JSON.stringify(options);
       this.currentOptions=options;
       this.$('body').toggleClass('lichessTools',options.enableLichessTools);
       const console=this.global.console;
@@ -871,7 +885,7 @@
     }
 
     async saveOptions(options) {
-      const optionsJson=JSON.stringify(options);
+      const optionsJson=this.global.JSON.stringify(options);
       this.global.localStorage.setItem('LiChessTools2.options',optionsJson);
     }
   }

@@ -306,9 +306,9 @@
       const trans=parent.translator;
       const analysis=parent.lichess.analysis;
       let translation=trans.noarg('extendedInteractiveLesson');
-      $('.gamebook-buttons').attr('data-label',translation);
+      //$('.gamebook-buttons').attr('data-label',translation);
       translation=trans.noarg('extendedInteractiveLessonLong')
-      $('button.preview').attr('data-label',translation);
+      $('button.preview').attr('title',translation); //.attr('data-label',translation);
 
       if (!this.options.extendedInteractive) return;
       const menu=$('#analyse-cm');

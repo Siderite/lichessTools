@@ -128,7 +128,8 @@
       if (!analysis.ceval.enabled()) return;
 
       const node=analysis.ceval.lastStarted?.steps?.at(-1);
-      const curDepth=node?.ceval?.depth;
+      if (!node) return;
+      const curDepth=node.ceval?.depth;
       if (analysis.ceval.canGoDeeper() && analysis.ceval.getState()==2) {
         if ((analysis.ceval.showingCloud() && this.options.noCloud) || (this.options.depth && curDepth<(node.autoDeeper || this.options.depth) ))
         {

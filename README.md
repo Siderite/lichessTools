@@ -66,6 +66,8 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
    - a friends tab in the Current Games section, to see just the games of the people you follow
    - a streamers tab in the Current Games section, to see just the games of streamers
  - show pawn structures in analysis, TV games and mini-games
+ - save different Explorer settings and toggle between them
+ - click on Explorer sum row to get a random move, weighted on move probabilities
  - commands! type /help to get a list
 
 Version 2.2 breaking changes:

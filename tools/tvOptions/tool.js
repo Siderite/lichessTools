@@ -149,7 +149,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       $('a.mini-game[data-tc]').each((i,e)=>{
-        const timeControl=parent.getGameTime($(e).attr('data-tc'),true);
+        const timeControl=parent.getGameTime($(e).attr('data-tc'));
         if (timeControl) {
           $(e).addClass(timeControl);
         }
@@ -178,7 +178,7 @@
           if (!text) continue;
           const html=$('<x>'+text+'</x>').find('a.mini-game');
           if (!html.length) continue;
-          const timeControl=parent.getGameTime(html.attr('data-tc'),true);
+          const timeControl=parent.getGameTime(html.attr('data-tc'));
           if (timeControl) {
             html.addClass(timeControl);
           }

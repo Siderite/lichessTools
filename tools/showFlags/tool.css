@@ -4,6 +4,7 @@ body.lichessTools img.flag {
   /*justify-self: end;/* conflict with LiTags extension */
   vertical-align: baseline;
   margin-left:5px;
+  margin-right:auto;
 }
 
 body.lichessTools div.player img.flag {
