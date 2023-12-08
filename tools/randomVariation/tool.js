@@ -121,7 +121,7 @@
       const lichess=parent.lichess;
       const arr=this.getNextMoves(node);
       if (!arr.length) return;
-      const isInteractive = !!lichess.analysis.study?.gamebookPlay();
+      const isInteractive = !!lichess.analysis.gamebookPlay();
       const total = parent.populatePercent(arr, isInteractive, depth);
       const index=parent.random()*total;
       let acc=0;
