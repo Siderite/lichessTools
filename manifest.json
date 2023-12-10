@@ -91,6 +91,7 @@
         "tools/showPawnStructure/pawnStructures.js",
         "tools/showPawnStructure/tool.js",
         "tools/explorerSnaps/tool.js",
+        "tools/miniGameSize/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -143,6 +144,7 @@
         "tools/moveListOptions/tool.css",
         "tools/showPawnStructure/tool.css",
         "tools/explorerSnaps/tool.css",
+        "tools/miniGameSize/tool.css",
 
         "tools/tvOptions/tool.css",
 

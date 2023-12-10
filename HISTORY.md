@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+10 Dec
+  - custom minigame size
+
 06 Dec
   - save different Explorer settings and toggle between them
   - click on Explorer sum row to get a random move, weighted on move probabilities

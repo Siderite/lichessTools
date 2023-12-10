@@ -68,6 +68,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - show pawn structures in analysis, TV games and mini-games
  - save different Explorer settings and toggle between them
  - click on Explorer sum row to get a random move, weighted on move probabilities
+ - custom mini-game size
  - commands! type /help to get a list
 
 Version 2.2 breaking changes:
