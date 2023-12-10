@@ -20,13 +20,13 @@
         'options.trapValueCommand': 'Command: show trap value for position',
         'trapValueCommand.helpText': '/trapvalue\r\nShow trap value for position',
         'noExplorerMoves': 'No explorer data available',
-        'trapValueCommand.valueText': 'Trap value: %s%'
+        'trapValueCommand.valueText': 'Trap value: %s'
       },
       'ro-RO':{
         'options.trapValueCommand': 'Comand\u0103: arat\u0103 valoare capcan\u0103 pentru pozi\u0163ie',
         'trapValueCommand.helpText': '/trapvalue\r\nArat\u0103 valoare capcan\u0103 pentru pozi\u0163ie',
         'noExplorerMoves': 'Nu exist\u0103 date \u00een Explorator',
-        'trapValueCommand.valueText': 'Valoare capcan\u0103: %s%'
+        'trapValueCommand.valueText': 'Valoare capcan\u0103: %s'
       }
     };
 
@@ -114,8 +114,10 @@
       if (count>1) {
         probability=Math.pow(probability,1/count);
       }
-      const trapScore=probability*potency;
-      const text=trapScore?trans.pluralSame('trapValueCommand.valueText',Math.round(trapScore*100)):'?';
+      const probabilityScore=Math.round(probability*100);
+      const potencyScore=Math.round(potency*100);
+      const trapScore=Math.round(probability*potency*100);
+      const text=trapScore?trans.pluralSame('trapValueCommand.valueText',probabilityScore+'% x '+potencyScore+'% = '+trapScore+'%'):'?';
       parent.announce(text);
       analysis.setPath(initialPath);
       analysis.redraw();
