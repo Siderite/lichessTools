@@ -10,7 +10,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - automatically open/hide/convert to menu the Friends box at page load
  - sound alert when one of your friends starts playing a game (for various time controls)
  - changing the shortcut for playing the next best computer move from Space to Ctrl-Space
- - a minimum chess engine level (if it is idle in a lower state, it runs until it gets to that level)
+ - a custom chess engine level (if it is idle in a lower state, it runs until it gets to that level)
  - sticky Interactive lesson Preview mode (remains in Preview when switching between chapters)
  - use keyboard shortcuts (i, m, b, Alt-i, Alt-m, Alt-b) for inaccuracies, mistakes and blunders in analysis
  - show player country flags next to their names (if they have their country specified in the profile)
