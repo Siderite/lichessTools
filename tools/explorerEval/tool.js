@@ -26,7 +26,7 @@
         'fromCevalTitle': 'LiChess Tools - from computer eval',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
         'fromChessDbTitle': 'LiChess Tools - from ChessDb',
-        'fromLichessTitle': 'LiChess Tools - from cloud',
+        'fromLichessTitle': 'LiChess Tools - from cloud, depth %s',
         'evaluationTitle': 'LiChess Tools - move evaluation',
         'evalWarning': 'LiChess Tools - pay attention'
        },
@@ -41,7 +41,7 @@
         'fromCevalTitle': 'LiChess Tools - din evaluare computer',
         'fromStatsTitle': 'LiChess Tools - din statistici',
         'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
-        'fromLichessTitle': 'LiChess Tools - din cloud',
+        'fromLichessTitle': 'LiChess Tools - din cloud, ad\u00e2ncime %s',
         'evaluationTitle': 'LiChess Tools - evaluare mutare',
         'evalWarning': 'LiChess Tools - aten\u0163ie'
       }
@@ -95,7 +95,7 @@
             case 3: 
               title=trans.noarg('fromChessDbTitle'); 
             break;
-            case 5: title=trans.noarg('fromLichessTitle'); break;
+            case 5: title=trans.pluralSame('fromLichessTitle',move.depth); break;
           }
           
           explorerItem.cp=move.cp;

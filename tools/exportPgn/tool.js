@@ -64,6 +64,7 @@
         }
         const groups=[];
         for(const shape of node.shapes||[]) {
+          if (shape.type=='rank' || shape.customSvg) continue;
           const type=shape.dest?'cal':'csl';
           let group=groups[groups.length-1];
           if (group?.type!=type) {

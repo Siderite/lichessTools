@@ -1,5 +1,11 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Dec
+  - created LiChess Tools team and code to join you automatically
+
+10 Dec
+  - custom minigame size
+
 06 Dec
   - save different Explorer settings and toggle between them
   - click on Explorer sum row to get a random move, weighted on move probabilities
@@ -221,7 +227,7 @@ History of features added to LiChess Tools in time (reversed order)
   - colors for PGN comments
   - Ctrl-Right for random variation
   - Ctrl-Space replacement for Space for best computer move
-  - Minimum computer eval depth
+  - Custom computer eval depth
   - Enhanced PGN import: merge multiple PGNs into one in Analysis
   - Extended Interactive Lessons: play all lines in a PGN, not just the main line
   - Friend box option: open by default, transformed into a menu, hidden

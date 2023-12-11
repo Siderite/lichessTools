@@ -1,0 +1,13 @@
+body.lichessTools.lichessTools-miniGameSize #powerTip, 
+body.lichessTools.lichessTools-miniGameSize #miniGame, 
+body.lichessTools.lichessTools-miniGameSize #miniBoard {
+  width: var(--lichessToolsMiniGameSize);
+}
+
+body.lichessTools.lichessTools-miniGameSize .tv-games .page-menu__content {
+  grid-template-columns: repeat(auto-fill, minmax(var(--lichessToolsMiniGameSize), 1fr));
+}
+
+body.lichessTools.lichessTools-miniGameSize .study__multiboard .now-playing {
+  grid-template-columns: repeat(auto-fill, minmax(var(--lichessToolsMiniGameSize), 1fr));
+}

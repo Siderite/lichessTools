@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Lichess Tools, by Siderite",
   "short_name": "Lichess Tools",
-  "version": "2.2.8",
+  "version": "2.2.11",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -91,6 +91,7 @@
         "tools/showPawnStructure/pawnStructures.js",
         "tools/showPawnStructure/tool.js",
         "tools/explorerSnaps/tool.js",
+        "tools/miniGameSize/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -143,6 +144,7 @@
         "tools/moveListOptions/tool.css",
         "tools/showPawnStructure/tool.css",
         "tools/explorerSnaps/tool.css",
+        "tools/miniGameSize/tool.css",
 
         "tools/tvOptions/tool.css",
 

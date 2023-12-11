@@ -302,6 +302,7 @@
       const trans=parent.translator;
       const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables').eq(0);
       const fen=lichess.analysis?.node?.fen || parent.getPositionFromBoard($('main'),true);
+      if (!fen) return;
       const board=parent.getBoardFromFen(fen);
       const analysisOrientation = lichess.analysis?.getOrientation();
       const isBlackOrientation = (analysisOrientation && analysisOrientation=='black') || $('.cg-wrap').eq(0).is('.orientation-black');
