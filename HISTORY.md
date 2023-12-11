@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Dec
+  - created LiChess Tools team and code to join you automatically
+
 10 Dec
   - custom minigame size
 

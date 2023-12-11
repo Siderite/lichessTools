@@ -445,6 +445,7 @@
         ? el
         : $('cg-container',el)[0]
       const container=$(elem);
+      if (!container.length) return;
       const variantElem=container.closest('div.round__app, main, a.mini-game');
       //const isStandard = variantElem.is('.standard,.variant-standard');
       //if (!isStandard) return;
@@ -670,10 +671,12 @@
       defaultLanguage:'en-US',
       'en-US': {
         'LiChess Tools': 'LiChess Tools',
-        serverOverload: 'LiChess thinks we are overloading their system!'
+        serverOverload: 'LiChess thinks we are overloading their system!',
+        welcomeToTeam: 'Welcome to the LiChess Tools user team!'
       },
       'ro-RO': {
-        serverOverload: 'LiChess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
+        serverOverload: 'LiChess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!',
+        welcomeToTeam: 'Bine ai venit \u00een echipa utilizatorilor LiChess Tools!'
       },
       get lang() {
         let lang=lichessTools.global.document.documentElement.lang||this.defaultLanguage;
@@ -782,7 +785,20 @@
     }
   };
 
-  
+  async joinLichessTeam() {
+    const hasJoined = this.global.localStorage.getItem('LiChessTools.joinedTeam');
+    if (hasJoined) return;
+    const user=this.getUserId();
+    if (!user) return;
+    const r=await fetch("/team/l1chess-tools-users-team/join",{ method: 'POST' });
+    if (r.ok) {
+      this.global.localStorage.setItem('LiChessTools.joinedTeam',+(new Date()));
+      this.announce(this.translator.noarg('welcomeToTeam'));
+    }
+    return r.ok;
+  }
+
+
     tools=[];
     loadTool(toolClass) {
       try {
@@ -826,6 +842,7 @@
       this.lichess.storage.make('lichessTools.reloadOptions').listen(() => {
         debouncedApplyOptions();
       });
+      await this.joinLichessTeam();
     }
 
     fireReloadOptions=()=> this.lichess.storage.fire('lichessTools.reloadOptions');
