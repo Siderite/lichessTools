@@ -1,6 +1,8 @@
 (()=>{
   class StickyPreviewTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['EmitRedraw'];
+
     preferences=[
       {
         name:'stickyPreview',
@@ -51,9 +53,18 @@
       if (!study) return;
       const override=study.vm.gamebookOverride;
       if (this.previousOverride=='play' && override!=this.previousOverride) {
-        study.setGamebookOverride('play');
-        study.redraw();
+        parent.global.setTimeout(()=>{
+          study.setGamebookOverride('play');
+          study.redraw();
+        },100);
       }
+    };
+
+    bindButtons=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const study=lichess.analysis?.study;
+      if (!study) return;
       const previewButton=$('button.preview');
       previewButton.off('click',this.previewHandler);
       previewButton.on('click',this.previewHandler);
@@ -66,8 +77,10 @@
       const lichess=parent.lichess;
       const study=lichess?.analysis?.study;
       if (!study) return;
+      lichess.pubsub.off('redraw', this.bindButtons);
       lichess.pubsub.off('chapterChange', this.keepPreviewOn);
       if (value) {
+        lichess.pubsub.on('redraw', this.bindButtons);
         lichess.pubsub.on('chapterChange', this.keepPreviewOn);
         this.keepPreviewOn();
       }
