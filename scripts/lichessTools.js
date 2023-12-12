@@ -671,12 +671,10 @@
       defaultLanguage:'en-US',
       'en-US': {
         'LiChess Tools': 'LiChess Tools',
-        serverOverload: 'LiChess thinks we are overloading their system!',
-        welcomeToTeam: 'Welcome to the LiChess Tools user team!'
+        serverOverload: 'LiChess thinks we are overloading their system!'
       },
       'ro-RO': {
-        serverOverload: 'LiChess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!',
-        welcomeToTeam: 'Bine ai venit \u00een echipa utilizatorilor LiChess Tools!'
+        serverOverload: 'LiChess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
       },
       get lang() {
         let lang=lichessTools.global.document.documentElement.lang||this.defaultLanguage;
@@ -776,28 +774,14 @@
         return text;
       } catch(e) {
         if (e.toString().includes('Failed to fetch')) {
-          this.lichessTools.global.console.log('Fetch for '+url+' failed: ',e);
+          this.lichessTools.global.console.log('Fetch for '+url+' failed: ',e,status);
         } else {
-          this.lichessTools.global.console.warn('Fetch for '+url+' failed: ',e);
+          this.lichessTools.global.console.warn('Fetch for '+url+' failed: ',e,status);
         }
         throw e;
       };
     }
   };
-
-  async joinLichessTeam() {
-    const hasJoined = this.global.localStorage.getItem('LiChessTools.joinedTeam');
-    if (hasJoined) return;
-    const user=this.getUserId();
-    if (!user) return;
-    const r=await fetch("/team/l1chess-tools-users-team/join",{ method: 'POST' });
-    if (r.ok) {
-      this.global.localStorage.setItem('LiChessTools.joinedTeam',+(new Date()));
-      this.announce(this.translator.noarg('welcomeToTeam'));
-    }
-    return r.ok;
-  }
-
 
     tools=[];
     loadTool(toolClass) {
@@ -842,7 +826,6 @@
       this.lichess.storage.make('lichessTools.reloadOptions').listen(() => {
         debouncedApplyOptions();
       });
-      await this.joinLichessTeam();
     }
 
     fireReloadOptions=()=> this.lichess.storage.fire('lichessTools.reloadOptions');

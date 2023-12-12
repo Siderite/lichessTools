@@ -1,5 +1,6 @@
 window.lichessTools=new LiChessTools(window, cash);
 
+lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 
 lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
 lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);
