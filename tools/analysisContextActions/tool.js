@@ -221,7 +221,7 @@
       }
     };
     
-    analysisContextMenu=()=>{
+    analysisContextMenu=(ev)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -234,6 +234,7 @@
       if (!menu.length) return;
       
       if (this.options.copyPgn && !menu.has('a[data-role="copyPgn"]').length) {
+        if (ev) this.alterModifierText(ev);
         const text=trans.noarg('extractVariationText'+(this.suffix||''));
         const title=trans.noarg('extractVariationTitle');
         $('<a>')
@@ -334,9 +335,11 @@
       };
       clearInterval(this.engineCheckInterval);
       lichess.pubsub.off('redraw',this.analysisContextMenu);
+      $('.tview2').off('contextmenu',this.analysisContextMenu);
       $('body').off('keydown keyup',this.alterModifierText);
       if (this.options.copyPgn) {
         $('body').on('keydown keyup',this.alterModifierText);
+        $('.tview2').on('contextmenu',this.analysisContextMenu);
       }
       if (this.options.isSet) {
         lichess.pubsub.on('redraw',this.analysisContextMenu);
