@@ -57,7 +57,7 @@
       data.rating(snap.settings.avgRating);
       data.byDb().since(snap.settings.since);
       data.byDb().until(snap.settings.until);
-      analysis.redraw();
+      analysis.explorer?.reload();
     };
 
     getSnapElement=(snap)=>{
