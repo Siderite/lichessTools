@@ -70,6 +70,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - click on Explorer sum row to get a random move, weighted on move probabilities
  - custom mini-game size
  - Play again from where you entered Preview mode in Interactive Lessons
+ - community forum
  - commands! type /help to get a list
 
 Version 2.2 breaking changes:
