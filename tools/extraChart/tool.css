@@ -38,3 +38,13 @@ body.lichessTools.transp div.symbol.lichessTools-goodMoves {
     color: #168226;
   }
 }
+
+body.lichessTools span.lichessTools-christmas {
+  z-index: 100;
+  position: absolute;
+  bottom: 1em;
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: color 1s;
+}
