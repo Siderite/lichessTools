@@ -43,6 +43,9 @@
     }
   
     wrapFunction(func,options) {
+      if (!func) {
+        this.global.console.warn('Trying to wrap no function',options);
+      }
       const wrappedFunc = function() {
         let executeOriginal=true;
         if (options?.before) {

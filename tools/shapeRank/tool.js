@@ -87,7 +87,7 @@
       }
       const isWrapped=parent.isWrappedFunction(this.chessground.state.drawable.onChange,'shapeRank');
       if (this.options.enabled) {
-        if (!isWrapped) {
+        if (!isWrapped&&this.chessground.state.drawable.onChange) {
           this.chessground.state.drawable.onChange=parent.wrapFunction(this.chessground.state.drawable.onChange,{
             id:'shapeRank',
             before:($this,...args)=>{
