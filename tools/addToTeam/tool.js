@@ -6,7 +6,7 @@
         name:'addToTeam',
         category: 'community',
         type:'single',
-        possibleValues: ['join','quit'],
+        possibleValues: ['join','quit','hideForum'],
         defaultValue: false
       }
     ];
@@ -20,6 +20,7 @@
         'options.addToTeam': 'LiChess Tools team',
         'addToTeam.join': 'Add me',
         'addToTeam.quit': 'Remove me',
+        'addToTeam.hideForum': 'Hide forum',
         'joinTeamText': 'Join the team',
         'teamTitle': 'Users of the LiChess Tools browser extension',
         'teamSubtitle': 'Join the team to access the forum, meet other users, get updates or give feedback',
@@ -31,12 +32,23 @@
         'options.addToTeam': 'Echipa LiChess Tools',
         'addToTeam.join': 'Adaug\u0103-m\u0103',
         'addToTeam.quit': 'Scoate-m\u0103',
+        'addToTeam.hideForum': 'Ascunde forumul',
         'joinTeamText': 'Intr\u0103 \u00een echip\u0103',
         'teamTitle': 'Echipa utilizatorilor extensiei de browser LiChess Tools',
         'teamSubtitle': 'Intr\u0103 \u00een echip\u0103 pentru acces la forum, al\u0163i utilizatori, nout\u0103\u0163i sau p\u0103reri',
         'welcomeToTeam': 'Bine ai venit \u00een echipa utilizatorilor LiChess Tools!',
         'byeFromTeam': 'Ne pare r\u0103u c\u0103 pleci!'
       }
+    }
+
+    async clearJoinState() {
+      const parent=this.lichessTools;
+      parent.global.setTimeout(async ()=>{
+        parent.currentOptions['addToTeam']=false;
+        await parent.saveOptions(parent.currentOptions);
+        this.options.join=false;
+        this.options.quit=false;
+      },500);
     }
 
     async joinLichessTeam() {
@@ -46,12 +58,10 @@
       if (!user) return;
       const r=await fetch('/team/'+this.teamId+'/join',{ method: 'POST' });
       if (r.ok) {
+        this.options.inTeam=true;
         parent.global.localStorage.setItem('LiChessTools.joinedTeam',+(new Date()));
         parent.announce(trans.noarg('welcomeToTeam'));
-        parent.currentOptions['addToTeam']=false;
-        await parent.saveOptions(parent.currentOptions);
-        this.options.join=true;
-        this.options.quit=false;
+        this.clearJoinState();
       }
       return r.ok;
     }
@@ -65,10 +75,10 @@
         ? { ok: true }
         : await fetch('/team/'+this.teamId+'/quit',{ method: 'POST' });
       if (r.ok) {
+        this.options.inTeam=false;
         parent.global.localStorage.removeItem('LiChessTools.joinedTeam');
         parent.announce(trans.noarg('byeFromTeam'));
-        this.options.join=false;
-        this.options.quit=true;
+        this.clearJoinState();
       }
       return r.ok;
     }
@@ -92,7 +102,7 @@
       const trans=parent.translator;
       const container=$('main.forum table.categs').eq(0);
       let row=$('tr.lichessTools-addToTeam',container);
-      if (this.options.quit) {
+      if (this.options.hideForum) {
         row.remove();
         return;
       }
@@ -138,6 +148,10 @@
             });
         }
         row.insertBefore($('tr',container).last());
+      } else {
+        if (!this.inTeam && existingRow.length) {
+          parent.global.location.reload()
+        }
       }
     };
 
@@ -148,20 +162,20 @@
       this.options={
         join:parent.isOptionSet(value,'join'),
         quit:parent.isOptionSet(value,'quit') && value!==true,
+        hideForum:parent.isOptionSet(value,'hideForum')
       }
       await this.refreshTeam();
-      if (this.options.join) {
-        if (!this.inTeam) {
-          await this.joinLichessTeam();
-        } else {
-          parent.currentOptions['addToTeam']=false;
-          await parent.saveOptions(parent.currentOptions);
-        }
-      }
-      if (this.options.quit) {
-        if (this.inTeam) {
+      if (this.inTeam) {
+        if (this.options.quit) {
           await this.quitLichessTeam();
         }
+      } else {
+        if (this.options.join) {
+          await this.joinLichessTeam();
+        }
+      }
+      if (this.options.join || this.options.quit) {
+        this.clearJoinState();
       }
       await this.updateForumPage();
     }
