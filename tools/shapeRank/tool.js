@@ -85,28 +85,29 @@
         parent.global.setTimeout(this.waitForChessground,500);
         return;
       }
-      lichess.pubsub.off('shapeRank',this.ensureShapeRank);
-      lichess.pubsub.off('redraw',this.ensureShapeRank);
-      this.chessground.state.drawable.onChange=parent.unwrapFunction(this.chessground.state.drawable.onChange,'shapeRank');
+      const isWrapped=parent.isWrappedFunction(this.chessground.state.drawable.onChange,'shapeRank');
       if (this.options.enabled) {
-        lichess.pubsub.on('shapeRank',this.ensureShapeRank);
-        lichess.pubsub.on('redraw',this.ensureShapeRank);
-        this.chessground.state.drawable.onChange=parent.wrapFunction(this.chessground.state.drawable.onChange,{
-          id:'shapeRank',
-          before:($this,...args)=>{
-            const originalFunction=this.chessground.state.drawable.onChange.__originalFunction.bind($this);
-            if (args[0]?.length) {
-              args[0]=args[0].filter(s=>s.type!='rank');
+        if (!isWrapped&&this.chessground.state.drawable.onChange) {
+          this.chessground.state.drawable.onChange=parent.wrapFunction(this.chessground.state.drawable.onChange,{
+            id:'shapeRank',
+            before:($this,...args)=>{
+              const originalFunction=this.chessground.state.drawable.onChange.__originalFunction.bind($this);
+              if (args[0]?.length) {
+                this.clearRankShapes(args[0]);
+              }
+              originalFunction(...args);
+              return false;
             }
-            originalFunction(...args);
-            return false;
-          }
-        });
+          });
+        }
         parent.global.setTimeout(this.ensureShapeRank,500); //TODO without the timeout something clears the shapes in about 250ms at first page load (probably a web socket event)
       } else {
+        if (isWrapped) {
+          this.chessground.state.drawable.onChange=parent.unwrapFunction(this.chessground.state.drawable.onChange,'shapeRank');
+        }
         this.clearRankShapes(this.chessground.state.drawable.shapes);
+        this.chessground.redrawAll();
       }
-      this.chessground.redrawAll();
     };
 
     async start() {
@@ -114,7 +115,13 @@
       const value=parent.currentOptions.getValue('shapeRank');
       this.options={ enabled: value };
       this.logOption('Show the order of arrows and circles', value);
-      this.waitForChessground(value);
+      lichess.pubsub.off('shapeRank',this.waitForChessground);
+      lichess.pubsub.off('redraw',this.waitForChessground);
+      if (this.options.enabled) {
+        lichess.pubsub.on('shapeRank',this.waitForChessground);
+        lichess.pubsub.on('redraw',this.waitForChessground);
+      }
+      this.waitForChessground();
     }
 
   }

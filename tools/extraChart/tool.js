@@ -11,6 +11,15 @@
         possibleValues: ['material','principled','tension','potential','brilliant','smooth','gauge'],
         defaultValue: 'material,principled,tension,smooth,gauge',
         advanced: true
+      },
+      {
+        name:'christmas',
+        category: 'general',
+        type:'single',
+        possibleValues: [false,true],
+        defaultValue: true,
+        advanced: true,
+        hidden: true
       }
     ];
 
@@ -29,7 +38,8 @@
         'tensionLineTitle': 'Max tension',
         'potentialLineTitle': 'Max potential',
         'goodMovesText':'good/brilliant/interesting moves',
-        'goodMovesTitle':'LiChess Tools - good/brilliant/interesting moves'
+        'goodMovesTitle':'LiChess Tools - good/brilliant/interesting moves',
+        'merryChristmas':'Merry Christmas from LiChess Tools!'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -45,7 +55,8 @@
         'tensionLineTitle': 'Tensiune maxim\u0103',
         'potentialLineTitle': 'Poten\u0163ial maxim',
         'goodMovesText':'mut\u0103ri bune/briliante/interesante',
-        'goodMovesTitle':'LiChess Tools - mut\u0103ri bune/briliante/interesante'
+        'goodMovesTitle':'LiChess Tools - mut\u0103ri bune/briliante/interesante',
+        'merryChristmas':'Cr\u0103ciun fericit de la LiChess Tools!'
       }
     }
 
@@ -675,9 +686,44 @@
       container=$('div.advice-summary__side').get(1);
       count=arr.filter(n=>n.ply%2==0).length;
       fill(container,count,'black');
-    }
+    };
 
-    generateCharts=(forced)=>{
+    showChristmasTree=async ()=>{
+      if (this._christmasTreePlayed) return;
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      const container=$('div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
+      if (parent.inViewport(container[0])<=0) return;
+      const chart=this._chart;
+      if (!chart) return;
+      const dataset=chart.data?.datasets[0];
+      if (!dataset) return;
+      const length=Math.max.apply(null,dataset.data.map(d=>d.x))||dataset.data.length;
+      if (!length) return;
+
+      this._christmasTreePlayed=true;
+      const xElem=$('<span class="lichessTools-christmas">').text(trans.noarg('merryChristmas'));
+      container.append(xElem);
+      const initHoverBackgroundColor=dataset.hoverBackgroundColor;
+      const initActiveElements=chart.getActiveElements()?.map(e=>{ return {datasetIndex:e.datasetIndex, index:e.index}; });
+      const colors=['red','green','blue','orange','yellow','magenta','cyan','white'];
+      for (let i=0; i<30; i++) {
+        const elements=dataset.data.filter(d=>Math.random()<0.3).map(d=>{ return { datasetIndex:0, index:d.x-1 }; });
+        const color=colors[Math.round(Math.random()*colors.length)];
+        dataset.hoverBackgroundColor=color;
+        chart.setActiveElements(elements);
+        chart.update('none');
+        xElem.css('color',color);
+        await parent.timeout(150);
+      }
+      parent.global.setTimeout(()=>xElem.remove(),1000);
+      dataset.hoverBackgroundColor=initHoverBackgroundColor;
+      chart.setActiveElements(initActiveElements);
+      chart.update('none');
+    };
+
+    generateCharts=async (forced)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const trans=parent.translator;
@@ -821,6 +867,10 @@
         this.showGoodMoves(forced);
       }
 
+      if (this.options.christmas && new Date().toISOString().includes('-12-25')) {
+        await this.showChristmasTree();
+      }
+
       if (updateChart) chart.update('none');
       this.prevSmooth=this.options.smooth;
     };
@@ -898,8 +948,9 @@
         potential:parent.isOptionSet(value,'potential'),
         brilliant:parent.isOptionSet(value,'brilliant'),
         smooth:parent.isOptionSet(value,'smooth'),
-        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.smooth; },
-        gauge:parent.isOptionSet(value,'gauge')
+        get needsChart() { return this.material || this.principled || this.tension || this.brilliant; },
+        gauge:parent.isOptionSet(value,'gauge'),
+        christmas:!!parent.currentOptions.getValue('christmas')
       };
       lichess.pubsub.off('esmLoaded',this.handleEsmLoaded);
       lichess.pubsub.on('esmLoaded',this.handleEsmLoaded);

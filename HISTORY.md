@@ -1,7 +1,12 @@
 History of features added to LiChess Tools in time (reversed order)
 
+20 Dec
+  - unicode pieces parameter for copypgn command
+  - finalized the add to team feature
+
 11 Dec
   - created LiChess Tools team and code to join you automatically
+  - added Play from Preview mode entry point
 
 10 Dec
   - custom minigame size

@@ -30,6 +30,7 @@
         fromPosition: false,
         toPosition: false,
         separateLines: false,
+        unicode: false,
         ...options
       };
       const parent=this.lichessTools;
@@ -86,6 +87,23 @@
         }
         return s;
       }
+
+      const regChessMove=/\b(?<piece>[NBRQK])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK]))?(?<p2>\+|#)?\b/g;
+      const unicodePiece={
+        'N':'\u2658',
+        'B':'\u2657',
+        'R':'\u2656',
+        'Q':'\u2655',
+        'K':'\u2654',
+      };
+      function translateUnicode(s) {
+        if (!s) return s;
+        return s.replace(regChessMove,(...m)=>{
+          const g=m.at(-1);
+          if (!g.piece && !g.promotion) return m[0];
+          return (unicodePiece[g.piece]||'')+(g.p1||'')+(unicodePiece[g.promotion]||'')+(g.p2||'');
+        });
+      }
     
       function renderNodesTxt(node, forcePly) {
         if (node.children.length === 0) return '';
@@ -113,6 +131,9 @@
         const mainline = renderNodesTxt(first, node.children.length > 1);
         if (mainline) s += ' ' + mainline;
     
+        if (options.unicode) {
+          s=translateUnicode(s);
+        }
         return s;
       }
     

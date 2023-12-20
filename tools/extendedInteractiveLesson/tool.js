@@ -8,7 +8,7 @@
         name:'extendedInteractiveLesson',
         category: 'study',
         type:'multiple',
-        possibleValues: ['extendedInteractive','showFinalScore','studyLinksSameWindow'],
+        possibleValues: ['extendedInteractive','showFinalScore','studyLinksSameWindow','returnToPreview'],
         defaultValue: 'extendedInteractive,showFinalScore,studyLinksSameWindow'
       }
     ];
@@ -20,6 +20,7 @@
         'extendedInteractiveLesson.extendedInteractive':'Play all variations',
         'extendedInteractiveLesson.showFinalScore':'Show score',
         'extendedInteractiveLesson.studyLinksSameWindow':'Study links in comments in same window',
+        'extendedInteractiveLesson.returnToPreview':'Play again from where you entered Preview mode',
         'extendedInteractiveLesson': 'Extended Interactive lesson',
         'extendedInteractiveLessonLong': 'Extended Interactive lesson - LiChess Tools',
         'finalScore': 'Final score: %s%',
@@ -35,6 +36,7 @@
         'extendedInteractiveLesson.extendedInteractive':'Joac\u0103 toate varia\u0163iunile',
         'extendedInteractiveLesson.showFinalScore':'Arat\u0103 scorul',
         'extendedInteractiveLesson.studyLinksSameWindow':'Linkuri c\u0103tre studii din comentarii \u00een aceea\u015Fi fereastr\u0103',
+        'extendedInteractiveLesson.returnToPreview':'Joac\u0103 din nou de unde ai intrat \u00een mod Preview',
         'extendedInteractiveLesson': 'Lec\u0163ie Interactiv\u0103 extins\u0103',
         'extendedInteractiveLessonLong': 'Lec\u0163ie Interactiv\u0103 extins\u0103 - LiChess Tools',
         'finalScore': 'Scor final: %s%',
@@ -300,6 +302,13 @@
       }
     };
 
+    playAgain=()=>{
+      const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
+      analysis.userJump(this.options.returnToPreview && this._previewPath || '');
+      analysis.redraw();
+    };
+
     alterUI=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
@@ -309,6 +318,19 @@
       //$('.gamebook-buttons').attr('data-label',translation);
       translation=trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attr('title',translation); //.attr('data-label',translation);
+
+      if (this.options.returnToPreview) {
+        $('button.retry').each((i,e)=>{
+          let handlers=parent.getEventHandlers(e,'click');
+          if (handlers.filter(h=>h!=this.playAgain).length) {
+            parent.removeEventHandlers(e,'click');
+            handlers=[];
+          }
+          if (!handlers.filter(h=>h!=this.playAgain).length) {
+            $(e).on('click',this.playAgain);
+          }
+        });
+      }
 
       if (!this.options.extendedInteractive) return;
       const menu=$('#analyse-cm');
@@ -368,17 +390,25 @@
         <label for="abset-studyLinksSameWindow"></label>
       </div>
       <label for="abset-studyLinksSameWindow">$trans(extendedInteractiveLesson.studyLinksSameWindow)</label>
+    </div>
+    <div class="setting abset-returnToPreview" title="LiChess Tools - $trans(extendedInteractiveLesson.returnToPreview)">
+      <div class="switch">
+        <input id="abset-returnToPreview" class="cmn-toggle" type="checkbox" checked="">
+        <label for="abset-returnToPreview"></label>
+      </div>
+      <label for="abset-returnToPreview">$trans(extendedInteractiveLesson.returnToPreview)</label>
     </div>`.replace(/\$trans\(([^\)]+)\)/g,m=>{
           return parent.htmlEncode(trans.noarg(m.slice(7,-1)));
         });
         $(html).insertBefore($('h2',container).eq(0));
-        $('#abset-extendedInteractive,#abset-showScore,#abset-studyLinksSameWindow')
+        $('#abset-extendedInteractive,#abset-showScore,#abset-studyLinksSameWindow,#abset-returnToPreview')
           .on('change',async ()=>{
             const arr=[];
             const options=parent.currentOptions
             if ($('#abset-extendedInteractive').is(':checked')) arr.push('extendedInteractive');
             if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
             if ($('#abset-studyLinksSameWindow').is(':checked')) arr.push('studyLinksSameWindow');
+            if ($('#abset-returnToPreview').is(':checked')) arr.push('returnToPreview');
             options.extendedInteractiveLesson=arr.join(',');
             await parent.applyOptions(options);
             parent.fireReloadOptions();
@@ -390,6 +420,8 @@
         .prop('checked',this.options.showFinalScore);
       $('#abset-studyLinksSameWindow')
         .prop('checked',this.options.studyLinksSameWindow);
+      $('#abset-returnToPreview')
+        .prop('checked',this.options.returnToPreview);
     };
 
     alterStudyLinksDirect=()=>{
@@ -417,7 +449,8 @@
       this.options={
         showFinalScore:parent.isOptionSet(value,'showFinalScore'),
         extendedInteractive:parent.isOptionSet(value,'extendedInteractive'),
-        studyLinksSameWindow:parent.isOptionSet(value,'studyLinksSameWindow')
+        studyLinksSameWindow:parent.isOptionSet(value,'studyLinksSameWindow'),
+        returnToPreview:parent.isOptionSet(value,'returnToPreview')
       };
       $('body').toggleClass('lichessTools-extendedInteractiveLesson',this.options.extendedInteractive);
       if (!parent.isWrappedFunction(study.setGamebookOverride,'extendedInteractive')) {
@@ -428,6 +461,7 @@
               o='play';
             }
             if (o=='play') {
+              this._previewPath=analysis.path;
               // fix lichess bug where entering Preview mode with engine on keeps engine running
               if (analysis.ceval.enabled()) {
                 analysis.ceval.stop();
