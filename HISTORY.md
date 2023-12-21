@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+21 Dec
+  - collapsible Interactive Lesson edit controls
+
 20 Dec
   - unicode pieces parameter for copypgn command
   - finalized the add to team feature
