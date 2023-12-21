@@ -1,7 +1,19 @@
 body.lichessTools.lichessTools-miniGameSize #powerTip, 
 body.lichessTools.lichessTools-miniGameSize #miniGame, 
-body.lichessTools.lichessTools-miniGameSize #miniBoard {
+body.lichessTools.lichessTools-miniGameSize #miniBoard,
+body.lichessTools.lichessTools-miniGameSize .pv_box .pv-board {
   width: var(--lichessToolsMiniGameSize);
+}
+
+body.lichessTools.lichessTools-miniGameSize .pv_box .pv-board {
+  max-width:none;
+  left:inherit;
+  right:0;
+  z-index:100000;
+}
+
+body.lichessTools.lichessTools-miniGameSize div.analyse__tools:has(.pv-board) {
+  overflow: visible;
 }
 
 body.lichessTools.lichessTools-miniGameSize .tv-games .page-menu__content {

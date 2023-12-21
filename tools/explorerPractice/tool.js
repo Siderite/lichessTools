@@ -37,7 +37,7 @@
         'options.explorerPractice': 'Antrenament contra mut\u0103ri din Explorator',
         'options.explorerPracticeOptions': 'Op\u0163iuni pentru Antrenament cu Exploratorul',
         'explorerPracticeTitle': 'LiChess Tools - antrenament contra mut\u0103ri din Explorator',
-        'outOfMoves':'Numai sunt mut\u0103ri \u00een Explorator',
+        'outOfMoves':'Nu mai sunt mut\u0103ri \u00een Explorator',
         'explorerPracticeOptions.showSmileys': 'Arat\u0103 emoji c\u00E2nd nu mai sunt mut\u0103ri',
         'explorerPracticeOptions.sumClick': 'Click pe \u03A3 \u00een Explorator pentru a muta',
         'sumClickTitle':'LiChess Tools - click pentru a muta'

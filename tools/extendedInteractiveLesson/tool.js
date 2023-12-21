@@ -20,7 +20,7 @@
         'extendedInteractiveLesson.extendedInteractive':'Play all variations',
         'extendedInteractiveLesson.showFinalScore':'Show score',
         'extendedInteractiveLesson.studyLinksSameWindow':'Study links in comments in same window',
-        'extendedInteractiveLesson.returnToPreview':'Play again from where you entered Preview mode',
+        'extendedInteractiveLesson.returnToPreview':'Play again from where you entered Preview',
         'extendedInteractiveLesson': 'Extended Interactive lesson',
         'extendedInteractiveLessonLong': 'Extended Interactive lesson - LiChess Tools',
         'finalScore': 'Final score: %s%',
@@ -35,8 +35,8 @@
         'options.extendedInteractiveLesson': 'Lec\u0163ii interactive extinse',
         'extendedInteractiveLesson.extendedInteractive':'Joac\u0103 toate varia\u0163iunile',
         'extendedInteractiveLesson.showFinalScore':'Arat\u0103 scorul',
-        'extendedInteractiveLesson.studyLinksSameWindow':'Linkuri c\u0103tre studii din comentarii \u00een aceea\u015Fi fereastr\u0103',
-        'extendedInteractiveLesson.returnToPreview':'Joac\u0103 din nou de unde ai intrat \u00een mod Preview',
+        'extendedInteractiveLesson.studyLinksSameWindow':'Linkuri c\u0103tre studii \u00een aceea\u015Fi fereastr\u0103',
+        'extendedInteractiveLesson.returnToPreview':'Joac\u0103 din nou de unde ai intrat \u00een Preview',
         'extendedInteractiveLesson': 'Lec\u0163ie Interactiv\u0103 extins\u0103',
         'extendedInteractiveLessonLong': 'Lec\u0163ie Interactiv\u0103 extins\u0103 - LiChess Tools',
         'finalScore': 'Scor final: %s%',
@@ -309,14 +309,23 @@
       analysis.redraw();
     };
 
+    collapseGamebookEdit=(ev)=>{
+      ev.preventDefault();
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const gamebookEdit=$('div.gamebook-edit');
+      this._collapsed=!this._collapsed;
+      gamebookEdit.toggleClass('lichessTools-collapsed',this._collapsed);
+    };
+
     alterUI=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
       const analysis=parent.lichess.analysis;
-      let translation=trans.noarg('extendedInteractiveLesson');
+      //let translation=trans.noarg('extendedInteractiveLesson');
       //$('.gamebook-buttons').attr('data-label',translation);
-      translation=trans.noarg('extendedInteractiveLessonLong')
+      let translation=trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attr('title',translation); //.attr('data-label',translation);
 
       if (this.options.returnToPreview) {
@@ -332,7 +341,23 @@
         });
       }
 
-      if (!this.options.extendedInteractive) return;
+      const gamebookEdit=$('div.gamebook-edit');
+      const header=$('.lichessTools-gamebookHeader',gamebookEdit);
+      if (!this.options.extendedInteractive) {
+        gamebookEdit.removeClass('lichessTools-collapsed');
+        header.remove();
+        return;
+      }
+      gamebookEdit.toggleClass('lichessTools-collapsed',!!this._collapsed);
+
+      if (!header.length) {
+        $('<div class="lichessTools-gamebookHeader">')
+          .text(trans.noarg('extendedInteractiveLesson'))
+          .attr('title',trans.noarg('extendedInteractiveLessonLong'))
+          .on('click',this.collapseGamebookEdit)
+          .prependTo(gamebookEdit);
+      }
+
       const menu=$('#analyse-cm');
       if (!menu.length) return;
       if (!analysis?.study?.data?.chapter?.gamebook) return;
@@ -345,6 +370,7 @@
         .text(text).attr('title',title)
         .on('click',this.addDeviation)
         .appendTo(menu);
+
     };
 
     addGameBookToAllNodes=(node)=>{
