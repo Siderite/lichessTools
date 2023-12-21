@@ -114,6 +114,26 @@ body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*
   marker-end:url(#arrowhead-hiliteWhite);
 }
 
+body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader {
+  background: #d0d0d0;
+  padding: 0.3em;
+  cursor: pointer;
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit.lichessTools-collapsed > div:not(.lichessTools-gamebookHeader) {
+  display:none;
+}
+
+body.lichessTools.dark.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader,
+body.lichessTools.transp.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader {
+  background: #303030;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system.transp.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader {
+    background: #303030;
+  }
+}
 
 /* Prettier Lichess CSS */
 
