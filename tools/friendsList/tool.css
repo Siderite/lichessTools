@@ -43,6 +43,14 @@ body.lichessTools #topnav section.lichessTools-onlineFriends a i {
   margin-right:0.5em;
 }
 
+body.lichessTools #topnav section.lichessTools-onlineFriends a i:before {
+  content: '\E010';
+}
+
+body.lichessTools #topnav section.lichessTools-onlineFriends a:hover i:before {
+  color: #9fff9f;
+}
+
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:before {
   content:'\E025' !important;
 }

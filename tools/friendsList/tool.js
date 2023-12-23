@@ -462,7 +462,10 @@
           lichess.pubsub.on('socket.in.following_stopped_playing', this.stopped_playing);
       }
       if (parent.isFriendsPage()) {
-        if (!liveFriendsPage) {
+        lichess.pubsub.off('content-loaded',this.updateFriendsPage);
+        if (liveFriendsPage) {
+          lichess.pubsub.on('content-loaded',this.updateFriendsPage);
+        } else {
           $('.lichessTools-online').removeClass('lichessTools-online');
           $('.lichessTools-playing').removeClass('lichessTools-playing');
         }
