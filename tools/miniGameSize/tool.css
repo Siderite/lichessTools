@@ -5,6 +5,12 @@ body.lichessTools.lichessTools-miniGameSize .pv_box .pv-board {
   width: var(--lichessToolsMiniGameSize);
 }
 
+body.lichessTools.lichessTools-miniGameSize #powerTip, 
+body.lichessTools.lichessTools-miniGameSize #miniGame, 
+body.lichessTools.lichessTools-miniGameSize #miniBoard {
+  min-width: 15rem;
+}
+
 body.lichessTools.lichessTools-miniGameSize .pv_box .pv-board {
   max-width:none;
   left:inherit;
