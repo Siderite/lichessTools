@@ -93,7 +93,7 @@
       const trans=parent.translator;
       if (el!==true && !$(el).is('div.notifications')) return;
       this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
-      const timeline=await parent.net.json('/timeline?nb=100');
+      const timeline=await parent.net.json({url:'/timeline?nb=100&since={lastRead}',args:{lastRead:this.lastRead}});
       if (!timeline) return;
       const newEntries=timeline.entries
         .filter(e=>e.date>this.lastRead)

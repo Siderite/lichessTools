@@ -440,7 +440,7 @@
           }
         }
         if (firstToProcess) {
-          const html=await parent.net.fetch('/@/'+firstToProcess.id+'/mini');
+          const html=await parent.net.fetch({url:'/@/{userId}/mini',args:{ userId:firstToProcess.id}});
           const m=/<span class="(?:upt__info__top__country|upt__info__top__flag)".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
           if (m) {
             const el=$(m[0]);
