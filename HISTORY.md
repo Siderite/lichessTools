@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 Dec
+  - Slim arrows theme
+
 21 Dec
   - collapsible Interactive Lesson edit controls
 
