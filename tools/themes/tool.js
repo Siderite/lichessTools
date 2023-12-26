@@ -8,7 +8,7 @@
         name:'themes',
         category: 'general',
         type:'multiple',
-        possibleValues: ['performance','justExplorer','mobile','moveColorize'],
+        possibleValues: ['performance','justExplorer','mobile','moveColorize','slimArrows'],
         defaultValue: '',
         advanced: true
       }
@@ -22,7 +22,8 @@
         'themes.performance':'Performance theme',
         'themes.justExplorer':'Just Explorer',
         'themes.mobile':'Mobile theme',
-        'themes.moveColorize':'Move colorizer'
+        'themes.moveColorize':'Move colorizer',
+        'themes.slimArrows':'Slim arrows'
       },
       'ro-RO':{
         'options.general': 'General',
@@ -31,7 +32,8 @@
         'themes.performance':'Tem\u0103 performan\u0163\u0103',
         'themes.justExplorer':'Doar Explorator',
         'themes.mobile':'Tem\u0103 mobil',
-        'themes.moveColorize':'Colorizare mut\u0103ri'
+        'themes.moveColorize':'Colorizare mut\u0103ri',
+        'themes.slimArrows':'S\u0103ge\u0163i sub\u0163iri'
       }
     }
 
