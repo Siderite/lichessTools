@@ -85,14 +85,16 @@
     let eventType='';
     let variant='';
     let text='';
-    try {
-      text = await this.lichessTools.net.fetch({url:'/api/games/user/{username}?max=1&tags=true&ongoing=true&finished=false',args:{username:username}});
-    } catch(e) {
-      if (e.toString().includes('Failed to fetch')) {
-        this.lichessTools.global.console.debug('Failed to fetch net error');
-        return;
+    if (!silent && !this.lichessTools.net.slowMode) {
+      try {
+        text = await this.lichessTools.net.fetch({url:'/api/games/user/{username}?max=1&tags=true&ongoing=true&finished=false',args:{username:username}});
+      } catch(e) {
+        if (e.toString().includes('Failed to fetch')) {
+          this.lichessTools.global.console.debug('Failed to fetch net error');
+          return;
+        }
+        this.lichessTools.global.console.warn('playFriendSound game fetch error',e);
       }
-      this.lichessTools.global.console.warn('playFriendSound game fetch error',e);
     }
     if (text) {
       gameType=this.lichessTools.getGameTime(this.lichessTools.getPgnTag(text,'TimeControl'));
