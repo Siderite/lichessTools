@@ -4,7 +4,7 @@
     preferences=[
       {
         name:'pinOnMainPage',
-        category: 'study',
+        category: 'general',
         type:'single',
         possibleValues: [false,true],
         defaultValue: true,
