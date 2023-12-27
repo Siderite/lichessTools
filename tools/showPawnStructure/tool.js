@@ -36,6 +36,10 @@
        return /^\/games(\/|$)?/i.test(this.lichessTools.global.location.pathname);
     };
 
+    isBroadcastPage=()=>{
+       return /^\/broadcast\//i.test(this.lichessTools.global.location.pathname);
+    };
+
     getStructure=(board,blackOrientation)=>{
       if (!board) return null;
       const parent=this.lichessTools;
@@ -268,7 +272,6 @@
     };
 
     miniGameStructure=async (el)=>{
-      //if (this.isGamesPage()) return;
       const parent=this.lichessTools;
       const $=parent.$;
       if (parent.global.document.hidden) return;
@@ -280,8 +283,8 @@
         if (!el.length) return;
       };
       if (!$(el).length) el=$('body');
-      const elems=$('a[href].mini-game,div.boards>a[href]',el).get();
-      if ($(el).is('a[href].mini-game,div.boards>a[href]')) elems.push(el);
+      const elems=$('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game',el).get();
+      if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game')) elems.push(el);
       for (const el of elems) {
         fen=fen || $(el).attr('data-state');
         const board=parent.getBoardFromFen(fen);
@@ -299,6 +302,9 @@
       const $=parent.$;
       if (parent.global.document.hidden) return;
       if ($('body').is('.playing')) return;
+      if (this.isGamesPage() || this.isBroadcastPage()) {
+        return;
+      }
       const trans=parent.translator;
       const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables').eq(0);
       const fen=lichess.analysis?.node?.fen || parent.getPositionFromBoard($('main'),true);
@@ -356,7 +362,7 @@
       const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members');
         $('.lichessTools-structure',metaSection).remove();
       }
-      if (this.isGamesPage()) {
+      if (this.isGamesPage() || this.isBroadcastPage()) {
         $('body').toggleClass('lichessTools-structureMiniGames',this.options.enabled);
       }
     }
