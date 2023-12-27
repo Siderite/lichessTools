@@ -92,12 +92,13 @@
         "tools/showPawnStructure/tool.js",
         "tools/explorerSnaps/tool.js",
         "tools/miniGameSize/tool.js",
+        "tools/forceSf16/tool.js",
+        "tools/studyLearnFromMistakes/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
         "tools/copyPgnCommand/tool.js",
         "tools/readGameCommand/tool.js",
-        "tools/forceSf16/tool.js",
 
         "tools/addToTeam/tool.js",
         "tools/preferences/tool.js",
@@ -147,6 +148,7 @@
         "tools/showPawnStructure/tool.css",
         "tools/explorerSnaps/tool.css",
         "tools/miniGameSize/tool.css",
+        "tools/studyLearnFromMistakes/tool.css",
 
         "tools/tvOptions/tool.css",
 

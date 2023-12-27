@@ -1,0 +1,49 @@
+body.lichessTools .retro-box .title {
+  display: flex;
+  justify-content: space-between
+}
+
+body.lichessTools .retro-box .player.center {
+  justify-content: center
+}
+
+body.lichessTools .retro-box:not(.find) .player {
+  height: 100%
+}
+
+body.lichessTools .retro-box .win .icon:not(.off) {
+  color: #759900
+}
+
+body.lichessTools .retro-box .fail .icon:not(.off) {
+  color: #dc322f
+}
+
+body.lichessTools .retro-box .instruction glyph {
+  font-weight: normal;
+  opacity: .7
+}
+
+body.lichessTools .retro-box .half {
+  flex: 1 1 50%
+}
+
+body.lichessTools .retro-box .continue {
+  display: flex;
+  font-size: 1.3em;
+  background: rgba(56,147,232,.8);
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  padding: 0 10px
+}
+
+body.lichessTools .retro-box .continue:hover {
+  background: #3893e8
+}
+
+body.lichessTools .retro-box .continue i::before {
+  font-size: 2.5em;
+  margin-right: 10px
+}

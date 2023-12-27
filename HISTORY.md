@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Dec
+  - Learn from your mistakes in Studies
+
 26 Dec
   - Slim arrows theme
   - rewrote Move colorize theme as an option of the Highlight tool

@@ -139,7 +139,7 @@
         if (!path) return;
         const cls=dict[path];
         if (!cls) {
-          parent.global.console.warn('Could not find variation depth for node with path:',path);
+          //parent.global.console.warn('Could not find variation depth for node with path:',path);
         } else {
           $(e).removeClass('vd1 vd2 vd3 vd4 vd5 vd6 vd7').addClass(cls);
         }
