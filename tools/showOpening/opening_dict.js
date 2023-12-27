@@ -3165,6 +3165,7 @@ const openings = {
   "r1bqkb1rppp2ppp2n1pn23p44P33P1N2PPPN1PPPR1BQKB1Rw": "French: KIA, Reversed Philidor, 4...Nc6",
   "r1bqkb1rppp2ppp2n1pn23p44P33P1N2PPPNBPPPR1BQK2Rb": "French Defense: Reversed Philidor Formation",
   "r1bqkb1rppp2ppp2n1pn23pP33P45N2PPPN1PPPR1BQKB1Rb": "French: Tarrasch, Guimard, 4.Ngf3 Nf6 5.e5",
+  "r1bqkb1rppp2ppp2n1Pn282P58PP1P1PPPRNBQKBNRw": "Radagast Gambit (Adamisko)",
   "r1bqkb1rppp2ppp2n1pn282pP45NP1PP2PPBPRNBQ1RK1b": "Catalan: Open, 5.Nf3 Nc6 6.O-O",
   "r1bqkb1rppp2ppp2n1pn282pP45NP1PP2PPBPRNBQK2Rw": "Catalan: Open, 5.Nf3 Nc6",
   "r1bqkb1rppp2ppp2n1pn28Q1pP45NP1PP2PPBPRNB1K2Rb": "Catalan: Open, 5.Nf3 Nc6 6.Qa4",
