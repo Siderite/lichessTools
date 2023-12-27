@@ -2,6 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 27 Dec
   - Learn from your mistakes in Studies
+  - Pin study on home page
 
 26 Dec
   - Slim arrows theme

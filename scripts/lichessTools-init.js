@@ -66,6 +66,7 @@ lichessTools.loadTool(LiChessTools.Tools.ExplorerSnaps);
 lichessTools.loadTool(LiChessTools.Tools.MiniGameSize);
 lichessTools.loadTool(LiChessTools.Tools.ForceSf16);
 lichessTools.loadTool(LiChessTools.Tools.StudyLearnFromMistakes);
+lichessTools.loadTool(LiChessTools.Tools.PinOnMainPage);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
