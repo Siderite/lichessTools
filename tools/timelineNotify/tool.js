@@ -143,10 +143,12 @@
         elem.remove();
       }
     };
+    forcedProcessTimeline=this.lichessTools.debounce(()=>this.processTimeline(true),2000);
 
     async start() {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
+      const $=parent.$;
       const value=parent.currentOptions.getValue('timelineNotify');
       switch(value) {
         case true: this.types=this.preferences[0].defaultValue.split(','); break;
@@ -161,11 +163,20 @@
 
       lichess.pubsub.off('content-loaded',this.processTimeline);
       parent.global.clearInterval(this.interval);
+      parent.global.clearInterval(this.closeInterval);
+      $('#notify-toggle').off('mouseover',this.forcedProcessTimeline);
       if (!value) return;
       lichess.pubsub.on('content-loaded',this.processTimeline);
+      $('#notify-toggle').on('mouseover',this.forcedProcessTimeline);
       this.interval=parent.global.setInterval(()=>{
         if ($('div.shown #notify-app div.empty.text').length) {
-          this.processTimeline(true);
+          this.forcedProcessTimeline();
+          this.closeInterval=parent.global.setInterval(()=>{
+            if (!$('div.shown #notify-app div.empty.text').length) {
+              parent.global.clearInterval(this.closeInterval);
+              this.forcedProcessTimeline();
+            }
+          },500);
         }
       },500);
       if (!this.readAllStorage) {
@@ -173,7 +184,7 @@
         this.readAllStorage.listen(this.setAllRead);
       }
       if (/^\/timeline/i.test(location.pathname)) this.setAllRead();
-      parent.global.requestAnimationFrame(()=>this.processTimeline(true));
+      parent.global.requestAnimationFrame(this.forcedProcessTimeline);
     }
 
   }
