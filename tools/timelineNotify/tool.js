@@ -143,7 +143,7 @@
         elem.remove();
       }
     };
-    forcedProcessTimeline=this.lichessTools.debounce(()=>this.processTimeline(true),2000);
+    forcedProcessTimeline=this.lichessTools.debounce(()=>this.processTimeline(true),1000);
 
     async start() {
       const parent=this.lichessTools;
@@ -164,10 +164,10 @@
       lichess.pubsub.off('content-loaded',this.processTimeline);
       parent.global.clearInterval(this.interval);
       parent.global.clearInterval(this.closeInterval);
-      $('#notify-toggle').off('mouseover',this.forcedProcessTimeline);
+      //$('#notify-toggle').off('mouseover',this.forcedProcessTimeline);
       if (!value) return;
       lichess.pubsub.on('content-loaded',this.processTimeline);
-      $('#notify-toggle').on('mouseover',this.forcedProcessTimeline);
+      //$('#notify-toggle').on('mouseover',this.forcedProcessTimeline);
       this.interval=parent.global.setInterval(()=>{
         if ($('div.shown #notify-app div.empty.text').length) {
           this.forcedProcessTimeline();
