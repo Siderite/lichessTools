@@ -324,7 +324,7 @@
       const trans=parent.translator;
       const analysis=parent.lichess.analysis;
 
-      $('body').toggleClass('lichessTools-extendedInteractiveLesson',this.options.extendedInteractive && analysis?.study?.data?.chapter?.gamebook);
+      $('body').toggleClass('lichessTools-extendedInteractiveLesson',this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
       //let translation=trans.noarg('extendedInteractiveLesson');
       //$('.gamebook-buttons').attr('data-label',translation);
       let translation=trans.noarg('extendedInteractiveLessonLong')
