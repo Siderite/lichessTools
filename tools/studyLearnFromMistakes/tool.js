@@ -42,7 +42,8 @@
   "doneReviewingBlackMistakes": "Done reviewing Black mistakes",
   "doItAgain": "Do it again",
   "reviewWhiteMistakes": "Review White mistakes",
-  "reviewBlackMistakes": "Review Black mistakes"
+  "reviewBlackMistakes": "Review Black mistakes",
+  "goodMove": "Good move"
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -71,7 +72,8 @@
   "doneReviewingBlackMistakes": "Gata cu analiza gre\u015Felilor din partea negrelor",
   "doItAgain": "F\u0103-o din nou",
   "reviewWhiteMistakes": "Analizeaz\u0103 gre\u015Felile albelor",
-  "reviewBlackMistakes": "Analizeaz\u0103 gre\u015Felile negrelor"
+  "reviewBlackMistakes": "Analizeaz\u0103 gre\u015Felile negrelor",
+  "goodMove": "Mutare bun\u0103"
       }
     };
 
@@ -82,6 +84,7 @@
       const analysis=lichess.analysis;
       const retro=analysis.retro;
       if (!retro||retro.trans===trans) return;
+      //TODO learnFromThisMistake translation uses the analysis.trans object (https://github.com/lichess-org/lila/issues/14324)
       retro.noarg=trans.noarg;
       retro.trans=trans;
       analysis.redraw();
