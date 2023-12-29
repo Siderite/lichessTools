@@ -65,7 +65,7 @@
 
   playFriendSound=async (username)=>{
     this.lichessTools.global.console.debug(username + ' playing');
-    const now=new Date().getTime();
+    const now=Date.now();
     const isMuted=(this.lichessTools.currentOptions.getValue('mutedPlayers')||[]).includes(username?.toLowerCase());
     let silent=isMuted?'muted':'';
     if (!silent && this.lichessTools.lichess.quietMode) {

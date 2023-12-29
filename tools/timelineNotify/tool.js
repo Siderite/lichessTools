@@ -80,8 +80,9 @@
     setAllRead=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
-      this.lastRead=new Date().getTime();
+      this.lastRead=Date.now();
       lichess.storage.set('LiChessTools.lastRead',this.lastRead);
+      this.forcedProcessTimeline();
     };
 
     processTimeline=async (el)=>{

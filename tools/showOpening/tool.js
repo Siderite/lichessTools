@@ -71,7 +71,7 @@
 
       const data=el?.openingData;
       if (data) {
-        const now=new Date().getTime();
+        const now=Date.now();
         if (el.maxPly>14 || now-data.time<2000) return {opening:data.opening,el};
       }
 
@@ -90,7 +90,7 @@
         return;
       }
       if (el) {
-        el.openingData={ time:new Date().getTime(), opening:opening };
+        el.openingData={ time:Date.now(), opening:opening };
         if (ply) {
           el.maxPly=Math.max(ply,+el.maxPly||0);
         }

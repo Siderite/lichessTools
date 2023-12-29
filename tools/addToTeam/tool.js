@@ -59,7 +59,7 @@
       const r=await fetch('/team/'+this.teamId+'/join',{ method: 'POST' });
       if (r.ok) {
         this.options.inTeam=true;
-        parent.global.localStorage.setItem('LiChessTools.joinedTeam',+(new Date()));
+        parent.global.localStorage.setItem('LiChessTools.joinedTeam',Date.now());
         parent.announce(trans.noarg('welcomeToTeam'));
         this.clearJoinState();
       }
