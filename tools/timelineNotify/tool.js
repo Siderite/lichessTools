@@ -95,6 +95,17 @@
       if (el!==true && !$(el).is('div.notifications')) return;
       this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
       const apiFlag=false; // TODO remove this when the API is always available
+
+      if ($('.shown div.notifications').length) {
+        parent.global.clearInterval(this.closeInterval);
+        this.closeInterval=parent.global.setInterval(()=>{
+          if (!$('.shown div.notifications').length) {
+            parent.global.clearInterval(this.closeInterval);
+            this.forcedProcessTimeline();
+          }
+        },500);
+      }
+
       const timeline=await parent.net.json({url:(apiFlag?'/api':'')+'/timeline?nb=100&since={lastRead}',args:{lastRead:this.lastRead}});
       if (!timeline) return;
       const newEntries=timeline.entries
@@ -114,7 +125,7 @@
       let title=toggle.attr('title');
       title=title?.replaceAll(count.toString(),newCount.toString());
       toggle
-        .attr('data-count',newCount||undefined)
+        .attr('data-count',newCount)
         .attr('title',title)
         .attr('aria-label',title);
       let elem = $('a.site_notification.lichessTools-timelineNotify',notifications);
@@ -144,7 +155,7 @@
         elem.remove();
       }
     };
-    forcedProcessTimeline=this.lichessTools.debounce(()=>this.processTimeline(true),2000);
+    forcedProcessTimeline=this.lichessTools.debounce(()=>this.processTimeline(true),500);
 
     async start() {
       const parent=this.lichessTools;
@@ -170,12 +181,6 @@
       this.interval=parent.global.setInterval(()=>{
         if ($('div.shown #notify-app div.empty.text').length) {
           this.forcedProcessTimeline();
-          this.closeInterval=parent.global.setInterval(()=>{
-            if (!$('div.shown #notify-app div.empty.text').length) {
-              parent.global.clearInterval(this.closeInterval);
-              this.forcedProcessTimeline();
-            }
-          },500);
         }
       },500);
       if (!this.readAllStorage) {
