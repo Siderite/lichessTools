@@ -243,6 +243,18 @@
       });
     };
 
+    scrollIfNeeded=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const needsScroll=!!$('.pager').filter((i,e)=>{
+        return parent.inViewport(e);
+      }).length;
+      if (needsScroll) {
+        $('html').trigger('scroll');
+        parent.global.setTimeout(this.scrollIfNeeded,250);
+      }
+    };
+
     rows={};
     updateFriendsPage=()=>{
       const parent=this.lichessTools;
@@ -262,19 +274,19 @@
                     .attr('title',trans.noarg('hideOfflineTitle'))
                     .on('click',()=>{
                       $('main').toggleClass('lichessTools-hideOffline');
-                      $(window).trigger('scroll');
+                      this.scrollIfNeeded();
                     }))
           .append($('<i data-icon="&#xE025;" data-role="hideNotPlaying">')
                     .attr('title',trans.noarg('hideNotPlayingTitle'))
                     .on('click',()=>{
                       $('main').toggleClass('lichessTools-hideNotPlaying');
-                      $(window).trigger('scroll');
+                      this.scrollIfNeeded();
                     }))
           .append($('<i data-icon="&#xE00F;" data-role="hideMuted">')
                     .attr('title',trans.noarg('hideMutedTitle'))
                     .on('click',()=>{
                       $('main').toggleClass('lichessTools-hideMuted');
-                      $(window).trigger('scroll');
+                      this.scrollIfNeeded();
                     }))
           .insertAfter('main.box div.box__top');
       }
