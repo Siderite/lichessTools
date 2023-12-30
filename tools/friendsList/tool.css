@@ -128,7 +128,7 @@ body.lichessTools main.lichessTools-hideOffline div.lichessTools-liveButtons i[d
   opacity:0.2;
 }
 
-body.lichessTools main.lichessTools-hideOffline tr:not(.lichessTools-online) {
+body.lichessTools main.lichessTools-hideOffline tr:not(.lichessTools-online,.pager) {
   display:none;
 }
 
@@ -136,7 +136,7 @@ body.lichessTools main.lichessTools-hideNotPlaying div.lichessTools-liveButtons 
   opacity:0.2;
 }
 
-body.lichessTools main.lichessTools-hideNotPlaying tr:not(.lichessTools-playing) {
+body.lichessTools main.lichessTools-hideNotPlaying tr:not(.lichessTools-playing,.pager) {
   display:none;
 }
 

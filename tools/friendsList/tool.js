@@ -258,9 +258,24 @@
       if (!$('.lichessTools-liveButtons').length) {
         $('<div>')
           .addClass('lichessTools-liveButtons')
-          .append($('<i data-icon="&#xE012;" data-role="hideOffline">').attr('title',trans.noarg('hideOfflineTitle')).on('click',()=>{ $('main').toggleClass('lichessTools-hideOffline'); }))
-          .append($('<i data-icon="&#xE025;" data-role="hideNotPlaying">').attr('title',trans.noarg('hideNotPlayingTitle')).on('click',()=>{ $('main').toggleClass('lichessTools-hideNotPlaying'); }))
-          .append($('<i data-icon="&#xE00F;" data-role="hideMuted">').attr('title',trans.noarg('hideMutedTitle')).on('click',()=>{ $('main').toggleClass('lichessTools-hideMuted'); }))
+          .append($('<i data-icon="&#xE012;" data-role="hideOffline">')
+                    .attr('title',trans.noarg('hideOfflineTitle'))
+                    .on('click',()=>{
+                      $('main').toggleClass('lichessTools-hideOffline');
+                      $(window).trigger('scroll');
+                    }))
+          .append($('<i data-icon="&#xE025;" data-role="hideNotPlaying">')
+                    .attr('title',trans.noarg('hideNotPlayingTitle'))
+                    .on('click',()=>{
+                      $('main').toggleClass('lichessTools-hideNotPlaying');
+                      $(window).trigger('scroll');
+                    }))
+          .append($('<i data-icon="&#xE00F;" data-role="hideMuted">')
+                    .attr('title',trans.noarg('hideMutedTitle'))
+                    .on('click',()=>{
+                      $('main').toggleClass('lichessTools-hideMuted');
+                      $(window).trigger('scroll');
+                    }))
           .insertAfter('main.box div.box__top');
       }
       const watchGamesTitle=trans.noarg('watchGames');
