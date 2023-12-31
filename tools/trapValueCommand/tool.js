@@ -92,6 +92,10 @@
       let count=0;
       let prevTotal=0;
       for (const node of nodes) {
+        const move=explorerItem?.moves?.find(m=>m.uci==node.uci);
+        const moveProbability=move && prevTotal
+          ? (move.black+move.draws+move.white)/prevTotal
+          : 0;
         explorerItem=this.explorerItem(node);
         while (!explorerItem) {
           const path=initialPath.substr(0,node.ply*2);
@@ -106,7 +110,7 @@
         const isOpponentMove=node.ply%2===(orientation=='black'?1:0);
         const total=explorerItem.white+explorerItem.draws+explorerItem.black;
         if (node.ply&&isOpponentMove&&prevTotal) {
-          probability*=total/prevTotal;
+          probability*=moveProbability || (total/prevTotal);
           count++;
         }
         prevTotal=total;
