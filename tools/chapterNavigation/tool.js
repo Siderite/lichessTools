@@ -48,9 +48,9 @@
           .insertAfter('div.study__side .study__chapters');
         $('div.study__side').addClass('lichessTools-chapterControls');
       }
-      const chapter=study.currentChapter();
-      const index=chapter
-        ? list.findIndex(c=>c.id==chapter.id)
+      const chapterId=study.currentChapter()?.id;
+      const index=chapterId
+        ? list.findIndex(c=>c.id==chapterId)
         : 0;
       $('button[data-act="first"]',container).toggleClass('disabled',index==0); 
       $('button[data-act="prev"]',container).toggleClass('disabled',index==0); 
@@ -66,7 +66,11 @@
       const $=parent.$;
       const study=parent.lichess.analysis?.study;
       if (!study) return;
-      const chapterId=study.currentChapter().id;
+      const chapterId=study.currentChapter()?.id;
+      if (!chapterId) {
+        parent.global.console.warn('Could not determine chapterId');
+        return;
+      }
       const list=study.chapters.list();
       let index=list.findIndex(c=>c.id==chapterId);
       const act=$(ev.target).attr('data-act');

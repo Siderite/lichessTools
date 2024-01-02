@@ -291,7 +291,11 @@
       const deviation = parent.global.prompt(text,gamebook.deviation);
       if (!deviation) return;
       gamebook.deviation=deviation;
-      const chapterId=analysis.study.currentChapter().id;
+      const chapterId=analysis.study.currentChapter()?.id;
+      if (!chapterId) {
+        parent.global.console.warn('Could not determine chapterId');
+        return;
+      }
       analysis.study.makeChange('setGamebook',{
         ch: chapterId,
         path: nodePath,

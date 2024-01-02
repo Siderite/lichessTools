@@ -59,7 +59,7 @@
       const chapters=this.chapterData?.chapters;
       if (!chapters) return;
       const current=study.currentChapter();
-      if (!chapters.find(c=>c.id==current.id)) {
+      if (current && !chapters.find(c=>c.id && c.id==current?.id)) {
         const newOrder=chapters.map(c=>c.id);
         const index=newOrder.findIndex(id=>id==this.chapterData.current.id);
         if (index<0||index==chapters.length-1) return;
