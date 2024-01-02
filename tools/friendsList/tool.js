@@ -149,21 +149,12 @@
         $('<a class="user-link ulpt">')
           .attr('data-pt-pos','w')
           .toggleClass('lichessTools-playing',isPlaying)
-          .attr('href','/@/'+userId)
+          .data('href','/@/'+userId)
+          .attr('href','/@/'+userId+(isPlaying?'/tv':''))
           .append($('<i>')
                     .attr('data-icon',isPlaying?'\uE025':'\uE012'))
           .append($('<span class="content">')
                     .text(this.user_data.names[userId]||userId))
-          .on('click',ev=>{
-            if (!$(ev.currentTarget).is('.lichessTools-playing')) return;
-            ev.preventDefault();
-            const tvUrl='/@/'+userId+'/tv';
-            if (ev.ctrlKey) {
-              parent.global.open(tvUrl,'_blank','noopener');
-            } else {
-              parent.global.location.href=tvUrl;
-            }
-          })
           .appendTo(notifs);
       }
     };
