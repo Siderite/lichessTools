@@ -91,9 +91,9 @@
       } catch(e) {
         if (e.toString().includes('Failed to fetch')) {
           this.lichessTools.global.console.debug('Failed to fetch net error');
-          return;
+        } else {
+          this.lichessTools.global.console.warn('playFriendSound game fetch error',e);
         }
-        this.lichessTools.global.console.warn('playFriendSound game fetch error',e);
       }
     }
     if (text) {
