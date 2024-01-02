@@ -146,16 +146,17 @@
       const displayedItems=items.slice(this.buttonStartIndex,this.buttonStartIndex+this.buttonPageSize);
       for (const userId of displayedItems) {
         const isPlaying=this.user_data.playing.includes(userId);
-        $('<a class="user-link ulpt">')
+        const elem=$('<a class="user-link ulpt">')
           .attr('data-pt-pos','w')
           .toggleClass('lichessTools-playing',isPlaying)
-          .data('href','/@/'+userId)
           .attr('href','/@/'+userId+(isPlaying?'/tv':''))
           .append($('<i>')
-                    .attr('data-icon',isPlaying?'\uE025':'\uE012'))
+                    //.attr('data-icon',isPlaying?'\uE025':'\uE010')
+          )
           .append($('<span class="content">')
                     .text(this.user_data.names[userId]||userId))
           .appendTo(notifs);
+        elem[0].dataset.href='/@/'+userId;
       }
     };
 
@@ -213,20 +214,17 @@
           friendMenu=$(e).clone()
             .attr('data-pt-pos','e');
           group.append(friendMenu);
-          friendMenu
-            .on('click',ev=>{
-              if (!$(ev.currentTarget).is('.lichessTools-playing')) return;
-              ev.preventDefault();
-              const tvUrl='/@/'+user+'/tv';
-              if (ev.ctrlKey) {
-                parent.global.open(tvUrl,'_blank','noopener');
-              } else {
-                parent.global.location.href=tvUrl;
-              }
-            });
         }
-        friendMenu
-          .toggleClass('lichessTools-playing',isPlaying);
+        friendMenu[0].dataset.href=href;
+        if (isPlaying) {
+          friendMenu
+            .addClass('lichessTools-playing')
+            .attr('href','/@/'+user+'/tv');
+        } else {
+          friendMenu
+            .removeClass('lichessTools-playing')
+            .attr('href','/@/'+user);
+        }
         items.delete(friendMenu[0]);
       });
       items.forEach(e=>{

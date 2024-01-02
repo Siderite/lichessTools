@@ -3,7 +3,8 @@ body.lichessTools section.lichessTools-onlineFriends .data-count:after {
   background: #1b78d0;
 }
 
-body.lichessTools.dark section.lichessTools-onlineFriends .data-count:after {
+body.lichessTools.dark section.lichessTools-onlineFriends .data-count:after,
+body.lichessTools.transp section.lichessTools-onlineFriends .data-count:after {
   background: #3692e7;
 }
 
@@ -29,7 +30,8 @@ body.lichessTools #topnav section.lichessTools-onlineFriends > a.lichessTools-so
   color: #1b78d0;
 }
 
-body.lichessTools.dark #topnav section.lichessTools-onlineFriends > a.lichessTools-somePlaying {
+body.lichessTools.dark #topnav section.lichessTools-onlineFriends > a.lichessTools-somePlaying,
+body.lichessTools.transp #topnav section.lichessTools-onlineFriends > a.lichessTools-somePlaying {
   color: #3692e7;
 }
 
@@ -63,7 +65,8 @@ body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-play
   color: #9fff9f;
 }
 
-body.lichessTools.dark #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:before {
+body.lichessTools.dark #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:before,
+body.lichessTools.transp #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:before {
   color: #3692e7;
 }
 
@@ -73,7 +76,8 @@ body.lichessTools.dark #topnav section.lichessTools-onlineFriends a.lichessTools
   }
 }
 
-body.lichessTools.dark #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:before {
+body.lichessTools.dark #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:before,
+body.lichessTools.transp #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:before {
   color: #9fff9f;
 }
 
@@ -88,7 +92,8 @@ body.lichessTools tr.lichessTools-online.lichessTools-playing a.lichessTools-tv 
   color: #1b78d0;
 }
 
-body.lichessTools.dark tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
+body.lichessTools.dark tr.lichessTools-online.lichessTools-playing a.lichessTools-tv,
+body.lichessTools.transp tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
   color: #3692e7;
 }
 
@@ -168,7 +173,8 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown {
   right: 0;
 }
 
-body.lichessTools.dark .lichessTools-onlineFriends div.links.dropdown {
+body.lichessTools.dark .lichessTools-onlineFriends div.links.dropdown,
+body.lichessTools.transp .lichessTools-onlineFriends div.links.dropdown {
   border-radius: 3px 0 0 3px;
 }
 
@@ -207,11 +213,26 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notificatio
   position: relative;
 }
 
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a i:before {
+  content: '\E010';
+  font-family: 'lichess';
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover i:before {
+  color: #9fff9f;
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing i:before {
+  content:'\E025' !important;
+}
+
+
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover {
   background: #f7f6f5;
 }
 
-body.lichessTools.dark .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover {
+body.lichessTools.dark .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover,
+body.lichessTools.transp .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover {
   background: #302e2c;
 }
 
@@ -230,7 +251,8 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notificatio
   color: #5faf5f;
 }
 
-body.lichessTools.dark .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing i {
+body.lichessTools.dark .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing i,
+body.lichessTools.transp .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing i {
   color: #9fff9f;
 }
 
@@ -255,7 +277,8 @@ body.lichessTools .site-buttons div.lichessTools-onlineFriends.lichessTools-some
   color: #1b78d0;
 }
 
-body.lichessTools.dark .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying > button.toggle {
+body.lichessTools.dark .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying > button.toggle,
+body.lichessTools.transp .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying > button.toggle {
   color: #3692e7;
 }
 
@@ -330,7 +353,8 @@ body.lichessTools.lichessTools-prettier #topnav section.lichessTools-onlineFrien
   color: #1b78d0 !important;
 }
 
-body.lichessTools.lichessTools-prettier.dark #topnav section.lichessTools-onlineFriends > a.lichessTools-somePlaying {
+body.lichessTools.lichessTools-prettier.dark #topnav section.lichessTools-onlineFriends > a.lichessTools-somePlaying,
+body.lichessTools.lichessTools-prettier.transp #topnav section.lichessTools-onlineFriends > a.lichessTools-somePlaying {
   color: #3692e7 !important;
 }
 
@@ -348,7 +372,8 @@ body.lichessTools.lichessTools-prettier tr.lichessTools-online.lichessTools-play
   color: #1b78d0 !important;
 }
 
-body.lichessTools.lichessTools-prettier.dark tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
+body.lichessTools.lichessTools-prettier.dark tr.lichessTools-online.lichessTools-playing a.lichessTools-tv,
+body.lichessTools.lichessTools-prettier.transp tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
   color: #3692e7 !important;
 }
 
@@ -362,7 +387,8 @@ body.lichessTools.lichessTools-prettier .site-buttons div.lichessTools-onlineFri
   color: #1b78d0 !important;
 }
 
-body.lichessTools.lichessTools-prettier.dark .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying > button.toggle {
+body.lichessTools.lichessTools-prettier.dark .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying > button.toggle,
+body.lichessTools.lichessTools-prettier.transp .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying > button.toggle {
   color: #3692e7 !important;
 }
 
