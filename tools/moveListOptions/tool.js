@@ -620,6 +620,18 @@
       $('main.analyse').toggleClass('lichessTools-fixCevalToggle',this.options.fixCevalToggle);
     };
 
+    addMissingIndexes=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('.tview2.lichessTools-indentedVariations inline+move:not(:has(index))').each((i,e)=>{
+        const elem=$(e).prev().prev('move:has(index)').find('index').clone();
+        elem
+          .addClass('lichessTools-index')
+          .text(elem.text()+'..');
+        $(e).prepend(elem);
+      });
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('moveListOptions');
@@ -657,6 +669,11 @@
         }
       });
       this.analysisControls();
+
+      lichess.pubsub.off('redraw',this.addMissingIndexes);
+      if (this.options.indentedVariations) {
+        lichess.pubsub.on('redraw',this.addMissingIndexes);
+      }
 
       lichess.pubsub.off('redraw',this.debouncedAddCommentBookmarks);
       lichess.pubsub.off('chapterChange',this.debouncedAddCommentBookmarks);
