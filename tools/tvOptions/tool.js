@@ -113,7 +113,7 @@
         $('a.lichessTools-streamers',container).remove();
       }
 
-      if (this.options.friendsTv) {
+      if (this.options.friendsTv && parent.getUserId()) {
         const elem=$('a.lichessTools-friends',container);
         if (this.isFriendsTvPage()) {
           parent.global.document.title=parent.global.document.title?.replace(/^.*?\u2022/,trans.noarg('friends')+' \u2022');
