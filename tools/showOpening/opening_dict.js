@@ -3883,6 +3883,7 @@ const openings = {
   "r1bqkbnrpppp1ppp2n54P385N2PPP1PPPPRNBQKB1Rb": "Englund Gambit: 2.dxe5 Nc6 3.Nf3",
   "r1bqkbnrpppp1ppp2n54P388PPP1PPPPRNBQKBNRw": "Englund Gambit: 2.dxe5 Nc6",
   "r1bqkbnrpppp1ppp2n54P388PPPPP1PPRNBQKBNRw": "Bird Opening: Schlechter Gambit",
+  "r1bqkbnrpppp1ppp2n56N13pP38PPP2PPPRNBQKB1Rb": "Haggis Gambit (Igor Smirnov)",
   "r1bqkbnrpppp1ppp2n582B1P32p2N2PP3PPPRNBQK2Rb": "Scotch Game: Göring Gambit, Double Pawn Sacrifice",
   "r1bqkbnrpppp1ppp2n582B1P35N2PB3PPPRN1QK2Rb": "Scotch: Goring Gambit, 4...dxc3 5.Bc4 cxb2 6.Bxb2",
   "r1bqkbnrpppp1ppp2n582B1Pp28PPPP2PPRNBQK1NRw": "King's Gambit Accepted: Bishop's Gambit, Maurian Defense",
