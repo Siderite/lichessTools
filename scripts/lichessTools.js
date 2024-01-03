@@ -517,7 +517,7 @@
           .map(el=>{
             const text=$(el).val();
             const m = /^\s*[rnbqkpRNBQKP1-8\/]+ ([wb])/.exec(text);
-            return m[1];
+            return m && m[1];
           })
           .find(t=>t);
         if (maybeTurn) {
