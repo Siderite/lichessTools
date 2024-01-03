@@ -219,13 +219,12 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notificatio
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover i:before {
-  color: #9fff9f;
+  color: #6fbf6f;
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing i:before {
   content:'\E025' !important;
 }
-
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover {
   background: #f7f6f5;

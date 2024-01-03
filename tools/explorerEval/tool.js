@@ -161,6 +161,7 @@
     setCached404= (path)=>path?this._setCached404(path,this.cache404):false;
     getCached404= (path)=>path?this._getCached404(path,this.cache404):false;
     _setCached404= (path,node)=>{
+      if (node===true) return;
       const key=path?.slice(0,2);
       if (key) {
         let newNode=node[key];
