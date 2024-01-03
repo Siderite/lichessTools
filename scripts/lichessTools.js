@@ -471,7 +471,7 @@
         lastMove[getKey(res)]=true;
       });
 
-      let turn='white';
+      let turn=$('.board-editor__tools .color select').val();
       const pieceDict={};
       $('piece',container).each((i,p)=>{
         const piece=$(p);
@@ -512,7 +512,7 @@
         if (asFen && y<7) pos+='/';
       }
       if (asFen) pos+=' ';
-      pos+=turn[0];
+      pos+=(turn||'white')[0];
       return pos;
     };
 

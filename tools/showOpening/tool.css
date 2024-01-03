@@ -34,3 +34,7 @@ body.lichessTools div.analyse__wiki .lichessTools-opening {
   display: block;
   text-align: center;
 }
+
+body.lichessTools #board-editor .lichessTools-opening {
+  display: block;
+}

@@ -306,7 +306,7 @@
         return;
       }
       const trans=parent.translator;
-      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables').eq(0);
+      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables').eq(0);
       const fen=lichess.analysis?.node?.fen || parent.getPositionFromBoard($('main'),true);
       if (!fen) return;
       const board=parent.getBoardFromFen(fen);
@@ -344,6 +344,7 @@
       if (lichess.socket?.settings?.events?.endData) {
         lichess.socket.settings.events.endData=parent.unwrapFunction(lichess.socket.settings.events.endData,'showPawnStructure');
       }
+      parent.global.clearInterval(this.interval);
       if (this.options.enabled) {
         if (lichess.socket?.settings?.events?.endData) {
           lichess.socket.settings.events.endData=parent.wrapFunction(lichess.socket.settings.events.endData,{
@@ -358,8 +359,11 @@
         lichess.pubsub.on('redraw',this.refreshStructureDebounced);
         lichess.pubsub.on('content-loaded',this.miniGameStructureDebounced);
         parent.global.requestAnimationFrame(this.refreshStructureDebounced);
+        if ($('main').is('#board-editor')) {
+          this.interval=parent.global.setInterval(this.refreshStructureDebounced,1000);
+        }
       } else {
-      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members');
+        const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables').eq(0);
         $('.lichessTools-structure',metaSection).remove();
       }
       if (this.isGamesPage() || this.isBroadcastPage()) {

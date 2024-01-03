@@ -107,8 +107,8 @@
       const trans=parent.translator;
       const tvOptions=parent.getTvOptions();
       const gameId=tvOptions.gameId || lichess.analysis?.data?.game?.id;
-      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members').eq(0);
-      const result = await this.withOpening(gameId,$('main.round, main.analyse')[0],ply);
+      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, main#board-editor .copyables').eq(0);
+      const result = await this.withOpening(gameId,$('main.round, main.analyse, main#board-editor')[0],ply);
       if (!result) {
         $('.lichessTools-opening',metaSection).remove();
         return;
@@ -136,6 +136,7 @@
       if (lichess.socket?.settings?.events?.endData) {
         lichess.socket.settings.events.endData=parent.unwrapFunction(lichess.socket.settings.events.endData,'showOpening');
       }
+      parent.global.clearInterval(this.interval);
       if (value) {
         if (lichess.socket?.settings?.events?.endData) {
           lichess.socket.settings.events.endData=parent.wrapFunction(lichess.socket.settings.events.endData,{
@@ -148,8 +149,11 @@
         lichess.pubsub.on('ply',this.refreshOpeningDebounced);
         lichess.pubsub.on('content-loaded',this.miniGameOpening);
         parent.global.requestAnimationFrame(this.refreshOpeningDebounced);
+        if ($('main').is('#board-editor')) {
+          this.interval=parent.global.setInterval(this.refreshOpeningDebounced,1000);
+        }
       } else {
-        const metaSection = $('div.game__meta section').eq(0);
+        const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, main#board-editor .copyables').eq(0);
         $('.lichessTools-opening',metaSection).remove();
       }
     }
