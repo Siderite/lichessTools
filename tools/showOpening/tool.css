@@ -35,6 +35,6 @@ body.lichessTools div.analyse__wiki .lichessTools-opening {
   text-align: center;
 }
 
-body.lichessTools #board-editor .lichessTools-opening {
+body.lichessTools .copyables .lichessTools-opening {
   display: block;
 }

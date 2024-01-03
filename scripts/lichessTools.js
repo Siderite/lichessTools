@@ -471,7 +471,7 @@
         lastMove[getKey(res)]=true;
       });
 
-      let turn=$('.board-editor__tools .color select').val();
+      let turn='';
       const pieceDict={};
       $('piece',container).each((i,p)=>{
         const piece=$(p);
@@ -512,7 +512,21 @@
         if (asFen && y<7) pos+='/';
       }
       if (asFen) pos+=' ';
-      pos+=(turn||'white')[0];
+      if (!turn) {
+        const maybeTurn=Array.from($('.copyables input'))
+          .map(el=>{
+            const text=$(el).val();
+            const m = /^\s*[rnbqkpRNBQKP1-8\/]+ ([wb])/.exec(text);
+            return m[1];
+          })
+          .find(t=>t);
+        if (maybeTurn) {
+          turn=maybeTurn;
+        } else {
+          turn='white';
+        }
+      }
+      pos+=turn[0];
       return pos;
     };
 
