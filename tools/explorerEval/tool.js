@@ -333,7 +333,7 @@
       }
     };
 
-    CSP=true; // defaults to true until lichess allows chessdb.cn connections
+    CSP=true; // default to true until lichess CSP rules allow chessdb.cn
     secCheck=e=>{
       if (this.CSP) return;
       if (!e.blockedURI?.includes('chessdb.cn')) {
