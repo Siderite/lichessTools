@@ -183,10 +183,10 @@
           this.forcedProcessTimeline();
         }
       },500);
-      if (!this.readAllStorage) {
+      /*if (!this.readAllStorage) {
         this.readAllStorage = lichess.storage.make('notify-read-all');
         this.readAllStorage.listen(this.setAllRead);
-      }
+      }*/
       if (/^\/timeline/i.test(location.pathname)) this.setAllRead();
       parent.global.requestAnimationFrame(this.forcedProcessTimeline);
     }
