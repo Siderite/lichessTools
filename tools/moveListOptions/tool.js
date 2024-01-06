@@ -399,7 +399,11 @@
       let commentText=comments.map(c=>c.text).join('\r\n\r\n');
       r.lastIndex=0;
       commentText=(label?'bkm:'+label+' ':'')+commentText.replace(r,'').trim();
-      const chapterId=study.currentChapter().id;
+      const chapterId=study.currentChapter()?.id;
+      if (!chapterId) {
+        parent.global.console.warn('Could not determine chapterId');
+        return;
+      }
       for(const comment of comments.filter(c=>c.by?.id!=myName)) {
         study.commentForm.delete(chapterId,node.path,comment.id)
       }
@@ -418,7 +422,12 @@
       const study=analysis?.study;
       if (!study) return;
 
-      const url=parent.global.location.origin+'/study/'+study.data.id+'/'+study.currentChapter().id+'#'+parent.global.encodeURIComponent(label);
+      const chapterId=study.currentChapter()?.id;
+      if (!chapterId) {
+        parent.global.console.warn('Could not determine chapterId');
+        return;
+      }
+      const url=parent.global.location.origin+'/study/'+study.data.id+'/'+chapterId+'#'+parent.global.encodeURIComponent(label);
       const result=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
       if (['granted','prompt'].includes(result.state)) {
         try {
@@ -483,7 +492,7 @@
       let commentText=parent.getNodeComment(node)||'';
       if (commentText) commentText+='\r\n';
 
-      while(study.currentChapter().id==position.chapterId) {
+      while(!study.currentChapter() || study.currentChapter().id==position.chapterId) {
         await parent.timeout(50);
       }
       const newChapterId=study.currentChapter().id;
@@ -491,7 +500,7 @@
       const chapterText=trans.pluralSame('chapterLink',chapterUrl);
       study.setChapter(position.chapterId);
       
-      while(study.currentChapter().id!=position.chapterId) {
+      while(!study.currentChapter() || study.currentChapter().id!=position.chapterId) {
         await parent.timeout(50);
       }
       analysis.jump(nodePath);
@@ -620,6 +629,18 @@
       $('main.analyse').toggleClass('lichessTools-fixCevalToggle',this.options.fixCevalToggle);
     };
 
+    addMissingIndexes=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('.tview2.lichessTools-indentedVariations inline+move:not(:has(index))').each((i,e)=>{
+        const elem=$(e).prev().prev('move:has(index)').find('index').clone();
+        elem
+          .addClass('lichessTools-index')
+          .text(elem.text()+'..');
+        $(e).prepend(elem);
+      });
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('moveListOptions');
@@ -657,6 +678,11 @@
         }
       });
       this.analysisControls();
+
+      lichess.pubsub.off('redraw',this.addMissingIndexes);
+      if (this.options.indentedVariations) {
+        lichess.pubsub.on('redraw',this.addMissingIndexes);
+      }
 
       lichess.pubsub.off('redraw',this.debouncedAddCommentBookmarks);
       lichess.pubsub.off('chapterChange',this.debouncedAddCommentBookmarks);

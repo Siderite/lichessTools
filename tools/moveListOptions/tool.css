@@ -1,3 +1,9 @@
+body.lichessTools .tview2:not(.lichessTools-indentedVariations) index.lichessTools-index
+{
+  display:none;
+}
+
+
 body.lichessTools .tview2.lichessTools-indentedVariations inline
 {
   padding-left: 7px;

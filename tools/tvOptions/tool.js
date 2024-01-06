@@ -24,6 +24,7 @@
         'friendsButtonTitle': 'LiChess Tools - games of your friends',
         'streamersButtonTitle': 'LiChess Tools - games of live streamers',
         'streamers': 'Streamers',
+        'friends': 'Friends',
         'noGames': 'No available games',
         'streamerLink': 'Watch the stream',
         'bookmarkGame': 'LiChess Tools - Bookmark this game',
@@ -41,6 +42,7 @@
         'friendsButtonTitle': 'LiChess Tools - jocurile prietenilor t\u0103i',
         'streamersButtonTitle': 'LiChess Tools - jocurile streamerilor live',
         'streamers': 'Streameri',
+        'friends': 'Prieteni',
         'noGames': 'Nu sunt jocuri disponibile',
         'streamerLink': 'Urm\u0103re\u015Fte stream-ul',
         'bookmarkGame': 'LiChess Tools - Marca\u0163i aceast\u0103 partid\u0103',
@@ -111,7 +113,7 @@
         $('a.lichessTools-streamers',container).remove();
       }
 
-      if (this.options.friendsTv) {
+      if (this.options.friendsTv && parent.getUserId()) {
         const elem=$('a.lichessTools-friends',container);
         if (this.isFriendsTvPage()) {
           parent.global.document.title=parent.global.document.title?.replace(/^.*?\u2022/,trans.noarg('friends')+' \u2022');

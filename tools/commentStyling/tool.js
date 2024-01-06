@@ -131,7 +131,11 @@
       if (index==classes.length) index=0;
       cls=classes[index];
       commentText=(cls?'cls:'+cls+' ':'')+commentText.replace(r,'').trim();
-      const chapterId=study.currentChapter().id;
+      const chapterId=study.currentChapter()?.id;
+      if (!chapterId) {
+        parent.global.console.warn('Could not determine chapterId');
+        return;
+      }
       for(const comment of comments.filter(c=>c.by?.id!=myName)) {
         study.commentForm.delete(chapterId,path,comment.id)
       }

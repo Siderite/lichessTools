@@ -387,7 +387,7 @@
       const cache=this.flagCache;
       for(const userId of cache.keys()) {
         const time=cache.get(userId).time;
-        if (new Date().getTime()-new Date(time)>this.cacheExpiration) cache.delete(userId);
+        if (Date.now()-new Date(time)>this.cacheExpiration) cache.delete(userId);
       }
       lichess.storage.set('LiChessTools.countryCache',global.JSON.stringify([...this.countryCache]));
       lichess.storage.set('LiChessTools.flagCache',global.JSON.stringify([...this.flagCache]));
@@ -403,7 +403,7 @@
       const data=Object.keys(dict).map(userId=>{
         const item=this.flagCache.get(userId);
         if (item) {
-          item.time=new Date().getTime()
+          item.time=Date.now()
           return item;
         }
         return { id:userId };
@@ -424,14 +424,14 @@
           }
           if (item.country==='noflag') {
             item.countryName='noflag';
-            item.time=new Date().getTime();
+            item.time=Date.now();
             this.flagCache.set(item.id,item);
             toSaveCache=true;
             continue;
           }
           item.countryName=this.countryCache.get(item.country);
           if (item.countryName) {
-            item.time=new Date().getTime();
+            item.time=Date.now();
             this.flagCache.set(item.id,item);
             toSaveCache=true;
           }
@@ -440,7 +440,7 @@
           }
         }
         if (firstToProcess) {
-          const html=await parent.net.fetch('/@/'+firstToProcess.id+'/mini');
+          const html=await parent.net.fetch({url:'/@/{userId}/mini',args:{ userId:firstToProcess.id}});
           const m=/<span class="(?:upt__info__top__country|upt__info__top__flag)".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
           if (m) {
             const el=$(m[0]);
@@ -448,7 +448,7 @@
           }
           if (firstToProcess.countryName) {
             this.countryCache.set(firstToProcess.country,firstToProcess.countryName);
-            firstToProcess.time=new Date().getTime();
+            firstToProcess.time=Date.now();
             this.flagCache.set(firstToProcess.id,firstToProcess);
             toSaveCache=true;
           }

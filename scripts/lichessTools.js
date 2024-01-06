@@ -275,7 +275,7 @@
       value:true
     };
     isTreeviewVisible=(forced)=>{
-      const now=new Date().getTime();
+      const now=Date.now();
       if (forced || now-this.treeviewVisibleCache.time>100) {
         this.treeviewVisibleCache.value=(this.$('div.tview2').length>0);
         this.treeviewVisibleCache.time=now;
@@ -471,7 +471,7 @@
         lastMove[getKey(res)]=true;
       });
 
-      let turn='white';
+      let turn='';
       const pieceDict={};
       $('piece',container).each((i,p)=>{
         const piece=$(p);
@@ -512,6 +512,20 @@
         if (asFen && y<7) pos+='/';
       }
       if (asFen) pos+=' ';
+      if (!turn) {
+        const maybeTurn=Array.from($('.copyables input'))
+          .map(el=>{
+            const text=$(el).val();
+            const m = /^\s*[rnbqkpRNBQKP1-8\/]+ ([wb])/.exec(text);
+            return m && m[1];
+          })
+          .find(t=>t);
+        if (maybeTurn) {
+          turn=maybeTurn;
+        } else {
+          turn='white';
+        }
+      }
       pos+=turn[0];
       return pos;
     };
@@ -697,7 +711,7 @@
     slowMode: false,
     slowModeTimeout: null,
     logNetwork: function(url,size,status) {
-      const now=new Date().getTime();
+      const now=Date.now();
       if (!this.networkLog) {
         this.networkLog=this.lichessTools.jsonParse(_=>this.lichessTools.global.localStorage.getItem('LiChessTools2.fetch'),{ size:0, count:0, arr:[], minTime:now });
       }
@@ -820,7 +834,7 @@
       if (!lichess) return;
       this.lichess=lichess;
       const age=lichess.info?.date
-        ? (new Date().getTime()-new Date(lichess.info.date).getTime())/86400000
+        ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
         : 0;
       console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red;':'');
       this.translator = this.lichess.trans(this.intl.siteI18n);

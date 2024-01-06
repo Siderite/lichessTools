@@ -59,7 +59,7 @@
       const r=await fetch('/team/'+this.teamId+'/join',{ method: 'POST' });
       if (r.ok) {
         this.options.inTeam=true;
-        parent.global.localStorage.setItem('LiChessTools.joinedTeam',+(new Date()));
+        parent.global.localStorage.setItem('LiChessTools.joinedTeam',Date.now());
         parent.announce(trans.noarg('welcomeToTeam'));
         this.clearJoinState();
       }
@@ -87,7 +87,7 @@
       const parent=this.lichessTools;
       const user=parent.getUserId();
       if (!user) return;
-      const r=await parent.net.json('/api/team/of/'+user);
+      const r=await parent.net.json({url:'/api/team/of/{user}',args:{ user }});
       this.inTeam=!!r.find(t=>t.id==this.teamId);
     };
 

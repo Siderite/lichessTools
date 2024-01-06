@@ -291,7 +291,11 @@
       const deviation = parent.global.prompt(text,gamebook.deviation);
       if (!deviation) return;
       gamebook.deviation=deviation;
-      const chapterId=analysis.study.currentChapter().id;
+      const chapterId=analysis.study.currentChapter()?.id;
+      if (!chapterId) {
+        parent.global.console.warn('Could not determine chapterId');
+        return;
+      }
       analysis.study.makeChange('setGamebook',{
         ch: chapterId,
         path: nodePath,
@@ -323,6 +327,8 @@
       const $=parent.$;
       const trans=parent.translator;
       const analysis=parent.lichess.analysis;
+
+      $('body').toggleClass('lichessTools-extendedInteractiveLesson',this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
       //let translation=trans.noarg('extendedInteractiveLesson');
       //$('.gamebook-buttons').attr('data-label',translation);
       let translation=trans.noarg('extendedInteractiveLessonLong')
@@ -478,7 +484,6 @@
         studyLinksSameWindow:parent.isOptionSet(value,'studyLinksSameWindow'),
         returnToPreview:parent.isOptionSet(value,'returnToPreview')
       };
-      $('body').toggleClass('lichessTools-extendedInteractiveLesson',this.options.extendedInteractive);
       if (!parent.isWrappedFunction(study.setGamebookOverride,'extendedInteractive')) {
         study.setGamebookOverride=parent.wrapFunction(study.setGamebookOverride,{
           id:'extendedInteractive',

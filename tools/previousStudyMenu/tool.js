@@ -35,9 +35,11 @@
       const trans=parent.translator;
       const study=lichess?.analysis?.study;
       if (study) {
+        const tourName=study.relayData?.tour?.name;
+        const studyName=(tourName?tourName+' ':'')+study.data.name;
         parent.currentOptions['previousStudyMenu.study']={
           id:study.data.id,
-          name:study.data.name
+          name:studyName
         };
         await parent.saveOptions(parent.currentOptions);
       }

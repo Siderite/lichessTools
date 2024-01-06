@@ -88,7 +88,7 @@
       if (!node.id||node.isCommentedOrMate) return;
       const evalText="eval: "+(ceval.mate ?'#'+ceval.mate :Math.round(ceval.cp/10)/10);
       const cur=analysis.study.currentChapter();
-      node.terminationEvaluated=new Date();
+      node.terminationEvaluated=Date.now();
       if (node.path===undefined) return;
       parent.saveComment(evalText, node.path);
       this.doEvaluation();
@@ -120,7 +120,7 @@
         return;
       }
       this.state=parent.traverse();
-      const nodes=this.state.lastMoves.filter(n=>n.id&&!n.isCommentedOrMate&&(!n.terminationEvaluated||new Date()-n.terminationEvaluated>10000));
+      const nodes=this.state.lastMoves.filter(n=>n.id&&!n.isCommentedOrMate&&(!n.terminationEvaluated||Date.now()-n.terminationEvaluated>10000));
       if (!this.evaluateTerminationsTotal) this.evaluateTerminationsTotal=nodes.length;
       const percent=(this.evaluateTerminationsTotal-nodes.length)+'/'+this.evaluateTerminationsTotal;
       const liveStatus=trans.pluralSame('evaluateTerminationsStarted',percent);

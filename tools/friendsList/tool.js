@@ -146,25 +146,17 @@
       const displayedItems=items.slice(this.buttonStartIndex,this.buttonStartIndex+this.buttonPageSize);
       for (const userId of displayedItems) {
         const isPlaying=this.user_data.playing.includes(userId);
-        $('<a class="user-link ulpt">')
+        const elem=$('<a class="user-link ulpt">')
           .attr('data-pt-pos','w')
           .toggleClass('lichessTools-playing',isPlaying)
-          .attr('href','/@/'+userId)
+          .attr('href','/@/'+userId+(isPlaying?'/tv':''))
           .append($('<i>')
-                    .attr('data-icon',isPlaying?'\uE025':'\uE012'))
+                    //.attr('data-icon',isPlaying?'\uE025':'\uE010')
+          )
           .append($('<span class="content">')
                     .text(this.user_data.names[userId]||userId))
-          .on('click',ev=>{
-            if (!$(ev.currentTarget).is('.lichessTools-playing')) return;
-            ev.preventDefault();
-            const tvUrl='/@/'+userId+'/tv';
-            if (ev.ctrlKey) {
-              parent.global.open(tvUrl,'_blank','noopener');
-            } else {
-              parent.global.location.href=tvUrl;
-            }
-          })
           .appendTo(notifs);
+        elem[0].dataset.href='/@/'+userId;
       }
     };
 
@@ -222,25 +214,34 @@
           friendMenu=$(e).clone()
             .attr('data-pt-pos','e');
           group.append(friendMenu);
-          friendMenu
-            .on('click',ev=>{
-              if (!$(ev.currentTarget).is('.lichessTools-playing')) return;
-              ev.preventDefault();
-              const tvUrl='/@/'+user+'/tv';
-              if (ev.ctrlKey) {
-                parent.global.open(tvUrl,'_blank','noopener');
-              } else {
-                parent.global.location.href=tvUrl;
-              }
-            });
         }
-        friendMenu
-          .toggleClass('lichessTools-playing',isPlaying);
+        friendMenu[0].dataset.href=href;
+        if (isPlaying) {
+          friendMenu
+            .addClass('lichessTools-playing')
+            .attr('href','/@/'+user+'/tv');
+        } else {
+          friendMenu
+            .removeClass('lichessTools-playing')
+            .attr('href','/@/'+user);
+        }
         items.delete(friendMenu[0]);
       });
       items.forEach(e=>{
         $(e).remove();
       });
+    };
+
+    scrollIfNeeded=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const needsScroll=!!$('.pager').filter((i,e)=>{
+        return parent.inViewport(e);
+      }).length;
+      if (needsScroll) {
+        $('html').trigger('scroll');
+        parent.global.setTimeout(this.scrollIfNeeded,250);
+      }
     };
 
     rows={};
@@ -258,9 +259,24 @@
       if (!$('.lichessTools-liveButtons').length) {
         $('<div>')
           .addClass('lichessTools-liveButtons')
-          .append($('<i data-icon="&#xE012;" data-role="hideOffline">').attr('title',trans.noarg('hideOfflineTitle')).on('click',()=>{ $('main').toggleClass('lichessTools-hideOffline'); }))
-          .append($('<i data-icon="&#xE025;" data-role="hideNotPlaying">').attr('title',trans.noarg('hideNotPlayingTitle')).on('click',()=>{ $('main').toggleClass('lichessTools-hideNotPlaying'); }))
-          .append($('<i data-icon="&#xE00F;" data-role="hideMuted">').attr('title',trans.noarg('hideMutedTitle')).on('click',()=>{ $('main').toggleClass('lichessTools-hideMuted'); }))
+          .append($('<i data-icon="&#xE012;" data-role="hideOffline">')
+                    .attr('title',trans.noarg('hideOfflineTitle'))
+                    .on('click',()=>{
+                      $('main').toggleClass('lichessTools-hideOffline');
+                      this.scrollIfNeeded();
+                    }))
+          .append($('<i data-icon="&#xE025;" data-role="hideNotPlaying">')
+                    .attr('title',trans.noarg('hideNotPlayingTitle'))
+                    .on('click',()=>{
+                      $('main').toggleClass('lichessTools-hideNotPlaying');
+                      this.scrollIfNeeded();
+                    }))
+          .append($('<i data-icon="&#xE00F;" data-role="hideMuted">')
+                    .attr('title',trans.noarg('hideMutedTitle'))
+                    .on('click',()=>{
+                      $('main').toggleClass('lichessTools-hideMuted');
+                      this.scrollIfNeeded();
+                    }))
           .insertAfter('main.box div.box__top');
       }
       const watchGamesTitle=trans.noarg('watchGames');
@@ -462,7 +478,10 @@
           lichess.pubsub.on('socket.in.following_stopped_playing', this.stopped_playing);
       }
       if (parent.isFriendsPage()) {
-        if (!liveFriendsPage) {
+        lichess.pubsub.off('content-loaded',this.updateFriendsPage);
+        if (liveFriendsPage) {
+          lichess.pubsub.on('content-loaded',this.updateFriendsPage);
+        } else {
           $('.lichessTools-online').removeClass('lichessTools-online');
           $('.lichessTools-playing').removeClass('lichessTools-playing');
         }

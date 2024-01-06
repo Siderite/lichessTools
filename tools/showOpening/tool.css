@@ -34,3 +34,7 @@ body.lichessTools div.analyse__wiki .lichessTools-opening {
   display: block;
   text-align: center;
 }
+
+body.lichessTools .copyables .lichessTools-opening {
+  display: block;
+}

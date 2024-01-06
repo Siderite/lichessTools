@@ -120,6 +120,16 @@ body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichess
   cursor: pointer;
 }
 
+body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader:after {
+  content: "\02C5";
+  float:right;
+  margin-right:0.5em;
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit.lichessTools-collapsed .lichessTools-gamebookHeader:after {
+  content: "\02C4";
+}
+
 body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit.lichessTools-collapsed > div:not(.lichessTools-gamebookHeader) {
   display:none;
 }

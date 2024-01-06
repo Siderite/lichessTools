@@ -70,6 +70,9 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - click on Explorer sum row to get a random move, weighted on move probabilities
  - custom mini-game size
  - play again from where you entered Preview mode in Interactive Lessons and collapsible Interactive Lesson chapter controls
+ - use Stockfish on Brave browser
+ - Learn from your mistakes in Study chapters
+ - Pin studies and broadcasts to home page
  - community forum
  - commands! type /help to get a list
 

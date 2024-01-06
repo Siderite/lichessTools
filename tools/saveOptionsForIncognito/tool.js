@@ -78,7 +78,7 @@
         const existingNote=(m&&m[1])||text||'';
         const optionsJson=parent.global.JSON.stringify(options);
         data.append('text',existingNote+'\r\n---- LiChess Tools Preferences ----\r\n'+optionsJson);
-        parent.net.fetch('/'+encodeURIComponent(gameId)+'/note', {
+        parent.net.fetch({url:'/{gameId}/note',args:{ gameId }}, {
           method: 'POST',
           body: data
         });

@@ -1,0 +1,13 @@
+body.lichessTools span.lichessTools-pin.lichessTools-pinned {
+  transform: translate(0, 0.3em) rotate(320deg);
+  clip-path: polygon(0% 0%,100% 0%,100% 100%,0% 25%);
+}
+
+body.lichessTools a.lichessTools-pin span.name {
+  white-space: break-spaces;
+}
+
+body.lichessTools a.lichessTools-pin i.img:before {
+  filter: grayscale(1);
+  font-size:2em;
+}

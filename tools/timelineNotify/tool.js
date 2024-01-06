@@ -80,8 +80,9 @@
     setAllRead=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
-      this.lastRead=new Date().getTime();
+      this.lastRead=Date.now();
       lichess.storage.set('LiChessTools.lastRead',this.lastRead);
+      this.forcedProcessTimeline();
     };
 
     processTimeline=async (el)=>{
@@ -93,7 +94,19 @@
       const trans=parent.translator;
       if (el!==true && !$(el).is('div.notifications')) return;
       this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
-      const timeline=await parent.net.json('/timeline?nb=100');
+      const apiFlag=false; // TODO remove this when the API is always available
+
+      if ($('.shown div.notifications').length) {
+        parent.global.clearInterval(this.closeInterval);
+        this.closeInterval=parent.global.setInterval(()=>{
+          if (!$('.shown div.notifications').length) {
+            parent.global.clearInterval(this.closeInterval);
+            this.forcedProcessTimeline();
+          }
+        },500);
+      }
+
+      const timeline=await parent.net.json({url:(apiFlag?'/api':'')+'/timeline?nb=100&since={lastRead}',args:{lastRead:this.lastRead}});
       if (!timeline) return;
       const newEntries=timeline.entries
         .filter(e=>e.date>this.lastRead)
@@ -112,7 +125,7 @@
       let title=toggle.attr('title');
       title=title?.replaceAll(count.toString(),newCount.toString());
       toggle
-        .attr('data-count',newCount||undefined)
+        .attr('data-count',newCount)
         .attr('title',title)
         .attr('aria-label',title);
       let elem = $('a.site_notification.lichessTools-timelineNotify',notifications);
@@ -142,10 +155,12 @@
         elem.remove();
       }
     };
+    forcedProcessTimeline=this.lichessTools.debounce(()=>this.processTimeline(true),500);
 
     async start() {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
+      const $=parent.$;
       const value=parent.currentOptions.getValue('timelineNotify');
       switch(value) {
         case true: this.types=this.preferences[0].defaultValue.split(','); break;
@@ -160,19 +175,20 @@
 
       lichess.pubsub.off('content-loaded',this.processTimeline);
       parent.global.clearInterval(this.interval);
+      parent.global.clearInterval(this.closeInterval);
       if (!value) return;
       lichess.pubsub.on('content-loaded',this.processTimeline);
       this.interval=parent.global.setInterval(()=>{
         if ($('div.shown #notify-app div.empty.text').length) {
-          this.processTimeline(true);
+          this.forcedProcessTimeline();
         }
       },500);
-      if (!this.readAllStorage) {
+      /*if (!this.readAllStorage) {
         this.readAllStorage = lichess.storage.make('notify-read-all');
         this.readAllStorage.listen(this.setAllRead);
-      }
+      }*/
       if (/^\/timeline/i.test(location.pathname)) this.setAllRead();
-      parent.global.requestAnimationFrame(()=>this.processTimeline(true));
+      parent.global.requestAnimationFrame(this.forcedProcessTimeline);
     }
 
   }

@@ -15,7 +15,7 @@
       global.setTimeout=wrap(global.setTimeout,{
         id: 'interceptTimeouts',
         after:(target,pointer,func,delay,...args)=>{
-          const time=+(new Date());
+          const time=Date.now();
           this.timeouts.push({pointer, func, delay, args, time});
           removeAll(this.timeouts,t=>t.time+t.delay<time);
         }
@@ -29,7 +29,7 @@
       global.setInterval=wrap(global.setInterval,{
         id: 'interceptTimeouts',
         after:(target,pointer,func,delay,...args)=>{
-          const time=+(new Date());
+          const time=Date.now();
           this.intervals.push({pointer, func, delay, args, time});
         }
       });

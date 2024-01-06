@@ -8,8 +8,8 @@
         name:'highlight',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['lastMove','notCommented','transposition','mainLine'],
-        defaultValue: 'lastMove,notCommented,transposition',
+        possibleValues: ['lastMove','notCommented','transposition','mainLine','variationDepth'],
+        defaultValue: 'lastMove,notCommented,transposition,variationDepth',
         advanced: true
       }
     ];
@@ -21,6 +21,7 @@
         'highlight.notCommented': 'Not commented last moves',
         'highlight.transposition': 'Transpositions to current move',
         'highlight.mainLine': 'Highlight board when out of main line',
+        'highlight.variationDepth': 'Highlight variation depth',
       },
       'ro-RO':{
         'options.highlight': 'Eviden\u0163iaz\u0103 mut\u0103ri \u00een analiz\u0103',
@@ -28,6 +29,7 @@
         'highlight.notCommented': 'Ultime mut\u0103ri necomentate',
         'highlight.transposition': 'Transpozi\u0163iile la mutarea curent\u0103',
         'highlight.mainLine': 'Eviden\u0163iaz\u0103 tabla c\u00e2nd nu pe linia principal\u0103',
+        'highlight.variationDepth': 'Eviden\u0163iaz\u0103 ad\u00e2ncimea varia\u0163iunii',
       }
     }
 
@@ -105,6 +107,45 @@
       $('body').toggleClass('lichessTools-notOnMainline',!onMainline);
     };
 
+    highlightVariationDepth=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const lichess=parent.lichess;
+      if (!this.options.variationDepth || !parent.isTreeviewVisible()) {
+        return;
+      }
+
+      const nodes=[ lichess?.analysis?.tree.root ];
+      const dict={};
+      nodes[0].variationDepth=0;
+      while (nodes.length) {
+        const node=nodes.shift();
+        if (!parent.isTreeviewVisible()) break;
+        if (!node || node?.comp) {
+          continue;
+        }
+        if (node.path) {
+          dict[node.path]='vd'+(node.variationDepth%7+1);
+        }
+        let depth=0;
+        for (const child of node.children) {
+          child.variationDepth=node.variationDepth+depth;
+          nodes.push(child);
+          depth++;
+        }
+      }
+      $('div.tview2 move').each((i,e)=>{
+        const path=$(e).attr('p');
+        if (!path) return;
+        const cls=dict[path];
+        if (!cls) {
+          //parent.global.console.warn('Could not find variation depth for node with path:',path);
+        } else {
+          $(e).removeClass('vd1 vd2 vd3 vd4 vd5 vd6 vd7').addClass(cls);
+        }
+      });
+    };
+
     traverseTree=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -113,7 +154,9 @@
       this.highlightLastMoves();
       this.highlightUncommented();
       this.highlightTranspositions();
+      this.highlightVariationDepth();
     };
+
     debouncedTraverseTree=this.lichessTools.debounce(this.traverseTree,800);
     async start() {
       const parent=this.lichessTools;
@@ -127,7 +170,8 @@
         notCommented:parent.isOptionSet(value,'notCommented'),
         transposition:parent.isOptionSet(value,'transposition'),
         mainLine:parent.isOptionSet(value,'mainLine'),
-        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine; }
+        variationDepth:parent.isOptionSet(value,'variationDepth'),
+        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth; }
       };
       lichess.pubsub.off('redraw', this.highlightMainLine);
       lichess.pubsub.off('redraw', this.debouncedTraverseTree);
@@ -135,6 +179,7 @@
         lichess.pubsub.on('redraw', this.highlightMainLine);
         lichess.pubsub.on('redraw', this.debouncedTraverseTree);
       }
+      $('body').toggleClass('lichessTools-variationDepth',this.options.variationDepth);
       this.debouncedTraverseTree();
     }
   }

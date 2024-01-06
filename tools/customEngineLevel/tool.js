@@ -154,9 +154,12 @@
       const analysis=lichess.analysis;
       if (!analysis) return;
 
+      const cevalFunctionKey = analysis.evalCache.onLocalCeval
+        ? 'onLocalCeval'
+        : 'onCeval';
       if (this.options.depth||this.options.noCloud) {
-        if (!parent.isWrappedFunction(analysis.evalCache.onCeval,'customEngineOptions')) {
-          analysis.evalCache.onCeval=parent.wrapFunction(analysis.evalCache.onCeval,{
+        if (!parent.isWrappedFunction(analysis.evalCache[cevalFunctionKey],'customEngineOptions')) {
+          analysis.evalCache[cevalFunctionKey]=parent.wrapFunction(analysis.evalCache[cevalFunctionKey],{
             id:'customEngineOptions',
             before:($this,...args)=>{
               this.determineCevalState();
@@ -164,7 +167,7 @@
           });
         }
       } else {
-          analysis.evalCache.onCeval=parent.unwrapFunction(analysis.evalCache.onCeval,'customEngineOptions');
+          analysis.evalCache[cevalFunctionKey]=parent.unwrapFunction(analysis.evalCache[cevalFunctionKey],'customEngineOptions');
       }
 
       if (this.options.noCloud) {

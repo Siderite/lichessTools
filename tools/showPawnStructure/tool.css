@@ -17,7 +17,8 @@ body.lichessTools a.mini-game .lichessTools-structure {
 }
 
 
-body.lichessTools div.analyse__wiki .lichessTools-structure {
+body.lichessTools div.analyse__wiki .lichessTools-structure,
+body.lichessTools .copyables .lichessTools-structure {
   font-size: 0.8em;
   width: 100%;
   display: block;
@@ -37,3 +38,4 @@ body.lichessTools .lichessTools-structure:before {
 body.lichessTools.lichessTools-structureMiniGames a.mini-game:not(:has(.lichessTools-structure)) {
   padding-bottom:2em;
 }
+
