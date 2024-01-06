@@ -79,6 +79,7 @@
           this.saveEditForm(data);
         }
       });
+      this.fillEditForm();
     }
 
   }
