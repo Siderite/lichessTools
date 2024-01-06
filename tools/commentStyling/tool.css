@@ -1,3 +1,7 @@
+body.lichessTools .study__buttons span:has(count) {
+  overflow: visible;
+}
+
 body.lichessTools .lichessTools-red {
   color:#ff2020;
   text-shadow: 0.25px 0.25px 0px darkgray;
