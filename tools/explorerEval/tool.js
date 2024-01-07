@@ -199,6 +199,7 @@
       if (parent.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!explorerMoves?.length) return;
+      if (!parent.inViewport($('section.explorer-box table.moves')[0])) return;
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;
       let result = this.cache[fen];
