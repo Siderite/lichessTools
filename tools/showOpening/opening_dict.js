@@ -9060,6 +9060,7 @@ const openings = {
   "rnbqkb1rpp2pppp2p2n23p485NP1PPPPPPBPRNBQK2Rw": "Reti: KIA",
   "rnbqkb1rpp2pppp2p2n24N32pP42N5PP2PPPPR1BQKB1Rb": "Slav: Accepted, 5.Ne5",
   "rnbqkb1rpp2pppp2p2n26B12pP42N5PP2PPPPR2QKBNRw": "Slav: 3.Nc3 Nf6 4.Bg5 dxc4",
+  "rnbqkb1rpp2pppp2p2n26N13P48PPP2PPPR1BQKBNRb": "Caro-Kann Defense: Alien Gambit (witty_alien)",
   "rnbqkb1rpp2pppp2p2n282p55NP1PP1PPPBPRNBQK2Rw": "Barczay Gambit",
   "rnbqkb1rpp2pppp2P2n282P58PP1P1PPPRNBQKBNRb": "Scandinavian: Scandinavian Gambit Accepted",
   "rnbqkb1rpp2pppp2p2n282pP42N1PN2PP3PPPR1BQKB1Rb": "Slav Defense: Alekhine Variation",
