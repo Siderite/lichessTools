@@ -1681,6 +1681,7 @@ const openings = {
   "r1bq1rk1pppp1ppp2n2n281bP1p32N2NP1PP1PPPBPR1BQ1RK1w": "English: Four Knights, Main Line 6.O-O e4",
   "r1bq1rk1pppp1ppp2n2n2b3N32BPP32P5P4PPPRNBQ1RK1b": "Italian Game: Evans Gambit, Richardson Attack",
   "r1bq1rk1pppp1ppp2n51B1P41b2p35N2PPPP1PPPR1BQ1RK1w": "Four Knights Game: Spanish Variation, Gunsberg Counterattack",
+  "r1bq1rk1pppp1ppp3n1b24R33P43B4PPP2PPPRNBQ2K1b": "Ruy Lopez: Berlin Defense, Rio Gambit Accepted, Yu Gambit",
   "r1bq1rk1pppp1ppp5n21Bb1N33nP32N5PPPP1PPPR1BQ1RK1w": "Four Knights Game: Spanish Variation, Rubinstein Variation, Marshall Variation, Four Knights: Spanish, Classical, Marshall Variation",
   "r1bq1rk1pppp1ppp5n22b1N3B2nP32N5PPPP1PPPR1BQK2Rw": "Four Knights Game: Spanish Variation, Rubinstein Variation, Marshall Gambit",
   "r1bq1rk1pppp1ppp5n24n1N11bB58PB3PPPRN1Q1RK1w": "Scotch Game: Hanneken Variation",
