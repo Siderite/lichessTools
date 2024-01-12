@@ -73,6 +73,7 @@ lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
 lichessTools.loadTool(LiChessTools.Tools.CopyPgnCommand);
 lichessTools.loadTool(LiChessTools.Tools.ReadGameCommand);
+lichessTools.loadTool(LiChessTools.Tools.SkipMoveCommand);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);
 
