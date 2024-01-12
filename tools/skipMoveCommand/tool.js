@@ -50,8 +50,8 @@
       const result={
         moves:[],
         good:false,
-        white:null,
-        black:null
+        white:[],
+        black:[]
       };
 
       const findNextMove=()=>{
@@ -63,11 +63,10 @@
                        .filter(m=>result.moves.length<4||result[turn][0]==m.to);
         for (const move of moves) {
           result.moves.push(co.makeUci(move));
-          if (result[turn]) {
-            result[turn].push(move.to);
-          } else {
-            result[turn]=[move.from,move.to];
+          if (!result[turn].length) {
+            result[turn].push(move.from);
           }
+          result[turn].push(move.to);
           const pch=ch.clone();
           ch.play(move);
           if (result.moves.length==5) {
@@ -82,6 +81,9 @@
           }
           result.moves.pop();
           result[turn].pop();
+          if (result[turn].length==1) {
+            result[turn].pop();
+          }
           ch=pch;
         }
       }
