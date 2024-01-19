@@ -10,7 +10,7 @@
         type:'single',
         possibleValues: [false,true],
         defaultValue: true,
-        advanced: true
+        advanced: false
       }
     ];
 
@@ -54,9 +54,9 @@
         'btnMergeText': 'Combin\u0103 PGNuri',
         'btnMergeTitle': 'Combin\u0103 PGNuri (dac\u0103 se poate)',
         'btnNormalizeText': 'Normalizeaz\u0103 PGNuri',
-        'btnNormalizeTitle': 'Grupeaz\u0103 mut\u0103ri f\u0103acute din aceea\u015fi pozi\u0163ie',
+        'btnNormalizeTitle': 'Grupeaz\u0103 mut\u0103ri f\u0103cute din aceea\u015fi pozi\u0163ie',
         'btnSplitText': 'Sparge PGNuri',
-        'btnSplitTitle': 'Sparge in mai multe PGNuri f\u0103r\u0103 varia\u0163iuni',
+        'btnSplitTitle': 'Sparge \u00een mai multe PGNuri f\u0103r\u0103 varia\u0163iuni',
         'btnCountText': 'Num\u0103r\u0103 PGNuri',
         'btnCountTitle': 'Statistici PGN',
         'btnCancelText': 'Anuleaz\u0103',
