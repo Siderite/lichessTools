@@ -5,7 +5,7 @@ lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
 lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);
 lichessTools.loadTool(LiChessTools.Tools.InterceptTimeouts);
-lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);
+//lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);
 lichessTools.loadTool(LiChessTools.Tools.FixAbortController);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
@@ -67,11 +67,14 @@ lichessTools.loadTool(LiChessTools.Tools.MiniGameSize);
 lichessTools.loadTool(LiChessTools.Tools.ForceSf16);
 lichessTools.loadTool(LiChessTools.Tools.StudyLearnFromMistakes);
 lichessTools.loadTool(LiChessTools.Tools.PinOnMainPage);
+lichessTools.loadTool(LiChessTools.Tools.PgnEditor);
+//lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
 lichessTools.loadTool(LiChessTools.Tools.CopyPgnCommand);
 lichessTools.loadTool(LiChessTools.Tools.ReadGameCommand);
+lichessTools.loadTool(LiChessTools.Tools.SkipMoveCommand);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);
 

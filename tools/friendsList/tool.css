@@ -26,6 +26,10 @@ body.lichessTools #topnav.hover section.lichessTools-onlineFriends div[role="gro
   overflow-y: auto;
 }
 
+body.lichessTools #topnav section.lichessTools-onlineFriends > a {
+  white-space: nowrap;
+}
+
 body.lichessTools #topnav section.lichessTools-onlineFriends > a.lichessTools-somePlaying {
   color: #1b78d0;
 }

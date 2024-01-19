@@ -94,7 +94,6 @@
       const trans=parent.translator;
       if (el!==true && !$(el).is('div.notifications')) return;
       this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
-      const apiFlag=false; // TODO remove this when the API is always available
 
       if ($('.shown div.notifications').length) {
         parent.global.clearInterval(this.closeInterval);
@@ -106,7 +105,7 @@
         },500);
       }
 
-      const timeline=await parent.net.json({url:(apiFlag?'/api':'')+'/timeline?nb=100&since={lastRead}',args:{lastRead:this.lastRead}});
+      const timeline=await parent.net.json({url:'/api/timeline?nb=100&since={lastRead}',args:{lastRead:this.lastRead}});
       if (!timeline) return;
       const newEntries=timeline.entries
         .filter(e=>e.date>this.lastRead)

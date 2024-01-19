@@ -90,6 +90,7 @@
           rank=move.rank;
           switch(rank) {
             case null: title=trans.noarg('fromCevalTitle'); break;
+            case 0: 
             case 1: 
             case 2: 
             case 3: 
@@ -199,6 +200,7 @@
       if (parent.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!explorerMoves?.length) return;
+      if (!parent.inViewport($('section.explorer-box table.moves')[0])) return;
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;
       let result = this.cache[fen];
@@ -333,7 +335,7 @@
       }
     };
 
-    CSP=true; // default to true until lichess CSP rules allow chessdb.cn
+    CSP=false; // default to true until lichess CSP rules allow chessdb.cn
     secCheck=e=>{
       if (this.CSP) return;
       if (!e.blockedURI?.includes('chessdb.cn')) {

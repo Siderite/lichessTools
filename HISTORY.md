@@ -1,5 +1,12 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Jan
+  - Chess DB integration in Explorer Eval
+  - PGN Editor
+
+12 Jan
+  - Skip move command to generate moves to switch playing side in analysis
+
 27 Dec
   - Learn from your mistakes in Studies
   - Pin study on home page

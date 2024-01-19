@@ -9,7 +9,7 @@
         category: 'analysis',
         type:'multiple',
         possibleValues: ['lastMove','notCommented','transposition','mainLine','variationDepth'],
-        defaultValue: 'lastMove,notCommented,transposition,variationDepth',
+        defaultValue: 'lastMove,notCommented,transposition',
         advanced: true
       }
     ];
@@ -125,7 +125,7 @@
           continue;
         }
         if (node.path) {
-          dict[node.path]='vd'+(node.variationDepth%7+1);
+          dict[node.path]='vd'+(Math.min(7,node.variationDepth+1))+' vdm'+(node.variationDepth%7+1);
         }
         let depth=0;
         for (const child of node.children) {
@@ -141,7 +141,7 @@
         if (!cls) {
           //parent.global.console.warn('Could not find variation depth for node with path:',path);
         } else {
-          $(e).removeClass('vd1 vd2 vd3 vd4 vd5 vd6 vd7').addClass(cls);
+          $(e).removeClass('vdm1 vdm2 vdm3 vdm4 vdm5 vdm6 vdm7 vd1 vd2 vd3 vd4 vd5 vd6 vd7').addClass(cls);
         }
       });
     };

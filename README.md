@@ -74,7 +74,11 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Learn from your mistakes in Study chapters
  - Pin studies and broadcasts to home page
  - community forum
+ - PGN editor (merge, split, normalize, count)
  - commands! type /help to get a list
+
+Version 2.3 breaking changes:
+ - the MoveColorizer theme has been removed and the functionality rewritten and moved to the Highlight tool - You need to review your Preferences
 
 Version 2.2 breaking changes:
  - Preferences for Custom Analysis Engine and TV options - You need to review your Preferences

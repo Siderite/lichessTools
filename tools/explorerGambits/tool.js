@@ -119,6 +119,7 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis.explorer?.enabled()) return;
+      if (!parent.inViewport($('section.explorer-box table.moves')[0])) return;
       if (parent.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!explorerMoves?.length) return;
