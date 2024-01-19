@@ -1,0 +1,36 @@
+body.lichessTools dialog.lichessTools-pgnEditor {
+  margin-top:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor button.close-button {
+  transform:none;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor div.scrollable {
+  -height:100%;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper {
+  display:flex;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper textarea {
+  height:80vh;
+  flex-grow:1;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
+  display:flex;
+  flex-direction:column;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons label {
+  width:20vh;
+}
+
+body.lichessTools:has(dialog.lichessTools-pgnEditor) div#announce {
+  z-index:111;
+}
