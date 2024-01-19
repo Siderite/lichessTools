@@ -34,11 +34,13 @@
         'gameCount': '%s PGNs, %2 moves',
         'gameCount:one': 'one PGN, %2 moves',
         'mergingGames': 'Merging %s PGNs',
-        'mergingGames:one': 'one PGN',
+        'mergingGames:one': 'Mergin one PGN',
+        'normalizingGames': 'Normalizing %s PGNs',
+        'normalizingGames:one': 'Normalizing one PGN',
         'preparingGames': 'Preparing %s PGNs',
-        'preparingGames:one': 'one PGN',
+        'preparingGames:one': 'Preparing one PGN',
         'cannotMerge': 'Cannot merge!\r\n(no common board positions)',
-        'mergeError': 'Error merging!\r\n(invalid input)',
+        'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled'
       },
       'ro-RO':{
@@ -193,8 +195,8 @@
 
       let moveCount=0;
       const traverse=(node)=>{
+        if (node.data?.san) moveCount++;
         if (!node.children?.length) return;
-        moveCount++;
         for (const child of node.children) {
           traverse(child);
         }
@@ -262,6 +264,45 @@
       traverse(node);
     };
 
+
+    mergeNodes=(n1,n2)=>{
+      n1.children=[...n1.children,...n2.children];
+      const comments=(n1.data?.comments||[]).concat((n1.data?.comments||[]));
+      if (comments.length) {
+        n1.data.comments=[...new Set(comments)];
+      }
+      const nags=(n1.data?.nags||[]).concat((n1.data?.nags||[]));
+      if (nags.length) {
+        n1.data.nags=[...new Set(nags)];
+      }
+    };
+
+    cleanGame=game=>{
+      const parent=this.lichessTools;
+      const traverse=(game,node)=>{
+        if (!node.children?.length) return;
+        for (let i=0; i<node.children.length; i++) {
+          for (let j=i+1; j<node.children.length; j++) {
+             const childI=node.children[i];
+             const childJ=node.children[j];
+             if (childI.data.san==childJ.data.san) {
+               this.mergeNodes(childI,childJ);
+               if (game.fenDict) {
+                 const key=parent.getFenPosition(childJ.data.fen);
+                 parent.arrayRemoveAll(game.fenDict[key],n=>n==childJ);
+               }
+               parent.arrayRemoveAll(node.children,n=>n==childJ);
+             }
+          };
+        };
+        for (const child of node.children) {
+          traverse(game, child);
+        }
+      };
+
+      traverse(game,game.moves);
+    };
+
     mergePgn=async (textarea)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -290,26 +331,15 @@
             parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
             }));
+            break;
           } else throw ex;
           withErrors=true;
         }
       }
       if (withErrors) {
-        this.writeNote(trans.noarg('mergeError'));
+        this.writeNote(trans.noarg('operationFailed'));
         return;
       }
-
-      const mergeNodes=(n1,n2)=>{
-        n1.children=[...n1.children,...n2.children];
-        const comments=(n1.data?.comments||[]).concat((n1.data?.comments||[]));
-        if (comments.length) {
-          n1.data.comments=[...new Set(comments)];
-        }
-        const nags=(n1.data?.nags||[]).concat((n1.data?.nags||[]));
-        if (nags.length) {
-          n1.data.nags=[...new Set(nags)];
-        }
-      };
 
       const mergeGames=(dest,node,src)=>{
         node.children=[...node.children,...src.moves.children];
@@ -322,35 +352,10 @@
         }
       };
 
-      const cleanGame=(game)=>{
-
-        const traverse=(game,node)=>{
-          if (!node.children?.length) return;
-          for (let i=0; i<node.children.length; i++) {
-            for (let j=i+1; j<node.children.length; j++) {
-               const childI=node.children[i];
-               const childJ=node.children[j];
-               if (childI.data.san==childJ.data.san) {
-                 mergeNodes(childI,childJ);
-                 const key=parent.getFenPosition(childJ.data.fen);
-                 parent.arrayRemoveAll(game.fenDict[key],n=>n==childJ);
-                 parent.arrayRemoveAll(node.children,n=>n==childJ);
-               }
-            };
-          };
-          for (const child of node.children) {
-            traverse(game, child);
-          }
-        };
-
-        traverse(game,game.moves);
-      };
-
-
       const initialNumberOfGames=games.length;
       let i=games.length-1;
       let lastWrite=Date.now();
-      while(i>0 && !this._cancelRequested) {
+      while(i>=0 && !this._cancelRequested) {
         if (Date.now()-lastWrite>1000) { 
           this.writeNote(trans.pluralSame('mergingGames',games.length));
           lastWrite=Date.now();
@@ -369,10 +374,10 @@
         }
         i--;
       }
-      if (i>0) {
+      if (i>=0) {
         this.enhanceGameWithFenDict(game);        
       }
-      while(i>0 && !this._cancelRequested) {
+      while(i>=0 && !this._cancelRequested) {
         if (Date.now()-lastWrite>1000) { 
           this.writeNote(trans.pluralSame('mergingGames',games.length));
           lastWrite=Date.now();
@@ -416,7 +421,7 @@
         if (!game.fenDict) {
           this.enhanceGameWithFenDict(game);        
         }
-        cleanGame(game);
+        this.cleanGame(game);
       }
 
       const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
@@ -434,6 +439,90 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      const games=parsePgn(text);
+      this.writeNote(trans.pluralSame('normalizingGames',games.length));
+      await parent.timeout(0);
+      let withErrors=false;
+      let gameIndex=0;
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+      for (const game of games) {
+        gameIndex++;
+        try {
+          this.enhanceGameWithFens(game);
+          this.enhanceGameWithFenDict(game);
+        } catch(ex) {
+          if (ex.ply) {
+            const data=[gameIndex, ex.san, ex.ply]
+            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+              return data[+m[1]-1];
+            }));
+            break;
+          } else throw ex;
+          withErrors=true;
+        }
+      }
+      if (withErrors) {
+        this.writeNote(trans.noarg('operationFailed'));
+        return;
+      }
+
+      const findDescendant=(node,predicate)=>{
+        if (predicate(node)) return node;
+        for (const child of node.children) {
+          const result=findDescendant(child,predicate);
+          if (result) return result;
+        }
+      };
+
+      const onSameBranch=(n1,n2)=>{
+        if (findDescendant(n1,n=>n==n2)) return true;
+        if (findDescendant(n2,n=>n==n1)) return true;
+        return false;
+      };
+
+      let i=games.length-1;
+      let lastWrite=Date.now();
+      while(i>=0 && !this._cancelRequested) {
+        if (Date.now()-lastWrite>1000) { 
+          this.writeNote(trans.pluralSame('normalizingGames',games.length));
+          lastWrite=Date.now();
+          await parent.timeout(0);
+        }
+        const game=games[i];
+        for (const pair of game.fenDict) {
+          const key=pair[0];
+          const nodes=pair[1];
+          if (nodes.length==1) continue;
+          for (let i=1; i<nodes.length; i++) {
+            for (let j=0; j<i; j++) {
+              if (!nodes[j].children.length) continue;
+              if (onSameBranch(nodes[i],nodes[j])) continue;
+              this.mergeNodes(nodes[j],nodes[i]);
+              nodes[i].children=[];
+            }
+          }
+        }
+        i--;
+      }
+      if (this._cancelRequested) {
+        return;
+      }
+
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+      for (const game of games) {
+        this.cleanGame(game);
+      }
+
+      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+      textarea.val(newText);
+      this.countPgn();
     };
 
     splitPgn=async (textarea)=>{
