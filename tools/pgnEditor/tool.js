@@ -28,15 +28,17 @@
         'btnSplitText': 'Split PGNs',
         'btnSplitTitle': 'Split into multiple one path PGNs',
         'btnCountText': 'Count PGNs',
-        'btnCountTitle': 'Count number of PGNs',
+        'btnCountTitle': 'PGN statistics',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'gameCount': '%s PGNs, %2 moves',
         'gameCount:one': 'one PGN, %2 moves',
         'mergingGames': 'Merging %s PGNs',
-        'mergingGames:one': 'Mergin one PGN',
+        'mergingGames:one': 'Merging one PGN',
         'normalizingGames': 'Normalizing %s PGNs',
         'normalizingGames:one': 'Normalizing one PGN',
+        'splittingGames': 'Splitting %s PGNs',
+        'splittingGames:one': 'Splitting one PGN',
         'preparingGames': 'Preparing %s PGNs',
         'preparingGames:one': 'Preparing one PGN',
         'cannotMerge': 'Cannot merge!\r\n(no common board positions)',
@@ -46,21 +48,32 @@
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.pgnEditor': 'Editor PGN',
-        'illegalMove': 'Illegal move in game %1, ply %3 (%2)',
-        'pgnEditorText': '',
-        'pgnEditorTitle': '',
-        'btnMergeText': '',
-        'btnMergeTitle': '',
-        'btnNormalizeText': '',
-        'btnNormalizeTitle': '',
-        'btnSplitText': '',
-        'btnSplitTitle': '',
-        'btnCountText': '',
-        'btnCountTitle': '',
-        'gameCount': '',
-        'gameCount:one': '',
-        'mergingGames': '',
-        'mergingGames:one': ''
+        'illegalMove': 'Mutare invalid\u0103 \u00een jocul %1, ply %3 (%2)',
+        'pgnEditorText': 'Editor PGN',
+        'pgnEditorTitle': 'LiChess Tools - Editor PGN',
+        'btnMergeText': 'Combin\u0103 PGNuri',
+        'btnMergeTitle': 'Combin\u0103 PGNuri (dac\u0103 se poate)',
+        'btnNormalizeText': 'Normalizeaz\u0103 PGNuri',
+        'btnNormalizeTitle': 'Grupeaz\u0103 mut\u0103ri f\u0103acute din aceea\u015fi pozi\u0163ie',
+        'btnSplitText': 'Sparge PGNuri',
+        'btnSplitTitle': 'Sparge in mai multe PGNuri f\u0103r\u0103 varia\u0163iuni',
+        'btnCountText': 'Num\u0103r\u0103 PGNuri',
+        'btnCountTitle': 'Statistici PGN',
+        'btnCancelText': 'Anuleaz\u0103',
+        'btnCancelTitle': 'Anuleaz\u0103 opera\u0163iunea curent\u0103',
+        'gameCount': '%s PGNuri, %2 mut\u0103ri',
+        'gameCount:one': 'un PGN, %2 mut\u0103ri',
+        'mergingGames': 'Combin %s PGNuri',
+        'mergingGames:one': 'Combin un PGN',
+        'normalizingGames': 'Normalizez %s PGNuri',
+        'normalizingGames:one': 'Normalizez un PGN',
+        'splittingGames': 'Sparg %s PGNuri',
+        'splittingGames:one': 'Sparg un PGN',
+        'preparingGames': 'Prepar %s PGNuri',
+        'preparingGames:one': 'Prepar un PGN',
+        'cannotMerge': 'Nu pot combina!\r\n(nu sunt pozi\u0163ii comune pe tabl\u0103)',
+        'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
+        'operationCancelled': 'Opera\u0163iune anulat\u0103'
       }
     }
 
@@ -530,6 +543,58 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('splittingGames',games.length));
+      await parent.timeout(0);
+
+      const newGames=[];
+      const traverse=(game,node,arr)=>{
+        arr.push(node);
+        if (this._cancelRequested) {
+          return;
+        }
+        if (!node.children?.length) {
+          let curr={...arr[0],children:[]};
+          const newGame={...game, moves: curr};
+          for (const node of arr.slice(1)) {
+            const newNode={...node,children:[]};
+            curr.children.push(newNode);
+            curr=newNode;
+          }
+          newGames.push(newGame);
+          return;
+        }
+        for (const child of node.children) {
+          traverse(game,child,[...arr]);
+        }
+      }
+
+      while (games.length && !this._cancelRequested) {
+        const game=games[0];
+        traverse(game,game.moves,[]);
+        games.splice(0,1);
+        this.writeNote(trans.pluralSame('splittingGames',(newGames.length+games.length)));
+        await parent.timeout(0);
+      }
+      games=newGames;
+      if (this._cancelRequested) {
+        return;
+      }
+
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+      for (const game of games) {
+        this.cleanGame(game);
+      }
+
+      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+      textarea.val(newText);
+      this.countPgn();
     };
 
     async start() {
