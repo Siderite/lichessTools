@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+20 Jan
+  - Download/Upload/Copy features in PGN Editor
+
 19 Jan
   - Chess DB integration in Explorer Eval
   - PGN Editor
