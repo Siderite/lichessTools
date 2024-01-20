@@ -185,10 +185,12 @@
         .attr('title',trans.noarg('btnCopyTitle'))
         .on('click',async ev=>{
           ev.preventDefault();
+          const text=textarea.val();
+          if (!text) return;
           const permission=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
           if (['granted','prompt'].includes(permission.state)) {
             try {
-              await parent.global.navigator.clipboard.writeText(textarea.val());
+              await parent.global.navigator.clipboard.writeText(text);
               const announcement = trans.noarg('PGNCopiedToClipboard');
               parent.announce(announcement);
             } catch(e) {
@@ -224,10 +226,12 @@
         .attr('title',trans.noarg('btnDownloadTitle'))
         .on('click',ev=>{
           ev.preventDefault();
-          const blob=new Blob([textarea.val()],{type:'application/x-chess-pgn'});
+          const text=textarea.val();
+          if (!text) return;
+          const blob=new Blob([text],{type:'application/x-chess-pgn'});
           const url=URL.createObjectURL(blob);
           $('<a>')
-            .attr('download','pgnEditor.pgn')
+            .attr('download','pgnEditor_'+(x.toISOString().replace(/[\-T:]/g,'').slice(0,14))+'.pgn')
             .attr('href',url)
             .trigger('click');
         })
