@@ -112,15 +112,15 @@
             <div class="input-wrapper">
               <textarea autofocus></textarea>
               <div class="buttons">
-                <button class="button" type="button" data-role="merge" data-icon="&#xE037;"></button>
-                <button class="button" type="button" data-role="normalize" data-icon="&#xE05B;"></button>
-                <button class="button" type="button" data-role="split" data-icon="&#xE018;"></button>
-                <button class="button" type="button" data-role="count" data-icon="&#xE004;"></button>
-                <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"></button>
+                <button class="button" type="button" data-role="merge" data-icon="&#xE037;"><span></span></button>
+                <button class="button" type="button" data-role="normalize" data-icon="&#xE05B;"><span></span></button>
+                <button class="button" type="button" data-role="split" data-icon="&#xE018;"><span></span></button>
+                <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
+                <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"><span></span></button>
                 <hr></hr>
-                <button class="button" type="button" data-role="copy" data-icon="&#xE070;"></button>
-                <button class="button" type="button" data-role="upload" data-icon="&#xE039;"></button>
-                <button class="button" type="button" data-role="download" data-icon="&#xE024;"></button>
+                <button class="button" type="button" data-role="copy" data-icon="&#xE070;"><span></span></button>
+                <button class="button" type="button" data-role="upload" data-icon="&#xE039;"><span></span></button>
+                <button class="button" type="button" data-role="download" data-icon="&#xE024;"><span></span></button>
                 <label></label>
               </div>
             </div>
@@ -142,42 +142,46 @@
           reader.readAsText(file, "UTF-8");
         });
       $('[data-role="merge"]',dialog)
-        .text(trans.noarg('btnMergeText'))
         .attr('title',trans.noarg('btnMergeTitle'))
         .on('click',ev=>{
           ev.preventDefault();
           this.runOperation('merge',()=>this.mergePgn(textarea));
-        });
+        })
+        .find('span')
+        .text(trans.noarg('btnMergeText'));
       $('[data-role="normalize"]',dialog)
-        .text(trans.noarg('btnNormalizeText'))
         .attr('title',trans.noarg('btnNormalizeTitle'))
         .on('click',ev=>{
           ev.preventDefault();
           this.runOperation('normalize',()=>this.normalizePgn(textarea));
-        });
+        })
+        .find('span')
+        .text(trans.noarg('btnNormalizeText'));
       $('[data-role="split"]',dialog)
-        .text(trans.noarg('btnSplitText'))
         .attr('title',trans.noarg('btnSplitTitle'))
         .on('click',ev=>{
           ev.preventDefault();
           this.runOperation('split',()=>this.splitPgn(textarea));
-        });
+        })
+        .find('span')
+        .text(trans.noarg('btnSplitText'));
       $('[data-role="count"]',dialog)
-        .text(trans.noarg('btnCountText'))
         .attr('title',trans.noarg('btnCountTitle'))
         .on('click',ev=>{
           ev.preventDefault();
           this.runOperation('count',()=>this.countPgn(textarea));
-        });
+        })
+        .find('span')
+        .text(trans.noarg('btnCountText'));
       $('[data-role="cancel"]',dialog)
-        .text(trans.noarg('btnCancelText'))
         .attr('title',trans.noarg('btnCancelTitle'))
         .on('click',ev=>{
           ev.preventDefault();
           this.stopOperations();
-        });
+        })
+        .find('span')
+        .text(trans.noarg('btnCancelText'));
       $('[data-role="copy"]',dialog)
-        .text(trans.noarg('btnCopyText'))
         .attr('title',trans.noarg('btnCopyTitle'))
         .on('click',async ev=>{
           ev.preventDefault();
@@ -195,9 +199,10 @@
             const announcement = trans.noarg('clipboardDenied');
             parent.announce(announcement);
           }
-        });
+        })
+        .find('span')
+        .text(trans.noarg('btnCopyText'));
       $('[data-role="upload"]',dialog)
-        .text(trans.noarg('btnUploadText'))
         .attr('title',trans.noarg('btnUploadTitle'))
         .on('click',ev=>{
           ev.preventDefault();
@@ -212,9 +217,10 @@
               reader.readAsText(file, "UTF-8");
             })
             .trigger('click');
-        });
+        })
+        .find('span')
+        .text(trans.noarg('btnUploadText'));
       $('[data-role="download"]',dialog)
-        .text(trans.noarg('btnDownloadText'))
         .attr('title',trans.noarg('btnDownloadTitle'))
         .on('click',ev=>{
           ev.preventDefault();
@@ -224,7 +230,9 @@
             .attr('download','pgnEditor.pgn')
             .attr('href',url)
             .trigger('click');
-        });
+        })
+        .find('span')
+        .text(trans.noarg('btnDownloadText'));
       $('button.close-button',dialog)
         .on('click',ev=>{
           ev.preventDefault();
