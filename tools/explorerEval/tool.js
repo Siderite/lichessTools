@@ -8,8 +8,8 @@
         name:'explorerEval',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['ceval','db','stats','hidden'],
-        defaultValue: 'ceval,db',
+        possibleValues: ['ceval','chessdb','lichess','stats','hidden'],
+        defaultValue: 'ceval,chessdb',
         advanced: true
       }
     ];
@@ -18,30 +18,30 @@
       'en-US':{
         'options.analysis': 'Analysis',
         'options.explorerEval': 'Show evaluation of explorer moves',
-        'notAllowedByCSP': 'Lichess does not allow connection to chessdb',
         'explorerEval.ceval': 'From computer eval',
         'explorerEval.stats': 'From winning stats',
-        'explorerEval.db': 'From cloud',
+        'explorerEval.chessdb': 'From ChessDb',
+        'explorerEval.lichess': 'From Lichess',
         'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
         'fromChessDbTitle': 'LiChess Tools - from ChessDb',
-        'fromLichessTitle': 'LiChess Tools - from cloud, depth %s',
+        'fromLichessTitle': 'LiChess Tools - from Lichess, depth %s',
         'evaluationTitle': 'LiChess Tools - move evaluation',
         'evalWarning': 'LiChess Tools - pay attention'
        },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.explorerEval': 'Arat\u0103 evaluarea mut\u0103rilor \u00een Explorator',
-        'notAllowedByCSP': 'Lichess nu permite conexiunea la chessdb',
         'explorerEval.ceval': 'Din evaluare computer',
         'explorerEval.stats': 'Din statistici',
-        'explorerEval.db': 'Din cloud',
+        'explorerEval.chessdb': 'De la ChessDb',
+        'explorerEval.lichess': 'De la Lichess',
         'explorerEval.hidden': 'Ascunde',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer',
         'fromStatsTitle': 'LiChess Tools - din statistici',
         'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
-        'fromLichessTitle': 'LiChess Tools - din cloud, ad\u00e2ncime %s',
+        'fromLichessTitle': 'LiChess Tools - de la Lichess, ad\u00e2ncime %s',
         'evaluationTitle': 'LiChess Tools - evaluare mutare',
         'evalWarning': 'LiChess Tools - aten\u0163ie'
       }
@@ -208,9 +208,24 @@
         result={ moves:[] };
       }
       let newMoves=[];
-      if (this.options.db && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
+      if ((this.options.chessdb||this.options.lichess) && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
         result={ moves: [] };
-        if (this.CSP) {
+        if (this.options.chessdb && !newMoves.length) {
+          const obj=await this.jsonWith404({
+            url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
+            args:{ fen: fen }
+          });
+          newMoves=obj.moves?.map(m=>{
+            return {
+              depth: 50, //assumed
+              uci: m.uci,
+              cp: m.winrate?whosMove*m.score:null,
+              mate:m.winrate?null:whosMove*Math.sign(m.score)*(30000-Math.abs(m.score)),
+              rank: m.rank
+            };
+          });
+        }
+        if (this.options.lichess && !newMoves.length) {
           let obj=await this.jsonWith404({
             url:'/api/cloud-eval?fen={fen}&multiPv=5',
             args:{ fen: fen }
@@ -244,24 +259,8 @@
                 });
               }
             }
-          } else {
-            this.setCached404(analysis.path);
           }
-        } else {
-          const obj=await this.jsonWith404({
-            url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
-            args:{ fen: fen }
-          });
-          newMoves=obj.moves?.map(m=>{
-            return {
-              depth: 50, //assumed
-              uci: m.uci,
-              cp: m.winrate?whosMove*m.score:null,
-              mate:m.winrate?null:whosMove*Math.sign(m.score)*(30000-Math.abs(m.score)),
-              rank: m.rank
-            };
-          });
-        }
+        } 
         if (newMoves?.length) {
           newMoves.forEach(nm=>{
             const uci=nm.moves?.at(0);
@@ -276,6 +275,8 @@
               result.moves.push(nm);
             }
           });
+        } else {
+          this.setCached404(analysis.path);
         }
       }
       result = result || { moves: [] };
@@ -335,22 +336,6 @@
       }
     };
 
-    CSP=false; // default to true until lichess CSP rules allow chessdb.cn
-    secCheck=e=>{
-      if (this.CSP) return;
-      if (!e.blockedURI?.includes('chessdb.cn')) {
-        this.CSP=false;
-        return;
-      }
-      this.CSP=true;
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      const trans=parent.translator;
-      const text=trans.noarg('notAllowedByCSP');
-      lichess.announce({ msg: text });
-      this.doEvaluationDebounced();
-    };
-
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('explorerEval');
@@ -358,21 +343,20 @@
       this.options={
         ceval: parent.isOptionSet(value,'ceval'),
         stats: parent.isOptionSet(value,'stats'),
-        db: parent.isOptionSet(value,'db'),
+        chessdb: parent.isOptionSet(value,'chessdb'),
+        lichess: parent.isOptionSet(value,'lichess'),
         hidden: parent.isOptionSet(value,'hidden'),
-        get isSet() { return !this.hidden && (this.ceval || this.db || this.stats); }
+        get isSet() { return !this.hidden && (this.ceval || this.chessdb || this.lichess || this.stats); }
       };
       const lichess=parent.lichess;
       const $=parent.$;
       const explorer=lichess?.analysis?.explorer;
       if (!explorer) return;
       lichess.pubsub.off('redraw',this.rebind);
-      $(parent.global.document).off('securitypolicyviolation',this.secCheck)
       $('th.lichessTools-explorerEval,td.lichessTools-explorerEval').remove();
       explorer.setNode=parent.unwrapFunction(explorer.setNode,'explorerEval');
       if (!this.options.isSet) return;
       this.cache={};
-      $(parent.global.document).on('securitypolicyviolation',this.secCheck);
       lichess.pubsub.on('redraw',this.rebind);
       this.rebind();
     }

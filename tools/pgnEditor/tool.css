@@ -20,11 +20,26 @@ body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper {
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper textarea {
   height:80vh;
   flex-grow:1;
+  resizable:none;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
   display:flex;
   flex-direction:column;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button {
+  position:relative;
+  text-align: left;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button span {
+  display:block;
+  text-align: center;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button:before {
+  position:absolute;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons label {
@@ -33,4 +48,22 @@ body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons la
 
 body.lichessTools:has(dialog.lichessTools-pgnEditor) div#announce {
   z-index:111;
+}
+
+@media screen and (max-width: 820px) {
+  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
+    width:3.5em;
+  }
+
+  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button {
+    min-height:2.75em;
+  }
+
+  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button:before {
+    top:0.66em;
+  }
+
+  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button span{
+    display:none;
+  }
 }
