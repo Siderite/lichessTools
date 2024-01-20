@@ -107,14 +107,17 @@
       const trans=parent.translator;
       const tvOptions=parent.getTvOptions();
       const gameId=tvOptions.gameId || lichess.analysis?.data?.game?.id;
-      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables').eq(0);
+      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
       const result = await this.withOpening(gameId,$('main.round, main.analyse, main#board-editor')[0],ply);
       if (!result) {
         $('.lichessTools-opening',metaSection).remove();
         return;
       }
+      $('span.lichessTools-opening',metaSection).filter((i,e)=>!lichessTools.inViewport(e)).remove();
       if (!$('span.lichessTools-opening',metaSection).length) {
-        metaSection.append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
+        const visibleEl=metaSection.filter((i,e)=>lichessTools.inViewport(e)).eq(0);
+        visibleEl
+          .append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
       }
       $('span.lichessTools-opening',metaSection).text(result.opening);
       if (!ply) {
@@ -153,7 +156,7 @@
           this.interval=parent.global.setInterval(this.refreshOpeningDebounced,1000);
         }
       } else {
-        const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables').eq(0);
+        const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
         $('.lichessTools-opening',metaSection).remove();
       }
     }

@@ -248,15 +248,18 @@
         structureElem.remove();
         return;
       }
+      structureElem.filter((i,e)=>!lichessTools.inViewport(e)).remove();
+
       const isLink=!!structureName.url;
       if ((isLink && structureElem.is('span'))||(!isLink && structureElem.is('a'))) {
         structureElem.remove();
         structureElem=$('.lichessTools-structure',el);
       }
       if (!structureElem.length) {
+        const visibleEl=el.filter((i,e)=>lichessTools.inViewport(e)).eq(0);
         structureElem=$('<'+(isLink?'a':'span')+'>')
           .addClass('lichessTools-structure')
-          .appendTo(el);
+          .appendTo(visibleEl);
         if (isLink) {
           structureElem.attr('target','_blank');
         }
@@ -306,7 +309,7 @@
         return;
       }
       const trans=parent.translator;
-      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables').eq(0);
+      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables');
       const fen=lichess.analysis?.node?.fen || parent.getPositionFromBoard($('main'),true);
       if (!fen) return;
       const board=parent.getBoardFromFen(fen);
@@ -363,7 +366,7 @@
           this.interval=parent.global.setInterval(this.refreshStructureDebounced,1000);
         }
       } else {
-        const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables').eq(0);
+        const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables');
         $('.lichessTools-structure',metaSection).remove();
       }
       if (this.isGamesPage() || this.isBroadcastPage()) {
