@@ -5,8 +5,8 @@
       {
         name:'addToTeam',
         category: 'community',
-        type:'single',
-        possibleValues: ['join','quit','hideForum'],
+        type:'multiple',
+        possibleValues: ['hideForum'],
         defaultValue: false
       }
     ];
@@ -20,7 +20,7 @@
         'options.addToTeam': 'LiChess Tools team',
         'addToTeam.join': 'Add me',
         'addToTeam.quit': 'Remove me',
-        'addToTeam.hideForum': 'Hide forum',
+        'addToTeam.hideForum': 'Hide forum entry',
         'joinTeamText': 'Join the team',
         'teamTitle': 'Users of the LiChess Tools browser extension',
         'teamSubtitle': 'Join the team to access the forum, meet other users, get updates or give feedback',
@@ -32,7 +32,7 @@
         'options.addToTeam': 'Echipa LiChess Tools',
         'addToTeam.join': 'Adaug\u0103-m\u0103',
         'addToTeam.quit': 'Scoate-m\u0103',
-        'addToTeam.hideForum': 'Ascunde forumul',
+        'addToTeam.hideForum': 'Ascunde sec\u0163iunea din forum',
         'joinTeamText': 'Intr\u0103 \u00een echip\u0103',
         'teamTitle': 'Echipa utilizatorilor extensiei de browser LiChess Tools',
         'teamSubtitle': 'Intr\u0103 \u00een echip\u0103 pentru acces la forum, al\u0163i utilizatori, nout\u0103\u0163i sau p\u0103reri',
