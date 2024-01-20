@@ -110,16 +110,16 @@
       const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
       const result = await this.withOpening(gameId,$('main.round, main.analyse, main#board-editor')[0],ply);
       if (!result) {
-        $('.lichessTools-opening',metaSection).remove();
+        metaSection.find('.lichessTools-opening').remove();
         return;
       }
-      $('span.lichessTools-opening',metaSection).filter((i,e)=>!lichessTools.inViewport(e)).remove();
-      if (!$('span.lichessTools-opening',metaSection).length) {
+      metaSection.find('span.lichessTools-opening').filter((i,e)=>!lichessTools.inViewport(e)).remove();
+      if (!metaSection.find('span.lichessTools-opening').length) {
         const visibleEl=metaSection.filter((i,e)=>lichessTools.inViewport(e)).eq(0);
         visibleEl
           .append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
       }
-      $('span.lichessTools-opening',metaSection).text(result.opening);
+      metaSection.find('span.lichessTools-opening').text(result.opening);
       if (!ply) {
         await this.miniGameOpening();
       }
@@ -157,7 +157,7 @@
         }
       } else {
         const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
-        $('.lichessTools-opening',metaSection).remove();
+        metaSection.find('.lichessTools-opening').remove();
       }
     }
 
