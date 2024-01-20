@@ -210,7 +210,7 @@
       let newMoves=[];
       if ((this.options.chessdb||this.options.lichess) && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
         result={ moves: [] };
-        if (this.options.chessdb && !newMoves.length) {
+        if (this.options.chessdb && !newMoves?.length) {
           const obj=await this.jsonWith404({
             url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
             args:{ fen: fen }
@@ -225,7 +225,7 @@
             };
           });
         }
-        if (this.options.lichess && !newMoves.length) {
+        if (this.options.lichess && !newMoves?.length) {
           let obj=await this.jsonWith404({
             url:'/api/cloud-eval?fen={fen}&multiPv=5',
             args:{ fen: fen }
