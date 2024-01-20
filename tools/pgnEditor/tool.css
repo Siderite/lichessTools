@@ -27,6 +27,15 @@ body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
   flex-direction:column;
 }
 
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button {
+  position:relative;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button:before {
+  position:absolute;
+  left:1em;
+}
+
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons label {
   width:20vh;
 }

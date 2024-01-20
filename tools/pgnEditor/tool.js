@@ -21,16 +21,24 @@
         'illegalMove': 'Illegal move in game %1, ply %3 (%2)',
         'pgnEditorText': 'PGN Editor',
         'pgnEditorTitle': 'LiChess Tools - PGN Editor',
-        'btnMergeText': 'Merge PGNs',
+        'btnMergeText': 'Merge',
         'btnMergeTitle': 'Merge PGNs (where possible)',
-        'btnNormalizeText': 'Normalize PGNs',
+        'btnNormalizeText': 'Normalize',
         'btnNormalizeTitle': 'Group moves from the same board position',
-        'btnSplitText': 'Split PGNs',
+        'btnSplitText': 'Split',
         'btnSplitTitle': 'Split into multiple one path PGNs',
-        'btnCountText': 'Count PGNs',
+        'btnCountText': 'Count',
         'btnCountTitle': 'PGN statistics',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
+        'btnUploadText': 'Upload',
+        'btnUploadTitle': 'Upload PGN',
+        'btnDownloadText': 'Download',
+        'btnDownloadTitle': 'Download PGN',
+        'btnCopyText': 'Copy',
+        'btnCopyTitle': 'Copy to clipboard',
+        'PGNCopiedToClipboard': 'PGN copied to clipboard',
+        'clipboardDenied':'Clipboard access denied',
         'gameCount': '%s PGNs, %2 moves',
         'gameCount:one': 'one PGN, %2 moves',
         'mergingGames': 'Merging %s PGNs',
@@ -43,7 +51,8 @@
         'preparingGames:one': 'Preparing one PGN',
         'cannotMerge': 'Cannot merge!\r\n(no common board positions)',
         'operationFailed': 'Operation failed!\r\n(invalid input)',
-        'operationCancelled': 'Operation cancelled'
+        'operationCancelled': 'Operation cancelled',
+        'pastePGNs': 'drag/paste your PGNs here'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -51,16 +60,24 @@
         'illegalMove': 'Mutare invalid\u0103 \u00een jocul %1, ply %3 (%2)',
         'pgnEditorText': 'Editor PGN',
         'pgnEditorTitle': 'LiChess Tools - Editor PGN',
-        'btnMergeText': 'Combin\u0103 PGNuri',
+        'btnMergeText': 'Combin\u0103',
         'btnMergeTitle': 'Combin\u0103 PGNuri (dac\u0103 se poate)',
-        'btnNormalizeText': 'Normalizeaz\u0103 PGNuri',
+        'btnNormalizeText': 'Normalizeaz\u0103',
         'btnNormalizeTitle': 'Grupeaz\u0103 mut\u0103ri f\u0103cute din aceea\u015fi pozi\u0163ie',
-        'btnSplitText': 'Sparge PGNuri',
+        'btnSplitText': 'Sparge',
         'btnSplitTitle': 'Sparge \u00een mai multe PGNuri f\u0103r\u0103 varia\u0163iuni',
-        'btnCountText': 'Num\u0103r\u0103 PGNuri',
+        'btnCountText': 'Num\u0103r\u0103',
         'btnCountTitle': 'Statistici PGN',
         'btnCancelText': 'Anuleaz\u0103',
         'btnCancelTitle': 'Anuleaz\u0103 opera\u0163iunea curent\u0103',
+        'btnUploadText': '\u00CEncarc\u0103',
+        'btnUploadTitle': '\u00CEncarc\u0103 PGN',
+        'btnDownloadText': 'Descarc\u0103',
+        'btnDownloadTitle': 'Descarc\u0103 PGN',
+        'btnCopyText': 'Copiaz\u0103',
+        'btnCopyTitle': 'Copiaz\u0103 \u00een clipboard',
+        'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
+        'clipboardDenied':'Acces refuzat la clipboard',
         'gameCount': '%s PGNuri, %2 mut\u0103ri',
         'gameCount:one': 'un PGN, %2 mut\u0103ri',
         'mergingGames': 'Combin %s PGNuri',
@@ -73,7 +90,8 @@
         'preparingGames:one': 'Prepar un PGN',
         'cannotMerge': 'Nu pot combina!\r\n(nu sunt pozi\u0163ii comune pe tabl\u0103)',
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
-        'operationCancelled': 'Opera\u0163iune anulat\u0103'
+        'operationCancelled': 'Opera\u0163iune anulat\u0103',
+        'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici'
       }
     }
 
@@ -94,11 +112,15 @@
             <div class="input-wrapper">
               <textarea autofocus></textarea>
               <div class="buttons">
-                <button class="button" type="button" data-role="merge"></button>
-                <button class="button" type="button" data-role="normalize"></button>
-                <button class="button" type="button" data-role="split"></button>
-                <button class="button" type="button" data-role="count"></button>
-                <button class="button" type="button" data-role="cancel"></button>
+                <button class="button" type="button" data-role="merge" data-icon="&#xE037;"></button>
+                <button class="button" type="button" data-role="normalize" data-icon="&#xE05B;"></button>
+                <button class="button" type="button" data-role="split" data-icon="&#xE018;"></button>
+                <button class="button" type="button" data-role="count" data-icon="&#xE004;"></button>
+                <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"></button>
+                <hr></hr>
+                <button class="button" type="button" data-role="copy" data-icon="&#xE070;"></button>
+                <button class="button" type="button" data-role="upload" data-icon="&#xE039;"></button>
+                <button class="button" type="button" data-role="download" data-icon="&#xE024;"></button>
                 <label></label>
               </div>
             </div>
@@ -107,7 +129,18 @@
 `)
         .appendTo('body');
       $('div.dialog-content>h2').text(trans.noarg('pgnEditorText'));
-      const textarea=$('textarea',dialog);
+      const textarea=$('textarea',dialog)
+        .attr('placeholder',trans.noarg('pastePGNs'))
+        .on('drop',ev=>{
+          ev.preventDefault();
+          const file=ev.dataTransfer.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            textarea.val(e.target.result);
+          };
+          reader.readAsText(file, "UTF-8");
+        });
       $('[data-role="merge"]',dialog)
         .text(trans.noarg('btnMergeText'))
         .attr('title',trans.noarg('btnMergeTitle'))
@@ -142,6 +175,55 @@
         .on('click',ev=>{
           ev.preventDefault();
           this.stopOperations();
+        });
+      $('[data-role="copy"]',dialog)
+        .text(trans.noarg('btnCopyText'))
+        .attr('title',trans.noarg('btnCopyTitle'))
+        .on('click',async ev=>{
+          ev.preventDefault();
+          const permission=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
+          if (['granted','prompt'].includes(permission.state)) {
+            try {
+              await parent.global.navigator.clipboard.writeText(textarea.val());
+              const announcement = trans.noarg('PGNCopiedToClipboard');
+              parent.announce(announcement);
+            } catch(e) {
+              const announcement = trans.noarg('clipboardDenied');
+              parent.announce(announcement);
+            }
+          } else {
+            const announcement = trans.noarg('clipboardDenied');
+            parent.announce(announcement);
+          }
+        });
+      $('[data-role="upload"]',dialog)
+        .text(trans.noarg('btnUploadText'))
+        .attr('title',trans.noarg('btnUploadTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          $('<input type="file">')
+            .on('change',e=>{
+              const file = e.target.files[0];
+              if (!file) return;
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                textarea.val(e.target.result);
+              };
+              reader.readAsText(file, "UTF-8");
+            })
+            .trigger('click');
+        });
+      $('[data-role="download"]',dialog)
+        .text(trans.noarg('btnDownloadText'))
+        .attr('title',trans.noarg('btnDownloadTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          const blob=new Blob([textarea.val()],{type:'application/x-chess-pgn'});
+          const url=URL.createObjectURL(blob);
+          $('<a>')
+            .attr('download','pgnEditor.pgn')
+            .attr('href',url)
+            .trigger('click');
         });
       $('button.close-button',dialog)
         .on('click',ev=>{
