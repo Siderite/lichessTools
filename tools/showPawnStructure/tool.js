@@ -243,6 +243,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
+      if (!el.length) el=$(el);
       let structureElem=el.find('.lichessTools-structure');
       if (!structureName) {
         structureElem.remove();
