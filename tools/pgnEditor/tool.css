@@ -9,10 +9,6 @@ body.lichessTools dialog.lichessTools-pgnEditor button.close-button {
   transform:none;
 }
 
-body.lichessTools dialog.lichessTools-pgnEditor div.scrollable {
-  -height:100%;
-}
-
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper {
   display:flex;
 }
@@ -65,5 +61,12 @@ body.lichessTools:has(dialog.lichessTools-pgnEditor) div#announce {
 
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button span{
     display:none;
+  }
+
+  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons label {
+    position: fixed;
+    top: 86vh;
+    left: 0;
+    width: 100%;
   }
 }
