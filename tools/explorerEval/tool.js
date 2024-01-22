@@ -1,14 +1,14 @@
 (()=>{
   class ExplorerEvalTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw'];
+    dependencies=['EmitRedraw','ChessOps'];
 
     preferences=[
       {
         name:'explorerEval',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['ceval','db','lichess','stats','hidden'],
+        possibleValues: ['ceval','db','lichess','stats','evalRows','hidden'],
         defaultValue: 'ceval,db',
         advanced: true
       }
@@ -22,6 +22,7 @@
         'explorerEval.stats': 'From winning stats',
         'explorerEval.db': 'From ChessDb',
         'explorerEval.lichess': 'From Lichess',
+        'explorerEval.evalRows': 'Rows from eval',
         'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
@@ -37,6 +38,7 @@
         'explorerEval.stats': 'Din statistici',
         'explorerEval.db': 'De la ChessDb',
         'explorerEval.lichess': 'De la Lichess',
+        'explorerEval.evalRows': 'R\u00e2nduri din evaluare',
         'explorerEval.hidden': 'Ascunde',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer',
         'fromStatsTitle': 'LiChess Tools - din statistici',
@@ -65,6 +67,23 @@
             .attr('title',trans.noarg('evaluationTitle'))
             .insertAfter($('th:nth-child(1)',container));
       }
+      if (this.options.evalRows && moves) {
+        const co=parent.chessops;
+        const newRows=moves.filter(m=>!$('tr[data-uci="'+m.uci+'"]',container).length);
+        const fen=co.fen.parseFen(analysis.node.fen).unwrap();
+        const ch=co.Chess.fromSetup(fen).unwrap();
+        const sumElem=$('tr.sum',container);
+        for (const newRow of newRows) {
+          const uci=newRow.uci;
+          const move=co.parseUci(uci);
+          const san=co.san.makeSan(ch,move);
+          $('<tr>')
+            .attr('data-uci',uci)
+            .append($('<td>').text(san))
+            .append($('<td colspan="100" class="lichessTools-evalRow">'))
+            .insertBefore(sumElem);
+        }
+      }
       $('tr[data-uci],tr.sum',container).each((i,e)=>{
         if (!$('td.lichessTools-explorerEval',e).length) {
           $('<td>')
@@ -73,11 +92,15 @@
         }
         const uci=$(e).attr('data-uci');
         let move=moves?.find(m=>m.uci==uci);
-        const explorerItem=(analysis.explorer.current()?.moves||[]).find(i=>i.uci==uci);
-        if (!explorerItem) return;
-        let text='';
-        let rank=-1;
-        let title=null;
+        let explorerItem=(analysis.explorer.current()?.moves||[]).find(i=>i.uci==uci);
+        if (!explorerItem) {
+          if (this.options.evalRows && moves) {
+            explorerItem={};
+          } else {
+            return;
+          }
+        }
+
         const total=explorerItem.white+explorerItem.draws+explorerItem.black;
         const wr=(explorerItem.white+explorerItem.draws/2)/total;
         let cp = -Math.log(1/wr-1)*330
@@ -85,6 +108,10 @@
         if (isInfinite) {
           cp=Math.sign(cp)*10000;
         }
+        
+        let text='';
+        let rank=-1;
+        let title=null;
         if (move) {
           text=move.mate?('M'+move.mate):(Math.round(move.cp/10)/10);
           rank=move.rank;
@@ -129,6 +156,8 @@
           .toggleClass('lichessTools-good',rank===1)
           .toggleClass('lichessTools-best',rank===2)
           .toggleClass('lichessTools-cloud',rank===5);
+        $('td.lichessTools-evalRow',e)
+          .text(title);
         $(e)
           .removeClass('lichessTools-warning-red')
           .removeClass('lichessTools-warning-green')
@@ -345,6 +374,7 @@
         stats: parent.isOptionSet(value,'stats'),
         db: parent.isOptionSet(value,'db') || parent.isOptionSet(value,'chessdb'),
         lichess: parent.isOptionSet(value,'lichess'),
+        evalRows: parent.isOptionSet(value,'evalRows'),
         hidden: parent.isOptionSet(value,'hidden'),
         get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats); }
       };
