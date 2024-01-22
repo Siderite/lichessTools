@@ -29,6 +29,7 @@
         "tools/interceptEventHandlers/tool.js",
         "tools/interceptTimeouts/tool.js",
         "tools/fixAbortController/tool.js",
+        "tools/debugCSP/tool.js",
         "tools/emitRedraw/tool.js",
         "tools/emitChapterChange/tool.js",
         "tools/emitPuzzleChange/tool.js",
