@@ -104,6 +104,7 @@
       const dialog=$('<dialog class="lichessTools-pgnEditor">')
         .append(`
     <div class="close-button-anchor">
+        <a class="help-button" data-icon="&#xE005;" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor" target="_blank"></a>
         <button class="close-button" data-icon="&#xE03F;" aria-label="Close"/>
     </div>
     <div class="scrollable">
