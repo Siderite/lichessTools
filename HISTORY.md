@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 Jan
+  - Eval rows in Explorer
+
 20 Jan
   - Download/Upload/Copy features in PGN Editor
 
