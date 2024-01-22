@@ -29,6 +29,8 @@
         'btnSplitTitle': 'Split into multiple one path PGNs',
         'btnCountText': 'Count',
         'btnCountTitle': 'PGN statistics',
+        'btnSearchText': 'Search',
+        'btnSearchTitle': 'Search on partial FEN (*,? wildcards supported)',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'btnUploadText': 'Upload',
@@ -47,12 +49,15 @@
         'normalizingGames:one': 'Normalizing one PGN',
         'splittingGames': 'Splitting %s PGNs',
         'splittingGames:one': 'Splitting one PGN',
+        'searchingGames': 'Searching %s PGNs',
+        'searchingGames:one': 'Searching one PGN',
         'preparingGames': 'Preparing %s PGNs',
         'preparingGames:one': 'Preparing one PGN',
         'cannotMerge': 'Cannot merge!\r\n(no common board positions)',
         'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled',
-        'pastePGNs': 'drag/paste your PGNs here'
+        'pastePGNs': 'drag/paste your PGNs here',
+        'searchPattern': 'Enter partial FEN string (*,? wildcards supported)'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -68,6 +73,8 @@
         'btnSplitTitle': 'Sparge \u00een mai multe PGNuri f\u0103r\u0103 varia\u0163iuni',
         'btnCountText': 'Num\u0103r\u0103',
         'btnCountTitle': 'Statistici PGN',
+        'btnSearchText': 'Caut\u0103',
+        'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial (suport\u0103 \u00eenlocuitori *,?)',
         'btnCancelText': 'Anuleaz\u0103',
         'btnCancelTitle': 'Anuleaz\u0103 opera\u0163iunea curent\u0103',
         'btnUploadText': '\u00CEncarc\u0103',
@@ -86,12 +93,15 @@
         'normalizingGames:one': 'Normalizez un PGN',
         'splittingGames': 'Sparg %s PGNuri',
         'splittingGames:one': 'Sparg un PGN',
+        'splittingGames': 'Caut \u00een %s PGNuri',
+        'splittingGames:one': 'Caut \u00eentr-un PGN',
         'preparingGames': 'Prepar %s PGNuri',
         'preparingGames:one': 'Prepar un PGN',
         'cannotMerge': 'Nu pot combina!\r\n(nu sunt pozi\u0163ii comune pe tabl\u0103)',
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
         'operationCancelled': 'Opera\u0163iune anulat\u0103',
-        'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici'
+        'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
+        'searchPattern': 'Introdu un text FEN par\u0163ial (suport\u0103 \u00eenlocuitori *,?)'
       }
     }
 
@@ -116,6 +126,7 @@
                 <button class="button" type="button" data-role="merge" data-icon="&#xE037;"><span></span></button>
                 <button class="button" type="button" data-role="normalize" data-icon="&#xE05B;"><span></span></button>
                 <button class="button" type="button" data-role="split" data-icon="&#xE018;"><span></span></button>
+                <button class="button" type="button" data-role="search" data-icon="&#xE027;"><span></span></button>
                 <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
                 <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"><span></span></button>
                 <hr></hr>
@@ -166,6 +177,14 @@
         })
         .find('span')
         .text(trans.noarg('btnSplitText'));
+      $('[data-role="search"]',dialog)
+        .attr('title',trans.noarg('btnSearchTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('search',()=>this.searchPgn(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnSearchText'));
       $('[data-role="count"]',dialog)
         .attr('title',trans.noarg('btnCountTitle'))
         .on('click',ev=>{
@@ -678,6 +697,63 @@
       games=newGames;
       if (this._cancelRequested) {
         return;
+      }
+
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+      for (const game of games) {
+        this.cleanGame(game);
+      }
+
+      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+      textarea.val(newText);
+      this.countPgn();
+    };
+
+    searchPgn=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const search = parent.global.prompt(trans.noarg('searchPattern'));
+      if (!search) return;
+      const reg=new RegExp(Array.from(search).map(c=>{
+        switch(c) {
+          case '*': return '.*';
+          case '?': return '.';
+          default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+        }
+      }).join(''));
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('searchingGames',games.length));
+      await parent.timeout(0);
+
+      let gameIndex=0;
+      for (const game of games) {
+        gameIndex++;
+        try {
+          this.enhanceGameWithFens(game);
+          this.enhanceGameWithFenDict(game);
+          game.headers.delete('Found');
+          if (Array.from(game.fenDict).find(pair=>reg.test(pair[0]))) {
+            game.headers.set('Found',search);
+          }
+        } catch(ex) {
+          if (ex.ply) {
+            const data=[gameIndex, ex.san, ex.ply]
+            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+              return data[+m[1]-1];
+            }));
+            break;
+          } else throw ex;
+          withErrors=true;
+        }
       }
 
       this.writeNote(trans.pluralSame('preparingGames',games.length));
