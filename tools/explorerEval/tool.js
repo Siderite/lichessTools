@@ -343,7 +343,7 @@
       this.options={
         ceval: parent.isOptionSet(value,'ceval'),
         stats: parent.isOptionSet(value,'stats'),
-        db: parent.isOptionSet(value,'db'),
+        db: parent.isOptionSet(value,'db') || parent.isOptionSet(value,'chessdb'),
         lichess: parent.isOptionSet(value,'lichess'),
         hidden: parent.isOptionSet(value,'hidden'),
         get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats); }
