@@ -8,8 +8,8 @@
         name:'explorerEval',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['ceval','chessdb','lichess','stats','hidden'],
-        defaultValue: 'ceval,chessdb',
+        possibleValues: ['ceval','db','lichess','stats','hidden'],
+        defaultValue: 'ceval,db',
         advanced: true
       }
     ];
@@ -20,7 +20,7 @@
         'options.explorerEval': 'Show evaluation of explorer moves',
         'explorerEval.ceval': 'From computer eval',
         'explorerEval.stats': 'From winning stats',
-        'explorerEval.chessdb': 'From ChessDb',
+        'explorerEval.db': 'From ChessDb',
         'explorerEval.lichess': 'From Lichess',
         'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval',
@@ -35,7 +35,7 @@
         'options.explorerEval': 'Arat\u0103 evaluarea mut\u0103rilor \u00een Explorator',
         'explorerEval.ceval': 'Din evaluare computer',
         'explorerEval.stats': 'Din statistici',
-        'explorerEval.chessdb': 'De la ChessDb',
+        'explorerEval.db': 'De la ChessDb',
         'explorerEval.lichess': 'De la Lichess',
         'explorerEval.hidden': 'Ascunde',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer',
@@ -208,9 +208,9 @@
         result={ moves:[] };
       }
       let newMoves=[];
-      if ((this.options.chessdb||this.options.lichess) && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
+      if ((this.options.db||this.options.lichess) && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
         result={ moves: [] };
-        if (this.options.chessdb && !newMoves?.length) {
+        if (this.options.db && !newMoves?.length) {
           const obj=await this.jsonWith404({
             url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
             args:{ fen: fen }
@@ -343,10 +343,10 @@
       this.options={
         ceval: parent.isOptionSet(value,'ceval'),
         stats: parent.isOptionSet(value,'stats'),
-        chessdb: parent.isOptionSet(value,'chessdb'),
+        db: parent.isOptionSet(value,'db'),
         lichess: parent.isOptionSet(value,'lichess'),
         hidden: parent.isOptionSet(value,'hidden'),
-        get isSet() { return !this.hidden && (this.ceval || this.chessdb || this.lichess || this.stats); }
+        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats); }
       };
       const lichess=parent.lichess;
       const $=parent.$;
