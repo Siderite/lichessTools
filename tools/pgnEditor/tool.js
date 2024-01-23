@@ -105,6 +105,25 @@
       }
     }
 
+    copyToClipboard=async (text)=>{
+      const parent=this.lichessTools;
+      const trans=parent.translator;
+      const permission=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
+      if (['granted','prompt'].includes(permission.state)) {
+        try {
+          await parent.global.navigator.clipboard.writeText(text);
+          const announcement = trans.noarg('PGNCopiedToClipboard');
+          parent.announce(announcement);
+        } catch(e) {
+          const announcement = trans.noarg('clipboardDenied');
+          parent.announce(announcement);
+        }
+      } else {
+        const announcement = trans.noarg('clipboardDenied');
+        parent.announce(announcement);
+      }
+    };
+
     showPgnEditor=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -207,20 +226,7 @@
           ev.preventDefault();
           const text=textarea.val();
           if (!text) return;
-          const permission=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
-          if (['granted','prompt'].includes(permission.state)) {
-            try {
-              await parent.global.navigator.clipboard.writeText(text);
-              const announcement = trans.noarg('PGNCopiedToClipboard');
-              parent.announce(announcement);
-            } catch(e) {
-              const announcement = trans.noarg('clipboardDenied');
-              parent.announce(announcement);
-            }
-          } else {
-            const announcement = trans.noarg('clipboardDenied');
-            parent.announce(announcement);
-          }
+          this.copyToClipboard(text);
         })
         .find('span')
         .text(trans.noarg('btnCopyText'));
@@ -735,6 +741,7 @@
       await parent.timeout(0);
 
       let gameIndex=0;
+      const foundGames=[];
       for (const game of games) {
         gameIndex++;
         try {
@@ -743,6 +750,7 @@
           game.headers.delete('Found');
           if (Array.from(game.fenDict).find(pair=>reg.test(pair[0]))) {
             game.headers.set('Found',search);
+            foundGames.push(game);
           }
         } catch(ex) {
           if (ex.ply) {
@@ -765,6 +773,14 @@
       const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
         .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
       textarea.val(newText);
+
+      const foundText=foundGames.map(g=>{
+        g.headers.delete('Found');
+        return makePgn(g);
+      }).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+      this.copyToClipboard(foundText);
+
       this.countPgn();
     };
 
