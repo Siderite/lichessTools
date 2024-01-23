@@ -57,11 +57,8 @@
       const trans=parent.translator;
       const analysis=lichess?.analysis;
       const orientation=analysis.getOrientation()=='black'?-1:1;
+      $('section.explorer-box table.moves.lichessTools-evalTable').remove();
       let container=$('section.explorer-box table.moves');
-      if (container.is('.lichessTools-evalTable')) {
-        container.remove();
-        container=$('section.explorer-box table.moves');
-      }
       if (!container.length) {
         if (this.options.evalRows && moves?.length) {
           $('section.explorer-box div.data.empty div.message').remove();
@@ -347,18 +344,20 @@
       }
       result = result || { moves: [] };
       const ceval=analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval;
-      const pvs=this.options.ceval
+      const pvs=this.options.ceval && ceval?.fen==analysis.node.fen
         ? ceval?.pvs
         : null;
       if (pvs?.length) {
         pvs.forEach(p=>{
           const uci=p.moves?.at(0);
           const existingMove=result.moves.find(m=>m.uci==uci);
-          if (existingMove&&ceval.depth>existingMove.depth) {
-            existingMove.depth=ceval.depth;
-            existingMove.cp=p.cp;
-            existingMove.mate=p.mate;
-            existingMove.rank=null;
+          if (existingMove) {
+            if (ceval.depth>existingMove.depth) {
+              existingMove.depth=ceval.depth;
+              existingMove.cp=p.cp;
+              existingMove.mate=p.mate;
+              existingMove.rank=null;
+            }
           } else {
             result.moves.push({
               depth: ceval.depth,
