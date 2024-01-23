@@ -225,6 +225,7 @@
         }
         if (varNode?.fen && !parent.isStartFen(varNode.fen)) {
           addTag(tags,'FEN',varNode.fen);
+          addTag(tags,'SetUp','1');
         }
         const tagString=tags.length?tags.map(tag=>'['+tag[0]+' "'+tag[1]+'"]').join('\r\n')+'\r\n':'';
         for (const node of varNodes) {

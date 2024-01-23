@@ -87,3 +87,7 @@ body.lichessTools tr.lichessTools-warning-red:after {
 body.lichessTools tr.lichessTools-warning-green:after {
   color:#80A080;
 }
+
+body.lichessTools section.explorer-box td.lichessTools-evalRow {
+  text-align: center;
+}

@@ -1,15 +1,15 @@
 (()=>{
   class ExplorerEvalTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw'];
+    dependencies=['EmitRedraw','ChessOps'];
 
     preferences=[
       {
         name:'explorerEval',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['ceval','chessdb','lichess','stats','hidden'],
-        defaultValue: 'ceval,chessdb',
+        possibleValues: ['ceval','db','lichess','stats','evalRows','hidden'],
+        defaultValue: 'ceval,db',
         advanced: true
       }
     ];
@@ -20,8 +20,9 @@
         'options.explorerEval': 'Show evaluation of explorer moves',
         'explorerEval.ceval': 'From computer eval',
         'explorerEval.stats': 'From winning stats',
-        'explorerEval.chessdb': 'From ChessDb',
+        'explorerEval.db': 'From ChessDb',
         'explorerEval.lichess': 'From Lichess',
+        'explorerEval.evalRows': 'Rows from eval',
         'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
@@ -35,8 +36,9 @@
         'options.explorerEval': 'Arat\u0103 evaluarea mut\u0103rilor \u00een Explorator',
         'explorerEval.ceval': 'Din evaluare computer',
         'explorerEval.stats': 'Din statistici',
-        'explorerEval.chessdb': 'De la ChessDb',
+        'explorerEval.db': 'De la ChessDb',
         'explorerEval.lichess': 'De la Lichess',
+        'explorerEval.evalRows': 'R\u00e2nduri din evaluare',
         'explorerEval.hidden': 'Ascunde',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer',
         'fromStatsTitle': 'LiChess Tools - din statistici',
@@ -55,8 +57,33 @@
       const trans=parent.translator;
       const analysis=lichess?.analysis;
       const orientation=analysis.getOrientation()=='black'?-1:1;
-      const container=$('section.explorer-box table.moves');
-      if (!container.length) return;
+      $('section.explorer-box table.moves.lichessTools-evalTable').remove();
+      let container=$('section.explorer-box table.moves');
+      if (!container.length) {
+        if (this.options.evalRows && moves?.length) {
+          $('section.explorer-box div.data.empty div.message').remove();
+          container=$('<table class="moves lichessTools-evalTable">')
+            .append(
+              $('<tbody>')
+                .attr('data-fen',analysis.node.fen)
+                .on("mouseover", ev=>{
+                  const uci=$(ev.target).parents("tr").attr("data-uci");
+                  analysis.explorer.setHovering($(ev.currentTarget).attr("data-fen"), uci);
+                })
+                .on("mouseout", ev=>{
+                  analysis.explorer.setHovering($(ev.currentTarget).attr("data-fen"), null);
+                })
+                .on("click", ev=>{
+                  const uci=$(ev.target).parents("tr").attr("data-uci");
+                  analysis.explorerMove(uci);
+                })
+            )
+            .appendTo('section.explorer-box div.data.empty');
+          $('section.explorer-box div.data.empty div.message').removeClass('empty');
+        } else {
+          return;
+        }
+      }
       if (parent.isGamePlaying()) return;
       if (!$('th.lichessTools-explorerEval',container).length) {
         $('<th>')
@@ -64,6 +91,28 @@
             .text('\u2924')
             .attr('title',trans.noarg('evaluationTitle'))
             .insertAfter($('th:nth-child(1)',container));
+      }
+      if (this.options.evalRows && moves?.length) {
+        $('tr:has(.lichessTools-evalRow)',container).remove();
+        const co=parent.chessops;
+        const newRows=moves.filter(m=>!$('tr[data-uci="'+m.uci+'"]',container).length);
+        const fen=co.fen.parseFen(analysis.node.fen).unwrap();
+        const ch=co.Chess.fromSetup(fen).unwrap();
+        const sumElem=$('tr.sum',container);
+        for (const newRow of newRows) {
+          const uci=newRow.uci;
+          const move=co.parseUci(uci);
+          const san=co.san.makeSan(ch,move);
+          const newTr=$('<tr>')
+            .attr('data-uci',uci)
+            .append($('<td>').text(san))
+            .append($('<td colspan="100" class="lichessTools-evalRow">'));
+          if (sumElem.length) {
+            newTr.insertBefore(sumElem);
+          } else {
+            newTr.appendTo($('tbody',container));
+          }
+        }
       }
       $('tr[data-uci],tr.sum',container).each((i,e)=>{
         if (!$('td.lichessTools-explorerEval',e).length) {
@@ -73,11 +122,15 @@
         }
         const uci=$(e).attr('data-uci');
         let move=moves?.find(m=>m.uci==uci);
-        const explorerItem=(analysis.explorer.current()?.moves||[]).find(i=>i.uci==uci);
-        if (!explorerItem) return;
-        let text='';
-        let rank=-1;
-        let title=null;
+        let explorerItem=(analysis.explorer.current()?.moves||[]).find(i=>i.uci==uci);
+        if (!explorerItem) {
+          if (this.options.evalRows && moves?.length) {
+            explorerItem={};
+          } else {
+            return;
+          }
+        }
+
         const total=explorerItem.white+explorerItem.draws+explorerItem.black;
         const wr=(explorerItem.white+explorerItem.draws/2)/total;
         let cp = -Math.log(1/wr-1)*330
@@ -85,6 +138,10 @@
         if (isInfinite) {
           cp=Math.sign(cp)*10000;
         }
+        
+        let text='';
+        let rank=-1;
+        let title=null;
         if (move) {
           text=move.mate?('M'+move.mate):(Math.round(move.cp/10)/10);
           rank=move.rank;
@@ -129,6 +186,8 @@
           .toggleClass('lichessTools-good',rank===1)
           .toggleClass('lichessTools-best',rank===2)
           .toggleClass('lichessTools-cloud',rank===5);
+        $('td.lichessTools-evalRow',e)
+          .text(title);
         $(e)
           .removeClass('lichessTools-warning-red')
           .removeClass('lichessTools-warning-green')
@@ -199,8 +258,12 @@
       if (!analysis.explorer?.enabled()) return;
       if (parent.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
-      if (!explorerMoves?.length) return;
-      if (!parent.inViewport($('section.explorer-box table.moves')[0])) return;
+      if (!this.options.evalRows) {
+        if (!explorerMoves?.length) return;
+        if (!parent.inViewport($('section.explorer-box table.moves')[0])) return;
+      } else {
+        if (!parent.inViewport($('section.explorer-box')[0])) return;
+      }
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;
       let result = this.cache[fen];
@@ -208,14 +271,14 @@
         result={ moves:[] };
       }
       let newMoves=[];
-      if ((this.options.chessdb||this.options.lichess) && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
+      if ((this.options.db||this.options.lichess) && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
         result={ moves: [] };
-        if (this.options.chessdb && !newMoves.length) {
+        if (this.options.db && !newMoves?.length) {
           const obj=await this.jsonWith404({
             url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
             args:{ fen: fen }
           });
-          newMoves=obj.moves?.map(m=>{
+          newMoves=obj?.moves?.map(m=>{
             return {
               depth: 50, //assumed
               uci: m.uci,
@@ -225,13 +288,13 @@
             };
           });
         }
-        if (this.options.lichess && !newMoves.length) {
+        if (this.options.lichess && !newMoves?.length) {
           let obj=await this.jsonWith404({
             url:'/api/cloud-eval?fen={fen}&multiPv=5',
             args:{ fen: fen }
           });
           if (obj) {
-            newMoves=obj.pvs?.map(m=>{
+            newMoves=obj?.pvs?.map(m=>{
               return {
                 depth: obj.depth,
                 uci: m.moves?.split(' ')[0],
@@ -281,18 +344,20 @@
       }
       result = result || { moves: [] };
       const ceval=analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval;
-      const pvs=this.options.ceval
+      const pvs=this.options.ceval && ceval?.fen==analysis.node.fen
         ? ceval?.pvs
         : null;
       if (pvs?.length) {
         pvs.forEach(p=>{
           const uci=p.moves?.at(0);
           const existingMove=result.moves.find(m=>m.uci==uci);
-          if (existingMove&&ceval.depth>existingMove.depth) {
-            existingMove.depth=ceval.depth;
-            existingMove.cp=p.cp;
-            existingMove.mate=p.mate;
-            existingMove.rank=null;
+          if (existingMove) {
+            if (ceval.depth>existingMove.depth) {
+              existingMove.depth=ceval.depth;
+              existingMove.cp=p.cp;
+              existingMove.mate=p.mate;
+              existingMove.rank=null;
+            }
           } else {
             result.moves.push({
               depth: ceval.depth,
@@ -343,10 +408,11 @@
       this.options={
         ceval: parent.isOptionSet(value,'ceval'),
         stats: parent.isOptionSet(value,'stats'),
-        chessdb: parent.isOptionSet(value,'chessdb'),
+        db: parent.isOptionSet(value,'db') || parent.isOptionSet(value,'chessdb'),
         lichess: parent.isOptionSet(value,'lichess'),
+        evalRows: parent.isOptionSet(value,'evalRows'),
         hidden: parent.isOptionSet(value,'hidden'),
-        get isSet() { return !this.hidden && (this.ceval || this.chessdb || this.lichess || this.stats); }
+        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats); }
       };
       const lichess=parent.lichess;
       const $=parent.$;

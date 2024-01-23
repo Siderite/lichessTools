@@ -9,10 +9,6 @@ body.lichessTools dialog.lichessTools-pgnEditor button.close-button {
   transform:none;
 }
 
-body.lichessTools dialog.lichessTools-pgnEditor div.scrollable {
-  -height:100%;
-}
-
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper {
   display:flex;
 }
@@ -50,6 +46,23 @@ body.lichessTools:has(dialog.lichessTools-pgnEditor) div#announce {
   z-index:111;
 }
 
+body.lichessTools dialog.lichessTools-pgnEditor a.help-button {
+  position: absolute;
+  top: 4px;
+  right: 2em;
+  width: 40px;
+  height: 40px;
+  z-index: 111;
+  color: #ccc;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor a.help-button:hover {
+  color: #1b78d0;
+}
+
 @media screen and (max-width: 820px) {
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
     width:3.5em;
@@ -65,5 +78,12 @@ body.lichessTools:has(dialog.lichessTools-pgnEditor) div#announce {
 
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button span{
     display:none;
+  }
+
+  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons label {
+    position: fixed;
+    top: 86vh;
+    left: 0;
+    width: 100%;
   }
 }

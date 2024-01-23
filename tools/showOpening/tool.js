@@ -107,16 +107,19 @@
       const trans=parent.translator;
       const tvOptions=parent.getTvOptions();
       const gameId=tvOptions.gameId || lichess.analysis?.data?.game?.id;
-      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables').eq(0);
+      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
       const result = await this.withOpening(gameId,$('main.round, main.analyse, main#board-editor')[0],ply);
       if (!result) {
-        $('.lichessTools-opening',metaSection).remove();
+        metaSection.find('.lichessTools-opening').remove();
         return;
       }
-      if (!$('span.lichessTools-opening',metaSection).length) {
-        metaSection.append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
+      metaSection.find('span.lichessTools-opening').filter((i,e)=>!lichessTools.inViewport(e)).remove();
+      if (!metaSection.find('span.lichessTools-opening').length) {
+        const visibleEl=metaSection.filter((i,e)=>lichessTools.inViewport(e)).eq(0);
+        visibleEl
+          .append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
       }
-      $('span.lichessTools-opening',metaSection).text(result.opening);
+      metaSection.find('span.lichessTools-opening').text(result.opening);
       if (!ply) {
         await this.miniGameOpening();
       }
@@ -153,8 +156,8 @@
           this.interval=parent.global.setInterval(this.refreshOpeningDebounced,1000);
         }
       } else {
-        const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables').eq(0);
-        $('.lichessTools-opening',metaSection).remove();
+        const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
+        metaSection.find('.lichessTools-opening').remove();
       }
     }
 
