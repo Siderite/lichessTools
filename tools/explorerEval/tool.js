@@ -281,7 +281,7 @@
             url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
             args:{ fen: fen }
           });
-          newMoves=obj.moves?.map(m=>{
+          newMoves=obj?.moves?.map(m=>{
             return {
               depth: 50, //assumed
               uci: m.uci,
@@ -297,7 +297,7 @@
             args:{ fen: fen }
           });
           if (obj) {
-            newMoves=obj.pvs?.map(m=>{
+            newMoves=obj?.pvs?.map(m=>{
               return {
                 depth: obj.depth,
                 uci: m.moves?.split(' ')[0],
