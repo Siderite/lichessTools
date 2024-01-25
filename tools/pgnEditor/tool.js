@@ -57,7 +57,7 @@
         'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled',
         'pastePGNs': 'drag/paste your PGNs here',
-        'searchPattern': 'Enter partial FEN string (*,? wildcards supported)'
+        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -101,7 +101,7 @@
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
         'operationCancelled': 'Opera\u0163iune anulat\u0103',
         'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
-        'searchPattern': 'Introdu un text FEN par\u0163ial (suport\u0103 \u00eenlocuitori *,?)'
+        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Etichet\u0103=Valoare'
       }
     }
 
