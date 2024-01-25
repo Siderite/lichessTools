@@ -725,13 +725,24 @@
 
       const search = parent.global.prompt(trans.noarg('searchPattern'));
       if (!search) return;
-      const reg=new RegExp(Array.from(search).map(c=>{
-        switch(c) {
-          case '*': return '.*';
-          case '?': return '.';
-          default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
-        }
-      }).join(''));
+      const m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
+      let searchMode='fenOrMoves';
+      let tagName;
+      let tagValue;
+      let reg;
+      if (m) {
+        searchMode='tag';
+        tagName=m[1];
+        tagValue=m[2];
+      } else {
+        reg=new RegExp(Array.from(search).map(c=>{
+          switch(c) {
+            case '*': return '.*';
+            case '?': return '.';
+            default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+          }
+        }).join(''));
+      }
 
       const co=parent.chessops;
       const { parsePgn,makePgn } = co.pgn;
@@ -745,11 +756,26 @@
       for (const game of games) {
         gameIndex++;
         try {
-          this.enhanceGameWithFens(game);
-          this.enhanceGameWithFenDict(game);
           game.headers.delete('Found');
-          if (Array.from(game.fenDict).find(pair=>reg.test(pair[0]))) {
-            game.headers.set('Found',search);
+          let found=false;
+          switch(searchMode) {
+            case 'fenOrMoves':
+              const pgn=makePgn(game);
+              if (reg.test(pgn)) {
+                found=true;
+                break;
+              }
+              this.enhanceGameWithFens(game);
+              this.enhanceGameWithFenDict(game);
+              found=Array.from(game.fenDict).find(pair=>reg.test(pair[0]));
+              break;
+            case 'tag':
+              const val=game.headers.get(tagName);
+              found=(val?.replace(/\s+/g,'')==tagValue?.replace(/\s+/g,''));
+              break;
+          }
+          if (found){
+            game.headers.set('Found',search.replaceAll('"',''));
             foundGames.push(game);
           }
         } catch(ex) {
