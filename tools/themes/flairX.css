@@ -1,0 +1,13 @@
+/* Flair X */
+
+body.lichessTools.lichessTools-theme_flairX img.uflair:hover {
+  transform: scale(3);
+  transition:1s;
+  position:relative;
+  z-index:1;
+}
+body.lichessTools.lichessTools-theme_flairX *:has(> img.uflair:hover),
+body.lichessTools.lichessTools-theme_flairX *:has(> * > img.uflair:hover),
+body.lichessTools.lichessTools-theme_flairX *:has(> * > * > img.uflair:hover) {
+  overflow: visible;
+}

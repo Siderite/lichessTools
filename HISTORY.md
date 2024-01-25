@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 Jan
+  - Nicer flairs theme
+
 22 Jan
   - Eval rows in Explorer
   - FEN search in PGN Editor

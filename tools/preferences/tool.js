@@ -29,7 +29,7 @@
         'author': 'by %s',
         'lichessTools': 'LiChess Tools',
         'feedbackButtonTitle': 'Send feedback about LiChess Tools',
-        'feedbackTitle': 'Feedback'
+        'feedbackTitle': 'Send a message to the developer'
       },
       'ro-RO':{
         yes: 'Da',
@@ -44,7 +44,7 @@
         'author': 'de %s',
         'lichessTools': 'LiChess Tools',
         'feedbackButtonTitle': 'Trimite p\u0103reri despre LiChess Tools',
-        'feedbackTitle': 'P\u0103reri'
+        'feedbackTitle': 'Trimite un mesaj programatorului'
       }
     }
 
