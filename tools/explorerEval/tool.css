@@ -73,7 +73,8 @@ body.lichessTools.transp td.lichessTools-explorerEval.lichessTools-cloud {
 }
 
 body.lichessTools tr.lichessTools-warning-red:after,
-body.lichessTools tr.lichessTools-warning-green:after {
+body.lichessTools tr.lichessTools-warning-green:after,
+body.lichessTools tr.lichessTools-warning-blue:after {
   content:'\26A0';
   position: relative;
   font-size: smaller;
@@ -86,6 +87,10 @@ body.lichessTools tr.lichessTools-warning-red:after {
 
 body.lichessTools tr.lichessTools-warning-green:after {
   color:#80A080;
+}
+
+body.lichessTools tr.lichessTools-warning-blue:after {
+  color:#8080A0;
 }
 
 body.lichessTools section.explorer-box td.lichessTools-evalRow {

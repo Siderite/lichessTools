@@ -140,8 +140,9 @@
         if (isInfinite) {
           cp=Math.sign(cp)*10000;
         }
-        
-        const sharpness = Math.round(Math.min(explorerItem.white,explorerItem.black)/50*333/(explorerItem.draws+1)*1/(1+Math.exp(-(explorerItem.white+explorerItem.black)/1000)));
+
+        const q=1000/total;        
+        const sharpness = Math.round(Math.min(explorerItem.white,explorerItem.black)*q/50*333/(explorerItem.draws*q+1)*1/(1+Math.exp(-(explorerItem.white+explorerItem.black)*q/1000)));
         if (sharpness&&Number.isFinite(sharpness)) {
           const sharpnessTitle = trans.pluralSame('sharpnessTitle',sharpness);
           const tdBar=$('td:has(div.bar)',e);
@@ -201,10 +202,16 @@
         $(e)
           .removeClass('lichessTools-warning-red')
           .removeClass('lichessTools-warning-green')
+          .removeClass('lichessTools-warning-blue')
           .removeAttr('title');
         if (explorerItem.diff>200) {
           $(e)
             .addClass(explorerItem.signVal<0?'lichessTools-warning-red':'lichessTools-warning-green')
+            .attr('title',trans.noarg('evalWarning'));
+        }
+        if (sharpness>=100) {
+          $(e)
+            .addClass('lichessTools-warning-blue')
             .attr('title',trans.noarg('evalWarning'));
         }
       });
