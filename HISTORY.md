@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 Jan
+  - PGN Editor keep found, undo, redo
+
 25 Jan
   - Nicer flairs theme
 

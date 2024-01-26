@@ -74,7 +74,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Learn from your mistakes in Study chapters
  - Pin studies and broadcasts to home page
  - community forum
- - PGN editor (merge, split, normalize, count)
+ - PGN editor (merge, split, normalize, count, search)
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

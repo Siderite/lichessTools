@@ -31,6 +31,8 @@
         'btnCountTitle': 'PGN statistics',
         'btnSearchText': 'Search',
         'btnSearchTitle': 'Search on partial FEN (*,? wildcards supported)',
+        'btnKeepFoundText': 'Result',
+        'btnKeepFoundTitle': 'Keep only the found results',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'btnUploadText': 'Upload',
@@ -39,6 +41,10 @@
         'btnDownloadTitle': 'Download PGN',
         'btnCopyText': 'Copy',
         'btnCopyTitle': 'Copy to clipboard',
+        'btnUndoText': 'Undo',
+        'btnUndoTitle': 'Undo text changes',
+        'btnRedoText': 'Redo',
+        'btnRedoTitle': 'Redo text changes',
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
         'clipboardDenied':'Clipboard access denied',
         'gameCount': '%s PGNs, %2 moves',
@@ -75,6 +81,8 @@
         'btnCountTitle': 'Statistici PGN',
         'btnSearchText': 'Caut\u0103',
         'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial (suport\u0103 \u00eenlocuitori *,?)',
+        'btnKeepFoundText': 'Rezultat',
+        'btnKeepFoundTitle': 'P\u0103streaz\u0103 doar rezultatele g\u0103site',
         'btnCancelText': 'Anuleaz\u0103',
         'btnCancelTitle': 'Anuleaz\u0103 opera\u0163iunea curent\u0103',
         'btnUploadText': '\u00CEncarc\u0103',
@@ -83,6 +91,10 @@
         'btnDownloadTitle': 'Descarc\u0103 PGN',
         'btnCopyText': 'Copiaz\u0103',
         'btnCopyTitle': 'Copiaz\u0103 \u00een clipboard',
+        'btnUndoText': '\u00CEnapoi',
+        'btnUndoTitle': 'Anuleaz\u0103 schimb\u0103rile text',
+        'btnRedoText': 'Ref\u0103',
+        'btnRedoTitle': 'Ref\u0103 schimb\u0103rile text',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
         'clipboardDenied':'Acces refuzat la clipboard',
         'gameCount': '%s PGNuri, %2 mut\u0103ri',
@@ -103,6 +115,15 @@
         'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
         'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Etichet\u0103=Valoare'
       }
+    }
+
+    setText=(control,text)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      control = $(control)[0];
+      if (!control) return;
+      control.select();
+      parent.global.document.execCommand('insertText',false,text);
     }
 
     copyToClipboard=async (text)=>{
@@ -145,13 +166,16 @@
                 <button class="button" type="button" data-role="merge" data-icon="&#xE037;"><span></span></button>
                 <button class="button" type="button" data-role="normalize" data-icon="&#xE05B;"><span></span></button>
                 <button class="button" type="button" data-role="split" data-icon="&#xE018;"><span></span></button>
-                <button class="button" type="button" data-role="search" data-icon="&#xE027;"><span></span></button>
+                <button class="button" type="button" data-role="search" data-icon="&#xE02F;"><span></span></button>
+                <button class="button" type="button" data-role="keepFound" data-icon="&#xE02A;"><span></span></button>
                 <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
                 <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"><span></span></button>
                 <hr></hr>
                 <button class="button" type="button" data-role="copy" data-icon="&#xE070;"><span></span></button>
                 <button class="button" type="button" data-role="upload" data-icon="&#xE039;"><span></span></button>
                 <button class="button" type="button" data-role="download" data-icon="&#xE024;"><span></span></button>
+                <button class="button" type="button" data-role="undo" data-icon="&#xE05C;"><span></span></button>
+                <button class="button" type="button" data-role="redo" data-icon="&#xE06D;"><span></span></button>
                 <label></label>
               </div>
             </div>
@@ -167,8 +191,8 @@
           const file=ev.dataTransfer.files[0];
           if (!file) return;
           const reader = new FileReader();
-          reader.onload = function(e) {
-            textarea.val(e.target.result);
+          reader.onload = (e)=>{
+            this.setText(textarea,e.target.result);
           };
           reader.readAsText(file, "UTF-8");
         });
@@ -204,6 +228,14 @@
         })
         .find('span')
         .text(trans.noarg('btnSearchText'));
+      $('[data-role="keepFound"]',dialog)
+        .attr('title',trans.noarg('btnKeepFoundTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('keepFound',()=>this.keepFound(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnKeepFoundText'));
       $('[data-role="count"]',dialog)
         .attr('title',trans.noarg('btnCountTitle'))
         .on('click',ev=>{
@@ -224,9 +256,11 @@
         .attr('title',trans.noarg('btnCopyTitle'))
         .on('click',async ev=>{
           ev.preventDefault();
-          const text=textarea.val();
-          if (!text) return;
-          this.copyToClipboard(text);
+          this.runOperation('copy',()=>{
+            const text=textarea.val();
+            if (!text) return;
+            this.copyToClipboard(text);
+          });
         })
         .find('span')
         .text(trans.noarg('btnCopyText'));
@@ -235,14 +269,38 @@
         .on('click',ev=>{
           ev.preventDefault();
           $('<input type="file">')
-            .on('change',e=>{
-              const file = e.target.files[0];
-              if (!file) return;
-              const reader = new FileReader();
-              reader.onload = function(e) {
-                textarea.val(e.target.result);
-              };
-              reader.readAsText(file, "UTF-8");
+            .on('change',async e=>{
+              if (this._runningOperation) return;
+              const name='upload';
+              const now=Date.now();
+              try {
+                const file = e.target.files[0];
+                if (!file) return;
+                this._cancelRequested=false;
+                this._runningOperation=name;
+                this.toggleCancel(true);
+                await parent.timeout(0);
+                const reader = new FileReader();
+                reader.onload = (e)=>{
+                  if (this._cancelRequested) {
+                    this._cancelRequested=false;
+                    this.writeNote(trans.noarg('operationCancelled'));
+                  }
+                  this.setText(textarea,e.target.result);
+                  this._runningOperation=null;
+                  this.toggleCancel(false);
+                  parent.global.console.debug('Operation '+name+' took '+Math.round((Date.now()-now)/100)/10+' seconds');
+                };
+                reader.readAsText(file, "UTF-8");
+              } catch(ex) {
+                if (this._cancelRequested) {
+                  this._cancelRequested=false;
+                  this.writeNote(trans.noarg('operationCancelled'));
+                }
+                this._runningOperation=null;
+                this.toggleCancel(false);
+                throw ex;
+              }
             })
             .trigger('click');
         })
@@ -254,15 +312,33 @@
           ev.preventDefault();
           const text=textarea.val();
           if (!text) return;
-          const blob=new Blob([text],{type:'application/x-chess-pgn'});
-          const url=URL.createObjectURL(blob);
-          $('<a>')
-            .attr('download','pgnEditor_'+(x.toISOString().replace(/[\-T:]/g,'').slice(0,14))+'.pgn')
-            .attr('href',url)
-            .trigger('click');
+          this.runOperation('download',()=>{
+            const blob=new Blob([text],{type:'application/x-chess-pgn'});
+            const url=URL.createObjectURL(blob);
+            $('<a>')
+              .attr('download','pgnEditor_'+(x.toISOString().replace(/[\-T:]/g,'').slice(0,14))+'.pgn')
+              .attr('href',url)
+              .trigger('click');
+          });
         })
         .find('span')
         .text(trans.noarg('btnDownloadText'));
+      $('[data-role="undo"]',dialog)
+        .attr('title',trans.noarg('btnUndoTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('undo',()=>this.undo(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnUndoText'));
+      $('[data-role="redo"]',dialog)
+        .attr('title',trans.noarg('btnRedoTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('redo',()=>this.redo(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnRedoText'));
       $('button.close-button',dialog)
         .on('click',ev=>{
           ev.preventDefault();
@@ -559,7 +635,7 @@
 
       const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
         .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      textarea.val(newText);
+      this.setText(textarea,newText);
       if (games.length<initialNumberOfGames) {
         this.countPgn();
       } else {
@@ -654,7 +730,7 @@
 
       const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
         .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      textarea.val(newText);
+      this.setText(textarea,newText);
       this.countPgn();
     };
 
@@ -713,7 +789,7 @@
 
       const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
         .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      textarea.val(newText);
+      this.setText(textarea,newText);
       this.countPgn();
     };
 
@@ -798,7 +874,7 @@
 
       const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
         .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      textarea.val(newText);
+      this.setText(textarea,newText);
 
       const foundText=foundGames.map(g=>{
         g.headers.delete('Found');
@@ -808,6 +884,46 @@
       this.copyToClipboard(foundText);
 
       this.countPgn();
+    };
+
+
+    keepFound=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('searchingGames',games.length));
+      await parent.timeout(0);
+
+      parent.arrayRemoveAll(games,g=>!g.headers.has('Found'));
+      for (const game of games) {
+        game.headers.delete('Found');
+      }
+
+      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+      this.setText(textarea,newText);
+
+      this.countPgn();
+    };
+
+    undo=async (textarea)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $(textarea)[0].focus();
+      parent.global.document.execCommand('undo');
+    };
+
+    redo=async (textarea)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $(textarea)[0].focus();
+      parent.global.document.execCommand('redo');
     };
 
     async start() {
