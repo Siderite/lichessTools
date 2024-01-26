@@ -8,7 +8,7 @@
         name:'themes',
         category: 'general',
         type:'multiple',
-        possibleValues: ['performance','justExplorer','mobile','slimArrows'],
+        possibleValues: ['performance','justExplorer','mobile','slimArrows','flairX'],
         defaultValue: '',
         advanced: true
       }
@@ -22,7 +22,8 @@
         'themes.performance':'Performance theme',
         'themes.justExplorer':'Just Explorer',
         'themes.mobile':'Mobile theme',
-        'themes.slimArrows':'Slim arrows'
+        'themes.slimArrows':'Slim arrows',
+        'themes.flairX':'Nicer flairs'
       },
       'ro-RO':{
         'options.general': 'General',
@@ -31,7 +32,8 @@
         'themes.performance':'Tem\u0103 performan\u0163\u0103',
         'themes.justExplorer':'Doar Explorator',
         'themes.mobile':'Tem\u0103 mobil',
-        'themes.slimArrows':'S\u0103ge\u0163i sub\u0163iri'
+        'themes.slimArrows':'S\u0103ge\u0163i sub\u0163iri',
+        'themes.flairX':'Flair-uri mai bune'
       }
     }
 

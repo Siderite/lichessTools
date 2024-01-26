@@ -62,13 +62,16 @@
 
     keydown=(ev)=>{
       let help=false;
-      if ([ev.code,ev.key].includes('Escape')) {
+      if ([ev.code,ev.key].includes('Escape')||ev.which==27) {
         ev.target.blur();
         return;
       }
-      if ([ev.code,ev.key].includes('Enter')) {
-        const val=ev.target.value?.trim();
+      if ([ev.code,ev.key].includes('Enter')||ev.which==13) {
+        let val=ev.target.value?.trim();
         if (!val) return;
+        if (val=='/?') {
+          ev.target.value=(val='/help');
+        }
         if (val==='/help') help=true;
         if (val.startsWith('/')) {
            const result=this.executeCommand(val.substr(1));

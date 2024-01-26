@@ -29,7 +29,8 @@
         'fromChessDbTitle': 'LiChess Tools - from ChessDb',
         'fromLichessTitle': 'LiChess Tools - from Lichess, depth %s',
         'evaluationTitle': 'LiChess Tools - move evaluation',
-        'evalWarning': 'LiChess Tools - pay attention'
+        'evalWarning': 'LiChess Tools - pay attention',
+        'sharpnessTitle': 'Sharpness: %s'
        },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -45,7 +46,8 @@
         'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
         'fromLichessTitle': 'LiChess Tools - de la Lichess, ad\u00e2ncime %s',
         'evaluationTitle': 'LiChess Tools - evaluare mutare',
-        'evalWarning': 'LiChess Tools - aten\u0163ie'
+        'evalWarning': 'LiChess Tools - aten\u0163ie',
+        'sharpnessTitle': 'Periculozitate: %s'
       }
     }
 
@@ -138,7 +140,16 @@
         if (isInfinite) {
           cp=Math.sign(cp)*10000;
         }
-        
+
+        const q=1000/total;        
+        const sharpness = Math.round(Math.min(explorerItem.white,explorerItem.black)*q/50*333/(explorerItem.draws*q+1)*1/(1+Math.exp(-(explorerItem.white+explorerItem.black)*q/1000)));
+        if (sharpness&&Number.isFinite(sharpness)) {
+          const sharpnessTitle = trans.pluralSame('sharpnessTitle',sharpness);
+          const tdBar=$('td:has(div.bar)',e);
+          const tdTitle=tdBar.attr('title')?.split(' / ')?.at(0)+' / '+sharpnessTitle;
+          tdBar.attr('title',tdTitle);
+        }
+
         let text='';
         let rank=-1;
         let title=null;
@@ -191,10 +202,16 @@
         $(e)
           .removeClass('lichessTools-warning-red')
           .removeClass('lichessTools-warning-green')
+          .removeClass('lichessTools-warning-blue')
           .removeAttr('title');
         if (explorerItem.diff>200) {
           $(e)
             .addClass(explorerItem.signVal<0?'lichessTools-warning-red':'lichessTools-warning-green')
+            .attr('title',trans.noarg('evalWarning'));
+        }
+        if (sharpness>=100) {
+          $(e)
+            .addClass('lichessTools-warning-blue')
             .attr('title',trans.noarg('evalWarning'));
         }
       });
