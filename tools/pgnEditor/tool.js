@@ -63,7 +63,9 @@
         'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled',
         'pastePGNs': 'drag/paste your PGNs here',
-        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value'
+        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value',
+        'foundGames': '%s games found',
+        'foundGames:one': 'One game found'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -113,18 +115,45 @@
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
         'operationCancelled': 'Opera\u0163iune anulat\u0103',
         'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
-        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Etichet\u0103=Valoare'
+        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Etichet\u0103=Valoare',
+        'foundGames': '%s jocuri g\u0103site',
+        'foundGames:one': 'Un joc g\u0103sit'
       }
     }
 
+    historyIndex=-1;
+    history=[];
     setText=(control,text)=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      control = $(control)[0];
-      if (!control) return;
-      control.select();
-      parent.global.document.execCommand('insertText',false,text);
-    }
+      $(control).val(text);
+      this.addTextToHistory(text);
+    };
+    addTextToHistory=(text)=>{
+      if (this.history[this.historyIndex]==text) return;
+      this.setHistoryIndex(this.historyIndex+1);
+      this.history[this.historyIndex]=text;
+      if (this.history.length>this.historyIndex+1) {
+        this.history.splice(this.historyIndex+1);
+      }
+      if (history.length>10) {
+        history.splice(0,1);
+      }
+    };
+    setHistoryIndex=async (val)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      this.historyIndex=val;
+      await parent.timeout(1);
+      const undo=val>=0 && val<this.history.length;
+      $('dialog.lichessTools-pgnEditor .buttons button[data-role="undo"]')
+        .toggleClass('disabled',!undo)
+        .prop('disabled',!undo);
+      const redo=val+1<this.history.length;
+      $('dialog.lichessTools-pgnEditor .buttons button[data-role="redo"]')
+        .toggleClass('disabled',!redo)
+        .prop('disabled',!redo);
+    };
 
     copyToClipboard=async (text)=>{
       const parent=this.lichessTools;
@@ -150,6 +179,8 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
+      this.history=[];
+      this.setHistoryIndex(-1);
       $('dialog.lichessTools-pgnEditor').remove();
       const dialog=$('<dialog class="lichessTools-pgnEditor">')
         .append(`
@@ -195,6 +226,19 @@
             this.setText(textarea,e.target.result);
           };
           reader.readAsText(file, "UTF-8");
+        })
+        .on('change',ev=>{
+          this.addTextToHistory(textarea.val());
+        })
+        .on('keyup',ev=>{
+          if (ev.ctrlKey && ev.key=='z') {
+            ev.preventDefault();
+            this.undo(textarea);
+          }
+          if (ev.ctrlKey && ev.key=='y') {
+            ev.preventDefault();
+            this.redo(textarea);
+          }
         });
       $('[data-role="merge"]',dialog)
         .attr('title',trans.noarg('btnMergeTitle'))
@@ -883,7 +927,7 @@
         .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
       this.copyToClipboard(foundText);
 
-      this.countPgn();
+      this.writeNote(trans.pluralSame('foundGames',foundGames.length));
     };
 
 
@@ -915,15 +959,20 @@
     undo=async (textarea)=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      $(textarea)[0].focus();
-      parent.global.document.execCommand('undo');
+      const text=this.history[this.historyIndex-1]||'';
+      $(textarea).val(text);
+      this.setHistoryIndex(this.historyIndex-1);
+      this.writeNote('');
     };
 
     redo=async (textarea)=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      $(textarea)[0].focus();
-      parent.global.document.execCommand('redo');
+      if (this.historyIndex+1>=this.history.length) return;
+      const text=this.history[this.historyIndex+1];
+      $(textarea).val(text);
+      this.setHistoryIndex(this.historyIndex+1);
+      this.writeNote('');
     };
 
     async start() {
