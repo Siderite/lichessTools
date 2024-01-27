@@ -4462,7 +4462,7 @@
         }
       ]
     },
-    "rnb1kbnrpp3ppp83qp31pP5P4N23P1PPPRNBQKB1RbKQkq-": {
+    "rnb1kbnrpp3ppp83qp31pP5P4N23P1PPPRNBQKB1RbKQkqc3": {
       "total": 1,
       "moves": [
         {
@@ -16559,7 +16559,7 @@
         }
       ]
     },
-    "r1bqkb1rpp2pppp2p2n2n2P4QPp52N2N2P3PPPPR1B1KB1RbKQkq-": {
+    "r1bqkb1rpp2pppp2p2n2n2P4QPp52N2N2P3PPPPR1B1KB1RbKQkqb3": {
       "total": 1,
       "moves": [
         {
