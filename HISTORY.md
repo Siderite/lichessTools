@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Jan
+  - Play lag chart
+
 26 Jan
   - PGN Editor keep found, undo, redo
 
