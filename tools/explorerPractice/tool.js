@@ -160,6 +160,7 @@
             ev.preventDefault();
             this.isRunning=!this.isRunning;
             this.process();
+            parent.emitRedraw();
           })
           .prependTo(container);
       }
@@ -196,6 +197,7 @@
       parent.bindKeyHandler('shift+l',()=>{
         this.isRunning=!this.isRunning;
         this.process();
+        parent.emitRedraw();
       });
       lichess.pubsub.on('redraw',this.processDebounced);
       $('main.analyse div.analyse__controls').on('click touchend',this.process);
