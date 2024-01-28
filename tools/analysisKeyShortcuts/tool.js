@@ -24,15 +24,17 @@
     }
 
     clearMoveMode=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
       const g=this.lichessTools.global;
       g.clearTimeout(this.makeMoveTimeout);
       this.makeMoveMode=null;
-      $('body').removeClass('lichessTools-keyMode-pgn');
-      $('body').removeClass('lichessTools-keyMode-ceval');
-      $('body').removeClass('lichessTools-keyMode-explorer');
+      $('body').removeClass('lichessTools-keyMode-pgn lichessTools-keyMode-ceval lichessTools-keyMode-explorer lichessTools-keyMode-general');
     };
 
     prepareMove=(mode)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
       const g=this.lichessTools.global;
       this.clearMoveMode();
       switch(mode) {
@@ -51,6 +53,8 @@
           if (!moves.length) return;
         }
         break;
+        case 'general':
+          break;
         default:
           g.console.warn('Unknown key move mode',mode);
           return;
@@ -61,6 +65,8 @@
     };
 
     handleDigitKey=(combo)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
       const g=this.lichessTools.global;
       let index=+combo;
       if (!index) return;
@@ -101,6 +107,24 @@
       }
     };
 
+    freezeBoard=()=>{
+      if (this.makeMoveMode!='general') {
+        this.oldHandlers['f']();
+        return;
+      }
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const board=$('cg-container.lichessTools-freezeBoard');
+      if (board.length) {
+        board.remove();
+        return;
+      };
+      $('cg-container')
+        .clone()
+        .addClass('lichessTools-freezeBoard')
+        .appendTo('div.cg-wrap');
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('keyShortcuts');
@@ -112,7 +136,8 @@
         this.oldHandlers={
           i:parent.getKeyHandler('i'),
           m:parent.getKeyHandler('m'),
-          b:parent.getKeyHandler('b')
+          b:parent.getKeyHandler('b'),
+          f:parent.getKeyHandler('f')
         };
       }
       parent.unbindKeyHandler('i');
@@ -127,6 +152,8 @@
       parent.unbindKeyHandler('.',true);
       parent.unbindKeyHandler('ctrl+.',true);
       parent.unbindKeyHandler('shift+.',true);
+      parent.unbindKeyHandler('`',true);
+      parent.unbindKeyHandler('f');
 
       for (let i = 1; i <=9 ; i++) {
         const combo=i.toString();
@@ -151,6 +178,8 @@
           const combo=i.toString();
           parent.bindKeyHandler(combo,()=>this.handleDigitKey(combo));
         }
+        parent.bindKeyHandler('`',()=>this.prepareMove('general'));
+        parent.bindKeyHandler('f',this.freezeBoard);
       } else {
         if (this.oldHandlers) {
           parent.bindKeyHandler('i',this.oldHandlers['i'],true);
