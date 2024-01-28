@@ -1,0 +1,30 @@
+body.lichessTools div.round__app canvas.lichessTools-playerLag {
+  height: 1em;
+  width: 2em;
+  border-radius:5%;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system div.round__app canvas.lichessTools-playerLag {
+    brightness(1.5)
+  }
+}
+
+body.lichessTools.transp div.round__app canvas.lichessTools-playerLag,
+body.lichessTools.dark div.round__app canvas.lichessTools-playerLag {
+  brightness(1.5)
+}
+
+body.lichessTools div.round__app *:has(> canvas.lichessTools-playerLag:hover),
+body.lichessTools div.round__app *:has(> * > canvas.lichessTools-playerLag:hover),
+body.lichessTools div.round__app *:has(> * > * > canvas.lichessTools-playerLag:hover) {
+  overflow:visible;
+}
+
+body.lichessTools div.round__app canvas.lichessTools-playerLag:hover {
+  background:#A0A0A0;
+  transform: translate(-50%) scale(5);
+  transition:1s;
+  position:relative;
+  z-index:1;
+}

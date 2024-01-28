@@ -1,5 +1,11 @@
 History of features added to LiChess Tools in time (reversed order)
 
+28 Jan
+  - Freeze board in analysis/study shortcut `f
+
+27 Jan
+  - Play lag chart
+
 26 Jan
   - PGN Editor keep found, undo, redo
 

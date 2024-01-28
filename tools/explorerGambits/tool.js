@@ -52,22 +52,22 @@
         return;
       }
       if (!$('th.lichessTools-explorerGambits',container).length) {
-        $('thead tr td:has(div.bar)',container).addClass('lichessTools-bar');
         $('<th>')
-            .addClass('lichessTools-explorerGambits')
-            .text('\u2604')
-            .attr('title',trans.noarg('gambitTitle'))
-            .appendTo($('thead tr',container));
+          .addClass('lichessTools-explorerGambits')
+          .text('\u2604')
+          .attr('title',trans.noarg('gambitTitle'))
+          .appendTo($('thead tr',container));
       }
       const side=analysis.getOrientation();
       const fen=analysis.node.fen;
       let sum=0;
       $('tr[data-uci]',container).each((i,e)=>{
-        $('td:has(div.bar)',e).addClass('lichessTools-bar');
-        if (!$('td.lichessTools-explorerGambits',e).length) {
-          $('<td>')
-            .addClass('lichessTools-explorerGambits')
-            .appendTo(e);
+        if ($('td:has(div.bar)',e).addClass('lichessTools-bar').length) {
+          if (!$('td.lichessTools-explorerGambits',e).length) {
+            $('<td>')
+              .addClass('lichessTools-explorerGambits')
+              .appendTo(e);
+          }
         }
         const uci=$(e).attr('data-uci');
         let move=null;

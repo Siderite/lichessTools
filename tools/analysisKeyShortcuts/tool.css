@@ -9,3 +9,21 @@ body.lichessTools.lichessTools-keyMode-ceval div.analyse__tools div.pv_box {
 body.lichessTools.lichessTools-keyMode-explorer section.explorer-box tbody {
   border: 1px solid #808080;
 }
+
+body.lichessTools.lichessTools-keyMode-general div.cg-wrap:after {
+  content: 'F';
+  position: absolute;
+  right: -1em;
+  top: -1em;
+  border-radius: 50%;
+  border: 1px solid #808080;
+  width: 1.5em;
+  height: 1.5em;
+  text-align: center;
+}
+
+body.lichessTools cg-container.lichessTools-freezeBoard {
+  pointer-events:none;
+  z-index:2;
+  filter: sepia(0.5);
+}
