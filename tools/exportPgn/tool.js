@@ -106,12 +106,12 @@
       }
     
       function renderNodesTxt(node, forcePly) {
-        if (node.children.length === 0) return '';
-    
         let s = '';
     
         if (node.id=='') s+=renderComments(node);
         if (s) s+='\r\n'
+        if (node.children.length === 0) return s;
+    
     
         const first = node.children[0];
         if (forcePly || first.ply % 2 === 1) s += plyPrefix(first);

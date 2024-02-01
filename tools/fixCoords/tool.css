@@ -1,0 +1,11 @@
+body.lichessTools cg-container coords {
+  font-size: 1.3em;
+}
+
+body.lichessTools.coords-out cg-container coords.ranks {
+  right: -0.8em;
+}
+
+body.lichessTools.coords-out cg-container coords.files {
+  bottom: -1.3em;
+}

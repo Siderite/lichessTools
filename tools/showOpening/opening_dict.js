@@ -9949,6 +9949,7 @@ const openings = {
   "rnbqkb1rpppp1ppp84P33pn35N2PPP1QPPPRNB1KB1Rb": "Russian Game: Modern Attack, Steinitz Variation",
   "rnbqkb1rpppp1ppp84p33Pn35N2PPP2PPPRNBQKB1Rw": "Russian Game: Modern Attack, 3...Nxe4",
   "rnbqkb1rpppp1ppp84P33pn35N2PPP2PPPRNBQKB1Rw": "Russian Game: Modern Attack",
+  "rnbqkb1rpppp1ppp84p33PnB28PPP1PPPPRN1QKBNRw": "Trompowsky Attack, Deceiver Gambit (wgraif)",
   "rnbqkb1rpppp1ppp84P33Qn35N2PPP2PPPRNB1KB1Rb": "Russian Game: Modern Attack, Center Attack",
   "rnbqkb1rpppp1ppp86N12P1p1n12N5PP1PPPPPR1BQKB1Rw": "English Opening: King's English, Erbenheimer Gambit",
   "rnbqkb1rpppp1ppp882BQn35N2PPP2PPPRNB1K2Rb": "Bishop's Opening: Urusov Gambit, Keidansky Gambit",

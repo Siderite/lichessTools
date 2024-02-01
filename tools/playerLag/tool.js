@@ -6,8 +6,8 @@
         name:'playerLag',
         category: 'play',
         type:'single',
-        possibleValues: [false,true],
-        defaultValue: false
+        possibleValues: ['none','bars','chart'],
+        defaultValue: 'none'
       }
     ];
 
@@ -15,12 +15,18 @@
       'en-US':{
         'options.play': 'Play',
         'options.playerLag': 'Player lag indicators',
-        'playerLagTitle': 'LiChess Tools - lag and latency indicator'
+        'playerLagTitle': 'LiChess Tools - ping %1ms/latency %2ms',
+        'playerLag.none': 'None',
+        'playerLag.bars': 'Bars',
+        'playerLag.chart': 'Chart'
       },
       'ro-RO':{
         'options.play': 'Joc',
         'options.playerLag': 'Indicatori lag pentru juc\u0103tori',
-        'playerLagTitle': 'LiChess Tools - indicator de lag \u015Fi laten\u0163\u0103'
+        'playerLagTitle': 'LiChess Tools - ping %1ms/laten\u0163\u0103 %2ms',
+        'playerLag.none': 'F\u0103r\u0103',
+        'playerLag.bars': 'Bare',
+        'playerLag.chart': 'Grafic'
       }
     }
 
@@ -77,28 +83,51 @@
             ? this._lag
             : await this.getLag(hrefUserId);
           const latency=this._latency;
-          this.refreshLag(e,lag,latency);
+          if (this.options.chart) {
+            this.refreshLagChart(e,lag,latency);
+          }
+          if (this.options.bars) {
+            this.refreshLagBars(e,lag,latency);
+          }
         });
     };
 
-    refreshLag=(container,lag,latency)=>{
+    refreshLagBars=(container,lag,latency)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      container=$(container);
+      let signal=container.find('signal');
+      if (!signal.length) {
+        signal=$('<signal><i></i><i></i><i></i><i></i></signal>')
+          .addClass('lichessTools-playerLag')
+          .appendTo(container);
+      }
+      const lagRating = !lag ? 0 : lag < 150 ? 4 : lag < 300 ? 3 : lag < 500 ? 2 : 1;
+      signal
+        .attr('title',trans.noarg('playerLagTitle').replaceAll('%1',Math.round(lag)).replaceAll('%2',Math.round(latency)))
+        .removeClass('q0 q1 q2 q3 q4')
+        .addClass('q'+lagRating);
+    };
+
+    refreshLagChart=(container,lag,latency)=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
       container=$(container);
       let canvas=container.find('canvas.lichessTools-playerLag');
       let chart;
-      lag=Math.round(Math.log(lag+1)/7*50);
-      latency=Math.round(Math.log(latency+1)/7*50);
       if (!canvas.length) {
         canvas=$('<canvas class="lichessTools-playerLag">')
-          .attr('title',trans.noarg('playerLagTitle'))
           .appendTo(container);
         chart={ lag: [], latency: [] };
         canvas[0].chart=chart;
       } else {
         chart=canvas[0].chart;
       }
+      canvas.attr('title',trans.noarg('playerLagTitle').replaceAll('%1',Math.round(lag)).replaceAll('%2',Math.round(latency)));
+      lag=Math.round(Math.log(lag+1)/7*50);
+      latency=Math.round(Math.log(latency+1)/7*50);
       chart.lag.push(lag);
       if (chart.lag.length>100) {
         chart.lag.splice(0,1);
@@ -138,10 +167,15 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('playerLag');
       this.logOption('Player lag', value);
+      this.options={ 
+        bars: parent.isOptionSet(value,'bars'),
+        chart: parent.isOptionSet(value,'chart'),
+        get isSet() { return this.bars || this.chart; }
+      };
       lichess.pubsub.off('socket.lag',this.onLag);
       lichess.pubsub.off('socket.in.mlat',this.onLatency);
       $('.round__app .ruser-top a.user-link canvas.lichessTools-playerLag,.round__app .ruser-bottom a.user-link canvas.lichessTools-playerLag').remove();
-      if (!value) return;
+      if (!this.options.isSet) return;
       lichess.pubsub.emit('socket.send', 'moveLat', true);
       lichess.pubsub.on('socket.lag',this.onLag);
       lichess.pubsub.on('socket.in.mlat',this.onLatency);

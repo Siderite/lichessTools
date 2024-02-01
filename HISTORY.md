@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+01 Feb
+  - Show date text for profile chart slider
+  - Fix board coordinates not getting outside the board when player configures it as such
+  - Download all studies of a player
+
 28 Jan
   - Freeze board in analysis/study shortcut `f
 
