@@ -1,8 +1,8 @@
-body.lichessTools #us_profile > .rating-history-container {
+body.lichessTools #us_profile > .rating-history-container:has(label.lichessTools-profileSliderText) {
   max-width:100vw;
 }
 
-body.lichessTools .time-selector-buttons {
+body.lichessTools .time-selector-buttons:has(label.lichessTools-profileSliderText) {
   display: flex;
   flex-wrap: wrap;
 }

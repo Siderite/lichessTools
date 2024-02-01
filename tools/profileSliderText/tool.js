@@ -15,11 +15,13 @@
     intl={
       'en-US':{
         'options.general': 'General',
-        'options.profileSliderText': 'Show dates for Profile slider'
+        'options.profileSliderText': 'Show dates for Profile slider',
+        'sliderLabelTitle': 'LiChess Tools - show dates for Profile slider'
       },
       'ro-RO':{
         'options.general': 'General',
-        'options.profileSliderText': 'Arata data pentru slider-ul din Profil'
+        'options.profileSliderText': 'Arat\u0103 data pentru slider-ul din Profil',
+        'sliderLabelTitle': 'LiChess Tools - arat\u0103 data pentru slider-ul din Profil'
       }
     }
 
@@ -33,6 +35,7 @@
     async start() {
       const parent=this.lichessTools;
       const $=parent.$;
+      const trans=parent.translator;
       const value=+(parent.currentOptions.getValue('profileSliderText'));
       this.logOption('Slider dates', value);
       const slider=$('#time-range-slider');
@@ -41,7 +44,9 @@
       uiSlider.off('update',this.updateText);
       $('.time-selector-buttons label.lichessTools-profileSliderText').remove();
       if (!value) return;
-      $('<label class="lichessTools-profileSliderText">').appendTo('.time-selector-buttons');
+      $('<label class="lichessTools-profileSliderText">')
+        .attr('title',trans.noarg('sliderLabelTitle'))
+        .appendTo('.time-selector-buttons');
       uiSlider.on('update',this.updateText);
     }
 
