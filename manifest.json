@@ -98,6 +98,7 @@
         "tools/playerLag/tool.js",
         "tools/profileSliderText/tool.js",
         "tools/fixCoords/tool.js",
+        "tools/downloadAllStudies/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -160,6 +161,7 @@
         "tools/playerLag/tool.css",
         "tools/profileSliderText/tool.css",
         "tools/fixCoords/tool.css",
+        "tools/downloadAllStudies/tool.css",
 
         "tools/tvOptions/tool.css",
 

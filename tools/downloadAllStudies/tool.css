@@ -1,0 +1,9 @@
+body.lichessTools div.box__top:has(a.lichessTools-downloadAllStudies) {
+  position:relative;
+}
+
+body.lichessTools a.lichessTools-downloadAllStudies {
+  position: absolute;
+  right: 2em;
+  bottom: 1em;
+}
