@@ -97,6 +97,7 @@
         "tools/pgnEditor/tool.js",
         "tools/playerLag/tool.js",
         "tools/profileSliderText/tool.js",
+        "tools/fixCoords/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
