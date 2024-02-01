@@ -10,8 +10,7 @@
         type:'single',
         possibleValues: [false,true],
         defaultValue: true,
-        advanced: true,
-        hidden: true
+        advanced: true
       }
     ];
 
