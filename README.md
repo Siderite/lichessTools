@@ -80,6 +80,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Download all studies of a player
  - Larger coordinates, outside coordinates in Analysis
  - Profile date interval label
+ - #readgame URL to read games in analysis/study
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

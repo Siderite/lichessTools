@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+02 Feb
+  - #readgame URL
+
 01 Feb
   - Show date text for profile chart slider
   - Fix board coordinates not getting outside the board when player configures it as such
