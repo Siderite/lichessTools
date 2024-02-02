@@ -77,6 +77,9 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - PGN editor (merge, split, normalize, count, search)
  - Play lag chart
  - Freeze board in analysis
+ - Download all studies of a player
+ - Larger coordinates, outside coordinates in Analysis
+ - Profile date interval label
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:
