@@ -20,8 +20,8 @@
       },
       'ro-RO':{
         'options.general': 'General',
-        'options.profilePuzzleTab': 'Performan\u0163\u0103 Probleme \u00een Profil',
-        'puzzleTabTitle': 'LiChess Tools - Probleme \u015Fah'
+        'options.profilePuzzleTab': 'Grafic de performan\u0163\u0103 la probleme de \u015Fah \u00een Profil',
+        'puzzleTabTitle': 'LiChess Tools - Probleme de \u015Fah'
       }
     }
 
