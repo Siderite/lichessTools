@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+03 Feb
+  - Puzzle statistics tab in Profile
+
 02 Feb
   - #readgame URL
 

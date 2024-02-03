@@ -99,6 +99,7 @@
         "tools/profileSliderText/tool.js",
         "tools/fixCoords/tool.js",
         "tools/downloadAllStudies/tool.js",
+        "tools/profilePuzzleTab/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",

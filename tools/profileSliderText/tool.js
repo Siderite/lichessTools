@@ -37,7 +37,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
-      const value=+(parent.currentOptions.getValue('profileSliderText'));
+      const value=parent.currentOptions.getValue('profileSliderText');
       this.options = { enabled: value };
       this.logOption('Slider dates', value);
       const slider=$('#time-range-slider');
