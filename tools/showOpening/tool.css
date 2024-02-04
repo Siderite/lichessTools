@@ -28,6 +28,7 @@ body.lichessTools a.mini-game .lichessTools-opening {
   height:auto;
   text-overflow: ellipsis;
   overflow: hidden;
+  font-size: small;
 }
 
 body.lichessTools div.analyse__wiki .lichessTools-opening {
