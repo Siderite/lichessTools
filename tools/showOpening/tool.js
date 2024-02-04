@@ -43,13 +43,25 @@
         fen=fen || $(el).attr('data-state');
         if (!gameId) {
           gameId=$(el).attr('href');
-          if (!gameId) continue;
+          if (!gameId) {
+            fen='';
+            gameId='';
+            continue;
+          }
           const m=/\/([^\/]+)/.exec(gameId);
           gameId=m&&m[1];
-          if (!gameId) continue;
+          if (!gameId) {
+            fen='';
+            gameId='';
+            continue;
+          }
         }
         const result = await this.withOpening(gameId,el,undefined,fen);
-        if (!result) continue;
+        if (!result) {
+          fen='';
+          gameId='';
+          continue;
+        }
         const opening=result.opening;
         const container=result.el;
         let openingEl=$('.lichessTools-opening',container);
@@ -171,9 +183,10 @@
         lichess.pubsub.on('ply',this.refreshOpeningDebounced);
         lichess.pubsub.on('content-loaded',this.miniGameOpening);
         parent.global.requestAnimationFrame(()=>this.refreshOpeningDebounced());
-        if ($('main').is('#board-editor')) {
-          this.interval=parent.global.setInterval(this.refreshOpeningDebounced,1000);
-        }
+        const intervalTime=$('main').is('#board-editor')
+          ? 1000
+          : 3500;
+        this.interval=parent.global.setInterval(this.refreshOpeningDebounced,intervalTime);
       } else {
         const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
         metaSection.find('.lichessTools-opening').remove();
