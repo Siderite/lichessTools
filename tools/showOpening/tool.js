@@ -61,6 +61,7 @@
           .text(opening)
           .attr('title',opening);
         fen='';
+        gameId='';
       }
     };
     miniGameOpeningDebounced=this.lichessTools.debounce(this.miniGameOpening,500);
