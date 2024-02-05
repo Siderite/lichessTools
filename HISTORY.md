@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Feb
+  - Context menu in analysis/study move list when no moves have been made
+
 03 Feb
   - Puzzle statistics tab in Profile
 
