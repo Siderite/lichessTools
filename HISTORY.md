@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+06 Feb
+  - Restore position in the move list in study chapters on page refresh
+
 04 Feb
   - Context menu in analysis/study move list when no moves have been made
 
