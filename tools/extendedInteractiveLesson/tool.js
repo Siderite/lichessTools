@@ -170,7 +170,12 @@
       if (gp.goodMoves+gp.badMoves==0) return;
       const score = gp.goodMoves/(gp.goodMoves+gp.badMoves);
       const finalScoreText = trans.pluralSame('finalScore',Math.round(100*score));
-      const el=$('<span/>').addClass('lichessTools-score').text(finalScoreText).attr('title',gp.goodMoves+'/'+gp.badMoves);
+      const scoreRating=score>0.90?4:score>0.75?3:score>0.50?2:1;
+      const el=$('<span/>')
+        .addClass('lichessTools-score')
+        .addClass('lichessTools-score'+scoreRating)
+        .text(finalScoreText)
+        .attr('title',gp.goodMoves+'/'+gp.badMoves);
       parent.global.setTimeout(()=>$('div.gamebook .comment .content').append(el),100);
       gp.goodMoves=0;
       gp.badMoves=0;
