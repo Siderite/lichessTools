@@ -100,6 +100,7 @@
         "tools/fixCoords/tool.js",
         "tools/downloadAllStudies/tool.js",
         "tools/profilePuzzleTab/tool.js",
+        "tools/mayTenth/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -163,6 +164,7 @@
         "tools/profileSliderText/tool.css",
         "tools/fixCoords/tool.css",
         "tools/downloadAllStudies/tool.css",
+        "tools/mayTenth/tool.css",
 
         "tools/tvOptions/tool.css",
 
