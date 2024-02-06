@@ -105,6 +105,7 @@
           const uci=newRow.uci;
           const move=co.parseUci(uci);
           const san=co.san.makeSan(ch,move);
+          if ($('td',container).filter((i,e)=>$(e).text()==san).length) continue; //castling can be identified by multiple ucis (i.e. e1g1, e1h1)
           const newTr=$('<tr>')
             .attr('data-uci',uci)
             .append($('<td>').text(san))
