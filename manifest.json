@@ -39,6 +39,7 @@
         "tools/cliCommands/tool.js",
         "tools/chessops/tool.js",
         "tools/exportPgn/tool.js",
+        "tools/stockfish/tool.js",
 
         "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",
