@@ -88,7 +88,7 @@
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!node.id||node.isCommentedOrMate) return;
-      const evalText="eval: "+(ceval.mate ?'#'+ceval.mate :Math.round(ceval.cp/10)/10);
+      const evalText="eval: "+(ceval.mate ?'#'+ceval.mate : (ceval.cp>0?'+':'')+Math.round(ceval.cp/10)/10);
       const cur=analysis.study.currentChapter();
       node.terminationEvaluated=Date.now();
       if (node.path===undefined) return;
