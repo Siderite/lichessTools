@@ -51,6 +51,8 @@
     extendedGamebook={
       goodMoves:0,
       badMoves:0,
+      threeFoldRepetition:false,
+      fens:{},
       makeState:()=>{
         const parent=this.lichessTools;
         const analysis=parent.lichess.analysis;
@@ -116,6 +118,10 @@
         const analysis=parent.lichess.analysis;
         const $this=analysis.gamebookPlay();
         const parPath = analysis.path.slice(0,-2);
+        const gp=analysis.gamebookPlay();
+        const count=+gp.fen[analysis.fen]||0;
+        if (count==3) gp.threeFoldRepetition=false;
+        gp.fen[analysis.fen]=Math.max(0,count-1);
         analysis.userJump(parPath);
     	$this.redraw();
       },
@@ -125,8 +131,12 @@
         const $this=analysis.gamebookPlay();
         if (!$this) return;
         if (!$this.isMyMove()) {
-          const child=parent.getRandomVariation(analysis.node);
+          const child=parent.getRandomVariation(analysis.node,this.threeFoldRepetition);
           if (child) analysis.userJump(child.path||(analysis.path+child.id));
+          const gp=analysis.gamebookPlay();
+          const count=(+gp.fen[analysis.fen]||0)+1;
+          gp.fen[analysis.fen]=count;
+          if (count>=3) gp.threeFoldRepetition=true;
         } 
         $this.redraw();
       },
@@ -155,6 +165,13 @@
           }
         }
         analysis.chessground.setShapes(shapes);
+      },
+      resetStats: function() {
+        const gp=this;
+        gp.goodMoves=0;
+        gp.badMoves=0;
+        gp.threeFoldRepetition=false;
+        gp.fens={};
       }
     };
 
@@ -177,8 +194,7 @@
         .text(finalScoreText)
         .attr('title',gp.goodMoves+'/'+gp.badMoves);
       parent.global.setTimeout(()=>$('div.gamebook .comment .content').append(el),100);
-      gp.goodMoves=0;
-      gp.badMoves=0;
+      gp.resetStats();
     };
 
     replaceFunction=(func,newFunc,id)=>{
@@ -261,8 +277,7 @@
           id:'showScore',
           before: ($this, ...args)=>{
             if (gp.root.node.id=='') {
-              gp.goodMoves=0;
-              gp.badMoves=0;
+              gp.resetStats();
             }
           }
         });

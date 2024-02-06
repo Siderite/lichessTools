@@ -100,10 +100,10 @@
     };
 
 
-    getNextMoves=(node)=>{
+    getNextMoves=(node,noTranspositions)=>{
       const parent=this.lichessTools;
       const arr=[...node.children];
-      if (!parent.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
+      if (noTranspositions || !parent.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
       let transpositions=node.transposition.filter(n=>n!==node);
       if (parent.transpositionBehavior?.excludeSameLine && node.path!==undefined) {
         transpositions=transpositions?.filter(n=>n.path&&!n.path.startsWith(node.path)&&!node.path.startsWith(n.path));
@@ -114,12 +114,12 @@
       return arr;
     };
 
-    getRandomVariation=(node, depth)=>{
+    getRandomVariation=(node, noTranspositions, depth)=>{
       const parent=this.lichessTools;
       const Math=parent.global.Math;
       depth=+depth||this.depth;
       const lichess=parent.lichess;
-      const arr=this.getNextMoves(node);
+      const arr=this.getNextMoves(node,noTranspositions);
       if (!arr.length) return;
       const isInteractive = !!lichess.analysis.gamebookPlay();
       const total = parent.populatePercent(arr, isInteractive, depth);
