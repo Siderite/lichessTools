@@ -161,6 +161,11 @@
           },
           getHelp:()=>trans.noarg('readGameCommand.helpText')
         });
+        if (parent.global.location.hash=='#readgame') {
+          parent.global.history.replaceState(null, null, ' ');
+          analysis.jumpToIndex();
+          this.readGame(this.defaultSpeed,0,0);
+        }
       }
     }
   }

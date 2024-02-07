@@ -1,5 +1,20 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Feb
+  - Move assistant
+
+06 Feb
+  - Restore position in the move list in study chapters on page refresh
+
+04 Feb
+  - Context menu in analysis/study move list when no moves have been made
+
+03 Feb
+  - Puzzle statistics tab in Profile
+
+02 Feb
+  - #readgame URL
+
 01 Feb
   - Show date text for profile chart slider
   - Fix board coordinates not getting outside the board when player configures it as such

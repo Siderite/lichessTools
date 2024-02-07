@@ -73,7 +73,7 @@
         const inPgn = !!node.gamebook;
         if (!inPgn) {
           const position=parent.getNodePosition(node);
-          const candidate=parent.getNextMoves(parNode).filter(c=>c.gamebook).find(c=>parent.getNodePosition(c)==position);
+          const candidate=parent.getNextMoves(parNode,$this.threeFoldRepetition).filter(c=>c.gamebook).find(c=>parent.getNodePosition(c)==position);
           if (candidate) {
             if (candidate.path!==undefined) {
               analysis.userJump(candidate.path);
@@ -83,7 +83,7 @@
             }
           }
         }
-        const nextMoves=parent.getNextMoves(node);
+        const nextMoves=parent.getNextMoves(node,$this.threeFoldRepetition);
         if (!inPgn) {
           state.feedback = 'bad';
           if (!state.comment) {
@@ -116,6 +116,12 @@
         const analysis=parent.lichess.analysis;
         const $this=analysis.gamebookPlay();
         const parPath = analysis.path.slice(0,-2);
+        const gp=analysis.gamebookPlay();
+        const count=+gp.fens[analysis.node.fen]||0;
+        if (count==3) {
+          gp.threeFoldRepetition=false;
+        }
+        gp.fens[analysis.node.fen]=Math.max(0,count-1);
         analysis.userJump(parPath);
     	$this.redraw();
       },
@@ -125,15 +131,21 @@
         const $this=analysis.gamebookPlay();
         if (!$this) return;
         if (!$this.isMyMove()) {
-          const child=parent.getRandomVariation(analysis.node);
+          const child=parent.getRandomVariation(analysis.node,$this.threeFoldRepetition);
           if (child) analysis.userJump(child.path||(analysis.path+child.id));
+          const gp=analysis.gamebookPlay();
+          const count=(+gp.fens[analysis.node.fen]||0)+1;
+          gp.fens[analysis.node.fen]=count;
+          if (count>=3) {
+            gp.threeFoldRepetition=true;
+          }
         } 
         $this.redraw();
       },
       solution: ()=>{
         const parent=this.lichessTools;
         const analysis=parent.lichess.analysis;
-        const children=parent.getNextMoves(analysis.node).filter(c=>c.gamebook);
+        const children=parent.getNextMoves(analysis.node,$this.threeFoldRepetition).filter(c=>c.gamebook);
         if (!children) return;
         const shapes=[];
         for (const child of children) {
@@ -155,6 +167,13 @@
           }
         }
         analysis.chessground.setShapes(shapes);
+      },
+      resetStats: function() {
+        const gp=this;
+        gp.goodMoves=0;
+        gp.badMoves=0;
+        gp.threeFoldRepetition=false;
+        gp.fens={};
       }
     };
 
@@ -170,10 +189,14 @@
       if (gp.goodMoves+gp.badMoves==0) return;
       const score = gp.goodMoves/(gp.goodMoves+gp.badMoves);
       const finalScoreText = trans.pluralSame('finalScore',Math.round(100*score));
-      const el=$('<span/>').addClass('lichessTools-score').text(finalScoreText).attr('title',gp.goodMoves+'/'+gp.badMoves);
+      const scoreRating=score>0.90?4:score>0.75?3:score>0.50?2:1;
+      const el=$('<span/>')
+        .addClass('lichessTools-score')
+        .addClass('lichessTools-score'+scoreRating)
+        .text(finalScoreText)
+        .attr('title',gp.goodMoves+'/'+gp.badMoves);
       parent.global.setTimeout(()=>$('div.gamebook .comment .content').append(el),100);
-      gp.goodMoves=0;
-      gp.badMoves=0;
+      gp.resetStats();
     };
 
     replaceFunction=(func,newFunc,id)=>{
@@ -199,6 +222,8 @@
         gp.next=this.replaceFunction(gp.next,this.extendedGamebook.next,'extendedInteractiveLessons');
         gp.solution=this.replaceFunction(gp.solution,this.extendedGamebook.solution,'extendedInteractiveLessons');
         gp.isExtendedInteractiveLessons=true;
+        gp.fens={};
+        gp.resetStats=this.extendedGamebook.resetStats;
         // stop the original setTimeout gp.next()
         if (!this.originalUserJump) this.originalUserJump=analysis.userJump; 
         if (analysis.node.id==='') {
@@ -216,6 +241,8 @@
         gp.isExtendedInteractiveLessons=true;
       }
       if (this.options.showFinalScore && !gp.isShowScore) {
+        gp.fens={};
+        gp.resetStats=this.extendedGamebook.resetStats;
         gp.makeState=parent.wrapFunction(gp.makeState,{
           id:'showScore',
           after: ($this, result, ...args)=>{
@@ -256,8 +283,7 @@
           id:'showScore',
           before: ($this, ...args)=>{
             if (gp.root.node.id=='') {
-              gp.goodMoves=0;
-              gp.badMoves=0;
+              gp.resetStats();
             }
           }
         });

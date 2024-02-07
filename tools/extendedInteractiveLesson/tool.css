@@ -61,17 +61,66 @@ body.mobile.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-button
 }
 
 body.lichessTools .analyse .gamebook span.lichessTools-score {
-    filter: brightness(50%);
 	float:right;
 }
 
-body.lichessTools.dark .analyse .gamebook span.lichessTools-score {
-    filter: brightness(200%);
+body.lichessTools .analyse .gamebook span.lichessTools-score4 {
+  color:#00e000;
+}
+
+body.lichessTools.dark .analyse .gamebook span.lichessTools-score4,
+body.lichessTools.transp .analyse .gamebook span.lichessTools-score4 {
+    color:#00c000;
 }
 
 @media not print and (prefers-color-scheme: dark) {
   body.lichessTools.system  .analyse .gamebook span.lichessTools-score {
-      filter: brightness(200%);
+    color:#00c000;
+  }
+}
+
+body.lichessTools .analyse .gamebook span.lichessTools-score3 {
+  color:#e0e000;
+}
+
+body.lichessTools.dark .analyse .gamebook span.lichessTools-score3,
+body.lichessTools.transp .analyse .gamebook span.lichessTools-score3 {
+  color:yellow;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system  .analyse .gamebook span.lichessTools-score3 {
+    color:yellow;
+  }
+}
+
+body.lichessTools .analyse .gamebook span.lichessTools-score2 {
+  color:orange;
+}
+
+body.lichessTools.dark .analyse .gamebook span.lichessTools-score2,
+body.lichessTools.transp .analyse .gamebook span.lichessTools-score2 {
+  color:orange;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system  .analyse .gamebook span.lichessTools-score2 {
+    color:orange;
+  }
+}
+
+body.lichessTools .analyse .gamebook span.lichessTools-score1 {
+  color:red;
+}
+
+body.lichessTools.dark .analyse .gamebook span.lichessTools-score1,
+body.lichessTools.transp .analyse .gamebook span.lichessTools-score1 {
+  color:#ff4040;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  body.lichessTools.system  .analyse .gamebook span.lichessTools-score1 {
+    color:#ff4040;
   }
 }
 

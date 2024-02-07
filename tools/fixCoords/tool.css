@@ -1,11 +1,29 @@
-body.lichessTools cg-container coords {
+body.lichessTools.lichessTools-fixCoords-larger cg-container coords {
   font-size: 1.3em;
 }
 
-body.lichessTools.coords-out cg-container coords.ranks {
+body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile) cg-container coords.ranks {
   right: -0.8em;
 }
 
-body.lichessTools.coords-out cg-container coords.files {
+body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile) cg-container coords.files {
   bottom: -1.3em;
+}
+
+body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) main.gauge-on div.analyse__board {
+  left: -1.2em;
+}
+
+/* Prettier Lichess CSS */
+
+body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger cg-container coords {
+  font-size: 1.3em !important;
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger.coords-out:not(.mobile) cg-container coords.files {
+  bottom: -1.3em !important;
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile) main.gauge-on div.analyse__board {
+  left: -0.6em;
 }

@@ -17,6 +17,7 @@ lichessTools.loadTool(LiChessTools.Tools.Themes);
 lichessTools.loadTool(LiChessTools.Tools.CliCommands);
 lichessTools.loadTool(LiChessTools.Tools.ChessOps);
 lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
+lichessTools.loadTool(LiChessTools.Tools.Stockfish);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
 lichessTools.loadTool(LiChessTools.Tools.HideCrosstable);
@@ -72,6 +73,9 @@ lichessTools.loadTool(LiChessTools.Tools.PlayerLag);
 lichessTools.loadTool(LiChessTools.Tools.ProfileSliderText);
 lichessTools.loadTool(LiChessTools.Tools.FixCoords);
 lichessTools.loadTool(LiChessTools.Tools.DownloadAllStudies);
+lichessTools.loadTool(LiChessTools.Tools.ProfilePuzzleTab);
+lichessTools.loadTool(LiChessTools.Tools.MayTenth);
+lichessTools.loadTool(LiChessTools.Tools.MoveAssistant);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

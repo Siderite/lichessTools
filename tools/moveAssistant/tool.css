@@ -1,0 +1,20 @@
+body.lichessTools div.cg-wrap.lichessTools-moveAssistant square.move-dest {
+  border-width:2px;
+  border-style:solid;
+  border-radius: 25%;
+  border-color:transparent;
+}
+
+body.lichessTools button.lichessTools-moveAssistant {
+  color: #b0b0b0;
+  font-size: 16px;
+  margin-right: -3px;
+  align-self:center;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+body.lichessTools button.lichessTools-moveAssistant.lichessTools-enabled {
+  color:#00A000;
+}

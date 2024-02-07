@@ -33,6 +33,14 @@ body.lichessTools.dark .analyse .tview2 move.lichessTools-transpositionAll {
     background: darkgreen;
 }
 
+body.lichessTools div.tview2.lichessTools-showOnEmpty:not(:has(move)) {
+  min-height:2em;
+}
+
+body.lichessTools div.tview2.lichessTools-showOnEmpty:not(:has(move)):hover {
+  background:#80808040;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {

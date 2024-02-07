@@ -535,18 +535,19 @@
       const traverse=(game,node)=>{
         if (!node.children?.length) return;
         for (let i=0; i<node.children.length; i++) {
-          for (let j=i+1; j<node.children.length; j++) {
-             const childI=node.children[i];
-             const childJ=node.children[j];
-             if (childI.data.san==childJ.data.san) {
-               this.mergeNodes(childI,childJ);
-               if (game.fenDict) {
-                 const key=parent.getFenPosition(childJ.data.fen);
-                 parent.arrayRemoveAll(game.fenDict[key],n=>n==childJ);
-               }
-               parent.arrayRemoveAll(node.children,n=>n==childJ);
-             }
-          };
+          let j=i+1;
+          while (j<node.children.length) {
+            const childI=node.children[i];
+            const childJ=node.children[j];
+            if (childI.data.san==childJ.data.san) {
+              this.mergeNodes(childI,childJ);
+              if (game.fenDict) {
+                const key=parent.getFenPosition(childJ.data.fen);
+                parent.arrayRemoveAll(game.fenDict[key],n=>n==childJ);
+              }
+              parent.arrayRemoveAll(node.children,n=>n==childJ);
+            } else j++;
+          }
         };
         for (const child of node.children) {
           traverse(game, child);
@@ -627,8 +628,8 @@
         }
         i--;
       }
-      if (i>=0) {
-        this.enhanceGameWithFenDict(game);        
+      for (const game of games) {
+        this.enhanceGameWithFenDict(game);
       }
       while(i>=0 && !this._cancelRequested) {
         if (Date.now()-lastWrite>1000) { 
@@ -672,7 +673,7 @@
       await parent.timeout(0);
       for (const game of games) {
         if (!game.fenDict) {
-          this.enhanceGameWithFenDict(game);        
+          throw new Error('Something went wrong! game doesn\'t have fenDict!');
         }
         this.cleanGame(game);
       }

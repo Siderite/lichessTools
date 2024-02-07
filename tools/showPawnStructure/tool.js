@@ -287,8 +287,8 @@
         if (!el.length) return;
       };
       if (!$(el).length) el=$('body');
-      const elems=$('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game',el).get();
-      if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game')) elems.push(el);
+      const elems=$(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
+      if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
       for (const el of elems) {
         fen=fen || $(el).attr('data-state');
         const board=parent.getBoardFromFen(fen);
@@ -362,7 +362,7 @@
         lichess.pubsub.on('ply',this.refreshStructureDebounced);
         lichess.pubsub.on('redraw',this.refreshStructureDebounced);
         lichess.pubsub.on('content-loaded',this.miniGameStructureDebounced);
-        parent.global.requestAnimationFrame(this.refreshStructureDebounced);
+        parent.global.requestAnimationFrame(()=>this.refreshStructureDebounced());
         if ($('main').is('#board-editor')) {
           this.interval=parent.global.setInterval(this.refreshStructureDebounced,1000);
         }

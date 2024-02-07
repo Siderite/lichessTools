@@ -8,8 +8,8 @@
         name:'analysisContextActions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['copyPgn','moveEval','showTranspos','removeSuperfluous'],
-        defaultValue: 'copyPgn,moveEval,removeSuperfluous'
+        possibleValues: ['copyPgn','moveEval','showTranspos','removeSuperfluous','showOnEmpty'],
+        defaultValue: 'copyPgn,moveEval,removeSuperfluous,showOnEmpty'
       }
     ];
 
@@ -21,6 +21,7 @@
         'analysisContextActions.moveEval': 'Engine evaluation for last moves',
         'analysisContextActions.showTranspos': 'Highlight all transpositions',
         'analysisContextActions.removeSuperfluous': 'Remove superfluous entries',
+        'analysisContextActions.showOnEmpty': 'Show context menu when no moves',
         'extractVariationText': 'Copy branch as PGN',
         'extractVariationText_f': 'Copy PGN (fen)',
         'extractVariationText_s': 'Copy PGN (separate)',
@@ -48,6 +49,7 @@
         'analysisContextActions.moveEval': 'Evaluare mut\u0103ri finale',
         'analysisContextActions.showTranspos': 'Arat\u0103 toate transpozi\u0163iile',
         'analysisContextActions.removeSuperfluous': 'Elimin\u0103 ce e \u00een plus',
+        'analysisContextActions.showOnEmpty': 'Arat\u0103 meniul context c\u00E2nd nu sunt mut\u0103ri',
         'extractVariationText': 'Copiaz\u0103 varia\u0163iunea ca PGN',
         'extractVariationText_f': 'Copiaz\u0103 PGN (fen)',
         'extractVariationText_s': 'Copiaz\u0103 PGN (separate)',
@@ -86,7 +88,7 @@
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!node.id||node.isCommentedOrMate) return;
-      const evalText="eval: "+(ceval.mate ?'#'+ceval.mate :Math.round(ceval.cp/10)/10);
+      const evalText="eval: "+(ceval.mate ?'#'+ceval.mate : (ceval.cp>0?'+':'')+Math.round(ceval.cp/10)/10);
       const cur=analysis.study.currentChapter();
       node.terminationEvaluated=Date.now();
       if (node.path===undefined) return;
@@ -276,6 +278,21 @@
       }
     }
 
+    ensureShowOnEmpty=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+
+      if (this.options.showOnEmpty) {
+        $('div.tview2')
+          .addClass('lichessTools-showOnEmpty')
+          .attr('p','*');
+      } else {
+        $('div.tview2')
+          .removeClass('lichessTools-showOnEmpty')
+          .removeAttr('p');
+      }
+    };
+
     checkEngineLevel=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -331,7 +348,8 @@
         moveEval:parent.isOptionSet(value,'moveEval'),
         showTranspos:parent.isOptionSet(value,'showTranspos'),
         removeSuperfluous:parent.isOptionSet(value,'removeSuperfluous'),
-        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous; }
+        showOnEmpty:parent.isOptionSet(value,'showOnEmpty'),
+        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty; }
       };
       clearInterval(this.engineCheckInterval);
       lichess.pubsub.off('redraw',this.analysisContextMenu);
@@ -350,6 +368,9 @@
       if (analysis.study&&!$('div.lichessTools-liveStatus').length) {
         $('main.analyse div.analyse__controls.analyse-controls').after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
       }
+      lichess.pubsub.off('redraw',this.ensureShowOnEmpty);
+      lichess.pubsub.on('redraw',this.ensureShowOnEmpty);
+      this.ensureShowOnEmpty();
     }
 
   }

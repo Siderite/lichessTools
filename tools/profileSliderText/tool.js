@@ -26,6 +26,7 @@
     }
 
     updateText=(ev)=>{
+      if (!this.options.enabled) return;
       const start=new Date(+ev[0]).toDateString().substr(4);
       const end=new Date(+ev[1]).toDateString().substr(4);
       const text=start+' - '+end;
@@ -36,18 +37,22 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
-      const value=+(parent.currentOptions.getValue('profileSliderText'));
+      const value=parent.currentOptions.getValue('profileSliderText');
+      this.options = { enabled: value };
       this.logOption('Slider dates', value);
       const slider=$('#time-range-slider');
       const uiSlider=$('#time-range-slider')[0]?.noUiSlider;
       if (!uiSlider) return;
-      uiSlider.off('update',this.updateText);
       $('.time-selector-buttons label.lichessTools-profileSliderText').remove();
       if (!value) return;
       $('<label class="lichessTools-profileSliderText">')
         .attr('title',trans.noarg('sliderLabelTitle'))
         .appendTo('.time-selector-buttons');
-      uiSlider.on('update',this.updateText);
+      if (!uiSlider.profileSliderTextHook) {
+        uiSlider.on('update',this.updateText);
+        uiSlider.profileSliderTextHook=true;
+      }
+      this.updateText(uiSlider.get());
     }
 
   }
