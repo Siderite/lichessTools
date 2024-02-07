@@ -39,13 +39,14 @@
         : null;
       const isInteractive=!!analysis.study?.gamebookPlay;
       const isActive = !!(this.options.enabled
-                         && this._isEnabled
+                         && this.isEnabled
                          && selected
                          && dests?.length
                          && !isInteractive
-                         && (analysis.turnColor()==analysis.getOrientation()));
+                         //&& (analysis.turnColor()==analysis.getOrientation())
+                         );
       $('main.analyse div.cg-wrap').toggleClass('lichessTools-moveAssistant',isActive);
-      $('div.ceval button.lichessTools-moveAssistant').toggleClass('lichessTools-enabled',!!this._isEnabled);
+      $('div.ceval button.lichessTools-moveAssistant').toggleClass('lichessTools-enabled',!!this.isEnabled);
       if (!isActive) {
         if (this._evaluating) {
           this._evaluating=false;
@@ -88,7 +89,7 @@
       const key=(isBlack?'b':'w')+side+matrix;
       let dest=this._squares[key];
       if (dest) return dest;
-      const m=/(?<x>\d+), (?<y>\d+)\)/.exec(matrix);
+      const m=/(?<x>\d+(\.\d+)?), (?<y>\d+(\.\d+)?)\)/.exec(matrix);
       if (!m) return;
       const x=+(m.groups.x)*8/side;
       const y=+(m.groups.y)*8/side;
@@ -164,10 +165,25 @@
           .attr('data-icon','\uE069')
           .on('click',ev=>{
             ev.preventDefault();
-            this._isEnabled=!this._isEnabled;
+            this.isEnabled=!this.isEnabled;
           })
           .insertBefore('div.ceval button.settings-gear');
       }
+    }
+
+    get isEnabled() {
+      if (this._isEnabled!==undefined) return this._isEnabled;
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      this._isEnabled=lichess.storage.get('LichessTools.moveAssistant')=='true';
+      return this._isEnabled;
+    }
+
+    set isEnabled(value) {
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      lichess.storage.set('LichessTools.moveAssistant',value);
+      this._isEnabled=value;
     }
 
     async start() {
