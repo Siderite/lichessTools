@@ -75,6 +75,7 @@ lichessTools.loadTool(LiChessTools.Tools.FixCoords);
 lichessTools.loadTool(LiChessTools.Tools.DownloadAllStudies);
 lichessTools.loadTool(LiChessTools.Tools.ProfilePuzzleTab);
 lichessTools.loadTool(LiChessTools.Tools.MayTenth);
+lichessTools.loadTool(LiChessTools.Tools.MoveAssistant);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

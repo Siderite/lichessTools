@@ -102,6 +102,7 @@
         "tools/downloadAllStudies/tool.js",
         "tools/profilePuzzleTab/tool.js",
         "tools/mayTenth/tool.js",
+        "tools/moveAssistant/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -166,6 +167,7 @@
         "tools/fixCoords/tool.css",
         "tools/downloadAllStudies/tool.css",
         "tools/mayTenth/tool.css",
+        "tools/moveAssistant/tool.css",
 
         "tools/tvOptions/tool.css",
 
