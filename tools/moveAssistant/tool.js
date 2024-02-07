@@ -58,7 +58,8 @@
       if (!this._sf) {
         const sf=await parent.stockfish.load();
         if (!sf) return;
-        sf.setHash(64);
+        sf.setThreads(2);
+        sf.setHash(128);
         sf.setMultiPv(500);
         sf.setDepth(20);
         sf.on('info',this.getInfo);
@@ -125,7 +126,7 @@
           return;
         }
         const q=(cp-minCp)/(maxCp-minCp);
-        let rating=Math.round(255*Math.pow(q,3));
+        let rating=Math.round(255*Math.pow(q,5));
         const color='#'+(255-rating).toString(16).padStart(2,'0')+rating.toString(16).padStart(2,'0')+'00';
         $(e)
           .css('border-color',color);
@@ -153,18 +154,19 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
-      const button=$('div.ceval button.lichessTools-moveAssistant');
+      let button=$('div.ceval button.lichessTools-moveAssistant');
       if (!this.options.enabled) {
         button.remove();
         return;
       }
       if (!button.length) {
-        $('<button type="button" class="lichessTools-moveAssistant">')
+        button = $('<button type="button" class="lichessTools-moveAssistant">')
           .attr('title',trans.noarg('assistantButtonTitle'))
           .attr('data-icon','\uE069')
           .on('click',ev=>{
             ev.preventDefault();
             this.isEnabled=!this.isEnabled;
+            button.toggleClass('lichessTools-enabled',!!this.isEnabled);
           })
           .insertBefore('div.ceval button.settings-gear');
       }

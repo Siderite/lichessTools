@@ -81,6 +81,11 @@
       this.restartDebounced();
     }
 
+    setThreads(count) {
+      this.setOption('Threads',count);
+      this.restartDebounced();
+    }
+
     setSearchMoves(moves) {
       if (this._searchMoves==moves) return;
       this._searchMoves=moves;
@@ -113,6 +118,8 @@
       sf.postMessage('ucinewgame');
       sf.postMessage('position fen ' + this._fen);
       sf.postMessage('go '+(this._depth?'depth '+this._depth:'infinite')+(this._searchMoves?.length?' searchmoves '+this._searchMoves.join(' '):''));
+      sf.postMessage('setoption name UCI_AnalyseMode value true');
+      sf.postMessage('setoption name UCI_Elo value 3190');
       this._isStarted=true; 
     }
 
@@ -154,7 +161,9 @@
           arr.push(split);
         }
         this.emit('info',info);
+        return;
       }
+      this.parent.debug && console.debug('SF',data);
     }
 
     _handlers={};
