@@ -10696,6 +10696,7 @@ const openings = {
   "rnbqkbnrpp3ppp2p53pp32PPP32N5PP3PPPR1BQKBNRb": "Slav Defense: Winawer Countergambit, Anti-Winawer Gambit",
   "rnbqkbnrpp3ppp2p53Pp33P42N5PP2PPPPR1BQKBNRb": "Slav: Winawer Countergambit, 4.cxd5",
   "rnbqkbnrpp3ppp2p53pp34P33P4PPPN1PPPR1BQKBNRw": "Caro-Kann: Breyer, 3.Nd2 e5",
+  "rnbqkbnrpp3ppp2p53pP34P38PPP2PPPRNBQKBNRw": "Caro-Kann Defense, Głø Krüller Gambit, Wonfinp Gambit (Tangent)",
   "rnbqkbnrpp3ppp2p53Pp35P22N5PPPP2PPR1BQKBNRb": "KGD: Falkbeer, Marshall/Nimzowitsch, 4.Nc3",
   "rnbqkbnrpp3ppp2p53Pp35P28PPPP2PPRNBQKBNRw": "King's Gambit Declined: Falkbeer Countergambit, Nimzowitsch-Marshall Countergambit",
   "rnbqkbnrpp3ppp2p53Pp35P28PPPPQ1PPRNB1KBNRb": "KGD: Falkbeer, Marshall/Nimzowitsch, 4.Qe2",
