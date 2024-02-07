@@ -71,17 +71,18 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - custom mini-game size
  - play again from where you entered Preview mode in Interactive Lessons and collapsible Interactive Lesson chapter controls
  - use Stockfish on Brave browser
- - Learn from your mistakes in Study chapters
- - Pin studies and broadcasts to home page
+ - learn from your mistakes in Study chapters
+ - pin studies and broadcasts to home page
  - community forum
  - PGN editor (merge, split, normalize, count, search)
- - Play lag chart
- - Freeze board in analysis
- - Download all studies of a player
- - Larger coordinates, outside coordinates in Analysis
+ - play lag chart
+ - freeze board in analysis
+ - download all studies of a player
+ - larger coordinates, outside coordinates in Analysis
  - Profile date interval label and Puzzle statistics tab
  - #readgame URL to read games in analysis/study
- - Restore position in the move list in study chapters on page refresh
+ - restore position in the move list in study chapters on page refresh
+ - move assistant shows evaluation on selecte piece destinations
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

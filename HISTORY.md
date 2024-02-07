@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Feb
+  - Move assistant
+
 06 Feb
   - Restore position in the move list in study chapters on page refresh
 
