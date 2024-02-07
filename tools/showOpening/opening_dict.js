@@ -10311,7 +10311,7 @@ const openings = {
   "rnbqkbnrpp1p1ppp2p54p32P1P38PP1P1PPPRNBQKBNRw": "Caro-Kann Defense: Accelerated Panov Attack, Open Variation",
   "rnbqkbnrpp1p1ppp2p54p32P56P1PP1PPP1PRNBQKBNRw": "English: King's, 2.g3 c6",
   "rnbqkbnrpp1p1ppp2p54p32PP46P1PP2PP1PRNBQKBNRb": "English: King's, 2.g3 c6 3.d4",
-  "rnbqkbnrpp1p1ppp2p54p33PP38PPP2PPPRNBQKBNRw": "Caro-Kann Defense, Głø Krüller",
+  "rnbqkbnrpp1p1ppp2p54p33PP38PPP2PPPRNBQKBNRw": "Caro-Kann Defense, Głø Krüller Gambit (Tangent)",
   "rnbqkbnrpp1p1ppp2p54p34P35N2PPPP1PPPRNBQKB1Rw": "King's Pawn Game: Gunderam Gambit",
   "rnbqkbnrpp1p1ppp2p582B1Pp28PPPP2PPRNBQK1NRw": "King's Gambit Accepted: Bishop's Gambit, Lopez Defense",
   "rnbqkbnrpp1p1ppp4p32p1P32P52N2N2PP1P1PPPR1BQKB1Rb": "English: Mikenas, 5.Nf3",
