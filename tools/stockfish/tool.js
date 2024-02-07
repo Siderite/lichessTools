@@ -30,7 +30,6 @@
         return;
       }
       const sf=new Stockfish(parent);
-      await sf.load();
       parent.stockfish=sf;
     }
   }
@@ -43,21 +42,26 @@
     }
 
     async load() {
-      if (!this._module) {
-        this._module=await import(this.origin+'/assets/npm/lila-stockfish-web/sf-nnue-40.js');
-      }
-      if (!this._stockfish) {
-        this._stockfish=await this._module.default;
-      }
-      if (!this._instance) {
-        const sf=await this._stockfish();
-        await sf.ready;
-        sf.listen=this.listen.bind(this);
-        sf.postMessage('uci');
-        while(!this._uciok) {
-          await this.parent.timeout(100);
+      try{
+        if (!this._module) {
+          this._module=await import(this.origin+'/assets/npm/lila-stockfish-web/sf-nnue-40.js');
         }
-        this._instance=sf;
+        if (!this._stockfish) {
+          this._stockfish=await this._module.default;
+        }
+        if (!this._instance) {
+          const sf=await this._stockfish();
+          await sf.ready;
+          sf.listen=this.listen.bind(this);
+          sf.postMessage('uci');
+          while(!this._uciok) {
+            await this.parent.timeout(100);
+          }
+          this._instance=sf;
+        }
+        return this;
+      } catch(e) {
+        console.log('Error instantiating Stockfish:',e);
       }
     }
 
