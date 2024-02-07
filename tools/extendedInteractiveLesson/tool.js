@@ -133,11 +133,10 @@
         if (!$this.isMyMove()) {
           const child=parent.getRandomVariation(analysis.node,$this.threeFoldRepetition);
           if (child) analysis.userJump(child.path||(analysis.path+child.id));
-          const gp=analysis.gamebookPlay();
-          const count=(+gp.fens[analysis.node.fen]||0)+1;
-          gp.fens[analysis.node.fen]=count;
+          const count=(+$this.fens[analysis.node.fen]||0)+1;
+          $this.fens[analysis.node.fen]=count;
           if (count>=3) {
-            gp.threeFoldRepetition=true;
+            $this.threeFoldRepetition=true;
           }
         } 
         $this.redraw();
@@ -145,6 +144,7 @@
       solution: ()=>{
         const parent=this.lichessTools;
         const analysis=parent.lichess.analysis;
+        const $this=analysis.gamebookPlay();
         const children=parent.getNextMoves(analysis.node,$this.threeFoldRepetition).filter(c=>c.gamebook);
         if (!children) return;
         const shapes=[];
