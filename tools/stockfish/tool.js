@@ -29,22 +29,20 @@
       if (!value) {
         return;
       }
-      const sf=new Stockfish(parent.global);
+      const sf=new Stockfish(parent);
       await sf.load();
       parent.stockfish=sf;
     }
   }
 
   class Stockfish {
-    constructor(global) {
-      this.global=global;
-      this.origin=global.location.origin;
+    constructor(lichessTools) {
+      this.parent=lichessTools;
+      this.origin=this.parent.global.location.origin;
+      this.restartDebounced=this.parent.debounce(this.restart,500);
     }
 
     async load() {
-      const timeout=(ms)=>{
-        return new Promise(resolve => this.global.setTimeout(resolve, ms));
-      };
       if (!this._module) {
         this._module=await import(this.origin+'/assets/npm/lila-stockfish-web/sf-nnue-40.js');
       }
@@ -57,7 +55,7 @@
         sf.listen=this.listen.bind(this);
         sf.postMessage('uci');
         while(!this._uciok) {
-          await timeout(100);
+          await this.parent.timeout(100);
         }
         this._instance=sf;
       }
@@ -71,25 +69,32 @@
 
     setMultiPv(count) {
       this.setOption('MultiPV',count);
-      this.restart();
+      this.restartDebounced();
     }
 
     setHash(mb) {
       this.setOption('Hash',mb);
-      this.restart();
+      this.restartDebounced();
+    }
+
+    setSearchMoves(moves) {
+      if (this._searchMoves==moves) return;
+      this._searchMoves=moves;
+      this.restartDebounced();
     }
 
     setDepth(depth) {
       if (this._depth==depth) return;
       this._depth=depth;
-      this.restart();
+      this.restartDebounced();
     }
 
     _fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
     setPosition(fen) {
-      if (this._fen==fen) return;;
+      if (!fen) throw new Error('Empty FEN sent to setPosition');
+      if (this._fen==fen) return;
       this._fen=fen;
-      this.restart();
+      this.restartDebounced();
     }
 
     restart() {
@@ -102,12 +107,14 @@
       if (!sf) throw new Exception('await .load() to finish instantiating!');
       sf.postMessage('stop');
       sf.postMessage('ucinewgame');
-      sf.postMessage('position fen ' + fenString);
-      sf.postMessage('go '+(depth?'depth '+this._depth:'infinite')+(this._searchMoves?.length?' searchmoves '+this._searchMoves.join(' '):''));
+      sf.postMessage('position fen ' + this._fen);
+      sf.postMessage('go '+(this._depth?'depth '+this._depth:'infinite')+(this._searchMoves?.length?' searchmoves '+this._searchMoves.join(' '):''));
       this._isStarted=true; 
     }
 
     stop() {
+      const sf=this._instance;
+      if (!sf) throw new Exception('await .load() to finish instantiating!');
       sf.postMessage('stop');
       this._isStarted=false; 
     }
@@ -135,7 +142,7 @@
         const info={};
         const isString=false;
         for (const split of splits.slice(1)) {
-          if (!isString && /^()$/.test(split)) {
+          if (!isString && /^(depth|seldepth|time|nodes|pv|multipv|score|cp|mat|lowerbound|upperbound|currmove|currmovenumber|hashfull|nps|tbhits|sbhits|cpuload|string|refutation|currline)$/.test(split)) {
             arr=[];
             info[split]=arr;
             if (split=='string') isString=true;
@@ -162,7 +169,7 @@
       arr.delete(handler);
     }
     emit(name,event) {
-      for (const handler in this._handlers[name]||[]) {
+      for (const handler of this._handlers[name]||[]) {
         handler(event);
       }
     }
