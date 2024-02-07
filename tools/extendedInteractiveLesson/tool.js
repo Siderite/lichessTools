@@ -120,7 +120,6 @@
         const count=+gp.fens[analysis.node.fen]||0;
         if (count==3) {
           gp.threeFoldRepetition=false;
-          console.debug('Three-fold repetition: false');
         }
         gp.fens[analysis.node.fen]=Math.max(0,count-1);
         analysis.userJump(parPath);
@@ -139,7 +138,6 @@
           gp.fens[analysis.node.fen]=count;
           if (count>=3) {
             gp.threeFoldRepetition=true;
-            console.debug('Three-fold repetition: true');
           }
         } 
         $this.redraw();
@@ -175,7 +173,6 @@
         gp.goodMoves=0;
         gp.badMoves=0;
         gp.threeFoldRepetition=false;
-        console.debug('Three-fold repetition: false');
         gp.fens={};
       }
     };
