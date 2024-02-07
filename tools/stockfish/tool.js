@@ -118,8 +118,7 @@
 
     stop() {
       const sf=this._instance;
-      if (!sf) throw new Exception('await .load() to finish instantiating!');
-      sf.postMessage('stop');
+      sf?.postMessage('stop');
       this._isStarted=false; 
     }
 
