@@ -51,8 +51,6 @@
     extendedGamebook={
       goodMoves:0,
       badMoves:0,
-      threeFoldRepetition:false,
-      fens:{},
       makeState:()=>{
         const parent=this.lichessTools;
         const analysis=parent.lichess.analysis;
@@ -75,7 +73,7 @@
         const inPgn = !!node.gamebook;
         if (!inPgn) {
           const position=parent.getNodePosition(node);
-          const candidate=parent.getNextMoves(parNode).filter(c=>c.gamebook).find(c=>parent.getNodePosition(c)==position);
+          const candidate=parent.getNextMoves(parNode,$this.threeFoldRepetition).filter(c=>c.gamebook).find(c=>parent.getNodePosition(c)==position);
           if (candidate) {
             if (candidate.path!==undefined) {
               analysis.userJump(candidate.path);
@@ -85,7 +83,7 @@
             }
           }
         }
-        const nextMoves=parent.getNextMoves(node);
+        const nextMoves=parent.getNextMoves(node,$this.threeFoldRepetition);
         if (!inPgn) {
           state.feedback = 'bad';
           if (!state.comment) {
@@ -119,9 +117,12 @@
         const $this=analysis.gamebookPlay();
         const parPath = analysis.path.slice(0,-2);
         const gp=analysis.gamebookPlay();
-        const count=+gp.fen[analysis.fen]||0;
-        if (count==3) gp.threeFoldRepetition=false;
-        gp.fen[analysis.fen]=Math.max(0,count-1);
+        const count=+gp.fens[analysis.node.fen]||0;
+        if (count==3) {
+          gp.threeFoldRepetition=false;
+          console.debug('Three-fold repetition: false');
+        }
+        gp.fens[analysis.node.fen]=Math.max(0,count-1);
         analysis.userJump(parPath);
     	$this.redraw();
       },
@@ -131,19 +132,22 @@
         const $this=analysis.gamebookPlay();
         if (!$this) return;
         if (!$this.isMyMove()) {
-          const child=parent.getRandomVariation(analysis.node,this.threeFoldRepetition);
+          const child=parent.getRandomVariation(analysis.node,$this.threeFoldRepetition);
           if (child) analysis.userJump(child.path||(analysis.path+child.id));
           const gp=analysis.gamebookPlay();
-          const count=(+gp.fen[analysis.fen]||0)+1;
-          gp.fen[analysis.fen]=count;
-          if (count>=3) gp.threeFoldRepetition=true;
+          const count=(+gp.fens[analysis.node.fen]||0)+1;
+          gp.fens[analysis.node.fen]=count;
+          if (count>=3) {
+            gp.threeFoldRepetition=true;
+            console.debug('Three-fold repetition: true');
+          }
         } 
         $this.redraw();
       },
       solution: ()=>{
         const parent=this.lichessTools;
         const analysis=parent.lichess.analysis;
-        const children=parent.getNextMoves(analysis.node).filter(c=>c.gamebook);
+        const children=parent.getNextMoves(analysis.node,$this.threeFoldRepetition).filter(c=>c.gamebook);
         if (!children) return;
         const shapes=[];
         for (const child of children) {
@@ -171,6 +175,7 @@
         gp.goodMoves=0;
         gp.badMoves=0;
         gp.threeFoldRepetition=false;
+        console.debug('Three-fold repetition: false');
         gp.fens={};
       }
     };
@@ -220,6 +225,8 @@
         gp.next=this.replaceFunction(gp.next,this.extendedGamebook.next,'extendedInteractiveLessons');
         gp.solution=this.replaceFunction(gp.solution,this.extendedGamebook.solution,'extendedInteractiveLessons');
         gp.isExtendedInteractiveLessons=true;
+        gp.fens={};
+        gp.resetStats=this.extendedGamebook.resetStats;
         // stop the original setTimeout gp.next()
         if (!this.originalUserJump) this.originalUserJump=analysis.userJump; 
         if (analysis.node.id==='') {
@@ -237,6 +244,8 @@
         gp.isExtendedInteractiveLessons=true;
       }
       if (this.options.showFinalScore && !gp.isShowScore) {
+        gp.fens={};
+        gp.resetStats=this.extendedGamebook.resetStats;
         gp.makeState=parent.wrapFunction(gp.makeState,{
           id:'showScore',
           after: ($this, result, ...args)=>{
