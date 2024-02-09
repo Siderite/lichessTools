@@ -9,7 +9,7 @@
         category: 'analysis',
         type:'single',
         possibleValues: [false,true],
-        defaultValue: false,
+        defaultValue: true,
         advanced: true
       }
     ];
