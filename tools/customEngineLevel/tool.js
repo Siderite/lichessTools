@@ -145,8 +145,10 @@
           && this.options.depth && curDepth>=this.options.depth)
       {
         node.autoDeeper=undefined;
-        analysis.ceval.stop();
-        analysis.redraw();
+        if (analysis.ceval.getState()==3) {
+          analysis.ceval.stop();
+          analysis.redraw();
+        }
       }
     };
 
