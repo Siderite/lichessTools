@@ -61,7 +61,8 @@
         sf.setThreads(2);
         sf.setHash(128);
         sf.setMultiPv(500);
-        sf.setDepth(20);
+        //sf.setDepth(20);
+        sf.setTime(90000);
         sf.on('info',this.getInfo);
         this._sf=sf;
       }
@@ -135,12 +136,21 @@
 
     _eval={};
     getInfo=(info)=>{
+      const parent=this.lichessTools;
       const mate=+(info.mate?.at(0));
       const cp=mate
         ? Math.sign(mate)*10000-mate
         : +(info.cp?.at(0));
       const uci=info.pv?.at(0);
       if (!uci || !cp) return;
+      if (parent.debug) {
+        const depth=+(info.depth?.at(0));
+        if (depth==1 && this._prevDepth>1) this._prevDepth=null;
+        if (!this._prevDepth || depth>this._prevDepth) {
+          this._prevDepth=depth;
+          parent.global.console.debug('Depth:',depth);
+        }
+      }
       this._eval[uci]=cp;
     }
 
