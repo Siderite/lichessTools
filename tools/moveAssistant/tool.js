@@ -58,7 +58,7 @@
       if (!this._sf) {
         const sf=await parent.stockfish.load();
         if (!sf) return;
-        sf.setThreads(2);
+        sf.setThreads(1);
         sf.setHash(128);
         sf.setMultiPv(500);
         //sf.setDepth(20);
