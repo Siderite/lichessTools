@@ -126,7 +126,7 @@
     start() {
       const sf=this._instance;
       this.postMessage('stop');
-      this.postMessage('ucinewgame');
+      //this.postMessage('ucinewgame');
       this.postMessage('position fen ' + this._fen);
       this.postMessage('go'+(this._depth?' depth '+this._depth:this._time?' movetime '+this._time:' infinite')+(this._searchMoves?.length?' searchmoves '+this._searchMoves.join(' '):''));
       this.postMessage('setoption name UCI_AnalyseMode value true');

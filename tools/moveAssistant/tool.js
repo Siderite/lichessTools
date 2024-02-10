@@ -42,7 +42,6 @@
                          && selected
                          && dests?.length
                          && !isInteractive
-                         //&& (analysis.turnColor()==analysis.getOrientation())
                          );
       $('main.analyse div.cg-wrap').toggleClass('lichessTools-moveAssistant',isActive);
       $('div.ceval button.lichessTools-moveAssistant').toggleClass('lichessTools-enabled',!!this.isEnabled);
@@ -142,13 +141,14 @@
         ? Math.sign(mate)*10000-mate
         : +(info.cp?.at(0));
       const uci=info.pv?.at(0);
-      if (!uci || !cp) return;
+      if (!uci || Number.isNaN(cp)) return;
       if (parent.debug) {
         const depth=+(info.depth?.at(0));
+        const seldepth=+(info.seldepth?.at(0));
         if (depth==1 && this._prevDepth>1) this._prevDepth=null;
         if (!this._prevDepth || depth>this._prevDepth) {
           this._prevDepth=depth;
-          parent.global.console.debug('Depth:',depth);
+          parent.global.console.debug('Depth:',depth+'/'+seldepth);
         }
       }
       this._eval[uci]=cp;
