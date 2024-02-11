@@ -56,7 +56,7 @@
             continue;
           }
         }
-        const result = await this.withOpening(gameId,el,undefined,fen);
+        const result = await this.withOpening(gameId,el,undefined,fen, true);
         if (!result) {
           fen='';
           gameId='';
@@ -79,7 +79,7 @@
     miniGameOpeningDebounced=this.lichessTools.debounce(this.miniGameOpening,500);
 
     openingTime=0;
-    withOpening=async (gameId,el,ply,fen)=>{
+    withOpening=async (gameId,el,ply,fen,isMini)=>{
       const parent=this.lichessTools;
       const Math=parent.global.Math;
       if (parent.opening_dict) {
@@ -101,7 +101,7 @@
       if (data) {
         const now=Date.now();
         if (el.maxPly>14 || now-data.time<2000) return {time:now, opening:data.opening, el};
-        if (!ply) return; // don't get the opening for minigames from API once retrieved
+        if (isMini) return; // don't get the opening for minigames from API once retrieved
       }
 
       if (Date.now()-this.openingTime<1000) return; // not more often than 1 second
@@ -137,7 +137,7 @@
       const tvOptions=parent.getTvOptions();
       const gameId=tvOptions.gameId || lichess.analysis?.data?.game?.id;
       const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
-      const result = await this.withOpening(gameId,$('main.round, main.analyse, main#board-editor')[0],ply);
+      const result = await this.withOpening(gameId,$('main.round, main.analyse, main#board-editor')[0],ply,undefined,false);
       if (!result) {
         metaSection.find('.lichessTools-opening').remove();
         return;
