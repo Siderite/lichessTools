@@ -499,7 +499,12 @@
 
       const traverse=(node,ply=0)=>{
         const fen=node.data?.fen;
-        if (!fen) throw new Error('Cannot find FEN for node '+node.data?.san+' at ply '+ply+'!');
+        if (!fen) {
+          const err = Error('Cannot find FEN for node '+node.data?.san+' at ply '+ply+'!');
+          err.san=node?.data?.san;
+          err.ply=ply+1;
+          throw err;
+        }
         const key=parent.getFenPosition(fen);
         let arr=game.fenDict.get(key);
         if (!arr) {
@@ -629,7 +634,23 @@
         i--;
       }
       for (const game of games) {
-        this.enhanceGameWithFenDict(game);
+        try{
+          this.enhanceGameWithFenDict(game);
+        } catch(ex) {
+          if (ex.ply) {
+            const data=[gameIndex, ex.san, ex.ply]
+            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+              return data[+m[1]-1];
+            }));
+            withErrors=true;
+            break;
+          } else throw ex;
+          withErrors=true;
+        }
+      }
+      if (withErrors) {
+        this.writeNote(trans.noarg('operationFailed'));
+        return;
       }
       while(i>=0 && !this._cancelRequested) {
         if (Date.now()-lastWrite>1000) { 
@@ -715,6 +736,7 @@
             parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
             }));
+            withErrors=true;
             break;
           } else throw ex;
           withErrors=true;
@@ -846,23 +868,32 @@
 
       const search = parent.global.prompt(trans.noarg('searchPattern'));
       if (!search) return;
-      const m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
       let searchMode='fenOrMoves';
+      let plyNumberOperator;
+      let plyNumber;
       let tagName;
       let tagValue;
       let reg;
+      let m=/^ply\s*([\<\>=])\s*(\d+)/i.exec(search);
       if (m) {
-        searchMode='tag';
-        tagName=m[1];
-        tagValue=m[2];
+        searchMode='plyNumber';
+        plyNumberOperator=m[1];
+        plyNumber=+m[2];
       } else {
-        reg=new RegExp(Array.from(search).map(c=>{
-          switch(c) {
-            case '*': return '.*';
-            case '?': return '.';
-            default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
-          }
-        }).join(''));
+        m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
+        if (m) {
+          searchMode='tag';
+          tagName=m[1];
+          tagValue=m[2];
+        } else {
+          reg=new RegExp(Array.from(search).map(c=>{
+            switch(c) {
+              case '*': return '.*';
+              case '?': return '.';
+              default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+            }
+          }).join(''));
+        }
       }
 
       const co=parent.chessops;
@@ -871,6 +902,20 @@
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('searchingGames',games.length));
       await parent.timeout(0);
+
+      const getMaxPly=(game)=>{
+        let maxPly=0;
+        const traverse=(node,ply=0)=>{
+          if (node.data?.san && ply>maxPly) maxPly=ply;
+          if (!node.children?.length) return;
+          for (const child of node.children) {
+            traverse(child,ply+1);
+          }
+        };
+        traverse(game.moves);
+        return maxPly;
+      };
+
 
       let gameIndex=0;
       const foundGames=[];
@@ -893,6 +938,20 @@
             case 'tag':
               const val=game.headers.get(tagName);
               found=(val?.replace(/\s+/g,'')==tagValue?.replace(/\s+/g,''));
+              break;
+            case 'plyNumber':
+              const maxPly=getMaxPly(game);
+              switch(plyNumberOperator) {
+                case '>':
+                  found=maxPly>plyNumber;
+                  break;
+                case '<':
+                  found=maxPly<plyNumber;
+                  break;
+                case '=':
+                  found=maxPly==plyNumber;
+                  break;
+              }
               break;
           }
           if (found){
