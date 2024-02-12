@@ -616,11 +616,11 @@
           await parent.timeout(0);
         }
         const gameI=games[i];
-        const fenI = gameI.moves.data.fen;
+        const fenI = gameI?.moves?.data?.fen;
         for (let j=i-1; j>=0; j--) {
           const gameJ=games[j];
-          const fenJ = gameJ.moves.data.fen;
-          if (fenI==fenJ) {
+          const fenJ = gameJ?.moves?.data?.fen;
+          if (fenI && fenI==fenJ) {
             mergeGames(gameJ,gameJ.moves,gameI);
             parent.arrayRemoveAll(games,g=>g==gameI);
             break;
