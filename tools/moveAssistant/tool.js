@@ -36,12 +36,12 @@
       const dests=selected
         ? analysis.chessground?.state?.movable?.dests?.get(selected)
         : null;
-      const isInteractive=!!analysis.study?.gamebookPlay;
+      const isInteractiveOrPractice=!!(analysis.study?.gamebookPlay || analysis.practice?.running());
       const isActive = !!(this.options.enabled
                          && this.isEnabled
                          && selected
                          && dests?.length
-                         && !isInteractive
+                         && !isInteractiveOrPractice
                          );
       $('main.analyse div.cg-wrap').toggleClass('lichessTools-moveAssistant',isActive);
       $('div.ceval button.lichessTools-moveAssistant').toggleClass('lichessTools-enabled',!!this.isEnabled);
