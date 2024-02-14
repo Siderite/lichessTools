@@ -148,6 +148,12 @@
         if (analysis.ceval.getState()==3) {
           analysis.ceval.stop();
           analysis.redraw();
+          if (analysis.node.ceval && analysis.practice?.running()) {
+            const depth=analysis.node.ceval.depth;
+            analysis.node.ceval.depth=100;
+            analysis.practice.onCeval();
+            analysis.node.ceval.depth=depth;
+          }
         }
       }
     };
