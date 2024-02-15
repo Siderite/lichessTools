@@ -361,7 +361,7 @@
       $('button.preview').attr('title',translation); //.attr('data-label',translation);
 
       if (this.options.returnToPreview) {
-        $('button.retry').each((i,e)=>{
+        $('button.retry, button.fbt.text.back').each((i,e)=>{
           let handlers=parent.getEventHandlers(e,'click');
           if (handlers.filter(h=>h!=this.playAgain).length) {
             parent.removeEventHandlers(e,'click');
