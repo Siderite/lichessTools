@@ -5701,6 +5701,7 @@ const openings = {
   "rn1qkb1rppp1pppp83n1b23P48PPP1BPPPRNBQK1NRw": "Scandinavian: 2...Nf6 3.Bb5+ Bd7 4.Be2 Nxd5 5.d4 Bf5",
   "rn1qkb1rppp1pppp83n43P2b15N2PPP1BPPPRNBQK2Rb": "Scandinavian: Marshall, 4.Nf3 Bg4 5.Be2",
   "rn1qkb1rppp1pppp83n43P2b15N2PPP2PPPRNBQKB1Rw": "Scandinavian Defense: Modern Variation, Gipslis Variation",
+  "rn1qkb1rppp1pppp885n25N1bPPPPBPP1RNBQ1RK1w": "Scandinavian Defense: Modern Variation,Joker Gambit (Adamisko)",
   "rn1qkb1rppp2ppp1n1p482PP2b15N2PP3PPPRNBQKB1Rw": "Alekhine: Modern, Alekhine Variation, 6.exd6 exd6",
   "rn1qkb1rppp2ppp1n2p382PP2b15N2PP2BPPPRNBQK2Rw": "Scandinavian: Marshall, 4.c4 Nb6 5.Nf3 Bg4 6.Be2 e6",
   "rn1qkb1rppp2ppp3pp33nP33P2b15N2PPP1BPPPRNBQ1RK1b": "Alekhine: Modern, 5.Be2 e6 6.O-O",
