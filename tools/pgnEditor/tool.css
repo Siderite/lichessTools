@@ -38,6 +38,10 @@ body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons bu
   position:absolute;
 }
 
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button[data-role="cutPlys"]:before {
+  margin-top:-0.2em;
+}
+
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons label {
   width:20vh;
 }
