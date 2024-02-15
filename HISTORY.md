@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Feb
+  - Search by number of plys, reduce number of plys
+
 07 Feb
   - Move assistant
 
