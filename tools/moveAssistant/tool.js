@@ -44,7 +44,9 @@
                          && !isInteractiveOrPractice
                          );
       $('main.analyse div.cg-wrap').toggleClass('lichessTools-moveAssistant',isActive);
-      $('div.ceval button.lichessTools-moveAssistant').toggleClass('lichessTools-enabled',!!this.isEnabled);
+      $('div.ceval button.lichessTools-moveAssistant')
+        .toggleClass('lichessTools-enabled',!!this.isEnabled)
+        .toggle(!isInteractiveOrPractice);
       if (!isActive) {
         if (this._evaluating) {
           this._evaluating=false;
