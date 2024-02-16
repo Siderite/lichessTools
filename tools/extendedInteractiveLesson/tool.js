@@ -17,8 +17,7 @@
         type:'multiple',
         possibleValues: ['sequential','spacedRepetition'],
         defaultValue: false,
-        advanced: true,
-        hidden: true
+        advanced: true
       }
     ];
 
@@ -41,7 +40,11 @@
         'options.extendedInteractiveLessonFlow': 'Extended interactive lesson flow',
         'extendedInteractiveLessonFlow.sequential': 'Sequential',
         'extendedInteractiveLessonFlow.spacedRepetition': 'Spaced Repetition',
-        'resetQuestion': 'No more variations. Reset?'
+        'resetQuestionNoVariations': 'No more variations. Reset?',
+        'resetQuestion': 'Reset variation progress?',
+        'resetButtonText': 'Reset',
+        'resetButtonTitle': 'LiChess Tools - reset variation progress',
+        'progressTitle': 'LiChess Tools - %s variations'
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -61,7 +64,11 @@
         'options.extendedInteractiveLessonFlow': 'Cursul lec\u0163iilor interactive extinse',
         'extendedInteractiveLessonFlow.sequential': 'Secven\u0163ial',
         'extendedInteractiveLessonFlow.spacedRepetition': 'Repeti\u0163ie distan\u0163at\u0103',
-        'resetQuestion': 'Nu mai sunt varia\u0163uni. Reset?'
+        'resetQuestionNoVariations': 'Nu mai sunt varia\u0163uni. Resetez?',
+        'resetQuestion': 'Resetez progresul \u00een varia\u0163uni?',
+        'resetButtonText': 'Resetare',
+        'resetButtonTitle': 'LiChess Tools - resetare progres \u00een varia\u0163uni',
+        'progressTitle': 'LiChess Tools - %s varia\u0163uni'
       }
     }
 
@@ -90,7 +97,7 @@
           if ((this.options.flow.sequential || this.options.flow.spacedRepetition) && !gp.currentPath) {
             const nextMoves=parent.getNextMoves(node,gp.threeFoldRepetition)
                                      .filter(c=>c.gamebook);
-            if (nextMoves.length && confirm(trans.noarg('resetQuestion'))) {
+            if (nextMoves.length && parent.global.confirm(trans.noarg('resetQuestionNoVariations'))) {
               this.resetDone();
               return gp.makeState();
             }
@@ -236,14 +243,18 @@
         this._paths=parent.jsonParse(json,{});
       }
       const key=analysis.study.data.id+'/'+analysis.study.currentChapter()?.id;
-      const paths=this._paths[key];
+      let paths=this._paths[key];
+      if (!paths) {
+        paths={};
+        this._paths[key]=paths;
+      }
       if (paths.currentPath && !this.isDonePath(paths.currentPath)) return paths.currentPath;
       let currentPaths=[];
       let traverse=null;
       if (this.options.flow.sequential) {
         traverse=(node)=>{
           if (currentPaths.length) return;
-          const nextMoves=parent.getNextMoves(node,gp.threeFoldRepetition)
+          const nextMoves=node.children
                                 .filter(c=>c.gamebook);
           if (!nextMoves.length && !this.isDonePath(node.path)) {
             currentPaths.push(node.path);
@@ -253,7 +264,7 @@
       } else 
       if (this.options.flow.spacedRepetition) {
         traverse=(node)=>{
-          const nextMoves=parent.getNextMoves(node,gp.threeFoldRepetition)
+          const nextMoves=node.children
                                 .filter(c=>c.gamebook);
           if (!nextMoves.length && !this.isDonePath(node.path)) {
             currentPaths.push(node.path);
@@ -264,6 +275,7 @@
       traverse(analysis.tree.root);
       const i = Math.floor(Math.random() * currentPaths.length);
       paths.currentPath=currentPaths[i];
+      lichess.storage.set('LichessTools.chapterPaths',JSON.stringify(this._paths));
       return paths.currentPath;
     };
 
@@ -279,24 +291,41 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
+      const gp=analysis.gamebookPlay();
+      if (!gp) return;
       const key=analysis.study.data.id+'/'+analysis.study.currentChapter()?.id;
       if (!this._paths) {
         const json=lichess.storage.get('LichessTools.chapterPaths');
         this._paths=parent.jsonParse(json,{});
       }
       const paths=this._paths[key] || {};
-      const success = badMoves==0 && !askedForSolution;
+      const success = badMoves==0 && !askedForSolution && goodMoves>=Math.floor(path.length/4);
       const item=paths[path] || { path, interval:1 };
       item.time=Date.now();
       item.success=success;
+      if (!item.interval) item.interval=1;
       if (success) {
-        item.interval*=2;
+        item.interval=2;
       } else {
         item.interval/=2;
       }
       paths[path]=item;
+
+      const traverse=(node)=>{
+        const nextMoves=node.children
+                              .filter(c=>c.gamebook);
+        if (!nextMoves.length) {
+          if (!paths[node.path]) {
+            paths[node.path]={ path:node.path, interval:0, time:Date.now(), success: false };
+          }
+        }
+        for (const child of nextMoves) traverse(child);
+      };
+      traverse(analysis.tree.root);
+
       this._paths[key]=paths;
       lichess.storage.set('LichessTools.chapterPaths',JSON.stringify(this._paths));
+      this.refreshChapterProgress();
     };
 
     isDonePath=(path)=>{
@@ -329,8 +358,9 @@
       if (!this._paths) return false;
       const analysis=parent.lichess.analysis;
       const key=analysis.study.data.id+'/'+analysis.study.currentChapter()?.id;
-      this._paths[key]={};
+      this._paths[key]=null;
       lichess.storage.set('LichessTools.chapterPaths',JSON.stringify(this._paths));
+      this.refreshChapterProgress();
     };
 
     showScore=()=>{
@@ -660,6 +690,81 @@
 
     alterStudyLinks=this.lichessTools.debounce(this.alterStudyLinksDirect,100);
 
+    setupReset=()=>{
+      const parent=this.lichessTools;
+      this.state=parent.traverse();
+      const analysis=parent.lichess.analysis;
+      const study=analysis?.study;
+      if (!study) return;
+      const trans=parent.translator;
+      const modal=$('div.dialog-content');
+      if (!modal.length) return;
+      if (!this._paths) {
+        const json=lichess.storage.get('LichessTools.chapterPaths');
+        this._paths=parent.jsonParse(json,null);
+      }
+      if (!this._paths) return;
+      const key=analysis.study.data.id+'/'+analysis.study.currentChapter()?.id;
+      const paths=this._paths[key];
+      const button = $('div.form-actions button.lichessTools-reset',modal);
+      if (paths && (this.options.flow.sequential || this.options.flow.spacedRepetition)) {
+        if (button.length) return;
+        $('<button class="button button-red lichessTools-reset">')
+          .attr('title',trans.noarg('resetButtonTitle'))
+          .text(trans.noarg('resetButtonText'))
+          .on('click',ev=>{
+            ev.preventDefault();
+            if (!parent.global.confirm(trans.noarg('resetQuestion'))) return;
+            this.resetDone();
+          })
+          .insertBefore($('div.form-actions button[type="submit"]',modal));
+      } else {
+        button.remove();
+      }
+    };
+
+    refreshChapterProgress=()=>{
+      const parent=this.lichessTools;
+      this.state=parent.traverse();
+      const analysis=parent.lichess.analysis;
+      const study=analysis?.study;
+      if (!study) return;
+      const trans=parent.translator;
+      if (!this._paths) {
+        const json=lichess.storage.get('LichessTools.chapterPaths');
+        this._paths=parent.jsonParse(json,null);
+      }
+      if (!this._paths) return;
+      const list = study.chapters.list();
+      $('div.study__chapters').addClass('lichesstools-extendedInteractiveLessonFlow');
+      for (const chapter of list) {
+        const key=study.data.id+'/'+chapter.id;
+        const paths=this._paths[key];
+        let perc='';
+        if (paths) {
+          let total=0;
+          let doneCount=0;
+          for (const k in paths) {
+            if (k=='currentPath') continue;
+            const item=paths[k];
+            const done=this.options.flow.spacedRepetition
+              ? item && Date.now()<item.time+item.interval*86400000
+              : item?.success
+            total++;
+            if (done) doneCount++;
+          }
+          if (total) {
+            perc=(100*doneCount/total)+'%';
+            $('div.study__chapters div[data-id="'+chapter.id+'"]').attr('title',trans.pluralSame('progressTitle',doneCount+'/'+total));
+          } else {
+            $('div.study__chapters div[data-id="'+chapter.id+'"]').removeAttr('title');
+          }
+        }
+        $('div.study__chapters div[data-id="'+chapter.id+'"] > i.act')
+          .css('--perc',perc);
+      }
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('extendedInteractiveLesson');
@@ -756,6 +861,26 @@
           });
         }
         this.alterStudyLinks();
+      }
+
+      study.chapters.editForm.toggle=parent.unwrapFunction(study.chapters.editForm.toggle,'extendedInteractiveLessonFlow');
+      $('div.study__chapters').removeClass('lichesstools-extendedInteractiveLessonFlow');
+      if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
+        this.refreshChapterProgress();
+        study.chapters.editForm.toggle=parent.wrapFunction(study.chapters.editForm.toggle,{
+          id:'extendedInteractiveLessonFlow',
+          after:($this,result,data)=>{
+            const interval=parent.global.setInterval(()=>{
+              const currentChapterId=study.currentChapter()?.id;
+              if (!currentChapterId) return;
+              if (!study.data.chapter.gamebook) return;
+              const modal=$('div.dialog-content');
+              if (!modal.length) return;
+              parent.global.clearInterval(interval);
+              this.setupReset();
+            },100);
+          }
+        });
       }
     }
   }

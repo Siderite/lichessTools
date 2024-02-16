@@ -194,6 +194,16 @@ body.lichessTools.transp.lichessTools-extendedInteractiveLesson .gamebook-edit .
   }
 }
 
+body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow div[data-id] > i.act {
+  background: conic-gradient(green var(--perc), red 0);
+}
+
+body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow div[data-id]:not(:hover) > i.act:not(:hover) {
+  opacity:0.3;
+}
+
+
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier .analyse .gamebook span.lichessTools-score {
