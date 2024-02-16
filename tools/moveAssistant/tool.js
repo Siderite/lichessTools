@@ -59,10 +59,17 @@
       if (!this._sf) {
         const sf=await parent.stockfish.load();
         if (!sf) return;
-        sf.setThreads(1);
-        sf.setHash(128);
+        if ((parent.global.navigator.hardwareConcurrency||0)<=4) {
+          sf.setThreads(1);
+        } else {
+          sf.setThreads(2);
+        }
+        if ((parent.global.navigator.deviceMemory||0)<=2) {
+          sf.setHash(64);
+        } else {
+          sf.setHash(128);
+        }
         sf.setMultiPv(500);
-        //sf.setDepth(20);
         sf.setTime(90000);
         sf.on('info',this.getInfo);
         this._sf=sf;

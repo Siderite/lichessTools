@@ -125,6 +125,10 @@
 
     start() {
       const sf=this._instance;
+      if (!sf) {
+        this.load().then(this.start);
+        return;
+      }
       this.postMessage('stop');
       //this.postMessage('ucinewgame');
       this.postMessage('position fen ' + this._fen);
