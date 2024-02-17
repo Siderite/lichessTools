@@ -91,6 +91,7 @@
 
     _squares={};
     getSquare=(e,side,isBlack)=>{
+      if (e.cgKey) return e.cgKey;
       const parent=this.lichessTools;
       const $=parent.$;
       const matrix=$(e).css('transform');
@@ -100,8 +101,8 @@
       if (dest) return dest;
       const m=/(?<x>\d+(\.\d+)?), (?<y>\d+(\.\d+)?)\)/.exec(matrix);
       if (!m) return;
-      const x=+(m.groups.x)*8/side;
-      const y=+(m.groups.y)*8/side;
+      const x=Math.floor(+(m.groups.x)*8/side);
+      const y=Math.floor(+(m.groups.y)*8/side);
       const rank=isBlack?y:7-y;
       const file=isBlack?7-x:x;
       dest=String.fromCharCode('a'.charCodeAt(0)+file)+(rank+1);
