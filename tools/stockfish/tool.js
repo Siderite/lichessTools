@@ -53,11 +53,11 @@
           const sf=await this._stockfish();
           await sf.ready;
           sf.listen=this.listen.bind(this);
-          sf.postMessage('uci');
+          this._instance=sf;
+          this.postMessage('uci');
           while(!this._uciok) {
             await this.parent.timeout(100);
           }
-          this._instance=sf;
         }
         return this;
       } catch(e) {
@@ -65,9 +65,15 @@
       }
     }
 
+    postMessage(message) {
+      const sf=this._instance;
+      if (!sf) throw new Error('await .load() to finish instantiating!');
+      this.parent.debug && this.parent.global.console.debug('Post SF:',message);
+      sf.postMessage(message);
+    }
+
     setOption(name,value) {
       const sf=this._instance;
-      if (!sf) throw new Exception('await .load() to finish instantiating!');
       sf.postMessage('setoption name '+name+' value '+value);
     }
 
@@ -81,6 +87,11 @@
       this.restartDebounced();
     }
 
+    setThreads(count) {
+      this.setOption('Threads',count);
+      this.restartDebounced();
+    }
+
     setSearchMoves(moves) {
       if (this._searchMoves==moves) return;
       this._searchMoves=moves;
@@ -90,6 +101,12 @@
     setDepth(depth) {
       if (this._depth==depth) return;
       this._depth=depth;
+      this.restartDebounced();
+    }
+
+    setTime(time) {
+      if (this._time==time) return;
+      this._time=time;
       this.restartDebounced();
     }
 
@@ -108,11 +125,16 @@
 
     start() {
       const sf=this._instance;
-      if (!sf) throw new Exception('await .load() to finish instantiating!');
-      sf.postMessage('stop');
-      sf.postMessage('ucinewgame');
-      sf.postMessage('position fen ' + this._fen);
-      sf.postMessage('go '+(this._depth?'depth '+this._depth:'infinite')+(this._searchMoves?.length?' searchmoves '+this._searchMoves.join(' '):''));
+      if (!sf) {
+        this.load().then(this.start);
+        return;
+      }
+      this.postMessage('stop');
+      //this.postMessage('ucinewgame');
+      this.postMessage('position fen ' + this._fen);
+      this.postMessage('go'+(this._depth?' depth '+this._depth:this._time?' movetime '+this._time:' infinite')+(this._searchMoves?.length?' searchmoves '+this._searchMoves.join(' '):''));
+      this.postMessage('setoption name UCI_AnalyseMode value true');
+      this.postMessage('setoption name UCI_Elo value 3190');
       this._isStarted=true; 
     }
 
@@ -127,7 +149,7 @@
       if (!sf) return;
       this.stop();
       sf.listen=null;
-      sf.postMessage('quit');
+      this.postMessage('quit');
       this._instance=null;
       this._stockfish=null;
       this._module=null;
@@ -154,7 +176,9 @@
           arr.push(split);
         }
         this.emit('info',info);
+        return;
       }
+      this.parent.debug && this.parent.global.console.debug('SF',data);
     }
 
     _handlers={};

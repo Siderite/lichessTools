@@ -124,7 +124,7 @@
       const analysis=lichess.analysis;
       if (!analysis) return;
 
-      if (analysis.practice?.running() && !this.options.practice) return;
+      if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
       if (!analysis.ceval.enabled()) return;
 
       const node=analysis.ceval.lastStarted?.steps?.at(-1);
@@ -145,8 +145,16 @@
           && this.options.depth && curDepth>=this.options.depth)
       {
         node.autoDeeper=undefined;
-        analysis.ceval.stop();
-        analysis.redraw();
+        if (analysis.ceval.getState()==3) {
+          analysis.ceval.stop();
+          analysis.redraw();
+          if (analysis.node.ceval && analysis.practice?.running()) {
+            const depth=analysis.node.ceval.depth;
+            analysis.node.ceval.depth=100;
+            analysis.practice.onCeval();
+            analysis.node.ceval.depth=depth;
+          }
+        }
       }
     };
 
@@ -178,7 +186,7 @@
             id:'customEngineOptions',
             before:($this,...args)=>{
                if (!this.options.noCloud) return;
-               if (analysis.practice?.running() && !this.options.practice) return;
+               if ((analysis.practice?.running()||analysis.study?.practice) && !this.options.practice) return;
                return false;
             }
           });
@@ -188,12 +196,12 @@
             id:'customEngineOptions',
             before:($this,...args)=>{
                if (!this.options.noCloud) return;
-               if (analysis.practice?.running() && !this.options.practice) return;
+               if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
                return false;
             },
             after:($this,result,...args)=>{
                if (!this.options.noCloud) return;
-               if (analysis.practice?.running() && !this.options.practice) return;
+               if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
                return Promise.reject('Cloud disabled');
             }
           });

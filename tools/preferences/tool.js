@@ -121,7 +121,7 @@
     for (const tool of tools) {
       if (!tool.preferences) continue;
       for (const pref of tool.preferences) {
-        if (pref.hidden) continue;
+        if (pref.hidden && !parent.debug) continue;
         let categ=categs[pref.category];
         if (!categ) {
           categ=[];

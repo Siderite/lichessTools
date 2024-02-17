@@ -36,16 +36,17 @@
       const dests=selected
         ? analysis.chessground?.state?.movable?.dests?.get(selected)
         : null;
-      const isInteractive=!!analysis.study?.gamebookPlay;
+      const isInteractiveOrPractice=!!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
       const isActive = !!(this.options.enabled
                          && this.isEnabled
                          && selected
                          && dests?.length
-                         && !isInteractive
-                         //&& (analysis.turnColor()==analysis.getOrientation())
+                         && !isInteractiveOrPractice
                          );
       $('main.analyse div.cg-wrap').toggleClass('lichessTools-moveAssistant',isActive);
-      $('div.ceval button.lichessTools-moveAssistant').toggleClass('lichessTools-enabled',!!this.isEnabled);
+      $('div.ceval button.lichessTools-moveAssistant')
+        .toggleClass('lichessTools-enabled',!!this.isEnabled)
+        .toggle(!isInteractiveOrPractice);
       if (!isActive) {
         if (this._evaluating) {
           this._evaluating=false;
@@ -58,9 +59,18 @@
       if (!this._sf) {
         const sf=await parent.stockfish.load();
         if (!sf) return;
-        sf.setHash(64);
+        if ((parent.global.navigator.hardwareConcurrency||0)<=4) {
+          sf.setThreads(1);
+        } else {
+          sf.setThreads(2);
+        }
+        if ((parent.global.navigator.deviceMemory||0)<=2) {
+          sf.setHash(64);
+        } else {
+          sf.setHash(128);
+        }
         sf.setMultiPv(500);
-        sf.setDepth(20);
+        sf.setTime(90000);
         sf.on('info',this.getInfo);
         this._sf=sf;
       }
@@ -81,6 +91,7 @@
 
     _squares={};
     getSquare=(e,side,isBlack)=>{
+      if (e.cgKey) return e.cgKey;
       const parent=this.lichessTools;
       const $=parent.$;
       const matrix=$(e).css('transform');
@@ -90,8 +101,8 @@
       if (dest) return dest;
       const m=/(?<x>\d+(\.\d+)?), (?<y>\d+(\.\d+)?)\)/.exec(matrix);
       if (!m) return;
-      const x=+(m.groups.x)*8/side;
-      const y=+(m.groups.y)*8/side;
+      const x=Math.floor(+(m.groups.x)*8/side);
+      const y=Math.floor(+(m.groups.y)*8/side);
       const rank=isBlack?y:7-y;
       const file=isBlack?7-x:x;
       dest=String.fromCharCode('a'.charCodeAt(0)+file)+(rank+1);
@@ -125,7 +136,7 @@
           return;
         }
         const q=(cp-minCp)/(maxCp-minCp);
-        let rating=Math.round(255*Math.pow(q,3));
+        let rating=Math.round(255*Math.pow(q,5));
         const color='#'+(255-rating).toString(16).padStart(2,'0')+rating.toString(16).padStart(2,'0')+'00';
         $(e)
           .css('border-color',color);
@@ -134,12 +145,22 @@
 
     _eval={};
     getInfo=(info)=>{
+      const parent=this.lichessTools;
       const mate=+(info.mate?.at(0));
       const cp=mate
         ? Math.sign(mate)*10000-mate
         : +(info.cp?.at(0));
       const uci=info.pv?.at(0);
-      if (!uci || !cp) return;
+      if (!uci || Number.isNaN(cp)) return;
+      if (parent.debug) {
+        const depth=+(info.depth?.at(0));
+        const seldepth=+(info.seldepth?.at(0));
+        if (depth==1 && this._prevDepth>1) this._prevDepth=null;
+        if (!this._prevDepth || depth>this._prevDepth) {
+          this._prevDepth=depth;
+          parent.global.console.debug('Depth:',depth+'/'+seldepth);
+        }
+      }
       this._eval[uci]=cp;
     }
 
@@ -153,18 +174,19 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
-      const button=$('div.ceval button.lichessTools-moveAssistant');
+      let button=$('div.ceval button.lichessTools-moveAssistant');
       if (!this.options.enabled) {
         button.remove();
         return;
       }
       if (!button.length) {
-        $('<button type="button" class="lichessTools-moveAssistant">')
+        button = $('<button type="button" class="lichessTools-moveAssistant">')
           .attr('title',trans.noarg('assistantButtonTitle'))
           .attr('data-icon','\uE069')
           .on('click',ev=>{
             ev.preventDefault();
             this.isEnabled=!this.isEnabled;
+            button.toggleClass('lichessTools-enabled',!!this.isEnabled);
           })
           .insertBefore('div.ceval button.settings-gear');
       }

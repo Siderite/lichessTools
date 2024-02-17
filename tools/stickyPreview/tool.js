@@ -1,7 +1,7 @@
 (()=>{
   class StickyPreviewTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw'];
+    dependencies=['EmitRedraw','EmitChapterChange'];
 
     preferences=[
       {

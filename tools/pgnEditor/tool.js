@@ -33,6 +33,8 @@
         'btnSearchTitle': 'Search on partial FEN (*,? wildcards supported)',
         'btnKeepFoundText': 'Result',
         'btnKeepFoundTitle': 'Keep only the found results',
+        'btnCutPlysText': 'Reduce',
+        'btnCutPlysTitle': 'Remove everything after a ply number',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'btnUploadText': 'Upload',
@@ -63,9 +65,10 @@
         'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled',
         'pastePGNs': 'drag/paste your PGNs here',
-        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value',
+        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Ply"(>,=,<)Value',
         'foundGames': '%s games found',
-        'foundGames:one': 'One game found'
+        'foundGames:one': 'One game found',
+        'plyNumberPrompt': 'Enter maximum ply number for any branch'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -85,6 +88,8 @@
         'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial (suport\u0103 \u00eenlocuitori *,?)',
         'btnKeepFoundText': 'Rezultat',
         'btnKeepFoundTitle': 'P\u0103streaz\u0103 doar rezultatele g\u0103site',
+        'btnCutPlysText': 'Redu',
+        'btnCutPlysTitle': 'Sterge tot dupa un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare',
         'btnCancelText': 'Anuleaz\u0103',
         'btnCancelTitle': 'Anuleaz\u0103 opera\u0163iunea curent\u0103',
         'btnUploadText': '\u00CEncarc\u0103',
@@ -115,9 +120,10 @@
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
         'operationCancelled': 'Opera\u0163iune anulat\u0103',
         'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
-        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Etichet\u0103=Valoare',
+        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Ply"(>,=,<)Valoare',
         'foundGames': '%s jocuri g\u0103site',
-        'foundGames:one': 'Un joc g\u0103sit'
+        'foundGames:one': 'Un joc g\u0103sit',
+        'plyNumberPrompt': 'Introdu num\u0103rul maximum de jum\u0103t\u0103\u0163i de mutare'
       }
     }
 
@@ -199,6 +205,7 @@
                 <button class="button" type="button" data-role="split" data-icon="&#xE018;"><span></span></button>
                 <button class="button" type="button" data-role="search" data-icon="&#xE02F;"><span></span></button>
                 <button class="button" type="button" data-role="keepFound" data-icon="&#xE02A;"><span></span></button>
+                <button class="button" type="button" data-role="cutPlys" data-icon="&#x2702;"><span></span></button>
                 <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
                 <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"><span></span></button>
                 <hr></hr>
@@ -229,6 +236,7 @@
         })
         .on('change',ev=>{
           this.addTextToHistory(textarea.val());
+          this.writeNote('');
         })
         .on('keyup',ev=>{
           if (ev.ctrlKey && ev.key=='z') {
@@ -239,6 +247,7 @@
             ev.preventDefault();
             this.redo(textarea);
           }
+          this.writeNote('');
         });
       $('[data-role="merge"]',dialog)
         .attr('title',trans.noarg('btnMergeTitle'))
@@ -280,6 +289,14 @@
         })
         .find('span')
         .text(trans.noarg('btnKeepFoundText'));
+      $('[data-role="cutPlys"]',dialog)
+        .attr('title',trans.noarg('btnCutPlysTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('cutPlys',()=>this.cutPlys(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnCutPlysText'));
       $('[data-role="count"]',dialog)
         .attr('title',trans.noarg('btnCountTitle'))
         .on('click',ev=>{
@@ -499,7 +516,12 @@
 
       const traverse=(node,ply=0)=>{
         const fen=node.data?.fen;
-        if (!fen) throw new Error('Cannot find FEN for node '+node.data?.san+' at ply '+ply+'!');
+        if (!fen) {
+          const err = Error('Cannot find FEN for node '+node.data?.san+' at ply '+ply+'!');
+          err.san=node?.data?.san;
+          err.ply=ply+1;
+          throw err;
+        }
         const key=parent.getFenPosition(fen);
         let arr=game.fenDict.get(key);
         if (!arr) {
@@ -616,11 +638,11 @@
           await parent.timeout(0);
         }
         const gameI=games[i];
-        const fenI = gameI.moves.data.fen;
+        const fenI = gameI?.moves?.data?.fen;
         for (let j=i-1; j>=0; j--) {
           const gameJ=games[j];
-          const fenJ = gameJ.moves.data.fen;
-          if (fenI==fenJ) {
+          const fenJ = gameJ?.moves?.data?.fen;
+          if (fenI && fenI==fenJ) {
             mergeGames(gameJ,gameJ.moves,gameI);
             parent.arrayRemoveAll(games,g=>g==gameI);
             break;
@@ -629,7 +651,23 @@
         i--;
       }
       for (const game of games) {
-        this.enhanceGameWithFenDict(game);
+        try{
+          this.enhanceGameWithFenDict(game);
+        } catch(ex) {
+          if (ex.ply) {
+            const data=[gameIndex, ex.san, ex.ply]
+            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+              return data[+m[1]-1];
+            }));
+            withErrors=true;
+            break;
+          } else throw ex;
+          withErrors=true;
+        }
+      }
+      if (withErrors) {
+        this.writeNote(trans.noarg('operationFailed'));
+        return;
       }
       while(i>=0 && !this._cancelRequested) {
         if (Date.now()-lastWrite>1000) { 
@@ -715,6 +753,7 @@
             parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
             }));
+            withErrors=true;
             break;
           } else throw ex;
           withErrors=true;
@@ -838,6 +877,39 @@
       this.countPgn();
     };
 
+    cutPlys=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const plyNumber = +(parent.global.prompt(trans.noarg('plyNumberPrompt')));
+      if (!plyNumber) return;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+
+      const traverse=(node,ply=0)=>{
+        if (!node.children?.length) return;
+        if (node.data?.san && ply>=plyNumber) node.children=[];
+        for (const child of node.children) {
+          traverse(child,ply+1);
+        }
+      };
+      
+      for (const game of games) {
+        traverse(game.moves);
+      }
+      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+      this.setText(textarea,newText);
+      this.countPgn();
+    };
+
     searchPgn=async (textarea)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -846,23 +918,32 @@
 
       const search = parent.global.prompt(trans.noarg('searchPattern'));
       if (!search) return;
-      const m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
       let searchMode='fenOrMoves';
+      let plyNumberOperator;
+      let plyNumber;
       let tagName;
       let tagValue;
       let reg;
+      let m=/^ply\s*([\<\>=])\s*(\d+)/i.exec(search);
       if (m) {
-        searchMode='tag';
-        tagName=m[1];
-        tagValue=m[2];
+        searchMode='plyNumber';
+        plyNumberOperator=m[1];
+        plyNumber=+m[2];
       } else {
-        reg=new RegExp(Array.from(search).map(c=>{
-          switch(c) {
-            case '*': return '.*';
-            case '?': return '.';
-            default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
-          }
-        }).join(''));
+        m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
+        if (m) {
+          searchMode='tag';
+          tagName=m[1];
+          tagValue=m[2];
+        } else {
+          reg=new RegExp(Array.from(search).map(c=>{
+            switch(c) {
+              case '*': return '.*';
+              case '?': return '.';
+              default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+            }
+          }).join(''));
+        }
       }
 
       const co=parent.chessops;
@@ -871,6 +952,20 @@
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('searchingGames',games.length));
       await parent.timeout(0);
+
+      const getMaxPly=(game)=>{
+        let maxPly=0;
+        const traverse=(node,ply=0)=>{
+          if (node.data?.san && ply>maxPly) maxPly=ply;
+          if (!node.children?.length) return;
+          for (const child of node.children) {
+            traverse(child,ply+1);
+          }
+        };
+        traverse(game.moves);
+        return maxPly;
+      };
+
 
       let gameIndex=0;
       const foundGames=[];
@@ -893,6 +988,20 @@
             case 'tag':
               const val=game.headers.get(tagName);
               found=(val?.replace(/\s+/g,'')==tagValue?.replace(/\s+/g,''));
+              break;
+            case 'plyNumber':
+              const maxPly=getMaxPly(game);
+              switch(plyNumberOperator) {
+                case '>':
+                  found=maxPly>plyNumber;
+                  break;
+                case '<':
+                  found=maxPly<plyNumber;
+                  break;
+                case '=':
+                  found=maxPly==plyNumber;
+                  break;
+              }
               break;
           }
           if (found){
