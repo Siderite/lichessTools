@@ -93,13 +93,15 @@
             showHint: false
         };
         if (state.init) {
-          gp.currentPath=this.getCurrentPath();
-          if ((this.options.flow.sequential || this.options.flow.spacedRepetition) && !gp.currentPath) {
-            const nextMoves=parent.getNextMoves(node,gp.threeFoldRepetition)
-                                     .filter(c=>c.gamebook);
-            if (nextMoves.length && parent.global.confirm(trans.noarg('resetQuestionNoVariations'))) {
-              this.resetDone();
-              return gp.makeState();
+          if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
+            gp.currentPath=this.getCurrentPath();
+            if (!gp.currentPath) {
+              const nextMoves=parent.getNextMoves(node,gp.threeFoldRepetition)
+                                    .filter(c=>c.gamebook);
+              if (nextMoves.length && parent.global.confirm(trans.noarg('resetQuestionNoVariations'))) {
+                this.resetDone();
+                return gp.makeState();
+              }
             }
           }
         }
@@ -400,6 +402,7 @@
     patchGamebook=()=>{
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
+      if (analysis.study?.practice) return;
       const gp=analysis.gamebookPlay();
       if (!gp) return;
       if (this.options.extendedInteractive && !gp.isExtendedInteractiveLessons) {
