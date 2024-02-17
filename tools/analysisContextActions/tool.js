@@ -302,7 +302,7 @@
       const analysis=lichess.analysis;
       const study=analysis?.study;
       if (!analysis) return;
-      if (analysis.practice) return;
+      if (analysis.practice || analysis.study?.practice) return;
       const customEngineDepth=parent.currentOptions.getValue('customEngineLevel');
       const ceval = analysis.ceval;
       if (!ceval.enabled()||analysis.threatMode()) {

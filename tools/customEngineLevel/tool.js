@@ -124,7 +124,7 @@
       const analysis=lichess.analysis;
       if (!analysis) return;
 
-      if (analysis.practice?.running() && !this.options.practice) return;
+      if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
       if (!analysis.ceval.enabled()) return;
 
       const node=analysis.ceval.lastStarted?.steps?.at(-1);
@@ -186,7 +186,7 @@
             id:'customEngineOptions',
             before:($this,...args)=>{
                if (!this.options.noCloud) return;
-               if (analysis.practice?.running() && !this.options.practice) return;
+               if ((analysis.practice?.running()||analysis.study?.practice) && !this.options.practice) return;
                return false;
             }
           });
@@ -196,12 +196,12 @@
             id:'customEngineOptions',
             before:($this,...args)=>{
                if (!this.options.noCloud) return;
-               if (analysis.practice?.running() && !this.options.practice) return;
+               if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
                return false;
             },
             after:($this,result,...args)=>{
                if (!this.options.noCloud) return;
-               if (analysis.practice?.running() && !this.options.practice) return;
+               if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
                return Promise.reject('Cloud disabled');
             }
           });
