@@ -1,1 +1,1 @@
-lichessTools.start(window.lichess);
+lichessTools.start(window.lichess||window.site);
