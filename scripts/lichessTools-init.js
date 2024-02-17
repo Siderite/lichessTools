@@ -9,6 +9,7 @@ lichessTools.loadTool(LiChessTools.Tools.InterceptTimeouts);
 lichessTools.loadTool(LiChessTools.Tools.FixAbortController);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
+lichessTools.loadTool(LiChessTools.Tools.GamebookPlayClass);
 lichessTools.loadTool(LiChessTools.Tools.EmitPuzzleChange);
 lichessTools.loadTool(LiChessTools.Tools.TranspositionBehavior);
 lichessTools.loadTool(LiChessTools.Tools.RandomVariation);

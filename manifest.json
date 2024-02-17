@@ -31,6 +31,7 @@
         "tools/fixAbortController/tool.js",
         "tools/emitRedraw/tool.js",
         "tools/emitChapterChange/tool.js",
+        "tools/gamebookPlayClass/tool.js",
         "tools/emitPuzzleChange/tool.js",
         "tools/transpositionBehavior/tool.js",
         "tools/randomVariation/tool.js",
