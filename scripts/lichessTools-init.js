@@ -7,6 +7,7 @@ lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);
 lichessTools.loadTool(LiChessTools.Tools.InterceptTimeouts);
 //lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);
 lichessTools.loadTool(LiChessTools.Tools.FixAbortController);
+lichessTools.loadTool(LiChessTools.Tools.FixChessgroundResize);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
 lichessTools.loadTool(LiChessTools.Tools.GamebookPlayClass);
