@@ -83,6 +83,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - #readgame URL to read games in analysis/study
  - restore position in the move list in study chapters on page refresh
  - move assistant shows evaluation on selecte piece destinations
+ - warning when playing against a suspicious opponent
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

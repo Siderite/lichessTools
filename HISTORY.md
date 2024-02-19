@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Feb
+  - player warning alert for >3% disconnect rate
+
 16 Feb
   - sequential and spaced repetition flow for Interactive Lessons
 
