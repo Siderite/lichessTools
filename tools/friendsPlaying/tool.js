@@ -111,7 +111,7 @@
       const id = (this.lichessTools.random() + 1).toString(36).substring(8);
       this.lichessTools.lichess.storage.fire('LiChessTools.friendSound',{ time: now, id: id});
       await this.lichessTools.timeout(200);
-      const storedId=this.lichessTools.jsonParse(_=>lichess.storage.get('LiChessTools.friendSound'))?.value?.id;
+      const storedId=this.lichessTools.jsonParse(_=>this.lichessTools.lichess.storage.get('LiChessTools.friendSound'))?.value?.id;
       if (storedId && id!=storedId) silent+='lostBid';
     }
     this.lichessTools.global.console.debug('  ... '+eventType+' ('+gameType+','+variant+') '+silent);

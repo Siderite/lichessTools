@@ -31,6 +31,7 @@
 
     setupButtons=async (studyId,chapterId)=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       const $=parent.$;
       const pgn=await lichessTools.net.fetch({url:'/study/{studyId}/{chapterId}.pgn',args:{studyId,chapterId}});
       if (!pgn) return;

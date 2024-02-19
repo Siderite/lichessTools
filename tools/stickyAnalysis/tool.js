@@ -50,6 +50,7 @@
 
     retrievePgn=()=> {
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       const savedPgn=parent.currentOptions.getValue('prevAnalysis');
       if (!savedPgn) return;
       $('.analyse__underboard .pgn textarea').val(savedPgn);

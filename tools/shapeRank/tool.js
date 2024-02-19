@@ -112,6 +112,7 @@
 
     async start() {
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       const value=parent.currentOptions.getValue('shapeRank');
       this.options={ enabled: value };
       this.logOption('Show the order of arrows and circles', value);

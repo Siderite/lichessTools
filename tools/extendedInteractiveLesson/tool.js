@@ -237,7 +237,8 @@
 
     getCurrentPath=()=>{
       const parent=this.lichessTools;
-      const analysis=parent.lichess.analysis;
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
       const gp=analysis.gamebookPlay();
       if (!gp) return;
       if (!this._paths) {
@@ -695,8 +696,9 @@
 
     setupReset=()=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       this.state=parent.traverse();
-      const analysis=parent.lichess.analysis;
+      const analysis=lichess.analysis;
       const study=analysis?.study;
       if (!study) return;
       const trans=parent.translator;
@@ -728,8 +730,9 @@
 
     refreshChapterProgress=()=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       this.state=parent.traverse();
-      const analysis=parent.lichess.analysis;
+      const analysis=lichess.analysis;
       const study=analysis?.study;
       if (!study) return;
       const trans=parent.translator;

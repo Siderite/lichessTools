@@ -142,8 +142,8 @@
       if (this.history.length>this.historyIndex+1) {
         this.history.splice(this.historyIndex+1);
       }
-      if (history.length>10) {
-        history.splice(0,1);
+      if (this.history.length>10) {
+        this.history.splice(0,1);
       }
     };
     setHistoryIndex=async (val)=>{
