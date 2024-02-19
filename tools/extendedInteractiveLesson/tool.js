@@ -303,7 +303,7 @@
       }
       const paths=this._paths[key] || {};
       const success = badMoves==0 && !askedForSolution && goodMoves>=Math.floor(path.length/4);
-      const item=paths[path] || { path, interval:1 };
+      const item=paths[path] || { path };
       item.time=Date.now();
       item.success=success;
       if (!item.interval) item.interval=1;

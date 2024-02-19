@@ -1,0 +1,6 @@
+body.lichessTools span.lichessTools-playerWarning {
+  vertical-align: middle;
+  color: #ff4040;
+  font-size: smaller;
+  margin: 0 3px;
+}
