@@ -377,7 +377,7 @@
             const blob=new Blob([text],{type:'application/x-chess-pgn'});
             const url=URL.createObjectURL(blob);
             $('<a>')
-              .attr('download','pgnEditor_'+(x.toISOString().replace(/[\-T:]/g,'').slice(0,14))+'.pgn')
+              .attr('download','pgnEditor_'+(new Date().toISOString().replace(/[\-T:]/g,'').slice(0,14))+'.pgn')
               .attr('href',url)
               .trigger('click');
           });
