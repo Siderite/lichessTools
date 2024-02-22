@@ -18,8 +18,12 @@
       return this._debug;
     }
     set debug(value) {
+      if (this._debug==!!value) return;
       this._debug=!!value;
       this.global.localStorage.setItem('LiChessTools2.debug',this._debug.toString());
+      if (this._debug) {
+        console.debug('%c Debug mode is reserved for developers. Might lead to undesired consequences.', 'color: red;');
+      }
     }
   
     arrayRemoveAll(arr,predicate) {
@@ -841,7 +845,7 @@
       const age=lichess.info?.date
         ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
         : 0;
-      console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red;':'');
+      console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red; color:white;':'');
       this.translator = this.lichess.trans(this.intl.siteI18n);
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);
