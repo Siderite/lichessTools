@@ -22,7 +22,7 @@ lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
-lichessTools.loadTool(LiChessTools.Tools.HideCrosstable);
+//lichessTools.loadTool(LiChessTools.Tools.HideCrosstable);
 lichessTools.loadTool(LiChessTools.Tools.MobileExperience);
 lichessTools.loadTool(LiChessTools.Tools.CtrlSpaceForBestComputerMove);
 lichessTools.loadTool(LiChessTools.Tools.FriendsList);
