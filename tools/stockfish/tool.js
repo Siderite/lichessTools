@@ -27,6 +27,8 @@
       const parent = this.lichessTools;
       const value = parent.currentOptions.getValue('stockfish');
       if (!value) {
+        parent.stockfish?.destroy();
+        parent.stockfish=null;
         return;
       }
       const sf=new Stockfish(parent);

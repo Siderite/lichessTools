@@ -261,7 +261,11 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('exportPGN');
       this.logOption('Export PGN', value);
-      if (value) parent.exportPgn=this.exportPgn;
+      if (value) {
+        parent.exportPgn=this.exportPgn;
+      } else {
+        parent.exportPgn=null;
+      }
     }
 
   }

@@ -29,6 +29,7 @@
       const parent = this.lichessTools;
       const value = parent.currentOptions.getValue('chessOps');
       if (!value) {
+        parent.chessops=null;
         return;
       }
       parent.chessops = (function () {

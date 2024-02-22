@@ -76,7 +76,8 @@
       $('body').toggleClass('lichessTools-globalDisable',!currentOptions.enableLichessTools);
     };
     const checkAdvanced=()=>{
-      $('body').toggleClass('lichessTools-advancedPreferences',!!currentOptions.getValue('advancedPreferences'));
+      this.options.advanced=!!currentOptions.getValue('advancedPreferences');
+      $('body').toggleClass('lichessTools-advancedPreferences',this.options.advanced);
     };
 
     //TODO add link to translation project
@@ -287,8 +288,12 @@
       const $=parent.$;
       const location=parent.global.location;
       const trans=parent.translator;
-      this.logOption('Integration in Preferences', true);
-      this.logOption(' ... show advanced', !!parent.currentOptions.getValue('advancedPreferences'));
+      this.options={
+        enabled: true,
+        advanced:!!parent.currentOptions.getValue('advancedPreferences')
+      };
+      this.logOption('Integration in Preferences', this.options.enabled);
+      this.logOption(' ... show advanced', this.options.advanced);
       if (!$('main.account').length) return;
       if ($('a.lichessTools-menu').length) return;
       const openPreferences=this.openPreferences;
