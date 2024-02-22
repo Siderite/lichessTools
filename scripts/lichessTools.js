@@ -817,7 +817,7 @@
           }
         }
       } catch(e) {
-        console.error(e);
+        this.global.setTimeout(()=>this.global.console.error(e),100);
       }
     }
 
@@ -827,7 +827,11 @@
       });
       for (const tool of this.tools) {
         if (!tool?.init) continue;
-        await tool.init();
+        try {
+          await tool.init();
+        } catch(e) {
+          this.global.setTimeout(()=>this.global.console.error(e),100);
+        }
       }
     }
   
@@ -897,7 +901,11 @@
       group('Applying LiChess Tools options...');
       for (const tool of this.tools) {
         if (!tool?.start) continue;
-        await tool.start();
+        try {
+          await tool.start();
+        } catch(e) {
+          this.global.setTimeout(()=>this.global.console.error(e),100);
+        }
       }
       console.groupEnd();
     }
