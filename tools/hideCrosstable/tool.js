@@ -8,7 +8,8 @@
         type:'single',
         possibleValues: [false,true],
         defaultValue: false,
-        advanced: true
+        advanced: true,
+        hidden: true
       }
     ];
 
