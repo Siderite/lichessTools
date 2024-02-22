@@ -15,11 +15,11 @@
     intl = {
       'en-US': {
         'options.general': 'General',
-        'options.stockfish': 'stockfish'
+        'options.stockfish': 'Stockfish'
       },
       'ro-RO': {
         'options.general': 'General',
-        'options.stockfish': 'stockfish'
+        'options.stockfish': 'Stockfish'
       }
     }
 

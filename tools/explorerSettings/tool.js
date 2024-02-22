@@ -26,7 +26,8 @@
         'explorerPracticeSettingText':'Practice',
         'explorerPracticeSettingTitle':'Button to practice against Explorer moves',
         'meButtonSettingText':'Me button',
-        'meButtonSettingTitle':'Button to switch player with your user'
+        'meButtonSettingTitle':'Button to switch player with your user',
+        'options.explorerSettings': 'Add some preferences to Explorer settings'
        },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',

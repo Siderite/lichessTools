@@ -17,11 +17,11 @@
     intl = {
       'en-US': {
         'options.study': 'Study',
-        'options.chessOps': 'chessops support'
+        'options.chessOps': 'Chessops support'
       },
       'ro-RO': {
         'options.study': 'Studiu',
-        'options.chessOps': 'suport chessops'
+        'options.chessOps': 'Suport pentru chessops'
       }
     }
 

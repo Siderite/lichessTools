@@ -39,7 +39,8 @@
         'potentialLineTitle': 'Max potential',
         'goodMovesText':'good/brilliant/interesting moves',
         'goodMovesTitle':'LiChess Tools - good/brilliant/interesting moves',
-        'merryChristmas':'Merry Christmas from LiChess Tools!'
+        'merryChristmas':'Merry Christmas from LiChess Tools!',
+        'options.christmas': 'Show Christmas lights on chart on the 25th of December'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',

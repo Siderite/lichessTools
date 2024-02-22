@@ -6,7 +6,7 @@
     preferences=[
       {
         name:'cliCommands',
-        category: 'general',
+        category: 'command',
         type:'single',
         possibleValues: [false,true],
         defaultValue: true,
@@ -17,7 +17,8 @@
 
     intl={
       'en-US':{
-        'options.cliCommands': 'CLI commands'
+        'options.cliCommands': 'CLI commands',
+        'options.command': 'Commands'
       },
       'ro-RO':{
         'options.cliCommands': 'Comenzi CLI'

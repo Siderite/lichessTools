@@ -136,7 +136,10 @@
       html+='<div><h3><label for="chk_'+key+'">$trans(options.'+key+')</label></h3><input type="checkbox" id="chk_'+key+'" class="categoryToggle">';
       for (const pref of categ) {
         html+=`<section data-pref="${pref.name}"`;
-        if (pref.advanced) html+=' class="lichessTools-advancedPreference"'
+        const classes=[];
+        if (pref.advanced) classes.push('lichessTools-advancedPreference');
+        if (pref.hidden) classes.push('lichessTools-hiddenPreference');
+        if (classes.length) html+=' class="'+classes.join(' ')+'"'
         html+=`><h2>$trans(options.${pref.name})`;
         if (pref.author) {
           html+='<span class="lichessTools-author">$trans(author,'+htmlEncode(pref.author)+')</span>';
