@@ -83,11 +83,15 @@
       const parent=this.lichessTools;
       const Math=parent.global.Math;
       if (parent.opening_dict) {
-        const pos=fen
-          ? fen.split(' ').slice(0,4).join('').replaceAll('/','')
-          : parent.getPositionFromBoard(el);
+        if (!fen) fen=parent.getPositionFromBoard(el,true);
+        const pos=fen?.split(' ')?.slice(0,4)?.join('')?.replaceAll('/','');
         if (pos) {
-          const opening=parent.opening_dict.get(pos);
+          let opening=parent.opening_dict.get(pos);
+          if (!opening) {
+            const reversed=parent.reverseFen(fen).split(' ')?.slice(0,4)?.join('')?.replaceAll('/','');
+            const op=parent.opening_dict.get(reversed);
+            if (op) opening=op+' (R)';
+          }
           if (opening) {
             el.openingData={time:Date.now(), opening, el};
             return el.openingData;

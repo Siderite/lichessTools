@@ -571,6 +571,38 @@
       return result;
     };
 
+    reverseFen=(fen)=>{
+      if (!fen) return fen;
+
+      const flipCapitalization=s=>{
+        const pieces='RNBQKPrnbqkp';
+        return s.split('').map(ch=>{
+          const i=pieces.indexOf(ch);
+          if (i<0) return ch;
+          return pieces[(i+6)%12];
+        }).join('');
+      };
+
+      const splits=fen.split(' ');
+      splits[0]=flipCapitalization(splits[0].split('/').reverse().join('/'));
+      if (splits[1]) {
+        splits[1]=splits[1]=='w' ? 'b' : 'w';
+      }
+      if (splits[2]) {
+        splits[2]=flipCapitalization(splits[2]);
+        const arr=splits[2].split('');
+        arr.sort();
+        splits[2]=arr.join('');
+      }
+      if (splits[3]) {
+        const m=/^([a-h])([1-8])$/.test(splits[3]);
+        if (m) {
+          splits[3]=m[1]+(9-(+m[2]));
+        }
+      }
+      return splits.join(' ');
+    };
+
     makeSvg=(svgText,chessground)=>{
       if (window.Chessground) return svgText; //ugly hack because you cannot know what chessground version you got
       return {
