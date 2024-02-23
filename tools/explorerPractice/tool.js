@@ -15,7 +15,7 @@
         name:'explorerPracticeOptions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['showSmileys','sumClick'],
+        possibleValues: ['showSmileys','sumClick','showNames'],
         defaultValue: 'showSmileys,sumClick',
         advanced: true
       }
@@ -30,6 +30,7 @@
         'outOfMoves':'Out of Explorer moves',
         'explorerPracticeOptions.showSmileys': 'Show emojis when out of moves',
         'explorerPracticeOptions.sumClick': 'Click Explorer \u03A3 to make a move',
+        'explorerPracticeOptions.showNames': 'Show opponent name',
         'sumClickTitle':'LiChess Tools - click to make a move'
       },
       'ro-RO':{
@@ -40,8 +41,61 @@
         'outOfMoves':'Nu mai sunt mut\u0103ri \u00een Explorator',
         'explorerPracticeOptions.showSmileys': 'Arat\u0103 emoji c\u00E2nd nu mai sunt mut\u0103ri',
         'explorerPracticeOptions.sumClick': 'Click pe \u03A3 \u00een Explorator pentru a muta',
+        'explorerPracticeOptions.showNames': 'Arat\u0103 numele adversarului',
         'sumClickTitle':'LiChess Tools - click pentru a muta'
       }
+    }
+
+    writePlayerName(name,square) {
+      if (!this.options.showNames) return;
+      const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
+      const $=parent.$;
+      const board=$('div.main-board cg-board');
+      const q=board.width()/8;
+      const coords=analysis.getOrientation()=='white'
+        ? { x: square.charCodeAt(0)-97, y: (+square[1])-1 }
+        : { x: 104-square.charCodeAt(0), y: 8-(+square[1]) };
+      let label=$('.lichessTools-explorerPractice',board);
+      if (!label.length) {
+        label=$('<label class="lichessTools-explorerPractice"><span></span></label>')
+          .appendTo(board);
+      }
+      label
+        .css({ left: coords.x*q, top: (7-coords.y)*q})
+        .find('span')
+        .text(name||'');
+      label.toggleClass('black',analysis.turnColor()=='black')
+    };
+
+    rewritePlayerName() {
+      if (!this.options.showNames) return;
+      const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
+      const $=parent.$;
+      const board=$('div.main-board cg-board');
+      const label=$('.lichessTools-explorerPractice',board);
+      if (!label.length || label.text()) return;
+      const current=analysis.explorer?.current();
+      if (!current) return;
+      let turn=analysis.turnColor();
+      turn=turn=='white'?'black':'white';
+      const playerNames=[...current.recentGames,...current.topGames]
+                          .map(m=>m[turn].name);
+      const playerIndex=Math.floor(parent.random()*playerNames.length);
+      const playerName=playerNames[playerIndex];
+      label
+        .find('span')
+        .text(playerName);
+      label.toggleClass('black',turn=='black')
+    }
+
+    removePlayerName() {
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const board=$('div.main-board cg-board');
+      const label=$('.lichessTools-explorerPractice',board);
+      label.remove();
     }
 
     playMove=(ignoreSide)=>{
@@ -51,9 +105,11 @@
       const trans=parent.translator;
       const $=parent.$;
       const analysis=lichess?.analysis;
-      if (!ignoreSide && analysis.turnColor()===analysis.getOrientation()) {
+      const turn=analysis.turnColor();
+      if (!ignoreSide && turn===analysis.getOrientation()) {
         this.inPlayMove=false;
         this.stopCeval=false;
+        this.rewritePlayerName();
         return;
       }
       if (!analysis.explorer?.enabled()) return;
@@ -73,6 +129,12 @@
       for (const move of moves) {
         acc+=move.total;
         if (index<=acc) {
+          const playerNames=[...current.recentGames,...current.topGames]
+                          .filter(m=>m.uci==move.uci)
+                          .map(m=>m[turn].name);
+          const playerIndex=Math.floor(parent.random()*playerNames.length);
+          const playerName=playerNames[playerIndex];
+          this.writePlayerName(playerName,move.uci.slice(2,4));
           analysis.playUci(move.uci);
           this.inPlayMove=analysis.node.fen;
           return;
@@ -114,6 +176,11 @@
       this.playMove(true);
     };
 
+    setRunning=(value)=>{
+      this.isRunning=value;
+      if (!value) this.removePlayerName();
+    };
+
     process=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -121,16 +188,16 @@
       const trans=parent.translator;
       const analysis=lichess?.analysis;
       if (lichess.analysis.gamebookPlay()) {
-        this.isRunning=false;
+        this.setRunning(false);
         return;
       };
       if (parent.isGamePlaying())  {
-        this.isRunning=false;
+        this.setRunning(false);
         return;
       }
       const explorerContainer=$('section.explorer-box').eq(0);
       if (!explorerContainer.length) {
-        this.isRunning=false;
+        this.setRunning(false);
         return;
       }
       const sumRow=$('tr.sum',explorerContainer);
@@ -147,7 +214,7 @@
       }
       const container=$('div.explorer-title',explorerContainer);
       if (!container.length) {
-        this.isRunning=false;
+        this.setRunning(false);
         return;
       };
       let button=$('span.lichessTools-explorerPractice',container);
@@ -158,13 +225,15 @@
           .attr('data-icon','\uE021')
           .on('click',ev=>{
             ev.preventDefault();
-            this.isRunning=!this.isRunning;
+            this.setRunning(!this.isRunning);
             this.process();
             parent.emitRedraw();
           })
           .prependTo(container);
       }
-      if (!analysis.explorer?.enabled()) this.isRunning=false;
+      if (!analysis.explorer?.enabled()) {
+        this.setRunning(false);
+      }
       button.toggleClass('active',!!this.isRunning);
       explorerContainer.toggleClass('lichessTools-explorerPracticeInAnalysis',!!this.isRunning && !analysis.study);
       if (this.isRunning) parent.global.setTimeout(this.playMove,500);
@@ -177,6 +246,7 @@
       const options=parent.currentOptions.getValue('explorerPracticeOptions');
       this.options={
         showSmileys:parent.isOptionSet(options,'showSmileys'),
+        showNames:parent.isOptionSet(options,'showNames'),
         sumClick:parent.isOptionSet(options,'sumClick')
       };
       this.logOption('Explorer practice', value);
@@ -195,7 +265,7 @@
         return;
       }
       parent.bindKeyHandler('shift+l',()=>{
-        this.isRunning=!this.isRunning;
+        this.setRunning(!this.isRunning);
         this.process();
         parent.emitRedraw();
       });
@@ -207,6 +277,7 @@
           this.inPlayMove=false;
         }
       });
+      this.removePlayerName();
       this.process();
     }
 

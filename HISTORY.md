@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+23 Feb
+  - opponent name in Explorer Practice
+  - show opening if colors reversed
+
 19 Feb
   - player warning alert for >3% disconnect rate
 
