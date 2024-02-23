@@ -276,7 +276,7 @@
         };
       }
       traverse(analysis.tree.root);
-      const i = Math.floor(Math.random() * currentPaths.length);
+      const i = Math.floor(parent.random() * currentPaths.length);
       paths.currentPath=currentPaths[i];
       lichess.storage.set('LichessTools.chapterPaths',JSON.stringify(this._paths));
       return paths.currentPath;

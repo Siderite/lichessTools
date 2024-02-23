@@ -710,8 +710,8 @@
       const initActiveElements=chart.getActiveElements()?.map(e=>{ return {datasetIndex:e.datasetIndex, index:e.index}; });
       const colors=['red','green','blue','orange','yellow','magenta','cyan','white'];
       for (let i=0; i<30; i++) {
-        const elements=dataset.data.filter(d=>Math.random()<0.3).map(d=>{ return { datasetIndex:0, index:d.x-1 }; });
-        const color=colors[Math.round(Math.random()*colors.length)];
+        const elements=dataset.data.filter(d=>parent.random()<0.3).map(d=>{ return { datasetIndex:0, index:d.x-1 }; });
+        const color=colors[Math.round(parent.random()*colors.length)];
         dataset.hoverBackgroundColor=color;
         chart.setActiveElements(elements);
         chart.update('none');
