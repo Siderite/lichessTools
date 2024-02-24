@@ -716,9 +716,8 @@
         this.cleanGame(game);
       }
 
-      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      this.setText(textarea,newText);
+      this.writeGames(textarea, games);
+
       if (games.length<initialNumberOfGames) {
         this.countPgn();
       } else {
@@ -812,9 +811,8 @@
         this.cleanGame(game);
       }
 
-      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      this.setText(textarea,newText);
+      this.writeGames(textarea, games);
+
       this.countPgn();
     };
 
@@ -871,9 +869,8 @@
         this.cleanGame(game);
       }
 
-      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      this.setText(textarea,newText);
+      this.writeGames(textarea, games);
+
       this.countPgn();
     };
 
@@ -916,9 +913,9 @@
       for (const game of games) {
         game.headers?.clear();
       }
-      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      this.setText(textarea,newText);
+
+      this.writeGames(textarea, games);
+
       this.countPgn();
     };
 
@@ -948,9 +945,9 @@
       for (const game of games) {
         traverse(game.moves);
       }
-      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      this.setText(textarea,newText);
+
+      this.writeGames(textarea, games);
+
       this.countPgn();
     };
 
@@ -980,9 +977,9 @@
       for (const game of games) {
         traverse(game.moves);
       }
-      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      this.setText(textarea,newText);
+
+      this.writeGames(textarea, games);
+
       this.countPgn();
     };
 
@@ -1011,9 +1008,9 @@
       for (const game of games) {
         traverse(game.moves);
       }
-      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      this.setText(textarea,newText);
+
+      this.writeGames(textarea, games);
+
       this.countPgn();
     };
 
@@ -1133,9 +1130,7 @@
         this.cleanGame(game);
       }
 
-      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      this.setText(textarea,newText);
+      this.writeGames(textarea, games);
 
       const foundText=foundGames.map(g=>{
         g.headers.delete('Found');
@@ -1166,11 +1161,35 @@
         game.headers.delete('Found');
       }
 
-      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
-      this.setText(textarea,newText);
+      this.writeGames(textarea, games);
 
       this.countPgn();
+    };
+
+    writeGames=(textarea,games)=>{
+      const parent=this.lichessTools;
+      const co=parent.chessops;
+      const { makePgn } = co.pgn;
+
+      let newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+
+      const regChessMove=/(?<move>\b(?<piece>[NBRQK])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK]))?(?<p2>\+|#)?\b)(?<nags>(\s+\$\d+)+)/g;
+      const annos=['!','?','!!','??','!?','?!'];
+      newText = newText.replace(regChessMove,
+        (...m)=>{
+          const g=m.at(-1);
+          let nags=g.nags;
+          const m2=/\s+\$([1-6])\b/.exec(nags);
+          if (m2) {
+            nags=nags.substr(0,m2.index)+nags.substr(m2.index+m2[0].length);
+            const anno=annos[+m2[1]-1];
+            return g.move+anno+nags;
+          }
+          return m[0];
+        });
+
+      this.setText(textarea,newText);
     };
 
     undo=async (textarea)=>{
