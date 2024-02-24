@@ -33,8 +33,8 @@
         'btnSearchTitle': 'Search on partial FEN (*,? wildcards supported)',
         'btnKeepFoundText': 'Result',
         'btnKeepFoundTitle': 'Keep only the found results',
-        'btnCutPlysText': 'Reduce',
-        'btnCutPlysTitle': 'Remove everything after a ply number',
+        'btnCutStuffText': 'Cut',
+        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments or tags',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'btnUploadText': 'Upload',
@@ -68,7 +68,7 @@
         'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Ply"(>,=,<)Value',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
-        'plyNumberPrompt': 'Enter maximum ply number for any branch'
+        'plyNumberPrompt': '"Tags", "Annotations", "Comments", "Ply "Value in any combination (i.e. tags, ply 10)'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -88,8 +88,8 @@
         'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial (suport\u0103 \u00eenlocuitori *,?)',
         'btnKeepFoundText': 'Rezultat',
         'btnKeepFoundTitle': 'P\u0103streaz\u0103 doar rezultatele g\u0103site',
-        'btnCutPlysText': 'Redu',
-        'btnCutPlysTitle': 'Sterge tot dupa un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare',
+        'btnCutStuffText': 'Taie',
+        'btnCutStuffTitle': 'Taie la un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 adnotari, comentarii sau etichete',
         'btnCancelText': 'Anuleaz\u0103',
         'btnCancelTitle': 'Anuleaz\u0103 opera\u0163iunea curent\u0103',
         'btnUploadText': '\u00CEncarc\u0103',
@@ -123,7 +123,7 @@
         'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Ply"(>,=,<)Valoare',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
-        'plyNumberPrompt': 'Introdu num\u0103rul maximum de jum\u0103t\u0103\u0163i de mutare'
+        'plyNumberPrompt': '"Tags", "Annotations", "Comments", "Ply "Valoare \u00een orice combina\u0163ie (ex: tags, ply 10)'
       }
     }
 
@@ -205,7 +205,7 @@
                 <button class="button" type="button" data-role="split" data-icon="&#xE018;"><span></span></button>
                 <button class="button" type="button" data-role="search" data-icon="&#xE02F;"><span></span></button>
                 <button class="button" type="button" data-role="keepFound" data-icon="&#xE02A;"><span></span></button>
-                <button class="button" type="button" data-role="cutPlys" data-icon="&#x2702;"><span></span></button>
+                <button class="button" type="button" data-role="cutStuff" data-icon="&#x2702;"><span></span></button>
                 <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
                 <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"><span></span></button>
                 <hr></hr>
@@ -289,14 +289,14 @@
         })
         .find('span')
         .text(trans.noarg('btnKeepFoundText'));
-      $('[data-role="cutPlys"]',dialog)
-        .attr('title',trans.noarg('btnCutPlysTitle'))
+      $('[data-role="cutStuff"]',dialog)
+        .attr('title',trans.noarg('btnCutStuffTitle'))
         .on('click',ev=>{
           ev.preventDefault();
-          this.runOperation('cutPlys',()=>this.cutPlys(textarea));
+          this.runOperation('cutStuff',()=>this.cutStuff(textarea));
         })
         .find('span')
-        .text(trans.noarg('btnCutPlysText'));
+        .text(trans.noarg('btnCutStuffText'));
       $('[data-role="count"]',dialog)
         .attr('title',trans.noarg('btnCountTitle'))
         .on('click',ev=>{
@@ -877,13 +877,120 @@
       this.countPgn();
     };
 
-    cutPlys=async (textarea)=>{
+    cutStuff=async (textarea)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
 
-      const plyNumber = +(parent.global.prompt(trans.noarg('plyNumberPrompt')));
+      const text=parent.global.prompt(trans.noarg('plyNumberPrompt'));
+      if (/tags/i.test(text)) {
+        await this.cutTags(textarea);
+      }
+      if (/comments/i.test(text)) {
+        await this.cutComments(textarea);
+      }
+      if (/annotations|nags/i.test(text)) {
+        await this.cutAnnotations(textarea);
+      }
+      const m=/(?:^(\d+)$|ply\s*(\d+))/i.exec(text);
+      if (m) {
+        const ply=+(m[1]||m[2]);
+        await this.cutPly(textarea,ply);
+      }
+    };
+      
+    cutTags=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+
+      for (const game of games) {
+        game.headers?.clear();
+      }
+      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+      this.setText(textarea,newText);
+      this.countPgn();
+    };
+
+    cutComments=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+
+      const traverse=(node,ply=0)=>{
+        if (node.data?.comments?.length) {
+          node.data.comments.length=0;
+        }
+        if (!node.children?.length) return;
+        for (const child of node.children) {
+          traverse(child,ply+1);
+        }
+      };
+      
+      for (const game of games) {
+        traverse(game.moves);
+      }
+      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+      this.setText(textarea,newText);
+      this.countPgn();
+    };
+
+    cutAnnotations=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+
+      const traverse=(node,ply=0)=>{
+        if (node.data?.nags?.length) {
+          node.data.nags.length=0;
+        }
+        if (!node.children?.length) return;
+        for (const child of node.children) {
+          traverse(child,ply+1);
+        }
+      };
+      
+      for (const game of games) {
+        traverse(game.moves);
+      }
+      const newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+      this.setText(textarea,newText);
+      this.countPgn();
+    };
+
+    cutPly=async (textarea,plyNumber)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
       if (!plyNumber) return;
 
       const co=parent.chessops;
