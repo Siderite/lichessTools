@@ -9,7 +9,7 @@
         category: 'analysis',
         type:'multiple',
         possibleValues: ['material','principled','tension','potential','brilliant','smooth','gauge'],
-        defaultValue: 'material,principled,tension,smooth,gauge',
+        defaultValue: 'material,principled,tension,smooth,gauge,brilliant',
         advanced: true
       },
       {
