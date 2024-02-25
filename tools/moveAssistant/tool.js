@@ -138,7 +138,7 @@
         const q=(cp-minCp)/(maxCp-minCp);
         //let rating=Math.round(255*Math.pow(q,3));
         //const color='#'+(255-rating).toString(16).padStart(2,'0')+rating.toString(16).padStart(2,'0')+'00';
-        const color=this.getGradientColor(q,[{q:0,color:'#FF0000'},{q:0.7,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
+        const color=this.getGradientColor(Math.pow(q,3),[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
         $(e)
           .css('border-color',color);
       });
