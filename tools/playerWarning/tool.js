@@ -39,7 +39,7 @@
       const text=$('div.game__meta div.setup').text();
       const m=/(\d+)\+(\d+)/.exec(text);
       if (!m) return;
-      return parent.getGameTime(m[0]);
+      return parent.getGameTime(m[0],true);
     };
 
     refreshWarning=()=>{
