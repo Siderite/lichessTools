@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 Feb
+  - Better board image export
+
 23 Feb
   - opponent name in Explorer Practice
   - show opening if colors reversed
