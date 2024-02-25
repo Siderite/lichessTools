@@ -59,7 +59,7 @@
                   type: 'rank',
                   orig: shape.orig,
                   dest: false, // fix lichess bug where this is found as the shape to erase
-                  customSvg:parent.makeSvg('<text x="10%" y="50%" font-size="200%" fill="black" stroke="'+shape.brush+'">'+rank+'</text>',this.chessground)
+                  customSvg:parent.makeSvg('<text x="10%" y="50%" font-size="200%" fill="black" stroke="'+shape.brush+'" font-family="Noto Sans, sans-serif" >'+rank+'</text>',this.chessground)
                 };
                 dict[rankShape.orig]=true;
                 drawnShapes.push(rankShape);
