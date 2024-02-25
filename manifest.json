@@ -105,6 +105,7 @@
         "tools/mayTenth/tool.js",
         "tools/moveAssistant/tool.js",
         "tools/playerWarning/tool.js",
+        "tools/boardImage/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -170,6 +171,7 @@
         "tools/mayTenth/tool.css",
         "tools/moveAssistant/tool.css",
         "tools/playerWarning/tool.css",
+        "tools/boardImage/tool.css",
 
         "tools/tvOptions/tool.css",
 
