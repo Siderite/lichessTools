@@ -76,7 +76,8 @@
       $('body').toggleClass('lichessTools-globalDisable',!currentOptions.enableLichessTools);
     };
     const checkAdvanced=()=>{
-      $('body').toggleClass('lichessTools-advancedPreferences',!!currentOptions.getValue('advancedPreferences'));
+      this.options.advanced=!!currentOptions.getValue('advancedPreferences');
+      $('body').toggleClass('lichessTools-advancedPreferences',this.options.advanced);
     };
 
     //TODO add link to translation project
@@ -136,7 +137,10 @@
       html+='<div><h3><label for="chk_'+key+'">$trans(options.'+key+')</label></h3><input type="checkbox" id="chk_'+key+'" class="categoryToggle">';
       for (const pref of categ) {
         html+=`<section data-pref="${pref.name}"`;
-        if (pref.advanced) html+=' class="lichessTools-advancedPreference"'
+        const classes=[];
+        if (pref.advanced) classes.push('lichessTools-advancedPreference');
+        if (pref.hidden) classes.push('lichessTools-hiddenPreference');
+        if (classes.length) html+=' class="'+classes.join(' ')+'"'
         html+=`><h2>$trans(options.${pref.name})`;
         if (pref.author) {
           html+='<span class="lichessTools-author">$trans(author,'+htmlEncode(pref.author)+')</span>';
@@ -284,8 +288,12 @@
       const $=parent.$;
       const location=parent.global.location;
       const trans=parent.translator;
-      this.logOption('Integration in Preferences', true);
-      this.logOption(' ... show advanced', !!parent.currentOptions.getValue('advancedPreferences'));
+      this.options={
+        enabled: true,
+        advanced:!!parent.currentOptions.getValue('advancedPreferences')
+      };
+      this.logOption('Integration in Preferences', this.options.enabled);
+      this.logOption(' ... show advanced', this.options.advanced);
       if (!$('main.account').length) return;
       if ($('a.lichessTools-menu').length) return;
       const openPreferences=this.openPreferences;

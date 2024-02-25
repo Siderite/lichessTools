@@ -1,7 +1,12 @@
+body.lichessTools div.round__app signal.lichessTools-playerLag {
+  vertical-align:middle;
+}
+
 body.lichessTools div.round__app canvas.lichessTools-playerLag {
   height: 1em;
   width: 2em;
   border-radius:5%;
+  vertical-align:middle;
 }
 
 @media not print and (prefers-color-scheme: dark) {

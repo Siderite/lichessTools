@@ -63,6 +63,7 @@
     bindButtons=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
+      const lichess=parent.lichess;
       const study=lichess.analysis?.study;
       if (!study) return;
       const previewButton=$('button.preview');

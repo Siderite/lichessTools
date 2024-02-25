@@ -135,6 +135,14 @@ body.lichessTools-advancedPreferences div.lichessTools-preferences section.liche
   display:block;
 }
 
+body.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-hiddenPreference {
+  filter: sepia(1);
+}
+
+body.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-hiddenPreference a.lichessTools-infoIcon {
+  display:none;
+}
+
 body.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-advancedPreference h2:after {
   opacity:0.3;
 }

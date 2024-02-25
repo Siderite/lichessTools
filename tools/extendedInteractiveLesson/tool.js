@@ -237,7 +237,8 @@
 
     getCurrentPath=()=>{
       const parent=this.lichessTools;
-      const analysis=parent.lichess.analysis;
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
       const gp=analysis.gamebookPlay();
       if (!gp) return;
       if (!this._paths) {
@@ -275,7 +276,7 @@
         };
       }
       traverse(analysis.tree.root);
-      const i = Math.floor(Math.random() * currentPaths.length);
+      const i = Math.floor(parent.random() * currentPaths.length);
       paths.currentPath=currentPaths[i];
       lichess.storage.set('LichessTools.chapterPaths',JSON.stringify(this._paths));
       return paths.currentPath;
@@ -302,7 +303,7 @@
       }
       const paths=this._paths[key] || {};
       const success = badMoves==0 && !askedForSolution && goodMoves>=Math.floor(path.length/4);
-      const item=paths[path] || { path, interval:1 };
+      const item=paths[path] || { path };
       item.time=Date.now();
       item.success=success;
       if (!item.interval) item.interval=1;
@@ -695,8 +696,9 @@
 
     setupReset=()=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       this.state=parent.traverse();
-      const analysis=parent.lichess.analysis;
+      const analysis=lichess.analysis;
       const study=analysis?.study;
       if (!study) return;
       const trans=parent.translator;
@@ -728,8 +730,9 @@
 
     refreshChapterProgress=()=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       this.state=parent.traverse();
-      const analysis=parent.lichess.analysis;
+      const analysis=lichess.analysis;
       const study=analysis?.study;
       if (!study) return;
       const trans=parent.translator;

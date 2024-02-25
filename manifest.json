@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Lichess Tools, by Siderite",
   "short_name": "Lichess Tools",
-  "version": "2.3.20",
+  "version": "2.3.24",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -67,7 +67,6 @@
         "tools/movesFromTranspositions/tool.js",
         "tools/extendedInteractiveLesson/tool.js",
         "tools/saveOptionsForIncognito/tool.js",
-        "tools/hideCrosstable/tool.js",
         "tools/chapterClearArtifacts/tool.js",
         "tools/customChatButtons/tool.js",
         "tools/mobileExperience/tool.js",
@@ -105,6 +104,8 @@
         "tools/profilePuzzleTab/tool.js",
         "tools/mayTenth/tool.js",
         "tools/moveAssistant/tool.js",
+        "tools/playerWarning/tool.js",
+        "tools/boardImage/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -144,7 +145,6 @@
         "tools/analysisContextActions/tool.css",
         "tools/movesFromTranspositions/tool.css",
         "tools/extendedInteractiveLesson/tool.css",
-        "tools/hideCrosstable/tool.css",
         "tools/chapterClearArtifacts/tool.css",
         "tools/customChatButtons/tool.css",
         "tools/mobileExperience/tool.css",
@@ -170,6 +170,8 @@
         "tools/downloadAllStudies/tool.css",
         "tools/mayTenth/tool.css",
         "tools/moveAssistant/tool.css",
+        "tools/playerWarning/tool.css",
+        "tools/boardImage/tool.css",
 
         "tools/tvOptions/tool.css",
 

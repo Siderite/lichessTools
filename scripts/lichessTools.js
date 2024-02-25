@@ -18,8 +18,12 @@
       return this._debug;
     }
     set debug(value) {
+      if (this._debug==!!value) return;
       this._debug=!!value;
       this.global.localStorage.setItem('LiChessTools2.debug',this._debug.toString());
+      if (this._debug) {
+        console.debug('%c Debug mode is reserved for developers. Might lead to undesired consequences.', 'color: red;');
+      }
     }
   
     arrayRemoveAll(arr,predicate) {
@@ -567,6 +571,38 @@
       return result;
     };
 
+    reverseFen=(fen)=>{
+      if (!fen) return fen;
+
+      const flipCapitalization=s=>{
+        const pieces='RNBQKPrnbqkp';
+        return s.split('').map(ch=>{
+          const i=pieces.indexOf(ch);
+          if (i<0) return ch;
+          return pieces[(i+6)%12];
+        }).join('');
+      };
+
+      const splits=fen.split(' ');
+      splits[0]=flipCapitalization(splits[0].split('/').reverse().join('/'));
+      if (splits[1]) {
+        splits[1]=splits[1]=='w' ? 'b' : 'w';
+      }
+      if (splits[2]) {
+        splits[2]=flipCapitalization(splits[2]);
+        const arr=splits[2].split('');
+        arr.sort();
+        splits[2]=arr.join('');
+      }
+      if (splits[3]) {
+        const m=/^([a-h])([1-8])$/.test(splits[3]);
+        if (m) {
+          splits[3]=m[1]+(9-(+m[2]));
+        }
+      }
+      return splits.join(' ');
+    };
+
     makeSvg=(svgText,chessground)=>{
       if (window.Chessground) return svgText; //ugly hack because you cannot know what chessground version you got
       return {
@@ -817,7 +853,7 @@
           }
         }
       } catch(e) {
-        console.error(e);
+        this.global.setTimeout(()=>this.global.console.error(e),100);
       }
     }
 
@@ -827,7 +863,11 @@
       });
       for (const tool of this.tools) {
         if (!tool?.init) continue;
-        await tool.init();
+        try {
+          await tool.init();
+        } catch(e) {
+          this.global.setTimeout(()=>this.global.console.error(e),100);
+        }
       }
     }
   
@@ -837,7 +877,7 @@
       const age=lichess.info?.date
         ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
         : 0;
-      console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red;':'');
+      console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red; color:white;':'');
       this.translator = this.lichess.trans(this.intl.siteI18n);
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);
@@ -897,7 +937,11 @@
       group('Applying LiChess Tools options...');
       for (const tool of this.tools) {
         if (!tool?.start) continue;
-        await tool.start();
+        try {
+          await tool.start();
+        } catch(e) {
+          this.global.setTimeout(()=>this.global.console.error(e),100);
+        }
       }
       console.groupEnd();
     }

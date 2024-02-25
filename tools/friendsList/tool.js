@@ -247,6 +247,7 @@
     rows={};
     updateFriendsPage=()=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       const $=parent.$;
       const trans=this.lichessTools.translator;
       const myName=parent.getUserId();

@@ -6,7 +6,7 @@
     preferences=[
       {
         name:'cliCommands',
-        category: 'general',
+        category: 'command',
         type:'single',
         possibleValues: [false,true],
         defaultValue: true,
@@ -17,7 +17,8 @@
 
     intl={
       'en-US':{
-        'options.cliCommands': 'CLI commands'
+        'options.cliCommands': 'CLI commands',
+        'options.command': 'Commands'
       },
       'ro-RO':{
         'options.cliCommands': 'Comenzi CLI'
@@ -100,7 +101,7 @@
         return;
       }
       $(input).off('keydown',this.keydown);
-      if (!this.oldkeydown) {
+      if (this.options.enabled && !this.oldkeydown) {
         const focusin=parent.getEventHandlers(input,'focusin')[0];
         if (!focusin) {
           if (this.retries>this.maxRetries) {
@@ -131,7 +132,9 @@
       if (this.options.enabled) {
         $(input).on('keydown',this.keydown);
       } else {
-        $(input).on('keydown',this.oldkeydown);
+        if (this.oldkeydown) {
+          $(input).on('keydown',this.oldkeydown);
+        }
       }
     };
 
@@ -144,12 +147,17 @@
       this.logOption('CLI commands', value);
       this.options={ enabled:value };
       this.boot();
-      parent.registerCommand=(key,command)=>{
-        this.commands[key]=command;
-      };
-      parent.unregisterCommand=(key)=>{
-        delete this.commands[key];
-      };
+      if (value) {
+        parent.registerCommand=(key,command)=>{
+          this.commands[key]=command;
+        };
+        parent.unregisterCommand=(key)=>{
+          delete this.commands[key];
+        };
+      } else {
+        parent.registerCommand=null;
+        parent.unregisterCommand=null;
+      }
     }
   }
   LiChessTools.Tools.CliCommands=CliCommandsTool;

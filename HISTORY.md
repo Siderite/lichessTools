@@ -1,5 +1,15 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 Feb
+  - Better board image export
+
+23 Feb
+  - opponent name in Explorer Practice
+  - show opening if colors reversed
+
+19 Feb
+  - player warning alert for >3% disconnect rate
+
 16 Feb
   - sequential and spaced repetition flow for Interactive Lessons
 
