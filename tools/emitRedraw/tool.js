@@ -9,7 +9,7 @@
       const emit = parent.debounce(() => {
         if (parent.global.document.hidden) return;
         parent.redrawData={};
-        parent.debug && console.debug('redraw');
+        parent.debug && parent.global.console.debug('redraw');
         lichess.pubsub.emit('redraw');
       }, 50);
       parent.emitRedraw=emit;
