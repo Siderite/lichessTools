@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Feb
+  - Board Editor mirror position button
+
 25 Feb
   - Better board image export
 
