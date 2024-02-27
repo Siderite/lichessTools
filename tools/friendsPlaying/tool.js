@@ -16,7 +16,7 @@
       'en-US':{
         'options.friends': 'Friends',
         'playing':'%s playing',
-        'gameType-unknown': '',
+        'gameType-unknown': ',',
         'gameType-classical': 'Classical',
         'gameType-rapid': 'Rapid',
         'gameType-blitz': 'Blitz',
@@ -29,7 +29,7 @@
       'ro-RO':{
         'options.friends': 'Prieteni',
         'playing':'Joac\u0103 %s',
-        'gameType-unknown': '',
+        'gameType-unknown': ',',
         'gameType-classical': 'Classical',
         'gameType-rapid': 'Rapid',
         'gameType-blitz': 'Blitz',
