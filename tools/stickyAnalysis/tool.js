@@ -34,10 +34,10 @@
       let pgn=$('.analyse__underboard .pgn textarea').val();
       if (!pgn) return;
       if (analysis.getOrientation()!="white" && !/\[Orientation|\[StartFlipped/.test(pgn)) {
-        pgn='[Orientation "Black"]\r\n[StartFlipped "1"]\r\n'+pgn;
+        pgn='[Orientation "Black"]\r\n[StartFlipped "1"]\r\n'+pgn?.replace(/\[(Orientation|StartFlipped)\s+"[^"]*"\][\r\n]+/g,'');
       }
       if (!parent.isStartFen(analysis.tree.root.fen)) {
-        pgn='[FEN "'+analysis.tree.root.fen+'"]\r\n'+pgn;
+        pgn='[FEN "'+analysis.tree.root.fen+'"]\r\n'+pgn?.replace(/\[FEN\s+"[^"]*"\][\r\n]+/g,'');
       }
       if (this.prevPgn===pgn) return;
       const savedPgn=parent.currentOptions.getValue('prevAnalysis');
