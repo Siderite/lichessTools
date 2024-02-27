@@ -76,7 +76,9 @@
           const href=$(e).attr('href');
           if (!href) return;
           const isPlayer=href.toLowerCase().includes(userId.toLowerCase());
-          if (!isPlayer && !this.opponentLagFrequency) return;
+          if (!isPlayer) {
+            if (!this.opponentLagFrequency || $(e).parent().find('good,bad').length) return;
+          }
           const hrefUserId=/\/([^\/]*?)$/.exec(href)[1]?.toLowerCase();
           if (!hrefUserId) return;
           const lag=isPlayer
