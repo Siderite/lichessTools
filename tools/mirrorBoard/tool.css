@@ -1,0 +1,4 @@
+body.lichessTools .lichessTools-mirrorBoard span:before {
+  vertical-align: baseline;
+  margin-left: -0.2em;
+}

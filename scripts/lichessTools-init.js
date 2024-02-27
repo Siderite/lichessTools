@@ -80,6 +80,7 @@ lichessTools.loadTool(LiChessTools.Tools.MayTenth);
 lichessTools.loadTool(LiChessTools.Tools.MoveAssistant);
 lichessTools.loadTool(LiChessTools.Tools.PlayerWarning);
 lichessTools.loadTool(LiChessTools.Tools.BoardImage);
+lichessTools.loadTool(LiChessTools.Tools.MirrorBoard);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
