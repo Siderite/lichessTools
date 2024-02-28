@@ -138,6 +138,17 @@
       }
     };
 
+    removeCommandFunctions=()=>{
+      const parent=this.lichessTools;
+      if (this.options.enabled) return;
+      if (Object.keys(this.commands).length) {
+        parent.global.setTimeout(this.removeCommandFunctions,100);
+        return;
+      }
+      parent.registerCommand=null;
+      parent.unregisterCommand=null;
+    };
+
     commands={};
 
     async start() {
@@ -155,8 +166,7 @@
           delete this.commands[key];
         };
       } else {
-        parent.registerCommand=null;
-        parent.unregisterCommand=null;
+        this.removeCommandFunctions();
       }
     }
   }
