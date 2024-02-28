@@ -72,6 +72,7 @@
       lichess.pubsub.off('redraw',this.showDecimals);
       if (!value) return;
       lichess.pubsub.on('redraw',this.showDecimals);
+      this.showDecimals();
     }
 
   }
