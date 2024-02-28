@@ -107,6 +107,7 @@
         "tools/playerWarning/tool.js",
         "tools/boardImage/tool.js",
         "tools/mirrorBoard/tool.js",
+        "tools/cevalDecimals/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
