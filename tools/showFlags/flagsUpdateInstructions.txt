@@ -1,5 +1,5 @@
 - go to https://github.com/lichess-org/lila
-- find file Flags.scala
+- find file Flags.scala (https://github.com/lichess-org/lila/blob/master/modules/user/src/main/Flags.scala)
 - get the flags and update the countries property of this tool
 - regular replace: 
     C\("([^"]+)"\s*,\s*"([^"]+)"(?:\s*,\s*"([^"]+)"\s*)?\)(?:,|$)
