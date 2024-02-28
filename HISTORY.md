@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+28 Feb
+  - Show last seen time in live friends page
+
 27 Feb
   - Board Editor mirror position button
 

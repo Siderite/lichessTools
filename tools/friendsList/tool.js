@@ -39,7 +39,14 @@
         'options.liveFriendsPage':'Live friends page',
         'hideOfflineTitle': 'Online players',
         'hideNotPlayingTitle': 'Playing players',
-        'hideMutedTitle': 'Muted players'
+        'hideMutedTitle': 'Muted players',
+        'daysText:one': 'a day',
+        'hoursText:one': 'an hr',
+        'minutesText:one': 'a min',
+        'daysText': '%s days',
+        'hoursText': '%s hrs',
+        'minutesText': '%s mins',
+        'timeText': '%s ago'
       },
       'ro-RO':{
         'onlineFriends': '%s prieteni online',
@@ -59,7 +66,14 @@
         'options.liveFriendsPage':'Pagin\u0103 prieteni live',
         'hideOfflineTitle': 'Juc\u0103tori online',
         'hideNotPlayingTitle': 'Juc\u0103tori care joac\u0103',
-        'hideMutedTitle': 'Juc\u0103tori cu alert\u0103 nepermis\u0103'
+        'hideMutedTitle': 'Juc\u0103tori cu alert\u0103 nepermis\u0103',
+        'daysText:one': 'o zi',
+        'hoursText:one': 'o or\u0103',
+        'minutesText:one': 'un minut',
+        'daysText': '%s zile',
+        'hoursText': '%s ore',
+        'minutesText': '%s minute',
+        'timeText': 'acum %s'
       }
     }
 
@@ -245,7 +259,8 @@
     };
 
     rows={};
-    updateFriendsPage=()=>{
+    friends={};
+    updateFriendsPage=async ()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -253,6 +268,7 @@
       const myName=parent.getUserId();
       if (!myName) return;
       if (!parent.isFriendsPage()) return;
+      if (!this.options.liveFriendsPage) return;
       if (parent.global.document.hidden) {
         parent.global.requestAnimationFrame(parent.debounce(this.updateFriendsPage,500));
         return;
@@ -297,6 +313,10 @@
         const user=this.getUserId(m&&m[1]);
         if (!user) return;
         this.rows[user]=row;
+        if (!row.find('span.lichessTools-seenAt').length) {
+          const td=$('<td><span class="lichessTools-seenAt" data-icon="&#xE063;"></span></td>')
+            .insertBefore(actions.closest('td'));
+        }
         if (!actions.find('a.lichessTools-tv')[0]) {
           $('<a class="btn-rack__btn lichessTools-tv" data-icon="&#xE025;"></a>')
             .attr('href','/@/'+user+'/tv')
@@ -337,6 +357,22 @@
       }
       const mutedPlayers=this.options.mutedPlayers||[];
       for (const user in this.rows) {
+        let friend=this.friends[user];
+        if (!friend) {
+          friend={ userId: user };
+          this.friends[user]=friend;
+        }
+      }
+      const userIds=Object.values(this.friends)
+                      .filter(f=>!f.seenAt)
+                      .map(f=>f.userId);
+      const json = await parent.net.fetch('/api/users',{ method:'POST',body:userIds.join(',') });
+      const users=parent.jsonParse(json,[]);
+      for (const user of users) {
+        const friend = this.friends[user.id];
+        if (friend) friend.seenAt=+user.seenAt;
+      }
+      for (const user in this.rows) {
         const row=this.rows[user];
         if (!row) continue;
         const isMuted=mutedPlayers.includes(user);
@@ -350,7 +386,35 @@
         $('td:first-child>a',row)
            .toggleClass('online',isOnline)
            .toggleClass('offline',!isOnline);
+        const friend=this.friends[user];
+        if (friend.seenAt) {
+          const time=new Date(friend.seenAt);
+          const timeText=this.getTimeText(Date.now()-friend.seenAt);
+          $('span.lichessTools-seenAt',row)
+            .text(timeText)
+            .attr('title',time.toString());
+        }
       }
+    };
+
+    getTimeText=(value)=>{
+      const parent=this.lichessTools;
+      const trans=this.lichessTools.translator;
+      let result;
+      const days=Math.round(value/86400000);
+      if (days) {
+        result = trans.plural('daysText',days,days);
+      } else {
+        const hours=Math.round(value/3600000);
+        if (hours) {
+          result = trans.plural('hoursText',hours,hours);
+        } else {
+          const minutes=Math.round(value/60000);
+          result = trans.plural('minutesText',minutes,minutes)
+        }
+      }
+      result=trans.pluralSame('timeText',result);
+      return result;
     };
 
     getUserId=(user)=>user?.toLowerCase().replace(/^\w+\s/, '');
@@ -369,7 +433,16 @@
       const parent=this.lichessTools;
       const $=parent.$;
       this.user_data.names={};
-      data?.d?.forEach(name=>this.user_data.names[this.getUserId(name)]=name);
+      data?.d?.forEach(name=>{
+        const userId=this.getUserId(name);
+        this.user_data.names[userId]=name;
+        let friend=this.friends[userId];
+        if (!friend) {
+          friend={ userId: userId };
+          this.friends[userId]=friend;
+        }
+        friend.seenAt=Date.now();
+      });
       this.user_data.online=data?.d?.map(this.getUserId)||[];
       this.user_data.playing=data?.playing?.map(this.getUserId)||[];
       this.updateFriendsPage();
@@ -387,6 +460,12 @@
       } else {
         parent.arrayRemoveAll(this.user_data.playing,u=>u===userId);
       }
+      let friend=this.friends[userId];
+      if (!friend) {
+        friend={ userId: userId };
+        this.friends[userId]=friend;
+      }
+      friend.seenAt=Date.now();
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -397,6 +476,12 @@
       this.user_data.names[user]=undefined;
       parent.arrayRemoveAll(this.user_data.online,u=>u===user);
       parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
+      let friend=this.friends[user];
+      if (!friend) {
+        friend={ userId: user };
+        this.friends[user]=friend;
+      }
+      friend.seenAt=Date.now();
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -405,6 +490,12 @@
       user=this.getUserId(user);
       if (!this.user_data.online.includes(user)) this.user_data.online.push(user);
       if (!this.user_data.playing.includes(user)) this.user_data.playing.push(user);
+      let friend=this.friends[user];
+      if (!friend) {
+        friend={ userId: user };
+        this.friends[user]=friend;
+      }
+      friend.seenAt=Date.now();
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -413,6 +504,12 @@
       const parent=this.lichessTools;
       user=this.getUserId(user);
       parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
+      let friend=this.friends[user];
+      if (!friend) {
+        friend={ userId: user };
+        this.friends[user]=friend;
+      }
+      friend.seenAt=Date.now();
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -485,8 +582,11 @@
         } else {
           $('.lichessTools-online').removeClass('lichessTools-online');
           $('.lichessTools-playing').removeClass('lichessTools-playing');
+          $('td:has(.lichessTools-seenAt)').remove();
+          $('.lichessTools-mute').remove();
+          $('.lichessTools-tv').remove();
+          this.updateFriendsPage();
         }
-        this.updateFriendsPage();
       }
 
       this.onlinesInterval=setInterval(()=>{

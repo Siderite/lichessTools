@@ -336,6 +336,13 @@ body.lichessTools.dark main.lichessTools-friendsPage table.slist tbody {
   }
 }
 
+body.lichessTools .lichessTools-friendsPage td:has(span.lichessTools-seenAt) {
+  min-width:10em;
+}
+
+body.lichessTools .lichessTools-friendsPage span.lichessTools-seenAt:before {
+  margin-right:3px;
+}
 
 /* Unrated CSS */
 body.lichessTools.dynamicContentShown section.lichessTools-onlineFriends .user-link {
