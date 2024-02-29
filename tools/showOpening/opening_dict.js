@@ -6380,6 +6380,7 @@ const openings = {
   "rnb1kbnrppp2ppp3q44p31P2p3P4P21BPP2PPRN1QKBNRb": "Polish Opening: Orangutan-Diemer Gambit",
   "rnb1kbnrppp2ppp4p33q43P48PPP2PPPRNBQKBNRw": "French: Exchange, 3...Qxd5",
   "rnb1kbnrppp2ppp4p33q43PN38PPP2PPPR1BQKBNRw": "French Defense: Rubinstein Variation, Maric Variation",
+  "rnb1kbnrppp2ppp81N1q44p38PPPP1PPPRNBQKB1Rb": "Elephant Gambit: Paulsen Countergambit, Legolas Countergambit (Adamisko)",
   "rnb1kbnrppp2ppp83qp33P48PPP2PPPRNBQKBNRw": "Scandinavian: 2...Qxd5 3.d4 e5",
   "rnb1kbnrppp2ppp84N1q12B1p38PPPP1PPPRNBQK2Rw": "Elephant Gambit: Wasp Variation",
   "rnb1kbnrppp2ppp8q3p33P42N2N2PPP2PPPR1BQKB1Rb": "Scandinavian Defense: Anderssen Counterattack, Goteborg System",
