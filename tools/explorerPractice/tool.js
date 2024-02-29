@@ -70,7 +70,7 @@
           .appendTo(board);
       }
       turn=turn=='white'?'black':'white';
-      const playerNames=[...current.recentGames,...current.topGames]
+      const playerNames=[...current.recentGames,...current.topGames||[]]
                           .map(m=>m[turn].name);
       const playerIndex=Math.floor(parent.random()*playerNames.length);
       const playerName=playerNames[playerIndex]||'';
@@ -124,12 +124,6 @@
       for (const move of moves) {
         acc+=move.total;
         if (index<=acc) {
-          //const playerNames=[...current.recentGames,...current.topGames]
-          //                .filter(m=>m.uci==move.uci)
-          //                .map(m=>m[turn].name);
-          //const playerIndex=Math.floor(parent.random()*playerNames.length);
-          //const playerName=playerNames[playerIndex];
-          //this.writePlayerName(playerName,move.uci.slice(2,4));
           this._lastUci=move.uci;
           analysis.playUci(move.uci);
           this.inPlayMove=analysis.node.fen;
