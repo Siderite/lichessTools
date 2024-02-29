@@ -16,16 +16,18 @@
       'en-US':{
         'options.General': 'General',
         'options.pinOnMainPage': 'Pin broadcasts and studies to home page',
-        'pinTitle':'LiChess Tools - pin on home page'
+        'pinTitle':'LiChess Tools - pin on home page',
+        'unpinTitle':'LiChess Tools - unpin from home page'
       },
       'ro-RO':{
         'options.General': 'General',
         'options.pinOnMainPage': 'Pune transmisiuni \u015fi studii pe pagina principal\u0103',
-        'pinTitle':'LiChess Tools - pune pe pagina principal\u0103'
+        'pinTitle':'LiChess Tools - pune pe pagina principal\u0103',
+        'unpinTitle':'LiChess Tools - scoate de pe pagina principal\u0103'
       }
     };
 
-    pinStudy=()=>{
+    pinCurrentStudy=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const study=lichess.analysis?.study;
@@ -41,6 +43,13 @@
       }
       lichess.storage.set('LichessTools.pinnedStudies',parent.global.JSON.stringify(this.options.pinned));
       this.addPin();
+    };
+
+    unpinStudy=(studyId)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      parent.arrayRemoveAll(this.options.pinned,p=>p.studyId==studyId);
+      lichess.storage.set('LichessTools.pinnedStudies',parent.global.JSON.stringify(this.options.pinned));
     };
 
     addPin=()=>{
@@ -64,7 +73,7 @@
           .attr('title',trans.noarg('pinTitle'))
           .on('click',ev=>{
              ev.preventDefault();
-             this.pinStudy();
+             this.pinCurrentStudy();
           })
           .insertAfter($('span.search',container));
       }
@@ -86,12 +95,22 @@
       this.options.pinned.forEach(p=>{
         let elem=$('a.id_'+p.studyId,container);
         if (elem.length) return;
+        const innerElem=$('<span class="content"><span class="name"></span><span class="lichessTools-unpin"></span></span>');
+        innerElem.find('span.lichessTools-unpin')
+          .attr('data-icon','\uE071')
+          .attr('title',trans.noarg('unpinTitle'))
+          .on('click',ev=>{
+            ev.preventDefault();
+            ev.stopPropagation();
+            this.unpinStudy(p.studyId);
+            container.find('a.lichessTools-pin').remove();
+          });
         elem=$('<a class="lichessTools-pin tour-spotlight">')
           .addClass('id_'+p.studyId)
           .attr('href','/study/'+p.studyId)
           .attr('title','LiChess Tools - '+p.studyName)
           .append($('<i class="img">').attr('data-icon','\uD83D\uDCCC'))
-          .append($('<span class="content"><span class="name"></span></span>'))
+          .append(innerElem)
           .appendTo(container);
         elem.find('.content .name').text(p.studyName);
       });
