@@ -103,7 +103,7 @@
             ev.preventDefault();
             ev.stopPropagation();
             this.unpinStudy(p.studyId);
-            container.find('a.lichessTools-pin').remove();
+            innerElem.closest('a.lichessTools-pin').remove();
           });
         elem=$('<a class="lichessTools-pin tour-spotlight">')
           .addClass('id_'+p.studyId)
