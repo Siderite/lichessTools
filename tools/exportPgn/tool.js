@@ -61,7 +61,7 @@
           }
         }
         for (const comment of node.comments||[]) {
-          s+='{'+comment.text+'}';
+          s+=' {'+comment.text+'}';
         }
         const groups=[];
         for(const shape of node.shapes||[]) {
@@ -79,7 +79,7 @@
           group.shapes.push(code);
         }
         if (groups.length) {
-          s+='{';
+          s+=' {';
           for (const group of groups) {
             s+='[%'+group.type+' '+group.shapes.join(',')+']';
           }
