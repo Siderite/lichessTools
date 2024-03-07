@@ -52,13 +52,16 @@
       const analysis=parent.lichess.analysis;
       const $=parent.$;
       const board=$('div.main-board cg-board');
-      const q=board.width()/8;
       let label=$('.lichessTools-explorerPractice',board);
+      let turn=analysis.turnColor();
+      if (!this.isRunning || turn!=analysis.getOrientation()) {
+        label.remove();
+        return;
+      }
       while (analysis.explorer?.loading()) {
-        await parent.timeout(100);
+        await parent.timeout(50);
       }
       const current=analysis.explorer?.current();
-      let turn=analysis.turnColor();
       const square=this._lastUci?.slice(2,4);
       this._lastUci=null;
       if (!square || !current || !this.isRunning || turn!=analysis.getOrientation()) {
@@ -77,6 +80,7 @@
       const coords=analysis.getOrientation()=='white'
         ? { x: square.charCodeAt(0)-97, y: (+square[1])-1 }
         : { x: 104-square.charCodeAt(0), y: 8-(+square[1]) };
+      const q=board.width()/8;
       label
         .attr('data-fen',analysis.node.fen)
         .css({ left: coords.x*q, top: (7-coords.y)*q})

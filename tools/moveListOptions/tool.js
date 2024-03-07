@@ -632,8 +632,11 @@
     addMissingIndexes=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      $('.tview2.lichessTools-indentedVariations inline+move:not(:has(index))').each((i,e)=>{
-        const elem=$(e).prev().prev('move:has(index)').find('index').clone();
+      $('.tview2.lichessTools-indentedVariations inline+move').each((i,e)=>{
+        e=$(e);
+        if (e.children('index').length) return;
+        const elem=e.prev().prev('move:has(index)').children('index').clone();
+        if (!elem.length) return;
         elem
           .addClass('lichessTools-index')
           .text(elem.text()+'..');

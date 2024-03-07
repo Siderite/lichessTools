@@ -126,9 +126,11 @@
     setupBlurOnEscape=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      $('div.pgn textarea,div.pair input').off('keyup',this.blurOnEscape);
+      const input=$('div.pgn textarea,div.pair input');
+      if (!input.length) return;
+      input.off('keyup',this.blurOnEscape);
       if (!this.options.enabled) return;
-      $('div.pgn textarea,div.pair input').on('keyup',this.blurOnEscape);
+      input.on('keyup',this.blurOnEscape);
     };
 
     blurOnEscape=ev=>{

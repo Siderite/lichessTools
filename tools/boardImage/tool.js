@@ -114,11 +114,13 @@
             .insertAfter(analysisPgn);
         }
       }
-      const button=$('div.study__share a[href*="fen.gif"]:not(.lichessTools-boardImage),div.board-editor .copyables a[href*="fen.gif"]:not(.lichessTools-boardImage)');
-      if (!button.length) return;
-      button
-        .addClass('lichessTools-boardImage')
-        .on('click',this.getBoardImage);
+      $('div.study__share a[href*="fen.gif"],div.board-editor .copyables a[href*="fen.gif"]')
+        .each((i,e)=>{
+          if ($(e).is('.lichessTools-boardImage')) return;
+          $(e)
+            .addClass('lichessTools-boardImage')
+            .on('click',this.getBoardImage);
+        });
     };
 
     async start() {
