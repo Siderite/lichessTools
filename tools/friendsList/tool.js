@@ -195,12 +195,12 @@
                       .attr('title',title)
                       .attr('class','data-count')
                       .on('mouseover',()=>{
-                         if (!$('body').is('.mobile')) {
+                         if (!$.cached('body').is('.mobile')) {
                            this.requestOnlines();
                          }
                       })
                       .on('click',ev=>{
-                         if ($('body').is('.mobile')) {
+                         if ($.cached('body').is('.mobile')) {
                            this.requestOnlines();
                            ev.preventDefault();
                          }

@@ -62,7 +62,7 @@
     isPlayingGame=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      return $('body').is('.playing');
+      return $.cached('body').is('.playing');
     };
 
     refreshPlayers=()=>{

@@ -35,9 +35,9 @@
       const override=study.vm.gamebookOverride;
       const cls='lichessTools-gamebook-'+override;
       const all=['lichessTools-gamebook-play','lichessTools-gamebook-analyse']
-      $('body').removeClass(all.filter(c=>c!=cls).join(' '));
+      $.cached('body').removeClass(all.filter(c=>c!=cls).join(' '));
       if (override) {
-        $('body').addClass(cls);
+        $.cached('body').addClass(cls);
       }
     };
 

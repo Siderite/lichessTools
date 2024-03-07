@@ -146,9 +146,9 @@
       const analysis=lichess.analysis;
       if (!analysis) return;
       parent.unregisterCommand('readGameCommand');
-      $('body').off('keyup',this.keyHandler);
+      $.cached('body').off('keyup',this.keyHandler);
       if (value) {
-        $('body').on('keyup',this.keyHandler);
+        $.cached('body').on('keyup',this.keyHandler);
         parent.registerCommand('readGameCommand',{
           handle:(val)=>{
             const m=/^\s*readgame(?:\s+(?<speed>\d+))?(?:\s+(?<voice>\d+))?(?:\s+(?<instrument>\d+))?/.exec(val);

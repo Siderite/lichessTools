@@ -115,7 +115,7 @@
         this.oldkeydown=parent.getEventHandlers(input,'keydown')[0];
         if (!this.oldkeydown) {
           $(input).trigger('focus');
-          $('body').removeClass('clinput');
+          $.cached('body').removeClass('clinput');
           if (this.retries>this.maxRetries) {
             parent.global.console.warn('Could not get keydown event for ',input);
             return;

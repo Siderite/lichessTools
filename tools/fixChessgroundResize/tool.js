@@ -35,7 +35,7 @@
       }
       if (offset?.top!=this.offset?.top || offset?.left!=this.offset?.left) {
         this.offset=offset;
-        $('body').trigger('resize');
+        $.cached('body').trigger('resize');
       }
     }
 

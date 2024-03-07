@@ -8,10 +8,9 @@
       const console=parent.global.console;
       const emit = parent.debounce(() => {
         if (parent.global.document.hidden) return;
-        parent.redrawData={};
         parent.debug && parent.global.console.debug('redraw');
         lichess.pubsub.emit('redraw');
-      }, 50);
+      }, 250);
       parent.emitRedraw=emit;
       if (lichess?.analysis) {
         lichess.analysis.redraw=parent.unwrapFunction(lichess.analysis.redraw,'redraw'); 
@@ -39,8 +38,9 @@
       lichess.pubsub.off('chat.resize',emit);
       lichess.pubsub.on('chat.resize',emit);
       parent.global.clearInterval(this._interval);
+      const board=$('div.main-board div.cg-wrap');
       this._interval=parent.global.setInterval(()=>{
-        const cls=$('.main-board .cg-wrap').attr('class');
+        const cls=board.attr('class');
         if (this._cls && this._cls!=cls) {
           emit();
         }

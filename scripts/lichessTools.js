@@ -402,7 +402,7 @@
     };
 
     getUserId=()=>{
-      return this.lichess?.analysis?.opts.userId || this.$('body').attr('data-user');
+      return this.lichess?.analysis?.opts.userId || this.$.cached('body').attr('data-user');
     };
 
     userLoggedIn=()=>{
@@ -668,7 +668,7 @@
 
     isDark=()=>{
       const $=this.$;
-      const body=$('body');
+      const body=$.cached('body');
       if (body.is('.light')) return false;
       if (body.is('.dark,.transp')) return true;
       return this.global.matchMedia && this.global.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -934,7 +934,7 @@
       }
       this.prevOptions=this.global.JSON.stringify(options);
       this.currentOptions=options;
-      this.$('body').toggleClass('lichessTools',options.enableLichessTools);
+      this.$.cached('body').toggleClass('lichessTools',options.enableLichessTools);
       const console=this.global.console;
       const group=options.getValue('showOptionsTableInConsole')
         ? console.group

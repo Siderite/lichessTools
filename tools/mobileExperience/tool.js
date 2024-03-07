@@ -197,11 +197,11 @@
     handleRedraw=async ()=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      if (!$('body').is('.mobile')) return;
+      if (!$.cached('body').is('.mobile')) return;
       const trans=parent.translator;
       const isAnalyse=!!$('main.analyse').length;
       const isRound=!!$('main.round,main.puzzle').length;
-      $('body').toggleClass('lichessTools-mobileExperience',!!(this.options.shapeDrawing||this.options.shapeDrawingRound||this.options.randomNextMove));
+      $.cached('body').toggleClass('lichessTools-mobileExperience',!!(this.options.shapeDrawing||this.options.shapeDrawingRound||this.options.randomNextMove));
 
       let wrap=null;
       this.chessground=null;
@@ -354,20 +354,20 @@
       const isRound=!!$('main.round,main.puzzle').length;
       if (isRound) {
         const lockBoardElem=$('#top div.site-buttons div.lichessTools-lockBoard');
-        if (this.options.lockBoard && $('body').is('.mobile.playing')) {
-          $('body').addClass('lichessTools-lockBoard');
+        if (this.options.lockBoard && $.cached('body').is('.mobile.playing')) {
+          $.cached('body').addClass('lichessTools-lockBoard');
           if (!lockBoardElem.length) {
             $('<div></div>')
               .addClass('lichessTools-lockBoard')
               .attr('data-icon','\uE054')
               .attr('title',trans.noarg('lockBoardTitle'))
               .on('click',()=>{
-                $('body').toggleClass('lichessTools-lockBoard');
+                $.cached('body').toggleClass('lichessTools-lockBoard');
               })
               .prependTo($('#top div.site-buttons'));
           }
         } else {
-          $('body').removeClass('lichessTools-lockBoard');
+          $.cached('body').removeClass('lichessTools-lockBoard');
           lockBoardElem.remove();
         }
         lichess.pubsub.off('ply',this.clearShapes);

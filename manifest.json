@@ -23,6 +23,7 @@
     {
       "js": [
         "scripts/cash.min.js",
+        "scripts/cash.extra.js",
         "scripts/lichessTools.js",
 
         "tools/emitEsmLoaded/tool.js",

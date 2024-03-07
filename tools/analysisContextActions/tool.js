@@ -101,7 +101,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       this.evaluateTerminationsStarted=value;
-      $('body').toggleClass('lichessTools-evaluationStarted',!!value);
+      $.cached('body').toggleClass('lichessTools-evaluationStarted',!!value);
       if (!value) {
         this.evaluateTerminationsTotal=0;
         $('.lichessTools-liveStatus label').text('');
@@ -354,9 +354,9 @@
       clearInterval(this.engineCheckInterval);
       lichess.pubsub.off('redraw',this.analysisContextMenu);
       $('.tview2').off('contextmenu',this.analysisContextMenu);
-      $('body').off('keydown keyup',this.alterModifierText);
+      $.cached('body').off('keydown keyup',this.alterModifierText);
       if (this.options.copyPgn) {
-        $('body').on('keydown keyup',this.alterModifierText);
+        $.cached('body').on('keydown keyup',this.alterModifierText);
         $('.tview2').on('contextmenu',this.analysisContextMenu);
       }
       if (this.options.isSet) {

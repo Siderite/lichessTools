@@ -32,10 +32,10 @@
       const trans=parent.translator;
       const value=parent.currentOptions.getValue('mayTenth');
       this.logOption('LT day', value);
-      $('body').removeClass('lichessTools-mayTenth');
+      $.cached('body').removeClass('lichessTools-mayTenth');
       $('h1.site-title a').removeAttr('title');
       if (!value) return;
-      $('body')
+      $.cached('body')
         .toggleClass('lichessTools-mayTenth',new Date().toISOString().includes('-05-10'));
       $('h1.site-title a')
        .attr('title',trans.noarg('mayTenthTitle'));

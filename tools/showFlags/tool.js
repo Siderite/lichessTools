@@ -303,7 +303,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const dict = {};
-      $('.user-link,a[href^="/@/"]').each((i,e)=> {
+      $.cached('.user-link,a[href^="/@/"]',2000).each((i,e)=> {
         if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members').length) return;
 
         let textEl = $('.text',e);
@@ -323,7 +323,7 @@
         list.push(textEl);
         dict[userId.toLowerCase()]=list;
       });
-      $('span.mini-game__user').each((i,e)=> {
+      $.cached('span.mini-game__user',2000).each((i,e)=> {
         if ($(e).is('.lichessTools-noflag,.lichessTools-flag')) return;
         if (!parent.inViewport(e)) return;
 

@@ -555,7 +555,7 @@
       const trans=parent.translator;
       const analysis=parent.lichess.analysis;
 
-      $('body').toggleClass('lichessTools-extendedInteractiveLesson',this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
+      $.cached('body').toggleClass('lichessTools-extendedInteractiveLesson',this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
       let translation=trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attr('title',translation); //.attr('data-label',translation);
 
