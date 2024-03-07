@@ -16759,6 +16759,16 @@
         }
       ]
     },
+    "r1bqkb1rppp1pppp2n2n23p42PP42N1P3PP3PPPR1BQKBNRbKQkq-": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "e7e5",
+          "san": "e5",
+          "nr": 1
+        }
+      ]
+    },
     "r1bqkb1rppp1pppp2n2n23p42PP42N2N2PP2PPPPR1BQKB1RbKQkq-": {
       "total": 1,
       "moves": [
@@ -16770,8 +16780,13 @@
       ]
     },
     "r1bqkb1rppp1pppp2n2n23p42PP42N5PP2PPPPR1BQKBNRwKQkq-": {
-      "total": 1,
+      "total": 2,
       "moves": [
+        {
+          "uci": "e2e3",
+          "san": "e3",
+          "nr": 1
+        },
         {
           "uci": "g1f3",
           "san": "Nf3",
@@ -17370,6 +17385,26 @@
         {
           "uci": "f3d4",
           "san": "Nxd4",
+          "nr": 1
+        }
+      ]
+    },
+    "r1bqkb1rpppppppp2n2n282PP42N5PP2PPPPR1BQKBNRbKQkq-": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "d7d5",
+          "san": "d5",
+          "nr": 1
+        }
+      ]
+    },
+    "r1bqkb1rpppppppp2n2n282PP48PP2PPPPRNBQKBNRwKQkq-": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "b1c3",
+          "san": "Nc3",
           "nr": 1
         }
       ]
@@ -18535,8 +18570,13 @@
       ]
     },
     "r1bqkbnrpppppppp2n582PP48PP2PPPPRNBQKBNRbKQkq-": {
-      "total": 1,
+      "total": 2,
       "moves": [
+        {
+          "uci": "g8f6",
+          "san": "Nf6",
+          "nr": 1
+        },
         {
           "uci": "e7e5",
           "san": "e5",
@@ -18545,12 +18585,12 @@
       ]
     },
     "r1bqkbnrpppppppp2n583P48PPP1PPPPRNBQKBNRwKQkq-": {
-      "total": 1,
+      "total": 2,
       "moves": [
         {
           "uci": "c2c4",
           "san": "c4",
-          "nr": 1
+          "nr": 2
         }
       ]
     },
@@ -27705,17 +27745,17 @@
       ]
     },
     "rnbqkbnrpppppppp883P48PPP1PPPPRNBQKBNRbKQkq-": {
-      "total": 101,
+      "total": 102,
       "moves": [
+        {
+          "uci": "b8c6",
+          "san": "Nc6",
+          "nr": 2
+        },
         {
           "uci": "g8f6",
           "san": "Nf6",
           "nr": 42
-        },
-        {
-          "uci": "b8c6",
-          "san": "Nc6",
-          "nr": 1
         },
         {
           "uci": "a7a6",
@@ -27980,8 +28020,13 @@
       ]
     },
     "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRwKQkq-": {
-      "total": 369,
+      "total": 370,
       "moves": [
+        {
+          "uci": "d2d4",
+          "san": "d4",
+          "nr": 102
+        },
         {
           "uci": "e2e4",
           "san": "e4",
@@ -27991,11 +28036,6 @@
           "uci": "b2b3",
           "san": "b3",
           "nr": 2
-        },
-        {
-          "uci": "d2d4",
-          "san": "d4",
-          "nr": 101
         },
         {
           "uci": "f2f4",

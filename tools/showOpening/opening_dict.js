@@ -3190,6 +3190,7 @@ const openings = {
   "r1bqkb1rppp2ppp2n2n23pp1N12B1P38PPPP1PPPRNBQK2Rw": "Italian Game: Two Knights Defense, Knight Attack, Normal Variation",
   "r1bqkb1rppp2ppp2n2n23pP32Bp45N2PPP2PPPRNBQK2Rw": "Two Knights: Modern, 5.e5 d5",
   "r1bqkb1rppp2ppp2n2n23pp32P52N2NP1PP1PPP1PR1BQKB1Rw": "English: Four Knights, 4.g3 d5",
+  "r1bqkb1rppp2ppp2n2n23pp32PP42N1P3PP3PPPR1BQKBNRw": "Mexican Defense: Jigsaw Gambit (Adamisko)",
   "r1bqkb1rppp2ppp2n2n23pp34P32N2NP1PPPP1P1PR1BQKB1Rw": "Four Knights: Glek, 4...d5",
   "r1bqkb1rppp2ppp2n2n23pp34P33P1N2PPPNBPPPR1BQK2Rb": "King's Pawn Game: Tayler Opening, Inverted Hanham",
   "r1bqkb1rppp2ppp2n2n23Pp382N2NP1PP1PPP1PR1BQKB1Rb": "English: Four Knights, 4.g3 d5 5.cxd5",
