@@ -82,36 +82,39 @@
         const trans=parent.translator;
         const gp=analysis.gamebookPlay();
         const node = analysis.node;
-        if (!node.gamebook && !analysis.tree.root.gamebook) {
-          // weird behavior after finishing a lesson and switching to analysis and back
-          this.addGameBookToAllNodes();
-        }
         const nodeComment = (node.comments || [])[0];
         const state = {
             init: analysis.path === '',
             comment: nodeComment?.text,
             showHint: false
         };
-        if (state.init) {
+        if (state.init || gp.state?.init) {
           if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
             gp.currentPath=this.getCurrentPath();
             if (!gp.currentPath) {
               const nextMoves=parent.getNextMoves(node,gp.threeFoldRepetition)
-                                    .filter(c=>c.gamebook);
-              if (nextMoves.length && parent.global.confirm(trans.noarg('resetQuestionNoVariations'))) {
-                this.resetDone();
-                return gp.makeState();
+                                    .filter(c=>this.isPermanentNode(c));
+              if (nextMoves.length) {
+                if (parent.global.confirm(trans.noarg('resetQuestionNoVariations'))) {
+                  this.resetDone();
+                  return gp.makeState();
+                } else {
+                  analysis.path='x'; // needed for Play again to work
+                  state.feedback='end';
+                  gp.state=state;
+                  return;
+                }
               }
             }
           }
         }
         const parPath = analysis.path.slice(0,-2);
         const parNode = analysis.tree.nodeAtPath(parPath);
-        const isAcceptedMove = !!node.gamebook && (!(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(analysis.path));
+        const isAcceptedMove = this.isPermanentNode(node) && (!(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(analysis.path));
         if (!isAcceptedMove) {
           const position=parent.getNodePosition(node);
           const candidate=parent.getNextMoves(parNode,gp.threeFoldRepetition)
-                                .filter(c=>c.gamebook)
+                                .filter(c=>this.isPermanentNode(c))
                                 .filter(c=>!(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(c.path))
                                 .find(c=>parent.getNodePosition(c)==position);
           if (candidate) {
@@ -124,7 +127,7 @@
           }
         }
         const nextMoves=parent.getNextMoves(node,gp.threeFoldRepetition)
-                                     .filter(c=>c.gamebook)
+                                     .filter(c=>this.isPermanentNode(c))
                                      .filter(c=>!(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(c.path));
         if (!isAcceptedMove) {
           state.feedback = 'bad';
@@ -133,7 +136,7 @@
           }
         } else if (!nextMoves.length) {
           state.feedback = 'end';
-          this.markPathFinished(analysis.path,gp.goodMoves,gp.badMoves,gp.askedForSolution);
+          this.markPathFinished(analysis.path,gp.goodMoves+(gp.isMyMove()?0:1),gp.badMoves,gp.askedForSolution);
         } else if (gp.isMyMove()) {
           state.feedback = 'play';
           state.hint = node.gamebook?.hint;
@@ -200,7 +203,7 @@
         const parent=this.lichessTools;
         const analysis=parent.lichess.analysis;
         const gp=analysis.gamebookPlay();
-        let children=parent.getNextMoves(analysis.node,gp.threeFoldRepetition).filter(c=>c.gamebook);
+        let children=parent.getNextMoves(analysis.node,gp.threeFoldRepetition).filter(c=>this.isPermanentNode(c));
         if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
           children=children.filter(c=>this.inCurrentPath(c.path));
         }
@@ -254,28 +257,18 @@
       if (paths.currentPath && !this.isDonePath(paths.currentPath)) return paths.currentPath;
       let currentPaths=[];
       let traverse=null;
-      if (this.options.flow.sequential) {
-        traverse=(node)=>{
-          if (currentPaths.length) return;
+      if (this.options.flow.sequential||this.options.flow.spacedRepetition) {
+        traverse=(node,path)=>{
+          if (this.options.flow.sequential && currentPaths.length) return;
           const nextMoves=node.children
-                                .filter(c=>c.gamebook);
-          if (!nextMoves.length && !this.isDonePath(node.path)) {
-            currentPaths.push(node.path);
+                                .filter(c=>this.isPermanentNode(c));
+          if (!nextMoves.length && !this.isDonePath(path)) {
+            currentPaths.push(path);
           }
-          for (const child of nextMoves) traverse(child);
-        };
-      } else 
-      if (this.options.flow.spacedRepetition) {
-        traverse=(node)=>{
-          const nextMoves=node.children
-                                .filter(c=>c.gamebook);
-          if (!nextMoves.length && !this.isDonePath(node.path)) {
-            currentPaths.push(node.path);
-          }
-          for (const child of nextMoves) traverse(child);
+          for (const child of nextMoves) traverse(child,path+child.id);
         };
       }
-      traverse(analysis.tree.root);
+      traverse(analysis.tree.root,'');
       const i = Math.floor(parent.random() * currentPaths.length);
       paths.currentPath=currentPaths[i];
       lichess.storage.set('LichessTools.chapterPaths',JSON.stringify(this._paths));
@@ -316,7 +309,7 @@
 
       const traverse=(node)=>{
         const nextMoves=node.children
-                              .filter(c=>c.gamebook);
+                              .filter(c=>this.isPermanentNode(c));
         if (!nextMoves.length) {
           if (!paths[node.path]) {
             paths[node.path]={ path:node.path, interval:0, time:Date.now(), success: false };
@@ -351,7 +344,7 @@
       }
     };
 
-    resetDone=()=>{
+    resetDone=(chapterId)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       if (!this._paths) {
@@ -359,11 +352,13 @@
         this._paths=parent.jsonParse(json,null);
       }
       if (!this._paths) return false;
-      const analysis=parent.lichess.analysis;
-      const key=analysis.study.data.id+'/'+analysis.study.currentChapter()?.id;
+      const analysis=lichess.analysis;
+      chapterId=chapterId || analysis.study.currentChapter()?.id
+      const key=analysis.study.data.id+'/'+chapterId;
       this._paths[key]=null;
       lichess.storage.set('LichessTools.chapterPaths',JSON.stringify(this._paths));
       this.refreshChapterProgress();
+      return true;
     };
 
     showScore=()=>{
@@ -384,7 +379,10 @@
         .addClass('lichessTools-score'+scoreRating)
         .text(finalScoreText)
         .attr('title',gp.goodMoves+'/'+gp.badMoves);
-      parent.global.setTimeout(()=>$('div.gamebook .comment .content').append(el),100);
+      parent.global.setTimeout(()=>{
+        $('div.gamebook .comment .content .lichessTools-score').remove();
+        $('div.gamebook .comment .content').append(el);
+      },100);
       gp.resetStats();
     };
 
@@ -499,6 +497,10 @@
         gp.solution=parent.unwrapFunction(gp.solution,'showScore');
         gp.isShowScore=false;
       }
+      if (analysis.path==='') {
+        parent.traverse(undefined,undefined,true);
+        gp.makeState();
+      }
     };
 
     addDeviation=()=>{
@@ -553,9 +555,7 @@
       const trans=parent.translator;
       const analysis=parent.lichess.analysis;
 
-      $('body').toggleClass('lichessTools-extendedInteractiveLesson',this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
-      //let translation=trans.noarg('extendedInteractiveLesson');
-      //$('.gamebook-buttons').attr('data-label',translation);
+      $.cached('body').toggleClass('lichessTools-extendedInteractiveLesson',this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
       let translation=trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attr('title',translation); //.attr('data-label',translation);
 
@@ -604,16 +604,17 @@
 
     };
 
-    addGameBookToAllNodes=(node)=>{
+    isPermanentNode=(node)=>{
+      return node?.version==this.currentVersion;
+    };
+
+    refreshNodeVersion=(node)=>{
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
       if (!this.options.extendedInteractive) return;
+      this.currentVersion=analysis?.cgVersion?.js;
       if (!node) node=analysis.tree.root;
-      node.gamebook=node.gamebook||{};
-      if (!node.children) return;
-      for (const child of node.children) {
-        this.addGameBookToAllNodes(child);
-      }
+      parent.traverse(node,(n,s)=>n.version=n.version||this.currentVersion,true);
     };
 
     analysisControls=()=>{
@@ -697,7 +698,7 @@
     setupReset=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
-      this.state=parent.traverse();
+      this.state=parent.traverse(undefined,undefined,true);
       const analysis=lichess.analysis;
       const study=analysis?.study;
       if (!study) return;
@@ -731,7 +732,7 @@
     refreshChapterProgress=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
-      this.state=parent.traverse();
+      this.state=parent.traverse(undefined,undefined,true);
       const analysis=lichess.analysis;
       const study=analysis?.study;
       if (!study) return;
@@ -744,6 +745,7 @@
       const list = study.chapters.list();
       $('div.study__chapters').addClass('lichesstools-extendedInteractiveLessonFlow');
       for (const chapter of list) {
+        const container=$('div.study__chapters div[data-id="'+chapter.id+'"]');
         const key=study.data.id+'/'+chapter.id;
         const paths=this._paths[key];
         let perc='';
@@ -761,14 +763,42 @@
           }
           if (total) {
             perc=(100*doneCount/total)+'%';
-            $('div.study__chapters div[data-id="'+chapter.id+'"]').attr('title',trans.pluralSame('progressTitle',doneCount+'/'+total));
+            container.attr('title',trans.pluralSame('progressTitle',doneCount+'/'+total));
           } else {
-            $('div.study__chapters div[data-id="'+chapter.id+'"]').removeAttr('title');
+            container.removeAttr('title');
           }
         }
-        $('div.study__chapters div[data-id="'+chapter.id+'"] > i.act')
-          .css('--perc',perc);
+        let act=container.children('i.act');
+        if (!act.length) {
+          act=$('<i class="act lichessTools-reset" data-icon="&#xE01A">')
+            .attr('title',trans.noarg('resetButtonTitle'))
+            .on('click',ev=>{
+              ev.preventDefault();
+              ev.stopPropagation();
+              if (!parent.global.confirm(trans.noarg('resetQuestion'))) return;
+              this.resetDone(chapter.id);
+            })
+            .appendTo(container);
+        }
+        act.css('--perc',perc);
       }
+    };
+
+    findThreatArrow=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const lichess=parent.lichess;
+      const analysis=lichess?.analysis;
+      if (!analysis.threatMode()) return;
+      let uci=analysis.ceval?.curEval?.pvs?.at(0)?.moves?.at(0);
+      if (!uci) return;
+      uci=uci.substr(0,2)+','+uci.substr(2,2);
+      $('svg.cg-shapes g').each((i,e)=>{
+        const cgHash=$(e).attr('cgHash');
+        if (cgHash?.includes(uci)) {
+          $(e).addClass('lichessTools-threat');
+        }
+      });
     };
 
     async start() {
@@ -805,7 +835,7 @@
                 analysis.ceval.stop();
                 analysis.ceval.isDeeper(false);
               }
-              if (this.options.extendedInteractive) this.addGameBookToAllNodes();
+              if (this.options.extendedInteractive) this.refreshNodeVersion();
             } else {
               if (this.explorerEnabled && !analysis.explorer.enabled()) {
                 analysis.explorer.enabled(true);
@@ -848,6 +878,20 @@
       }
       this.patchGamebook();
 
+      if (lichess.analysis.study.onReload) {
+        lichess.analysis.study.onReload=lichessTools.unwrapFunction(lichess.analysis.study.onReload,'extendedInteractiveLesson');
+      }
+      lichess.pubsub.off('redraw',this.findThreatArrow);
+      if (this.options.extendedInteractive) {
+        lichess.pubsub.on('redraw',this.findThreatArrow);
+        lichess.analysis.study.onReload=lichessTools.wrapFunction(lichess.analysis.study.onReload,{
+          id:'extendedInteractiveLesson',
+          after:($this,result,...args)=>{
+            this.refreshNodeVersion();
+          }
+        });
+      }
+
       lichess.pubsub.off('redraw',this.alterStudyLinks);
       lichess.pubsub.off('analysis.change',this.alterStudyLinks);
       lichess.pubsub.off('chapterChange',this.alterStudyLinks);
@@ -870,8 +914,13 @@
       }
 
       study.chapters.editForm.toggle=parent.unwrapFunction(study.chapters.editForm.toggle,'extendedInteractiveLessonFlow');
-      $('div.study__chapters').removeClass('lichesstools-extendedInteractiveLessonFlow');
+      $('div.study__chapters')
+        .removeClass('lichesstools-extendedInteractiveLessonFlow')
+        .find('i.act.lichessTools-reset')
+        .remove();
+      lichess.pubsub.off('chat.resize',this.refreshChapterProgress);
       if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
+        lichess.pubsub.on('chat.resize',this.refreshChapterProgress);
         this.refreshChapterProgress();
         study.chapters.editForm.toggle=parent.wrapFunction(study.chapters.editForm.toggle,{
           id:'extendedInteractiveLessonFlow',

@@ -632,8 +632,11 @@
     addMissingIndexes=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      $('.tview2.lichessTools-indentedVariations inline+move:not(:has(index))').each((i,e)=>{
-        const elem=$(e).prev().prev('move:has(index)').find('index').clone();
+      $.cached('.tview2.lichessTools-indentedVariations inline+move',2000).each((i,e)=>{
+        e=$(e);
+        if (e.children('index').length) return;
+        const elem=e.prev().prev('move:has(index)').children('index').clone();
+        if (!elem.length) return;
         elem
           .addClass('lichessTools-index')
           .text(elem.text()+'..');
@@ -711,8 +714,9 @@
         lichess.pubsub.on('redraw',this.analysisContextMenu);
       }
 
-      $('body').toggleClass('lichessTools-fullWidthAnalysis',this.options.fullWidthAnalysis);
-      $('body').toggleClass('lichessTools-hideLeftSide',this.options.hideLeftSide);
+      $.cached('body')
+        .toggleClass('lichessTools-fullWidthAnalysis',this.options.fullWidthAnalysis)
+        .toggleClass('lichessTools-hideLeftSide',this.options.hideLeftSide);
       lichess.pubsub.off('redraw',this.setupAnalysisPopup);
       if (analysis.study && this.options.analysisPopup) {
         lichess.pubsub.on('redraw',this.setupAnalysisPopup);

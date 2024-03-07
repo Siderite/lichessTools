@@ -163,6 +163,12 @@ body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*
   marker-end:url(#arrowhead-hiliteWhite);
 }
 
+body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g.lichessTools-threat line {
+  stroke:#882020;
+  opacity:0.7;
+  marker-end:url(#arrowhead-pr);
+}
+
 body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader {
   background: #d0d0d0;
   padding: 0.3em;

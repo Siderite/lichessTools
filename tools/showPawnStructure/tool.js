@@ -286,7 +286,7 @@
         el=$('.mini-game-'+el.id);
         if (!el.length) return;
       };
-      if (!$(el).length) el=$('body');
+      if (!$(el).length) el=$.cached('body');
       const elems=$(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
       for (const el of elems) {
@@ -305,12 +305,12 @@
       const lichess=parent.lichess;
       const $=parent.$;
       if (parent.global.document.hidden) return;
-      if ($('body').is('.playing')) return;
+      if ($.cached('body').is('.playing')) return;
       if (this.isGamesPage() || this.isBroadcastPage()) {
         return;
       }
       const trans=parent.translator;
-      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables');
+      const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables',10000);
       const fen=lichess.analysis?.node?.fen || parent.getPositionFromBoard($('main'),true);
       if (!fen) return;
       const board=parent.getBoardFromFen(fen);
@@ -371,7 +371,7 @@
         metaSection.find('.lichessTools-structure').remove();
       }
       if (this.isGamesPage() || this.isBroadcastPage()) {
-        $('body').toggleClass('lichessTools-structureMiniGames',this.options.enabled);
+        $.cached('body').toggleClass('lichessTools-structureMiniGames',this.options.enabled);
       }
     }
 

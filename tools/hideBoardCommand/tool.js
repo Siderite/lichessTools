@@ -36,7 +36,7 @@
         parent.registerCommand('hideBoardCommand',{
           handle:(val)=>{
             if (val=='board') {
-              $('body').toggleClass('lichessTools-hideBoard');
+              $.cached('body').toggleClass('lichessTools-hideBoard');
               return true;
             }
           },

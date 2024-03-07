@@ -30,7 +30,7 @@
     isPlayingGame=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      return $('body').is('.playing');
+      return $.cached('body').is('.playing');
     };
 
     getTimeControl=()=>{
@@ -46,7 +46,6 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
-      if (parent.global.document.visibilityState!=='visible') return;
       if (!this.isPlayingGame()) return;
       const userId=parent.getUserId();
       $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')

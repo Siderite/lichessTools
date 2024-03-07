@@ -46,10 +46,24 @@
     async load() {
       try{
         if (!this._module) {
-          this._module=await import(this.origin+'/assets/npm/lila-stockfish-web/sf-nnue-40.js');
+          const lichess=this.parent.lichess;
+          const engines=lichess?.analysis?.ceval?.engines;
+          const engineId='__sf16nnue40'; //engines?.selectProp() || '__sf16nnue40';
+          const engine=engines?.localEngines?.find(e=>e.id==engineId);
+          const assetUrl=engine && engine.assets?.js
+            ? engine.assets.root+'/'+engine.assets.js
+            : 'npm/lila-stockfish-web/sf-nnue-40.js';
+          this.parent.global.console.debug('SF','loading engine '+engineId+(engine?' ('+engine.name+')':'')+' from '+assetUrl);
+          const url=this.origin+'/assets/'+assetUrl;
+          this.parent.global.exports=this.parent.global.exports||{};
+          this._module=await import(url);
         }
         if (!this._stockfish) {
-          this._stockfish=await this._module.default;
+          this._stockfish=(await this._module.default) || this.parent.global.exports.Stockfish;
+          if (!this._stockfish) {
+            this.parent.global.console.log(this._module);
+            throw new Error('Could not load module');
+          }
         }
         if (!this._instance) {
           const sf=await this._stockfish();
@@ -61,6 +75,7 @@
             await this.parent.timeout(100);
           }
         }
+        this.parent.global.console.debug('SF','Engine loaded');
         return this;
       } catch(e) {
         console.log('Error instantiating Stockfish:',e);
@@ -159,6 +174,9 @@
 
     listen(data) {
       if (!data) return;
+      if (this.parent.debug>1) {
+        this.parent.global.console.debug('SF',data);
+      }
       if (data=='uciok') {
         this._uciok=true;
         return;
@@ -180,7 +198,11 @@
         this.emit('info',info);
         return;
       }
-      this.parent.debug && this.parent.global.console.debug('SF',data);
+      if (this.parent.debug>1) {
+        this.parent.global.console.debug('SF','unhandled message');
+      } else if (this.parent.debug) {
+        this.parent.global.console.debug('SF',data);
+      }
     }
 
     _handlers={};

@@ -32,6 +32,7 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
+      if (parent.isGamePlaying()) return;
       const selected=analysis.chessground?.state?.selected;
       const dests=selected
         ? analysis.chessground?.state?.movable?.dests?.get(selected)
@@ -136,12 +137,42 @@
           return;
         }
         const q=(cp-minCp)/(maxCp-minCp);
-        let rating=Math.round(255*Math.pow(q,5));
-        const color='#'+(255-rating).toString(16).padStart(2,'0')+rating.toString(16).padStart(2,'0')+'00';
+        //let rating=Math.round(255*Math.pow(q,3));
+        //const color='#'+(255-rating).toString(16).padStart(2,'0')+rating.toString(16).padStart(2,'0')+'00';
+        const color=this.getGradientColor(Math.pow(q,2.5),[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
         $(e)
           .css('border-color',color);
       });
     }
+
+    getColor=(text)=>{
+      const m=/^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})?$/.exec(text);
+      const parseInt=this.lichessTools.global.parseInt;
+      return {
+        R:parseInt(m[1],16),
+        G:parseInt(m[2],16),
+        B:parseInt(m[3],16),
+        A:m[4]?parseInt(m[4],16):255
+      };
+    };
+
+    getGradientColor=(q,gradient)=>{
+      let prev=null;
+      for (const gr of gradient) {
+        if (q>=prev?.q && q<=gr.q) {
+          const c1=this.getColor(prev.color);
+          const c2=this.getColor(gr.color);
+          const localQ=(q-prev.q)/(gr.q-prev.q);
+          const color = '#'+Math.round(c1.R+(c2.R-c1.R)*localQ).toString(16).padStart(2,'0')
+                    +Math.round(c1.G+(c2.G-c1.G)*localQ).toString(16).padStart(2,'0')
+                    +Math.round(c1.B+(c2.B-c1.B)*localQ).toString(16).padStart(2,'0')
+                    +Math.round(c1.A+(c2.A-c1.A)*localQ).toString(16).padStart(2,'0');
+          return color;
+        }
+        prev=gr;
+      }
+      return '#808080';
+    };
 
     _eval={};
     getInfo=(info)=>{

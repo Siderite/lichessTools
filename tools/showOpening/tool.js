@@ -36,7 +36,7 @@
         el=$('.mini-game-'+el.id);
         if (!el.length) return;
       };
-      if (!el) el=$('body');
+      if (!el) el=$.cached('body');
       const elems=$(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
       for (const el of elems) {
@@ -136,12 +136,12 @@
       const lichess=parent.lichess;
       const $=parent.$;
       if (parent.global.document.hidden) return;
-      if ($('body').is('.playing')) return;
+      if ($.cached('body').is('.playing')) return;
       const trans=parent.translator;
       const tvOptions=parent.getTvOptions();
       const gameId=tvOptions.gameId || lichess.analysis?.data?.game?.id;
-      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
-      const result = await this.withOpening(gameId,$('main.round, main.analyse, main#board-editor')[0],ply,undefined,false);
+      const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables',10000);
+      const result = await this.withOpening(gameId,$.cached('main.round, main.analyse, main#board-editor',10000)[0],ply,undefined,false);
       if (!result) {
         metaSection.find('.lichessTools-opening').remove();
         return;

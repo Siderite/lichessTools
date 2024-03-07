@@ -85,6 +85,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - move assistant shows evaluation on selecte piece destinations
  - warning when playing against a suspicious opponent
  - better board image export
+ - board editor mirror position button
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

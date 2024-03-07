@@ -72,25 +72,21 @@
         const img=await this.drawSvg(e);
         ctx.drawImage(img,0,0);
       });
+      $('dialog.lichessTools-boardImage').remove();
       const dialog=$('<dialog class="lichessTools-boardImage">')
-        .append(`
+        .append(`<form>
     <div class="close-button-anchor">
         <a class="help-button" data-icon="&#xE005;" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#boardImage" target="_blank"></a>
-        <button class="close-button" data-icon="&#xE03F;" aria-label="Close"/>
+        <button class="close-button" data-icon="&#xE03F;" aria-label="Close" formmethod="dialog" value="close"/>
     </div>
     <div class="scrollable">
         <div class="dialog-content">
         </div>
-    </div>`)
+    </div>
+</form>`)
         .appendTo('body');
       $('dialog .dialog-content').append(canvas);
-      $('button.close-button',dialog)
-        .on('click',ev=>{
-          ev.preventDefault();
-          $('body').off('keydown',this.closeDialog);
-          this.closeDialog();
-        });
-      $('body').on('keydown',this.closeDialog);
+      dialog[0].showModal();
     };
 
     closeDialog=(ev)=>{
@@ -118,11 +114,13 @@
             .insertAfter(analysisPgn);
         }
       }
-      const button=$('div.study__share a[href*="fen.gif"]:not(.lichessTools-boardImage),div.board-editor .copyables a[href*="fen.gif"]:not(.lichessTools-boardImage)');
-      if (!button.length) return;
-      button
-        .addClass('lichessTools-boardImage')
-        .on('click',this.getBoardImage);
+      $('div.study__share a[href*="fen.gif"],div.board-editor .copyables a[href*="fen.gif"]')
+        .each((i,e)=>{
+          if ($(e).is('.lichessTools-boardImage')) return;
+          $(e)
+            .addClass('lichessTools-boardImage')
+            .on('click',this.getBoardImage);
+        });
     };
 
     async start() {

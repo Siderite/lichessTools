@@ -13,13 +13,18 @@
     get debug() {
       if (this._debug===undefined) {
         const debug = this.global.localStorage.getItem('LiChessTools2.debug');
-        this._debug=(debug==='true');
+        this._debug = +debug
+          ? +debug
+          : debug==='true';
       }
       return this._debug;
     }
     set debug(value) {
-      if (this._debug==!!value) return;
-      this._debug=!!value;
+      value = +value
+          ? +value
+          : value=='true';
+      if (this._debug===value) return;
+      this._debug=value;
       this.global.localStorage.setItem('LiChessTools2.debug',this._debug.toString());
       if (this._debug) {
         console.debug('%c Debug mode is reserved for developers. Might lead to undesired consequences.', 'color: red;');
@@ -397,7 +402,7 @@
     };
 
     getUserId=()=>{
-      return this.lichess?.analysis?.opts.userId || this.$('body').attr('data-user');
+      return this.lichess?.analysis?.opts.userId || this.$.cached('body').attr('data-user');
     };
 
     userLoggedIn=()=>{
@@ -663,7 +668,7 @@
 
     isDark=()=>{
       const $=this.$;
-      const body=$('body');
+      const body=$.cached('body');
       if (body.is('.light')) return false;
       if (body.is('.dark,.transp')) return true;
       return this.global.matchMedia && this.global.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -929,7 +934,7 @@
       }
       this.prevOptions=this.global.JSON.stringify(options);
       this.currentOptions=options;
-      this.$('body').toggleClass('lichessTools',options.enableLichessTools);
+      this.$.cached('body').toggleClass('lichessTools',options.enableLichessTools);
       const console=this.global.console;
       const group=options.getValue('showOptionsTableInConsole')
         ? console.group

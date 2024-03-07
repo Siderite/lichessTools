@@ -42,13 +42,13 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('themes');
       this.logOption('Themes', value||'none');
-      const installedThemes=Array.from($('body')[0]?.classList)?.filter(c=>c.startsWith('lichessTools-theme_'));
+      const installedThemes=Array.from($.cached('body')[0]?.classList)?.filter(c=>c.startsWith('lichessTools-theme_'));
       for (const theme of installedThemes) {
-        $('body').removeClass(theme);
+        $.cached('body').removeClass(theme);
       }
       if (value) {
         value.split(',').forEach(theme=>{
-          $('body').addClass('lichessTools-theme_'+theme.trim());
+          $.cached('body').addClass('lichessTools-theme_'+theme.trim());
         });
       }
     }

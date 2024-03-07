@@ -45,10 +45,11 @@
           if (pathParts.length > 30 || !path || path.length > 255 - 21) return;
           const title = `Chess_Opening_Theory/${path}`;
           const fen=analysis.node.fen.split(' ').slice(0,4).map(p=>p.replaceAll('/','')).join('');
-          const newTitle=parent.wikiUrls_dict[fen];
-          if (!newTitle || newTitle.replaceAll(' ','_')==title) return;
+          const newTitles=parent.wikiUrls_dict[fen];
+          if (!newTitles?.length || newTitles.find(t=>t.replaceAll(' ','_')==title)) return;
           const originalFunction=analysis.wiki.__originalFunction?.bind($this);
           if (!originalFunction) return;
+          const newTitle=newTitles[0];
           const newNodes=[{ply:0,san:''}];
           const r=/\/\d+\.+[\s_]*([^\s_\/]+)/g;
           let m=r.exec(newTitle);

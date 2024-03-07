@@ -73,11 +73,11 @@
       parent.global.setTimeout(()=>$('.saved').addClass('none'),2000);
     };
     const checkGlobalSwitch=()=>{
-      $('body').toggleClass('lichessTools-globalDisable',!currentOptions.enableLichessTools);
+      $.cached('body').toggleClass('lichessTools-globalDisable',!currentOptions.enableLichessTools);
     };
     const checkAdvanced=()=>{
       this.options.advanced=!!currentOptions.getValue('advancedPreferences');
-      $('body').toggleClass('lichessTools-advancedPreferences',this.options.advanced);
+      $.cached('body').toggleClass('lichessTools-advancedPreferences',this.options.advanced);
     };
 
     //TODO add link to translation project

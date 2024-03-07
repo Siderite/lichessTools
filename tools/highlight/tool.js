@@ -104,7 +104,7 @@
       if (!analysis) return;
       const onMainline = analysis.mainline.includes(analysis.node);
       const $=parent.$;
-      $('body').toggleClass('lichessTools-notOnMainline',!onMainline);
+      $.cached('body').toggleClass('lichessTools-notOnMainline',!onMainline);
     };
 
     highlightVariationDepth=()=>{
@@ -179,7 +179,7 @@
         lichess.pubsub.on('redraw', this.highlightMainLine);
         lichess.pubsub.on('redraw', this.debouncedTraverseTree);
       }
-      $('body').toggleClass('lichessTools-variationDepth',this.options.variationDepth);
+      $.cached('body').toggleClass('lichessTools-variationDepth',this.options.variationDepth);
       this.debouncedTraverseTree();
     }
   }

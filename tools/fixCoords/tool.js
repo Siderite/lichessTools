@@ -39,14 +39,14 @@
         fix: parent.isOptionSet(value,'fix'),
         larger: parent.isOptionSet(value,'larger')
       };
-      $('body')
+      $.cached('body')
         .toggleClass('lichessTools-fixCoords-fix',this.options.fix)
         .toggleClass('lichessTools-fixCoords-larger',this.options.larger);
       const analysis=lichess?.analysis;
       if (this.options.fix && analysis) {
         const pref=analysis.data?.pref?.coords;
         if (pref) {
-          $('body')
+          $.cached('body')
             .toggleClass('coords-in',pref==1)
             .toggleClass('coords-out',pref==2);
         }

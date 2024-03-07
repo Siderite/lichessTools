@@ -29,7 +29,7 @@
       const g=this.lichessTools.global;
       g.clearTimeout(this.makeMoveTimeout);
       this.makeMoveMode=null;
-      $('body').removeClass('lichessTools-keyMode-pgn lichessTools-keyMode-ceval lichessTools-keyMode-explorer lichessTools-keyMode-general');
+      $.cached('body').removeClass('lichessTools-keyMode-pgn lichessTools-keyMode-ceval lichessTools-keyMode-explorer lichessTools-keyMode-general');
     };
 
     prepareMove=(mode)=>{
@@ -60,7 +60,7 @@
           return;
       }
       this.makeMoveMode=mode;
-      $('body').addClass('lichessTools-keyMode-'+mode);
+      $.cached('body').addClass('lichessTools-keyMode-'+mode);
       this.makeMoveTimeout=g.setTimeout(this.clearMoveMode,1500);
     };
 

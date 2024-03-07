@@ -9,7 +9,7 @@
       };
       
       this.logOption('Detected third parties', Object.keys(this.options).filter(k=>this.options[k]).join(', ')||'none');
-      $('body').toggleClass('lichessTools-prettier',this.options.isPrettier);
+      $.cached('body').toggleClass('lichessTools-prettier',this.options.isPrettier);
     }
 
   }

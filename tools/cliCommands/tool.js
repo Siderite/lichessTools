@@ -115,7 +115,7 @@
         this.oldkeydown=parent.getEventHandlers(input,'keydown')[0];
         if (!this.oldkeydown) {
           $(input).trigger('focus');
-          $('body').removeClass('clinput');
+          $.cached('body').removeClass('clinput');
           if (this.retries>this.maxRetries) {
             parent.global.console.warn('Could not get keydown event for ',input);
             return;
@@ -138,6 +138,17 @@
       }
     };
 
+    removeCommandFunctions=()=>{
+      const parent=this.lichessTools;
+      if (this.options.enabled) return;
+      if (Object.keys(this.commands).length) {
+        parent.global.setTimeout(this.removeCommandFunctions,100);
+        return;
+      }
+      parent.registerCommand=null;
+      parent.unregisterCommand=null;
+    };
+
     commands={};
 
     async start() {
@@ -155,8 +166,7 @@
           delete this.commands[key];
         };
       } else {
-        parent.registerCommand=null;
-        parent.unregisterCommand=null;
+        this.removeCommandFunctions();
       }
     }
   }

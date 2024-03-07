@@ -46,57 +46,56 @@
       }
     }
 
-    writePlayerName(name,square) {
+    writePlayerName=async ()=>{
       if (!this.options.showNames) return;
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
       const $=parent.$;
       const board=$('div.main-board cg-board');
-      const q=board.width()/8;
-      const coords=analysis.getOrientation()=='white'
-        ? { x: square.charCodeAt(0)-97, y: (+square[1])-1 }
-        : { x: 104-square.charCodeAt(0), y: 8-(+square[1]) };
       let label=$('.lichessTools-explorerPractice',board);
+      let turn=analysis.turnColor();
+      if (!this.isRunning || turn!=analysis.getOrientation()) {
+        label.remove();
+        return;
+      }
+      while (analysis.explorer?.loading()) {
+        await parent.timeout(50);
+      }
+      const current=analysis.explorer?.current();
+      const square=this._lastUci?.slice(2,4);
+      this._lastUci=null;
+      if (!square || !current || !this.isRunning || turn!=analysis.getOrientation()) {
+        label.remove();
+        return;
+      }
       if (!label.length) {
         label=$('<label class="lichessTools-explorerPractice"><span></span></label>')
           .appendTo(board);
       }
-      label
-        .css({ left: coords.x*q, top: (7-coords.y)*q})
-        .find('span')
-        .text(name||'');
-      label.toggleClass('black',analysis.turnColor()=='black')
-    };
-
-    rewritePlayerName() {
-      if (!this.options.showNames) return;
-      const parent=this.lichessTools;
-      const analysis=parent.lichess.analysis;
-      const $=parent.$;
-      const board=$('div.main-board cg-board');
-      const label=$('.lichessTools-explorerPractice',board);
-      if (!label.length || label.text()) return;
-      const current=analysis.explorer?.current();
-      if (!current) return;
-      let turn=analysis.turnColor();
       turn=turn=='white'?'black':'white';
-      const playerNames=[...current.recentGames,...current.topGames]
+      const playerNames=[...current.recentGames,...current.topGames||[]]
                           .map(m=>m[turn].name);
       const playerIndex=Math.floor(parent.random()*playerNames.length);
-      const playerName=playerNames[playerIndex];
+      const playerName=playerNames[playerIndex]||'';
+      const coords=analysis.getOrientation()=='white'
+        ? { x: square.charCodeAt(0)-97, y: (+square[1])-1 }
+        : { x: 104-square.charCodeAt(0), y: 8-(+square[1]) };
+      const q=board.width()/8;
       label
+        .attr('data-fen',analysis.node.fen)
+        .css({ left: coords.x*q, top: (7-coords.y)*q})
         .find('span')
         .text(playerName);
       label.toggleClass('black',turn=='black')
-    }
+    };
 
-    removePlayerName() {
+    removePlayerName=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const board=$('div.main-board cg-board');
       const label=$('.lichessTools-explorerPractice',board);
       label.remove();
-    }
+    };
 
     playMove=(ignoreSide)=>{
       const parent=this.lichessTools;
@@ -109,7 +108,7 @@
       if (!ignoreSide && turn===analysis.getOrientation()) {
         this.inPlayMove=false;
         this.stopCeval=false;
-        this.rewritePlayerName();
+        //this.rewritePlayerName();
         return;
       }
       if (!analysis.explorer?.enabled()) return;
@@ -129,12 +128,7 @@
       for (const move of moves) {
         acc+=move.total;
         if (index<=acc) {
-          const playerNames=[...current.recentGames,...current.topGames]
-                          .filter(m=>m.uci==move.uci)
-                          .map(m=>m[turn].name);
-          const playerIndex=Math.floor(parent.random()*playerNames.length);
-          const playerName=playerNames[playerIndex];
-          this.writePlayerName(playerName,move.uci.slice(2,4));
+          this._lastUci=move.uci;
           analysis.playUci(move.uci);
           this.inPlayMove=analysis.node.fen;
           return;
@@ -257,6 +251,7 @@
       if (!analysis) return;
       if (analysis.gamebookPlay()) return;
       lichess.pubsub.off('redraw',this.processDebounced);
+      lichess.pubsub.off('ply',this.writePlayerName);
       $('main.analyse div.analyse__controls').off('click touchend',this.process);
       parent.unbindKeyHandler('shift+l');
       analysis.userJump=parent.unwrapFunction(analysis.userJump,'explorerPractice');
@@ -270,6 +265,7 @@
         parent.emitRedraw();
       });
       lichess.pubsub.on('redraw',this.processDebounced);
+      lichess.pubsub.on('ply',this.writePlayerName);
       $('main.analyse div.analyse__controls').on('click touchend',this.process);
       analysis.userJump=parent.wrapFunction(analysis.userJump,{
         id: 'explorerPractice',
