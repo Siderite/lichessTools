@@ -136,7 +136,7 @@
           }
         } else if (!nextMoves.length) {
           state.feedback = 'end';
-          this.markPathFinished(analysis.path,gp.goodMoves,gp.badMoves,gp.askedForSolution);
+          this.markPathFinished(analysis.path,gp.goodMoves+(gp.isMyMove()?0:1),gp.badMoves,gp.askedForSolution);
         } else if (gp.isMyMove()) {
           state.feedback = 'play';
           state.hint = node.gamebook?.hint;
@@ -899,7 +899,9 @@
         .removeClass('lichesstools-extendedInteractiveLessonFlow')
         .find('i.act.lichessTools-reset')
         .remove();
+      lichess.pubsub.off('chat.resize',this.refreshChapterProgress);
       if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
+        lichess.pubsub.on('chat.resize',this.refreshChapterProgress);
         this.refreshChapterProgress();
         study.chapters.editForm.toggle=parent.wrapFunction(study.chapters.editForm.toggle,{
           id:'extendedInteractiveLessonFlow',

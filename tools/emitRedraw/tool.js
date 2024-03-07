@@ -36,6 +36,8 @@
       }
       lichess.pubsub.off('ply',emit);
       lichess.pubsub.on('ply',emit);
+      lichess.pubsub.off('chat.resize',emit);
+      lichess.pubsub.on('chat.resize',emit);
       parent.global.clearInterval(this._interval);
       this._interval=parent.global.setInterval(()=>{
         const cls=$('.main-board .cg-wrap').attr('class');
