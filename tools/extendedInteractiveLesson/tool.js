@@ -784,6 +784,23 @@
       }
     };
 
+    findThreatArrow=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const lichess=parent.lichess;
+      const analysis=lichess?.analysis;
+      if (!analysis.threatMode()) return;
+      let uci=analysis.ceval?.curEval?.pvs?.at(0)?.moves?.at(0);
+      if (!uci) return;
+      uci=uci.substr(0,2)+','+uci.substr(2,2);
+      $('svg.cg-shapes g').each((i,e)=>{
+        const cgHash=$(e).attr('cgHash');
+        if (cgHash?.includes(uci)) {
+          $(e).addClass('lichessTools-threat');
+        }
+      });
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('extendedInteractiveLesson');
@@ -864,7 +881,9 @@
       if (lichess.analysis.study.onReload) {
         lichess.analysis.study.onReload=lichessTools.unwrapFunction(lichess.analysis.study.onReload,'extendedInteractiveLesson');
       }
+      lichess.pubsub.off('redraw',this.findThreatArrow);
       if (this.options.extendedInteractive) {
+        lichess.pubsub.on('redraw',this.findThreatArrow);
         lichess.analysis.study.onReload=lichessTools.wrapFunction(lichess.analysis.study.onReload,{
           id:'extendedInteractiveLesson',
           after:($this,result,...args)=>{
