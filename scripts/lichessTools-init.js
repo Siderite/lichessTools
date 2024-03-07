@@ -5,7 +5,6 @@ lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
 lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);
 lichessTools.loadTool(LiChessTools.Tools.InterceptTimeouts);
-//lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);
 lichessTools.loadTool(LiChessTools.Tools.FixAbortController);
 lichessTools.loadTool(LiChessTools.Tools.FixChessgroundResize);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
@@ -22,7 +21,6 @@ lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
-//lichessTools.loadTool(LiChessTools.Tools.HideCrosstable);
 lichessTools.loadTool(LiChessTools.Tools.MobileExperience);
 lichessTools.loadTool(LiChessTools.Tools.CtrlSpaceForBestComputerMove);
 lichessTools.loadTool(LiChessTools.Tools.FriendsList);
