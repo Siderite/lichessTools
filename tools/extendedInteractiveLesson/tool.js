@@ -255,19 +255,17 @@
         this._paths[key]=paths;
       }
       if (paths.currentPath && !this.isDonePath(paths.currentPath)) return paths.currentPath;
-      let currentPaths=[];
-      let traverse=null;
-      if (this.options.flow.sequential||this.options.flow.spacedRepetition) {
-        traverse=(node,path)=>{
-          if (this.options.flow.sequential && currentPaths.length) return;
-          const nextMoves=node.children
-                                .filter(c=>this.isPermanentNode(c));
-          if (!nextMoves.length && !this.isDonePath(path)) {
-            currentPaths.push(path);
-          }
-          for (const child of nextMoves) traverse(child,path+child.id);
-        };
-      }
+      if (!this.options.flow.sequential&&!this.options.flow.spacedRepetition) return;
+      const currentPaths=[];
+      const traverse=(node,path)=>{
+        if (this.options.flow.sequential && currentPaths.length) return;
+        const nextMoves=node.children
+                              .filter(c=>this.isPermanentNode(c));
+        if (!nextMoves.length && !this.isDonePath(path)) {
+          currentPaths.push(path);
+        }
+        for (const child of nextMoves) traverse(child,path+child.id);
+      };
       traverse(analysis.tree.root,'');
       const i = Math.floor(parent.random() * currentPaths.length);
       paths.currentPath=currentPaths[i];
