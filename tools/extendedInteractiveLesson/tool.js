@@ -44,7 +44,8 @@
         'resetQuestion': 'Reset variation progress?',
         'resetButtonText': 'Reset',
         'resetButtonTitle': 'LiChess Tools - reset variation progress',
-        'progressTitle': 'LiChess Tools - %s variations'
+        'progressTitle': 'LiChess Tools - %s variations',
+        'extendedInteractiveOptionsTitle': 'LiChess Tools - interactive lesson preferences'
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -68,7 +69,8 @@
         'resetQuestion': 'Resetez progresul \u00een varia\u0163uni?',
         'resetButtonText': 'Resetare',
         'resetButtonTitle': 'LiChess Tools - resetare progres \u00een varia\u0163uni',
-        'progressTitle': 'LiChess Tools - %s varia\u0163uni'
+        'progressTitle': 'LiChess Tools - %s varia\u0163uni',
+        'extendedInteractiveOptionsTitle': 'LiChess Tools - preferin\u0163e lec\u0163ie interactiv\u0103'
       }
     }
 
@@ -588,18 +590,35 @@
       }
 
       const menu=$('#analyse-cm');
-      if (!menu.length) return;
-      if (!analysis?.study?.data?.chapter?.gamebook) return;
-      if (menu.has('a[data-role="addDeviation"]').length) return;
-      const text=trans.noarg('addDeviationText');
-      const title=trans.noarg('addDeviationTitle');
-      $('<a>')
-        .attr('data-icon','\uE05E')
-        .attr('data-role','addDeviation')
-        .text(text).attr('title',title)
-        .on('click',this.addDeviation)
-        .appendTo(menu);
+      if (menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addDeviation"]').length) {
+        const text=trans.noarg('addDeviationText');
+        const title=trans.noarg('addDeviationTitle');
+        $('<a>')
+          .attr('data-icon','\uE05E')
+          .attr('data-role','addDeviation')
+          .text(text).attr('title',title)
+          .on('click',this.addDeviation)
+          .appendTo(menu);
+      }
 
+      const gamebookElem=$('div.gamebook');
+      let optionsElem=gamebookElem.find('.lichessTools-extendedInteractiveLesson-options');
+      if (!optionsElem.length) {
+        optionsElem=$('<div class="lichessTools-extendedInteractiveLesson-options">')
+          .append($('<span>'))
+          .append($('<a target="_blank">')
+               .attr('data-icon','\uE005')
+               .attr('href','https://siderite.dev/blog/lichess-tools---user-manual#extendedInteractiveLesson')
+          )
+          .attr('title',trans.noarg('extendedInteractiveOptionsTitle'))
+          .insertAfter($('div.floor',gamebookElem));
+      }
+      const optionsArr=[];
+      if (this.options.extendedInteractive) optionsArr.push(trans.noarg('extendedInteractiveLesson.extendedInteractive'));
+      if (this.options.flow.sequential) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.sequential'));
+      if (this.options.flow.spacedRepetition) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.spacedRepetition'));
+      if (this.options.returnToPreview) optionsArr.push(trans.noarg('extendedInteractiveLesson.returnToPreview'));
+      optionsElem.find('span').text(optionsArr.join(', '));
     };
 
     isPermanentNode=(node)=>{
