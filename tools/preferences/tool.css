@@ -211,3 +211,7 @@ body.lichessTools-prettier.lichessTools-advancedPreferences div.lichessTools-pre
   background: gray !important;
   opacity:1;
 }
+
+body.lichessTools-prettier div.lichessTools-preferences  .actionButtons button {
+  text-transform: capitalize !important;
+}
