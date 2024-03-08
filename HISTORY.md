@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+08 Mar
+  - Preferences backup/restore and default preference highlighting
+  - Show interactive lesson preferences when playing them
+
 28 Feb
   - Show last seen time in live friends page
   - More decimals in computer evaluation
