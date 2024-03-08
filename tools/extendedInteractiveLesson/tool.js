@@ -17,7 +17,8 @@
         type:'multiple',
         possibleValues: ['sequential','spacedRepetition'],
         defaultValue: false,
-        advanced: true
+        advanced: true,
+        wip: true
       }
     ];
 

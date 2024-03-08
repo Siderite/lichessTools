@@ -147,6 +147,16 @@ body.lichessTools-advancedPreferences div.lichessTools-preferences section.liche
   opacity:0.3;
 }
 
+body.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-wipPreference {
+  filter: sepia(1);
+}
+
+body.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-wipPreference h2:before {
+  content: 'WIP';
+  float: left;
+  margin-right: 1em;
+}
+
 
 div.lichessTools-preferences div.feedback {
   display:flex;

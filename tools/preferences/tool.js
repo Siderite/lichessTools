@@ -140,6 +140,7 @@
         const classes=[];
         if (pref.advanced) classes.push('lichessTools-advancedPreference');
         if (pref.hidden) classes.push('lichessTools-hiddenPreference');
+        if (pref.wip) classes.push('lichessTools-wipPreference');
         if (classes.length) html+=' class="'+classes.join(' ')+'"'
         html+=`><h2>$trans(options.${pref.name})`;
         if (pref.author) {
