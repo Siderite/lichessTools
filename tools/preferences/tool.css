@@ -183,11 +183,22 @@ div.lichessTools-preferences div.feedback button {
   height:3em;
 }
 
-.actionButtons  {
+div.lichessTools-preferences .actionButtons  {
   display: flex;
   gap: 1em;
   justify-content: flex-end;
 }
+
+div.lichessTools-preferences .actionButtons span {
+  flex-grow: 1;
+  color: cornflowerblue;
+}
+
+div.lichessTools-preferences div.defaultValue {
+  border: 1px cornflowerblue groove;
+  border-radius:25%;
+}
+
 
 /* Prettier Lichess CSS */
 

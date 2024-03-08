@@ -33,7 +33,8 @@
         'backupButtonText': 'Backup',
         'backupButtonTitle': 'LiChess Tools - backup preferences in a file',
         'restoreButtonText': 'Restore',
-        'restoreButtonTitle': 'LiChess Tools - restore preferences from a file'
+        'restoreButtonTitle': 'LiChess Tools - restore preferences from a file',
+        'defaultValueLegend': '*Blue bordered preferences are the ones enabled by default'
       },
       'ro-RO':{
         yes: 'Da',
@@ -52,7 +53,8 @@
         'backupButtonText': 'Backup',
         'backupButtonTitle': 'LiChess Tools - Descarc\u0103 preferin\u0163ele \u00eentr-un fi\u015Fier',
         'restoreButtonText': 'Restaurare',
-        'restoreButtonTitle': 'LiChess Tools - \u00CEncarc\u0103 preferin\u0163ele dintr-un fi\u015Fier'
+        'restoreButtonTitle': 'LiChess Tools - \u00CEncarc\u0103 preferin\u0163ele dintr-un fi\u015Fier',
+        'defaultValueLegend': '*Preferin\u0163ele cu margine alb\u0103strie sunt cele implicite'
       }
     }
 
@@ -162,7 +164,7 @@
               const textKey=typeof val==='boolean'
                 ? (val?'yes':'no')
                 : (pref.valuePrefix||pref.name+'.')+val;
-              html+=`<div>
+              html+=`<div`+(((typeof val!=='boolean' && pref.defaultValue===true)||pref.defaultValue?.toString().includes(val))?' class="defaultValue"':'')+`>
                   <input type="radio" value="${val}" name="${pref.name}"/>
                   <label>$trans(${textKey})</label>
                 </div>`;
@@ -176,7 +178,7 @@
               const textKey=typeof val==='boolean'
                 ? (val?'yes':'no')
                 : (pref.valuePrefix||pref.name+'.')+val;
-              html+=`<div>
+              html+=`<div`+(((typeof val==='boolean' && pref.defaultValue===true)||pref.defaultValue?.toString().includes(val))?' class="defaultValue"':'')+`>
                   <input type="checkbox" value="${val}" name="${pref.name}"/>
                   <label>$trans(${textKey})</label>
                 </div>`;
@@ -186,7 +188,7 @@
           break;
           case 'number': {
             html+=`<group>
-                <div>
+                <div`+(((typeof val==='boolean' && pref.defaultValue===true)||pref.defaultValue?.toString().includes(val))?' class="defaultValue"':'')+`>
                   <input class="form-control" type="number" name="${pref.name}"/>
                 </div></group>`;
           }
@@ -201,6 +203,7 @@
 
     html+=`</form>
 <div class="actionButtons">
+<span>$trans(defaultValueLegend)</span>
 <button id="btnBackup" type="button" class="btn button" title="$trans(backupButtonTitle)">$trans(backupButtonText)</button>
 <button id="btnRestore" type="button" class="btn button" title="$trans(restoreButtonTitle)">$trans(restoreButtonText)</button>
 </div>
