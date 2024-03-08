@@ -183,6 +183,11 @@ div.lichessTools-preferences div.feedback button {
   height:3em;
 }
 
+.actionButtons  {
+  display: flex;
+  gap: 1em;
+  justify-content: flex-end;
+}
 
 /* Prettier Lichess CSS */
 

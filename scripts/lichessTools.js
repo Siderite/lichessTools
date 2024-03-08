@@ -926,9 +926,8 @@
     applyOptions=async (options)=>{
       if (options) {
         await this.saveOptions(options);
-      } else {
-        options = await this.getOptions();
       }
+      options = await this.getOptions();
       if (this.prevOptions===this.global.JSON.stringify(options)) {
         return;
       }
