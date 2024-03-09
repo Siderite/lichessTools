@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Lichess Tools, by Siderite",
-  "short_name": "Lichess Tools",
+  "name": "LiChess Tools, by Siderite",
+  "short_name": "LiChess Tools",
   "version": "2.3.33",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
