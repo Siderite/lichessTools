@@ -5225,6 +5225,7 @@ const openings = {
   "rn1q1rk1pppnppbp6p183PP1b11QN1BN2PP3PPPR3KB1Rb": "Grünfeld Defense: Russian Variation, Smyslov Variation",
   "rn1qk1nr1b3ppp4p3pp62pP41PB1PN25PPPR2QKB1Rw": "Semi-Slav: Noteboom, Abrahams, Main Line",
   "rn1qk1nr1bp1ppbpp2p2p11p63PP32PB1N2PP3PPPRNBQ1RK1w": "St. George Defense: San Jorge Variation",
+  "rn1qk1nrpbpp1ppp1p2p381b1PP2P2N5PPP1NPP1R1BQKB1Rb": "French Defense: Reverse Leela Gambit (wgraif)",
   "rn1qk1nrpp1bbppp81Bpp43P48PPPNQPPPR1B1K1NRw": "French: Tarrasch, Open, 4.exd5 exd5 5.Bb5+ Bd7 6.Qe2+ Be7",
   "rn1qk1nrpp2bppp2p53p1b23P1B22N1P3PP3PPPR2QKBNRw": "QGD: Alatortsev, 5.Bf4 c6 6.e3 Bf5",
   "rn1qk1nrpp2bppp2p53p1b23P1BP12N1P3PP3P1PR2QKBNRb": "QGD: Alatortsev, 5.Bf4 c6 6.e3 Bf5 7.g4",
