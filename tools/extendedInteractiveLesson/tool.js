@@ -602,24 +602,26 @@
           .appendTo(menu);
       }
 
-      const gamebookElem=$('div.gamebook');
-      let optionsElem=gamebookElem.find('.lichessTools-extendedInteractiveLesson-options');
-      if (!optionsElem.length) {
-        optionsElem=$('<div class="lichessTools-extendedInteractiveLesson-options">')
-          .append($('<span>'))
-          .append($('<a target="_blank">')
-               .attr('data-icon','\uE005')
-               .attr('href','https://siderite.dev/blog/lichess-tools---user-manual#extendedInteractiveLesson')
-          )
-          .attr('title',trans.noarg('extendedInteractiveOptionsTitle'))
-          .insertAfter($('div.floor',gamebookElem));
+      if (!analysis.study?.practice) {
+        const gamebookElem=$('div.gamebook');
+        let optionsElem=gamebookElem.find('.lichessTools-extendedInteractiveLesson-options');
+        if (!optionsElem.length) {
+          optionsElem=$('<div class="lichessTools-extendedInteractiveLesson-options">')
+            .append($('<span>'))
+            .append($('<a target="_blank">')
+                 .attr('data-icon','\uE005')
+                 .attr('href','https://siderite.dev/blog/lichess-tools---user-manual#extendedInteractiveLesson')
+            )
+            .attr('title',trans.noarg('extendedInteractiveOptionsTitle'))
+            .insertAfter($('div.floor',gamebookElem));
+        }
+        const optionsArr=[];
+        if (this.options.extendedInteractive) optionsArr.push(trans.noarg('extendedInteractiveLesson.extendedInteractive'));
+        if (this.options.flow.sequential) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.sequential'));
+        if (this.options.flow.spacedRepetition) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.spacedRepetition'));
+        if (this.options.returnToPreview) optionsArr.push(trans.noarg('extendedInteractiveLesson.returnToPreview'));
+        optionsElem.find('span').text(optionsArr.join(', '));
       }
-      const optionsArr=[];
-      if (this.options.extendedInteractive) optionsArr.push(trans.noarg('extendedInteractiveLesson.extendedInteractive'));
-      if (this.options.flow.sequential) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.sequential'));
-      if (this.options.flow.spacedRepetition) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.spacedRepetition'));
-      if (this.options.returnToPreview) optionsArr.push(trans.noarg('extendedInteractiveLesson.returnToPreview'));
-      optionsElem.find('span').text(optionsArr.join(', '));
     };
 
     isPermanentNode=(node)=>{
