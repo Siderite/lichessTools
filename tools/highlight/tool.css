@@ -44,11 +44,11 @@ body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm1 {
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd1 {
-  font-size:1.4em;
+  font-size:1.2em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd1:before {
-  font-size:1.3em;
+  font-size:1.1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm2 {
@@ -56,11 +56,11 @@ body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm2 {
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd2 {
-  font-size:1.3em;
+  font-size:1.1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd2:before {
-  font-size:1.2em;
+  font-size:1.1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm3 {
@@ -68,11 +68,11 @@ body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm3 {
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd3 {
-  font-size:1.2em;
+  font-size:1.1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd3:before {
-  font-size:1.1em;
+  font-size:1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm4 {
@@ -80,11 +80,11 @@ body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm4 {
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd4 {
-  font-size:1.1em;
+  font-size:1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd4:before {
-  font-size:1em;
+  font-size:.95em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm5 {
@@ -92,7 +92,7 @@ body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm5 {
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd5 {
-  font-size:1em;
+  font-size:.95em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd5:before {
@@ -104,7 +104,7 @@ body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm6 {
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd6 {
-  font-size:.95em;
+  font-size:.9em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd6:before {
@@ -116,7 +116,7 @@ body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm7 {
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd7 {
-  font-size:.9em;
+  font-size:.85em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd7:before {
