@@ -4,7 +4,14 @@ body.lichessTools span.lichessTools-pin.lichessTools-pinned {
 }
 
 body.lichessTools a.lichessTools-pin {
-  position: relative;
+  display:flex;
+}
+
+body.lichessTools a.lichessTools-pin span.content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 body.lichessTools a.lichessTools-pin span.name {
@@ -14,12 +21,6 @@ body.lichessTools a.lichessTools-pin span.name {
 body.lichessTools a.lichessTools-pin i.img:before {
   filter: grayscale(1);
   font-size:2em;
-}
-
-body.lichessTools a.lichessTools-pin span.lichessTools-unpin {
-  position: absolute;
-  right:0;
-  top:0;
 }
 
 body.lichessTools a.lichessTools-pin:hover span.lichessTools-unpin {
