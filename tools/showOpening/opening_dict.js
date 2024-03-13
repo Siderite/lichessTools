@@ -11143,6 +11143,7 @@ const openings = {
   "rnbqkbnrppp2ppp83pp383PP3PPP2PPPRNBQKBNRw": "Van't Kruijs Opening: Cow Variation (Anna Cramling)",
   "rnbqkbnrppp2ppp83Pp385N2PPPP1PPPRNBQKB1Rb": "Elephant Gambit: 3.exd5",
   "rnbqkbnrppp2ppp83pp385NP1PPPPPP1PRNBQKB1Rw": "King's Indian Attack: Omega-Delta Gambit",
+  "rnbqkbnrppp2ppp83pp385PPNPPPPP2PRNBQKB1Rb": "Amar Opening: Creeping Variation (Averell Gamble)",
   "rnbqkbnrppp2ppp83pp386P1PPPPPPBPRNBQK1NRw": "Benko Opening",
   "rnbqkbnrppp2ppp83Pp388PPPP1PPPRNBQKBNRw": "Scandinavian: Boehnke Gambit",
   "rnbqkbnrppp2ppp83pp38P6P1PPPPPP1RNBQKBNRw": "Creepy Crawly Formation: Classical Defense",
