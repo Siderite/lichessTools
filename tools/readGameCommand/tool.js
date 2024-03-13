@@ -145,11 +145,10 @@
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!analysis) return;
-      parent.unregisterCommand('readGameCommand');
       $.cached('body').off('keyup',this.keyHandler);
       if (value) {
         $.cached('body').on('keyup',this.keyHandler);
-        parent.registerCommand('readGameCommand',{
+        parent.registerCommand && parent.registerCommand('readGameCommand',{
           handle:(val)=>{
             const m=/^\s*readgame(?:\s+(?<speed>\d+))?(?:\s+(?<voice>\d+))?(?:\s+(?<instrument>\d+))?/.exec(val);
             if (!m) return;
@@ -166,6 +165,8 @@
           analysis.jumpToIndex();
           this.readGame(this.defaultSpeed,0,0);
         }
+      } else {
+        parent.unregisterCommand && parent.unregisterCommand('readGameCommand');
       }
     }
   }

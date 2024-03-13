@@ -33,7 +33,7 @@
       const value=parent.currentOptions.getValue('hideBoardCommand');
       this.logOption('Command - hide board', value);
       if (value) {
-        parent.registerCommand('hideBoardCommand',{
+        parent.registerCommand && parent.registerCommand('hideBoardCommand',{
           handle:(val)=>{
             if (val=='board') {
               $.cached('body').toggleClass('lichessTools-hideBoard');
@@ -43,7 +43,7 @@
           getHelp:()=>trans.noarg('hideBoardCommand.helpText')
         });
       } else {
-        parent.unregisterCommand('hideBoardCommand');
+        parent.unregisterCommand && parent.unregisterCommand('hideBoardCommand');
       }
     }
   }

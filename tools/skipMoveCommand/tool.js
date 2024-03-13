@@ -105,9 +105,8 @@
       this.logOption('Command - skip move', value);
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
-      parent.unregisterCommand('skipMoveCommand');
       if (value && analysis) {
-        parent.registerCommand('skipMoveCommand',{
+        parent.registerCommand && parent.registerCommand('skipMoveCommand',{
           handle:(val)=>{
             if (val=='skipmove') {
               this.skipMoveIfPossible();
@@ -116,6 +115,8 @@
           },
           getHelp:()=>trans.noarg('skipMoveCommand.helpText')
         });
+      } else {
+        parent.unregisterCommand && parent.unregisterCommand('skipMoveCommand');
       }
     }
   }

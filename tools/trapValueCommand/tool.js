@@ -138,9 +138,8 @@
       const analysis=lichess.analysis;
       const explorer=analysis?.explorer;
       if (!explorer) return;
-      parent.unregisterCommand('trapValueCommand');
       if (value) {
-        parent.registerCommand('trapValueCommand',{
+        parent.registerCommand && parent.registerCommand('trapValueCommand',{
           handle:(val)=>{
             if (val=='trapvalue') {
               this.showTrapValue();
@@ -149,6 +148,8 @@
           },
           getHelp:()=>trans.noarg('trapValueCommand.helpText')
         });
+      } else {
+        parent.unregisterCommand && parent.unregisterCommand('trapValueCommand');
       }
     }
   }
