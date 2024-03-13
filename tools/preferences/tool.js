@@ -95,7 +95,7 @@
             <h1 class="box__top">$trans(LiChess Tools)</h1>
             <div class="links">
               <a class="rate" title="$trans(rateThisTitle)"
-                 href="https://chrome.google.com/webstore/detail/lichess-tools-by-siderite/langlhlcknngldkeliapahbhbcmlcbcj" target="_blank">$trans(rateThisText)</a>
+                 href="https://chromewebstore.google.com/detail/lichess-tools-by-siderite/langlhlcknngldkeliapahbhbcmlcbcj/reviews" target="_blank">$trans(rateThisText)</a>
               <a class="blog" title="$trans(blogLinkTitle)"
                  href="https://siderite.dev/blog/new-chrome-extension-lichess-tools" target="_blank">siderite.dev</a>
             </div>
