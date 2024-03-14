@@ -460,8 +460,6 @@
       const container=$(elem);
       if (!container.length) return;
       const variantElem=container.closest('div.round__app, main, a.mini-game');
-      //const isStandard = variantElem.is('.standard,.variant-standard');
-      //if (!isStandard) return;
 
       const width=container.width()/8;
       const parentOffset=container.offset();
@@ -473,12 +471,23 @@
       const lastMove={};
       $('square.last-move',container).each((i,s)=>{
         const square=$(s);
-        const offset=square.offset();
-        const res={
-          x:Math.floor((offset.left-parentOffset.left)/width),
-          y:Math.floor((offset.top-parentOffset.top)/width)
-        };
-        lastMove[getKey(res)]=true;
+        let res;
+        let key;
+        if (s.cgKey) {
+          res={
+                x:s.cgKey.charCodeAt(0)-97, 
+                y:s.cgKey.charCodeAt(1)-49
+              };
+          key=(7-res.x)+','+(7-res.y);
+        } else {
+          const offset=square.offset();
+          res={
+                x:Math.round((offset.left-parentOffset.left)/width),
+                y:Math.round((offset.top-parentOffset.top)/width)
+              };
+          key=getKey(res)
+        }
+        lastMove[key]=true;
       });
 
       let turn='';
@@ -486,13 +495,24 @@
       $('piece',container).each((i,p)=>{
         const piece=$(p);
         const offset=piece.offset();
-        const res={
-          type:Array.from(p.classList).find(c=>!['black','white'].includes(c)),
-          x:Math.floor((offset.left-parentOffset.left)/width),
-          y:Math.floor((offset.top-parentOffset.top)/width)
-        };
-        res.p=map[res.type];
-        const key=getKey(res);
+        let res;
+        let key;
+        if (p.cgKey) {
+          res={
+                x:p.cgKey.charCodeAt(0)-97, 
+                y:p.cgKey.charCodeAt(1)-49
+              };
+          key=(7-res.x)+','+(7-res.y);
+        } else {
+          const offset=piece.offset();
+          res={
+                x:Math.round((offset.left-parentOffset.left)/width),
+                y:Math.round((offset.top-parentOffset.top)/width)
+              };
+          key=getKey(res);
+        }
+        const type=Array.from(p.classList).find(c=>!['black','white'].includes(c));
+        res.p=map[type];
         if (piece.is('.white')) {
           res.p=res.p?.toUpperCase();
           if (lastMove[key]) turn='black'; 
@@ -926,9 +946,8 @@
     applyOptions=async (options)=>{
       if (options) {
         await this.saveOptions(options);
-      } else {
-        options = await this.getOptions();
       }
+      options = await this.getOptions();
       if (this.prevOptions===this.global.JSON.stringify(options)) {
         return;
       }

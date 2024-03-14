@@ -17,7 +17,8 @@
         type:'multiple',
         possibleValues: ['sequential','spacedRepetition'],
         defaultValue: false,
-        advanced: true
+        advanced: true,
+        wip: true
       }
     ];
 
@@ -44,7 +45,8 @@
         'resetQuestion': 'Reset variation progress?',
         'resetButtonText': 'Reset',
         'resetButtonTitle': 'LiChess Tools - reset variation progress',
-        'progressTitle': 'LiChess Tools - %s variations'
+        'progressTitle': 'LiChess Tools - %s variations',
+        'extendedInteractiveOptionsTitle': 'LiChess Tools - interactive lesson preferences'
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -68,7 +70,8 @@
         'resetQuestion': 'Resetez progresul \u00een varia\u0163uni?',
         'resetButtonText': 'Resetare',
         'resetButtonTitle': 'LiChess Tools - resetare progres \u00een varia\u0163uni',
-        'progressTitle': 'LiChess Tools - %s varia\u0163uni'
+        'progressTitle': 'LiChess Tools - %s varia\u0163uni',
+        'extendedInteractiveOptionsTitle': 'LiChess Tools - preferin\u0163e lec\u0163ie interactiv\u0103'
       }
     }
 
@@ -255,19 +258,17 @@
         this._paths[key]=paths;
       }
       if (paths.currentPath && !this.isDonePath(paths.currentPath)) return paths.currentPath;
-      let currentPaths=[];
-      let traverse=null;
-      if (this.options.flow.sequential||this.options.flow.spacedRepetition) {
-        traverse=(node,path)=>{
-          if (this.options.flow.sequential && currentPaths.length) return;
-          const nextMoves=node.children
-                                .filter(c=>this.isPermanentNode(c));
-          if (!nextMoves.length && !this.isDonePath(path)) {
-            currentPaths.push(path);
-          }
-          for (const child of nextMoves) traverse(child,path+child.id);
-        };
-      }
+      if (!this.options.flow.sequential&&!this.options.flow.spacedRepetition) return;
+      const currentPaths=[];
+      const traverse=(node,path)=>{
+        if (this.options.flow.sequential && currentPaths.length) return;
+        const nextMoves=node.children
+                              .filter(c=>this.isPermanentNode(c));
+        if (!nextMoves.length && !this.isDonePath(path)) {
+          currentPaths.push(path);
+        }
+        for (const child of nextMoves) traverse(child,path+child.id);
+      };
       traverse(analysis.tree.root,'');
       const i = Math.floor(parent.random() * currentPaths.length);
       paths.currentPath=currentPaths[i];
@@ -590,18 +591,37 @@
       }
 
       const menu=$('#analyse-cm');
-      if (!menu.length) return;
-      if (!analysis?.study?.data?.chapter?.gamebook) return;
-      if (menu.has('a[data-role="addDeviation"]').length) return;
-      const text=trans.noarg('addDeviationText');
-      const title=trans.noarg('addDeviationTitle');
-      $('<a>')
-        .attr('data-icon','\uE05E')
-        .attr('data-role','addDeviation')
-        .text(text).attr('title',title)
-        .on('click',this.addDeviation)
-        .appendTo(menu);
+      if (menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addDeviation"]').length) {
+        const text=trans.noarg('addDeviationText');
+        const title=trans.noarg('addDeviationTitle');
+        $('<a>')
+          .attr('data-icon','\uE05E')
+          .attr('data-role','addDeviation')
+          .text(text).attr('title',title)
+          .on('click',this.addDeviation)
+          .appendTo(menu);
+      }
 
+      if (!analysis.study?.practice) {
+        const gamebookElem=$('div.gamebook');
+        let optionsElem=gamebookElem.find('.lichessTools-extendedInteractiveLesson-options');
+        if (!optionsElem.length) {
+          optionsElem=$('<div class="lichessTools-extendedInteractiveLesson-options">')
+            .append($('<span>'))
+            .append($('<a target="_blank">')
+                 .attr('data-icon','\uE005')
+                 .attr('href','https://siderite.dev/blog/lichess-tools---user-manual#extendedInteractiveLesson')
+            )
+            .attr('title',trans.noarg('extendedInteractiveOptionsTitle'))
+            .insertAfter($('div.floor',gamebookElem));
+        }
+        const optionsArr=[];
+        if (this.options.extendedInteractive) optionsArr.push(trans.noarg('extendedInteractiveLesson.extendedInteractive'));
+        if (this.options.flow.sequential) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.sequential'));
+        if (this.options.flow.spacedRepetition) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.spacedRepetition'));
+        if (this.options.returnToPreview) optionsArr.push(trans.noarg('extendedInteractiveLesson.returnToPreview'));
+        optionsElem.find('span').text(optionsArr.join(', '));
+      }
     };
 
     isPermanentNode=(node)=>{

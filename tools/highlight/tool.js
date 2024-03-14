@@ -37,7 +37,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const toHighlight=[];
-      if (this.options.lastMove) {
+      if (this.options.lastMove && this.state?.lastMoves?.length) {
         for (const node of this.state.lastMoves) {
           const elem=parent.getElementForNode(node);
           if (!elem) continue;

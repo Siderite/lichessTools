@@ -208,7 +208,13 @@ body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow
   opacity:0.3;
 }
 
+body.lichessTools.lichessTools-extendedInteractiveLesson div.lichessTools-extendedInteractiveLesson-options span {
+  vertical-align: middle;
+}
 
+body.lichessTools.lichessTools-extendedInteractiveLesson div.lichessTools-extendedInteractiveLesson-options a {
+  margin-left:0.5em;
+}
 
 /* Prettier Lichess CSS */
 

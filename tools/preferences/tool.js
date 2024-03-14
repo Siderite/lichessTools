@@ -29,7 +29,12 @@
         'author': 'by %s',
         'lichessTools': 'LiChess Tools',
         'feedbackButtonTitle': 'Send feedback about LiChess Tools',
-        'feedbackTitle': 'Send a message to the developer'
+        'feedbackTitle': 'Send a message to the developer',
+        'backupButtonText': 'Backup',
+        'backupButtonTitle': 'LiChess Tools - backup preferences in a file',
+        'restoreButtonText': 'Restore',
+        'restoreButtonTitle': 'LiChess Tools - restore preferences from a file',
+        'defaultValueLegend': '*Blue bordered preferences are the ones enabled by default'
       },
       'ro-RO':{
         yes: 'Da',
@@ -44,7 +49,12 @@
         'author': 'de %s',
         'lichessTools': 'LiChess Tools',
         'feedbackButtonTitle': 'Trimite p\u0103reri despre LiChess Tools',
-        'feedbackTitle': 'Trimite un mesaj programatorului'
+        'feedbackTitle': 'Trimite un mesaj programatorului',
+        'backupButtonText': 'Backup',
+        'backupButtonTitle': 'LiChess Tools - Descarc\u0103 preferin\u0163ele \u00eentr-un fi\u015Fier',
+        'restoreButtonText': 'Restaurare',
+        'restoreButtonTitle': 'LiChess Tools - \u00CEncarc\u0103 preferin\u0163ele dintr-un fi\u015Fier',
+        'defaultValueLegend': '*Preferin\u0163ele cu margine alb\u0103strie sunt cele implicite'
       }
     }
 
@@ -73,10 +83,10 @@
       parent.global.setTimeout(()=>$('.saved').addClass('none'),2000);
     };
     const checkGlobalSwitch=()=>{
-      $.cached('body').toggleClass('lichessTools-globalDisable',!currentOptions.enableLichessTools);
+      $.cached('body').toggleClass('lichessTools-globalDisable',!parent.currentOptions.enableLichessTools);
     };
     const checkAdvanced=()=>{
-      this.options.advanced=!!currentOptions.getValue('advancedPreferences');
+      this.options.advanced=!!parent.currentOptions.getValue('advancedPreferences');
       $.cached('body').toggleClass('lichessTools-advancedPreferences',this.options.advanced);
     };
 
@@ -85,7 +95,7 @@
             <h1 class="box__top">$trans(LiChess Tools)</h1>
             <div class="links">
               <a class="rate" title="$trans(rateThisTitle)"
-                 href="https://chrome.google.com/webstore/detail/lichess-tools-by-siderite/langlhlcknngldkeliapahbhbcmlcbcj" target="_blank">$trans(rateThisText)</a>
+                 href="https://chromewebstore.google.com/detail/lichess-tools-by-siderite/langlhlcknngldkeliapahbhbcmlcbcj/reviews" target="_blank">$trans(rateThisText)</a>
               <a class="blog" title="$trans(blogLinkTitle)"
                  href="https://siderite.dev/blog/new-chrome-extension-lichess-tools" target="_blank">siderite.dev</a>
             </div>
@@ -140,6 +150,7 @@
         const classes=[];
         if (pref.advanced) classes.push('lichessTools-advancedPreference');
         if (pref.hidden) classes.push('lichessTools-hiddenPreference');
+        if (pref.wip) classes.push('lichessTools-wipPreference');
         if (classes.length) html+=' class="'+classes.join(' ')+'"'
         html+=`><h2>$trans(options.${pref.name})`;
         if (pref.author) {
@@ -153,7 +164,7 @@
               const textKey=typeof val==='boolean'
                 ? (val?'yes':'no')
                 : (pref.valuePrefix||pref.name+'.')+val;
-              html+=`<div>
+              html+=`<div`+(((typeof val!=='boolean' && pref.defaultValue===true)||pref.defaultValue?.toString().includes(val))?' class="defaultValue"':'')+`>
                   <input type="radio" value="${val}" name="${pref.name}"/>
                   <label>$trans(${textKey})</label>
                 </div>`;
@@ -167,7 +178,7 @@
               const textKey=typeof val==='boolean'
                 ? (val?'yes':'no')
                 : (pref.valuePrefix||pref.name+'.')+val;
-              html+=`<div>
+              html+=`<div`+(((typeof val==='boolean' && pref.defaultValue===true)||pref.defaultValue?.toString().includes(val))?' class="defaultValue"':'')+`>
                   <input type="checkbox" value="${val}" name="${pref.name}"/>
                   <label>$trans(${textKey})</label>
                 </div>`;
@@ -177,7 +188,7 @@
           break;
           case 'number': {
             html+=`<group>
-                <div>
+                <div`+(((typeof val==='boolean' && pref.defaultValue===true)||pref.defaultValue?.toString().includes(val))?' class="defaultValue"':'')+`>
                   <input class="form-control" type="number" name="${pref.name}"/>
                 </div></group>`;
           }
@@ -190,7 +201,13 @@
       html+=`</div>`;
     }
 
-    html+=`</form><div>`;
+    html+=`</form>
+<div class="actionButtons">
+<span>$trans(defaultValueLegend)</span>
+<button id="btnBackup" type="button" class="btn button" title="$trans(backupButtonTitle)">$trans(backupButtonText)</button>
+<button id="btnRestore" type="button" class="btn button" title="$trans(restoreButtonTitle)">$trans(restoreButtonText)</button>
+</div>
+</div>`;
     html=html.replace(/\$trans\(([^\),]+?)(?:\s*,\s*([^\)]+?))?\)/g,function(m,name,value) {
       return htmlEncode(value?trans.pluralSame(name,value):trans.noarg(name));
     });
@@ -202,7 +219,7 @@
       .append(html)
       .addClass('lichessTools-preferences');
     $('form',container).append(saved);
-    $('input:not(.categoryToggle)',container)
+    $('form input:not(.categoryToggle)',container)
       .each((i,e)=>{
         const type=$(e).prop('type');
         const isCheckable=type=='radio'||type=='checkbox';
@@ -262,6 +279,40 @@
           if (text) {
             lichess.socket.send('msgSend',{"dest":"totalnoob69","text":text});
           }
+        });
+      $('div.actionButtons #btnBackup',container)
+        .on('click',async ev=>{
+          ev.preventDefault();
+          const options=await parent.getOptions();
+          const text=parent.global.JSON.stringify(options,null,2);
+          const blob=new Blob([text],{type:'application/json'});
+          const url=URL.createObjectURL(blob);
+          $('<a>')
+            .attr('download','lichesToolsOptions_'+(new Date().toISOString().replace(/[\-T:]/g,'').slice(0,14))+'.json')
+            .attr('href',url)
+            .trigger('click');
+        });
+      $('div.actionButtons #btnRestore',container)
+        .on('click',async ev=>{
+          ev.preventDefault();
+          $('<input type="file">')
+            .on('change',async e=>{
+              const file = e.target.files[0];
+              if (!file) return;
+              const reader = new FileReader();
+              reader.onload = async (e)=>{
+                const text=e.target.result;
+                const options=parent.global.JSON.parse(text);
+                await applyOptions(options);
+                parent.fireReloadOptions();
+                checkGlobalSwitch();
+                checkAdvanced();
+                this.openPreferences();
+                showSaved();
+              };
+              reader.readAsText(file, "UTF-8");
+            })
+            .trigger('click');
         });
       checkGlobalSwitch();
       checkAdvanced();

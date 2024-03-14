@@ -15,10 +15,20 @@ body.lichessTools button.lichessTools-moveAssistant {
   outline: none;
 }
 
+body.lichessTools button.lichessTools-moveAssistant {
+  transform: translate(0, -0.1em);
+}
+
 body.lichessTools button.lichessTools-moveAssistant:hover {
-  transform: scale(1.3);
+  transform: scale(1.3) translate(0, -0.1em);
 }
 
 body.lichessTools button.lichessTools-moveAssistant.lichessTools-enabled {
   color:#00A000;
+}
+
+/* Prettier Lichess CSS */
+
+body.lichessTools.lichessTools-prettier button.lichessTools-moveAssistant.lichessTools-enabled {
+  color:#00A000 !important;
 }

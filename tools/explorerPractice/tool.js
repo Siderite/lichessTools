@@ -73,7 +73,7 @@
           .appendTo(board);
       }
       turn=turn=='white'?'black':'white';
-      const playerNames=[...current.recentGames,...current.topGames||[]]
+      const playerNames=[...current.recentGames||[],...current.topGames||[]]
                           .map(m=>m[turn].name);
       const playerIndex=Math.floor(parent.random()*playerNames.length);
       const playerName=playerNames[playerIndex]||'';

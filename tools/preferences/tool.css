@@ -147,6 +147,16 @@ body.lichessTools-advancedPreferences div.lichessTools-preferences section.liche
   opacity:0.3;
 }
 
+body.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-wipPreference {
+  filter: sepia(1);
+}
+
+body.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-wipPreference h2:before {
+  content: 'WIP';
+  float: left;
+  margin-right: 1em;
+}
+
 
 div.lichessTools-preferences div.feedback {
   display:flex;
@@ -173,6 +183,22 @@ div.lichessTools-preferences div.feedback button {
   height:3em;
 }
 
+div.lichessTools-preferences .actionButtons  {
+  display: flex;
+  gap: 1em;
+  justify-content: flex-end;
+}
+
+div.lichessTools-preferences .actionButtons span {
+  flex-grow: 1;
+  color: cornflowerblue;
+}
+
+div.lichessTools-preferences div.defaultValue {
+  border: 1px cornflowerblue groove;
+  border-radius:25%;
+}
+
 
 /* Prettier Lichess CSS */
 
@@ -184,4 +210,8 @@ body.lichessTools-prettier div.lichessTools-preferences table.lichessTools-globa
 body.lichessTools-prettier.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-advancedPreference h2:after {
   background: gray !important;
   opacity:1;
+}
+
+body.lichessTools-prettier div.lichessTools-preferences  .actionButtons button {
+  text-transform: capitalize !important;
 }

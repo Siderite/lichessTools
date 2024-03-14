@@ -57,9 +57,8 @@
       this.logOption('Command - copy PGN', value);
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
-      parent.unregisterCommand('copyPgnCommand');
       if (value) {
-        parent.registerCommand('copyPgnCommand',{
+        parent.registerCommand && parent.registerCommand('copyPgnCommand',{
           handle:(val)=>{
             if (val?.startsWith('copypgn')) {
               this.copyPgn(val,analysis.path);
@@ -68,6 +67,8 @@
           },
           getHelp:()=>trans.noarg('copyPgnCommand.helpText')
         });
+      } else {
+        parent.unregisterCommand && parent.unregisterCommand('copyPgnCommand');
       }
     }
   }

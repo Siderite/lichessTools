@@ -103,13 +103,17 @@
     getNextMoves=(node,noTranspositions)=>{
       const parent=this.lichessTools;
       const arr=[...node.children];
+      arr.transpositionStartIndex=arr.length;
       if (noTranspositions || !parent.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
       let transpositions=node.transposition.filter(n=>n!==node);
       if (parent.transpositionBehavior?.excludeSameLine && node.path!==undefined) {
         transpositions=transpositions?.filter(n=>n.path&&!n.path.startsWith(node.path)&&!node.path.startsWith(n.path));
       }
       for (const child of transpositions) {
-        arr.push.apply(arr,child.children||[]);
+        if (!child.children?.length) continue;
+        for (const grandchild of child.children) {
+          arr.push(grandchild);
+        }
       }
       return arr;
     };
