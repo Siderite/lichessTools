@@ -43,7 +43,7 @@
       $('<button type="submit" class="button lichessTools-chapterInsert">')
         .on('click',(ev)=>{
           this.chapterData={
-            chapters:study.chapters.list(),
+            chapters:study.chapters.list.all(),
             current:study.currentChapter()
           };
         })

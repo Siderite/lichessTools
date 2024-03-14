@@ -33,7 +33,7 @@
       const study=parent.lichess.analysis?.study;
       if (!study) return;
       const trans=parent.translator;
-      const list=study.chapters.list();
+      const list=study.chapters.list.all();
       let container=$('div.study__side div[role="footer"]');
       if (!container.length&&list.length>1) {
         container=$(`<div role="footer">
@@ -71,7 +71,7 @@
         parent.global.console.warn('Could not determine chapterId');
         return;
       }
-      const list=study.chapters.list();
+      const list=study.chapters.list.all();
       let index=list.findIndex(c=>c.id==chapterId);
       const act=$(ev.target).attr('data-act');
       switch(act) {

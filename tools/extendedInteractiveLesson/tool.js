@@ -762,7 +762,7 @@
         this._paths=parent.jsonParse(json,null);
       }
       if (!this._paths) return;
-      const list = study.chapters.list();
+      const list = study.chapters.list.all();
       $('div.study__chapters').addClass('lichesstools-extendedInteractiveLessonFlow');
       for (const chapter of list) {
         const container=$('div.study__chapters div[data-id="'+chapter.id+'"]');
