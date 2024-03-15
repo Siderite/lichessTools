@@ -769,25 +769,26 @@
         const key=study.data.id+'/'+chapter.id;
         const paths=this._paths[key];
         let perc='';
-        if (paths) {
-          let total=0;
-          let doneCount=0;
-          for (const k in paths) {
-            if (k=='currentPath') continue;
-            const item=paths[k];
-            const done=this.options.flow.spacedRepetition
-              ? item && Date.now()<item.time+item.interval*86400000
-              : item?.success
-            total++;
-            if (done) doneCount++;
-          }
-          if (total) {
-            perc=(100*doneCount/total)+'%';
-            container.attr('title',trans.pluralSame('progressTitle',doneCount+'/'+total));
-          } else {
-            container.removeAttr('title');
-          }
+        if (!paths) continue;
+
+        let total=0;
+        let doneCount=0;
+        for (const k in paths) {
+          if (k=='currentPath') continue;
+          const item=paths[k];
+          const done=this.options.flow.spacedRepetition
+            ? item && Date.now()<item.time+item.interval*86400000
+            : item?.success
+          total++;
+          if (done) doneCount++;
         }
+        if (total) {
+          perc=(100*doneCount/total)+'%';
+          container.attr('title',trans.pluralSame('progressTitle',doneCount+'/'+total));
+        } else {
+          container.removeAttr('title');
+        }
+
         let act=container.children('i.act');
         if (!act.length) {
           act=$('<i class="act lichessTools-reset" data-icon="&#xE01A">')
