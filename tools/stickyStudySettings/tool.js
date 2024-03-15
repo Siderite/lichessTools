@@ -107,6 +107,7 @@
           }
         });
         if (!this._pageLoaded && !lichess.analysis.study.gamebookPlay) {
+          this._pageLoaded=true;
           const studyId=study.data.id;
           const chapterId=study.vm.chapterId;
           const data=parent.jsonParse(lichess.storage.get('LichessTools.studyPositions'),{});
@@ -119,7 +120,6 @@
           }
         }
       }
-      this._pageLoaded=true;
     }
 
   }
