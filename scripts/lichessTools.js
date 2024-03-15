@@ -475,7 +475,7 @@
         let key;
         if (s.cgKey) {
           res={
-                x:s.cgKey.charCodeAt(0)-97, 
+                x:104-s.cgKey.charCodeAt(0), 
                 y:s.cgKey.charCodeAt(1)-49
               };
           key=(7-res.x)+','+(7-res.y);
@@ -499,7 +499,7 @@
         let key;
         if (p.cgKey) {
           res={
-                x:p.cgKey.charCodeAt(0)-97, 
+                x:104-p.cgKey.charCodeAt(0), 
                 y:p.cgKey.charCodeAt(1)-49
               };
           key=(7-res.x)+','+(7-res.y);
@@ -573,7 +573,7 @@
       let enpassant=splits[3];
       if (enpassant && enpassant!='-') {
         result.enpassant={ 
-          x: enpassant.charCodeAt(0)-97, 
+          x: 104-enpassant.charCodeAt(0), 
           y: enpassant.charCodeAt(1)-49
         };
       }

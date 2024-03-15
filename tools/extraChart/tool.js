@@ -532,9 +532,9 @@
           if (this.inCheck(p2.fen)) return 0;
           if (this.isPromotion(p1)) return 0;
           const move={
-            sx: p1.uci.charCodeAt(0)-97, 
+            sx: 104-p1.uci.charCodeAt(0), 
             sy: p1.uci.charCodeAt(1)-49,
-            x: p1.uci.charCodeAt(2)-97, 
+            x: 104-p1.uci.charCodeAt(2), 
             y: p1.uci.charCodeAt(3)-49
           };
           let board=parent.getBoardFromFen(p2.fen);
