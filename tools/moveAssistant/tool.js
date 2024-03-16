@@ -137,11 +137,12 @@
           return;
         }
         const q=(cp-minCp)/(maxCp-minCp);
-        //let rating=Math.round(255*Math.pow(q,3));
-        //const color='#'+(255-rating).toString(16).padStart(2,'0')+rating.toString(16).padStart(2,'0')+'00';
-        const color=this.getGradientColor(Math.pow(q,2.5),[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
+        const rawColor=this.getGradientColor(q,[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
+        const biasedColor=this.getGradientColor(Math.pow(q,2.5),[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
+        const gradientColor=this.getGradientColor(0.66,[{q:0,color:biasedColor},{q:1,color:'#14551e80'}]);
         $(e)
-          .css('border-color',color);
+          .css('background','radial-gradient('+gradientColor+' 19%, rgba(0, 0, 0, 0) 20%)')
+          .css('border-color',rawColor);
       });
     }
 
@@ -199,6 +200,9 @@
       const parent=this.lichessTools;
       const $=parent.$;
       $('main.analyse div.cg-wrap').removeClass('lichessTools-moveAssistant');
+      $('square.move-dest')
+          .css('background','')
+          .css('border-color','');
     };
 
     setControls=()=>{
