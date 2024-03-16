@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Mar
+  - Unselect piece after specified seconds
+
 08 Mar
   - Preferences backup/restore and default preference highlighting
   - Show interactive lesson preferences when playing them

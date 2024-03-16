@@ -109,6 +109,7 @@
         "tools/boardImage/tool.js",
         "tools/mirrorBoard/tool.js",
         "tools/cevalDecimals/tool.js",
+        "tools/autoUnselectPiece/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
