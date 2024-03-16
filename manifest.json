@@ -110,6 +110,7 @@
         "tools/mirrorBoard/tool.js",
         "tools/cevalDecimals/tool.js",
         "tools/autoUnselectPiece/tool.js",
+        "tools/studyFlairs/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -176,6 +177,7 @@
         "tools/playerWarning/tool.css",
         "tools/boardImage/tool.css",
         "tools/mirrorBoard/tool.css",
+        "tools/studyFlairs/tool.css",
 
         "tools/tvOptions/tool.css",
 

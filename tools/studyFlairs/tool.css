@@ -1,0 +1,14 @@
+body.lichessTools div.study.lichessTools-studyFlairs div.top:before {
+  content:'';
+}
+
+body.lichessTools div.study.lichessTools-studyFlairs div.lichessTools-bottomFlairs {
+  max-height:1.5em;
+  overflow:hidden;
+  padding-left:2em;
+}
+
+body.lichessTools div.study.lichessTools-studyFlairs div.lichessTools-bottomFlairs img {
+  display:inline;
+  max-width:1.5em;
+}
