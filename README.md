@@ -82,7 +82,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Profile date interval label and Puzzle statistics tab
  - #readgame URL to read games in analysis/study
  - restore position in the move list in study chapters on page refresh
- - move assistant shows evaluation on selecte piece destinations
+ - move assistant shows evaluation on selected piece destinations
  - warning when playing against a suspicious opponent
  - better board image export
  - board editor mirror position button

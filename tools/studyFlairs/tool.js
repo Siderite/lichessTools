@@ -41,7 +41,7 @@
           if (!parent.isWrappedFunction(tagify.createTagElem,'studyFlairs')) {
             const handleTag=tag=>{
               const span=$(tag).find('span.tagify__tag-text');
-              const m=/flair\.([^\)]+)/.exec(span.text());
+              const m=/^flair\.([^\)]+)/.exec(span.text());
               if (m) {
                 const url=lichess.asset.flairSrc(m[1]);
                 span.replaceWith($('<img>')
@@ -68,13 +68,14 @@
                 term=term.toLowerCase();
                 const flairs=this.flairs.filter(f=>f.includes(term));
                 if (!flairs.length) return;
+                parent.arrayRemoveAll(tagify.settings.whitelist,f=>/^flair\.([^\)]+)/.test(f));
                 tagify.settings.whitelist.push(...flairs);
                 tagify.settings.whitelist.splice(10);
               },
               after: ($this,result,term)=>{
                 parent.global.setTimeout(()=>{
                 $('div.tagify__dropdown__item').each((i,e)=>{
-                  const m=/flair\.([^\)]+)/.exec($(e).text());
+                  const m=/^flair\.([^\)]+)/.exec($(e).text());
                     if (m) {
                       const url=lichess.asset.flairSrc(m[1]);
                       $(e)
@@ -91,7 +92,7 @@
       }
 
       $('div.study__topics a.topic').each((i,e)=>{
-        const m=/flair\.([^\)]+)/.exec($(e).text());
+        const m=/^flair\.([^\)]+)/.exec($(e).text());
         if (m) {
           const url=lichess.asset.flairSrc(m[1]);
           $(e)
@@ -148,7 +149,7 @@
         const flairs=[];
         if (this.options.topicFlairs && study.topics) {
           for (const topic of study.topics) {
-            const m=/flair\.([^\)]+)/.exec(topic);
+            const m=/^flair\.([^\)]+)/.exec(topic);
             if (m?.at(1)) flairs.push({title:m[1],flair:m[1]});
           }
         }
@@ -181,7 +182,7 @@
       });
       if (this.options.topicFlairs) {
         $('div.topic-list > a').each((i,e)=>{
-          const m=/flair\.([^\)]+)/.exec($(e).text());
+          const m=/^flair\.([^\)]+)/.exec($(e).text());
           if (m) {
             const url=lichess.asset.flairSrc(m[1]);
             $(e)
