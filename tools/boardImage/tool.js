@@ -57,6 +57,44 @@
       let img=await this.getImage(url);
       ctx.drawImage(img,0,0,800,800);
       const q=800/board.width();
+      board.find('square.selected').each((i,e)=>{
+        const css={
+          background:$(e).css('background-color'),
+        };
+        const style=$(e).attr('style')||'';
+        const m=/translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)/.exec(style);
+        if (!m) return;
+        const x=+m[1]*q;
+        const y=+m[2]*q;
+        ctx.fillStyle=css.background;
+        ctx.fillRect(x,y,100,100);
+      });
+      board.find('square.move-dest').each((i,e)=>{
+        const css={
+          background:'#14551e80',
+          borderColor:$(e).css('border-color'),
+          borderRadius:$(e).css('border-radius')?.replace('%',''),
+        };
+        const style=$(e).attr('style')||'';
+        const m=/translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)/.exec(style);
+        if (!m) return;
+        const x=+m[1]*q;
+        const y=+m[2]*q;
+
+        const gradient = ctx.createRadialGradient(x+50, y+50, 0, x+50, y+50, 100);
+        gradient.addColorStop(0, css.background);
+        gradient.addColorStop(0.149, css.background);
+        gradient.addColorStop(0.15, "transparent");
+        gradient.addColorStop(1, "transparent");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(x,y,100,100);
+
+        ctx.strokeStyle=css.borderColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect(x,y,100,100,css.borderRadius);
+        ctx.stroke();
+      });
       board.find('piece').each(async (i,e)=>{
         url=$(e).css('background-image')?.replace(/url\(["']?|["']?\)/g,'');
         if (!url) return;
