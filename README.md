@@ -86,6 +86,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - warning when playing against a suspicious opponent
  - better board image export
  - board editor mirror position button
+ - more decimals in computer eval
  - unselect piece after a few seconds
  - study flairs
  - commands! type /help to get a list
