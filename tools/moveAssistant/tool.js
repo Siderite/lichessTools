@@ -139,7 +139,7 @@
         const q=(cp-minCp)/(maxCp-minCp);
         const rawColor=this.getGradientColor(q,[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
         const biasedColor=this.getGradientColor(Math.pow(q,2.5),[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
-        const gradientColor=this.getGradientColor(0.66,[{q:0,color:biasedColor},{q:1,color:'#14551e80'}]);
+        const gradientColor=this.getGradientColor(0.66,[{q:0,color:biasedColor},{q:1,color:'#20202040'}]);
         $(e)
           .css('background','radial-gradient('+gradientColor+' 19%, rgba(0, 0, 0, 0) 20%)')
           .css('border-color',rawColor);
