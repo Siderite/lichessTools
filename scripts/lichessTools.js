@@ -299,6 +299,7 @@
     };
 
     inViewport=(element) => {
+      if (element?.length===0) return false;
       if (element?.length) element=element[0];
       if (!element?.offsetParent) return false;
       const rect = element.getBoundingClientRect();

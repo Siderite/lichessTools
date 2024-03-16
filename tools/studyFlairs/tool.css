@@ -1,5 +1,14 @@
+body.lichessTools div.study.lichessTools-studyFlairs div.top > img {
+  margin-right:1em;
+  width:4em;
+  opacity:0.9;
+  position:relative;
+  z-index:3;
+}
+
 body.lichessTools div.study.lichessTools-studyFlairs div.top:before {
   content:'';
+  margin:0;
 }
 
 body.lichessTools div.study.lichessTools-studyFlairs div.lichessTools-bottomFlairs {
@@ -10,5 +19,14 @@ body.lichessTools div.study.lichessTools-studyFlairs div.lichessTools-bottomFlai
 
 body.lichessTools div.study.lichessTools-studyFlairs div.lichessTools-bottomFlairs img {
   display:inline;
+  max-width:1.5em;
+  position:relative;
+  z-index:3;
+}
+
+body.lichessTools div.topic-list a.lichessTools-studyFlairs img,
+body.lichessTools a.topic.lichessTools-studyFlairs img,
+body.lichessTools div.tagify__dropdown div.lichessTools-studyFlairs img,
+body.lichessTools tag.lichessTools-studyFlairs img {
   max-width:1.5em;
 }
