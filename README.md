@@ -87,6 +87,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - better board image export
  - board editor mirror position button
  - unselect piece after a few seconds
+ - study flairs
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

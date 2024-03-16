@@ -2,6 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 16 Mar
   - Unselect piece after specified seconds
+  - study flairs
 
 08 Mar
   - Preferences backup/restore and default preference highlighting
