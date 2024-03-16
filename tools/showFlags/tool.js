@@ -420,7 +420,11 @@
         let firstToProcess=null;
         for (const item of data) {
           if (!item.country) {
-            continue;
+            if (userIds.includes(item.id)&&!users.find(u=>u.id==item.id)) {
+              item.country='noflag'; //no country name
+            } else {
+             continue;
+            }
           }
           if (item.country==='noflag') {
             item.countryName='noflag';
