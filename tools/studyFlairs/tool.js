@@ -7,7 +7,7 @@
         category: 'study',
         type:'multiple',
         possibleValues: ['authorFlair','memberFlairs','topicFlairs'],
-        defaultValue: false,
+        defaultValue: 'topicFlairs',
         advanced: true
       }
     ];
