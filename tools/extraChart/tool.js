@@ -663,6 +663,7 @@
                  const elems=this.getInterestingMoveElements(color);
                  if (!this.colors.beforeInterestingMoves) this.colors.beforeInterestingMoves=dataset.hoverBackgroundColor||this.colors.originalChart;
                  dataset.hoverBackgroundColor=this.colors.interestingMoves();
+                 dataset.pointHoverBackgroundColor=this.colors.interestingMoves();
                  chart.setActiveElements(elems);
                  chart.update('none');
                })
@@ -673,6 +674,7 @@
                  if (!dataset) return;
                  const elems=[];
                  dataset.hoverBackgroundColor=this.colors.beforeInterestingMoves;
+                 dataset.pointHoverBackgroundColor=this.colors.beforeInterestingMoves;
                  chart.setActiveElements(elems);
                  chart.update('none');
                })
@@ -713,6 +715,7 @@
         const elements=dataset.data.filter(d=>parent.random()<0.3).map(d=>{ return { datasetIndex:0, index:d.x-1 }; });
         const color=colors[Math.round(parent.random()*colors.length)];
         dataset.hoverBackgroundColor=color;
+        dataset.pointHoverBackgroundColor=color;
         chart.setActiveElements(elements);
         chart.update('none');
         xElem.css('color',color);
@@ -720,6 +723,7 @@
       }
       parent.global.setTimeout(()=>xElem.remove(),1000);
       dataset.hoverBackgroundColor=initHoverBackgroundColor;
+      dataset.pointHoverBackgroundColor=initHoverBackgroundColor;
       chart.setActiveElements(initActiveElements);
       chart.update('none');
     };
