@@ -15,14 +15,14 @@
     intl={
       'en-US':{
         'options.study': 'Study',
-        'options.studyFlairs': 'Assign flairs to studies',
+        'options.studyFlairs': 'Study flairs',
         'studyFlairs.authorFlair':'Author flair',
         'studyFlairs.memberFlairs':'Member flairs',
         'studyFlairs.topicFlairs':'Flairs from study topics'
       },
       'ro-RO':{
         'options.study': 'Studiu',
-        'options.studyFlairs': 'Asociaz\u0103 pictograme studiilor',
+        'options.studyFlairs': 'Pictograme \u00een studii',
         'studyFlairs.authorFlair':'Pictograma autorului',
         'studyFlairs.memberFlairs':'Pictogramele membrilor',
         'studyFlairs.topicFlairs':'Pictograme din subiecte studii'
