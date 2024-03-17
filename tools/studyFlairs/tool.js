@@ -127,7 +127,14 @@
         page=this._nextPage;
       }
       const baseUrl=parent.global.location.href;
+      const mm=/\/(hot|newest|updated|popular)$/.exec(parent.global.location.pathname);
+      const mode=mm?.at(1)||'hot';
       const p=baseUrl.includes('?') ? '&' : '?';
+
+      // TODO remove this when/if we get a topic JSON API
+      const isTopicPage=/\/study\/topic\//.test(baseUrl);
+      if (isTopicPage) return;
+
       while(this._currentPage<page) {
         const json=await parent.net.json(baseUrl+p+'page='+(this._currentPage+1));
         const loadedPage=+json?.paginator?.currentPage;
@@ -154,28 +161,63 @@
           }
         }
         if (this.options.authorFlair && study.owner?.flair) {
-          flairs.push({title: this.getFullname(study.owner), flair: study.owner.flair});
+          flairs.push({title: this.getFullname(study.owner), flair: study.owner.flair, url: '/@/'+study.owner.id});
         }
         if (this.options.memberFlairs && study.members?.length) {
           const members=study.members
                                .filter(m=>m.user.id!=study.owner.id)
-                               .map(m=>{ return {title: this.getFullname(m.user), flair: m.user.flair}; })
+                               .map(m=>{ return {title: this.getFullname(m.user), flair: m.user.flair, url: '/@/'+m.user.id}; })
                                .filter(f=>f.flair);
           flairs.push(...members);
         }
         if (flairs.length) {
           e.addClass('lichessTools-studyFlairs');
           const url=lichess.asset.flairSrc(flairs[0].flair);
-          e.find('div.top').prepend($('<img>').attr('src',url).attr('title',flairs[0].title));
+          let elem=$('<img>')
+                       .attr('src',url)
+                       .attr('title',flairs[0].title)
+                       .prependTo(e.find('div.top'));
+          if (flairs[0].url) {
+            elem
+              .attr('data-href',flairs[0].url)
+              .attr('data-name',flairs[0].title);
+            lichess.powertip?.manualUser(elem[0]);  
+          } else {
+            elem
+              .on('contextmenu',ev=>{
+                ev.preventDefault();
+              })
+              .on('mousedown',ev=>{
+                if (ev.which!=3) return;
+                ev.preventDefault();
+                parent.global.location='/study/topic/flair.'+flairs[0].title+'/'+mode;
+              });
+          }
           if (flairs.length>1) {
             const container=$('<div class="lichessTools-bottomFlairs">')
               .appendTo(e);
             for (let i=1; i<flairs.length; i++) {
               const url=lichess.asset.flairSrc(flairs[i].flair);
-              $('<img>')
+              elem=$('<img>')
                 .attr('src',url)
                 .attr('title',flairs[i].title)
                 .appendTo(container);
+              if (flairs[i].url) {
+                elem
+                  .attr('data-href',flairs[i].url)
+                  .attr('data-name',flairs[i].title);
+                lichess.powertip?.manualUser(elem[0]);  
+              } else {
+                elem
+                  .on('contextmenu',ev=>{
+                    ev.preventDefault();
+                  })
+                  .on('mousedown',ev=>{
+                    if (ev.which!=3) return;
+                    ev.preventDefault();
+                    parent.global.location='/study/topic/flair.'+flairs[i].title+'/'+mode;
+                  });
+              }
             }
           }
         }
