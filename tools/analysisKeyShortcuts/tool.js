@@ -125,6 +125,17 @@
         .appendTo('div.cg-wrap');
     };
 
+    randomChapter=()=>{
+      if (this.makeMoveMode!='general') {
+        this.oldHandlers['r']();
+        return;
+      }
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const button=$('div.lichessTools-chapterControls button[data-act="random"]');
+      button.trigger('click');
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('keyShortcuts');
@@ -137,7 +148,8 @@
           i:parent.getKeyHandler('i'),
           m:parent.getKeyHandler('m'),
           b:parent.getKeyHandler('b'),
-          f:parent.getKeyHandler('f')
+          f:parent.getKeyHandler('f'),
+          r:parent.getKeyHandler('r')
         };
       }
       parent.unbindKeyHandler('i');
@@ -154,6 +166,7 @@
       parent.unbindKeyHandler('shift+.',true);
       parent.unbindKeyHandler('`',true);
       parent.unbindKeyHandler('f');
+      parent.unbindKeyHandler('r');
 
       for (let i = 1; i <=9 ; i++) {
         const combo=i.toString();
@@ -180,6 +193,7 @@
         }
         parent.bindKeyHandler('`',()=>this.prepareMove('general'));
         parent.bindKeyHandler('f',this.freezeBoard);
+        parent.bindKeyHandler('r',this.randomChapter);
       } else {
         if (this.oldHandlers) {
           parent.bindKeyHandler('i',this.oldHandlers['i'],true);
