@@ -186,10 +186,6 @@
             elem
               .on('contextmenu',ev=>{
                 ev.preventDefault();
-              })
-              .on('mousedown',ev=>{
-                if (ev.which!=3) return;
-                ev.preventDefault();
                 parent.global.location='/study/topic/flair.'+flairs[0].title+'/'+mode;
               });
           }
@@ -210,10 +206,6 @@
               } else {
                 elem
                   .on('contextmenu',ev=>{
-                    ev.preventDefault();
-                  })
-                  .on('mousedown',ev=>{
-                    if (ev.which!=3) return;
                     ev.preventDefault();
                     parent.global.location='/study/topic/flair.'+flairs[i].title+'/'+mode;
                   });
