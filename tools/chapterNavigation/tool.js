@@ -32,6 +32,7 @@
       const $=parent.$;
       const study=parent.lichess.analysis?.study;
       if (!study) return;
+      if (!$('div.study__side .study__chapters').length) return;
       const trans=parent.translator;
       const list=study.chapters.list.all();
       let container=$('div.study__side div[role="footer"]');

@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+17 Mar
+  - Random study chapter keyboard shortcut
+
 16 Mar
   - Unselect piece after specified seconds
   - study flairs

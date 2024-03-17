@@ -34,7 +34,8 @@
         'bestCevalLine': 'Best computer line',
         'explorerPractice': 'Explorer practice',
         'seeLichessTools': 'see LiChess Tools section below',
-        'freezeBoard': 'Freeze board'
+        'freezeBoard': 'Freeze board',
+        'randomChapter': 'Random study chapter'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -56,7 +57,8 @@
         'bestCevalLine': 'Cea mai bun\u0103 mutare din evaluarea calculatorului',
         'explorerPractice': 'Practic\u0103 contra mut\u0103ri din Explorator',
         'seeLichessTools': 'vezi sec\u0163iunea LiChess Tools de mai jos',
-        'freezeBoard': '\u00CEnghea\u0163\u0103 tabla'
+        'freezeBoard': '\u00CEnghea\u0163\u0103 tabla',
+        'randomChapter': 'Capitol de studiu aleatoriu'
       }
     }
 
@@ -112,6 +114,9 @@
         row(['ctrl','.','!then','1-9'],'cevalLine');
         row(['shift','.','!then','1-9'],'explorerLine');
         row(['`','!then','f'],'freezeBoard');
+        if (parent.currentOptions.getValue('chapterNavigation') && $('div.lichessTools-chapterControls button[data-act="random"]').length) {
+          row(['`','!then','r'],'randomChapter');
+        }
       }
       if (parent.currentOptions.getValue('ctrlArrows')) {
         row(['ctrl','&rarr;'],'randomMove');
