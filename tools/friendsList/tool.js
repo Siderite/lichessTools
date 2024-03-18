@@ -538,6 +538,13 @@
       }           
     };
 
+    getFollowingOnlinesByApi=async ()=>{
+      const parent=this.lichessTools;
+      //const json=await parent.net.json('/api/rel/following');
+      // TODO use this if made to work with logged in user
+      parent.global.console.debug('Sent following-onlines too many times. Giving up.');
+    };
+
     requestOnlines=()=>{
       const parent=this.lichessTools;
       if (parent.global.document.hidden) return;
@@ -546,6 +553,7 @@
 
     menuParent='#topnav';
     
+    followingOnlinesRequests=0;
     async start() {
       const parent=this.lichessTools;
       const $=parent.$;
@@ -585,13 +593,18 @@
           $('td:has(.lichessTools-seenAt)').remove();
           $('.lichessTools-mute').remove();
           $('.lichessTools-tv').remove();
-          this.updateFriendsPage();
         }
+        this.updateFriendsPage();
       }
 
       this.onlinesInterval=setInterval(()=>{
         if (!this.onlinesInterval) return;
         this.requestOnlines();
+        this.followingOnlinesRequests++;
+        if (this.followingOnlinesRequests>5) {
+          clearInterval(this.onlinesInterval);
+          this.getFollowingOnlinesByApi();
+        }
       },1000);
 
       switch(friendsBoxMode) {
