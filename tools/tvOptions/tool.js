@@ -282,7 +282,11 @@
       this.updateTvOptionsPage();
     };
 
-    requestOnlines=this.lichessTools.debounce(()=>this.lichessTools.lichess.pubsub.emit("socket.send", "following_onlines"),250);
+    requestOnlines=this.lichessTools.debounce(()=>{
+      const parent=this.lichessTools;
+      if (parent.global.document.hidden) return;
+      parent.lichess.pubsub.emit("socket.send", "following_onlines");
+    },250);
 
     hashChange = ()=>{
       const parent=this.lichessTools;
@@ -295,6 +299,7 @@
       }
     };
     
+    followingOnlinesRequests=0;
     async start() {
       const parent=this.lichessTools;
       const $=parent.$;
@@ -335,6 +340,11 @@
         this.onlinesInterval=setInterval(()=>{
           if (!this.onlinesInterval) return;
           this.requestOnlines();
+          this.followingOnlinesRequests++;
+          if (this.followingOnlinesRequests>5) {
+            clearInterval(this.onlinesInterval);
+            parent.global.console.debug('Sent following-onlines too many times. Giving up.');
+          }
         },1000);
       }
 
