@@ -228,7 +228,11 @@
         const user=this.getUserId(m&&m[1]);
         const isPlaying=this.user_data.playing.includes(user);
         let friendMenu=group.find('a').filter((i,e2)=>eq($(e2).attr('href'),href));
-        if (!friendMenu.length) {
+        if (friendMenu.is('.temp')) {
+          friendMenu.remove();
+          friendMenu=null;
+        }
+        if (!friendMenu?.length) {
           friendMenu=$(e).clone()
             .attr('data-pt-pos','e');
           group.append(friendMenu);
@@ -250,7 +254,7 @@
         const isPlaying=this.user_data.playing.includes(user);
         let friendMenu=group.find('a').filter((i,e2)=>eq($(e2).attr('href'),'/@/'+user));
         if (!friendMenu.length) {
-          friendMenu=$('<a class="user-link">')
+          friendMenu=$('<a class="user-link temp">')
             .append('<i class="line"></i>'+user)
             .attr('data-pt-pos','e')
             .appendTo(group);
