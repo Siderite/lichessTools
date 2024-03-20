@@ -254,8 +254,9 @@
         const isPlaying=this.user_data.playing.includes(user);
         let friendMenu=group.find('a').filter((i,e2)=>eq($(e2).attr('href'),'/@/'+user));
         if (!friendMenu.length) {
+          const userName=this.user_data.names[user]||user;
           friendMenu=$('<a class="user-link temp">')
-            .append('<i class="line"></i>'+user)
+            .append('<i class="line"></i>'+userName)
             .attr('data-pt-pos','e')
             .appendTo(group);
           lichess.powertip?.manualUser(friendMenu[0]);  
@@ -505,7 +506,7 @@
     leaves=(user)=>{
       const parent=this.lichessTools;
       user=this.getUserId(user);
-      this.user_data.names[user]=undefined;
+      //this.user_data.names[user]=undefined;
       parent.arrayRemoveAll(this.user_data.online,u=>u===user);
       parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
       let friend=this.friends[user];
