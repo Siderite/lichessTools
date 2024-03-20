@@ -1,8 +1,8 @@
-body.lichessTools.lichessTools-mayTenth h1.site-title a {
+body.lichessTools.lichessTools-mayTenth a.site-title a {
   position: relative;
 }
 
-body.lichessTools.lichessTools-mayTenth h1.site-title a:after {
+body.lichessTools.lichessTools-mayTenth a.site-title:after {
   content: 'Tools';
   position: absolute;
   left: 0;

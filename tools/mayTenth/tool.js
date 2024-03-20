@@ -37,7 +37,7 @@
       if (!value) return;
       $.cached('body')
         .toggleClass('lichessTools-mayTenth',new Date().toISOString().includes('-05-10'));
-      $('h1.site-title a')
+      $('a.site-title')
        .attr('title',trans.noarg('mayTenthTitle'));
     }
   }
