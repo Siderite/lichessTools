@@ -60,8 +60,18 @@
         tours: parent.isOptionSet(value,'tours'),
         leader: parent.isOptionSet(value,'leader'),
         winner: parent.isOptionSet(value,'winner'),
-        about: parent.isOptionSet(value,'about')
+        about: parent.isOptionSet(value,'about'),
+        get allSet() { return this.side && this.app && this.table && this.tv && this.blog && 
+                              this.puzzle && this.support && this.feed && this.tours && this.leader && this.winner && this.about; }
       };
+      if (this.options.allSet) {
+        $('main')
+          .removeClass('lichessTools-lobbyPlay')
+          .css('grid-template-areas','');
+        $('main').find('.lobby__side,.lobby__app,main .lobby__table,.lobby__tv,.lobby__blog,.lobby__puzzle,.lobby__support,'+
+           '.lobby__feed,.lobby__tournaments-simuls,.lobby__leaderboard,.lobby__winners,.lobby__about').show();
+        return;
+      }
       if (!this.initialGrid) {
         this.initialGrid=$('main').css('grid-template-areas');
       }
