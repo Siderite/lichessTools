@@ -1,0 +1,36 @@
+body.lichessTools main.lobby.lichessTools-lobbyPlay {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: fit-content(0);
+  grid-template-areas: "app     app     app     table"
+}
+
+body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__side,
+body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__tv,
+body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__blog,
+body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__puzzle,
+body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__support,
+body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__feed,
+body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__tournaments-simuls,
+body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__leaderboard,
+body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__winners,
+body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__about {
+  display:none;
+} 
+
+body.lichessTools main.lobby .lobby__side {
+  min-height: 300px;
+}
+
+@media(min-width: 499.3px) {
+  body.lichessTools main.lobby .lobby__side {
+    min-height:400px
+  }
+}
+
+@media(min-width: 799.3px) {
+  body.lichessTools main.lobby .lobby__side {
+    height:600px;
+    max-height: calc(100vh - calc(var(--site-header-height) + var(--site-header-margin) + var(--sticky-gap)) - var(--block-gap))
+  }
+}
+
