@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+21 Mar
+  - themes for less icons and non sticky header
+
 17 Mar
   - Random study chapter keyboard shortcut
 

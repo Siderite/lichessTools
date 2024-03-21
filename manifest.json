@@ -129,6 +129,8 @@
         "tools/themes/mobile.css",
         "tools/themes/slimArrows.css",
         "tools/themes/flairX.css",
+        "tools/themes/lessIcons.css",
+        "tools/themes/nonStickyHeader.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",

@@ -1,0 +1,5 @@
+/* No sticky header */
+
+body.lichessTools.lichessTools-theme_nonStickyHeader header#top {
+  position: inherit;
+}
