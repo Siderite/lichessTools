@@ -337,6 +337,8 @@
         lichess.pubsub.on('socket.in.following_playing', this.playing);
         lichess.pubsub.on('socket.in.following_stopped_playing', this.stopped_playing);
 
+        this.followingOnlinesRequests=0;
+        clearInterval(this.onlinesInterval);
         this.onlinesInterval=setInterval(()=>{
           if (!this.onlinesInterval) return;
           this.requestOnlines();

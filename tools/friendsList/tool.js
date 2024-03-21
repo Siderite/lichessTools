@@ -632,6 +632,8 @@
         this.updateFriendsPage();
       }
 
+      this.followingOnlinesRequests=0;
+      clearInterval(this.onlinesInterval);
       this.onlinesInterval=setInterval(()=>{
         if (!this.onlinesInterval) return;
         this.requestOnlines();
