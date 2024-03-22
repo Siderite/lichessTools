@@ -27,7 +27,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - option to save preferences in incognito mode, too (you have to set it from Preferences first!)
  - buttons to change chapter names from the Event or Black/White PGN tags in the chapter edit form
  - custom styles for study comments
- - study chapter navigation controls (including random chapter)
+ - study chapter navigation controls (including random chapter with keyboard shortcut)
  - auto save and button to reload PGNs in Analysis mode (recover from accidental reloads)
  - enhanced Friends list now shows live online status and TV links, plus allows the option to "mute" playing alerts for each player
  - hide score tally crosstable during play
@@ -82,10 +82,14 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Profile date interval label and Puzzle statistics tab
  - #readgame URL to read games in analysis/study
  - restore position in the move list in study chapters on page refresh
- - move assistant shows evaluation on selecte piece destinations
+ - move assistant shows evaluation on selected piece destinations
  - warning when playing against a suspicious opponent
  - better board image export
  - board editor mirror position button
+ - more decimals in computer eval
+ - unselect piece after a few seconds
+ - study flairs
+ - hide/show lobby page elements
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

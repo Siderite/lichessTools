@@ -1,5 +1,16 @@
 History of features added to LiChess Tools in time (reversed order)
 
+21 Mar
+  - themes for less icons and non sticky header
+  - hide/show lobby page elements
+
+17 Mar
+  - Random study chapter keyboard shortcut
+
+16 Mar
+  - Unselect piece after specified seconds
+  - study flairs
+
 08 Mar
   - Preferences backup/restore and default preference highlighting
   - Show interactive lesson preferences when playing them

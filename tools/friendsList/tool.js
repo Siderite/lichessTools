@@ -183,6 +183,7 @@
         return;
       }
       const $=parent.$;
+      const lichess=parent.lichess;
       const trans=this.lichessTools.translator;
       const myName=parent.getUserId();
       if (!myName) return;
@@ -218,13 +219,20 @@
       $('section.lichessTools-onlineFriends > a')
         .attr('data-count',this.user_data.playing.length);
       const items=new Set($('a.user-link',group).get());
+
+      const eq=(s1,s2)=>s1?.toLowerCase()==s2?.toLowerCase();
+
       friends.each((i,e)=>{
         const href=$(e).attr('href');
         const m=/\/@\/([^\/\?#]+)/.exec(href);
         const user=this.getUserId(m&&m[1]);
         const isPlaying=this.user_data.playing.includes(user);
-        let friendMenu=group.find('a').filter((i,e2)=>$(e2).attr('href')==href);
-        if (!friendMenu.length) {
+        let friendMenu=group.find('a').filter((i,e2)=>eq($(e2).attr('href'),href));
+        if (friendMenu.is('.temp')) {
+          friendMenu.remove();
+          friendMenu=null;
+        }
+        if (!friendMenu?.length) {
           friendMenu=$(e).clone()
             .attr('data-pt-pos','e');
           group.append(friendMenu);
@@ -241,6 +249,31 @@
         }
         items.delete(friendMenu[0]);
       });
+      if (this.followingOnlinesRequests>5) {
+      this.user_data.online.forEach(user=>{
+        const isPlaying=this.user_data.playing.includes(user);
+        let friendMenu=group.find('a').filter((i,e2)=>eq($(e2).attr('href'),'/@/'+user));
+        if (!friendMenu.length) {
+          const userName=this.user_data.names[user]||user;
+          friendMenu=$('<a class="user-link temp">')
+            .append('<i class="line"></i>'+userName)
+            .attr('data-pt-pos','e')
+            .appendTo(group);
+          lichess.powertip?.manualUser(friendMenu[0]);  
+        }
+        friendMenu[0].dataset.href='/@/'+user;
+        if (isPlaying) {
+          friendMenu
+            .addClass('lichessTools-playing')
+            .attr('href','/@/'+user+'/tv');
+        } else {
+          friendMenu
+            .removeClass('lichessTools-playing')
+            .attr('href','/@/'+user);
+        }
+        items.delete(friendMenu[0]);
+      });
+      }
       items.forEach(e=>{
         $(e).remove();
       });
@@ -473,7 +506,7 @@
     leaves=(user)=>{
       const parent=this.lichessTools;
       user=this.getUserId(user);
-      this.user_data.names[user]=undefined;
+      //this.user_data.names[user]=undefined;
       parent.arrayRemoveAll(this.user_data.online,u=>u===user);
       parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
       let friend=this.friends[user];
@@ -538,6 +571,13 @@
       }           
     };
 
+    getFollowingOnlinesByApi=async ()=>{
+      const parent=this.lichessTools;
+      //const json=await parent.net.json('/api/rel/following');
+      // TODO use this if made to work with logged in user
+      parent.global.console.debug('Sent following-onlines too many times. Giving up.');
+    };
+
     requestOnlines=()=>{
       const parent=this.lichessTools;
       if (parent.global.document.hidden) return;
@@ -546,6 +586,7 @@
 
     menuParent='#topnav';
     
+    followingOnlinesRequests=0;
     async start() {
       const parent=this.lichessTools;
       const $=parent.$;
@@ -561,6 +602,8 @@
       };
       const lichess=parent.lichess;
       if (!lichess) return;
+      const userId=lichessTools.getUserId();
+      if (!userId) return;
       const setInterval=parent.global.setInterval;
       const clearInterval=parent.global.clearInterval;
       lichess.pubsub.off('socket.in.following_onlines', this.following_onlines);
@@ -585,13 +628,20 @@
           $('td:has(.lichessTools-seenAt)').remove();
           $('.lichessTools-mute').remove();
           $('.lichessTools-tv').remove();
-          this.updateFriendsPage();
         }
+        this.updateFriendsPage();
       }
 
+      this.followingOnlinesRequests=0;
+      clearInterval(this.onlinesInterval);
       this.onlinesInterval=setInterval(()=>{
         if (!this.onlinesInterval) return;
         this.requestOnlines();
+        this.followingOnlinesRequests++;
+        if (this.followingOnlinesRequests>5) {
+          clearInterval(this.onlinesInterval);
+          this.getFollowingOnlinesByApi();
+        }
       },1000);
 
       switch(friendsBoxMode) {

@@ -1,0 +1,10 @@
+/* Less icons */
+
+body.lichessTools.lichessTools-theme_lessIcons #user_tag:after { 
+  display:none;
+}
+
+body.lichessTools.lichessTools-theme_lessIcons .site-title .site-icon { 
+  display:none;
+}
+

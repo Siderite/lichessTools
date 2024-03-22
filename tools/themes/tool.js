@@ -8,7 +8,7 @@
         name:'themes',
         category: 'general',
         type:'multiple',
-        possibleValues: ['performance','justExplorer','mobile','slimArrows','flairX'],
+        possibleValues: ['performance','justExplorer','mobile','slimArrows','flairX','lessIcons','nonStickyHeader'],
         defaultValue: '',
         advanced: true
       }
@@ -23,7 +23,9 @@
         'themes.justExplorer':'Just Explorer',
         'themes.mobile':'Mobile theme',
         'themes.slimArrows':'Slim arrows',
-        'themes.flairX':'Nicer flairs'
+        'themes.flairX':'Nicer flairs',
+        'themes.lessIcons':'Less Icons',
+        'themes.nonStickyHeader':'No sticky header'
       },
       'ro-RO':{
         'options.general': 'General',
@@ -33,7 +35,9 @@
         'themes.justExplorer':'Doar Explorator',
         'themes.mobile':'Tem\u0103 mobil',
         'themes.slimArrows':'S\u0103ge\u0163i sub\u0163iri',
-        'themes.flairX':'Flair-uri mai bune'
+        'themes.flairX':'Flair-uri mai bune',
+        'themes.lessIcons':'Mai pu\u0163ine pictograme',
+        'themes.nonStickyHeader':'Antet fix \u00een pagin\u0103'
       }
     }
 

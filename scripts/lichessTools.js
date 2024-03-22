@@ -299,6 +299,7 @@
     };
 
     inViewport=(element) => {
+      if (element?.length===0) return false;
       if (element?.length) element=element[0];
       if (!element?.offsetParent) return false;
       const rect = element.getBoundingClientRect();
@@ -475,7 +476,7 @@
         let key;
         if (s.cgKey) {
           res={
-                x:s.cgKey.charCodeAt(0)-97, 
+                x:104-s.cgKey.charCodeAt(0), 
                 y:s.cgKey.charCodeAt(1)-49
               };
           key=(7-res.x)+','+(7-res.y);
@@ -499,7 +500,7 @@
         let key;
         if (p.cgKey) {
           res={
-                x:p.cgKey.charCodeAt(0)-97, 
+                x:104-p.cgKey.charCodeAt(0), 
                 y:p.cgKey.charCodeAt(1)-49
               };
           key=(7-res.x)+','+(7-res.y);
@@ -573,7 +574,7 @@
       let enpassant=splits[3];
       if (enpassant && enpassant!='-') {
         result.enpassant={ 
-          x: enpassant.charCodeAt(0)-97, 
+          x: 104-enpassant.charCodeAt(0), 
           y: enpassant.charCodeAt(1)-49
         };
       }
@@ -724,6 +725,35 @@
         this.global.console.warn('Error parsing JSON: ',json,ex);
         return defaultValue;
       }
+    };
+
+    getColor=(text)=>{
+      const m=/^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})?$/.exec(text);
+      const parseInt=this.global.parseInt;
+      return {
+        R:parseInt(m[1],16),
+        G:parseInt(m[2],16),
+        B:parseInt(m[3],16),
+        A:m[4]?parseInt(m[4],16):255
+      };
+    };
+
+    getGradientColor=(q,gradient)=>{
+      let prev=null;
+      for (const gr of gradient) {
+        if (q>=prev?.q && q<=gr.q) {
+          const c1=this.getColor(prev.color);
+          const c2=this.getColor(gr.color);
+          const localQ=(q-prev.q)/(gr.q-prev.q);
+          const color = '#'+Math.round(c1.R+(c2.R-c1.R)*localQ).toString(16).padStart(2,'0')
+                    +Math.round(c1.G+(c2.G-c1.G)*localQ).toString(16).padStart(2,'0')
+                    +Math.round(c1.B+(c2.B-c1.B)*localQ).toString(16).padStart(2,'0')
+                    +Math.round(c1.A+(c2.A-c1.A)*localQ).toString(16).padStart(2,'0');
+          return color;
+        }
+        prev=gr;
+      }
+      return '#808080';
     };
 
     clone=(obj)=>{

@@ -80,6 +80,9 @@ lichessTools.loadTool(LiChessTools.Tools.PlayerWarning);
 lichessTools.loadTool(LiChessTools.Tools.BoardImage);
 lichessTools.loadTool(LiChessTools.Tools.MirrorBoard);
 lichessTools.loadTool(LiChessTools.Tools.CevalDecimals);
+lichessTools.loadTool(LiChessTools.Tools.AutoUnselectPiece);
+lichessTools.loadTool(LiChessTools.Tools.StudyFlairs);
+lichessTools.loadTool(LiChessTools.Tools.MainPageElements);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

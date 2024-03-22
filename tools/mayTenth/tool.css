@@ -1,13 +1,16 @@
-body.lichessTools.lichessTools-mayTenth h1.site-title a {
+body.lichessTools.lichessTools-mayTenth a.site-title a,
+body.lichessTools.lichessTools-mayTenth #topnav section a:has(span.home) {
   position: relative;
 }
 
-body.lichessTools.lichessTools-mayTenth h1.site-title a:after {
+body.lichessTools.lichessTools-mayTenth a.site-title .site-name:after,
+body.lichessTools.lichessTools-mayTenth #topnav section span.home:after,
+body.lichessTools.lichessTools-mayTenth .topnav-toggle:not(:checked)~label.hbg[for="tn-tg"] span.hbg__in:after {
   content: 'Tools';
   position: absolute;
   left: 0;
   transform: rotate(-20deg) translate(0.5em,0.7em);
-  font-size: 3rem;
+  font-size: 1.2em;
   opacity: 0.5;
   filter: drop-shadow(2px 2px 2px violet);
   z-index: 2;

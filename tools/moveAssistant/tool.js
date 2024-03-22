@@ -137,42 +137,14 @@
           return;
         }
         const q=(cp-minCp)/(maxCp-minCp);
-        //let rating=Math.round(255*Math.pow(q,3));
-        //const color='#'+(255-rating).toString(16).padStart(2,'0')+rating.toString(16).padStart(2,'0')+'00';
-        const color=this.getGradientColor(Math.pow(q,2.5),[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
+        const rawColor=parent.getGradientColor(q,[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
+        const biasedColor=parent.getGradientColor(Math.pow(q,2.5),[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
+        const gradientColor=parent.getGradientColor(0.66,[{q:0,color:biasedColor},{q:1,color:'#20202040'}]);
         $(e)
-          .css('border-color',color);
+          .css('background','radial-gradient('+gradientColor+' 19%, rgba(0, 0, 0, 0) 20%)')
+          .css('border-color',rawColor);
       });
     }
-
-    getColor=(text)=>{
-      const m=/^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})?$/.exec(text);
-      const parseInt=this.lichessTools.global.parseInt;
-      return {
-        R:parseInt(m[1],16),
-        G:parseInt(m[2],16),
-        B:parseInt(m[3],16),
-        A:m[4]?parseInt(m[4],16):255
-      };
-    };
-
-    getGradientColor=(q,gradient)=>{
-      let prev=null;
-      for (const gr of gradient) {
-        if (q>=prev?.q && q<=gr.q) {
-          const c1=this.getColor(prev.color);
-          const c2=this.getColor(gr.color);
-          const localQ=(q-prev.q)/(gr.q-prev.q);
-          const color = '#'+Math.round(c1.R+(c2.R-c1.R)*localQ).toString(16).padStart(2,'0')
-                    +Math.round(c1.G+(c2.G-c1.G)*localQ).toString(16).padStart(2,'0')
-                    +Math.round(c1.B+(c2.B-c1.B)*localQ).toString(16).padStart(2,'0')
-                    +Math.round(c1.A+(c2.A-c1.A)*localQ).toString(16).padStart(2,'0');
-          return color;
-        }
-        prev=gr;
-      }
-      return '#808080';
-    };
 
     _eval={};
     getInfo=(info)=>{
@@ -199,6 +171,9 @@
       const parent=this.lichessTools;
       const $=parent.$;
       $('main.analyse div.cg-wrap').removeClass('lichessTools-moveAssistant');
+      $('square.move-dest')
+          .css('background','')
+          .css('border-color','');
     };
 
     setControls=()=>{

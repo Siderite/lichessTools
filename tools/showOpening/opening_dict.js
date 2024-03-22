@@ -3962,6 +3962,7 @@ const openings = {
   "r1bqkbnrpppp2pp2n51B2pP285N2PPPP1PPPRNBQK2Rb": "Ruy Lopez: Schliemann Defense, Jaenisch Gambit Accepted",
   "r1bqkbnrpppp2pp2n54Np24P38PPPP1PPPRNBQKB1Rw": "Latvian Gambit: Fraser Defense",
   "r1bqkbnrpppp2pp2n54pp22B1P35N2PPPP1PPPRNBQK2Rw": "Italian Game: Rousseau Gambit",
+  "r1bqkbnrpppp2pp2n54pp22BPP35N2PPP2PPPRNBQK2Rb": "Italian Game: Rousseau Gambit, Super Mario countergambit (Adamisko)",
   "r1bqkbnrpppp2pp2n54pp22N1P38PPPP1PPPR1BQKBNRw": "Sodium Attack: Durkin Gambit",
   "r1bqkbnrpppp2pp2n54pp22P52N2N2PP1PPPPPR1BQKB1Rw": "English: Three Knights, 3...f5",
   "r1bqkbnrpppp2pp2n54pp22P52N3P1PP1PPP1PR1BQKBNRw": "English: Closed",

@@ -27,3 +27,19 @@ body.lichessTools cg-container.lichessTools-freezeBoard {
   z-index:2;
   filter: sepia(0.5);
 }
+
+body.lichessTools.lichessTools-keyMode-general div.lichessTools-chapterControls button[data-act="random"] {
+  position: relative;
+}
+
+body.lichessTools.lichessTools-keyMode-general div.lichessTools-chapterControls button[data-act="random"]:after {
+  content: 'R';
+  position: absolute;
+  right: 0em;
+  top: 0em;
+  border-radius: 50%;
+  border: 1px solid #808080;
+  width: 1.5em;
+  height: 1.5em;
+  text-align: center;
+}
