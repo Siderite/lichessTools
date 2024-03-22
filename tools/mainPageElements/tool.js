@@ -59,7 +59,6 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
-      if (!$('main').is('.lobby')) return;
       this.options={
         side: parent.isOptionSet(value,'side'),
         app: parent.isOptionSet(value,'app'),
@@ -84,20 +83,25 @@
            '.lobby__feed,.lobby__tournaments-simuls,.lobby__leaderboard,.lobby__winners,.lobby__about').show();
         return;
       }
-      if (!this.initialGrid) {
-        this.initialGrid=$('main').css('grid-template-areas');
-      }
       let isPlay=false;
       if (!this.options.app) {
-        $(parent.global).off('hashchange',this.hashChange);
-        $(parent.global).on('hashchange',this.hashChange);
         $('#topnav > section:first-child > a').attr('href','/#play');
         isPlay=parent.global.location.hash=='#play';
       } else {
         $('#topnav > section:first-child > a').attr('href','/');
       }
+      if (!$('main').is('.lobby')) return;
+      if (!this.options.app) {
+        $(parent.global).off('hashchange',this.hashChange);
+        $(parent.global).on('hashchange',this.hashChange);
+      }
+      if (!this.initialGrid) {
+        this.initialGrid=$('main').css('grid-template-areas');
+      }
       $('main').toggleClass('lichessTools-lobbyPlay',isPlay);
-      if (!isPlay) {
+      if (isPlay) {
+        parent.global.document.title=$('#topnav > section:first-child span.play').text()+' \u2022 lichess.org';
+      } else {
         const grid=this.initialGrid.replace(/[a-z]+/g,t=>{
           const res=this.options[t]
             ? t

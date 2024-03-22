@@ -35,10 +35,13 @@
       $.cached('body').removeClass('lichessTools-mayTenth');
       $('a.site-title,#topnav section a:has(span.home)').removeAttr('title');
       if (!value) return;
+      const isMayTenth=new Date().toISOString().includes('-05-10');
       $.cached('body')
-        .toggleClass('lichessTools-mayTenth',new Date().toISOString().includes('-05-10'));
-      $('a.site-title,#topnav section a:has(span.home)')
-       .attr('title',trans.noarg('mayTenthTitle'));
+        .toggleClass('lichessTools-mayTenth',isMayTenth);
+      if (isMayTenth) {
+        $('a.site-title,#topnav section a:has(span.home)')
+          .attr('title',trans.noarg('mayTenthTitle'));
+      }
     }
   }
   LiChessTools.Tools.MayTenth=MayTenthTool;
