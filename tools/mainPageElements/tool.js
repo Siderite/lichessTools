@@ -79,7 +79,7 @@
         $('main')
           .removeClass('lichessTools-lobbyPlay')
           .css('grid-template-areas','');
-        $('main').find('.lobby__side,.lobby__app,main .lobby__table,.lobby__tv,.lobby__blog,.lobby__puzzle,.lobby__support,'+
+        $('main').find('.lobby__side,.lobby__timeline,.lobby__app,main .lobby__table,.lobby__tv,.lobby__blog,.lobby__puzzle,.lobby__support,'+
            '.lobby__feed,.lobby__tournaments-simuls,.lobby__leaderboard,.lobby__winners,.lobby__about').show();
         return;
       }
@@ -103,13 +103,14 @@
         parent.global.document.title=$('#topnav > section:first-child span.play').text()+' \u2022 lichess.org';
       } else {
         const grid=this.initialGrid.replace(/[a-z]+/g,t=>{
-          const res=this.options[t]
+          const ft=t==='timeline'?'side':t;
+          const res=this.options[ft]
             ? t
             : '.'.padEnd(t.length,' ');
           return res;
         });
         $('main').css('grid-template-areas',grid);
-        $('main .lobby__side').toggle(this.options.side);
+        $('main .lobby__side,main .lobby__timeline').toggle(this.options.side);
         $('main .lobby__app').toggle(this.options.app);
         $('main .lobby__table').toggle(this.options.table);
         $('main .lobby__tv').toggle(this.options.tv);
