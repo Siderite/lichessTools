@@ -15,23 +15,35 @@
     intl={
       'en-US':{
         'options.general': 'General',
-        'options.mainPageElements': 'Main page elements',
+        'options.mainPageElements': 'Lobbby page elements',
         'mainPageElements.side': 'Side',
-        'mainPageElements.app': 'App',
-        'mainPageElements.table': 'Table',
+        'mainPageElements.app': 'Play grid',
+        'mainPageElements.table': 'Play buttons',
         'mainPageElements.tv': 'TV',
         'mainPageElements.blog': 'Blog',
-        'mainPageElements.puzzle': 'Puzzle',
+        'mainPageElements.puzzle': 'Daily puzzle',
         'mainPageElements.support': 'Support',
         'mainPageElements.feed': 'Feed',
-        'mainPageElements.tours': 'Tours',
-        'mainPageElements.leader': 'Leader',
-        'mainPageElements.winner': 'Winner',
+        'mainPageElements.tours': 'Tournaments',
+        'mainPageElements.leader': 'Leaderboard',
+        'mainPageElements.winner': 'Winners',
         'mainPageElements.about': 'About'
       },
       'ro-RO':{
         'options.general': 'General',
-        'options.mainPageElements': 'Elemente pagin\u0103 principal\u0103'
+        'options.mainPageElements': 'Elemente pagin\u0103 principal\u0103',
+        'mainPageElements.side': 'Lateral',
+        'mainPageElements.app': 'Gril\u0103 jocuri',
+        'mainPageElements.table': 'Butoane joc',
+        'mainPageElements.tv': 'TV',
+        'mainPageElements.blog': 'Blog',
+        'mainPageElements.puzzle': 'Puzzle',
+        'mainPageElements.support': 'Suport',
+        'mainPageElements.feed': 'Nout\u0103ti',
+        'mainPageElements.tours': 'Turnee',
+        'mainPageElements.leader': 'Clasament',
+        'mainPageElements.winner': 'C\u00e2stig\u0103tori',
+        'mainPageElements.about': 'Despre'
       }
     }
 
@@ -43,7 +55,7 @@
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('mainPageElements');
-      this.logOption('Main page elements', value);
+      this.logOption('Lobby page elements', value);
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
