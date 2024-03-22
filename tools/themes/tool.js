@@ -37,7 +37,7 @@
         'themes.slimArrows':'S\u0103ge\u0163i sub\u0163iri',
         'themes.flairX':'Flair-uri mai bune',
         'themes.lessIcons':'Mai pu\u0163ine pictograme',
-        'themes.nonStickyHeader':'Antet pagin\u0163 fix'
+        'themes.nonStickyHeader':'Antet fix \u00een pagin\u0103'
       }
     }
 
