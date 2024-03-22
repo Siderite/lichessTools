@@ -37,7 +37,7 @@
         'mainPageElements.table': 'Butoane joc',
         'mainPageElements.tv': 'TV',
         'mainPageElements.blog': 'Blog',
-        'mainPageElements.puzzle': 'Puzzle',
+        'mainPageElements.puzzle': 'Puzzle zilnic',
         'mainPageElements.support': 'Suport',
         'mainPageElements.feed': 'Nout\u0103ti',
         'mainPageElements.tours': 'Turnee',
