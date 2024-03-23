@@ -35,3 +35,9 @@ body.lichessTools main.lobby .lobby__side {
   }
 }
 
+/* Prettier Lichess CSS */
+
+body.lichessTools.lichessTools-prettier main.lobby.lichessTools-lobbyPlay .lobby__support
+{
+  display: none !important;
+}

@@ -1,6 +1,8 @@
 (()=>{
   class MainPageElementsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=[ 'DetectThirdParties' ];
+
     preferences=[
       {
         name:'mainPageElements',
@@ -110,18 +112,18 @@
           return res;
         });
         $('main').css('grid-template-areas',grid);
-        $('main .lobby__side,main .lobby__timeline').toggle(this.options.side);
-        $('main .lobby__app').toggle(this.options.app);
-        $('main .lobby__table').toggle(this.options.table);
-        $('main .lobby__tv').toggle(this.options.tv);
-        $('main .lobby__blog').toggle(this.options.blog);
-        $('main .lobby__puzzle').toggle(this.options.puzzle);
-        $('main .lobby__support').toggle(this.options.support);
-        $('main .lobby__feed').toggle(this.options.feed);
-        $('main .lobby__tournaments-simuls').toggle(this.options.tours);
-        $('main .lobby__leaderboard').toggle(this.options.leader);
-        $('main .lobby__winners').toggle(this.options.winner);
-        $('main .lobby__about').toggle(this.options.about);
+        $('main .lobby__side,main .lobby__timeline').toggleDisplay(this.options.side,true);
+        $('main .lobby__app').toggleDisplay(this.options.app,true);
+        $('main .lobby__table').toggleDisplay(this.options.table,true);
+        $('main .lobby__tv').toggleDisplay(this.options.tv,true);
+        $('main .lobby__blog').toggleDisplay(this.options.blog,true);
+        $('main .lobby__puzzle').toggleDisplay(this.options.puzzle,true);
+        $('main .lobby__support').toggleDisplay(this.options.support,true);
+        $('main .lobby__feed').toggleDisplay(this.options.feed,true);
+        $('main .lobby__tournaments-simuls').toggleDisplay(this.options.tours,true);
+        $('main .lobby__leaderboard').toggleDisplay(this.options.leader,true);
+        $('main .lobby__winners').toggleDisplay(this.options.winner,true);
+        $('main .lobby__about').toggleDisplay(this.options.about,true);
       }
     }
   }
