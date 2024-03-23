@@ -59,6 +59,7 @@ body.lichessTools.lichessTools-prettier main.lobby.lichessTools-lobbyPlay .lobby
   display: none !important;
 }
 
+body.lichessTools main.lobby .lobby__table.lichessTools-hideElement:not(:has(dialog)),
 body.lichessTools.lichessTools-prettier main.lobby .lobby__support.lichessTools-hideElement {
   display:none !important;
 } 
