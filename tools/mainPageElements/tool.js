@@ -85,7 +85,7 @@
             .removeClass('lichessTools-lobbyPlay')
             .css('grid-template-areas','');
           $('main').find('.lobby__side,.lobby__timeline,.lobby__app,main .lobby__table,.lobby__tv,.lobby__blog,.lobby__puzzle,.lobby__support,'+
-             '.lobby__feed,.lobby__tournaments-simuls,.lobby__leaderboard,.lobby__winners,.lobby__about').toggleDisplay(true);
+             '.lobby__feed,.lobby__tournaments-simuls,.lobby__leaderboard,.lobby__winners,.lobby__about').removeClass('lichessTools-hideElement');
         }
         return;
       }
@@ -116,18 +116,18 @@
           return res;
         });
         $('main').css('grid-template-areas',grid);
-        $('main .lobby__side,main .lobby__timeline').toggleDisplay(this.options.side,true);
-        $('main .lobby__app').toggleDisplay(this.options.app,true);
-        $('main .lobby__table').toggleDisplay(this.options.table,true);
-        $('main .lobby__tv').toggleDisplay(this.options.tv,true);
-        $('main .lobby__blog').toggleDisplay(this.options.blog,true);
-        $('main .lobby__puzzle').toggleDisplay(this.options.puzzle,true);
-        $('main .lobby__support').toggleDisplay(this.options.support,true);
-        $('main .lobby__feed').toggleDisplay(this.options.feed,true);
-        $('main .lobby__tournaments-simuls').toggleDisplay(this.options.tours,true);
-        $('main .lobby__leaderboard').toggleDisplay(this.options.leader,true);
-        $('main .lobby__winners').toggleDisplay(this.options.winner,true);
-        $('main .lobby__about').toggleDisplay(this.options.about,true);
+        $('main .lobby__side,main .lobby__timeline').toggleClass('lichessTools-hideElement',!this.options.side);
+        $('main .lobby__app').toggleClass('lichessTools-hideElement',!this.options.app);
+        $('main .lobby__table').toggleClass('lichessTools-hideElement',!this.options.table);
+        $('main .lobby__tv').toggleClass('lichessTools-hideElement',!this.options.tv);
+        $('main .lobby__blog').toggleClass('lichessTools-hideElement',!this.options.blog);
+        $('main .lobby__puzzle').toggleClass('lichessTools-hideElement',!this.options.puzzle);
+        $('main .lobby__support').toggleClass('lichessTools-hideElement',!this.options.support);
+        $('main .lobby__feed').toggleClass('lichessTools-hideElement',!this.options.feed);
+        $('main .lobby__tournaments-simuls').toggleClass('lichessTools-hideElement',!this.options.tours);
+        $('main .lobby__leaderboard').toggleClass('lichessTools-hideElement',!this.options.leader);
+        $('main .lobby__winners').toggleClass('lichessTools-hideElement',!this.options.winner);
+        $('main .lobby__about').toggleClass('lichessTools-hideElement',!this.options.about);
       }
     }
   }

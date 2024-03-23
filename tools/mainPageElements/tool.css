@@ -18,6 +18,23 @@ body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__about {
   display:none;
 } 
 
+body.lichessTools main.lobby .lobby__side.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__timeline.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__app.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__table.lichessTools-hideElement:not(:has(dialog)),
+body.lichessTools main.lobby .lobby__tv.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__blog.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__puzzle.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__support.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__feed.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__tournaments-simuls.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__leaderboard.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__winners.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__about.lichessTools-hideElement {
+  display:none;
+} 
+
+
 body.lichessTools main.lobby .lobby__side {
   min-height: 300px;
 }
@@ -41,3 +58,7 @@ body.lichessTools.lichessTools-prettier main.lobby.lichessTools-lobbyPlay .lobby
 {
   display: none !important;
 }
+
+body.lichessTools.lichessTools-prettier main.lobby .lobby__support.lichessTools-hideElement {
+  display:none !important;
+} 
