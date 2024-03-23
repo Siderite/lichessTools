@@ -75,14 +75,18 @@
         winner: parent.isOptionSet(value,'winner'),
         about: parent.isOptionSet(value,'about'),
         get allSet() { return this.side && this.app && this.table && this.tv && this.blog && 
-                              this.puzzle && this.support && this.feed && this.tours && this.leader && this.winner && this.about; }
+                              this.puzzle && this.support && this.feed && this.tours && this.leader && this.winner && this.about; },
+        get noneSet() { return !this.side && !this.app && !this.table && !this.tv && !this.blog && 
+                              !this.puzzle && !this.support && !this.feed && !this.tours && !this.leader && !this.winner && !this.about; }
       };
-      if (this.options.allSet) {
-        $('main')
-          .removeClass('lichessTools-lobbyPlay')
-          .css('grid-template-areas','');
-        $('main').find('.lobby__side,.lobby__timeline,.lobby__app,main .lobby__table,.lobby__tv,.lobby__blog,.lobby__puzzle,.lobby__support,'+
-           '.lobby__feed,.lobby__tournaments-simuls,.lobby__leaderboard,.lobby__winners,.lobby__about').show();
+      if (this.options.allSet || this.options.noneSet) {
+        if (this.initialGrid) {
+          $('main')
+            .removeClass('lichessTools-lobbyPlay')
+            .css('grid-template-areas','');
+          $('main').find('.lobby__side,.lobby__timeline,.lobby__app,main .lobby__table,.lobby__tv,.lobby__blog,.lobby__puzzle,.lobby__support,'+
+             '.lobby__feed,.lobby__tournaments-simuls,.lobby__leaderboard,.lobby__winners,.lobby__about').toggleDisplay(true);
+        }
         return;
       }
       let isPlay=false;
