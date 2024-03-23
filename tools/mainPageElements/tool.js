@@ -91,7 +91,9 @@
       }
       let isPlay=false;
       if (!this.options.app) {
-        $('#topnav > section:first-child > a').attr('href','/#play');
+        if (!$('body').is('.mobile')) {
+          $('#topnav > section:first-child > a').attr('href','/#play');
+        }
         isPlay=parent.global.location.hash=='#play';
       } else {
         $('#topnav > section:first-child > a').attr('href','/');
