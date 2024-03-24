@@ -152,6 +152,7 @@
       this.postMessage('go'+(this._depth?' depth '+this._depth:this._time?' movetime '+this._time:' infinite')+(this._searchMoves?.length?' searchmoves '+this._searchMoves.join(' '):''));
       this.postMessage('setoption name UCI_AnalyseMode value true');
       this.postMessage('setoption name UCI_Elo value 3190');
+      this.postMessage('setoption name UCI_ShowWDL value true');
       this._isStarted=true; 
     }
 
@@ -187,7 +188,7 @@
         const info={};
         const isString=false;
         for (const split of splits.slice(1)) {
-          if (!isString && /^(depth|seldepth|time|nodes|pv|multipv|score|cp|mat|lowerbound|upperbound|currmove|currmovenumber|hashfull|nps|tbhits|sbhits|cpuload|string|refutation|currline)$/.test(split)) {
+          if (!isString && /^(depth|seldepth|time|nodes|pv|multipv|score|cp|wdl|mate|lowerbound|upperbound|currmove|currmovenumber|hashfull|nps|tbhits|sbhits|cpuload|string|refutation|currline)$/.test(split)) {
             arr=[];
             info[split]=arr;
             if (split=='string') isString=true;
