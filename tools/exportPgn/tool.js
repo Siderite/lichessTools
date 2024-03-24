@@ -196,7 +196,7 @@
       }
     
       function addTag(tags,key,value,skipIfExists) {
-        const index=tags.findIndex(t=>t.key==key);
+        const index=tags.findIndex(([pkey,pvalue])=>pkey==key);
         if (index>=0) {
           if (skipIfExists) return;
           tags[index][1]=value;
@@ -230,8 +230,8 @@
         }
         addTag(tags,'Site',parent.global.location.href,true);
         const now=new Date().toISOString();
-        addTag(tags,'UTCDate',now.substr(0,10).replaceAll('-','.'));
-        addTag(tags,'UTCTime',now.substr(11,8));
+        addTag(tags,'UTCDate',now.substr(0,10).replaceAll('-','.'),true);
+        addTag(tags,'UTCTime',now.substr(11,8),true);
         const tagString=tags.length?tags.map(tag=>'['+tag[0]+' "'+tag[1]+'"]').join('\r\n')+'\r\n':'';
         for (const node of varNodes) {
           const pgn=tagString+renderNodesTxt(node,options.fromPosition);
