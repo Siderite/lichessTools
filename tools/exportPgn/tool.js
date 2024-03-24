@@ -195,9 +195,10 @@
         return arr.map(x=>x.root);
       }
     
-      function addTag(tags,key,value) {
+      function addTag(tags,key,value,skipIfExists) {
         const index=tags.findIndex(t=>t.key==key);
         if (index>=0) {
+          if (skipIfExists) return;
           tags[index][1]=value;
         } else {
           tags.push([key,value]);
@@ -227,6 +228,10 @@
           addTag(tags,'FEN',varNode.fen);
           addTag(tags,'SetUp','1');
         }
+        addTag(tags,'Site',parent.global.location.href,true);
+        const now=new Date().toISOString();
+        addTag(tags,'UTCDate',now.substr(0,10).replaceAll('-','.'));
+        addTag(tags,'UTCTime',now.substr(11,8));
         const tagString=tags.length?tags.map(tag=>'['+tag[0]+' "'+tag[1]+'"]').join('\r\n')+'\r\n':'';
         for (const node of varNodes) {
           const pgn=tagString+renderNodesTxt(node,options.fromPosition);
