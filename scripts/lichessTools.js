@@ -770,8 +770,7 @@
     }
 
     assetUrl(url) {
-      // TODO remove lichess.assetUrl when the lichess code stabilizes
-      const func=(this.lichess.asset?.url || this.lichess.assetUrl).bind(this.lichess);
+      const func=this.lichess.asset.url.bind(this.lichess);
       return func(url);
     }
 
