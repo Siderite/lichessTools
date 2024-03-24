@@ -897,6 +897,7 @@
       try {
         const tool=new toolClass(this);
         this.tools.push(tool);
+        this.tools[toolClass.name]=tool;
         if (tool.intl) {
           for (const lang in tool.intl) {
             this.intl[lang]={...this.intl[lang],...tool.intl[lang]};
