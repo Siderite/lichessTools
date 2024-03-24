@@ -520,7 +520,7 @@
       lichess.pubsub.off('puzzleChange',this.resetFlags);
       $('#form3-flag').off('change',this.clearCache);
       if (value) {
-        parent.global.requestAnimationFrame(this.debouncedProcessFlags);
+        this.debouncedProcessFlags();
         lichess.pubsub.on('content-loaded',this.debouncedProcessFlags);
         lichess.pubsub.on('socket.in.crowd',this.debouncedProcessFlags);
         lichess.pubsub.on('puzzleChange',this.resetFlags);

@@ -362,7 +362,7 @@
         lichess.pubsub.on('ply',this.refreshStructureDebounced);
         lichess.pubsub.on('redraw',this.refreshStructureDebounced);
         lichess.pubsub.on('content-loaded',this.miniGameStructureDebounced);
-        parent.global.requestAnimationFrame(()=>this.refreshStructureDebounced());
+        this.refreshStructureDebounced();
         if ($('main').is('#board-editor')) {
           this.interval=parent.global.setInterval(this.refreshStructureDebounced,1000);
         }

@@ -186,7 +186,7 @@
         lichess.pubsub.on('socket.in.fen',this.miniGameOpening);
         lichess.pubsub.on('ply',this.refreshOpeningDebounced);
         lichess.pubsub.on('content-loaded',this.miniGameOpening);
-        parent.global.requestAnimationFrame(()=>this.refreshOpeningDebounced());
+        this.refreshOpeningDebounced();
         const intervalTime=$('main').is('#board-editor')
           ? 1000
           : 3500;
