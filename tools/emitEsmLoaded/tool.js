@@ -2,7 +2,7 @@
   class EmitEsmLoadedTool extends LiChessTools.Tools.ToolBase {
 
     firstEvents=[];
-    async init() {
+    async wrapEsmLoaded() {
       const parent=this.lichessTools;
       while (!parent.lichess?.asset?.loadEsm) {
         await parent.timeout(1);
@@ -13,12 +13,20 @@
         id:'emitEsmLoaded',
         after: ($this,result,...args)=>{
           result?.then(m=>{
-            lichess.pubsub.emit('esmLoaded',m);
-            this.firstEvents?.push(m);
+            if (this.firstEvents) {
+              this.firstEvents.push(m);
+            } else {
+              lichess.pubsub.emit('esmLoaded',m);
+            }
           });
         }
       });
       lichess.asset={...lichess.asset,loadEsm};
+    }
+
+    async init() {
+      // execute async, don't block init
+      this.wrapEsmLoaded();
     }
 
     async start() {
