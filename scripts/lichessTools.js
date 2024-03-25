@@ -27,7 +27,7 @@
       this._debug=value;
       this.global.localStorage.setItem('LiChessTools2.debug',this._debug.toString());
       if (this._debug) {
-        console.debug('%c Debug mode is reserved for developers. Might lead to undesired consequences.', 'color: red;');
+        this.global.console.debug('%c Debug mode is reserved for developers. Might lead to undesired consequences.', 'color: red;');
       }
     }
   
@@ -655,6 +655,7 @@
         translated:!!options?.translated,
         rate:options?.rate || this.speechRate
       };
+      const console=this.global.console;
       try{
         const msg = new SpeechSynthesisUtterance(text);
         msg.volume = options.volume;
@@ -713,6 +714,7 @@
     }
 
     jsonParse=(funcOrText, defaultValue)=>{
+      const console=this.global.console;
       let json='unknown';
       try {
         json=typeof funcOrText == 'function'
@@ -722,7 +724,7 @@
         const result = this.global.JSON.parse(json);
         return result || defaultValue;
       } catch(ex) {
-        this.global.console.warn('Error parsing JSON: ',json,ex);
+        console.warn('Error parsing JSON: ',json,ex);
         return defaultValue;
       }
     };
@@ -839,6 +841,7 @@
       return this.lichessTools.jsonParse(json);
     },
     fetch: async function(url,options) {
+      const console=this.lichessTools.global.console;
       try{
         let args=null;
         if (typeof url!='string') {
@@ -859,7 +862,7 @@
           return null;
         }
         if (!response.ok) {
-          this.lichessTools.global.console.warn('fetch: '+url+': ['+response.type+'] '+response.status+' ('+response.statusText+')');
+          console.warn('fetch: '+url+': ['+response.type+'] '+response.status+' ('+response.statusText+')');
         }
         if (status>=400) {
           this.logNetwork(url,(options?.body?.length||0),status);
@@ -882,9 +885,9 @@
         return text;
       } catch(e) {
         if (e.toString().includes('Failed to fetch')) {
-          this.lichessTools.global.console.log('Fetch for '+url+' failed: ',e,status);
+          console.log('Fetch for '+url+' failed: ',e,status);
         } else {
-          this.lichessTools.global.console.warn('Fetch for '+url+' failed: ',e,status);
+          console.warn('Fetch for '+url+' failed: ',e,status);
         }
         throw e;
       };
@@ -893,6 +896,8 @@
 
     tools=[];
     loadTool(toolClass) {
+      const setTimeout=this.global.setTimeout;
+      const console=this.global.console;
       try {
         const tool=new toolClass(this);
         this.tools.push(tool);
@@ -908,11 +913,13 @@
           }
         }
       } catch(e) {
-        this.global.setTimeout(()=>this.global.console.error(e),100);
+        setTimeout(()=>console.error(e),100);
       }
     }
 
     async init() {
+      const setTimeout=this.global.setTimeout;
+      const console=this.global.console;
       window.addEventListener('pagehide',()=>{
         this.net.storeLog();
       });
@@ -921,7 +928,7 @@
         try {
           await tool.init();
         } catch(e) {
-          this.global.setTimeout(()=>this.global.console.error(e),100);
+          setTimeout(()=>console.error(e),100);
         }
       }
     }
@@ -932,7 +939,7 @@
       const age=lichess.info?.date
         ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
         : 0;
-      console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red; color:white;':'');
+      this.global.console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red; color:white;':'');
       this.translator = this.lichess.trans(this.intl.siteI18n);
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);
@@ -974,6 +981,8 @@
     }
 
     applyOptions=async (options)=>{
+      const setTimeout=this.global.setTimeout;
+      const console=this.global.console;
       if (options) {
         await this.saveOptions(options);
       }
@@ -984,7 +993,6 @@
       this.prevOptions=this.global.JSON.stringify(options);
       this.currentOptions=options;
       this.$.cached('body').toggleClass('lichessTools',options.enableLichessTools);
-      const console=this.global.console;
       const group=options.getValue('showOptionsTableInConsole')
         ? console.group
         : console.groupCollapsed;
@@ -994,7 +1002,7 @@
         try {
           await tool.start();
         } catch(e) {
-          this.global.setTimeout(()=>this.global.console.error(e),100);
+          setTimeout(()=>console.error(e),100);
         }
       }
       console.groupEnd();
