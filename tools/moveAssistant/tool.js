@@ -153,6 +153,7 @@
                   .appendTo(e);
           }
           bar
+            .css('--deg',analysis.turnColor()==analysis.getOrientation()?'0deg':'180deg')
             .css('--w',Math.round(100*wdl.w/wdl.total)+'%')
             .css('--d',Math.round(100*wdl.d/wdl.total)+'%')
             .css('--l',Math.round(100*wdl.l/wdl.total)+'%');

@@ -6,12 +6,13 @@ body.lichessTools div.cg-wrap.lichessTools-moveAssistant square.move-dest {
 }
 
 body.lichessTools div.cg-wrap.lichessTools-moveAssistant square.move-dest .lichessTools-wdl {
+  --deg:0deg;
   position:absolute;
   height:70%;
   top:15%;
   right:4px;
   width:2px;
-  background:linear-gradient(0deg, #00FF00 0%, #30FF00 var(--w), #FFFF00 var(--w), #FFFF00 calc(var(--w) + var(--d)), #FF3000 calc(var(--w) + var(--d)), #FF0000 100%);
+  background:linear-gradient(var(--deg), #00FF00 0%, #30FF00 var(--w), #FFFF00 var(--w), #FFFF00 calc(var(--w) + var(--d)), #FF3000 calc(var(--w) + var(--d)), #FF0000 100%);
 }
 
 body.lichessTools button.lichessTools-moveAssistant {

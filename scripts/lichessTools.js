@@ -32,7 +32,7 @@
     }
   
     arrayRemoveAll(arr,predicate) {
-      if (!arr) return;
+      if (!arr?.length) return;
       let i=0;
       while (i<arr.length) {
         if (predicate(arr[i])) {
