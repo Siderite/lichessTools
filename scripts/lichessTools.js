@@ -913,7 +913,7 @@
           }
         }
       } catch(e) {
-        setTimeout(()=>console.error(e),100);
+        setTimeout(()=>{ throw e; },100);
       }
     }
 
@@ -928,7 +928,7 @@
         try {
           await tool.init();
         } catch(e) {
-          setTimeout(()=>console.error(e),100);
+          setTimeout(()=>{ throw e; },100);
         }
       }
     }
@@ -1002,7 +1002,7 @@
         try {
           await tool.start();
         } catch(e) {
-          setTimeout(()=>console.error(e),100);
+          setTimeout(()=>{ throw e; },100);
         }
       }
       console.groupEnd();
