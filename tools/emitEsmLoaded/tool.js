@@ -32,7 +32,7 @@
     async start() {
       const events=this.firstEvents;
       this.firstEvents=null;
-      if (!events.length) return;
+      if (!events?.length) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       parent.global.setTimeout(()=>{
