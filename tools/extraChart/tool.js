@@ -697,7 +697,7 @@
       const $=parent.$;
       const trans=parent.translator;
       const container=$('div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
-      if (parent.inViewport(container[0])<=0) return;
+      if (parent.inViewport(container)<=0) return;
       const chart=this._chart;
       if (!chart) return;
       const dataset=chart.data?.datasets[0];

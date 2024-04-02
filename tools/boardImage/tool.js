@@ -135,10 +135,11 @@
       $('dialog.lichessTools-boardImage').remove();
     };
 
-    enhanceButton=()=>{
+    enhanceButtonDirect=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
+      let removeRedraw=false;
       const analysisPgn=$('main.analyse .copyables div.pgn');
       if (analysisPgn.length) {
         if (!analysisPgn.parent().find('a.lichessTools-boardImage').length) {
@@ -150,16 +151,24 @@
             .attr('href',url)
             .on('click',this.getBoardImage)
             .insertAfter(analysisPgn);
+          removeRedraw=true;
         }
       }
-      $('div.study__share a[href*="fen.gif"],div.board-editor .copyables a[href*="fen.gif"]')
+      $('div.study__share,div.board-editor .copyables')
+        .find('a[href*="fen.gif"]')
         .each((i,e)=>{
           if ($(e).is('.lichessTools-boardImage')) return;
           $(e)
             .addClass('lichessTools-boardImage')
             .on('click',this.getBoardImage);
+          removeRedraw=true;
         });
+      if (removeRedraw) {
+        const lichess=parent.lichess;
+        lichess.pubsub.off('redraw',this.enhanceButton);
+      }
     };
+    enhanceButton=this.lichessTools.debounce(this.enhanceButtonDirect,500);
 
     async start() {
       const parent=this.lichessTools;

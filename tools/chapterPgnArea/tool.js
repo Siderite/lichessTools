@@ -29,7 +29,7 @@
       }
     }
 
-    setupArea=async ()=>{
+    setupAreaDirect=async ()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -47,6 +47,7 @@
       const pgn=await parent.exportPgn('');
       $('textarea',group).val(pgn);
     };
+    setupArea=this.lichessTools.debounce(this.setupAreaDirect,500);
 
     async start() {
       const parent=this.lichessTools;
