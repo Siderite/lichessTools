@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+24 Mar
+  - WDL bars to Move Assistant
+
 21 Mar
   - themes for less icons and non sticky header
   - hide/show lobby page elements

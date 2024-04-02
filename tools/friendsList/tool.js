@@ -574,7 +574,7 @@
     getFollowingOnlinesByApi=async ()=>{
       const parent=this.lichessTools;
       //const json=await parent.net.json('/api/rel/following');
-      // TODO use this if made to work with logged in user
+      // TODO use this if made to work with logged in user https://github.com/lichess-org/lila/issues/14906
       parent.global.console.debug('Sent following-onlines too many times. Giving up.');
     };
 

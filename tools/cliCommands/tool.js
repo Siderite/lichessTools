@@ -94,6 +94,7 @@
 
     boot=async ()=>{
       const parent=this.lichessTools;
+      if (!parent.getEventHandlers) return;
       const $=parent.$;
       const input=$('#clinput input')[0];
       if (!input) {

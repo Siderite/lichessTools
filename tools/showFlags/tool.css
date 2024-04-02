@@ -68,3 +68,9 @@ body.lichessTools .lichessTools-flag+img.flag {
   transform-origin: left;
   animation: lichessTools-wave 10s linear infinite;
 }
+
+@media (max-width: 799.29px) and (orientation: portrait) {
+  body.lichessTools .ruser {
+    width: fit-content;
+  }
+}

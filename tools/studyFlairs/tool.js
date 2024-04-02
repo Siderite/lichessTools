@@ -131,7 +131,7 @@
       const mode=mm?.at(1)||'hot';
       const p=baseUrl.includes('?') ? '&' : '?';
 
-      // TODO remove this when/if we get a topic JSON API
+      // TODO remove this when/if we get a topic JSON API https://github.com/lichess-org/lila/issues/14886
       const isTopicPage=/\/study\/topic\//.test(baseUrl);
       if (isTopicPage) return;
 
@@ -244,7 +244,7 @@
       if (!value) return;
       if (lichess.analysis?.study) {
         if (!this.flairs) {
-          const text=await parent.net.fetch(lichess.asset.url('flair/list.txt'));
+          const text=await parent.net.fetch(parent.assetUrl('flair/list.txt'));
           this.flairs=text.split(/[\r\n]+/).map(f=>'flair.'+f.trim());
         }
         this.interval=parent.global.setInterval(this.processStudy,500);

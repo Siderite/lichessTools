@@ -278,9 +278,9 @@
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!this.options.evalRows) {
         if (!explorerMoves?.length) return;
-        if (!parent.inViewport($('section.explorer-box table.moves')[0])) return;
+        if (!parent.inViewport($('section.explorer-box table.moves'))) return;
       } else {
-        if (!parent.inViewport($('section.explorer-box')[0])) return;
+        if (!parent.inViewport($('section.explorer-box'))) return;
       }
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;

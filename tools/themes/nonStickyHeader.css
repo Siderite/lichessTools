@@ -3,3 +3,9 @@
 body.lichessTools.lichessTools-theme_nonStickyHeader header#top {
   position: absolute;
 }
+
+@media (max-height: 600px) {
+  body.lichessTools.lichessTools-theme_nonStickyHeader header#top {
+    position: unset;
+  }
+}

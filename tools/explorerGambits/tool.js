@@ -119,10 +119,10 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis.explorer?.enabled()) return;
-      if (!parent.inViewport($('section.explorer-box table.moves')[0])) return;
       if (parent.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!explorerMoves?.length) return;
+      if (!parent.inViewport($('section.explorer-box table.moves'))) return;
       const fen=analysis.node.fen;
       const side=analysis.getOrientation();
       const pos=analysis.node.fen.split(' ').slice(0,4).join('').replaceAll('/','');

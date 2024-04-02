@@ -150,7 +150,7 @@
       return structureText;
     };
 
-    keySimilarity=(kSearch,kNamed)=>{
+    keySimilarityDirect=(kSearch,kNamed)=>{
       kSearch=kSearch.replaceAll(' ','');
       kNamed=kNamed.replaceAll(' ','');
       const l=Math.min(kSearch.length,kNamed.length);
@@ -169,6 +169,16 @@
         }
       }
       return Math.round(sim*100/l);
+    };
+    keyCache={};
+    keySimilarity=(kSearch,kNamed)=>{
+      const k=kSearch+'|'+kNamed;
+      let result = this.keyCache[k];
+      if (!result) {
+        result=this.keySimilarityDirect(kSearch,kNamed);
+        this.keyCache[k]=result;
+      }
+      return result;
     };
 
     getOpposingStructure=structure=>{
@@ -362,7 +372,7 @@
         lichess.pubsub.on('ply',this.refreshStructureDebounced);
         lichess.pubsub.on('redraw',this.refreshStructureDebounced);
         lichess.pubsub.on('content-loaded',this.miniGameStructureDebounced);
-        parent.global.requestAnimationFrame(()=>this.refreshStructureDebounced());
+        this.refreshStructureDebounced();
         if ($('main').is('#board-editor')) {
           this.interval=parent.global.setInterval(this.refreshStructureDebounced,1000);
         }

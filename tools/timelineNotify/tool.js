@@ -187,7 +187,7 @@
         this.readAllStorage.listen(this.setAllRead);
       }*/
       if (/^\/timeline/i.test(location.pathname)) this.setAllRead();
-      parent.global.requestAnimationFrame(this.forcedProcessTimeline);
+      this.forcedProcessTimeline();
     }
 
   }

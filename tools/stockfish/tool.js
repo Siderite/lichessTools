@@ -152,6 +152,7 @@
       this.postMessage('go'+(this._depth?' depth '+this._depth:this._time?' movetime '+this._time:' infinite')+(this._searchMoves?.length?' searchmoves '+this._searchMoves.join(' '):''));
       this.postMessage('setoption name UCI_AnalyseMode value true');
       this.postMessage('setoption name UCI_Elo value 3190');
+      this.postMessage('setoption name UCI_ShowWDL value true');
       this._isStarted=true; 
     }
 
@@ -181,21 +182,28 @@
         this._uciok=true;
         return;
       }
-      if (data.startsWith('info')) {
+      if (/^(info|bestmove)/.test(data)) {
         const splits=data.split(' ');
         let arr=null;
         const info={};
         const isString=false;
         for (const split of splits.slice(1)) {
-          if (!isString && /^(depth|seldepth|time|nodes|pv|multipv|score|cp|mat|lowerbound|upperbound|currmove|currmovenumber|hashfull|nps|tbhits|sbhits|cpuload|string|refutation|currline)$/.test(split)) {
+          if (!isString && /^(depth|seldepth|time|nodes|pv|multipv|score|cp|wdl|mate|lowerbound|upperbound|currmove|currmovenumber|hashfull|nps|tbhits|sbhits|cpuload|string|refutation|currline|ponder)$/.test(split)) {
             arr=[];
             info[split]=arr;
             if (split=='string') isString=true;
             continue;
           }
+          if (!arr) {
+            arr=[];
+            info[splits[0]]=arr;
+          }
           arr.push(split);
         }
-        this.emit('info',info);
+        this.emit(splits[0],info);
+        if (this.parent.debug>1) {
+          this.parent.global.console.debug('SF','emitted',splits[0],info);
+        }
         return;
       }
       if (this.parent.debug>1) {
@@ -207,6 +215,7 @@
 
     _handlers={};
     on(name,handler) {
+      if (!handler) throw new Error('handler cannot be empty');
       let arr=this._handlers[name];
       if (!arr) {
         arr=new Set();
@@ -215,6 +224,7 @@
       arr.add(handler);
     }
     off(name,handler) {
+      if (!handler) throw new Error('handler cannot be empty');
       let arr=this._handlers[name];
       if (!arr) return;
       arr.delete(handler);

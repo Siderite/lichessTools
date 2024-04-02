@@ -77,6 +77,7 @@
       }
       if (!this._evaluating) {
         this._eval={};
+        this._wdl={};
         this._evaluating=true;
         this._fen=analysis.node.fen;
         this._sf.setPosition(this._fen);
@@ -84,6 +85,7 @@
       }
       if (this._fen!=analysis.node.fen) {
         this._eval={};
+        this._wdl={};
         this._fen=analysis.node.fen;
         this._sf.setPosition(this._fen);
       }
@@ -143,10 +145,24 @@
         $(e)
           .css('background','radial-gradient('+gradientColor+' 19%, rgba(0, 0, 0, 0) 20%)')
           .css('border-color',rawColor);
+        const wdl=this._wdl[uci];
+        if (wdl) {
+          let bar=$(e).find('div.lichessTools-wdl');
+          if (!bar.length) {
+            bar=$('<div class="lichessTools-wdl">')
+                  .appendTo(e);
+          }
+          bar
+            .css('--deg',analysis.turnColor()==analysis.getOrientation()?'0deg':'180deg')
+            .css('--w',Math.round(100*wdl.w/wdl.total)+'%')
+            .css('--d',Math.round(100*wdl.d/wdl.total)+'%')
+            .css('--l',Math.round(100*wdl.l/wdl.total)+'%');
+        }
       });
     }
 
     _eval={};
+    _wdl={};
     getInfo=(info)=>{
       const parent=this.lichessTools;
       const mate=+(info.mate?.at(0));
@@ -165,6 +181,12 @@
         }
       }
       this._eval[uci]=cp;
+      let wdl=info.wdl;
+      if (wdl?.length==3) {
+        wdl={ w: +wdl[0], d: +wdl[1], l: +wdl[2] };
+        wdl.total=wdl.w+wdl.d+wdl.l;
+        this._wdl[uci]=wdl;
+      }
     }
 
     clearSquares=()=>{
@@ -174,6 +196,7 @@
       $('square.move-dest')
           .css('background','')
           .css('border-color','');
+      $('div.lichessTools-wdl').remove();
     };
 
     setControls=()=>{

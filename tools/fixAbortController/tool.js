@@ -22,6 +22,15 @@
       }
     }
 
+    async init() {
+      const parent=this.lichessTools;
+      if (!parent.global.AbortController) return;
+      parent.global.AbortController.prototype.abort=parent.wrapFunction(parent.global.AbortController.prototype.abort,{ 
+        id:'fixAbortController',
+        before: ($this,...args) => $this.signal?.aborted
+      });
+    }
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('fixAbortController');
