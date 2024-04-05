@@ -18,14 +18,18 @@
         'options.studyFlairs': 'Study flairs',
         'studyFlairs.authorFlair':'Author flair',
         'studyFlairs.memberFlairs':'Member flairs',
-        'studyFlairs.topicFlairs':'Flairs from study topics'
+        'studyFlairs.topicFlairs':'Flairs from study topics',
+        'flairButtonText':'Flairs',
+        'flairButtonTitle':'LiChess Tools - add a study flair'
       },
       'ro-RO':{
         'options.study': 'Studiu',
         'options.studyFlairs': 'Pictograme \u00een studii',
         'studyFlairs.authorFlair':'Pictograma autorului',
         'studyFlairs.memberFlairs':'Pictogramele membrilor',
-        'studyFlairs.topicFlairs':'Pictograme din subiecte studii'
+        'studyFlairs.topicFlairs':'Pictograme din subiecte studii',
+        'flairButtonText':'Pictograme',
+        'flairButtonTitle':'LiChess Tools - adaug\u0103 o pictogram\u0103 studiului'
       }
     };
 
@@ -33,11 +37,36 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
+      const trans=parent.translator;
       if (!this.options.topicFlairs) return;
       const container=$('div.dialog-content.study-topics');
       if (parent.inViewport(container)) {
         const tagify=$('tags+textarea',container)[0]?.__tagify;
         if (tagify) {
+          if (!$('button.lichessTools-studyFlairs',container).length) {
+            const form=$('form',container);
+            const flairPicker=$('<div class="flair-picker">');
+            $('<button class="button lichessTools-studyFlairs">')
+              .text(trans.noarg('flairButtonText'))
+              .attr('title',trans.noarg('flairButtonTitle'))
+              .on('click',ev=>{
+                ev.preventDefault();
+                const close=()=>flairPicker.removeClass('emoji-done').empty();
+                lichess.asset.loadEsm("flairPicker", {
+                  init: {
+                    element: flairPicker[0],
+                    close: close,
+                    onEmojiSelect: e=>{ 
+                      tagify.addTags('flair.'+e.id);
+                      close();
+                    }
+                  }
+                });
+              })
+              .appendTo(form);
+            flairPicker
+              .appendTo(form);
+          }
           if (!parent.isWrappedFunction(tagify.createTagElem,'studyFlairs')) {
             const handleTag=tag=>{
               const span=$(tag).find('span.tagify__tag-text');
