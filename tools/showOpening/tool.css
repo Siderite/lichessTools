@@ -49,3 +49,9 @@ body.lichessTools section.explorer-box div.data div.title .lichessTools-showOpen
 body.lichessTools section.explorer-box div.data div.title:has(.lichessTools-showOpening) {
   text-wrap: balance;
 }
+
+/* Prettier Lichess CSS */
+
+body.lichessTools.lichessTools-prettier section.explorer-box div.data div.title .lichessTools-showOpening {
+  color: var(--primaryColor);
+}
