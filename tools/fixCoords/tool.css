@@ -14,6 +14,14 @@ body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) main.gauge-
   left: -1.2em;
 }
 
+body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.study__player-bot {
+  margin-top:1em;
+}
+
+body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.analyse__board {
+  margin-bottom:1em;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger cg-container coords {
