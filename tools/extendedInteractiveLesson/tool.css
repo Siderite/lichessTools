@@ -7,23 +7,6 @@ body.lichessTools.lichessTools-extendedInteractiveLesson button.preview::before 
   top:-2px;
 }
 
-/*body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview::after {
-  content: attr(data-label);
-  padding: 2px;
-  display: none;
-  position: relative;
-  top: -35px;
-  right: 0px;
-  width: 350px;
-  height:20px;
-  margin-left: -350px;
-  text-align: center;
-  text-transform: initial;
-  color: #4d4d4d;
-  background: #e3e3e3;
-  pointer-events:none;
-}*/
-
 body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview:hover::after {
   display: block;
 }
@@ -44,16 +27,6 @@ body.lichessTools.dark.lichessTools-extendedInteractiveLesson div.study__buttons
 body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons {
   position:relative;
 }
-
-/*body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons::before {
-  content: attr(data-label);
-  flex: auto;
-  pointer-events:none;
-  opacity:0.6;
-  left:0;
-  position:absolute;
-  z-index: -1;
-}*/
 
 body.mobile.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons::before {
   font-size:xx-small;
@@ -224,4 +197,9 @@ body.lichessTools.lichessTools-prettier .analyse .gamebook span.lichessTools-sco
 
 body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson button.preview::before {
   content:'\e06f' !important;
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleGreen"] line,
+body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleRed"] line {
+  stroke:white !important;
 }
