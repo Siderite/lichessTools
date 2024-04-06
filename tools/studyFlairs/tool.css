@@ -30,3 +30,8 @@ body.lichessTools div.tagify__dropdown div.lichessTools-studyFlairs img,
 body.lichessTools tag.lichessTools-studyFlairs img {
   max-width:1.5em;
 }
+
+body.lichessTools button.lichessTools-studyFlairs {
+  float:left;
+  filter:saturate(0.5);
+}

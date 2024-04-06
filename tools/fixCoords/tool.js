@@ -39,17 +39,24 @@
         fix: parent.isOptionSet(value,'fix'),
         larger: parent.isOptionSet(value,'larger')
       };
-      $.cached('body')
+      const body=$.cached('body');
+      body
         .toggleClass('lichessTools-fixCoords-fix',this.options.fix)
         .toggleClass('lichessTools-fixCoords-larger',this.options.larger);
       const analysis=lichess?.analysis;
+      if (this._init_in===undefined) this._init_in=body.is('.coords-in');
+      if (this._init_out===undefined) this._init_out=body.is('.coords-out');
       if (this.options.fix && analysis) {
         const pref=analysis.data?.pref?.coords;
         if (pref) {
-          $.cached('body')
+          body
             .toggleClass('coords-in',pref==1)
             .toggleClass('coords-out',pref==2);
         }
+      } else {
+        body
+          .toggleClass('coords-in',this._init_in)
+          .toggleClass('coords-out',this._init_out);
       }
     }
 
