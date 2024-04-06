@@ -41,3 +41,11 @@ body.lichessTools div.analyse__wiki .lichessTools-opening {
 body.lichessTools .copyables .lichessTools-opening {
   display: block;
 }
+
+body.lichessTools section.explorer-box div.data div.title .lichessTools-showOpening {
+  cursor:default;
+}
+
+body.lichessTools section.explorer-box div.data div.title:has(.lichessTools-showOpening) {
+  text-wrap: balance;
+}

@@ -90,7 +90,7 @@
           if (!opening) {
             const reversed=parent.reverseFen(fen).split(' ')?.slice(0,4)?.join('')?.replaceAll('/','');
             const op=parent.opening_dict.get(reversed);
-            if (op) opening=op+' (R)';
+            if (op && op!='*') opening=op+' (R)';
           }
           if (opening) {
             el.openingData={time:Date.now(), opening, el};
@@ -131,6 +131,24 @@
       }
     };
 
+    showOpeningInExplorer=(opening)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      const elem=$('section.explorer-box div.data div.title a');
+      if (!elem.length) return;
+      const existing=elem.text();
+      let openingElem=elem.next('.lichessTools-showOpening');
+      if (!openingElem.length) {
+        openingElem=$('<span class="lichessTools-showOpening">')
+                      .attr('title',trans.noarg('openingNameTitle'))
+                      .insertAfter(elem);
+      }
+      const words=(opening||'').split(/\b/).filter(w=>!existing.includes(w));
+      const suffix=' '+words.join(' ').replace(/(?:[^\w]+[\s]+)+([^\w]+)/g,' $1').replace(/^(?:[^\w]+[\s]+)+/g,'');
+      openingElem.text(suffix);
+    };
+
     refreshOpening=async (ply)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -144,6 +162,7 @@
       const result = await this.withOpening(gameId,$.cached('main.round, main.analyse, main#board-editor',10000)[0],ply,undefined,false);
       if (!result) {
         metaSection.find('.lichessTools-opening').remove();
+        this.showOpeningInExplorer(null);
         return;
       }
       metaSection.find('span.lichessTools-opening').filter((i,e)=>!lichessTools.inViewport(e)).remove();
@@ -153,6 +172,7 @@
           .append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
       }
       metaSection.find('span.lichessTools-opening').text(result.opening);
+      this.showOpeningInExplorer(result.opening);
       if (!ply) {
         await this.miniGameOpening();
       }
