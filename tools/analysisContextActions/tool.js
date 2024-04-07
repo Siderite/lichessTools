@@ -232,11 +232,14 @@
       const analysis=lichess.analysis;
       const study=analysis?.study;
 
+      if (ev && this.options.copyPgn) {
+        this.alterModifierText(ev);
+      }
+
       const menu=$('#analyse-cm');
       if (!menu.length) return;
       
       if (this.options.copyPgn && !menu.has('a[data-role="copyPgn"]').length) {
-        if (ev) this.alterModifierText(ev);
         const text=trans.noarg('extractVariationText'+(this.suffix||''));
         const title=trans.noarg('extractVariationTitle');
         $('<a>')
@@ -326,11 +329,13 @@
       const $=parent.$;
       const trans=parent.translator;
 
-      const menuItem=$('#analyse-cm a[data-role="copyPgn"]');
-      if (!this.options.copyPgn || !menuItem.length) return;
+      if (!this.options.copyPgn) return;
       
       this.suffix=(ev.shiftKey?'f':'')+(ev.ctrlKey?'s':'')+(ev.altKey?'t':'');
       if (this.suffix) this.suffix='_'+this.suffix;
+
+      const menuItem=$('#analyse-cm a[data-role="copyPgn"]');
+      if (!menuItem.length) return;
       const text=trans.noarg('extractVariationText'+this.suffix);
       menuItem.text(text);
     }
