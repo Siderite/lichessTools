@@ -42,16 +42,16 @@ body.lichessTools .copyables .lichessTools-opening {
   display: block;
 }
 
-body.lichessTools section.explorer-box div.data div.title .lichessTools-showOpening {
+body.lichessTools section.explorer-box div.data div.title .lichessTools-opening {
   cursor:default;
 }
 
-body.lichessTools section.explorer-box div.data div.title:has(.lichessTools-showOpening) {
+body.lichessTools section.explorer-box div.data div.title:has(.lichessTools-opening) {
   text-wrap: balance;
 }
 
 /* Prettier Lichess CSS */
 
-body.lichessTools.lichessTools-prettier section.explorer-box div.data div.title .lichessTools-showOpening {
+body.lichessTools.lichessTools-prettier section.explorer-box div.data div.title .lichessTools-opening {
   color: var(--primaryColor);
 }

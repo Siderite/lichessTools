@@ -5,9 +5,9 @@
       {
         name:'showOpening',
         category: 'general',
-        type:'single',
-        possibleValues: [false,true],
-        defaultValue: true
+        type:'multiple',
+        possibleValues: ['showInBoard','showInMinigames','showInExplorer'],
+        defaultValue: 'showInBoard,showInMinigames,showInExplorer'
       }
     ];
 
@@ -15,16 +15,23 @@
       'en-US':{
         'options.general': 'General',
         'options.showOpening': 'Show game opening names',
-        'openingNameTitle': 'LiChess Tools - opening name'
+        'openingNameTitle': 'LiChess Tools - opening name',
+        'showOpening.showInBoard':'For large board',
+        'showOpening.showInMinigames':'For minigames',
+        'showOpening.showInExplorer':'In Explorer'
       },
       'ro-RO':{
         'options.general': 'General',
         'options.showOpening': 'Arat\u0103 numele deschiderii \u00een partide',
-        'openingNameTitle': 'LiChess Tools - numele deschiderii'
+        'openingNameTitle': 'LiChess Tools - numele deschiderii',
+        'showOpening.showInBoard':'Pentru tabla mare',
+        'showOpening.showInMinigames':'Pentru table mici',
+        'showOpening.showInExplorer':'\u00e2n Explorator'
       }
     }
 
     miniGameOpening=async (el)=>{
+      if (!this.options.showInMinigames) return;
       const parent=this.lichessTools;
       const $=parent.$;
       if (parent.global.document.hidden) return;
@@ -132,15 +139,16 @@
     };
 
     showOpeningInExplorer=(opening)=>{
+      if (!this.options.showInExplorer) return;
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
       const elem=$('section.explorer-box div.data div.title a');
       if (!elem.length) return;
       const existing=elem.text();
-      let openingElem=elem.next('.lichessTools-showOpening');
+      let openingElem=elem.next('.lichessTools-opening');
       if (!openingElem.length) {
-        openingElem=$('<span class="lichessTools-showOpening">')
+        openingElem=$('<span class="lichessTools-opening">')
                       .attr('title',trans.noarg('openingNameTitle'))
                       .insertAfter(elem);
       }
@@ -150,6 +158,7 @@
     };
 
     refreshOpening=async (ply)=>{
+      if (!this.options.showInBoard) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -184,6 +193,11 @@
       const value=parent.currentOptions.getValue('showOpening');
       this.logOption('Show game opening names', value);
       this.logOption(' ... cached openings', parent.opening_dict?.size);
+      this.options={
+        showInBoard: parent.isOptionSet(value,'showInBoard'),
+        showInMinigames: parent.isOptionSet(value,'showInMinigames'),
+        showInExplorer: parent.isOptionSet(value,'showInExplorer'),
+      };
       const lichess=parent.lichess;
       if (!lichess) return;
       const $=parent.$;
@@ -194,7 +208,11 @@
         lichess.socket.settings.events.endData=parent.unwrapFunction(lichess.socket.settings.events.endData,'showOpening');
       }
       parent.global.clearInterval(this.interval);
-      if (value) {
+      const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
+      metaSection.find('.lichessTools-opening').remove();
+      $('a.mini-game .lichessTools-opening').remove();
+      $('div.title .lichessTools-opening').remove();
+      if (this.options.showInBoard) {
         if (lichess.socket?.settings?.events?.endData) {
           lichess.socket.settings.events.endData=parent.wrapFunction(lichess.socket.settings.events.endData,{
             id:'showOpening',
@@ -203,17 +221,17 @@
             }
           });
         }
-        lichess.pubsub.on('socket.in.fen',this.miniGameOpening);
         lichess.pubsub.on('ply',this.refreshOpeningDebounced);
-        lichess.pubsub.on('content-loaded',this.miniGameOpening);
-        this.refreshOpeningDebounced();
         const intervalTime=$('main').is('#board-editor')
           ? 1000
           : 3500;
         this.interval=parent.global.setInterval(this.refreshOpeningDebounced,intervalTime);
-      } else {
-        const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
-        metaSection.find('.lichessTools-opening').remove();
+        this.refreshOpeningDebounced();
+      }
+      if (this.options.showInMinigames) {
+        lichess.pubsub.on('socket.in.fen',this.miniGameOpening);
+        lichess.pubsub.on('content-loaded',this.miniGameOpening);
+        this.miniGameOpeningDebounced();
       }
     }
 
