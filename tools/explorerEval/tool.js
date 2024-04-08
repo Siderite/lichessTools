@@ -63,7 +63,8 @@
       let container=$('section.explorer-box table.moves');
       if (!container.length) {
         if (this.options.evalRows && moves?.length) {
-          $('section.explorer-box div.data.empty div.message').remove();
+          const dataElem=$('section.explorer-box div.data');
+          $('div.message',dataElem).remove();
           container=$('<table class="moves lichessTools-evalTable">')
             .append(
               $('<tbody>')
@@ -80,8 +81,8 @@
                   analysis.explorerMove(uci);
                 })
             )
-            .appendTo('section.explorer-box div.data.empty');
-          $('section.explorer-box div.data.empty div.message').removeClass('empty');
+            .appendTo(dataElem);
+          dataElem.removeClass('empty');
         } else {
           return;
         }

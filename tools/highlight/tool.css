@@ -6,11 +6,16 @@ body.lichessTools .analyse .tview2 move.lichessTools-lastInLine.lichessTools-unc
     border-bottom: 1px solid red;
 }
 
+body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
+    text-decoration: 1px yellow dashed underline;
+}
+
 body.lichessTools .analyse .tview2 move.lichessTools-transposition {
     background: lawngreen;
 }
 
-body.lichessTools .analyse .tview2 move.lichessTools-lastInLine {
+body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
+body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
     filter: brightness(50%);
 }
 
@@ -19,7 +24,8 @@ body.lichessTools .analyse .tview2 move.lichessTools-lastInLine {
       background: darkgreen;
   }
 
-  body.lichessTools.system .analyse .tview2 move.lichessTools-lastInLine {
+  body.lichessTools.system .analyse .tview2 move.lichessTools-lastInLine,
+  body.lichessTools.system .analyse .tview2 move.lichessTools-inCheck {
       filter: brightness(200%);
   }
 
@@ -31,7 +37,9 @@ body.lichessTools.transp .analyse .tview2 move.lichessTools-transposition {
 }
 
 body.lichessTools.dark .analyse .tview2 move.lichessTools-lastInLine,
-body.lichessTools.transp .analyse .tview2 move.lichessTools-lastInLine {
+body.lichessTools.transp .analyse .tview2 move.lichessTools-lastInLine,
+body.lichessTools.dark .analyse .tview2 move.lichessTools-inCheck,
+body.lichessTools.transp .analyse .tview2 move.lichessTools-inCheck {
     filter: brightness(200%);
 }
 
@@ -151,6 +159,7 @@ body.lichessTools.lichessTools-prettier.transp .analyse .tview2 move.lichessTool
     background: darkgreen !important;
 }
 
-body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-lastInLine {
+body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-lastInLine,
+body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-inCheck {
     filter: brightness(150%);
 }

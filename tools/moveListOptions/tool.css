@@ -140,16 +140,46 @@ body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play
   --move-list-width:100%;
 }
 
-@media(min-width: 1259.3px) {
-  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour),
+@media (min-width: 799.3px) {
+  body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) {
+    grid-template-columns: var(--col2-uniboard-width) var(--block-gap) minmax(240px, var(--move-list-width));
+  }
+}
+
+@media (max-width: 799.2px) {
+  body.lichessTools .abset-fullWidthAnalysis {
+    display:none;
+  }
+}
+
+@media (min-width: 1259.3px) {
   body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) {
     grid-template-columns: minmax(calc(var(--left-side-width) - 100px), var(--left-side-width)) var(--block-gap) var(--col3-uniboard-width) var(--block-gap) minmax(240px, var(--move-list-width));
+    grid-template-rows: auto var(--chat-height) 2.5em 1fr;
+    grid-template-areas:
+      "side . board gauge tools"
+      "chat . board gauge tools"
+      "uchat . under . controls"
+      "uchat . under . round-training";
   }
+  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) {
+    grid-template-columns: var(--col2-uniboard-width) var(--block-gap) minmax(240px, var(--move-list-width));
+    grid-template-rows: fit-content(0);
+    grid-template-areas:
+      "board gauge tools"
+      "under . controls"
+      "under . round-training"
+      "under . side"
+      "chat . side"
+      "uchat . side";
+    grid-row-gap: 0;
+  }
+  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) {
+  }
+}
 
-  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) aside.analyse__side,
-  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) div.practice__side,
-  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) section.mchat,
-  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) div.chat__members {
+@media (max-width: 1259.2px) {
+  body.lichessTools .abset-hideLeftSide {
     display:none;
   }
 }
@@ -240,25 +270,45 @@ body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="analyse-
 }
 
 /* Prettier */
-@media(min-width: 1261px) {
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap main.analyse:not(.has-relay-tour),
+
+@media (min-width: 1261px) {
   body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) #main-wrap main.analyse:not(.has-relay-tour) {
-    grid-template-columns: minmax(calc(var(--left-side-width) - 100px), var(--left-side-width)) var(--block-gap) var(--col3-uniboard-width) var(--block-gap) minmax(240px, var(--move-list-width)) !important;
-  }
-
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap main.analyse:not(.has-relay-tour) aside.analyse__side,
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap main.analyse:not(.has-relay-tour) div.practice__side,
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap main.analyse:not(.has-relay-tour) section.mchat,
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap main.analyse:not(.has-relay-tour) div.chat__members {
-    display:none !important;
-  }
-
-  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap main.analyse:not(.has-relay-tour) div.analyse__tools,
-  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) #main-wrap main.analyse:not(.has-relay-tour) div.analyse__tools {
-    left:0 !important;
+    grid-template-columns: minmax(230px, 20vw) 2vmin minmax(calc(70vmin* var(--board-scale)), calc(100vh* var(--board-scale) - calc(var(--site-header-height) + var(--site-header-margin)) - 3rem)) 80px minmax(240px, var(--move-list-width)) !important;
+    grid-template-rows: auto var(--chat-height) 2.5em 1fr;
+    grid-template-areas:
+      "side . board gauge tools"
+      "chat . board gauge tools"
+      "uchat . under . controls"
+      "uchat . under . round-training";
+    }
+  body.lichessTools.lichessTools-prettier.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap main.analyse:not(.has-relay-tour) {
+    grid-template-columns: minmax(calc(70vmin* var(--board-scale)), calc(100vh* var(--board-scale) - calc(var(--site-header-height) + var(--site-header-margin)) - 3rem)) 80px minmax(240px, var(--move-list-width)) !important;
+    grid-template-rows: fit-content(0);
+    grid-template-areas:
+      "board gauge tools"
+      "under . controls"
+      "under . round-training"
+      "under . side"
+      "chat . side"
+      "uchat . side";
+    grid-row-gap: 0;
   }
 }
 
+@media (max-width: 1260px) and (min-width: 799px) {
+  body.lichessTools.lichessTools-prettier.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) #main-wrap main.analyse:not(.has-relay-tour) {
+    grid-template-columns: minmax(calc(70vmin* var(--board-scale)), calc(100vh* var(--board-scale) - calc(var(--site-header-height) + var(--site-header-margin)) - 3rem)) 80px minmax(240px, var(--move-list-width)) !important;
+    grid-template-rows: fit-content(0);
+    grid-template-areas:
+      "board gauge tools"
+      "under . controls"
+      "under . round-training"
+      "under . side"
+      "chat . side"
+      "uchat . side";
+    grid-row-gap: 0;
+  }
+}
 
 body.lichessTools.lichessTools-prettier.lichessTools-analysisPopup #main-wrap main.analyse:not(.has-relay-tour) div.analyse__tools,
 body.lichessTools.lichessTools-prettier.lichessTools-analysisPopup #main-wrap main.analyse:not(.has-relay-tour) div.analyse__controls {
