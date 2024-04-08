@@ -8,7 +8,7 @@
         name:'highlight',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['lastMove','notCommented','transposition','mainLine','variationDepth'],
+        possibleValues: ['lastMove','notCommented','transposition','mainLine','variationDepth','checks'],
         defaultValue: 'lastMove,notCommented,transposition',
         advanced: true
       }
@@ -22,6 +22,7 @@
         'highlight.transposition': 'Transpositions to current move',
         'highlight.mainLine': 'Highlight board when out of main line',
         'highlight.variationDepth': 'Highlight variation depth',
+        'highlight.checks': 'Highlight checks to kings',
       },
       'ro-RO':{
         'options.highlight': 'Eviden\u0163iaz\u0103 mut\u0103ri \u00een analiz\u0103',
@@ -30,6 +31,7 @@
         'highlight.transposition': 'Transpozi\u0163iile la mutarea curent\u0103',
         'highlight.mainLine': 'Eviden\u0163iaz\u0103 tabla c\u00e2nd nu pe linia principal\u0103',
         'highlight.variationDepth': 'Eviden\u0163iaz\u0103 ad\u00e2ncimea varia\u0163iunii',
+        'highlight.checks': 'Eviden\u0163iaz\u0103 regi \u00een \u015fah',
       }
     }
 
@@ -47,6 +49,23 @@
       $('div.analyse__moves move.lichessTools-lastInLine').filter((i,e)=>!toHighlight.includes(e)).removeClass('lichessTools-lastInLine');
       for (const elem of toHighlight) {
         $(elem).addClass('lichessTools-lastInLine');
+      }
+    };
+
+    highlightChecks=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const toHighlight=[];
+      if (this.options.checks && this.state?.checks?.length) {
+        for (const node of this.state.checks) {
+          const elem=parent.getElementForNode(node);
+          if (!elem) continue;
+          toHighlight.push(elem);
+        }
+      }
+      $('div.analyse__moves move.lichessTools-inCheck').filter((i,e)=>!toHighlight.includes(e)).removeClass('lichessTools-inCheck');
+      for (const elem of toHighlight) {
+        $(elem).addClass('lichessTools-inCheck');
       }
     };
 
@@ -155,6 +174,7 @@
       this.highlightUncommented();
       this.highlightTranspositions();
       this.highlightVariationDepth();
+      this.highlightChecks();
     };
 
     debouncedTraverseTree=this.lichessTools.debounce(this.traverseTree,800);
@@ -171,7 +191,8 @@
         transposition:parent.isOptionSet(value,'transposition'),
         mainLine:parent.isOptionSet(value,'mainLine'),
         variationDepth:parent.isOptionSet(value,'variationDepth'),
-        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth; }
+        checks:parent.isOptionSet(value,'checks'),
+        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth || this.checks; }
       };
       lichess.pubsub.off('redraw', this.highlightMainLine);
       lichess.pubsub.off('redraw', this.debouncedTraverseTree);

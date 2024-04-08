@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+08 Apr
+  - Highlight checks
+
 06 Apr
   - Study flair picker
   - Show opening extra info in Explorer

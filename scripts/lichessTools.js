@@ -261,8 +261,16 @@
       return !!node.comments?.length;
     }
 
+    isLastInLine(node) {
+      return !node.children?.length;
+    }
+
     isMate(node) {
       return node.san?.endsWith('#');
+    }
+
+    isCheck(node) {
+      return node.san?.includes('+');
     }
 
     getNodePosition(node) {
@@ -348,6 +356,7 @@
       }
       const state={
         lastMoves:[],
+        checks:[],
         positions:{},
         glyphs:{},
         nodeIndex:+(snode?.nodeIndex)||0
@@ -391,8 +400,11 @@
             state.glyphs[glyph.symbol]=arr;
           }
         }
-        if (!node.children.length) {
+        if (this.isLastInLine(node)) {
           state.lastMoves.push(node);
+        }
+        if (this.isCheck(node)) {
+          state.checks.push(node);
         }
         if (func) func(node,state);
         for (const child of node.children) {
