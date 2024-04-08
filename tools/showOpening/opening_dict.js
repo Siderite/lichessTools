@@ -2538,7 +2538,7 @@ const openings = {
   "r1bqk2rpppp1ppp2n2n22b1p34P32N3P1PPPPNPBPR1BQK2Rb": "Vienna: Smyslov, 3...Bc5 4.Bg2 Nc6 5.Nge2",
   "r1bqk2rpppp1ppp2n2n22b52BpP32P2N2PP3PPPRNBQ1RK1b": "Italian Game: Scotch Gambit, Walbrodt-Baird Gambit",
   "r1bqk2rpppp1ppp2n2n22b52BPP35N2PP3PPPRNBQK2Rb": "Italian Game: Classical Variation, Greco Gambit, Traditional Line",
-  "r1bqk2rpppp1ppp2n2n22b52BpP35N2PPP2PPPRNBQ1RK1w": "Italian Game: Scotch Gambit, Max Lange Attack, Two Knights: Max Lange Attack",
+  "r1bqk2rpppp1ppp2n2n22b52BpP35N2PPP2PPPRNBQ1RK1w": "Italian Game: Scotch Gambit, Max Lange Attack",
   "r1bqk2rpppp1ppp2n2n22b53NP32N5PPP2PPPR1BQKB1Rw": "Four Knights: Scotch, 4...exd4 5.Nxd4 Bc5",
   "r1bqk2rpppp1ppp2n2n23Np31b2P35N2PPPP1PPPR1BQKB1Rw": "Three Knights Opening: Schlechter Variation",
   "r1bqk2rpppp1ppp2n2n23Np31bP55NP1PP1PPP1PR1BQKB1Rb": "English: Four Knights, 4.g3 Bb4 5.Nd5",
