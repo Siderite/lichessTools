@@ -146,14 +146,31 @@
       const elem=$('section.explorer-box div.data div.title a');
       if (!elem.length) return;
       const existing=elem.text();
+      opening=opening||'';
+      const reg=/[\w\(\)\.\/]+/ig;
+      let m=reg.exec(opening);
+      let index=0;
+      const words=[];
+      while (m) {
+        const newIndex=existing.indexOf(m[0],index);
+        if (newIndex<0) {
+          words.push(m[0]);
+        } else {
+          index=newIndex+m[0].length;
+        }
+        m=reg.exec(opening);
+      }
       let openingElem=elem.next('.lichessTools-opening');
+      if (!words.length) {
+        openingElem.remove();
+        return;
+      }
       if (!openingElem.length) {
         openingElem=$('<span class="lichessTools-opening">')
                       .attr('title',trans.noarg('openingNameTitle'))
                       .insertAfter(elem);
       }
-      const words=(opening||'').split(/\b/).filter(w=>!existing.includes(w));
-      const suffix=' '+words.join(' ').replace(/(?:[^\w]+[\s]+)+([^\w]+)/g,' $1').replace(/^(?:[^\w]+[\s]+)+/g,'');
+      const suffix=' '+words.join(' ');
       openingElem.text(suffix);
     };
 
