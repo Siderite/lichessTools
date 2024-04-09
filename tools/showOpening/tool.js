@@ -130,7 +130,10 @@
         return;
       }
       if (el) {
-        el.openingData={ time:Date.now(), opening:opening, el };
+        let time=Date.now();
+        const m2=/\[Termination "([^"]+)"\]/.exec(pgn);
+        if (m2 && m2[1]!='Unterminated') time+=86400;
+        el.openingData={ time:time, opening:opening, el };
         if (ply) {
           el.maxPly=Math.max(ply,+el.maxPly||0);
         }
