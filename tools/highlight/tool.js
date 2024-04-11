@@ -74,7 +74,7 @@
       if (!parent.lichess?.analysis?.study) return;
       const $=parent.$;
       const toHighlight=[];
-      if (this.options.notCommented) {
+      if (this.options.notCommented && this.state?.lastMoves?.length) {
         for (const node of this.state.lastMoves) {
           if (node.isCommentedOrMate) continue;
           const elem=parent.getElementForNode(node);

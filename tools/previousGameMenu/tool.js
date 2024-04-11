@@ -50,7 +50,7 @@
       if (!lichess) return;
       const $=parent.$;
       const trans=parent.translator;
-      const container=$('#topnav section a[href="/tv"]+div[role="group"]');
+      const container=$('#topnav section a[href="/tv"]+div[role="group"],#topnav section a[href="/broadcast"]+div[role="group"]');
       $('a.lichessTools-previousGame',container).remove();
       if (!value) return;
 

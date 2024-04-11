@@ -220,14 +220,20 @@
         .attr('data-count',this.user_data.playing.length);
       const items=new Set($('a.user-link',group).get());
 
-      const eq=(s1,s2)=>s1?.toLowerCase()==s2?.toLowerCase();
+      const sameUser=(url1,url2)=>{
+        let m=/\/@\/([^\/\?#]+)/.exec(url1||'');
+        const user1=this.getUserId(m&&m[1]);
+        m=/\/@\/([^\/\?#]+)/.exec(url2||'');
+        const user2=this.getUserId(m&&m[1])
+        return user1==user2;
+      };
 
       friends.each((i,e)=>{
         const href=$(e).attr('href');
         const m=/\/@\/([^\/\?#]+)/.exec(href);
         const user=this.getUserId(m&&m[1]);
         const isPlaying=this.user_data.playing.includes(user);
-        let friendMenu=group.find('a').filter((i,e2)=>eq($(e2).attr('href'),href));
+        let friendMenu=group.find('a').filter((i,e2)=>sameUser($(e2).attr('href'),href));
         if (friendMenu.is('.temp')) {
           friendMenu.remove();
           friendMenu=null;
@@ -252,7 +258,7 @@
       if (this.followingOnlinesRequests>5) {
       this.user_data.online.forEach(user=>{
         const isPlaying=this.user_data.playing.includes(user);
-        let friendMenu=group.find('a').filter((i,e2)=>eq($(e2).attr('href'),'/@/'+user));
+        let friendMenu=group.find('a').filter((i,e2)=>sameUser($(e2).attr('href'),'/@/'+user));
         if (!friendMenu.length) {
           const userName=this.user_data.names[user]||user;
           friendMenu=$('<a class="user-link temp">')

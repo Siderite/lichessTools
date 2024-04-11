@@ -52,21 +52,19 @@
         .prependTo(container);
     };
 
-    onChapterChange=()=>{
+    onChapterAdd=(newChapterId)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const study=lichess.analysis.study;
-      const chapters=this.chapterData?.chapters;
+      const chapters=study.chapters.list.all();
       if (!chapters) return;
-      const current=study.currentChapter();
-      if (current && !chapters.find(c=>c.id && c.id==current?.id)) {
-        const newOrder=chapters.map(c=>c.id);
-        const index=newOrder.findIndex(id=>id==this.chapterData.current.id);
-        if (index<0||index==chapters.length-1) return;
-        newOrder.splice(index+1,0,current.id);
-        study.makeChange('sortChapters',newOrder);
-        setTimeout(()=>$('div.study__chapters div.draggable.active')[0]?.scrollIntoViewIfNeeded(),500);
-      }
+      const newOrder=chapters.map(c=>c.id);
+      const index=newOrder.findIndex(id=>id==this.chapterData.current.id);
+      if (index<0||index==chapters.length-1) return;
+      newOrder.splice(index+1,0,newChapterId);
+      study.makeChange('sortChapters',newOrder);
+      setTimeout(()=>$('div.study__chapters div.draggable[data-id="'+newChapterId+'"]')[0]?.scrollIntoViewIfNeeded(),500);
+      
       this.chapterData=null;
     };
 
@@ -81,9 +79,20 @@
       study.chapters.newForm.toggle=parent.unwrapFunction(study.chapters.newForm.toggle,'chapterInsert');
       $('div.dialog-content div.form-actions button.lichessTools-chapterInsert').remove();
       $('div.dialog-content div.form-actions').addClass('single');
-      lichess.pubsub.off('chapterChange',this.onChapterChange);
+      lichess.socket.handle=parent.unwrapFunction(lichess.socket.handle,'chapterInsert');
       if (!value) return;
-      lichess.pubsub.on('chapterChange',this.onChapterChange);
+      if (lichess.socket) {
+        lichess.socket.handle=parent.wrapFunction(lichess.socket.handle,{
+          id:'chapterInsert',
+          after:($this,result,m)=>{
+            if (m.t=='addChapter') {
+              const newChapterId=m.d.p.chapterId;
+              this.onChapterAdd(newChapterId);
+            }
+          }
+        });
+      }
+
       study.chapters.newForm.toggle=parent.wrapFunction(study.chapters.newForm.toggle,{
         id:'chapterInsert',
         after:($this,result,data)=>{
