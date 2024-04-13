@@ -67,7 +67,7 @@
           if (!disconnectPercentage || disconnectPercentage<3) return;
           $('<span class="lichessTools-playerWarning">')
             .attr('data-icon','\u26A0')
-            .attr('title',trans.pluralSame('percentageTitle',Math.round(disconnectPercentage*10)/10))
+            .attr('title',trans.pluralSame('percentageTitle',disconnectPercentage.toFixed(1)))
             .appendTo(e);
         });
     };

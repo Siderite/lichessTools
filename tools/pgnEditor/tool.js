@@ -1,7 +1,7 @@
 (()=>{
   class PgnEditorTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=[ 'ChessOps' ]
+    dependencies=[ 'ChessOps','Stockfish' ]
 
     preferences=[
       {
@@ -29,6 +29,8 @@
         'btnSplitTitle': 'Split into multiple one path PGNs',
         'btnCountText': 'Count',
         'btnCountTitle': 'PGN statistics',
+        'btnEvaluateText': 'Evaluate',
+        'btnEvaluateTitle': 'Evaluate last position',
         'btnSearchText': 'Search',
         'btnSearchTitle': 'Search on partial FEN, tags, index, invalid, ply',
         'btnKeepFoundText': 'Result',
@@ -59,6 +61,8 @@
         'splittingGames:one': 'Splitting one PGN',
         'searchingGames': 'Searching %s PGNs',
         'searchingGames:one': 'Searching one PGN',
+        'evaluatingGames': 'Evaluating %s PGNs',
+        'evaluatingGames:one': 'Evaluating one PGN',
         'preparingGames': 'Preparing %s PGNs',
         'preparingGames:one': 'Preparing one PGN',
         'cannotMerge': 'Cannot merge!\r\n(no common board positions)',
@@ -84,6 +88,8 @@
         'btnSplitTitle': 'Sparge \u00een mai multe PGNuri f\u0103r\u0103 varia\u0163iuni',
         'btnCountText': 'Num\u0103r\u0103',
         'btnCountTitle': 'Statistici PGN',
+        'btnEvaluateText': 'Evaluare',
+        'btnEvaluateTitle': 'Evalueaz\u0103 ultima pozi\u0163ie',
         'btnSearchText': 'Caut\u0103',
         'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial, etichete, index, invalid, jum\u0103t\u0103\u0163i de mutare',
         'btnKeepFoundText': 'Rezultat',
@@ -112,8 +118,10 @@
         'normalizingGames:one': 'Normalizez un PGN',
         'splittingGames': 'Sparg %s PGNuri',
         'splittingGames:one': 'Sparg un PGN',
-        'splittingGames': 'Caut \u00een %s PGNuri',
-        'splittingGames:one': 'Caut \u00eentr-un PGN',
+        'searchingGames': 'Caut \u00een %s PGNuri',
+        'searchingGames:one': 'Caut \u00eentr-un PGN',
+        'evaluatingGames': 'Evaluez %s PGNuri',
+        'evaluatingGames:one': 'Evaluez un PGN',
         'preparingGames': 'Prepar %s PGNuri',
         'preparingGames:one': 'Prepar un PGN',
         'cannotMerge': 'Nu pot combina!\r\n(nu sunt pozi\u0163ii comune pe tabl\u0103)',
@@ -207,6 +215,7 @@
                 <button class="button" type="button" data-role="keepFound" data-icon="&#xE02A;"><span></span></button>
                 <button class="button" type="button" data-role="cutStuff" data-icon="&#x2702;"><span></span></button>
                 <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
+                <button class="button" type="button" data-role="evaluate" data-icon="&#xE02C;"><span></span></button>
                 <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"><span></span></button>
                 <hr></hr>
                 <button class="button" type="button" data-role="copy" data-icon="&#xE070;"><span></span></button>
@@ -231,6 +240,7 @@
           const reader = new FileReader();
           reader.onload = (e)=>{
             this.setText(textarea,e.target.result);
+            this.countPgn();
           };
           reader.readAsText(file, "UTF-8");
         })
@@ -305,6 +315,14 @@
         })
         .find('span')
         .text(trans.noarg('btnCountText'));
+      $('[data-role="evaluate"]',dialog)
+        .attr('title',trans.noarg('btnEvaluateTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('evaluate',()=>this.evaluatePosition(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnEvaluateText'));
       $('[data-role="cancel"]',dialog)
         .attr('title',trans.noarg('btnCancelTitle'))
         .on('click',ev=>{
@@ -350,7 +368,8 @@
                   this.setText(textarea,e.target.result);
                   this._runningOperation=null;
                   this.toggleCancel(false);
-                  parent.global.console.debug('Operation '+name+' took '+Math.round((Date.now()-now)/100)/10+' seconds');
+                  parent.global.console.debug('Operation '+name+' took '+((Date.now()-now)/1000).toFixed(1)+' seconds');
+                  this.countPgn();
                 };
                 reader.readAsText(file, "UTF-8");
               } catch(ex) {
@@ -434,7 +453,7 @@
         }
         this._runningOperation=null;
         this.toggleCancel(false);
-        parent.global.console.debug('Operation '+name+' took '+Math.round((Date.now()-now)/100)/10+' seconds');
+        parent.global.console.debug('Operation '+name+' took '+((Date.now()-now)/1000).toFixed(1)+' seconds');
       }
     };
 
@@ -487,10 +506,14 @@
 
       const pos = startingPosition(game.headers).unwrap();
 
+      game.lastMoves=[];
       const traverse=(pos,node,ply=0)=>{
         const fen=makeFen(pos.toSetup());
         node.data={...node.data,fen:fen};
-        if (!node.children?.length) return;
+        if (!node.children?.length) {
+          game.lastMoves.push(node);
+          return;
+        }
         for (const child of node.children) {
           const newPos=pos.clone();
           const move = parseSan(newPos, child.data.san);
@@ -725,6 +748,99 @@
       }
     };
 
+    evaluatePosition=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      const games=parsePgn(text);
+      this.writeNote(trans.pluralSame('evaluatingGames',games.length));
+      await parent.timeout(0);
+
+      const depth=+(parent.currentOptions.getValue('customEngineLevel'))||16;
+      console.debug('Evaluating with level ',depth);
+      const decimals=+parent.currentOptions.getValue('cevalDecimals')||1;
+
+      let info=null;
+      let lastInfo=null;
+
+      const sf=await parent.stockfish.load();
+      if (!sf) throw new Error('Could not load Stockfish!');
+      if ((parent.global.navigator.hardwareConcurrency||0)<=4) {
+        sf.setThreads(1);
+      } else {
+        sf.setThreads(2);
+      }
+      if ((parent.global.navigator.deviceMemory||0)<=2) {
+        sf.setHash(64);
+      } else {
+        sf.setHash(128);
+      }
+      sf.setMultiPv(1);
+      sf.setDepth(depth);
+      sf.on('info',i=>{ lastInfo=i; });
+      sf.on('bestmove',i=>{ info=lastInfo; });
+
+      let gameIndex=0; 
+      let withErrors=false; 
+      for (const game of games) {
+        gameIndex++;
+        try {
+          this.enhanceGameWithFens(game);
+          for (const node of game.lastMoves) {
+            const comments=node.data.comments||[];
+            if (comments.find(c=>/^eval: /.test(c))) continue;
+            lastInfo=null;
+            info=null;
+            sf.setPosition(node.data.fen);
+            sf.start();
+            while (!info && !this._cancelRequested) {
+              await parent.timeout(100);
+            }
+            if (this._cancelRequested) {
+              break;
+            }
+            sf.stop();
+            const side=node.data.fen.split(' ')[1]=='b'?-1:1;
+            const evalText="eval: "+(info.mate ?'#'+(side*info.mate) : ((side*info.cp)>0?'+':'')+(side*info.cp/100).toFixed(decimals));
+            node.data.comments=[...comments,evalText];
+          }
+        } catch(ex) {
+          if (ex.ply) {
+            const data=[gameIndex, ex.san, ex.ply]
+            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+              return data[+m[1]-1];
+            }));
+            withErrors=true;
+            break;
+          } else throw ex;
+        }
+        this.writeNote(trans.pluralSame('evaluatingGames',games.length-gameIndex));
+        await parent.timeout(0);
+        if (this._cancelRequested) {
+          break;
+        }
+      }
+      sf.destroy();
+
+      if (withErrors) {
+        this.writeNote(trans.noarg('operationFailed'));
+        return;
+      }
+
+      if (this._cancelRequested) {
+        return;
+      }
+
+      this.writeGames(textarea, games);
+
+      this.countPgn();
+    };
+
     normalizePgn=async (textarea)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -755,7 +871,6 @@
             withErrors=true;
             break;
           } else throw ex;
-          withErrors=true;
         }
       }
       if (withErrors) {
