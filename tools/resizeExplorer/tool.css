@@ -1,0 +1,9 @@
+body.lichessTools .explorer-box div.lichessTools-resizeExplorer {
+  height:4px;
+  background-color: #80808080;
+  cursor: ns-resize;
+}
+
+body.lichessTools .explorer-box div.lichessTools-resizeExplorer.dragging {
+  background-color: green;
+}

@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+13 Apr
+  - Resize Explorer
+
 08 Apr
   - Highlight checks
 
