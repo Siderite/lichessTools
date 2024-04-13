@@ -34,7 +34,7 @@
         'btnKeepFoundText': 'Result',
         'btnKeepFoundTitle': 'Keep only the found results',
         'btnCutStuffText': 'Cut',
-        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments or tags',
+        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments, tags or found results',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'btnUploadText': 'Upload',
@@ -68,7 +68,7 @@
         'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Ply"(>,=,<)Value',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
-        'plyNumberPrompt': '"Tags", "Annotations", "Comments", "Ply "Value in any combination (i.e. tags, ply 10)'
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value in any combination (i.e. tags, ply 10)'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -89,7 +89,7 @@
         'btnKeepFoundText': 'Rezultat',
         'btnKeepFoundTitle': 'P\u0103streaz\u0103 doar rezultatele g\u0103site',
         'btnCutStuffText': 'Taie',
-        'btnCutStuffTitle': 'Taie la un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 adnotari, comentarii sau etichete',
+        'btnCutStuffTitle': 'Taie la un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 adnot\u0103ri, comentarii, etichete sau rezultatele g\u0103site',
         'btnCancelText': 'Anuleaz\u0103',
         'btnCancelTitle': 'Anuleaz\u0103 opera\u0163iunea curent\u0103',
         'btnUploadText': '\u00CEncarc\u0103',
@@ -123,7 +123,7 @@
         'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Ply"(>,=,<)Valoare',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
-        'plyNumberPrompt': '"Tags", "Annotations", "Comments", "Ply "Valoare \u00een orice combina\u0163ie (ex: tags, ply 10)'
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare \u00een orice combina\u0163ie (ex: tags, ply 10)'
       }
     }
 
@@ -880,7 +880,10 @@
       const $=parent.$;
       const trans=parent.translator;
 
-      const text=parent.global.prompt(trans.noarg('plyNumberPrompt'));
+      const text=parent.global.prompt(trans.noarg('cutStuffPrompt'));
+      if (/result/i.test(text)) {
+        await this.cutFound(textarea);
+      }
       if (/tags/i.test(text)) {
         await this.cutTags(textarea);
       }
@@ -896,6 +899,27 @@
         await this.cutPly(textarea,ply);
       }
     };
+
+    cutFound=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('searchingGames',games.length));
+      await parent.timeout(0);
+
+      parent.arrayRemoveAll(games,g=>g.headers.has('Found'));
+
+      this.writeGames(textarea, games);
+
+      this.countPgn();
+    };
+
       
     cutTags=async (textarea)=>{
       const parent=this.lichessTools;
