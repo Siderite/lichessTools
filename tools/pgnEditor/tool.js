@@ -1114,7 +1114,9 @@
               found=Array.from(game.fenDict).find(pair=>reg.test(pair[0]));
               break;
             case 'tag':
-              const val=game.headers.get(tagName);
+              const val=tagName.toLowerCase()=='index'
+                ? gameIndex.toString()
+                : game.headers.get(tagName);
               found=(val?.replace(/\s+/g,'')==tagValue?.replace(/\s+/g,''));
               break;
             case 'plyNumber':
