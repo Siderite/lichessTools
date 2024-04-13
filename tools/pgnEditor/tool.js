@@ -30,7 +30,7 @@
         'btnCountText': 'Count',
         'btnCountTitle': 'PGN statistics',
         'btnSearchText': 'Search',
-        'btnSearchTitle': 'Search on partial FEN (*,? wildcards supported)',
+        'btnSearchTitle': 'Search on partial FEN, tags, index, invalid, ply',
         'btnKeepFoundText': 'Result',
         'btnKeepFoundTitle': 'Keep only the found results',
         'btnCutStuffText': 'Cut',
@@ -65,7 +65,7 @@
         'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled',
         'pastePGNs': 'drag/paste your PGNs here',
-        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Ply"(>,=,<)Value',
+        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value in any combination (i.e. tags, ply 10)'
@@ -85,7 +85,7 @@
         'btnCountText': 'Num\u0103r\u0103',
         'btnCountTitle': 'Statistici PGN',
         'btnSearchText': 'Caut\u0103',
-        'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial (suport\u0103 \u00eenlocuitori *,?)',
+        'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial, etichete, index, invalid, jum\u0103t\u0103\u0163i de mutare',
         'btnKeepFoundText': 'Rezultat',
         'btnKeepFoundTitle': 'P\u0103streaz\u0103 doar rezultatele g\u0103site',
         'btnCutStuffText': 'Taie',
@@ -120,7 +120,7 @@
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
         'operationCancelled': 'Opera\u0163iune anulat\u0103',
         'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
-        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Ply"(>,=,<)Valoare',
+        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare \u00een orice combina\u0163ie (ex: tags, ply 10)'
@@ -1057,6 +1057,8 @@
         searchMode='plyNumber';
         plyNumberOperator=m[1];
         plyNumber=+m[2];
+      } else if (/^invalid[s]?$/i.test(search)) {
+        searchMode='invalid';
       } else {
         m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
         if (m) {
@@ -1103,6 +1105,15 @@
           game.headers.delete('Found');
           let found=false;
           switch(searchMode) {
+            case 'invalid':
+              try {
+                this.enhanceGameWithFens(game);
+              } catch(ex) {
+                if (ex.ply) {
+                  found=true;
+                } else throw ex;
+              }
+              break;
             case 'fenOrMoves':
               const pgn=makePgn(game);
               if (reg.test(pgn)) {
