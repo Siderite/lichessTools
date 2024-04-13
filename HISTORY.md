@@ -2,7 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 13 Apr
   - Resize Explorer
-  - Cut result in PGN Editor
+  - Cut result, Search by index in PGN Editor
 
 08 Apr
   - Highlight checks
