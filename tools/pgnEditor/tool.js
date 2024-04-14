@@ -49,6 +49,8 @@
         'btnUndoTitle': 'Undo text changes',
         'btnRedoText': 'Redo',
         'btnRedoTitle': 'Redo text changes',
+        'btnClearText': 'Clear',
+        'btnClearTitle': 'Clear text and history!',
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
         'clipboardDenied':'Clipboard access denied',
         'gameCount': '%s PGNs, %2 moves',
@@ -108,6 +110,8 @@
         'btnUndoTitle': 'Anuleaz\u0103 schimb\u0103rile text',
         'btnRedoText': 'Ref\u0103',
         'btnRedoTitle': 'Ref\u0103 schimb\u0103rile text',
+        'btnClearText': 'Sterge',
+        'btnClearTitle': '\u015Eterge textul \u015Fi istoria!',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
         'clipboardDenied':'Acces refuzat la clipboard',
         'gameCount': '%s PGNuri, %2 mut\u0103ri',
@@ -144,6 +148,7 @@
       this.addTextToHistory(text);
     };
     addTextToHistory=(text)=>{
+      const parent=this.lichessTools;
       if (this.history[this.historyIndex]==text) return;
       this.setHistoryIndex(this.historyIndex+1);
       this.history[this.historyIndex]=text;
@@ -153,8 +158,10 @@
       if (this.history.length>10) {
         this.history.splice(0,1);
       }
+      parent.global.sessionStorage.setItem('LichessTools.pgnEditor.history',JSON.stringify({ history: this.history, index: this.historyIndex }));
     };
     setHistoryIndex=async (val)=>{
+      const hasChange=(this.historyIndex!=val);
       const parent=this.lichessTools;
       const $=parent.$;
       this.historyIndex=val;
@@ -167,6 +174,9 @@
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="redo"]')
         .toggleClass('disabled',!redo)
         .prop('disabled',!redo);
+      if (hasChange) {
+        parent.global.sessionStorage.setItem('LichessTools.pgnEditor.history',JSON.stringify({ history: this.history, index: this.historyIndex }));
+      }
     };
 
     copyToClipboard=async (text)=>{
@@ -193,8 +203,6 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
-      this.history=[];
-      this.setHistoryIndex(-1);
       $('dialog.lichessTools-pgnEditor').remove();
       const dialog=$('<dialog class="lichessTools-pgnEditor">')
         .append(`
@@ -214,8 +222,8 @@
                 <button class="button" type="button" data-role="search" data-icon="&#xE02F;"><span></span></button>
                 <button class="button" type="button" data-role="keepFound" data-icon="&#xE02A;"><span></span></button>
                 <button class="button" type="button" data-role="cutStuff" data-icon="&#x2702;"><span></span></button>
-                <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
                 <button class="button" type="button" data-role="evaluate" data-icon="&#xE02C;"><span></span></button>
+                <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
                 <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"><span></span></button>
                 <hr></hr>
                 <button class="button" type="button" data-role="copy" data-icon="&#xE070;"><span></span></button>
@@ -223,6 +231,7 @@
                 <button class="button" type="button" data-role="download" data-icon="&#xE024;"><span></span></button>
                 <button class="button" type="button" data-role="undo" data-icon="&#xE05C;"><span></span></button>
                 <button class="button" type="button" data-role="redo" data-icon="&#xE06D;"><span></span></button>
+                <button class="button" type="button" data-role="clear" data-icon="&#xE03F;"><span></span></button>
                 <label></label>
               </div>
             </div>
@@ -419,14 +428,31 @@
         })
         .find('span')
         .text(trans.noarg('btnRedoText'));
+      $('[data-role="clear"]',dialog)
+        .attr('title',trans.noarg('btnClearTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('clear',()=>this.clear(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnClearText'));
       $('button.close-button',dialog)
         .on('click',ev=>{
           ev.preventDefault();
           this.stopOperations();
           dialog.remove();
+          if (parent.global.location.hash='#pgnEditor') {
+            parent.global.history.pushState(null, null, ' ');
+          }
         });
       this._label=$('dialog.lichessTools-pgnEditor .buttons label');
       this.toggleCancel(false);
+      if (parent.global.location.hash!='#pgnEditor') {
+        parent.global.location.hash='#pgnEditor';
+      }
+      const text=this.history[this.historyIndex]||'';
+      $(textarea).val(text);
+      this.setHistoryIndex(this.historyIndex);
     };
 
     stopOperations=()=>{
@@ -1363,6 +1389,25 @@
       this.writeNote('');
     };
 
+    clear=async (textarea)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $(textarea).val('');
+      this.history=[];
+      this.setHistoryIndex(-1);
+      parent.global.sessionStorage.removeItem('LichessTools.pgnEditor.history');
+    };
+
+    hashchange=()=>{
+      const parent=this.lichessTools;
+      const location=parent.global.location;
+      if (location.hash=='#pgnEditor') {
+        this.showPgnEditor();
+      } else {
+        $('dialog.lichessTools-pgnEditor').remove();
+      }
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('pgnEditor');
@@ -1383,6 +1428,17 @@
           $('nav#topnav').trigger('mouseout');
         })
         .appendTo(container);
+      $(parent.global).on('hashchange',this.hashchange);
+      let data=parent.global.sessionStorage.getItem('LichessTools.pgnEditor.history');
+      if (data) {
+        data=JSON.parse(data);
+        this.history=data.history||[];
+        const index=+(data.index);
+        this.setHistoryIndex(index===0
+          ? 0
+          : index || -1);
+      }
+      this.hashchange();
     }
 
   }
