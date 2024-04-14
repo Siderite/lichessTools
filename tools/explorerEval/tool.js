@@ -118,6 +118,7 @@
           }
         }
       }
+      const decimals=+parent.currentOptions.getValue('cevalDecimals')||1;
       $('tr[data-uci],tr.sum',container).each((i,e)=>{
         if (!$('td.lichessTools-explorerEval',e).length) {
           $('<td>')
@@ -156,7 +157,7 @@
         let rank=-1;
         let title=null;
         if (move) {
-          text=move.mate?('M'+move.mate):(Math.round(move.cp/10)/10);
+          text=move.mate?('M'+move.mate):(move.cp/100).toFixed(decimals);
           rank=move.rank;
           switch(rank) {
             case null: title=trans.noarg('fromCevalTitle'); break;
@@ -185,7 +186,7 @@
         } else if (this.options.stats) {
           if (!isInfinite&&total>=100) {
             title=trans.noarg('fromStatsTitle');
-            text=Math.round(cp/10)/10;
+            text=(cp/100).toFixed(decimals);
           }
           explorerItem.cp=cp;
           explorerItem.mate=undefined;

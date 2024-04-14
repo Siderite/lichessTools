@@ -1,8 +1,6 @@
 (()=>{
   class ChapterInsertTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitChapterChange'];
-
     preferences=[
       {
         name:'chapterInsert',

@@ -28294,9 +28294,44 @@
         }
       ]
     },
-    "rnbqkbnrpppppp1p6p183PP38PPP2PPPRNBQKBNRbKQkq-": {
-      "total": 7,
+    "rnbqkbnrppppp2p6p15P23P48PPP2PPPRNBQKBNRbKQkq-": {
+      "total": 1,
       "moves": [
+        {
+          "uci": "d7d5",
+          "san": "d5",
+          "nr": 1
+        }
+      ]
+    },
+    "rnbqkbnrppppp2p6p15p23PP38PPP2PPPRNBQKBNRwKQkq-": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "e4f5",
+          "san": "exf5",
+          "nr": 1
+        }
+      ]
+    },
+    "rnbqkbnrpppppp1p6p183P48PPP1PPPPRNBQKBNRwKQkq-": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "e2e4",
+          "san": "e4",
+          "nr": 1
+        }
+      ]
+    },
+    "rnbqkbnrpppppp1p6p183PP38PPP2PPPRNBQKBNRbKQkq-": {
+      "total": 8,
+      "moves": [
+        {
+          "uci": "f7f5",
+          "san": "f5",
+          "nr": 2
+        },
         {
           "uci": "f8g7",
           "san": "Bg7",
@@ -28310,11 +28345,6 @@
         {
           "uci": "g8h6",
           "san": "Nh6",
-          "nr": 1
-        },
-        {
-          "uci": "f7f5",
-          "san": "f5",
           "nr": 1
         }
       ]
@@ -28515,8 +28545,13 @@
       ]
     },
     "rnbqkbnrpppppppp883P48PPP1PPPPRNBQKBNRbKQkq-": {
-      "total": 103,
+      "total": 104,
       "moves": [
+        {
+          "uci": "g7g6",
+          "san": "g6",
+          "nr": 1
+        },
         {
           "uci": "e7e5",
           "san": "e5",
@@ -28800,8 +28835,13 @@
       ]
     },
     "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRwKQkq-": {
-      "total": 378,
+      "total": 379,
       "moves": [
+        {
+          "uci": "d2d4",
+          "san": "d4",
+          "nr": 104
+        },
         {
           "uci": "g1f3",
           "san": "Nf3",
@@ -28811,11 +28851,6 @@
           "uci": "e2e4",
           "san": "e4",
           "nr": 211
-        },
-        {
-          "uci": "d2d4",
-          "san": "d4",
-          "nr": 103
         },
         {
           "uci": "b2b3",

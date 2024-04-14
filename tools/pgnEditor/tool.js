@@ -1,7 +1,7 @@
 (()=>{
   class PgnEditorTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=[ 'ChessOps' ]
+    dependencies=[ 'ChessOps','Stockfish','ExportPGN' ]
 
     preferences=[
       {
@@ -29,12 +29,14 @@
         'btnSplitTitle': 'Split into multiple one path PGNs',
         'btnCountText': 'Count',
         'btnCountTitle': 'PGN statistics',
+        'btnEvaluateText': 'Evaluate',
+        'btnEvaluateTitle': 'Evaluate last position',
         'btnSearchText': 'Search',
-        'btnSearchTitle': 'Search on partial FEN (*,? wildcards supported)',
+        'btnSearchTitle': 'Search on partial FEN, tags, index, invalid, ply',
         'btnKeepFoundText': 'Result',
         'btnKeepFoundTitle': 'Keep only the found results',
         'btnCutStuffText': 'Cut',
-        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments or tags',
+        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments, tags or found results',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'btnUploadText': 'Upload',
@@ -47,6 +49,8 @@
         'btnUndoTitle': 'Undo text changes',
         'btnRedoText': 'Redo',
         'btnRedoTitle': 'Redo text changes',
+        'btnClearText': 'Clear',
+        'btnClearTitle': 'Clear text and history!',
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
         'clipboardDenied':'Clipboard access denied',
         'gameCount': '%s PGNs, %2 moves',
@@ -59,16 +63,20 @@
         'splittingGames:one': 'Splitting one PGN',
         'searchingGames': 'Searching %s PGNs',
         'searchingGames:one': 'Searching one PGN',
+        'evaluatingGames': 'Evaluating %s PGNs',
+        'evaluatingGames:one': 'Evaluating one PGN',
         'preparingGames': 'Preparing %s PGNs',
         'preparingGames:one': 'Preparing one PGN',
         'cannotMerge': 'Cannot merge!\r\n(no common board positions)',
         'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled',
         'pastePGNs': 'drag/paste your PGNs here',
-        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Ply"(>,=,<)Value',
+        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
-        'plyNumberPrompt': '"Tags", "Annotations", "Comments", "Ply "Value in any combination (i.e. tags, ply 10)'
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value in any combination (i.e. tags, ply 10)',
+        'sendToPgnEditorText':'PGN Editor',
+        'sendToPgnEditorTitle':'LiChess Tools - send to PGN Editor'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -84,12 +92,14 @@
         'btnSplitTitle': 'Sparge \u00een mai multe PGNuri f\u0103r\u0103 varia\u0163iuni',
         'btnCountText': 'Num\u0103r\u0103',
         'btnCountTitle': 'Statistici PGN',
+        'btnEvaluateText': 'Evaluare',
+        'btnEvaluateTitle': 'Evalueaz\u0103 ultima pozi\u0163ie',
         'btnSearchText': 'Caut\u0103',
-        'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial (suport\u0103 \u00eenlocuitori *,?)',
+        'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial, etichete, index, invalid, jum\u0103t\u0103\u0163i de mutare',
         'btnKeepFoundText': 'Rezultat',
         'btnKeepFoundTitle': 'P\u0103streaz\u0103 doar rezultatele g\u0103site',
         'btnCutStuffText': 'Taie',
-        'btnCutStuffTitle': 'Taie la un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 adnotari, comentarii sau etichete',
+        'btnCutStuffTitle': 'Taie la un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 adnot\u0103ri, comentarii, etichete sau rezultatele g\u0103site',
         'btnCancelText': 'Anuleaz\u0103',
         'btnCancelTitle': 'Anuleaz\u0103 opera\u0163iunea curent\u0103',
         'btnUploadText': '\u00CEncarc\u0103',
@@ -102,6 +112,8 @@
         'btnUndoTitle': 'Anuleaz\u0103 schimb\u0103rile text',
         'btnRedoText': 'Ref\u0103',
         'btnRedoTitle': 'Ref\u0103 schimb\u0103rile text',
+        'btnClearText': 'Sterge',
+        'btnClearTitle': '\u015Eterge textul \u015Fi istoria!',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
         'clipboardDenied':'Acces refuzat la clipboard',
         'gameCount': '%s PGNuri, %2 mut\u0103ri',
@@ -112,18 +124,22 @@
         'normalizingGames:one': 'Normalizez un PGN',
         'splittingGames': 'Sparg %s PGNuri',
         'splittingGames:one': 'Sparg un PGN',
-        'splittingGames': 'Caut \u00een %s PGNuri',
-        'splittingGames:one': 'Caut \u00eentr-un PGN',
+        'searchingGames': 'Caut \u00een %s PGNuri',
+        'searchingGames:one': 'Caut \u00eentr-un PGN',
+        'evaluatingGames': 'Evaluez %s PGNuri',
+        'evaluatingGames:one': 'Evaluez un PGN',
         'preparingGames': 'Prepar %s PGNuri',
         'preparingGames:one': 'Prepar un PGN',
         'cannotMerge': 'Nu pot combina!\r\n(nu sunt pozi\u0163ii comune pe tabl\u0103)',
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
         'operationCancelled': 'Opera\u0163iune anulat\u0103',
         'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
-        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Ply"(>,=,<)Valoare',
+        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
-        'plyNumberPrompt': '"Tags", "Annotations", "Comments", "Ply "Valoare \u00een orice combina\u0163ie (ex: tags, ply 10)'
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare \u00een orice combina\u0163ie (ex: tags, ply 10)',
+        'sendToPgnEditorText':'Editor PGN',
+        'sendToPgnEditorTitle':'LiChess Tools - trimite la Editor PGN'
       }
     }
 
@@ -136,6 +152,7 @@
       this.addTextToHistory(text);
     };
     addTextToHistory=(text)=>{
+      const parent=this.lichessTools;
       if (this.history[this.historyIndex]==text) return;
       this.setHistoryIndex(this.historyIndex+1);
       this.history[this.historyIndex]=text;
@@ -145,8 +162,13 @@
       if (this.history.length>10) {
         this.history.splice(0,1);
       }
+      if (this.historyIndex>=this.history.length) {
+        this.historyIndex=this.history.length-1;
+      }
+      parent.global.sessionStorage.setItem('LichessTools.pgnEditor.history',JSON.stringify({ history: this.history, index: this.historyIndex }));
     };
     setHistoryIndex=async (val)=>{
+      const hasChange=(this.historyIndex!=val);
       const parent=this.lichessTools;
       const $=parent.$;
       this.historyIndex=val;
@@ -159,6 +181,9 @@
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="redo"]')
         .toggleClass('disabled',!redo)
         .prop('disabled',!redo);
+      if (hasChange) {
+        parent.global.sessionStorage.setItem('LichessTools.pgnEditor.history',JSON.stringify({ history: this.history, index: this.historyIndex }));
+      }
     };
 
     copyToClipboard=async (text)=>{
@@ -180,13 +205,11 @@
       }
     };
 
-    showPgnEditor=()=>{
+    showPgnEditor=(showPgnText)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
-      this.history=[];
-      this.setHistoryIndex(-1);
       $('dialog.lichessTools-pgnEditor').remove();
       const dialog=$('<dialog class="lichessTools-pgnEditor">')
         .append(`
@@ -206,6 +229,7 @@
                 <button class="button" type="button" data-role="search" data-icon="&#xE02F;"><span></span></button>
                 <button class="button" type="button" data-role="keepFound" data-icon="&#xE02A;"><span></span></button>
                 <button class="button" type="button" data-role="cutStuff" data-icon="&#x2702;"><span></span></button>
+                <button class="button" type="button" data-role="evaluate" data-icon="&#xE02C;"><span></span></button>
                 <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
                 <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"><span></span></button>
                 <hr></hr>
@@ -214,6 +238,7 @@
                 <button class="button" type="button" data-role="download" data-icon="&#xE024;"><span></span></button>
                 <button class="button" type="button" data-role="undo" data-icon="&#xE05C;"><span></span></button>
                 <button class="button" type="button" data-role="redo" data-icon="&#xE06D;"><span></span></button>
+                <button class="button" type="button" data-role="clear" data-icon="&#xE03F;"><span></span></button>
                 <label></label>
               </div>
             </div>
@@ -231,6 +256,7 @@
           const reader = new FileReader();
           reader.onload = (e)=>{
             this.setText(textarea,e.target.result);
+            this.countPgn();
           };
           reader.readAsText(file, "UTF-8");
         })
@@ -305,6 +331,14 @@
         })
         .find('span')
         .text(trans.noarg('btnCountText'));
+      $('[data-role="evaluate"]',dialog)
+        .attr('title',trans.noarg('btnEvaluateTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('evaluate',()=>this.evaluatePosition(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnEvaluateText'));
       $('[data-role="cancel"]',dialog)
         .attr('title',trans.noarg('btnCancelTitle'))
         .on('click',ev=>{
@@ -350,7 +384,8 @@
                   this.setText(textarea,e.target.result);
                   this._runningOperation=null;
                   this.toggleCancel(false);
-                  parent.global.console.debug('Operation '+name+' took '+Math.round((Date.now()-now)/100)/10+' seconds');
+                  parent.global.console.debug('Operation '+name+' took '+((Date.now()-now)/1000).toFixed(1)+' seconds');
+                  this.countPgn();
                 };
                 reader.readAsText(file, "UTF-8");
               } catch(ex) {
@@ -400,14 +435,35 @@
         })
         .find('span')
         .text(trans.noarg('btnRedoText'));
+      $('[data-role="clear"]',dialog)
+        .attr('title',trans.noarg('btnClearTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('clear',()=>this.clear(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnClearText'));
       $('button.close-button',dialog)
         .on('click',ev=>{
           ev.preventDefault();
           this.stopOperations();
           dialog.remove();
+          if (parent.global.location.hash='#pgnEditor') {
+            parent.global.history.pushState(null, null, ' ');
+          }
         });
       this._label=$('dialog.lichessTools-pgnEditor .buttons label');
       this.toggleCancel(false);
+      if (parent.global.location.hash!='#pgnEditor') {
+        parent.global.history.pushState(null, null, '#pgnEditor');
+      }
+      if (showPgnText) {
+        this.setText(textarea,showPgnText);
+      } else {
+        const text=this.history[this.historyIndex]||'';
+        $(textarea).val(text);
+        this.setHistoryIndex(this.historyIndex);
+      }
     };
 
     stopOperations=()=>{
@@ -434,7 +490,7 @@
         }
         this._runningOperation=null;
         this.toggleCancel(false);
-        parent.global.console.debug('Operation '+name+' took '+Math.round((Date.now()-now)/100)/10+' seconds');
+        parent.global.console.debug('Operation '+name+' took '+((Date.now()-now)/1000).toFixed(1)+' seconds');
       }
     };
 
@@ -487,10 +543,14 @@
 
       const pos = startingPosition(game.headers).unwrap();
 
+      game.lastMoves=[];
       const traverse=(pos,node,ply=0)=>{
         const fen=makeFen(pos.toSetup());
         node.data={...node.data,fen:fen};
-        if (!node.children?.length) return;
+        if (!node.children?.length) {
+          game.lastMoves.push(node);
+          return;
+        }
         for (const child of node.children) {
           const newPos=pos.clone();
           const move = parseSan(newPos, child.data.san);
@@ -725,6 +785,99 @@
       }
     };
 
+    evaluatePosition=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      const games=parsePgn(text);
+      this.writeNote(trans.pluralSame('evaluatingGames',games.length));
+      await parent.timeout(0);
+
+      const depth=+(parent.currentOptions.getValue('customEngineLevel'))||16;
+      console.debug('Evaluating with level ',depth);
+      const decimals=+parent.currentOptions.getValue('cevalDecimals')||1;
+
+      let info=null;
+      let lastInfo=null;
+
+      const sf=await parent.stockfish.load();
+      if (!sf) throw new Error('Could not load Stockfish!');
+      if ((parent.global.navigator.hardwareConcurrency||0)<=4) {
+        sf.setThreads(1);
+      } else {
+        sf.setThreads(2);
+      }
+      if ((parent.global.navigator.deviceMemory||0)<=2) {
+        sf.setHash(64);
+      } else {
+        sf.setHash(128);
+      }
+      sf.setMultiPv(1);
+      sf.setDepth(depth);
+      sf.on('info',i=>{ lastInfo=i; });
+      sf.on('bestmove',i=>{ info=lastInfo; });
+
+      let gameIndex=0; 
+      let withErrors=false; 
+      for (const game of games) {
+        gameIndex++;
+        try {
+          this.enhanceGameWithFens(game);
+          for (const node of game.lastMoves) {
+            const comments=node.data.comments||[];
+            if (comments.find(c=>/^eval: /.test(c))) continue;
+            lastInfo=null;
+            info=null;
+            sf.setPosition(node.data.fen);
+            sf.start();
+            while (!info && !this._cancelRequested) {
+              await parent.timeout(100);
+            }
+            if (this._cancelRequested) {
+              break;
+            }
+            sf.stop();
+            const side=node.data.fen.split(' ')[1]=='b'?-1:1;
+            const evalText="eval: "+(info.mate ?'#'+(side*info.mate) : ((side*info.cp)>0?'+':'')+(side*info.cp/100).toFixed(decimals));
+            node.data.comments=[...comments,evalText];
+          }
+        } catch(ex) {
+          if (ex.ply) {
+            const data=[gameIndex, ex.san, ex.ply]
+            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+              return data[+m[1]-1];
+            }));
+            withErrors=true;
+            break;
+          } else throw ex;
+        }
+        this.writeNote(trans.pluralSame('evaluatingGames',games.length-gameIndex));
+        await parent.timeout(0);
+        if (this._cancelRequested) {
+          break;
+        }
+      }
+      sf.destroy();
+
+      if (withErrors) {
+        this.writeNote(trans.noarg('operationFailed'));
+        return;
+      }
+
+      if (this._cancelRequested) {
+        return;
+      }
+
+      this.writeGames(textarea, games);
+
+      this.countPgn();
+    };
+
     normalizePgn=async (textarea)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -755,7 +908,6 @@
             withErrors=true;
             break;
           } else throw ex;
-          withErrors=true;
         }
       }
       if (withErrors) {
@@ -880,7 +1032,10 @@
       const $=parent.$;
       const trans=parent.translator;
 
-      const text=parent.global.prompt(trans.noarg('plyNumberPrompt'));
+      const text=parent.global.prompt(trans.noarg('cutStuffPrompt'));
+      if (/result/i.test(text)) {
+        await this.cutFound(textarea);
+      }
       if (/tags/i.test(text)) {
         await this.cutTags(textarea);
       }
@@ -896,6 +1051,27 @@
         await this.cutPly(textarea,ply);
       }
     };
+
+    cutFound=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('searchingGames',games.length));
+      await parent.timeout(0);
+
+      parent.arrayRemoveAll(games,g=>g.headers.has('Found'));
+
+      this.writeGames(textarea, games);
+
+      this.countPgn();
+    };
+
       
     cutTags=async (textarea)=>{
       const parent=this.lichessTools;
@@ -1033,6 +1209,8 @@
         searchMode='plyNumber';
         plyNumberOperator=m[1];
         plyNumber=+m[2];
+      } else if (/^invalid[s]?$/i.test(search)) {
+        searchMode='invalid';
       } else {
         m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
         if (m) {
@@ -1079,6 +1257,15 @@
           game.headers.delete('Found');
           let found=false;
           switch(searchMode) {
+            case 'invalid':
+              try {
+                this.enhanceGameWithFens(game);
+              } catch(ex) {
+                if (ex.ply) {
+                  found=true;
+                } else throw ex;
+              }
+              break;
             case 'fenOrMoves':
               const pgn=makePgn(game);
               if (reg.test(pgn)) {
@@ -1090,7 +1277,9 @@
               found=Array.from(game.fenDict).find(pair=>reg.test(pair[0]));
               break;
             case 'tag':
-              const val=game.headers.get(tagName);
+              const val=tagName.toLowerCase()=='index'
+                ? gameIndex.toString()
+                : game.headers.get(tagName);
               found=(val?.replace(/\s+/g,'')==tagValue?.replace(/\s+/g,''));
               break;
             case 'plyNumber':
@@ -1211,16 +1400,83 @@
       this.writeNote('');
     };
 
+    clear=async (textarea)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $(textarea).val('');
+      this.history=[];
+      this.setHistoryIndex(-1);
+      parent.global.sessionStorage.removeItem('LichessTools.pgnEditor.history');
+    };
+
+    hashchange=(ev)=>{
+      const parent=this.lichessTools;
+      const location=parent.global.location;
+      const dialog=$('dialog.lichessTools-pgnEditor');
+      if (location.hash=='#pgnEditor') {
+        if (!dialog.length) {
+          this.showPgnEditor();
+        }
+      } else {
+        $('dialog.lichessTools-pgnEditor').remove();
+      }
+    };
+
+    analysisControls=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
+      if (!analysis) return;
+      const container=$('div.analyse__tools .action-menu__tools');
+      if (!container.length) return;
+      if (!this.options.enabled||!parent.exportPgn) {
+        $('.lichessTools-pgnEditor',container).remove();
+        return;
+      }
+      if ($('.lichessTools-pgnEditor',container).length) return;
+      $('<a class="lichessTools-pgnEditor">')
+        .attr('data-icon','\u2E0E')
+        .attr('title',trans.noarg('sendToPgnEditorTitle'))
+        .text(trans.noarg('sendToPgnEditorText'))
+        .attr('href','/analysis#pgnEditor')
+        .on('click',async ev=>{
+          ev.preventDefault();
+          const pgn=await parent.exportPgn('',{ copyToClipboard:false });
+          this.showPgnEditor(pgn);
+        })
+        .appendTo(container);;
+    }
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('pgnEditor');
       this.logOption('PGN editor', value);
+      this.options={ enabled: !!value };
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
       const container=$('#topnav section a[href="/analysis"]+div[role="group"]');
       $('a.lichessTools-pgnEditor',container).remove();
-      if (!value) return;
+
+      if (lichess.analysis) {
+        lichess.pubsub.off('redraw',this.analysisControls);
+        lichess.pubsub.on('redraw',this.analysisControls);
+        lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'pgnEditor');
+        lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
+          id:'pgnEditor',
+          after: ($this, result, ...args)=>{
+            parent.global.setTimeout(this.analysisControls,100);
+          }
+        });
+        this.analysisControls();
+      }
+
+      if (!value) {
+        $('dialog.lichessTools-pgnEditor').remove();
+        return;
+      }
       $('<a/>')
         .addClass('lichessTools-pgnEditor')
         .text(trans.noarg('pgnEditorText'))
@@ -1231,6 +1487,17 @@
           $('nav#topnav').trigger('mouseout');
         })
         .appendTo(container);
+      $(parent.global).on('hashchange',this.hashchange);
+      let data=parent.global.sessionStorage.getItem('LichessTools.pgnEditor.history');
+      if (data) {
+        data=JSON.parse(data);
+        this.history=data.history||[];
+        const index=+(data.index);
+        this.setHistoryIndex(index===0
+          ? 0
+          : index || -1);
+      }
+      this.hashchange();
     }
 
   }

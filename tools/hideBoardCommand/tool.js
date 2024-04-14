@@ -29,10 +29,11 @@
     async start() {
       const parent=this.lichessTools;
       const $=parent.$;
+      const lichess=parent.lichess;
       const trans=parent.translator;
       const value=parent.currentOptions.getValue('hideBoardCommand');
       this.logOption('Command - hide board', value);
-      if (value) {
+      if (value && lichess.analysis) {
         parent.registerCommand && parent.registerCommand('hideBoardCommand',{
           handle:(val)=>{
             if (val=='board') {
