@@ -162,6 +162,9 @@
       if (this.history.length>10) {
         this.history.splice(0,1);
       }
+      if (this.historyIndex>=this.history.length) {
+        this.historyIndex=this.history.length-1;
+      }
       parent.global.sessionStorage.setItem('LichessTools.pgnEditor.history',JSON.stringify({ history: this.history, index: this.historyIndex }));
     };
     setHistoryIndex=async (val)=>{
@@ -452,7 +455,7 @@
       this._label=$('dialog.lichessTools-pgnEditor .buttons label');
       this.toggleCancel(false);
       if (parent.global.location.hash!='#pgnEditor') {
-        parent.global.location.hash='#pgnEditor';
+        parent.global.history.pushState(null, null, '#pgnEditor');
       }
       if (showPgnText) {
         this.setText(textarea,showPgnText);
@@ -1406,7 +1409,7 @@
       parent.global.sessionStorage.removeItem('LichessTools.pgnEditor.history');
     };
 
-    hashchange=()=>{
+    hashchange=(ev)=>{
       const parent=this.lichessTools;
       const location=parent.global.location;
       const dialog=$('dialog.lichessTools-pgnEditor');
