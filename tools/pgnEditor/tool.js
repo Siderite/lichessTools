@@ -1460,16 +1460,18 @@
       const container=$('#topnav section a[href="/analysis"]+div[role="group"]');
       $('a.lichessTools-pgnEditor',container).remove();
 
-      lichess.pubsub.off('redraw',this.analysisControls);
-      lichess.pubsub.on('redraw',this.analysisControls);
-      lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'pgnEditor');
-      lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
-        id:'pgnEditor',
-        after: ($this, result, ...args)=>{
-          parent.global.setTimeout(this.analysisControls,100);
-        }
-      });
-      this.analysisControls();
+      if (lichess.analysis) {
+        lichess.pubsub.off('redraw',this.analysisControls);
+        lichess.pubsub.on('redraw',this.analysisControls);
+        lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'pgnEditor');
+        lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
+          id:'pgnEditor',
+          after: ($this, result, ...args)=>{
+            parent.global.setTimeout(this.analysisControls,100);
+          }
+        });
+        this.analysisControls();
+      }
 
       if (!value) {
         $('dialog.lichessTools-pgnEditor').remove();
