@@ -91,3 +91,7 @@ body.lichessTools dialog.lichessTools-pgnEditor a.help-button:hover {
     width: 100%;
   }
 }
+
+body.lichessTools .analyse__tools .action-menu__tools a.lichessTools-pgnEditor:before {
+  margin-bottom:0.5em;
+}

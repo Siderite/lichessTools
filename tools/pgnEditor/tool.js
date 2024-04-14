@@ -1,7 +1,7 @@
 (()=>{
   class PgnEditorTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=[ 'ChessOps','Stockfish' ]
+    dependencies=[ 'ChessOps','Stockfish','ExportPGN' ]
 
     preferences=[
       {
@@ -74,7 +74,9 @@
         'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value in any combination (i.e. tags, ply 10)'
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value in any combination (i.e. tags, ply 10)',
+        'sendToPgnEditorText':'PGN Editor',
+        'sendToPgnEditorTitle':'LiChess Tools - send to PGN Editor'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -135,7 +137,9 @@
         'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare \u00een orice combina\u0163ie (ex: tags, ply 10)'
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare \u00een orice combina\u0163ie (ex: tags, ply 10)',
+        'sendToPgnEditorText':'Editor PGN',
+        'sendToPgnEditorTitle':'LiChess Tools - trimite la Editor PGN'
       }
     }
 
@@ -198,7 +202,7 @@
       }
     };
 
-    showPgnEditor=()=>{
+    showPgnEditor=(showPgnText)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -450,9 +454,13 @@
       if (parent.global.location.hash!='#pgnEditor') {
         parent.global.location.hash='#pgnEditor';
       }
-      const text=this.history[this.historyIndex]||'';
-      $(textarea).val(text);
-      this.setHistoryIndex(this.historyIndex);
+      if (showPgnText) {
+        this.setText(textarea,showPgnText);
+      } else {
+        const text=this.history[this.historyIndex]||'';
+        $(textarea).val(text);
+        this.setHistoryIndex(this.historyIndex);
+      }
     };
 
     stopOperations=()=>{
@@ -1401,23 +1409,69 @@
     hashchange=()=>{
       const parent=this.lichessTools;
       const location=parent.global.location;
+      const dialog=$('dialog.lichessTools-pgnEditor');
       if (location.hash=='#pgnEditor') {
-        this.showPgnEditor();
+        if (!dialog.length) {
+          this.showPgnEditor();
+        }
       } else {
         $('dialog.lichessTools-pgnEditor').remove();
       }
     };
 
+    analysisControls=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
+      if (!analysis) return;
+      const container=$('div.analyse__tools .action-menu__tools');
+      if (!container.length) return;
+      if (!this.options.enabled||!parent.exportPgn) {
+        $('.lichessTools-pgnEditor',container).remove();
+        return;
+      }
+      if ($('.lichessTools-pgnEditor',container).length) return;
+      $('<a class="lichessTools-pgnEditor">')
+        .attr('data-icon','\u2E0E')
+        .attr('title',trans.noarg('sendToPgnEditorTitle'))
+        .text(trans.noarg('sendToPgnEditorText'))
+        .attr('href','/analysis#pgnEditor')
+        .on('click',async ev=>{
+          ev.preventDefault();
+          const pgn=await parent.exportPgn('',{ copyToClipboard:false });
+          this.showPgnEditor(pgn);
+        })
+        .appendTo(container);;
+    }
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('pgnEditor');
       this.logOption('PGN editor', value);
+      this.options={ enabled: !!value };
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
       const container=$('#topnav section a[href="/analysis"]+div[role="group"]');
       $('a.lichessTools-pgnEditor',container).remove();
-      if (!value) return;
+
+      lichess.pubsub.off('redraw',this.analysisControls);
+      lichess.pubsub.on('redraw',this.analysisControls);
+      lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'pgnEditor');
+      lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
+        id:'pgnEditor',
+        after: ($this, result, ...args)=>{
+          parent.global.setTimeout(this.analysisControls,100);
+        }
+      });
+      this.analysisControls();
+
+      if (!value) {
+        $('dialog.lichessTools-pgnEditor').remove();
+        return;
+      }
       $('<a/>')
         .addClass('lichessTools-pgnEditor')
         .text(trans.noarg('pgnEditorText'))
