@@ -119,7 +119,8 @@
       if (!value) {
         const explorerBox=$('main.analyse .analyse__tools .explorer-box');
         explorerBox.css({ minHeight:'',maxHeight:'' });
-        $('.lichessTools-resizeExplorer',explorerBox).remove();
+        $('.lichessTools-resizeExplorer').remove();
+        lichess.storage.remove('LichessTools.resizeExplorer');
         return;
       }
       lichess.pubsub.on('chapterChange',this.addDivider);
