@@ -906,6 +906,56 @@
     }
   };
 
+  storage={
+    lichessTools:this,
+    getStore: function(options) {
+      const store=options?.session
+        ? this.lichessTools.global.sessionStorage
+        : this.lichessTools.global.localStorage;
+      return store;
+    },
+    get: function(key, options) {
+      const store=this.getStore(options);
+      let text=store.getItem(key);
+      if (options?.zip) {
+        try {
+          const decompressed=LiChessTools.unzip(text);
+          if (decompressed!=null) text=decompressed;
+        } catch(ex) {
+          this.lichessTools.global.console.debug('Cannot unzip text. Using raw',ex);
+        }
+      }
+      try {
+        const obj=text===undefined?undefined:JSON.parse(text);
+        return obj;
+      } catch(e) {
+        console.error('Error parsing JSON',e);
+        return null;
+      }
+    },
+    set: function(key, value, options) {
+      const store=this.getStore(options);
+      if (value===undefined) {
+        store.removeItem(key);
+        return;
+      }
+      let text=JSON.stringify(value);
+      if (options?.zip) {
+        try {
+          const compressed=LiChessTools.zip(text);
+          if (compressed!=null) text=compressed;
+        } catch(ex) {
+          this.lichessTools.global.console.debug('Cannot zip text. Using raw',ex);
+        }
+      }
+      store.setItem(key,text);
+    },
+    remove: function(key,options) {
+      const store=this.getStore(options);
+      store.removeItem(key);
+    }
+  };
+
     tools=[];
     loadTool(toolClass) {
       const setTimeout=this.global.setTimeout;

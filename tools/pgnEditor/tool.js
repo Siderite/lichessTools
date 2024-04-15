@@ -144,7 +144,7 @@
     }
 
     historyIndex=-1;
-    history=[];
+    history=null;
     setText=(control,text)=>{
       const parent=this.lichessTools;
       const $=parent.$;
@@ -153,6 +153,7 @@
     };
     addTextToHistory=(text)=>{
       const parent=this.lichessTools;
+      if (!this.history) this.history=[];
       if (this.history[this.historyIndex]==text) return;
       this.setHistoryIndex(this.historyIndex+1);
       this.history[this.historyIndex]=text;
@@ -165,14 +166,15 @@
       if (this.historyIndex>=this.history.length) {
         this.historyIndex=this.history.length-1;
       }
-      parent.global.sessionStorage.setItem('LichessTools.pgnEditor.history',JSON.stringify({ history: this.history, index: this.historyIndex }));
+      parent.storage.set('LichessTools.pgnEditor.history',this.history,{ session: true, zip: true});
+      parent.storage.set('LichessTools.pgnEditor.historyIndex',this.historyIndex,{ session: true });
     };
     setHistoryIndex=async (val)=>{
-      const hasChange=(this.historyIndex!=val);
       const parent=this.lichessTools;
       const $=parent.$;
       this.historyIndex=val;
       await parent.timeout(1);
+      if (!this.history) this.history=[];
       const undo=val>=0 && val<this.history.length;
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="undo"]')
         .toggleClass('disabled',!undo)
@@ -181,9 +183,7 @@
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="redo"]')
         .toggleClass('disabled',!redo)
         .prop('disabled',!redo);
-      if (hasChange) {
-        parent.global.sessionStorage.setItem('LichessTools.pgnEditor.history',JSON.stringify({ history: this.history, index: this.historyIndex }));
-      }
+      parent.storage.set('LichessTools.pgnEditor.historyIndex',this.historyIndex,{ session: true });
     };
 
     copyToClipboard=async (text)=>{
@@ -203,6 +203,14 @@
         const announcement = trans.noarg('clipboardDenied');
         parent.announce(announcement);
       }
+    };
+
+    loadHistory=()=>{
+      const parent=this.lichessTools;
+      this.history=parent.storage.get('LichessTools.pgnEditor.history',{ session: true, zip: true})||[];
+      let index=parent.storage.get('LichessTools.pgnEditor.historyIndex',{ session: true });
+      if (!index && index!==0) index=-1;
+      this.setHistoryIndex(index);
     };
 
     showPgnEditor=(showPgnText)=>{
@@ -460,6 +468,9 @@
       if (showPgnText) {
         this.setText(textarea,showPgnText);
       } else {
+        if (!this.history) {
+          this.loadHistory();
+        }
         const text=this.history[this.historyIndex]||'';
         $(textarea).val(text);
         this.setHistoryIndex(this.historyIndex);
@@ -1384,7 +1395,7 @@
     undo=async (textarea)=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      const text=this.history[this.historyIndex-1]||'';
+      const text=this.history?.[this.historyIndex-1]||'';
       $(textarea).val(text);
       this.setHistoryIndex(this.historyIndex-1);
       this.writeNote('');
@@ -1393,7 +1404,7 @@
     redo=async (textarea)=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      if (this.historyIndex+1>=this.history.length) return;
+      if (this.historyIndex+1>=this.history?.length) return;
       const text=this.history[this.historyIndex+1];
       $(textarea).val(text);
       this.setHistoryIndex(this.historyIndex+1);
@@ -1406,7 +1417,8 @@
       $(textarea).val('');
       this.history=[];
       this.setHistoryIndex(-1);
-      parent.global.sessionStorage.removeItem('LichessTools.pgnEditor.history');
+      parent.storage.remove('LichessTools.pgnEditor.history',{ session: true });
+      parent.storage.remove('LichessTools.pgnEditor.historyIndex',{ session: true });
     };
 
     hashchange=(ev)=>{
@@ -1488,15 +1500,6 @@
         })
         .appendTo(container);
       $(parent.global).on('hashchange',this.hashchange);
-      let data=parent.global.sessionStorage.getItem('LichessTools.pgnEditor.history');
-      if (data) {
-        data=JSON.parse(data);
-        this.history=data.history||[];
-        const index=+(data.index);
-        this.setHistoryIndex(index===0
-          ? 0
-          : index || -1);
-      }
       this.hashchange();
     }
 

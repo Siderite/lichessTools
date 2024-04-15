@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChess Tools",
-  "version": "2.3.58",
+  "version": "2.3.59",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -26,6 +26,7 @@
         "scripts/cash.extra.js",
         "scripts/lichessTools.js",
         "scripts/dragDropTouch.js",
+        "scripts/zip.js",
 
         "tools/emitEsmLoaded/tool.js",
         "tools/interceptEventHandlers/tool.js",
