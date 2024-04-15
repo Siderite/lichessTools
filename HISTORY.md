@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Apr
+  - performance improvements for Sticky Analysis
+  - PGN Editor compression
+
 14 Apr
   - Resize Explorer
   - Cut result, Search by index, Search invalid games, persistence, send to in PGN Editor
