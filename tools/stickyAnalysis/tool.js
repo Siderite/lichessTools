@@ -40,20 +40,23 @@
         pgn='[FEN "'+analysis.tree.root.fen+'"]\r\n'+pgn?.replace(/\[FEN\s+"[^"]*"\][\r\n]+/g,'');
       }
       if (this.prevPgn===pgn) return;
-      const savedPgn=parent.currentOptions.getValue('prevAnalysis');
+      const savedPgn=parent.storage.get('LiChessTools.stickyAnalysis.pgn',{ zip:true });
       if (savedPgn!=pgn) {
-        parent.currentOptions.prevAnalysis=pgn;
-        parent.saveOptions(parent.currentOptions);
+        parent.storage.set('LiChessTools.stickyAnalysis.pgn',pgn,{ zip:true });
       }
       this.prevPgn=pgn;
     }
+    saveAnalysisPgnLong=this.lichessTools.debounce(this.saveAnalysisPgn,10000);
 
     retrievePgn=()=> {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
-      const savedPgn=parent.currentOptions.getValue('prevAnalysis');
+      const $=parent.$;
+      const textarea=$('.analyse__underboard .pgn textarea');
+      if (!textarea.length) return;
+      const savedPgn=parent.storage.get('LiChessTools.stickyAnalysis.pgn',{ zip:true });
       if (!savedPgn) return;
-      $('.analyse__underboard .pgn textarea').val(savedPgn);
+      textarea.val(savedPgn);
       lichess.analysis.pgnInput=savedPgn;
     };
 
@@ -67,12 +70,15 @@
       if (!analysis) return;
       if (analysis.study) return;
       const trans=parent.translator;
-      lichess.pubsub.off('redraw',this.saveAnalysisPgn);
+      lichess.pubsub.off('redraw',this.saveAnalysisPgnLong);
       if (!value) return;
-      lichess.pubsub.on('redraw',this.saveAnalysisPgn);
-      const savedPgn=parent.currentOptions.getValue('prevAnalysis');
-      if (savedPgn) {
-        if (analysis.tree.root.children?.length==0) this.retrievePgn();
+      lichess.pubsub.on('redraw',this.saveAnalysisPgnLong);
+      parent.global.addEventListener('beforeunload',()=>{
+        this.saveAnalysisPgn();
+      });
+
+      if (analysis.tree.root.children?.length==0) {
+        this.retrievePgn();
       }
     }
 
