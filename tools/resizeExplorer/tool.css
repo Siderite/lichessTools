@@ -19,10 +19,15 @@ body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer.dragging {
 body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer.dragging div {
   display:none;
 }
-
+/*
+body.lichessTools.mobile .analyse:has(div.analyse__tools div.lichessTools-resizeExplorer) {
+  --explorer-height:30vh;
+  grid-template-rows: auto auto minmax(20em, var(--explorer-height));
+}
+*/
 body.lichessTools.mobile div.analyse__tools div.lichessTools-resizeExplorer {
   height:7px;
-  margin-bottom:1px;
+  margin-top:1px;
 }
 
 body.lichessTools.mobile div.analyse__tools div.lichessTools-resizeExplorer div {
