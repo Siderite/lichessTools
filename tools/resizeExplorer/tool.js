@@ -34,7 +34,7 @@
         ? this.height?.mobile
         : this.height?.desktop;
       if (h===undefined) {
-        explorerBox.css({ flex:'',maxHeight:'' });
+        explorerBox.css({ minHeight:'',maxHeight:'' });
         return;
       }
       parent.global.requestAnimationFrame(()=>{
@@ -118,7 +118,7 @@
       lichess.pubsub.off('redraw',this.addDivider);
       if (!value) {
         const explorerBox=$('main.analyse .analyse__tools .explorer-box');
-        explorerBox.css({ flex:'',maxHeight:'' });
+        explorerBox.css({ minHeight:'',maxHeight:'' });
         $('.lichessTools-resizeExplorer',explorerBox).remove();
         return;
       }
