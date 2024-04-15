@@ -43,13 +43,13 @@
     };
 
     dragDivider=(ev)=>{
-      if (!ev.clientY) return;
+      if (!ev.pageY) return;
       const parent=this.lichessTools;
       const $=parent.$;
       const tools=$('main.analyse .analyse__tools');
       const th=tools.height();
       const t=tools.offset().top;
-      const h=t+th-ev.clientY;
+      const h=t+th-ev.pageY;
       if (h<=0 || h>th-$('.ceval',tools).height()) return;
       this.height=h;
       const lichess=parent.lichess;
@@ -62,8 +62,9 @@
       const $=parent.$;
       const explorerBox=$('main.analyse .analyse__tools .explorer-box');
       if (!explorerBox.length) return;
-      if ($('.lichessTools-resizeExplorer',explorerBox).length) return;
+      if ($('.lichessTools-resizeExplorer',explorerBox.parent()).length) return;
       $('<div class="lichessTools-resizeExplorer">')
+        .append('<div>')
         .prop('draggable',true)
         .on('drag',this.dragDivider)
         .on('dragstart',ev=>{
@@ -76,7 +77,8 @@
            $('body')
              .off('dragenter dragover',this.controlCursor);
         })
-        .prependTo('.explorer-box');
+        .css('order',explorerBox.css('order'))
+        .insertBefore(explorerBox);
       this.refreshHeight();
     };
     addDivider=this.lichessTools.debounce(this.addDividerDirect,300);
@@ -95,6 +97,9 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
+      if ($('body').is('.mobile')) {
+        LiChessTools.enableMobileDragAndDrop();
+      }
       lichess.pubsub.off('chapterChange',this.addDivider);
       lichess.pubsub.off('redraw',this.addDivider);
       if (!value) {

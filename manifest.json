@@ -25,6 +25,7 @@
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
         "scripts/lichessTools.js",
+        "scripts/dragDropTouch.js",
 
         "tools/emitEsmLoaded/tool.js",
         "tools/interceptEventHandlers/tool.js",
