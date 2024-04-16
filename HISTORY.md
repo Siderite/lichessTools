@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Apr
+  - Local evaluation extra chart
+
 15 Apr
   - performance improvements for Sticky Analysis
   - PGN Editor compression
