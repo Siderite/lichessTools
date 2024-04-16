@@ -1101,6 +1101,13 @@
         $('div.eval-gauge tick.lichessTools-material,div.eval-gauge tick.lichessTools-principled').remove();
         this.prevFen=null;
       }
+      if (!this.options.local) {
+        const container=$('#acpl-chart-container.lichessTools-extraChart');
+        if (container.length) {
+          container.remove();
+          this._chart=null;
+        }
+      }
       this.interval=parent.global.setInterval(()=>{
         this.generateCharts();
         this.generateTicks();
