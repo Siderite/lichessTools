@@ -2,6 +2,10 @@ body.lichessTools div.study__server-eval.ready {
   position:relative;
 }
 
+body.lichessTools #acpl-chart-container {
+  position:relative;
+}
+
 body.lichessTools .lichessTools-chartInfo {
   position: absolute;
   left: 1.5em;

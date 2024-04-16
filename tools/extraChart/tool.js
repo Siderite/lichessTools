@@ -654,7 +654,7 @@
       const $=parent.$;
       if (!this.options.brilliant) return;
 
-      const hcElem=$('div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready')[0];
+      const hcElem=$('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready')[0];
       let state=hcElem?.traverseState;
       if (!state || forced) {
         state=parent.traverse();
@@ -716,7 +716,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
-      const container=$('div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
+      const container=$('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
       if (parent.inViewport(container)<=0) return;
       const chart=this._chart;
       if (!chart) return;
@@ -755,9 +755,10 @@
       const trans=parent.translator;
 
       if (!lichess.analysis) return;
-      if (!lichess.analysis.tree.root.eval&&!lichess.analysis.tree.root.children.at(0)?.eval) return;
-      const container=$('div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
-      if (parent.inViewport(container[0])<=0) return;
+      if (!lichess.analysis.mainline.find(n=>n.eval||n.ceval)) {
+         return;
+      }
+      let container=$('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
       let chart=this._chart;
       if (!chart) {
         chart = lichess.analysis.study?.serverEval?.chart;
@@ -768,11 +769,22 @@
             chart=await mod.acpl(canvas);
           }
         }
+        if (!chart&&this.options.local) {
+          const underboard=$('.analyse__underboard');
+          if (underboard.length) {
+            container=$('<div id="acpl-chart-container" class="lichessTools-extraChart"><canvas id="acpl-chart"></canvas></div>')
+              .appendTo(underboard);
+            const mod=await lichess.asset.loadEsm("chart.game");
+            const mainline=lichess.analysis.mainline;
+            chart = await mod.acpl($("#acpl-chart")[0], lichess.analysis.data, mainline, lichess.analysis.trans);
+          }
+        }
         if (chart && !this._chart) {
           this.setChart(chart);
         } 
       }
       if (!chart) return;
+      if (parent.inViewport(container[0])<=0) return;
       if (!this.options.needsChart) {
         $('div.lichessTools-chartInfo',container).remove();
       } else {
@@ -794,23 +806,32 @@
         existingMaterial=-1;
         updateChart=true;
       }
-      if (existingMaterial<0 && this.options.material) {
-        chart.data.datasets.push({
-          label:'Material',
-          type:'line',
-          data: this.smooth(this.getMaterialData(lichess.analysis.mainline)),
-          borderWidth: 2,
-          borderDash:[3,3],
-          cubicInterpolationMode: this.options.smooth?'monotone':'default',
-          tension: 0,
-          pointRadius: 0,
-          pointHitRadius: 0,
-          pointHoverRadius: 0,
-          borderColor: this.colors.materialChart,
-          order: 1,
-          datalabels: { display: false }
-        });
-        updateChart=true;
+      if (this.options.material) {
+        if (existingMaterial<0) {
+          chart.data.datasets.push({
+            label:'Material',
+            type:'line',
+            data: this.smooth(this.getMaterialData(lichess.analysis.mainline)),
+            borderWidth: 2,
+            borderDash:[3,3],
+            cubicInterpolationMode: this.options.smooth?'monotone':'default',
+            tension: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.materialChart,
+            order: 1,
+            datalabels: { display: false }
+          });
+          updateChart=true;
+        } else {
+          const dataset=chart.data.datasets[existingMaterial];
+          if (dataset.data?.length<lichess.analysis.mainline.length) {
+            const newData = this.smooth(this.getMaterialData(lichess.analysis.mainline));
+            dataset.data=newData;
+            updateChart=true;
+          }
+        }
       }
 
       let existingPrincipled = chart.data.datasets.findIndex(s=>s.label==='Principled');
@@ -819,23 +840,32 @@
         existingPrincipled=-1;
         updateChart=true;
       }
-      if (existingPrincipled<0 && this.options.principled) {
-        chart.data.datasets.push({
-          label:'Principled',
-          type:'line',
-          data: this.smooth(this.getPrincipledData(lichess.analysis.mainline)),
-          borderWidth: 2,
-          borderDash:[3,3],
-          cubicInterpolationMode: this.options.smooth?'monotone':'default',
-          tension: 0,
-          pointRadius: 0,
-          pointHitRadius: 0,
-          pointHoverRadius: 0,
-          borderColor: this.colors.principledChart,
-          order: 1,
-          datalabels: { display: false }
-        });
-        updateChart=true;
+      if (this.options.principled) {
+        if (existingPrincipled<0) {
+          chart.data.datasets.push({
+            label:'Principled',
+            type:'line',
+            data: this.smooth(this.getPrincipledData(lichess.analysis.mainline)),
+            borderWidth: 2,
+            borderDash:[3,3],
+            cubicInterpolationMode: this.options.smooth?'monotone':'default',
+            tension: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.principledChart,
+            order: 1,
+            datalabels: { display: false }
+          });
+          updateChart=true;
+        } else {
+          const dataset=chart.data.datasets[existingPrincipled];
+          if (dataset.data?.length<lichess.analysis.mainline.length) {
+            const newData = this.smooth(this.getPrincipledData(lichess.analysis.mainline));
+            dataset.data=newData;
+            updateChart=true;
+          }
+        }
       }
 
       let existingLocal = chart.data.datasets.findIndex(s=>s.label==='Local');
@@ -845,11 +875,12 @@
         updateChart=true;
       }
       if (this.options.local) {
+        const mainline=lichess.analysis.mainline;
         if (existingLocal<0) {
           chart.data.datasets.push({
             label:'Local',
             type:'line',
-            data: this.smooth(this.getLocalData(lichess.analysis.mainline)),
+            data: this.smooth(this.getLocalData(mainline)),
             borderWidth: 2,
             borderDash:[1,5],
             cubicInterpolationMode: this.options.smooth?'monotone':'default',
@@ -869,7 +900,7 @@
         } else {
           const dataset=chart.data.datasets[existingLocal];
           const existingData = dataset.data;
-          const newData = this.smooth(this.getLocalData(lichess.analysis.mainline));
+          const newData = this.smooth(this.getLocalData(mainline));
           updateChart=JSON.stringify(existingData)!=JSON.stringify(newData);
           if (updateChart) dataset.data=newData;
         }
@@ -881,7 +912,8 @@
         existingMaxTension=-1;
         updateChart=true;
       }
-      if (existingMaxTension<0 && this.options.tension) {
+      if (this.options.tension) {
+        if (existingMaxTension<0) {
         const x=this.getMaxTension(lichess.analysis.mainline);
         chart.data.datasets.push({
           label:'Max tension',
@@ -905,6 +937,18 @@
           }
         });
         updateChart=true;
+        } else {
+          const dataset=chart.data.datasets[existingMaxTension];
+          const existingData = dataset.data;
+          if (this.prevMainlineLength!=lichess.analysis.mainline.length) {
+            const x=this.getMaxTension(lichess.analysis.mainline);
+            dataset.data=[
+              { x: x, y:-1.05 },
+              { x: x, y:1.05 }
+            ];
+            updateChart=true;
+          }
+        }
       }
 
       let existingMaxPotential = chart.data.datasets.findIndex(s=>s.label==='Max potential');
@@ -913,7 +957,8 @@
         existingMaxPotential=-1;
         updateChart=true;
       }
-      if (existingMaxPotential<0 && this.options.potential) {
+      if (this.options.potential) {
+        if (existingMaxPotential<0) {
         const x=this.getMaxPotential(lichess.analysis.mainline);
         chart.data.datasets.push({
           label:'Max potential',
@@ -937,9 +982,20 @@
           }
         });
         updateChart=true;
+        } else {
+          const dataset=chart.data.datasets[existingMaxPotential];
+          if (this.prevMainlineLength!=lichess.analysis.mainline.length) {
+            const x=this.getMaxPotential(lichess.analysis.mainline);
+            dataset.data=[
+              { x: x, y:-1.05 },
+              { x: x, y:1.05 }
+            ];
+            updateChart=true;
+          }
+        }
       }
 
-      if (this.options.brilliant) {
+      if (this.options.brilliant && !$('#acpl-chart-container').is('.lichessTools-extraChart')) {
         this.setBrilliant(lichess.analysis.mainline,forced);
 
         this.showGoodMoves(forced);
@@ -949,7 +1005,11 @@
         await this.showChristmasTree();
       }
 
-      if (updateChart) chart.update('none');
+      if (updateChart) {
+        chart.options.scales.x.max=Math.max.apply(null,chart.data.datasets.map(ds=>ds.data.map(p=>p.x)).flat());
+        chart.update('none');
+        this.prevMainlineLength=lichess.analysis.mainline.length;
+      }
       this.prevSmooth=this.options.smooth;
     };
 
@@ -1027,7 +1087,7 @@
         brilliant:parent.isOptionSet(value,'brilliant'),
         local:parent.isOptionSet(value,'local'),
         smooth:parent.isOptionSet(value,'smooth'),
-        get needsChart() { return this.material || this.principled || this.tension || this.brilliant; },
+        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.local; },
         gauge:parent.isOptionSet(value,'gauge'),
         christmas:!!parent.currentOptions.getValue('christmas')
       };
