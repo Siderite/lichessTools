@@ -8,7 +8,7 @@
         name:'extraChart',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['material','principled','tension','potential','brilliant','smooth','gauge'],
+        possibleValues: ['material','principled','tension','potential','brilliant','smooth','gauge','local'],
         defaultValue: 'material,principled,tension,smooth,gauge,brilliant',
         advanced: true
       },
@@ -31,6 +31,7 @@
         'extraChart.principled': 'Principled',
         'extraChart.tension': 'Max tension',
         'extraChart.potential': 'Max potential',
+        'extraChart.local': 'Local eval',
         'extraChart.brilliant': 'Find interesting moves',
         'extraChart.smooth': 'Chart smoothing',
         'extraChart.gauge': 'on Eval gauge',
@@ -49,6 +50,7 @@
         'extraChart.principled': 'Principial',
         'extraChart.tension': 'Tensiune maxim\u0103',
         'extraChart.potential': 'Poten\u0163ial maxim',
+        'extraChart.local': 'Evaluare local\u0103',
         'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
         'extraChart.smooth': 'Netezire grafice',
         'extraChart.gauge': 'pe bara de Eval',
@@ -65,6 +67,9 @@
       originalChart: '#D85000',
       materialChart: '#258F0B',
       principledChart: '#250B8F',
+      localChart: ()=>this.lichessTools.isDark()
+                              ? '#FFFF00'
+                              : '#303000',
       maxTensionLine: '#FF0000',
       maxPotentialLine: '#008000',
       interestingMoves: ()=>this.lichessTools.isDark()
@@ -514,6 +519,21 @@
         .filter(r=>!!r);
     };
 
+    getLocalData = (mainline) => {
+      const parent=this.lichessTools;
+      const Math=parent.global.Math;
+      return mainline
+        .map((node,x) => {
+          if (!node.ceval) return null;
+          const cp=node.ceval.cp||node.ceval.mate*9999||0;
+          return {
+            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            x: x
+          };
+        })
+        .filter(r=>!!r);
+    };
+
     setBrilliant = (mainline,forced) => {
       if (!forced && mainline.brilliantInit) return;
       const parent=this.lichessTools;
@@ -781,7 +801,8 @@
           data: this.smooth(this.getMaterialData(lichess.analysis.mainline)),
           borderWidth: 2,
           borderDash:[3,3],
-          cubicInterpolationMode: this.options.smooth?'monotone':undefined,
+          cubicInterpolationMode: this.options.smooth?'monotone':'default',
+          tension: 0,
           pointRadius: 0,
           pointHitRadius: 0,
           pointHoverRadius: 0,
@@ -805,7 +826,8 @@
           data: this.smooth(this.getPrincipledData(lichess.analysis.mainline)),
           borderWidth: 2,
           borderDash:[3,3],
-          cubicInterpolationMode: this.options.smooth?'monotone':undefined,
+          cubicInterpolationMode: this.options.smooth?'monotone':'default',
+          tension: 0,
           pointRadius: 0,
           pointHitRadius: 0,
           pointHoverRadius: 0,
@@ -814,6 +836,43 @@
           datalabels: { display: false }
         });
         updateChart=true;
+      }
+
+      let existingLocal = chart.data.datasets.findIndex(s=>s.label==='Local');
+      if (existingLocal>=0 && (this.prevSmooth!=this.options.smooth || !this.options.local)) {
+        chart.data.datasets.splice(existingLocal,1);
+        existingLocal=-1;
+        updateChart=true;
+      }
+      if (this.options.local) {
+        if (existingLocal<0) {
+          chart.data.datasets.push({
+            label:'Local',
+            type:'line',
+            data: this.smooth(this.getLocalData(lichess.analysis.mainline)),
+            borderWidth: 2,
+            borderDash:[1,5],
+            cubicInterpolationMode: this.options.smooth?'monotone':'default',
+            tension: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.localChart,
+            fill: {
+              target: 'start',
+              above: this.colors.localChart()+'20'
+            },
+            order: 1,
+            datalabels: { display: false }
+          });
+          updateChart=true;
+        } else {
+          const dataset=chart.data.datasets[existingLocal];
+          const existingData = dataset.data;
+          const newData = this.smooth(this.getLocalData(lichess.analysis.mainline));
+          updateChart=JSON.stringify(existingData)!=JSON.stringify(newData);
+          if (updateChart) dataset.data=newData;
+        }
       }
 
       let existingMaxTension = chart.data.datasets.findIndex(s=>s.label==='Max tension');
@@ -966,6 +1025,7 @@
         tension:parent.isOptionSet(value,'tension'),
         potential:parent.isOptionSet(value,'potential'),
         brilliant:parent.isOptionSet(value,'brilliant'),
+        local:parent.isOptionSet(value,'local'),
         smooth:parent.isOptionSet(value,'smooth'),
         get needsChart() { return this.material || this.principled || this.tension || this.brilliant; },
         gauge:parent.isOptionSet(value,'gauge'),
