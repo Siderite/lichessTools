@@ -69,7 +69,7 @@
       principledChart: '#250B8F',
       localChart: ()=>this.lichessTools.isDark()
                               ? '#FFFF00'
-                              : '#303000',
+                              : '#705800',
       maxTensionLine: '#FF0000',
       maxPotentialLine: '#008000',
       interestingMoves: ()=>this.lichessTools.isDark()
