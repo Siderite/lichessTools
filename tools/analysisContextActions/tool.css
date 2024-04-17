@@ -8,14 +8,18 @@ body.lichessTools.lichessTools-evaluationStarted #analyse-cm a[data-role="evalua
 }
 
 body.lichessTools .lichessTools-liveStatus {
-  position: relative;
   display:none;
-  top: 3em;
   margin-left: 1em;
+  margin-top: 0.5em;
+  grid-row-start:none;
 }
 
 body.lichessTools.lichessTools-evaluationStarted .lichessTools-liveStatus {
   display:inherit;
+}
+
+body.lichessTools.lichessTools-evaluationStarted .analyse__round-training {
+  margin-top:1.5em;
 }
 
 body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
