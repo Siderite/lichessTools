@@ -769,7 +769,7 @@
             chart=await mod.acpl(canvas);
           }
         }
-        if (!chart&&this.options.local) {
+        if (!chart&&this.options.local&&!lichess.analysis.study) {
           const underboard=$('.analyse__underboard');
           if (underboard.length) {
             container=$('<div id="acpl-chart-container" class="lichessTools-extraChart"><canvas id="acpl-chart"></canvas></div>')
@@ -875,7 +875,12 @@
         updateChart=true;
       }
       if (this.options.local) {
-        const mainline=lichess.analysis.mainline;
+        const mainline=lichess.analysis.tree.getNodeList(lichess.analysis.node.path||'');
+        let lastNode=mainline.at(-1)?.children[0];
+        while (lastNode) {
+          mainline.push(lastNode);
+          lastNode=lastNode.children[0];
+        }
         if (existingLocal<0) {
           chart.data.datasets.push({
             label:'Local',
