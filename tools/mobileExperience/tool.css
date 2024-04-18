@@ -3,6 +3,7 @@
     left: -0.5em;
     width: 1em;
     height: var(--cg-height);
+    height: var(---cg-height);
     position: absolute;
     display: block;
     z-index: 1;
