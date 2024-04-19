@@ -2,8 +2,7 @@
   body.lichessTools main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge {
     left: -0.5em;
     width: 1em;
-    height: var(--cg-height);
-    height: var(---cg-height);
+    height: var(---cg-height, var(--cg-height));
     position: absolute;
     display: block;
     z-index: 1;
