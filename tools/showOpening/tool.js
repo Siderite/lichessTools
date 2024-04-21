@@ -106,7 +106,7 @@
         }
       }
 
-      if (!gameId || gameId=='synthetic') return;
+      if (!gameId || gameId=='synthetic'|| gameId=='broadcast') return;
 
       const data=el?.openingData;
       if (data) {
