@@ -182,6 +182,7 @@
         "tools/moveAssistant/tool.css",
         "tools/playerWarning/tool.css",
         "tools/boardImage/tool.css",
+        "tools/cevalDecimals/tool.css",
         "tools/mirrorBoard/tool.css",
         "tools/studyFlairs/tool.css",
         "tools/mainPageElements/tool.css",
