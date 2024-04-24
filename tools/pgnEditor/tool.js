@@ -25,6 +25,8 @@
         'btnMergeTitle': 'Merge PGNs (where possible)',
         'btnNormalizeText': 'Normalize',
         'btnNormalizeTitle': 'Group moves from the same board position',
+        'btnDenormalizeText': 'Denormalize',
+        'btnDenormalizeTitle': 'Expand transpositions into moves',
         'btnSplitText': 'Split',
         'btnSplitTitle': 'Split into multiple one path PGNs',
         'btnCountText': 'Count',
@@ -59,6 +61,8 @@
         'mergingGames:one': 'Merging one PGN',
         'normalizingGames': 'Normalizing %s PGNs',
         'normalizingGames:one': 'Normalizing one PGN',
+        'denormalizingGames': 'Denormalizing %s PGNs',
+        'denormalizingGames:one': 'Denormalizing one PGN',
         'splittingGames': 'Splitting %s PGNs',
         'splittingGames:one': 'Splitting one PGN',
         'searchingGames': 'Searching %s PGNs',
@@ -88,6 +92,8 @@
         'btnMergeTitle': 'Combin\u0103 PGNuri (dac\u0103 se poate)',
         'btnNormalizeText': 'Normalizeaz\u0103',
         'btnNormalizeTitle': 'Grupeaz\u0103 mut\u0103ri f\u0103cute din aceea\u015fi pozi\u0163ie',
+        'btnDenormalizeText': 'Denormalizeaz\u0103',
+        'btnDenormalizeTitle': 'Extinde transpozi\u0163ii \u00een mut\u0103ri',
         'btnSplitText': 'Sparge',
         'btnSplitTitle': 'Sparge \u00een mai multe PGNuri f\u0103r\u0103 varia\u0163iuni',
         'btnCountText': 'Num\u0103r\u0103',
@@ -122,6 +128,8 @@
         'mergingGames:one': 'Combin un PGN',
         'normalizingGames': 'Normalizez %s PGNuri',
         'normalizingGames:one': 'Normalizez un PGN',
+        'denormalizingGames': 'Denormalizez %s PGNuri',
+        'denormalizingGames:one': 'Denormalizez un PGN',
         'splittingGames': 'Sparg %s PGNuri',
         'splittingGames:one': 'Sparg un PGN',
         'searchingGames': 'Caut \u00een %s PGNuri',
@@ -233,6 +241,7 @@
               <div class="buttons">
                 <button class="button" type="button" data-role="merge" data-icon="&#xE037;"><span></span></button>
                 <button class="button" type="button" data-role="normalize" data-icon="&#xE05B;"><span></span></button>
+                <button class="button" type="button" data-role="denormalize" data-icon="&#xE066;"><span></span></button>
                 <button class="button" type="button" data-role="split" data-icon="&#xE018;"><span></span></button>
                 <button class="button" type="button" data-role="search" data-icon="&#xE02F;"><span></span></button>
                 <button class="button" type="button" data-role="keepFound" data-icon="&#xE02A;"><span></span></button>
@@ -299,6 +308,14 @@
         })
         .find('span')
         .text(trans.noarg('btnNormalizeText'));
+      $('[data-role="denormalize"]',dialog)
+        .attr('title',trans.noarg('btnDenormalizeTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('denormalize',()=>this.denormalizePgn(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnDenormalizeText'));
       $('[data-role="split"]',dialog)
         .attr('title',trans.noarg('btnSplitTitle'))
         .on('click',ev=>{
@@ -563,6 +580,7 @@
           return;
         }
         for (const child of node.children) {
+          child.parent=node;
           const newPos=pos.clone();
           const move = parseSan(newPos, child.data.san);
           if (!move) {
@@ -959,6 +977,107 @@
               if (onSameBranch(nodes[i],nodes[j])) continue;
               this.mergeNodes(nodes[j],nodes[i]);
               nodes[i].children=[];
+            }
+          }
+        }
+        i--;
+      }
+      if (this._cancelRequested) {
+        return;
+      }
+
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+      for (const game of games) {
+        this.cleanGame(game);
+      }
+
+      this.writeGames(textarea, games);
+
+      this.countPgn();
+    };
+
+    denormalizePgn=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      const games=parsePgn(text);
+      this.writeNote(trans.pluralSame('denormalizingGames',games.length));
+      await parent.timeout(0);
+      let withErrors=false;
+      let gameIndex=0;
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+      for (const game of games) {
+        gameIndex++;
+        try {
+          this.enhanceGameWithFens(game);
+          this.enhanceGameWithFenDict(game);
+        } catch(ex) {
+          if (ex.ply) {
+            const data=[gameIndex, ex.san, ex.ply]
+            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+              return data[+m[1]-1];
+            }));
+            withErrors=true;
+            break;
+          } else throw ex;
+        }
+      }
+      if (withErrors) {
+        this.writeNote(trans.noarg('operationFailed'));
+        return;
+      }
+
+      const circular=(n1,n2)=>{
+        const pos=parent.getFenPosition(n2.data.fen);
+        let node=n1;
+        while (node) {
+          if (parent.getFenPosition(node.data.fen)==pos) return true;
+          node=node.parent;
+        }
+        return false;
+      };
+
+      const clone=(node)=>{
+        const result={
+                       ...node,
+                       children:node.children.map(clone)
+                     };
+        return result;
+      };
+
+      let i=games.length-1;
+      let lastWrite=Date.now();
+      while(i>=0 && !this._cancelRequested) {
+        if (Date.now()-lastWrite>1000) { 
+          this.writeNote(trans.pluralSame('denormalizingGames',games.length));
+          lastWrite=Date.now();
+          await parent.timeout(0);
+        }
+        const game=games[i];
+        for (const pair of game.fenDict) {
+          const key=pair[0];
+          const nodes=pair[1];
+          if (nodes.length==1) continue;
+          for (let i=0; i<nodes.length; i++) {
+            const n1=nodes[i];
+            const dests=nodes.filter((n,j)=>i!=j).map(n=>n.children).flat();
+            for (let j=0; j<dests.length; j++) {
+              const n2=dests[j];
+              if (n1.children.find(c=>c.data.san==n2.data.san)) continue;
+              if (circular(n1,n2)) continue;
+              const newNode=clone(n2);
+              n1.children.push(newNode);
+              newNode.parent=n1;
+              const key2=parent.getFenPosition(newNode.data.fen);
+              const arr=game.fenDict.get(key2);
+              arr.push(newNode);
             }
           }
         }
