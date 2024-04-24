@@ -1,8 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
 25 Apr
-  - coords on each square of the board
-  - sound options: no move sounds
+  - Coords on each square of the board
+  - Sound options: no move sounds
+  - Denormalize function in PGN Editor
 
 16 Apr
   - Local evaluation extra chart
