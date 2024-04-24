@@ -917,7 +917,7 @@
     get: function(key, options) {
       const store=this.getStore(options);
       let text=store.getItem(key);
-      if (options?.zip) {
+      if (text && options?.zip) {
         try {
           const decompressed=LiChessTools.unzip(text);
           if (decompressed!=null) text=decompressed;

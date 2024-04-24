@@ -221,7 +221,7 @@
       this.setHistoryIndex(index);
     };
 
-    showPgnEditor=(showPgnText)=>{
+    showPgnEditor=async (showPgnText)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -486,6 +486,7 @@
         this.setText(textarea,showPgnText);
       } else {
         if (!this.history) {
+          await parent.timeout(1);
           this.loadHistory();
         }
         const text=this.history[this.historyIndex]||'';
