@@ -1217,7 +1217,8 @@
       await parent.timeout(0);
 
       for (const game of games) {
-        game.headers?.clear();
+        const keys=game.headers.keys().filter(k=>!['FEN','SetUp'].includes(k));
+        for (const key of keys) game.headers.delete(key);
       }
 
       this.writeGames(textarea, games);
