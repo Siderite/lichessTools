@@ -22,6 +22,36 @@ body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.analyse
   margin-bottom:1em;
 }
 
+coords.lichessTools-fixCoords {
+  display:none;
+}
+
+body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools-fixCoords {
+  display:block;
+  width:100%;
+  height:100%;
+}
+
+body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools-fixCoords>coord {
+  position: absolute;
+  top: calc(12.5% * (9 - var(--rank)) - 1.2em);
+  left: calc(12.5% * var(--file) - 1.2em);
+  color: white;
+  z-index: 2;
+  text-shadow: 1px 1px black;
+  font-size: 1.1em;
+}
+
+body.lichessTools.lichessTools-fixCoords-square .orientation-black cg-container coords.lichessTools-fixCoords>coord {
+  top: calc(12.5% * var(--rank) - 1.2em);
+  left: calc(12.5% * (9 - var(--file)) - 1.2em);
+}
+
+body.lichessTools.lichessTools-fixCoords-square cg-container coords.ranks,
+body.lichessTools.lichessTools-fixCoords-square cg-container coords.files {
+  display:none;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger cg-container coords {

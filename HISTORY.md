@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 Apr
+  - coords on each square of the board
+
 16 Apr
   - Local evaluation extra chart
 
