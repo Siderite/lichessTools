@@ -115,6 +115,7 @@
         "tools/studyFlairs/tool.js",
         "tools/mainPageElements/tool.js",
         "tools/resizeExplorer/tool.js",
+        "tools/soundOptions/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",

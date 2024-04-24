@@ -91,6 +91,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - study flairs
  - hide/show lobby page elements
  - Explorer resize
+ - Custom sound options (just disable move sounds, keep the rest)
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:
