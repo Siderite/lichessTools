@@ -136,6 +136,15 @@
       button.trigger('click');
     };
 
+    jumpToCurrentMove=()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
+      if (!analysis?.ongoing || !(analysis.data.game.turns>0)) return false;
+      analysis.jumpToIndex(analysis.data.game.turns-1);
+      analysis.redraw();
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('keyShortcuts');
@@ -167,6 +176,7 @@
       parent.unbindKeyHandler('`',true);
       parent.unbindKeyHandler('f');
       parent.unbindKeyHandler('r');
+      parent.unbindKeyHandler('backspace',true);
 
       for (let i = 1; i <=9 ; i++) {
         const combo=i.toString();
@@ -194,6 +204,9 @@
         parent.bindKeyHandler('`',()=>this.prepareMove('general'));
         parent.bindKeyHandler('f',this.freezeBoard);
         parent.bindKeyHandler('r',this.randomChapter);
+        if (analysis.ongoing) {
+          parent.bindKeyHandler('backspace',this.jumpToCurrentMove);
+        }
       } else {
         if (this.oldHandlers) {
           parent.bindKeyHandler('i',this.oldHandlers['i'],true);

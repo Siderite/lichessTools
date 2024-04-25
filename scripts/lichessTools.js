@@ -776,11 +776,12 @@
     };
 
     isGamePlaying() {
-      const game = this.lichess.analysis?.data?.game;
+      return this.lichess.analysis.ongoing;
+      /*const game = this.lichess.analysis?.data?.game;
       if (!game) return false;
       if (game.id=='synthetic') return false;
       if (game.status.id>20) return false;
-      return true;
+      return true;*/
     }
 
     assetUrl(url) {
