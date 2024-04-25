@@ -35,7 +35,8 @@
         'explorerPractice': 'Explorer practice',
         'seeLichessTools': 'see LiChess Tools section below',
         'freezeBoard': 'Freeze board',
-        'randomChapter': 'Random study chapter'
+        'randomChapter': 'Random study chapter',
+        'jumpToCurrent': 'Jump to current position'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -58,7 +59,8 @@
         'explorerPractice': 'Practic\u0103 contra mut\u0103ri din Explorator',
         'seeLichessTools': 'vezi sec\u0163iunea LiChess Tools de mai jos',
         'freezeBoard': '\u00CEnghea\u0163\u0103 tabla',
-        'randomChapter': 'Capitol de studiu aleatoriu'
+        'randomChapter': 'Capitol de studiu aleatoriu',
+        'jumpToCurrent': 'S\u0103ri la pozi\u0163ia curent\u0103'
       }
     }
 
@@ -66,6 +68,7 @@
       const parent=this.lichessTools;
       await parent.timeout(500);
       const lichess=parent.lichess;
+      const analysis=lichess.analysis;
       const trans=parent.translator;
       const $=parent.$;
       const table=$('div.keyboard-help > table tbody');
@@ -116,6 +119,9 @@
         row(['`','!then','f'],'freezeBoard');
         if (parent.currentOptions.getValue('chapterNavigation') && $('div.lichessTools-chapterControls button[data-act="random"]').length) {
           row(['`','!then','r'],'randomChapter');
+        }
+        if (analysis.ongoing) {
+          row(['backspace'],'jumpToCurrent');
         }
       }
       if (parent.currentOptions.getValue('ctrlArrows')) {

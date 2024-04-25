@@ -38,7 +38,7 @@
       this.options = { enabled: value };
       this.logOption('Puzzle perf tab', value);
       const container=$('div.sub-ratings');
-      if (!container) return;
+      if (!container.length) return;
       const userId=this.getUserFromUrl(parent.global.location.pathname);
       if (!userId) return;
       

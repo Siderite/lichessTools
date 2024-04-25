@@ -1,5 +1,20 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 Apr
+  - Backspace to return to current position in correpondence
+
+25 Apr
+  - Coords on each square of the board
+  - Sound options: no move sounds
+  - Denormalize function in PGN Editor
+
+16 Apr
+  - Local evaluation extra chart
+
+15 Apr
+  - performance improvements for Sticky Analysis
+  - PGN Editor compression
+
 14 Apr
   - Resize Explorer
   - Cut result, Search by index, Search invalid games, persistence, send to in PGN Editor

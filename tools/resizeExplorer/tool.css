@@ -1,9 +1,35 @@
-body.lichessTools .explorer-box div.lichessTools-resizeExplorer {
-  height:4px;
+body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer {
+  height:5px;
   background-color: #80808080;
   cursor: ns-resize;
 }
 
-body.lichessTools .explorer-box div.lichessTools-resizeExplorer.dragging {
+body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer div {
+  border-top: 1px solid #909090;
+  border-bottom: 1px solid #909090;
+  height: 3px;
+  width: 10px;
+  margin: 1px auto;
+}
+
+body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer.dragging {
   background-color: green;
+}
+
+body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer.dragging div {
+  display:none;
+}
+/*
+body.lichessTools.mobile .analyse:has(div.analyse__tools div.lichessTools-resizeExplorer) {
+  --explorer-height:30vh;
+  grid-template-rows: auto auto minmax(20em, var(--explorer-height));
+}
+*/
+body.lichessTools.mobile div.analyse__tools div.lichessTools-resizeExplorer {
+  height:7px;
+  margin-top:1px;
+}
+
+body.lichessTools.mobile div.analyse__tools div.lichessTools-resizeExplorer div {
+  margin: 1px auto;
 }

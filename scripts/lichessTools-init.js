@@ -84,6 +84,7 @@ lichessTools.loadTool(LiChessTools.Tools.AutoUnselectPiece);
 lichessTools.loadTool(LiChessTools.Tools.StudyFlairs);
 lichessTools.loadTool(LiChessTools.Tools.MainPageElements);
 lichessTools.loadTool(LiChessTools.Tools.ResizeExplorer);
+lichessTools.loadTool(LiChessTools.Tools.SoundOptions);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

@@ -73,7 +73,7 @@
         let move=null;
         if (uci) {
           const moveFen=this.computeFen(fen,uci);
-          const pos=moveFen.split(' ').slice(0,4).join('').replaceAll('/','');
+          const pos=moveFen.split(' ').slice(0,2).join('').replaceAll('/','');
           const moveResult=parent.gambit_dict[side].get(pos);
           move=moveResult
             ? {
@@ -125,7 +125,7 @@
       if (!parent.inViewport($('section.explorer-box table.moves'))) return;
       const fen=analysis.node.fen;
       const side=analysis.getOrientation();
-      const pos=analysis.node.fen.split(' ').slice(0,4).join('').replaceAll('/','');
+      const pos=analysis.node.fen.split(' ').slice(0,2).join('').replaceAll('/','');
       const result=parent.gambit_dict[side].get(pos);
       this.showGambits(result);
     };

@@ -55,7 +55,7 @@
       const lichess=parent.lichess;
       const study=lichess.analysis.study;
       const chapters=study.chapters.list.all();
-      if (!chapters) return;
+      if (!chapters||!this.chapterData) return;
       const newOrder=chapters.map(c=>c.id);
       const index=newOrder.findIndex(id=>id==this.chapterData.current.id);
       if (index<0||index==chapters.length-1) return;

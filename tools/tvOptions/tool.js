@@ -364,7 +364,7 @@
       const header=$('div.header',metaSection);
       if (this.options.link||this.options.bookmark) {
         const gameId=tvOptions.gameId || lichess.analysis?.data.game?.id;
-        if (gameId&&gameId!=='synthetic') {
+        if (gameId&&gameId!=='synthetic'&&gameId!=='broadcast') {
           if (this.options.link && !header.parent().is('a')) {
             const url='/'+gameId+(tvOptions.isBlack?'/black':'');
             header.wrap($('<a>').attr('href',url).attr('title','LiChess Tools - '+url));

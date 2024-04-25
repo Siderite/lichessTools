@@ -31,4 +31,3 @@ body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-r
 body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-relay-tour) div.analyse__tools:has(.explorer-box) div.pv_box {
   display:none;
 }
-

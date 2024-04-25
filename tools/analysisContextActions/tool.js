@@ -106,6 +106,7 @@
       if (!value) {
         this.evaluateTerminationsTotal=0;
         $('.lichessTools-liveStatus label').text('');
+        this._analysedNode=null;
       }
     };
     
@@ -137,6 +138,7 @@
         return;
       }
       if (node.path===undefined) return;
+      this._analysedNode=node;
       analysis.userJumpIfCan(node.path);
       analysis.redraw();
     };
@@ -313,12 +315,16 @@
         this.setTerminationsEvaluation(false);
         return;
       }
+      if (this._analysedNode && analysis.node!=this._analysedNode) {
+        this.setTerminationsEvaluation(false);
+        return;
+      }
       const state=ceval.getState();
       const isIdle = state==2 || ceval.showingCloud();
       const isRunning = state==3 && !ceval.showingCloud();
-      const node = lichess.analysis.node;
-      if (this.evaluateTerminationsStarted && node.ceval) {
-        if (node.ceval.depth>customEngineDepth || (node.ceval.depth==customEngineDepth && isIdle)) {
+      if (this.evaluateTerminationsStarted) {
+        const node = this._analysedNode;
+        if (node?.ceval?.depth>customEngineDepth || (node?.ceval?.depth==customEngineDepth && isIdle)) {
           this.addEvalComment(node,node.ceval);
         }
       }

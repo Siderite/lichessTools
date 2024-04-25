@@ -91,11 +91,11 @@
       const Math=parent.global.Math;
       if (parent.opening_dict) {
         if (!fen) fen=parent.getPositionFromBoard(el,true);
-        const pos=fen?.split(' ')?.slice(0,4)?.join('')?.replaceAll('/','');
+        const pos=fen?.split(' ')?.slice(0,2)?.join('')?.replaceAll('/','');
         if (pos) {
           let opening=parent.opening_dict.get(pos);
           if (!opening) {
-            const reversed=parent.reverseFen(fen).split(' ')?.slice(0,4)?.join('')?.replaceAll('/','');
+            const reversed=parent.reverseFen(fen).split(' ')?.slice(0,2)?.join('')?.replaceAll('/','');
             const op=parent.opening_dict.get(reversed);
             if (op && op!='*') opening=op+' (R)';
           }
@@ -106,7 +106,7 @@
         }
       }
 
-      if (!gameId || gameId=='synthetic') return;
+      if (!gameId || gameId=='synthetic'|| gameId=='broadcast') return;
 
       const data=el?.openingData;
       if (data) {
@@ -187,8 +187,9 @@
       const trans=parent.translator;
       const tvOptions=parent.getTvOptions();
       const gameId=tvOptions.gameId || lichess.analysis?.data?.game?.id;
+      const fen=lichess.analysis?.node?.fen || lichess.analysis?.data?.game?.fen;
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables',10000);
-      const result = await this.withOpening(gameId,$.cached('main.round, main.analyse, main#board-editor',10000)[0],ply,undefined,false);
+      const result = await this.withOpening(gameId,$.cached('main.round, main.analyse, main#board-editor',10000)[0],ply,fen,false);
       if (!result) {
         metaSection.find('.lichessTools-opening').remove();
         this.showOpeningInExplorer(null);

@@ -80,6 +80,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"]:after 
   font-size: large;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__tools .explorer-box .moves tbody tr.sum {
+  position: sticky;
+  bottom: 0;
+}
 /** Prettier **/
 
 body.lichessTools.lichessTools-prettier.lichessTools-theme_mobile.mobile  main.analyse.has-players:not(.has-relay-tour) .main-board {
