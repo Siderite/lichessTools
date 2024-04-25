@@ -36,12 +36,13 @@
       let container = $('div.main-board > div.cg-wrap > cg-container');
       if (!container.length) return;
       if (container.children('coords.lichessTools-fixCoords').length) return;
+      if (!container.children('coords').length) return;
       const coords=$('<coords class="lichessTools-fixCoords">')
         .appendTo(container);
       for (let rank=1; rank<=8; rank++) {
         for (let file=1; file<=8; file++) {
           $('<coord>')
-            .text(String.fromCharCode(96+rank)+String.fromCharCode(48+file))
+            .text(String.fromCharCode(96+file)+String.fromCharCode(48+rank))
             .css('--rank',rank)
             .css('--file',file)
             .appendTo(coords);
