@@ -4,7 +4,7 @@
     preferences=[
       {
         name:'soundOptions',
-        category: 'analysis',
+        category: 'general',
         type:'multiple',
         possibleValues: ['noMove'],
         defaultValue: false,
