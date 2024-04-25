@@ -1568,6 +1568,10 @@
         $('.lichessTools-pgnEditor',container).remove();
         return;
       }
+      if (parent.isGamePlaying()) {
+        $('.lichessTools-pgnEditor',container).remove();
+        return;
+      }
       if ($('.lichessTools-pgnEditor',container).length) return;
       $('<a class="lichessTools-pgnEditor">')
         .attr('data-icon','\u2E0E')
