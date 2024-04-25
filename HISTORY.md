@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 Apr
+  - Backspace to return to current position in correpondence
+
 25 Apr
   - Coords on each square of the board
   - Sound options: no move sounds
