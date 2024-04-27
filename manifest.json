@@ -116,6 +116,7 @@
         "tools/mainPageElements/tool.js",
         "tools/resizeExplorer/tool.js",
         "tools/soundOptions/tool.js",
+        "tools/playLayout/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -188,6 +189,7 @@
         "tools/studyFlairs/tool.css",
         "tools/mainPageElements/tool.css",
         "tools/resizeExplorer/tool.css",
+        "tools/playLayout/tool.css",
 
         "tools/tvOptions/tool.css",
 

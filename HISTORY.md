@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Apr
+  - Play layout
+
 26 Apr
   - Backspace to return to current position in correpondence
 
