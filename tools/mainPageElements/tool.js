@@ -17,7 +17,7 @@
     intl={
       'en-US':{
         'options.general': 'General',
-        'options.mainPageElements': 'Lobbby page elements',
+        'options.mainPageElements': 'Lobby page elements',
         'mainPageElements.side': 'Side',
         'mainPageElements.app': 'Play grid',
         'mainPageElements.table': 'Play buttons',

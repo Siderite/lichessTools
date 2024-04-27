@@ -15,7 +15,7 @@
     intl={
       'en-US':{
         'options.general': 'General',
-        'options.profilePuzzleTab': 'Puzzle peformance chart in Profile',
+        'options.profilePuzzleTab': 'Puzzle performance chart in Profile',
         'puzzleTabTitle': 'LiChess Tools - Puzzles'
       },
       'ro-RO':{
