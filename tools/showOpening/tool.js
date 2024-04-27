@@ -91,11 +91,11 @@
       const Math=parent.global.Math;
       if (parent.opening_dict) {
         if (!fen) fen=parent.getPositionFromBoard(el,true);
-        const pos=fen?.split(' ')?.slice(0,2)?.join('')?.replaceAll('/','');
+        const pos=parent.getPositionFromFen(fen);
         if (pos) {
           let opening=parent.opening_dict.get(pos);
           if (!opening) {
-            const reversed=parent.reverseFen(fen).split(' ')?.slice(0,2)?.join('')?.replaceAll('/','');
+            const reversed=parent.getPositionFromFen(parent.reverseFen(fen));
             const op=parent.opening_dict.get(reversed);
             if (op && op!='*') opening=op+' (R)';
           }

@@ -456,6 +456,11 @@
       analysis.userJumpIfCan(node.path);
     };
 
+    getPositionFromFen=(fen,deep)=>{
+      if (!fen) return;
+      return fen.split(' ').slice(0,(deep?4:2)).join('').replaceAll('/','');
+    };
+
     getPositionFromBoard=(el,asFen)=>{
       if (!el) return;
       const $=this.$;
