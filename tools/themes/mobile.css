@@ -84,6 +84,11 @@ body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__too
   position: sticky;
   bottom: 0;
 }
+
+body.lichessTools.lichessTools-theme_mobile.mobile main.round div.rcontrols:has(.question) div.ricons {
+  display:none;
+}
+
 /** Prettier **/
 
 body.lichessTools.lichessTools-prettier.lichessTools-theme_mobile.mobile  main.analyse.has-players:not(.has-relay-tour) .main-board {
