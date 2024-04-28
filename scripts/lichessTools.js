@@ -994,7 +994,7 @@
       for (const tool of this.tools) {
         if (!tool?.init) continue;
         try {
-          await tool.init();
+          await tool.init().catch(e=>{ setTimeout(()=>{ throw e; },100); });
         } catch(e) {
           setTimeout(()=>{ throw e; },100);
         }
@@ -1068,7 +1068,7 @@
       for (const tool of this.tools) {
         if (!tool?.start) continue;
         try {
-          await tool.start();
+          await tool.start().catch(e=>{ setTimeout(()=>{ throw e; },100); });
         } catch(e) {
           setTimeout(()=>{ throw e; },100);
         }
