@@ -1,6 +1,5 @@
 /* CSS in preferences should not be under body.lichessTools, as the class can be removed when the extension is disabled */
 
-
 nav.page-menu__menu a.lichessTools-menu span {
   filter: drop-shadow(0px 0px 5px black);
 }
@@ -11,7 +10,7 @@ html.darkBoard nav.page-menu__menu a.lichessTools-menu span {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system nav.page-menu__menu a.lichessTools-menu span {
+  html:not(.dark,.darkBoard,.light) nav.page-menu__menu a.lichessTools-menu span {
     filter: drop-shadow(0px 0px 5px white);
   }
 }

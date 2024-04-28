@@ -27,7 +27,7 @@ body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
       background: darkgreen;
   }
 }
@@ -53,7 +53,7 @@ body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-trans
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {
       background: darkgreen !important;
   }
 }

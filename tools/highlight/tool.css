@@ -20,12 +20,12 @@ body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools .analyse .tview2 move.lichessTools-transposition {
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-transposition {
       background: darkgreen;
   }
 
-  html.system body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
-  html.system body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
       filter: brightness(200%);
   }
 
@@ -152,7 +152,7 @@ body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-trans
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition {
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition {
       background: darkgreen !important;
   }
 }

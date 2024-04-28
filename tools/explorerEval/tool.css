@@ -17,7 +17,7 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
+  html:not(.dark,.darkBoard,.light) body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
       color: #A08080;
   }
 }
@@ -33,7 +33,7 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
+  html:not(.dark,.darkBoard,.light) body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
       color: #80A080;
   }
 }
@@ -49,7 +49,7 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
+  html:not(.dark,.darkBoard,.light) body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
       color: #80FF80;
   }
 }
@@ -65,7 +65,7 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
+  html:not(.dark,.darkBoard,.light) body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
       color: #8080AF;
   }
 }

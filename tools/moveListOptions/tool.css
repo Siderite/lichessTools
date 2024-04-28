@@ -236,8 +236,8 @@ html.transp body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-r
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
-  html.system body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls {
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls {
       background: #101010;
   }
 }

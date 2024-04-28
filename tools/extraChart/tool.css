@@ -39,7 +39,7 @@ html.transp body.lichessTools div.symbol.lichessTools-goodMoves {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools div.symbol.lichessTools-goodMoves {
+  html:not(.dark,.darkBoard,.light) body.lichessTools div.symbol.lichessTools-goodMoves {
     color: #168226;
   }
 }

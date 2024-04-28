@@ -10,7 +10,7 @@ body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active
 
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
+  html:not(.dark,.darkBoard,.light) body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
       color: white;
   }
 }

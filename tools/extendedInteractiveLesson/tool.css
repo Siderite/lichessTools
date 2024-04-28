@@ -13,7 +13,7 @@ body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons butt
 
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview::after {
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview::after {
     color: #bababa;
   	background: #3c3934;
   }
@@ -49,7 +49,7 @@ html.transp body.lichessTools .analyse .gamebook span.lichessTools-score4 {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools  .analyse .gamebook span.lichessTools-score {
+  html:not(.dark,.darkBoard,.light) body.lichessTools  .analyse .gamebook span.lichessTools-score {
     color:#00c000;
   }
 }
@@ -65,7 +65,7 @@ html.transp body.lichessTools .analyse .gamebook span.lichessTools-score3 {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools .analyse .gamebook span.lichessTools-score3 {
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .gamebook span.lichessTools-score3 {
     color:yellow;
   }
 }
@@ -81,7 +81,7 @@ html.transp body.lichessTools .analyse .gamebook span.lichessTools-score2 {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools .analyse .gamebook span.lichessTools-score2 {
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .gamebook span.lichessTools-score2 {
     color:orange;
   }
 }
@@ -97,7 +97,7 @@ html.transp body.lichessTools .analyse .gamebook span.lichessTools-score1 {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools .analyse .gamebook span.lichessTools-score1 {
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .gamebook span.lichessTools-score1 {
     color:#ff4040;
   }
 }
@@ -127,12 +127,12 @@ html.transp body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
-  html.system body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
     background: #3692e7;
   }
 
-  html.system body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move {
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move {
     background: #184065b3;
   }
 }
@@ -177,7 +177,7 @@ html.transp body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-e
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader {
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader {
     background: #303030;
   }
 }

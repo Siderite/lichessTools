@@ -26,7 +26,7 @@ body.lichessTools div.round__app canvas.lichessTools-playerLag {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html.system body.lichessTools div.round__app canvas.lichessTools-playerLag {
+  html:not(.dark,.darkBoard,.light) body.lichessTools div.round__app canvas.lichessTools-playerLag {
     brightness(1.5)
   }
 }
