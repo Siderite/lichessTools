@@ -707,9 +707,9 @@
 
     isDark=()=>{
       const $=this.$;
-      const body=$.cached('body');
-      if (body.is('.light')) return false;
-      if (body.is('.dark,.transp')) return true;
+      const html=$.cached('html');
+      if (html.is('.light')) return false;
+      if (html.is('.dark,.darkBoard,.transp')) return true;
       return this.global.matchMedia && this.global.matchMedia('(prefers-color-scheme: dark)').matches;
     };
 

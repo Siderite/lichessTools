@@ -5,12 +5,13 @@ nav.page-menu__menu a.lichessTools-menu span {
   filter: drop-shadow(0px 0px 5px black);
 }
 
-body.dark nav.page-menu__menu a.lichessTools-menu span {
+html.dark nav.page-menu__menu a.lichessTools-menu span,
+html.darkBoard nav.page-menu__menu a.lichessTools-menu span {
   filter: drop-shadow(0px 0px 5px white);
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.system nav.page-menu__menu a.lichessTools-menu span {
+  html.system nav.page-menu__menu a.lichessTools-menu span {
     filter: drop-shadow(0px 0px 5px white);
   }
 }

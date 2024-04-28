@@ -10,13 +10,14 @@ body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active
 
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.system section.explorer-box span.lichessTools-explorerPractice.active:before {
+  html.system body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
       color: white;
   }
 }
 
-body.lichessTools.dark section.explorer-box span.lichessTools-explorerPractice.active:before, 
-body.lichessTools.transp section.explorer-box span.lichessTools-explorerPractice.active:before {
+html.dark body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before, 
+html.darkBoard body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before, 
+html.transp body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
     color: white;
 }
 

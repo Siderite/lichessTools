@@ -7,16 +7,17 @@ body.lichessTools .lichessTools-chapterControls div[role="footer"] {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.system .lichessTools-chapterControls div[role="footer"] {
+  html.system body.lichessTools .lichessTools-chapterControls div[role="footer"] {
     background: #2D2B29;
   }
 }
 
-body.lichessTools.dark .lichessTools-chapterControls div[role="footer"] {
+html.dark body.lichessTools .lichessTools-chapterControls div[role="footer"],
+html.darkBoard body.lichessTools .lichessTools-chapterControls div[role="footer"] {
   background: #2D2B29;
 }
 
-body.lichessTools.transp .lichessTools-chapterControls div[role="footer"] {
+html.transp body.lichessTools .lichessTools-chapterControls div[role="footer"] {
   background: transparent;
 }
 

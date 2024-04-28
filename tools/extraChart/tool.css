@@ -32,13 +32,14 @@ body.lichessTools div.symbol.lichessTools-goodMoves {
   color: #009914;
 }
 
-body.lichessTools.dark div.symbol.lichessTools-goodMoves,
-body.lichessTools.transp div.symbol.lichessTools-goodMoves {
+html.dark body.lichessTools div.symbol.lichessTools-goodMoves,
+html.darkBoard body.lichessTools div.symbol.lichessTools-goodMoves,
+html.transp body.lichessTools div.symbol.lichessTools-goodMoves {
   color: #168226;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.system div.symbol.lichessTools-goodMoves {
+  html.system body.lichessTools div.symbol.lichessTools-goodMoves {
     color: #168226;
   }
 }
