@@ -192,6 +192,7 @@
         "tools/mainPageElements/tool.css",
         "tools/resizeExplorer/tool.css",
         "tools/playLayout/tool.css",
+        "tools/obsIntegration/tool.css",
 
         "tools/tvOptions/tool.css",
 

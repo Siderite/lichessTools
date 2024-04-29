@@ -965,6 +965,7 @@
 
   comm={
     lichessTools: this,
+    timeout: 2000,
     sendResponses:[],
     init: function() {
       this.lichessTools.global.addEventListener('LichessTools.receive',(ev)=>{
@@ -977,8 +978,10 @@
     },
     send: function(data,sendResponse) {
       const uid=crypto.randomUUID();
-      return new Promise(resolve=>{
+      return new Promise((resolve,reject)=>{
+        const pointer=setTimeout(()=>reject(new Error('Send timeout')),this.timeout);
         const f=(data)=>{
+          clearTimeout(pointer);
           if (sendResponse) sendResponse(data);
           resolve(data);
         };

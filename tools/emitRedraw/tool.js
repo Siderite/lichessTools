@@ -30,6 +30,13 @@
             after: emit
           });
         }
+        if (lichess.analysis.study?.relay?.redraw) {
+          lichess.analysis.study.relay.redraw=parent.unwrapFunction(lichess.analysis.study.relay.redraw,'redraw'); 
+          lichess.analysis.study.relay.redraw=parent.wrapFunction(lichess.analysis.study.relay.redraw,{ 
+            id:'redraw',
+            after: emit
+          });
+        }
         lichess.pubsub.off('analysis.change',emit);
         lichess.pubsub.on('analysis.change',emit);
       }
