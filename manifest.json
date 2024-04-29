@@ -17,7 +17,8 @@
   "permissions": [
   ],
   "host_permissions": [
-    "*://lichess.org/*"
+    "*://lichess.org/*",
+    "*://lichess.dev/*"
   ],
   "content_scripts": [
     {
@@ -117,7 +118,6 @@
         "tools/resizeExplorer/tool.js",
         "tools/soundOptions/tool.js",
         "tools/playLayout/tool.js",
-        "tools/obsIntegration/obs-websocket.js",
         "tools/obsIntegration/tool.js",
 
         "tools/hideBoardCommand/tool.js",
@@ -200,21 +200,39 @@
         "tools/addToTeam/tool.css"
       ],
       "matches": [
-        "*://lichess.org/*"
+        "*://lichess.org/*",
+        "*://lichess.dev/*"
       ],
      "run_at": "document_start",
      "world": "MAIN"
     },
     {
-      "js": ["scripts/lichessTools-start.js"],
+      "js": [
+        "scripts/lichessTools-start.js"
+      ],
       "matches": [
-        "*://lichess.org/*"
+        "*://lichess.org/*",
+        "*://lichess.dev/*"
       ],
      "run_at": "document_end",
      "world": "MAIN"
+    },
+    {
+      "js": [
+        "scripts/lichessTools-comm-proxy.js"
+      ],
+      "matches": [
+        "*://lichess.org/*",
+        "*://lichess.dev/*"
+      ],
+     "run_at": "document_start"
     }
   ],
+  "background": {
+    "service_worker": "scripts/service_worker.js"
+  },
   "action": {
+    "default_title": "LiChess Tools",
     "default_popup": "popup.html"
   }
 }

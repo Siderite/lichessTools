@@ -4,6 +4,7 @@
       if (!cash || !global) throw new Error('usage: new LiChessTools(window, cash)');
       this.$=cash;
       this.global=global;
+      this.comm.init();
     }
   
     $=null;
@@ -959,6 +960,37 @@
     remove: function(key,options) {
       const store=this.getStore(options);
       store.removeItem(key);
+    }
+  };
+
+  comm={
+    lichessTools: this,
+    sendResponses:[],
+    init: function() {
+      this.lichessTools.global.addEventListener('LichessTools.receive',(ev)=>{
+        const sendResponse=this.sendResponses[ev.detail.uid];
+        if (sendResponse) {
+          delete this.sendResponses[ev.detail.uid];
+          sendResponse(ev.detail);
+        }
+      });
+    },
+    send: function(data,sendResponse) {
+      const uid=crypto.randomUUID();
+      return new Promise(resolve=>{
+        const f=(data)=>{
+          if (sendResponse) sendResponse(data);
+          resolve(data);
+        };
+        this.sendResponses[uid]=f;
+        const customEvent = new CustomEvent("LichessTools.send", {
+           detail: {...data,uid:uid},
+           bubbles: true,
+           cancelable: true,
+           composed: false,
+        });
+        window.dispatchEvent(customEvent);
+      });
     }
   };
 
