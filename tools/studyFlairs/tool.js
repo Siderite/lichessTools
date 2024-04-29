@@ -273,7 +273,12 @@
       if (!value) return;
       if (lichess.analysis?.study) {
         if (!this.flairs) {
-          const text=await parent.net.fetch(parent.assetUrl('flair/list.txt'));
+          let text='';
+          try {
+            text=await parent.net.fetch(parent.assetUrl('flair/list.txt'));
+          } catch {
+            parent.global.console.debug('Could not retrieve flair list!');
+          }
           this.flairs=text.split(/[\r\n]+/).map(f=>'flair.'+f.trim());
         }
         this.interval=parent.global.setInterval(this.processStudy,500);
