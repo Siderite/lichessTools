@@ -1,9 +1,8 @@
 importScripts('obs-websocket.js')
 
-  let options=null;
   let obs=null;
 
-  const getObs=async ()=>{
+  const getObs=async (options)=>{
     if (!options) throw new Error('Options not defined');
     if (!options.url) return;
     if (!obs) {
@@ -28,20 +27,17 @@ importScripts('obs-websocket.js')
       obs?.disconnect();
     },
     sceneChange:async (data)=>{
-      const obs=await getObs();
+      const { options, sceneName } = data;
+      const obs=await getObs(options);
       if (!obs) return;
-      await obs.call('SetCurrentProgramScene',data).catch(e=>{ console.debug('Could not set scene',data); });
+      await obs.call('SetCurrentProgramScene',{ sceneName }).catch(e=>{ console.debug('Could not set scene',data); });
     },
-    getScenes:async ()=>{
-      const obs=await getObs();
+    getScenes:async (data)=>{
+      const { options } = data;
+      const obs=await getObs(options);
       if (!obs) return;
-      const response = await obs.call('GetSceneList');
+      const response = await obs.call('GetSceneList').catch(e=>{ console.debug('Could not get scenes',data); });
       return { sceneNames: response.scenes.map(s=>s.sceneName) };
-    },
-    setOptions:async (newOptions)=>{
-      if (JSON.stringify(newOptions)==JSON.stringify(options)) return;
-      obs?.disconnect();
-      options=newOptions;
     }
   };
 
