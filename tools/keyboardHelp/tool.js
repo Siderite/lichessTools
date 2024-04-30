@@ -36,7 +36,8 @@
         'seeLichessTools': 'see LiChess Tools section below',
         'freezeBoard': 'Freeze board',
         'randomChapter': 'Random study chapter',
-        'jumpToCurrent': 'Jump to current position'
+        'jumpToCurrent': 'Jump to current position',
+        'obsIntegration': 'Toggle OBS integration for this broadcast'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -60,7 +61,8 @@
         'seeLichessTools': 'vezi sec\u0163iunea LiChess Tools de mai jos',
         'freezeBoard': '\u00CEnghea\u0163\u0103 tabla',
         'randomChapter': 'Capitol de studiu aleatoriu',
-        'jumpToCurrent': 'S\u0103ri la pozi\u0163ia curent\u0103'
+        'jumpToCurrent': 'S\u0103ri la pozi\u0163ia curent\u0103',
+        'obsIntegration': 'Comut\u0103 integrarea OBS pentru acest broadcast'
       }
     }
 
@@ -141,6 +143,9 @@
       }
       if (parent.currentOptions.getValue('explorerPractice')) {
         row(['shift','l'],'explorerPractice');
+      }
+      if (parent.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
+        row(['0'],'obsIntegration');
       }
     };
 
