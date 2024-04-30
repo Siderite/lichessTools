@@ -7,6 +7,11 @@ body.lichessTools nav.relay-tour__tabs span.lichessTools-obsSetup {
   border-radius:5px;
 }
 
+body.lichessTools span.lichessTools-obsSetup.disabled {
+  color:gray;
+  opacity:0.5;
+}
+
 .togglePassword {
   cursor: pointer;
   float: right;

@@ -24,6 +24,9 @@ importScripts('obs-websocket.js')
   }
 
   const handlers={
+    disconnect:async (data)=>{
+      obs?.disconnect();
+    },
     sceneChange:async (data)=>{
       const obs=await getObs();
       if (!obs) return;

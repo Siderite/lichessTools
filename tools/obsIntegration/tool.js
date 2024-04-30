@@ -21,6 +21,7 @@
         'options.obsIntegration': 'Open Broadcaster Software (OBS)',
         'OBSText': 'OBS',
         'OBSTitle': 'LiChess Tools - Open Broadcaster Software',
+        'OBSTitleDisabled': 'Disabled - right-click or type O to enable',
         'obsSetupText': 'Set up OBS',
         'defaultSceneText': 'Default scene',
         'defaultOptionText': ' - default - ',
@@ -36,6 +37,7 @@
         'options.obsIntegration': 'Open Broadcaster Software (OBS)',
         'OBSText': 'OBS',
         'OBSTitle': 'LiChess Tools - Open Broadcaster Software',
+        'OBSTitleDisabled': 'Blocat - click dreapta sau apas\u0103 O pentru a debloca',
         'obsSetupText': 'Configureaz\u0103 OBS',
         'defaultSceneText': 'Scen\u0103 standard',
         'defaultOptionText': ' - standard - ',
@@ -176,7 +178,8 @@
         url:dialog.find('input[name="url"]').val(),
         password:dialog.find('input[name="password"]').val(),
         connectOptions:dialog.find('input[name="options"]').val(),
-        mappings:{}
+        mappings:{},
+        disabled:false
       };
       dialog.find('.mappings select').each((i,e)=>{
         const sceneName=$(e).val();
@@ -202,17 +205,28 @@
         password:undefined,
         options:undefined,
         mappings: {
-        }
+        },
+        disabled:true
       };
       const setup = {...defaults,...dict[studyId] };
       return setup;
     };
 
-    getSceneName=async (study)=>{
-      const setup=this.getSetup();
+    getSceneName=async (study, setup)=>{
       const currentChapter=study.currentChapter();
       const mapping=setup.mappings[currentChapter[this._chapterKey]]||setup.mappings[this._defaultName];
       return mapping;
+    };
+
+    buttonClicked=(ev)=>{
+      if (![1,3].includes(ev.which)) return;
+      ev.preventDefault();
+      if (ev.which==1) {
+        this.showObsSetup();
+      }
+      if (ev.which==3) {
+        this.toggleButton();
+      }
     };
 
     refreshUI=()=>{
@@ -220,17 +234,17 @@
       const $=parent.$;
       const trans=parent.translator;
       let container=$('nav.relay-tour__tabs');
+      let buttonAdded=false;
       if (container.length) {
         if (!container.find('span.lichessTools-obsSetup').length) {
            $('<span class="lichessTools-obsSetup">')
              .text(trans.noarg('OBSText'))
              .attr('title',trans.noarg('OBSTitle'))
              .attr('role','tab')
-             .on('mousedown',(ev)=>{
-               ev.preventDefault();
-               this.showObsSetup();
-             })
+             .on('mousedown',this.buttonClicked)
+             .on('contextmenu',ev=>ev.preventDefault())
              .appendTo(container);
+           buttonAdded=true;
         }
       }
       container=$('div.study__buttons div.left-buttons.tabs-horiz');
@@ -239,13 +253,16 @@
            $('<span class="lichessTools-obsSetup">')
              .attr('title',trans.noarg('OBSTitle'))
              .attr('role','tab')
-             .on('mousedown',(ev)=>{
-               ev.preventDefault();
-               this.showObsSetup();
-             })
+             .on('mousedown',this.buttonClicked)
+             .on('contextmenu',ev=>ev.preventDefault())
              .append($('<i>').attr('data-icon','\u24CE'))
              .appendTo(container);
+          buttonAdded=true;
         }
+      }
+      if (buttonAdded) {
+        parent.unbindKeyHandler('o',true);
+        parent.bindKeyHandler('o',this.toggleButton);
       }
     };
 
@@ -257,19 +274,44 @@
       this.optionsSet=true;
     };
 
+    toggleButton=()=>{
+      const parent=this.lichessTools;
+      const setup=this.getSetup();
+      setup.disabled=!setup.disabled;
+      const dict=parent.storage.get('LichessTools.obsIntegration')||{};
+      const studyId=parent.lichess.analysis.study.data.id;
+      dict[studyId]=setup;
+      parent.storage.set('LichessTools.obsIntegration',dict);
+      this.refreshObsButtonState(setup.disabled);
+    }
+
+    refreshObsButtonState=(disabled)=>{
+      const parent=this.lichessTools;
+      const trans=parent.translator;
+      const $=parent.$;
+      $('span.lichessTools-obsSetup')
+        .toggleClass('disabled',disabled)
+        .attr('title',trans.noarg('OBSTitle'+(disabled?'Disabled':'')))
+    };
+
     chapterChange=async (chapterId)=>{
-      this.refreshUI();
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       const study=analysis.study;
       if (!this.isBroadcast(study)) return;
+      const setup=this.getSetup();
+      this.refreshObsButtonState(setup.disabled);
+      if (setup.disabled) {
+        return;
+      }
       await this.ensureOptionsSent();
-      const sceneName=await this.getSceneName(study);
-      await parent.comm.send({ 
+      const sceneName=await this.getSceneName(study,setup);
+      parent.comm.send({ 
         type: 'sceneChange',
         sceneName: sceneName
       });
+      this.refreshUI();
     };
 
     isBroadcast=(study)=>{
@@ -292,6 +334,7 @@
     async start() {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
+      const $=parent.$;
       const analysis=lichess.analysis;
       if (!this.isBroadcast(analysis?.study)) return;
       const value=parent.currentOptions.getValue('obsIntegration');
@@ -299,7 +342,12 @@
       lichess.pubsub.off('chapterChange',this.chapterChange);
       lichess.pubsub.off('redraw',this.refreshUI);
       $(parent.global).off('hashchange',this.hashchange);
-      if (!value) return;
+      parent.unbindKeyHandler('o',true);
+      $('span.lichessTools-obsSetup').remove();
+      if (!value) {
+        parent.comm.send({ type: 'disconnect' }).catch(e=>{ parent.global.console.error(e); });
+        return;
+      }
       lichess.pubsub.on('chapterChange',this.chapterChange);
       lichess.pubsub.on('redraw',this.refreshUI);
       this.refreshUI();
