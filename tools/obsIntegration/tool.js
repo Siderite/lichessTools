@@ -221,7 +221,6 @@
     }
 
     getSceneName=async (study, setup)=>{
-console.log('BOARD LIST:',this.isBoardListView());
       if (this.isBoardListView()) return setup.mappings[this._defaultName];
       const currentChapter=study.currentChapter();
       const mapping=setup.mappings[currentChapter[this._chapterKey]]||setup.mappings[this._defaultName];
