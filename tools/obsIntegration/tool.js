@@ -57,7 +57,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       if (parent.global.location.hash='#obsSetup') {
-        parent.global.history.pushState(null, null, ' ');
+        parent.global.history.replaceState(null, null, ' ');
       }
       $('dialog.lichessTools-obsSetup').remove();
     };
@@ -73,7 +73,7 @@
       $('dialog.lichessTools-obsSetup').remove();
 
       if (parent.global.location.hash!='#obsSetup') {
-        parent.global.history.pushState(null, null, '#obsSetup');
+        parent.global.history.replaceState(null, null, '#obsSetup');
       }
       const dialog=$('<dialog class="lichessTools-obsSetup">')
         .append(`
@@ -194,6 +194,7 @@
       parent.storage.set('LichessTools.obsIntegration',dict);
       this.optionsSet=false;
       this.closeDialog();
+      this.refreshObsButtonState(setup.disabled);
     };
 
     getSetup=()=>{
@@ -229,7 +230,8 @@
       }
     };
 
-    refreshUI=()=>{
+    refreshUI=(setup)=>{
+      if (!setup) setup=this.getSetup();
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
@@ -264,6 +266,7 @@
         parent.unbindKeyHandler('o',true);
         parent.bindKeyHandler('o',this.toggleButton);
       }
+      this.refreshObsButtonState(setup.disabled);
     };
 
     ensureOptionsSent=async ()=>{
@@ -301,7 +304,7 @@
       const study=analysis.study;
       if (!this.isBroadcast(study)) return;
       const setup=this.getSetup();
-      this.refreshObsButtonState(setup.disabled);
+      this.refreshUI(setup);
       if (setup.disabled) {
         return;
       }
@@ -311,7 +314,6 @@
         type: 'sceneChange',
         sceneName: sceneName
       });
-      this.refreshUI();
     };
 
     isBroadcast=(study)=>{
