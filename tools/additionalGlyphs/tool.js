@@ -75,8 +75,10 @@
         }
       }
       if (!value) {
-        const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
-        analysis.chessground.setAutoShapes(shapes);
+        if (analysis.chessground) {
+          const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
+          analysis.chessground.setAutoShapes(shapes);
+        }
         return;
       }
       lichess.pubsub.on('redraw',this.drawGlyphs);
