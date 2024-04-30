@@ -93,6 +93,8 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Explorer resize
  - Custom sound options (just disable move sounds, keep the rest)
  - Back to current position in correspondence
+ - Hide chat during play
+ - Broadcast OBS support
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

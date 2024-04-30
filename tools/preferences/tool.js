@@ -188,8 +188,15 @@
           break;
           case 'number': {
             html+=`<group>
-                <div`+(((typeof val==='boolean' && pref.defaultValue===true)||pref.defaultValue?.toString().includes(val))?' class="defaultValue"':'')+`>
+                <div>
                   <input class="form-control" type="number" name="${pref.name}"/>
+                </div></group>`;
+          }
+          break;
+          case 'text': {
+            html+=`<group>
+                <div>
+                  <input class="form-control" type="text" name="${pref.name}"/>
                 </div></group>`;
           }
           break;

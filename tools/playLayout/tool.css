@@ -1,0 +1,33 @@
+body.lichessTools.playing.lichessTools-noSide aside.round__side {
+  display:none;
+}
+
+body.lichessTools.playing.lichessTools-smallSide aside.round__side .mchat {
+  display:none;
+}
+
+
+@media (min-width: 1259.3px) {
+  body.lichessTools.playing.lichessTools-smallSide aside.round__side .game__meta {
+    transform: rotate(-90deg);
+    height: 10em;
+    position: absolute;
+    height: 10em;
+    width: 20em;
+    transform-origin: bottom;
+  }
+
+  body.lichessTools.playing.lichessTools-noSide .round {
+    grid-template-columns:0 var(---col3-uniboard-width) minmax(240px, 400px);
+  }
+
+  body.lichessTools.playing.lichessTools-smallSide .round {
+    grid-template-columns:10em var(---col3-uniboard-width) minmax(240px, 400px);
+  }
+  body.lichessTools.playing.lichessTools-smallSide .round__side:has(ol.mchat__messages li) .game__meta__infos:before {
+    filter: drop-shadow(0px 0px 8px white);
+  }
+  body.lichessTools.playing .round .game__meta__infos.lichessTools-pointer:before {
+    cursor:pointer;
+  }
+}

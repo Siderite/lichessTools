@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChess Tools",
-  "version": "2.3.63",
+  "version": "2.3.68",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -17,7 +17,8 @@
   "permissions": [
   ],
   "host_permissions": [
-    "*://lichess.org/*"
+    "*://lichess.org/*",
+    "*://lichess.dev/*"
   ],
   "content_scripts": [
     {
@@ -116,6 +117,8 @@
         "tools/mainPageElements/tool.js",
         "tools/resizeExplorer/tool.js",
         "tools/soundOptions/tool.js",
+        "tools/playLayout/tool.js",
+        "tools/obsIntegration/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -188,6 +191,8 @@
         "tools/studyFlairs/tool.css",
         "tools/mainPageElements/tool.css",
         "tools/resizeExplorer/tool.css",
+        "tools/playLayout/tool.css",
+        "tools/obsIntegration/tool.css",
 
         "tools/tvOptions/tool.css",
 
@@ -196,21 +201,39 @@
         "tools/addToTeam/tool.css"
       ],
       "matches": [
-        "*://lichess.org/*"
+        "*://lichess.org/*",
+        "*://lichess.dev/*"
       ],
      "run_at": "document_start",
      "world": "MAIN"
     },
     {
-      "js": ["scripts/lichessTools-start.js"],
+      "js": [
+        "scripts/lichessTools-start.js"
+      ],
       "matches": [
-        "*://lichess.org/*"
+        "*://lichess.org/*",
+        "*://lichess.dev/*"
       ],
      "run_at": "document_end",
      "world": "MAIN"
+    },
+    {
+      "js": [
+        "scripts/lichessTools-comm-proxy.js"
+      ],
+      "matches": [
+        "*://lichess.org/*",
+        "*://lichess.dev/*"
+      ],
+     "run_at": "document_start"
     }
   ],
+  "background": {
+    "service_worker": "scripts/service_worker.js"
+  },
   "action": {
+    "default_title": "LiChess Tools",
     "default_popup": "popup.html"
   }
 }

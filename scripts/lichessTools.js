@@ -4,6 +4,7 @@
       if (!cash || !global) throw new Error('usage: new LiChessTools(window, cash)');
       this.$=cash;
       this.global=global;
+      this.comm.init();
     }
   
     $=null;
@@ -456,6 +457,11 @@
       analysis.userJumpIfCan(node.path);
     };
 
+    getPositionFromFen=(fen,deep)=>{
+      if (!fen) return;
+      return fen.split(' ').slice(0,(deep?4:2)).join('').replaceAll('/','');
+    };
+
     getPositionFromBoard=(el,asFen)=>{
       if (!el) return;
       const $=this.$;
@@ -702,9 +708,9 @@
 
     isDark=()=>{
       const $=this.$;
-      const body=$.cached('body');
-      if (body.is('.light')) return false;
-      if (body.is('.dark,.transp')) return true;
+      const html=$.cached('html');
+      if (html.is('.light')) return false;
+      if (html.is('.dark,.darkBoard,.transp')) return true;
       return this.global.matchMedia && this.global.matchMedia('(prefers-color-scheme: dark)').matches;
     };
 
@@ -957,6 +963,40 @@
     }
   };
 
+  comm={
+    lichessTools: this,
+    timeout: 2000,
+    sendResponses:[],
+    init: function() {
+      this.lichessTools.global.addEventListener('LichessTools.receive',(ev)=>{
+        const sendResponse=this.sendResponses[ev.detail.uid];
+        if (sendResponse) {
+          delete this.sendResponses[ev.detail.uid];
+          sendResponse(ev.detail);
+        }
+      });
+    },
+    send: function(data,sendResponse) {
+      const uid=crypto.randomUUID();
+      return new Promise((resolve,reject)=>{
+        const pointer=setTimeout(()=>reject(new Error('Send timeout')),this.timeout);
+        const f=(data)=>{
+          clearTimeout(pointer);
+          if (sendResponse) sendResponse(data);
+          resolve(data);
+        };
+        this.sendResponses[uid]=f;
+        const customEvent = new CustomEvent("LichessTools.send", {
+           detail: {...data,uid:uid},
+           bubbles: true,
+           cancelable: true,
+           composed: false,
+        });
+        window.dispatchEvent(customEvent);
+      });
+    }
+  };
+
     tools=[];
     loadTool(toolClass) {
       const setTimeout=this.global.setTimeout;
@@ -989,7 +1029,7 @@
       for (const tool of this.tools) {
         if (!tool?.init) continue;
         try {
-          await tool.init();
+          await tool.init().catch(e=>{ setTimeout(()=>{ throw e; },100); });
         } catch(e) {
           setTimeout(()=>{ throw e; },100);
         }
@@ -1063,7 +1103,7 @@
       for (const tool of this.tools) {
         if (!tool?.start) continue;
         try {
-          await tool.start();
+          await tool.start().catch(e=>{ setTimeout(()=>{ throw e; },100); });
         } catch(e) {
           setTimeout(()=>{ throw e; },100);
         }

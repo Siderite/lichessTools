@@ -20,26 +20,29 @@ body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.system .analyse .tview2 move.lichessTools-transposition {
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-transposition {
       background: darkgreen;
   }
 
-  body.lichessTools.system .analyse .tview2 move.lichessTools-lastInLine,
-  body.lichessTools.system .analyse .tview2 move.lichessTools-inCheck {
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
       filter: brightness(200%);
   }
 
 }
 
-body.lichessTools.dark .analyse .tview2 move.lichessTools-transposition,
-body.lichessTools.transp .analyse .tview2 move.lichessTools-transposition {
+html.dark body.lichessTools .analyse .tview2 move.lichessTools-transposition,
+html.darkBoard body.lichessTools .analyse .tview2 move.lichessTools-transposition,
+html.transp body.lichessTools .analyse .tview2 move.lichessTools-transposition {
     background: darkgreen;
 }
 
-body.lichessTools.dark .analyse .tview2 move.lichessTools-lastInLine,
-body.lichessTools.transp .analyse .tview2 move.lichessTools-lastInLine,
-body.lichessTools.dark .analyse .tview2 move.lichessTools-inCheck,
-body.lichessTools.transp .analyse .tview2 move.lichessTools-inCheck {
+html.dark body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
+html.dark body.lichessTools .analyse .tview2 move.lichessTools-inCheck,
+html.darkBoard body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
+html.darkBoard body.lichessTools .analyse .tview2 move.lichessTools-inCheck,
+html.transp body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
+html.transp body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
     filter: brightness(200%);
 }
 
@@ -149,13 +152,14 @@ body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-trans
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.lichessTools-prettier.system .analyse .tview2 move.lichessTools-transposition {
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition {
       background: darkgreen !important;
   }
 }
 
-body.lichessTools.lichessTools-prettier.dark .analyse .tview2 move.lichessTools-transposition,
-body.lichessTools.lichessTools-prettier.transp .analyse .tview2 move.lichessTools-transposition {
+html.dark body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition,
+html.darkBoard body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition,
+html.transp body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition {
     background: darkgreen !important;
 }
 

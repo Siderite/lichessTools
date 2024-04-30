@@ -26,13 +26,14 @@ body.lichessTools div.round__app canvas.lichessTools-playerLag {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.system div.round__app canvas.lichessTools-playerLag {
+  html:not(.dark,.darkBoard,.light) body.lichessTools div.round__app canvas.lichessTools-playerLag {
     brightness(1.5)
   }
 }
 
-body.lichessTools.transp div.round__app canvas.lichessTools-playerLag,
-body.lichessTools.dark div.round__app canvas.lichessTools-playerLag {
+html.transp body.lichessTools div.round__app canvas.lichessTools-playerLag,
+html.dark body.lichessTools div.round__app canvas.lichessTools-playerLag,
+html.darkBoard body.lichessTools div.round__app canvas.lichessTools-playerLag {
   brightness(1.5)
 }
 

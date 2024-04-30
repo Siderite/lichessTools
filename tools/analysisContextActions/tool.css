@@ -27,13 +27,14 @@ body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.system .analyse .tview2 move.lichessTools-transpositionAll {
+  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
       background: darkgreen;
   }
 }
 
-body.lichessTools.transp .analyse .tview2 move.lichessTools-transpositionAll,
-body.lichessTools.dark .analyse .tview2 move.lichessTools-transpositionAll {
+html.transp body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll,
+html.darkBoard body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll,
+html.dark body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
     background: darkgreen;
 }
 
@@ -52,12 +53,13 @@ body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-trans
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.lichessTools-prettier.system .analyse .tview2 move.lichessTools-transpositionAll {
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {
       background: darkgreen !important;
   }
 }
 
-body.lichessTools.lichessTools-prettier.dark .analyse .tview2 move.lichessTools-transpositionAll,
-body.lichessTools.lichessTools-prettier.transp .analyse .tview2 move.lichessTools-transpositionAll {
+html.dark body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll,
+html.darkBoard body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll,
+html.transp body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {
     background: darkgreen !important;
 }

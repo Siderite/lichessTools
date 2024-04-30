@@ -226,16 +226,18 @@ body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) d
   background:#edebe9;
 }
 
-body.lichessTools.lichessTools-analysisPopup.dark main.analyse:not(.has-relay-tour) div.analyse__tools,
-body.lichessTools.lichessTools-analysisPopup.dark main.analyse:not(.has-relay-tour) div.analyse__controls,
-body.lichessTools.lichessTools-analysisPopup.transp main.analyse:not(.has-relay-tour) div.analyse__tools,
-body.lichessTools.lichessTools-analysisPopup.transp main.analyse:not(.has-relay-tour) div.analyse__controls {
+html.dark body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
+html.dark body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls,
+html.darkBoard body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
+html.darkBoard body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls,
+html.transp body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
+html.transp body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls {
   background:#101010;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  body.lichessTools.lichessTools-analysisPopup.system main.analyse:not(.has-relay-tour) div.analyse__tools,
-  body.lichessTools.lichessTools-analysisPopup.system main.analyse:not(.has-relay-tour) div.analyse__controls {
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
+  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls {
       background: #101010;
   }
 }
