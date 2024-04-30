@@ -46,6 +46,7 @@ body.lichessTools span.mini-game__user img.flag {
   font-size: x-small;
 }
 
+/*
 @keyframes lichessTools-wave {
   0% {
     transform: rotate3d(0, 1, 0, 0deg) skew(0deg,0deg);
@@ -67,7 +68,7 @@ body.lichessTools span.mini-game__user img.flag {
 body.lichessTools .lichessTools-flag+img.flag {
   transform-origin: left;
   animation: lichessTools-wave 10s linear infinite;
-}
+}*/
 
 @media (max-width: 799.29px) and (orientation: portrait) {
   body.lichessTools .ruser {
