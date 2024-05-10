@@ -1,6 +1,6 @@
 body.lichessTools.lichessTools-hideBoard main.analyse
 {
-  --col3-uniboard-width:0;
+  ---col3-uniboard-width:0;
 }
 
 body.lichessTools.lichessTools-hideBoard main.analyse .analyse__board,

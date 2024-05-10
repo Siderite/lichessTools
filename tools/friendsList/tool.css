@@ -124,7 +124,7 @@ body.lichessTools tr.lichessTools-online {
 
 body.lichessTools div.lichessTools-liveButtons {
   float:right;
-  padding-right: var(--box-padding);
+  padding-right: var(---box-padding);
   height:3em;
 }
 
