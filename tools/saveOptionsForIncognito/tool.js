@@ -49,7 +49,12 @@
         if (!userId) return options;
         const gameId = await this.getStorageGameId(userId);
         if (!gameId) return options;
-        const text=await parent.net.fetch({url:'/{gameId}/note',args:{gameId:gameId}});
+        let text='';
+        try {
+          text=await parent.net.fetch({url:'/{gameId}/note',args:{gameId:gameId}});
+        } catch(e) {
+          parent.global.console.warn('Could not get incognito preferences',e);
+        }
         if (text) {
           const m=/^(.*?)\r\n---- LiChess Tools Preferences ----\r\n(.*)$/.exec(text);
           if (m) {
