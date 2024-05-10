@@ -15,7 +15,7 @@
         name:'mobileExperienceRound',
         category: 'general',
         type:'multiple',
-        possibleValues: ['shapeDrawingRound','standardButtons'],
+        possibleValues: ['shapeDrawingRound','standardButtons','invert'],
         defaultValue: '',
         advanced: true
       },
@@ -42,6 +42,7 @@
         'mobileExperience.randomNextMove':'Random move button',
         'mobileExperienceRound.shapeDrawingRound':'Game arrows',
         'mobileExperienceRound.standardButtons':'Standard buttons',
+        'mobileExperienceRound.invert':'Swap user and clock',
         'shapeDrawingTitle': 'LiChess Tools - draw arrows and circles',
         'randomNextMoveTitle': 'LiChess Tools - random move',
         'colorCount.1': 'one',
@@ -62,6 +63,7 @@
         'mobileExperience.randomNextMove':'Buton mutare aleatoare',
         'mobileExperienceRound.shapeDrawingRound':'S\u0103ge\u0163i \u00een joc',
         'mobileExperienceRound.standardButtons':'Butoane standard',
+        'mobileExperienceRound.invert':'Inverseaz\u0103 user \u015fi ceas',
         'shapeDrawingTitle': 'LiChess Tools - deseneaz\u0103 s\u0103ge\u0163i \u015Fi cercuri',
         'randomNextMoveTitle': 'LiChess Tools - mutare aleatoare',
         'colorCount.1': 'una',
@@ -216,7 +218,8 @@
       };
       if (isRound) {
         $('main')
-          .toggleClass('lichessTools-standardButtons',this.options.standardButtons)
+          .toggleClass('lichessTools-invert',this.options.invert)
+          .toggleClass('lichessTools-standardButtons',this.options.standardButtons);
         wrap=$('main div.cg-wrap.lichessTools-boardOverlay');
         if (this.options.shapeDrawingRound) {
           if (!wrap.length) {
@@ -259,7 +262,7 @@
         if (this.options.randomNextMove) {
           if (!$('div.analyse__controls div.jumps button.lichessTools-randomNextMove').length) {
             $('<button class="fbt">')
-              .attr('data-icon','\uE035')
+              .attr('data-icon','\u21C9')
               .attr('title',trans.noarg('randomNextMoveTitle'))
               .addClass('lichessTools-randomNextMove')
               .insertBefore($('div.analyse__controls div.jumps button[data-act="next"]'));
@@ -342,6 +345,7 @@
         randomNextMove:parent.isOptionSet(mobileExperience,'randomNextMove'),
         shapeDrawingRound:parent.isOptionSet(mobileExperienceRound,'shapeDrawingRound'),
         standardButtons:parent.isOptionSet(mobileExperienceRound,'standardButtons'),
+        invert:parent.isOptionSet(mobileExperienceRound,'invert'),
         colorCount: colorCount
       };
       const lichess=parent.lichess;

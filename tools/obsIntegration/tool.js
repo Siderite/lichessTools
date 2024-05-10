@@ -67,7 +67,6 @@
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!this.isBroadcast(analysis?.study)) return;
-      await this.ensureOptionsSent();
       const $=parent.$;
       const trans=parent.translator;
       $('dialog.lichessTools-obsSetup').remove();
@@ -129,7 +128,8 @@
           this.closeDialog();
         });
 
-      const scenes=await parent.comm.send({ type: 'getScenes' }).catch(e=>{ parent.global.console.error(e); });
+      const setup=await this.getSetup();
+      const scenes=await parent.comm.send({ type: 'getScenes',options:{url:setup.url,password:setup.password,connectOptions:setup.connectOptions} }).catch(e=>{ parent.global.console.error(e); });
       const template=$('<select>')
         .append($('<option value=""></option>').text(trans.noarg('defaultOptionText')));
       for (const sceneName of scenes?.sceneNames||[]) {
@@ -139,7 +139,6 @@
           .appendTo(template);
       }
       const chapters=analysis.study.chapters.list.all();
-      const setup=await this.getSetup();
       const container=$('div.mappings',dialog);
       let index=0;
       $('<label>')
@@ -213,7 +212,16 @@
       return setup;
     };
 
+    isBoardListView=()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
+      const study=analysis.study;
+      return !!study.relay?.tourShow();
+    }
+
     getSceneName=async (study, setup)=>{
+      if (this.isBoardListView()) return setup.mappings[this._defaultName];
       const currentChapter=study.currentChapter();
       const mapping=setup.mappings[currentChapter[this._chapterKey]]||setup.mappings[this._defaultName];
       return mapping;
@@ -267,14 +275,11 @@
         parent.bindKeyHandler('o',this.toggleButton);
       }
       this.refreshObsButtonState(setup.disabled);
-    };
-
-    ensureOptionsSent=async ()=>{
-      const parent=this.lichessTools;
-      if (this.optionsSet) return;
-      const setup=this.getSetup();
-      await parent.comm.send({...setup,type: 'setOptions'});
-      this.optionsSet=true;
+      const isListView=this.isBoardListView();
+      if (this.prevIsBoardListView!=isListView) {
+        this.prevIsBoardListView=isListView;
+        this.chapterChange();
+      }
     };
 
     toggleButton=()=>{
@@ -308,11 +313,11 @@
       if (setup.disabled) {
         return;
       }
-      await this.ensureOptionsSent();
       const sceneName=await this.getSceneName(study,setup);
       parent.comm.send({ 
         type: 'sceneChange',
-        sceneName: sceneName
+        sceneName: sceneName,
+        options:{url:setup.url,password:setup.password,connectOptions:setup.connectOptions}
       });
     };
 
@@ -347,7 +352,7 @@
       parent.unbindKeyHandler('o',true);
       $('span.lichessTools-obsSetup').remove();
       if (!value) {
-        parent.comm.send({ type: 'disconnect' }).catch(e=>{ parent.global.console.error(e); });
+        parent.comm.send({ type: 'disconnect' }).catch(e=>{ parent.global.console.error('Error disconnecting:',e); });
         return;
       }
       lichess.pubsub.on('chapterChange',this.chapterChange);

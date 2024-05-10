@@ -2,7 +2,7 @@
   body.lichessTools main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge {
     left: -0.5em;
     width: 1em;
-    height: var(---cg-height, var(--cg-height));
+    height: var(---cg-height);
     position: absolute;
     display: block;
     z-index: 1;
@@ -49,7 +49,14 @@ body.lichessTools button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
 
 body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
   flex: 1 1 1em;
+  font-size: 1.5em;
+  margin-top: -0.6em;
 }                     
+
+body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disabled) .lichessTools-randomNextMove {
+  opacity: .5;
+  cursor: default;
+}
 
 @media (max-width: 500px) {
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls:not(.lichessTools-liveStatus) {
@@ -118,6 +125,10 @@ body.lichessTools.mobile.playing.lichessTools-lockBoard {
   position:fixed;
 }
 
+body.lichessTools.mobile.playing div.lichessTools-lockBoard:before {
+  font-size: 1.75em;
+}
+
 body.lichessTools.mobile:not(.lichessTools-lockBoard) div.lichessTools-lockBoard {
   transform: rotate(60deg);
   opacity:0.3;
@@ -131,6 +142,17 @@ body.lichessTools:not(.playing) div.lichessTools-lockBoard {
 
 body.lichessTools.mobile button.hidden+button.lichessTools-shapeDrawing {
   display:none;
+}
+@media (max-width: 799.29px) and (orientation: portrait) {
+  body.lichessTools.mobile main.lichessTools-invert .round__app .ruser-bottom,
+  body.lichessTools.mobile main.lichessTools-invert .round__app .ruser-top {
+    justify-self: end;
+  }
+
+  body.lichessTools.mobile main.lichessTools-invert .round__app .rclock-bottom,
+  body.lichessTools.mobile main.lichessTools-invert .round__app .rclock-top {
+    justify-self: start;
+  }
 }
 
 /* Prettier Lichess CSS */

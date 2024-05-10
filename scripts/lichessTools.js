@@ -35,13 +35,15 @@
     arrayRemoveAll(arr,predicate) {
       if (!arr?.length) return;
       let i=0;
+      let result=[];
       while (i<arr.length) {
         if (predicate(arr[i])) {
-          arr.splice(i,1);
+          result=result.concat(arr.splice(i,1));
         } else {
           i++;
         }
       }
+      return result;
     }
 
     isWrappedFunction(func,id) {

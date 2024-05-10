@@ -1,5 +1,5 @@
   window.addEventListener('LichessTools.send',async (ev)=>{
-    const extensionId=chrome.runtime.id;
+    const extensionId=chrome?.runtime?.id;
     if (!extensionId) return;
     const uid=ev.detail.uid;
     const response=await chrome.runtime.sendMessage(ev.detail);

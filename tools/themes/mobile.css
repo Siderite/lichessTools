@@ -1,12 +1,8 @@
 /* Mobile */
 
 body.lichessTools.lichessTools-theme_mobile.mobile {
-  --site-header-height: 30px;
-  --site-header-margin: 4px;
-}
-
-body.lichessTools.lichessTools-theme_mobile.mobile #top {
-  --dropdown-top: 30px;
+  ---site-header-height: 30px;
+  ---site-header-margin: 4px;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) {

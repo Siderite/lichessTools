@@ -47,6 +47,10 @@ body.lichessTools cg-board label.lichessTools-explorerPractice.black span {
   text-shadow: 1px 1px #808080;
 }
 
+body.lichessTools main:has(.analyse__tools .lichessTools-explorerPractice.active) div.analyse__controls button[data-act="practice"] {
+  display:none;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier section.explorer-box span.lichessTools-explorerPractice.active:before {

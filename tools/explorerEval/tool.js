@@ -280,9 +280,15 @@
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!this.options.evalRows) {
         if (!explorerMoves?.length) return;
-        if (!parent.inViewport($('section.explorer-box table.moves'))) return;
+        if (!parent.inViewport($('section.explorer-box table.moves'))) {
+          this.doEvaluationDebounced();
+          return;
+        }
       } else {
-        if (!parent.inViewport($('section.explorer-box'))) return;
+        if (!parent.inViewport($('section.explorer-box'))) {
+          this.doEvaluationDebounced();
+          return;
+        }
       }
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;

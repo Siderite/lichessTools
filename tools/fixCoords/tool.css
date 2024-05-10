@@ -40,6 +40,7 @@ body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools
   z-index: 2;
   text-shadow: 1px 1px black;
   font-size: 1.1em;
+  pointer-events: none;
 }
 
 body.lichessTools.lichessTools-fixCoords-square .orientation-black cg-container coords.lichessTools-fixCoords>coord {
