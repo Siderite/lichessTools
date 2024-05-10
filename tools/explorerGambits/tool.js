@@ -122,7 +122,10 @@
       if (parent.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!explorerMoves?.length) return;
-      if (!parent.inViewport($('section.explorer-box table.moves'))) return;
+      if (!parent.inViewport($('section.explorer-box table.moves'))) {
+        this.findGambitsDebounced();
+        return;
+      }
       const fen=analysis.node.fen;
       const side=analysis.getOrientation();
       const pos=parent.getPositionFromFen(analysis.node.fen);
