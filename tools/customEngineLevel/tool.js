@@ -1,6 +1,8 @@
 (()=>{
   class CustomEngineLevelTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['EmitRedraw'];
+
     preferences=[
       {
         name:'customEngineLevel',
