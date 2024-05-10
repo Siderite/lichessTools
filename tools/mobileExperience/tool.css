@@ -118,6 +118,10 @@ body.lichessTools.mobile.playing.lichessTools-lockBoard {
   position:fixed;
 }
 
+body.lichessTools.mobile.playing div.lichessTools-lockBoard:before {
+  font-size: 1.75em;
+}
+
 body.lichessTools.mobile:not(.lichessTools-lockBoard) div.lichessTools-lockBoard {
   transform: rotate(60deg);
   opacity:0.3;
