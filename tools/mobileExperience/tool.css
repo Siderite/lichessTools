@@ -49,7 +49,14 @@ body.lichessTools button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
 
 body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
   flex: 1 1 1em;
+  font-size: 1.5em;
+  margin-top: -0.6em;
 }                     
+
+body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disabled) .lichessTools-randomNextMove {
+  opacity: .5;
+  cursor: default;
+}
 
 @media (max-width: 500px) {
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls:not(.lichessTools-liveStatus) {

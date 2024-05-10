@@ -259,7 +259,7 @@
         if (this.options.randomNextMove) {
           if (!$('div.analyse__controls div.jumps button.lichessTools-randomNextMove').length) {
             $('<button class="fbt">')
-              .attr('data-icon','\uE035')
+              .attr('data-icon','\u21C9')
               .attr('title',trans.noarg('randomNextMoveTitle'))
               .addClass('lichessTools-randomNextMove')
               .insertBefore($('div.analyse__controls div.jumps button[data-act="next"]'));
