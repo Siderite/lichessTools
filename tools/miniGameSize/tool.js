@@ -28,7 +28,9 @@
       const value=+(parent.currentOptions.getValue('miniGameSize'));
       this.logOption('Mini-game size', value || 'Not set');
       $.cached('body').toggleClass('lichessTools-miniGameSize',!!value);
-      $.cached('body')[0].style.setProperty('--lichessToolsMiniGameSize',value+'rem');
+      if (value) {
+        $.cached('body')[0].style.setProperty('--lichessToolsMiniGameSize',value+'rem');
+      }
     }
 
   }
