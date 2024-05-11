@@ -34,6 +34,7 @@
         "tools/interceptTimeouts/tool.js",
         "tools/fixAbortController/tool.js",
         "tools/fixChessgroundResize/tool.js",
+        "tools/fixWakeLock/tool.js",
         "tools/emitRedraw/tool.js",
         "tools/emitChapterChange/tool.js",
         "tools/gamebookPlayClass/tool.js",
