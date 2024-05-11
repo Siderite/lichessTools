@@ -38,7 +38,7 @@
         },
         after:($this,result)=>{
           return result || Promise.resolve({ 
-            release:function() {}
+            release:async function() {}
           });
         }
       });
