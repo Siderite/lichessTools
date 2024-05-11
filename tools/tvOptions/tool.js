@@ -366,7 +366,7 @@
         const gameId=tvOptions.gameId || lichess.analysis?.data.game?.id;
         if (gameId&&gameId!=='synthetic'&&gameId!=='broadcast') {
           if (this.options.link && !header.parent().is('a')) {
-            const url='/'+gameId+(tvOptions.isBlack?'/black':'');
+            const url='/'+gameId+(tvOptions.isBlack?'/black':'/white');
             header.wrap($('<a>').attr('href',url).attr('title','LiChess Tools - '+url));
           }
           if (this.options.bookmark && !header.has('a.bookmark').length) {
@@ -405,7 +405,7 @@
                 const gameId=m[1];
                 const color=m[2];
                 await parent.timeout(500);
-                text=await parent.net.fetch({url:'/{gameId}'+(color=='White'?'':'/black')+'/mini',args:{gameId:gameId}});
+                text=await parent.net.fetch({url:'/{gameId}'+(color=='White'?'/white':'/black')+'/mini',args:{gameId:gameId}});
                 if (!text) continue;
                 container.append(text);
               }
