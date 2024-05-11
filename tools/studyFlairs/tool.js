@@ -52,7 +52,7 @@
               .on('click',ev=>{
                 ev.preventDefault();
                 const close=()=>flairPicker.removeClass('emoji-done').empty();
-                lichess.asset.loadEsm("flairPicker", {
+                lichess.asset.loadEsm("bits.flairPicker", {
                   init: {
                     element: flairPicker[0],
                     close: close,
