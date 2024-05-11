@@ -177,7 +177,7 @@
       };
       lichess.pubsub.off('socket.lag',this.onLag);
       lichess.pubsub.off('socket.in.mlat',this.onLatency);
-      $('.round__app .ruser-top a.user-link canvas.lichessTools-playerLag,.round__app .ruser-bottom a.user-link canvas.lichessTools-playerLag').remove();
+      $('.round__app .ruser-top a.user-link .lichessTools-playerLag,.round__app .ruser-bottom a.user-link .lichessTools-playerLag').remove();
       if (!this.options.isSet) return;
       lichess.pubsub.emit('socket.send', 'moveLat', true);
       lichess.pubsub.on('socket.lag',this.onLag);
