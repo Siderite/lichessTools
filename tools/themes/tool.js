@@ -8,7 +8,7 @@
         name:'themes',
         category: 'general',
         type:'multiple',
-        possibleValues: ['performance','justExplorer','mobile','slimArrows','flairX','lessIcons','nonStickyHeader'],
+        possibleValues: ['performance','justExplorer','mobile','slimArrows','flairX','lessIcons','nonStickyHeader','noStudyChat'],
         defaultValue: '',
         advanced: true
       }
@@ -25,7 +25,8 @@
         'themes.slimArrows':'Slim arrows',
         'themes.flairX':'Nicer flairs',
         'themes.lessIcons':'Less Icons',
-        'themes.nonStickyHeader':'No sticky header'
+        'themes.nonStickyHeader':'No sticky header',
+        'themes.noStudyChat':'No study chat'
       },
       'ro-RO':{
         'options.general': 'General',
@@ -37,7 +38,8 @@
         'themes.slimArrows':'S\u0103ge\u0163i sub\u0163iri',
         'themes.flairX':'Flair-uri mai bune',
         'themes.lessIcons':'Mai pu\u0163ine pictograme',
-        'themes.nonStickyHeader':'Antet fix \u00een pagin\u0103'
+        'themes.nonStickyHeader':'Antet fix \u00een pagin\u0103',
+        'themes.noStudyChat':'F\u0103r\u0103 chat \u00eeen studii'
       }
     }
 
