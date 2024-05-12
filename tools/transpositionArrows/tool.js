@@ -1,7 +1,7 @@
 (()=>{
   class TranspositionArrowsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw'];
+    dependencies=['EmitRedraw','RandomVariation'];
 
     preferences=[
       {
