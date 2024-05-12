@@ -116,6 +116,7 @@
       }
       lichess.pubsub.off('chapterChange',this.addDivider);
       lichess.pubsub.off('redraw',this.addDivider);
+      analysis.explorer.setNode=parent.unwrapFunction(analysis.explorer.setNode,'resizeExplorer');
       if (!value) {
         const explorerBox=$('main.analyse .analyse__tools .explorer-box');
         explorerBox.css({ minHeight:'',maxHeight:'' });
@@ -125,6 +126,12 @@
       }
       lichess.pubsub.on('chapterChange',this.addDivider);
       lichess.pubsub.on('redraw',this.addDivider);
+      analysis.explorer.setNode=parent.wrapFunction(analysis.explorer.setNode,{
+        id:'resizeExplorer',
+        after:($this,result,...args)=>{
+          this.addDivider();
+        }
+      });
       this.height=lichess.storage.get('LichessTools.resizeExplorer');
       if (this.height) this.height=JSON.parse(this.height);
       this.addDivider();
