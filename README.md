@@ -79,7 +79,8 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - freeze board in analysis
  - download all studies of a player
  - larger coordinates, outside coordinates in Analysis
- - Profile date interval label and Puzzle statistics tab
+ - Profile date interval options
+ - Puzzle statistics tab
  - #readgame URL to read games in analysis/study
  - restore position in the move list in study chapters on page refresh
  - move assistant shows evaluation on selected piece destinations

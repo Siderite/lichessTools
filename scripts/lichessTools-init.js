@@ -71,7 +71,7 @@ lichessTools.loadTool(LiChessTools.Tools.StudyLearnFromMistakes);
 lichessTools.loadTool(LiChessTools.Tools.PinOnMainPage);
 lichessTools.loadTool(LiChessTools.Tools.PgnEditor);
 lichessTools.loadTool(LiChessTools.Tools.PlayerLag);
-lichessTools.loadTool(LiChessTools.Tools.ProfileSliderText);
+lichessTools.loadTool(LiChessTools.Tools.ProfileSlider);
 lichessTools.loadTool(LiChessTools.Tools.FixCoords);
 lichessTools.loadTool(LiChessTools.Tools.DownloadAllStudies);
 lichessTools.loadTool(LiChessTools.Tools.ProfilePuzzleTab);

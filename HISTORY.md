@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+12 May
+  - Profile slider options
+
 10 May
   - Swap user and clock during play on mobile
   - new Play layout option 

@@ -13,3 +13,13 @@ body.lichessTools .time-selector-buttons label.lichessTools-profileSliderText {
   text-align: end;
   margin-right:2em;
 }
+
+body.lichessTools #time-range-slider.lichessTools-moreToTheLeft {
+  border-left:none;
+  border-radius:0;
+}
+
+body.lichessTools #time-range-slider.lichessTools-moreToTheLeft {
+  border-right:none;
+  border-radius:0;
+}
