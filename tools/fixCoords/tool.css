@@ -39,13 +39,19 @@ body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools
   color: white;
   z-index: 2;
   text-shadow: 1px 1px black;
-  font-size: 1.1em;
   pointer-events: none;
+  opacity:calc(var(---board-opacity) / 100);
+  font-size: max(8px, calc(var(---cg-width) / 50));
+  font-weight: lighter;
 }
 
 body.lichessTools.lichessTools-fixCoords-square .orientation-black cg-container coords.lichessTools-fixCoords>coord {
   top: calc(12.5% * var(--rank) - 1.2em);
   left: calc(12.5% * (9 - var(--file)) - 1.2em);
+}
+
+body.lichessTools.lichessTools-fixCoords-square.lichessTools-fixCoords-larger cg-container coords.lichessTools-fixCoords>coord {
+  font-size: max(10px, calc(var(---cg-width) / 40));
 }
 
 body.lichessTools.lichessTools-fixCoords-square cg-container coords.ranks,
