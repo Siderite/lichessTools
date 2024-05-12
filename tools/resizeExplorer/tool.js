@@ -72,8 +72,11 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const explorerBox=$('main.analyse .analyse__tools .explorer-box');
-      if (!explorerBox.length) return;
       let divider=$('.lichessTools-resizeExplorer',explorerBox.parent());
+      if (!explorerBox.length) {
+        divider.remove();
+        return;
+      }
       if (divider.length) {
         if (!divider.next().is('.explorer-box')) {
           divider.insertBefore(explorerBox);
