@@ -8,8 +8,8 @@
         name:'mobileExperience',
         category: 'general',
         type:'multiple',
-        possibleValues: ['showGauge','hideOctopus','shapeDrawing','randomNextMove','lockBoard'],
-        defaultValue: 'showGauge,randomNextMove'
+        possibleValues: ['showGauge','hideOctopus','shapeDrawing','randomNextMove','selectiveRandom','lockBoard'],
+        defaultValue: 'showGauge,randomNextMove,selectiveRandom'
       },
       {
         name:'mobileExperienceRound',
@@ -40,6 +40,7 @@
         'mobileExperience.hideOctopus':'Hide the octopus mascot',
         'mobileExperience.shapeDrawing':'Analysis arrows',
         'mobileExperience.randomNextMove':'Random move button',
+        'mobileExperience.selectiveRandom':'...only when variations',
         'mobileExperienceRound.shapeDrawingRound':'Game arrows',
         'mobileExperienceRound.standardButtons':'Standard buttons',
         'mobileExperienceRound.invert':'Swap user and clock',
@@ -61,6 +62,7 @@
         'mobileExperience.hideOctopus':'Ascunde mascota caracati\u0163\u0103',
         'mobileExperience.shapeDrawing':'S\u0103ge\u0163i \u00een analiz\u0103',
         'mobileExperience.randomNextMove':'Buton mutare aleatoare',
+        'mobileExperience.selectiveRandom':'...doar c\u00e2nd sunt varia\u0163iuni',
         'mobileExperienceRound.shapeDrawingRound':'S\u0103ge\u0163i \u00een joc',
         'mobileExperienceRound.standardButtons':'Butoane standard',
         'mobileExperienceRound.invert':'Inverseaz\u0103 user \u015fi ceas',
@@ -198,6 +200,7 @@
 
     handleRedraw=async ()=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       const $=parent.$;
       if (!$.cached('body').is('.mobile')) return;
       const trans=parent.translator;
@@ -268,6 +271,8 @@
               .insertBefore($('div.analyse__controls div.jumps button[data-act="next"]'));
             addHandler=true;
           }
+          const hasVariations=!this.options.selectiveRandom||parent.getNextMoves(lichess.analysis.node).length>1;
+          $('div.analyse__controls div.jumps button.lichessTools-randomNextMove').toggle(hasVariations);
         } else {
           $('div.analyse__controls div.jumps button.lichessTools-randomNextMove').remove();
         }
@@ -343,6 +348,7 @@
         hideOctopus:parent.isOptionSet(mobileExperience,'hideOctopus'),
         shapeDrawing:parent.isOptionSet(mobileExperience,'shapeDrawing'),
         randomNextMove:parent.isOptionSet(mobileExperience,'randomNextMove'),
+        selectiveRandom:parent.isOptionSet(mobileExperience,'selectiveRandom'),
         shapeDrawingRound:parent.isOptionSet(mobileExperienceRound,'shapeDrawingRound'),
         standardButtons:parent.isOptionSet(mobileExperienceRound,'standardButtons'),
         invert:parent.isOptionSet(mobileExperienceRound,'invert'),
