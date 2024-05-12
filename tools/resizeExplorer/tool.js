@@ -73,8 +73,14 @@
       const $=parent.$;
       const explorerBox=$('main.analyse .analyse__tools .explorer-box');
       if (!explorerBox.length) return;
-      if ($('.lichessTools-resizeExplorer',explorerBox.parent()).length) return;
-      const divider=$('<div class="lichessTools-resizeExplorer">')
+      let divider=$('.lichessTools-resizeExplorer',explorerBox.parent());
+      if (divider.length) {
+        if (!divider.next().is('.explorer-box')) {
+          divider.insertBefore(explorerBox);
+        }
+        return;
+      }
+      divider=$('<div class="lichessTools-resizeExplorer">')
         .append('<div>')
         .prop('draggable',true)
         .on('drag',this.dragDivider)

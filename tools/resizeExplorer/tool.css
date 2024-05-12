@@ -1,3 +1,7 @@
+body.lichessTools div.analyse__tools:not(:has(.explorer-box)) div.lichessTools-resizeExplorer {
+  display:none;
+}
+
 body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer {
   height:5px;
   background-color: #80808080;
