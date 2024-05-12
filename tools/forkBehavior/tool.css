@@ -1,0 +1,12 @@
+body.lichessTools .analyse__tools.lichessTools-forkBehavior-chessbase .analyse__fork {
+  border:2px dashed red;
+}
+
+@media (max-width: 799.29px) and (orientation: portrait) {
+
+  body.lichessTools .analyse__tools.lichessTools-forkBehavior-chessbase .analyse__fork {
+    order:-1;
+    display:flex;
+  }
+
+}
