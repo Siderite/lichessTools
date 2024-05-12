@@ -2,6 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 12 May
   - Profile slider options
+  - Fix for ceval freeze
 
 10 May
   - Swap user and clock during play on mobile
