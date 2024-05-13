@@ -3,9 +3,10 @@
 @media (min-width: 1259.3px) {
 
   body.lichessTools.lichessTools-theme_noStudyChat main.analyse:not(.is-relay) .chat__members {
-    height: 6em;
+    height: 8em;
     bottom: 0;
     position: fixed;
+    width: var(--left-side-width);
   }
 
   body.lichessTools.lichessTools-theme_noStudyChat main.analyse:not(.is-relay) .mchat {
@@ -13,7 +14,7 @@
   }
 
   body.lichessTools.lichessTools-theme_noStudyChat main.analyse:not(.is-relay) .study__chapters {
-    max-height: calc(100vh - 15em - var(---site-header-height));
+    max-height: calc(100vh - 17em - var(---site-header-height));
   }
 
   body.lichessTools.lichessTools-theme_noStudyChat main.analyse:not(.is-relay) aside.analyse__side {
