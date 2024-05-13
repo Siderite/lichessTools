@@ -186,7 +186,7 @@
           setTimeout(()=>checkState(resolve),1000);
           return;
         }
-        const state=analysis.ceval.getState();
+        const state=analysis.ceval.state;
         if (state<=1) {
           setTimeout(()=>checkState(resolve),1000);
           return;
@@ -319,9 +319,9 @@
         this.setTerminationsEvaluation(false);
         return;
       }
-      const state=ceval.getState();
-      const isIdle = state==2 || ceval.showingCloud();
-      const isRunning = state==3 && !ceval.showingCloud();
+      const state=ceval.state;
+      const isIdle = state==2 || ceval.showingCloud;
+      const isRunning = state==3 && !ceval.showingCloud;
       if (this.evaluateTerminationsStarted) {
         const node = this._analysedNode;
         if (node?.ceval?.depth>customEngineDepth || (node?.ceval?.depth==customEngineDepth && isIdle)) {

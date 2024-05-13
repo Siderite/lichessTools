@@ -160,10 +160,6 @@
       const mode=mm?.at(1)||'hot';
       const p=baseUrl.includes('?') ? '&' : '?';
 
-      // TODO remove this when/if we get a topic JSON API https://github.com/lichess-org/lila/issues/14886
-      const isTopicPage=/\/study\/topic\//.test(baseUrl);
-      if (isTopicPage) return;
-
       while(this._currentPage<page) {
         const json=await parent.net.json(baseUrl+p+'page='+(this._currentPage+1));
         const loadedPage=+json?.paginator?.currentPage;
@@ -200,6 +196,7 @@
           flairs.push(...members);
         }
         if (flairs.length) {
+          e.find('.study__icon').hide();
           e.addClass('lichessTools-studyFlairs');
           const url=lichess.asset.flairSrc(flairs[0].flair);
           let elem=$('<img>')
@@ -270,7 +267,10 @@
       };
       lichess.pubsub.off('content-loaded',this.processStudyList);
       parent.global.clearInterval(this.interval);
-      if (!value) return;
+      if (!value) {
+        $('.study__icon').show();
+        return;
+      }
       if (lichess.analysis?.study) {
         if (!this.flairs) {
           let text='';

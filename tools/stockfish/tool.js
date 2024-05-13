@@ -67,6 +67,7 @@
         }
         if (!this._instance) {
           const sf=await this._stockfish();
+          if (sf.uci && !sf.postMessage) sf.postMessage=sf.uci;
           await sf.ready;
           sf.listen=this.listen.bind(this);
           this._instance=sf;
