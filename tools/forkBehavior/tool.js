@@ -1,7 +1,7 @@
 (()=>{
   class ForkBehaviorTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['RandomVariation','EmitRedraw','EmitChapterChange'];
+    dependencies=['RandomVariation','EmitRedraw','EmitChapterChange','TranspositionBehavior'];
 
     preferences=[
       {
@@ -41,8 +41,12 @@
           analysis.fork.proceed=parent.wrapFunction(analysis.fork.proceed,{
             id: 'forkBehavior',
             before:($this,...args)=>{
-              const nextMoves=parent.getNextMoves(analysis.node);
-              if (nextMoves.length>1) {
+              const nextMoves=parent.getNextMoves(analysis.node).map(m=>m.san);
+              const noDuplicates=parent.transpositionBehavior?.groupSameMove;
+              const nextMovesCount=noDuplicates
+                ? new Set(nextMoves).size
+                : nextMoves.length;
+              if (nextMovesCount>1) {
                 if (this.variationSelect!=analysis.path) {
                   this.variationSelect=analysis.path;
                   $('.analyse__tools').addClass('lichessTools-forkBehavior-chessbase');

@@ -1,5 +1,7 @@
 body.lichessTools .analyse__tools.lichessTools-forkBehavior-chessbase .analyse__fork {
-  border:2px dashed red;
+  border:1px dashed red;
+  outline:1px dashed red;
+  margin:-1px 0;
 }
 
 @media (max-width: 799.29px) and (orientation: portrait) {
