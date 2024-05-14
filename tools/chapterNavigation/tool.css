@@ -22,7 +22,7 @@ html.transp body.lichessTools .lichessTools-chapterControls div[role="footer"] {
 }
 
 
-body.lichessTools .lichessTools-chapterControls:not(:has(div.study__chapters)) div[role="footer"] {
+body.lichessTools .lichessTools-chapterControls:not(:has(div.study__chapters,div.relay-games)) div[role="footer"] {
   display:none;
 }
 
@@ -30,11 +30,13 @@ body.lichessTools .lichessTools-chapterControls div[role="footer"] button {
   flex-grow: 1;
 }
 
-body.lichessTools div.study__side.lichessTools-chapterControls {
+body.lichessTools div.study__side.lichessTools-chapterControls,
+body.lichessTools aside.relay-tour__side.lichessTools-chapterControls {
   flex-grow:1;
 }
 
-body.lichessTools div.study__side.lichessTools-chapterControls div.study__chapters {
+body.lichessTools div.study__side.lichessTools-chapterControls div.study__chapters,
+body.lichessTools aside.relay-tour__side.lichessTools-chapterControls div.relay_games {
   flex-grow:1;
 }
 

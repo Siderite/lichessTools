@@ -32,10 +32,11 @@
       const $=parent.$;
       const study=parent.lichess.analysis?.study;
       if (!study) return;
-      if (!$('div.study__side .study__chapters').length) return;
+      const selector=[];
+      if (!$('div.study__side .study__chapters,aside.relay-tour__side .relay-games').length) return;
       const trans=parent.translator;
       const list=study.chapters.list.all();
-      let container=$('div.study__side div[role="footer"]');
+      let container=$('div.study__side div[role="footer"],aside.relay-tour__side div[role="footer"]');
       if (!container.length&&list.length>1) {
         container=$(`<div role="footer">
           <button class="fbt" data-act="first" data-icon="&#x219E;"/>
@@ -46,8 +47,8 @@
         </div>`)
           .on('click',this.actionChapterControls)
           .attr('title',trans.noarg('chapterControlsTitle'))
-          .insertAfter('div.study__side .study__chapters');
-        $('div.study__side').addClass('lichessTools-chapterControls');
+          .insertAfter('div.study__side .study__chapters,aside.relay-tour__side .relay-games');
+        $('div.study__side,aside.relay-tour__side').addClass('lichessTools-chapterControls');
       }
       const chapterId=study.currentChapter()?.id;
       const index=chapterId
@@ -105,7 +106,10 @@
       lichess.pubsub.off('chapterChange',this.debouncedRefreshChapterControls);
       lichess.pubsub.off('redraw',this.debouncedRefreshChapterControls);
       lichess.pubsub.off('chat.resize',this.debouncedRefreshChapterControls);
-      $('div.study__side.lichessTools-chapterControls').removeClass('lichessTools-chapterControls').find('div[role="footer"]').remove();
+      $('div.study__side.lichessTools-chapterControls,aside.relay-tour__side.lichessTools-chapterControls')
+        .removeClass('lichessTools-chapterControls')
+        .find('div[role="footer"]')
+        .remove();
       if (!value) return;
       lichess.pubsub.on('chapterChange',this.debouncedRefreshChapterControls);
       lichess.pubsub.on('redraw',this.debouncedRefreshChapterControls);
