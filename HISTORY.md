@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 May
+  - Broadcast game list navigation
+
 12 May
   - Profile slider options
   - Fix for ceval freeze
