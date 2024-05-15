@@ -43,3 +43,21 @@ body.lichessTools.lichessTools-keyMode-general div.lichessTools-chapterControls 
   height: 1.5em;
   text-align: center;
 }
+
+body.lichessTools.lichessTools-hideSiteHeader header {
+  visibility:hidden;
+}
+
+body.lichessTools.lichessTools-keyMode-general .site-name:after {
+  content: 'H';
+  position: absolute;
+  right: 0rem;
+  top: 1rem;
+  border-radius: 50%;
+  border: 1px solid #808080;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size:1rem;
+  text-align: center;
+  visibility:visible;
+}

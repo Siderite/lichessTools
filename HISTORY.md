@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 May
+  - Hide site header feature
+
 14 May
   - Broadcast game list navigation
 
