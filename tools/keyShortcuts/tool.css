@@ -51,7 +51,7 @@ body.lichessTools.lichessTools-hideSiteHeader header {
 body.lichessTools.lichessTools-keyMode-general .site-name:after {
   content: 'H';
   position: absolute;
-  right: 0rem;
+  right: -0.5rem;
   top: 1rem;
   border-radius: 50%;
   border: 1px solid #808080;
@@ -60,4 +60,5 @@ body.lichessTools.lichessTools-keyMode-general .site-name:after {
   font-size:1rem;
   text-align: center;
   visibility:visible;
+  color:white;
 }

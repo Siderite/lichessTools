@@ -37,7 +37,8 @@
         'freezeBoard': 'Freeze board',
         'randomChapter': 'Random study chapter',
         'jumpToCurrent': 'Jump to current position',
-        'obsIntegration': 'Toggle OBS integration for this broadcast'
+        'obsIntegration': 'Toggle OBS integration for this broadcast',
+        'toggleSiteHeader': 'Toggle site header (works everywhere)'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -62,7 +63,8 @@
         'freezeBoard': '\u00CEnghea\u0163\u0103 tabla',
         'randomChapter': 'Capitol de studiu aleatoriu',
         'jumpToCurrent': 'S\u0103ri la pozi\u0163ia curent\u0103',
-        'obsIntegration': 'Comut\u0103 integrarea OBS pentru acest broadcast'
+        'obsIntegration': 'Comut\u0103 integrarea OBS pentru acest broadcast',
+        'toggleSiteHeader': 'Ascunde header-ul paginii'
       }
     }
 
@@ -122,6 +124,7 @@
         if (parent.currentOptions.getValue('chapterNavigation') && $('div.lichessTools-chapterControls button[data-act="random"]').length) {
           row(['`','!then','r'],'randomChapter');
         }
+        row(['`','!then','h'],'toggleSiteHeader');
         if (analysis.ongoing) {
           row(['backspace'],'jumpToCurrent');
         }
