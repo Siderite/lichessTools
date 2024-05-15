@@ -133,9 +133,6 @@
       this.clearMoveMode();
       const parent=this.lichessTools;
       const $=parent.$;
-      this.hideSiteHeader=!this.hideSiteHeader;
-      parent.currentOptions['hideSiteHeader']=this.hideSiteHeader;
-      parent.saveOptions(parent.currentOptions);
       $('body')
         .toggleClass('lichessTools-hideSiteHeader');
     };
@@ -166,8 +163,6 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('keyShortcuts');
       this.logOption('Extra analysis key shortcuts', value);
-      this.hideSiteHeader=parent.currentOptions.getValue('hideSiteHeader');
-      $('body').toggleClass('lichessTools-hideSiteHeader',!!this.hideSiteHeader);
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (analysis) {
