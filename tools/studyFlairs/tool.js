@@ -253,6 +253,7 @@
         });
       }
     };
+    processStudyListDebounced = this.lichessTools.debounce(this.processStudyList,1000);
 
     async start() {
       const parent=this.lichessTools;
@@ -265,7 +266,7 @@
         memberFlairs: parent.isOptionSet(value,'memberFlairs'),
         topicFlairs: parent.isOptionSet(value,'topicFlairs')
       };
-      lichess.pubsub.off('content-loaded',this.processStudyList);
+      lichess.pubsub.off('content-loaded',this.processStudyListDebounced);
       parent.global.clearInterval(this.interval);
       if (!value) {
         $('.study__icon').show();
@@ -285,7 +286,7 @@
         this.processStudy();
       } else
       if (/^\/study\b/.test(parent.global.location.pathname)&&$('.studies.list').length) {
-        lichess.pubsub.on('content-loaded',this.processStudyList);
+        lichess.pubsub.on('content-loaded',this.processStudyListDebounced);
         this.processStudyList();
       }
     }
