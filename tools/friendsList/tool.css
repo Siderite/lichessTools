@@ -256,6 +256,26 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notificatio
   content:'\E025' !important;
 }
 
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing-ultrabullet i:before {
+  content:'\E06E' !important;
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing-bullet i:before {
+  content:'\E047' !important;
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing-blitz i:before {
+  content:'\E01D' !important;
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing-rapid i:before {
+  content:'\E017' !important;
+}
+
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a.lichessTools-playing-classical i:before {
+  content:'\E01F' !important;
+}
+
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications > a:hover {
   background: #f7f6f5;
 }
