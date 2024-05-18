@@ -96,6 +96,7 @@
       this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
 
       if ($('.shown div.notifications').length) {
+        this._unreadNotifications=0;
         parent.global.clearInterval(this.closeInterval);
         this.closeInterval=parent.global.setInterval(()=>{
           if (!$('.shown div.notifications').length) {
@@ -119,8 +120,7 @@
       const justNotified=+(lichess.storage.get('just-notified'))||0;
       const isNew=!!newEntries
                      .find(e=>e.date>justNotified);
-      const notify=await parent.net.json('/notify?page=1');
-      const newCount=notify.unread+(isNew?1:0);
+      const newCount=this._unreadNotifications+(isNew?1:0);
       let title=toggle.attr('title');
       title=title?.replaceAll(count.toString(),newCount.toString());
       toggle
@@ -156,6 +156,16 @@
     };
     forcedProcessTimeline=this.lichessTools.debounce(()=>this.processTimeline(true),500);
 
+    _unreadNotifications=0;
+    updateNotificationCount=(ev)=>{
+      const parent=this.lichessTools;
+      const count=ev?.unread;
+      if (count===undefined) {
+        parent.global.console.warn('Could not read unread value from socket.in.notifications',ev);
+      }
+      this._unreadNotifications=+count;
+    };
+
     async start() {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -175,17 +185,20 @@
       lichess.pubsub.off('content-loaded',this.processTimeline);
       parent.global.clearInterval(this.interval);
       parent.global.clearInterval(this.closeInterval);
+      lichess.pubsub.off('socket.in.notifications',this.updateNotificationCount);
       if (!value) return;
+
       lichess.pubsub.on('content-loaded',this.processTimeline);
       this.interval=parent.global.setInterval(()=>{
         if ($('div.shown #notify-app div.empty.text').length) {
           this.forcedProcessTimeline();
         }
       },500);
-      /*if (!this.readAllStorage) {
-        this.readAllStorage = lichess.storage.make('notify-read-all');
-        this.readAllStorage.listen(this.setAllRead);
-      }*/
+
+      lichess.pubsub.on('socket.in.notifications',this.updateNotificationCount);
+      const notify=await parent.net.json('/notify?page=1');
+      this._unreadNotifications=+notify.unread;
+
       if (/^\/timeline/i.test(location.pathname)) this.setAllRead();
       this.forcedProcessTimeline();
     }
