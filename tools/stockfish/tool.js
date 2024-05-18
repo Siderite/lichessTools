@@ -43,16 +43,17 @@
       this.restartDebounced=this.parent.debounce(this.restart,500);
     }
 
+    _use1670=false;
     async load() {
       try{
         if (!this._module) {
           const lichess=this.parent.lichess;
           const engines=lichess?.analysis?.ceval?.engines;
-          const engineId='__sf16nnue40'; //engines?.selectProp() || '__sf16nnue40';
+          const engineId=this._use1670?'__sf161nnue70':'__sf16nnue40';
           const engine=engines?.localEngines?.find(e=>e.id==engineId);
           const assetUrl=engine && engine.assets?.js
             ? engine.assets.root+'/'+engine.assets.js
-            : 'npm/lila-stockfish-web/sf-nnue-40.js';
+            : 'npm/lila-stockfish-web/'+(this._use1670?'sf161-70.js':'sf-nnue-40.js');
           this.parent.global.console.debug('SF','loading engine '+engineId+(engine?' ('+engine.name+')':'')+' from '+assetUrl);
           const url=this.origin+'/assets/'+assetUrl;
           this.parent.global.exports=this.parent.global.exports||{};

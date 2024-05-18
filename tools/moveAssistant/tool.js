@@ -70,7 +70,7 @@
         } else {
           sf.setHash(128);
         }
-        sf.setMultiPv(500);
+        sf.setMultiPv(256);
         sf.setTime(90000);
         sf.on('info',this.getInfo);
         this._sf=sf;
