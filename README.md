@@ -96,6 +96,8 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Back to current position in correspondence
  - Hide chat during play
  - Broadcast OBS support
+ - Hide header shortcut
+ - Next move behavior for variations (like Chessbase)
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:
