@@ -71,11 +71,10 @@
       if (analysis.study) return;
       const trans=parent.translator;
       lichess.pubsub.off('redraw',this.saveAnalysisPgnLong);
+      parent.global.removeEventListener('beforeunload',this.saveAnalysisPgn);
       if (!value) return;
       lichess.pubsub.on('redraw',this.saveAnalysisPgnLong);
-      parent.global.addEventListener('beforeunload',()=>{
-        this.saveAnalysisPgn();
-      });
+      parent.global.addEventListener('beforeunload',this.saveAnalysisPgn);
 
       if (analysis.tree.root.children?.length==0) {
         this.retrievePgn();

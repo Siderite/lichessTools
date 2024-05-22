@@ -1,0 +1,17 @@
+body.lichessTools.lichessTools-blogAutosave p.lichessTools-saved {
+  display:block;
+}
+
+body.lichessTools p.lichessTools-saved {
+  display:none;
+  position: fixed;
+  bottom: 1rem;
+  width: auto;
+  left: 2rem;
+  z-index: 10;
+  text-align: center;
+  color: var(--c-good);
+  border: 1px solid var(--c-good);
+  background: var(--m-secondary_bg--mix-10);
+  padding: 2rem;
+}

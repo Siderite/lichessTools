@@ -98,6 +98,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Broadcast OBS support
  - Hide header shortcut
  - Next move behavior for variations (like Chessbase)
+ - Save blog while editing it
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

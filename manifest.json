@@ -122,6 +122,7 @@
         "tools/playLayout/tool.js",
         "tools/obsIntegration/tool.js",
         "tools/forkBehavior/tool.js",
+        "tools/blogAutosave/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -198,6 +199,7 @@
         "tools/playLayout/tool.css",
         "tools/obsIntegration/tool.css",
         "tools/forkBehavior/tool.css",
+        "tools/blogAutosave/tool.css",
 
         "tools/tvOptions/tool.css",
 
