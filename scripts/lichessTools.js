@@ -775,7 +775,7 @@
         }
         prev=gr;
       }
-      return '#808080';
+      return prev?.color||'#808080';
     };
 
     clone=(obj)=>{
