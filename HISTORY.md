@@ -2,6 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 22 May
   - Blog autosave
+  - Auto analyse game
 
 15 May
   - Hide site header feature
