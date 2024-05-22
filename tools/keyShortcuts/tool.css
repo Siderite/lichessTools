@@ -10,7 +10,7 @@ body.lichessTools.lichessTools-keyMode-explorer section.explorer-box tbody {
   border: 1px solid #808080;
 }
 
-body.lichessTools.lichessTools-keyMode-general div.cg-wrap:after {
+body.lichessTools.lichessTools-keyMode-general main.analyse div.cg-wrap:after {
   content: 'F';
   position: absolute;
   right: -1em;
@@ -20,6 +20,7 @@ body.lichessTools.lichessTools-keyMode-general div.cg-wrap:after {
   width: 1.5em;
   height: 1.5em;
   text-align: center;
+  z-index:150;
 }
 
 body.lichessTools cg-container.lichessTools-freezeBoard {
@@ -48,6 +49,7 @@ body.lichessTools.lichessTools-hideSiteHeader header {
   visibility:hidden;
 }
 
+body.zen.lichessTools.lichessTools-keyMode-general #zenzone:after,
 body.lichessTools.lichessTools-keyMode-general .site-name:after {
   content: 'H';
   position: absolute;
@@ -62,3 +64,8 @@ body.lichessTools.lichessTools-keyMode-general .site-name:after {
   visibility:visible;
   color:white;
 }
+
+body.zen.lichessTools.lichessTools-keyMode-general #zenzone:after {
+  right: -5rem;
+}
+
