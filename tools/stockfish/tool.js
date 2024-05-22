@@ -145,7 +145,7 @@
     start() {
       const sf=this._instance;
       if (!sf) {
-        this.load().then(this.start);
+        this.load().then(this.start.bind(this));
         return;
       }
       this.postMessage('stop');

@@ -235,6 +235,7 @@
       const lichess=parent.lichess;
       lichess.storage.set('LichessTools.moveAssistant',value);
       this._isEnabled=value;
+      if (!value) this._sf?.destroy();
     }
 
     async start() {
