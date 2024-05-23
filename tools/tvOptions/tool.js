@@ -158,8 +158,10 @@
       });
     };
 
+    _useUserApi=true;
     refreshGames=async (playerIds,className,container,streamers)=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       const $=parent.$;
       const trans=this.lichessTools.translator;
 
@@ -174,32 +176,67 @@
           $(e).remove()
         }
       });
-      for (const userId of notFound) {
-        try {
-          const text = await parent.net.fetch({url:'/@/{username}/mini',args:{username:userId}});
-          if (!text) continue;
-          const html=$('<x>'+text+'</x>').find('a.mini-game');
-          if (!html.length) continue;
-          const timeControl=parent.getGameTime(html.attr('data-tc'));
-          if (timeControl) {
-            html.addClass(timeControl);
+      if (this._useUserApi && notFound.length) {
+        const arr = await parent.net.json({url:'/api/users/status?ids={ids}&withGameMetas=true',args:{ids:notFound.join(',')}});
+        for (const data of arr.filter(i=>i.playing)) {
+          try {
+            const text = await parent.net.fetch({url:'/@/{username}/mini',args:{username:data.id}});
+            if (!text) continue;
+            const html=$('<x>'+text+'</x>').find('a.mini-game');
+            if (!html.length) continue;
+
+            const timeControl=parent.getGameTime(data.playing.clock,true);
+            if (timeControl) {
+              html.addClass(timeControl);
+            }
+            const variant=data.playing.variant || 'standard';
+            html.addClass(variant);
+            if (streamers) {
+              $('<span>')
+                .addClass(className)
+                .append($('<a rel="noopener nofollow" target="_blank">')
+                         .attr('href','/streamer/'+data.id+'/redirect')
+                          .text(trans.noarg('streamerLink')))
+                .appendTo(html);
+            }
+            $('label.lichessTools-noGames',container).remove();
+            if (!$('a.mini-game[data-userId="'+data.id+'"]',container).length) {
+              $(html).attr('data-userId',data.id).appendTo(container);
+              await parent.timeout(250);
+              parent.lichess.contentLoaded(container[0]);
+            }
+          } catch(e) {
+            console.warn('Error getting TV game for ',data.id,e);
           }
-          if (streamers) {
-            $('<span>')
-              .addClass(className)
-              .append($('<a rel="noopener nofollow" target="_blank">')
-                       .attr('href','/streamer/'+userId+'/redirect')
-                        .text(trans.noarg('streamerLink')))
-              .appendTo(html);
+        }
+      } else {
+        for (const userId of notFound) {
+          try {
+            const text = await parent.net.fetch({url:'/@/{username}/mini',args:{username:userId}});
+            if (!text) continue;
+            const html=$('<x>'+text+'</x>').find('a.mini-game');
+            if (!html.length) continue;
+            const timeControl=parent.getGameTime(html.attr('data-tc'));
+            if (timeControl) {
+              html.addClass(timeControl);
+            }
+            if (streamers) {
+              $('<span>')
+                .addClass(className)
+                .append($('<a rel="noopener nofollow" target="_blank">')
+                         .attr('href','/streamer/'+userId+'/redirect')
+                          .text(trans.noarg('streamerLink')))
+                .appendTo(html);
+            }
+            $('label.lichessTools-noGames',container).remove();
+            if (!$('a.mini-game[data-userId="'+userId+'"]',container).length) {
+              $(html).attr('data-userId',userId).appendTo(container);
+              parent.lichess.contentLoaded(container[0]);
+              await parent.timeout(500);
+            }
+          } catch(e) {
+            console.warn('Error getting TV game for ',userId,e);
           }
-          $('label.lichessTools-noGames',container).remove();
-          if (!$('a.mini-game[data-userId="'+userId+'"]',container).length) {
-            $(html).attr('data-userId',userId).appendTo(container);
-            parent.lichess.contentLoaded();
-            await parent.timeout(500);
-          }
-        } catch(e) {
-          console.warn('Error getting TV game for ',userId,e);
         }
       }
     };
@@ -366,7 +403,7 @@
         const gameId=tvOptions.gameId || lichess.analysis?.data.game?.id;
         if (gameId&&gameId!=='synthetic'&&gameId!=='broadcast') {
           if (this.options.link && !header.parent().is('a')) {
-            const url='/'+gameId+(tvOptions.isBlack?'/black':'');
+            const url='/'+gameId+(tvOptions.isBlack?'/black':'/white');
             header.wrap($('<a>').attr('href',url).attr('title','LiChess Tools - '+url));
           }
           if (this.options.bookmark && !header.has('a.bookmark').length) {
@@ -405,7 +442,7 @@
                 const gameId=m[1];
                 const color=m[2];
                 await parent.timeout(500);
-                text=await parent.net.fetch({url:'/{gameId}'+(color=='White'?'':'/black')+'/mini',args:{gameId:gameId}});
+                text=await parent.net.fetch({url:'/{gameId}'+(color=='White'?'/white':'/black')+'/mini',args:{gameId:gameId}});
                 if (!text) continue;
                 container.append(text);
               }

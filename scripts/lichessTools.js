@@ -180,10 +180,10 @@
 
     isOptionSet=(optionValues, searchValue, defaultValue)=>{
       if (optionValues===undefined || optionValues===null) return false;
-      if (new RegExp(','+this.escapeRegex(searchValue)+',','i').test(','+optionValues+',')) return true;
+      if (new RegExp(','+this.escapeRegex(searchValue.toString())+',','i').test(','+optionValues+',')) return true;
       if (optionValues===true || optionValues==='true') {
         if (searchValue===false || searchValue==='false') return false;
-        if (defaultValue) return new RegExp(','+this.escapeRegex(searchValue)+',','i').test(','+defaultValue+',');
+        if (defaultValue) return new RegExp(','+this.escapeRegex(searchValue.toString())+',','i').test(','+defaultValue+',');
         return true; 
       }
       return false;
@@ -775,7 +775,7 @@
         }
         prev=gr;
       }
-      return '#808080';
+      return prev?.color||'#808080';
     };
 
     clone=(obj)=>{

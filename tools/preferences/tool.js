@@ -24,12 +24,18 @@
         'rateThisTitle': 'Ratings help me a lot',
         'blogLinkTitle': 'The page of the extension. Leave me a message.',
         'enableExtension': 'Enable LiChess Tools extension',
-        'advancedPreferences': 'Advanced preferences',
+        'advancedPreferences': 'Advanced preferences (show a lot more!)',
         'options.advancedPreferences': 'Advanced preferences',
         'author': 'by %s',
         'lichessTools': 'LiChess Tools',
         'feedbackButtonTitle': 'Send feedback about LiChess Tools',
         'feedbackTitle': 'Send a message to the developer',
+        'resetButtonText': 'Reset',
+        'resetButtonTitle': 'LiChess Tools - reset settings',
+        'resetButtonWarning': 'Are you sure? This will restore all settings to defaults. I recommend a backup first.',
+        'minimalButtonText': 'All off',
+        'minimalButtonTitle': 'LiChess Tools - turn all features individually off',
+        'minimalButtonWarning': 'Are you sure? You will have to reenable each feature one by one. I recommend a backup first.',
         'backupButtonText': 'Backup',
         'backupButtonTitle': 'LiChess Tools - backup preferences in a file',
         'restoreButtonText': 'Restore',
@@ -44,12 +50,18 @@
         'rateThisTitle': 'Notele date m\u0103 ajut\u0103 foarte mult',
         'blogLinkTitle': 'Pagina extensiei. Trimite-mi un mesaj.',
         'enableExtension': 'Activeaz\u0103 extensia LiChess Tools',
-        'advancedPreferences': 'Preferin\u0163e avansate',
+        'advancedPreferences': 'Preferin\u0163e avansate (arat\u0103 mult mai multe!)',
         'options.advancedPreferences': 'Preferin\u0163e avansate',
         'author': 'de %s',
         'lichessTools': 'LiChess Tools',
         'feedbackButtonTitle': 'Trimite p\u0103reri despre LiChess Tools',
         'feedbackTitle': 'Trimite un mesaj programatorului',
+        'resetButtonText': 'Resetare',
+        'resetButtonTitle': 'LiChess Tools - reseteaz\u0103 op\u0163iunile',
+        'resetButtonWarning': 'Sigur? Toate op\u0163iunile vor fi resetate pe valori standard. Recomand un backup \u00eenainte.',
+        'minimalButtonText': 'Toate oprite',
+        'minimalButtonTitle': 'LiChess Tools - opre\u015fte toate op\u0163iunile individual',
+        'minimalButtonWarning': 'Sigur? Va trebui sa porne\u015fti fiecare op\u0163iune una c\u00e2te una. Recomand un backup \u00eenainte.',
         'backupButtonText': 'Backup',
         'backupButtonTitle': 'LiChess Tools - Descarc\u0103 preferin\u0163ele \u00eentr-un fi\u015Fier',
         'restoreButtonText': 'Restaurare',
@@ -164,7 +176,7 @@
               const textKey=typeof val==='boolean'
                 ? (val?'yes':'no')
                 : (pref.valuePrefix||pref.name+'.')+val;
-              html+=`<div`+(((typeof val!=='boolean' && pref.defaultValue===true)||pref.defaultValue?.toString().includes(val))?' class="defaultValue"':'')+`>
+              html+=`<div`+(parent.isOptionSet(pref.defaultValue,val)?' class="defaultValue"':'')+`>
                   <input type="radio" value="${val}" name="${pref.name}"/>
                   <label>$trans(${textKey})</label>
                 </div>`;
@@ -178,7 +190,7 @@
               const textKey=typeof val==='boolean'
                 ? (val?'yes':'no')
                 : (pref.valuePrefix||pref.name+'.')+val;
-              html+=`<div`+(((typeof val==='boolean' && pref.defaultValue===true)||pref.defaultValue?.toString().includes(val))?' class="defaultValue"':'')+`>
+              html+=`<div`+(parent.isOptionSet(pref.defaultValue,val)?' class="defaultValue"':'')+`>
                   <input type="checkbox" value="${val}" name="${pref.name}"/>
                   <label>$trans(${textKey})</label>
                 </div>`;
@@ -211,6 +223,8 @@
     html+=`</form>
 <div class="actionButtons">
 <span>$trans(defaultValueLegend)</span>
+<button id="btnReset" type="button" class="btn button button-red" title="$trans(resetButtonTitle)">$trans(resetButtonText)</button>
+<button id="btnMinimal" type="button" class="btn button button-red" title="$trans(minimalButtonTitle)">$trans(minimalButtonText)</button>
 <button id="btnBackup" type="button" class="btn button" title="$trans(backupButtonTitle)">$trans(backupButtonText)</button>
 <button id="btnRestore" type="button" class="btn button" title="$trans(restoreButtonTitle)">$trans(restoreButtonText)</button>
 </div>
@@ -286,6 +300,34 @@
           if (text) {
             lichess.socket.send('msgSend',{"dest":"totalnoob69","text":text});
           }
+        });
+      $('div.actionButtons #btnReset',container)
+        .on('click',async ev=>{
+          ev.preventDefault();
+          if (!parent.global.confirm(trans.noarg('resetButtonWarning'))) return;
+          const options=await parent.getOptions();
+          const data=parent.tools.map(t=>t.preferences).flat().filter(p=>p && !p.hidden).map(p=>({name:p.name,value:p.defaultValue}));
+          for (const {name,value} of data) options[name]=value;
+          await applyOptions(options);
+          parent.fireReloadOptions();
+          checkGlobalSwitch();
+          checkAdvanced();
+          this.openPreferences();
+          showSaved();
+        });
+      $('div.actionButtons #btnMinimal',container)
+        .on('click',async ev=>{
+          ev.preventDefault();
+          if (!parent.global.confirm(trans.noarg('minimalButtonWarning'))) return;
+          const options=await parent.getOptions();
+          const keys=parent.tools.map(t=>t.preferences).flat().filter(p=>p&& !p.hidden).map(p=>p.name);
+          for (const key of keys) options[key]=false;
+          await applyOptions(options);
+          parent.fireReloadOptions();
+          checkGlobalSwitch();
+          checkAdvanced();
+          this.openPreferences();
+          showSaved();
         });
       $('div.actionButtons #btnBackup',container)
         .on('click',async ev=>{

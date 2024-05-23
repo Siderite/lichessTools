@@ -1,5 +1,22 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 May
+  - Blog autosave
+  - Auto analyse game
+
+15 May
+  - Hide site header feature
+  - game icons in the friends menu
+
+14 May
+  - Broadcast game list navigation
+
+12 May
+  - Profile slider options
+  - Fix for ceval freeze
+  - No study chat theme
+  - Fork behavior
+
 10 May
   - Swap user and clock during play on mobile
   - new Play layout option 

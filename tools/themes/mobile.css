@@ -85,6 +85,35 @@ body.lichessTools.lichessTools-theme_mobile.mobile main.round div.rcontrols:has(
   display:none;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools:has(.retro-box) .analyse__moves {
+  order: 2;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .training-box .choices {
+  margin-bottom:0;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .training-box .choices a:nth-child(1) {
+  margin-right:1em;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .training-box .choices a {
+  font-size: smaller;
+  color: var(--c-over);
+  background: var(--c-primary);
+  text-transform: uppercase;
+  padding: .8em 1em;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  white-space: nowrap;
+  display: inline-block;
+  transition: all 150ms;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .225);
+}
+
 /** Prettier **/
 
 body.lichessTools.lichessTools-prettier.lichessTools-theme_mobile.mobile  main.analyse.has-players:not(.has-relay-tour) .main-board {

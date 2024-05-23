@@ -160,13 +160,14 @@
       const displayedItems=items.slice(this.buttonStartIndex,this.buttonStartIndex+this.buttonPageSize);
       for (const userId of displayedItems) {
         const isPlaying=this.user_data.playing.includes(userId);
+        const timeControl=this.user_data.timeControls[userId];
+        const playingClass=timeControl ? 'lichessTools-playing-'+timeControl : 'lichessTools-playing';
         const elem=$('<a class="user-link ulpt">')
           .attr('data-pt-pos','w')
+          .toggleClass(playingClass,isPlaying)
           .toggleClass('lichessTools-playing',isPlaying)
           .attr('href','/@/'+userId+(isPlaying?'/tv':''))
-          .append($('<i>')
-                    //.attr('data-icon',isPlaying?'\uE025':'\uE010')
-          )
+          .append('<i>')
           .append($('<span class="content">')
                     .text(this.user_data.names[userId]||userId))
           .appendTo(notifs);
@@ -245,9 +246,11 @@
         }
         friendMenu[0].dataset.href=href;
         if (isPlaying) {
+          const timeControl=this.user_data.timeControls[user];
           friendMenu
             .addClass('lichessTools-playing')
             .attr('href','/@/'+user+'/tv');
+          if (timeControl) friendMenu.addClass('lichessTools-playing-'+timeControl);
         } else {
           friendMenu
             .removeClass('lichessTools-playing')
@@ -269,9 +272,11 @@
         }
         friendMenu[0].dataset.href='/@/'+user;
         if (isPlaying) {
+          const timeControl=this.user_data.timeControls[user];
           friendMenu
             .addClass('lichessTools-playing')
             .attr('href','/@/'+user+'/tv');
+          if (timeControl) friendMenu.addClass('lichessTools-playing-'+timeControl);
         } else {
           friendMenu
             .removeClass('lichessTools-playing')
@@ -352,9 +357,11 @@
         const user=this.getUserId(m&&m[1]);
         if (!user) return;
         this.rows[user]=row;
-        if (!row.find('span.lichessTools-seenAt').length) {
-          const td=$('<td><span class="lichessTools-seenAt" data-icon="&#xE063;"></span></td>')
-            .insertBefore(actions.closest('td'));
+        if (this.options.showSeenAt) {
+          if (!row.find('span.lichessTools-seenAt').length) {
+            const td=$('<td><span class="lichessTools-seenAt" data-icon="&#xE063;"></span></td>')
+              .insertBefore(actions.closest('td'));
+          }
         }
         if (!actions.find('a.lichessTools-tv')[0]) {
           $('<a class="btn-rack__btn lichessTools-tv" data-icon="&#xE025;"></a>')
@@ -402,14 +409,16 @@
           this.friends[user]=friend;
         }
       }
-      const userIds=Object.values(this.friends)
-                      .filter(f=>!f.seenAt)
-                      .map(f=>f.userId);
-      const json = await parent.net.fetch('/api/users',{ method:'POST',body:userIds.join(',') });
-      const users=parent.jsonParse(json,[]);
-      for (const user of users) {
-        const friend = this.friends[user.id];
-        if (friend) friend.seenAt=+user.seenAt;
+      if (this.options.showSeenAt) {
+        const userIds=Object.values(this.friends)
+                        .filter(f=>!f.seenAt)
+                        .map(f=>f.userId);
+        const json = await parent.net.fetch('/api/users',{ method:'POST',body:userIds.join(',') });
+        const users=parent.jsonParse(json,[]);
+        for (const user of users) {
+          const friend = this.friends[user.id];
+          if (friend) friend.seenAt=+user.seenAt;
+        }
       }
       for (const user in this.rows) {
         const row=this.rows[user];
@@ -461,7 +470,8 @@
     user_data={
       names:{},
       online:[],
-      playing:[]
+      playing:[],
+      timeControls:{}
     };
     following_onlines=(friends,data)=>{
       if (this.onlinesInterval) {
@@ -484,6 +494,7 @@
       });
       this.user_data.online=data?.d?.map(this.getUserId)||[];
       this.user_data.playing=data?.playing?.map(this.getUserId)||[];
+      this.user_data.timeControls={};
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -498,6 +509,7 @@
         if (!this.user_data.playing.includes(userId)) this.user_data.playing.push(userId);
       } else {
         parent.arrayRemoveAll(this.user_data.playing,u=>u===userId);
+        this.user_data.timeControls[userId]=undefined;
       }
       let friend=this.friends[userId];
       if (!friend) {
@@ -515,6 +527,7 @@
       //this.user_data.names[user]=undefined;
       parent.arrayRemoveAll(this.user_data.online,u=>u===user);
       parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
+      this.user_data.timeControls[user]=undefined;
       let friend=this.friends[user];
       if (!friend) {
         friend={ userId: user };
@@ -543,6 +556,7 @@
       const parent=this.lichessTools;
       user=this.getUserId(user);
       parent.arrayRemoveAll(this.user_data.playing,u=>u===user);
+      this.user_data.timeControls[user]=undefined;
       let friend=this.friends[user];
       if (!friend) {
         friend={ userId: user };
@@ -584,10 +598,24 @@
       parent.global.console.debug('Sent following-onlines too many times. Giving up.');
     };
 
+    _useUserApi=true;
     requestOnlines=()=>{
       const parent=this.lichessTools;
       if (parent.global.document.hidden) return;
       parent.lichess.pubsub.emit("socket.send", "following_onlines");
+      this.requestOnlinesApi();
+    };
+    requestOnlinesApi=async ()=>{
+      const parent=this.lichessTools;
+      if (this._useUserApi && this.user_data.playing.length) {
+        const arr = await parent.net.json({url:'/api/users/status?ids={ids}&withGameMetas=true',args:{ids:this.user_data.playing.join(',')}});
+        for (const data of arr.filter(i=>i.playing)) {
+          const timeControl=parent.getGameTime(data.playing.clock,true);
+          this.user_data.timeControls[data.id]=timeControl;
+        }
+        this.updateFriendsMenu();
+        this.updateFriendsButton();
+      }
     };
 
     menuParent='#topnav';
@@ -604,7 +632,8 @@
         openFriends: friendsBoxMode,
         liveFriendsPage: liveFriendsPage,
         friendsPlaying: parent.currentOptions.getValue('friendsPlaying'),
-        mutedPlayers: parent.currentOptions.getValue('mutedPlayers')
+        mutedPlayers: parent.currentOptions.getValue('mutedPlayers'),
+        showSeenAt: false // implemented natively by Lichess
       };
       const lichess=parent.lichess;
       if (!lichess) return;

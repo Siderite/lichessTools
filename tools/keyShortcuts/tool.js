@@ -1,10 +1,10 @@
 (()=>{
-  class AnalysisKeyShortcutsTool extends LiChessTools.Tools.ToolBase {
+  class KeyShortcutsTool extends LiChessTools.Tools.ToolBase {
 
     preferences=[
       {
         name:'keyShortcuts',
-        category: 'analysis',
+        category: 'general',
         type:'single',
         possibleValues: [false,true],
         defaultValue: true,
@@ -14,11 +14,11 @@
 
     intl={
       'en-US':{
-        'options.analysis': 'Analysis',
+        'options.general': 'General',
         'options.keyShortcuts': 'Extra key shortcuts'
       },
       'ro-RO':{
-        'options.analysis': 'Analiz\u0103',
+        'options.general': 'General',
         'options.keyShortcuts': 'Combina\u0163ii de taste \u00een plus'
       }
     }
@@ -112,6 +112,7 @@
         this.oldHandlers['f']();
         return;
       }
+      this.clearMoveMode();
       const parent=this.lichessTools;
       const $=parent.$;
       const board=$('cg-container.lichessTools-freezeBoard');
@@ -125,11 +126,23 @@
         .appendTo('div.cg-wrap');
     };
 
+    toggleSiteHeader=()=>{
+      if (this.makeMoveMode!='general') {
+        return;
+      }
+      this.clearMoveMode();
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('body')
+        .toggleClass('lichessTools-hideSiteHeader');
+    };
+
     randomChapter=()=>{
       if (this.makeMoveMode!='general') {
         this.oldHandlers['r']();
         return;
       }
+      this.clearMoveMode();
       const parent=this.lichessTools;
       const $=parent.$;
       const button=$('div.lichessTools-chapterControls button[data-act="random"]');
@@ -147,11 +160,12 @@
 
     async start() {
       const parent=this.lichessTools;
+      const $=parent.$;
       const value=parent.currentOptions.getValue('keyShortcuts');
       this.logOption('Extra analysis key shortcuts', value);
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
-      if (!analysis) return;
+      if (analysis) {
       if (!this.oldHandlers) {
         this.oldHandlers={
           i:parent.getKeyHandler('i'),
@@ -175,6 +189,7 @@
       parent.unbindKeyHandler('shift+.',true);
       parent.unbindKeyHandler('`',true);
       parent.unbindKeyHandler('f');
+      parent.unbindKeyHandler('h',true);
       parent.unbindKeyHandler('r');
       parent.unbindKeyHandler('backspace',true);
 
@@ -202,6 +217,7 @@
           parent.bindKeyHandler(combo,()=>this.handleDigitKey(combo));
         }
         parent.bindKeyHandler('`',()=>this.prepareMove('general'));
+        parent.bindKeyHandler('h',this.toggleSiteHeader);
         parent.bindKeyHandler('f',this.freezeBoard);
         parent.bindKeyHandler('r',this.randomChapter);
         if (analysis.ongoing) {
@@ -218,8 +234,16 @@
           }
         }
       }
+    } else {
+      parent.unbindKeyHandler('`',true);
+      parent.unbindKeyHandler('h',true);
+      if (value) {
+        parent.bindKeyHandler('`',()=>this.prepareMove('general'));
+        parent.bindKeyHandler('h',this.toggleSiteHeader);
+      }
     }
-
+    if (!value) this.clearMoveMode();
+    }
   }
-  LiChessTools.Tools.AnalysisKeyShortcuts=AnalysisKeyShortcutsTool;
+  LiChessTools.Tools.KeyShortcuts=KeyShortcutsTool;
 })();

@@ -49,10 +49,10 @@
       if (!analysis) return;
 
       if (!analysis.practice) {
-        const customDepth=analysis.ceval?.infinite() || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper)
+        const customDepth=analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper)
           ? 99
           : this.options.depth;
-        if (customDepth && analysis.ceval.enabled() && !analysis.ceval.showingCloud()) {
+        if (customDepth && analysis.ceval.enabled() && !analysis.ceval.showingCloud) {
           const elem=$('div.ceval div.engine span.info')[0];
           if (elem) {
             // lichess keeps a reference to the actual node
@@ -132,10 +132,10 @@
       const node=analysis.ceval.lastStarted?.steps?.at(-1);
       if (!node) return;
       const curDepth=analysis.threatMode()
-        ? analysis.ceval.curDepth()
+        ? analysis.ceval.curEval.depth
         : node.ceval?.depth;
-      if (analysis.ceval.canGoDeeper() && analysis.ceval.getState()==2) {
-        if ((analysis.ceval.showingCloud() && this.options.noCloud) || (this.options.depth && curDepth<(node.autoDeeper || this.options.depth) ))
+      if (analysis.ceval.canGoDeeper && analysis.ceval.state==2) {
+        if ((analysis.ceval.showingCloud && this.options.noCloud) || (this.options.depth && curDepth<(node.autoDeeper || this.options.depth) ))
         {
           node.autoDeeper=this.options.depth;
           analysis.ceval.goDeeper();
@@ -143,11 +143,11 @@
           return;
         }
       }
-      if (!analysis.ceval.showingCloud() && (node.autoDeeper || !analysis.ceval.isDeeper())
+      if (!analysis.ceval.showingCloud && (node.autoDeeper || !analysis.ceval.isDeeper())
           && this.options.depth && curDepth>=this.options.depth)
       {
         node.autoDeeper=undefined;
-        if (analysis.ceval.getState()==3) {
+        if (analysis.ceval.state==3) {
           analysis.ceval.stop();
           analysis.redraw();
           if (analysis.node.ceval && analysis.practice?.running()) {

@@ -50,6 +50,10 @@ body.lichessTools section.explorer-box div.data div.title:has(.lichessTools-open
   text-wrap: balance;
 }
 
+body.lichessTools div.lobby__tv .lichessTools-opening {
+  max-width: 290px;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier section.explorer-box div.data div.title .lichessTools-opening {

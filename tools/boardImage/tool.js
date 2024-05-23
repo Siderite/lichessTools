@@ -48,12 +48,16 @@
       ev.preventDefault();
       const parent=this.lichessTools;
       const $=parent.$;
+      const lichess=parent.lichess;
       const canvas=$('<canvas>')[0];
       const ctx=canvas.getContext('2d');
       ctx.canvas.width=800;
       ctx.canvas.height=800;
       const board = $('div.main-board cg-board');
-      let url=board.css('background-image')?.replace(/url\(["']?|["']?\)/g,'');
+      //let url=board.css('background-image')?.replace(/url\(["']?|["']?\)/g,'');
+      const href=$(ev.target).attr('href');
+      const m=/theme=(\w+)(?:&|$)/.exec(href);
+      let url=lichess.asset.url('../images/board/'+m[1]+'.jpg');
       let img=await this.getImage(url);
       ctx.drawImage(img,0,0,800,800);
       const q=800/board.width();

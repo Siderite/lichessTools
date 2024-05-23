@@ -1,4 +1,8 @@
-body.lichessTools div.study.lichessTools-studyFlairs div.top > img {
+body.lichessTools .studies div.study.lichessTools-studyFlairs:has(.lichessTools-bottomFlairs) {
+  padding-bottom:3em;
+}
+
+body.lichessTools .studies div.study.lichessTools-studyFlairs div.top > img {
   margin-right:1em;
   width:4em;
   opacity:0.9;
@@ -6,18 +10,21 @@ body.lichessTools div.study.lichessTools-studyFlairs div.top > img {
   z-index:3;
 }
 
-body.lichessTools div.study.lichessTools-studyFlairs div.top:before {
+body.lichessTools .studies div.study.lichessTools-studyFlairs div.top:before {
   content:'';
   margin:0;
 }
 
-body.lichessTools div.study.lichessTools-studyFlairs div.lichessTools-bottomFlairs {
+body.lichessTools .studies div.study.lichessTools-studyFlairs div.lichessTools-bottomFlairs {
   max-height:1.5em;
   overflow:hidden;
   padding-left:2em;
+  position:absolute;
+  bottom:1em;
+  right:1em;
 }
 
-body.lichessTools div.study.lichessTools-studyFlairs div.lichessTools-bottomFlairs img {
+body.lichessTools .studies div.study.lichessTools-studyFlairs div.lichessTools-bottomFlairs img {
   display:inline;
   max-width:1.5em;
   position:relative;

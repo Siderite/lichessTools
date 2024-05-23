@@ -301,6 +301,10 @@
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
       for (const el of elems) {
         fen=fen || $(el).attr('data-state');
+        if (!fen) {
+          parent.global.console.warn('Could not get fen for element',el);
+          continue;
+        }
         const board=parent.getBoardFromFen(fen);
         const structure=this.getStructure(board,$(el).attr('data-state').includes('black'));
         const structureName=this.getStructureName(structure);

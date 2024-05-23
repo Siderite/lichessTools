@@ -46,7 +46,11 @@ importScripts('obs-websocket.js')
     const {type,...data}=request;
     const handler=handlers[type];
     if (handler) {
-      return await handler(data);
+      try {
+        return await handler(data);
+      } catch(e) {
+        return { err: JSON.stringify(e) };
+      }
     }
   };
 

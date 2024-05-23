@@ -52,7 +52,7 @@
               .on('click',ev=>{
                 ev.preventDefault();
                 const close=()=>flairPicker.removeClass('emoji-done').empty();
-                lichess.asset.loadEsm("flairPicker", {
+                lichess.asset.loadEsm("bits.flairPicker", {
                   init: {
                     element: flairPicker[0],
                     close: close,
@@ -160,10 +160,6 @@
       const mode=mm?.at(1)||'hot';
       const p=baseUrl.includes('?') ? '&' : '?';
 
-      // TODO remove this when/if we get a topic JSON API https://github.com/lichess-org/lila/issues/14886
-      const isTopicPage=/\/study\/topic\//.test(baseUrl);
-      if (isTopicPage) return;
-
       while(this._currentPage<page) {
         const json=await parent.net.json(baseUrl+p+'page='+(this._currentPage+1));
         const loadedPage=+json?.paginator?.currentPage;
@@ -200,6 +196,7 @@
           flairs.push(...members);
         }
         if (flairs.length) {
+          e.find('.study__icon').hide();
           e.addClass('lichessTools-studyFlairs');
           const url=lichess.asset.flairSrc(flairs[0].flair);
           let elem=$('<img>')
@@ -256,6 +253,7 @@
         });
       }
     };
+    processStudyListDebounced = this.lichessTools.debounce(this.processStudyList,1000);
 
     async start() {
       const parent=this.lichessTools;
@@ -268,9 +266,12 @@
         memberFlairs: parent.isOptionSet(value,'memberFlairs'),
         topicFlairs: parent.isOptionSet(value,'topicFlairs')
       };
-      lichess.pubsub.off('content-loaded',this.processStudyList);
+      lichess.pubsub.off('content-loaded',this.processStudyListDebounced);
       parent.global.clearInterval(this.interval);
-      if (!value) return;
+      if (!value) {
+        $('.study__icon').show();
+        return;
+      }
       if (lichess.analysis?.study) {
         if (!this.flairs) {
           let text='';
@@ -285,7 +286,7 @@
         this.processStudy();
       } else
       if (/^\/study\b/.test(parent.global.location.pathname)&&$('.studies.list').length) {
-        lichess.pubsub.on('content-loaded',this.processStudyList);
+        lichess.pubsub.on('content-loaded',this.processStudyListDebounced);
         this.processStudyList();
       }
     }

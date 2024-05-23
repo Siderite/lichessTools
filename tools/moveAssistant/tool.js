@@ -70,7 +70,7 @@
         } else {
           sf.setHash(128);
         }
-        sf.setMultiPv(500);
+        sf.setMultiPv(256);
         sf.setTime(90000);
         sf.on('info',this.getInfo);
         this._sf=sf;
@@ -135,16 +135,17 @@
         const dest=this.getSquare(e,side,isBlack);
         const uci=selected+dest;
         const cp=this._eval[uci];
-        if (cp===undefined || minCp==maxCp) {
+        if (cp===undefined) {
           return;
         }
-        const q=(cp-minCp)/(maxCp-minCp);
-        const rawColor=parent.getGradientColor(q,[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
-        const biasedColor=parent.getGradientColor(Math.pow(q,2.5),[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
-        const gradientColor=parent.getGradientColor(0.66,[{q:0,color:biasedColor},{q:1,color:'#20202040'}]);
+        const qPerc=minCp==maxCp?1:(cp-minCp)/(maxCp-minCp);
+        const delta=maxCp-cp;
+        const deltaColor=parent.getGradientColor(delta,[{q:0,color:'#00FF00'},{q:100,color:'#FFFF00'},{q:200,color:'#FF8000'},{q:300,color:'#FF0000'}]);
+        const percColor=parent.getGradientColor(qPerc,[{q:0,color:'#FF0000'},{q:0.5,color:'#FFFF00'},{q:1,color:'#00FF00'}]);
+        const gradientColor=parent.getGradientColor(0.66,[{q:0,color:percColor},{q:1,color:'#20202040'}]);
         $(e)
           .css('background','radial-gradient('+gradientColor+' 19%, rgba(0, 0, 0, 0) 20%)')
-          .css('border-color',rawColor);
+          .css('border-color',deltaColor);
         const wdl=this._wdl[uci];
         if (wdl) {
           let bar=$(e).find('div.lichessTools-wdl');
@@ -234,6 +235,7 @@
       const lichess=parent.lichess;
       lichess.storage.set('LichessTools.moveAssistant',value);
       this._isEnabled=value;
+      if (!value) this._sf?.destroy();
     }
 
     async start() {

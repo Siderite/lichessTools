@@ -1,7 +1,7 @@
 (()=>{
   class MovesFromTranspositionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=[];
+    dependencies=['TranspositionBehavior'];
 
     preferences=[
       {
@@ -63,38 +63,56 @@
       if (fork.data('transpositions')==transpoData) return;
       fork.data('transpositions',transpoData);
       fork.empty();
+
+      const addForkMove=(targetElem,path,child,isNextMove)=>{
+        const prefix=isNextMove?'':'T';
+        const forkMove=$('<move>')
+          .attr('p',path)
+          .append($('<index>').addClass('sbhint'+child.ply).text(prefix+Math.ceil(child.ply/2)+(child.ply%2?'.':'...')))
+          .append($('<san>').text(child.san))
+          .on('mouseover',function() {
+            $('.analyse__fork move').removeClass('selected');
+            $(targetElem).addClass('lichessTools-highlight');
+            analysis.explorer.setHovering(lichess.analysis.node.fen,child.uci);
+          }).on('mouseout',function() {
+            $(targetElem).removeClass('lichessTools-highlight');
+            analysis.explorer.setHovering(null,null);
+          }).on('click',function(ev) {
+            ev.preventDefault();
+            analysis.userJumpIfCan(path);
+            analysis.redraw();
+          });
+        const glyph=child.glyphs?.at(0);
+        if (glyph) {
+          forkMove.append($('<glyph>').attr('title',glyph.name).text(glyph.symbol));
+        }
+        if (isNextMove) {
+          forkMove.prependTo(fork);
+        } else {
+          forkMove.appendTo(fork);
+        }
+      };
+
       const sans=currNode.children.map(c=>c.san);
+      let onlyMoveAdded=false;
       for (const node of transpositions) {
         if (node.path===undefined) {
           continue;
         }
         for (const child of node.children) {
           const path=node.path+child.id;
-          let forkMove=$('move',fork).filter((i,e)=>$(e).attr('p')==path);
+          const forkMove=$('move',fork).filter((i,e)=>$(e).attr('p')==path);
           if (forkMove.length) continue;
-          if (noDuplicates && sans.includes(child.san)) continue;
+          const targetElem=parent.getElementForPath(path);
+          if (currNode.children.length==1 && child.san==currNode.children[0].san && !onlyMoveAdded) {
+            addForkMove(targetElem,path,child,true);
+            onlyMoveAdded=true;
+          };
+          if (noDuplicates && sans.includes(child.san)) {
+            continue;
+          }
           sans.push(child.san);
-          let targetElem=parent.getElementForPath(path);
-          forkMove=$('<move>')
-            .attr('p',path)
-            .append($('<index>').addClass('sbhint'+child.ply).text('T'+Math.ceil(child.ply/2)+(child.ply%2?'.':'...')))
-            .append($('<san>').text(child.san))
-            .on('mouseover',function() {
-              $('.analyse__fork move').removeClass('selected');
-              $(targetElem).addClass('lichessTools-highlight');
-              analysis.explorer.setHovering(lichess.analysis.node.fen,child.uci);
-            }).on('mouseout',function() {
-              $(targetElem).removeClass('lichessTools-highlight');
-              analysis.explorer.setHovering(null,null);
-            }).on('click',function(ev) {
-              ev.preventDefault();
-              analysis.userJumpIfCan(path);
-              analysis.redraw();
-            }).appendTo(fork);
-          const glyph=child.glyphs?.at(0);
-          if (glyph) {
-            forkMove.append($('<glyph>').attr('title',glyph.name).text(glyph.symbol));
-          } 
+          addForkMove(targetElem,path,child,false); 
         }
       }
     };
