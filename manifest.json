@@ -145,6 +145,7 @@
         "tools/themes/lessIcons.css",
         "tools/themes/nonStickyHeader.css",
         "tools/themes/noStudyChat.css",
+        "tools/themes/pieceDrag.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",

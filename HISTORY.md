@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+24 May
+  - Nicer piece dragging theme
+
 22 May
   - Blog autosave
   - Auto analyse game
