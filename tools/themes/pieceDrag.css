@@ -16,4 +16,5 @@ body.lichessTools.lichessTools-theme_pieceDrag piece.black.dragging {
 body.lichessTools.lichessTools-theme_pieceDrag square.move-dest:hover {
   background: unset;
   box-shadow: inset 0px 0px 7px 7px #FFFFFF80;
+  backdrop-filter: brightness(90%);
 }
