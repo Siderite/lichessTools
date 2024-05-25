@@ -23,3 +23,11 @@
   }
 
 }
+
+/** Prettier **/
+
+@media (min-width: 1259.3px) {
+  body.lichessTools.lichessTools-prettier.lichessTools-theme_noStudyChat main.analyse:not(.is-relay) .study__chapters {
+    height: calc(100vh - 17em - var(---site-header-height));
+  }
+}
