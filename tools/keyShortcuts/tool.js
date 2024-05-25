@@ -158,14 +158,8 @@
       analysis.redraw();
     };
 
-    async start() {
+   bindKeysForAnalysis=(analysis, value)=>{
       const parent=this.lichessTools;
-      const $=parent.$;
-      const value=parent.currentOptions.getValue('keyShortcuts');
-      this.logOption('Extra analysis key shortcuts', value);
-      const lichess=parent.lichess;
-      const analysis=lichess.analysis;
-      if (analysis) {
       if (!this.oldHandlers) {
         this.oldHandlers={
           i:parent.getKeyHandler('i'),
@@ -234,16 +228,77 @@
           }
         }
       }
-    } else {
+    };
+
+    handleEditorAction=(index)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const container=$('div.board-editor__tools .actions');
+      container.children().eq(index).trigger('click');
+    }
+
+    handleEditorDigit=(index,mySide)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const container=mySide?$('div.spare-bottom'):$('div.spare-top');
+      const doc=parent.global.document;
+      const event = doc.createEvent('Event');
+      event.clientX=-100;
+      event.clientY=-100;
+      event.initEvent ( 'mousedown', true, true );
+      $('.no-square',container).eq(index-1)?.trigger(event);
+      $('.no-square',container).eq(index-1)?.trigger('mouseup');
+    }
+
+    bindKeysForEditor=(value)=>{
+      const parent=this.lichessTools;
+      for (let i = 1; i <=8 ; i++) {
+        const combo=i.toString();
+        parent.unbindKeyHandler(combo);
+        parent.unbindKeyHandler('shift+'+combo);
+      }
+      parent.unbindKeyHandler('c');
+      parent.unbindKeyHandler('p');
+      if (value) {
+        for (let i = 1; i <=8 ; i++) {
+          const combo=i.toString();
+          parent.bindKeyHandler(combo,()=>this.handleEditorDigit(i, true));
+          parent.bindKeyHandler('shift+'+combo,()=>this.handleEditorDigit(i, false));
+        }
+        parent.bindKeyHandler('p',()=>this.handleEditorAction(0));
+        parent.bindKeyHandler('c',()=>this.handleEditorAction(1));
+      }
+    }
+
+    bindKeysForGeneral=(value)=>{
+      const parent=this.lichessTools;
       parent.unbindKeyHandler('`',true);
       parent.unbindKeyHandler('h',true);
       if (value) {
         parent.bindKeyHandler('`',()=>this.prepareMove('general'));
         parent.bindKeyHandler('h',this.toggleSiteHeader);
       }
-    }
-    if (!value) this.clearMoveMode();
+    };
+
+    async start() {
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const value=parent.currentOptions.getValue('keyShortcuts');
+      this.logOption('Extra analysis key shortcuts', value);
+      const lichess=parent.lichess;
+      const analysis=lichess.analysis;
+      const isEditorBoard=$('main').is('#board-editor');
+      if (analysis) {
+        this.bindKeysForAnalysis(analysis, value);
+      } else if (isEditorBoard) {
+        this.bindKeysForEditor(value);
+        this.bindKeysForGeneral(value);
+      } else {
+        this.bindKeysForGeneral(value);
+      }
+      if (!value) this.clearMoveMode();
     }
   }
+
   LiChessTools.Tools.KeyShortcuts=KeyShortcutsTool;
 })();
