@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 May
+  - Board editor key shortcuts (1-8, c and p)
+
 24 May
   - Nicer piece dragging theme
 
