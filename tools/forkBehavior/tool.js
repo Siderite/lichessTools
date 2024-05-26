@@ -35,10 +35,18 @@
       }
     }
 
-    getMoveText=(move,isTranspo)=>{
+    getMoveText=(move,isTranspo,length)=>{
+      length=length||0;
       let result=Math.floor((move.ply+1)/2);
-      result+=move.ply%2==1?'.':'...';
+      if (!length||move.ply%2==1) {
+        result+=move.ply%2==1?'.':'...';
+      }
       result+=move.san;
+      if (length<5 && move.children.length==1) {
+        result+=' '+this.getMoveText(move.children[0],false,length+1);
+      } else if (move.children.length) {
+        result+=' \u2026';
+      }
       return result;
     };
 
