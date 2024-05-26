@@ -1,4 +1,4 @@
-body.lichessTools .analyse__tools.lichessTools-forkBehavior-chessbase .analyse__fork {
+body.lichessTools .analyse__tools.lichessTools-forkBehavior-hybrid .analyse__fork {
   border:1px dashed red;
   outline:1px dashed red;
   margin:-1px 0;
@@ -6,9 +6,51 @@ body.lichessTools .analyse__tools.lichessTools-forkBehavior-chessbase .analyse__
 
 @media (max-width: 799.29px) and (orientation: portrait) {
 
-  body.lichessTools .analyse__tools.lichessTools-forkBehavior-chessbase .analyse__fork {
+  body.lichessTools .analyse__tools.lichessTools-forkBehavior-hybrid .analyse__fork {
     order:-1;
     display:flex;
   }
 
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase {
+  overflow: hidden;
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase select {
+  min-width: 20em;
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase option {
+  padding: 0.5em 0;
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase optgroup option {
+  padding-left: 1em;
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase span.dialog-actions {
+  display:flex;
+  justify-content:flex-end;
+  padding:0.5em;
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase span.dialog-actions button {
+  display:flex;
+  justify-content:flex-end;
+  padding:0.5em;
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase div.dialog-content {
+  padding:0.5em;
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase button.close-button {
+  scale:0.7;
+  transform: translate(18px, -18px);
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  border-radius: 50%;
+  border: none;
 }

@@ -8,7 +8,7 @@
         name:'forkBehavior',
         category: 'analysis',
         type:'single',
-        possibleValues: ['normal','chessbase'],
+        possibleValues: ['normal','hybrid','chessbase'],
         defaultValue: 'normal',
         advanced: true
       }
@@ -19,45 +19,137 @@
         'options.analysis': 'Analysis',
         'options.forkBehavior': 'Next move behavior for variations',
         'forkBehavior.normal': 'Normal',
-        'forkBehavior.chessbase': 'Force choice'
+        'forkBehavior.hybrid': 'Hybrid',
+        'forkBehavior.chessbase': 'Force choice',
+        'movesGroupLabel': 'Moves',
+        'transposGroupLabel': 'Transpositions'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.forkBehavior': 'Comportament la mutare urm\u0103toare pentru varia\u0163iuni',
         'forkBehavior.normal': 'Normal',
-        'forkBehavior.chessbase': 'For\u0163eaz\u0103 alegere'
+        'forkBehavior.hybrid': 'Hibrid',
+        'forkBehavior.chessbase': 'For\u0163eaz\u0103 alegere',
+        'movesGroupLabel': 'Mut\u0103ri',
+        'transposGroupLabel': 'Transpozi\u0163ii'
       }
     }
 
+    getMoveText=(move,isTranspo)=>{
+      let result=Math.floor((move.ply+1)/2);
+      result+=move.ply%2==1?'.':'...';
+      result+=move.san;
+      return result;
+    };
+
+    showPopup=async (nextMoves,nextTranspos)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const trans=parent.translator;
+      const $=parent.$;
+      const hasTranspos=!!nextTranspos.length;
+      const size=nextMoves.length+nextTranspos.length+(hasTranspos?2:0);
+      let selectElem=$('<select>')
+                    .attr('size',size);
+      let container=hasTranspos
+        ? $('<optgroup>').attr('label',trans.noarg('movesGroupLabel')).appendTo(selectElem)
+        : selectElem;
+      for (const move of nextMoves) {
+        $('<option>')
+          .attr('value',move.uci)
+          .text(this.getMoveText(move, false))
+          .appendTo(container);
+      }
+      if (hasTranspos) {
+        container=$('<optgroup>').attr('label',trans.noarg('transposGroupLabel')).appendTo(selectElem);
+        for (const move of nextTranspos) {
+          $('<option>')
+            .attr('value',move.uci+' '+move.path)
+            .text(this.getMoveText(move, true))
+            .appendTo(container);
+        }
+      }
+      const dlg=await lichess.dialog.dom({
+        htmlText: selectElem[0].outerHTML+'<span class="dialog-actions"><button class="button submit">'+trans.noarg('OK')+'</button></span>'
+      });
+      dlg.showModal();
+
+      $(dlg.dialog)
+        .addClass('lichessTools-forkBehavior-chessbase');
+      selectElem=$('select',dlg.dialog);
+      selectElem.val(selectElem.find('option').eq(0).attr('value'));
+      selectElem[0].focus();
+      const makeMove=()=>{
+        const val=selectElem.val();
+        if (!val) return;
+        dlg.close();
+        const [uci,path]=val.split(' ');
+        if (path) {
+          lichess.analysis.userJumpIfCan(path);
+        } else {
+          lichess.analysis.playUci(uci);
+        }
+        lichess.analysis.redraw();
+      }
+      $('button.submit',dlg.dialog).on('click',(ev)=>{
+        ev.preventDefault();
+        makeMove();
+      });
+      selectElem.on('keydown',(ev)=>{
+        if (ev.shiftKey || ev.altKey || ev.ctrlKey) return;
+        switch(ev.key) {
+          case 'ArrowRight':
+          case 'Enter':
+            ev.preventDefault();
+            makeMove();
+            break;
+          case 'ArrowLeft':
+            ev.preventDefault();
+            selectElem.val(selectElem.find('option').eq(0).attr('value'));
+            break;
+        };
+      });
+    };
+
+    nextResult=false;
     bindFork=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
-      if (this.options.value=='chessbase') {
+      if (['hybrid','chessbase'].includes(this.options.value)) {
         if (!parent.isWrappedFunction(analysis.fork.proceed,'forkBehavior')) {
-          let nextResult;
           analysis.fork.proceed=parent.wrapFunction(analysis.fork.proceed,{
             id: 'forkBehavior',
             before:($this,...args)=>{
-              const nextMoves=parent.getNextMoves(analysis.node).map(m=>m.san);
+              const nextMoves=parent.getNextMoves(analysis.node,true,false);
+              const nextTranspos=parent.getNextMoves(analysis.node,false,true);
+              const nextSans=nextMoves.concat(nextTranspos).map(m=>m.san);
               const noDuplicates=parent.transpositionBehavior?.groupSameMove;
-              const nextMovesCount=noDuplicates
-                ? new Set(nextMoves).size
-                : nextMoves.length;
-              if (nextMovesCount>1) {
-                if (this.variationSelect!=analysis.path) {
-                  this.variationSelect=analysis.path;
-                  $('.analyse__tools').addClass('lichessTools-forkBehavior-chessbase');
-                  nextResult=true;
-                  return false;
+              const nextSansCount=noDuplicates
+                ? new Set(nextSans).size
+                : nextSans.length;
+              if (nextSansCount>1) {
+                switch(this.options.value) {
+                  case 'hybrid':
+                    if (this.variationSelect!=analysis.path) {
+                      this.variationSelect=analysis.path;
+                      $('.analyse__tools').addClass('lichessTools-forkBehavior-hybrid');
+                      this.nextResult=true;
+                      return false;
+                    }
+                    break;
+                  case 'chessbase':
+                    this.showPopup(nextMoves,nextTranspos);
+                    this.nextResult=true;
+                    return false;
                 }
               }
-              nextResult=undefined;
+              this.nextResult=undefined;
             },
             after:($this,result,...args)=>{
-              return nextResult||result;
+              return this.nextResult||result;
             }
           });
         }
@@ -74,7 +166,7 @@
 
     clearVariationSelect=()=>{
       this.variationSelect='unset';
-      $('.analyse__tools').removeClass('lichessTools-forkBehavior-chessbase');
+      $('.analyse__tools').removeClass('lichessTools-forkBehavior-hybrid');
     };
 
     async start() {
@@ -89,7 +181,7 @@
       lichess.pubsub.off('redraw',this.bindFork);
       lichess.pubsub.off('chapterChange',this.clearVariationSelect);
       this.clearVariationSelect();
-      if (value=='chessbase') {
+      if (['hybrid','chessbase'].includes(value)) {
         lichess.pubsub.on('redraw',this.bindFork);
         this.bindFork();
         lichess.pubsub.on('chapterChange',this.clearVariationSelect);
