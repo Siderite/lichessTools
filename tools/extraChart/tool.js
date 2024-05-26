@@ -8,8 +8,8 @@
         name:'extraChart',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['material','principled','tension','potential','brilliant','smooth','gauge','local'],
-        defaultValue: 'material,principled,tension,smooth,gauge,brilliant',
+        possibleValues: ['material','principled','tension','potential','brilliant','local','accuracy','smooth','gauge'],
+        defaultValue: 'material,principled,tension,brilliant,smooth,gauge',
         advanced: true
       },
       {
@@ -32,6 +32,7 @@
         'extraChart.tension': 'Max tension',
         'extraChart.potential': 'Max potential',
         'extraChart.local': 'Local eval',
+        'extraChart.accuracy': 'Accuracy',
         'extraChart.brilliant': 'Find interesting moves',
         'extraChart.smooth': 'Chart smoothing',
         'extraChart.gauge': 'on Eval gauge',
@@ -51,6 +52,7 @@
         'extraChart.tension': 'Tensiune maxim\u0103',
         'extraChart.potential': 'Poten\u0163ial maxim',
         'extraChart.local': 'Evaluare local\u0103',
+        'extraChart.accuracy': 'Acurate\u0163e',
         'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
         'extraChart.smooth': 'Netezire grafice',
         'extraChart.gauge': 'pe bara de Eval',
@@ -70,6 +72,9 @@
       localChart: ()=>this.lichessTools.isDark()
                               ? '#FFFF00'
                               : '#705800',
+      accuracyChart: ()=>this.lichessTools.isDark()
+                              ? '#FF00FF'
+                              : '#700058',
       maxTensionLine: '#FF0000',
       maxPotentialLine: '#008000',
       interestingMoves: ()=>this.lichessTools.isDark()
@@ -470,11 +475,12 @@
     };
 
     smooth = (points)=>{
-      const parent=this.lichessTools;
+      return points;
+      /*const parent=this.lichessTools;
       const Math=parent.global.Math;
       if (!this.options.smooth) return points;
       const threshold=0.3;
-      const toRemove=[];;
+      const toRemove=[];
       for (let i=0;i<points.length-2;i++) {
         const avg=(points[i].y+points[i+2].y)/2;
         if (Math.abs(points[i].y-avg)>threshold) continue;
@@ -486,7 +492,7 @@
       for (let i=toRemove.length-1; i>=0; i--) {
         points.splice(toRemove[i],1);
       }
-      return toRemove.length?this.smooth(points):points;
+      return toRemove.length?this.smooth(points):points;*/
     }
 
     getMaterialData = (mainline) => {
@@ -528,6 +534,28 @@
           const cp=node.ceval.cp||node.ceval.mate*9999||0;
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            x: x
+          };
+        })
+        .filter(r=>!!r);
+    };
+
+    getAccuracyData = (mainline) => {
+      const parent=this.lichessTools;
+      const side=parent.lichess.analysis.getOrientation()=='black'?-1:1;
+      const Math=parent.global.Math;
+      let prevWinPerc=50;
+      return mainline
+        .map((node,x) => {
+          if (!node.eval) return null;
+          if ((node.ply%2)*2-1!=side) return null;
+          const cp=(node.eval.cp||node.eval.mate*9999||0)*side;
+          const winPerc=50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
+          const accuracy=103.1668 * Math.exp(-0.04354 * (prevWinPerc - winPerc)) - 3.1669;
+          prevWinPerc=winPerc;
+          const val=Math.max(Math.min(accuracy,100),0)/50-1;
+          return {
+            y: val,
             x: x
           };
         })
@@ -883,7 +911,7 @@
             type:'line',
             data: this.smooth(this.getPrincipledData(lichess.analysis.mainline)),
             borderWidth: 2,
-            borderDash:[3,3],
+            borderDash:[4,2],
             cubicInterpolationMode: this.options.smooth?'monotone':'default',
             tension: 0,
             pointRadius: 0,
@@ -942,6 +970,40 @@
         }
       }
 
+      let existingAccuracy = chart.data.datasets.findIndex(s=>s.label==='Accuracy');
+      if (existingAccuracy>=0 && (this.prevSmooth!=this.options.smooth || !this.options.accuracy)) {
+        chart.data.datasets.splice(existingAccuracy,1);
+        existingAccuracy=-1;
+        updateChart=true;
+      }
+      if (this.options.accuracy) {
+        const mainline=lichess.analysis.mainline;
+        if (existingAccuracy<0) {
+          chart.data.datasets.push({
+            label:'Accuracy',
+            type:'line',
+            data: this.smooth(this.getAccuracyData(mainline)),
+            borderWidth: 2,
+            borderDash:[3,2],
+            cubicInterpolationMode: this.options.smooth?'monotone':'default',
+            tension: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.accuracyChart,
+            order: 1,
+            datalabels: { display: false }
+          });
+          updateChart=true;
+        } else {
+          const dataset=chart.data.datasets[existingAccuracy];
+          const existingData = dataset.data;
+          const newData = this.smooth(this.getAccuracyData(mainline));
+          updateChart=JSON.stringify(existingData)!=JSON.stringify(newData);
+          if (updateChart) dataset.data=newData;
+        }
+      }
+
       let existingMaxTension = chart.data.datasets.findIndex(s=>s.label==='Max tension');
       if (existingMaxTension>=0 && !this.options.tension) {
         chart.data.datasets.splice(existingMaxTension,1);
@@ -959,7 +1021,7 @@
             { x: x, y:1.05 }
           ],
           borderWidth: 1,
-          borderDash:[3,3],
+          borderDash:[4,3],
           pointRadius: 0,
           pointHitRadius: 0,
           pointHoverRadius: 0,
@@ -1004,7 +1066,7 @@
             { x: x, y:1.05 }
           ],
           borderWidth: 1,
-          borderDash:[3,3],
+          borderDash:[2,4],
           pointRadius: 0,
           pointHitRadius: 0,
           pointHoverRadius: 0,
@@ -1122,8 +1184,9 @@
         potential:parent.isOptionSet(value,'potential'),
         brilliant:parent.isOptionSet(value,'brilliant'),
         local:parent.isOptionSet(value,'local'),
+        accuracy:parent.isOptionSet(value,'accuracy'),
         smooth:parent.isOptionSet(value,'smooth'),
-        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.local; },
+        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.local || this.accuracy; },
         gauge:parent.isOptionSet(value,'gauge'),
         christmas:!!parent.currentOptions.getValue('christmas')
       };

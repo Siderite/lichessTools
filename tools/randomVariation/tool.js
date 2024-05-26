@@ -100,9 +100,9 @@
     };
 
 
-    getNextMoves=(node,noTranspositions)=>{
+    getNextMoves=(node,noTranspositions,noMoves)=>{
       const parent=this.lichessTools;
-      const arr=[...node.children];
+      const arr=noMoves?[]:[...node.children];
       arr.transpositionStartIndex=arr.length;
       if (noTranspositions || !parent.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
       let transpositions=node.transposition.filter(n=>n!==node);

@@ -1,0 +1,20 @@
+/* Piece Dragging */
+
+body.lichessTools.lichessTools-theme_pieceDrag piece.dragging {
+  background-size: 120%;
+  background-position: center;
+}
+
+body.lichessTools.lichessTools-theme_pieceDrag piece.white.dragging {
+  filter: drop-shadow(10px 5px 10px #202020);
+}
+
+body.lichessTools.lichessTools-theme_pieceDrag piece.black.dragging {
+  filter: drop-shadow(10px 5px 10px #404040);
+}
+
+body.lichessTools.lichessTools-theme_pieceDrag square.move-dest:hover {
+  background: unset;
+  box-shadow: inset 0px 0px 7px 7px #FFFFFF80;
+  backdrop-filter: brightness(90%);
+}

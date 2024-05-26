@@ -23,3 +23,7 @@ body.lichessTools #time-range-slider.lichessTools-moreToTheLeft {
   border-right:none;
   border-radius:0;
 }
+
+body.lichessTools .rating-history-container:has(label.lichessTools-profileSliderText) {
+  overflow: hidden;
+}
