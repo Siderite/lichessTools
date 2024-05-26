@@ -24,7 +24,7 @@ body.lichessTools.playing.lichessTools-smallSide aside.round__side .mchat {
   body.lichessTools.playing.lichessTools-smallSide .round {
     grid-template-columns:10em var(---col3-uniboard-width) minmax(240px, 400px);
   }
-  body.lichessTools.playing.lichessTools-smallSide .round__side:has(ol.mchat__messages li) .game__meta__infos:before {
+  body.lichessTools.playing.lichessTools-smallSide .round__side:has(ol.mchat__messages li:not(.read)) .game__meta__infos:before {
     filter: drop-shadow(0px 0px 8px white);
   }
   body.lichessTools.playing .round .game__meta__infos.lichessTools-pointer:before {

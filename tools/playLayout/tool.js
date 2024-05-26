@@ -44,6 +44,9 @@
         case 'smallSide':
         case 'smallSideable':
           $('body').toggleClass('lichessTools-smallSide');
+          if (!$('body').is('lichessTools-smallSide')) {
+            $('ol.mchat__messages li').addClass('read');
+          }
           break;
       }
     };
