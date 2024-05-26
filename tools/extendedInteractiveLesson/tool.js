@@ -8,7 +8,7 @@
         name:'extendedInteractiveLesson',
         category: 'study',
         type:'multiple',
-        possibleValues: ['extendedInteractive','showFinalScore','studyLinksSameWindow','returnToPreview'],
+        possibleValues: ['extendedInteractive','showFinalScore','alwaysShowScore','studyLinksSameWindow','returnToPreview'],
         defaultValue: 'extendedInteractive,showFinalScore,studyLinksSameWindow'
       },
       {
@@ -27,12 +27,14 @@
         'options.study': 'Study',
         'options.extendedInteractiveLesson': 'Extended interactive lessons',
         'extendedInteractiveLesson.extendedInteractive':'Play all variations',
-        'extendedInteractiveLesson.showFinalScore':'Show score',
+        'extendedInteractiveLesson.showFinalScore':'Show final score',
+        'extendedInteractiveLesson.alwaysShowScore':'Always show score',
         'extendedInteractiveLesson.studyLinksSameWindow':'Study links in comments in same window',
         'extendedInteractiveLesson.returnToPreview':'Play again from where you entered Preview',
         'extendedInteractiveLesson': 'Extended Interactive lesson',
         'extendedInteractiveLessonLong': 'Extended Interactive lesson - LiChess Tools',
-        'finalScore': 'Final score: %s%',
+        'finalScore': 'Score final: %s%',
+        'currentScore': 'Score so far: %s%',
         'nextMovesCount': 'Make one of %s accepted moves',
         'nextMovesCount:one': 'Only one accepted move to make',
         'interactiveLessonsText': 'Interactive lessons',
@@ -52,12 +54,14 @@
         'options.study': 'Studiu',
         'options.extendedInteractiveLesson': 'Lec\u0163ii interactive extinse',
         'extendedInteractiveLesson.extendedInteractive':'Joac\u0103 toate varia\u0163iunile',
-        'extendedInteractiveLesson.showFinalScore':'Arat\u0103 scorul',
+        'extendedInteractiveLesson.showFinalScore':'Arat\u0103 scorul final',
+        'extendedInteractiveLesson.alwaysShowScore':'Arat\u0103 scorul tot timpul',
         'extendedInteractiveLesson.studyLinksSameWindow':'Linkuri c\u0103tre studii \u00een aceea\u015Fi fereastr\u0103',
         'extendedInteractiveLesson.returnToPreview':'Joac\u0103 din nou de unde ai intrat \u00een Preview',
         'extendedInteractiveLesson': 'Lec\u0163ie Interactiv\u0103 extins\u0103',
         'extendedInteractiveLessonLong': 'Lec\u0163ie Interactiv\u0103 extins\u0103 - LiChess Tools',
         'finalScore': 'Scor final: %s%',
+        'currentScore': 'Scor p\u00e2n\u0103 acum: %s%',
         'nextMovesCount': 'F\u0103 una din %s mut\u0103ri acceptate',
         'nextMovesCount:one': 'O singur\u0103 mutare de f\u0103cut',
         'interactiveLessonsText': 'Lec\u0163ii interactive',
@@ -362,29 +366,35 @@
       return true;
     };
 
-    showScore=()=>{
+    showScore=(isFinal)=>{
       const parent=this.lichessTools;
       const Math=parent.global.Math;
       const analysis=parent.lichess.analysis;
       const trans=parent.translator;
       const gp=analysis.gamebookPlay();
-      if (!this.options.showFinalScore) return;
+      if (!this.options.showFinalScore && !this.options.alwaysShowScore) return;
       gp.goodMoves=+(gp.goodMoves)||0;
       gp.badMoves=+(gp.badMoves)||0;
       if (gp.goodMoves+gp.badMoves==0) return;
       const score = gp.goodMoves/(gp.goodMoves+gp.badMoves);
-      const finalScoreText = trans.pluralSame('finalScore',Math.round(100*score));
+      const scoreText = trans.pluralSame(isFinal?'finalScore':'currentScore',Math.round(100*score));
       const scoreRating=score>0.90?4:score>0.75?3:score>0.50?2:1;
       const el=$('<span/>')
         .addClass('lichessTools-score')
         .addClass('lichessTools-score'+scoreRating)
-        .text(finalScoreText)
-        .attr('title',gp.goodMoves+'/'+gp.badMoves);
-      parent.global.setTimeout(()=>{
-        $('div.gamebook .comment .content .lichessTools-score').remove();
-        $('div.gamebook .comment .content').append(el);
-      },100);
-      gp.resetStats();
+        .text(scoreText)
+        .attr('title',gp.goodMoves+' | '+gp.badMoves);
+      const f=()=>{
+        const container = $('div.gamebook .comment .content');
+        if (!container.length) {
+          parent.global.setTimeout(f,100);
+          return;
+        }
+        container.find('.lichessTools-score').remove();
+        container.append(el);
+      };
+      f();
+      if (isFinal) gp.resetStats();
     };
 
     replaceFunction=(func,newFunc,id)=>{
@@ -429,7 +439,7 @@
         gp.solution=parent.unwrapFunction(gp.solution,'extendedInteractiveLessons');
         gp.isExtendedInteractiveLessons=true;
       }
-      if (this.options.showFinalScore && !gp.isShowScore) {
+      if ((this.options.showFinalScore || this.options.alwaysShowScore) && !gp.isShowScore) {
         gp.fens={};
         gp.resetStats=this.extendedGamebook.resetStats;
         gp.makeState=parent.wrapFunction(gp.makeState,{
@@ -462,10 +472,15 @@
                 } else {
                   gp.goodMoves++;
                 }
+              if (this.options.showFinalScore) {
+                this.showScore(true);
+              }
+              break;
+            }
+            if (this.options.alwaysShowScore) {
               this.showScore();
-            break;
-          }
-          gp.askedForSolution=false;
+            }
+            gp.askedForSolution=false;
           }
         });
         gp.next=parent.wrapFunction(gp.next,{
@@ -473,6 +488,9 @@
           before: ($this, ...args)=>{
             if (gp.root.node.id=='') {
               gp.resetStats();
+            }
+            if (this.options.alwaysShowScore) {
+              this.showScore();
             }
           }
         });
@@ -482,12 +500,18 @@
             if (gp.root.node.id=='') {
               gp.resetStats();
             }
+            if (this.options.alwaysShowScore) {
+              this.showScore();
+            }
           }
         });
         gp.solution=parent.wrapFunction(gp.solution,{
           id:'showScore',
           after: ($this, result, ...args)=>{
             gp.askedForSolution=true;
+            if (this.options.alwaysShowScore) {
+              this.showScore();
+            }
           }
         });
         gp.isShowScore=true;
@@ -662,6 +686,13 @@
       </div>
       <label for="abset-showScore">$trans(extendedInteractiveLesson.showFinalScore)</label>
     </div>
+    <div class="setting abset-alwaysShowScore" title="LiChess Tools - $trans(extendedInteractiveLesson.alwaysShowScore)">
+      <div class="switch">
+        <input id="abset-alwaysShowScore" class="cmn-toggle" type="checkbox" checked="">
+        <label for="abset-alwaysShowScore"></label>
+      </div>
+      <label for="abset-alwaysShowScore">$trans(extendedInteractiveLesson.alwaysShowScore)</label>
+    </div>
     <div class="setting abset-studyLinksSameWindow" title="LiChess Tools - $trans(extendedInteractiveLesson.studyLinksSameWindow)">
       <div class="switch">
         <input id="abset-studyLinksSameWindow" class="cmn-toggle" type="checkbox" checked="">
@@ -696,6 +727,8 @@
         .prop('checked',this.options.extendedInteractive);
       $('#abset-showScore')
         .prop('checked',this.options.showFinalScore);
+      $('#abset-alwaysShowScore')
+        .prop('checked',this.options.alwaysShowScore);
       $('#abset-studyLinksSameWindow')
         .prop('checked',this.options.studyLinksSameWindow);
       $('#abset-returnToPreview')
@@ -834,6 +867,7 @@
       if (!study) return;
       this.options={
         showFinalScore:parent.isOptionSet(value,'showFinalScore'),
+        alwaysShowScore:parent.isOptionSet(value,'alwaysShowScore'),
         extendedInteractive:parent.isOptionSet(value,'extendedInteractive'),
         studyLinksSameWindow:parent.isOptionSet(value,'studyLinksSameWindow'),
         returnToPreview:parent.isOptionSet(value,'returnToPreview'),
@@ -894,7 +928,7 @@
       if (this.options.extendedInteractive) {
         lichess.pubsub.on('redraw',this.alterUI);
       }
-      if (this.options.extendedInteractive||this.options.showFinalScore) {
+      if (this.options.extendedInteractive||this.options.showFinalScore||this.options.alwaysShowScore) {
         lichess.pubsub.on('chapterChange',this.patchGamebook);
       }
       this.patchGamebook();
