@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 May
+  - Option to always show score in interactive
+  - Better "chessbase" fork behavior
+
 25 May
   - Board editor key shortcuts (1-8, c and p)
 
