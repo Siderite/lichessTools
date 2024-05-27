@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 May
+  - Wakelock for TV pages
+
 26 May
   - Option to always show score in interactive
   - Better "chessbase" fork behavior
