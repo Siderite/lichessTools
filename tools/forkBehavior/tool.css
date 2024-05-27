@@ -29,6 +29,11 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase optgroup option {
   padding-left: 1em;
 }
 
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase optgroup {
+  font-weight:bold;
+  padding-left: 1em;
+}
+
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase span.dialog-actions {
   display:flex;
   justify-content:flex-end;
@@ -43,6 +48,7 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase span.dialog-actions
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase div.dialog-content {
   padding:0.5em;
+  min-width:unset;
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase button.close-button {
