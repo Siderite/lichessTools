@@ -2787,6 +2787,7 @@ const openings = {
   "r1bqkb1r3n2ppp3pn21p62p1P32N2N2PPB2PPPR1BQK2Rb": "Semi-Slav: Meran, Reynolds, 10...c4 11.dxe6 fxe6 12.Bc2",
   "r1bqkb1r3n2ppp3pn21p62p1P32NB1N2PP3PPPR1BQK2Rw": "Semi-Slav: Meran, Reynolds, 10...c4 11.dxe6 fxe6",
   "r1bqkb1r3nppppp2p1n21p4B13NPP22N5PPP3PPR2QKB1Rw": "Sicilian: Najdorf, 6.Bg5 Nbd7 7.f4 b5",
+  "r1bqkb1r3pppppp1n2n21p6N1P52N5PP2PPPPR1BQKB1Rw": "English Opening: Symmetrical, Stockfish Anti-English Defense",
   "r1bqkb1r4npppp1np41p1Np34P3N7PPP2PPPR1BQKB1Rw": "Sicilian: Loewenthal, Kalashnikov, 6.N1c3 a6 7.Na3 b5 8.Nd5 Nge7",
   "r1bqkb1r5p1pp1np1p21p1Np34P3N7PPP2PPPR2QKB1Rb": "Sicilian: Pelikan, Chelyabinsk, 9.Bxf6 gxf6 10.Nd5",
   "r1bqkb1r5p1pp1np1p21p2p34P3N1N5PPP2PPPR2QKB1Rw": "Sicilian: Pelikan, Chelyabinsk, 9.Bxf6 gxf6",
