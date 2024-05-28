@@ -15,6 +15,8 @@ body.lichessTools .analyse__tools.lichessTools-forkBehavior-hybrid .analyse__for
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase {
   overflow: hidden;
+  filter:contrast(0.7);
+  opacity:0.9;
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase select {
