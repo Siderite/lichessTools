@@ -65,6 +65,7 @@
       for (const move of nextMoves) {
         $('<option>')
           .attr('value',move.uci)
+          .attr('fen',move.fen)
           .text(this.getMoveText(move, false))
           .appendTo(container);
       }
@@ -73,6 +74,7 @@
         for (const move of nextTranspos) {
           $('<option>')
             .attr('value',move.uci+' '+move.path)
+            .attr('fen',move.fen)
             .text(this.getMoveText(move, true))
             .appendTo(container);
         }
@@ -83,10 +85,9 @@
       dlg.showModal();
 
       $(dlg.dialog)
+        .on('close',()=>lichess.analysis.explorer.setHovering(lichess.analysis.node.fen,null))
         .addClass('lichessTools-forkBehavior-chessbase');
       selectElem=$('select',dlg.dialog);
-      selectElem.val(selectElem.find('option').eq(0).attr('value'));
-      selectElem[0].focus();
       const makeMove=()=>{
         const val=selectElem.val();
         if (!val) return;
@@ -103,6 +104,21 @@
         ev.preventDefault();
         makeMove();
       });
+      selectElem.on('change',(ev)=>{
+        const val=selectElem.val();
+        const [uci,path]=val.split(' ');
+        lichess.analysis.explorer.setHovering(lichess.analysis.node.fen,uci);
+        const state=lichess.analysis.fork?.state();
+        if (!state?.displayed) return;
+        const index=state.node.children.findIndex(c=>c.uci==uci);
+        if (index<0 || state.selected==index) return;
+        for (let i=state.selected; i<index; i++) lichess.analysis.fork.next();
+        for (let i=state.selected; i>index; i--) lichess.analysis.fork.prev();
+        lichess.analysis.setAutoShapes();
+        lichess.analysis.redraw();
+      });
+      selectElem[0].selectedIndex=0;
+      selectElem[0].focus();
       selectElem.on('keydown',(ev)=>{
         if (ev.shiftKey || ev.altKey || ev.ctrlKey) return;
         switch(ev.key) {
