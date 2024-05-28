@@ -117,6 +117,7 @@
         lichess.analysis.setAutoShapes();
         lichess.analysis.redraw();
       });
+      selectElem.find('option').on('dblclick',makeMove);
       selectElem[0].selectedIndex=0;
       selectElem[0].focus();
       selectElem.on('keydown',(ev)=>{
