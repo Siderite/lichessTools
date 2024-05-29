@@ -124,6 +124,7 @@
         "tools/forkBehavior/tool.js",
         "tools/blogAutosave/tool.js",
         "tools/autoAnalyseGame/tool.js",
+        "tools/activeIcon/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",

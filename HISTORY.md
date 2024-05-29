@@ -2,6 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 29 May
   - No hand grab cursor theme
+  - Active icon
 
 27 May
   - Wakelock for TV pages

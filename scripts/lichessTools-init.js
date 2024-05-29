@@ -92,6 +92,7 @@ lichessTools.loadTool(LiChessTools.Tools.ObsIntegration);
 lichessTools.loadTool(LiChessTools.Tools.ForkBehavior);
 lichessTools.loadTool(LiChessTools.Tools.BlogAutosave);
 lichessTools.loadTool(LiChessTools.Tools.AutoAnalyseGame);
+lichessTools.loadTool(LiChessTools.Tools.ActiveIcon);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
