@@ -114,6 +114,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile .training-box .choices a {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .225);
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile .rclock .moretime {
+  display: flex;
+}
+
 /** Prettier **/
 
 body.lichessTools.lichessTools-prettier.lichessTools-theme_mobile.mobile  main.analyse.has-players:not(.has-relay-tour) .main-board {
