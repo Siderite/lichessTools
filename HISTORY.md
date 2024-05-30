@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+30 May
+  - theme improvements for 3D board and piece grabbing
+  - correctly check if the board was resized without user action
+
 29 May
   - No hand grab cursor theme
   - Active icon

@@ -106,7 +106,7 @@
             lichess.storage.set('LichessTools.studyPositions',parent.global.JSON.stringify(data));
           }
         });
-        if (!this._pageLoaded && !lichess.analysis.study.gamebookPlay) {
+        if (!this._pageLoaded && !lichess.analysis.study.gamebookPlay && !parent.isGamePlaying()) {
           this._pageLoaded=true;
           const studyId=study.data.id;
           const chapterId=study.vm.chapterId;
