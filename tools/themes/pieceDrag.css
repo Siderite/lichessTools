@@ -18,3 +18,20 @@ body.lichessTools.lichessTools-theme_pieceDrag square.move-dest:hover {
   box-shadow: inset 0px 0px 7px 7px #FFFFFF80;
   backdrop-filter: brightness(90%);
 }
+
+body.lichessTools.lichessTools-theme_pieceDrag .is3d square.move-dest {
+  z-index:300;
+}
+
+body.lichessTools.lichessTools-theme_pieceDrag .is3d piece.dragging {
+  background-size: 100%;
+}
+
+body.lichessTools.lichessTools-theme_pieceDrag .is3d piece {
+  clip-path: ellipse(40% 50% at 50% 50%);
+}
+
+
+body.lichessTools.lichessTools-theme_pieceDrag .is3d piece.pawn {
+  clip-path: ellipse(40% 30% at 50% 55%);
+}
