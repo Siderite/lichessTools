@@ -25,17 +25,18 @@
     checkBoardPosition=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      let offset=this.board.offset();
-      if (!offset) {
-        this.board=$('.cg-wrap cg-board');
+      let offset=this.board?.offset();
+      if (!offset || !this.board[0]?.offsetParent) {
+        this.board=$('.main-board cg-board');
         offset=this.board.offset();
       }
-      if (!offset) {
-        parent.global.clearInterval(this.interval);
-      }
-      if (offset?.top!=this.offset?.top || offset?.left!=this.offset?.left) {
+      if (!offset) return;
+      offset.width=this.board.width();
+      offset.height=this.board.height();
+      if (JSON.stringify(offset)!=JSON.stringify(this.offset)) {
         this.offset=offset;
-        $.cached('body').trigger('resize');
+        parent.global.console.debug('Firing board resize event');
+        $('body').trigger('resize');
       }
     }
 
@@ -45,9 +46,7 @@
       const value=parent.currentOptions.getValue('fixChessgroundResize');
       this.logOption('Fix Chessground resize', value);
       parent.global.clearInterval(this.interval);
-      this.board=$('.cg-wrap cg-board');
-      if (!value || !this.board.length) return;
-       
+      if (!value) return;
       this.interval=parent.global.setInterval(this.checkBoardPosition,500);
     }
   }
