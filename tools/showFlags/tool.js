@@ -314,7 +314,7 @@
         if (next.has('img.flag').length) return;
         if (textEl.attr('data-icon')) return;
         if (textEl.attr('data-tab')) return;
-        let url=textEl.attr('href')||textEl.data('href');
+        let url=textEl.attr('href')||textEl[0]?.dataset?.href;
         if (!url) return;
         const m= /\/@\/([^\/]+)\/?$/.exec(url);
         const userId=m&&m[1];

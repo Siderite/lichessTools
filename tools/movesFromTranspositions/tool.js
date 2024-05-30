@@ -60,7 +60,7 @@
       transpositions=transpositions.filter(n=>n!=currNode);
       const noDuplicates=parent.transpositionBehavior?.groupSameMove;
       const transpoData=transpositions.map(n=>n.uci).join(',')+(noDuplicates?'ND':'D');
-      if (fork.data('transpositions')==transpoData) return;
+      if (fork[0]?.dataset?.transpositions==transpoData) return;
       fork.data('transpositions',transpoData);
       fork.empty();
 
