@@ -88,7 +88,8 @@
         .on('close',()=>lichess.analysis.explorer.setHovering(lichess.analysis.node.fen,null))
         .addClass('lichessTools-forkBehavior-chessbase');
       selectElem=$('select',dlg.dialog);
-      const makeMove=()=>{
+      const makeMove=(ev)=>{
+        ev?.preventDefault();
         const val=selectElem.val();
         if (!val) return;
         dlg.close();
@@ -117,7 +118,9 @@
         lichess.analysis.setAutoShapes();
         lichess.analysis.redraw();
       });
-      selectElem.find('option').on('dblclick',makeMove);
+      selectElem.find('option')
+        .on('dblclick',makeMove)
+        .on('contextmenu',makeMove);
       selectElem[0].selectedIndex=0;
       selectElem[0].focus();
       selectElem.on('keydown',(ev)=>{
@@ -130,7 +133,7 @@
             break;
           case 'ArrowLeft':
             ev.preventDefault();
-            selectElem.val(selectElem.find('option').eq(0).attr('value'));
+            dlg.close();
             break;
         };
       });
