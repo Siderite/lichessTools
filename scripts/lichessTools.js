@@ -784,7 +784,7 @@
     };
 
     isGamePlaying() {
-      return this.lichess.analysis.ongoing;
+      return this.lichess.analysis?.ongoing || this.lichess.analysis?.studyPractice;
       /*const game = this.lichess.analysis?.data?.game;
       if (!game) return false;
       if (game.id=='synthetic') return false;
