@@ -125,6 +125,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile div.analyse__board {
   margin-bottom: 1em;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile div.eval-gauge {
+  margin-top: 1em;
+}
+
 body.lichessTools.lichessTools-theme_mobile.mobile div.analyse__player_strip {
   display: flex;
 }
