@@ -32,7 +32,8 @@ body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .analyse__moves  {
-  min-height:20em;
+  flex-basis: max-content;
+  max-height: 25em;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse.has-players:not(.has-relay-tour) .main-board {
@@ -116,6 +117,20 @@ body.lichessTools.lichessTools-theme_mobile.mobile .training-box .choices a {
 
 body.lichessTools.lichessTools-theme_mobile.mobile .rclock .moretime {
   display: flex;
+}
+
+
+body.lichessTools.lichessTools-theme_mobile.mobile div.analyse__board {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile div.analyse__player_strip {
+  display: flex;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile aside.analyse__side div.game__meta__players {
+  display: block;
 }
 
 /** Prettier **/
