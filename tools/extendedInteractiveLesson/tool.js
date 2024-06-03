@@ -96,7 +96,7 @@
             init: analysis.path === '',
             comment: nodeComment?.text,
             showHint: false,
-            isNavigateBack: gp.path?.length>analysis.path?.length
+            isNavigateBack: gp.path?.length>analysis.path?.length && gp.path.startsWith(analysis.path)
         };
         gp.path = analysis.path;
 
