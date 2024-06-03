@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+03 Jun
+  - Fast Interaction
+
 30 May
   - theme improvements for 3D board and piece grabbing
   - correctly check if the board was resized without user action
