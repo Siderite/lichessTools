@@ -1,5 +1,7 @@
 window.lichessTools=new LiChessTools(window, cash);
 
+lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
+lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
 lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 
 lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
@@ -9,7 +11,6 @@ lichessTools.loadTool(LiChessTools.Tools.FixAbortController);
 lichessTools.loadTool(LiChessTools.Tools.FixChessgroundResize);
 lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);
 lichessTools.loadTool(LiChessTools.Tools.FixCeval);
-lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
 lichessTools.loadTool(LiChessTools.Tools.GamebookPlayClass);
 lichessTools.loadTool(LiChessTools.Tools.EmitPuzzleChange);

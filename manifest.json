@@ -48,6 +48,7 @@
         "tools/chessops/tool.js",
         "tools/exportPgn/tool.js",
         "tools/stockfish/tool.js",
+        "tools/addNotifications/tool.js",
 
         "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",

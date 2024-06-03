@@ -1,12 +1,14 @@
 (()=>{
   class AddToTeamTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=[ 'AddNotifications' ];
+
     preferences=[
       {
         name:'addToTeam',
         category: 'community',
         type:'multiple',
-        possibleValues: ['hideForum'],
+        possibleValues: ['hideForum','noNotifications'],
         defaultValue: false
       }
     ];
@@ -18,9 +20,8 @@
       'en-US':{
         'options.community': 'Community',
         'options.addToTeam': 'LiChess Tools team',
-        'addToTeam.join': 'Add me',
-        'addToTeam.quit': 'Remove me',
         'addToTeam.hideForum': 'Hide forum entry',
+        'addToTeam.noNotifications': 'Disable notifications',
         'joinTeamText': 'Join the team',
         'teamTitle': 'Users of the LiChess Tools browser extension',
         'teamSubtitle': 'Join the team to access the forum, meet other users, get updates or give feedback',
@@ -30,9 +31,8 @@
       'ro-RO':{
         'options.community': 'Comunitate',
         'options.addToTeam': 'Echipa LiChess Tools',
-        'addToTeam.join': 'Adaug\u0103-m\u0103',
-        'addToTeam.quit': 'Scoate-m\u0103',
         'addToTeam.hideForum': 'Ascunde sec\u0163iunea din forum',
+        'addToTeam.noNotifications': 'F\u0103r\u0103 notific\u0103ri',
         'joinTeamText': 'Intr\u0103 \u00een echip\u0103',
         'teamTitle': 'Echipa utilizatorilor extensiei de browser LiChess Tools',
         'teamSubtitle': 'Intr\u0103 \u00een echip\u0103 pentru acces la forum, al\u0163i utilizatori, nout\u0103\u0163i sau p\u0103reri',
@@ -46,8 +46,6 @@
       parent.global.setTimeout(async ()=>{
         parent.currentOptions['addToTeam']=false;
         await parent.saveOptions(parent.currentOptions);
-        this.options.join=false;
-        this.options.quit=false;
       },500);
     }
 
@@ -155,27 +153,49 @@
       }
     };
 
+    setWasNotified=()=>{
+      const parent=this.lichessTools;
+      parent.storage.set('addToTeam-wasNotified',Date.now());
+    };
+
+    notifyToJoin=()=>{
+      const parent=this.lichessTools;
+      const trans=parent.translator;
+      if (this.options.noNotifications) return;
+      const isNotified = parent.storage.get('addToTeam-wasNotified');
+      if (isNotified) return;
+      const notification={
+        getEntries: async ()=>{
+          const entry={
+            id: 'addToTeam',
+            isNew: true,
+            icon: '\uE059',
+            href: '/team/l1chess-tools-users-team',
+            content: $('<div>')
+                       .append($('<span>').text(trans.noarg('joinTeamText')))
+                       .append($('<span>').text(trans.noarg('teamTitle')))
+                     .html(),
+            title: trans.noarg('teamSubtitle')
+          };
+          return [ entry ];
+        }
+      };
+      parent.notifications.add(notification);
+      
+    };
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('addToTeam');
       this.logOption('Add to team', value);
       this.options={
-        join:parent.isOptionSet(value,'join'),
-        quit:parent.isOptionSet(value,'quit') && value!==true,
-        hideForum:parent.isOptionSet(value,'hideForum')
-      }
+        hideForum:parent.isOptionSet(value,'hideForum'),
+        noNotifications:parent.isOptionSet(value,'noNotifications')
+      };
+      if (/\/l1chess-tools-users-team/i.test(location.pathname)) this.setWasNotified();
       await this.refreshTeam();
-      if (this.inTeam) {
-        if (this.options.quit) {
-          await this.quitLichessTeam();
-        }
-      } else {
-        if (this.options.join) {
-          await this.joinLichessTeam();
-        }
-      }
-      if (this.options.join || this.options.quit) {
-        this.clearJoinState();
+      if (!this.inTeam) {
+        this.notifyToJoin();
       }
       await this.updateForumPage();
     }

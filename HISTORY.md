@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Jun
+  - General tool for extra notifications
+  - Add to team notification
+
 03 Jun
   - Fast Interaction
 
