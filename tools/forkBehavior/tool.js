@@ -146,6 +146,7 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
+      if (analysis.gamebookPlay() || parent.isGamePlaying()) return;
       if (['hybrid','chessbase'].includes(this.options.value)) {
         if (!parent.isWrappedFunction(analysis.fork.proceed,'forkBehavior')) {
           analysis.fork.proceed=parent.wrapFunction(analysis.fork.proceed,{
