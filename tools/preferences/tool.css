@@ -187,6 +187,7 @@ div.lichessTools-preferences .actionButtons  {
   display: flex;
   gap: 1em;
   justify-content: flex-end;
+  flex-wrap:wrap;
 }
 
 div.lichessTools-preferences .actionButtons span {
@@ -198,7 +199,6 @@ div.lichessTools-preferences div.defaultValue {
   border: 1px cornflowerblue groove;
   border-radius:25%;
 }
-
 
 /* Prettier Lichess CSS */
 
