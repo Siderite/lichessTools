@@ -14,7 +14,7 @@ body.lichessTools .analyse__tools.lichessTools-forkBehavior-hybrid .analyse__for
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase {
-  overflow: hidden;
+  overflow: visible;
   filter:contrast(0.7);
   opacity:0.9;
 }
@@ -47,6 +47,32 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase span.dialog-actions
   justify-content:flex-end;
   padding:0.5em;
 }
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase ul {
+  min-width: 20em;
+  list-style:none;
+  text-align: left;
+  font-weight: bold;
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase .dialog-content > ul {
+  border: 1px solid var(--c-border);
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase li {
+  width: 100%;
+  text-align: left;
+  padding: 0.5em 0;
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase li.selected {
+  backdrop-filter: contrast(0.1);
+}
+
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase ul ul li {
+  padding-left: 1em;
+}
+
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase div.dialog-content {
   padding:0.5em;
