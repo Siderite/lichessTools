@@ -8,7 +8,7 @@
         name:'addToTeam',
         category: 'community',
         type:'multiple',
-        possibleValues: ['hideForum','noNotifications'],
+        possibleValues: ['hideForum','forumBottom','noNotifications'],
         defaultValue: false
       }
     ];
@@ -21,6 +21,7 @@
         'options.community': 'Community',
         'options.addToTeam': 'LiChess Tools team',
         'addToTeam.hideForum': 'Hide forum entry',
+        'addToTeam.forumBottom': 'Forum entry last',
         'addToTeam.noNotifications': 'Disable notifications',
         'joinTeamText': 'Join the team',
         'teamTitle': 'Users of the LiChess Tools browser extension',
@@ -32,6 +33,7 @@
         'options.community': 'Comunitate',
         'options.addToTeam': 'Echipa LiChess Tools',
         'addToTeam.hideForum': 'Ascunde sec\u0163iunea din forum',
+        'addToTeam.forumBottom': 'Sec\u0163iunea din forum la final',
         'addToTeam.noNotifications': 'F\u0103r\u0103 notific\u0103ri',
         'joinTeamText': 'Intr\u0103 \u00een echip\u0103',
         'teamTitle': 'Echipa utilizatorilor extensiei de browser LiChess Tools',
@@ -158,7 +160,11 @@
                }
             });
         }
-        row.insertBefore($('tr',container).last());
+        if (this.options.forumBottom) {
+          row.insertAfter($('tr',container).last());
+        } else {
+          row.insertBefore($('tr',container).last());
+        }
       } else {
         if (!this.inTeam && existingRow.length) {
           parent.global.location.reload()
@@ -205,6 +211,7 @@
       if (!user) return;
       this.options={
         hideForum:parent.isOptionSet(value,'hideForum'),
+        forumBottom:parent.isOptionSet(value,'forumBottom'),
         noNotifications:parent.isOptionSet(value,'noNotifications')
       };
       if (this.isTeamPage()) this.setVisitedTeamPage();
