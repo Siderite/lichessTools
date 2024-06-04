@@ -57,39 +57,72 @@
       const $=parent.$;
       const hasTranspos=!!nextTranspos.length;
       const size=nextMoves.length+nextTranspos.length+(hasTranspos?2:0);
-      let selectElem=$('<select>')
-                    .attr('size',size);
-      let container=hasTranspos
-        ? $('<optgroup>').attr('label',trans.noarg('movesGroupLabel')).appendTo(selectElem)
-        : selectElem;
-      for (const move of nextMoves) {
-        $('<option>')
-          .attr('value',move.uci)
-          .text(this.getMoveText(move, false))
-          .appendTo(container);
-      }
-      if (hasTranspos) {
-        container=$('<optgroup>').attr('label',trans.noarg('transposGroupLabel')).appendTo(selectElem);
-        for (const move of nextTranspos) {
-          $('<option>')
-            .attr('value',move.uci+' '+move.path)
-            .text(this.getMoveText(move, true))
+      let dlg=null;
+      let selectElem=null;
+      if ($('body').is('.mobile')) {
+        selectElem=$('<ul>');
+        let container=hasTranspos
+          ? $('<ul>').text(trans.noarg('movesGroupLabel')).appendTo(selectElem)
+          : selectElem;
+        for (const move of nextMoves) {
+          $('<li>')
+            .attr('value',move.uci)
+            .attr('fen',move.fen)
+            .text(this.getMoveText(move, false))
             .appendTo(container);
         }
+        if (hasTranspos) {
+          container=$('<ul>').text(trans.noarg('transposGroupLabel')).appendTo(selectElem);
+          for (const move of nextTranspos) {
+            $('<li>')
+              .attr('value',move.uci+' '+move.path)
+              .attr('fen',move.fen)
+              .text(this.getMoveText(move, true))
+              .appendTo(container);
+          }
+        }
+        dlg=await lichess.dialog.dom({
+          htmlText: selectElem[0].outerHTML
+        });
+      } else {
+        selectElem=$('<select>')
+                      .attr('size',size);
+        let container=hasTranspos
+          ? $('<optgroup>').attr('label',trans.noarg('movesGroupLabel')).appendTo(selectElem)
+          : selectElem;
+        for (const move of nextMoves) {
+          $('<option>')
+            .attr('value',move.uci)
+            .attr('fen',move.fen)
+            .text(this.getMoveText(move, false))
+            .appendTo(container);
+        }
+        if (hasTranspos) {
+          container=$('<optgroup>').attr('label',trans.noarg('transposGroupLabel')).appendTo(selectElem);
+          for (const move of nextTranspos) {
+            $('<option>')
+              .attr('value',move.uci+' '+move.path)
+              .attr('fen',move.fen)
+              .text(this.getMoveText(move, true))
+              .appendTo(container);
+          }
+        }
+        dlg=await lichess.dialog.dom({
+          htmlText: selectElem[0].outerHTML+'<span class="dialog-actions"><button class="button submit">'+trans.noarg('OK')+'</button></span>'
+        });
       }
-      const dlg=await lichess.dialog.dom({
-        htmlText: selectElem[0].outerHTML+'<span class="dialog-actions"><button class="button submit">'+trans.noarg('OK')+'</button></span>'
-      });
       dlg.showModal();
 
       $(dlg.dialog)
+        .on('close',()=>lichess.analysis.explorer.setHovering(lichess.analysis.node.fen,null))
         .addClass('lichessTools-forkBehavior-chessbase');
-      selectElem=$('select',dlg.dialog);
-      selectElem.val(selectElem.find('option').eq(0).attr('value'));
-      selectElem[0].focus();
-      const makeMove=()=>{
-        const val=selectElem.val();
-        if (!val) return;
+      selectElem=$('select,ul',dlg.dialog).eq(0);
+      const makeMove=(ev)=>{
+        ev?.preventDefault();
+        const val=selectElem.val() || $(ev?.target).attr('value');
+        if (!val) {
+          return;
+        }
         dlg.close();
         const [uci,path]=val.split(' ');
         if (path) {
@@ -99,9 +132,46 @@
         }
         lichess.analysis.redraw();
       }
+      const highlight=(ev)=>{
+        const val=selectElem.val() || $(ev?.target).attr('value');
+        if (!val) return;
+        const [uci,path]=val.split(' ');
+        lichess.analysis.explorer.setHovering(lichess.analysis.node.fen,uci);
+        const state=lichess.analysis.fork?.state();
+        if (!state?.displayed) return;
+        const index=state.node.children.findIndex(c=>c.uci==uci);
+        if (index<0 || state.selected==index) return;
+        for (let i=state.selected; i<index; i++) lichess.analysis.fork.next();
+        for (let i=state.selected; i>index; i--) lichess.analysis.fork.prev();
+        lichess.analysis.setAutoShapes();
+        lichess.analysis.redraw();
+      };
+      const mobileMakeMove=(ev)=>{
+        ev?.preventDefault();
+        const elem=$(ev?.target);
+        if (!elem.length) return;
+        if (!elem.is('.selected')) {
+          $('li',selectElem).removeClass('selected');
+          elem.addClass('selected');
+          highlight(ev);
+          return;
+        }
+        makeMove(ev);
+      };
       $('button.submit',dlg.dialog).on('click',(ev)=>{
         ev.preventDefault();
         makeMove();
+      });
+      selectElem.on('change',highlight);
+      selectElem.find('option')
+        .on('dblclick',makeMove)
+        .on('contextmenu',makeMove);
+      selectElem.find('li')
+        .on('click',mobileMakeMove);
+      
+      selectElem.each((i,e)=>{
+        e.selectedIndex=0;
+        e.focus();
       });
       selectElem.on('keydown',(ev)=>{
         if (ev.shiftKey || ev.altKey || ev.ctrlKey) return;
@@ -113,7 +183,7 @@
             break;
           case 'ArrowLeft':
             ev.preventDefault();
-            selectElem.val(selectElem.find('option').eq(0).attr('value'));
+            dlg.close();
             break;
         };
       });
@@ -126,6 +196,7 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
+      if (analysis.gamebookPlay() || parent.isGamePlaying()) return;
       if (['hybrid','chessbase'].includes(this.options.value)) {
         if (!parent.isWrappedFunction(analysis.fork.proceed,'forkBehavior')) {
           analysis.fork.proceed=parent.wrapFunction(analysis.fork.proceed,{

@@ -100,6 +100,9 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Next move behavior for variations (like Chessbase)
  - Save blog while editing it
  - Option to switch to Analysis when your game ends
+ - Screen not locking when watching TV
+ - Active tab icon
+ - Fast interactive lesson moves
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

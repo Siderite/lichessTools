@@ -198,6 +198,7 @@
                     $this.initialize(pgn,merge);
                   } else {
                     $this.reloadData(pgn,merge);
+                    $this.jump('');
                   }
                   merge=andReload;
                   successfulPGNs++;

@@ -198,6 +198,26 @@ body.lichessTools.lichessTools-extendedInteractiveLesson div.lichessTools-extend
   margin-left:0.5em;
 }
 
+body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment:before {
+  font-family: "lichess";
+  position: absolute;
+  right: -0.25em;
+  bottom: -0.25em;
+  border-radius: 50%;
+  padding:0.25em;
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment.good:before {
+  content: '\E038';
+  background-color: green;
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment.bad:before {
+  content: '\E03F';
+  background-color: red;
+}
+
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier .analyse .gamebook span.lichessTools-score {

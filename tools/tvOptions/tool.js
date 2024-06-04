@@ -6,8 +6,8 @@
         name:'tvOptions',
         category: 'TV',
         type:'multiple',
-        possibleValues: ['link','bookmark','streamerTv','friendsTv','userTvHistory'],
-        defaultValue: 'link,bookmark,streamerTv,friendsTv,userTvHistory',
+        possibleValues: ['link','bookmark','streamerTv','friendsTv','userTvHistory','wakelock'],
+        defaultValue: 'link,bookmark,streamerTv,friendsTv,userTvHistory,wakelock',
         advanced: false
       }
     ];
@@ -21,6 +21,7 @@
         'tvOptions.streamerTv': 'Streamers current games',
         'tvOptions.friendsTv': 'Friends current games',
         'tvOptions.userTvHistory': 'Previous two games in player TV',
+        'tvOptions.wakelock': 'Prevent screen lock with TV',
         'friendsButtonTitle': 'LiChess Tools - games of your friends',
         'streamersButtonTitle': 'LiChess Tools - games of live streamers',
         'streamers': 'Streamers',
@@ -39,6 +40,7 @@
         'tvOptions.streamerTv': 'Jocurile streamerilor live',
         'tvOptions.friendsTv': 'Jocurile prietenilor t\u0103i',
         'tvOptions.userTvHistory': 'Dou\u0103 partide precedente \u00een TVul juc\u0103torilor',
+        'tvOptions.wakelock': 'Prevent screen lock with TV',
         'friendsButtonTitle': 'LiChess Tools - jocurile prietenilor t\u0103i',
         'streamersButtonTitle': 'LiChess Tools - jocurile streamerilor live',
         'streamers': 'Streameri',
@@ -50,6 +52,10 @@
         'previouslyOnTV': 'Anterior la %s TV'
 
       }
+    };
+
+    isTvPage=()=>{
+       return /\/tv\b/i.test(this.lichessTools.global.location.pathname);
     };
 
     isGamesPage=()=>{
@@ -335,6 +341,20 @@
         this.updateTvOptionsPage();
       }
     };
+
+    requestWakeLock=async ()=>{
+      const parent=this.lichessTools;
+      try {
+        if (document.visibilityState==='visible') {
+          this.wakelock?.release();
+          this.wakelock=await parent.global.navigator.wakeLock.request("screen");
+          if (this.wakelock) return;
+        }
+      } catch (err) {
+        console.debug('Wakelock failed:',err);
+      }
+      parent.global.setTimeout(this.requestWakeLock,1000);
+    };
     
     followingOnlinesRequests=0;
     async start() {
@@ -349,6 +369,7 @@
         streamerTv: parent.isOptionSet(value,'streamerTv'),
         friendsTv: parent.isOptionSet(value,'friendsTv'),
         userTvHistory: parent.isOptionSet(value,'userTvHistory'),
+        wakelock: parent.isOptionSet(value,'wakelock'),
       };
       const lichess=parent.lichess;
       if (!lichess) return;
@@ -452,6 +473,12 @@
         }
       } else {
         $('div.tv-history.lichessTools-userHistory').remove();
+      }
+
+      if (this.options.wakelock && this.isTvPage()) {
+        this.requestWakeLock();
+      } else {
+        this.wakelock?.release();
       }
     }
   }

@@ -1,0 +1,9 @@
+/* No grab cursor */
+
+body.lichessTools.lichessTools-theme_noGrab piece.dragging {
+  cursor: default;
+}
+
+body.lichessTools.lichessTools-theme_noGrab .manipulable piece {
+  cursor: default;
+}

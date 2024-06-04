@@ -1,7 +1,7 @@
 (()=>{
   class TimelineNotifyTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw'];
+    dependencies=['AddNotifications'];
 
     preferences=[
       {
@@ -82,94 +82,14 @@
       const lichess=parent.lichess;
       this.lastRead=Date.now();
       lichess.storage.set('LiChessTools.lastRead',this.lastRead);
-      this.forcedProcessTimeline();
-    };
-
-    processTimeline=async (el)=>{
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      if (lichess.quietMode) return;
-      if (parent.global.document.hidden) return;
-      const $=parent.$;
-      const trans=parent.translator;
-      if (el!==true && !$(el).is('div.notifications')) return;
-      this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
-
-      if ($('.shown div.notifications').length) {
-        this._unreadNotifications=0;
-        parent.global.clearInterval(this.closeInterval);
-        this.closeInterval=parent.global.setInterval(()=>{
-          if (!$('.shown div.notifications').length) {
-            parent.global.clearInterval(this.closeInterval);
-            this.forcedProcessTimeline();
-          }
-        },500);
-      }
-
-      const timeline=await parent.net.json({url:'/api/timeline?nb=100&since={lastRead}',args:{lastRead:this.lastRead}});
-      if (!timeline) return;
-      const newEntries=timeline.entries
-        .filter(e=>e.date>this.lastRead)
-        .filter(e=>this.types.includes(e.type));
-
-      const toggle=$('#top div.site-buttons #notify-toggle span');
-      const app=$('#top div.site-buttons #notify-app');
-      let notifications=$('div.notifications',app);
-
-      const count=+toggle.attr('data-count')||0;
-      const justNotified=+(lichess.storage.get('just-notified'))||0;
-      const isNew=!!newEntries
-                     .find(e=>e.date>justNotified);
-      const newCount=this._unreadNotifications+(isNew?1:0);
-      let title=toggle.attr('title');
-      title=title?.replaceAll(count.toString(),newCount.toString());
-      toggle
-        .attr('data-count',newCount)
-        .attr('title',title)
-        .attr('aria-label',title);
-      let elem = $('a.site_notification.lichessTools-timelineNotify',notifications);
-      if (newEntries.length) {
-        if (!notifications.length) {
-          const emptyDiv=$('div.empty',app).removeAttr('data-icon').empty();
-          notifications=$('<div class="notifications">')
-            .appendTo(emptyDiv);
-        }
-        if (!elem.length) {
-          elem=$(`<a class="site_notification lichessTools-timelineNotify" href="/timeline">
-               <i data-icon="\uE058"></i>
-               <span class="content"></span>
-             </a>`)
-            .attr('title',trans.noarg('timelineNotifyTitle'))
-            .prependTo(notifications)
-            .find('span.content')
-            .append($('<span>')
-                      .text(trans.noarg('timeline'))
-            ).append($('<span>'));
-        }
-        elem
-          .toggleClass('new',isNew)
-          .find('span.content span:nth-child(2)')
-          .text(trans.pluralSame('timelineNotification',newEntries.length));
-      } else {
-        elem.remove();
-      }
-    };
-    forcedProcessTimeline=this.lichessTools.debounce(()=>this.processTimeline(true),500);
-
-    _unreadNotifications=0;
-    updateNotificationCount=(ev)=>{
-      const parent=this.lichessTools;
-      const count=ev?.unread;
-      if (count===undefined) {
-        parent.global.console.warn('Could not read unread value from socket.in.notifications',ev);
-      }
-      this._unreadNotifications=+count;
+      parent.notifications.refresh();
     };
 
     async start() {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
+      const trans=parent.translator;
       const value=parent.currentOptions.getValue('timelineNotify');
       switch(value) {
         case true: this.types=this.preferences[0].defaultValue.split(','); break;
@@ -181,26 +101,35 @@
         parent.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-
-      lichess.pubsub.off('content-loaded',this.processTimeline);
-      parent.global.clearInterval(this.interval);
-      parent.global.clearInterval(this.closeInterval);
-      lichess.pubsub.off('socket.in.notifications',this.updateNotificationCount);
       if (!value) return;
 
-      lichess.pubsub.on('content-loaded',this.processTimeline);
-      this.interval=parent.global.setInterval(()=>{
-        if ($('div.shown #notify-app div.empty.text').length) {
-          this.forcedProcessTimeline();
-        }
-      },500);
-
-      lichess.pubsub.on('socket.in.notifications',this.updateNotificationCount);
-      const notify=await parent.net.json('/notify?page=1');
-      this._unreadNotifications=+notify.unread;
-
       if (/^\/timeline/i.test(location.pathname)) this.setAllRead();
-      this.forcedProcessTimeline();
+      const notification={
+        getEntries: async ()=>{
+          this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
+          const timeline=await parent.net.json({url:'/api/timeline?nb=100&since={lastRead}',args:{lastRead:this.lastRead}});
+          if (!timeline) return [];
+          const newEntries=timeline.entries
+            .filter(e=>e.date>this.lastRead)
+            .filter(e=>this.types.includes(e.type));
+          const justNotified=+(lichess.storage.get('just-notified'))||0;
+          if (!newEntries
+                  .find(e=>e.date>justNotified)) return [];
+          const entry={
+            id: 'timelineNotify',
+            isNew: true,
+            icon: '\uE058',
+            href: '/timeline',
+            content: $('<div>')
+                       .append($('<span>').text(trans.noarg('timeline')))
+                       .append($('<span>').text(trans.pluralSame('timelineNotification',newEntries.length)))
+                     .html(),
+            title: trans.noarg('timelineNotifyTitle')
+          };
+          return [ entry ];
+        }
+      };
+      parent.notifications.add(notification);
     }
 
   }

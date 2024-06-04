@@ -1,5 +1,25 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Jun
+  - General tool for extra notifications
+  - Add to team notification
+  - Add to team option to move forum after Off-topic
+  - Mobile improvements for the Force choice variation behaviour
+
+03 Jun
+  - Fast Interaction in Interactive Lessons
+
+30 May
+  - theme improvements for 3D board and piece grabbing
+  - correctly check if the board was resized without user action
+
+29 May
+  - No hand grab cursor theme
+  - Active icon
+
+27 May
+  - Wakelock for TV pages
+
 26 May
   - Option to always show score in interactive
   - Better "chessbase" fork behavior

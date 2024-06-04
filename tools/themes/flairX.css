@@ -1,8 +1,9 @@
 /* Flair X */
 
 body.lichessTools.lichessTools-theme_flairX img.uflair:hover {
-  transform: scale(3);
-  transition:1s;
+  scale: 3;
+  filter: drop-shadow(3px 1px 5px #808080);
+  transition:scale 1s;
   position:relative;
   z-index:1;
 }

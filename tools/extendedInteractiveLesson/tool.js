@@ -8,7 +8,7 @@
         name:'extendedInteractiveLesson',
         category: 'study',
         type:'multiple',
-        possibleValues: ['extendedInteractive','showFinalScore','alwaysShowScore','studyLinksSameWindow','returnToPreview'],
+        possibleValues: ['extendedInteractive','showFinalScore','alwaysShowScore','studyLinksSameWindow','returnToPreview','fastInteractive'],
         defaultValue: 'extendedInteractive,showFinalScore,studyLinksSameWindow'
       },
       {
@@ -31,6 +31,7 @@
         'extendedInteractiveLesson.alwaysShowScore':'Always show score',
         'extendedInteractiveLesson.studyLinksSameWindow':'Study links in comments in same window',
         'extendedInteractiveLesson.returnToPreview':'Play again from where you entered Preview',
+        'extendedInteractiveLesson.fastInteractive':'Fast interaction',
         'extendedInteractiveLesson': 'Extended Interactive lesson',
         'extendedInteractiveLessonLong': 'Extended Interactive lesson - LiChess Tools',
         'finalScore': 'Score final: %s%',
@@ -58,6 +59,7 @@
         'extendedInteractiveLesson.alwaysShowScore':'Arat\u0103 scorul tot timpul',
         'extendedInteractiveLesson.studyLinksSameWindow':'Linkuri c\u0103tre studii \u00een aceea\u015Fi fereastr\u0103',
         'extendedInteractiveLesson.returnToPreview':'Joac\u0103 din nou de unde ai intrat \u00een Preview',
+        'extendedInteractiveLesson.fastInteractive':'Interac\u0163iune rapid\u0103',
         'extendedInteractiveLesson': 'Lec\u0163ie Interactiv\u0103 extins\u0103',
         'extendedInteractiveLessonLong': 'Lec\u0163ie Interactiv\u0103 extins\u0103 - LiChess Tools',
         'finalScore': 'Scor final: %s%',
@@ -93,8 +95,11 @@
         const state = {
             init: analysis.path === '',
             comment: nodeComment?.text,
-            showHint: false
+            showHint: false,
+            isNavigateBack: gp.path?.length>analysis.path?.length && gp.path.startsWith(analysis.path)
         };
+        gp.path = analysis.path;
+
         if (state.init || gp.state?.init) {
           if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
             gp.currentPath=this.getCurrentPath();
@@ -157,12 +162,34 @@
         }
         gp.state = state;
         if (!state.comment) {
-          if (state.feedback === 'good') {
-            parent.global.setTimeout(gp.next, analysis.path ? 1000 : 300);
+          let func=null;
+          let delay=0;
+          switch (state.feedback) {
+            case 'good': 
+              func=gp.next; 
+              delay=300;
+              break;
+            case 'bad': 
+              func=gp.retry; 
+              delay=analysis.path ? 1000 : 800;
+              break;
           }
-          else if (state.feedback === 'bad') {
-            parent.global.setTimeout(gp.retry, 800);
+          if (!state.isNavigateBack && !gp.isMyMove() && func && this.options.fastInteractive) {
+            delay=50;
+            const oldFunc=func;
+            func=()=> {
+              oldFunc();
+              $('div.gamebook .comment')
+                .removeClass('good bad')
+                .addClass(state.feedback);
+            };
           }
+          if (func) {
+            parent.global.setTimeout(func, delay);
+          }
+        } else {
+          $('div.gamebook .comment')
+            .removeClass('good bad');
         }
       },
       retry: ()=>{
@@ -372,6 +399,7 @@
       const analysis=parent.lichess.analysis;
       const trans=parent.translator;
       const gp=analysis.gamebookPlay();
+      if (!gp) return;
       if (!this.options.showFinalScore && !this.options.alwaysShowScore) return;
       gp.goodMoves=+(gp.goodMoves)||0;
       gp.badMoves=+(gp.badMoves)||0;
@@ -455,6 +483,7 @@
             gp.goodMoves=+(gp.goodMoves)||0;
             gp.badMoves=+(gp.badMoves)||0;
             const state=$this.state;
+            if (state.isNavigateBack) return;
             switch(state.feedback) {
               case 'good':
                 if (gp.askedForSolution) {
@@ -644,6 +673,7 @@
         if (this.options.flow.sequential) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.sequential'));
         if (this.options.flow.spacedRepetition) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.spacedRepetition'));
         if (this.options.returnToPreview) optionsArr.push(trans.noarg('extendedInteractiveLesson.returnToPreview'));
+        if (this.options.fastInteractive) optionsArr.push(trans.noarg('extendedInteractiveLesson.fastInteractive'));
         optionsElem.find('span').text(optionsArr.join(', '));
       }
     };
@@ -706,20 +736,31 @@
         <label for="abset-returnToPreview"></label>
       </div>
       <label for="abset-returnToPreview">$trans(extendedInteractiveLesson.returnToPreview)</label>
-    </div>`.replace(/\$trans\(([^\)]+)\)/g,m=>{
+    </div>
+    <div class="setting abset-fastInteractive" title="LiChess Tools - $trans(extendedInteractiveLesson.fastInteractive)">
+      <div class="switch">
+        <input id="abset-fastInteractive" class="cmn-toggle" type="checkbox" checked="">
+        <label for="abset-fastInteractive"></label>
+      </div>
+      <label for="abset-fastInteractive">$trans(extendedInteractiveLesson.fastInteractive)</label>
+    </div>
+`.replace(/\$trans\(([^\)]+)\)/g,m=>{
           return parent.htmlEncode(trans.noarg(m.slice(7,-1)));
         });
         $(html).insertBefore($('h2',container).eq(0));
-        $('#abset-extendedInteractive,#abset-showScore,#abset-studyLinksSameWindow,#abset-returnToPreview')
+        $('#abset-extendedInteractive,#abset-showScore,#abset-alwaysShowScore,#abset-studyLinksSameWindow,#abset-returnToPreview,#abset-fastInteractive')
           .on('change',async ()=>{
             const arr=[];
             const options=parent.currentOptions
             if ($('#abset-extendedInteractive').is(':checked')) arr.push('extendedInteractive');
             if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
+            if ($('#abset-alwaysShowScore').is(':checked')) arr.push('alwaysShowFinalScore');
             if ($('#abset-studyLinksSameWindow').is(':checked')) arr.push('studyLinksSameWindow');
             if ($('#abset-returnToPreview').is(':checked')) arr.push('returnToPreview');
+            if ($('#abset-fastInteractive').is(':checked')) arr.push('fastInteractive');
             options.extendedInteractiveLesson=arr.join(',');
-            await parent.applyOptions(options);
+            await parent.applyOptions(options)
+            await parent.saveOptions(options)
             parent.fireReloadOptions();
           });
       }
@@ -733,6 +774,8 @@
         .prop('checked',this.options.studyLinksSameWindow);
       $('#abset-returnToPreview')
         .prop('checked',this.options.returnToPreview);
+      $('#abset-fastInteractive')
+        .prop('checked',this.options.fastInteractive);
     };
 
     alterStudyLinksDirect=()=>{
@@ -871,6 +914,7 @@
         extendedInteractive:parent.isOptionSet(value,'extendedInteractive'),
         studyLinksSameWindow:parent.isOptionSet(value,'studyLinksSameWindow'),
         returnToPreview:parent.isOptionSet(value,'returnToPreview'),
+        fastInteractive:parent.isOptionSet(value,'fastInteractive'),
         flow: {
           'sequential':parent.isOptionSet(flow,'sequential'),
           'spacedRepetition':parent.isOptionSet(flow,'spacedRepetition')
@@ -930,6 +974,10 @@
       }
       if (this.options.extendedInteractive||this.options.showFinalScore||this.options.alwaysShowScore) {
         lichess.pubsub.on('chapterChange',this.patchGamebook);
+      }
+      lichess.pubsub.off('redraw',this.showScore);
+      if (this.options.showFinalScore||this.options.alwaysShowScore) {
+        lichess.pubsub.on('redraw',this.showScore);
       }
       this.patchGamebook();
 
