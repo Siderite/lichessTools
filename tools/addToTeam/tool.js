@@ -81,16 +81,29 @@
       return r.ok;
     }
 
-    refreshTeam=async ()=>{
+    refreshTeam=async (forced)=>{
+      if (this.options.hideForum && this.options.noNotifications) return;
       const parent=this.lichessTools;
       const user=parent.getUserId();
       if (!user) return;
+      const joinedTime = +parent.global.localStorage.getItem('LiChessTools.joinedTeam')||0;
+      if (!forced && joinedTime && Date.now()-joinedTime<3600000) {
+        this.inTeam=true;
+        return;
+      }
       const r=await parent.net.json({url:'/api/team/of/{user}',args:{ user }});
       this.inTeam=!!r.find(t=>t.id==this.teamId);
+      if (this.inTeam && !joinedTime) {
+        parent.global.localStorage.setItem('LiChessTools.joinedTeam',Date.now());
+      }
     };
 
     isForumPage=()=>{
       return this.lichessTools.global.location.pathname=='/forum';
+    };
+
+    isTeamPage=()=>{
+      return new this.lichessTools.global.RegExp('\/'+this.teamId,'i').test(location.pathname);
     };
 
     updateForumPage=async ()=>{
@@ -153,16 +166,16 @@
       }
     };
 
-    setWasNotified=()=>{
+    setVisitedTeamPage=()=>{
       const parent=this.lichessTools;
-      parent.storage.set('addToTeam-wasNotified',Date.now());
+      parent.storage.set('addToTeam-visitedTeamPage',Date.now());
     };
 
     notifyToJoin=()=>{
       const parent=this.lichessTools;
       const trans=parent.translator;
       if (this.options.noNotifications) return;
-      const isNotified = parent.storage.get('addToTeam-wasNotified');
+      const isNotified = parent.storage.get('addToTeam-visitedTeamPage');
       if (isNotified) return;
       const notification={
         getEntries: async ()=>{
@@ -170,7 +183,7 @@
             id: 'addToTeam',
             isNew: true,
             icon: '\uE059',
-            href: '/team/l1chess-tools-users-team',
+            href: '/team/'+parent.global.encodeURIComponent(this.teamId),
             content: $('<div>')
                        .append($('<span>').text(trans.noarg('joinTeamText')))
                        .append($('<span>').text(trans.noarg('teamTitle')))
@@ -188,12 +201,14 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('addToTeam');
       this.logOption('Add to team', value);
+      const user=parent.getUserId();
+      if (!user) return;
       this.options={
         hideForum:parent.isOptionSet(value,'hideForum'),
         noNotifications:parent.isOptionSet(value,'noNotifications')
       };
-      if (/\/l1chess-tools-users-team/i.test(location.pathname)) this.setWasNotified();
-      await this.refreshTeam();
+      if (this.isTeamPage()) this.setVisitedTeamPage();
+      await this.refreshTeam(this.isForumPage());
       if (!this.inTeam) {
         this.notifyToJoin();
       }
