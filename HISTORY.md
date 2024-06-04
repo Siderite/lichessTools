@@ -3,9 +3,11 @@ History of features added to LiChess Tools in time (reversed order)
 04 Jun
   - General tool for extra notifications
   - Add to team notification
+  - Add to team option to move forum after Off-topic
+  - Mobile improvements for the Force choice variation behaviour
 
 03 Jun
-  - Fast Interaction
+  - Fast Interaction in Interactive Lessons
 
 30 May
   - theme improvements for 3D board and piece grabbing

@@ -1045,7 +1045,9 @@
         ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
         : 0;
       this.global.console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red; color:white;':'');
-      this.translator = this.lichess.trans(this.intl.siteI18n);
+      if (this.lichess.trans) {
+        this.translator = this.lichess.trans(this.intl.siteI18n);
+      }
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);
       lichess.storage.make('lichessTools.reloadOptions').listen(() => {
