@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+05 Jun
+  - paste images in chat directly
+
 04 Jun
   - General tool for extra notifications
   - Add to team notification
