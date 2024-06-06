@@ -206,6 +206,7 @@
         "tools/obsIntegration/tool.css",
         "tools/forkBehavior/tool.css",
         "tools/blogAutosave/tool.css",
+        "tools/imagePasting/tool.css",
 
         "tools/tvOptions/tool.css",
 

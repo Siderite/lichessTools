@@ -45,13 +45,16 @@
       const file=ev.clipboardData?.files[0] || ev.dataTransfer?.files[0]
       if (!this.isImage(file)) return;
       ev.preventDefault();
+      parent.global.console.debug('Sending image to Imgur...');
       const buffer=await file.arrayBuffer();
-      const base64=btoa(String.fromCharCode(...new Uint8Array(buffer)));
-      parent.global.console.debug('Pasting image...');
-      const res=await parent.comm.send({ type: 'pasteBuffer',options:{ buffer: base64 } }).catch(e=>{ parent.global.console.error(e); });
+      const base64=btoa(
+        new Uint8Array(buffer)
+          .reduce((data, byte) => data + String.fromCharCode(byte), '')
+      );
+      const res=await parent.comm.send({ type: 'pasteBuffer',options:{ buffer: base64 } },undefined,10000).catch(e=>{ parent.global.console.error(e); });
       parent.global.console.debug('... got reply '+JSON.stringify(res));
       if (!res.link) {
-        parent.global.console.warn('Could not paste image!',res?.err);
+        parent.global.console.warn('Could not send image!',res?.err);
         return;
       }
       return res.link;
@@ -60,11 +63,19 @@
     pasteImage=async (ev)=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      const url = await this.getImageUrl(ev);
-      if (!url) return;
       const el=ev.target;
-      const [start, end] = [el.selectionStart, el.selectionEnd];
-      el.setRangeText(url, start, end, 'end');
+      let loader=null;
+      try {
+        $(el).addClass('lichessTools-imagePasting');
+        loader=$('<div class="ddloader"></div>').insertAfter(el);
+        const url = await this.getImageUrl(ev);
+        if (!url) return;
+        const [start, end] = [el.selectionStart, el.selectionEnd];
+        el.setRangeText(url, start, end, 'end');
+      } finally {
+        loader.remove();
+        $(el).removeClass('lichessTools-imagePasting');
+      }
     };
 
     async start() {

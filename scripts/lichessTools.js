@@ -978,10 +978,10 @@
         }
       });
     },
-    send: function(data,sendResponse) {
+    send: function(data,sendResponse,timeout) {
       const uid=crypto.randomUUID();
       return new Promise((resolve,reject)=>{
-        const pointer=setTimeout(()=>reject(new Error('Send timeout')),this.timeout);
+        const pointer=setTimeout(()=>reject(new Error('Send timeout')),timeout||this.timeout);
         const f=(data)=>{
           clearTimeout(pointer);
           if (sendResponse) sendResponse(data);
