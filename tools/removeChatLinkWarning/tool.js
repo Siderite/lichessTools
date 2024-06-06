@@ -25,14 +25,26 @@
       }
     }
 
+    initControls=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('div.link-popup-ready').each((i,e)=>{
+        if (e.removeChatLinkWarningInit) return;
+        parent.removeEventHandlers(e,'click');
+        e.removeChatLinkWarningInit=true;
+      });
+    };
+
     async start() {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
       const value=parent.currentOptions.getValue('removeChatLinkWarning');
       this.logOption('Remove link warning', value);
+      parent.global.clearInterval(this.interval);
       if (!value) return;
-      $('div.link-popup-ready').each((i,e)=>parent.removeEventHandlers(e,'click'));
+      this.interval=parent.global.setInterval(this.initControls,1000);
+      this.initControls();
     }
 
   }

@@ -78,6 +78,17 @@
       }
     };
 
+    initControls=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
+        .each((i,e)=>{
+          if (e.imagePastingInit) return;
+          e.imagePastingInit=true;
+          $(e).on('paste drop',this.pasteImage);
+        });
+    };
+
     async start() {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -88,11 +99,15 @@
         pasteImages: parent.isOptionSet(value,'pasteImages')
       };
       if (!this.isInboxOrForumPage()) return;
+      parent.global.clearInterval(this.interval);
       $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
-        .off('paste drop',this.pasteImage);
+        .each((i,e)=>{
+          $(e).off('paste drop',this.pasteImage);
+          e.imagePastingInit=false;
+        });
       if (!this.options.pasteImages) return;
-      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
-        .on('paste drop',this.pasteImage);
+      this.interval=parent.global.setInterval(this.initControls,1000);
+      this.initControls();
     }
 
   }
