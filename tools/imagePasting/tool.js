@@ -42,7 +42,7 @@
 
     getImageUrl=async (ev)=>{
       const parent=this.lichessTools;
-      const file=ev.clipboardData.files[0];
+      const file=ev.clipboardData?.files[0] || ev.dataTransfer?.files[0]
       if (!this.isImage(file)) return;
       ev.preventDefault();
       const buffer=await file.arrayBuffer();
@@ -77,13 +77,11 @@
         pasteImages: parent.isOptionSet(value,'pasteImages')
       };
       if (!this.isInboxOrForumPage()) return;
-      $('textarea.msg-app__convo__post__text').off('paste',this.pasteImage);
-      $('main.forum textarea#form3-text').off('paste',this.pasteImage);
-      $('main.forum textarea#form3-post_text').off('paste',this.pasteImage);
+      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
+        .off('paste drop',this.pasteImage);
       if (!this.options.pasteImages) return;
-      $('textarea.msg-app__convo__post__text').on('paste',this.pasteImage);
-      $('main.forum textarea#form3-text').on('paste',this.pasteImage);
-      $('main.forum textarea#form3-post_text').on('paste',this.pasteImage);
+      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
+        .on('paste drop',this.pasteImage);
     }
 
   }
