@@ -1,9 +1,9 @@
 (()=>{
-  class InboxChatImprovementsTool extends LiChessTools.Tools.ToolBase {
+  class ImagePastingTool extends LiChessTools.Tools.ToolBase {
 
     preferences=[
       {
-        name:'inboxChatImprovements',
+        name:'imagePasting',
         category: 'general',
         type:'multiple',
         possibleValues: ['pasteImages'],
@@ -14,19 +14,19 @@
     intl={
       'en-US':{
         'options.general': 'General',
-        'options.inboxChatImprovements': 'Improved Inbox chat',
-        'inboxChatImprovements.pasteImages': 'Paste image support'
+        'options.imagePasting': 'Image pasting in chat/forum',
+        'imagePasting.pasteImages': 'Paste image support'
       },
       'ro-RO':{
         'options.general': 'General',
-        'options.inboxChatImprovements': 'Chat inbox imbun\u0103t\u0103\u0163it',
-        'inboxChatImprovements.pasteImages': 'Suport imagini'
+        'options.imagePasting': 'Suport imagini \u00een chat/forum',
+        'imagePasting.pasteImages': 'Suport imagini'
       }
     }
 
-    isInboxPage=()=>{
+    isInboxOrForumPage=()=>{
       const parent=this.lichessTools;
-      return /\/inbox\/\w+/i.test(parent.global.location.pathname);
+      return /\/(inbox|forum)\/\w+/i.test(parent.global.location.pathname);
     };
 
     isImage=(file)=>{
@@ -40,9 +40,8 @@
       ].includes(file?.type);
     };
 
-    chatPaste=async (ev)=>{
+    getImageUrl=async (ev)=>{
       const parent=this.lichessTools;
-      const $=parent.$;
       const file=ev.clipboardData.files[0];
       if (!this.isImage(file)) return;
       ev.preventDefault();
@@ -55,25 +54,36 @@
         parent.global.console.warn('Could not paste image!',res?.err);
         return;
       }
-      $('textarea.msg-app__convo__post__text').val(res.link);
-      $('form.msg-app__convo__post').trigger('submit');
+      return res.link;
+    };
+
+    pasteImage=async (ev)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const url = await this.getImageUrl(ev);
+      if (!url) return;
+      const el=ev.target;
+      const [start, end] = [el.selectionStart, el.selectionEnd];
+      el.setRangeText(url, start, end, 'end');
     };
 
     async start() {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
-      const value=parent.currentOptions.getValue('inboxChatImprovements');
+      const value=parent.currentOptions.getValue('imagePasting');
       this.logOption('Inbox chat', value);
       this.options={ 
         pasteImages: parent.isOptionSet(value,'pasteImages')
       };
-      if (!this.isInboxPage()) return;
-      $('textarea.msg-app__convo__post__text').off('paste',this.chatPaste);
+      if (!this.isInboxOrForumPage()) return;
+      $('textarea.msg-app__convo__post__text').off('paste',this.pasteImage);
+      $('main.forum textarea#form3-text').off('paste',this.pasteImage);
       if (!this.options.pasteImages) return;
-      $('textarea.msg-app__convo__post__text').on('paste',this.chatPaste);
+      $('textarea.msg-app__convo__post__text').on('paste',this.pasteImage);
+      $('main.forum textarea#form3-text').on('paste',this.pasteImage);
     }
 
   }
-  LiChessTools.Tools.InboxChatImprovements=InboxChatImprovementsTool;
+  LiChessTools.Tools.ImagePasting=ImagePastingTool;
 })();

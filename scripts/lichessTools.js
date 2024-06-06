@@ -1050,7 +1050,7 @@
       }
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);
-      lichess.storage.make('lichessTools.reloadOptions').listen(() => {
+      lichess.storage?.make('lichessTools.reloadOptions').listen(() => {
         debouncedApplyOptions();
       });
     }
