@@ -79,9 +79,11 @@
       if (!this.isInboxOrForumPage()) return;
       $('textarea.msg-app__convo__post__text').off('paste',this.pasteImage);
       $('main.forum textarea#form3-text').off('paste',this.pasteImage);
+      $('main.forum textarea#form3-post_text').off('paste',this.pasteImage);
       if (!this.options.pasteImages) return;
       $('textarea.msg-app__convo__post__text').on('paste',this.pasteImage);
       $('main.forum textarea#form3-text').on('paste',this.pasteImage);
+      $('main.forum textarea#form3-post_text').on('paste',this.pasteImage);
     }
 
   }
