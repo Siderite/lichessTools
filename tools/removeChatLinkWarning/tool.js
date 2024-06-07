@@ -7,7 +7,7 @@
       {
         name:'removeChatLinkWarning',
         category: 'general',
-        type:'singe',
+        type:'single',
         possibleValues: [false,true],
         defaultValue: true,
         advanced: true
