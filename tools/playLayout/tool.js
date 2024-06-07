@@ -56,12 +56,12 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
-      $('main.round .game__meta__infos')
+      $('.playing main.round .game__meta__infos')
         .removeClass('lichessTools-pointer')
         .removeAttr('title')
         .off('click',this.toggleLayout);
       if (this.options.value!='normal') {
-        $('main.round .game__meta__infos')
+        $('.playing main.round .game__meta__infos')
           .addClass('lichessTools-pointer')
           .attr('title',trans('toggleLayoutTitle'))
           .on('click',this.toggleLayout);
