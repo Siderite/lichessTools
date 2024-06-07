@@ -24,3 +24,7 @@ body.lichessTools dialog.lichessTools-boardImage a.help-button {
 body.lichessTools dialog.lichessTools-boardImage a.help-button:hover {
   color: #1b78d0;
 }
+
+body.lichessTools .copyables .pgn:has(.is-error) {
+  margin-bottom: 2em;
+}

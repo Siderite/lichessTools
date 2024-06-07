@@ -2,6 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 06 Jun
   - paste images in chat/forum
+  - remove annoying chat warning
 
 04 Jun
   - General tool for extra notifications
