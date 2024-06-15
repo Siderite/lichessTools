@@ -327,6 +327,24 @@
       this.elementCache=new Map();
       const container=$('div.analyse__moves');
       $('move',container).each((i,e)=>this.elementCache.set($(e).attr('p')||'',e));
+      const collapsed=[];
+      this.traverse(null,(n,s)=>{
+        if (n.collapsed) collapsed.push(n.path);
+      });
+      // TODO very hacky because the collapse functionality is still in progress
+      $('lines.collapsed',container).each((i,e)=>{
+        while (e) {
+          e=$(e).prev()[0]||$(e).parent()[0];
+          const p=$(e).is('move') && $(e).attr('p');
+          if (p) {
+            collapsed.push(p);
+            break;
+          }
+        }
+      });
+      this.collapsedRegex=collapsed.length
+        ? new RegExp('^('+collapsed.map(p=>this.escapeRegex(p)).join('|')+')')
+        : null;
       this.debug && this.global.console.debug('Element cache reset');
     };
 
@@ -339,7 +357,11 @@
       }
       if (path && !elem) {
         if (this.isTreeviewVisible(true)) {
-          this.global.console.warn('Could not find elem for path '+path,this.global.location.href);
+          if (!this.collapsedRegex || !this.collapsedRegex.test(path)) {
+            this.global.console.warn('Could not find elem for path '+path,this.global.location.href);
+          } else {
+            this.debug && this.global.console.debug('Could not find elem for path '+path+' because it is in a collapsed path',this.global.location.href);
+          }
         }
       }
       return elem;
