@@ -11,6 +11,10 @@
     global=null;
     lichess=null;
 
+    isDev=()=>{
+      return /lichess\.dev/.test(this.global.location.origin);
+    };
+
     get debug() {
       if (this._debug===undefined) {
         const debug = this.global.localStorage.getItem('LiChessTools2.debug');
