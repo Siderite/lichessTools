@@ -205,6 +205,7 @@
 
     async start() {
       const parent=this.lichessTools;
+      if (parent.isDev()) return;
       const value=parent.currentOptions.getValue('addToTeam');
       this.logOption('Add to team', value);
       const user=parent.getUserId();
