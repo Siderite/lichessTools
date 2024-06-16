@@ -322,29 +322,48 @@
       return this.rectIntersection(rect,port);
     };
 
+    computeCollapsedRegex=()=>{
+      const $=this.$;
+      const lichess=this.lichess;
+      const container=$('div.analyse__moves');
+     
+      const collapsedPaths=[];
+      $('lines.collapsed',container).each((i,e)=>{
+        let interrupt=false;
+        let $e=$(e);
+        if ($e.parent().is('interrupt')) {
+          $e=$e.parent();
+          interrupt=true;
+        }
+        $e=$e.prev('move');
+        if ($e.is('.empty')) $e=$e.prev('move');
+        const p=$e.attr('p')||'';
+        collapsedPaths.push(interrupt?p.slice(0,-2):p);
+      });
+      const collapsedRegex=collapsedPaths.length
+        ? new RegExp('^('+collapsedPaths.map(p=>this.escapeRegex(p)).join('|')+')')
+        : null;
+      if (this.collapsedRegex!=collapsedRegex) {
+         this.collapsedRegex=collapsedRegex;
+         this?.emitRedraw();
+      }
+      this.debug && this.global.console.debug('Computed collapsed regex');
+    };
+    computeCollapsedRegexDebounced=this.debounce(this.computeCollapsedRegex,500);
+
+    elementCache=new Map();
     resetCache=()=>{
       const $=this.$;
-      this.elementCache=new Map();
+      const lichess=this.lichess;
+      this.elementCache.clear();
       const container=$('div.analyse__moves');
-      $('move',container).each((i,e)=>this.elementCache.set($(e).attr('p')||'',e));
-      const collapsed=[];
-      this.traverse(null,(n,s)=>{
-        if (n.collapsed) collapsed.push(n.path);
+     
+      $('move',container).each((i,e)=>{
+        const $e=$(e);
+        if ($e.is('.empty')) return;
+        const p=$e.attr('p')||'';
+        this.elementCache.set(p,e);
       });
-      // TODO very hacky because the collapse functionality is still in progress
-      $('lines.collapsed',container).each((i,e)=>{
-        while (e) {
-          e=$(e).prev()[0]||$(e).parent()[0];
-          const p=$(e).is('move') && $(e).attr('p');
-          if (p) {
-            collapsed.push(p);
-            break;
-          }
-        }
-      });
-      this.collapsedRegex=collapsed.length
-        ? new RegExp('^('+collapsed.map(p=>this.escapeRegex(p)).join('|')+')')
-        : null;
       this.debug && this.global.console.debug('Element cache reset');
     };
 
@@ -352,16 +371,30 @@
       const $=this.$;
       let elem = this.elementCache?.get(path);
       if (!elem?.offsetParent) {
+        if (!elem) {
+          if (this.collapsedRegex?.test(path)) {
+            this.debug && this.global.console.debug(path+' is collapsed');
+            this.computeCollapsedRegexDebounced();
+            return;
+          }
+          this.computeCollapsedRegex();
+          if (this.collapsedRegex?.test(path)) {
+            this.debug && this.global.console.debug(path+' is collapsed');
+            return;
+          }
+        }
         this.resetCache();
         elem = this.elementCache.get(path);
+      } else {
+        if (this.debug && this.collapsedRegex?.test(path)) {
+          if (!this.lichess.analysis.tree.pathIsMainline(path)) {
+            this.global.console.debug('Elem for non mainline path '+path+' exists, but is marked as collapsed!');
+          }
+        }
       }
       if (path && !elem) {
         if (this.isTreeviewVisible(true)) {
-          if (!this.collapsedRegex || !this.collapsedRegex.test(path)) {
-            this.global.console.warn('Could not find elem for path '+path,this.global.location.href);
-          } else {
-            this.debug && this.global.console.debug('Could not find elem for path '+path+' because it is in a collapsed path',this.global.location.href);
-          }
+          this.debug && this.global.console.warn('Could not find elem for path '+path,this.global.location.href);
         }
       }
       return elem;
@@ -381,6 +414,7 @@
     traverse=(snode, func, forced)=>{
       if (!snode) {
         snode=this.lichess?.analysis?.tree.root;
+        snode.depth=0;
         this.isTreeviewVisible(true);
       }
       const state={
@@ -436,7 +470,10 @@
           state.checks.push(node);
         }
         if (func) func(node,state);
+        let first=true;
         for (const child of node.children) {
+          child.depth=first?node.depth:node.depth+1;
+          first=false;
           nodes.push({node:child,path:path});
         }
       }
