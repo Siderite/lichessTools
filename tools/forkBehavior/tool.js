@@ -198,6 +198,12 @@
       if (!analysis) return;
       if (analysis.gamebookPlay() || parent.isGamePlaying()) return;
       if (['hybrid','chessbase'].includes(this.options.value)) {
+        $('div.analyse__fork').each((i,e)=>{
+          if (e.lichessTools_forkBehavior_init) return;
+          e.lichessTools_forkBehavior_init=true;
+          e.addEventListener('click',()=>this.inForkClick=true,{ capture: true });
+          e.addEventListener('click',()=>this.inForkClick=false,{ capture: false });
+        });
         if (!parent.isWrappedFunction(analysis.fork.proceed,'forkBehavior')) {
           analysis.fork.proceed=parent.wrapFunction(analysis.fork.proceed,{
             id: 'forkBehavior',
@@ -209,7 +215,7 @@
               const nextSansCount=noDuplicates
                 ? new Set(nextSans).size
                 : nextSans.length;
-              if (nextSansCount>1) {
+              if (!this.inForkClick && nextSansCount>1) {
                 switch(this.options.value) {
                   case 'hybrid':
                     if (this.variationSelect!=analysis.path) {
