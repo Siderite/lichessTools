@@ -164,6 +164,7 @@
       });
       selectElem.on('change',highlight);
       selectElem.find('option')
+        .on('mousedown',(ev)=>{ if (ev.button==0 && ev.target?.selected) makeMove(); })
         .on('dblclick',makeMove)
         .on('contextmenu',makeMove);
       selectElem.find('li')
