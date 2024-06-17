@@ -182,7 +182,7 @@
         const study=this._studies[studyId];
         if (!study) return;
         const flairs=[];
-        if (study.flair) {
+        if (this.options.topicFlairs && study.flair) {
           flairs.push({ title: trans.noarg('studyFlairTitle'), flair: study.flair });
         }
         if (this.options.topicFlairs && study.topics) {
