@@ -1,0 +1,8 @@
+body.lichessTools textarea.lichessTools-imagePasting + .ddloader {
+  float:right;
+  height: 1em;
+}
+
+body.lichessTools textarea.lichessTools-imagePasting {
+  cursor: wait;
+}

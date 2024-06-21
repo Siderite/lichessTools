@@ -103,6 +103,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Screen not locking when watching TV
  - Active tab icon
  - Fast interactive lesson moves
+ - Paste images in chat/forum
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

@@ -54,6 +54,11 @@ body.lichessTools div.lobby__tv .lichessTools-opening {
   max-width: 290px;
 }
 
+body.lichessTools .copyables .pgn:has(.is-error) {
+  margin-bottom: 2em;
+}
+
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier section.explorer-box div.data div.title .lichessTools-opening {

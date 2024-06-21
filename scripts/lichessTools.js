@@ -11,6 +11,10 @@
     global=null;
     lichess=null;
 
+    isDev=()=>{
+      return /lichess\.dev/.test(this.global.location.origin);
+    };
+
     get debug() {
       if (this._debug===undefined) {
         const debug = this.global.localStorage.getItem('LiChessTools2.debug');
@@ -318,11 +322,48 @@
       return this.rectIntersection(rect,port);
     };
 
+    computeCollapsedRegex=()=>{
+      const $=this.$;
+      const lichess=this.lichess;
+      const container=$('div.analyse__moves');
+     
+      const collapsedPaths=[];
+      $('lines.collapsed',container).each((i,e)=>{
+        let interrupt=false;
+        let $e=$(e);
+        if ($e.parent().is('interrupt')) {
+          $e=$e.parent();
+          interrupt=true;
+        }
+        $e=$e.prev('move');
+        if ($e.is('.empty')) $e=$e.prev('move');
+        const p=$e.attr('p')||'';
+        collapsedPaths.push(interrupt?p.slice(0,-2):p);
+      });
+      const collapsedRegex=collapsedPaths.length
+        ? new RegExp('^('+collapsedPaths.map(p=>this.escapeRegex(p)).join('|')+')')
+        : null;
+      if (this.collapsedRegex!=collapsedRegex) {
+         this.collapsedRegex=collapsedRegex;
+         this?.emitRedraw();
+      }
+      this.debug && this.global.console.debug('Computed collapsed regex');
+    };
+    computeCollapsedRegexDebounced=this.debounce(this.computeCollapsedRegex,500);
+
+    elementCache=new Map();
     resetCache=()=>{
       const $=this.$;
-      this.elementCache=new Map();
+      const lichess=this.lichess;
+      this.elementCache.clear();
       const container=$('div.analyse__moves');
-      $('move',container).each((i,e)=>this.elementCache.set($(e).attr('p')||'',e));
+     
+      $('move',container).each((i,e)=>{
+        const $e=$(e);
+        if ($e.is('.empty')) return;
+        const p=$e.attr('p')||'';
+        this.elementCache.set(p,e);
+      });
       this.debug && this.global.console.debug('Element cache reset');
     };
 
@@ -330,12 +371,30 @@
       const $=this.$;
       let elem = this.elementCache?.get(path);
       if (!elem?.offsetParent) {
+        if (!elem) {
+          if (this.collapsedRegex?.test(path)) {
+            this.debug && this.global.console.debug(path+' is collapsed');
+            this.computeCollapsedRegexDebounced();
+            return;
+          }
+          this.computeCollapsedRegex();
+          if (this.collapsedRegex?.test(path)) {
+            this.debug && this.global.console.debug(path+' is collapsed');
+            return;
+          }
+        }
         this.resetCache();
         elem = this.elementCache.get(path);
+      } else {
+        if (this.debug && this.collapsedRegex?.test(path)) {
+          if (!this.lichess.analysis.tree.pathIsMainline(path)) {
+            this.global.console.debug('Elem for non mainline path '+path+' exists, but is marked as collapsed!');
+          }
+        }
       }
       if (path && !elem) {
         if (this.isTreeviewVisible(true)) {
-          this.global.console.warn('Could not find elem for path '+path,this.global.location.href);
+          this.debug && this.global.console.warn('Could not find elem for path '+path,this.global.location.href);
         }
       }
       return elem;
@@ -355,6 +414,7 @@
     traverse=(snode, func, forced)=>{
       if (!snode) {
         snode=this.lichess?.analysis?.tree.root;
+        snode.depth=0;
         this.isTreeviewVisible(true);
       }
       const state={
@@ -410,7 +470,10 @@
           state.checks.push(node);
         }
         if (func) func(node,state);
+        let first=true;
         for (const child of node.children) {
+          child.depth=first?node.depth:node.depth+1;
+          first=false;
           nodes.push({node:child,path:path});
         }
       }
@@ -978,10 +1041,10 @@
         }
       });
     },
-    send: function(data,sendResponse) {
+    send: function(data,sendResponse,timeout) {
       const uid=crypto.randomUUID();
       return new Promise((resolve,reject)=>{
-        const pointer=setTimeout(()=>reject(new Error('Send timeout')),this.timeout);
+        const pointer=setTimeout(()=>reject(new Error('Send timeout')),timeout||this.timeout);
         const f=(data)=>{
           clearTimeout(pointer);
           if (sendResponse) sendResponse(data);
@@ -1050,7 +1113,7 @@
       }
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);
-      lichess.storage.make('lichessTools.reloadOptions').listen(() => {
+      lichess.storage?.make('lichessTools.reloadOptions').listen(() => {
         debouncedApplyOptions();
       });
     }

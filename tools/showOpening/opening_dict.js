@@ -7364,6 +7364,7 @@ const openings = {
   "rnbq1rk1ppp2ppp4pn23p42PP4P1Q51P2PPPPR1B1KBNRw": "Nimzo-Indian: Classical, Noa, 5.a3 Bxc3+ 6.Qxc3 O-O",
   "rnbq1rk1ppp2ppp4pn23P43P4P1P2P24P1PPR1BQKBNRb": "Nimzo-Indian: Saemisch, 5...O-O 6.f3 d5 7.cxd5",
   "rnbq1rk1ppp2ppp4pn282pP4P1PBP35PPPR1BQK1NRw": "Nimzo-Indian: Botvinnik, 7...dxc4",
+  "rnbq1rk1ppp2ppp5n23P41b2p32PP1N2PP2QPPPRNB1KB1Rw": "C40 Elephant Gambit: Paulsen Countergambit, Chicken gambit (Siderite)",
   "rnbq1rk1ppp2ppp5P22b4Q2pp42P5PP3PPPRNB1K1NRw": "Bishop's Opening: Pratt Variation",
   "rnbq1rk1ppp2ppp83pb32PPn33B4PP3PPPRNBQ1RK1w": "Russian Game: Modern Attack, Trifunovic Variation",
   "rnbq1rk1ppp3bp3p1pp14p32PPP1n12N2N2PP2BPPPR1BQK2Rb": "King's Indian: Gligoric-Taimanov, 7...Ng4 8.Bg5 f6 9.Bc1",

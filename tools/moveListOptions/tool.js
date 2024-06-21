@@ -82,6 +82,7 @@
       let commentNodes=[];
       $(elem).each((i,e)=>{
         $(e).contents().each((i2,e2)=>{
+          if (!e2) return;
           if (e2.nodeType===3) { //text
             commentNodes.push(e2);
           } else { //element

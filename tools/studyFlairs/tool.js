@@ -20,7 +20,8 @@
         'studyFlairs.memberFlairs':'Member flairs',
         'studyFlairs.topicFlairs':'Flairs from study topics',
         'flairButtonText':'Flairs',
-        'flairButtonTitle':'LiChess Tools - add a study flair'
+        'flairButtonTitle':'LiChess Tools - add a study flair',
+        'studyFlairTitle': 'Study flair'
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -29,7 +30,8 @@
         'studyFlairs.memberFlairs':'Pictogramele membrilor',
         'studyFlairs.topicFlairs':'Pictograme din subiecte studii',
         'flairButtonText':'Pictograme',
-        'flairButtonTitle':'LiChess Tools - adaug\u0103 o pictogram\u0103 studiului'
+        'flairButtonTitle':'LiChess Tools - adaug\u0103 o pictogram\u0103 studiului',
+        'studyFlairTitle': 'Pictograma studiului'
       }
     };
 
@@ -142,6 +144,7 @@
     processStudyList=async ()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
+      const trans=parent.translator;
       const $=parent.$;
       const href=$('.infinite-scroll .pager > a').attr('href');
       let page=1;
@@ -179,6 +182,9 @@
         const study=this._studies[studyId];
         if (!study) return;
         const flairs=[];
+        if (this.options.topicFlairs && study.flair) {
+          flairs.push({ title: trans.noarg('studyFlairTitle'), flair: study.flair });
+        }
         if (this.options.topicFlairs && study.topics) {
           for (const topic of study.topics) {
             const m=/^flair\.([^\)]+)/.exec(topic);

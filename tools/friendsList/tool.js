@@ -364,13 +364,13 @@
           }
         }
         if (!actions.find('a.lichessTools-tv')[0]) {
-          $('<a class="btn-rack__btn lichessTools-tv" data-icon="&#xE025;"></a>')
+          $('<a class="text lichessTools-tv" data-icon="&#xE025;"></a>')
             .attr('href','/@/'+user+'/tv')
             .attr('title',watchGamesTitle)
             .prependTo(actions);
         }
         if (hasAlerts && !actions.find('a.lichessTools-mute')[0]) {
-          $('<a class="btn-rack__btn lichessTools-mute" data-icon="&#xE00F;"></a>')
+          $('<a class="text lichessTools-mute" data-icon="&#xE00F;"></a>')
             .attr('title',mutePlayingAlertTitle)
             .on('click',ev=>{
               ev.preventDefault();

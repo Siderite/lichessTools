@@ -7,6 +7,15 @@ body.lichessTools img.flag {
   margin-right:auto;
 }
 
+body.lichessTools .fide-federation img.flag {
+  max-height: none;
+}
+
+body.lichessTools .fide-player__federation img.flag,
+body.lichessTools .fide-federations img.flag	{
+  margin-right: 1ch;
+}
+
 body.lichessTools div.player img.flag {
   max-height: 1.5em;
   position: relative;

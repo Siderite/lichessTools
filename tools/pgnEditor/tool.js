@@ -37,6 +37,10 @@
         'btnSearchTitle': 'Search on partial FEN, tags, index, invalid, ply',
         'btnKeepFoundText': 'Result',
         'btnKeepFoundTitle': 'Keep only the found results',
+        'btnExtractText': 'Extract',
+        'btnExtractTitle': 'Extract information',
+        'extractPrompt': '"fen"',
+        'extractingFens': 'Extracting FENs',
         'btnCutStuffText': 'Cut',
         'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments, tags or found results',
         'btnCancelText': 'Cancel',
@@ -104,6 +108,10 @@
         'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial, etichete, index, invalid, jum\u0103t\u0103\u0163i de mutare',
         'btnKeepFoundText': 'Rezultat',
         'btnKeepFoundTitle': 'P\u0103streaz\u0103 doar rezultatele g\u0103site',
+        'btnExtractText': 'Extrage',
+        'btnExtractTitle': 'Extrage informa\u01063ie',
+        'extractPrompt': '"fen"',
+        'extractingFens': 'Extrag FENuri',
         'btnCutStuffText': 'Taie',
         'btnCutStuffTitle': 'Taie la un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 adnot\u0103ri, comentarii, etichete sau rezultatele g\u0103site',
         'btnCancelText': 'Anuleaz\u0103',
@@ -247,6 +255,7 @@
                 <button class="button" type="button" data-role="keepFound" data-icon="&#xE02A;"><span></span></button>
                 <button class="button" type="button" data-role="cutStuff" data-icon="&#x2702;"><span></span></button>
                 <button class="button" type="button" data-role="evaluate" data-icon="&#xE02C;"><span></span></button>
+                <button class="button" type="button" data-role="extract" data-icon="&#xE032;"><span></span></button>
                 <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
                 <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"><span></span></button>
                 <hr></hr>
@@ -364,6 +373,14 @@
         })
         .find('span')
         .text(trans.noarg('btnEvaluateText'));
+      $('[data-role="extract"]',dialog)
+        .attr('title',trans.noarg('btnExtractTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          this.runOperation('extract',()=>this.extract(textarea));
+        })
+        .find('span')
+        .text(trans.noarg('btnExtractText'));
       $('[data-role="cancel"]',dialog)
         .attr('title',trans.noarg('btnCancelTitle'))
         .on('click',ev=>{
@@ -906,6 +923,90 @@
       this.writeGames(textarea, games);
 
       this.countPgn();
+    };
+
+    extract=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const text=parent.global.prompt(trans.noarg('extractPrompt'));
+      if (/\bfen\b/i.test(text)) {
+        await this.extractFen(textarea);
+      }
+    };
+
+    extractFen=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+
+      const co=parent.chessops;
+      const { startingPosition,parsePgn,makePgn } = co.pgn;
+      const { makeFen }= co.fen;
+      const { parseSan, makeSanAndPlay } = co.san;
+      const text=textarea.val();
+      const games=parsePgn(text);
+      this.writeNote(trans.pluralSame('extractingFens',games.length));
+      await parent.timeout(0);
+      let withErrors=false;
+      let gameIndex=0;
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+      for (const game of games) {
+        gameIndex++;
+        try {
+          this.enhanceGameWithFens(game);
+        } catch(ex) {
+          if (ex.ply) {
+            const data=[gameIndex, ex.san, ex.ply]
+            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+              return data[+m[1]-1];
+            }));
+            break;
+          } else throw ex;
+          withErrors=true;
+        }
+      }
+      if (withErrors) {
+        this.writeNote(trans.noarg('operationFailed'));
+        return;
+      }
+
+      const fenSet=new Set();
+      const traverse=(node,ply=0)=>{
+        const fen=node.data?.fen;
+        if (!fen) {
+          const err = Error('Cannot find FEN for node '+node.data?.san+' at ply '+ply+'!');
+          err.san=node?.data?.san;
+          err.ply=ply+1;
+          throw err;
+        }
+        fenSet.add(fen);
+        if (!node.children?.length) return;
+        for (const child of node.children) {
+          traverse(child,ply+1);
+        }
+      };
+
+      let fenText='';
+      gameIndex=0;
+      for (const game of games) {
+        gameIndex++;
+        fenSet.clear();
+        const node=game.moves;
+        traverse(node);
+
+        fenText+=gameIndex+'\r\n'+[...fenSet].join('\r\n')+'\r\n\r\n';
+      }
+      const blob=new Blob([fenText],{type:'text/plain'});
+      const url=URL.createObjectURL(blob);
+      $('<a>')
+        .attr('download','pgnEditor_fens_'+(new Date().toISOString().replace(/[\-T:]/g,'').slice(0,14))+'.txt')
+        .attr('href',url)
+        .trigger('click');
     };
 
     normalizePgn=async (textarea)=>{
