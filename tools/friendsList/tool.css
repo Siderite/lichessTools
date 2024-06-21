@@ -133,6 +133,7 @@ html.transp body.lichessTools tr.lichessTools-online.lichessTools-playing a.lich
 }
 
 body.lichessTools tr.lichessTools-muted a.lichessTools-mute {
+  display: inline-block;
   transform: rotate(45deg);
   opacity: 0.3;
 }
@@ -394,11 +395,27 @@ body.lichessTools .lichessTools-friendsPage span.lichessTools-seenAt:before {
   margin-right:3px;
 }
 
+/* Fix for the icons in friends list (temporary? 2024-06-21) */
+body.lichessTools .slist-pad td:last-child:has(.relation-actions) {
+   padding-inline-end: 0;
+}
+
+body.lichessTools .relation-actions {
+  text-wrap: nowrap;
+}
+
+body.lichessTools .relation-actions a[data-icon] {
+  font-size:0;
+}
+
+body.lichessTools .relation-actions a[data-icon]:before {
+  font-size:1.25rem;
+}
+
 /* Unrated CSS */
 body.lichessTools.dynamicContentShown section.lichessTools-onlineFriends .user-link {
   visibility:inherit;
 }
-
 
 /* Prettier Lichess CSS */
 
