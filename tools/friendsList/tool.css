@@ -400,15 +400,15 @@ body.lichessTools .slist-pad td:last-child:has(.relation-actions) {
    padding-inline-end: 0;
 }
 
-body.lichessTools .relation-actions {
+body.lichessTools table.slist .relation-actions {
   text-wrap: nowrap;
 }
 
-body.lichessTools .relation-actions a[data-icon] {
+body.lichessTools table.slist .relation-actions a[data-icon] {
   font-size:0;
 }
 
-body.lichessTools .relation-actions a[data-icon]:before {
+body.lichessTools table.slist .relation-actions a[data-icon]:before {
   font-size:1.25rem;
 }
 
