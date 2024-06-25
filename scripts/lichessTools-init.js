@@ -96,6 +96,7 @@ lichessTools.loadTool(LiChessTools.Tools.AutoAnalyseGame);
 lichessTools.loadTool(LiChessTools.Tools.ActiveIcon);
 lichessTools.loadTool(LiChessTools.Tools.ImagePasting);
 lichessTools.loadTool(LiChessTools.Tools.RemoveChatLinkWarning);
+lichessTools.loadTool(LiChessTools.Tools.MchatOptions);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
