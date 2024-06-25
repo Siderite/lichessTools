@@ -256,6 +256,15 @@
           node.textContent=text.replace(r,trans.noarg('bookmarkLabelForInteractive')+this.fromBookmarkName(m[1]));
         }
       }
+
+      const nodes=analysis.tree.getNodeList(analysis.path);
+      for (let i=nodes.length-2; i>=0; i--) {
+        const move=nodes[i];
+        if (move.bookmark?.collapsed) {
+          const elem=parent.getElementForNode(move);
+          this.collapseMove(elem,false);
+        }
+      }
     }
 
     debouncedAddCommentBookmarks=this.lichessTools.debounce(this.addCommentBookmarks,200);
