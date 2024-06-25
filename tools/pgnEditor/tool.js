@@ -42,7 +42,7 @@
         'extractPrompt': '"fen"',
         'extractingFens': 'Extracting FENs',
         'btnCutStuffText': 'Cut',
-        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments, tags or found results',
+        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments, tags, found results or branches',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'btnUploadText': 'Upload',
@@ -84,7 +84,7 @@
         'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value in any combination (i.e. tags, ply 10)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Eval"(>,=,<)Value in any combination (i.e. tags, ply 10, eval<0)',
         'sendToPgnEditorText':'PGN Editor',
         'sendToPgnEditorTitle':'LiChess Tools - send to PGN Editor'
       },
@@ -157,7 +157,7 @@
         'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare \u00een orice combina\u0163ie (ex: tags, ply 10)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: tags, ply 10, eval<0)',
         'sendToPgnEditorText':'Editor PGN',
         'sendToPgnEditorTitle':'LiChess Tools - trimite la Editor PGN'
       }
@@ -1291,10 +1291,16 @@
       if (/annotations|nags/i.test(text)) {
         await this.cutAnnotations(textarea);
       }
-      const m=/(?:^(\d+)$|ply\s*(\d+))/i.exec(text);
+      let m=/(?:^(\d+)$|ply\s*(\d+))/i.exec(text);
       if (m) {
         const ply=+(m[1]||m[2]);
         await this.cutPly(textarea,ply);
+      }
+      m=/^eval\s*([\<\>=])\s*([\-\+]?\d+(?:\.\d+)?)/i.exec(text);
+      if (m) {
+        const operator=m[1];
+        const value=+m[2];
+        await this.cutEval(textarea,operator,value);
       }
     };
 
@@ -1433,6 +1439,86 @@
       
       for (const game of games) {
         traverse(game.moves);
+      }
+
+      this.writeGames(textarea, games);
+
+      this.countPgn();
+    };
+
+    cutEval=async (textarea,operator,value)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+      if (!operator||Number.isNaN(value)) return;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+
+      let removals;
+      const traverse=(node,lastBranch=null,san=null)=>{
+        if (!lastBranch || node.children?.length>1) {
+          lastBranch=node;
+          san=null;
+        } else if (!san) {
+          san=node.data?.san;
+        }
+        if (!node.children?.length) {
+          if (!node.data?.san) return;
+          const comments=node.data?.comments||[];
+          const match=comments.map(c=>/\beval: (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
+          if (!match) return;
+          const evl=match.groups.mate
+                      ? 100 - +(match.groups.mate)
+                      : +(match.groups.eval);
+          let toRemove=false;
+          switch(operator) {
+            case '>':
+              toRemove=evl>value;
+              break;
+            case '<':
+              toRemove=evl<value;
+              break;
+            case '=':
+              toRemove=evl==value;
+              break;
+          }
+          if (toRemove) {
+            let list=removals.get(lastBranch);
+            if (!list) {
+              list=[];
+              removals.set(lastBranch,list);
+            }
+            list.push(san);
+          }
+          return;
+        }
+        for (const child of node.children) {
+          traverse(child,lastBranch,san);
+        }
+      };
+      
+      for (const game of games) {
+        removals=new Map();
+        traverse(game.moves);
+        for (const node of removals.keys()) {
+          const list=removals.get(node);
+          for (const san of list) {
+            if (!san) {
+              node.children=[];
+              node.comments=null;
+            } else {
+              const index=node.children?.findIndex(c=>c.data?.san==san);
+              if (index<0) throw new Error('This should not happen. San '+san+' not found in node '+node.path);
+              node.children.splice(index,1);
+            }
+          }
+        }
       }
 
       this.writeGames(textarea, games);
