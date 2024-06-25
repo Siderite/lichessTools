@@ -73,6 +73,8 @@
         'searchingGames:one': 'Searching one PGN',
         'evaluatingGames': 'Evaluating %s PGNs',
         'evaluatingGames:one': 'Evaluating one PGN',
+        'evaluatingMoves': 'Evaluating %s moves',
+        'evaluatingMoves:one': 'Evaluating move',
         'preparingGames': 'Preparing %s PGNs',
         'preparingGames:one': 'Preparing one PGN',
         'cannotMerge': 'Cannot merge!\r\n(no common board positions)',
@@ -144,6 +146,8 @@
         'searchingGames:one': 'Caut \u00eentr-un PGN',
         'evaluatingGames': 'Evaluez %s PGNuri',
         'evaluatingGames:one': 'Evaluez un PGN',
+        'evaluatingMoves': 'Evaluez %s mut\u0103ri',
+        'evaluatingMoves:one': 'Evaluez mutare',
         'preparingGames': 'Prepar %s PGNuri',
         'preparingGames:one': 'Prepar un PGN',
         'cannotMerge': 'Nu pot combina!\r\n(nu sunt pozi\u0163ii comune pe tabl\u0103)',
@@ -871,28 +875,12 @@
 
       let gameIndex=0; 
       let withErrors=false; 
+      let totalMoves=0;
       for (const game of games) {
         gameIndex++;
         try {
           this.enhanceGameWithFens(game);
-          for (const node of game.lastMoves) {
-            const comments=node.data.comments||[];
-            if (comments.find(c=>/^eval: /.test(c))) continue;
-            lastInfo=null;
-            info=null;
-            sf.setPosition(node.data.fen);
-            sf.start();
-            while (!info && !this._cancelRequested) {
-              await parent.timeout(100);
-            }
-            if (this._cancelRequested) {
-              break;
-            }
-            sf.stop();
-            const side=node.data.fen.split(' ')[1]=='b'?-1:1;
-            const evalText="eval: "+(info.mate ?'#'+(side*info.mate) : ((side*info.cp)>0?'+':'')+(side*info.cp/100).toFixed(decimals));
-            node.data.comments=[...comments,evalText];
-          }
+          totalMoves+=game.lastMoves?.length||0;
         } catch(ex) {
           if (ex.ply) {
             const data=[gameIndex, ex.san, ex.ply]
@@ -909,14 +897,40 @@
           break;
         }
       }
+      if (!withErrors) {
+        for (const game of games) {
+          for (const node of game.lastMoves) {
+            totalMoves--;
+            const comments=node.data.comments||[];
+            if (comments.find(c=>/^eval: /.test(c))) continue;
+            lastInfo=null;
+            info=null;
+            sf.setPosition(node.data.fen);
+            sf.start();
+            while (!info && !this._cancelRequested) {
+              await parent.timeout(100);
+            }
+            if (this._cancelRequested) {
+              break;
+            }
+            sf.stop();
+            const side=node.data.fen.split(' ')[1]=='b'?-1:1;
+            const evalText="eval: "+(info.mate ?'#'+(side*info.mate) : ((side*info.cp)>0?'+':'')+(side*info.cp/100).toFixed(decimals));
+            node.data.comments=[...comments,evalText];
+            this.writeNote(trans.pluralSame('evaluatingMoves',totalMoves));
+            await parent.timeout(0);
+          }
+          this.writeNote(trans.pluralSame('evaluatingMoves',totalMoves));
+          await parent.timeout(0);
+          if (this._cancelRequested) {
+            break;
+          }
+        }
+      }
       sf.destroy();
 
       if (withErrors) {
         this.writeNote(trans.noarg('operationFailed'));
-        return;
-      }
-
-      if (this._cancelRequested) {
         return;
       }
 
@@ -1352,6 +1366,9 @@
       };
       
       for (const game of games) {
+        if (game.comments) {
+          game.comments.length=0;
+        }
         traverse(game.moves);
       }
 
