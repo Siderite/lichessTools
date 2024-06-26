@@ -2,6 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 25 Jun
   - mchat options (the chat used in team and study)
+  - remove branches based on eval
 
 17 Jun
   - extract FENs in PGN Editor

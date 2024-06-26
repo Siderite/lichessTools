@@ -144,18 +144,29 @@
 
     debounce(fn, wait) {
       let timeout = null;
+      let isRunning = false;
       const c = () => {
         this.global.clearTimeout(timeout);
         timeout = null;
       };
-      const t = (fn) => {
-        timeout = this.global.setTimeout(fn, wait);
+      const t = (f) => {
+        timeout = this.global.setTimeout(f, wait);
       };
       return function() {
         const context = this;
         const args = arguments;
         const f = function() {
-          fn.apply(context, args);
+          if (isRunning) {
+            t(f);
+            return;
+          };
+          isRunning=true;
+          const result = fn.apply(context, args);
+          if (result?.then) {
+            result.then(()=>isRunning=false);
+          } else {
+            isRunning=false;
+          }
         };
         timeout
           ? c() || t(f)
@@ -812,6 +823,22 @@
       }
     };
 
+    ndjsonParse=(funcOrText, defaultValue)=>{
+      const console=this.global.console;
+      let json='unknown';
+      try {
+        json=typeof funcOrText == 'function'
+          ? funcOrText()
+          : funcOrText;
+        if (!json || json==='undefined') return defaultValue;
+        const result = json.split(/\r?\n/).filter(s=>s?.trim()).map(s=>this.global.JSON.parse(s));
+        return result || defaultValue;
+      } catch(ex) {
+        console.warn('Error parsing JSON: ',json,ex);
+        return defaultValue;
+      }
+    };
+
     getColor=(text)=>{
       const m=/^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})?$/.exec(text);
       const parseInt=this.global.parseInt;
@@ -922,7 +949,11 @@
       options.headers.Accept||='application/json';
       options.headers['x-requested-with']||='XMLHttpRequest';
       const json=await this.fetch(url,options);
-      return this.lichessTools.jsonParse(json);
+      if (options.ndjson) {
+        return this.lichessTools.ndjsonParse(json);
+      } else {
+        return this.lichessTools.jsonParse(json);
+      }
     },
     fetch: async function(url,options) {
       const console=this.lichessTools.global.console;

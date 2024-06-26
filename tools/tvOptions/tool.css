@@ -197,3 +197,14 @@ body.lichessTools .tv-history.lichessTools-userHistory h2 {
 body.lichessTools .tv-history.lichessTools-userHistory .now-playing {
   grid-template-columns: 50% 50%;
 }
+
+body.lichessTools .lichessTools-teamTv {
+  position:relative;
+  padding-top:3em;
+}
+
+body.lichessTools .lichessTools-teamTv select.lichessTools-teams {
+  max-height: 3em;
+  position: absolute;
+  max-width: max-content;
+}
