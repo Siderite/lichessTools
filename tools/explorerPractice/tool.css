@@ -22,7 +22,7 @@ html.transp body.lichessTools section.explorer-box span.lichessTools-explorerPra
 }
 
 
-body.lichessTools section.explorer-box.lichessTools-explorerPracticeInAnalysis table.moves {
+body.lichessTools section.explorer-box.lichessTools-hideExplorerData table.moves {
   display:none;
 }
 
