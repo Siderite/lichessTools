@@ -41,7 +41,7 @@
       const $=parent.$;
       const trans=parent.translator;
       if (!this.options.topicFlairs) return;
-      const container=$('div.dialog-content.study-topics');
+      const container=$('.study-topics');
       if (parent.inViewport(container)) {
         const tagify=$('tags+textarea',container)[0]?.__tagify;
         if (tagify) {
@@ -122,12 +122,13 @@
         }
       }
 
-      $('div.study__topics a.topic').each((i,e)=>{
+      $('div.study__topics a.topic, nav.page-menu__menu a[href^="/study/topic/flair."], .topic-list a[href^="/study/topic/flair."]').each((i,e)=>{
         const m=/^flair\.([^\)]+)/.exec($(e).text());
         if (m) {
           const url=lichess.asset.flairSrc(m[1]);
           $(e)
             .text('')
+            .attr('title','flair.'+m[1])
             .append($('<img>').attr('src',url))
             .addClass('lichessTools-studyFlairs');
         }
@@ -278,7 +279,7 @@
         $('.study__icon').show();
         return;
       }
-      if (lichess.analysis?.study) {
+      if (lichess.analysis?.study || $('.study-topics,.topic-list').length) {
         if (!this.flairs) {
           let text='';
           try {
@@ -290,7 +291,7 @@
         }
         this.interval=parent.global.setInterval(this.processStudy,500);
         this.processStudy();
-      } else
+      }
       if (/^\/study\b/.test(parent.global.location.pathname)&&$('.studies.list').length) {
         lichess.pubsub.on('content-loaded',this.processStudyListDebounced);
         this.processStudyList();

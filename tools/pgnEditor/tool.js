@@ -32,7 +32,7 @@
         'btnCountText': 'Count',
         'btnCountTitle': 'PGN statistics',
         'btnEvaluateText': 'Evaluate',
-        'btnEvaluateTitle': 'Evaluate last position',
+        'btnEvaluateTitle': 'Evaluate end positions',
         'btnSearchText': 'Search',
         'btnSearchTitle': 'Search on partial FEN, tags, index, invalid, ply',
         'btnKeepFoundText': 'Result',
@@ -42,7 +42,7 @@
         'extractPrompt': '"fen"',
         'extractingFens': 'Extracting FENs',
         'btnCutStuffText': 'Cut',
-        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments, tags or found results',
+        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments, tags, found results or branches',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'btnUploadText': 'Upload',
@@ -73,6 +73,8 @@
         'searchingGames:one': 'Searching one PGN',
         'evaluatingGames': 'Evaluating %s PGNs',
         'evaluatingGames:one': 'Evaluating one PGN',
+        'evaluatingMoves': 'Evaluating %s moves',
+        'evaluatingMoves:one': 'Evaluating move',
         'preparingGames': 'Preparing %s PGNs',
         'preparingGames:one': 'Preparing one PGN',
         'cannotMerge': 'Cannot merge!\r\n(no common board positions)',
@@ -82,7 +84,7 @@
         'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value in any combination (i.e. tags, ply 10)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Eval"(>,=,<)Value in any combination (i.e. tags, ply 10, eval<0)',
         'sendToPgnEditorText':'PGN Editor',
         'sendToPgnEditorTitle':'LiChess Tools - send to PGN Editor'
       },
@@ -103,7 +105,7 @@
         'btnCountText': 'Num\u0103r\u0103',
         'btnCountTitle': 'Statistici PGN',
         'btnEvaluateText': 'Evaluare',
-        'btnEvaluateTitle': 'Evalueaz\u0103 ultima pozi\u0163ie',
+        'btnEvaluateTitle': 'Evalueaz\u0103 pozi\u0163ii finale',
         'btnSearchText': 'Caut\u0103',
         'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial, etichete, index, invalid, jum\u0103t\u0103\u0163i de mutare',
         'btnKeepFoundText': 'Rezultat',
@@ -144,6 +146,8 @@
         'searchingGames:one': 'Caut \u00eentr-un PGN',
         'evaluatingGames': 'Evaluez %s PGNuri',
         'evaluatingGames:one': 'Evaluez un PGN',
+        'evaluatingMoves': 'Evaluez %s mut\u0103ri',
+        'evaluatingMoves:one': 'Evaluez mutare',
         'preparingGames': 'Prepar %s PGNuri',
         'preparingGames:one': 'Prepar un PGN',
         'cannotMerge': 'Nu pot combina!\r\n(nu sunt pozi\u0163ii comune pe tabl\u0103)',
@@ -153,7 +157,7 @@
         'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare \u00een orice combina\u0163ie (ex: tags, ply 10)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: tags, ply 10, eval<0)',
         'sendToPgnEditorText':'Editor PGN',
         'sendToPgnEditorTitle':'LiChess Tools - trimite la Editor PGN'
       }
@@ -871,28 +875,12 @@
 
       let gameIndex=0; 
       let withErrors=false; 
+      let totalMoves=0;
       for (const game of games) {
         gameIndex++;
         try {
           this.enhanceGameWithFens(game);
-          for (const node of game.lastMoves) {
-            const comments=node.data.comments||[];
-            if (comments.find(c=>/^eval: /.test(c))) continue;
-            lastInfo=null;
-            info=null;
-            sf.setPosition(node.data.fen);
-            sf.start();
-            while (!info && !this._cancelRequested) {
-              await parent.timeout(100);
-            }
-            if (this._cancelRequested) {
-              break;
-            }
-            sf.stop();
-            const side=node.data.fen.split(' ')[1]=='b'?-1:1;
-            const evalText="eval: "+(info.mate ?'#'+(side*info.mate) : ((side*info.cp)>0?'+':'')+(side*info.cp/100).toFixed(decimals));
-            node.data.comments=[...comments,evalText];
-          }
+          totalMoves+=game.lastMoves?.length||0;
         } catch(ex) {
           if (ex.ply) {
             const data=[gameIndex, ex.san, ex.ply]
@@ -909,14 +897,40 @@
           break;
         }
       }
+      if (!withErrors) {
+        for (const game of games) {
+          for (const node of game.lastMoves) {
+            totalMoves--;
+            const comments=node.data.comments||[];
+            if (comments.find(c=>/^eval: /.test(c))) continue;
+            lastInfo=null;
+            info=null;
+            sf.setPosition(node.data.fen);
+            sf.start();
+            while (!info && !this._cancelRequested) {
+              await parent.timeout(100);
+            }
+            if (this._cancelRequested) {
+              break;
+            }
+            sf.stop();
+            const side=node.data.fen.split(' ')[1]=='b'?-1:1;
+            const evalText="eval: "+(info.mate ?'#'+(side*info.mate) : ((side*info.cp)>0?'+':'')+(side*info.cp/100).toFixed(decimals));
+            node.data.comments=[...comments,evalText];
+            this.writeNote(trans.pluralSame('evaluatingMoves',totalMoves));
+            await parent.timeout(0);
+          }
+          this.writeNote(trans.pluralSame('evaluatingMoves',totalMoves));
+          await parent.timeout(0);
+          if (this._cancelRequested) {
+            break;
+          }
+        }
+      }
       sf.destroy();
 
       if (withErrors) {
         this.writeNote(trans.noarg('operationFailed'));
-        return;
-      }
-
-      if (this._cancelRequested) {
         return;
       }
 
@@ -1277,10 +1291,16 @@
       if (/annotations|nags/i.test(text)) {
         await this.cutAnnotations(textarea);
       }
-      const m=/(?:^(\d+)$|ply\s*(\d+))/i.exec(text);
+      let m=/(?:^(\d+)$|ply\s*(\d+))/i.exec(text);
       if (m) {
         const ply=+(m[1]||m[2]);
         await this.cutPly(textarea,ply);
+      }
+      m=/^eval\s*([\<\>=])\s*([\-\+]?\d+(?:\.\d+)?)/i.exec(text);
+      if (m) {
+        const operator=m[1];
+        const value=+m[2];
+        await this.cutEval(textarea,operator,value);
       }
     };
 
@@ -1352,6 +1372,9 @@
       };
       
       for (const game of games) {
+        if (game.comments) {
+          game.comments.length=0;
+        }
         traverse(game.moves);
       }
 
@@ -1416,6 +1439,86 @@
       
       for (const game of games) {
         traverse(game.moves);
+      }
+
+      this.writeGames(textarea, games);
+
+      this.countPgn();
+    };
+
+    cutEval=async (textarea,operator,value)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
+      if (!operator||Number.isNaN(value)) return;
+
+      const co=parent.chessops;
+      const { parsePgn,makePgn } = co.pgn;
+      const text=textarea.val();
+      let games=parsePgn(text);
+      this.writeNote(trans.pluralSame('preparingGames',games.length));
+      await parent.timeout(0);
+
+      let removals;
+      const traverse=(node,lastBranch=null,san=null)=>{
+        if (!lastBranch || node.children?.length>1) {
+          lastBranch=node;
+          san=null;
+        } else if (!san) {
+          san=node.data?.san;
+        }
+        if (!node.children?.length) {
+          if (!node.data?.san) return;
+          const comments=node.data?.comments||[];
+          const match=comments.map(c=>/\beval: (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
+          if (!match) return;
+          const evl=match.groups.mate
+                      ? 100 - +(match.groups.mate)
+                      : +(match.groups.eval);
+          let toRemove=false;
+          switch(operator) {
+            case '>':
+              toRemove=evl>value;
+              break;
+            case '<':
+              toRemove=evl<value;
+              break;
+            case '=':
+              toRemove=evl==value;
+              break;
+          }
+          if (toRemove) {
+            let list=removals.get(lastBranch);
+            if (!list) {
+              list=[];
+              removals.set(lastBranch,list);
+            }
+            list.push(san);
+          }
+          return;
+        }
+        for (const child of node.children) {
+          traverse(child,lastBranch,san);
+        }
+      };
+      
+      for (const game of games) {
+        removals=new Map();
+        traverse(game.moves);
+        for (const node of removals.keys()) {
+          const list=removals.get(node);
+          for (const san of list) {
+            if (!san) {
+              node.children=[];
+              node.comments=null;
+            } else {
+              const index=node.children?.findIndex(c=>c.data?.san==san);
+              if (index<0) throw new Error('This should not happen. San '+san+' not found in node '+node.path);
+              node.children.splice(index,1);
+            }
+          }
+        }
       }
 
       this.writeGames(textarea, games);
