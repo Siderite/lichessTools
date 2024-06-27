@@ -25,6 +25,7 @@
         'tvOptions.wakelock': 'Prevent screen lock with TV',
         'friendsButtonTitle': 'LiChess Tools - games of your friends',
         'streamersButtonTitle': 'LiChess Tools - games of live streamers',
+        'teamButtonTitle': 'LiChess Tools - games of your team',
         'streamers': 'Streamers',
         'friends': 'Friends',
         'noGames': 'No available games',
@@ -45,6 +46,7 @@
         'tvOptions.wakelock': 'Prevent screen lock with TV',
         'friendsButtonTitle': 'LiChess Tools - jocurile prietenilor t\u0103i',
         'streamersButtonTitle': 'LiChess Tools - jocurile streamerilor live',
+        'teamButtonTitle': 'LiChess Tools - jocurile echipei tale',
         'streamers': 'Streameri',
         'friends': 'Prieteni',
         'noGames': 'Nu sunt jocuri disponibile',
@@ -323,7 +325,12 @@
       }
       let teamPlayers=this.teamPlayersCache.get(teamId);
       if (!teamPlayers) {
-        teamPlayers = (await parent.net.json({url:'/api/team/{teamId}/users',args:{teamId:teamId}},{ndjson:true}))?.map(u=>u.id);
+        try {
+          $('div.lichessTools-teamTv').addClass('loading');
+          teamPlayers = (await parent.net.json({url:'/api/team/{teamId}/users',args:{teamId:teamId}},{ndjson:true}))?.map(u=>u.id);
+        } finally {
+          $('div.lichessTools-teamTv').removeClass('loading');
+        }
         this.teamPlayersCache.set(teamId,teamPlayers);
         parent.storage.set('LichessTools.teamPlayersCache',Array.from(this.teamPlayersCache.entries()),{ session:true, zip:true });
       }
@@ -334,6 +341,7 @@
     updateTvOptionsPageDirect = async ()=>{
       const parent=this.lichessTools;
       const $=parent.$;
+      const lichess=parent.lichess;
       const trans=this.lichessTools.translator;
       if (parent.global.document.hidden) return;
       const container = $('main.tv-games div.page-menu__content.now-playing');
@@ -374,6 +382,9 @@
               .prop('selected',this.teamId==team.id)
               .appendTo(select);
           }
+        }
+        if (!$('div.spinner',container).length) {
+          container.prepend(lichess.spinnerHtml);
         }
         const playerIds=await this.getTeamPlayerIds();
         await this.refreshGames(playerIds,'lichessTools-teamTv',container,false);

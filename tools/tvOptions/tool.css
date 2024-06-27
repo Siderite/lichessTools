@@ -203,6 +203,14 @@ body.lichessTools .lichessTools-teamTv {
   padding-top:3em;
 }
 
+body.lichessTools .lichessTools-teamTv div.spinner {
+  display:none;
+}
+
+body.lichessTools .lichessTools-teamTv.loading div.spinner {
+  display:block;
+}
+
 body.lichessTools .lichessTools-teamTv select.lichessTools-teams {
   max-height: 3em;
   position: absolute;
