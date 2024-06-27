@@ -119,7 +119,7 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
-      if ($('body').is('.mobile')) {
+      if (parent.isMobile()) {
         this.isMobile=true;
         LiChessTools.enableMobileDragAndDrop();
       }

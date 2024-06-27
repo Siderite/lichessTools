@@ -1,0 +1,10 @@
+body.lichessTools header.lichessTools-fullScreen {
+  visibility: hidden;
+}
+
+body.lichessTools div.lichessTools-fullScreen button {
+  font-size:1.3em;
+  margin-bottom:0.5em;
+  background:none;
+  border:none;
+}

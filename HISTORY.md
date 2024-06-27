@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Jun
+  - full screen button
+
 26 Jun
   - options to hide/show data in Explorer Practice
 

@@ -234,6 +234,11 @@
       return state;
     }
 
+    isMobile() {
+      const $=this.$;
+      return $('body').is('.mobile');
+    }
+
     getTvOptions=()=>{
       const $=this.$;
       const inAnalysisMode = !!this.lichess.analysis;
