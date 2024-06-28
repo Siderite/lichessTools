@@ -130,6 +130,7 @@
         "tools/imagePasting/tool.js",
         "tools/mchatOptions/tool.js",
         "tools/fullScreen/tool.js",
+        "tools/oneClickMove/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",

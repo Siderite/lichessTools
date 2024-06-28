@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+28 Jun
+  - one click move in Analysis/Study
+
 27 Jun
   - full screen button
 

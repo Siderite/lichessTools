@@ -105,6 +105,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Fast interactive lesson moves
  - Paste images in chat/forum
  - URL/image detection and unlimited text size in the team/study chat
+ - one click moves (in Analysis/Study)
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

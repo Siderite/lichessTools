@@ -98,6 +98,7 @@ lichessTools.loadTool(LiChessTools.Tools.ImagePasting);
 lichessTools.loadTool(LiChessTools.Tools.RemoveChatLinkWarning);
 lichessTools.loadTool(LiChessTools.Tools.MchatOptions);
 lichessTools.loadTool(LiChessTools.Tools.FullScreen);
+lichessTools.loadTool(LiChessTools.Tools.OneClickMove);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
