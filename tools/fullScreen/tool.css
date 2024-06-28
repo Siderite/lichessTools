@@ -2,6 +2,26 @@ body.lichessTools header.lichessTools-fullScreen {
   visibility: hidden;
 }
 
+body.lichessTools.zen header#top:not(.lichessTools-fullScreen) {
+  width:100%;
+  justify-content:end;
+}
+
+body.lichessTools.zen header:not(.lichessTools-fullScreen) div.site-buttons {
+  visibility: hidden;
+  display:flex;
+}
+
+
+body.lichessTools.zen:has(header.lichessTools-fullScreen) #zenzone {
+  display:none;
+}
+
+
+body.lichessTools.zen header:not(.lichessTools-fullScreen) div.lichessTools-fullScreen {
+  visibility: visible;
+}
+
 body.lichessTools div.lichessTools-fullScreen button {
   font-size:1.3em;
   margin-bottom:0.5em;
