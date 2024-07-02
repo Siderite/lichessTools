@@ -28,7 +28,7 @@
     }
 
     boardClick=(ev)=>{
-      if (ev.which!=1 || ev.shiftKey) return;
+      if (ev.which>1 || ev.shiftKey) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -37,8 +37,9 @@
       if (!(this.options.analysis && analysis)&&!(this.options.play && !analysis)) return; //TODO better play detection and implement play code
       const board=$('main cg-board');
       if (!board.length) return;
-      const isStandard=board.closest('div.round__app, main').is('.variant-standard');
-      if (!isStandard) return;
+      if (!ev.offsetX && !ev.offsetY) return;
+      const isStandard=board.closest('div.round__app, main').is('.variant-standard,.variant-fromPosition'); //TODO fromPosition?
+      //if (!isStandard) return; //TODO only add this if we decide to hack the play mechanism
       const orientation=board.closest('.cg-wrap').is('.orientation-black')?'black':'white';
       const fen=parent.getPositionFromBoard(board.closest('cg-container'),true); 
       const turn=/ b\b/.test(fen) ?'black':'white';
@@ -72,7 +73,6 @@
       const board=$('main cg-board')[0];
       if (!board || board.lichessTools_oneClickMove) return;
       board.addEventListener('mousedown',this.boardClick,{ capture: true });
-      board.addEventListener('touchstart',this.boardClick,{ capture: true });
       board.lichessTools_oneClickMove=true;
     };
 
@@ -91,7 +91,6 @@
       const board=$('main cg-board')[0];
       if (board) {
         board.removeEventListener('mousedown',this.boardClick,{ capture: true });
-        board.removeEventListener('touchstart',this.boardClick,{ capture: true });
       }
       parent.global.clearInterval(this.interval);
       if (!value) return;
