@@ -55,8 +55,12 @@
       ctx.canvas.height=800;
       const board = $('div.main-board cg-board');
       const href=$(ev.target).attr('href');
-      const theme=$('body').attr('data-board')||'maple';
-      let url=lichess.asset.url('../images/board/'+theme+'.jpg');
+      const backgroundText=window.getComputedStyle(board[0], ':before').backgroundImage;
+      let url=/"(.*)"/.exec(backgroundText||'')?.[1];
+      if (!url) {
+        const theme=$('body').attr('data-board')||'maple';
+        url=lichess.asset.url('../images/board/'+theme+'.jpg');
+      }
       let img=await this.getImage(url);
       ctx.drawImage(img,0,0,800,800);
       const q=800/board.width();
