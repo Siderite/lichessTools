@@ -35,9 +35,11 @@
       const analysis=lichess.analysis;
       if (!analysis) return; //TODO only analysis supported so far
       if (!(this.options.analysis && analysis)&&!(this.options.play && !analysis)) return; //TODO better play detection and implement play code
+      if (!ev.x && !ev.y) return;
       const board=$('main cg-board');
       if (!board.length) return;
-      if (!ev.offsetX && !ev.offsetY) return;
+      const rect=board[0].getBoundingClientRect();
+      const [x,y]=[ev.x-rect.x,ev.y-rect.y];
       const isStandard=board.closest('div.round__app, main').is('.variant-standard,.variant-fromPosition'); //TODO fromPosition?
       //if (!isStandard) return; //TODO only add this if we decide to hack the play mechanism
       const orientation=board.closest('.cg-wrap').is('.orientation-black')?'black':'white';
@@ -48,8 +50,8 @@
         : res=>String.fromCharCode(104-res.x)+(res.y+1);
       const width=board.width()/8;
       const res={
-                x:Math.floor(ev.offsetX/width),
-                y:Math.floor(ev.offsetY/width)
+                x:Math.floor(x/width),
+                y:Math.floor(y/width)
               };
       const square=getSquare(res);
       const destMan=analysis.chessground?.state?.movable?.dests;
