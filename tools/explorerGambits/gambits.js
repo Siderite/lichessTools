@@ -10298,8 +10298,13 @@
       ]
     },
     "rnbqkbnrpp1ppppp82p53P48PPP1PPPPRNBQKBNRw": {
-      "total": 4,
+      "total": 5,
       "moves": [
+        {
+          "uci": "c1f4",
+          "san": "Bf4",
+          "nr": 1
+        },
         {
           "uci": "g1f3",
           "san": "Nf3",
@@ -15558,8 +15563,13 @@
       ]
     },
     "rnbqkbnrpppppppp883P48PPP1PPPPRNBQKBNRb": {
-      "total": 106,
+      "total": 107,
       "moves": [
+        {
+          "uci": "c7c5",
+          "san": "c5",
+          "nr": 5
+        },
         {
           "uci": "c7c6",
           "san": "c6",
@@ -15574,11 +15584,6 @@
           "uci": "g8f6",
           "san": "Nf6",
           "nr": 29
-        },
-        {
-          "uci": "c7c5",
-          "san": "c5",
-          "nr": 4
         },
         {
           "uci": "e7e6",
@@ -15858,8 +15863,13 @@
       ]
     },
     "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw": {
-      "total": 530,
+      "total": 531,
       "moves": [
+        {
+          "uci": "d2d4",
+          "san": "d4",
+          "nr": 107
+        },
         {
           "uci": "e2e4",
           "san": "e4",
@@ -15869,11 +15879,6 @@
           "uci": "e2e3",
           "san": "e3",
           "nr": 8
-        },
-        {
-          "uci": "d2d4",
-          "san": "d4",
-          "nr": 106
         },
         {
           "uci": "g1f3",
