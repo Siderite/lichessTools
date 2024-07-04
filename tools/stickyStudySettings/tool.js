@@ -48,7 +48,7 @@
       let settings=parent.currentOptions.getValue('stickyStudySettings.settings');
       if (!settings) return;
       for (const key in settings) {
-        if (key=='name') continue;
+        if (['name','flair'].includes(key)) continue;
         $('#study-'+key).val(settings[key]);
       }
     };
