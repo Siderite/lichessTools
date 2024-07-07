@@ -54,10 +54,10 @@
           e.checkedPlayerWarning=true;
           const href=$(e).attr('href');
           if (!href) return;
-          const isPlayer=href.toLowerCase().includes(userId.toLowerCase());
-          if (isPlayer) return;
-          const hrefUserId=/\/([^\/]*?)$/.exec(href)[1]?.toLowerCase();
+          const hrefUserId=/\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();
           if (!hrefUserId) return;
+          const isPlayer=hrefUserId==userId.toLowerCase();
+          if (isPlayer) return;
           let timeControl=this.getTimeControl();
           if (!timeControl || timeControl=='ultrabullet') timeControl='blitz';
           const data=await parent.net.json('/@/'+hrefUserId+'/perf/'+timeControl);

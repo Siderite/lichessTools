@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Jul
+  - common teams
+
 06 Jul
   - fix 503 errors with external engines
 

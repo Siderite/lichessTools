@@ -733,6 +733,7 @@
       }
       this.setupAnalysisPopup();
 
+      $('.lichessTools-fixCevalToggle').removeClass('lichessTools-fixCevalToggle');
       lichess.pubsub.off('redraw',this.setupCevalToggle);
       if (analysis && this.options.fixCevalToggle) {
         lichess.pubsub.on('redraw',this.setupCevalToggle);

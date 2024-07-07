@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChess Tools",
-  "version": "2.3.107",
+  "version": "2.3.108",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -131,6 +131,7 @@
         "tools/mchatOptions/tool.js",
         "tools/fullScreen/tool.js",
         "tools/oneClickMove/tool.js",
+        "tools/commonTeams/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -212,6 +213,7 @@
         "tools/blogAutosave/tool.css",
         "tools/imagePasting/tool.css",
         "tools/fullScreen/tool.css",
+        "tools/commonTeams/tool.css",
 
         "tools/tvOptions/tool.css",
 
