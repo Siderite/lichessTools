@@ -71,13 +71,16 @@
           const commonTeams=myTeams.map(mt=>theirTeams.filter(tt=>tt.id==mt.id)).flat();
           if (!commonTeams.length) return;
           const prefix=trans.plural('commonTeamsTitlePrefix',commonTeams.length,commonTeams.length);
-          const url=commonTeams.length==1
-            ? '/team/'+parent.global.encodeURIComponent(commonTeams[0].id)
-            : '/team/me';
+          const teamId=commonTeams.length==1
+            ? commonTeams[0].id
+            : 'me';
+          const icon=commonTeams.find(t=>t.id=='l1chess-tools-users-team')
+            ? '\uE000'
+            : '\uE059';
           $('<a class="lichessTools-commonTeams" target="_blank">')
-            .attr('data-icon','\uE059')
+            .attr('data-icon',icon)
             .attr('title',prefix+':\r\n'+commonTeams.map(t=>'  '+t.name).join('\r\n'))
-            .attr('href',url)
+            .attr('href','/team/'+parent.global.encodeURIComponent(teamId))
             .appendTo('div.crosstable');
         });
     };
