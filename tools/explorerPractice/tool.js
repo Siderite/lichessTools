@@ -15,8 +15,8 @@
         name:'explorerPracticeOptions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['showSmileys','sumClick','showNames'],
-        defaultValue: 'showSmileys,sumClick',
+        possibleValues: ['showSmileys','sumClick','showNames','showInfoStudy','showInfoAnalysis'],
+        defaultValue: 'showSmileys,sumClick,showInfoStudy',
         advanced: true
       }
     ];
@@ -31,6 +31,8 @@
         'explorerPracticeOptions.showSmileys': 'Show emojis when out of moves',
         'explorerPracticeOptions.sumClick': 'Click Explorer \u03A3 to make a move',
         'explorerPracticeOptions.showNames': 'Show opponent name',
+        'explorerPracticeOptions.showInfoStudy': 'Explorer data in Study',
+        'explorerPracticeOptions.showInfoAnalysis': 'Explorer data in Analysis',
         'sumClickTitle':'LiChess Tools - click to make a move'
       },
       'ro-RO':{
@@ -42,6 +44,8 @@
         'explorerPracticeOptions.showSmileys': 'Arat\u0103 emoji c\u00E2nd nu mai sunt mut\u0103ri',
         'explorerPracticeOptions.sumClick': 'Click pe \u03A3 \u00een Explorator pentru a muta',
         'explorerPracticeOptions.showNames': 'Arat\u0103 numele adversarului',
+        'explorerPracticeOptions.showInfoStudy': 'Date Explorer \u00een Studii',
+        'explorerPracticeOptions.showInfoAnalysis': 'Date Explorer \u00een Analiz\u0103',
         'sumClickTitle':'LiChess Tools - click pentru a muta'
       }
     }
@@ -229,7 +233,10 @@
         this.setRunning(false);
       }
       button.toggleClass('active',!!this.isRunning);
-      explorerContainer.toggleClass('lichessTools-explorerPracticeInAnalysis',!!this.isRunning && !analysis.study);
+      const hideData=analysis.study
+        ? !this.options.showInfoStudy
+        : !this.options.showInfoAnalysis;
+      explorerContainer.toggleClass('lichessTools-hideExplorerData',!!this.isRunning && hideData);
       if (this.isRunning) parent.global.setTimeout(this.playMove,500);
     };
     processDebounced=this.lichessTools.debounce(this.process,500);
@@ -241,6 +248,8 @@
       this.options={
         showSmileys:parent.isOptionSet(options,'showSmileys'),
         showNames:parent.isOptionSet(options,'showNames'),
+        showInfoStudy:parent.isOptionSet(options,'showInfoStudy'),
+        showInfoAnalysis:parent.isOptionSet(options,'showInfoAnalysis'),
         sumClick:parent.isOptionSet(options,'sumClick')
       };
       this.logOption('Explorer practice', value);

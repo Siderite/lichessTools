@@ -35,7 +35,7 @@
       offset.height=this.board.height();
       if (JSON.stringify(offset)!=JSON.stringify(this.offset)) {
         this.offset=offset;
-        parent.global.console.debug('Firing board resize event');
+        parent.debug && parent.global.console.debug('Firing board resize event');
         $('body').trigger('resize');
       }
     }

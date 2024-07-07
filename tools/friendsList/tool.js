@@ -669,15 +669,17 @@
 
       this.followingOnlinesRequests=0;
       clearInterval(this.onlinesInterval);
-      this.onlinesInterval=setInterval(()=>{
-        if (!this.onlinesInterval) return;
-        this.requestOnlines();
-        this.followingOnlinesRequests++;
-        if (this.followingOnlinesRequests>5) {
-          clearInterval(this.onlinesInterval);
-          this.getFollowingOnlinesByApi();
-        }
-      },1000);
+      if (this.options.friendsBoxMode || (this.options.liveFriendsPage && parent.isFriendsPage()) || this.options.friendsPlaying) {
+        this.onlinesInterval=setInterval(()=>{
+          if (!this.onlinesInterval) return;
+          this.requestOnlines();
+          this.followingOnlinesRequests++;
+          if (this.followingOnlinesRequests>5) {
+            clearInterval(this.onlinesInterval);
+            this.getFollowingOnlinesByApi();
+          }
+        },1000);
+      }
 
       switch(friendsBoxMode) {
         case true:

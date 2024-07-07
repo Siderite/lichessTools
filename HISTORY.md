@@ -1,7 +1,20 @@
 History of features added to LiChess Tools in time (reversed order)
 
+06 Jul
+  - fix 503 errors with external engines
+
+28 Jun
+  - one click move in Analysis/Study
+
+27 Jun
+  - full screen button
+
+26 Jun
+  - options to hide/show data in Explorer Practice
+
 25 Jun
   - mchat options (the chat used in team and study)
+  - remove branches based on eval
 
 17 Jun
   - extract FENs in PGN Editor
