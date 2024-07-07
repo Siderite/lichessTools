@@ -222,6 +222,8 @@
           parent.bindKeyHandler('i',this.oldHandlers['i'],true);
           parent.bindKeyHandler('m',this.oldHandlers['m'],true);
           parent.bindKeyHandler('b',this.oldHandlers['b'],true);
+          parent.bindKeyHandler('f',this.oldHandlers['f'],true);
+          parent.bindKeyHandler('r',this.oldHandlers['r'],true);
           for (let i = 1; i <=9 ; i++) {
             const combo=i.toString();
             if (this.oldHandlers[combo]) parent.bindKeyHandler(combo,this.oldHandlers[combo],true);

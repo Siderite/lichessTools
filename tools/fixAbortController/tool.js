@@ -27,7 +27,9 @@
       if (!parent.global.AbortController) return;
       parent.global.AbortController.prototype.abort=parent.wrapFunction(parent.global.AbortController.prototype.abort,{ 
         id:'fixAbortController',
-        before: ($this,...args) => $this.signal?.aborted
+        before: ($this,...args) => {
+          if ($this.signal?.aborted) return false;
+        }
       });
     }
 
@@ -37,10 +39,7 @@
       this.logOption('Fix AbortController in debug mode', value);
       parent.global.AbortController.prototype.abort=parent.unwrapFunction(parent.global.AbortController.prototype.abort,'fixAbortController');
       if (!value) return;
-      parent.global.AbortController.prototype.abort=parent.wrapFunction(parent.global.AbortController.prototype.abort,{ 
-        id:'fixAbortController',
-        before: ($this,...args) => $this.signal?.aborted
-      });
+      this.init();
     }
   }
   LiChessTools.Tools.FixAbortController=FixAbortControllerTool;

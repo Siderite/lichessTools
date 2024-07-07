@@ -15,7 +15,7 @@
         name:'customEngineOptions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['noCloud','practice'],
+        possibleValues: ['noCloud','practice','fix503'],
         defaultValue: false,
         advanced: true
       }
@@ -26,16 +26,18 @@
         'options.analysis': 'Analysis',
         'options.customEngineLevel': 'Custom analysis engine depth',
         'options.customEngineOptions': 'Custom analysis engine options',
-        'customEngineOptions.noCloud': 'Always use local engine for evaluation',
+        'customEngineOptions.noCloud': 'Ignore cloud data for evaluation',
         'customEngineOptions.practice': 'Apply in Practice mode',
+        'customEngineOptions.fix503': 'Fix external engine 503 errors',
         'applyInPractice': 'Custom engine settings in Practice mode'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.customEngineLevel': 'Nivel personalizat pentru motorul de analiz\u0103',
         'options.customEngineOptions': 'Op\u0163iuni motor analiz\u0103 personalizat',
-        'customEngineOptions.noCloud': 'Folose\u015fte numai motorul local pentru evalu\u0103ri',
+        'customEngineOptions.noCloud': 'Ignor\u0103 datele din cloud pentru evalu\u0103ri',
         'customEngineOptions.practice': 'Aplic\u0103 \u00een mod Practic\u0103',
+        'customEngineOptions.fix503': 'Repar\u0103 erori 503 la motoare analiz\u0103 externe',
         'applyInPractice': 'Set\u0103ri motor personalizat \u00een mod Practic\u0103'
       }
     }
@@ -212,6 +214,31 @@
         analysis.evalCache.fetch=parent.unwrapFunction(analysis.evalCache.fetch,'customEngineOptions');
         analysis.explorer.fetchTablebaseHit=parent.unwrapFunction(analysis.explorer.fetchTablebaseHit,'customEngineOptions');
       }
+
+      if (this.options.fix503) {
+        if (!parent.isWrappedFunction(analysis.ceval.engineFailed,'customEngineOptions')) {
+          analysis.ceval.engineFailed=parent.wrapFunction(analysis.ceval.engineFailed,{
+            id:'customEngineOptions',
+            before:($this,errorMessage)=>{
+               if (!this.options.fix503) return;
+               if (errorMessage?.includes('Status 503')) {
+                 if (!this.lastGoDeeper || Date.now()-this.lastGoDeeper>5000) {
+                   if (analysis.ceval.enabled()) {
+                     analysis.ceval.goDeeper();
+                     parent.global.console.log('503 error. Trying to restart engine');
+                     this.lastGoDeeper=Date.now();
+                   }
+                 } else {
+                   parent.global.console.log('503 error. Waiting 5s before retrying.');
+                 }
+                 return false;
+               }
+            }
+          });
+        }
+      } else {
+        analysis.ceval.engineFailed=parent.unwrapFunction(analysis.ceval.engineFailed,'customEngineOptions');
+      }
     };
 
     async start() {
@@ -224,7 +251,8 @@
         depth: value,
         noCloud: parent.isOptionSet(customEngineOptions,'noCloud'),
         practice: parent.isOptionSet(customEngineOptions,'practice'),
-        get isSet() { return this.depth || this.noCloud || this.practice; }
+        fix503: parent.isOptionSet(customEngineOptions,'fix503'),
+        get isSet() { return this.depth || this.noCloud || this.practice || this.fix503; }
       };
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
