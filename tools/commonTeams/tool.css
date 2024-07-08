@@ -1,9 +1,12 @@
 body.lichessTools a.lichessTools-commonTeams {
   align-self: center;
   font-size: 1.25em;
+  margin-right:0.5em;
+}
+
+body.lichessTools a.lichessTools-commonTeams.lichessTools-lichessToolsTeam {
   animation: fire-glow 1.25s ease-in-out infinite alternate;
   color: var(--c-brag);
-  margin-right:0.5em;
 }
 
 @keyframes fire-glow {
