@@ -30,24 +30,31 @@
     }
 
     teamCache=null;
-    getTeams = async ()=>{
+    getTeams = async (userId)=>{
       const parent=this.lichessTools;
       if (!this.teamCache) {
         this.teamCache = parent.storage.get('LichessTools.teamCache',{ session:true, zip:true });
       }
-      if (!this.teamCache) {
-        this.teamCache = await parent.net.json({url:'/api/team/of/{userId}',args:{userId:parent.getUserId()}});
+      if (!this.teamCache||Array.isArray(this.teamCache)) this.teamCache={};
+      let teams=this.teamCache[userId];
+      if (!teams) {
+        teams = await parent.net.json({url:'/api/team/of/{userId}',args:{userId:userId}});
+        this.teamCache[userId]=teams;
         parent.storage.set('LichessTools.teamCache',this.teamCache,{ session:true, zip:true });
       }
-      return this.teamCache;
+      return teams;
     };
 
     refreshTeams=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
+      const crosstable=$('div.crosstable');
+      if (!crosstable.length) return;
+      const commonTeamsLink=$('a.lichessTools-commonTeams');
+      if (commonTeamsLink.length) return;
       const userId=parent.getUserId();
-      const isMyGame = !!$('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')
+      const isMyGame = !!$('.game__meta__players a.user-link')
         .get()
         .find(e=>{
           const href=$(e).attr('href');
@@ -56,7 +63,7 @@
           return isPlayer;
         });
       if (!isMyGame) return;
-      $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')
+      $('.game__meta__players a.user-link')
         .each(async (i,e)=>{
           if (e.checkedCommonTeams) return;
           e.checkedCommonTeams=true;
@@ -66,8 +73,8 @@
           if (!hrefUserId) return;
           const isPlayer=hrefUserId==userId.toLowerCase();
           if (isPlayer) return;
-          const myTeams=await this.getTeams();
-          const theirTeams = await parent.net.json({url:'/api/team/of/{userId}',args:{userId:hrefUserId}});
+          const myTeams=await this.getTeams(userId);
+          const theirTeams = await this.getTeams(hrefUserId);
           const commonTeams=myTeams.map(mt=>theirTeams.filter(tt=>tt.id==mt.id)).flat();
           if (!commonTeams.length) return;
           const prefix=trans.plural('commonTeamsTitlePrefix',commonTeams.length,commonTeams.length);
@@ -81,7 +88,7 @@
             .attr('data-icon',icon)
             .attr('title',prefix+':\r\n'+commonTeams.map(t=>'  '+t.name).join('\r\n'))
             .attr('href','/team/'+parent.global.encodeURIComponent(teamId))
-            .appendTo('div.crosstable');
+            .appendTo(crosstable);
         });
     };
 
@@ -93,7 +100,6 @@
       this.logOption('Common teams', value);
       lichess.pubsub.off('redraw',this.refreshTeams);
       if (!value) return;
-      if (!$('.round__app').length) return;
       lichess.pubsub.on('redraw',this.refreshTeams);
       this.refreshTeams();
     }
