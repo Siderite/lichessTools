@@ -258,32 +258,32 @@
         }
         items.delete(friendMenu[0]);
       });
-      if (this.followingOnlinesRequests>5) {
-      this.user_data.online.forEach(user=>{
-        const isPlaying=this.user_data.playing.includes(user);
-        let friendMenu=group.find('a').filter((i,e2)=>sameUser($(e2).attr('href'),'/@/'+user));
-        if (!friendMenu.length) {
-          const userName=this.user_data.names[user]||user;
-          friendMenu=$('<a class="user-link temp">')
-            .append('<i class="line"></i>'+userName)
-            .attr('data-pt-pos','e')
-            .appendTo(group);
-          lichess.powertip?.manualUser(friendMenu[0]);  
-        }
-        friendMenu[0].dataset.href='/@/'+user;
-        if (isPlaying) {
-          const timeControl=this.user_data.timeControls[user];
-          friendMenu
-            .addClass('lichessTools-playing')
-            .attr('href','/@/'+user+'/tv');
-          if (timeControl) friendMenu.addClass('lichessTools-playing-'+timeControl);
-        } else {
-          friendMenu
-            .removeClass('lichessTools-playing')
-            .attr('href','/@/'+user);
-        }
-        items.delete(friendMenu[0]);
-      });
+      if (this.followingOnlinesRequests>5||!friends.length) {
+        this.user_data.online.forEach(user=>{
+          const isPlaying=this.user_data.playing.includes(user);
+          let friendMenu=group.find('a').filter((i,e2)=>sameUser($(e2).attr('href'),'/@/'+user));
+          if (!friendMenu.length) {
+            const userName=this.user_data.names[user]||user;
+            friendMenu=$('<a class="user-link temp">')
+              .append('<i class="line"></i>'+userName)
+              .attr('data-pt-pos','e')
+              .appendTo(group);
+            lichess.powertip?.manualUser(friendMenu[0]);  
+          }
+          friendMenu[0].dataset.href='/@/'+user;
+          if (isPlaying) {
+            const timeControl=this.user_data.timeControls[user];
+            friendMenu
+              .addClass('lichessTools-playing')
+              .attr('href','/@/'+user+'/tv');
+            if (timeControl) friendMenu.addClass('lichessTools-playing-'+timeControl);
+          } else {
+            friendMenu
+              .removeClass('lichessTools-playing')
+              .attr('href','/@/'+user);
+          }
+          items.delete(friendMenu[0]);
+        });
       }
       items.forEach(e=>{
         $(e).remove();
