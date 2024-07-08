@@ -624,10 +624,7 @@
       board=parent.getBoardFromFen(node.fen);
       const mmw1=this.maxMaterialWon(board,side)/100;
       const bril=(mmw1-mmw3)*side-delta;
-      if (bril>4) {
-        return bril;
-      }
-      return 0;
+      return bril;
     };
 
     setBrilliant = (mainline,forced) => {
@@ -638,15 +635,17 @@
       mainline
         .map((node,x) => {
           if (x<3) return null;
+          if (parent.isMate(node)) return null;
           const m=node.ply%2?1:-1;
           const p1=node;
           const p2=mainline[x-1];
           const p3=mainline[x-2];
           const good=this.computeGood(m,p1,p2,p3);
+          const bril=this.computeBrilliant(m,p1,p2,p3);
           return {
             good:this.options.moreBrilliant && good>-2.5,
             best:this.options.moreBrilliant && good>=0,
-            bril:this.computeBrilliant(m,p1,p2,p3)
+            bril:this.options.moreBrilliant ? bril>=5 : bril>=3
           };
         })
         .forEach((v,x)=>{
@@ -766,7 +765,7 @@
                .attr('title',trans.noarg('goodMovesTitle'))
                .on('click',(ev)=>{
                  ev.preventDefault();
-                 parent.jumpToGlyphSymbols(['!','!?','!!','\u2606'],color);
+                 parent.jumpToGlyphSymbols(this.options.moreBrilliant?['!?','!!']:['!','!?','!!','\u2606'],color);
                })
                .on('mouseenter',(ev)=>{
                  const chart=this._chart;
