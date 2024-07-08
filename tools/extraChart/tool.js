@@ -8,7 +8,7 @@
         name:'extraChart',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['material','principled','tension','potential','brilliant','local','accuracy','smooth','gauge'],
+        possibleValues: ['material','principled','tension','potential','brilliant','moreBrilliant','local','accuracy','smooth','gauge'],
         defaultValue: 'material,principled,tension,brilliant,smooth,gauge',
         advanced: true
       },
@@ -34,6 +34,7 @@
         'extraChart.local': 'Local eval',
         'extraChart.accuracy': 'Accuracy',
         'extraChart.brilliant': 'Find interesting moves',
+        'extraChart.moreBrilliant': '... more moves',
         'extraChart.smooth': 'Chart smoothing',
         'extraChart.gauge': 'on Eval gauge',
         'chartInfoTitle':'LiChess Tools - extra charting',
@@ -54,6 +55,7 @@
         'extraChart.local': 'Evaluare local\u0103',
         'extraChart.accuracy': 'Acurate\u0163e',
         'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
+        'extraChart.moreBrilliant': '... mai multe mut\u0103ri',
         'extraChart.smooth': 'Netezire grafice',
         'extraChart.gauge': 'pe bara de Eval',
         'chartInfoTitle':'LiChess Tools - grafice \u00een plus',
@@ -525,13 +527,24 @@
         .filter(r=>!!r);
     };
 
+    getCp=(evl,side=1)=>{
+      let cp=undefined;
+      if (evl?.cp!==undefined) {
+        cp=evl.cp*side;
+      }
+      if (evl?.mate!==undefined) {
+        cp=(10000-evl.mate)*side;
+      }
+      return Number.isNaN(cp) ? undefined : cp;
+    };
+
     getLocalData = (mainline) => {
       const parent=this.lichessTools;
       const Math=parent.global.Math;
       return mainline
         .map((node,x) => {
           if (!node.ceval) return null;
-          const cp=node.ceval.cp||node.ceval.mate*9999||0;
+          const cp=this.getCp(node.ceval);
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             x: x
@@ -540,20 +553,29 @@
         .filter(r=>!!r);
     };
 
+    winPerc=(cp)=>{
+      return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
+    };
+
     getAccuracyData = (mainline) => {
       const parent=this.lichessTools;
       const side=parent.lichess.analysis.getOrientation()=='black'?-1:1;
       const Math=parent.global.Math;
       let prevWinPerc=50;
+      let prevVal=0;
       return mainline
         .map((node,x) => {
+          if ((node.ply%2)*2-1!=side) return {
+            y: prevVal,
+            x: x
+          };
           if (!node.eval) return null;
-          if ((node.ply%2)*2-1!=side) return null;
-          const cp=(node.eval.cp||node.eval.mate*9999||0)*side;
-          const winPerc=50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
+          const cp=this.getCp(node.eval,side);
+          const winPerc=this.winPerc(cp);
           const accuracy=103.1668 * Math.exp(-0.04354 * (prevWinPerc - winPerc)) - 3.1669;
           prevWinPerc=winPerc;
           const val=Math.max(Math.min(accuracy,100),0)/50-1;
+          prevVal=val;
           return {
             y: val,
             x: x
@@ -562,63 +584,106 @@
         .filter(r=>!!r);
     };
 
+    computeGood=(side,node,prevNode,prev2Node)=>{
+      const cp1=this.getCp(node.ceval||node.eval);
+      const cp2=this.getCp(prevNode.ceval||prevNode.eval);
+      if (cp1===undefined || cp2===undefined) return false;
+      const w1=this.winPerc(cp1)*side;
+      const w2=this.winPerc(cp2)*side;
+      return w1-w2;
+    }
+
+    computeBrilliant=(side,node,prevNode,prev2Node)=>{
+      const parent=this.lichessTools;
+      const Math=parent.global.Math;
+      const cp1=this.getCp(node.ceval||node.eval);
+      const cp2=this.getCp(prevNode.ceval||prevNode.eval);
+      if (cp1===undefined || cp2===undefined) return 0;
+      if ((cp1-cp2)*side<-25) return 0;
+      if (Math.abs(cp1)>75 && Math.sign(side)!=Math.sign(cp1)) return 0;
+      if (this.inCheck(prevNode.fen)) return 0;
+      if (this.isPromotion(node)) return 0;
+      const move={
+        sx: 104-node.uci.charCodeAt(0),
+        sy: node.uci.charCodeAt(1)-49,
+        x: 104-node.uci.charCodeAt(2),
+        y: node.uci.charCodeAt(3)-49
+      };
+      let board=parent.getBoardFromFen(prevNode.fen);
+      const mwStartUci=this.materialWon(board,move.sx,move.sy)/100;
+      board=parent.getBoardFromFen(node.fen);
+      const mwEndUci=this.materialWon(board,move.x,move.y)/100;
+      const mat3=this.simple_material(prev2Node,true,side)/100;
+      const mat1=this.simple_material(node,true,side)/100;
+      const delta=(mat3-mat1);
+      if (mwStartUci*side+1+delta<mwEndUci*side) {
+        return 1;
+      }
+      board=parent.getBoardFromFen(prev2Node.fen);
+      const mmw3=this.maxMaterialWon(board,side)/100;
+      board=parent.getBoardFromFen(node.fen);
+      const mmw1=this.maxMaterialWon(board,side)/100;
+      const bril=(mmw1-mmw3)*side-delta;
+      if (bril>4) {
+        return bril;
+      }
+      return 0;
+    };
+
     setBrilliant = (mainline,forced) => {
-      if (!forced && mainline.brilliantInit) return;
+      const initValue=this.options.moreBrilliant?2:1;
+      if (!forced && mainline.brilliantInit===initValue) return;
       const parent=this.lichessTools;
       const Math=parent.global.Math;
       mainline
         .map((node,x) => {
-          if (x<3) return 0;
+          if (x<3) return null;
           const m=node.ply%2?1:-1;
           const p1=node;
           const p2=mainline[x-1];
           const p3=mainline[x-2];
-          const cp1=p1.eval?.cp;
-          const cp2=p2.eval?.cp;
-          if ((cp1-cp2)*m<-25) return 0;
-          if (Math.abs(cp1)>75 && Math.sign(m)!=Math.sign(cp1)) return 0;
-          if (this.inCheck(p2.fen)) return 0;
-          if (this.isPromotion(p1)) return 0;
-          const move={
-            sx: 104-p1.uci.charCodeAt(0), 
-            sy: p1.uci.charCodeAt(1)-49,
-            x: 104-p1.uci.charCodeAt(2), 
-            y: p1.uci.charCodeAt(3)-49
+          const good=this.computeGood(m,p1,p2,p3);
+          return {
+            good:this.options.moreBrilliant && good>-2.5,
+            best:this.options.moreBrilliant && good>=0,
+            bril:this.computeBrilliant(m,p1,p2,p3)
           };
-          let board=parent.getBoardFromFen(p2.fen);
-          const mwStartUci=this.materialWon(board,move.sx,move.sy)/100;
-          board=parent.getBoardFromFen(p1.fen);
-          const mwEndUci=this.materialWon(board,move.x,move.y)/100;
-          const mat3=this.simple_material(p3,true,m)/100;
-          const mat1=this.simple_material(p1,true,m)/100;
-          const delta=(mat3-mat1);
-          if (mwStartUci*m+1+delta<mwEndUci*m) {
-            return 1;
-          }
-          board=parent.getBoardFromFen(p3.fen);
-          const mmw3=this.maxMaterialWon(board,m)/100;
-          board=parent.getBoardFromFen(p1.fen);
-          const mmw1=this.maxMaterialWon(board,m)/100;
-          const bril=mmw1*m-mmw3*m-delta;
-          if (bril>4) {
-            return bril;
-          }
-          return 0;
         })
         .forEach((v,x)=>{
           if (!v) return;
-          const symbol='!?';
+          let symbol=null;
+          let name=null;
+          if (v.good) {
+            if (v.bril) {
+              symbol='!!';
+              name='Brilliant';
+            } else {
+              if (v.best) {
+                symbol='\u2606';
+                name='Best';
+              } else {
+                symbol='!';
+                name='Good';
+              }
+            }
+          } else {
+            if (v.bril) {
+              symbol='!?';
+              name='Interesting';
+            }
+          }
           const glyphs=mainline[x].glyphs||[];
-          if (!glyphs.length) {
+          parent.arrayRemoveAll(glyphs,g=>g.type=='nonStandard'&&['!','!?','!!','\u2606'].includes(g.symbol));
+          if (symbol && !glyphs.length) {
             glyphs.push({
               symbol: symbol,
-              name: 'Brilliant',
+              name: name,
               type: 'nonStandard'
             });
-            mainline[x].glyphs=glyphs;
           }
+          mainline[x].glyphs=glyphs;
         });
-      mainline.brilliantInit=true;
+      mainline.brilliantInit=initValue;
     };
 
     getMaxTension = (mainline) => {
@@ -669,7 +734,7 @@
         if (move.ply%2!=side) continue;
         const glyph=move?.glyphs?.at(0);
         if (!glyph) continue;
-        if (!['!','!!','!?'].includes(glyph.symbol)) continue;
+        if (!['!','!!','!?','\u2606'].includes(glyph.symbol)) continue;
         result.push({ datasetIndex: 0, index: i-1 });
       }
       return result;
@@ -688,7 +753,7 @@
         state=parent.traverse();
         if (hcElem) hcElem.traverseState=state;
       }
-      const arr=[].concat.apply([],['!','!?','!!'].map(s=>state.glyphs[s]).filter(a=>!!a?.length));
+      const arr=[].concat.apply([],['!','!?','!!','\u2606'].map(s=>state.glyphs[s]).filter(a=>!!a?.length));
       if (!arr.length) return;
       const fill=(container,count,color)=>{
         let elem=$('div.lichessTools-goodMoves',container);
@@ -701,7 +766,7 @@
                .attr('title',trans.noarg('goodMovesTitle'))
                .on('click',(ev)=>{
                  ev.preventDefault();
-                 parent.jumpToGlyphSymbols(['!','!?','!!'],color);
+                 parent.jumpToGlyphSymbols(['!','!?','!!','\u2606'],color);
                })
                .on('mouseenter',(ev)=>{
                  const chart=this._chart;
@@ -795,6 +860,7 @@
       }
     };
 
+    prevBrilliant=null;
     generateCharts=async (forced)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -802,6 +868,11 @@
       const trans=parent.translator;
 
       if (!lichess.analysis) return;
+      const currentBrilliant=[this.options.brilliant,this.options.moreBrilliant].join(',');
+      if (!forced && this.prevBrilliant!=currentBrilliant) {
+        this.prevBrilliant=currentBrilliant;
+        forced=true;
+      }
       let localLine=null;
       if (this.options.local) {
         if (lichess.analysis.onMainline) {
@@ -1183,10 +1254,11 @@
         tension:parent.isOptionSet(value,'tension'),
         potential:parent.isOptionSet(value,'potential'),
         brilliant:parent.isOptionSet(value,'brilliant'),
+        moreBrilliant:parent.isOptionSet(value,'moreBrilliant'),
         local:parent.isOptionSet(value,'local'),
         accuracy:parent.isOptionSet(value,'accuracy'),
         smooth:parent.isOptionSet(value,'smooth'),
-        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.local || this.accuracy; },
+        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy; },
         gauge:parent.isOptionSet(value,'gauge'),
         christmas:!!parent.currentOptions.getValue('christmas')
       };
