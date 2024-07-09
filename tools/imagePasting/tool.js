@@ -26,7 +26,7 @@
 
     isInboxOrForumPage=()=>{
       const parent=this.lichessTools;
-      return /\/(inbox|forum)\/\w+/i.test(parent.global.location.pathname);
+      return /\/(inbox|forum)(\/\w+|$)/i.test(parent.global.location.pathname);
     };
 
     isImage=(file)=>{
