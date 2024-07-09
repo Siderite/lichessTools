@@ -536,6 +536,7 @@
       const node=this.findGlyphNode(color,symbols);
       if (!node?.path) return;
       analysis.userJumpIfCan(node.path);
+      analysis.redraw();
     };
 
     getPositionFromFen=(fen,deep)=>{
