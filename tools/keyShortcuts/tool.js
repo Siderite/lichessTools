@@ -197,11 +197,11 @@
         parent.bindKeyHandler('i',()=>parent.jumpToGlyphSymbols('?!'));
         parent.bindKeyHandler('m',()=>parent.jumpToGlyphSymbols('?'));
         parent.bindKeyHandler('b',()=>parent.jumpToGlyphSymbols('??'));
-        parent.bindKeyHandler('g',()=>parent.jumpToGlyphSymbols(['!','!?','!!']));
+        parent.bindKeyHandler('g',()=>parent.jumpToGlyphSymbols(['!','!?','!!','\u2606']));
         parent.bindKeyHandler('alt+i',()=>parent.jumpToGlyphSymbols('?!',true));
         parent.bindKeyHandler('alt+m',()=>parent.jumpToGlyphSymbols('?',true));
         parent.bindKeyHandler('alt+b',()=>parent.jumpToGlyphSymbols('??',true));
-        parent.bindKeyHandler('alt+g',()=>parent.jumpToGlyphSymbols(['!','!?','!!'],true));
+        parent.bindKeyHandler('alt+g',()=>parent.jumpToGlyphSymbols(['!','!?','!!','\u2606'],true));
 
         parent.bindKeyHandler('.',()=>this.prepareMove('pgn'));
         parent.bindKeyHandler('ctrl+.',()=>this.prepareMove('ceval'));

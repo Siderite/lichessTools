@@ -584,7 +584,7 @@
         .filter(r=>!!r);
     };
 
-    computeGood=(side,node,prevNode,prev2Node)=>{
+    computeGood=(side,node,prevNode)=>{
       const cp1=this.getCp(node.ceval||node.eval);
       const cp2=this.getCp(prevNode.ceval||prevNode.eval);
       if (cp1===undefined || cp2===undefined) return false;
@@ -640,13 +640,14 @@
           const p1=node;
           const p2=mainline[x-1];
           const p3=mainline[x-2];
-          const good=this.computeGood(m,p1,p2,p3);
+          const good=this.computeGood(m,p1,p2);
           const bril=this.computeBrilliant(m,p1,p2,p3);
-          return {
-            good:this.options.moreBrilliant && good>-2.5,
+          const result = {
+            good:this.options.moreBrilliant && good>=-1,
             best:this.options.moreBrilliant && good>=0,
             bril:this.options.moreBrilliant ? bril>=5 : bril>=3
           };
+          return result;
         })
         .forEach((v,x)=>{
           if (!v) return;
@@ -748,6 +749,7 @@
 
       const hcElem=$('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready')[0];
       let state=hcElem?.traverseState;
+      if (Math.random()>0.95) forced=true; // hack to sometimes update this anyway
       if (!state || forced) {
         state=parent.traverse();
         if (hcElem) hcElem.traverseState=state;
