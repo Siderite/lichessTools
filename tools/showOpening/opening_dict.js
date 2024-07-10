@@ -10241,6 +10241,7 @@ const openings = {
   "rnbqkb1rpppppppp5n2885N2PPPPPPPPRNBQKB1Rw": "Zukertort Opening",
   "rnbqkb1rpppppppp5n2885NP1PPPPPP1PRNBQKB1Rb": "Reti: KIA",
   "rnbqkb1rpppppppp5n2886P1PPPPPP1PRNBQKBNRw": "Hungarian Opening: Indian Defense",
+  "rnbqkb1rpppppppp6n14P33P3P8PPP3P1RNBQKBNRb": "Alekhine Defense: Normal Variation, Yanyan Countergambit",
   "rnbqkb1rpppppppp7n81P68P1PPPPPPRNBQKBNRw": "Polish Opening: Karniewski Variation",
   "rnbqkb1rpppppppp7n84P38PPPP1PPPRNBQKBNRw": "Hippopotamus Defense",
   "rnbqkb1rpppppppp7n85P28PPPPP1PPRNBQKBNRw": "Bird Opening: Horsefly Defense",
