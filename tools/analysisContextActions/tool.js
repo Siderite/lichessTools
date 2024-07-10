@@ -320,7 +320,7 @@
         return;
       }
       const state=ceval.state;
-      const isIdle = state==2 || ceval.showingCloud;
+      const isIdle = state==0 || state==2 || ceval.showingCloud;
       const isRunning = state==3 && !ceval.showingCloud;
       if (this.evaluateTerminationsStarted) {
         const node = this._analysedNode;

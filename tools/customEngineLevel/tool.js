@@ -136,7 +136,9 @@
       const curDepth=analysis.threatMode()
         ? analysis.ceval.curEval.depth
         : node.ceval?.depth;
-      if (analysis.ceval.canGoDeeper && analysis.ceval.state==2) {
+      const state=analysis.ceval.state;
+      const isIdle = state==0 || state==2;
+      if (analysis.ceval.canGoDeeper && isIdle) {
         if ((analysis.ceval.showingCloud && this.options.noCloud) || (this.options.depth && curDepth<(node.autoDeeper || this.options.depth) ))
         {
           node.autoDeeper=this.options.depth;
@@ -260,9 +262,11 @@
 
       lichess.pubsub.off('redraw',this.analysisControls);
       lichess.pubsub.off('redraw',this.determineCevalState);
+      parent.global.clearInterval(this.interval);
       analysis.actionMenu.toggle=lichessTools.unwrapFunction(analysis.actionMenu.toggle,'customEngineOptions');
       lichess.pubsub.on('redraw',this.analysisControls);
       lichess.pubsub.on('redraw',this.determineCevalState);
+      this.interval=parent.global.setInterval(this.determineCevalState,5000);
       analysis.actionMenu.toggle=lichessTools.wrapFunction(analysis.actionMenu.toggle,{
         id:'customEngineOptions',
         after: ($this, result, ...args)=>{

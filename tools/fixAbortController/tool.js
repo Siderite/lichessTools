@@ -29,7 +29,8 @@
         id:'fixAbortController',
         before: ($this,...args) => {
           if ($this.signal?.aborted) return false;
-        }
+        },
+        ignoreErrors: true
       });
     }
 

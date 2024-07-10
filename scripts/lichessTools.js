@@ -68,9 +68,16 @@
           const execute = options.before(this,...arguments);
           if (execute===false) executeOriginal=false;
         }
-        let result=executeOriginal && func
-          ? func.apply(this, arguments)
-          : null;
+        let result = null;
+        if (executeOriginal && func) {
+          if (options?.ignoreErrors) {
+            (async ()=>{ return func.apply(this, arguments); })()
+              .then(r=>{ result=r; })
+              .catch(e=>parent.global.console.log('Wrapped function error:',e))
+          } else {
+            result = func.apply(this, arguments);
+          }
+        }
         if (options?.after) {
           const newResult=options.after(this,result,...arguments);
           if (newResult!==undefined) result=newResult;
