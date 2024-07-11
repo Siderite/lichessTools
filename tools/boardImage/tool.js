@@ -39,8 +39,13 @@
     drawSvg=async (svgElement)=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      svgElement=$(svgElement).clone().css('opacity','0.6')[0];
-      const svgURL = new parent.global.XMLSerializer().serializeToString(svgElement);
+      svgElement=$(svgElement).clone()
+        .css({ 
+               opacity:0.6,
+               overflow:'visible'
+             });
+      svgElement.find('svg').css('overflow','visible');
+      const svgURL = new parent.global.XMLSerializer().serializeToString(svgElement[0]);
       const url = 'data:image/svg+xml; charset=utf8, ' + parent.global.encodeURIComponent(svgURL);
       return await this.getImage(url);
     };
@@ -64,7 +69,7 @@
       let img=await this.getImage(url);
       ctx.drawImage(img,0,0,800,800);
       const q=800/board.width();
-      board.find('square.selected').each((i,e)=>{
+      board.find('square.selected,square.last-move').each((i,e)=>{
         const css={
           background:$(e).css('background-color'),
         };
@@ -113,7 +118,8 @@
         const y=+m[2]*q;
         ctx.drawImage(img,x,y,100,100);
       });
-      board.parent().find('svg').each(async (i,e)=>{
+      const svgs=board.parent().children('svg').get();
+      svgs.forEach(async (e)=>{
         const img=await this.drawSvg(e);
         ctx.drawImage(img,0,0);
       });
