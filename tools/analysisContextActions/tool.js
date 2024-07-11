@@ -343,6 +343,7 @@
 
       const menuItem=$('#analyse-cm a[data-role="copyPgn"]');
       if (!menuItem.length) return;
+      if (ev.altKey) ev.preventDefault();
       const text=trans.noarg('extractVariationText'+this.suffix);
       menuItem.text(text);
     }
