@@ -900,6 +900,39 @@
       return func(url);
     }
 
+    isTouchDevice() {
+      return !this.global.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    }
+
+    dialog(options) {
+      const $=this.$;
+      const dialog = $('<dialog>')
+                       .toggleClass('touch-scroll',this.isTouchDevice())
+                       .appendTo(options.parent || 'body');
+      if (options.parent) dialog.css('position','absolute');
+
+      if (!options.noCloseButton) {
+        $('<div class="close-button-anchor">')
+          .append($('<button class="close-button" aria-label="Close">')
+                    .attr('data-icon','\uE03F')
+                    .on('click',()=>dialog[0]?.close())
+                 )
+          .appendTo(dialog);
+      }
+
+      const view = $('<div class="dialog-content">');
+      if (options.class) {
+        options.class.split(/[. ]/).filter(x => x).forEach(cls=>view.addClass(cls));
+      }
+      if (options.html) view.html(options.html);
+
+      const scrollable = $(`<div class="${options.noScrollable ? 'not-' : ''}scrollable">`)
+                           .append(view)
+                           .appendTo(dialog);
+
+      return dialog[0];
+    }
+
     intl={
       lichessTools:this,
       defaultLanguage:'en-US',
