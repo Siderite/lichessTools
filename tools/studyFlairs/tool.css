@@ -4,7 +4,7 @@ body.lichessTools .studies div.study.lichessTools-studyFlairs:has(.lichessTools-
 
 body.lichessTools .studies div.study.lichessTools-studyFlairs div.top > img {
   margin-right:1em;
-  width:4em;
+  width:3em;
   opacity:0.9;
   position:relative;
   z-index:3;
