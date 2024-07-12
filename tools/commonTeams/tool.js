@@ -51,7 +51,7 @@
       const lichess=parent.lichess;
       const trans=parent.translator;
       const crosstable=$('div.crosstable');
-      if (!crosstable.length) return;
+      if (!crosstable.length || !parent.inViewport(crosstable)) return;
       const commonTeamsLink=$('a.lichessTools-commonTeams');
       if (commonTeamsLink.length) return;
       const userId=parent.getUserId();
