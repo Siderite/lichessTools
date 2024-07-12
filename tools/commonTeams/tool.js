@@ -45,7 +45,7 @@
       return teams;
     };
 
-    refreshTeams=()=>{
+    refreshTeams=async ()=>{
       const parent=this.lichessTools;
       const $=parent.$;
       const lichess=parent.lichess;
@@ -63,50 +63,51 @@
           const isPlayer=href.toLowerCase().includes(userId.toLowerCase());
           return isPlayer;
         });
-      if (!isMyGame) return;
+      //if (!isMyGame) return;
+      const teamsArr=[];
+      const promises=[];
       $('.game__meta__players a.user-link')
-        .each(async (i,e)=>{
+        .each((i,e)=>{
           if (e.checkedCommonTeams) return;
           e.checkedCommonTeams=true;
-          const href=$(e).attr('href');
-          if (!href) return;
-          const hrefUserId=/\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();
-          if (!hrefUserId) return;
-          const isPlayer=hrefUserId==userId.toLowerCase();
-          if (isPlayer) return;
-          const myTeams=await this.getTeams(userId);
-          const theirTeams = await this.getTeams(hrefUserId);
-          const commonTeams=myTeams.map(mt=>theirTeams.filter(tt=>tt.id==mt.id)).flat();
-          if (!commonTeams.length) return;
-          const prefix=trans.plural('commonTeamsTitlePrefix',commonTeams.length,commonTeams.length);
-          let teamId=null;
-          let flair=null;
-          let icon='';
-          if (commonTeams.length==1) {
-            teamId=commonTeams[0].id;
-            flair=commonTeams[0].flair;
-          } else {
-            teamId='me';
-          }
-          const isLichessToolsTeam=!!commonTeams.find(t=>t.id=='l1chess-tools-users-team');
-          const linkElement=$('<a class="lichessTools-commonTeams" target="_blank">')
-            .attr('title',prefix+':\r\n'+commonTeams.map(t=>'  '+t.name).join('\r\n'))
-            .attr('href','/team/'+parent.global.encodeURIComponent(teamId))
-            .appendTo(crosstable);
-          if (isLichessToolsTeam) {
-            linkElement.addClass('lichessTools-lichessToolsTeam');
-            icon='\uE000';
-          } else {
-            if (flair) {
-              $('<img class="uflair">')
-                .attr('src',lichess.asset.flairSrc(flair))
-                .appendTo(linkElement);
-            } else {
-              icon='\uE059';
-            }
-          }
-          linkElement.attr('data-icon',icon);
+          promises.push((async ()=>{
+            const href=$(e).attr('href');
+            if (!href) return;
+            const hrefUserId=/\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();
+            if (!hrefUserId) return;
+            const teams = await this.getTeams(hrefUserId);
+            teamsArr.push(teams);
+          })());
         });
+      await Promise.all(promises);
+      if (!teamsArr.length) return;
+      let commonTeams=null;
+      for (const teams of teamsArr) {
+        commonTeams=commonTeams?.filter(t=>teams.find(tt=>tt.id==t.id))||teams;
+      }
+      if (!commonTeams.length) return;
+      const teamId=commonTeams[0].id;
+      const prefix=trans.plural('commonTeamsTitlePrefix',commonTeams.length,commonTeams.length);
+      const isLichessToolsTeam=!!commonTeams.find(t=>t.id=='l1chess-tools-users-team');
+      const linkElement=$('<a class="lichessTools-commonTeams" target="_blank">')
+        .attr('title',prefix+':\r\n'+commonTeams.map(t=>'  '+t.name).join('\r\n'))
+        .attr('href','/team/'+parent.global.encodeURIComponent(teamId))
+        .appendTo(crosstable);
+      if (isLichessToolsTeam) {
+        linkElement
+          .addClass('lichessTools-lichessToolsTeam')
+          .attr('data-icon','\uE000');
+      } else {
+        const flair=commonTeams[0].flair;
+        if (flair) {
+          $('<img class="uflair">')
+            .attr('src',lichess.asset.flairSrc(flair))
+            .appendTo(linkElement);
+        } else {
+          linkElement
+            .attr('data-icon','\uE059');
+        }
+      }
     };
 
     async start() {
