@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Jul
+  - expand all variations
+
 08 Jul
   - best/good/brilliant moves
 

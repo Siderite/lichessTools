@@ -287,11 +287,20 @@
     ensureShowOnEmpty=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
+      const analysis=parent.lichess.analysis;
 
       if (this.options.showOnEmpty) {
         $('div.tview2')
           .addClass('lichessTools-showOnEmpty')
           .attr('p','*');
+        if (!parent.isWrappedFunction(analysis.jump,'showOnEmpty')) {
+          analysis.jump=parent.wrapFunction(analysis.jump,{
+            id:'showOnEmpty',
+            before: ($this,path)=>{
+              if (path=='*') return false;
+            }
+          })
+        }
       } else {
         $('div.tview2')
           .removeClass('lichessTools-showOnEmpty')

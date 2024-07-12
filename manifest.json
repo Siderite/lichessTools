@@ -132,6 +132,7 @@
         "tools/fullScreen/tool.js",
         "tools/oneClickMove/tool.js",
         "tools/commonTeams/tool.js",
+        "tools/expandAll/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -214,6 +215,7 @@
         "tools/imagePasting/tool.css",
         "tools/fullScreen/tool.css",
         "tools/commonTeams/tool.css",
+        "tools/expandAll/tool.css",
 
         "tools/tvOptions/tool.css",
 

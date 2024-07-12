@@ -100,6 +100,7 @@ lichessTools.loadTool(LiChessTools.Tools.MchatOptions);
 lichessTools.loadTool(LiChessTools.Tools.FullScreen);
 lichessTools.loadTool(LiChessTools.Tools.OneClickMove);
 lichessTools.loadTool(LiChessTools.Tools.CommonTeams);
+lichessTools.loadTool(LiChessTools.Tools.ExpandAll);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

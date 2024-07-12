@@ -1,0 +1,5 @@
+body.lichessTools button.lichessTools-expandAll {
+  background: transparent;
+  font-size: 1.25em;
+  border:0.5px gray solid;
+}
