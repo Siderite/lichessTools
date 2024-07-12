@@ -340,6 +340,7 @@
       if (element?.length===0) return false;
       if (element?.length) element=element[0];
       if (!element?.offsetParent) return false;
+      if (this.global.document.visibilityState=='hidden') return false;
       const rect = element.getBoundingClientRect();
       const port = new DOMRect(0,0,$(window).width(),$(window).height());
       return this.rectIntersection(rect,port);
