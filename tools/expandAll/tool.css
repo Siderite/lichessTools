@@ -2,4 +2,9 @@ body.lichessTools button.lichessTools-expandAll {
   background: transparent;
   font-size: 1.25em;
   border:0.5px gray solid;
+  flex-basis: 6%;
+}
+
+body.lichessTools button.lichessTools-expandAll + index {
+  flex-basis: 6.6%;
 }
