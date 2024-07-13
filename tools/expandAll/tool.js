@@ -17,14 +17,14 @@
     intl={
       'en-US':{
         'options.analysis': 'Analysis',
-        'options.expandAll': 'Expand all variations button',
+        'options.expandAll': 'Expand all variations',
         'expandAll.showButton': 'Show button',
         'expandAll.autoExpand': 'Auto expand',
         'expandAllTitle':'LiChess Tools - expand all variations'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
-        'options.expandAll': 'Buton expandare toate varia\u0163iunile',
+        'options.expandAll': 'Expandare toate varia\u0163iunile',
         'expandAll.showButton': 'Arat\u0103 butonul',
         'expandAll.autoExpand': 'Expandeaz\u0103 automat',
         'expandAllTitle':'LiChess Tools - expandeaz\u0103 toate varia\u0163iunile'
@@ -64,10 +64,14 @@
     autoExpand=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
+      const analysis=parent.lichess.analysis;
       const tview2=$('.tview2')[0];
-      if (!tview2 || tview2.autoExpanded) return;
-      this.expandAll();
-      tview2.autoExpanded=true;
+      if (!tview2) return;
+      const autoExpanded=analysis.mainline.map(n=>n.san).join('/');
+      if (!tview2.autoExpanded || !autoExpanded.startsWith(tview2.autoExpanded)) {
+        this.expandAll();
+      }
+      tview2.autoExpanded=autoExpanded;
     }
 
     async start() {
