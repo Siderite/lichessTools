@@ -6,5 +6,5 @@ body.lichessTools button.lichessTools-expandAll {
 }
 
 body.lichessTools button.lichessTools-expandAll + index {
-  flex-basis: 6.6%;
+  flex-basis: 6.66%;
 }
