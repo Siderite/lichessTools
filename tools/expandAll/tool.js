@@ -67,8 +67,8 @@
       const analysis=parent.lichess.analysis;
       const tview2=$('.tview2')[0];
       if (!tview2) return;
-      const autoExpanded=analysis.mainline.map(n=>n.san).join('/');
-      if (!tview2.autoExpanded || !autoExpanded.startsWith(tview2.autoExpanded)) {
+      const autoExpanded=analysis.tree.root;
+      if (tview2.autoExpanded!==autoExpanded) {
         this.expandAll();
       }
       tview2.autoExpanded=autoExpanded;
