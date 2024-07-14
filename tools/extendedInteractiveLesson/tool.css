@@ -102,6 +102,22 @@ html.transp body.lichessTools .analyse .gamebook span.lichessTools-score1 {
   }
 }
 
+body.lichessTools .analyse .gamebook button.hint {
+  width: fit-content;
+  padding-top: 0;
+}
+
+body.lichessTools .analyse .gamebook button.hint.data-count::after {
+  background:transparent;
+  color: var(--c-primary);
+  border-radius:25%;
+  border: 1px solid #80808080;
+}
+
+body.lichessTools .analyse .gamebook button.hint.data-count[data-count='1']::after {
+  display: none;
+}
+
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
   background: #1b78d0;

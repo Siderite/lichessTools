@@ -152,11 +152,16 @@
         } else if (gp.isMyMove()) {
           state.feedback = 'play';
           state.hint = node.gamebook?.hint;
+          const nextMovesCount=new Set(nextMoves.map(c=>c.uci)).size;
           if (!state.hint) {
-            const nextMovesCount=new Set(nextMoves.map(c=>c.uci)).size;
             const hint=trans.pluralSame('nextMovesCount',nextMovesCount);
             state.hint=hint;
           }
+          parent.global.setTimeout(()=>
+            $('button.hint')
+              .attr('data-count',nextMovesCount)
+              .addClass('data-count')
+          ,1);
         } else {
           state.feedback = 'good';
         }
