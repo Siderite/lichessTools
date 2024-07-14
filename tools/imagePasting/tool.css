@@ -6,3 +6,7 @@ body.lichessTools textarea.lichessTools-imagePasting + .ddloader {
 body.lichessTools textarea.lichessTools-imagePasting {
   cursor: wait;
 }
+
+body.lichessTools t.lichessTools-bigEmoji {
+  font-size:2.5em;
+}

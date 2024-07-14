@@ -6,21 +6,23 @@
         name:'imagePasting',
         category: 'general',
         type:'multiple',
-        possibleValues: ['pasteImages'],
-        defaultValue: 'pasteImages'
+        possibleValues: ['pasteImages','bigEmoji'],
+        defaultValue: 'pasteImages,bigEmoji'
       }
     ];
 
     intl={
       'en-US':{
         'options.general': 'General',
-        'options.imagePasting': 'Image pasting in chat/forum',
-        'imagePasting.pasteImages': 'Paste image support'
+        'options.imagePasting': 'Chat/forum options',
+        'imagePasting.pasteImages': 'Paste image support',
+        'imagePasting.bigEmoji': 'Large one emoji per line'
       },
       'ro-RO':{
         'options.general': 'General',
-        'options.imagePasting': 'Suport imagini \u00een chat/forum',
-        'imagePasting.pasteImages': 'Suport imagini'
+        'options.imagePasting': 'Op\u0163iuni chat/forum',
+        'imagePasting.pasteImages': 'Suport lipire imagini',
+        'imagePasting.bigEmoji': 'Emoji mare c\u00e2nd singur pe linie'
       }
     }
 
@@ -81,12 +83,22 @@
     initControls=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
-        .each((i,e)=>{
-          if (e.imagePastingInit) return;
-          e.imagePastingInit=true;
-          $(e).on('paste drop',this.pasteImage);
+      if (this.options.pasteImages) {
+        $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
+          .each((i,e)=>{
+            if (e.imagePastingInit) return;
+            e.imagePastingInit=true;
+            $(e).on('paste drop',this.pasteImage);
+          });
+      }
+      if (this.options.bigEmoji) {
+        $('.msg-app__convo group t').each((i,e)=>{
+          if (e.bigEmojied) return;
+          e.bigEmojied=true;
+          const text=$(e).text();
+          $(e).toggleClass('lichessTools-bigEmoji',text.length>1 && [...text].length==1);
         });
+      }
     };
 
     async start() {
@@ -96,7 +108,8 @@
       const value=parent.currentOptions.getValue('imagePasting');
       this.logOption('Inbox chat', value);
       this.options={ 
-        pasteImages: parent.isOptionSet(value,'pasteImages')
+        pasteImages: parent.isOptionSet(value,'pasteImages'),
+        bigEmoji: parent.isOptionSet(value,'bigEmoji')
       };
       if (!this.isInboxOrForumPage()) return;
       parent.global.clearInterval(this.interval);
@@ -105,9 +118,11 @@
           $(e).off('paste drop',this.pasteImage);
           e.imagePastingInit=false;
         });
-      if (!this.options.pasteImages) return;
-      this.interval=parent.global.setInterval(this.initControls,1000);
-      this.initControls();
+      $('lichessTools-bigEmoji').removeClass('lichessTools-bigEmoji');
+      if (this.options.pasteImages||this.options.bigEmoji) {
+        this.interval=parent.global.setInterval(this.initControls,1000);
+        this.initControls();
+      }
     }
 
   }
