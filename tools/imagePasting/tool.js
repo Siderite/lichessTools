@@ -16,13 +16,13 @@
         'options.general': 'General',
         'options.imagePasting': 'Chat/forum options',
         'imagePasting.pasteImages': 'Paste image support',
-        'imagePasting.bigEmoji': 'Large one emoji per line'
+        'imagePasting.bigEmoji': 'Large one emoji message'
       },
       'ro-RO':{
         'options.general': 'General',
         'options.imagePasting': 'Op\u0163iuni chat/forum',
         'imagePasting.pasteImages': 'Suport lipire imagini',
-        'imagePasting.bigEmoji': 'Emoji mare c\u00e2nd singur pe linie'
+        'imagePasting.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj'
       }
     }
 
