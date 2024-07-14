@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Jul
+  - show number of interactive moves on hint
+  - ignore cloud data for external engines
+  - big one emoji messages
+
 11 Jul
   - expand all variations
 
