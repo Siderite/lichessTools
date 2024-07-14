@@ -900,9 +900,14 @@
         chart = lichess.analysis.study?.serverEval?.chart;
         if (!chart) {
           const canvas=$('canvas',container)[0];
-          if (canvas?.$chartjs) {
-            const mod=await this.getChartModule();
-            chart=await mod.acpl(canvas);
+          if (canvas) {
+            if (canvas.$chartjs) {
+              const mod=await this.getChartModule();
+              chart=await mod.acpl(canvas);
+            } else {
+              parent.global.setTimeout(()=>this.generateCharts(forced),100);
+              return;
+            }
           }
         }
         if (!chart&&this.options.local&&!lichess.analysis.study) {
