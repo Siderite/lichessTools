@@ -17,6 +17,7 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase {
   overflow: visible;
   filter:contrast(0.7);
   opacity:0.9;
+  margin-top:0;
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase select {

@@ -907,6 +907,7 @@
 
     dialog(options) {
       const $=this.$;
+      const lichess=this.lichess;
       const dialog = $('<dialog>')
                        .toggleClass('touch-scroll',this.isTouchDevice())
                        .appendTo(options.parent || 'body');
@@ -920,7 +921,44 @@
                  )
           .appendTo(dialog);
       }
+      if (options.header!==undefined) {
+        const header = $('<div class="dialog-header">')
+          .text(options.header)
+          .appendTo(dialog);
+        if (!options.noDrag) {
+           header
+             .addClass('draggable')
+             .on('mousedown',ev=> {
+                const rect=dialog[0].getBoundingClientRect();
+                const shiftX = ev.x - rect.x - rect.width/2;
+                const shiftY = ev.y - rect.y - rect.height/2;
+                let left=0;
+                let top=0;
 
+                const onMouseMove=(ev)=>{
+                  left=ev.x - shiftX;
+                  top=ev.y - shiftY;
+                  dialog
+                    .addClass('dragged')
+                    .css({
+                      left: left,
+                      top: top
+                    });
+                };
+
+                $(this.global.document).on('mousemove', onMouseMove);
+
+                $(this.global.document).one('mouseup',()=>{
+                  lichess.pubsub.emit('setDialogPosition',{ left, top });
+                  $(this.global.document).off('mousemove', onMouseMove);
+                  dialog
+                    .removeClass('dragged');
+                });
+              });
+
+            header.on('dragstart',()=>false);
+        }
+      }
       const view = $('<div class="dialog-content">');
       if (options.class) {
         options.class.split(/[. ]/).filter(x => x).forEach(cls=>view.addClass(cls));
@@ -930,6 +968,39 @@
       const scrollable = $(`<div class="${options.noScrollable ? 'not-' : ''}scrollable">`)
                            .append(view)
                            .appendTo(dialog);
+      if (options.resizeable) {
+        const resize = $('<div class="dialog-resize">')
+          .appendTo(dialog);
+        resize
+          .on('mousedown',ev=> {
+             const rect=view[0].getBoundingClientRect();
+             let width=0;
+             let height=0;
+	
+             const onMouseMove=(ev)=>{
+               dialog
+                 .addClass('resizing');
+               width=ev.x - rect.x;
+               height=ev.y - rect.y;
+               view
+                 .css({
+                   width: width,
+                   height: height
+                 });
+             };
+
+             $(this.global.document).on('mousemove', onMouseMove);
+
+             $(this.global.document).one('mouseup',()=>{
+               lichess.pubsub.emit('setDialogSize',{ width, height });
+               $(this.global.document).off('mousemove', onMouseMove);
+               dialog
+                 .removeClass('resizing');
+             });
+           });
+
+         resize.on('dragstart',()=>false);
+      }
 
       return dialog[0];
     }

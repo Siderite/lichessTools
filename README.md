@@ -107,6 +107,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - URL/image detection and unlimited text size in the team/study chat
  - one click moves (in Analysis/Study)
  - show common teams of you and your opponent
+ - video popup support in studies
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

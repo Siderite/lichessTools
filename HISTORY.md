@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Jul
+  - video popup support in studies
+
 14 Jul
   - show number of interactive moves on hint
   - ignore cloud data for external engines
