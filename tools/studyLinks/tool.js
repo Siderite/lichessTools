@@ -94,6 +94,7 @@ return false; // TODO vimeo URLs not supported by Lichess
       const url=this.getVideoUrl(ev.target);
       if (url) {
         ev.preventDefault();
+        $('.lichessTools-video').remove();
         const dialog=parent.dialog({
           header:'',
           resizeable: true,
