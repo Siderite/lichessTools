@@ -533,7 +533,7 @@
         cp=evl.cp*side;
       }
       if (evl?.mate!==undefined) {
-        cp=(10000-evl.mate)*side;
+        cp=(Math.sign(evl.mate)*10000-evl.mate)*side;
       }
       return Number.isNaN(cp) ? undefined : cp;
     };
