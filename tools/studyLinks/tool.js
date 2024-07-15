@@ -8,8 +8,8 @@
         name:'studyLinks',
         category: 'study',
         type:'multiple',
-        possibleValues: ['video'],
-        defaultValue: 'video',
+        possibleValues: ['video','studyLinksSameWindow'],
+        defaultValue: 'video,studyLinksSameWindow',
         advanced: true
       }
     ];
@@ -18,12 +18,14 @@
       'en-US':{
         'options.study': 'Study',
         'options.studyLinks': 'Study link options',
-        'studyLinks.video': 'Video popup'
+        'studyLinks.video': 'Video popup',
+        'studyLinks.studyLinksSameWindow':'Open links to studies in same window'
       },
       'ro-RO':{
         'options.study': 'Studiu',
         'options.studyLinks': 'Op\u0163iuni linkuri \u00een studii',
-        'studyLinks.video': 'Popup video'
+        'studyLinks.video': 'Popup video',
+        'studyLinks.studyLinksSameWindow':'Deschide linkuri la studii \u00een aceea\u015Fi fereastr\u0103'
       }
     };
 
@@ -129,11 +131,25 @@ return false; // TODO vimeo URLs not supported by Lichess
       parent.storage.set('LichessTools.dialogPlacement',dialogPlacement);
     };
 
+    alterStudyLinksDirect=()=>{
+      if (!this.options.studyLinksSameWindow) return;
+      const parent=this.lichessTools;
+      const $=parent.$;
+      $('comment a[target],div.comment a[target]').each((i,e)=>{
+        const href=$(e).attr('href');
+        if (!/\/study\//.test(href)) return;
+        $(e).removeAttr('target');
+      });
+    };
+
+    alterStudyLinks=this.lichessTools.debounce(this.alterStudyLinksDirect,100);
+
     async start() {
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('studyLinks');
       this.logOption('Study link options', value);
       this.options={ 
+        studyLinksSameWindow:parent.isOptionSet(value,'studyLinksSameWindow'),
         video: parent.isOptionSet(value,'video')
       };
       const lichess=parent.lichess;
@@ -141,6 +157,7 @@ return false; // TODO vimeo URLs not supported by Lichess
       const analysis=lichess?.analysis;
       const study=analysis?.study;
       if (!study) return;
+
       lichess.pubsub.off('redraw',this.handleLinks);
       lichess.pubsub.off('setDialogSize',this.setDialogPlacement);
       lichess.pubsub.off('setDialogPosition',this.setDialogPlacement);
@@ -153,6 +170,32 @@ return false; // TODO vimeo URLs not supported by Lichess
       } else {
         $('.lichessTools-video').remove();
       }
+
+      lichess.pubsub.off('redraw',this.alterStudyLinks);
+      lichess.pubsub.off('analysis.change',this.alterStudyLinks);
+      lichess.pubsub.off('chapterChange',this.alterStudyLinks);
+      if (this.options.studyLinksSameWindow) {
+        lichess.pubsub.on('redraw',this.alterStudyLinks);
+        lichess.pubsub.on('analysis.change',this.alterStudyLinks);
+        lichess.pubsub.on('chapterChange',this.alterStudyLinks);
+        this.alterStudyLinks();
+      }
+
+      if (lichess.socket) {
+        lichess.socket.handle=parent.unwrapFunction(lichess.socket.handle,'studyLinks');
+        if (this.options.video || this.options.studyLinksSameWindow) {
+          lichess.socket.handle=parent.wrapFunction(lichess.socket.handle,{
+            id:'studyLinks',
+            after:($this,result,m)=>{
+              if (m.t=='setComment') {
+                if (this.options.video) this.handleVideoLinks();
+                if (this.options.studyLinksSameWindow) this.alterStudyLinks();
+              }
+            }
+          });
+        }
+      }
+
     }
 
   }

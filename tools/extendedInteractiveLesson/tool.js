@@ -8,8 +8,8 @@
         name:'extendedInteractiveLesson',
         category: 'study',
         type:'multiple',
-        possibleValues: ['extendedInteractive','showFinalScore','alwaysShowScore','studyLinksSameWindow','returnToPreview','fastInteractive'],
-        defaultValue: 'extendedInteractive,showFinalScore,studyLinksSameWindow'
+        possibleValues: ['extendedInteractive','showFinalScore','alwaysShowScore','returnToPreview','fastInteractive'],
+        defaultValue: 'extendedInteractive,showFinalScore'
       },
       {
         name:'extendedInteractiveLessonFlow',
@@ -29,7 +29,6 @@
         'extendedInteractiveLesson.extendedInteractive':'Play all variations',
         'extendedInteractiveLesson.showFinalScore':'Show final score',
         'extendedInteractiveLesson.alwaysShowScore':'Always show score',
-        'extendedInteractiveLesson.studyLinksSameWindow':'Study links in comments in same window',
         'extendedInteractiveLesson.returnToPreview':'Play again from where you entered Preview',
         'extendedInteractiveLesson.fastInteractive':'Fast interaction',
         'extendedInteractiveLesson': 'Extended Interactive lesson',
@@ -57,7 +56,6 @@
         'extendedInteractiveLesson.extendedInteractive':'Joac\u0103 toate varia\u0163iunile',
         'extendedInteractiveLesson.showFinalScore':'Arat\u0103 scorul final',
         'extendedInteractiveLesson.alwaysShowScore':'Arat\u0103 scorul tot timpul',
-        'extendedInteractiveLesson.studyLinksSameWindow':'Linkuri c\u0103tre studii \u00een aceea\u015Fi fereastr\u0103',
         'extendedInteractiveLesson.returnToPreview':'Joac\u0103 din nou de unde ai intrat \u00een Preview',
         'extendedInteractiveLesson.fastInteractive':'Interac\u0163iune rapid\u0103',
         'extendedInteractiveLesson': 'Lec\u0163ie Interactiv\u0103 extins\u0103',
@@ -728,13 +726,6 @@
       </div>
       <label for="abset-alwaysShowScore">$trans(extendedInteractiveLesson.alwaysShowScore)</label>
     </div>
-    <div class="setting abset-studyLinksSameWindow" title="LiChess Tools - $trans(extendedInteractiveLesson.studyLinksSameWindow)">
-      <div class="switch">
-        <input id="abset-studyLinksSameWindow" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-studyLinksSameWindow"></label>
-      </div>
-      <label for="abset-studyLinksSameWindow">$trans(extendedInteractiveLesson.studyLinksSameWindow)</label>
-    </div>
     <div class="setting abset-returnToPreview" title="LiChess Tools - $trans(extendedInteractiveLesson.returnToPreview)">
       <div class="switch">
         <input id="abset-returnToPreview" class="cmn-toggle" type="checkbox" checked="">
@@ -753,14 +744,13 @@
           return parent.htmlEncode(trans.noarg(m.slice(7,-1)));
         });
         $(html).insertBefore($('h2',container).eq(0));
-        $('#abset-extendedInteractive,#abset-showScore,#abset-alwaysShowScore,#abset-studyLinksSameWindow,#abset-returnToPreview,#abset-fastInteractive')
+        $('#abset-extendedInteractive,#abset-showScore,#abset-alwaysShowScore,#abset-returnToPreview,#abset-fastInteractive')
           .on('change',async ()=>{
             const arr=[];
             const options=parent.currentOptions
             if ($('#abset-extendedInteractive').is(':checked')) arr.push('extendedInteractive');
             if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
             if ($('#abset-alwaysShowScore').is(':checked')) arr.push('alwaysShowFinalScore');
-            if ($('#abset-studyLinksSameWindow').is(':checked')) arr.push('studyLinksSameWindow');
             if ($('#abset-returnToPreview').is(':checked')) arr.push('returnToPreview');
             if ($('#abset-fastInteractive').is(':checked')) arr.push('fastInteractive');
             options.extendedInteractiveLesson=arr.join(',');
@@ -775,26 +765,11 @@
         .prop('checked',this.options.showFinalScore);
       $('#abset-alwaysShowScore')
         .prop('checked',this.options.alwaysShowScore);
-      $('#abset-studyLinksSameWindow')
-        .prop('checked',this.options.studyLinksSameWindow);
       $('#abset-returnToPreview')
         .prop('checked',this.options.returnToPreview);
       $('#abset-fastInteractive')
         .prop('checked',this.options.fastInteractive);
     };
-
-    alterStudyLinksDirect=()=>{
-      if (!this.options.studyLinksSameWindow) return;
-      const parent=this.lichessTools;
-      const $=parent.$;
-      $('comment a[target],div.comment a[target]').each((i,e)=>{
-        const href=$(e).attr('href');
-        if (!/\/study\//.test(href)) return;
-        $(e).removeAttr('target');
-      });
-    };
-
-    alterStudyLinks=this.lichessTools.debounce(this.alterStudyLinksDirect,100);
 
     setupReset=()=>{
       const parent=this.lichessTools;
@@ -917,7 +892,6 @@
         showFinalScore:parent.isOptionSet(value,'showFinalScore'),
         alwaysShowScore:parent.isOptionSet(value,'alwaysShowScore'),
         extendedInteractive:parent.isOptionSet(value,'extendedInteractive'),
-        studyLinksSameWindow:parent.isOptionSet(value,'studyLinksSameWindow'),
         returnToPreview:parent.isOptionSet(value,'returnToPreview'),
         fastInteractive:parent.isOptionSet(value,'fastInteractive'),
         flow: {
@@ -998,27 +972,6 @@
             this.refreshNodeVersion();
           }
         });
-      }
-
-      lichess.pubsub.off('redraw',this.alterStudyLinks);
-      lichess.pubsub.off('analysis.change',this.alterStudyLinks);
-      lichess.pubsub.off('chapterChange',this.alterStudyLinks);
-      if (lichess.socket) {
-        lichess.socket.handle=parent.unwrapFunction(lichess.socket.handle,'extendedInteractiveLesson');
-      }
-      if (this.options.studyLinksSameWindow) {
-        lichess.pubsub.on('redraw',this.alterStudyLinks);
-        lichess.pubsub.on('analysis.change',this.alterStudyLinks);
-        lichess.pubsub.on('chapterChange',this.alterStudyLinks);
-        if (lichess.socket) {
-          lichess.socket.handle=parent.wrapFunction(lichess.socket.handle,{
-            id:'extendedInteractiveLesson',
-            after:($this,result,m)=>{
-              if (m.t=='setComment') this.alterStudyLinks();
-            }
-          });
-        }
-        this.alterStudyLinks();
       }
 
       study.chapters.editForm.toggle=parent.unwrapFunction(study.chapters.editForm.toggle,'extendedInteractiveLessonFlow');
