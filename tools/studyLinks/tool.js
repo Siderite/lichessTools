@@ -150,6 +150,8 @@ return false; // TODO vimeo URLs not supported by Lichess
         lichess.pubsub.on('setDialogSize',this.setDialogPlacement);
         lichess.pubsub.on('setDialogPosition',this.setDialogPlacement);
         this.handleVideoLinks();
+      } else {
+        $('.lichessTools-video').remove();
       }
     }
 
