@@ -290,6 +290,7 @@
           return;
         }
       }
+      $('table.moves tr.sum td.lichessTools-explorerEval').remove();
       const fen=analysis.node.fen;
       const whosMove=analysis.node.ply%2?-1:1;
       let result = this.cache[fen];
