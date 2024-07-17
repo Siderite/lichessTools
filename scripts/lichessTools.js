@@ -792,7 +792,7 @@
     };
 
     play=async (path, volume)=>{
-      const sound = await this.lichess.sound.load('sound', lichess.sound.baseUrl + path);
+      const sound = await this.lichess.sound.load('sound', this.lichess.sound.url(path));
       await sound.play(this.lichess.sound.getVolume()*(+(volume)||0.7));
     };
 

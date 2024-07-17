@@ -395,7 +395,7 @@ body.lichessTools .lichessTools-friendsPage span.lichessTools-seenAt:before {
   margin-right:3px;
 }
 
-/* Fix for the icons in friends list (temporary? 2024-06-21) */
+/* Fix for the icons in friends list (temporary? 2024-06-21)  */
 body.lichessTools .slist-pad td:last-child:has(.relation-actions) {
    padding-inline-end: 0;
 }

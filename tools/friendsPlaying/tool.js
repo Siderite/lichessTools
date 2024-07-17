@@ -169,7 +169,7 @@
       if (!lichess) return;
       const setInterval=parent.global.setInterval;
       const clearInterval=parent.global.clearInterval;
-      this.beep = await lichess.sound.load('friendPlaying', lichess.sound.baseUrl + '/piano/GenericNotify');
+      this.beep = await lichess.sound.load('friendPlaying', lichess.sound.url('piano/GenericNotify.mp3'));
       lichess.pubsub.off('socket.in.following_playing', this.playFriendSound);
       lichess.pubsub.off('mutePlayer', this.mutePlayer);
       clearInterval(this.audioCheckTimeout);
