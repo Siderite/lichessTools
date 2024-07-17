@@ -24,7 +24,7 @@
         'explorerEval.lichess': 'From Lichess',
         'explorerEval.evalRows': 'Rows from eval',
         'explorerEval.hidden': 'Hidden',
-        'fromCevalTitle': 'LiChess Tools - from computer eval',
+        'fromCevalTitle': 'LiChess Tools - from computer eval, depth %s',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
         'fromChessDbTitle': 'LiChess Tools - from ChessDb',
         'fromLichessTitle': 'LiChess Tools - from Lichess, depth %s',
@@ -41,7 +41,7 @@
         'explorerEval.lichess': 'De la Lichess',
         'explorerEval.evalRows': 'R\u00e2nduri din evaluare',
         'explorerEval.hidden': 'Ascunde',
-        'fromCevalTitle': 'LiChess Tools - din evaluare computer',
+        'fromCevalTitle': 'LiChess Tools - din evaluare computer, ad\u00e2ncime %s',
         'fromStatsTitle': 'LiChess Tools - din statistici',
         'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
         'fromLichessTitle': 'LiChess Tools - de la Lichess, ad\u00e2ncime %s',
@@ -160,7 +160,7 @@
           text=move.mate?('M'+move.mate):(move.cp/100).toFixed(decimals);
           rank=move.rank;
           switch(rank) {
-            case null: title=trans.noarg('fromCevalTitle'); break;
+            case null: title=trans.pluralSame('fromCevalTitle',move.depth); break;
             case 0: 
             case 1: 
             case 2: 
