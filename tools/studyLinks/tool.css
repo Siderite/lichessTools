@@ -5,6 +5,8 @@ body.lichessTools:has(dialog.resizing) {
 
 body.lichessTools dialog.lichessTools-video {
   transform:none;
+  left: calc(50% - 320px);
+  top: calc(50% - 200px);
 }
 
 body.lichessTools dialog.lichessTools-video .dialog-header.draggable {

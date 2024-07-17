@@ -89,6 +89,16 @@
       }
     }
 
+    ensureInViewport=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const dialog=$('dialog.lichessTools-video');
+      if (parent.inViewport($('.dialog-header',dialog))<0.5) {
+        $(dialog).css({left:'',top:''});
+        $('.dialog-content',dialog).css({width:'',height:''});
+      }
+    }
+
     handleVideoClick=(ev)=>{
       const parent=this.lichessTools;
       const $=parent.$;
@@ -114,32 +124,22 @@
           .on('close',(ev)=>$(ev.target).remove());
         const dialogPlacement=parent.storage.get('LichessTools.dialogPlacement');
         if (dialogPlacement) {
-          if (dialogPlacement.left) {
-            $(dialog).css('left',dialogPlacement.left);
-          }
-          if (dialogPlacement.top) {
-            $(dialog).css('top',dialogPlacement.top);
-          }
-          if (dialogPlacement.width) {
-            $('.dialog-content',dialog).css('width',dialogPlacement.width);
-          }
-          if (dialogPlacement.height) {
-            $('.dialog-content',dialog).css('height',dialogPlacement.height);
-          }
+          $(dialog).css('left',dialogPlacement.left||'unset');
+          $(dialog).css('right',dialogPlacement.right||'unset');
+          $(dialog).css('top',dialogPlacement.top||'unset');
+          $(dialog).css('bottom',dialogPlacement.bottom||'unset');
+          $('.dialog-content',dialog).css('width',dialogPlacement.width);
+          $('.dialog-content',dialog).css('height',dialogPlacement.height);
         };
         dialog.show();
-        if (parent.inViewport($('.dialog-header',dialog))<0.5) {
-          $(dialog).css({left:'',top:''});
-          $('.dialog-content',dialog).css({width:'',height:''});
-        }
+        this.ensureInViewport();
       }
     };
 
     setDialogPlacement=(data)=>{
       const parent=this.lichessTools;
-      let dialogPlacement=parent.storage.get('LichessTools.dialogPlacement')||{};
-      dialogPlacement={...dialogPlacement,...data};
-      parent.storage.set('LichessTools.dialogPlacement',dialogPlacement);
+      parent.storage.set('LichessTools.dialogPlacement',data);
+      this.ensureInViewport();
     };
 
     alterStudyLinksDirect=()=>{
@@ -170,13 +170,11 @@
       if (!study) return;
 
       lichess.pubsub.off('redraw',this.handleLinks);
-      lichess.pubsub.off('setDialogSize',this.setDialogPlacement);
-      lichess.pubsub.off('setDialogPosition',this.setDialogPlacement);
+      lichess.pubsub.off('setDialogPlacement',this.setDialogPlacement);
       $('comment a,div.comment a').off('click',this.handleVideoClick);
       if (this.options.video) {
         lichess.pubsub.on('redraw',this.handleVideoLinks);
-        lichess.pubsub.on('setDialogSize',this.setDialogPlacement);
-        lichess.pubsub.on('setDialogPosition',this.setDialogPlacement);
+        lichess.pubsub.on('setDialogPlacement',this.setDialogPlacement);
         this.handleVideoLinks();
       } else {
         $('.lichessTools-video').remove();

@@ -925,6 +925,26 @@
                  )
           .appendTo(dialog);
       }
+
+      const emitPlacement=()=>{
+        const { left, top, width, height }=dialog[0].getBoundingClientRect();
+        const windowHeight=$(window).height();
+        const windowWidth=$(window).width();
+        const content=dialog.find('.dialog-content');
+        const data={ height:content.height(), width:content.width() };
+        if (left+width/2<windowWidth/2) {
+          data.left=left;
+        } else {
+          data.right=windowWidth-left-width;
+        }
+        if (top+height/2<windowHeight/2) {
+          data.top=top;
+        } else {
+          data.bottom=windowHeight-top-height;
+        }
+        lichess.pubsub.emit('setDialogPlacement',data);
+      };
+
       if (options.header!==undefined) {
         const header = $('<div class="dialog-header">')
           .text(options.header)
@@ -934,8 +954,8 @@
              .addClass('draggable')
              .on('mousedown pointerdown',ev=> {
                 const rect=dialog[0].getBoundingClientRect();
-                const shiftX = ev.pageX - rect.x;// - rect.width/2;
-                const shiftY = ev.pageY - rect.y;// - rect.height/2;
+                const shiftX = ev.pageX - rect.x;
+                const shiftY = ev.pageY - rect.y;
                 let left=0;
                 let top=0;
 
@@ -953,10 +973,10 @@
                 $(this.global.document).on('mousemove', onMouseMove);
 
                 $(this.global.document).one('mouseup pointerup',()=>{
-                  lichess.pubsub.emit('setDialogPosition',{ left, top });
-                  $(this.global.document).off('mousemove	', onMouseMove);
+                  $(this.global.document).off('mousemove', onMouseMove);
                   dialog
                     .removeClass('dragged');
+                  emitPlacement();
                 });
               });
 
@@ -996,10 +1016,10 @@
              $(this.global.document).on('mousemove', onMouseMove);
 
              $(this.global.document).one('mouseup pointerup',()=>{
-               lichess.pubsub.emit('setDialogSize',{ width, height });
                $(this.global.document).off('mousemove', onMouseMove);
                dialog
                  .removeClass('resizing');
+               emitPlacement();
              });
            });
 
