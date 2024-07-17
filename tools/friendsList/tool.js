@@ -1,7 +1,7 @@
 (()=>{
   class FriendsListTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['DetectThirdParties'];
+    dependencies=['DetectThirdParties','InterceptEventHandlers'];
 
     preferences=[
       {
@@ -587,7 +587,15 @@
         case 'button':
         case 'menu': {
           if ($('#friend_box .content_wrap').is('.none')) {
-            $('.friend_box_title').trigger('click');
+            const elem=$('.friend_box_title')[0];
+            const handler=parent.getEventHandlers(elem,'click')[0];
+            if (handler) {
+              handler.apply(elem);
+            } else {
+              if (!$('dialog[open]').length) {
+                $('.friend_box_title').trigger('click');
+              }
+            }
           }
         }
         break;
