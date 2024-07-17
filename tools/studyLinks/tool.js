@@ -52,7 +52,6 @@
     };
 
     getVimeoId=(e)=>{
-return false; // TODO vimeo URLs not supported by Lichess
       const parent=this.lichessTools;
       const $=parent.$;
       const URL=parent.global.URL;
