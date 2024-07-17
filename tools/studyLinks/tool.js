@@ -37,7 +37,7 @@
       if (!href || !URL.canParse(href)) return;
       const url=URL.parse(href);
       const m = /(?:youtube(?:\.\w+)+|youtu\.be)(?:\/watch|\/embed|\/shorts|\/live|\/v|\/e|)(?:\b.*?[\?&]v=|\/|)(?<id>[^\?&#\r\n]+)/i.exec(url.toString());
-      return m?.groups?.id;
+      return m ? { id: m.groups?.id, time: url.searchParams.get('t') } : null;
     };
 
     getTwitchId=(e)=>{
@@ -47,8 +47,8 @@
       const href=$(e).attr('href');
       if (!href || !URL.canParse(href)) return;
       const url=URL.parse(href);
-      const m = /twitch\.tv.*?(?:[\?&]video=|\/videos\/)(?<id>[^&\/#\r\n]+)/i.exec(url.toString());
-      return m?.groups?.id;
+      const m = /twitch\.tv.*?(?:[\?&]video=|\/videos\/)(?<id>[^\?&\/#\r\n]+)/i.exec(url.toString());
+      return m ? { id: m.groups?.id, time: url.searchParams.get('t') } : null;
     };
 
     getVimeoId=(e)=>{
@@ -58,8 +58,8 @@
       const href=$(e).attr('href');
       if (!href || !URL.canParse(href)) return;
       const url=URL.parse(href);
-      const m = /vimeo(?:\.\w+)+(\/[^\/]+)*\/(?<id>\d+)/i.exec(url.toString());
-      return m?.groups?.id;
+      const m = /vimeo(?:\.\w+)+(\/[^\/]+)*\/(?<id>\d+)[^\r\n]*?(?:#t=(?<time>[\w]+))?/i.exec(url.toString());
+      return m ? { id: m.groups?.id, time: m.groups?.time } : null;
     };
 
     handleVideoLinks=()=>{
@@ -75,17 +75,17 @@
     };
 
     getVideoUrl=(e)=>{
-      let id=this.getYoutubeId(e);
-      if (id) {
-        return `https://www.youtube.com/embed/${id}?state=1&amp;start=2&amp;autoplay=1&amp;autohide=0&amp;showinfo=0&amp;rel=0`;
+      let data=this.getYoutubeId(e);
+      if (data) {
+        return `https://www.youtube.com/embed/${data.id}?state=1&autoplay=1&autohide=0&showinfo=0&rel=0&start=${data.time}`;
       }
-      id=this.getVimeoId(e);
-      if (id) {
-        return `https://player.vimeo.com/video/${id}?autoplay=1`;
+      data=this.getVimeoId(e);
+      if (data) {
+        return `https://player.vimeo.com/video/${data.id}?autoplay=1#t=${data.time}`;
       }
-      id=this.getTwitchId(e);
-      if (id) {
-        return `https://player.twitch.tv/?video=${id}&parent=lichess.org&autoplay=true&muted=false`;
+      data=this.getTwitchId(e);
+      if (data) {
+        return `https://player.twitch.tv/?video=${data.id}&parent=lichess.org&autoplay=true&muted=false&t=${data.time}`;
       }
     }
 
