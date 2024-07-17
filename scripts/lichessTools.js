@@ -516,6 +516,10 @@
       return /\/following([\?#].*)?$/.test(this.global.location.href);
     };
 
+    isFavoriteOpponentsPage=()=>{
+      return /\/player\/opponents\b/.test(this.global.location.href);
+    };
+
     findGlyphNode=(color,symbols)=>{
       if (typeof symbols === 'string') symbols=[symbols];
       const analysis=this.lichess?.analysis;

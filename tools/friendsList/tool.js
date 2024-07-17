@@ -311,7 +311,8 @@
       const trans=this.lichessTools.translator;
       const myName=parent.getUserId();
       if (!myName) return;
-      if (!parent.isFriendsPage()) return;
+      const isFavorites=parent.isFavoriteOpponentsPage();
+      if (!parent.isFriendsPage()&&!isFavorites) return;
       if (!this.options.liveFriendsPage) return;
       if (parent.global.document.hidden) {
         parent.global.requestAnimationFrame(parent.debounce(this.updateFriendsPage,500));
@@ -350,7 +351,13 @@
       const table=$('table.slist div.relation-actions').closest('table');
       $('tr',table).each((i,tr)=>{
         const row=$(tr);
-        const actions=$('div.relation-actions',tr);
+        let actions=$('div.relation-actions',tr);
+        if (!actions.length) {
+          actions=$('<div class="relation-actions">');
+          $('<td>')
+            .append(actions)
+            .appendTo(tr);
+        }
         const userLink=$('td:first-child a[href]',row).attr('href');
         if (!userLink) return;
         const m=/\/@\/([^\/\?#]+)/.exec(userLink);
@@ -382,7 +389,7 @@
       });
       let secondUpdate=false;
       const hasPages=!!$('tr.pager',table).length;
-      if (!hasPages) {
+      if (!isFavorites && !hasPages) {
         for (const user of this.user_data.online) {
           let row=this.rows[user];
           if (row) continue;
