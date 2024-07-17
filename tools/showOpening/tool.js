@@ -197,7 +197,7 @@
       }
       metaSection.find('span.lichessTools-opening').filter((i,e)=>!lichessTools.inViewport(e)).remove();
       if (!metaSection.find('span.lichessTools-opening').length) {
-        const visibleEl=metaSection.filter((i,e)=>lichessTools.inViewport(e)).eq(0);
+        const visibleEl=metaSection.filter((i,e)=>!!lichessTools.inViewport(e)).eq(0);
         visibleEl
           .append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
       }

@@ -337,10 +337,10 @@
     };
 
     inViewport=(element) => {
-      if (element?.length===0) return false;
+      if (element?.length===0) return 0;
       if (element?.length) element=element[0];
-      if (!element?.offsetParent) return false;
-      if (this.global.document.visibilityState=='hidden') return false;
+      if (!element?.offsetParent&&$(element).css('position')!='fixed') return 0;
+      if (this.global.document.visibilityState=='hidden') return 0;
       const rect = element.getBoundingClientRect();
       const port = new DOMRect(0,0,$(window).width(),$(window).height());
       return this.rectIntersection(rect,port);
@@ -932,16 +932,16 @@
         if (!options.noDrag) {
            header
              .addClass('draggable')
-             .on('mousedown',ev=> {
+             .on('mousedown pointerdown',ev=> {
                 const rect=dialog[0].getBoundingClientRect();
-                const shiftX = ev.x - rect.x - rect.width/2;
-                const shiftY = ev.y - rect.y - rect.height/2;
+                const shiftX = ev.pageX - rect.x - rect.width/2;
+                const shiftY = ev.pageY - rect.y - rect.height/2;
                 let left=0;
                 let top=0;
 
                 const onMouseMove=(ev)=>{
-                  left=ev.x - shiftX;
-                  top=ev.y - shiftY;
+                  left=ev.pageX - shiftX;
+                  top=ev.pageY - shiftY;
                   dialog
                     .addClass('dragged')
                     .css({
@@ -952,9 +952,9 @@
 
                 $(this.global.document).on('mousemove', onMouseMove);
 
-                $(this.global.document).one('mouseup',()=>{
+                $(this.global.document).one('mouseup pointerup',()=>{
                   lichess.pubsub.emit('setDialogPosition',{ left, top });
-                  $(this.global.document).off('mousemove', onMouseMove);
+                  $(this.global.document).off('mousemove	', onMouseMove);
                   dialog
                     .removeClass('dragged');
                 });
@@ -976,7 +976,7 @@
         const resize = $('<div class="dialog-resize">')
           .appendTo(dialog);
         resize
-          .on('mousedown',ev=> {
+          .on('mousedown pointerdown',ev=> {
              const rect=view[0].getBoundingClientRect();
              let width=0;
              let height=0;
@@ -984,8 +984,8 @@
              const onMouseMove=(ev)=>{
                dialog
                  .addClass('resizing');
-               width=ev.x - rect.x;
-               height=ev.y - rect.y;
+               width=ev.pageX - rect.x;
+               height=ev.pageY - rect.y;
                view
                  .css({
                    width: width,
@@ -995,7 +995,7 @@
 
              $(this.global.document).on('mousemove', onMouseMove);
 
-             $(this.global.document).one('mouseup',()=>{
+             $(this.global.document).one('mouseup pointerup',()=>{
                lichess.pubsub.emit('setDialogSize',{ width, height });
                $(this.global.document).off('mousemove', onMouseMove);
                dialog

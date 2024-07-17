@@ -8,6 +8,7 @@ body.lichessTools dialog.lichessTools-video .dialog-header.draggable {
   min-height:2em;
   background: #80808080;
   cursor:move;
+  touch-action:none;
 }
 
 body.lichessTools dialog.lichessTools-video.resizing {
@@ -26,6 +27,7 @@ body.lichessTools dialog.lichessTools-video .dialog-resize {
   right: 0;
   bottom: 0;
   cursor:nw-resize;
+  touch-action:none;
 }
 
 body.lichessTools dialog.lichessTools-video .dialog-resize:hover {

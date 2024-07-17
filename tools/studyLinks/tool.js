@@ -114,12 +114,24 @@
           .on('close',(ev)=>$(ev.target).remove());
         const dialogPlacement=parent.storage.get('LichessTools.dialogPlacement');
         if (dialogPlacement) {
-          if (dialogPlacement.left) $(dialog).css('left',dialogPlacement.left);
-          if (dialogPlacement.top) $(dialog).css('top',dialogPlacement.top);
-          if (dialogPlacement.width) $('.dialog-content',dialog).css('width',dialogPlacement.width);
-          if (dialogPlacement.height) $('.dialog-content',dialog).css('height',dialogPlacement.height);
+          if (dialogPlacement.left) {
+            $(dialog).css('left',dialogPlacement.left);
+          }
+          if (dialogPlacement.top) {
+            $(dialog).css('top',dialogPlacement.top);
+          }
+          if (dialogPlacement.width) {
+            $('.dialog-content',dialog).css('width',dialogPlacement.width);
+          }
+          if (dialogPlacement.height) {
+            $('.dialog-content',dialog).css('height',dialogPlacement.height);
+          }
         };
         dialog.show();
+        if (parent.inViewport(dialog)<1) {
+          $(dialog).css({left:'',top:''});
+          $('.dialog-content',dialog).css({width:'',height:''});
+        }
       }
     };
 

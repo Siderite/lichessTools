@@ -811,7 +811,7 @@
       const $=parent.$;
       const trans=parent.translator;
       const container=$('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
-      if (parent.inViewport(container)<=0) return;
+      if (parent.inViewport(container)<1) return;
       const chart=this._chart;
       if (!chart) return;
       const dataset=chart.data?.datasets[0];
@@ -925,7 +925,7 @@
         } 
       }
       if (!chart) return;
-      if (parent.inViewport(container[0])<=0) return;
+      if (!parent.inViewport(container)) return;
       if (!this.options.needsChart) {
         $('div.lichessTools-chartInfo',container).remove();
       } else {
@@ -1199,7 +1199,7 @@
       if (!analysis) return;
       const node=analysis.node;
       const container=$('div.eval-gauge');
-      if (!parent.inViewport(container[0])) return;
+      if (!parent.inViewport(container)) return;
       if (node.fen==this.prevFen) return;
       this.prevFen=node.fen;
       const mat=this.simple_material(node);

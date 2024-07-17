@@ -294,7 +294,7 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const needsScroll=!!$('.pager').filter((i,e)=>{
-        return parent.inViewport(e);
+        return !!parent.inViewport(e);
       }).length;
       if (needsScroll) {
         $('html').trigger('scroll');

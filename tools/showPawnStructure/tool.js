@@ -267,7 +267,7 @@
         structureElem=el.find('.lichessTools-structure');
       }
       if (!structureElem.length) {
-        const visibleEl=el.filter((i,e)=>lichessTools.inViewport(e)).eq(0);
+        const visibleEl=el.filter((i,e)=>!!lichessTools.inViewport(e)).eq(0);
         structureElem=$('<'+(isLink?'a':'span')+'>')
           .addClass('lichessTools-structure')
           .appendTo(visibleEl);
