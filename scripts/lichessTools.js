@@ -934,8 +934,8 @@
              .addClass('draggable')
              .on('mousedown pointerdown',ev=> {
                 const rect=dialog[0].getBoundingClientRect();
-                const shiftX = ev.pageX - rect.x - rect.width/2;
-                const shiftY = ev.pageY - rect.y - rect.height/2;
+                const shiftX = ev.pageX - rect.x;// - rect.width/2;
+                const shiftY = ev.pageY - rect.y;// - rect.height/2;
                 let left=0;
                 let top=0;
 

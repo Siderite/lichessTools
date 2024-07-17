@@ -128,7 +128,7 @@
           }
         };
         dialog.show();
-        if (parent.inViewport(dialog)<1) {
+        if (parent.inViewport($('.dialog-header',dialog))<0.5) {
           $(dialog).css({left:'',top:''});
           $('.dialog-content',dialog).css({width:'',height:''});
         }

@@ -3,6 +3,10 @@ body.lichessTools:has(dialog.resizing) {
   user-select: none;
 }
 
+body.lichessTools dialog.lichessTools-video {
+  transform:none;
+}
+
 body.lichessTools dialog.lichessTools-video .dialog-header.draggable {
   width:auto;
   min-height:2em;
