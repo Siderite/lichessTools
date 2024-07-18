@@ -1,0 +1,58 @@
+body.lichessTools:has(dialog.lichessTools-dialog.dragged),
+body.lichessTools:has(dialog.lichessTools-dialog.resizing) {
+  user-select: none;
+}
+
+body.lichessTools dialog.lichessTools-dialog {
+  transform:none;
+  left: calc(50% - 320px);
+  top: calc(50% - 240px);
+  margin-top:0;
+}
+
+body.lichessTools dialog.lichessTools-dialog .dialog-header.draggable {
+  width:auto;
+  min-height:2em;
+  background: #80808080;
+  cursor:move;
+  touch-action:none;
+}
+
+body.lichessTools dialog.lichessTools-dialog.resizing {
+  cursor:nw-resize;
+}
+
+body.lichessTools dialog.lichessTools-dialog.dragged {
+  cursor:move;
+}
+
+body.lichessTools dialog.lichessTools-dialog .dialog-resize {
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  background: #80808040;
+  right: 0;
+  bottom: 0;
+  cursor:nw-resize;
+  touch-action:none;
+}
+
+body.lichessTools dialog.lichessTools-dialog .dialog-resize:hover {
+  background: #80808080;
+}
+
+body.lichessTools dialog.lichessTools-dialog .dialog-content {
+  width:640px;
+  height:480px;
+  padding:0;
+  min-width:20px;
+  min-height:20px;
+  max-width:90vw;
+  max-height:90vh;
+}
+
+body.lichessTools dialog.lichessTools-dialog.dragged .dialog-content,
+body.lichessTools dialog.lichessTools-dialog.resizing .dialog-content {
+  pointer-events:none;
+  opacity:0.25;
+}

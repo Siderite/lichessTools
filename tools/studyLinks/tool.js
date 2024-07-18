@@ -1,7 +1,7 @@
 (()=>{
   class StudyLinksTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = [ 'EmitRedraw' ];
+    dependencies = [ 'EmitRedraw','Dialog'];
 
     preferences=[
       {

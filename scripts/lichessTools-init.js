@@ -22,6 +22,7 @@ lichessTools.loadTool(LiChessTools.Tools.CliCommands);
 lichessTools.loadTool(LiChessTools.Tools.ChessOps);
 lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
+lichessTools.loadTool(LiChessTools.Tools.Dialog);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
 lichessTools.loadTool(LiChessTools.Tools.MobileExperience);

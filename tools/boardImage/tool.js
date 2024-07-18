@@ -64,7 +64,7 @@
       let url=/"(.*)"/.exec(backgroundText||'')?.[1];
       if (!url) {
         const theme=$('body').attr('data-board')||'maple';
-        url=lichess.asset.url('../images/board/'+theme+'.jpg');
+        url=parent.assetUrl('../images/board/'+theme+'.jpg');
       }
       let img=await this.getImage(url);
       ctx.drawImage(img,0,0,800,800);
