@@ -37,7 +37,7 @@
       if (!href || !URL.canParse(href)) return;
       const url=URL.parse(href);
       const m = /(?:youtube(?:\.\w+)+|youtu\.be)(?:\/watch|\/embed|\/shorts|\/live|\/v|\/e|)(?:\b.*?[\?&]v=|\/|)(?<id>[^\?&#\r\n]+)/i.exec(url.toString());
-      return m ? { id: m.groups?.id, time: url.searchParams.get('t') } : null;
+      return m ? { id: m.groups?.id, time: url.searchParams.get('t'), end: url.searchParams.get('e') } : null;
     };
 
     getTwitchId=(e)=>{
@@ -69,6 +69,7 @@
         if (e.handleVideoLink) return;
         if (this.getYoutubeId(e)||this.getTwitchId(e)||this.getVimeoId(e)) {
           $(e).on('click',this.handleVideoClick);
+          $(e).on('contextmenu',ev=>ev.stopPropagation());
         }
         e.handleVideoLink=true;
       });
@@ -77,7 +78,7 @@
     getVideoUrl=(e)=>{
       let data=this.getYoutubeId(e);
       if (data) {
-        return `https://www.youtube.com/embed/${data.id}?state=1&autoplay=1&autohide=0&showinfo=0&rel=0&start=${data.time}`;
+        return `https://www.youtube.com/embed/${data.id}?state=1&autoplay=1&autohide=0&showinfo=0&rel=0&start=${data.time}&end=${data.end}`;
       }
       data=this.getVimeoId(e);
       if (data) {
