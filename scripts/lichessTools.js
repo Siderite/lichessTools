@@ -997,15 +997,21 @@
           .appendTo(dialog);
         resize
           .on('mousedown pointerdown',ev=> {
-             const rect=view[0].getBoundingClientRect();
-             let width=0;
-             let height=0;
+             let rect=dialog[0].getBoundingClientRect();
+             dialog
+               .css({
+                 left: rect.x,
+                 top: rect.y,
+                 right: 'unset',
+                 bottom: 'unset'
+               });
+             rect=view[0].getBoundingClientRect();
 	
              const onMouseMove=(ev)=>{
                dialog
                  .addClass('resizing');
-               width=ev.pageX - rect.x;
-               height=ev.pageY - rect.y;
+               const width=ev.pageX - rect.x;
+               const height=ev.pageY - rect.y;
                view
                  .css({
                    width: width,

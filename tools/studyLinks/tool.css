@@ -7,6 +7,7 @@ body.lichessTools dialog.lichessTools-video {
   transform:none;
   left: calc(50% - 320px);
   top: calc(50% - 240px);
+  margin-top:0;
 }
 
 body.lichessTools dialog.lichessTools-video .dialog-header.draggable {
