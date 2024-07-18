@@ -250,10 +250,10 @@
       this.clearSquares();
       parent.global.clearInterval(this.interval);
       this.setControls();
-      lichess.pubsub.off('redraw',this.setControls);
+      lichess.pubsub.off('lichessTools.redraw',this.setControls);
       if (!value) return;
       this.interval=parent.global.setInterval(this.evaluate,1000);
-      lichess.pubsub.on('redraw',this.setControls);
+      lichess.pubsub.on('lichessTools.redraw',this.setControls);
     }
 
   }

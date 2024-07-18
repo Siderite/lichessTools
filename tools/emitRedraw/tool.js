@@ -47,7 +47,7 @@
       const emit = parent.debounce(() => {
         if (parent.global.document.hidden) return;
         parent.debug && parent.global.console.debug('redraw');
-        lichess.pubsub.emit('redraw');
+        lichess.pubsub.emit('lichessTools.redraw');
       }, 250);
       parent.emitRedraw=emit;
       this.analysisStart();

@@ -445,12 +445,12 @@
       const $=parent.$;
       const explorer=lichess?.analysis?.explorer;
       if (!explorer) return;
-      lichess.pubsub.off('redraw',this.rebind);
+      lichess.pubsub.off('lichessTools.redraw',this.rebind);
       $('th.lichessTools-explorerEval,td.lichessTools-explorerEval').remove();
       explorer.setNode=parent.unwrapFunction(explorer.setNode,'explorerEval');
       if (!this.options.isSet) return;
       this.cache={};
-      lichess.pubsub.on('redraw',this.rebind);
+      lichess.pubsub.on('lichessTools.redraw',this.rebind);
       this.rebind();
     }
 

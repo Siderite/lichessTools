@@ -310,12 +310,12 @@
       const analysis=lichess.analysis;
       if (!analysis) return;
 
-      lichess.pubsub.off('redraw',this.analysisControls);
-      lichess.pubsub.off('redraw',this.determineCevalState);
+      lichess.pubsub.off('lichessTools.redraw',this.analysisControls);
+      lichess.pubsub.off('lichessTools.redraw',this.determineCevalState);
       parent.global.clearInterval(this.interval);
       analysis.actionMenu.toggle=lichessTools.unwrapFunction(analysis.actionMenu.toggle,'customEngineOptions');
-      lichess.pubsub.on('redraw',this.analysisControls);
-      lichess.pubsub.on('redraw',this.determineCevalState);
+      lichess.pubsub.on('lichessTools.redraw',this.analysisControls);
+      lichess.pubsub.on('lichessTools.redraw',this.determineCevalState);
       this.interval=parent.global.setInterval(this.determineCevalState,5000);
       analysis.actionMenu.toggle=lichessTools.wrapFunction(analysis.actionMenu.toggle,{
         id:'customEngineOptions',

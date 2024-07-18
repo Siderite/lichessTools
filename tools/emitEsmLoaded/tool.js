@@ -16,7 +16,7 @@
             if (this.firstEvents) {
               this.firstEvents.push(m);
             } else {
-              lichess.pubsub.emit('esmLoaded',m);
+              lichess.pubsub.emit('lichessTools.esmLoaded',m);
             }
           });
         }
@@ -37,7 +37,7 @@
       const lichess=parent.lichess;
       parent.global.setTimeout(()=>{
         for(const ev of events) {
-          lichess.pubsub.emit('esmLoaded',ev);
+          lichess.pubsub.emit('lichessTools.esmLoaded',ev);
         }
       },50);
     }

@@ -78,10 +78,10 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('playerWarning');
       this.logOption('Player warning', value);
-      lichess.pubsub.off('redraw',this.refreshWarning);
+      lichess.pubsub.off('lichessTools.redraw',this.refreshWarning);
       if (!value) return;
       if (!$('.round__app').length) return;
-      lichess.pubsub.on('redraw',this.refreshWarning);
+      lichess.pubsub.on('lichessTools.redraw',this.refreshWarning);
       this.refreshWarning();
     }
 

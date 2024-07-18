@@ -680,8 +680,8 @@
           return arr.join(',');
         }
       };
-      lichess.pubsub.off('redraw',this.analysisControls);
-      lichess.pubsub.on('redraw',this.analysisControls);
+      lichess.pubsub.off('lichessTools.redraw',this.analysisControls);
+      lichess.pubsub.on('lichessTools.redraw',this.analysisControls);
       analysis.actionMenu.toggle=lichessTools.unwrapFunction(analysis.actionMenu.toggle,'moveListOptions');
       analysis.actionMenu.toggle=lichessTools.wrapFunction(analysis.actionMenu.toggle,{
         id:'moveListOptions',
@@ -692,20 +692,20 @@
       });
       this.analysisControls();
 
-      lichess.pubsub.off('redraw',this.addMissingIndexes);
+      lichess.pubsub.off('lichessTools.redraw',this.addMissingIndexes);
       if (this.options.indentedVariations) {
-        lichess.pubsub.on('redraw',this.addMissingIndexes);
+        lichess.pubsub.on('lichessTools.redraw',this.addMissingIndexes);
       }
 
-      lichess.pubsub.off('redraw',this.debouncedAddCommentBookmarks);
-      lichess.pubsub.off('chapterChange',this.debouncedAddCommentBookmarks);
+      lichess.pubsub.off('lichessTools.redraw',this.debouncedAddCommentBookmarks);
+      lichess.pubsub.off('lichessTools.chapterChange',this.debouncedAddCommentBookmarks);
       if (lichess.socket) {
         lichess.socket.handle=parent.unwrapFunction(lichess.socket.handle,'moveListOptions');
       }
       $(parent.global).off('hashchange',this.hashChange);
       if (this.options.bookmarks) {
-        lichess.pubsub.on('redraw',this.debouncedAddCommentBookmarks);
-        lichess.pubsub.on('chapterChange',this.debouncedAddCommentBookmarks);
+        lichess.pubsub.on('lichessTools.redraw',this.debouncedAddCommentBookmarks);
+        lichess.pubsub.on('lichessTools.chapterChange',this.debouncedAddCommentBookmarks);
         if (lichess.socket) {
           lichess.socket.handle=parent.wrapFunction(lichess.socket.handle,{
             id:'moveListOptions',
@@ -719,24 +719,24 @@
         parent.global.setTimeout(this.hashChange,100);
       }
 
-      lichess.pubsub.off('redraw',this.analysisContextMenu);
+      lichess.pubsub.off('lichessTools.redraw',this.analysisContextMenu);
       if (this.options.bookmarks) {
-        lichess.pubsub.on('redraw',this.analysisContextMenu);
+        lichess.pubsub.on('lichessTools.redraw',this.analysisContextMenu);
       }
 
       $.cached('body')
         .toggleClass('lichessTools-fullWidthAnalysis',this.options.fullWidthAnalysis)
         .toggleClass('lichessTools-hideLeftSide',this.options.hideLeftSide);
-      lichess.pubsub.off('redraw',this.setupAnalysisPopup);
+      lichess.pubsub.off('lichessTools.redraw',this.setupAnalysisPopup);
       if (analysis.study && this.options.analysisPopup) {
-        lichess.pubsub.on('redraw',this.setupAnalysisPopup);
+        lichess.pubsub.on('lichessTools.redraw',this.setupAnalysisPopup);
       }
       this.setupAnalysisPopup();
 
       $('.lichessTools-fixCevalToggle').removeClass('lichessTools-fixCevalToggle');
-      lichess.pubsub.off('redraw',this.setupCevalToggle);
+      lichess.pubsub.off('lichessTools.redraw',this.setupCevalToggle);
       if (analysis && this.options.fixCevalToggle) {
-        lichess.pubsub.on('redraw',this.setupCevalToggle);
+        lichess.pubsub.on('lichessTools.redraw',this.setupCevalToggle);
       }
       this.setupCevalToggle();
     }

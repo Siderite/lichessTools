@@ -346,8 +346,8 @@
       if (!this.isBroadcast(analysis?.study)) return;
       const value=parent.currentOptions.getValue('obsIntegration');
       this.logOption('OBS Integration', value);
-      lichess.pubsub.off('chapterChange',this.chapterChange);
-      lichess.pubsub.off('redraw',this.refreshUI);
+      lichess.pubsub.off('lichessTools.chapterChange',this.chapterChange);
+      lichess.pubsub.off('lichessTools.redraw',this.refreshUI);
       $(parent.global).off('hashchange',this.hashchange);
       parent.unbindKeyHandler('o',true);
       $('span.lichessTools-obsSetup').remove();
@@ -355,8 +355,8 @@
         parent.comm.send({ type: 'disconnect' }).catch(e=>{ parent.global.console.error('Error disconnecting:',e); });
         return;
       }
-      lichess.pubsub.on('chapterChange',this.chapterChange);
-      lichess.pubsub.on('redraw',this.refreshUI);
+      lichess.pubsub.on('lichessTools.chapterChange',this.chapterChange);
+      lichess.pubsub.on('lichessTools.redraw',this.refreshUI);
       this.refreshUI();
       $(parent.global).on('hashchange',this.hashchange);
       this.hashchange();

@@ -178,7 +178,7 @@
         });
       if (removeRedraw) {
         const lichess=parent.lichess;
-        lichess.pubsub.off('redraw',this.enhanceButton);
+        lichess.pubsub.off('lichessTools.redraw',this.enhanceButton);
       }
     };
     enhanceButton=this.lichessTools.debounce(this.enhanceButtonDirect,500);
@@ -192,7 +192,7 @@
       if (study) {
         study.vm.toolTab=lichessTools.unwrapFunction(study.vm.toolTab,'boardImage');
       }
-      lichess.pubsub.off('redraw',this.enhanceButton);
+      lichess.pubsub.off('lichessTools.redraw',this.enhanceButton);
       if (!value) {
         $('main.analyse .copyables a.lichessTools-boardImage').remove();
         $('div.study__share a.lichessTools-boardImage,div.board-editor a.lichessTools-boardImage')
@@ -208,7 +208,7 @@
           }
         });
       }
-      lichess.pubsub.on('redraw',this.enhanceButton);
+      lichess.pubsub.on('lichessTools.redraw',this.enhanceButton);
       this.enhanceButton();
     }
 

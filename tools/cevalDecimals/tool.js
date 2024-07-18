@@ -92,9 +92,9 @@
       const analysis=lichess?.analysis;
       if (!analysis) return;
       const trans=parent.translator;
-      lichess.pubsub.off('redraw',this.showDecimals);
+      lichess.pubsub.off('lichessTools.redraw',this.showDecimals);
       if (!value) return;
-      lichess.pubsub.on('redraw',this.showDecimals);
+      lichess.pubsub.on('lichessTools.redraw',this.showDecimals);
       this.showDecimals();
     }
 

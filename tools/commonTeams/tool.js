@@ -116,9 +116,9 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('commonTeams');
       this.logOption('Common teams', value);
-      lichess.pubsub.off('redraw',this.refreshTeams);
+      lichess.pubsub.off('lichessTools.redraw',this.refreshTeams);
       if (!value) return;
-      lichess.pubsub.on('redraw',this.refreshTeams);
+      lichess.pubsub.on('lichessTools.redraw',this.refreshTeams);
       this.refreshTeams();
     }
 

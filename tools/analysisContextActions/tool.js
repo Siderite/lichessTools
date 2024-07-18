@@ -374,7 +374,7 @@
         get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty; }
       };
       clearInterval(this.engineCheckInterval);
-      lichess.pubsub.off('redraw',this.analysisContextMenu);
+      lichess.pubsub.off('lichessTools.redraw',this.analysisContextMenu);
       $('.tview2').off('contextmenu',this.analysisContextMenu);
       $.cached('body').off('keydown keyup',this.alterModifierText);
       if (this.options.copyPgn) {
@@ -382,7 +382,7 @@
         $('.tview2').on('contextmenu',this.analysisContextMenu);
       }
       if (this.options.isSet) {
-        lichess.pubsub.on('redraw',this.analysisContextMenu);
+        lichess.pubsub.on('lichessTools.redraw',this.analysisContextMenu);
         this.engineCheckInterval=setInterval(this.checkEngineLevel,1000);
       } else {
         this.setTerminationsEvaluation(false);
@@ -390,8 +390,8 @@
       if (analysis.study&&!$('div.lichessTools-liveStatus').length) {
         $('main.analyse div.analyse__controls.analyse-controls').after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
       }
-      lichess.pubsub.off('redraw',this.ensureShowOnEmpty);
-      lichess.pubsub.on('redraw',this.ensureShowOnEmpty);
+      lichess.pubsub.off('lichessTools.redraw',this.ensureShowOnEmpty);
+      lichess.pubsub.on('lichessTools.redraw',this.ensureShowOnEmpty);
       this.ensureShowOnEmpty();
     }
 

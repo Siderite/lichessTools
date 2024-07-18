@@ -10,10 +10,10 @@
       const console=parent.global.console;
       if (!lichess.analysis||!lichess.analysis.study) return;
       let previousChapterId=null;
-      lichess.pubsub.on('redraw', () => {
+      lichess.pubsub.on('lichessTools.redraw', () => {
         const currChapterId=lichess.analysis.study.currentChapter()?.id;
         if (previousChapterId!=currChapterId) {
-          lichess.pubsub.emit('chapterChange',currChapterId);
+          lichess.pubsub.emit('lichessTools.chapterChange',currChapterId);
         }
         previousChapterId=currChapterId;
       });

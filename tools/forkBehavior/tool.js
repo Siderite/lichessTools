@@ -265,13 +265,13 @@
       const analysis=lichess?.analysis;
       if (!analysis) return;
       analysis.fork.proceed=parent.unwrapFunction(analysis.fork.proceed,'forkBehavior');
-      lichess.pubsub.off('redraw',this.bindFork);
-      lichess.pubsub.off('chapterChange',this.clearVariationSelect);
+      lichess.pubsub.off('lichessTools.redraw',this.bindFork);
+      lichess.pubsub.off('lichessTools.chapterChange',this.clearVariationSelect);
       this.clearVariationSelect();
       if (['hybrid','chessbase'].includes(value)) {
-        lichess.pubsub.on('redraw',this.bindFork);
+        lichess.pubsub.on('lichessTools.redraw',this.bindFork);
         this.bindFork();
-        lichess.pubsub.on('chapterChange',this.clearVariationSelect);
+        lichess.pubsub.on('lichessTools.chapterChange',this.clearVariationSelect);
       }
     }
 

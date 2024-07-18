@@ -259,7 +259,7 @@
       const analysis=lichess?.analysis;
       if (!analysis) return;
       if (analysis.gamebookPlay()) return;
-      lichess.pubsub.off('redraw',this.processDebounced);
+      lichess.pubsub.off('lichessTools.redraw',this.processDebounced);
       lichess.pubsub.off('ply',this.writePlayerName);
       $('main.analyse div.analyse__controls').off('click touchend',this.process);
       parent.unbindKeyHandler('shift+l');
@@ -273,7 +273,7 @@
         this.process();
         parent.emitRedraw();
       });
-      lichess.pubsub.on('redraw',this.processDebounced);
+      lichess.pubsub.on('lichessTools.redraw',this.processDebounced);
       lichess.pubsub.on('ply',this.writePlayerName);
       $('main.analyse div.analyse__controls').on('click touchend',this.process);
       analysis.userJump=parent.wrapFunction(analysis.userJump,{

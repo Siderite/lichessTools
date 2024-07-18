@@ -936,8 +936,8 @@
           }
         });
       }
-      lichess.pubsub.off('redraw',this.analysisControls);
-      lichess.pubsub.on('redraw',this.analysisControls);
+      lichess.pubsub.off('lichessTools.redraw',this.analysisControls);
+      lichess.pubsub.on('lichessTools.redraw',this.analysisControls);
       lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'extendedInteractiveLesson');
       lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
         id:'extendedInteractiveLesson',
@@ -946,26 +946,26 @@
         }
       });
       this.analysisControls();
-      lichess.pubsub.off('redraw',this.alterUI);
-      lichess.pubsub.off('chapterChange',this.patchGamebook);
+      lichess.pubsub.off('lichessTools.redraw',this.alterUI);
+      lichess.pubsub.off('lichessTools.chapterChange',this.patchGamebook);
       if (this.options.extendedInteractive) {
-        lichess.pubsub.on('redraw',this.alterUI);
+        lichess.pubsub.on('lichessTools.redraw',this.alterUI);
       }
       if (this.options.extendedInteractive||this.options.showFinalScore||this.options.alwaysShowScore) {
-        lichess.pubsub.on('chapterChange',this.patchGamebook);
+        lichess.pubsub.on('lichessTools.chapterChange',this.patchGamebook);
       }
-      lichess.pubsub.off('redraw',this.showScore);
+      lichess.pubsub.off('lichessTools.redraw',this.showScore);
       if (this.options.showFinalScore||this.options.alwaysShowScore) {
-        lichess.pubsub.on('redraw',this.showScore);
+        lichess.pubsub.on('lichessTools.redraw',this.showScore);
       }
       this.patchGamebook();
 
       if (lichess.analysis.study.onReload) {
         lichess.analysis.study.onReload=lichessTools.unwrapFunction(lichess.analysis.study.onReload,'extendedInteractiveLesson');
       }
-      lichess.pubsub.off('redraw',this.findThreatArrow);
+      lichess.pubsub.off('lichessTools.redraw',this.findThreatArrow);
       if (this.options.extendedInteractive) {
-        lichess.pubsub.on('redraw',this.findThreatArrow);
+        lichess.pubsub.on('lichessTools.redraw',this.findThreatArrow);
         lichess.analysis.study.onReload=lichessTools.wrapFunction(lichess.analysis.study.onReload,{
           id:'extendedInteractiveLesson',
           after:($this,result,...args)=>{

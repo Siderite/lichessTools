@@ -157,16 +157,16 @@
       const study=analysis?.study;
       if (!study) return;
       parent.global.clearInterval(this.interval);
-      lichess.pubsub.off('chapterChange',this.closeRetro);
-      lichess.pubsub.off('redraw',this.translateRetro);
+      lichess.pubsub.off('lichessTools.chapterChange',this.closeRetro);
+      lichess.pubsub.off('lichessTools.redraw',this.translateRetro);
       if (!value) {
         $('div.advice-summary a.button').remove();
         this.closeRetro();
         return;
       }
       this.interval=parent.global.setInterval(this.handleButton,1000);
-      lichess.pubsub.on('chapterChange',this.closeRetro);
-      lichess.pubsub.on('redraw',this.translateRetro);
+      lichess.pubsub.on('lichessTools.chapterChange',this.closeRetro);
+      lichess.pubsub.on('lichessTools.redraw',this.translateRetro);
     }
 
   }

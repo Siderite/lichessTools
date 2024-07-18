@@ -381,7 +381,7 @@
             .attr('title',mutePlayingAlertTitle)
             .on('click',ev=>{
               ev.preventDefault();
-              parent.lichess.pubsub.emit('mutePlayer',user);
+              parent.lichess.pubsub.emit('lichessTools.mutePlayer',user);
               this.updateFriendsPage();
             })
             .appendTo(actions);

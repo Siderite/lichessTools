@@ -120,7 +120,7 @@
       this.handleGesture(this.chessground.state.drawable.current);
       this.chessground.state.drawable.current=undefined;
       this.chessground.state.dom.redraw();
-      lichess.pubsub.emit('shapeRank');
+      lichess.pubsub.emit('lichessTools.shapeRank');
     };
 
     handleGesture=(shape)=>{
@@ -355,11 +355,11 @@
         colorCount: colorCount
       };
       const lichess=parent.lichess;
-      lichess.pubsub.off('redraw',this.handleRedraw);
-      lichess.pubsub.off('chapterChange',this.handleRedraw);
+      lichess.pubsub.off('lichessTools.redraw',this.handleRedraw);
+      lichess.pubsub.off('lichessTools.chapterChange',this.handleRedraw);
       if (this.options.showGauge || this.options.hideOctopus || this.options.standardButtons || this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove) {
-        lichess.pubsub.on('redraw',this.handleRedraw);
-        lichess.pubsub.on('chapterChange',this.handleRedraw);
+        lichess.pubsub.on('lichessTools.redraw',this.handleRedraw);
+        lichess.pubsub.on('lichessTools.chapterChange',this.handleRedraw);
       }
       const isRound=!!$('main.round,main.puzzle').length;
       if (isRound) {

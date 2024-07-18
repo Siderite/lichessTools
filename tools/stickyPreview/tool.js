@@ -78,11 +78,11 @@
       const lichess=parent.lichess;
       const study=lichess?.analysis?.study;
       if (!study) return;
-      lichess.pubsub.off('redraw', this.bindButtons);
-      lichess.pubsub.off('chapterChange', this.keepPreviewOn);
+      lichess.pubsub.off('lichessTools.redraw', this.bindButtons);
+      lichess.pubsub.off('lichessTools.chapterChange', this.keepPreviewOn);
       if (value) {
-        lichess.pubsub.on('redraw', this.bindButtons);
-        lichess.pubsub.on('chapterChange', this.keepPreviewOn);
+        lichess.pubsub.on('lichessTools.redraw', this.bindButtons);
+        lichess.pubsub.on('lichessTools.chapterChange', this.keepPreviewOn);
         this.keepPreviewOn();
       }
     }

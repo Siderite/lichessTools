@@ -171,11 +171,11 @@
       const clearInterval=parent.global.clearInterval;
       this.beep = await lichess.sound.load('friendPlaying', lichess.sound.url('piano/GenericNotify.mp3'));
       lichess.pubsub.off('socket.in.following_playing', this.playFriendSound);
-      lichess.pubsub.off('mutePlayer', this.mutePlayer);
+      lichess.pubsub.off('lichessTools.mutePlayer', this.mutePlayer);
       clearInterval(this.audioCheckTimeout);
       if (value!==false && value?.toString().replace(/,standard/i,'')) {
         lichess.pubsub.on('socket.in.following_playing', this.playFriendSound);
-        lichess.pubsub.on('mutePlayer', this.mutePlayer);
+        lichess.pubsub.on('lichessTools.mutePlayer', this.mutePlayer);
       }
     }
   }

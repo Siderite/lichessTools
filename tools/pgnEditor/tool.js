@@ -1787,7 +1787,7 @@
           const pgn=await parent.exportPgn('',{ copyToClipboard:false });
           this.showPgnEditor(pgn);
         })
-        .appendTo(container);;
+        .appendTo(container);
     }
 
     async start() {
@@ -1802,8 +1802,8 @@
       $('a.lichessTools-pgnEditor',container).remove();
 
       if (lichess.analysis) {
-        lichess.pubsub.off('redraw',this.analysisControls);
-        lichess.pubsub.on('redraw',this.analysisControls);
+        lichess.pubsub.off('lichessTools.redraw',this.analysisControls);
+        lichess.pubsub.on('lichessTools.redraw',this.analysisControls);
         lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'pgnEditor');
         lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
           id:'pgnEditor',

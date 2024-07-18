@@ -127,9 +127,9 @@
       if (!analysis) return;
       const tools=$('div.analyse__tools');
       const fork=$('div.lichessTools-transpositions',tools).remove();
-      lichess.pubsub.off('redraw', this.findTranspositions);
+      lichess.pubsub.off('lichessTools.redraw', this.findTranspositions);
       if (value) {
-        lichess.pubsub.on('redraw', this.findTranspositions);
+        lichess.pubsub.on('lichessTools.redraw', this.findTranspositions);
       }
       this.findTranspositions();
     }

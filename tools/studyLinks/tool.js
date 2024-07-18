@@ -170,24 +170,24 @@
       const study=analysis?.study;
       if (!study) return;
 
-      lichess.pubsub.off('redraw',this.handleLinks);
+      lichess.pubsub.off('lichessTools.redraw',this.handleLinks);
       lichess.pubsub.off('setDialogPlacement',this.setDialogPlacement);
       $('comment a,div.comment a').off('click',this.handleVideoClick);
       if (this.options.video) {
-        lichess.pubsub.on('redraw',this.handleVideoLinks);
+        lichess.pubsub.on('lichessTools.redraw',this.handleVideoLinks);
         lichess.pubsub.on('setDialogPlacement',this.setDialogPlacement);
         this.handleVideoLinks();
       } else {
         $('.lichessTools-video').remove();
       }
 
-      lichess.pubsub.off('redraw',this.alterStudyLinks);
+      lichess.pubsub.off('lichessTools.redraw',this.alterStudyLinks);
       lichess.pubsub.off('analysis.change',this.alterStudyLinks);
-      lichess.pubsub.off('chapterChange',this.alterStudyLinks);
+      lichess.pubsub.off('lichessTools.chapterChange',this.alterStudyLinks);
       if (this.options.studyLinksSameWindow) {
-        lichess.pubsub.on('redraw',this.alterStudyLinks);
+        lichess.pubsub.on('lichessTools.redraw',this.alterStudyLinks);
         lichess.pubsub.on('analysis.change',this.alterStudyLinks);
-        lichess.pubsub.on('chapterChange',this.alterStudyLinks);
+        lichess.pubsub.on('lichessTools.chapterChange',this.alterStudyLinks);
         this.alterStudyLinks();
       }
 

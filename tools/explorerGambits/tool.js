@@ -167,11 +167,11 @@
       const $=parent.$;
       const explorer=lichess?.analysis?.explorer;
       if (!explorer) return;
-      lichess.pubsub.off('redraw',this.checkGambits);
+      lichess.pubsub.off('lichessTools.redraw',this.checkGambits);
       $('th.lichessTools-explorerGambits,td.lichessTools-explorerGambits').remove();
       explorer.setNode=parent.unwrapFunction(explorer.setNode,'explorerGambits');
       if (!value) return;
-      lichess.pubsub.on('redraw',this.checkGambits);
+      lichess.pubsub.on('lichessTools.redraw',this.checkGambits);
       this.checkGambits();
     }
 

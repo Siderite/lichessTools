@@ -88,14 +88,14 @@
       const analysis=lichess?.analysis;
       if (!analysis) return;
       $('button.lichessTools-expandAll').remove();
-      lichess.pubsub.off('redraw',this.addExpandAllButton);
-      lichess.pubsub.off('redraw',this.autoExpand);
+      lichess.pubsub.off('lichessTools.redraw',this.addExpandAllButton);
+      lichess.pubsub.off('lichessTools.redraw',this.autoExpand);
       if (this.options.showButton) {
-        lichess.pubsub.on('redraw',this.addExpandAllButton);
+        lichess.pubsub.on('lichessTools.redraw',this.addExpandAllButton);
         this.addExpandAllButton();
       }
       if (this.options.autoExpand) {
-        lichess.pubsub.on('redraw',this.autoExpand);
+        lichess.pubsub.on('lichessTools.redraw',this.autoExpand);
         this.autoExpand();
       }
     }

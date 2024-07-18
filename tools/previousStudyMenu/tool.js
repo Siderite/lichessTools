@@ -64,9 +64,9 @@
       this.options={ enabled: value };
       const lichess=parent.lichess;
       await this.updateStudy();
-      lichess.pubsub.off('redraw',this.updateStudy);
+      lichess.pubsub.off('lichessTools.redraw',this.updateStudy);
       if (value) {
-        lichess.pubsub.on('redraw',this.updateStudy);
+        lichess.pubsub.on('lichessTools.redraw',this.updateStudy);
       }
     }
 

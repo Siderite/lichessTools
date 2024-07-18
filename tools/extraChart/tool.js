@@ -1268,8 +1268,8 @@
         gauge:parent.isOptionSet(value,'gauge'),
         christmas:!!parent.currentOptions.getValue('christmas')
       };
-      lichess.pubsub.off('esmLoaded',this.handleEsmLoaded);
-      lichess.pubsub.on('esmLoaded',this.handleEsmLoaded);
+      lichess.pubsub.off('lichessTools.esmLoaded',this.handleEsmLoaded);
+      lichess.pubsub.on('lichessTools.esmLoaded',this.handleEsmLoaded);
 
       parent.global.clearInterval(this.interval);
       this.generateCharts();
@@ -1289,9 +1289,9 @@
         this.generateCharts();
         this.generateTicks();
       },1000);
-      lichess.pubsub.off('chapterChange',this.forceGenerateCharts);
+      lichess.pubsub.off('lichessTools.chapterChange',this.forceGenerateCharts);
       if (this.options.brilliant) {
-        lichess.pubsub.on('chapterChange',this.forceGenerateCharts);
+        lichess.pubsub.on('lichessTools.chapterChange',this.forceGenerateCharts);
       }
     }
 
