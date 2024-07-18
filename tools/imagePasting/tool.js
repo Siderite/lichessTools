@@ -16,13 +16,15 @@
         'options.general': 'General',
         'options.imagePasting': 'Chat/forum options',
         'imagePasting.pasteImages': 'Paste image support',
-        'imagePasting.bigEmoji': 'Large one emoji message'
+        'imagePasting.bigEmoji': 'Large one emoji message',
+        'pastingError': 'There was an error generating the image URL'
       },
       'ro-RO':{
         'options.general': 'General',
         'options.imagePasting': 'Op\u0163iuni chat/forum',
         'imagePasting.pasteImages': 'Suport lipire imagini',
-        'imagePasting.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj'
+        'imagePasting.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
+        'pastingError': 'A ap\u0103rut o eroare \u00een generarea URLului imaginii'
       }
     }
 
@@ -65,6 +67,7 @@
     pasteImage=async (ev)=>{
       const parent=this.lichessTools;
       const $=parent.$;
+      const trans=parent.translator;
       const el=ev.target;
       let loader=null;
       try {
@@ -74,6 +77,8 @@
         if (!url) return;
         const [start, end] = [el.selectionStart, el.selectionEnd];
         el.setRangeText(url, start, end, 'end');
+      } catch(e) {
+        parent.announce(trans.noarg('pastingError'));
       } finally {
         loader.remove();
         $(el).removeClass('lichessTools-imagePasting');
