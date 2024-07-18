@@ -4,9 +4,6 @@ body.lichessTools:has(dialog.lichessTools-dialog.resizing) {
 }
 
 body.lichessTools dialog.lichessTools-dialog {
-  transform:none;
-  left: calc(50% - 320px);
-  top: calc(50% - 240px);
   margin-top:0;
 }
 
@@ -42,8 +39,6 @@ body.lichessTools dialog.lichessTools-dialog .dialog-resize:hover {
 }
 
 body.lichessTools dialog.lichessTools-dialog .dialog-content {
-  width:640px;
-  height:480px;
   padding:0;
   min-width:20px;
   min-height:20px;

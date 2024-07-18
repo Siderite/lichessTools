@@ -95,7 +95,7 @@
       const $=parent.$;
       const dialog=$('dialog.lichessTools-video');
       if (parent.inViewport($('.dialog-header',dialog))<0.5) {
-        $(dialog).css({left:'',top:''});
+        $(dialog).css({left:'',top:'',right:'',bottom:''});
         $('.dialog-content',dialog).css({width:'',height:''});
       }
     }
