@@ -74,6 +74,7 @@
       if (sources.length==1) {
         uci=sources[0]+square;
       } else {
+        if (parent.isGamePlaying()) return false;
         const gp=analysis.gamebookPlay();
         if (gp && !analysis.study?.vm?.mode?.write) return false;
         const nextMoves=parent.getNextMoves(analysis.node,gp?.threeFoldRepetition)
