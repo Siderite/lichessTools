@@ -77,7 +77,7 @@
         const gp=analysis.gamebookPlay();
         if (gp && !analysis.study?.vm?.mode?.write) return false;
         const nextMoves=parent.getNextMoves(analysis.node,gp?.threeFoldRepetition)
-                              .filter(c=>parent.isPermanentNode(c))
+                              .filter(c=>!parent.isPermanentNode || parent.isPermanentNode(c))
                               .filter(c=>c.uci.endsWith(square));
         if (nextMoves.length!=1) return;
         uci=nextMoves[0].uci;
