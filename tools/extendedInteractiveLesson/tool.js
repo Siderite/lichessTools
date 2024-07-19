@@ -899,6 +899,7 @@
           'spacedRepetition':parent.isOptionSet(flow,'spacedRepetition')
         }
       };
+      parent.isPermanentNode=this.isPermanentNode.bind(this);
       if (!parent.isWrappedFunction(study.setGamebookOverride,'extendedInteractive')) {
         study.setGamebookOverride=parent.wrapFunction(study.setGamebookOverride,{
           id:'extendedInteractive',

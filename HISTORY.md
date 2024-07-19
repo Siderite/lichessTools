@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Jul
+  - one click move from PGN and only orientation options
+
 15 Jul
   - video popup support in studies
 
