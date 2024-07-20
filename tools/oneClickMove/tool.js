@@ -76,10 +76,24 @@
       } else {
         if (parent.isGamePlaying()) return false;
         const gp=analysis.gamebookPlay();
-        if (gp && !analysis.study?.vm?.mode?.write) return false;
-        const nextMoves=parent.getNextMoves(analysis.node,gp?.threeFoldRepetition)
-                              .filter(c=>!parent.isPermanentNode || parent.isPermanentNode(c))
-                              .filter(c=>c.uci.endsWith(square));
+        if (gp && !analysis.study?.members?.canContribute()) return false;
+        let nextMoves=parent.getNextMoves(analysis.node,gp?.threeFoldRepetition)
+                              .filter(c=>!parent.isPermanentNode || parent.isPermanentNode(c));
+        nextMoves
+          .filter(c=>c.san?.startsWith('O-O'))
+          .forEach(c=>{
+            let sq=null;
+            switch(c.uci?.slice(-2)) {
+              case 'h1':sq='g1';break;
+              case 'a1':sq='c1';break;
+              case 'h8':sq='g8';break;
+              case 'a8':sq='c8';break;
+            }
+            if (sq) {
+              nextMoves.push({ uci: c.uci.slice(0,2)+sq });
+            }
+          });
+        nextMoves=nextMoves.filter(c=>c.uci.endsWith(square));
         if (nextMoves.length!=1) return;
         uci=nextMoves[0].uci;
       }
