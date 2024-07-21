@@ -241,11 +241,6 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
-      if (!lichess.analysis && !showPgnText) {
-        parent.global.location.href='/analysis#pgnEditor';
-        return;
-      }
-
       $('dialog.lichessTools-pgnEditor').remove();
       const dialog=$('<dialog class="lichessTools-pgnEditor">')
         .append(`
@@ -511,17 +506,20 @@
       if (parent.global.location.hash!='#pgnEditor') {
         parent.global.history.pushState(null, null, '#pgnEditor');
       }
-      if (showPgnText) {
-        this.setText(textarea,showPgnText);
-      } else {
-        if (!this.history) {
-          await parent.timeout(1);
-          this.loadHistory();
-        }
-        const text=this.history[this.historyIndex]||'';
-        $(textarea).val(text);
-        this.setHistoryIndex(this.historyIndex);
+      if (!this.history) {
+        await parent.timeout(1);
+        this.loadHistory();
       }
+      if (showPgnText) {
+        this.addTextToHistory(showPgnText);
+      }
+      if (!lichess.analysis) {
+        parent.global.location.href='/analysis#pgnEditor';
+        return;
+      }
+      const text=this.history[this.historyIndex]||'';
+      $(textarea).val(text);
+      this.setHistoryIndex(this.historyIndex);
     };
 
     stopOperations=()=>{
@@ -1400,6 +1398,19 @@
       this.countPgn();
     };
 
+    cutAnnotationsFromGame= (game)=>{
+      const traverse=(node,ply=0)=>{
+        if (node.data?.nags?.length) {
+          node.data.nags.length=0;
+        }
+        if (!node.children?.length) return;
+        for (const child of node.children) {
+          traverse(child,ply+1);
+        }
+      };
+      traverse(game.moves);
+    };
+
     cutAnnotations=async (textarea)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -1424,7 +1435,7 @@
       };
       
       for (const game of games) {
-        traverse(game.moves);
+        this.cutAnnotationsFromGame(game);
       }
 
       this.writeGames(textarea, games);
@@ -1679,7 +1690,13 @@
               }
               const game2=parsePgn(pgn)[0];
               this.cutCommentsFromGame(game2);
+              this.cutAnnotationsFromGame(game2);
               pgn=makePgn(game2);
+              if (reg.test(pgn)) {
+                found=true;
+                break;
+              }
+              pgn=pgn.replace(/\d+\./g,'').replace(/\s+/g,' ');
               if (reg.test(pgn)) {
                 found=true;
                 break;
