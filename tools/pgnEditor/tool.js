@@ -81,7 +81,7 @@
         'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled',
         'pastePGNs': 'drag/paste your PGNs here',
-        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value or "Eval"(>,=,<)Value"',
+        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value or "Eval"(>,=,<)Value"',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Eval"(>,=,<)Value in any combination (i.e. tags, ply 10, eval<0)',
@@ -155,7 +155,7 @@
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
         'operationCancelled': 'Opera\u0163iune anulat\u0103',
         'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
-        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare sau "Eval"(>,=,<)Valoare"',
+        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag(=,*=)Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare sau "Eval"(>,=,<)Valoare"',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: tags, ply 10, eval<0)',
@@ -1562,6 +1562,7 @@
       let plyNumberOperator;
       let plyNumber;
       let tagName;
+      let tagOperator;
       let tagValue;
       let evalOperator;
       let evalNumber;
@@ -1572,20 +1573,21 @@
         plyNumberOperator=m[1];
         plyNumber=+m[2];
       } else {
-        m=/^eval\s*([\<\>=])\s*([\-\+]?\d+(?:\.\d+)?)/i.exec(search);
+        m=/^eval\s*(?<operator>[\<\>=])\s*(?<value>[\-\+]?\d+(?:\.\d+)?)/i.exec(search);
         if (m) {
           searchMode='eval';
-          evalOperator=m[1];
-          evalNumber=+m[2];
+          evalOperator=m.groups.operator;
+          evalNumber=+m.groups.value;
         } else {
           if (/^invalid[s]?$/i.test(search)) {
             searchMode='invalid';
           } else {
-            m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
+            m=/^\s*(?<tag>\w+)\s*(?<operator>=|\*=)\s*["]?(?<value>.*?)["]?$/.exec(search);
             if (m) {
               searchMode='tag';
-              tagName=m[1];
-              tagValue=m[2];
+              tagOperator=m.groups.operator;
+              tagName=m.groups.tag;
+              tagValue=m.groups.value;
             } else {
               reg=new RegExp(Array.from(search).map(c=>{
                 switch(c) {
@@ -1689,8 +1691,11 @@
             case 'tag':
               const val=tagName.toLowerCase()=='index'
                 ? gameIndex.toString()
-                : game.headers.get(tagName);
-              found=(val?.replace(/\s+/g,'')==tagValue?.replace(/\s+/g,''));
+                : game.headers.entries().find(p=>p[0]?.toLowerCase()==tagName?.toLowerCase())[1];
+              switch(tagOperator) {
+                case '=': found=(val?.replace(/\s+/g,'')==tagValue?.replace(/\s+/g,'')); break;
+                case '*=': found=(val?.replace(/\s+/g,''))?.includes(tagValue?.replace(/\s+/g,'')); break;
+              }
               break;
             case 'plyNumber':
               const maxPly=getMaxPly(game);
