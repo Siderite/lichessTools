@@ -249,7 +249,7 @@
         <div class="dialog-content">
             <h2></h2>
             <div class="input-wrapper">
-              <textarea autofocus></textarea>
+              <textarea autofocus spellcheck="false" autocomplete="false"></textarea>
               <div class="buttons">
                 <button class="button" type="button" data-role="merge" data-icon="&#xE037;"><span></span></button>
                 <button class="button" type="button" data-role="normalize" data-icon="&#xE05B;"><span></span></button>
@@ -1477,7 +1477,7 @@
         if (!node.children?.length) {
           if (!node.data?.san) return;
           const comments=node.data?.comments||[];
-          const match=comments.map(c=>/\beval: (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
+          const match=comments.map(c=>/(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
           if (!match) return;
           const evl=match.groups.mate
                       ? 100*Math.sign(+(match.groups.mate)) - +(match.groups.mate)
@@ -1554,28 +1554,30 @@
         searchMode='plyNumber';
         plyNumberOperator=m[1];
         plyNumber=+m[2];
-      } else if (/^invalid[s]?$/i.test(search)) {
-        searchMode='invalid';
       } else {
-        m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
+        m=/^eval\s*([\<\>=])\s*([\-\+]?\d+(?:\.\d+)?)/i.exec(search);
         if (m) {
-          searchMode='tag';
-          tagName=m[1];
-          tagValue=m[2];
+          searchMode='eval';
+          evalOperator=m[1];
+          evalNumber=+m[2];
         } else {
-          m=/^eval\s*([\<\>=])\s*([\-\+]?\d+(?:\.\d+)?)/i.exec(search);
-          if (m) {
-            searchMode='eval';
-            evalOperator=m[1];
-            evalNumber=+m[2];
+          if (/^invalid[s]?$/i.test(search)) {
+            searchMode='invalid';
           } else {
-            reg=new RegExp(Array.from(search).map(c=>{
-              switch(c) {
-                case '*': return '.*';
-                case '?': return '.';
-                default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
-              }
-            }).join(''));
+            m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
+            if (m) {
+              searchMode='tag';
+              tagName=m[1];
+              tagValue=m[2];
+            } else {
+              reg=new RegExp(Array.from(search).map(c=>{
+                switch(c) {
+                  case '*': return '.*';
+                  case '?': return '.';
+                  default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+                }
+              }).join(''));
+            }
           }
         }
       }
@@ -1606,7 +1608,7 @@
           if (found) return;
           if (!node.children?.length) {
             const comments=node.data?.comments||[];
-            const match=comments.map(c=>/\beval: (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
+            const match=comments.map(c=>/(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
             if (!match) return;
             const evl=match.groups.mate
                       ? 100*Math.sign(+(match.groups.mate)) - +(match.groups.mate)
