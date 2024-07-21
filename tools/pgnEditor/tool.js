@@ -1348,6 +1348,22 @@
       this.countPgn();
     };
 
+    cutCommentsFromGame=(game)=>{
+      const traverse=(node,ply=0)=>{
+        if (node.data?.comments?.length) {
+          node.data.comments.length=0;
+        }
+        if (!node.children?.length) return;
+        for (const child of node.children) {
+          traverse(child,ply+1);
+        }
+      };
+      if (game.comments) {
+        game.comments.length=0;
+      }
+      traverse(game.moves);
+    };
+
     cutComments=async (textarea)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -1361,21 +1377,9 @@
       this.writeNote(trans.pluralSame('preparingGames',games.length));
       await parent.timeout(0);
 
-      const traverse=(node,ply=0)=>{
-        if (node.data?.comments?.length) {
-          node.data.comments.length=0;
-        }
-        if (!node.children?.length) return;
-        for (const child of node.children) {
-          traverse(child,ply+1);
-        }
-      };
       
       for (const game of games) {
-        if (game.comments) {
-          game.comments.length=0;
-        }
-        traverse(game.moves);
+        this.cutCommentsFromGame(game);
       }
 
       this.writeGames(textarea, games);
@@ -1653,7 +1657,14 @@
               }
               break;
             case 'fenOrMoves':
-              const pgn=makePgn(game);
+              let pgn=makePgn(game);
+              if (reg.test(pgn)) {
+                found=true;
+                break;
+              }
+              const game2=parsePgn(pgn)[0];
+              this.cutCommentsFromGame(game2);
+              pgn=makePgn(game2);
               if (reg.test(pgn)) {
                 found=true;
                 break;
