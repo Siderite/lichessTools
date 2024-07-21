@@ -1521,6 +1521,7 @@
           }
         }
       }
+      games=games.filter(g=>g.moves.children.length);
 
       this.writeGames(textarea, games);
 
