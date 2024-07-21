@@ -44,6 +44,7 @@
       if (!ev.x && !ev.y) return;
       const board=$('main cg-board');
       if (!board.length) return;
+      if ($('square.selected',board).length) return;
       const rect=board[0].getBoundingClientRect();
       const [x,y]=[ev.x-rect.x,ev.y-rect.y];
       const isStandard=board.closest('div.round__app, main').is('.variant-standard,.variant-fromPosition'); //TODO fromPosition?
@@ -63,13 +64,18 @@
       const square=getSquare(res);
       const destMan=analysis.chessground?.state?.movable?.dests;
       if (!destMan) return;
-      const sources=$('piece.'+turn).get()
+      let pieceExists=false;
+      const sources=$('piece.'+turn,board).get()
         .map(e=>e.cgKey)
         .filter(sq=>{
           if (!sq) return false;
+          if (sq==square) {
+            pieceExists=true;
+          }
           const dests=destMan.get(sq);
           return dests?.includes(square);
         });
+      if (pieceExists) return;
       let uci='';
       if (sources.length==1) {
         uci=sources[0]+square;
@@ -77,25 +83,22 @@
         if (parent.isGamePlaying()) return false;
         const gp=analysis.gamebookPlay();
         if (gp && !analysis.study?.members?.canContribute()) return false;
-        let nextMoves=parent.getNextMoves(analysis.node,gp?.threeFoldRepetition)
-                              .filter(c=>!parent.isPermanentNode || parent.isPermanentNode(c));
-        nextMoves
-          .filter(c=>c.san?.startsWith('O-O'))
-          .forEach(c=>{
-            let sq=null;
-            switch(c.uci?.slice(-2)) {
-              case 'h1':sq='g1';break;
-              case 'a1':sq='c1';break;
-              case 'h8':sq='g8';break;
-              case 'a8':sq='c8';break;
-            }
-            if (sq) {
-              nextMoves.push({ uci: c.uci.slice(0,2)+sq });
-            }
-          });
-        nextMoves=nextMoves.filter(c=>c.uci.endsWith(square));
+        const nextMoves=parent.getNextMoves(analysis.node,gp?.threeFoldRepetition)
+                              .filter(c=>!parent.isPermanentNode || parent.isPermanentNode(c))
+                              .map(c=>{
+                                if (c.san?.startsWith('O-O')) {
+                                  switch(c.uci?.slice(-2)) {
+                                    case 'h1':return c.uci.slice(0,2)+'g1';
+                                    case 'a1':return c.uci.slice(0,2)+'c1';
+                                    case 'h8':return c.uci.slice(0,2)+'g8';
+                                    case 'a8':return c.uci.slice(0,2)+'c8';
+                                  }
+                                }
+                                return c.uci;
+                              })
+                              .filter(u=>u.endsWith(square));
         if (nextMoves.length!=1) return;
-        uci=nextMoves[0].uci;
+        uci=nextMoves[0];
       }
       if (uci) {
         ev.preventDefault();
