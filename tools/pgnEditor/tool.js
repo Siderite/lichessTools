@@ -1429,16 +1429,21 @@
       this.writeNote(trans.pluralSame('preparingGames',games.length));
       await parent.timeout(0);
 
-      const traverse=(node,ply=0)=>{
+      const traverse=(game,node,ply=0,mainline=true)=>{
         if (!node.children?.length) return;
-        if (node.data?.san && ply>=plyNumber) node.children=[];
+        if (node.data?.san && ply>=plyNumber) {
+          node.children=[];
+          if (mainline) game.headers.delete('Result');
+          return;
+        }
         for (const child of node.children) {
-          traverse(child,ply+1);
+          traverse(game,child,ply+1,mainline);
+          mainline=false;
         }
       };
       
       for (const game of games) {
-        traverse(game.moves);
+        traverse(game,game.moves);
       }
 
       this.writeGames(textarea, games);
