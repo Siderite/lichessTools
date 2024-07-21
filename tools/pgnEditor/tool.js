@@ -81,7 +81,7 @@
         'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled',
         'pastePGNs': 'drag/paste your PGNs here',
-        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value',
+        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value or "Eval"(>,=,<)Value"',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Eval"(>,=,<)Value in any combination (i.e. tags, ply 10, eval<0)',
@@ -154,7 +154,7 @@
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
         'operationCancelled': 'Opera\u0163iune anulat\u0103',
         'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
-        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare',
+        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare sau "Eval"(>,=,<)Valoare"',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: tags, ply 10, eval<0)',
@@ -891,7 +891,7 @@
             break;
           } else throw ex;
         }
-        this.writeNote(trans.pluralSame('evaluatingGames',games.length-gameIndex));
+        this.writeNote(trans.pluralSame('preparingGames',games.length-gameIndex));
         await parent.timeout(0);
         if (this._cancelRequested) {
           break;
@@ -1446,6 +1446,7 @@
       this.countPgn();
     };
 
+
     cutEval=async (textarea,operator,value)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -1474,7 +1475,7 @@
           const match=comments.map(c=>/\beval: (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
           if (!match) return;
           const evl=match.groups.mate
-                      ? 100 - +(match.groups.mate)
+                      ? 100*Math.sign(+(match.groups.mate)) - +(match.groups.mate)
                       : +(match.groups.eval);
           let toRemove=false;
           switch(operator) {
@@ -1539,6 +1540,8 @@
       let plyNumber;
       let tagName;
       let tagValue;
+      let evalOperator;
+      let evalNumber;
       let reg;
       let m=/^ply\s*([\<\>=])\s*(\d+)/i.exec(search);
       if (m) {
@@ -1554,13 +1557,20 @@
           tagName=m[1];
           tagValue=m[2];
         } else {
-          reg=new RegExp(Array.from(search).map(c=>{
-            switch(c) {
-              case '*': return '.*';
-              case '?': return '.';
-              default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
-            }
-          }).join(''));
+          m=/^eval\s*([\<\>=])\s*([\-\+]?\d+(?:\.\d+)?)/i.exec(search);
+          if (m) {
+            searchMode='eval';
+            evalOperator=m[1];
+            evalNumber=+m[2];
+          } else {
+            reg=new RegExp(Array.from(search).map(c=>{
+              switch(c) {
+                case '*': return '.*';
+                case '?': return '.';
+                default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+              }
+            }).join(''));
+          }
         }
       }
 
@@ -1582,6 +1592,38 @@
         };
         traverse(game.moves);
         return maxPly;
+      };
+
+      const isGameEval=(game,operator,value)=>{
+        let found=false;
+        const traverse=(node,ply=0)=>{
+          if (found) return;
+          if (!node.children?.length) {
+            const comments=node.data?.comments||[];
+            const match=comments.map(c=>/\beval: (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
+            if (!match) return;
+            const evl=match.groups.mate
+                      ? 100*Math.sign(+(match.groups.mate)) - +(match.groups.mate)
+                      : +(match.groups.eval);
+            switch(operator) {
+              case '>':
+                found=evl>value;
+                break;
+              case '<':
+                found=evl<value;
+                break;
+              case '=':
+                found=evl==value;
+                break;
+            }
+            return;
+          }
+          for (const child of node.children) {
+            traverse(child,ply+1);
+          }
+        };
+        traverse(game.moves);
+        return found;
       };
 
 
@@ -1631,6 +1673,9 @@
                   found=maxPly==plyNumber;
                   break;
               }
+              break;
+            case 'eval':
+              found=isGameEval(game,evalOperator,evalNumber);
               break;
           }
           if (found){
