@@ -85,8 +85,9 @@
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Eval"(>,=,<)Value in any combination (i.e. tags, ply 10, eval<0)',
-        'sendToPgnEditorText':'PGN Editor',
-        'sendToPgnEditorTitle':'LiChess Tools - send to PGN Editor'
+        'sendToPgnEditorText': 'PGN Editor',
+        'sendToPgnEditorTitle': 'LiChess Tools - send to PGN Editor',
+        'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -159,7 +160,8 @@
         'foundGames:one': 'Un joc g\u0103sit',
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: tags, ply 10, eval<0)',
         'sendToPgnEditorText':'Editor PGN',
-        'sendToPgnEditorTitle':'LiChess Tools - trimite la Editor PGN'
+        'sendToPgnEditorTitle':'LiChess Tools - trimite la Editor PGN',
+        'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess'
       }
     }
 
@@ -208,6 +210,7 @@
 
     copyToClipboard=async (text)=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       const trans=parent.translator;
       const permission=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
       if (['granted','prompt'].includes(permission.state)) {
@@ -238,6 +241,11 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
+      if (!lichess.analysis && !showPgnText) {
+        parent.global.location.href='/analysis#pgnEditor';
+        return;
+      }
+
       $('dialog.lichessTools-pgnEditor').remove();
       const dialog=$('<dialog class="lichessTools-pgnEditor">')
         .append(`
@@ -841,6 +849,11 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
+
+      if (!lichess.analysis) {
+        parent.announce(trans.noarg('evaluateNeedsAnalysis'));
+        return;
+      }
 
       const co=parent.chessops;
       const { parsePgn,makePgn } = co.pgn;
