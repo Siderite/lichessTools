@@ -116,11 +116,11 @@
       const value=parent.currentOptions.getValue('shapeRank');
       this.options={ enabled: value };
       this.logOption('Show the order of arrows and circles', value);
-      lichess.pubsub.off('shapeRank',this.waitForChessground);
-      lichess.pubsub.off('redraw',this.waitForChessground);
+      lichess.pubsub.off('lichessTools.shapeRank',this.waitForChessground);
+      lichess.pubsub.off('lichessTools.redraw',this.waitForChessground);
       if (this.options.enabled) {
-        lichess.pubsub.on('shapeRank',this.waitForChessground);
-        lichess.pubsub.on('redraw',this.waitForChessground);
+        lichess.pubsub.on('lichessTools.shapeRank',this.waitForChessground);
+        lichess.pubsub.on('lichessTools.redraw',this.waitForChessground);
       }
       this.waitForChessground();
     }

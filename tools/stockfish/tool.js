@@ -15,11 +15,13 @@
     intl = {
       'en-US': {
         'options.general': 'General',
-        'options.stockfish': 'Stockfish'
+        'options.stockfish': 'Stockfish',
+        'couldNotLoadStockfish':'Could not load Stockfish!'
       },
       'ro-RO': {
         'options.general': 'General',
-        'options.stockfish': 'Stockfish'
+        'options.stockfish': 'Stockfish',
+        'couldNotLoadStockfish':'Nu am putut \u00eenc\u0103rca Stockfish!'
       }
     }
 
@@ -80,7 +82,8 @@
         this.parent.global.console.debug('SF','Engine loaded');
         return this;
       } catch(e) {
-        console.log('Error instantiating Stockfish:',e);
+          this.parent.announce(this.parent.translator.noarg('couldNotLoadStockfish'));
+          console.log('Error instantiating Stockfish:',e);
       }
     }
 

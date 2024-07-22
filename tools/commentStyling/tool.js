@@ -150,16 +150,16 @@
       const lichess=parent.lichess;
       const study=lichess?.analysis?.study;
       if (!study) return;
-      lichess.pubsub.off('redraw',this.debouncedAddCommentClasses);
+      lichess.pubsub.off('lichessTools.redraw',this.debouncedAddCommentClasses);
       lichess.pubsub.off('analysis.change',this.debouncedAddCommentClasses);
-      lichess.pubsub.off('chapterChange',this.debouncedAddCommentClasses);
+      lichess.pubsub.off('lichessTools.chapterChange',this.debouncedAddCommentClasses);
       if (lichess.socket) {
         lichess.socket.handle=parent.unwrapFunction(lichess.socket.handle,'commentStyling');
       }
       if (value) {
-        lichess.pubsub.on('redraw',this.debouncedAddCommentClasses);
+        lichess.pubsub.on('lichessTools.redraw',this.debouncedAddCommentClasses);
         lichess.pubsub.on('analysis.change',this.debouncedAddCommentClasses);
-        lichess.pubsub.on('chapterChange',this.debouncedAddCommentClasses);
+        lichess.pubsub.on('lichessTools.chapterChange',this.debouncedAddCommentClasses);
         if (lichess.socket) {
           lichess.socket.handle=parent.wrapFunction(lichess.socket.handle,{
             id:'commentStyling',

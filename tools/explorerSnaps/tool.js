@@ -218,7 +218,7 @@
       };
       explorer.config.toggleOpen=parent.unwrapFunction(explorer.config.toggleOpen,'explorerSnaps');
       $('section.explorer-box section.lichessTools-explorerSnaps').remove();
-      lichess.pubsub.off('redraw',this.showSnaps);
+      lichess.pubsub.off('lichessTools.redraw',this.showSnaps);
       $('.explorer-title span.lichess')
         .off('click',this.toggleSnaps);
       if (!value) {
@@ -235,7 +235,7 @@
           this.showSnaps();
         }
       });
-      lichess.pubsub.on('redraw',this.showSnaps);
+      lichess.pubsub.on('lichessTools.redraw',this.showSnaps);
       this.showSnaps();
     }
 

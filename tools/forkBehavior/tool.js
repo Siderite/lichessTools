@@ -81,8 +81,8 @@
               .appendTo(container);
           }
         }
-        dlg=await lichess.dialog.dom({
-          htmlText: selectElem[0].outerHTML
+        dlg=parent.dialog({
+          html: selectElem[0].outerHTML
         });
       } else {
         selectElem=$('<select>')
@@ -107,16 +107,16 @@
               .appendTo(container);
           }
         }
-        dlg=await lichess.dialog.dom({
-          htmlText: selectElem[0].outerHTML+'<span class="dialog-actions"><button class="button submit">'+trans.noarg('OK')+'</button></span>'
+        dlg=parent.dialog({
+          html: selectElem[0].outerHTML+'<span class="dialog-actions"><button class="button submit">'+trans.noarg('OK')+'</button></span>'
         });
       }
       dlg.showModal();
 
-      $(dlg.dialog)
+      $(dlg)
         .on('close',()=>lichess.analysis.explorer.setHovering(lichess.analysis.node.fen,null))
         .addClass('lichessTools-forkBehavior-chessbase');
-      selectElem=$('select,ul',dlg.dialog).eq(0);
+      selectElem=$('select,ul',dlg).eq(0);
       const makeMove=(ev)=>{
         ev?.preventDefault();
         const val=selectElem.val() || $(ev?.target).attr('value');
@@ -158,7 +158,7 @@
         }
         makeMove(ev);
       };
-      $('button.submit',dlg.dialog).on('click',(ev)=>{
+      $('button.submit',dlg).on('click',(ev)=>{
         ev.preventDefault();
         makeMove();
       });
@@ -188,6 +188,7 @@
             break;
         };
       });
+      highlight();
     };
 
     nextResult=false;
@@ -264,13 +265,13 @@
       const analysis=lichess?.analysis;
       if (!analysis) return;
       analysis.fork.proceed=parent.unwrapFunction(analysis.fork.proceed,'forkBehavior');
-      lichess.pubsub.off('redraw',this.bindFork);
-      lichess.pubsub.off('chapterChange',this.clearVariationSelect);
+      lichess.pubsub.off('lichessTools.redraw',this.bindFork);
+      lichess.pubsub.off('lichessTools.chapterChange',this.clearVariationSelect);
       this.clearVariationSelect();
       if (['hybrid','chessbase'].includes(value)) {
-        lichess.pubsub.on('redraw',this.bindFork);
+        lichess.pubsub.on('lichessTools.redraw',this.bindFork);
         this.bindFork();
-        lichess.pubsub.on('chapterChange',this.clearVariationSelect);
+        lichess.pubsub.on('lichessTools.chapterChange',this.clearVariationSelect);
       }
     }
 

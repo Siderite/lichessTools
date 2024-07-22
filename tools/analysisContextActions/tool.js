@@ -287,11 +287,20 @@
     ensureShowOnEmpty=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
+      const analysis=parent.lichess.analysis;
 
       if (this.options.showOnEmpty) {
         $('div.tview2')
           .addClass('lichessTools-showOnEmpty')
           .attr('p','*');
+        if (!parent.isWrappedFunction(analysis.jump,'showOnEmpty')) {
+          analysis.jump=parent.wrapFunction(analysis.jump,{
+            id:'showOnEmpty',
+            before: ($this,path)=>{
+              if (path=='*') return false;
+            }
+          })
+        }
       } else {
         $('div.tview2')
           .removeClass('lichessTools-showOnEmpty')
@@ -320,7 +329,7 @@
         return;
       }
       const state=ceval.state;
-      const isIdle = state==2 || ceval.showingCloud;
+      const isIdle = state==0 || state==2 || ceval.showingCloud;
       const isRunning = state==3 && !ceval.showingCloud;
       if (this.evaluateTerminationsStarted) {
         const node = this._analysedNode;
@@ -343,6 +352,7 @@
 
       const menuItem=$('#analyse-cm a[data-role="copyPgn"]');
       if (!menuItem.length) return;
+      if (ev.altKey) ev.preventDefault();
       const text=trans.noarg('extractVariationText'+this.suffix);
       menuItem.text(text);
     }
@@ -364,7 +374,7 @@
         get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty; }
       };
       clearInterval(this.engineCheckInterval);
-      lichess.pubsub.off('redraw',this.analysisContextMenu);
+      lichess.pubsub.off('lichessTools.redraw',this.analysisContextMenu);
       $('.tview2').off('contextmenu',this.analysisContextMenu);
       $.cached('body').off('keydown keyup',this.alterModifierText);
       if (this.options.copyPgn) {
@@ -372,7 +382,7 @@
         $('.tview2').on('contextmenu',this.analysisContextMenu);
       }
       if (this.options.isSet) {
-        lichess.pubsub.on('redraw',this.analysisContextMenu);
+        lichess.pubsub.on('lichessTools.redraw',this.analysisContextMenu);
         this.engineCheckInterval=setInterval(this.checkEngineLevel,1000);
       } else {
         this.setTerminationsEvaluation(false);
@@ -380,8 +390,8 @@
       if (analysis.study&&!$('div.lichessTools-liveStatus').length) {
         $('main.analyse div.analyse__controls.analyse-controls').after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
       }
-      lichess.pubsub.off('redraw',this.ensureShowOnEmpty);
-      lichess.pubsub.on('redraw',this.ensureShowOnEmpty);
+      lichess.pubsub.off('lichessTools.redraw',this.ensureShowOnEmpty);
+      lichess.pubsub.on('lichessTools.redraw',this.ensureShowOnEmpty);
       this.ensureShowOnEmpty();
     }
 

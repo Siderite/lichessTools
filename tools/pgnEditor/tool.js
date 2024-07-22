@@ -81,12 +81,13 @@
         'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled',
         'pastePGNs': 'drag/paste your PGNs here',
-        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag=Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value',
+        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value or "Eval"(>,=,<)Value"',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Eval"(>,=,<)Value in any combination (i.e. tags, ply 10, eval<0)',
-        'sendToPgnEditorText':'PGN Editor',
-        'sendToPgnEditorTitle':'LiChess Tools - send to PGN Editor'
+        'sendToPgnEditorText': 'PGN Editor',
+        'sendToPgnEditorTitle': 'LiChess Tools - send to PGN Editor',
+        'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -154,12 +155,13 @@
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
         'operationCancelled': 'Opera\u0163iune anulat\u0103',
         'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
-        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag=Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare',
+        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag(=,*=)Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare sau "Eval"(>,=,<)Valoare"',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: tags, ply 10, eval<0)',
         'sendToPgnEditorText':'Editor PGN',
-        'sendToPgnEditorTitle':'LiChess Tools - trimite la Editor PGN'
+        'sendToPgnEditorTitle':'LiChess Tools - trimite la Editor PGN',
+        'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess'
       }
     }
 
@@ -208,6 +210,7 @@
 
     copyToClipboard=async (text)=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       const trans=parent.translator;
       const permission=await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
       if (['granted','prompt'].includes(permission.state)) {
@@ -249,7 +252,7 @@
         <div class="dialog-content">
             <h2></h2>
             <div class="input-wrapper">
-              <textarea autofocus></textarea>
+              <textarea autofocus spellcheck="false" autocomplete="false"></textarea>
               <div class="buttons">
                 <button class="button" type="button" data-role="merge" data-icon="&#xE037;"><span></span></button>
                 <button class="button" type="button" data-role="normalize" data-icon="&#xE05B;"><span></span></button>
@@ -503,17 +506,20 @@
       if (parent.global.location.hash!='#pgnEditor') {
         parent.global.history.pushState(null, null, '#pgnEditor');
       }
-      if (showPgnText) {
-        this.setText(textarea,showPgnText);
-      } else {
-        if (!this.history) {
-          await parent.timeout(1);
-          this.loadHistory();
-        }
-        const text=this.history[this.historyIndex]||'';
-        $(textarea).val(text);
-        this.setHistoryIndex(this.historyIndex);
+      if (!this.history) {
+        await parent.timeout(1);
+        this.loadHistory();
       }
+      if (showPgnText) {
+        this.addTextToHistory(showPgnText);
+      }
+      if (!lichess.analysis) {
+        parent.global.location.href='/analysis#pgnEditor';
+        return;
+      }
+      const text=this.history[this.historyIndex]||'';
+      $(textarea).val(text);
+      this.setHistoryIndex(this.historyIndex);
     };
 
     stopOperations=()=>{
@@ -842,6 +848,11 @@
       const $=parent.$;
       const trans=parent.translator;
 
+      if (!lichess.analysis) {
+        parent.announce(trans.noarg('evaluateNeedsAnalysis'));
+        return;
+      }
+
       const co=parent.chessops;
       const { parsePgn,makePgn } = co.pgn;
       const text=textarea.val();
@@ -891,7 +902,7 @@
             break;
           } else throw ex;
         }
-        this.writeNote(trans.pluralSame('evaluatingGames',games.length-gameIndex));
+        this.writeNote(trans.pluralSame('preparingGames',games.length-gameIndex));
         await parent.timeout(0);
         if (this._cancelRequested) {
           break;
@@ -1348,6 +1359,22 @@
       this.countPgn();
     };
 
+    cutCommentsFromGame=(game)=>{
+      const traverse=(node,ply=0)=>{
+        if (node.data?.comments?.length) {
+          node.data.comments.length=0;
+        }
+        if (!node.children?.length) return;
+        for (const child of node.children) {
+          traverse(child,ply+1);
+        }
+      };
+      if (game.comments) {
+        game.comments.length=0;
+      }
+      traverse(game.moves);
+    };
+
     cutComments=async (textarea)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
@@ -1361,26 +1388,27 @@
       this.writeNote(trans.pluralSame('preparingGames',games.length));
       await parent.timeout(0);
 
+      
+      for (const game of games) {
+        this.cutCommentsFromGame(game);
+      }
+
+      this.writeGames(textarea, games);
+
+      this.countPgn();
+    };
+
+    cutAnnotationsFromGame= (game)=>{
       const traverse=(node,ply=0)=>{
-        if (node.data?.comments?.length) {
-          node.data.comments.length=0;
+        if (node.data?.nags?.length) {
+          node.data.nags.length=0;
         }
         if (!node.children?.length) return;
         for (const child of node.children) {
           traverse(child,ply+1);
         }
       };
-      
-      for (const game of games) {
-        if (game.comments) {
-          game.comments.length=0;
-        }
-        traverse(game.moves);
-      }
-
-      this.writeGames(textarea, games);
-
-      this.countPgn();
+      traverse(game.moves);
     };
 
     cutAnnotations=async (textarea)=>{
@@ -1407,7 +1435,7 @@
       };
       
       for (const game of games) {
-        traverse(game.moves);
+        this.cutAnnotationsFromGame(game);
       }
 
       this.writeGames(textarea, games);
@@ -1429,22 +1457,28 @@
       this.writeNote(trans.pluralSame('preparingGames',games.length));
       await parent.timeout(0);
 
-      const traverse=(node,ply=0)=>{
+      const traverse=(game,node,ply=0,mainline=true)=>{
         if (!node.children?.length) return;
-        if (node.data?.san && ply>=plyNumber) node.children=[];
+        if (node.data?.san && ply>=plyNumber) {
+          node.children=[];
+          if (mainline) game.headers.delete('Result');
+          return;
+        }
         for (const child of node.children) {
-          traverse(child,ply+1);
+          traverse(game,child,ply+1,mainline);
+          mainline=false;
         }
       };
       
       for (const game of games) {
-        traverse(game.moves);
+        traverse(game,game.moves);
       }
 
       this.writeGames(textarea, games);
 
       this.countPgn();
     };
+
 
     cutEval=async (textarea,operator,value)=>{
       const parent=this.lichessTools;
@@ -1471,10 +1505,10 @@
         if (!node.children?.length) {
           if (!node.data?.san) return;
           const comments=node.data?.comments||[];
-          const match=comments.map(c=>/\beval: (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
+          const match=comments.map(c=>/(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
           if (!match) return;
           const evl=match.groups.mate
-                      ? 100 - +(match.groups.mate)
+                      ? 100*Math.sign(+(match.groups.mate)) - +(match.groups.mate)
                       : +(match.groups.eval);
           let toRemove=false;
           switch(operator) {
@@ -1520,6 +1554,7 @@
           }
         }
       }
+      games=games.filter(g=>g.moves.children.length);
 
       this.writeGames(textarea, games);
 
@@ -1538,29 +1573,42 @@
       let plyNumberOperator;
       let plyNumber;
       let tagName;
+      let tagOperator;
       let tagValue;
+      let evalOperator;
+      let evalNumber;
       let reg;
       let m=/^ply\s*([\<\>=])\s*(\d+)/i.exec(search);
       if (m) {
         searchMode='plyNumber';
         plyNumberOperator=m[1];
         plyNumber=+m[2];
-      } else if (/^invalid[s]?$/i.test(search)) {
-        searchMode='invalid';
       } else {
-        m=/^\s*(\w+)\s*=\s*["]?(.*?)["]?$/.exec(search);
+        m=/^eval\s*(?<operator>[\<\>=])\s*(?<value>[\-\+]?\d+(?:\.\d+)?)/i.exec(search);
         if (m) {
-          searchMode='tag';
-          tagName=m[1];
-          tagValue=m[2];
+          searchMode='eval';
+          evalOperator=m.groups.operator;
+          evalNumber=+m.groups.value;
         } else {
-          reg=new RegExp(Array.from(search).map(c=>{
-            switch(c) {
-              case '*': return '.*';
-              case '?': return '.';
-              default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+          if (/^invalid[s]?$/i.test(search)) {
+            searchMode='invalid';
+          } else {
+            m=/^\s*(?<tag>\w+)\s*(?<operator>=|\*=)\s*["]?(?<value>.*?)["]?$/.exec(search);
+            if (m) {
+              searchMode='tag';
+              tagOperator=m.groups.operator;
+              tagName=m.groups.tag;
+              tagValue=m.groups.value;
+            } else {
+              reg=new RegExp(Array.from(search).map(c=>{
+                switch(c) {
+                  case '*': return '.*';
+                  case '?': return '.';
+                  default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+                }
+              }).join(''));
             }
-          }).join(''));
+          }
         }
       }
 
@@ -1584,6 +1632,38 @@
         return maxPly;
       };
 
+      const isGameEval=(game,operator,value)=>{
+        let found=false;
+        const traverse=(node,ply=0)=>{
+          if (found) return;
+          if (!node.children?.length) {
+            const comments=node.data?.comments||[];
+            const match=comments.map(c=>/(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m=>!!m);
+            if (!match) return;
+            const evl=match.groups.mate
+                      ? 100*Math.sign(+(match.groups.mate)) - +(match.groups.mate)
+                      : +(match.groups.eval);
+            switch(operator) {
+              case '>':
+                found=evl>value;
+                break;
+              case '<':
+                found=evl<value;
+                break;
+              case '=':
+                found=evl==value;
+                break;
+            }
+            return;
+          }
+          for (const child of node.children) {
+            traverse(child,ply+1);
+          }
+        };
+        traverse(game.moves);
+        return found;
+      };
+
 
       let gameIndex=0;
       const foundGames=[];
@@ -1603,7 +1683,20 @@
               }
               break;
             case 'fenOrMoves':
-              const pgn=makePgn(game);
+              let pgn=makePgn(game);
+              if (reg.test(pgn)) {
+                found=true;
+                break;
+              }
+              const game2=parsePgn(pgn)[0];
+              this.cutCommentsFromGame(game2);
+              this.cutAnnotationsFromGame(game2);
+              pgn=makePgn(game2);
+              if (reg.test(pgn)) {
+                found=true;
+                break;
+              }
+              pgn=pgn.replace(/\d+\./g,'').replace(/\s+/g,' ');
               if (reg.test(pgn)) {
                 found=true;
                 break;
@@ -1615,8 +1708,11 @@
             case 'tag':
               const val=tagName.toLowerCase()=='index'
                 ? gameIndex.toString()
-                : game.headers.get(tagName);
-              found=(val?.replace(/\s+/g,'')==tagValue?.replace(/\s+/g,''));
+                : game.headers.entries().find(p=>p[0]?.toLowerCase()==tagName?.toLowerCase())[1];
+              switch(tagOperator) {
+                case '=': found=(val?.replace(/\s+/g,'')==tagValue?.replace(/\s+/g,'')); break;
+                case '*=': found=(val?.replace(/\s+/g,''))?.includes(tagValue?.replace(/\s+/g,'')); break;
+              }
               break;
             case 'plyNumber':
               const maxPly=getMaxPly(game);
@@ -1631,6 +1727,9 @@
                   found=maxPly==plyNumber;
                   break;
               }
+              break;
+            case 'eval':
+              found=isGameEval(game,evalOperator,evalNumber);
               break;
           }
           if (found){
@@ -1787,7 +1886,7 @@
           const pgn=await parent.exportPgn('',{ copyToClipboard:false });
           this.showPgnEditor(pgn);
         })
-        .appendTo(container);;
+        .appendTo(container);
     }
 
     async start() {
@@ -1802,8 +1901,8 @@
       $('a.lichessTools-pgnEditor',container).remove();
 
       if (lichess.analysis) {
-        lichess.pubsub.off('redraw',this.analysisControls);
-        lichess.pubsub.on('redraw',this.analysisControls);
+        lichess.pubsub.off('lichessTools.redraw',this.analysisControls);
+        lichess.pubsub.on('lichessTools.redraw',this.analysisControls);
         lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'pgnEditor');
         lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
           id:'pgnEditor',

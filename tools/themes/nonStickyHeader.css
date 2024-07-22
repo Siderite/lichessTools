@@ -4,6 +4,18 @@ body.lichessTools.lichessTools-theme_nonStickyHeader header#top {
   position: absolute;
 }
 
+body.lichessTools.lichessTools-theme_nonStickyHeader header#top.hide {
+  transform: none;
+}
+
+body.lichessTools.lichessTools-theme_nonStickyHeader header#top.hide #topnav, 
+body.lichessTools.lichessTools-theme_nonStickyHeader header#top.hide .dropdown
+{
+  opacity: initial;
+  visibility: initial;
+  pointer-events: initial;
+}
+
 @media (max-height: 600px) {
   body.lichessTools.lichessTools-theme_nonStickyHeader header#top {
     position: unset;

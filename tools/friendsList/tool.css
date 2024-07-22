@@ -395,17 +395,13 @@ body.lichessTools .lichessTools-friendsPage span.lichessTools-seenAt:before {
   margin-right:3px;
 }
 
-/* Fix for the icons in friends list (temporary? 2024-06-21) */
 body.lichessTools .slist-pad td:last-child:has(.relation-actions) {
-   padding-inline-end: 0;
+   width: 5%;
 }
 
 body.lichessTools table.slist .relation-actions {
   text-wrap: nowrap;
-}
-
-body.lichessTools table.slist .relation-actions a[data-icon] {
-  font-size:0;
+  border:none;
 }
 
 body.lichessTools table.slist .relation-actions a[data-icon]:before {

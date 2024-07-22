@@ -48,14 +48,14 @@
       const lichess=parent.lichess;
       const study=lichess?.analysis?.study;
       if (!study) return;
-      lichess.pubsub.off('chapterChange', this.setCssClass);
+      lichess.pubsub.off('lichessTools.chapterChange', this.setCssClass);
       study.setGamebookOverride=parent.unwrapFunction(study.setGamebookOverride,'gamebookPlayClass');
       if (value) {
         study.setGamebookOverride=parent.wrapFunction(study.setGamebookOverride,{
           id: 'gamebookPlayClass',
           after: this.setCssClass
         })
-        lichess.pubsub.on('chapterChange', this.setCssClass);
+        lichess.pubsub.on('lichessTools.chapterChange', this.setCssClass);
         this.setCssClass();
       }
     }

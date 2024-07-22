@@ -47,7 +47,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - notification on unread timeline posts and comments from the blogs, forums or people you follow
  - showing evaluation on Explorer moves from local computer analysis/lichess/chessdb/winning stats
  - scroll lock on mobiles while playing
- - finding interesting moves and allowing cycling through interesting/good/brilliant moves just like with blunders
+ - finding interesting/good/best/brilliant moves and allowing cycling through them
  - quiet mode on all tabs and manual button for setting quiet mode
  - explorer gambits shows which move to make to play a gambit
  - persist last study settings when creating new studies
@@ -106,6 +106,8 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - Paste images in chat/forum
  - URL/image detection and unlimited text size in the team/study chat
  - one click moves (in Analysis/Study)
+ - show common teams of you and your opponent
+ - video popup support in studies
  - commands! type /help to get a list
 
 Version 2.3 breaking changes:

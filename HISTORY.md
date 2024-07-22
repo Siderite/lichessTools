@@ -1,5 +1,25 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Jul
+  - one click move from PGN and only orientation options
+
+15 Jul
+  - video popup support in studies
+
+14 Jul
+  - show number of interactive moves on hint
+  - ignore cloud data for external engines
+  - big one emoji messages
+
+11 Jul
+  - expand all variations
+
+08 Jul
+  - best/good/brilliant moves
+
+07 Jul
+  - common teams
+
 06 Jul
   - fix 503 errors with external engines
 

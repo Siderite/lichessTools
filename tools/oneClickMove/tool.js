@@ -1,12 +1,14 @@
 (()=>{
   class OneClickMoveTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies=['ExtendedInteractiveLesson'];
+
     preferences=[
       {
         name:'oneClickMove',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['analysis'],
+        possibleValues: ['analysis','onlyOrientation','moveFromPgn'],
         defaultValue: false,
         advanced: true
       }
@@ -18,12 +20,16 @@
         'options.oneClickMove': 'One click move',
         'oneClickMove.analysis': 'Analysis/Study',
         'oneClickMove.play': 'Play/Puzzles',
+        'oneClickMove.onlyOrientation': 'Only orientation side',
+        'oneClickMove.moveFromPgn': 'Move from PGN'
       },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
         'options.oneClickMove': 'Mutare cu un singur click',
         'oneClickMove.analysis': 'Analiz\u0103/Studiu',
         'oneClickMove.play': 'Joc/Puzzle-uri',
+        'oneClickMove.onlyOrientation': 'Doar juc\u0103torul orient\u0103rii',
+        'oneClickMove.moveFromPgn': 'Mi\u015Fc\u0103ri din PGN'
       }
     }
 
@@ -38,6 +44,7 @@
       if (!ev.x && !ev.y) return;
       const board=$('main cg-board');
       if (!board.length) return;
+      if ($('square.selected',board).length) return;
       const rect=board[0].getBoundingClientRect();
       const [x,y]=[ev.x-rect.x,ev.y-rect.y];
       const isStandard=board.closest('div.round__app, main').is('.variant-standard,.variant-fromPosition'); //TODO fromPosition?
@@ -45,6 +52,7 @@
       const orientation=board.closest('.cg-wrap').is('.orientation-black')?'black':'white';
       const fen=parent.getPositionFromBoard(board.closest('cg-container'),true); 
       const turn=/ b\b/.test(fen) ?'black':'white';
+      if (this.options.onlyOrientation && orientation!=turn) return;
       const getSquare=orientation=='white'
         ? res=>String.fromCharCode(97+res.x)+(8-res.y)
         : res=>String.fromCharCode(104-res.x)+(res.y+1);
@@ -56,17 +64,46 @@
       const square=getSquare(res);
       const destMan=analysis.chessground?.state?.movable?.dests;
       if (!destMan) return;
-      const sources=$('piece.'+turn).get()
+      let pieceExists=false;
+      const sources=$('piece.'+turn,board).get()
         .map(e=>e.cgKey)
         .filter(sq=>{
           if (!sq) return false;
+          if (sq==square) {
+            pieceExists=true;
+          }
           const dests=destMan.get(sq);
           return dests?.includes(square);
         });
-      if (sources.length!=1) return;
-      ev.preventDefault();
-      const uci=sources[0]+square;
-      analysis.playUci(uci);
+      if (pieceExists) return;
+      let uci='';
+      if (sources.length==1) {
+        uci=sources[0]+square;
+      } else {
+        if (parent.isGamePlaying()) return false;
+        const gp=analysis.gamebookPlay();
+        if (gp && !analysis.study?.members?.canContribute()) return false;
+        const nextMoves=parent.getNextMoves(analysis.node,gp?.threeFoldRepetition)
+                              .filter(c=>!parent.isPermanentNode || parent.isPermanentNode(c))
+                              .map(c=>{
+                                if (c.san?.startsWith('O-O')) {
+                                  switch(c.uci?.slice(-2)) {
+                                    case 'h1':return c.uci.slice(0,2)+'g1';
+                                    case 'a1':return c.uci.slice(0,2)+'c1';
+                                    case 'h8':return c.uci.slice(0,2)+'g8';
+                                    case 'a8':return c.uci.slice(0,2)+'c8';
+                                  }
+                                }
+                                return c.uci;
+                              })
+                              .filter(u=>u.endsWith(square));
+        if (nextMoves.length!=1) return;
+        uci=nextMoves[0];
+      }
+      if (uci) {
+        ev.preventDefault();
+        analysis.playUci(uci);
+      }
     };
 
     handleBoard=()=>{
@@ -88,11 +125,14 @@
       if (!analysis) return; //TODO only analysis supported so far
       this.options={ 
         analysis: parent.isOptionSet(value,'analysis'),
-        play: parent.isOptionSet(value,'play')
+        play: parent.isOptionSet(value,'play'),
+        onlyOrientation: parent.isOptionSet(value,'onlyOrientation'),
+        moveFromPgn: parent.isOptionSet(value,'moveFromPgn')
       };
       const board=$('main cg-board')[0];
       if (board) {
         board.removeEventListener('mousedown',this.boardClick,{ capture: true });
+        board.lichessTools_oneClickMove=false;
       }
       parent.global.clearInterval(this.interval);
       if (!value) return;

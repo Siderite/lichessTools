@@ -6,7 +6,7 @@
         name:'tvOptions',
         category: 'TV',
         type:'multiple',
-        possibleValues: ['link','bookmark','streamerTv','friendsTv','userTvHistory','wakelock'],
+        possibleValues: ['link','bookmark','streamerTv','friendsTv','userTvHistory','wakelock'], //teamTv
         defaultValue: 'link,bookmark,streamerTv,friendsTv,userTvHistory,wakelock',
         advanced: false
       }
@@ -287,16 +287,19 @@
     };
 
     teamCache=null;
-    getTeams = async ()=>{
+    getTeams = async (userId)=>{
       const parent=this.lichessTools;
       if (!this.teamCache) {
         this.teamCache = parent.storage.get('LichessTools.teamCache',{ session:true, zip:true });
       }
-      if (!this.teamCache) {
-        this.teamCache = await parent.net.json({url:'/api/team/of/{userId}',args:{userId:parent.getUserId()}});
+      if (!this.teamCache||Array.isArray(this.teamCache)) this.teamCache={};
+      let teams=this.teamCache[userId];
+      if (!teams) {
+        teams = await parent.net.json({url:'/api/team/of/{userId}',args:{userId:userId}});
+        this.teamCache[userId]=teams;
         parent.storage.set('LichessTools.teamCache',this.teamCache,{ session:true, zip:true });
       }
-      return this.teamCache;
+      return teams;
     };
 
     get teamId() {
@@ -316,7 +319,7 @@
     teamPlayersCache=new Map();
     getTeamPlayerIds = async ()=>{
       const parent=this.lichessTools;
-      const teams=await this.getTeams();
+      const teams=await this.getTeams(parent.getUserId());
       const teamId = this.teamId || teams[0]?.id;
       if (!teamId) return [];
       if (!this.teamPlayersCache.size) {
@@ -374,7 +377,7 @@
               this.updateTvOptionsPage();
             })
             .prependTo(container);
-          const teams=await this.getTeams();
+          const teams=await this.getTeams(parent.getUserId());
           for (const team of teams) {
             $('<option>')
               .attr('value',team.id)

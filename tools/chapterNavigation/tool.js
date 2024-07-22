@@ -103,16 +103,16 @@
       const $=parent.$;
       const study=lichess?.analysis?.study;
       if (!study) return;
-      lichess.pubsub.off('chapterChange',this.debouncedRefreshChapterControls);
-      lichess.pubsub.off('redraw',this.debouncedRefreshChapterControls);
+      lichess.pubsub.off('lichessTools.chapterChange',this.debouncedRefreshChapterControls);
+      lichess.pubsub.off('lichessTools.redraw',this.debouncedRefreshChapterControls);
       lichess.pubsub.off('chat.resize',this.debouncedRefreshChapterControls);
       $('div.study__side.lichessTools-chapterControls,aside.relay-tour__side.lichessTools-chapterControls')
         .removeClass('lichessTools-chapterControls')
         .find('div[role="footer"]')
         .remove();
       if (!value) return;
-      lichess.pubsub.on('chapterChange',this.debouncedRefreshChapterControls);
-      lichess.pubsub.on('redraw',this.debouncedRefreshChapterControls);
+      lichess.pubsub.on('lichessTools.chapterChange',this.debouncedRefreshChapterControls);
+      lichess.pubsub.on('lichessTools.redraw',this.debouncedRefreshChapterControls);
       lichess.pubsub.on('chat.resize',this.debouncedRefreshChapterControls);
       this.refreshChapterControls();
     }

@@ -17,7 +17,7 @@
       const puzzleId=this.getPuzzleId();
       if (this.puzzleId!=puzzleId) {
         this.puzzleId=puzzleId;
-        lichess.pubsub.emit('puzzleChange',puzzleId);
+        lichess.pubsub.emit('lichessTools.puzzleChange',puzzleId);
       };
     };
 

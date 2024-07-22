@@ -267,7 +267,7 @@
         structureElem=el.find('.lichessTools-structure');
       }
       if (!structureElem.length) {
-        const visibleEl=el.filter((i,e)=>lichessTools.inViewport(e)).eq(0);
+        const visibleEl=el.filter((i,e)=>!!lichessTools.inViewport(e)).eq(0);
         structureElem=$('<'+(isLink?'a':'span')+'>')
           .addClass('lichessTools-structure')
           .appendTo(visibleEl);
@@ -357,7 +357,7 @@
       const $=parent.$;
       lichess.pubsub.off('socket.in.fen',this.miniGameStructure);
       lichess.pubsub.off('ply',this.refreshStructureDebounced);
-      lichess.pubsub.off('redraw',this.refreshStructureDebounced);
+      lichess.pubsub.off('lichessTools.redraw',this.refreshStructureDebounced);
       lichess.pubsub.off('content-loaded',this.miniGameStructureDebounced);
       if (lichess.socket?.settings?.events?.endData) {
         lichess.socket.settings.events.endData=parent.unwrapFunction(lichess.socket.settings.events.endData,'showPawnStructure');
@@ -374,7 +374,7 @@
         }
         lichess.pubsub.on('socket.in.fen',this.miniGameStructure);
         lichess.pubsub.on('ply',this.refreshStructureDebounced);
-        lichess.pubsub.on('redraw',this.refreshStructureDebounced);
+        lichess.pubsub.on('lichessTools.redraw',this.refreshStructureDebounced);
         lichess.pubsub.on('content-loaded',this.miniGameStructureDebounced);
         this.refreshStructureDebounced();
         if ($('main').is('#board-editor')) {

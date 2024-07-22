@@ -139,7 +139,7 @@
       if (!explorer) return;
       explorer.config.toggleOpen=parent.unwrapFunction(explorer.config.toggleOpen,'explorerSettings');
       $('section.explorer-box section.lichessTools-explorerSettings').remove();
-      lichess.pubsub.off('redraw',this.showSettings);
+      lichess.pubsub.off('lichessTools.redraw',this.showSettings);
       if (!value) return;
       explorer.config.toggleOpen=parent.wrapFunction(explorer.config.toggleOpen,{
         id:'explorerSettings',
@@ -147,7 +147,7 @@
           this.showSettings();
         }
       });
-      lichess.pubsub.on('redraw',this.showSettings);
+      lichess.pubsub.on('lichessTools.redraw',this.showSettings);
       this.showSettings();
     }
 

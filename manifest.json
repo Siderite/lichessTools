@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChess Tools",
-  "version": "2.3.107",
+  "version": "2.3.121",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -50,6 +50,7 @@
         "tools/stockfish/tool.js",
         "tools/addNotifications/tool.js",
         "tools/removeChatLinkWarning/tool.js",
+        "tools/dialog/tool.js",
 
         "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",
@@ -131,6 +132,9 @@
         "tools/mchatOptions/tool.js",
         "tools/fullScreen/tool.js",
         "tools/oneClickMove/tool.js",
+        "tools/commonTeams/tool.js",
+        "tools/expandAll/tool.js",
+        "tools/studyLinks/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -157,6 +161,7 @@
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
+        "tools/dialog/tool.css",
 
         "tools/quietModeAllTabs/tool.css",
         "tools/friendsList/tool.css",
@@ -212,6 +217,9 @@
         "tools/blogAutosave/tool.css",
         "tools/imagePasting/tool.css",
         "tools/fullScreen/tool.css",
+        "tools/commonTeams/tool.css",
+        "tools/expandAll/tool.css",
+        "tools/studyLinks/tool.css",
 
         "tools/tvOptions/tool.css",
 

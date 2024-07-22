@@ -194,11 +194,11 @@
         checks:parent.isOptionSet(value,'checks'),
         get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth || this.checks; }
       };
-      lichess.pubsub.off('redraw', this.highlightMainLine);
-      lichess.pubsub.off('redraw', this.debouncedTraverseTree);
+      lichess.pubsub.off('lichessTools.redraw', this.highlightMainLine);
+      lichess.pubsub.off('lichessTools.redraw', this.debouncedTraverseTree);
       if (this.options.isSet) {
-        lichess.pubsub.on('redraw', this.highlightMainLine);
-        lichess.pubsub.on('redraw', this.debouncedTraverseTree);
+        lichess.pubsub.on('lichessTools.redraw', this.highlightMainLine);
+        lichess.pubsub.on('lichessTools.redraw', this.debouncedTraverseTree);
       }
       $.cached('body').toggleClass('lichessTools-variationDepth',this.options.variationDepth);
       this.debouncedTraverseTree();

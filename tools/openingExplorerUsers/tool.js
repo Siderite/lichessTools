@@ -75,9 +75,9 @@
       if (!analysis) return;
       const $=parent.$;
       $('div.explorer-title button.lichessTools-switchWithMe').remove();
-      lichess.pubsub.off('redraw',this.addOpeningExplorerUserSwitchButton);
+      lichess.pubsub.off('lichessTools.redraw',this.addOpeningExplorerUserSwitchButton);
       if (parent.isOptionSet(value,'switchWithMe')) {
-        lichess.pubsub.on('redraw',this.addOpeningExplorerUserSwitchButton);
+        lichess.pubsub.on('lichessTools.redraw',this.addOpeningExplorerUserSwitchButton);
         this.addOpeningExplorerUserSwitchButton();
       }    
     }

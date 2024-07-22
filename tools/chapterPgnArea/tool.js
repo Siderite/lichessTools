@@ -58,10 +58,10 @@
       const study=lichess?.analysis?.study;
       if (!study) return;
       $('div.study__share form.form3 div.form-group.lichessTools-chapterPgnArea').remove();
-      lichess.pubsub.off('redraw',this.setupArea);
+      lichess.pubsub.off('lichessTools.redraw',this.setupArea);
       study.vm.toolTab=lichessTools.unwrapFunction(study.vm.toolTab,'chapterPgnArea');
       if (!value) return;
-      lichess.pubsub.on('redraw',this.setupArea);
+      lichess.pubsub.on('lichessTools.redraw',this.setupArea);
       study.vm.toolTab=lichessTools.wrapFunction(study.vm.toolTab,{
         id:'chapterPgnArea',
         after:($this,result,data)=>{

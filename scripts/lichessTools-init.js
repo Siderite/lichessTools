@@ -22,6 +22,7 @@ lichessTools.loadTool(LiChessTools.Tools.CliCommands);
 lichessTools.loadTool(LiChessTools.Tools.ChessOps);
 lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
+lichessTools.loadTool(LiChessTools.Tools.Dialog);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
 lichessTools.loadTool(LiChessTools.Tools.MobileExperience);
@@ -99,6 +100,9 @@ lichessTools.loadTool(LiChessTools.Tools.RemoveChatLinkWarning);
 lichessTools.loadTool(LiChessTools.Tools.MchatOptions);
 lichessTools.loadTool(LiChessTools.Tools.FullScreen);
 lichessTools.loadTool(LiChessTools.Tools.OneClickMove);
+lichessTools.loadTool(LiChessTools.Tools.CommonTeams);
+lichessTools.loadTool(LiChessTools.Tools.ExpandAll);
+lichessTools.loadTool(LiChessTools.Tools.StudyLinks);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

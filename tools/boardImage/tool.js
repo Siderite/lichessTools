@@ -39,8 +39,13 @@
     drawSvg=async (svgElement)=>{
       const parent=this.lichessTools;
       const $=parent.$;
-      svgElement=$(svgElement).clone().css('opacity','0.6')[0];
-      const svgURL = new parent.global.XMLSerializer().serializeToString(svgElement);
+      svgElement=$(svgElement).clone()
+        .css({ 
+               opacity:0.6,
+               overflow:'visible'
+             });
+      svgElement.find('svg').css('overflow','visible');
+      const svgURL = new parent.global.XMLSerializer().serializeToString(svgElement[0]);
       const url = 'data:image/svg+xml; charset=utf8, ' + parent.global.encodeURIComponent(svgURL);
       return await this.getImage(url);
     };
@@ -59,12 +64,12 @@
       let url=/"(.*)"/.exec(backgroundText||'')?.[1];
       if (!url) {
         const theme=$('body').attr('data-board')||'maple';
-        url=lichess.asset.url('../images/board/'+theme+'.jpg');
+        url=parent.assetUrl('../images/board/'+theme+'.jpg');
       }
       let img=await this.getImage(url);
       ctx.drawImage(img,0,0,800,800);
       const q=800/board.width();
-      board.find('square.selected').each((i,e)=>{
+      board.find('square.selected,square.last-move').each((i,e)=>{
         const css={
           background:$(e).css('background-color'),
         };
@@ -113,7 +118,8 @@
         const y=+m[2]*q;
         ctx.drawImage(img,x,y,100,100);
       });
-      board.parent().find('svg').each(async (i,e)=>{
+      const svgs=board.parent().children('svg').get();
+      svgs.forEach(async (e)=>{
         const img=await this.drawSvg(e);
         ctx.drawImage(img,0,0);
       });
@@ -172,7 +178,7 @@
         });
       if (removeRedraw) {
         const lichess=parent.lichess;
-        lichess.pubsub.off('redraw',this.enhanceButton);
+        lichess.pubsub.off('lichessTools.redraw',this.enhanceButton);
       }
     };
     enhanceButton=this.lichessTools.debounce(this.enhanceButtonDirect,500);
@@ -186,7 +192,7 @@
       if (study) {
         study.vm.toolTab=lichessTools.unwrapFunction(study.vm.toolTab,'boardImage');
       }
-      lichess.pubsub.off('redraw',this.enhanceButton);
+      lichess.pubsub.off('lichessTools.redraw',this.enhanceButton);
       if (!value) {
         $('main.analyse .copyables a.lichessTools-boardImage').remove();
         $('div.study__share a.lichessTools-boardImage,div.board-editor a.lichessTools-boardImage')
@@ -202,7 +208,7 @@
           }
         });
       }
-      lichess.pubsub.on('redraw',this.enhanceButton);
+      lichess.pubsub.on('lichessTools.redraw',this.enhanceButton);
       this.enhanceButton();
     }
 

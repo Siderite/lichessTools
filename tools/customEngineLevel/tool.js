@@ -15,7 +15,7 @@
         name:'customEngineOptions',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['noCloud','practice','fix503'],
+        possibleValues: ['noCloud','noCloudExternal','practice','fix503'],
         defaultValue: false,
         advanced: true
       }
@@ -27,6 +27,7 @@
         'options.customEngineLevel': 'Custom analysis engine depth',
         'options.customEngineOptions': 'Custom analysis engine options',
         'customEngineOptions.noCloud': 'Ignore cloud data for evaluation',
+        'customEngineOptions.noCloudExternal': 'Ignore cloud data for external engines',
         'customEngineOptions.practice': 'Apply in Practice mode',
         'customEngineOptions.fix503': 'Fix external engine 503 errors',
         'applyInPractice': 'Custom engine settings in Practice mode'
@@ -35,7 +36,8 @@
         'options.analysis': 'Analiz\u0103',
         'options.customEngineLevel': 'Nivel personalizat pentru motorul de analiz\u0103',
         'options.customEngineOptions': 'Op\u0163iuni motor analiz\u0103 personalizat',
-        'customEngineOptions.noCloud': 'Ignor\u0103 datele din cloud pentru evalu\u0103ri',
+        'customEngineOptions.noCloud': 'Ignor\u0103 cloud pentru evalu\u0103ri',
+        'customEngineOptions.noCloudExternal': 'Ignor\u0103 cloud pentru motoare externe',
         'customEngineOptions.practice': 'Aplic\u0103 \u00een mod Practic\u0103',
         'customEngineOptions.fix503': 'Repar\u0103 erori 503 la motoare analiz\u0103 externe',
         'applyInPractice': 'Set\u0103ri motor personalizat \u00een mod Practic\u0103'
@@ -70,7 +72,9 @@
         }
       }
 
-      $('.tview2').toggleClass('lichessTools-noCloud',this.options.noCloud);
+      const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
+
+      $('.tview2').toggleClass('lichessTools-noCloud',this.options.noCloud||(isExternal && this.options.noCloudExternal));
       const container=$('div.analyse__tools div.action-menu');
       if (!container.length) return;
 
@@ -88,13 +92,46 @@
         $('#abset-noCloud')
           .on('change',async ()=>{
             const options=parent.currentOptions;
-            options.customEngineOptions=[$('#abset-noCloud').is(':checked')?'noCloud':'',this.options.practice?'practice':''].filter(o=>o).join(',');
+            options.customEngineOptions=[
+              $('#abset-noCloud').is(':checked')?'noCloud':'',
+              this.options.noCloudExternal?'noCloudExternal':'',
+              this.options.practice?'practice':''
+            ].filter(o=>o).join(',');
             await parent.applyOptions(options);
             parent.fireReloadOptions();
           });
       }
       $('#abset-noCloud')
         .prop('checked',this.options.noCloud);
+
+
+      if (!$('.abset-noCloudExternal',container).length) {
+        const html=`<div class="setting abset-noCloudExternal" title="LiChess Tools - $trans(customEngineOptions.noCloudExternal)">
+      <div class="switch">
+        <input id="abset-noCloudExternal" class="cmn-toggle" type="checkbox" checked="">
+        <label for="abset-noCloudExternal"></label>
+      </div>
+      <label for="abset-noCloudExternal">$trans(customEngineOptions.noCloudExternal)</label>
+    </div>`.replace(/\$trans\(([^\)]+)\)/g,m=>{
+          return parent.htmlEncode(trans.noarg(m.slice(7,-1)));
+        });
+        $(html).insertAfter($('div.abset-noCloud',container).eq(0));
+        $('#abset-noCloudExternal')
+          .on('change',async ()=>{
+            const options=parent.currentOptions;
+            options.customEngineOptions=[$('#abset-noCloudExternal').is(':checked')?'noCloudExternal':'',this.options.practice?'practice':''].filter(o=>o).join(',');
+            options.customEngineOptions=[
+              this.options.noCloud?'noCloud':'',
+              $('#abset-noCloudExternal').is(':checked')?'noCloudExternal':'',
+              this.options.practice?'practice':''
+            ].filter(o=>o).join(',');
+            await parent.applyOptions(options);
+            parent.fireReloadOptions();
+          });
+      }
+      $('#abset-noCloudExternal')
+        .prop('checked',this.options.noCloudExternal);
+      $('div.abset-noCloudExternal').toggle(isExternal);
 
 
       if (!$('.abset-practice',container).length) {
@@ -107,11 +144,15 @@
     </div>`.replace(/\$trans\(([^\)]+)\)/g,m=>{
           return parent.htmlEncode(trans.noarg(m.slice(7,-1)));
         });
-        $(html).insertAfter($('div.abset-noCloud',container).eq(0));
+        $(html).insertAfter($('div.abset-noCloudExternal',container).eq(0));
         $('#abset-practice')
           .on('change',async ()=>{
             const options=parent.currentOptions;
-            options.customEngineOptions=[this.options.noCloud?'noCloud':'',$('#abset-practice').is(':checked')?'practice':''].filter(o=>o).join(',');
+            options.customEngineOptions=[
+              this.options.noCloud?'noCloud':'',
+              this.options.noCloudExternal?'noCloudExternal':'',
+              $('#abset-practice').is(':checked')?'practice':''
+            ].filter(o=>o).join(',');
             await parent.applyOptions(options);
             parent.fireReloadOptions();
           });
@@ -136,8 +177,12 @@
       const curDepth=analysis.threatMode()
         ? analysis.ceval.curEval.depth
         : node.ceval?.depth;
-      if (analysis.ceval.canGoDeeper && analysis.ceval.state==2) {
-        if ((analysis.ceval.showingCloud && this.options.noCloud) || (this.options.depth && curDepth<(node.autoDeeper || this.options.depth) ))
+      const state=analysis.ceval.state;
+      const isIdle = state==0 || state==2;
+      const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
+      const noCloud=this.options.noCloud || (isExternal && this.options.noCloudExternal);
+      if (analysis.ceval.canGoDeeper && isIdle) {
+        if ((analysis.ceval.showingCloud && noCloud) || (this.options.depth && curDepth<(node.autoDeeper || this.options.depth) ))
         {
           node.autoDeeper=this.options.depth;
           analysis.ceval.goDeeper();
@@ -171,7 +216,7 @@
       const cevalFunctionKey = analysis.evalCache.onLocalCeval
         ? 'onLocalCeval'
         : 'onCeval';
-      if (this.options.depth||this.options.noCloud) {
+      if (this.options.depth||this.options.noCloud||this.options.noCloudExternal) {
         if (!parent.isWrappedFunction(analysis.evalCache[cevalFunctionKey],'customEngineOptions')) {
           analysis.evalCache[cevalFunctionKey]=parent.wrapFunction(analysis.evalCache[cevalFunctionKey],{
             id:'customEngineOptions',
@@ -184,12 +229,14 @@
           analysis.evalCache[cevalFunctionKey]=parent.unwrapFunction(analysis.evalCache[cevalFunctionKey],'customEngineOptions');
       }
 
-      if (this.options.noCloud) {
+      if (this.options.noCloud||this.options.noCloudExternal) {
         if (!parent.isWrappedFunction(analysis.evalCache.fetch,'customEngineOptions')) {
           analysis.evalCache.fetch=parent.wrapFunction(analysis.evalCache.fetch,{
             id:'customEngineOptions',
             before:($this,...args)=>{
-               if (!this.options.noCloud) return;
+               const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
+               const noCloud=this.options.noCloud || (isExternal && this.options.noCloudExternal);
+               if (!noCloud) return;
                if ((analysis.practice?.running()||analysis.study?.practice) && !this.options.practice) return;
                return false;
             }
@@ -199,12 +246,16 @@
           analysis.explorer.fetchTablebaseHit=parent.wrapFunction(analysis.explorer.fetchTablebaseHit,{
             id:'customEngineOptions',
             before:($this,...args)=>{
-               if (!this.options.noCloud) return;
+               const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
+               const noCloud=this.options.noCloud || (isExternal && this.options.noCloudExternal);
+               if (!noCloud) return;
                if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
                return false;
             },
             after:($this,result,...args)=>{
-               if (!this.options.noCloud) return;
+               const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
+               const noCloud=this.options.noCloud || (isExternal && this.options.noCloudExternal);
+               if (!noCloud) return;
                if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
                return Promise.reject('Cloud disabled');
             }
@@ -250,19 +301,22 @@
       this.options={
         depth: value,
         noCloud: parent.isOptionSet(customEngineOptions,'noCloud'),
+        noCloudExternal: parent.isOptionSet(customEngineOptions,'noCloudExternal'),
         practice: parent.isOptionSet(customEngineOptions,'practice'),
         fix503: parent.isOptionSet(customEngineOptions,'fix503'),
-        get isSet() { return this.depth || this.noCloud || this.practice || this.fix503; }
+        get isSet() { return this.depth || this.noCloud || this.noCloudExternal || this.practice || this.fix503; }
       };
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       if (!analysis) return;
 
-      lichess.pubsub.off('redraw',this.analysisControls);
-      lichess.pubsub.off('redraw',this.determineCevalState);
+      lichess.pubsub.off('lichessTools.redraw',this.analysisControls);
+      lichess.pubsub.off('lichessTools.redraw',this.determineCevalState);
+      parent.global.clearInterval(this.interval);
       analysis.actionMenu.toggle=lichessTools.unwrapFunction(analysis.actionMenu.toggle,'customEngineOptions');
-      lichess.pubsub.on('redraw',this.analysisControls);
-      lichess.pubsub.on('redraw',this.determineCevalState);
+      lichess.pubsub.on('lichessTools.redraw',this.analysisControls);
+      lichess.pubsub.on('lichessTools.redraw',this.determineCevalState);
+      this.interval=parent.global.setInterval(this.determineCevalState,5000);
       analysis.actionMenu.toggle=lichessTools.wrapFunction(analysis.actionMenu.toggle,{
         id:'customEngineOptions',
         after: ($this, result, ...args)=>{

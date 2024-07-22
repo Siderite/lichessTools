@@ -67,7 +67,7 @@
       const analysis=lichess?.analysis;
       if (!analysis) return;
       const study=analysis.study;
-      lichess.pubsub.off('redraw',this.drawGlyphs);
+      lichess.pubsub.off('lichessTools.redraw',this.drawGlyphs);
       parent.global.clearInterval(this.interval);
       if (study) {
         if (lichess.socket) {
@@ -81,7 +81,7 @@
         }
         return;
       }
-      lichess.pubsub.on('redraw',this.drawGlyphs);
+      lichess.pubsub.on('lichessTools.redraw',this.drawGlyphs);
       if (study) {
         if (lichess.socket) {
           lichess.socket.handle=parent.wrapFunction(lichess.socket.handle,{

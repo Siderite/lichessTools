@@ -150,12 +150,12 @@
       const analysis=lichess?.analysis;
       if (!analysis) return;
       this.setupBlurOnEscape();
-      lichess.pubsub.off('redraw',this.setupBlurOnEscape);
-      lichess.analysis.changePgn=parent.unwrapFunction(lichess.analysis.changePgn,'enhancedImport');
+      lichess.pubsub.off('lichessTools.redraw',this.setupBlurOnEscape);
+      analysis.changePgn=parent.unwrapFunction(analysis.changePgn,'enhancedImport');
       if (!value) return;
-      lichess.pubsub.on('redraw',this.setupBlurOnEscape);
+      lichess.pubsub.on('lichessTools.redraw',this.setupBlurOnEscape);
       
-      lichess.analysis.changePgn=parent.wrapFunction(lichess.analysis.changePgn,{
+      analysis.changePgn=parent.wrapFunction(analysis.changePgn,{
         id:'enhancedImport',
         before:($this,input,andReload)=>{
           return false;

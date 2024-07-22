@@ -70,10 +70,10 @@
       if (!analysis) return;
       if (analysis.study) return;
       const trans=parent.translator;
-      lichess.pubsub.off('redraw',this.saveAnalysisPgnLong);
+      lichess.pubsub.off('lichessTools.redraw',this.saveAnalysisPgnLong);
       parent.global.removeEventListener('beforeunload',this.saveAnalysisPgn);
       if (!value) return;
-      lichess.pubsub.on('redraw',this.saveAnalysisPgnLong);
+      lichess.pubsub.on('lichessTools.redraw',this.saveAnalysisPgnLong);
       parent.global.addEventListener('beforeunload',this.saveAnalysisPgn);
 
       if (analysis.tree.root.children?.length==0) {

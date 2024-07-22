@@ -68,9 +68,16 @@
           const execute = options.before(this,...arguments);
           if (execute===false) executeOriginal=false;
         }
-        let result=executeOriginal && func
-          ? func.apply(this, arguments)
-          : null;
+        let result = null;
+        if (executeOriginal && func) {
+          if (options?.ignoreErrors) {
+            (async ()=>{ return func.apply(this, arguments); })()
+              .then(r=>{ result=r; })
+              .catch(e=>parent.global.console.log('Wrapped function error:',e))
+          } else {
+            result = func.apply(this, arguments);
+          }
+        }
         if (options?.after) {
           const newResult=options.after(this,result,...arguments);
           if (newResult!==undefined) result=newResult;
@@ -330,9 +337,10 @@
     };
 
     inViewport=(element) => {
-      if (element?.length===0) return false;
+      if (element?.length===0) return 0;
       if (element?.length) element=element[0];
-      if (!element?.offsetParent) return false;
+      if (!element?.offsetParent&&$(element).css('position')!='fixed') return 0;
+      if (this.global.document.visibilityState=='hidden') return 0;
       const rect = element.getBoundingClientRect();
       const port = new DOMRect(0,0,$(window).width(),$(window).height());
       return this.rectIntersection(rect,port);
@@ -508,6 +516,10 @@
       return /\/following([\?#].*)?$/.test(this.global.location.href);
     };
 
+    isFavoriteOpponentsPage=()=>{
+      return /\/player\/opponents\b/.test(this.global.location.href);
+    };
+
     findGlyphNode=(color,symbols)=>{
       if (typeof symbols === 'string') symbols=[symbols];
       const analysis=this.lichess?.analysis;
@@ -536,6 +548,7 @@
       const node=this.findGlyphNode(color,symbols);
       if (!node?.path) return;
       analysis.userJumpIfCan(node.path);
+      analysis.redraw();
     };
 
     getPositionFromFen=(fen,deep)=>{
@@ -783,7 +796,7 @@
     };
 
     play=async (path, volume)=>{
-      const sound = await this.lichess.sound.load('sound', lichess.sound.baseUrl + path);
+      const sound = await this.lichess.sound.load('sound', this.lichess.sound.url(path));
       await sound.play(this.lichess.sound.getVolume()*(+(volume)||0.7));
     };
 
@@ -890,6 +903,10 @@
     assetUrl(url) {
       const func=this.lichess.asset.url.bind(this.lichess);
       return func(url);
+    }
+
+    isTouchDevice() {
+      return !this.global.matchMedia('(hover: hover) and (pointer: fine)').matches;
     }
 
     intl={

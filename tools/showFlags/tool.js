@@ -517,13 +517,13 @@
       const $=parent.$;
       lichess.pubsub.off('content-loaded',this.debouncedProcessFlags);
       lichess.pubsub.off('socket.in.crowd',this.debouncedProcessFlags);
-      lichess.pubsub.off('puzzleChange',this.resetFlags);
+      lichess.pubsub.off('lichessTools.puzzleChange',this.resetFlags);
       $('#form3-flag').off('change',this.clearCache);
       if (value) {
         this.debouncedProcessFlags();
         lichess.pubsub.on('content-loaded',this.debouncedProcessFlags);
         lichess.pubsub.on('socket.in.crowd',this.debouncedProcessFlags);
-        lichess.pubsub.on('puzzleChange',this.resetFlags);
+        lichess.pubsub.on('lichessTools.puzzleChange',this.resetFlags);
 
         $('#form3-flag').on('change',this.clearCache);
       } else {
