@@ -504,15 +504,20 @@
                 } else {
                   gp.goodMoves++;
                 }
-              if (this.options.showFinalScore) {
-                this.showScore(true);
-              }
               break;
             }
+            gp.askedForSolution=false;
+          }
+        });
+        gp.redraw=parent.wrapFunction(gp.redraw,{
+          id:'showScore',
+          after:($this,results,...args)=>{
+            if (gp.feedback=='end' && this.options.showFinalScore) {
+                this.showScore(true);
+              } else 
             if (this.options.alwaysShowScore) {
               this.showScore();
             }
-            gp.askedForSolution=false;
           }
         });
         gp.next=parent.wrapFunction(gp.next,{
@@ -551,6 +556,7 @@
         gp.makeState=parent.unwrapFunction(gp.makeState,'showScore');
         gp.next=parent.unwrapFunction(gp.next,'showScore');
         gp.retry=parent.unwrapFunction(gp.retry,'showScore');
+        gp.redraw=parent.unwrapFunction(gp.redraw,'showScore');
         gp.solution=parent.unwrapFunction(gp.solution,'showScore');
         gp.isShowScore=false;
       }
@@ -939,8 +945,8 @@
       }
       lichess.pubsub.off('lichessTools.redraw',this.analysisControls);
       lichess.pubsub.on('lichessTools.redraw',this.analysisControls);
-      lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'extendedInteractiveLesson');
-      lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
+      analysis.actionMenu.toggle=lichessTools.unwrapFunction(analysis.actionMenu.toggle,'extendedInteractiveLesson');
+      analysis.actionMenu.toggle=lichessTools.wrapFunction(analysis.actionMenu.toggle,{
         id:'extendedInteractiveLesson',
         after: ($this, result, ...args)=>{
           parent.global.setTimeout(this.analysisControls,100);
@@ -961,13 +967,13 @@
       }
       this.patchGamebook();
 
-      if (lichess.analysis.study.onReload) {
-        lichess.analysis.study.onReload=lichessTools.unwrapFunction(lichess.analysis.study.onReload,'extendedInteractiveLesson');
+      if (analysis.study.onReload) {
+        analysis.study.onReload=lichessTools.unwrapFunction(analysis.study.onReload,'extendedInteractiveLesson');
       }
       lichess.pubsub.off('lichessTools.redraw',this.findThreatArrow);
       if (this.options.extendedInteractive) {
         lichess.pubsub.on('lichessTools.redraw',this.findThreatArrow);
-        lichess.analysis.study.onReload=lichessTools.wrapFunction(lichess.analysis.study.onReload,{
+        analysis.study.onReload=lichessTools.wrapFunction(analysis.study.onReload,{
           id:'extendedInteractiveLesson',
           after:($this,result,...args)=>{
             this.refreshNodeVersion();
