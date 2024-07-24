@@ -266,7 +266,7 @@
       if (lichess.socket?.handle) {
         lichess.socket.handle=parent.unwrapFunction(lichess.socket.handle,'oneClickMove');
       }
-      if ((analysis && this.options.analysis) || ($('main.round').length && this.options.play)) {
+      if ((analysis && this.options.analysis) || ($('main.round,main.puzzle').length && this.options.play)) {
         this.interval=parent.global.setInterval(this.handleBoard,1000);
         this.handleBoard();
       }
