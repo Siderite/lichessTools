@@ -6,7 +6,7 @@
         name:'tvOptions',
         category: 'TV',
         type:'multiple',
-        possibleValues: ['link','bookmark','streamerTv','friendsTv','userTvHistory','wakelock'], //teamTv
+        possibleValues: ['link','bookmark','streamerTv','friendsTv',/*'teamTv',*/'userTvHistory','wakelock'],
         defaultValue: 'link,bookmark,streamerTv,friendsTv,userTvHistory,wakelock',
         advanced: false
       }
