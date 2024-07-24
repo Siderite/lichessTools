@@ -58,6 +58,23 @@
       sources.removeClass('lichessTools-flash');
     };
 
+    getVariant=(main)=>{
+      const variants=[//'standard',
+                      'chess960',
+                      'antichess',
+                      //'fromPosition'
+                      'kingOfTheHill',
+                      'threeCheck',
+                      'atomic',
+                      'horde',
+                      'racingKings',
+                      'crazyhouse'];
+      for (const variant of variants) {
+        if (main.is('.variant-'+variant)) return variant;
+      }
+      return 'standard';
+    };
+
     boardClick=async (ev)=>{
       if (ev.which>1 || ev.shiftKey) return;
       const parent=this.lichessTools;
@@ -71,7 +88,7 @@
       if ($('square.selected',board).length) return;
       const rect=board[0].getBoundingClientRect();
       const [x,y]=[ev.x-rect.x,ev.y-rect.y];
-      const isStandard=board.closest('div.round__app, main').is('.variant-standard,.variant-fromPosition');
+      const variant=this.getVariant(board.closest('div.round__app, main'));
       const orientation=board.closest('.cg-wrap').is('.orientation-black')?'black':'white';
       const fen=parent.getPositionFromBoard(board.closest('cg-container'),true); 
       const turn=/ b\b/.test(fen) ?'black':'white';
@@ -85,7 +102,7 @@
                 y:Math.floor(y/width)
               };
       const square=getSquare(res);
-      const destMan = await this.getDests(board,fen,'standard'); //TODO extract variant
+      const destMan = await this.getDests(board,fen,variant);
       if (!destMan) return;
       let pieceExists=false;
       const sources=$('piece.'+turn,board)
