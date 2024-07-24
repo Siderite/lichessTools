@@ -219,6 +219,7 @@
         "tools/fullScreen/tool.css",
         "tools/commonTeams/tool.css",
         "tools/expandAll/tool.css",
+        "tools/oneClickMove/tool.css",
         "tools/studyLinks/tool.css",
 
         "tools/tvOptions/tool.css",

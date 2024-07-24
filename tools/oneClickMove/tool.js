@@ -8,7 +8,7 @@
         name:'oneClickMove',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['analysis','onlyOrientation','moveFromPgn'],
+        possibleValues: [/*'play',*/'analysis','onlyOrientation','moveFromPgn'],
         defaultValue: false,
         advanced: true
       }
@@ -33,22 +33,45 @@
       }
     }
 
-    boardClick=(ev)=>{
+    _cache=new Map();
+    getDests=async (board,fen,variant)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const analysis=lichess.analysis;
+      const key=fen+'/'+variant;
+      let destMan = analysis?.chessground.state?.movable?.dests || this._cache.get(key);
+      if (!destMan) {
+        lichess.socket.send('anaDests',{ variant: variant,fen:fen,path:key });
+        while (!destMan) {
+          await parent.timeout(10);
+          destMan=this._cache.get(key);
+        }
+      }
+      return destMan;
+    };
+
+    flash=async (sources)=>{
+      const parent=this.lichessTools;
+      sources.addClass('lichessTools-flash');
+      await parent.timeout(500);
+      sources.removeClass('lichessTools-flash');
+    };
+
+    boardClick=async (ev)=>{
       if (ev.which>1 || ev.shiftKey) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess.analysis;
-      if (!analysis) return; //TODO only analysis supported so far
-      if (!(this.options.analysis && analysis)&&!(this.options.play && !analysis)) return; //TODO better play detection and implement play code
+      if (!(this.options.analysis && analysis)&&!(this.options.play && !analysis)) return; //TODO better play detection
       if (!ev.x && !ev.y) return;
       const board=$('main cg-board');
       if (!board.length) return;
       if ($('square.selected',board).length) return;
       const rect=board[0].getBoundingClientRect();
       const [x,y]=[ev.x-rect.x,ev.y-rect.y];
-      const isStandard=board.closest('div.round__app, main').is('.variant-standard,.variant-fromPosition'); //TODO fromPosition?
-      //if (!isStandard) return; //TODO only add this if we decide to hack the play mechanism
+      const isStandard=board.closest('div.round__app, main').is('.variant-standard,.variant-fromPosition');
       const orientation=board.closest('.cg-wrap').is('.orientation-black')?'black':'white';
       const fen=parent.getPositionFromBoard(board.closest('cg-container'),true); 
       const turn=/ b\b/.test(fen) ?'black':'white';
@@ -62,12 +85,12 @@
                 y:Math.floor(y/width)
               };
       const square=getSquare(res);
-      const destMan=analysis.chessground?.state?.movable?.dests;
+      const destMan = await this.getDests(board,fen,'standard'); //TODO extract variant
       if (!destMan) return;
       let pieceExists=false;
-      const sources=$('piece.'+turn,board).get()
-        .map(e=>e.cgKey)
-        .filter(sq=>{
+      const sources=$('piece.'+turn,board)
+        .filter((i,e)=>{
+          const sq=e.cgKey;
           if (!sq) return false;
           if (sq==square) {
             pieceExists=true;
@@ -78,12 +101,14 @@
       if (pieceExists) return;
       let uci='';
       if (sources.length==1) {
-        uci=sources[0]+square;
+        uci=sources[0].cgKey+square;
       } else {
-        if (parent.isGamePlaying()) return false;
-        const gp=analysis.gamebookPlay();
-        if (gp && !analysis.study?.members?.canContribute()) return false;
-        const nextMoves=parent.getNextMoves(analysis.node,gp?.threeFoldRepetition)
+        this.flash(sources);
+        if (analysis) {
+          if (parent.isGamePlaying()) return false;
+          const gp=analysis.gamebookPlay();
+          if (gp && !analysis.study?.members?.canContribute()) return false;
+          const nextMoves=parent.getNextMoves(analysis.node,gp?.threeFoldRepetition)
                               .filter(c=>!parent.isPermanentNode || parent.isPermanentNode(c))
                               .map(c=>{
                                 if (c.san?.startsWith('O-O')) {
@@ -97,22 +122,109 @@
                                 return c.uci;
                               })
                               .filter(u=>u.endsWith(square));
-        if (nextMoves.length!=1) return;
-        uci=nextMoves[0];
+          if (nextMoves.length!=1) return;
+          uci=nextMoves[0];
+        }
       }
       if (uci) {
         ev.preventDefault();
-        analysis.playUci(uci);
+        if (analysis) {
+          analysis.playUci(uci);
+        } else {
+          this.playUci(uci,board,orientation);
+        }
       }
+    };
+
+    getCoords=(square, board, orientation)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const coords=orientation=='white'
+        ? { x: square.charCodeAt(0)-97, y: 8-(+square[1]) }
+        : { x: 104-square.charCodeAt(0), y: (+square[1])-1 };
+      const q=board.width()/8;
+      const offset=board.offset();
+      const win=parent.global;
+      return { x: offset.left-win.scrollX+coords.x*q+q/2, y: offset.top-win.scrollY+coords.y*q+q/2 };
+    };
+
+    playUci=async (uci, board,orientation) => {
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const mousedown=parent.getEventHandlers(board[0],'mousedown')[0];
+      if (!mousedown) return;
+      let coords=this.getCoords(uci.slice(0,2),board,orientation);
+      const fauxEv = { isTrusted: true, button:0, clientX: coords.x, clientY: coords.y, preventDefault:()=>{} };
+      mousedown(fauxEv);
+      board.trigger('mouseup');
+      await parent.timeout(50);
+      if ($('square.selected',board).length) {
+        coords=this.getCoords(uci.slice(-2),board,orientation);
+        fauxEv.clientX=coords.x;
+        fauxEv.clientY=coords.y;
+        mousedown(fauxEv);
+      }
+    };
+
+    unpackDests=(lines)=>{
+
+      const uciValue=(ch)=>{
+        if (ch=='!') return 62;
+        if (ch=='?') return 63;
+        if (ch>='a' && ch<='z') {
+          return ch.charCodeAt(0)-97;
+        }
+        if (ch>='A' && ch<='Z') {
+          return ch.charCodeAt(0)-39;
+        }
+        if (ch>='0' && ch<='9') {
+          return ch.charCodeAt(0)+4;
+        }
+        throw new Error('Could not decode uci value '+ch);
+      };
+
+      const uciChar=(ch)=>{
+        const x=uciValue(ch);
+        return String.fromCharCode(97+x%8)+String.fromCharCode(49+x/8);
+      };
+
+      const dests = new Map();
+      if (lines) {
+        for (const line of lines.split(' ')) {
+          dests.set(
+            uciChar(line[0]),
+            line
+              .slice(1)
+              .split('')
+              .map(c => uciChar(c)),
+          );
+        }
+      }
+      return dests;
     };
 
     handleBoard=()=>{
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       const $=parent.$;
       const board=$('main cg-board')[0];
-      if (!board || board.lichessTools_oneClickMove) return;
-      board.addEventListener('mousedown',this.boardClick,{ capture: true });
-      board.lichessTools_oneClickMove=true;
+      if (!board) return;
+      if (!board.lichessTools_oneClickMove) {
+        board.addEventListener('mousedown',this.boardClick,{ capture: true });
+        board.lichessTools_oneClickMove=true;
+      }
+      if (lichess.socket?.handle && !parent.isWrappedFunction(lichess.socket.handle,'oneClickMove')) {
+        lichess.socket.handle=parent.wrapFunction(lichess.socket.handle,{
+          id: 'oneClickMove',
+          before: ($this,e)=>{
+            if (e.t=='dests') {
+              const dests=this.unpackDests(e.d.dests);
+              const fen=e.d.path;
+              this._cache.set(fen,dests);
+            }
+          }
+        });
+      }
     };
 
     async start() {
@@ -122,7 +234,6 @@
       const value=parent.currentOptions.getValue('oneClickMove');
       this.logOption('One click move', value);
       const analysis=lichess.analysis;
-      if (!analysis) return; //TODO only analysis supported so far
       this.options={ 
         analysis: parent.isOptionSet(value,'analysis'),
         play: parent.isOptionSet(value,'play'),
@@ -135,9 +246,13 @@
         board.lichessTools_oneClickMove=false;
       }
       parent.global.clearInterval(this.interval);
-      if (!value) return;
-      this.interval=parent.global.setInterval(this.handleBoard,1000);
-      this.handleBoard();
+      if (lichess.socket?.handle) {
+        lichess.socket.handle=parent.unwrapFunction(lichess.socket.handle,'oneClickMove');
+      }
+      if ((analysis && this.options.analysis) || ($('main.round').length && this.options.play)) {
+        this.interval=parent.global.setInterval(this.handleBoard,1000);
+        this.handleBoard();
+      }
     }
 
   }
