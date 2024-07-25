@@ -121,7 +121,7 @@
         uci=sources[0].cgKey+square;
       } else {
         this.flash(sources);
-        if (analysis) {
+        if (analysis && this.options.moveFromPgn) {
           if (parent.isGamePlaying()) return false;
           const gp=analysis.gamebookPlay();
           if (gp && !analysis.study?.members?.canContribute()) return false;
@@ -146,7 +146,7 @@
       if (uci) {
         ev.preventDefault();
         if (analysis) {
-          analysis.playUci(uci);
+          parent.global.setTimeout(()=>analysis.playUci(uci),50);
         } else {
           this.playUci(uci,board,orientation);
         }

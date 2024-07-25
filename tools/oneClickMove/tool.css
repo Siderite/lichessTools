@@ -1,9 +1,9 @@
 body.lichessTools piece.white.lichessTools-flash {
   filter: drop-shadow(0px 0px 10px black);
-  transition: all 0.5s ease;
+  transition: filter 0.5s ease;
 }
 
 body.lichessTools piece.black.lichessTools-flash {
   filter: drop-shadow(0px 0px 10px white);
-  transition: all 0.5s ease;
+  transition: filter 0.5s ease;
 }
