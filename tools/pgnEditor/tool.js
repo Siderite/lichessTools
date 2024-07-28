@@ -786,6 +786,8 @@
         this.writeNote(trans.noarg('operationFailed'));
         return;
       }
+
+      i=games.length-1;
       while(i>=0 && !this._cancelRequested) {
         if (Date.now()-lastWrite>1000) { 
           this.writeNote(trans.pluralSame('mergingGames',games.length));
