@@ -99,6 +99,7 @@
         gp.path = analysis.path;
 
         if (state.init || gp.state?.init) {
+          gp.resetStats();
           if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
             gp.currentPath=this.getCurrentPath();
             if (!gp.currentPath) {
@@ -691,13 +692,12 @@
       return node?.version==this.currentVersion;
     };
 
-    refreshNodeVersion=(node)=>{
+    refreshNodeVersion=()=>{
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
       if (!this.options.extendedInteractive) return;
       this.currentVersion=analysis?.cgVersion?.js;
-      if (!node) node=analysis.tree.root;
-      parent.traverse(node,(n,s)=>n.version=n.version||this.currentVersion,true);
+      parent.traverse(analysis.tree.root,(n,s)=>n.version=n.version||this.currentVersion,true);
     };
 
     analysisControls=()=>{
@@ -920,7 +920,9 @@
                 analysis.ceval.stop();
                 analysis.ceval.isDeeper(false);
               }
-              if (this.options.extendedInteractive) this.refreshNodeVersion();
+              if (this.options.extendedInteractive) {
+                this.refreshNodeVersion();
+              }
             } else {
               if (this.explorerEnabled && !analysis.explorer.enabled()) {
                 analysis.explorer.enabled(true);
@@ -942,6 +944,9 @@
             }
           }
         });
+      }
+      if (this.options.extendedInteractive && !this.currentVersion) {
+        this.refreshNodeVersion();
       }
       lichess.pubsub.off('lichessTools.redraw',this.analysisControls);
       lichess.pubsub.on('lichessTools.redraw',this.analysisControls);
