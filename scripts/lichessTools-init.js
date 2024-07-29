@@ -103,6 +103,7 @@ lichessTools.loadTool(LiChessTools.Tools.OneClickMove);
 lichessTools.loadTool(LiChessTools.Tools.CommonTeams);
 lichessTools.loadTool(LiChessTools.Tools.ExpandAll);
 lichessTools.loadTool(LiChessTools.Tools.StudyLinks);
+lichessTools.loadTool(LiChessTools.Tools.Konami);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
