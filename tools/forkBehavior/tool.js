@@ -210,6 +210,10 @@
           analysis.fork.proceed=parent.wrapFunction(analysis.fork.proceed,{
             id: 'forkBehavior',
             before:($this,...args)=>{
+              if (analysis.gamebookPlay()) {
+                this.nextResult=undefined;
+                return;
+              }
               const nextMoves=parent.getNextMoves(analysis.node,true,false);
               const nextTranspos=parent.getNextMoves(analysis.node,false,true);
               const nextSans=nextMoves.concat(nextTranspos).map(m=>m.san);
