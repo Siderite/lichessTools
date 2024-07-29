@@ -11171,6 +11171,7 @@ const openings = {
   "rnbqkbnrppp2ppp83p42PP48PP3PPPRNBQKBNRb": "French Defense: Exchange Variation, Monte Carlo Variation",
   "rnbqkbnrppp2ppp83P43N48PPP2PPPRNBQKB1Rb": "Philidor Defense: Paulsen Attack",
   "rnbqkbnrppp2ppp83p43P1B28PPP2PPPRN1QKBNRb": "French: Exchange, 4.Bf4",
+  "rnbqkbnrppp2ppp83p43P1p21P4P1P1P1P2PRNBQKBNRb": "Hungarian Opening: Reversed Fianchetto Gambit (KaspaChess)",
   "rnbqkbnrppp2ppp83p43p2P12P5PP2PPBPRNBQK1NRb": "Grob Opening: Grob Gambit, Keres Gambit",
   "rnbqkbnrppp2ppp83p43P42N5PP2PPPPR1BQKBNRb": "QGD: 3.cxd5",
   "rnbqkbnrppp2ppp83p43P42N5PPP2PPPR1BQKBNRb": "French: Exchange, 4.Nc3",
