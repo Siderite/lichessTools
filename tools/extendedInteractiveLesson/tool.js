@@ -512,7 +512,7 @@
         gp.redraw=parent.wrapFunction(gp.redraw,{
           id:'showScore',
           after:($this,results,...args)=>{
-            if (gp.feedback=='end' && this.options.showFinalScore) {
+            if (gp.state.feedback=='end' && this.options.showFinalScore) {
                 this.showScore(true);
               } else 
             if (this.options.alwaysShowScore) {
