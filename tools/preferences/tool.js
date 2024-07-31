@@ -366,6 +366,11 @@
       checkGlobalSwitch();
       checkAdvanced();
       this.addInfo();
+      const m=/#lichessTools\/(?<pref>.*)$/.exec(parent.global.location.hash);
+      const pref=m?.groups?.pref;
+      if (pref) {
+        $('[data-pref="'+pref+'"]')[0]?.scrollIntoView();
+      }
     };
 
     addInfo() {
@@ -399,7 +404,7 @@
       const openPreferences=this.openPreferences;
 
       const f=function() {
-        if (location.hash=='#lichessTools') {
+        if (location.hash?.startsWith('#lichessTools')) {
           openPreferences();
         } else {
           if ($('.lichessTools-preferences').length) {
