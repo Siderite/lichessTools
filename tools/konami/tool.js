@@ -26,12 +26,21 @@
       }
     }
 
+    enableCheat=()=>{
+      const parent=this.lichessTools;
+      const trans=parent.translator;
+      const $=parent.$;
+      const egg=$('<div class="konami">')
+        .attr('data-text',trans.noarg('30lives'))
+        .appendTo('body');
+      parent.global.setTimeout(()=>egg.addClass('flash'),1);
+      parent.global.setTimeout(()=>egg.remove(),5000);
+    };
+
     index=0;
     code=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','KeyB','KeyA'];
     keyCheck=(ev)=>{
       const parent=this.lichessTools;
-      const $=parent.$;
-      const trans=parent.translator;
       if (ev.code==this.code[this.index]) {
         this.index++;
         if (this.index>7) ev.preventDefault();
@@ -43,11 +52,7 @@
       }
       if (this.index==10) {
         this.index=0;
-        const egg=$('<div class="konami">')
-          .attr('data-text',trans.noarg('30lives'))
-          .appendTo('body');
-        parent.global.setTimeout(()=>egg.addClass('flash'),1);
-        parent.global.setTimeout(()=>egg.remove(),5000);
+        this.enableCheat();
       }
     };
 
