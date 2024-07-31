@@ -613,7 +613,6 @@
       parent.global.console.debug('Sent following-onlines too many times. Giving up.');
     };
 
-    _useUserApi=true;
     requestOnlines=()=>{
       const parent=this.lichessTools;
       if (parent.global.document.hidden) return;
@@ -622,7 +621,7 @@
     };
     requestOnlinesApi=async ()=>{
       const parent=this.lichessTools;
-      if (this._useUserApi && this.user_data.playing.length) {
+      if (this.user_data.playing.length) {
         const arr = await parent.net.json({url:'/api/users/status?ids={ids}&withGameMetas=true',args:{ids:this.user_data.playing.join(',')}});
         for (const data of arr.filter(i=>i.playing)) {
           const timeControl=parent.getGameTime(data.playing.clock,true);

@@ -63,7 +63,6 @@
     }
   };
 
-  _useUserApi=true;
   playFriendSound=async (username)=>{
     this.lichessTools.global.console.debug(username + ' playing');
     const now=Date.now();
@@ -88,22 +87,12 @@
     let hasInfo=false;
     if (!silent && !this.lichessTools.net.slowMode) {
       try {
-        if (this._useUserApi) {
-          const arr = await this.lichessTools.net.json({url:'/api/users/status?ids={username}&withGameMetas=true',args:{username:username}});
-          const data=arr.find(i=>i.id==username);
-          if (data?.playing) {
-            gameType=this.lichessTools.getGameTime(data.playing.clock,true);
-            variant=data.playing.variant;
-            hasInfo=true;
-          }
-        } else {
-          const text = await this.lichessTools.net.fetch({url:'/api/games/user/{username}?max=1&tags=true&ongoing=true&finished=false',args:{username:username}});
-          if (text) {
-            gameType=this.lichessTools.getGameTime(this.lichessTools.getPgnTag(text,'TimeControl'));
-            eventType=this.lichessTools.getPgnTag(text,'Event');
-            variant=this.lichessTools.getPgnTag(text,'Variant');
-            hasInfo=true;
-          }
+        const arr = await this.lichessTools.net.json({url:'/api/users/status?ids={username}&withGameMetas=true',args:{username:username}});
+        const data=arr.find(i=>i.id==username);
+        if (data?.playing) {
+          gameType=this.lichessTools.getGameTime(data.playing.clock,true);
+          variant=data.playing.variant;
+          hasInfo=true;
         }
       } catch(e) {
         if (e.toString().includes('Failed to fetch')) {
