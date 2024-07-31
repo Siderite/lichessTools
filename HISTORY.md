@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+31 Jul
+  - analysis mouse wheel support
+
 30 Jul
   - cheats
 

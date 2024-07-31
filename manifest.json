@@ -136,6 +136,7 @@
         "tools/expandAll/tool.js",
         "tools/studyLinks/tool.js",
         "tools/konami/tool.js",
+        "tools/analysisWheel/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
