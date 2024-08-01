@@ -200,7 +200,6 @@
         }
       };
       parent.notifications.add(notification);
-      
     };
 
     async start() {

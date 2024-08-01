@@ -411,8 +411,7 @@
       let toSaveCache=false;
       const userIds=data.filter(i=>!i.countryName).map(i=>i.id).slice(0,200);
       if (userIds.length) {
-        const json = await parent.net.fetch('/api/users',{ method:'POST',body:userIds.join(',') });
-        const users=parent.jsonParse(json,[]);
+        const users = await parent.api.user.getUsers(userIds);
         for (const user of users) {
           const item = data.find(i=>i.id===user.id)
           if (item) item.country=user.profile?.country||user.profile?.flag||'noflag';
@@ -444,7 +443,7 @@
           }
         }
         if (firstToProcess) {
-          const html=await parent.net.fetch({url:'/@/{userId}/mini',args:{ userId:firstToProcess.id}});
+          const html=await parent.api.user.getMini(firstToProcess.id);
           const m=/<span class="(?:upt__info__top__country|upt__info__top__flag)".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
           if (m) {
             const el=$(m[0]);

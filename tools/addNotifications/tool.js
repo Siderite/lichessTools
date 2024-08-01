@@ -139,8 +139,8 @@
       },500);
 
       lichess.pubsub.on('socket.in.notifications',this.updateNotificationCount);
-      const notify=await parent.net.json('/notify?page=1');
-      this._unreadNotifications=+(notify.unread);
+      const unread=await parent.api.notification.getUnread();
+      this._unreadNotifications=unread;
       this.forcedProcessNotifications();
     }
 

@@ -87,7 +87,7 @@
     let hasInfo=false;
     if (!silent && !this.lichessTools.net.slowMode) {
       try {
-        const arr = await this.lichessTools.net.json({url:'/api/users/status?ids={username}&withGameMetas=true',args:{username:username}});
+        const arr = await this.lichessTools.api.user.getUserStatus([username],{ withGameMetas:true });
         const data=arr.find(i=>i.id==username);
         if (data?.playing) {
           gameType=this.lichessTools.getGameTime(data.playing.clock,true);

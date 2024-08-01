@@ -605,7 +605,7 @@
     requestOnlinesApi=async ()=>{
       const parent=this.lichessTools;
       if (this.user_data.playing.length) {
-        const arr = await parent.net.json({url:'/api/users/status?ids={ids}&withGameMetas=true',args:{ids:this.user_data.playing.join(',')}});
+        const arr = await parent.api.user.getUserStatus(this.user_data.playing,{ withGameMetas:true });
         for (const data of arr.filter(i=>i.playing)) {
           const timeControl=parent.getGameTime(data.playing.clock,true);
           this.user_data.timeControls[data.id]=timeControl;

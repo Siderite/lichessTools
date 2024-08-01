@@ -51,7 +51,7 @@
       if (item && Date.now()-item.time<=this.opponentLagFrequency) {
         return item.value;
       }
-      const data=await parent.net.json({url:'/api/users/status?ids={username}&withSignal=true',args:{username}});
+      const data=await parent.api.user.getUserStatus([username],{ withSignal:true });
       const lagRating=data[0]?.signal;
       const lag=[750,500,300,150,75][lagRating];
       item={ time:Date.now(), value:lag };

@@ -215,11 +215,11 @@
         let p=0;
         while (p<notFound.length) {
           if (p>0) await parent.timeout(500);
-          const arr = await parent.net.json({url:'/api/users/status?ids={ids}&withGameMetas=true',args:{ids:notFound.slice(p,p+100).join(',')}});
+          const arr = await parent.api.user.getUserStatus(notFound.slice(p,p+100),{ withGameMetas:true });
           p+=100;
           for (const data of arr.filter(i=>i.playing)) {
             try {
-              const text = await parent.net.fetch({url:'/@/{username}/mini',args:{username:data.id}});
+              const text = await parent.api.user.getMini(data.id);
               if (!text) continue;
               const html=$('<x>'+text+'</x>').find('a.mini-game');
               if (!html.length) continue;
@@ -263,7 +263,7 @@
       if (!this.teamCache||Array.isArray(this.teamCache)) this.teamCache={};
       let teams=this.teamCache[userId];
       if (!teams) {
-        teams = await parent.net.json({url:'/api/team/of/{userId}',args:{userId:userId}});
+        teams = await parent.api.team.getUserTeams(userId);
         this.teamCache[userId]=teams;
         parent.storage.set('LichessTools.teamCache',this.teamCache,{ session:true, zip:true });
       }
@@ -298,7 +298,7 @@
       if (!teamPlayers) {
         try {
           $('div.lichessTools-teamTv').addClass('loading');
-          teamPlayers = (await parent.net.json({url:'/api/team/{teamId}/users',args:{teamId:teamId}},{ndjson:true}))?.map(u=>u.id);
+          teamPlayers = (await parent.api.team.getTeamPlayers(teamId))?.map(u=>u.id);
         } finally {
           $('div.lichessTools-teamTv').removeClass('loading');
         }
@@ -324,7 +324,7 @@
       }
       if (this.isStreamerTvPage()) {
         container.toggleClass('lichessTools-streamerTv',this.options.streamerTv);
-        const playerIds=(await parent.net.json('/api/streamer/live'))?.map(s=>s.id);
+        const playerIds=(await parent.api.streamer.getLiveStreamers())?.map(s=>s.id);
         await this.refreshGames(playerIds,'lichessTools-streamerTv',container,true);
       } else {
         container.removeClass('lichessTools-streamerTv');
@@ -535,7 +535,12 @@
 
       if (this.options.userTvHistory && tvOptions.isTv && tvOptions.user) {
         if (!$('div.tv-history').length) {
-          let text = await parent.net.fetch({url:'/api/games/user/{user}?max=2&tags=true&ongoing=false&finished=true',args:{user:tvOptions.user}});
+          let text = await parent.api.game.getUserPgns(tvOptions.user,{
+                             max:2,
+                             tags:true,
+                             ongoing:false,
+                             finished:true
+                           });
           if (text) {
             const matches=[...text.matchAll(new RegExp('\\[Site.*?\\/([^"\\/]+)"\\][\\s\\S]*?\\[(Black|White)\\s+"'+parent.escapeRegex(tvOptions.user)+'"\\]','gi'))];
             if (matches.length) {
@@ -553,7 +558,7 @@
                 const gameId=m[1];
                 const color=m[2];
                 await parent.timeout(500);
-                text=await parent.net.fetch({url:'/{gameId}'+(color=='White'?'/white':'/black')+'/mini',args:{gameId:gameId}});
+                text=await parent.api.game.getMini(gameId,color);
                 if (!text) continue;
                 container.append(text);
               }

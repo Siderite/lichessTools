@@ -38,7 +38,7 @@
       if (!this.teamCache||Array.isArray(this.teamCache)) this.teamCache={};
       let teams=this.teamCache[userId];
       if (!teams) {
-        teams = await parent.net.json({url:'/api/team/of/{userId}',args:{userId:userId}});
+        teams = await parent.api.team.getUserTeams(userId);
         this.teamCache[userId]=teams;
         parent.storage.set('LichessTools.teamCache',this.teamCache,{ session:true, zip:true });
       }

@@ -118,11 +118,12 @@
       if (Date.now()-this.openingTime<1000) return; // not more often than 1 second
       this.openingTime=Date.now();
 
-      const url='/api/games/export/_ids?tags=true&opening=true&moves=false&clocks=false&evals=false';
-      const pgn = await parent.net.fetch(url, {
-        method: 'POST',
-        body: gameId,
-        cache: 'default'
+      const pgn = await parent.api.game.getPgns([gameId],{
+        tags:true,
+        opening:true,
+        moves:false,
+        clocks:false,
+		evals:false
       });
       const m=/\[Opening "([^"]+)"\]/.exec(pgn);
       const opening = m&&m[1];

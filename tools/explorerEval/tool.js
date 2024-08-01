@@ -220,19 +220,30 @@
       });
     }
 
-    jsonWith404=async (url,options)=>{
+    getChessDbEval=async (fen)=>{
       const parent=this.lichessTools;
-      const key=parent.global.JSON.stringify(url);
+      const key='cd:'+fen;
       let result = this.cache[key];
       if (result !== undefined) return result;
-      options=options||{};
-      options.ignoreStatuses=[404];
       try {
-        const json = await parent.net.fetch(url,options);
-        result=parent.jsonParse(json);
+        const result = await parent.api.evaluation.getChessDb(fen);
         this.cache[key]=result;
       } catch(e) {
-        parent.global.console.debug('Error fetching 404 JSON API',url,e);
+        parent.global.console.debug('Error fetching ChessDb data',fen,e);
+      }
+      return result;
+    };
+
+    getLichessEval=async (fen,multiPv)=>{
+      const parent=this.lichessTools;
+      const key='l:'+fen+':'+multiPv;
+      let result = this.cache[key];
+      if (result !== undefined) return result;
+      try {
+        const result = await parent.api.evaluation.getLichess(fen,multiPv);
+        this.cache[key]=result;
+      } catch(e) {
+        parent.global.console.debug('Error fetching Lichess eval data',url,e);
       }
       return result;
     };
@@ -301,10 +312,7 @@
       if ((this.options.db||this.options.lichess) && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
         result={ moves: [] };
         if (this.options.db && !newMoves?.length) {
-          const obj=await this.jsonWith404({
-            url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
-            args:{ fen: fen }
-          });
+          const obj=await this.getChessDbEval(fen);
           newMoves=obj?.moves?.map(m=>{
             return {
               depth: 50, //assumed
@@ -316,10 +324,7 @@
           });
         }
         if (this.options.lichess && !newMoves?.length) {
-          let obj=await this.jsonWith404({
-            url:'/api/cloud-eval?fen={fen}&multiPv=5',
-            args:{ fen: fen }
-          });
+          let obj=await this.getLichessEval(fen,5);
           if (obj) {
             newMoves=obj?.pvs?.map(m=>{
               return {
@@ -331,10 +336,7 @@
               };
             });
             if (newMoves?.length && !parent.net.slowMode) {
-              obj=await this.jsonWith404({
-                url:'/api/cloud-eval?fen={fen}&multiPv=10',
-                args:{ fen: fen }
-              });
+              obj=await this.getLichessEval(fen,10);
               if (obj) {
                 obj.pvs?.forEach(m=>{
                   const uci=m.moves?.split(' ')[0];

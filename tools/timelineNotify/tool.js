@@ -107,7 +107,7 @@
       const notification={
         getEntries: async ()=>{
           this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
-          const timeline=await parent.net.json({url:'/api/timeline?nb=100&since={lastRead}',args:{lastRead:this.lastRead}});
+          const timeline=await parent.api.timeline.get(this.lastRead);
           if (!timeline) return [];
           const newEntries=timeline.entries
             .filter(e=>e.date>this.lastRead)

@@ -971,6 +971,7 @@
       options.headers.Accept||='application/json';
       options.headers['x-requested-with']||='XMLHttpRequest';
       const json=await this.fetch(url,options);
+      if (!json) return null;
       if (options.ndjson) {
         return this.lichessTools.ndjsonParse(json);
       } else {
@@ -1114,6 +1115,205 @@
       });
     }
   };
+
+  api={
+    blog:{
+      lichessTools: this,
+      save: async function(blogId, data) {
+        const parent=this.lichessTools;
+        const bodyContent=data.map(a=>a.name+'='+parent.global.encodeURIComponent(a.value)).join('&');
+        await parent.net.fetch({ 
+          url:'/ublog/{blogId}/edit', 
+          args:{ blogId }
+        },
+        {
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+          },
+          body: bodyContent,
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'include'
+        });
+      }
+    },
+    study:{
+      lichessTools: this,
+      getChapterPgn: async function(studyId, chapterId) {
+        const parent=this.lichessTools;
+        const pgn=await parent.net.fetch({
+          url:'/study/{studyId}/{chapterId}.pgn',
+          args:{studyId,chapterId}
+        });
+        return pgn;
+      },
+      getStudyListPage: async function(baseUrl,page) {
+        const parent=this.lichessTools;
+        const mm=/\/(hot|newest|updated|popular)$/.exec(parent.global.location.pathname);
+        const mode=mm?.at(1)||'hot';
+        const p=baseUrl.includes('?') ? '&' : '?';
+        const json=await parent.net.json(baseUrl+p+'page='+page);
+        return json;
+      }
+    },
+    user:{
+      lichessTools: this,
+      getUsers: async function(userIds) {
+        const parent=this.lichessTools;
+        const users = await parent.net.json('/api/users',{
+          method:'POST',
+          body:userIds.join(',')
+        });
+        return users||[];
+      },
+      getUserStatus: async function(userIds,options) {
+        const parent=this.lichessTools;
+        const query=options
+                      ? '&'+Object.keys(options)
+                          .map(k=>k+'='+parent.global.encodeURIComponent(options[k]))
+                          .join('&')
+                      : '';
+        const arr = await parent.net.json({
+          url:'/api/users/status?ids={ids}'+query,
+          args:{
+            ids:userIds.join(',')
+          }
+        });
+        return arr;
+      },
+      getMini: async function(userId) {
+        const parent=this.lichessTools;
+        const html=await parent.net.fetch({
+          url:'/@/{userId}/mini',
+          args:{ userId }
+        });
+        return html;
+      },
+      getUserPerfStats: async function(userId, timeControl) {
+        const parent=this.lichessTools;
+        const data=await parent.net.json({ url: '/@/{userId}/perf/{timeControl}', args: { userId, timeControl } });
+        return data;
+      }
+    },
+    game: {
+      lichessTools: this,
+      getPgns: async function(gameIds,options) {
+        const parent=this.lichessTools;
+        const query=options
+                      ? '?'+Object.keys(options)
+                          .map(k=>k+'='+parent.global.encodeURIComponent(options[k]))
+                          .join('&')
+                      : '';
+        const pgn = await parent.net.fetch(
+          '/api/games/export/_ids'+query,
+          {
+            method: 'POST',
+            body: gameIds.join(','),
+            cache: 'default'
+          }
+        );
+        return pgn;
+      },
+      getUserPgns: async function(userId,options) {
+        const parent=this.lichessTools;
+        const query=options
+                      ? '?'+Object.keys(options)
+                          .map(k=>k+'='+parent.global.encodeURIComponent(options[k]))
+                          .join('&')
+                      : '';
+        const pgn = await parent.net.fetch(
+          {
+             url: '/api/games/user/{userId}'+query,
+             args: { userId }
+          }
+        );
+        return pgn;
+      },
+      getMini: async function(gameId, color) {
+        const parent=this.lichessTools;
+        const html=await parent.net.fetch({
+          url:'/{gameId}'+(color=='White'?'/white':'/black')+'/mini',
+          args:{ gameId }
+        });
+        return html;
+      }
+    },
+    team: {
+      lichessTools: this,
+      getUserTeams: async function(userId) {
+        const parent=this.lichessTools;
+        const teams = await parent.net.json({
+          url:'/api/team/of/{userId}',
+          args:{ userId }
+        });
+        return teams;
+      },
+      getTeamPlayers: async function(teamId) {
+        const parent=this.lichessTools;
+        const players = await parent.net.json({
+          url:'/api/team/{teamId}/users',
+          args:{ teamId }
+        },{ ndjson:true });
+        return players;
+      }
+    },
+    streamer: {
+      lichessTools: this,
+      getLiveStreamers: async function() {
+        const parent=this.lichessTools;
+        const streamers = await parent.net.json('/api/streamer/live');
+        return streamers;
+      }
+    },
+    evaluation: {
+      lichessTools: this,
+      getChessDb: async function(fen) {
+        const parent=this.lichessTools;
+        const json = await parent.net.fetch({
+          url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
+          args:{ fen }
+        },{
+          ignoreStatuses: [ 404 ]
+        });
+        const data=parent.jsonParse(json,[]);
+        return data;
+      },
+      getLichess: async function(fen, multiPv) {
+        const parent=this.lichessTools;
+        const data = await parent.net.json({
+          url:'/api/cloud-eval?fen={fen}&multiPv={multiPv}',
+          args:{ fen, multiPv }
+        },{
+          ignoreStatuses: [ 404 ]
+        });
+        return data||[];
+      }
+    },
+    notification: {
+      lichessTools: this,
+      getUnread: async function() {
+        const parent=this.lichessTools;
+        const data=await parent.net.json('/notify?page=1');
+        return +(data?.unread)||0;
+      }
+    },
+    flair: {
+      lichessTools: this,
+      getList: async function() {
+        const parent=this.lichessTools;
+        const text=await parent.net.fetch(parent.assetUrl('flair/list.txt'));
+        return text;
+      }
+    },
+    timeline: {
+      lichessTools: this,
+      get: async function(lastRead) {
+        const parent=this.lichessTools;
+        const timeline=await parent.net.json({url:'/api/timeline?nb=100&since={lastRead}',args:{ lastRead }});
+        return timeline;
+      }
+    }
+  }
 
     tools=[];
     loadTool(toolClass) {
