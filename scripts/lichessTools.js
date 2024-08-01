@@ -1351,18 +1351,31 @@
         },{
           ignoreStatuses: [ 404 ]
         });
-        const data=parent.jsonParse(json,[]);
+        const data=parent.jsonParse(json);
         return data;
       },
       getLichess: async function(fen, multiPv) {
         const parent=this.lichessTools;
-        const data = await parent.net.json({
-          url:'/api/cloud-eval?fen={fen}&multiPv={multiPv}',
-          args:{ fen, multiPv }
-        },{
-          ignoreStatuses: [ 404 ]
-        });
-        return data||[];
+        const analysis=parent.lichess.analysis;
+        let data=null;
+        let cachedByLichess=null;
+        if (analysis) {
+          cachedByLichess = analysis.evalCache?.fetchedByFen?.get(fen);
+          if (cachedByLichess?.pvs?.length==multiPv) {
+            data=cachedByLichess;
+          }
+        }
+        if (!data) {
+          data = await parent.net.json({
+            url:'/api/cloud-eval?fen={fen}&multiPv={multiPv}',
+            args:{ fen, multiPv }
+          },{
+            ignoreStatuses: [ 404 ]
+          });
+        }
+        return !data || cachedByLichess?.pvs?.length > data?.pvs?.length
+          ? cachedByLichess
+          : data;
       }
     },
     notification: {
