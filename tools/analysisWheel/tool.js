@@ -37,6 +37,7 @@
 
     deltaY=0;
     mousewheel=(ev)=>{
+      ev.preventDefault();
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -57,7 +58,6 @@
         }
       }
       if (path!=analysis.path) {
-        ev.preventDefault();
         analysis.jump(path);
         this.deltaY=0;
       }
