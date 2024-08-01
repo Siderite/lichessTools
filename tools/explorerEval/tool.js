@@ -220,34 +220,6 @@
       });
     }
 
-    getChessDbEval=async (fen)=>{
-      const parent=this.lichessTools;
-      const key='cd:'+fen;
-      let result = this.cache[key];
-      if (result !== undefined) return result;
-      try {
-        const result = await parent.api.evaluation.getChessDb(fen);
-        this.cache[key]=result;
-      } catch(e) {
-        parent.global.console.debug('Error fetching ChessDb data',fen,e);
-      }
-      return result;
-    };
-
-    getLichessEval=async (fen,multiPv)=>{
-      const parent=this.lichessTools;
-      const key='l:'+fen+':'+multiPv;
-      let result = this.cache[key];
-      if (result !== undefined) return result;
-      try {
-        const result = await parent.api.evaluation.getLichess(fen,multiPv);
-        this.cache[key]=result;
-      } catch(e) {
-        parent.global.console.debug('Error fetching Lichess eval data',url,e);
-      }
-      return result;
-    };
-
     cache404={};
     setCached404= (path)=>path?this._setCached404(path,this.cache404):false;
     getCached404= (path)=>path?this._getCached404(path,this.cache404):false;
@@ -312,7 +284,7 @@
       if ((this.options.db||this.options.lichess) && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
         result={ moves: [] };
         if (this.options.db && !newMoves?.length) {
-          const obj=await this.getChessDbEval(fen);
+          const obj=await parent.api.evaluation.getChessDb(fen);
           newMoves=obj?.moves?.map(m=>{
             return {
               depth: 50, //assumed
@@ -324,7 +296,7 @@
           });
         }
         if (this.options.lichess && !newMoves?.length) {
-          let obj=await this.getLichessEval(fen,5);
+          let obj=await parent.api.evaluation.getLichess(fen,5);
           if (obj) {
             newMoves=obj?.pvs?.map(m=>{
               return {
@@ -336,7 +308,7 @@
               };
             });
             if (newMoves?.length && !parent.net.slowMode) {
-              obj=await this.getLichessEval(fen,10);
+              obj=await parent.api.evaluation.getLichess(fen,10);
               if (obj) {
                 obj.pvs?.forEach(m=>{
                   const uci=m.moves?.split(' ')[0];

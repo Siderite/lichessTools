@@ -1116,7 +1116,83 @@
     }
   };
 
+  cache={
+    lichessTools: this,
+    init: function() {
+      const sessionData = this.lichessTools.storage.get('LichessTools.GeneralCache',{ session: true, zip: true })||[];
+      const localData = this.lichessTools.storage.get('LichessTools.GeneralCache',{ session: false, zip: true })||[];
+      this._cache=new Map(sessionData.concat(localData));
+      this.save =  this.lichessTools.debounce(this.saveDirect,1000);
+    },
+    saveDirect: function() {
+      if (!this._cache) return;
+      let data=[...this._cache.entries().filter(e=>e[1].persist=='session')];
+      if (data.length) {
+        this.lichessTools.storage.set('LichessTools.GeneralCache', data, { session: true, zip: true });
+      }
+      data=[...this._cache.entries().filter(e=>e[1].persist=='local')];
+      if (data.length) {
+        this.lichessTools.storage.set('LichessTools.GeneralCache', data, { session: false, zip: true });
+      }
+    },
+    getCached:function (key) {
+      if (!this._cache) {
+        this.init();
+      }
+      const cached = this._cache.get(key);
+      if (cached) {
+        cached.isExpired=cached.expiry<Date.now();
+      }
+      return cached;
+    },
+    setCached:function (key,value,options) {
+      if (!this._cache) {
+        this.init();
+      }
+      const cached={
+        key: key,
+        value: value,
+        expiry: Date.now()+options.interval,
+        persist: options.persist
+      };
+      this._cache.set(key,cached);
+      this.save();
+    },
+    memoizeAsyncFunction:function (obj,funcName,options) {
+      const cache=this;
+      const original=obj[funcName];
+      obj[funcName]=async function(...args) {
+        const key=options.keyFunction
+                    ? options.keyFunction(obj, funcName, args)
+                    : funcName+JSON.stringify(args);
+        const cached=cache.getCached(key);
+        if (cached && !cached.isExpired) {
+          if (options.sliding) {
+            cache.setCached(key,cached.value,options);
+          }
+          return cached.value;
+        }
+        cache.lichessTools.$('body').addClass('lichessTools-apiLoading');
+        try {
+          const result=await original.apply(obj,args);
+          cache.setCached(key,result,options);
+          return result;
+        } finally {
+          cache.lichessTools.$('body').removeClass('lichessTools-apiLoading');
+        }
+      }
+    }
+  };
+
   api={
+    lichessTools: this,
+    init: function() {
+      const parent=this.lichessTools;
+      parent.cache.memoizeAsyncFunction(parent.api.team,'getUserTeams',{ persist: 'session', interval: 10*86400*1000 });
+      parent.cache.memoizeAsyncFunction(parent.api.team,'getTeamPlayers',{ persist: 'session', interval: 10*86400*1000 });
+      parent.cache.memoizeAsyncFunction(parent.api.evaluation,'getChessDb',{ persist: 'session', interval: 1*86400*1000 });
+      parent.cache.memoizeAsyncFunction(parent.api.evaluation,'getLichess',{ persist: 'session', interval: 1*86400*1000 });
+    },
     blog:{
       lichessTools: this,
       save: async function(blogId, data) {
@@ -1339,6 +1415,7 @@
     }
 
     async init() {
+      this.api.init();
       const setTimeout=this.global.setTimeout;
       const console=this.global.console;
       window.addEventListener('pagehide',()=>{

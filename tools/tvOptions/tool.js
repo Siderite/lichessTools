@@ -254,22 +254,6 @@
       }
     };
 
-    teamCache=null;
-    getTeams = async (userId)=>{
-      const parent=this.lichessTools;
-      if (!this.teamCache) {
-        this.teamCache = parent.storage.get('LichessTools.teamCache',{ session:true, zip:true });
-      }
-      if (!this.teamCache||Array.isArray(this.teamCache)) this.teamCache={};
-      let teams=this.teamCache[userId];
-      if (!teams) {
-        teams = await parent.api.team.getUserTeams(userId);
-        this.teamCache[userId]=teams;
-        parent.storage.set('LichessTools.teamCache',this.teamCache,{ session:true, zip:true });
-      }
-      return teams;
-    };
-
     get teamId() {
       const parent=this.lichessTools;
       if (this._teamId===undefined) {
@@ -284,28 +268,15 @@
       this._teamId = value;
     }
 
-    teamPlayersCache=new Map();
     getTeamPlayerIds = async ()=>{
       const parent=this.lichessTools;
-      const teams=await this.getTeams(parent.getUserId());
-      const teamId = this.teamId || teams[0]?.id;
+      let teamId=this.teamId;
+      if (!teamId) {
+        const teams=await await parent.api.team.getUserTeams(parent.getUserId());
+        teamId=teams[0]?.id;
+      }
       if (!teamId) return [];
-      if (!this.teamPlayersCache.size) {
-        const cache = parent.storage.get('LichessTools.teamPlayersCache',{ session:true, zip:true });
-        if (cache) this.teamPlayersCache=new Map(cache);
-      }
-      let teamPlayers=this.teamPlayersCache.get(teamId);
-      if (!teamPlayers) {
-        try {
-          $('div.lichessTools-teamTv').addClass('loading');
-          teamPlayers = (await parent.api.team.getTeamPlayers(teamId))?.map(u=>u.id);
-        } finally {
-          $('div.lichessTools-teamTv').removeClass('loading');
-        }
-        this.teamPlayersCache.set(teamId,teamPlayers);
-        parent.storage.set('LichessTools.teamPlayersCache',Array.from(this.teamPlayersCache.entries()),{ session:true, zip:true });
-      }
-      if (!teamPlayers?.length) return [];
+      const teamPlayers = (await parent.api.team.getTeamPlayers(teamId))?.map(u=>u.id);
       return teamPlayers;
     };
 
@@ -345,7 +316,7 @@
               this.updateTvOptionsPage();
             })
             .prependTo(container);
-          const teams=await this.getTeams(parent.getUserId());
+          const teams=await parent.api.team.getUserTeams(parent.getUserId());
           for (const team of teams) {
             $('<option>')
               .attr('value',team.id)

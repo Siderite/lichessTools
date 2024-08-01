@@ -29,22 +29,6 @@
       }
     }
 
-    teamCache=null;
-    getTeams = async (userId)=>{
-      const parent=this.lichessTools;
-      if (!this.teamCache) {
-        this.teamCache = parent.storage.get('LichessTools.teamCache',{ session:true, zip:true });
-      }
-      if (!this.teamCache||Array.isArray(this.teamCache)) this.teamCache={};
-      let teams=this.teamCache[userId];
-      if (!teams) {
-        teams = await parent.api.team.getUserTeams(userId);
-        this.teamCache[userId]=teams;
-        parent.storage.set('LichessTools.teamCache',this.teamCache,{ session:true, zip:true });
-      }
-      return teams;
-    };
-
     refreshTeams=async ()=>{
       const parent=this.lichessTools;
       const $=parent.$;
@@ -75,7 +59,7 @@
             if (!href) return;
             const hrefUserId=/\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();
             if (!hrefUserId) return;
-            const teams = await this.getTeams(hrefUserId);
+            const teams = await parent.api.team.getUserTeams(hrefUserId);
             teamsArr.push(teams);
           })());
         });
