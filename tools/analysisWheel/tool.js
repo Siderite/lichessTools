@@ -42,7 +42,7 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;
-      const q=$('div.main-board').width()/16;
+      const q=$('div.main-board').width()/20;
       this.deltaY+=(ev.deltaY-this.deltaY)*0.2;
       const nr=Math.floor(Math.abs(this.deltaY)/q);
       let path=analysis.path;
