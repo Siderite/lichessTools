@@ -125,15 +125,14 @@
         clocks:false,
 		evals:false
       });
-      const m=/\[Opening "([^"]+)"\]/.exec(pgn);
-      const opening = m&&m[1];
+      const opening = parent.getPgnTag(pgn,'Opening');
       if (!opening || opening=='?') {
         return;
       }
       if (el) {
         let time=Date.now();
-        const m2=/\[Termination "([^"]+)"\]/.exec(pgn);
-        if (m2 && m2[1]!='Unterminated') time+=86400;
+        const termination = parent.getPgnTag(pgn,'Termination');
+        if (termination && termination!='Unterminated') time+=86400;
         el.openingData={ time:time, opening:opening, el };
         if (ply) {
           el.maxPly=Math.max(ply,+el.maxPly||0);
