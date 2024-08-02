@@ -306,7 +306,7 @@
           ev.preventDefault();
           if (!parent.global.confirm(trans.noarg('resetButtonWarning'))) return;
           const options=await parent.getOptions();
-          const data=parent.tools.map(t=>t.preferences).flat().filter(p=>p && !p.hidden).map(p=>({name:p.name,value:p.defaultValue}));
+          const data=parent.tools.map(t=>t.preferences).flat().filter(p=>p).map(p=>({name:p.name,value:p.defaultValue}));
           for (const {name,value} of data) options[name]=value;
           await applyOptions(options);
           parent.fireReloadOptions();
@@ -320,7 +320,7 @@
           ev.preventDefault();
           if (!parent.global.confirm(trans.noarg('minimalButtonWarning'))) return;
           const options=await parent.getOptions();
-          const keys=parent.tools.map(t=>t.preferences).flat().filter(p=>p&& !p.hidden).map(p=>({ key: p.name, offValue: p.offValue || false }));
+          const keys=parent.tools.map(t=>t.preferences).flat().filter(p=>p && (!p.hidden || p.offValue!==undefined) ).map(p=>({ key: p.name, offValue: p.offValue || false }));
           for (const {key,offValue} of keys) options[key]=offValue;
           await applyOptions(options);
           parent.fireReloadOptions();

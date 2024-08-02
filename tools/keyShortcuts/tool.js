@@ -158,8 +158,9 @@
       analysis.redraw();
     };
 
-   bindKeysForAnalysis=(analysis, value)=>{
+   bindKeysForAnalysis=()=>{
       const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
       if (!this.oldHandlers) {
         this.oldHandlers={
           i:parent.getKeyHandler('i'),
@@ -193,7 +194,7 @@
         parent.unbindKeyHandler(combo);
       }
 
-      if (value) {
+      if (this.options.enabled) {
         parent.bindKeyHandler('i',()=>parent.jumpToGlyphSymbols('?!'));
         parent.bindKeyHandler('m',()=>parent.jumpToGlyphSymbols('?'));
         parent.bindKeyHandler('b',()=>parent.jumpToGlyphSymbols('??'));
@@ -252,7 +253,7 @@
       $('.no-square',container).eq(index-1)?.trigger('mouseup');
     }
 
-    bindKeysForEditor=(value)=>{
+    bindKeysForEditor=()=>{
       const parent=this.lichessTools;
       for (let i = 1; i <=8 ; i++) {
         const combo=i.toString();
@@ -261,7 +262,7 @@
       }
       parent.unbindKeyHandler('c');
       parent.unbindKeyHandler('p');
-      if (value) {
+      if (this.options.enabled) {
         for (let i = 1; i <=8 ; i++) {
           const combo=i.toString();
           parent.bindKeyHandler(combo,()=>this.handleEditorDigit(i, true));
@@ -272,11 +273,11 @@
       }
     }
 
-    bindKeysForGeneral=(value)=>{
+    bindKeysForGeneral=()=>{
       const parent=this.lichessTools;
       parent.unbindKeyHandler('`',true);
       parent.unbindKeyHandler('h',true);
-      if (value) {
+      if (this.options.enabled) {
         parent.bindKeyHandler('`',()=>this.prepareMove('general'));
         parent.bindKeyHandler('h',this.toggleSiteHeader);
       }
@@ -287,16 +288,19 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('keyShortcuts');
       this.logOption('Extra analysis key shortcuts', value);
+      this.options = { enabled: !!value };
+      if (!value && !this.loaded) return;
+      this.loaded=true;
       const lichess=parent.lichess;
       const analysis=lichess.analysis;
       const isEditorBoard=$('main').is('#board-editor');
       if (analysis) {
-        this.bindKeysForAnalysis(analysis, value);
+        this.bindKeysForAnalysis();
       } else if (isEditorBoard) {
-        this.bindKeysForEditor(value);
-        this.bindKeysForGeneral(value);
+        this.bindKeysForEditor();
+        this.bindKeysForGeneral();
       } else {
-        this.bindKeysForGeneral(value);
+        this.bindKeysForGeneral();
       }
       if (!value) this.clearMoveMode();
     }

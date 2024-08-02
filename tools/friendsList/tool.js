@@ -424,14 +424,6 @@
         $('td:first-child>a',row)
            .toggleClass('online',isOnline)
            .toggleClass('offline',!isOnline);
-        const friend=this.friends[user];
-        if (friend.seenAt) {
-          const time=new Date(friend.seenAt);
-          const timeText=this.getTimeText(Date.now()-friend.seenAt);
-          $('span.lichessTools-seenAt',row)
-            .text(timeText)
-            .attr('title',time.toString());
-        }
       }
     };
 
@@ -480,7 +472,6 @@
           friend={ userId: userId };
           this.friends[userId]=friend;
         }
-        friend.seenAt=Date.now();
       });
       this.user_data.online=data?.d?.map(this.getUserId)||[];
       this.user_data.playing=data?.playing?.map(this.getUserId)||[];
@@ -506,7 +497,6 @@
         friend={ userId: userId };
         this.friends[userId]=friend;
       }
-      friend.seenAt=Date.now();
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -523,7 +513,6 @@
         friend={ userId: user };
         this.friends[user]=friend;
       }
-      friend.seenAt=Date.now();
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -537,7 +526,6 @@
         friend={ userId: user };
         this.friends[user]=friend;
       }
-      friend.seenAt=Date.now();
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -552,7 +540,6 @@
         friend={ userId: user };
         this.friends[user]=friend;
       }
-      friend.seenAt=Date.now();
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -656,7 +643,6 @@
         } else {
           $('.lichessTools-online').removeClass('lichessTools-online');
           $('.lichessTools-playing').removeClass('lichessTools-playing');
-          $('td:has(.lichessTools-seenAt)').remove();
           $('.lichessTools-mute').remove();
           $('.lichessTools-tv').remove();
         }

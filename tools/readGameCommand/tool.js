@@ -11,7 +11,8 @@
         possibleValues: [false,true],
         defaultValue: true,
         advanced: true,
-        hidden: true
+        hidden: true,
+        offValue: false
       }
     ];
 

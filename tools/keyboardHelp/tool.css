@@ -2,6 +2,10 @@ body.lichessTools .lichessTools-title {
   filter:invert(1);
 }
 
+body.lichessTools .lichessTools-title:not(:has(td)) {
+  display:none;
+}
+
 body.lichessTools .lichessTools-disabled {
   text-decoration:line-through;
   opacity:0.5;

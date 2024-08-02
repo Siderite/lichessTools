@@ -121,17 +121,18 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('stickyAnalysis');
       this.logOption('Next moves from transpositions', value);
+      this.options = { enabled: !!value };
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
       const tools=$('div.analyse__tools');
-      const fork=$('div.lichessTools-transpositions',tools).remove();
+      $('div.lichessTools-transpositions',tools).remove();
       lichess.pubsub.off('lichessTools.redraw', this.findTranspositions);
       if (value) {
         lichess.pubsub.on('lichessTools.redraw', this.findTranspositions);
+        this.findTranspositions();
       }
-      this.findTranspositions();
     }
 
   }

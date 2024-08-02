@@ -906,7 +906,7 @@
         }
       };
       parent.isPermanentNode=this.isPermanentNode.bind(this);
-      if (!parent.isWrappedFunction(study.setGamebookOverride,'extendedInteractive')) {
+      if (this.options.extendedInteractive && !parent.isWrappedFunction(study.setGamebookOverride,'extendedInteractive')) {
         study.setGamebookOverride=parent.wrapFunction(study.setGamebookOverride,{
           id:'extendedInteractive',
           before:($this,o)=> {
@@ -944,6 +944,8 @@
             }
           }
         });
+      } else {
+        study.setGamebookOverride=parent.unwrapFunction(study.setGamebookOverride,'extendedInteractive');
       }
       if (this.options.extendedInteractive && !this.currentVersion) {
         this.refreshNodeVersion();

@@ -1269,7 +1269,9 @@
         christmas:!!parent.currentOptions.getValue('christmas')
       };
       lichess.pubsub.off('lichessTools.esmLoaded',this.handleEsmLoaded);
-      lichess.pubsub.on('lichessTools.esmLoaded',this.handleEsmLoaded);
+      if (this.options.needsChart) {
+        lichess.pubsub.on('lichessTools.esmLoaded',this.handleEsmLoaded);
+      }
 
       parent.global.clearInterval(this.interval);
       this.generateCharts();

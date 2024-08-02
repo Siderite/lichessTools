@@ -52,15 +52,12 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('themes');
       this.logOption('Themes', value||'none');
-      const installedThemes=Array.from($.cached('body')[0]?.classList)?.filter(c=>c.startsWith('lichessTools-theme_'));
-      for (const theme of installedThemes) {
-        $.cached('body').removeClass(theme);
-      }
-      if (value) {
-        value.split(',').forEach(theme=>{
-          $.cached('body').addClass('lichessTools-theme_'+theme.trim());
-        });
-      }
+      const existingThemes=[...$('body')[0].classList]
+                             .filter(c=>c.startsWith('lichessTools-theme_'));
+      const configuredThemes=(value||'').split(',');
+      $.cached('body')
+        .removeClass(existingThemes.join(' '))
+        .addClass(configuredThemes.join(' '));
     }
 
   }

@@ -178,7 +178,6 @@
     };
 
     refreshOpening=async (ply)=>{
-      if (!this.options.showInBoard) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -195,13 +194,15 @@
         this.showOpeningInExplorer(null);
         return;
       }
-      metaSection.find('span.lichessTools-opening').filter((i,e)=>!lichessTools.inViewport(e)).remove();
-      if (!metaSection.find('span.lichessTools-opening').length) {
-        const visibleEl=metaSection.filter((i,e)=>!!lichessTools.inViewport(e)).eq(0);
-        visibleEl
-          .append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
+      if (this.options.showInBoard) {
+        metaSection.find('span.lichessTools-opening').filter((i,e)=>!lichessTools.inViewport(e)).remove();
+        if (!metaSection.find('span.lichessTools-opening').length) {
+          const visibleEl=metaSection.filter((i,e)=>!!lichessTools.inViewport(e)).eq(0);
+          visibleEl
+            .append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
+        }
+        metaSection.find('span.lichessTools-opening').text(result.opening);
       }
-      metaSection.find('span.lichessTools-opening').text(result.opening);
       this.showOpeningInExplorer(result.opening);
       if (!ply) {
         await this.miniGameOpening();

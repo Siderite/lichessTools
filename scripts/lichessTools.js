@@ -1447,6 +1447,7 @@
     async start(lichess) {
       if (!lichess) return;
       this.lichess=lichess;
+      await lichess.load;
       const age=lichess.info?.date
         ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
         : 0;

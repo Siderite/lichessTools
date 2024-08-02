@@ -33,7 +33,9 @@
       this.logOption('Download all studies', value);
       const $=parent.$;
       const trans=parent.translator;
+      $('a.lichessTools-downloadAllStudies').remove();
       if (!value) return;
+      if ($('div.nostudies').length) return;
       const form=$('form.search');
       if (!form.length) return;
       const queryText=form.find('input[name="q"]').val();
@@ -41,7 +43,6 @@
       const m=/\bowner:(\w+)/i.exec(queryText);
       if (!m) return;
       const userId=m[1].toLowerCase();
-      if ($('div.nostudies').length) return;
       $('<a class="lichessTools-downloadAllStudies">')
         .attr('href','/study/by/'+userId+'/export.pgn')
         .attr('title',trans.noarg('downloadAllTitle'))

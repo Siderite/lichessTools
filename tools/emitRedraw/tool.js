@@ -4,33 +4,33 @@
     analysisStart = async ()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
-      const $=parent.$;
-      const console=parent.global.console;
       const emit=parent.emitRedraw;
-      if (!lichess?.analysis) {
-        parent.global.setTimeout(this.analysisStart,100);
+      const analysis=lichess?.analysis;
+      if (!analysis) {
         return;
       }
-      lichess.analysis.redraw=parent.unwrapFunction(lichess.analysis.redraw,'redraw'); 
-      lichess.analysis.redraw=parent.wrapFunction(lichess.analysis.redraw,{ 
+      analysis.redraw=parent.unwrapFunction(analysis.redraw,'redraw'); 
+      analysis.redraw=parent.wrapFunction(analysis.redraw,{ 
         id:'redraw',
         after: emit
       });
-      lichess.analysis.reloadData=parent.unwrapFunction(lichess.analysis.reloadData,'redraw'); 
-      lichess.analysis.reloadData=parent.wrapFunction(lichess.analysis.reloadData,{ 
+      analysis.reloadData=parent.unwrapFunction(analysis.reloadData,'redraw'); 
+      analysis.reloadData=parent.wrapFunction(analysis.reloadData,{ 
         id:'redraw',
         after: emit
       });
-      if (lichess.analysis.gamebookPlay()?.redraw) {
-        lichess.analysis.gamebookPlay().redraw=parent.unwrapFunction(lichess.analysis.gamebookPlay().redraw,'redraw'); 
-        lichess.analysis.gamebookPlay().redraw=parent.wrapFunction(lichess.analysis.gamebookPlay().redraw,{ 
+      const gp=analysis.gamebookPlay();
+      if (gp?.redraw) {
+        gp().redraw=parent.unwrapFunction(gp().redraw,'redraw'); 
+        gp().redraw=parent.wrapFunction(gp().redraw,{ 
           id:'redraw',
           after: emit
         });
       }
-      if (lichess.analysis.study?.relay?.redraw) {
-        lichess.analysis.study.relay.redraw=parent.unwrapFunction(lichess.analysis.study.relay.redraw,'redraw'); 
-        lichess.analysis.study.relay.redraw=parent.wrapFunction(lichess.analysis.study.relay.redraw,{ 
+      const relay=analysis.study?.relay;
+      if (relay?.redraw) {
+        relay.redraw=parent.unwrapFunction(relay.redraw,'redraw'); 
+        relay.redraw=parent.wrapFunction(relay.redraw,{ 
           id:'redraw',
           after: emit
         });
@@ -43,9 +43,12 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
-      const console=parent.global.console;
-      const emit = parent.debounce(() => {
-        if (parent.global.document.hidden) return;
+      let emit=null;
+      emit = parent.debounce(() => {
+        if (parent.global.document.hidden) {
+          emit();
+          return;
+        }
         parent.debug && parent.global.console.debug('redraw');
         lichess.pubsub.emit('lichessTools.redraw');
       }, 250);
@@ -56,13 +59,13 @@
       lichess.pubsub.off('chat.resize',emit);
       lichess.pubsub.on('chat.resize',emit);
       parent.global.clearInterval(this._interval);
-      const board=$('div.main-board div.cg-wrap');
       this._interval=parent.global.setInterval(()=>{
+        const board=$('div.main-board div.cg-wrap');
         const cls=board.attr('class');
-        if (this._cls && this._cls!=cls) {
+        if (this._cls!=cls) {
+          this._cls=cls;
           emit();
         }
-        this._cls=cls;
       },1000);
     }
 

@@ -123,7 +123,7 @@
       return;
     }
     await this.lichessTools.timeout(500);
-    this.beep.play();
+    this.beep?.play();
     let translation=this.lichessTools.translator.plural('playing',1,username?.replace(/[_\-]/g,' '))+', '+this.lichessTools.translator.noarg('gameType-'+gameType);
     if (!isStandard) {
       translation+=' '+variant;
@@ -158,11 +158,11 @@
       if (!lichess) return;
       const setInterval=parent.global.setInterval;
       const clearInterval=parent.global.clearInterval;
-      this.beep = await lichess.sound.load('friendPlaying', lichess.sound.url('piano/GenericNotify.mp3'));
       lichess.pubsub.off('socket.in.following_playing', this.playFriendSound);
       lichess.pubsub.off('lichessTools.mutePlayer', this.mutePlayer);
       clearInterval(this.audioCheckTimeout);
-      if (value!==false && value?.toString().replace(/,standard/i,'')) {
+      if (value!==false && value?.toString()?.replace(/,\s*standard/i,'')) {
+        this.beep = await lichess.sound.load('friendPlaying', lichess.sound.url('piano/GenericNotify.mp3'));
         lichess.pubsub.on('socket.in.following_playing', this.playFriendSound);
         lichess.pubsub.on('lichessTools.mutePlayer', this.mutePlayer);
       }

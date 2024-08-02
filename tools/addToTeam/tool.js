@@ -9,7 +9,8 @@
         category: 'community',
         type:'multiple',
         possibleValues: ['hideForum','forumBottom','noNotifications'],
-        defaultValue: false
+        defaultValue: false,
+        offValue: 'hideForum,noNotifications'
       }
     ];
 

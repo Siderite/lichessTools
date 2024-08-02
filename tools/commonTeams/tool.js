@@ -100,6 +100,7 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('commonTeams');
       this.logOption('Common teams', value);
+      $('a.lichessTools-commonTeams').remove();
       lichess.pubsub.off('lichessTools.redraw',this.refreshTeams);
       if (!value) return;
       lichess.pubsub.on('lichessTools.redraw',this.refreshTeams);
