@@ -320,8 +320,8 @@
           ev.preventDefault();
           if (!parent.global.confirm(trans.noarg('minimalButtonWarning'))) return;
           const options=await parent.getOptions();
-          const keys=parent.tools.map(t=>t.preferences).flat().filter(p=>p&& !p.hidden).map(p=>p.name);
-          for (const key of keys) options[key]=false;
+          const keys=parent.tools.map(t=>t.preferences).flat().filter(p=>p&& !p.hidden).map(p=>({ key: p.name, offValue: p.offValue || false }));
+          for (const {key,offValue} of keys) options[key]=offValue;
           await applyOptions(options);
           parent.fireReloadOptions();
           checkGlobalSwitch();
