@@ -52,10 +52,10 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('themes');
       this.logOption('Themes', value||'none');
-      const existingThemes=[...$('body')[0].classList]
+      const existingThemes=[...$('body').prop('classList')]
                              .filter(c=>c.startsWith('lichessTools-theme_'));
-      const configuredThemes=(value||'').split(',');
-      $.cached('body')
+      const configuredThemes=(value||'').split(',').map(t=>'lichessTools-theme_'+t);
+      $('body')
         .removeClass(existingThemes.join(' '))
         .addClass(configuredThemes.join(' '));
     }

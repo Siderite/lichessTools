@@ -26,3 +26,8 @@ body.lichessTools section.lichessTools-explorerSnaps button.remove {
   position: relative;
   border-radius: 50%;
 }
+
+/* Prettier */
+body.lichessTools.lichessTools-prettier section.lichessTools-explorerSnaps button.button {
+  padding:0.5em !important;
+}
