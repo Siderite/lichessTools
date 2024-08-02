@@ -19,11 +19,19 @@ body.lichessTools #time-range-slider.lichessTools-moreToTheLeft {
   border-radius:0;
 }
 
-body.lichessTools #time-range-slider.lichessTools-moreToTheLeft {
+body.lichessTools #time-range-slider.lichessTools-moreToTheRight {
   border-right:none;
   border-radius:0;
 }
 
 body.lichessTools .rating-history-container:has(label.lichessTools-profileSliderText) {
   overflow: hidden;
+}
+
+body.lichessTools .rating-history-container:has(.lichessTools-moreToTheLeft) .lichessTools-profileSliderText span:first-child {
+  color: orange;
+}
+
+body.lichessTools .rating-history-container:has(.lichessTools-moreToTheRight) .lichessTools-profileSliderText span:last-child {
+  color: orange;
 }
