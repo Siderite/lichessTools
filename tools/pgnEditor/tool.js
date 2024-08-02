@@ -593,11 +593,18 @@
       const parent=this.lichessTools;
 
       const co=parent.chessops;
-      const { startingPosition,parsePgn } = co.pgn;
+      const { startingPosition } = co.pgn;
       const { makeFen }= co.fen;
       const { parseSan, makeSanAndPlay } = co.san;
 
-      const pos = startingPosition(game.headers).unwrap();
+      let pos=null;
+      try {
+        pos = startingPosition(game.headers).unwrap();
+      } catch(e) {
+        e.san='Starting position';
+        e.ply=0;
+        throw e;
+      }
 
       game.lastMoves=[];
       const traverse=(pos,node,ply=0)=>{
@@ -703,9 +710,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { startingPosition,parsePgn,makePgn } = co.pgn;
-      const { makeFen }= co.fen;
-      const { parseSan, makeSanAndPlay } = co.san;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       const games=parsePgn(text);
       this.writeNote(trans.pluralSame('mergingGames',games.length));
@@ -719,14 +724,15 @@
         try {
           this.enhanceGameWithFens(game);
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
+            });
+            parent.announce(message);
             break;
           } else throw ex;
-          withErrors=true;
         }
       }
       if (withErrors) {
@@ -771,15 +777,15 @@
         try{
           this.enhanceGameWithFenDict(game);
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
-            withErrors=true;
+            });
+            parent.announce(message);
             break;
           } else throw ex;
-          withErrors=true;
         }
       }
       if (withErrors) {
@@ -856,7 +862,7 @@
       }
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       const games=parsePgn(text);
       this.writeNote(trans.pluralSame('evaluatingGames',games.length));
@@ -895,12 +901,13 @@
           this.enhanceGameWithFens(game);
           totalMoves+=game.lastMoves?.length||0;
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
-            withErrors=true;
+            });
+            parent.announce(message);
             break;
           } else throw ex;
         }
@@ -971,9 +978,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { startingPosition,parsePgn,makePgn } = co.pgn;
-      const { makeFen }= co.fen;
-      const { parseSan, makeSanAndPlay } = co.san;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       const games=parsePgn(text);
       this.writeNote(trans.pluralSame('extractingFens',games.length));
@@ -987,14 +992,15 @@
         try {
           this.enhanceGameWithFens(game);
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
+            });
+            parent.announce(message);
             break;
           } else throw ex;
-          withErrors=true;
         }
       }
       if (withErrors) {
@@ -1043,7 +1049,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       const games=parsePgn(text);
       this.writeNote(trans.pluralSame('normalizingGames',games.length));
@@ -1058,12 +1064,13 @@
           this.enhanceGameWithFens(game);
           this.enhanceGameWithFenDict(game);
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
-            withErrors=true;
+            });
+            parent.announce(message);
             break;
           } else throw ex;
         }
@@ -1133,7 +1140,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       const games=parsePgn(text);
       this.writeNote(trans.pluralSame('denormalizingGames',games.length));
@@ -1148,12 +1155,13 @@
           this.enhanceGameWithFens(game);
           this.enhanceGameWithFenDict(game);
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
-            withErrors=true;
+            });
+            parent.announce(message);
             break;
           } else throw ex;
         }
@@ -1234,7 +1242,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('splittingGames',games.length));
@@ -1324,7 +1332,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('searchingGames',games.length));
@@ -1345,7 +1353,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames',games.length));
@@ -1384,7 +1392,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames',games.length));
@@ -1420,7 +1428,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames',games.length));
@@ -1453,7 +1461,7 @@
       if (!plyNumber) return;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames',games.length));
@@ -1490,7 +1498,7 @@
       if (!operator||Number.isNaN(value)) return;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames',games.length));
@@ -1679,7 +1687,7 @@
               try {
                 this.enhanceGameWithFens(game);
               } catch(ex) {
-                if (ex.ply) {
+                if (ex.ply!==undefined) {
                   found=true;
                 } else throw ex;
               }
@@ -1739,14 +1747,15 @@
             foundGames.push(game);
           }
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
+            });
+            parent.announce(message);
             break;
           } else throw ex;
-          withErrors=true;
         }
       }
 
@@ -1776,7 +1785,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('searchingGames',games.length));
