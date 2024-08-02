@@ -369,7 +369,9 @@
       const m=/#lichessTools\/(?<pref>.*)$/.exec(parent.global.location.hash);
       const pref=m?.groups?.pref;
       if (pref) {
-        $('[data-pref="'+pref+'"]')[0]?.scrollIntoView();
+        const elem=$('[data-pref="'+pref+'"]');
+        elem.parents().add(elem).show();
+        elem[0]?.scrollIntoView();
       }
     };
 
