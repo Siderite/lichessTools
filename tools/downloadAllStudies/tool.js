@@ -41,6 +41,7 @@
       const m=/\bowner:(\w+)/i.exec(queryText);
       if (!m) return;
       const userId=m[1].toLowerCase();
+      if ($('div.nostudies').length) return;
       $('<a class="lichessTools-downloadAllStudies">')
         .attr('href','/study/by/'+userId+'/export.pgn')
         .attr('title',trans.noarg('downloadAllTitle'))
