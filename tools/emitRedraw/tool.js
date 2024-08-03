@@ -21,8 +21,8 @@
       });
       const gp=analysis.gamebookPlay();
       if (gp?.redraw) {
-        gp().redraw=parent.unwrapFunction(gp().redraw,'redraw'); 
-        gp().redraw=parent.wrapFunction(gp().redraw,{ 
+        gp.redraw=parent.unwrapFunction(gp.redraw,'redraw'); 
+        gp.redraw=parent.wrapFunction(gp.redraw,{ 
           id:'redraw',
           after: emit
         });
