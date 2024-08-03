@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+03 Aug
+  - interactive lesson give up button
+
 31 Jul
   - analysis mouse wheel support
 

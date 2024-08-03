@@ -8,7 +8,7 @@
         name:'extendedInteractiveLesson',
         category: 'study',
         type:'multiple',
-        possibleValues: ['extendedInteractive','showFinalScore','alwaysShowScore','returnToPreview','fastInteractive'],
+        possibleValues: ['extendedInteractive','showFinalScore','alwaysShowScore','returnToPreview','fastInteractive','giveUpButton'],
         defaultValue: 'extendedInteractive,showFinalScore'
       },
       {
@@ -31,6 +31,7 @@
         'extendedInteractiveLesson.alwaysShowScore':'Always show score',
         'extendedInteractiveLesson.returnToPreview':'Play again from where you entered Preview',
         'extendedInteractiveLesson.fastInteractive':'Fast interaction',
+        'extendedInteractiveLesson.giveUpButton':'Give up button',
         'extendedInteractiveLesson': 'Extended Interactive lesson',
         'extendedInteractiveLessonLong': 'Extended Interactive lesson - LiChess Tools',
         'finalScore': 'Score final: %s%',
@@ -48,7 +49,10 @@
         'resetButtonText': 'Reset',
         'resetButtonTitle': 'LiChess Tools - reset variation progress',
         'progressTitle': 'LiChess Tools - %s variations',
-        'extendedInteractiveOptionsTitle': 'LiChess Tools - interactive lesson preferences'
+        'extendedInteractiveOptionsTitle': 'LiChess Tools - interactive lesson preferences',
+        'giveUpButtonText':'Give up',
+        'giveUpButtonTitle':'Abandons the interactive run',
+        'giveUpConfirmation':'Are you sure you want to abandon the interactive run?'
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -58,6 +62,7 @@
         'extendedInteractiveLesson.alwaysShowScore':'Arat\u0103 scorul tot timpul',
         'extendedInteractiveLesson.returnToPreview':'Joac\u0103 din nou de unde ai intrat \u00een Preview',
         'extendedInteractiveLesson.fastInteractive':'Interac\u0163iune rapid\u0103',
+        'extendedInteractiveLesson.giveUpButton':'Buton renun\u0163are',
         'extendedInteractiveLesson': 'Lec\u0163ie Interactiv\u0103 extins\u0103',
         'extendedInteractiveLessonLong': 'Lec\u0163ie Interactiv\u0103 extins\u0103 - LiChess Tools',
         'finalScore': 'Scor final: %s%',
@@ -75,7 +80,10 @@
         'resetButtonText': 'Resetare',
         'resetButtonTitle': 'LiChess Tools - resetare progres \u00een varia\u0163uni',
         'progressTitle': 'LiChess Tools - %s varia\u0163uni',
-        'extendedInteractiveOptionsTitle': 'LiChess Tools - preferin\u0163e lec\u0163ie interactiv\u0103'
+        'extendedInteractiveOptionsTitle': 'LiChess Tools - preferin\u0163e lec\u0163ie interactiv\u0103',
+        'giveUpButtonText':'Renun\u0163',
+        'giveUpButtonTitle':'Abandoneaz\u0103 lec\u0163ia interactiv\u0103',
+        'giveUpConfirmation':'E\u015Fti sigur ca vrei sa abandonezi lec\u0163ia interactiv\u0103?'
       }
     }
 
@@ -397,8 +405,32 @@
       return true;
     };
 
+    showGiveUpButton=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      const container = $('.gamebook .comment .content');
+      if (!container.length || $('.lichessTools-giveUp',container).length) return;
+      $('<button class="hint lichessTools-giveUp">')
+        .text(trans.noarg('giveUpButtonText'))
+        .attr('title',trans.noarg('giveUpButtonTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          parent.global.setTimeout(()=>{
+            if (!parent.global.confirm(trans.noarg('giveUpConfirmation'))) return;
+            const gp=parent.lichess.analysis.gamebookPlay();
+            gp.state.feedback='end';
+            gp.badMoves++;
+            gp.redraw();
+            gp.state.feedback=undefined;
+          },1);
+        })
+        .appendTo(container);
+    };
+
     showScore=(isFinal)=>{
       const parent=this.lichessTools;
+      const $=parent.$;
       const Math=parent.global.Math;
       const analysis=parent.lichess.analysis;
       const trans=parent.translator;
@@ -518,6 +550,9 @@
               } else 
             if (this.options.alwaysShowScore) {
               this.showScore();
+            }
+            if (this.options.giveUpButton && gp.state.feedback!='end') {
+              this.showGiveUpButton();
             }
           }
         });
@@ -900,6 +935,7 @@
         extendedInteractive:parent.isOptionSet(value,'extendedInteractive'),
         returnToPreview:parent.isOptionSet(value,'returnToPreview'),
         fastInteractive:parent.isOptionSet(value,'fastInteractive'),
+        giveUpButton:parent.isOptionSet(value,'giveUpButton'),
         flow: {
           'sequential':parent.isOptionSet(flow,'sequential'),
           'spacedRepetition':parent.isOptionSet(flow,'spacedRepetition')
