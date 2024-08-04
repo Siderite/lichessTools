@@ -42,7 +42,7 @@
         'extractPrompt': '"fen"',
         'extractingFens': 'Extracting FENs',
         'btnCutStuffText': 'Cut',
-        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments, tags, found results or branches',
+        'btnCutStuffTitle': 'Cut to ply number, remove junk, annotations, comments, tags, found results or branches',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'btnUploadText': 'Upload',
@@ -84,7 +84,7 @@
         'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value or "Eval"(>,=,<)Value"',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Eval"(>,=,<)Value in any combination (i.e. tags, ply 10, eval<0)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Junk","Eval"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText': 'PGN Editor',
         'sendToPgnEditorTitle': 'LiChess Tools - send to PGN Editor',
         'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation'
@@ -116,7 +116,7 @@
         'extractPrompt': '"fen"',
         'extractingFens': 'Extrag FENuri',
         'btnCutStuffText': 'Taie',
-        'btnCutStuffTitle': 'Taie la un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 adnot\u0103ri, comentarii, etichete sau rezultatele g\u0103site',
+        'btnCutStuffTitle': 'Taie la un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 gunoi, adnot\u0103ri, comentarii, etichete sau rezultatele g\u0103site',
         'btnCancelText': 'Anuleaz\u0103',
         'btnCancelTitle': 'Anuleaz\u0103 opera\u0163iunea curent\u0103',
         'btnUploadText': '\u00CEncarc\u0103',
@@ -158,7 +158,7 @@
         'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag(=,*=)Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare sau "Eval"(>,=,<)Valoare"',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: tags, ply 10, eval<0)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Junk", "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText':'Editor PGN',
         'sendToPgnEditorTitle':'LiChess Tools - trimite la Editor PGN',
         'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess'
@@ -1300,6 +1300,9 @@
       const trans=parent.translator;
 
       const text=parent.global.prompt(trans.noarg('cutStuffPrompt'));
+      if (/junk/i.test(text)) {
+        await this.cutJunk(textarea);
+      }
       if (/result/i.test(text)) {
         await this.cutFound(textarea);
       }
@@ -1344,7 +1347,25 @@
 
       this.countPgn();
     };
+      
+    cutJunk=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
 
+      const text=textarea.val();
+      const reg = /(\[\w+\s+\".*?\"\][\s\r\n]*)*\d{1,3}\s*\.\s*(\.\.)?(((?:[NBKRQ]?[a-h]?[1-8]?[-x]?[a-h][1-8](?:=?[nbrqkNBRQK])?|[pnbrqkPNBRQK]?@[a-h][1-8]|O-O-O|0-0-0|O-O|0-0)[+#]?|--|Z0|0000|@@@@|\d{1,3}\s*\.\s*(\.\.)?|{.*?}|;|\$\d{1,4}|[?!]{1,2}|\(|\)|\*|1-0|0-1|1\/2-1\/2)[\s\r\n]*)+/g;
+      const pgns=[];
+      let match=reg.exec(text);
+      while (match) {
+        pgns.push(match[0]);
+        match=reg.exec(text)
+      }
+      textarea.val(pgns.join('\r\n\r\n'));
+
+      this.countPgn();
+    };
       
     cutTags=async (textarea)=>{
       const parent=this.lichessTools;

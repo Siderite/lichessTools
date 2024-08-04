@@ -183,7 +183,7 @@
 
     getPgnTag(text,tagName) {
       if (!text) return null;
-      const m=new RegExp('\\[\s*'+tagName+'\\s+"([^"]+)"\s*\\]').exec(text);
+      const m=new RegExp('\\[\s*'+this.escapeRegex(tagName)+'\\s+"([^"]+)"\s*\\]').exec(text);
       return m && m[1];
     }
 

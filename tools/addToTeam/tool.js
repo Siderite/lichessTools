@@ -106,7 +106,8 @@
     };
 
     isTeamPage=()=>{
-      return new this.lichessTools.global.RegExp('\/'+this.teamId,'i').test(location.pathname);
+      const parent=this.lichessTools;
+      return new parent.global.RegExp('\/'+parent.escapeRegex(this.teamId),'i').test(parent.global.location.pathname);
     };
 
     updateForumPage=async ()=>{

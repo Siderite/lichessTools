@@ -103,7 +103,7 @@
       }
       if (!value) return;
 
-      if (/^\/timeline/i.test(location.pathname)) this.setAllRead();
+      if (/^\/timeline/i.test(parent.global.location.pathname)) this.setAllRead();
       const notification={
         getEntries: async ()=>{
           this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
