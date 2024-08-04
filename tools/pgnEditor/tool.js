@@ -1355,7 +1355,7 @@
       const trans=parent.translator;
 
       const text=textarea.val();
-      const reg = /(\[\w+\s+\".*?\"\][\s\r\n]*)*\d{1,3}\s*\.\s*(\.\.)?(((?:[NBKRQ]?[a-h]?[1-8]?[-x]?[a-h][1-8](?:=?[nbrqkNBRQK])?|[pnbrqkPNBRQK]?@[a-h][1-8]|O-O-O|0-0-0|O-O|0-0)[+#]?|--|Z0|0000|@@@@|\d{1,3}\s*\.\s*(\.\.)?|{.*?}|;|\$\d{1,4}|[?!]{1,2}|\(|\)|\*|1-0|0-1|1\/2-1\/2)[\s\r\n]*)+/g;
+      const reg = /(\[\w+\s+\".*?\"\][\s\r\n]*)*({.*?}[\s\r\n]*)?\d{1,3}\s*\.\s*(\.\.)?(((?:[NBKRQ]?[a-h]?[1-8]?[-x]?[a-h][1-8](?:=?[nbrqkNBRQK])?|[pnbrqkPNBRQK]?@[a-h][1-8]|O-O-O|0-0-0|O-O|0-0)[+#]?|--|Z0|0000|@@@@|\d{1,3}\s*\.\s*(\.\.)?|{.*?}|;|\$\d{1,4}|[?!]{1,2}|\(|\)|\*|1-0|0-1|1\/2-1\/2)[\s\r\n]*)+/g;
       const pgns=[];
       let match=reg.exec(text);
       while (match) {
