@@ -1,0 +1,5 @@
+body.lichessTools td.lichessTools-notify a:not(.lichessTools-enabled) {
+  display: inline-block;
+  transform: rotate(45deg);
+  opacity: 0.3;
+}

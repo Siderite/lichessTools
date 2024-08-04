@@ -29,7 +29,7 @@
     notifications=[];
     addNotification=(notification)=>{
       this.notifications.push(notification);
-      this.processNotifications();
+      this.forcedProcessNotifications();
     };
     markEntryRead=(id)=>{
       const notification = this.notifications.find(n=>n.id==id);

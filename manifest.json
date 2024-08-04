@@ -15,6 +15,7 @@
     "128": "images/icon-128.png"
   },
   "permissions": [
+    "bookmarks"
   ],
   "host_permissions": [
     "*://lichess.org/*",
@@ -218,6 +219,7 @@
         "tools/forkBehavior/tool.css",
         "tools/blogAutosave/tool.css",
         "tools/imagePasting/tool.css",
+        "tools/mchatOptions/tool.css",
         "tools/fullScreen/tool.css",
         "tools/commonTeams/tool.css",
         "tools/expandAll/tool.css",
