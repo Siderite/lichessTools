@@ -1362,7 +1362,7 @@
         pgns.push(match[0]);
         match=reg.exec(text)
       }
-      textarea.val(pgns.join('\r\n\r\n'));
+      this.setText(textarea,pgns.join('\r\n\r\n'));
 
       this.countPgn();
     };
