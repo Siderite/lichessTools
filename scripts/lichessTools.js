@@ -361,8 +361,10 @@
         }
         $e=$e.prev('move');
         if ($e.is('.empty')) $e=$e.prev('move');
-        const p=$e.attr('p')||'';
-        collapsedPaths.push(interrupt?p.slice(0,-2):p);
+        const p=$e.attr('p');
+        if (p) {
+          collapsedPaths.push(interrupt?p.slice(0,-2):p);
+        }
       });
       const collapsedRegex=collapsedPaths.length
         ? new RegExp('^('+collapsedPaths.map(p=>this.escapeRegex(p)).join('|')+')')

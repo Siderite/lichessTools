@@ -154,13 +154,21 @@
         }
       }
       $('div.tview2 move').each((i,e)=>{
-        const path=$(e).attr('p');
+        e=$(e);
+        const path=e.attr('p');
         if (!path) return;
         const cls=dict[path];
         if (!cls) {
           //parent.global.console.warn('Could not find variation depth for node with path:',path);
         } else {
-          $(e).removeClass('vdm1 vdm2 vdm3 vdm4 vdm5 vdm6 vdm7 vd1 vd2 vd3 vd4 vd5 vd6 vd7').addClass(cls);
+          ['vdm1','vdm2','vdm3','vdm4','vdm5','vdm6','vdm7','vd1','vd2','vd3','vd4','vd5','vd6','vd7']
+            .forEach(c=>{
+              if (cls.includes(c)) {
+                if (!e.is('.'+c)) e.addClass(c);
+              } else {
+                if (e.is('.'+c)) e.removeClass(c);
+              }
+            });
         }
       });
     };
