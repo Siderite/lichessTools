@@ -2,6 +2,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 04 Aug
   - team message notification
+  - print options for move list in another window
 
 03 Aug
   - interactive lesson give up button

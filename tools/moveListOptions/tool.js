@@ -616,8 +616,11 @@
         if (container.length) {
           $('div.lichessTools-moveListOptions-header').remove();
         } else {
-          container=$('<div class="lichessTools-moveListOptions-header">')
-            .prependTo('div.analyse__tools');
+          container=$('div.lichessTools-moveListOptions-header');
+          if (!container.length) {
+            container=$('<div class="lichessTools-moveListOptions-header">')
+              .prependTo('div.analyse__tools');
+          }
         }
         if (!button.length) {
           button=$('<a class="lichessTools-analysisPopup">')
