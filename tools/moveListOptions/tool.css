@@ -271,6 +271,14 @@ body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="analyse-
   height:calc(var(--analyse-toggle-size) - 2px);
 }
 
+body.lichessTools div.lichessTools-moveListOptions-header {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  flex-wrap: wrap;
+  max-height: 2em;
+}
+
 /* Prettier */
 
 @media (min-width: 1261px) {

@@ -256,6 +256,7 @@
     
       if (this.options.moveEval 
          && study?.vm.mode.write
+         && $('.analyse__tools > .ceval').length
          &&!menu.has('a[data-role="evaluateTerminations"]').length) {
         const text=trans.noarg('evaluateTerminationsText');
         const title=trans.noarg('evaluateTerminationsTitle');
