@@ -9,18 +9,37 @@
         defaultValue: true,
         advanced: true,
         hidden: true
+      },
+      {
+        name:'stockfish-threads',
+        category: 'analysis',
+        type:'number',
+        defaultValue: 1,
+        advanced: true
+      },
+      {
+        name:'stockfish-hash',
+        category: 'analysis',
+        type:'number',
+        defaultValue: 128,
+        advanced: true
       }
+
     ];
 
     intl = {
       'en-US': {
         'options.general': 'General',
         'options.stockfish': 'Stockfish',
+        'options.stockfish-threads': 'LiChess Tools analysis engine threads',
+        'options.stockfish-hash': 'LiChess Tools analysis engine hash (MB)',
         'couldNotLoadStockfish':'Could not load Stockfish!'
       },
       'ro-RO': {
         'options.general': 'General',
         'options.stockfish': 'Stockfish',
+        'options.stockfish-threads': 'Thread-uri pentru motorul de analiz\u0103 LiChess Tools',
+        'options.stockfish-hash': 'Hash pentru motorul de analiz\u0103 LiChess Tools (MB)',
         'couldNotLoadStockfish':'Nu am putut \u00eenc\u0103rca Stockfish!'
       }
     }
@@ -33,8 +52,19 @@
         parent.stockfish=null;
         return;
       }
-      const sf=new Stockfish(parent);
-      parent.stockfish=sf;
+      const threads = +(parent.currentOptions.getValue('stockfish-threads'))||1;
+      const hash = +(parent.currentOptions.getValue('stockfish-hash'))||128;
+      let sf=parent.stockfish;
+      if (sf) {
+        sf.setOption('Threads',threads);
+        sf.setOption('Hash',hash);
+        sf.start();
+      } else {
+        sf=new Stockfish(parent);
+        sf._initialThreads = threads;
+        sf._initialHash = hash;
+        parent.stockfish=sf;
+      }
     }
   }
 
@@ -49,6 +79,7 @@
     async load() {
       try{
         if (!this._module) {
+          this.parent.debug && this.parent.global.console.debug('SF','loading module...');
           const lichess=this.parent.lichess;
           const engines=lichess?.analysis?.ceval?.engines;
           const engineId=this._use1670?'__sf161nnue70':'__sf16nnue40';
@@ -62,6 +93,7 @@
           this._module=await import(url);
         }
         if (!this._stockfish) {
+          this.parent.debug && this.parent.global.console.debug('SF','loading Stockfish...');
           this._stockfish=(await this._module.default) || this.parent.global.exports.Stockfish;
           if (!this._stockfish) {
             this.parent.global.console.log(this._module);
@@ -69,6 +101,7 @@
           }
         }
         if (!this._instance) {
+          this.parent.debug && this.parent.global.console.debug('SF','creating instance...');
           const sf=await this._stockfish();
           if (sf.uci && !sf.postMessage) sf.postMessage=sf.uci;
           await sf.ready;
@@ -78,6 +111,8 @@
           while(!this._uciok) {
             await this.parent.timeout(100);
           }
+          if (this._initialThreads) this.setOption('Threads',this._initialThreads);
+          if (this._initialHash) this.setOption('Hash',this._initialHash);
         }
         this.parent.global.console.debug('SF','Engine loaded');
         return this;
@@ -159,6 +194,7 @@
       this.postMessage('setoption name UCI_Elo value 3190');
       this.postMessage('setoption name UCI_ShowWDL value true');
       this._isStarted=true; 
+      this.parent.debug && this.parent.global.console.debug('SF','Engine started');
     }
 
     stop() {
