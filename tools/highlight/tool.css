@@ -46,11 +46,11 @@ html.transp body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
     filter: brightness(200%);
 }
 
-body.lichessTools.lichessTools-notOnMainline main.analyse cg-board {
+body.lichessTools.lichessTools-notOnMainline div.main-board cg-board {
   opacity:0.85;
 }
 
-body.lichessTools piece.lichessTools-notOnMainline {
+body.lichessTools div.main-board piece.lichessTools-notOnMainline {
   opacity:0.5;
 }
 

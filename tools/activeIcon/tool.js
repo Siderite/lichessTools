@@ -23,6 +23,27 @@
       }
     }
 
+    _iconCache={};
+    getIcon=(isBlack,isPlaying)=>{
+      const parent=this.lichessTools;
+      const asset=parent.lichess.asset;
+      let key='';
+      switch(isBlack) {
+        case true: key+='b'; break;
+        case false: key+='w'; break;
+        default: key+=' '; break;
+      }
+      key+=isPlaying?'p':'n';
+      let icon = this._iconCache[key];
+      if (!icon) {
+        icon=isPlaying
+               ? asset.url(isBlack?'cursors/black-pawn.cur':'cursors/white-pawn.cur')
+               : asset.flairSrc('activity.lichess');
+        this._iconCache[key]=icon;
+      }
+      return icon;
+    }
+
     setIcon=(isBlack, isPlaying)=>{
       const parent=this.lichessTools;
       const $=parent.$;
@@ -30,7 +51,6 @@
         isBlack=false;
         isPlaying=false;
       }
-      const asset=parent.lichess.asset;
       if (isBlack===undefined) {
         const fen=parent.getPositionFromBoard($('div.main-board'),true);
         isBlack=/ b\b/.test(fen);
@@ -38,10 +58,10 @@
       if (isPlaying!==false) {
         isPlaying = !$('.result-wrap .result,.study__player .result,.game__meta .status').length;
       }
-      const icon=isPlaying
-                   ? asset.url(isBlack?'/cursors/black-pawn.cur':'/cursors/white-pawn.cur')
-                   : asset.flairSrc('activity.lichess');
-      $('link[rel=icon][source=lichessTools]').attr('href',icon);
+      const icon=this.getIcon(isBlack,isPlaying);
+      const elem=$('link[rel=icon][source=lichessTools]');
+      const href=elem.attr('href');
+      if (href!=icon) elem.attr('href',icon);
     };
 
     handlePly=(ply)=>{

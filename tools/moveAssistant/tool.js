@@ -120,7 +120,7 @@
         if (cp<minCp) minCp=cp;
       });
       
-      const side=$('main.analyse cg-board').width();
+      const side=$('main.analyse div.main-board cg-board').width();
       const isBlack=lichess.analysis.getOrientation()=='black';
       $('square.move-dest').each((i,e)=>{
         const dest=this.getSquare(e,side,isBlack);
@@ -238,6 +238,7 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
+      if (!parent.global.SharedArrayBuffer) return;
       this.clearSquares();
       parent.global.clearInterval(this.interval);
       this.setControls();

@@ -136,7 +136,7 @@
       const onMainline = analysis.node==analysis.mainline[analysis.node.ply];
       const $=parent.$;
       if (onMainline) {
-        $('main cg-board piece.lichessTools-notOnMainline').removeClass('lichessTools-notOnMainline');
+        $('div.main-board cg-board piece.lichessTools-notOnMainline').removeClass('lichessTools-notOnMainline');
       } else {
         const board=parent.getBoardFromFen(analysis.node.fen);
         const mainNode=analysis.nodeList.findLast((n,i)=>n==analysis.mainline[i]);
@@ -151,7 +151,7 @@
           }
         }
         if (squares.length) {
-          $('main cg-board piece').each((i,e)=>{
+          $('div.main-board cg-board piece').each((i,e)=>{
              const notOnMainline = squares.includes(e.cgKey);
              $(e).toggleClass('lichessTools-notOnMainline',notOnMainline);
           });

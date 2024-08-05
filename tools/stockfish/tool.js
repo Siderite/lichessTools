@@ -56,10 +56,14 @@
       const hash = +(parent.currentOptions.getValue('stockfish-hash'))||128;
       let sf=parent.stockfish;
       if (sf) {
-        await sf.load();
-        sf.setOption('Threads',threads);
-        sf.setOption('Hash',hash);
-        sf.start();
+        if (sf._instance) {
+          sf.setOption('Threads',threads);
+          sf.setOption('Hash',hash);
+          sf.start();
+        } else {
+          sf._initialThreads = threads;
+          sf._initialHash = hash;
+        }
       } else {
         sf=new Stockfish(parent);
         sf._initialThreads = threads;
