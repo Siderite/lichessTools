@@ -41,7 +41,7 @@
           if (!this.options.enabled) return;
           const plyPrefix = (node) => `${parent.global.Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
           const pathParts = nodes.slice(1).map(n => `${plyPrefix(n)}${n.san}`);
-          const path = pathParts.join('/').replace(/[+!#?]/g, '') ?? '';
+          const path = pathParts.join('/').replace(/[+!#?]/g, '') || '';
           if (pathParts.length > 30 || !path || path.length > 255 - 21) return;
           const title = `Chess_Opening_Theory/${path}`;
           const fen=parent.getPositionFromFen(analysis.node.fen);

@@ -183,7 +183,7 @@
 
     getPgnTag(text,tagName) {
       if (!text) return null;
-      const m=new RegExp('\\[\s*'+tagName+'\\s+"([^"]+)"\s*\\]').exec(text);
+      const m=new RegExp('\\[\s*'+this.escapeRegex(tagName)+'\\s+"([^"]+)"\s*\\]').exec(text);
       return m && m[1];
     }
 
@@ -361,8 +361,10 @@
         }
         $e=$e.prev('move');
         if ($e.is('.empty')) $e=$e.prev('move');
-        const p=$e.attr('p')||'';
-        collapsedPaths.push(interrupt?p.slice(0,-2):p);
+        const p=$e.attr('p');
+        if (p) {
+          collapsedPaths.push(interrupt?p.slice(0,-2):p);
+        }
       });
       const collapsedRegex=collapsedPaths.length
         ? new RegExp('^('+collapsedPaths.map(p=>this.escapeRegex(p)).join('|')+')')
@@ -971,6 +973,7 @@
       options.headers.Accept||='application/json';
       options.headers['x-requested-with']||='XMLHttpRequest';
       const json=await this.fetch(url,options);
+      if (!json) return null;
       if (options.ndjson) {
         return this.lichessTools.ndjsonParse(json);
       } else {
@@ -1115,6 +1118,294 @@
     }
   };
 
+  cache={
+    lichessTools: this,
+    init: function() {
+      const sessionData = this.lichessTools.storage.get('LichessTools.GeneralCache',{ session: true, zip: true })||[];
+      const localData = this.lichessTools.storage.get('LichessTools.GeneralCache',{ session: false, zip: true })||[];
+      this._cache=new Map(sessionData.concat(localData));
+      this.save =  this.lichessTools.debounce(this.saveDirect,1000);
+    },
+    saveDirect: function() {
+      if (!this._cache) return;
+      let data=[...this._cache.entries().filter(e=>e[1].persist=='session')];
+      if (data.length) {
+        this.lichessTools.storage.set('LichessTools.GeneralCache', data, { session: true, zip: true });
+      }
+      data=[...this._cache.entries().filter(e=>e[1].persist=='local')];
+      if (data.length) {
+        this.lichessTools.storage.set('LichessTools.GeneralCache', data, { session: false, zip: true });
+      }
+    },
+    getCached:function (key) {
+      if (!this._cache) {
+        this.init();
+      }
+      const cached = this._cache.get(key);
+      if (cached) {
+        cached.isExpired=cached.expiry<Date.now();
+      }
+      return cached;
+    },
+    setCached:function (key,value,options) {
+      if (!this._cache) {
+        this.init();
+      }
+      const cached={
+        key: key,
+        value: value,
+        expiry: Date.now()+options.interval,
+        persist: options.persist
+      };
+      this._cache.set(key,cached);
+      this.save();
+    },
+    memoizeAsyncFunction:function (obj,funcName,options) {
+      const cache=this;
+      const original=obj[funcName];
+      obj[funcName]=async function(...args) {
+        const key=options.keyFunction
+                    ? options.keyFunction(obj, funcName, args)
+                    : funcName+JSON.stringify(args);
+        const cached=cache.getCached(key);
+        if (cached && !cached.isExpired) {
+          if (options.sliding) {
+            cache.setCached(key,cached.value,options);
+          }
+          return cached.value;
+        }
+        cache.lichessTools.$('body').addClass('lichessTools-apiLoading');
+        try {
+          const result=await original.apply(obj,args);
+          cache.setCached(key,result,options);
+          return result;
+        } finally {
+          cache.lichessTools.$('body').removeClass('lichessTools-apiLoading');
+        }
+      }
+    }
+  };
+
+  api={
+    lichessTools: this,
+    init: function() {
+      const parent=this.lichessTools;
+      parent.cache.memoizeAsyncFunction(parent.api.team,'getUserTeams',{ persist: 'session', interval: 10*86400*1000 });
+      parent.cache.memoizeAsyncFunction(parent.api.team,'getTeamPlayers',{ persist: 'session', interval: 10*86400*1000 });
+      parent.cache.memoizeAsyncFunction(parent.api.evaluation,'getChessDb',{ persist: 'session', interval: 1*86400*1000 });
+      parent.cache.memoizeAsyncFunction(parent.api.evaluation,'getLichess',{ persist: 'session', interval: 1*86400*1000 });
+    },
+    blog:{
+      lichessTools: this,
+      save: async function(blogId, data) {
+        const parent=this.lichessTools;
+        const bodyContent=data.map(a=>a.name+'='+parent.global.encodeURIComponent(a.value)).join('&');
+        await parent.net.fetch({ 
+          url:'/ublog/{blogId}/edit', 
+          args:{ blogId }
+        },
+        {
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+          },
+          body: bodyContent,
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'include'
+        });
+      }
+    },
+    study:{
+      lichessTools: this,
+      getChapterPgn: async function(studyId, chapterId) {
+        const parent=this.lichessTools;
+        const pgn=await parent.net.fetch({
+          url:'/study/{studyId}/{chapterId}.pgn',
+          args:{studyId,chapterId}
+        });
+        return pgn;
+      },
+      getStudyListPage: async function(baseUrl,page) {
+        const parent=this.lichessTools;
+        const mm=/\/(hot|newest|updated|popular)$/.exec(parent.global.location.pathname);
+        const mode=mm?.at(1)||'hot';
+        const p=baseUrl.includes('?') ? '&' : '?';
+        const json=await parent.net.json(baseUrl+p+'page='+page);
+        return json;
+      }
+    },
+    user:{
+      lichessTools: this,
+      getUsers: async function(userIds) {
+        const parent=this.lichessTools;
+        const users = await parent.net.json('/api/users',{
+          method:'POST',
+          body:userIds.join(',')
+        });
+        return users||[];
+      },
+      getUserStatus: async function(userIds,options) {
+        const parent=this.lichessTools;
+        const query=options
+                      ? '&'+Object.keys(options)
+                          .map(k=>k+'='+parent.global.encodeURIComponent(options[k]))
+                          .join('&')
+                      : '';
+        const arr = await parent.net.json({
+          url:'/api/users/status?ids={ids}'+query,
+          args:{
+            ids:userIds.join(',')
+          }
+        });
+        return arr;
+      },
+      getMini: async function(userId) {
+        const parent=this.lichessTools;
+        const html=await parent.net.fetch({
+          url:'/@/{userId}/mini',
+          args:{ userId }
+        });
+        return html;
+      },
+      getUserPerfStats: async function(userId, timeControl) {
+        const parent=this.lichessTools;
+        const data=await parent.net.json({ url: '/@/{userId}/perf/{timeControl}', args: { userId, timeControl } });
+        return data;
+      }
+    },
+    game: {
+      lichessTools: this,
+      getPgns: async function(gameIds,options) {
+        const parent=this.lichessTools;
+        const query=options
+                      ? '?'+Object.keys(options)
+                          .map(k=>k+'='+parent.global.encodeURIComponent(options[k]))
+                          .join('&')
+                      : '';
+        const pgn = await parent.net.fetch(
+          '/api/games/export/_ids'+query,
+          {
+            method: 'POST',
+            body: gameIds.join(','),
+            cache: 'default'
+          }
+        );
+        return pgn;
+      },
+      getUserPgns: async function(userId,options) {
+        const parent=this.lichessTools;
+        const query=options
+                      ? '?'+Object.keys(options)
+                          .map(k=>k+'='+parent.global.encodeURIComponent(options[k]))
+                          .join('&')
+                      : '';
+        const pgn = await parent.net.fetch(
+          {
+             url: '/api/games/user/{userId}'+query,
+             args: { userId }
+          }
+        );
+        return pgn;
+      },
+      getMini: async function(gameId, color) {
+        const parent=this.lichessTools;
+        const html=await parent.net.fetch({
+          url:'/{gameId}'+(color=='White'?'/white':'/black')+'/mini',
+          args:{ gameId }
+        });
+        return html;
+      }
+    },
+    team: {
+      lichessTools: this,
+      getUserTeams: async function(userId) {
+        const parent=this.lichessTools;
+        const teams = await parent.net.json({
+          url:'/api/team/of/{userId}',
+          args:{ userId }
+        });
+        return teams;
+      },
+      getTeamPlayers: async function(teamId) {
+        const parent=this.lichessTools;
+        const players = await parent.net.json({
+          url:'/api/team/{teamId}/users',
+          args:{ teamId }
+        },{ ndjson:true });
+        return players;
+      }
+    },
+    streamer: {
+      lichessTools: this,
+      getLiveStreamers: async function() {
+        const parent=this.lichessTools;
+        const streamers = await parent.net.json('/api/streamer/live');
+        return streamers;
+      }
+    },
+    evaluation: {
+      lichessTools: this,
+      getChessDb: async function(fen) {
+        const parent=this.lichessTools;
+        const json = await parent.net.fetch({
+          url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
+          args:{ fen }
+        },{
+          ignoreStatuses: [ 404 ]
+        });
+        const data=parent.jsonParse(json);
+        return data;
+      },
+      getLichess: async function(fen, multiPv) {
+        const parent=this.lichessTools;
+        const analysis=parent.lichess.analysis;
+        let data=null;
+        let cachedByLichess=null;
+        if (analysis) {
+          cachedByLichess = analysis.evalCache?.fetchedByFen?.get(fen);
+          if (cachedByLichess?.pvs?.length==multiPv) {
+            data=cachedByLichess;
+          }
+        }
+        if (!data) {
+          data = await parent.net.json({
+            url:'/api/cloud-eval?fen={fen}&multiPv={multiPv}',
+            args:{ fen, multiPv }
+          },{
+            ignoreStatuses: [ 404 ]
+          });
+        }
+        return !data || cachedByLichess?.pvs?.length > data?.pvs?.length
+          ? cachedByLichess
+          : data;
+      }
+    },
+    notification: {
+      lichessTools: this,
+      getUnread: async function() {
+        const parent=this.lichessTools;
+        const data=await parent.net.json('/notify?page=1');
+        return +(data?.unread)||0;
+      }
+    },
+    flair: {
+      lichessTools: this,
+      getList: async function() {
+        const parent=this.lichessTools;
+        const text=await parent.net.fetch(parent.assetUrl('flair/list.txt'));
+        return text;
+      }
+    },
+    timeline: {
+      lichessTools: this,
+      get: async function(lastRead) {
+        const parent=this.lichessTools;
+        const timeline=await parent.net.json({url:'/api/timeline?nb=100&since={lastRead}',args:{ lastRead }});
+        return timeline;
+      }
+    }
+  }
+
     tools=[];
     loadTool(toolClass) {
       const setTimeout=this.global.setTimeout;
@@ -1139,6 +1430,7 @@
     }
 
     async init() {
+      this.api.init();
       const setTimeout=this.global.setTimeout;
       const console=this.global.console;
       window.addEventListener('pagehide',()=>{
@@ -1157,6 +1449,7 @@
     async start(lichess) {
       if (!lichess) return;
       this.lichess=lichess;
+      await lichess.load;
       const age=lichess.info?.date
         ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
         : 0;

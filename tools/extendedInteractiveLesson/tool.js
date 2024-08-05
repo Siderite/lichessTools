@@ -8,7 +8,7 @@
         name:'extendedInteractiveLesson',
         category: 'study',
         type:'multiple',
-        possibleValues: ['extendedInteractive','showFinalScore','alwaysShowScore','returnToPreview','fastInteractive'],
+        possibleValues: ['extendedInteractive','showFinalScore','alwaysShowScore','returnToPreview','fastInteractive','giveUpButton'],
         defaultValue: 'extendedInteractive,showFinalScore'
       },
       {
@@ -31,6 +31,7 @@
         'extendedInteractiveLesson.alwaysShowScore':'Always show score',
         'extendedInteractiveLesson.returnToPreview':'Play again from where you entered Preview',
         'extendedInteractiveLesson.fastInteractive':'Fast interaction',
+        'extendedInteractiveLesson.giveUpButton':'Give up button',
         'extendedInteractiveLesson': 'Extended Interactive lesson',
         'extendedInteractiveLessonLong': 'Extended Interactive lesson - LiChess Tools',
         'finalScore': 'Score final: %s%',
@@ -48,7 +49,10 @@
         'resetButtonText': 'Reset',
         'resetButtonTitle': 'LiChess Tools - reset variation progress',
         'progressTitle': 'LiChess Tools - %s variations',
-        'extendedInteractiveOptionsTitle': 'LiChess Tools - interactive lesson preferences'
+        'extendedInteractiveOptionsTitle': 'LiChess Tools - interactive lesson preferences',
+        'giveUpButtonText':'Give up',
+        'giveUpButtonTitle':'Abandons the interactive run',
+        'giveUpConfirmation':'Are you sure you want to abandon the interactive run?'
       },
       'ro-RO':{
         'options.study': 'Studiu',
@@ -58,6 +62,7 @@
         'extendedInteractiveLesson.alwaysShowScore':'Arat\u0103 scorul tot timpul',
         'extendedInteractiveLesson.returnToPreview':'Joac\u0103 din nou de unde ai intrat \u00een Preview',
         'extendedInteractiveLesson.fastInteractive':'Interac\u0163iune rapid\u0103',
+        'extendedInteractiveLesson.giveUpButton':'Buton renun\u0163are',
         'extendedInteractiveLesson': 'Lec\u0163ie Interactiv\u0103 extins\u0103',
         'extendedInteractiveLessonLong': 'Lec\u0163ie Interactiv\u0103 extins\u0103 - LiChess Tools',
         'finalScore': 'Scor final: %s%',
@@ -75,7 +80,10 @@
         'resetButtonText': 'Resetare',
         'resetButtonTitle': 'LiChess Tools - resetare progres \u00een varia\u0163uni',
         'progressTitle': 'LiChess Tools - %s varia\u0163uni',
-        'extendedInteractiveOptionsTitle': 'LiChess Tools - preferin\u0163e lec\u0163ie interactiv\u0103'
+        'extendedInteractiveOptionsTitle': 'LiChess Tools - preferin\u0163e lec\u0163ie interactiv\u0103',
+        'giveUpButtonText':'Renun\u0163',
+        'giveUpButtonTitle':'Abandoneaz\u0103 lec\u0163ia interactiv\u0103',
+        'giveUpConfirmation':'E\u015Fti sigur ca vrei sa abandonezi lec\u0163ia interactiv\u0103?'
       }
     }
 
@@ -99,6 +107,7 @@
         gp.path = analysis.path;
 
         if (state.init || gp.state?.init) {
+          gp.resetStats();
           if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
             gp.currentPath=this.getCurrentPath();
             if (!gp.currentPath) {
@@ -396,8 +405,32 @@
       return true;
     };
 
+    showGiveUpButton=()=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const trans=parent.translator;
+      const container = $('.gamebook .comment .content');
+      if (!container.length || $('.lichessTools-giveUp',container).length) return;
+      $('<button class="hint lichessTools-giveUp">')
+        .text(trans.noarg('giveUpButtonText'))
+        .attr('title',trans.noarg('giveUpButtonTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          parent.global.setTimeout(()=>{
+            if (!parent.global.confirm(trans.noarg('giveUpConfirmation'))) return;
+            const gp=parent.lichess.analysis.gamebookPlay();
+            gp.state.feedback='end';
+            gp.badMoves++;
+            gp.redraw();
+            gp.state.feedback=undefined;
+          },1);
+        })
+        .appendTo(container);
+    };
+
     showScore=(isFinal)=>{
       const parent=this.lichessTools;
+      const $=parent.$;
       const Math=parent.global.Math;
       const analysis=parent.lichess.analysis;
       const trans=parent.translator;
@@ -504,15 +537,23 @@
                 } else {
                   gp.goodMoves++;
                 }
-              if (this.options.showFinalScore) {
-                this.showScore(true);
-              }
               break;
             }
+            gp.askedForSolution=false;
+          }
+        });
+        gp.redraw=parent.wrapFunction(gp.redraw,{
+          id:'showScore',
+          after:($this,results,...args)=>{
+            if (gp.state.feedback=='end' && this.options.showFinalScore) {
+                this.showScore(true);
+              } else 
             if (this.options.alwaysShowScore) {
               this.showScore();
             }
-            gp.askedForSolution=false;
+            if (this.options.giveUpButton && gp.state.feedback!='end') {
+              this.showGiveUpButton();
+            }
           }
         });
         gp.next=parent.wrapFunction(gp.next,{
@@ -551,6 +592,7 @@
         gp.makeState=parent.unwrapFunction(gp.makeState,'showScore');
         gp.next=parent.unwrapFunction(gp.next,'showScore');
         gp.retry=parent.unwrapFunction(gp.retry,'showScore');
+        gp.redraw=parent.unwrapFunction(gp.redraw,'showScore');
         gp.solution=parent.unwrapFunction(gp.solution,'showScore');
         gp.isShowScore=false;
       }
@@ -685,13 +727,12 @@
       return node?.version==this.currentVersion;
     };
 
-    refreshNodeVersion=(node)=>{
+    refreshNodeVersion=()=>{
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
       if (!this.options.extendedInteractive) return;
       this.currentVersion=analysis?.cgVersion?.js;
-      if (!node) node=analysis.tree.root;
-      parent.traverse(node,(n,s)=>n.version=n.version||this.currentVersion,true);
+      parent.traverse(analysis.tree.root,(n,s)=>n.version=n.version||this.currentVersion,true);
     };
 
     analysisControls=()=>{
@@ -894,13 +935,14 @@
         extendedInteractive:parent.isOptionSet(value,'extendedInteractive'),
         returnToPreview:parent.isOptionSet(value,'returnToPreview'),
         fastInteractive:parent.isOptionSet(value,'fastInteractive'),
+        giveUpButton:parent.isOptionSet(value,'giveUpButton'),
         flow: {
           'sequential':parent.isOptionSet(flow,'sequential'),
           'spacedRepetition':parent.isOptionSet(flow,'spacedRepetition')
         }
       };
       parent.isPermanentNode=this.isPermanentNode.bind(this);
-      if (!parent.isWrappedFunction(study.setGamebookOverride,'extendedInteractive')) {
+      if (this.options.extendedInteractive && !parent.isWrappedFunction(study.setGamebookOverride,'extendedInteractive')) {
         study.setGamebookOverride=parent.wrapFunction(study.setGamebookOverride,{
           id:'extendedInteractive',
           before:($this,o)=> {
@@ -914,7 +956,9 @@
                 analysis.ceval.stop();
                 analysis.ceval.isDeeper(false);
               }
-              if (this.options.extendedInteractive) this.refreshNodeVersion();
+              if (this.options.extendedInteractive) {
+                this.refreshNodeVersion();
+              }
             } else {
               if (this.explorerEnabled && !analysis.explorer.enabled()) {
                 analysis.explorer.enabled(true);
@@ -936,11 +980,16 @@
             }
           }
         });
+      } else {
+        study.setGamebookOverride=parent.unwrapFunction(study.setGamebookOverride,'extendedInteractive');
+      }
+      if (this.options.extendedInteractive && !this.currentVersion) {
+        this.refreshNodeVersion();
       }
       lichess.pubsub.off('lichessTools.redraw',this.analysisControls);
       lichess.pubsub.on('lichessTools.redraw',this.analysisControls);
-      lichess.analysis.actionMenu.toggle=lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle,'extendedInteractiveLesson');
-      lichess.analysis.actionMenu.toggle=lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle,{
+      analysis.actionMenu.toggle=lichessTools.unwrapFunction(analysis.actionMenu.toggle,'extendedInteractiveLesson');
+      analysis.actionMenu.toggle=lichessTools.wrapFunction(analysis.actionMenu.toggle,{
         id:'extendedInteractiveLesson',
         after: ($this, result, ...args)=>{
           parent.global.setTimeout(this.analysisControls,100);
@@ -961,13 +1010,13 @@
       }
       this.patchGamebook();
 
-      if (lichess.analysis.study.onReload) {
-        lichess.analysis.study.onReload=lichessTools.unwrapFunction(lichess.analysis.study.onReload,'extendedInteractiveLesson');
+      if (analysis.study.onReload) {
+        analysis.study.onReload=lichessTools.unwrapFunction(analysis.study.onReload,'extendedInteractiveLesson');
       }
       lichess.pubsub.off('lichessTools.redraw',this.findThreatArrow);
       if (this.options.extendedInteractive) {
         lichess.pubsub.on('lichessTools.redraw',this.findThreatArrow);
-        lichess.analysis.study.onReload=lichessTools.wrapFunction(lichess.analysis.study.onReload,{
+        analysis.study.onReload=lichessTools.wrapFunction(analysis.study.onReload,{
           id:'extendedInteractiveLesson',
           after:($this,result,...args)=>{
             this.refreshNodeVersion();

@@ -20,6 +20,12 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase {
   margin-top:0;
 }
 
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase .lichessTools-infoIcon {
+  position: absolute;
+  left: -0.25em;
+  top: -0.25em;
+}
+
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase select {
   min-width: 20em;
 }

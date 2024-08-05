@@ -9,7 +9,7 @@
         category: 'analysis',
         type:'multiple',
         possibleValues: ['material','principled','tension','potential','brilliant','moreBrilliant','local','accuracy','smooth','gauge'],
-        defaultValue: 'material,principled,tension,brilliant,smooth,gauge',
+        defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge',
         advanced: true
       },
       {
@@ -1269,7 +1269,9 @@
         christmas:!!parent.currentOptions.getValue('christmas')
       };
       lichess.pubsub.off('lichessTools.esmLoaded',this.handleEsmLoaded);
-      lichess.pubsub.on('lichessTools.esmLoaded',this.handleEsmLoaded);
+      if (this.options.needsChart) {
+        lichess.pubsub.on('lichessTools.esmLoaded',this.handleEsmLoaded);
+      }
 
       parent.global.clearInterval(this.interval);
       this.generateCharts();

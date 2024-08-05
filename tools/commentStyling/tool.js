@@ -54,7 +54,7 @@
       const analysis=lichess?.analysis;
       const study=analysis?.study;
       if (!study) return;
-      if (!parent.currentOptions.getValue('commentStyling')) {
+      if (!this.options.enabled) {
         $('.study__buttons span.lichessTools-colors').remove();
         return;
       }
@@ -147,6 +147,7 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('commentStyling');
       this.logOption('Styling for study comments', value);
+      this.options = { enabled: !!value };
       const lichess=parent.lichess;
       const study=lichess?.analysis?.study;
       if (!study) return;

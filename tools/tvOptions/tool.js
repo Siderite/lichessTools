@@ -6,7 +6,7 @@
         name:'tvOptions',
         category: 'TV',
         type:'multiple',
-        possibleValues: ['link','bookmark','streamerTv','friendsTv','userTvHistory','wakelock'], //teamTv
+        possibleValues: ['link','bookmark','streamerTv','friendsTv',/*'teamTv',*/'userTvHistory','wakelock'],
         defaultValue: 'link,bookmark,streamerTv,friendsTv,userTvHistory,wakelock',
         advanced: false
       }
@@ -192,7 +192,6 @@
       });
     };
 
-    _useUserApi=true; //TODO remove this
     _maxGamesCount=30;
     refreshGames=async (playerIds,className,container,streamers)=>{
       const parent=this.lichessTools;
@@ -212,15 +211,15 @@
           $(e).remove()
         }
       });
-      if (this._useUserApi && notFound.length) {
+      if (notFound.length) {
         let p=0;
         while (p<notFound.length) {
           if (p>0) await parent.timeout(500);
-          const arr = await parent.net.json({url:'/api/users/status?ids={ids}&withGameMetas=true',args:{ids:notFound.slice(p,p+100).join(',')}});
+          const arr = await parent.api.user.getUserStatus(notFound.slice(p,p+100),{ withGameMetas:true });
           p+=100;
           for (const data of arr.filter(i=>i.playing)) {
             try {
-              const text = await parent.net.fetch({url:'/@/{username}/mini',args:{username:data.id}});
+              const text = await parent.api.user.getMini(data.id);
               if (!text) continue;
               const html=$('<x>'+text+'</x>').find('a.mini-game');
               if (!html.length) continue;
@@ -252,54 +251,7 @@
             }
           }
         }
-      } else {
-        for (const userId of notFound) {
-          try {
-            const text = await parent.net.fetch({url:'/@/{username}/mini',args:{username:userId}});
-            if (!text) continue;
-            const html=$('<x>'+text+'</x>').find('a.mini-game');
-            if (!html.length) continue;
-            const timeControl=parent.getGameTime(html.attr('data-tc'));
-            if (timeControl) {
-              html.addClass(timeControl);
-            }
-            if (streamers) {
-              $('<span>')
-                .addClass(className)
-                .append($('<a rel="noopener nofollow" target="_blank">')
-                         .attr('href','/streamer/'+userId+'/redirect')
-                          .text(trans.noarg('streamerLink')))
-                .appendTo(html);
-            }
-            $('label.lichessTools-noGames',container).remove();
-            if (!$('a.mini-game[data-userId="'+userId+'"]',container).length) {
-              $(html).attr('data-userId',userId).appendTo(container);
-              gamesCount++;
-              parent.lichess.contentLoaded(container[0]);
-              await parent.timeout(500);
-              if (gamesCount>this._maxGamesCount) return;
-            }
-          } catch(e) {
-            console.warn('Error getting TV game for ',userId,e);
-          }
-        }
       }
-    };
-
-    teamCache=null;
-    getTeams = async (userId)=>{
-      const parent=this.lichessTools;
-      if (!this.teamCache) {
-        this.teamCache = parent.storage.get('LichessTools.teamCache',{ session:true, zip:true });
-      }
-      if (!this.teamCache||Array.isArray(this.teamCache)) this.teamCache={};
-      let teams=this.teamCache[userId];
-      if (!teams) {
-        teams = await parent.net.json({url:'/api/team/of/{userId}',args:{userId:userId}});
-        this.teamCache[userId]=teams;
-        parent.storage.set('LichessTools.teamCache',this.teamCache,{ session:true, zip:true });
-      }
-      return teams;
     };
 
     get teamId() {
@@ -316,28 +268,15 @@
       this._teamId = value;
     }
 
-    teamPlayersCache=new Map();
     getTeamPlayerIds = async ()=>{
       const parent=this.lichessTools;
-      const teams=await this.getTeams(parent.getUserId());
-      const teamId = this.teamId || teams[0]?.id;
+      let teamId=this.teamId;
+      if (!teamId) {
+        const teams=await await parent.api.team.getUserTeams(parent.getUserId());
+        teamId=teams[0]?.id;
+      }
       if (!teamId) return [];
-      if (!this.teamPlayersCache.size) {
-        const cache = parent.storage.get('LichessTools.teamPlayersCache',{ session:true, zip:true });
-        if (cache) this.teamPlayersCache=new Map(cache);
-      }
-      let teamPlayers=this.teamPlayersCache.get(teamId);
-      if (!teamPlayers) {
-        try {
-          $('div.lichessTools-teamTv').addClass('loading');
-          teamPlayers = (await parent.net.json({url:'/api/team/{teamId}/users',args:{teamId:teamId}},{ndjson:true}))?.map(u=>u.id);
-        } finally {
-          $('div.lichessTools-teamTv').removeClass('loading');
-        }
-        this.teamPlayersCache.set(teamId,teamPlayers);
-        parent.storage.set('LichessTools.teamPlayersCache',Array.from(this.teamPlayersCache.entries()),{ session:true, zip:true });
-      }
-      if (!teamPlayers?.length) return [];
+      const teamPlayers = (await parent.api.team.getTeamPlayers(teamId))?.map(u=>u.id);
       return teamPlayers;
     };
 
@@ -356,7 +295,7 @@
       }
       if (this.isStreamerTvPage()) {
         container.toggleClass('lichessTools-streamerTv',this.options.streamerTv);
-        const playerIds=(await parent.net.json('/api/streamer/live'))?.map(s=>s.id);
+        const playerIds=(await parent.api.streamer.getLiveStreamers())?.map(s=>s.id);
         await this.refreshGames(playerIds,'lichessTools-streamerTv',container,true);
       } else {
         container.removeClass('lichessTools-streamerTv');
@@ -377,7 +316,7 @@
               this.updateTvOptionsPage();
             })
             .prependTo(container);
-          const teams=await this.getTeams(parent.getUserId());
+          const teams=await parent.api.team.getUserTeams(parent.getUserId());
           for (const team of teams) {
             $('<option>')
               .attr('value',team.id)
@@ -530,9 +469,6 @@
         },1000);
       }
 
-      if (this.isStreamerTvPage()) {
-        $('a.mini-game:not(:has(.lichessTools-streamerTv))').remove();
-      }
       this.updateTvOptionsButton();
       this.updateTvOptionsPage();
 
@@ -567,7 +503,12 @@
 
       if (this.options.userTvHistory && tvOptions.isTv && tvOptions.user) {
         if (!$('div.tv-history').length) {
-          let text = await parent.net.fetch({url:'/api/games/user/{user}?max=2&tags=true&ongoing=false&finished=true',args:{user:tvOptions.user}});
+          let text = await parent.api.game.getUserPgns(tvOptions.user,{
+                             max:2,
+                             tags:true,
+                             ongoing:false,
+                             finished:true
+                           });
           if (text) {
             const matches=[...text.matchAll(new RegExp('\\[Site.*?\\/([^"\\/]+)"\\][\\s\\S]*?\\[(Black|White)\\s+"'+parent.escapeRegex(tvOptions.user)+'"\\]','gi'))];
             if (matches.length) {
@@ -585,7 +526,7 @@
                 const gameId=m[1];
                 const color=m[2];
                 await parent.timeout(500);
-                text=await parent.net.fetch({url:'/{gameId}'+(color=='White'?'/white':'/black')+'/mini',args:{gameId:gameId}});
+                text=await parent.api.game.getMini(gameId,color);
                 if (!text) continue;
                 container.append(text);
               }

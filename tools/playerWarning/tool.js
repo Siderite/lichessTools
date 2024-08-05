@@ -60,7 +60,7 @@
           if (isPlayer) return;
           let timeControl=this.getTimeControl();
           if (!timeControl || timeControl=='ultrabullet') timeControl='blitz';
-          const data=await parent.net.json('/@/'+hrefUserId+'/perf/'+timeControl);
+          const data=await parent.api.user.getUserPerfStats(hrefUserId,timeControl);
           const statCount= data?.stat?.count;
           if (!statCount) return;
           const disconnectPercentage = +(statCount.disconnects)*100/+(statCount.all);

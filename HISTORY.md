@@ -1,5 +1,19 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Aug
+  - team message notification
+  - print options for move list in another window
+  - PGN Editor cut junk
+
+03 Aug
+  - interactive lesson give up button
+
+31 Jul
+  - analysis mouse wheel support
+
+30 Jul
+  - cheats
+
 19 Jul
   - one click move from PGN and only orientation options
 
@@ -211,7 +225,7 @@ History of features added to LiChess Tools in time (reversed order)
   - Chess DB integration in Explorer Eval
   - PGN Editor
 
-12 Jan
+12 Jan 2024
   - Skip move command to generate moves to switch playing side in analysis
 
 27 Dec
@@ -448,7 +462,7 @@ History of features added to LiChess Tools in time (reversed order)
   - Added friends page options: live refresh, mute/unmute playing sound alerts per friend
   - Option to hide player tally (history of wins/losses with current opponent) when watching/playing games
 
-28 Jun - Version 2 upload
+28 Jun 2023 - Version 2 upload
   - move list context menu options:
     - copy PGN
     - evaluate final moves

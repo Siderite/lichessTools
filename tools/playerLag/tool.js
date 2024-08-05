@@ -44,7 +44,6 @@
     };
 
     _lagCache=new Map();
-    _useUserApi=true;
     getLag=async (username)=>{
       const parent=this.lichessTools;
       const $=parent.$;
@@ -52,14 +51,8 @@
       if (item && Date.now()-item.time<=this.opponentLagFrequency) {
         return item.value;
       }
-      let lagRating;
-      if (this._useUserApi) {
-        const data=await parent.net.json({url:'/api/users/status?ids={username}&withSignal=true',args:{username}});
-        lagRating=data[0]?.signal;
-      } else {
-        const html=await parent.net.fetch({url:'/@/{username}/mini',args:{username}});
-        lagRating=$(html).find('signal')[0]?.className.substr(1);
-      }
+      const data=await parent.api.user.getUserStatus([username],{ withSignal:true });
+      const lagRating=data[0]?.signal;
       const lag=[750,500,300,150,75][lagRating];
       item={ time:Date.now(), value:lag };
       this._lagCache.set(username,item);

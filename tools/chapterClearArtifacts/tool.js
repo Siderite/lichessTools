@@ -155,7 +155,11 @@
       if (!modal.length) return;
       const button=$('div.form-actions-secondary.destructive button:first-child',modal);
       if (!button.length) return;
-      const oldHandler=parent.getEventHandlers(button[0],'click')[0].bind(button[0]);
+      const oldHandler=parent.getEventHandlers(button[0],'click')[0]?.bind(button[0]);
+      if (!oldHandler) {
+        parent.global.console.debug('Could not find click handler!');
+        return;
+      }
       button.after($('<select class="lichessTools-removeAll">').attr('title',trans.noarg('removeAll_title'))
                       .append($('<option>').text(trans.noarg('removeAllText')))
                       .append($('<option value="comments">').text(trans.noarg('removeAll_commentsText')))

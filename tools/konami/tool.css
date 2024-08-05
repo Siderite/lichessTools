@@ -1,0 +1,21 @@
+body.lichessTools .konami {
+  position: absolute;
+  top:50vh;
+  left:50vw;
+  display: block;
+  width: 8em;
+  height: auto;
+  rotate: -15deg;
+  translate: -50% -50%;
+  opacity:1;
+  z-index:1000;
+}
+body.lichessTools .konami::before {
+  content: attr(data-text);
+}
+body.lichessTools .konami.flash {
+  rotate: 30deg;
+  scale: 10;
+  opacity: 0;
+  transition: 5s ease;
+}

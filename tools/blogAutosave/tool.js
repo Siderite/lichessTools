@@ -52,15 +52,7 @@
       if (!forced && bodyContent==this.lastSave) return;
       try{
         $('body').addClass('lichessTools-blogAutosave');
-        await parent.net.fetch(form.attr('action'), {
-                                              headers: {
-                                                'content-type': 'application/x-www-form-urlencoded',
-                                              },
-                                              body: bodyContent,
-                                              method: 'POST',
-                                              mode: 'cors',
-                                              credentials: 'include'
-                                            });
+        await parent.api.blog.save(this.blogId,arr);
       } finally {
         parent.global.setTimeout(()=>$('body').removeClass('lichessTools-blogAutosave'),2000);
       }
@@ -75,8 +67,9 @@
         autosave:parent.isOptionSet(value,'autosave'),
         savebutton:parent.isOptionSet(value,'savebutton'),
       };
-      const isBlogEdit = /^\/ublog\/[^\/]+\/edit/.test(parent.global.location.pathname);
+      const isBlogEdit = /^\/ublog\/(?<blogId>[^\/]+)\/edit/.exec(parent.global.location.pathname);
       if (!isBlogEdit) return;
+      this.blogId=isBlogEdit.groups.blogId;
       const $=parent.$;
       const trans=parent.translator;
       parent.global.clearTimeout(this.interval);

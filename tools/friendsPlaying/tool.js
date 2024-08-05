@@ -63,7 +63,6 @@
     }
   };
 
-  _useUserApi=true;
   playFriendSound=async (username)=>{
     this.lichessTools.global.console.debug(username + ' playing');
     const now=Date.now();
@@ -88,22 +87,12 @@
     let hasInfo=false;
     if (!silent && !this.lichessTools.net.slowMode) {
       try {
-        if (this._useUserApi) {
-          const arr = await this.lichessTools.net.json({url:'/api/users/status?ids={username}&withGameMetas=true',args:{username:username}});
-          const data=arr.find(i=>i.id==username);
-          if (data?.playing) {
-            gameType=this.lichessTools.getGameTime(data.playing.clock,true);
-            variant=data.playing.variant;
-            hasInfo=true;
-          }
-        } else {
-          const text = await this.lichessTools.net.fetch({url:'/api/games/user/{username}?max=1&tags=true&ongoing=true&finished=false',args:{username:username}});
-          if (text) {
-            gameType=this.lichessTools.getGameTime(this.lichessTools.getPgnTag(text,'TimeControl'));
-            eventType=this.lichessTools.getPgnTag(text,'Event');
-            variant=this.lichessTools.getPgnTag(text,'Variant');
-            hasInfo=true;
-          }
+        const arr = await this.lichessTools.api.user.getUserStatus([username],{ withGameMetas:true });
+        const data=arr.find(i=>i.id==username);
+        if (data?.playing) {
+          gameType=this.lichessTools.getGameTime(data.playing.clock,true);
+          variant=data.playing.variant;
+          hasInfo=true;
         }
       } catch(e) {
         if (e.toString().includes('Failed to fetch')) {
@@ -134,7 +123,7 @@
       return;
     }
     await this.lichessTools.timeout(500);
-    this.beep.play();
+    this.beep?.play();
     let translation=this.lichessTools.translator.plural('playing',1,username?.replace(/[_\-]/g,' '))+', '+this.lichessTools.translator.noarg('gameType-'+gameType);
     if (!isStandard) {
       translation+=' '+variant;
@@ -169,11 +158,11 @@
       if (!lichess) return;
       const setInterval=parent.global.setInterval;
       const clearInterval=parent.global.clearInterval;
-      this.beep = await lichess.sound.load('friendPlaying', lichess.sound.url('piano/GenericNotify.mp3'));
       lichess.pubsub.off('socket.in.following_playing', this.playFriendSound);
       lichess.pubsub.off('lichessTools.mutePlayer', this.mutePlayer);
       clearInterval(this.audioCheckTimeout);
-      if (value!==false && value?.toString().replace(/,standard/i,'')) {
+      if (value!==false && value?.toString()?.replace(/,\s*standard/i,'')) {
+        this.beep = await lichess.sound.load('friendPlaying', lichess.sound.url('piano/GenericNotify.mp3'));
         lichess.pubsub.on('socket.in.following_playing', this.playFriendSound);
         lichess.pubsub.on('lichessTools.mutePlayer', this.mutePlayer);
       }

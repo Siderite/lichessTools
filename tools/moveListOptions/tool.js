@@ -610,9 +610,18 @@
       const $=parent.$;
       const trans=parent.translator;
       const study=parent.lichess.analysis?.study;
-      const container=$('div.analyse__tools div.ceval');
-      let button=$('a.lichessTools-analysisPopup',container);
+      let button=$('div.analyse__tools a.lichessTools-analysisPopup');
       if (this.options.analysisPopup && study) {
+        let container=$('div.analyse__tools div.ceval');
+        if (container.length) {
+          $('div.lichessTools-moveListOptions-header').remove();
+        } else {
+          container=$('div.lichessTools-moveListOptions-header');
+          if (!container.length) {
+            container=$('<div class="lichessTools-moveListOptions-header">')
+              .prependTo('div.analyse__tools');
+          }
+        }
         if (!button.length) {
           button=$('<a class="lichessTools-analysisPopup">')
             .attr('data-icon','\uE024')
@@ -625,11 +634,19 @@
               parent.global.addEventListener('unload',()=>{
                 this.popup.close();
               });
-            })
-            .insertAfter($('help,div.engine',container));
+            });
+          const elem=$('help,div.engine',container);
+          if (elem.length) {
+            button
+              .insertAfter(elem);
+          } else {
+            button
+              .appendTo(container);
+          }
         }
       } else {
         button.remove();
+        $('div.lichessTools-moveListOptions-header').remove();
       }
     };
 

@@ -223,6 +223,8 @@
       ['PR','Puerto Rico'],
       ['PS','Palestine'],
       ['PT','Portugal'],
+      ['PT-20','Azores'],
+      ['PT-30','Madeira'],
       ['PW','Palau'],
       ['PY','Paraguay'],
       ['QA','Qatar'],
@@ -264,7 +266,7 @@
       ['TM','Turkmenistan'],
       ['TN','Tunisia'],
       ['TO','Tonga'],
-      ['TR','Turkey'],
+      ['TR','Turkiye'],
       ['TT','Trinidad and Tobago'],
       ['TV','Tuvalu'],
       ['TW','Taiwan'],
@@ -305,6 +307,7 @@
       const dict = {};
       $.cached('.user-link,a[href^="/@/"]',2000).each((i,e)=> {
         if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members').length) return;
+        if (!parent.inViewport(e)) return;
 
         let textEl = $('.text',e);
         if (!textEl.length) textEl=$(e);
@@ -316,12 +319,12 @@
         if (textEl.attr('data-tab')) return;
         let url=textEl.attr('href')||textEl[0]?.dataset?.href;
         if (!url) return;
-        const m= /\/@\/([^\/]+)\/?$/.exec(url);
-        const userId=m&&m[1];
+        const m= /\/@\/(?<userId>[^\/]+)\/?$/.exec(url);
+        const userId=m?.groups?.userId?.toLowerCase();
         if (!userId) return;
         const list = dict[userId]||[];
         list.push(textEl);
-        dict[userId.toLowerCase()]=list;
+        dict[userId]=list;
       });
       $.cached('span.mini-game__user',2000).each((i,e)=> {
         if ($(e).is('.lichessTools-noflag,.lichessTools-flag')) return;
@@ -330,14 +333,14 @@
         const userNodeIndex=Array.from(e.childNodes).findIndex(n=>n.nodeType==3);
         if (userNodeIndex<0) return;
         const userNode=e.childNodes[userNodeIndex];
-        const userId=userNode.textContent?.trim();
+        const userId=userNode.textContent?.trim()?.toLowerCase();
         const textEl=$('<span>').addClass('lichessTools-userText').text(' '+userId);
         e.insertBefore(textEl[0],userNode);
         e.removeChild(userNode);
 
         const list = dict[userId]||[];
         list.push(textEl);
-        dict[userId.toLowerCase()]=list;
+        dict[userId]=list;
       });
       return dict;
     };
@@ -411,8 +414,7 @@
       let toSaveCache=false;
       const userIds=data.filter(i=>!i.countryName).map(i=>i.id).slice(0,200);
       if (userIds.length) {
-        const json = await parent.net.fetch('/api/users',{ method:'POST',body:userIds.join(',') });
-        const users=parent.jsonParse(json,[]);
+        const users = await parent.api.user.getUsers(userIds);
         for (const user of users) {
           const item = data.find(i=>i.id===user.id)
           if (item) item.country=user.profile?.country||user.profile?.flag||'noflag';
@@ -444,7 +446,7 @@
           }
         }
         if (firstToProcess) {
-          const html=await parent.net.fetch({url:'/@/{userId}/mini',args:{ userId:firstToProcess.id}});
+          const html=await parent.api.user.getMini(firstToProcess.id);
           const m=/<span class="(?:upt__info__top__country|upt__info__top__flag)".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
           if (m) {
             const el=$(m[0]);

@@ -33,6 +33,7 @@
       const analysis=lichess?.analysis;
       if (!analysis) return;
       if (parent.isGamePlaying()) return;
+      if (!$('.analyse__tools > .ceval').length) return;
       const selected=analysis.chessground?.state?.selected;
       const dests=selected
         ? analysis.chessground?.state?.movable?.dests?.get(selected)

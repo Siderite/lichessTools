@@ -48,7 +48,7 @@ lichessTools.loadTool(LiChessTools.Tools.AnalysisContextActions);
 lichessTools.loadTool(LiChessTools.Tools.MovesFromTranspositions);
 lichessTools.loadTool(LiChessTools.Tools.ExtendedInteractiveLesson);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerPractice);
-lichessTools.loadTool(LiChessTools.Tools.SaveOptionsForIncognito);
+//lichessTools.loadTool(LiChessTools.Tools.SaveOptionsForIncognito);
 lichessTools.loadTool(LiChessTools.Tools.ChapterClearArtifacts);
 lichessTools.loadTool(LiChessTools.Tools.CustomChatButtons);
 lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);
@@ -103,6 +103,8 @@ lichessTools.loadTool(LiChessTools.Tools.OneClickMove);
 lichessTools.loadTool(LiChessTools.Tools.CommonTeams);
 lichessTools.loadTool(LiChessTools.Tools.ExpandAll);
 lichessTools.loadTool(LiChessTools.Tools.StudyLinks);
+lichessTools.loadTool(LiChessTools.Tools.Konami);
+lichessTools.loadTool(LiChessTools.Tools.AnalysisWheel);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

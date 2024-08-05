@@ -118,21 +118,21 @@
       if (Date.now()-this.openingTime<1000) return; // not more often than 1 second
       this.openingTime=Date.now();
 
-      const url='/api/games/export/_ids?tags=true&opening=true&moves=false&clocks=false&evals=false';
-      const pgn = await parent.net.fetch(url, {
-        method: 'POST',
-        body: gameId,
-        cache: 'default'
+      const pgn = await parent.api.game.getPgns([gameId],{
+        tags:true,
+        opening:true,
+        moves:false,
+        clocks:false,
+		evals:false
       });
-      const m=/\[Opening "([^"]+)"\]/.exec(pgn);
-      const opening = m&&m[1];
+      const opening = parent.getPgnTag(pgn,'Opening');
       if (!opening || opening=='?') {
         return;
       }
       if (el) {
         let time=Date.now();
-        const m2=/\[Termination "([^"]+)"\]/.exec(pgn);
-        if (m2 && m2[1]!='Unterminated') time+=86400;
+        const termination = parent.getPgnTag(pgn,'Termination');
+        if (termination && termination!='Unterminated') time+=86400;
         el.openingData={ time:time, opening:opening, el };
         if (ply) {
           el.maxPly=Math.max(ply,+el.maxPly||0);
@@ -178,7 +178,6 @@
     };
 
     refreshOpening=async (ply)=>{
-      if (!this.options.showInBoard) return;
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
@@ -195,13 +194,15 @@
         this.showOpeningInExplorer(null);
         return;
       }
-      metaSection.find('span.lichessTools-opening').filter((i,e)=>!lichessTools.inViewport(e)).remove();
-      if (!metaSection.find('span.lichessTools-opening').length) {
-        const visibleEl=metaSection.filter((i,e)=>!!lichessTools.inViewport(e)).eq(0);
-        visibleEl
-          .append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
+      if (this.options.showInBoard) {
+        metaSection.find('span.lichessTools-opening').filter((i,e)=>!lichessTools.inViewport(e)).remove();
+        if (!metaSection.find('span.lichessTools-opening').length) {
+          const visibleEl=metaSection.filter((i,e)=>!!lichessTools.inViewport(e)).eq(0);
+          visibleEl
+            .append($('<span/>').addClass('lichessTools-opening').attr('title',trans.noarg('openingNameTitle')));
+        }
+        metaSection.find('span.lichessTools-opening').text(result.opening);
       }
-      metaSection.find('span.lichessTools-opening').text(result.opening);
       this.showOpeningInExplorer(result.opening);
       if (!ply) {
         await this.miniGameOpening();

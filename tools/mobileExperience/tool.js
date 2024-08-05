@@ -206,7 +206,8 @@
       const trans=parent.translator;
       const isAnalyse=!!$('main.analyse').length;
       const isRound=!!$('main.round,main.puzzle').length;
-      $.cached('body').toggleClass('lichessTools-mobileExperience',!!(this.options.shapeDrawing||this.options.shapeDrawingRound||this.options.randomNextMove));
+      const isEnabled=!!(this.options.shapeDrawing||this.options.shapeDrawingRound||this.options.randomNextMove);
+      $.cached('body').toggleClass('lichessTools-mobileExperience',isEnabled);
 
       let wrap=null;
       this.chessground=null;
@@ -218,7 +219,7 @@
         if (this.options.shapeDrawing) {
           this.chessground=parent.lichess.analysis.chessground;
         }
-      };
+      } else
       if (isRound) {
         $('main')
           .toggleClass('lichessTools-invert',this.options.invert)
@@ -305,7 +306,7 @@
             }
           }
         }
-      }
+      } else
       if (isRound) {
         if (this.options.shapeDrawingRound) {
           const container=$('div.rcontrols div.ricons');

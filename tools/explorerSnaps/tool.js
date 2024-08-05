@@ -1,7 +1,7 @@
 (()=>{
   class ExplorerSnapsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw'];
+    dependencies=['EmitRedraw','DetectThirdParties'];
 
     preferences=[
       {
@@ -217,6 +217,7 @@
         snaps:parent.jsonParse(_=>lichess.storage.get('LiChessTools.explorerSnaps'),[])
       };
       explorer.config.toggleOpen=parent.unwrapFunction(explorer.config.toggleOpen,'explorerSnaps');
+      explorer.fetch=parent.unwrapFunction(explorer.fetch,'explorerSnaps');
       $('section.explorer-box section.lichessTools-explorerSnaps').remove();
       lichess.pubsub.off('lichessTools.redraw',this.showSnaps);
       $('.explorer-title span.lichess')
@@ -232,6 +233,12 @@
       explorer.config.toggleOpen=parent.wrapFunction(explorer.config.toggleOpen,{
         id:'explorerSnaps',
         after:($this,result)=>{
+          this.showSnaps();
+        }
+      });
+      explorer.fetch=parent.wrapFunction(explorer.fetch,{
+        id: 'explorerSnaps',
+        after: ($this, result, ...args)=>{
           this.showSnaps();
         }
       });

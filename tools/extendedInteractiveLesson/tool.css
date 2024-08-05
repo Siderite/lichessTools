@@ -118,6 +118,12 @@ body.lichessTools .analyse .gamebook button.hint.data-count[data-count='1']::aft
   display: none;
 }
 
+body.lichessTools .analyse .gamebook button.lichessTools-giveUp {
+  position: absolute;
+  right:0;
+  bottom:0;
+}
+
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
   background: #1b78d0;

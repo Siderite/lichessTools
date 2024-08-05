@@ -112,7 +112,12 @@
         });
       }
       dlg.showModal();
-
+      $('<a class="lichessTools-infoIcon">')
+        .attr('href','/account/preferences/display#lichessTools/forkBehavior')
+        .attr('target','_blank')
+        .attr('title',trans.noarg('options.forkBehavior'))
+        .attr('data-icon','\uE005')
+        .appendTo(dlg);
       $(dlg)
         .on('close',()=>lichess.analysis.explorer.setHovering(lichess.analysis.node.fen,null))
         .addClass('lichessTools-forkBehavior-chessbase');
@@ -210,6 +215,10 @@
           analysis.fork.proceed=parent.wrapFunction(analysis.fork.proceed,{
             id: 'forkBehavior',
             before:($this,...args)=>{
+              if (analysis.gamebookPlay()) {
+                this.nextResult=undefined;
+                return;
+              }
               const nextMoves=parent.getNextMoves(analysis.node,true,false);
               const nextTranspos=parent.getNextMoves(analysis.node,false,true);
               const nextSans=nextMoves.concat(nextTranspos).map(m=>m.san);

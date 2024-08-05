@@ -33,7 +33,9 @@
       this.logOption('Download all studies', value);
       const $=parent.$;
       const trans=parent.translator;
+      $('a.lichessTools-downloadAllStudies').remove();
       if (!value) return;
+      if ($('div.nostudies').length) return;
       const form=$('form.search');
       if (!form.length) return;
       const queryText=form.find('input[name="q"]').val();

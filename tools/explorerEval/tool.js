@@ -220,23 +220,6 @@
       });
     }
 
-    jsonWith404=async (url,options)=>{
-      const parent=this.lichessTools;
-      const key=parent.global.JSON.stringify(url);
-      let result = this.cache[key];
-      if (result !== undefined) return result;
-      options=options||{};
-      options.ignoreStatuses=[404];
-      try {
-        const json = await parent.net.fetch(url,options);
-        result=parent.jsonParse(json);
-        this.cache[key]=result;
-      } catch(e) {
-        parent.global.console.debug('Error fetching 404 JSON API',url,e);
-      }
-      return result;
-    };
-
     cache404={};
     setCached404= (path)=>path?this._setCached404(path,this.cache404):false;
     getCached404= (path)=>path?this._getCached404(path,this.cache404):false;
@@ -301,10 +284,7 @@
       if ((this.options.db||this.options.lichess) && !parent.net.slowMode && result===undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
         result={ moves: [] };
         if (this.options.db && !newMoves?.length) {
-          const obj=await this.jsonWith404({
-            url:'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
-            args:{ fen: fen }
-          });
+          const obj=await parent.api.evaluation.getChessDb(fen);
           newMoves=obj?.moves?.map(m=>{
             return {
               depth: 50, //assumed
@@ -316,10 +296,7 @@
           });
         }
         if (this.options.lichess && !newMoves?.length) {
-          let obj=await this.jsonWith404({
-            url:'/api/cloud-eval?fen={fen}&multiPv=5',
-            args:{ fen: fen }
-          });
+          let obj=await parent.api.evaluation.getLichess(fen,5);
           if (obj) {
             newMoves=obj?.pvs?.map(m=>{
               return {
@@ -331,10 +308,7 @@
               };
             });
             if (newMoves?.length && !parent.net.slowMode) {
-              obj=await this.jsonWith404({
-                url:'/api/cloud-eval?fen={fen}&multiPv=10',
-                args:{ fen: fen }
-              });
+              obj=await parent.api.evaluation.getLichess(fen,10);
               if (obj) {
                 obj.pvs?.forEach(m=>{
                   const uci=m.moves?.split(' ')[0];

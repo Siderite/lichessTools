@@ -42,7 +42,7 @@
         'extractPrompt': '"fen"',
         'extractingFens': 'Extracting FENs',
         'btnCutStuffText': 'Cut',
-        'btnCutStuffTitle': 'Cut to ply number, remove annotations, comments, tags, found results or branches',
+        'btnCutStuffTitle': 'Cut to ply number, remove junk, annotations, comments, tags, found results or branches',
         'btnCancelText': 'Cancel',
         'btnCancelTitle': 'Cancel currently running operation',
         'btnUploadText': 'Upload',
@@ -84,7 +84,7 @@
         'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value or "Eval"(>,=,<)Value"',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Eval"(>,=,<)Value in any combination (i.e. tags, ply 10, eval<0)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Junk","Eval"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText': 'PGN Editor',
         'sendToPgnEditorTitle': 'LiChess Tools - send to PGN Editor',
         'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation'
@@ -116,7 +116,7 @@
         'extractPrompt': '"fen"',
         'extractingFens': 'Extrag FENuri',
         'btnCutStuffText': 'Taie',
-        'btnCutStuffTitle': 'Taie la un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 adnot\u0103ri, comentarii, etichete sau rezultatele g\u0103site',
+        'btnCutStuffTitle': 'Taie la un nu\u0103ar de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 gunoi, adnot\u0103ri, comentarii, etichete sau rezultatele g\u0103site',
         'btnCancelText': 'Anuleaz\u0103',
         'btnCancelTitle': 'Anuleaz\u0103 opera\u0163iunea curent\u0103',
         'btnUploadText': '\u00CEncarc\u0103',
@@ -158,7 +158,7 @@
         'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag(=,*=)Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare sau "Eval"(>,=,<)Valoare"',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: tags, ply 10, eval<0)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Junk", "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText':'Editor PGN',
         'sendToPgnEditorTitle':'LiChess Tools - trimite la Editor PGN',
         'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess'
@@ -593,11 +593,18 @@
       const parent=this.lichessTools;
 
       const co=parent.chessops;
-      const { startingPosition,parsePgn } = co.pgn;
+      const { startingPosition } = co.pgn;
       const { makeFen }= co.fen;
       const { parseSan, makeSanAndPlay } = co.san;
 
-      const pos = startingPosition(game.headers).unwrap();
+      let pos=null;
+      try {
+        pos = startingPosition(game.headers).unwrap();
+      } catch(e) {
+        e.san='Starting position';
+        e.ply=0;
+        throw e;
+      }
 
       game.lastMoves=[];
       const traverse=(pos,node,ply=0)=>{
@@ -703,9 +710,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { startingPosition,parsePgn,makePgn } = co.pgn;
-      const { makeFen }= co.fen;
-      const { parseSan, makeSanAndPlay } = co.san;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       const games=parsePgn(text);
       this.writeNote(trans.pluralSame('mergingGames',games.length));
@@ -719,14 +724,15 @@
         try {
           this.enhanceGameWithFens(game);
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
+            });
+            parent.announce(message);
             break;
           } else throw ex;
-          withErrors=true;
         }
       }
       if (withErrors) {
@@ -771,21 +777,23 @@
         try{
           this.enhanceGameWithFenDict(game);
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
-            withErrors=true;
+            });
+            parent.announce(message);
             break;
           } else throw ex;
-          withErrors=true;
         }
       }
       if (withErrors) {
         this.writeNote(trans.noarg('operationFailed'));
         return;
       }
+
+      i=games.length-1;
       while(i>=0 && !this._cancelRequested) {
         if (Date.now()-lastWrite>1000) { 
           this.writeNote(trans.pluralSame('mergingGames',games.length));
@@ -854,7 +862,7 @@
       }
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       const games=parsePgn(text);
       this.writeNote(trans.pluralSame('evaluatingGames',games.length));
@@ -893,12 +901,13 @@
           this.enhanceGameWithFens(game);
           totalMoves+=game.lastMoves?.length||0;
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
-            withErrors=true;
+            });
+            parent.announce(message);
             break;
           } else throw ex;
         }
@@ -969,9 +978,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { startingPosition,parsePgn,makePgn } = co.pgn;
-      const { makeFen }= co.fen;
-      const { parseSan, makeSanAndPlay } = co.san;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       const games=parsePgn(text);
       this.writeNote(trans.pluralSame('extractingFens',games.length));
@@ -985,14 +992,15 @@
         try {
           this.enhanceGameWithFens(game);
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
+            });
+            parent.announce(message);
             break;
           } else throw ex;
-          withErrors=true;
         }
       }
       if (withErrors) {
@@ -1041,7 +1049,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       const games=parsePgn(text);
       this.writeNote(trans.pluralSame('normalizingGames',games.length));
@@ -1056,12 +1064,13 @@
           this.enhanceGameWithFens(game);
           this.enhanceGameWithFenDict(game);
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
-            withErrors=true;
+            });
+            parent.announce(message);
             break;
           } else throw ex;
         }
@@ -1131,7 +1140,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       const games=parsePgn(text);
       this.writeNote(trans.pluralSame('denormalizingGames',games.length));
@@ -1146,12 +1155,13 @@
           this.enhanceGameWithFens(game);
           this.enhanceGameWithFenDict(game);
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
-            withErrors=true;
+            });
+            parent.announce(message);
             break;
           } else throw ex;
         }
@@ -1232,7 +1242,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('splittingGames',games.length));
@@ -1290,6 +1300,9 @@
       const trans=parent.translator;
 
       const text=parent.global.prompt(trans.noarg('cutStuffPrompt'));
+      if (/junk/i.test(text)) {
+        await this.cutJunk(textarea);
+      }
       if (/result/i.test(text)) {
         await this.cutFound(textarea);
       }
@@ -1322,7 +1335,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('searchingGames',games.length));
@@ -1334,7 +1347,25 @@
 
       this.countPgn();
     };
+      
+    cutJunk=async (textarea)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const $=parent.$;
+      const trans=parent.translator;
 
+      const text=textarea.val();
+      const reg = /(\[\w+\s+\".*?\"\][\s\r\n]*)*({.*?}[\s\r\n]*)?\d{1,3}\s*\.\s*(\.\.)?(((?:[NBKRQ]?[a-h]?[1-8]?[-x]?[a-h][1-8](?:=?[nbrqkNBRQK])?|[pnbrqkPNBRQK]?@[a-h][1-8]|O-O-O|0-0-0|O-O|0-0)[+#]?|--|Z0|0000|@@@@|\d{1,3}\s*\.\s*(\.\.)?|{.*?}|;|\$\d{1,4}|[?!]{1,2}|\(|\)|\*|1-0|0-1|1\/2-1\/2)[\s\r\n]*)+/g;
+      const pgns=[];
+      let match=reg.exec(text);
+      while (match) {
+        pgns.push(match[0]);
+        match=reg.exec(text)
+      }
+      this.setText(textarea,pgns.join('\r\n\r\n'));
+
+      this.countPgn();
+    };
       
     cutTags=async (textarea)=>{
       const parent=this.lichessTools;
@@ -1343,7 +1374,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames',games.length));
@@ -1382,7 +1413,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames',games.length));
@@ -1418,7 +1449,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames',games.length));
@@ -1451,7 +1482,7 @@
       if (!plyNumber) return;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames',games.length));
@@ -1488,7 +1519,7 @@
       if (!operator||Number.isNaN(value)) return;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames',games.length));
@@ -1677,7 +1708,7 @@
               try {
                 this.enhanceGameWithFens(game);
               } catch(ex) {
-                if (ex.ply) {
+                if (ex.ply!==undefined) {
                   found=true;
                 } else throw ex;
               }
@@ -1737,14 +1768,15 @@
             foundGames.push(game);
           }
         } catch(ex) {
-          if (ex.ply) {
-            const data=[gameIndex, ex.san, ex.ply]
-            parent.announce(trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
+          withErrors=true;
+          if (ex.ply!==undefined) {
+            const data=[gameIndex, ex.san, ex.ply];
+            const message=trans.noarg('illegalMove').replace(/%(\d)/g,m=>{
               return data[+m[1]-1];
-            }));
+            });
+            parent.announce(message);
             break;
           } else throw ex;
-          withErrors=true;
         }
       }
 
@@ -1774,7 +1806,7 @@
       const trans=parent.translator;
 
       const co=parent.chessops;
-      const { parsePgn,makePgn } = co.pgn;
+      const { parsePgn } = co.pgn;
       const text=textarea.val();
       let games=parsePgn(text);
       this.writeNote(trans.pluralSame('searchingGames',games.length));

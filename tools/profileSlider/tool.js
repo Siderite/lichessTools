@@ -37,8 +37,11 @@
       if (!this.options.showText) return;
       const start=new Date(+ev[0]).toDateString().substr(4);
       const end=new Date(+ev[1]).toDateString().substr(4);
-      const text=start+' - '+end;
-      $('.time-selector-buttons label.lichessTools-profileSliderText').text(text);
+      $('.time-selector-buttons label.lichessTools-profileSliderText')
+        .empty()
+        .append($('<span>').text(start))
+        .append('<span> - </span>')
+        .append($('<span>').text(end));
     };
 
     setSlider=(ev)=>{

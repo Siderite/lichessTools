@@ -160,12 +160,8 @@
         page=this._nextPage;
       }
       const baseUrl=parent.global.location.href;
-      const mm=/\/(hot|newest|updated|popular)$/.exec(parent.global.location.pathname);
-      const mode=mm?.at(1)||'hot';
-      const p=baseUrl.includes('?') ? '&' : '?';
-
       while(this._currentPage<page) {
-        const json=await parent.net.json(baseUrl+p+'page='+(this._currentPage+1));
+        const json=await parent.api.study.getStudyListPage(baseUrl,this._currentPage+1);
         const loadedPage=+json?.paginator?.currentPage;
         if (loadedPage) {
           this._currentPage=loadedPage;
@@ -283,7 +279,7 @@
         if (!this.flairs) {
           let text='';
           try {
-            text=await parent.net.fetch(parent.assetUrl('flair/list.txt'));
+            text=await parent.api.flair.getList();
           } catch {
             parent.global.console.debug('Could not retrieve flair list!');
           }
