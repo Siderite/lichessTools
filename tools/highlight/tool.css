@@ -50,6 +50,11 @@ body.lichessTools.lichessTools-notOnMainline main.analyse cg-board {
   opacity:0.85;
 }
 
+body.lichessTools piece.lichessTools-notOnMainline {
+  opacity:0.5;
+}
+
+
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm1 {
   filter:drop-shadow(1px 1px 1px #FF000080);
 }
