@@ -56,6 +56,7 @@
       const hash = +(parent.currentOptions.getValue('stockfish-hash'))||128;
       let sf=parent.stockfish;
       if (sf) {
+        await sf.load();
         sf.setOption('Threads',threads);
         sf.setOption('Hash',hash);
         sf.start();
