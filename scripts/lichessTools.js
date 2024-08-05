@@ -576,16 +576,15 @@
       if (!container.length) return;
       const variantElem=container.closest('div.round__app, main, a.mini-game');
 
-      const width=container.width()/8;
-      const parentOffset=container.offset();
       const orientation=container.closest('.cg-wrap').is('.orientation-black')?'black':'white';
       const getKey=orientation=='white'
         ? res=>res.x+','+res.y
         : res=>(7-res.x)+','+(7-res.y);
 
       const lastMove={};
+      let width=null;
+      let parentOffset=null;
       $('square.last-move',container).each((i,s)=>{
-        const square=$(s);
         let res;
         let key;
         if (s.cgKey) {
@@ -595,7 +594,9 @@
               };
           key=(7-res.x)+','+(7-res.y);
         } else {
-          const offset=square.offset();
+          width=container.width()/8;
+          parentOffset=container.offset();
+          const offset=$(s).offset();
           res={
                 x:Math.round((offset.left-parentOffset.left)/width),
                 y:Math.round((offset.top-parentOffset.top)/width)
@@ -609,7 +610,6 @@
       const pieceDict={};
       $('piece',container).each((i,p)=>{
         const piece=$(p);
-        const offset=piece.offset();
         let res;
         let key;
         if (p.cgKey) {
@@ -619,6 +619,8 @@
               };
           key=(7-res.x)+','+(7-res.y);
         } else {
+          if (!width) width=container.width()/8;
+          if (!parentOffset) parentOffset=container.offset();
           const offset=piece.offset();
           res={
                 x:Math.round((offset.left-parentOffset.left)/width),
