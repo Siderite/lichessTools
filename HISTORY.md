@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+06 Aug
+  - LT engine configurable threads and hash
+  - Dim pieces when out of main line
+
 04 Aug
   - team message notification
   - print options for move list in another window
