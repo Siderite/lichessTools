@@ -308,7 +308,7 @@
         this.teamsData=parent.storage.get('LichessTools.chatNotificationTeams');
         const configuredTeamsCount=this.teamsData?.length;
         if (configuredTeamsCount) {
-          parent.arrayRemoveAll(this.teamsData,t=>!this.userTeams.find(ut=>ut.teamId==t.teamId));
+          parent.arrayRemoveAll(this.teamsData,t=>!this.userTeams.find(ut=>ut.id==t.teamId));
           if (this.teamsData.length<configuredTeamsCount) {
             this.saveTeamsData();
           }
