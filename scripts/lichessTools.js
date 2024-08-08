@@ -633,9 +633,20 @@
         if (piece.is('.white')) {
           res.p=res.p?.toUpperCase();
           if (lastMove[key]) turn='black'; 
+        } else
+        if (piece.is('.black')) {
+          if (lastMove[key]) turn='white'; 
         }
         if (res.p) pieceDict[key]=res;
       });
+      if (!turn) {
+        if (lastMove['4,7']&&(lastMove['0,7']||lastMove['7,7'])) {
+          turn='black';
+        } else
+        if (lastMove['4,0']&&(lastMove['0,0']||lastMove['7,0'])) {
+          turn='white';
+        }
+      }
 
       let pos='';
       let s=0;
