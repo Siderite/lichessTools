@@ -293,12 +293,12 @@
       if (this.options.showOnEmpty) {
         $('div.tview2')
           .addClass('lichessTools-showOnEmpty')
-          .attr('p','*');
+          .attr('p','*'); //lichess checks this against empty so we must add something ...
         if (!parent.isWrappedFunction(analysis.jump,'showOnEmpty')) {
           analysis.jump=parent.wrapFunction(analysis.jump,{
             id:'showOnEmpty',
             before: ($this,path)=>{
-              if (path=='*') return false;
+              if (path=='*') return false; // ... and then hack so it doesn't do anything
             }
           })
         }
