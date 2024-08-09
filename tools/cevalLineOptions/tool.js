@@ -25,17 +25,25 @@
       }
     }
 
+    getKey=(elem)=>{
+      const parent=this.lichessTools;
+      const $=parent.$;
+      const e=$(elem);
+      const san=e.text().replace(/[\+#\?!]/,'');
+      const turn=+(e.attr('data-move-index'))%2;
+      return `${san}-${turn}`;
+    };
+
     dict=new Map();
-    cls=[];
     clsIndex=0;
     handlePvs=()=>{
       const parent=this.lichessTools;
       const $=parent.$;
+      this.dict=new Map(this.dict.entries().filter(e=>e[1].cls));
       this.dict.values().forEach(v=>v.count=0);
       $('div.pv_box span.pv-san').each((i,e)=>{
-        const san=$(e).text().replace(/[\+#\?!]/,'');
-        const turn=+($(e).attr('data-move-index'))%2;
-        const key=`${san}-${turn}`;
+        if (!parent.inViewport(e)) return;
+        const key=this.getKey(e);
         const data=this.dict.get(key);
         if (data) {
           data.count++;
@@ -45,36 +53,33 @@
       });
       const arr=[...this.dict];
       arr.sort((a,b)=>b[1].count-a[1].count);
+      const demotes=arr.map(entry=>entry[1]).filter(val=>val.count<=1 && val.cls);
       arr.forEach((entry)=>{
         const key=entry[0];
         const val=entry[1];
-        if (val.count<=1) {
-          if (val.cls) {
-            this.cls.push(val.cls);
-            val.cls='';
-          }
-        } else {
-          if (!val.cls) {
-            if (this.cls.length) {
-              val.cls=this.cls.shift();
-            } else {
-              this.clsIndex++;
-              val.cls='lichessTools-cevalHighlight-'+this.clsIndex;
+        if (val.count>1 && !val.cls) {
+          if (demotes.length) {
+            const demote=demotes.shift();
+            val.cls=demote.cls;
+            demote.cls='';
+          } else {
+            this.clsIndex++;
+            if (this.clsIndex>30) {
+              parent.global.console.debug('Ceval highlight class index: ',this.clsIndex);
             }
+            val.cls='lichessTools-cevalHighlight-'+this.clsIndex;
           }
         }
-        $('div.pv_box span.pv-san')
-          .filter((i,e)=>{
-            const s=$(e).text().replace(/[\+#\?!]/,'');
-            const t=+($(e).attr('data-move-index'))%2;
-            const k=`${s}-${t}`;
-            return key==k;
-          })
-          .each((i,e)=>{
-            const cls=('pv-san '+val.cls).trim();
-            if (e.className!=cls) e.className=cls;
-          });
       });
+      $('div.pv_box span.pv-san')
+        .each((i,e)=>{
+          const key=this.getKey(e);
+          const val=this.dict.get(key);
+          const cls=val?.count>1
+            ? ('pv-san '+val.cls).trim()
+            : 'pv-san';
+          if (e.className!=cls) e.className=cls;
+        });
     };
 
     async start() {
@@ -91,23 +96,26 @@
       this.observer?.disconnect();
       this.observer=null;
       if (this.options.highlight) {
-        this.observer = new MutationObserver((mutations) => {
-          for (const mutation of mutations) {
-            if ($(mutation.target).is('.pv')) {
-              this.handlePvs();
-              return;
+        const analysisTools=$('main .analyse__tools')[0];
+        if (analysisTools) {
+          this.observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+              if ($(mutation.target).is('.pv')) {
+                this.handlePvs();
+                return;
+              }
             }
-          }
-        });
+          });
 
-        this.observer.observe(parent.global.document.body, {
-          childList: true,
-          subtree: true,
-          attributes: true,
-          attributeFilter: ['class']
-        });
+          this.observer.observe(analysisTools, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class']
+          });
 
-        this.handlePvs();
+          this.handlePvs();
+       }
      }
    }
 
