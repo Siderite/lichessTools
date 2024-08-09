@@ -924,6 +924,10 @@
       return !this.global.matchMedia('(hover: hover) and (pointer: fine)').matches;
     }
 
+    getToolByName(name) {
+      return this.tools.find(t=>t.name==name);
+    }
+
     intl={
       lichessTools:this,
       defaultLanguage:'en-US',
@@ -1434,7 +1438,7 @@
         }
         if (tool.dependencies) {
           for (const name of tool.dependencies) {
-            if (!this.tools.find(t=>t.name===name)) throw new Error('Tool '+tool.name+' has a dependency on '+name+' which was not loaded');
+            if (!this.getToolByName(name)) throw new Error('Tool '+tool.name+' has a dependency on '+name+' which was not loaded');
           }
         }
       } catch(e) {
