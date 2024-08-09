@@ -137,6 +137,7 @@
         "tools/studyLinks/tool.js",
         "tools/konami/tool.js",
         "tools/analysisWheel/tool.js",
+        "tools/cevalLineOptions/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -225,6 +226,7 @@
         "tools/oneClickMove/tool.css",
         "tools/studyLinks/tool.css",
         "tools/konami/tool.css",
+        "tools/cevalLineOptions/tool.css",
 
         "tools/tvOptions/tool.css",
 
