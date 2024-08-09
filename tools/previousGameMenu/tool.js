@@ -74,9 +74,7 @@
       const gameId=games[index-1];
       if (gameId) {
         item.attr('href','/'+gameId);
-        if (lichess.powertip) {
-          lichess.powertip.manualGame(item[0]);
-        }
+        lichess.powertip?.manualGame(item[0]);
       } else {
         item.removeAttr('href');
       }
