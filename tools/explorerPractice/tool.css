@@ -30,19 +30,19 @@ body.lichessTools .explorer-box .moves tbody tr.sum.lichessTools-sumClick td {
   cursor:pointer;
 }
 
-body.lichessTools cg-board label.lichessTools-explorerPractice {
+body.lichessTools div.main-board cg-board label.lichessTools-explorerPractice {
   z-index:100000;
   position: absolute;
 }
 
-body.lichessTools cg-board label.lichessTools-explorerPractice span {
+body.lichessTools div.main-board cg-board label.lichessTools-explorerPractice span {
   border-radius:10%;
   background: #80808040;
   color: white;
   text-shadow: 1px 1px #808080;
 }
 
-body.lichessTools cg-board label.lichessTools-explorerPractice.black span {
+body.lichessTools div.main-board cg-board label.lichessTools-explorerPractice.black span {
   color: black;
   text-shadow: 1px 1px #808080;
 }

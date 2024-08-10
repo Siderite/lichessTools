@@ -116,7 +116,7 @@ body.lichessTools #analyse-cm a[data-role="bookmark"]:before {
 }
 
 body.lichessTools .tview2 move.lichessTools-bookmark+comment {
-  vertical-align: baseline;
+  vertical-align: 0.5em;
 }
 
 body.lichessTools .tview2 lines line:has(>move:nth-child(1)>bookmark):before {

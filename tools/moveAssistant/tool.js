@@ -61,16 +61,6 @@
       if (!this._sf) {
         const sf=await parent.stockfish.load();
         if (!sf) return;
-        if ((parent.global.navigator.hardwareConcurrency||0)<=4) {
-          sf.setThreads(1);
-        } else {
-          sf.setThreads(2);
-        }
-        if ((parent.global.navigator.deviceMemory||0)<=2) {
-          sf.setHash(64);
-        } else {
-          sf.setHash(128);
-        }
         sf.setMultiPv(256);
         sf.setTime(90000);
         sf.on('info',this.getInfo);
@@ -130,7 +120,7 @@
         if (cp<minCp) minCp=cp;
       });
       
-      const side=$('main.analyse cg-board').width();
+      const side=$('main.analyse div.main-board cg-board').width();
       const isBlack=lichess.analysis.getOrientation()=='black';
       $('square.move-dest').each((i,e)=>{
         const dest=this.getSquare(e,side,isBlack);
@@ -248,6 +238,7 @@
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
+      if (!parent.global.SharedArrayBuffer) return;
       this.clearSquares();
       parent.global.clearInterval(this.interval);
       this.setControls();

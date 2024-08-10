@@ -34,15 +34,28 @@
       const trans=parent.translator;
       const container=$('div.dialog-content div.form-actions');
       if (!container.length) return;
-      const button=$('button.lichessTools-chapterInsert',container);
-      if (button.length) return;
       const study=lichess.analysis.study;
+      const allChapters=study.chapters.list.all();
+      const currentChapter=study.currentChapter();
+      const isLast = (currentChapter===allChapters.at(-1));
+      const button=$('button.lichessTools-chapterInsert',container);
+      if (button.length) {
+        if (isLast) {
+          container.addClass('single');
+          button.remove();
+        }
+        return;
+      } else {
+        if (isLast) {
+          return;
+        }
+      }
       container.removeClass('single');
       $('<button type="submit" class="button lichessTools-chapterInsert">')
         .on('click',(ev)=>{
           this.chapterData={
-            chapters:study.chapters.list.all(),
-            current:study.currentChapter()
+            chapters:allChapters,
+            current:currentChapter
           };
         })
         .text(trans.noarg('chapterInsertText'))

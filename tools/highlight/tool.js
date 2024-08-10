@@ -8,7 +8,7 @@
         name:'highlight',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['lastMove','notCommented','transposition','mainLine','variationDepth','checks'],
+        possibleValues: ['lastMove','notCommented','transposition','mainLine','mainLinePieces','variationDepth','checks'],
         defaultValue: 'lastMove,notCommented,transposition',
         advanced: true
       }
@@ -21,6 +21,7 @@
         'highlight.notCommented': 'Not commented last moves',
         'highlight.transposition': 'Transpositions to current move',
         'highlight.mainLine': 'Highlight board when out of main line',
+        'highlight.mainLinePieces': 'Highlight pieces when out of main line',
         'highlight.variationDepth': 'Highlight variation depth',
         'highlight.checks': 'Highlight checks to kings',
       },
@@ -30,6 +31,7 @@
         'highlight.notCommented': 'Ultime mut\u0103ri necomentate',
         'highlight.transposition': 'Transpozi\u0163iile la mutarea curent\u0103',
         'highlight.mainLine': 'Eviden\u0163iaz\u0103 tabla c\u00e2nd nu pe linia principal\u0103',
+        'highlight.mainLinePieces': 'Eviden\u0163iaz\u0103 piese c\u00e2nd nu pe linia principal\u0103',
         'highlight.variationDepth': 'Eviden\u0163iaz\u0103 ad\u00e2ncimea varia\u0163iunii',
         'highlight.checks': 'Eviden\u0163iaz\u0103 regi \u00een \u015fah',
       }
@@ -121,9 +123,40 @@
       const parent=this.lichessTools;
       const analysis=parent.lichess.analysis;
       if (!analysis) return;
-      const onMainline = analysis.mainline.includes(analysis.node);
+      const onMainline = analysis.node==analysis.mainline[analysis.node.ply];
       const $=parent.$;
       $.cached('body').toggleClass('lichessTools-notOnMainline',!onMainline);
+    };
+
+    highlightMainLinePieces=()=>{
+      if (!this.options.mainLinePieces) return;
+      const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
+      if (!analysis) return;
+      const onMainline = analysis.node==analysis.mainline[analysis.node.ply];
+      const $=parent.$;
+      if (onMainline) {
+        $('div.main-board cg-board piece.lichessTools-notOnMainline').removeClass('lichessTools-notOnMainline');
+      } else {
+        const board=parent.getBoardFromFen(analysis.node.fen);
+        const mainNode=analysis.nodeList.findLast((n,i)=>n==analysis.mainline[i]);
+        const mainBoard=parent.getBoardFromFen(mainNode.fen);
+        const squares=[];
+        for (let x=0; x<8; x++) {
+          for (let y=0; y<8; y++) {
+            if (board[y][x]!=mainBoard[y][x]) {
+              const sq=String.fromCharCode('a'.charCodeAt(0)+x)+(8-y);
+              squares.push(sq);
+            }
+          }
+        }
+        if (squares.length) {
+          $('div.main-board cg-board piece').each((i,e)=>{
+             const notOnMainline = squares.includes(e.cgKey);
+             $(e).toggleClass('lichessTools-notOnMainline',notOnMainline);
+          });
+        }
+      }
     };
 
     highlightVariationDepth=()=>{
@@ -200,12 +233,19 @@
         mainLine:parent.isOptionSet(value,'mainLine'),
         variationDepth:parent.isOptionSet(value,'variationDepth'),
         checks:parent.isOptionSet(value,'checks'),
-        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth || this.checks; }
+        mainLinePieces:parent.isOptionSet(value,'mainLinePieces'),
+        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth || this.checks || this.mainLinePieces; }
       };
       lichess.pubsub.off('lichessTools.redraw', this.highlightMainLine);
+      lichess.pubsub.off('lichessTools.redraw', this.highlightMainLinePieces);
       lichess.pubsub.off('lichessTools.redraw', this.debouncedTraverseTree);
-      if (this.options.isSet) {
+      if (this.options.mainLine) {
         lichess.pubsub.on('lichessTools.redraw', this.highlightMainLine);
+      }
+      if (this.options.mainLinePieces) {
+        lichess.pubsub.on('lichessTools.redraw', this.highlightMainLinePieces);
+      }
+      if (this.options.isSet) {
         lichess.pubsub.on('lichessTools.redraw', this.debouncedTraverseTree);
       }
       $.cached('body').toggleClass('lichessTools-variationDepth',this.options.variationDepth);

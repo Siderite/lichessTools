@@ -6,6 +6,23 @@ body.lichessTools a.lichessTools-previousStudy span {
   overflow: hidden;
 }
 
+@media (min-width: 1019.3px)  {
+  body.lichessTools a.lichessTools-previousStudy {
+    position:relative;
+  }
+  body.lichessTools #topnav.hover section:hover a.lichessTools-previousStudy div[role="group"] {
+    visibility:hidden;
+    position:absolute;
+    top:0;
+    right:0;
+    translate: 95% 0;
+  }
+
+  body.lichessTools #topnav.hover section:hover a.lichessTools-previousStudy:hover div[role="group"] {
+    visibility:visible;
+  }
+}
+
 /* Prettier */
 body.lichessTools.lichessTools-prettier nav#topnav a.lichessTools-previousStudy {
   flex-direction: column;

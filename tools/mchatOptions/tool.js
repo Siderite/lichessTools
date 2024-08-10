@@ -160,6 +160,7 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const socket=new lichess.StrongSocket('/team/'+teamId,1);
+      socket.pubsub.off('socket.send',socket.send);
       socket.pubsub={
         emit:(type,data)=>{
           if (type=='socket.in.message') this.receiveChatMessage(teamId,data);
@@ -308,7 +309,7 @@
         this.teamsData=parent.storage.get('LichessTools.chatNotificationTeams');
         const configuredTeamsCount=this.teamsData?.length;
         if (configuredTeamsCount) {
-          parent.arrayRemoveAll(this.teamsData,t=>!this.userTeams.find(ut=>ut.teamId==t.teamId));
+          parent.arrayRemoveAll(this.teamsData,t=>!this.userTeams.find(ut=>ut.id==t.teamId));
           if (this.teamsData.length<configuredTeamsCount) {
             this.saveTeamsData();
           }

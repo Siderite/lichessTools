@@ -131,7 +131,7 @@
       }
       const bookmark=move.bookmark;
       if (collapse===undefined) {
-        collapse=!bookmark.collapsed;
+        collapse=!bookmark?.collapsed;
       }
       if (bookmark) {
         bookmark.collapsed=collapse;
@@ -142,6 +142,12 @@
       for (const child of elems) {
         child.toggleClass('lichessTools-childCollapsed',collapse);
       }
+      const studyId=lichess.analysis.study.data.id;
+      if (!this.bookmarks) {
+        this.bookmarks=new Map();
+      }
+      this.bookmarks.set(`${studyId}/${bookmark.label}`,collapse);
+      parent.storage.set('LichessTools.bookmarks',[...this.bookmarks]);
     }
 
     toBookmarkName=(text)=>{
@@ -210,7 +216,7 @@
           } else {
             node.bookmark={
               label:bookmark,
-              collapsed:false
+              collapsed:this.getCollapsed(bookmark)
             };
           }
           const elem=parent.getElementForNode(node);
@@ -225,6 +231,18 @@
           }
         }
       },true);
+    };
+
+    getCollapsed=(label)=>{
+      const parent=this.lichessTools;
+      const study=parent.lichess?.analysis?.study;
+      if (!study) return false;
+
+      if (!this.bookmarks) {
+        this.bookmarks=new Map(parent.storage.get('LichessTools.bookmarks')||[]);
+      }
+      const studyId=study.data.id;
+      return this.bookmarks.get(`${studyId}/${label}`)||false;
     };
 
     addCommentBookmarks=()=>{
@@ -737,8 +755,10 @@
       }
 
       lichess.pubsub.off('lichessTools.redraw',this.analysisContextMenu);
+      $('.tview2').off('contextmenu',this.analysisContextMenu);
       if (this.options.bookmarks) {
         lichess.pubsub.on('lichessTools.redraw',this.analysisContextMenu);
+        $('.tview2').on('contextmenu',this.analysisContextMenu);
       }
 
       $.cached('body')

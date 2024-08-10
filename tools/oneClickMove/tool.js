@@ -83,7 +83,7 @@
       const analysis=lichess.analysis;
       if (!(this.options.analysis && analysis)&&!(this.options.play && !analysis)) return; //TODO better play detection
       if (!ev.x && !ev.y) return;
-      const board=$('main cg-board');
+      const board=$('div.main-board cg-board');
       if (!board.length) return;
       if ($('square.selected',board).length) return;
       const rect=board[0].getBoundingClientRect();
@@ -224,7 +224,7 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
-      const board=$('main cg-board')[0];
+      const board=$('div.main-board cg-board')[0];
       if (!board) return;
       if (!board.lichessTools_oneClickMove) {
         board.addEventListener('mousedown',this.boardClick,{ capture: true });
@@ -257,7 +257,7 @@
         onlyOrientation: parent.isOptionSet(value,'onlyOrientation'),
         moveFromPgn: parent.isOptionSet(value,'moveFromPgn')
       };
-      const board=$('main cg-board')[0];
+      const board=$('div.main-board cg-board')[0];
       if (board) {
         board.removeEventListener('mousedown',this.boardClick,{ capture: true });
         board.lichessTools_oneClickMove=false;

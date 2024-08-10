@@ -120,8 +120,12 @@ body.lichessTools .analyse .gamebook button.hint.data-count[data-count='1']::aft
 
 body.lichessTools .analyse .gamebook button.lichessTools-giveUp {
   position: absolute;
-  right:0;
-  bottom:0;
+  right:1em;
+  bottom:0.75em;
+  width: fit-content;
+  padding-top: 0;
+  color: var(--c-primary);
+  font-size: 1rem;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,

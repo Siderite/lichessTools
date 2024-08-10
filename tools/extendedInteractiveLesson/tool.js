@@ -409,9 +409,9 @@
       const parent=this.lichessTools;
       const $=parent.$;
       const trans=parent.translator;
-      const container = $('.gamebook .comment .content');
+      const container = $('.gamebook .comment');
       if (!container.length || $('.lichessTools-giveUp',container).length) return;
-      $('<button class="hint lichessTools-giveUp">')
+      $('<button class="lichessTools-giveUp">')
         .text(trans.noarg('giveUpButtonText'))
         .attr('title',trans.noarg('giveUpButtonTitle'))
         .on('click',ev=>{
@@ -588,6 +588,7 @@
           }
         });
         gp.isShowScore=true;
+        gp.redraw();
       } else if (!this.options.showFinalScore && gp.isShowScore) {
         gp.makeState=parent.unwrapFunction(gp.makeState,'showScore');
         gp.next=parent.unwrapFunction(gp.next,'showScore');

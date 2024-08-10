@@ -576,16 +576,15 @@
       if (!container.length) return;
       const variantElem=container.closest('div.round__app, main, a.mini-game');
 
-      const width=container.width()/8;
-      const parentOffset=container.offset();
       const orientation=container.closest('.cg-wrap').is('.orientation-black')?'black':'white';
       const getKey=orientation=='white'
         ? res=>res.x+','+res.y
         : res=>(7-res.x)+','+(7-res.y);
 
       const lastMove={};
+      let width=null;
+      let parentOffset=null;
       $('square.last-move',container).each((i,s)=>{
-        const square=$(s);
         let res;
         let key;
         if (s.cgKey) {
@@ -595,7 +594,9 @@
               };
           key=(7-res.x)+','+(7-res.y);
         } else {
-          const offset=square.offset();
+          width=container.width()/8;
+          parentOffset=container.offset();
+          const offset=$(s).offset();
           res={
                 x:Math.round((offset.left-parentOffset.left)/width),
                 y:Math.round((offset.top-parentOffset.top)/width)
@@ -609,7 +610,6 @@
       const pieceDict={};
       $('piece',container).each((i,p)=>{
         const piece=$(p);
-        const offset=piece.offset();
         let res;
         let key;
         if (p.cgKey) {
@@ -619,6 +619,8 @@
               };
           key=(7-res.x)+','+(7-res.y);
         } else {
+          if (!width) width=container.width()/8;
+          if (!parentOffset) parentOffset=container.offset();
           const offset=piece.offset();
           res={
                 x:Math.round((offset.left-parentOffset.left)/width),
@@ -631,9 +633,20 @@
         if (piece.is('.white')) {
           res.p=res.p?.toUpperCase();
           if (lastMove[key]) turn='black'; 
+        } else
+        if (piece.is('.black')) {
+          if (lastMove[key]) turn='white'; 
         }
         if (res.p) pieceDict[key]=res;
       });
+      if (!turn) {
+        if (lastMove['4,7']&&(lastMove['0,7']||lastMove['7,7'])) {
+          turn='black';
+        } else
+        if (lastMove['4,0']&&(lastMove['0,0']||lastMove['7,0'])) {
+          turn='white';
+        }
+      }
 
       let pos='';
       let s=0;
@@ -909,6 +922,10 @@
 
     isTouchDevice() {
       return !this.global.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    }
+
+    getToolByName(name) {
+      return this.tools.find(t=>t.name==name);
     }
 
     intl={
@@ -1421,7 +1438,7 @@
         }
         if (tool.dependencies) {
           for (const name of tool.dependencies) {
-            if (!this.tools.find(t=>t.name===name)) throw new Error('Tool '+tool.name+' has a dependency on '+name+' which was not loaded');
+            if (!this.getToolByName(name)) throw new Error('Tool '+tool.name+' has a dependency on '+name+' which was not loaded');
           }
         }
       } catch(e) {

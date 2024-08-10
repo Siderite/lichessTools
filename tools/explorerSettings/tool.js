@@ -61,7 +61,7 @@
       let section=$('section.lichessTools-explorerSettings',container);
       if (!section.length) {
         const choices=$('<div class="choices">');
-        if (parent.tools.find(t=>t.name==='ExplorerEval')) {
+        if (parent.getToolByName('ExplorerEval')) {
           choices
             .append($('<button class="lichessTools-moveEvaluation">').text(trans('moveEvaluationSettingText')).attr('title',trans('moveEvaluationSettingTitle'))
               .on('click',ev=>{
@@ -72,7 +72,7 @@
                 this.showSettingsDirect();
               }))
         }
-        if (parent.tools.find(t=>t.name==='ExplorerGambits')) {
+        if (parent.getToolByName('ExplorerGambits')) {
           choices
             .append($('<button class="lichessTools-gambits">').text(trans('gambitsSettingText')).attr('title',trans('gambitsSettingTitle'))
               .on('click',ev=>{
@@ -82,7 +82,7 @@
                 this.showSettingsDirect();
               }))
         }
-        if (parent.tools.find(t=>t.name==='ExplorerPractice')) {
+        if (parent.getToolByName('ExplorerPractice')) {
           choices
             .append($('<button class="lichessTools-explorerPractice">').text(trans('explorerPracticeSettingText')).attr('title',trans('explorerPracticeSettingTitle'))
               .on('click',ev=>{
@@ -92,7 +92,7 @@
                 this.showSettingsDirect();
               }))
         }
-        if (parent.tools.find(t=>t.name==='OpeningExplorerUsers')) {
+        if (parent.getToolByName('OpeningExplorerUsers')) {
           choices
             .append($('<button class="lichessTools-meButton">').text(trans('meButtonSettingText')).attr('title',trans('meButtonSettingTitle'))
               .on('click',ev=>{
