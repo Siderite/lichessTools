@@ -131,7 +131,7 @@
       }
       const bookmark=move.bookmark;
       if (collapse===undefined) {
-        collapse=!bookmark.collapsed;
+        collapse=!bookmark?.collapsed;
       }
       if (bookmark) {
         bookmark.collapsed=collapse;
@@ -143,6 +143,9 @@
         child.toggleClass('lichessTools-childCollapsed',collapse);
       }
       const studyId=lichess.analysis.study.data.id;
+      if (!this.bookmarks) {
+        this.bookmarks=new Map();
+      }
       this.bookmarks.set(`${studyId}/${bookmark.label}`,collapse);
       parent.storage.set('LichessTools.bookmarks',[...this.bookmarks]);
     }
@@ -752,8 +755,10 @@
       }
 
       lichess.pubsub.off('lichessTools.redraw',this.analysisContextMenu);
+      $('.tview2').off('contextmenu',this.analysisContextMenu);
       if (this.options.bookmarks) {
         lichess.pubsub.on('lichessTools.redraw',this.analysisContextMenu);
+        $('.tview2').on('contextmenu',this.analysisContextMenu);
       }
 
       $.cached('body')
