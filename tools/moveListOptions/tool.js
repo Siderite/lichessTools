@@ -142,6 +142,9 @@
       for (const child of elems) {
         child.toggleClass('lichessTools-childCollapsed',collapse);
       }
+      const studyId=lichess.analysis.study.data.id;
+      this.bookmarks.set(`${studyId}/${bookmark.label}`,collapse);
+      parent.storage.set('LichessTools.bookmarks',[...this.bookmarks]);
     }
 
     toBookmarkName=(text)=>{
@@ -210,7 +213,7 @@
           } else {
             node.bookmark={
               label:bookmark,
-              collapsed:false
+              collapsed:this.getCollapsed(bookmark)
             };
           }
           const elem=parent.getElementForNode(node);
@@ -225,6 +228,18 @@
           }
         }
       },true);
+    };
+
+    getCollapsed=(label)=>{
+      const parent=this.lichessTools;
+      const study=parent.lichess?.analysis?.study;
+      if (!study) return false;
+
+      if (!this.bookmarks) {
+        this.bookmarks=new Map(parent.storage.get('LichessTools.bookmarks')||[]);
+      }
+      const studyId=study.data.id;
+      return this.bookmarks.get(`${studyId}/${label}`)||false;
     };
 
     addCommentBookmarks=()=>{
