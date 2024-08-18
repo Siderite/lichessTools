@@ -379,13 +379,12 @@
 
     rebind=()=>{
       const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('explorerEval');
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;
       if (!analysis) return;
       const explorer = analysis.explorer;
-      if (!value) {
+      if (!this.options.isSet) {
         explorer.setNode=parent.unwrapFunction(explorer.setNode,'explorerEval');
       } else {
         if (!parent.isWrappedFunction(explorer.setNode,'explorerEval')) {
@@ -400,6 +399,18 @@
         }
         this.doEvaluationDebounced();
       }
+      if (!this.options.ceval) {
+        analysis.onNewCeval=parent.unwrapFunction(analysis.onNewCeval,'explorerEval');
+      } else {
+        if (!parent.isWrappedFunction(analysis.onNewCeval,'explorerEval')) {
+          analysis.onNewCeval=parent.wrapFunction(analysis.onNewCeval,{
+            id: 'explorerEval',
+            after: async ($this, result, ...args)=>{
+              this.doEvaluationDebounced();
+            }
+          });
+        }
+      }
     };
 
     async start() {
@@ -413,7 +424,7 @@
         lichess: parent.isOptionSet(value,'lichess'),
         evalRows: parent.isOptionSet(value,'evalRows'),
         hidden: parent.isOptionSet(value,'hidden'),
-        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats); }
+        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows); }
       };
       const lichess=parent.lichess;
       const $=parent.$;

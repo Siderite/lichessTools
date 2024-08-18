@@ -197,7 +197,7 @@
       this.historyIndex=val;
       await parent.timeout(1);
       if (!this.history) this.history=[];
-      const undo=val>=0 && val<this.history.length;
+      const undo=val>=0;
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="undo"]')
         .toggleClass('disabled',!undo)
         .prop('disabled',!undo);
@@ -1827,8 +1827,16 @@
       const co=parent.chessops;
       const { makePgn } = co.pgn;
 
-      let newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+      games=games.filter(g=>g.moves?.children?.length || g.headers?.size);
+      games.forEach(game=>{
+        if (games.length>1 && game.moves?.children?.length && !game.headers.entries().find(e=>!/^[\?\.\*\s]*$/.test(e[1]))) {
+          game.headers.set('LiChessTools','For import');
+        }
+      });
+
+      let newText=games
+        .map(g=>makePgn(g)).join('\r\n\r\n')
+        .replace(/\[[^\s]+\s+"[\?\.\*\s]*"\]\s*/g,'');
 
       const regChessMove=/(?<move>\b(?<piece>[NBRQK])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK]))?(?<p2>\+|#)?\b)(?<nags>(\s+\$\d+)+)/g;
       const annos=['!','?','!!','??','!?','?!'];

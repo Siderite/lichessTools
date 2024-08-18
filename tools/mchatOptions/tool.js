@@ -306,7 +306,7 @@
       lichess.pubsub.off('content-loaded',this.notificationButtonInTeams);
       if (this.options.teamChatNotifications) {
         this.userTeams=await parent.api.team.getUserTeams(parent.getUserId());
-        this.teamsData=parent.storage.get('LichessTools.chatNotificationTeams');
+        this.teamsData=parent.storage.get('LichessTools.chatNotificationTeams')||[];
         const configuredTeamsCount=this.teamsData?.length;
         if (configuredTeamsCount) {
           parent.arrayRemoveAll(this.teamsData,t=>!this.userTeams.find(ut=>ut.id==t.teamId));

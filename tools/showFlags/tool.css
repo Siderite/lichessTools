@@ -84,3 +84,13 @@ body.lichessTools .lichessTools-flag+img.flag {
     width: fit-content;
   }
 }
+
+@media (max-width: 499.29px) {
+  body.lichessTools .msg-app__convo__head:has(img.flag) {
+    max-width: 100vw;
+  }
+
+  body.lichessTools .msg-app__convo__head:has(img.flag) .msg-app__convo__action.button {
+    padding-left: 0;
+  }
+}

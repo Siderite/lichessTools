@@ -6,7 +6,7 @@ body.lichessTools.lichessTools-keyMode-ceval div.analyse__tools div.pv_box {
   border: 1px solid #808080;
 }
 
-body.lichessTools.lichessTools-keyMode-explorer section.explorer-box tbody {
+body.lichessTools.lichessTools-keyMode-explorer section.explorer-box table.moves tbody {
   border: 1px solid #808080;
 }
 

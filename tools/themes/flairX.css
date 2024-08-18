@@ -7,8 +7,10 @@ body.lichessTools.lichessTools-theme_flairX img.uflair:hover {
   position:relative;
   z-index:1;
 }
+
+body.lichessTools.lichessTools-theme_flairX #powerTip:has(img.uflair:hover),
 body.lichessTools.lichessTools-theme_flairX *:has(> img.uflair:hover),
 body.lichessTools.lichessTools-theme_flairX *:has(> * > img.uflair:hover),
-body.lichessTools.lichessTools-theme_flairX *:has(> * > * > img.uflair:hover) {
+body.lichessTools.lichessTools-theme_flairX *:has(> * > * > img.uflair:hover):not(.mchat__messages) {
   overflow: visible;
 }
