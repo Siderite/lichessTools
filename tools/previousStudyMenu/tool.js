@@ -43,17 +43,17 @@
         const tourName=study.relayData?.tour?.name;
         const studyName=(tourName?tourName+' ':'')+study.data.name;
         const data={
-          id:study.data.id,
+          id: study.data.id,
+          url:study.ctrl?.opts?.relay?.tour?.url,
           name:studyName
         };
-        const existing=studyData.find(sd=>sd.id==data.id);
-        if (existing?.name!=data.name) {
-          if (!existing) {
-            studyData.unshift(data);
-            if (studyData.length>6) studyData.length=6;
-          } else {
-            existing.name=data.name;
+        const existingIndex=studyData.findIndex(sd=>sd.id==data.id);
+        if (existingIndex<0 || existingIndex>0 || JSON.stringify(studyData[existingIndex])!=JSON.stringify(data)) {
+          if (existingIndex>=0) {
+            studyData.splice(existingIndex,1);
           }
+          studyData.unshift(data);
+          if (studyData.length>6) studyData.length=6;
           parent.currentOptions['previousStudyMenu.study']=studyData;
           await parent.saveOptions(parent.currentOptions);
         }
@@ -70,8 +70,9 @@
           .appendTo(container);
         }
         const data=studyData[0];
-        if (elem.attr('href')!='/study/'+data.id) {
-          elem.attr('href','/study/'+data.id)
+        const url = data.url || '/study/'+data.id;
+        if (elem.attr('href')!=url) {
+          elem.attr('href',url)
         }
         const title=trans.pluralSame('previousStudyTitle',data.name);
         if (elem.attr('title')!=title) {
@@ -101,8 +102,9 @@
             group.empty();
             for (let i=1; i<studyData.length; i++) {
               const sd=studyData[i];
+              const u = sd.url || '/study/'+sd.id;
               $('<a>')
-                .attr('href','/study/'+sd.id)
+                .attr('href',u)
                 .attr('title',trans.pluralSame('previousStudyTitle',sd.name))
                 .text(sd.name)
                 .appendTo(group);
