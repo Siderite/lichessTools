@@ -105,6 +105,7 @@
           }
           return;
       }
+      this.clearMoveMode();
     };
 
     freezeBoard=()=>{
