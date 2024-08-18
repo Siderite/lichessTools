@@ -23,6 +23,10 @@ body.lichessTools a.lichessTools-previousStudy span {
   }
 }
 
+body.lichessTools.mobile #topnav section a.lichessTools-previousStudy div[role="group"] {
+  display:none;
+}
+
 /* Prettier */
 body.lichessTools.lichessTools-prettier nav#topnav a.lichessTools-previousStudy {
   flex-direction: column;
