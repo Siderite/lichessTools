@@ -22,7 +22,10 @@
         'replaceSnapPrompt':'Overwrite snap "%s" ?',
         'snapSettingsButtonText':'Snap!',
         'snapSettingsButtonTitle':'LiChess Tools - create a snap of current Explorer settings',
-        'snapButtonTitle':'LiChess Tools - use snap "%s"'
+        'allText':'all',
+        'sinceText':'since %s',
+        'untilText':'until %s',
+        'snapTitle':'Rating: %rating\r\nTime controls: %control\r\n%since\r\n%until'
        },
       'ro-RO':{
         'options.analysis': 'Analiz\u0103',
@@ -31,7 +34,10 @@
         'replaceSnapPrompt':'Suprascrie snapul "%s" ?',
         'snapSettingsButtonText':'Snap!',
         'snapSettingsButtonTitle':'LiChess Tools - creaz\u0103 un snap al set\u0103rilor curente din Explorator',
-        'snapButtonTitle':'LiChess Tools - folose\u0163te snapul "%s"'
+        'allText':'toate',
+        'sinceText':'de la %s',
+        'untilText':'p\u00e2n\u0103 la %s',
+        'snapTitle':'Rating: %rating\r\nControl timp: %control\r\n%since\r\n%until'
       }
     };
 
@@ -58,14 +64,15 @@
       data.byDb().since(snap.settings.since);
       data.byDb().until(snap.settings.until);
       analysis.explorer?.reload();
+      this.showSnaps();
     };
 
     getSnapElement=(snap)=>{
       const parent=this.lichessTools;
       const $=parent.$;
       return $('section.lichessTools-explorerSnaps button[data-act="shot"]').filter((i,e)=>{
-        const title=$(e).attr('data-act-title');
-        return title==snap.title;
+        const text=$(e).attr('data-act-title');
+        return text==snap.text;
       }).parent();
     };
 
@@ -80,7 +87,7 @@
     removeSnap=(snap)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
-      parent.arrayRemoveAll(this.options.snaps,s=>s.title==snap.title);
+      parent.arrayRemoveAll(this.options.snaps,s=>s.text==snap.text);
       this.saveSnaps();
     };
 
@@ -120,11 +127,11 @@
         this.highlightSnap(snap);
         return;
       }
-      const title=parent.global.prompt(trans.noarg('addSnapPrompt'));
-      if (!title) return;
-      if (this.options.snaps.find(s=>s.title==title) && !parent.global.confirm(trans.pluralSame('replaceSnapPrompt',title))) return;
+      const text=parent.global.prompt(trans.noarg('addSnapPrompt'));
+      if (!text) return;
+      if (this.options.snaps.find(s=>s.text==text) && !parent.global.confirm(trans.pluralSame('replaceSnapPrompt',text))) return;
       snap={
-        title: title,
+        text: text,
         settings: settings
       };
       this.options.snaps.push(snap);
@@ -138,22 +145,82 @@
       parent.emitRedraw();
     };
 
+    getTitle=(settings)=>{
+      if (!settings) return '';
+      const parent=this.lichessTools;
+      const trans=parent.translator;
+
+      const compress=(allArr,arr) => {
+        const resultArr=[];
+        let start='';
+        let end='';
+        for (let i=0; i<allArr.length; i++) {
+          if (!arr.includes(allArr[i])) {
+            if (start) {
+              resultArr.push(end?start+'-'+end:start+'+');
+            }
+            start='';
+            end='';
+            continue;
+          }
+          if (!start) {
+            start=allArr[i];
+          }
+          end=allArr[i+1];
+        }
+        if (!resultArr.length && start==allArr[0]) return trans.noarg('allText');
+        if (start) {
+          resultArr.push(end?start+'-'+end:start+'+');
+        }
+        return resultArr.join(', ');
+      };
+
+      const timeString=(text)=>{
+        if (!text) return '';
+        const date=new Date(text);
+        return date.toLocaleString('default', { month: 'short' })+' '+date.getFullYear();
+      }
+      
+      const allRatings=[400,1000,1200,1400,1600,1800,2000,2200,2500];
+      const ratingText=compress(allRatings,settings.avgRating);
+      const allControls=['ultrabullet','bullet','blitz','rapid','classical','correspondence'];
+      const controlText=compress(allControls,settings.timeControl);
+      const sinceText=settings.since?trans.pluralSame('sinceText',timeString(settings.since)):'';
+      const untilText=settings.until?trans.pluralSame('untilText',timeString(settings.until)):'';
+      return trans.noarg('snapTitle')
+               .replace('%rating',ratingText)
+               .replace('%control',controlText)
+               .replace('%since',sinceText)
+               .replace('%until',untilText)
+               .trim();
+    };
+
     showSnapsDirect=()=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
       const trans=parent.translator;
+      const explorer = lichess.analysis?.explorer;
+      if (!explorer?.enabled()) return;
+
       const titleElem=$('.explorer-title span.lichess');
       if (titleElem.length) {
         const settings=this.getSettings();
         const snap=this.getSnapBySettings(settings);
+        if (!this._originalText) {
+          this._originalText=titleElem.text();
+        }
         if (!this._originalTitle) {
-          this._originalTitle=titleElem.text();
+          this._originalTitle=titleElem.attr('title');
         }
         titleElem
-          .text(snap?.title || this._originalTitle);
-        titleElem.off('click',this.toggleSnaps);
-        titleElem.on('click',this.toggleSnaps);
+          .text(snap?.text || this._originalText)
+          .attr('title',this.getTitle(snap?.settings) || this._originalTitle)
+          .off('click',this.toggleSnaps)
+          .on('click',this.toggleSnaps);
+        if (!titleElem.is('lichessTools-explorerSnaps')) {
+          titleElem.addClass('lichessTools-explorerSnaps')
+        }
       }
       if (!lichess.analysis?.explorer?.config?.data?.open()) return;
       const container=$('section.explorer-box div.config >div:has(section.date)');
@@ -177,8 +244,8 @@
           .prependTo(section);
       }
       $('button[data-act="shot"]',section).each((i,e)=>{
-        const title=$(e).attr('data-act-title');
-        if (!this.options.snaps.find(s=>s.title==title)) {
+        const text=$(e).attr('data-act-title');
+        if (!this.options.snaps.find(s=>s.text==text)) {
            $(e).parent('div').remove();
         }
       });
@@ -189,9 +256,9 @@
          .append($('<button>')
            .addClass('button')
            .attr('data-act',"shot")
-           .attr('data-act-title',snap.title)
-           .text(snap.title)
-           .attr('title',trans.pluralSame('snapButtonTitle',snap.title))
+           .attr('data-act-title',snap.text)
+           .text(snap.text)
+           .attr('title',this.getTitle(snap.settings))
            .on('click',()=>this.setSnap(snap))
          )
          .append($('<button>')
@@ -216,24 +283,45 @@
         enabled:value,
         snaps:parent.jsonParse(_=>lichess.storage.get('LiChessTools.explorerSnaps'),[])
       };
+      for (const snap of this.options.snaps) {
+        if (snap.title) {
+          snap.text=snap.title;
+          delete snap.title;
+        }
+      }
       explorer.config.toggleOpen=parent.unwrapFunction(explorer.config.toggleOpen,'explorerSnaps');
+      explorer.enabled=parent.unwrapFunction(explorer.enabled,'explorerSnaps');
       explorer.fetch=parent.unwrapFunction(explorer.fetch,'explorerSnaps');
       $('section.explorer-box section.lichessTools-explorerSnaps').remove();
       lichess.pubsub.off('lichessTools.redraw',this.showSnaps);
       $('.explorer-title span.lichess')
+        .removeClass('lichessTools-explorerSnaps')
         .off('click',this.toggleSnaps);
       if (!value) {
+        if (this._originalText) {
+          $('.explorer-title span.lichess')
+            .text(this._originalText);
+        }
         if (this._originalTitle) {
           $('.explorer-title span.lichess')
-            .text(this._originalTitle)
-            .off('click',this.toggleSnaps);
+            .text(this._originalTitle);
         }
         return;
       }
       explorer.config.toggleOpen=parent.wrapFunction(explorer.config.toggleOpen,{
         id:'explorerSnaps',
         after:($this,result)=>{
-          this.showSnaps();
+          if ($this.data.open()) {
+            this.showSnaps();
+          }
+        }
+      });
+      explorer.enabled=parent.wrapFunction(explorer.enabled,{
+        id:'explorerSnaps',
+        after:($this,result,value)=>{
+          if (value) {
+            this.showSnaps();
+          }
         }
       });
       explorer.fetch=parent.wrapFunction(explorer.fetch,{
