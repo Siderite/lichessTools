@@ -197,7 +197,7 @@
       this.historyIndex=val;
       await parent.timeout(1);
       if (!this.history) this.history=[];
-      const undo=val>=0 && val<this.history.length;
+      const undo=val>=0;
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="undo"]')
         .toggleClass('disabled',!undo)
         .prop('disabled',!undo);
@@ -1383,9 +1383,6 @@
       for (const game of games) {
         const keys=game.headers.keys().filter(k=>!['FEN','SetUp'].includes(k));
         for (const key of keys) game.headers.delete(key);
-        if (!game.headers.size && game.moves?.children?.length) {
-          game.headers.set('LiChessTools','For import');
-        } 
       }
 
       this.writeGames(textarea, games);
@@ -1830,10 +1827,16 @@
       const co=parent.chessops;
       const { makePgn } = co.pgn;
 
+      games=games.filter(g=>g.moves?.children?.length || g.headers?.size);
+      games.forEach(game=>{
+        if (games.length>1 && game.moves?.children?.length && !game.headers.entries().find(e=>!/^[\?\.\*\s]*$/.test(e[1]))) {
+          game.headers.set('LiChessTools','For import');
+        }
+      });
+
       let newText=games
-        .filter(g=>g.moves?.children?.length || g.headers?.size)
         .map(g=>makePgn(g)).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
+        .replace(/\[[^\s]+\s+"[\?\.\*\s]*"\]\s*/g,'');
 
       const regChessMove=/(?<move>\b(?<piece>[NBRQK])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK]))?(?<p2>\+|#)?\b)(?<nags>(\s+\$\d+)+)/g;
       const annos=['!','?','!!','??','!?','?!'];
