@@ -12,3 +12,8 @@ body.lichessTools .explorer-box .moves td.lichessTools-bar {
   width:100%;
   padding-right:0;
 }
+
+body.lichessTools section.explorer-box table.moves:has(.lichessTools-explorerGambits) td:nth-child(4):last-child {
+  position:absolute;
+  width: -webkit-fill-available;
+}
