@@ -235,6 +235,12 @@
       const analysis=lichess.analysis;
       const study=analysis?.study;
 
+      const tview=$('.tview2')[0];
+      if (!tview._analysisContextMenuActions) {
+        $('.tview2').on('contextmenu',this.analysisContextMenu);
+        tview._analysisContextMenuActions=true;
+      }
+
       if (ev && this.options.copyPgn) {
         this.alterModifierText(ev);
       }
