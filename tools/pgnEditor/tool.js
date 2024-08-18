@@ -1383,6 +1383,9 @@
       for (const game of games) {
         const keys=game.headers.keys().filter(k=>!['FEN','SetUp'].includes(k));
         for (const key of keys) game.headers.delete(key);
+        if (!game.headers.size && game.moves?.children?.length) {
+          game.headers.set('LiChessTools','For import');
+        } 
       }
 
       this.writeGames(textarea, games);
@@ -1827,7 +1830,9 @@
       const co=parent.chessops;
       const { makePgn } = co.pgn;
 
-      let newText=games.map(g=>makePgn(g)).join('\r\n\r\n')
+      let newText=games
+        .filter(g=>g.moves?.children?.length || g.headers?.size)
+        .map(g=>makePgn(g)).join('\r\n\r\n')
         .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g,'');
 
       const regChessMove=/(?<move>\b(?<piece>[NBRQK])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK]))?(?<p2>\+|#)?\b)(?<nags>(\s+\$\d+)+)/g;
