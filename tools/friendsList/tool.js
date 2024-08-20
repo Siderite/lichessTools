@@ -660,7 +660,7 @@
             clearInterval(this.onlinesInterval);
             this.getFollowingOnlinesByApi();
           }
-        },1000);
+        },5000);
       }
 
       switch(friendsBoxMode) {

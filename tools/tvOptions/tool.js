@@ -466,7 +466,7 @@
             clearInterval(this.onlinesInterval);
             parent.global.console.debug('Sent following-onlines too many times. Giving up.');
           }
-        },1000);
+        },5000);
       }
 
       this.updateTvOptionsButton();
