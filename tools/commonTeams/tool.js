@@ -103,6 +103,8 @@
       $('a.lichessTools-commonTeams').remove();
       lichess.pubsub.off('lichessTools.redraw',this.refreshTeams);
       if (!value) return;
+      const userId=parent.getUserId();
+      if (!userId) return;
       lichess.pubsub.on('lichessTools.redraw',this.refreshTeams);
       this.refreshTeams();
     }
