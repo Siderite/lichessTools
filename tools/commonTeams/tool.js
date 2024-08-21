@@ -38,16 +38,6 @@
       if (!crosstable.length || !parent.inViewport(crosstable)) return;
       const commonTeamsLink=$('a.lichessTools-commonTeams');
       if (commonTeamsLink.length) return;
-      const userId=parent.getUserId();
-      const isMyGame = !!$('.game__meta__players a.user-link')
-        .get()
-        .find(e=>{
-          const href=$(e).attr('href');
-          if (!href) return;
-          const isPlayer=href.toLowerCase().includes(userId.toLowerCase());
-          return isPlayer;
-        });
-      //if (!isMyGame) return;
       const teamsArr=[];
       const promises=[];
       $('.game__meta__players a.user-link')
@@ -103,8 +93,6 @@
       $('a.lichessTools-commonTeams').remove();
       lichess.pubsub.off('lichessTools.redraw',this.refreshTeams);
       if (!value) return;
-      const userId=parent.getUserId();
-      if (!userId) return;
       lichess.pubsub.on('lichessTools.redraw',this.refreshTeams);
       this.refreshTeams();
     }
