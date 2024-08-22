@@ -557,6 +557,14 @@
       return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
     };
 
+    getNodeCeval=(node)=>{
+      if (!this.options.local) return node.eval;
+      const ceval=node.ceval;
+      return !ceval || node.eval?.depth>ceval.depth
+        ? node.eval
+        : ceval;
+    };
+
     getAccuracyData = (mainline) => {
       const parent=this.lichessTools;
       const side=parent.lichess.analysis.getOrientation()=='black'?-1:1;
@@ -569,8 +577,9 @@
             y: prevVal,
             x: x
           };
-          if (!node.eval) return null;
-          const cp=this.getCp(node.eval,side);
+          const evl=this.getNodeCeval(node);
+          if (!evl) return null;
+          const cp=this.getCp(evl,side);
           const winPerc=this.winPerc(cp);
           const accuracy=103.1668 * Math.exp(-0.04354 * (prevWinPerc - winPerc)) - 3.1669;
           prevWinPerc=winPerc;
@@ -585,9 +594,9 @@
     };
 
     computeGood=(side,node,prevNode)=>{
-      const cp1=this.getCp(node.ceval||node.eval);
-      const cp2=this.getCp(prevNode.ceval||prevNode.eval);
-      if (cp1===undefined || cp2===undefined) return false;
+      const cp1=this.getCp(this.getNodeCeval(node));
+      const cp2=this.getCp(this.getNodeCeval(prevNode));
+      if (cp1===undefined || cp2===undefined) return;
       const w1=this.winPerc(cp1)*side;
       const w2=this.winPerc(cp2)*side;
       return w1-w2;
@@ -596,8 +605,8 @@
     computeBrilliant=(side,node,prevNode,prev2Node)=>{
       const parent=this.lichessTools;
       const Math=parent.global.Math;
-      const cp1=this.getCp(node.ceval||node.eval);
-      const cp2=this.getCp(prevNode.ceval||prevNode.eval);
+      const cp1=this.getCp(this.getNodeCeval(node));
+      const cp2=this.getCp(this.getNodeCeval(prevNode));
       if (cp1===undefined || cp2===undefined) return 0;
       if ((cp1-cp2)*side<-25) return 0;
       if (Math.abs(cp1)>75 && Math.sign(side)!=Math.sign(cp1)) return 0;
@@ -643,6 +652,9 @@
           const good=this.computeGood(m,p1,p2);
           const bril=this.computeBrilliant(m,p1,p2,p3);
           const result = {
+            blunder: !this.options.loggedIn && good<-30, // temp glitter for non logged in players
+            mistake: !this.options.loggedIn && good<-20,
+            inaccuracy: !this.options.loggedIn && good<-10,
             good:this.options.moreBrilliant && good>=-1,
             best:this.options.moreBrilliant && good>=0,
             bril:this.options.moreBrilliant ? bril>=5 : bril>=3
@@ -670,6 +682,18 @@
             if (v.bril) {
               symbol='!?';
               name='Interesting';
+            } else
+            if (v.blunder) {
+              symbol='??';
+              name='Blunder';
+            } else
+            if (v.mistake) {
+              symbol='?';
+              name='Mistake';
+            } else
+            if (v.inaccuracy) {
+              symbol='?!';
+              name='Inaccuracy';
             }
           }
           const glyphs=mainline[x].glyphs||[];
@@ -888,8 +912,11 @@
         }
       }
 
-      if (!lichess.analysis.mainline.find(n=>n.eval||n.ceval)) {
-        if (!localLine || !localLine.find(n=>n.eval||n.ceval)) {
+      if (lichess.analysis.mainline.find(n=>n.eval)) {
+        $('form.future-game-analysis').remove();
+      }
+      if (!lichess.analysis.mainline.find(n=>this.getNodeCeval(n))) {
+        if (!localLine || !localLine.find(n=>this.getNodeCeval(n))) {
            this.clearCharts();
            return;
         }
@@ -899,7 +926,7 @@
       if (!chart) {
         chart = lichess.analysis.study?.serverEval?.chart;
         if (!chart) {
-          const canvas=$('canvas',container)[0];
+          const canvas=$('canvas#acpl-chart',container)[0];
           if (canvas) {
             if (canvas.$chartjs) {
               const mod=await this.getChartModule();
@@ -911,8 +938,8 @@
           }
         }
         if (!chart&&this.options.local&&!lichess.analysis.study) {
-          const underboard=$('.analyse__underboard');
-          if (underboard.length) {
+          const underboard=$('.analyse__underboard div.computer-analysis')[0]||$('.analyse__underboard')[0];
+          if (underboard) {
             container=$('<div id="acpl-chart-container" class="lichessTools-extraChart"><canvas id="acpl-chart"></canvas></div>')
               .appendTo(underboard);
             const mod=await this.getChartModule();
@@ -1170,7 +1197,9 @@
         }
       }
 
-      if (this.options.brilliant && !$('#acpl-chart-container').is('.lichessTools-extraChart')) {
+      if (this.options.brilliant 
+            //&& !$('#acpl-chart-container').is('.lichessTools-extraChart')
+         ) {
         this.setBrilliant(lichess.analysis.mainline,forced);
 
         this.showGoodMoves(forced);
@@ -1248,25 +1277,31 @@
 
     forceGenerateCharts=()=>this.generateCharts(true);
 
+    clientGameAnalysis=()=>{
+      console.log('bingo!');
+    };
+
     async start() {
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
       const value=parent.currentOptions.getValue('extraChart');
       this.logOption('Extra charting', value);
+      const userId=parent.getUserId(); // TODO remove this when Preferences for not logged in people is done
       this.options={
         material:parent.isOptionSet(value,'material'),
         principled:parent.isOptionSet(value,'principled'),
         tension:parent.isOptionSet(value,'tension'),
         potential:parent.isOptionSet(value,'potential'),
-        brilliant:parent.isOptionSet(value,'brilliant'),
-        moreBrilliant:parent.isOptionSet(value,'moreBrilliant'),
+        brilliant:parent.isOptionSet(value,'brilliant')||!userId, // temporarily enable the flashy things for not logged in players
+        moreBrilliant:parent.isOptionSet(value,'moreBrilliant')||!userId,
         local:parent.isOptionSet(value,'local'),
         accuracy:parent.isOptionSet(value,'accuracy'),
         smooth:parent.isOptionSet(value,'smooth'),
         get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy; },
         gauge:parent.isOptionSet(value,'gauge'),
-        christmas:!!parent.currentOptions.getValue('christmas')
+        christmas:!!parent.currentOptions.getValue('christmas'),
+        loggedIn: !!userId
       };
       lichess.pubsub.off('lichessTools.esmLoaded',this.handleEsmLoaded);
       if (this.options.needsChart) {
