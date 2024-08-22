@@ -102,6 +102,7 @@
         return;
       }
       if (!value) return;
+      if (!parent.getUserId()) return;
 
       if (/^\/timeline/i.test(parent.global.location.pathname)) this.setAllRead();
       const notification={
