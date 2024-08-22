@@ -58,7 +58,9 @@
       $('div.lichessTools-fullScreen').remove();
       $('header#top').removeClass('lichessTools-fullScreen');
       $(parent.global).off('resize', this.handleResize);
+      $('body').removeClass('lichessTools-fullScreen-enabled');
       if (!value || parent.isMobile()) return;
+      $('body').addClass('lichessTools-fullScreen-enabled');
       $(parent.global).on('resize', this.handleResize);
       this.handleResize();
       this.addButton();
