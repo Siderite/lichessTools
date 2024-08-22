@@ -1830,7 +1830,7 @@
       games=games.filter(g=>g.moves?.children?.length || g.headers?.size);
       games.forEach(game=>{
         if (games.length>1 && game.moves?.children?.length && !game.headers.entries().find(e=>!/^[\?\.\*\s]*$/.test(e[1]))) {
-          game.headers.set('LiChessTools','For import');
+          game.headers.set('Event','exported by LiChess Tools');
         }
       });
 
