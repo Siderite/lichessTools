@@ -9,7 +9,8 @@
         category: 'play',
         type:'single',
         possibleValues: [false,true],
-        defaultValue: false
+        defaultValue: false,
+        needsLogin: true
       }
     ];
 
@@ -278,6 +279,10 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('customChatButtons');
       this.logOption('Customize chat buttons', value);
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       parent.global.clearInterval(this.discoverChatInterval);
       if (!value) return;
       this.discoverChatInterval=parent.global.setInterval(this.discoverChat,1000);

@@ -10,7 +10,8 @@
         type:'single',
         possibleValues: [false,true],
         defaultValue: true,
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -41,6 +42,10 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('removeChatLinkWarning');
       this.logOption('Remove link warning', value);
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       parent.global.clearInterval(this.interval);
       if (!value) return;
       this.interval=parent.global.setInterval(this.initControls,1000);

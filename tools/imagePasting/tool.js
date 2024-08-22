@@ -7,7 +7,8 @@
         category: 'general',
         type:'multiple',
         possibleValues: ['pasteImages','bigEmoji'],
-        defaultValue: 'pasteImages,bigEmoji'
+        defaultValue: 'pasteImages,bigEmoji',
+        needsLogin: true
       }
     ];
 
@@ -112,6 +113,10 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('imagePasting');
       this.logOption('Inbox chat', value);
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       this.options={ 
         pasteImages: parent.isOptionSet(value,'pasteImages'),
         bigEmoji: parent.isOptionSet(value,'bigEmoji')

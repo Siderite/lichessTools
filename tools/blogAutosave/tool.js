@@ -8,7 +8,8 @@
         type:'multiple',
         possibleValues: ['autosave','savebutton'],
         defaultValue: 'savebutton',
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -63,6 +64,10 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('blogAutosave');
       this.logOption('Blog autosave', value);
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       this.options={
         autosave:parent.isOptionSet(value,'autosave'),
         savebutton:parent.isOptionSet(value,'savebutton'),
