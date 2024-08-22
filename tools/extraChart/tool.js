@@ -560,7 +560,7 @@
     getNodeCeval=(node)=>{
       if (!this.options.local) return node.eval;
       const ceval=node.ceval;
-      return !ceval || node.eval?.depth>ceval.depth
+      return !ceval || (node.eval?.depth||16) > ceval.depth
         ? node.eval
         : ceval;
     };

@@ -28,6 +28,7 @@
         'options.advancedPreferences': 'Advanced preferences',
         'author': 'by %s',
         'lichessTools': 'LiChess Tools',
+        'lichessToolsPreferences': 'LiChess Tools preferences',
         'feedbackButtonTitle': 'Send feedback about LiChess Tools',
         'feedbackTitle': 'Send a message to the developer',
         'resetButtonText': 'Reset',
@@ -54,6 +55,7 @@
         'options.advancedPreferences': 'Preferin\u0163e avansate',
         'author': 'de %s',
         'lichessTools': 'LiChess Tools',
+        'lichessToolsPreferences': 'Preferin\u0163e LiChess Tools',
         'feedbackButtonTitle': 'Trimite p\u0103reri despre LiChess Tools',
         'feedbackTitle': 'Trimite un mesaj programatorului',
         'resetButtonText': 'Resetare',
@@ -81,6 +83,7 @@
     const applyOptions=parent.applyOptions;
     const lichess=parent.lichess;
     const isOptionSet=parent.isOptionSet;
+    const isLoggedIn=!!parent.getUserId();
 
     const lichessToolsText=trans.noarg('lichessTools');
     if (parent.global.document.title.indexOf(lichessToolsText)<0) {
@@ -134,17 +137,23 @@
         </tr>
     </tbody>
 </table>
-<h3>$trans(feedbackTitle)</h3>
+`;
+    if (isLoggedIn) {
+      html+=`<h3>$trans(feedbackTitle)</h3>
 <div class="feedback">
   <textarea enterkeyhint="send"></textarea>
   <button data-icon="&#xE03A;" title="$trans(feedbackButtonTitle)"></button>
 </div>`;
+    }
         
     const categs={};
     for (const tool of tools) {
       if (!tool.preferences) continue;
       for (const pref of tool.preferences) {
-        if (pref.hidden && !parent.debug) continue;
+        if (!parent.debug) {
+          if (pref.hidden) continue;
+          if (!isLoggedIn && pref.needsLogin) continue;
+        }
         let categ=categs[pref.category];
         if (!categ) {
           categ=[];
@@ -161,7 +170,7 @@
         html+=`<section data-pref="${pref.name}"`;
         const classes=[];
         if (pref.advanced) classes.push('lichessTools-advancedPreference');
-        if (pref.hidden) classes.push('lichessTools-hiddenPreference');
+        if (pref.hidden||(!isLoggedIn&&pref.needsLogin)) classes.push('lichessTools-hiddenPreference');
         if (pref.wip) classes.push('lichessTools-wipPreference');
         if (classes.length) html+=' class="'+classes.join(' ')+'"'
         html+=`><h2>$trans(options.${pref.name})`;
@@ -390,9 +399,31 @@
       });
     };
 
+    addPreferencesMenu=(isOpening)=>{
+      if (!isOpening) return;
+      const parent=this.lichessTools;
+      const trans=parent.translator;
+      const $=parent.$;
+      if (!$('#dasher_app a.lichessTools-preferences').length) {
+        let links=$('#dasher_app div.links');
+        if (!links.length) {
+          links=$('<div class="links">')
+            .insertBefore('#dasher_app div.subs');
+        }
+        $('<a class="text lichessTools-preferences">')
+          .attr('data-icon','\uE019')
+          .attr('href','/team/all#lichessTools')
+          .text(trans.noarg('lichessTools'))
+          .attr('title',trans.noarg('lichessToolsPreferences'))
+          .appendTo(links);
+      }
+
+    };
+
     async start() {
       const parent=this.lichessTools;
       const $=parent.$;
+      const lichess=parent.lichess;
       const location=parent.global.location;
       const trans=parent.translator;
       this.options={
@@ -401,12 +432,27 @@
       };
       this.logOption('Integration in Preferences', this.options.enabled);
       this.logOption(' ... show advanced', this.options.advanced);
-      if (!$('main.account').length) return;
+
+      const isLoggedIn=!!parent.getUserId();
+      const isLoggedOutTeams=location.pathname=='/team/all' && !isLoggedIn;
+      lichess.pubsub.off('dasher.toggle',this.addPreferencesMenu);
+      if (!isLoggedIn) {
+        lichess.pubsub.on('dasher.toggle',this.addPreferencesMenu);
+      }
+
+      if (!$('main.account').length && !isLoggedOutTeams) {
+        return;
+      }
+
       if ($('a.lichessTools-menu').length) return;
       const openPreferences=this.openPreferences;
 
       const f=function() {
         if (location.hash?.startsWith('#lichessTools')) {
+          if (isLoggedOutTeams) {
+            lichess.asset.loadCssPath('bits.account');
+            $('main nav.subnav').hide();
+          }
           openPreferences();
         } else {
           if ($('.lichessTools-preferences').length) {
@@ -418,7 +464,7 @@
 
       const prefElem=$('<a>')
         .addClass('lichessTools-menu')
-        .attr('href','/account/preferences/display#lichessTools')
+        .attr('href',isLoggedOutTeams?'/team/all#lichessTools':'/account/preferences/display#lichessTools')
 	    .append($('<span>').text(trans.noarg('LiChess Tools')));
 
       $('.page-menu__menu a[href*=privacy]').before(prefElem);

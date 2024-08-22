@@ -396,6 +396,8 @@
 
     addOrRemoveBookmark=()=>{
       const parent=this.lichessTools;
+      const myName=parent.getUserId();
+      if (!myName) return;
       const lichess=parent.lichess;
       const $=parent.$;
       const announce=parent.announce;
@@ -421,13 +423,12 @@
       this.setBookmark(elem,node,node.bookmark);
 
       const r=/bkm:([^\s]+)\s*/gs;
-      const myName=parent.getUserId();
       const comments=(node.comments||[])
                  .filter(c=>c.by?.id==myName || r.test(c.text));
       let commentText=comments.map(c=>c.text).join('\r\n\r\n');
       r.lastIndex=0;
       commentText=(label?'bkm:'+label+' ':'')+commentText.replace(r,'').trim();
-      const chapterId=study.currentChapter()?.id;
+      const chapterId=study?.currentChapter()?.id;
       if (!chapterId) {
         parent.global.console.warn('Could not determine chapterId');
         return;

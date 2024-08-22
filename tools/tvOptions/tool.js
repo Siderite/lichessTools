@@ -286,6 +286,7 @@
       const lichess=parent.lichess;
       const trans=this.lichessTools.translator;
       if (parent.global.document.hidden) return;
+      const userId=parent.getUserId();
       const container = $('main.tv-games div.page-menu__content.now-playing');
       if (!container.length) return;
       if (this.isBestTvPage()) {
@@ -300,14 +301,14 @@
       } else {
         container.removeClass('lichessTools-streamerTv');
       }
-      if (this.isFriendsTvPage()) {
+      if (userId && this.isFriendsTvPage()) {
         container.toggleClass('lichessTools-friendsTv',this.options.friendsTv);
         const playerIds=this.users_playing;
         await this.refreshGames(playerIds,'lichessTools-friendsTv',container,false);
       } else {
         container.removeClass('lichessTools-friendsTv');
       }
-      if (this.isTeamTvPage()) {
+      if (userId && this.isTeamTvPage()) {
         container.toggleClass('lichessTools-teamTv',this.options.teamTv);
         if (!$('select.lichessTools-teams',container).length) {
           const select=$('<select class="lichessTools-teams">')
@@ -316,7 +317,7 @@
               this.updateTvOptionsPage();
             })
             .prependTo(container);
-          const teams=await parent.api.team.getUserTeams(parent.getUserId());
+          const teams=await parent.api.team.getUserTeams(userId);
           for (const team of teams) {
             $('<option>')
               .attr('value',team.id)

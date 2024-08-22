@@ -26,7 +26,8 @@
           'plan-renew'*/
         ],
         defaultValue: 'forum-post,ublog-post',
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -97,12 +98,11 @@
         default: this.types=value?.split(','); break;
       }
       this.logOption('Timeline notifications', value);
-      if (!parent.userLoggedIn()) {
+      if (!parent.getUserId()) {
         parent.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
       if (!value) return;
-      if (!parent.getUserId()) return;
 
       if (/^\/timeline/i.test(parent.global.location.pathname)) this.setAllRead();
       const notification={

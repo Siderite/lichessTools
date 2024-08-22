@@ -9,7 +9,8 @@
         category: 'friends',
         type:'single',
         possibleValues: ['default','open','menu','button','hidden'],
-        defaultValue: 'menu'
+        defaultValue: 'menu',
+        needsLogin: true
       },
       {
         name:'liveFriendsPage',
@@ -620,8 +621,10 @@
       };
       const lichess=parent.lichess;
       if (!lichess) return;
-      const userId=lichessTools.getUserId();
-      if (!userId) return;
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const setInterval=parent.global.setInterval;
       const clearInterval=parent.global.clearInterval;
       lichess.pubsub.off('socket.in.following_onlines', this.following_onlines);

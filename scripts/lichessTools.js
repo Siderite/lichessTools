@@ -510,10 +510,6 @@
       return this.lichess?.analysis?.opts.userId || this.$.cached('body').attr('data-user');
     };
 
-    userLoggedIn=()=>{
-      return !!this.getUserId();
-    };
-
     isFriendsPage=()=>{
       return /\/following([\?#].*)?$/.test(this.global.location.href);
     };

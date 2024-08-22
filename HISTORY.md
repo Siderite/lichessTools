@@ -1,7 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 Aug
+  - preferences for not logged in players
+
 21 Aug
-  - added computer eval for not logged in players and enabled auto annotations for them
+  - computer eval for not logged in players and enabled auto annotations for them
 
 09 Aug
   - ceval line options - highlight

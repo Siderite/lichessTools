@@ -10,7 +10,8 @@
         type:'multiple',
         possibleValues: ['urlify','unlimited','images','teamChatNotifications'],
         defaultValue: 'urlify,unlimited,images,teamChatNotifications',
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -291,6 +292,10 @@
         images: parent.isOptionSet(value,'images'),
         teamChatNotifications: parent.isOptionSet(value,'teamChatNotifications')
       };
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       parent.global.clearInterval(this.interval);
       if ($('section.mchat').length && (this.options.urlify || this.options.unlimited || this.options.images)) {
         this.interval = parent.global.setInterval(this.processChat,1000);
