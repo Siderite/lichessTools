@@ -17,7 +17,8 @@
         category: 'friends',
         type:'single',
         possibleValues: [false,true],
-        defaultValue: true
+        defaultValue: true,
+        needsLogin: true
       }
     ];
 
