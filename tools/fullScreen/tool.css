@@ -28,3 +28,9 @@ body.lichessTools div.lichessTools-fullScreen button {
   background:none;
   border:none;
 }
+
+@media (max-width: 1019.29px) {
+  body.lichessTools div.lichessTools-fullScreen button {
+    display:none;
+  }
+}
