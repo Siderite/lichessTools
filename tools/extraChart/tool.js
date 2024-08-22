@@ -640,7 +640,9 @@
       const initValue=this.options.moreBrilliant?2:1;
       if (!forced && mainline.brilliantInit===initValue) return;
       const parent=this.lichessTools;
+      const isLocalChart=$('#acpl-chart-container').is('.lichessTools-extraChart');
       const Math=parent.global.Math;
+      const showBad = this.options.moreBrilliant && isLocalChart;
       mainline
         .map((node,x) => {
           if (x<3) return null;
@@ -652,9 +654,9 @@
           const good=this.computeGood(m,p1,p2);
           const bril=this.computeBrilliant(m,p1,p2,p3);
           const result = {
-            blunder: !this.options.loggedIn && good<-30, // temp glitter for non logged in players
-            mistake: !this.options.loggedIn && good<-20,
-            inaccuracy: !this.options.loggedIn && good<-10,
+            blunder: showBad && good<-30, // temp glitter for non logged in players
+            mistake: showBad && good<-20,
+            inaccuracy: showBad && good<-10,
             good:this.options.moreBrilliant && good>=-1,
             best:this.options.moreBrilliant && good>=0,
             bril:this.options.moreBrilliant ? bril>=5 : bril>=3
@@ -913,6 +915,7 @@
       }
 
       if (lichess.analysis.mainline.find(n=>n.eval)) {
+        $('#acpl-chart-container').removeClass('lichessTools-extraChart');
         $('form.future-game-analysis').remove();
       }
       if (!lichess.analysis.mainline.find(n=>this.getNodeCeval(n))) {
@@ -1197,9 +1200,7 @@
         }
       }
 
-      if (this.options.brilliant 
-            //&& !$('#acpl-chart-container').is('.lichessTools-extraChart')
-         ) {
+      if (this.options.brilliant) {
         this.setBrilliant(lichess.analysis.mainline,forced);
 
         this.showGoodMoves(forced);
@@ -1295,7 +1296,7 @@
         potential:parent.isOptionSet(value,'potential'),
         brilliant:parent.isOptionSet(value,'brilliant')||!userId, // temporarily enable the flashy things for not logged in players
         moreBrilliant:parent.isOptionSet(value,'moreBrilliant')||!userId,
-        local:parent.isOptionSet(value,'local'),
+        local:parent.isOptionSet(value,'local')||!userId,
         accuracy:parent.isOptionSet(value,'accuracy'),
         smooth:parent.isOptionSet(value,'smooth'),
         get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy; },
