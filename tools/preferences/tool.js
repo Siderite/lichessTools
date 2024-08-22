@@ -375,13 +375,6 @@
       checkGlobalSwitch();
       checkAdvanced();
       this.addInfo();
-      const m=/#lichessTools\/(?<pref>.*)$/.exec(parent.global.location.hash);
-      const pref=m?.groups?.pref;
-      if (pref) {
-        const elem=$('[data-pref="'+pref+'"]');
-        elem.parents().add(elem).show();
-        elem[0]?.scrollIntoView();
-      }
     };
 
     addInfo() {
@@ -447,6 +440,7 @@
       if ($('a.lichessTools-menu').length) return;
       const openPreferences=this.openPreferences;
 
+      let $this=this;
       const f=function() {
         if (location.hash?.startsWith('#lichessTools')) {
           if (isLoggedOutTeams) {
@@ -454,6 +448,16 @@
             $('main nav.subnav').hide();
           }
           openPreferences();
+          parent.global.setTimeout(()=>{
+            const m=/#lichessTools\/(?<pref>.*)$/.exec(location.hash);
+            const pref=m?.groups?.pref;
+            if (pref!=$this._lastScrolled) {
+              const elem=$('[data-pref="'+pref+'"]');
+              elem.parents().add(elem).show();
+              elem[0]?.scrollIntoView();
+              $this._lastScrolled=pref;
+            }
+          },500);
         } else {
           if ($('.lichessTools-preferences').length) {
             location.reload();
