@@ -1484,10 +1484,12 @@
         enableLichessTools: true,
         showOptionsTableInConsole: false
       };
+      const isLoggedIn=!!this.getUserId();
       for (const tool of this.tools) {
         if (!tool.preferences) continue;
         for (const preference of tool.preferences) {
-          options[preference.name]=preference.defaultValue;
+          const defaultValue=(!isLoggedIn && preference.defaultNotLoggedInValue!==undefined) ? preference.defaultNotLoggedInValue : preference.defaultValue;
+          options[preference.name]=defaultValue;
         }
       }
       return options;

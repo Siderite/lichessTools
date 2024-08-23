@@ -10,6 +10,7 @@
         type:'multiple',
         possibleValues: ['material','principled','tension','potential','brilliant','moreBrilliant','local','accuracy','smooth','gauge'],
         defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge',
+        defaultNotLoggedInValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,local,moreBrilliant',
         advanced: true
       },
       {
@@ -1288,21 +1289,19 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('extraChart');
       this.logOption('Extra charting', value);
-      const userId=parent.getUserId(); // TODO remove this when Preferences for not logged in people is done
       this.options={
         material:parent.isOptionSet(value,'material'),
         principled:parent.isOptionSet(value,'principled'),
         tension:parent.isOptionSet(value,'tension'),
         potential:parent.isOptionSet(value,'potential'),
-        brilliant:parent.isOptionSet(value,'brilliant')||!userId, // temporarily enable the flashy things for not logged in players
-        moreBrilliant:parent.isOptionSet(value,'moreBrilliant')||!userId,
-        local:parent.isOptionSet(value,'local')||!userId,
+        brilliant:parent.isOptionSet(value,'brilliant'),
+        moreBrilliant:parent.isOptionSet(value,'moreBrilliant'),
+        local:parent.isOptionSet(value,'local'),
         accuracy:parent.isOptionSet(value,'accuracy'),
         smooth:parent.isOptionSet(value,'smooth'),
         get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy; },
         gauge:parent.isOptionSet(value,'gauge'),
-        christmas:!!parent.currentOptions.getValue('christmas'),
-        loggedIn: !!userId
+        christmas:!!parent.currentOptions.getValue('christmas')
       };
       lichess.pubsub.off('lichessTools.esmLoaded',this.handleEsmLoaded);
       if (this.options.needsChart) {

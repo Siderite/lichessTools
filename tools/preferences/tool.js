@@ -167,6 +167,8 @@
       const categ=categs[key];
       html+='<div><h3><label for="chk_'+key+'">$trans(options.'+key+')</label></h3><input type="checkbox" id="chk_'+key+'" class="categoryToggle">';
       for (const pref of categ) {
+        const defaultValue=(!isLoggedIn && pref.defaultNotLoggedInValue!==undefined) ? pref.defaultNotLoggedInValue : pref.defaultValue;
+
         html+=`<section data-pref="${pref.name}"`;
         const classes=[];
         if (pref.advanced) classes.push('lichessTools-advancedPreference');
@@ -185,7 +187,7 @@
               const textKey=typeof val==='boolean'
                 ? (val?'yes':'no')
                 : (pref.valuePrefix||pref.name+'.')+val;
-              html+=`<div`+(parent.isOptionSet(pref.defaultValue,val)?' class="defaultValue"':'')+`>
+              html+=`<div`+(parent.isOptionSet(defaultValue,val)?' class="defaultValue"':'')+`>
                   <input type="radio" value="${val}" name="${pref.name}"/>
                   <label>$trans(${textKey})</label>
                 </div>`;
@@ -199,7 +201,7 @@
               const textKey=typeof val==='boolean'
                 ? (val?'yes':'no')
                 : (pref.valuePrefix||pref.name+'.')+val;
-              html+=`<div`+(parent.isOptionSet(pref.defaultValue,val)?' class="defaultValue"':'')+`>
+              html+=`<div`+(parent.isOptionSet(defaultValue,val)?' class="defaultValue"':'')+`>
                   <input type="checkbox" value="${val}" name="${pref.name}"/>
                   <label>$trans(${textKey})</label>
                 </div>`;
@@ -261,7 +263,8 @@
           .find(p=>p.name==optionName);
         if (currentValue!==undefined) {
           if (isCheckable) {
-            const checked = isOptionSet(currentValue,optionValue,preferences?.defaultValue);
+            const defaultValue=(!isLoggedIn && preferences?.defaultNotLoggedInValue!==undefined) ? preferences?.defaultNotLoggedInValue : preferences?.defaultValue;
+            const checked = isOptionSet(currentValue,optionValue,defaultValue);
             $(e).prop('checked',checked);
           }
           else {
@@ -315,7 +318,14 @@
           ev.preventDefault();
           if (!parent.global.confirm(trans.noarg('resetButtonWarning'))) return;
           const options=await parent.getOptions();
-          const data=parent.tools.map(t=>t.preferences).flat().filter(p=>p).map(p=>({name:p.name,value:p.defaultValue}));
+          const data=parent.tools
+                       .map(t=>t.preferences)
+                       .flat()
+                       .filter(p=>p)
+                       .map(p=>{
+                         const defaultValue=(!isLoggedIn && p.defaultNotLoggedInValue!==undefined) ? p.defaultNotLoggedInValue : p.defaultValue;
+                         return { name:p.name,value:defaultValue };
+                       });
           for (const {name,value} of data) options[name]=value;
           await applyOptions(options);
           parent.fireReloadOptions();
