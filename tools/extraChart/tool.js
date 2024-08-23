@@ -561,7 +561,7 @@
     getNodeCeval=(node)=>{
       if (!this.options.local) return node.eval;
       const ceval=node.ceval;
-      return !ceval || (node.eval?.depth||16) > ceval.depth
+      return !ceval || (node.eval && (node.eval?.depth||16) > ceval.depth)
         ? node.eval
         : ceval;
     };
@@ -655,9 +655,9 @@
           const good=this.computeGood(m,p1,p2);
           const bril=this.computeBrilliant(m,p1,p2,p3);
           const result = {
-            blunder: showBad && good<-30, // temp glitter for non logged in players
-            mistake: showBad && good<-20,
-            inaccuracy: showBad && good<-10,
+            blunder: showBad && good<-20,
+            mistake: showBad && good<-10,
+            inaccuracy: showBad && good<-5,
             good:this.options.moreBrilliant && good>=-1,
             best:this.options.moreBrilliant && good>=0,
             bril:this.options.moreBrilliant ? bril>=5 : bril>=3
