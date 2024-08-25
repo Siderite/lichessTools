@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 Aug
+  - removed analysis mouse wheel support
+  - ignored fork behavior on native Lichess mouse wheel events
+
 22 Aug
   - preferences for not logged in players
 
