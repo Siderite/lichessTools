@@ -104,9 +104,17 @@
               const result=[];
               if (!s) return result;
               let p=0;
-              while (p<s.length) {
-                result.push(s.substr(p,l));
-                p+=l;
+              const ellipsis='\u2026';
+              if (l<s.length) {
+                result.push(s.substr(p,l-1)+ellipsis);
+                p+=l-1;
+              }
+              while (p<s.length && p+l-2<s.length) {
+                result.push((p>0?ellipsis:'')+s.substr(p,l-2)+ellipsis);
+                p+=l-2;
+              }
+              if (p<s.length) {
+                result.push((p>0?ellipsis:'')+s.substr(p));
               }
               return result;
             };
