@@ -73,8 +73,11 @@
       materialChart: '#258F0B',
       principledChart: '#250B8F',
       localChart: ()=>this.lichessTools.isDark()
-                              ? '#FFFF00'
+                              ? '#EFEF00'
                               : '#705800',
+      localChartHover: ()=>this.lichessTools.isDark()
+                              ? '#FFFF00'
+                              : '#604800',
       accuracyChart: ()=>this.lichessTools.isDark()
                               ? '#FF00FF'
                               : '#700058',
@@ -541,14 +544,18 @@
 
     getLocalData = (mainline) => {
       const parent=this.lichessTools;
+      const lichess=parent.lichess;
       const Math=parent.global.Math;
+      let path='';
       return mainline
         .map((node,x) => {
+          path+=node.id;
           if (!node.ceval) return null;
           const cp=this.getCp(node.ceval);
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
-            x: x
+            x: x,
+            path: path
           };
         })
         .filter(r=>!!r);
@@ -637,9 +644,17 @@
       return bril;
     };
 
+    getChartContainerSelector=()=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      return lichess.analysis?.study
+        ? 'div.study__server-eval.ready'
+        : 'div.computer-analysis.active #acpl-chart-container';
+    };
+
     setBrilliant = (mainline,forced) => {
       const initValue=this.options.moreBrilliant?2:1;
-      if (!forced && mainline.brilliantInit===initValue) return;
+      if (!forced && mainline.at(-1)?.brilliantInit===initValue) return;
       const parent=this.lichessTools;
       const isLocalChart=$('#acpl-chart-container').is('.lichessTools-extraChart');
       const Math=parent.global.Math;
@@ -710,7 +725,9 @@
           }
           mainline[x].glyphs=glyphs;
         });
-      mainline.brilliantInit=initValue;
+      if (mainline.length) {
+        mainline.at(-1).brilliantInit=initValue;
+      }
     };
 
     getMaxTension = (mainline) => {
@@ -888,6 +905,21 @@
       }
     };
 
+    chartClick=(_event, elements, _chart)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      if (!this._chart) return;
+      const index = this._chart.data.datasets.findIndex(s=>s.label==='Local');
+      const data = elements[elements.findIndex(element => [0,index].includes(element.datasetIndex))];
+      const path = data?.element?.$context?.raw?.path;
+      if (path) {
+        lichess.analysis.jump(path);
+      } else if (data) {
+        lichess.pubsub.emit('analysis.chart.click', data.index);
+      }
+    };
+
+
     prevBrilliant=null;
     generateCharts=async (forced)=>{
       const parent=this.lichessTools;
@@ -906,7 +938,7 @@
         if (lichess.analysis.onMainline) {
           localLine=lichess.analysis.mainline;
         } else {
-          localLine=lichess.analysis.tree.getNodeList(lichess.analysis.node.path||'');
+          localLine=lichess.analysis.nodeList;
           let lastNode=localLine.at(-1)?.children[0];
           while (lastNode) {
             localLine.push(lastNode);
@@ -941,11 +973,16 @@
             }
           }
         }
-        if (!chart&&this.options.local&&!lichess.analysis.study) {
+        if (!chart && this.options.local && !lichess.analysis.study) {
           const underboard=$('.analyse__underboard div.computer-analysis')[0]||$('.analyse__underboard')[0];
           if (underboard) {
-            container=$('<div id="acpl-chart-container" class="lichessTools-extraChart"><canvas id="acpl-chart"></canvas></div>')
-              .appendTo(underboard);
+            container=$('<div id="acpl-chart-container" class="lichessTools-extraChart"><canvas id="acpl-chart"></canvas></div>');
+            const message=$('.future-game-analysis',underboard);
+            if (message.length) {
+              container.insertBefore(message);
+            } else {
+              container.appendTo(underboard);
+            }
             const mod=await this.getChartModule();
             const mainline=lichess.analysis.mainline;
             chart = await mod.acpl($("#acpl-chart")[0], lichess.analysis.data, mainline, lichess.analysis.trans);
@@ -956,6 +993,9 @@
         } 
       }
       if (!chart) return;
+      if (chart.options.onClick!=this.chartClick) {
+        chart.options.onClick=this.chartClick;
+      }
       if (!parent.inViewport(container)) return;
       if (!this.options.needsChart) {
         $('div.lichessTools-chartInfo',container).remove();
@@ -1054,16 +1094,16 @@
             type:'line',
             data: this.smooth(this.getLocalData(mainline)),
             borderWidth: 2,
-            borderDash:[1,5],
             cubicInterpolationMode: this.options.smooth?'monotone':'default',
             tension: 0,
-            pointRadius: 0,
-            pointHitRadius: 0,
-            pointHoverRadius: 0,
+            pointRadius: 1,
+            pointHitRadius: 5,
+            pointHoverRadius: 3,
             borderColor: this.colors.localChart,
+            hoverBackgroundColor: this.colors.localChartHover,
             fill: {
               target: 'start',
-              above: this.colors.localChart()+'20'
+              above: this.colors.localChart()+'10'
             },
             order: 1,
             datalabels: { display: false }
@@ -1211,8 +1251,13 @@
         await this.showChristmasTree();
       }
 
+      const maxX = Math.max.apply(null,chart.data.datasets.filter(d=>d.type=='line').map(d=>d.data?.at(-1)?.x));
+      if (maxX!=chart.options?.scales?.x?.max) {
+        chart.options.scales.x.max=maxX;
+        updateChart=true;
+      }
+
       if (updateChart) {
-        chart.options.scales.x.max=Math.max.apply(null,chart.data.datasets.map(ds=>ds.data.map(p=>p.x)).flat());
         chart.update('none');
         this.prevMainlineLength=lichess.analysis.mainline.length;
       }
