@@ -85,10 +85,7 @@
     const isOptionSet=parent.isOptionSet;
     const isLoggedIn=!!parent.getUserId();
 
-    const lichessToolsText=trans.noarg('lichessTools');
-    if (parent.global.document.title.indexOf(lichessToolsText)<0) {
-      parent.global.document.title=parent.global.document.title?.replace(/^[^\s]+/,lichessToolsText);
-    }
+    parent.global.document.title=trans.noarg('lichessToolsPreferences');
 
     $('nav.page-menu__menu a.active').removeClass('active');
     $('a.lichessTools-menu').addClass('active');
