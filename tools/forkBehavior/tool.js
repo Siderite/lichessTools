@@ -1,7 +1,7 @@
 (()=>{
   class ForkBehaviorTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['RandomVariation','EmitRedraw','EmitChapterChange','TranspositionBehavior'];
+    dependencies=['RandomVariation','EmitRedraw','EmitChapterChange','TranspositionBehavior','InterceptEventHandlers'];
 
     preferences=[
       {
@@ -196,6 +196,12 @@
       highlight();
     };
 
+    mousewheelHandler=(ev)=>{
+      this.mousewheelOn=true;
+      this.oldWheelHandler(ev);
+      this.mousewheelOn=false;
+    };
+
     nextResult=false;
     bindFork=()=>{
       const parent=this.lichessTools;
@@ -205,6 +211,17 @@
       if (!analysis) return;
       if (analysis.gamebookPlay() || parent.isGamePlaying()) return;
       if (['hybrid','chessbase'].includes(this.options.value)) {
+        const board = $('div.main-board');
+        if (!board.prop('forkBehavior_init')) {
+          this.oldWheelHandler=parent.getEventHandlers($('.main-board')[0],'wheel')[0];
+          if (this.oldWheelHandler) {
+            parent.removeEventHandlers($('.main-board')[0],'wheel');
+            board
+              .on('wheel',this.mousewheelHandler)
+              .prop('forkBehavior_init',true);
+          }
+        }
+
         $('div.analyse__fork').each((i,e)=>{
           if (e.lichessTools_forkBehavior_init) return;
           e.lichessTools_forkBehavior_init=true;
@@ -215,7 +232,7 @@
           analysis.fork.proceed=parent.wrapFunction(analysis.fork.proceed,{
             id: 'forkBehavior',
             before:($this,...args)=>{
-              if (analysis.gamebookPlay()) {
+              if (this.mousewheelOn || analysis.gamebookPlay()) {
                 this.nextResult=undefined;
                 return;
               }
@@ -267,15 +284,24 @@
 
     async start() {
       const parent=this.lichessTools;
+      const $=parent.$;
+      const lichess=parent.lichess;
       const value=parent.currentOptions.getValue('forkBehavior');
       this.logOption('Fork behavior', value);
-      this.options={ value: value };
-      const lichess=parent.lichess;
+      this.options={ 
+        value: value
+      };
       const analysis=lichess?.analysis;
       if (!analysis) return;
       analysis.fork.proceed=parent.unwrapFunction(analysis.fork.proceed,'forkBehavior');
       lichess.pubsub.off('lichessTools.redraw',this.bindFork);
       lichess.pubsub.off('lichessTools.chapterChange',this.clearVariationSelect);
+      if (this.oldWheelHandler) {
+        $('div.main-board')
+          .off('wheel',this.mousewheelHandler)
+          .on('wheel',this.oldWheelHandler);
+        this.oldWheelHandler=null;
+      }
       this.clearVariationSelect();
       if (['hybrid','chessbase'].includes(value)) {
         lichess.pubsub.on('lichessTools.redraw',this.bindFork);
