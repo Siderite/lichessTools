@@ -236,6 +236,7 @@
       const study=analysis?.study;
 
       const tview=$('.tview2')[0];
+      if (!tview) return;
       if (!tview._analysisContextMenuActions) {
         $('.tview2').on('contextmenu',this.analysisContextMenu);
         tview._analysisContextMenuActions=true;

@@ -58,6 +58,11 @@ body.lichessTools .copyables .pgn:has(.is-error) {
   margin-bottom: 2em;
 }
 
+@media (min-width: 1259.3px) {
+  main.analyse.is-relay:not(.has-relay-tour) .chat__members:has(.lichessTools-opening) {
+    display: block;
+  }
+}
 
 /* Prettier Lichess CSS */
 

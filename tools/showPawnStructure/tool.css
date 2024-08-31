@@ -41,3 +41,8 @@ body.lichessTools.lichessTools-structureMiniGames a.mini-game:not(:has(.lichessT
   padding-bottom:2em;
 }
 
+@media (min-width: 1259.3px) {
+  main.analyse.is-relay:not(.has-relay-tour) .chat__members:has(.lichessTools-structure) {
+    display: block;
+  }
+}

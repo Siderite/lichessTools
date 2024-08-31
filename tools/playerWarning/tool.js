@@ -10,7 +10,8 @@
         type:'single',
         possibleValues: [false,true],
         defaultValue: false,
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -78,6 +79,10 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('playerWarning');
       this.logOption('Player warning', value);
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       lichess.pubsub.off('lichessTools.redraw',this.refreshWarning);
       if (!value) return;
       if (!$('.round__app').length) return;

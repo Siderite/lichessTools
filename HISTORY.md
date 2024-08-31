@@ -1,5 +1,15 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 Aug
+  - removed analysis mouse wheel support
+  - ignored fork behavior on native Lichess mouse wheel events
+
+22 Aug
+  - preferences for not logged in players
+
+21 Aug
+  - computer eval for not logged in players and enabled auto annotations for them
+
 09 Aug
   - ceval line options - highlight
 

@@ -10,7 +10,8 @@
         type:'single',
         possibleValues: [false,true],
         defaultValue: true,
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -148,6 +149,10 @@
       const value=parent.currentOptions.getValue('commentStyling');
       this.logOption('Styling for study comments', value);
       this.options = { enabled: !!value };
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const lichess=parent.lichess;
       const study=lichess?.analysis?.study;
       if (!study) return;

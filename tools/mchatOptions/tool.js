@@ -10,7 +10,8 @@
         type:'multiple',
         possibleValues: ['urlify','unlimited','images','teamChatNotifications'],
         defaultValue: 'urlify,unlimited,images,teamChatNotifications',
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -103,9 +104,17 @@
               const result=[];
               if (!s) return result;
               let p=0;
-              while (p<s.length) {
-                result.push(s.substr(p,l));
-                p+=l;
+              const ellipsis='\u2026';
+              if (l<s.length) {
+                result.push(s.substr(p,l-1)+ellipsis);
+                p+=l-1;
+              }
+              while (p<s.length && p+l-2<s.length) {
+                result.push((p>0?ellipsis:'')+s.substr(p,l-2)+ellipsis);
+                p+=l-2;
+              }
+              if (p<s.length) {
+                result.push((p>0?ellipsis:'')+s.substr(p));
               }
               return result;
             };
@@ -291,6 +300,10 @@
         images: parent.isOptionSet(value,'images'),
         teamChatNotifications: parent.isOptionSet(value,'teamChatNotifications')
       };
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       parent.global.clearInterval(this.interval);
       if ($('section.mchat').length && (this.options.urlify || this.options.unlimited || this.options.images)) {
         this.interval = parent.global.setInterval(this.processChat,1000);

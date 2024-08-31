@@ -95,8 +95,8 @@
             .attr('title',trans.noarg('evaluationTitle'))
             .insertAfter($('th:nth-child(1)',container));
       }
+      $('tr:has(.lichessTools-evalRow)',container).remove();
       if (this.options.evalRows && moves?.length) {
-        $('tr:has(.lichessTools-evalRow)',container).remove();
         const co=parent.chessops;
         const newRows=moves.filter(m=>!$('tr[data-uci="'+m.uci+'"]',container).length);
         const fen=co.fen.parseFen(analysis.node.fen).unwrap();

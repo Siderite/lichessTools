@@ -8,7 +8,8 @@
         type:'multiple',
         possibleValues: ['chapterForm','savePosition'],
         defaultValue: 'savePosition',
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -65,6 +66,10 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('stickyStudySettings');
       this.logOption('Sticky study settings', value);
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       this.options={ 
         chapterForm: parent.isOptionSet(value,'chapterForm'),
         savePosition: parent.isOptionSet(value,'savePosition')

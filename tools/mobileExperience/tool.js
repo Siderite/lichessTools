@@ -126,6 +126,7 @@
     handleGesture=(shape)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
+      if (!this.chessground) return;
       const drawable=this.chessground.state.drawable;
       const existing=drawable.shapes.find(s=>s.orig===shape.orig && s.dest===shape.dest && s.brush===shape.brush);
       parent.arrayRemoveAll(drawable.shapes,s=>s.orig===shape.orig && s.dest===shape.dest);
@@ -184,6 +185,7 @@
 
     brushes=['green','red','blue','yellow'];
     toggleBrush=(ev)=>{
+      if (!this.chessground) return;
       let index=this.brushes.indexOf(this.drawingBrush)+1;
       this.drawingBrush=index>=this.options.colorCount
         ? null
@@ -217,7 +219,7 @@
           .toggleClass('lichessTools-hideOctopus',this.options.hideOctopus);
         wrap=$('main.analyse div.cg-wrap');
         if (this.options.shapeDrawing) {
-          this.chessground=parent.lichess.analysis.chessground;
+          this.chessground=parent.lichess.analysis?.chessground;
         }
       } else
       if (isRound) {
@@ -229,7 +231,7 @@
           if (!wrap.length) {
             wrap=await this.initializeOverlayWrap();
           }
-          this.chessground=wrap[0].chessground;
+          this.chessground=wrap[0]?.chessground;
         }
       }
       if (this.options.shapeDrawing||this.options.shapeDrawingRound) {

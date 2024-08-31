@@ -510,10 +510,6 @@
       return this.lichess?.analysis?.opts.userId || this.$.cached('body').attr('data-user');
     };
 
-    userLoggedIn=()=>{
-      return !!this.getUserId();
-    };
-
     isFriendsPage=()=>{
       return /\/following([\?#].*)?$/.test(this.global.location.href);
     };
@@ -1488,10 +1484,12 @@
         enableLichessTools: true,
         showOptionsTableInConsole: false
       };
+      const isLoggedIn=!!this.getUserId();
       for (const tool of this.tools) {
         if (!tool.preferences) continue;
         for (const preference of tool.preferences) {
-          options[preference.name]=preference.defaultValue;
+          const defaultValue=(!isLoggedIn && preference.defaultNotLoggedInValue!==undefined) ? preference.defaultNotLoggedInValue : preference.defaultValue;
+          options[preference.name]=defaultValue;
         }
       }
       return options;

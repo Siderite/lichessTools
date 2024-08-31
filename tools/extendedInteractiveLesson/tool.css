@@ -128,6 +128,10 @@ body.lichessTools .analyse .gamebook button.lichessTools-giveUp {
   font-size: 1rem;
 }
 
+body.lichessTools .analyse .gamebook .comment:has(button.lichessTools-giveUp):not(:has(button.hint)) {
+  padding-bottom:1em;
+}
+
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
   background: #1b78d0;

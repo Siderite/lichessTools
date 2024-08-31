@@ -10,7 +10,8 @@
         type:'multiple',
         possibleValues: ['hideForum','forumBottom','noNotifications'],
         defaultValue: false,
-        offValue: 'hideForum,noNotifications'
+        offValue: 'hideForum,noNotifications',
+        needsLogin: true
       }
     ];
 
@@ -209,8 +210,10 @@
       if (parent.isDev()) return;
       const value=parent.currentOptions.getValue('addToTeam');
       this.logOption('Add to team', value);
-      const user=parent.getUserId();
-      if (!user) return;
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       this.options={
         hideForum:parent.isOptionSet(value,'hideForum'),
         forumBottom:parent.isOptionSet(value,'forumBottom'),

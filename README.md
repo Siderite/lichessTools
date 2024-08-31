@@ -7,6 +7,7 @@ Chrome extension adds extra functionalities to the https://lichess.org web site:
  - highlights the transpositions to the current move in the analysis/study board
      - also an option to show all transpositions in the PGN
  - play multiple variations in Interactive lesson mode in the same chapter! (using the prc: notations if present)
+ - local computer analysis chart when no server one exists, even when not logged in
  - automatically open/hide/convert to menu the Friends box at page load
  - sound alert when one of your friends starts playing a game (for various time controls)
  - changing the shortcut for playing the next best computer move from Space to Ctrl-Space

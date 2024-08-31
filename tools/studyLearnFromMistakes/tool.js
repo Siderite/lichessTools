@@ -10,7 +10,8 @@
         type:'single',
         possibleValues: [false,true],
         defaultValue: false,
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -151,6 +152,10 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('studyLearnFromMistakes');
       this.logOption('Study learn from mistakes', value);
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const lichess=parent.lichess;
       const $=parent.$;
       const analysis=lichess?.analysis;

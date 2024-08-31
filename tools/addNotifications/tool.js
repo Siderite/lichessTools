@@ -11,7 +11,8 @@
         possibleValues: [false,true],
         defaultValue: true,
         advanced: true,
-        hidden: true
+        hidden: true,
+        needsLogin: true
       }
     ];
 
@@ -114,7 +115,7 @@
       const $=parent.$;
       const value=parent.currentOptions.getValue('addNotifications');
       this.logOption('Add notifications', value);
-      if (!parent.userLoggedIn()) {
+      if (!parent.getUserId()) {
         parent.global.console.debug(' ... Disabled (not logged in)');
         return;
       }

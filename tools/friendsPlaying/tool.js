@@ -8,7 +8,8 @@
         type:'multiple',
         possibleValues: ['ultrabullet','bullet','blitz','rapid','classical','standard'],
         valuePrefix:'gameType-',
-        defaultValue: false
+        defaultValue: false,
+        needsLogin: true
       }
     ];
 
@@ -153,6 +154,10 @@
       this.logOption('Sound alert when friends start playing', value);
       if (parent.currentOptions.getValue('mutedPlayers')?.length) {
         this.logOption(' ... muted', parent.currentOptions.getValue('mutedPlayers').join(','));
+      }
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
       }
       const lichess=parent.lichess;
       if (!lichess) return;

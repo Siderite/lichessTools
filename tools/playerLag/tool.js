@@ -7,7 +7,8 @@
         category: 'play',
         type:'single',
         possibleValues: ['none','bars','chart'],
-        defaultValue: 'none'
+        defaultValue: 'none',
+        needsLogin: true
       }
     ];
 
@@ -175,6 +176,10 @@
         chart: parent.isOptionSet(value,'chart'),
         get isSet() { return this.bars || this.chart; }
       };
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       lichess.pubsub.off('socket.lag',this.onLag);
       lichess.pubsub.off('socket.in.mlat',this.onLatency);
       $('.round__app .ruser-top a.user-link .lichessTools-playerLag,.round__app .ruser-bottom a.user-link .lichessTools-playerLag').remove();

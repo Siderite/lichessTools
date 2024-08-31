@@ -10,7 +10,8 @@
         type:'multiple',
         possibleValues: ['switchWithMe'],
         defaultValue: 'switchWithMe',
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -70,6 +71,10 @@
       const parent=this.lichessTools;
       const value=parent.currentOptions.getValue('openingExplorerUsers');
       this.logOption('Opening explorer player features', value);
+      if (!parent.getUserId()) {
+        parent.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const lichess=parent.lichess;
       const analysis=lichess?.analysis;
       if (!analysis) return;
