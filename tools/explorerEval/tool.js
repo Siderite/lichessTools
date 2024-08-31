@@ -145,7 +145,8 @@
         }
 
         const q=1000/total;        
-        const sharpness = Math.round(Math.min(explorerItem.white,explorerItem.black)*q/50*333/(explorerItem.draws*q+1)*1/(1+Math.exp(-(explorerItem.white+explorerItem.black)*q/1000)));
+        const [w,d,l]=[explorerItem.white*q,(explorerItem.draws+1)*q,explorerItem.black*q];
+        const sharpness = Math.round(Math.min(w,l)/50*333/d*1/(1+Math.exp(-(w+l)/1000)));
         if (sharpness&&Number.isFinite(sharpness)) {
           const sharpnessTitle = trans.pluralSame('sharpnessTitle',sharpness);
           const tdBar=$('td:has(div.bar)',e);
