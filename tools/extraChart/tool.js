@@ -1251,7 +1251,10 @@
         await this.showChristmasTree();
       }
 
-      const maxX = Math.max.apply(null,chart.data.datasets.filter(d=>d.type=='line').map(d=>d.data?.at(-1)?.x));
+      const maxX = Math.max.apply(null,chart.data.datasets
+                                         .filter(d=>d.type=='line')
+                                         .map(d=>d.data?.at(-1)?.x)
+                                         .concat([lichess.analysis.mainline.at(-1)?.ply]));
       if (maxX!=chart.options?.scales?.x?.max) {
         chart.options.scales.x.max=maxX;
         updateChart=true;
