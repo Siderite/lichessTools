@@ -1,5 +1,8 @@
 History of features added to LiChess Tools in time (reversed order)
 
+31 Aug
+  - added sharpness to extra chart
+
 25 Aug
   - removed analysis mouse wheel support
   - ignored fork behavior on native Lichess mouse wheel events

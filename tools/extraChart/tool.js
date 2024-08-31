@@ -8,7 +8,7 @@
         name:'extraChart',
         category: 'analysis',
         type:'multiple',
-        possibleValues: ['material','principled','tension','potential','brilliant','moreBrilliant','local','accuracy','smooth','gauge'],
+        possibleValues: ['material','principled','tension','potential','brilliant','moreBrilliant','local','accuracy','sharpness','smooth','gauge'],
         defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge',
         defaultNotLoggedInValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,local,moreBrilliant',
         advanced: true
@@ -34,6 +34,7 @@
         'extraChart.potential': 'Max potential',
         'extraChart.local': 'Local eval',
         'extraChart.accuracy': 'Accuracy',
+        'extraChart.sharpness': 'Sharpness',
         'extraChart.brilliant': 'Find interesting moves',
         'extraChart.moreBrilliant': '... more moves',
         'extraChart.smooth': 'Chart smoothing',
@@ -55,6 +56,7 @@
         'extraChart.potential': 'Poten\u0163ial maxim',
         'extraChart.local': 'Evaluare local\u0103',
         'extraChart.accuracy': 'Acurate\u0163e',
+        'extraChart.sharpness': 'Periculozitate',
         'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
         'extraChart.moreBrilliant': '... mai multe mut\u0103ri',
         'extraChart.smooth': 'Netezire grafice',
@@ -73,14 +75,17 @@
       materialChart: '#258F0B',
       principledChart: '#250B8F',
       localChart: ()=>this.lichessTools.isDark()
-                              ? '#EFEF00'
-                              : '#705800',
+                              ? '#EFEF00A0'
+                              : '#705800A0',
       localChartHover: ()=>this.lichessTools.isDark()
                               ? '#FFFF00'
                               : '#604800',
       accuracyChart: ()=>this.lichessTools.isDark()
                               ? '#FF00FF'
                               : '#700058',
+      sharpnessChart: ()=>this.lichessTools.isDark()
+                              ? '#FFA0A0'
+                              : '#B09090',
       maxTensionLine: '#FF0000',
       maxPotentialLine: '#008000',
       interestingMoves: ()=>this.lichessTools.isDark()
@@ -601,6 +606,28 @@
         .filter(r=>!!r);
     };
 
+    getSharpnessData = (mainline) => {
+      const parent=this.lichessTools;
+      const analysis=parent.lichess.analysis;
+      const Math=parent.global.Math;
+      return mainline
+        .map((node,x) => {
+          const explorerItem=analysis.explorer?.cache[node.fen];
+          if (!explorerItem) return null;
+          const total=explorerItem.white+explorerItem.draws+explorerItem.black;
+          if (total==0) return null;
+          const q=1000/total;        
+          const [w,d,l]=[explorerItem.white*q,Math.max(explorerItem.draws,1)*q,explorerItem.black*q];
+          const sharpness = Math.round(Math.min(w,l)/50*333/d*1/(1+Math.exp(-(w+l)/1000)));
+          const val=Math.min(sharpness/100,0.9);
+          return {
+            y: val,
+            x: x
+          };
+        })
+        .filter(r=>!!r);
+    };
+
     computeGood=(side,node,prevNode)=>{
       const cp1=this.getCp(this.getNodeCeval(node));
       const cp2=this.getCp(this.getNodeCeval(prevNode));
@@ -1096,14 +1123,14 @@
             borderWidth: 2,
             cubicInterpolationMode: this.options.smooth?'monotone':'default',
             tension: 0,
-            pointRadius: 1,
+            pointRadius: 0,
             pointHitRadius: 5,
             pointHoverRadius: 3,
             borderColor: this.colors.localChart,
             hoverBackgroundColor: this.colors.localChartHover,
             fill: {
               target: 'start',
-              above: this.colors.localChart()+'10'
+              above: this.colors.localChart().substr(0,7)+'18'
             },
             order: 1,
             datalabels: { display: false }
@@ -1147,6 +1174,40 @@
           const dataset=chart.data.datasets[existingAccuracy];
           const existingData = dataset.data;
           const newData = this.smooth(this.getAccuracyData(mainline));
+          updateChart=JSON.stringify(existingData)!=JSON.stringify(newData);
+          if (updateChart) dataset.data=newData;
+        }
+      }
+
+      let existingSharpness = chart.data.datasets.findIndex(s=>s.label==='Sharpness');
+      if (existingSharpness>=0 && (this.prevSmooth!=this.options.smooth || !this.options.sharpness)) {
+        chart.data.datasets.splice(existingSharpness,1);
+        existingSharpness=-1;
+        updateChart=true;
+      }
+      if (this.options.sharpness) {
+        const mainline=lichess.analysis.mainline;
+        if (existingSharpness<0) {
+          chart.data.datasets.push({
+            label:'Sharpness',
+            type:'line',
+            data: this.smooth(this.getSharpnessData(mainline)),
+            borderWidth: 2,
+            borderDash:[3,4],
+            cubicInterpolationMode: this.options.smooth?'monotone':'default',
+            tension: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.sharpnessChart,
+            order: 1,
+            datalabels: { display: false }
+          });
+          updateChart=true;
+        } else {
+          const dataset=chart.data.datasets[existingSharpness];
+          const existingData = dataset.data;
+          const newData = this.smooth(this.getSharpnessData(mainline));
           updateChart=JSON.stringify(existingData)!=JSON.stringify(newData);
           if (updateChart) dataset.data=newData;
         }
@@ -1346,8 +1407,9 @@
         moreBrilliant:parent.isOptionSet(value,'moreBrilliant'),
         local:parent.isOptionSet(value,'local'),
         accuracy:parent.isOptionSet(value,'accuracy'),
+        sharpness:parent.isOptionSet(value,'sharpness'),
         smooth:parent.isOptionSet(value,'smooth'),
-        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy; },
+        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness; },
         gauge:parent.isOptionSet(value,'gauge'),
         christmas:!!parent.currentOptions.getValue('christmas')
       };

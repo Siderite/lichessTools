@@ -570,7 +570,6 @@
         : $('cg-container',el)[0]
       const container=$(elem);
       if (!container.length) return;
-      const variantElem=container.closest('div.round__app, main, a.mini-game');
 
       const orientation=container.closest('.cg-wrap').is('.orientation-black')?'black':'white';
       const getKey=orientation=='white'
