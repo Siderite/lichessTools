@@ -34,6 +34,8 @@
     explorerItem=(node,value)=>{
       if (!node) return;
       const parent=this.lichessTools;
+      const explorer = parent.analysis?.explorer;
+      if (!explorer) return;
       const components=[
         'explorer.speed',
         'analyse.explorer.player.name',
@@ -49,7 +51,15 @@
         explorerItems={};
         node.explorerItems=explorerItems;
       }
-      if (value===undefined) return explorerItems[key];
+      if (value===undefined) {
+         value = explorerItems[key];
+         if (value) return value;
+         value = explorer.cache[node.fen];
+         if (value) {
+           explorerItems[key]=value;
+           return value;
+         }
+      }
       explorerItems[key]=value;
     };
 
@@ -122,7 +132,9 @@
       const probabilityScore=Math.round(probability*100);
       const potencyScore=Math.round(potency*100);
       const trapScore=Math.round(probability*potency*100);
-      const text=trapScore?trans.pluralSame('trapValueCommand.valueText',probabilityScore+'% x '+potencyScore+'% = '+trapScore+'%'):'?';
+      const text=probabilityScore || potencyScore
+                   ? trans.pluralSame('trapValueCommand.valueText',probabilityScore+'% x '+potencyScore+'% = '+trapScore+'%')
+                   : '?';
       parent.announce(text);
       analysis.setPath(initialPath);
       analysis.redraw();
