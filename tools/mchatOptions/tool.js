@@ -158,7 +158,7 @@
                 }
               }
               input.val('');
-              lichess.tempStorage.make('chat.input').remove();
+              lichess.storage.make('chat.input',true).remove();
             });
           }
         }

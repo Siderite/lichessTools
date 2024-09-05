@@ -1491,19 +1491,11 @@
         }
       }
     }
-  
-    async start(lichess) {
-      if (!lichess) return;
-      this.lichess=lichess;
-      await lichess.load;
-      const age=lichess.info?.date
-        ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
-        : 0;
-      this.global.console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red; color:white;':'');
-      //temp
-      if (!this.lichess.storage) {
-        this.lichess.storage={
+
+    createStorage = (underlyingStorage)=>{
+       return {
           lichessTools: this,
+          underlyingStorage: underlyingStorage,
           fire: function(k, v) {
             this.set(k,JSON.stringify({
               sri: this.lichessTools.lichess.sri,
@@ -1512,13 +1504,13 @@
             }));
           },
           remove: function(key) {
-            return this.lichessTools.global.localStorage.removeItem(key);
+            return this.underlyingStorage.removeItem(key);
           },
           get: function(key) {
-            return this.lichessTools.global.localStorage.getItem(key);
+            return this.underlyingStorage.getItem(key);
           },
           set: function(key,value) {
-            return this.lichessTools.global.localStorage.setItem(key,value);
+            return this.underlyingStorage.setItem(key,value);
           },
           make: function (k, ttl) {
             const api=this;
@@ -1543,7 +1535,7 @@
               remove,
               listen: (f) =>
                 window.addEventListener('storage', e => {
-                  if (e.key !== k || e.storageArea !== this.lichessTools.global.localStorage || e.newValue === null) return;
+                  if (e.key !== k || e.storageArea !== api.underlyingStorage || e.newValue === null) return;
                   let parsed;
                   try {
                     parsed = JSON.parse(e.newValue);
@@ -1556,7 +1548,23 @@
                 }),
             };
           },
-        };
+        }
+    };
+  
+    async start(lichess) {
+      if (!lichess) return;
+      this.lichess=lichess;
+      await lichess.load;
+      const age=lichess.info?.date
+        ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
+        : 0;
+      this.global.console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red; color:white;':'');
+      //temp
+      if (!this.lichess.storage) {
+        this.lichess.storage=this.createStorage(this.global.localStorage);
+      }
+      if (!this.lichess.tempStorage) {
+        this.lichess.tempStorage=this.createStorage(this.global.sessionStorage);
       }
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);
