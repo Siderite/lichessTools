@@ -174,6 +174,11 @@
       socket.send=(...args)=>{
         console.debug('mchatOptions socket trying to send ',args);
       };
+      socket.handle=(m)=>{
+        if (m?.t=='message') {
+          this.receiveChatMessage(teamId,m.d);
+        }
+      };
       return socket;
     };
 
