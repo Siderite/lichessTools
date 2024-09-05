@@ -165,7 +165,7 @@
       }
     };
 
-    createSocket=(teamId)=>{
+    createSockeOld=(teamId)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const StrongSocket=lichess.socket?.constructor;
@@ -181,6 +181,43 @@
       };
       return socket;
     };
+
+    createSocket=(teamId)=>{
+      const parent=this.lichessTools;
+      const lichess=parent.lichess;
+      const data=parent.global.document.body.dataset;
+      const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
+      if (!baseUrls?.length) return;
+      const url = 'wss://'+baseUrls[Math.floor(parent.global.Math.random() * baseUrls.length)];
+      const fullUrl = url+'/team/'+teamId+'?v=1&sri='+parent.randomToken();
+      const ws = new WebSocket(fullUrl);
+      const console=parent.global.console;
+      const recreateSocket=(e)=>{
+        if (e?.code!=1006 || parent.debug) {
+          console?.debug('reconnecting to ' + fullUrl,e);
+        }
+        ws?.close();
+        this.sockets.find(s=>s.teamId==teamId).socket=this.createSocket(teamId);
+      };
+      ws.onerror = recreateSocket;
+      ws.onclose = recreateSocket;
+      ws.onopen = () => {
+        parent.debug && console?.debug('connected to ' + fullUrl);
+      };
+      ws.onmessage = e => {
+        const m = parent.jsonParse(e.data);
+        parent.debug && console?.debug('received ', m);
+        if (m.t === 'message') {
+          this.receiveChatMessage(teamId,m.d);
+        }
+        if (m.t === 'crowd') {
+          if (m.d?.users?.length>1) {
+            console.debug('Multiple users in the '+teamId+' page',m.d.users);
+          }
+        }
+      };
+      return ws;
+    }
 
     receiveChatMessage=(teamId,data)=>{
       const parent=this.lichessTools;

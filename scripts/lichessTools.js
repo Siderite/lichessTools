@@ -541,7 +541,7 @@
     };
 
     getUserId=()=>{
-      return this.lichess?.analysis?.opts.userId || this.$.cached('body').attr('data-user');
+      return this.global.document.body.dataset?.user;
     };
 
     isFriendsPage=()=>{
@@ -868,6 +868,18 @@
       }
       return (hval >>> 0).toString(16);
     }
+
+    randomToken = () => {
+      const crypto=this.global.crypto;
+      if (crypto) {
+        try {
+          const data = crypto.getRandomValues(new Uint8Array(9));
+          return btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
+        } catch (_) {};
+      }
+      return this.global.Math.random().toString(36).slice(2, 12);
+    };
+
 
     jsonParse=(funcOrText, defaultValue)=>{
       const console=this.global.console;

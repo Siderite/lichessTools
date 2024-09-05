@@ -63,7 +63,7 @@
       const backgroundText=window.getComputedStyle(board[0], ':before').backgroundImage;
       let url=/"(.*)"/.exec(backgroundText||'')?.[1];
       if (!url) {
-        const theme=$('body').attr('data-board')||'maple';
+        const theme=parent.global.document.dataset?.board || 'maple';
         url=parent.assetUrl('../images/board/'+theme+'.jpg');
       }
       let img=await this.getImage(url);
