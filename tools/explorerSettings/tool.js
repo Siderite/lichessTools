@@ -63,7 +63,7 @@
         const choices=$('<div class="choices">');
         if (parent.getToolByName('ExplorerEval')) {
           choices
-            .append($('<button class="lichessTools-moveEvaluation">').text(trans('moveEvaluationSettingText')).attr('title',trans('moveEvaluationSettingTitle'))
+            .append($('<button class="lichessTools-moveEvaluation">').text(trans.noarg('moveEvaluationSettingText')).attr('title',trans.noarg('moveEvaluationSettingTitle'))
               .on('click',ev=>{
                 ev.preventDefault();
                 const value=parent.currentOptions.getValue('explorerEval');
@@ -74,7 +74,7 @@
         }
         if (parent.getToolByName('ExplorerGambits')) {
           choices
-            .append($('<button class="lichessTools-gambits">').text(trans('gambitsSettingText')).attr('title',trans('gambitsSettingTitle'))
+            .append($('<button class="lichessTools-gambits">').text(trans.noarg('gambitsSettingText')).attr('title',trans.noarg('gambitsSettingTitle'))
               .on('click',ev=>{
                 ev.preventDefault();
                 const value=parent.currentOptions.getValue('explorerGambits');
@@ -84,7 +84,7 @@
         }
         if (parent.getToolByName('ExplorerPractice')) {
           choices
-            .append($('<button class="lichessTools-explorerPractice">').text(trans('explorerPracticeSettingText')).attr('title',trans('explorerPracticeSettingTitle'))
+            .append($('<button class="lichessTools-explorerPractice">').text(trans.noarg('explorerPracticeSettingText')).attr('title',trans.noarg('explorerPracticeSettingTitle'))
               .on('click',ev=>{
                 ev.preventDefault();
                 const value=parent.currentOptions.getValue('explorerPractice');
@@ -94,7 +94,7 @@
         }
         if (parent.getToolByName('OpeningExplorerUsers')) {
           choices
-            .append($('<button class="lichessTools-meButton">').text(trans('meButtonSettingText')).attr('title',trans('meButtonSettingTitle'))
+            .append($('<button class="lichessTools-meButton">').text(trans.noarg('meButtonSettingText')).attr('title',trans.noarg('meButtonSettingTitle'))
               .on('click',ev=>{
                 ev.preventDefault();
                 const value=parent.currentOptions.getValue('openingExplorerUsers');
@@ -104,7 +104,7 @@
               }));
         }
         section=$('<section class="lichessTools-explorerSettings">')
-          .append($('<label>').text(trans('lichessTools')))
+          .append($('<label>').text(trans.noarg('lichessTools')))
           .append(choices)
           .appendTo(container);
       }

@@ -63,7 +63,7 @@
       if (this.options.value!='normal') {
         $('.playing main.round .game__meta__infos')
           .addClass('lichessTools-pointer')
-          .attr('title',trans('toggleLayoutTitle'))
+          .attr('title',trans.noarg('toggleLayoutTitle'))
           .on('click',this.toggleLayout);
       }
     };

@@ -11,6 +11,40 @@
     global=null;
     lichess=null;
 
+    //temp
+    translator={
+      lichessTools: this,
+      format: function(str, args) {
+        if (args.length) {
+          if (str.includes('%s')) {
+            str = str.replace('%s', args[0]);
+          } else {
+            for (let i = 0; i < args.length; i++) {
+              str = str.replace('%' + (i + 1) + '$s', args[i]);
+            }
+          }
+        }
+        return str;
+      },
+      noarg: function(key) {
+        const trans=this.lichessTools.lichess.trans;
+        const dict=this.lichessTools.intl.siteI18n;
+        return dict[key]||trans(key);
+      },
+      plural: function(key, count, ...args) {
+        const lichess=this.lichessTools.lichess;
+        const quantity = (o)=>1==o?"one":"other";
+        const dict=this.lichessTools.intl.siteI18n;
+        const str = 
+          dict[`${key}:${quantity(count)}`] || dict[`${key}:other`] || dict[key] || dict[`${key}:one`]
+          || format(`${key}:${quantity(count)}`) || format(`${key}:other`) || format(key) || format(`${key}:one`);
+        return str ? this.format(str, args) : key;
+      },
+      pluralSame: function(key, count, ...args) {
+        return this.plural(key, count, count, ...args);
+      },
+    };
+
     isDev=()=>{
       return /lichess\.dev/.test(this.global.location.origin);
     };
@@ -1466,8 +1500,63 @@
         ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
         : 0;
       this.global.console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red; color:white;':'');
-      if (this.lichess.trans) {
-        this.translator = this.lichess.trans(this.intl.siteI18n);
+      //temp
+      if (!this.lichess.storage) {
+        this.lichess.storage={
+          lichessTools: this,
+          fire: function(k, v) {
+            this.set(k,JSON.stringify({
+              sri: this.lichessTools.lichess.sri,
+              nonce: Math.random(), // ensure item changes
+              value: v,
+            }));
+          },
+          remove: function(key) {
+            return this.lichessTools.global.localStorage.removeItem(key);
+          },
+          get: function(key) {
+            return this.lichessTools.global.localStorage.getItem(key);
+          },
+          set: function(key,value) {
+            return this.lichessTools.global.localStorage.setItem(key,value);
+          },
+          make: function (k, ttl) {
+            const api=this;
+            const bdKey = ttl && `${k}--bd`;
+            const remove = () => {
+              api.remove(k);
+              if (bdKey) api.remove(bdKey);
+            };
+            return {
+              get: () => {
+                if (!bdKey) return api.get(k);
+                const birthday = Number(api.get(bdKey));
+                if (!birthday) api.set(bdKey, String(Date.now()));
+                else if (Date.now() - birthday > ttl) remove();
+                return api.get(k);
+              },
+              set: (v) => {
+                api.set(k, v);
+                if (bdKey) api.set(bdKey, String(Date.now()));
+              },
+              fire: (v) => api.fire(k, v),
+              remove,
+              listen: (f) =>
+                window.addEventListener('storage', e => {
+                  if (e.key !== k || e.storageArea !== this.lichessTools.global.localStorage || e.newValue === null) return;
+                  let parsed;
+                  try {
+                    parsed = JSON.parse(e.newValue);
+                  } catch (_) {
+                    return;
+                  }
+                  // check sri, because Safari fires events also in the original
+                  // document when there are multiple tabs
+                  if (parsed?.sri && parsed.sri !== site.sri) f(parsed);
+                }),
+            };
+          },
+        };
       }
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);
