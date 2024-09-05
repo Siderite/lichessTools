@@ -294,7 +294,7 @@
       const value=+(parent.currentOptions.getValue('customEngineLevel'));
       const customEngineOptions=parent.currentOptions.getValue('customEngineOptions');
       this.logOption('Custom engine level', value || 'Not set');
-      this.logOption('Custom engine options', customEngineOptions);
+      this.logOption('Custom engine options', customEngineOptions || 'Not set');
       this.options={
         depth: value,
         noCloud: parent.isOptionSet(customEngineOptions,'noCloud'),

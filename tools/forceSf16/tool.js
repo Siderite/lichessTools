@@ -31,10 +31,10 @@
       const lichess=parent.lichess;
       const $=parent.$;
       const key='ceval.lsfw.forceEnable';
-      const currentValue=lichess.storage.get(key);
-      const newValue=(!!value).toString();
+      const currentValue=parent.storage.get(key);
+      const newValue=!!value;
       if (currentValue!==newValue) {
-        lichess.storage.set(key,newValue);
+        parent.storage.set(key,newValue);
       }
     }
 

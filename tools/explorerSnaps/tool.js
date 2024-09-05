@@ -140,8 +140,7 @@
 
     saveSnaps=()=>{
       const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      lichess.storage.set('LiChessTools.explorerSnaps',parent.global.JSON.stringify(this.options.snaps));
+      parent.storage.set('LiChessTools.explorerSnaps',this.options.snaps);
       parent.emitRedraw();
     };
 
@@ -281,7 +280,7 @@
       if (!explorer) return;
       this.options={
         enabled:value,
-        snaps:parent.jsonParse(_=>lichess.storage.get('LiChessTools.explorerSnaps'),[])
+        snaps:parent.storage.get('LiChessTools.explorerSnaps')||[]
       };
       for (const snap of this.options.snaps) {
         if (snap.title) {

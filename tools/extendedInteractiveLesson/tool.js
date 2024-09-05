@@ -291,8 +291,7 @@
       const gp=analysis.gamebookPlay();
       if (!gp) return;
       if (!this._paths) {
-        const json=lichess.storage.get('LichessTools.chapterPaths');
-        this._paths=parent.jsonParse(json,{});
+        this._paths=parent.storage.get('LichessTools.chapterPaths')||{};
       }
       const key=analysis.study.data.id+'/'+analysis.study.currentChapter()?.id;
       let paths=this._paths[key];
@@ -315,7 +314,7 @@
       traverse(analysis.tree.root,'');
       const i = Math.floor(parent.random() * currentPaths.length);
       paths.currentPath=currentPaths[i];
-      lichess.storage.set('LichessTools.chapterPaths',JSON.stringify(this._paths));
+      parent.storage.set('LichessTools.chapterPaths',this._paths);
       return paths.currentPath;
     };
 
@@ -335,8 +334,7 @@
       if (!gp) return;
       const key=analysis.study.data.id+'/'+analysis.study.currentChapter()?.id;
       if (!this._paths) {
-        const json=lichess.storage.get('LichessTools.chapterPaths');
-        this._paths=parent.jsonParse(json,{});
+        this._paths=parent.storage.get('LichessTools.chapterPaths')||{};
       }
       const paths=this._paths[key] || {};
       const success = badMoves==0 && !askedForSolution && goodMoves>=Math.floor(path.length/4);
@@ -364,7 +362,7 @@
       traverse(analysis.tree.root);
 
       this._paths[key]=paths;
-      lichess.storage.set('LichessTools.chapterPaths',JSON.stringify(this._paths));
+      parent.storage.set('LichessTools.chapterPaths',this._paths);
       this.refreshChapterProgress();
     };
 
@@ -372,8 +370,7 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       if (!this._paths) {
-        const json=lichess.storage.get('LichessTools.chapterPaths');
-        this._paths=parent.jsonParse(json,null);
+        this._paths=parent.storage.get('LichessTools.chapterPaths')||null;
       }
       if (!this._paths) return false;
       const analysis=lichess.analysis;
@@ -392,15 +389,14 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       if (!this._paths) {
-        const json=lichess.storage.get('LichessTools.chapterPaths');
-        this._paths=parent.jsonParse(json,null);
+        this._paths=parent.storage.get('LichessTools.chapterPaths')||null;
       }
       if (!this._paths) return false;
       const analysis=lichess.analysis;
       chapterId=chapterId || analysis.study.currentChapter()?.id
       const key=analysis.study.data.id+'/'+chapterId;
       this._paths[key]=null;
-      lichess.storage.set('LichessTools.chapterPaths',JSON.stringify(this._paths));
+      parent.storage.set('LichessTools.chapterPaths',this._paths);
       this.refreshChapterProgress();
       return true;
     };
@@ -824,8 +820,7 @@
       const modal=$('div.dialog-content');
       if (!modal.length) return;
       if (!this._paths) {
-        const json=lichess.storage.get('LichessTools.chapterPaths');
-        this._paths=parent.jsonParse(json,null);
+        this._paths=parent.storage.get('LichessTools.chapterPaths')||null;
       }
       if (!this._paths) return;
       const key=analysis.study.data.id+'/'+analysis.study.currentChapter()?.id;
@@ -856,8 +851,7 @@
       if (!study) return;
       const trans=parent.translator;
       if (!this._paths) {
-        const json=lichess.storage.get('LichessTools.chapterPaths');
-        this._paths=parent.jsonParse(json,null);
+        this._paths=parent.storage.get('LichessTools.chapterPaths')||null;
       }
       if (!this._paths) return;
       const list = study.chapters.list.all();

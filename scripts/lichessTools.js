@@ -5,6 +5,7 @@
       this.$=cash;
       this.global=global;
       this.comm.init();
+      this.sri=this.randomToken();
     }
   
     $=null;
@@ -1145,12 +1146,13 @@
           this.lichessTools.global.console.debug('Cannot unzip text. Using raw',ex);
         }
       }
+      if (options?.raw) return text;
       try {
         const obj=text===undefined?undefined:JSON.parse(text);
         return obj;
       } catch(e) {
         console.error('Error parsing JSON',e);
-        return null;
+        return text;
       }
     },
     set: function(key, value, options) {
@@ -1159,7 +1161,7 @@
         store.removeItem(key);
         return;
       }
-      let text=JSON.stringify(value);
+      let text=options?.raw ? value : JSON.stringify(value);
       if (options?.zip) {
         try {
           const compressed=LiChessTools.zip(text);
@@ -1173,6 +1175,24 @@
     remove: function(key,options) {
       const store=this.getStore(options);
       store.removeItem(key);
+    },
+    listen: function(key,func,options) {
+      if (options?.session) throw new Error('You cannot listen to events on session storage, only local');
+      const $=this.lichessTools.$;
+      $(this.lichessTools.global).on('storage', e => {
+        const store=this.getStore(options);
+        if (e.key !== key || e.storageArea !== store || e.newValue === null) return;
+        const parsed=this.lichessTools.jsonParse(e.newValue);
+        if (parsed?.sri && parsed.sri !== this.lichessTools.sri) func(parsed);
+      });
+    },
+    fire: function(key,value,options) {
+      if (options?.session) throw new Error('You cannot fire events on session storage, only local');
+      this.set(key,{
+        sri: this.lichessTools.sri,
+        nonce: this.lichessTools.global.Math.random(), // ensure item changes
+        value: value,
+      }, options);
     }
   };
 
@@ -1525,7 +1545,7 @@
       this.api.init();
       const setTimeout=this.global.setTimeout;
       const console=this.global.console;
-      window.addEventListener('pagehide',()=>{
+      this.global.addEventListener('pagehide',()=>{
         this.net.storeLog();
       });
       for (const tool of this.tools) {
@@ -1537,65 +1557,6 @@
         }
       }
     }
-
-    createStorage = (underlyingStorage)=>{
-       return {
-          lichessTools: this,
-          underlyingStorage: underlyingStorage,
-          fire: function(k, v) {
-            this.set(k,JSON.stringify({
-              sri: this.lichessTools.lichess.sri,
-              nonce: Math.random(), // ensure item changes
-              value: v,
-            }));
-          },
-          remove: function(key) {
-            return this.underlyingStorage.removeItem(key);
-          },
-          get: function(key) {
-            return this.underlyingStorage.getItem(key);
-          },
-          set: function(key,value) {
-            return this.underlyingStorage.setItem(key,value);
-          },
-          make: function (k, ttl) {
-            const api=this;
-            const bdKey = ttl && `${k}--bd`;
-            const remove = () => {
-              api.remove(k);
-              if (bdKey) api.remove(bdKey);
-            };
-            return {
-              get: () => {
-                if (!bdKey) return api.get(k);
-                const birthday = Number(api.get(bdKey));
-                if (!birthday) api.set(bdKey, String(Date.now()));
-                else if (Date.now() - birthday > ttl) remove();
-                return api.get(k);
-              },
-              set: (v) => {
-                api.set(k, v);
-                if (bdKey) api.set(bdKey, String(Date.now()));
-              },
-              fire: (v) => api.fire(k, v),
-              remove,
-              listen: (f) =>
-                window.addEventListener('storage', e => {
-                  if (e.key !== k || e.storageArea !== api.underlyingStorage || e.newValue === null) return;
-                  let parsed;
-                  try {
-                    parsed = JSON.parse(e.newValue);
-                  } catch (_) {
-                    return;
-                  }
-                  // check sri, because Safari fires events also in the original
-                  // document when there are multiple tabs
-                  if (parsed?.sri && parsed.sri !== site.sri) f(parsed);
-                }),
-            };
-          },
-        }
-    };
   
     async start(lichess) {
       if (!lichess) return;
@@ -1605,21 +1566,14 @@
         ? (Date.now()-new Date(lichess.info.date).getTime())/86400000
         : 0;
       this.global.console.debug('%c site code age: '+Math.round(age*10)/10+' days', age<7?'background: red; color:white;':'');
-      //temp
-      if (!this.lichess.storage) {
-        this.lichess.storage=this.createStorage(this.global.localStorage);
-      }
-      if (!this.lichess.tempStorage) {
-        this.lichess.tempStorage=this.createStorage(this.global.sessionStorage);
-      }
       await this.applyOptions();
       const debouncedApplyOptions=this.debounce(this.applyOptions,250);
-      lichess.storage?.make('lichessTools.reloadOptions').listen(() => {
+      this.storage?.listen('lichessTools.reloadOptions',() => {
         debouncedApplyOptions();
       });
     }
 
-    fireReloadOptions=()=> this.lichess.storage.fire('lichessTools.reloadOptions');
+    fireReloadOptions=()=> this.storage.fire('lichessTools.reloadOptions');
 
     getDefaultOptions() {
       const options={

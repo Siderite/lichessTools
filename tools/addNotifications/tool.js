@@ -48,7 +48,7 @@
       const $=parent.$;
       const trans=parent.translator;
       if (el!==true && !$(el).is('div.notifications')) return;
-      this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
+      this.lastRead=parent.storage.get('LiChessTools.lastRead',0);
 
       if ($('.shown div.notifications').length) {
         this._unreadNotifications=0;

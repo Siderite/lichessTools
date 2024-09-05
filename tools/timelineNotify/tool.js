@@ -80,9 +80,8 @@
 
     setAllRead=()=>{
       const parent=this.lichessTools;
-      const lichess=parent.lichess;
       this.lastRead=Date.now();
-      lichess.storage.set('LiChessTools.lastRead',this.lastRead);
+      parent.storage.set('LiChessTools.lastRead',this.lastRead);
       parent.notifications.refresh();
     };
 
@@ -107,13 +106,13 @@
       if (/^\/timeline/i.test(parent.global.location.pathname)) this.setAllRead();
       const notification={
         getEntries: async ()=>{
-          this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
+          this.lastRead=+(parent.storage.get('LiChessTools.lastRead'))||0;
           const timeline=await parent.api.timeline.get(this.lastRead);
           if (!timeline) return [];
           const newEntries=timeline.entries
             .filter(e=>e.date>this.lastRead)
             .filter(e=>this.types.includes(e.type));
-          const justNotified=+(lichess.storage.get('just-notified'))||0;
+          const justNotified=+(parent.storage.get('just-notified'))||0;
           if (!newEntries
                   .find(e=>e.date>justNotified)) return [];
           const entry={

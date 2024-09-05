@@ -216,15 +216,13 @@
     get isEnabled() {
       if (this._isEnabled!==undefined) return this._isEnabled;
       const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      this._isEnabled=lichess.storage.get('LichessTools.moveAssistant')=='true';
+      this._isEnabled=parent.storage.get('LichessTools.moveAssistant');
       return this._isEnabled;
     }
 
     set isEnabled(value) {
       const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      lichess.storage.set('LichessTools.moveAssistant',value);
+      parent.storage.set('LichessTools.moveAssistant',value);
       this._isEnabled=value;
       if (!value) this._sf?.destroy();
     }

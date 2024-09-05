@@ -103,19 +103,19 @@
           before: ($this, path, node)=>{
             const studyId=$this.data.id;
             const chapterId=$this.vm.chapterId;
-            const data=parent.jsonParse(lichess.storage.get('LichessTools.studyPositions'),{});
+            const data=parent.storage.get('LichessTools.studyPositions')||{};
             data[studyId]={
               chapterId: chapterId,
               path: path
             };
-            lichess.storage.set('LichessTools.studyPositions',parent.global.JSON.stringify(data));
+            parent.storage.set('LichessTools.studyPositions',data);
           }
         });
         if (!this._pageLoaded && !lichess.analysis.study.gamebookPlay && !parent.isGamePlaying()) {
           this._pageLoaded=true;
           const studyId=study.data.id;
           const chapterId=study.vm.chapterId;
-          const data=parent.jsonParse(lichess.storage.get('LichessTools.studyPositions'),{});
+          const data=parent.storage.get('LichessTools.studyPositions')||{};
           const item=data[studyId];
           if (item && item.chapterId==chapterId) {
             parent.global.setTimeout(()=>{

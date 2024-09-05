@@ -157,6 +157,7 @@
         console.error('Could not create a Chessground!');
         return;
       }
+      const snap=parent.storage.get('arrow.snap');
       const cg=Chessground(wrap[0],{
         fen: '8/8/8/8/8/8/8/8 w KQkq - 0 1',
         draggable: { 
@@ -167,7 +168,7 @@
         },
         drawable: {
           enabled: false,
-          defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true)
+          defaultSnapToValidMove: snap===undefined ? true : !!snap
         },
         disableContextMenu: true
       });

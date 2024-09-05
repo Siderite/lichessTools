@@ -41,7 +41,7 @@
       } else {
         this.options.pinned.push({ studyId, studyName });
       }
-      lichess.storage.set('LichessTools.pinnedStudies',parent.global.JSON.stringify(this.options.pinned));
+      parent.storage.set('LichessTools.pinnedStudies',this.options.pinned);
       this.addPin();
     };
 
@@ -49,7 +49,7 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       parent.arrayRemoveAll(this.options.pinned,p=>p.studyId==studyId);
-      lichess.storage.set('LichessTools.pinnedStudies',parent.global.JSON.stringify(this.options.pinned));
+      parent.storage.set('LichessTools.pinnedStudies',this.options.pinned);
     };
 
     addPin=()=>{
@@ -124,7 +124,7 @@
       const $=parent.$;
       this.options={ 
         enabled: value,
-        pinned: parent.jsonParse(_=>lichess.storage.get('LichessTools.pinnedStudies'),[])
+        pinned: parent.storage.get('LichessTools.pinnedStudies')||[]
       };
       this.addPin();
       this.addToHomepage();

@@ -352,7 +352,7 @@
        const lichess=parent.lichess;
        if (this._flagCache) return this._flagCache;
        try {
-         const temp=lichess.storage.get('LiChessTools.flagCache')
+         const temp=parent.storage.get('LiChessTools.flagCache',{ raw: true })
          if (temp) {
            parent.debug && global.console.debug('Size of flag cache:',temp.length);
            this._flagCache=new Map(parent.jsonParse(temp,{}));
@@ -371,7 +371,7 @@
       const lichess=parent.lichess;
       if (this._countryCache) return this._countryCache;
       try {
-        const temp=lichess.storage.get('LiChessTools.countryCache')
+        const temp=parent.storage.get('LiChessTools.countryCache',{ raw: true })
         if (temp) {
           parent.debug && global.console.debug('Size of country cache:',temp.length);
           this._countryCache=new Map(parent.jsonParse(temp,this.countries));
@@ -385,15 +385,16 @@
       return this._countryCache;
     }
     saveCache=()=>{
-      const global=this.lichessTools.global;
-      const lichess=this.lichessTools.lichess;
+      const parent=this.lichessTools;
+      const global=parent.global;
+      const lichess=parent.lichess;
       const cache=this.flagCache;
       for(const userId of cache.keys()) {
         const time=cache.get(userId).time;
         if (Date.now()-new Date(time)>this.cacheExpiration) cache.delete(userId);
       }
-      lichess.storage.set('LiChessTools.countryCache',global.JSON.stringify([...this.countryCache]));
-      lichess.storage.set('LiChessTools.flagCache',global.JSON.stringify([...this.flagCache]));
+      parent.storage.set('LiChessTools.countryCache',[...this.countryCache]);
+      parent.storage.set('LiChessTools.flagCache',[...this.flagCache]);
     };
     debouncedSaveCache=this.lichessTools.debounce(this.saveCache,100);
 
@@ -502,11 +503,10 @@
 
     clearCache=()=>{
       const parent=this.lichessTools;
-      const lichess=parent.lichess;
       this._flagCache=undefined;
       this._countryCache=undefined;
-      lichess.storage.remove('LiChessTools.flagCache');
-      lichess.storage.remove('LiChessTools.countryCache');
+      parent.storage.remove('LiChessTools.flagCache');
+      parent.storage.remove('LiChessTools.countryCache');
     }
 
     async start() {

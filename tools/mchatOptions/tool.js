@@ -158,7 +158,7 @@
                 }
               }
               input.val('');
-              lichess.storage.make('chat.input',true).remove();
+              parent.storage.remove('chat.input',{ session: true });
             });
           }
         }
@@ -189,10 +189,11 @@
       const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
       if (!baseUrls?.length) return;
       const url = 'wss://'+baseUrls[Math.floor(parent.global.Math.random() * baseUrls.length)];
-      const fullUrl = url+'/team/'+teamId+'?v=1&sri='+parent.randomToken();
+      const fullUrl = url+'/team/'+teamId+'?v=1&sri='+parent.sri;
       const ws = new WebSocket(fullUrl);
       const console=parent.global.console;
       const recreateSocket=(e)=>{
+        if (ws.toDestroy) return;
         if (e?.code!=1006 || parent.debug) {
           console?.debug('reconnecting to ' + fullUrl,e);
         }
@@ -215,6 +216,10 @@
             console.debug('Multiple users in the '+teamId+' page',m.d.users);
           }
         }
+      };
+      ws.destroy = () => {
+        ws.toDestroy=true;
+        ws.close();
       };
       return ws;
     }
@@ -267,7 +272,7 @@
 
     isTeamsListPage=()=>{
       const parent=this.lichessTools;
-      return parent.global.location.pathname=='/team/me';
+      return ['/team/me','/team/leader'].includes(parent.global.location.pathname);
     };
 
     toggleNotify=(teamId)=>{
@@ -345,10 +350,6 @@
         parent.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      if (!lichess.socket) {
-        parent.global.console.debug(' ... Disabled (no Lichess socket)');
-        return;
-      }
       parent.global.clearInterval(this.interval);
       if ($('section.mchat').length && (this.options.urlify || this.options.unlimited || this.options.images)) {
         this.interval = parent.global.setInterval(this.processChat,1000);
@@ -356,7 +357,6 @@
       }
       if (this.sockets?.length) {
         for (const {teamId,socket} of this.sockets) {
-          socket.disconnect();
           socket.destroy();
         }
         this.sockets=null;

@@ -38,7 +38,7 @@
       let glyph=analysis.node.glyphs?.at(0)?.symbol;
       if (!glyph && parent.isMate(analysis.node)) glyph='#';
       if (!glyph) return;
-      if (this.isStandardGlyph(glyph) || lichess.storage.get('analyse.show-move-annotation')==='false') {
+      if (this.isStandardGlyph(glyph) || parent.storage.get('analyse.show-move-annotation')===false) {
         const shapes=analysis.chessground.state.drawable.autoShapes?.filter(s=>s.type!=='glyph')||[];
         analysis.chessground.setAutoShapes(shapes);
         return;

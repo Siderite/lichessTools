@@ -27,15 +27,12 @@
 
     get previousOverride() {
       const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      return lichess?.storage?.get('LichessTools.previousOverride')||'analyse';
+      return parent.storage.get('LichessTools.previousOverride',{ raw: true })||'analyse';
     }
 
     set previousOverride(value) {
       const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      if (!lichess) return;
-      lichess.storage.set('LichessTools.previousOverride',value);
+      parent.storage.set('LichessTools.previousOverride',value,{ raw: true });
     }
 
     previewHandler=()=>{
