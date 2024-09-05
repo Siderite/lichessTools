@@ -174,19 +174,19 @@
                         switch(value) {
                           case 'comments':
                             if (parent.global.confirm(trans.noarg('removeAll_commentsQuestion'))) {
-                              elem.after(parent.lichess.spinnerHtml).remove();
+                              elem.after(parent.spinnerHtml).remove();
                               await this.removeAllComments();
                             }
                           break;
                           case 'glyphs':
                             if (parent.global.confirm(trans.noarg('removeAll_glyphsQuestion'))) {
-                              elem.after(parent.lichess.spinnerHtml).remove();
+                              elem.after(parent.spinnerHtml).remove();
                               await this.removeAllGlyphs();
                             }
                           break;
                           case 'shapes':
                             if (parent.global.confirm(trans.noarg('removeAll_shapesQuestion'))) {
-                              elem.after(parent.lichess.spinnerHtml).remove();
+                              elem.after(parent.spinnerHtml).remove();
                               await this.removeAllShapes();
                               analysis.withCg(cg=>{
                                 cg.setShapes([]);
@@ -196,7 +196,7 @@
                           break;
                           case 'tags':
                             if (parent.global.confirm(trans.noarg('removeAll_tagsQuestion'))) {
-                              elem.after(parent.lichess.spinnerHtml).remove();
+                              elem.after(parent.spinnerHtml).remove();
                               await this.removeAllTags();
                             }
                           break;

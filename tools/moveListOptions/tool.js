@@ -400,7 +400,6 @@
       if (!myName) return;
       const lichess=parent.lichess;
       const $=parent.$;
-      const announce=parent.announce;
       const trans=parent.translator;
       const analysis=lichess.analysis;
       const study=analysis?.study;
@@ -546,7 +545,6 @@
       const parent=this.lichessTools;
       const lichess=parent.lichess;
       const $=parent.$;
-      const announce=parent.announce;
       const trans=parent.translator;
       const analysis=lichess.analysis;
       const study=analysis?.study;

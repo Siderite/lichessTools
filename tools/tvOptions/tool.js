@@ -327,7 +327,7 @@
           }
         }
         if (!$('div.spinner',container).length) {
-          container.prepend(lichess.spinnerHtml);
+          container.prepend(parent.spinnerHtml);
         }
         const playerIds=await this.getTeamPlayerIds();
         await this.refreshGames(playerIds,'lichessTools-teamTv',container,false);
