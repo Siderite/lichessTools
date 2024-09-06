@@ -213,7 +213,7 @@
         }
         if (m.t === 'crowd') {
           if (m.d?.users?.length>1) {
-            console.debug('Multiple users in the '+teamId+' page',m.d.users);
+            console.debug(new Date().toLocaleString(parent.intl.lang),' Someone is in the '+teamId+' page',m.d.users);
           }
         }
       };
