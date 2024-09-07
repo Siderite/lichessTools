@@ -257,7 +257,7 @@
         .appendTo('body');
       const duration = +d.duration || (d.date ? new Date(d.date).getTime() - Date.now() : 5000);
       timeout = this.global.setTimeout(kill, duration);
-      if (d.date) this.lichess.contentLoaded();
+      if (d.date) this.lichess.pubsub.emit('content-loaded');
     };  
 
     timeout(ms) {

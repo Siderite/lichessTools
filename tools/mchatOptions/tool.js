@@ -212,9 +212,7 @@
           this.receiveChatMessage(teamId,m.d);
         }
         if (m.t === 'crowd') {
-          if (m.d?.users?.length>1) {
-            console.debug(new Date().toLocaleString(parent.intl.lang),' Someone is in the '+teamId+' page',m.d.users);
-          }
+          this.receiveCrowdMessage(teamId,m.d);
         }
       };
       ws.destroy = () => {
@@ -224,10 +222,36 @@
       return ws;
     }
 
+    receiveCrowdMessage=(teamId,data)=>{
+      const parent=this.lichessTools;
+      const watcherCount = data?.users?.length;
+      const team=this.teamsData?.find(t=>t.teamId==teamId);
+      if (team) team.crowd=watcherCount;
+      if (watcherCount>1) {
+        parent.global.console.debug(new Date().toLocaleString(parent.intl.lang),' Someone is in the '+teamId+' page',data.users);
+      }
+      if (!team || !this.isTeamsListPage()) return;
+      const row = $('table.slist tr.paginated')
+                    .filter((i,e)=>{
+                       const href=$('td.subject a',e).attr('href');
+                       const tid=/^\/team\/(?<teamId>[^\/]+)$/i.exec(href)?.groups?.teamId;
+                       return (teamId==tid);
+                    })[0];
+      if (row) {
+        const button=$('td.lichessTools-notify a',row);
+        if (watcherCount>1) {
+          button.attr('data-count',watcherCount);
+        } else {
+          button.removeAttr('data-count');
+        }
+      }
+    }
+
+
     receiveChatMessage=(teamId,data)=>{
       const parent=this.lichessTools;
-      const team=this.teamsData.filter(t=>t.teamId==teamId)[0];
-      if (!team) return;
+      const team=this.teamsData.find(t=>t.teamId==teamId);
+      if (!team || data.u==parent.getUserId()) return;
       team.newMessage = {
         user:data.u,
         text:data.t
@@ -328,8 +352,18 @@
             .append(button)
             .appendTo(e);
         }
+        const team = this.teamsData?.find(t=>t.teamId==teamId);
         button
-          .toggleClass('lichessTools-enabled',!!this.teamsData?.find(t=>t.teamId==teamId))
+          .toggleClass('lichessTools-enabled',!!team)
+        if (team?.crowd>1) {
+          button
+            .addClass('data-count')
+            .attr('data-count',team.crowd);
+        } else {
+          button
+            .removeClass('data-count')
+            .removeAttr('data-count');
+        }
       });
     };
 

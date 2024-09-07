@@ -243,7 +243,7 @@
                 $(html).attr('data-userId',data.id).appendTo(container);
                 gamesCount++;
                 await parent.timeout(250);
-                parent.lichess.contentLoaded(container[0]);
+                parent.lichess.pubsub.emit('content-loaded',container[0]);
                 if (gamesCount>this._maxGamesCount) return;
               }
             } catch(e) {
@@ -531,7 +531,7 @@
                 if (!text) continue;
                 container.append(text);
               }
-              lichess.contentLoaded(container[0]);
+              lichess.pubsub.emit('content-loaded',container[0]);
             }
           }
         }
