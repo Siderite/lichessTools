@@ -165,23 +165,6 @@
       }
     };
 
-    createSockeOld=(teamId)=>{
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      const StrongSocket=lichess.socket?.constructor;
-      if (!StrongSocket) return;
-      const socket=new StrongSocket('/team/'+teamId,1);
-      socket.send=(...args)=>{
-        console.debug('mchatOptions socket trying to send ',args);
-      };
-      socket.handle=(m)=>{
-        if (m?.t=='message') {
-          this.receiveChatMessage(teamId,m.d);
-        }
-      };
-      return socket;
-    };
-
     createSocket=(teamId)=>{
       const parent=this.lichessTools;
       const lichess=parent.lichess;
