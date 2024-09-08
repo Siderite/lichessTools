@@ -76,6 +76,7 @@
     };
 
     getVideoUrl=(e)=>{
+      const parent=this.lichessTools;
       let data=this.getYoutubeId(e);
       if (data) {
         return `https://www.youtube.com/embed/${data.id}?state=1&autoplay=1&autohide=0&showinfo=0&rel=0&start=${data.time}&end=${data.end}`;
@@ -86,7 +87,7 @@
       }
       data=this.getTwitchId(e);
       if (data) {
-        return `https://player.twitch.tv/?video=${data.id}&parent=lichess.org&autoplay=true&muted=false&t=${data.time}`;
+        return `https://player.twitch.tv/?video=${data.id}&parent=${parent.global.location.hostname}&autoplay=true&muted=false&t=${data.time}`;
       }
     }
 

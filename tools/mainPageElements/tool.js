@@ -108,7 +108,7 @@
       }
       $('main').toggleClass('lichessTools-lobbyPlay',isPlay);
       if (isPlay) {
-        parent.global.document.title=$('#topnav > section:first-child span.play').text()+' \u2022 lichess.org';
+        parent.global.document.title=$('#topnav > section:first-child span.play').text()+' \u2022 '+parent.global.location.hostname;
       } else {
         const grid=this.initialGrid.replace(/[a-z]+/g,t=>{
           const ft=t==='timeline'?'side':t;
