@@ -834,10 +834,6 @@
     speechVolume=0.7;
     speechRate=1;
     speechVoiceIndex=undefined;
-    get speechVoiceLength() {
-      const voices=this.global.speechSynthesis?.getVoices();
-      return voices?.length;
-    }
     speak=async (text,options)=>{
       options={
         volume:options?.volume || this.speechVolume,
@@ -855,16 +851,15 @@
           const voices=this.global.speechSynthesis?.getVoices();
           if (voices) msg.voice=voices[options.voiceIndex];
         }
-        let resumeMic=false;
         if (!this.isIOS()) {
           // speech events are unreliable on iOS, but iphones do their own cancellation
-          msg.onstart = _ => this.lichess.mic.pause();
-          resumeMic=true;
+          const sound=this.lichess?.sound;
+          msg.onstart = () => sound?.listeners.forEach(l => l('start', text));
+          msg.onend = msg.onerror = () => sound?.listeners.forEach(l => l('stop'));
         }
         this.global.speechSynthesis?.speak(msg);
         return new Promise(resolve => {
           msg.onend = msg.onerror = ()=>{
-            if (resumeMic) this.lichess.mic.resume();
             resolve();
           }
         });
