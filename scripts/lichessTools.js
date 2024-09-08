@@ -821,7 +821,6 @@
     };
 
     makeSvg=(svgText,chessground)=>{
-      if (window.Chessground) return svgText; //ugly hack because you cannot know what chessground version you got
       return {
         html: svgText
         //,center: 'orig'
@@ -836,7 +835,7 @@
     speechRate=1;
     speechVoiceIndex=undefined;
     get speechVoiceLength() {
-      const voices=window?.speechSynthesis?.getVoices();
+      const voices=this.global.speechSynthesis?.getVoices();
       return voices?.length;
     }
     speak=async (text,options)=>{
@@ -853,7 +852,7 @@
         msg.lang = options.translated ? document.documentElement.lang : 'en-US';
         msg.rate = options.rate;
         if (options.voiceIndex!==undefined) {
-          const voices=window?.speechSynthesis?.getVoices();
+          const voices=this.global.speechSynthesis?.getVoices();
           if (voices) msg.voice=voices[options.voiceIndex];
         }
         let resumeMic=false;
@@ -862,7 +861,7 @@
           msg.onstart = _ => this.lichess.mic.pause();
           resumeMic=true;
         }
-        window?.speechSynthesis?.speak(msg);
+        this.global.speechSynthesis?.speak(msg);
         return new Promise(resolve => {
           msg.onend = msg.onerror = ()=>{
             if (resumeMic) this.lichess.mic.resume();
@@ -1225,7 +1224,7 @@
            cancelable: true,
            composed: false,
         });
-        window.dispatchEvent(customEvent);
+        this.lichessTools.global.dispatchEvent(customEvent);
       });
     }
   };

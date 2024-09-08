@@ -60,7 +60,7 @@
       ctx.canvas.height=800;
       const board = $('div.main-board cg-board');
       const href=$(ev.target).attr('href');
-      const backgroundText=window.getComputedStyle(board[0], ':before').backgroundImage;
+      const backgroundText=parent.global.getComputedStyle(board[0], ':before').backgroundImage;
       let url=/"(.*)"/.exec(backgroundText||'')?.[1];
       if (!url) {
         const theme=parent.global.document.dataset?.board || 'maple';

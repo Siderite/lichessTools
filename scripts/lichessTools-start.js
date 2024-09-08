@@ -1,3 +1,7 @@
 const start = ()=>setTimeout(()=>lichessTools.start(window.site));
 const load = window.site?.load;
-load?.then(start);
+if (load) {
+  load.then(start);
+} else {
+  window.setTimeout(start,100);
+}
