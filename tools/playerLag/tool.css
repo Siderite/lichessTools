@@ -1,32 +1,32 @@
 body.lichessTools div.round__app signal.lichessTools-playerLag {
-  vertical-align:middle;
+  vertical-align: middle;
 }
 
 body.lichessTools div.round__app signal.lichessTools-playerLag.q1 i:nth-child(2),
 body.lichessTools div.round__app signal.lichessTools-playerLag.q1 i:nth-child(3),
 body.lichessTools div.round__app signal.lichessTools-playerLag.q1 i:nth-child(4) {
-  opacity:0.33;
+  opacity: 0.33;
 }
 
 body.lichessTools div.round__app signal.lichessTools-playerLag.q2 i:nth-child(3),
 body.lichessTools div.round__app signal.lichessTools-playerLag.q2 i:nth-child(4) {
-  opacity:0.33;
+  opacity: 0.33;
 }
 
 body.lichessTools div.round__app signal.lichessTools-playerLag.q3 i:nth-child(4) {
-  opacity:0.33;
+  opacity: 0.33;
 }
 
 
 body.lichessTools div.round__app canvas.lichessTools-playerLag {
   height: 1em;
   width: 2em;
-  border-radius:5%;
-  vertical-align:middle;
+  border-radius: 5%;
+  vertical-align: middle;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools div.round__app canvas.lichessTools-playerLag {
+  html:not(.dark, .darkBoard, .light) body.lichessTools div.round__app canvas.lichessTools-playerLag {
     brightness(1.5)
   }
 }
@@ -40,13 +40,13 @@ html.darkBoard body.lichessTools div.round__app canvas.lichessTools-playerLag {
 body.lichessTools div.round__app *:has(> canvas.lichessTools-playerLag:hover),
 body.lichessTools div.round__app *:has(> * > canvas.lichessTools-playerLag:hover),
 body.lichessTools div.round__app *:has(> * > * > canvas.lichessTools-playerLag:hover) {
-  overflow:visible;
+  overflow: visible;
 }
 
 body.lichessTools div.round__app canvas.lichessTools-playerLag:hover {
-  background:#A0A0A0;
+  background: #A0A0A0;
   transform: translate(-50%) scale(5);
-  transition:1s;
-  position:relative;
-  z-index:1;
+  transition: 1s;
+  position: relative;
+  z-index: 1;
 }

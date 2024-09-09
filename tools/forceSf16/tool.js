@@ -1,23 +1,23 @@
-(()=>{
+(() => {
   class ForceSf16Tool extends LiChessTools.Tools.ToolBase {
 
-    preferences=[
+    preferences = [
       {
-        name:'forceSf16',
+        name: 'forceSf16',
         category: 'analysis',
-        type:'single',
-        possibleValues: [false,true],
+        type: 'single',
+        possibleValues: [false, true],
         defaultValue: false,
         advanced: true
       }
     ];
 
-    intl={
-      'en-US':{
+    intl = {
+      'en-US': {
         'options.analysis': 'Analysis',
         'options.forceSf16': 'Force add Stockfish 16'
       },
-      'ro-RO':{
+      'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.forceSf16': 'Adaug\u0103 for\u0163at Stockfish 16'
       }
@@ -25,19 +25,19 @@
 
 
     async start() {
-      const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('forceSf16');
+      const parent = this.lichessTools;
+      const value = parent.currentOptions.getValue('forceSf16');
       this.logOption('Force SF16', value);
-      const lichess=parent.lichess;
-      const $=parent.$;
-      const key='ceval.lsfw.forceEnable';
-      const currentValue=parent.storage.get(key);
-      const newValue=!!value;
-      if (currentValue!==newValue) {
-        parent.storage.set(key,newValue);
+      const lichess = parent.lichess;
+      const $ = parent.$;
+      const key = 'ceval.lsfw.forceEnable';
+      const currentValue = parent.storage.get(key);
+      const newValue = !!value;
+      if (currentValue !== newValue) {
+        parent.storage.set(key, newValue);
       }
     }
 
   }
-  LiChessTools.Tools.ForceSf16=ForceSf16Tool;
+  LiChessTools.Tools.ForceSf16 = ForceSf16Tool;
 })();

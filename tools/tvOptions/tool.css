@@ -17,7 +17,7 @@ body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.antichess,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.atomic,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.horde,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.racingKings,
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.crazyhouse, 
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.crazyhouse,
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.chess960,
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.kingOfTheHill,
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.threeCheck,
@@ -34,24 +34,23 @@ body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.atomic,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.horde,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.racingKings,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.crazyhouse,
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.ultrabullet, 
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.bullet, 
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.blitz, 
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.rapid, 
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.classical, 
-body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.ultrabullet, 
-body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.bullet, 
-body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.blitz, 
-body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.rapid, 
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.ultrabullet,
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.bullet,
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.blitz,
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.rapid,
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.classical,
+body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.ultrabullet,
+body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.bullet,
+body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.blitz,
+body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.rapid,
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.classical,
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.ultrabullet, 
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.bullet, 
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.blitz, 
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.rapid, 
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.classical
-{
-  overflow:visible;
-  margin-right:1.2em;
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.ultrabullet,
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.bullet,
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.blitz,
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.rapid,
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.classical {
+  overflow: visible;
+  margin-right: 1.2em;
 }
 
 
@@ -62,7 +61,7 @@ body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.antichess 
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.atomic span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.horde span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.racingKings span.cg-wrap:after,
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.crazyhouse span.cg-wrap:after, 
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.crazyhouse span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.chess960 span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.kingOfTheHill span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.threeCheck span.cg-wrap:after,
@@ -70,7 +69,7 @@ body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.antichess s
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.atomic span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.horde span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.racingKings span.cg-wrap:after,
-body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.crazyhouse span.cg-wrap:after, 
+body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.crazyhouse span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.chess960 span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.kingOfTheHill span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.threeCheck span.cg-wrap:after,
@@ -78,31 +77,30 @@ body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.antichess span
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.atomic span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.horde span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.racingKings span.cg-wrap:after,
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.crazyhouse span.cg-wrap:after, 
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.crazyhouse span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.chess960 span.cg-wrap:after,
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.ultrabullet span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.bullet span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.blitz span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.rapid span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.classical span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.ultrabullet span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.bullet span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.blitz span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.rapid span.cg-wrap:after, 
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.ultrabullet span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.bullet span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.blitz span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.rapid span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.classical span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.ultrabullet span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.bullet span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.blitz span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.rapid span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.classical span.cg-wrap:after,
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.ultrabullet span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.bullet span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.blitz span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.rapid span.cg-wrap:after, 
-body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.classical span.cg-wrap:after
-{
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.ultrabullet span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.bullet span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.blitz span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.rapid span.cg-wrap:after,
+body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.classical span.cg-wrap:after {
   position: absolute;
   font-family: "lichess";
   speak: none;
   unicode-bidi: isolate;
-  top:-1.2em;
-  right:-1.2em;
-  color:wheat;
+  top: -1.2em;
+  right: -1.2em;
+  color: wheat;
 }
 
 
@@ -191,7 +189,7 @@ body.lichessTools .tv-history.lichessTools-userHistory h2 {
   flex: 0 0 100%;
   text-align: center;
   color: #999;
-  font-family: "Roboto",Sans-Serif;
+  font-family: "Roboto", Sans-Serif;
 }
 
 body.lichessTools .tv-history.lichessTools-userHistory .now-playing {
@@ -199,16 +197,16 @@ body.lichessTools .tv-history.lichessTools-userHistory .now-playing {
 }
 
 body.lichessTools .lichessTools-teamTv {
-  position:relative;
-  padding-top:3em;
+  position: relative;
+  padding-top: 3em;
 }
 
 body.lichessTools .lichessTools-teamTv div.spinner {
-  display:none;
+  display: none;
 }
 
 body.lichessTools.lichessTools-apiLoading .lichessTools-teamTv div.spinner {
-  display:block;
+  display: block;
 }
 
 body.lichessTools .lichessTools-teamTv select.lichessTools-teams {

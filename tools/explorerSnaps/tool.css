@@ -1,19 +1,19 @@
 body.lichessTools section.lichessTools-explorerSnaps {
-  margin-top:1em;
+  margin-top: 1em;
 }
 
-body.lichessTools section.lichessTools-explorerSnaps >div {
-  display:inline;
+body.lichessTools section.lichessTools-explorerSnaps>div {
+  display: inline;
 }
 
 body.lichessTools section.lichessTools-explorerSnaps button.button {
-  font-size:smaller;
-  text-transform:none;
-  margin-right:0.5em;
+  font-size: smaller;
+  text-transform: none;
+  margin-right: 0.5em;
 }
 
-body.lichessTools section.lichessTools-explorerSnaps >div button.button {
-  margin-left:0.5em;
+body.lichessTools section.lichessTools-explorerSnaps>div button.button {
+  margin-left: 0.5em;
 }
 
 body.lichessTools section.lichessTools-explorerSnaps button.remove {
@@ -22,7 +22,7 @@ body.lichessTools section.lichessTools-explorerSnaps button.remove {
   height: 1.75em;
   top: -1.5em;
   right: -0.65em;
-  background-color: rgba(0,0,0,.6);
+  background-color: rgba(0, 0, 0, .6);
   position: relative;
   border-radius: 50%;
 }
@@ -33,5 +33,5 @@ body.lichessTools .explorer-title span.lichess.lichessTools-explorerSnaps {
 
 /* Prettier */
 body.lichessTools.lichessTools-prettier section.lichessTools-explorerSnaps button.button {
-  padding:0.5em !important;
+  padding: 0.5em !important;
 }

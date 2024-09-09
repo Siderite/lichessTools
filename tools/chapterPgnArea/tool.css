@@ -1,5 +1,5 @@
 body.lichessTools div.lichessTools-chapterPgnArea textarea {
-  width:100%;
+  width: 100%;
   min-height: 6em;
   white-space: pre-wrap;
   overflow-x: hidden;

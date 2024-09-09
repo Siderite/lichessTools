@@ -1,10 +1,10 @@
 body.lichessTools.lichessTools-extendedInteractiveLesson button.preview::before {
-  content:'\e06f';
+  content: '\e06f';
   position: relative;
   display: block;
   transform: scale(1.5);
   float: left;
-  top:-2px;
+  top: -2px;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview:hover::after {
@@ -13,9 +13,9 @@ body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons butt
 
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview::after {
+  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview::after {
     color: #bababa;
-  	background: #3c3934;
+    background: #3c3934;
   }
 }
 
@@ -26,79 +26,79 @@ html.darkBoard body.lichessTools.lichessTools-extendedInteractiveLesson div.stud
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons {
-  position:relative;
+  position: relative;
 }
 
 body.mobile.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-buttons::before {
-  font-size:xx-small;
+  font-size: xx-small;
   padding: 0.5em;
 }
 
 body.lichessTools .analyse .gamebook span.lichessTools-score {
-	float:right;
+  float: right;
 }
 
 body.lichessTools .analyse .gamebook span.lichessTools-score4 {
-  color:#00e000;
+  color: #00e000;
 }
 
 html.dark body.lichessTools .analyse .gamebook span.lichessTools-score4,
 html.darkBoard body.lichessTools .analyse .gamebook span.lichessTools-score4,
 html.transp body.lichessTools .analyse .gamebook span.lichessTools-score4 {
-    color:#00c000;
+  color: #00c000;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools  .analyse .gamebook span.lichessTools-score {
-    color:#00c000;
+  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse .gamebook span.lichessTools-score {
+    color: #00c000;
   }
 }
 
 body.lichessTools .analyse .gamebook span.lichessTools-score3 {
-  color:#e0e000;
+  color: #e0e000;
 }
 
 html.dark body.lichessTools .analyse .gamebook span.lichessTools-score3,
 html.darkBoard body.lichessTools .analyse .gamebook span.lichessTools-score3,
 html.transp body.lichessTools .analyse .gamebook span.lichessTools-score3 {
-  color:yellow;
+  color: yellow;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .gamebook span.lichessTools-score3 {
-    color:yellow;
+  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse .gamebook span.lichessTools-score3 {
+    color: yellow;
   }
 }
 
 body.lichessTools .analyse .gamebook span.lichessTools-score2 {
-  color:orange;
+  color: orange;
 }
 
 html.dark body.lichessTools .analyse .gamebook span.lichessTools-score2,
 html.darkBoard body.lichessTools .analyse .gamebook span.lichessTools-score2,
 html.transp body.lichessTools .analyse .gamebook span.lichessTools-score2 {
-  color:orange;
+  color: orange;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .gamebook span.lichessTools-score2 {
-    color:orange;
+  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse .gamebook span.lichessTools-score2 {
+    color: orange;
   }
 }
 
 body.lichessTools .analyse .gamebook span.lichessTools-score1 {
-  color:red;
+  color: red;
 }
 
 html.dark body.lichessTools .analyse .gamebook span.lichessTools-score1,
 html.darkBoard body.lichessTools .analyse .gamebook span.lichessTools-score1,
 html.transp body.lichessTools .analyse .gamebook span.lichessTools-score1 {
-  color:#ff4040;
+  color: #ff4040;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .gamebook span.lichessTools-score1 {
-    color:#ff4040;
+  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse .gamebook span.lichessTools-score1 {
+    color: #ff4040;
   }
 }
 
@@ -108,9 +108,9 @@ body.lichessTools .analyse .gamebook button.hint {
 }
 
 body.lichessTools .analyse .gamebook button.hint.data-count::after {
-  background:transparent;
+  background: transparent;
   color: var(--c-primary);
-  border-radius:25%;
+  border-radius: 25%;
   border: 1px solid #80808080;
 }
 
@@ -120,8 +120,8 @@ body.lichessTools .analyse .gamebook button.hint.data-count[data-count='1']::aft
 
 body.lichessTools .analyse .gamebook button.lichessTools-giveUp {
   position: absolute;
-  right:1em;
-  bottom:0.75em;
+  right: 1em;
+  bottom: 0.75em;
   width: fit-content;
   padding-top: 0;
   color: var(--c-primary);
@@ -129,7 +129,7 @@ body.lichessTools .analyse .gamebook button.lichessTools-giveUp {
 }
 
 body.lichessTools .analyse .gamebook .comment:has(button.lichessTools-giveUp):not(:has(button.hint)) {
-  padding-bottom:1em;
+  padding-bottom: 1em;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
@@ -157,12 +157,13 @@ html.transp body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
-  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
+
+  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
+  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
     background: #3692e7;
   }
 
-  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move {
+  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move {
     background: #184065b3;
   }
 }
@@ -170,14 +171,14 @@ html.transp body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse
 
 body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleGreen"] line,
 body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleRed"] line {
-  stroke:white;
-  marker-end:url(#arrowhead-hiliteWhite);
+  stroke: white;
+  marker-end: url(#arrowhead-hiliteWhite);
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g.lichessTools-threat line {
-  stroke:#882020;
-  opacity:0.7;
-  marker-end:url(#arrowhead-pr);
+  stroke: #882020;
+  opacity: 0.7;
+  marker-end: url(#arrowhead-pr);
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader {
@@ -188,16 +189,16 @@ body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichess
 
 body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader:after {
   content: "\02C5";
-  float:right;
-  margin-right:0.5em;
+  float: right;
+  margin-right: 0.5em;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit.lichessTools-collapsed .lichessTools-gamebookHeader:after {
   content: "\02C4";
 }
 
-body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit.lichessTools-collapsed > div:not(.lichessTools-gamebookHeader) {
-  display:none;
+body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit.lichessTools-collapsed>div:not(.lichessTools-gamebookHeader) {
+  display: none;
 }
 
 html.dark body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader,
@@ -207,17 +208,17 @@ html.transp body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-e
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader {
+  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-edit .lichessTools-gamebookHeader {
     background: #303030;
   }
 }
 
-body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow div[data-id] > i.act {
+body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow div[data-id]>i.act {
   background: conic-gradient(green var(--perc), red 0);
 }
 
-body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow div[data-id]:not(:hover) > i.act:not(:hover) {
-  opacity:0.3;
+body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow div[data-id]:not(:hover)>i.act:not(:hover) {
+  opacity: 0.3;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.lichessTools-extendedInteractiveLesson-options span {
@@ -225,7 +226,7 @@ body.lichessTools.lichessTools-extendedInteractiveLesson div.lichessTools-extend
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.lichessTools-extendedInteractiveLesson-options a {
-  margin-left:0.5em;
+  margin-left: 0.5em;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment:before {
@@ -234,7 +235,7 @@ body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment:b
   right: -0.25em;
   bottom: -0.25em;
   border-radius: 50%;
-  padding:0.25em;
+  padding: 0.25em;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment.good:before {
@@ -251,14 +252,14 @@ body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment.b
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier .analyse .gamebook span.lichessTools-score {
-    filter: brightness(200%);
+  filter: brightness(200%);
 }
 
 body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson button.preview::before {
-  content:'\e06f' !important;
+  content: '\e06f' !important;
 }
 
 body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleGreen"] line,
 body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleRed"] line {
-  stroke:white !important;
+  stroke: white !important;
 }

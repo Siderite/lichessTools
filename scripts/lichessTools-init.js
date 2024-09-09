@@ -1,4 +1,4 @@
-window.lichessTools=new LiChessTools(window, cash);
+window.lichessTools = new LiChessTools(window, cash);
 
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);

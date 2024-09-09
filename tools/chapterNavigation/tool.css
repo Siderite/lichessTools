@@ -1,13 +1,13 @@
 body.lichessTools .lichessTools-chapterControls div[role="footer"] {
-  display:flex;
+  display: flex;
   justify-content: space-around;
   background: #f8f8f8;
-  height:2.5em;
+  height: 2.5em;
   align-items: stretch;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools .lichessTools-chapterControls div[role="footer"] {
+  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chapterControls div[role="footer"] {
     background: #2D2B29;
   }
 }
@@ -22,8 +22,8 @@ html.transp body.lichessTools .lichessTools-chapterControls div[role="footer"] {
 }
 
 
-body.lichessTools .lichessTools-chapterControls:not(:has(div.study__chapters,div.relay-games)) div[role="footer"] {
-  display:none;
+body.lichessTools .lichessTools-chapterControls:not(:has(div.study__chapters, div.relay-games)) div[role="footer"] {
+  display: none;
 }
 
 body.lichessTools .lichessTools-chapterControls div[role="footer"] button {
@@ -32,23 +32,23 @@ body.lichessTools .lichessTools-chapterControls div[role="footer"] button {
 
 body.lichessTools div.study__side.lichessTools-chapterControls,
 body.lichessTools aside.relay-tour__side.lichessTools-chapterControls {
-  flex-grow:1;
+  flex-grow: 1;
 }
 
 body.lichessTools div.study__side.lichessTools-chapterControls div.study__chapters,
 body.lichessTools aside.relay-tour__side.lichessTools-chapterControls div.relay_games {
-  flex-grow:1;
+  flex-grow: 1;
 }
 
 body.lichessTools:has(.lichessTools-chapterControls) div.analyse__moves button.next {
-  display:none;
+  display: none;
 }
 
 /* Prettier */
 body.lichessTools.lichessTools-prettier .lichessTools-chapterControls div[role="footer"] {
-  background:var(--backgroundColor);
+  background: var(--backgroundColor);
 }
 
 body.lichessTools.lichessTools-prettier section.mchat {
-  margin-top:2px !important;
+  margin-top: 2px !important;
 }

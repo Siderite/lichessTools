@@ -1,32 +1,32 @@
 body.lichessTools .analyse .tview2 move.lichessTools-lastInLine:after {
-    content:'\00a0\1D38';
+  content: '\00a0\1D38';
 }
 
 body.lichessTools .analyse .tview2 move.lichessTools-lastInLine.lichessTools-uncommented {
-    border-bottom: 1px solid red;
+  border-bottom: 1px solid red;
 }
 
 body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
-    text-decoration: 1px yellow dashed underline;
+  text-decoration: 1px yellow dashed underline;
 }
 
 body.lichessTools .analyse .tview2 move.lichessTools-transposition {
-    background: lawngreen;
+  background: lawngreen;
 }
 
 body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
 body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
-    filter: brightness(50%);
+  filter: brightness(50%);
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-transposition {
-      background: darkgreen;
+  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse .tview2 move.lichessTools-transposition {
+    background: darkgreen;
   }
 
-  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
-  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
-      filter: brightness(200%);
+  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
+  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
+    filter: brightness(200%);
   }
 
 }
@@ -34,7 +34,7 @@ body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
 html.dark body.lichessTools .analyse .tview2 move.lichessTools-transposition,
 html.darkBoard body.lichessTools .analyse .tview2 move.lichessTools-transposition,
 html.transp body.lichessTools .analyse .tview2 move.lichessTools-transposition {
-    background: darkgreen;
+  background: darkgreen;
 }
 
 html.dark body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
@@ -43,132 +43,130 @@ html.darkBoard body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
 html.darkBoard body.lichessTools .analyse .tview2 move.lichessTools-inCheck,
 html.transp body.lichessTools .analyse .tview2 move.lichessTools-lastInLine,
 html.transp body.lichessTools .analyse .tview2 move.lichessTools-inCheck {
-    filter: brightness(200%);
+  filter: brightness(200%);
 }
 
 body.lichessTools.lichessTools-notOnMainline div.main-board cg-board {
-  opacity:0.85;
+  opacity: 0.85;
 }
 
 body.lichessTools div.main-board piece.lichessTools-notOnMainline {
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm1 {
-  filter:drop-shadow(1px 1px 1px #FF000080);
+  filter: drop-shadow(1px 1px 1px #FF000080);
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd1 {
-  font-size:1.2em;
+  font-size: 1.2em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd1:before {
-  font-size:1.1em;
+  font-size: 1.1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm2 {
-  filter:drop-shadow(1px 1px 1px #00FFFF80);
+  filter: drop-shadow(1px 1px 1px #00FFFF80);
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd2 {
-  font-size:1.1em;
+  font-size: 1.1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd2:before {
-  font-size:1.1em;
+  font-size: 1.1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm3 {
-  filter:drop-shadow(1px 1px 1px #0000FF80);
+  filter: drop-shadow(1px 1px 1px #0000FF80);
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd3 {
-  font-size:1.1em;
+  font-size: 1.1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd3:before {
-  font-size:1em;
+  font-size: 1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm4 {
-  filter:drop-shadow(1px 1px 1px #FFA50080);
+  filter: drop-shadow(1px 1px 1px #FFA50080);
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd4 {
-  font-size:1em;
+  font-size: 1em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd4:before {
-  font-size:.95em;
+  font-size: .95em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm5 {
-  filter:drop-shadow(1px 1px 1px #00800080);
+  filter: drop-shadow(1px 1px 1px #00800080);
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd5 {
-  font-size:.95em;
+  font-size: .95em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd5:before {
-  font-size:.9em;
+  font-size: .9em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm6 {
-  filter:drop-shadow(1px 1px 1px #FF00FF80);
+  filter: drop-shadow(1px 1px 1px #FF00FF80);
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd6 {
-  font-size:.9em;
+  font-size: .9em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd6:before {
-  font-size:.85em;
+  font-size: .85em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vdm7 {
-  filter:drop-shadow(1px 1px 1px #FFFF0080);
+  filter: drop-shadow(1px 1px 1px #FFFF0080);
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd7 {
-  font-size:.85em;
+  font-size: .85em;
 }
 
 body.lichessTools.lichessTools-variationDepth div.tview2 move.vd7:before {
-  font-size:.8em;
+  font-size: .8em;
 }
 
-body.lichessTools.lichessTools-variationDepth comment
-{
-	font-style:italic;
-	vertical-align:middle
+body.lichessTools.lichessTools-variationDepth comment {
+  font-style: italic;
+  vertical-align: middle
 }
 
-body.lichessTools.lichessTools-variationDepth move
-{
-	vertical-align:middle
+body.lichessTools.lichessTools-variationDepth move {
+  vertical-align: middle
 }
 
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition {
-    background: lawngreen !important;
+  background: lawngreen !important;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition {
-      background: darkgreen !important;
+  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition {
+    background: darkgreen !important;
   }
 }
 
 html.dark body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition,
 html.darkBoard body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition,
 html.transp body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transposition {
-    background: darkgreen !important;
+  background: darkgreen !important;
 }
 
 body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-lastInLine,
 body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-inCheck {
-    filter: brightness(150%);
+  filter: brightness(150%);
 }

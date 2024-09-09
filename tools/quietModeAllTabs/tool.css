@@ -1,5 +1,5 @@
 body.lichessTools a.lichessTools-quietMode:before {
-  display:inline-block;
+  display: inline-block;
 }
 
 body.lichessTools a.lichessTools-quietMode.lichessTools-forcedQuietMode:before {

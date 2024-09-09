@@ -9,7 +9,7 @@ body.lichessTools.lichessTools-mayTenth .topnav-toggle:not(:checked)~label.hbg[f
   content: 'Tools';
   position: absolute;
   left: 0;
-  transform: rotate(-20deg) translate(0.5em,0.7em);
+  transform: rotate(-20deg) translate(0.5em, 0.7em);
   font-size: 1.2em;
   opacity: 0.5;
   filter: drop-shadow(2px 2px 2px violet);

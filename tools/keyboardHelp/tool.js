@@ -1,12 +1,12 @@
-(()=>{
+(() => {
   class KeyboardHelpTool extends LiChessTools.Tools.ToolBase {
 
-    preferences=[
+    preferences = [
       {
-        name:'keyboardHelp',
+        name: 'keyboardHelp',
         category: 'analysis',
-        type:'single',
-        possibleValues: [false,true],
+        type: 'single',
+        possibleValues: [false, true],
         defaultValue: true,
         advanced: true,
         hidden: true,
@@ -14,8 +14,8 @@
       }
     ];
 
-    intl={
-      'en-US':{
+    intl = {
+      'en-US': {
         'options.analysis': 'Analysis',
         'options.keyboardHelp': 'LiChess Tools section in keyboard help',
         'lichessTools': 'LiChess Tools',
@@ -41,7 +41,7 @@
         'obsIntegration': 'Toggle OBS integration for this broadcast',
         'toggleSiteHeader': 'Toggle site header (works everywhere)'
       },
-      'ro-RO':{
+      'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.keyboardHelp': 'Sec\u0163iune LiChess Tools \u00een dialogul ajutor pentru taste',
         'lichessTools': 'LiChess Tools',
@@ -69,27 +69,27 @@
       }
     }
 
-    processHelp=async ()=>{
-      const parent=this.lichessTools;
+    processHelp = async () => {
+      const parent = this.lichessTools;
       await parent.timeout(500);
-      const lichess=parent.lichess;
-      const analysis=lichess.analysis;
-      const trans=parent.translator;
-      const $=parent.$;
-      const table=$('div.keyboard-help > table tbody');
+      const lichess = parent.lichess;
+      const analysis = lichess.analysis;
+      const trans = parent.translator;
+      const $ = parent.$;
+      const table = $('div.keyboard-help > table tbody');
       if (!table.length) return;
       if (table[0].hasLichessTools) return;
-      table[0].hasLichessTools=true;
+      table[0].hasLichessTools = true;
 
-      const title=(text,className)=>{
-        const row=$('<tr><th colspan="2"><p></p></th></tr>')
+      const title = (text, className) => {
+        const row = $('<tr><th colspan="2"><p></p></th></tr>')
           .addClass(className)
           .appendTo(table);
-        $('p',row).text(trans.noarg(text));
+        $('p', row).text(trans.noarg(text));
       };
-      const row=(keys,text)=>{
-        const row=$('<tr><td class="keys"></td><td class="desc"></td></tr>').appendTo(table);
-        const tdKeys=$('td.keys',row);
+      const row = (keys, text) => {
+        const row = $('<tr><td class="keys"></td><td class="desc"></td></tr>').appendTo(table);
+        const tdKeys = $('td.keys', row);
         for (const key of keys) {
           if (key.startsWith('!')) {
             tdKeys.append($('<then>').text(trans.noarg(key.substr(1))));
@@ -97,74 +97,74 @@
             tdKeys.append($('<kbd>').html(key));
           }
         }
-        $('td.desc',row).text(trans.noarg(text));
+        $('td.desc', row).text(trans.noarg(text));
       };
 
-      title('lichessTools','lichessTools-title');
+      title('lichessTools', 'lichessTools-title');
       if (parent.currentOptions.getValue('keyShortcuts')) {
-        $('td.keys kbd',table)
-          .filter((i,e)=>['b','m','i'].includes($(e).text()))
+        $('td.keys kbd', table)
+          .filter((i, e) => ['b', 'm', 'i'].includes($(e).text()))
           .parent()
-            .filter((i,e)=>$('kbd',e).length==1)
-            .closest('tr')
-              .addClass('lichessTools-disabled')
-              .attr('title',trans.noarg('seeLichessTools'));
+          .filter((i, e) => $('kbd', e).length == 1)
+          .closest('tr')
+          .addClass('lichessTools-disabled')
+          .attr('title', trans.noarg('seeLichessTools'));
 
-        row(['b'],'nextBlunder');
-        row(['m'],'nextMistake');
-        row(['i'],'nextInaccuracy');
-        row(['g'],'nextGood');
-        row(['alt','b'],'nextOpponentBlunder');
-        row(['alt','m'],'nextOpponentMistake');
-        row(['alt','i'],'nextOpponentInaccuracy');
-        row(['alt','g'],'nextOpponentGood');
-        row(['.','!then','1-9'],'variationLine');
-        row(['ctrl','.','!then','1-9'],'cevalLine');
-        row(['shift','.','!then','1-9'],'explorerLine');
-        row(['`','!then','f'],'freezeBoard');
+        row(['b'], 'nextBlunder');
+        row(['m'], 'nextMistake');
+        row(['i'], 'nextInaccuracy');
+        row(['g'], 'nextGood');
+        row(['alt', 'b'], 'nextOpponentBlunder');
+        row(['alt', 'm'], 'nextOpponentMistake');
+        row(['alt', 'i'], 'nextOpponentInaccuracy');
+        row(['alt', 'g'], 'nextOpponentGood');
+        row(['.', '!then', '1-9'], 'variationLine');
+        row(['ctrl', '.', '!then', '1-9'], 'cevalLine');
+        row(['shift', '.', '!then', '1-9'], 'explorerLine');
+        row(['`', '!then', 'f'], 'freezeBoard');
         if (parent.currentOptions.getValue('chapterNavigation') && $('div.lichessTools-chapterControls button[data-act="random"]').length) {
-          row(['`','!then','r'],'randomChapter');
+          row(['`', '!then', 'r'], 'randomChapter');
         }
-        row(['`','!then','h'],'toggleSiteHeader');
+        row(['`', '!then', 'h'], 'toggleSiteHeader');
         if (analysis.ongoing) {
-          row(['backspace'],'jumpToCurrent');
+          row(['backspace'], 'jumpToCurrent');
         }
       }
       if (parent.currentOptions.getValue('ctrlArrows')) {
-        row(['ctrl','&rarr;'],'randomMove');
-        row(['ctrl','&larr;'],'previousPosition');
+        row(['ctrl', '&rarr;'], 'randomMove');
+        row(['ctrl', '&larr;'], 'previousPosition');
       }
       if (parent.currentOptions.getValue('spaceDisabled')) {
-        $('td.keys kbd',table)
-          .filter((i,e)=>$(e).text()=='space')
+        $('td.keys kbd', table)
+          .filter((i, e) => $(e).text() == 'space')
           .parent()
-            .filter((i,e)=>$('kbd',e).length==1)
-            .closest('tr')
-              .addClass('lichessTools-disabled')
-              .attr('title',trans.noarg('seeLichessTools'));
+          .filter((i, e) => $('kbd', e).length == 1)
+          .closest('tr')
+          .addClass('lichessTools-disabled')
+          .attr('title', trans.noarg('seeLichessTools'));
 
-        row(['ctrl','space'],'bestCevalLine');
+        row(['ctrl', 'space'], 'bestCevalLine');
       }
       if (parent.currentOptions.getValue('explorerPractice')) {
-        row(['shift','l'],'explorerPractice');
+        row(['shift', 'l'], 'explorerPractice');
       }
       if (parent.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
-        row(['0'],'obsIntegration');
+        row(['0'], 'obsIntegration');
       }
     };
 
     async start() {
-      const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('keyboardHelp');
+      const parent = this.lichessTools;
+      const value = parent.currentOptions.getValue('keyboardHelp');
       this.logOption('Keyboard help', value);
-      const lichess=parent.lichess;
-      const analysis=lichess?.analysis;
+      const lichess = parent.lichess;
+      const analysis = lichess?.analysis;
       if (!analysis) return;
-      lichess.pubsub.off('analyse.close-all',this.processHelp);
+      lichess.pubsub.off('analyse.close-all', this.processHelp);
       if (!value) return;
-      lichess.pubsub.on('analyse.close-all',this.processHelp);
+      lichess.pubsub.on('analyse.close-all', this.processHelp);
     }
 
   }
-  LiChessTools.Tools.KeyboardHelp=KeyboardHelpTool;
+  LiChessTools.Tools.KeyboardHelp = KeyboardHelpTool;
 })();

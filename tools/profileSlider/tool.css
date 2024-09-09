@@ -1,5 +1,5 @@
-body.lichessTools #us_profile > .rating-history-container:has(label.lichessTools-profileSliderText) {
-  max-width:100vw;
+body.lichessTools #us_profile>.rating-history-container:has(label.lichessTools-profileSliderText) {
+  max-width: 100vw;
 }
 
 body.lichessTools .time-selector-buttons:has(label.lichessTools-profileSliderText) {
@@ -8,20 +8,20 @@ body.lichessTools .time-selector-buttons:has(label.lichessTools-profileSliderTex
 }
 
 body.lichessTools .time-selector-buttons label.lichessTools-profileSliderText {
-  align-self:center;
+  align-self: center;
   flex-grow: 1;
   text-align: end;
-  margin-right:2em;
+  margin-right: 2em;
 }
 
 body.lichessTools #time-range-slider.lichessTools-moreToTheLeft {
-  border-left:none;
-  border-radius:0;
+  border-left: none;
+  border-radius: 0;
 }
 
 body.lichessTools #time-range-slider.lichessTools-moreToTheRight {
-  border-right:none;
-  border-radius:0;
+  border-right: none;
+  border-radius: 0;
 }
 
 body.lichessTools .rating-history-container:has(label.lichessTools-profileSliderText) {

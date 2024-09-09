@@ -1,25 +1,25 @@
 body.lichessTools div.cg-wrap.lichessTools-moveAssistant square.move-dest {
-  border-width:2px;
-  border-style:solid;
+  border-width: 2px;
+  border-style: solid;
   border-radius: 25%;
-  border-color:transparent;
+  border-color: transparent;
 }
 
 body.lichessTools div.cg-wrap.lichessTools-moveAssistant square.move-dest .lichessTools-wdl {
-  --deg:0deg;
-  position:absolute;
-  height:70%;
-  top:15%;
-  right:4px;
-  width:2px;
-  background:linear-gradient(var(--deg), #00FF00 0%, #30FF00 var(--w), #FFFF00 var(--w), #FFFF00 calc(var(--w) + var(--d)), #FF3000 calc(var(--w) + var(--d)), #FF0000 100%);
+  --deg: 0deg;
+  position: absolute;
+  height: 70%;
+  top: 15%;
+  right: 4px;
+  width: 2px;
+  background: linear-gradient(var(--deg), #00FF00 0%, #30FF00 var(--w), #FFFF00 var(--w), #FFFF00 calc(var(--w) + var(--d)), #FF3000 calc(var(--w) + var(--d)), #FF0000 100%);
 }
 
 body.lichessTools button.lichessTools-moveAssistant {
   color: #b0b0b0;
   font-size: 16px;
   margin-right: -3px;
-  align-self:center;
+  align-self: center;
   background: none;
   border: none;
   outline: none;
@@ -34,11 +34,11 @@ body.lichessTools button.lichessTools-moveAssistant:hover {
 }
 
 body.lichessTools button.lichessTools-moveAssistant.lichessTools-enabled {
-  color:#00A000;
+  color: #00A000;
 }
 
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier button.lichessTools-moveAssistant.lichessTools-enabled {
-  color:#00A000 !important;
+  color: #00A000 !important;
 }

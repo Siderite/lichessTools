@@ -15,21 +15,21 @@ body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) main.gauge-
 }
 
 body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.study__player-bot {
-  margin-top:2em;
+  margin-top: 2em;
 }
 
 body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.analyse__board {
-  margin-bottom:1em;
+  margin-bottom: 1em;
 }
 
 coords.lichessTools-fixCoords {
-  display:none;
+  display: none;
 }
 
 body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools-fixCoords {
-  display:block;
-  width:100%;
-  height:100%;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools-fixCoords>coord {
@@ -40,7 +40,7 @@ body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools
   z-index: 2;
   text-shadow: 1px 1px black;
   pointer-events: none;
-  opacity:calc(var(---board-opacity) / 100);
+  opacity: calc(var(---board-opacity) / 100);
   font-size: max(8px, calc(var(---cg-width) / 50));
   font-weight: lighter;
 }
@@ -56,7 +56,7 @@ body.lichessTools.lichessTools-fixCoords-square.lichessTools-fixCoords-larger cg
 
 body.lichessTools.lichessTools-fixCoords-square cg-container coords.ranks,
 body.lichessTools.lichessTools-fixCoords-square cg-container coords.files {
-  display:none;
+  display: none;
 }
 
 /* Prettier Lichess CSS */
@@ -74,5 +74,5 @@ body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:no
 }
 
 body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.study__player-bot {
-  margin-top:1em !important;
+  margin-top: 1em !important;
 }

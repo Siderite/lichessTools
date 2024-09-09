@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChess Tools",
-  "version": "2.3.140",
+  "version": "2.3.141",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -14,8 +14,7 @@
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
   },
-  "permissions": [
-  ],
+  "permissions": [],
   "host_permissions": [
     "*://lichess.org/*",
     "*://lichess.dev/*"
@@ -29,7 +28,6 @@
         "scripts/dragDropTouch.js",
         "scripts/zip.js",
         "scripts/urlCanParse.js",
-
         "tools/emitEsmLoaded/tool.js",
         "tools/interceptEventHandlers/tool.js",
         "tools/interceptTimeouts/tool.js",
@@ -52,7 +50,6 @@
         "tools/addNotifications/tool.js",
         "tools/removeChatLinkWarning/tool.js",
         "tools/dialog/tool.js",
-
         "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",
         "tools/friendsList/tool.js",
@@ -138,16 +135,13 @@
         "tools/studyLinks/tool.js",
         "tools/konami/tool.js",
         "tools/cevalLineOptions/tool.js",
-
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
         "tools/copyPgnCommand/tool.js",
         "tools/readGameCommand/tool.js",
         "tools/skipMoveCommand/tool.js",
-
         "tools/addToTeam/tool.js",
         "tools/preferences/tool.js",
- 
         "scripts/lichessTools-init.js"
       ],
       "css": [
@@ -161,11 +155,9 @@
         "tools/themes/noStudyChat.css",
         "tools/themes/pieceDrag.css",
         "tools/themes/noGrab.css",
-
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
         "tools/dialog/tool.css",
-
         "tools/quietModeAllTabs/tool.css",
         "tools/friendsList/tool.css",
         "tools/preferences/tool.css",
@@ -227,19 +219,16 @@
         "tools/studyLinks/tool.css",
         "tools/konami/tool.css",
         "tools/cevalLineOptions/tool.css",
-
         "tools/tvOptions/tool.css",
-
         "tools/hideBoardCommand/tool.css",
-
         "tools/addToTeam/tool.css"
       ],
       "matches": [
         "*://lichess.org/*",
         "*://lichess.dev/*"
       ],
-     "run_at": "document_start",
-     "world": "MAIN"
+      "run_at": "document_start",
+      "world": "MAIN"
     },
     {
       "js": [
@@ -249,8 +238,8 @@
         "*://lichess.org/*",
         "*://lichess.dev/*"
       ],
-     "run_at": "document_end",
-     "world": "MAIN"
+      "run_at": "document_end",
+      "world": "MAIN"
     },
     {
       "js": [
@@ -260,7 +249,7 @@
         "*://lichess.org/*",
         "*://lichess.dev/*"
       ],
-     "run_at": "document_start"
+      "run_at": "document_start"
     }
   ],
   "background": {

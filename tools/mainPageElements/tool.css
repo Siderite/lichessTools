@@ -15,8 +15,8 @@ body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__tournaments-simuls,
 body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__leaderboard,
 body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__winners,
 body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__about {
-  display:none;
-} 
+  display: none;
+}
 
 body.lichessTools main.lobby .lobby__side.lichessTools-hideElement,
 body.lichessTools main.lobby .lobby__timeline.lichessTools-hideElement,
@@ -31,8 +31,8 @@ body.lichessTools main.lobby .lobby__tournaments-simuls.lichessTools-hideElement
 body.lichessTools main.lobby .lobby__leaderboard.lichessTools-hideElement,
 body.lichessTools main.lobby .lobby__winners.lichessTools-hideElement,
 body.lichessTools main.lobby .lobby__about.lichessTools-hideElement {
-  display:none;
-} 
+  display: none;
+}
 
 
 body.lichessTools main.lobby .lobby__side {
@@ -41,25 +41,24 @@ body.lichessTools main.lobby .lobby__side {
 
 @media(min-width: 499.3px) {
   body.lichessTools main.lobby .lobby__side {
-    min-height:400px
+    min-height: 400px
   }
 }
 
 @media(min-width: 799.3px) {
   body.lichessTools main.lobby .lobby__side {
-    height:600px;
+    height: 600px;
     max-height: calc(100vh - calc(var(---site-header-height) + var(---site-header-margin) + var(---sticky-gap)) - var(---block-gap))
   }
 }
 
 /* Prettier Lichess CSS */
 
-body.lichessTools.lichessTools-prettier main.lobby.lichessTools-lobbyPlay .lobby__support
-{
+body.lichessTools.lichessTools-prettier main.lobby.lichessTools-lobbyPlay .lobby__support {
   display: none !important;
 }
 
 body.lichessTools main.lobby .lobby__table.lichessTools-hideElement:not(:has(dialog)),
 body.lichessTools.lichessTools-prettier main.lobby .lobby__support.lichessTools-hideElement {
-  display:none !important;
-} 
+  display: none !important;
+}

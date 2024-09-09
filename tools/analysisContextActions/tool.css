@@ -3,63 +3,63 @@ body.lichessTools *[data-icon].lichessTools-icon-rotate:before {
 }
 
 body.lichessTools.lichessTools-evaluationStarted #analyse-cm a[data-role="evaluateTerminations"]:before {
-  content:'\E03F';
-  color:red;
+  content: '\E03F';
+  color: red;
 }
 
 body.lichessTools .lichessTools-liveStatus {
-  display:none;
+  display: none;
   margin-left: 1em;
   margin-top: 0.5em;
-  grid-row-start:none;
+  grid-row-start: none;
 }
 
 body.lichessTools.lichessTools-evaluationStarted .lichessTools-liveStatus {
-  display:inherit;
+  display: inherit;
 }
 
 body.lichessTools.lichessTools-evaluationStarted .analyse__round-training {
-  margin-top:1.5em;
+  margin-top: 1.5em;
 }
 
 body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
-    background: lawngreen;
+  background: lawngreen;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
-      background: darkgreen;
+  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
+    background: darkgreen;
   }
 }
 
 html.transp body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll,
 html.darkBoard body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll,
 html.dark body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
-    background: darkgreen;
+  background: darkgreen;
 }
 
 body.lichessTools div.tview2.lichessTools-showOnEmpty:not(:has(move)) {
-  min-height:2em;
+  min-height: 2em;
 }
 
 body.lichessTools div.tview2.lichessTools-showOnEmpty:not(:has(move)):hover {
-  background:#80808040;
+  background: #80808040;
 }
 
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {
-    background: lawngreen !important;
+  background: lawngreen !important;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {
-      background: darkgreen !important;
+  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {
+    background: darkgreen !important;
   }
 }
 
 html.dark body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll,
 html.darkBoard body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll,
 html.transp body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {
-    background: darkgreen !important;
+  background: darkgreen !important;
 }

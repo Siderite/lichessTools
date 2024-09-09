@@ -4,4 +4,4 @@
 - regular replace: 
     C\("([^"]+)"\s*,\s*"([^"]+)"(?:\s*,\s*"([^"]+)"\s*)?\)(?:,|$)
     ['$1','$2'],
-- fix Cote d'Ivoire and Curaçao (Cote d\'Ivoire and Cura\u00E7ao) :-/
+- fix Cote d'Ivoire and Curaï¿½ao (Cote d\'Ivoire and Cura\u00E7ao) :-/

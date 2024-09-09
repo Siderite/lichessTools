@@ -31,7 +31,7 @@ body.lichessTools .retro-box .half {
 body.lichessTools .retro-box .continue {
   display: flex;
   font-size: 1.3em;
-  background: rgba(56,147,232,.8);
+  background: rgba(56, 147, 232, .8);
   color: #fff;
   align-items: center;
   justify-content: center;

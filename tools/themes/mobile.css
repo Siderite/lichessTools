@@ -5,7 +5,7 @@ body.lichessTools.lichessTools-theme_mobile.mobile {
   ---site-header-margin: 4px;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) {
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) {
   grid-template-areas:
     "board"
     "controls"
@@ -18,60 +18,60 @@ body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-
   grid-template-rows: auto;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour):has(.action-menu) .analyse__underboard,
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour):has(.action-menu) .analyse__side {
-  display:none;
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour):has(.action-menu) .analyse__underboard,
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour):has(.action-menu) .analyse__side {
+  display: none;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .action-menu {
-  min-height:50vh;
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .action-menu {
+  min-height: 50vh;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .explorer-box  {
-  min-height:20em;
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .explorer-box {
+  min-height: 20em;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .analyse__moves  {
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .analyse__moves {
   flex-basis: max-content;
   max-height: 25em;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse.has-players:not(.has-relay-tour) .main-board {
-  margin-top:1.2rem;
-  margin-bottom:1.8rem;
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse.has-players:not(.has-relay-tour) .main-board {
+  margin-top: 1.2rem;
+  margin-bottom: 1.8rem;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .gamebook {
-  margin-top:4px;
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .gamebook {
+  margin-top: 4px;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .gamebook .floor {
-  margin-top:0;
-  max-height:6em;
-  align-items:center;
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .gamebook .floor {
+  margin-top: 0;
+  max-height: 6em;
+  align-items: center;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .gamebook .floor img.mascot {
-  height:5em;
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .gamebook .floor img.mascot {
+  height: 5em;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .feedback {
-  height:auto;
-  min-height:5rem;
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .feedback {
+  height: auto;
+  min-height: 5rem;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile  main.analyse:not(.has-relay-tour) .analyse-controls {
-  margin-top:0;
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .analyse-controls {
+  margin-top: 0;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"] span {
-  display:none;
+  display: none;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"]:after {
-  content:"\2630";
+  content: "\2630";
   height: 100%;
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: large;
@@ -83,7 +83,7 @@ body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__too
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile main.round div.rcontrols:has(.question) div.ricons {
-  display:none;
+  display: none;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools:has(.retro-box) .analyse__moves {
@@ -91,11 +91,11 @@ body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools:has(.retro-bo
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile .training-box .choices {
-  margin-bottom:0;
+  margin-bottom: 0;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile .training-box .choices a:nth-child(1) {
-  margin-right:1em;
+  margin-right: 1em;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile .training-box .choices a {
@@ -139,7 +139,7 @@ body.lichessTools.lichessTools-theme_mobile.mobile aside.analyse__side div.game_
 
 /** Prettier **/
 
-body.lichessTools.lichessTools-prettier.lichessTools-theme_mobile.mobile  main.analyse.has-players:not(.has-relay-tour) .main-board {
-  margin-top:2rem;
-  margin-bottom:2.5rem;
+body.lichessTools.lichessTools-prettier.lichessTools-theme_mobile.mobile main.analyse.has-players:not(.has-relay-tour) .main-board {
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
 }

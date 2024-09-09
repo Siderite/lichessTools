@@ -4,39 +4,39 @@ body.lichessTools section.explorer-box span.lichessTools-explorerPractice {
 }
 
 body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
-  color:black;
-  transform:scale(1.2);
+  color: black;
+  transform: scale(1.2);
 }
 
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
-      color: white;
+  html:not(.dark, .darkBoard, .light) body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
+    color: white;
   }
 }
 
-html.dark body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before, 
-html.darkBoard body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before, 
+html.dark body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before,
+html.darkBoard body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before,
 html.transp body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
-    color: white;
+  color: white;
 }
 
 
 body.lichessTools section.explorer-box.lichessTools-hideExplorerData table.moves {
-  display:none;
+  display: none;
 }
 
 body.lichessTools .explorer-box .moves tbody tr.sum.lichessTools-sumClick td {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 body.lichessTools div.main-board cg-board label.lichessTools-explorerPractice {
-  z-index:100000;
+  z-index: 100000;
   position: absolute;
 }
 
 body.lichessTools div.main-board cg-board label.lichessTools-explorerPractice span {
-  border-radius:10%;
+  border-radius: 10%;
   background: #80808040;
   color: white;
   text-shadow: 1px 1px #808080;
@@ -48,11 +48,11 @@ body.lichessTools div.main-board cg-board label.lichessTools-explorerPractice.bl
 }
 
 body.lichessTools main:has(.analyse__tools .lichessTools-explorerPractice.active) div.analyse__controls button[data-act="practice"] {
-  display:none;
+  display: none;
 }
 
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier section.explorer-box span.lichessTools-explorerPractice.active:before {
-  color:black;
+  color: black;
 }

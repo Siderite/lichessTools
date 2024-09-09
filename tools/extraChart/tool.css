@@ -1,9 +1,9 @@
 body.lichessTools div.study__server-eval.ready {
-  position:relative;
+  position: relative;
 }
 
 body.lichessTools #acpl-chart-container {
-  position:relative;
+  position: relative;
 }
 
 body.lichessTools .lichessTools-chartInfo {
@@ -15,16 +15,16 @@ body.lichessTools .lichessTools-chartInfo {
 }
 
 body.lichessTools tick.lichessTools-material {
-  height:0;
+  height: 0;
   border-top: 5px #00FF00 solid;
-  border-bottom:none;
+  border-bottom: none;
   transition: top 0.5s;
 }
 
 body.lichessTools tick.lichessTools-principled {
-  height:0;
+  height: 0;
   border-top: 5px #0040FF solid;
-  border-bottom:none;
+  border-bottom: none;
   transition: top 0.5s;
 }
 
@@ -39,7 +39,7 @@ html.transp body.lichessTools div.symbol.lichessTools-goodMoves {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools div.symbol.lichessTools-goodMoves {
+  html:not(.dark, .darkBoard, .light) body.lichessTools div.symbol.lichessTools-goodMoves {
     color: #168226;
   }
 }

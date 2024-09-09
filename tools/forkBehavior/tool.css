@@ -1,23 +1,23 @@
 body.lichessTools .analyse__tools.lichessTools-forkBehavior-hybrid .analyse__fork {
-  border:1px dashed red;
-  outline:1px dashed red;
-  margin:-1px 0;
+  border: 1px dashed red;
+  outline: 1px dashed red;
+  margin: -1px 0;
 }
 
 @media (max-width: 799.29px) and (orientation: portrait) {
 
   body.lichessTools .analyse__tools.lichessTools-forkBehavior-hybrid .analyse__fork {
-    order:-1;
-    display:flex;
+    order: -1;
+    display: flex;
   }
 
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase {
   overflow: visible;
-  filter:contrast(0.7);
-  opacity:0.9;
-  margin-top:0;
+  filter: contrast(0.7);
+  opacity: 0.9;
+  margin-top: 0;
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase .lichessTools-infoIcon {
@@ -39,30 +39,30 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase optgroup option {
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase optgroup {
-  font-weight:bold;
+  font-weight: bold;
   padding-left: 1em;
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase span.dialog-actions {
-  display:flex;
-  justify-content:flex-end;
-  padding:0.5em;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5em;
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase span.dialog-actions button {
-  display:flex;
-  justify-content:flex-end;
-  padding:0.5em;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5em;
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase ul {
   min-width: 20em;
-  list-style:none;
+  list-style: none;
   text-align: left;
   font-weight: bold;
 }
 
-body.lichessTools dialog.lichessTools-forkBehavior-chessbase .dialog-content > ul {
+body.lichessTools dialog.lichessTools-forkBehavior-chessbase .dialog-content>ul {
   border: 1px solid var(--c-border);
 }
 
@@ -82,12 +82,12 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase ul ul li {
 
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase div.dialog-content {
-  padding:0.5em;
-  min-width:unset;
+  padding: 0.5em;
+  min-width: unset;
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase button.close-button {
-  scale:0.7;
+  scale: 0.7;
   transform: translate(18px, -18px);
   width: 32px;
   height: 32px;

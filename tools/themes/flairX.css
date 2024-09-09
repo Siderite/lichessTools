@@ -3,9 +3,9 @@
 body.lichessTools.lichessTools-theme_flairX img.uflair:hover {
   scale: 3;
   filter: drop-shadow(3px 1px 5px #808080);
-  transition:scale 1s;
-  position:relative;
-  z-index:1;
+  transition: scale 1s;
+  position: relative;
+  z-index: 1;
 }
 
 body.lichessTools.lichessTools-theme_flairX #powerTip:has(img.uflair:hover),
