@@ -310,7 +310,7 @@
       explorer.config.toggleOpen = parent.wrapFunction(explorer.config.toggleOpen, {
         id: 'explorerSnaps',
         after: ($this, result) => {
-          if ($this.data.open()) {
+          if (explorer.config.data.open()) {
             this.showSnaps();
           }
         }
