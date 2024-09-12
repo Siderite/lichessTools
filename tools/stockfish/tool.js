@@ -81,13 +81,14 @@
     }
 
     async load() {
+      const lichess = this.parent.lichess;
+      const useSf17=true;
       try {
         if (!this._module) {
           this.parent.debug && this.parent.global.console.debug('SF', 'loading module...');
-          const lichess = this.parent.lichess;
           const engines = lichess?.analysis?.ceval?.engines;
-          const engineId = '__sf17nnue79'; //'__sf16nnue40';
-          const engineRoot = 'sf17-79.js'; //'sf-nnue-40.js';
+          const engineId = useSf17?'__sf17nnue79' : '__sf16nnue40';
+          const engineRoot = useSf17?'sf17-79.js' : 'sf-nnue-40.js';
           const engine = engines?.localEngines?.find(e => e.id == engineId);
           const assetUrl = engine && engine.assets?.js
             ? engine.assets.root + '/' + engine.assets.js
@@ -108,6 +109,14 @@
         if (!this._instance) {
           this.parent.debug && this.parent.global.console.debug('SF', 'creating instance...');
           const sf = await this._stockfish();
+          if (useSf17) {
+            const nnueFilename = sf.getRecommendedNnue(1);
+            const nnueUrl = lichess.asset.url('lifat/nnue/'+nnuFilename, { version: false })
+            const response = await fetch(nnueUrl);
+            const buffer = await response.arrayBuffer();
+            const uint8Array = new Uint8Array(buffer);
+            sf.setNnueBuffer(uint8Array);
+          }
           if (sf.uci && !sf.postMessage) sf.postMessage = sf.uci;
           await sf.ready;
           sf.listen = this.listen.bind(this);
@@ -193,11 +202,11 @@
       }
       this.postMessage('stop');
       //this.postMessage('ucinewgame');
-      this.postMessage('position fen ' + this._fen);
-      this.postMessage('go' + (this._depth ? ' depth ' + this._depth : this._time ? ' movetime ' + this._time : ' infinite') + (this._searchMoves?.length ? ' searchmoves ' + this._searchMoves.join(' ') : ''));
-      this.postMessage('setoption name UCI_AnalyseMode value true');
+      //this.postMessage('setoption name UCI_AnalyseMode value true');
       this.postMessage('setoption name UCI_Elo value 3190');
       this.postMessage('setoption name UCI_ShowWDL value true');
+      this.postMessage('position fen ' + this._fen);
+      this.postMessage('go' + (this._depth ? ' depth ' + this._depth : this._time ? ' movetime ' + this._time : ' infinite') + (this._searchMoves?.length ? ' searchmoves ' + this._searchMoves.join(' ') : ''));
       this._isStarted = true;
       this.parent.debug && this.parent.global.console.debug('SF', 'Engine started');
     }
