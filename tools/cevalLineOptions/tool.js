@@ -39,7 +39,7 @@
     handlePvs = () => {
       const parent = this.lichessTools;
       const $ = parent.$;
-      this.dict = new Map(this.dict.entries().filter(e => e[1].cls));
+      this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
       this.dict.values().forEach(v => v.count = 0);
       $('div.pv_box span.pv-san').each((i, e) => {
         if (!parent.inViewport(e)) return;

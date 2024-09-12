@@ -112,10 +112,6 @@ div.lichessTools-preferences .lichessTools-fire {
   animation: lichessTools-fire 1.5s ease-in-out infinite alternate;
 }
 
-div.lichessTools-preferences .lichessTools-globalSwitch {
-  margin: 0;
-}
-
 body.lichessTools-globalDisable .lichessTools-preferences div.account form>div {
   pointer-events: none;
   opacity: 0.5;
