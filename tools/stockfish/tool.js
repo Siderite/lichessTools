@@ -80,18 +80,18 @@
       this.restartDebounced = this.parent.debounce(this.restart, 500);
     }
 
-    _use1670 = false;
     async load() {
       try {
         if (!this._module) {
           this.parent.debug && this.parent.global.console.debug('SF', 'loading module...');
           const lichess = this.parent.lichess;
           const engines = lichess?.analysis?.ceval?.engines;
-          const engineId = this._use1670 ? '__sf161nnue70' : '__sf16nnue40';
+          const engineId = '__sf17nnue79'; //'__sf16nnue40';
+          const engineRoot = 'sf17-79.js'; //'sf-nnue-40.js';
           const engine = engines?.localEngines?.find(e => e.id == engineId);
           const assetUrl = engine && engine.assets?.js
             ? engine.assets.root + '/' + engine.assets.js
-            : 'npm/lila-stockfish-web/' + (this._use1670 ? 'sf161-70.js' : 'sf-nnue-40.js');
+            : 'npm/lila-stockfish-web/' + engineRoot;
           this.parent.global.console.debug('SF', 'loading engine ' + engineId + (engine ? ' (' + engine.name + ')' : '') + ' from ' + assetUrl);
           const url = this.origin + '/assets/' + assetUrl;
           this.parent.global.exports = this.parent.global.exports || {};
@@ -232,7 +232,7 @@
         const splits = data.split(' ');
         let arr = null;
         const info = {};
-        const isString = false;
+        let isString = false;
         for (const split of splits.slice(1)) {
           if (!isString && /^(depth|seldepth|time|nodes|pv|multipv|score|cp|wdl|mate|lowerbound|upperbound|currmove|currmovenumber|hashfull|nps|tbhits|sbhits|cpuload|string|refutation|currline|ponder)$/.test(split)) {
             arr = [];
