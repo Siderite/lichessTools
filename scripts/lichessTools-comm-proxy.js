@@ -3,8 +3,12 @@ window.addEventListener('LichessTools.send', async (ev) => {
   if (!extensionId) return;
   const uid = ev.detail.uid;
   const response = await chrome.runtime.sendMessage(ev.detail);
+  let newDetail={ ...response, uid: uid };
+  if (globalThis.cloneInto) {
+    newDetail=cloneInto(newDetail,document.defaultView);
+  }
   const customEvent = new CustomEvent("LichessTools.receive", {
-    detail: { ...response, uid: uid },
+    detail: newDetail,
     bubbles: true,
     cancelable: true,
     composed: false,
