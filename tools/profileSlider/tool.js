@@ -61,11 +61,12 @@
         newRangeEnd = this.rangeEnd;
       }
       if (uiSlider.options.range.min != newRangeStart || uiSlider.options.range.max != newRangeEnd) {
-        uiSlider.options.range = { min: newRangeStart, max: newRangeEnd };
-        uiSlider.options.start = [currentStart, currentEnd];
         try {
           this._setSlider = true;
-          uiSlider.updateOptions(uiSlider.options);
+          uiSlider.updateOptions({
+            range: { min: newRangeStart, max: newRangeEnd },
+            start: [currentStart, currentEnd]
+          });
         } finally {
           this._setSlider = false;
         }
@@ -79,10 +80,11 @@
       const uiSlider = this.uiSlider;
       if (!uiSlider) return;
       ev.preventDefault();
-      uiSlider.options.range = { min: this.rangeStart, max: this.rangeEnd };
-      uiSlider.options.start = [this.rangeStart, this.rangeEnd];
-      uiSlider.options.animate = false;
-      uiSlider.updateOptions(uiSlider.options);
+      uiSlider.updateOptions({
+        range: { min: this.rangeStart, max: this.rangeEnd },
+        start: [this.rangeStart, this.rangeEnd],
+        animate: false
+      });
     };
 
     check1wActive = () => {
@@ -140,15 +142,16 @@
           .prependTo('.time-selector-buttons')
           .on('mousedown', ev => {
             ev.preventDefault();
-            const newValues = [this.rangeEnd - 7 * 86400000, this.rangeEnd];
-            uiSlider.options.range = { min: this.rangeEnd - 21 * 86400000, max: this.rangeEnd };
-            uiSlider.options.start = newValues;
-            uiSlider.updateOptions(uiSlider.options);
+            uiSlider.updateOptions({
+              range: { min: this.rangeEnd - 21 * 86400000, max: this.rangeEnd },
+              start: [this.rangeEnd - 7 * 86400000, this.rangeEnd]
+            });
             if (this.options.fixSize) {
               this.setSlider();
             } else {
-              uiSlider.options.range = { min: this.rangeStart, max: this.rangeEnd };
-              uiSlider.updateOptions(uiSlider.options);
+              uiSlider.updateOptions({
+                range: { min: this.rangeStart, max: this.rangeEnd }
+              });
             }
             if (this.options.showText) {
               this.updateSlider(uiSlider.get());
