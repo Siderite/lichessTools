@@ -1739,7 +1739,7 @@
             case 'tag':
               const val = tagName.toLowerCase() == 'index'
                 ? gameIndex.toString()
-                : game.headers.entries().find(p => p[0]?.toLowerCase() == tagName?.toLowerCase())[1];
+                : [...game.headers.entries()].find(p => p[0]?.toLowerCase() == tagName?.toLowerCase())[1];
               switch (tagOperator) {
                 case '=': found = (val?.replace(/\s+/g, '') == tagValue?.replace(/\s+/g, '')); break;
                 case '*=': found = (val?.replace(/\s+/g, ''))?.includes(tagValue?.replace(/\s+/g, '')); break;
@@ -1829,7 +1829,7 @@
 
       games = games.filter(g => g.moves?.children?.length || g.headers?.size);
       games.forEach(game => {
-        if (games.length > 1 && game.moves?.children?.length && !game.headers.entries().find(e => !/^[\?\.\*\s]*$/.test(e[1]))) {
+        if (games.length > 1 && game.moves?.children?.length && ![...game.headers.entries()].find(e => !/^[\?\.\*\s]*$/.test(e[1]))) {
           game.headers.set('Event', 'exported by LiChess Tools');
         }
       });
