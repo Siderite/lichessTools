@@ -1123,7 +1123,14 @@
 
     storage = {
       lichessTools: this,
+      get supportsDb() { return !!this.lichessTools.global.indexedDB },
       getStore: function (options) {
+        if (options?.db) {
+          if (!this.supportsDb) {
+            throw new Error('System doesn\' support indexedDB');
+          }
+          return new IndexedDbStorage();
+        }
         const store = options?.session
           ? this.lichessTools.global.sessionStorage
           : this.lichessTools.global.localStorage;
@@ -1140,10 +1147,9 @@
             this.lichessTools.global.console.debug('Cannot unzip text. Using raw', ex);
           }
         }
-        if (options?.raw) return text;
+        if (text === undefined || options?.raw) return text;
         try {
-          const obj = text === undefined ? undefined : JSON.parse(text);
-          return obj;
+          return JSON.parse(text);
         } catch (e) {
           console.error('Error parsing JSON', e);
           return text;
@@ -1234,11 +1240,11 @@
       },
       saveDirect: function () {
         if (!this._cache) return;
-        let data = [...this._cache.entries().filter(e => e[1].persist == 'session')];
+        let data = [...this._cache.entries()].filter(e => e[1].persist == 'session');
         if (data.length) {
           this.lichessTools.storage.set('LichessTools.GeneralCache', data, { session: true, zip: true });
         }
-        data = [...this._cache.entries().filter(e => e[1].persist == 'local')];
+        data = [...this._cache.entries()].filter(e => e[1].persist == 'local');
         if (data.length) {
           this.lichessTools.storage.set('LichessTools.GeneralCache', data, { session: false, zip: true });
         }
@@ -1653,6 +1659,75 @@
     async start() {
     }
   }
+
+  class IndexedDbStorage {
+    async getItem(key) {
+      const dbInfo = this.getDbInfo(key);
+      const db = await this.dbConnect(dbInfo);
+      const store = db.transaction(dbInfo.storeName,'readonly').objectStore(dbInfo.storeName);
+      const result = store.get(dbInfo.itemName);
+      return await this.actionPromise(result);
+    }
+
+    async setItem(key, value) {
+      const dbInfo = this.getDbInfo(key);
+      const db = await this.dbConnect(dbInfo);
+      const store = db.transaction(dbInfo.storeName,'readwrite').objectStore(dbInfo.storeName);
+      const result = store.put(value, dbInfo.itemName);
+      return await this.actionPromise(result);
+    }
+
+    async removeItem(key) {
+      const dbInfo = this.getDbInfo(key);
+      const db = await this.dbConnect(dbInfo);
+      const store = db.transaction(dbInfo.storeName,'readwrite').objectStore(dbInfo.storeName);
+      const result = store.delete(dbInfo.itemName);
+      return await this.actionPromise(result);
+    }
+
+    getDbInfo(key) {
+      const match=/^(?<dbName>[^\/]+?)(?::(?<version>\d+))?\/(?<storeName>[^\/]+?)\/(?<itemName>[^\/]+)$/.exec(key);
+      if (!match) throw new Error('Invalid db storage key: '+key);
+      const { dbName, version, storeName, itemName } = match.groups;
+      return { dbName, version:+(version) || 1, storeName, itemName };
+    }
+
+    actionPromise(res) {
+      return new Promise((resolve, reject) => {
+        res.onsuccess = (e) => resolve(e.target.result);
+        res.onerror = (e) => reject(e.target.result);
+      });
+    }
+
+    async dbConnect(dbInfo) {
+      return new Promise((resolve, reject) => {
+        const result = globalThis.indexedDB.open(dbInfo.dbName, dbInfo.version);
+
+        result.onsuccess = (e) => {
+          const result = e.target.result;
+          result.onversionchange = ()=>{
+            result.close();
+            throw new Error("Database is outdated, please reload the page.")
+          };
+          resolve(result);
+        };
+        result.onerror = (e) => reject(e.target.error ?? 'IndexedDB Unavailable');
+        result.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          const txn = e.target.transaction;
+          const store = db.objectStoreNames.contains(dbInfo.storeName)
+            ? txn.objectStore(dbInfo.storeName)
+            : db.createObjectStore(dbInfo.storeName);
+
+          dbInfo.upgrade?.(e, store);
+        };
+        result.onblocked = ()=>{
+          throw new Error("Database is blocked, connection must be open elsewhere.")
+        };
+      });
+    }
+  }
+
   LiChessTools.Tools = {
     ToolBase: ToolBase
   };

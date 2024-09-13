@@ -82,7 +82,7 @@
 
     async load() {
       const lichess = this.parent.lichess;
-      const useSf17=true;
+      const useSf17=this.parent.storage.supportsDb;
       try {
         if (!this._module) {
           this.parent.debug && this.parent.global.console.debug('SF', 'loading module...');
@@ -110,12 +110,20 @@
           this.parent.debug && this.parent.global.console.debug('SF', 'creating instance...');
           const sf = await this._stockfish();
           if (useSf17) {
-            const nnueFilename = sf.getRecommendedNnue(1);
-            const nnueUrl = lichess.asset.url('lifat/nnue/'+nnuFilename, { version: false })
-            const response = await fetch(nnueUrl);
-            const buffer = await response.arrayBuffer();
-            const uint8Array = new Uint8Array(buffer);
-            sf.setNnueBuffer(uint8Array);
+            const getBuffer=async (i)=>{
+              const nnueFilename = sf.getRecommendedNnue(i);
+              let result = await this.parent.storage.get('nnue--db/nnue/'+nnueFilename, { db:true, raw:true });
+              if (!result) {
+                const nnueUrl = lichess.asset.url('lifat/nnue/'+nnueFilename, { version: false })
+                const response = await fetch(nnueUrl);
+                const buffer = await response.arrayBuffer();
+                result = new Uint8Array(buffer);
+                await this.parent.storage.set('nnue--db/nnue/'+nnueFilename, result, { db:true, raw:true });
+              }
+              return result;
+            }
+            sf.setNnueBuffer(await getBuffer(0),0);
+            sf.setNnueBuffer(await getBuffer(1),1);
           }
           if (sf.uci && !sf.postMessage) sf.postMessage = sf.uci;
           await sf.ready;

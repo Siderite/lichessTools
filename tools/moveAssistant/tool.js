@@ -27,6 +27,16 @@
     }
 
     evaluate = async () => {
+      if (this.inEvaluate) return;
+      try {
+        this.inEvaluate=true;
+        await this.evaluateDirect();
+      } finally {
+        this.inEvaluate=false;
+      };
+    }
+
+    evaluateDirect = async () => {
       const parent = this.lichessTools;
       const lichess = parent.lichess;
       const $ = parent.$;
