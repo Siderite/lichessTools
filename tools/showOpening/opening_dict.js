@@ -4013,6 +4013,7 @@ const openings = {
   "r1bqkbnrpppp2pp81B2pp23nP32N2N2PPPP1PPPR1BQK2Rw": "Spanish: Schliemann, 4.Nc3 Nd4",
   "r1bqkbnrpppp2pp84pp2B2nP32N2N2PPPP1PPPR1BQK2Rb": "Spanish: Schliemann, 4.Nc3 Nd4 5.Ba4",
   "r1bqkbnrpppp3p2n3p11B2pp24P32P2N2PP1P1PPPRNBQK2Rw": "Ruy Lopez: Fianchetto Defense, Kevitz Gambit",
+  "r1bqkbnrpppp3p6p14pP22Bn45Q2PPPP1PPPRNB1K1NRw": "Silly William Gambit (Matt Bader)",
   "r1bqkbnrppppnppp83Pp32P58PP2PPPPRNBQKBNRw": "Mikenas Defense: Lithuanian Variation",
   "r1bqkbnrppppp1pp2n2p283PP38PPP2PPPRNBQKBNRw": "Nimzowitsch Defense: Neo-Mongoloid Defense",
   "r1bqkbnrppppp1pp2n55p24P35N2PPPP1PPPRNBQKB1Rw": "Nimzowitsch Defense: Colorado Countergambit",
