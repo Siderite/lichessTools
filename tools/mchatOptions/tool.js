@@ -313,7 +313,11 @@
 
     saveTeamsData = () => {
       const parent = this.lichessTools;
-      parent.storage.set('LichessTools.chatNotificationTeams', this.teamsData);
+      const teamsData=this.teamsData.map(t=>{
+        const { crowd, ...team } = t;
+        return team;
+      });
+      parent.storage.set('LichessTools.chatNotificationTeams', teamsData);
       this.notificationButtonInTeams();
     };
 
@@ -386,6 +390,7 @@
       if (this.options.teamChatNotifications) {
         this.userTeams = await parent.api.team.getUserTeams(parent.getUserId());
         this.teamsData = parent.storage.get('LichessTools.chatNotificationTeams') || [];
+        this.teamsData.forEach(t=>{ delete t.crowd; });
         const configuredTeamsCount = this.teamsData?.length;
         if (configuredTeamsCount) {
           parent.arrayRemoveAll(this.teamsData, t => !this.userTeams.find(ut => ut.id == t.teamId));
