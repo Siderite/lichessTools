@@ -223,9 +223,13 @@
       if (row) {
         const button = $('td.lichessTools-notify a', row);
         if (watcherCount > 1) {
-          button.attr('data-count', watcherCount);
+          button
+            .addClass('data-count')
+			.attr('data-count', watcherCount);
         } else {
-          button.removeAttr('data-count');
+          button
+            .removeClass('data-count')
+			.removeAttr('data-count');
         }
       }
     }
