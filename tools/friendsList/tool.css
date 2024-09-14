@@ -1,3 +1,10 @@
+body.lichessTools.mobile:has(.site-buttons div.lichessTools-onlineFriends) #user_tag {
+  max-width: 13em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
 body.lichessTools section.lichessTools-onlineFriends .data-count:after {
   top: 0.5em;
   background: #1b78d0;
