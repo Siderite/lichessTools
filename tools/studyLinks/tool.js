@@ -37,7 +37,7 @@
       if (!href || !URL.canParse(href)) return;
       const url = URL.parse(href);
       const m = /(?:youtube(?:\.\w+)+|youtu\.be)(?:\/watch|\/embed|\/shorts|\/live|\/v|\/e|)(?:\b.*?[\?&]v=|\/|)(?<id>[^\?&#\r\n]+)/i.exec(url.toString());
-      return m ? { id: m.groups?.id, time: url.searchParams.get('t'), end: url.searchParams.get('e') } : null;
+      return m ? { id: m.groups?.id, time: url.searchParams.get('t') || '', end: url.searchParams.get('e') || '' } : null;
     };
 
     getTwitchId = (e) => {
@@ -48,7 +48,7 @@
       if (!href || !URL.canParse(href)) return;
       const url = URL.parse(href);
       const m = /twitch\.tv.*?(?:[\?&]video=|\/videos\/)(?<id>[^\?&\/#\r\n]+)/i.exec(url.toString());
-      return m ? { id: m.groups?.id, time: url.searchParams.get('t') } : null;
+      return m ? { id: m.groups?.id, time: url.searchParams.get('t') || '' } : null;
     };
 
     getVimeoId = (e) => {
@@ -59,7 +59,7 @@
       if (!href || !URL.canParse(href)) return;
       const url = URL.parse(href);
       const m = /vimeo(?:\.\w+)+(\/[^\/]+)*\/(?<id>\d+)[^\r\n]*?(?:#t=(?<time>[\w]+))?/i.exec(url.toString());
-      return m ? { id: m.groups?.id, time: m.groups?.time } : null;
+      return m ? { id: m.groups?.id, time: m.groups?.time || '' } : null;
     };
 
     handleVideoLinks = () => {
