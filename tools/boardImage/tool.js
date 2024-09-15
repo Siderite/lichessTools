@@ -36,6 +36,7 @@
         img.src = url;
       });
     };
+
     drawSvg = async (svgElement) => {
       const parent = this.lichessTools;
       const $ = parent.$;
@@ -49,6 +50,7 @@
       const url = 'data:image/svg+xml; charset=utf8, ' + parent.global.encodeURIComponent(svgURL);
       return await this.getImage(url);
     };
+
     getBoardImage = async (ev) => {
       ev.preventDefault();
       const parent = this.lichessTools;
@@ -111,11 +113,11 @@
         url = $(e).css('background-image')?.replace(/url\(["']?|["']?\)/g, '');
         if (!url) return;
         const style = $(e).attr('style') || '';
-        const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)/.exec(style);
+        const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)?/.exec(style);
         if (!m) return;
         img = await this.getImage(url);
         const x = +m[1] * q;
-        const y = +m[2] * q;
+        const y = (+m[2]||0) * q;
         ctx.drawImage(img, x, y, 100, 100);
       });
       const svgs = board.parent().children('svg').get();
