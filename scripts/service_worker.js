@@ -1,4 +1,4 @@
-importScripts('obs-websocket.js')
+if (globalThis.importScripts) importScripts('obs-websocket.js');
 
 let obs = null;
 
