@@ -15,11 +15,11 @@
     intl = {
       'en-US': {
         'options.analysis': 'Analysis',
-        'options.forceSf16': 'Force add Stockfish 16'
+        'options.forceSf16': 'Force add Stockfish 16+'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.forceSf16': 'Adaug\u0103 for\u0163at Stockfish 16'
+        'options.forceSf16': 'Adaug\u0103 for\u0163at Stockfish 16+'
       }
     }
 
