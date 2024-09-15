@@ -57,7 +57,7 @@
           const textNodes = Array.from(e.childNodes).filter(n => n.nodeType == 3);
           for (const textNode of textNodes) {
             const lineText = textNode.textContent;
-            const matches = lineText?.matchAll(this.urlRegex).toArray();
+            const matches = [...lineText?.matchAll(this.urlRegex)];
             if (!matches.length) continue;
             const newNodes = [];
             let p = 0;
@@ -123,7 +123,7 @@
               if (ev.key != 'Enter') return;
               ev.preventDefault();
               const text = input.val();
-              const matches = text?.matchAll(this.urlRegex).toArray();
+              const matches = [...text?.matchAll(this.urlRegex)];
               const newTexts = [];
               let p = 0;
               for (const match of matches) {

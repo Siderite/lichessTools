@@ -75,7 +75,17 @@
       if (index < 0 || index == chapters.length - 1) return;
       newOrder.splice(index + 1, 0, newChapterId);
       study.makeChange('sortChapters', newOrder);
-      setTimeout(() => $('div.study__chapters div.draggable[data-id="' + newChapterId + '"]')[0]?.scrollIntoViewIfNeeded(), 500);
+      setTimeout(() => {
+        const elem = $('div.study__chapters div.draggable[data-id="' + newChapterId + '"]')[0];
+        if (!elem) return;
+        if (elem.scrollIntoViewIfNeeded) {
+          elem.scrollIntoViewIfNeeded();
+        } else {
+          if (!parent.inViewport(elem)) {
+            elem.scrollIntoView();
+          }
+        }
+      }, 500);
 
       this.chapterData = null;
     };
