@@ -29,12 +29,12 @@
         "skipThisMove": "Skip this move",
         "next": "Next",
         "xWasPlayed": "%s was played",
-        "findBetterMoveForWhite": "Find a better move for white",
-        "findBetterMoveForBlack": "Find a better move for black",
+        "findBetterMoveForWhite": "Find a better move for White",
+        "findBetterMoveForBlack": "Find a better move for Black",
         "resumeLearning": "Resume learning",
         "youCanDoBetter": "You can do better",
-        "tryAnotherMoveForWhite": "Try another move for white",
-        "tryAnotherMoveForBlack": "Try another move for black",
+        "tryAnotherMoveForWhite": "Try another move for White",
+        "tryAnotherMoveForBlack": "Try another move for Black",
         "solution": "Solution",
         "waitingForAnalysis": "Waiting for analysis",
         "noMistakesFoundForWhite": "No significant mistakes found for White",
@@ -85,9 +85,8 @@
       const analysis = lichess.analysis;
       const retro = analysis.retro;
       if (!retro || retro.trans === trans) return;
-      //TODO learnFromThisMistake translation uses the analysis.trans object (https://github.com/lichess-org/lila/issues/14324)
-      retro.noarg = trans.noarg;
       retro.trans = trans;
+      retro.noarg = trans.noarg.bind(trans);
       analysis.redraw();
     };
 
@@ -172,6 +171,18 @@
       this.interval = parent.global.setInterval(this.handleButton, 1000);
       lichess.pubsub.on('lichessTools.chapterChange', this.closeRetro);
       lichess.pubsub.on('lichessTools.redraw', this.translateRetro);
+
+      // learnFromThisMistake translation uses the analysis.trans object (https://github.com/lichess-org/lila/issues/14324)
+      if (analysis.trans?.noarg && !parent.isWrappedFunction(analysis.trans.noarg,'studyLearnFromMistakes')) {
+        analysis.trans.noarg = parent.wrapFunction(analysis.trans.noarg,{
+          id: 'studyLearnFromMistakes',
+          after: ($this, result, ...args)=>{
+            if (args[0]==='learnFromThisMistake') {
+              return parent.translator.noarg(...args);
+            }
+          }
+        })
+      }
     }
 
   }

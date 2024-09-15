@@ -54,6 +54,24 @@
       pluralSame: function (key, count, ...args) {
         return this.plural(key, count, count, ...args);
       },
+      vdom: function(key, ...args) {
+        const str = this.noarg(key);
+        return str ? this.list(str,args) : [key];
+      },
+      list: function(str, args) {
+        const segments = str.split(/(%(?:\d\$)?s)/g);
+        if (!args?.length) return segments;
+        const singlePlaceholder = segments.indexOf('%s');
+        if (singlePlaceholder !== -1) {
+          segments[singlePlaceholder] = args[0];
+        } else {
+          for (let i = 0; i < args.length; i++) {
+            const placeholder = segments.indexOf('%' + (i + 1) + '$s');
+            if (placeholder !== -1) segments[placeholder] = args[i];
+          }
+        }
+        return segments;
+      }
     };
 
     isDev = () => {
