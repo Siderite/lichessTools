@@ -45,11 +45,17 @@
       });
     };
 
+    dragover = (ev) => {
+      if (ev?.dataTransfer?.getData('dnd/lichessTools-resizeExplorer')=='dragging') {
+        this.dragDivider(ev);
+      }
+    };
+
     dragDivider = (ev) => {
       if (!ev?.pageY) return;
       const parent = this.lichessTools;
       const $ = parent.$;
-      const tools = $('main.analyse .analyse__tools');
+      const tools = $	('main.analyse .analyse__tools');
       const explorerBox = $('section.explorer-box', tools);
       const th = tools.height();
       const hh = $('.ceval', tools).height() + ($('.pv_box', tools).height() || 0);
@@ -70,7 +76,8 @@
     addDividerDirect = () => {
       const parent = this.lichessTools;
       const $ = parent.$;
-      const explorerBox = $('main.analyse .analyse__tools .explorer-box');
+      const toolsElem = $('main.analyse .analyse__tools ');
+      const explorerBox = toolsElem.find('.explorer-box');
       let divider = $('.lichessTools-resizeExplorer', explorerBox.parent());
       if (!explorerBox.length) {
         divider.remove();
@@ -82,11 +89,15 @@
         }
         return;
       }
+      toolsElem
+        .off('dragover',this.dragover)
+        .on('dragover',this.dragover);
       divider = $('<div class="lichessTools-resizeExplorer">')
         .append('<div>')
         .prop('draggable', true)
         .on('drag', this.dragDivider)
         .on('dragstart', ev => {
+          ev.dataTransfer.setData('dnd/lichessTools-resizeExplorer','dragging');
           $(ev.currentTarget).addClass('dragging');
           $('body')
             .on('dragenter dragover', this.controlCursor);
