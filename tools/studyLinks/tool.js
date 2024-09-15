@@ -103,6 +103,11 @@
 
     handleVideoClick = (ev) => {
       const parent = this.lichessTools;
+      const supportsCredentialless = !!parent.global.HTMLIFrameElement?.prototype?.hasOwnProperty('credentialless');
+      if (!supportsCredentialless) {
+        console.warn('This browser does not support credentialless iframes. Video popups cannot work!');
+        return;
+      }
       const $ = parent.$;
       const url = this.getVideoUrl(ev.target);
       if (url) {
