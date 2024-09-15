@@ -2,7 +2,7 @@ body.lichessTools .lichessTools-title {
   filter: invert(1);
 }
 
-body.lichessTools .lichessTools-title:not(:has(td)) {
+body.lichessTools .lichessTools-title:not(:has(+ tr)) {
   display: none;
 }
 
