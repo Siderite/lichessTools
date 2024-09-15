@@ -439,6 +439,7 @@
       if (!isLoggedIn) {
         lichess.pubsub.on('dasher.toggle', this.addPreferencesMenu);
       }
+      $('#user_tag').trigger('mouseover'); //hack to temporarily fix https://github.com/lichess-org/lila/issues/15079
 
       if (!$('main.account').length && !isLoggedOutTeams) {
         return;

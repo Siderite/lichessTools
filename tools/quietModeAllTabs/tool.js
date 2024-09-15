@@ -72,6 +72,7 @@
 
     async start() {
       const parent = this.lichessTools;
+      const $ = parent.$;
       const value = parent.currentOptions.getValue('quietModeAllTabs');
       this.logOption('Quiet mode all tabs', value);
       this.options = {
@@ -90,6 +91,8 @@
         return;
       }
       lichess.pubsub.on('dasher.toggle', this.addQuietModeMenu);
+      $('#user_tag').trigger('mouseover'); //hack to temporarily fix https://github.com/lichess-org/lila/issues/15079
+
       if (!isProperty) {
         const quietMode = lichess.quietMode;
         const storage = parent.storage;
