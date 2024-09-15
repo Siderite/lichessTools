@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Sep
+
+- added support for Firefox
+
 31 Aug
 
 - added sharpness to extra chart
