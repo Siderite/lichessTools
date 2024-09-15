@@ -123,7 +123,7 @@
       const svgs = board.parent().children('svg').get();
       svgs.forEach(async (e) => {
         const img = await this.drawSvg(e);
-        ctx.drawImage(img, 0, 0);
+        ctx.drawImage(img, 0, 0, $(e).width()*q, $(e).height()*q);
       });
       $('dialog.lichessTools-boardImage').remove();
       const dialog = $('<dialog class="lichessTools-boardImage">')
