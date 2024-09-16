@@ -75,7 +75,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - play again from where you entered Preview mode in Interactive Lessons and collapsible Interactive Lesson chapter controls
 - use Stockfish on Brave browser
 - learn from your mistakes in Study chapters
-- pin studies and broadcasts to home page
+- pin studies and broadcasts to home page, hide spoilers on broadcasts
 - community forum
 - PGN editor (merge, split, normalize, count, search, cut)
 - play lag chart

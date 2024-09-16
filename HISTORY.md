@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Sep
+
+- added no spoilers tool
+
 15 Sep
 
 - added support for Firefox

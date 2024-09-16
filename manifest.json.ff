@@ -133,6 +133,7 @@
 				"tools/studyLinks/tool.js",
 				"tools/konami/tool.js",
 				"tools/cevalLineOptions/tool.js",
+                "tools/noSpoilers/tool.js",
 
 				"tools/hideBoardCommand/tool.js",
 				"tools/trapValueCommand/tool.js",
@@ -152,6 +153,7 @@
 				"tools/themes/slimArrows.css",
 				"tools/themes/flairX.css",
 				"tools/themes/lessIcons.css",
+                "tools/noSpoilers/tool.css",
 				"tools/themes/nonStickyHeader.css",
 				"tools/themes/noStudyChat.css",
 				"tools/themes/pieceDrag.css",
