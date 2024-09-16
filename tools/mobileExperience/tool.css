@@ -14,44 +14,50 @@ body.lichessTools main.analyse.lichessTools-hideOctopus img.mascot {
 }
 
 body.lichessTools main.analyse.lichessTools-hideOctopus .gamebook .comment:after {
-  left:15%;
+  left: 15%;
   transform: skew(136deg) rotate(45deg);
 }
 
 body.lichessTools main.analyse.lichessTools-hideOctopus .gamebook .floor:after {
-  display:none;
+  display: none;
 }
 
 body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   padding-bottom: 0.5em;
   flex: 0 0 2em;
 }
+
 body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing:hover {
-  background: initial; /* fix for Kiwi mobile hover bug */
+  background: initial;
+  /* fix for Kiwi mobile hover bug */
   color: initial;
 }
+
 body.lichessTools button.lichessTools-shapeDrawing.lichessTools-greenBrush {
-  background:#629924;
-  color:white;
+  background: #629924;
+  color: white;
 }
+
 body.lichessTools button.lichessTools-shapeDrawing.lichessTools-redBrush {
-  background:#992424;
-  color:white;
+  background: #992424;
+  color: white;
 }
+
 body.lichessTools button.lichessTools-shapeDrawing.lichessTools-blueBrush {
-  background:#362499;
-  color:white;
+  background: #362499;
+  color: white;
 }
+
 body.lichessTools button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
-  background:#979924;
-  color:black;
+  background: #979924;
+  color: black;
 }
 
 body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
   flex: 1 1 1em;
   font-size: 1.5em;
   margin-top: -0.6em;
-}                     
+}
 
 body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disabled) .lichessTools-randomNextMove {
   opacity: .5;
@@ -62,18 +68,22 @@ body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disab
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls:not(.lichessTools-liveStatus) {
     display: inline-grid;
   }
+
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls div.features {
     grid-row: 1;
     grid-column: 1/span 8;
   }
+
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button[data-act="menu"] {
     grid-row: 1;
     grid-column: 9/span 2;
   }
+
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls div.jumps {
     grid-row: 2;
     grid-column: 2/span 8;
   }
+
   body.lichessTools.mobile.lichessTools-evaluationStarted.lichessTools-mobileExperience .lichessTools-liveStatus {
     top: 5em;
     display: inline-grid;
@@ -85,25 +95,24 @@ body.lichessTools div.lichessTools-boardOverlay {
 }
 
 body.lichessTools div.lichessTools-boardOverlay.lichessTools-passthrough {
-  pointer-events:none;
+  pointer-events: none;
 }
 
 body.lichessTools div.lichessTools-boardOverlay cg-board,
-body.lichessTools div.lichessTools-boardOverlay coords
-{
-  opacity:0;
+body.lichessTools div.lichessTools-boardOverlay coords {
+  opacity: 0;
 }
 
 body.lichessTools.mobile main.lichessTools-standardButtons rm6 div.buttons {
-  display:flex;
+  display: flex;
 }
 
-body.lichessTools.mobile main.lichessTools-standardButtons rm6 div.buttons > a {
+body.lichessTools.mobile main.lichessTools-standardButtons rm6 div.buttons>a {
   align-self: center;
 }
 
-body.lichessTools.mobile main.lichessTools-standardButtons div.col1-moves > button[data-ply] {
-  display:none;
+body.lichessTools.mobile main.lichessTools-standardButtons div.col1-moves>button[data-ply] {
+  display: none;
 }
 
 body.lichessTools.mobile main div.rcontrols .fbt {
@@ -120,9 +129,9 @@ body.lichessTools.mobile main div.rcontrols .board-menu-toggle {
 }
 
 body.lichessTools.mobile.playing.lichessTools-lockBoard {
-  overflow-y:hidden;
+  overflow-y: hidden;
   touch-action: pan-x pan-y;
-  position:fixed;
+  position: fixed;
 }
 
 body.lichessTools.mobile.playing div.lichessTools-lockBoard:before {
@@ -131,19 +140,21 @@ body.lichessTools.mobile.playing div.lichessTools-lockBoard:before {
 
 body.lichessTools.mobile:not(.lichessTools-lockBoard) div.lichessTools-lockBoard {
   transform: rotate(60deg);
-  opacity:0.3;
+  opacity: 0.3;
 }
 
 
 body.lichessTools:not(.mobile) div.lichessTools-lockBoard,
 body.lichessTools:not(.playing) div.lichessTools-lockBoard {
-  display:none;
+  display: none;
 }
 
 body.lichessTools.mobile button.hidden+button.lichessTools-shapeDrawing {
-  display:none;
+  display: none;
 }
+
 @media (max-width: 799.29px) and (orientation: portrait) {
+
   body.lichessTools.mobile main.lichessTools-invert .round__app .ruser-bottom,
   body.lichessTools.mobile main.lichessTools-invert .round__app .ruser-top {
     justify-self: end;
@@ -168,28 +179,32 @@ body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .g
   }
 }
 
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons > button:hover ,
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons > button:hover {
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons>button:hover,
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons>button:hover {
   background: initial !important;
   color: initial !important;
 }
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-greenBrush:hover ,
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons >  button.lichessTools-shapeDrawing.lichessTools-greenBrush:hover {
-  background:#629924 !important;
-  color:white !important;
+
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons>button.lichessTools-shapeDrawing.lichessTools-greenBrush:hover,
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons>button.lichessTools-shapeDrawing.lichessTools-greenBrush:hover {
+  background: #629924 !important;
+  color: white !important;
 }
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-redBrush:hover ,
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons >  button.lichessTools-shapeDrawing.lichessTools-redBrush:hover {
-  background:#992424 !important;
-  color:white !important;
+
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons>button.lichessTools-shapeDrawing.lichessTools-redBrush:hover,
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons>button.lichessTools-shapeDrawing.lichessTools-redBrush:hover {
+  background: #992424 !important;
+  color: white !important;
 }
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-blueBrush:hover ,
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons >  button.lichessTools-shapeDrawing.lichessTools-blueBrush:hover {
-  background:#362499 !important;
-  color:white !important;
+
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons>button.lichessTools-shapeDrawing.lichessTools-blueBrush:hover,
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons>button.lichessTools-shapeDrawing.lichessTools-blueBrush:hover {
+  background: #362499 !important;
+  color: white !important;
 }
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons >  button.lichessTools-shapeDrawing.lichessTools-yellowBrush:hover ,
-body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons >  button.lichessTools-shapeDrawing.lichessTools-yellowBrush:hover {
-  background:#979924 !important;
-  color:black !important;
+
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons rm6 div.buttons>button.lichessTools-shapeDrawing.lichessTools-yellowBrush:hover,
+body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons div.rcontrols div.ricons>button.lichessTools-shapeDrawing.lichessTools-yellowBrush:hover {
+  background: #979924 !important;
+  color: black !important;
 }

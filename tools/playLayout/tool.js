@@ -1,18 +1,18 @@
-(()=>{
+(() => {
   class PlayLayoutTool extends LiChessTools.Tools.ToolBase {
 
-    preferences=[
+    preferences = [
       {
-        name:'playLayout',
+        name: 'playLayout',
         category: 'play',
-        type:'single',
-        possibleValues: ['normal','noSide','smallSide','smallSideable'],
+        type: 'single',
+        possibleValues: ['normal', 'noSide', 'smallSide', 'smallSideable'],
         defaultValue: 'normal'
       }
     ];
 
-    intl={
-      'en-US':{
+    intl = {
+      'en-US': {
         'options.play': 'Play',
         'options.playLayout': 'Play layout',
         'playLayout.normal': 'Normal',
@@ -21,7 +21,7 @@
         'playLayout.smallSideable': 'Option to hide chat',
         'toggleLayoutTitle': 'LiChess Tools - click on the icon to hide/show chat'
       },
-      'ro-RO':{
+      'ro-RO': {
         'options.play': 'Joc',
         'options.playLayout': 'Aranjament vizual',
         'playLayout.normal': 'Normal',
@@ -32,12 +32,12 @@
       }
     }
 
-    toggleLayout=(ev)=>{
-      const parent=this.lichessTools;
-      const $=parent.$;
+    toggleLayout = (ev) => {
+      const parent = this.lichessTools;
+      const $ = parent.$;
       if (!$(ev.target).is('.game__meta__infos')) return;
       ev.preventDefault();
-      switch(this.options.value) {
+      switch (this.options.value) {
         case 'noSide':
           $('body').toggleClass('lichessTools-noSide');
           break;
@@ -51,48 +51,48 @@
       }
     };
 
-    applyLayout=()=>{
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      const $=parent.$;
-      const trans=parent.translator;
+    applyLayout = () => {
+      const parent = this.lichessTools;
+      const lichess = parent.lichess;
+      const $ = parent.$;
+      const trans = parent.translator;
       $('.playing main.round .game__meta__infos')
         .removeClass('lichessTools-pointer')
         .removeAttr('title')
-        .off('click',this.toggleLayout);
-      if (this.options.value!='normal') {
+        .off('click', this.toggleLayout);
+      if (this.options.value != 'normal') {
         $('.playing main.round .game__meta__infos')
           .addClass('lichessTools-pointer')
-          .attr('title',trans('toggleLayoutTitle'))
-          .on('click',this.toggleLayout);
+          .attr('title', trans.noarg('toggleLayoutTitle'))
+          .on('click', this.toggleLayout);
       }
     };
 
     async start() {
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      const $=parent.$;
-      const value=parent.currentOptions.getValue('playLayout');
-      this.options={ value: value };
+      const parent = this.lichessTools;
+      const lichess = parent.lichess;
+      const $ = parent.$;
+      const value = parent.currentOptions.getValue('playLayout');
+      this.options = { value: value };
       this.logOption('Play layout', value);
       this._control = $('main.round .game__meta__infos')[0];
       if (!this._control) return;
       $('body')
-        .toggleClass('lichessTools-noSide',value=='noSide')
-        .toggleClass('lichessTools-smallSide',value=='smallSide');
+        .toggleClass('lichessTools-noSide', value == 'noSide')
+        .toggleClass('lichessTools-smallSide', value == 'smallSide');
       parent.global.clearInterval(this.interval);
-      if (value!='normal') {
-        this.interval = parent.global.setInterval(()=>{
-          const control=$('main.round .game__meta__infos')[0];
+      if (value != 'normal') {
+        this.interval = parent.global.setInterval(() => {
+          const control = $('main.round .game__meta__infos')[0];
           if (this._control != control) {
             this._control = control;
             this.applyLayout();
           }
-        },1000);
+        }, 1000);
       }
       this.applyLayout();
     }
 
   }
-  LiChessTools.Tools.PlayLayout=PlayLayoutTool;
+  LiChessTools.Tools.PlayLayout = PlayLayoutTool;
 })();

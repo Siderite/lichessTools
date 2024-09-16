@@ -1,46 +1,46 @@
-(()=>{
+(() => {
   class RemoveChatLinkWarningTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=[ 'InterceptEventHandlers' ];
+    dependencies = ['InterceptEventHandlers'];
 
-    preferences=[
+    preferences = [
       {
-        name:'removeChatLinkWarning',
+        name: 'removeChatLinkWarning',
         category: 'general',
-        type:'single',
-        possibleValues: [false,true],
+        type: 'single',
+        possibleValues: [false, true],
         defaultValue: true,
         advanced: true,
         needsLogin: true
       }
     ];
 
-    intl={
-      'en-US':{
+    intl = {
+      'en-US': {
         'options.general': 'General',
         'options.removeChatLinkWarning': 'Remove chat link warning'
       },
-      'ro-RO':{
+      'ro-RO': {
         'options.general': 'General',
         'options.removeChatLinkWarning': 'F\u0103r\u0103 alerte la linkuri din chat'
       }
     }
 
-    initControls=()=>{
-      const parent=this.lichessTools;
-      const $=parent.$;
-      $('div.link-popup-ready').each((i,e)=>{
+    initControls = () => {
+      const parent = this.lichessTools;
+      const $ = parent.$;
+      $('div.link-popup-ready').each((i, e) => {
         if (e.removeChatLinkWarningInit) return;
-        parent.removeEventHandlers(e,'click');
-        e.removeChatLinkWarningInit=true;
+        parent.removeEventHandlers(e, 'click');
+        e.removeChatLinkWarningInit = true;
       });
     };
 
     async start() {
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      const $=parent.$;
-      const value=parent.currentOptions.getValue('removeChatLinkWarning');
+      const parent = this.lichessTools;
+      const lichess = parent.lichess;
+      const $ = parent.$;
+      const value = parent.currentOptions.getValue('removeChatLinkWarning');
       this.logOption('Remove link warning', value);
       if (!parent.getUserId()) {
         parent.global.console.debug(' ... Disabled (not logged in)');
@@ -48,10 +48,10 @@
       }
       parent.global.clearInterval(this.interval);
       if (!value) return;
-      this.interval=parent.global.setInterval(this.initControls,1000);
+      this.interval = parent.global.setInterval(this.initControls, 1000);
       this.initControls();
     }
 
   }
-  LiChessTools.Tools.RemoveChatLinkWarning=RemoveChatLinkWarningTool;
+  LiChessTools.Tools.RemoveChatLinkWarning = RemoveChatLinkWarningTool;
 })();

@@ -1,49 +1,49 @@
-(()=>{
+(() => {
   class FullScreenTool extends LiChessTools.Tools.ToolBase {
 
-    preferences=[
+    preferences = [
       {
-        name:'fullScreen',
+        name: 'fullScreen',
         category: 'general',
-        type:'single',
-        possibleValues: [false,true],
+        type: 'single',
+        possibleValues: [false, true],
         defaultValue: false,
         advanced: true
       }
     ];
 
-    intl={
-      'en-US':{
+    intl = {
+      'en-US': {
         'options.general': 'General',
         'options.fullScreen': 'Easy access full screen button',
         'fullScreenTitle': 'LiChess Tools - full screen'
       },
-      'ro-RO':{
+      'ro-RO': {
         'options.general': 'General',
         'options.fullScreen': 'Buton accesibil pentru full screen',
         'fullScreenTitle': 'LiChess Tools - full screen'
       }
     }
 
-    handleResize=(ev)=>{
-      const parent=this.lichessTools;
-      const $=parent.$;
-      const isFullscreen=parent.global.screen.height==parent.global.innerHeight;
-      $('header#top').toggleClass('lichessTools-fullScreen',isFullscreen);
+    handleResize = (ev) => {
+      const parent = this.lichessTools;
+      const $ = parent.$;
+      const isFullscreen = parent.global.screen.height == parent.global.innerHeight;
+      $('header#top').toggleClass('lichessTools-fullScreen', isFullscreen);
     };
 
-    addButton=()=>{
-      const parent=this.lichessTools;
-      const trans=parent.translator;
-      const $=parent.$;
+    addButton = () => {
+      const parent = this.lichessTools;
+      const trans = parent.translator;
+      const $ = parent.$;
       if ($('div.site-buttons .lichessTools-fullScreen').length) return;
       $('<div class="lichessTools-fullScreen">').append(
         $('<button class="link">')
           .append($('<span>')
-                    .attr('data-icon','\u26F6')
-                    .attr('title',trans.noarg('fullScreenTitle'))
+            .attr('data-icon', '\u26F6')
+            .attr('title', trans.noarg('fullScreenTitle'))
           )
-          .on('click',ev=>{
+          .on('click', ev => {
             ev.preventDefault();
             parent.global.document.documentElement.requestFullscreen();
           })
@@ -51,9 +51,9 @@
     };
 
     async start() {
-      const parent=this.lichessTools;
-      const $=parent.$;
-      const value=parent.currentOptions.getValue('fullScreen');
+      const parent = this.lichessTools;
+      const $ = parent.$;
+      const value = parent.currentOptions.getValue('fullScreen');
       this.logOption('Full screen button', value);
       $('div.lichessTools-fullScreen').remove();
       $('header#top').removeClass('lichessTools-fullScreen');
@@ -67,5 +67,5 @@
     }
 
   }
-  LiChessTools.Tools.FullScreen=FullScreenTool;
+  LiChessTools.Tools.FullScreen = FullScreenTool;
 })();

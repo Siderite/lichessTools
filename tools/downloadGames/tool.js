@@ -1,42 +1,42 @@
-(()=>{
+(() => {
   class DownloadGamesTool extends LiChessTools.Tools.ToolBase {
 
-    preferences=[
+    preferences = [
       {
-        name:'downloadGames',
+        name: 'downloadGames',
         category: 'general',
-        type:'single',
-        possibleValues: [false,true],
+        type: 'single',
+        possibleValues: [false, true],
         defaultValue: true,
         advanced: true
       }
     ];
 
-    intl={
-      'en-US':{
+    intl = {
+      'en-US': {
         'options.general': 'General',
         'options.downloadGames': 'Download games in Advanced Search',
         'downloadingText': 'Downloading... %s games so far',
         'downloadButtonText': 'Download',
         'downloadButtonTitle': 'LiChess Tools - Download'
       },
-      'ro-RO':{
+      'ro-RO': {
         'options.general': 'General',
         'options.downloadGames': 'Descarc\u0103 jocuri \u00een C\u0103utare Avansat\u0103'
       }
     }
 
-    downloadGames=async ()=>{
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      const $=parent.$;
-      const trans=parent.translator;
-      let url=$('div.search__result a.permalink').attr('href');
+    downloadGames = async () => {
+      const parent = this.lichessTools;
+      const lichess = parent.lichess;
+      const $ = parent.$;
+      const trans = parent.translator;
+      let url = $('div.search__result a.permalink').attr('href');
       if (!url) return;
-      let ids=[];
+      let ids = [];
       try {
-      $('td.action div.wait').remove();
-      const waitDiv=$(`<div class="wait">
+        $('td.action div.wait').remove();
+        const waitDiv = $(`<div class="wait">
     <div class="spinner">
         <svg viewBox="-2 -2 54 54">
             <g mask="url(#mask)" fill="none">
@@ -48,51 +48,51 @@
     </div>
     <span class="lichessTools-downloading"></span>
 </div>`)
-      .appendTo($('td.action'))
-      .css('display','inline');
-      let page=1;
-      let budget=40;
-      while (page) {
-        const cost=Math.floor(Math.sqrt(page))
-        while (budget-cost<=0) {
-          await parent.timeout(6000);
-          budget++;
+          .appendTo($('td.action'))
+          .css('display', 'inline');
+        let page = 1;
+        let budget = 40;
+        while (page) {
+          const cost = Math.floor(Math.sqrt(page))
+          while (budget - cost <= 0) {
+            await parent.timeout(6000);
+            budget++;
+          }
+          const obj = await parent.net.json(url + '&page=' + page);
+          const newIds = obj?.paginator?.currentPageResults?.map(x => x.id);
+          page = obj?.paginator?.nextPage;
+          if (newIds) {
+            ids = ids.concat(newIds);
+            $('.lichessTools-downloading', waitDiv).text(trans.pluralSame('downloadingText', ids.length));
+            await parent.timeout(6000);
+            budget++;
+          }
         }
-        const obj=await parent.net.json(url+'&page='+page);
-        const newIds=obj?.paginator?.currentPageResults?.map(x=>x.id);
-        page=obj?.paginator?.nextPage;
-        if (newIds) {
-          ids=ids.concat(newIds);
-          $('.lichessTools-downloading',waitDiv).text(trans.pluralSame('downloadingText',ids.length));
-          await parent.timeout(6000);
-          budget++;
-        }
-      }
       } finally {
-      $('td.action div.wait').remove();
-      console.log(ids);
+        $('td.action div.wait').remove();
+        console.log(ids);
       }
     };
 
     async start() {
-      const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('downloadGames');
+      const parent = this.lichessTools;
+      const value = parent.currentOptions.getValue('downloadGames');
       this.logOption('Download Advanced Search games', value);
-      const lichess=parent.lichess;
-      const $=parent.$;
-      const trans=parent.translator;
+      const lichess = parent.lichess;
+      const $ = parent.$;
+      const trans = parent.translator;
       if (!value) return;
       if (!$('main').is('.search')) return;
-      const url=$('div.search__result a.permalink').attr('href');
+      const url = $('div.search__result a.permalink').attr('href');
       if (!url) return;
       $('td.action').addClass('lichessTools-download');
-      const button=$('<button type="button" class="button">')
+      const button = $('<button type="button" class="button">')
         .text(trans.noarg('downloadButtonText'))
-        .attr('title',trans.noarg('downloadButtonTitle'))
-        .on('click',this.downloadGames)
+        .attr('title', trans.noarg('downloadButtonTitle'))
+        .on('click', this.downloadGames)
         .insertAfter($('td.action button[type=submit]'));
     }
 
   }
-  LiChessTools.Tools.DownloadGames=DownloadGamesTool;
+  LiChessTools.Tools.DownloadGames = DownloadGamesTool;
 })();

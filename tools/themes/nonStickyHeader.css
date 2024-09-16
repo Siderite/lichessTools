@@ -8,9 +8,8 @@ body.lichessTools.lichessTools-theme_nonStickyHeader header#top.hide {
   transform: none;
 }
 
-body.lichessTools.lichessTools-theme_nonStickyHeader header#top.hide #topnav, 
-body.lichessTools.lichessTools-theme_nonStickyHeader header#top.hide .dropdown
-{
+body.lichessTools.lichessTools-theme_nonStickyHeader header#top.hide #topnav,
+body.lichessTools.lichessTools-theme_nonStickyHeader header#top.hide .dropdown {
   opacity: initial;
   visibility: initial;
   pointer-events: initial;

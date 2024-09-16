@@ -1,10 +1,13 @@
 /* Less icons */
 
-body.lichessTools.lichessTools-theme_lessIcons #user_tag:after { 
-  display:none;
+body.lichessTools.lichessTools-theme_lessIcons #user_tag:after {
+  display: none;
 }
 
-body.lichessTools.lichessTools-theme_lessIcons .site-title .site-icon { 
-  display:none;
+body.lichessTools.lichessTools-theme_lessIcons .site-title .site-icon {
+  display: none;
 }
 
+body.lichessTools.lichessTools-theme_lessIcons.mobile:has(.site-buttons div.lichessTools-onlineFriends) #user_tag {
+  max-width: 15em;
+}

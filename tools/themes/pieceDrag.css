@@ -20,7 +20,7 @@ body.lichessTools.lichessTools-theme_pieceDrag square.move-dest:hover {
 }
 
 body.lichessTools.lichessTools-theme_pieceDrag .is3d square.move-dest {
-  z-index:300;
+  z-index: 300;
 }
 
 body.lichessTools.lichessTools-theme_pieceDrag .is3d piece.dragging {

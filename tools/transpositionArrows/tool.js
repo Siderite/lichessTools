@@ -1,39 +1,39 @@
-(()=>{
+(() => {
   class TranspositionArrowsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['EmitRedraw','RandomVariation'];
+    dependencies = ['EmitRedraw', 'RandomVariation'];
 
-    preferences=[
+    preferences = [
       {
-        name:'transpositionArrows',
+        name: 'transpositionArrows',
         category: 'analysis',
-        type:'single',
-        possibleValues: [false,true],
+        type: 'single',
+        possibleValues: [false, true],
         defaultValue: true,
         advanced: true
       }
     ];
 
-    intl={
-      'en-US':{
+    intl = {
+      'en-US': {
         'options.analysis': 'Analysis',
         'options.transpositionArrows': 'Variation arrows from transpositions'
       },
-      'ro-RO':{
+      'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.transpositionArrows': 'S\u0103ge\u0163i varia\u0163iuni din transpozi\u0163ii'
       }
     }
 
     async start() {
-      const parent=this.lichessTools;
-      const value=parent.currentOptions.getValue('transpositionArrows');
+      const parent = this.lichessTools;
+      const value = parent.currentOptions.getValue('transpositionArrows');
       this.logOption('Transposition arrows', value);
-      const lichess=parent.lichess;
-      const $=parent.$;
-      const analysis=lichess?.analysis;
+      const lichess = parent.lichess;
+      const $ = parent.$;
+      const analysis = lichess?.analysis;
       if (!analysis) return;
-      analysis.setAutoShapes = parent.unwrapFunction(analysis.setAutoShapes,'transpositionArrows');
+      analysis.setAutoShapes = parent.unwrapFunction(analysis.setAutoShapes, 'transpositionArrows');
       if (!value) return;
       analysis.setAutoShapes = parent.wrapFunction(analysis.setAutoShapes, {
         id: 'transpositionArrows',
@@ -48,5 +48,5 @@
     }
 
   }
-  LiChessTools.Tools.TranspositionArrows=TranspositionArrowsTool;
+  LiChessTools.Tools.TranspositionArrows = TranspositionArrowsTool;
 })();

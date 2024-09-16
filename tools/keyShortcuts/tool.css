@@ -20,12 +20,12 @@ body.lichessTools.lichessTools-keyMode-general main.analyse div.cg-wrap:after {
   width: 1.5em;
   height: 1.5em;
   text-align: center;
-  z-index:150;
+  z-index: 150;
 }
 
 body.lichessTools cg-container.lichessTools-freezeBoard {
-  pointer-events:none;
-  z-index:2;
+  pointer-events: none;
+  z-index: 2;
   filter: sepia(0.5);
 }
 
@@ -46,7 +46,7 @@ body.lichessTools.lichessTools-keyMode-general div.lichessTools-chapterControls 
 }
 
 body.lichessTools.lichessTools-hideSiteHeader header {
-  visibility:hidden;
+  visibility: hidden;
 }
 
 body.zen.lichessTools.lichessTools-keyMode-general #zenzone:after,
@@ -59,13 +59,12 @@ body.lichessTools.lichessTools-keyMode-general .site-name:after {
   border: 1px solid #808080;
   width: 1.5rem;
   height: 1.5rem;
-  font-size:1rem;
+  font-size: 1rem;
   text-align: center;
-  visibility:visible;
-  color:white;
+  visibility: visible;
+  color: white;
 }
 
 body.zen.lichessTools.lichessTools-keyMode-general #zenzone:after {
   right: -5rem;
 }
-

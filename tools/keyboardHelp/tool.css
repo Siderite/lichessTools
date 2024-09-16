@@ -1,18 +1,18 @@
 body.lichessTools .lichessTools-title {
-  filter:invert(1);
+  filter: invert(1);
 }
 
-body.lichessTools .lichessTools-title:not(:has(td)) {
-  display:none;
+body.lichessTools .lichessTools-title:not(:has(+ tr)) {
+  display: none;
 }
 
 body.lichessTools .lichessTools-disabled {
-  text-decoration:line-through;
-  opacity:0.5;
+  text-decoration: line-through;
+  opacity: 0.5;
 }
 
 body.lichessTools td.keys then {
-  font-size:smaller;
-  padding-left:0.2em;
-  padding-right:0.2em;
+  font-size: smaller;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
 }

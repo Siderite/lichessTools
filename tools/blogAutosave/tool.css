@@ -1,9 +1,9 @@
 body.lichessTools.lichessTools-blogAutosave p.lichessTools-saved {
-  display:block;
+  display: block;
 }
 
 body.lichessTools p.lichessTools-saved {
-  display:none;
+  display: none;
   position: fixed;
   bottom: 1rem;
   width: auto;

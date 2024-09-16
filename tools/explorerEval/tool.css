@@ -1,100 +1,100 @@
 body.lichessTools th.lichessTools-explorerEval {
-  text-align:center;
+  text-align: center;
 }
 
 body.lichessTools td.lichessTools-explorerEval {
-  font-size:smaller;
+  font-size: smaller;
 }
 
 body.lichessTools td.lichessTools-explorerEval.lichessTools-stat {
-  color:#808080;
-  opacity:0.7;
+  color: #808080;
+  opacity: 0.7;
 }
 
 
 body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
-  color:#A03030;
+  color: #A03030;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
-      color: #A08080;
+  html:not(.dark, .darkBoard, .light) body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
+    color: #A08080;
   }
 }
 
 html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-bad,
 html.darkBoard body.lichessTools td.lichessTools-explorerEval.lichessTools-bad,
 html.transp body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
-    color: #A08080;
+  color: #A08080;
 }
 
 body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
-  color:#104010;
+  color: #104010;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
-      color: #80A080;
+  html:not(.dark, .darkBoard, .light) body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
+    color: #80A080;
   }
 }
 
 html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-good,
 html.darkBoard body.lichessTools td.lichessTools-explorerEval.lichessTools-good,
 html.transp body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
-    color: #80A080;
+  color: #80A080;
 }
 
 body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
-  color:#10A010;
+  color: #10A010;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
-      color: #80FF80;
+  html:not(.dark, .darkBoard, .light) body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
+    color: #80FF80;
   }
 }
 
 html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-best,
 html.darkBoard body.lichessTools td.lichessTools-explorerEval.lichessTools-best,
 html.transp body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
-    color: #80FF80;
+  color: #80FF80;
 }
 
 body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
-  color:#1010CF;
+  color: #1010CF;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark,.darkBoard,.light) body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
-      color: #8080AF;
+  html:not(.dark, .darkBoard, .light) body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
+    color: #8080AF;
   }
 }
 
 html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud,
 html.darkBoard body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud,
 html.transp body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
-    color: #8080AF;
+  color: #8080AF;
 }
 
 body.lichessTools tr.lichessTools-warning-red:after,
 body.lichessTools tr.lichessTools-warning-green:after,
 body.lichessTools tr.lichessTools-warning-blue:after {
-  content:'\26A0';
+  content: '\26A0';
   position: relative;
   font-size: smaller;
   margin-left: -1em;
 }
 
 body.lichessTools tr.lichessTools-warning-red:after {
-  color:#A08080;
+  color: #A08080;
 }
 
 body.lichessTools tr.lichessTools-warning-green:after {
-  color:#80A080;
+  color: #80A080;
 }
 
 body.lichessTools tr.lichessTools-warning-blue:after {
-  color:#8080A0;
+  color: #8080A0;
 }
 
 body.lichessTools section.explorer-box td.lichessTools-evalRow {
@@ -102,7 +102,6 @@ body.lichessTools section.explorer-box td.lichessTools-evalRow {
 }
 
 body.lichessTools section.explorer-box table.moves:has(.lichessTools-explorerEval) td:nth-child(4):last-child {
-  position:absolute;
+  position: absolute;
   width: -webkit-fill-available;
 }
-

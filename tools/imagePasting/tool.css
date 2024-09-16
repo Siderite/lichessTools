@@ -1,5 +1,5 @@
-body.lichessTools textarea.lichessTools-imagePasting + .ddloader {
-  float:right;
+body.lichessTools textarea.lichessTools-imagePasting+.ddloader {
+  float: right;
   height: 1em;
 }
 
@@ -8,5 +8,5 @@ body.lichessTools textarea.lichessTools-imagePasting {
 }
 
 body.lichessTools t.lichessTools-bigEmoji {
-  font-size:2.5em;
+  font-size: 2.5em;
 }

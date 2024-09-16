@@ -1,16 +1,16 @@
 body.lichessTools button.lichessTools-expandAll {
   background: transparent;
   font-size: 1.25em;
-  border:0.5px gray solid;
+  border: 0.5px gray solid;
   flex-basis: 6%;
 }
 
-body.lichessTools button.lichessTools-expandAll + index {
+body.lichessTools button.lichessTools-expandAll+index {
   flex-basis: 6.66%;
 }
 
 @media print {
   body.lichessTools button.lichessTools-expandAll {
-    display:none;
+    display: none;
   }
 }

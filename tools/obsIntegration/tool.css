@@ -4,12 +4,12 @@ html:has(body.lichessTools dialog.lichessTools-obsSetup) {
 
 
 body.lichessTools nav.relay-tour__tabs span.lichessTools-obsSetup {
-  border-radius:5px;
+  border-radius: 5px;
 }
 
 body.lichessTools span.lichessTools-obsSetup.disabled {
-  color:gray;
-  opacity:0.5;
+  color: gray;
+  opacity: 0.5;
 }
 
 .togglePassword {
@@ -30,7 +30,7 @@ body.lichessTools dialog.lichessTools-obsSetup {
 }
 
 body.lichessTools dialog.lichessTools-obsSetup button.close-button {
-  transform:none;
+  transform: none;
 }
 
 body.lichessTools dialog.lichessTools-obsSetup a.help-button {
@@ -66,7 +66,7 @@ body.lichessTools dialog.lichessTools-obsSetup .advanced {
 }
 
 body.lichessTools dialog.lichessTools-obsSetup .advanced {
-  margin-top:2em;
+  margin-top: 2em;
 }
 
 body.lichessTools dialog.lichessTools-obsSetup .mappings label,
@@ -76,11 +76,11 @@ body.lichessTools dialog.lichessTools-obsSetup .advanced label {
 
 body.lichessTools dialog.lichessTools-obsSetup .mappings .defaultName {
   font-weight: bold;
-  margin-bottom:1em;
+  margin-bottom: 1em;
 }
 
 body.lichessTools dialog.lichessTools-obsSetup .actionButtons {
   display: flex;
   justify-content: flex-end;
-  padding:1em;
+  padding: 1em;
 }

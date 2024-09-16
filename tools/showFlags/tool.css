@@ -3,8 +3,8 @@ body.lichessTools img.flag {
   align-self: center;
   /*justify-self: end;/* conflict with LiTags extension */
   vertical-align: baseline;
-  margin-left:5px;
-  margin-right:auto;
+  margin-left: 5px;
+  margin-right: auto;
 }
 
 body.lichessTools .fide-federation img.flag {
@@ -12,7 +12,7 @@ body.lichessTools .fide-federation img.flag {
 }
 
 body.lichessTools .fide-player__federation img.flag,
-body.lichessTools .fide-federations img.flag	{
+body.lichessTools .fide-federations img.flag {
   margin-right: 1ch;
 }
 
@@ -26,7 +26,7 @@ body.lichessTools div.player img.flag {
 
 /* for list of tournament players */
 body.lichessTools td.player {
-  display:inline-flex;
+  display: inline-flex;
 }
 
 /* for blog */
@@ -38,17 +38,17 @@ body.lichessTools span.ublog-post-card__content img.flag {
 }
 
 body.lichessTools .ublog-post__meta img.flag {
-  margin-left:-0.5em;
+  margin-left: -0.5em;
 }
 
 body.lichessTools .ublog-post__markup img.flag {
   display: inline-block;
-  max-height:1.25em;
+  max-height: 1.25em;
 }
 
 /* for berserk mode overlapping the flag */
 body.lichessTools .game__meta .user-link+img.flag+i[data-icon] {
-  margin-left:2.5em;
+  margin-left: 2.5em;
 }
 
 body.lichessTools span.mini-game__user img.flag {

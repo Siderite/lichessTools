@@ -1,13 +1,13 @@
-(()=>{
+(() => {
   class TimelineNotifyTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=['AddNotifications'];
+    dependencies = ['AddNotifications'];
 
-    preferences=[
+    preferences = [
       {
-        name:'timelineNotify',
+        name: 'timelineNotify',
         category: 'general',
-        type:'multiple',
+        type: 'multiple',
         possibleValues: [
           'forum-post',
           'ublog-post',
@@ -31,8 +31,8 @@
       }
     ];
 
-    intl={
-      'en-US':{
+    intl = {
+      'en-US': {
         'options.general': 'General',
         'options.timelineNotify': 'Timeline notifications',
         'timeline': 'Timeline',
@@ -54,7 +54,7 @@
         'timelineNotify.plan-start': 'Become patron',
         'timelineNotify.plan-renew': 'Renew patron'
       },
-      'ro-RO':{
+      'ro-RO': {
         'options.general': 'General',
         'options.timelineNotify': 'Notific\u0103ri la activitate recent\u0103',
         'timeline': 'Activitate recent\u0103',
@@ -78,24 +78,23 @@
       }
     }
 
-    setAllRead=()=>{
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      this.lastRead=Date.now();
-      lichess.storage.set('LiChessTools.lastRead',this.lastRead);
+    setAllRead = () => {
+      const parent = this.lichessTools;
+      this.lastRead = Date.now();
+      parent.storage.set('LiChessTools.lastRead', this.lastRead);
       parent.notifications.refresh();
     };
 
     async start() {
-      const parent=this.lichessTools;
-      const lichess=parent.lichess;
-      const $=parent.$;
-      const trans=parent.translator;
-      const value=parent.currentOptions.getValue('timelineNotify');
-      switch(value) {
-        case true: this.types=this.preferences[0].defaultValue.split(','); break;
-        case false: this.types=[]; break;
-        default: this.types=value?.split(','); break;
+      const parent = this.lichessTools;
+      const lichess = parent.lichess;
+      const $ = parent.$;
+      const trans = parent.translator;
+      const value = parent.currentOptions.getValue('timelineNotify');
+      switch (value) {
+        case true: this.types = this.preferences[0].defaultValue.split(','); break;
+        case false: this.types = []; break;
+        default: this.types = value?.split(','); break;
       }
       this.logOption('Timeline notifications', value);
       if (!parent.getUserId()) {
@@ -105,34 +104,34 @@
       if (!value) return;
 
       if (/^\/timeline/i.test(parent.global.location.pathname)) this.setAllRead();
-      const notification={
-        getEntries: async ()=>{
-          this.lastRead=+(lichess.storage.get('LiChessTools.lastRead'))||0;
-          const timeline=await parent.api.timeline.get(this.lastRead);
+      const notification = {
+        getEntries: async () => {
+          this.lastRead = +(parent.storage.get('LiChessTools.lastRead')) || 0;
+          const timeline = await parent.api.timeline.get(this.lastRead);
           if (!timeline) return [];
-          const newEntries=timeline.entries
-            .filter(e=>e.date>this.lastRead)
-            .filter(e=>this.types.includes(e.type));
-          const justNotified=+(lichess.storage.get('just-notified'))||0;
+          const newEntries = timeline.entries
+            .filter(e => e.date > this.lastRead)
+            .filter(e => this.types.includes(e.type));
+          const justNotified = +(parent.storage.get('just-notified')) || 0;
           if (!newEntries
-                  .find(e=>e.date>justNotified)) return [];
-          const entry={
+            .find(e => e.date > justNotified)) return [];
+          const entry = {
             id: 'timelineNotify',
             isNew: true,
             icon: '\uE058',
             href: '/timeline',
             content: $('<div>')
-                       .append($('<span>').text(trans.noarg('timeline')))
-                       .append($('<span>').text(trans.pluralSame('timelineNotification',newEntries.length)))
-                     .html(),
+              .append($('<span>').text(trans.noarg('timeline')))
+              .append($('<span>').text(trans.pluralSame('timelineNotification', newEntries.length)))
+              .html(),
             title: trans.noarg('timelineNotifyTitle')
           };
-          return [ entry ];
+          return [entry];
         }
       };
       parent.notifications.add(notification);
     }
 
   }
-  LiChessTools.Tools.TimelineNotify=TimelineNotifyTool;
+  LiChessTools.Tools.TimelineNotify = TimelineNotifyTool;
 })();

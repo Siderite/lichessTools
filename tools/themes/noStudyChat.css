@@ -10,7 +10,7 @@
   }
 
   body.lichessTools.lichessTools-theme_noStudyChat main.analyse:not(.is-relay) .mchat {
-    display:none;
+    display: none;
   }
 
   body.lichessTools.lichessTools-theme_noStudyChat main.analyse:not(.is-relay) .study__chapters {

@@ -3,53 +3,53 @@ body.lichessTools .study__buttons span:has(count) {
 }
 
 body.lichessTools .lichessTools-red {
-  color:#ff2020;
+  color: #ff2020;
   text-shadow: 0.25px 0.25px 0px darkgray;
 }
 
 body.lichessTools .lichessTools-blue {
-  color:#2020ff;
+  color: #2020ff;
   text-shadow: 0.25px 0.25px 0px darkgray;
 }
 
 body.lichessTools .lichessTools-green {
-  color:#40AF40;
+  color: #40AF40;
 }
 
 body.lichessTools .lichessTools-yellow {
-  color:#eeee00;
+  color: #eeee00;
   text-shadow: 0.1px 0.5px 0px gray;
 }
 
 body.lichessTools .lichessTools-pink {
-  color:#ff99aa;
+  color: #ff99aa;
 }
 
 body.lichessTools .lichessTools-lightblue {
-  color:#77bbdd;
+  color: #77bbdd;
   text-shadow: 0.25px 0.25px 0px darkgray;
 }
 
 body.lichessTools .lichessTools-lightgreen {
-  color:#77cc77;
+  color: #77cc77;
   text-shadow: 0.25px 0.25px 0px darkgray;
 }
 
 body.lichessTools .lichessTools-orange {
-  color:#ff9900;
+  color: #ff9900;
 }
 
 body.lichessTools .lichessTools-cyan {
-  color:#00dfd0;
+  color: #00dfd0;
   text-shadow: 0.1px 0.5px 0px gray;
 }
 
 body.lichessTools .lichessTools-magenta {
-  color:#ff20ff;
+  color: #ff20ff;
 }
 
 body.lichessTools .lichessTools-violet {
-  color:#bb77ee;
+  color: #bb77ee;
 }
 
 body.lichessTools .lichessTools-underline {

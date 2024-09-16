@@ -1,10 +1,10 @@
 body.lichessTools span.lichessTools-pin.lichessTools-pinned {
   transform: translate(0, 0.3em) rotate(320deg);
-  clip-path: polygon(0% 0%,100% 0%,100% 100%,0% 25%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 25%);
 }
 
 body.lichessTools a.lichessTools-pin {
-  display:flex;
+  display: flex;
 }
 
 body.lichessTools a.lichessTools-pin span.content {
@@ -20,13 +20,13 @@ body.lichessTools a.lichessTools-pin span.name {
 
 body.lichessTools a.lichessTools-pin i.img:before {
   filter: grayscale(1);
-  font-size:2em;
+  font-size: 2em;
 }
 
 body.lichessTools a.lichessTools-pin:hover span.lichessTools-unpin {
-  color:initial;
+  color: initial;
 }
 
 body.lichessTools a.lichessTools-pin:hover span.lichessTools-unpin:hover {
-  color:red;
+  color: red;
 }

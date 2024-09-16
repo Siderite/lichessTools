@@ -3,5 +3,5 @@ body.lichessTools tr.lichessTools-addToTeam td.lichessTools-joinTeam {
 }
 
 body.lichessTools:not([data-user]) tr.lichessTools-addToTeam td.lichessTools-joinTeam button {
-  display:none;
+  display: none;
 }

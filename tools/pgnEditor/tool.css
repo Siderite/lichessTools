@@ -1,53 +1,53 @@
 body.lichessTools dialog.lichessTools-pgnEditor {
-  margin-top:0;
-  width:100%;
-  height:100%;
-  display:block;
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor button.close-button {
-  transform:none;
+  transform: none;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper {
-  display:flex;
+  display: flex;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper textarea {
-  height:80vh;
-  flex-grow:1;
-  resizable:none;
+  height: 80vh;
+  flex-grow: 1;
+  resizable: none;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button {
-  position:relative;
+  position: relative;
   text-align: left;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button span {
-  display:block;
+  display: block;
   text-align: center;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button:before {
-  position:absolute;
+  position: absolute;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button[data-role="cutPlys"]:before {
-  margin-top:-0.2em;
+  margin-top: -0.2em;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons label {
-  width:20vh;
+  width: 20vh;
 }
 
 body.lichessTools:has(dialog.lichessTools-pgnEditor) div#announce {
-  z-index:111;
+  z-index: 111;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor a.help-button {
@@ -69,19 +69,19 @@ body.lichessTools dialog.lichessTools-pgnEditor a.help-button:hover {
 
 @media screen and (max-width: 820px) {
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
-    width:3.5em;
+    width: 3.5em;
   }
 
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button {
-    min-height:2.75em;
+    min-height: 2.75em;
   }
 
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button:before {
-    top:0.66em;
+    top: 0.66em;
   }
 
-  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button span{
-    display:none;
+  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button span {
+    display: none;
   }
 
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons label {
@@ -93,5 +93,5 @@ body.lichessTools dialog.lichessTools-pgnEditor a.help-button:hover {
 }
 
 body.lichessTools .analyse__tools .action-menu__tools a.lichessTools-pgnEditor:before {
-  margin-bottom:0.5em;
+  margin-bottom: 0.5em;
 }

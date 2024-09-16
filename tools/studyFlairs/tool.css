@@ -1,45 +1,45 @@
 body.lichessTools .studies div.study.lichessTools-studyFlairs:has(.lichessTools-bottomFlairs) {
-  padding-bottom:3em;
+  padding-bottom: 3em;
 }
 
-body.lichessTools .studies div.study.lichessTools-studyFlairs div.top > img {
-  margin-right:1em;
-  width:3em;
-  opacity:0.9;
-  position:relative;
-  z-index:3;
+body.lichessTools .studies div.study.lichessTools-studyFlairs div.top>img {
+  margin-right: 1em;
+  width: 3em;
+  opacity: 0.9;
+  position: relative;
+  z-index: 3;
 }
 
 body.lichessTools .studies div.study.lichessTools-studyFlairs div.top:before {
-  content:'';
-  margin:0;
+  content: '';
+  margin: 0;
 }
 
 body.lichessTools .studies div.study.lichessTools-studyFlairs div.lichessTools-bottomFlairs {
-  max-height:1.5em;
-  overflow:hidden;
-  padding-left:2em;
-  position:absolute;
-  bottom:1em;
-  right:1em;
+  max-height: 1.5em;
+  overflow: hidden;
+  padding-left: 2em;
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
 }
 
 body.lichessTools .studies div.study.lichessTools-studyFlairs div.lichessTools-bottomFlairs img {
-  display:inline;
-  max-width:1.5em;
-  position:relative;
-  z-index:3;
+  display: inline;
+  max-width: 1.5em;
+  position: relative;
+  z-index: 3;
 }
 
 body.lichessTools div.topic-list a.lichessTools-studyFlairs img,
 body.lichessTools a.lichessTools-studyFlairs img,
 body.lichessTools div.tagify__dropdown div.lichessTools-studyFlairs img,
 body.lichessTools tag.lichessTools-studyFlairs img {
-  max-width:1.5em;
+  max-width: 1.5em;
 }
 
 body.lichessTools button.lichessTools-studyFlairs {
-  float:left;
-  filter:saturate(0.5);
+  float: left;
+  filter: saturate(0.5);
   margin-right: 2em;
 }

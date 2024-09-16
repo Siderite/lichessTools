@@ -1,25 +1,25 @@
-(()=>{
+(() => {
   class AddToTeamTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies=[ 'AddNotifications' ];
+    dependencies = ['AddNotifications'];
 
-    preferences=[
+    preferences = [
       {
-        name:'addToTeam',
+        name: 'addToTeam',
         category: 'community',
-        type:'multiple',
-        possibleValues: ['hideForum','forumBottom','noNotifications'],
+        type: 'multiple',
+        possibleValues: ['hideForum', 'forumBottom', 'noNotifications'],
         defaultValue: false,
         offValue: 'hideForum,noNotifications',
         needsLogin: true
       }
     ];
 
-    teamId='l1chess-tools-users-team';
-    teamName='L1Chess Tools Users Team';
+    teamId = 'l1chess-tools-users-team';
+    teamName = 'L1Chess Tools Users Team';
 
-    intl={
-      'en-US':{
+    intl = {
+      'en-US': {
         'options.community': 'Community',
         'options.addToTeam': 'LiChess Tools team',
         'addToTeam.hideForum': 'Hide forum entry',
@@ -31,7 +31,7 @@
         'welcomeToTeam': 'Welcome to the LiChess Tools user team!',
         'byeFromTeam': 'Sorry to see you go!'
       },
-      'ro-RO':{
+      'ro-RO': {
         'options.community': 'Comunitate',
         'options.addToTeam': 'Echipa LiChess Tools',
         'addToTeam.hideForum': 'Ascunde sec\u0163iunea din forum',
@@ -46,22 +46,22 @@
     }
 
     async clearJoinState() {
-      const parent=this.lichessTools;
-      parent.global.setTimeout(async ()=>{
-        parent.currentOptions['addToTeam']=false;
+      const parent = this.lichessTools;
+      parent.global.setTimeout(async () => {
+        parent.currentOptions['addToTeam'] = false;
         await parent.saveOptions(parent.currentOptions);
-      },500);
+      }, 500);
     }
 
     async joinLichessTeam() {
-      const parent=this.lichessTools;
-      const trans=parent.translator;
-      const user=parent.getUserId();
+      const parent = this.lichessTools;
+      const trans = parent.translator;
+      const user = parent.getUserId();
       if (!user) return;
-      const r=await fetch('/team/'+this.teamId+'/join',{ method: 'POST' });
+      const r = await fetch('/team/' + this.teamId + '/join', { method: 'POST' });
       if (r.ok) {
-        this.options.inTeam=true;
-        parent.global.localStorage.setItem('LiChessTools.joinedTeam',Date.now());
+        this.options.inTeam = true;
+        parent.global.localStorage.setItem('LiChessTools.joinedTeam', Date.now());
         parent.announce(trans.noarg('welcomeToTeam'));
         this.clearJoinState();
       }
@@ -69,15 +69,15 @@
     }
 
     async quitLichessTeam() {
-      const parent=this.lichessTools;
-      const trans=parent.translator;
-      const user=parent.getUserId();
+      const parent = this.lichessTools;
+      const trans = parent.translator;
+      const user = parent.getUserId();
       if (!user) return;
-      const r=user=='totalnoob69'
+      const r = user == 'totalnoob69'
         ? { ok: true }
-        : await fetch('/team/'+this.teamId+'/quit',{ method: 'POST' });
+        : await fetch('/team/' + this.teamId + '/quit', { method: 'POST' });
       if (r.ok) {
-        this.options.inTeam=false;
+        this.options.inTeam = false;
         parent.global.localStorage.removeItem('LiChessTools.joinedTeam');
         parent.announce(trans.noarg('byeFromTeam'));
         this.clearJoinState();
@@ -85,54 +85,54 @@
       return r.ok;
     }
 
-    refreshTeam=async (forced)=>{
+    refreshTeam = async (forced) => {
       if (this.options.hideForum && this.options.noNotifications) return;
-      const parent=this.lichessTools;
-      const user=parent.getUserId();
+      const parent = this.lichessTools;
+      const user = parent.getUserId();
       if (!user) return;
-      const joinedTime = +parent.global.localStorage.getItem('LiChessTools.joinedTeam')||0;
-      if (!forced && joinedTime && Date.now()-joinedTime<3600000) {
-        this.inTeam=true;
+      const joinedTime = +parent.global.localStorage.getItem('LiChessTools.joinedTeam') || 0;
+      if (!forced && joinedTime && Date.now() - joinedTime < 3600000) {
+        this.inTeam = true;
         return;
       }
-      const r=await parent.net.json({url:'/api/team/of/{user}',args:{ user }});
-      this.inTeam=!!r.find(t=>t.id==this.teamId);
+      const r = await parent.net.json({ url: '/api/team/of/{user}', args: { user } });
+      this.inTeam = !!r.find(t => t.id == this.teamId);
       if (this.inTeam && !joinedTime) {
-        parent.global.localStorage.setItem('LiChessTools.joinedTeam',Date.now());
+        parent.global.localStorage.setItem('LiChessTools.joinedTeam', Date.now());
       }
     };
 
-    isForumPage=()=>{
-      return this.lichessTools.global.location.pathname=='/forum';
+    isForumPage = () => {
+      return this.lichessTools.global.location.pathname == '/forum';
     };
 
-    isTeamPage=()=>{
-      const parent=this.lichessTools;
-      return new parent.global.RegExp('\/'+parent.escapeRegex(this.teamId),'i').test(parent.global.location.pathname);
+    isTeamPage = () => {
+      const parent = this.lichessTools;
+      return new parent.global.RegExp('\/' + parent.escapeRegex(this.teamId), 'i').test(parent.global.location.pathname);
     };
 
-    updateForumPage=async ()=>{
+    updateForumPage = async () => {
       if (!this.isForumPage()) return;
-      const parent=this.lichessTools;
-      const $=parent.$;
-      const trans=parent.translator;
-      const container=$('main.forum table.categs').eq(0);
-      let row=$('tr.lichessTools-addToTeam',container);
+      const parent = this.lichessTools;
+      const $ = parent.$;
+      const trans = parent.translator;
+      const container = $('main.forum table.categs').eq(0);
+      let row = $('tr.lichessTools-addToTeam', container);
       if (this.options.hideForum) {
         row.remove();
         return;
       }
-      const existingRow=$('main.forum table.categs tr:has(a[href="/forum/team-'+this.teamId+'"])');
+      const existingRow = $('main.forum table.categs tr:has(a[href="/forum/team-' + this.teamId + '"])');
       if (!row.length) {
         if (existingRow.length) {
-          row=existingRow
-                .clone()
-                .addClass('lichessTools-addToTeam');
+          row = existingRow
+            .clone()
+            .addClass('lichessTools-addToTeam');
         } else {
           if (this.inTeam) {
             parent.global.location.reload()
           }
-          row=$(`<tr class="lichessTools-addToTeam">
+          row = $(`<tr class="lichessTools-addToTeam">
 <td class="subject">
   <h2>
     <a></a>
@@ -143,30 +143,30 @@
   <button class="button">
 </td>
 </tr>`);
-          $('h2 a',row)
+          $('h2 a', row)
             .text(this.teamName)
-            .attr('title',trans.noarg('teamTitle'))
-            .attr('href','/team/'+this.teamId);
-          const columnCount=$('tr:nth-child(1) > td',container).length;
-          $('td',row).first()
+            .attr('title', trans.noarg('teamTitle'))
+            .attr('href', '/team/' + this.teamId);
+          const columnCount = $('tr:nth-child(1) > td', container).length;
+          $('td', row).first()
             .find('p')
             .text(trans.noarg('teamSubtitle'));
-          $('td',row).last()
-            .attr('colspan',columnCount-1);
-          $('button',row)
+          $('td', row).last()
+            .attr('colspan', columnCount - 1);
+          $('button', row)
             .text(trans.noarg('joinTeamText'))
-            .on('click',async ev=>{
-               ev.preventDefault();
-               const joined=await this.joinLichessTeam();
-               if (joined) {
-                 parent.global.setTimeout(()=>parent.global.location.reload(),5000);
-               }
+            .on('click', async ev => {
+              ev.preventDefault();
+              const joined = await this.joinLichessTeam();
+              if (joined) {
+                parent.global.setTimeout(() => parent.global.location.reload(), 5000);
+              }
             });
         }
         if (this.options.forumBottom) {
-          row.insertAfter($('tr',container).last());
+          row.insertAfter($('tr', container).last());
         } else {
-          row.insertBefore($('tr',container).last());
+          row.insertBefore($('tr', container).last());
         }
       } else {
         if (!this.inTeam && existingRow.length) {
@@ -175,49 +175,49 @@
       }
     };
 
-    setVisitedTeamPage=()=>{
-      const parent=this.lichessTools;
-      parent.storage.set('addToTeam-visitedTeamPage',Date.now());
+    setVisitedTeamPage = () => {
+      const parent = this.lichessTools;
+      parent.storage.set('addToTeam-visitedTeamPage', Date.now());
     };
 
-    notifyToJoin=()=>{
-      const parent=this.lichessTools;
-      const trans=parent.translator;
+    notifyToJoin = () => {
+      const parent = this.lichessTools;
+      const trans = parent.translator;
       if (this.options.noNotifications) return;
       const isNotified = parent.storage.get('addToTeam-visitedTeamPage');
       if (isNotified) return;
-      const notification={
-        getEntries: async ()=>{
-          const entry={
+      const notification = {
+        getEntries: async () => {
+          const entry = {
             id: 'addToTeam',
             isNew: true,
             icon: '\uE059',
-            href: '/team/'+parent.global.encodeURIComponent(this.teamId),
+            href: '/team/' + parent.global.encodeURIComponent(this.teamId),
             content: $('<div>')
-                       .append($('<span>').text(trans.noarg('joinTeamText')))
-                       .append($('<span>').text(trans.noarg('teamTitle')))
-                     .html(),
+              .append($('<span>').text(trans.noarg('joinTeamText')))
+              .append($('<span>').text(trans.noarg('teamTitle')))
+              .html(),
             title: trans.noarg('teamSubtitle')
           };
-          return [ entry ];
+          return [entry];
         }
       };
       parent.notifications.add(notification);
     };
 
     async start() {
-      const parent=this.lichessTools;
+      const parent = this.lichessTools;
       if (parent.isDev()) return;
-      const value=parent.currentOptions.getValue('addToTeam');
+      const value = parent.currentOptions.getValue('addToTeam');
       this.logOption('Add to team', value);
       if (!parent.getUserId()) {
         parent.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      this.options={
-        hideForum:parent.isOptionSet(value,'hideForum'),
-        forumBottom:parent.isOptionSet(value,'forumBottom'),
-        noNotifications:parent.isOptionSet(value,'noNotifications')
+      this.options = {
+        hideForum: parent.isOptionSet(value, 'hideForum'),
+        forumBottom: parent.isOptionSet(value, 'forumBottom'),
+        noNotifications: parent.isOptionSet(value, 'noNotifications')
       };
       if (this.isTeamPage()) this.setVisitedTeamPage();
       await this.refreshTeam(this.isForumPage());
@@ -228,5 +228,5 @@
     }
 
   }
-  LiChessTools.Tools.AddToTeam=AddToTeamTool;
+  LiChessTools.Tools.AddToTeam = AddToTeamTool;
 })();

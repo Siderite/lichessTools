@@ -1,9 +1,9 @@
 body.lichessTools div.analyse__tools:not(:has(.explorer-box)) div.lichessTools-resizeExplorer {
-  display:none;
+  display: none;
 }
 
 body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer {
-  height:5px;
+  height: 5px;
   background-color: #80808080;
   cursor: ns-resize;
 }
@@ -21,12 +21,12 @@ body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer.dragging {
 }
 
 body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer.dragging div {
-  display:none;
+  display: none;
 }
 
 body.lichessTools.mobile div.analyse__tools div.lichessTools-resizeExplorer {
-  height:7px;
-  margin-top:1px;
+  height: 7px;
+  margin-top: 1px;
 }
 
 body.lichessTools.mobile div.analyse__tools div.lichessTools-resizeExplorer div {

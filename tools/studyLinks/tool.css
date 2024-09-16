@@ -1,21 +1,21 @@
 body.lichessTools dialog.lichessTools-video {
-  transform:none;
+  transform: none;
   left: calc(50% - 320px);
   top: calc(50% - 240px);
 }
 
 body.lichessTools dialog.lichessTools-video .dialog-content {
-  width:640px;
-  height:480px;
+  width: 640px;
+  height: 480px;
 }
 
 body.lichessTools.mobile dialog.lichessTools-video {
-  transform:none;
+  transform: none;
   left: calc(50% - 40vw);
   top: calc(50% - 40vh);
 }
 
 body.lichessTools.mobile dialog.lichessTools-video .dialog-content {
-  width:80vw;
-  height:80vh;
+  width: 80vw;
+  height: 80vh;
 }
