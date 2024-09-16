@@ -24,6 +24,10 @@
       'ro-RO': {
         'options.general': 'General',
         'options.addNotifications': 'Adaug\u0103 notific\u0103ri'
+      },
+      'zh-TW': {
+        'options.general': '\u4E3B\u8981',
+        'options.addNotifications': '\u65B0\u589E\u901A\u77E5',
       }
     }
 

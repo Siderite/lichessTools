@@ -22,6 +22,11 @@
         'options.analysis': 'Analiz\u0103',
         'options.cevalLineOptions': 'Op\u0163iuni linii \uee00n evaluarea computerului',
         'cevalLineOptions.highlight': 'Eviden\u0163iaza acelea\u015Fi mut\u0103ri'
+      },
+      'zh-TW': {
+        'options.analysis': '\u5206\u6790',
+        'options.cevalLineOptions': '\u96FB\u8166\u5206\u6790\u68CB\u8B5C\u8A2D\u5B9A',
+        'cevalLineOptions.highlight': '\u6A19\u8A3B\u76F8\u540C\u79FB\u52D5',
       }
     }
 

@@ -42,6 +42,18 @@
         'teamSubtitle': 'Intr\u0103 \u00een echip\u0103 pentru acces la forum, al\u0163i utilizatori, nout\u0103\u0163i sau p\u0103reri',
         'welcomeToTeam': 'Bine ai venit \u00een echipa utilizatorilor LiChess Tools!',
         'byeFromTeam': 'Ne pare r\u0103u c\u0103 pleci!'
+      },
+      'zh-TW': {
+        'options.community': '\u793E\u7FA4',
+        'options.addToTeam': 'LiChess Tools \u5718\u968A',
+        'addToTeam.hideForum': '\u96B1\u85CF\u8AD6\u58C7',
+        'addToTeam.forumBottom': '\u8AD6\u58C7\u5E95\u90E8',
+        'addToTeam.noNotifications': '\u505C\u7528\u901A\u77E5',
+        joinTeamText: '\u53C3\u52A0\u5718\u968A',
+        teamTitle: 'LiChess Tools \u4F7F\u7528\u8005\u5718\u968A',
+        teamSubtitle: '\u52A0\u5165\u6B64\u5718\u968A\u4EE5\u53D6\u7528\u8AD6\u58C7\u3001\u8207\u5176\u4ED6\u4F7F\u7528\u8005\u4EA4\u6D41\u3001\u4E26\u4E14\u53D6\u5F97\u672A\u4F86\u66F4\u65B0\u4EE5\u53CA\u652F\u63F4\uFF01',
+        welcomeToTeam: '\u6B61\u8FCE\u4F86\u5230 LiChess Tools \u4F7F\u7528\u8005\u5718\u968A\uFF01',
+        byeFromTeam: '\u518D\u898B\uFF01',
       }
     }
 

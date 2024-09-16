@@ -23,6 +23,11 @@
         'options.general': 'General',
         'options.mayTenth': 'Ziua LiChess Tools!',
         'mayTenthTitle': 'La mul\u0163i ani, LiChess Tools!'
+      },
+      'zh-TW': {
+        'options.general': '\u4E3B\u8981',
+        'options.mayTenth': 'LiChess Tools \u7BC0\u65E5\uFF01',
+        mayTenthTitle: 'LiChess Tools \u7BC0\u5FEB\u6A02\uFF01',
       }
     }
 

@@ -26,6 +26,12 @@
         'options.boardImage': 'O imagine exportat\u0103 a tablei mai bun\u0103',
         'screenshotButtonText': 'CAPTUR\u0102 TABL\u0102',
         'screenshotButtonTitle': 'LiChess Tools - imagine a tablei'
+      },
+      'zh-TW': {
+        'options.analysis': '\u5206\u6790',
+        'options.boardImage': '\u66F4\u597D\u7684\u622A\u5716\u756B\u8CEA',
+        screenshotButtonText: '\u622A\u5716',
+        screenshotButtonTitle: 'LiChess Tools - \u53D6\u5F97\u68CB\u76E4\u622A\u5716',
       }
     }
 

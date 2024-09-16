@@ -47,6 +47,22 @@
         'removeAll_tagsText': '... etichete PGN',
         'removeAll_tagsQuestion': '\u015Eterge toate etichetele PGN din acest capitol?',
         'deleteTagTitle': 'LiChess Tools - \u015Eterge eticheta %s'
+      },
+      'zh-TW': {
+        'options.study': '\u7814\u7A76',
+        'options.chapterClearArtifacts': '\u6E05\u9664\u7AE0\u7BC0\u4E2D\u6240\u6709\u4F7F\u7528\u8005\u6A19\u8A3B\uFF08\u7BAD\u982D\u3001\u5206\u6790\u7B49\uFF09',
+        removeAllText: '\u79FB\u9664 ...',
+        removeAll_commentsText: '... \u6587\u5B57\u6A19\u8A3B',
+        removeAll_commentsQuestion: '\u662F\u5426\u5728\u6B64\u7AE0\u7BC0\u4E2D\u6E05\u9664\u6240\u6709\u6587\u5B57\u6A19\u8A3B\uFF1F',
+        removeAll_glyphsText: '... \u5206\u6790\u6587\u5B57',
+        removeAll_glyphsQuestion: '\u662F\u5426\u5728\u6B64\u7AE0\u7BC0\u4E2D\u6E05\u9664\u6240\u6709\u5206\u6790\u6587\u5B57\uFF1F',
+        removeAll_shapesText: '... \u5716\u5F62\u6A19\u8A3B\uFF08\u7BAD\u982D\u4EE5\u53CA\u68CB\u76E4\u6A19\u8A3B\uFF09',
+        removeAll_shapesQuestion: '\u662F\u5426\u5728\u6B64\u7AE0\u7BC0\u4E2D\u6E05\u9664\u6240\u6709\u5716\u5F62\u6A19\u8A3B\uFF1F',
+        removeAll_allText: '... \u9664\u4E86 PGN \u6A19\u7C64\u5916',
+        removeAll_title: 'LiChess Tools - selective removal of artifacts',
+        removeAll_tagsText: '... PGN tags',
+        removeAll_tagsQuestion: 'Clear all PGN tags for this chapter?',
+        deleteTagTitle: 'LiChess Tools - Delete %s tag',
       }
     }
 

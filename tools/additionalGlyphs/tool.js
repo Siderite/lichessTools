@@ -22,7 +22,11 @@
       'ro-RO': {
         'options.study': 'Studiu',
         'options.additionalGlyphs': 'Simboluri \u00een plus'
-      }
+      },
+      'zh-TW': {
+        'options.study': '\u7814\u7A76',
+        'options.additionalGlyphs': '\u986F\u793A\u984D\u5916\u5716\u793A',
+      },
     }
 
     isStandardGlyph = (glyph) => {

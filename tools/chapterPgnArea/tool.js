@@ -26,6 +26,12 @@
         'options.chapterPgnArea': 'Arat\u0103 PGN \u00een studii',
         'PGNText': 'PGN',
         'PGNTitle': 'LiChess Tools - arat\u0103 PGNul capitolului'
+      },
+      'zh-TW': {
+        'options.study': '\u7814\u7A76',
+        'options.chapterPgnArea': '\u5728\u7814\u7A76\u4E2D\u986F\u793A PGN',
+        PGNText: 'PGN',
+        PGNTitle: 'LiChess Tools - \u986F\u793A\u7AE0\u7BC0 PGN',
       }
     }
 
