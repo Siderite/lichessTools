@@ -217,6 +217,13 @@
       parent.notifications.add(notification);
     };
 
+    removeWarningFromTeamForum = ()=>{
+      const parent = this.lichessTools;
+      const $ = parent.$;
+      if (parent.global.location.pathname!='/forum/team-l1chess-tools-users-team/form') return;
+      $('main.topic-form section.warning').remove();
+    };
+
     async start() {
       const parent = this.lichessTools;
       if (parent.isDev()) return;
@@ -237,6 +244,7 @@
         this.notifyToJoin();
       }
       await this.updateForumPage();
+      this.removeWarningFromTeamForum();
     }
 
   }
