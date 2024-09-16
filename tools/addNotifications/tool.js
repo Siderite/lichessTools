@@ -24,6 +24,10 @@
 				"options.general": "General",
 				"options.addNotifications": "Adaug\u0103 notific\u0103ri",
 			},
+			"zh-TW": {
+				"options.general": "主要",
+				"options.addNotifications": "新增通知",
+			},
 		};
 
 		notifications = [];

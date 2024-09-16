@@ -20,6 +20,10 @@
 				"options.general": "General",
 				"options.activeIcon": "Iconi\u0163\u0103 titlu activ\u0103",
 			},
+			"zh-TW": {
+				"options.general": "主要",
+				"options.activeIcon": "標題圖示",
+			},
 		};
 
 		_iconCache = {};

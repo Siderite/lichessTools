@@ -24,6 +24,11 @@
 				"cevalLineOptions.highlight":
 					"Eviden\u0163iaza acelea\u015Fi mut\u0103ri",
 			},
+			"zh-TW": {
+				"options.analysis": "分析",
+				"options.cevalLineOptions": "電腦分析棋譜設定",
+				"cevalLineOptions.highlight": "標註相同移動",
+			},
 		};
 
 		getKey = (elem) => {

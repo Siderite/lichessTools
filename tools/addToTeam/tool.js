@@ -45,6 +45,19 @@
 					"Bine ai venit \u00een echipa utilizatorilor LiChess Tools!",
 				byeFromTeam: "Ne pare r\u0103u c\u0103 pleci!",
 			},
+			"zh-TW": {
+				"options.community": "社群",
+				"options.addToTeam": "LiChess Tools 團隊",
+				"addToTeam.hideForum": "隱藏論壇",
+				"addToTeam.forumBottom": "論壇底部",
+				"addToTeam.noNotifications": "停用通知",
+				joinTeamText: "參加團隊",
+				teamTitle: "LiChess Tools 使用者團隊",
+				teamSubtitle:
+					"加入此團隊以取用論壇、與其他使用者交流、並且取得未來更新以及支援！",
+				welcomeToTeam: "歡迎來到 LiChess Tools 使用者團隊！",
+				byeFromTeam: "再見！",
+			},
 		};
 
 		async clearJoinState() {

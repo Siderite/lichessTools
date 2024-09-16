@@ -52,6 +52,23 @@
 					"\u015Eterge toate etichetele PGN din acest capitol?",
 				deleteTagTitle: "LiChess Tools - \u015Eterge eticheta %s",
 			},
+			"zh-TW": {
+				"options.study": "研究",
+				"options.chapterClearArtifacts":
+					"清除章節中所有使用者標註（箭頭、分析等）",
+				removeAllText: "移除 ...",
+				removeAll_commentsText: "... 文字標註",
+				removeAll_commentsQuestion: "是否在此章節中清除所有文字標註？",
+				removeAll_glyphsText: "... 分析文字",
+				removeAll_glyphsQuestion: "是否在此章節中清除所有分析文字？",
+				removeAll_shapesText: "... 圖形標註（箭頭以及棋盤標註）",
+				removeAll_shapesQuestion: "是否在此章節中清除所有圖形標註？",
+				removeAll_allText: "... 除了 PGN 標籤外",
+				removeAll_title: "LiChess Tools - selective removal of artifacts",
+				removeAll_tagsText: "... PGN tags",
+				removeAll_tagsQuestion: "Clear all PGN tags for this chapter?",
+				deleteTagTitle: "LiChess Tools - Delete %s tag",
+			},
 		};
 
 		clearTagSelect = () => {

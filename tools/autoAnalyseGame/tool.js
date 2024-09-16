@@ -21,6 +21,10 @@
 				"options.autoAnalyseGame":
 					"Intr\u0103 \u00een Analiz\u0103 c\u00e2nd se termin\u0103 jocul",
 			},
+			"zh-TW": {
+				"options.play": "下棋",
+				"options.autoAnalyseGame": "在棋局結束後前往「棋局分析」",
+			},
 		};
 
 		retries = 0;

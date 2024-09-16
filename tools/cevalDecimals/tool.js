@@ -22,6 +22,10 @@
 				"options.analysis": "Analiz\u0103",
 				"options.cevalDecimals": "Mai multe zecimale \u00een evaluare computer",
 			},
+			"en-US": {
+				"options.analysis": "分析",
+				"options.cevalDecimals": "更精準的小數點引擎分析值",
+			},
 		};
 
 		decimals = 2;

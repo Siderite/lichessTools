@@ -29,6 +29,14 @@
 				blogSaved: "Blog salvat",
 				blogSave: "Salveaz\u0103",
 			},
+			"en-US": {
+				"options.general": "主要",
+				"options.blogAutosave": "部落格編輯設定",
+				"blogAutosave.autosave": "自動存檔",
+				"blogAutosave.savebutton": "存檔按鈕",
+				blogSaved: "已存檔",
+				blogSave: "存檔",
+			},
 		};
 
 		saveBlog = async (forced) => {

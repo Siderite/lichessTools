@@ -26,6 +26,12 @@
 				screenshotButtonText: "CAPTUR\u0102 TABL\u0102",
 				screenshotButtonTitle: "LiChess Tools - imagine a tablei",
 			},
+			"en-US": {
+				"options.analysis": "分析",
+				"options.boardImage": "更好的截圖畫質",
+				screenshotButtonText: "截圖",
+				screenshotButtonTitle: "LiChess Tools - 取得棋盤截圖",
+			},
 		};
 
 		getImage = (url) => {

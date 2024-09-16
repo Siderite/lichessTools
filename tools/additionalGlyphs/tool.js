@@ -22,6 +22,10 @@
 				"options.study": "Studiu",
 				"options.additionalGlyphs": "Simboluri \u00een plus",
 			},
+			"en-US": {
+				"options.study": "研究",
+				"options.additionalGlyphs": "顯示額外圖示",
+			},
 		};
 
 		isStandardGlyph = (glyph) => {

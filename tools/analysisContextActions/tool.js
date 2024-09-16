@@ -94,6 +94,36 @@
 					"LiChess Tools - arat\u0103 toate transpozi\u0163iile",
 				clipboardDenied: "Acces refuzat la clipboard",
 			},
+			"zh-TW": {
+				"options.analysis": "分析",
+				"options.analysisContextActions": "額外文本分析目錄",
+				"analysisContextActions.copyPgn": "將變種複製為 PGN 形式",
+				"analysisContextActions.moveEval": "最後幾步的引擎分析",
+				"analysisContextActions.showTranspos": "標注並顯示走位變化",
+				"analysisContextActions.removeSuperfluous": "隱藏多餘的分析",
+				"analysisContextActions.showOnEmpty":
+					"在沒有其他移動時才顯示額外文本分析",
+				extractVariationText: "將變種複製為 PGN 形式",
+				extractVariationText_f: "複製 PGN（fen）",
+				extractVariationText_s: "複製 PGN（separate）",
+				extractVariationText_t: "複製 PGN（to position）",
+				extractVariationText_fs: "複製 PGN（fen,separate）",
+				extractVariationText_ft: "複製 PGN（FEN position）",
+				extractVariationText_st: "複製 PGN（to position）",
+				extractVariationText_fst: "複製 PGN（FEN position）",
+				extractVariationTitle:
+					"LiChess Tools 將變種複製到剪貼簿\r\nShift/Ctrl/Alt＋點擊以查看其他選項",
+				errorGeneratingPGN: "生成 PGN 時出錯",
+				errorCopyingPGN: "複製 PGN 時出錯",
+				PGNCopiedToClipboard: "已複製 PGN 到剪貼簿",
+				setCustomEngineDepth: "您必須選擇自訂引擎深度以使用此功能！",
+				evaluateTerminationsText: "評估變種終結棋譜",
+				evaluateTerminationsTitle: "LiChess Tools - 評估所有變種的改變性移動",
+				evaluateTerminationsStarted: "正在評估：%s",
+				showTransposText: "標注並顯示走位變化",
+				showTransposTitle: "LiChess Tools - 標注並顯示走位變化",
+				clipboardDenied: "未取得剪貼簿權限",
+			},
 		};
 
 		extractVariationAsPGN = (ev) => {
