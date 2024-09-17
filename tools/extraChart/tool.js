@@ -825,7 +825,7 @@
         state = parent.traverse();
         if (hcElem) hcElem.traverseState = state;
       }
-      const arr = [].concat.apply([], ['!', '!?', '!!', '\u2606'].map(s => state.glyphs[s]).filter(a => !!a?.length));
+      const arr = [].concat.apply([], ['!', '!?', '!!', '\u2606'].map(s => state?.glyphs[s]).filter(a => !!a?.length));
       if (!arr.length) return;
       const fill = (container, count, color) => {
         let elem = $('div.lichessTools-goodMoves', container);

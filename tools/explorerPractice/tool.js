@@ -142,6 +142,26 @@
       this.evaluatePosition();
     };
 
+    getEngine = async ()=>{
+      const parent = this.lichessTools;
+      while (this.sfLoading) {
+        await parent.timeout(100);
+      }
+      if (this.sf) return this.sf;
+      try{
+        this.sfLoading = true;
+        const sf = await parent.stockfish.load();
+        if (!sf) throw new Error('Could not load Stockfish!');
+        sf.setMultiPv(1);
+        sf.on('info', i => { this.lastInfo = i; });
+        sf.on('bestmove', i => { this.info = this.lastInfo; });
+        this.sf=sf;
+        return sf;
+      } finally {
+        this.sfLoading = false;
+      }
+    };
+
     evaluatePosition = async ()=>{
       if (!this.options.showSmileys) return;
       const parent = this.lichessTools;
@@ -151,33 +171,32 @@
 
       if (node.glyphs?.length) return;
 
-      const depth = +(parent.currentOptions.getValue('customEngineLevel')) || 16;
-      let lastInfo=null;
-      let info=null;
-      const sf = await parent.stockfish.load();
-      if (!sf) throw new Error('Could not load Stockfish!');
-      sf.setMultiPv(1);
-      sf.setDepth(depth);
-      sf.on('info', i => { lastInfo = i; });
-      sf.on('bestmove', i => { info = lastInfo; });
-
+      this.lastInfo=null;
+      this.info=null;
       this.stopCeval = false;
+
+      const sf=await this.getEngine();
+      const depth = +(parent.currentOptions.getValue('customEngineLevel')) || 16;
+      sf.setDepth(depth);
       sf.setPosition(node.fen);
       sf.start();
-      while (!info && !this.stopCeval && analysis.node === node) {
+      while (!this.info && !this.stopCeval && analysis.node === node) {
         await parent.timeout(100);
       }
       sf.stop();
+      const info={...this.info};
       if (!info) return;
 
       const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
-      const winValue = (info.cp || Math.sign(info.mate) * 1000) * boardSign;
+      const side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
+      const winValue = (info.cp || Math.sign(info.mate) * 1000) * boardSign * side;
       let symbol = '\uD83D\uDE10';
       if (winValue < -200) symbol = '\uD83D\uDE22';
       else if (winValue < -20) symbol = '\uD83D\uDE41';
       else if (winValue < 20) symbol = '\uD83D\uDE10';
       else if (winValue < 200) symbol = '\uD83D\uDE42';
       else if (winValue >= 200) symbol = '\uD83D\uDE01';
+
       node.glyphs = [{
         symbol: symbol,
         name: 'Final evaluation',
