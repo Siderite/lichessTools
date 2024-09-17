@@ -14,6 +14,7 @@ body.lichessTools h3.lichessTools-chapterNavigation-perc {
 body.lichessTools h3.lichessTools-chapterNavigation-perc .perc {
   display: none;
   opacity: 0.9;
+  padding-right: 2em;
 }
 
 body.lichessTools .lichessTools-chapterControls:has(div[role="footer"]:hover) .perc {

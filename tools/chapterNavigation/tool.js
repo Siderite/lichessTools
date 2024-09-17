@@ -112,7 +112,7 @@
           const q = total>100 ? 100/total : 1;
           if (noPerc) {
             const def = (100-total*q)/noPerc;
-            list.forEach(s=>{ if (s.perc === undefined) s.perc = def; });
+            list.forEach(s=>{ s.perc = s.perc === undefined ? def : s.perc*q; });
           }
           let newIndex = index;
           while (newIndex == index) {
