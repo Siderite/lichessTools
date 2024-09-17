@@ -1,7 +1,7 @@
 (() => {
   class ExplorerPracticeTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'DetectThirdParties'];
+    dependencies = ['EmitRedraw', 'DetectThirdParties', 'Stockfish', 'AdditionalGlyphs'];
 
     preferences = [
       {
@@ -111,8 +111,7 @@
       const turn = analysis.turnColor();
       if (!ignoreSide && turn === analysis.getOrientation()) {
         this.inPlayMove = false;
-        this.stopCeval = false;
-        //this.rewritePlayerName();
+        this.stopCeval = true;
         return;
       }
       if (!analysis.explorer?.enabled()) return;
@@ -140,34 +139,51 @@
       }
       if (!this.isRunning) return;
       parent.announce(trans.noarg('outOfMoves'));
+      this.evaluatePosition();
+    };
+
+    evaluatePosition = async ()=>{
       if (!this.options.showSmileys) return;
-      const ceval = analysis.node.ceval;
-      if (!ceval && !analysis.ceval.enabled() && !parent.isMate(analysis.node)) {
-        analysis.toggleCeval();
-        this.stopCeval = true;
+      const parent = this.lichessTools;
+      const lichess = parent.lichess;
+      const analysis = lichess?.analysis;
+      const node = analysis.node;
+
+      if (node.glyphs?.length) return;
+
+      const depth = +(parent.currentOptions.getValue('customEngineLevel')) || 16;
+      let lastInfo=null;
+      let info=null;
+      const sf = await parent.stockfish.load();
+      if (!sf) throw new Error('Could not load Stockfish!');
+      sf.setMultiPv(1);
+      sf.setDepth(depth);
+      sf.on('info', i => { lastInfo = i; });
+      sf.on('bestmove', i => { info = lastInfo; });
+
+      this.stopCeval = false;
+      sf.setPosition(node.fen);
+      sf.start();
+      while (!info && !this.stopCeval && analysis.node === node) {
+        await parent.timeout(100);
       }
-      if (ceval) {
-        if (!analysis.node.glyphs?.length) {
-          const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
-          const winValue = (ceval.cp || Math.sign(ceval.mate) * 1000) * boardSign;
-          let symbol = '\uD83D\uDE10';
-          if (winValue < -200) symbol = '\uD83D\uDE22';
-          else if (winValue < -20) symbol = '\uD83D\uDE41';
-          else if (winValue < 20) symbol = '\uD83D\uDE10';
-          else if (winValue < 200) symbol = '\uD83D\uDE42';
-          else if (winValue >= 200) symbol = '\uD83D\uDE01';
-          analysis.node.glyphs = [{
-            symbol: symbol,
-            name: 'Final evaluation',
-            type: 'nonStandard'
-          }];
-          parent.emitRedraw();
-        }
-        if (this.stopCeval && ceval.depth > 12 && analysis.ceval.enabled()) {
-          analysis.toggleCeval();
-          this.stopCeval = false;
-        }
-      }
+      sf.stop();
+      if (!info) return;
+
+      const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
+      const winValue = (info.cp || Math.sign(info.mate) * 1000) * boardSign;
+      let symbol = '\uD83D\uDE10';
+      if (winValue < -200) symbol = '\uD83D\uDE22';
+      else if (winValue < -20) symbol = '\uD83D\uDE41';
+      else if (winValue < 20) symbol = '\uD83D\uDE10';
+      else if (winValue < 200) symbol = '\uD83D\uDE42';
+      else if (winValue >= 200) symbol = '\uD83D\uDE01';
+      node.glyphs = [{
+        symbol: symbol,
+        name: 'Final evaluation',
+        type: 'nonStandard'
+      }];
+      analysis.redraw();
     };
 
     makeRandomMove = () => {
