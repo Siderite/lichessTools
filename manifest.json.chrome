@@ -48,6 +48,8 @@
         "tools/exportPgn/tool.js",
         "tools/stockfish/tool.js",
         "tools/addNotifications/tool.js",
+        "tools/additionalGlyphs/tool.js",
+
         "tools/removeChatLinkWarning/tool.js",
         "tools/dialog/tool.js",
         "tools/quietModeAllTabs/tool.js",
@@ -78,7 +80,6 @@
         "tools/customChatButtons/tool.js",
         "tools/mobileExperience/tool.js",
         "tools/explorerPractice/tool.js",
-        "tools/additionalGlyphs/tool.js",
         "tools/extraChart/tool.js",
         "tools/extraChart/raccoon.js",
         "tools/keyboardHelp/tool.js",

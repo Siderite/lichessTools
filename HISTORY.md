@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+17 Sep
+
+- random percent in chapter title
+- eval and clock in exported PGN
+
 16 Sep
 
 - added no spoilers tool
