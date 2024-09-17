@@ -1479,7 +1479,7 @@
       const lichess = parent.lichess;
       const $ = parent.$;
       const trans = parent.translator;
-      if (!plyNumber) return;
+      if (!plyNumber && plyNumber !== 0) return;
 
       const co = parent.chessops;
       const { parsePgn } = co.pgn;
@@ -1490,7 +1490,7 @@
 
       const traverse = (game, node, ply = 0, mainline = true) => {
         if (!node.children?.length) return;
-        if (node.data?.san && ply >= plyNumber) {
+        if (ply >= plyNumber) {
           node.children = [];
           if (mainline) game.headers.delete('Result');
           return;
