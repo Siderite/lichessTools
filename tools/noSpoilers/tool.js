@@ -63,7 +63,7 @@
       const lichess = parent.lichess;
       const $ = parent.$;
       const value = parent.currentOptions.getValue('noSpoilers');
-      this.logOption('No spoilers', value);
+      this.logOption('No spoilers', value || 'no');
       this.options = {
         broadcast: parent.isOptionSet(value, 'broadcast')
       };

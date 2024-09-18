@@ -399,8 +399,7 @@
       });
     };
 
-    addPreferencesMenu = (isOpening) => {
-      if (!isOpening) return;
+    addPreferencesMenu = () => {
       const parent = this.lichessTools;
       const trans = parent.translator;
       const $ = parent.$;
@@ -417,7 +416,6 @@
           .attr('title', trans.noarg('lichessToolsPreferences'))
           .appendTo(links);
       }
-
     };
 
     async start() {
@@ -435,11 +433,10 @@
 
       const isLoggedIn = !!parent.getUserId();
       const isLoggedOutTeams = location.pathname == '/team/all' && !isLoggedIn;
-      lichess.pubsub.off('dasher.toggle', this.addPreferencesMenu);
+      parent.global.clearInterval(this.interval);
       if (!isLoggedIn) {
-        lichess.pubsub.on('dasher.toggle', this.addPreferencesMenu);
+        this.interval = parent.global.setInterval(this.addPreferencesMenu,500);
       }
-      $('#user_tag').trigger('mouseover'); //hack to temporarily fix https://github.com/lichess-org/lila/issues/15079
 
       if (!$('main.account').length && !isLoggedOutTeams) {
         return;

@@ -90,7 +90,7 @@
     async start() {
       const parent = this.lichessTools;
       const value = parent.currentOptions.getValue('cevalLineOptions');
-      this.logOption('Ceval line options', value);
+      this.logOption('Ceval line options', value || 'no');
       const lichess = parent.lichess;
       const $ = parent.$;
       const analysis = lichess?.analysis;
