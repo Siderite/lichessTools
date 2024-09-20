@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "LiChess Tools, by Siderite",
-	"version": "2.3.144",
+	"version": "2.3.145",
 	"description": "Turbocharge lichess.org with a ton of features",
 	"author": "costin.manda@siderite.dev",
 	"homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -47,6 +47,7 @@
 				"tools/addNotifications/tool.js",
 				"tools/removeChatLinkWarning/tool.js",
 				"tools/dialog/tool.js",
+				"tools/additionalGlyphs/tool.js",
 
 				"tools/quietModeAllTabs/tool.js",
 				"tools/ctrlSpaceForBestComputerMove/tool.js",
@@ -76,7 +77,6 @@
 				"tools/customChatButtons/tool.js",
 				"tools/mobileExperience/tool.js",
 				"tools/explorerPractice/tool.js",
-				"tools/additionalGlyphs/tool.js",
 				"tools/extraChart/tool.js",
 				"tools/extraChart/raccoon.js",
 				"tools/keyboardHelp/tool.js",
@@ -133,6 +133,7 @@
 				"tools/studyLinks/tool.js",
 				"tools/konami/tool.js",
 				"tools/cevalLineOptions/tool.js",
+                "tools/noSpoilers/tool.js",
 
 				"tools/hideBoardCommand/tool.js",
 				"tools/trapValueCommand/tool.js",
@@ -152,6 +153,7 @@
 				"tools/themes/slimArrows.css",
 				"tools/themes/flairX.css",
 				"tools/themes/lessIcons.css",
+                "tools/noSpoilers/tool.css",
 				"tools/themes/nonStickyHeader.css",
 				"tools/themes/noStudyChat.css",
 				"tools/themes/pieceDrag.css",

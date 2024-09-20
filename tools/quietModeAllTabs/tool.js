@@ -31,8 +31,7 @@
       }
     }
 
-    addQuietModeMenu = (isOpening) => {
-      if (!isOpening) return;
+    addQuietModeMenu = () => {
       const parent = this.lichessTools;
       const lichess = parent.lichess;
       const $ = parent.$;
@@ -40,7 +39,7 @@
       const container = $('div.site-buttons div.dasher #dasher_app div.links');
       if (this.options.enabled) {
         if (!container.children().length) {
-          parent.global.setTimeout(() => this.addQuietModeMenu(isOpening), 500);
+          parent.global.setTimeout(() => this.addQuietModeMenu(), 500);
           return;
         }
         let elem = $('a.lichessTools-quietMode', container);
@@ -81,7 +80,7 @@
       const lichess = parent.lichess;
       const descriptor = Object.getOwnPropertyDescriptor(lichess, 'quietMode');
       const isProperty = descriptor?.get && descriptor?.set;
-      lichess.pubsub.off('dasher.toggle', this.addQuietModeMenu);
+      parent.global.clearInterval(this.interval);
       if (!value) {
         if (isProperty) {
           delete lichess.quietMode;
@@ -90,8 +89,7 @@
         }
         return;
       }
-      lichess.pubsub.on('dasher.toggle', this.addQuietModeMenu);
-      $('#user_tag').trigger('mouseover'); //hack to temporarily fix https://github.com/lichess-org/lila/issues/15079
+      this.interval = parent.global.setInterval(this.addQuietModeMenu,500);
 
       if (!isProperty) {
         const quietMode = lichess.quietMode;

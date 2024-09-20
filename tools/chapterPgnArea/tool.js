@@ -26,6 +26,12 @@
         'options.chapterPgnArea': 'Arat\u0103 PGN \u00een studii',
         'PGNText': 'PGN',
         'PGNTitle': 'LiChess Tools - arat\u0103 PGNul capitolului'
+      },
+      'zh-TW': {
+        'options.study': '\u7814\u7A76',
+        'options.chapterPgnArea': '\u5728\u7814\u7A76\u4E2D\u986F\u793A PGN',
+        PGNText: 'PGN',
+        PGNTitle: 'LiChess Tools - \u986F\u793A\u7AE0\u7BC0 PGN',
       }
     }
 
@@ -40,9 +46,14 @@
       if (!group.length) {
         group = $(`<div class="form-group lichessTools-chapterPgnArea">
     <label class="form-label"></label>
-    <textarea spellcheck="false" readonly autoselect></textarea>
+    <div class="copy-me">
+      <textarea spellcheck="false" readonly autoselect></textarea>
+      <button class="copy-me__button button button-metal"></button>
+    </div>
 </div>`).appendTo(container);
         $('.form-label', group).text(trans.noarg('PGNText')).attr('title', trans.noarg('PGNTitle'));
+        $('button.copy-me__button',group)
+          .attr('data-icon','\uE070');
       }
       const pgn = await parent.exportPgn('');
       $('textarea', group).val(pgn);

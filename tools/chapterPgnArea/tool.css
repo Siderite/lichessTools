@@ -4,3 +4,7 @@ body.lichessTools div.lichessTools-chapterPgnArea textarea {
   white-space: pre-wrap;
   overflow-x: hidden;
 }
+
+body.lichessTools div.lichessTools-chapterPgnArea button.copy-me__button {
+  align-self: normal;
+}

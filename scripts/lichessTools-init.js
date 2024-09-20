@@ -23,6 +23,7 @@ lichessTools.loadTool(LiChessTools.Tools.ChessOps);
 lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
 lichessTools.loadTool(LiChessTools.Tools.Dialog);
+lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
 lichessTools.loadTool(LiChessTools.Tools.MobileExperience);
@@ -51,7 +52,6 @@ lichessTools.loadTool(LiChessTools.Tools.ExplorerPractice);
 //lichessTools.loadTool(LiChessTools.Tools.SaveOptionsForIncognito);
 lichessTools.loadTool(LiChessTools.Tools.ChapterClearArtifacts);
 lichessTools.loadTool(LiChessTools.Tools.CustomChatButtons);
-lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);
 lichessTools.loadTool(LiChessTools.Tools.ExtraChart);
 lichessTools.loadTool(LiChessTools.Tools.KeyboardHelp);
 lichessTools.loadTool(LiChessTools.Tools.PreviousStudyMenu);
@@ -105,6 +105,7 @@ lichessTools.loadTool(LiChessTools.Tools.ExpandAll);
 lichessTools.loadTool(LiChessTools.Tools.StudyLinks);
 lichessTools.loadTool(LiChessTools.Tools.Konami);
 lichessTools.loadTool(LiChessTools.Tools.CevalLineOptions);
+lichessTools.loadTool(LiChessTools.Tools.NoSpoilers);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

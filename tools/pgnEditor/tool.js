@@ -877,16 +877,6 @@
 
       const sf = await parent.stockfish.load();
       if (!sf) throw new Error('Could not load Stockfish!');
-      if ((parent.global.navigator.hardwareConcurrency || 0) <= 4) {
-        sf.setThreads(1);
-      } else {
-        sf.setThreads(2);
-      }
-      if ((parent.global.navigator.deviceMemory || 0) <= 2) {
-        sf.setHash(64);
-      } else {
-        sf.setHash(128);
-      }
       sf.setMultiPv(1);
       sf.setDepth(depth);
       sf.on('info', i => { lastInfo = i; });
@@ -1479,7 +1469,7 @@
       const lichess = parent.lichess;
       const $ = parent.$;
       const trans = parent.translator;
-      if (!plyNumber) return;
+      if (!plyNumber && plyNumber !== 0) return;
 
       const co = parent.chessops;
       const { parsePgn } = co.pgn;
@@ -1490,7 +1480,7 @@
 
       const traverse = (game, node, ply = 0, mainline = true) => {
         if (!node.children?.length) return;
-        if (node.data?.san && ply >= plyNumber) {
+        if (ply >= plyNumber) {
           node.children = [];
           if (mainline) game.headers.delete('Result');
           return;

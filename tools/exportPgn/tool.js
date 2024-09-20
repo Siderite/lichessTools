@@ -51,6 +51,18 @@
         return `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '. ' : '... '}`;
       }
 
+      function centisecondsToClock(cs) {
+        const h=Math.floor(cs/360000);
+        const m=Math.floor(cs%360000/6000);
+        const s=Math.round(cs%6000/100);
+        return h.toString().padStart(2,'0')+':'+m.toString().padStart(2,'0')+':'+s.toString().padStart(2,'0');
+      }
+
+      function evalToString(evl) {
+        if (evl.cp) return (evl.cp/100).toString();
+        if (evl.mate) return '#'+evl.mate;
+      }
+
       function renderComments(node) {
         let s = '';
         for (const glyph of node.glyphs || []) {
@@ -77,6 +89,21 @@
           }
           const code = shape.brush[0].toUpperCase() + shape.orig + (shape.dest || '');
           group.shapes.push(code);
+        }
+        if (node.clock) {
+          const group = {
+            type: 'clk',
+            shapes: [ centisecondsToClock(node.clock) ]
+          };
+          groups.push(group);
+        }
+        const evl = node.ceval || node.eval;
+        if (evl) {
+          const group = {
+            type: 'eval',
+            shapes: [ evalToString(evl) ]
+          };
+          groups.push(group);
         }
         if (groups.length) {
           s += ' {';
@@ -141,6 +168,7 @@
         const JSON = parent.global.JSON;
         const n1 = {
           children: [],
+          clock: n2.clock,
           eval: n2.eval,
           comments: parent.clone(n2.comments) || [],
           glyphs: parent.clone(n2.glyphs) || [],

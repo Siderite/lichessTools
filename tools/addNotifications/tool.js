@@ -24,6 +24,10 @@
       'ro-RO': {
         'options.general': 'General',
         'options.addNotifications': 'Adaug\u0103 notific\u0103ri'
+      },
+      'zh-TW': {
+        'options.general': '\u4E3B\u8981',
+        'options.addNotifications': '\u65B0\u589E\u901A\u77E5',
       }
     }
 
@@ -50,7 +54,7 @@
       if (el !== true && !$(el).is('div.notifications')) return;
       this.lastRead = parent.storage.get('LiChessTools.lastRead', 0);
 
-      if ($('.shown div.notifications').length) {
+      if ($('.shown div.notifications').length || this._unreadNotifications === undefined) {
         this._unreadNotifications = 0;
         parent.global.clearInterval(this.closeInterval);
         this.closeInterval = parent.global.setInterval(() => {
@@ -99,14 +103,18 @@
     };
     forcedProcessNotifications = this.lichessTools.debounce(() => this.processNotifications(true), 500);
 
-    _unreadNotifications = 0;
+    _unreadNotifications = undefined;
     updateNotificationCount = (ev) => {
       const parent = this.lichessTools;
-      const count = ev?.unread;
+      let count = ev?.unread;
       if (count === undefined) {
         parent.global.console.warn('Could not read unread value from socket.in.notifications', ev);
       }
-      this._unreadNotifications = +count;
+      count = +count;
+      if (this._unreadNotifications != count) {
+        this._unreadNotifications = count;
+        this.processNotifications();
+      }
     };
 
     async start() {
@@ -140,8 +148,10 @@
       }, 500);
 
       lichess.pubsub.on('socket.in.notifications', this.updateNotificationCount);
-      const unread = await parent.api.notification.getUnread();
-      this._unreadNotifications = unread;
+      if (this._unreadNotifications === undefined) {
+        const unread = await parent.api.notification.getUnread();
+        this._unreadNotifications = unread;
+      }
       this.forcedProcessNotifications();
     }
 

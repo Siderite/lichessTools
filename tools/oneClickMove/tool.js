@@ -249,7 +249,7 @@
       const lichess = parent.lichess;
       const $ = parent.$;
       const value = parent.currentOptions.getValue('oneClickMove');
-      this.logOption('One click move', value);
+      this.logOption('One click move', value || 'no');
       const analysis = lichess.analysis;
       this.options = {
         analysis: parent.isOptionSet(value, 'analysis'),

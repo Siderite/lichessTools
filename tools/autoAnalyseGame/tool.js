@@ -20,6 +20,10 @@
       'ro-RO': {
         'options.play': 'Joc',
         'options.autoAnalyseGame': 'Intr\u0103 \u00een Analiz\u0103 c\u00e2nd se termin\u0103 jocul'
+      },
+      'zh-TW': {
+        'options.play': '\u4E0B\u68CB',
+        'options.autoAnalyseGame': '\u5728\u68CB\u5C40\u7D50\u675F\u5F8C\u524D\u5F80\u300C\u68CB\u5C40\u5206\u6790\u300D',
       }
     }
 

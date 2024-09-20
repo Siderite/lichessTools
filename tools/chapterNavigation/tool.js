@@ -29,9 +29,24 @@
 
     refreshChapterControls = () => {
       const parent = this.lichessTools;
+      const Math = parent.global.Math;
       const $ = parent.$;
       const study = parent.lichess.analysis?.study;
       if (!study) return;
+      $('div.lichessTools-chapterControls div[data-id] > h3').each((i,e) => {
+        e = $(e);
+        if (e.is('.lichessTools-chapterNavigation-perc')) return;
+        const text = e.text();
+        const reg = /\s*\brnd:(?<perc>\d+(?:\.\d+)?)/;
+        const match = reg.exec(text);
+        if (match) {
+          const perc = Math.round(+(match.groups.perc)*100)/100;
+          e.empty()
+            .addClass('lichessTools-chapterNavigation-perc')
+            .append($('<span>').text(text.replace(reg,'')))
+            .append($('<span class="perc">').text(perc+'%'));
+        }
+      });
       const selector = [];
       if (!$('div.study__side .study__chapters,aside.relay-tour__side .relay-games').length) return;
       const trans = parent.translator;
@@ -61,6 +76,8 @@
       $('button[data-act="last"]', container).toggleClass('disabled', index == list.length - 1);
     };
 
+    debouncedRefreshChapterControls = this.lichessTools.debounce(this.refreshChapterControls, 100);
+
     actionChapterControls = (ev) => {
       ev.preventDefault();
       const parent = this.lichessTools;
@@ -80,10 +97,35 @@
         case 'first': index = 0; break;
         case 'prev': index--; break;
         case 'random':
-          let newIndex = 0;
-          do {
-            newIndex = Math.floor(parent.random() * list.length);
-          } while (newIndex == index);
+          let total = 0;
+          let noPerc = 0;
+          for (const s of list) {
+            const match = /\brnd:(?<perc>\d+(?:\.\d+)?)/.exec(s.name);
+            if (match) {
+              s.perc = +(match.groups.perc);
+              total += s.perc;
+            } else {
+              s.perc = undefined;
+              noPerc++;
+            }
+          }
+          const q = total>100 ? 100/total : 1;
+          if (noPerc) {
+            const def = (100-total*q)/noPerc;
+            list.forEach(s=>{ s.perc = s.perc === undefined ? def : s.perc*q; });
+          }
+          let newIndex = index;
+          while (newIndex == index) {
+            let perc = Math.random()*100;
+            for (let i=0; i<list.length; i++) {
+              perc -= list[i].perc;
+              if (perc<=0) {
+                newIndex = i;
+                break;
+              }
+            }
+            if (!noPerc) break;
+          }
           index = newIndex;
           break;
         case 'next': index++; break;
@@ -92,8 +134,6 @@
       const chapter = list[index];
       if (chapter) study.setChapter(chapter.id);
     };
-
-    debouncedRefreshChapterControls = this.lichessTools.debounce(this.refreshChapterControls, 100);
 
     async start() {
       const parent = this.lichessTools;

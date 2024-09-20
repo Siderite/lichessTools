@@ -55,7 +55,7 @@
       const lichess = parent.lichess;
       const $ = parent.$;
       const value = parent.currentOptions.getValue('autoUnselectPiece');
-      this.logOption('Auto unselect piece', value);
+      this.logOption('Auto unselect piece', value || 'no');
       parent.global.clearInterval(this.checkPieceSelection);
       this.options = { seconds: +value };
       if (!this.options.seconds) return;

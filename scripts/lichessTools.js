@@ -1026,6 +1026,9 @@
       'ro-RO': {
         serverOverload: 'LiChess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
       },
+      "zh-TW": {
+        serverOverload: "Lichess \u8A8D\u70BA\u6211\u5011\u6709\u610F\u50B3\u9001\u904E\u591A\u8ACB\u6C42\uFF01",
+      },
       get lang() {
         let lang = lichessTools.global.document.documentElement.lang || this.defaultLanguage;
         if (!this[lang]) lang = this.defaultLanguage;

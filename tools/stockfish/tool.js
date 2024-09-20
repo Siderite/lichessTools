@@ -230,8 +230,7 @@
       if (!sf) return;
       this.stop();
       sf.listen = null;
-      // TODO this freezes the page for SF17 (https://github.com/lichess-org/lila/issues/16053)
-      //this.postMessage('quit');
+      this.postMessage('quit');
       this._instance = null;
       this._stockfish = null;
       this._module = null;

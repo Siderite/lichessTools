@@ -6,6 +6,22 @@ body.lichessTools .lichessTools-chapterControls div[role="footer"] {
   align-items: stretch;
 }
 
+body.lichessTools h3.lichessTools-chapterNavigation-perc {
+  display: flex;
+  justify-content: space-between;
+}
+
+body.lichessTools h3.lichessTools-chapterNavigation-perc .perc {
+  display: none;
+  opacity: 0.9;
+  padding-right: 2em;
+}
+
+body.lichessTools .lichessTools-chapterControls:has(div[role="footer"]:hover) .perc {
+  display: inline;
+}
+
+
 @media not print and (prefers-color-scheme: dark) {
   html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chapterControls div[role="footer"] {
     background: #2D2B29;
