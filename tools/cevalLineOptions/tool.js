@@ -20,7 +20,7 @@
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.cevalLineOptions': 'Op\u0163iuni linii \uee00n evaluarea computerului',
+        'options.cevalLineOptions': 'Op\u0163iuni linii \u00een evaluarea computerului',
         'cevalLineOptions.highlight': 'Eviden\u0163iaza acelea\u015Fi mut\u0103ri'
       },
       'zh-TW': {

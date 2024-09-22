@@ -23,8 +23,8 @@
       'ro-RO': {
         'options.study': 'Studiu',
         'options.chapterInsert': 'Insereaz\u0103 capitole noi dup\u0103 cel curent',
-        'chapterInsertText': 'Creaz\u0103 dup\u0103 capitolul curent',
-        'chapterInsertTitle': 'LiChess Tools - creaz\u0103 capitol dup\u0103 cel curent'
+        'chapterInsertText': 'Creeaz\u0103 dup\u0103 capitolul curent',
+        'chapterInsertTitle': 'LiChess Tools - creeaz\u0103 capitol dup\u0103 cel curent'
       }
     }
 

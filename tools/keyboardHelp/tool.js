@@ -52,7 +52,7 @@
         'nextOpponentBlunder': 'Urm\u0103toarea gaf\u0103 a adversarului',
         'nextOpponentMistake': 'Urm\u0103toarea gre\u015Feal\u0103 a adversarului',
         'nextOpponentInaccuracy': 'Urm\u0103toarea inexactitate a adversarului',
-        'nextGood': 'Urm\u0103toarea bun\u0103/briliant\u0103/interesant\u0103 a adversarului',
+        'nextOpponentGood': 'Urm\u0103toarea bun\u0103/briliant\u0103/interesant\u0103 a adversarului',
         'variationLine': 'A N-a varia\u0163iune',
         'cevalLine': 'A N-a mutare din evaluarea calculatorului',
         'explorerLine': 'A N-a mutare din Explorator',

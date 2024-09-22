@@ -41,10 +41,10 @@
         'mainPageElements.blog': 'Blog',
         'mainPageElements.puzzle': 'Puzzle zilnic',
         'mainPageElements.support': 'Suport',
-        'mainPageElements.feed': 'Nout\u0103ti',
+        'mainPageElements.feed': 'Nout\u0103\u0163i',
         'mainPageElements.tours': 'Turnee',
         'mainPageElements.leader': 'Clasament',
-        'mainPageElements.winner': 'C\u00e2stig\u0103tori',
+        'mainPageElements.winner': 'C\u00e2\u015ftig\u0103tori',
         'mainPageElements.about': 'Despre'
       },
       'zh-TW': {

@@ -58,7 +58,7 @@
         'extractVariationText_ft': 'Copiaz\u0103 PGN (pozi\u0163ie FEN)',
         'extractVariationText_st': 'Copiaz\u0103 PGN (p\u00e2n\u0103 aici)',
         'extractVariationText_fst': 'Copiaz\u0103 PGN (pozi\u0163ie FEN)',
-        'extractVariationTitle': 'LiChess Tools - copiaz\u0103 varia\u0163iunea \u015Fi continu\u0163rile ca PGN\r\nShift/Ctrl/Alt-click pentru op\u0163iuni',
+        'extractVariationTitle': 'LiChess Tools - copiaz\u0103 varia\u0163iunea \u015Fi continu\u0103rile ca PGN\r\nShift/Ctrl/Alt-click pentru op\u0163iuni',
         'errorGeneratingPGN': 'Eroare generare PGN',
         'errorCopyingPGN': 'Eroare copiere PGN \u00een clipboard',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',

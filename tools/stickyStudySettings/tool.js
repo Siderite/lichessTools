@@ -24,7 +24,7 @@
         'options.study': 'Studiu',
         'options.stickyStudySettings': 'Persist\u0103 set\u0103rile studiilor',
         'stickyStudySettings.chapterForm': 'Set\u0103ri la editare/nou capitol',
-        'stickyStudySettings.savePosition': 'Pozi\u0163ia/mi\u005Fcarea \u00een capitole studiu'
+        'stickyStudySettings.savePosition': 'Pozi\u0163ia/mi\u015Fcarea \u00een capitole studiu'
       }
     };
 

@@ -26,7 +26,7 @@
         'openingNameTitle': 'LiChess Tools - numele deschiderii',
         'showOpening.showInBoard': 'Pentru tabla mare',
         'showOpening.showInMinigames': 'Pentru table mici',
-        'showOpening.showInExplorer': '\u00e2n Explorator'
+        'showOpening.showInExplorer': '\u00cen Explorator'
       }
     }
 

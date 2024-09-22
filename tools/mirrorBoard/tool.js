@@ -23,7 +23,7 @@
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.mirrorBoard': 'Button oglind\u0103 \u00een Editor Tabel\u0103',
+        'options.mirrorBoard': 'Buton oglind\u0103 \u00een Editor Tabl\u0103',
         'mirrorButtonText': 'Oglind\u0103',
         'mirrorButtonTitle': 'LiChess Tools - pozi\u0163ia \u00een oglind\u0103'
       }
