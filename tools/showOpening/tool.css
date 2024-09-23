@@ -2,7 +2,7 @@ body.lichessTools div.chat__members .lichessTools-opening,
 body.lichessTools div.game__meta .lichessTools-opening {
   display: flex;
   height: 3em;
-  align-items: center;
+  align-items: baseline;
   overflow: hidden;
 }
 
@@ -17,7 +17,7 @@ body.lichessTools div.game__meta .lichessTools-opening:before {
   content: '\2659';
   transform: scale(1.25);
   transform-origin: center;
-  align-self: center;
+  align-self: baseline;
   color: #808080;
 }
 
