@@ -24,7 +24,43 @@
       "js": [
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
-        "scripts/lichessTools.js",
+        "scripts/lichessTools.js"
+      ],
+      "matches": [
+        "*://lichess.org/*",
+        "*://lichess.dev/*"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "js": [
+        "tools/showOpening/opening_dict.js",
+        "tools/explorerGambits/gambits.js",
+        "tools/wikiFen/wikiUrls.js",
+        "tools/extraChart/raccoon.js"
+      ],
+      "matches": [
+        "*://lichess.org/analysis/*",
+        "*://lichess.org/study/*",
+        "*://lichess.org/broadcast/*",
+        "*://lichess.org/editor/*",
+        "*://lichess.org/tv/*",
+        "*://lichess.org/games/*",
+        "*://lichess.org/*/tv",
+        "*://lichess.dev/analysis/*",
+        "*://lichess.dev/study/*",
+        "*://lichess.dev/broadcast/*",
+        "*://lichess.dev/editor/*",
+        "*://lichess.dev/tv/*",
+        "*://lichess.dev/games/*",
+        "*://lichess.dev/*/tv"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "js": [
         "scripts/dragDropTouch.js",
         "scripts/zip.js",
         "scripts/urlCanParse.js",
@@ -63,7 +99,6 @@
         "tools/keyShortcuts/tool.js",
         "tools/showFlags/tool.js",
         "tools/shapeRank/tool.js",
-        "tools/showOpening/opening_dict.js",
         "tools/showOpening/tool.js",
         "tools/previousGameMenu/tool.js",
         "tools/openingExplorerUsers/tool.js",
@@ -81,19 +116,16 @@
         "tools/mobileExperience/tool.js",
         "tools/explorerPractice/tool.js",
         "tools/extraChart/tool.js",
-        "tools/extraChart/raccoon.js",
         "tools/keyboardHelp/tool.js",
         "tools/previousStudyMenu/tool.js",
         "tools/timelineNotify/tool.js",
         "tools/explorerEval/tool.js",
         "tools/explorerGambits/tool.js",
-        "tools/explorerGambits/gambits.js",
         "tools/explorerSettings/tool.js",
         "tools/stickyStudySettings/tool.js",
         "tools/chapterInsert/tool.js",
         "tools/chapterPgnArea/tool.js",
         "tools/moveListOptions/tool.js",
-        "tools/wikiFen/wikiUrls.js",
         "tools/wikiFen/tool.js",
         "tools/transpositionArrows/tool.js",
         "tools/tvOptions/tool.js",
