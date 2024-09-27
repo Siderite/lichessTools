@@ -114,7 +114,6 @@
         "tools/wikiFen/tool.js",
         "tools/transpositionArrows/tool.js",
         "tools/tvOptions/tool.js",
-        "tools/showPawnStructure/pawnStructures.js",
         "tools/showPawnStructure/tool.js",
         "tools/explorerSnaps/tool.js",
         "tools/miniGameSize/tool.js",

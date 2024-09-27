@@ -88,6 +88,7 @@
     openingTime = 0;
     withOpening = async (gameId, el, ply, fen, isMini) => {
       const parent = this.lichessTools;
+      if (!parent.inViewport(el)) return;
       const Math = parent.global.Math;
       if (!fen) fen = parent.getPositionFromBoard(el, true);
       const pos = parent.getPositionFromFen(fen);
@@ -251,7 +252,7 @@
           ? 1000
           : 3500;
         this.interval = parent.global.setInterval(this.refreshOpeningDebounced, intervalTime);
-        this.refreshOpeningDebounced();
+        //this.refreshOpeningDebounced(); this is not essential to loading
       }
       if (this.options.showInMinigames) {
         lichess.pubsub.on('socket.in.fen', this.miniGameOpening);

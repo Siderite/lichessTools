@@ -656,7 +656,7 @@
         ? el
         : $('cg-container', el)[0]
       const container = $(elem);
-      if (!container.length) return;
+      if (!container.length || !this.inViewport(container)) return;
 
       const orientation = container.closest('.cg-wrap').is('.orientation-black') ? 'black' : 'white';
       const getKey = orientation == 'white'
