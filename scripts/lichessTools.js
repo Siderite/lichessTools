@@ -122,8 +122,9 @@
     }
 
     wrapFunction(func, options) {
+      const console=this.global.console;
       if (!func) {
-        this.global.console.warn('Trying to wrap no function', options);
+        console.warn('Trying to wrap no function', options);
       }
       const wrappedFunc = function () {
         let executeOriginal = true;
@@ -136,7 +137,7 @@
           if (options?.ignoreErrors) {
             (async () => { return func.apply(this, arguments); })()
               .then(r => { result = r; })
-              .catch(e => parent.global.console.log('Wrapped function error:', e))
+              .catch(e => console.log('Wrapped function error:', e))
           } else {
             result = func.apply(this, arguments);
           }
@@ -1253,7 +1254,7 @@
       getData: async function(filename) {
         let data = this._files.get(filename);
         if (!data) {
-          data = await this.lichessTools.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } }).catch(e => { parent.global.console.error(e); });
+          data = await this.lichessTools.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } }).catch(e => { this.lichessTools.global.console.error(e); });
           this._files.set(filename,data);
         }
         return data;

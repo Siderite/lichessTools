@@ -10,7 +10,7 @@
     intervals = [];
     async init() {
       const global = this.lichessTools.global;
-      const wrap = this.lichessTools.wrapFunction;
+      const wrap = this.lichessTools.wrapFunction.bind(this.lichessTools);
       const removeAll = this.lichessTools.arrayRemoveAll;
       global.setTimeout = wrap(global.setTimeout, {
         id: 'interceptTimeouts',
