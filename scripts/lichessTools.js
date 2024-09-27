@@ -1248,6 +1248,15 @@
           });
           this.lichessTools.global.dispatchEvent(customEvent);
         });
+      },
+      _files: new Map(),
+      getData: async function(filename) {
+        let data = this._files.get(filename);
+        if (!data) {
+          data = await this.lichessTools.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } }).catch(e => { parent.global.console.error(e); });
+          this._files.set(filename,data);
+        }
+        return data;
       }
     };
 

@@ -1,6 +1,4 @@
-(function() {
-
-const openings = {
+{
   "1nbqkb1r1ppp1ppp4pn21P6882PPPPPPBN1QKBNRb": "Polish Opening: Rooks Swap Line",
   "1nbqkbnr1pppppppr7p72PP48PP2PPPPRNBQKBNRw": "Ware Defense: Vihsou System (Brandon Jacobson)",
   "1nbqkbnr1pppppppr7p73PP38PPP2PPPRNBQKBNRw": "Ware Defense: Vihsou System (Brandon Jacobson)",
@@ -11563,7 +11561,6 @@ const openings = {
   "rnbqkbnrpppppppp8886P1PPPPPP1PRNBQKBNRb": "Hungarian Opening",
   "rnbqkbnrpppppppp8887NPPPPPPPPRNBQKB1Rb": "Amar Opening",
   "rnbqkbnrpppppppp8887PPPPPPPP1RNBQKBNRb": "Clemenz Opening",
-  "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw": "*",
   "rnbqkbnrpppppppp888N7PPPPPPPPR1BQKBNRb": "Sodium Attack",
   "rnbqkbnrpppppppp888P71PPPPPPPRNBQKBNRb": "Anderssen's Opening",
   "rnbqkbnrpppppppp88P781PPPPPPPRNBQKBNRb": "Ware Opening",
@@ -11609,8 +11606,4 @@ const openings = {
   "rq2kb1r1b1n1pppp3pn21pp53P41BN1PN2PP2QPPPR1BR2K1w": "QGA: Classical, 8...Bb7 9.Rd1 Nbd7 10.Nc3 Qb8",
   "rq3rk1pb1pppbp1pn2np182PNP32N1BP2PP2B1PPR2Q1RK1w": "Sicilian: Maroczy Bind, 7.Nc3 O-O 8.Be2 b6 9.O-O Bb7 10.f3 Qb8",
   "rqb1kbnr1p1p1ppppBn1p31N64P32N5PPP2PPPR2QKB1Rb": "Sicilian Defense: Taimanov Variation, Bastrikov Variation, Ponomariov Gambit"
-};
-
-LiChessTools.prototype.opening_dict=new Map(Object.keys(openings).map(k=>[k,openings[k]]));
-
-})();
+}

@@ -39,13 +39,20 @@
         id: 'wikiFen',
         before: ($this, nodes) => {
           if (!this.options.enabled) return;
+          if (!this.wikiUrls_dict) {
+            parent.comm.getData('wikiUrls.json').then(dict=>{
+              this.wikiUrls_dict = dict;
+              analysis.wiki(nodes);
+            });
+            return false;
+          }
           const plyPrefix = (node) => `${parent.global.Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
           const pathParts = nodes.slice(1).map(n => `${plyPrefix(n)}${n.san}`);
           const path = pathParts.join('/').replace(/[+!#?]/g, '') || '';
           if (pathParts.length > 30 || !path || path.length > 255 - 21) return;
           const title = `Chess_Opening_Theory/${path}`;
           const fen = parent.getPositionFromFen(analysis.node.fen);
-          const newTitles = parent.wikiUrls_dict[fen];
+          const newTitles = this.wikiUrls_dict[fen];
           if (!newTitles?.length || newTitles.find(t => t.replaceAll(' ', '_') == title)) return;
           const originalFunction = analysis.wiki.__originalFunction?.bind($this);
           if (!originalFunction) return;

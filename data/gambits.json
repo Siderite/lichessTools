@@ -1,6 +1,4 @@
-(function () {
-
-  const gambits = {
+{
   "white": {
     "r1b1k1nrpppp1ppp2n2q22b1p32B1P1Q12N5PPPP1PPPR1B1K1NRw": {
       "total": 1,
@@ -29480,10 +29478,4 @@
       ]
     }
   }
-};
-  
-  LiChessTools.prototype.gambit_dict = {
-    white: new Map(Object.keys(gambits.white).map(k => [k, gambits.white[k]])),
-    black: new Map(Object.keys(gambits.black).map(k => [k, gambits.black[k]]))
-  };
-})();
+}

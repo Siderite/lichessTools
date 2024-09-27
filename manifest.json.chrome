@@ -35,26 +35,11 @@
     },
     {
       "js": [
-        "tools/showOpening/opening_dict.js",
-        "tools/explorerGambits/gambits.js",
-        "tools/wikiFen/wikiUrls.js",
         "tools/extraChart/raccoon.js"
       ],
       "matches": [
-        "*://lichess.org/analysis/*",
-        "*://lichess.org/study/*",
-        "*://lichess.org/broadcast/*",
-        "*://lichess.org/editor/*",
-        "*://lichess.org/tv/*",
-        "*://lichess.org/games/*",
-        "*://lichess.org/*/tv",
-        "*://lichess.dev/analysis/*",
-        "*://lichess.dev/study/*",
-        "*://lichess.dev/broadcast/*",
-        "*://lichess.dev/editor/*",
-        "*://lichess.dev/tv/*",
-        "*://lichess.dev/games/*",
-        "*://lichess.dev/*/tv"
+        "*://lichess.org/*",
+        "*://lichess.dev/*"
       ],
       "run_at": "document_start",
       "world": "MAIN"

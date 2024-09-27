@@ -1,26 +1,21 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "LiChess Tools, by Siderite",
-  "short_name": "LiChess Tools",
   "version": "2.3.146",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
-  "minimum_chrome_version": "111",
   "icons": {
     "16": "images/icon-16.png",
-    "19": "images/icon-19.png",
-    "38": "images/icon-38.png",
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
   },
-  "permissions": [],
-  "host_permissions": [
-    "*://lichess.org/*",
-    "*://lichess.dev/*"
+  "permissions": [
+    "activeTab",
+    "https://lichess.org/*",
+    "https://lichess.dev/*"
   ],
-  "content_scripts": [
-    {
+  "content_scripts": [{
       "js": [
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
@@ -32,34 +27,17 @@
       ],
       "run_at": "document_start",
       "world": "MAIN"
-    },
-    {
+    }, {
       "js": [
-        "tools/showOpening/opening_dict.js",
-        "tools/explorerGambits/gambits.js",
-        "tools/wikiFen/wikiUrls.js",
         "tools/extraChart/raccoon.js"
       ],
       "matches": [
-        "*://lichess.org/analysis/*",
-        "*://lichess.org/study/*",
-        "*://lichess.org/broadcast/*",
-        "*://lichess.org/editor/*",
-        "*://lichess.org/tv/*",
-        "*://lichess.org/games/*",
-        "*://lichess.org/*/tv",
-        "*://lichess.dev/analysis/*",
-        "*://lichess.dev/study/*",
-        "*://lichess.dev/broadcast/*",
-        "*://lichess.dev/editor/*",
-        "*://lichess.dev/tv/*",
-        "*://lichess.dev/games/*",
-        "*://lichess.dev/*/tv"
+        "*://lichess.org/*",
+        "*://lichess.dev/*"
       ],
       "run_at": "document_start",
       "world": "MAIN"
-    },
-    {
+    }, {
       "js": [
         "scripts/dragDropTouch.js",
         "scripts/zip.js",
@@ -272,8 +250,7 @@
       ],
       "run_at": "document_start",
       "world": "MAIN"
-    },
-    {
+    }, {
       "js": [
         "scripts/lichessTools-start.js"
       ],
@@ -283,8 +260,7 @@
       ],
       "run_at": "document_end",
       "world": "MAIN"
-    },
-    {
+    }, {
       "js": [
         "scripts/lichessTools-comm-proxy.js"
       ],
@@ -296,9 +272,9 @@
     }
   ],
   "background": {
-    "service_worker": "scripts/service_worker.js"
+    "page": "background.html"
   },
-  "action": {
+  "browser_action": {
     "default_title": "LiChess Tools",
     "default_popup": "popup.html"
   }

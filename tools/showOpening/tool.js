@@ -89,22 +89,26 @@
     withOpening = async (gameId, el, ply, fen, isMini) => {
       const parent = this.lichessTools;
       const Math = parent.global.Math;
-      if (parent.opening_dict) {
-        if (!fen) fen = parent.getPositionFromBoard(el, true);
-        const pos = parent.getPositionFromFen(fen);
-        if (pos) {
-          let opening = parent.opening_dict.get(pos);
-          if (!opening) {
-            const reversed = parent.getPositionFromFen(parent.reverseFen(fen));
-            const op = parent.opening_dict.get(reversed);
-            if (op && op != '*') opening = op + ' (R)';
-          }
-          if (opening) {
-            el.openingData = { time: Date.now(), opening, el };
-            return el.openingData;
-          }
+      if (!fen) fen = parent.getPositionFromBoard(el, true);
+      const pos = parent.getPositionFromFen(fen);
+      if (pos) {
+        if (pos=='rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw') return { time: Date.now(), opening: '*', el };
+        if (!this.opening_dict) {
+          const openings = await parent.comm.getData('openings.json');
+          this.opening_dict=new Map(Object.keys(openings).map(k=>[k,openings[k]]));
+        }
+        let opening = this.opening_dict.get(pos);
+        if (!opening) {
+          const reversed = parent.getPositionFromFen(parent.reverseFen(fen));
+          const op = this.opening_dict.get(reversed);
+          if (op && op != '*') opening = op + ' (R)';
+        }
+        if (opening) {
+          el.openingData = { time: Date.now(), opening, el };
+          return el.openingData;
         }
       }
+      
 
       if (!gameId || gameId == 'synthetic' || gameId == 'broadcast') return;
 
@@ -214,7 +218,6 @@
       const parent = this.lichessTools;
       const value = parent.currentOptions.getValue('showOpening');
       this.logOption('Show game opening names', value);
-      this.logOption(' ... cached openings', parent.opening_dict?.size);
       this.options = {
         showInBoard: parent.isOptionSet(value, 'showInBoard'),
         showInMinigames: parent.isOptionSet(value, 'showInMinigames'),

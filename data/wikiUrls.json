@@ -1,5 +1,4 @@
-(function () {
-  LiChessTools.prototype.wikiUrls_dict = {
+{
   "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw": [
     "Chess Opening Theory"
   ],
@@ -5658,5 +5657,4 @@
   "rnbqkb1rpppppppp7n887NPPPPPPPPRNBQKB1Rw": [
     "Chess Opening Theory/1. Nh3/1...Nh6"
   ]
-};
-})();
+}

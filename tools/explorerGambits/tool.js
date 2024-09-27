@@ -29,6 +29,18 @@
       }
     }
 
+    gambit_dict = async ()=> {
+      if (!this._gambits) {
+        const parent = this.lichessTools;
+        const gambits = await parent.comm.getData('gambits.json');
+        this._gambits = {
+          white: new Map(Object.keys(gambits.white).map(k => [k, gambits.white[k]])),
+          black: new Map(Object.keys(gambits.black).map(k => [k, gambits.black[k]]))
+        };
+      }
+      return this._gambits;
+    };
+
     computeFen = (fen, uci) => {
       const co = this.lichessTools.chessops;
       fen = co.fen.parseFen(fen).unwrap();
@@ -37,7 +49,7 @@
       return co.fen.makeFen(ch.toSetup());
     };
 
-    showGambits(result) {
+    showGambits = async (result) => {
       const moves = result?.moves;
       const parent = this.lichessTools;
       const lichess = parent.lichess;
@@ -47,6 +59,7 @@
       const container = $('section.explorer-box table.moves');
       if (!container.length) return;
       if (parent.isGamePlaying()) return;
+      const gambits = await this.gambit_dict();
       if (!result?.total) {
         $('.lichessTools-explorerGambits', container).remove();
         return;
@@ -74,7 +87,7 @@
         if (uci) {
           const moveFen = this.computeFen(fen, uci);
           const pos = parent.getPositionFromFen(moveFen);
-          const moveResult = parent.gambit_dict[side].get(pos);
+          const moveResult = gambits[side].get(pos);
           move = moveResult
             ? {
               uci: uci,
@@ -109,7 +122,7 @@
           .text(text)
           .attr('title', title);
       });
-    }
+    };
 
     findGambits = async () => {
       if (!this.options.enabled) return;
@@ -128,8 +141,9 @@
       const fen = analysis.node.fen;
       const side = analysis.getOrientation();
       const pos = parent.getPositionFromFen(analysis.node.fen);
-      const result = parent.gambit_dict[side].get(pos);
-      this.showGambits(result);
+      const gambits = await this.gambit_dict();
+      const result = gambits[side].get(pos);
+      await this.showGambits(result);
     };
     findGambitsDebounced = this.lichessTools.debounce(this.findGambits, 100);
 
