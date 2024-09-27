@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Sep
+
+- timeline in profile
+
 17 Sep
 
 - random percent in chapter title

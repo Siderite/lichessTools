@@ -169,6 +169,7 @@
         "tools/konami/tool.js",
         "tools/cevalLineOptions/tool.js",
         "tools/noSpoilers/tool.js",
+        "tools/profileTimeline/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -257,6 +258,7 @@
         "tools/studyLinks/tool.css",
         "tools/konami/tool.css",
         "tools/cevalLineOptions/tool.css",
+        "tools/profileTimeline/tool.css",
 
         "tools/tvOptions/tool.css",
 

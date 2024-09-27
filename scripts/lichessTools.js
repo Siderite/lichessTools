@@ -1327,6 +1327,7 @@
         parent.cache.memoizeAsyncFunction(parent.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000 });
         parent.cache.memoizeAsyncFunction(parent.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
         parent.cache.memoizeAsyncFunction(parent.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
+        parent.cache.memoizeAsyncFunction(parent.api.timeline, 'get', { persist: 'session', interval: 60 * 1000 });
       },
       blog: {
         lichessTools: this,
