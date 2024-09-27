@@ -245,7 +245,8 @@
       lichess.pubsub.off('lichessTools.puzzleChange', this.resetFlags);
       $('#form3-flag').off('change', this.clearCache);
       if (value) {
-        this.countries=await parent.comm.getData('countries.json');
+        const data = await parent.comm.getData('countries.json');
+        this.countries = data.countries;
         this.debouncedProcessFlags();
         lichess.pubsub.on('content-loaded', this.debouncedProcessFlags);
         lichess.pubsub.on('socket.in.crowd', this.debouncedProcessFlags);
