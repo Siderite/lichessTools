@@ -106,15 +106,16 @@
               if (!s) return result;
               let p = 0;
               const ellipsis = '\u2026';
-              if (l < s.length) {
+              while (p + l < s.length) {
                 let frag = s.substr(p, l);
-                const lastWordBoundary = [...frag.matchAll(/\b/g)].at(-2)?.index;
-                result.push(s.substr(p, l - 1) + ellipsis);
-                p += l - 1;
-              }
-              while (p < s.length && p + l - 2 < s.length) {
-                result.push((p > 0 ? ellipsis : '') + s.substr(p, l - 2) + ellipsis);
-                p += l - 2;
+                const lastWordBoundaryIndex = [...frag.matchAll(/\b/g)].at(-2)?.index;
+                if (lastWordBoundaryIndex>l-20) {
+                  frag=s.substr(p, lastWordBoundaryIndex);
+                } else {
+                  frag = s.substr(p, l-1);
+                }
+                result.push((p > 0 ? ellipsis : '') + frag + ellipsis);
+                p += frag.length;
               }
               if (p < s.length) {
                 result.push((p > 0 ? ellipsis : '') + s.substr(p));
