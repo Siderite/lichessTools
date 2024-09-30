@@ -48,7 +48,7 @@
         const dict = this.lichessTools.intl.siteI18n;
         const str =
           dict[`${key}:${quantity(count)}`] || dict[`${key}:other`] || dict[key] || dict[`${key}:one`]
-          || format(`${key}:${quantity(count)}`) || format(`${key}:other`) || format(key) || format(`${key}:one`);
+          || this.format(`${key}:${quantity(count)}`) || this.format(`${key}:other`) || this.format(key) || this.format(`${key}:one`);
         return str ? this.format(str, args) : key;
       },
       pluralSame: function (key, count, ...args) {
@@ -1664,12 +1664,24 @@
           setTimeout(() => { throw e; }, 100);
         }
       }
+      await this.loadTranslations();
       console.groupEnd();
     }
 
     async saveOptions(options) {
       const optionsJson = this.global.JSON.stringify(options);
       this.global.localStorage.setItem('LiChessTools2.options', optionsJson);
+    }
+
+    async loadTranslations() {
+      const intl = await this.comm.getData('crowdin.json');
+      /*delete this.intl['en-US'];
+      delete this.intl['ro-RO'];
+      delete this.intl['zh-TW'];*/
+      for (const lang in intl) {
+        this.intl[lang] = { ...this.intl[lang], ...intl[lang] };
+      }
+      console.log(' Loaded '+Object.keys(intl).length+' language translations.');
     }
   }
 
