@@ -93,6 +93,7 @@
         });
       }
       if (this.options.unlimited) {
+        const maxLength = 138;
         const input = $('input.mchat__say', container);
         if (input.attr('maxlength')) {
           input.removeAttr('maxlength');
@@ -106,6 +107,8 @@
               let p = 0;
               const ellipsis = '\u2026';
               if (l < s.length) {
+                let frag = s.substr(p, l);
+                const lastWordBoundary = [...frag.matchAll(/\b/g)].at(-2)?.index;
                 result.push(s.substr(p, l - 1) + ellipsis);
                 p += l - 1;
               }
@@ -139,10 +142,10 @@
               }
               let sendText = '';
               for (const newText of newTexts) {
-                if (!sendText || sendText.length + newText.length <= 140) {
+                if (!sendText || sendText.length + newText.length <= maxLength) {
                   sendText += newText;
                 } else {
-                  const splits = splitLength(sendText, 140);
+                  const splits = splitLength(sendText, maxLength);
                   for (const splitText of splits) {
                     lichess.pubsub.emit('socket.send', 'talk', splitText);
                     await parent.timeout(500);
@@ -151,7 +154,7 @@
                 }
               }
               if (sendText) {
-                const splits = splitLength(sendText, 140);
+                const splits = splitLength(sendText, maxLength);
                 for (const splitText of splits) {
                   lichess.pubsub.emit('socket.send', 'talk', splitText);
                   await parent.timeout(100);
