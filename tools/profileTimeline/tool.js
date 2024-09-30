@@ -59,7 +59,7 @@
       const tabs=$('div.angles');
       if (!tabs.length) return;
       let tab=$('a[data-tab="timeline"]',tabs);
-      if (!tab.length) {
+      if (this.options.enabled && !tab.length) {
         tab=$('<a data-tab="timeline" class="nm-item lichessTools-profileTimeline">')
           .attr('title',trans.noarg('timelineTitle'))
           .text(trans.noarg('timelineText'))
@@ -70,6 +70,8 @@
              this.loadTimeline();
           })
           .appendTo(tabs);
+      } else {
+        tab.remove();
       }
     }
 
