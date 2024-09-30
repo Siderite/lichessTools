@@ -6,8 +6,7 @@
       const $ = parent.$;
       const lichess = parent.lichess;
       const dialog = $('<dialog class="lichessTools-dialog">')
-        .toggleClass('touch-scroll', parent.isTouchDevice())
-        .appendTo(options.parent || 'body');
+        .toggleClass('touch-scroll', parent.isTouchDevice());
       if (options.parent) dialog.css('position', 'absolute');
 
       if (!options.noCloseButton) {
@@ -124,7 +123,7 @@
 
         resize.on('dragstart', () => false);
       }
-
+      dialog.appendTo(options.parent || 'body');
       return dialog[0];
     }
 
