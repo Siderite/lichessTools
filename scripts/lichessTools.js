@@ -1544,6 +1544,21 @@
           const timeline = await parent.net.json({ url: '/api/timeline?nb=100&since={lastRead}', args: { lastRead } });
           return timeline;
         }
+      },
+      relations: {
+        lichessTools: this,
+        getFriends: async function () {
+          const parent = this.lichessTools;
+          let result = [];
+          let page = await parent.net.json({ url: '/@/{userId}/following', args: { userId: this.lichessTools.getUserId() } });
+          while (page) {
+            result=result.concat(page.paginator.currentPageResults);
+            page = page.paginator.nextPage
+              ? await parent.net.json({ url: '/@/{userId}/following?page={page}', args: { userId: this.lichessTools.getUserId(), page: page.paginator.nextPage } })
+              : null;
+          }
+          return result;
+        }
       }
     }
 
