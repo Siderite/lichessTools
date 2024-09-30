@@ -1027,9 +1027,6 @@
       'ro-RO': {
         serverOverload: 'LiChess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
       },
-      "zh-TW": {
-        serverOverload: "Lichess \u8A8D\u70BA\u6211\u5011\u6709\u610F\u50B3\u9001\u904E\u591A\u8ACB\u6C42\uFF01",
-      },
       get lang() {
         let lang = lichessTools.global.document.documentElement.lang || this.defaultLanguage;
         if (!this[lang]) lang = this.defaultLanguage;
@@ -1686,9 +1683,6 @@
 
     async loadTranslations() {
       const intl = await this.comm.getData('crowdin.json');
-      /*delete this.intl['en-US'];
-      delete this.intl['ro-RO'];
-      delete this.intl['zh-TW'];*/
       for (const lang in intl) {
         this.intl[lang] = { ...this.intl[lang], ...intl[lang] };
       }

@@ -22,10 +22,6 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.cevalDecimals': 'Mai multe zecimale \u00een evaluare computer'
-      },
-      'zh-TW': {
-        'options.analysis': '\u5206\u6790',
-        'options.cevalDecimals': '\u66F4\u7CBE\u6E96\u7684\u5C0F\u6578\u9EDE\u5F15\u64CE\u5206\u6790\u503C',
       }
     }
 

@@ -26,13 +26,6 @@
         'downloadingText': 'Am descarcat... %s jocuri p\u00e2n\u0103 acum',
         'downloadButtonText': 'Descarc\u0103',
         'downloadButtonTitle': 'LiChess Tools - Desc\u0103rcare'
-      },
-      'zh-TW': {
-        'options.general': '\u4E00\u822C',
-        'options.downloadGames': '\u5728\u9032\u968E\u641C\u5C0B\u4E2D\u4E0B\u8F09\u68CB\u5C40',
-        downloadingText: '\u76EE\u524D\u5DF2\u4E0B\u8F09 %s \u500B\u68CB\u5C40',
-        downloadButtonText: '\u4E0B\u8F09',
-        downloadButtonTitle: 'LiChess Tools - \u4E0B\u8F09',
       }
     }
 

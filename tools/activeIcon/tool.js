@@ -20,10 +20,6 @@
       'ro-RO': {
         'options.general': 'General',
         'options.activeIcon': 'Iconi\u0163\u0103 titlu activ\u0103'
-      },
-      'zh-TW': {
-        'options.general': '\u4E3B\u8981',
-        'options.activeIcon': '\u6A19\u984C\u5716\u793A',
       }
     }
 
