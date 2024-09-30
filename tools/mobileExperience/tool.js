@@ -182,6 +182,7 @@
     brushes = ['green', 'red', 'blue', 'yellow'];
     toggleBrush = (ev) => {
       if (!this.chessground) return;
+      ev.preventDefault();
       let index = this.brushes.indexOf(this.drawingBrush) + 1;
       this.drawingBrush = index >= this.options.colorCount
         ? null
@@ -247,17 +248,17 @@
         if (wrap && !wrap.is('.lichessTools-shapeDrawing')) {
           wrap
             .addClass('lichessTools-shapeDrawing')
-            .on('mousedown touchstart', this.touchStart)
-            .on('mousemove touchmove', this.touchMove)
-            .on('mouseup touchend', this.touchEnd);
+            .on('touchstart mousedown ', this.touchStart)
+            .on('touchmove mousemove', this.touchMove)
+            .on('touchend mouseup', this.touchEnd);
         }
       } else {
         if (wrap) {
           wrap
             .removeClass('lichessTools-shapeDrawing')
-            .off('mousedown touchstart', this.touchStart)
-            .off('mousemove touchmove', this.touchMove)
-            .off('mouseup touchend', this.touchEnd);
+            .off('touchstart mousedown', this.touchStart)
+            .off('touchmove mousemove', this.touchMove)
+            .off('touchend mouseup', this.touchEnd);
         }
       }
       if (isAnalyse) {
@@ -323,7 +324,7 @@
                 .attr('data-icon', '\u21D7')
                 .attr('title', trans.noarg('shapeDrawingTitle'))
                 .insertBefore($('button.board-menu-toggle', container))
-                .on('mousedown touchstart', ev => {
+                .on('touchstart mousedown ', ev => {
                   this.toggleBrush(ev);
                   wrap?.toggleClass('lichessTools-passthrough', !this.drawingBrush);
                 });
