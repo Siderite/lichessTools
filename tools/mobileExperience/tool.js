@@ -83,7 +83,8 @@
       const parent = this.lichessTools;
       const lichess = parent.lichess;
       const $ = parent.$;
-      const pos = [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
+      const ev = e.targetTouches?.[0] || e;
+      const pos = [ev.clientX, ev.clientY];
       const square = this.chessground.getKeyAtDomPos(pos);
       this.chessground.state.drawable.current = {
         orig: square,
@@ -99,7 +100,8 @@
       const lichess = parent.lichess;
       const $ = parent.$;
       if (!this.chessground.state.drawable.current) return;
-      const pos = [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
+      const ev = e.targetTouches?.[0] || e;
+      const pos = [ev.clientX, ev.clientY];
       const square = this.chessground.getKeyAtDomPos(pos);
       const current = this.chessground.state.drawable.current;
       current.pos = pos;
@@ -115,7 +117,8 @@
       if (!this.chessground.state.drawable.current) return;
       e.preventDefault();
       e.stopPropagation();
-      const pos = [e.changedTouches[0].clientX, e.changedTouches[0].clientY];
+      const ev = e.targetTouches?.[0] || e;
+      const pos = [ev.clientX, ev.clientY];
       const square = this.chessground.getKeyAtDomPos(pos);
       this.handleGesture(this.chessground.state.drawable.current);
       this.chessground.state.drawable.current = undefined;
@@ -193,6 +196,19 @@
       }
     };
 
+    clickOrTapAnalysisControls = (ev) => {
+      const parent = this.lichessTools;
+      const $ = parent.$;
+      if ($(ev.target).is('button.lichessTools-shapeDrawing')) {
+        ev.preventDefault();
+        this.toggleBrush(ev);
+      }
+      if ($(ev.target).is('button.lichessTools-randomNextMove')) {
+        ev.preventDefault();
+        this.playRandomVariation();
+      }
+    };
+
     handleRedraw = async () => {
       const parent = this.lichessTools;
       const lichess = parent.lichess;
@@ -231,17 +247,17 @@
         if (wrap && !wrap.is('.lichessTools-shapeDrawing')) {
           wrap
             .addClass('lichessTools-shapeDrawing')
-            .on('touchstart', this.touchStart)
-            .on('touchmove', this.touchMove)
-            .on('touchend', this.touchEnd);
+            .on('mousedown touchstart', this.touchStart)
+            .on('mousemove touchmove', this.touchMove)
+            .on('mouseup touchend', this.touchEnd);
         }
       } else {
         if (wrap) {
           wrap
             .removeClass('lichessTools-shapeDrawing')
-            .off('touchstart', this.touchStart)
-            .off('touchmove', this.touchMove)
-            .off('touchend', this.touchEnd);
+            .off('mousedown touchstart', this.touchStart)
+            .off('mousemove touchmove', this.touchMove)
+            .off('mouseup touchend', this.touchEnd);
         }
       }
       if (isAnalyse) {
@@ -279,17 +295,12 @@
               this.originalHandler = parent.getEventHandlers(elem, 'touchstart')?.at(0)?.bind(elem);
             }
             parent.removeEventHandlers(elem, 'touchstart');
-            $('div.analyse__controls').on('touchstart', ev => {
-              this.originalHandler(ev);
-              if ($(ev.target).is('button.lichessTools-shapeDrawing')) {
-                ev.preventDefault();
-                this.toggleBrush(ev);
-              }
-              if ($(ev.target).is('button.lichessTools-randomNextMove')) {
-                ev.preventDefault();
-                this.playRandomVariation();
-              }
-            });
+            $('div.analyse__controls')
+              .on('touchstart', ev => {
+                this.originalHandler(ev);
+                this.clickOrTapAnalysisControls(ev);
+              })
+              .on('mousedown', this.clickOrTapAnalysisControls);
           }
         }
         if (!this.options.shapeDrawing && !this.options.randomNextMove) {
@@ -297,7 +308,9 @@
             const elem = $('.analyse__controls')[0];
             if (elem && this.originalHandler) {
               parent.removeEventHandlers(elem, 'touchstart');
-              $('div.analyse__controls').on('touchstart', this.originalHandler);
+              $('div.analyse__controls')
+                .on('touchstart', this.originalHandler)
+                .off('mousedown', this.clickOrTapAnalysisControls);
             }
           }
         }
@@ -310,7 +323,7 @@
                 .attr('data-icon', '\u21D7')
                 .attr('title', trans.noarg('shapeDrawingTitle'))
                 .insertBefore($('button.board-menu-toggle', container))
-                .on('touchstart', ev => {
+                .on('mousedown touchstart', ev => {
                   this.toggleBrush(ev);
                   wrap?.toggleClass('lichessTools-passthrough', !this.drawingBrush);
                 });
