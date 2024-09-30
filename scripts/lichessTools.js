@@ -1560,7 +1560,18 @@
         this.tools[toolClass.name] = tool;
         if (tool.intl) {
           for (const lang in tool.intl) {
-            this.intl[lang] = { ...this.intl[lang], ...tool.intl[lang] };
+            let existingLang = this.intl[lang];
+            if (!existingLang) {
+              existingLang = {};
+              this.intl[lang] = existingLang;
+            }
+            const toolLang = tool.intl[lang];
+            for (const key in toolLang) {
+              if (existingLang[key] === undefined) {
+                existingLang[key] = toolLang[key];
+              }
+            }
+            //this.intl[lang] = { ...this.intl[lang], ...tool.intl[lang] };
           }
         }
         if (tool.dependencies) {
@@ -1656,6 +1667,7 @@
         ? console.group
         : console.groupCollapsed;
       group('Applying LiChess Tools options...');
+      await this.loadTranslations();
       for (const tool of this.tools) {
         if (!tool?.start) continue;
         try {
@@ -1664,7 +1676,6 @@
           setTimeout(() => { throw e; }, 100);
         }
       }
-      await this.loadTranslations();
       console.groupEnd();
     }
 
