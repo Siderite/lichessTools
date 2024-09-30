@@ -104,7 +104,7 @@
       }
       $(input).off('keydown', this.keydown);
       if (this.options.enabled && !this.oldkeydown) {
-        const focusin = parent.getEventHandlers(input, 'focusin')[0];
+        const focusin = parent.getEventHandlers(input, 'focusin')?.at(-1);
         if (!focusin) {
           if (this.retries > this.maxRetries) {
             parent.global.console.warn('Could not get focusin event for ', input);
@@ -114,7 +114,7 @@
           parent.global.setTimeout(this.boot, 100);
           return;
         }
-        this.oldkeydown = parent.getEventHandlers(input, 'keydown')[0];
+        this.oldkeydown = parent.getEventHandlers(input, 'keydown')?.at(-1);
         if (!this.oldkeydown) {
           $(input).trigger('focus');
           $.cached('body').removeClass('clinput');
