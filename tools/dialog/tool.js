@@ -123,7 +123,9 @@
 
         resize.on('dragstart', () => false);
       }
-      dialog.appendTo(options.parent || 'body');
+      dialog
+        .on('close',()=>dialog.remove())
+        .appendTo(options.parent || 'body');
       return dialog[0];
     }
 
