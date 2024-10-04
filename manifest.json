@@ -35,20 +35,10 @@
     },
     {
       "js": [
-        "tools/extraChart/raccoon.js"
-      ],
-      "matches": [
-        "*://lichess.org/*",
-        "*://lichess.dev/*"
-      ],
-      "run_at": "document_start",
-      "world": "MAIN"
-    },
-    {
-      "js": [
         "scripts/dragDropTouch.js",
         "scripts/zip.js",
         "scripts/urlCanParse.js",
+        "tools/crowdin/tool.js",
         "tools/emitEsmLoaded/tool.js",
         "tools/interceptEventHandlers/tool.js",
         "tools/interceptTimeouts/tool.js",
@@ -70,6 +60,8 @@
         "tools/stockfish/tool.js",
         "tools/addNotifications/tool.js",
         "tools/additionalGlyphs/tool.js",
+
+        "tools/extraChart/raccoon.js",
 
         "tools/removeChatLinkWarning/tool.js",
         "tools/dialog/tool.js",

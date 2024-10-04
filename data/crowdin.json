@@ -666,7 +666,10 @@
     "previousStudyTitle": "أدوات شطرنج الحياة - \"%s\"",
     "options.timelineNotify": "إشعارات الخط الزمني",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "الكتابة فوق لقطة \"%s\" ؟"
+    "replaceSnapPrompt": "الكتابة فوق لقطة \"%s\" ؟",
+    "hideInactiveTitle": "اللاعبين النشطين",
+    "options.languages": "اللغات",
+    "options.crowdin": "ترجمة كراودين"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -765,7 +768,7 @@
     "options.liveFriendsPage": "Live friends page",
     "hideOfflineTitle": "Online players",
     "hideNotPlayingTitle": "Playing players",
-    "hideMutedTitle": "Muted players",
+    "hideMutedTitle": "Players with play alerts",
     "daysText:one": "a day",
     "hoursText:one": "an hr",
     "minutesText:one": "a min",
@@ -1335,7 +1338,10 @@
     "previousStudyTitle": "LiChess Tools - \"%s\"",
     "options.timelineNotify": "Timeline notifications",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "Overwrite snap \"%s\" ?"
+    "replaceSnapPrompt": "Overwrite snap \"%s\" ?",
+    "hideInactiveTitle": "Active players",
+    "options.languages": "Languages",
+    "options.crowdin": "Crowdin translation"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -1434,7 +1440,7 @@
     "options.liveFriendsPage": "Live friends page",
     "hideOfflineTitle": "Online players",
     "hideNotPlayingTitle": "Playing players",
-    "hideMutedTitle": "Muted players",
+    "hideMutedTitle": "Players with play alerts",
     "daysText:one": "a day",
     "hoursText:one": "an hr",
     "minutesText:one": "a min",
@@ -2004,7 +2010,10 @@
     "previousStudyTitle": "LiChess Tools - \"%s\"",
     "options.timelineNotify": "Timeline notifications",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "Overwrite snap \"%s\" ?"
+    "replaceSnapPrompt": "Overwrite snap \"%s\" ?",
+    "hideInactiveTitle": "Active players",
+    "options.languages": "Languages",
+    "options.crowdin": "Crowdin translation"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2109,9 +2118,9 @@
     "minutesText:one": "une minute",
     "daysText": "%s jours",
     "hoursText": "%s heures",
-    "minutesText": "%s mins",
-    "timeText": "%s ago",
-    "playing": "%s playing",
+    "minutesText": "%s minutes",
+    "timeText": "Il y a %s",
+    "playing": "%s parties en cours",
     "gameType-classical": "Classique",
     "gameType-rapid": "Rapide",
     "gameType-blitz": "Blitz",
@@ -2292,7 +2301,7 @@
     "options.previousStudyMenu": "Dernier menu d'étude visité",
     "previousStudyText": "Étude précédente",
     "timeline": "Échéancier",
-    "timelineNotification": "You have %s new entries",
+    "timelineNotification": "Vous avez %s nouvelles entrées",
     "timelineNotifyTitle": "Outils LiChess - aller à la chronologie",
     "timelineNotify.forum-post": "Message du forum",
     "timelineNotify.ublog-post": "Article de blog",
@@ -2673,7 +2682,10 @@
     "previousStudyTitle": "Outils LiChess - «%s»",
     "options.timelineNotify": "Notifications de la chronologie",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "Écraser le snap \"%s\" ?"
+    "replaceSnapPrompt": "Écraser le snap \"%s\" ?",
+    "hideInactiveTitle": "Joueurs actifs",
+    "options.languages": "Langues",
+    "options.crowdin": "Traduction de Crowdin"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3342,7 +3354,10 @@
     "previousStudyTitle": "LiChess Werkzeuge - \"%s\"",
     "options.timelineNotify": "Timeline-Benachrichtigungen",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "Snap \"%s\" überschreiben?"
+    "replaceSnapPrompt": "Snap \"%s\" überschreiben?",
+    "hideInactiveTitle": "Aktive Spieler",
+    "options.languages": "Sprachen",
+    "options.crowdin": "Crowdin-Übersetzung"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -3441,7 +3456,7 @@
     "options.liveFriendsPage": "Live friends page",
     "hideOfflineTitle": "Online players",
     "hideNotPlayingTitle": "Playing players",
-    "hideMutedTitle": "Muted players",
+    "hideMutedTitle": "Players with play alerts",
     "daysText:one": "a day",
     "hoursText:one": "an hr",
     "minutesText:one": "a min",
@@ -4011,7 +4026,10 @@
     "previousStudyTitle": "LiChess Tools - \"%s\"",
     "options.timelineNotify": "Timeline notifications",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "Overwrite snap \"%s\" ?"
+    "replaceSnapPrompt": "Overwrite snap \"%s\" ?",
+    "hideInactiveTitle": "Active players",
+    "options.languages": "Languages",
+    "options.crowdin": "Crowdin translation"
   },
   "pt-PT": {
     "LiChess Tools": "Ferramentas LiChess",
@@ -4680,7 +4698,10 @@
     "previousStudyTitle": "Ferramentas LiChess - \"%s\"",
     "options.timelineNotify": "Notificações de cronograma",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "Substituir snap \"%s\" ?"
+    "replaceSnapPrompt": "Substituir snap \"%s\" ?",
+    "hideInactiveTitle": "Jogadores ativos",
+    "options.languages": "Idiomas",
+    "options.crowdin": "Tradução do Crowdin"
   },
   "ro-RO": {
     "LiChess Tools": "Unelte de șah",
@@ -4779,7 +4800,7 @@
     "options.liveFriendsPage": "Pagină prieteni live",
     "hideOfflineTitle": "Jucători online",
     "hideNotPlayingTitle": "Jucători care joacă",
-    "hideMutedTitle": "Jucători cu alertă nepermisă",
+    "hideMutedTitle": "Jucători cu alertă de job permisă",
     "daysText:one": "o zi",
     "hoursText:one": "o oră",
     "minutesText:one": "un minut",
@@ -5349,7 +5370,10 @@
     "previousStudyTitle": "LiChess Tools - \"%s\"",
     "options.timelineNotify": "Notificări la activitate recentă",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "Suprascrie snap \"%s\" ?"
+    "replaceSnapPrompt": "Suprascrie snap \"%s\" ?",
+    "hideInactiveTitle": "Jucători activi",
+    "options.languages": "Limbi",
+    "options.crowdin": "Traducere cu Crowdin"
   },
   "ru-RU": {
     "LiChess Tools": "Инструменты Жизни",
@@ -6018,7 +6042,10 @@
     "previousStudyTitle": "Инструменты Жизни - \"%s\"",
     "options.timelineNotify": "Уведомления о Линии времени",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "Перезаписать привязку \"%s\" ?"
+    "replaceSnapPrompt": "Перезаписать привязку \"%s\" ?",
+    "hideInactiveTitle": "Активные игроки",
+    "options.languages": "Языки",
+    "options.crowdin": "Crowdin перевод"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6687,7 +6714,10 @@
     "previousStudyTitle": "Herramientas de LiChess - \"%s\"",
     "options.timelineNotify": "Notificaciones de cronología",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "¿Sobrescribir snap \"%s\" ?"
+    "replaceSnapPrompt": "¿Sobrescribir snap \"%s\" ?",
+    "hideInactiveTitle": "Jugadores activos",
+    "options.languages": "Idiomas",
+    "options.crowdin": "Traducción de Crowdin"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -6786,7 +6816,7 @@
     "options.liveFriendsPage": "Live friends page",
     "hideOfflineTitle": "Online players",
     "hideNotPlayingTitle": "Playing players",
-    "hideMutedTitle": "Muted players",
+    "hideMutedTitle": "Players with play alerts",
     "daysText:one": "a day",
     "hoursText:one": "an hr",
     "minutesText:one": "a min",
@@ -7356,6 +7386,9 @@
     "previousStudyTitle": "LiChess Tools - \"%s\"",
     "options.timelineNotify": "Timeline notifications",
     "changeNameToText": " \"%s\"",
-    "replaceSnapPrompt": "Overwrite snap \"%s\" ?"
+    "replaceSnapPrompt": "Overwrite snap \"%s\" ?",
+    "hideInactiveTitle": "Active players",
+    "options.languages": "Languages",
+    "options.crowdin": "Crowdin translation"
   }
 }

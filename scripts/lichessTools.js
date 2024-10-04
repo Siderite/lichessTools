@@ -1679,7 +1679,6 @@
         ? console.group
         : console.groupCollapsed;
       group('Applying LiChess Tools options...');
-      await this.loadTranslations();
       for (const tool of this.tools) {
         if (!tool?.start) continue;
         try {
@@ -1694,14 +1693,6 @@
     async saveOptions(options) {
       const optionsJson = this.global.JSON.stringify(options);
       this.global.localStorage.setItem('LiChessTools2.options', optionsJson);
-    }
-
-    async loadTranslations() {
-      const intl = await this.comm.getData('crowdin.json');
-      for (const lang in intl) {
-        this.intl[lang] = { ...this.intl[lang], ...intl[lang] };
-      }
-      console.log(' Loaded '+Object.keys(intl).length+' language translations.');
     }
   }
 
