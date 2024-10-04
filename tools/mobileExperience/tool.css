@@ -164,6 +164,11 @@ body.lichessTools.mobile button.hidden+button.lichessTools-shapeDrawing {
   body.lichessTools.mobile main.lichessTools-invert .round__app .rclock-top {
     justify-self: start;
   }
+
+  body.lichessTools.mobile main.lichessTools-invert .round__app .material-bottom,
+  body.lichessTools.mobile main.lichessTools-invert .round__app .material-top {
+    justify-self: end;
+  }
 }
 
 /* Prettier Lichess CSS */
