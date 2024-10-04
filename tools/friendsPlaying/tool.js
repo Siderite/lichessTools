@@ -42,10 +42,10 @@
       }
     }
 
-    showAudioNotAllowed = () => {
+    showAudioNotAllowed = async () => {
       const parent = this.lichessTools;
       const trans = parent.translator;
-      const isAudioAllowed = parent.isAudioAllowed();
+      const isAudioAllowed = await parent.isAudioAllowed();
       const noAutoPlay = parent.$('#warn-no-autoplay')
         .toggleClass('shown', !isAudioAllowed);
       const title = trans.noarg('audioNotAllowedTitle');
@@ -72,9 +72,12 @@
       if (!silent && this.lichessTools.lichess.quietMode) {
         silent += 'quietMode';
       }
-      if (!silent && !this.lichessTools.isAudioAllowed()) {
-        silent += 'audioNotAllowed';
-        this.showAudioNotAllowed();
+      if (!silent) {
+        const isAudioAllowed = await this.lichessTools.isAudioAllowed();
+        if (!isAudioAllowed) {
+          silent += 'audioNotAllowed';
+          this.showAudioNotAllowed();
+        }
       }
       if (!silent) {
         let friendSoundTime = +(this.lichessTools.storage.get('LiChessTools.friendSound')?.value?.time);

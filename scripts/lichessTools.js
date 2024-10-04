@@ -319,11 +319,12 @@
       return 'ultrabullet';
     }
 
-    isAudioAllowed() {
+    async isAudioAllowed() {
       if (this.audioAllowed) return true;
       // TODO maybe readd when Chrome allows knowing if the 'sound' permission has been granted for the site
       //if (!navigator.userActivation.hasBeenActive) return false;
       const ac = new AudioContext();
+      await this.timeout(10);
       const state = ac.state != 'suspended';
       this.audioAllowed = state;
       return state;
