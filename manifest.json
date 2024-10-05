@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChess Tools",
-  "version": "2.3.145",
+  "version": "2.3.148",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -24,10 +24,21 @@
       "js": [
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
-        "scripts/lichessTools.js",
+        "scripts/lichessTools.js"
+      ],
+      "matches": [
+        "*://lichess.org/*",
+        "*://lichess.dev/*"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "js": [
         "scripts/dragDropTouch.js",
         "scripts/zip.js",
         "scripts/urlCanParse.js",
+        "tools/crowdin/tool.js",
         "tools/emitEsmLoaded/tool.js",
         "tools/interceptEventHandlers/tool.js",
         "tools/interceptTimeouts/tool.js",
@@ -50,6 +61,8 @@
         "tools/addNotifications/tool.js",
         "tools/additionalGlyphs/tool.js",
 
+        "tools/extraChart/raccoon.js",
+
         "tools/removeChatLinkWarning/tool.js",
         "tools/dialog/tool.js",
         "tools/quietModeAllTabs/tool.js",
@@ -63,7 +76,6 @@
         "tools/keyShortcuts/tool.js",
         "tools/showFlags/tool.js",
         "tools/shapeRank/tool.js",
-        "tools/showOpening/opening_dict.js",
         "tools/showOpening/tool.js",
         "tools/previousGameMenu/tool.js",
         "tools/openingExplorerUsers/tool.js",
@@ -81,23 +93,19 @@
         "tools/mobileExperience/tool.js",
         "tools/explorerPractice/tool.js",
         "tools/extraChart/tool.js",
-        "tools/extraChart/raccoon.js",
         "tools/keyboardHelp/tool.js",
         "tools/previousStudyMenu/tool.js",
         "tools/timelineNotify/tool.js",
         "tools/explorerEval/tool.js",
         "tools/explorerGambits/tool.js",
-        "tools/explorerGambits/gambits.js",
         "tools/explorerSettings/tool.js",
         "tools/stickyStudySettings/tool.js",
         "tools/chapterInsert/tool.js",
         "tools/chapterPgnArea/tool.js",
         "tools/moveListOptions/tool.js",
-        "tools/wikiFen/wikiUrls.js",
         "tools/wikiFen/tool.js",
         "tools/transpositionArrows/tool.js",
         "tools/tvOptions/tool.js",
-        "tools/showPawnStructure/pawnStructures.js",
         "tools/showPawnStructure/tool.js",
         "tools/explorerSnaps/tool.js",
         "tools/miniGameSize/tool.js",
@@ -137,6 +145,8 @@
         "tools/konami/tool.js",
         "tools/cevalLineOptions/tool.js",
         "tools/noSpoilers/tool.js",
+        "tools/profileTimeline/tool.js",
+        "tools/playWheel/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -225,6 +235,7 @@
         "tools/studyLinks/tool.css",
         "tools/konami/tool.css",
         "tools/cevalLineOptions/tool.css",
+        "tools/profileTimeline/tool.css",
 
         "tools/tvOptions/tool.css",
 

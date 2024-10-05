@@ -23,8 +23,8 @@
       'ro-RO': {
         'options.study': 'Studiu',
         'options.chapterInsert': 'Insereaz\u0103 capitole noi dup\u0103 cel curent',
-        'chapterInsertText': 'Creaz\u0103 dup\u0103 capitolul curent',
-        'chapterInsertTitle': 'LiChess Tools - creaz\u0103 capitol dup\u0103 cel curent'
+        'chapterInsertText': 'Creeaz\u0103 dup\u0103 capitolul curent',
+        'chapterInsertTitle': 'LiChess Tools - creeaz\u0103 capitol dup\u0103 cel curent'
       }
     }
 
@@ -76,7 +76,7 @@
       newOrder.splice(index + 1, 0, newChapterId);
       study.makeChange('sortChapters', newOrder);
       setTimeout(() => {
-        const elem = $('div.study__chapters div.draggable[data-id="' + newChapterId + '"]')[0];
+        const elem = $('div.study__chapters button.draggable[data-id="' + newChapterId + '"]')[0];
         if (!elem) return;
         if (elem.scrollIntoViewIfNeeded) {
           elem.scrollIntoViewIfNeeded();

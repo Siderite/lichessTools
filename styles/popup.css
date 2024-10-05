@@ -2,10 +2,11 @@
 
 body {
   padding: 0.5em;
+  padding-top: 0;
   font-family: 'Red Hat Text', sans-serif;
   background-color: #D4CBC4;
   color: black;
-  font-size: 1.2rem;
+  font-size: 1rem;
   width: 26rem;
   overflow-x: hidden;
 }

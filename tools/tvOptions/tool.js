@@ -6,7 +6,7 @@
         name: 'tvOptions',
         category: 'TV',
         type: 'multiple',
-        possibleValues: ['link', 'bookmark', 'streamerTv', 'friendsTv',/*'teamTv',*/'userTvHistory', 'wakelock'],
+        possibleValues: ['link', 'bookmark', 'streamerTv', 'friendsTv',/*'teamTv',*/'userTvHistory', 'wakelock','stickyCategory'],
         defaultValue: 'link,bookmark,streamerTv,friendsTv,userTvHistory,wakelock',
         advanced: false
       }
@@ -23,6 +23,7 @@
         'tvOptions.teamTv': 'Team current games',
         'tvOptions.userTvHistory': 'Previous two games in player TV',
         'tvOptions.wakelock': 'Prevent screen lock with TV',
+        'tvOptions.stickyCategory': 'Persistent TV channel',
         'friendsButtonTitle': 'LiChess Tools - games of your friends',
         'streamersButtonTitle': 'LiChess Tools - games of live streamers',
         'teamButtonTitle': 'LiChess Tools - games of your team',
@@ -44,6 +45,7 @@
         'tvOptions.teamTv': 'Jocurile \u00een echipa ta',
         'tvOptions.userTvHistory': 'Dou\u0103 partide precedente \u00een TVul juc\u0103torilor',
         'tvOptions.wakelock': 'Prevent screen lock with TV',
+        'tvOptions.stickyCategory': 'Canal TV persistent',
         'friendsButtonTitle': 'LiChess Tools - jocurile prietenilor t\u0103i',
         'streamersButtonTitle': 'LiChess Tools - jocurile streamerilor live',
         'teamButtonTitle': 'LiChess Tools - jocurile echipei tale',
@@ -432,6 +434,7 @@
         teamTv: parent.isOptionSet(value, 'teamTv'),
         userTvHistory: parent.isOptionSet(value, 'userTvHistory'),
         wakelock: parent.isOptionSet(value, 'wakelock'),
+        stickyCategory: parent.isOptionSet(value, 'stickyCategory'),
       };
       const lichess = parent.lichess;
       if (!lichess) return;
@@ -543,6 +546,21 @@
         this.requestWakeLock();
       } else {
         this.wakelock?.release();
+      }
+
+      if (this.options.stickyCategory && this.isTvPage()) {
+        const m = /^\/tv\b(?:\/(?<channel>[^\/]+))?/i.exec(this.lichessTools.global.location.pathname);
+        if (m) {
+          let channel = m.groups?.channel;
+          if (channel) {
+            parent.storage.set('LiChessTools.TvChannel',channel);
+          } else {
+            channel = parent.storage.get('LiChessTools.TvChannel',channel);
+            if (channel) {
+              this.lichessTools.global.location='/tv/'+channel;
+            }
+          }
+        }
       }
     }
   }

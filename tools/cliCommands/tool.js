@@ -1,8 +1,6 @@
 (() => {
   class CliCommandsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['InterceptEventHandlers'];
-
     preferences = [
       {
         name: 'cliCommands',
@@ -33,13 +31,16 @@
       }
     };
 
-    updateHelp = () => {
+    updateHelp = async () => {
       const parent = this.lichessTools;
       const $ = parent.$;
-      const container = $('dialog div.clinput-help>div');
-      if (!container.length) {
-        parent.global.setTimeout(this.updateHelp, 100);
-        return;
+      let container = $('dialog div.clinput-help>div');
+      let k=0;
+      while (!container.length) {
+        await parent.timeout(100);
+        container = $('dialog div.clinput-help>div');
+        k++;
+        if (k>20) return;
       }
       const beforeElem = $('h3', container).eq(1);
       for (const key in this.commands) {
@@ -66,6 +67,8 @@
       let help = false;
       if ([ev.code, ev.key].includes('Escape') || ev.which == 27) {
         ev.target.blur();
+        ev.preventDefault();
+        ev.stopPropagation();
         return;
       }
       if ([ev.code, ev.key].includes('Enter') || ev.which == 13) {
@@ -79,15 +82,15 @@
           const result = this.executeCommand(val.substr(1));
           if (result) {
             ev.target.blur();
+            ev.preventDefault();
+            ev.stopPropagation();
             return;
           }
         }
       }
-      const result = this.oldkeydown(ev);
       if (help) {
         this.updateHelp();
       }
-      return result;
     };
 
     retries = 0;
@@ -95,48 +98,15 @@
 
     boot = async () => {
       const parent = this.lichessTools;
-      if (!parent.getEventHandlers) return;
       const $ = parent.$;
-      const input = $('#clinput input')[0];
-      if (!input) {
+      const input = $('#clinput input');
+      if (!input.length) {
         parent.global.console.warn('Could not find element ', input);
         return;
       }
-      $(input).off('keydown', this.keydown);
-      if (this.options.enabled && !this.oldkeydown) {
-        const focusin = parent.getEventHandlers(input, 'focusin')[0];
-        if (!focusin) {
-          if (this.retries > this.maxRetries) {
-            parent.global.console.warn('Could not get focusin event for ', input);
-            return;
-          }
-          this.retries++;
-          parent.global.setTimeout(this.boot, 100);
-          return;
-        }
-        this.oldkeydown = parent.getEventHandlers(input, 'keydown')[0];
-        if (!this.oldkeydown) {
-          $(input).trigger('focus');
-          $.cached('body').removeClass('clinput');
-          if (this.retries > this.maxRetries) {
-            parent.global.console.warn('Could not get keydown event for ', input);
-            return;
-          }
-          this.retries++;
-          parent.global.setTimeout(this.boot, 100);
-          return;
-        }
-        $(input).trigger('blur');
-        parent.removeEventHandlers(input, 'keydown');
-      } else {
-        $(input).off('keydown', this.oldkeydown);
-      }
+      input.off('keydown', this.keydown);
       if (this.options.enabled) {
-        $(input).on('keydown', this.keydown);
-      } else {
-        if (this.oldkeydown) {
-          $(input).on('keydown', this.oldkeydown);
-        }
+        input.on('keydown', this.keydown);
       }
     };
 

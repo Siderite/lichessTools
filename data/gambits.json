@@ -1,6 +1,4 @@
-(function () {
-
-  const gambits = {
+{
   "white": {
     "r1b1k1nrpppp1ppp2n2q22b1p32B1P1Q12N5PPPP1PPPR1B1K1NRw": {
       "total": 1,
@@ -6542,6 +6540,16 @@
         }
       ]
     },
+    "rnbqk2rppp2ppp82bpN32B1n38PPPPQPPPRNB1K2Rw": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "b1c3",
+          "san": "Nc3",
+          "nr": 1
+        }
+      ]
+    },
     "rnbqk2rpppp1ppp4p381bPPn32N5PP3PPPR1BQKBNRw": {
       "total": 1,
       "moves": [
@@ -8632,6 +8640,26 @@
         }
       ]
     },
+    "rnbqkb1rppp2ppp83pN32B1n38PPPPQPPPRNB1K2Rb": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "f8c5",
+          "san": "Bc5",
+          "nr": 1
+        }
+      ]
+    },
+    "rnbqkb1rppp2ppp83pp32B1n35N2PPPPQPPPRNB1K2Rw": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "f3e5",
+          "san": "Nxe5",
+          "nr": 1
+        }
+      ]
+    },
     "rnbqkb1rppp3pp3p3n5pN12BpP38PPP2PPPRNBQK2Rw": {
       "total": 1,
       "moves": [
@@ -8833,12 +8861,12 @@
       ]
     },
     "rnbqkb1rpppp1ppp5n24p32B1P35N2PPPP1PPPRNBQK2Rb": {
-      "total": 2,
+      "total": 3,
       "moves": [
         {
           "uci": "f6e4",
           "san": "Nxe4",
-          "nr": 2
+          "nr": 3
         }
       ]
     },
@@ -8973,12 +9001,12 @@
       ]
     },
     "rnbqkb1rpppp1ppp5n24p34P35N2PPPP1PPPRNBQKB1Rw": {
-      "total": 6,
+      "total": 7,
       "moves": [
         {
           "uci": "f1c4",
           "san": "Bc4",
-          "nr": 2
+          "nr": 3
         },
         {
           "uci": "f3e5",
@@ -9183,12 +9211,27 @@
       ]
     },
     "rnbqkb1rpppp1ppp84p32B1n35N2PPPP1PPPRNBQK2Rw": {
-      "total": 2,
+      "total": 3,
       "moves": [
+        {
+          "uci": "d1e2",
+          "san": "Qe2",
+          "nr": 1
+        },
         {
           "uci": "b1c3",
           "san": "Nc3",
           "nr": 2
+        }
+      ]
+    },
+    "rnbqkb1rpppp1ppp84p32B1n35N2PPPPQPPPRNB1K2Rb": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "d7d5",
+          "san": "d5",
+          "nr": 1
         }
       ]
     },
@@ -13118,8 +13161,13 @@
       ]
     },
     "rnbqkbnrppp2ppp4p33p43PP38PPP2PPPRNBQKBNRw": {
-      "total": 15,
+      "total": 16,
       "moves": [
+        {
+          "uci": "e4e5",
+          "san": "e5",
+          "nr": 5
+        },
         {
           "uci": "c1e3",
           "san": "Be3",
@@ -13144,11 +13192,6 @@
           "uci": "c2c4",
           "san": "c4",
           "nr": 1
-        },
-        {
-          "uci": "e4e5",
-          "san": "e5",
-          "nr": 4
         }
       ]
     },
@@ -13198,8 +13241,13 @@
       ]
     },
     "rnbqkbnrppp2ppp4p33pP33P48PPP2PPPRNBQKBNRb": {
-      "total": 4,
+      "total": 5,
       "moves": [
+        {
+          "uci": "f7f6",
+          "san": "f6",
+          "nr": 1
+        },
         {
           "uci": "c7c5",
           "san": "c5",
@@ -13867,6 +13915,36 @@
         }
       ]
     },
+    "rnbqkbnrppp3pp4p33pp33P42P5PP3PPPRNBQKBNRw": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "d1c2",
+          "san": "Qc2",
+          "nr": 1
+        }
+      ]
+    },
+    "rnbqkbnrppp3pp4pp23pP33P42P5PP3PPPRNBQKBNRb": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "f6e5",
+          "san": "fxe5",
+          "nr": 1
+        }
+      ]
+    },
+    "rnbqkbnrppp3pp4pp23pP33P48PPP2PPPRNBQKBNRw": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "c2c3",
+          "san": "c3",
+          "nr": 1
+        }
+      ]
+    },
     "rnbqkbnrppp3pp83pP1N14p38PPP2PPPRNBQKB1Rw": {
       "total": 2,
       "moves": [
@@ -14218,17 +14296,17 @@
       ]
     },
     "rnbqkbnrpppp1ppp4p383PP38PPP2PPPRNBQKBNRb": {
-      "total": 16,
+      "total": 17,
       "moves": [
+        {
+          "uci": "d7d5",
+          "san": "d5",
+          "nr": 16
+        },
         {
           "uci": "b7b6",
           "san": "b6",
           "nr": 1
-        },
-        {
-          "uci": "d7d5",
-          "san": "d5",
-          "nr": 15
         }
       ]
     },
@@ -14253,12 +14331,12 @@
       ]
     },
     "rnbqkbnrpppp1ppp4p384P38PPPP1PPPRNBQKBNRw": {
-      "total": 22,
+      "total": 23,
       "moves": [
         {
           "uci": "d2d4",
           "san": "d4",
-          "nr": 16
+          "nr": 17
         },
         {
           "uci": "g1f3",
@@ -14433,8 +14511,13 @@
       ]
     },
     "rnbqkbnrpppp1ppp84p34P35N2PPPP1PPPRNBQKB1Rb": {
-      "total": 83,
+      "total": 84,
       "moves": [
+        {
+          "uci": "g8f6",
+          "san": "Nf6",
+          "nr": 7
+        },
         {
           "uci": "b8c6",
           "san": "Nc6",
@@ -14444,11 +14527,6 @@
           "uci": "d7d5",
           "san": "d5",
           "nr": 1
-        },
-        {
-          "uci": "g8f6",
-          "san": "Nf6",
-          "nr": 6
         },
         {
           "uci": "d8f6",
@@ -14473,12 +14551,12 @@
       ]
     },
     "rnbqkbnrpppp1ppp84p34P38PPPP1PPPRNBQKBNRw": {
-      "total": 206,
+      "total": 207,
       "moves": [
         {
           "uci": "g1f3",
           "san": "Nf3",
-          "nr": 83
+          "nr": 84
         },
         {
           "uci": "f1e2",
@@ -15813,8 +15891,18 @@
       ]
     },
     "rnbqkbnrpppppppp884P38PPPP1PPPRNBQKBNRb": {
-      "total": 329,
+      "total": 331,
       "moves": [
+        {
+          "uci": "e7e6",
+          "san": "e6",
+          "nr": 23
+        },
+        {
+          "uci": "e7e5",
+          "san": "e5",
+          "nr": 207
+        },
         {
           "uci": "c7c6",
           "san": "c6",
@@ -15826,19 +15914,9 @@
           "nr": 16
         },
         {
-          "uci": "e7e5",
-          "san": "e5",
-          "nr": 206
-        },
-        {
           "uci": "c7c5",
           "san": "c5",
           "nr": 46
-        },
-        {
-          "uci": "e7e6",
-          "san": "e6",
-          "nr": 22
         },
         {
           "uci": "b8c6",
@@ -16073,17 +16151,17 @@
       ]
     },
     "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw": {
-      "total": 532,
+      "total": 534,
       "moves": [
+        {
+          "uci": "e2e4",
+          "san": "e4",
+          "nr": 331
+        },
         {
           "uci": "g2g3",
           "san": "g3",
           "nr": 7
-        },
-        {
-          "uci": "e2e4",
-          "san": "e4",
-          "nr": 329
         },
         {
           "uci": "d2d4",
@@ -29480,10 +29558,4 @@
       ]
     }
   }
-};
-  
-  LiChessTools.prototype.gambit_dict = {
-    white: new Map(Object.keys(gambits.white).map(k => [k, gambits.white[k]])),
-    black: new Map(Object.keys(gambits.black).map(k => [k, gambits.black[k]]))
-  };
-})();
+}

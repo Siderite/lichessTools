@@ -204,15 +204,19 @@
       return result;
     };
 
-    getStructureName = (structure) => {
+    getStructureName = async (structure) => {
       const parent = this.lichessTools;
       const threshold = this.options.fuzzy ? 90 : 100;
 
+      if (!this.pawnStructures) {
+        this.pawnStructures = await parent.comm.getData('pawnStructures.json');
+      }
+
       const getArr = (structure) => {
-        const arr = Object.keys(parent.pawnStructures).map(k => {
+        const arr = Object.keys(this.pawnStructures).map(k => {
           return {
             key: k,
-            value: parent.pawnStructures[k],
+            value: this.pawnStructures[k],
             similarity: this.keySimilarity(structure, k)
           };
         });
@@ -300,6 +304,7 @@
       const elems = $(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
       for (const el of elems) {
+        if (!parent.inViewport(el)) continue;
         fen = fen || $(el).attr('data-state') || parent.getPositionFromBoard(el, true);
         if (!fen) {
           parent.global.console.warn('Could not get fen for element', el);
@@ -307,7 +312,7 @@
         }
         const board = parent.getBoardFromFen(fen);
         const structure = this.getStructure(board, $(el).attr('data-state').includes('black'));
-        const structureName = this.getStructureName(structure);
+        const structureName = await this.getStructureName(structure);
         this.addStructureAnchor(el, structureName, structure);
         fen = '';
       }
@@ -330,12 +335,12 @@
       const board = parent.getBoardFromFen(fen);
       const analysisOrientation = lichess.analysis?.getOrientation();
       const isBlackOrientation = (analysisOrientation && analysisOrientation == 'black') || $('.cg-wrap').eq(0).is('.orientation-black');
-      const structure = this.getStructure(board, isBlackOrientation);
+      const structure = await this.getStructure(board, isBlackOrientation);
       if (!structure) {
         metaSection.find('.lichessTools-structure').remove();
         return;
       }
-      const structureName = this.getStructureName(structure);
+      const structureName = await this.getStructureName(structure);
       this.addStructureAnchor(metaSection, structureName, structure);
       if (!ply) {
         await this.miniGameStructure();
@@ -376,7 +381,7 @@
         lichess.pubsub.on('ply', this.refreshStructureDebounced);
         lichess.pubsub.on('lichessTools.redraw', this.refreshStructureDebounced);
         lichess.pubsub.on('content-loaded', this.miniGameStructureDebounced);
-        this.refreshStructureDebounced();
+        parent.global.setTimeout(this.refreshStructureDebounced,1000); // this is not essential to loading
         if ($('main').is('#board-editor')) {
           this.interval = parent.global.setInterval(this.refreshStructureDebounced, 1000);
         }

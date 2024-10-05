@@ -10,10 +10,9 @@ body.lichessTools.playing.lichessTools-smallSide aside.round__side .mchat {
 @media (min-width: 1259.3px) {
   body.lichessTools.playing.lichessTools-smallSide aside.round__side .game__meta {
     transform: rotate(-90deg);
-    height: 13em;
     position: absolute;
-    height: 10em;
-    width: 20em;
+    min-height: 13em;
+    min-width: 23em;
     transform-origin: bottom;
   }
 

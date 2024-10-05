@@ -41,27 +41,11 @@
         'mainPageElements.blog': 'Blog',
         'mainPageElements.puzzle': 'Puzzle zilnic',
         'mainPageElements.support': 'Suport',
-        'mainPageElements.feed': 'Nout\u0103ti',
+        'mainPageElements.feed': 'Nout\u0103\u0163i',
         'mainPageElements.tours': 'Turnee',
         'mainPageElements.leader': 'Clasament',
-        'mainPageElements.winner': 'C\u00e2stig\u0103tori',
+        'mainPageElements.winner': 'C\u00e2\u015ftig\u0103tori',
         'mainPageElements.about': 'Despre'
-      },
-      'zh-TW': {
-        'options.general': '\u4E00\u822C',
-        'options.mainPageElements': '\u5927\u5EF3\u5143\u4EF6',
-        'mainPageElements.side': '\u5074\u6B04',
-        'mainPageElements.app': '\u5C0D\u5C40\u8868\u683C',
-        'mainPageElements.table': '\u5C0D\u5C40\u5FEB\u6377\u6309\u9215',
-        'mainPageElements.tv': 'TV',
-        'mainPageElements.blog': '\u90E8\u843D\u683C',
-        'mainPageElements.puzzle': '\u6BCF\u65E5\u8B0E\u984C',
-        'mainPageElements.support': '\u652F\u6301',
-        'mainPageElements.feed': '\u9996\u9801',
-        'mainPageElements.tours': '\u9326\u6A19\u8CFD',
-        'mainPageElements.leader': '\u6392\u884C\u699C',
-        'mainPageElements.winner': '\u8D0F\u5BB6',
-        'mainPageElements.about': '\u95DC\u65BC',
       }
     }
 

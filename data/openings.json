@@ -1,6 +1,4 @@
-(function() {
-
-const openings = {
+{
   "1nbqkb1r1ppp1ppp4pn21P6882PPPPPPBN1QKBNRb": "Polish Opening: Rooks Swap Line",
   "1nbqkbnr1pppppppr7p72PP48PP2PPPPRNBQKBNRw": "Ware Defense: Vihsou System (Brandon Jacobson)",
   "1nbqkbnr1pppppppr7p73PP38PPP2PPPRNBQKBNRw": "Ware Defense: Vihsou System (Brandon Jacobson)",
@@ -4166,6 +4164,7 @@ const openings = {
   "r1bqr1k1pppn1pbp3p1np182PNP32N3PPPP3PB1R1BQ1RK1b": "King's Indian: Fianchetto, Classical, 8.e4 exd4 9.Nxd4 Re8 10.h3",
   "r1bqr1k1pppnbppp4pn23p2B12PP42N1PN2PP3PPP2RQKB1Rw": "QGD: Orthodox, 7.Rc1 Re8",
   "r1bqr1k1pppp1ppp2n2n23NpQ21bP54PN2PP1P1PPPR1B1KB1Rb": "English Opening: King's English Variation, Four Knights Variation, Quiet Line",
+  "r1bqr1k1pppp1ppp2n2n281bPNp32N3P1PP1PPPBPR1BQ1RK1w": "English Opening: King's English Variation, Four Knights Variation, Fianchetto Line, Delayed .. Nc6",
   "r1bqrbk12p2pp1p1np1n1p1p2p33PP31BP2N1PPP1N1PP1R1BQR1K1w": "Spanish: Closed, Smyslov, 10.d4 Re8 11.Nbd2 Bf8",
   "r1bqrbk12p2pp1p1np1n1p1p2p33PP31BP2N1PPP3PP1R1BQRNK1b": "Spanish: Closed, Smyslov, 12.Nf1",
   "r1bqrbk12p2pp1p1np1n1p1p2p33PP32P2N1PPPBN1PP1R1BQR1K1b": "Spanish: Closed, Smyslov, 12.Bc2",
@@ -6005,6 +6004,7 @@ const openings = {
   "rn2kb1rpp3ppp4pn22pq43P2b12P2N2PP2BPPPRNBQK2Rw": "Sicilian: Alapin, 2...d5 3.exd5 Qxd5 4.d4 Nf6 5.Nf3 Bg4 6.Be2 e6",
   "rn2kb1rppp1pppp5n23q43P2b15N2PPP1BPPPRNBQK2Rb": "Scandinavian: Portuguese, 4.Nf3 Qxd5 5.Be2",
   "rn2kb1rppp1pppp5n23q43P2b15N2PPP2PPPRNBQKB1Rw": "Scandinavian: Portuguese, 4.Nf3 Qxd5",
+  "rn2kb1rppp1pppp5n25bN13qp32N5PPPPQPPPR1B1KB1Rw": "Zukertort Opening: Tennison Gambit, Brigg's Trap",
   "rn2kb1rppp1pppp5n2q4b22BP42N2N2PPP2PPPR1BQK2Rb": "Scandinavian: 2...Qxd5, 5.Nf3 Bf5 6.Bc4",
   "rn2kb1rppp1pppp5n2q4b23P42N2N2PPP2PPPR1BQKB1Rw": "Scandinavian Defense: Classical Variation",
   "rn2kb1rppp1pppp5n2q73P2b12N2N1PPPP2PP1R1BQKB1Rb": "Scandinavian Defense: Lasker Variation",
@@ -8467,6 +8467,7 @@ const openings = {
   "rnbqk2rppp2ppp5n23p41bPP42N5PP3PPPR1BQKBNRw": "French: Exchange, 4.c4 Nf6 5.Nc3 Bb4",
   "rnbqk2rppp2ppp5n281bBP42N5PP3PPPR1BQK1NRw": "QGA: 3.e3 e5",
   "rnbqk2rppp2ppp82bP44nP25N2PPP1Q1PPRNB1KB1Rb": "KGD: Falkbeer, 5.dxe4 Nxe4 6.Nf3 Bc5 7.Qe2",
+  "rnbqk2rppp2ppp82bpN32B1n32N5PPPPQPPPR1B1K2Rb": "Petrov's Defense: Italian Variation, Bunni Gambit (bunnibuu)",
   "rnbqk2rppp2ppp83pP31b2n32N2N2PPPP2PPR1BQKB1Rw": "Vienna Gambit: 5.Nf3 Bb4",
   "rnbqk2rppp2ppp83pP31b2n32NP4PPP3PPR1BQKBNRw": "Vienna Gambit: Oxford, 5...Bb4",
   "rnbqk2rpppn1pp14p2p3pP31b1P42N5PPPB1PPPR2QKBNRw": "French Defense: MacCutcheon Variation, Tartakower Variation",
@@ -11259,6 +11260,7 @@ const openings = {
   "rnbqkbnrppp3pp4p33p1p22PP42N5PP2PPPPR1BQKBNRw": "Dutch: Rubinstein, 3...d5",
   "rnbqkbnrppp3pp4p33p1p23PP38PPPN1PPPR1BQKBNRw": "French Defense: Tarrasch Variation, Haberditz Variation",
   "rnbqkbnrppp3pp4P33p2N14p38PPP2PPPRNBQKB1Rb": "Philidor Defense: Philidor Countergambit, del Rio Attack",
+  "rnbqkbnrppp3pp4p33pp33P42P5PPQ2PPPRNB1KBNRb": "French Defense: Advance Variation, Fuse Gambit (Merluch)",
   "rnbqkbnrppp3pp4p35p22PPp32N5PP3PPPR1BQKBNRw": "Diemer-Duhm Gambit (DDG): 4...f5",
   "rnbqkbnrppp3pp83pN32B1p38PPPP1PPPRNBQK2Rw": "Latvian Gambit: Mayet Attack, Polerio-Svedenborg Variation",
   "rnbqkbnrppp3pp83pP1N14p32N5PPP2PPPR1BQKB1Rb": "Philidor: Philidor Countergambit, Steinitz Variation",
@@ -11563,7 +11565,6 @@ const openings = {
   "rnbqkbnrpppppppp8886P1PPPPPP1PRNBQKBNRb": "Hungarian Opening",
   "rnbqkbnrpppppppp8887NPPPPPPPPRNBQKB1Rb": "Amar Opening",
   "rnbqkbnrpppppppp8887PPPPPPPP1RNBQKBNRb": "Clemenz Opening",
-  "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw": "*",
   "rnbqkbnrpppppppp888N7PPPPPPPPR1BQKBNRb": "Sodium Attack",
   "rnbqkbnrpppppppp888P71PPPPPPPRNBQKBNRb": "Anderssen's Opening",
   "rnbqkbnrpppppppp88P781PPPPPPPRNBQKBNRb": "Ware Opening",
@@ -11609,8 +11610,4 @@ const openings = {
   "rq2kb1r1b1n1pppp3pn21pp53P41BN1PN2PP2QPPPR1BR2K1w": "QGA: Classical, 8...Bb7 9.Rd1 Nbd7 10.Nc3 Qb8",
   "rq3rk1pb1pppbp1pn2np182PNP32N1BP2PP2B1PPR2Q1RK1w": "Sicilian: Maroczy Bind, 7.Nc3 O-O 8.Be2 b6 9.O-O Bb7 10.f3 Qb8",
   "rqb1kbnr1p1p1ppppBn1p31N64P32N5PPP2PPPR2QKB1Rb": "Sicilian Defense: Taimanov Variation, Bastrikov Variation, Ponomariov Gambit"
-};
-
-LiChessTools.prototype.opening_dict=new Map(Object.keys(openings).map(k=>[k,openings[k]]));
-
-})();
+}

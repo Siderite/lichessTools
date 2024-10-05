@@ -93,6 +93,7 @@
         });
       }
       if (this.options.unlimited) {
+        const maxLength = 138;
         const input = $('input.mchat__say', container);
         if (input.attr('maxlength')) {
           input.removeAttr('maxlength');
@@ -105,13 +106,16 @@
               if (!s) return result;
               let p = 0;
               const ellipsis = '\u2026';
-              if (l < s.length) {
-                result.push(s.substr(p, l - 1) + ellipsis);
-                p += l - 1;
-              }
-              while (p < s.length && p + l - 2 < s.length) {
-                result.push((p > 0 ? ellipsis : '') + s.substr(p, l - 2) + ellipsis);
-                p += l - 2;
+              while (p + l < s.length) {
+                let frag = s.substr(p, l);
+                const lastWordBoundaryIndex = [...frag.matchAll(/\b/g)].at(-2)?.index;
+                if (lastWordBoundaryIndex>l-20) {
+                  frag=s.substr(p, lastWordBoundaryIndex);
+                } else {
+                  frag = s.substr(p, l-1);
+                }
+                result.push((p > 0 ? ellipsis : '') + frag + ellipsis);
+                p += frag.length;
               }
               if (p < s.length) {
                 result.push((p > 0 ? ellipsis : '') + s.substr(p));
@@ -139,10 +143,10 @@
               }
               let sendText = '';
               for (const newText of newTexts) {
-                if (!sendText || sendText.length + newText.length <= 140) {
+                if (!sendText || sendText.length + newText.length <= maxLength) {
                   sendText += newText;
                 } else {
-                  const splits = splitLength(sendText, 140);
+                  const splits = splitLength(sendText, maxLength);
                   for (const splitText of splits) {
                     lichess.pubsub.emit('socket.send', 'talk', splitText);
                     await parent.timeout(500);
@@ -151,7 +155,7 @@
                 }
               }
               if (sendText) {
-                const splits = splitLength(sendText, 140);
+                const splits = splitLength(sendText, maxLength);
                 for (const splitText of splits) {
                   lichess.pubsub.emit('socket.send', 'talk', splitText);
                   await parent.timeout(100);

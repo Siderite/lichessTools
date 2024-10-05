@@ -213,11 +213,11 @@ html.transp body.lichessTools.lichessTools-extendedInteractiveLesson .gamebook-e
   }
 }
 
-body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow div[data-id]>i.act {
+body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow button[data-id]>i.act {
   background: conic-gradient(green var(--perc), red 0);
 }
 
-body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow div[data-id]:not(:hover)>i.act:not(:hover) {
+body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow button[data-id]:not(:hover)>i.act:not(:hover) {
   opacity: 0.3;
 }
 

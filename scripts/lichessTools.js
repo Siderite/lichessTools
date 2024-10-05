@@ -48,7 +48,7 @@
         const dict = this.lichessTools.intl.siteI18n;
         const str =
           dict[`${key}:${quantity(count)}`] || dict[`${key}:other`] || dict[key] || dict[`${key}:one`]
-          || format(`${key}:${quantity(count)}`) || format(`${key}:other`) || format(key) || format(`${key}:one`);
+          || this.format(`${key}:${quantity(count)}`) || this.format(`${key}:other`) || this.format(key) || this.format(`${key}:one`);
         return str ? this.format(str, args) : key;
       },
       pluralSame: function (key, count, ...args) {
@@ -122,8 +122,9 @@
     }
 
     wrapFunction(func, options) {
+      const console=this.global.console;
       if (!func) {
-        this.global.console.warn('Trying to wrap no function', options);
+        console.warn('Trying to wrap no function', options);
       }
       const wrappedFunc = function () {
         let executeOriginal = true;
@@ -136,7 +137,7 @@
           if (options?.ignoreErrors) {
             (async () => { return func.apply(this, arguments); })()
               .then(r => { result = r; })
-              .catch(e => parent.global.console.log('Wrapped function error:', e))
+              .catch(e => console.log('Wrapped function error:', e))
           } else {
             result = func.apply(this, arguments);
           }
@@ -318,11 +319,12 @@
       return 'ultrabullet';
     }
 
-    isAudioAllowed() {
+    async isAudioAllowed() {
       if (this.audioAllowed) return true;
       // TODO maybe readd when Chrome allows knowing if the 'sound' permission has been granted for the site
       //if (!navigator.userActivation.hasBeenActive) return false;
       const ac = new AudioContext();
+      await this.timeout(10);
       const state = ac.state != 'suspended';
       this.audioAllowed = state;
       return state;
@@ -656,7 +658,7 @@
         ? el
         : $('cg-container', el)[0]
       const container = $(elem);
-      if (!container.length) return;
+      if (!container.length || !this.inViewport(container)) return;
 
       const orientation = container.closest('.cg-wrap').is('.orientation-black') ? 'black' : 'white';
       const getKey = orientation == 'white'
@@ -1026,9 +1028,6 @@
       'ro-RO': {
         serverOverload: 'LiChess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
       },
-      "zh-TW": {
-        serverOverload: "Lichess \u8A8D\u70BA\u6211\u5011\u6709\u610F\u50B3\u9001\u904E\u591A\u8ACB\u6C42\uFF01",
-      },
       get lang() {
         let lang = lichessTools.global.document.documentElement.lang || this.defaultLanguage;
         if (!this[lang]) lang = this.defaultLanguage;
@@ -1219,7 +1218,7 @@
 
     comm = {
       lichessTools: this,
-      timeout: 2000,
+      timeout: 5000,
       sendResponses: [],
       init: function () {
         this.lichessTools.global.addEventListener('LichessTools.receive', (ev) => {
@@ -1248,6 +1247,15 @@
           });
           this.lichessTools.global.dispatchEvent(customEvent);
         });
+      },
+      _files: new Map(),
+      getData: async function(filename) {
+        let data = this._files.get(filename);
+        if (!data) {
+          data = await this.lichessTools.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } }).catch(e => { this.lichessTools.global.console.error(e); });
+          this._files.set(filename,data);
+        }
+        return data;
       }
     };
 
@@ -1327,6 +1335,7 @@
         parent.cache.memoizeAsyncFunction(parent.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000 });
         parent.cache.memoizeAsyncFunction(parent.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
         parent.cache.memoizeAsyncFunction(parent.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
+        parent.cache.memoizeAsyncFunction(parent.api.timeline, 'get', { persist: 'session', interval: 60 * 1000 });
       },
       blog: {
         lichessTools: this,
@@ -1536,6 +1545,21 @@
           const timeline = await parent.net.json({ url: '/api/timeline?nb=100&since={lastRead}', args: { lastRead } });
           return timeline;
         }
+      },
+      relations: {
+        lichessTools: this,
+        getFriends: async function () {
+          const parent = this.lichessTools;
+          let result = [];
+          let page = await parent.net.json({ url: '/@/{userId}/following', args: { userId: this.lichessTools.getUserId() } });
+          while (page) {
+            result=result.concat(page.paginator.currentPageResults);
+            page = page.paginator.nextPage
+              ? await parent.net.json({ url: '/@/{userId}/following?page={page}', args: { userId: this.lichessTools.getUserId(), page: page.paginator.nextPage } })
+              : null;
+          }
+          return result;
+        }
       }
     }
 
@@ -1549,7 +1573,18 @@
         this.tools[toolClass.name] = tool;
         if (tool.intl) {
           for (const lang in tool.intl) {
-            this.intl[lang] = { ...this.intl[lang], ...tool.intl[lang] };
+            let existingLang = this.intl[lang];
+            if (!existingLang) {
+              existingLang = {};
+              this.intl[lang] = existingLang;
+            }
+            const toolLang = tool.intl[lang];
+            for (const key in toolLang) {
+              if (existingLang[key] === undefined) {
+                existingLang[key] = toolLang[key];
+              }
+            }
+            //this.intl[lang] = { ...this.intl[lang], ...tool.intl[lang] };
           }
         }
         if (tool.dependencies) {

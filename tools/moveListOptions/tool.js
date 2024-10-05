@@ -67,7 +67,7 @@
         'bookmarkSplitConfirmationText': 'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?',
         'bookmarkSplitConfirmationDeleteText': 'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?\r\nASTA VA \u015ETERGE MUT\u0102RILE URM\u0102TOARE DIN ACEST CAPITOL',
         'bookmarkSplitText': 'Taie un nou capitol de aici',
-        'bookmarkSplitTitle': 'LiChess Tools - creaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare\r\nApas\u0103 Shift ca s\u0103 la \u015Ftergi de aici',
+        'bookmarkSplitTitle': 'LiChess Tools - creeaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare\r\nApas\u0103 Shift ca s\u0103 le \u015Ftergi de aici',
         'chapterLink': 'Continu\u0103 aici: %s',
         'analysisPopupButtonTitle': 'LiChess Tools - list\u0103 mut\u0103ri \u00een alt\u0103 fereastr\u0103 (folose\u015Fte butonul SYNC)',
         'bookmarkLabelForInteractive': 'Bookmark: '

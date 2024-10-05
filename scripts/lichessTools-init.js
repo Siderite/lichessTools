@@ -1,5 +1,6 @@
 window.lichessTools = new LiChessTools(window, cash);
 
+lichessTools.loadTool(LiChessTools.Tools.Crowdin);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
 lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
@@ -106,6 +107,8 @@ lichessTools.loadTool(LiChessTools.Tools.StudyLinks);
 lichessTools.loadTool(LiChessTools.Tools.Konami);
 lichessTools.loadTool(LiChessTools.Tools.CevalLineOptions);
 lichessTools.loadTool(LiChessTools.Tools.NoSpoilers);
+lichessTools.loadTool(LiChessTools.Tools.ProfileTimeline);
+lichessTools.loadTool(LiChessTools.Tools.PlayWheel);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

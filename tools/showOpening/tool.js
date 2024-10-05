@@ -26,7 +26,7 @@
         'openingNameTitle': 'LiChess Tools - numele deschiderii',
         'showOpening.showInBoard': 'Pentru tabla mare',
         'showOpening.showInMinigames': 'Pentru table mici',
-        'showOpening.showInExplorer': '\u00e2n Explorator'
+        'showOpening.showInExplorer': '\u00cen Explorator'
       }
     }
 
@@ -88,23 +88,28 @@
     openingTime = 0;
     withOpening = async (gameId, el, ply, fen, isMini) => {
       const parent = this.lichessTools;
+      if (!parent.inViewport(el)) return;
       const Math = parent.global.Math;
-      if (parent.opening_dict) {
-        if (!fen) fen = parent.getPositionFromBoard(el, true);
-        const pos = parent.getPositionFromFen(fen);
-        if (pos) {
-          let opening = parent.opening_dict.get(pos);
-          if (!opening) {
-            const reversed = parent.getPositionFromFen(parent.reverseFen(fen));
-            const op = parent.opening_dict.get(reversed);
-            if (op && op != '*') opening = op + ' (R)';
-          }
-          if (opening) {
-            el.openingData = { time: Date.now(), opening, el };
-            return el.openingData;
-          }
+      if (!fen) fen = parent.getPositionFromBoard(el, true);
+      const pos = parent.getPositionFromFen(fen);
+      if (pos) {
+        if (pos=='rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw') return { time: Date.now(), opening: '*', el };
+        if (!this.opening_dict) {
+          const openings = await parent.comm.getData('openings.json');
+          this.opening_dict=new Map(Object.keys(openings).map(k=>[k,openings[k]]));
+        }
+        let opening = this.opening_dict.get(pos);
+        if (!opening) {
+          const reversed = parent.getPositionFromFen(parent.reverseFen(fen));
+          const op = this.opening_dict.get(reversed);
+          if (op && op != '*') opening = op + ' (R)';
+        }
+        if (opening) {
+          el.openingData = { time: Date.now(), opening, el };
+          return el.openingData;
         }
       }
+      
 
       if (!gameId || gameId == 'synthetic' || gameId == 'broadcast') return;
 
@@ -214,7 +219,6 @@
       const parent = this.lichessTools;
       const value = parent.currentOptions.getValue('showOpening');
       this.logOption('Show game opening names', value);
-      this.logOption(' ... cached openings', parent.opening_dict?.size);
       this.options = {
         showInBoard: parent.isOptionSet(value, 'showInBoard'),
         showInMinigames: parent.isOptionSet(value, 'showInMinigames'),
@@ -248,7 +252,7 @@
           ? 1000
           : 3500;
         this.interval = parent.global.setInterval(this.refreshOpeningDebounced, intervalTime);
-        this.refreshOpeningDebounced();
+        //this.refreshOpeningDebounced(); this is not essential to loading
       }
       if (this.options.showInMinigames) {
         lichess.pubsub.on('socket.in.fen', this.miniGameOpening);

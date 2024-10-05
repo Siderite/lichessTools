@@ -15,7 +15,7 @@
 
     async init() {
       const EventTarget = this.lichessTools.global.EventTarget;
-      const wrap = this.lichessTools.wrapFunction;
+      const wrap = this.lichessTools.wrapFunction.bind(this.lichessTools);
       EventTarget.prototype.addEventListener = wrap(EventTarget.prototype.addEventListener, {
         id: 'interceptEventHandlers',
         before: (target, type, listener, options) => {

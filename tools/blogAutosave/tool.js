@@ -29,14 +29,6 @@
         'blogAutosave.savebutton': 'Buton salvare',
         'blogSaved': 'Blog salvat',
         'blogSave': 'Salveaz\u0103'
-      },
-      'zh-TW': {
-        'options.general': '\u4E3B\u8981',
-        'options.blogAutosave': '\u90E8\u843D\u683C\u7DE8\u8F2F\u8A2D\u5B9A',
-        'blogAutosave.autosave': '\u81EA\u52D5\u5B58\u6A94',
-        'blogAutosave.savebutton': '\u5B58\u6A94\u6309\u9215',
-        blogSaved: '\u5DF2\u5B58\u6A94',
-        blogSave: '\u5B58\u6A94',
       }
     }
 

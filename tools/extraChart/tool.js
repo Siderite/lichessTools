@@ -121,7 +121,9 @@
       return result;
     };
 
-    evaluator = new LiChessTools.Evaluator();
+    evaluator = LiChessTools.Evaluator
+                  ? new LiChessTools.Evaluator()
+                  : { evaluate: (fen)=>0 };
     heuristic = node => {
       return this.evaluator.evaluate(node.fen);
     }

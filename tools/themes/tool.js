@@ -41,7 +41,7 @@
         'themes.flairX': 'Flair-uri mai bune',
         'themes.lessIcons': 'Mai pu\u0163ine pictograme',
         'themes.nonStickyHeader': 'Antet fix \u00een pagin\u0103',
-        'themes.noStudyChat': 'F\u0103r\u0103 chat \u00eeen studii',
+        'themes.noStudyChat': 'F\u0103r\u0103 chat \u00een studii',
         'themes.pieceDrag': 'Apucat piese mai frumos',
         'themes.noGrab': 'F\u0103r\u0103 cursor care apuc\u0103'
       }

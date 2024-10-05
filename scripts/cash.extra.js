@@ -36,3 +36,11 @@ cash.fn.toggleDisplay = function (value, important) {
   });
   return this;
 }
+
+cash.single = function (selector, context) {
+  const parent = context === undefined
+    ? document
+    : cash(context)[0];
+  const elem = parent?.querySelector(selector);
+  return cash(elem);
+};

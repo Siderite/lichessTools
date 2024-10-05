@@ -59,7 +59,15 @@ const handlers = {
     if (!response.ok) throw new Error('Imgur upload failed with status ' + response.status);
     const responseData = await response.json();
     return { link: responseData.data?.link };
-  }
+  },
+  getFile: async (data) => {
+    const filename = data?.options?.filename;
+    if (!filename) return;
+    const url = chrome.runtime.getURL(filename);
+    const response = await fetch(url);
+    const obj = await response.json();
+    return obj;
+  } 
 };
 
 const handleRequest = async (request) => {

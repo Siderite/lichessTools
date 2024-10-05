@@ -41,7 +41,8 @@
         'options.liveFriendsPage': 'Live friends page',
         'hideOfflineTitle': 'Online players',
         'hideNotPlayingTitle': 'Playing players',
-        'hideMutedTitle': 'Muted players',
+        'hideMutedTitle': 'Not muted players',
+        'hideInactiveTitle': 'Active players',
         'daysText:one': 'a day',
         'hoursText:one': 'an hr',
         'minutesText:one': 'a min',
@@ -68,7 +69,8 @@
         'options.liveFriendsPage': 'Pagin\u0103 prieteni live',
         'hideOfflineTitle': 'Juc\u0103tori online',
         'hideNotPlayingTitle': 'Juc\u0103tori care joac\u0103',
-        'hideMutedTitle': 'Juc\u0103tori cu alert\u0103 nepermis\u0103',
+        'hideMutedTitle': 'Juc\u0103tori cu alert\u0103 de joc permis\u0103',
+        'hideInactiveTitle': 'Juc\u0103tori activi',
         'daysText:one': 'o zi',
         'hoursText:one': 'o or\u0103',
         'minutesText:one': 'un minut',
@@ -323,6 +325,12 @@
       if (!$('.lichessTools-liveButtons').length) {
         $('<div>')
           .addClass('lichessTools-liveButtons')
+          .append($('<i data-icon="&#xE033;" data-role="hideInactive">')
+            .attr('title', trans.noarg('hideInactiveTitle'))
+            .on('click', () => {
+              $('main').toggleClass('lichessTools-hideInactive');
+              this.scrollIfNeeded();
+            }))
           .append($('<i data-icon="&#xE012;" data-role="hideOffline">')
             .attr('title', trans.noarg('hideOfflineTitle'))
             .on('click', () => {
@@ -381,6 +389,12 @@
               this.updateFriendsPage();
             })
             .appendTo(actions);
+        }
+        const lastAt = $('time.set',row).attr('datetime');
+        if (lastAt) {
+          const time = Date.now()-Date.parse(lastAt);
+          const inactive = time>1*86400*365.25*1000;
+          row.toggleClass('lichessTools-inactive',inactive);
         }
       });
       let secondUpdate = false;

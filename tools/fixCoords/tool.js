@@ -23,7 +23,7 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.fixCoords': 'Repar\u0103 pozi\u0163ia coordonatelor tablei',
-        'fixCoords.fix': 'Repar\u0103 coordonatele in exterior',
+        'fixCoords.fix': 'Repar\u0103 coordonatele \u00een exterior',
         'fixCoords.larger': 'Font mai mare pentru coordonate',
         'fixCoords.square': 'Pe fiecare p\u0103trat'
       }

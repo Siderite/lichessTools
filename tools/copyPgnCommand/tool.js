@@ -23,7 +23,7 @@
       },
       'ro-RO': {
         'options.copyPgnCommand': 'Comand\u0103: Copiaz\u0103 mut\u0103ri \u00een clipboard',
-        'copyPgnCommand.helpText': '/copypgn ["fen"] ["separate"] ["tohere"] ["unicode"]\r\n fen: de la posi\u0163ia curent\u0103\r\n separate: separ\u0103 varia\u0163iunile\r\ntohere: p\u00e2n\u0103 la posi\u0163ia curent\u0103unicode: caractere unicod ca piese\r\nCopiaz\u0103 mut\u0103ri \u00een clipboard'
+        'copyPgnCommand.helpText': '/copypgn ["fen"] ["separate"] ["tohere"] ["unicode"]\r\n fen: de la pozi\u0163ia curent\u0103\r\n separate: separ\u0103 varia\u0163iunile\r\n tohere: p\u00e2n\u0103 la pozi\u0163ia curent\u0103 unicode: caractere unicod ca piese\r\nCopiaz\u0103 mut\u0103ri \u00een clipboard'
       }
     };
 

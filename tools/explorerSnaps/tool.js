@@ -33,7 +33,7 @@
         'addSnapPrompt': 'Titlul noului snap',
         'replaceSnapPrompt': 'Suprascrie snapul "%s" ?',
         'snapSettingsButtonText': 'Snap!',
-        'snapSettingsButtonTitle': 'LiChess Tools - creaz\u0103 un snap al set\u0103rilor curente din Explorator',
+        'snapSettingsButtonTitle': 'LiChess Tools - creeaz\u0103 un snap al set\u0103rilor curente din Explorator',
         'allText': 'toate',
         'sinceText': 'de la %s',
         'untilText': 'p\u00e2n\u0103 la %s',

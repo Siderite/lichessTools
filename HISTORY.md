@@ -1,5 +1,19 @@
 History of features added to LiChess Tools in time (reversed order)
 
+05 Oct
+
+- persistent TV channel option
+- mouse wheel during game play
+
+30 Sep
+
+- filter for inactive friends
+- Crowdin integration for 12 languages
+
+27 Sep
+
+- timeline in profile
+
 17 Sep
 
 - random percent in chapter title

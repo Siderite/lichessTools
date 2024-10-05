@@ -201,6 +201,14 @@ body.lichessTools main:not(.lichessTools-alerts) div.lichessTools-liveButtons i[
   display: none;
 }
 
+body.lichessTools main.lichessTools-hideInactive div.lichessTools-liveButtons i[data-role="hideInactive"]:before {
+  opacity: 0.2;
+}
+
+body.lichessTools main.lichessTools-hideInactive tr.lichessTools-inactive {
+  display: none;
+}
+
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown {
   overflow: hidden;

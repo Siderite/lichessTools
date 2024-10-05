@@ -857,7 +857,7 @@
       const list = study.chapters.list.all();
       $('div.study__chapters').addClass('lichesstools-extendedInteractiveLessonFlow');
       for (const chapter of list) {
-        const container = $('div.study__chapters div[data-id="' + chapter.id + '"]');
+        const container = $('div.study__chapters button[data-id="' + chapter.id + '"]');
         const key = study.data.id + '/' + chapter.id;
         const paths = this._paths[key];
         let perc = '';
