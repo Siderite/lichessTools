@@ -1218,7 +1218,7 @@
 
     comm = {
       lichessTools: this,
-      timeout: 2000,
+      timeout: 5000,
       sendResponses: [],
       init: function () {
         this.lichessTools.global.addEventListener('LichessTools.receive', (ev) => {

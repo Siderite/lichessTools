@@ -170,20 +170,26 @@
       const node = analysis.node;
 
       if (node.glyphs?.length) return;
-
-      this.lastInfo=null;
-      this.info=null;
-      this.stopCeval = false;
-
-      const sf=await this.getEngine();
       const depth = +(parent.currentOptions.getValue('customEngineLevel')) || 16;
-      sf.setDepth(depth);
-      sf.setPosition(node.fen);
-      sf.start();
-      while (!this.info && !this.stopCeval && analysis.node === node) {
-        await parent.timeout(100);
+      this.info=null;
+
+      if (node.ceval?.depth >= depth) {
+        this.info = node.ceval;
+      } else 
+      if (!analysis.ceval?.enabled()) {
+        this.lastInfo=null;
+        this.stopCeval = false;
+
+        const sf=await this.getEngine();
+        sf.setDepth(depth);
+        sf.setPosition(node.fen);
+        sf.start();
+        while (!this.info && !this.stopCeval && analysis.node === node) {
+          await parent.timeout(100);
+        }
+        sf.stop();
       }
-      sf.stop();
+
       const info={...this.info};
       if (!info) return;
 
