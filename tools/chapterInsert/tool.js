@@ -76,7 +76,7 @@
       newOrder.splice(index + 1, 0, newChapterId);
       study.makeChange('sortChapters', newOrder);
       setTimeout(() => {
-        const elem = $('div.study__chapters div.draggable[data-id="' + newChapterId + '"]')[0];
+        const elem = $('div.study__chapters button.draggable[data-id="' + newChapterId + '"]')[0];
         if (!elem) return;
         if (elem.scrollIntoViewIfNeeded) {
           elem.scrollIntoViewIfNeeded();

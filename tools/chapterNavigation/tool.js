@@ -33,7 +33,7 @@
       const $ = parent.$;
       const study = parent.lichess.analysis?.study;
       if (!study) return;
-      $('div.lichessTools-chapterControls div[data-id] > h3').each((i,e) => {
+      $('div.lichessTools-chapterControls button[data-id] > h3').each((i,e) => {
         e = $(e);
         if (e.is('.lichessTools-chapterNavigation-perc')) return;
         const text = e.text();
