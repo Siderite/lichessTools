@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 05 Oct
 
 - persistent TV channel option
+- mouse wheel during game play
 
 30 Sep
 

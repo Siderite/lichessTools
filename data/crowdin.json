@@ -670,7 +670,8 @@
     "hideInactiveTitle": "اللاعبين النشطين",
     "options.languages": "اللغات",
     "options.crowdin": "ترجمة كراودين",
-    "tvOptions.stickyCategory": "قناة تلفزيونية مستمرة"
+    "tvOptions.stickyCategory": "قناة تلفزيونية مستمرة",
+    "options.playWheel": "عجلة الفأرة أثناء اللعبة"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1343,7 +1344,8 @@
     "hideInactiveTitle": "Active players",
     "options.languages": "Languages",
     "options.crowdin": "Crowdin translation",
-    "tvOptions.stickyCategory": "Persistent TV channel"
+    "tvOptions.stickyCategory": "Persistent TV channel",
+    "options.playWheel": "Mouse wheel during game play"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2016,7 +2018,8 @@
     "hideInactiveTitle": "Active players",
     "options.languages": "Languages",
     "options.crowdin": "Crowdin translation",
-    "tvOptions.stickyCategory": "Persistent TV channel"
+    "tvOptions.stickyCategory": "Persistent TV channel",
+    "options.playWheel": "Mouse wheel during game play"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2689,7 +2692,8 @@
     "hideInactiveTitle": "Joueurs actifs",
     "options.languages": "Langues",
     "options.crowdin": "Traduction de Crowdin",
-    "tvOptions.stickyCategory": "Chaîne TV persistante"
+    "tvOptions.stickyCategory": "Chaîne TV persistante",
+    "options.playWheel": "Roulette de la souris pendant le jeu"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3362,7 +3366,8 @@
     "hideInactiveTitle": "Aktive Spieler",
     "options.languages": "Sprachen",
     "options.crowdin": "Crowdin-Übersetzung",
-    "tvOptions.stickyCategory": "Dauerhafter TV-Kanal"
+    "tvOptions.stickyCategory": "Dauerhafter TV-Kanal",
+    "options.playWheel": "Mausrad beim Spielen"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -4035,7 +4040,8 @@
     "hideInactiveTitle": "Active players",
     "options.languages": "Languages",
     "options.crowdin": "Crowdin translation",
-    "tvOptions.stickyCategory": "Persistent TV channel"
+    "tvOptions.stickyCategory": "Persistent TV channel",
+    "options.playWheel": "Mouse wheel during game play"
   },
   "pt-PT": {
     "LiChess Tools": "Ferramentas LiChess",
@@ -4708,7 +4714,8 @@
     "hideInactiveTitle": "Jogadores ativos",
     "options.languages": "Idiomas",
     "options.crowdin": "Tradução do Crowdin",
-    "tvOptions.stickyCategory": "Canal de TV persistente"
+    "tvOptions.stickyCategory": "Canal de TV persistente",
+    "options.playWheel": "Roda do mouse durante a partida"
   },
   "ro-RO": {
     "LiChess Tools": "Unelte de șah",
@@ -5381,7 +5388,8 @@
     "hideInactiveTitle": "Jucători activi",
     "options.languages": "Limbi",
     "options.crowdin": "Traducere cu Crowdin",
-    "tvOptions.stickyCategory": "Canal TV persistent"
+    "tvOptions.stickyCategory": "Canal TV persistent",
+    "options.playWheel": "Rotiță mouse în timpul jocului"
   },
   "ru-RU": {
     "LiChess Tools": "Инструменты Жизни",
@@ -6054,7 +6062,8 @@
     "hideInactiveTitle": "Активные игроки",
     "options.languages": "Языки",
     "options.crowdin": "Crowdin перевод",
-    "tvOptions.stickyCategory": "Постоянный телеканал"
+    "tvOptions.stickyCategory": "Постоянный телеканал",
+    "options.playWheel": "Колесо мыши во время игры"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6727,7 +6736,8 @@
     "hideInactiveTitle": "Jugadores activos",
     "options.languages": "Idiomas",
     "options.crowdin": "Traducción de Crowdin",
-    "tvOptions.stickyCategory": "Canal de TV persistente"
+    "tvOptions.stickyCategory": "Canal de TV persistente",
+    "options.playWheel": "Rueda del ratón durante el juego"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7400,6 +7410,7 @@
     "hideInactiveTitle": "Active players",
     "options.languages": "Languages",
     "options.crowdin": "Crowdin translation",
-    "tvOptions.stickyCategory": "Persistent TV channel"
+    "tvOptions.stickyCategory": "Persistent TV channel",
+    "options.playWheel": "Mouse wheel during game play"
   }
 }

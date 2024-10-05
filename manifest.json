@@ -146,6 +146,7 @@
         "tools/cevalLineOptions/tool.js",
         "tools/noSpoilers/tool.js",
         "tools/profileTimeline/tool.js",
+        "tools/playWheel/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",

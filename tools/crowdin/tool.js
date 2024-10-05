@@ -35,6 +35,7 @@
     async start() {
       const parent = this.lichessTools;
       const value = !!parent.currentOptions.getValue('crowdin');
+      this.logOption('Crowdin', value);
       if (value) {
         await this.loadTranslations();
       }
