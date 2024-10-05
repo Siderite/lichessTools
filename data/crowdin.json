@@ -669,7 +669,8 @@
     "replaceSnapPrompt": "الكتابة فوق لقطة \"%s\" ؟",
     "hideInactiveTitle": "اللاعبين النشطين",
     "options.languages": "اللغات",
-    "options.crowdin": "ترجمة كراودين"
+    "options.crowdin": "ترجمة كراودين",
+    "tvOptions.stickyCategory": "قناة تلفزيونية مستمرة"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1341,7 +1342,8 @@
     "replaceSnapPrompt": "Overwrite snap \"%s\" ?",
     "hideInactiveTitle": "Active players",
     "options.languages": "Languages",
-    "options.crowdin": "Crowdin translation"
+    "options.crowdin": "Crowdin translation",
+    "tvOptions.stickyCategory": "Persistent TV channel"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2013,7 +2015,8 @@
     "replaceSnapPrompt": "Overwrite snap \"%s\" ?",
     "hideInactiveTitle": "Active players",
     "options.languages": "Languages",
-    "options.crowdin": "Crowdin translation"
+    "options.crowdin": "Crowdin translation",
+    "tvOptions.stickyCategory": "Persistent TV channel"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2685,7 +2688,8 @@
     "replaceSnapPrompt": "Écraser le snap \"%s\" ?",
     "hideInactiveTitle": "Joueurs actifs",
     "options.languages": "Langues",
-    "options.crowdin": "Traduction de Crowdin"
+    "options.crowdin": "Traduction de Crowdin",
+    "tvOptions.stickyCategory": "Chaîne TV persistante"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3357,7 +3361,8 @@
     "replaceSnapPrompt": "Snap \"%s\" überschreiben?",
     "hideInactiveTitle": "Aktive Spieler",
     "options.languages": "Sprachen",
-    "options.crowdin": "Crowdin-Übersetzung"
+    "options.crowdin": "Crowdin-Übersetzung",
+    "tvOptions.stickyCategory": "Dauerhafter TV-Kanal"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -4029,7 +4034,8 @@
     "replaceSnapPrompt": "Overwrite snap \"%s\" ?",
     "hideInactiveTitle": "Active players",
     "options.languages": "Languages",
-    "options.crowdin": "Crowdin translation"
+    "options.crowdin": "Crowdin translation",
+    "tvOptions.stickyCategory": "Persistent TV channel"
   },
   "pt-PT": {
     "LiChess Tools": "Ferramentas LiChess",
@@ -4701,7 +4707,8 @@
     "replaceSnapPrompt": "Substituir snap \"%s\" ?",
     "hideInactiveTitle": "Jogadores ativos",
     "options.languages": "Idiomas",
-    "options.crowdin": "Tradução do Crowdin"
+    "options.crowdin": "Tradução do Crowdin",
+    "tvOptions.stickyCategory": "Canal de TV persistente"
   },
   "ro-RO": {
     "LiChess Tools": "Unelte de șah",
@@ -5373,7 +5380,8 @@
     "replaceSnapPrompt": "Suprascrie snap \"%s\" ?",
     "hideInactiveTitle": "Jucători activi",
     "options.languages": "Limbi",
-    "options.crowdin": "Traducere cu Crowdin"
+    "options.crowdin": "Traducere cu Crowdin",
+    "tvOptions.stickyCategory": "Canal TV persistent"
   },
   "ru-RU": {
     "LiChess Tools": "Инструменты Жизни",
@@ -6045,7 +6053,8 @@
     "replaceSnapPrompt": "Перезаписать привязку \"%s\" ?",
     "hideInactiveTitle": "Активные игроки",
     "options.languages": "Языки",
-    "options.crowdin": "Crowdin перевод"
+    "options.crowdin": "Crowdin перевод",
+    "tvOptions.stickyCategory": "Постоянный телеканал"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6717,7 +6726,8 @@
     "replaceSnapPrompt": "¿Sobrescribir snap \"%s\" ?",
     "hideInactiveTitle": "Jugadores activos",
     "options.languages": "Idiomas",
-    "options.crowdin": "Traducción de Crowdin"
+    "options.crowdin": "Traducción de Crowdin",
+    "tvOptions.stickyCategory": "Canal de TV persistente"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7389,6 +7399,7 @@
     "replaceSnapPrompt": "Overwrite snap \"%s\" ?",
     "hideInactiveTitle": "Active players",
     "options.languages": "Languages",
-    "options.crowdin": "Crowdin translation"
+    "options.crowdin": "Crowdin translation",
+    "tvOptions.stickyCategory": "Persistent TV channel"
   }
 }
