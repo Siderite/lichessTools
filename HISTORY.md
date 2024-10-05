@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+05 Oct
+
+- persistent TV channel option
+
 30 Sep
 
 - filter for inactive friends
