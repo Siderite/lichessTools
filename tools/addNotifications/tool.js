@@ -64,33 +64,38 @@
       const toggle = $('#top div.site-buttons #notify-toggle span');
       const app = $('#top div.site-buttons #notify-app');
       let notifications = $('div.notifications', app);
-      const count = +(toggle.attr('data-count')) || 0;
-      let newCount = this._unreadNotifications;
+      const totalEntries = {};
       for (const notification of this.notifications) {
         const entries = await notification.getEntries();
-        newCount += entries.length;
         for (const entry of entries) {
-          if (!notifications.length) {
-            const emptyDiv = $('div.empty', app).removeAttr('data-icon').empty();
-            notifications = $('<div class="notifications">')
-              .appendTo(emptyDiv);
-          }
-          let elem = $('a.site_notification.lichessTools-addNotifications', notifications)
-            .filter((i, e) => $(e).attr('data-id') == entry.id);
-          if (!elem.length) {
-            elem = $(`<a class="site_notification lichessTools-addNotifications">
-              </a>`)
-              .append($('<i>').attr('data-icon', entry.icon))
-              .append($('<span class="content">').append(entry.content))
-              .attr('data-id', entry.id)
-              .attr('href', entry.href)
-              .attr('title', entry.title)
-              .prependTo(notifications);
-          }
-          elem.toggleClass('new', entry.isNew)
+          totalEntries[entry.id] = entry;
         }
       }
+      const entries = Object.values(totalEntries);
+      for (const entry of entries) {
+        if (!notifications.length) {
+          const emptyDiv = $('div.empty', app).removeAttr('data-icon').empty();
+          notifications = $('<div class="notifications">')
+            .appendTo(emptyDiv);
+        }
+        let elem = $('a.site_notification.lichessTools-addNotifications', notifications)
+          .filter((i, e) => $(e).attr('data-id') == entry.id);
+        if (!elem.length) {
+          elem = $(`<a class="site_notification lichessTools-addNotifications">
+            </a>`)
+            .append($('<i>').attr('data-icon', entry.icon))
+            .append($('<span class="content">').append(entry.content))
+            .attr('data-id', entry.id)
+            .attr('href', entry.href)
+            .attr('title', entry.title)
+            .prependTo(notifications);
+        }
+        elem.toggleClass('new', entry.isNew)
+      }
+
       let title = toggle.attr('title');
+      const count = +(toggle.attr('data-count')) || 0;
+      const newCount = this._unreadNotifications + entries.length;
       title = title?.replaceAll(count.toString(), newCount.toString());
       toggle
         .attr('data-count', newCount)
