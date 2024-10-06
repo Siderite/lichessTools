@@ -8,14 +8,12 @@ body.lichessTools dialog.lichessTools-dialog {
   transition: none;
   transition-property: none;
   animation: none;
-  backdrop-filter: none;
 }
 
 body.lichessTools dialog.lichessTools-dialog:backdrop {
   transition: none;
   transition-property: none;
   animation: none;
-  backdrop-filter: none;
 }
 
 body.lichessTools dialog.lichessTools-dialog .dialog-header.draggable {

@@ -77,7 +77,7 @@
       }
       const view = $('<div class="dialog-content">');
       if (options.class) {
-        options.class.split(/[. ]/).filter(x => x).forEach(cls => view.addClass(cls));
+        options.class.split(/[\. ]/).filter(x => x).forEach(cls => view.addClass(cls));
       }
       if (options.html) view.html(options.html);
 
