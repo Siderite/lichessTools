@@ -210,6 +210,9 @@
 
       if (!this.pawnStructures) {
         this.pawnStructures = await parent.comm.getData('pawnStructures.json');
+        if (!this.pawnStructures) {
+          parent.global.console.warn('Could not load pawn structures!');
+        }
       }
 
       const getArr = (structure) => {

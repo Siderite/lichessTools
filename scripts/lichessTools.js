@@ -1249,11 +1249,12 @@
         });
       },
       _files: new Map(),
-      getData: async function(filename) {
+      getData: async function(filename, retries=3) {
         let data = this._files.get(filename);
-        if (!data) {
-          data = await this.lichessTools.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } }).catch(e => { this.lichessTools.global.console.error(e); });
-          this._files.set(filename,data);
+        for (let i=0; i<retries && !data; i++) {
+          data = await this.lichessTools.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } })
+                                             .catch(e => { if (i<retries) this.lichessTools.global.console.error(e); });
+          if (data) this._files.set(filename,data);
         }
         return data;
       }

@@ -30,9 +30,14 @@
     }
 
     gambit_dict = async ()=> {
+      const parent = this.lichessTools;
       if (!this._gambits) {
         const parent = this.lichessTools;
         const gambits = await parent.comm.getData('gambits.json');
+        if (!gambits) {
+          parent.global.console.warn('Could not load gambits!');
+          return;
+        }
         this._gambits = {
           white: new Map(Object.keys(gambits.white).map(k => [k, gambits.white[k]])),
           black: new Map(Object.keys(gambits.black).map(k => [k, gambits.black[k]]))
