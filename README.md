@@ -138,3 +138,5 @@ URLs:
 
 - extension page: https://siderite.dev/blog/new-chrome-extension-lichess-tools/
 - GitHub page: https://github.com/Siderite/lichessTools
+- Chrome/Edge/Chromium store: https://chromewebstore.google.com/detail/langlhlcknngldkeliapahbhbcmlcbcj
+- Firefox store: https://addons.mozilla.org/en-US/firefox/addon/lichess-tools-by-siderite/
