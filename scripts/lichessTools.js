@@ -1251,10 +1251,15 @@
       _files: new Map(),
       getData: async function(filename, retries=3) {
         let data = this._files.get(filename);
+        let error = null;
         for (let i=0; i<retries && !data; i++) {
           data = await this.lichessTools.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } })
-                                             .catch(e => { if (i<retries) this.lichessTools.global.console.error(e); });
-          if (data) this._files.set(filename,data);
+                                             .catch(e => { error = e; });
+        }
+        if (data) {
+          this._files.set(filename,data);
+        } else {
+          if (error) this.lichessTools.global.console.error(error);
         }
         return data;
       }
