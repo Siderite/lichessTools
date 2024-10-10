@@ -213,6 +213,10 @@
         .parentNode.innerHTML;
     };
 
+    async getMemorySize() {
+      return this.global.navigator?.deviceMemory || (await this.global.navigator?.storage?.estimate())?.quota/(1024*1024*1024);
+    }
+
     debounce(fn, wait) {
       let timeout = null;
       let isRunning = false;
