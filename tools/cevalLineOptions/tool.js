@@ -37,6 +37,9 @@
     dict = new Map();
     clsIndex = 0;
     handlePvs = () => {
+      if (this._inHandlePvs) return;
+      try {
+      this._inHandlePvs=true;
       const parent = this.lichessTools;
       const $ = parent.$;
       this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
@@ -80,6 +83,9 @@
             : 'pv-san';
           if (e.className != cls) e.className = cls;
         });
+      } finally {
+        this._inHandlePvs=false;
+      }
     };
 
     async start() {

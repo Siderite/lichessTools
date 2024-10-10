@@ -34,6 +34,9 @@
     };
 
     showDecimals = () => {
+      try {
+      if (this._inShowDecimals) return;
+      this._inShowDecimals=true;
       const parent = this.lichessTools;
       const lichess = parent.lichess;
       const $ = parent.$;
@@ -81,6 +84,9 @@
         }
       };
       traverse(analysis.tree.root, '');
+      } finally {
+        this._inShowDecimals=false;
+      }
     };
 
     async start() {
@@ -92,12 +98,12 @@
       const analysis = lichess?.analysis;
       if (!analysis) return;
       const trans = parent.translator;
-      lichess.pubsub.off('lichessTools.redraw', this.showDecimals);
+      //lichess.pubsub.off('lichessTools.redraw', this.showDecimals);
       const observer = $('.analyse__tools').observer();
-      observer.off('div.ceval.enabled pearl, div.ceval.enabled ~ div.pv_box');
+      observer.off('div.ceval.enabled pearl, div.ceval.enabled ~ div.pv_box .pv');
       if (!value) return;
-      lichess.pubsub.on('lichessTools.redraw', this.showDecimals);
-      observer.on('div.ceval.enabled pearl, div.ceval.enabled ~ div.pv_box',this.showDecimals);
+      //lichess.pubsub.on('lichessTools.redraw', this.showDecimals);
+      observer.on('div.ceval.enabled pearl, div.ceval.enabled ~ div.pv_box .pv',this.showDecimals);
       this.showDecimals();
     }
 

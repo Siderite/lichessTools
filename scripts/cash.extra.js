@@ -55,9 +55,11 @@ class Observer {
   
   on(selector,func,options) {
     if (!options) {
-      options = {
-        childList: true,
-        subtree: true
+      options =  { 
+        subtree: true,
+        childList: true, 
+        attributes: false, 
+        characterData: true
       };
     }
     this.off(selector,func);
