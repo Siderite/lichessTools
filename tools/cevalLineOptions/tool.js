@@ -102,9 +102,9 @@
       const analysisTools = $('main .analyse__tools');
       if (analysisTools.length) {
         const observer = $('main .analyse__tools').observer();
-        observer.off('.pv');
+        observer.off('div.ceval.enabled ~ div.pv_box .pv');
         if (this.options.highlight) {
-          observer.on('.pv',this.handlePvs,{
+          observer.on('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
             childList: true,
             subtree: true,
             attributes: true,
