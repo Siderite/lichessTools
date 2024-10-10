@@ -196,18 +196,33 @@
       const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
       const side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
       const winValue = (info.cp || Math.sign(info.mate) * 1000) * boardSign * side;
-      let symbol = '\uD83D\uDE10';
-      if (winValue < -200) symbol = '\uD83D\uDE22';
-      else if (winValue < -20) symbol = '\uD83D\uDE41';
-      else if (winValue < 20) symbol = '\uD83D\uDE10';
-      else if (winValue < 200) symbol = '\uD83D\uDE42';
-      else if (winValue >= 200) symbol = '\uD83D\uDE01';
 
-      node.glyphs = [{
-        symbol: symbol,
+      const glyph = {
+        symbol: '\uD83D\uDE10',
         name: 'Final evaluation',
         type: 'nonStandard'
-      }];
+      }
+      if (winValue < -200) {
+        glyph.symbol = '\uD83D\uDE22';
+        glyph.fill = '#FF4040';
+      }
+      else if (winValue < -20) {
+        glyph.symbol = '\uD83D\uDE41';
+        glyph.fill = '#FF8040';
+      }
+      else if (winValue < 20) {
+        glyph.symbol = '\uD83D\uDE10';
+      }
+      else if (winValue < 200) {
+        glyph.symbol = '\uD83D\uDE42';
+        glyph.fill = '#80FF80';
+      }
+      else if (winValue >= 200) {
+        glyph.symbol = '\uD83D\uDE01';
+        glyph.fill = '#40FF40';
+      }
+
+      node.glyphs = [glyph];
       analysis.redraw();
     };
 
