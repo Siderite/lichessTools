@@ -75,7 +75,7 @@
         .each((i, e) => {
           const key = this.getKey(e);
           const val = this.dict.get(key);
-          const cls = val?.count > 1
+          const cls = val?.count > 1 && this.options.highlight
             ? ('pv-san ' + val.cls).trim()
             : 'pv-san';
           if (e.className != cls) e.className = cls;
@@ -104,8 +104,8 @@
             attributes: true,
             attributeFilter: ['class']
           });
-          this.handlePvs();
         }
+        this.handlePvs();
       }
     }
 
