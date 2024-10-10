@@ -82,7 +82,7 @@
 
     async load() {
       const lichess = this.parent.lichess;
-      const useSf17=this.parent.storage.supportsDb;
+      const useSf17=this.parent.storage.supportsDb && (await this.parent.getMemorySize()) > 4;
       try {
         if (!this._module) {
           this.parent.debug && this.parent.global.console.debug('SF', 'loading module...');

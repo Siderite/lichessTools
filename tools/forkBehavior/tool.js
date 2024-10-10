@@ -111,7 +111,14 @@
           html: selectElem[0].outerHTML + '<span class="dialog-actions"><button class="button submit">' + trans.noarg('OK') + '</button></span>'
         });
       }
+      $('dialog.lichessTools-forkBehavior-chessbase').remove();
       dlg.showModal();
+      let f;
+      f=()=>{
+        dlg.remove();
+        lichess.pubsub.off('ply',f);
+      };
+      lichess.pubsub.on('ply',f);
       $('<a class="lichessTools-infoIcon">')
         .attr('href', '/account/preferences/display#lichessTools/forkBehavior')
         .attr('target', '_blank')

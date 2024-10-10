@@ -262,7 +262,7 @@
           const notification = {
             getEntries: async () => {
               const entry = {
-                id: 'mchatOptions',
+                id: 'mchatOptions_'+team.teamId,
                 isNew: true,
                 icon: '\uE059',
                 href: '/team/' + parent.global.encodeURIComponent(team.teamId),

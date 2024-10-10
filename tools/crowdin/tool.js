@@ -25,11 +25,17 @@
 
     async loadTranslations() {
       const parent = this.lichessTools;
+      const console = parent.global.console;
       const intl = await parent.comm.getData('crowdin.json');
-      for (const lang in intl) {
-        parent.intl[lang] = { ...parent.intl[lang], ...intl[lang] };
+      if (intl) {
+        for (const lang in intl) {
+          const existing = parent.intl?.[lang];
+          parent.intl[lang] = { ...existing, ...intl[lang] };
+        }
+        console.log(' Loaded '+Object.keys(intl).length+' language translations.');
+      } else {
+        console.warn('Could not load translations!');
       }
-      console.log(' Loaded '+Object.keys(intl).length+' language translations.');
     }
 
     async start() {

@@ -88,26 +88,32 @@
       }
       return this._flagCache;
     }
-    get countryCache() {
+    getCountryCache = async ()=>{
       const parent = this.lichessTools;
       const global = parent.global;
       const lichess = parent.lichess;
       if (this._countryCache) return this._countryCache;
+      let countries;
       try {
         const temp = parent.storage.get('LiChessTools.countryCache', { raw: true })
         if (temp) {
           parent.debug && global.console.debug('Size of country cache:', temp.length);
-          this._countryCache = new Map(parent.jsonParse(temp, this.countries));
-        } else {
-          this._countryCache = new Map(this.countries);
+          countries = parent.jsonParse(temp);
         }
       } catch (e) {
         global.console.warn('Error parsing country cache:', e);
-        this._countryCache = new Map(this.countries);
       }
+      if (!countries) {
+        const data = await parent.comm.getData('countries.json');
+        if (!data) {
+          parent.global.console.warn('Could not load countries!');
+        }
+        countries = data?.countries || [];
+      }
+      this._countryCache = new Map(countries);
       return this._countryCache;
     }
-    saveCache = () => {
+    saveCache = async () => {
       const parent = this.lichessTools;
       const global = parent.global;
       const lichess = parent.lichess;
@@ -116,7 +122,8 @@
         const time = cache.get(userId).time;
         if (Date.now() - new Date(time) > this.cacheExpiration) cache.delete(userId);
       }
-      parent.storage.set('LiChessTools.countryCache', [...this.countryCache]);
+      const countryCache = await this.getCountryCache();
+      parent.storage.set('LiChessTools.countryCache', [...countryCache]);
       parent.storage.set('LiChessTools.flagCache', [...this.flagCache]);
     };
     debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100);
@@ -143,6 +150,7 @@
           const item = data.find(i => i.id === user.id)
           if (item) item.country = user.profile?.country || user.profile?.flag || 'noflag';
         }
+        const countryCache = await this.getCountryCache();
         let firstToProcess = null;
         for (const item of data) {
           if (!item.country) {
@@ -159,7 +167,7 @@
             toSaveCache = true;
             continue;
           }
-          item.countryName = this.countryCache.get(item.country);
+          item.countryName = countryCache.get(item.country);
           if (item.countryName) {
             item.time = Date.now();
             this.flagCache.set(item.id, item);
@@ -177,7 +185,7 @@
             firstToProcess.countryName = el.text() || el.attr('title');
           }
           if (firstToProcess.countryName) {
-            this.countryCache.set(firstToProcess.country, firstToProcess.countryName);
+            countryCache.set(firstToProcess.country, firstToProcess.countryName);
             firstToProcess.time = Date.now();
             this.flagCache.set(firstToProcess.id, firstToProcess);
             toSaveCache = true;
@@ -245,8 +253,6 @@
       lichess.pubsub.off('lichessTools.puzzleChange', this.resetFlags);
       $('#form3-flag').off('change', this.clearCache);
       if (value) {
-        const data = await parent.comm.getData('countries.json');
-        this.countries = data.countries;
         this.debouncedProcessFlags();
         lichess.pubsub.on('content-loaded', this.debouncedProcessFlags);
         lichess.pubsub.on('socket.in.crowd', this.debouncedProcessFlags);

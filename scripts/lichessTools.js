@@ -213,6 +213,10 @@
         .parentNode.innerHTML;
     };
 
+    async getMemorySize() {
+      return this.global.navigator?.deviceMemory || (await this.global.navigator?.storage?.estimate())?.quota/(1024*1024*1024);
+    }
+
     debounce(fn, wait) {
       let timeout = null;
       let isRunning = false;
@@ -1249,11 +1253,17 @@
         });
       },
       _files: new Map(),
-      getData: async function(filename) {
+      getData: async function(filename, retries=3) {
         let data = this._files.get(filename);
-        if (!data) {
-          data = await this.lichessTools.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } }).catch(e => { this.lichessTools.global.console.error(e); });
+        let error = null;
+        for (let i=0; i<retries && !data; i++) {
+          data = await this.lichessTools.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } })
+                                             .catch(e => { error = e; });
+        }
+        if (data) {
           this._files.set(filename,data);
+        } else {
+          if (error) this.lichessTools.global.console.error(error);
         }
         return data;
       }

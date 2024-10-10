@@ -5,5 +5,4 @@ body.lichessTools.lichessTools-theme_performance * {
   transition: none !important;
   transition-property: none !important;
   animation: none !important;
-  backdrop-filter: none !important;
 }

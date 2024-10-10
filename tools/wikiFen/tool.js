@@ -41,6 +41,10 @@
           if (!this.options.enabled) return;
           if (!this.wikiUrls_dict) {
             parent.comm.getData('wikiUrls.json').then(dict=>{
+              if (!dict) {
+                parent.global.console.warn('Could not load pawn wiki URLs!');
+                return;
+              }
               this.wikiUrls_dict = dict;
               analysis.wiki(nodes);
             });

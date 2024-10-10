@@ -36,6 +36,7 @@
       const analysis = lichess?.analysis;
       if (!analysis?.chessground) return;
       let glyph = analysis.node.glyphs?.at(0)?.symbol;
+      const fill = analysis.node.glyphs?.at(0)?.fill || '#557766';
       if (!glyph && parent.isMate(analysis.node)) glyph = '#';
       if (!glyph) return;
       if (this.isStandardGlyph(glyph) || parent.storage.get('analyse.show-move-annotation') === false) {
@@ -45,12 +46,11 @@
       }
       const orig = analysis.node.uci.slice(2, 4);
       const shapes = analysis.chessground.state.drawable.autoShapes?.filter(s => s.type !== 'glyph') || [];
-
       shapes.push({
         type: 'glyph',
         orig: orig,
         label: {
-          fill: '#557766',
+          fill: fill,
           text: glyph
         }
       });

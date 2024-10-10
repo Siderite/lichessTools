@@ -96,6 +96,10 @@
         if (pos=='rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw') return { time: Date.now(), opening: '*', el };
         if (!this.opening_dict) {
           const openings = await parent.comm.getData('openings.json');
+          if (!openings) {
+            parent.global.console.warn('Could not load openings!');
+            return;
+          }
           this.opening_dict=new Map(Object.keys(openings).map(k=>[k,openings[k]]));
         }
         let opening = this.opening_dict.get(pos);
