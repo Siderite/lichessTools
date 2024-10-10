@@ -93,27 +93,17 @@
       this.options = {
         highlight: parent.isOptionSet(value, 'highlight')
       }
-      this.observer?.disconnect();
-      this.observer = null;
-      if (this.options.highlight) {
-        const analysisTools = $('main .analyse__tools')[0];
-        if (analysisTools) {
-          this.observer = new MutationObserver((mutations) => {
-            for (const mutation of mutations) {
-              if ($(mutation.target).is('.pv')) {
-                this.handlePvs();
-                return;
-              }
-            }
-          });
-
-          this.observer.observe(analysisTools, {
+      const analysisTools = $('main .analyse__tools');
+      if (analysisTools.length) {
+        const observer = $('main .analyse__tools').observer();
+        observer.off('.pv');
+        if (this.options.highlight) {
+          observer.on('.pv',this.handlePvs,{
             childList: true,
             subtree: true,
             attributes: true,
             attributeFilter: ['class']
           });
-
           this.handlePvs();
         }
       }
