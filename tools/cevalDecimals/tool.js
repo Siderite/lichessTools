@@ -93,8 +93,11 @@
       if (!analysis) return;
       const trans = parent.translator;
       lichess.pubsub.off('lichessTools.redraw', this.showDecimals);
+      const observer = $('.analyse__tools').observer();
+      observer.off('div.ceval.enabled pearl, div.ceval.enabled ~ div.pv_box');
       if (!value) return;
       lichess.pubsub.on('lichessTools.redraw', this.showDecimals);
+      observer.on('div.ceval.enabled pearl, div.ceval.enabled ~ div.pv_box',this.showDecimals);
       this.showDecimals();
     }
 
