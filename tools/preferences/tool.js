@@ -349,7 +349,7 @@
         .on('click', async ev => {
           ev.preventDefault();
           const options = await parent.getOptions();
-          const text = parent.global.JSON.stringify(options, null, 2);
+          const text = parent.global.JSON.stringify({...options, userId: parent.getUserId()}, null, 2);
           const blob = new Blob([text], { type: 'application/json' });
           const url = URL.createObjectURL(blob);
           $('<a>')
