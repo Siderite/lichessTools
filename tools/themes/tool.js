@@ -8,7 +8,7 @@
         name: 'themes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag', 'noGrab'],
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag'/*, 'noGrab'*/],
         defaultValue: '',
         advanced: true
       }
