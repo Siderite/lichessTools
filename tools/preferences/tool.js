@@ -41,7 +41,9 @@
         'backupButtonTitle': 'LiChess Tools - backup preferences in a file',
         'restoreButtonText': 'Restore',
         'restoreButtonTitle': 'LiChess Tools - restore preferences from a file',
-        'defaultValueLegend': '*Blue bordered preferences are the ones enabled by default'
+        'defaultValueLegend': '*Blue bordered preferences are the ones enabled by default',
+        'noDirectoryPickerWarning': 'This browser does not support this functionality',
+        'folderButtonTitle': 'Pick a folder'
       },
       'ro-RO': {
         yes: 'Da',
@@ -68,7 +70,9 @@
         'backupButtonTitle': 'LiChess Tools - Descarc\u0103 preferin\u0163ele \u00eentr-un fi\u015Fier',
         'restoreButtonText': 'Restaurare',
         'restoreButtonTitle': 'LiChess Tools - \u00CEncarc\u0103 preferin\u0163ele dintr-un fi\u015Fier',
-        'defaultValueLegend': '*Preferin\u0163ele cu margine alb\u0103strie sunt cele implicite'
+        'defaultValueLegend': '*Preferin\u0163ele cu margine alb\u0103strie sunt cele implicite',
+        'noDirectoryPickerWarning': 'Acest browser nu suport\u0103 aceast\u0103 func\u0163ionalitate',
+        'folderButtonTitle': 'Alege un director de fi\u015fiere'
       }
     }
 
@@ -220,6 +224,15 @@
                 </div></group>`;
             }
               break;
+            case 'folder': {
+              html += `<group>
+                <div class="folder">
+                  <input class="form-control" type="text" name="${pref.name}" readonly/>
+                  <button class="form-control button picker" type="button" name=${pref.name}-picker" title="$trans(folderButtonTitle)">&#x1F4C1;</button>
+                  <button class="form-control button delete" type="button" name=${pref.name}-delete" title="$trans(folderButtonTitle)">&#x2716;</button>
+                </div></group>`;
+            }
+              break;
             default:
               throw new Error('Preference type ' + pref.type + ' not supported');
           }
@@ -309,6 +322,50 @@
           if (text) {
             lichess.socket.send('msgSend', { "dest": "totalnoob69", "text": text });
           }
+        });
+      $('.folder button.picker', container)
+        .on('click', async ev => {
+          ev.preventDefault();
+          const input=$(ev.target).siblings('input[type="text"]');
+          const name = input.attr('name');
+          if (!name) {
+            throw new Error('Could not find input for folder select button');
+          }
+          let handle;
+          let handleName;
+          if (parent.global.showDirectoryPicker) {
+            handle = await parent.global.showDirectoryPicker({
+              id: 'ltf-'+name,
+              mode: 'readwrite',
+              startIn: 'documents'
+            });
+            handleName = handle?.name;
+          } else 
+          if (parent.global.navigator?.storage?.getDirectory) {
+            handle = await parent.global.navigator.storage.getDirectory();
+            handleName = handle ? 'internal' : '';
+          } else {
+            parent.announce(trans.noarg('noDirectoryPickerWarning'));
+            return;
+          }
+          if (!handle) return;
+          await parent.storage.set('lichessTools/LT/'+name+'-folder', handle, { db: true, raw: true });
+          input
+            .val(handleName)
+            .trigger('change');
+        });
+      $('.folder button.delete', container)
+        .on('click', async ev => {
+          ev.preventDefault();
+          const input=$(ev.target).siblings('input[type="text"]');
+          const name = input.attr('name');
+          if (!name) {
+            throw new Error('Could not find input for folder select button');
+          }
+          await parent.storage.set('lichessTools/LT/'+name+'-folder', undefined, { db: true, raw: true });
+          input
+            .val('')
+            .trigger('change');
         });
       $('div.actionButtons #btnReset', container)
         .on('click', async ev => {

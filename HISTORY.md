@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Oct
+
+- local folder support
+
 05 Oct
 
 - persistent TV channel option

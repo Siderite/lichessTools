@@ -37,7 +37,7 @@
     "themes.performance": "موضوع الأداء",
     "themes.justExplorer": "مجرد مستكشف",
     "themes.mobile": "سمة الجوال",
-    "themes.slimArrows": "أسهم Slim",
+    "themes.slimArrows": "أسهم ارفع",
     "themes.flairX": "نكهات نيكر",
     "themes.lessIcons": "أقل أيقونات",
     "themes.nonStickyHeader": "لا يوجد رأس مثبت",
@@ -671,7 +671,11 @@
     "options.languages": "اللغات",
     "options.crowdin": "ترجمة كراودين",
     "tvOptions.stickyCategory": "قناة تلفزيونية مستمرة",
-    "options.playWheel": "عجلة الفأرة أثناء اللعبة"
+    "options.playWheel": "عجلة الفأرة أثناء اللعبة",
+    "noDirectoryPickerWarning": "This browser does not support this functionality",
+    "folderButtonTitle": "Pick a folder",
+    "options.filesystem": "Local files",
+    "options.localDatabase": "Local database functionality"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1345,7 +1349,11 @@
     "options.languages": "Languages",
     "options.crowdin": "Crowdin translation",
     "tvOptions.stickyCategory": "Persistent TV channel",
-    "options.playWheel": "Mouse wheel during game play"
+    "options.playWheel": "Mouse wheel during game play",
+    "noDirectoryPickerWarning": "This browser does not support this functionality",
+    "folderButtonTitle": "Pick a folder",
+    "options.filesystem": "Local files",
+    "options.localDatabase": "Local database functionality"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2019,7 +2027,11 @@
     "options.languages": "Languages",
     "options.crowdin": "Crowdin translation",
     "tvOptions.stickyCategory": "Persistent TV channel",
-    "options.playWheel": "Mouse wheel during game play"
+    "options.playWheel": "Mouse wheel during game play",
+    "noDirectoryPickerWarning": "This browser does not support this functionality",
+    "folderButtonTitle": "Pick a folder",
+    "options.filesystem": "Local files",
+    "options.localDatabase": "Local database functionality"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2693,7 +2705,11 @@
     "options.languages": "Langues",
     "options.crowdin": "Traduction de Crowdin",
     "tvOptions.stickyCategory": "Chaîne TV persistante",
-    "options.playWheel": "Roulette de la souris pendant le jeu"
+    "options.playWheel": "Roulette de la souris pendant le jeu",
+    "noDirectoryPickerWarning": "This browser does not support this functionality",
+    "folderButtonTitle": "Pick a folder",
+    "options.filesystem": "Local files",
+    "options.localDatabase": "Local database functionality"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3367,7 +3383,11 @@
     "options.languages": "Sprachen",
     "options.crowdin": "Crowdin-Übersetzung",
     "tvOptions.stickyCategory": "Dauerhafter TV-Kanal",
-    "options.playWheel": "Mausrad beim Spielen"
+    "options.playWheel": "Mausrad beim Spielen",
+    "noDirectoryPickerWarning": "This browser does not support this functionality",
+    "folderButtonTitle": "Pick a folder",
+    "options.filesystem": "Local files",
+    "options.localDatabase": "Local database functionality"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -4041,7 +4061,11 @@
     "options.languages": "Languages",
     "options.crowdin": "Crowdin translation",
     "tvOptions.stickyCategory": "Persistent TV channel",
-    "options.playWheel": "Mouse wheel during game play"
+    "options.playWheel": "Mouse wheel during game play",
+    "noDirectoryPickerWarning": "This browser does not support this functionality",
+    "folderButtonTitle": "Pick a folder",
+    "options.filesystem": "Local files",
+    "options.localDatabase": "Local database functionality"
   },
   "pt-PT": {
     "LiChess Tools": "Ferramentas LiChess",
@@ -4715,7 +4739,11 @@
     "options.languages": "Idiomas",
     "options.crowdin": "Tradução do Crowdin",
     "tvOptions.stickyCategory": "Canal de TV persistente",
-    "options.playWheel": "Roda do mouse durante a partida"
+    "options.playWheel": "Roda do mouse durante a partida",
+    "noDirectoryPickerWarning": "This browser does not support this functionality",
+    "folderButtonTitle": "Pick a folder",
+    "options.filesystem": "Local files",
+    "options.localDatabase": "Local database functionality"
   },
   "ro-RO": {
     "LiChess Tools": "Unelte de șah",
@@ -5389,7 +5417,11 @@
     "options.languages": "Limbi",
     "options.crowdin": "Traducere cu Crowdin",
     "tvOptions.stickyCategory": "Canal TV persistent",
-    "options.playWheel": "Rotiță mouse în timpul jocului"
+    "options.playWheel": "Rotiță mouse în timpul jocului",
+    "noDirectoryPickerWarning": "Acest browser nu suportă această funcționalitate",
+    "folderButtonTitle": "Alege un director de fișiere",
+    "options.filesystem": "Fișiere locale",
+    "options.localDatabase": "Funcționalitate bază de date locală"
   },
   "ru-RU": {
     "LiChess Tools": "Инструменты Жизни",
@@ -6063,7 +6095,11 @@
     "options.languages": "Языки",
     "options.crowdin": "Crowdin перевод",
     "tvOptions.stickyCategory": "Постоянный телеканал",
-    "options.playWheel": "Колесо мыши во время игры"
+    "options.playWheel": "Колесо мыши во время игры",
+    "noDirectoryPickerWarning": "This browser does not support this functionality",
+    "folderButtonTitle": "Pick a folder",
+    "options.filesystem": "Local files",
+    "options.localDatabase": "Local database functionality"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6737,7 +6773,11 @@
     "options.languages": "Idiomas",
     "options.crowdin": "Traducción de Crowdin",
     "tvOptions.stickyCategory": "Canal de TV persistente",
-    "options.playWheel": "Rueda del ratón durante el juego"
+    "options.playWheel": "Rueda del ratón durante el juego",
+    "noDirectoryPickerWarning": "This browser does not support this functionality",
+    "folderButtonTitle": "Pick a folder",
+    "options.filesystem": "Local files",
+    "options.localDatabase": "Local database functionality"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7411,6 +7451,10 @@
     "options.languages": "Languages",
     "options.crowdin": "Crowdin translation",
     "tvOptions.stickyCategory": "Persistent TV channel",
-    "options.playWheel": "Mouse wheel during game play"
+    "options.playWheel": "Mouse wheel during game play",
+    "noDirectoryPickerWarning": "This browser does not support this functionality",
+    "folderButtonTitle": "Pick a folder",
+    "options.filesystem": "Local files",
+    "options.localDatabase": "Local database functionality"
   }
 }

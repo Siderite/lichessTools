@@ -117,6 +117,8 @@ lichessTools.loadTool(LiChessTools.Tools.CopyPgnCommand);
 lichessTools.loadTool(LiChessTools.Tools.ReadGameCommand);
 lichessTools.loadTool(LiChessTools.Tools.SkipMoveCommand);
 
+lichessTools.loadTool(LiChessTools.Tools.LocalDatabase);
+
 lichessTools.loadTool(LiChessTools.Tools.Preferences);
 
 lichessTools.init();

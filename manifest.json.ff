@@ -148,6 +148,8 @@
         "tools/readGameCommand/tool.js",
         "tools/skipMoveCommand/tool.js",
 
+        "tools/localDatabase/tool.js",
+
         "tools/addToTeam/tool.js",
         "tools/preferences/tool.js",
 

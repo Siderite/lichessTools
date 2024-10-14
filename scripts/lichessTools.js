@@ -1577,6 +1577,10 @@
     loadTool(toolClass) {
       const setTimeout = this.global.setTimeout;
       const console = this.global.console;
+      if (!toolClass) {
+        console.warn('No tool class to load.');
+        return;
+      }
       try {
         const tool = new toolClass(this);
         this.tools.push(tool);
