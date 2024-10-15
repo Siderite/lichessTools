@@ -149,6 +149,7 @@
         "tools/skipMoveCommand/tool.js",
 
         "tools/localDatabase/tool.js",
+        "tools/puzzleIndex/tool.js",
 
         "tools/addToTeam/tool.js",
         "tools/preferences/tool.js",
@@ -236,6 +237,8 @@
         "tools/tvOptions/tool.css",
 
         "tools/hideBoardCommand/tool.css",
+
+        "tools/puzzleIndex/tool.js",
 
         "tools/addToTeam/tool.css"
       ],

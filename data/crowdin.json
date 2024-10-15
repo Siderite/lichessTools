@@ -675,7 +675,8 @@
     "noDirectoryPickerWarning": "This browser does not support this functionality",
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality"
+    "options.localDatabase": "Local database functionality",
+    "puzzleHeaderText": "Puzzles"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1353,11 +1354,12 @@
     "noDirectoryPickerWarning": "This browser does not support this functionality",
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality"
+    "options.localDatabase": "Local database functionality",
+    "puzzleHeaderText": "Puzzles"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
-    "serverOverload": "LiChess thinks we are overloading their system!",
+    "serverOverload": "Lichess thinks we are overloading their system!",
     "options.general": "General",
     "options.addNotifications": "Add notifications",
     "options.community": "Community",
@@ -2031,7 +2033,8 @@
     "noDirectoryPickerWarning": "This browser does not support this functionality",
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality"
+    "options.localDatabase": "Local database functionality",
+    "puzzleHeaderText": "Puzzles"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2709,7 +2712,8 @@
     "noDirectoryPickerWarning": "This browser does not support this functionality",
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality"
+    "options.localDatabase": "Local database functionality",
+    "puzzleHeaderText": "Puzzles"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3387,11 +3391,12 @@
     "noDirectoryPickerWarning": "This browser does not support this functionality",
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality"
+    "options.localDatabase": "Local database functionality",
+    "puzzleHeaderText": "Puzzles"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
-    "serverOverload": "LiChess thinks we are overloading their system!",
+    "serverOverload": "Lichess thinks we are overloading their system!",
     "options.general": "General",
     "options.addNotifications": "Add notifications",
     "options.community": "Community",
@@ -4065,7 +4070,8 @@
     "noDirectoryPickerWarning": "This browser does not support this functionality",
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality"
+    "options.localDatabase": "Local database functionality",
+    "puzzleHeaderText": "Puzzles"
   },
   "pt-PT": {
     "LiChess Tools": "Ferramentas LiChess",
@@ -4743,11 +4749,12 @@
     "noDirectoryPickerWarning": "This browser does not support this functionality",
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality"
+    "options.localDatabase": "Local database functionality",
+    "puzzleHeaderText": "Puzzles"
   },
   "ro-RO": {
-    "LiChess Tools": "Unelte de șah",
-    "serverOverload": "LiChess crede că le supraîncărcăm sistemul!",
+    "LiChess Tools": "LiChess Tools",
+    "serverOverload": "Lichess crede că le supraîncărcăm sistemul!",
     "options.general": "Generalități",
     "options.addNotifications": "Adaugă notificări",
     "options.community": "Comunitate",
@@ -5006,7 +5013,7 @@
     "merryChristmas": "Crăciun fericit de la LiChess Tools!",
     "options.christmas": "Arată luminile de Crăciun pe grafic pe 25 decembrie",
     "options.keyboardHelp": "Secţiune LiChess Tools în dialogul ajutor pentru taste",
-    "lichessTools": "Unelte de șah",
+    "lichessTools": "LiChess Tools",
     "nextBlunder": "Următoarea gafă (toate liniile)",
     "nextMistake": "Următoarea greşeală (toate liniile)",
     "nextInaccuracy": "Următoarea inexactitate (toate liniile)",
@@ -5421,7 +5428,8 @@
     "noDirectoryPickerWarning": "Acest browser nu suportă această funcționalitate",
     "folderButtonTitle": "Alege un director de fișiere",
     "options.filesystem": "Fișiere locale",
-    "options.localDatabase": "Funcționalitate bază de date locală"
+    "options.localDatabase": "Funcționalitate bază de date locală",
+    "puzzleHeaderText": "Probleme de șah"
   },
   "ru-RU": {
     "LiChess Tools": "Инструменты Жизни",
@@ -6099,7 +6107,8 @@
     "noDirectoryPickerWarning": "This browser does not support this functionality",
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality"
+    "options.localDatabase": "Local database functionality",
+    "puzzleHeaderText": "Puzzles"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6777,11 +6786,12 @@
     "noDirectoryPickerWarning": "This browser does not support this functionality",
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality"
+    "options.localDatabase": "Local database functionality",
+    "puzzleHeaderText": "Puzzles"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
-    "serverOverload": "LiChess thinks we are overloading their system!",
+    "serverOverload": "Lichess thinks we are overloading their system!",
     "options.general": "General",
     "options.addNotifications": "Add notifications",
     "options.community": "Community",
@@ -7455,6 +7465,7 @@
     "noDirectoryPickerWarning": "This browser does not support this functionality",
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality"
+    "options.localDatabase": "Local database functionality",
+    "puzzleHeaderText": "Puzzles"
   }
 }

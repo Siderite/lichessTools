@@ -1027,10 +1027,10 @@
       defaultLanguage: 'en-US',
       'en-US': {
         'LiChess Tools': 'LiChess Tools',
-        serverOverload: 'LiChess thinks we are overloading their system!'
+        serverOverload: 'Lichess thinks we are overloading their system!'
       },
       'ro-RO': {
-        serverOverload: 'LiChess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
+        serverOverload: 'Lichess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
       },
       get lang() {
         let lang = lichessTools.global.document.documentElement.lang || this.defaultLanguage;
