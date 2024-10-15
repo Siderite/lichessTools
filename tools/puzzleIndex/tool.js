@@ -7,10 +7,12 @@
       {
         name: 'puzzleIndex',
         category: 'analysis',
-        type: 'single',
-        possibleValues: [false, true],
-        defaultValue: false,
-        advanced: true
+        type: 'file',
+        fileDescription: 'Ngram Index Files (NIF)',
+        fileExtension: '.nif',
+        defaultValue: '',
+        advanced: true,
+        wip: true
       }
     ];
 
@@ -32,8 +34,10 @@
       if (this.loading) return;
       this.loading = true;
       const parent = this.lichessTools;
-      if (!parent.file?.enabled) return;
-      this.indexFile = await parent.file.openIndex('puzzle.nif', true);
+      if (!parent.file) return;
+      const dbKey = 'lichessTools/LT/puzzleIndex-file';
+      const fileHandle = await this.lichessTools.storage.get(dbKey,{ db: true, raw: true });
+      this.indexFile = await parent.file.openIndex(fileHandle, true);
       this.loading = false;
     };
 
@@ -107,9 +111,10 @@
       const trans = parent.translator;
       lichess.pubsub.off('lichessTools.redraw', this.searchPosition);
       if (!value) {
-         this.indexFile?.dispose();
-         this.indexFile = null;
-         return;
+        $('section.explorer-box div.data table.lichessTools-puzzles').remove();
+        this.indexFile?.dispose();
+        this.indexFile = null;
+        return;
       }
       lichess.pubsub.on('lichessTools.redraw', this.searchPosition);
     }

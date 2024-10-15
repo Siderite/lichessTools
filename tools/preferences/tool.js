@@ -43,7 +43,8 @@
         'restoreButtonTitle': 'LiChess Tools - restore preferences from a file',
         'defaultValueLegend': '*Blue bordered preferences are the ones enabled by default',
         'noDirectoryPickerWarning': 'This browser does not support this functionality',
-        'folderButtonTitle': 'Pick a folder'
+        'folderButtonTitle': 'Pick a folder',
+        'fileButtonTitle': 'Pick a file'
       },
       'ro-RO': {
         yes: 'Da',
@@ -72,7 +73,8 @@
         'restoreButtonTitle': 'LiChess Tools - \u00CEncarc\u0103 preferin\u0163ele dintr-un fi\u015Fier',
         'defaultValueLegend': '*Preferin\u0163ele cu margine alb\u0103strie sunt cele implicite',
         'noDirectoryPickerWarning': 'Acest browser nu suport\u0103 aceast\u0103 func\u0163ionalitate',
-        'folderButtonTitle': 'Alege un director de fi\u015fiere'
+        'folderButtonTitle': 'Alege un director de fi\u015fiere',
+        'fileButtonTitle': 'Alege un fi\u015fier'
       }
     }
 
@@ -233,6 +235,16 @@
                 </div></group>`;
             }
               break;
+            case 'file': {
+              html += `<group>
+                <div class="file">
+                  <input class="form-control" type="text" name="${pref.name}" readonly/>
+                  <button class="form-control button picker" type="button" name=${pref.name}-picker" title="$trans(folderButtonTitle)" 
+                     data-filedescription="${pref.fileDescription||''}" data-fileextension="${pref.fileExtension||''}">&#x1F4C1;</button>
+                  <button class="form-control button delete" type="button" name=${pref.name}-delete" title="$trans(folderButtonTitle)">&#x2716;</button>
+                </div></group>`;
+            }
+              break;
             default:
               throw new Error('Preference type ' + pref.type + ' not supported');
           }
@@ -363,6 +375,62 @@
             throw new Error('Could not find input for folder select button');
           }
           await parent.storage.set('lichessTools/LT/'+name+'-folder', undefined, { db: true, raw: true });
+          input
+            .val('')
+            .trigger('change');
+        });
+      $('.file button.picker', container)
+        .on('click', async ev => {
+          ev.preventDefault();
+          const input=$(ev.target).siblings('input[type="text"]');
+          const name = input.attr('name');
+          if (!name) {
+            throw new Error('Could not find input for file select button');
+          }
+          let handle;
+          let handleName;
+          const btn = $(ev.currentTarget);
+          if (parent.global.showOpenFilePicker) {
+            const filetype = {};
+            const description = btn.attr('data-filedescription');
+            if (description) filetype.description = description;
+            const extension = btn.attr('data-fileextension');
+            if (extension) filetype.accept = {
+              "application/octet-stream": [ extension ]
+            }
+            handle= await parent.global.showOpenFilePicker({
+              id: 'ltf-'+name,
+              multiple: false,
+              startIn: 'documents',
+              types: [ filetype ]
+            });
+            handle = handle?.[0];
+            handleName = handle?.name;
+          } else {
+            handle = await new Promise((resolve)=>{
+              $('<input type="file" />')
+                .on('change cancel',e=>{
+                  resolve(e.target.files[0]);
+                })
+                .trigger('click');
+            });
+            handleName = handle?.name;
+          }
+          if (!handle) return;
+          await parent.storage.set('lichessTools/LT/'+name+'-file', handle, { db: true, raw: true });
+          input
+            .val(handleName)
+            .trigger('change');
+        });
+      $('.file button.delete', container)
+        .on('click', async ev => {
+          ev.preventDefault();
+          const input=$(ev.target).siblings('input[type="text"]');
+          const name = input.attr('name');
+          if (!name) {
+            throw new Error('Could not find input for file select button');
+          }
+          await parent.storage.set('lichessTools/LT/'+name+'-file', undefined, { db: true, raw: true });
           input
             .val('')
             .trigger('change');

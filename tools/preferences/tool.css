@@ -196,11 +196,13 @@ div.lichessTools-preferences div.defaultValue {
   border-radius: 25%;
 }
 
-div.lichessTools-preferences div.folder {
+div.lichessTools-preferences div.folder,
+div.lichessTools-preferences div.file {
   display:flex;
 }
 
-div.lichessTools-preferences div.folder button {
+div.lichessTools-preferences div.folder button,
+div.lichessTools-preferences div.file button {
   width: unset;
   border: 1px solid var(--c-border);
   background: transparent;

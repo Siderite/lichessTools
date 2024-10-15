@@ -5,10 +5,11 @@
       {
         name: 'localDatabase',
         category: 'filesystem',
-        type: 'folder',
-        defaultValue: '',
+        type: 'single',
+        possibleValues: [false, true],
+        defaultValue: true,
         advanced: true,
-        wip: true
+        hidden: true
       }
     ];
 
@@ -25,16 +26,10 @@
 
     async start() {
       const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('localDatabase');
+      const value = !!parent.currentOptions.getValue('localDatabase');
       this.logOption('Local database', value || 'not set');
-      this.options = {
-        folder: await parent.storage.get('lichessTools/LT/localDatabase-folder',{ db: true, raw: true })
-      };
-      this.logOption(' ... ', this.options.folder?.name || 'none');
-      if (this.options.folder) {
-        if (!parent.file || parent.file.folder != this.options.folder) {
-          parent.file = new FileSystem(parent, this.options.folder);
-        }
+      if (value) {
+        parent.file = new FileSystem(parent);
       } else {
         parent.file = null;
       }
@@ -44,24 +39,13 @@
 
   class FileSystem {
 
-    constructor(lichessTools, folder) {
+    constructor(lichessTools) {
       this.lichessTools = lichessTools;
-      this.folder = folder;
-      this.enabled = !!folder;
     }
 
-    async openIndex(filename, isCached = true) {
-      if (!this.folder) return;
-      let perm = await this.folder.queryPermission({ mode: 'read' });
-      if (perm !== 'granted') {
-        if (!window.navigator.userActivation?.hasBeenActive) return;
-        perm = await this.folder.requestPermission({ mode: 'read' });
-        if (perm !== 'granted') return;
-      }
-      const fileHandle = await this.folder.getFileHandle(filename)
-                                          .catch(e=>{ console.log('Could not find file '+filename); });
+    async openIndex(fileHandle, isCached = true) {
       if (!fileHandle) return;
-      const dbKey = 'lichessTools/LT/localDatabase-NIF-'+filename;
+      const dbKey = 'lichessTools/LT/localDatabase-NIF-'+fileHandle.name+'-data';
       let indexData = await this.lichessTools.storage.get(dbKey,{ db: true, raw: true });
       const indexFile = new IndexFile(isCached);
       if (indexData) {
@@ -84,7 +68,7 @@
 
     async loadData(data, file) {
       if (!file) throw new Error('No file handle provided');
-      this.file = await file.getFile();
+      this.file = file.getFile ? await file.getFile() : file;
       if (this.file?.lastModified != data.lastModified) {
         await this.loadFile(file);
         return;
@@ -111,9 +95,21 @@
       };
     }
 
+    dispose() {
+      this.file = null;
+      this.cache = null;
+      this.idsString = null;
+      this.ngramDict = null;
+      this.ngramsize = null;
+      this.ngramIndexSize = null;
+      this.idsize = null;
+      this.idIndexSize = null;
+      this.idCountSize = null;
+    }
+
     async loadFile(file) {
       if (!file) throw new Error('No file handle provided');
-      this.file = await file.getFile();
+      this.file = file.getFile ? await file.getFile() : file;
       this.position = 0;
       const nif = await this.readString(3);
       if (nif!='NIF') throw new Error('Not a NIF file');
@@ -170,13 +166,13 @@
           data=[];
           break;
         }
+        hits++;
         if (!info.indexCount) continue;
         this.seek(info.position);
         const bytes = await this.readBytes(info.indexCount * this.idIndexSize);
         const ids = this.splitToNumbers(bytes, this.idIndexSize);
         data = data ? this.intersect(ids,data) : ids;
         if (data.length == 0) break;
-        hits++;
       }
       const confidence = Math.round(10000*hits/(text.length - this.ngramsize))/100;
       data.length && console.log('confidence: '+confidence+' ('+data.length+')');
