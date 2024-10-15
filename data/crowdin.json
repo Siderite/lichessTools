@@ -676,7 +676,8 @@
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles"
+    "puzzleHeaderText": "Puzzles",
+    "fileButtonTitle": "Pick a file"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1355,7 +1356,8 @@
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles"
+    "puzzleHeaderText": "Puzzles",
+    "fileButtonTitle": "Pick a file"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2034,7 +2036,8 @@
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles"
+    "puzzleHeaderText": "Puzzles",
+    "fileButtonTitle": "Pick a file"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2713,7 +2716,8 @@
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles"
+    "puzzleHeaderText": "Puzzles",
+    "fileButtonTitle": "Pick a file"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3392,7 +3396,8 @@
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles"
+    "puzzleHeaderText": "Puzzles",
+    "fileButtonTitle": "Pick a file"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -4071,7 +4076,8 @@
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles"
+    "puzzleHeaderText": "Puzzles",
+    "fileButtonTitle": "Pick a file"
   },
   "pt-PT": {
     "LiChess Tools": "Ferramentas LiChess",
@@ -4750,7 +4756,8 @@
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles"
+    "puzzleHeaderText": "Puzzles",
+    "fileButtonTitle": "Pick a file"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5429,7 +5436,8 @@
     "folderButtonTitle": "Alege un director de fișiere",
     "options.filesystem": "Fișiere locale",
     "options.localDatabase": "Funcționalitate bază de date locală",
-    "puzzleHeaderText": "Probleme de șah"
+    "puzzleHeaderText": "Probleme de șah",
+    "fileButtonTitle": "Alege un fişier"
   },
   "ru-RU": {
     "LiChess Tools": "Инструменты Жизни",
@@ -6108,7 +6116,8 @@
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles"
+    "puzzleHeaderText": "Puzzles",
+    "fileButtonTitle": "Pick a file"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6787,7 +6796,8 @@
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles"
+    "puzzleHeaderText": "Puzzles",
+    "fileButtonTitle": "Pick a file"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7466,6 +7476,7 @@
     "folderButtonTitle": "Pick a folder",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles"
+    "puzzleHeaderText": "Puzzles",
+    "fileButtonTitle": "Pick a file"
   }
 }

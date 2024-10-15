@@ -175,7 +175,7 @@
         if (data.length == 0) break;
       }
       const confidence = Math.round(10000*hits/(text.length - this.ngramsize))/100;
-      data.length && console.log('confidence: '+confidence+' ('+data.length+')');
+      //data.length && console.debug('confidence: '+confidence+' ('+data.length+')');
       result = [];
       for (let i=0; i<data.length; i++) {
         const index = data[i];

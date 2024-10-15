@@ -238,7 +238,7 @@
 
         "tools/hideBoardCommand/tool.css",
 
-        "tools/puzzleIndex/tool.js",
+        "tools/puzzleIndex/tool.css",
 
         "tools/addToTeam/tool.css"
       ],

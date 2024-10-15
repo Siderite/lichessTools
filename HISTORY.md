@@ -1,8 +1,12 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Oct
+
+- puzzle index tool
+
 14 Oct
 
-- local folder support
+- local folder/file support
 
 05 Oct
 
