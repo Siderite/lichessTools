@@ -68,10 +68,11 @@
           .text(trans.noarg('puzzleHeaderText'));
       }
       const tbody = $('tbody',table);
-      $('tr',tbody).prop('toDelete',true);
+      const rows = $('tr',tbody);
+      rows.each((i,e)=>{ e.toDelete=true; });
       for (const puzzleId of searchItems) {
         const existing = $('tr[data-id="'+puzzleId+'"]',tbody);
-        existing.prop('toDelete',false);
+        existing.each((i,e)=>{ e.toDelete=false; });
         if (!existing.length) {
           const row = $('<tr><td><a href="/training/'+puzzleId+'" target="_blank">'+puzzleId+'</a><span class="tooltip-content"></td></tr>')
             .on('click',ev=>{
@@ -96,7 +97,7 @@
             .appendTo(tbody);
         }
       }
-      $('tr',tbody).filter(t=>$(t).prop('toDelete')).remove();
+      rows.filter((i,e)=>e.toDelete).remove();
     };
 
     async start() {
