@@ -173,6 +173,7 @@
         "tools/themes/noStudyChat.css",
         "tools/themes/pieceDrag.css",
         "tools/themes/noGrab.css",
+        "tools/themes/noPractice.css",
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
         "tools/dialog/tool.css",

@@ -8,7 +8,7 @@
         name: 'themes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag'/*, 'noGrab'*/],
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag','noPractice'/*, 'noGrab'*/],
         defaultValue: '',
         advanced: true
       }
@@ -28,7 +28,8 @@
         'themes.nonStickyHeader': 'No sticky header',
         'themes.noStudyChat': 'No study chat',
         'themes.pieceDrag': 'Nicer piece drag',
-        'themes.noGrab': 'No grab cursor'
+        'themes.noGrab': 'No grab cursor',
+        'themes.noPractice': 'No Practice button'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -43,7 +44,8 @@
         'themes.nonStickyHeader': 'Antet fix \u00een pagin\u0103',
         'themes.noStudyChat': 'F\u0103r\u0103 chat \u00een studii',
         'themes.pieceDrag': 'Apucat piese mai frumos',
-        'themes.noGrab': 'F\u0103r\u0103 cursor care apuc\u0103'
+        'themes.noGrab': 'F\u0103r\u0103 cursor care apuc\u0103',
+        'themes.noPractice': 'F\u0103r\u0103 buton Practic\u0103 cu calculatorul'
       }
     }
 
