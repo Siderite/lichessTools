@@ -41,6 +41,9 @@
     };
 
     searchPosition = async ()=>{
+      if (this.searching) return;
+      try {
+      this.searching=true;
       await this.loadData();
       if (!this.indexFile) return;
       const parent = this.lichessTools;
@@ -56,7 +59,11 @@
         table.remove();
         return;
       }
-      if (!table.length) {
+      if (table.length) {
+        if (table.next('table').length) {
+          table.appendTo(container);
+        }
+      } else {
         table=$('<table class="lichessTools-puzzles"><thead><th class="title"></th></thead><tbody></tbody></table>')
           .on('mouseleave',ev=>{
             parent.global.clearTimeout(this.popupTimeout);
@@ -98,6 +105,9 @@
         }
       }
       rows.filter((i,e)=>e.toDelete).remove();
+      } finally {
+        this.searching = false;
+      }
     };
 
     async start() {

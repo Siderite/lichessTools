@@ -166,16 +166,16 @@
           data=[];
           break;
         }
-        hits++;
         if (!info.indexCount) continue;
+        hits++;
         this.seek(info.position);
         const bytes = await this.readBytes(info.indexCount * this.idIndexSize);
         const ids = this.splitToNumbers(bytes, this.idIndexSize);
         data = data ? this.intersect(ids,data) : ids;
         if (data.length == 0) break;
       }
-      const confidence = Math.round(10000*hits/(text.length - this.ngramsize))/100;
-      //data.length && console.debug('confidence: '+confidence+' ('+data.length+')');
+      const confidence = Math.round(100*hits/(text.length - this.ngramsize+1));
+      //data.length && console.debug('confidence: '+confidence+'% ('+data.length+')');
       result = [];
       for (let i=0; i<data.length; i++) {
         const index = data[i];
