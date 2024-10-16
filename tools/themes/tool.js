@@ -45,7 +45,7 @@
         'themes.noStudyChat': 'F\u0103r\u0103 chat \u00een studii',
         'themes.pieceDrag': 'Apucat piese mai frumos',
         'themes.noGrab': 'F\u0103r\u0103 cursor care apuc\u0103',
-        'themes.noPractice': 'F\u0103r\u0103 buton Practic\u0103 cu calculatorul'
+        'themes.noPractice': 'F\u0103r\u0103 buton Antrenament cu calculatorul'
       }
     }
 

@@ -672,12 +672,13 @@
     "options.crowdin": "ترجمة كراودين",
     "tvOptions.stickyCategory": "قناة تلفزيونية مستمرة",
     "options.playWheel": "عجلة الفأرة أثناء اللعبة",
-    "noDirectoryPickerWarning": "This browser does not support this functionality",
-    "folderButtonTitle": "Pick a folder",
-    "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles",
-    "fileButtonTitle": "Pick a file"
+    "noDirectoryPickerWarning": "هذا المتصفح لا يدعم هذه الوظيفة",
+    "folderButtonTitle": "اختيار مجلد",
+    "options.filesystem": "الملفات المحلية",
+    "options.localDatabase": "وظيفة قاعدة البيانات المحلية",
+    "puzzleHeaderText": "ألغاز",
+    "fileButtonTitle": "اختيار ملف",
+    "themes.noPractice": "لا يوجد زر تدريب"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1357,7 +1358,8 @@
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
     "puzzleHeaderText": "Puzzles",
-    "fileButtonTitle": "Pick a file"
+    "fileButtonTitle": "Pick a file",
+    "themes.noPractice": "No Practice button"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2037,7 +2039,8 @@
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
     "puzzleHeaderText": "Puzzles",
-    "fileButtonTitle": "Pick a file"
+    "fileButtonTitle": "Pick a file",
+    "themes.noPractice": "No Practice button"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2712,12 +2715,13 @@
     "options.crowdin": "Traduction de Crowdin",
     "tvOptions.stickyCategory": "Chaîne TV persistante",
     "options.playWheel": "Roulette de la souris pendant le jeu",
-    "noDirectoryPickerWarning": "This browser does not support this functionality",
-    "folderButtonTitle": "Pick a folder",
-    "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles",
-    "fileButtonTitle": "Pick a file"
+    "noDirectoryPickerWarning": "Ce navigateur ne supporte pas cette fonctionnalité",
+    "folderButtonTitle": "Choisir un dossier",
+    "options.filesystem": "Fichiers locaux",
+    "options.localDatabase": "Fonctionnalité de la base de données locale",
+    "puzzleHeaderText": "Problèmes",
+    "fileButtonTitle": "Choisir un fichier",
+    "themes.noPractice": "Pas de bouton d'entraînement"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3392,12 +3396,13 @@
     "options.crowdin": "Crowdin-Übersetzung",
     "tvOptions.stickyCategory": "Dauerhafter TV-Kanal",
     "options.playWheel": "Mausrad beim Spielen",
-    "noDirectoryPickerWarning": "This browser does not support this functionality",
-    "folderButtonTitle": "Pick a folder",
-    "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles",
-    "fileButtonTitle": "Pick a file"
+    "noDirectoryPickerWarning": "Dieser Browser unterstützt diese Funktion nicht",
+    "folderButtonTitle": "Wähle einen Ordner",
+    "options.filesystem": "Lokale Dateien",
+    "options.localDatabase": "Lokale Datenbank-Funktionalität",
+    "puzzleHeaderText": "Rätsel",
+    "fileButtonTitle": "Datei auswählen",
+    "themes.noPractice": "Keine Übungsschaltfläche"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -4077,9 +4082,10 @@
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
     "puzzleHeaderText": "Puzzles",
-    "fileButtonTitle": "Pick a file"
+    "fileButtonTitle": "Pick a file",
+    "themes.noPractice": "No Practice button"
   },
-  "pt-PT": {
+  "pt-BR": {
     "LiChess Tools": "Ferramentas LiChess",
     "serverOverload": "O LiChess pensa que estamos sobrecarregando o sistema deles!",
     "options.general": "Gerais",
@@ -4571,7 +4577,7 @@
     "searchPattern": "Digite FEN parcial ou string PGN (*,? curinga suportada) ou Tag(=,*=)Valor ou \"Index=Valor ou \"Inválido\" ou \"Ply\"(>",
     "foundGames": "Jogos %s encontrados",
     "foundGames:one": "number@@0 partidas encontradas",
-    "cutStuffPrompt": "\"Tags\", \"Anotações\", \"Comentários\", \"Resultado\", \"Valor\", \"Selva\",\"Eval\"(>,=,<)Valor em qualquer combinação (por exemplo, lixo, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "Tags",
     "sendToPgnEditorText": "PGN Editor",
     "sendToPgnEditorTitle": "Ferramentas LiChess - enviar para Editor PGN",
     "evaluateNeedsAnalysis": "Avaliar só pode ser usado na análise ou em páginas de estudo - limitação de Lichess",
@@ -4752,12 +4758,13 @@
     "options.crowdin": "Tradução do Crowdin",
     "tvOptions.stickyCategory": "Canal de TV persistente",
     "options.playWheel": "Roda do mouse durante a partida",
-    "noDirectoryPickerWarning": "This browser does not support this functionality",
-    "folderButtonTitle": "Pick a folder",
-    "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles",
-    "fileButtonTitle": "Pick a file"
+    "noDirectoryPickerWarning": "Este navegador não suporta esta funcionalidade",
+    "folderButtonTitle": "Escolha uma pasta",
+    "options.filesystem": "Arquivos locais",
+    "options.localDatabase": "Funcionalidade do banco de dados local",
+    "puzzleHeaderText": "Problemas",
+    "fileButtonTitle": "Escolha um arquivo",
+    "themes.noPractice": "Nenhum botão prático"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5437,7 +5444,8 @@
     "options.filesystem": "Fișiere locale",
     "options.localDatabase": "Funcționalitate bază de date locală",
     "puzzleHeaderText": "Probleme de șah",
-    "fileButtonTitle": "Alege un fişier"
+    "fileButtonTitle": "Alege un fişier",
+    "themes.noPractice": "Fără buton Antrenament cu calculatorul"
   },
   "ru-RU": {
     "LiChess Tools": "Инструменты Жизни",
@@ -6112,12 +6120,13 @@
     "options.crowdin": "Crowdin перевод",
     "tvOptions.stickyCategory": "Постоянный телеканал",
     "options.playWheel": "Колесо мыши во время игры",
-    "noDirectoryPickerWarning": "This browser does not support this functionality",
-    "folderButtonTitle": "Pick a folder",
-    "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality",
-    "puzzleHeaderText": "Puzzles",
-    "fileButtonTitle": "Pick a file"
+    "noDirectoryPickerWarning": "Этот браузер не поддерживает эту функцию",
+    "folderButtonTitle": "Выберите папку",
+    "options.filesystem": "Локальные файлы",
+    "options.localDatabase": "Функциональность локальной базы данных",
+    "puzzleHeaderText": "Пазлы",
+    "fileButtonTitle": "Выберите файл",
+    "themes.noPractice": "Нет практических кнопок"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6792,12 +6801,13 @@
     "options.crowdin": "Traducción de Crowdin",
     "tvOptions.stickyCategory": "Canal de TV persistente",
     "options.playWheel": "Rueda del ratón durante el juego",
-    "noDirectoryPickerWarning": "This browser does not support this functionality",
-    "folderButtonTitle": "Pick a folder",
-    "options.filesystem": "Local files",
-    "options.localDatabase": "Local database functionality",
+    "noDirectoryPickerWarning": "Este navegador no soporta esta funcionalidad",
+    "folderButtonTitle": "Escoge una carpeta",
+    "options.filesystem": "Archivos locales",
+    "options.localDatabase": "Funcionalidad de base de datos local",
     "puzzleHeaderText": "Puzzles",
-    "fileButtonTitle": "Pick a file"
+    "fileButtonTitle": "Escoge un archivo",
+    "themes.noPractice": "Sin botón de práctica"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7477,6 +7487,7 @@
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
     "puzzleHeaderText": "Puzzles",
-    "fileButtonTitle": "Pick a file"
+    "fileButtonTitle": "Pick a file",
+    "themes.noPractice": "No Practice button"
   }
 }
