@@ -1,0 +1,53 @@
+@media (max-width: 799.3px) and (orientation: portrait) {
+
+  body.lichessTools .lichessTools-dailyQuote {
+    display: none;
+  }
+
+}
+
+body.lichessTools .lichessTools-dailyQuote {
+  position: relative;
+  background: #80808020;
+  padding: 0.5em;
+  padding-right:1.5em;
+}
+
+body.lichessTools .lichessTools-dailyQuote button.close {
+  position: absolute;
+  top: 0;
+  right: 0em;
+
+  margin-inline-start: -1.75em;
+  width: 1.75em;
+  height: 1.75em;
+  background-color: var(--c-bg-popup);
+  border-radius: 50%;
+  border: none;
+}
+
+body.lichessTools .lichessTools-dailyQuote button.close:hover {
+  background-color: #80808040;
+}
+
+body.lichessTools .lichessTools-dailyQuote button.close:after {
+  content: '\E03F';
+
+  vertical-align: middle;
+  font-family: "lichess";
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  speak: none;
+  opacity: .9;
+  unicode-bidi: isolate;
+}
+
+body.lichessTools .lichessTools-dailyQuote .quote {
+  font-style: italic;
+}
+
+body.lichessTools .lichessTools-dailyQuote .author {
+  margin-left: 2em;
+  font-size: small;
+}

@@ -1,8 +1,12 @@
 History of features added to LiChess Tools in time (reversed order)
 
+17 Oct
+
+- daily quote
+
 15 Oct
 
-- puzzle index tool
+- puzzle index
 
 14 Oct
 

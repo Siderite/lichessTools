@@ -109,6 +109,7 @@ lichessTools.loadTool(LiChessTools.Tools.CevalLineOptions);
 lichessTools.loadTool(LiChessTools.Tools.NoSpoilers);
 lichessTools.loadTool(LiChessTools.Tools.ProfileTimeline);
 lichessTools.loadTool(LiChessTools.Tools.PlayWheel);
+lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

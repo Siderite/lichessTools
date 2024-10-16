@@ -112,6 +112,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - one click moves (in Analysis/Study)
 - show common teams of you and your opponent
 - video popup support in studies
+- daily chess quote
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:
