@@ -111,10 +111,21 @@ cash.fn.observer = function () {
   }
   let observer = this.prop('__observer');
   if (!observer) {
-    observer = new Observer(this);
+    observer = new Observer(this,ctx=>ctx.prop('__observer',null));
     this.prop('__observer',observer);
   }
   return observer;
+}
+
+cash.fn.hasObserver = function () {
+  const observer = this.prop('__observer');
+  return !!observer;
+}
+
+cash.fn.removeObserver = function () {
+  const observer = this.prop('__observer');
+  observer?.clear();
+  this.removeProp('__observer');
 }
 
 })(cash);
