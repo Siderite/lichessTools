@@ -16,11 +16,15 @@
     intl = {
       'en-US': {
         'options.analysis': 'Analysis',
-        'options.exportPGN': 'Export PGN'
+        'options.exportPGN': 'Export PGN',
+        'PGNCopiedToClipboard': 'PGN copied to clipboard',
+        'clipboardDenied': 'Clipboard access denied'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.exportPGN': 'Export\u0103 PGN'
+        'options.exportPGN': 'Export\u0103 PGN',
+        'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
+        'clipboardDenied': 'Acces refuzat la clipboard'
       }
     }
 
