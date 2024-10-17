@@ -206,6 +206,30 @@
       return true;
     }
 
+    async writeToClipboard(value, successText, failText) {
+      const navigator = this.global.navigator;
+      const console = this.global.console;
+      const announce = this.announce;
+      const hasPermission = async ()=>{
+        try {
+          const permission = await navigator.permissions.query({ name: 'clipboard-write' });
+          return ['granted', 'prompt'].includes(permission?.state);
+        } catch (e) {
+        }
+      };
+      let announcement = failText;
+      const permission = await hasPermission();
+      if (permission !== false) {
+        try {
+          await navigator.clipboard.writeText(value);
+          announcement = successText;
+        } catch(e) {
+          console.warn('Error copying PGN to clipboard',e);
+        }
+      }
+      announce(announcement);
+    }
+
     htmlEncode = (text) => {
       const document = this.global.document;
       return document.createElement('a')

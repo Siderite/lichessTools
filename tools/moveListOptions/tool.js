@@ -456,20 +456,7 @@
         return;
       }
       const url = parent.global.location.origin + '/study/' + study.data.id + '/' + chapterId + '#' + parent.global.encodeURIComponent(label);
-      const result = await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
-      if (['granted', 'prompt'].includes(result.state)) {
-        try {
-          await parent.global.navigator.clipboard.writeText(url);
-          const announcement = trans.noarg('URLCopiedToClipboard');
-          announce(announcement);
-        } catch (e) {
-          const announcement = trans.noarg('clipboardDenied');
-          announce(announcement);
-        }
-      } else {
-        const announcement = trans.noarg('clipboardDenied');
-        announce(announcement);
-      }
+      await parent.writeToClipboard(url, trans.noarg('URLCopiedToClipboard'), trans.noarg('clipboardDenied'));
     };
 
     collapseExpandAll = () => {

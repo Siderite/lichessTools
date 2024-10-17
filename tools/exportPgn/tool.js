@@ -271,20 +271,7 @@
         }
         const result = pgns.join('\r\n\r\n');
         if (options.copyToClipboard) {
-          const permission = await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
-          if (['granted', 'prompt'].includes(permission.state)) {
-            try {
-              await parent.global.navigator.clipboard.writeText(result);
-              const announcement = trans.noarg('PGNCopiedToClipboard');
-              announce(announcement);
-            } catch (e) {
-              const announcement = trans.noarg('clipboardDenied');
-              announce(announcement);
-            }
-          } else {
-            const announcement = trans.noarg('clipboardDenied');
-            announce(announcement);
-          }
+          await parent.writeToClipboard(result, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
         }
         return result;
       } catch (e) {

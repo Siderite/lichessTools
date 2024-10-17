@@ -208,26 +208,6 @@
       parent.storage.set('LichessTools.pgnEditor.historyIndex', this.historyIndex, { session: true });
     };
 
-    copyToClipboard = async (text) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const permission = await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
-      if (['granted', 'prompt'].includes(permission.state)) {
-        try {
-          await parent.global.navigator.clipboard.writeText(text);
-          const announcement = trans.noarg('PGNCopiedToClipboard');
-          parent.announce(announcement);
-        } catch (e) {
-          const announcement = trans.noarg('clipboardDenied');
-          parent.announce(announcement);
-        }
-      } else {
-        const announcement = trans.noarg('clipboardDenied');
-        parent.announce(announcement);
-      }
-    };
-
     loadHistory = () => {
       const parent = this.lichessTools;
       this.history = parent.storage.get('LichessTools.pgnEditor.history', { session: true, zip: true }) || [];
@@ -400,10 +380,10 @@
         .attr('title', trans.noarg('btnCopyTitle'))
         .on('click', async ev => {
           ev.preventDefault();
-          this.runOperation('copy', () => {
+          this.runOperation('copy', async () => {
             const text = textarea.val();
             if (!text) return;
-            this.copyToClipboard(text);
+            await parent.writeToClipboard(text, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
           });
         })
         .find('span')
@@ -1783,7 +1763,7 @@
         return makePgn(g);
       }).join('\r\n\r\n')
         .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g, '');
-      this.copyToClipboard(foundText);
+      parent.writeToClipboard(foundText, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
 
       this.writeNote(trans.pluralSame('foundGames', foundGames.length));
     };
