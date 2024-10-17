@@ -1,4 +1,4 @@
-@media (max-width: 799.3px) and (orientation: portrait) {
+@media (max-height: 600px) or (max-width: 799.3px) {
 
   body.lichessTools .lichessTools-dailyQuote {
     display: none;
