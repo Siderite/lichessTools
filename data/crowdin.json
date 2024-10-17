@@ -678,10 +678,10 @@
     "puzzleHeaderText": "ألغاز",
     "fileButtonTitle": "اختيار ملف",
     "themes.noPractice": "لا يوجد زر تدريب",
-    "options.dailyQuote": "Daily quote",
-    "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote",
-    "options.puzzleDownload": "Download PGN for puzzles",
+    "options.dailyQuote": "الاقتباس اليومي",
+    "dailyQuoteTitle": "أدوات شطرنج الحياة - اقتباس يومي",
+    "quoteCloseButtonTitle": "إخفاء اقتباس اليوم",
+    "options.puzzleDownload": "تحميل PGN للألغاز",
     "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "zh-TW": {
@@ -2733,10 +2733,10 @@
     "puzzleHeaderText": "Problèmes",
     "fileButtonTitle": "Choisir un fichier",
     "themes.noPractice": "Pas de bouton d'entraînement",
-    "options.dailyQuote": "Daily quote",
-    "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote",
-    "options.puzzleDownload": "Download PGN for puzzles",
+    "options.dailyQuote": "Citation quotidienne",
+    "dailyQuoteTitle": "Outils LiChess - citation quotidienne",
+    "quoteCloseButtonTitle": "Cacher le devis d'aujourd'hui",
+    "options.puzzleDownload": "Télécharger le PGN pour les puzzles",
     "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "de-DE": {
@@ -3418,10 +3418,10 @@
     "puzzleHeaderText": "Rätsel",
     "fileButtonTitle": "Datei auswählen",
     "themes.noPractice": "Keine Übungsschaltfläche",
-    "options.dailyQuote": "Daily quote",
-    "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote",
-    "options.puzzleDownload": "Download PGN for puzzles",
+    "options.dailyQuote": "Tägliches Angebot",
+    "dailyQuoteTitle": "LiChess-Tools - tägliches Angebot",
+    "quoteCloseButtonTitle": "heutiges Zitat ausblenden",
+    "options.puzzleDownload": "PGN für Rätsel herunterladen",
     "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "hi-IN": {
@@ -4788,10 +4788,10 @@
     "puzzleHeaderText": "Problemas",
     "fileButtonTitle": "Escolha um arquivo",
     "themes.noPractice": "Nenhum botão prático",
-    "options.dailyQuote": "Daily quote",
-    "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote",
-    "options.puzzleDownload": "Download PGN for puzzles",
+    "options.dailyQuote": "Cotação diária",
+    "dailyQuoteTitle": "Ferramentas de LiChess - citação diária",
+    "quoteCloseButtonTitle": "Ocultar cotação de hoje",
+    "options.puzzleDownload": "Baixe PGN para quebra-cabeças",
     "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "ro-RO": {
@@ -6158,10 +6158,10 @@
     "puzzleHeaderText": "Пазлы",
     "fileButtonTitle": "Выберите файл",
     "themes.noPractice": "Нет практических кнопок",
-    "options.dailyQuote": "Daily quote",
-    "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote",
-    "options.puzzleDownload": "Download PGN for puzzles",
+    "options.dailyQuote": "Цитата за день",
+    "dailyQuoteTitle": "Инструменты Жизни - ежедневная цитата",
+    "quoteCloseButtonTitle": "Скрыть сегодняшние цитаты",
+    "options.puzzleDownload": "Скачать PGN для пазлов",
     "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "es-ES": {
@@ -6843,10 +6843,10 @@
     "puzzleHeaderText": "Puzzles",
     "fileButtonTitle": "Escoge un archivo",
     "themes.noPractice": "Sin botón de práctica",
-    "options.dailyQuote": "Daily quote",
-    "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote",
-    "options.puzzleDownload": "Download PGN for puzzles",
+    "options.dailyQuote": "Cita diaria",
+    "dailyQuoteTitle": "Herramientas de LiChess - presupuesto diario",
+    "quoteCloseButtonTitle": "Ocultar cita de hoy",
+    "options.puzzleDownload": "Descargar PGN para rompecabezas",
     "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "tr-TR": {
