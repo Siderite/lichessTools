@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 18 Oct
 
 - puzzle download
+- suggest chapter name from mainline moves
 
 17 Oct
 

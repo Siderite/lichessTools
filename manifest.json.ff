@@ -213,6 +213,7 @@
         "tools/profileSlider/tool.css",
         "tools/fixCoords/tool.css",
         "tools/downloadAllStudies/tool.css",
+        "tools/profilePuzzleTab/tool.css",
         "tools/mayTenth/tool.css",
         "tools/moveAssistant/tool.css",
         "tools/playerWarning/tool.css",
