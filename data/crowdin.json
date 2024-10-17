@@ -682,7 +682,10 @@
     "dailyQuoteTitle": "أدوات شطرنج الحياة - اقتباس يومي",
     "quoteCloseButtonTitle": "إخفاء اقتباس اليوم",
     "options.puzzleDownload": "تحميل PGN للألغاز",
-    "puzzlePgnButtonTitle": "Puzzle PGN"
+    "puzzlePgnButtonTitle": "Puzzle PGN",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "أدوات شطرنج الحياة - اسم التغيير السهل",
+    "options.puzzleIndex": "العثور على موضع في ألغاز Lichess"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1367,7 +1370,10 @@
     "dailyQuoteTitle": "LiChess Tools - daily quote",
     "quoteCloseButtonTitle": "Hide today's quote",
     "options.puzzleDownload": "Download PGN for puzzles",
-    "puzzlePgnButtonTitle": "Puzzle PGN"
+    "puzzlePgnButtonTitle": "Puzzle PGN",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "LiChess Tools - Easy change name",
+    "options.puzzleIndex": "Find position in Lichess puzzles"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2052,7 +2058,10 @@
     "dailyQuoteTitle": "LiChess Tools - daily quote",
     "quoteCloseButtonTitle": "Hide today's quote",
     "options.puzzleDownload": "Download PGN for puzzles",
-    "puzzlePgnButtonTitle": "Puzzle PGN"
+    "puzzlePgnButtonTitle": "Puzzle PGN",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "LiChess Tools - Easy change name",
+    "options.puzzleIndex": "Find position in Lichess puzzles"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2737,7 +2746,10 @@
     "dailyQuoteTitle": "Outils LiChess - citation quotidienne",
     "quoteCloseButtonTitle": "Cacher le devis d'aujourd'hui",
     "options.puzzleDownload": "Télécharger le PGN pour les puzzles",
-    "puzzlePgnButtonTitle": "Puzzle PGN"
+    "puzzlePgnButtonTitle": "Puzzle PGN",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "LiChess Tools - Nom facile de changement",
+    "options.puzzleIndex": "Trouver la position dans les puzzles de Lichess"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3422,7 +3434,10 @@
     "dailyQuoteTitle": "LiChess-Tools - tägliches Angebot",
     "quoteCloseButtonTitle": "heutiges Zitat ausblenden",
     "options.puzzleDownload": "PGN für Rätsel herunterladen",
-    "puzzlePgnButtonTitle": "Puzzle PGN"
+    "puzzlePgnButtonTitle": "Puzzle PGN",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "LiChess Tools - Einfacher Name ändern",
+    "options.puzzleIndex": "Finde Position in Lichess-Puzzles"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -4107,7 +4122,10 @@
     "dailyQuoteTitle": "LiChess Tools - daily quote",
     "quoteCloseButtonTitle": "Hide today's quote",
     "options.puzzleDownload": "Download PGN for puzzles",
-    "puzzlePgnButtonTitle": "Puzzle PGN"
+    "puzzlePgnButtonTitle": "Puzzle PGN",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "LiChess Tools - Easy change name",
+    "options.puzzleIndex": "Find position in Lichess puzzles"
   },
   "pt-BR": {
     "LiChess Tools": "Ferramentas LiChess",
@@ -4792,7 +4810,10 @@
     "dailyQuoteTitle": "Ferramentas de LiChess - citação diária",
     "quoteCloseButtonTitle": "Ocultar cotação de hoje",
     "options.puzzleDownload": "Baixe PGN para quebra-cabeças",
-    "puzzlePgnButtonTitle": "Puzzle PGN"
+    "puzzlePgnButtonTitle": "Puzzle PGN",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "LiChess Tools - Nome de alteração fácil",
+    "options.puzzleIndex": "Encontre posição nos quebra-cabeças do Lichess"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5477,7 +5498,10 @@
     "dailyQuoteTitle": "LiChess Tools - citatul zilei",
     "quoteCloseButtonTitle": "Ascunde citatul de azi",
     "options.puzzleDownload": "Descărcare PGN pentru probleme de șah",
-    "puzzlePgnButtonTitle": "PGN-ul problemei de șah"
+    "puzzlePgnButtonTitle": "PGN-ul problemei de șah",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "LiChess Tools - Schimbă ușor numele",
+    "options.puzzleIndex": "Găsește poziția în problemele de șah Lichess"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6162,7 +6186,10 @@
     "dailyQuoteTitle": "Инструменты Жизни - ежедневная цитата",
     "quoteCloseButtonTitle": "Скрыть сегодняшние цитаты",
     "options.puzzleDownload": "Скачать PGN для пазлов",
-    "puzzlePgnButtonTitle": "Puzzle PGN"
+    "puzzlePgnButtonTitle": "Puzzle PGN",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "Инструменты Жизни - Легко изменить имя",
+    "options.puzzleIndex": "Найдите позицию в пазлах Lichess"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6847,7 +6874,10 @@
     "dailyQuoteTitle": "Herramientas de LiChess - presupuesto diario",
     "quoteCloseButtonTitle": "Ocultar cita de hoy",
     "options.puzzleDownload": "Descargar PGN para rompecabezas",
-    "puzzlePgnButtonTitle": "Puzzle PGN"
+    "puzzlePgnButtonTitle": "Puzzle PGN",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "Herramientas de LiChess - Cambio de nombre fácil",
+    "options.puzzleIndex": "Buscar posición en los puzzles de Lichess"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7532,6 +7562,9 @@
     "dailyQuoteTitle": "LiChess Tools - daily quote",
     "quoteCloseButtonTitle": "Hide today's quote",
     "options.puzzleDownload": "Download PGN for puzzles",
-    "puzzlePgnButtonTitle": "Puzzle PGN"
+    "puzzlePgnButtonTitle": "Puzzle PGN",
+    "gameType-unknown": ",",
+    "changeNameToTitle": "LiChess Tools - Easy change name",
+    "options.puzzleIndex": "Find position in Lichess puzzles"
   }
 }
