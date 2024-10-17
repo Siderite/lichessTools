@@ -1,0 +1,32 @@
+body.lichessTools button.lichessTools-puzzleDownload {
+  border: none;
+  background: none;
+  color: var(--c-link);
+  margin-left: 1em;
+}
+
+body.lichessTools button.lichessTools-puzzleDownload:hover {
+  background: #80808020;
+}
+
+body.lichessTools:has(.view_solution) button.lichessTools-puzzleDownload {
+  display: none;
+}
+
+body.lichessTools div.lichessTools-puzzleDownload {
+  display: flex;
+}
+
+body.lichessTools div.lichessTools-puzzleDownload textarea {
+  min-width:20em;
+  min-height:25em;
+}
+
+body.lichessTools div.lichessTools-puzzleDownload button.copyPgn {
+  border: none;
+  background: none;
+}
+
+body.lichessTools div.lichessTools-puzzleDownload button.copyPgn:hover {
+  background: #80808020;
+}

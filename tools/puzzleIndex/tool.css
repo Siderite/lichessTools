@@ -1,0 +1,20 @@
+body.lichessTools table.lichessTools-puzzles {
+  width: 100%;
+}
+
+body.lichessTools table.lichessTools-puzzles td {
+  padding-inline-start: 7px;
+  padding-inline-end: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  max-width: 110px;
+}
+
+body.lichessTools #puzzlePopup {
+  position: absolute;
+  pointer-events:none;
+}
+
+body.lichessTools #puzzlePopup img {
+  max-width:15em;
+}

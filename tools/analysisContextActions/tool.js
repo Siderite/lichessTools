@@ -32,15 +32,12 @@
         'extractVariationText_fst': 'Copy PGN (FEN position)',
         'extractVariationTitle': 'LiChess Tools - copy branch and continuations to clipboard\r\nShift/Ctrl/Alt-click for options',
         'errorGeneratingPGN': 'Error generating PGN',
-        'errorCopyingPGN': 'Error copying PGN to clipboard',
-        'PGNCopiedToClipboard': 'PGN copied to clipboard',
         'setCustomEngineDepth': 'You need to set a custom engine depth for this feature!',
         'evaluateTerminationsText': 'Evaluate terminating moves',
         'evaluateTerminationsTitle': 'LiChess Tools - add evaluation comment to all branch terminating moves',
         'evaluateTerminationsStarted': 'Evaluation commenting started: %s',
         'showTransposText': 'Highlight all transpositions',
-        'showTransposTitle': 'LiChess Tools - highlight all transpositions',
-        'clipboardDenied': 'Clipboard access denied'
+        'showTransposTitle': 'LiChess Tools - highlight all transpositions'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -60,15 +57,12 @@
         'extractVariationText_fst': 'Copiaz\u0103 PGN (pozi\u0163ie FEN)',
         'extractVariationTitle': 'LiChess Tools - copiaz\u0103 varia\u0163iunea \u015Fi continu\u0103rile ca PGN\r\nShift/Ctrl/Alt-click pentru op\u0163iuni',
         'errorGeneratingPGN': 'Eroare generare PGN',
-        'errorCopyingPGN': 'Eroare copiere PGN \u00een clipboard',
-        'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
         'setCustomEngineDepth': 'Trebuie s\u0103 setezi un nivel personalizat pentru motorul de analiz\u0103!',
         'evaluateTerminationsText': 'Evalueaz\u0103 mut\u0103rile finale',
         'evaluateTerminationsTitle': 'LiChess Tools - adaug\u0103 comentarii cu evaluarea mut\u0103rilor finale din fiecare ramur\u0103',
         'evaluateTerminationsStarted': 'Comentarea cu evalu\u0103ri pornit\u0103: %s',
         'showTransposText': 'Arat\u0103 toate transpozi\u0163iile',
-        'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile',
-        'clipboardDenied': 'Acces refuzat la clipboard'
+        'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile'
       }
     }
 

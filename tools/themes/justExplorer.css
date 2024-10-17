@@ -31,3 +31,11 @@ body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-r
 body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-relay-tour) div.analyse__tools:has(.explorer-box) div.pv_box {
   display: none;
 }
+
+body.lichessTools.lichessTools-theme_justExplorer.mobile .analyse__controls .jumps {
+  flex: 1 1 auto;
+}
+
+body.lichessTools.lichessTools-theme_justExplorer.mobile .analyse__controls .features {
+  flex: 2 1 auto;
+}

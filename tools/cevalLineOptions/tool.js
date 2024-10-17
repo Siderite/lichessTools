@@ -37,6 +37,9 @@
     dict = new Map();
     clsIndex = 0;
     handlePvs = () => {
+      if (this._inHandlePvs) return;
+      try {
+      this._inHandlePvs=true;
       const parent = this.lichessTools;
       const $ = parent.$;
       this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
@@ -75,11 +78,14 @@
         .each((i, e) => {
           const key = this.getKey(e);
           const val = this.dict.get(key);
-          const cls = val?.count > 1
+          const cls = val?.count > 1 && this.options.highlight
             ? ('pv-san ' + val.cls).trim()
             : 'pv-san';
           if (e.className != cls) e.className = cls;
         });
+      } finally {
+        this._inHandlePvs=false;
+      }
     };
 
     async start() {
@@ -93,29 +99,19 @@
       this.options = {
         highlight: parent.isOptionSet(value, 'highlight')
       }
-      this.observer?.disconnect();
-      this.observer = null;
-      if (this.options.highlight) {
-        const analysisTools = $('main .analyse__tools')[0];
-        if (analysisTools) {
-          this.observer = new MutationObserver((mutations) => {
-            for (const mutation of mutations) {
-              if ($(mutation.target).is('.pv')) {
-                this.handlePvs();
-                return;
-              }
-            }
-          });
-
-          this.observer.observe(analysisTools, {
+      const analysisTools = $('main .analyse__tools');
+      if (analysisTools.length) {
+        const observer = $('main .analyse__tools').observer();
+        observer.off('div.ceval.enabled ~ div.pv_box .pv');
+        if (this.options.highlight) {
+          observer.on('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
             childList: true,
             subtree: true,
             attributes: true,
             attributeFilter: ['class']
           });
-
-          this.handlePvs();
         }
+        this.handlePvs();
       }
     }
 

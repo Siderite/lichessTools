@@ -109,6 +109,8 @@ lichessTools.loadTool(LiChessTools.Tools.CevalLineOptions);
 lichessTools.loadTool(LiChessTools.Tools.NoSpoilers);
 lichessTools.loadTool(LiChessTools.Tools.ProfileTimeline);
 lichessTools.loadTool(LiChessTools.Tools.PlayWheel);
+lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
+lichessTools.loadTool(LiChessTools.Tools.PuzzleDownload);
 //lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
@@ -116,6 +118,9 @@ lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
 lichessTools.loadTool(LiChessTools.Tools.CopyPgnCommand);
 lichessTools.loadTool(LiChessTools.Tools.ReadGameCommand);
 lichessTools.loadTool(LiChessTools.Tools.SkipMoveCommand);
+
+lichessTools.loadTool(LiChessTools.Tools.LocalDatabase);
+lichessTools.loadTool(LiChessTools.Tools.PuzzleIndex);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);
 

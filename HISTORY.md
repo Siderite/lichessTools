@@ -1,5 +1,21 @@
 History of features added to LiChess Tools in time (reversed order)
 
+18 Oct
+
+- puzzle download
+
+17 Oct
+
+- daily quote
+
+15 Oct
+
+- puzzle index
+
+14 Oct
+
+- local folder/file support
+
 05 Oct
 
 - persistent TV channel option

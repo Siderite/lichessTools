@@ -34,6 +34,9 @@
     };
 
     showDecimals = () => {
+      try {
+      if (this._inShowDecimals) return;
+      this._inShowDecimals=true;
       const parent = this.lichessTools;
       const lichess = parent.lichess;
       const $ = parent.$;
@@ -42,7 +45,7 @@
       const trans = parent.translator;
       const ceval = analysis.node.ceval;
       if (ceval) {
-        const pearl = $('div.ceval.enabled pearl');
+        const pearl = $('div.ceval pearl');
         if (pearl.length) {
           // lichess keeps a reference to the actual node
           const textNode = Array.from(pearl[0].childNodes).find(n => n.nodeType == 3);
@@ -81,21 +84,38 @@
         }
       };
       traverse(analysis.tree.root, '');
+      } finally {
+        this._inShowDecimals=false;
+      }
+    };
+
+    setupObserver = ()=>{
+      if (!this.options.enabled) return;
+      const parent = this.lichessTools;
+      const $ = parent.$;
+      const analyseTools = $('.analyse__tools');
+      if (!analyseTools.length) return;
+      if (!analyseTools.hasObserver()) {
+        const observer = analyseTools.observer();
+        observer.on('div.ceval pearl, div.ceval.enabled ~ div.pv_box .pv',this.showDecimals);
+      }
+      this.showDecimals();
     };
 
     async start() {
       const parent = this.lichessTools;
       const value = parent.currentOptions.getValue('cevalDecimals');
       this.logOption('Ceval decimals', value);
+      this.options = { enabled: !!value };
       const lichess = parent.lichess;
       const $ = parent.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      const trans = parent.translator;
-      lichess.pubsub.off('lichessTools.redraw', this.showDecimals);
+      lichess.pubsub.off('lichessTools.redraw', this.setupObserver);
+      $('.analyse__tools').removeObserver();
       if (!value) return;
-      lichess.pubsub.on('lichessTools.redraw', this.showDecimals);
-      this.showDecimals();
+      lichess.pubsub.on('lichessTools.redraw', this.setupObserver);
+      this.setupObserver();
     }
 
   }

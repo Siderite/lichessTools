@@ -1027,21 +1027,31 @@
       defaultLanguage: 'en-US',
       'en-US': {
         'LiChess Tools': 'LiChess Tools',
-        serverOverload: 'LiChess thinks we are overloading their system!'
+        serverOverload: 'Lichess thinks we are overloading their system!'
       },
       'ro-RO': {
-        serverOverload: 'LiChess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
+        serverOverload: 'Lichess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
       },
       get lang() {
         let lang = lichessTools.global.document.documentElement.lang || this.defaultLanguage;
-        if (!this[lang]) lang = this.defaultLanguage;
+        if (!this[lang] && !this[lang+'-crowdin']) lang = this.defaultLanguage;
         return lang;
       },
       get isTranslated() {
         return this.lang != this.defaultLanguage;
       },
       get siteI18n() {
-        return { ...this[this.defaultLanguage], ...this[this.lang] };
+        if (this.lichessTools.debug) {
+          const allKeys = Object.keys(this[this.defaultLanguage]);
+          const langKeys = Object.keys({ ...this[this.lang], ...this[this.lang+'-crowdin'] });
+          const missingKeys = new Set(allKeys);
+          for (const key of langKeys) missingKeys.delete(key);
+          const orphanKeys = new Set(langKeys);
+          for (const key of allKeys) orphanKeys.delete(key);
+          if (missingKeys.size) this.lichessTools.global.console.debug(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
+          if (orphanKeys.size) this.lichessTools.global.console.debug(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
+        }
+        return { ...this[this.defaultLanguage], ...this[this.lang], ...this[this.lang+'-crowdin'] };
       }
     }
 
@@ -1386,6 +1396,19 @@
           return json;
         }
       },
+      puzzle: {
+        lichessTools: this,
+        getPuzzle: async function(puzzleId) {
+          const parent = this.lichessTools;
+          const puzzle = await parent.net.json({
+            url: '/api/puzzle/{id}',
+            args: {
+              id: puzzleId
+            }
+          });
+          return puzzle;
+        }
+      },
       user: {
         lichessTools: this,
         getUsers: async function (userIds) {
@@ -1577,6 +1600,10 @@
     loadTool(toolClass) {
       const setTimeout = this.global.setTimeout;
       const console = this.global.console;
+      if (!toolClass) {
+        console.warn('No tool class to load.');
+        return;
+      }
       try {
         const tool = new toolClass(this);
         this.tools.push(tool);

@@ -58,7 +58,7 @@
         'options.general': 'General',
         'options.timelineNotify': 'Notific\u0103ri la activitate recent\u0103',
         'timeline': 'Activitate recent\u0103',
-        'timelineNotification': 'Ai %s \u00eentr\u0103ri noi',
+        'timelineNotification': 'Ai %s intr\u0103ri noi',
         'timelineNotifyTitle': 'LiChess Tools - c\u0103tre Activitate recent\u0103',
         'timelineNotify.forum-post': 'Post pe forum',
         'timelineNotify.ublog-post': 'Post pe blog',

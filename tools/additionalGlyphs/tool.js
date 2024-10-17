@@ -55,6 +55,8 @@
         }
       });
       analysis.chessground.setAutoShapes(shapes);
+      const existing = $('svg.cg-custom-svgs g').filter(g=>$(g).attr('cgHash')?.includes(','+orig));
+      $('circle',existing).attr('fill',fill);
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);
 

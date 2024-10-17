@@ -1,3 +1,5 @@
+(function(cash) {
+
 cash.cached = function (selector, duration = 10000) {
   if (typeof (selector) !== 'string' || !(+duration)) {
     throw new Error('Selector can only be a string and duration must be specified');
@@ -44,3 +46,86 @@ cash.single = function (selector, context) {
   const elem = parent?.querySelector(selector);
   return cash(elem);
 };
+
+class Observer {
+  constructor(context) {
+    this.context = context;
+    this.handlers = new Map();
+  }
+  
+  on(selector,func,options) {
+    if (!options) {
+      options =  { 
+        subtree: true,
+        childList: true, 
+        attributes: false, 
+        characterData: true
+      };
+    }
+    this.off(selector,func);
+    const observer = new MutationObserver((mutations)=>{
+      const matches = mutations.filter(m=>$(m.target).is(selector));
+      if (matches.length) {
+        func(matches);
+      }
+    });
+    let list = this.handlers.get(selector);
+    if (!list) {
+      list = []
+      this.handlers.set(selector,list);
+    }
+    list.push({
+      func: func,
+      observer: observer
+    });
+    this.context.each((i, e) => {
+      observer.observe(e,options);
+    });
+  }
+  
+  off(selector,func) {
+    let list = this.handlers.get(selector);
+    if (!list) return;
+    if (func) {
+      list.forEach(o=>{
+        if (o.func===func) { o.observer?.disconnect(); }
+      });
+      this.handlers.set(selector,list.filter(o=>o.func!==func));
+    } else {
+      list.forEach(o=>o.observer?.disconnect());
+      this.handlers.delete(selector);
+    }
+  }
+  
+  clear() {
+    for (const selector of this.handlers.keys()) {
+      this.off(selector);
+    }
+    this.handlers=new Map();
+  }
+}
+
+cash.fn.observer = function () {
+  if (this.length!=1) {
+    throw new Error('Cannot find element to observe from');
+  }
+  let observer = this.prop('__observer');
+  if (!observer) {
+    observer = new Observer(this,ctx=>ctx.prop('__observer',null));
+    this.prop('__observer',observer);
+  }
+  return observer;
+}
+
+cash.fn.hasObserver = function () {
+  const observer = this.prop('__observer');
+  return !!observer;
+}
+
+cash.fn.removeObserver = function () {
+  const observer = this.prop('__observer');
+  observer?.clear();
+  this.removeProp('__observer');
+}
+
+})(cash);

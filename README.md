@@ -10,6 +10,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
   - also an option to show all transpositions in the PGN
 - play multiple variations in Interactive lesson mode in the same chapter! (using the prc: notations if present)
 - local computer analysis chart when no server one exists, even when not logged in
+- local files support: puzzle index in Explorer
 - automatically open/hide/convert to menu the Friends box at page load
 - sound alert when one of your friends starts playing a game (for various time controls)
 - changing the shortcut for playing the next best computer move from Space to Ctrl-Space
@@ -111,6 +112,8 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - one click moves (in Analysis/Study)
 - show common teams of you and your opponent
 - video popup support in studies
+- daily chess quote
+- copy puzzle PGN
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:
