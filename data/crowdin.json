@@ -678,7 +678,10 @@
     "options.localDatabase": "وظيفة قاعدة البيانات المحلية",
     "puzzleHeaderText": "ألغاز",
     "fileButtonTitle": "اختيار ملف",
-    "themes.noPractice": "لا يوجد زر تدريب"
+    "themes.noPractice": "لا يوجد زر تدريب",
+    "options.dailyQuote": "Daily quote",
+    "dailyQuoteTitle": "LiChess Tools - daily quote",
+    "quoteCloseButtonTitle": "Hide today's quote"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1359,7 +1362,10 @@
     "options.localDatabase": "Local database functionality",
     "puzzleHeaderText": "Puzzles",
     "fileButtonTitle": "Pick a file",
-    "themes.noPractice": "No Practice button"
+    "themes.noPractice": "No Practice button",
+    "options.dailyQuote": "Daily quote",
+    "dailyQuoteTitle": "LiChess Tools - daily quote",
+    "quoteCloseButtonTitle": "Hide today's quote"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2040,7 +2046,10 @@
     "options.localDatabase": "Local database functionality",
     "puzzleHeaderText": "Puzzles",
     "fileButtonTitle": "Pick a file",
-    "themes.noPractice": "No Practice button"
+    "themes.noPractice": "No Practice button",
+    "options.dailyQuote": "Daily quote",
+    "dailyQuoteTitle": "LiChess Tools - daily quote",
+    "quoteCloseButtonTitle": "Hide today's quote"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2721,7 +2730,10 @@
     "options.localDatabase": "Fonctionnalité de la base de données locale",
     "puzzleHeaderText": "Problèmes",
     "fileButtonTitle": "Choisir un fichier",
-    "themes.noPractice": "Pas de bouton d'entraînement"
+    "themes.noPractice": "Pas de bouton d'entraînement",
+    "options.dailyQuote": "Daily quote",
+    "dailyQuoteTitle": "LiChess Tools - daily quote",
+    "quoteCloseButtonTitle": "Hide today's quote"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3402,7 +3414,10 @@
     "options.localDatabase": "Lokale Datenbank-Funktionalität",
     "puzzleHeaderText": "Rätsel",
     "fileButtonTitle": "Datei auswählen",
-    "themes.noPractice": "Keine Übungsschaltfläche"
+    "themes.noPractice": "Keine Übungsschaltfläche",
+    "options.dailyQuote": "Daily quote",
+    "dailyQuoteTitle": "LiChess Tools - daily quote",
+    "quoteCloseButtonTitle": "Hide today's quote"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -4083,7 +4098,10 @@
     "options.localDatabase": "Local database functionality",
     "puzzleHeaderText": "Puzzles",
     "fileButtonTitle": "Pick a file",
-    "themes.noPractice": "No Practice button"
+    "themes.noPractice": "No Practice button",
+    "options.dailyQuote": "Daily quote",
+    "dailyQuoteTitle": "LiChess Tools - daily quote",
+    "quoteCloseButtonTitle": "Hide today's quote"
   },
   "pt-BR": {
     "LiChess Tools": "Ferramentas LiChess",
@@ -4764,7 +4782,10 @@
     "options.localDatabase": "Funcionalidade do banco de dados local",
     "puzzleHeaderText": "Problemas",
     "fileButtonTitle": "Escolha um arquivo",
-    "themes.noPractice": "Nenhum botão prático"
+    "themes.noPractice": "Nenhum botão prático",
+    "options.dailyQuote": "Daily quote",
+    "dailyQuoteTitle": "LiChess Tools - daily quote",
+    "quoteCloseButtonTitle": "Hide today's quote"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5445,12 +5466,15 @@
     "options.localDatabase": "Funcționalitate bază de date locală",
     "puzzleHeaderText": "Probleme de șah",
     "fileButtonTitle": "Alege un fişier",
-    "themes.noPractice": "Fără buton Antrenament cu calculatorul"
+    "themes.noPractice": "Fără buton Antrenament cu calculatorul",
+    "options.dailyQuote": "Citatul zilei",
+    "dailyQuoteTitle": "LiChess Tools - citatul zilei",
+    "quoteCloseButtonTitle": "Ascunde citatul de azi"
   },
   "ru-RU": {
-    "LiChess Tools": "Инструменты Жизни",
+    "LiChess Tools": "LiChess Tools",
     "serverOverload": "Lichess думает, что мы перегружаем их систему!",
-    "options.general": "Общие положения",
+    "options.general": "Основные настройки",
     "options.addNotifications": "Добавить уведомления",
     "options.community": "Сообщество",
     "options.addToTeam": "Команда Lichess Tools",
@@ -5460,14 +5484,14 @@
     "joinTeamText": "Присоединиться к команде",
     "teamTitle": "Пользователи расширения \"Lichess Tools\"",
     "teamSubtitle": "Присоединяйтесь к команде, чтобы получить доступ к форуму, встретиться с другими пользователями, получить обновления или оставить отзыв",
-    "welcomeToTeam": "Добро пожаловать в команду инструментов LiChess!",
-    "byeFromTeam": "Жаль, что вы уехали!",
+    "welcomeToTeam": "Добро пожаловать в команду LiChess Tools!",
+    "byeFromTeam": "Жаль, что вы уходите!",
     "options.fixAbortController": "Исправить AbortController",
     "options.fixChessgroundResize": "Исправлено изменение размера шахматной панели",
     "options.fixWakeLock": "Исправить WakeLock",
     "options.analysis": "Анализ",
     "options.fixCeval": "Замораживание компьютера",
-    "options.study": "Изучение",
+    "options.study": "Студии",
     "options.gamebookPlayClass": "Добавить класс CSS с интерактивным воспроизведением",
     "options.transpositionBehavior": "Поведение/определение транспозиций",
     "transpositionBehavior.excludeSameLine": "Исключить, если в той же строке",
@@ -5496,17 +5520,17 @@
     "options.command": "Команды",
     "options.chessOps": "Поддержка шахматов",
     "options.exportPGN": "Экспорт PGN",
-    "options.stockfish": "Рыбалка",
+    "options.stockfish": "Stockfish",
     "options.stockfish-threads": "Потоки движка анализа Lichess Tools",
     "options.stockfish-hash": "Хэш движка анализа Lichess Tools (MB)",
-    "couldNotLoadStockfish": "Не удалось загрузить запасы!",
+    "couldNotLoadStockfish": "Не удалось загрузить Stockfish!",
     "options.additionalGlyphs": "Дополнительные глифы",
     "options.play": "Играть",
     "options.quietModeAllTabs": "Тихий режим на всех вкладках",
     "quietModeDisableText": "Отключить тихий режим",
     "quietModeEnableText": "Включить тихий режим",
-    "quietModeDisableTitle": "Инструменты жизнеобеспечения - отключить режим \"тишина\"",
-    "quietModeEnableTitle": "Инструменты жизнеобеспечения - включить режим \"тихий\"",
+    "quietModeDisableTitle": "LiChess Tools - отключить тихий режим",
+    "quietModeEnableTitle": "LiChess Tools - включить тихий режим",
     "options.mobileExperience": "Функции мобильного устройства",
     "options.mobileExperienceRound": "Функции игры для мобильных устройств",
     "options.colorCount": "Цвета для фигур на мобильном устройстве",
@@ -5526,7 +5550,7 @@
     "colorCount.3": "три",
     "colorCount.4": "четыре",
     "lockBoardTitle": "Инструменты Жизни - Блокировка экрана",
-    "options.spaceDisabled": "Ctrl-пробел для лучшего перемещения компьютера вместо пробела",
+    "options.spaceDisabled": "Ctrl-пробел, чтобы сыграть лучший компьютерный ход вместо пробела",
     "onlineFriends": "%s друзей онлайн",
     "onlineFriends:one": "%s онлайн друг",
     "onlineFriends:zero": "Друзья",
@@ -5553,11 +5577,11 @@
     "minutesText": "%s мин",
     "timeText": "%s ago",
     "playing": "Играет %s",
-    "gameType-classical": "Классический",
-    "gameType-rapid": "Быстрое",
+    "gameType-classical": "Классика",
+    "gameType-rapid": "Рапид",
     "gameType-blitz": "Blitz",
     "gameType-bullet": "Пуля",
-    "gameType-ultrabullet": "Ультрабуллет",
+    "gameType-ultrabullet": "Ультрапуля",
     "gameType-standard": "Только стандартные",
     "options.friendsPlaying": "Звук и голосовое оповещение, когда друзья начинают играть",
     "audioNotAllowedTitle": "Инструменты Lichess - аудио разрешено только после действия пользователя",
@@ -6126,7 +6150,10 @@
     "options.localDatabase": "Функциональность локальной базы данных",
     "puzzleHeaderText": "Пазлы",
     "fileButtonTitle": "Выберите файл",
-    "themes.noPractice": "Нет практических кнопок"
+    "themes.noPractice": "Нет практических кнопок",
+    "options.dailyQuote": "Daily quote",
+    "dailyQuoteTitle": "LiChess Tools - daily quote",
+    "quoteCloseButtonTitle": "Hide today's quote"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6807,7 +6834,10 @@
     "options.localDatabase": "Funcionalidad de base de datos local",
     "puzzleHeaderText": "Puzzles",
     "fileButtonTitle": "Escoge un archivo",
-    "themes.noPractice": "Sin botón de práctica"
+    "themes.noPractice": "Sin botón de práctica",
+    "options.dailyQuote": "Daily quote",
+    "dailyQuoteTitle": "LiChess Tools - daily quote",
+    "quoteCloseButtonTitle": "Hide today's quote"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7488,6 +7518,9 @@
     "options.localDatabase": "Local database functionality",
     "puzzleHeaderText": "Puzzles",
     "fileButtonTitle": "Pick a file",
-    "themes.noPractice": "No Practice button"
+    "themes.noPractice": "No Practice button",
+    "options.dailyQuote": "Daily quote",
+    "dailyQuoteTitle": "LiChess Tools - daily quote",
+    "quoteCloseButtonTitle": "Hide today's quote"
   }
 }
