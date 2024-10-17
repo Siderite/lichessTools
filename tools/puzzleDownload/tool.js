@@ -25,8 +25,8 @@
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.puzzleDownload': 'Desc\u0103rcare PGN pentru puzzle-uri',
-        'puzzlePgnButtonTitle': 'PGN-ul puzzle-ului',
+        'options.puzzleDownload': 'Desc\u0103rcare PGN pentru probleme de \u015fah',
+        'puzzlePgnButtonTitle': 'PGN-ul problemei de \u015fah',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
         'clipboardDenied': 'Acces refuzat la clipboard'
       }

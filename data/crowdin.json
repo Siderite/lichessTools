@@ -173,7 +173,6 @@
     "extractVariationText_fst": "نسخ PGN (منصب FEN)",
     "extractVariationTitle": "أدوات شطرنج الحياة - انسخ الفرع والاستمرار إلى الحافظة\r\nShift/Ctrl/Alt-انقر للخيارات",
     "errorGeneratingPGN": "خطأ في إنشاء PGN",
-    "errorCopyingPGN": "خطأ في نسخ PGN إلى الحافظة",
     "PGNCopiedToClipboard": "تم نسخ PGN إلى الحافظة",
     "setCustomEngineDepth": "تحتاج إلى تعيين عمق محرك مخصص لهذه الميزة!",
     "evaluateTerminationsText": "تقييم الإنهاء الحركات",
@@ -681,7 +680,9 @@
     "themes.noPractice": "لا يوجد زر تدريب",
     "options.dailyQuote": "Daily quote",
     "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote"
+    "quoteCloseButtonTitle": "Hide today's quote",
+    "options.puzzleDownload": "Download PGN for puzzles",
+    "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -857,7 +858,6 @@
     "extractVariationText_fst": "複製 PGN（FEN position）",
     "extractVariationTitle": "LiChess Tools 將變種複製到剪貼簿\r\nShift/Ctrl/Alt＋點擊以查看其他選項",
     "errorGeneratingPGN": "生成 PGN 時出錯",
-    "errorCopyingPGN": "複製 PGN 時出錯",
     "PGNCopiedToClipboard": "已複製 PGN 到剪貼簿",
     "setCustomEngineDepth": "您必須選擇自訂引擎深度以使用此功能！",
     "evaluateTerminationsText": "評估變種終結棋譜",
@@ -1365,7 +1365,9 @@
     "themes.noPractice": "No Practice button",
     "options.dailyQuote": "Daily quote",
     "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote"
+    "quoteCloseButtonTitle": "Hide today's quote",
+    "options.puzzleDownload": "Download PGN for puzzles",
+    "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -1541,7 +1543,6 @@
     "extractVariationText_fst": "Copy PGN (FEN position)",
     "extractVariationTitle": "LiChess Tools - copy branch and continuations to clipboard\r\nShift/Ctrl/Alt-click for options",
     "errorGeneratingPGN": "Error generating PGN",
-    "errorCopyingPGN": "Error copying PGN to clipboard",
     "PGNCopiedToClipboard": "PGN copied to clipboard",
     "setCustomEngineDepth": "You need to set a custom engine depth for this feature!",
     "evaluateTerminationsText": "Evaluate terminating moves",
@@ -2049,7 +2050,9 @@
     "themes.noPractice": "No Practice button",
     "options.dailyQuote": "Daily quote",
     "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote"
+    "quoteCloseButtonTitle": "Hide today's quote",
+    "options.puzzleDownload": "Download PGN for puzzles",
+    "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2225,7 +2228,6 @@
     "extractVariationText_fst": "Copier le PGN (position FEN)",
     "extractVariationTitle": "Outils LiChess - copiez la branche et les continuations dans le presse-papiers\r\nMaj/Ctrl/Alt-clic pour les options",
     "errorGeneratingPGN": "Erreur lors de la génération du PGN",
-    "errorCopyingPGN": "Erreur lors de la copie du PGN dans le presse-papiers",
     "PGNCopiedToClipboard": "PGN copié dans le presse-papiers",
     "setCustomEngineDepth": "Vous devez définir une profondeur de moteur personnalisée pour cette fonctionnalité!",
     "evaluateTerminationsText": "Évaluer les coups de fin",
@@ -2733,7 +2735,9 @@
     "themes.noPractice": "Pas de bouton d'entraînement",
     "options.dailyQuote": "Daily quote",
     "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote"
+    "quoteCloseButtonTitle": "Hide today's quote",
+    "options.puzzleDownload": "Download PGN for puzzles",
+    "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -2909,7 +2913,6 @@
     "extractVariationText_fst": "PGN kopieren (FEN Position)",
     "extractVariationTitle": "LiChess Tools - Kopiere Zweig und Fortsetzungen in die Zwischenablage\r\nShift/Strg/Alt-Click für Optionen",
     "errorGeneratingPGN": "Fehler beim Generieren von PGN",
-    "errorCopyingPGN": "Fehler beim Kopieren von PGN in die Zwischenablage",
     "PGNCopiedToClipboard": "PGN in Zwischenablage kopiert",
     "setCustomEngineDepth": "Du musst eine eigene Motortiefe für diese Funktion festlegen!",
     "evaluateTerminationsText": "Beenden von Zügen bewerten",
@@ -3118,7 +3121,7 @@
     "bookmarkGame": "LiChess Tools - Lesezeichen dieses Spiel",
     "fromLiChessTools": "von LiChess-Tools",
     "previouslyOnTV": "Zuvor auf %s TV",
-    "options.showPawnStructure": "Pfauenstrukturen anzeigen",
+    "options.showPawnStructure": "Bauernstrukturen anzeigen",
     "showPawnStructure.enabled": "Aktiviert",
     "showPawnStructure.onlyNamed": "Nur benannte Strukturen",
     "showPawnStructure.fuzzy": "Unscharfe Suche",
@@ -3417,7 +3420,9 @@
     "themes.noPractice": "Keine Übungsschaltfläche",
     "options.dailyQuote": "Daily quote",
     "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote"
+    "quoteCloseButtonTitle": "Hide today's quote",
+    "options.puzzleDownload": "Download PGN for puzzles",
+    "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -3593,7 +3598,6 @@
     "extractVariationText_fst": "Copy PGN (FEN position)",
     "extractVariationTitle": "LiChess Tools - copy branch and continuations to clipboard\r\nShift/Ctrl/Alt-click for options",
     "errorGeneratingPGN": "Error generating PGN",
-    "errorCopyingPGN": "Error copying PGN to clipboard",
     "PGNCopiedToClipboard": "PGN copied to clipboard",
     "setCustomEngineDepth": "You need to set a custom engine depth for this feature!",
     "evaluateTerminationsText": "Evaluate terminating moves",
@@ -4101,7 +4105,9 @@
     "themes.noPractice": "No Practice button",
     "options.dailyQuote": "Daily quote",
     "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote"
+    "quoteCloseButtonTitle": "Hide today's quote",
+    "options.puzzleDownload": "Download PGN for puzzles",
+    "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "pt-BR": {
     "LiChess Tools": "Ferramentas LiChess",
@@ -4277,7 +4283,6 @@
     "extractVariationText_fst": "Copiar posição PGN (FEN)",
     "extractVariationTitle": "Ferramentas LiChess - copiar ramificação e continuações para transferir\r\nShift/Ctrl/Alt-click para opções",
     "errorGeneratingPGN": "Erro ao gerar PGN",
-    "errorCopyingPGN": "Erro ao copiar PGN para a área de transferência",
     "PGNCopiedToClipboard": "PGN copiado para área de transferência",
     "setCustomEngineDepth": "Você precisa definir uma profundidade do motor personalizado para este recurso!",
     "evaluateTerminationsText": "Avaliar movimentos terminados",
@@ -4785,7 +4790,9 @@
     "themes.noPractice": "Nenhum botão prático",
     "options.dailyQuote": "Daily quote",
     "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote"
+    "quoteCloseButtonTitle": "Hide today's quote",
+    "options.puzzleDownload": "Download PGN for puzzles",
+    "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -4961,7 +4968,6 @@
     "extractVariationText_fst": "Copiază PGN (poziţie FEN)",
     "extractVariationTitle": "LiChess Tools - copiază variaţiunea şi continuările ca PGN\nShift/Ctrl/Alt-click pentru opţiuni",
     "errorGeneratingPGN": "Eroare generare PGN",
-    "errorCopyingPGN": "Eroare copiere PGN în clipboard",
     "PGNCopiedToClipboard": "PGN copiat în clipboard",
     "setCustomEngineDepth": "Trebuie să setezi un nivel personalizat pentru motorul de analiză!",
     "evaluateTerminationsText": "Evaluează mutările finale",
@@ -5073,7 +5079,7 @@
     "options.previousStudyMenu": "Meniu pentru ultimul studiu vizitat",
     "previousStudyText": "Studiul anterior",
     "timeline": "Activitate recentă",
-    "timelineNotification": "Ai %s întrări noi",
+    "timelineNotification": "Ai %s intrări noi",
     "timelineNotifyTitle": "LiChess Tools - către Activitate recentă",
     "timelineNotify.forum-post": "Post pe forum",
     "timelineNotify.ublog-post": "Post pe blog",
@@ -5469,7 +5475,9 @@
     "themes.noPractice": "Fără buton Antrenament cu calculatorul",
     "options.dailyQuote": "Citatul zilei",
     "dailyQuoteTitle": "LiChess Tools - citatul zilei",
-    "quoteCloseButtonTitle": "Ascunde citatul de azi"
+    "quoteCloseButtonTitle": "Ascunde citatul de azi",
+    "options.puzzleDownload": "Descărcare PGN pentru probleme de șah",
+    "puzzlePgnButtonTitle": "PGN-ul problemei de șah"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -5645,7 +5653,6 @@
     "extractVariationText_fst": "Копировать PGN (FEN позиция)",
     "extractVariationTitle": "Инструменты Lichess - копируйте ветку и продолжайте в буфер обмена\r\nShift/Ctrl/Alt-click для настроек",
     "errorGeneratingPGN": "Ошибка при создании PGN",
-    "errorCopyingPGN": "Ошибка копирования PGN в буфер обмена",
     "PGNCopiedToClipboard": "PGN скопирован в буфер обмена",
     "setCustomEngineDepth": "Вам нужно установить пользовательскую глубину двигателя для этой функции!",
     "evaluateTerminationsText": "Оценить завершение ходов",
@@ -6153,7 +6160,9 @@
     "themes.noPractice": "Нет практических кнопок",
     "options.dailyQuote": "Daily quote",
     "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote"
+    "quoteCloseButtonTitle": "Hide today's quote",
+    "options.puzzleDownload": "Download PGN for puzzles",
+    "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6329,7 +6338,6 @@
     "extractVariationText_fst": "Copiar PGN (posición FEN)",
     "extractVariationTitle": "Herramientas de LiChess - copia la rama y las continuaciones al portapapeles\r\nShift/Ctrl/Alt-click para las opciones",
     "errorGeneratingPGN": "Error al generar PGN",
-    "errorCopyingPGN": "Error al copiar PGN al portapapeles",
     "PGNCopiedToClipboard": "PGN copiado al portapapeles",
     "setCustomEngineDepth": "¡Necesitas establecer una profundidad de motor personalizada para esta característica!",
     "evaluateTerminationsText": "Evaluar movimientos terminados",
@@ -6837,7 +6845,9 @@
     "themes.noPractice": "Sin botón de práctica",
     "options.dailyQuote": "Daily quote",
     "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote"
+    "quoteCloseButtonTitle": "Hide today's quote",
+    "options.puzzleDownload": "Download PGN for puzzles",
+    "puzzlePgnButtonTitle": "Puzzle PGN"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7013,7 +7023,6 @@
     "extractVariationText_fst": "Copy PGN (FEN position)",
     "extractVariationTitle": "LiChess Tools - copy branch and continuations to clipboard\r\nShift/Ctrl/Alt-click for options",
     "errorGeneratingPGN": "Error generating PGN",
-    "errorCopyingPGN": "Error copying PGN to clipboard",
     "PGNCopiedToClipboard": "PGN copied to clipboard",
     "setCustomEngineDepth": "You need to set a custom engine depth for this feature!",
     "evaluateTerminationsText": "Evaluate terminating moves",
@@ -7521,6 +7530,8 @@
     "themes.noPractice": "No Practice button",
     "options.dailyQuote": "Daily quote",
     "dailyQuoteTitle": "LiChess Tools - daily quote",
-    "quoteCloseButtonTitle": "Hide today's quote"
+    "quoteCloseButtonTitle": "Hide today's quote",
+    "options.puzzleDownload": "Download PGN for puzzles",
+    "puzzlePgnButtonTitle": "Puzzle PGN"
   }
 }

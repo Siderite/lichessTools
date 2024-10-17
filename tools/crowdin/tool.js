@@ -29,8 +29,7 @@
       const intl = await parent.comm.getData('crowdin.json');
       if (intl) {
         for (const lang in intl) {
-          const existing = parent.intl?.[lang];
-          parent.intl[lang] = { ...existing, ...intl[lang] };
+          parent.intl[lang+'-crowdin'] = { ...intl[lang] };
         }
         console.log(' Loaded '+Object.keys(intl).length+' language translations.');
       } else {

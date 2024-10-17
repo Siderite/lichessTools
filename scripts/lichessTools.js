@@ -1034,14 +1034,24 @@
       },
       get lang() {
         let lang = lichessTools.global.document.documentElement.lang || this.defaultLanguage;
-        if (!this[lang]) lang = this.defaultLanguage;
+        if (!this[lang] && !this[lang+'-crowdin']) lang = this.defaultLanguage;
         return lang;
       },
       get isTranslated() {
         return this.lang != this.defaultLanguage;
       },
       get siteI18n() {
-        return { ...this[this.defaultLanguage], ...this[this.lang] };
+        if (this.lichessTools.debug) {
+          const allKeys = Object.keys(this[this.defaultLanguage]);
+          const langKeys = Object.keys({ ...this[this.lang], ...this[this.lang+'-crowdin'] });
+          const missingKeys = new Set(allKeys);
+          for (const key of langKeys) missingKeys.delete(key);
+          const orphanKeys = new Set(langKeys);
+          for (const key of allKeys) orphanKeys.delete(key);
+          if (missingKeys.size) this.lichessTools.global.console.debug(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
+          if (orphanKeys.size) this.lichessTools.global.console.debug(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
+        }
+        return { ...this[this.defaultLanguage], ...this[this.lang], ...this[this.lang+'-crowdin'] };
       }
     }
 
