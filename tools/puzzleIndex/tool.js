@@ -81,7 +81,7 @@
         const existing = $('tr[data-id="'+puzzleId+'"]',tbody);
         existing.each((i,e)=>{ e.toDelete=false; });
         if (!existing.length) {
-          const row = $('<tr><td><a href="/training/'+puzzleId+'" target="_blank">'+puzzleId+'</a><span class="tooltip-content"></td></tr>')
+          const row = $('<tr><td><a href="/training/'+puzzleId+'" target="_blank">#'+puzzleId+'</a><span class="tooltip-content"></td></tr>')
             .on('click',ev=>{
               ev.preventDefault();
               parent.global.open('/training/'+puzzleId);

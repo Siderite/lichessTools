@@ -113,6 +113,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - show common teams of you and your opponent
 - video popup support in studies
 - daily chess quote
+- copy puzzle PGN
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:

@@ -148,6 +148,7 @@
         "tools/profileTimeline/tool.js",
         "tools/playWheel/tool.js",
         "tools/dailyQuote/tool.js",
+        "tools/puzzleDownload/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -242,6 +243,7 @@
         "tools/cevalLineOptions/tool.css",
         "tools/profileTimeline/tool.css",
         "tools/dailyQuote/tool.css",
+        "tools/puzzleDownload/tool.css",
 
         "tools/tvOptions/tool.css",
 

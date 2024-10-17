@@ -1386,6 +1386,19 @@
           return json;
         }
       },
+      puzzle: {
+        lichessTools: this,
+        getPuzzle: async function(puzzleId) {
+          const parent = this.lichessTools;
+          const puzzle = await parent.net.json({
+            url: '/api/puzzle/{id}',
+            args: {
+              id: puzzleId
+            }
+          });
+          return puzzle;
+        }
+      },
       user: {
         lichessTools: this,
         getUsers: async function (userIds) {
