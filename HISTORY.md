@@ -2,11 +2,12 @@ History of features added to LiChess Tools in time (reversed order)
 
 18 Oct
 
-- puzzle download
-- suggest chapter name from mainline moves
+- board coords on exported board image
 
 17 Oct
 
+- puzzle download
+- suggest chapter name from mainline moves
 - daily quote
 
 15 Oct
