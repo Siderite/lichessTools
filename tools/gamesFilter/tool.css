@@ -1,0 +1,17 @@
+body.lichessTools .lichessTools-gamesFilter-hideAborted article.game-row:not(:has(.opening)) {
+  display:none;
+}
+
+body.lichessTools #chkAborted {
+  vertical-align: bottom;
+  margin-left: 1em;
+}
+
+body.lichessTools label[for="chkAborted"] {
+  margin-left: 1em;
+}
+
+body.lichessTools .search__result:has(.search__rows) #chkAborted,
+body.lichessTools .search__result:has(.search__rows) label[for="chkAborted"] {
+  display:none;
+}
