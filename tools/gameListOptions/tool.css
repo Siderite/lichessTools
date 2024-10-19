@@ -8,6 +8,14 @@ body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions
   background: none;
 }
 
+body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-copy:hover {
+  background:#80808040;
+}
+
+body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-copy:active {
+  background:#80808080;
+}
+
 body.lichessTools .lichessTools-gameListOptions-hideAborted article.game-row:not(:has(.opening)) {
   display:none;
 }
