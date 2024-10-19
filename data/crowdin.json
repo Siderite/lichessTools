@@ -690,7 +690,11 @@
     "abortedGamesLabel": "إظهار الألعاب المحطمة:",
     "gameListOptions.filters": "فلاتر",
     "gameListOptions.select": "التحديد",
-    "copyGamesButtonTitle": "تحميل اللعبة المحددة PGNs"
+    "copyGamesButtonTitle": "تحميل اللعبة المحددة PGNs",
+    "dashboard.total": "المجموع",
+    "dashboard.puzzleCount": "ألغاز",
+    "dashboard.performance": "الأداء",
+    "dashboard.replay": "لإعادة العرض"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1383,7 +1387,11 @@
     "abortedGamesLabel": "Show aborted games:",
     "gameListOptions.filters": "Filters",
     "gameListOptions.select": "Selection",
-    "copyGamesButtonTitle": "Download selected game PGNs"
+    "copyGamesButtonTitle": "Download selected game PGNs",
+    "dashboard.total": "Total",
+    "dashboard.puzzleCount": "Puzzles",
+    "dashboard.performance": "Performance",
+    "dashboard.replay": "To replay"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2076,7 +2084,11 @@
     "abortedGamesLabel": "Show aborted games:",
     "gameListOptions.filters": "Filters",
     "gameListOptions.select": "Selection",
-    "copyGamesButtonTitle": "Download selected game PGNs"
+    "copyGamesButtonTitle": "Download selected game PGNs",
+    "dashboard.total": "Total",
+    "dashboard.puzzleCount": "Puzzles",
+    "dashboard.performance": "Performance",
+    "dashboard.replay": "To replay"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2769,7 +2781,11 @@
     "abortedGamesLabel": "Afficher les parties abandonnées :",
     "gameListOptions.filters": "Filtres",
     "gameListOptions.select": "Sélection",
-    "copyGamesButtonTitle": "Télécharger les PGNs du jeu sélectionné"
+    "copyGamesButtonTitle": "Télécharger les PGNs du jeu sélectionné",
+    "dashboard.total": "Total",
+    "dashboard.puzzleCount": "Problèmes",
+    "dashboard.performance": "Performances",
+    "dashboard.replay": "Rejouer"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3462,7 +3478,11 @@
     "abortedGamesLabel": "Abgebrochene Spiele anzeigen:",
     "gameListOptions.filters": "Filter",
     "gameListOptions.select": "Auswahl",
-    "copyGamesButtonTitle": "Ausgewählte Spiel PGNs herunterladen"
+    "copyGamesButtonTitle": "Ausgewählte Spiel PGNs herunterladen",
+    "dashboard.total": "Gesamt",
+    "dashboard.puzzleCount": "Rätsel",
+    "dashboard.performance": "Leistung",
+    "dashboard.replay": "Wiederholen"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -4155,12 +4175,16 @@
     "abortedGamesLabel": "Show aborted games:",
     "gameListOptions.filters": "Filters",
     "gameListOptions.select": "Selection",
-    "copyGamesButtonTitle": "Download selected game PGNs"
+    "copyGamesButtonTitle": "Download selected game PGNs",
+    "dashboard.total": "Total",
+    "dashboard.puzzleCount": "Puzzles",
+    "dashboard.performance": "Performance",
+    "dashboard.replay": "To replay"
   },
   "pt-BR": {
-    "LiChess Tools": "Ferramentas LiChess",
-    "serverOverload": "O LiChess pensa que estamos sobrecarregando o sistema deles!",
-    "options.general": "Gerais",
+    "LiChess Tools": "LiChess Tools",
+    "serverOverload": "Lichess acha que estamos sobrecarregando o sistema deles!",
+    "options.general": "Geral",
     "options.addNotifications": "Adicionar notificações",
     "options.community": "Comunidade",
     "options.addToTeam": "Equipe LiChess Tools",
@@ -4261,8 +4285,8 @@
     "daysText": "%s dias",
     "hoursText": "%s h",
     "minutesText": "%s min",
-    "timeText": "%s ago",
-    "playing": "%s playing",
+    "timeText": "%s atrás",
+    "playing": "%s jogando",
     "gameType-classical": "Clássico",
     "gameType-rapid": "Rapidíssima",
     "gameType-blitz": "Blitz",
@@ -4513,9 +4537,9 @@
     "expandAllText": "Expandir todos os favoritos",
     "expandAllTitle": "Ferramentas LiChess - expandir todas as variações",
     "bookmarkSplitConfirmationText": "Certeza que deseja dividir o capítulo deste favorito?",
-    "bookmarkSplitConfirmationDeleteText": "Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW",
+    "bookmarkSplitConfirmationDeleteText": "Você tem certeza que quer dividir este capítulo neste favoritado?\nISSO EXCLUIRÁ DESSE CAPÍTULO OS PASSOS QUE VOCÊ SEGUIR",
     "bookmarkSplitText": "Dividir capítulo aqui",
-    "bookmarkSplitTitle": "LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here",
+    "bookmarkSplitTitle": "LiChess Tools - crie um capítulo com os seguintes passos daqui\nPressione Shift para excluí-los daqui",
     "chapterLink": "Continuar aqui: %s",
     "analysisPopupButtonTitle": "Ferramentas LiChess - lista de movimentos em outra janela (use o botão SYNC)",
     "bookmarkLabelForInteractive": "Favorito: ",
@@ -4625,9 +4649,9 @@
     "btnClearTitle": "Limpar texto e histórico!",
     "gameCount": "%s PGNs, %2 movimentos",
     "gameCount:one": "um movimento PGN, %2",
-    "mergingGames": "Merging %s PGNs",
+    "mergingGames": "Emergindo %s PGNs",
     "mergingGames:one": "Mesclando um PGN",
-    "normalizingGames": "Normalizing %s PGNs",
+    "normalizingGames": "Normalizando %s PGNs",
     "normalizingGames:one": "Normalizando um PGN",
     "denormalizingGames": "Dastralização de %s PGNs",
     "denormalizingGames:one": "Dastrando um PGN",
@@ -4677,7 +4701,7 @@
     "options.moveAssistant": "Mover assistente",
     "assistantButtonTitle": "Ferramentas de LiChess - avaliação de movimento de peça selecionada",
     "options.playerWarning": "Alerta de jogador",
-    "percentageTitle": "LiChess Tools - %s% disconnect rate",
+    "percentageTitle": "LiChess Tools - %s% taxa de desconexão",
     "options.boardImage": "Imagem do board exportada melhor",
     "screenshotButtonText": "REINICIAR",
     "screenshotButtonTitle": "Ferramentas de LiChess - obter uma captura de tela do quadro",
@@ -4848,7 +4872,11 @@
     "abortedGamesLabel": "Mostrar jogos cancelados:",
     "gameListOptions.filters": "Filtros",
     "gameListOptions.select": "Seleção",
-    "copyGamesButtonTitle": "Baixar o jogo selecionado PGNs"
+    "copyGamesButtonTitle": "Baixar o jogo selecionado PGNs",
+    "dashboard.total": "Total:",
+    "dashboard.puzzleCount": "Problemas",
+    "dashboard.performance": "Desempenho",
+    "dashboard.replay": "Para repetir"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5541,7 +5569,11 @@
     "abortedGamesLabel": "Arată jocuri anulate:",
     "gameListOptions.filters": "Filtre",
     "gameListOptions.select": "Selecţie",
-    "copyGamesButtonTitle": "Descarcă PGNurile jocurilor selectate"
+    "copyGamesButtonTitle": "Descarcă PGNurile jocurilor selectate",
+    "dashboard.total": "Total",
+    "dashboard.puzzleCount": "Probleme șah",
+    "dashboard.performance": "Performanță",
+    "dashboard.replay": "De rejucat"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -5687,7 +5719,7 @@
     "lastViewedGameTitle": "LiChess Tools - откройте последнюю просмотренную игру в TV",
     "options.openingExplorerUsers": "Открытие функций проводника",
     "switchWithMe": "Я",
-    "switchWithMeTitle": "Lichess Tools - Поменять местами игрока с собой",
+    "switchWithMeTitle": "LiChess Tools - Поменять местами игрока с собой",
     "openingExplorerUsers.switchWithMe": "Кнопка Я для переключения на свой репертуар",
     "options.chapterNavigation": "Управление навигацией глав в студиях",
     "chapterControlsTitle": "LiChess Tools - навигация глав студии",
@@ -6234,7 +6266,11 @@
     "abortedGamesLabel": "Показать прерванные игры:",
     "gameListOptions.filters": "Фильтры",
     "gameListOptions.select": "Выбор",
-    "copyGamesButtonTitle": "Скачать выбранную игру PGNs"
+    "copyGamesButtonTitle": "Скачать выбранную игру PGNs",
+    "dashboard.total": "Итого",
+    "dashboard.puzzleCount": "Пазлы",
+    "dashboard.performance": "Производительность",
+    "dashboard.replay": "Повторить"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6927,7 +6963,11 @@
     "abortedGamesLabel": "Mostrar juegos abortados:",
     "gameListOptions.filters": "Filtros",
     "gameListOptions.select": "Selección",
-    "copyGamesButtonTitle": "Descargar PGNs del juego seleccionado"
+    "copyGamesButtonTitle": "Descargar PGNs del juego seleccionado",
+    "dashboard.total": "Total",
+    "dashboard.puzzleCount": "Puzzles",
+    "dashboard.performance": "Rendimiento",
+    "dashboard.replay": "Para repetir"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7620,6 +7660,10 @@
     "abortedGamesLabel": "Show aborted games:",
     "gameListOptions.filters": "Filters",
     "gameListOptions.select": "Selection",
-    "copyGamesButtonTitle": "Download selected game PGNs"
+    "copyGamesButtonTitle": "Download selected game PGNs",
+    "dashboard.total": "Total",
+    "dashboard.puzzleCount": "Puzzles",
+    "dashboard.performance": "Performance",
+    "dashboard.replay": "To replay"
   }
 }
