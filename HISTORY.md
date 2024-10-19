@@ -3,7 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 18 Oct
 
 - board coords on exported board image
-- aborted games filter
+- game list options
 
 17 Oct
 
