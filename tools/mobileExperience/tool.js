@@ -191,6 +191,7 @@
       state.drawable.enabled = !this.drawingBrush;
       state.movable.showDests = !this.drawingBrush;
       state.draggable.enabled = !this.drawingBrush;
+      state.selectable.enabled = !this.drawingBrush;
       for (const brush of this.brushes) {
         $(ev.target)
           .toggleClass('lichessTools-' + brush + 'Brush', this.drawingBrush == brush);
