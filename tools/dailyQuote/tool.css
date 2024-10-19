@@ -6,11 +6,18 @@
 
 }
 
+@media (prefers-reduced-motion: no-preference) and (min-height: 600px) {
+  body.lichessTools:has(.lichessTools-dailyQuote) #main-wrap {
+    margin-top: 0;
+  }
+}
+
 body.lichessTools .lichessTools-dailyQuote {
   position: relative;
   background: #80808020;
   padding: 0.5em;
   padding-right:1.5em;
+  margin-top: calc(var(---site-header-height) + var(---site-header-margin) + var(---sticky-gap));
 }
 
 body.lichessTools .lichessTools-dailyQuote button.close {

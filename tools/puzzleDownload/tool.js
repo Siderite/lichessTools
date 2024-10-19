@@ -84,18 +84,8 @@
           ev.preventDefault();
           const { selectionStart, selectionEnd } = textarea[0];
           const result = selectionStart == selectionEnd ? textarea.val() : textarea.val().slice(selectionStart, selectionEnd);
-          const permission = await parent.global.navigator.permissions.query({ name: 'clipboard-write' });
-          let announcement = trans.noarg('clipboardDenied');
-          if (['granted', 'prompt'].includes(permission.state)) {
-            try {
-              await parent.global.navigator.clipboard.writeText(result);
-              announcement = trans.noarg('PGNCopiedToClipboard');
-            } catch (e) {
-              parent.global.console.warn('Error copying PGN to clipboard',e);
-            }
-          }
           dlg.close();
-          parent.announce(announcement);
+          parent.writeToClipboard(result, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
         });
       dlg.showModal();
     };

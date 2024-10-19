@@ -11,6 +11,11 @@ body.lichessTools h3.lichessTools-chapterNavigation-perc {
   justify-content: space-between;
 }
 
+body.lichessTools h3.lichessTools-chapterNavigation-perc span {
+  pointer-events: none;
+}
+
+
 body.lichessTools h3.lichessTools-chapterNavigation-perc .perc {
   display: none;
   opacity: 0.9;

@@ -1,0 +1,7 @@
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section:not(.glicko) {
+  display: none;
+}
+
+body.lichessTools div.perf-stat.puzzle .box__top__actions {
+  display: none;
+}

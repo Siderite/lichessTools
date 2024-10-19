@@ -83,6 +83,21 @@
         ctx.fillStyle = css.background;
         ctx.fillRect(x, y, 100, 100);
       });
+      if (!ev.shiftKey) {
+        const ranks = $('coords.ranks',board.parent());
+        if (ranks.length) {
+          const isBlack = ranks.is('.black');
+          const fontSize = 20;
+          ctx.font = fontSize+'px arial';
+          for (let i=0; i<8; i++) {
+            ctx.fillStyle = i%2==0 ? '#dddddd' : '#222222';
+            const digit = isBlack ? i+1 : (8-i);
+            ctx.fillText(digit,800-fontSize*0.75,100*i+fontSize);
+            const letter = String.fromCharCode(97+(isBlack ? (8-i) : i));
+            ctx.fillText(letter,100*i,800-fontSize*0.5);
+          }
+        }
+      }
       board.find('square.move-dest').each((i, e) => {
         const css = {
           background: '#14551e80',
