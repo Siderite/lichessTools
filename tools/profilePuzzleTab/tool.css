@@ -34,7 +34,7 @@ body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-
 
 
 body.lichessTools div.perf-stat.puzzle .perf-stat__content td.perc {
-  background: linear-gradient(to left, #00800040 var(--perc), transparent 0);
+  background: linear-gradient(to left, #00800080 var(--win), #20802040 calc(var(--win) + var(--rep)) , transparent 0);
 }
 
 
