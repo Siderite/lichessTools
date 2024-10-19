@@ -1424,13 +1424,23 @@
         lichessTools: this,
         getPuzzle: async function(puzzleId) {
           const parent = this.lichessTools;
-          const puzzle = await parent.net.json({
+          const data = await parent.net.json({
             url: '/api/puzzle/{id}',
             args: {
               id: puzzleId
             }
           });
-          return puzzle;
+          return data;
+        },
+        getDashboard: async function(days) {
+          const parent = this.lichessTools;
+          const data = await parent.net.json({
+            url: '/api/puzzle/dashboard/{days}',
+            args: {
+              days: days
+            }
+          });
+          return data;
         }
       },
       user: {

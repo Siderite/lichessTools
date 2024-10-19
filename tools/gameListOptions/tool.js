@@ -19,7 +19,9 @@
         'gameListOptions.filters': 'Filters',
         'gameListOptions.select': 'Selection',
         'abortedGamesLabel': 'Show aborted games:',
-        'copyGamesButtonTitle': 'Download selected game PGNs'
+        'copyGamesButtonTitle': 'Download selected game PGNs',
+        'PGNCopiedToClipboard': 'PGN copied to clipboard',
+        'clipboardDenied': 'Clipboard access denied'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -27,7 +29,9 @@
         'gameListOptions.filters': 'Filtre',
         'gameListOptions.select': 'Selec\u0163ie',
         'abortedGamesLabel': 'Arat\u0103 jocuri anulate:',
-        'copyGamesButtonTitle': 'Descarc\u0103 PGNurile jocurilor selectate'
+        'copyGamesButtonTitle': 'Descarc\u0103 PGNurile jocurilor selectate',
+        'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
+        'clipboardDenied': 'Acces refuzat la clipboard'
       }
     }
 
