@@ -58,8 +58,6 @@
             parent.storage.set('LiChessTools.closedQuote',now.toDateString());
             elem.remove();
           })
-        const headerHeight = header.height();
-        elem.css({ marginTop: headerHeight, marginBottom: -headerHeight });
       }
     }
 
