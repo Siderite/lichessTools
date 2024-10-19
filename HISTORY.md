@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Oct
+
+- detailed puzzle stats
+
 18 Oct
 
 - board coords on exported board image
