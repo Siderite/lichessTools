@@ -70,7 +70,7 @@
           .empty();
         return;
       }
-      const days = Math.ceil((currentEnd-currentStart)/86400000);
+      const days = Math.ceil((Date.now()-currentStart)/86400000);
       if (section.attr('data-days')==days) {
         return;
       }
