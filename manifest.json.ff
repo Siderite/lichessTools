@@ -143,7 +143,7 @@
         "tools/playWheel/tool.js",
         "tools/dailyQuote/tool.js",
         "tools/puzzleDownload/tool.js",
-        "tools/gamesFilter/tool.js",
+        "tools/gameListOptions/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -240,7 +240,7 @@
         "tools/profileTimeline/tool.css",
         "tools/dailyQuote/tool.css",
         "tools/puzzleDownload/tool.css",
-        "tools/gamesFilter/tool.css",
+        "tools/gameListOptions/tool.css",
 
         "tools/tvOptions/tool.css",
 

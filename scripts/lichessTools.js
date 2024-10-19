@@ -1485,6 +1485,9 @@
             '/api/games/export/_ids' + query,
             {
               method: 'POST',
+              headers: {
+                'Accept':'application/x-chess-pgn'
+              },
               body: gameIds.join(','),
               cache: 'default'
             }
