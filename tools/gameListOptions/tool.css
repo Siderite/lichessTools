@@ -16,7 +16,7 @@ body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions
   background:#80808080;
 }
 
-body.lichessTools .lichessTools-gameListOptions-hideAborted article.game-row:not(:has(.opening)) {
+body.lichessTools .lichessTools-gameListOptions-hideAborted article:has(.mini-board[data-state^="rnbqkbnr/pppppppp"],.mini-board[data-state*="PPPPPPPP/RNBQKBNR"]) {
   display:none;
 }
 
