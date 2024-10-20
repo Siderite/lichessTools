@@ -16,7 +16,8 @@
       'en-US': {
         'options.general': 'General',
         'options.profilePuzzleTab': 'Puzzle performance chart in Profile',
-        'puzzleTabTitle': 'LiChess Tools - Puzzles',
+        'puzzleTabTitle': 'LiChess Tools - Puzzle Stats',
+        'puzzleTabText': 'Puzzle Stats',
         'dashboard.total': 'Total',
         'dashboard.puzzleCount': 'Puzzles',
         'dashboard.performance': 'Performance',
@@ -25,7 +26,8 @@
       'ro-RO': {
         'options.general': 'General',
         'options.profilePuzzleTab': 'Grafic de performan\u0163\u0103 la probleme de \u015Fah \u00een Profil',
-        'puzzleTabTitle': 'LiChess Tools - Probleme de \u015Fah',
+        'puzzleTabTitle': 'LiChess Tools - Statistici probleme de \u015Fah',
+        'puzzleTabText': 'Statistici probleme \u015Fah',
         'dashboard.total': 'Total',
         'dashboard.puzzleCount': 'Probleme \u015fah',
         'dashboard.performance': 'Performan\u0163\u0103',
@@ -114,25 +116,34 @@
       const value = parent.currentOptions.getValue('profilePuzzleTab');
       this.options = { enabled: value };
       this.logOption('Puzzle perf tab', value);
-      const container = $('div.sub-ratings');
-      if (!container.length) return;
-      const userId = this.getUserFromUrl(parent.global.location.pathname);
+      const userId = parent.getUserId();
       if (!userId) return;
 
       if (value) {
+        const group = $('#topnav section a[href="/training"]+div[role="group"]');
+        if (!$('a.lichessTools-profilePuzzleTab', group).length) {
+          $('<a class="lichessTools-profilePuzzleTab">')
+            .attr('href', '/@/' + userId + '/perf/puzzle')
+            .text(trans.noarg('puzzleTabText'))
+            .attr('title', trans.noarg('puzzleTabTitle'))
+            .insertBefore($('a[href="/streak"]', group));
+        }
         if (this.isPuzzleTabPage()) {
           this.enhancePuzzleTabPage();
         }
-        if (!$('a.lichessTools-profilePuzzleTab', container).length) {
+        const container = $('div.sub-ratings');
+        if (container.length && !$('a.lichessTools-profilePuzzleTab', container).length) {
           const existing = $('a[href^="/training/dashboard"]', container);
-          existing
-            .clone()
-            .attr('href', '/@/' + userId + '/perf/puzzle')
-            .attr('title', trans.noarg('puzzleTabTitle'))
-            .attr('data-icon', '\uE051')
-            .addClass('lichessTools-profilePuzzleTab')
-            .insertBefore($('hr', container).eq(0));
-          existing.removeClass('active');
+          if (existing.length) {
+            existing
+              .clone()
+              .attr('href', '/@/' + userId + '/perf/puzzle')
+              .attr('title', trans.noarg('puzzleTabTitle'))
+              .attr('data-icon', '\uE051')
+              .addClass('lichessTools-profilePuzzleTab')
+              .insertBefore($('hr', container).eq(0));
+            existing.removeClass('active');
+          }
         }
       } else {
         $('.lichessTools-profilePuzzleTab').remove();
