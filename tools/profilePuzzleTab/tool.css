@@ -32,12 +32,17 @@ body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-
   border-collapse: separate;
 }
 
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab [title] {
+  border-bottom: none;
+  cursor: default;
+}
 
 body.lichessTools div.perf-stat.puzzle .perf-stat__content td.perc {
   background: linear-gradient(to left, #00800080 var(--win), #20802040 calc(var(--win) + var(--rep)) , transparent 0);
 }
 
 
-body.lichessTools div.perf-stat.puzzle .box__top__actions {
+body.lichessTools div.perf-stat.puzzle .box__top__actions,
+body.lichessTools div.perf-stat.puzzle span.progress {
   display: none;
 }

@@ -93,14 +93,14 @@
       let replay = data.global.nb - data.global.firstWins - data.global.replayWins;
       let winperc = data.global.nb ? Math.floor(100 * data.global.firstWins/data.global.nb) : 0;
       let repperc = data.global.nb ? Math.floor(100 * data.global.replayWins/data.global.nb) : 0;
-      html = '<tr><th>$trans(dashboard.total)</th><td class="perc nr" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+data.global.nb+'</td><td class="nr">'+data.global.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/mix">'+replay+'</a></td>';
+      html = '<tr><th><a href="/training">$trans(dashboard.total)</a></th><td class="perc nr" title="'+data.global.firstWins+'+'+data.global.replayWins+'" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+data.global.nb+'</td><td class="nr">'+data.global.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/mix">'+replay+'</a></td>';
       for (const theme in data.themes) {
         const d = data.themes[theme];
         replay = d.results.nb - d.results.firstWins - d.results.replayWins;
         winperc = d.results.nb ? Math.floor(100 * d.results.firstWins/d.results.nb) : 0;
         repperc = d.results.nb ? Math.floor(100 * d.results.replayWins/d.results.nb) : 0;
         const perf = d.results.performance > data.global.performance ? 'good' : d.results.performance < data.global.performance ? 'bad' : '';
-        html += '<tr><th>'+htmlEncode(d.theme)+'</th><td class="perc nr" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+d.results.nb+'</td><td class="nr '+perf+'">'+d.results.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/'+theme+'">'+replay+'</a></td>';
+        html += '<tr><th><a href="/training/'+theme+'">'+htmlEncode(d.theme)+'</a></th><td class="perc nr" title="'+d.results.firstWins+'+'+d.results.replayWins+'" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+d.results.nb+'</td><td class="nr '+perf+'">'+d.results.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/'+theme+'">'+replay+'</a></td>';
       }
       html = html.replace(/\$trans\(([^\),]+?)(?:\s*,\s*([^\)]+?))?\)/g, function (m, name, value) {
         return htmlEncode(value ? trans.pluralSame(name, value) : trans.noarg(name));
