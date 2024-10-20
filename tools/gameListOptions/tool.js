@@ -166,6 +166,10 @@
         .removeClass('lichessTools-gameListOptions-select')
         .find('input[type="checkbox"]')
         .remove();
+      $('.lichessTools-gameListOptions-hideAborted')
+        .removeClass('lichessTools-gameListOptions-hideAborted')
+      $('.lichessTools-gameListOptions-group')
+        .removeClass('lichessTools-gameListOptions-group')
       lichess.pubsub.off('lichess.redraw',this.processLists);
       lichess.pubsub.off('content-loaded',this.processLists);
       if (!this.options.isSet) return;

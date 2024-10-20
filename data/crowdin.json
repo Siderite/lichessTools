@@ -695,7 +695,8 @@
     "dashboard.puzzleCount": "ألغاز",
     "dashboard.performance": "الأداء",
     "dashboard.replay": "لإعادة العرض",
-    "puzzleTabText": "إحصائيات الألغاز"
+    "puzzleTabText": "إحصائيات الألغاز",
+    "groupGamesLabel": "اللون حسب اللاعبين:"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1385,7 +1386,7 @@
     "changeNameToTitle": "LiChess Tools - Easy change name",
     "options.puzzleIndex": "Find position in Lichess puzzles",
     "options.gameListOptions": "Game list options",
-    "abortedGamesLabel": "Show aborted games:",
+    "abortedGamesLabel": "Show aborted:",
     "gameListOptions.filters": "Filters",
     "gameListOptions.select": "Selection",
     "copyGamesButtonTitle": "Download selected game PGNs",
@@ -1393,7 +1394,8 @@
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
     "dashboard.replay": "To replay",
-    "puzzleTabText": "Puzzle Stats"
+    "puzzleTabText": "Puzzle Stats",
+    "groupGamesLabel": "Color by players:"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2083,7 +2085,7 @@
     "changeNameToTitle": "LiChess Tools - Easy change name",
     "options.puzzleIndex": "Find position in Lichess puzzles",
     "options.gameListOptions": "Game list options",
-    "abortedGamesLabel": "Show aborted games:",
+    "abortedGamesLabel": "Show aborted:",
     "gameListOptions.filters": "Filters",
     "gameListOptions.select": "Selection",
     "copyGamesButtonTitle": "Download selected game PGNs",
@@ -2091,7 +2093,8 @@
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
     "dashboard.replay": "To replay",
-    "puzzleTabText": "Puzzle Stats"
+    "puzzleTabText": "Puzzle Stats",
+    "groupGamesLabel": "Color by players:"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2789,7 +2792,8 @@
     "dashboard.puzzleCount": "Problèmes",
     "dashboard.performance": "Performances",
     "dashboard.replay": "Rejouer",
-    "puzzleTabText": "Statistiques du puzzle"
+    "puzzleTabText": "Statistiques du puzzle",
+    "groupGamesLabel": "Couleur par joueur:"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3487,7 +3491,8 @@
     "dashboard.puzzleCount": "Rätsel",
     "dashboard.performance": "Leistung",
     "dashboard.replay": "Wiederholen",
-    "puzzleTabText": "Puzzle-Statistik"
+    "puzzleTabText": "Puzzle-Statistik",
+    "groupGamesLabel": "Farbe nach Spielern:"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -4177,7 +4182,7 @@
     "changeNameToTitle": "LiChess Tools - Easy change name",
     "options.puzzleIndex": "Find position in Lichess puzzles",
     "options.gameListOptions": "Game list options",
-    "abortedGamesLabel": "Show aborted games:",
+    "abortedGamesLabel": "Show aborted:",
     "gameListOptions.filters": "Filters",
     "gameListOptions.select": "Selection",
     "copyGamesButtonTitle": "Download selected game PGNs",
@@ -4185,7 +4190,8 @@
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
     "dashboard.replay": "To replay",
-    "puzzleTabText": "Puzzle Stats"
+    "puzzleTabText": "Puzzle Stats",
+    "groupGamesLabel": "Color by players:"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -4883,7 +4889,8 @@
     "dashboard.puzzleCount": "Problemas",
     "dashboard.performance": "Desempenho",
     "dashboard.replay": "Para repetir",
-    "puzzleTabText": "Estatísticas do Quebra-cabeça"
+    "puzzleTabText": "Estatísticas do Quebra-cabeça",
+    "groupGamesLabel": "Cor por jogadores:"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5573,7 +5580,7 @@
     "changeNameToTitle": "LiChess Tools - Schimbă ușor numele",
     "options.puzzleIndex": "Găsește poziția în problemele de șah Lichess",
     "options.gameListOptions": "Filtre în liste de jocuri",
-    "abortedGamesLabel": "Arată jocuri anulate:",
+    "abortedGamesLabel": "Arată anulate:",
     "gameListOptions.filters": "Filtre",
     "gameListOptions.select": "Selecţie",
     "copyGamesButtonTitle": "Descarcă PGNurile jocurilor selectate",
@@ -5581,7 +5588,8 @@
     "dashboard.puzzleCount": "Probleme șah",
     "dashboard.performance": "Performanță",
     "dashboard.replay": "De rejucat",
-    "puzzleTabText": "Statistici probleme şah"
+    "puzzleTabText": "Statistici probleme şah",
+    "groupGamesLabel": "Culoare după jucători:"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6279,7 +6287,8 @@
     "dashboard.puzzleCount": "Пазлы",
     "dashboard.performance": "Производительность",
     "dashboard.replay": "Повторить",
-    "puzzleTabText": "Статистика пазлов"
+    "puzzleTabText": "Статистика пазлов",
+    "groupGamesLabel": "Цвет по игрокам:"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6977,7 +6986,8 @@
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Rendimiento",
     "dashboard.replay": "Para repetir",
-    "puzzleTabText": "Estadísticas del Puzzle"
+    "puzzleTabText": "Estadísticas del Puzzle",
+    "groupGamesLabel": "Color de los jugadores:"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7667,7 +7677,7 @@
     "changeNameToTitle": "LiChess Tools - Easy change name",
     "options.puzzleIndex": "Find position in Lichess puzzles",
     "options.gameListOptions": "Game list options",
-    "abortedGamesLabel": "Show aborted games:",
+    "abortedGamesLabel": "Show aborted:",
     "gameListOptions.filters": "Filters",
     "gameListOptions.select": "Selection",
     "copyGamesButtonTitle": "Download selected game PGNs",
@@ -7675,6 +7685,7 @@
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
     "dashboard.replay": "To replay",
-    "puzzleTabText": "Puzzle Stats"
+    "puzzleTabText": "Puzzle Stats",
+    "groupGamesLabel": "Color by players:"
   }
 }
