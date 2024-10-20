@@ -20,12 +20,18 @@ body.lichessTools .lichessTools-gameListOptions-hideAborted article:has(.mini-bo
   display:none;
 }
 
-body.lichessTools #chkAborted {
+body.lichessTools .lichessTools-gameListOptions-group article.game-row {
+  background-color: var(--playersColor);
+}
+
+body.lichessTools #chkAborted,
+body.lichessTools #chkGroup {
   vertical-align: bottom;
   margin-left: 1em;
 }
 
-body.lichessTools label[for="chkAborted"] {
+body.lichessTools label[for="chkAborted"],
+body.lichessTools label[for="chkGroup"] {
   margin-left: 1em;
 }
 
