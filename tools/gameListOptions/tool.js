@@ -21,7 +21,7 @@
         'abortedGamesLabel': 'Show aborted games:',
         'copyGamesButtonTitle': 'Download selected game PGNs',
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
-        'clipboardDenied': 'Clipboard access denied'
+        'clipboardDenied': 'Clipboard access denied' 
       },
       'ro-RO': {
         'options.general': 'General',
@@ -104,7 +104,6 @@
           const article=$(e).addClass('lichessTools-gameListOptions-select');
           if ($('input[type="checkbox"]',article).length) return;
           $('<input type="checkbox">')
-            .attr('title',trans.noarg('selectCheckboxTitle'))
             .on('change',this.refreshActions)
             .prependTo(article);
         });
