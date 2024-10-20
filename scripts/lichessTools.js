@@ -38,9 +38,11 @@
         return str;
       },
       noarg: function (key) {
-        const trans = this.lichessTools.lichess.trans;
         const dict = this.lichessTools.intl.siteI18n;
-        return dict[key] || trans(key);
+        const result =  dict[key];
+        if (result) return result;
+        this.lichessTools.global.console.debug('Translation not found for key ',key);
+        return key;
       },
       plural: function (key, count, ...args) {
         const lichess = this.lichessTools.lichess;
@@ -49,7 +51,10 @@
         const str =
           dict[`${key}:${quantity(count)}`] || dict[`${key}:other`] || dict[key] || dict[`${key}:one`]
           || this.format(`${key}:${quantity(count)}`) || this.format(`${key}:other`) || this.format(key) || this.format(`${key}:one`);
-        return str ? this.format(str, args) : key;
+        const result = str ? this.format(str, args) : null;
+        if (result) return result;
+        this.lichessTools.global.console.debug('Plural not found for key ',key);
+        return key;
       },
       pluralSame: function (key, count, ...args) {
         return this.plural(key, count, count, ...args);
@@ -1424,13 +1429,23 @@
         lichessTools: this,
         getPuzzle: async function(puzzleId) {
           const parent = this.lichessTools;
-          const puzzle = await parent.net.json({
+          const data = await parent.net.json({
             url: '/api/puzzle/{id}',
             args: {
               id: puzzleId
             }
           });
-          return puzzle;
+          return data;
+        },
+        getDashboard: async function(days) {
+          const parent = this.lichessTools;
+          const data = await parent.net.json({
+            url: '/api/puzzle/dashboard/{days}',
+            args: {
+              days: days
+            }
+          });
+          return data;
         }
       },
       user: {

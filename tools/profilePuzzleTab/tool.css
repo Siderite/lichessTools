@@ -1,7 +1,48 @@
-body.lichessTools div.perf-stat.puzzle .perf-stat__content section:not(.glicko) {
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section
+{
   display: none;
 }
 
-body.lichessTools div.perf-stat.puzzle .box__top__actions {
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.glicko,
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab
+{
+  display: block;
+}
+
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab .nr {
+  text-align: end;
+}
+
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab th {
+  font-weight: bold;
+}
+
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab td.good {
+  color: #00CC00;
+}
+
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab td.bad {
+  color: #FF8080;
+}
+
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab table {
+  max-width: 80%;
+  min-width: max-content;
+  border-spacing: 0.5em;
+  border-collapse: separate;
+}
+
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab [title] {
+  border-bottom: none;
+  cursor: default;
+}
+
+body.lichessTools div.perf-stat.puzzle .perf-stat__content td.perc {
+  background: linear-gradient(to left, #00800080 var(--win), #20802040 calc(var(--win) + var(--rep)) , transparent 0);
+}
+
+
+body.lichessTools div.perf-stat.puzzle .box__top__actions,
+body.lichessTools div.perf-stat.puzzle span.progress {
   display: none;
 }

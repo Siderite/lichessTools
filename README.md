@@ -84,7 +84,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - download all studies of a player
 - larger coordinates, outside coordinates in Analysis
 - Profile date interval options
-- Puzzle statistics tab
+- Detailed puzzle statistics tab
 - #readgame URL to read games in analysis/study
 - restore position in the move list in study chapters on page refresh
 - move assistant shows evaluation on selected piece destinations
