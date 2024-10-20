@@ -694,7 +694,8 @@
     "dashboard.total": "المجموع",
     "dashboard.puzzleCount": "ألغاز",
     "dashboard.performance": "الأداء",
-    "dashboard.replay": "لإعادة العرض"
+    "dashboard.replay": "لإعادة العرض",
+    "puzzleTabText": "إحصائيات الألغاز"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -765,12 +766,12 @@
     "mobileExperience.shapeDrawing": "評估箭頭",
     "mobileExperience.randomNextMove": "隨機移動按鈕",
     "mobileExperience.selectiveRandom": "...only when variations",
-    "mobileExperienceRound.shapeDrawingRound": "Game arrows",
-    "mobileExperienceRound.standardButtons": "Standard buttons",
-    "mobileExperienceRound.invert": "Swap user and clock",
-    "shapeDrawingTitle": "LiChess Tools - draw arrows and circles",
-    "randomNextMoveTitle": "LiChess Tools - random move",
-    "colorCount.1": "one",
+    "mobileExperienceRound.shapeDrawingRound": "棋局箭頭",
+    "mobileExperienceRound.standardButtons": "一般箭頭",
+    "mobileExperienceRound.invert": "將使用者與棋鐘對調",
+    "shapeDrawingTitle": "LiChess Tools—標記圖形",
+    "randomNextMoveTitle": "LiChess Tools—隨機移動",
+    "colorCount.1": "一個",
     "colorCount.2": "two",
     "colorCount.3": "three",
     "colorCount.4": "four",
@@ -1210,7 +1211,7 @@
     "downloadAllText": "Download all studies",
     "downloadAllTitle": "LiChess Tools - all studies for this player",
     "options.profilePuzzleTab": "Puzzle performance chart in Profile",
-    "puzzleTabTitle": "LiChess Tools - Puzzles",
+    "puzzleTabTitle": "LiChess Tools - Puzzle Stats",
     "options.mayTenth": "LiChess Tools 節日！",
     "mayTenthTitle": "LiChess Tools 節快樂！",
     "options.moveAssistant": "Move assistant",
@@ -1391,7 +1392,8 @@
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
-    "dashboard.replay": "To replay"
+    "dashboard.replay": "To replay",
+    "puzzleTabText": "Puzzle Stats"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -1907,7 +1909,7 @@
     "downloadAllText": "Download all studies",
     "downloadAllTitle": "LiChess Tools - all studies for this player",
     "options.profilePuzzleTab": "Puzzle performance chart in Profile",
-    "puzzleTabTitle": "LiChess Tools - Puzzles",
+    "puzzleTabTitle": "LiChess Tools - Puzzle Stats",
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
@@ -2088,7 +2090,8 @@
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
-    "dashboard.replay": "To replay"
+    "dashboard.replay": "To replay",
+    "puzzleTabText": "Puzzle Stats"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2785,7 +2788,8 @@
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Problèmes",
     "dashboard.performance": "Performances",
-    "dashboard.replay": "Rejouer"
+    "dashboard.replay": "Rejouer",
+    "puzzleTabText": "Statistiques du puzzle"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3482,7 +3486,8 @@
     "dashboard.total": "Gesamt",
     "dashboard.puzzleCount": "Rätsel",
     "dashboard.performance": "Leistung",
-    "dashboard.replay": "Wiederholen"
+    "dashboard.replay": "Wiederholen",
+    "puzzleTabText": "Puzzle-Statistik"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -3998,7 +4003,7 @@
     "downloadAllText": "Download all studies",
     "downloadAllTitle": "LiChess Tools - all studies for this player",
     "options.profilePuzzleTab": "Puzzle performance chart in Profile",
-    "puzzleTabTitle": "LiChess Tools - Puzzles",
+    "puzzleTabTitle": "LiChess Tools - Puzzle Stats",
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
@@ -4179,7 +4184,8 @@
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
-    "dashboard.replay": "To replay"
+    "dashboard.replay": "To replay",
+    "puzzleTabText": "Puzzle Stats"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -4876,7 +4882,8 @@
     "dashboard.total": "Total:",
     "dashboard.puzzleCount": "Problemas",
     "dashboard.performance": "Desempenho",
-    "dashboard.replay": "Para repetir"
+    "dashboard.replay": "Para repetir",
+    "puzzleTabText": "Estatísticas do Quebra-cabeça"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5392,7 +5399,7 @@
     "downloadAllText": "Descarcă toate studiile",
     "downloadAllTitle": "LiChess Tools - toate studiile acestui jucător",
     "options.profilePuzzleTab": "Grafic de performanţă la probleme de şah în Profil",
-    "puzzleTabTitle": "LiChess Tools - Probleme de şah",
+    "puzzleTabTitle": "LiChess Tools - Statistici probleme de şah",
     "options.mayTenth": "Ziua LiChess Tools!",
     "mayTenthTitle": "La mulţi ani, LiChess Tools!",
     "options.moveAssistant": "Asistent mutări",
@@ -5573,7 +5580,8 @@
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Probleme șah",
     "dashboard.performance": "Performanță",
-    "dashboard.replay": "De rejucat"
+    "dashboard.replay": "De rejucat",
+    "puzzleTabText": "Statistici probleme şah"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6270,7 +6278,8 @@
     "dashboard.total": "Итого",
     "dashboard.puzzleCount": "Пазлы",
     "dashboard.performance": "Производительность",
-    "dashboard.replay": "Повторить"
+    "dashboard.replay": "Повторить",
+    "puzzleTabText": "Статистика пазлов"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6967,7 +6976,8 @@
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Rendimiento",
-    "dashboard.replay": "Para repetir"
+    "dashboard.replay": "Para repetir",
+    "puzzleTabText": "Estadísticas del Puzzle"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7483,7 +7493,7 @@
     "downloadAllText": "Download all studies",
     "downloadAllTitle": "LiChess Tools - all studies for this player",
     "options.profilePuzzleTab": "Puzzle performance chart in Profile",
-    "puzzleTabTitle": "LiChess Tools - Puzzles",
+    "puzzleTabTitle": "LiChess Tools - Puzzle Stats",
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
@@ -7664,6 +7674,7 @@
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
-    "dashboard.replay": "To replay"
+    "dashboard.replay": "To replay",
+    "puzzleTabText": "Puzzle Stats"
   }
 }
