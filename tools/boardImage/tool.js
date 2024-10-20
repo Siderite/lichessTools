@@ -184,12 +184,13 @@
           removeRedraw = true;
         }
       }
-      $('div.study__share,div.board-editor .copyables')
+      $('div.study__share,div.board-editor .copyables, .position-gif')
         .find('a[href*="fen.gif"]')
         .each((i, e) => {
           if ($(e).is('.lichessTools-boardImage')) return;
           $(e)
             .addClass('lichessTools-boardImage')
+            .attr('title', trans.noarg('screenshotButtonTitle'))
             .on('click', this.getBoardImage);
           removeRedraw = true;
         });
