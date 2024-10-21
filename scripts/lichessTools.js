@@ -39,7 +39,7 @@
       },
       noarg: function (key) {
         const dict = this.lichessTools.intl.siteI18n;
-        const result =  dict[key];
+        const result =  dict[key] || this.lichessTools.global?.i18n(key);
         if (result) return result;
         this.lichessTools.global.console.debug('Translation not found for key ',key);
         return key;
