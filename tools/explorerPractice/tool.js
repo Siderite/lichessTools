@@ -138,6 +138,7 @@
         }
       }
       if (!this.isRunning) return;
+      if (this.isPlayMove) return;
       parent.announce(trans.noarg('outOfMoves'));
       this.evaluatePosition();
     };
