@@ -257,12 +257,15 @@
       const JSON = parent.global.JSON;
       let saveData = false;
       for (const team of this.teamsData) {
+        const notificationId = 'mchatOptions_'+team.teamId;
         if (team.newMessage && JSON.stringify(team.newMessage) != JSON.stringify(team.lastMessage)) {
           const teamName = this.userTeams.find(t => t.id == team.teamId)?.name || team.teamId;
           const notification = {
             getEntries: async () => {
+              const tm = this.teamsData.find(t => t.teamId == team.teamId);
+              if (JSON.stringify(tm?.newMessage) == JSON.stringify(tm?.lastMessage)) return [];
               const entry = {
-                id: 'mchatOptions_'+team.teamId,
+                id: notificationId,
                 isNew: true,
                 icon: '\uE059',
                 href: '/team/' + parent.global.encodeURIComponent(team.teamId),
@@ -312,6 +315,12 @@
         });
       }
       this.saveTeamsData();
+    };
+
+    loadTeamsData = () => {
+      const parent = this.lichessTools;
+      this.teamsData = parent.storage.get('LichessTools.chatNotificationTeams') || [];
+      this.teamsData.forEach(t=>{ delete t.crowd; });
     };
 
     saveTeamsData = () => {
@@ -391,9 +400,12 @@
       }
       lichess.pubsub.off('content-loaded', this.notificationButtonInTeams);
       if (this.options.teamChatNotifications) {
+        parent.storage?.listen('lichessTools.refreshNotifications', ()=>{
+          this.loadTeamsData();
+          parent.notifications.refresh();
+        });
         this.userTeams = await parent.api.team.getUserTeams(parent.getUserId());
-        this.teamsData = parent.storage.get('LichessTools.chatNotificationTeams') || [];
-        this.teamsData.forEach(t=>{ delete t.crowd; });
+        this.loadTeamsData();
         const configuredTeamsCount = this.teamsData?.length;
         if (configuredTeamsCount) {
           let saveTeams = false;
@@ -409,6 +421,7 @@
           }
           if (saveTeams) {
             this.saveTeamsData();
+            parent.storage?.fire('lichessTools.refreshNotifications');
           }
           const socketUrl = lichess.socket?.url;
           const m = /^\/team\/(?<teamId>[^\/]+)$/i.exec(socketUrl);
