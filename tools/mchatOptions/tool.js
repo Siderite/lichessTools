@@ -275,7 +275,6 @@
             }
           };
           parent.notifications.add(notification);
-          team.lastMessage = team.newMessage;
           saveData = true;
         }
       }
@@ -397,8 +396,17 @@
         this.teamsData.forEach(t=>{ delete t.crowd; });
         const configuredTeamsCount = this.teamsData?.length;
         if (configuredTeamsCount) {
+          let saveTeams = false;
           parent.arrayRemoveAll(this.teamsData, t => !this.userTeams.find(ut => ut.id == t.teamId));
           if (this.teamsData.length < configuredTeamsCount) {
+            saveTeams = true;
+          }
+          for (const team of this.teamData) {
+            if (parent.global.location.pathname.toLowerCase() == '/team/'+team.teamId.toLowerCase()) {
+              team.lastMessage = team.newMessage;
+            }
+          }
+          if (saveTeams) {
             this.saveTeamsData();
           }
           const socketUrl = lichess.socket?.url;
