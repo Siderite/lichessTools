@@ -57,7 +57,7 @@
           if (!href) return;
           const hrefUserId = /\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();
           if (!hrefUserId) return;
-          const isPlayer = hrefUserId == userId.toLowerCase();
+          const isPlayer = hrefUserId?.toLowerCase() == userId.toLowerCase();
           if (isPlayer) return;
           let timeControl = this.getTimeControl();
           if (!timeControl || timeControl == 'ultrabullet') timeControl = 'blitz';

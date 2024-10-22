@@ -242,7 +242,7 @@
     receiveChatMessage = (teamId, data) => {
       const parent = this.lichessTools;
       const team = this.teamsData.find(t => t.teamId == teamId);
-      if (!team || data.u == parent.getUserId()) return;
+      if (!team || data.u?.toLowerCase() == parent.getUserId()?.toLowerCase()) return;
       team.newMessage = {
         user: data.u,
         text: data.t
