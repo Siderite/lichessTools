@@ -401,9 +401,10 @@
           if (this.teamsData.length < configuredTeamsCount) {
             saveTeams = true;
           }
-          for (const team of this.teamData) {
+          for (const team of this.teamsData) {
             if (parent.global.location.pathname.toLowerCase() == '/team/'+team.teamId.toLowerCase()) {
               team.lastMessage = team.newMessage;
+              saveTeams = true;
             }
           }
           if (saveTeams) {
