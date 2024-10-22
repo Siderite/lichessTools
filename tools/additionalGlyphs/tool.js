@@ -44,7 +44,15 @@
         analysis.chessground.setAutoShapes(shapes);
         return;
       }
-      const orig = analysis.node.uci.slice(2, 4);
+      let orig = analysis.node.uci.slice(2, 4);
+      if (analysis.node.san?.startsWith('O-O')) {
+        switch (orig) {
+          case 'a1': orig='c1'; break;
+          case 'h1': orig='g1'; break;
+          case 'a8': orig='c8'; break;
+          case 'h8': orig='g8'; break;
+        }
+      }
       const shapes = analysis.chessground.state.drawable.autoShapes?.filter(s => s.type !== 'glyph') || [];
       shapes.push({
         type: 'glyph',
