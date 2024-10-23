@@ -63,8 +63,8 @@
       }
 
       function evalToString(evl) {
-        if (evl.cp) return (evl.cp/100).toString();
-        if (evl.mate) return '#'+evl.mate;
+        if (evl.cp !== undefined) return (evl.cp/100).toString();
+        if (evl.mate !== undefined) return '#'+evl.mate;
       }
 
       function renderComments(node) {
