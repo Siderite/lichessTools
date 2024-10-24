@@ -822,7 +822,6 @@
 
       const hcElem = $('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready')[0];
       let state = hcElem?.traverseState;
-      if (Math.random() > 0.95) forced = true; // hack to sometimes update this anyway
       if (!state || forced) {
         state = parent.traverse();
         if (hcElem) hcElem.traverseState = state;
@@ -955,6 +954,8 @@
       const lichess = parent.lichess;
       const $ = parent.$;
       const trans = parent.translator;
+
+      if (!forced && Math.random() > 0.95) forced = true; // hack to sometimes update this anyway
 
       if (!lichess.analysis) return;
       const currentBrilliant = [this.options.brilliant, this.options.moreBrilliant].join(',');
