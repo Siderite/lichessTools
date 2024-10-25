@@ -150,6 +150,8 @@
         "tools/dailyQuote/tool.js",
         "tools/puzzleDownload/tool.js",
         "tools/gameListOptions/tool.js",
+        "tools/showDeviation/tool.js",
+        "tools/linkToAnalysis/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -173,11 +175,13 @@
         "tools/themes/flairX.css",
         "tools/themes/lessIcons.css",
         "tools/themes/nonStickyHeader.css",
-        "tools/noSpoilers/tool.css",
         "tools/themes/noStudyChat.css",
         "tools/themes/pieceDrag.css",
         "tools/themes/noGrab.css",
         "tools/themes/noPractice.css",
+        "tools/themes/gameMoveList.css",
+
+        "tools/noSpoilers/tool.css",
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
         "tools/dialog/tool.css",
@@ -247,6 +251,8 @@
         "tools/dailyQuote/tool.css",
         "tools/puzzleDownload/tool.css",
         "tools/gameListOptions/tool.css",
+        "tools/showDeviation/tool.css",
+        "tools/linkToAnalysis/tool.css",
 
         "tools/tvOptions/tool.css",
 

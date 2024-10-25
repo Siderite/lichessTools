@@ -112,7 +112,8 @@ lichessTools.loadTool(LiChessTools.Tools.PlayWheel);
 lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleDownload);
 lichessTools.loadTool(LiChessTools.Tools.GameListOptions);
-//lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
+lichessTools.loadTool(LiChessTools.Tools.ShowDeviation);
+lichessTools.loadTool(LiChessTools.Tools.LinkToAnalysis);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);

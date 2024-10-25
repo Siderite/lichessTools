@@ -114,7 +114,9 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - video popup support in studies
 - daily chess quote
 - copy puzzle PGN
-- game list filtering and selection
+- game list options: filters, selection, open directly in analysis
+- link to current Analysis board
+- show player rating deviation
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:
