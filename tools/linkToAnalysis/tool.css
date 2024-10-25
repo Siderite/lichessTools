@@ -1,0 +1,5 @@
+body.lichessTools a.lichessTools-linkToAnalysis {
+  position: absolute;
+  left: 0.5em;
+  bottom: 0.5em;
+}
