@@ -1,0 +1,10 @@
+/* Game move list */
+
+@media (min-width: 799.3px) and (min-height: 499.3px), (orientation: landscape) and (min-height: 499.3px) {
+
+  body.lichessTools.lichessTools-theme_gameMoveList .round__app .ruser-top + * .buttons + * {
+    flex-basis: calc(var(---cg-width) / 3);
+    min-height: 4em;
+  }
+
+}
