@@ -1,0 +1,22 @@
+body.lichessTools #powerTip:has(.lichessTools-showDeviation) {
+  width:26em;
+}
+
+body.lichessTools #powerTip .upt__info__ratings:has(.lichessTools-showDeviation) > span  {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+body.lichessTools #powerTip .lichessTools-showDeviation  {
+  font-size:smaller;
+}
+
+body.lichessTools #powerTip .lichessTools-showDeviation.bad {
+  color: #FF4040C0;
+}
+
+body.lichessTools #powerTip .lichessTools-showDeviation.good {
+  color: #40FF40C0;
+}
+
