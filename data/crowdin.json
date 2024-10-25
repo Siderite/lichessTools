@@ -696,7 +696,13 @@
     "dashboard.performance": "الأداء",
     "dashboard.replay": "لإعادة العرض",
     "puzzleTabText": "إحصائيات الألغاز",
-    "groupGamesLabel": "اللون حسب اللاعبين:"
+    "groupGamesLabel": "اللون حسب اللاعبين:",
+    "options.showDeviation": "إظهار انحراف نقاط اللاعب",
+    "gameListOptions.analysis": "إظهار التحليل فقط",
+    "gameListOptions.analysisLink": "انتقل إلى التحليل",
+    "analysedGamesLabel": "تحليل فقط",
+    "themes.gameMoveList": "قائمة نقل اللعبة المرنة",
+    "linkToAnalysisTitle": "أدوات شطرنج الحياة - رابط التحليل الحالي"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1395,7 +1401,13 @@
     "dashboard.performance": "Performance",
     "dashboard.replay": "To replay",
     "puzzleTabText": "Puzzle Stats",
-    "groupGamesLabel": "Color by players:"
+    "groupGamesLabel": "Color by players:",
+    "options.showDeviation": "Show player score deviation",
+    "gameListOptions.analysis": "Show only analysed",
+    "gameListOptions.analysisLink": "Go direct to analysis",
+    "analysedGamesLabel": "Only analysed",
+    "themes.gameMoveList": "Flexible game move list",
+    "linkToAnalysisTitle": "LiChess Tools - link to current analysis"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2094,7 +2106,13 @@
     "dashboard.performance": "Performance",
     "dashboard.replay": "To replay",
     "puzzleTabText": "Puzzle Stats",
-    "groupGamesLabel": "Color by players:"
+    "groupGamesLabel": "Color by players:",
+    "options.showDeviation": "Show player score deviation",
+    "gameListOptions.analysis": "Show only analysed",
+    "gameListOptions.analysisLink": "Go direct to analysis",
+    "analysedGamesLabel": "Only analysed",
+    "themes.gameMoveList": "Flexible game move list",
+    "linkToAnalysisTitle": "LiChess Tools - link to current analysis"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2793,7 +2811,13 @@
     "dashboard.performance": "Performances",
     "dashboard.replay": "Rejouer",
     "puzzleTabText": "Statistiques du puzzle",
-    "groupGamesLabel": "Couleur par joueur:"
+    "groupGamesLabel": "Couleur par joueur:",
+    "options.showDeviation": "Afficher la déviation du score du joueur",
+    "gameListOptions.analysis": "Afficher uniquement les analyses",
+    "gameListOptions.analysisLink": "Aller directement à l'analyse",
+    "analysedGamesLabel": "Seulement analysé",
+    "themes.gameMoveList": "Liste de mouvements de jeu souple",
+    "linkToAnalysisTitle": "Outils LiChess - lien avec l'analyse actuelle"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3492,7 +3516,13 @@
     "dashboard.performance": "Leistung",
     "dashboard.replay": "Wiederholen",
     "puzzleTabText": "Puzzle-Statistik",
-    "groupGamesLabel": "Farbe nach Spielern:"
+    "groupGamesLabel": "Farbe nach Spielern:",
+    "options.showDeviation": "Spieler-Abweichung anzeigen",
+    "gameListOptions.analysis": "Nur analysierte anzeigen",
+    "gameListOptions.analysisLink": "Gehen Sie direkt zur Analyse",
+    "analysedGamesLabel": "Nur analysiert",
+    "themes.gameMoveList": "Flexible Spielbewegungsliste",
+    "linkToAnalysisTitle": "LiChess-Tools - Link zur aktuellen Analyse"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -4191,7 +4221,13 @@
     "dashboard.performance": "Performance",
     "dashboard.replay": "To replay",
     "puzzleTabText": "Puzzle Stats",
-    "groupGamesLabel": "Color by players:"
+    "groupGamesLabel": "Color by players:",
+    "options.showDeviation": "Show player score deviation",
+    "gameListOptions.analysis": "Show only analysed",
+    "gameListOptions.analysisLink": "Go direct to analysis",
+    "analysedGamesLabel": "Only analysed",
+    "themes.gameMoveList": "Flexible game move list",
+    "linkToAnalysisTitle": "LiChess Tools - link to current analysis"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -4890,7 +4926,13 @@
     "dashboard.performance": "Desempenho",
     "dashboard.replay": "Para repetir",
     "puzzleTabText": "Estatísticas do Quebra-cabeça",
-    "groupGamesLabel": "Cor por jogadores:"
+    "groupGamesLabel": "Cor por jogadores:",
+    "options.showDeviation": "Mostrar desvio da pontuação do jogador",
+    "gameListOptions.analysis": "Mostrar somente analisados",
+    "gameListOptions.analysisLink": "Vá direto para a análise",
+    "analysedGamesLabel": "Apenas analisados",
+    "themes.gameMoveList": "Lista de movimentos flexíveis",
+    "linkToAnalysisTitle": "LiChess Tools - link para a análise atual"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5589,7 +5631,13 @@
     "dashboard.performance": "Performanță",
     "dashboard.replay": "De rejucat",
     "puzzleTabText": "Statistici probleme şah",
-    "groupGamesLabel": "Culoare după jucători:"
+    "groupGamesLabel": "Culoare după jucători:",
+    "options.showDeviation": "Arată devierea de scor la jucători",
+    "gameListOptions.analysis": "Arată doar analizate",
+    "gameListOptions.analysisLink": "Direct la analiză",
+    "analysedGamesLabel": "Doar analizate",
+    "themes.gameMoveList": "Listă mutări flexibilă în joc",
+    "linkToAnalysisTitle": "LiChess Tools - link către analiza curentă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6288,7 +6336,13 @@
     "dashboard.performance": "Результативность",
     "dashboard.replay": "Повторить",
     "puzzleTabText": "Статистика задач",
-    "groupGamesLabel": "Цвет по игрокам:"
+    "groupGamesLabel": "Цвет по игрокам:",
+    "options.showDeviation": "Показать отклонение по счету игрока",
+    "gameListOptions.analysis": "Показать только проанализированные",
+    "gameListOptions.analysisLink": "Перейти к анализу",
+    "analysedGamesLabel": "Только проанализированные",
+    "themes.gameMoveList": "Гибкий список ходов",
+    "linkToAnalysisTitle": "Инструменты Жизни - ссылка на текущий анализ"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6987,7 +7041,13 @@
     "dashboard.performance": "Rendimiento",
     "dashboard.replay": "Para repetir",
     "puzzleTabText": "Estadísticas del Puzzle",
-    "groupGamesLabel": "Color de los jugadores:"
+    "groupGamesLabel": "Color de los jugadores:",
+    "options.showDeviation": "Mostrar desviación de puntuación del jugador",
+    "gameListOptions.analysis": "Mostrar sólo analizados",
+    "gameListOptions.analysisLink": "Ir directamente al análisis",
+    "analysedGamesLabel": "Sólo analizado",
+    "themes.gameMoveList": "Lista de movimientos de juego flexible",
+    "linkToAnalysisTitle": "Herramientas de LiChess - enlace al análisis actual"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7686,6 +7746,12 @@
     "dashboard.performance": "Performance",
     "dashboard.replay": "To replay",
     "puzzleTabText": "Puzzle Stats",
-    "groupGamesLabel": "Color by players:"
+    "groupGamesLabel": "Color by players:",
+    "options.showDeviation": "Show player score deviation",
+    "gameListOptions.analysis": "Show only analysed",
+    "gameListOptions.analysisLink": "Go direct to analysis",
+    "analysedGamesLabel": "Only analysed",
+    "themes.gameMoveList": "Flexible game move list",
+    "linkToAnalysisTitle": "LiChess Tools - link to current analysis"
   }
 }
