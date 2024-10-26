@@ -32,13 +32,6 @@
       this.notifications.push(notification);
       this.forcedProcessNotifications();
     };
-    markEntryRead = (id) => {
-      const notification = this.notifications.find(n => n.id == id);
-      if (notification) {
-        notification.isNew = false;
-      }
-      this.processNotifications();
-    }
 
     processNotifications = async (el) => {
       const parent = this.lichessTools;
@@ -137,7 +130,6 @@
       if (!value) return;
       parent.notifications = {
         add: this.addNotification.bind(this),
-        markEntryRead: this.markEntryRead.bind(this),
         refresh: this.forcedProcessNotifications.bind(this)
       };
 

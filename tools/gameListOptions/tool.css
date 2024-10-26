@@ -25,12 +25,16 @@ body.lichessTools .lichessTools-gameListOptions-group article.game-row {
 }
 
 body.lichessTools #chkAborted,
+body.lichessTools #chkAnalysis,
+body.lichessTools #chkAnalysisLink,
 body.lichessTools #chkGroup {
   vertical-align: bottom;
-  margin-left: 1em;
+  margin-left: 0.5em;
 }
 
 body.lichessTools label[for="chkAborted"],
+body.lichessTools label[for="chkAnalysis"],
+body.lichessTools label[for="chkAnalysisLink"],
 body.lichessTools label[for="chkGroup"] {
   margin-left: 1em;
 }
@@ -46,4 +50,21 @@ body.lichessTools article.lichessTools-gameListOptions-select input[type="checkb
 
 body.lichessTools article.lichessTools-gameListOptions-select .game-row__overlay {
   left: 3em;
+}
+
+body.lichessTools .lichessTools-gameListOptions-analysis article:not(:has(.metadata)) {
+  display: none;
+}
+
+body.lichessTools .lichessTools-gameListOptions-analysisLink article:after {
+  font-size: 1.5em;
+  vertical-align: middle;
+  font-family: "lichess";
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  speak: none;
+  content: "\E034";
+  opacity: .9;
+  unicode-bidi: isolate;
 }

@@ -39,7 +39,7 @@
       },
       noarg: function (key) {
         const dict = this.lichessTools.intl.siteI18n;
-        const result =  dict[key];
+        const result =  dict[key] || this.lichessTools.global?.i18n(key);
         if (result) return result;
         this.lichessTools.global.console.debug('Translation not found for key ',key);
         return key;
@@ -387,12 +387,11 @@
 
     getNodeComment(node) {
       const userId = this.getUserId();
-      const comment = (node?.comments || []).find(c => c?.by?.id == userId)?.text;
+      const comment = (node?.comments || []).find(c => c?.by?.id.toLowerCase() == userId?.toLowerCase())?.text;
       return comment;
     }
 
     getNodeCommentsText(node) {
-      const userId = this.getUserId();
       const commentText = (node?.comments || []).map(c => c.text).join('\r\n');
       return commentText;
     }

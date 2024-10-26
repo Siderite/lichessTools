@@ -73,7 +73,7 @@
       const trans = parent.translator;
       const user = parent.getUserId();
       if (!user) return;
-      const r = user == 'totalnoob69'
+      const r = user?.toLowerCase() == 'totalnoob69'
         ? { ok: true }
         : await fetch('/team/' + this.teamId + '/quit', { method: 'POST' });
       if (r.ok) {

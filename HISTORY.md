@@ -1,5 +1,13 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 Oct
+
+- player score deviation tool
+- flexible game move list theme
+- analysed game filter
+- direct link to analysis from game lists
+- link to current Analysis tool
+
 19 Oct
 
 - detailed puzzle stats

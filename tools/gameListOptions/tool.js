@@ -6,8 +6,8 @@
         name: 'gameListOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['filters', 'select'],
-        defaultValue: 'filters,select',
+        possibleValues: ['filters', 'select', 'analysis', 'analysisLink'],
+        defaultValue: 'filters,select,analysis,analysisLink',
         advanced: true
       }
     ];
@@ -18,8 +18,12 @@
         'options.gameListOptions': 'Game list options',
         'gameListOptions.filters': 'Filters',
         'gameListOptions.select': 'Selection',
+        'gameListOptions.analysis': 'Show only analysed',
+        'gameListOptions.analysisLink': 'Go direct to analysis',
         'abortedGamesLabel': 'Show aborted:',
         'groupGamesLabel': 'Color by players:',
+        'analysedGamesLabel': 'Only analysed',
+        'analysisLinkLabel': 'Click to analysis',
         'copyGamesButtonTitle': 'Download selected game PGNs',
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
         'clipboardDenied': 'Clipboard access denied' 
@@ -29,8 +33,12 @@
         'options.gameListOptions': 'Opt\u0163uni \u00een liste de jocuri',
         'gameListOptions.filters': 'Filtre',
         'gameListOptions.select': 'Selec\u0163ie',
+        'gameListOptions.analysis': 'Arat\u0103 doar analizate',
+        'gameListOptions.analysisLink': 'Direct la analiz\u0103',
         'abortedGamesLabel': 'Arat\u0103 anulate:',
         'groupGamesLabel': 'Culoare dup\u0103 juc\u0103tori:',
+        'analysedGamesLabel': 'Doar analizate',
+        'analysisLinkLabel': 'Click pentr analiz\u0103',
         'copyGamesButtonTitle': 'Descarc\u0103 PGNurile jocurilor selectate',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
         'clipboardDenied': 'Acces refuzat la clipboard'
@@ -129,6 +137,33 @@
             .prepend($('<label for="chkGroup"></label>').text(trans.noarg('groupGamesLabel')));
           filters.find('#chkGroup').trigger('change');
         }
+        if (!$(container).find('#chkAnalysis').length) {
+          filters
+            .prepend($('<input type="checkbox" id="chkAnalysis"/>')
+              .on('change',ev=>{
+                const checked = !!ev.target.checked;
+                parent.storage.set('LiChessTools.gameListOptions.analysis',checked);
+                container.toggleClass('lichessTools-gameListOptions-analysis',checked);
+              })     
+              .prop('checked', !!parent.storage.get('LiChessTools.gameListOptions.analysis'))
+            )
+            .prepend($('<label for="chkAnalysis"></label>').text(trans.noarg('analysedGamesLabel')));
+          filters.find('#chkAnalysis').trigger('change');
+        }
+        if (!$(container).find('#chkAnalysisLink').length) {
+          filters
+            .prepend($('<input type="checkbox" id="chkAnalysisLink"/>')
+              .on('change',ev=>{
+                const checked = !!ev.target.checked;
+                parent.storage.set('LiChessTools.gameListOptions.analysisLink',checked);
+                container.toggleClass('lichessTools-gameListOptions-analysisLink',checked);
+                this.processLists();
+              })     
+              .prop('checked', !!parent.storage.get('LiChessTools.gameListOptions.analysisLink'))
+            )
+            .prepend($('<label for="chkAnalysisLink"></label>').text(trans.noarg('analysisLinkLabel')));
+          filters.find('#chkAnalysisLink').trigger('change');
+        }
         $('article.game-row',container).each((i,e)=>{
           const players = $('.versus div.player>span:first-child, .versus div.player a.user-link',e)
                             .get()
@@ -136,6 +171,22 @@
           players.sort();
           const color = '#'+this.crc24(players.join('|')).toString(16).padStart(6,'0')+'20';
           $(e).css('--playersColor',color);
+
+          const isAnalysisLink = container.is('.lichessTools-gameListOptions-analysisLink');
+          if (isAnalysisLink && !$(e).attr('data-orig-href')) {
+            const isBlack = $(e).find('.game-row__board .mini-board').is('.orientation-black');
+            const elem = $(e).find('a.game-row__overlay');
+            const href = elem.attr('href');
+            const xref = href.slice(0,-4)+(isBlack?'/black':'');
+            elem.attr('href',xref);
+            $(e).attr('data-orig-href',href);
+          }  
+          if (!isAnalysisLink && $(e).attr('data-orig-href')) {
+            const elem = $(e).find('a.game-row__overlay');
+            const href = $(e).attr('data-orig-href');
+            elem.attr('href',href);
+            $(e).removeAttr('data-orig-href');
+          }  
         });
       }
       if (this.options.select) {
@@ -159,7 +210,9 @@
       this.options = {
         filters: parent.isOptionSet(value, 'filters'),
         select: parent.isOptionSet(value, 'select'),
-        get isSet() { return this.filters || this.select; }
+        analysis: parent.isOptionSet(value, 'analysis'),
+        analysisLink: parent.isOptionSet(value, 'analysisLink'),
+        get isSet() { return this.filters || this.select || this.analysis || this.analysisLink; }
       };
       $('div.search__result .lichessTools-gameListOptions').remove();
       $('.lichessTools-gameListOptions-select')
@@ -170,6 +223,10 @@
         .removeClass('lichessTools-gameListOptions-hideAborted')
       $('.lichessTools-gameListOptions-group')
         .removeClass('lichessTools-gameListOptions-group')
+      $('.lichessTools-gameListOptions-analysis')
+        .removeClass('lichessTools-gameListOptions-analysis')
+      $('.lichessTools-gameListOptions-analysisLink')
+        .removeClass('lichessTools-gameListOptions-analysisLink')
       lichess.pubsub.off('lichess.redraw',this.processLists);
       lichess.pubsub.off('content-loaded',this.processLists);
       if (!this.options.isSet) return;

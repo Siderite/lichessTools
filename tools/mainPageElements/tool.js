@@ -8,8 +8,8 @@
         name: 'mainPageElements',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['side', 'app', 'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours', 'leader', 'winner', 'about'],
-        defaultValue: 'side,app,table,tv,blog,puzzle,support,feed,tours,leader,winner,about',
+        possibleValues: ['side', 'app', 'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours'/*, 'leader', 'winner'*/, 'about'],
+        defaultValue: 'side,app,table,tv,blog,puzzle,support,feed,tours,about', //,leader,winner
         advanced: true
       }
     ];

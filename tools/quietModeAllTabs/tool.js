@@ -39,7 +39,6 @@
       const container = $('div.site-buttons div.dasher #dasher_app div.links');
       if (this.options.enabled) {
         if (!container.children().length) {
-          parent.global.setTimeout(() => this.addQuietModeMenu(), 500);
           return;
         }
         let elem = $('a.lichessTools-quietMode', container);
@@ -50,7 +49,7 @@
               ev.preventDefault();
               lichess.forcedQuietMode = !lichess.quietMode;
               if (lichess.quietMode && !lichess.forcedQuietMode) lichess.quietMode = false;
-              this.addQuietModeMenu(true);
+              this.addQuietModeMenu();
             })
             .appendTo(container);
         }

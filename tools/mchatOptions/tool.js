@@ -242,7 +242,7 @@
     receiveChatMessage = (teamId, data) => {
       const parent = this.lichessTools;
       const team = this.teamsData.find(t => t.teamId == teamId);
-      if (!team || data.u == parent.getUserId()) return;
+      if (!team || data.u?.toLowerCase() == parent.getUserId()?.toLowerCase()) return;
       team.newMessage = {
         user: data.u,
         text: data.t
@@ -257,12 +257,15 @@
       const JSON = parent.global.JSON;
       let saveData = false;
       for (const team of this.teamsData) {
+        const notificationId = 'mchatOptions_'+team.teamId;
         if (team.newMessage && JSON.stringify(team.newMessage) != JSON.stringify(team.lastMessage)) {
           const teamName = this.userTeams.find(t => t.id == team.teamId)?.name || team.teamId;
           const notification = {
             getEntries: async () => {
+              const tm = this.teamsData.find(t => t.teamId == team.teamId);
+              if (JSON.stringify(tm?.newMessage) == JSON.stringify(tm?.lastMessage)) return [];
               const entry = {
-                id: 'mchatOptions_'+team.teamId,
+                id: notificationId,
                 isNew: true,
                 icon: '\uE059',
                 href: '/team/' + parent.global.encodeURIComponent(team.teamId),
@@ -275,7 +278,6 @@
             }
           };
           parent.notifications.add(notification);
-          team.lastMessage = team.newMessage;
           saveData = true;
         }
       }
@@ -313,6 +315,12 @@
         });
       }
       this.saveTeamsData();
+    };
+
+    loadTeamsData = () => {
+      const parent = this.lichessTools;
+      this.teamsData = parent.storage.get('LichessTools.chatNotificationTeams') || [];
+      this.teamsData.forEach(t=>{ delete t.crowd; });
     };
 
     saveTeamsData = () => {
@@ -392,14 +400,28 @@
       }
       lichess.pubsub.off('content-loaded', this.notificationButtonInTeams);
       if (this.options.teamChatNotifications) {
+        parent.storage?.listen('lichessTools.refreshNotifications', ()=>{
+          this.loadTeamsData();
+          parent.notifications.refresh();
+        });
         this.userTeams = await parent.api.team.getUserTeams(parent.getUserId());
-        this.teamsData = parent.storage.get('LichessTools.chatNotificationTeams') || [];
-        this.teamsData.forEach(t=>{ delete t.crowd; });
+        this.loadTeamsData();
         const configuredTeamsCount = this.teamsData?.length;
         if (configuredTeamsCount) {
+          let saveTeams = false;
           parent.arrayRemoveAll(this.teamsData, t => !this.userTeams.find(ut => ut.id == t.teamId));
           if (this.teamsData.length < configuredTeamsCount) {
+            saveTeams = true;
+          }
+          for (const team of this.teamsData) {
+            if (parent.global.location.pathname.toLowerCase() == '/team/'+team.teamId.toLowerCase()) {
+              team.lastMessage = team.newMessage;
+              saveTeams = true;
+            }
+          }
+          if (saveTeams) {
             this.saveTeamsData();
+            parent.storage?.fire('lichessTools.refreshNotifications');
           }
           const socketUrl = lichess.socket?.url;
           const m = /^\/team\/(?<teamId>[^\/]+)$/i.exec(socketUrl);

@@ -93,7 +93,7 @@
             ctx.fillStyle = i%2==0 ? '#dddddd' : '#222222';
             const digit = isBlack ? i+1 : (8-i);
             ctx.fillText(digit,800-fontSize*0.75,100*i+fontSize);
-            const letter = String.fromCharCode(97+(isBlack ? (8-i) : i));
+            const letter = String.fromCharCode(97+(isBlack ? (7-i) : i));
             ctx.fillText(letter,100*i,800-fontSize*0.5);
           }
         }

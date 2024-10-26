@@ -49,6 +49,7 @@
       const parent = this.lichessTools;
       const lichess = parent.lichess;
       if (!lichess.analysis.explorer.enabled()) return;
+      await parent.timeout(200);
       const $ = parent.$;
       const trans = parent.translator;
       const fen = lichess.analysis.node.fen?.split(' ').slice(0,4).join(' ');

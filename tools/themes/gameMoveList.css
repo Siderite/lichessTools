@@ -1,0 +1,33 @@
+/* Game move list */
+
+@media (min-width: 799.3px) and (min-height: 499.3px), (orientation: landscape) and (min-height: 499.3px) {
+
+  body.lichessTools.lichessTools-theme_gameMoveList .round__app {
+    grid-template-areas:
+      "board   voice    " 
+      "board   mat-top  " 
+      "board   clock-top" 
+      "board   expi-top " 
+      "board   user-top " 
+      "board   moves    " 
+      "board   moves    " 
+      "board   moves    " 
+      "board   controls " 
+      "board   user-bot " 
+      "board   expi-bot " 
+      "board   clock-bot" 
+      "board   mat-bot  " 
+      "kb-move .        ";
+  }
+
+  body.lichessTools.lichessTools-theme_gameMoveList .round__app .round__app__table {
+    grid-row-start: 4;
+    grid-row-end: 12;
+  }
+
+  body.lichessTools.lichessTools-theme_gameMoveList .round__app .ruser-top + * .buttons + * {
+    flex-basis: calc(var(---cg-width) / 3);
+    min-height: 4em;
+  }
+
+}

@@ -7,7 +7,7 @@ lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 
 lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
 lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);
-lichessTools.loadTool(LiChessTools.Tools.InterceptTimeouts);
+//lichessTools.loadTool(LiChessTools.Tools.InterceptTimeouts);
 lichessTools.loadTool(LiChessTools.Tools.FixAbortController);
 lichessTools.loadTool(LiChessTools.Tools.FixChessgroundResize);
 lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);
@@ -112,7 +112,8 @@ lichessTools.loadTool(LiChessTools.Tools.PlayWheel);
 lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleDownload);
 lichessTools.loadTool(LiChessTools.Tools.GameListOptions);
-//lichessTools.loadTool(LiChessTools.Tools.DownloadGames);
+lichessTools.loadTool(LiChessTools.Tools.ShowDeviation);
+lichessTools.loadTool(LiChessTools.Tools.LinkToAnalysis);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);

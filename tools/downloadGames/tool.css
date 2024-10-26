@@ -1,7 +1,0 @@
-body.lichessTools td.lichessTools-download button {
-  width: 45%;
-}
-
-body.lichessTools td.lichessTools-download button:not(:nth-child(1)) {
-  margin-left: 5%;
-}
