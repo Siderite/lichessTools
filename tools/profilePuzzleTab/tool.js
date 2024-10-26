@@ -58,7 +58,7 @@
       this.updateData();
     };
 
-    updateDataDirect = async ()=>{
+    updateDataDirect = async (sort)=>{
       const parent = this.lichessTools;
       const $ = parent.$;
       const htmlEncode = parent.htmlEncode;
@@ -73,19 +73,13 @@
         return;
       }
       const days = Math.ceil((Date.now()-currentStart)/86400000);
-      if (section.attr('data-days')==days) {
+      if (section.attr('data-days')==days && !sort) {
         return;
       }
-      section
-        .attr('data-days',days)
-        .empty();
       const data = await parent.api.puzzle.getDashboard(days);
       if (!data) return;
       const table =$('<table><thead></thead><tbody></tbody></table>');
-      $('<div>')
-        .append(table)
-        .appendTo(section);
-      let html = '<tr><th></th><th class="nr">$trans(dashboard.puzzleCount)</th><th class="nr">$trans(dashboard.performance)</th><th class="nr">$trans(dashboard.replay)</th></tr>';
+      let html = '<tr><th></th><th class="puzzleCount nr">$trans(dashboard.puzzleCount)</th><th class="performance nr">$trans(dashboard.performance)</th><th class="replay nr">$trans(dashboard.replay)</th></tr>';
       html = html.replace(/\$trans\(([^\),]+?)(?:\s*,\s*([^\)]+?))?\)/g, function (m, name, value) {
         return htmlEncode(value ? trans.pluralSame(name, value) : trans.noarg(name));
       });
@@ -95,19 +89,63 @@
       let repperc = data.global.nb ? Math.floor(100 * data.global.replayWins/data.global.nb) : 0;
       html = '<tr><th><a href="/training">$trans(dashboard.total)</a></th><td class="perc nr" title="'+data.global.firstWins+'+'+data.global.replayWins+'" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+data.global.nb+'</td><td class="nr">'+data.global.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/mix">'+replay+'</a></td>';
       for (const theme in data.themes) {
+        const r = data.themes[theme].results;
+        r.replay = r.nb - r.firstWins - r.replayWins;
+        r.winperc = r.nb ? Math.floor(100 * r.firstWins/r.nb) : 0;
+        r.repperc = r.nb ? Math.floor(100 * r.replayWins/r.nb) : 0;
+      }
+      const themeKeys = Object.keys(data.themes);
+      themeKeys.sort((t1,t2)=>{
+        const v1=data.themes[t1]?.results?.[this.sortColumn];
+        const v2=data.themes[t2]?.results?.[this.sortColumn];
+        return (v1-v2)*this.sortDirection;
+      });
+      for (const theme of themeKeys) {
         const d = data.themes[theme];
-        replay = d.results.nb - d.results.firstWins - d.results.replayWins;
-        winperc = d.results.nb ? Math.floor(100 * d.results.firstWins/d.results.nb) : 0;
-        repperc = d.results.nb ? Math.floor(100 * d.results.replayWins/d.results.nb) : 0;
-        const perf = d.results.performance > data.global.performance ? 'good' : d.results.performance < data.global.performance ? 'bad' : '';
-        html += '<tr><th><a href="/training/'+theme+'">'+htmlEncode(d.theme)+'</a></th><td class="perc nr" title="'+d.results.firstWins+'+'+d.results.replayWins+'" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+d.results.nb+'</td><td class="nr '+perf+'">'+d.results.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/'+theme+'">'+replay+'</a></td>';
+        const r = d.results;
+        const perf = r.performance > data.global.performance ? 'good' : r.performance < data.global.performance ? 'bad' : '';
+        html += '<tr><th><a href="/training/'+theme+'">'+htmlEncode(d.theme)+'</a></th><td class="perc nr" title="'+r.firstWins+'+'+r.replayWins+'" style="--win:'+r.winperc+'%;--rep:'+r.repperc+'%;">'+r.nb+'</td><td class="nr '+perf+'">'+r.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/'+theme+'">'+r.replay+'</a></td>';
       }
       html = html.replace(/\$trans\(([^\),]+?)(?:\s*,\s*([^\)]+?))?\)/g, function (m, name, value) {
         return htmlEncode(value ? trans.pluralSame(name, value) : trans.noarg(name));
       });
       table.find('tbody').append(html);
+      table.find('th.puzzleCount')
+        .on('click',(ev)=>{
+          ev.preventDefault();
+          this.sortTable('nb');
+        });
+      table.find('th.performance')
+        .on('click',(ev)=>{
+          ev.preventDefault();
+          this.sortTable('performance');
+        });
+      table.find('th.replay')
+        .on('click',(ev)=>{
+          ev.preventDefault();
+          this.sortTable('replay');
+        });
+      section
+        .attr('data-days',days)
+        .empty()
+        .append($('<div>')
+          .append(table));
     };
     updateData = this.lichessTools.debounce(this.updateDataDirect,500);
+
+    sortDirection = -1;
+    sortColumn = 'nb';
+    sortTable = (column) => {
+      const parent = this.lichessTools;
+      const $ = parent.$;
+      if (this.sortColumn == column) {
+        this.sortDirection = -this.sortDirection;
+      } else {
+        this.sortDirection = -1;
+        this.sortColumn = column;
+      }
+      this.updateDataDirect(true);
+    };
 
     async start() {
       const parent = this.lichessTools;

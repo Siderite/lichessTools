@@ -37,6 +37,13 @@ body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-
   cursor: default;
 }
 
+body.lichessTools section.lichessTools-profilePuzzleTab th.puzzleCount,
+body.lichessTools section.lichessTools-profilePuzzleTab th.performance,
+body.lichessTools section.lichessTools-profilePuzzleTab th.replay {
+  cursor: pointer;
+}
+
+
 body.lichessTools div.perf-stat.puzzle .perf-stat__content td.perc {
   background: linear-gradient(to left, #00800080 var(--win), #20802040 calc(var(--win) + var(--rep)) , transparent 0);
 }
