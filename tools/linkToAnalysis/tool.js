@@ -51,6 +51,8 @@
       }
       pgn = pgn.replaceAll(/(\d+\.)\s+/g,'$1');
       let url = parent.global.location.origin+'/analysis/pgn/'+parent.global.encodeURIComponent(pgn);
+      if (analysis.getOrientation()=='black') url+='?color=black';
+      if (analysis.node.ply) url += '#'+analysis.node.ply;
       url = url.replaceAll('%20','+');
       if (url.length>2048) {
         button.hide();
