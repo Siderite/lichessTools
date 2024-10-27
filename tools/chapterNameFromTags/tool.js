@@ -69,7 +69,7 @@
       }   
       let node = game.moves;
       pgn = '';
-      while (node.children.length==1) {
+      while (node.children.length==1 && ply<13) {
         node = node.children[0];
         if (ply%2==1) {
           pgn+=' '+Math.ceil(ply/2)+'.';
@@ -80,7 +80,7 @@
         ply++;
       }
       names.push(pgn);
-      if (node.children.length) {
+      if (node.children.length && ply<13) {
         let child = node.children[0];
         if (ply%2==1) {
           pgn+=' '+Math.ceil(ply/2)+'.';
