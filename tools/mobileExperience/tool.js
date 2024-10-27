@@ -377,16 +377,23 @@
         const lockBoardElem = $('#top div.site-buttons div.lichessTools-lockBoard');
         if (this.options.lockBoard && $.cached('body').is('.mobile.playing')) {
           $.cached('body').addClass('lichessTools-lockBoard');
+          if (this.isBoardLocked === undefined) {
+            this.isBoardLocked = parent.storage.get('LiChessTools.boardLocked');
+            if (this.isBoardLocked === undefined) this.isBoardLocked=true;
+          }
           if (!lockBoardElem.length) {
             $('<div></div>')
               .addClass('lichessTools-lockBoard')
               .attr('data-icon', '\uE054')
               .attr('title', trans.noarg('lockBoardTitle'))
               .on('click', () => {
-                $.cached('body').toggleClass('lichessTools-lockBoard');
+                this.isBoardLocked = !this.isBoardLocked;
+                parent.storage.set('LiChessTools.boardLocked', this.isBoardLocked);
+                $.cached('body').toggleClass('lichessTools-lockBoard',this.isBoardLocked);
               })
               .prependTo($('#top div.site-buttons'));
           }
+          $.cached('body').toggleClass('lichessTools-lockBoard',this.isBoardLocked);
         } else {
           $.cached('body').removeClass('lichessTools-lockBoard');
           lockBoardElem.remove();
