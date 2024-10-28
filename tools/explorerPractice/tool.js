@@ -154,7 +154,10 @@
         const sf = await parent.stockfish.load();
         if (!sf) throw new Error('Could not load Stockfish!');
         sf.setMultiPv(1);
-        sf.on('info', i => { this.lastInfo = i; });
+        sf.on('info', i => { 
+          if (i.cp === undefined && i.mate === undefined) return;
+          this.lastInfo = i;
+        });
         sf.on('bestmove', i => { this.info = this.lastInfo; });
         this.sf=sf;
         return sf;
@@ -191,8 +194,8 @@
         sf.stop();
       }
 
+      if (!this.info) return;
       const info={...this.info};
-      if (!info) return;
 
       const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
       const side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
