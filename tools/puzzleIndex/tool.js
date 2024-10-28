@@ -78,7 +78,7 @@
       const tbody = $('tbody',table);
       const rows = $('tr',tbody);
       rows.each((i,e)=>{ e.toDelete=true; });
-      for (const puzzleId of searchItems) {
+      for (const puzzleId of searchItems.slice(0,500)) {
         const existing = $('tr[data-id="'+puzzleId+'"]',tbody);
         existing.each((i,e)=>{ e.toDelete=false; });
         if (!existing.length) {
