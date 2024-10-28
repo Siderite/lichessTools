@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+28 Oct
+
+- Fat gauge theme
+
 25 Oct
 
 - player score deviation tool

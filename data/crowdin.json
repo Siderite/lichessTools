@@ -18,7 +18,6 @@
     "options.fixChessgroundResize": "إصلاح تغيير حجم Chessground",
     "options.fixWakeLock": "إصلاح قفل WakeLock",
     "options.analysis": "تحليل",
-    "options.fixCeval": "إصلاح التجميد على الكمبيوتر",
     "options.study": "دراسة",
     "options.gamebookPlayClass": "إضافة صف CSS مع تشغيل تفاعلي",
     "options.transpositionBehavior": "السلوك/تعريف عمليات النقل",
@@ -702,7 +701,8 @@
     "gameListOptions.analysisLink": "انتقل إلى التحليل",
     "analysedGamesLabel": "تحليل فقط",
     "themes.gameMoveList": "قائمة نقل اللعبة المرنة",
-    "linkToAnalysisTitle": "أدوات شطرنج الحياة - رابط التحليل الحالي"
+    "linkToAnalysisTitle": "أدوات شطرنج الحياة - رابط التحليل الحالي",
+    "themes.fatGauge": "Thick analysis gauge"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -723,7 +723,6 @@
     "options.fixChessgroundResize": "修正 Chessground 縮放",
     "options.fixWakeLock": "修正 WakeLock",
     "options.analysis": "分析",
-    "options.fixCeval": "修正引擎評估條卡當",
     "options.study": "研究",
     "options.gamebookPlayClass": "為使用者互動新增 CSS class",
     "options.transpositionBehavior": "新增對棋譜的行為/定義",
@@ -1407,7 +1406,8 @@
     "gameListOptions.analysisLink": "Go direct to analysis",
     "analysedGamesLabel": "Only analysed",
     "themes.gameMoveList": "Flexible game move list",
-    "linkToAnalysisTitle": "LiChess Tools - link to current analysis"
+    "linkToAnalysisTitle": "LiChess Tools - link to current analysis",
+    "themes.fatGauge": "Thick analysis gauge"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -1428,7 +1428,6 @@
     "options.fixChessgroundResize": "Fix Chessground resize",
     "options.fixWakeLock": "Fix WakeLock",
     "options.analysis": "Analysis",
-    "options.fixCeval": "Fix computer eval freezes",
     "options.study": "Study",
     "options.gamebookPlayClass": "Add CSS class with playing interactive",
     "options.transpositionBehavior": "Behavior/definition of transpositions",
@@ -2112,7 +2111,8 @@
     "gameListOptions.analysisLink": "Go direct to analysis",
     "analysedGamesLabel": "Only analysed",
     "themes.gameMoveList": "Flexible game move list",
-    "linkToAnalysisTitle": "LiChess Tools - link to current analysis"
+    "linkToAnalysisTitle": "LiChess Tools - link to current analysis",
+    "themes.fatGauge": "Thick analysis gauge"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2133,7 +2133,6 @@
     "options.fixChessgroundResize": "Réparer le redimensionnement de l'échiquier",
     "options.fixWakeLock": "Réparer WakeLock",
     "options.analysis": "Analyse",
-    "options.fixCeval": "Réparer le blocage des chevaux de l'ordinateur",
     "options.study": "Étudier",
     "options.gamebookPlayClass": "Ajouter une classe CSS avec des jeux interactifs",
     "options.transpositionBehavior": "Comportement / définition des transpositions",
@@ -2817,7 +2816,8 @@
     "gameListOptions.analysisLink": "Aller directement à l'analyse",
     "analysedGamesLabel": "Seulement analysé",
     "themes.gameMoveList": "Liste de mouvements de jeu souple",
-    "linkToAnalysisTitle": "Outils LiChess - lien avec l'analyse actuelle"
+    "linkToAnalysisTitle": "Outils LiChess - lien avec l'analyse actuelle",
+    "themes.fatGauge": "Thick analysis gauge"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -2838,7 +2838,6 @@
     "options.fixChessgroundResize": "Größe des Schachplatzes fixieren",
     "options.fixWakeLock": "WakeLock reparieren",
     "options.analysis": "Analyse",
-    "options.fixCeval": "Computereval einfrieren",
     "options.study": "Studium",
     "options.gamebookPlayClass": "CSS-Klasse mit interaktivem Abspielen hinzufügen",
     "options.transpositionBehavior": "Verhalten/Definition von Transpositionen",
@@ -3522,7 +3521,8 @@
     "gameListOptions.analysisLink": "Gehen Sie direkt zur Analyse",
     "analysedGamesLabel": "Nur analysiert",
     "themes.gameMoveList": "Flexible Spielbewegungsliste",
-    "linkToAnalysisTitle": "LiChess-Tools - Link zur aktuellen Analyse"
+    "linkToAnalysisTitle": "LiChess-Tools - Link zur aktuellen Analyse",
+    "themes.fatGauge": "Thick analysis gauge"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -3543,7 +3543,6 @@
     "options.fixChessgroundResize": "Fix Chessground resize",
     "options.fixWakeLock": "Fix WakeLock",
     "options.analysis": "Analysis",
-    "options.fixCeval": "Fix computer eval freezes",
     "options.study": "Study",
     "options.gamebookPlayClass": "Add CSS class with playing interactive",
     "options.transpositionBehavior": "Behavior/definition of transpositions",
@@ -4227,7 +4226,8 @@
     "gameListOptions.analysisLink": "Go direct to analysis",
     "analysedGamesLabel": "Only analysed",
     "themes.gameMoveList": "Flexible game move list",
-    "linkToAnalysisTitle": "LiChess Tools - link to current analysis"
+    "linkToAnalysisTitle": "LiChess Tools - link to current analysis",
+    "themes.fatGauge": "Thick analysis gauge"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -4248,7 +4248,6 @@
     "options.fixChessgroundResize": "Corrigir redimensionamento do Chessground",
     "options.fixWakeLock": "Corrigir WakeLock",
     "options.analysis": "Análise",
-    "options.fixCeval": "Corrigir evais de computador congelados",
     "options.study": "Estudo",
     "options.gamebookPlayClass": "Adicionar classe CSS com reprodução interativa",
     "options.transpositionBehavior": "Comportamento/definição de transposições",
@@ -4932,7 +4931,8 @@
     "gameListOptions.analysisLink": "Vá direto para a análise",
     "analysedGamesLabel": "Apenas analisados",
     "themes.gameMoveList": "Lista de movimentos flexíveis",
-    "linkToAnalysisTitle": "LiChess Tools - link para a análise atual"
+    "linkToAnalysisTitle": "LiChess Tools - link para a análise atual",
+    "themes.fatGauge": "Thick analysis gauge"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -4953,7 +4953,6 @@
     "options.fixChessgroundResize": "Resolvă redimensionarea Chessground",
     "options.fixWakeLock": "Resolvă WakeLock",
     "options.analysis": "Analiză",
-    "options.fixCeval": "Rezolvă îngheţarea evaluării computerului",
     "options.study": "Studiu",
     "options.gamebookPlayClass": "Clasă CSS când joci interactiv",
     "options.transpositionBehavior": "Comportament/definiţie a transpoziţiilor",
@@ -5637,7 +5636,8 @@
     "gameListOptions.analysisLink": "Direct la analiză",
     "analysedGamesLabel": "Doar analizate",
     "themes.gameMoveList": "Listă mutări flexibilă în joc",
-    "linkToAnalysisTitle": "LiChess Tools - link către analiza curentă"
+    "linkToAnalysisTitle": "LiChess Tools - link către analiza curentă",
+    "themes.fatGauge": "Bară analiză groasă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -5658,7 +5658,6 @@
     "options.fixChessgroundResize": "Исправить изменение размера в Chessground",
     "options.fixWakeLock": "Исправить WakeLock",
     "options.analysis": "Анализ",
-    "options.fixCeval": "Устранить зависание компьютерной оценки",
     "options.study": "Студии",
     "options.gamebookPlayClass": "Добавьте CSS-класс с интерактивной игрой",
     "options.transpositionBehavior": "Поведение/определение транспозиций",
@@ -6342,7 +6341,8 @@
     "gameListOptions.analysisLink": "Перейти к анализу",
     "analysedGamesLabel": "Только проанализированные",
     "themes.gameMoveList": "Гибкий список ходов",
-    "linkToAnalysisTitle": "Инструменты Жизни - ссылка на текущий анализ"
+    "linkToAnalysisTitle": "Инструменты Жизни - ссылка на текущий анализ",
+    "themes.fatGauge": "Thick analysis gauge"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -6363,7 +6363,6 @@
     "options.fixChessgroundResize": "Fijar tamaño de ajedrez",
     "options.fixWakeLock": "Corregir WakeLock",
     "options.analysis": "Análisis",
-    "options.fixCeval": "Corregir congelaciones de computadora",
     "options.study": "Estudio",
     "options.gamebookPlayClass": "Añadir clase CSS con reproducción interactiva",
     "options.transpositionBehavior": "Comportamiento/definición de las transposiciones",
@@ -7047,7 +7046,8 @@
     "gameListOptions.analysisLink": "Ir directamente al análisis",
     "analysedGamesLabel": "Sólo analizado",
     "themes.gameMoveList": "Lista de movimientos de juego flexible",
-    "linkToAnalysisTitle": "Herramientas de LiChess - enlace al análisis actual"
+    "linkToAnalysisTitle": "Herramientas de LiChess - enlace al análisis actual",
+    "themes.fatGauge": "Thick analysis gauge"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7068,7 +7068,6 @@
     "options.fixChessgroundResize": "Fix Chessground resize",
     "options.fixWakeLock": "Fix WakeLock",
     "options.analysis": "Analysis",
-    "options.fixCeval": "Fix computer eval freezes",
     "options.study": "Study",
     "options.gamebookPlayClass": "Add CSS class with playing interactive",
     "options.transpositionBehavior": "Behavior/definition of transpositions",
@@ -7752,6 +7751,7 @@
     "gameListOptions.analysisLink": "Go direct to analysis",
     "analysedGamesLabel": "Only analysed",
     "themes.gameMoveList": "Flexible game move list",
-    "linkToAnalysisTitle": "LiChess Tools - link to current analysis"
+    "linkToAnalysisTitle": "LiChess Tools - link to current analysis",
+    "themes.fatGauge": "Thick analysis gauge"
   }
 }
