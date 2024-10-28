@@ -8,7 +8,7 @@
         name: 'themes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag','noPractice', 'gameMoveList'/*, 'noGrab'*/],
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge'/*, 'noGrab'*/],
         defaultValue: '',
         advanced: true
       }
@@ -30,7 +30,8 @@
         'themes.pieceDrag': 'Nicer piece drag',
         'themes.noGrab': 'No grab cursor',
         'themes.noPractice': 'No Practice button',
-        'themes.gameMoveList': 'Flexible game move list'
+        'themes.gameMoveList': 'Flexible game move list',
+        'themes.fatGauge': 'Thick analysis gauge'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -47,7 +48,8 @@
         'themes.pieceDrag': 'Apucat piese mai frumos',
         'themes.noGrab': 'F\u0103r\u0103 cursor care apuc\u0103',
         'themes.noPractice': 'F\u0103r\u0103 buton Antrenament cu calculatorul',
-        'themes.gameMoveList': 'List\u0103 mut\u0103ri flexibil\u0103 \u00een joc'
+        'themes.gameMoveList': 'List\u0103 mut\u0103ri flexibil\u0103 \u00een joc',
+        'themes.fatGauge': 'Bar\u0103 analiz\u0103 groas\u0103'
       }
     }
 
