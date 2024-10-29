@@ -859,7 +859,10 @@
       if (!sf) throw new Error('Could not load Stockfish!');
       sf.setMultiPv(1);
       sf.setDepth(depth);
-      sf.on('info', i => { lastInfo = i; });
+      sf.on('info', i => { 
+          if (i.cp === undefined && i.mate === undefined) return;
+          this.lastInfo = i;
+        });
       sf.on('bestmove', i => { info = lastInfo; });
 
       let gameIndex = 0;
