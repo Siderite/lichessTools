@@ -40,7 +40,7 @@
           .attr('title',trans.noarg('linkToAnalysisTitle'))
           .appendTo('.copyables .pgn .pair');
       }
-      if (analysis.tree.root.children?.length == 0) {
+      if (analysis.tree.root.children?.length == 0 || !parent.isStartFen(analysis.tree.root.fen)) {
         button.hide();
         return;
       }
