@@ -43,14 +43,14 @@
     }
 
     showAudioNotAllowed = async () => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const isAudioAllowed = await parent.isAudioAllowed();
-      const noAutoPlay = parent.$('#warn-no-autoplay')
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const isAudioAllowed = await lt.isAudioAllowed();
+      const noAutoPlay = lt.$('#warn-no-autoplay')
         .toggleClass('shown', !isAudioAllowed);
       const title = trans.noarg('audioNotAllowedTitle');
       if (isAudioAllowed) {
-        parent.global.clearInterval(this.audioCheckTimeout);
+        lt.global.clearInterval(this.audioCheckTimeout);
         if (noAutoPlay.attr('title') === title) {
           noAutoPlay.removeAttr('title');
         }
@@ -59,28 +59,29 @@
           noAutoPlay.attr('title', title);
         }
         if (!this.audioCheckTimeout) {
-          this.audioCheckTimeout = parent.global.setInterval(this.showAudioNotAllowed, 1000);
+          this.audioCheckTimeout = lt.global.setInterval(this.showAudioNotAllowed, 1000);
         }
       }
     };
 
     playFriendSound = async (username) => {
-      this.lichessTools.debug && this.lichessTools.global.console.debug(username + ' playing');
+      const lt = this.lichessTools;
+      lt.debug && lt.global.console.debug(username + ' playing');
       const now = Date.now();
-      const isMuted = (this.lichessTools.currentOptions.getValue('mutedPlayers') || []).includes(username?.toLowerCase());
+      const isMuted = (lt.currentOptions.getValue('mutedPlayers') || []).includes(username?.toLowerCase());
       let silent = isMuted ? 'muted' : '';
-      if (!silent && this.lichessTools.lichess.quietMode) {
+      if (!silent && lt.lichess.quietMode) {
         silent += 'quietMode';
       }
       if (!silent) {
-        const isAudioAllowed = await this.lichessTools.isAudioAllowed();
+        const isAudioAllowed = await lt.isAudioAllowed();
         if (!isAudioAllowed) {
           silent += 'audioNotAllowed';
           this.showAudioNotAllowed();
         }
       }
       if (!silent) {
-        let friendSoundTime = +(this.lichessTools.storage.get('LiChessTools.friendSound')?.value?.time);
+        let friendSoundTime = +(lt.storage.get('LiChessTools.friendSound')?.value?.time);
         if (friendSoundTime) {
           if (now - friendSoundTime < 1000) silent += 'tooSoon';
         }
@@ -89,90 +90,90 @@
       let eventType = '';
       let variant = '';
       let hasInfo = false;
-      if (!silent && !this.lichessTools.net.slowMode) {
+      if (!silent && !lt.net.slowMode) {
         try {
-          const arr = await this.lichessTools.api.user.getUserStatus([username], { withGameMetas: true });
+          const arr = await lt.api.user.getUserStatus([username], { withGameMetas: true });
           const data = arr.find(i => i.id == username);
           if (data?.playing) {
-            gameType = this.lichessTools.getGameTime(data.playing.clock, true);
+            gameType = lt.getGameTime(data.playing.clock, true);
             variant = data.playing.variant;
             hasInfo = true;
           }
         } catch (e) {
           if (e.toString().includes('Failed to fetch')) {
-            this.lichessTools.global.console.debug('Failed to fetch net error');
+            lt.global.console.debug('Failed to fetch net error');
           } else {
-            this.lichessTools.global.console.warn('playFriendSound game fetch error', e);
+            lt.global.console.warn('playFriendSound game fetch error', e);
           }
         }
       }
       const isStandard = !variant || /^standard$/i.test(variant);
       if (hasInfo) {
-        if (!silent && gameType != 'unknown' && !this.lichessTools.isOptionSet(this.lichessTools.currentOptions.getValue('friendsPlaying'), gameType)) {
+        if (!silent && gameType != 'unknown' && !lt.isOptionSet(lt.currentOptions.getValue('friendsPlaying'), gameType)) {
           silent += 'wrongGameType';
         }
-        if (!silent && this.lichessTools.isOptionSet(this.lichessTools.currentOptions.getValue('friendsPlaying'), 'standard')) {
+        if (!silent && lt.isOptionSet(lt.currentOptions.getValue('friendsPlaying'), 'standard')) {
           if (!isStandard) silent += 'notStandard';
         }
       }
       if (!silent) {
-        const id = (this.lichessTools.random() + 1).toString(36).substring(8);
-        this.lichessTools.storage.fire('LiChessTools.friendSound', { time: now, id: id });
-        await this.lichessTools.timeout(200);
-        const storedId = this.lichessTools.storage.get('LiChessTools.friendSound')?.value?.id;
+        const id = (lt.random() + 1).toString(36).substring(8);
+        lt.storage.fire('LiChessTools.friendSound', { time: now, id: id });
+        await lt.timeout(200);
+        const storedId = lt.storage.get('LiChessTools.friendSound')?.value?.id;
         if (storedId && id != storedId) silent += 'lostBid';
       }
-      this.lichessTools.debug && this.lichessTools.global.console.debug('  ... ' + eventType + ' (' + gameType + ',' + variant + ') ' + silent);
+      lt.debug && lt.global.console.debug('  ... ' + eventType + ' (' + gameType + ',' + variant + ') ' + silent);
       if (silent) {
         return;
       }
-      await this.lichessTools.timeout(500);
+      await lt.timeout(500);
       this.beep?.play();
-      let translation = this.lichessTools.translator.plural('playing', 1, username?.replace(/[_\-]/g, ' ')) + ', ' + this.lichessTools.translator.noarg('gameType-' + gameType);
+      let translation = lt.translator.plural('playing', 1, username?.replace(/[_\-]/g, ' ')) + ', ' + lt.translator.noarg('gameType-' + gameType);
       if (!isStandard) {
         translation += ' ' + variant;
       }
-      this.lichessTools.speak(translation, { translated: this.lichessTools.isTranslated });
-      //this.lichessTools.lichess.sound.say(eventType, false, true, false); // Event name cannot be translated
+      lt.speak(translation, { translated: lt.isTranslated });
+      //lt.lichess.sound.say(eventType, false, true, false); // Event name cannot be translated
     };
 
     mutePlayer = async user => {
       user = user?.toLowerCase();
-      const parent = this.lichessTools;
-      const mutedPlayers = parent.currentOptions.getValue('mutedPlayers') || [];
+      const lt = this.lichessTools;
+      const mutedPlayers = lt.currentOptions.getValue('mutedPlayers') || [];
       if (mutedPlayers.includes(user)) {
-        parent.arrayRemoveAll(mutedPlayers, u => u == user);
+        lt.arrayRemoveAll(mutedPlayers, u => u == user);
       } else {
         mutedPlayers.push(user);
       }
-      parent.currentOptions.mutedPlayers = mutedPlayers;
-      await parent.saveOptions(parent.currentOptions);
-      parent.fireReloadOptions();
+      lt.currentOptions.mutedPlayers = mutedPlayers;
+      await lt.saveOptions(lt.currentOptions);
+      lt.fireReloadOptions();
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('friendsPlaying');
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('friendsPlaying');
       this.logOption('Sound alert when friends start playing', value);
-      if (parent.currentOptions.getValue('mutedPlayers')?.length) {
-        this.logOption(' ... muted', parent.currentOptions.getValue('mutedPlayers').join(','));
+      if (lt.currentOptions.getValue('mutedPlayers')?.length) {
+        this.logOption(' ... muted', lt.currentOptions.getValue('mutedPlayers').join(','));
       }
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       if (!lichess) return;
-      const setInterval = parent.global.setInterval;
-      const clearInterval = parent.global.clearInterval;
+      const setInterval = lt.global.setInterval;
+      const clearInterval = lt.global.clearInterval;
       lichess.pubsub.off('socket.in.following_playing', this.playFriendSound);
-      lichess.pubsub.off('lichessTools.mutePlayer', this.mutePlayer);
+      lt.pubsub.off('lichessTools.mutePlayer', this.mutePlayer);
       clearInterval(this.audioCheckTimeout);
       if (value !== false && value?.toString()?.replace(/,\s*standard/i, '')) {
         this.beep = await lichess.sound.load('friendPlaying', lichess.sound.url('piano/GenericNotify.mp3'));
         lichess.pubsub.on('socket.in.following_playing', this.playFriendSound);
-        lichess.pubsub.on('lichessTools.mutePlayer', this.mutePlayer);
+        lt.pubsub.on('lichessTools.mutePlayer', this.mutePlayer);
       }
     }
   }

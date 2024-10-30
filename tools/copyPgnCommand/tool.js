@@ -28,8 +28,8 @@
     };
 
     copyPgn = async (commandText) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
       const options = {
@@ -40,7 +40,7 @@
         path: analysis.path
       };
 
-      parent.exportPgn(options.path, {
+      lt.exportPgn(options.path, {
         copyToClipboard: true,
         fromPosition: options.fromPosition,
         separateLines: options.separateLines,
@@ -50,16 +50,16 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('copyPgnCommand');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('copyPgnCommand');
       this.options = { enabled: value };
       this.logOption('Command - copy PGN', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (value && analysis) {
-        parent.registerCommand && parent.registerCommand('copyPgnCommand', {
+        lt.registerCommand && lt.registerCommand('copyPgnCommand', {
           handle: (val) => {
             if (val?.startsWith('copypgn')) {
               this.copyPgn(val, analysis.path);
@@ -69,7 +69,7 @@
           getHelp: () => trans.noarg('copyPgnCommand.helpText')
         });
       } else {
-        parent.unregisterCommand && parent.unregisterCommand('copyPgnCommand');
+        lt.unregisterCommand && lt.unregisterCommand('copyPgnCommand');
       }
     }
   }

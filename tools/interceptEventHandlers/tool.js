@@ -14,8 +14,9 @@
     };
 
     async init() {
-      const EventTarget = this.lichessTools.global.EventTarget;
-      const wrap = this.lichessTools.wrapFunction.bind(this.lichessTools);
+      const lt = this.lichessTools;
+      const EventTarget = lt.global.EventTarget;
+      const wrap = lt.wrapFunction.bind(this.lichessTools);
       EventTarget.prototype.addEventListener = wrap(EventTarget.prototype.addEventListener, {
         id: 'interceptEventHandlers',
         before: (target, type, listener, options) => {
@@ -31,12 +32,12 @@
           const useCapture = typeof options === 'boolean'
             ? options
             : !!options?.capture;
-          this.lichessTools.arrayRemoveAll(this.eventHandlers, eh => eh.target === target && eh.type === type && eh.listener === listener && eh.useCapture === useCapture);
+          lt.arrayRemoveAll(this.eventHandlers, eh => eh.target === target && eh.type === type && eh.listener === listener && eh.useCapture === useCapture);
         }
       });
 
-      this.lichessTools.removeEventHandlers = this.removeEventHandlers;
-      this.lichessTools.getEventHandlers = this.getEventHandlers;
+      lt.removeEventHandlers = this.removeEventHandlers;
+      lt.getEventHandlers = this.getEventHandlers;
     }
   }
   LiChessTools.Tools.InterceptEventHandlers = InterceptEventHandlersTool;

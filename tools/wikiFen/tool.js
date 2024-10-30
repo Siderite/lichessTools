@@ -26,23 +26,23 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('wikiFen');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('wikiFen');
       this.logOption('Wiki by FEN', value);
       this.options = { enabled: value };
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       if (!analysis?.wiki) return;
-      analysis.wiki = parent.unwrapFunction(analysis.wiki, 'wikiFen');
+      analysis.wiki = lt.unwrapFunction(analysis.wiki, 'wikiFen');
       if (!value) return;
-      analysis.wiki = parent.wrapFunction(analysis.wiki, {
+      analysis.wiki = lt.wrapFunction(analysis.wiki, {
         id: 'wikiFen',
         before: ($this, nodes) => {
           if (!this.options.enabled) return;
           if (!this.wikiUrls_dict) {
-            parent.comm.getData('wikiUrls.json').then(dict=>{
+            lt.comm.getData('wikiUrls.json').then(dict=>{
               if (!dict) {
-                parent.global.console.warn('Could not load pawn wiki URLs!');
+                lt.global.console.warn('Could not load pawn wiki URLs!');
                 return;
               }
               this.wikiUrls_dict = dict;
@@ -50,12 +50,12 @@
             });
             return false;
           }
-          const plyPrefix = (node) => `${parent.global.Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
+          const plyPrefix = (node) => `${lt.global.Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
           const pathParts = nodes.slice(1).map(n => `${plyPrefix(n)}${n.san}`);
           const path = pathParts.join('/').replace(/[+!#?]/g, '') || '';
           if (pathParts.length > 30 || !path || path.length > 255 - 21) return;
           const title = `Chess_Opening_Theory/${path}`;
-          const fen = parent.getPositionFromFen(analysis.node.fen);
+          const fen = lt.getPositionFromFen(analysis.node.fen);
           const newTitles = this.wikiUrls_dict[fen];
           if (!newTitles?.length || newTitles.find(t => t.replaceAll(' ', '_') == title)) return;
           const originalFunction = analysis.wiki.__originalFunction?.bind($this);

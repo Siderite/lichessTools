@@ -50,30 +50,30 @@
     }
 
     hashChange = () => {
-      const parent = this.lichessTools;
-      parent.global.location.reload();
+      const lt = this.lichessTools;
+      lt.global.location.reload();
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('mainPageElements');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('mainPageElements');
       this.logOption('Lobby page elements', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       this.options = {
-        side: parent.isOptionSet(value, 'side'),
-        app: parent.isOptionSet(value, 'app'),
-        table: parent.isOptionSet(value, 'table'),
-        tv: parent.isOptionSet(value, 'tv'),
-        blog: parent.isOptionSet(value, 'blog'),
-        puzzle: parent.isOptionSet(value, 'puzzle'),
-        support: parent.isOptionSet(value, 'support'),
-        feed: parent.isOptionSet(value, 'feed'),
-        tours: parent.isOptionSet(value, 'tours'),
-        leader: parent.isOptionSet(value, 'leader'),
-        winner: parent.isOptionSet(value, 'winner'),
-        about: parent.isOptionSet(value, 'about'),
+        side: lt.isOptionSet(value, 'side'),
+        app: lt.isOptionSet(value, 'app'),
+        table: lt.isOptionSet(value, 'table'),
+        tv: lt.isOptionSet(value, 'tv'),
+        blog: lt.isOptionSet(value, 'blog'),
+        puzzle: lt.isOptionSet(value, 'puzzle'),
+        support: lt.isOptionSet(value, 'support'),
+        feed: lt.isOptionSet(value, 'feed'),
+        tours: lt.isOptionSet(value, 'tours'),
+        leader: lt.isOptionSet(value, 'leader'),
+        winner: lt.isOptionSet(value, 'winner'),
+        about: lt.isOptionSet(value, 'about'),
         get allSet() {
           return this.side && this.app && this.table && this.tv && this.blog &&
             this.puzzle && this.support && this.feed && this.tours && this.leader && this.winner && this.about;
@@ -98,21 +98,21 @@
         if (!$('body').is('.mobile')) {
           $('#topnav > section:first-child > a').attr('href', '/#play');
         }
-        isPlay = parent.global.location.hash == '#play';
+        isPlay = lt.global.location.hash == '#play';
       } else {
         $('#topnav > section:first-child > a').attr('href', '/');
       }
       if (!$('main').is('.lobby')) return;
       if (!this.options.app) {
-        $(parent.global).off('hashchange', this.hashChange);
-        $(parent.global).on('hashchange', this.hashChange);
+        $(lt.global).off('hashchange', this.hashChange);
+        $(lt.global).on('hashchange', this.hashChange);
       }
       if (!this.initialGrid) {
         this.initialGrid = $('main').css('grid-template-areas');
       }
       $('main').toggleClass('lichessTools-lobbyPlay', isPlay);
       if (isPlay) {
-        parent.global.document.title = $('#topnav > section:first-child span.play').text() + ' \u2022 ' + parent.global.location.hostname;
+        lt.global.document.title = $('#topnav > section:first-child span.play').text() + ' \u2022 ' + lt.global.location.hostname;
       } else {
         const grid = this.initialGrid.replace(/[a-z]+/g, t => {
           const ft = t === 'timeline' ? 'side' : t;

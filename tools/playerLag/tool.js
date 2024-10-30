@@ -46,13 +46,13 @@
 
     _lagCache = new Map();
     getLag = async (username) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       let item = this._lagCache.get(username);
       if (item && Date.now() - item.time <= this.opponentLagFrequency) {
         return item.value;
       }
-      const data = await parent.api.user.getUserStatus([username], { withSignal: true });
+      const data = await lt.api.user.getUserStatus([username], { withSignal: true });
       const lagRating = data[0]?.signal;
       const lag = [750, 500, 300, 150, 75][lagRating];
       item = { time: Date.now(), value: lag };
@@ -61,17 +61,17 @@
     };
 
     isPlayingGame = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       return $.cached('body').is('.playing');
     };
 
     refreshPlayers = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      if (parent.global.document.visibilityState !== 'visible') return;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (lt.global.document.visibilityState !== 'visible') return;
       if (!this.isPlayingGame()) return;
-      const userId = parent.getUserId();
+      const userId = lt.getUserId();
       $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')
         .each(async (i, e) => {
           const href = $(e).attr('href');
@@ -96,9 +96,9 @@
     };
 
     refreshLagBars = (container, lag, latency) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       container = $(container);
       let signal = container.find('signal');
       if (!signal.length) {
@@ -115,9 +115,9 @@
     };
 
     refreshLagChart = (container, lag, latency) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       container = $(container);
       let canvas = container.find('canvas.lichessTools-playerLag');
       let chart;
@@ -166,18 +166,18 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('playerLag');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('playerLag');
       this.logOption('Player lag', value);
       this.options = {
-        bars: parent.isOptionSet(value, 'bars'),
-        chart: parent.isOptionSet(value, 'chart'),
+        bars: lt.isOptionSet(value, 'bars'),
+        chart: lt.isOptionSet(value, 'chart'),
         get isSet() { return this.bars || this.chart; }
       };
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
       lichess.pubsub.off('socket.lag', this.onLag);

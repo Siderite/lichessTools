@@ -54,25 +54,25 @@
     _chapterKey = 'name';
 
     closeDialog = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      if (parent.global.location.hash = '#obsSetup') {
-        parent.global.history.replaceState(null, null, ' ');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (lt.global.location.hash = '#obsSetup') {
+        lt.global.history.replaceState(null, null, ' ');
       }
       $('dialog.lichessTools-obsSetup').remove();
     };
 
     showObsSetup = async () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!this.isBroadcast(analysis?.study)) return;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const $ = lt.$;
+      const trans = lt.translator;
       $('dialog.lichessTools-obsSetup').remove();
 
-      if (parent.global.location.hash != '#obsSetup') {
-        parent.global.history.replaceState(null, null, '#obsSetup');
+      if (lt.global.location.hash != '#obsSetup') {
+        lt.global.history.replaceState(null, null, '#obsSetup');
       }
       const dialog = $('<dialog class="lichessTools-obsSetup">')
         .append(`
@@ -129,7 +129,7 @@
         });
 
       const setup = await this.getSetup();
-      const scenes = await parent.comm.send({ type: 'getScenes', options: { url: setup.url, password: setup.password, connectOptions: setup.connectOptions } }).catch(e => { parent.global.console.error(e); });
+      const scenes = await lt.comm.send({ type: 'getScenes', options: { url: setup.url, password: setup.password, connectOptions: setup.connectOptions } }).catch(e => { lt.global.console.error(e); });
       const template = $('<select>')
         .append($('<option value=""></option>').text(trans.noarg('defaultOptionText')));
       for (const sceneName of scenes?.sceneNames || []) {
@@ -171,8 +171,8 @@
     };
 
     saveSetup = (dialog) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const setup = {
         url: dialog.find('input[name="url"]').val(),
         password: dialog.find('input[name="password"]').val(),
@@ -187,19 +187,19 @@
       });
       if (!setup.password) delete setup.password;
       if (!setup.connectOptions) delete setup.connectOptions;
-      const dict = parent.storage.get('LichessTools.obsIntegration') || {};
-      const studyId = parent.lichess.analysis.study.data.id;
+      const dict = lt.storage.get('LichessTools.obsIntegration') || {};
+      const studyId = lt.lichess.analysis.study.data.id;
       dict[studyId] = setup;
-      parent.storage.set('LichessTools.obsIntegration', dict);
+      lt.storage.set('LichessTools.obsIntegration', dict);
       this.optionsSet = false;
       this.closeDialog();
       this.refreshObsButtonState(setup.disabled);
     };
 
     getSetup = () => {
-      const parent = this.lichessTools;
-      const studyId = parent.lichess.analysis.study.data.id;
-      const dict = parent.storage.get('LichessTools.obsIntegration') || {};
+      const lt = this.lichessTools;
+      const studyId = lt.lichess.analysis.study.data.id;
+      const dict = lt.storage.get('LichessTools.obsIntegration') || {};
       const defaults = {
         url: 'ws://127.0.0.1:4455',
         password: undefined,
@@ -213,8 +213,8 @@
     };
 
     isBoardListView = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const study = analysis.study;
       return !!study.relay?.tourShow();
@@ -240,9 +240,9 @@
 
     refreshUI = (setup) => {
       if (!setup) setup = this.getSetup();
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       let container = $('nav.relay-tour__tabs');
       let buttonAdded = false;
       if (container.length) {
@@ -271,8 +271,8 @@
         }
       }
       if (buttonAdded) {
-        parent.unbindKeyHandler('o', true);
-        parent.bindKeyHandler('o', this.toggleButton);
+        lt.unbindKeyHandler('o', true);
+        lt.bindKeyHandler('o', this.toggleButton);
       }
       this.refreshObsButtonState(setup.disabled);
       const isListView = this.isBoardListView();
@@ -283,28 +283,28 @@
     };
 
     toggleButton = () => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const setup = this.getSetup();
       setup.disabled = !setup.disabled;
-      const dict = parent.storage.get('LichessTools.obsIntegration') || {};
-      const studyId = parent.lichess.analysis.study.data.id;
+      const dict = lt.storage.get('LichessTools.obsIntegration') || {};
+      const studyId = lt.lichess.analysis.study.data.id;
       dict[studyId] = setup;
-      parent.storage.set('LichessTools.obsIntegration', dict);
+      lt.storage.set('LichessTools.obsIntegration', dict);
       this.refreshObsButtonState(setup.disabled);
     }
 
     refreshObsButtonState = (disabled) => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const $ = lt.$;
       $('span.lichessTools-obsSetup')
         .toggleClass('disabled', disabled)
         .attr('title', trans.noarg('OBSTitle' + (disabled ? 'Disabled' : '')))
     };
 
     chapterChange = async (chapterId) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const study = analysis.study;
       if (!this.isBroadcast(study)) return;
@@ -314,7 +314,7 @@
         return;
       }
       const sceneName = await this.getSceneName(study, setup);
-      parent.comm.send({
+      lt.comm.send({
         type: 'sceneChange',
         sceneName: sceneName,
         options: { url: setup.url, password: setup.password, connectOptions: setup.connectOptions }
@@ -326,8 +326,8 @@
     };
 
     hashchange = (ev) => {
-      const parent = this.lichessTools;
-      const location = parent.global.location;
+      const lt = this.lichessTools;
+      const location = lt.global.location;
       const dialog = $('dialog.lichessTools-obsSetup');
       if (location.hash == '#obsSetup') {
         if (!dialog.length) {
@@ -339,26 +339,26 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess.analysis;
       if (!this.isBroadcast(analysis?.study)) return;
-      const value = parent.currentOptions.getValue('obsIntegration');
+      const value = lt.currentOptions.getValue('obsIntegration');
       this.logOption('OBS Integration', value);
-      lichess.pubsub.off('lichessTools.chapterChange', this.chapterChange);
-      lichess.pubsub.off('lichessTools.redraw', this.refreshUI);
-      $(parent.global).off('hashchange', this.hashchange);
-      parent.unbindKeyHandler('o', true);
+      lt.pubsub.off('lichessTools.chapterChange', this.chapterChange);
+      lt.pubsub.off('lichessTools.redraw', this.refreshUI);
+      $(lt.global).off('hashchange', this.hashchange);
+      lt.unbindKeyHandler('o', true);
       $('span.lichessTools-obsSetup').remove();
       if (!value) {
-        parent.comm.send({ type: 'disconnect' }).catch(e => { parent.global.console.error('Error disconnecting:', e); });
+        lt.comm.send({ type: 'disconnect' }).catch(e => { lt.global.console.error('Error disconnecting:', e); });
         return;
       }
-      lichess.pubsub.on('lichessTools.chapterChange', this.chapterChange);
-      lichess.pubsub.on('lichessTools.redraw', this.refreshUI);
+      lt.pubsub.on('lichessTools.chapterChange', this.chapterChange);
+      lt.pubsub.on('lichessTools.redraw', this.refreshUI);
       this.refreshUI();
-      $(parent.global).on('hashchange', this.hashchange);
+      $(lt.global).on('hashchange', this.hashchange);
       this.hashchange();
     }
 

@@ -27,41 +27,41 @@
     }
 
     storeGameId = (gameId) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const prevGames = parent.currentOptions.getValue('prevGames') || [];
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const prevGames = lt.currentOptions.getValue('prevGames') || [];
       if (prevGames.find(g => g == gameId)) return;
-      parent.debug && parent.global.console.debug('Putting /' + gameId + ' in history');
+      lt.debug && lt.global.console.debug('Putting /' + gameId + ' in history');
 
       prevGames.push(gameId);
       if (prevGames.length > 10) {
         prevGames.shift();
       }
-      parent.currentOptions.prevGames = prevGames;
-      parent.saveOptions(parent.currentOptions);
+      lt.currentOptions.prevGames = prevGames;
+      lt.saveOptions(lt.currentOptions);
       $('a.lichessTools-previousGame').attr('href', '/' + gameId);
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('previousGameMenu');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('previousGameMenu');
       this.logOption('Previous viewed game menu item', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       if (!lichess) return;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const $ = lt.$;
+      const trans = lt.translator;
       const container = $('#topnav section a[href="/tv"]+div[role="group"],#topnav section a[href="/broadcast"]+div[role="group"]');
       $('a.lichessTools-previousGame', container).remove();
       if (!value) return;
 
-      const tvOptions = parent.getTvOptions();
+      const tvOptions = lt.getTvOptions();
       if (tvOptions.isTv && tvOptions.gameId) {
         this.storeGameId(tvOptions.gameId);
       }
 
       const translatedText = trans.noarg('lastViewedGame');
       const translatedTitle = trans.noarg('lastViewedGameTitle');
-      const games = parent.currentOptions.getValue('prevGames') || [];
+      const games = lt.currentOptions.getValue('prevGames') || [];
       const item = $('<a/>')
         .addClass('lichessTools-previousGame')
         .text(translatedText)

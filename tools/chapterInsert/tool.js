@@ -29,10 +29,10 @@
     }
 
     setupButtons = async (studyId) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const container = $('div.dialog-content div.form-actions');
       if (!container.length) return;
       const study = lichess.analysis.study;
@@ -65,8 +65,8 @@
     };
 
     onChapterAdd = (newChapterId) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const study = lichess.analysis.study;
       const chapters = study.chapters.list.all();
       if (!chapters || !this.chapterData) return;
@@ -81,7 +81,7 @@
         if (elem.scrollIntoViewIfNeeded) {
           elem.scrollIntoViewIfNeeded();
         } else {
-          if (!parent.inViewport(elem)) {
+          if (!lt.inViewport(elem)) {
             elem.scrollIntoView();
           }
         }
@@ -91,24 +91,24 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('chapterInsert');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('chapterInsert');
       this.logOption('Chapter insert', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      study.chapters.newForm.toggle = parent.unwrapFunction(study.chapters.newForm.toggle, 'chapterInsert');
+      study.chapters.newForm.toggle = lt.unwrapFunction(study.chapters.newForm.toggle, 'chapterInsert');
       $('div.dialog-content div.form-actions button.lichessTools-chapterInsert').remove();
       $('div.dialog-content div.form-actions').addClass('single');
-      lichess.socket.handle = parent.unwrapFunction(lichess.socket.handle, 'chapterInsert');
+      lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'chapterInsert');
       if (!value) return;
       if (lichess.socket) {
-        lichess.socket.handle = parent.wrapFunction(lichess.socket.handle, {
+        lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
           id: 'chapterInsert',
           after: ($this, result, m) => {
             if (m.t == 'addChapter') {
@@ -119,13 +119,13 @@
         });
       }
 
-      study.chapters.newForm.toggle = parent.wrapFunction(study.chapters.newForm.toggle, {
+      study.chapters.newForm.toggle = lt.wrapFunction(study.chapters.newForm.toggle, {
         id: 'chapterInsert',
         after: ($this, result, data) => {
-          const interval = parent.global.setInterval(() => {
+          const interval = lt.global.setInterval(() => {
             const input = $('#chapter-name');
             if (!input.length) return;
-            parent.global.clearInterval(interval);
+            lt.global.clearInterval(interval);
             this.setupButtons(study.data.id);
           }, 100);
         }

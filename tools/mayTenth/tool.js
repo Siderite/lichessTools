@@ -27,10 +27,10 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('mayTenth');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('mayTenth');
       this.logOption('LT day', value);
       $.cached('body').removeClass('lichessTools-mayTenth');
       $('a.site-title,#topnav section a:has(span.home)').removeAttr('title');

@@ -28,17 +28,17 @@
     }
 
     isMyProfilePage=()=>{
-      const parent = this.lichessTools;
-      const userId = parent.getUserId()
+      const lt = this.lichessTools;
+      const userId = lt.getUserId()
       if (!userId) return false;
-      return parent.global.location.pathname.toLowerCase().startsWith('/@/'+userId.toLowerCase());
+      return lt.global.location.pathname.toLowerCase().startsWith('/@/'+userId.toLowerCase());
     };
 
     loadTimeline = async ()=>{
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      const html = await parent.net.fetch('/timeline');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const html = await lt.net.fetch('/timeline');
       if (!html) return;
       $('div.angles a[data-tab]').removeClass('active');
       $('div.angles a[data-tab="timeline"]').addClass('active');
@@ -49,10 +49,10 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('profileTimeline');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('profileTimeline');
       this.options = { enabled: value };
       this.logOption('Profile timeline', value);
       if (!this.isMyProfilePage()) return;

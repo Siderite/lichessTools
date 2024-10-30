@@ -28,11 +28,11 @@
     }
 
     generateLink = ()=>{
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
-      const trans = parent.translator;
+      const trans = lt.translator;
       let button = $('.lichessTools-linkToAnalysis');
       if (!button.length) {
         button = $('<a class="lichessTools-linkToAnalysis">')
@@ -40,7 +40,7 @@
           .attr('title',trans.noarg('linkToAnalysisTitle'))
           .appendTo('.copyables .pgn .pair');
       }
-      if (analysis.tree.root.children?.length == 0 || !parent.isStartFen(analysis.tree.root.fen)) {
+      if (analysis.tree.root.children?.length == 0 || !lt.isStartFen(analysis.tree.root.fen)) {
         button.hide();
         return;
       }
@@ -50,7 +50,7 @@
         return;
       }
       pgn = pgn.replaceAll(/(\d+\.)\s+/g,'$1');
-      let url = parent.global.location.origin+'/analysis/pgn/'+parent.global.encodeURIComponent(pgn);
+      let url = lt.global.location.origin+'/analysis/pgn/'+lt.global.encodeURIComponent(pgn);
       if (analysis.getOrientation()=='black') url+='?color=black';
       if (analysis.node.ply) url += '#'+analysis.node.ply;
       url = url.replaceAll('%20','+');
@@ -63,19 +63,19 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('linkToAnalysis');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('linkToAnalysis');
       this.logOption('Link to analysis', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       if (analysis.study) return;
-      const trans = parent.translator;
+      const trans = lt.translator;
       $('.lichessTools-linkToAnalysis').remove();
-      lichess.pubsub.off('lichessTools.redraw', this.generateLink);
+      lt.pubsub.off('lichessTools.redraw', this.generateLink);
       if (!value) return;
-      lichess.pubsub.on('lichessTools.redraw', this.generateLink);
+      lt.pubsub.on('lichessTools.redraw', this.generateLink);
     }
 
   }

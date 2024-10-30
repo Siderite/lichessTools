@@ -79,9 +79,9 @@
     };
 
     translateRetro = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       const retro = analysis.retro;
       if (!retro || retro.trans === trans) return;
@@ -91,9 +91,9 @@
     };
 
     toggleRetro = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       let retro = analysis.retro;
       if (retro) {
@@ -117,10 +117,10 @@
     };
 
     handleButton = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const container = $('div.advice-summary');
       if (!container) return;
       let button = $('a.button', container);
@@ -138,8 +138,8 @@
     };
 
     closeRetro = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (analysis.retro) {
         analysis.toggleRetro();
@@ -148,37 +148,37 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('studyLearnFromMistakes');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('studyLearnFromMistakes');
       this.logOption('Study learn from mistakes', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
-      parent.global.clearInterval(this.interval);
-      lichess.pubsub.off('lichessTools.chapterChange', this.closeRetro);
-      lichess.pubsub.off('lichessTools.redraw', this.translateRetro);
+      lt.global.clearInterval(this.interval);
+      lt.pubsub.off('lichessTools.chapterChange', this.closeRetro);
+      lt.pubsub.off('lichessTools.redraw', this.translateRetro);
       if (!value) {
         $('div.advice-summary a.button').remove();
         this.closeRetro();
         return;
       }
-      this.interval = parent.global.setInterval(this.handleButton, 1000);
-      lichess.pubsub.on('lichessTools.chapterChange', this.closeRetro);
-      lichess.pubsub.on('lichessTools.redraw', this.translateRetro);
+      this.interval = lt.global.setInterval(this.handleButton, 1000);
+      lt.pubsub.on('lichessTools.chapterChange', this.closeRetro);
+      lt.pubsub.on('lichessTools.redraw', this.translateRetro);
 
       // learnFromThisMistake translation uses the analysis.trans object (https://github.com/lichess-org/lila/issues/14324)
-      if (analysis.trans?.noarg && !parent.isWrappedFunction(analysis.trans.noarg,'studyLearnFromMistakes')) {
-        analysis.trans.noarg = parent.wrapFunction(analysis.trans.noarg,{
+      if (analysis.trans?.noarg && !lt.isWrappedFunction(analysis.trans.noarg,'studyLearnFromMistakes')) {
+        analysis.trans.noarg = lt.wrapFunction(analysis.trans.noarg,{
           id: 'studyLearnFromMistakes',
           after: ($this, result, ...args)=>{
             if (args[0]==='learnFromThisMistake') {
-              return parent.translator.noarg(...args);
+              return lt.translator.noarg(...args);
             }
           }
         })

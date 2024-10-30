@@ -30,8 +30,8 @@
     }
 
     isInboxOrForumPage = () => {
-      const parent = this.lichessTools;
-      return /\/(inbox|forum)(\/\w+|$)/i.test(parent.global.location.pathname);
+      const lt = this.lichessTools;
+      return /\/(inbox|forum)(\/\w+|$)/i.test(lt.global.location.pathname);
     };
 
     isImage = (file) => {
@@ -46,29 +46,29 @@
     };
 
     getImageUrl = async (ev) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const file = ev.clipboardData?.files[0] || ev.dataTransfer?.files[0]
       if (!this.isImage(file)) return;
       ev.preventDefault();
-      parent.global.console.debug('Sending image to Imgur...');
+      lt.global.console.debug('Sending image to Imgur...');
       const buffer = await file.arrayBuffer();
       const base64 = btoa(
         new Uint8Array(buffer)
           .reduce((data, byte) => data + String.fromCharCode(byte), '')
       );
-      const res = await parent.comm.send({ type: 'pasteBuffer', options: { buffer: base64 } }, undefined, 10000).catch(e => { parent.global.console.error(e); });
-      parent.global.console.debug('... got reply ' + JSON.stringify(res));
+      const res = await lt.comm.send({ type: 'pasteBuffer', options: { buffer: base64 } }, undefined, 10000).catch(e => { lt.global.console.error(e); });
+      lt.global.console.debug('... got reply ' + JSON.stringify(res));
       if (!res.link) {
-        parent.global.console.warn('Could not send image!', res?.err);
+        lt.global.console.warn('Could not send image!', res?.err);
         return;
       }
       return res.link;
     };
 
     pasteImage = async (ev) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       const el = ev.target;
       let loader = null;
       try {
@@ -79,7 +79,7 @@
         const [start, end] = [el.selectionStart, el.selectionEnd];
         el.setRangeText(url, start, end, 'end');
       } catch (e) {
-        parent.announce(trans.noarg('pastingError'));
+        lt.announce(trans.noarg('pastingError'));
       } finally {
         loader.remove();
         $(el).removeClass('lichessTools-imagePasting');
@@ -87,8 +87,8 @@
     };
 
     initControls = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (this.options.pasteImages) {
         $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
           .each((i, e) => {
@@ -108,21 +108,21 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('imagePasting');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('imagePasting');
       this.logOption('Inbox chat', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
       this.options = {
-        pasteImages: parent.isOptionSet(value, 'pasteImages'),
-        bigEmoji: parent.isOptionSet(value, 'bigEmoji')
+        pasteImages: lt.isOptionSet(value, 'pasteImages'),
+        bigEmoji: lt.isOptionSet(value, 'bigEmoji')
       };
       if (!this.isInboxOrForumPage()) return;
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
         .each((i, e) => {
           $(e).off('paste drop', this.pasteImage);
@@ -130,7 +130,7 @@
         });
       $('lichessTools-bigEmoji').removeClass('lichessTools-bigEmoji');
       if (this.options.pasteImages || this.options.bigEmoji) {
-        this.interval = parent.global.setInterval(this.initControls, 1000);
+        this.interval = lt.global.setInterval(this.initControls, 1000);
         this.initControls();
       }
     }

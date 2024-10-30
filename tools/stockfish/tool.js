@@ -45,16 +45,16 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('stockfish');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('stockfish');
       if (!value) {
-        parent.stockfish?.destroy();
-        parent.stockfish = null;
+        lt.stockfish?.destroy();
+        lt.stockfish = null;
         return;
       }
-      const threads = +(parent.currentOptions.getValue('stockfish-threads')) || 1;
-      const hash = +(parent.currentOptions.getValue('stockfish-hash')) || 128;
-      let sf = parent.stockfish;
+      const threads = +(lt.currentOptions.getValue('stockfish-threads')) || 1;
+      const hash = +(lt.currentOptions.getValue('stockfish-hash')) || 128;
+      let sf = lt.stockfish;
       if (sf) {
         if (sf._instance) {
           sf.setOption('Threads', threads);
@@ -65,27 +65,27 @@
           sf._initialHash = hash;
         }
       } else {
-        sf = new Stockfish(parent);
+        sf = new Stockfish(lt);
         sf._initialThreads = threads;
         sf._initialHash = hash;
-        parent.stockfish = sf;
+        lt.stockfish = sf;
       }
     }
   }
 
   class Stockfish {
     constructor(lichessTools) {
-      this.parent = lichessTools;
-      this.origin = this.parent.global.location.origin;
-      this.restartDebounced = this.parent.debounce(this.restart, 500);
+      this.lt = lichessTools;
+      this.origin = this.lt.global.location.origin;
+      this.restartDebounced = this.lt.debounce(this.restart, 500);
     }
 
     async load() {
-      const lichess = this.parent.lichess;
-      const useSf17=this.parent.storage.supportsDb && (await this.parent.getMemorySize()) > 4;
+      const lichess = this.lt.lichess;
+      const useSf17=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) > 4;
       try {
         if (!this._module) {
-          this.parent.debug && this.parent.global.console.debug('SF', 'loading module...');
+          this.lt.debug && this.lt.global.console.debug('SF', 'loading module...');
           const engines = lichess?.analysis?.ceval?.engines;
           const engineId = useSf17?'__sf17nnue79' : '__sf16nnue40';
           const engineRoot = useSf17?'sf17-79.js' : 'sf-nnue-40.js';
@@ -93,32 +93,32 @@
           const assetUrl = engine && engine.assets?.js
             ? engine.assets.root + '/' + engine.assets.js
             : 'npm/lila-stockfish-web/' + engineRoot;
-          this.parent.global.console.debug('SF', 'loading engine ' + engineId + (engine ? ' (' + engine.name + ')' : '') + ' from ' + assetUrl);
+          this.lt.global.console.debug('SF', 'loading engine ' + engineId + (engine ? ' (' + engine.name + ')' : '') + ' from ' + assetUrl);
           const url = this.origin + '/assets/' + assetUrl;
-          this.parent.global.exports = this.parent.global.exports || {};
+          this.lt.global.exports = this.lt.global.exports || {};
           this._module = await import(url);
         }
         if (!this._stockfish) {
-          this.parent.debug && this.parent.global.console.debug('SF', 'loading Stockfish...');
-          this._stockfish = (await this._module.default) || this.parent.global.exports.Stockfish;
+          this.lt.debug && this.lt.global.console.debug('SF', 'loading Stockfish...');
+          this._stockfish = (await this._module.default) || this.lt.global.exports.Stockfish;
           if (!this._stockfish) {
-            this.parent.global.console.log(this._module);
+            this.lt.global.console.log(this._module);
             throw new Error('Could not load module');
           }
         }
         if (!this._instance) {
-          this.parent.debug && this.parent.global.console.debug('SF', 'creating instance...');
+          this.lt.debug && this.lt.global.console.debug('SF', 'creating instance...');
           const sf = await this._stockfish();
           if (useSf17) {
             const getBuffer=async (i)=>{
               const nnueFilename = sf.getRecommendedNnue(i);
-              let result = await this.parent.storage.get('nnue--db/nnue/'+nnueFilename, { db:true, raw:true });
+              let result = await this.lt.storage.get('nnue--db/nnue/'+nnueFilename, { db:true, raw:true });
               if (!result) {
                 const nnueUrl = lichess.asset.url('lifat/nnue/'+nnueFilename, { version: false })
                 const response = await fetch(nnueUrl);
                 const buffer = await response.arrayBuffer();
                 result = new Uint8Array(buffer);
-                await this.parent.storage.set('nnue--db/nnue/'+nnueFilename, result, { db:true, raw:true });
+                await this.lt.storage.set('nnue--db/nnue/'+nnueFilename, result, { db:true, raw:true });
               }
               return result;
             }
@@ -131,15 +131,15 @@
           this._instance = sf;
           this.postMessage('uci');
           while (!this._uciok) {
-            await this.parent.timeout(100);
+            await this.lt.timeout(100);
           }
           if (this._initialThreads) this.setOption('Threads', this._initialThreads);
           if (this._initialHash) this.setOption('Hash', this._initialHash);
         }
-        this.parent.global.console.debug('SF', 'Engine loaded');
+        this.lt.global.console.debug('SF', 'Engine loaded');
         return this;
       } catch (e) {
-        this.parent.announce(this.parent.translator.noarg('couldNotLoadStockfish'));
+        this.lt.announce(this.lt.translator.noarg('couldNotLoadStockfish'));
         console.log('Error instantiating Stockfish:', e);
       }
     }
@@ -147,7 +147,7 @@
     postMessage(message) {
       const sf = this._instance;
       if (!sf) throw new Error('await .load() to finish instantiating!');
-      this.parent.debug && this.parent.global.console.debug('Post SF:', message);
+      this.lt.debug && this.lt.global.console.debug('Post SF:', message);
       sf.postMessage(message);
     }
 
@@ -216,7 +216,7 @@
       this.postMessage('position fen ' + this._fen);
       this.postMessage('go' + (this._depth ? ' depth ' + this._depth : this._time ? ' movetime ' + this._time : ' infinite') + (this._searchMoves?.length ? ' searchmoves ' + this._searchMoves.join(' ') : ''));
       this._isStarted = true;
-      this.parent.debug && this.parent.global.console.debug('SF', 'Engine started');
+      this.lt.debug && this.lt.global.console.debug('SF', 'Engine started');
     }
 
     stop() {
@@ -238,8 +238,8 @@
 
     listen(data) {
       if (!data) return;
-      if (this.parent.debug > 1) {
-        this.parent.global.console.debug('SF', data);
+      if (this.lt.debug > 1) {
+        this.lt.global.console.debug('SF', data);
       }
       if (data == 'uciok') {
         this._uciok = true;
@@ -264,15 +264,15 @@
           arr.push(split);
         }
         this.emit(splits[0], info);
-        if (this.parent.debug > 1) {
-          this.parent.global.console.debug('SF', 'emitted', splits[0], info);
+        if (this.lt.debug > 1) {
+          this.lt.global.console.debug('SF', 'emitted', splits[0], info);
         }
         return;
       }
-      if (this.parent.debug > 1) {
-        this.parent.global.console.debug('SF', 'unhandled message');
-      } else if (this.parent.debug) {
-        this.parent.global.console.debug('SF', data);
+      if (this.lt.debug > 1) {
+        this.lt.global.console.debug('SF', 'unhandled message');
+      } else if (this.lt.debug) {
+        this.lt.global.console.debug('SF', data);
       }
     }
 

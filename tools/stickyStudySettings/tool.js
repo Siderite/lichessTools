@@ -29,24 +29,24 @@
     };
 
     isNewForm = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const data = lichess?.analysis?.study?.form?.getData();
       return data && data.description === undefined;
     };
 
     fillEditFormDirect = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const study = lichess?.analysis?.study;
       const container = $('dialog div.study-edit');
       if (!container.length) {
-        parent.global.setTimeout(this.fillEditForm, 500);
+        lt.global.setTimeout(this.fillEditForm, 500);
         return;
       }
       if (!this.isNewForm()) return;
-      let settings = parent.currentOptions.getValue('stickyStudySettings.settings');
+      let settings = lt.currentOptions.getValue('stickyStudySettings.settings');
       if (!settings) return;
       for (const key in settings) {
         if (['name', 'flair'].includes(key)) continue;
@@ -56,40 +56,40 @@
     fillEditForm = this.lichessTools.debounce(this.fillEditFormDirect, 100);
 
     saveEditForm = (data) => {
-      const parent = this.lichessTools;
-      parent.currentOptions['stickyStudySettings.settings'] = data;
-      parent.applyOptions(parent.currentOptions);
+      const lt = this.lichessTools;
+      lt.currentOptions['stickyStudySettings.settings'] = data;
+      lt.applyOptions(lt.currentOptions);
     };
 
     _pageLoaded = false;
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('stickyStudySettings');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('stickyStudySettings');
       this.logOption('Sticky study settings', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
       this.options = {
-        chapterForm: parent.isOptionSet(value, 'chapterForm'),
-        savePosition: parent.isOptionSet(value, 'savePosition')
+        chapterForm: lt.isOptionSet(value, 'chapterForm'),
+        savePosition: lt.isOptionSet(value, 'savePosition')
       };
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
-      study.form.open = parent.unwrapFunction(study.form.open, 'stickyStudySettings');
-      study.form.save = parent.unwrapFunction(study.form.save, 'stickyStudySettings');
-      study.setPath = parent.unwrapFunction(study.setPath, 'stickyStudySettings');
+      study.form.open = lt.unwrapFunction(study.form.open, 'stickyStudySettings');
+      study.form.save = lt.unwrapFunction(study.form.save, 'stickyStudySettings');
+      study.setPath = lt.unwrapFunction(study.setPath, 'stickyStudySettings');
       if (this.options.chapterForm) {
-        study.form.open = parent.wrapFunction(study.form.open, {
+        study.form.open = lt.wrapFunction(study.form.open, {
           id: 'stickyStudySettings',
           after: ($this, result, data) => {
             if (result) this.fillEditForm();
           }
         });
-        study.form.save = parent.wrapFunction(study.form.save, {
+        study.form.save = lt.wrapFunction(study.form.save, {
           id: 'stickyStudySettings',
           after: ($this, result, data) => {
             this.saveEditForm(data);
@@ -98,27 +98,27 @@
         this.fillEditForm();
       }
       if (this.options.savePosition) {
-        study.setPath = parent.wrapFunction(study.setPath, {
+        study.setPath = lt.wrapFunction(study.setPath, {
           id: 'stickyStudySettings',
           before: ($this, path, node) => {
             const studyId = $this.data.id;
             const chapterId = $this.vm.chapterId;
-            const data = parent.storage.get('LichessTools.studyPositions') || {};
+            const data = lt.storage.get('LichessTools.studyPositions') || {};
             data[studyId] = {
               chapterId: chapterId,
               path: path
             };
-            parent.storage.set('LichessTools.studyPositions', data);
+            lt.storage.set('LichessTools.studyPositions', data);
           }
         });
-        if (!this._pageLoaded && !lichess.analysis.study.gamebookPlay && !parent.isGamePlaying()) {
+        if (!this._pageLoaded && !lichess.analysis.study.gamebookPlay && !lt.isGamePlaying()) {
           this._pageLoaded = true;
           const studyId = study.data.id;
           const chapterId = study.vm.chapterId;
-          const data = parent.storage.get('LichessTools.studyPositions') || {};
+          const data = lt.storage.get('LichessTools.studyPositions') || {};
           const item = data[studyId];
           if (item && item.chapterId == chapterId) {
-            parent.global.setTimeout(() => {
+            lt.global.setTimeout(() => {
               if (lichess.analysis.study.gamebookPlay) return;
               analysis.jump(item.path);
             }, 100); // give time to other tools to set Preview mode

@@ -51,14 +51,14 @@
     }
 
     clearTagSelect = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('.study__tags select.button').val('');
     };
 
     removeAllComments = async (node, chapterId) => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       if (!analysis) return;
       const study = analysis.study;
       if (!study) return;
@@ -67,7 +67,7 @@
       if (!chapterId) chapterId = study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       for (const comment of node.comments || []) {
-        await parent.timeout(300);
+        await lt.timeout(300);
         study.makeChange('deleteComment',
           {
             ch: chapterId,
@@ -80,8 +80,8 @@
       }
     };
     removeAllGlyphs = async (node, chapterId) => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       if (!analysis) return;
       const study = analysis.study;
       if (!study) return;
@@ -90,7 +90,7 @@
       if (!chapterId) chapterId = study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       for (const glyph of node.glyphs || []) {
-        await parent.timeout(300);
+        await lt.timeout(300);
         study.makeChange('toggleGlyph',
           {
             ch: chapterId,
@@ -103,15 +103,15 @@
       }
     };
     removeAllTags = async (chapterId) => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       if (!analysis) return;
       const study = analysis.study;
       if (!study) return;
       if (!chapterId) chapterId = study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       for (const tag of study.data?.chapter?.tags || []) {
-        await parent.timeout(300);
+        await lt.timeout(300);
         study.makeChange('setTag',
           {
             chapterId: chapterId,
@@ -122,8 +122,8 @@
       this.clearTagSelect();
     };
     removeAllShapes = async (node, chapterId) => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       if (!analysis) return;
       const study = analysis.study;
       if (!study) return;
@@ -132,7 +132,7 @@
       if (!chapterId) chapterId = study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       if (node.shapes?.length) {
-        await parent.timeout(300);
+        await lt.timeout(300);
         analysis.tree.setShapes([], node.path);
         study.makeChange('shapes',
           {
@@ -146,19 +146,19 @@
       }
     };
     setupButtons = () => {
-      const parent = this.lichessTools;
-      this.state = parent.traverse();
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      this.state = lt.traverse();
+      const analysis = lt.lichess.analysis;
       const study = analysis?.study;
       if (!study) return;
-      const trans = parent.translator;
+      const trans = lt.translator;
       const modal = $('div.dialog-content');
       if (!modal.length) return;
       const button = $('div.form-actions-secondary.destructive button:first-child', modal);
       if (!button.length) return;
-      const oldHandler = parent.getEventHandlers(button[0], 'click')[0]?.bind(button[0]);
+      const oldHandler = lt.getEventHandlers(button[0], 'click')[0]?.bind(button[0]);
       if (!oldHandler) {
-        parent.global.console.debug('Could not find click handler!');
+        lt.global.console.debug('Could not find click handler!');
         return;
       }
       button.after($('<select class="lichessTools-removeAll">').attr('title', trans.noarg('removeAll_title'))
@@ -173,20 +173,20 @@
           const value = elem.val();
           switch (value) {
             case 'comments':
-              if (parent.global.confirm(trans.noarg('removeAll_commentsQuestion'))) {
-                elem.after(parent.spinnerHtml).remove();
+              if (lt.global.confirm(trans.noarg('removeAll_commentsQuestion'))) {
+                elem.after(lt.spinnerHtml).remove();
                 await this.removeAllComments();
               }
               break;
             case 'glyphs':
-              if (parent.global.confirm(trans.noarg('removeAll_glyphsQuestion'))) {
-                elem.after(parent.spinnerHtml).remove();
+              if (lt.global.confirm(trans.noarg('removeAll_glyphsQuestion'))) {
+                elem.after(lt.spinnerHtml).remove();
                 await this.removeAllGlyphs();
               }
               break;
             case 'shapes':
-              if (parent.global.confirm(trans.noarg('removeAll_shapesQuestion'))) {
-                elem.after(parent.spinnerHtml).remove();
+              if (lt.global.confirm(trans.noarg('removeAll_shapesQuestion'))) {
+                elem.after(lt.spinnerHtml).remove();
                 await this.removeAllShapes();
                 analysis.withCg(cg => {
                   cg.setShapes([]);
@@ -195,8 +195,8 @@
               }
               break;
             case 'tags':
-              if (parent.global.confirm(trans.noarg('removeAll_tagsQuestion'))) {
-                elem.after(parent.spinnerHtml).remove();
+              if (lt.global.confirm(trans.noarg('removeAll_tagsQuestion'))) {
+                elem.after(lt.spinnerHtml).remove();
                 await this.removeAllTags();
               }
               break;
@@ -211,10 +211,10 @@
         .remove();
     };
     setupTagDelete = () => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess.analysis;
       if (!analysis) return;
       const study = analysis.study;
@@ -250,41 +250,41 @@
     setupTagDeleteDebounced = this.lichessTools.debounce(this.setupTagDelete, 100);
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('chapterClearArtifacts');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('chapterClearArtifacts');
       this.logOption('Clear chapter artifacts', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      study.vm.toolTab = lichessTools.unwrapFunction(study.vm.toolTab, 'chapterClearArtifacts');
-      study.chapters.editForm.toggle = parent.unwrapFunction(study.chapters.editForm.toggle, 'chapterClearArtifacts');
+      study.vm.toolTab = lt.unwrapFunction(study.vm.toolTab, 'chapterClearArtifacts');
+      study.chapters.editForm.toggle = lt.unwrapFunction(study.chapters.editForm.toggle, 'chapterClearArtifacts');
       if (!value) {
         $('table.study__tags button.lichessTools-deleteTag').remove();
         return;
       }
-      study.vm.toolTab = lichessTools.wrapFunction(study.vm.toolTab, {
+      study.vm.toolTab = lt.wrapFunction(study.vm.toolTab, {
         id: 'chapterClearArtifacts',
         after: ($this, result, ...args) => {
-          parent.global.setTimeout(this.setupTagDeleteDebounced, 100);
+          lt.global.setTimeout(this.setupTagDeleteDebounced, 100);
         }
       });
       this.setupTagDeleteDebounced();
-      study.chapters.editForm.toggle = parent.wrapFunction(study.chapters.editForm.toggle, {
+      study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
         id: 'chapterClearArtifacts',
         after: ($this, result, data) => {
-          const interval = parent.global.setInterval(() => {
+          const interval = lt.global.setInterval(() => {
             const currentChapterId = study.currentChapter()?.id;
             if (!currentChapterId) return;
             const studyChapterId = study.chapters?.editForm?.current()?.id;
             if (currentChapterId !== studyChapterId) return;
             const modal = $('div.dialog-content.edit-' + currentChapterId);
             if (!modal.length) return;
-            parent.global.clearInterval(interval);
+            lt.global.clearInterval(interval);
             this.setupButtons();
           }, 100);
         }

@@ -54,9 +54,9 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('themes');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('themes');
       this.logOption('Themes', value || 'none');
       const existingThemes = [...$('body').prop('classList')]
         .filter(c => c.startsWith('lichessTools-theme_'));

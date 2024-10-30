@@ -61,39 +61,45 @@
     };
 
     isTvPage = () => {
-      return /\/tv\b/i.test(this.lichessTools.global.location.pathname);
+      const lt = this.lichessTools;
+      return /\/tv\b/i.test(lt.global.location.pathname);
     };
 
     isGamesPage = () => {
-      return /^\/games(\/|$)?/i.test(this.lichessTools.global.location.pathname);
+      const lt = this.lichessTools;
+      return /^\/games(\/|$)?/i.test(lt.global.location.pathname);
     };
 
     isBestTvPage = () => {
-      return /^\/games(\/best)?\/?$/i.test(this.lichessTools.global.location.pathname) && !location.hash;
+      const lt = this.lichessTools;
+      return /^\/games(\/best)?\/?$/i.test(lt.global.location.pathname) && !location.hash;
     };
 
     isStreamerTvPage = () => {
-      return /^\/games\/?$/i.test(this.lichessTools.global.location.pathname) && location.hash == '#streamers';
+      const lt = this.lichessTools;
+      return /^\/games\/?$/i.test(lt.global.location.pathname) && location.hash == '#streamers';
     };
 
     isFriendsTvPage = () => {
-      return /^\/games\/?$/i.test(this.lichessTools.global.location.pathname) && location.hash == '#friends';
+      const lt = this.lichessTools;
+      return /^\/games\/?$/i.test(lt.global.location.pathname) && location.hash == '#friends';
     };
 
     isTeamTvPage = () => {
-      return /^\/games\/?$/i.test(this.lichessTools.global.location.pathname) && location.hash == '#team';
+      const lt = this.lichessTools;
+      return /^\/games\/?$/i.test(lt.global.location.pathname) && location.hash == '#team';
     };
 
     updateTvOptionsButton = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = this.lichessTools.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
 
       if (!this.isGamesPage()) return;
 
       if (this.options.streamerTv || this.options.friendsTv || this.options.teamTv) {
-        parent.lichess.pubsub.emit = parent.unwrapFunction(parent.lichess.pubsub.emit, 'tvOptions');
-        parent.lichess.pubsub.emit = parent.wrapFunction(parent.lichess.pubsub.emit, {
+        lt.lichess.pubsub.emit = lt.unwrapFunction(lt.lichess.pubsub.emit, 'tvOptions');
+        lt.lichess.pubsub.emit = lt.wrapFunction(lt.lichess.pubsub.emit, {
           id: 'tvOptions',
           before: ($this, name, info) => {
             if (name == 'socket.in.finish') {
@@ -112,7 +118,7 @@
       if (this.options.streamerTv) {
         const elem = $('a.lichessTools-streamers', container);
         if (this.isStreamerTvPage()) {
-          parent.global.document.title = parent.global.document.title?.replace(/^.*?\u2022/, trans.noarg('streamers') + ' \u2022');
+          lt.global.document.title = lt.global.document.title?.replace(/^.*?\u2022/, trans.noarg('streamers') + ' \u2022');
 
           $('a.active:not(.lichessTools-streamers)', container).removeClass('active');
         }
@@ -129,10 +135,10 @@
         $('a.lichessTools-streamers', container).remove();
       }
 
-      if (this.options.friendsTv && parent.getUserId()) {
+      if (this.options.friendsTv && lt.getUserId()) {
         const elem = $('a.lichessTools-friends', container);
         if (this.isFriendsTvPage()) {
-          parent.global.document.title = parent.global.document.title?.replace(/^.*?\u2022/, trans.noarg('friends') + ' \u2022');
+          lt.global.document.title = lt.global.document.title?.replace(/^.*?\u2022/, trans.noarg('friends') + ' \u2022');
 
           $('a.active:not(.lichessTools-friends)', container).removeClass('active');
         }
@@ -149,10 +155,10 @@
         $('a.lichessTools-friends', container).remove();
       }
 
-      if (this.options.teamTv && parent.getUserId()) {
+      if (this.options.teamTv && lt.getUserId()) {
         const elem = $('a.lichessTools-team', container);
         if (this.isTeamTvPage()) {
-          parent.global.document.title = parent.global.document.title?.replace(/^.*?\u2022/, trans.noarg('team') + ' \u2022');
+          lt.global.document.title = lt.global.document.title?.replace(/^.*?\u2022/, trans.noarg('team') + ' \u2022');
 
           $('a.active:not(.lichessTools-team)', container).removeClass('active');
         }
@@ -173,8 +179,8 @@
     getUserId = (user) => user?.toLowerCase().replace(/^\w+\s/, '');
 
     getUsers = (el) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       return $('span.mini-game__user', el).get()
         .map(e => {
           const cl = $(e).clone();
@@ -184,10 +190,10 @@
     };
 
     refreshTimeControls = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('a.mini-game[data-tc]').each((i, e) => {
-        const timeControl = parent.getGameTime($(e).attr('data-tc'));
+        const timeControl = lt.getGameTime($(e).attr('data-tc'));
         if (timeControl) {
           $(e).addClass(timeControl);
         }
@@ -196,10 +202,10 @@
 
     _maxGamesCount = 30;
     refreshGames = async (playerIds, className, container, streamers) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = this.lichessTools.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
       if (!playerIds?.length) return;
       const notFound = [...playerIds];
@@ -208,7 +214,7 @@
         const users = this.getUsers(e);
         const players = users.filter(u => playerIds.includes(u));
         if (players.length) {
-          parent.arrayRemoveAll(notFound, u => players.includes(u));
+          lt.arrayRemoveAll(notFound, u => players.includes(u));
         } else {
           $(e).remove()
         }
@@ -216,17 +222,17 @@
       if (notFound.length) {
         let p = 0;
         while (p < notFound.length) {
-          if (p > 0) await parent.timeout(500);
-          const arr = await parent.api.user.getUserStatus(notFound.slice(p, p + 100), { withGameMetas: true });
+          if (p > 0) await lt.timeout(500);
+          const arr = await lt.api.user.getUserStatus(notFound.slice(p, p + 100), { withGameMetas: true });
           p += 100;
           for (const data of arr.filter(i => i.playing)) {
             try {
-              const text = await parent.api.user.getMini(data.id);
+              const text = await lt.api.user.getMini(data.id);
               if (!text) continue;
               const html = $('<x>' + text + '</x>').find('a.mini-game');
               if (!html.length) continue;
 
-              const timeControl = parent.getGameTime(data.playing.clock, true);
+              const timeControl = lt.getGameTime(data.playing.clock, true);
               if (timeControl) {
                 html.addClass(timeControl);
               }
@@ -244,8 +250,8 @@
               if (!$('a.mini-game[data-userId="' + data.id + '"]', container).length) {
                 $(html).attr('data-userId', data.id).appendTo(container);
                 gamesCount++;
-                await parent.timeout(250);
-                parent.lichess.pubsub.emit('content-loaded', container[0]);
+                await lt.timeout(250);
+                lt.lichess.pubsub.emit('content-loaded', container[0]);
                 if (gamesCount > this._maxGamesCount) return;
               }
             } catch (e) {
@@ -257,38 +263,38 @@
     };
 
     get teamId() {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       if (this._teamId === undefined) {
-        const teamId = parent.storage.get('LichessTools.teamId');
+        const teamId = lt.storage.get('LichessTools.teamId');
         this._teamId = teamId;
       }
       return this._teamId;
     }
     set teamId(value) {
-      const parent = this.lichessTools;
-      parent.storage.set('LichessTools.teamId', value);
+      const lt = this.lichessTools;
+      lt.storage.set('LichessTools.teamId', value);
       this._teamId = value;
     }
 
     getTeamPlayerIds = async () => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       let teamId = this.teamId;
       if (!teamId) {
-        const teams = await await parent.api.team.getUserTeams(parent.getUserId());
+        const teams = await await lt.api.team.getUserTeams(lt.getUserId());
         teamId = teams[0]?.id;
       }
       if (!teamId) return [];
-      const teamPlayers = (await parent.api.team.getTeamPlayers(teamId))?.map(u => u.id);
+      const teamPlayers = (await lt.api.team.getTeamPlayers(teamId))?.map(u => u.id);
       return teamPlayers;
     };
 
     updateTvOptionsPageDirect = async () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      const trans = this.lichessTools.translator;
-      if (parent.global.document.hidden) return;
-      const userId = parent.getUserId();
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      if (lt.global.document.hidden) return;
+      const userId = lt.getUserId();
       const container = $('main.tv-games div.page-menu__content.now-playing');
       if (!container.length) return;
       if (this.isBestTvPage()) {
@@ -298,7 +304,7 @@
       }
       if (this.isStreamerTvPage()) {
         container.toggleClass('lichessTools-streamerTv', this.options.streamerTv);
-        const playerIds = (await parent.api.streamer.getLiveStreamers())?.map(s => s.id);
+        const playerIds = (await lt.api.streamer.getLiveStreamers())?.map(s => s.id);
         await this.refreshGames(playerIds, 'lichessTools-streamerTv', container, true);
       } else {
         container.removeClass('lichessTools-streamerTv');
@@ -319,7 +325,7 @@
               this.updateTvOptionsPage();
             })
             .prependTo(container);
-          const teams = await parent.api.team.getUserTeams(userId);
+          const teams = await lt.api.team.getUserTeams(userId);
           for (const team of teams) {
             $('<option>')
               .attr('value', team.id)
@@ -329,7 +335,7 @@
           }
         }
         if (!$('div.spinner', container).length) {
-          container.prepend(parent.spinnerHtml);
+          container.prepend(lt.spinnerHtml);
         }
         const playerIds = await this.getTeamPlayerIds();
         await this.refreshGames(playerIds, 'lichessTools-teamTv', container, false);
@@ -343,8 +349,8 @@
           .text(trans.noarg('noGames'))
           .appendTo(container);
       }
-      parent.global.clearTimeout(this.timeout);
-      this.timeout = parent.global.setTimeout(this.updateTvOptionsPage, 10000);
+      lt.global.clearTimeout(this.timeout);
+      this.timeout = lt.global.setTimeout(this.updateTvOptionsPage, 10000);
       this.refreshTimeControls();
     };
     updateTvOptionsPage = this.lichessTools.debounce(this.updateTvOptionsPageDirect, 1000);
@@ -356,13 +362,13 @@
         clearInterval(this.onlinesInterval);
         this.onlinesInterval = 0;
       }
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       this.users_playing = data?.playing?.map(this.getUserId) || [];
       this.updateTvOptionsPage();
     };
     enters = (userName, data) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const userId = this.getUserId(userName);
       const isPlaying = data?.playing;
       if (isPlaying) {
@@ -371,9 +377,9 @@
       }
     };
     leaves = (user) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const userId = this.getUserId(user);
-      parent.arrayRemoveAll(this.users_playing, u => u === userId);
+      lt.arrayRemoveAll(this.users_playing, u => u === userId);
       this.updateTvOptionsPage();
     };
     playing = (user) => {
@@ -382,21 +388,21 @@
       this.updateTvOptionsPage();
     };
     stopped_playing = (user) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const userId = this.getUserId(user);
-      parent.arrayRemoveAll(this.users_playing, u => u === userId);
+      lt.arrayRemoveAll(this.users_playing, u => u === userId);
       this.updateTvOptionsPage();
     };
 
     requestOnlines = this.lichessTools.debounce(() => {
-      const parent = this.lichessTools;
-      if (parent.global.document.hidden) return;
-      parent.lichess.pubsub.emit("socket.send", "following_onlines");
+      const lt = this.lichessTools;
+      if (lt.global.document.hidden) return;
+      lt.lichess.pubsub.emit("socket.send", "following_onlines");
     }, 250);
 
     hashChange = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (this.isStreamerTvPage() || this.isFriendsTvPage() || this.isTeamTvPage()) {
         const container = $('main.tv-games div.page-menu__content.now-playing');
         container.empty();
@@ -406,46 +412,46 @@
     };
 
     requestWakeLock = async () => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       try {
         if (document.visibilityState === 'visible') {
           this.wakelock?.release();
-          this.wakelock = await parent.global.navigator.wakeLock.request("screen");
+          this.wakelock = await lt.global.navigator.wakeLock.request("screen");
           if (this.wakelock) return;
         }
       } catch (err) {
         console.debug('Wakelock failed:', err);
       }
-      parent.global.setTimeout(this.requestWakeLock, 1000);
+      lt.global.setTimeout(this.requestWakeLock, 1000);
     };
 
     followingOnlinesRequests = 0;
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('tvOptions');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('tvOptions');
       this.logOption('TV Options', value);
       this.options = {
-        link: parent.isOptionSet(value, 'link'),
-        bookmark: parent.isOptionSet(value, 'bookmark'),
-        streamerTv: parent.isOptionSet(value, 'streamerTv'),
-        friendsTv: parent.isOptionSet(value, 'friendsTv'),
-        teamTv: parent.isOptionSet(value, 'teamTv'),
-        userTvHistory: parent.isOptionSet(value, 'userTvHistory'),
-        wakelock: parent.isOptionSet(value, 'wakelock'),
-        stickyCategory: parent.isOptionSet(value, 'stickyCategory'),
+        link: lt.isOptionSet(value, 'link'),
+        bookmark: lt.isOptionSet(value, 'bookmark'),
+        streamerTv: lt.isOptionSet(value, 'streamerTv'),
+        friendsTv: lt.isOptionSet(value, 'friendsTv'),
+        teamTv: lt.isOptionSet(value, 'teamTv'),
+        userTvHistory: lt.isOptionSet(value, 'userTvHistory'),
+        wakelock: lt.isOptionSet(value, 'wakelock'),
+        stickyCategory: lt.isOptionSet(value, 'stickyCategory'),
       };
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       if (!lichess) return;
-      $(parent.global).off('hashchange', this.hashChange);
+      $(lt.global).off('hashchange', this.hashChange);
       lichess.pubsub.off('socket.close', this.hashChange);
       lichess.pubsub.off('content-loaded', this.refreshTimeControls);
       if (this.options.friendsTv || this.options.streamerTv) {
-        $(parent.global).on('hashchange', this.hashChange);
+        $(lt.global).on('hashchange', this.hashChange);
         lichess.pubsub.on('socket.close', this.hashChange);
         lichess.pubsub.on('content-loaded', this.refreshTimeControls);
-        parent.global.setTimeout(this.hashChange, 100);
+        lt.global.setTimeout(this.hashChange, 100);
       }
 
       lichess.pubsub.off('socket.in.following_onlines', this.following_onlines);
@@ -468,7 +474,7 @@
           this.followingOnlinesRequests++;
           if (this.followingOnlinesRequests > 5) {
             clearInterval(this.onlinesInterval);
-            parent.global.console.debug('Sent following-onlines too many times. Giving up.');
+            lt.global.console.debug('Sent following-onlines too many times. Giving up.');
           }
         }, 5000);
       }
@@ -477,7 +483,7 @@
       this.updateTvOptionsPage();
 
       const tvOptions = this.options.link || this.options.bookmark || this.options.userTvHistory
-        ? parent.getTvOptions()
+        ? lt.getTvOptions()
         : null;
 
       const metaSection = $('div.game__meta section').eq(0);
@@ -507,14 +513,14 @@
 
       if (this.options.userTvHistory && tvOptions.isTv && tvOptions.user) {
         if (!$('div.tv-history').length) {
-          let text = await parent.api.game.getUserPgns(tvOptions.user, {
+          let text = await lt.api.game.getUserPgns(tvOptions.user, {
             max: 2,
             tags: true,
             ongoing: false,
             finished: true
           });
           if (text) {
-            const matches = [...text.matchAll(new RegExp('\\[Site.*?\\/([^"\\/]+)"\\][\\s\\S]*?\\[(Black|White)\\s+"' + parent.escapeRegex(tvOptions.user) + '"\\]', 'gi'))];
+            const matches = [...text.matchAll(new RegExp('\\[Site.*?\\/([^"\\/]+)"\\][\\s\\S]*?\\[(Black|White)\\s+"' + lt.escapeRegex(tvOptions.user) + '"\\]', 'gi'))];
             if (matches.length) {
               const container = $('<div/>').addClass('now-playing');
               const translationText = trans.plural('previouslyOnTV', 1, tvOptions.user);
@@ -529,8 +535,8 @@
               for (const m of matches) {
                 const gameId = m[1];
                 const color = m[2];
-                await parent.timeout(500);
-                text = await parent.api.game.getMini(gameId, color);
+                await lt.timeout(500);
+                text = await lt.api.game.getMini(gameId, color);
                 if (!text) continue;
                 container.append(text);
               }
@@ -549,15 +555,15 @@
       }
 
       if (this.options.stickyCategory && this.isTvPage()) {
-        const m = /^\/tv\b(?:\/(?<channel>[^\/]+))?/i.exec(this.lichessTools.global.location.pathname);
+        const m = /^\/tv\b(?:\/(?<channel>[^\/]+))?/i.exec(lt.global.location.pathname);
         if (m) {
           let channel = m.groups?.channel;
           if (channel) {
-            parent.storage.set('LiChessTools.TvChannel',channel);
+            lt.storage.set('LiChessTools.TvChannel',channel);
           } else {
-            channel = parent.storage.get('LiChessTools.TvChannel',channel);
+            channel = lt.storage.get('LiChessTools.TvChannel',channel);
             if (channel) {
-              this.lichessTools.global.location='/tv/'+channel;
+              lt.global.location='/tv/'+channel;
             }
           }
         }

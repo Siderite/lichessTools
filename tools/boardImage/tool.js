@@ -38,35 +38,35 @@
     };
 
     drawSvg = async (svgElement) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       svgElement = $(svgElement).clone()
         .css({
           opacity: 0.6,
           overflow: 'visible'
         });
       svgElement.find('svg').css('overflow', 'visible');
-      const svgURL = new parent.global.XMLSerializer().serializeToString(svgElement[0]);
-      const url = 'data:image/svg+xml; charset=utf8, ' + parent.global.encodeURIComponent(svgURL);
+      const svgURL = new lt.global.XMLSerializer().serializeToString(svgElement[0]);
+      const url = 'data:image/svg+xml; charset=utf8, ' + lt.global.encodeURIComponent(svgURL);
       return await this.getImage(url);
     };
 
     getBoardImage = async (ev) => {
       ev.preventDefault();
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
       const canvas = $('<canvas>')[0];
       const ctx = canvas.getContext('2d');
       ctx.canvas.width = 800;
       ctx.canvas.height = 800;
       const board = $('div.main-board cg-board');
       const href = $(ev.target).attr('href');
-      const backgroundText = parent.global.getComputedStyle(board[0], ':before').backgroundImage;
+      const backgroundText = lt.global.getComputedStyle(board[0], ':before').backgroundImage;
       let url = /"(.*)"/.exec(backgroundText || '')?.[1];
       if (!url) {
-        const theme = parent.global.document.dataset?.board || 'maple';
-        url = parent.assetUrl('../images/board/' + theme + '.jpg');
+        const theme = lt.global.document.dataset?.board || 'maple';
+        url = lt.assetUrl('../images/board/' + theme + '.jpg');
       }
       let img = await this.getImage(url);
       ctx.drawImage(img, 0, 0, 800, 800);
@@ -160,21 +160,21 @@
     closeDialog = (ev) => {
       if (ev && ev.keyCode != 27) return;
       ev?.preventDefault();
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('dialog.lichessTools-boardImage').remove();
     };
 
     enhanceButtonDirect = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       let removeRedraw = false;
       const analysisPgn = $('main.analyse .copyables div.pgn');
       if (analysisPgn.length) {
         if (!analysisPgn.parent().find('a.lichessTools-boardImage').length) {
-          const analysis = parent.lichess.analysis;
-          const url = '/export/fen.gif?fen=' + parent.global.encodeURIComponent(analysis.node.fen) + '&color=' + analysis.getOrientation();
+          const analysis = lt.lichess.analysis;
+          const url = '/export/fen.gif?fen=' + lt.global.encodeURIComponent(analysis.node.fen) + '&color=' + analysis.getOrientation();
           $('<a class="lichessTools-boardImage">')
             .text(trans.noarg('screenshotButtonText'))
             .attr('title', trans.noarg('screenshotButtonTitle'))
@@ -195,22 +195,22 @@
           removeRedraw = true;
         });
       if (removeRedraw) {
-        const lichess = parent.lichess;
-        lichess.pubsub.off('lichessTools.redraw', this.enhanceButton);
+        const lichess = lt.lichess;
+        lt.pubsub.off('lichessTools.redraw', this.enhanceButton);
       }
     };
     enhanceButton = this.lichessTools.debounce(this.enhanceButtonDirect, 500);
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('boardImage');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('boardImage');
       this.logOption('Better board image', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const study = lichess?.analysis?.study;
       if (study) {
-        study.vm.toolTab = lichessTools.unwrapFunction(study.vm.toolTab, 'boardImage');
+        study.vm.toolTab = lt.unwrapFunction(study.vm.toolTab, 'boardImage');
       }
-      lichess.pubsub.off('lichessTools.redraw', this.enhanceButton);
+      lt.pubsub.off('lichessTools.redraw', this.enhanceButton);
       if (!value) {
         $('main.analyse .copyables a.lichessTools-boardImage').remove();
         $('div.study__share a.lichessTools-boardImage,div.board-editor a.lichessTools-boardImage')
@@ -219,14 +219,14 @@
         return;
       }
       if (study) {
-        study.vm.toolTab = lichessTools.wrapFunction(study.vm.toolTab, {
+        study.vm.toolTab = lt.wrapFunction(study.vm.toolTab, {
           id: 'boardImage',
           after: ($this, result, ...args) => {
-            parent.global.setTimeout(this.enhanceButton, 100);
+            lt.global.setTimeout(this.enhanceButton, 100);
           }
         });
       }
-      lichess.pubsub.on('lichessTools.redraw', this.enhanceButton);
+      lt.pubsub.on('lichessTools.redraw', this.enhanceButton);
       this.enhanceButton();
     }
 

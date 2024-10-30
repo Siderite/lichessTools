@@ -38,8 +38,8 @@
     }
 
     populatePercent = (nodes, isInteractive, depth) => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
       const getGamebookDescendants = (node, depth, currentDepth, isInteractive) => {
         if (!depth) depth = 0;
         if (!currentDepth) currentDepth = 1;
@@ -54,7 +54,7 @@
         return arr;
       };
 
-      const console = parent.global.console;
+      const console = lt.global.console;
       let total = 0;
       const defaultPrc = [];
       for (const node of nodes) {
@@ -101,12 +101,12 @@
 
 
     getNextMoves = (node, noTranspositions, noMoves) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const arr = noMoves ? [] : [...node.children];
       arr.transpositionStartIndex = arr.length;
-      if (noTranspositions || !parent.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
+      if (noTranspositions || !lt.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
       let transpositions = node.transposition.filter(n => n !== node);
-      if (parent.transpositionBehavior?.excludeSameLine && node.path !== undefined) {
+      if (lt.transpositionBehavior?.excludeSameLine && node.path !== undefined) {
         transpositions = transpositions?.filter(n => n.path && !n.path.startsWith(node.path) && !node.path.startsWith(n.path));
       }
       for (const child of transpositions) {
@@ -119,15 +119,15 @@
     };
 
     getRandomVariation = (node, noTranspositions, depth) => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
       depth = +depth || this.depth;
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const arr = this.getNextMoves(node, noTranspositions);
       if (!arr.length) return;
       const isInteractive = !!lichess.analysis.gamebookPlay();
-      const total = parent.populatePercent(arr, isInteractive, depth);
-      const index = parent.random() * total;
+      const total = lt.populatePercent(arr, isInteractive, depth);
+      const index = lt.random() * total;
       let acc = 0;
       for (const child of arr) {
         acc += child.prc;
@@ -138,14 +138,14 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('randomVariationDepth');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('randomVariationDepth');
       this.logOption('Random variation depth', value);
       this.depth = +(value);
       if (Number.isNaN(this.depth)) this.depth = this.preferences.filter(p => p.name == 'randomVariationDepth')[0].defaultValue;
-      parent.populatePercent = this.populatePercent;
-      parent.getNextMoves = this.getNextMoves;
-      parent.getRandomVariation = this.getRandomVariation;
+      lt.populatePercent = this.populatePercent;
+      lt.getNextMoves = this.getNextMoves;
+      lt.getRandomVariation = this.getRandomVariation;
     }
 
   }

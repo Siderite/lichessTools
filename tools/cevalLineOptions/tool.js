@@ -26,8 +26,8 @@
     }
 
     getKey = (elem) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const e = $(elem);
       const san = e.text().replace(/[\+#\?!]/, '');
       const turn = +(e.attr('data-move-index')) % 2;
@@ -40,12 +40,12 @@
       if (this._inHandlePvs) return;
       try {
       this._inHandlePvs=true;
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
       [...this.dict.values()].forEach(v => v.count = 0);
       $('div.pv_box span.pv-san').each((i, e) => {
-        if (!parent.inViewport(e)) return;
+        if (!lt.inViewport(e)) return;
         const key = this.getKey(e);
         const data = this.dict.get(key);
         if (data) {
@@ -68,7 +68,7 @@
           } else {
             this.clsIndex++;
             if (this.clsIndex > 30) {
-              parent.global.console.debug('Ceval highlight class index: ', this.clsIndex);
+              lt.global.console.debug('Ceval highlight class index: ', this.clsIndex);
             }
             val.cls = 'lichessTools-cevalHighlight-' + this.clsIndex;
           }
@@ -89,15 +89,15 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('cevalLineOptions');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('cevalLineOptions');
       this.logOption('Ceval line options', value || 'no');
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       this.options = {
-        highlight: parent.isOptionSet(value, 'highlight')
+        highlight: lt.isOptionSet(value, 'highlight')
       }
       const analysisTools = $('main .analyse__tools');
       if (analysisTools.length) {

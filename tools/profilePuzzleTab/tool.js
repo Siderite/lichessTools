@@ -41,14 +41,14 @@
     }
 
     isPuzzleTabPage = ()=>{
-      const parent = this.lichessTools;
-      const userId = parent.getUserId();
-      return parent.global.location.pathname.toLowerCase().startsWith('/@/'+userId.toLowerCase()+'/perf/puzzle');
+      const lt = this.lichessTools;
+      const userId = lt.getUserId();
+      return lt.global.location.pathname.toLowerCase().startsWith('/@/'+userId.toLowerCase()+'/perf/puzzle');
     };
 
     enhancePuzzleTabPage = async ()=>{
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if ($('section.lichessTools-profilePuzzleTab').length) return;
       $('<section class="lichessTools-profilePuzzleTab">')
         .appendTo('.perf-stat__content')
@@ -59,10 +59,10 @@
     };
 
     updateDataDirect = async (sort)=>{
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const htmlEncode = parent.htmlEncode;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const htmlEncode = lt.htmlEncode;
+      const trans = lt.translator;
       const [currentStart, currentEnd] = this.uiSlider.get().map(x => parseInt(x));
       const { min: rangeStart, max: rangeEnd } = this.uiSlider.options.range;
       const section = $('section.lichessTools-profilePuzzleTab');
@@ -76,7 +76,7 @@
       if (section.attr('data-days')==days && !sort) {
         return;
       }
-      const data = await parent.api.puzzle.getDashboard(days);
+      const data = await lt.api.puzzle.getDashboard(days);
       if (!data) return;
       const table =$('<table><thead></thead><tbody></tbody></table>');
       let html = '<tr><th></th><th class="puzzleCount nr">$trans(dashboard.puzzleCount)</th><th class="performance nr">$trans(dashboard.performance)</th><th class="replay nr">$trans(dashboard.replay)</th></tr>';
@@ -136,8 +136,8 @@
     sortDirection = -1;
     sortColumn = 'nb';
     sortTable = (column) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (this.sortColumn == column) {
         this.sortDirection = -this.sortDirection;
       } else {
@@ -148,13 +148,13 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('profilePuzzleTab');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('profilePuzzleTab');
       this.options = { enabled: value };
       this.logOption('Puzzle perf tab', value);
-      const userId = parent.getUserId();
+      const userId = lt.getUserId();
       if (!userId) return;
 
       if (value) {

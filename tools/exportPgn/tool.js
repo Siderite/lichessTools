@@ -37,14 +37,14 @@
         unicode: false,
         ...options
       };
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const announce = parent.announce;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const announce = lt.announce;
       const analysis = lichess.analysis;
       if (!analysis) return;
-      const Math = parent.global.Math;
-      const navigator = parent.global.navigator;
-      const trans = parent.translator;
+      const Math = lt.global.Math;
+      const navigator = lt.global.navigator;
+      const trans = lt.translator;
 
       function fixCrazySan(san) {
         if (!san || san[0] !== 'P') return san;
@@ -169,16 +169,16 @@
       }
 
       function clone(n2, withoutChildren) {
-        const JSON = parent.global.JSON;
+        const JSON = lt.global.JSON;
         const n1 = {
           children: [],
           clock: n2.clock,
           eval: n2.eval,
-          comments: parent.clone(n2.comments) || [],
-          glyphs: parent.clone(n2.glyphs) || [],
-          shapes: parent.clone(n2.shapes) || [],
-          ceval: parent.clone(n2.ceval) || null,
-          opening: parent.clone(n2.opening) || null,
+          comments: lt.clone(n2.comments) || [],
+          glyphs: lt.clone(n2.glyphs) || [],
+          shapes: lt.clone(n2.shapes) || [],
+          ceval: lt.clone(n2.ceval) || null,
+          opening: lt.clone(n2.opening) || null,
           id: n2.id,
           ply: n2.ply,
           san: n2.san,
@@ -251,16 +251,16 @@
         }
         const varNodes = getVarNodes(varNode, options.separateLines);
         const pgns = [];
-        const tags = parent.clone(analysis.study?.data?.chapter?.tags) || [];
+        const tags = lt.clone(analysis.study?.data?.chapter?.tags) || [];
         if (analysis.getOrientation() != 'white') {
           addTag(tags, 'StartFlipped', '1');
           addTag(tags, 'Orientation', 'Black');
         }
-        if (varNode?.fen && !parent.isStartFen(varNode.fen)) {
+        if (varNode?.fen && !lt.isStartFen(varNode.fen)) {
           addTag(tags, 'FEN', varNode.fen);
           addTag(tags, 'SetUp', '1');
         }
-        addTag(tags, 'Site', parent.global.location.href, true);
+        addTag(tags, 'Site', lt.global.location.href, true);
         const now = new Date().toISOString();
         addTag(tags, 'UTCDate', now.substr(0, 10).replaceAll('-', '.'), true);
         addTag(tags, 'UTCTime', now.substr(11, 8), true);
@@ -271,7 +271,7 @@
         }
         const result = pgns.join('\r\n\r\n');
         if (options.copyToClipboard) {
-          await parent.writeToClipboard(result, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
+          await lt.writeToClipboard(result, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
         }
         return result;
       } catch (e) {
@@ -282,13 +282,13 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('exportPGN');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('exportPGN');
       this.logOption('Export PGN', value);
       if (value) {
-        parent.exportPgn = this.exportPgn;
+        lt.exportPgn = this.exportPgn;
       } else {
-        parent.exportPgn = null;
+        lt.exportPgn = null;
       }
     }
 

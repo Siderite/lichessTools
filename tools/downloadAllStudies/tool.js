@@ -28,11 +28,11 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('downloadAllStudies');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('downloadAllStudies');
       this.logOption('Download all studies', value);
-      const $ = parent.$;
-      const trans = parent.translator;
+      const $ = lt.$;
+      const trans = lt.translator;
       $('a.lichessTools-downloadAllStudies').remove();
       if (!value) return;
       if ($('div.nostudies').length) return;

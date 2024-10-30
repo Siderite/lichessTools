@@ -70,12 +70,12 @@
     }
 
     processHelp = async () => {
-      const parent = this.lichessTools;
-      await parent.timeout(500);
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      await lt.timeout(500);
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const trans = lt.translator;
+      const $ = lt.$;
       const table = $('div.keyboard-help > table tbody');
       if (!table.length) return;
       if (table[0].hasLichessTools) return;
@@ -101,7 +101,7 @@
       };
 
       title('lichessTools', 'lichessTools-title');
-      if (parent.currentOptions.getValue('keyShortcuts')) {
+      if (lt.currentOptions.getValue('keyShortcuts')) {
         $('td.keys kbd', table)
           .filter((i, e) => ['b', 'm', 'i'].includes($(e).text()))
           .parent()
@@ -122,7 +122,7 @@
         row(['ctrl', '.', '!then', '1-9'], 'cevalLine');
         row(['shift', '.', '!then', '1-9'], 'explorerLine');
         row(['`', '!then', 'f'], 'freezeBoard');
-        if (parent.currentOptions.getValue('chapterNavigation') && $('div.lichessTools-chapterControls button[data-act="random"]').length) {
+        if (lt.currentOptions.getValue('chapterNavigation') && $('div.lichessTools-chapterControls button[data-act="random"]').length) {
           row(['`', '!then', 'r'], 'randomChapter');
         }
         row(['`', '!then', 'h'], 'toggleSiteHeader');
@@ -130,11 +130,11 @@
           row(['backspace'], 'jumpToCurrent');
         }
       }
-      if (parent.currentOptions.getValue('ctrlArrows')) {
+      if (lt.currentOptions.getValue('ctrlArrows')) {
         row(['ctrl', '&rarr;'], 'randomMove');
         row(['ctrl', '&larr;'], 'previousPosition');
       }
-      if (parent.currentOptions.getValue('spaceDisabled')) {
+      if (lt.currentOptions.getValue('spaceDisabled')) {
         $('td.keys kbd', table)
           .filter((i, e) => $(e).text() == 'space')
           .parent()
@@ -145,19 +145,19 @@
 
         row(['ctrl', 'space'], 'bestCevalLine');
       }
-      if (parent.currentOptions.getValue('explorerPractice')) {
+      if (lt.currentOptions.getValue('explorerPractice')) {
         row(['shift', 'l'], 'explorerPractice');
       }
-      if (parent.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
+      if (lt.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
         row(['0'], 'obsIntegration');
       }
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('keyboardHelp');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('keyboardHelp');
       this.logOption('Keyboard help', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       lichess.pubsub.off('analyse.close-all', this.processHelp);

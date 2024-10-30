@@ -28,14 +28,14 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('hideBoardCommand');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('hideBoardCommand');
       this.logOption('Command - hide board', value);
       if (value && lichess.analysis) {
-        parent.registerCommand && parent.registerCommand('hideBoardCommand', {
+        lt.registerCommand && lt.registerCommand('hideBoardCommand', {
           handle: (val) => {
             if (val == 'board') {
               $.cached('body').toggleClass('lichessTools-hideBoard');
@@ -45,7 +45,7 @@
           getHelp: () => trans.noarg('hideBoardCommand.helpText')
         });
       } else {
-        parent.unregisterCommand && parent.unregisterCommand('hideBoardCommand');
+        lt.unregisterCommand && lt.unregisterCommand('hideBoardCommand');
       }
     }
   }

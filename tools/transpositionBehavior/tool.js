@@ -30,14 +30,14 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('transpositionBehavior');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('transpositionBehavior');
       this.logOption('Behavior of transpositions', value);
       // this just sets a global basket of parameters for use of other extensions
-      parent.transpositionBehavior = {
-        excludeSameLine: parent.isOptionSet(value, 'excludeSameLine'),
-        consideredVariations: parent.isOptionSet(value, 'consideredVariations'),
-        groupSameMove: parent.isOptionSet(value, 'groupSameMove')
+      lt.transpositionBehavior = {
+        excludeSameLine: lt.isOptionSet(value, 'excludeSameLine'),
+        consideredVariations: lt.isOptionSet(value, 'consideredVariations'),
+        groupSameMove: lt.isOptionSet(value, 'groupSameMove')
       };
     }
 

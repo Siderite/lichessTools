@@ -47,11 +47,11 @@
     };
 
     getReadText = (node) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       let text = node.san || '';
       const glyph = node.glyphs?.at(0)?.symbol;
       const glyphText = this.glyphs[glyph];
-      let commentText = parent.getNodeCommentsText(node) || '';
+      let commentText = lt.getNodeCommentsText(node) || '';
       if (glyphText && !commentText.toLowerCase().includes(glyphText.toLowerCase())) {
         text += ', ' + glyphText;
       }
@@ -95,10 +95,10 @@
 
     instruments = [null, 'celesta', 'clav'];
     readGame = async (speed, voiceIndex, instrument) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
       if (!this.options.enabled) return;
@@ -119,9 +119,9 @@
           const cp = evl.cp || (Math.sign(evl.mate) * 2000 - evl.mate * 10) || 0;
           const q = 24 / (1 + Math.exp(-0.004 * cp * side));
           const sndIndex = parseInt(q).toString().padStart(3, '0');
-          lichessTools.play('instrument/' + instrument + '/c' + sndIndex + '.mp3', 0.05);
+          lt.play('instrument/' + instrument + '/c' + sndIndex + '.mp3', 0.05);
         }
-        await parent.speak(text, { rate: speed ? speed / 100 : 0, voiceIndex: voiceIndex });
+        await lt.speak(text, { rate: speed ? speed / 100 : 0, voiceIndex: voiceIndex });
         if (node != analysis.node) {
           this.reading = false;
         }
@@ -137,37 +137,37 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('readGameCommand');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('readGameCommand');
       this.options = { enabled: value };
       this.logOption('Command - read game', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
       $.cached('body').off('keyup', this.keyHandler);
       if (value) {
         $.cached('body').on('keyup', this.keyHandler);
-        parent.registerCommand && parent.registerCommand('readGameCommand', {
+        lt.registerCommand && lt.registerCommand('readGameCommand', {
           handle: (val) => {
             const m = /^\s*readgame(?:\s+(?<speed>\d+))?(?:\s+(?<voice>\d+))?(?:\s+(?<instrument>\d+))?/.exec(val);
             if (!m) return;
             const speed = (+m.groups.speed) || this.defaultSpeed;
             const voice = m.groups.voice === undefined ? undefined : (+m.groups.voice) || 0;
             const instrument = (+m.groups.instrument) || 0;
-            parent.global.setTimeout(() => this.readGame(speed, voice, instrument), 100);
+            lt.global.setTimeout(() => this.readGame(speed, voice, instrument), 100);
             return true;
           },
           getHelp: () => trans.noarg('readGameCommand.helpText')
         });
-        if (parent.global.location.hash == '#readgame') {
-          parent.global.history.replaceState(null, null, ' ');
+        if (lt.global.location.hash == '#readgame') {
+          lt.global.history.replaceState(null, null, ' ');
           analysis.jumpToIndex();
           this.readGame(this.defaultSpeed, 0, 0);
         }
       } else {
-        parent.unregisterCommand && parent.unregisterCommand('readGameCommand');
+        lt.unregisterCommand && lt.unregisterCommand('readGameCommand');
       }
     }
   }

@@ -26,20 +26,20 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('transpositionArrows');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('transpositionArrows');
       this.logOption('Transposition arrows', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      analysis.setAutoShapes = parent.unwrapFunction(analysis.setAutoShapes, 'transpositionArrows');
+      analysis.setAutoShapes = lt.unwrapFunction(analysis.setAutoShapes, 'transpositionArrows');
       if (!value) return;
-      analysis.setAutoShapes = parent.wrapFunction(analysis.setAutoShapes, {
+      analysis.setAutoShapes = lt.wrapFunction(analysis.setAutoShapes, {
         id: 'transpositionArrows',
         before: ($this, ...args) => {
           this.childrenNodes = analysis.node.children;
-          analysis.node.children = parent.getNextMoves(analysis.node);
+          analysis.node.children = lt.getNextMoves(analysis.node);
         },
         after: ($this, result, ...args) => {
           analysis.node.children = this.childrenNodes;

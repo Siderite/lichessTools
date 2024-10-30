@@ -26,16 +26,16 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const value = parent.currentOptions.getValue('soundOptions');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const value = lt.currentOptions.getValue('soundOptions');
       this.logOption('Sound options', value);
       this.options = {
-        noMove: parent.isOptionSet(value, 'noMove')
+        noMove: lt.isOptionSet(value, 'noMove')
       };
-      if (lichess.sound?.move) lichess.sound.move = parent.unwrapFunction(lichess.sound.move, 'soundOptions');
+      if (lichess.sound?.move) lichess.sound.move = lt.unwrapFunction(lichess.sound.move, 'soundOptions');
       if (this.options.noMove) {
-        if (lichess.sound?.move) lichess.sound.move = parent.wrapFunction(lichess.sound.move, {
+        if (lichess.sound?.move) lichess.sound.move = lt.wrapFunction(lichess.sound.move, {
           id: 'soundOptions',
           before: ($this, ...args) => {
             if (this.options.noMove) return false;

@@ -27,28 +27,28 @@
     }
 
     initControls = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('div.link-popup-ready').each((i, e) => {
         if (e.removeChatLinkWarningInit) return;
-        parent.removeEventHandlers(e, 'click');
+        lt.removeEventHandlers(e, 'click');
         e.removeChatLinkWarningInit = true;
       });
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('removeChatLinkWarning');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('removeChatLinkWarning');
       this.logOption('Remove link warning', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       if (!value) return;
-      this.interval = parent.global.setInterval(this.initControls, 1000);
+      this.interval = lt.global.setInterval(this.initControls, 1000);
       this.initControls();
     }
 

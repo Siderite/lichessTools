@@ -38,12 +38,12 @@
     }
 
     highlightLastMoves = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const toHighlight = [];
       if (this.options.lastMove && this.state?.lastMoves?.length) {
         for (const node of this.state.lastMoves) {
-          const elem = parent.getElementForNode(node);
+          const elem = lt.getElementForNode(node);
           if (!elem) continue;
           toHighlight.push(elem);
         }
@@ -55,12 +55,12 @@
     };
 
     highlightChecks = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const toHighlight = [];
       if (this.options.checks && this.state?.checks?.length) {
         for (const node of this.state.checks) {
-          const elem = parent.getElementForNode(node);
+          const elem = lt.getElementForNode(node);
           if (!elem) continue;
           toHighlight.push(elem);
         }
@@ -72,14 +72,14 @@
     };
 
     highlightUncommented = () => {
-      const parent = this.lichessTools;
-      if (!parent.lichess?.analysis?.study) return;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      if (!lt.lichess?.analysis?.study) return;
+      const $ = lt.$;
       const toHighlight = [];
       if (this.options.notCommented && this.state?.lastMoves?.length) {
         for (const node of this.state.lastMoves) {
           if (node.isCommentedOrMate) continue;
-          const elem = parent.getElementForNode(node);
+          const elem = lt.getElementForNode(node);
           if (!elem) continue;
           toHighlight.push(elem);
         }
@@ -91,21 +91,21 @@
     };
 
     highlightTranspositions = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
       const toHighlight = [];
       if (this.options.transposition) {
         const currentNode = lichess.analysis.node;
         if (currentNode.path === undefined) return;
         let transpositions = currentNode.transposition;
-        if (parent.transpositionBehavior?.excludeSameLine) {
+        if (lt.transpositionBehavior?.excludeSameLine) {
           transpositions = transpositions?.filter(n => n === currentNode || (n.path && !n.path.startsWith(currentNode.path) && !currentNode.path.startsWith(n.path)));
         }
         if (transpositions?.length > 1) {
           for (const node of transpositions) {
             if (!node.path) continue;
-            const elem = parent.getElementForNode(node);
+            const elem = lt.getElementForNode(node);
             if (elem) {
               toHighlight.push(elem);
             }
@@ -120,27 +120,27 @@
 
     highlightMainLine = () => {
       if (!this.options.mainLine) return;
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       if (!analysis) return;
       const onMainline = analysis.node == analysis.mainline[analysis.node.ply];
-      const $ = parent.$;
+      const $ = lt.$;
       $.cached('body').toggleClass('lichessTools-notOnMainline', !onMainline);
     };
 
     highlightMainLinePieces = () => {
       if (!this.options.mainLinePieces) return;
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       if (!analysis) return;
       const onMainline = analysis.node == analysis.mainline[analysis.node.ply];
-      const $ = parent.$;
+      const $ = lt.$;
       if (onMainline) {
         $('div.main-board cg-board piece.lichessTools-notOnMainline').removeClass('lichessTools-notOnMainline');
       } else {
-        const board = parent.getBoardFromFen(analysis.node.fen);
+        const board = lt.getBoardFromFen(analysis.node.fen);
         const mainNode = analysis.nodeList.findLast((n, i) => n == analysis.mainline[i]);
-        const mainBoard = parent.getBoardFromFen(mainNode.fen);
+        const mainBoard = lt.getBoardFromFen(mainNode.fen);
         const squares = [];
         for (let x = 0; x < 8; x++) {
           for (let y = 0; y < 8; y++) {
@@ -160,10 +160,10 @@
     };
 
     highlightVariationDepth = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      if (!this.options.variationDepth || !parent.isTreeviewVisible()) {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      if (!this.options.variationDepth || !lt.isTreeviewVisible()) {
         return;
       }
 
@@ -172,7 +172,7 @@
       nodes[0].variationDepth = 0;
       while (nodes.length) {
         const node = nodes.shift();
-        if (!parent.isTreeviewVisible()) break;
+        if (!lt.isTreeviewVisible()) break;
         if (!node || node?.comp) {
           continue;
         }
@@ -192,7 +192,7 @@
         if (!path) return;
         const cls = dict[path];
         if (!cls) {
-          //parent.global.console.warn('Could not find variation depth for node with path:',path);
+          //lt.global.console.warn('Could not find variation depth for node with path:',path);
         } else {
           ['vdm1', 'vdm2', 'vdm3', 'vdm4', 'vdm5', 'vdm6', 'vdm7', 'vd1', 'vd2', 'vd3', 'vd4', 'vd5', 'vd6', 'vd7']
             .forEach(c => {
@@ -207,10 +207,10 @@
     };
 
     traverseTree = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      if (!lichess.analysis || !parent.isTreeviewVisible()) return;
-      this.state = parent.traverse();
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess.analysis || !lt.isTreeviewVisible()) return;
+      this.state = lt.traverse();
       this.highlightLastMoves();
       this.highlightUncommented();
       this.highlightTranspositions();
@@ -220,33 +220,33 @@
 
     debouncedTraverseTree = this.lichessTools.debounce(this.traverseTree, 800);
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('highlight');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('highlight');
       this.logOption('Highlighting', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       if (!lichess) return;
-      const $ = parent.$;
+      const $ = lt.$;
       this.options = {
-        lastMove: parent.isOptionSet(value, 'lastMove'),
-        notCommented: parent.isOptionSet(value, 'notCommented'),
-        transposition: parent.isOptionSet(value, 'transposition'),
-        mainLine: parent.isOptionSet(value, 'mainLine'),
-        variationDepth: parent.isOptionSet(value, 'variationDepth'),
-        checks: parent.isOptionSet(value, 'checks'),
-        mainLinePieces: parent.isOptionSet(value, 'mainLinePieces'),
+        lastMove: lt.isOptionSet(value, 'lastMove'),
+        notCommented: lt.isOptionSet(value, 'notCommented'),
+        transposition: lt.isOptionSet(value, 'transposition'),
+        mainLine: lt.isOptionSet(value, 'mainLine'),
+        variationDepth: lt.isOptionSet(value, 'variationDepth'),
+        checks: lt.isOptionSet(value, 'checks'),
+        mainLinePieces: lt.isOptionSet(value, 'mainLinePieces'),
         get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth || this.checks || this.mainLinePieces; }
       };
-      lichess.pubsub.off('lichessTools.redraw', this.highlightMainLine);
-      lichess.pubsub.off('lichessTools.redraw', this.highlightMainLinePieces);
-      lichess.pubsub.off('lichessTools.redraw', this.debouncedTraverseTree);
+      lt.pubsub.off('lichessTools.redraw', this.highlightMainLine);
+      lt.pubsub.off('lichessTools.redraw', this.highlightMainLinePieces);
+      lt.pubsub.off('lichessTools.redraw', this.debouncedTraverseTree);
       if (this.options.mainLine) {
-        lichess.pubsub.on('lichessTools.redraw', this.highlightMainLine);
+        lt.pubsub.on('lichessTools.redraw', this.highlightMainLine);
       }
       if (this.options.mainLinePieces) {
-        lichess.pubsub.on('lichessTools.redraw', this.highlightMainLinePieces);
+        lt.pubsub.on('lichessTools.redraw', this.highlightMainLinePieces);
       }
       if (this.options.isSet) {
-        lichess.pubsub.on('lichessTools.redraw', this.debouncedTraverseTree);
+        lt.pubsub.on('lichessTools.redraw', this.debouncedTraverseTree);
       }
       $.cached('body').toggleClass('lichessTools-variationDepth', this.options.variationDepth);
       this.debouncedTraverseTree();

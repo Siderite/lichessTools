@@ -32,10 +32,10 @@
     }
 
     addQuietModeMenu = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const container = $('div.site-buttons div.dasher #dasher_app div.links');
       if (this.options.enabled) {
         if (!container.children().length) {
@@ -69,17 +69,17 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('quietModeAllTabs');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('quietModeAllTabs');
       this.logOption('Quiet mode all tabs', value);
       this.options = {
         enabled: value
       };
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const descriptor = Object.getOwnPropertyDescriptor(lichess, 'quietMode');
       const isProperty = descriptor?.get && descriptor?.set;
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       if (!value) {
         if (isProperty) {
           delete lichess.quietMode;
@@ -88,11 +88,11 @@
         }
         return;
       }
-      this.interval = parent.global.setInterval(this.addQuietModeMenu,500);
+      this.interval = lt.global.setInterval(this.addQuietModeMenu,500);
 
       if (!isProperty) {
         const quietMode = lichess.quietMode;
-        const storage = parent.storage;
+        const storage = lt.storage;
         Object.defineProperty(lichess, 'forcedQuietMode', {
           configurable: true,
           get: function () {

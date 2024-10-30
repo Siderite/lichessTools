@@ -24,12 +24,12 @@
     }
 
     async loadTranslations() {
-      const parent = this.lichessTools;
-      const console = parent.global.console;
-      const intl = await parent.comm.getData('crowdin.json');
+      const lt = this.lichessTools;
+      const console = lt.global.console;
+      const intl = await lt.comm.getData('crowdin.json');
       if (intl) {
         for (const lang in intl) {
-          parent.intl[lang+'-crowdin'] = { ...intl[lang] };
+          lt.intl[lang+'-crowdin'] = { ...intl[lang] };
         }
         console.log(' Loaded '+Object.keys(intl).length+' language translations.');
       } else {
@@ -38,8 +38,8 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = !!parent.currentOptions.getValue('crowdin');
+      const lt = this.lichessTools;
+      const value = !!lt.currentOptions.getValue('crowdin');
       this.logOption('Crowdin', value);
       if (value) {
         await this.loadTranslations();

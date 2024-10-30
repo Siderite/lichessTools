@@ -25,11 +25,11 @@
     }
 
     getStorageGameId = async (myName) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       if (this.storageGameId) return this.storageGameId;
       let text = '';
       try {
-        text = await parent.net.fetch({ url: '/api/games/user/{myName}?max=1&moves=false&sort=dateAsc', args: { myName: myName } });
+        text = await lt.net.fetch({ url: '/api/games/user/{myName}?max=1&moves=false&sort=dateAsc', args: { myName: myName } });
       } catch (e) {
         if (e.response?.status == 404) return;
         throw e;
@@ -40,25 +40,25 @@
     };
 
     async init() {
-      const parent = this.lichessTools;
-      this.oldGetOptions = parent.getOptions.bind(parent);
-      parent.getOptions = async () => {
+      const lt = this.lichessTools;
+      this.oldGetOptions = lt.getOptions.bind(lt);
+      lt.getOptions = async () => {
         let options = await this.oldGetOptions();
         if (options.loaded) return options;
-        const userId = parent.getUserId();
+        const userId = lt.getUserId();
         if (!userId) return options;
         const gameId = await this.getStorageGameId(userId);
         if (!gameId) return options;
         let text = '';
         try {
-          text = await parent.net.fetch({ url: '/{gameId}/note', args: { gameId: gameId } });
+          text = await lt.net.fetch({ url: '/{gameId}/note', args: { gameId: gameId } });
         } catch (e) {
-          parent.global.console.warn('Could not get incognito preferences', e);
+          lt.global.console.warn('Could not get incognito preferences', e);
         }
         if (text) {
           const m = /^(.*?)\r\n---- LiChess Tools Preferences ----\r\n(.*)$/.exec(text);
           if (m) {
-            const newOptions = parent.jsonParse(m[2], null);
+            const newOptions = lt.jsonParse(m[2], null);
             return {
               loaded: !!newOptions,
               ...options,
@@ -68,23 +68,23 @@
         }
         return options;
       };
-      this.oldSaveOptions = parent.saveOptions.bind(parent);
-      parent.saveOptions = async (options) => {
+      this.oldSaveOptions = lt.saveOptions.bind(lt);
+      lt.saveOptions = async (options) => {
         await this.oldSaveOptions(options);
-        if (!parent.currentOptions.getValue('saveOptionsForIncognito')) return;
-        const userId = parent.getUserId();
+        if (!lt.currentOptions.getValue('saveOptionsForIncognito')) return;
+        const userId = lt.getUserId();
         const gameId = await this.getStorageGameId(userId);
         if (!gameId) return;
-        const text = await parent.net.fetch({ url: '/{gameId}/note', args: { gameId: gameId } });
+        const text = await lt.net.fetch({ url: '/{gameId}/note', args: { gameId: gameId } });
         let m = null;
         if (text) {
           m = /^(.*?)\r\n---- LiChess Tools Preferences ----\r\n(.*)$/.exec(text);
         }
         const data = new URLSearchParams();
         const existingNote = (m && m[1]) || text || '';
-        const optionsJson = parent.global.JSON.stringify(options);
+        const optionsJson = lt.global.JSON.stringify(options);
         data.append('text', existingNote + '\r\n---- LiChess Tools Preferences ----\r\n' + optionsJson);
-        parent.net.fetch({ url: '/{gameId}/note', args: { gameId } }, {
+        lt.net.fetch({ url: '/{gameId}/note', args: { gameId } }, {
           method: 'POST',
           body: data
         });
@@ -92,8 +92,8 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('saveOptionsForIncognito');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('saveOptionsForIncognito');
       this.logOption('Save options in incognito mode', value);
     }
   }

@@ -51,10 +51,10 @@
     };
 
     showPopup = async (nextMoves, nextTranspos) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       const hasTranspos = !!nextTranspos.length;
       const size = nextMoves.length + nextTranspos.length + (hasTranspos ? 2 : 0);
       let dlg = null;
@@ -81,7 +81,7 @@
               .appendTo(container);
           }
         }
-        dlg = parent.dialog({
+        dlg = lt.dialog({
           html: selectElem[0].outerHTML
         });
       } else {
@@ -107,7 +107,7 @@
               .appendTo(container);
           }
         }
-        dlg = parent.dialog({
+        dlg = lt.dialog({
           html: selectElem[0].outerHTML + '<span class="dialog-actions"><button class="button submit">' + trans.noarg('OK') + '</button></span>'
         });
       }
@@ -211,18 +211,18 @@
 
     nextResult = false;
     bindFork = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      if (analysis.gamebookPlay() || parent.isGamePlaying()) return;
+      if (analysis.gamebookPlay() || lt.isGamePlaying()) return;
       if (['hybrid', 'chessbase'].includes(this.options.value)) {
         const board = $('div.main-board');
         if (!board.prop('forkBehavior_init')) {
-          this.oldWheelHandler = parent.getEventHandlers($('.main-board')[0], 'wheel')[0];
+          this.oldWheelHandler = lt.getEventHandlers($('.main-board')[0], 'wheel')[0];
           if (this.oldWheelHandler) {
-            parent.removeEventHandlers($('.main-board')[0], 'wheel');
+            lt.removeEventHandlers($('.main-board')[0], 'wheel');
             board
               .on('wheel', this.mousewheelHandler)
               .prop('forkBehavior_init', true);
@@ -235,18 +235,18 @@
           e.addEventListener('click', () => this.inForkClick = true, { capture: true });
           e.addEventListener('click', () => this.inForkClick = false, { capture: false });
         });
-        if (!parent.isWrappedFunction(analysis.fork.proceed, 'forkBehavior')) {
-          analysis.fork.proceed = parent.wrapFunction(analysis.fork.proceed, {
+        if (!lt.isWrappedFunction(analysis.fork.proceed, 'forkBehavior')) {
+          analysis.fork.proceed = lt.wrapFunction(analysis.fork.proceed, {
             id: 'forkBehavior',
             before: ($this, ...args) => {
               if (this.mousewheelOn || analysis.gamebookPlay()) {
                 this.nextResult = undefined;
                 return;
               }
-              const nextMoves = parent.getNextMoves(analysis.node, true, false);
-              const nextTranspos = parent.getNextMoves(analysis.node, false, true);
+              const nextMoves = lt.getNextMoves(analysis.node, true, false);
+              const nextTranspos = lt.getNextMoves(analysis.node, false, true);
               const nextSans = nextMoves.concat(nextTranspos).map(m => m.san);
-              const noDuplicates = parent.transpositionBehavior?.groupSameMove;
+              const noDuplicates = lt.transpositionBehavior?.groupSameMove;
               const nextSansCount = noDuplicates
                 ? new Set(nextSans).size
                 : nextSans.length;
@@ -273,8 +273,8 @@
             }
           });
         }
-        if (!parent.isWrappedFunction(analysis.jump, 'forkBehavior')) {
-          analysis.jump = parent.wrapFunction(analysis.jump, {
+        if (!lt.isWrappedFunction(analysis.jump, 'forkBehavior')) {
+          analysis.jump = lt.wrapFunction(analysis.jump, {
             id: 'forkBehavior',
             after: ($this, result, ...args) => {
               this.clearVariationSelect();
@@ -290,19 +290,19 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      const value = parent.currentOptions.getValue('forkBehavior');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const value = lt.currentOptions.getValue('forkBehavior');
       this.logOption('Fork behavior', value);
       this.options = {
         value: value
       };
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      analysis.fork.proceed = parent.unwrapFunction(analysis.fork.proceed, 'forkBehavior');
-      lichess.pubsub.off('lichessTools.redraw', this.bindFork);
-      lichess.pubsub.off('lichessTools.chapterChange', this.clearVariationSelect);
+      analysis.fork.proceed = lt.unwrapFunction(analysis.fork.proceed, 'forkBehavior');
+      lt.pubsub.off('lichessTools.redraw', this.bindFork);
+      lt.pubsub.off('lichessTools.chapterChange', this.clearVariationSelect);
       if (this.oldWheelHandler) {
         $('div.main-board')
           .off('wheel', this.mousewheelHandler)
@@ -311,9 +311,9 @@
       }
       this.clearVariationSelect();
       if (['hybrid', 'chessbase'].includes(value)) {
-        lichess.pubsub.on('lichessTools.redraw', this.bindFork);
+        lt.pubsub.on('lichessTools.redraw', this.bindFork);
         this.bindFork();
-        lichess.pubsub.on('lichessTools.chapterChange', this.clearVariationSelect);
+        lt.pubsub.on('lichessTools.chapterChange', this.clearVariationSelect);
       }
     }
 

@@ -36,13 +36,13 @@
     };
 
     processStudy = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       if (!this.options.topicFlairs) return;
       const container = $('.study-topics');
-      if (parent.inViewport(container)) {
+      if (lt.inViewport(container)) {
         const tagify = $('tags+textarea', container)[0]?.__tagify;
         if (tagify) {
           if (!$('button.lichessTools-studyFlairs', container).length) {
@@ -69,7 +69,7 @@
             flairPicker
               .appendTo(form);
           }
-          if (!parent.isWrappedFunction(tagify.createTagElem, 'studyFlairs')) {
+          if (!lt.isWrappedFunction(tagify.createTagElem, 'studyFlairs')) {
             const handleTag = tag => {
               const span = $(tag).find('span.tagify__tag-text');
               const m = /^flair\.([^\)]+)/.exec(span.text());
@@ -81,7 +81,7 @@
               }
             };
 
-            tagify.createTagElem = parent.wrapFunction(tagify.createTagElem, {
+            tagify.createTagElem = lt.wrapFunction(tagify.createTagElem, {
               id: 'studyFlairs',
               after: ($this, result, ...args) => {
                 handleTag(result);
@@ -91,20 +91,20 @@
               handleTag(tag);
             });
           }
-          if (!parent.isWrappedFunction(tagify.dropdown.show, 'studyFlairs')) {
-            tagify.dropdown.show = parent.wrapFunction(tagify.dropdown.show, {
+          if (!lt.isWrappedFunction(tagify.dropdown.show, 'studyFlairs')) {
+            tagify.dropdown.show = lt.wrapFunction(tagify.dropdown.show, {
               id: 'studyFlairs',
               before: ($this, term) => {
                 if (!term) return;
                 term = term.toLowerCase();
                 const flairs = this.flairs.filter(f => f.includes(term));
                 if (!flairs.length) return;
-                parent.arrayRemoveAll(tagify.settings.whitelist, f => /^flair\.([^\)]+)/.test(f));
+                lt.arrayRemoveAll(tagify.settings.whitelist, f => /^flair\.([^\)]+)/.test(f));
                 tagify.settings.whitelist.push(...flairs);
                 tagify.settings.whitelist.splice(10);
               },
               after: ($this, result, term) => {
-                parent.global.setTimeout(() => {
+                lt.global.setTimeout(() => {
                   $('div.tagify__dropdown__item').each((i, e) => {
                     const m = /^flair\.([^\)]+)/.exec($(e).text());
                     if (m) {
@@ -143,10 +143,10 @@
     _nextPage = 1;
     _studies = {};
     processStudyList = async () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       const href = $('.infinite-scroll .pager > a').attr('href');
       let page = 1;
       if (href) {
@@ -159,9 +159,9 @@
       } else if (this._nextPage) {
         page = this._nextPage;
       }
-      const baseUrl = parent.global.location.href;
+      const baseUrl = lt.global.location.href;
       while (this._currentPage < page) {
-        const json = await parent.api.study.getStudyListPage(baseUrl, this._currentPage + 1);
+        const json = await lt.api.study.getStudyListPage(baseUrl, this._currentPage + 1);
         const loadedPage = +json?.paginator?.currentPage;
         if (loadedPage) {
           this._currentPage = loadedPage;
@@ -215,7 +215,7 @@
             elem
               .on('contextmenu', ev => {
                 ev.preventDefault();
-                parent.global.location = '/study/topic/flair.' + flairs[0].title + '/' + mode;
+                lt.global.location = '/study/topic/flair.' + flairs[0].title + '/' + mode;
               });
           }
           if (flairs.length > 1) {
@@ -236,7 +236,7 @@
                 elem
                   .on('contextmenu', ev => {
                     ev.preventDefault();
-                    parent.global.location = '/study/topic/flair.' + flairs[i].title + '/' + mode;
+                    lt.global.location = '/study/topic/flair.' + flairs[i].title + '/' + mode;
                   });
               }
             }
@@ -259,18 +259,18 @@
     processStudyListDebounced = this.lichessTools.debounce(this.processStudyList, 1000);
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      const value = parent.currentOptions.getValue('studyFlairs');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const value = lt.currentOptions.getValue('studyFlairs');
       this.logOption('Study flairs', value);
       this.options = {
-        authorFlair: parent.isOptionSet(value, 'authorFlair'),
-        memberFlairs: parent.isOptionSet(value, 'memberFlairs'),
-        topicFlairs: parent.isOptionSet(value, 'topicFlairs')
+        authorFlair: lt.isOptionSet(value, 'authorFlair'),
+        memberFlairs: lt.isOptionSet(value, 'memberFlairs'),
+        topicFlairs: lt.isOptionSet(value, 'topicFlairs')
       };
       lichess.pubsub.off('content-loaded', this.processStudyListDebounced);
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       if (!value) {
         $('.study__icon').show();
         return;
@@ -279,16 +279,16 @@
         if (!this.flairs) {
           let text = '';
           try {
-            text = await parent.api.flair.getList();
+            text = await lt.api.flair.getList();
           } catch {
-            parent.global.console.debug('Could not retrieve flair list!');
+            lt.global.console.debug('Could not retrieve flair list!');
           }
           this.flairs = text.split(/[\r\n]+/).map(f => 'flair.' + f.trim());
         }
-        this.interval = parent.global.setInterval(this.processStudy, 500);
+        this.interval = lt.global.setInterval(this.processStudy, 500);
         this.processStudy();
       }
-      if (/^\/study\b/.test(parent.global.location.pathname) && $('.studies.list').length) {
+      if (/^\/study\b/.test(lt.global.location.pathname) && $('.studies.list').length) {
         lichess.pubsub.on('content-loaded', this.processStudyListDebounced);
         this.processStudyList();
       }

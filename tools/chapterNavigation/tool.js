@@ -28,10 +28,10 @@
     }
 
     refreshChapterControls = () => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
-      const $ = parent.$;
-      const study = parent.lichess.analysis?.study;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      const $ = lt.$;
+      const study = lt.lichess.analysis?.study;
       if (!study) return;
       $('div.lichessTools-chapterControls button[data-id] > h3').each((i,e) => {
         e = $(e);
@@ -49,7 +49,7 @@
       });
       const selector = [];
       if (!$('div.study__side .study__chapters,aside.relay-tour__side .relay-games').length) return;
-      const trans = parent.translator;
+      const trans = lt.translator;
       const list = study.chapters.list.all();
       let container = $('div.study__side div[role="footer"],aside.relay-tour__side div[role="footer"]');
       if (!container.length && list.length > 1) {
@@ -80,14 +80,14 @@
 
     actionChapterControls = (ev) => {
       ev.preventDefault();
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
-      const $ = parent.$;
-      const study = parent.lichess.analysis?.study;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      const $ = lt.$;
+      const study = lt.lichess.analysis?.study;
       if (!study) return;
       const chapterId = study.currentChapter()?.id;
       if (!chapterId) {
-        parent.global.console.warn('Could not determine chapterId');
+        lt.global.console.warn('Could not determine chapterId');
         return;
       }
       const list = study.chapters.list.all();
@@ -136,23 +136,23 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('chapterNavigation');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('chapterNavigation');
       this.logOption('Study chapter navigation', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      lichess.pubsub.off('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
-      lichess.pubsub.off('lichessTools.redraw', this.debouncedRefreshChapterControls);
+      lt.pubsub.off('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
+      lt.pubsub.off('lichessTools.redraw', this.debouncedRefreshChapterControls);
       lichess.pubsub.off('chat.resize', this.debouncedRefreshChapterControls);
       $('div.study__side.lichessTools-chapterControls,aside.relay-tour__side.lichessTools-chapterControls')
         .removeClass('lichessTools-chapterControls')
         .find('div[role="footer"]')
         .remove();
       if (!value) return;
-      lichess.pubsub.on('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
-      lichess.pubsub.on('lichessTools.redraw', this.debouncedRefreshChapterControls);
+      lt.pubsub.on('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
+      lt.pubsub.on('lichessTools.redraw', this.debouncedRefreshChapterControls);
       lichess.pubsub.on('chat.resize', this.debouncedRefreshChapterControls);
       this.refreshChapterControls();
     }

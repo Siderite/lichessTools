@@ -26,31 +26,31 @@
     }
 
     get previousOverride() {
-      const parent = this.lichessTools;
-      return parent.storage.get('LichessTools.previousOverride', { raw: true }) || 'analyse';
+      const lt = this.lichessTools;
+      return lt.storage.get('LichessTools.previousOverride', { raw: true }) || 'analyse';
     }
 
     set previousOverride(value) {
-      const parent = this.lichessTools;
-      parent.storage.set('LichessTools.previousOverride', value, { raw: true });
+      const lt = this.lichessTools;
+      lt.storage.set('LichessTools.previousOverride', value, { raw: true });
     }
 
     previewHandler = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const study = lichess.analysis?.study;
       this.previousOverride = study?.vm?.gamebookOverride;
     };
 
     keepPreviewOn = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const study = lichess.analysis?.study;
-      const $ = parent.$;
+      const $ = lt.$;
       if (!study) return;
       const override = study.vm.gamebookOverride;
       if (this.previousOverride == 'play' && override != this.previousOverride) {
-        parent.global.setTimeout(() => {
+        lt.global.setTimeout(() => {
           study.setGamebookOverride('play');
           study.redraw();
         }, 100);
@@ -58,9 +58,9 @@
     };
 
     bindButtons = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
       const study = lichess.analysis?.study;
       if (!study) return;
       const previewButton = $('button.preview');
@@ -69,17 +69,17 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('stickyPreview');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('stickyPreview');
       this.logOption('Sticky study Preview when switching chapters', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      lichess.pubsub.off('lichessTools.redraw', this.bindButtons);
-      lichess.pubsub.off('lichessTools.chapterChange', this.keepPreviewOn);
+      lt.pubsub.off('lichessTools.redraw', this.bindButtons);
+      lt.pubsub.off('lichessTools.chapterChange', this.keepPreviewOn);
       if (value) {
-        lichess.pubsub.on('lichessTools.redraw', this.bindButtons);
-        lichess.pubsub.on('lichessTools.chapterChange', this.keepPreviewOn);
+        lt.pubsub.on('lichessTools.redraw', this.bindButtons);
+        lt.pubsub.on('lichessTools.chapterChange', this.keepPreviewOn);
         this.keepPreviewOn();
       }
     }

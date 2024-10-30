@@ -45,15 +45,15 @@
     urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
     processChat = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
       const container = $('section.mchat');
       if (!container.length) return;
-      const createTextNode = parent.global.document.createTextNode.bind(parent.global.document);
+      const createTextNode = lt.global.document.createTextNode.bind(lt.global.document);
       if (this.options.urlify) {
         $('li>t', container).each((i, e) => {
-          if (!parent.inViewport(e)) return;
+          if (!lt.inViewport(e)) return;
           const textNodes = Array.from(e.childNodes).filter(n => n.nodeType == 3);
           for (const textNode of textNodes) {
             const lineText = textNode.textContent;
@@ -97,9 +97,9 @@
         const input = $('input.mchat__say', container);
         if (input.attr('maxlength')) {
           input.removeAttr('maxlength');
-          const oldHandler = parent.getEventHandlers(input[0], 'keydown')[0];
+          const oldHandler = lt.getEventHandlers(input[0], 'keydown')[0];
           if (oldHandler) {
-            parent.removeEventHandlers(input[0], 'keydown');
+            lt.removeEventHandlers(input[0], 'keydown');
 
             const splitLength = (s, l) => {
               const result = [];
@@ -149,7 +149,7 @@
                   const splits = splitLength(sendText, maxLength);
                   for (const splitText of splits) {
                     lichess.pubsub.emit('socket.send', 'talk', splitText);
-                    await parent.timeout(500);
+                    await lt.timeout(500);
                   }
                   sendText = newText;
                 }
@@ -158,11 +158,11 @@
                 const splits = splitLength(sendText, maxLength);
                 for (const splitText of splits) {
                   lichess.pubsub.emit('socket.send', 'talk', splitText);
-                  await parent.timeout(100);
+                  await lt.timeout(100);
                 }
               }
               input.val('');
-              parent.storage.remove('chat.input', { session: true });
+              lt.storage.remove('chat.input', { session: true });
             });
           }
         }
@@ -170,18 +170,18 @@
     };
 
     createSocket = (teamId) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const data = parent.global.document.body.dataset;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const data = lt.global.document.body.dataset;
       const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
       if (!baseUrls?.length) return;
-      const url = 'wss://' + baseUrls[Math.floor(parent.global.Math.random() * baseUrls.length)];
-      const fullUrl = url + '/team/' + teamId + '?v=1&sri=' + parent.sri;
+      const url = 'wss://' + baseUrls[Math.floor(lt.global.Math.random() * baseUrls.length)];
+      const fullUrl = url + '/team/' + teamId + '?v=1&sri=' + lt.sri;
       const ws = new WebSocket(fullUrl);
-      const console = parent.global.console;
+      const console = lt.global.console;
       const recreateSocket = (e) => {
         if (ws.toDestroy) return;
-        if (e?.code != 1006 || parent.debug) {
+        if (e?.code != 1006 || lt.debug) {
           console?.debug('reconnecting to ' + fullUrl, e);
         }
         ws?.close();
@@ -190,11 +190,11 @@
       ws.onerror = recreateSocket;
       ws.onclose = recreateSocket;
       ws.onopen = () => {
-        parent.debug && console?.debug('connected to ' + fullUrl);
+        lt.debug && console?.debug('connected to ' + fullUrl);
       };
       ws.onmessage = e => {
-        const m = parent.jsonParse(e.data);
-        parent.debug && console?.debug('received ', m);
+        const m = lt.jsonParse(e.data);
+        lt.debug && console?.debug('received ', m);
         if (m.t === 'message') {
           this.receiveChatMessage(teamId, m.d);
         }
@@ -210,12 +210,12 @@
     }
 
     receiveCrowdMessage = (teamId, data) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const watcherCount = data?.users?.length;
       const team = this.teamsData?.find(t => t.teamId == teamId);
       if (team) team.crowd = watcherCount;
       if (watcherCount > 1) {
-        parent.global.console.debug(new Date().toLocaleString(parent.intl.lang), ' Someone is in the ' + teamId + ' page', data.users);
+        lt.global.console.debug(new Date().toLocaleString(lt.intl.lang), ' Someone is in the ' + teamId + ' page', data.users);
       }
       if (!team || !this.isTeamsListPage()) return;
       const row = $('table.slist tr.paginated')
@@ -240,9 +240,9 @@
 
 
     receiveChatMessage = (teamId, data) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const team = this.teamsData.find(t => t.teamId == teamId);
-      if (!team || data.u?.toLowerCase() == parent.getUserId()?.toLowerCase()) return;
+      if (!team || data.u?.toLowerCase() == lt.getUserId()?.toLowerCase()) return;
       team.newMessage = {
         user: data.u,
         text: data.t
@@ -252,9 +252,9 @@
 
     handleNotificationsDirect = async () => {
       if (!this.teamsData?.length) return;
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const JSON = parent.global.JSON;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const JSON = lt.global.JSON;
       let saveData = false;
       for (const team of this.teamsData) {
         const notificationId = 'mchatOptions_'+team.teamId;
@@ -268,7 +268,7 @@
                 id: notificationId,
                 isNew: true,
                 icon: '\uE059',
-                href: '/team/' + parent.global.encodeURIComponent(team.teamId),
+                href: '/team/' + lt.global.encodeURIComponent(team.teamId),
                 content: $('<div>')
                   .append($('<span>').text(trans.pluralSame('newTeamMessagesText', teamName)))
                   .html(),
@@ -277,7 +277,7 @@
               return [entry];
             }
           };
-          parent.notifications.add(notification);
+          lt.notifications.add(notification);
           saveData = true;
         }
       }
@@ -288,13 +288,13 @@
     handleNotifications = this.lichessTools.debounce(this.handleNotificationsDirect, 5000);
 
     isTeamsListPage = () => {
-      const parent = this.lichessTools;
-      return ['/team/me', '/team/leader'].includes(parent.global.location.pathname);
+      const lt = this.lichessTools;
+      return ['/team/me', '/team/leader'].includes(lt.global.location.pathname);
     };
 
     toggleNotify = (teamId) => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
       let index = this.teamsData?.findIndex(t => t.teamId == teamId);
       if (index > -1) {
         this.teamsData.splice(index, 1);
@@ -305,7 +305,7 @@
         }
       } else {
         if (this.sockets.length >= 3) {
-          parent.announce(trans.noarg('maximumThreeTeams'));
+          lt.announce(trans.noarg('maximumThreeTeams'));
           return;
         }
         this.teamsData.push({ teamId: teamId });
@@ -318,26 +318,26 @@
     };
 
     loadTeamsData = () => {
-      const parent = this.lichessTools;
-      this.teamsData = parent.storage.get('LichessTools.chatNotificationTeams') || [];
+      const lt = this.lichessTools;
+      this.teamsData = lt.storage.get('LichessTools.chatNotificationTeams') || [];
       this.teamsData.forEach(t=>{ delete t.crowd; });
     };
 
     saveTeamsData = () => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const teamsData=this.teamsData.map(t=>{
         const { crowd, ...team } = t;
         return team;
       });
-      parent.storage.set('LichessTools.chatNotificationTeams', teamsData);
+      lt.storage.set('LichessTools.chatNotificationTeams', teamsData);
       this.notificationButtonInTeams();
     };
 
     notificationButtonInTeams = () => {
       if (!this.isTeamsListPage()) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       $('table.slist tr.paginated').each((i, e) => {
         const href = $('td.subject a', e).attr('href');
         const teamId = /^\/team\/(?<teamId>[^\/]+)$/i.exec(href)?.groups?.teamId;
@@ -372,24 +372,24 @@
 
     sockets = [];
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      const value = parent.currentOptions.getValue('mchatOptions');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const value = lt.currentOptions.getValue('mchatOptions');
       this.logOption('Team/Study chat', value);
       this.options = {
-        urlify: parent.isOptionSet(value, 'urlify'),
-        unlimited: parent.isOptionSet(value, 'unlimited'),
-        images: parent.isOptionSet(value, 'images'),
-        teamChatNotifications: parent.isOptionSet(value, 'teamChatNotifications')
+        urlify: lt.isOptionSet(value, 'urlify'),
+        unlimited: lt.isOptionSet(value, 'unlimited'),
+        images: lt.isOptionSet(value, 'images'),
+        teamChatNotifications: lt.isOptionSet(value, 'teamChatNotifications')
       };
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       if ($('section.mchat').length && (this.options.urlify || this.options.unlimited || this.options.images)) {
-        this.interval = parent.global.setInterval(this.processChat, 1000);
+        this.interval = lt.global.setInterval(this.processChat, 1000);
         this.processChat();
       }
       if (this.sockets?.length) {
@@ -400,28 +400,28 @@
       }
       lichess.pubsub.off('content-loaded', this.notificationButtonInTeams);
       if (this.options.teamChatNotifications) {
-        parent.storage?.listen('lichessTools.refreshNotifications', ()=>{
+        lt.storage?.listen('lichessTools.refreshNotifications', ()=>{
           this.loadTeamsData();
-          parent.notifications.refresh();
+          lt.notifications.refresh();
         });
-        this.userTeams = await parent.api.team.getUserTeams(parent.getUserId());
+        this.userTeams = await lt.api.team.getUserTeams(lt.getUserId());
         this.loadTeamsData();
         const configuredTeamsCount = this.teamsData?.length;
         if (configuredTeamsCount) {
           let saveTeams = false;
-          parent.arrayRemoveAll(this.teamsData, t => !this.userTeams.find(ut => ut.id == t.teamId));
+          lt.arrayRemoveAll(this.teamsData, t => !this.userTeams.find(ut => ut.id == t.teamId));
           if (this.teamsData.length < configuredTeamsCount) {
             saveTeams = true;
           }
           for (const team of this.teamsData) {
-            if (parent.global.location.pathname.toLowerCase() == '/team/'+team.teamId.toLowerCase()) {
+            if (lt.global.location.pathname.toLowerCase() == '/team/'+team.teamId.toLowerCase()) {
               team.lastMessage = team.newMessage;
               saveTeams = true;
             }
           }
           if (saveTeams) {
             this.saveTeamsData();
-            parent.storage?.fire('lichessTools.refreshNotifications');
+            lt.storage?.fire('lichessTools.refreshNotifications');
           }
           const socketUrl = lichess.socket?.url;
           const m = /^\/team\/(?<teamId>[^\/]+)$/i.exec(socketUrl);

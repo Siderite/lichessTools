@@ -42,11 +42,11 @@
 
     splitPgn = (input) => {
       if (!input) return [];
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
       const analysis = lichess?.analysis;
-      const console = parent.global.console;
+      const console = lt.global.console;
       const oldChangePgn = analysis.changePgn.__originalFunction.bind(analysis);
       const importPgn = function (pgn, merge) {
         const result = oldChangePgn(pgn, merge);
@@ -124,8 +124,8 @@
     }
 
     setupBlurOnEscape = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const input = $('div.pgn textarea,div.pair input');
       if (!input.length) return;
       input.off('keyup', this.blurOnEscape);
@@ -134,28 +134,28 @@
     };
 
     blurOnEscape = ev => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (ev.key == 'Escape') ev.target.blur();
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('enhancedImport');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('enhancedImport');
       this.logOption('Enhanced PGN import', value);
       this.options = { enabled: value };
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       this.setupBlurOnEscape();
-      lichess.pubsub.off('lichessTools.redraw', this.setupBlurOnEscape);
-      analysis.changePgn = parent.unwrapFunction(analysis.changePgn, 'enhancedImport');
+      lt.pubsub.off('lichessTools.redraw', this.setupBlurOnEscape);
+      analysis.changePgn = lt.unwrapFunction(analysis.changePgn, 'enhancedImport');
       if (!value) return;
-      lichess.pubsub.on('lichessTools.redraw', this.setupBlurOnEscape);
+      lt.pubsub.on('lichessTools.redraw', this.setupBlurOnEscape);
 
-      analysis.changePgn = parent.wrapFunction(analysis.changePgn, {
+      analysis.changePgn = lt.wrapFunction(analysis.changePgn, {
         id: 'enhancedImport',
         before: ($this, input, andReload) => {
           return false;
@@ -168,7 +168,7 @@
           try {
             let pgns = this.splitPgn(input);
             if (andReload) {
-              parent.global.console.debug('...merging ' + pgns.length + ' PGNs');
+              lt.global.console.debug('...merging ' + pgns.length + ' PGNs');
               const pgnsByFen = [];
               let maxItem = { count: -1 };
               for (const pgn of pgns) {
@@ -210,7 +210,7 @@
               const announcement = lastError
                 ? trans.pluralSame('mergeError', successfulPGNs) + lastError
                 : trans.pluralSame('mergeSuccess', successfulPGNs);
-              parent.announce(announcement);
+              lt.announce(announcement);
               const newPgn = $('div.pgn textarea').val();
               data = oldChangePgn(newPgn, false);
               $this.explorer.reload()
@@ -219,10 +219,10 @@
               data = pgns[0];
             }
           } catch (ex) {
-            parent.global.console.warn('Enhanced import failed', ex);
+            lt.global.console.warn('Enhanced import failed', ex);
             data = oldChangePgn(input, andReload);
           }
-          if (lastError) parent.global.console.debug('...merged only ' + successfulPGNs + ' PGNs');
+          if (lastError) lt.global.console.debug('...merged only ' + successfulPGNs + ' PGNs');
           return data;
         }
       });

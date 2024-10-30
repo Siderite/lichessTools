@@ -26,16 +26,16 @@
 
     prevPositions = [];
     playRandomVariation = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       if (!lichess.analysis) return;
       const node = lichess.analysis.node;
       const path = lichess.analysis.path;
-      const child = parent.getRandomVariation(node);
+      const child = lt.getRandomVariation(node);
       if (child) {
         this.prevPositions.push({
           path: path,
-          position: parent.getNodePosition(node)
+          position: lt.getNodePosition(node)
         });
         lichess.analysis.userJump(child.path || (path + child.id));
         lichess.analysis.redraw();
@@ -43,8 +43,8 @@
     };
 
     backOneMove = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       if (!lichess.analysis) return;
       const path = lichess.analysis.path;
       if (!path) return;
@@ -52,7 +52,7 @@
       const pos = this.prevPositions.at(-1);
       if (pos && pos.path != prevPath) {
         const prevNode = lichess.analysis.tree.nodeAtPath(prevPath);
-        if (parent.getNodePosition(prevNode) == pos.position) {
+        if (lt.getNodePosition(prevNode) == pos.position) {
           this.prevPositions.splice(-1, 1);
           lichess.analysis.userJump(pos.path);
           lichess.analysis.redraw();
@@ -65,15 +65,15 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('ctrlArrows');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('ctrlArrows');
       this.logOption('Ctrl-arrows for random variation', value);
-      const handler = parent.getKeyHandler('ctrl+right');
-      parent.unbindKeyHandler('ctrl+right', true);
-      parent.unbindKeyHandler('ctrl+left', true);
+      const handler = lt.getKeyHandler('ctrl+right');
+      lt.unbindKeyHandler('ctrl+right', true);
+      lt.unbindKeyHandler('ctrl+left', true);
       if (value) {
-        parent.bindKeyHandler('ctrl+right', this.playRandomVariation);
-        parent.bindKeyHandler('ctrl+left', this.backOneMove);
+        lt.bindKeyHandler('ctrl+right', this.playRandomVariation);
+        lt.bindKeyHandler('ctrl+left', this.backOneMove);
       }
     }
   }

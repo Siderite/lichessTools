@@ -23,9 +23,9 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const value = +(parent.currentOptions.getValue('miniGameSize'));
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const value = +(lt.currentOptions.getValue('miniGameSize'));
       this.logOption('Mini-game size', value || 'Not set');
       $.cached('body').toggleClass('lichessTools-miniGameSize', !!value);
       if (value) {

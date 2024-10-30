@@ -53,10 +53,10 @@
 
     showEvaluations(result) {
       const moves = result?.moves;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const analysis = lichess?.analysis;
       const orientation = analysis.getOrientation() == 'black' ? -1 : 1;
       $('section.explorer-box table.moves.lichessTools-evalTable').remove();
@@ -87,7 +87,7 @@
           return;
         }
       }
-      if (parent.isGamePlaying()) return;
+      if (lt.isGamePlaying()) return;
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
           .addClass('lichessTools-explorerEval')
@@ -97,7 +97,7 @@
       }
       $('tr:has(.lichessTools-evalRow)', container).remove();
       if (this.options.evalRows && moves?.length) {
-        const co = parent.chessops;
+        const co = lt.chessops;
         const newRows = moves.filter(m => !$('tr[data-uci="' + m.uci + '"]', container).length);
         const fen = co.fen.parseFen(analysis.node.fen).unwrap();
         const ch = co.Chess.fromSetup(fen).unwrap();
@@ -118,7 +118,7 @@
           }
         }
       }
-      const decimals = +parent.currentOptions.getValue('cevalDecimals') || 1;
+      const decimals = +lt.currentOptions.getValue('cevalDecimals') || 1;
       $('tr[data-uci],tr.sum', container).each((i, e) => {
         if (!$('td.lichessTools-explorerEval', e).length) {
           $('<td>')
@@ -255,21 +255,21 @@
 
     cache = {};
     doEvaluation = async () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis.explorer?.enabled()) return;
-      if (parent.isGamePlaying()) return;
+      if (lt.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!this.options.evalRows) {
         if (!explorerMoves?.length) return;
-        if (!parent.inViewport($('section.explorer-box table.moves'))) {
+        if (!lt.inViewport($('section.explorer-box table.moves'))) {
           this.doEvaluationDebounced();
           return;
         }
       } else {
-        if (!parent.inViewport($('section.explorer-box'))) {
+        if (!lt.inViewport($('section.explorer-box'))) {
           this.doEvaluationDebounced();
           return;
         }
@@ -282,10 +282,10 @@
         result = { moves: [] };
       }
       let newMoves = [];
-      if ((this.options.db || this.options.lichess) && !parent.net.slowMode && result === undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
+      if ((this.options.db || this.options.lichess) && !lt.net.slowMode && result === undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
         result = { moves: [] };
         if (this.options.db && !newMoves?.length) {
-          const obj = await parent.api.evaluation.getChessDb(fen);
+          const obj = await lt.api.evaluation.getChessDb(fen);
           newMoves = obj?.moves?.map(m => {
             return {
               depth: 50, //assumed
@@ -297,7 +297,7 @@
           });
         }
         if (this.options.lichess && !newMoves?.length) {
-          let obj = await parent.api.evaluation.getLichess(fen, 5);
+          let obj = await lt.api.evaluation.getLichess(fen, 5);
           if (obj) {
             newMoves = obj?.pvs?.map(m => {
               return {
@@ -308,8 +308,8 @@
                 rank: 5
               };
             });
-            if (newMoves?.length && !parent.net.slowMode) {
-              obj = await parent.api.evaluation.getLichess(fen, 10);
+            if (newMoves?.length && !lt.net.slowMode) {
+              obj = await lt.api.evaluation.getLichess(fen, 10);
               if (obj) {
                 obj.pvs?.forEach(m => {
                   const uci = m.moves?.split(' ')[0];
@@ -379,17 +379,17 @@
     doEvaluationDebounced = this.lichessTools.debounce(this.doEvaluation, 100);
 
     rebind = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       const explorer = analysis.explorer;
       if (!this.options.isSet) {
-        explorer.setNode = parent.unwrapFunction(explorer.setNode, 'explorerEval');
+        explorer.setNode = lt.unwrapFunction(explorer.setNode, 'explorerEval');
       } else {
-        if (!parent.isWrappedFunction(explorer.setNode, 'explorerEval')) {
-          explorer.setNode = parent.wrapFunction(explorer.setNode, {
+        if (!lt.isWrappedFunction(explorer.setNode, 'explorerEval')) {
+          explorer.setNode = lt.wrapFunction(explorer.setNode, {
             id: 'explorerEval',
             after: async ($this, result, ...args) => {
               if (!explorer.lastStream) return;
@@ -401,10 +401,10 @@
         this.doEvaluationDebounced();
       }
       if (!this.options.ceval) {
-        analysis.onNewCeval = parent.unwrapFunction(analysis.onNewCeval, 'explorerEval');
+        analysis.onNewCeval = lt.unwrapFunction(analysis.onNewCeval, 'explorerEval');
       } else {
-        if (!parent.isWrappedFunction(analysis.onNewCeval, 'explorerEval')) {
-          analysis.onNewCeval = parent.wrapFunction(analysis.onNewCeval, {
+        if (!lt.isWrappedFunction(analysis.onNewCeval, 'explorerEval')) {
+          analysis.onNewCeval = lt.wrapFunction(analysis.onNewCeval, {
             id: 'explorerEval',
             after: async ($this, result, ...args) => {
               this.doEvaluationDebounced();
@@ -415,28 +415,28 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('explorerEval');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('explorerEval');
       this.logOption('Explorer eval', value);
       this.options = {
-        ceval: parent.isOptionSet(value, 'ceval'),
-        stats: parent.isOptionSet(value, 'stats'),
-        db: parent.isOptionSet(value, 'db') || parent.isOptionSet(value, 'chessdb'),
-        lichess: parent.isOptionSet(value, 'lichess'),
-        evalRows: parent.isOptionSet(value, 'evalRows'),
-        hidden: parent.isOptionSet(value, 'hidden'),
+        ceval: lt.isOptionSet(value, 'ceval'),
+        stats: lt.isOptionSet(value, 'stats'),
+        db: lt.isOptionSet(value, 'db') || lt.isOptionSet(value, 'chessdb'),
+        lichess: lt.isOptionSet(value, 'lichess'),
+        evalRows: lt.isOptionSet(value, 'evalRows'),
+        hidden: lt.isOptionSet(value, 'hidden'),
         get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows); }
       };
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const explorer = lichess?.analysis?.explorer;
       if (!explorer) return;
-      lichess.pubsub.off('lichessTools.redraw', this.rebind);
+      lt.pubsub.off('lichessTools.redraw', this.rebind);
       $('th.lichessTools-explorerEval,td.lichessTools-explorerEval').remove();
-      explorer.setNode = parent.unwrapFunction(explorer.setNode, 'explorerEval');
+      explorer.setNode = lt.unwrapFunction(explorer.setNode, 'explorerEval');
       if (!this.options.isSet) return;
       this.cache = {};
-      lichess.pubsub.on('lichessTools.redraw', this.rebind);
+      lt.pubsub.on('lichessTools.redraw', this.rebind);
       this.rebind();
     }
 

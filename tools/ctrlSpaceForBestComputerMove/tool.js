@@ -25,25 +25,26 @@
 
     oldSpaceHandler = null;
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('spaceDisabled');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('spaceDisabled');
       this.logOption('Ctrl-Space to play best computer move', value);
       if (!this.oldSpaceHandler) {
-        this.oldSpaceHandler = parent.getKeyHandler('space');
+        this.oldSpaceHandler = lt.getKeyHandler('space');
         if (!this.oldSpaceHandler) return;
       }
-      parent.unbindKeyHandler('space');
-      parent.unbindKeyHandler('ctrl+space', true);
+      lt.unbindKeyHandler('space');
+      lt.unbindKeyHandler('ctrl+space', true);
       if (value) {
-        parent.bindKeyHandler('ctrl+space', this.oldSpaceHandler);
-        parent.bindKeyHandler('space', this.spaceForGamebookPlay);
+        lt.bindKeyHandler('ctrl+space', this.oldSpaceHandler);
+        lt.bindKeyHandler('space', this.spaceForGamebookPlay);
       } else {
-        parent.bindKeyHandler('space', this.oldSpaceHandler, false);
+        lt.bindKeyHandler('space', this.oldSpaceHandler, false);
       }
     }
 
     spaceForGamebookPlay = () => {
-      const ctrl = this.lichessTools.lichess.analysis;
+      const lt = this.lichessTools;
+      const ctrl = lt.lichess.analysis;
       if (!ctrl) return;
       const gb = ctrl.gamebookPlay();
       if (gb) gb.onSpace();

@@ -32,17 +32,17 @@
     };
 
     setNoSpoilers = async (ev)=>{
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const value = !!ev.target.checked;
-      parent.currentOptions['noSpoilers'] = value ? 'broadcast' : '';
-      await parent.applyOptions(parent.currentOptions);
-      parent.fireReloadOptions();
+      lt.currentOptions['noSpoilers'] = value ? 'broadcast' : '';
+      await lt.applyOptions(lt.currentOptions);
+      lt.fireReloadOptions();
     };
 
     spoilerUi = ()=>{
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const $ = lt.$;
       const container = $('div.study__multiboard__options');
       if (!container.length) return;
       let toggle=$('label.lichessTools-noSpoilers',container);
@@ -59,19 +59,19 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('noSpoilers');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('noSpoilers');
       this.logOption('No spoilers', value || 'no');
       this.options = {
-        broadcast: parent.isOptionSet(value, 'broadcast')
+        broadcast: lt.isOptionSet(value, 'broadcast')
       };
       $('body').toggleClass('lichessTools-noSpoilers-showBroadcast',!this.options.broadcast);
-      lichess.pubsub.off('lichessTools.redraw',this.spoilerUi);
-      lichess.pubsub.on('lichessTools.redraw',this.spoilerUi);
-      parent.global.clearInterval(this.interval);
-      this.interval = parent.global.setInterval(this.spoilerUi,1000);
+      lt.pubsub.off('lichessTools.redraw',this.spoilerUi);
+      lt.pubsub.on('lichessTools.redraw',this.spoilerUi);
+      lt.global.clearInterval(this.interval);
+      this.interval = lt.global.setInterval(this.spoilerUi,1000);
       this.spoilerUi();
     }
 

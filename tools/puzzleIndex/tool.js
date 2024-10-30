@@ -29,14 +29,14 @@
     }
 
     loadData = async ()=>{
+      const lt = this.lichessTools;
       if (this.indexFile) return;
       if (this.loading) return;
       this.loading = true;
-      const parent = this.lichessTools;
-      if (!parent.file) return;
+      if (!lt.file) return;
       const dbKey = 'lichessTools/LT/puzzleIndex-file';
-      const fileHandle = await this.lichessTools.storage.get(dbKey,{ db: true, raw: true });
-      this.indexFile = await parent.file.openIndex(fileHandle, true);
+      const fileHandle = await lt.storage.get(dbKey,{ db: true, raw: true });
+      this.indexFile = await lt.file.openIndex(fileHandle, true);
       this.loading = false;
     };
 
@@ -46,12 +46,12 @@
       this.searching=true;
       await this.loadData();
       if (!this.indexFile) return;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       if (!lichess.analysis.explorer.enabled()) return;
-      await parent.timeout(200);
-      const $ = parent.$;
-      const trans = parent.translator;
+      await lt.timeout(200);
+      const $ = lt.$;
+      const trans = lt.translator;
       const fen = lichess.analysis.node.fen?.split(' ').slice(0,4).join(' ');
       const searchItems = await this.indexFile.search(fen);
       const container = $('section.explorer-box div.data');
@@ -67,7 +67,7 @@
       } else {
         table=$('<table class="lichessTools-puzzles"><thead><th class="title"></th></thead><tbody></tbody></table>')
           .on('mouseleave',ev=>{
-            parent.global.clearTimeout(this.popupTimeout);
+            lt.global.clearTimeout(this.popupTimeout);
             $('#puzzlePopup')
               .remove();
           })
@@ -85,14 +85,14 @@
           const row = $('<tr><td><a href="/training/'+puzzleId+'" target="_blank">#'+puzzleId+'</a><span class="tooltip-content"></td></tr>')
             .on('click',ev=>{
               ev.preventDefault();
-              parent.global.open('/training/'+puzzleId);
+              lt.global.open('/training/'+puzzleId);
             })
             .on('mouseover',ev=>{
               const anc = $('a',ev.currentTarget);
               const offset = anc.offset();
               offset.left += anc.width() + 16;
-              parent.global.clearTimeout(this.popupTimeout);
-              this.popupTimeout = parent.global.setTimeout(()=>{
+              lt.global.clearTimeout(this.popupTimeout);
+              this.popupTimeout = lt.global.setTimeout(()=>{
                 let popup = $('#puzzlePopup');
                 if (!popup.length) {
                   popup = $('<div id="puzzlePopup">').appendTo('body');
@@ -112,22 +112,22 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('puzzleIndex');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('puzzleIndex');
       this.logOption('Puzzle index', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      const trans = parent.translator;
-      lichess.pubsub.off('lichessTools.redraw', this.searchPosition);
+      const trans = lt.translator;
+      lt.pubsub.off('lichessTools.redraw', this.searchPosition);
       if (!value) {
         $('section.explorer-box div.data table.lichessTools-puzzles').remove();
         this.indexFile?.dispose();
         this.indexFile = null;
         return;
       }
-      lichess.pubsub.on('lichessTools.redraw', this.searchPosition);
+      lt.pubsub.on('lichessTools.redraw', this.searchPosition);
     }
 
   }

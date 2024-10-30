@@ -22,7 +22,7 @@
     </svg>
 </div>`;
 
-    //temp
+    // TODO improve this
     translator = {
       lichessTools: this,
       format: function (str, args) {
@@ -38,22 +38,24 @@
         return str;
       },
       noarg: function (key) {
-        const dict = this.lichessTools.intl.siteI18n;
-        const result =  dict[key] || this.lichessTools.global?.i18n(key);
+        const lt = this.lichessTools;
+        const dict = lt.intl.siteI18n;
+        const result =  dict[key] || lt.global?.i18n(key);
         if (result) return result;
-        this.lichessTools.global.console.debug('Translation not found for key ',key);
+        lt.global.console.debug('Translation not found for key ',key);
         return key;
       },
       plural: function (key, count, ...args) {
-        const lichess = this.lichessTools.lichess;
+        const lt = this.lichessTools;
+        const lichess = lt.lichess;
         const quantity = (o) => 1 == o ? "one" : "other";
-        const dict = this.lichessTools.intl.siteI18n;
+        const dict = lt.intl.siteI18n;
         const str =
           dict[`${key}:${quantity(count)}`] || dict[`${key}:other`] || dict[key] || dict[`${key}:one`]
           || this.format(`${key}:${quantity(count)}`) || this.format(`${key}:other`) || this.format(key) || this.format(`${key}:one`);
         const result = str ? this.format(str, args) : null;
         if (result) return result;
-        this.lichessTools.global.console.debug('Plural not found for key ',key);
+        lt.global.console.debug('Plural not found for key ',key);
         return key;
       },
       pluralSame: function (key, count, ...args) {
@@ -76,6 +78,24 @@
           }
         }
         return segments;
+      }
+    };
+
+    pubsub = {
+      allSubs: new Map(),
+      on: function (name, cb) {
+        let subs = this.allSubs.get(name);
+        if (!subs) {
+          subs = new Set();
+          this.allSubs.set(name, subs);
+        }
+        subs.add(cb);
+      },
+      off: function (name, cb) {
+        this.allSubs.get(name)?.delete(cb);
+      },
+      emit: function (name, ...args) {
+        for (const fn of this.allSubs.get(name) || []) fn.apply(null, args);
       }
     };
 
@@ -1061,7 +1081,8 @@
         serverOverload: 'Lichess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
       },
       get lang() {
-        let lang = lichessTools.global.document.documentElement.lang || this.defaultLanguage;
+        const lt = this.lichessTools;
+        let lang = lt.global.document.documentElement.lang || this.defaultLanguage;
         if (!this[lang] && !this[lang+'-crowdin']) lang = this.defaultLanguage;
         return lang;
       },
@@ -1069,15 +1090,16 @@
         return this.lang != this.defaultLanguage;
       },
       get siteI18n() {
-        if (this.lichessTools.debug) {
+        const lt = this.lichessTools;
+        if (lt.debug) {
           const allKeys = Object.keys(this[this.defaultLanguage]);
           const langKeys = Object.keys({ ...this[this.lang], ...this[this.lang+'-crowdin'] });
           const missingKeys = new Set(allKeys);
           for (const key of langKeys) missingKeys.delete(key);
           const orphanKeys = new Set(langKeys);
           for (const key of allKeys) orphanKeys.delete(key);
-          if (missingKeys.size) this.lichessTools.global.console.debug(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
-          if (orphanKeys.size) this.lichessTools.global.console.debug(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
+          if (missingKeys.size) lt.global.console.debug(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
+          if (orphanKeys.size) lt.global.console.debug(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
         }
         return { ...this[this.defaultLanguage], ...this[this.lang], ...this[this.lang+'-crowdin'] };
       }
@@ -1088,9 +1110,10 @@
       slowMode: false,
       slowModeTimeout: null,
       logNetwork: function (url, size, status) {
+        const lt = this.lichessTools;
         const now = Date.now();
         if (!this.networkLog) {
-          this.networkLog = this.lichessTools.jsonParse(_ => this.lichessTools.global.localStorage.getItem('LiChessTools2.fetch'), { size: 0, count: 0, arr: [], minTime: now });
+          this.networkLog = lt.jsonParse(_ => lt.global.localStorage.getItem('LiChessTools2.fetch'), { size: 0, count: 0, arr: [], minTime: now });
         }
         this.networkLog.size += size;
         this.networkLog.count++;
@@ -1104,19 +1127,21 @@
           this.networkLog.arr.splice(0, 2000);
           this.storeLog();
         }
-        if (this.lichessTools.debug) {
+        if (lt.debug) {
           const rate = this.networkLog.size ? Math.round(8 * this.networkLog.size / (now - this.networkLog.minTime)) : 0;
           const avgSize = this.networkLog.size ? Math.round(8 * this.networkLog.size / this.networkLog.count) : 0;
-          const logSize = this.lichessTools.global.JSON.stringify(this.networkLog).length;
-          this.lichessTools.global.console.debug('Fetch log size:', logSize);
-          this.lichessTools.global.console.debug('  ... Bandwith logged:', this.networkLog.size, 'Rate:', rate, 'kbps', 'Avg call size:', avgSize, 'kbps');
+          const logSize = lt.global.JSON.stringify(this.networkLog).length;
+          lt.global.console.debug('Fetch log size:', logSize);
+          lt.global.console.debug('  ... Bandwith logged:', this.networkLog.size, 'Rate:', rate, 'kbps', 'Avg call size:', avgSize, 'kbps');
         }
       },
       storeLog: function () {
-        const text = this.lichessTools.global.JSON.stringify(this.networkLog);
-        this.lichessTools.global.localStorage.setItem('LiChessTools2.fetch', text);
+        const lt = this.lichessTools;
+        const text = lt.global.JSON.stringify(this.networkLog);
+        lt.global.localStorage.setItem('LiChessTools2.fetch', text);
       },
       json: async function (url, options) {
+        const lt = this.lichessTools;
         if (!options) options = {};
         if (!options.headers) options.headers = {};
         options.headers.Accept ||= 'application/json';
@@ -1124,13 +1149,14 @@
         const json = await this.fetch(url, options);
         if (!json) return null;
         if (options.ndjson) {
-          return this.lichessTools.ndjsonParse(json);
+          return lt.ndjsonParse(json);
         } else {
-          return this.lichessTools.jsonParse(json);
+          return lt.jsonParse(json);
         }
       },
       fetch: async function (url, options) {
-        const console = this.lichessTools.global.console;
+        const lt = this.lichessTools;
+        const console = lt.global.console;
         try {
           let args = null;
           if (typeof url != 'string') {
@@ -1140,11 +1166,11 @@
           if (!url) throw new Error('URL has to be string or {url, args}');
           if (args) {
             for (const k in args) {
-              url = url.replace('{' + k + '}', this.lichessTools.global.encodeURIComponent(args[k]));
+              url = url.replace('{' + k + '}', lt.global.encodeURIComponent(args[k]));
             }
           }
-          if (this.slowMode) await this.lichessTools.timeout(1000);
-          const response = await this.lichessTools.global.fetch(url, options);
+          if (this.slowMode) await lt.timeout(1000);
+          const response = await lt.global.fetch(url, options);
           const status = +(response.status);
           if (options?.ignoreStatuses?.includes(status)) {
             this.logNetwork(url, (options?.body?.length || 0), status);
@@ -1157,11 +1183,11 @@
             this.logNetwork(url, (options?.body?.length || 0), status);
             if (status == 429) {
               console.debug('429 received!');
-              const translation = this.lichessTools.translator.noarg('serverOverload');
-              this.lichessTools.announce(translation);
+              const translation = lt.translator.noarg('serverOverload');
+              lt.announce(translation);
               this.slowMode = true;
-              this.lichessTools.global.clearTimeout(this.slowModeTimeout);
-              this.slowModeTimeout = this.lichessTools.global.setTimeout(() => this.slowMode = false, 60000);
+              lt.global.clearTimeout(this.slowModeTimeout);
+              this.slowModeTimeout = lt.global.setTimeout(() => this.slowMode = false, 60000);
             }
             const err = new Error('Response status: ' + status);
             err.response = response;
@@ -1185,8 +1211,12 @@
 
     storage = {
       lichessTools: this,
-      get supportsDb() { return !!this.lichessTools.global.indexedDB },
+      get supportsDb() { 
+        const lt = this.lichessTools;
+        return !!lt.global.indexedDB;
+      },
       getStore: function (options) {
+        const lt = this.lichessTools;
         if (options?.db) {
           if (!this.supportsDb) {
             throw new Error('System doesn\' support indexedDB');
@@ -1194,11 +1224,12 @@
           return new IndexedDbStorage();
         }
         const store = options?.session
-          ? this.lichessTools.global.sessionStorage
-          : this.lichessTools.global.localStorage;
+          ? lt.global.sessionStorage
+          : lt.global.localStorage;
         return store;
       },
       get: function (key, options) {
+        const lt = this.lichessTools;
         const store = this.getStore(options);
         let text = store.getItem(key);
         if (text && options?.zip) {
@@ -1206,7 +1237,7 @@
             const decompressed = LiChessTools.unzip(text);
             if (decompressed != null) text = decompressed;
           } catch (ex) {
-            this.lichessTools.global.console.debug('Cannot unzip text. Using raw', ex);
+            lt.global.console.debug('Cannot unzip text. Using raw', ex);
           }
         }
         if (text === undefined || options?.raw) return text;
@@ -1218,6 +1249,7 @@
         }
       },
       set: function (key, value, options) {
+        const lt = this.lichessTools;
         const store = this.getStore(options);
         if (value === undefined) {
           store.removeItem(key);
@@ -1229,7 +1261,7 @@
             const compressed = LiChessTools.zip(text);
             if (compressed != null) text = compressed;
           } catch (ex) {
-            this.lichessTools.global.console.debug('Cannot zip text. Using raw', ex);
+            lt.global.console.debug('Cannot zip text. Using raw', ex);
           }
         }
         store.setItem(key, text);
@@ -1239,20 +1271,22 @@
         store.removeItem(key);
       },
       listen: function (key, func, options) {
+        const lt = this.lichessTools;
         if (options?.session) throw new Error('You cannot listen to events on session storage, only local');
-        const $ = this.lichessTools.$;
-        $(this.lichessTools.global).on('storage', e => {
+        const $ = lt.$;
+        $(lt.global).on('storage', e => {
           const store = this.getStore(options);
           if (e.key !== key || e.storageArea !== store || e.newValue === null) return;
-          const parsed = this.lichessTools.jsonParse(e.newValue);
-          if (parsed?.sri && parsed.sri !== this.lichessTools.sri) func(parsed);
+          const parsed = lt.jsonParse(e.newValue);
+          if (parsed?.sri && parsed.sri !== lt.sri) func(parsed);
         });
       },
       fire: function (key, value, options) {
+        const lt = this.lichessTools;
         if (options?.session) throw new Error('You cannot fire events on session storage, only local');
         this.set(key, {
-          sri: this.lichessTools.sri,
-          nonce: this.lichessTools.global.Math.random(), // ensure item changes
+          sri: lt.sri,
+          nonce: lt.global.Math.random(), // ensure item changes
           value: value,
         }, options);
       }
@@ -1263,7 +1297,8 @@
       timeout: 5000,
       sendResponses: [],
       init: function () {
-        this.lichessTools.global.addEventListener('LichessTools.receive', (ev) => {
+        const lt = this.lichessTools;
+        lt.global.addEventListener('LichessTools.receive', (ev) => {
           const sendResponse = this.sendResponses[ev.detail.uid];
           if (sendResponse) {
             delete this.sendResponses[ev.detail.uid];
@@ -1272,6 +1307,7 @@
         });
       },
       send: function (data, sendResponse, timeout) {
+        const lt = this.lichessTools;
         const uid = crypto.randomUUID();
         return new Promise((resolve, reject) => {
           const pointer = setTimeout(() => reject(new Error('Send timeout')), timeout || this.timeout);
@@ -1287,21 +1323,22 @@
             cancelable: true,
             composed: false,
           });
-          this.lichessTools.global.dispatchEvent(customEvent);
+          lt.global.dispatchEvent(customEvent);
         });
       },
       _files: new Map(),
       getData: async function(filename, retries=3) {
+        const lt = this.lichessTools;
         let data = this._files.get(filename);
         let error = null;
         for (let i=0; i<retries && !data; i++) {
-          data = await this.lichessTools.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } })
+          data = await lt.comm.send({ type: 'getFile', options: { filename: 'data/'+filename } })
                                              .catch(e => { error = e; });
         }
         if (data) {
           this._files.set(filename,data);
         } else {
-          if (error) this.lichessTools.global.console.error(error);
+          if (error) lt.global.console.error(error);
         }
         return data;
       }
@@ -1310,20 +1347,22 @@
     cache = {
       lichessTools: this,
       init: function () {
-        const sessionData = this.lichessTools.storage.get('LichessTools.GeneralCache', { session: true, zip: true }) || [];
-        const localData = this.lichessTools.storage.get('LichessTools.GeneralCache', { session: false, zip: true }) || [];
+        const lt = this.lichessTools;
+        const sessionData = lt.storage.get('LichessTools.GeneralCache', { session: true, zip: true }) || [];
+        const localData = lt.storage.get('LichessTools.GeneralCache', { session: false, zip: true }) || [];
         this._cache = new Map(sessionData.concat(localData));
-        this.save = this.lichessTools.debounce(this.saveDirect, 1000);
+        this.save = lt.debounce(this.saveDirect, 1000);
       },
       saveDirect: function () {
+        const lt = this.lichessTools;
         if (!this._cache) return;
         let data = [...this._cache.entries()].filter(e => e[1].persist == 'session');
         if (data.length) {
-          this.lichessTools.storage.set('LichessTools.GeneralCache', data, { session: true, zip: true });
+          lt.storage.set('LichessTools.GeneralCache', data, { session: true, zip: true });
         }
         data = [...this._cache.entries()].filter(e => e[1].persist == 'local');
         if (data.length) {
-          this.lichessTools.storage.set('LichessTools.GeneralCache', data, { session: false, zip: true });
+          lt.storage.set('LichessTools.GeneralCache', data, { session: false, zip: true });
         }
       },
       getCached: function (key) {
@@ -1351,6 +1390,7 @@
       },
       memoizeAsyncFunction: function (obj, funcName, options) {
         const cache = this;
+        const lt = cache.lichessTools;
         const original = obj[funcName];
         obj[funcName] = async function (...args) {
           const key = options.keyFunction
@@ -1363,13 +1403,13 @@
             }
             return cached.value;
           }
-          cache.lichessTools.$('body').addClass('lichessTools-apiLoading');
+          lt.$('body').addClass('lichessTools-apiLoading');
           try {
             const result = await original.apply(obj, args);
             cache.setCached(key, result, options);
             return result;
           } finally {
-            cache.lichessTools.$('body').removeClass('lichessTools-apiLoading');
+            lt.$('body').removeClass('lichessTools-apiLoading');
           }
         }
       }
@@ -1378,19 +1418,19 @@
     api = {
       lichessTools: this,
       init: function () {
-        const parent = this.lichessTools;
-        parent.cache.memoizeAsyncFunction(parent.api.team, 'getUserTeams', { persist: 'session', interval: 10 * 86400 * 1000 });
-        parent.cache.memoizeAsyncFunction(parent.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000 });
-        parent.cache.memoizeAsyncFunction(parent.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
-        parent.cache.memoizeAsyncFunction(parent.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
-        parent.cache.memoizeAsyncFunction(parent.api.timeline, 'get', { persist: 'session', interval: 60 * 1000 });
+        const lt = this.lichessTools;
+        lt.cache.memoizeAsyncFunction(lt.api.team, 'getUserTeams', { persist: 'session', interval: 10 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000 });
       },
       blog: {
         lichessTools: this,
         save: async function (blogId, data) {
-          const parent = this.lichessTools;
-          const bodyContent = data.map(a => a.name + '=' + parent.global.encodeURIComponent(a.value)).join('&');
-          await parent.net.fetch({
+          const lt = this.lichessTools;
+          const bodyContent = data.map(a => a.name + '=' + lt.global.encodeURIComponent(a.value)).join('&');
+          await lt.net.fetch({
             url: '/ublog/{blogId}/edit',
             args: { blogId }
           },
@@ -1408,27 +1448,27 @@
       study: {
         lichessTools: this,
         getChapterPgn: async function (studyId, chapterId) {
-          const parent = this.lichessTools;
-          const pgn = await parent.net.fetch({
+          const lt = this.lichessTools;
+          const pgn = await lt.net.fetch({
             url: '/study/{studyId}/{chapterId}.pgn',
             args: { studyId, chapterId }
           });
           return pgn;
         },
         getStudyListPage: async function (baseUrl, page) {
-          const parent = this.lichessTools;
-          const mm = /\/(hot|newest|updated|popular)$/.exec(parent.global.location.pathname);
+          const lt = this.lichessTools;
+          const mm = /\/(hot|newest|updated|popular)$/.exec(lt.global.location.pathname);
           const mode = mm?.at(1) || 'hot';
           const p = baseUrl.includes('?') ? '&' : '?';
-          const json = await parent.net.json(baseUrl + p + 'page=' + page);
+          const json = await lt.net.json(baseUrl + p + 'page=' + page);
           return json;
         }
       },
       puzzle: {
         lichessTools: this,
         getPuzzle: async function(puzzleId) {
-          const parent = this.lichessTools;
-          const data = await parent.net.json({
+          const lt = this.lichessTools;
+          const data = await lt.net.json({
             url: '/api/puzzle/{id}',
             args: {
               id: puzzleId
@@ -1437,8 +1477,8 @@
           return data;
         },
         getDashboard: async function(days) {
-          const parent = this.lichessTools;
-          const data = await parent.net.json({
+          const lt = this.lichessTools;
+          const data = await lt.net.json({
             url: '/api/puzzle/dashboard/{days}',
             args: {
               days: days
@@ -1450,21 +1490,21 @@
       user: {
         lichessTools: this,
         getUsers: async function (userIds) {
-          const parent = this.lichessTools;
-          const users = await parent.net.json('/api/users', {
+          const lt = this.lichessTools;
+          const users = await lt.net.json('/api/users', {
             method: 'POST',
             body: userIds.join(',')
           });
           return users || [];
         },
         getUserStatus: async function (userIds, options) {
-          const parent = this.lichessTools;
+          const lt = this.lichessTools;
           const query = options
             ? '&' + Object.keys(options)
-              .map(k => k + '=' + parent.global.encodeURIComponent(options[k]))
+              .map(k => k + '=' + lt.global.encodeURIComponent(options[k]))
               .join('&')
             : '';
-          const arr = await parent.net.json({
+          const arr = await lt.net.json({
             url: '/api/users/status?ids={ids}' + query,
             args: {
               ids: userIds.join(',')
@@ -1473,29 +1513,29 @@
           return arr;
         },
         getMini: async function (userId) {
-          const parent = this.lichessTools;
-          const html = await parent.net.fetch({
+          const lt = this.lichessTools;
+          const html = await lt.net.fetch({
             url: '/@/{userId}/mini',
             args: { userId }
           });
           return html;
         },
         getUserPerfStats: async function (userId, timeControl) {
-          const parent = this.lichessTools;
-          const data = await parent.net.json({ url: '/@/{userId}/perf/{timeControl}', args: { userId, timeControl } });
+          const lt = this.lichessTools;
+          const data = await lt.net.json({ url: '/@/{userId}/perf/{timeControl}', args: { userId, timeControl } });
           return data;
         }
       },
       game: {
         lichessTools: this,
         getPgns: async function (gameIds, options) {
-          const parent = this.lichessTools;
+          const lt = this.lichessTools;
           const query = options
             ? '?' + Object.keys(options)
-              .map(k => k + '=' + parent.global.encodeURIComponent(options[k]))
+              .map(k => k + '=' + lt.global.encodeURIComponent(options[k]))
               .join('&')
             : '';
-          const pgn = await parent.net.fetch(
+          const pgn = await lt.net.fetch(
             '/api/games/export/_ids' + query,
             {
               method: 'POST',
@@ -1509,13 +1549,13 @@
           return pgn;
         },
         getUserPgns: async function (userId, options) {
-          const parent = this.lichessTools;
+          const lt = this.lichessTools;
           const query = options
             ? '?' + Object.keys(options)
-              .map(k => k + '=' + parent.global.encodeURIComponent(options[k]))
+              .map(k => k + '=' + lt.global.encodeURIComponent(options[k]))
               .join('&')
             : '';
-          const pgn = await parent.net.fetch(
+          const pgn = await lt.net.fetch(
             {
               url: '/api/games/user/{userId}' + query,
               args: { userId }
@@ -1524,8 +1564,8 @@
           return pgn;
         },
         getMini: async function (gameId, color) {
-          const parent = this.lichessTools;
-          const html = await parent.net.fetch({
+          const lt = this.lichessTools;
+          const html = await lt.net.fetch({
             url: '/{gameId}' + (color == 'White' ? '/white' : '/black') + '/mini',
             args: { gameId }
           });
@@ -1535,16 +1575,16 @@
       team: {
         lichessTools: this,
         getUserTeams: async function (userId) {
-          const parent = this.lichessTools;
-          const teams = await parent.net.json({
+          const lt = this.lichessTools;
+          const teams = await lt.net.json({
             url: '/api/team/of/{userId}',
             args: { userId }
           });
           return teams;
         },
         getTeamPlayers: async function (teamId) {
-          const parent = this.lichessTools;
-          const players = await parent.net.json({
+          const lt = this.lichessTools;
+          const players = await lt.net.json({
             url: '/api/team/{teamId}/users',
             args: { teamId }
           }, { ndjson: true });
@@ -1554,27 +1594,27 @@
       streamer: {
         lichessTools: this,
         getLiveStreamers: async function () {
-          const parent = this.lichessTools;
-          const streamers = await parent.net.json('/api/streamer/live');
+          const lt = this.lichessTools;
+          const streamers = await lt.net.json('/api/streamer/live');
           return streamers;
         }
       },
       evaluation: {
         lichessTools: this,
         getChessDb: async function (fen) {
-          const parent = this.lichessTools;
-          const json = await parent.net.fetch({
+          const lt = this.lichessTools;
+          const json = await lt.net.fetch({
             url: 'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
             args: { fen }
           }, {
             ignoreStatuses: [404]
           });
-          const data = parent.jsonParse(json);
+          const data = lt.jsonParse(json);
           return data;
         },
         getLichess: async function (fen, multiPv) {
-          const parent = this.lichessTools;
-          const analysis = parent.lichess.analysis;
+          const lt = this.lichessTools;
+          const analysis = lt.lichess.analysis;
           let data = null;
           let cachedByLichess = null;
           if (analysis) {
@@ -1584,7 +1624,7 @@
             }
           }
           if (!data) {
-            data = await parent.net.json({
+            data = await lt.net.json({
               url: '/api/cloud-eval?fen={fen}&multiPv={multiPv}',
               args: { fen, multiPv }
             }, {
@@ -1599,37 +1639,37 @@
       notification: {
         lichessTools: this,
         getUnread: async function () {
-          const parent = this.lichessTools;
-          const data = await parent.net.json('/notify?page=1');
+          const lt = this.lichessTools;
+          const data = await lt.net.json('/notify?page=1');
           return +(data?.unread) || 0;
         }
       },
       flair: {
         lichessTools: this,
         getList: async function () {
-          const parent = this.lichessTools;
-          const text = await parent.net.fetch(parent.assetUrl('flair/list.txt'));
+          const lt = this.lichessTools;
+          const text = await lt.net.fetch(lt.assetUrl('flair/list.txt'));
           return text;
         }
       },
       timeline: {
         lichessTools: this,
         get: async function (lastRead) {
-          const parent = this.lichessTools;
-          const timeline = await parent.net.json({ url: '/api/timeline?nb=100&since={lastRead}', args: { lastRead } });
+          const lt = this.lichessTools;
+          const timeline = await lt.net.json({ url: '/api/timeline?nb=100&since={lastRead}', args: { lastRead } });
           return timeline;
         }
       },
       relations: {
         lichessTools: this,
         getFriends: async function () {
-          const parent = this.lichessTools;
+          const lt = this.lichessTools;
           let result = [];
-          let page = await parent.net.json({ url: '/@/{userId}/following', args: { userId: this.lichessTools.getUserId() } });
+          let page = await lt.net.json({ url: '/@/{userId}/following', args: { userId: lt.getUserId() } });
           while (page) {
             result=result.concat(page.paginator.currentPageResults);
             page = page.paginator.nextPage
-              ? await parent.net.json({ url: '/@/{userId}/following?page={page}', args: { userId: this.lichessTools.getUserId(), page: page.paginator.nextPage } })
+              ? await lt.net.json({ url: '/@/{userId}/following?page={page}', args: { userId: lt.getUserId(), page: page.paginator.nextPage } })
               : null;
           }
           return result;
@@ -1784,7 +1824,8 @@
     }
 
     logOption(label, value) {
-      this.lichessTools.global.console.log(label + ' %c' + (value === undefined ? '' : value), 'color:#9980FF');
+      const lt = this.lichessTools;
+      lt.global.console.log(label + ' %c' + (value === undefined ? '' : value), 'color:#9980FF');
     }
 
     async init() {

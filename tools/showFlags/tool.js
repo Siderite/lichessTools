@@ -25,12 +25,12 @@
     }
 
     getElementsForFlag = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const dict = {};
       $.cached('.user-link,a[href^="/@/"]', 2000).each((i, e) => {
         if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members').length) return;
-        if (!parent.inViewport(e)) return;
+        if (!lt.inViewport(e)) return;
 
         let textEl = $('.text', e);
         if (!textEl.length) textEl = $(e);
@@ -51,7 +51,7 @@
       });
       $.cached('span.mini-game__user', 2000).each((i, e) => {
         if ($(e).is('.lichessTools-noflag,.lichessTools-flag')) return;
-        if (!parent.inViewport(e)) return;
+        if (!lt.inViewport(e)) return;
 
         const userNodeIndex = Array.from(e.childNodes).findIndex(n => n.nodeType == 3);
         if (userNodeIndex < 0) return;
@@ -70,15 +70,15 @@
 
     cacheExpiration = 2 * 86400000; //2 days
     get flagCache() {
-      const parent = this.lichessTools;
-      const global = parent.global;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const global = lt.global;
+      const lichess = lt.lichess;
       if (this._flagCache) return this._flagCache;
       try {
-        const temp = parent.storage.get('LiChessTools.flagCache', { raw: true })
+        const temp = lt.storage.get('LiChessTools.flagCache', { raw: true })
         if (temp) {
-          parent.debug && global.console.debug('Size of flag cache:', temp.length);
-          this._flagCache = new Map(parent.jsonParse(temp, {}));
+          lt.debug && global.console.debug('Size of flag cache:', temp.length);
+          this._flagCache = new Map(lt.jsonParse(temp, {}));
         } else {
           this._flagCache = new Map();
         }
@@ -89,24 +89,24 @@
       return this._flagCache;
     }
     getCountryCache = async ()=>{
-      const parent = this.lichessTools;
-      const global = parent.global;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const global = lt.global;
+      const lichess = lt.lichess;
       if (this._countryCache) return this._countryCache;
       let countries;
       try {
-        const temp = parent.storage.get('LiChessTools.countryCache', { raw: true })
+        const temp = lt.storage.get('LiChessTools.countryCache', { raw: true })
         if (temp) {
-          parent.debug && global.console.debug('Size of country cache:', temp.length);
-          countries = parent.jsonParse(temp);
+          lt.debug && global.console.debug('Size of country cache:', temp.length);
+          countries = lt.jsonParse(temp);
         }
       } catch (e) {
         global.console.warn('Error parsing country cache:', e);
       }
       if (!countries) {
-        const data = await parent.comm.getData('countries.json');
+        const data = await lt.comm.getData('countries.json');
         if (!data) {
-          parent.global.console.warn('Could not load countries!');
+          lt.global.console.warn('Could not load countries!');
         }
         countries = data?.countries || [];
       }
@@ -114,25 +114,25 @@
       return this._countryCache;
     }
     saveCache = async () => {
-      const parent = this.lichessTools;
-      const global = parent.global;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const global = lt.global;
+      const lichess = lt.lichess;
       const cache = this.flagCache;
       for (const userId of cache.keys()) {
         const time = cache.get(userId).time;
         if (Date.now() - new Date(time) > this.cacheExpiration) cache.delete(userId);
       }
       const countryCache = await this.getCountryCache();
-      parent.storage.set('LiChessTools.countryCache', [...countryCache]);
-      parent.storage.set('LiChessTools.flagCache', [...this.flagCache]);
+      lt.storage.set('LiChessTools.countryCache', [...countryCache]);
+      lt.storage.set('LiChessTools.flagCache', [...this.flagCache]);
     };
     debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100);
 
     processFlags = async () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (!this.options.enabled) return;
-      if (parent.global.document.hidden) return;
+      if (lt.global.document.hidden) return;
       const dict = this.getElementsForFlag();
       const data = Object.keys(dict).map(userId => {
         const item = this.flagCache.get(userId);
@@ -145,7 +145,7 @@
       let toSaveCache = false;
       const userIds = data.filter(i => !i.countryName).map(i => i.id).slice(0, 200);
       if (userIds.length) {
-        const users = await parent.api.user.getUsers(userIds);
+        const users = await lt.api.user.getUsers(userIds);
         for (const user of users) {
           const item = data.find(i => i.id === user.id)
           if (item) item.country = user.profile?.country || user.profile?.flag || 'noflag';
@@ -178,7 +178,7 @@
           }
         }
         if (firstToProcess) {
-          const html = await parent.api.user.getMini(firstToProcess.id);
+          const html = await lt.api.user.getMini(firstToProcess.id);
           const m = /<span class="(?:upt__info__top__country|upt__info__top__flag)".*?>(?:.|\r|\n)*?<\/span>/.exec(html);
           if (m) {
             const el = $(m[0]);
@@ -207,15 +207,15 @@
             elem.addClass('lichessTools-noflag');
           } else {
             elem.addClass('lichessTools-flag');
-            const flagUrl = parent.assetUrl('images/flags/' + item.country + '.png');
+            const flagUrl = lt.assetUrl('images/flags/' + item.country + '.png');
             elem.after($('<img>')
               .addClass('flag')
               .attr('loading', 'lazy')
               .attr('title', item.countryName)
               .attr('src', flagUrl)
-              .css('animation-duration', Math.round(5 + parent.random() * 15) + 's')
+              .css('animation-duration', Math.round(5 + lt.random() * 15) + 's')
             );
-            parent.net.logNetwork(flagUrl, 1000, 0); //approximate flag size in bytes
+            lt.net.logNetwork(flagUrl, 1000, 0); //approximate flag size in bytes
           }
         }
       }
@@ -224,8 +224,8 @@
     debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500);
 
     resetFlags = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('.lichessTools-flag+img.flag').remove();
       $('.lichessTools-flag').removeClass('lichessTools-flag');
       $('.lichessTools-noflag').removeClass('lichessTools-noflag');
@@ -233,30 +233,30 @@
     };
 
     clearCache = () => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       this._flagCache = undefined;
       this._countryCache = undefined;
-      parent.storage.remove('LiChessTools.flagCache');
-      parent.storage.remove('LiChessTools.countryCache');
+      lt.storage.remove('LiChessTools.flagCache');
+      lt.storage.remove('LiChessTools.countryCache');
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('showFlags');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('showFlags');
       this.logOption('Show player flags', value);
       this.options = { enabled: value };
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       if (!lichess) return;
-      const $ = parent.$;
+      const $ = lt.$;
       lichess.pubsub.off('content-loaded', this.debouncedProcessFlags);
       lichess.pubsub.off('socket.in.crowd', this.debouncedProcessFlags);
-      lichess.pubsub.off('lichessTools.puzzleChange', this.resetFlags);
+      lt.pubsub.off('lichessTools.puzzleChange', this.resetFlags);
       $('#form3-flag').off('change', this.clearCache);
       if (value) {
         this.debouncedProcessFlags();
         lichess.pubsub.on('content-loaded', this.debouncedProcessFlags);
         lichess.pubsub.on('socket.in.crowd', this.debouncedProcessFlags);
-        lichess.pubsub.on('lichessTools.puzzleChange', this.resetFlags);
+        lt.pubsub.on('lichessTools.puzzleChange', this.resetFlags);
 
         $('#form3-flag').on('change', this.clearCache);
       } else {

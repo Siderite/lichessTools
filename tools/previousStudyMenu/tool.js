@@ -30,12 +30,12 @@
     }
 
     updateStudy = async () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
       const study = lichess?.analysis?.study;
-      const JSON = parent.global.JSON;
-      let studyData = parent.currentOptions.getValue('previousStudyMenu.study');
+      const JSON = lt.global.JSON;
+      let studyData = lt.currentOptions.getValue('previousStudyMenu.study');
       if (!studyData?.length) {
         studyData = [];
       }
@@ -54,8 +54,8 @@
           }
           studyData.unshift(data);
           if (studyData.length > 6) studyData.length = 6;
-          parent.currentOptions['previousStudyMenu.study'] = studyData;
-          await parent.saveOptions(parent.currentOptions);
+          lt.currentOptions['previousStudyMenu.study'] = studyData;
+          await lt.saveOptions(lt.currentOptions);
         }
       }
       const container = $('#topnav section a[href="/learn"]+div[role="group"]');
@@ -117,15 +117,15 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('previousStudyMenu');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('previousStudyMenu');
       this.logOption('Last study menu', value);
       this.options = { enabled: value };
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       $('a.lichessTools-previousStudy').remove();
-      lichess.pubsub.off('lichessTools.redraw', this.updateStudy);
+      lt.pubsub.off('lichessTools.redraw', this.updateStudy);
       if (value) {
-        lichess.pubsub.on('lichessTools.redraw', this.updateStudy);
+        lt.pubsub.on('lichessTools.redraw', this.updateStudy);
         await this.updateStudy();
       }
     }

@@ -25,15 +25,15 @@
 
     retries = 0;
     checkEndGame = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (!$('body').is('.playing')) {
         this.retries = 0;
         return;
       }
       if (!$('.result-wrap .result').length) {
         if (this.retries < 8) {
-          parent.global.setTimeout(this.checkEndGame, 500);
+          lt.global.setTimeout(this.checkEndGame, 500);
           this.retries++;
         }
         return;
@@ -41,14 +41,14 @@
       this.retries = 0;
       const href = $('a.fbt.analysis').attr('href');
       if (!href) return;
-      parent.global.location.href = href;
+      lt.global.location.href = href;
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('autoAnalyseGame');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('autoAnalyseGame');
       this.logOption('Auto analyse game', value);
       lichess.pubsub.off('socket.in.endData', this.checkEndGame);
       this.retries = 0;

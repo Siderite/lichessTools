@@ -30,10 +30,10 @@
     }
 
     setupAreaDirect = async () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const container = $('div.study__share form.form3');
       if (!container.length) return;
       let group = $('div.form-group.lichessTools-chapterPgnArea', container);
@@ -49,28 +49,28 @@
         $('button.copy-me__button',group)
           .attr('data-icon','\uE070');
       }
-      const pgn = await parent.exportPgn('');
+      const pgn = await lt.exportPgn('');
       $('textarea', group).val(pgn);
     };
     setupArea = this.lichessTools.debounce(this.setupAreaDirect, 500);
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('chapterPgnArea');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('chapterPgnArea');
       this.logOption('Chapter PGN area', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;
       $('div.study__share form.form3 div.form-group.lichessTools-chapterPgnArea').remove();
-      lichess.pubsub.off('lichessTools.redraw', this.setupArea);
-      study.vm.toolTab = lichessTools.unwrapFunction(study.vm.toolTab, 'chapterPgnArea');
+      lt.pubsub.off('lichessTools.redraw', this.setupArea);
+      study.vm.toolTab = lt.unwrapFunction(study.vm.toolTab, 'chapterPgnArea');
       if (!value) return;
-      lichess.pubsub.on('lichessTools.redraw', this.setupArea);
-      study.vm.toolTab = lichessTools.wrapFunction(study.vm.toolTab, {
+      lt.pubsub.on('lichessTools.redraw', this.setupArea);
+      study.vm.toolTab = lt.wrapFunction(study.vm.toolTab, {
         id: 'chapterPgnArea',
         after: ($this, result, data) => {
-          parent.global.setTimeout(this.setupArea, 200);
+          lt.global.setTimeout(this.setupArea, 200);
         }
       });
       this.setupArea();

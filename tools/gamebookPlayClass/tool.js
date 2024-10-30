@@ -27,10 +27,10 @@
     }
 
     setCssClass = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const study = lichess.analysis?.study;
-      const $ = parent.$;
+      const $ = lt.$;
       if (!study) return;
       const override = study.vm.gamebookOverride;
       const cls = 'lichessTools-gamebook-' + override;
@@ -42,20 +42,20 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('gamebookPlayClass');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('gamebookPlayClass');
       this.logOption('Gamebook CSS class', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      lichess.pubsub.off('lichessTools.chapterChange', this.setCssClass);
-      study.setGamebookOverride = parent.unwrapFunction(study.setGamebookOverride, 'gamebookPlayClass');
+      lt.pubsub.off('lichessTools.chapterChange', this.setCssClass);
+      study.setGamebookOverride = lt.unwrapFunction(study.setGamebookOverride, 'gamebookPlayClass');
       if (value) {
-        study.setGamebookOverride = parent.wrapFunction(study.setGamebookOverride, {
+        study.setGamebookOverride = lt.wrapFunction(study.setGamebookOverride, {
           id: 'gamebookPlayClass',
           after: this.setCssClass
         })
-        lichess.pubsub.on('lichessTools.chapterChange', this.setCssClass);
+        lt.pubsub.on('lichessTools.chapterChange', this.setCssClass);
         this.setCssClass();
       }
     }

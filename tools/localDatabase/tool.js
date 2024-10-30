@@ -25,13 +25,13 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = !!parent.currentOptions.getValue('localDatabase');
+      const lt = this.lichessTools;
+      const value = !!lt.currentOptions.getValue('localDatabase');
       this.logOption('Local database', value || 'not set');
       if (value) {
-        parent.file = new FileSystem(parent);
+        lt.file = new FileSystem(lt);
       } else {
-        parent.file = null;
+        lt.file = null;
       }
     }
 
@@ -44,9 +44,10 @@
     }
 
     async openIndex(fileHandle, isCached = true) {
+      const lt = this.lichessTools;
       if (!fileHandle) return;
       const dbKey = 'lichessTools/LT/localDatabase-NIF-'+fileHandle.name+'-data';
-      let indexData = await this.lichessTools.storage.get(dbKey,{ db: true, raw: true });
+      let indexData = await lt.storage.get(dbKey,{ db: true, raw: true });
       const indexFile = new IndexFile(isCached);
       if (indexData) {
         await indexFile.loadData(indexData,fileHandle);
@@ -54,7 +55,7 @@
         await indexFile.loadFile(fileHandle);
       }
       indexData = indexFile.getIndexData();
-      await this.lichessTools.storage.set(dbKey, indexData, { db: true, raw: true });
+      await lt.storage.set(dbKey, indexData, { db: true, raw: true });
       return indexFile;
     }
 

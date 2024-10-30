@@ -37,12 +37,12 @@
     }
 
     evaluateDirect = async () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      if (parent.isGamePlaying()) return;
+      if (lt.isGamePlaying()) return;
       if (!$('.analyse__tools > .ceval').length) return;
       const selected = analysis.chessground?.state?.selected;
       const dests = selected
@@ -69,7 +69,7 @@
         return;
       }
       if (!this._sf) {
-        const sf = await parent.stockfish.load();
+        const sf = await lt.stockfish.load();
         if (!sf) return;
         sf.setMultiPv(256);
         sf.setTime(90000);
@@ -96,8 +96,8 @@
     _squares = {};
     getSquare = (e, side, isBlack) => {
       if (e.cgKey) return e.cgKey;
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const matrix = $(e).css('transform');
       if (!matrix) return;
       const key = (isBlack ? 'b' : 'w') + side + matrix;
@@ -115,9 +115,9 @@
     }
 
     refreshSquares = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       const selected = analysis.chessground?.state?.selected;
@@ -141,9 +141,9 @@
         }
         const qPerc = minCp == maxCp ? 1 : (cp - minCp) / (maxCp - minCp);
         const delta = maxCp - cp;
-        const deltaColor = parent.getGradientColor(delta, [{ q: 0, color: '#00FF00' }, { q: 100, color: '#FFFF00' }, { q: 200, color: '#FF8000' }, { q: 300, color: '#FF0000' }]);
-        const percColor = parent.getGradientColor(qPerc, [{ q: 0, color: '#FF0000' }, { q: 0.5, color: '#FFFF00' }, { q: 1, color: '#00FF00' }]);
-        const gradientColor = parent.getGradientColor(0.66, [{ q: 0, color: percColor }, { q: 1, color: '#20202040' }]);
+        const deltaColor = lt.getGradientColor(delta, [{ q: 0, color: '#00FF00' }, { q: 100, color: '#FFFF00' }, { q: 200, color: '#FF8000' }, { q: 300, color: '#FF0000' }]);
+        const percColor = lt.getGradientColor(qPerc, [{ q: 0, color: '#FF0000' }, { q: 0.5, color: '#FFFF00' }, { q: 1, color: '#00FF00' }]);
+        const gradientColor = lt.getGradientColor(0.66, [{ q: 0, color: percColor }, { q: 1, color: '#20202040' }]);
         $(e)
           .css('background', 'radial-gradient(' + gradientColor + ' 19%, rgba(0, 0, 0, 0) 20%)')
           .css('border-color', deltaColor);
@@ -166,20 +166,20 @@
     _eval = {};
     _wdl = {};
     getInfo = (info) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const mate = +(info.mate?.at(0));
       const cp = mate
         ? Math.sign(mate) * 10000 - mate
         : +(info.cp?.at(0));
       const uci = info.pv?.at(0);
       if (!uci || Number.isNaN(cp)) return;
-      if (parent.debug) {
+      if (lt.debug) {
         const depth = +(info.depth?.at(0));
         const seldepth = +(info.seldepth?.at(0));
         if (depth == 1 && this._prevDepth > 1) this._prevDepth = null;
         if (!this._prevDepth || depth > this._prevDepth) {
           this._prevDepth = depth;
-          parent.global.console.debug('Depth:', depth + '/' + seldepth);
+          lt.global.console.debug('Depth:', depth + '/' + seldepth);
         }
       }
       this._eval[uci] = cp;
@@ -192,8 +192,8 @@
     }
 
     clearSquares = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('main.analyse div.cg-wrap').removeClass('lichessTools-moveAssistant');
       $('square.move-dest')
         .css('background', '')
@@ -202,9 +202,9 @@
     };
 
     setControls = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       let button = $('div.ceval button.lichessTools-moveAssistant');
       if (!this.options.enabled) {
         button.remove();
@@ -225,35 +225,35 @@
 
     get isEnabled() {
       if (this._isEnabled !== undefined) return this._isEnabled;
-      const parent = this.lichessTools;
-      this._isEnabled = parent.storage.get('LichessTools.moveAssistant');
+      const lt = this.lichessTools;
+      this._isEnabled = lt.storage.get('LichessTools.moveAssistant');
       return this._isEnabled;
     }
 
     set isEnabled(value) {
-      const parent = this.lichessTools;
-      parent.storage.set('LichessTools.moveAssistant', value);
+      const lt = this.lichessTools;
+      lt.storage.set('LichessTools.moveAssistant', value);
       this._isEnabled = value;
       if (!value) this._sf?.destroy();
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('moveAssistant');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('moveAssistant');
       this.logOption('Move assistant', value);
       this.options = { enabled: value };
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      if (!parent.global.SharedArrayBuffer) return;
+      if (!lt.global.SharedArrayBuffer) return;
       this.clearSquares();
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       this.setControls();
-      lichess.pubsub.off('lichessTools.redraw', this.setControls);
+      lt.pubsub.off('lichessTools.redraw', this.setControls);
       if (!value) return;
-      this.interval = parent.global.setInterval(this.evaluate, 1000);
-      lichess.pubsub.on('lichessTools.redraw', this.setControls);
+      this.interval = lt.global.setInterval(this.evaluate, 1000);
+      lt.pubsub.on('lichessTools.redraw', this.setControls);
     }
 
   }

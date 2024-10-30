@@ -79,40 +79,40 @@
     }
 
     setAllRead = () => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       this.lastRead = Date.now();
-      parent.storage.set('LiChessTools.lastRead', this.lastRead);
-      parent.notifications.refresh();
+      lt.storage.set('LiChessTools.lastRead', this.lastRead);
+      lt.notifications.refresh();
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('timelineNotify');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('timelineNotify');
       switch (value) {
         case true: this.types = this.preferences[0].defaultValue.split(','); break;
         case false: this.types = []; break;
         default: this.types = value?.split(','); break;
       }
       this.logOption('Timeline notifications', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
       if (!value) return;
 
-      if (/^\/timeline/i.test(parent.global.location.pathname)) this.setAllRead();
+      if (/^\/timeline/i.test(lt.global.location.pathname)) this.setAllRead();
       const notification = {
         getEntries: async () => {
-          this.lastRead = +(parent.storage.get('LiChessTools.lastRead')) || 0;
-          const timeline = await parent.api.timeline.get(this.lastRead);
+          this.lastRead = +(lt.storage.get('LiChessTools.lastRead')) || 0;
+          const timeline = await lt.api.timeline.get(this.lastRead);
           if (!timeline) return [];
           const newEntries = timeline.entries
             .filter(e => e.date > this.lastRead)
             .filter(e => this.types.includes(e.type));
-          const justNotified = +(parent.storage.get('just-notified')) || 0;
+          const justNotified = +(lt.storage.get('just-notified')) || 0;
           if (!newEntries
             .find(e => e.date > justNotified)) return [];
           const entry = {
@@ -129,7 +129,7 @@
           return [entry];
         }
       };
-      parent.notifications.add(notification);
+      lt.notifications.add(notification);
     }
 
   }
