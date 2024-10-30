@@ -123,7 +123,7 @@
       this.handleGesture(this.chessground.state.drawable.current);
       this.chessground.state.drawable.current = undefined;
       this.chessground.state.dom.redraw();
-      lichess.pubsub.emit('lichessTools.shapeRank');
+      lt.pubsub.emit('lichessTools.shapeRank');
     };
 
     handleGesture = (shape) => {

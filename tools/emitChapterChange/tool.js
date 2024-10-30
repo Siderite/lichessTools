@@ -14,7 +14,7 @@
         const currChapterId = lichess.analysis.study.currentChapter()?.id;
         if (previousChapterId != currChapterId) {
           previousChapterId = currChapterId;
-          lichess.pubsub.emit('lichessTools.chapterChange', currChapterId);
+          lt.pubsub.emit('lichessTools.chapterChange', currChapterId);
         }
       });
     }

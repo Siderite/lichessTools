@@ -50,7 +50,7 @@
           return;
         }
         lt.debug && lt.global.console.debug('redraw');
-        lichess.pubsub.emit('lichessTools.redraw');
+        lt.pubsub.emit('lichessTools.redraw');
       }, 250);
       lt.emitRedraw = emit;
       this.analysisStart();
