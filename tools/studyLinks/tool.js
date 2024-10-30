@@ -188,11 +188,9 @@
       }
 
       lt.pubsub.off('lichessTools.redraw', this.alterStudyLinks);
-      lichess.pubsub.off('analysis.change', this.alterStudyLinks);
       lt.pubsub.off('lichessTools.chapterChange', this.alterStudyLinks);
       if (this.options.studyLinksSameWindow) {
         lt.pubsub.on('lichessTools.redraw', this.alterStudyLinks);
-        lichess.pubsub.on('analysis.change', this.alterStudyLinks);
         lt.pubsub.on('lichessTools.chapterChange', this.alterStudyLinks);
         this.alterStudyLinks();
       }

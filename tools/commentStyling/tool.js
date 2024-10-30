@@ -157,14 +157,12 @@
       const study = lichess?.analysis?.study;
       if (!study) return;
       lt.pubsub.off('lichessTools.redraw', this.debouncedAddCommentClasses);
-      lichess.pubsub.off('analysis.change', this.debouncedAddCommentClasses);
       lt.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentClasses);
       if (lichess.socket) {
         lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'commentStyling');
       }
       if (value) {
         lt.pubsub.on('lichessTools.redraw', this.debouncedAddCommentClasses);
-        lichess.pubsub.on('analysis.change', this.debouncedAddCommentClasses);
         lt.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentClasses);
         if (lichess.socket) {
           lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {

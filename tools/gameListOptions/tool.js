@@ -227,10 +227,10 @@
         .removeClass('lichessTools-gameListOptions-analysis')
       $('.lichessTools-gameListOptions-analysisLink')
         .removeClass('lichessTools-gameListOptions-analysisLink')
-      lichess.pubsub.off('lichess.redraw',this.processLists);
+      lt.pubsub.off('lichessTools.redraw',this.processLists);
       lichess.pubsub.off('content-loaded',this.processLists);
       if (!this.options.isSet) return;
-      lichess.pubsub.on('lichess.redraw',this.processLists);
+      lt.pubsub.on('lichessTools.redraw',this.processLists);
       lichess.pubsub.on('content-loaded',this.processLists);
       this.processLists();
     }
