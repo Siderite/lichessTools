@@ -177,7 +177,10 @@
             const isBlack = $(e).find('.game-row__board .mini-board').is('.orientation-black');
             const elem = $(e).find('a.game-row__overlay');
             const href = elem.attr('href');
-            const xref = href.slice(0,-4)+(isBlack?'/black':'');
+            const m = /^\/(?<gameId>[^\/]+)/.exec(href);
+            const xref = m
+              ? '/' + m.groups.gameId.slice(0,8) + (isBlack?'/black':'')
+              : href;
             elem.attr('href',xref);
             $(e).attr('data-orig-href',href);
           }  
