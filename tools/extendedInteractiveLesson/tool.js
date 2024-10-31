@@ -15,7 +15,7 @@
         name: 'extendedInteractiveLessonFlow',
         category: 'study',
         type: 'multiple',
-        possibleValues: ['sequential', 'spacedRepetition', 'ignoreBadGlyphs'],
+        possibleValues: ['sequential', 'spacedRepetition', 'ignoreBadGlyphs', 'negativeHint'],
         defaultValue: 'ignoreBadGlyphs',
         advanced: true,
         wip: true
@@ -38,6 +38,7 @@
         'currentScore': 'Score so far: %s%',
         'nextMovesCount': 'Make one of %s accepted moves',
         'nextMovesCount:one': 'Only one accepted move to make',
+        'avoidMovesHint': 'Only one accepted move. Avoid %s',
         'interactiveLessonsText': 'Interactive lessons',
         'addDeviationText': 'Explain why other moves are wrong',
         'addDeviationTitle': 'LiChess Tools - explain why moves from here not in the PGN are wrong',
@@ -45,6 +46,7 @@
         'extendedInteractiveLessonFlow.sequential': 'Sequential',
         'extendedInteractiveLessonFlow.spacedRepetition': 'Spaced Repetition',
         'extendedInteractiveLessonFlow.ignoreBadGlyphs': 'Avoid lines marked as mistakes',
+        'extendedInteractiveLessonFlow.negativeHint': 'Hint excluded moves',
         'resetQuestionNoVariations': 'No more variations. Reset?',
         'resetQuestion': 'Reset variation progress?',
         'resetButtonText': 'Reset',
@@ -70,6 +72,7 @@
         'currentScore': 'Scor p\u00e2n\u0103 acum: %s%',
         'nextMovesCount': 'F\u0103 una din %s mut\u0103ri acceptate',
         'nextMovesCount:one': 'O singur\u0103 mutare de f\u0103cut',
+        'avoidMovesHint': 'O singur\u0103 mutare. Evit\u0103 %s',
         'interactiveLessonsText': 'Lec\u0163ii interactive',
         'addDeviationText': 'Explic\u0103 de ce alte mut\u0103ri sunt gre\u015Fite',
         'addDeviationTitle': 'LiChess Tools - explic\u0103 de ce mut\u0103ri de aici lips\u0103 din PGN sunt gre\u015Fite',
@@ -77,6 +80,7 @@
         'extendedInteractiveLessonFlow.sequential': 'Secven\u0163ial',
         'extendedInteractiveLessonFlow.spacedRepetition': 'Repeti\u0163ie distan\u0163at\u0103',
         'extendedInteractiveLessonFlow.ignoreBadGlyphs': 'Evit\u0103 linii marcate ca gre\u015fite',
+        'extendedInteractiveLessonFlow.negativeHint': 'Indiciu mut\u0103ri excluse',
         'resetQuestionNoVariations': 'Nu mai sunt varia\u0163uni. Resetez?',
         'resetQuestion': 'Resetez progresul \u00een varia\u0163uni?',
         'resetButtonText': 'Resetare',
@@ -147,8 +151,9 @@
             }
           }
         }
-        const nextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
+        const allNextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
           .filter(c => this.isPermanentNode(c))
+        const nextMoves = allNextMoves
           .filter(c => !(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(c.path));
         if (!isAcceptedMove) {
           state.feedback = 'bad';
@@ -163,8 +168,16 @@
           state.hint = node.gamebook?.hint;
           const nextMovesCount = new Set(nextMoves.map(c => c.uci)).size;
           if (!state.hint) {
-            const hint = trans.pluralSame('nextMovesCount', nextMovesCount);
-            state.hint = hint;
+            state.hint = trans.pluralSame('nextMovesCount', nextMovesCount);
+            if ((this.options.flow.sequential || this.options.flow.spacedRepetition) && this.options.flow.negativeHint) {
+              const avoidText = allNextMoves
+                .filter(c=>!this.inCurrentPath(c.path))
+                .map(c=>c.san)
+                .join(', ');
+              if (avoidText) {
+                state.hint = trans.pluralSame('avoidMovesHint', avoidText);
+              }
+            }
           }
           lt.global.setTimeout(() =>
             $('button.hint')
@@ -961,7 +974,8 @@
         flow: {
           'sequential': lt.isOptionSet(flow, 'sequential'),
           'spacedRepetition': lt.isOptionSet(flow, 'spacedRepetition'),
-          'ignoreBadGlyphs': lt.isOptionSet(flow, 'ignoreBadGlyphs')
+          'ignoreBadGlyphs': lt.isOptionSet(flow, 'ignoreBadGlyphs'),
+          'negativeHint': lt.isOptionSet(flow, 'negativeHint')
         }
       };
       lt.isPermanentNode = this.isPermanentNode.bind(this);
