@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+31 Oct
+
+- Polish translation
+- more extended interactive flow options
+
 28 Oct
 
 - Fat gauge theme
