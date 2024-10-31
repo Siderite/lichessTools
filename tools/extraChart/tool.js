@@ -937,8 +937,9 @@
       const path = data?.element?.$context?.raw?.path;
       if (path) {
         lichess.analysis.jump(path);
-      } else if (data) {
-        lichess.pubsub.emit('analysis.chart.click', data.index);
+      } else if (data?.index !== undefined) {
+        lichess.analysis.jumpToIndex(data.index);
+        lichess.analysis.redraw();
       }
     };
 

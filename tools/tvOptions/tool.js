@@ -1,6 +1,8 @@
 (() => {
   class TvOptionsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitContentLoaded'];
+
     preferences = [
       {
         name: 'tvOptions',
@@ -446,11 +448,11 @@
       if (!lichess) return;
       $(lt.global).off('hashchange', this.hashChange);
       lt.uiApi.socket.events.off('close', this.hashChange);
-      lichess.pubsub.off('content-loaded', this.refreshTimeControls);
+      lt.pubsub.off('content-loaded', this.refreshTimeControls);
       if (this.options.friendsTv || this.options.streamerTv) {
         $(lt.global).on('hashchange', this.hashChange);
         lt.uiApi.socket.events.on('close', this.hashChange);
-        lichess.pubsub.on('content-loaded', this.refreshTimeControls);
+        lt.pubsub.on('content-loaded', this.refreshTimeControls);
         lt.global.setTimeout(this.hashChange, 100);
       }
 

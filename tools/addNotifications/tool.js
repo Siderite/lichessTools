@@ -1,7 +1,7 @@
 (() => {
   class AddNotificationsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw'];
+    dependencies = ['EmitRedraw','EmitContentLoaded'];
 
     preferences = [
       {
@@ -122,7 +122,7 @@
         return;
       }
 
-      lichess.pubsub.off('content-loaded', this.processNotifications);
+      lt.pubsub.off('content-loaded', this.processNotifications);
       lt.global.clearInterval(this.interval);
       lt.global.clearInterval(this.closeInterval);
       lt.uiApi.socket.events.off('notifications', this.updateNotificationCount);
@@ -133,7 +133,7 @@
         refresh: this.forcedProcessNotifications.bind(this)
       };
 
-      lichess.pubsub.on('content-loaded', this.processNotifications);
+      lt.pubsub.on('content-loaded', this.processNotifications);
       this.interval = lt.global.setInterval(() => {
         if ($('div.shown #notify-app div.empty.text').length) {
           this.forcedProcessNotifications();

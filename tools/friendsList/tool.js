@@ -1,7 +1,7 @@
 (() => {
   class FriendsListTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['DetectThirdParties', 'InterceptEventHandlers'];
+    dependencies = ['DetectThirdParties', 'InterceptEventHandlers', 'EmitContentLoaded'];
 
     preferences = [
       {
@@ -656,9 +656,9 @@
         lt.uiApi.onlineFriends.events.on('stopped_playing', this.stopped_playing);
       }
       if (lt.isFriendsPage()) {
-        lichess.pubsub.off('content-loaded', this.updateFriendsPage);
+        lt.pubsub.off('content-loaded', this.updateFriendsPage);
         if (liveFriendsPage) {
-          lichess.pubsub.on('content-loaded', this.updateFriendsPage);
+          lt.pubsub.on('content-loaded', this.updateFriendsPage);
         } else {
           $('.lichessTools-online').removeClass('lichessTools-online');
           $('.lichessTools-playing').removeClass('lichessTools-playing');

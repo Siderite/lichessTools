@@ -1,7 +1,7 @@
 (() => {
   class ShowPawnStructureTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw'];
+    dependencies = ['EmitRedraw', 'EmitContentLoaded'];
 
     preferences = [
       {
@@ -368,7 +368,7 @@
       lt.uiApi.socket.events.off('fen', this.miniGameStructure);
       lt.uiApi.events.off('ply', this.refreshStructureDebounced);
       lt.pubsub.off('lichessTools.redraw', this.refreshStructureDebounced);
-      lichess.pubsub.off('content-loaded', this.miniGameStructureDebounced);
+      lt.pubsub.off('content-loaded', this.miniGameStructureDebounced);
       if (lichess.socket?.settings?.events?.endData) {
         lichess.socket.settings.events.endData = lt.unwrapFunction(lichess.socket.settings.events.endData, 'showPawnStructure');
       }
@@ -385,7 +385,7 @@
         lt.uiApi.socket.events.on('fen', this.miniGameStructure);
         lt.uiApi.events.on('ply', this.refreshStructureDebounced);
         lt.pubsub.on('lichessTools.redraw', this.refreshStructureDebounced);
-        lichess.pubsub.on('content-loaded', this.miniGameStructureDebounced);
+        lt.pubsub.on('content-loaded', this.miniGameStructureDebounced);
         lt.global.setTimeout(this.refreshStructureDebounced,1000); // this is not essential to loading
         if ($('main').is('#board-editor')) {
           this.interval = lt.global.setInterval(this.refreshStructureDebounced, 1000);

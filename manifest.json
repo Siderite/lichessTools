@@ -46,6 +46,7 @@
         "tools/fixChessgroundResize/tool.js",
         "tools/fixWakeLock/tool.js",
         "tools/emitRedraw/tool.js",
+        "tools/emitContentLoaded/tool.js",
         "tools/emitChapterChange/tool.js",
         "tools/gamebookPlayClass/tool.js",
         "tools/emitPuzzleChange/tool.js",

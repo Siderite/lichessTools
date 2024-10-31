@@ -1,7 +1,7 @@
 (() => {
   class MchatOptionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['AddNotifications'];
+    dependencies = ['AddNotifications', 'EmitContentLoaded'];
 
     preferences = [
       {
@@ -398,7 +398,7 @@
         }
         this.sockets = null;
       }
-      lichess.pubsub.off('content-loaded', this.notificationButtonInTeams);
+      lt.pubsub.off('content-loaded', this.notificationButtonInTeams);
       if (this.options.teamChatNotifications) {
         lt.storage?.listen('lichessTools.refreshNotifications', ()=>{
           this.loadTeamsData();
@@ -433,7 +433,7 @@
         }
         if (this.isTeamsListPage()) {
           this.notificationButtonInTeams();
-          lichess.pubsub.on('content-loaded', this.notificationButtonInTeams);
+          lt.pubsub.on('content-loaded', this.notificationButtonInTeams);
         }
       }
     }

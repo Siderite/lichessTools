@@ -1,6 +1,8 @@
 (() => {
   class ShowOpeningTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitContentLoaded'];
+
     preferences = [
       {
         name: 'showOpening',
@@ -233,7 +235,7 @@
       const $ = lt.$;
       lt.uiApi.socket.events.off('fen', this.miniGameOpening);
       lt.uiApi.events.off('ply', this.refreshOpeningDebounced);
-      lichess.pubsub.off('content-loaded', this.miniGameOpening);
+      lt.pubsub.off('content-loaded', this.miniGameOpening);
       if (lichess.socket?.settings?.events?.endData) {
         lichess.socket.settings.events.endData = lt.unwrapFunction(lichess.socket.settings.events.endData, 'showOpening');
       }
@@ -260,7 +262,7 @@
       }
       if (this.options.showInMinigames) {
         lt.uiApi.socket.events.on('fen', this.miniGameOpening);
-        lichess.pubsub.on('content-loaded', this.miniGameOpening);
+        lt.pubsub.on('content-loaded', this.miniGameOpening);
         this.miniGameOpeningDebounced();
       }
     }
