@@ -211,6 +211,7 @@
       const $ = lt.$;
       if (lt.global.location.pathname!='/forum/team-l1chess-tools-users-team/form') return;
       $('main.topic-form section.warning').remove();
+      $('body').trigger('resize');
     };
 
     async start() {
