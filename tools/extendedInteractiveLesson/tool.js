@@ -15,8 +15,8 @@
         name: 'extendedInteractiveLessonFlow',
         category: 'study',
         type: 'multiple',
-        possibleValues: ['sequential', 'spacedRepetition'],
-        defaultValue: false,
+        possibleValues: ['sequential', 'spacedRepetition', 'ignoreBadGlyphs'],
+        defaultValue: 'ignoreBadGlyphs',
         advanced: true,
         wip: true
       }
@@ -44,6 +44,7 @@
         'options.extendedInteractiveLessonFlow': 'Extended interactive lesson flow',
         'extendedInteractiveLessonFlow.sequential': 'Sequential',
         'extendedInteractiveLessonFlow.spacedRepetition': 'Spaced Repetition',
+        'extendedInteractiveLessonFlow.ignoreBadGlyphs': 'Avoid lines marked as mistakes',
         'resetQuestionNoVariations': 'No more variations. Reset?',
         'resetQuestion': 'Reset variation progress?',
         'resetButtonText': 'Reset',
@@ -75,6 +76,7 @@
         'options.extendedInteractiveLessonFlow': 'Cursul lec\u0163iilor interactive extinse',
         'extendedInteractiveLessonFlow.sequential': 'Secven\u0163ial',
         'extendedInteractiveLessonFlow.spacedRepetition': 'Repeti\u0163ie distan\u0163at\u0103',
+        'extendedInteractiveLessonFlow.ignoreBadGlyphs': 'Evit\u0103 linii marcate ca gre\u015fite',
         'resetQuestionNoVariations': 'Nu mai sunt varia\u0163uni. Resetez?',
         'resetQuestion': 'Resetez progresul \u00een varia\u0163uni?',
         'resetButtonText': 'Resetare',
@@ -284,7 +286,22 @@
       }
     };
 
+    areBadGlyphNodes = (nodeList) => {
+      if (!this.options.flow.ignoreBadGlyphs) return false;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      const gp = analysis.gamebookPlay();
+      if (!gp) return false;
+      const moveSide = gp.movableColor()=='white'?' b ':' w ';
+      return !!nodeList
+        .filter(n=>n.fen.includes(moveSide))
+        .flatMap(n=>n.glyphs||[])
+        .find(g=>[2,4].includes(g.id));
+    };
+
     getCurrentPath = () => {
+      if (!this.options.flow.sequential && !this.options.flow.spacedRepetition) return;
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
@@ -299,19 +316,25 @@
         paths = {};
         this._paths[key] = paths;
       }
-      if (paths.currentPath && !this.isDonePath(paths.currentPath)) return paths.currentPath;
-      if (!this.options.flow.sequential && !this.options.flow.spacedRepetition) return;
+      if (paths.currentPath && !this.isDonePath(paths.currentPath)) {
+        const nodeList = analysis.tree.getNodeList(paths.currentPath);
+        if (!this.areBadGlyphNodes(nodeList)) {
+          return paths.currentPath;
+        }
+      }
       const currentPaths = [];
-      const traverse = (node, path) => {
+      const traverse = (node, path, nodeList) => {
         if (this.options.flow.sequential && currentPaths.length) return;
         const nextMoves = node.children
           .filter(c => this.isPermanentNode(c));
         if (!nextMoves.length && !this.isDonePath(path)) {
-          currentPaths.push(path);
+          if (!this.areBadGlyphNodes(nodeList)) {
+            currentPaths.push(path);
+          }
         }
-        for (const child of nextMoves) traverse(child, path + child.id);
+        for (const child of nextMoves) traverse(child, path + child.id, nodeList.concat([child]));
       };
-      traverse(analysis.tree.root, '');
+      traverse(analysis.tree.root, '', []);
       const i = Math.floor(lt.random() * currentPaths.length);
       paths.currentPath = currentPaths[i];
       lt.storage.set('LichessTools.chapterPaths', this._paths);
@@ -349,17 +372,21 @@
       }
       paths[path] = item;
 
-      const traverse = (node) => {
+      const traverse = (node, nodeList) => {
         const nextMoves = node.children
           .filter(c => this.isPermanentNode(c));
         if (!nextMoves.length) {
-          if (!paths[node.path]) {
-            paths[node.path] = { path: node.path, interval: 0, time: Date.now(), success: false };
+          if (this.areBadGlyphNodes(nodeList)) {
+            delete paths[node.path];
+          } else {
+            if (!paths[node.path]) {
+              paths[node.path] = { path: node.path, interval: 0, time: Date.now(), success: false };
+            }
           }
         }
-        for (const child of nextMoves) traverse(child);
+        for (const child of nextMoves) traverse(child, nodeList.concat([child]));
       };
-      traverse(analysis.tree.root);
+      traverse(analysis.tree.root,[]);
 
       this._paths[key] = paths;
       lt.storage.set('LichessTools.chapterPaths', this._paths);
@@ -933,7 +960,8 @@
         giveUpButton: lt.isOptionSet(value, 'giveUpButton'),
         flow: {
           'sequential': lt.isOptionSet(flow, 'sequential'),
-          'spacedRepetition': lt.isOptionSet(flow, 'spacedRepetition')
+          'spacedRepetition': lt.isOptionSet(flow, 'spacedRepetition'),
+          'ignoreBadGlyphs': lt.isOptionSet(flow, 'ignoreBadGlyphs')
         }
       };
       lt.isPermanentNode = this.isPermanentNode.bind(this);
