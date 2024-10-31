@@ -331,7 +331,11 @@
       }
       if (paths.currentPath && !this.isDonePath(paths.currentPath)) {
         const nodeList = analysis.tree.getNodeList(paths.currentPath);
-        if (!this.areBadGlyphNodes(nodeList)) {
+        if (nodeList.find(n=>n.ply) // line exists
+          && !nodeList.find(n=>!this.isPermanentNode(n)) // it's not temporary
+          && !nodeList.at(-1).children?.length // and the last node does not have kids
+          && !this.areBadGlyphNodes(nodeList)) // and there are no mistake/bluders on your side and the setting is on
+        {
           return paths.currentPath;
         }
       }
@@ -956,6 +960,7 @@
 
     async start() {
       const lt = this.lichessTools;
+      const trans = lt.translator;
       const value = lt.currentOptions.getValue('extendedInteractiveLesson');
       const flow = lt.currentOptions.getValue('extendedInteractiveLessonFlow');
       this.logOption('Extended interactive lessons', value, 'flow', flow);
