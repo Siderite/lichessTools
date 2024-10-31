@@ -148,7 +148,7 @@
                 } else {
                   const splits = splitLength(sendText, maxLength);
                   for (const splitText of splits) {
-                    lichess.pubsub.emit('socket.send', 'talk', splitText);
+                    lt.uiApi.chat.post(splitText);
                     await lt.timeout(500);
                   }
                   sendText = newText;
@@ -157,7 +157,7 @@
               if (sendText) {
                 const splits = splitLength(sendText, maxLength);
                 for (const splitText of splits) {
-                  lichess.pubsub.emit('socket.send', 'talk', splitText);
+                  lt.uiApi.chat.post(splitText);
                   await lt.timeout(100);
                 }
               }

@@ -100,19 +100,32 @@
       if (!this.isGamesPage()) return;
 
       if (this.options.streamerTv || this.options.friendsTv || this.options.teamTv) {
-        lt.lichess.pubsub.emit = lt.unwrapFunction(lt.lichess.pubsub.emit, 'tvOptions');
-        lt.lichess.pubsub.emit = lt.wrapFunction(lt.lichess.pubsub.emit, {
-          id: 'tvOptions',
-          before: ($this, name, info) => {
-            if (name == 'socket.in.finish') {
+        if (lt.uiApi.overrides?.tvGamesOnFinish) {
+          lt.uiApi.overrides.tvGamesOnFinish = lt.unwrapFunction(lt.uiApi.overrides.tvGamesOnFinish, 'tvOptions');
+          lt.uiApi.overrides.tvGamesOnFinish = lt.wrapFunction(lt.uiApi.overrides.tvGamesOnFinish, {
+            id: 'tvOptions',
+            before: ($this, gameId) => {
               if (!this.isStreamerTvPage() && !this.isFriendsTvPage() && !this.isTeamTvPage()) return;
-              const gameId = info.id;
               $('main.tv-games div.page-menu__content.now-playing a[data-live="' + gameId + '"]').remove();
               this.updateTvOptionsPage();
               return false;
             }
-          }
-        });
+          });
+        } else { //TODO legacy: remove when removed from Lichess
+          lt.lichess.pubsub.emit = lt.unwrapFunction(lt.lichess.pubsub.emit, 'tvOptions');
+          lt.lichess.pubsub.emit = lt.wrapFunction(lt.lichess.pubsub.emit, {
+            id: 'tvOptions',
+            before: ($this, name, info) => {
+              if (name == 'socket.in.finish') {
+                if (!this.isStreamerTvPage() && !this.isFriendsTvPage() && !this.isTeamTvPage()) return;
+                const gameId = info.id;
+                $('main.tv-games div.page-menu__content.now-playing a[data-live="' + gameId + '"]').remove();
+                this.updateTvOptionsPage();
+                return false;
+              }
+            }
+          });
+        }
       }
 
       const container = $('main.tv-games div.tv-channels');

@@ -99,6 +99,7 @@
       }
     };
 
+    //TODO legacy: remove implementation when existing in Lichess
     uiApi = this.global?.lichess || {
       lichessTools: this,
       initializeDom: function() {
@@ -110,14 +111,14 @@
         on: function(key, cb) {
           const lt = this.lichessTools;
           lt.lichess.pubsub.on(key,cb);
-          if (key == 'analysis.closeAll') { //TODO legacy: remove when removed from Lichess
+          if (key == 'analysis.closeAll') { 
             this.on('analyse.close-all',cb);
           }
         },
         off: function(key, cb) {
           const lt = this.lichessTools;
           lt.lichess.pubsub.off(key,cb);
-          if (key == 'analysis.closeAll') { //TODO legacy: remove when removed from Lichess
+          if (key == 'analysis.closeAll') {
             this.off('analyse.close-all',cb);
           }
         }
@@ -136,7 +137,7 @@
             const inEvent = this.socketInEvents.includes(key);
             const prefix = inEvent ? 'socket.in.' : 'socket.';
             lt.lichess.pubsub.on(prefix+key,cb);
-            if (key == 'lag') { //TODO legacy: remove when removed from Lichess
+            if (key == 'lag') {
               this.on('pong',cb);
             }
           },
@@ -167,6 +168,13 @@
             const lt = this.lichessTools;
             lt.lichess.pubsub.off('socket.in.following_'+key,cb);
           }
+        }
+      },
+      chat: {
+        lichessTools: this,
+        post: function(text) {
+          const lt = this.lichessTools;
+          lt.lichess.pubsub.emit('socket.send', 'talk', text);
         }
       }
     };

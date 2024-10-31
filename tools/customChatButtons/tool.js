@@ -146,7 +146,7 @@
       const chatText = chatInput.val();
       if (!this.editMode) {
         const text = elem.attr('title');
-        lt.lichess.pubsub.emit("socket.send", "talk", text);
+        lt.uiApi.chat.post(text);
         return;
       }
       const buttons = this.getButtons();
