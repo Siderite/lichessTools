@@ -100,7 +100,7 @@
       return crc ^ 0xFFFFFF;
     };
 
-    processLists = ()=>{
+    processListsDirect = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
@@ -205,6 +205,7 @@
         this.refreshActions();
       }
     };
+    processLists = this.lichessTools.debounce(this.processListsDirect,100);
 
     async start() {
       const lt = this.lichessTools;

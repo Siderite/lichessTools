@@ -333,7 +333,7 @@
       this.notificationButtonInTeams();
     };
 
-    notificationButtonInTeams = () => {
+    notificationButtonInTeamsDirect = () => {
       if (!this.isTeamsListPage()) return;
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -369,6 +369,7 @@
         }
       });
     };
+    notificationButtonInTeams = this.lichessTools.debounce(this.notificationButtonInTeamsDirect,100);
 
     sockets = [];
     async start() {

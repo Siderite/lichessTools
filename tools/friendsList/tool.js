@@ -308,7 +308,7 @@
 
     rows = {};
     friends = {};
-    updateFriendsPage = async () => {
+    updateFriendsPageDirect = async () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -442,6 +442,7 @@
           .toggleClass('offline', !isOnline);
       }
     };
+    updateFriendsPage=this.lichessTools.debounce(this.updateFriendsPageDirect,100);
 
     getTimeText = (value) => {
       const lt = this.lichessTools;

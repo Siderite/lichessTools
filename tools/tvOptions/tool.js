@@ -191,7 +191,7 @@
         });
     };
 
-    refreshTimeControls = () => {
+    refreshTimeControlsDirect = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
       $('a.mini-game[data-tc]').each((i, e) => {
@@ -201,6 +201,7 @@
         }
       });
     };
+    refreshTimeControls = this.lichessTools.debounce(this.refreshTimeControlsDirect, 100);
 
     _maxGamesCount = 30;
     refreshGames = async (playerIds, className, container, streamers) => {

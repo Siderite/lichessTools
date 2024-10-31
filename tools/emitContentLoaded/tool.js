@@ -1,22 +1,26 @@
 (() => {
   class EmitContentLoadedTool extends LiChessTools.Tools.ToolBase {
 
-    emitDirect = (el) => {
+    emit = (el) => {
       const lt = this.lichessTools;
       if (lt.global.document.hidden) {
-        this.emit(el);
+        lt.global.setTimeout(()=>this.emit(el),250);
         return;
       }
       lt.debug && lt.global.console.debug('content-loaded',el);
       lt.pubsub.emit('content-loaded',el);
     };
-    emit = this.lichessTools.debounce(this.emitDirect,250);
 
     detectNew = (records)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      if (records.find(r=>r.addedNodes.find(n=>$(n).is('.paginated')))) {
-        this.emit();
+      const selector = '#powerTip .infinite-scroll, .paginated, .dropdown, .notifications, .challenge-page, .upt__info, .game__meta, .timeline, .lobby__tv, .announce, .simul-list__content, .angle-content';
+      const found = records.find(r=>$(r.target).is(selector) || [...r.addedNodes].find(n=>$(n).is(selector)));
+      if (found) {
+        this.emit(found.target);
+        const children = [...found.addedNodes].filter(n=>$(n).is(selector));
+        children.forEach(n=>this.emit(n));
+        return;
       }
     };
 
@@ -24,13 +28,14 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
-      /*if (lichess.pubsub) {
+      if (lichess.pubsub) {
         lichess.pubsub.off('content-loaded',this.emit);
         lichess.pubsub.on('content-loaded',this.emit);
-      }*/
-      const observer = $('body').observer();
-      observer.clear();
-      observer.on('.infinite-scroll',this.detectNew);
+      } else {
+        const observer = $('body').observer();
+        observer.clear();
+        observer.on('*',this.detectNew);
+      }
     }
 
   }
