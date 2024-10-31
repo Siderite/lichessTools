@@ -152,7 +152,7 @@
           }
         }
         const allNextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
-          .filter(c => this.isPermanentNode(c))
+          .filter(c => this.isPermanentNode(c) && !this.areBadGlyphNodes([c]))
         const nextMoves = allNextMoves
           .filter(c => !(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(c.path));
         if (!isAcceptedMove) {
@@ -306,11 +306,13 @@
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return false;
-      const moveSide = gp.movableColor()=='white'?' b ':' w ';
+      const moveSide = (analysis.turnColor()=='white') ^ gp.isMyMove()
+           ? ' w '
+           : ' b ';
       return !!nodeList
         .filter(n=>n.fen.includes(moveSide))
         .flatMap(n=>n.glyphs||[])
-        .find(g=>[2,4].includes(g.id));
+        .find(g=>[2,4,6].includes(g.id));
     };
 
     getCurrentPath = () => {
@@ -331,7 +333,7 @@
       }
       if (paths.currentPath && !this.isDonePath(paths.currentPath)) {
         const nodeList = analysis.tree.getNodeList(paths.currentPath);
-        if (nodeList.find(n=>n.ply) // line exists
+        if (nodeList.length>1 // line exists
           && !nodeList.find(n=>!this.isPermanentNode(n)) // it's not temporary
           && !nodeList.at(-1).children?.length // and the last node does not have kids
           && !this.areBadGlyphNodes(nodeList)) // and there are no mistake/bluders on your side and the setting is on
