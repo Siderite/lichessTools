@@ -128,8 +128,12 @@ body.lichessTools .analyse .gamebook button.lichessTools-giveUp {
   font-size: 1rem;
 }
 
-body.lichessTools .analyse .gamebook .comment:has(button.lichessTools-giveUp):not(:has(button.hint)) {
+body.lichessTools .analyse .gamebook .comment:has(button.lichessTools-giveUp):not(.hinted,:has(button.hint)) {
   padding-bottom: 1em;
+}
+
+body.lichessTools .analyse .gamebook .comment.hinted button.lichessTools-giveUp {
+  display: none;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
