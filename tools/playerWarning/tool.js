@@ -29,26 +29,26 @@
     }
 
     isPlayingGame = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       return $.cached('body').is('.playing');
     };
 
     getTimeControl = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const text = $('div.game__meta div.setup').text();
       const m = /(\d+)\+(\d+)/.exec(text);
       if (!m) return;
-      return parent.getGameTime(m[0], true);
+      return lt.getGameTime(m[0], true);
     };
 
     refreshWarning = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       if (!this.isPlayingGame()) return;
-      const userId = parent.getUserId();
+      const userId = lt.getUserId();
       $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')
         .each(async (i, e) => {
           if (e.checkedPlayerWarning) return;
@@ -61,7 +61,7 @@
           if (isPlayer) return;
           let timeControl = this.getTimeControl();
           if (!timeControl || timeControl == 'ultrabullet') timeControl = 'blitz';
-          const data = await parent.api.user.getUserPerfStats(hrefUserId, timeControl);
+          const data = await lt.api.user.getUserPerfStats(hrefUserId, timeControl);
           const statCount = data?.stat?.count;
           if (!statCount) return;
           const disconnectPercentage = +(statCount.disconnects) * 100 / +(statCount.all);
@@ -74,19 +74,19 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('playerWarning');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('playerWarning');
       this.logOption('Player warning', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      lichess.pubsub.off('lichessTools.redraw', this.refreshWarning);
+      lt.pubsub.off('lichessTools.redraw', this.refreshWarning);
       if (!value) return;
       if (!$('.round__app').length) return;
-      lichess.pubsub.on('lichessTools.redraw', this.refreshWarning);
+      lt.pubsub.on('lichessTools.redraw', this.refreshWarning);
       this.refreshWarning();
     }
 

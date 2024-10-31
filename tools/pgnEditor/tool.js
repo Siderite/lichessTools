@@ -168,13 +168,13 @@
     historyIndex = -1;
     history = null;
     setText = (control, text) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $(control).val(text);
       this.addTextToHistory(text);
     };
     addTextToHistory = (text) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       if (!this.history) this.history = [];
       if (this.history[this.historyIndex] == text) return;
       this.setHistoryIndex(this.historyIndex + 1);
@@ -188,14 +188,14 @@
       if (this.historyIndex >= this.history.length) {
         this.historyIndex = this.history.length - 1;
       }
-      parent.storage.set('LichessTools.pgnEditor.history', this.history, { session: true, zip: true });
-      parent.storage.set('LichessTools.pgnEditor.historyIndex', this.historyIndex, { session: true });
+      lt.storage.set('LichessTools.pgnEditor.history', this.history, { session: true, zip: true });
+      lt.storage.set('LichessTools.pgnEditor.historyIndex', this.historyIndex, { session: true });
     };
     setHistoryIndex = async (val) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       this.historyIndex = val;
-      await parent.timeout(1);
+      await lt.timeout(1);
       if (!this.history) this.history = [];
       const undo = val >= 0;
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="undo"]')
@@ -205,22 +205,22 @@
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="redo"]')
         .toggleClass('disabled', !redo)
         .prop('disabled', !redo);
-      parent.storage.set('LichessTools.pgnEditor.historyIndex', this.historyIndex, { session: true });
+      lt.storage.set('LichessTools.pgnEditor.historyIndex', this.historyIndex, { session: true });
     };
 
     loadHistory = () => {
-      const parent = this.lichessTools;
-      this.history = parent.storage.get('LichessTools.pgnEditor.history', { session: true, zip: true }) || [];
-      let index = parent.storage.get('LichessTools.pgnEditor.historyIndex', { session: true });
+      const lt = this.lichessTools;
+      this.history = lt.storage.get('LichessTools.pgnEditor.history', { session: true, zip: true }) || [];
+      let index = lt.storage.get('LichessTools.pgnEditor.historyIndex', { session: true });
       if (!index && index !== 0) index = -1;
       this.setHistoryIndex(index);
     };
 
     showPgnEditor = async (showPgnText) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       $('dialog.lichessTools-pgnEditor').remove();
       const dialog = $('<dialog class="lichessTools-pgnEditor">')
         .append(`
@@ -383,7 +383,7 @@
           this.runOperation('copy', async () => {
             const text = textarea.val();
             if (!text) return;
-            await parent.writeToClipboard(text, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
+            await lt.writeToClipboard(text, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
           });
         })
         .find('span')
@@ -403,7 +403,7 @@
                 this._cancelRequested = false;
                 this._runningOperation = name;
                 this.toggleCancel(true);
-                await parent.timeout(0);
+                await lt.timeout(0);
                 const reader = new FileReader();
                 reader.onload = (e) => {
                   if (this._cancelRequested) {
@@ -413,7 +413,7 @@
                   this.setText(textarea, e.target.result);
                   this._runningOperation = null;
                   this.toggleCancel(false);
-                  parent.global.console.debug('Operation ' + name + ' took ' + ((Date.now() - now) / 1000).toFixed(1) + ' seconds');
+                  lt.global.console.debug('Operation ' + name + ' took ' + ((Date.now() - now) / 1000).toFixed(1) + ' seconds');
                   this.countPgn();
                 };
                 reader.readAsText(file, "UTF-8");
@@ -477,24 +477,24 @@
           ev.preventDefault();
           this.stopOperations();
           dialog.remove();
-          if (parent.global.location.hash = '#pgnEditor') {
-            parent.global.history.pushState(null, null, ' ');
+          if (lt.global.location.hash = '#pgnEditor') {
+            lt.global.history.pushState(null, null, ' ');
           }
         });
       this._label = $('dialog.lichessTools-pgnEditor .buttons label');
       this.toggleCancel(false);
-      if (parent.global.location.hash != '#pgnEditor') {
-        parent.global.history.pushState(null, null, '#pgnEditor');
+      if (lt.global.location.hash != '#pgnEditor') {
+        lt.global.history.pushState(null, null, '#pgnEditor');
       }
       if (!this.history) {
-        await parent.timeout(1);
+        await lt.timeout(1);
         this.loadHistory();
       }
       if (showPgnText) {
         this.addTextToHistory(showPgnText);
       }
       if (!lichess.analysis) {
-        parent.global.location.href = '/analysis#pgnEditor';
+        lt.global.location.href = '/analysis#pgnEditor';
         return;
       }
       const text = this.history[this.historyIndex] || '';
@@ -508,8 +508,8 @@
     }
 
     runOperation = async (name, operation) => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
       if (this._runningOperation) return;
       const now = Date.now();
       try {
@@ -517,7 +517,7 @@
         this._cancelRequested = false;
         this._runningOperation = name;
         this.toggleCancel(true);
-        await parent.timeout(0);
+        await lt.timeout(0);
         await operation();
       } finally {
         if (this._cancelRequested) {
@@ -526,13 +526,13 @@
         }
         this._runningOperation = null;
         this.toggleCancel(false);
-        parent.global.console.debug('Operation ' + name + ' took ' + ((Date.now() - now) / 1000).toFixed(1) + ' seconds');
+        lt.global.console.debug('Operation ' + name + ' took ' + ((Date.now() - now) / 1000).toFixed(1) + ' seconds');
       }
     };
 
     toggleCancel = (value) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('dialog.lichessTools-pgnEditor button:not([data-role="cancel"])')
         .toggleClass('disabled', !!value)
         .prop('disabled', !!value);
@@ -547,12 +547,12 @@
     };
 
     countPgn = async () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const text = $('dialog.lichessTools-pgnEditor textarea').val();
-      const co = parent.chessops;
+      const co = lt.chessops;
       const games = co.pgn.parsePgn(text).filter(g => g.headers.get('FEN') || g.moves?.children?.length);
 
       let moveCount = 0;
@@ -570,9 +570,9 @@
     };
 
     enhanceGameWithFens = game => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { startingPosition } = co.pgn;
       const { makeFen } = co.fen;
       const { parseSan, makeSanAndPlay } = co.san;
@@ -595,7 +595,7 @@
           return;
         }
         for (const child of node.children) {
-          child.parent = node;
+          child.lt = node;
           const newPos = pos.clone();
           const move = parseSan(newPos, child.data.san);
           if (!move) {
@@ -614,7 +614,7 @@
     };
 
     enhanceGameWithFenDict = game => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
 
       game.fenDict = new Map();
 
@@ -626,7 +626,7 @@
           err.ply = ply + 1;
           throw err;
         }
-        const key = parent.getFenPosition(fen);
+        const key = lt.getFenPosition(fen);
         let arr = game.fenDict.get(key);
         if (!arr) {
           arr = [];
@@ -657,7 +657,7 @@
     };
 
     cleanGame = game => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const traverse = (game, node) => {
         if (!node.children?.length) return;
         for (let i = 0; i < node.children.length; i++) {
@@ -668,10 +668,10 @@
             if (childI.data.san == childJ.data.san) {
               this.mergeNodes(childI, childJ);
               if (game.fenDict) {
-                const key = parent.getFenPosition(childJ.data.fen);
-                parent.arrayRemoveAll(game.fenDict[key], n => n == childJ);
+                const key = lt.getFenPosition(childJ.data.fen);
+                lt.arrayRemoveAll(game.fenDict[key], n => n == childJ);
               }
-              parent.arrayRemoveAll(node.children, n => n == childJ);
+              lt.arrayRemoveAll(node.children, n => n == childJ);
             } else j++;
           }
         };
@@ -684,21 +684,21 @@
     };
 
     mergePgn = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       const games = parsePgn(text);
       this.writeNote(trans.pluralSame('mergingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       let withErrors = false;
       let gameIndex = 0;
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       for (const game of games) {
         gameIndex++;
         try {
@@ -710,7 +710,7 @@
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            parent.announce(message);
+            lt.announce(message);
             break;
           } else throw ex;
         }
@@ -738,7 +738,7 @@
         if (Date.now() - lastWrite > 1000) {
           this.writeNote(trans.pluralSame('mergingGames', games.length));
           lastWrite = Date.now();
-          await parent.timeout(0);
+          await lt.timeout(0);
         }
         const gameI = games[i];
         const fenI = gameI?.moves?.data?.fen;
@@ -747,7 +747,7 @@
           const fenJ = gameJ?.moves?.data?.fen;
           if (fenI && fenI == fenJ) {
             mergeGames(gameJ, gameJ.moves, gameI);
-            parent.arrayRemoveAll(games, g => g == gameI);
+            lt.arrayRemoveAll(games, g => g == gameI);
             break;
           }
         }
@@ -763,7 +763,7 @@
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            parent.announce(message);
+            lt.announce(message);
             break;
           } else throw ex;
         }
@@ -778,17 +778,17 @@
         if (Date.now() - lastWrite > 1000) {
           this.writeNote(trans.pluralSame('mergingGames', games.length));
           lastWrite = Date.now();
-          await parent.timeout(0);
+          await lt.timeout(0);
         }
         let merged = false;
         const gameI = games[i];
-        const keyI = parent.getFenPosition(gameI.moves.data.fen);
+        const keyI = lt.getFenPosition(gameI.moves.data.fen);
         for (let j = i - 1; j >= 0; j--) {
           const gameJ = games[j];
           const nodes = gameJ.fenDict.get(keyI);
           if (nodes) {
             mergeGames(gameJ, nodes[0], gameI);
-            parent.arrayRemoveAll(games, g => g == gameI);
+            lt.arrayRemoveAll(games, g => g == gameI);
             merged = true;
             break;
           }
@@ -796,11 +796,11 @@
         if (!merged) {
           for (let j = i - 1; j >= 0; j--) {
             const gameJ = games[j];
-            const keyJ = parent.getFenPosition(gameJ.moves.data.fen);
+            const keyJ = lt.getFenPosition(gameJ.moves.data.fen);
             const nodes = gameI.fenDict.get(keyJ);
             if (nodes) {
               mergeGames(gameI, nodes[0], gameJ);
-              parent.arrayRemoveAll(games, g => g == gameJ);
+              lt.arrayRemoveAll(games, g => g == gameJ);
               merged = true;
               break;
             }
@@ -813,7 +813,7 @@
       }
 
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       for (const game of games) {
         if (!game.fenDict) {
           throw new Error('Something went wrong! game doesn\'t have fenDict!');
@@ -831,35 +831,38 @@
     };
 
     evaluatePosition = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
       if (!lichess.analysis) {
-        parent.announce(trans.noarg('evaluateNeedsAnalysis'));
+        lt.announce(trans.noarg('evaluateNeedsAnalysis'));
         return;
       }
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       const games = parsePgn(text);
       this.writeNote(trans.pluralSame('evaluatingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
 
-      const depth = +(parent.currentOptions.getValue('customEngineLevel')) || 16;
+      const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 16;
       console.debug('Evaluating with level ', depth);
-      const decimals = +parent.currentOptions.getValue('cevalDecimals') || 1;
+      const decimals = +lt.currentOptions.getValue('cevalDecimals') || 1;
 
       let info = null;
       let lastInfo = null;
 
-      const sf = await parent.stockfish.load();
+      const sf = await lt.stockfish.load();
       if (!sf) throw new Error('Could not load Stockfish!');
       sf.setMultiPv(1);
       sf.setDepth(depth);
-      sf.on('info', i => { lastInfo = i; });
+      sf.on('info', i => { 
+          if (i.cp === undefined && i.mate === undefined) return;
+          this.lastInfo = i;
+        });
       sf.on('bestmove', i => { info = lastInfo; });
 
       let gameIndex = 0;
@@ -877,12 +880,12 @@
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            parent.announce(message);
+            lt.announce(message);
             break;
           } else throw ex;
         }
         this.writeNote(trans.pluralSame('preparingGames', games.length - gameIndex));
-        await parent.timeout(0);
+        await lt.timeout(0);
         if (this._cancelRequested) {
           break;
         }
@@ -898,7 +901,7 @@
             sf.setPosition(node.data.fen);
             sf.start();
             while (!info && !this._cancelRequested) {
-              await parent.timeout(100);
+              await lt.timeout(100);
             }
             if (this._cancelRequested) {
               break;
@@ -908,10 +911,10 @@
             const evalText = "eval: " + (info.mate ? '#' + (side * info.mate) : ((side * info.cp) > 0 ? '+' : '') + (side * info.cp / 100).toFixed(decimals));
             node.data.comments = [...comments, evalText];
             this.writeNote(trans.pluralSame('evaluatingMoves', totalMoves));
-            await parent.timeout(0);
+            await lt.timeout(0);
           }
           this.writeNote(trans.pluralSame('evaluatingMoves', totalMoves));
-          await parent.timeout(0);
+          await lt.timeout(0);
           if (this._cancelRequested) {
             break;
           }
@@ -930,33 +933,33 @@
     };
 
     extract = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const text = parent.global.prompt(trans.noarg('extractPrompt'));
+      const text = lt.global.prompt(trans.noarg('extractPrompt'));
       if (/\bfen\b/i.test(text)) {
         await this.extractFen(textarea);
       }
     };
 
     extractFen = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       const games = parsePgn(text);
       this.writeNote(trans.pluralSame('extractingFens', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       let withErrors = false;
       let gameIndex = 0;
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       for (const game of games) {
         gameIndex++;
         try {
@@ -968,7 +971,7 @@
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            parent.announce(message);
+            lt.announce(message);
             break;
           } else throw ex;
         }
@@ -1013,21 +1016,21 @@
     };
 
     normalizePgn = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       const games = parsePgn(text);
       this.writeNote(trans.pluralSame('normalizingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       let withErrors = false;
       let gameIndex = 0;
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       for (const game of games) {
         gameIndex++;
         try {
@@ -1040,7 +1043,7 @@
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            parent.announce(message);
+            lt.announce(message);
             break;
           } else throw ex;
         }
@@ -1070,7 +1073,7 @@
         if (Date.now() - lastWrite > 1000) {
           this.writeNote(trans.pluralSame('normalizingGames', games.length));
           lastWrite = Date.now();
-          await parent.timeout(0);
+          await lt.timeout(0);
         }
         const game = games[i];
         for (const pair of game.fenDict) {
@@ -1093,7 +1096,7 @@
       }
 
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       for (const game of games) {
         this.cleanGame(game);
       }
@@ -1104,21 +1107,21 @@
     };
 
     denormalizePgn = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       const games = parsePgn(text);
       this.writeNote(trans.pluralSame('denormalizingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       let withErrors = false;
       let gameIndex = 0;
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       for (const game of games) {
         gameIndex++;
         try {
@@ -1131,7 +1134,7 @@
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            parent.announce(message);
+            lt.announce(message);
             break;
           } else throw ex;
         }
@@ -1142,10 +1145,10 @@
       }
 
       const circular = (n1, n2) => {
-        const pos = parent.getFenPosition(n2.data.fen);
+        const pos = lt.getFenPosition(n2.data.fen);
         let node = n1;
         while (node) {
-          if (parent.getFenPosition(node.data.fen) == pos) return true;
+          if (lt.getFenPosition(node.data.fen) == pos) return true;
           node = node.parent;
         }
         return false;
@@ -1165,7 +1168,7 @@
         if (Date.now() - lastWrite > 1000) {
           this.writeNote(trans.pluralSame('denormalizingGames', games.length));
           lastWrite = Date.now();
-          await parent.timeout(0);
+          await lt.timeout(0);
         }
         const game = games[i];
         for (const pair of game.fenDict) {
@@ -1181,8 +1184,8 @@
               if (circular(n1, n2)) continue;
               const newNode = clone(n2);
               n1.children.push(newNode);
-              newNode.parent = n1;
-              const key2 = parent.getFenPosition(newNode.data.fen);
+              newNode.lt = n1;
+              const key2 = lt.getFenPosition(newNode.data.fen);
               const arr = game.fenDict.get(key2);
               arr.push(newNode);
             }
@@ -1195,7 +1198,7 @@
       }
 
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       for (const game of games) {
         this.cleanGame(game);
       }
@@ -1206,17 +1209,17 @@
     };
 
     splitPgn = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
       this.writeNote(trans.pluralSame('splittingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
 
       const newGames = [];
       const traverse = (game, node, arr) => {
@@ -1245,7 +1248,7 @@
         traverse(game, game.moves, []);
         games.splice(0, 1);
         this.writeNote(trans.pluralSame('splittingGames', (newGames.length + games.length)));
-        await parent.timeout(0);
+        await lt.timeout(0);
       }
       games = newGames;
       if (this._cancelRequested) {
@@ -1253,7 +1256,7 @@
       }
 
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       for (const game of games) {
         this.cleanGame(game);
       }
@@ -1264,12 +1267,12 @@
     };
 
     cutStuff = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const text = parent.global.prompt(trans.noarg('cutStuffPrompt'));
+      const text = lt.global.prompt(trans.noarg('cutStuffPrompt'));
       if (/junk/i.test(text)) {
         await this.cutJunk(textarea);
       }
@@ -1299,19 +1302,19 @@
     };
 
     cutFound = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
       this.writeNote(trans.pluralSame('searchingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
 
-      parent.arrayRemoveAll(games, g => g.headers.has('Found'));
+      lt.arrayRemoveAll(games, g => g.headers.has('Found'));
 
       this.writeGames(textarea, games);
 
@@ -1319,10 +1322,10 @@
     };
 
     cutJunk = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
       const text = textarea.val();
       const reg = /(\[\w+\s+\".*?\"\][\s\r\n]*)*({.*?}[\s\r\n]*)?\d{1,3}\s*\.\s*(\.\.)?(((?:[NBKRQ]?[a-h]?[1-8]?[-x]?[a-h][1-8](?:=?[nbrqkNBRQK])?|[pnbrqkPNBRQK]?@[a-h][1-8]|O-O-O|0-0-0|O-O|0-0)[+#]?|--|Z0|0000|@@@@|\d{1,3}\s*\.\s*(\.\.)?|{.*?}|;|\$\d{1,4}|[?!]{1,2}|\(|\)|\*|1-0|0-1|1\/2-1\/2)[\s\r\n]*)+/g;
@@ -1338,17 +1341,17 @@
     };
 
     cutTags = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
 
       for (const game of games) {
         const keys = game.headers.keys().filter(k => !['FEN', 'SetUp'].includes(k));
@@ -1377,17 +1380,17 @@
     };
 
     cutComments = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
 
 
       for (const game of games) {
@@ -1413,17 +1416,17 @@
     };
 
     cutAnnotations = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
 
       const traverse = (node, ply = 0) => {
         if (node.data?.nags?.length) {
@@ -1445,18 +1448,18 @@
     };
 
     cutPly = async (textarea, plyNumber) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       if (!plyNumber && plyNumber !== 0) return;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
 
       const traverse = (game, node, ply = 0, mainline = true) => {
         if (!node.children?.length) return;
@@ -1482,18 +1485,18 @@
 
 
     cutEval = async (textarea, operator, value) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       if (!operator || Number.isNaN(value)) return;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
 
       let removals;
       const traverse = (node, lastBranch = null, san = null) => {
@@ -1563,12 +1566,12 @@
     };
 
     searchPgn = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const search = parent.global.prompt(trans.noarg('searchPattern'));
+      const search = lt.global.prompt(trans.noarg('searchPattern'));
       if (!search) return;
       let searchMode = 'fenOrMoves';
       let plyNumberOperator;
@@ -1613,12 +1616,12 @@
         }
       }
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn, makePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
       this.writeNote(trans.pluralSame('searchingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
 
       const getMaxPly = (game) => {
         let maxPly = 0;
@@ -1744,14 +1747,14 @@
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            parent.announce(message);
+            lt.announce(message);
             break;
           } else throw ex;
         }
       }
 
       this.writeNote(trans.pluralSame('preparingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
       for (const game of games) {
         this.cleanGame(game);
       }
@@ -1763,26 +1766,26 @@
         return makePgn(g);
       }).join('\r\n\r\n')
         .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g, '');
-      parent.writeToClipboard(foundText, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
+      lt.writeToClipboard(foundText, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
 
       this.writeNote(trans.pluralSame('foundGames', foundGames.length));
     };
 
 
     keepFound = async (textarea) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
       this.writeNote(trans.pluralSame('searchingGames', games.length));
-      await parent.timeout(0);
+      await lt.timeout(0);
 
-      parent.arrayRemoveAll(games, g => !g.headers.has('Found'));
+      lt.arrayRemoveAll(games, g => !g.headers.has('Found'));
       for (const game of games) {
         game.headers.delete('Found');
       }
@@ -1793,8 +1796,8 @@
     };
 
     writeGames = (textarea, games) => {
-      const parent = this.lichessTools;
-      const co = parent.chessops;
+      const lt = this.lichessTools;
+      const co = lt.chessops;
       const { makePgn } = co.pgn;
 
       games = games.filter(g => g.moves?.children?.length || g.headers?.size);
@@ -1827,8 +1830,8 @@
     };
 
     undo = async (textarea) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const text = this.history?.[this.historyIndex - 1] || '';
       $(textarea).val(text);
       this.setHistoryIndex(this.historyIndex - 1);
@@ -1836,8 +1839,8 @@
     };
 
     redo = async (textarea) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (this.historyIndex + 1 >= this.history?.length) return;
       const text = this.history[this.historyIndex + 1];
       $(textarea).val(text);
@@ -1846,18 +1849,18 @@
     };
 
     clear = async (textarea) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $(textarea).val('');
       this.history = [];
       this.setHistoryIndex(-1);
-      parent.storage.remove('LichessTools.pgnEditor.history', { session: true });
-      parent.storage.remove('LichessTools.pgnEditor.historyIndex', { session: true });
+      lt.storage.remove('LichessTools.pgnEditor.history', { session: true });
+      lt.storage.remove('LichessTools.pgnEditor.historyIndex', { session: true });
     };
 
     hashchange = (ev) => {
-      const parent = this.lichessTools;
-      const location = parent.global.location;
+      const lt = this.lichessTools;
+      const location = lt.global.location;
       const dialog = $('dialog.lichessTools-pgnEditor');
       if (location.hash == '#pgnEditor') {
         if (!dialog.length) {
@@ -1869,19 +1872,19 @@
     };
 
     analysisControls = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
       const container = $('div.analyse__tools .action-menu__tools');
       if (!container.length) return;
-      if (!this.options.enabled || !parent.exportPgn) {
+      if (!this.options.enabled || !lt.exportPgn) {
         $('.lichessTools-pgnEditor', container).remove();
         return;
       }
-      if (parent.isGamePlaying()) {
+      if (lt.isGamePlaying()) {
         $('.lichessTools-pgnEditor', container).remove();
         return;
       }
@@ -1893,31 +1896,31 @@
         .attr('href', '/analysis#pgnEditor')
         .on('click', async ev => {
           ev.preventDefault();
-          const pgn = await parent.exportPgn('', { copyToClipboard: false });
+          const pgn = await lt.exportPgn('', { copyToClipboard: false });
           this.showPgnEditor(pgn);
         })
         .appendTo(container);
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('pgnEditor');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('pgnEditor');
       this.logOption('PGN editor', value);
       this.options = { enabled: !!value };
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const container = $('#topnav section a[href="/analysis"]+div[role="group"]');
       $('a.lichessTools-pgnEditor', container).remove();
 
       if (lichess.analysis) {
-        lichess.pubsub.off('lichessTools.redraw', this.analysisControls);
-        lichess.pubsub.on('lichessTools.redraw', this.analysisControls);
-        lichess.analysis.actionMenu.toggle = lichessTools.unwrapFunction(lichess.analysis.actionMenu.toggle, 'pgnEditor');
-        lichess.analysis.actionMenu.toggle = lichessTools.wrapFunction(lichess.analysis.actionMenu.toggle, {
+        lt.pubsub.off('lichessTools.redraw', this.analysisControls);
+        lt.pubsub.on('lichessTools.redraw', this.analysisControls);
+        lichess.analysis.actionMenu.toggle = lt.unwrapFunction(lichess.analysis.actionMenu.toggle, 'pgnEditor');
+        lichess.analysis.actionMenu.toggle = lt.wrapFunction(lichess.analysis.actionMenu.toggle, {
           id: 'pgnEditor',
           after: ($this, result, ...args) => {
-            parent.global.setTimeout(this.analysisControls, 100);
+            lt.global.setTimeout(this.analysisControls, 100);
           }
         });
         this.analysisControls();
@@ -1937,7 +1940,7 @@
           $('nav#topnav').trigger('mouseout');
         })
         .appendTo(container);
-      $(parent.global).on('hashchange', this.hashchange);
+      $(lt.global).on('hashchange', this.hashchange);
       this.hashchange();
     }
 

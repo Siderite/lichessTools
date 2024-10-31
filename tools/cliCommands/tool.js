@@ -32,12 +32,12 @@
     };
 
     updateHelp = async () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       let container = $('dialog div.clinput-help>div');
       let k=0;
       while (!container.length) {
-        await parent.timeout(100);
+        await lt.timeout(100);
         container = $('dialog div.clinput-help>div');
         k++;
         if (k>20) return;
@@ -52,7 +52,7 @@
         const lineDiv = $('<div>');
         for (const line of lines.slice(0, -1)) {
           const spaces = /^\s*/.exec(line)[0].length;
-          lineDiv.append($('<p>').html('&nbsp;'.repeat(spaces) + parent.htmlEncode(line)));
+          lineDiv.append($('<p>').html('&nbsp;'.repeat(spaces) + lt.htmlEncode(line)));
         }
         $('<div class="command">')
           .attr('data-key', key)
@@ -97,11 +97,11 @@
     maxRetries = 10;
 
     boot = async () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const input = $('#clinput input');
       if (!input.length) {
-        parent.global.console.warn('Could not find element ', input);
+        lt.global.console.warn('Could not find element ', input);
         return;
       }
       input.off('keydown', this.keydown);
@@ -111,30 +111,30 @@
     };
 
     removeCommandFunctions = () => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       if (this.options.enabled) return;
       if (Object.keys(this.commands).length) {
-        parent.global.setTimeout(this.removeCommandFunctions, 100);
+        lt.global.setTimeout(this.removeCommandFunctions, 100);
         return;
       }
-      parent.registerCommand = null;
-      parent.unregisterCommand = null;
+      lt.registerCommand = null;
+      lt.unregisterCommand = null;
     };
 
     commands = {};
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('cliCommands');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('cliCommands');
       this.logOption('CLI commands', value);
       this.options = { enabled: value };
       this.boot();
       if (value) {
-        parent.registerCommand = (key, command) => {
+        lt.registerCommand = (key, command) => {
           this.commands[key] = command;
         };
-        parent.unregisterCommand = (key) => {
+        lt.unregisterCommand = (key) => {
           delete this.commands[key];
         };
       } else {

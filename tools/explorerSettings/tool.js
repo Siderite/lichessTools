@@ -44,61 +44,61 @@
     };
 
     setOption = async (optionName, value) => {
-      const parent = this.lichessTools;
-      parent.currentOptions[optionName] = value;
-      await parent.applyOptions(parent.currentOptions);
-      parent.fireReloadOptions();
+      const lt = this.lichessTools;
+      lt.currentOptions[optionName] = value;
+      await lt.applyOptions(lt.currentOptions);
+      lt.fireReloadOptions();
     };
 
     showSettingsDirect = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       if (!lichess.analysis?.explorer?.config?.data?.open()) return;
       const container = $('section.explorer-box div.config >div:has(section.date)');
       if (!container.length) return;
       let section = $('section.lichessTools-explorerSettings', container);
       if (!section.length) {
         const choices = $('<div class="choices">');
-        if (parent.getToolByName('ExplorerEval')) {
+        if (lt.getToolByName('ExplorerEval')) {
           choices
             .append($('<button class="lichessTools-moveEvaluation">').text(trans.noarg('moveEvaluationSettingText')).attr('title', trans.noarg('moveEvaluationSettingTitle'))
               .on('click', ev => {
                 ev.preventDefault();
-                const value = parent.currentOptions.getValue('explorerEval');
-                const hidden = parent.isOptionSet(value, 'hidden');
+                const value = lt.currentOptions.getValue('explorerEval');
+                const hidden = lt.isOptionSet(value, 'hidden');
                 this.setOption('explorerEval', hidden ? value.split(',').filter(s => s != 'hidden').join(',') : value + ',hidden');
                 this.showSettingsDirect();
               }))
         }
-        if (parent.getToolByName('ExplorerGambits')) {
+        if (lt.getToolByName('ExplorerGambits')) {
           choices
             .append($('<button class="lichessTools-gambits">').text(trans.noarg('gambitsSettingText')).attr('title', trans.noarg('gambitsSettingTitle'))
               .on('click', ev => {
                 ev.preventDefault();
-                const value = parent.currentOptions.getValue('explorerGambits');
+                const value = lt.currentOptions.getValue('explorerGambits');
                 this.setOption('explorerGambits', !value);
                 this.showSettingsDirect();
               }))
         }
-        if (parent.getToolByName('ExplorerPractice')) {
+        if (lt.getToolByName('ExplorerPractice')) {
           choices
             .append($('<button class="lichessTools-explorerPractice">').text(trans.noarg('explorerPracticeSettingText')).attr('title', trans.noarg('explorerPracticeSettingTitle'))
               .on('click', ev => {
                 ev.preventDefault();
-                const value = parent.currentOptions.getValue('explorerPractice');
+                const value = lt.currentOptions.getValue('explorerPractice');
                 this.setOption('explorerPractice', !value);
                 this.showSettingsDirect();
               }))
         }
-        if (parent.getToolByName('OpeningExplorerUsers')) {
+        if (lt.getToolByName('OpeningExplorerUsers')) {
           choices
             .append($('<button class="lichessTools-meButton">').text(trans.noarg('meButtonSettingText')).attr('title', trans.noarg('meButtonSettingTitle'))
               .on('click', ev => {
                 ev.preventDefault();
-                const value = parent.currentOptions.getValue('openingExplorerUsers');
-                const meButton = parent.isOptionSet(value, 'switchWithMe');
+                const value = lt.currentOptions.getValue('openingExplorerUsers');
+                const meButton = lt.isOptionSet(value, 'switchWithMe');
                 this.setOption('openingExplorerUsers', meButton ? value.split(',').filter(s => s != 'switchWithMe').join(',') : value + ',switchWithMe');
                 this.showSettingsDirect();
               }));
@@ -108,46 +108,46 @@
           .append(choices)
           .appendTo(container);
       }
-      let value = parent.currentOptions.getValue('explorerEval');
-      value = !parent.isOptionSet(value, 'hidden');
+      let value = lt.currentOptions.getValue('explorerEval');
+      value = !lt.isOptionSet(value, 'hidden');
       $('button.lichessTools-moveEvaluation', section)
         .attr('aria-pressed', value.toString())
-        .prop('disabled', parent.isGamePlaying());
-      value = parent.currentOptions.getValue('explorerGambits');
+        .prop('disabled', lt.isGamePlaying());
+      value = lt.currentOptions.getValue('explorerGambits');
       $('button.lichessTools-gambits', section)
         .attr('aria-pressed', value.toString())
-        .prop('disabled', parent.isGamePlaying());
-      value = parent.currentOptions.getValue('explorerPractice');
+        .prop('disabled', lt.isGamePlaying());
+      value = lt.currentOptions.getValue('explorerPractice');
       $('button.lichessTools-explorerPractice', section)
         .attr('aria-pressed', value.toString())
-        .prop('disabled', parent.isGamePlaying());
+        .prop('disabled', lt.isGamePlaying());
 
-      value = parent.currentOptions.getValue('openingExplorerUsers');
-      value = parent.isOptionSet(value, 'switchWithMe');
+      value = lt.currentOptions.getValue('openingExplorerUsers');
+      value = lt.isOptionSet(value, 'switchWithMe');
       $('button.lichessTools-meButton', section)
         .attr('aria-pressed', value.toString());
     };
     showSettings = this.lichessTools.debounce(this.showSettingsDirect, 100);
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('explorerSettings');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('explorerSettings');
       this.logOption('Explorer settings', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const explorer = lichess?.analysis?.explorer;
       if (!explorer) return;
-      explorer.config.toggleOpen = parent.unwrapFunction(explorer.config.toggleOpen, 'explorerSettings');
+      explorer.config.toggleOpen = lt.unwrapFunction(explorer.config.toggleOpen, 'explorerSettings');
       $('section.explorer-box section.lichessTools-explorerSettings').remove();
-      lichess.pubsub.off('lichessTools.redraw', this.showSettings);
+      lt.pubsub.off('lichessTools.redraw', this.showSettings);
       if (!value) return;
-      explorer.config.toggleOpen = parent.wrapFunction(explorer.config.toggleOpen, {
+      explorer.config.toggleOpen = lt.wrapFunction(explorer.config.toggleOpen, {
         id: 'explorerSettings',
         after: ($this, result) => {
           this.showSettings();
         }
       });
-      lichess.pubsub.on('lichessTools.redraw', this.showSettings);
+      lt.pubsub.on('lichessTools.redraw', this.showSettings);
       this.showSettings();
     }
 

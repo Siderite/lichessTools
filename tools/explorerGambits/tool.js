@@ -30,12 +30,12 @@
     }
 
     gambit_dict = async ()=> {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       if (!this._gambits) {
-        const parent = this.lichessTools;
-        const gambits = await parent.comm.getData('gambits.json');
+        const lt = this.lichessTools;
+        const gambits = await lt.comm.getData('gambits.json');
         if (!gambits) {
-          parent.global.console.warn('Could not load gambits!');
+          lt.global.console.warn('Could not load gambits!');
           return;
         }
         this._gambits = {
@@ -47,7 +47,8 @@
     };
 
     computeFen = (fen, uci) => {
-      const co = this.lichessTools.chessops;
+      const lt = this.lichessTools;
+      const co = lt.chessops;
       fen = co.fen.parseFen(fen).unwrap();
       const ch = co.Chess.fromSetup(fen).unwrap();
       ch.play(co.parseUci(uci));
@@ -56,14 +57,14 @@
 
     showGambits = async (result) => {
       const moves = result?.moves;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const analysis = lichess?.analysis;
       const container = $('section.explorer-box table.moves');
       if (!container.length) return;
-      if (parent.isGamePlaying()) return;
+      if (lt.isGamePlaying()) return;
       const gambits = await this.gambit_dict();
       if (!result?.total) {
         $('.lichessTools-explorerGambits', container).remove();
@@ -91,7 +92,7 @@
         let move = null;
         if (uci) {
           const moveFen = this.computeFen(fen, uci);
-          const pos = parent.getPositionFromFen(moveFen);
+          const pos = lt.getPositionFromFen(moveFen);
           const moveResult = gambits[side].get(pos);
           move = moveResult
             ? {
@@ -131,21 +132,21 @@
 
     findGambits = async () => {
       if (!this.options.enabled) return;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis.explorer?.enabled()) return;
-      if (parent.isGamePlaying()) return;
+      if (lt.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!explorerMoves?.length) return;
-      if (!parent.inViewport($('section.explorer-box table.moves'))) {
+      if (!lt.inViewport($('section.explorer-box table.moves'))) {
         this.findGambitsDebounced();
         return;
       }
       const fen = analysis.node.fen;
       const side = analysis.getOrientation();
-      const pos = parent.getPositionFromFen(analysis.node.fen);
+      const pos = lt.getPositionFromFen(analysis.node.fen);
       const gambits = await this.gambit_dict();
       const result = gambits[side].get(pos);
       await this.showGambits(result);
@@ -153,17 +154,17 @@
     findGambitsDebounced = this.lichessTools.debounce(this.findGambits, 100);
 
     checkGambits = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       const explorer = analysis.explorer;
       if (!this.options.enabled) {
-        explorer.setNode = parent.unwrapFunction(explorer.setNode, 'explorerGambits');
+        explorer.setNode = lt.unwrapFunction(explorer.setNode, 'explorerGambits');
       } else {
-        if (!parent.isWrappedFunction(explorer.setNode, 'explorerGambits')) {
-          explorer.setNode = parent.wrapFunction(explorer.setNode, {
+        if (!lt.isWrappedFunction(explorer.setNode, 'explorerGambits')) {
+          explorer.setNode = lt.wrapFunction(explorer.setNode, {
             id: 'explorerGambits',
             after: async ($this, result, ...args) => {
               if (!explorer.lastStream) return;
@@ -177,19 +178,19 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('explorerGambits');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('explorerGambits');
       this.logOption('Explorer gambits', value);
       this.options = { enabled: value };
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const explorer = lichess?.analysis?.explorer;
       if (!explorer) return;
-      lichess.pubsub.off('lichessTools.redraw', this.checkGambits);
+      lt.pubsub.off('lichessTools.redraw', this.checkGambits);
       $('th.lichessTools-explorerGambits,td.lichessTools-explorerGambits').remove();
-      explorer.setNode = parent.unwrapFunction(explorer.setNode, 'explorerGambits');
+      explorer.setNode = lt.unwrapFunction(explorer.setNode, 'explorerGambits');
       if (!value) return;
-      lichess.pubsub.on('lichessTools.redraw', this.checkGambits);
+      lt.pubsub.on('lichessTools.redraw', this.checkGambits);
       this.checkGambits();
     }
 

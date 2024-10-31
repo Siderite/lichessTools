@@ -26,13 +26,13 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('chessOps');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('chessOps');
       if (!value) {
-        parent.chessops = null;
+        lt.chessops = null;
         return;
       }
-      parent.chessops = (function () {
+      lt.chessops = (function () {
         const chessops = {};
         (function () {
           class r {

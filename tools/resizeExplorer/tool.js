@@ -26,8 +26,8 @@
     }
 
     refreshHeight = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const explorerBox = $('main.analyse .analyse__tools .explorer-box');
       if (!explorerBox.length) return;
       const h = this.isMobile
@@ -37,7 +37,7 @@
         explorerBox.css({ minHeight: '', maxHeight: '' });
         return;
       }
-      parent.global.requestAnimationFrame(() => {
+      lt.global.requestAnimationFrame(() => {
         explorerBox.css({
           maxHeight: h,
           minHeight: h
@@ -53,8 +53,8 @@
 
     dragDivider = (ev) => {
       if (!ev?.pageY) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const tools = $	('main.analyse .analyse__tools');
       const explorerBox = $('section.explorer-box', tools);
       const th = tools.height();
@@ -69,13 +69,13 @@
         mobile: this.isMobile ? h : this.height?.mobile,
         desktop: this.isMobile ? this.height?.desktop : h
       };
-      parent.storage.set('LichessTools.resizeExplorer', this.height);
+      lt.storage.set('LichessTools.resizeExplorer', this.height);
       this.refreshHeight();
     };
 
     addDividerDirect = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const toolsElem = $('main.analyse .analyse__tools ');
       const explorerBox = toolsElem.find('.explorer-box');
       let divider = $('.lichessTools-resizeExplorer', explorerBox.parent());
@@ -122,36 +122,36 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('resizeExplorer');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('resizeExplorer');
       this.logOption('Resize Explorer', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      if (parent.isMobile()) {
+      if (lt.isMobile()) {
         this.isMobile = true;
         LiChessTools.enableMobileDragAndDrop();
       }
-      lichess.pubsub.off('lichessTools.chapterChange', this.addDivider);
-      lichess.pubsub.off('lichessTools.redraw', this.addDivider);
-      analysis.explorer.setNode = parent.unwrapFunction(analysis.explorer.setNode, 'resizeExplorer');
+      lt.pubsub.off('lichessTools.chapterChange', this.addDivider);
+      lt.pubsub.off('lichessTools.redraw', this.addDivider);
+      analysis.explorer.setNode = lt.unwrapFunction(analysis.explorer.setNode, 'resizeExplorer');
       if (!value) {
         const explorerBox = $('main.analyse .analyse__tools .explorer-box');
         explorerBox.css({ minHeight: '', maxHeight: '' });
         $('.lichessTools-resizeExplorer').remove();
-        parent.storage.remove('LichessTools.resizeExplorer');
+        lt.storage.remove('LichessTools.resizeExplorer');
         return;
       }
-      lichess.pubsub.on('lichessTools.chapterChange', this.addDivider);
-      lichess.pubsub.on('lichessTools.redraw', this.addDivider);
-      analysis.explorer.setNode = parent.wrapFunction(analysis.explorer.setNode, {
+      lt.pubsub.on('lichessTools.chapterChange', this.addDivider);
+      lt.pubsub.on('lichessTools.redraw', this.addDivider);
+      analysis.explorer.setNode = lt.wrapFunction(analysis.explorer.setNode, {
         id: 'resizeExplorer',
         after: ($this, result, ...args) => {
           this.addDivider();
         }
       });
-      this.height = parent.storage.get('LichessTools.resizeExplorer');
+      this.height = lt.storage.get('LichessTools.resizeExplorer');
       this.addDivider();
     }
 

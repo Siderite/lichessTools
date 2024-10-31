@@ -76,8 +76,8 @@
 
 
     getCommentNodes = (elem) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
 
       let commentNodes = [];
       $(elem).each((i, e) => {
@@ -119,9 +119,9 @@
     };
 
     collapseMove = (elem, collapse) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const path = $(elem).attr('p');
       if (!path) return;
       const move = lichess.analysis.tree.nodeAtPath(path);
@@ -147,7 +147,7 @@
         this.bookmarks = new Map();
       }
       this.bookmarks.set(`${studyId}/${bookmark.label}`, collapse);
-      parent.storage.set('LichessTools.bookmarks', [...this.bookmarks]);
+      lt.storage.set('LichessTools.bookmarks', [...this.bookmarks]);
     }
 
     toBookmarkName = (text) => {
@@ -163,9 +163,9 @@
 
     setBookmark = (elem, node, bookmark) => {
       if (!elem) return;
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const $ = lt.$;
       if (bookmark) {
         let bookmarkElem = $('bookmark', elem);
         if (!bookmarkElem.length) {
@@ -193,12 +193,12 @@
     }
 
     setBookmarks = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const r = /bkm:([^\s]+)\s*/s;
-      const thereAreBookmarks = !!parent.global.document.querySelector('bookmark');
+      const thereAreBookmarks = !!lt.global.document.querySelector('bookmark');
 
-      parent.traverse(null, (node, state) => {
+      lt.traverse(null, (node, state) => {
         let bookmark = null;
         const comments = node.comments || [];
         for (const comment of comments) {
@@ -219,13 +219,13 @@
               collapsed: this.getCollapsed(bookmark)
             };
           }
-          const elem = parent.getElementForNode(node);
+          const elem = lt.getElementForNode(node);
           this.setBookmark(elem, node, node.bookmark);
         } else {
           if (node.bookmark) {
             node.bookmark = null;
             if (thereAreBookmarks) {
-              const elem = parent.getElementForNode(node);
+              const elem = lt.getElementForNode(node);
               this.setBookmark(elem, node, null);
             }
           }
@@ -234,12 +234,12 @@
     };
 
     getCollapsed = (label) => {
-      const parent = this.lichessTools;
-      const study = parent.lichess?.analysis?.study;
+      const lt = this.lichessTools;
+      const study = lt.lichess?.analysis?.study;
       if (!study) return false;
 
       if (!this.bookmarks) {
-        this.bookmarks = new Map(parent.storage.get('LichessTools.bookmarks') || []);
+        this.bookmarks = new Map(lt.storage.get('LichessTools.bookmarks') || []);
       }
       const studyId = study.data.id;
       return this.bookmarks.get(`${studyId}/${label}`) || false;
@@ -247,10 +247,10 @@
 
     addCommentBookmarks = () => {
       if (!this.options.bookmarks) return;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
@@ -279,7 +279,7 @@
       for (let i = nodes.length - 2; i >= 0; i--) {
         const move = nodes[i];
         if (move.bookmark?.collapsed) {
-          const elem = parent.getElementForNode(move);
+          const elem = lt.getElementForNode(move);
           this.collapseMove(elem, false);
         }
       }
@@ -289,10 +289,10 @@
 
 
     analysisControls = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
       $('.tview2').toggleClass('lichessTools-indentedVariations', this.options.indentedVariations);
@@ -307,16 +307,16 @@
       </div>
       <label for="abset-indentedVariations">$trans(moveListOptions.indentedVariations)</label>
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return parent.htmlEncode(trans.noarg(m.slice(7, -1)));
+          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
         $(html).insertAfter($('div.abset-inline', container).eq(0));
         $('#abset-indentedVariations')
           .on('change', async () => {
             this.options.indentedVariations = $('#abset-indentedVariations').is(':checked');
-            const options = parent.currentOptions;
+            const options = lt.currentOptions;
             options.moveListOptions = this.options.getString();
-            await parent.applyOptions(options);
-            parent.fireReloadOptions();
+            await lt.applyOptions(options);
+            lt.fireReloadOptions();
           });
       }
       $('#abset-indentedVariations')
@@ -330,16 +330,16 @@
       </div>
       <label for="abset-fullWidthAnalysis">$trans(moveListOptions.fullWidthAnalysis)</label>
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return parent.htmlEncode(trans.noarg(m.slice(7, -1)));
+          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
         $(html).insertAfter($('div.abset-indentedVariations', container).eq(0));
         $('#abset-fullWidthAnalysis')
           .on('change', async () => {
             this.options.fullWidthAnalysis = $('#abset-fullWidthAnalysis').is(':checked');
-            const options = parent.currentOptions;
+            const options = lt.currentOptions;
             options.moveListOptions = this.options.getString();
-            await parent.applyOptions(options);
-            parent.fireReloadOptions();
+            await lt.applyOptions(options);
+            lt.fireReloadOptions();
           });
       }
       $('#abset-fullWidthAnalysis')
@@ -353,16 +353,16 @@
       </div>
       <label for="abset-hideLeftSide">$trans(moveListOptions.hideLeftSide)</label>
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return parent.htmlEncode(trans.noarg(m.slice(7, -1)));
+          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
         $(html).insertAfter($('div.abset-fullWidthAnalysis', container).eq(0));
         $('#abset-hideLeftSide')
           .on('change', async () => {
             this.options.hideLeftSide = $('#abset-hideLeftSide').is(':checked');
-            const options = parent.currentOptions;
+            const options = lt.currentOptions;
             options.moveListOptions = this.options.getString();
-            await parent.applyOptions(options);
-            parent.fireReloadOptions();
+            await lt.applyOptions(options);
+            lt.fireReloadOptions();
           });
       }
       $('#abset-hideLeftSide')
@@ -371,18 +371,18 @@
 
     hashChange = () => {
       if (!this.options.bookmarks) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      if (this.hash == parent.global.location.hash) return;
-      this.hash = parent.global.location.hash;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      if (this.hash == lt.global.location.hash) return;
+      this.hash = lt.global.location.hash;
       if (!this.hash) return;
       let destinationNode = null;
-      const hash = parent.global.decodeURIComponent(this.hash?.slice(1)?.toLowerCase());
-      parent.traverse(null, (node, state) => {
+      const hash = lt.global.decodeURIComponent(this.hash?.slice(1)?.toLowerCase());
+      lt.traverse(null, (node, state) => {
         if (node.bookmark?.label?.toLowerCase() == hash) {
           if (destinationNode) {
-            parent.announce('You have multiple bookmarks with the same label: ' + node.bookmark.label);
+            lt.announce('You have multiple bookmarks with the same label: ' + node.bookmark.label);
           } else {
             destinationNode = node;
           }
@@ -395,12 +395,12 @@
     };
 
     addOrRemoveBookmark = () => {
-      const parent = this.lichessTools;
-      const myName = parent.getUserId();
+      const lt = this.lichessTools;
+      const myName = lt.getUserId();
       if (!myName) return;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       const study = analysis?.study;
 
@@ -408,10 +408,10 @@
       if (!path) return;
       const node = analysis.tree.nodeAtPath(path);
       if (!node) return;
-      const elem = parent.getElementForNode(node);
+      const elem = lt.getElementForNode(node);
       if (!elem) return;
       const oldLabel = this.fromBookmarkName(node.bookmark?.label) || '';
-      const label = this.toBookmarkName(parent.global.prompt(trans.noarg('addBookmarkPrompt'), oldLabel));
+      const label = this.toBookmarkName(lt.global.prompt(trans.noarg('addBookmarkPrompt'), oldLabel));
       if (label === undefined) return;
       node.bookmark = label
         ? {
@@ -429,40 +429,40 @@
       commentText = (label ? 'bkm:' + label + ' ' : '') + commentText.replace(r, '').trim();
       const chapterId = study?.currentChapter()?.id;
       if (!chapterId) {
-        parent.global.console.warn('Could not determine chapterId');
+        lt.global.console.warn('Could not determine chapterId');
         return;
       }
       for (const comment of comments.filter(c => c.by?.id != myName)) {
         study.commentForm.delete(chapterId, node.path, comment.id)
       }
-      parent.saveComment(commentText, path);
+      lt.saveComment(commentText, path);
       $('#comment-text').val(commentText);
     };
 
     getBookmarkUrl = async (bookmark) => {
       const label = bookmark?.label;
       if (!label) return;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const announce = parent.announce;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const announce = lt.announce;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       const study = analysis?.study;
       if (!study) return;
 
       const chapterId = study.currentChapter()?.id;
       if (!chapterId) {
-        parent.global.console.warn('Could not determine chapterId');
+        lt.global.console.warn('Could not determine chapterId');
         return;
       }
-      const url = parent.global.location.origin + '/study/' + study.data.id + '/' + chapterId + '#' + parent.global.encodeURIComponent(label);
-      await parent.writeToClipboard(url, trans.noarg('URLCopiedToClipboard'), trans.noarg('clipboardDenied'));
+      const url = lt.global.location.origin + '/study/' + study.data.id + '/' + chapterId + '#' + lt.global.encodeURIComponent(label);
+      await lt.writeToClipboard(url, trans.noarg('URLCopiedToClipboard'), trans.noarg('clipboardDenied'));
     };
 
     collapseExpandAll = () => {
       if (!this.options.bookmarks) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const anyCollapsed = $('move.lichessTools-collapsed').eq(0)[0];
       if (anyCollapsed) {
         $('move.lichessTools-bookmark.lichessTools-collapsed bookmark button').trigger('click');
@@ -473,21 +473,21 @@
 
     bookmarkSplit = async (ev) => {
       const deleteMoves = ev.shiftKey;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       const study = analysis?.study;
       const nodePath = analysis?.contextMenuPath;
       if (!study || nodePath === undefined) return;
-      const pgn = await parent.exportPgn(nodePath, { fromPosition: true });
+      const pgn = await lt.exportPgn(nodePath, { fromPosition: true });
       if (!pgn) return;
       const node = analysis.tree.nodeAtPath(nodePath);
       const label = node?.bookmark?.label;
       if (!label) return;
       const position = study.data?.position;
       if (!position) throw 'Cannot find study position!';
-      if (!parent.global.confirm(trans.noarg(deleteMoves ? 'bookmarkSplitConfirmationDeleteText' : 'bookmarkSplitConfirmationText'))) return;
+      if (!lt.global.confirm(trans.noarg(deleteMoves ? 'bookmarkSplitConfirmationDeleteText' : 'bookmarkSplitConfirmationText'))) return;
       if (deleteMoves) {
         for (const child of node.children || []) {
           const path = nodePath + child.id;
@@ -504,35 +504,35 @@
         mode: 'normal',
         isDefaultName: false
       })
-      let commentText = parent.getNodeComment(node) || '';
+      let commentText = lt.getNodeComment(node) || '';
       if (commentText) commentText += '\r\n';
 
       while (!study.currentChapter() || study.currentChapter().id == position.chapterId) {
-        await parent.timeout(50);
+        await lt.timeout(50);
       }
       const newChapterId = study.currentChapter().id;
-      const chapterUrl = parent.global.location.origin + '/study/' + study.data.id + '/' + newChapterId;
+      const chapterUrl = lt.global.location.origin + '/study/' + study.data.id + '/' + newChapterId;
       const chapterText = trans.pluralSame('chapterLink', chapterUrl);
       study.setChapter(position.chapterId);
 
       while (!study.currentChapter() || study.currentChapter().id != position.chapterId) {
-        await parent.timeout(50);
+        await lt.timeout(50);
       }
       analysis.jump(nodePath);
       analysis.redraw();
 
       while (analysis.path != nodePath) {
-        await parent.timeout(50);
+        await lt.timeout(50);
       }
-      parent.saveComment(commentText + chapterText, nodePath, position.chapterId);
+      lt.saveComment(commentText + chapterText, nodePath, position.chapterId);
     };
 
     analysisContextMenu = () => {
       if (!this.options.bookmarks) return;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       const study = analysis?.study;
 
@@ -610,10 +610,10 @@
     }
 
     setupAnalysisPopup = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const study = parent.lichess.analysis?.study;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const study = lt.lichess.analysis?.study;
       let button = $('div.analyse__tools a.lichessTools-analysisPopup');
       if (this.options.analysisPopup && study) {
         let container = $('div.analyse__tools div.ceval');
@@ -633,9 +633,9 @@
             .on('click', ev => {
               ev.preventDefault();
               this.popup?.close();
-              this.popup = parent.global.open(parent.global.location.href, 'lichessTools-moves', 'fullscreen=yes,menubar=no,location=no,status=no,titlebar=no,toolbar=no,');
+              this.popup = lt.global.open(lt.global.location.href, 'lichessTools-moves', 'fullscreen=yes,menubar=no,location=no,status=no,titlebar=no,toolbar=no,');
               this.popup.addEventListener('DOMContentLoaded', () => $('body', this.popup.document).addClass('lichessTools-analysisPopup'));
-              parent.global.addEventListener('unload', () => {
+              lt.global.addEventListener('unload', () => {
                 this.popup.close();
               });
             });
@@ -655,14 +655,14 @@
     };
 
     setupCevalToggle = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('main.analyse').toggleClass('lichessTools-fixCevalToggle', this.options.fixCevalToggle);
     };
 
     addMissingIndexes = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $.cached('.tview2.lichessTools-indentedVariations inline+move', 2000).each((i, e) => {
         e = $(e);
         if (e.children('index').length) return;
@@ -676,20 +676,20 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('moveListOptions');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('moveListOptions');
       this.logOption('Move list options', value);
-      const $ = parent.$;
-      const lichess = parent.lichess;
+      const $ = lt.$;
+      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       this.options = {
-        indentedVariations: parent.isOptionSet(value, 'indentedVariations'),
-        bookmarks: parent.isOptionSet(value, 'bookmarks'),
-        fullWidthAnalysis: parent.isOptionSet(value, 'fullWidthAnalysis'),
-        hideLeftSide: parent.isOptionSet(value, 'hideLeftSide'),
-        analysisPopup: parent.isOptionSet(value, 'analysisPopup'),
-        fixCevalToggle: parent.isOptionSet(value, 'fixCevalToggle'),
+        indentedVariations: lt.isOptionSet(value, 'indentedVariations'),
+        bookmarks: lt.isOptionSet(value, 'bookmarks'),
+        fullWidthAnalysis: lt.isOptionSet(value, 'fullWidthAnalysis'),
+        hideLeftSide: lt.isOptionSet(value, 'hideLeftSide'),
+        analysisPopup: lt.isOptionSet(value, 'analysisPopup'),
+        fixCevalToggle: lt.isOptionSet(value, 'fixCevalToggle'),
         getString: function () {
           const arr = [];
           if (this.indentedVariations) arr.push('indentedVariations');
@@ -701,34 +701,34 @@
           return arr.join(',');
         }
       };
-      lichess.pubsub.off('lichessTools.redraw', this.analysisControls);
-      lichess.pubsub.on('lichessTools.redraw', this.analysisControls);
-      analysis.actionMenu.toggle = lichessTools.unwrapFunction(analysis.actionMenu.toggle, 'moveListOptions');
-      analysis.actionMenu.toggle = lichessTools.wrapFunction(analysis.actionMenu.toggle, {
+      lt.pubsub.off('lichessTools.redraw', this.analysisControls);
+      lt.pubsub.on('lichessTools.redraw', this.analysisControls);
+      analysis.actionMenu.toggle = lt.unwrapFunction(analysis.actionMenu.toggle, 'moveListOptions');
+      analysis.actionMenu.toggle = lt.wrapFunction(analysis.actionMenu.toggle, {
         id: 'moveListOptions',
         after: ($this, result, ...args) => {
-          parent.global.setTimeout(this.analysisControls, 100);
-          parent.emitRedraw();
+          lt.global.setTimeout(this.analysisControls, 100);
+          lt.emitRedraw();
         }
       });
       this.analysisControls();
 
-      lichess.pubsub.off('lichessTools.redraw', this.addMissingIndexes);
+      lt.pubsub.off('lichessTools.redraw', this.addMissingIndexes);
       if (this.options.indentedVariations) {
-        lichess.pubsub.on('lichessTools.redraw', this.addMissingIndexes);
+        lt.pubsub.on('lichessTools.redraw', this.addMissingIndexes);
       }
 
-      lichess.pubsub.off('lichessTools.redraw', this.debouncedAddCommentBookmarks);
-      lichess.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
+      lt.pubsub.off('lichessTools.redraw', this.debouncedAddCommentBookmarks);
+      lt.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
       if (lichess.socket) {
-        lichess.socket.handle = parent.unwrapFunction(lichess.socket.handle, 'moveListOptions');
+        lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'moveListOptions');
       }
-      $(parent.global).off('hashchange', this.hashChange);
+      $(lt.global).off('hashchange', this.hashChange);
       if (this.options.bookmarks) {
-        lichess.pubsub.on('lichessTools.redraw', this.debouncedAddCommentBookmarks);
-        lichess.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
+        lt.pubsub.on('lichessTools.redraw', this.debouncedAddCommentBookmarks);
+        lt.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
         if (lichess.socket) {
-          lichess.socket.handle = parent.wrapFunction(lichess.socket.handle, {
+          lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
             id: 'moveListOptions',
             after: ($this, result, m) => {
               if (m.t == 'setComment') this.debouncedAddCommentBookmarks();
@@ -736,30 +736,30 @@
           });
         }
         this.addCommentBookmarks();
-        $(parent.global).on('hashchange', this.hashChange);
-        parent.global.setTimeout(this.hashChange, 100);
+        $(lt.global).on('hashchange', this.hashChange);
+        lt.global.setTimeout(this.hashChange, 100);
       }
 
-      lichess.pubsub.off('lichessTools.redraw', this.analysisContextMenu);
+      lt.pubsub.off('lichessTools.redraw', this.analysisContextMenu);
       $('.tview2').off('contextmenu', this.analysisContextMenu);
       if (this.options.bookmarks) {
-        lichess.pubsub.on('lichessTools.redraw', this.analysisContextMenu);
+        lt.pubsub.on('lichessTools.redraw', this.analysisContextMenu);
         $('.tview2').on('contextmenu', this.analysisContextMenu);
       }
 
       $.cached('body')
         .toggleClass('lichessTools-fullWidthAnalysis', this.options.fullWidthAnalysis)
         .toggleClass('lichessTools-hideLeftSide', this.options.hideLeftSide);
-      lichess.pubsub.off('lichessTools.redraw', this.setupAnalysisPopup);
+      lt.pubsub.off('lichessTools.redraw', this.setupAnalysisPopup);
       if (analysis.study && this.options.analysisPopup) {
-        lichess.pubsub.on('lichessTools.redraw', this.setupAnalysisPopup);
+        lt.pubsub.on('lichessTools.redraw', this.setupAnalysisPopup);
       }
       this.setupAnalysisPopup();
 
       $('.lichessTools-fixCevalToggle').removeClass('lichessTools-fixCevalToggle');
-      lichess.pubsub.off('lichessTools.redraw', this.setupCevalToggle);
+      lt.pubsub.off('lichessTools.redraw', this.setupCevalToggle);
       if (analysis && this.options.fixCevalToggle) {
-        lichess.pubsub.on('lichessTools.redraw', this.setupCevalToggle);
+        lt.pubsub.on('lichessTools.redraw', this.setupCevalToggle);
       }
       this.setupCevalToggle();
     }

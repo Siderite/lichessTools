@@ -28,20 +28,20 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('dailyQuote');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('dailyQuote');
       this.logOption('Daily quote', value);
       if (!$('main').is('.lobby')) return;
       $('.lichessTools-dailyQuote').remove();
       if (!value) return;
       const now = new Date();
-      const closedDate = parent.storage.get('LiChessTools.closedQuote');
+      const closedDate = lt.storage.get('LiChessTools.closedQuote');
       if (now.toDateString() == closedDate) {
         return; 
       }
-      let quotes = (await parent.comm.getData('quotes.json'))?.quotes;
+      let quotes = (await lt.comm.getData('quotes.json'))?.quotes;
       if (quotes?.length) {
         const header = $('header#top');
         const elem = $('<div class="lichessTools-dailyQuote"><span class="quote"></span><span class="author"></span><button type="button" class="close"></button></div>')
@@ -55,7 +55,7 @@
           .attr('title',trans.noarg('quoteCloseButtonTitle'))
           .on('click',(ev)=>{
             ev.preventDefault();
-            parent.storage.set('LiChessTools.closedQuote',now.toDateString());
+            lt.storage.set('LiChessTools.closedQuote',now.toDateString());
             elem.remove();
           })
       }

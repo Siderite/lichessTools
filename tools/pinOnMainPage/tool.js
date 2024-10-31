@@ -28,8 +28,8 @@
     };
 
     pinCurrentStudy = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const study = lichess.analysis?.study;
       if (!study) return;
       const studyId = study.data.id;
@@ -37,26 +37,26 @@
       const studyName = (tourName ? tourName + ' ' : '') + study.data.name;
       const isPinned = !!this.options.pinned.find(p => p.studyId == studyId);
       if (isPinned) {
-        parent.arrayRemoveAll(this.options.pinned, p => p.studyId == studyId);
+        lt.arrayRemoveAll(this.options.pinned, p => p.studyId == studyId);
       } else {
         this.options.pinned.push({ studyId, studyName });
       }
-      parent.storage.set('LichessTools.pinnedStudies', this.options.pinned);
+      lt.storage.set('LichessTools.pinnedStudies', this.options.pinned);
       this.addPin();
     };
 
     unpinStudy = (studyId) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      parent.arrayRemoveAll(this.options.pinned, p => p.studyId == studyId);
-      parent.storage.set('LichessTools.pinnedStudies', this.options.pinned);
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      lt.arrayRemoveAll(this.options.pinned, p => p.studyId == studyId);
+      lt.storage.set('LichessTools.pinnedStudies', this.options.pinned);
     };
 
     addPin = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;
       const container = $('.study__side div[role=tablist]');
@@ -82,10 +82,10 @@
     };
 
     addToHomepage = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       const container = $('div.lobby__spotlights');
       if (!container.length) return;
       if (!this.options.enabled) {
@@ -117,14 +117,14 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('pinOnMainPage');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('pinOnMainPage');
       this.logOption('Pin on main page', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       this.options = {
         enabled: value,
-        pinned: parent.storage.get('LichessTools.pinnedStudies') || []
+        pinned: lt.storage.get('LichessTools.pinnedStudies') || []
       };
       this.addPin();
       this.addToHomepage();

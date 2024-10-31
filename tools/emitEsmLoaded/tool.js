@@ -3,20 +3,20 @@
 
     firstEvents = [];
     async wrapEsmLoaded() {
-      const parent = this.lichessTools;
-      while (!parent.lichess?.asset?.loadEsm) {
-        await parent.timeout(1);
+      const lt = this.lichessTools;
+      while (!lt.lichess?.asset?.loadEsm) {
+        await lt.timeout(1);
       }
-      const lichess = parent.lichess;
-      if (parent.isWrappedFunction(lichess.asset.loadEsm, 'emitEsmLoaded')) return;
-      const loadEsm = parent.wrapFunction(lichess.asset.loadEsm, {
+      const lichess = lt.lichess;
+      if (lt.isWrappedFunction(lichess.asset.loadEsm, 'emitEsmLoaded')) return;
+      const loadEsm = lt.wrapFunction(lichess.asset.loadEsm, {
         id: 'emitEsmLoaded',
         after: ($this, result, ...args) => {
           result?.then(m => {
             if (this.firstEvents) {
               this.firstEvents.push(m);
             } else {
-              lichess.pubsub.emit('lichessTools.esmLoaded', m);
+              lt.pubsub.emit('lichessTools.esmLoaded', m);
             }
           });
         }
@@ -33,11 +33,11 @@
       const events = this.firstEvents;
       this.firstEvents = null;
       if (!events?.length) return;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      parent.global.setTimeout(() => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      lt.global.setTimeout(() => {
         for (const ev of events) {
-          lichess.pubsub.emit('lichessTools.esmLoaded', ev);
+          lt.pubsub.emit('lichessTools.esmLoaded', ev);
         }
       }, 50);
     }

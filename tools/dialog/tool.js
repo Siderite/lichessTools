@@ -2,11 +2,11 @@
   class DialogTool extends LiChessTools.Tools.ToolBase {
 
     createDialog(options) {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
       const dialog = $('<dialog class="lichessTools-dialog">')
-        .toggleClass('touch-scroll', parent.isTouchDevice());
+        .toggleClass('touch-scroll', lt.isTouchDevice());
       if (options.parent) dialog.css('position', 'absolute');
 
       if (!options.noCloseButton) {
@@ -34,7 +34,7 @@
         } else {
           data.bottom = windowHeight - top - height;
         }
-        lichess.pubsub.emit('setDialogPlacement', data);
+        lt.pubsub.emit('lichessTools.setDialogPlacement', data);
       };
 
       if (options.header !== undefined) {
@@ -62,10 +62,10 @@
                   });
               };
 
-              $(parent.global.document).on('mousemove', onMouseMove);
+              $(lt.global.document).on('mousemove', onMouseMove);
 
-              $(parent.global.document).one('mouseup pointerup', () => {
-                $(parent.global.document).off('mousemove', onMouseMove);
+              $(lt.global.document).one('mouseup pointerup', () => {
+                $(lt.global.document).off('mousemove', onMouseMove);
                 dialog
                   .removeClass('dragged');
                 emitPlacement();
@@ -111,10 +111,10 @@
                 });
             };
 
-            $(parent.global.document).on('mousemove', onMouseMove);
+            $(lt.global.document).on('mousemove', onMouseMove);
 
-            $(parent.global.document).one('mouseup pointerup', () => {
-              $(parent.global.document).off('mousemove', onMouseMove);
+            $(lt.global.document).one('mouseup pointerup', () => {
+              $(lt.global.document).off('mousemove', onMouseMove);
               dialog
                 .removeClass('resizing');
               emitPlacement();
@@ -130,8 +130,8 @@
     }
 
     async init() {
-      const parent = this.lichessTools;
-      parent.dialog = this.createDialog.bind(this);
+      const lt = this.lichessTools;
+      lt.dialog = this.createDialog.bind(this);
     }
   }
   LiChessTools.Tools.Dialog = DialogTool;

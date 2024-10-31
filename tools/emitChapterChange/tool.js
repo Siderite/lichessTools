@@ -4,17 +4,17 @@
     dependencies = ['EmitRedraw'];
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       if (!lichess) return;
-      const console = parent.global.console;
+      const console = lt.global.console;
       if (!lichess?.analysis?.study) return;
       let previousChapterId = null;
-      lichess.pubsub.on('lichessTools.redraw', () => {
+      lt.pubsub.on('lichessTools.redraw', () => {
         const currChapterId = lichess.analysis.study.currentChapter()?.id;
         if (previousChapterId != currChapterId) {
           previousChapterId = currChapterId;
-          lichess.pubsub.emit('lichessTools.chapterChange', currChapterId);
+          lt.pubsub.emit('lichessTools.chapterChange', currChapterId);
         }
       });
     }

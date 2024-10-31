@@ -91,10 +91,10 @@
       goodMoves: 0,
       badMoves: 0,
       makeState: () => {
-        const parent = this.lichessTools;
-        const analysis = parent.lichess.analysis;
-        const $ = parent.$;
-        const trans = parent.translator;
+        const lt = this.lichessTools;
+        const analysis = lt.lichess.analysis;
+        const $ = lt.$;
+        const trans = lt.translator;
         const gp = analysis.gamebookPlay();
         const node = analysis.node;
         const nodeComment = (node.comments || [])[0];
@@ -111,10 +111,10 @@
           if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
             gp.currentPath = this.getCurrentPath();
             if (!gp.currentPath) {
-              const nextMoves = parent.getNextMoves(node, gp.threeFoldRepetition)
+              const nextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
                 .filter(c => this.isPermanentNode(c));
               if (nextMoves.length) {
-                if (parent.global.confirm(trans.noarg('resetQuestionNoVariations'))) {
+                if (lt.global.confirm(trans.noarg('resetQuestionNoVariations'))) {
                   this.resetDone();
                   return gp.makeState();
                 } else {
@@ -131,21 +131,21 @@
         const parNode = analysis.tree.nodeAtPath(parPath);
         const isAcceptedMove = this.isPermanentNode(node) && (!(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(analysis.path));
         if (!isAcceptedMove) {
-          const position = parent.getNodePosition(node);
-          const candidate = parent.getNextMoves(parNode, gp.threeFoldRepetition)
+          const position = lt.getNodePosition(node);
+          const candidate = lt.getNextMoves(parNode, gp.threeFoldRepetition)
             .filter(c => this.isPermanentNode(c))
             .filter(c => !(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(c.path))
-            .find(c => parent.getNodePosition(c) == position);
+            .find(c => lt.getNodePosition(c) == position);
           if (candidate) {
             if (candidate.path !== undefined) {
               analysis.userJump(candidate.path);
               return this.extendedGamebook.makeState();
             } else {
-              parent.global.console.warn('Node has no path', candidate);
+              lt.global.console.warn('Node has no path', candidate);
             }
           }
         }
-        const nextMoves = parent.getNextMoves(node, gp.threeFoldRepetition)
+        const nextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
           .filter(c => this.isPermanentNode(c))
           .filter(c => !(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(c.path));
         if (!isAcceptedMove) {
@@ -164,7 +164,7 @@
             const hint = trans.pluralSame('nextMovesCount', nextMovesCount);
             state.hint = hint;
           }
-          parent.global.setTimeout(() =>
+          lt.global.setTimeout(() =>
             $('button.hint')
               .attr('data-count', nextMovesCount)
               .addClass('data-count')
@@ -197,7 +197,7 @@
             };
           }
           if (func) {
-            parent.global.setTimeout(func, delay);
+            lt.global.setTimeout(func, delay);
           }
         } else {
           $('div.gamebook .comment')
@@ -205,8 +205,8 @@
         }
       },
       retry: () => {
-        const parent = this.lichessTools;
-        const analysis = parent.lichess.analysis;
+        const lt = this.lichessTools;
+        const analysis = lt.lichess.analysis;
         const gp = analysis.gamebookPlay();
         if (analysis.path === '') {
           gp.makeState();
@@ -222,8 +222,8 @@
         gp.redraw();
       },
       next: () => {
-        const parent = this.lichessTools;
-        const analysis = parent.lichess.analysis;
+        const lt = this.lichessTools;
+        const analysis = lt.lichess.analysis;
         const gp = analysis.gamebookPlay();
         if (!gp) return;
         if (!gp.isMyMove()) {
@@ -232,7 +232,7 @@
             const childPath = gp.currentPath.slice(0, analysis.path.length + 2);
             if (childPath.length == analysis.path.length + 2) child = analysis.tree.nodeAtPath(childPath);
           } else {
-            child = parent.getRandomVariation(analysis.node, gp.threeFoldRepetition);
+            child = lt.getRandomVariation(analysis.node, gp.threeFoldRepetition);
           }
           if (child) {
             analysis.userJump(child.path || (analysis.path + child.id));
@@ -246,10 +246,10 @@
         gp.redraw();
       },
       solution: () => {
-        const parent = this.lichessTools;
-        const analysis = parent.lichess.analysis;
+        const lt = this.lichessTools;
+        const analysis = lt.lichess.analysis;
         const gp = analysis.gamebookPlay();
-        let children = parent.getNextMoves(analysis.node, gp.threeFoldRepetition).filter(c => this.isPermanentNode(c));
+        let children = lt.getNextMoves(analysis.node, gp.threeFoldRepetition).filter(c => this.isPermanentNode(c));
         if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
           children = children.filter(c => this.inCurrentPath(c.path));
         }
@@ -285,13 +285,13 @@
     };
 
     getCurrentPath = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
       if (!this._paths) {
-        this._paths = parent.storage.get('LichessTools.chapterPaths') || {};
+        this._paths = lt.storage.get('LichessTools.chapterPaths') || {};
       }
       const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
       let paths = this._paths[key];
@@ -312,29 +312,29 @@
         for (const child of nextMoves) traverse(child, path + child.id);
       };
       traverse(analysis.tree.root, '');
-      const i = Math.floor(parent.random() * currentPaths.length);
+      const i = Math.floor(lt.random() * currentPaths.length);
       paths.currentPath = currentPaths[i];
-      parent.storage.set('LichessTools.chapterPaths', this._paths);
+      lt.storage.set('LichessTools.chapterPaths', this._paths);
       return paths.currentPath;
     };
 
     inCurrentPath = (path) => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
       return gp.currentPath?.startsWith(path);
     };
 
     markPathFinished = (path, goodMoves, badMoves, askedForSolution) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
       const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
       if (!this._paths) {
-        this._paths = parent.storage.get('LichessTools.chapterPaths') || {};
+        this._paths = lt.storage.get('LichessTools.chapterPaths') || {};
       }
       const paths = this._paths[key] || {};
       const success = badMoves == 0 && !askedForSolution && goodMoves >= Math.floor(path.length / 4);
@@ -362,15 +362,15 @@
       traverse(analysis.tree.root);
 
       this._paths[key] = paths;
-      parent.storage.set('LichessTools.chapterPaths', this._paths);
+      lt.storage.set('LichessTools.chapterPaths', this._paths);
       this.refreshChapterProgress();
     };
 
     isDonePath = (path) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       if (!this._paths) {
-        this._paths = parent.storage.get('LichessTools.chapterPaths') || null;
+        this._paths = lt.storage.get('LichessTools.chapterPaths') || null;
       }
       if (!this._paths) return false;
       const analysis = lichess.analysis;
@@ -386,25 +386,25 @@
     };
 
     resetDone = (chapterId) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       if (!this._paths) {
-        this._paths = parent.storage.get('LichessTools.chapterPaths') || null;
+        this._paths = lt.storage.get('LichessTools.chapterPaths') || null;
       }
       if (!this._paths) return false;
       const analysis = lichess.analysis;
       chapterId = chapterId || analysis.study.currentChapter()?.id
       const key = analysis.study.data.id + '/' + chapterId;
       this._paths[key] = null;
-      parent.storage.set('LichessTools.chapterPaths', this._paths);
+      lt.storage.set('LichessTools.chapterPaths', this._paths);
       this.refreshChapterProgress();
       return true;
     };
 
     showGiveUpButton = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       const container = $('.gamebook .comment');
       if (!container.length || $('.lichessTools-giveUp', container).length) return;
       $('<button class="lichessTools-giveUp">')
@@ -412,9 +412,9 @@
         .attr('title', trans.noarg('giveUpButtonTitle'))
         .on('click', ev => {
           ev.preventDefault();
-          parent.global.setTimeout(() => {
-            if (!parent.global.confirm(trans.noarg('giveUpConfirmation'))) return;
-            const gp = parent.lichess.analysis.gamebookPlay();
+          lt.global.setTimeout(() => {
+            if (!lt.global.confirm(trans.noarg('giveUpConfirmation'))) return;
+            const gp = lt.lichess.analysis.gamebookPlay();
             gp.state.feedback = 'end';
             gp.badMoves++;
             gp.redraw();
@@ -425,11 +425,11 @@
     };
 
     showScore = (isFinal) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const Math = parent.global.Math;
-      const analysis = parent.lichess.analysis;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const Math = lt.global.Math;
+      const analysis = lt.lichess.analysis;
+      const trans = lt.translator;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
       if (!this.options.showFinalScore && !this.options.alwaysShowScore) return;
@@ -447,7 +447,7 @@
       const f = () => {
         const container = $('div.gamebook .comment .content');
         if (!container.length) {
-          parent.global.setTimeout(f, 100);
+          lt.global.setTimeout(f, 100);
           return;
         }
         container.find('.lichessTools-score').remove();
@@ -458,8 +458,8 @@
     };
 
     replaceFunction = (func, newFunc, id) => {
-      const parent = this.lichessTools;
-      return parent.wrapFunction(func, {
+      const lt = this.lichessTools;
+      return lt.wrapFunction(func, {
         id: id,
         before: () => false,
         after: ($this, result, ...args) => {
@@ -470,8 +470,8 @@
 
     originalUserJump = null;
     patchGamebook = () => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       if (analysis.study?.practice) return;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
@@ -487,22 +487,22 @@
         if (!this.originalUserJump) this.originalUserJump = analysis.userJump;
         if (analysis.node.id === '') {
           analysis.userJump = function () { };
-          parent.global.setTimeout(() => {
+          lt.global.setTimeout(() => {
             analysis.userJump = this.originalUserJump;
             if (!gp.state.comment) gp.next();
           }, analysis.path == '' ? 1100 : 400);
         }
       } else if (!this.options.extendedInteractive && gp.isExtendedInteractiveLessons) {
-        gp.makeState = parent.unwrapFunction(gp.makeState, 'extendedInteractiveLessons');
-        gp.retry = parent.unwrapFunction(gp.retry, 'extendedInteractiveLessons');
-        gp.next = parent.unwrapFunction(gp.next, 'extendedInteractiveLessons');
-        gp.solution = parent.unwrapFunction(gp.solution, 'extendedInteractiveLessons');
+        gp.makeState = lt.unwrapFunction(gp.makeState, 'extendedInteractiveLessons');
+        gp.retry = lt.unwrapFunction(gp.retry, 'extendedInteractiveLessons');
+        gp.next = lt.unwrapFunction(gp.next, 'extendedInteractiveLessons');
+        gp.solution = lt.unwrapFunction(gp.solution, 'extendedInteractiveLessons');
         gp.isExtendedInteractiveLessons = true;
       }
       if ((this.options.showFinalScore || this.options.alwaysShowScore) && !gp.isShowScore) {
         gp.fens = {};
         gp.resetStats = this.extendedGamebook.resetStats;
-        gp.makeState = parent.wrapFunction(gp.makeState, {
+        gp.makeState = lt.wrapFunction(gp.makeState, {
           id: 'showScore',
           after: ($this, result, ...args) => {
             // fix lichess bug where entering Preview mode keeps using Explorer endpoints in the background
@@ -538,7 +538,7 @@
             gp.askedForSolution = false;
           }
         });
-        gp.redraw = parent.wrapFunction(gp.redraw, {
+        gp.redraw = lt.wrapFunction(gp.redraw, {
           id: 'showScore',
           after: ($this, results, ...args) => {
             if (gp.state.feedback == 'end' && this.options.showFinalScore) {
@@ -552,7 +552,7 @@
             }
           }
         });
-        gp.next = parent.wrapFunction(gp.next, {
+        gp.next = lt.wrapFunction(gp.next, {
           id: 'showScore',
           before: ($this, ...args) => {
             if (gp.root.node.id == '') {
@@ -563,7 +563,7 @@
             }
           }
         });
-        gp.retry = parent.wrapFunction(gp.retry, {
+        gp.retry = lt.wrapFunction(gp.retry, {
           id: 'showScore',
           after: ($this, result, ...args) => {
             if (gp.root.node.id == '') {
@@ -574,7 +574,7 @@
             }
           }
         });
-        gp.solution = parent.wrapFunction(gp.solution, {
+        gp.solution = lt.wrapFunction(gp.solution, {
           id: 'showScore',
           after: ($this, result, ...args) => {
             gp.askedForSolution = true;
@@ -586,23 +586,23 @@
         gp.isShowScore = true;
         gp.redraw();
       } else if (!this.options.showFinalScore && gp.isShowScore) {
-        gp.makeState = parent.unwrapFunction(gp.makeState, 'showScore');
-        gp.next = parent.unwrapFunction(gp.next, 'showScore');
-        gp.retry = parent.unwrapFunction(gp.retry, 'showScore');
-        gp.redraw = parent.unwrapFunction(gp.redraw, 'showScore');
-        gp.solution = parent.unwrapFunction(gp.solution, 'showScore');
+        gp.makeState = lt.unwrapFunction(gp.makeState, 'showScore');
+        gp.next = lt.unwrapFunction(gp.next, 'showScore');
+        gp.retry = lt.unwrapFunction(gp.retry, 'showScore');
+        gp.redraw = lt.unwrapFunction(gp.redraw, 'showScore');
+        gp.solution = lt.unwrapFunction(gp.solution, 'showScore');
         gp.isShowScore = false;
       }
       if (analysis.path === '') {
-        parent.traverse(undefined, undefined, true);
+        lt.traverse(undefined, undefined, true);
         gp.makeState();
       }
     };
 
     addDeviation = () => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const analysis = lt.lichess.analysis;
       const nodePath = analysis.contextMenuPath;
       const node = analysis.tree.nodeAtPath(nodePath);
       let gamebook = node.gamebook;
@@ -611,12 +611,12 @@
         node.gamebook = gamebook;
       }
       const text = trans.noarg('addDeviationText');
-      const deviation = parent.global.prompt(text, gamebook.deviation);
+      const deviation = lt.global.prompt(text, gamebook.deviation);
       if (!deviation) return;
       gamebook.deviation = deviation;
       const chapterId = analysis.study.currentChapter()?.id;
       if (!chapterId) {
-        parent.global.console.warn('Could not determine chapterId');
+        lt.global.console.warn('Could not determine chapterId');
         return;
       }
       analysis.study.makeChange('setGamebook', {
@@ -630,26 +630,26 @@
     };
 
     playAgain = () => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       analysis.userJump(this.options.returnToPreview && this._previewPath || '');
       analysis.redraw();
     };
 
     collapseGamebookEdit = (ev) => {
       ev.preventDefault();
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const gamebookEdit = $('div.gamebook-edit');
       this._collapsed = !this._collapsed;
       gamebookEdit.toggleClass('lichessTools-collapsed', this._collapsed);
     };
 
     alterUI = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const analysis = lt.lichess.analysis;
 
       $.cached('body').toggleClass('lichessTools-extendedInteractiveLesson', this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
       let translation = trans.noarg('extendedInteractiveLessonLong')
@@ -657,9 +657,9 @@
 
       if (this.options.returnToPreview) {
         $('button.retry, button.fbt.text.back').each((i, e) => {
-          let handlers = parent.getEventHandlers(e, 'click');
+          let handlers = lt.getEventHandlers(e, 'click');
           if (handlers.filter(h => h != this.playAgain).length) {
-            parent.removeEventHandlers(e, 'click');
+            lt.removeEventHandlers(e, 'click');
             handlers = [];
           }
           if (!handlers.filter(h => h != this.playAgain).length) {
@@ -725,18 +725,18 @@
     };
 
     refreshNodeVersion = () => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       if (!this.options.extendedInteractive) return;
       this.currentVersion = analysis?.cgVersion?.js;
-      parent.traverse(analysis.tree.root, (n, s) => n.version = n.version || this.currentVersion, true);
+      lt.traverse(analysis.tree.root, (n, s) => n.version = n.version || this.currentVersion, true);
     };
 
     analysisControls = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis?.study?.data?.chapter?.gamebook) return;
       const container = $('div.analyse__tools div.action-menu');
@@ -779,22 +779,22 @@
       <label for="abset-fastInteractive">$trans(extendedInteractiveLesson.fastInteractive)</label>
     </div>
 `.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return parent.htmlEncode(trans.noarg(m.slice(7, -1)));
+          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
         $(html).insertBefore($('h2', container).eq(0));
         $('#abset-extendedInteractive,#abset-showScore,#abset-alwaysShowScore,#abset-returnToPreview,#abset-fastInteractive')
           .on('change', async () => {
             const arr = [];
-            const options = parent.currentOptions
+            const options = lt.currentOptions
             if ($('#abset-extendedInteractive').is(':checked')) arr.push('extendedInteractive');
             if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
             if ($('#abset-alwaysShowScore').is(':checked')) arr.push('alwaysShowFinalScore');
             if ($('#abset-returnToPreview').is(':checked')) arr.push('returnToPreview');
             if ($('#abset-fastInteractive').is(':checked')) arr.push('fastInteractive');
             options.extendedInteractiveLesson = arr.join(',');
-            await parent.applyOptions(options)
-            await parent.saveOptions(options)
-            parent.fireReloadOptions();
+            await lt.applyOptions(options)
+            await lt.saveOptions(options)
+            lt.fireReloadOptions();
           });
       }
       $('#abset-extendedInteractive')
@@ -810,17 +810,17 @@
     };
 
     setupReset = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      this.state = parent.traverse(undefined, undefined, true);
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      this.state = lt.traverse(undefined, undefined, true);
       const analysis = lichess.analysis;
       const study = analysis?.study;
       if (!study) return;
-      const trans = parent.translator;
+      const trans = lt.translator;
       const modal = $('div.dialog-content');
       if (!modal.length) return;
       if (!this._paths) {
-        this._paths = parent.storage.get('LichessTools.chapterPaths') || null;
+        this._paths = lt.storage.get('LichessTools.chapterPaths') || null;
       }
       if (!this._paths) return;
       const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
@@ -833,7 +833,7 @@
           .text(trans.noarg('resetButtonText'))
           .on('click', ev => {
             ev.preventDefault();
-            if (!parent.global.confirm(trans.noarg('resetQuestion'))) return;
+            if (!lt.global.confirm(trans.noarg('resetQuestion'))) return;
             this.resetDone();
           })
           .insertBefore($('div.form-actions button[type="submit"]', modal));
@@ -843,15 +843,15 @@
     };
 
     refreshChapterProgress = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      this.state = parent.traverse(undefined, undefined, true);
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      this.state = lt.traverse(undefined, undefined, true);
       const analysis = lichess.analysis;
       const study = analysis?.study;
       if (!study) return;
-      const trans = parent.translator;
+      const trans = lt.translator;
       if (!this._paths) {
-        this._paths = parent.storage.get('LichessTools.chapterPaths') || null;
+        this._paths = lt.storage.get('LichessTools.chapterPaths') || null;
       }
       if (!this._paths) return;
       const list = study.chapters.list.all();
@@ -888,7 +888,7 @@
             .on('click', ev => {
               ev.preventDefault();
               ev.stopPropagation();
-              if (!parent.global.confirm(trans.noarg('resetQuestion'))) return;
+              if (!lt.global.confirm(trans.noarg('resetQuestion'))) return;
               this.resetDone(chapter.id);
             })
             .appendTo(container);
@@ -898,9 +898,9 @@
     };
 
     findThreatArrow = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       if (!analysis.threatMode()) return;
       let uci = analysis.ceval?.curEval?.pvs?.at(0)?.moves?.at(0);
@@ -915,30 +915,30 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('extendedInteractiveLesson');
-      const flow = parent.currentOptions.getValue('extendedInteractiveLessonFlow');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('extendedInteractiveLesson');
+      const flow = lt.currentOptions.getValue('extendedInteractiveLessonFlow');
       this.logOption('Extended interactive lessons', value, 'flow', flow);
-      const $ = parent.$;
-      const lichess = parent.lichess;
+      const $ = lt.$;
+      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
       this.options = {
-        showFinalScore: parent.isOptionSet(value, 'showFinalScore'),
-        alwaysShowScore: parent.isOptionSet(value, 'alwaysShowScore'),
-        extendedInteractive: parent.isOptionSet(value, 'extendedInteractive'),
-        returnToPreview: parent.isOptionSet(value, 'returnToPreview'),
-        fastInteractive: parent.isOptionSet(value, 'fastInteractive'),
-        giveUpButton: parent.isOptionSet(value, 'giveUpButton'),
+        showFinalScore: lt.isOptionSet(value, 'showFinalScore'),
+        alwaysShowScore: lt.isOptionSet(value, 'alwaysShowScore'),
+        extendedInteractive: lt.isOptionSet(value, 'extendedInteractive'),
+        returnToPreview: lt.isOptionSet(value, 'returnToPreview'),
+        fastInteractive: lt.isOptionSet(value, 'fastInteractive'),
+        giveUpButton: lt.isOptionSet(value, 'giveUpButton'),
         flow: {
-          'sequential': parent.isOptionSet(flow, 'sequential'),
-          'spacedRepetition': parent.isOptionSet(flow, 'spacedRepetition')
+          'sequential': lt.isOptionSet(flow, 'sequential'),
+          'spacedRepetition': lt.isOptionSet(flow, 'spacedRepetition')
         }
       };
-      parent.isPermanentNode = this.isPermanentNode.bind(this);
-      if (this.options.extendedInteractive && !parent.isWrappedFunction(study.setGamebookOverride, 'extendedInteractive')) {
-        study.setGamebookOverride = parent.wrapFunction(study.setGamebookOverride, {
+      lt.isPermanentNode = this.isPermanentNode.bind(this);
+      if (this.options.extendedInteractive && !lt.isWrappedFunction(study.setGamebookOverride, 'extendedInteractive')) {
+        study.setGamebookOverride = lt.wrapFunction(study.setGamebookOverride, {
           id: 'extendedInteractive',
           before: ($this, o) => {
             if (!o && !study.members.canContribute()) {
@@ -976,42 +976,42 @@
           }
         });
       } else {
-        study.setGamebookOverride = parent.unwrapFunction(study.setGamebookOverride, 'extendedInteractive');
+        study.setGamebookOverride = lt.unwrapFunction(study.setGamebookOverride, 'extendedInteractive');
       }
       if (this.options.extendedInteractive && !this.currentVersion) {
         this.refreshNodeVersion();
       }
-      lichess.pubsub.off('lichessTools.redraw', this.analysisControls);
-      lichess.pubsub.on('lichessTools.redraw', this.analysisControls);
-      analysis.actionMenu.toggle = lichessTools.unwrapFunction(analysis.actionMenu.toggle, 'extendedInteractiveLesson');
-      analysis.actionMenu.toggle = lichessTools.wrapFunction(analysis.actionMenu.toggle, {
+      lt.pubsub.off('lichessTools.redraw', this.analysisControls);
+      lt.pubsub.on('lichessTools.redraw', this.analysisControls);
+      analysis.actionMenu.toggle = lt.unwrapFunction(analysis.actionMenu.toggle, 'extendedInteractiveLesson');
+      analysis.actionMenu.toggle = lt.wrapFunction(analysis.actionMenu.toggle, {
         id: 'extendedInteractiveLesson',
         after: ($this, result, ...args) => {
-          parent.global.setTimeout(this.analysisControls, 100);
+          lt.global.setTimeout(this.analysisControls, 100);
         }
       });
       this.analysisControls();
-      lichess.pubsub.off('lichessTools.redraw', this.alterUI);
-      lichess.pubsub.off('lichessTools.chapterChange', this.patchGamebook);
+      lt.pubsub.off('lichessTools.redraw', this.alterUI);
+      lt.pubsub.off('lichessTools.chapterChange', this.patchGamebook);
       if (this.options.extendedInteractive) {
-        lichess.pubsub.on('lichessTools.redraw', this.alterUI);
+        lt.pubsub.on('lichessTools.redraw', this.alterUI);
       }
       if (this.options.extendedInteractive || this.options.showFinalScore || this.options.alwaysShowScore) {
-        lichess.pubsub.on('lichessTools.chapterChange', this.patchGamebook);
+        lt.pubsub.on('lichessTools.chapterChange', this.patchGamebook);
       }
-      lichess.pubsub.off('lichessTools.redraw', this.showScore);
+      lt.pubsub.off('lichessTools.redraw', this.showScore);
       if (this.options.showFinalScore || this.options.alwaysShowScore) {
-        lichess.pubsub.on('lichessTools.redraw', this.showScore);
+        lt.pubsub.on('lichessTools.redraw', this.showScore);
       }
       this.patchGamebook();
 
       if (analysis.study.onReload) {
-        analysis.study.onReload = lichessTools.unwrapFunction(analysis.study.onReload, 'extendedInteractiveLesson');
+        analysis.study.onReload = lt.unwrapFunction(analysis.study.onReload, 'extendedInteractiveLesson');
       }
-      lichess.pubsub.off('lichessTools.redraw', this.findThreatArrow);
+      lt.pubsub.off('lichessTools.redraw', this.findThreatArrow);
       if (this.options.extendedInteractive) {
-        lichess.pubsub.on('lichessTools.redraw', this.findThreatArrow);
-        analysis.study.onReload = lichessTools.wrapFunction(analysis.study.onReload, {
+        lt.pubsub.on('lichessTools.redraw', this.findThreatArrow);
+        analysis.study.onReload = lt.wrapFunction(analysis.study.onReload, {
           id: 'extendedInteractiveLesson',
           after: ($this, result, ...args) => {
             this.refreshNodeVersion();
@@ -1019,7 +1019,7 @@
         });
       }
 
-      study.chapters.editForm.toggle = parent.unwrapFunction(study.chapters.editForm.toggle, 'extendedInteractiveLessonFlow');
+      study.chapters.editForm.toggle = lt.unwrapFunction(study.chapters.editForm.toggle, 'extendedInteractiveLessonFlow');
       $('div.study__chapters')
         .removeClass('lichesstools-extendedInteractiveLessonFlow')
         .find('i.act.lichessTools-reset')
@@ -1028,16 +1028,16 @@
       if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
         lichess.pubsub.on('chat.resize', this.refreshChapterProgress);
         this.refreshChapterProgress();
-        study.chapters.editForm.toggle = parent.wrapFunction(study.chapters.editForm.toggle, {
+        study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
           id: 'extendedInteractiveLessonFlow',
           after: ($this, result, data) => {
-            const interval = parent.global.setInterval(() => {
+            const interval = lt.global.setInterval(() => {
               const currentChapterId = study.currentChapter()?.id;
               if (!currentChapterId) return;
               if (!study.data.chapter.gamebook) return;
               const modal = $('div.dialog-content');
               if (!modal.length) return;
-              parent.global.clearInterval(interval);
+              lt.global.clearInterval(interval);
               this.setupReset();
             }, 100);
           }

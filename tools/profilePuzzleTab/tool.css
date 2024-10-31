@@ -37,10 +37,18 @@ body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-
   cursor: default;
 }
 
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab table tbody tr:first-child th,
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab table tbody tr:first-child td {
+  border-bottom: 1px solid var(--c-border);
+}
+
+
 body.lichessTools section.lichessTools-profilePuzzleTab th.puzzleCount,
 body.lichessTools section.lichessTools-profilePuzzleTab th.performance,
 body.lichessTools section.lichessTools-profilePuzzleTab th.replay {
   cursor: pointer;
+  text-decoration: underline 1px dashed var(--c-link);
+  text-underline-offset: 3px;
 }
 
 

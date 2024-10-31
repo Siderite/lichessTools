@@ -31,15 +31,15 @@
     }
 
     setupButtons = async (studyId, chapterId) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      let pgn = await parent.api.study.getChapterPgn(studyId, chapterId);
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      let pgn = await lt.api.study.getChapterPgn(studyId, chapterId);
       if (!pgn) return;
-      const trans = parent.translator;
-      const event = parent.getPgnTag(pgn, 'Event');
-      const white = parent.getPgnTag(pgn, 'White');
-      const black = parent.getPgnTag(pgn, 'Black');
+      const trans = lt.translator;
+      const event = lt.getPgnTag(pgn, 'Event');
+      const white = lt.getPgnTag(pgn, 'White');
+      const black = lt.getPgnTag(pgn, 'Black');
       const target = $('#chapter-name').closest('.form-group');
       $('.lichessTools-changeNameButton', target).remove();
       const chapterName = $('#chapter-name').val();
@@ -56,7 +56,7 @@
         const text = white + ' - ' + black;
         names.push(text);
       }
-      const co = parent.chessops;
+      const co = lt.chessops;
       const { parsePgn } = co.pgn;
       const { parseFen } = co.fen;
       const game = parsePgn(pgn)[0];
@@ -69,7 +69,7 @@
       }   
       let node = game.moves;
       pgn = '';
-      while (node.children.length==1) {
+      while (node.children.length==1 && ply<13) {
         node = node.children[0];
         if (ply%2==1) {
           pgn+=' '+Math.ceil(ply/2)+'.';
@@ -80,7 +80,7 @@
         ply++;
       }
       names.push(pgn);
-      if (node.children.length) {
+      if (node.children.length && ply<13) {
         let child = node.children[0];
         if (ply%2==1) {
           pgn+=' '+Math.ceil(ply/2)+'.';
@@ -117,26 +117,26 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('chapterNameFromTags');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('chapterNameFromTags');
       this.logOption('Chapter name from tags', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      study.chapters.editForm.toggle = parent.unwrapFunction(study.chapters.editForm.toggle, 'chapterNameFromTags');
+      study.chapters.editForm.toggle = lt.unwrapFunction(study.chapters.editForm.toggle, 'chapterNameFromTags');
       if (!value) return;
-      study.chapters.editForm.toggle = parent.wrapFunction(study.chapters.editForm.toggle, {
+      study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
         id: 'chapterNameFromTags',
         after: ($this, result, data) => {
-          const interval = parent.global.setInterval(() => {
+          const interval = lt.global.setInterval(() => {
             const input = $('#chapter-name');
             if (!input.length) return;
-            parent.global.clearInterval(interval);
+            lt.global.clearInterval(interval);
             this.setupButtons(study.data.id, data.id);
           }, 100);
         }

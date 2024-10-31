@@ -28,21 +28,21 @@
     }
 
     findTranspositions = () => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
-      if (!analysis || !parent.isTreeviewVisible()) return;
+      if (!analysis || !lt.isTreeviewVisible()) return;
       const currNode = analysis.node;
       if (!currNode) return;
       const nodePath = analysis.path;
       const tools = $('div.analyse__tools');
       let fork = $('div.lichessTools-transpositions', tools);
-      this.state = parent.traverse();
+      this.state = lt.traverse();
       let transpositions = currNode.transposition;
-      if (parent.transpositionBehavior?.excludeSameLine) {
+      if (lt.transpositionBehavior?.excludeSameLine) {
         transpositions = transpositions?.filter(n => n === currNode || (n.path && !n.path.startsWith(nodePath) && !nodePath.startsWith(n.path)));
       }
       if (!transpositions || transpositions.length <= 1) {
@@ -58,7 +58,7 @@
         fork.insertAfter($('.analyse__fork, .analyse__moves', tools).last());
       }
       transpositions = transpositions.filter(n => n != currNode);
-      const noDuplicates = parent.transpositionBehavior?.groupSameMove;
+      const noDuplicates = lt.transpositionBehavior?.groupSameMove;
       const transpoData = transpositions.map(n => n.uci).join(',') + (noDuplicates ? 'ND' : 'D');
       if (fork[0]?.dataset?.transpositions == transpoData) return;
       fork.data('transpositions', transpoData);
@@ -103,7 +103,7 @@
           const path = node.path + child.id;
           const forkMove = $('move', fork).filter((i, e) => $(e).attr('p') == path);
           if (forkMove.length) continue;
-          const targetElem = parent.getElementForPath(path);
+          const targetElem = lt.getElementForPath(path);
           if (currNode.children.length == 1 && child.san == currNode.children[0].san && !onlyMoveAdded) {
             addForkMove(targetElem, path, child, true);
             onlyMoveAdded = true;
@@ -118,19 +118,19 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('stickyAnalysis');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('stickyAnalysis');
       this.logOption('Next moves from transpositions', value);
       this.options = { enabled: !!value };
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       const tools = $('div.analyse__tools');
       $('div.lichessTools-transpositions', tools).remove();
-      lichess.pubsub.off('lichessTools.redraw', this.findTranspositions);
+      lt.pubsub.off('lichessTools.redraw', this.findTranspositions);
       if (value) {
-        lichess.pubsub.on('lichessTools.redraw', this.findTranspositions);
+        lt.pubsub.on('lichessTools.redraw', this.findTranspositions);
         this.findTranspositions();
       }
     }

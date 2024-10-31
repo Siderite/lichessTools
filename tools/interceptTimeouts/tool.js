@@ -2,16 +2,18 @@
   class InterceptTimeoutsTool extends LiChessTools.Tools.ToolBase {
 
     clearLastTimeout = () => {
+      const lt = this.lichessTools;
       const timeout = this.timeouts.at(-1);
-      if (timeout) this.lichessTools.global.clearTimeout(timeout.pointer);
+      if (timeout) lt.global.clearTimeout(timeout.pointer);
     };
 
     timeouts = [];
     intervals = [];
     async init() {
-      const global = this.lichessTools.global;
-      const wrap = this.lichessTools.wrapFunction.bind(this.lichessTools);
-      const removeAll = this.lichessTools.arrayRemoveAll;
+      const lt = this.lichessTools;
+      const global = lt.global;
+      const wrap = lt.wrapFunction.bind(this.lichessTools);
+      const removeAll = lt.arrayRemoveAll;
       global.setTimeout = wrap(global.setTimeout, {
         id: 'interceptTimeouts',
         after: (target, pointer, func, delay, ...args) => {
@@ -40,7 +42,7 @@
         }
       });
 
-      this.lichessTools.clearLastTimeout = this.clearLastTimeout;
+      lt.clearLastTimeout = this.clearLastTimeout;
     }
   }
   LiChessTools.Tools.InterceptTimeouts = InterceptTimeoutsTool;

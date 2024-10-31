@@ -30,12 +30,12 @@
     }
 
     refreshTeams = async () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
       const crosstable = $('div.crosstable');
-      if (!crosstable.length || !parent.inViewport(crosstable)) return;
+      if (!crosstable.length || !lt.inViewport(crosstable)) return;
       const commonTeamsLink = $('a.lichessTools-commonTeams');
       if (commonTeamsLink.length) return;
       const teamsArr = [];
@@ -49,7 +49,7 @@
             if (!href) return;
             const hrefUserId = /\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();
             if (!hrefUserId) return;
-            const teams = await parent.api.team.getUserTeams(hrefUserId);
+            const teams = await lt.api.team.getUserTeams(hrefUserId);
             teamsArr.push(teams);
           })());
         });
@@ -65,7 +65,7 @@
       const isLichessToolsTeam = !!commonTeams.find(t => t.id == 'l1chess-tools-users-team');
       const linkElement = $('<a class="lichessTools-commonTeams" target="_blank">')
         .attr('title', prefix + ':\r\n' + commonTeams.map(t => '  ' + t.name).join('\r\n'))
-        .attr('href', '/team/' + parent.global.encodeURIComponent(teamId))
+        .attr('href', '/team/' + lt.global.encodeURIComponent(teamId))
         .appendTo(crosstable);
       if (isLichessToolsTeam) {
         linkElement
@@ -85,15 +85,15 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('commonTeams');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('commonTeams');
       this.logOption('Common teams', value);
       $('a.lichessTools-commonTeams').remove();
-      lichess.pubsub.off('lichessTools.redraw', this.refreshTeams);
+      lt.pubsub.off('lichessTools.redraw', this.refreshTeams);
       if (!value) return;
-      lichess.pubsub.on('lichessTools.redraw', this.refreshTeams);
+      lt.pubsub.on('lichessTools.redraw', this.refreshTeams);
       this.refreshTeams();
     }
 

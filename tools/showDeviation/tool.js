@@ -37,14 +37,14 @@
     };
 
     addDeviation = async (el)=>{
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (!$(el).children().first().is('.upt__info')) return;
       const url = $('.upt__info__top .user-link',el).attr('href');
       const m = /^\/@\/(?<userId>[^\/]+)/.exec(url||'');
       if (!m) return;
       const userId = m.groups.userId.toLowerCase();
-      const data = await parent.api.user.getUsers([userId]);
+      const data = await lt.api.user.getUsers([userId]);
       const user = data[0];
       if (!user) return;
       const ratings = $('.upt__info__ratings>span',el);
@@ -66,10 +66,10 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      const value = parent.currentOptions.getValue('showDeviation');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const value = lt.currentOptions.getValue('showDeviation');
       this.logOption('Show deviation', value);
       lichess.pubsub.off('content-loaded',this.addDeviation);
       if (!value) return;

@@ -25,16 +25,16 @@
 
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('forceSf16');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('forceSf16');
       this.logOption('Force SF16', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const key = 'ceval.lsfw.forceEnable';
-      const currentValue = parent.storage.get(key);
+      const currentValue = lt.storage.get(key);
       const newValue = !!value;
       if (currentValue !== newValue) {
-        parent.storage.set(key, newValue);
+        lt.storage.set(key, newValue);
       }
     }
 

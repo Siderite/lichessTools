@@ -47,8 +47,8 @@
     setSlider = (ev) => {
       if (!this.options.fixSize) return;
       if (this._setSlider) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const uiSlider = this.uiSlider;
       const [currentStart, currentEnd] = uiSlider.get().map(x => parseInt(x));
       const { min: rangeStart, max: rangeEnd } = uiSlider.options.range;
@@ -90,8 +90,8 @@
     check1wActive = () => {
       const uiSlider = this.uiSlider;
       if (!uiSlider) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const newValues = [this.rangeEnd - 7 * 86400000, this.rangeEnd];
       const current = uiSlider.get();
       const isActive = (newValues[0] == current[0] && newValues[1] == current[1]);
@@ -100,15 +100,15 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('profileSlider');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('profileSlider');
       this.logOption('Slider dates', value);
       this.options = {
-        showText: parent.isOptionSet(value, 'showText'),
-        add1w: parent.isOptionSet(value, 'add1w'),
-        fixSize: parent.isOptionSet(value, 'fixSize')
+        showText: lt.isOptionSet(value, 'showText'),
+        add1w: lt.isOptionSet(value, 'add1w'),
+        fixSize: lt.isOptionSet(value, 'fixSize')
       };
       const slider = $('#time-range-slider');
       const uiSlider = $('#time-range-slider')[0]?.noUiSlider;

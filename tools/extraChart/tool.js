@@ -70,27 +70,22 @@
       }
     }
 
+    thematic = (dark, light) => {
+      const lt = this.lichessTools;
+      return () => lt.isDark() ? dark : light;
+    };
+
     colors = {
       originalChart: '#D85000',
       materialChart: '#258F0B',
       principledChart: '#250B8F',
-      localChart: () => this.lichessTools.isDark()
-        ? '#EFEF00A0'
-        : '#705800A0',
-      localChartHover: () => this.lichessTools.isDark()
-        ? '#FFFF00'
-        : '#604800',
-      accuracyChart: () => this.lichessTools.isDark()
-        ? '#FF00FF'
-        : '#700058',
-      sharpnessChart: () => this.lichessTools.isDark()
-        ? '#FFA0A0'
-        : '#B09090',
+      localChart: this.thematic('#EFEF00A0','#705800A0'),
+      localChartHover: this.thematic('#FFFF00','#604800'),
+      accuracyChart: this.thematic('#FF00FF','#700058'),
+      sharpnessChart: this.thematic('#FFA0A0','#B09090'),
       maxTensionLine: '#FF0000',
       maxPotentialLine: '#008000',
-      interestingMoves: () => this.lichessTools.isDark()
-        ? '#168226'
-        : '#009914'
+      interestingMoves: this.thematic('#168226','#009914')
     };
 
     pieceMaterial = {
@@ -401,8 +396,8 @@
     };
 
     tension = node => {
-      const parent = this.lichessTools;
-      const board = parent.getBoardFromFen(node.fen);
+      const lt = this.lichessTools;
+      const board = lt.getBoardFromFen(node.fen);
       const underAttack = [];
       for (let y = 0; y < 8; y++) {
         for (let x = 0; x < 8; x++) {
@@ -440,9 +435,9 @@
     };
 
     inCheck = (fen) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const side = fen.split(' ')[1] == 'w' ? 1 : -1;
-      const board = parent.getBoardFromFen(fen);
+      const board = lt.getBoardFromFen(fen);
       const king = this.findPieces(board, side == 1 ? 'K' : 'k')[0];
       const moves = this.getAllCapturingMoves(board)
         .filter(m => m.m != side && m.x == king.x && m.y == king.y);
@@ -450,9 +445,9 @@
     };
 
     materialWon = (board, x, y) => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
-      board = parent.clone(board);
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      board = lt.clone(board);
       const ch = board[y][x];
       if (!ch) return 0;
       const side = ch === ch.toUpperCase() ? -1 : 1;
@@ -469,8 +464,8 @@
     };
 
     maxMaterialWon = (board, m) => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
       let mx = 0;
       for (let y = 0; y < 8; y++) {
         for (let x = 0; x < 8; x++) {
@@ -489,8 +484,8 @@
 
     smooth = (points) => {
       return points;
-      /*const parent=this.lichessTools;
-      const Math=parent.global.Math;
+      /*const lt=this.lichessTools;
+      const Math=lt.global.Math;
       if (!this.options.smooth) return points;
       const threshold=0.3;
       const toRemove=[];
@@ -509,8 +504,8 @@
     }
 
     getMaterialData = (mainline) => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
       return mainline
         .map((node, x) => {
           const cp = this.simple_material(node);
@@ -522,8 +517,8 @@
     };
 
     getPrincipledData = (mainline) => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
       return mainline
         .map((node, x) => {
           const evl = this.heuristic(node);
@@ -550,9 +545,9 @@
     };
 
     getLocalData = (mainline) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const Math = parent.global.Math;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const Math = lt.global.Math;
       let path = '';
       return mainline
         .map((node, x) => {
@@ -581,9 +576,9 @@
     };
 
     getAccuracyData = (mainline) => {
-      const parent = this.lichessTools;
-      const side = parent.lichess.analysis.getOrientation() == 'black' ? -1 : 1;
-      const Math = parent.global.Math;
+      const lt = this.lichessTools;
+      const side = lt.lichess.analysis.getOrientation() == 'black' ? -1 : 1;
+      const Math = lt.global.Math;
       let prevWinPerc = 50;
       let prevVal = 0;
       return mainline
@@ -609,9 +604,9 @@
     };
 
     getSharpnessData = (mainline) => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
-      const Math = parent.global.Math;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
+      const Math = lt.global.Math;
       return mainline
         .map((node, x) => {
           const explorerItem = analysis.explorer?.cache[node.fen];
@@ -640,8 +635,8 @@
     }
 
     computeBrilliant = (side, node, prevNode, prev2Node) => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
       const cp1 = this.getCp(this.getNodeCeval(node));
       const cp2 = this.getCp(this.getNodeCeval(prevNode));
       if (cp1 === undefined || cp2 === undefined) return 0;
@@ -655,9 +650,9 @@
         x: 104 - node.uci.charCodeAt(2),
         y: node.uci.charCodeAt(3) - 49
       };
-      let board = parent.getBoardFromFen(prevNode.fen);
+      let board = lt.getBoardFromFen(prevNode.fen);
       const mwStartUci = this.materialWon(board, move.sx, move.sy) / 100;
-      board = parent.getBoardFromFen(node.fen);
+      board = lt.getBoardFromFen(node.fen);
       const mwEndUci = this.materialWon(board, move.x, move.y) / 100;
       const mat3 = this.simple_material(prev2Node, true, side) / 100;
       const mat1 = this.simple_material(node, true, side) / 100;
@@ -665,17 +660,17 @@
       if (mwStartUci * side + 1 + delta < mwEndUci * side) {
         return 1;
       }
-      board = parent.getBoardFromFen(prev2Node.fen);
+      board = lt.getBoardFromFen(prev2Node.fen);
       const mmw3 = this.maxMaterialWon(board, side) / 100;
-      board = parent.getBoardFromFen(node.fen);
+      board = lt.getBoardFromFen(node.fen);
       const mmw1 = this.maxMaterialWon(board, side) / 100;
       const bril = (mmw1 - mmw3) * side - delta;
       return bril;
     };
 
     getChartContainerSelector = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       return lichess.analysis?.study
         ? 'div.study__server-eval.ready'
         : 'div.computer-analysis.active #acpl-chart-container';
@@ -684,14 +679,14 @@
     setBrilliant = (mainline, forced) => {
       const initValue = this.options.moreBrilliant ? 2 : 1;
       if (!forced && mainline.at(-1)?.brilliantInit === initValue) return;
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const isLocalChart = $('#acpl-chart-container').is('.lichessTools-extraChart');
-      const Math = parent.global.Math;
+      const Math = lt.global.Math;
       const showBad = this.options.moreBrilliant && isLocalChart;
       mainline
         .map((node, x) => {
           if (x < 3) return null;
-          if (parent.isMate(node)) return null;
+          if (lt.isMate(node)) return null;
           const m = node.ply % 2 ? 1 : -1;
           const p1 = node;
           const p2 = mainline[x - 1];
@@ -744,7 +739,7 @@
                   }
           }
           const glyphs = mainline[x].glyphs || [];
-          parent.arrayRemoveAll(glyphs, g => g.type == 'nonStandard' && ['!', '!?', '!!', '\u2606'].includes(g.symbol));
+          lt.arrayRemoveAll(glyphs, g => g.type == 'nonStandard' && ['!', '!?', '!!', '\u2606'].includes(g.symbol));
           if (symbol && !glyphs.length) {
             glyphs.push({
               symbol: symbol,
@@ -777,13 +772,13 @@
     };
 
     getMaxPotential = (mainline) => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
       let maxM = -1000;
       let maxX = 0;
       mainline
         .forEach((node, x) => {
-          const board = parent.getBoardFromFen(node.fen);
+          const board = lt.getBoardFromFen(node.fen);
           const m = node.ply % 2 ? -1 : 1;
           const maxMaterial = Math.abs(this.maxMaterialWon(board, m));
           if (maxM < maxMaterial) {
@@ -795,8 +790,8 @@
     };
 
     getInterestingMoveElements = (orientation) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
       const side = orientation == 'black' ? 0 : 1;
@@ -814,16 +809,16 @@
     };
 
     showGoodMoves = (forced) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       if (!this.options.brilliant) return;
 
       const hcElem = $('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready')[0];
       let state = hcElem?.traverseState;
       if (!state || forced) {
-        state = parent.traverse();
+        state = lt.traverse();
         if (hcElem) hcElem.traverseState = state;
       }
       const arr = [].concat.apply([], ['!', '!?', '!!', '\u2606'].map(s => state?.glyphs[s]).filter(a => !!a?.length));
@@ -839,7 +834,7 @@
             .attr('title', trans.noarg('goodMovesTitle'))
             .on('click', (ev) => {
               ev.preventDefault();
-              parent.jumpToGlyphSymbols(this.options.moreBrilliant ? ['!?', '!!'] : ['!', '!?', '!!', '\u2606'], color);
+              lt.jumpToGlyphSymbols(this.options.moreBrilliant ? ['!?', '!!'] : ['!', '!?', '!!', '\u2606'], color);
             })
             .on('mouseenter', (ev) => {
               const chart = this._chart;
@@ -879,11 +874,11 @@
 
     showChristmasTree = async () => {
       if (this._christmasTreePlayed) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       const container = $('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
-      if (parent.inViewport(container) < 1) return;
+      if (lt.inViewport(container) < 1) return;
       const chart = this._chart;
       if (!chart) return;
       const dataset = chart.data?.datasets[0];
@@ -898,16 +893,16 @@
       const initActiveElements = chart.getActiveElements()?.map(e => { return { datasetIndex: e.datasetIndex, index: e.index }; });
       const colors = ['red', 'green', 'blue', 'orange', 'yellow', 'magenta', 'cyan', 'white'];
       for (let i = 0; i < 30; i++) {
-        const elements = dataset.data.filter(d => parent.random() < 0.3).map(d => { return { datasetIndex: 0, index: d.x - 1 }; });
-        const color = colors[Math.round(parent.random() * colors.length)];
+        const elements = dataset.data.filter(d => lt.random() < 0.3).map(d => { return { datasetIndex: 0, index: d.x - 1 }; });
+        const color = colors[Math.round(lt.random() * colors.length)];
         dataset.hoverBackgroundColor = color;
         dataset.pointHoverBackgroundColor = color;
         chart.setActiveElements(elements);
         chart.update('none');
         xElem.css('color', color);
-        await parent.timeout(150);
+        await lt.timeout(150);
       }
-      parent.global.setTimeout(() => xElem.remove(), 1000);
+      lt.global.setTimeout(() => xElem.remove(), 1000);
       dataset.hoverBackgroundColor = initHoverBackgroundColor;
       dataset.pointHoverBackgroundColor = initHoverBackgroundColor;
       chart.setActiveElements(initActiveElements);
@@ -924,8 +919,8 @@
     clearCharts = () => {
       const chart = this._chart;
       if (!chart) return;
-      const parent = this.lichessTools;
-      const removed = parent.arrayRemoveAll(chart.data.datasets, d => ['Material', 'Principled', 'Local', 'Max tension', 'Max potential'].includes(d.label));
+      const lt = this.lichessTools;
+      const removed = lt.arrayRemoveAll(chart.data.datasets, d => ['Material', 'Principled', 'Local', 'Max tension', 'Max potential'].includes(d.label));
       if (removed.length) {
         chart.options.scales.x.max = Math.max.apply(null, chart.data.datasets.map(ds => ds.data.map(p => p.x)).flat());
         chart.update('none');
@@ -934,8 +929,8 @@
     };
 
     chartClick = (_event, elements, _chart) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       if (!this._chart) return;
       const index = this._chart.data.datasets.findIndex(s => s.label === 'Local');
       const data = elements[elements.findIndex(element => [0, index].includes(element.datasetIndex))];
@@ -950,10 +945,10 @@
 
     prevBrilliant = null;
     generateCharts = async (forced) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
       if (!forced && Math.random() > 0.95) forced = true; // hack to sometimes update this anyway
 
@@ -998,7 +993,7 @@
               const mod = await this.getChartModule();
               chart = await mod.acpl(canvas);
             } else {
-              parent.global.setTimeout(() => this.generateCharts(forced), 100);
+              lt.global.setTimeout(() => this.generateCharts(forced), 100);
               return;
             }
           }
@@ -1026,7 +1021,7 @@
       if (chart.options.onClick != this.chartClick) {
         chart.options.onClick = this.chartClick;
       }
-      if (!parent.inViewport(container)) return;
+      if (!lt.inViewport(container)) return;
       if (!this.options.needsChart) {
         $('div.lichessTools-chartInfo', container).remove();
       } else {
@@ -1333,16 +1328,16 @@
 
     generateTicks = () => {
       if (!this.options.gauge) return;
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       if (!analysis) return;
       const node = analysis.node;
       const container = $('div.eval-gauge');
-      if (!parent.inViewport(container)) return;
+      if (!lt.inViewport(container)) return;
       if (node.fen == this.prevFen) return;
       this.prevFen = node.fen;
       const mat = this.simple_material(node);
@@ -1375,11 +1370,11 @@
     };
 
     handleEsmLoaded = (m) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       if (!m?.acpl) return;
-      if (parent.isWrappedFunction(m.acpl, 'extraChart')) return;
-      m.acpl = parent.wrapFunction(m.acpl, {
+      if (lt.isWrappedFunction(m.acpl, 'extraChart')) return;
+      m.acpl = lt.wrapFunction(m.acpl, {
         id: 'extraChart',
         after: ($this, res) => {
           res?.then(chart => {
@@ -1396,32 +1391,32 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('extraChart');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('extraChart');
       this.logOption('Extra charting', value);
       this.options = {
-        material: parent.isOptionSet(value, 'material'),
-        principled: parent.isOptionSet(value, 'principled'),
-        tension: parent.isOptionSet(value, 'tension'),
-        potential: parent.isOptionSet(value, 'potential'),
-        brilliant: parent.isOptionSet(value, 'brilliant'),
-        moreBrilliant: parent.isOptionSet(value, 'moreBrilliant'),
-        local: parent.isOptionSet(value, 'local'),
-        accuracy: parent.isOptionSet(value, 'accuracy'),
-        sharpness: parent.isOptionSet(value, 'sharpness'),
-        smooth: parent.isOptionSet(value, 'smooth'),
+        material: lt.isOptionSet(value, 'material'),
+        principled: lt.isOptionSet(value, 'principled'),
+        tension: lt.isOptionSet(value, 'tension'),
+        potential: lt.isOptionSet(value, 'potential'),
+        brilliant: lt.isOptionSet(value, 'brilliant'),
+        moreBrilliant: lt.isOptionSet(value, 'moreBrilliant'),
+        local: lt.isOptionSet(value, 'local'),
+        accuracy: lt.isOptionSet(value, 'accuracy'),
+        sharpness: lt.isOptionSet(value, 'sharpness'),
+        smooth: lt.isOptionSet(value, 'smooth'),
         get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness; },
-        gauge: parent.isOptionSet(value, 'gauge'),
-        christmas: !!parent.currentOptions.getValue('christmas')
+        gauge: lt.isOptionSet(value, 'gauge'),
+        christmas: !!lt.currentOptions.getValue('christmas')
       };
-      lichess.pubsub.off('lichessTools.esmLoaded', this.handleEsmLoaded);
+      lt.pubsub.off('lichessTools.esmLoaded', this.handleEsmLoaded);
       if (this.options.needsChart) {
-        lichess.pubsub.on('lichessTools.esmLoaded', this.handleEsmLoaded);
+        lt.pubsub.on('lichessTools.esmLoaded', this.handleEsmLoaded);
       }
 
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       this.generateCharts();
 
       if (!this.options.gauge) {
@@ -1435,13 +1430,13 @@
           this._chart = null;
         }
       }
-      this.interval = parent.global.setInterval(() => {
+      this.interval = lt.global.setInterval(() => {
         this.generateCharts();
         this.generateTicks();
       }, 1000);
-      lichess.pubsub.off('lichessTools.chapterChange', this.forceGenerateCharts);
+      lt.pubsub.off('lichessTools.chapterChange', this.forceGenerateCharts);
       if (this.options.brilliant) {
-        lichess.pubsub.on('lichessTools.chapterChange', this.forceGenerateCharts);
+        lt.pubsub.on('lichessTools.chapterChange', this.forceGenerateCharts);
       }
     }
 

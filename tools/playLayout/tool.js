@@ -33,8 +33,8 @@
     }
 
     toggleLayout = (ev) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (!$(ev.target).is('.game__meta__infos')) return;
       ev.preventDefault();
       switch (this.options.value) {
@@ -52,10 +52,10 @@
     };
 
     applyLayout = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       $('.playing main.round .game__meta__infos')
         .removeClass('lichessTools-pointer')
         .removeAttr('title')
@@ -69,10 +69,10 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('playLayout');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('playLayout');
       this.options = { value: value };
       this.logOption('Play layout', value);
       this._control = $('main.round .game__meta__infos')[0];
@@ -80,9 +80,9 @@
       $('body')
         .toggleClass('lichessTools-noSide', value == 'noSide')
         .toggleClass('lichessTools-smallSide', value == 'smallSide');
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       if (value != 'normal') {
-        this.interval = parent.global.setInterval(() => {
+        this.interval = lt.global.setInterval(() => {
           const control = $('main.round .game__meta__infos')[0];
           if (this._control != control) {
             this._control = control;

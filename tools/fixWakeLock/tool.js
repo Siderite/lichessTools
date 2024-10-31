@@ -23,15 +23,15 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('fixWakeLock');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('fixWakeLock');
       this.logOption('Fix wakelock in debug mode', value);
-      const navigator = parent.global.navigator;
-      const document = parent.global.document;
+      const navigator = lt.global.navigator;
+      const document = lt.global.document;
       if (!navigator.wakeLock) return;
-      navigator.wakeLock.request = parent.unwrapFunction(navigator.wakeLock.request, 'fixWakeLock');
+      navigator.wakeLock.request = lt.unwrapFunction(navigator.wakeLock.request, 'fixWakeLock');
       if (!value) return;
-      navigator.wakeLock.request = parent.wrapFunction(navigator.wakeLock.request, {
+      navigator.wakeLock.request = lt.wrapFunction(navigator.wakeLock.request, {
         id: 'fixWakeLock',
         before: ($this) => {
           return document.visibilityState === 'visible';

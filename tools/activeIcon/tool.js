@@ -25,8 +25,8 @@
 
     _iconCache = {};
     getIcon = (isBlack, isPlaying) => {
-      const parent = this.lichessTools;
-      const asset = parent.lichess.asset;
+      const lt = this.lichessTools;
+      const asset = lt.lichess.asset;
       let key = '';
       switch (isBlack) {
         case true: key += 'b'; break;
@@ -45,14 +45,14 @@
     }
 
     setIcon = (isBlack, isPlaying) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (!$('div.main-board').length) {
         isBlack = false;
         isPlaying = false;
       }
       if (isBlack === undefined) {
-        const fen = parent.getPositionFromBoard($('div.main-board'), true);
+        const fen = lt.getPositionFromBoard($('div.main-board'), true);
         isBlack = / b\b/.test(fen);
       }
       if (isPlaying !== false) {
@@ -69,19 +69,19 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('activeIcon');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('activeIcon');
       this.logOption('Active icon', value);
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       lichess.pubsub.off('ply', this.handlePly);
       $('link[rel=icon][source=lichessTools]').remove();
       $('link[rel=xicon]').attr('rel', 'icon');
 
       if (!value) return;
 
-      this.interval = parent.global.setInterval(this.setIcon, 1000);
+      this.interval = lt.global.setInterval(this.setIcon, 1000);
       $('link[rel=icon]').attr('rel', 'xicon');
       $('<link rel="icon" source="lichessTools">').appendTo('head');
       this.setIcon();

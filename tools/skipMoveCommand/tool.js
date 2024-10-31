@@ -38,13 +38,13 @@
     };
 
     skipMoveIfPossible = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
 
-      const co = parent.chessops;
+      const co = lt.chessops;
       const fen = co.fen.parseFen(analysis.node.fen).unwrap();
       let ch = co.Chess.fromSetup(fen).unwrap();
 
@@ -91,23 +91,23 @@
 
       findNextMove();
       if (!result.good) {
-        parent.announce(trans.noarg('cannotSkipMove'));
+        lt.announce(trans.noarg('cannotSkipMove'));
         return;
       }
       analysis.playUciList(result.moves);
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('skipMoveCommand');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('skipMoveCommand');
       this.options = { enabled: value };
       this.logOption('Command - skip move', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (value && analysis) {
-        parent.registerCommand && parent.registerCommand('skipMoveCommand', {
+        lt.registerCommand && lt.registerCommand('skipMoveCommand', {
           handle: (val) => {
             if (val == 'skipmove') {
               this.skipMoveIfPossible();
@@ -117,7 +117,7 @@
           getHelp: () => trans.noarg('skipMoveCommand.helpText')
         });
       } else {
-        parent.unregisterCommand && parent.unregisterCommand('skipMoveCommand');
+        lt.unregisterCommand && lt.unregisterCommand('skipMoveCommand');
       }
     }
   }

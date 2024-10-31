@@ -33,8 +33,8 @@
 
     explorerItem = (node, value) => {
       if (!node) return;
-      const parent = this.lichessTools;
-      const explorer = parent.analysis?.explorer;
+      const lt = this.lichessTools;
+      const explorer = lt.analysis?.explorer;
       if (!explorer) return;
       const components = [
         'explorer.speed',
@@ -45,7 +45,7 @@
         'analyse.explorer.since-2.lichess',
         'analyse.explorer.until-2.lichess'
       ];
-      const key = parent.hash(components.map(k => parent.storage.get(k, { raw: true }) || '').join('|'));
+      const key = lt.hash(components.map(k => lt.storage.get(k, { raw: true }) || '').join('|'));
       let explorerItems = node.explorerItems;
       if (!explorerItems) {
         explorerItems = {};
@@ -64,9 +64,9 @@
     };
 
     showTrapValue = async (initialPath) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       if (!analysis) return;
       const orientation = analysis.getOrientation();
@@ -87,14 +87,14 @@
       if (!explorerItem) {
         await explorer.setNode();
         while (explorer.loading()) {
-          await parent.timeout(10);
+          await lt.timeout(10);
         }
         explorerItem = explorer.current();
         this.explorerItem(analysis.node, explorerItem || null);
       }
       const total = explorerItem.white + explorerItem.draws + explorerItem.black;
       if (!total) {
-        parent.announce(trans.noarg('noExplorerMoves'));
+        lt.announce(trans.noarg('noExplorerMoves'));
         return;
       }
       const potency = (orientation != 'black' ? explorerItem.white : explorerItem.black) / total;
@@ -113,7 +113,7 @@
           analysis.setPath(path);
           await explorer.setNode();
           while (explorer.loading()) {
-            await parent.timeout(10);
+            await lt.timeout(10);
           }
           explorerItem = explorer.current();
           this.explorerItem(node, explorerItem || null);
@@ -135,24 +135,24 @@
       const text = probabilityScore || potencyScore
         ? trans.pluralSame('trapValueCommand.valueText', probabilityScore + '% x ' + potencyScore + '% = ' + trapScore + '%')
         : '?';
-      parent.announce(text);
+      lt.announce(text);
       analysis.setPath(initialPath);
       analysis.redraw();
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const value = parent.currentOptions.getValue('trapValueCommand');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const value = lt.currentOptions.getValue('trapValueCommand');
       this.options = { enabled: value };
       this.logOption('Command - trap value', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const explorer = analysis?.explorer;
       if (!explorer) return;
       if (value) {
-        parent.registerCommand && parent.registerCommand('trapValueCommand', {
+        lt.registerCommand && lt.registerCommand('trapValueCommand', {
           handle: (val) => {
             if (val == 'trapvalue') {
               this.showTrapValue();
@@ -162,7 +162,7 @@
           getHelp: () => trans.noarg('trapValueCommand.helpText')
         });
       } else {
-        parent.unregisterCommand && parent.unregisterCommand('trapValueCommand');
+        lt.unregisterCommand && lt.unregisterCommand('trapValueCommand');
       }
     }
   }

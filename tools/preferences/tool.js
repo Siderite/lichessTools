@@ -79,32 +79,32 @@
     }
 
     openPreferences = () => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const tools = parent.tools;
-      const htmlEncode = parent.htmlEncode;
-      const currentOptions = parent.currentOptions;
-      const applyOptions = parent.applyOptions;
-      const lichess = parent.lichess;
-      const isOptionSet = parent.isOptionSet;
-      const isLoggedIn = !!parent.getUserId();
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const tools = lt.tools;
+      const htmlEncode = lt.htmlEncode;
+      const currentOptions = lt.currentOptions;
+      const applyOptions = lt.applyOptions;
+      const lichess = lt.lichess;
+      const isOptionSet = lt.isOptionSet;
+      const isLoggedIn = !!lt.getUserId();
 
-      parent.global.document.title = trans.noarg('lichessToolsPreferences');
+      lt.global.document.title = trans.noarg('lichessToolsPreferences');
 
       $('nav.page-menu__menu a.active').removeClass('active');
       $('a.lichessTools-menu').addClass('active');
 
       const showSaved = () => {
         $('.saved').removeClass('none');
-        parent.global.setTimeout(() => $('.saved').addClass('none'), 2000);
+        lt.global.setTimeout(() => $('.saved').addClass('none'), 2000);
       };
       const checkGlobalSwitch = () => {
-        $.cached('body').toggleClass('lichessTools-globalDisable', !parent.currentOptions.enableLichessTools);
+        $.cached('body').toggleClass('lichessTools-globalDisable', !lt.currentOptions.enableLichessTools);
       };
       const checkAdvanced = () => {
-        this.options.advanced = !!parent.currentOptions.getValue('advancedPreferences');
+        this.options.advanced = !!lt.currentOptions.getValue('advancedPreferences');
         $.cached('body').toggleClass('lichessTools-advancedPreferences', this.options.advanced);
       };
 
@@ -153,7 +153,7 @@
       for (const tool of tools) {
         if (!tool.preferences) continue;
         for (const pref of tool.preferences) {
-          if (!parent.debug) {
+          if (!lt.debug) {
             if (pref.hidden) continue;
             if (!isLoggedIn && pref.needsLogin) continue;
           }
@@ -190,7 +190,7 @@
                 const textKey = typeof val === 'boolean'
                   ? (val ? 'yes' : 'no')
                   : (pref.valuePrefix || pref.name + '.') + val;
-                html += `<div` + (parent.isOptionSet(defaultValue, val) ? ' class="defaultValue"' : '') + `>
+                html += `<div` + (lt.isOptionSet(defaultValue, val) ? ' class="defaultValue"' : '') + `>
                   <input type="radio" value="${val}" name="${pref.name}"/>
                   <label>$trans(${textKey})</label>
                 </div>`;
@@ -204,7 +204,7 @@
                 const textKey = typeof val === 'boolean'
                   ? (val ? 'yes' : 'no')
                   : (pref.valuePrefix || pref.name + '.') + val;
-                html += `<div` + (parent.isOptionSet(defaultValue, val) ? ' class="defaultValue"' : '') + `>
+                html += `<div` + (lt.isOptionSet(defaultValue, val) ? ' class="defaultValue"' : '') + `>
                   <input type="checkbox" value="${val}" name="${pref.name}"/>
                   <label>$trans(${textKey})</label>
                 </div>`;
@@ -280,7 +280,7 @@
           const optionName = $(e).attr('name');
           const optionValue = $(e).attr('value');
           const currentValue = currentOptions[optionName];
-          const preferences = this.lichessTools.tools
+          const preferences = lt.tools
             .find(t => t.preferences?.find(p => p.name == optionName))?.preferences
             .find(p => p.name == optionName);
           if (currentValue !== undefined) {
@@ -297,13 +297,13 @@
           if (label.length) {
             let id = $(e).attr('id');
             if (!id) {
-              id = (parent.random() + 1).toString(36).substring(8);
+              id = (lt.random() + 1).toString(36).substring(8);
               $(e).attr('id', id);
             }
             label.attr('for', id);
           }
         })
-        .on('change keyup paste', parent.debounce(async function () {
+        .on('change keyup paste', lt.debounce(async function () {
           const type = $(this).prop('type');
           const isCheckable = type == 'radio' || type == 'checkbox';
           const optionName = $(this).attr('name');
@@ -315,7 +315,7 @@
           else if (value === 'false') value = false;
           currentOptions[optionName] = value;
           await applyOptions(currentOptions);
-          parent.fireReloadOptions();
+          lt.fireReloadOptions();
           checkGlobalSwitch();
           checkAdvanced();
           showSaved();
@@ -345,23 +345,23 @@
           }
           let handle;
           let handleName;
-          if (parent.global.showDirectoryPicker) {
-            handle = await parent.global.showDirectoryPicker({
+          if (lt.global.showDirectoryPicker) {
+            handle = await lt.global.showDirectoryPicker({
               id: 'ltf-'+name,
               mode: 'readwrite',
               startIn: 'documents'
             });
             handleName = handle?.name;
           } else 
-          if (parent.global.navigator?.storage?.getDirectory) {
-            handle = await parent.global.navigator.storage.getDirectory();
+          if (lt.global.navigator?.storage?.getDirectory) {
+            handle = await lt.global.navigator.storage.getDirectory();
             handleName = handle ? 'internal' : '';
           } else {
-            parent.announce(trans.noarg('noDirectoryPickerWarning'));
+            lt.announce(trans.noarg('noDirectoryPickerWarning'));
             return;
           }
           if (!handle) return;
-          await parent.storage.set('lichessTools/LT/'+name+'-folder', handle, { db: true, raw: true });
+          await lt.storage.set('lichessTools/LT/'+name+'-folder', handle, { db: true, raw: true });
           input
             .val(handleName)
             .trigger('change');
@@ -374,7 +374,7 @@
           if (!name) {
             throw new Error('Could not find input for folder select button');
           }
-          await parent.storage.set('lichessTools/LT/'+name+'-folder', undefined, { db: true, raw: true });
+          await lt.storage.set('lichessTools/LT/'+name+'-folder', undefined, { db: true, raw: true });
           input
             .val('')
             .trigger('change');
@@ -390,7 +390,7 @@
           let handle;
           let handleName;
           const btn = $(ev.currentTarget);
-          if (parent.global.showOpenFilePicker) {
+          if (lt.global.showOpenFilePicker) {
             const filetype = {};
             const description = btn.attr('data-filedescription');
             if (description) filetype.description = description;
@@ -398,7 +398,7 @@
             if (extension) filetype.accept = {
               "application/octet-stream": [ extension ]
             }
-            handle= await parent.global.showOpenFilePicker({
+            handle= await lt.global.showOpenFilePicker({
               id: 'ltf-'+name,
               multiple: false,
               startIn: 'documents',
@@ -417,7 +417,7 @@
             handleName = handle?.name;
           }
           if (!handle) return;
-          await parent.storage.set('lichessTools/LT/'+name+'-file', handle, { db: true, raw: true });
+          await lt.storage.set('lichessTools/LT/'+name+'-file', handle, { db: true, raw: true });
           input
             .val(handleName)
             .trigger('change');
@@ -430,7 +430,7 @@
           if (!name) {
             throw new Error('Could not find input for file select button');
           }
-          await parent.storage.set('lichessTools/LT/'+name+'-file', undefined, { db: true, raw: true });
+          await lt.storage.set('lichessTools/LT/'+name+'-file', undefined, { db: true, raw: true });
           input
             .val('')
             .trigger('change');
@@ -438,9 +438,9 @@
       $('div.actionButtons #btnReset', container)
         .on('click', async ev => {
           ev.preventDefault();
-          if (!parent.global.confirm(trans.noarg('resetButtonWarning'))) return;
-          const options = await parent.getOptions();
-          const data = parent.tools
+          if (!lt.global.confirm(trans.noarg('resetButtonWarning'))) return;
+          const options = await lt.getOptions();
+          const data = lt.tools
             .map(t => t.preferences)
             .flat()
             .filter(p => p)
@@ -450,7 +450,7 @@
             });
           for (const { name, value } of data) options[name] = value;
           await applyOptions(options);
-          parent.fireReloadOptions();
+          lt.fireReloadOptions();
           checkGlobalSwitch();
           checkAdvanced();
           this.openPreferences();
@@ -459,12 +459,12 @@
       $('div.actionButtons #btnMinimal', container)
         .on('click', async ev => {
           ev.preventDefault();
-          if (!parent.global.confirm(trans.noarg('minimalButtonWarning'))) return;
-          const options = await parent.getOptions();
-          const keys = parent.tools.map(t => t.preferences).flat().filter(p => p && (!p.hidden || p.offValue !== undefined)).map(p => ({ key: p.name, offValue: p.offValue || false }));
+          if (!lt.global.confirm(trans.noarg('minimalButtonWarning'))) return;
+          const options = await lt.getOptions();
+          const keys = lt.tools.map(t => t.preferences).flat().filter(p => p && (!p.hidden || p.offValue !== undefined)).map(p => ({ key: p.name, offValue: p.offValue || false }));
           for (const { key, offValue } of keys) options[key] = offValue;
           await applyOptions(options);
-          parent.fireReloadOptions();
+          lt.fireReloadOptions();
           checkGlobalSwitch();
           checkAdvanced();
           this.openPreferences();
@@ -473,8 +473,8 @@
       $('div.actionButtons #btnBackup', container)
         .on('click', async ev => {
           ev.preventDefault();
-          const options = await parent.getOptions();
-          const text = parent.global.JSON.stringify({...options, userId: parent.getUserId()}, null, 2);
+          const options = await lt.getOptions();
+          const text = lt.global.JSON.stringify({...options, userId: lt.getUserId()}, null, 2);
           const blob = new Blob([text], { type: 'application/json' });
           const url = URL.createObjectURL(blob);
           $('<a>')
@@ -492,9 +492,9 @@
               const reader = new FileReader();
               reader.onload = async (e) => {
                 const text = e.target.result;
-                const options = parent.global.JSON.parse(text);
+                const options = lt.global.JSON.parse(text);
                 await applyOptions(options);
-                parent.fireReloadOptions();
+                lt.fireReloadOptions();
                 checkGlobalSwitch();
                 checkAdvanced();
                 this.openPreferences();
@@ -510,8 +510,8 @@
     };
 
     addInfo() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('div.page-menu__content section[data-pref]').each((i, e) => {
         const pref = $(e).attr('data-pref');
         $('<a>')
@@ -525,9 +525,9 @@
     };
 
     addPreferencesMenu = () => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const $ = lt.$;
       if (!$('#dasher_app a.lichessTools-preferences').length) {
         let links = $('#dasher_app div.links');
         if (!links.length) {
@@ -544,23 +544,23 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      const location = parent.global.location;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const location = lt.global.location;
+      const trans = lt.translator;
       this.options = {
         enabled: true,
-        advanced: !!parent.currentOptions.getValue('advancedPreferences')
+        advanced: !!lt.currentOptions.getValue('advancedPreferences')
       };
       this.logOption('Integration in Preferences', this.options.enabled);
       this.logOption(' ... show advanced', this.options.advanced);
 
-      const isLoggedIn = !!parent.getUserId();
+      const isLoggedIn = !!lt.getUserId();
       const isLoggedOutTeams = location.pathname == '/team/all' && !isLoggedIn;
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       if (!isLoggedIn) {
-        this.interval = parent.global.setInterval(this.addPreferencesMenu,500);
+        this.interval = lt.global.setInterval(this.addPreferencesMenu,500);
       }
 
       if (!$('main.account').length && !isLoggedOutTeams) {
@@ -578,7 +578,7 @@
             $('main nav.subnav').hide();
           }
           openPreferences();
-          parent.global.setTimeout(() => {
+          lt.global.setTimeout(() => {
             const m = /#lichessTools\/(?<pref>.*)$/.exec(location.hash);
             const pref = m?.groups?.pref;
             if (pref != $this._lastScrolled) {
@@ -594,7 +594,7 @@
           }
         }
       };
-      $(parent.global).on('hashchange', f);
+      $(lt.global).on('hashchange', f);
 
       const prefElem = $('<a>')
         .addClass('lichessTools-menu')

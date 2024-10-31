@@ -67,34 +67,34 @@
     }
 
     extractVariationAsPGN = (ev) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (analysis?.contextMenuPath === undefined) return;
-      parent.exportPgn(analysis.contextMenuPath, { copyToClipboard: true, fromPosition: ev.shiftKey, toPosition: ev.altKey, separateLines: ev.ctrlKey });
+      lt.exportPgn(analysis.contextMenuPath, { copyToClipboard: true, fromPosition: ev.shiftKey, toPosition: ev.altKey, separateLines: ev.ctrlKey });
     };
 
     addEvalComment = (node, ceval) => {
       if (!this.evaluateTerminationsStarted) return;
       if (!ceval) return;
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!node.id || node.isCommentedOrMate) return;
-      const decimals = +parent.currentOptions.getValue('cevalDecimals') || 1;
+      const decimals = +lt.currentOptions.getValue('cevalDecimals') || 1;
       const evalText = "eval: " + (ceval.mate ? '#' + ceval.mate : (ceval.cp > 0 ? '+' : '') + (ceval.cp / 100).toFixed(decimals));
       const cur = analysis.study.currentChapter();
       node.terminationEvaluated = Date.now();
       if (node.path === undefined) return;
-      parent.saveComment(evalText, node.path);
+      lt.saveComment(evalText, node.path);
       this.doEvaluation();
     };
 
     setTerminationsEvaluation = (value) => {
       if (this.evaluateTerminationsStarted == value) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       this.evaluateTerminationsStarted = value;
       $.cached('body').toggleClass('lichessTools-evaluationStarted', !!value);
       if (!value) {
@@ -105,19 +105,19 @@
     };
 
     doEvaluation = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       const study = analysis?.study;
       if (!this.evaluateTerminationsStarted) return;
-      if (!study || !parent.isTreeviewVisible()) return;
+      if (!study || !lt.isTreeviewVisible()) return;
       if (!analysis.ceval.enabled() || analysis.threatMode()) {
         this.setTerminationsEvaluation(false);
         return;
       }
-      this.state = parent.traverse();
+      this.state = lt.traverse();
       const nodes = this.state.lastMoves.filter(n => n.id && !n.isCommentedOrMate && (!n.terminationEvaluated || Date.now() - n.terminationEvaluated > 10000));
       if (!this.evaluateTerminationsTotal) this.evaluateTerminationsTotal = nodes.length;
       const percent = (this.evaluateTerminationsTotal - nodes.length) + '/' + this.evaluateTerminationsTotal;
@@ -138,16 +138,16 @@
     };
 
     evaluateTerminations = async (ev) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const announce = parent.announce;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const announce = lt.announce;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       const study = analysis?.study;
-      const customEngineDepth = parent.currentOptions.getValue('customEngineLevel');
+      const customEngineDepth = lt.currentOptions.getValue('customEngineLevel');
       if (ev) ev.preventDefault();
-      if (!study || !parent.isTreeviewVisible()) return;
+      if (!study || !lt.isTreeviewVisible()) return;
       if (this.evaluateTerminationsStarted) {
         this.setTerminationsEvaluation(false);
         return;
@@ -166,10 +166,10 @@
     };
 
     ensureCevalRunning = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
-      const setTimeout = parent.global.setTimeout;
+      const setTimeout = lt.global.setTimeout;
 
       function checkState(resolve) {
         if (!analysis?.ceval?.allowed()) {
@@ -195,8 +195,8 @@
 
 
     showTranspos = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
       const highlighted = $('move.lichessTools-transpositionAll');
@@ -204,7 +204,7 @@
         highlighted.removeClass('lichessTools-transpositionAll');
         return;
       }
-      this.state = parent.traverse();
+      this.state = lt.traverse();
       const transpositions = [];
       for (const position in this.state.positions) {
         const pos = this.state.positions[position];
@@ -215,17 +215,17 @@
       for (const node of transpositions) {
         if (node.path === undefined) continue;
         if (!node.path) continue;
-        const elem = parent.getElementForNode(node);
+        const elem = lt.getElementForNode(node);
         $(elem).addClass('lichessTools-transpositionAll');
       }
     };
 
     analysisContextMenu = (ev) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const announce = parent.announce;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const announce = lt.announce;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       const study = analysis?.study;
 
@@ -287,16 +287,16 @@
     }
 
     ensureShowOnEmpty = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const analysis = lt.lichess.analysis;
 
       if (this.options.showOnEmpty) {
         $('div.tview2')
           .addClass('lichessTools-showOnEmpty')
           .attr('p', '*'); //lichess checks this against empty so we must add something ...
-        if (!parent.isWrappedFunction(analysis.jump, 'showOnEmpty')) {
-          analysis.jump = parent.wrapFunction(analysis.jump, {
+        if (!lt.isWrappedFunction(analysis.jump, 'showOnEmpty')) {
+          analysis.jump = lt.wrapFunction(analysis.jump, {
             id: 'showOnEmpty',
             before: ($this, path) => {
               if (path == '*') return false; // ... and then hack so it doesn't do anything
@@ -311,16 +311,16 @@
     };
 
     checkEngineLevel = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const announce = parent.announce;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const announce = lt.announce;
+      const trans = lt.translator;
       const analysis = lichess.analysis;
       const study = analysis?.study;
       if (!analysis) return;
       if (analysis.practice || analysis.study?.practice) return;
-      const customEngineDepth = parent.currentOptions.getValue('customEngineLevel');
+      const customEngineDepth = lt.currentOptions.getValue('customEngineLevel');
       const ceval = analysis.ceval;
       if (!ceval.enabled() || analysis.threatMode()) {
         this.setTerminationsEvaluation(false);
@@ -342,10 +342,10 @@
     };
 
     alterModifierText = (ev) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
 
       if (!this.options.copyPgn) return;
 
@@ -360,23 +360,23 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('analysisContextActions');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('analysisContextActions');
       this.logOption('Analysis context actions', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       this.options = {
-        copyPgn: parent.isOptionSet(value, 'copyPgn'),
-        moveEval: parent.isOptionSet(value, 'moveEval'),
-        showTranspos: parent.isOptionSet(value, 'showTranspos'),
-        removeSuperfluous: parent.isOptionSet(value, 'removeSuperfluous'),
-        showOnEmpty: parent.isOptionSet(value, 'showOnEmpty'),
+        copyPgn: lt.isOptionSet(value, 'copyPgn'),
+        moveEval: lt.isOptionSet(value, 'moveEval'),
+        showTranspos: lt.isOptionSet(value, 'showTranspos'),
+        removeSuperfluous: lt.isOptionSet(value, 'removeSuperfluous'),
+        showOnEmpty: lt.isOptionSet(value, 'showOnEmpty'),
         get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty; }
       };
       clearInterval(this.engineCheckInterval);
-      lichess.pubsub.off('lichessTools.redraw', this.analysisContextMenu);
+      lt.pubsub.off('lichessTools.redraw', this.analysisContextMenu);
       $('.tview2').off('contextmenu', this.analysisContextMenu);
       $.cached('body').off('keydown keyup', this.alterModifierText);
       if (this.options.copyPgn) {
@@ -384,7 +384,7 @@
         $('.tview2').on('contextmenu', this.analysisContextMenu);
       }
       if (this.options.isSet) {
-        lichess.pubsub.on('lichessTools.redraw', this.analysisContextMenu);
+        lt.pubsub.on('lichessTools.redraw', this.analysisContextMenu);
         this.engineCheckInterval = setInterval(this.checkEngineLevel, 1000);
       } else {
         this.setTerminationsEvaluation(false);
@@ -393,8 +393,8 @@
         $('main.analyse div.analyse__controls.analyse-controls')
           .after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
       }
-      lichess.pubsub.off('lichessTools.redraw', this.ensureShowOnEmpty);
-      lichess.pubsub.on('lichessTools.redraw', this.ensureShowOnEmpty);
+      lt.pubsub.off('lichessTools.redraw', this.ensureShowOnEmpty);
+      lt.pubsub.on('lichessTools.redraw', this.ensureShowOnEmpty);
       this.ensureShowOnEmpty();
     }
 

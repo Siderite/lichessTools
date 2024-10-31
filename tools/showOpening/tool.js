@@ -32,9 +32,9 @@
 
     miniGameOpening = async (el) => {
       if (!this.options.showInMinigames) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      if (parent.global.document.hidden) return;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (lt.global.document.hidden) return;
       let fen = '';
       let gameId = '';
       if (el?.id && el?.fen) {
@@ -87,24 +87,24 @@
 
     openingTime = 0;
     withOpening = async (gameId, el, ply, fen, isMini) => {
-      const parent = this.lichessTools;
-      if (!parent.inViewport(el)) return;
-      const Math = parent.global.Math;
-      if (!fen) fen = parent.getPositionFromBoard(el, true);
-      const pos = parent.getPositionFromFen(fen);
+      const lt = this.lichessTools;
+      if (!lt.inViewport(el)) return;
+      const Math = lt.global.Math;
+      if (!fen) fen = lt.getPositionFromBoard(el, true);
+      const pos = lt.getPositionFromFen(fen);
       if (pos) {
         if (pos=='rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw') return { time: Date.now(), opening: '*', el };
         if (!this.opening_dict) {
-          const openings = await parent.comm.getData('openings.json');
+          const openings = await lt.comm.getData('openings.json');
           if (!openings) {
-            parent.global.console.warn('Could not load openings!');
+            lt.global.console.warn('Could not load openings!');
             return;
           }
           this.opening_dict=new Map(Object.keys(openings).map(k=>[k,openings[k]]));
         }
         let opening = this.opening_dict.get(pos);
         if (!opening) {
-          const reversed = parent.getPositionFromFen(parent.reverseFen(fen));
+          const reversed = lt.getPositionFromFen(lt.reverseFen(fen));
           const op = this.opening_dict.get(reversed);
           if (op && op != '*') opening = op + ' (R)';
         }
@@ -127,20 +127,20 @@
       if (Date.now() - this.openingTime < 1000) return; // not more often than 1 second
       this.openingTime = Date.now();
 
-      const pgn = await parent.api.game.getPgns([gameId], {
+      const pgn = await lt.api.game.getPgns([gameId], {
         tags: true,
         opening: true,
         moves: false,
         clocks: false,
         evals: false
       });
-      const opening = parent.getPgnTag(pgn, 'Opening');
+      const opening = lt.getPgnTag(pgn, 'Opening');
       if (!opening || opening == '?') {
         return;
       }
       if (el) {
         let time = Date.now();
-        const termination = parent.getPgnTag(pgn, 'Termination');
+        const termination = lt.getPgnTag(pgn, 'Termination');
         if (termination && termination != 'Unterminated') time += 86400;
         el.openingData = { time: time, opening: opening, el };
         if (ply) {
@@ -152,9 +152,9 @@
 
     showOpeningInExplorer = (opening) => {
       if (!this.options.showInExplorer) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       const elem = $('section.explorer-box div.data div.title a');
       if (!elem.length) return;
       const existing = elem.text();
@@ -187,13 +187,13 @@
     };
 
     refreshOpening = async (ply) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      if (parent.global.document.hidden) return;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      if (lt.global.document.hidden) return;
       if ($.cached('body').is('.playing')) return;
-      const trans = parent.translator;
-      const tvOptions = parent.getTvOptions();
+      const trans = lt.translator;
+      const tvOptions = lt.getTvOptions();
       const gameId = tvOptions.gameId || lichess.analysis?.data?.game?.id;
       const fen = lichess.analysis?.node?.fen || lichess.analysis?.data?.game?.fen;
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables', 10000);
@@ -204,9 +204,9 @@
         return;
       }
       if (this.options.showInBoard) {
-        metaSection.find('span.lichessTools-opening').filter((i, e) => !lichessTools.inViewport(e)).remove();
+        metaSection.find('span.lichessTools-opening').filter((i, e) => !lt.inViewport(e)).remove();
         if (!metaSection.find('span.lichessTools-opening').length) {
-          const visibleEl = metaSection.filter((i, e) => !!lichessTools.inViewport(e)).eq(0);
+          const visibleEl = metaSection.filter((i, e) => !!lt.inViewport(e)).eq(0);
           visibleEl
             .append($('<span/>').addClass('lichessTools-opening').attr('title', trans.noarg('openingNameTitle')));
         }
@@ -220,31 +220,31 @@
     refreshOpeningDebounced = this.lichessTools.debounce(this.refreshOpening, 500);
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('showOpening');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('showOpening');
       this.logOption('Show game opening names', value);
       this.options = {
-        showInBoard: parent.isOptionSet(value, 'showInBoard'),
-        showInMinigames: parent.isOptionSet(value, 'showInMinigames'),
-        showInExplorer: parent.isOptionSet(value, 'showInExplorer'),
+        showInBoard: lt.isOptionSet(value, 'showInBoard'),
+        showInMinigames: lt.isOptionSet(value, 'showInMinigames'),
+        showInExplorer: lt.isOptionSet(value, 'showInExplorer'),
       };
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       if (!lichess) return;
-      const $ = parent.$;
+      const $ = lt.$;
       lichess.pubsub.off('socket.in.fen', this.miniGameOpening);
       lichess.pubsub.off('ply', this.refreshOpeningDebounced);
       lichess.pubsub.off('content-loaded', this.miniGameOpening);
       if (lichess.socket?.settings?.events?.endData) {
-        lichess.socket.settings.events.endData = parent.unwrapFunction(lichess.socket.settings.events.endData, 'showOpening');
+        lichess.socket.settings.events.endData = lt.unwrapFunction(lichess.socket.settings.events.endData, 'showOpening');
       }
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
       metaSection.find('.lichessTools-opening').remove();
       $('a.mini-game .lichessTools-opening').remove();
       $('div.title .lichessTools-opening').remove();
       if (this.options.showInBoard) {
         if (lichess.socket?.settings?.events?.endData) {
-          lichess.socket.settings.events.endData = parent.wrapFunction(lichess.socket.settings.events.endData, {
+          lichess.socket.settings.events.endData = lt.wrapFunction(lichess.socket.settings.events.endData, {
             id: 'showOpening',
             after: ($this, result, ...args) => {
               this.refreshOpeningDebounced();
@@ -255,7 +255,7 @@
         const intervalTime = $('main').is('#board-editor')
           ? 1000
           : 3500;
-        this.interval = parent.global.setInterval(this.refreshOpeningDebounced, intervalTime);
+        this.interval = lt.global.setInterval(this.refreshOpeningDebounced, intervalTime);
         //this.refreshOpeningDebounced(); this is not essential to loading
       }
       if (this.options.showInMinigames) {

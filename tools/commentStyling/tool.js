@@ -30,8 +30,8 @@
 
 
     getCommentNodes = (elem) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
 
       let commentNodes = [];
       $(elem).each((i, e) => {
@@ -48,10 +48,10 @@
     };
 
     addCommentClasses = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
@@ -109,9 +109,9 @@
     debouncedAddCommentClasses = this.lichessTools.debounce(this.addCommentClasses, 200);
 
     cycleCommentColor = (ev) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
@@ -121,7 +121,7 @@
       const classes = ['red', 'orange', 'yellow', 'green', 'lightgreen', 'cyan', 'lightblue', 'blue', 'violet', 'magenta', 'pink', 'underline', 'strikethrough', 'italic', 'bold', 'cursive', ''];
 
       const r = /^\s*cls:([^\s]*)\s?/;
-      const myName = parent.getUserId();
+      const myName = lt.getUserId();
       const comments = (node.comments || [])
         .filter(c => c.by?.id == myName || r.test(c.text));
       let commentText = comments.map(c => c.text).join('\r\n\r\n');
@@ -134,40 +134,38 @@
       commentText = (cls ? 'cls:' + cls + ' ' : '') + commentText.replace(r, '').trim();
       const chapterId = study.currentChapter()?.id;
       if (!chapterId) {
-        parent.global.console.warn('Could not determine chapterId');
+        lt.global.console.warn('Could not determine chapterId');
         return;
       }
       for (const comment of comments.filter(c => c.by?.id != myName)) {
         study.commentForm.delete(chapterId, path, comment.id)
       }
-      parent.saveComment(commentText, path);
+      lt.saveComment(commentText, path);
       $('#comment-text').val(commentText);
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('commentStyling');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('commentStyling');
       this.logOption('Styling for study comments', value);
       this.options = { enabled: !!value };
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      lichess.pubsub.off('lichessTools.redraw', this.debouncedAddCommentClasses);
-      lichess.pubsub.off('analysis.change', this.debouncedAddCommentClasses);
-      lichess.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentClasses);
+      lt.pubsub.off('lichessTools.redraw', this.debouncedAddCommentClasses);
+      lt.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentClasses);
       if (lichess.socket) {
-        lichess.socket.handle = parent.unwrapFunction(lichess.socket.handle, 'commentStyling');
+        lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'commentStyling');
       }
       if (value) {
-        lichess.pubsub.on('lichessTools.redraw', this.debouncedAddCommentClasses);
-        lichess.pubsub.on('analysis.change', this.debouncedAddCommentClasses);
-        lichess.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentClasses);
+        lt.pubsub.on('lichessTools.redraw', this.debouncedAddCommentClasses);
+        lt.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentClasses);
         if (lichess.socket) {
-          lichess.socket.handle = parent.wrapFunction(lichess.socket.handle, {
+          lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
             id: 'commentStyling',
             after: ($this, result, m) => {
               if (m.t == 'setComment') this.debouncedAddCommentClasses();

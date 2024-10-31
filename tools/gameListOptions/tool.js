@@ -46,9 +46,9 @@
     }
 
     refreshActions = ()=>{
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       if (!this.options.isSet) return;
       const container = $('div.search__result');
       if (!container.length) return;
@@ -72,12 +72,12 @@
               while ((batch = ids.splice(0,300)).length) {
                 if (pgns!='') {
                   pgns+='\r\n';
-                  await parent.timeout(2000);
+                  await lt.timeout(2000);
                 }
-                const batchPgns=await parent.api.game.getPgns(batch,{ moves: true, tags: true, clocks: true, evals: true, opening: true, accuracy: true, literate: true });
+                const batchPgns=await lt.api.game.getPgns(batch,{ moves: true, tags: true, clocks: true, evals: true, opening: true, accuracy: true, literate: true });
                 pgns+=batchPgns;
               }
-              parent.writeToClipboard(pgns, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
+              lt.writeToClipboard(pgns, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
             })
             .appendTo(filters);
         }
@@ -99,9 +99,9 @@
     };
 
     processLists = ()=>{
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       if (!this.options.isSet) return;
       const container = $('div.search__result');
       if (!container.length) return;
@@ -116,10 +116,10 @@
             .prepend($('<input type="checkbox" id="chkAborted"/>')
               .on('change',ev=>{
                 const checked = !!ev.target.checked;
-                parent.storage.set('LiChessTools.gameListOptions.aborted',checked);
+                lt.storage.set('LiChessTools.gameListOptions.aborted',checked);
                 container.toggleClass('lichessTools-gameListOptions-hideAborted',!checked);
               })
-              .prop('checked', !!parent.storage.get('LiChessTools.gameListOptions.aborted'))
+              .prop('checked', !!lt.storage.get('LiChessTools.gameListOptions.aborted'))
             )
             .prepend($('<label for="chkAborted"></label>').text(trans.noarg('abortedGamesLabel')));
           filters.find('#chkAborted').trigger('change');
@@ -129,10 +129,10 @@
             .prepend($('<input type="checkbox" id="chkGroup"/>')
               .on('change',ev=>{
                 const checked = !!ev.target.checked;
-                parent.storage.set('LiChessTools.gameListOptions.group',checked);
+                lt.storage.set('LiChessTools.gameListOptions.group',checked);
                 container.toggleClass('lichessTools-gameListOptions-group',checked);
               })     
-              .prop('checked', !!parent.storage.get('LiChessTools.gameListOptions.group'))
+              .prop('checked', !!lt.storage.get('LiChessTools.gameListOptions.group'))
             )
             .prepend($('<label for="chkGroup"></label>').text(trans.noarg('groupGamesLabel')));
           filters.find('#chkGroup').trigger('change');
@@ -142,10 +142,10 @@
             .prepend($('<input type="checkbox" id="chkAnalysis"/>')
               .on('change',ev=>{
                 const checked = !!ev.target.checked;
-                parent.storage.set('LiChessTools.gameListOptions.analysis',checked);
+                lt.storage.set('LiChessTools.gameListOptions.analysis',checked);
                 container.toggleClass('lichessTools-gameListOptions-analysis',checked);
               })     
-              .prop('checked', !!parent.storage.get('LiChessTools.gameListOptions.analysis'))
+              .prop('checked', !!lt.storage.get('LiChessTools.gameListOptions.analysis'))
             )
             .prepend($('<label for="chkAnalysis"></label>').text(trans.noarg('analysedGamesLabel')));
           filters.find('#chkAnalysis').trigger('change');
@@ -155,11 +155,11 @@
             .prepend($('<input type="checkbox" id="chkAnalysisLink"/>')
               .on('change',ev=>{
                 const checked = !!ev.target.checked;
-                parent.storage.set('LiChessTools.gameListOptions.analysisLink',checked);
+                lt.storage.set('LiChessTools.gameListOptions.analysisLink',checked);
                 container.toggleClass('lichessTools-gameListOptions-analysisLink',checked);
                 this.processLists();
               })     
-              .prop('checked', !!parent.storage.get('LiChessTools.gameListOptions.analysisLink'))
+              .prop('checked', !!lt.storage.get('LiChessTools.gameListOptions.analysisLink'))
             )
             .prepend($('<label for="chkAnalysisLink"></label>').text(trans.noarg('analysisLinkLabel')));
           filters.find('#chkAnalysisLink').trigger('change');
@@ -202,16 +202,16 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
-      const value = parent.currentOptions.getValue('gameListOptions');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const value = lt.currentOptions.getValue('gameListOptions');
       this.logOption('Games filters', value);
       this.options = {
-        filters: parent.isOptionSet(value, 'filters'),
-        select: parent.isOptionSet(value, 'select'),
-        analysis: parent.isOptionSet(value, 'analysis'),
-        analysisLink: parent.isOptionSet(value, 'analysisLink'),
+        filters: lt.isOptionSet(value, 'filters'),
+        select: lt.isOptionSet(value, 'select'),
+        analysis: lt.isOptionSet(value, 'analysis'),
+        analysisLink: lt.isOptionSet(value, 'analysisLink'),
         get isSet() { return this.filters || this.select || this.analysis || this.analysisLink; }
       };
       $('div.search__result .lichessTools-gameListOptions').remove();
@@ -227,10 +227,10 @@
         .removeClass('lichessTools-gameListOptions-analysis')
       $('.lichessTools-gameListOptions-analysisLink')
         .removeClass('lichessTools-gameListOptions-analysisLink')
-      lichess.pubsub.off('lichess.redraw',this.processLists);
+      lt.pubsub.off('lichessTools.redraw',this.processLists);
       lichess.pubsub.off('content-loaded',this.processLists);
       if (!this.options.isSet) return;
-      lichess.pubsub.on('lichess.redraw',this.processLists);
+      lt.pubsub.on('lichessTools.redraw',this.processLists);
       lichess.pubsub.on('content-loaded',this.processLists);
       this.processLists();
     }

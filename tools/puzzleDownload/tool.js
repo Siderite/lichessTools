@@ -33,15 +33,15 @@
     }
 
     showPuzzlePgn=async (puzzleId)=>{
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const co = parent.chessops;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const co = lt.chessops;
       const { makePgn, parsePgn, startingPosition } = co.pgn;
       const { makeFen } = co.fen;
       const { parseSan, makeSanAndPlay } = co.san;
       const { parseUci } = co;
-      const puzzle = await parent.api.puzzle.getPuzzle(puzzleId);
+      const puzzle = await lt.api.puzzle.getPuzzle(puzzleId);
       const sans = puzzle.game.pgn.split(' ');
       const game = parsePgn('*')[0];
       let pos = startingPosition(game.headers).unwrap();
@@ -73,7 +73,7 @@
       game.headers.delete('Result');
       const pgn = makePgn(game);
       const content = $('<div class="lichessTools-puzzleDownload"><textarea readonly></textarea><button type="button" class="copyPgn"/></div>');
-      const dlg=parent.dialog({
+      const dlg=lt.dialog({
         html: content[0].outerHTML
       });
       const textarea = $('textarea',dlg);
@@ -85,15 +85,15 @@
           const { selectionStart, selectionEnd } = textarea[0];
           const result = selectionStart == selectionEnd ? textarea.val() : textarea.val().slice(selectionStart, selectionEnd);
           dlg.close();
-          parent.writeToClipboard(result, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
+          lt.writeToClipboard(result, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
         });
       dlg.showModal();
     };
 
     handlePuzzleLinks=()=>{
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       const puzzleLinks = $('.infos.puzzle a[href^="/training/"]')
         .each((i,e)=>{
           if ($(e).next('.lichessTools-puzzleDownload').length) return;
@@ -115,14 +115,14 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('puzzleDownload');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('puzzleDownload');
       this.logOption('Puzzle download', value);
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       $('button.lichessTools-puzzleDownload').remove();
-      lichess.pubsub.off('lichessTools.redraw', this.handlePuzzleLinks);
+      lt.pubsub.off('lichessTools.redraw', this.handlePuzzleLinks);
       if (!value) return;
-      lichess.pubsub.on('lichessTools.redraw', this.handlePuzzleLinks);
+      lt.pubsub.on('lichessTools.redraw', this.handlePuzzleLinks);
       this.handlePuzzleLinks();
     }
 

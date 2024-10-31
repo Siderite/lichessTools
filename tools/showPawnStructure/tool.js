@@ -33,16 +33,18 @@
     }
 
     isGamesPage = () => {
-      return /^\/games(\/|$)?/i.test(this.lichessTools.global.location.pathname);
+      const lt = this.lichessTools;
+      return /^\/games(\/|$)?/i.test(lt.global.location.pathname);
     };
 
     isBroadcastPage = () => {
-      return /^\/broadcast\//i.test(this.lichessTools.global.location.pathname);
+      const lt = this.lichessTools;
+      return /^\/broadcast\//i.test(lt.global.location.pathname);
     };
 
     getStructure = (board, blackOrientation) => {
       if (!board) return null;
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const result = {
         pawns: {
           'w': [-1, -1, -1, -1, -1, -1, -1, -1],
@@ -205,13 +207,13 @@
     };
 
     getStructureName = async (structure) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       const threshold = this.options.fuzzy ? 90 : 100;
 
       if (!this.pawnStructures) {
-        this.pawnStructures = await parent.comm.getData('pawnStructures.json');
+        this.pawnStructures = await lt.comm.getData('pawnStructures.json');
         if (!this.pawnStructures) {
-          parent.global.console.warn('Could not load pawn structures!');
+          lt.global.console.warn('Could not load pawn structures!');
         }
       }
 
@@ -257,16 +259,16 @@
     };
 
     addStructureAnchor = (el, structureName, structure) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       if (!el.length) el = $(el);
       let structureElem = el.find('.lichessTools-structure');
       if (!structureName) {
         structureElem.remove();
         return;
       }
-      structureElem.filter((i, e) => !lichessTools.inViewport(e)).remove();
+      structureElem.filter((i, e) => !lt.inViewport(e)).remove();
 
       const isLink = !!structureName.url;
       if ((isLink && structureElem.is('span')) || (!isLink && structureElem.is('a'))) {
@@ -274,7 +276,7 @@
         structureElem = el.find('.lichessTools-structure');
       }
       if (!structureElem.length) {
-        const visibleEl = el.filter((i, e) => !!lichessTools.inViewport(e)).eq(0);
+        const visibleEl = el.filter((i, e) => !!lt.inViewport(e)).eq(0);
         structureElem = $('<' + (isLink ? 'a' : 'span') + '>')
           .addClass('lichessTools-structure')
           .appendTo(visibleEl);
@@ -293,10 +295,10 @@
     };
 
     miniGameStructure = async (el) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      if (parent.global.document.hidden) return;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (lt.global.document.hidden) return;
+      const trans = lt.translator;
       let fen = '';
       if (el?.id && el?.fen) {
         fen = el.fen;
@@ -307,13 +309,13 @@
       const elems = $(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
       for (const el of elems) {
-        if (!parent.inViewport(el)) continue;
-        fen = fen || $(el).attr('data-state') || parent.getPositionFromBoard(el, true);
+        if (!lt.inViewport(el)) continue;
+        fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
-          parent.global.console.warn('Could not get fen for element', el);
+          lt.global.console.warn('Could not get fen for element', el);
           continue;
         }
-        const board = parent.getBoardFromFen(fen);
+        const board = lt.getBoardFromFen(fen);
         const structure = this.getStructure(board, $(el).attr('data-state').includes('black'));
         const structureName = await this.getStructureName(structure);
         this.addStructureAnchor(el, structureName, structure);
@@ -323,19 +325,19 @@
     miniGameStructureDebounced = this.lichessTools.debounce(this.miniGameStructure, 500);
 
     refreshStructure = async (ply) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      if (parent.global.document.hidden) return;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      if (lt.global.document.hidden) return;
       if ($.cached('body').is('.playing')) return;
       if (this.isGamesPage() || this.isBroadcastPage()) {
         return;
       }
-      const trans = parent.translator;
+      const trans = lt.translator;
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
-      const fen = lichess.analysis?.node?.fen || parent.getPositionFromBoard($('main'), true);
+      const fen = lichess.analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;
-      const board = parent.getBoardFromFen(fen);
+      const board = lt.getBoardFromFen(fen);
       const analysisOrientation = lichess.analysis?.getOrientation();
       const isBlackOrientation = (analysisOrientation && analysisOrientation == 'black') || $('.cg-wrap').eq(0).is('.orientation-black');
       const structure = await this.getStructure(board, isBlackOrientation);
@@ -352,28 +354,28 @@
     refreshStructureDebounced = this.lichessTools.debounce(this.refreshStructure, 500);
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('showPawnStructure');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('showPawnStructure');
       this.logOption('Show pawn structures', value);
       this.options = {
-        enabled: parent.isOptionSet(value, 'enabled'),
-        onlyNamed: parent.isOptionSet(value, 'onlyNamed'),
-        fuzzy: parent.isOptionSet(value, 'fuzzy')
+        enabled: lt.isOptionSet(value, 'enabled'),
+        onlyNamed: lt.isOptionSet(value, 'onlyNamed'),
+        fuzzy: lt.isOptionSet(value, 'fuzzy')
       };
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       if (!lichess) return;
-      const $ = parent.$;
+      const $ = lt.$;
       lichess.pubsub.off('socket.in.fen', this.miniGameStructure);
       lichess.pubsub.off('ply', this.refreshStructureDebounced);
-      lichess.pubsub.off('lichessTools.redraw', this.refreshStructureDebounced);
+      lt.pubsub.off('lichessTools.redraw', this.refreshStructureDebounced);
       lichess.pubsub.off('content-loaded', this.miniGameStructureDebounced);
       if (lichess.socket?.settings?.events?.endData) {
-        lichess.socket.settings.events.endData = parent.unwrapFunction(lichess.socket.settings.events.endData, 'showPawnStructure');
+        lichess.socket.settings.events.endData = lt.unwrapFunction(lichess.socket.settings.events.endData, 'showPawnStructure');
       }
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       if (this.options.enabled) {
         if (lichess.socket?.settings?.events?.endData) {
-          lichess.socket.settings.events.endData = parent.wrapFunction(lichess.socket.settings.events.endData, {
+          lichess.socket.settings.events.endData = lt.wrapFunction(lichess.socket.settings.events.endData, {
             id: 'showPawnStructure',
             after: ($this, result, ...args) => {
               this.refreshStructureDebounced();
@@ -382,11 +384,11 @@
         }
         lichess.pubsub.on('socket.in.fen', this.miniGameStructure);
         lichess.pubsub.on('ply', this.refreshStructureDebounced);
-        lichess.pubsub.on('lichessTools.redraw', this.refreshStructureDebounced);
+        lt.pubsub.on('lichessTools.redraw', this.refreshStructureDebounced);
         lichess.pubsub.on('content-loaded', this.miniGameStructureDebounced);
-        parent.global.setTimeout(this.refreshStructureDebounced,1000); // this is not essential to loading
+        lt.global.setTimeout(this.refreshStructureDebounced,1000); // this is not essential to loading
         if ($('main').is('#board-editor')) {
-          this.interval = parent.global.setInterval(this.refreshStructureDebounced, 1000);
+          this.interval = lt.global.setInterval(this.refreshStructureDebounced, 1000);
         }
       } else {
         const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables');

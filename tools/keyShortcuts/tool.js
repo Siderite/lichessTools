@@ -24,18 +24,18 @@
     }
 
     clearMoveMode = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const g = this.lichessTools.global;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const g = lt.global;
       g.clearTimeout(this.makeMoveTimeout);
       this.makeMoveMode = null;
       $.cached('body').removeClass('lichessTools-keyMode-pgn lichessTools-keyMode-ceval lichessTools-keyMode-explorer lichessTools-keyMode-general');
     };
 
     prepareMove = (mode) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const g = this.lichessTools.global;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const g = lt.global;
       this.clearMoveMode();
       switch (mode) {
         case 'pgn': {
@@ -44,7 +44,7 @@
         }
           break;
         case 'ceval': {
-          const analysis = this.lichessTools.lichess.analysis;
+          const analysis = lt.lichess.analysis;
           if (!analysis?.ceval || !analysis?.ceval.enabled()) return;
         }
           break;
@@ -65,9 +65,9 @@
     };
 
     handleDigitKey = (combo) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const g = this.lichessTools.global;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const g = lt.global;
       let index = +combo;
       if (!index) return;
       index--;
@@ -83,7 +83,7 @@
         }
           break;
         case 'ceval': {
-          const analysis = this.lichessTools.lichess.analysis;
+          const analysis = lt.lichess.analysis;
           if (!analysis?.ceval || !analysis?.ceval.enabled()) return;
           const pvs = analysis?.node?.ceval?.pvs;
           if (!pvs || !pvs[index]) return;
@@ -92,7 +92,7 @@
         }
           break;
         case 'explorer': {
-          const analysis = this.lichessTools.lichess.analysis;
+          const analysis = lt.lichess.analysis;
           if (!analysis) return;
           const moves = $('.explorer-box:not(.loading) .moves tbody tr');
           const uci = moves.eq(index).attr('data-uci');
@@ -114,8 +114,8 @@
         return;
       }
       this.clearMoveMode();
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const board = $('cg-container.lichessTools-freezeBoard');
       if (board.length) {
         board.remove();
@@ -132,8 +132,8 @@
         return;
       }
       this.clearMoveMode();
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('body')
         .toggleClass('lichessTools-hideSiteHeader');
     };
@@ -144,15 +144,15 @@
         return;
       }
       this.clearMoveMode();
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const button = $('div.lichessTools-chapterControls button[data-act="random"]');
       button.trigger('click');
     };
 
     jumpToCurrentMove = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis?.ongoing || !(analysis.data.game.turns > 0)) return false;
       analysis.jumpToIndex(analysis.data.game.turns - 1);
@@ -160,92 +160,92 @@
     };
 
     bindKeysForAnalysis = () => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       if (!this.oldHandlers) {
         this.oldHandlers = {
-          i: parent.getKeyHandler('i'),
-          m: parent.getKeyHandler('m'),
-          b: parent.getKeyHandler('b'),
-          f: parent.getKeyHandler('f'),
-          r: parent.getKeyHandler('r')
+          i: lt.getKeyHandler('i'),
+          m: lt.getKeyHandler('m'),
+          b: lt.getKeyHandler('b'),
+          f: lt.getKeyHandler('f'),
+          r: lt.getKeyHandler('r')
         };
       }
-      parent.unbindKeyHandler('i');
-      parent.unbindKeyHandler('m');
-      parent.unbindKeyHandler('b');
-      parent.unbindKeyHandler('g');
-      parent.unbindKeyHandler('alt+i', true);
-      parent.unbindKeyHandler('alt+m', true);
-      parent.unbindKeyHandler('alt+b', true);
-      parent.unbindKeyHandler('alt+g', true);
+      lt.unbindKeyHandler('i');
+      lt.unbindKeyHandler('m');
+      lt.unbindKeyHandler('b');
+      lt.unbindKeyHandler('g');
+      lt.unbindKeyHandler('alt+i', true);
+      lt.unbindKeyHandler('alt+m', true);
+      lt.unbindKeyHandler('alt+b', true);
+      lt.unbindKeyHandler('alt+g', true);
 
-      parent.unbindKeyHandler('.', true);
-      parent.unbindKeyHandler('ctrl+.', true);
-      parent.unbindKeyHandler('shift+.', true);
-      parent.unbindKeyHandler('`', true);
-      parent.unbindKeyHandler('f');
-      parent.unbindKeyHandler('h', true);
-      parent.unbindKeyHandler('r');
-      parent.unbindKeyHandler('backspace', true);
+      lt.unbindKeyHandler('.', true);
+      lt.unbindKeyHandler('ctrl+.', true);
+      lt.unbindKeyHandler('shift+.', true);
+      lt.unbindKeyHandler('`', true);
+      lt.unbindKeyHandler('f');
+      lt.unbindKeyHandler('h', true);
+      lt.unbindKeyHandler('r');
+      lt.unbindKeyHandler('backspace', true);
 
       for (let i = 1; i <= 9; i++) {
         const combo = i.toString();
-        if (!this.oldHandlers[combo]) this.oldHandlers[combo] = parent.getKeyHandler(combo);
-        parent.unbindKeyHandler(combo);
+        if (!this.oldHandlers[combo]) this.oldHandlers[combo] = lt.getKeyHandler(combo);
+        lt.unbindKeyHandler(combo);
       }
 
       if (this.options.enabled) {
-        parent.bindKeyHandler('i', () => parent.jumpToGlyphSymbols('?!'));
-        parent.bindKeyHandler('m', () => parent.jumpToGlyphSymbols('?'));
-        parent.bindKeyHandler('b', () => parent.jumpToGlyphSymbols('??'));
-        parent.bindKeyHandler('g', () => parent.jumpToGlyphSymbols(['!', '!?', '!!', '\u2606']));
-        parent.bindKeyHandler('alt+i', () => parent.jumpToGlyphSymbols('?!', true));
-        parent.bindKeyHandler('alt+m', () => parent.jumpToGlyphSymbols('?', true));
-        parent.bindKeyHandler('alt+b', () => parent.jumpToGlyphSymbols('??', true));
-        parent.bindKeyHandler('alt+g', () => parent.jumpToGlyphSymbols(['!', '!?', '!!', '\u2606'], true));
+        lt.bindKeyHandler('i', () => lt.jumpToGlyphSymbols('?!'));
+        lt.bindKeyHandler('m', () => lt.jumpToGlyphSymbols('?'));
+        lt.bindKeyHandler('b', () => lt.jumpToGlyphSymbols('??'));
+        lt.bindKeyHandler('g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', '\u2606']));
+        lt.bindKeyHandler('alt+i', () => lt.jumpToGlyphSymbols('?!', true));
+        lt.bindKeyHandler('alt+m', () => lt.jumpToGlyphSymbols('?', true));
+        lt.bindKeyHandler('alt+b', () => lt.jumpToGlyphSymbols('??', true));
+        lt.bindKeyHandler('alt+g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', '\u2606'], true));
 
-        parent.bindKeyHandler('.', () => this.prepareMove('pgn'));
-        parent.bindKeyHandler('ctrl+.', () => this.prepareMove('ceval'));
-        parent.bindKeyHandler('shift+.', () => this.prepareMove('explorer'));
+        lt.bindKeyHandler('.', () => this.prepareMove('pgn'));
+        lt.bindKeyHandler('ctrl+.', () => this.prepareMove('ceval'));
+        lt.bindKeyHandler('shift+.', () => this.prepareMove('explorer'));
         for (let i = 1; i <= 9; i++) {
           const combo = i.toString();
-          parent.bindKeyHandler(combo, () => this.handleDigitKey(combo));
+          lt.bindKeyHandler(combo, () => this.handleDigitKey(combo));
         }
-        parent.bindKeyHandler('`', () => this.prepareMove('general'));
-        parent.bindKeyHandler('h', this.toggleSiteHeader);
-        parent.bindKeyHandler('f', this.freezeBoard);
-        parent.bindKeyHandler('r', this.randomChapter);
+        lt.bindKeyHandler('`', () => this.prepareMove('general'));
+        lt.bindKeyHandler('h', this.toggleSiteHeader);
+        lt.bindKeyHandler('f', this.freezeBoard);
+        lt.bindKeyHandler('r', this.randomChapter);
         if (analysis.ongoing) {
-          parent.bindKeyHandler('backspace', this.jumpToCurrentMove);
+          lt.bindKeyHandler('backspace', this.jumpToCurrentMove);
         }
       } else {
         if (this.oldHandlers) {
-          parent.bindKeyHandler('i', this.oldHandlers['i'], true);
-          parent.bindKeyHandler('m', this.oldHandlers['m'], true);
-          parent.bindKeyHandler('b', this.oldHandlers['b'], true);
-          parent.bindKeyHandler('f', this.oldHandlers['f'], true);
-          parent.bindKeyHandler('r', this.oldHandlers['r'], true);
+          lt.bindKeyHandler('i', this.oldHandlers['i'], true);
+          lt.bindKeyHandler('m', this.oldHandlers['m'], true);
+          lt.bindKeyHandler('b', this.oldHandlers['b'], true);
+          lt.bindKeyHandler('f', this.oldHandlers['f'], true);
+          lt.bindKeyHandler('r', this.oldHandlers['r'], true);
           for (let i = 1; i <= 9; i++) {
             const combo = i.toString();
-            if (this.oldHandlers[combo]) parent.bindKeyHandler(combo, this.oldHandlers[combo], true);
+            if (this.oldHandlers[combo]) lt.bindKeyHandler(combo, this.oldHandlers[combo], true);
           }
         }
       }
     };
 
     handleEditorAction = (index) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const container = $('div.board-editor__tools .actions');
       container.children().eq(index).trigger('click');
     }
 
     handleEditorDigit = (index, mySide) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const container = mySide ? $('div.spare-bottom') : $('div.spare-top');
-      const doc = parent.global.document;
+      const doc = lt.global.document;
       const event = doc.createEvent('Event');
       event.clientX = -100;
       event.clientY = -100;
@@ -255,44 +255,44 @@
     }
 
     bindKeysForEditor = () => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       for (let i = 1; i <= 8; i++) {
         const combo = i.toString();
-        parent.unbindKeyHandler(combo);
-        parent.unbindKeyHandler('shift+' + combo);
+        lt.unbindKeyHandler(combo);
+        lt.unbindKeyHandler('shift+' + combo);
       }
-      parent.unbindKeyHandler('c');
-      parent.unbindKeyHandler('p');
+      lt.unbindKeyHandler('c');
+      lt.unbindKeyHandler('p');
       if (this.options.enabled) {
         for (let i = 1; i <= 8; i++) {
           const combo = i.toString();
-          parent.bindKeyHandler(combo, () => this.handleEditorDigit(i, true));
-          parent.bindKeyHandler('shift+' + combo, () => this.handleEditorDigit(i, false));
+          lt.bindKeyHandler(combo, () => this.handleEditorDigit(i, true));
+          lt.bindKeyHandler('shift+' + combo, () => this.handleEditorDigit(i, false));
         }
-        parent.bindKeyHandler('p', () => this.handleEditorAction(0));
-        parent.bindKeyHandler('c', () => this.handleEditorAction(1));
+        lt.bindKeyHandler('p', () => this.handleEditorAction(0));
+        lt.bindKeyHandler('c', () => this.handleEditorAction(1));
       }
     }
 
     bindKeysForGeneral = () => {
-      const parent = this.lichessTools;
-      parent.unbindKeyHandler('`', true);
-      parent.unbindKeyHandler('h', true);
+      const lt = this.lichessTools;
+      lt.unbindKeyHandler('`', true);
+      lt.unbindKeyHandler('h', true);
       if (this.options.enabled) {
-        parent.bindKeyHandler('`', () => this.prepareMove('general'));
-        parent.bindKeyHandler('h', this.toggleSiteHeader);
+        lt.bindKeyHandler('`', () => this.prepareMove('general'));
+        lt.bindKeyHandler('h', this.toggleSiteHeader);
       }
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('keyShortcuts');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('keyShortcuts');
       this.logOption('Extra analysis key shortcuts', value);
       this.options = { enabled: !!value };
       if (!value && !this.loaded) return;
       this.loaded = true;
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const isEditorBoard = $('main').is('#board-editor');
       if (analysis) {

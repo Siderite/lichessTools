@@ -28,20 +28,20 @@
     }
 
     enableCheat = () => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const $ = lt.$;
       const egg = $('<div class="konami">')
         .attr('data-text', trans.noarg('30lives'))
         .appendTo('body');
-      parent.global.setTimeout(() => egg.addClass('flash'), 1);
-      parent.global.setTimeout(() => egg.remove(), 5000);
+      lt.global.setTimeout(() => egg.addClass('flash'), 1);
+      lt.global.setTimeout(() => egg.remove(), 5000);
     };
 
     index = 0;
     code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
     keyCheck = (ev) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       if (ev.code == this.code[this.index]) {
         this.index++;
         if (this.index > 7) ev.preventDefault();
@@ -58,12 +58,12 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('konami');
-      parent.global.document.removeEventListener('keydown', this.keyCheck, { capture: true });
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('konami');
+      lt.global.document.removeEventListener('keydown', this.keyCheck, { capture: true });
       if (!value) return;
-      parent.global.document.addEventListener('keydown', this.keyCheck, { capture: true });
+      lt.global.document.addEventListener('keydown', this.keyCheck, { capture: true });
     }
 
   }

@@ -26,16 +26,16 @@
     }
 
     handleResize = (ev) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const isFullscreen = parent.global.screen.height == parent.global.innerHeight;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const isFullscreen = lt.global.screen.height == lt.global.innerHeight;
       $('header#top').toggleClass('lichessTools-fullScreen', isFullscreen);
     };
 
     addButton = () => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const $ = lt.$;
       if ($('div.site-buttons .lichessTools-fullScreen').length) return;
       $('<div class="lichessTools-fullScreen">').append(
         $('<button class="link">')
@@ -45,23 +45,23 @@
           )
           .on('click', ev => {
             ev.preventDefault();
-            parent.global.document.documentElement.requestFullscreen();
+            lt.global.document.documentElement.requestFullscreen();
           })
       ).insertBefore($('div.site-buttons .dasher'));
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('fullScreen');
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('fullScreen');
       this.logOption('Full screen button', value);
       $('div.lichessTools-fullScreen').remove();
       $('header#top').removeClass('lichessTools-fullScreen');
-      $(parent.global).off('resize', this.handleResize);
+      $(lt.global).off('resize', this.handleResize);
       $('body').removeClass('lichessTools-fullScreen-enabled');
-      if (!value || parent.isMobile()) return;
+      if (!value || lt.isMobile()) return;
       $('body').addClass('lichessTools-fullScreen-enabled');
-      $(parent.global).on('resize', this.handleResize);
+      $(lt.global).on('resize', this.handleResize);
       this.handleResize();
       this.addButton();
     }

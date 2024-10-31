@@ -25,8 +25,8 @@
 
     scrollTotal = 0;
     wheel = (ev)=>{
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (!this.options.enabled || !$.cached('body').is('.playing')) return;
       this.scrollTotal += ev.deltaY * (ev.deltaMode ? 40 : 1);
       if (Math.abs(this.scrollTotal) >= 4) {
@@ -40,11 +40,11 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('playWheel');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('playWheel');
       this.logOption('Play mouse wheel', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       this.options = {
         enabled: value
       };

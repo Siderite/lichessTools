@@ -33,13 +33,13 @@
     }
 
     addOpeningExplorerUserSwitchButton = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
       const explorer = lichess.analysis?.explorer;
-      const trans = parent.translator;
+      const trans = lt.translator;
       if (!explorer) return;
-      let previousUsers = parent.storage.get('explorer.player.name.previous') || [];
+      let previousUsers = lt.storage.get('explorer.player.name.previous') || [];
       if (previousUsers.length <= 0) {
         $('div.explorer-title button.lichessTools-switchWithMe').remove();
         return;
@@ -53,7 +53,7 @@
         .addClass('lichessTools-switchWithMe')
         .on('click', function (ev) {
           ev.preventDefault();
-          let previousUsers = parent.storage.get('explorer.player.name.previous') || [];
+          let previousUsers = lt.storage.get('explorer.player.name.previous') || [];
           const myName = explorer.config.myName;
           const currentUser = explorer.config.data.playerName.value();
           const user = currentUser != myName
@@ -68,21 +68,21 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('openingExplorerUsers');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('openingExplorerUsers');
       this.logOption('Opening explorer player features', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      const $ = parent.$;
+      const $ = lt.$;
       $('div.explorer-title button.lichessTools-switchWithMe').remove();
-      lichess.pubsub.off('lichessTools.redraw', this.addOpeningExplorerUserSwitchButton);
-      if (parent.isOptionSet(value, 'switchWithMe')) {
-        lichess.pubsub.on('lichessTools.redraw', this.addOpeningExplorerUserSwitchButton);
+      lt.pubsub.off('lichessTools.redraw', this.addOpeningExplorerUserSwitchButton);
+      if (lt.isOptionSet(value, 'switchWithMe')) {
+        lt.pubsub.on('lichessTools.redraw', this.addOpeningExplorerUserSwitchButton);
         this.addOpeningExplorerUserSwitchButton();
       }
     }

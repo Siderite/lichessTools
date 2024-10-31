@@ -45,10 +45,10 @@
     }
 
     analysisControls = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
 
@@ -86,19 +86,19 @@
       </div>
       <label for="abset-noCloud">$trans(customEngineOptions.noCloud)</label>
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return parent.htmlEncode(trans.noarg(m.slice(7, -1)));
+          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
         $(html).insertAfter($('div.abset-gauge', container).eq(0));
         $('#abset-noCloud')
           .on('change', async () => {
-            const options = parent.currentOptions;
+            const options = lt.currentOptions;
             options.customEngineOptions = [
               $('#abset-noCloud').is(':checked') ? 'noCloud' : '',
               this.options.noCloudExternal ? 'noCloudExternal' : '',
               this.options.practice ? 'practice' : ''
             ].filter(o => o).join(',');
-            await parent.applyOptions(options);
-            parent.fireReloadOptions();
+            await lt.applyOptions(options);
+            lt.fireReloadOptions();
           });
       }
       $('#abset-noCloud')
@@ -113,20 +113,20 @@
       </div>
       <label for="abset-noCloudExternal">$trans(customEngineOptions.noCloudExternal)</label>
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return parent.htmlEncode(trans.noarg(m.slice(7, -1)));
+          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
         $(html).insertAfter($('div.abset-noCloud', container).eq(0));
         $('#abset-noCloudExternal')
           .on('change', async () => {
-            const options = parent.currentOptions;
+            const options = lt.currentOptions;
             options.customEngineOptions = [$('#abset-noCloudExternal').is(':checked') ? 'noCloudExternal' : '', this.options.practice ? 'practice' : ''].filter(o => o).join(',');
             options.customEngineOptions = [
               this.options.noCloud ? 'noCloud' : '',
               $('#abset-noCloudExternal').is(':checked') ? 'noCloudExternal' : '',
               this.options.practice ? 'practice' : ''
             ].filter(o => o).join(',');
-            await parent.applyOptions(options);
-            parent.fireReloadOptions();
+            await lt.applyOptions(options);
+            lt.fireReloadOptions();
           });
       }
       $('#abset-noCloudExternal')
@@ -142,19 +142,19 @@
       </div>
       <label for="abset-practice">$trans(applyInPractice)</label>
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return parent.htmlEncode(trans.noarg(m.slice(7, -1)));
+          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
         $(html).insertAfter($('div.abset-noCloudExternal', container).eq(0));
         $('#abset-practice')
           .on('change', async () => {
-            const options = parent.currentOptions;
+            const options = lt.currentOptions;
             options.customEngineOptions = [
               this.options.noCloud ? 'noCloud' : '',
               this.options.noCloudExternal ? 'noCloudExternal' : '',
               $('#abset-practice').is(':checked') ? 'practice' : ''
             ].filter(o => o).join(',');
-            await parent.applyOptions(options);
-            parent.fireReloadOptions();
+            await lt.applyOptions(options);
+            lt.fireReloadOptions();
           });
       }
       $('#abset-practice')
@@ -164,8 +164,8 @@
 
 
     determineCevalState = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
 
@@ -206,14 +206,14 @@
     };
 
     wrapEval = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
 
       if (this.options.depth || this.options.noCloud || this.options.noCloudExternal) {
-        if (!parent.isWrappedFunction(analysis.evalCache.onLocalCeval, 'customEngineOptions')) {
-          analysis.evalCache.onLocalCeval = parent.wrapFunction(analysis.evalCache.onLocalCeval, {
+        if (!lt.isWrappedFunction(analysis.evalCache.onLocalCeval, 'customEngineOptions')) {
+          analysis.evalCache.onLocalCeval = lt.wrapFunction(analysis.evalCache.onLocalCeval, {
             id: 'customEngineOptions',
             before: ($this, ...args) => {
               this.determineCevalState();
@@ -221,12 +221,12 @@
           });
         }
       } else {
-        analysis.evalCache.onLocalCeval = parent.unwrapFunction(analysis.evalCache.onLocalCeval, 'customEngineOptions');
+        analysis.evalCache.onLocalCeval = lt.unwrapFunction(analysis.evalCache.onLocalCeval, 'customEngineOptions');
       }
 
       if (this.options.noCloud || this.options.noCloudExternal) {
-        if (!parent.isWrappedFunction(analysis.evalCache.fetch, 'customEngineOptions')) {
-          analysis.evalCache.fetch = parent.wrapFunction(analysis.evalCache.fetch, {
+        if (!lt.isWrappedFunction(analysis.evalCache.fetch, 'customEngineOptions')) {
+          analysis.evalCache.fetch = lt.wrapFunction(analysis.evalCache.fetch, {
             id: 'customEngineOptions',
             before: ($this, ...args) => {
               const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
@@ -237,8 +237,8 @@
             }
           });
         }
-        if (!parent.isWrappedFunction(analysis.explorer.fetchTablebaseHit, 'customEngineOptions')) {
-          analysis.explorer.fetchTablebaseHit = parent.wrapFunction(analysis.explorer.fetchTablebaseHit, {
+        if (!lt.isWrappedFunction(analysis.explorer.fetchTablebaseHit, 'customEngineOptions')) {
+          analysis.explorer.fetchTablebaseHit = lt.wrapFunction(analysis.explorer.fetchTablebaseHit, {
             id: 'customEngineOptions',
             before: ($this, ...args) => {
               const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
@@ -257,13 +257,13 @@
           });
         }
       } else {
-        analysis.evalCache.fetch = parent.unwrapFunction(analysis.evalCache.fetch, 'customEngineOptions');
-        analysis.explorer.fetchTablebaseHit = parent.unwrapFunction(analysis.explorer.fetchTablebaseHit, 'customEngineOptions');
+        analysis.evalCache.fetch = lt.unwrapFunction(analysis.evalCache.fetch, 'customEngineOptions');
+        analysis.explorer.fetchTablebaseHit = lt.unwrapFunction(analysis.explorer.fetchTablebaseHit, 'customEngineOptions');
       }
 
       if (this.options.fix503) {
-        if (!parent.isWrappedFunction(analysis.ceval.engineFailed, 'customEngineOptions')) {
-          analysis.ceval.engineFailed = parent.wrapFunction(analysis.ceval.engineFailed, {
+        if (!lt.isWrappedFunction(analysis.ceval.engineFailed, 'customEngineOptions')) {
+          analysis.ceval.engineFailed = lt.wrapFunction(analysis.ceval.engineFailed, {
             id: 'customEngineOptions',
             before: ($this, errorMessage) => {
               if (!this.options.fix503) return;
@@ -271,11 +271,11 @@
                 if (!this.lastGoDeeper || Date.now() - this.lastGoDeeper > 5000) {
                   if (analysis.ceval.enabled()) {
                     analysis.ceval.goDeeper();
-                    parent.global.console.log('503 error. Trying to restart engine');
+                    lt.global.console.log('503 error. Trying to restart engine');
                     this.lastGoDeeper = Date.now();
                   }
                 } else {
-                  parent.global.console.log('503 error. Waiting 5s before retrying.');
+                  lt.global.console.log('503 error. Waiting 5s before retrying.');
                 }
                 return false;
               }
@@ -283,45 +283,45 @@
           });
         }
       } else {
-        analysis.ceval.engineFailed = parent.unwrapFunction(analysis.ceval.engineFailed, 'customEngineOptions');
+        analysis.ceval.engineFailed = lt.unwrapFunction(analysis.ceval.engineFailed, 'customEngineOptions');
       }
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = +(parent.currentOptions.getValue('customEngineLevel'));
-      const customEngineOptions = parent.currentOptions.getValue('customEngineOptions');
+      const lt = this.lichessTools;
+      const value = +(lt.currentOptions.getValue('customEngineLevel'));
+      const customEngineOptions = lt.currentOptions.getValue('customEngineOptions');
       this.logOption('Custom engine level', value || 'Not set');
       this.logOption('Custom engine options', customEngineOptions || 'Not set');
       this.options = {
         depth: value,
-        noCloud: parent.isOptionSet(customEngineOptions, 'noCloud'),
-        noCloudExternal: parent.isOptionSet(customEngineOptions, 'noCloudExternal'),
-        practice: parent.isOptionSet(customEngineOptions, 'practice'),
-        fix503: parent.isOptionSet(customEngineOptions, 'fix503'),
+        noCloud: lt.isOptionSet(customEngineOptions, 'noCloud'),
+        noCloudExternal: lt.isOptionSet(customEngineOptions, 'noCloudExternal'),
+        practice: lt.isOptionSet(customEngineOptions, 'practice'),
+        fix503: lt.isOptionSet(customEngineOptions, 'fix503'),
         get isSet() { return this.depth || this.noCloud || this.noCloudExternal || this.practice || this.fix503; }
       };
-      const lichess = parent.lichess;
+      const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
 
-      lichess.pubsub.off('lichessTools.redraw', this.analysisControls);
-      lichess.pubsub.off('lichessTools.redraw', this.determineCevalState);
-      parent.global.clearInterval(this.interval);
-      analysis.actionMenu.toggle = lichessTools.unwrapFunction(analysis.actionMenu.toggle, 'customEngineOptions');
-      lichess.pubsub.on('lichessTools.redraw', this.analysisControls);
-      lichess.pubsub.on('lichessTools.redraw', this.determineCevalState);
-      this.interval = parent.global.setInterval(this.determineCevalState, 5000);
-      analysis.actionMenu.toggle = lichessTools.wrapFunction(analysis.actionMenu.toggle, {
+      lt.pubsub.off('lichessTools.redraw', this.analysisControls);
+      lt.pubsub.off('lichessTools.redraw', this.determineCevalState);
+      lt.global.clearInterval(this.interval);
+      analysis.actionMenu.toggle = lt.unwrapFunction(analysis.actionMenu.toggle, 'customEngineOptions');
+      lt.pubsub.on('lichessTools.redraw', this.analysisControls);
+      lt.pubsub.on('lichessTools.redraw', this.determineCevalState);
+      this.interval = lt.global.setInterval(this.determineCevalState, 5000);
+      analysis.actionMenu.toggle = lt.wrapFunction(analysis.actionMenu.toggle, {
         id: 'customEngineOptions',
         after: ($this, result, ...args) => {
-          parent.global.setTimeout(this.analysisControls, 100);
+          lt.global.setTimeout(this.analysisControls, 100);
         }
       });
       this.analysisControls();
 
       this.wrapEval();
-      analysis.instanciateEvalCache = parent.wrapFunction(analysis.instanciateEvalCache, {
+      analysis.instanciateEvalCache = lt.wrapFunction(analysis.instanciateEvalCache, {
         id: 'customEngineOptions',
         after: ($this, result, ...args) => {
           this.wrapEval();

@@ -2,35 +2,35 @@
   class EmitRedrawTool extends LiChessTools.Tools.ToolBase {
 
     analysisStart = async () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const emit = parent.emitRedraw;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const emit = lt.emitRedraw;
       const analysis = lichess?.analysis;
       if (!analysis) {
         return;
       }
-      analysis.redraw = parent.unwrapFunction(analysis.redraw, 'redraw');
-      analysis.redraw = parent.wrapFunction(analysis.redraw, {
+      analysis.redraw = lt.unwrapFunction(analysis.redraw, 'redraw');
+      analysis.redraw = lt.wrapFunction(analysis.redraw, {
         id: 'redraw',
         after: emit
       });
-      analysis.reloadData = parent.unwrapFunction(analysis.reloadData, 'redraw');
-      analysis.reloadData = parent.wrapFunction(analysis.reloadData, {
+      analysis.reloadData = lt.unwrapFunction(analysis.reloadData, 'redraw');
+      analysis.reloadData = lt.wrapFunction(analysis.reloadData, {
         id: 'redraw',
         after: emit
       });
       const gp = analysis.gamebookPlay();
       if (gp?.redraw) {
-        gp.redraw = parent.unwrapFunction(gp.redraw, 'redraw');
-        gp.redraw = parent.wrapFunction(gp.redraw, {
+        gp.redraw = lt.unwrapFunction(gp.redraw, 'redraw');
+        gp.redraw = lt.wrapFunction(gp.redraw, {
           id: 'redraw',
           after: emit
         });
       }
       const relay = analysis.study?.relay;
       if (relay?.redraw) {
-        relay.redraw = parent.unwrapFunction(relay.redraw, 'redraw');
-        relay.redraw = parent.wrapFunction(relay.redraw, {
+        relay.redraw = lt.unwrapFunction(relay.redraw, 'redraw');
+        relay.redraw = lt.wrapFunction(relay.redraw, {
           id: 'redraw',
           after: emit
         });
@@ -40,26 +40,26 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       let emit = null;
-      emit = parent.debounce(() => {
-        if (parent.global.document.hidden) {
+      emit = lt.debounce(() => {
+        if (lt.global.document.hidden) {
           emit();
           return;
         }
-        parent.debug && parent.global.console.debug('redraw');
-        lichess.pubsub.emit('lichessTools.redraw');
+        lt.debug && lt.global.console.debug('redraw');
+        lt.pubsub.emit('lichessTools.redraw');
       }, 250);
-      parent.emitRedraw = emit;
+      lt.emitRedraw = emit;
       this.analysisStart();
       lichess.pubsub.off('ply', emit);
       lichess.pubsub.on('ply', emit);
       lichess.pubsub.off('chat.resize', emit);
       lichess.pubsub.on('chat.resize', emit);
-      parent.global.clearInterval(this._interval);
-      this._interval = parent.global.setInterval(() => {
+      lt.global.clearInterval(this._interval);
+      this._interval = lt.global.setInterval(() => {
         const board = $('div.main-board div.cg-wrap');
         const cls = board.attr('class');
         if (this._cls != cls) {

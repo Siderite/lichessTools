@@ -27,13 +27,13 @@
 
 
     clearRankShapes = (shapes) => {
-      const parent = this.lichessTools;
-      parent.arrayRemoveAll(shapes, s => s.type === 'rank');
+      const lt = this.lichessTools;
+      lt.arrayRemoveAll(shapes, s => s.type === 'rank');
     };
 
     ensureShapeRank = () => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       this.chessground = analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
       const drawable = this.chessground?.state.drawable;
       if (!drawable || !this.options.enabled) return;
@@ -59,7 +59,7 @@
                   type: 'rank',
                   orig: shape.orig,
                   dest: false, // fix lichess bug where this is found as the shape to erase
-                  customSvg: parent.makeSvg('<text x="10%" y="50%" font-size="200%" fill="black" stroke="' + shape.brush + '" font-family="Noto Sans, sans-serif" >' + rank + '</text>', this.chessground)
+                  customSvg: lt.makeSvg('<text x="10%" y="50%" font-size="200%" fill="black" stroke="' + shape.brush + '" font-family="Noto Sans, sans-serif" >' + rank + '</text>', this.chessground)
                 };
                 dict[rankShape.orig] = true;
                 drawnShapes.push(rankShape);
@@ -77,18 +77,18 @@
     };
 
     waitForChessground = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       this.chessground = analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
       if (!this.chessground) {
-        parent.global.setTimeout(this.waitForChessground, 500);
+        lt.global.setTimeout(this.waitForChessground, 500);
         return;
       }
-      const isWrapped = parent.isWrappedFunction(this.chessground.state.drawable.onChange, 'shapeRank');
+      const isWrapped = lt.isWrappedFunction(this.chessground.state.drawable.onChange, 'shapeRank');
       if (this.options.enabled) {
         if (!isWrapped && this.chessground.state.drawable.onChange) {
-          this.chessground.state.drawable.onChange = parent.wrapFunction(this.chessground.state.drawable.onChange, {
+          this.chessground.state.drawable.onChange = lt.wrapFunction(this.chessground.state.drawable.onChange, {
             id: 'shapeRank',
             before: ($this, ...args) => {
               const originalFunction = this.chessground.state.drawable.onChange.__originalFunction.bind($this);
@@ -100,10 +100,10 @@
             }
           });
         }
-        parent.global.setTimeout(this.ensureShapeRank, 500); //TODO without the timeout something clears the shapes in about 250ms at first page load (probably a web socket event)
+        lt.global.setTimeout(this.ensureShapeRank, 500); //TODO without the timeout something clears the shapes in about 250ms at first page load (probably a web socket event)
       } else {
         if (isWrapped) {
-          this.chessground.state.drawable.onChange = parent.unwrapFunction(this.chessground.state.drawable.onChange, 'shapeRank');
+          this.chessground.state.drawable.onChange = lt.unwrapFunction(this.chessground.state.drawable.onChange, 'shapeRank');
         }
         this.clearRankShapes(this.chessground.state.drawable.shapes);
         this.chessground.redrawAll();
@@ -111,16 +111,16 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const value = parent.currentOptions.getValue('shapeRank');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const value = lt.currentOptions.getValue('shapeRank');
       this.options = { enabled: value };
       this.logOption('Show the order of arrows and circles', value);
-      lichess.pubsub.off('lichessTools.shapeRank', this.waitForChessground);
-      lichess.pubsub.off('lichessTools.redraw', this.waitForChessground);
+      lt.pubsub.off('lichessTools.shapeRank', this.waitForChessground);
+      lt.pubsub.off('lichessTools.redraw', this.waitForChessground);
       if (this.options.enabled) {
-        lichess.pubsub.on('lichessTools.shapeRank', this.waitForChessground);
-        lichess.pubsub.on('lichessTools.redraw', this.waitForChessground);
+        lt.pubsub.on('lichessTools.shapeRank', this.waitForChessground);
+        lt.pubsub.on('lichessTools.redraw', this.waitForChessground);
       }
       this.waitForChessground();
     }

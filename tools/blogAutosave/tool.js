@@ -33,8 +33,8 @@
     }
 
     saveBlog = async (forced) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const form = $('form.ublog-post-form__main');
       if (!form.length) return;
       if (!forced && form.find('[name="live"]').is(':checked')) return;
@@ -49,41 +49,41 @@
           };
         })
         .filter(a => !!a.name);
-      const bodyContent = arr.map(a => a.name + '=' + parent.global.encodeURIComponent(a.value)).join('&');
+      const bodyContent = arr.map(a => a.name + '=' + lt.global.encodeURIComponent(a.value)).join('&');
       if (!forced && bodyContent == this.lastSave) return;
       try {
         $('body').addClass('lichessTools-blogAutosave');
-        await parent.api.blog.save(this.blogId, arr);
+        await lt.api.blog.save(this.blogId, arr);
       } finally {
-        parent.global.setTimeout(() => $('body').removeClass('lichessTools-blogAutosave'), 2000);
+        lt.global.setTimeout(() => $('body').removeClass('lichessTools-blogAutosave'), 2000);
       }
       this.lastSave = bodyContent;
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('blogAutosave');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('blogAutosave');
       this.logOption('Blog autosave', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
       this.options = {
-        autosave: parent.isOptionSet(value, 'autosave'),
-        savebutton: parent.isOptionSet(value, 'savebutton'),
+        autosave: lt.isOptionSet(value, 'autosave'),
+        savebutton: lt.isOptionSet(value, 'savebutton'),
       };
-      const isBlogEdit = /^\/ublog\/(?<blogId>[^\/]+)\/edit/.exec(parent.global.location.pathname);
+      const isBlogEdit = /^\/ublog\/(?<blogId>[^\/]+)\/edit/.exec(lt.global.location.pathname);
       if (!isBlogEdit) return;
       this.blogId = isBlogEdit.groups.blogId;
-      const $ = parent.$;
-      const trans = parent.translator;
-      parent.global.clearTimeout(this.interval);
-      parent.global.removeEventListener('beforeunload', this.saveBlog);
+      const $ = lt.$;
+      const trans = lt.translator;
+      lt.global.clearTimeout(this.interval);
+      lt.global.removeEventListener('beforeunload', this.saveBlog);
       $('p.lichessTools-saved').remove();
       $('div.form-actions button.lichessTools-blogAutosave').remove();
       if (this.options.autosave) {
-        this.interval = parent.global.setInterval(this.saveBlog, 30000);
-        parent.global.addEventListener('beforeunload', this.saveBlog);
+        this.interval = lt.global.setInterval(this.saveBlog, 30000);
+        lt.global.addEventListener('beforeunload', this.saveBlog);
       }
       if (this.options.savebutton) {
         $('<button class="button lichessTools-blogAutosave">')

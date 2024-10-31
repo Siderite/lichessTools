@@ -30,9 +30,9 @@
     }
 
     squareCoords = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       let container = $('div.main-board > div.cg-wrap > cg-container');
       if (!container.length) return;
       if (container.children('coords.lichessTools-fixCoords').length) return;
@@ -51,15 +51,15 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('fixCoords');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('fixCoords');
       this.logOption('Fix coordinates', value);
       this.options = {
-        fix: parent.isOptionSet(value, 'fix'),
-        larger: parent.isOptionSet(value, 'larger'),
-        square: parent.isOptionSet(value, 'square')
+        fix: lt.isOptionSet(value, 'fix'),
+        larger: lt.isOptionSet(value, 'larger'),
+        square: lt.isOptionSet(value, 'square')
       };
       const body = $.cached('body');
       body
@@ -81,9 +81,9 @@
           .toggleClass('coords-in', this._init_in)
           .toggleClass('coords-out', this._init_out);
       }
-      parent.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.interval);
       if (this.options.square) {
-        this.interval = parent.global.setInterval(this.squareCoords, 500);
+        this.interval = lt.global.setInterval(this.squareCoords, 500);
       }
     }
 

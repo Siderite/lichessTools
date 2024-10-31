@@ -37,12 +37,12 @@
       try {
       if (this._inShowDecimals) return;
       this._inShowDecimals=true;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      const trans = parent.translator;
+      const trans = lt.translator;
       const ceval = analysis.node.ceval;
       if (ceval) {
         const pearl = $('div.ceval pearl');
@@ -67,7 +67,7 @@
         const ceval = node.ceval;
         if (!evl || ceval?.depth >= 16) evl = ceval;
         if (evl) {
-          const elem = parent.getElementForPath(path);
+          const elem = lt.getElementForPath(path);
           if (elem) {
             let evalElem = $('eval', elem);
             if (!evalElem?.length) {
@@ -91,8 +91,8 @@
 
     setupObserver = ()=>{
       if (!this.options.enabled) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const analyseTools = $('.analyse__tools');
       if (!analyseTools.length) return;
       if (!analyseTools.hasObserver()) {
@@ -103,18 +103,18 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('cevalDecimals');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('cevalDecimals');
       this.logOption('Ceval decimals', value);
       this.options = { enabled: !!value };
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      lichess.pubsub.off('lichessTools.redraw', this.setupObserver);
+      lt.pubsub.off('lichessTools.redraw', this.setupObserver);
       $('.analyse__tools').removeObserver();
       if (!value) return;
-      lichess.pubsub.on('lichessTools.redraw', this.setupObserver);
+      lt.pubsub.on('lichessTools.redraw', this.setupObserver);
       this.setupObserver();
     }
 

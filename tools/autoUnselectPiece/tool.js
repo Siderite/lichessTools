@@ -42,8 +42,8 @@
     };
 
     checkPieceSelection = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (!this.options.seconds) return;
       if (!$.cached('body').is('.playing')) return;
       const selectedSquare = $('square.selected')[0]?.cgKey;
@@ -51,12 +51,12 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('autoUnselectPiece');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('autoUnselectPiece');
       this.logOption('Auto unselect piece', value || 'no');
-      parent.global.clearInterval(this.checkPieceSelection);
+      lt.global.clearInterval(this.checkPieceSelection);
       this.options = { seconds: +value };
       if (!this.options.seconds) return;
       const bindings = lichess.mousetrap?.bindings;
@@ -66,7 +66,7 @@
         const isLastMove = $('div.tview2 move:last-child').is('.active') || $('div.ruser-top + * div.buttons + *>:last-child')[0]?.className;
         if (isLastMove) bindings.down?.find(b => b.combination == 'down')?.callback();
       };
-      this.discoverChatInterval = parent.global.setInterval(this.checkPieceSelection, 500);
+      this.discoverChatInterval = lt.global.setInterval(this.checkPieceSelection, 500);
     }
 
   }

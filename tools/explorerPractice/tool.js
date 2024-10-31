@@ -52,9 +52,9 @@
 
     writePlayerName = async () => {
       if (!this.options.showNames) return;
-      const parent = this.lichessTools;
-      const analysis = parent.lichess.analysis;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
+      const $ = lt.$;
       const board = $('div.main-board cg-board');
       let label = $('.lichessTools-explorerPractice', board);
       let turn = analysis.turnColor();
@@ -63,7 +63,7 @@
         return;
       }
       while (analysis.explorer?.loading()) {
-        await parent.timeout(50);
+        await lt.timeout(50);
       }
       const current = analysis.explorer?.current();
       const square = this._lastUci?.slice(2, 4);
@@ -79,7 +79,7 @@
       turn = turn == 'white' ? 'black' : 'white';
       const playerNames = [...current.recentGames || [], ...current.topGames || []]
         .map(m => m[turn].name);
-      const playerIndex = Math.floor(parent.random() * playerNames.length);
+      const playerIndex = Math.floor(lt.random() * playerNames.length);
       const playerName = playerNames[playerIndex] || '';
       const coords = analysis.getOrientation() == 'white'
         ? { x: square.charCodeAt(0) - 97, y: (+square[1]) - 1 }
@@ -94,19 +94,19 @@
     };
 
     removePlayerName = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const board = $('div.main-board cg-board');
       const label = $('.lichessTools-explorerPractice', board);
       label.remove();
     };
 
     playMove = (ignoreSide) => {
-      const parent = this.lichessTools;
-      const Math = parent.global.Math;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       const turn = analysis.turnColor();
       if (!ignoreSide && turn === analysis.getOrientation()) {
@@ -119,14 +119,14 @@
         return;
       }
       if (analysis.explorer?.loading()) {
-        parent.global.setTimeout(this.process, 500);
+        lt.global.setTimeout(this.process, 500);
         return;
       }
       const current = analysis.explorer?.current();
       if (!current) return;
       const moves = [...current.moves];
       const total = moves.map(m => m.total = m.black + m.draws + m.white).reduce((acc, val) => acc + val, 0);
-      const index = parent.random() * total;
+      const index = lt.random() * total;
       let acc = 0;
       for (const move of moves) {
         acc += move.total;
@@ -139,22 +139,25 @@
       }
       if (!this.isRunning) return;
       if (this.isPlayMove) return;
-      parent.announce(trans.noarg('outOfMoves'));
+      lt.announce(trans.noarg('outOfMoves'));
       this.evaluatePosition();
     };
 
     getEngine = async ()=>{
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       while (this.sfLoading) {
-        await parent.timeout(100);
+        await lt.timeout(100);
       }
       if (this.sf) return this.sf;
       try{
         this.sfLoading = true;
-        const sf = await parent.stockfish.load();
+        const sf = await lt.stockfish.load();
         if (!sf) throw new Error('Could not load Stockfish!');
         sf.setMultiPv(1);
-        sf.on('info', i => { this.lastInfo = i; });
+        sf.on('info', i => { 
+          if (i.cp === undefined && i.mate === undefined) return;
+          this.lastInfo = i;
+        });
         sf.on('bestmove', i => { this.info = this.lastInfo; });
         this.sf=sf;
         return sf;
@@ -165,13 +168,13 @@
 
     evaluatePosition = async ()=>{
       if (!this.options.showSmileys) return;
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       const node = analysis.node;
 
       if (node.glyphs?.length) return;
-      const depth = +(parent.currentOptions.getValue('customEngineLevel')) || 16;
+      const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 16;
       this.info=null;
 
       if (node.ceval?.depth >= depth) {
@@ -186,13 +189,13 @@
         sf.setPosition(node.fen);
         sf.start();
         while (!this.info && !this.stopCeval && analysis.node === node) {
-          await parent.timeout(100);
+          await lt.timeout(100);
         }
         sf.stop();
       }
 
+      if (!this.info) return;
       const info={...this.info};
-      if (!info) return;
 
       const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
       const side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
@@ -237,16 +240,16 @@
     };
 
     process = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const analysis = lichess?.analysis;
       if (lichess.analysis.gamebookPlay()) {
         this.setRunning(false);
         return;
       };
-      if (parent.isGamePlaying()) {
+      if (lt.isGamePlaying()) {
         this.setRunning(false);
         return;
       }
@@ -282,7 +285,7 @@
             ev.preventDefault();
             this.setRunning(!this.isRunning);
             this.process();
-            parent.emitRedraw();
+            lt.emitRedraw();
           })
           .prependTo(container);
       }
@@ -294,46 +297,46 @@
         ? !this.options.showInfoStudy
         : !this.options.showInfoAnalysis;
       explorerContainer.toggleClass('lichessTools-hideExplorerData', !!this.isRunning && hideData);
-      if (this.isRunning) parent.global.setTimeout(this.playMove, 500);
+      if (this.isRunning) lt.global.setTimeout(this.playMove, 500);
     };
     processDebounced = this.lichessTools.debounce(this.process, 500);
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('explorerPractice');
-      const options = parent.currentOptions.getValue('explorerPracticeOptions');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('explorerPractice');
+      const options = lt.currentOptions.getValue('explorerPracticeOptions');
       this.options = {
-        showSmileys: parent.isOptionSet(options, 'showSmileys'),
-        showNames: parent.isOptionSet(options, 'showNames'),
-        showInfoStudy: parent.isOptionSet(options, 'showInfoStudy'),
-        showInfoAnalysis: parent.isOptionSet(options, 'showInfoAnalysis'),
-        sumClick: parent.isOptionSet(options, 'sumClick')
+        showSmileys: lt.isOptionSet(options, 'showSmileys'),
+        showNames: lt.isOptionSet(options, 'showNames'),
+        showInfoStudy: lt.isOptionSet(options, 'showInfoStudy'),
+        showInfoAnalysis: lt.isOptionSet(options, 'showInfoAnalysis'),
+        sumClick: lt.isOptionSet(options, 'sumClick')
       };
       this.logOption('Explorer practice', value);
       this.logOption(' ... options', options);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       if (analysis.gamebookPlay()) return;
-      lichess.pubsub.off('lichessTools.redraw', this.processDebounced);
+      lt.pubsub.off('lichessTools.redraw', this.processDebounced);
       lichess.pubsub.off('ply', this.writePlayerName);
       $('main.analyse div.analyse__controls').off('click touchend', this.process);
-      parent.unbindKeyHandler('shift+l');
-      analysis.userJump = parent.unwrapFunction(analysis.userJump, 'explorerPractice');
+      lt.unbindKeyHandler('shift+l');
+      analysis.userJump = lt.unwrapFunction(analysis.userJump, 'explorerPractice');
       if (!value) {
         $('section.explorer-box span.lichessTools-explorerPractice').remove();
         return;
       }
-      parent.bindKeyHandler('shift+l', () => {
+      lt.bindKeyHandler('shift+l', () => {
         this.setRunning(!this.isRunning);
         this.process();
-        parent.emitRedraw();
+        lt.emitRedraw();
       });
-      lichess.pubsub.on('lichessTools.redraw', this.processDebounced);
+      lt.pubsub.on('lichessTools.redraw', this.processDebounced);
       lichess.pubsub.on('ply', this.writePlayerName);
       $('main.analyse div.analyse__controls').on('click touchend', this.process);
-      analysis.userJump = parent.wrapFunction(analysis.userJump, {
+      analysis.userJump = lt.wrapFunction(analysis.userJump, {
         id: 'explorerPractice',
         after: ($this, result, ...args) => {
           this.inPlayMove = false;

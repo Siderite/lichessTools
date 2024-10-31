@@ -23,9 +23,9 @@
     }
 
     async init() {
-      const parent = this.lichessTools;
-      if (!parent.global.AbortController) return;
-      parent.global.AbortController.prototype.abort = parent.wrapFunction(parent.global.AbortController.prototype.abort, {
+      const lt = this.lichessTools;
+      if (!lt.global.AbortController) return;
+      lt.global.AbortController.prototype.abort = lt.wrapFunction(lt.global.AbortController.prototype.abort, {
         id: 'fixAbortController',
         before: ($this, ...args) => {
           if ($this.signal?.aborted) return false;
@@ -35,10 +35,10 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('fixAbortController');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('fixAbortController');
       this.logOption('Fix AbortController in debug mode', value);
-      parent.global.AbortController.prototype.abort = parent.unwrapFunction(parent.global.AbortController.prototype.abort, 'fixAbortController');
+      lt.global.AbortController.prototype.abort = lt.unwrapFunction(lt.global.AbortController.prototype.abort, 'fixAbortController');
       if (!value) return;
       this.init();
     }

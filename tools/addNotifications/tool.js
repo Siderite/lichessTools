@@ -34,21 +34,21 @@
     };
 
     processNotifications = async (el) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       if (lichess.quietMode) return;
-      if (parent.global.document.hidden) return;
-      const $ = parent.$;
-      const trans = parent.translator;
+      if (lt.global.document.hidden) return;
+      const $ = lt.$;
+      const trans = lt.translator;
       if (el !== true && !$(el).is('div.notifications')) return;
-      this.lastRead = parent.storage.get('LiChessTools.lastRead', 0);
+      this.lastRead = lt.storage.get('LiChessTools.lastRead', 0);
 
       if ($('.shown div.notifications').length || this._unreadNotifications === undefined) {
         this._unreadNotifications = 0;
-        parent.global.clearInterval(this.closeInterval);
-        this.closeInterval = parent.global.setInterval(() => {
+        lt.global.clearInterval(this.closeInterval);
+        this.closeInterval = lt.global.setInterval(() => {
           if (!$('.shown div.notifications').length) {
-            parent.global.clearInterval(this.closeInterval);
+            lt.global.clearInterval(this.closeInterval);
             this.forcedProcessNotifications();
           }
         }, 500);
@@ -99,10 +99,10 @@
 
     _unreadNotifications = undefined;
     updateNotificationCount = (ev) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       let count = ev?.unread;
       if (count === undefined) {
-        parent.global.console.warn('Could not read unread value from socket.in.notifications', ev);
+        lt.global.console.warn('Could not read unread value from socket.in.notifications', ev);
       }
       count = +count;
       if (this._unreadNotifications != count) {
@@ -112,29 +112,29 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const value = parent.currentOptions.getValue('addNotifications');
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const value = lt.currentOptions.getValue('addNotifications');
       this.logOption('Add notifications', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
 
       lichess.pubsub.off('content-loaded', this.processNotifications);
-      parent.global.clearInterval(this.interval);
-      parent.global.clearInterval(this.closeInterval);
+      lt.global.clearInterval(this.interval);
+      lt.global.clearInterval(this.closeInterval);
       lichess.pubsub.off('socket.in.notifications', this.updateNotificationCount);
-      parent.notifications = undefined;
+      lt.notifications = undefined;
       if (!value) return;
-      parent.notifications = {
+      lt.notifications = {
         add: this.addNotification.bind(this),
         refresh: this.forcedProcessNotifications.bind(this)
       };
 
       lichess.pubsub.on('content-loaded', this.processNotifications);
-      this.interval = parent.global.setInterval(() => {
+      this.interval = lt.global.setInterval(() => {
         if ($('div.shown #notify-app div.empty.text').length) {
           this.forcedProcessNotifications();
         }
@@ -142,7 +142,7 @@
 
       lichess.pubsub.on('socket.in.notifications', this.updateNotificationCount);
       if (this._unreadNotifications === undefined) {
-        const unread = await parent.api.notification.getUnread();
+        const unread = await lt.api.notification.getUnread();
         this._unreadNotifications = unread;
       }
       this.forcedProcessNotifications();

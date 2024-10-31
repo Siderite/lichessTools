@@ -32,9 +32,9 @@
     }
 
     addExpandAllButton = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
       let button = $('button.lichessTools-expandAll');
       if ($.single('.tview2 line.expand').length) {
         if (button.length) return;
@@ -54,17 +54,17 @@
     };
 
     expandAll = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const analysis = lt.lichess.analysis;
       analysis.setAllCollapsed('', false);
       $('button.lichessTools-expandAll').remove();
     }
 
     autoExpand = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const analysis = parent.lichess.analysis;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const analysis = lt.lichess.analysis;
       const tview2 = $('.tview2')[0];
       if (!tview2) return;
       const autoExpanded = analysis.tree.root;
@@ -75,27 +75,27 @@
     }
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('expandAll');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('expandAll');
       this.logOption('Expand all', value);
       this.options = {
-        showButton: parent.isOptionSet(value, 'showButton'),
-        autoExpand: parent.isOptionSet(value, 'autoExpand'),
+        showButton: lt.isOptionSet(value, 'showButton'),
+        autoExpand: lt.isOptionSet(value, 'autoExpand'),
         get isSet() { return this.showButton || this.autoExpand; }
       };
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       $('button.lichessTools-expandAll').remove();
-      lichess.pubsub.off('lichessTools.redraw', this.addExpandAllButton);
-      lichess.pubsub.off('lichessTools.redraw', this.autoExpand);
+      lt.pubsub.off('lichessTools.redraw', this.addExpandAllButton);
+      lt.pubsub.off('lichessTools.redraw', this.autoExpand);
       if (this.options.showButton) {
-        lichess.pubsub.on('lichessTools.redraw', this.addExpandAllButton);
+        lt.pubsub.on('lichessTools.redraw', this.addExpandAllButton);
         this.addExpandAllButton();
       }
       if (this.options.autoExpand) {
-        lichess.pubsub.on('lichessTools.redraw', this.autoExpand);
+        lt.pubsub.on('lichessTools.redraw', this.autoExpand);
         this.autoExpand();
       }
     }

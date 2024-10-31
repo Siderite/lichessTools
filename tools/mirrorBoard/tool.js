@@ -30,21 +30,21 @@
     }
 
     mirrorBoard = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const input = $('div.copyables input[enterkeyhint="done"]');
       const fen = input.val();
-      const mirrorFen = parent.reverseFen(fen);
+      const mirrorFen = lt.reverseFen(fen);
       input.val(mirrorFen).trigger('change');
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('mirrorBoard');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('mirrorBoard');
       this.logOption('Sticky analysis', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       $('.board-editor__tools .actions buttons.lichessTools-mirrorBoard').remove();
       if (!value) return;
       $('<button class="button button-empty lichessTools-mirrorBoard"><span class="text"></span></button>')

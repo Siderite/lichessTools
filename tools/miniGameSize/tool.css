@@ -8,7 +8,11 @@ body.lichessTools.lichessTools-miniGameSize .pv_box .pv-board {
 body.lichessTools.lichessTools-miniGameSize #powerTip,
 body.lichessTools.lichessTools-miniGameSize #miniGame,
 body.lichessTools.lichessTools-miniGameSize #miniBoard {
-  min-width: 15rem;
+  min-width: 17rem;
+}
+
+body.lichessTools.lichessTools-miniGameSize .upt__info__ratings > span[data-icon]:before {
+  margin-inline: 0 0.2em;
 }
 
 body.lichessTools.lichessTools-miniGameSize .pv_box .pv-board {

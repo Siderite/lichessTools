@@ -42,8 +42,8 @@
     };
 
     getSettings = () => {
-      const parent = this.lichessTools;
-      const data = parent.lichess?.analysis?.explorer?.config?.data;
+      const lt = this.lichessTools;
+      const data = lt.lichess?.analysis?.explorer?.config?.data;
       if (!data) return;
       const settings = {
         timeControl: data.speed(),
@@ -55,8 +55,8 @@
     };
 
     setSnap = (snap) => {
-      const parent = this.lichessTools;
-      const analysis = parent.lichess?.analysis;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess?.analysis;
       const data = analysis?.explorer?.config?.data;
       if (!data) return;
       data.speed(snap.settings.timeControl);
@@ -68,8 +68,8 @@
     };
 
     getSnapElement = (snap) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       return $('section.lichessTools-explorerSnaps button[data-act="shot"]').filter((i, e) => {
         const text = $(e).attr('data-act-title');
         return text == snap.text;
@@ -77,31 +77,31 @@
     };
 
     highlightSnap = (snap) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const elem = this.getSnapElement(snap);
       elem.addClass('lichessTools-highlight');
-      parent.global.setTimeout(() => elem.removeClass('lichessTools-highlight'), 1000);
+      lt.global.setTimeout(() => elem.removeClass('lichessTools-highlight'), 1000);
     }
 
     removeSnap = (snap) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      parent.arrayRemoveAll(this.options.snaps, s => s.text == snap.text);
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      lt.arrayRemoveAll(this.options.snaps, s => s.text == snap.text);
       this.saveSnaps();
     };
 
     getSnapBySettings = (settings) => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const stringify = parent.global.JSON.stringify;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const stringify = lt.global.JSON.stringify;
       let snap = this.options.snaps.find(s => stringify(s.settings) == stringify(settings));
       return snap;
     }
 
     toggleSnaps = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
       if (!this.options.enabled || this.options.snaps.length <= 1) return;
       const settings = this.getSettings();
       let snap = this.getSnapBySettings(settings);
@@ -118,18 +118,18 @@
     };
 
     snapSettings = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
       const settings = this.getSettings();
       let snap = this.getSnapBySettings(settings);
       if (snap) {
         this.highlightSnap(snap);
         return;
       }
-      const text = parent.global.prompt(trans.noarg('addSnapPrompt'));
+      const text = lt.global.prompt(trans.noarg('addSnapPrompt'));
       if (!text) return;
-      if (this.options.snaps.find(s => s.text == text) && !parent.global.confirm(trans.pluralSame('replaceSnapPrompt', text))) return;
+      if (this.options.snaps.find(s => s.text == text) && !lt.global.confirm(trans.pluralSame('replaceSnapPrompt', text))) return;
       snap = {
         text: text,
         settings: settings
@@ -139,15 +139,15 @@
     };
 
     saveSnaps = () => {
-      const parent = this.lichessTools;
-      parent.storage.set('LiChessTools.explorerSnaps', this.options.snaps);
-      parent.emitRedraw();
+      const lt = this.lichessTools;
+      lt.storage.set('LiChessTools.explorerSnaps', this.options.snaps);
+      lt.emitRedraw();
     };
 
     getTitle = (settings) => {
       if (!settings) return '';
-      const parent = this.lichessTools;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
 
       const compress = (allArr, arr) => {
         const resultArr = [];
@@ -195,10 +195,10 @@
     };
 
     showSnapsDirect = () => {
-      const parent = this.lichessTools;
-      const lichess = parent.lichess;
-      const $ = parent.$;
-      const trans = parent.translator;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
       const explorer = lichess.analysis?.explorer;
       if (!explorer?.enabled()) return;
 
@@ -271,16 +271,16 @@
     showSnaps = this.lichessTools.debounce(this.showSnapsDirect, 100);
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('explorerSnaps');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('explorerSnaps');
       this.logOption('Explorer snaps', value);
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const explorer = lichess?.analysis?.explorer;
       if (!explorer) return;
       this.options = {
         enabled: value,
-        snaps: parent.storage.get('LiChessTools.explorerSnaps') || []
+        snaps: lt.storage.get('LiChessTools.explorerSnaps') || []
       };
       for (const snap of this.options.snaps) {
         if (snap.title) {
@@ -288,11 +288,11 @@
           delete snap.title;
         }
       }
-      explorer.config.toggleOpen = parent.unwrapFunction(explorer.config.toggleOpen, 'explorerSnaps');
-      explorer.enabled = parent.unwrapFunction(explorer.enabled, 'explorerSnaps');
-      explorer.fetch = parent.unwrapFunction(explorer.fetch, 'explorerSnaps');
+      explorer.config.toggleOpen = lt.unwrapFunction(explorer.config.toggleOpen, 'explorerSnaps');
+      explorer.enabled = lt.unwrapFunction(explorer.enabled, 'explorerSnaps');
+      explorer.fetch = lt.unwrapFunction(explorer.fetch, 'explorerSnaps');
       $('section.explorer-box section.lichessTools-explorerSnaps').remove();
-      lichess.pubsub.off('lichessTools.redraw', this.showSnaps);
+      lt.pubsub.off('lichessTools.redraw', this.showSnaps);
       $('.explorer-title span.lichess')
         .removeClass('lichessTools-explorerSnaps')
         .off('click', this.toggleSnaps);
@@ -307,7 +307,7 @@
         }
         return;
       }
-      explorer.config.toggleOpen = parent.wrapFunction(explorer.config.toggleOpen, {
+      explorer.config.toggleOpen = lt.wrapFunction(explorer.config.toggleOpen, {
         id: 'explorerSnaps',
         after: ($this, result) => {
           if (explorer.config.data.open()) {
@@ -315,7 +315,7 @@
           }
         }
       });
-      explorer.enabled = parent.wrapFunction(explorer.enabled, {
+      explorer.enabled = lt.wrapFunction(explorer.enabled, {
         id: 'explorerSnaps',
         after: ($this, result, value) => {
           if (value) {
@@ -323,13 +323,13 @@
           }
         }
       });
-      explorer.fetch = parent.wrapFunction(explorer.fetch, {
+      explorer.fetch = lt.wrapFunction(explorer.fetch, {
         id: 'explorerSnaps',
         after: ($this, result, ...args) => {
           this.showSnaps();
         }
       });
-      lichess.pubsub.on('lichessTools.redraw', this.showSnaps);
+      lt.pubsub.on('lichessTools.redraw', this.showSnaps);
       this.showSnaps();
     }
 

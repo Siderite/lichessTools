@@ -41,13 +41,13 @@
       return { start: [...this.defaultButtons.start], end: [...this.defaultButtons.end] };
     };
     getButtons = () => {
-      const parent = this.lichessTools;
-      let buttons = parent.currentOptions['customChatButtons.buttons'] || this.getDefaultButtons();
+      const lt = this.lichessTools;
+      let buttons = lt.currentOptions['customChatButtons.buttons'] || this.getDefaultButtons();
       buttons = buttons[this.group];
       if (!buttons) buttons = this.getDefaultButtons()[this.group];
       if (!buttons) {
         console.warn('chat buttons could not be initialized!');
-        parent.global.clearTimeout(this.discoverChatInterval);
+        lt.global.clearTimeout(this.discoverChatInterval);
         return;
       }
       buttons = buttons.map(b => {
@@ -62,25 +62,25 @@
     }
 
     saveButtons = async buttons => {
-      const parent = this.lichessTools;
-      parent.currentOptions['customChatButtons.buttons'] = buttons;
-      await parent.saveOptions(parent.currentOptions);
-      parent.fireReloadOptions();
+      const lt = this.lichessTools;
+      lt.currentOptions['customChatButtons.buttons'] = buttons;
+      await lt.saveOptions(lt.currentOptions);
+      lt.fireReloadOptions();
     };
 
     jiggle = elem => {
       this.setEditMode(this.editMode);
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       elem.addClass('lichessTools-jiggle');
-      parent.global.setTimeout(() => elem.removeClass('lichessTools-jiggle'), 1000);
+      lt.global.setTimeout(() => elem.removeClass('lichessTools-jiggle'), 1000);
     };
 
     deleteButton = item => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const isAddButton = $(item.elem).is('.lichessTools-addButton');
       if (isAddButton) return;
-      const buttons = parent.currentOptions['customChatButtons.buttons'] || this.getDefaultButtons();
+      const buttons = lt.currentOptions['customChatButtons.buttons'] || this.getDefaultButtons();
       const groupButtons = buttons[this.group];
       const existingButtons = $('section.mchat div.mchat__presets span:not([data-role])').get();
       const index = existingButtons.indexOf(item.elem);
@@ -95,9 +95,9 @@
     };
 
     updateButton = item => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const buttons = parent.currentOptions['customChatButtons.buttons'] || this.getDefaultButtons();
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const buttons = lt.currentOptions['customChatButtons.buttons'] || this.getDefaultButtons();
       const groupButtons = buttons[this.group];
       const isAddButton = $(item.elem).is('.lichessTools-addButton');
       if (isAddButton) {
@@ -113,8 +113,8 @@
     };
 
     addButton = (ev) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const elem = $(ev.currentTarget);
       const chat = $('section.mchat');
       if (!chat.length) return;
@@ -137,8 +137,8 @@
     };
 
     clickHandler = (ev) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const elem = $(ev.currentTarget);
       const chat = $('section.mchat');
       if (!chat.length) return;
@@ -146,7 +146,7 @@
       const chatText = chatInput.val();
       if (!this.editMode) {
         const text = elem.attr('title');
-        parent.lichess.pubsub.emit("socket.send", "talk", text);
+        lt.lichess.pubsub.emit("socket.send", "talk", text);
         return;
       }
       const buttons = this.getButtons();
@@ -176,9 +176,9 @@
     };
 
     setEditMode = (mode) => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const $ = lt.$;
       const chat = $('section.mchat');
       const chatInput = $('input.mchat__say', chat);
       this.editMode = mode;
@@ -194,9 +194,9 @@
 
     group = 'start';
     discoverChat = () => {
-      const parent = this.lichessTools;
-      const trans = parent.translator;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const $ = lt.$;
       const chat = $('section.mchat');
       if (!chat.length) return;
       const presets = $('div.mchat__presets', chat);
@@ -220,7 +220,7 @@
           }
           if (!elem[0].isCustomized) {
             elem[0].isCustomized = true;
-            parent.removeEventHandlers(elem[0], 'click');
+            lt.removeEventHandlers(elem[0], 'click');
             elem.on('click', this.clickHandler);
           }
         }
@@ -276,16 +276,16 @@
     };
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('customChatButtons');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('customChatButtons');
       this.logOption('Customize chat buttons', value);
-      if (!parent.getUserId()) {
-        parent.global.console.debug(' ... Disabled (not logged in)');
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      parent.global.clearInterval(this.discoverChatInterval);
+      lt.global.clearInterval(this.discoverChatInterval);
       if (!value) return;
-      this.discoverChatInterval = parent.global.setInterval(this.discoverChat, 1000);
+      this.discoverChatInterval = lt.global.setInterval(this.discoverChat, 1000);
     }
 
   }

@@ -30,9 +30,9 @@
     };
 
     getYoutubeId = (e) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const URL = parent.global.URL;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const URL = lt.global.URL;
       const href = $(e).attr('href');
       if (!href || !URL.canParse(href)) return;
       const url = URL.parse(href);
@@ -41,9 +41,9 @@
     };
 
     getTwitchId = (e) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const URL = parent.global.URL;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const URL = lt.global.URL;
       const href = $(e).attr('href');
       if (!href || !URL.canParse(href)) return;
       const url = URL.parse(href);
@@ -52,9 +52,9 @@
     };
 
     getVimeoId = (e) => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
-      const URL = parent.global.URL;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const URL = lt.global.URL;
       const href = $(e).attr('href');
       if (!href || !URL.canParse(href)) return;
       const url = URL.parse(href);
@@ -63,8 +63,8 @@
     };
 
     handleVideoLinks = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('comment a,div.comment a').each((i, e) => {
         if (e.handleVideoLink) return;
         if (this.getYoutubeId(e) || this.getTwitchId(e) || this.getVimeoId(e)) {
@@ -76,7 +76,7 @@
     };
 
     getVideoUrl = (e) => {
-      const parent = this.lichessTools;
+      const lt = this.lichessTools;
       let data = this.getYoutubeId(e);
       if (data) {
         return `https://www.youtube.com/embed/${data.id}?state=1&autoplay=1&autohide=0&showinfo=0&rel=0&start=${data.time}&end=${data.end}`;
@@ -87,33 +87,33 @@
       }
       data = this.getTwitchId(e);
       if (data) {
-        return `https://player.twitch.tv/?video=${data.id}&parent=${parent.global.location.hostname}&autoplay=true&muted=false&t=${data.time}`;
+        return `https://player.twitch.tv/?video=${data.id}&parent=${lt.global.location.hostname}&autoplay=true&muted=false&t=${data.time}`;
       }
     }
 
     ensureInViewport = () => {
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const dialog = $('dialog.lichessTools-video');
-      if (parent.inViewport($('.dialog-header', dialog)) < 0.5) {
+      if (lt.inViewport($('.dialog-header', dialog)) < 0.5) {
         $(dialog).css({ left: '', top: '', right: '', bottom: '' });
         $('.dialog-content', dialog).css({ width: '', height: '' });
       }
     }
 
     handleVideoClick = (ev) => {
-      const parent = this.lichessTools;
-      const supportsCredentialless = !!parent.global.HTMLIFrameElement?.prototype?.hasOwnProperty('credentialless');
+      const lt = this.lichessTools;
+      const supportsCredentialless = !!lt.global.HTMLIFrameElement?.prototype?.hasOwnProperty('credentialless');
       if (!supportsCredentialless) {
         console.warn('This browser does not support credentialless iframes. Video popups cannot work!');
         return;
       }
-      const $ = parent.$;
+      const $ = lt.$;
       const url = this.getVideoUrl(ev.target);
       if (url) {
         ev.preventDefault();
         $('.lichessTools-video').remove();
-        const dialog = parent.dialog({
+        const dialog = lt.dialog({
           header: '',
           resizeable: true,
           html: `<iframe
@@ -129,7 +129,7 @@
         $(dialog)
           .addClass('lichessTools-video')
           .on('close', (ev) => $(ev.target).remove());
-        const dialogPlacement = parent.storage.get('LichessTools.dialogPlacement');
+        const dialogPlacement = lt.storage.get('LichessTools.dialogPlacement');
         if (dialogPlacement) {
           $(dialog).css('left', dialogPlacement.left || 'unset');
           $(dialog).css('right', dialogPlacement.right || 'unset');
@@ -144,15 +144,15 @@
     };
 
     setDialogPlacement = (data) => {
-      const parent = this.lichessTools;
-      parent.storage.set('LichessTools.dialogPlacement', data);
+      const lt = this.lichessTools;
+      lt.storage.set('LichessTools.dialogPlacement', data);
       this.ensureInViewport();
     };
 
     alterStudyLinksDirect = () => {
       if (!this.options.studyLinksSameWindow) return;
-      const parent = this.lichessTools;
-      const $ = parent.$;
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('comment a[target],div.comment a[target]').each((i, e) => {
         const href = $(e).attr('href');
         if (!/\/study\//.test(href)) return;
@@ -163,44 +163,42 @@
     alterStudyLinks = this.lichessTools.debounce(this.alterStudyLinksDirect, 100);
 
     async start() {
-      const parent = this.lichessTools;
-      const value = parent.currentOptions.getValue('studyLinks');
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('studyLinks');
       this.logOption('Study link options', value);
       this.options = {
-        studyLinksSameWindow: parent.isOptionSet(value, 'studyLinksSameWindow'),
-        video: parent.isOptionSet(value, 'video')
+        studyLinksSameWindow: lt.isOptionSet(value, 'studyLinksSameWindow'),
+        video: lt.isOptionSet(value, 'video')
       };
-      const lichess = parent.lichess;
-      const $ = parent.$;
+      const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
 
-      lichess.pubsub.off('lichessTools.redraw', this.handleLinks);
-      lichess.pubsub.off('setDialogPlacement', this.setDialogPlacement);
+      lt.pubsub.off('lichessTools.redraw', this.handleLinks);
+      lt.pubsub.off('lichessTools.setDialogPlacement', this.setDialogPlacement);
       $('comment a,div.comment a').off('click', this.handleVideoClick);
       if (this.options.video) {
-        lichess.pubsub.on('lichessTools.redraw', this.handleVideoLinks);
-        lichess.pubsub.on('setDialogPlacement', this.setDialogPlacement);
+        lt.pubsub.on('lichessTools.redraw', this.handleVideoLinks);
+        lt.pubsub.on('lichessTools.setDialogPlacement', this.setDialogPlacement);
         this.handleVideoLinks();
       } else {
         $('.lichessTools-video').remove();
       }
 
-      lichess.pubsub.off('lichessTools.redraw', this.alterStudyLinks);
-      lichess.pubsub.off('analysis.change', this.alterStudyLinks);
-      lichess.pubsub.off('lichessTools.chapterChange', this.alterStudyLinks);
+      lt.pubsub.off('lichessTools.redraw', this.alterStudyLinks);
+      lt.pubsub.off('lichessTools.chapterChange', this.alterStudyLinks);
       if (this.options.studyLinksSameWindow) {
-        lichess.pubsub.on('lichessTools.redraw', this.alterStudyLinks);
-        lichess.pubsub.on('analysis.change', this.alterStudyLinks);
-        lichess.pubsub.on('lichessTools.chapterChange', this.alterStudyLinks);
+        lt.pubsub.on('lichessTools.redraw', this.alterStudyLinks);
+        lt.pubsub.on('lichessTools.chapterChange', this.alterStudyLinks);
         this.alterStudyLinks();
       }
 
       if (lichess.socket) {
-        lichess.socket.handle = parent.unwrapFunction(lichess.socket.handle, 'studyLinks');
+        lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'studyLinks');
         if (this.options.video || this.options.studyLinksSameWindow) {
-          lichess.socket.handle = parent.wrapFunction(lichess.socket.handle, {
+          lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
             id: 'studyLinks',
             after: ($this, result, m) => {
               if (m.t == 'setComment') {
