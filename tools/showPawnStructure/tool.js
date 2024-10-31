@@ -365,8 +365,8 @@
       const lichess = lt.lichess;
       if (!lichess) return;
       const $ = lt.$;
-      lichess.pubsub.off('socket.in.fen', this.miniGameStructure);
-      lichess.pubsub.off('ply', this.refreshStructureDebounced);
+      lt.uiApi.socket.events.off('fen', this.miniGameStructure);
+      lt.uiApi.events.off('ply', this.refreshStructureDebounced);
       lt.pubsub.off('lichessTools.redraw', this.refreshStructureDebounced);
       lichess.pubsub.off('content-loaded', this.miniGameStructureDebounced);
       if (lichess.socket?.settings?.events?.endData) {
@@ -382,8 +382,8 @@
             }
           });
         }
-        lichess.pubsub.on('socket.in.fen', this.miniGameStructure);
-        lichess.pubsub.on('ply', this.refreshStructureDebounced);
+        lt.uiApi.socket.events.on('fen', this.miniGameStructure);
+        lt.uiApi.events.on('ply', this.refreshStructureDebounced);
         lt.pubsub.on('lichessTools.redraw', this.refreshStructureDebounced);
         lichess.pubsub.on('content-loaded', this.miniGameStructureDebounced);
         lt.global.setTimeout(this.refreshStructureDebounced,1000); // this is not essential to loading

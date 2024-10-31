@@ -180,13 +180,13 @@
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      lichess.pubsub.off('socket.lag', this.onLag);
-      lichess.pubsub.off('socket.in.mlat', this.onLatency);
+      lt.uiApi.socket.events.off('lag', this.onLag);
+      lt.uiApi.socket.events.off('mlat', this.onLatency);
       $('.round__app .ruser-top a.user-link .lichessTools-playerLag,.round__app .ruser-bottom a.user-link .lichessTools-playerLag').remove();
       if (!this.options.isSet) return;
-      lichess.pubsub.emit('socket.send', 'moveLat', true);
-      lichess.pubsub.on('socket.lag', this.onLag);
-      lichess.pubsub.on('socket.in.mlat', this.onLatency);
+      lt.uiApi.socket.subscribeToMoveLatency();
+      lt.uiApi.events.on('socket.lag', this.onLag);
+      lt.uiApi.events.on('socket.in.mlat', this.onLatency);
     }
 
   }

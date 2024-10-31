@@ -99,6 +99,78 @@
       }
     };
 
+    uiApi = this.global?.lichess || {
+      lichessTools: this,
+      initializeDom: function() {
+        const lt = this.lichessTools;
+        lt.lichess.pubsub.emit('content-loaded');
+      },
+      events: {
+        lichessTools: this,
+        on: function(key, cb) {
+          const lt = this.lichessTools;
+          lt.lichess.pubsub.on(key,cb);
+          if (key == 'analysis.closeAll') { //TODO legacy: remove when removed from Lichess
+            this.on('analyse.close-all',cb);
+          }
+        },
+        off: function(key, cb) {
+          const lt = this.lichessTools;
+          lt.lichess.pubsub.off(key,cb);
+          if (key == 'analysis.closeAll') { //TODO legacy: remove when removed from Lichess
+            this.off('analyse.close-all',cb);
+          }
+        }
+      },
+      socket: {
+        lichessTools: this,
+        subscribeToMoveLatency: function() {
+          const lt = this.lichessTools;
+          lt.lichess.pubsub.emit('socket.send', 'moveLat', true);
+        },    
+        events: {
+          lichessTools: this,
+          socketInEvents: ['mlat', 'pong', 'fen', 'notifications', 'endData'],
+          on: function(key, cb) {
+            const lt = this.lichessTools;
+            const inEvent = this.socketInEvents.includes(key);
+            const prefix = inEvent ? 'socket.in.' : 'socket.';
+            lt.lichess.pubsub.on(prefix+key,cb);
+            if (key == 'lag') { //TODO legacy: remove when removed from Lichess
+              this.on('pong',cb);
+            }
+          },
+          off: function(key, cb) {
+            const lt = this.lichessTools;
+            const inEvent = this.socketInEvents.includes(key);
+            const prefix = inEvent ? 'socket.in.' : 'socket.';
+            lt.lichess.pubsub.off(prefix+key,cb);
+            if (key == 'lag') { //TODO legacy: remove when removed from Lichess
+              this.off('pong',cb);
+            }
+          }
+        }
+      },
+      onlineFriends: {
+        lichessTools: this,
+        request: function() {
+          const lt = this.lichessTools;
+          lt.lichess.pubsub.emit('socket.send', 'following_onlines');
+        },    
+        events: {
+          lichessTools: this,
+          on: function(key, cb) {
+            const lt = this.lichessTools;
+            lt.lichess.pubsub.on('socket.in.following_'+key,cb);
+          },
+          off: function(key, cb) {
+            const lt = this.lichessTools;
+            lt.lichess.pubsub.off('socket.in.following_'+key,cb);
+          }
+        }
+      }
+    };
+
     isDev = () => {
       return /lichess\.dev/.test(this.global.location.origin);
     };
@@ -329,7 +401,9 @@
         .appendTo('body');
       const duration = +d.duration || (d.date ? new Date(d.date).getTime() - Date.now() : 5000);
       timeout = this.global.setTimeout(kill, duration);
-      if (d.date) this.lichess.pubsub.emit('content-loaded');
+      if (d.date) {
+        this.uiApi.initializeDom();
+      }
     };
 
     timeout(ms) {

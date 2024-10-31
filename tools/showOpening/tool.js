@@ -231,8 +231,8 @@
       const lichess = lt.lichess;
       if (!lichess) return;
       const $ = lt.$;
-      lichess.pubsub.off('socket.in.fen', this.miniGameOpening);
-      lichess.pubsub.off('ply', this.refreshOpeningDebounced);
+      lt.uiApi.socket.events.off('fen', this.miniGameOpening);
+      lt.uiApi.events.off('ply', this.refreshOpeningDebounced);
       lichess.pubsub.off('content-loaded', this.miniGameOpening);
       if (lichess.socket?.settings?.events?.endData) {
         lichess.socket.settings.events.endData = lt.unwrapFunction(lichess.socket.settings.events.endData, 'showOpening');
@@ -251,7 +251,7 @@
             }
           });
         }
-        lichess.pubsub.on('ply', this.refreshOpeningDebounced);
+        lt.uiApi.events.on('ply', this.refreshOpeningDebounced);
         const intervalTime = $('main').is('#board-editor')
           ? 1000
           : 3500;
@@ -259,7 +259,7 @@
         //this.refreshOpeningDebounced(); this is not essential to loading
       }
       if (this.options.showInMinigames) {
-        lichess.pubsub.on('socket.in.fen', this.miniGameOpening);
+        lt.uiApi.socket.events.on('fen', this.miniGameOpening);
         lichess.pubsub.on('content-loaded', this.miniGameOpening);
         this.miniGameOpeningDebounced();
       }

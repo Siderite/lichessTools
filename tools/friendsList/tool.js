@@ -602,7 +602,7 @@
     requestOnlines = () => {
       const lt = this.lichessTools;
       if (lt.global.document.hidden) return;
-      lt.lichess.pubsub.emit("socket.send", "following_onlines");
+      lt.uiApi.onlineFriends.request();
       this.requestOnlinesApi();
     };
     requestOnlinesApi = async () => {
@@ -642,17 +642,18 @@
       }
       const setInterval = lt.global.setInterval;
       const clearInterval = lt.global.clearInterval;
-      lichess.pubsub.off('socket.in.following_onlines', this.following_onlines);
-      lichess.pubsub.off('socket.in.following_enters', this.enters);
-      lichess.pubsub.off('socket.in.following_leaves', this.leaves);
-      lichess.pubsub.off('socket.in.following_playing', this.playing);
-      lichess.pubsub.off('socket.in.following_stopped_playing', this.stopped_playing);
+
+      lt.uiApi.onlineFriends.events.off('onlines', this.following_onlines);
+      lt.uiApi.onlineFriends.events.off('enters', this.enters);
+      lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
+      lt.uiApi.onlineFriends.events.off('playing', this.playing);
+      lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
       if (friendsBoxMode == 'menu' || friendsBoxMode == 'button' || (liveFriendsPage && lt.isFriendsPage())) {
-        lichess.pubsub.on('socket.in.following_onlines', this.following_onlines);
-        lichess.pubsub.on('socket.in.following_enters', this.enters);
-        lichess.pubsub.on('socket.in.following_leaves', this.leaves);
-        lichess.pubsub.on('socket.in.following_playing', this.playing);
-        lichess.pubsub.on('socket.in.following_stopped_playing', this.stopped_playing);
+        lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
+        lt.uiApi.onlineFriends.events.on('enters', this.enters);
+        lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
+        lt.uiApi.onlineFriends.events.on('playing', this.playing);
+        lt.uiApi.onlineFriends.events.on('stopped_playing', this.stopped_playing);
       }
       if (lt.isFriendsPage()) {
         lichess.pubsub.off('content-loaded', this.updateFriendsPage);

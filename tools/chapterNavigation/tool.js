@@ -145,7 +145,7 @@
       if (!study) return;
       lt.pubsub.off('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
       lt.pubsub.off('lichessTools.redraw', this.debouncedRefreshChapterControls);
-      lichess.pubsub.off('chat.resize', this.debouncedRefreshChapterControls);
+      lt.uiApi.events.off('chat.resize', this.debouncedRefreshChapterControls);
       $('div.study__side.lichessTools-chapterControls,aside.relay-tour__side.lichessTools-chapterControls')
         .removeClass('lichessTools-chapterControls')
         .find('div[role="footer"]')
@@ -153,7 +153,7 @@
       if (!value) return;
       lt.pubsub.on('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
       lt.pubsub.on('lichessTools.redraw', this.debouncedRefreshChapterControls);
-      lichess.pubsub.on('chat.resize', this.debouncedRefreshChapterControls);
+      lt.uiApi.events.on('chat.resize', this.debouncedRefreshChapterControls);
       this.refreshChapterControls();
     }
 

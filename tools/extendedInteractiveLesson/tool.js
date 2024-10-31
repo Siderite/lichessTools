@@ -1024,9 +1024,9 @@
         .removeClass('lichesstools-extendedInteractiveLessonFlow')
         .find('i.act.lichessTools-reset')
         .remove();
-      lichess.pubsub.off('chat.resize', this.refreshChapterProgress);
+      lt.uiApi.events.off('chat.resize', this.refreshChapterProgress);
       if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
-        lichess.pubsub.on('chat.resize', this.refreshChapterProgress);
+        lt.uiApi.events.on('chat.resize', this.refreshChapterProgress);
         this.refreshChapterProgress();
         study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
           id: 'extendedInteractiveLessonFlow',

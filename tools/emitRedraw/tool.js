@@ -35,8 +35,8 @@
           after: emit
         });
       }
-      lichess.pubsub.off('analysis.change', emit);
-      lichess.pubsub.on('analysis.change', emit);
+      lt.uiApi.events.off('analysis.change', emit);
+      lt.uiApi.events.on('analysis.change', emit);
     }
 
     async start() {
@@ -54,10 +54,10 @@
       }, 250);
       lt.emitRedraw = emit;
       this.analysisStart();
-      lichess.pubsub.off('ply', emit);
-      lichess.pubsub.on('ply', emit);
-      lichess.pubsub.off('chat.resize', emit);
-      lichess.pubsub.on('chat.resize', emit);
+      lt.uiApi.events.off('ply', emit);
+      lt.uiApi.events.on('ply', emit);
+      lt.uiApi.events.off('chat.resize', emit);
+      lt.uiApi.events.on('chat.resize', emit);
       lt.global.clearInterval(this._interval);
       this._interval = lt.global.setInterval(() => {
         const board = $('div.main-board div.cg-wrap');

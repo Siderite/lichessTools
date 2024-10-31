@@ -320,7 +320,7 @@
       if (!analysis) return;
       if (analysis.gamebookPlay()) return;
       lt.pubsub.off('lichessTools.redraw', this.processDebounced);
-      lichess.pubsub.off('ply', this.writePlayerName);
+      lt.uiApi.events.off('ply', this.writePlayerName);
       $('main.analyse div.analyse__controls').off('click touchend', this.process);
       lt.unbindKeyHandler('shift+l');
       analysis.userJump = lt.unwrapFunction(analysis.userJump, 'explorerPractice');
@@ -334,7 +334,7 @@
         lt.emitRedraw();
       });
       lt.pubsub.on('lichessTools.redraw', this.processDebounced);
-      lichess.pubsub.on('ply', this.writePlayerName);
+      lt.uiApi.events.on('ply', this.writePlayerName);
       $('main.analyse div.analyse__controls').on('click touchend', this.process);
       analysis.userJump = lt.wrapFunction(analysis.userJump, {
         id: 'explorerPractice',
