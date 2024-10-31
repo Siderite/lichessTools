@@ -160,9 +160,11 @@
       const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      lichess.pubsub.off('analyse.close-all', this.processHelp);
+      lichess.pubsub.off('analyse.close-all', this.processHelp); //TODO legacy, remove when not in Lichess
+      lichess.pubsub.off('analyse.closeAll', this.processHelp);
       if (!value) return;
-      lichess.pubsub.on('analyse.close-all', this.processHelp);
+      lichess.pubsub.on('analyse.close-all', this.processHelp); //TODO legacy, remove when not in Lichess
+      lichess.pubsub.on('analyse.closeAll', this.processHelp);
     }
 
   }
