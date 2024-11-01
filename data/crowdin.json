@@ -705,7 +705,8 @@
     "themes.fatGauge": "Thick analysis gauge",
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
+    "themes.slimmerArrows": "... slimmer"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1413,7 +1414,8 @@
     "themes.fatGauge": "Thick analysis gauge",
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
+    "themes.slimmerArrows": "... slimmer"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2121,7 +2123,8 @@
     "themes.fatGauge": "Thick analysis gauge",
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
+    "themes.slimmerArrows": "... slimmer"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2829,7 +2832,8 @@
     "themes.fatGauge": "Thick analysis gauge",
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
+    "themes.slimmerArrows": "... slimmer"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3537,7 +3541,8 @@
     "themes.fatGauge": "Thick analysis gauge",
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
+    "themes.slimmerArrows": "... slimmer"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4245,7 +4250,8 @@
     "themes.fatGauge": "Pogrubiony wskaźnik analizy",
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
+    "themes.slimmerArrows": "... slimmer"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -4953,7 +4959,8 @@
     "themes.fatGauge": "Thick analysis gauge",
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
+    "themes.slimmerArrows": "... slimmer"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5661,7 +5668,8 @@
     "themes.fatGauge": "Bară analiză groasă",
     "avoidMovesHint": "O singură mutare. Evită %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Evită linii marcate ca greșite",
-    "extendedInteractiveLessonFlow.negativeHint": "Indiciu mutări excluse"
+    "extendedInteractiveLessonFlow.negativeHint": "Indiciu mutări excluse",
+    "themes.slimmerArrows": "... și mai subțiri"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6369,7 +6377,8 @@
     "themes.fatGauge": "Tолстый индикатор анализа",
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
+    "themes.slimmerArrows": "... slimmer"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -7077,7 +7086,8 @@
     "themes.fatGauge": "Thick analysis gauge",
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
+    "themes.slimmerArrows": "... slimmer"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7785,6 +7795,7 @@
     "themes.fatGauge": "Thick analysis gauge",
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
+    "themes.slimmerArrows": "... slimmer"
   }
 }
