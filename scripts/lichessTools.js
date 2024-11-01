@@ -131,24 +131,18 @@
         },    
         events: {
           lichessTools: this,
-          socketInEvents: ['mlat', 'pong', 'fen', 'notifications', 'endData'],
+          socketInEvents: ['mlat', 'fen', 'notifications', 'endData'],
           on: function(key, cb) {
             const lt = this.lichessTools;
             const inEvent = this.socketInEvents.includes(key);
             const prefix = inEvent ? 'socket.in.' : 'socket.';
             lt.lichess.pubsub.on(prefix+key,cb);
-            if (key == 'lag') {
-              this.on('pong',cb);
-            }
           },
           off: function(key, cb) {
             const lt = this.lichessTools;
             const inEvent = this.socketInEvents.includes(key);
             const prefix = inEvent ? 'socket.in.' : 'socket.';
             lt.lichess.pubsub.off(prefix+key,cb);
-            if (key == 'lag') { //TODO legacy: remove when removed from Lichess
-              this.off('pong',cb);
-            }
           }
         }
       },
