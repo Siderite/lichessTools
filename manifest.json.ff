@@ -175,6 +175,7 @@
         "tools/themes/noPractice.css",
         "tools/themes/gameMoveList.css",
         "tools/themes/fatGauge.css",
+        "tools/themes/slimmerArrows.css",
 
         "tools/noSpoilers/tool.css",
         "tools/detectThirdParties/tool.css",

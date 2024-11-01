@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+01 Nov
+
+- Slimmer arrows theme
+
 31 Oct
 
 - Polish translation
