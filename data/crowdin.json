@@ -702,7 +702,10 @@
     "analysedGamesLabel": "تحليل فقط",
     "themes.gameMoveList": "قائمة نقل اللعبة المرنة",
     "linkToAnalysisTitle": "أدوات شطرنج الحياة - رابط التحليل الحالي",
-    "themes.fatGauge": "Thick analysis gauge"
+    "themes.fatGauge": "Thick analysis gauge",
+    "avoidMovesHint": "Only one accepted move. Avoid %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1407,7 +1410,10 @@
     "analysedGamesLabel": "Only analysed",
     "themes.gameMoveList": "Flexible game move list",
     "linkToAnalysisTitle": "LiChess Tools - link to current analysis",
-    "themes.fatGauge": "Thick analysis gauge"
+    "themes.fatGauge": "Thick analysis gauge",
+    "avoidMovesHint": "Only one accepted move. Avoid %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2112,7 +2118,10 @@
     "analysedGamesLabel": "Only analysed",
     "themes.gameMoveList": "Flexible game move list",
     "linkToAnalysisTitle": "LiChess Tools - link to current analysis",
-    "themes.fatGauge": "Thick analysis gauge"
+    "themes.fatGauge": "Thick analysis gauge",
+    "avoidMovesHint": "Only one accepted move. Avoid %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2817,7 +2826,10 @@
     "analysedGamesLabel": "Seulement analysé",
     "themes.gameMoveList": "Liste de mouvements de jeu souple",
     "linkToAnalysisTitle": "Outils LiChess - lien avec l'analyse actuelle",
-    "themes.fatGauge": "Thick analysis gauge"
+    "themes.fatGauge": "Thick analysis gauge",
+    "avoidMovesHint": "Only one accepted move. Avoid %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Werkzeuge",
@@ -3522,7 +3534,10 @@
     "analysedGamesLabel": "Nur analysiert",
     "themes.gameMoveList": "Flexible Spielbewegungsliste",
     "linkToAnalysisTitle": "LiChess-Tools - Link zur aktuellen Analyse",
-    "themes.fatGauge": "Thick analysis gauge"
+    "themes.fatGauge": "Thick analysis gauge",
+    "avoidMovesHint": "Only one accepted move. Avoid %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4227,7 +4242,10 @@
     "analysedGamesLabel": "Tylko przeanalizowane",
     "themes.gameMoveList": "Elastyczna lista posunięć w partii",
     "linkToAnalysisTitle": "LiChess Tools – link do bieżącej analizy",
-    "themes.fatGauge": "Pogrubiony wskaźnik analizy"
+    "themes.fatGauge": "Pogrubiony wskaźnik analizy",
+    "avoidMovesHint": "Only one accepted move. Avoid %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -4932,7 +4950,10 @@
     "analysedGamesLabel": "Apenas analisados",
     "themes.gameMoveList": "Lista de movimentos flexíveis",
     "linkToAnalysisTitle": "LiChess Tools - link para a análise atual",
-    "themes.fatGauge": "Thick analysis gauge"
+    "themes.fatGauge": "Thick analysis gauge",
+    "avoidMovesHint": "Only one accepted move. Avoid %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5637,7 +5658,10 @@
     "analysedGamesLabel": "Doar analizate",
     "themes.gameMoveList": "Listă mutări flexibilă în joc",
     "linkToAnalysisTitle": "LiChess Tools - link către analiza curentă",
-    "themes.fatGauge": "Bară analiză groasă"
+    "themes.fatGauge": "Bară analiză groasă",
+    "avoidMovesHint": "O singură mutare. Evită %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Evită linii marcate ca greșite",
+    "extendedInteractiveLessonFlow.negativeHint": "Indiciu mutări excluse"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6342,7 +6366,10 @@
     "analysedGamesLabel": "Только проанализированные",
     "themes.gameMoveList": "Гибкий список ходов",
     "linkToAnalysisTitle": "Инструменты Жизни - ссылка на текущий анализ",
-    "themes.fatGauge": "Tолстый индикатор анализа"
+    "themes.fatGauge": "Tолстый индикатор анализа",
+    "avoidMovesHint": "Only one accepted move. Avoid %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -7047,7 +7074,10 @@
     "analysedGamesLabel": "Sólo analizado",
     "themes.gameMoveList": "Lista de movimientos de juego flexible",
     "linkToAnalysisTitle": "Herramientas de LiChess - enlace al análisis actual",
-    "themes.fatGauge": "Thick analysis gauge"
+    "themes.fatGauge": "Thick analysis gauge",
+    "avoidMovesHint": "Only one accepted move. Avoid %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7752,6 +7782,9 @@
     "analysedGamesLabel": "Only analysed",
     "themes.gameMoveList": "Flexible game move list",
     "linkToAnalysisTitle": "LiChess Tools - link to current analysis",
-    "themes.fatGauge": "Thick analysis gauge"
+    "themes.fatGauge": "Thick analysis gauge",
+    "avoidMovesHint": "Only one accepted move. Avoid %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
+    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves"
   }
 }
