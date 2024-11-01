@@ -365,23 +365,14 @@
       const lichess = lt.lichess;
       if (!lichess) return;
       const $ = lt.$;
+      lt.uiApi.socket.events.off('endData', this.refreshStructureDebounced);
       lt.uiApi.socket.events.off('fen', this.miniGameStructure);
       lt.uiApi.events.off('ply', this.refreshStructureDebounced);
       lt.pubsub.off('lichessTools.redraw', this.refreshStructureDebounced);
       lt.pubsub.off('content-loaded', this.miniGameStructureDebounced);
-      if (lichess.socket?.settings?.events?.endData) {
-        lichess.socket.settings.events.endData = lt.unwrapFunction(lichess.socket.settings.events.endData, 'showPawnStructure');
-      }
       lt.global.clearInterval(this.interval);
       if (this.options.enabled) {
-        if (lichess.socket?.settings?.events?.endData) {
-          lichess.socket.settings.events.endData = lt.wrapFunction(lichess.socket.settings.events.endData, {
-            id: 'showPawnStructure',
-            after: ($this, result, ...args) => {
-              this.refreshStructureDebounced();
-            }
-          });
-        }
+        lt.uiApi.socket.events.on('endData', this.refreshStructureDebounced);
         lt.uiApi.socket.events.on('fen', this.miniGameStructure);
         lt.uiApi.events.on('ply', this.refreshStructureDebounced);
         lt.pubsub.on('lichessTools.redraw', this.refreshStructureDebounced);

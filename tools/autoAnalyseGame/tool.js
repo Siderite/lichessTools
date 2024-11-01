@@ -31,7 +31,7 @@
         this.retries = 0;
         return;
       }
-      if (!$('.result-wrap .result').length) {
+      if (!$('.result-wrap .result').length && !$('a.fbt.analysis').attr('href')) {
         if (this.retries < 8) {
           lt.global.setTimeout(this.checkEndGame, 500);
           this.retries++;
