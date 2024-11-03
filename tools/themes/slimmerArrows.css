@@ -1,5 +1,5 @@
 /* Slimmer Arrows */
 
 body.lichessTools.lichessTools-theme_slimArrows.lichessTools-theme_slimmerArrows {
-  --slimness: 0.11;
+  --slimness: 0.11px;
 }

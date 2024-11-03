@@ -1,7 +1,7 @@
 /* Slim Arrows */
 
 body.lichessTools.lichessTools-theme_slimArrows {
-  --slimness: 0.16;
+  --slimness: 0.16px;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.234375"] {
