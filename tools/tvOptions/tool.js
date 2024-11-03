@@ -470,29 +470,31 @@
         lt.global.setTimeout(this.hashChange, 100);
       }
 
-      lt.uiApi.onlineFriends.events.off('onlines', this.following_onlines);
-      lt.uiApi.onlineFriends.events.off('enters', this.enters);
-      lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
-      lt.uiApi.onlineFriends.events.off('playing', this.playing);
-      lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
-      if (this.options.friendsTv) {
-        lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
-        lt.uiApi.onlineFriends.events.on('enters', this.enters);
-        lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
-        lt.uiApi.onlineFriends.events.on('playing', this.playing);
-        lt.uiApi.onlineFriends.events.on('stopped_playing', this.stopped_playing);
+      if (lt.getUserId()) {
+        lt.uiApi.onlineFriends.events.off('onlines', this.following_onlines);
+        lt.uiApi.onlineFriends.events.off('enters', this.enters);
+        lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
+        lt.uiApi.onlineFriends.events.off('playing', this.playing);
+        lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
+        if (this.options.friendsTv) {
+          lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
+          lt.uiApi.onlineFriends.events.on('enters', this.enters);
+          lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
+          lt.uiApi.onlineFriends.events.on('playing', this.playing);
+          lt.uiApi.onlineFriends.events.on('stopped_playing', this.stopped_playing);
 
-        this.followingOnlinesRequests = 0;
-        clearInterval(this.onlinesInterval);
-        this.onlinesInterval = setInterval(() => {
-          if (!this.onlinesInterval) return;
-          this.requestOnlines();
-          this.followingOnlinesRequests++;
-          if (this.followingOnlinesRequests > 5) {
-            clearInterval(this.onlinesInterval);
-            lt.global.console.debug('Sent following-onlines too many times. Giving up.');
-          }
-        }, 5000);
+          this.followingOnlinesRequests = 0;
+          clearInterval(this.onlinesInterval);
+          this.onlinesInterval = setInterval(() => {
+            if (!this.onlinesInterval) return;
+            this.requestOnlines();
+            this.followingOnlinesRequests++;
+            if (this.followingOnlinesRequests > 5) {
+              clearInterval(this.onlinesInterval);
+              lt.global.console.debug('Sent following-onlines too many times. Giving up.');
+            }
+          }, 5000);
+        }
       }
 
       this.updateTvOptionsButton();
