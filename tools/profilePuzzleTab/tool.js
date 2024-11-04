@@ -50,8 +50,12 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if ($('section.lichessTools-profilePuzzleTab').length) return;
+      const container = $('.perf-stat__content');
+      while (!container.length) {
+        await lt.timeout(100);
+      }
       $('<section class="lichessTools-profilePuzzleTab">')
-        .appendTo('.perf-stat__content')
+        .appendTo(container)
       const uiSlider = $('#time-range-slider')[0]?.noUiSlider;
       uiSlider.on('update.lichessTools', this.updateData);
       this.uiSlider = uiSlider;
