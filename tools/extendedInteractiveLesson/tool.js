@@ -315,6 +315,18 @@
         .find(g=>[2,4,6].includes(g.id));
     };
 
+    loadChapterPaths = (defaultValue) => {
+      const lt = this.lichessTools;
+      if (!this._paths) {
+        this._paths = lt.storage.get('LichessTools.chapterPaths') || defaultValue;
+      }
+    };
+
+    saveChapterPaths = ()=>{
+      const lt = this.lichessTools;
+      lt.storage.set('LichessTools.chapterPaths', this._paths);
+    };
+
     getCurrentPath = () => {
       if (!this.options.flow.sequential && !this.options.flow.spacedRepetition) return;
       const lt = this.lichessTools;
@@ -322,15 +334,16 @@
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
-      if (!this._paths) {
-        this._paths = lt.storage.get('LichessTools.chapterPaths') || {};
-      }
+      this.loadChapterPaths({});
       const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
+      const refreshChapterPaths = key != this.prevChapterKey;
+      this.prevChapterKey = key;
       let paths = this._paths[key];
       if (!paths) {
         paths = {};
         this._paths[key] = paths;
       }
+      let currentPath = null;
       if (paths.currentPath && !this.isDonePath(paths.currentPath)) {
         const nodeList = analysis.tree.getNodeList(paths.currentPath);
         if (nodeList.length>1 // line exists
@@ -338,12 +351,13 @@
           && !nodeList.at(-1).children?.length // and the last node does not have kids
           && !this.areBadGlyphNodes(nodeList)) // and there are no mistake/bluders on your side and the setting is on
         {
-          return paths.currentPath;
+          currentPath = paths.currentPath;
         }
       }
+      if (!refreshChapterPaths && currentPath) return currentPath;
       const currentPaths = [];
       const traverse = (node, path, nodeList) => {
-        if (this.options.flow.sequential && currentPaths.length) return;
+        if (!refreshChapterPaths && this.options.flow.sequential && currentPaths.length) return;
         const nextMoves = node.children
           .filter(c => this.isPermanentNode(c));
         if (!nextMoves.length && !this.isDonePath(path)) {
@@ -354,9 +368,21 @@
         for (const child of nextMoves) traverse(child, path + child.id, nodeList.concat([child]));
       };
       traverse(analysis.tree.root, '', []);
-      const i = Math.floor(lt.random() * currentPaths.length);
-      paths.currentPath = currentPaths[i];
-      lt.storage.set('LichessTools.chapterPaths', this._paths);
+      if (refreshChapterPaths) {
+        const toDelete = new Set(Object.keys(paths)).difference(new Set(currentPaths));
+        for (const path of toDelete) {
+         delete paths[path];
+        }
+      }
+      const i = this.options.flow.sequential
+        ? 0
+        : Math.floor(lt.random() * currentPaths.length);
+      if (currentPath && refreshChapterPaths) {
+        paths.currentPath = currentPath;
+      } else {
+        paths.currentPath = currentPaths[i];
+      }
+      this.saveChapterPaths();
       return paths.currentPath;
     };
 
@@ -375,9 +401,7 @@
       const gp = analysis.gamebookPlay();
       if (!gp) return;
       const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
-      if (!this._paths) {
-        this._paths = lt.storage.get('LichessTools.chapterPaths') || {};
-      }
+      this.loadChapterPaths({});
       const paths = this._paths[key] || {};
       const success = badMoves == 0 && !askedForSolution && goodMoves >= Math.floor(path.length / 4);
       const item = paths[path] || { path };
@@ -408,16 +432,14 @@
       traverse(analysis.tree.root,[]);
 
       this._paths[key] = paths;
-      lt.storage.set('LichessTools.chapterPaths', this._paths);
+      this.saveChapterPaths();
       this.refreshChapterProgress();
     };
 
     isDonePath = (path) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
-      if (!this._paths) {
-        this._paths = lt.storage.get('LichessTools.chapterPaths') || null;
-      }
+      this.loadChapterPaths(null);
       if (!this._paths) return false;
       const analysis = lichess.analysis;
       const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
@@ -434,15 +456,13 @@
     resetDone = (chapterId) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
-      if (!this._paths) {
-        this._paths = lt.storage.get('LichessTools.chapterPaths') || null;
-      }
+      this.loadChapterPaths(null);
       if (!this._paths) return false;
       const analysis = lichess.analysis;
       chapterId = chapterId || analysis.study.currentChapter()?.id
       const key = analysis.study.data.id + '/' + chapterId;
       this._paths[key] = null;
-      lt.storage.set('LichessTools.chapterPaths', this._paths);
+      this.saveChapterPaths();
       this.refreshChapterProgress();
       return true;
     };
@@ -873,9 +893,7 @@
       const trans = lt.translator;
       const modal = $('div.dialog-content');
       if (!modal.length) return;
-      if (!this._paths) {
-        this._paths = lt.storage.get('LichessTools.chapterPaths') || null;
-      }
+      this.loadChapterPaths(null);
       if (!this._paths) return;
       const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
       const paths = this._paths[key];
@@ -904,9 +922,7 @@
       const study = analysis?.study;
       if (!study) return;
       const trans = lt.translator;
-      if (!this._paths) {
-        this._paths = lt.storage.get('LichessTools.chapterPaths') || null;
-      }
+      this.loadChapterPaths(null);
       if (!this._paths) return;
       const list = study.chapters.list.all();
       $('div.study__chapters').addClass('lichesstools-extendedInteractiveLessonFlow');
