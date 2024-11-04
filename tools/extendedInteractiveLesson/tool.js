@@ -898,7 +898,7 @@
       const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
       const paths = this._paths[key];
       const button = $('div.form-actions button.lichessTools-reset', modal);
-      if (paths && (this.options.flow.sequential || this.options.flow.spacedRepetition)) {
+      if (paths) {
         if (button.length) return;
         $('<button class="button button-red lichessTools-reset">')
           .attr('title', trans.noarg('resetButtonTitle'))
