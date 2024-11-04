@@ -346,7 +346,7 @@
       let currentPath = null;
       if (paths.currentPath && !this.isDonePath(paths.currentPath)) {
         const nodeList = analysis.tree.getNodeList(paths.currentPath);
-        if (nodeList.length>1 // line exists
+        if (nodeList.length == paths.currentPath.length / 2 // line exists
           && !nodeList.find(n=>!this.isPermanentNode(n)) // it's not temporary
           && !nodeList.at(-1).children?.length // and the last node does not have kids
           && !this.areBadGlyphNodes(nodeList)) // and there are no mistake/bluders on your side and the setting is on
@@ -931,24 +931,25 @@
         const key = study.data.id + '/' + chapter.id;
         const paths = this._paths[key];
         let perc = '';
-        if (!paths) continue;
 
         let total = 0;
         let doneCount = 0;
-        for (const k in paths) {
-          if (k == 'currentPath') continue;
-          const item = paths[k];
-          const done = this.options.flow.spacedRepetition
-            ? item && Date.now() < item.time + item.interval * 86400000
-            : item?.success
-          total++;
-          if (done) doneCount++;
-        }
-        if (total) {
-          perc = (100 * doneCount / total) + '%';
-          container.attr('title', trans.pluralSame('progressTitle', doneCount + '/' + total));
-        } else {
-          container.removeAttr('title');
+        if (paths) {
+          for (const k in paths) {
+            if (k == 'currentPath') continue;
+            const item = paths[k];
+            const done = this.options.flow.spacedRepetition
+              ? item && Date.now() < item.time + item.interval * 86400000
+              : item?.success
+            total++;
+            if (done) doneCount++;
+          }
+          if (total) {
+            perc = (100 * doneCount / total) + '%';
+            container.attr('title', trans.pluralSame('progressTitle', doneCount + '/' + total));
+          } else {
+            container.removeAttr('title');
+          }
         }
 
         let act = container.children('i.act');
