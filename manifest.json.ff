@@ -291,5 +291,13 @@
   "browser_action": {
     "default_title": "LiChess Tools",
     "default_popup": "popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "strict_min_version": "130.0"
+    },
+    "gecko_android": {
+      "strict_min_version": "130.0"
+    }
   }
 }
