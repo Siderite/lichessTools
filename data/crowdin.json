@@ -709,7 +709,12 @@
     "themes.slimmerArrows": "... slimmer",
     "options.puzzles": "ألغاز",
     "options.puzzleOptions": "خيارات للألغاز",
-    "puzzleOptions.wakeLock": "منع تشغيل ألغاز قفل الشاشة"
+    "puzzleOptions.wakeLock": "منع تشغيل ألغاز قفل الشاشة",
+    "firstChapterTitle": "الفصل الأول",
+    "prevChapterTitle": "الفصل السابق",
+    "randomChapterTitle": "فصل عشوائي",
+    "nextChapterTitle": "الفصل التالي",
+    "lastChapterTitle": "الفصل الأخير"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1421,7 +1426,12 @@
     "themes.slimmerArrows": "... slimmer",
     "options.puzzles": "Puzzles",
     "options.puzzleOptions": "Options for puzzles",
-    "puzzleOptions.wakeLock": "Prevent screen lock playing puzzles"
+    "puzzleOptions.wakeLock": "Prevent screen lock playing puzzles",
+    "firstChapterTitle": "First chapter",
+    "prevChapterTitle": "Previous chapter",
+    "randomChapterTitle": "Random chapter",
+    "nextChapterTitle": "Next chapter",
+    "lastChapterTitle": "Last chapter"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2133,7 +2143,12 @@
     "themes.slimmerArrows": "... slimmer",
     "options.puzzles": "Puzzles",
     "options.puzzleOptions": "Options for puzzles",
-    "puzzleOptions.wakeLock": "Prevent screen lock playing puzzles"
+    "puzzleOptions.wakeLock": "Prevent screen lock playing puzzles",
+    "firstChapterTitle": "First chapter",
+    "prevChapterTitle": "Previous chapter",
+    "randomChapterTitle": "Random chapter",
+    "nextChapterTitle": "Next chapter",
+    "lastChapterTitle": "Last chapter"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2845,7 +2860,12 @@
     "themes.slimmerArrows": "... slimmer",
     "options.puzzles": "Problèmes",
     "options.puzzleOptions": "Options pour les puzzles",
-    "puzzleOptions.wakeLock": "Empêcher le verrouillage de l'écran de jouer aux puzzles"
+    "puzzleOptions.wakeLock": "Empêcher le verrouillage de l'écran de jouer aux puzzles",
+    "firstChapterTitle": "Premier chapitre",
+    "prevChapterTitle": "Chapitre précédent",
+    "randomChapterTitle": "Chapitre aléatoire",
+    "nextChapterTitle": "Chapitre suivant",
+    "lastChapterTitle": "Dernier chapitre"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3557,7 +3577,12 @@
     "themes.slimmerArrows": "... slimmer",
     "options.puzzles": "Rätsel",
     "options.puzzleOptions": "Optionen für Puzzles",
-    "puzzleOptions.wakeLock": "Spielaufgaben für Bildschirmsperre verhindern"
+    "puzzleOptions.wakeLock": "Spielaufgaben für Bildschirmsperre verhindern",
+    "firstChapterTitle": "Erstes Kapitel",
+    "prevChapterTitle": "Vorheriges Kapitel",
+    "randomChapterTitle": "Zufälliges Kapitel",
+    "nextChapterTitle": "Nächstes Kapitel",
+    "lastChapterTitle": "Letztes Kapitel"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4267,9 +4292,14 @@
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Pomijaj linie oznaczone jako błędy",
     "extendedInteractiveLessonFlow.negativeHint": "Wskaż w podpowiedzi wykluczone posunięcia",
     "themes.slimmerArrows": "... smuklejsze",
-    "options.puzzles": "Łyżki, widelce, chochle, cedzidła, łopatki do ciasta, noże do ryb, noże do masła, szczypce do cukru i podobne artykuły kuchenne lub stołowe",
-    "options.puzzleOptions": "Opcje dla zagadek",
-    "puzzleOptions.wakeLock": "Zapobiegaj odtwarzaniu łamigłówek na ekranie"
+    "options.puzzles": "Zadania szachowe",
+    "options.puzzleOptions": "Opcje zadań szachowych",
+    "puzzleOptions.wakeLock": "Wyłącz blokadę ekranu podczas zadań szachowych",
+    "firstChapterTitle": "Rozdział pierwszy",
+    "prevChapterTitle": "Poprzedni rozdział",
+    "randomChapterTitle": "Losowy rozdział",
+    "nextChapterTitle": "Następny rozdział",
+    "lastChapterTitle": "Ostatni rozdział"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -4981,7 +5011,12 @@
     "themes.slimmerArrows": "... slimmer",
     "options.puzzles": "Problemas",
     "options.puzzleOptions": "Opções para quebra-cabeças",
-    "puzzleOptions.wakeLock": "Impedir bloqueio de tela de quebra-cabeças"
+    "puzzleOptions.wakeLock": "Impedir bloqueio de tela de quebra-cabeças",
+    "firstChapterTitle": "Primeiro capítulo",
+    "prevChapterTitle": "Capítulo anterior",
+    "randomChapterTitle": "Capítulo aleatório",
+    "nextChapterTitle": "Próximo capítulo",
+    "lastChapterTitle": "Último capítulo"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5693,7 +5728,12 @@
     "themes.slimmerArrows": "... și mai subțiri",
     "options.puzzles": "Probleme de șah",
     "options.puzzleOptions": "Opțiuni pentru probleme de șah",
-    "puzzleOptions.wakeLock": "Previne blocarea ecranului în probleme de șah"
+    "puzzleOptions.wakeLock": "Previne blocarea ecranului în probleme de șah",
+    "firstChapterTitle": "Primul capitol",
+    "prevChapterTitle": "Capitolul precedent",
+    "randomChapterTitle": "Un capitol la întâmplare",
+    "nextChapterTitle": "Următorul capitol",
+    "lastChapterTitle": "Ultimul capitol"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6405,7 +6445,12 @@
     "themes.slimmerArrows": "... slimmer",
     "options.puzzles": "Пазлы",
     "options.puzzleOptions": "Параметры головоломки",
-    "puzzleOptions.wakeLock": "Запретить блокировку экрана"
+    "puzzleOptions.wakeLock": "Запретить блокировку экрана",
+    "firstChapterTitle": "Первая глава",
+    "prevChapterTitle": "Предыдущая глава",
+    "randomChapterTitle": "Случайная глава",
+    "nextChapterTitle": "Следующая глава",
+    "lastChapterTitle": "Последняя глава"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -7117,7 +7162,12 @@
     "themes.slimmerArrows": "... slimmer",
     "options.puzzles": "Puzzles",
     "options.puzzleOptions": "Opciones de rompecabezas",
-    "puzzleOptions.wakeLock": "Evitar la reproducción del bloqueo de pantalla"
+    "puzzleOptions.wakeLock": "Evitar la reproducción del bloqueo de pantalla",
+    "firstChapterTitle": "Primer capítulo",
+    "prevChapterTitle": "Capítulo anterior",
+    "randomChapterTitle": "Capítulo aleatorio",
+    "nextChapterTitle": "Siguiente capítulo",
+    "lastChapterTitle": "Último capítulo"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7829,6 +7879,11 @@
     "themes.slimmerArrows": "... slimmer",
     "options.puzzles": "Puzzles",
     "options.puzzleOptions": "Options for puzzles",
-    "puzzleOptions.wakeLock": "Prevent screen lock playing puzzles"
+    "puzzleOptions.wakeLock": "Prevent screen lock playing puzzles",
+    "firstChapterTitle": "First chapter",
+    "prevChapterTitle": "Previous chapter",
+    "randomChapterTitle": "Random chapter",
+    "nextChapterTitle": "Next chapter",
+    "lastChapterTitle": "Last chapter"
   }
 }
