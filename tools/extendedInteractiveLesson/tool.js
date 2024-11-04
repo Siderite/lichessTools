@@ -762,6 +762,14 @@
         if (this.options.flow.spacedRepetition) optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.spacedRepetition'));
         if (this.options.returnToPreview) optionsArr.push(trans.noarg('extendedInteractiveLesson.returnToPreview'));
         if (this.options.fastInteractive) optionsArr.push(trans.noarg('extendedInteractiveLesson.fastInteractive'));
+        if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
+          if (this.options.flow.ignoreBadGlyphs) {
+            optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.ignoreBadGlyphs'));
+          }
+          if (this.options.flow.negativeHint) {
+            optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.negativeHint'));
+          }
+        }
         optionsElem.find('span').text(optionsArr.join(', '));
       }
     };
