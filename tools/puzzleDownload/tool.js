@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'puzzleDownload',
-        category: 'analysis',
+        category: 'puzzles',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -16,7 +16,7 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.puzzles': 'Puzzles',
         'options.puzzleDownload': 'Download PGN for puzzles',
         'puzzlePgnButtonTitle': 'Puzzle PGN',
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
@@ -24,7 +24,7 @@
 
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.puzzles': 'Probleme de \u015Fah',
         'options.puzzleDownload': 'Desc\u0103rcare PGN pentru probleme de \u015fah',
         'puzzlePgnButtonTitle': 'PGN-ul problemei de \u015fah',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',

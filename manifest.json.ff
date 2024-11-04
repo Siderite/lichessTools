@@ -146,6 +146,7 @@
         "tools/gameListOptions/tool.js",
         "tools/showDeviation/tool.js",
         "tools/linkToAnalysis/tool.js",
+        "tools/puzzleOptions/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",

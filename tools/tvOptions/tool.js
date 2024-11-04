@@ -46,7 +46,7 @@
         'tvOptions.friendsTv': 'Jocurile prietenilor t\u0103i',
         'tvOptions.teamTv': 'Jocurile \u00een echipa ta',
         'tvOptions.userTvHistory': 'Dou\u0103 partide precedente \u00een TVul juc\u0103torilor',
-        'tvOptions.wakelock': 'Prevent screen lock with TV',
+        'tvOptions.wakelock': 'Previne blocarea ecranului vizion\u00e2nd TV',
         'tvOptions.stickyCategory': 'Canal TV persistent',
         'friendsButtonTitle': 'LiChess Tools - jocurile prietenilor t\u0103i',
         'streamersButtonTitle': 'LiChess Tools - jocurile streamerilor live',
@@ -365,8 +365,8 @@
           .text(trans.noarg('noGames'))
           .appendTo(container);
       }
-      lt.global.clearTimeout(this.timeout);
-      this.timeout = lt.global.setTimeout(this.updateTvOptionsPage, 10000);
+      lt.global.clearTimeout(this.updateTvTimeout);
+      this.updateTvTimeout = lt.global.setTimeout(this.updateTvOptionsPage, 10000);
       this.refreshTimeControls();
     };
     updateTvOptionsPage = this.lichessTools.debounce(this.updateTvOptionsPageDirect, 1000);
@@ -438,7 +438,8 @@
       } catch (err) {
         console.debug('Wakelock failed:', err);
       }
-      lt.global.setTimeout(this.requestWakeLock, 1000);
+      lt.global.clearTimeout(this.wakeLockTimeout);
+      this.wakeLockTimeout = lt.global.setTimeout(this.requestWakeLock, 1000);
     };
 
     followingOnlinesRequests = 0;
@@ -569,6 +570,7 @@
       if (this.options.wakelock && this.isTvPage()) {
         this.requestWakeLock();
       } else {
+        lt.global.clearTimeout(this.wakeLockTimeout);
         this.wakelock?.release();
       }
 

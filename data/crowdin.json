@@ -702,11 +702,14 @@
     "analysedGamesLabel": "تحليل فقط",
     "themes.gameMoveList": "قائمة نقل اللعبة المرنة",
     "linkToAnalysisTitle": "أدوات شطرنج الحياة - رابط التحليل الحالي",
-    "themes.fatGauge": "Thick analysis gauge",
-    "avoidMovesHint": "Only one accepted move. Avoid %s",
-    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
-    "themes.slimmerArrows": "... slimmer"
+    "themes.fatGauge": "مقياس تحليل سميك",
+    "avoidMovesHint": "نقلة واحدة مقبولة. تجنب %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "تجنب الخطوط المعلَّمة كأخطاء",
+    "extendedInteractiveLessonFlow.negativeHint": "تلميح الحركات المستبعدة",
+    "themes.slimmerArrows": "... slimmer",
+    "options.puzzles": "ألغاز",
+    "options.puzzleOptions": "خيارات للألغاز",
+    "puzzleOptions.wakeLock": "منع تشغيل ألغاز قفل الشاشة"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1415,7 +1418,10 @@
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
     "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
-    "themes.slimmerArrows": "... slimmer"
+    "themes.slimmerArrows": "... slimmer",
+    "options.puzzles": "Puzzles",
+    "options.puzzleOptions": "Options for puzzles",
+    "puzzleOptions.wakeLock": "Prevent screen lock playing puzzles"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2124,7 +2130,10 @@
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
     "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
-    "themes.slimmerArrows": "... slimmer"
+    "themes.slimmerArrows": "... slimmer",
+    "options.puzzles": "Puzzles",
+    "options.puzzleOptions": "Options for puzzles",
+    "puzzleOptions.wakeLock": "Prevent screen lock playing puzzles"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2829,11 +2838,14 @@
     "analysedGamesLabel": "Seulement analysé",
     "themes.gameMoveList": "Liste de mouvements de jeu souple",
     "linkToAnalysisTitle": "Outils LiChess - lien avec l'analyse actuelle",
-    "themes.fatGauge": "Thick analysis gauge",
-    "avoidMovesHint": "Only one accepted move. Avoid %s",
-    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
-    "themes.slimmerArrows": "... slimmer"
+    "themes.fatGauge": "Épais jauge d'analyse",
+    "avoidMovesHint": "Un seul mouvement accepté. Évitez %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Éviter les lignes marquées comme des erreurs",
+    "extendedInteractiveLessonFlow.negativeHint": "Astucer les coups exclus",
+    "themes.slimmerArrows": "... slimmer",
+    "options.puzzles": "Problèmes",
+    "options.puzzleOptions": "Options pour les puzzles",
+    "puzzleOptions.wakeLock": "Empêcher le verrouillage de l'écran de jouer aux puzzles"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3539,10 +3551,13 @@
     "themes.gameMoveList": "Flexible Spielbewegungsliste",
     "linkToAnalysisTitle": "LiChess-Tools - Link zur aktuellen Analyse",
     "themes.fatGauge": "Große Analysefunktion",
-    "avoidMovesHint": "Only one accepted move. Avoid %s",
-    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
-    "themes.slimmerArrows": "... slimmer"
+    "avoidMovesHint": "Nur eine akzeptierte Bewegung. Vermeide %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Als Fehler markierte Zeilen vermeiden",
+    "extendedInteractiveLessonFlow.negativeHint": "Hinweis ausgeschlossene Züge",
+    "themes.slimmerArrows": "... slimmer",
+    "options.puzzles": "Rätsel",
+    "options.puzzleOptions": "Optionen für Puzzles",
+    "puzzleOptions.wakeLock": "Spielaufgaben für Bildschirmsperre verhindern"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4251,7 +4266,10 @@
     "avoidMovesHint": "Tylko jedno dopuszczalne posunięcie. Unikaj %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Pomijaj linie oznaczone jako błędy",
     "extendedInteractiveLessonFlow.negativeHint": "Wskaż w podpowiedzi wykluczone posunięcia",
-    "themes.slimmerArrows": "... smuklejsze"
+    "themes.slimmerArrows": "... smuklejsze",
+    "options.puzzles": "Łyżki, widelce, chochle, cedzidła, łopatki do ciasta, noże do ryb, noże do masła, szczypce do cukru i podobne artykuły kuchenne lub stołowe",
+    "options.puzzleOptions": "Opcje dla zagadek",
+    "puzzleOptions.wakeLock": "Zapobiegaj odtwarzaniu łamigłówek na ekranie"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -4956,11 +4974,14 @@
     "analysedGamesLabel": "Apenas analisados",
     "themes.gameMoveList": "Lista de movimentos flexíveis",
     "linkToAnalysisTitle": "LiChess Tools - link para a análise atual",
-    "themes.fatGauge": "Thick analysis gauge",
-    "avoidMovesHint": "Only one accepted move. Avoid %s",
-    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
-    "themes.slimmerArrows": "... slimmer"
+    "themes.fatGauge": "Análise grossa de medição",
+    "avoidMovesHint": "Apenas um movimento aceito. Evite %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Evitar linhas marcadas como erros",
+    "extendedInteractiveLessonFlow.negativeHint": "Dica excluída movimentos",
+    "themes.slimmerArrows": "... slimmer",
+    "options.puzzles": "Problemas",
+    "options.puzzleOptions": "Opções para quebra-cabeças",
+    "puzzleOptions.wakeLock": "Impedir bloqueio de tela de quebra-cabeças"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5332,7 +5353,7 @@
     "tvOptions.friendsTv": "Jocurile prietenilor tăi",
     "tvOptions.teamTv": "Jocurile în echipa ta",
     "tvOptions.userTvHistory": "Două partide precedente în TVul jucătorilor",
-    "tvOptions.wakelock": "Previne blocarea ecranului cu televizorul",
+    "tvOptions.wakelock": "Previne blocarea ecranului vizionând TV",
     "friendsButtonTitle": "LiChess Tools - jocurile prietenilor tăi",
     "streamersButtonTitle": "LiChess Tools - jocurile streamerilor live",
     "teamButtonTitle": "LiChess Tools - jocurile echipei tale",
@@ -5669,7 +5690,10 @@
     "avoidMovesHint": "O singură mutare. Evită %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Evită linii marcate ca greșite",
     "extendedInteractiveLessonFlow.negativeHint": "Indiciu mutări excluse",
-    "themes.slimmerArrows": "... și mai subțiri"
+    "themes.slimmerArrows": "... și mai subțiri",
+    "options.puzzles": "Probleme de șah",
+    "options.puzzleOptions": "Opțiuni pentru probleme de șah",
+    "puzzleOptions.wakeLock": "Previne blocarea ecranului în probleme de șah"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6375,10 +6399,13 @@
     "themes.gameMoveList": "Гибкий список ходов",
     "linkToAnalysisTitle": "Инструменты Жизни - ссылка на текущий анализ",
     "themes.fatGauge": "Tолстый индикатор анализа",
-    "avoidMovesHint": "Only one accepted move. Avoid %s",
-    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
-    "themes.slimmerArrows": "... slimmer"
+    "avoidMovesHint": "Только один ход принят. Избегайте %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Избегать отмеченные как ошибки",
+    "extendedInteractiveLessonFlow.negativeHint": "Подсказка исключена",
+    "themes.slimmerArrows": "... slimmer",
+    "options.puzzles": "Пазлы",
+    "options.puzzleOptions": "Параметры головоломки",
+    "puzzleOptions.wakeLock": "Запретить блокировку экрана"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -7083,11 +7110,14 @@
     "analysedGamesLabel": "Sólo analizado",
     "themes.gameMoveList": "Lista de movimientos de juego flexible",
     "linkToAnalysisTitle": "Herramientas de LiChess - enlace al análisis actual",
-    "themes.fatGauge": "Thick analysis gauge",
-    "avoidMovesHint": "Only one accepted move. Avoid %s",
-    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
-    "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
-    "themes.slimmerArrows": "... slimmer"
+    "themes.fatGauge": "Anemómetro grueso",
+    "avoidMovesHint": "Solo un movimiento aceptado. Evitar %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Evitar líneas marcadas como errores",
+    "extendedInteractiveLessonFlow.negativeHint": "Movimientos excluidos de pista",
+    "themes.slimmerArrows": "... slimmer",
+    "options.puzzles": "Puzzles",
+    "options.puzzleOptions": "Opciones de rompecabezas",
+    "puzzleOptions.wakeLock": "Evitar la reproducción del bloqueo de pantalla"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7796,6 +7826,9 @@
     "avoidMovesHint": "Only one accepted move. Avoid %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Avoid lines marked as mistakes",
     "extendedInteractiveLessonFlow.negativeHint": "Hint excluded moves",
-    "themes.slimmerArrows": "... slimmer"
+    "themes.slimmerArrows": "... slimmer",
+    "options.puzzles": "Puzzles",
+    "options.puzzleOptions": "Options for puzzles",
+    "puzzleOptions.wakeLock": "Prevent screen lock playing puzzles"
   }
 }

@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Nov
+
+- Puzzle options tool - prevent screen from locking during puzzle play
+
 01 Nov
 
 - Slimmer arrows theme

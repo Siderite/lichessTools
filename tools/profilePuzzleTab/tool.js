@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'profilePuzzleTab',
-        category: 'general',
+        category: 'puzzles',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -14,7 +14,7 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.puzzles': 'Puzzles',
         'options.profilePuzzleTab': 'Puzzle performance chart in Profile',
         'puzzleTabTitle': 'LiChess Tools - Puzzle Stats',
         'puzzleTabText': 'Puzzle Stats',
@@ -24,7 +24,7 @@
         'dashboard.replay': 'To replay'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.puzzles': 'Probleme de \u015Fah',
         'options.profilePuzzleTab': 'Grafic de performan\u0163\u0103 la probleme de \u015Fah \u00een Profil',
         'puzzleTabTitle': 'LiChess Tools - Statistici probleme de \u015Fah',
         'puzzleTabText': 'Statistici probleme \u015Fah',
