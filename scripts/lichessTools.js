@@ -558,6 +558,9 @@
       if (element?.length) element = element[0];
       if (!element?.offsetParent && $(element).css('position') != 'fixed') return 0;
       if (this.global.document.visibilityState == 'hidden') return 0;
+      if (element?.checkVisibility) {
+        if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
+      }
       const rect = element.getBoundingClientRect();
       const port = new DOMRect(0, 0, $(window).width(), $(window).height());
       return this.rectIntersection(rect, port);
