@@ -82,7 +82,10 @@
         return;
       }
       const data = await lt.api.puzzle.getDashboard(days);
-      if (!data) return;
+      if (!data) {
+        await this.updateData(sort);
+        return;
+      }
       const table =$('<table><thead></thead><tbody></tbody></table>');
       let html = '<tr><th></th><th class="puzzleCount nr">$trans(dashboard.puzzleCount)</th><th class="performance nr">$trans(dashboard.performance)</th><th class="replay nr">$trans(dashboard.replay)</th></tr>';
       html = html.replace(/\$trans\(([^\),]+?)(?:\s*,\s*([^\)]+?))?\)/g, function (m, name, value) {
