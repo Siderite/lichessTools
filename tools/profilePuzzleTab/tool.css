@@ -65,3 +65,8 @@ body.lichessTools div.perf-stat.puzzle .box__top__actions,
 body.lichessTools div.perf-stat.puzzle span.progress {
   display: none;
 }
+
+body.lichessTools div.perf-stat.puzzle .perf-stat__content section.lichessTools-profilePuzzleTab a > img {
+  width: 2em;
+  vertical-align: middle;
+}

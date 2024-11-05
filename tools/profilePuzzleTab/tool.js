@@ -64,6 +64,7 @@
 
     updateDataDirect = async (sort)=>{
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const $ = lt.$;
       const htmlEncode = lt.htmlEncode;
       const trans = lt.translator;
@@ -108,7 +109,7 @@
         const d = data.themes[theme];
         const r = d.results;
         const perf = r.performance > data.global.performance ? 'good' : r.performance < data.global.performance ? 'bad' : '';
-        html += '<tr><th><a href="/training/'+theme+'">'+htmlEncode(d.theme)+'</a></th><td class="perc nr" title="'+r.firstWins+'+'+r.replayWins+'" style="--win:'+r.winperc+'%;--rep:'+r.repperc+'%;">'+r.nb+'</td><td class="nr '+perf+'">'+r.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/'+theme+'">'+r.replay+'</a></td>';
+        html += '<tr><th><a href="/training/'+theme+'"><img src="'+lichess.asset.url('images/puzzle-themes/'+theme+'.svg')+'"/>'+htmlEncode(d.theme)+'</a></th><td class="perc nr" title="'+r.firstWins+'+'+r.replayWins+'" style="--win:'+r.winperc+'%;--rep:'+r.repperc+'%;">'+r.nb+'</td><td class="nr '+perf+'">'+r.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/'+theme+'">'+r.replay+'</a></td>';
       }
       html = html.replace(/\$trans\(([^\),]+?)(?:\s*,\s*([^\)]+?))?\)/g, function (m, name, value) {
         return htmlEncode(value ? trans.pluralSame(name, value) : trans.noarg(name));
