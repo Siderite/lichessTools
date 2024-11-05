@@ -92,7 +92,7 @@
       let replay = data.global.nb - data.global.firstWins - data.global.replayWins;
       let winperc = data.global.nb ? Math.floor(100 * data.global.firstWins/data.global.nb) : 0;
       let repperc = data.global.nb ? Math.floor(100 * data.global.replayWins/data.global.nb) : 0;
-      html = '<tr><th><a href="/training">$trans(dashboard.total)</a></th><td class="perc nr" title="'+data.global.firstWins+'+'+data.global.replayWins+'" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+data.global.nb+'</td><td class="nr">'+data.global.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/mix">'+replay+'</a></td>';
+      html = '<tr><th><a href="/training"><img src="'+lichess.asset.url('images/puzzle-themes/mix.svg')+'"/>$trans(dashboard.total)</a></th><td class="perc nr" title="'+data.global.firstWins+'+'+data.global.replayWins+'" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+data.global.nb+'</td><td class="nr">'+data.global.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/mix">'+replay+'</a></td>';
       for (const theme in data.themes) {
         const r = data.themes[theme].results;
         r.replay = r.nb - r.firstWins - r.replayWins;
