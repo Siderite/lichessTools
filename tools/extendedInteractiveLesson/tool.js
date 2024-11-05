@@ -244,6 +244,8 @@
         if (!gp.isMyMove()) {
           let child = null;
           if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
+            gp.currentPath = this.getCurrentPath();
+            if (!gp.currentPath) return;
             const childPath = gp.currentPath.slice(0, analysis.path.length + 2);
             if (childPath.length == analysis.path.length + 2) child = analysis.tree.nodeAtPath(childPath);
           } else {
@@ -306,11 +308,11 @@
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return false;
-      const moveSide = (analysis.turnColor()=='white') ^ gp.isMyMove()
+      const yourSide = (analysis.turnColor()=='white') ^ gp.isMyMove()
            ? ' w '
            : ' b ';
       return !!nodeList
-        .filter(n=>n.fen.includes(moveSide))
+        .filter(n=>n.fen.includes(yourSide))
         .flatMap(n=>n.glyphs||[])
         .find(g=>[2,4,6].includes(g.id));
     };
@@ -346,7 +348,7 @@
       let currentPath = null;
       if (paths.currentPath && !this.isDonePath(paths.currentPath)) {
         const nodeList = analysis.tree.getNodeList(paths.currentPath);
-        if (nodeList.length == paths.currentPath.length / 2 // line exists
+        if (nodeList.map(n=>n.id).join('') == paths.currentPath // line exists
           && !nodeList.find(n=>!this.isPermanentNode(n)) // it's not temporary
           && !nodeList.at(-1).children?.length // and the last node does not have kids
           && !this.areBadGlyphNodes(nodeList)) // and there are no mistake/bluders on your side and the setting is on
@@ -356,12 +358,14 @@
       }
       if (!refreshChapterPaths && currentPath) return currentPath;
       const currentPaths = [];
+      const allPaths = [];
       const traverse = (node, path, nodeList) => {
         if (!refreshChapterPaths && this.options.flow.sequential && currentPaths.length) return;
         const nextMoves = node.children
           .filter(c => this.isPermanentNode(c));
-        if (!nextMoves.length && !this.isDonePath(path)) {
-          if (!this.areBadGlyphNodes(nodeList)) {
+        if (!nextMoves.length && !this.areBadGlyphNodes(nodeList)) {
+          allPaths.push(path);
+          if (!this.isDonePath(path)) {
             currentPaths.push(path);
           }
         }
@@ -369,20 +373,23 @@
       };
       traverse(analysis.tree.root, '', []);
       if (refreshChapterPaths) {
-        const toDelete = new Set(Object.keys(paths)).difference(new Set(currentPaths));
+        const toDelete = new Set(Object.keys(paths)).difference(new Set(allPaths));
         for (const path of toDelete) {
          delete paths[path];
         }
       }
-      const i = this.options.flow.sequential
-        ? 0
-        : Math.floor(lt.random() * currentPaths.length);
       if (currentPath && refreshChapterPaths) {
         paths.currentPath = currentPath;
       } else {
+        const i = this.options.flow.sequential
+          ? 0
+          : Math.floor(lt.random() * currentPaths.length);
         paths.currentPath = currentPaths[i];
       }
       this.saveChapterPaths();
+      if (refreshChapterPaths) {
+        this.refreshChapterProgress();
+      }
       return paths.currentPath;
     };
 
