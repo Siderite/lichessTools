@@ -28,14 +28,9 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
-      if (lichess.pubsub) { //TODO legacy: remove when removed from Lichess
-        lichess.pubsub.off('content-loaded',this.emit);
-        lichess.pubsub.on('content-loaded',this.emit);
-      } else {
-        const observer = $('body').observer();
-        observer.clear();
-        observer.on('*',this.detectNew);
-      }
+      const observer = $('body').observer();
+      observer.clear();
+      observer.on('*',this.detectNew);
     }
 
   }

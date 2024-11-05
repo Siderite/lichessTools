@@ -111,20 +111,6 @@
               return false;
             }
           });
-        } else { //TODO legacy: remove when removed from Lichess
-          lt.lichess.pubsub.emit = lt.unwrapFunction(lt.lichess.pubsub.emit, 'tvOptions');
-          lt.lichess.pubsub.emit = lt.wrapFunction(lt.lichess.pubsub.emit, {
-            id: 'tvOptions',
-            before: ($this, name, info) => {
-              if (name == 'socket.in.finish') {
-                if (!this.isStreamerTvPage() && !this.isFriendsTvPage() && !this.isTeamTvPage()) return;
-                const gameId = info.id;
-                $('main.tv-games div.page-menu__content.now-playing a[data-live="' + gameId + '"]').remove();
-                this.updateTvOptionsPage();
-                return false;
-              }
-            }
-          });
         }
       }
 

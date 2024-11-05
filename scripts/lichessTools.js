@@ -99,79 +99,9 @@
       }
     };
 
-    //TODO legacy: remove implementation when existing in Lichess
-    uiApi = this.global?.lichess || {
-      lichessTools: this,
-      initializeDom: function() {
-        const lt = this.lichessTools;
-        lt.lichess.pubsub.emit('content-loaded');
-      },
-      events: {
-        lichessTools: this,
-        on: function(key, cb) {
-          const lt = this.lichessTools;
-          lt.lichess.pubsub.on(key,cb);
-          if (key == 'analysis.closeAll') { 
-            this.on('analyse.close-all',cb);
-          }
-        },
-        off: function(key, cb) {
-          const lt = this.lichessTools;
-          lt.lichess.pubsub.off(key,cb);
-          if (key == 'analysis.closeAll') {
-            this.off('analyse.close-all',cb);
-          }
-        }
-      },
-      socket: {
-        lichessTools: this,
-        subscribeToMoveLatency: function() {
-          const lt = this.lichessTools;
-          lt.lichess.pubsub.emit('socket.send', 'moveLat', true);
-        },    
-        events: {
-          lichessTools: this,
-          socketInEvents: ['mlat', 'fen', 'notifications', 'endData'],
-          on: function(key, cb) {
-            const lt = this.lichessTools;
-            const inEvent = this.socketInEvents.includes(key);
-            const prefix = inEvent ? 'socket.in.' : 'socket.';
-            lt.lichess.pubsub.on(prefix+key,cb);
-          },
-          off: function(key, cb) {
-            const lt = this.lichessTools;
-            const inEvent = this.socketInEvents.includes(key);
-            const prefix = inEvent ? 'socket.in.' : 'socket.';
-            lt.lichess.pubsub.off(prefix+key,cb);
-          }
-        }
-      },
-      onlineFriends: {
-        lichessTools: this,
-        request: function() {
-          const lt = this.lichessTools;
-          lt.lichess.pubsub.emit('socket.send', 'following_onlines');
-        },    
-        events: {
-          lichessTools: this,
-          on: function(key, cb) {
-            const lt = this.lichessTools;
-            lt.lichess.pubsub.on('socket.in.following_'+key,cb);
-          },
-          off: function(key, cb) {
-            const lt = this.lichessTools;
-            lt.lichess.pubsub.off('socket.in.following_'+key,cb);
-          }
-        }
-      },
-      chat: {
-        lichessTools: this,
-        post: function(text) {
-          const lt = this.lichessTools;
-          lt.lichess.pubsub.emit('socket.send', 'talk', text);
-        }
-      }
-    };
+    get uiApi() {
+      return this.global.lichess;
+    }
 
     isDev = () => {
       return /lichess\.dev/.test(this.global.location.origin);
