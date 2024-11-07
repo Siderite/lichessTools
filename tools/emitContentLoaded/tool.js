@@ -14,13 +14,12 @@
     detectNew = (records)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const selector = '#powerTip .infinite-scroll, .paginated, .dropdown, .notifications, .challenge-page, .upt__info, .game__meta, .timeline, .lobby__tv, .announce, .simul-list__content, .angle-content';
+      const selector = '#powerTip .infinite-scroll, .paginated, .dropdown, .notifications, #notify-toggle > span, .challenge-page, .upt__info, .game__meta, .timeline, .lobby__tv, .announce, .simul-list__content, .angle-content';
       const found = records.find(r=>$(r.target).is(selector) || [...r.addedNodes].find(n=>$(n).is(selector)));
       if (found) {
         this.emit(found.target);
         const children = [...found.addedNodes].filter(n=>$(n).is(selector));
         children.forEach(n=>this.emit(n));
-        return;
       }
     };
 
@@ -30,7 +29,12 @@
       const $ = lt.$;
       const observer = $('body').observer();
       observer.clear();
-      observer.on('*',this.detectNew);
+      observer.on('*',this.detectNew,{ 
+        subtree: true,
+        childList: true, 
+        attributes: false, 
+        characterData: true
+      });
     }
 
   }

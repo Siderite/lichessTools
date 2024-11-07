@@ -47,6 +47,14 @@ cash.single = function (selector, context) {
   return cash(elem);
 };
 
+cash.fn.attrSafe = function(attr,value) {
+  if (this.attr(attr)!==value) {
+    this.attr(attr,value);
+  }
+  return this;
+}
+
+
 class Observer {
   constructor(context) {
     this.context = context;

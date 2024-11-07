@@ -54,7 +54,7 @@
         }, 500);
       }
 
-      const toggle = $('#top div.site-buttons #notify-toggle span');
+      const toggle = $('#top div.site-buttons #notify-toggle > span');
       const app = $('#top div.site-buttons #notify-app');
       let notifications = $('div.notifications', app);
       const totalEntries = {};
@@ -90,12 +90,13 @@
       const count = +(toggle.attr('data-count')) || 0;
       const newCount = this._unreadNotifications + entries.length;
       title = title?.replaceAll(count.toString(), newCount.toString());
+      this.lastNewCount = newCount;
       toggle
-        .attr('data-count', newCount)
-        .attr('title', title)
-        .attr('aria-label', title);
+        .attrSafe('data-count', newCount)
+        .attrSafe('title', title)
+        .attrSafe('aria-label', title);
     };
-    forcedProcessNotifications = this.lichessTools.debounce(() => this.processNotifications(true), 500);
+    forcedProcessNotifications = this.lichessTools.debounce(() => this.processNotifications(true), 250);
 
     _unreadNotifications = undefined;
     updateNotificationCount = (ev) => {
@@ -135,10 +136,12 @@
 
       lt.pubsub.on('content-loaded', this.processNotifications);
       this.interval = lt.global.setInterval(() => {
-        if ($('div.shown #notify-app div.empty.text').length) {
+        if ($('div.shown #notify-app div.empty.text').length || $('#notify-toggle > span').attr('data-count')!==this.lastNewCount?.toString()) {
           this.forcedProcessNotifications();
         }
-      }, 500);
+      }, 1000);
+
+      lt.storage?.listen('notify-read-all',this.forcedProcessNotifications);
 
       lt.uiApi.socket.events.on('notifications', this.updateNotificationCount);
       if (this._unreadNotifications === undefined) {
