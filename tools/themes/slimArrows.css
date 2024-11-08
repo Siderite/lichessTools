@@ -1,106 +1,106 @@
 /* Slim Arrows */
 
 body.lichessTools.lichessTools-theme_slimArrows {
-  --slimness: 0.16px;
+  --slimness: 0.66px;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.234375"] {
-  stroke-width: calc( var(--slimness) * 0.95) !important;
+  stroke-width: calc( var(--slimness) * 0.234375) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.21785"] {
-  stroke-width: calc( var(--slimness) * 0.88) !important;
+  stroke-width: calc( var(--slimness) * 0.21785) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.203125"] {
-  stroke-width: calc( var(--slimness) * 0.81) !important;
+  stroke-width: calc( var(--slimness) * 0.203125) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.1875"] {
-  stroke-width: calc( var(--slimness) * 0.75) !important;
+  stroke-width: calc( var(--slimness) * 0.1875) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.171875"] {
-  stroke-width: calc( var(--slimness) * 0.69) !important;
+  stroke-width: calc( var(--slimness) * 0.171875) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.15625"] {
-  stroke-width: calc( var(--slimness) * 0.63) !important;
+  stroke-width: calc( var(--slimness) * 0.15625) !important;
 }
 
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.274375"] {
-  stroke-width: calc( var(--slimness) * 1.00) !important;
+  stroke-width: calc( var(--slimness) * 0.274375) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.25785"] {
-  stroke-width: calc( var(--slimness) * 0.95) !important;
+  stroke-width: calc( var(--slimness) * 0.25785) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.243125"] {
-  stroke-width: calc( var(--slimness) * 0.88) !important;
+  stroke-width: calc( var(--slimness) * 0.243125) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.2275"] {
-  stroke-width: calc( var(--slimness) * 0.81) !important;
+  stroke-width: calc( var(--slimness) * 0.2275) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.211875"] {
-  stroke-width: calc( var(--slimness) * 0.75) !important;
+  stroke-width: calc( var(--slimness) * 0.211875) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] line[marker-end][stroke-width="0.19625"] {
-  stroke-width: calc( var(--slimness) * 0.69) !important;
+  stroke-width: calc( var(--slimness) * 0.19625) !important;
 }
 
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.234375"] {
-  stroke-width: calc( var(--slimness) * 1.06) !important;
+  stroke-width: calc( var(--slimness) * 0.234375) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.21785"] {
-  stroke-width: calc( var(--slimness) * 1.00) !important;
+  stroke-width: calc( var(--slimness) * 0.21785) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.203125"] {
-  stroke-width: calc( var(--slimness) * 0.95) !important;
+  stroke-width: calc( var(--slimness) * 0.203125) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.1875"] {
-  stroke-width: calc( var(--slimness) * 0.88) !important;
+  stroke-width: calc( var(--slimness) * 0.1875) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.171875"] {
-  stroke-width: calc( var(--slimness) * 0.81) !important;
+  stroke-width: calc( var(--slimness) * 0.171875) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.15625"] {
-  stroke-width: calc( var(--slimness) * 0.75) !important;
+  stroke-width: calc( var(--slimness) * 0.15625) !important;
 }
 
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.274375"] {
-  stroke-width: calc( var(--slimness) * 1.13) !important;
+  stroke-width: calc( var(--slimness) * 0.274375) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.25785"] {
-  stroke-width: calc( var(--slimness) * 1.06) !important;
+  stroke-width: calc( var(--slimness) * 0.25785) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.243125"] {
-  stroke-width: calc( var(--slimness) * 1.00) !important;
+  stroke-width: calc( var(--slimness) * 0.243125) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.2275"] {
-  stroke-width: calc( var(--slimness) * 0.95) !important;
+  stroke-width: calc( var(--slimness) * 0.2275) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.211875"] {
-  stroke-width: calc( var(--slimness) * 0.88) !important;
+  stroke-width: calc( var(--slimness) * 0.211875) !important;
 }
 
 body.lichessTools.lichessTools-theme_slimArrows g[cgHash] g[filter] line[marker-end][stroke-width="0.19625"] {
-  stroke-width: calc( var(--slimness) * 0.81) !important;
+  stroke-width: calc( var(--slimness) * 0.19625) !important;
 }
 
 
