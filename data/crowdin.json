@@ -714,7 +714,8 @@
     "prevChapterTitle": "الفصل السابق",
     "randomChapterTitle": "فصل عشوائي",
     "nextChapterTitle": "الفصل التالي",
-    "lastChapterTitle": "الفصل الأخير"
+    "lastChapterTitle": "الفصل الأخير",
+    "switchExplorerTabs": "مستكشف دورة Lichess/Masters"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1431,7 +1432,8 @@
     "prevChapterTitle": "Previous chapter",
     "randomChapterTitle": "Random chapter",
     "nextChapterTitle": "Next chapter",
-    "lastChapterTitle": "Last chapter"
+    "lastChapterTitle": "Last chapter",
+    "switchExplorerTabs": "Explorer cycle Lichess/Masters"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2148,7 +2150,8 @@
     "prevChapterTitle": "Previous chapter",
     "randomChapterTitle": "Random chapter",
     "nextChapterTitle": "Next chapter",
-    "lastChapterTitle": "Last chapter"
+    "lastChapterTitle": "Last chapter",
+    "switchExplorerTabs": "Explorer cycle Lichess/Masters"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2865,7 +2868,8 @@
     "prevChapterTitle": "Chapitre précédent",
     "randomChapterTitle": "Chapitre aléatoire",
     "nextChapterTitle": "Chapitre suivant",
-    "lastChapterTitle": "Dernier chapitre"
+    "lastChapterTitle": "Dernier chapitre",
+    "switchExplorerTabs": "Cycle d'explorateur Lichess/Maîtres"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3582,7 +3586,8 @@
     "prevChapterTitle": "Vorheriges Kapitel",
     "randomChapterTitle": "Zufälliges Kapitel",
     "nextChapterTitle": "Nächstes Kapitel",
-    "lastChapterTitle": "Letztes Kapitel"
+    "lastChapterTitle": "Letztes Kapitel",
+    "switchExplorerTabs": "Entdecker-Zyklus Lichess/Meister"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4299,7 +4304,8 @@
     "prevChapterTitle": "Poprzedni rozdział",
     "randomChapterTitle": "Losowy rozdział",
     "nextChapterTitle": "Następny rozdział",
-    "lastChapterTitle": "Ostatni rozdział"
+    "lastChapterTitle": "Ostatni rozdział",
+    "switchExplorerTabs": "Lichess/Mistrzowie cyklu odkrywców"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5016,7 +5022,8 @@
     "prevChapterTitle": "Capítulo anterior",
     "randomChapterTitle": "Capítulo aleatório",
     "nextChapterTitle": "Próximo capítulo",
-    "lastChapterTitle": "Último capítulo"
+    "lastChapterTitle": "Último capítulo",
+    "switchExplorerTabs": "Ciclo dos exploradores Lichess/Mestres"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5733,7 +5740,8 @@
     "prevChapterTitle": "Capitolul precedent",
     "randomChapterTitle": "Un capitol la întâmplare",
     "nextChapterTitle": "Următorul capitol",
-    "lastChapterTitle": "Ultimul capitol"
+    "lastChapterTitle": "Ultimul capitol",
+    "switchExplorerTabs": "Ciclează Lichess/Masters în Explorator"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6450,7 +6458,8 @@
     "prevChapterTitle": "Предыдущая глава",
     "randomChapterTitle": "Случайная глава",
     "nextChapterTitle": "Следующая глава",
-    "lastChapterTitle": "Последняя глава"
+    "lastChapterTitle": "Последняя глава",
+    "switchExplorerTabs": "Цикл Обозревателя/Мастера"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -7167,7 +7176,8 @@
     "prevChapterTitle": "Capítulo anterior",
     "randomChapterTitle": "Capítulo aleatorio",
     "nextChapterTitle": "Siguiente capítulo",
-    "lastChapterTitle": "Último capítulo"
+    "lastChapterTitle": "Último capítulo",
+    "switchExplorerTabs": "Licencia del ciclo del explorador/Maestros"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7884,6 +7894,7 @@
     "prevChapterTitle": "Previous chapter",
     "randomChapterTitle": "Random chapter",
     "nextChapterTitle": "Next chapter",
-    "lastChapterTitle": "Last chapter"
+    "lastChapterTitle": "Last chapter",
+    "switchExplorerTabs": "Explorer cycle Lichess/Masters"
   }
 }

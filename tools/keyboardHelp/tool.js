@@ -39,7 +39,8 @@
         'randomChapter': 'Random study chapter',
         'jumpToCurrent': 'Jump to current position',
         'obsIntegration': 'Toggle OBS integration for this broadcast',
-        'toggleSiteHeader': 'Toggle site header (works everywhere)'
+        'toggleSiteHeader': 'Toggle site header (works everywhere)',
+        'switchExplorerTabs': 'Explorer cycle Lichess/Masters'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -65,7 +66,8 @@
         'randomChapter': 'Capitol de studiu aleatoriu',
         'jumpToCurrent': 'S\u0103ri la pozi\u0163ia curent\u0103',
         'obsIntegration': 'Comut\u0103 integrarea OBS pentru acest broadcast',
-        'toggleSiteHeader': 'Ascunde header-ul paginii'
+        'toggleSiteHeader': 'Ascunde header-ul paginii',
+        'switchExplorerTabs': 'Cicleaz\u0103 Lichess/Masters \u00een Explorator'
       }
     }
 
@@ -129,6 +131,9 @@
         if (analysis.ongoing) {
           row(['backspace'], 'jumpToCurrent');
         }
+        if (analysis.explorer.enabled()) {
+          row(['shift', 't'], 'switchExplorerTabs');
+        }
       }
       if (lt.currentOptions.getValue('ctrlArrows')) {
         row(['ctrl', '&rarr;'], 'randomMove');
@@ -145,7 +150,7 @@
 
         row(['ctrl', 'space'], 'bestCevalLine');
       }
-      if (lt.currentOptions.getValue('explorerPractice')) {
+      if (lt.currentOptions.getValue('explorerPractice') && analysis.explorer.enabled()) {
         row(['shift', 'l'], 'explorerPractice');
       }
       if (lt.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
