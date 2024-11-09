@@ -701,7 +701,11 @@
 
     getPositionFromFen = (fen, deep) => {
       if (!fen) return;
-      return fen.split(' ').slice(0, (deep ? 4 : 2)).join('').replaceAll('/', '');
+      let result = fen.split(' ').slice(0, (deep ? 4 : 2)).join('')
+                      .replaceAll('/', '')
+                      .replaceAll(/,.*$/g,'');
+      
+      return result;
     };
 
     getPositionFromBoard = (el, asFen) => {
