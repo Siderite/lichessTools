@@ -23,6 +23,7 @@
     intl = {
       'en-US': {
         'options.general': 'General',
+        'options.play': 'Play',
         'options.soundOptions': 'Sound options',
         'soundOptions.noMove': 'No move sounds',
         'options.timeAlert': 'Time alert (minutes)',
@@ -36,6 +37,7 @@
       },
       'ro-RO': {
         'options.general': 'General',
+        'options.play': 'Joc',
         'options.soundOptions': 'Op\u0163iuni sunet',
         'soundOptions.noMove': 'F\u0103r\u0103 sunet la mutare',
         'options.timeAlert': 'Alert\u0103 timp (minute)',
