@@ -398,10 +398,10 @@
           $.cached('body').removeClass('lichessTools-lockBoard');
           lockBoardElem.remove();
         }
-        lichess.pubsub.off('ply', this.clearShapes);
+        lt.uiApi.events.off('ply', this.clearShapes);
         $('main div.cg-wrap:not(.lichessTools-boardOverlay)').off('click', this.clearShapes);
         if (this.options.shapeDrawingRound) {
-          lichess.pubsub.on('ply', this.clearShapes);
+          lt.uiApi.events.on('ply', this.clearShapes);
           $('main div.cg-wrap:not(.lichessTools-boardOverlay)').on('click', this.clearShapes);
         }
       }

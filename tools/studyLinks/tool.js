@@ -155,6 +155,11 @@
       const $ = lt.$;
       $('comment a[target],div.comment a[target]').each((i, e) => {
         const href = $(e).attr('href');
+        if (!e._contextMenuEnabled) {
+          $(e)
+            .prop('_contextMenuEnabled',true)
+            .on('contextmenu',ev=>ev.stopPropagation());
+        }
         if (!/\/study\//.test(href)) return;
         $(e).removeAttr('target');
       });

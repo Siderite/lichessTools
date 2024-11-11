@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "LiChess Tools, by Siderite",
-  "version": "2.3.162",
+  "version": "2.3.167",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -40,6 +40,7 @@
         "tools/fixChessgroundResize/tool.js",
         "tools/fixWakeLock/tool.js",
         "tools/emitRedraw/tool.js",
+        "tools/emitContentLoaded/tool.js",
         "tools/emitChapterChange/tool.js",
         "tools/gamebookPlayClass/tool.js",
         "tools/emitPuzzleChange/tool.js",
@@ -145,6 +146,7 @@
         "tools/gameListOptions/tool.js",
         "tools/showDeviation/tool.js",
         "tools/linkToAnalysis/tool.js",
+        "tools/puzzleOptions/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -174,6 +176,7 @@
         "tools/themes/noPractice.css",
         "tools/themes/gameMoveList.css",
         "tools/themes/fatGauge.css",
+        "tools/themes/slimmerArrows.css",
 
         "tools/noSpoilers/tool.css",
         "tools/detectThirdParties/tool.css",
@@ -228,6 +231,7 @@
         "tools/studyFlairs/tool.css",
         "tools/mainPageElements/tool.css",
         "tools/resizeExplorer/tool.css",
+        "tools/soundOptions/tool.css",
         "tools/playLayout/tool.css",
         "tools/obsIntegration/tool.css",
         "tools/forkBehavior/tool.css",
@@ -289,5 +293,13 @@
   "browser_action": {
     "default_title": "LiChess Tools",
     "default_popup": "popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "strict_min_version": "130.0"
+    },
+    "gecko_android": {
+      "strict_min_version": "130.0"
+    }
   }
 }

@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'profilePuzzleTab',
-        category: 'general',
+        category: 'puzzles',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -14,7 +14,7 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.puzzles': 'Puzzles',
         'options.profilePuzzleTab': 'Puzzle performance chart in Profile',
         'puzzleTabTitle': 'LiChess Tools - Puzzle Stats',
         'puzzleTabText': 'Puzzle Stats',
@@ -24,7 +24,7 @@
         'dashboard.replay': 'To replay'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.puzzles': 'Probleme de \u015Fah',
         'options.profilePuzzleTab': 'Grafic de performan\u0163\u0103 la probleme de \u015Fah \u00een Profil',
         'puzzleTabTitle': 'LiChess Tools - Statistici probleme de \u015Fah',
         'puzzleTabText': 'Statistici probleme \u015Fah',
@@ -50,8 +50,12 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if ($('section.lichessTools-profilePuzzleTab').length) return;
+      const container = $('.perf-stat__content');
+      while (!container.length) {
+        await lt.timeout(100);
+      }
       $('<section class="lichessTools-profilePuzzleTab">')
-        .appendTo('.perf-stat__content')
+        .appendTo(container)
       const uiSlider = $('#time-range-slider')[0]?.noUiSlider;
       uiSlider.on('update.lichessTools', this.updateData);
       this.uiSlider = uiSlider;
@@ -60,6 +64,7 @@
 
     updateDataDirect = async (sort)=>{
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const $ = lt.$;
       const htmlEncode = lt.htmlEncode;
       const trans = lt.translator;
@@ -77,7 +82,10 @@
         return;
       }
       const data = await lt.api.puzzle.getDashboard(days);
-      if (!data) return;
+      if (!data) {
+        await this.updateData(sort);
+        return;
+      }
       const table =$('<table><thead></thead><tbody></tbody></table>');
       let html = '<tr><th></th><th class="puzzleCount nr">$trans(dashboard.puzzleCount)</th><th class="performance nr">$trans(dashboard.performance)</th><th class="replay nr">$trans(dashboard.replay)</th></tr>';
       html = html.replace(/\$trans\(([^\),]+?)(?:\s*,\s*([^\)]+?))?\)/g, function (m, name, value) {
@@ -87,7 +95,7 @@
       let replay = data.global.nb - data.global.firstWins - data.global.replayWins;
       let winperc = data.global.nb ? Math.floor(100 * data.global.firstWins/data.global.nb) : 0;
       let repperc = data.global.nb ? Math.floor(100 * data.global.replayWins/data.global.nb) : 0;
-      html = '<tr><th><a href="/training">$trans(dashboard.total)</a></th><td class="perc nr" title="'+data.global.firstWins+'+'+data.global.replayWins+'" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+data.global.nb+'</td><td class="nr">'+data.global.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/mix">'+replay+'</a></td>';
+      html = '<tr><th><a href="/training"><img src="'+lichess.asset.url('images/puzzle-themes/mix.svg')+'"/>$trans(dashboard.total)</a></th><td class="perc nr" title="'+data.global.firstWins+'+'+data.global.replayWins+'" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+data.global.nb+'</td><td class="nr">'+data.global.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/mix">'+replay+'</a></td>';
       for (const theme in data.themes) {
         const r = data.themes[theme].results;
         r.replay = r.nb - r.firstWins - r.replayWins;
@@ -104,7 +112,7 @@
         const d = data.themes[theme];
         const r = d.results;
         const perf = r.performance > data.global.performance ? 'good' : r.performance < data.global.performance ? 'bad' : '';
-        html += '<tr><th><a href="/training/'+theme+'">'+htmlEncode(d.theme)+'</a></th><td class="perc nr" title="'+r.firstWins+'+'+r.replayWins+'" style="--win:'+r.winperc+'%;--rep:'+r.repperc+'%;">'+r.nb+'</td><td class="nr '+perf+'">'+r.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/'+theme+'">'+r.replay+'</a></td>';
+        html += '<tr><th><a href="/training/'+theme+'"><img src="'+lichess.asset.url('images/puzzle-themes/'+theme+'.svg')+'"/>'+htmlEncode(d.theme)+'</a></th><td class="perc nr" title="'+r.firstWins+'+'+r.replayWins+'" style="--win:'+r.winperc+'%;--rep:'+r.repperc+'%;">'+r.nb+'</td><td class="nr '+perf+'">'+r.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/'+theme+'">'+r.replay+'</a></td>';
       }
       html = html.replace(/\$trans\(([^\),]+?)(?:\s*,\s*([^\)]+?))?\)/g, function (m, name, value) {
         return htmlEncode(value ? trans.pluralSame(name, value) : trans.noarg(name));

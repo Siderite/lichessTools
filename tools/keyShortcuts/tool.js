@@ -159,6 +159,22 @@
       analysis.redraw();
     };
 
+    switchExplorerTabs = () => {
+      const lt = this.lichessTools;
+      const explorer = lt.lichess?.analysis?.explorer;
+      if (!explorer?.enabled()) return;
+      switch (explorer.config?.data?.db()) {
+        case 'masters':
+          explorer.config.data.db('lichess');
+          explorer.reload();
+          break;
+        case 'lichess':
+          explorer.config.data.db('masters');
+          explorer.reload();
+          break;
+      }
+    };
+
     bindKeysForAnalysis = () => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
@@ -195,6 +211,8 @@
         lt.unbindKeyHandler(combo);
       }
 
+      lt.unbindKeyHandler('shift+t', true);
+
       if (this.options.enabled) {
         lt.bindKeyHandler('i', () => lt.jumpToGlyphSymbols('?!'));
         lt.bindKeyHandler('m', () => lt.jumpToGlyphSymbols('?'));
@@ -219,6 +237,7 @@
         if (analysis.ongoing) {
           lt.bindKeyHandler('backspace', this.jumpToCurrentMove);
         }
+        lt.bindKeyHandler('shift+t', this.switchExplorerTabs);
       } else {
         if (this.oldHandlers) {
           lt.bindKeyHandler('i', this.oldHandlers['i'], true);

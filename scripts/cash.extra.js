@@ -47,6 +47,14 @@ cash.single = function (selector, context) {
   return cash(elem);
 };
 
+cash.fn.attrSafe = function(attr,value) {
+  if (this.attr(attr)!==value) {
+    this.attr(attr,value);
+  }
+  return this;
+}
+
+
 class Observer {
   constructor(context) {
     this.context = context;
@@ -81,6 +89,7 @@ class Observer {
     this.context.each((i, e) => {
       observer.observe(e,options);
     });
+    return this;
   }
   
   off(selector,func) {
@@ -95,6 +104,7 @@ class Observer {
       list.forEach(o=>o.observer?.disconnect());
       this.handlers.delete(selector);
     }
+    return this;
   }
   
   clear() {
@@ -102,6 +112,7 @@ class Observer {
       this.off(selector);
     }
     this.handlers=new Map();
+    return this;
   }
 }
 

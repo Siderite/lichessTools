@@ -67,9 +67,35 @@
       this.cache = isCached ? new Map() : null;
     }
 
+    getFileWithPermissions = async (file, readWrite)=>{
+      if (!file.getFile) return file;
+      if (!file.requestPermission) return file.getFile();
+      if (navigator.userActivation) {
+        const timeout = (ms)=>{
+          return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        while (!navigator.userActivation.hasBeenActive) {
+          await timeout(100);
+        }
+      }
+      const options = {};
+      if (readWrite) {
+        options.mode = 'readwrite';
+      }
+      if ((await file.queryPermission(options)) === 'granted') {
+        return file.getFile();
+      }
+      if ((await file.requestPermission(options)) === 'granted') {
+        return file.getFile();
+      }
+      console.warn('No file permission available!');
+      return null;
+    };
+
     async loadData(data, file) {
       if (!file) throw new Error('No file handle provided');
-      this.file = file.getFile ? await file.getFile() : file;
+      this.file = await this.getFileWithPermissions(file);
+      if (!this.file) return;
       if (this.file?.lastModified != data.lastModified) {
         await this.loadFile(file);
         return;
@@ -110,7 +136,8 @@
 
     async loadFile(file) {
       if (!file) throw new Error('No file handle provided');
-      this.file = file.getFile ? await file.getFile() : file;
+      this.file = await this.getFileWithPermissions(file);
+      if (!this.file) return;
       this.position = 0;
       const nif = await this.readString(3);
       if (nif!='NIF') throw new Error('Not a NIF file');

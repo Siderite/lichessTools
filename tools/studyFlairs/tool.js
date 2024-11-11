@@ -1,6 +1,8 @@
 (() => {
   class StudyFlairsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitContentLoaded'];
+
     preferences = [
       {
         name: 'studyFlairs',
@@ -269,7 +271,7 @@
         memberFlairs: lt.isOptionSet(value, 'memberFlairs'),
         topicFlairs: lt.isOptionSet(value, 'topicFlairs')
       };
-      lichess.pubsub.off('content-loaded', this.processStudyListDebounced);
+      lt.pubsub.off('content-loaded', this.processStudyListDebounced);
       lt.global.clearInterval(this.interval);
       if (!value) {
         $('.study__icon').show();
@@ -289,7 +291,7 @@
         this.processStudy();
       }
       if (/^\/study\b/.test(lt.global.location.pathname) && $('.studies.list').length) {
-        lichess.pubsub.on('content-loaded', this.processStudyListDebounced);
+        lt.pubsub.on('content-loaded', this.processStudyListDebounced);
         this.processStudyList();
       }
     }

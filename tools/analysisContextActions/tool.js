@@ -193,7 +193,6 @@
       });
     };
 
-
     showTranspos = () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -207,9 +206,22 @@
       this.state = lt.traverse();
       const transpositions = [];
       for (const position in this.state.positions) {
-        const pos = this.state.positions[position];
+        let pos = this.state.positions[position];
         if (pos?.length > 1) {
-          transpositions.push.apply(transpositions, pos);
+          if (lt.transpositionBehavior?.excludeSameLine) {
+            pos = pos.filter((n,i,arr)=>{
+              for (let j=0; j<arr.length; j++) {
+                if (i==j) continue;
+                const paths = [n.path,arr[j].path];
+                paths.sort((a,b)=>a.length-b.length);
+                if (paths[1].startsWith(paths[0])) return false;
+              }
+              return true;
+            });
+          }
+          if (pos?.length > 1) {
+            transpositions.push.apply(transpositions, pos);
+          }
         }
       }
       for (const node of transpositions) {

@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'puzzleIndex',
-        category: 'analysis',
+        category: 'puzzles',
         type: 'file',
         fileDescription: 'Ngram Index Files (NIF)',
         fileExtension: '.nif',
@@ -17,12 +17,12 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.puzzles': 'Puzzles',
         'options.puzzleIndex': 'Find position in Lichess puzzles',
         'puzzleHeaderText': 'Puzzles'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.puzzles': 'Probleme de \u015Fah',
         'options.puzzleIndex': 'G\u0103se\u015fte pozi\u0163ia \u00een problemele de \u015fah Lichess',
         'puzzleHeaderText': 'Probleme de \u015fah'
       }

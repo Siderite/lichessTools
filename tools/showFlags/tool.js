@@ -1,7 +1,7 @@
 (() => {
   class ShowFlagsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitPuzzleChange'];
+    dependencies = ['EmitPuzzleChange', 'EmitContentLoaded'];
 
     preferences = [
       {
@@ -248,14 +248,14 @@
       const lichess = lt.lichess;
       if (!lichess) return;
       const $ = lt.$;
-      lichess.pubsub.off('content-loaded', this.debouncedProcessFlags);
-      lichess.pubsub.off('socket.in.crowd', this.debouncedProcessFlags);
+      lt.pubsub.off('content-loaded', this.debouncedProcessFlags);
+      //lt.uiApi.socket.events.off('crowd', this.debouncedProcessFlags); //TODO confirm this is not needed
       lt.pubsub.off('lichessTools.puzzleChange', this.resetFlags);
       $('#form3-flag').off('change', this.clearCache);
       if (value) {
         this.debouncedProcessFlags();
-        lichess.pubsub.on('content-loaded', this.debouncedProcessFlags);
-        lichess.pubsub.on('socket.in.crowd', this.debouncedProcessFlags);
+        lt.pubsub.on('content-loaded', this.debouncedProcessFlags);
+        //lt.uiApi.socket.events.on('crowd', this.debouncedProcessFlags);  //TODO confirm this is not needed
         lt.pubsub.on('lichessTools.puzzleChange', this.resetFlags);
 
         $('#form3-flag').on('change', this.clearCache);

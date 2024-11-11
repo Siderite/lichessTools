@@ -116,9 +116,9 @@
       let f;
       f=()=>{
         dlg.remove();
-        lichess.pubsub.off('ply',f);
+        lt.uiApi.events.off('ply',f);
       };
-      lichess.pubsub.on('ply',f);
+      lt.uiApi.events.on('ply',f);
       $('<a class="lichessTools-infoIcon">')
         .attr('href', '/account/preferences/display#lichessTools/forkBehavior')
         .attr('target', '_blank')

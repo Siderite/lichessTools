@@ -75,7 +75,7 @@
       const value = lt.currentOptions.getValue('activeIcon');
       this.logOption('Active icon', value);
       lt.global.clearInterval(this.interval);
-      lichess.pubsub.off('ply', this.handlePly);
+      lt.uiApi.events.off('ply', this.handlePly);
       $('link[rel=icon][source=lichessTools]').remove();
       $('link[rel=xicon]').attr('rel', 'icon');
 
@@ -85,7 +85,7 @@
       $('link[rel=icon]').attr('rel', 'xicon');
       $('<link rel="icon" source="lichessTools">').appendTo('head');
       this.setIcon();
-      lichess.pubsub.on('ply', this.handlePly);
+      lt.uiApi.events.on('ply', this.handlePly);
     }
 
   }

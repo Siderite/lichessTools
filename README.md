@@ -117,6 +117,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - game list options: filters, selection, open directly in analysis
 - link to current Analysis board
 - show player rating deviation
+- game custom time alerts
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:

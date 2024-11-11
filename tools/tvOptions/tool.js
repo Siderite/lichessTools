@@ -1,6 +1,8 @@
 (() => {
   class TvOptionsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitContentLoaded'];
+
     preferences = [
       {
         name: 'tvOptions',
@@ -44,7 +46,7 @@
         'tvOptions.friendsTv': 'Jocurile prietenilor t\u0103i',
         'tvOptions.teamTv': 'Jocurile \u00een echipa ta',
         'tvOptions.userTvHistory': 'Dou\u0103 partide precedente \u00een TVul juc\u0103torilor',
-        'tvOptions.wakelock': 'Prevent screen lock with TV',
+        'tvOptions.wakelock': 'Previne blocarea ecranului vizion\u00e2nd TV',
         'tvOptions.stickyCategory': 'Canal TV persistent',
         'friendsButtonTitle': 'LiChess Tools - jocurile prietenilor t\u0103i',
         'streamersButtonTitle': 'LiChess Tools - jocurile streamerilor live',
@@ -98,19 +100,18 @@
       if (!this.isGamesPage()) return;
 
       if (this.options.streamerTv || this.options.friendsTv || this.options.teamTv) {
-        lt.lichess.pubsub.emit = lt.unwrapFunction(lt.lichess.pubsub.emit, 'tvOptions');
-        lt.lichess.pubsub.emit = lt.wrapFunction(lt.lichess.pubsub.emit, {
-          id: 'tvOptions',
-          before: ($this, name, info) => {
-            if (name == 'socket.in.finish') {
+        if (lt.uiApi.overrides?.tvGamesOnFinish) {
+          lt.uiApi.overrides.tvGamesOnFinish = lt.unwrapFunction(lt.uiApi.overrides.tvGamesOnFinish, 'tvOptions');
+          lt.uiApi.overrides.tvGamesOnFinish = lt.wrapFunction(lt.uiApi.overrides.tvGamesOnFinish, {
+            id: 'tvOptions',
+            before: ($this, gameId) => {
               if (!this.isStreamerTvPage() && !this.isFriendsTvPage() && !this.isTeamTvPage()) return;
-              const gameId = info.id;
               $('main.tv-games div.page-menu__content.now-playing a[data-live="' + gameId + '"]').remove();
               this.updateTvOptionsPage();
               return false;
             }
-          }
-        });
+          });
+        }
       }
 
       const container = $('main.tv-games div.tv-channels');
@@ -189,7 +190,7 @@
         });
     };
 
-    refreshTimeControls = () => {
+    refreshTimeControlsDirect = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
       $('a.mini-game[data-tc]').each((i, e) => {
@@ -199,6 +200,7 @@
         }
       });
     };
+    refreshTimeControls = this.lichessTools.debounce(this.refreshTimeControlsDirect, 100);
 
     _maxGamesCount = 30;
     refreshGames = async (playerIds, className, container, streamers) => {
@@ -251,7 +253,7 @@
                 $(html).attr('data-userId', data.id).appendTo(container);
                 gamesCount++;
                 await lt.timeout(250);
-                lt.lichess.pubsub.emit('content-loaded', container[0]);
+                lt.uiApi.initializeDom(container[0]);
                 if (gamesCount > this._maxGamesCount) return;
               }
             } catch (e) {
@@ -349,8 +351,8 @@
           .text(trans.noarg('noGames'))
           .appendTo(container);
       }
-      lt.global.clearTimeout(this.timeout);
-      this.timeout = lt.global.setTimeout(this.updateTvOptionsPage, 10000);
+      lt.global.clearTimeout(this.updateTvTimeout);
+      this.updateTvTimeout = lt.global.setTimeout(this.updateTvOptionsPage, 10000);
       this.refreshTimeControls();
     };
     updateTvOptionsPage = this.lichessTools.debounce(this.updateTvOptionsPageDirect, 1000);
@@ -397,7 +399,7 @@
     requestOnlines = this.lichessTools.debounce(() => {
       const lt = this.lichessTools;
       if (lt.global.document.hidden) return;
-      lt.lichess.pubsub.emit("socket.send", "following_onlines");
+      lt.uiApi.onlineFriends.request();
     }, 250);
 
     hashChange = () => {
@@ -422,7 +424,8 @@
       } catch (err) {
         console.debug('Wakelock failed:', err);
       }
-      lt.global.setTimeout(this.requestWakeLock, 1000);
+      lt.global.clearTimeout(this.wakeLockTimeout);
+      this.wakeLockTimeout = lt.global.setTimeout(this.requestWakeLock, 1000);
     };
 
     followingOnlinesRequests = 0;
@@ -445,38 +448,40 @@
       const lichess = lt.lichess;
       if (!lichess) return;
       $(lt.global).off('hashchange', this.hashChange);
-      lichess.pubsub.off('socket.close', this.hashChange);
-      lichess.pubsub.off('content-loaded', this.refreshTimeControls);
+      lt.uiApi.socket.events.off('close', this.hashChange);
+      lt.pubsub.off('content-loaded', this.refreshTimeControls);
       if (this.options.friendsTv || this.options.streamerTv) {
         $(lt.global).on('hashchange', this.hashChange);
-        lichess.pubsub.on('socket.close', this.hashChange);
-        lichess.pubsub.on('content-loaded', this.refreshTimeControls);
+        lt.uiApi.socket.events.on('close', this.hashChange);
+        lt.pubsub.on('content-loaded', this.refreshTimeControls);
         lt.global.setTimeout(this.hashChange, 100);
       }
 
-      lichess.pubsub.off('socket.in.following_onlines', this.following_onlines);
-      lichess.pubsub.off('socket.in.following_enters', this.enters);
-      lichess.pubsub.off('socket.in.following_leaves', this.leaves);
-      lichess.pubsub.off('socket.in.following_playing', this.playing);
-      lichess.pubsub.off('socket.in.following_stopped_playing', this.stopped_playing);
-      if (this.options.friendsTv) {
-        lichess.pubsub.on('socket.in.following_onlines', this.following_onlines);
-        lichess.pubsub.on('socket.in.following_enters', this.enters);
-        lichess.pubsub.on('socket.in.following_leaves', this.leaves);
-        lichess.pubsub.on('socket.in.following_playing', this.playing);
-        lichess.pubsub.on('socket.in.following_stopped_playing', this.stopped_playing);
+      if (lt.getUserId()) {
+        lt.uiApi.onlineFriends.events.off('onlines', this.following_onlines);
+        lt.uiApi.onlineFriends.events.off('enters', this.enters);
+        lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
+        lt.uiApi.onlineFriends.events.off('playing', this.playing);
+        lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
+        if (this.options.friendsTv) {
+          lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
+          lt.uiApi.onlineFriends.events.on('enters', this.enters);
+          lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
+          lt.uiApi.onlineFriends.events.on('playing', this.playing);
+          lt.uiApi.onlineFriends.events.on('stopped_playing', this.stopped_playing);
 
-        this.followingOnlinesRequests = 0;
-        clearInterval(this.onlinesInterval);
-        this.onlinesInterval = setInterval(() => {
-          if (!this.onlinesInterval) return;
-          this.requestOnlines();
-          this.followingOnlinesRequests++;
-          if (this.followingOnlinesRequests > 5) {
-            clearInterval(this.onlinesInterval);
-            lt.global.console.debug('Sent following-onlines too many times. Giving up.');
-          }
-        }, 5000);
+          this.followingOnlinesRequests = 0;
+          clearInterval(this.onlinesInterval);
+          this.onlinesInterval = setInterval(() => {
+            if (!this.onlinesInterval) return;
+            this.requestOnlines();
+            this.followingOnlinesRequests++;
+            if (this.followingOnlinesRequests > 5) {
+              clearInterval(this.onlinesInterval);
+              lt.global.console.debug('Sent following-onlines too many times. Giving up.');
+            }
+          }, 5000);
+        }
       }
 
       this.updateTvOptionsButton();
@@ -540,7 +545,7 @@
                 if (!text) continue;
                 container.append(text);
               }
-              lichess.pubsub.emit('content-loaded', container[0]);
+              lt.uiApi.initializeDom(container[0]);
             }
           }
         }
@@ -551,6 +556,7 @@
       if (this.options.wakelock && this.isTvPage()) {
         this.requestWakeLock();
       } else {
+        lt.global.clearTimeout(this.wakeLockTimeout);
         this.wakelock?.release();
       }
 

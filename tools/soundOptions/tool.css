@@ -1,0 +1,14 @@
+body.lichessTools .round__app .ruser-bottom,
+body.lichessTools .round__app .rclock-bottom {
+  transition: background-color 1s ease;
+}
+
+body.lichessTools .round__app.lichessTools-timeAlert .ruser-bottom,
+body.lichessTools .round__app.lichessTools-timeAlert .rclock-bottom {
+  background-color: #FF000080;
+  transition: background-color 1s ease;
+}
+
+body.lichessTools .round__app.lichessTools-timeAlert .rclock-bottom * {
+  background: none;
+}

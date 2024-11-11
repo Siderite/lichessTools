@@ -1,7 +1,7 @@
 (() => {
   class MchatOptionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['AddNotifications'];
+    dependencies = ['AddNotifications', 'EmitContentLoaded'];
 
     preferences = [
       {
@@ -148,7 +148,7 @@
                 } else {
                   const splits = splitLength(sendText, maxLength);
                   for (const splitText of splits) {
-                    lichess.pubsub.emit('socket.send', 'talk', splitText);
+                    lt.uiApi.chat.post(splitText);
                     await lt.timeout(500);
                   }
                   sendText = newText;
@@ -157,7 +157,7 @@
               if (sendText) {
                 const splits = splitLength(sendText, maxLength);
                 for (const splitText of splits) {
-                  lichess.pubsub.emit('socket.send', 'talk', splitText);
+                  lt.uiApi.chat.post(splitText);
                   await lt.timeout(100);
                 }
               }
@@ -333,7 +333,7 @@
       this.notificationButtonInTeams();
     };
 
-    notificationButtonInTeams = () => {
+    notificationButtonInTeamsDirect = () => {
       if (!this.isTeamsListPage()) return;
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -369,6 +369,7 @@
         }
       });
     };
+    notificationButtonInTeams = this.lichessTools.debounce(this.notificationButtonInTeamsDirect,100);
 
     sockets = [];
     async start() {
@@ -398,7 +399,7 @@
         }
         this.sockets = null;
       }
-      lichess.pubsub.off('content-loaded', this.notificationButtonInTeams);
+      lt.pubsub.off('content-loaded', this.notificationButtonInTeams);
       if (this.options.teamChatNotifications) {
         lt.storage?.listen('lichessTools.refreshNotifications', ()=>{
           this.loadTeamsData();
@@ -433,7 +434,7 @@
         }
         if (this.isTeamsListPage()) {
           this.notificationButtonInTeams();
-          lichess.pubsub.on('content-loaded', this.notificationButtonInTeams);
+          lt.pubsub.on('content-loaded', this.notificationButtonInTeams);
         }
       }
     }

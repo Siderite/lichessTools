@@ -1,6 +1,8 @@
 (() => {
   class GameListOptionsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitContentLoaded'];
+
     preferences = [
       {
         name: 'gameListOptions',
@@ -98,7 +100,7 @@
       return crc ^ 0xFFFFFF;
     };
 
-    processLists = ()=>{
+    processListsDirect = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
@@ -177,7 +179,10 @@
             const isBlack = $(e).find('.game-row__board .mini-board').is('.orientation-black');
             const elem = $(e).find('a.game-row__overlay');
             const href = elem.attr('href');
-            const xref = href.slice(0,-4)+(isBlack?'/black':'');
+            const m = /^\/(?<gameId>[^\/]+)/.exec(href);
+            const xref = m
+              ? '/' + m.groups.gameId.slice(0,8) + (isBlack?'/black':'')
+              : href;
             elem.attr('href',xref);
             $(e).attr('data-orig-href',href);
           }  
@@ -200,6 +205,7 @@
         this.refreshActions();
       }
     };
+    processLists = this.lichessTools.debounce(this.processListsDirect,100);
 
     async start() {
       const lt = this.lichessTools;
@@ -228,10 +234,10 @@
       $('.lichessTools-gameListOptions-analysisLink')
         .removeClass('lichessTools-gameListOptions-analysisLink')
       lt.pubsub.off('lichessTools.redraw',this.processLists);
-      lichess.pubsub.off('content-loaded',this.processLists);
+      lt.pubsub.off('content-loaded',this.processLists);
       if (!this.options.isSet) return;
       lt.pubsub.on('lichessTools.redraw',this.processLists);
-      lichess.pubsub.on('content-loaded',this.processLists);
+      lt.pubsub.on('content-loaded',this.processLists);
       this.processLists();
     }
 

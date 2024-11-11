@@ -99,6 +99,10 @@
       }
     };
 
+    get uiApi() {
+      return this.global.lichess;
+    }
+
     isDev = () => {
       return /lichess\.dev/.test(this.global.location.origin);
     };
@@ -329,7 +333,9 @@
         .appendTo('body');
       const duration = +d.duration || (d.date ? new Date(d.date).getTime() - Date.now() : 5000);
       timeout = this.global.setTimeout(kill, duration);
-      if (d.date) this.lichess.pubsub.emit('content-loaded');
+      if (d.date) {
+        this.uiApi.initializeDom();
+      }
     };
 
     timeout(ms) {
@@ -482,6 +488,9 @@
       if (element?.length) element = element[0];
       if (!element?.offsetParent && $(element).css('position') != 'fixed') return 0;
       if (this.global.document.visibilityState == 'hidden') return 0;
+      if (element?.checkVisibility) {
+        if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
+      }
       const rect = element.getBoundingClientRect();
       const port = new DOMRect(0, 0, $(window).width(), $(window).height());
       return this.rectIntersection(rect, port);
@@ -692,7 +701,11 @@
 
     getPositionFromFen = (fen, deep) => {
       if (!fen) return;
-      return fen.split(' ').slice(0, (deep ? 4 : 2)).join('').replaceAll('/', '');
+      let result = fen.split(' ').slice(0, (deep ? 4 : 2)).join('')
+                      .replaceAll('/', '')
+                      .replaceAll(/,.*$/g,'');
+      
+      return result;
     };
 
     getPositionFromBoard = (el, asFen) => {

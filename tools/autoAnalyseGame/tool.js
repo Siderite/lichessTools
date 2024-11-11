@@ -31,7 +31,7 @@
         this.retries = 0;
         return;
       }
-      if (!$('.result-wrap .result').length) {
+      if (!$('.result-wrap .result').length && !$('a.fbt.analysis').attr('href')) {
         if (this.retries < 8) {
           lt.global.setTimeout(this.checkEndGame, 500);
           this.retries++;
@@ -50,11 +50,11 @@
       const $ = lt.$;
       const value = lt.currentOptions.getValue('autoAnalyseGame');
       this.logOption('Auto analyse game', value);
-      lichess.pubsub.off('socket.in.endData', this.checkEndGame);
+      lt.uiApi.socket.events.off('endData', this.checkEndGame);
       this.retries = 0;
       if (!value) return;
       if (!$('main').is('.round')) return;
-      lichess.pubsub.on('socket.in.endData', this.checkEndGame);
+      lt.uiApi.socket.events.on('endData', this.checkEndGame);
     }
 
   }

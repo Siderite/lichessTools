@@ -2,6 +2,7 @@ window.lichessTools = new LiChessTools(window, cash);
 
 lichessTools.loadTool(LiChessTools.Tools.Crowdin);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
+lichessTools.loadTool(LiChessTools.Tools.EmitContentLoaded);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
 lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 
@@ -113,6 +114,7 @@ lichessTools.loadTool(LiChessTools.Tools.PuzzleDownload);
 lichessTools.loadTool(LiChessTools.Tools.GameListOptions);
 lichessTools.loadTool(LiChessTools.Tools.ShowDeviation);
 lichessTools.loadTool(LiChessTools.Tools.LinkToAnalysis);
+lichessTools.loadTool(LiChessTools.Tools.PuzzleOptions);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);

@@ -1,5 +1,26 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Nov
+
+- time alert tool
+
+08 Nov
+
+- Explorer tab cycle
+
+04 Nov
+
+- Puzzle options tool - prevent screen from locking during puzzle play
+
+01 Nov
+
+- Slimmer arrows theme
+
+31 Oct
+
+- Polish translation
+- more extended interactive flow options
+
 28 Oct
 
 - Fat gauge theme

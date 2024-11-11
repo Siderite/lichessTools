@@ -167,12 +167,12 @@
       if (!lichess) return;
       const setInterval = lt.global.setInterval;
       const clearInterval = lt.global.clearInterval;
-      lichess.pubsub.off('socket.in.following_playing', this.playFriendSound);
+      lt.uiApi.onlineFriends.events.off('playing', this.playFriendSound);
       lt.pubsub.off('lichessTools.mutePlayer', this.mutePlayer);
       clearInterval(this.audioCheckTimeout);
       if (value !== false && value?.toString()?.replace(/,\s*standard/i, '')) {
         this.beep = await lichess.sound.load('friendPlaying', lichess.sound.url('piano/GenericNotify.mp3'));
-        lichess.pubsub.on('socket.in.following_playing', this.playFriendSound);
+        lt.uiApi.onlineFriends.events.on('playing', this.playFriendSound);
         lt.pubsub.on('lichessTools.mutePlayer', this.mutePlayer);
       }
     }

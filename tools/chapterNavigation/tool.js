@@ -18,12 +18,22 @@
       'en-US': {
         'options.study': 'Study',
         'options.chapterNavigation': 'Study chapter navigation controls',
-        'chapterControlsTitle': 'LiChess Tools - chapter navigation'
+        'chapterControlsTitle': 'LiChess Tools - chapter navigation',
+        'firstChapterTitle': 'First chapter',
+        'prevChapterTitle': 'Previous chapter',
+        'randomChapterTitle': 'Random chapter',
+        'nextChapterTitle': 'Next chapter',
+        'lastChapterTitle': 'Last chapter'
       },
       'ro-RO': {
         'options.study': 'Studiu',
         'options.chapterNavigation': 'Butoane navigare pentru capitole de studiu',
-        'chapterControlsTitle': 'LiChess Tools - navigare capitole'
+        'chapterControlsTitle': 'LiChess Tools - navigare capitole',
+        'firstChapterTitle': 'Primul capitol',
+        'prevChapterTitle': 'Capitolul precedent',
+        'randomChapterTitle': 'Un capitol la \u00eent\u00e2mplare',
+        'nextChapterTitle': 'Urm\u0103torul capitol',
+        'lastChapterTitle': 'Ultimul capitol'
       }
     }
 
@@ -69,11 +79,21 @@
       const index = chapterId
         ? list.findIndex(c => c.id == chapterId)
         : 0;
-      $('button[data-act="first"]', container).toggleClass('disabled', index == 0);
-      $('button[data-act="prev"]', container).toggleClass('disabled', index == 0);
-      $('button[data-act="random"]', container).toggleClass('disabled', list.length == 1);
-      $('button[data-act="next"]', container).toggleClass('disabled', index == list.length - 1);
-      $('button[data-act="last"]', container).toggleClass('disabled', index == list.length - 1);
+      $('button[data-act="first"]', container)
+        .attr('title', trans.noarg('firstChapterTitle'))
+        .toggleClass('disabled', index == 0);
+      $('button[data-act="prev"]', container)
+        .attr('title', trans.noarg('prevChapterTitle'))
+        .toggleClass('disabled', index == 0);
+      $('button[data-act="random"]', container)
+        .attr('title', trans.noarg('randomChapterTitle'))
+        .toggleClass('disabled', list.length == 1);
+      $('button[data-act="next"]', container)
+        .attr('title', trans.noarg('nextChapterTitle'))
+        .toggleClass('disabled', index == list.length - 1);
+      $('button[data-act="last"]', container)
+        .attr('title', trans.noarg('lastChapterTitle'))
+        .toggleClass('disabled', index == list.length - 1);
     };
 
     debouncedRefreshChapterControls = this.lichessTools.debounce(this.refreshChapterControls, 100);
@@ -145,7 +165,7 @@
       if (!study) return;
       lt.pubsub.off('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
       lt.pubsub.off('lichessTools.redraw', this.debouncedRefreshChapterControls);
-      lichess.pubsub.off('chat.resize', this.debouncedRefreshChapterControls);
+      lt.uiApi.events.off('chat.resize', this.debouncedRefreshChapterControls);
       $('div.study__side.lichessTools-chapterControls,aside.relay-tour__side.lichessTools-chapterControls')
         .removeClass('lichessTools-chapterControls')
         .find('div[role="footer"]')
@@ -153,7 +173,7 @@
       if (!value) return;
       lt.pubsub.on('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
       lt.pubsub.on('lichessTools.redraw', this.debouncedRefreshChapterControls);
-      lichess.pubsub.on('chat.resize', this.debouncedRefreshChapterControls);
+      lt.uiApi.events.on('chat.resize', this.debouncedRefreshChapterControls);
       this.refreshChapterControls();
     }
 

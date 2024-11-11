@@ -1,6 +1,8 @@
 (() => {
   class ShowDeviationTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitContentLoaded'];
+
     preferences = [
       {
         name: 'showDeviation',
@@ -71,9 +73,9 @@
       const lichess = lt.lichess;
       const value = lt.currentOptions.getValue('showDeviation');
       this.logOption('Show deviation', value);
-      lichess.pubsub.off('content-loaded',this.addDeviation);
+      lt.pubsub.off('content-loaded',this.addDeviation);
       if (!value) return;
-      lichess.pubsub.on('content-loaded',this.addDeviation);
+      lt.pubsub.on('content-loaded',this.addDeviation);
     }
   }
   LiChessTools.Tools.ShowDeviation = ShowDeviationTool;

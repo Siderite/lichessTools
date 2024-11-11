@@ -1,6 +1,8 @@
 (() => {
   class ShowOpeningTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitContentLoaded'];
+
     preferences = [
       {
         name: 'showOpening',
@@ -231,27 +233,18 @@
       const lichess = lt.lichess;
       if (!lichess) return;
       const $ = lt.$;
-      lichess.pubsub.off('socket.in.fen', this.miniGameOpening);
-      lichess.pubsub.off('ply', this.refreshOpeningDebounced);
-      lichess.pubsub.off('content-loaded', this.miniGameOpening);
-      if (lichess.socket?.settings?.events?.endData) {
-        lichess.socket.settings.events.endData = lt.unwrapFunction(lichess.socket.settings.events.endData, 'showOpening');
-      }
+      lt.uiApi.socket.events.off('fen', this.miniGameOpening);
+      lt.uiApi.events.off('ply', this.refreshOpeningDebounced);
+      lt.uiApi.socket.events.off('endData', this.refreshOpeningDebounced);
+      lt.pubsub.off('content-loaded', this.miniGameOpening);
       lt.global.clearInterval(this.interval);
       const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
       metaSection.find('.lichessTools-opening').remove();
       $('a.mini-game .lichessTools-opening').remove();
       $('div.title .lichessTools-opening').remove();
       if (this.options.showInBoard) {
-        if (lichess.socket?.settings?.events?.endData) {
-          lichess.socket.settings.events.endData = lt.wrapFunction(lichess.socket.settings.events.endData, {
-            id: 'showOpening',
-            after: ($this, result, ...args) => {
-              this.refreshOpeningDebounced();
-            }
-          });
-        }
-        lichess.pubsub.on('ply', this.refreshOpeningDebounced);
+        lt.uiApi.socket.events.on('endData', this.refreshOpeningDebounced);
+        lt.uiApi.events.on('ply', this.refreshOpeningDebounced);
         const intervalTime = $('main').is('#board-editor')
           ? 1000
           : 3500;
@@ -259,8 +252,8 @@
         //this.refreshOpeningDebounced(); this is not essential to loading
       }
       if (this.options.showInMinigames) {
-        lichess.pubsub.on('socket.in.fen', this.miniGameOpening);
-        lichess.pubsub.on('content-loaded', this.miniGameOpening);
+        lt.uiApi.socket.events.on('fen', this.miniGameOpening);
+        lt.pubsub.on('content-loaded', this.miniGameOpening);
         this.miniGameOpeningDebounced();
       }
     }
