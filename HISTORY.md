@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Nov
+
+- time alert tool
+
 08 Nov
 
 - Explorer tab cycle

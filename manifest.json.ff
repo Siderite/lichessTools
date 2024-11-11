@@ -231,6 +231,7 @@
         "tools/studyFlairs/tool.css",
         "tools/mainPageElements/tool.css",
         "tools/resizeExplorer/tool.css",
+        "tools/soundOptions/tool.css",
         "tools/playLayout/tool.css",
         "tools/obsIntegration/tool.css",
         "tools/forkBehavior/tool.css",

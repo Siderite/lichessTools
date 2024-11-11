@@ -715,7 +715,15 @@
     "randomChapterTitle": "فصل عشوائي",
     "nextChapterTitle": "الفصل التالي",
     "lastChapterTitle": "الفصل الأخير",
-    "switchExplorerTabs": "مستكشف دورة Lichess/Masters"
+    "switchExplorerTabs": "مستكشف دورة Lichess/Masters",
+    "options.timeAlert": "تنبيه الوقت (بالدقائق)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "تنبيه صوتي"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1433,7 +1441,15 @@
     "randomChapterTitle": "Random chapter",
     "nextChapterTitle": "Next chapter",
     "lastChapterTitle": "Last chapter",
-    "switchExplorerTabs": "Explorer cycle Lichess/Masters"
+    "switchExplorerTabs": "Explorer cycle Lichess/Masters",
+    "options.timeAlert": "Time alert (minutes)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "Sound alert"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2151,7 +2167,15 @@
     "randomChapterTitle": "Random chapter",
     "nextChapterTitle": "Next chapter",
     "lastChapterTitle": "Last chapter",
-    "switchExplorerTabs": "Explorer cycle Lichess/Masters"
+    "switchExplorerTabs": "Explorer cycle Lichess/Masters",
+    "options.timeAlert": "Time alert (minutes)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "Sound alert"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2869,7 +2893,15 @@
     "randomChapterTitle": "Chapitre aléatoire",
     "nextChapterTitle": "Chapitre suivant",
     "lastChapterTitle": "Dernier chapitre",
-    "switchExplorerTabs": "Cycle d'explorateur Lichess/Maîtres"
+    "switchExplorerTabs": "Cycle d'explorateur Lichess/Maîtres",
+    "options.timeAlert": "Alerte de temps (minutes)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "Alerte sonore"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3587,7 +3619,15 @@
     "randomChapterTitle": "Zufälliges Kapitel",
     "nextChapterTitle": "Nächstes Kapitel",
     "lastChapterTitle": "Letztes Kapitel",
-    "switchExplorerTabs": "Entdecker-Zyklus Lichess/Meister"
+    "switchExplorerTabs": "Entdecker-Zyklus Lichess/Meister",
+    "options.timeAlert": "Zeitbenachrichtigung (Minuten)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "Ton Alarm"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4305,7 +4345,15 @@
     "randomChapterTitle": "Losowy rozdział",
     "nextChapterTitle": "Następny rozdział",
     "lastChapterTitle": "Ostatni rozdział",
-    "switchExplorerTabs": "Lichess/Mistrzowie cyklu odkrywców"
+    "switchExplorerTabs": "Zmieniaj zakładkę Lichess/Masters w bibliotece",
+    "options.timeAlert": "Alarm czasu (minuty)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "Alarm dźwiękowy"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5023,7 +5071,15 @@
     "randomChapterTitle": "Capítulo aleatório",
     "nextChapterTitle": "Próximo capítulo",
     "lastChapterTitle": "Último capítulo",
-    "switchExplorerTabs": "Ciclo dos exploradores Lichess/Mestres"
+    "switchExplorerTabs": "Ciclo dos exploradores Lichess/Mestres",
+    "options.timeAlert": "Alerta de tempo (minutos)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "Alerta sonoro"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5741,7 +5797,15 @@
     "randomChapterTitle": "Un capitol la întâmplare",
     "nextChapterTitle": "Următorul capitol",
     "lastChapterTitle": "Ultimul capitol",
-    "switchExplorerTabs": "Ciclează Lichess/Masters în Explorator"
+    "switchExplorerTabs": "Ciclează Lichess/Masters în Explorator",
+    "options.timeAlert": "Alertă timp (minute)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "Alertă sonoră"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6459,7 +6523,15 @@
     "randomChapterTitle": "Случайная глава",
     "nextChapterTitle": "Следующая глава",
     "lastChapterTitle": "Последняя глава",
-    "switchExplorerTabs": "Цикл Обозревателя/Мастера"
+    "switchExplorerTabs": "Цикл Обозревателя/Мастера",
+    "options.timeAlert": "Предупреждение о времени (в минутах)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "Звуковой сигнал"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -7177,7 +7249,15 @@
     "randomChapterTitle": "Capítulo aleatorio",
     "nextChapterTitle": "Siguiente capítulo",
     "lastChapterTitle": "Último capítulo",
-    "switchExplorerTabs": "Licencia del ciclo del explorador/Maestros"
+    "switchExplorerTabs": "Licencia del ciclo del explorador/Maestros",
+    "options.timeAlert": "Alerta de tiempo (minutos)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "Alerta de sonido"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7895,6 +7975,14 @@
     "randomChapterTitle": "Random chapter",
     "nextChapterTitle": "Next chapter",
     "lastChapterTitle": "Last chapter",
-    "switchExplorerTabs": "Explorer cycle Lichess/Masters"
+    "switchExplorerTabs": "Explorer cycle Lichess/Masters",
+    "options.timeAlert": "Time alert (minutes)",
+    "timeAlert.s30": "0:30",
+    "timeAlert.s60": "1:00",
+    "timeAlert.s90": "1:30",
+    "timeAlert.s120": "2:00",
+    "timeAlert.s180": "3:00",
+    "timeAlert.s300": "5:00",
+    "timeAlert.beep": "Sound alert"
   }
 }
