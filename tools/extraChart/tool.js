@@ -1139,7 +1139,7 @@
           const dataset = chart.data.datasets[existingLocal];
           const existingData = dataset.data;
           const newData = this.smooth(this.getLocalData(mainline));
-          updateChart = JSON.stringify(existingData) != JSON.stringify(newData);
+          updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
           if (updateChart) dataset.data = newData;
         }
       }
@@ -1173,7 +1173,7 @@
           const dataset = chart.data.datasets[existingAccuracy];
           const existingData = dataset.data;
           const newData = this.smooth(this.getAccuracyData(mainline));
-          updateChart = JSON.stringify(existingData) != JSON.stringify(newData);
+          updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
           if (updateChart) dataset.data = newData;
         }
       }
@@ -1207,7 +1207,7 @@
           const dataset = chart.data.datasets[existingSharpness];
           const existingData = dataset.data;
           const newData = this.smooth(this.getSharpnessData(mainline));
-          updateChart = JSON.stringify(existingData) != JSON.stringify(newData);
+          updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
           if (updateChart) dataset.data = newData;
         }
       }
