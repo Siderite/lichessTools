@@ -434,9 +434,10 @@
       lt.pubsub.off('lichessTools.redraw', this.rebind);
       $('th.lichessTools-explorerEval,td.lichessTools-explorerEval').remove();
       explorer.setNode = lt.unwrapFunction(explorer.setNode, 'explorerEval');
-      if (!this.options.isSet) return;
-      this.cache = {};
-      lt.pubsub.on('lichessTools.redraw', this.rebind);
+      if (this.options.isSet) {
+        this.cache = {};
+        lt.pubsub.on('lichessTools.redraw', this.rebind);
+      }
       this.rebind();
     }
 
