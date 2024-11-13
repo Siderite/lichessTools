@@ -964,7 +964,7 @@
         if (lichess.analysis.onMainline) {
           localLine = lichess.analysis.mainline;
         } else {
-          localLine = lichess.analysis.nodeList;
+          localLine = [...lichess.analysis.nodeList];
           let lastNode = localLine.at(-1)?.children[0];
           while (lastNode) {
             localLine.push(lastNode);
