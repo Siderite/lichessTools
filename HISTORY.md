@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Nov
+
+- sound volume
+
 11 Nov
 
 - time alert tool

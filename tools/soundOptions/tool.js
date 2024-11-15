@@ -11,6 +11,12 @@
         advanced: true
       },
       {
+        name: 'soundVolume',
+        category: 'general',
+        type: 'number',
+        defaultValue: 70
+      },
+      {
         name: 'timeAlert',
         category: 'play',
         type: 'multiple',
@@ -25,6 +31,7 @@
         'options.general': 'General',
         'options.play': 'Play',
         'options.soundOptions': 'Sound options',
+        'options.soundVolume': 'Sound volume (0-100)',
         'soundOptions.noMove': 'No move sounds',
         'options.timeAlert': 'Time alert (minutes)',
         'timeAlert.s30': '0:30',
@@ -39,6 +46,7 @@
         'options.general': 'General',
         'options.play': 'Joc',
         'options.soundOptions': 'Op\u0163iuni sunet',
+        'options.soundVolume': 'Volum sunet (0-100)',
         'soundOptions.noMove': 'F\u0103r\u0103 sunet la mutare',
         'options.timeAlert': 'Alert\u0103 timp (minute)',
         'timeAlert.s30': '0:30',
@@ -61,7 +69,7 @@
         el.removeClass('lichessTools-timeAlert');
       },1000);
       if (this.options.beep) {
-        this.beep?.play();
+        lt.play('piano/LowTime.mp3');
       }
     };
 
@@ -93,8 +101,12 @@
       const $ = lt.$;
       const lichess = lt.lichess;
       const soundOptions = lt.currentOptions.getValue('soundOptions');
+      let soundVolume = +lt.currentOptions.getValue('soundVolume');
+      if (Number.isNaN(soundVolume)) soundValume = this.preferences.find(p=>p.name='soundVolume')?.defaultValue;
+      lt.soundVolume = soundVolume;
       const timeAlert = lt.currentOptions.getValue('timeAlert');
       this.logOption('Sound options', soundOptions);
+      this.logOption('Sound volumne', soundVolume);
       this.logOption('Time alert', timeAlert);
       if (!$('.playing .round__app').length) return; 
       this.options = {
@@ -119,7 +131,6 @@
         $('.round__app').observer()
           .clear()
           .on('.rclock-bottom *',this.checkClock);
-        this.beep = await lichess.sound.load('lowTime', lichess.sound.url('piano/LowTime.mp3'));
       } else {
         $('.round__app').removeObserver();
       }

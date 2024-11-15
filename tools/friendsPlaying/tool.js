@@ -65,6 +65,7 @@
     };
 
     playFriendSound = async (username) => {
+      if (!this.options.enabled) return;
       const lt = this.lichessTools;
       lt.debug && lt.global.console.debug(username + ' playing');
       const now = Date.now();
@@ -128,7 +129,8 @@
         return;
       }
       await lt.timeout(500);
-      this.beep?.play();
+      lt.play('piano/GenericNotify.mp3');
+   
       let translation = lt.translator.plural('playing', 1, username?.replace(/[_\-]/g, ' ')) + ', ' + lt.translator.noarg('gameType-' + gameType);
       if (!isStandard) {
         translation += ' ' + variant;
@@ -155,7 +157,8 @@
       const lt = this.lichessTools;
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('friendsPlaying');
-      this.logOption('Sound alert when friends start playing', value);
+      this.logOption('Friends playing alert', value);
+      this.options = { enabled: !!value };
       if (lt.currentOptions.getValue('mutedPlayers')?.length) {
         this.logOption(' ... muted', lt.currentOptions.getValue('mutedPlayers').join(','));
       }
@@ -171,7 +174,6 @@
       lt.pubsub.off('lichessTools.mutePlayer', this.mutePlayer);
       clearInterval(this.audioCheckTimeout);
       if (value !== false && value?.toString()?.replace(/,\s*standard/i, '')) {
-        this.beep = await lichess.sound.load('friendPlaying', lichess.sound.url('piano/GenericNotify.mp3'));
         lt.uiApi.onlineFriends.events.on('playing', this.playFriendSound);
         lt.pubsub.on('lichessTools.mutePlayer', this.mutePlayer);
       }
