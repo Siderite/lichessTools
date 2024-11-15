@@ -1760,7 +1760,12 @@
       });
     }
 
-    fireReloadOptions = () => this.storage.fire('lichessTools.reloadOptions');
+    fireReloadOptions = (samePage) => {
+      this.storage.fire('lichessTools.reloadOptions');
+      if (samePage) {
+        this.global.dispatchEvent( new Event('storage') );
+      }
+    };
 
     getDefaultOptions() {
       const options = {

@@ -148,7 +148,7 @@
       }
       lt.currentOptions.mutedPlayers = mutedPlayers;
       await lt.saveOptions(lt.currentOptions);
-      lt.fireReloadOptions();
+      lt.fireReloadOptions(true);
     };
 
     async start() {
