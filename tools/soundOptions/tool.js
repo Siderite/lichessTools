@@ -46,7 +46,7 @@
         'options.general': 'General',
         'options.play': 'Joc',
         'options.soundOptions': 'Op\u0163iuni sunet',
-        'options.soundVolume': 'Volum sunet (0-100)',
+        'options.soundVolume': 'Volum sonor (0-100)',
         'soundOptions.noMove': 'F\u0103r\u0103 sunet la mutare',
         'options.timeAlert': 'Alert\u0103 timp (minute)',
         'timeAlert.s30': '0:30',

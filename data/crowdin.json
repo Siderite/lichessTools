@@ -723,7 +723,8 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "تنبيه صوتي"
+    "timeAlert.beep": "تنبيه صوتي",
+    "options.soundVolume": "مستوى الصوت (0-100)"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1449,7 +1450,8 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Sound alert"
+    "timeAlert.beep": "Sound alert",
+    "options.soundVolume": "Sound volume (0-100)"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2175,7 +2177,8 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Sound alert"
+    "timeAlert.beep": "Sound alert",
+    "options.soundVolume": "Sound volume (0-100)"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2901,7 +2904,8 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Alerte sonore"
+    "timeAlert.beep": "Alerte sonore",
+    "options.soundVolume": "Volume du son (0-100)"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3627,7 +3631,8 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Ton Alarm"
+    "timeAlert.beep": "Ton Alarm",
+    "options.soundVolume": "Tonlautstärke (0-100)"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4353,7 +4358,8 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Alarm dźwiękowy"
+    "timeAlert.beep": "Alarm dźwiękowy",
+    "options.soundVolume": "Dźwięk (0-100)"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5079,7 +5085,8 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Alerta sonoro"
+    "timeAlert.beep": "Alerta sonoro",
+    "options.soundVolume": "Volume de som (0-100)"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5805,7 +5812,8 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Alertă sonoră"
+    "timeAlert.beep": "Alertă sonoră",
+    "options.soundVolume": "Volum sonor (0-100)"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6531,7 +6539,8 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Звуковой сигнал"
+    "timeAlert.beep": "Звуковой сигнал",
+    "options.soundVolume": "Громкость звука (0-100)"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -7257,7 +7266,8 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Alerta de sonido"
+    "timeAlert.beep": "Alerta de sonido",
+    "options.soundVolume": "Volumen de sonido (0-100)"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -7983,6 +7993,7 @@
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Sound alert"
+    "timeAlert.beep": "Sound alert",
+    "options.soundVolume": "Sound volume (0-100)"
   }
 }
