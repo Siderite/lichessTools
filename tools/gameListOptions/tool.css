@@ -20,14 +20,19 @@ body.lichessTools .lichessTools-gameListOptions-hideAborted article:has(.mini-bo
   display:none;
 }
 
-body.lichessTools .lichessTools-gameListOptions-group article.game-row {
+body.lichessTools .lichessTools-gameListOptions-titledOpponents article:not(.lichessTools-hasTitledOpponent) {
+  display:none;
+}
+
+body.lichessTools .lichessTools-gameListOptions-color article.game-row {
   background-color: var(--playersColor);
 }
 
 body.lichessTools #chkAborted,
 body.lichessTools #chkAnalysis,
 body.lichessTools #chkAnalysisLink,
-body.lichessTools #chkGroup {
+body.lichessTools #chkTitledOpponents,
+body.lichessTools #chkColor {
   vertical-align: bottom;
   margin-left: 0.5em;
 }
@@ -35,7 +40,8 @@ body.lichessTools #chkGroup {
 body.lichessTools label[for="chkAborted"],
 body.lichessTools label[for="chkAnalysis"],
 body.lichessTools label[for="chkAnalysisLink"],
-body.lichessTools label[for="chkGroup"] {
+body.lichessTools label[for="chkTitledOpponents"],
+body.lichessTools label[for="chkColor"] {
   margin-left: 1em;
 }
 
