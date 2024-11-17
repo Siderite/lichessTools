@@ -728,7 +728,10 @@
     "gameListOptions.titledOpponents": "تصفية الخصوم",
     "gameListOptions.color": "لون بواسطة اللاعبين",
     "analysisLinkLabel": "انقر للتحليل:",
-    "titledOpponentsLabel": "العناوين فقط خصوم:"
+    "titledOpponentsLabel": "العناوين فقط خصوم:",
+    "autoAnalyseGame.loss": "الخسارة",
+    "autoAnalyseGame.draw": "ارسم",
+    "autoAnalyseGame.win": "فوز"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1459,7 +1462,10 @@
     "gameListOptions.titledOpponents": "Filter titled opponents",
     "gameListOptions.color": "Color by players",
     "analysisLinkLabel": "Click to analysis:",
-    "titledOpponentsLabel": "Only titled opponents:"
+    "titledOpponentsLabel": "Only titled opponents:",
+    "autoAnalyseGame.loss": "Loss",
+    "autoAnalyseGame.draw": "Draw",
+    "autoAnalyseGame.win": "Win"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2190,7 +2196,10 @@
     "gameListOptions.titledOpponents": "Filter titled opponents",
     "gameListOptions.color": "Color by players",
     "analysisLinkLabel": "Click to analysis:",
-    "titledOpponentsLabel": "Only titled opponents:"
+    "titledOpponentsLabel": "Only titled opponents:",
+    "autoAnalyseGame.loss": "Loss",
+    "autoAnalyseGame.draw": "Draw",
+    "autoAnalyseGame.win": "Win"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2921,7 +2930,10 @@
     "gameListOptions.titledOpponents": "Filtrer les adversaires intitulés",
     "gameListOptions.color": "Couleur par joueurs",
     "analysisLinkLabel": "Cliquez pour analyser :",
-    "titledOpponentsLabel": "Seulement les adversaires intitulés :"
+    "titledOpponentsLabel": "Seulement les adversaires intitulés :",
+    "autoAnalyseGame.loss": "Perte",
+    "autoAnalyseGame.draw": "Dessiner",
+    "autoAnalyseGame.win": "Victoire"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3652,7 +3664,10 @@
     "gameListOptions.titledOpponents": "Filtern Sie mit Namen Gegner",
     "gameListOptions.color": "Farbe nach Spielern",
     "analysisLinkLabel": "Zum Analysieren klicken:",
-    "titledOpponentsLabel": "Nur benannte Gegner:"
+    "titledOpponentsLabel": "Nur benannte Gegner:",
+    "autoAnalyseGame.loss": "Verlust",
+    "autoAnalyseGame.draw": "Zeichnen",
+    "autoAnalyseGame.win": "Sieg"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4370,20 +4385,23 @@
     "nextChapterTitle": "Następny rozdział",
     "lastChapterTitle": "Ostatni rozdział",
     "switchExplorerTabs": "Zmieniaj zakładkę Lichess/Masters w bibliotece",
-    "options.timeAlert": "Alarm czasu (minuty)",
+    "options.timeAlert": "Ostrzeżenie o pozostałym czasie (minuty)",
     "timeAlert.s30": "0:30",
     "timeAlert.s60": "1:00",
     "timeAlert.s90": "1:30",
     "timeAlert.s120": "2:00",
     "timeAlert.s180": "3:00",
     "timeAlert.s300": "5:00",
-    "timeAlert.beep": "Alarm dźwiękowy",
-    "options.soundVolume": "Dźwięk (0-100)",
+    "timeAlert.beep": "Ostrzeżenie dźwiękowe",
+    "options.soundVolume": "Głośność (0-100)",
     "gameListOptions.aborted": "Filtr przerwany",
-    "gameListOptions.titledOpponents": "Filtr tytułowych przeciwników",
-    "gameListOptions.color": "Kolor według graczy",
+    "gameListOptions.titledOpponents": "Filtruj utytułowanych przeciwników",
+    "gameListOptions.color": "Pokoloruj według graczy",
     "analysisLinkLabel": "Kliknij, aby analizować:",
-    "titledOpponentsLabel": "Tylko tani przeciwnicy:"
+    "titledOpponentsLabel": "Tylko utytułowani przeciwnicy:",
+    "autoAnalyseGame.loss": "Strata",
+    "autoAnalyseGame.draw": "Rysuj",
+    "autoAnalyseGame.win": "Wygraj"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5114,7 +5132,10 @@
     "gameListOptions.titledOpponents": "Filtrar adversários titulares",
     "gameListOptions.color": "Cor por jogadores",
     "analysisLinkLabel": "Clique para analisar:",
-    "titledOpponentsLabel": "Apenas oponentes titulados:"
+    "titledOpponentsLabel": "Apenas oponentes titulados:",
+    "autoAnalyseGame.loss": "Derrota",
+    "autoAnalyseGame.draw": "Desenhar",
+    "autoAnalyseGame.win": "Vitória"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5845,7 +5866,10 @@
     "gameListOptions.titledOpponents": "Filtru adversari cu titlu",
     "gameListOptions.color": "Culoare după jucători",
     "analysisLinkLabel": "Click pentru analiză:",
-    "titledOpponentsLabel": "Doar adversari cu titlu:"
+    "titledOpponentsLabel": "Doar adversari cu titlu:",
+    "autoAnalyseGame.loss": "Pierdere",
+    "autoAnalyseGame.draw": "Egal",
+    "autoAnalyseGame.win": "Câștig"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6576,7 +6600,10 @@
     "gameListOptions.titledOpponents": "Фильтр под названием противников",
     "gameListOptions.color": "Цвет по игрокам",
     "analysisLinkLabel": "Нажмите для анализа:",
-    "titledOpponentsLabel": "Только титульные противники:"
+    "titledOpponentsLabel": "Только титульные противники:",
+    "autoAnalyseGame.loss": "Потери",
+    "autoAnalyseGame.draw": "Нарисовать",
+    "autoAnalyseGame.win": "Победить"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -7307,7 +7334,10 @@
     "gameListOptions.titledOpponents": "Filtrar oponentes titulados",
     "gameListOptions.color": "Color por reproductores",
     "analysisLinkLabel": "Haga clic para analizar:",
-    "titledOpponentsLabel": "Sólo oponentes titulados:"
+    "titledOpponentsLabel": "Sólo oponentes titulados:",
+    "autoAnalyseGame.loss": "Pérdida",
+    "autoAnalyseGame.draw": "Dibujar",
+    "autoAnalyseGame.win": "Gana"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8038,6 +8068,9 @@
     "gameListOptions.titledOpponents": "Filter titled opponents",
     "gameListOptions.color": "Color by players",
     "analysisLinkLabel": "Click to analysis:",
-    "titledOpponentsLabel": "Only titled opponents:"
+    "titledOpponentsLabel": "Only titled opponents:",
+    "autoAnalyseGame.loss": "Loss",
+    "autoAnalyseGame.draw": "Draw",
+    "autoAnalyseGame.win": "Win"
   }
 }

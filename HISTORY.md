@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+17 Nov
+
+- wdl options for go to analysis after game
+
 15 Nov
 
 - sound volume
