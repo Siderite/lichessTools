@@ -186,7 +186,7 @@
       let result = this.cache?.get(text);
       if (result) return result;
       let hits = 0;
-      let data;
+      let data = [];
       for (let i=0; i<=text.length - this.ngramsize; i++) {
         const ngram = text.substr(i,this.ngramsize);
         const info = this.ngramDict.get(ngram);
