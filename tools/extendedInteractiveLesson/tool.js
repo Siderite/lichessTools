@@ -216,6 +216,9 @@
           }
           if (func) {
             lt.global.setTimeout(func, delay);
+          } else {
+            $('div.gamebook .comment')
+              .removeClass('good bad');
           }
         } else {
           $('div.gamebook .comment')
