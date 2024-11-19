@@ -7,6 +7,7 @@
       for (const item of items) {
         item.target.removeEventListener(item.type, item.listener, item.useCapture);
       }
+      return items.map(i => i.listener);
     };
     getEventHandlers = (target, type) => {
       const items = this.eventHandlers.filter(eh => eh.target === target && eh.type === type);

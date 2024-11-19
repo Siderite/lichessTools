@@ -673,6 +673,11 @@
         lt.traverse(undefined, undefined, true);
         gp.makeState();
       }
+      const solutionButton = $('.gamebook-buttons .solution');
+      if (solutionButton.length) {
+        lt.removeEventHandlers(solutionButton[0],'click');
+        solutionButton.on('click',gp.solution);
+      }
     };
 
     addDeviation = () => {
