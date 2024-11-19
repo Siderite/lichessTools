@@ -179,11 +179,14 @@
               }
             }
           }
-          lt.global.setTimeout(() =>
-            $('button.hint')
+          const interval = lt.global.setInterval(() => {
+            const hintEl = $('button.hint');
+            if (!hintEl.length) return;
+            lt.global.clearInterval(interval);
+            hintEl
               .attr('data-count', nextMovesCount)
-              .addClass('data-count')
-            , 1);
+              .addClass('data-count');
+            }, 100);
         } else {
           state.feedback = 'good';
         }
