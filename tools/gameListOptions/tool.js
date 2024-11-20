@@ -240,7 +240,7 @@
         const hasTitledOpponent = !!playerElems
                           .find(e3 => {
                             const el = $(e3).clone();
-                            const titleEl = el.find('.utitle');
+                            const titleEl = el.find('.utitle:not([data-bot])');
                             const isTitledPlayer = !!titleEl.length;
                             titleEl.remove();
                             const isUserId = userId && el.text()?.trim()?.toLowerCase() == userId?.toLowerCase();
