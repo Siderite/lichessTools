@@ -136,6 +136,10 @@ body.lichessTools .analyse .gamebook .comment.hinted button.lichessTools-giveUp 
   display: none;
 }
 
+body.lichessTools .analyse .gamebook:has(.feedback.end) button.lichessTools-giveUp {
+  display: none;
+}
+
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork move:hover,
 body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__fork:not(:hover) move.selected {
   background: #1b78d0;

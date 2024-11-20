@@ -920,8 +920,14 @@
     speechRate = 1;
     speechVoiceIndex = undefined;
     speak = async (text, options) => {
+      let volume = +options?.volume;
+      if (Number.isNaN(volume)) {
+        volume = this.soundVolume == undefined
+                   ? this.speechVolume
+                   : this.soundVolume/100;
+      }
       options = {
-        volume: options?.volume || this.speechVolume,
+        volume: volume,
         voiceIndex: options?.voiceIndex === undefined ? this.speechVoiceIndex : options.voiceIndex,
         translated: !!options?.translated,
         rate: options?.rate || this.speechRate
@@ -954,8 +960,14 @@
     };
 
     play = async (path, volume) => {
-      const sound = await this.lichess.sound.load('sound', this.lichess.sound.url(path));
-      await sound.play(this.lichess.sound.getVolume() * (+(volume) || 0.7));
+      const sound = await this.lichess.sound.load(path, this.lichess.sound.url(path));
+      volume = +volume;
+      if (Number.isNaN(volume)) {
+        volume = this.soundVolume == undefined
+                   ? 0.7
+                   : this.soundVolume/100;
+      }
+      await sound.play(this.lichess.sound.getVolume() * volume);
     };
 
     isDark = () => {
@@ -1760,7 +1772,12 @@
       });
     }
 
-    fireReloadOptions = () => this.storage.fire('lichessTools.reloadOptions');
+    fireReloadOptions = (samePage) => {
+      this.storage.fire('lichessTools.reloadOptions');
+      if (samePage) {
+        this.global.dispatchEvent( new Event('storage') );
+      }
+    };
 
     getDefaultOptions() {
       const options = {

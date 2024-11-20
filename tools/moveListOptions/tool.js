@@ -657,7 +657,7 @@
     setupCevalToggle = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      $('main.analyse').toggleClass('lichessTools-fixCevalToggle', this.options.fixCevalToggle);
+      $('main.puzzle, main.analyse').toggleClass('lichessTools-fixCevalToggle', this.options.fixCevalToggle);
     };
 
     addMissingIndexes = () => {
@@ -682,7 +682,7 @@
       const $ = lt.$;
       const lichess = lt.lichess;
       const analysis = lichess?.analysis;
-      if (!analysis) return;
+      //if (!analysis) return;
       this.options = {
         indentedVariations: lt.isOptionSet(value, 'indentedVariations'),
         bookmarks: lt.isOptionSet(value, 'bookmarks'),
@@ -701,43 +701,54 @@
           return arr.join(',');
         }
       };
-      lt.pubsub.off('lichessTools.redraw', this.analysisControls);
-      lt.pubsub.on('lichessTools.redraw', this.analysisControls);
-      analysis.actionMenu.toggle = lt.unwrapFunction(analysis.actionMenu.toggle, 'moveListOptions');
-      analysis.actionMenu.toggle = lt.wrapFunction(analysis.actionMenu.toggle, {
-        id: 'moveListOptions',
-        after: ($this, result, ...args) => {
-          lt.global.setTimeout(this.analysisControls, 100);
-          lt.emitRedraw();
+      if (analysis) {
+        lt.pubsub.off('lichessTools.redraw', this.analysisControls);
+        lt.pubsub.on('lichessTools.redraw', this.analysisControls);
+        analysis.actionMenu.toggle = lt.unwrapFunction(analysis.actionMenu.toggle, 'moveListOptions');
+        analysis.actionMenu.toggle = lt.wrapFunction(analysis.actionMenu.toggle, {
+          id: 'moveListOptions',
+          after: ($this, result, ...args) => {
+            lt.global.setTimeout(this.analysisControls, 100);
+            lt.emitRedraw();
+          }
+        });
+        this.analysisControls();
+
+        lt.pubsub.off('lichessTools.redraw', this.debouncedAddCommentBookmarks);
+        lt.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
+        if (lichess.socket) {
+          lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'moveListOptions');
         }
-      });
-      this.analysisControls();
+        $(lt.global).off('hashchange', this.hashChange);
+        if (this.options.bookmarks) {
+          lt.pubsub.on('lichessTools.redraw', this.debouncedAddCommentBookmarks);
+          lt.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
+          if (lichess.socket) {
+            lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
+              id: 'moveListOptions',
+              after: ($this, result, m) => {
+                if (m.t == 'setComment') this.debouncedAddCommentBookmarks();
+              }
+            });
+          }
+          this.addCommentBookmarks();
+          $(lt.global).on('hashchange', this.hashChange);
+          lt.global.setTimeout(this.hashChange, 100);
+        }
+
+        lt.pubsub.off('lichessTools.redraw', this.setupAnalysisPopup);
+        if (analysis.study && this.options.analysisPopup) {
+          lt.pubsub.on('lichessTools.redraw', this.setupAnalysisPopup);
+        }
+        this.setupAnalysisPopup();
+      }
+      $.cached('body')
+        .toggleClass('lichessTools-fullWidthAnalysis', this.options.fullWidthAnalysis)
+        .toggleClass('lichessTools-hideLeftSide', this.options.hideLeftSide);
 
       lt.pubsub.off('lichessTools.redraw', this.addMissingIndexes);
       if (this.options.indentedVariations) {
         lt.pubsub.on('lichessTools.redraw', this.addMissingIndexes);
-      }
-
-      lt.pubsub.off('lichessTools.redraw', this.debouncedAddCommentBookmarks);
-      lt.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
-      if (lichess.socket) {
-        lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'moveListOptions');
-      }
-      $(lt.global).off('hashchange', this.hashChange);
-      if (this.options.bookmarks) {
-        lt.pubsub.on('lichessTools.redraw', this.debouncedAddCommentBookmarks);
-        lt.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
-        if (lichess.socket) {
-          lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
-            id: 'moveListOptions',
-            after: ($this, result, m) => {
-              if (m.t == 'setComment') this.debouncedAddCommentBookmarks();
-            }
-          });
-        }
-        this.addCommentBookmarks();
-        $(lt.global).on('hashchange', this.hashChange);
-        lt.global.setTimeout(this.hashChange, 100);
       }
 
       lt.pubsub.off('lichessTools.redraw', this.analysisContextMenu);
@@ -747,18 +758,9 @@
         $('.tview2').on('contextmenu', this.analysisContextMenu);
       }
 
-      $.cached('body')
-        .toggleClass('lichessTools-fullWidthAnalysis', this.options.fullWidthAnalysis)
-        .toggleClass('lichessTools-hideLeftSide', this.options.hideLeftSide);
-      lt.pubsub.off('lichessTools.redraw', this.setupAnalysisPopup);
-      if (analysis.study && this.options.analysisPopup) {
-        lt.pubsub.on('lichessTools.redraw', this.setupAnalysisPopup);
-      }
-      this.setupAnalysisPopup();
-
       $('.lichessTools-fixCevalToggle').removeClass('lichessTools-fixCevalToggle');
       lt.pubsub.off('lichessTools.redraw', this.setupCevalToggle);
-      if (analysis && this.options.fixCevalToggle) {
+      if (this.options.fixCevalToggle) {
         lt.pubsub.on('lichessTools.redraw', this.setupCevalToggle);
       }
       this.setupCevalToggle();

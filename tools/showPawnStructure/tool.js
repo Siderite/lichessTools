@@ -218,6 +218,7 @@
       }
 
       const getArr = (structure) => {
+        if (!this.pawnStructures) return [];
         const arr = Object.keys(this.pawnStructures).map(k => {
           return {
             key: k,

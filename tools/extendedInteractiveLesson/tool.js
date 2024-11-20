@@ -179,11 +179,14 @@
               }
             }
           }
-          lt.global.setTimeout(() =>
-            $('button.hint')
+          const interval = lt.global.setInterval(() => {
+            const hintEl = $('button.hint');
+            if (!hintEl.length) return;
+            lt.global.clearInterval(interval);
+            hintEl
               .attr('data-count', nextMovesCount)
-              .addClass('data-count')
-            , 1);
+              .addClass('data-count');
+            }, 100);
         } else {
           state.feedback = 'good';
         }
@@ -213,6 +216,9 @@
           }
           if (func) {
             lt.global.setTimeout(func, delay);
+          } else {
+            $('div.gamebook .comment')
+              .removeClass('good bad');
           }
         } else {
           $('div.gamebook .comment')
@@ -669,6 +675,11 @@
       if (analysis.path === '') {
         lt.traverse(undefined, undefined, true);
         gp.makeState();
+      }
+      const solutionButton = $('.gamebook-buttons .solution');
+      if (solutionButton.length) {
+        lt.removeEventHandlers(solutionButton[0],'click');
+        solutionButton.on('click',gp.solution);
       }
     };
 

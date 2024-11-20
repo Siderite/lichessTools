@@ -10,8 +10,10 @@ body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile) cg-conta
   bottom: -1.3em;
 }
 
-body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) main.gauge-on div.analyse__board {
-  left: -1.2em;
+@media (min-width: 1259.3px) {
+  body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) main.gauge-on div.analyse__board {
+    left: -1.2em;
+  }
 }
 
 body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.study__player-bot {
@@ -69,8 +71,10 @@ body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger.coords-out
   bottom: -1.3em !important;
 }
 
-body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile) main.gauge-on div.analyse__board {
-  left: -0.6em;
+@media (min-width: 1259.3px) {
+  body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile) main.gauge-on div.analyse__board {
+    left: -0.6em;
+  }
 }
 
 body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.study__player-bot {
