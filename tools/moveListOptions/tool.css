@@ -130,17 +130,17 @@ body.lichessTools #main-wrap {
   --move-list-width: 400px;
 }
 
-body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap:not(:has(main.has-relay-tour)),
-body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) #main-wrap:not(:has(main.has-relay-tour)) {
+body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap:has(main.analyse):not(:has(main.has-relay-tour)),
+body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) #main-wrap:has(main.analyse):not(:has(main.has-relay-tour)) {
   ---main-max-width: 100vw;
   ---main-margin: 0;
 }
 
-body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap:not(:has(main.has-relay-tour)) {
+body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #main-wrap:has(main.analyse):not(:has(main.has-relay-tour)) {
   --left-side-width: 0px;
 }
 
-body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) #main-wrap:not(:has(main.has-relay-tour)) {
+body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) #main-wrap:has(main.analyse):not(:has(main.has-relay-tour)) {
   --move-list-width: 100%;
 }
 
