@@ -185,8 +185,8 @@
       $('.round__app .ruser-top a.user-link .lichessTools-playerLag,.round__app .ruser-bottom a.user-link .lichessTools-playerLag').remove();
       if (!this.options.isSet) return;
       lt.uiApi.socket.subscribeToMoveLatency();
-      lt.uiApi.events.on('socket.lag', this.onLag);
-      lt.uiApi.events.on('socket.in.mlat', this.onLatency);
+      lt.uiApi.socket.events.on('lag', this.onLag);
+      lt.uiApi.socket.events.on('mlat', this.onLatency);
     }
 
   }
