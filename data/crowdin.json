@@ -4397,11 +4397,11 @@
     "gameListOptions.aborted": "Filtr przerwany",
     "gameListOptions.titledOpponents": "Filtruj utytułowanych przeciwników",
     "gameListOptions.color": "Pokoloruj według graczy",
-    "analysisLinkLabel": "Kliknij, aby analizować:",
+    "analysisLinkLabel": "Kliknij, aby przeanalizować:",
     "titledOpponentsLabel": "Tylko utytułowani przeciwnicy:",
-    "autoAnalyseGame.loss": "Strata",
-    "autoAnalyseGame.draw": "Rysuj",
-    "autoAnalyseGame.win": "Wygraj"
+    "autoAnalyseGame.loss": "Przegrana",
+    "autoAnalyseGame.draw": "Remis",
+    "autoAnalyseGame.win": "Wygrana"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
