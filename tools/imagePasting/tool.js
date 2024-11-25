@@ -96,6 +96,19 @@
             e.imagePastingInit = true;
             $(e).on('paste drop', this.pasteImage);
           });
+        const container = $('.msg-app__convo__msgs__content');
+        $('group a img',container).each((i, e) => {
+          const url = new URL($(e).attr('src'));
+          if (e._lichessTools_mchatOptions_init) return;
+          e._lichessTools_mchatOptions_init = true;
+          $(e).on('click',ev=>{
+            ev.preventDefault();
+            const dlg = lt.dialog({
+              html: $('<div>').append($(e).clone().addClass('lichessTools-imagePasting-image')).html()
+            });
+            dlg.showModal();
+          });
+        });
       }
       if (this.options.bigEmoji) {
         $('.msg-app__convo group t').each((i, e) => {
