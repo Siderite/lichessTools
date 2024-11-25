@@ -94,18 +94,6 @@
       }
     };
 
-    crc24 = (data) => {
-      const polynomial = 0x864CFB;
-      let crc = 0xFFFFFF;
-      for (let i = 0; i < data.length; i++) {
-        crc ^= data.charCodeAt(i);
-        for (let j = 0; j < 8; j++) {
-          crc = (crc >>> 1) ^ (crc & 1 ? polynomial : 0);
-        }
-      }
-      return crc ^ 0xFFFFFF;
-    };
-
     processListsDirect = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -215,7 +203,7 @@
         const players = playerElems
                           .map(e2=>$(e2).text()?.trim());
         players.sort();
-        const color = '#'+this.crc24(players.join('|')).toString(16).padStart(6,'0')+'20';
+        const color = '#'+lt.crc24(players.join('|')).toString(16).padStart(6,'0')+'20';
         $(e).css('--playersColor',color);
 
         const isAnalysisLink = container.is('.lichessTools-gameListOptions-analysisLink');

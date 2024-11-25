@@ -12,6 +12,19 @@
     global = null;
     lichess = null;
 
+
+    crc24 = (data) => {
+      const polynomial = 0x864CFB;
+      let crc = 0xFFFFFF;
+      for (let i = 0; i < data.length; i++) {
+        crc ^= data.charCodeAt(i);
+        for (let j = 0; j < 8; j++) {
+          crc = (crc >>> 1) ^ (crc & 1 ? polynomial : 0);
+        }
+      }
+      return crc ^ 0xFFFFFF;
+    };
+
     spinnerHtml = `<div class="spinner" aria-label="loading">
     <svg viewBox="-2 -2 54 54">
         <g mask="url(#mask)" fill="none">
