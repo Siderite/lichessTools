@@ -36,7 +36,7 @@
       let button = $('.lichessTools-linkToAnalysis');
       if (!button.length) {
         button = $('<a class="lichessTools-linkToAnalysis">')
-          .attr('data-icon','\uE016')
+          .attr('data-icon',lt.icon.Link)
           .attr('title',trans.noarg('linkToAnalysisTitle'))
           .appendTo('.copyables .pgn .pair');
       }

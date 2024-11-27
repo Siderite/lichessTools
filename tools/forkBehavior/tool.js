@@ -123,7 +123,7 @@
         .attr('href', '/account/preferences/display#lichessTools/forkBehavior')
         .attr('target', '_blank')
         .attr('title', trans.noarg('options.forkBehavior'))
-        .attr('data-icon', '\uE005')
+        .attr('data-icon', lt.icon.InfoCircle)
         .appendTo(dlg);
       $(dlg)
         .on('close', () => lichess.analysis.explorer.setHovering(lichess.analysis.node.fen, null))

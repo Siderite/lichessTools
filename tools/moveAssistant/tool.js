@@ -213,7 +213,7 @@
       if (!button.length) {
         button = $('<button type="button" class="lichessTools-moveAssistant">')
           .attr('title', trans.noarg('assistantButtonTitle'))
-          .attr('data-icon', '\uE069')
+          .attr('data-icon', lt.icon.Eye)
           .on('click', ev => {
             ev.preventDefault();
             this.isEnabled = !this.isEnabled;

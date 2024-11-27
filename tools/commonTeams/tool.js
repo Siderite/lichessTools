@@ -70,7 +70,7 @@
       if (isLichessToolsTeam) {
         linkElement
           .addClass('lichessTools-lichessToolsTeam')
-          .attr('data-icon', '\uE000');
+          .attr('data-icon', lt.icon.Tools);
       } else {
         const flair = commonTeams[0].flair;
         if (flair) {
@@ -79,7 +79,7 @@
             .appendTo(linkElement);
         } else {
           linkElement
-            .attr('data-icon', '\uE059');
+            .attr('data-icon', lt.icon.Group);
         }
       }
     };

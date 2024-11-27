@@ -230,7 +230,7 @@
         addButton = $('<span class="lichessTools-addButton">')
           .attr('title', trans.noarg('addButtonTitle'))
           .attr('data-role', 'addButton')
-          .attr('data-icon', '\uE042')
+          .attr('data-icon', lt.icon.PlusButton)
           .on('click', this.addButton)
           .appendTo(presets);
       }
@@ -238,7 +238,7 @@
         $('<span class="lichessTools-deleteButton">')
           .attr('title', trans.noarg('deleteButtonTitle'))
           .attr('data-role', 'deleteButtons')
-          .attr('data-icon', '\uE03F')
+          .attr('data-icon', lt.icon.X)
           .on('click', () => {
             this.setEditMode(this.editMode == 'delete' ? 'edit' : 'delete');
           })
@@ -248,7 +248,7 @@
         $('<span class="lichessTools-editButton">')
           .attr('title', trans.noarg('editButtonTitle'))
           .attr('data-role', 'editButtons')
-          .attr('data-icon', '\uE019')
+          .attr('data-icon', lt.icon.Gear)
           .on('click', () => {
             this.setEditMode(this.editMode ? false : 'edit');
           })

@@ -79,7 +79,7 @@
       const textarea = $('textarea',dlg);
       textarea.val(pgn);
       $('button.copyPgn',dlg)
-        .attr('data-icon','\uE070')
+        .attr('data-icon',lt.icon.Clipboard)
         .on('click',async ev=>{
           ev.preventDefault();
           const { selectionStart, selectionEnd } = textarea[0];
@@ -104,7 +104,7 @@
           const puzzleId = m.groups.id;
           if ('#'+puzzleId != $(e).text()) return;
           $('<button type="button" class="lichessTools-puzzleDownload">')
-            .attr('data-icon','\uE024')
+            .attr('data-icon',lt.icon.ExternalArrow)
             .attr('title',trans.noarg('puzzlePgnButtonTitle'))
             .on('click',ev=>{
               ev.preventDefault();

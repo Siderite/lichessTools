@@ -26,14 +26,15 @@
     }
 
     getPerfKey = (ch)=>{
+      const lt = this.lichessTools;
       switch(ch) {
-        case '\uE06E': return 'ultraBullet';
-        case '\uE047': return 'bullet';
-        case '\uE01D': return 'blitz';
-        case '\uE017': return 'rapid';
-        case '\uE01F': return 'classical';
-        case '\uE02E': return 'correspondence';
-        case '\uE047': return 'chess960';
+        case lt.icon.UltraBullet: return 'ultraBullet';
+        case lt.icon.Bullet: return 'bullet';
+        case lt.icon.FireBlitz: return 'blitz';
+        case lt.icon.Rabbit: return 'rapid';
+        case lt.icon.Turtle: return 'classical';
+        case lt.icon.PaperAirplane: return 'correspondence';
+        case lt.icon.DieSix: return 'chess960';
         default: return null;
       }
     };

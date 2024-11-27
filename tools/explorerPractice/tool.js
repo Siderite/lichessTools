@@ -280,7 +280,7 @@
         button = $('<span>')
           .addClass('lichessTools-explorerPractice')
           .attr('title', trans.noarg('explorerPracticeTitle'))
-          .attr('data-icon', '\uE021')
+          .attr('data-icon', lt.icon.ArcheryTarget)
           .on('click', ev => {
             ev.preventDefault();
             this.setRunning(!this.isRunning);

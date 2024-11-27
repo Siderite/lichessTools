@@ -97,7 +97,7 @@
         if (elem.length) return;
         const innerElem = $('<span class="content"><span class="name"></span><span class="lichessTools-unpin"></span></span>');
         innerElem.find('span.lichessTools-unpin')
-          .attr('data-icon', '\uE071')
+          .attr('data-icon', lt.icon.Cancel)
           .attr('title', trans.noarg('unpinTitle'))
           .on('click', ev => {
             ev.preventDefault();

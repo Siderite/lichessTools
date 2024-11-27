@@ -38,7 +38,7 @@ body.lichessTools .lichessTools-dailyQuote button.close:hover {
 }
 
 body.lichessTools .lichessTools-dailyQuote button.close:after {
-  content: '\E03F';
+  content: '\E02A'; /* X */
 
   vertical-align: middle;
   font-family: "lichess";

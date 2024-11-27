@@ -77,8 +77,8 @@
       const dialog = $('<dialog class="lichessTools-obsSetup">')
         .append(`
     <div class="close-button-anchor">
-        <a class="help-button" data-icon="&#xE005;" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#obsIntegration" target="_blank"></a>
-        <button type="button" class="close-button" data-icon="&#xE03F;" aria-label="Close"/>
+        <a class="help-button" data-icon="&#x${lt.icon.InfoCircle.charCodeAt(0).toString(16)};" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#obsIntegration" target="_blank"></a>
+        <button type="button" class="close-button" data-icon="&#x${lt.icon.X.charCodeAt(0).toString(16)};" aria-label="Close"/>
     </div>
     <div class="scrollable">
         <div class="dialog-content">
@@ -91,7 +91,7 @@
                 <label data-for="password"></label>
                 <div>
                   <input class="form-control" type="password" name="password">
-                  <i data-icon="&#xE069;" aria-hidden="true" class="togglePassword"></i>
+                  <i data-icon="&#x${lt.icon.Eye.charCodeAt(0).toString(16)};" aria-hidden="true" class="togglePassword"></i>
                 </div>
                 <label data-for="options"></label>
                 <input class="form-control" type="text" name="options">

@@ -232,7 +232,7 @@
         const tagName = $(e).text();
         if (!tags.find(t => t[0] === tagName)) return;
         if ($('button.lichessTools-deleteTag', e).length) return;
-        $('<button class="lichessTools-deleteTag">').text('\uE071')
+        $('<button class="lichessTools-deleteTag">').text(lt.icon.Cancel)
           .attr('title', trans.pluralSame('deleteTagTitle', tagName))
           .on('click', ev => {
             ev.preventDefault();

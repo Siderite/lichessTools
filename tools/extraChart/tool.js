@@ -1030,7 +1030,7 @@
           $('<div class="lichessTools-chartInfo">')
             .attr('title', trans.noarg('chartInfoTitle'))
             .append($('<a target="_blank">')
-              .attr('data-icon', '\uE05D')
+              .attr('data-icon', lt.icon.CautionCircle)
               .attr('href', 'https://siderite.dev/blog/lichess-tools---user-manual#extraChart'))
             .appendTo(container);
         }

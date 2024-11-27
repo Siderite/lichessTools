@@ -126,7 +126,7 @@
       let button = $('a.button', container);
       if (!button.length) {
         button = $('<a class="button text">')
-          .attr('data-icon', '\uE03A')
+          .attr('data-icon', lt.icon.PlayTriangle)
           .text(trans.noarg('learnFromYourMistakes'))
           .on('click', ev => {
             ev.preventDefault();

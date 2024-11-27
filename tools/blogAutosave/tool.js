@@ -97,7 +97,7 @@
       }
       if (value) {
         $('<p class="lichessTools-saved">')
-          .attr('data-icon', '\uE038')
+          .attr('data-icon', lt.icon.Checkmark)
           .text(trans.noarg('blogSaved'))
           .appendTo('form.ublog-post-form__main');
       }

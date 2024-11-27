@@ -1,5 +1,5 @@
 body.lichessTools.lichessTools-extendedInteractiveLesson button.preview::before {
-  content: '\e06f';
+  content: '\E05A'; /* Storm */
   position: relative;
   display: block;
   transform: scale(1.5);
@@ -247,12 +247,12 @@ body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment:b
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment.good:before {
-  content: '\E038';
+  content: '\E023'; /* Checkmark */
   background-color: green;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment.bad:before {
-  content: '\E03F';
+  content: '\E02A'; /* X */
   background-color: red;
 }
 
@@ -264,7 +264,7 @@ body.lichessTools.lichessTools-prettier .analyse .gamebook span.lichessTools-sco
 }
 
 body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson button.preview::before {
-  content: '\e06f' !important;
+  content: '\E05A' !important; /* Storm */
 }
 
 body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleGreen"] line,

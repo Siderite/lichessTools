@@ -80,7 +80,7 @@
         }
         if (!button.length) {
           button = $('<button class="button-link lichessTools-puzzles">')
-            .text('\uE02F')
+            .text(lt.icon.ZoomIn)
             .attr('title',trans.noarg('puzzleHeaderText'))
             .on('click',ev=>{
               ev.preventDefault();

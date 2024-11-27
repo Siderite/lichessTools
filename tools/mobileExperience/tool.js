@@ -384,7 +384,7 @@
           if (!lockBoardElem.length) {
             $('<div></div>')
               .addClass('lichessTools-lockBoard')
-              .attr('data-icon', '\uE054')
+              .attr('data-icon', lt.icon.Padlock)
               .attr('title', trans.noarg('lockBoardTitle'))
               .on('click', () => {
                 this.isBoardLocked = !this.isBoardLocked;

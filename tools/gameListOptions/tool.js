@@ -64,7 +64,7 @@
       if (container.find('.lichessTools-gameListOptions-select input[type="checkbox"]:checked').length) {
         if (!$('button.lichessTools-gameListOptions-copy',filters).length) {
           $('<button class="lichessTools-gameListOptions-copy">')
-            .attr('data-icon','\uE070')
+            .attr('data-icon',lt.icon.Clipboard)
             .attr('title',trans.noarg('copyGamesButtonTitle'))
             .on('click',async ev=>{
               ev.preventDefault();

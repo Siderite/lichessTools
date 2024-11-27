@@ -44,7 +44,7 @@
         let elem = $('a.lichessTools-quietMode', container);
         if (!elem.length) {
           elem = $('<a class="text lichessTools-quietMode">')
-            .attr('data-icon', '\uE00F')
+            .attr('data-icon', lt.icon.BellOutline)
             .on('click', ev => {
               ev.preventDefault();
               lichess.forcedQuietMode = !lichess.quietMode;
