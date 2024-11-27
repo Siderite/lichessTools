@@ -255,16 +255,21 @@
       }
       this.seek(dataPos);
       const crcCountSize = await this.readByte();
-      const crcSize = await this.readByte();
-      const crcCounts = this.splitToNumbers(await this.readBytes(idCount * crcCountSize),crcCountSize);
-      const crcs = [];
-      dataPos = this.position;
-      for (const crcCount of crcCounts) {
-        crcs.push({
-          count: crcCount,
-          position: dataPos
-        });
-        dataPos += crcCount * crcSize;
+      if (crcCountSize) {
+        const crcSize = await this.readByte();
+        const crcCounts = this.splitToNumbers(await this.readBytes(idCount * crcCountSize),crcCountSize);
+        const crcs = [];
+        dataPos = this.position;
+        for (const crcCount of crcCounts) {
+          crcs.push({
+            count: crcCount,
+            position: dataPos
+          });
+          dataPos += crcCount * crcSize;
+        }
+        this.crcCountSize = crcCountSize;
+        this.crcSize = crcSize;
+        this.crcs = crcs;
       }
       this.ngramDict = ngramDict;
       this.ngramsize = ngramsize;
@@ -272,9 +277,6 @@
       this.idsize = idsize;
       this.idIndexSize = idIndexSize;
       this.idCountSize = idCountSize;
-      this.crcCountSize = crcCountSize;
-      this.crcSize = crcSize;
-      this.crcs = crcs;
     }
 
     async search(text) {
@@ -306,12 +308,16 @@
       if (data) {
         for (let i=0; i<data.length; i++) {
           const index = data[i];
-          const crcInfo = this.crcs[index];
-          this.seek(crcInfo.position);
-          const bytes = await this.readBytes(crcInfo.count * this.crcSize);
-          const crcs = this.splitToNumbers(bytes, this.crcSize);
           const id = this.idsString.substr(index*this.idsize,this.idsize);
-          if (crcs.includes(crc)) {
+          if (this.crcs?.length) {
+            const crcInfo = this.crcs[index];
+            this.seek(crcInfo.position);
+            const bytes = await this.readBytes(crcInfo.count * this.crcSize);
+            const crcs = this.splitToNumbers(bytes, this.crcSize);
+            if (crcs.includes(crc)) {
+              result.push(id);
+            }
+          } else {
             result.push(id);
           }
         }
