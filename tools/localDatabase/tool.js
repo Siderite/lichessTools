@@ -45,7 +45,9 @@
 
     async openIndex(fileHandle, isCached = true) {
       const lt = this.lichessTools;
-      if (!fileHandle) return;
+      if (!fileHandle) {
+        return;
+      }
       const dbKey = 'lichessTools/LT/localDatabase-NIF-'+fileHandle.name+'-data';
       let indexData = await lt.storage.get(dbKey,{ db: true, raw: true });
       const indexFile = new IndexFile(lt, isCached);
@@ -54,8 +56,10 @@
       } else {
         await indexFile.loadFile(fileHandle);
       }
-      indexData = indexFile.getIndexData();
-      await lt.storage.set(dbKey, indexData, { db: true, raw: true });
+      const newIndexData = indexFile.getIndexData();
+      if (indexData?.file?.lastModified != newIndexData?.file?.lastModified) {
+        await lt.storage.set(dbKey, newIndexData, { db: true, raw: true });
+      }
       return indexFile;
     }
 
