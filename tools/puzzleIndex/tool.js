@@ -57,7 +57,9 @@
         const searchItems = await this.indexFile.search(fen);
         const container = $('section.explorer-box div.data');
         let table = $('table.lichessTools-puzzles',container);
+        let button = $('.explorer-title button.lichessTools-puzzles',container);
         if (!searchItems.length) {
+          button.remove();
           table.remove();
           return;
         }
@@ -75,6 +77,16 @@
             .appendTo(container);
           table.find('th.title')
             .text(trans.noarg('puzzleHeaderText'));
+        }
+        if (!button.length) {
+          button = $('<button class="button-link lichessTools-puzzles">')
+            .text('\uE02F')
+            .attr('title',trans.noarg('puzzleHeaderText'))
+            .on('click',ev=>{
+              ev.preventDefault();
+              $('.explorer-box table.lichessTools-puzzles').each((i,e)=>e.scrollIntoView());
+            })
+            .appendTo($('.explorer-title',container));
         }
         const tbody = $('tbody',table);
         const rows = $('tr',tbody);

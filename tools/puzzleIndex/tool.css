@@ -18,3 +18,7 @@ body.lichessTools #puzzlePopup {
 body.lichessTools #puzzlePopup img {
   max-width:15em;
 }
+
+body.lichessTools button.lichessTools-puzzles {
+  font-family: 'lichess';
+}
