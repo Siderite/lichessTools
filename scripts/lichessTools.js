@@ -141,6 +141,20 @@
       }
     }
 
+    async arrayRemoveAllAsync(arr,asyncPredicate) {
+      if (!arr?.length) return;
+      let i = 0;
+      let result = [];
+      while (i < arr.length) {
+        if (await asyncPredicate(arr[i])) {
+          result = result.concat(arr.splice(i, 1));
+        } else {
+          i++;
+        }
+      }
+      return result;
+    }
+
     arrayRemoveAll(arr, predicate) {
       if (!arr?.length) return;
       let i = 0;
