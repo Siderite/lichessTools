@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Nov
+
+- more precise find puzzle
+- explorer eval bar precision
+
 17 Nov
 
 - wdl options for go to analysis after game
