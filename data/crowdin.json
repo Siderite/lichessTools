@@ -731,7 +731,8 @@
     "titledOpponentsLabel": "العناوين فقط خصوم:",
     "autoAnalyseGame.loss": "الخسارة",
     "autoAnalyseGame.draw": "ارسم",
-    "autoAnalyseGame.win": "فوز"
+    "autoAnalyseGame.win": "فوز",
+    "explorerEval.bardp": "دقة الشريط"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1465,7 +1466,8 @@
     "titledOpponentsLabel": "Only titled opponents:",
     "autoAnalyseGame.loss": "Loss",
     "autoAnalyseGame.draw": "Draw",
-    "autoAnalyseGame.win": "Win"
+    "autoAnalyseGame.win": "Win",
+    "explorerEval.bardp": "Bar precision"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2199,7 +2201,8 @@
     "titledOpponentsLabel": "Only titled opponents:",
     "autoAnalyseGame.loss": "Loss",
     "autoAnalyseGame.draw": "Draw",
-    "autoAnalyseGame.win": "Win"
+    "autoAnalyseGame.win": "Win",
+    "explorerEval.bardp": "Bar precision"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2933,7 +2936,8 @@
     "titledOpponentsLabel": "Seulement les adversaires intitulés :",
     "autoAnalyseGame.loss": "Perte",
     "autoAnalyseGame.draw": "Dessiner",
-    "autoAnalyseGame.win": "Victoire"
+    "autoAnalyseGame.win": "Victoire",
+    "explorerEval.bardp": "Précision des barres"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3667,7 +3671,8 @@
     "titledOpponentsLabel": "Nur benannte Gegner:",
     "autoAnalyseGame.loss": "Verlust",
     "autoAnalyseGame.draw": "Zeichnen",
-    "autoAnalyseGame.win": "Sieg"
+    "autoAnalyseGame.win": "Sieg",
+    "explorerEval.bardp": "Balkengenauigkeit"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4401,7 +4406,8 @@
     "titledOpponentsLabel": "Tylko utytułowani przeciwnicy:",
     "autoAnalyseGame.loss": "Przegrana",
     "autoAnalyseGame.draw": "Remis",
-    "autoAnalyseGame.win": "Wygrana"
+    "autoAnalyseGame.win": "Wygrana",
+    "explorerEval.bardp": "Precyzja słupkowa"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5135,7 +5141,8 @@
     "titledOpponentsLabel": "Apenas oponentes titulados:",
     "autoAnalyseGame.loss": "Derrota",
     "autoAnalyseGame.draw": "Desenhar",
-    "autoAnalyseGame.win": "Vitória"
+    "autoAnalyseGame.win": "Vitória",
+    "explorerEval.bardp": "Precisão da barra"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5869,7 +5876,8 @@
     "titledOpponentsLabel": "Doar adversari cu titlu:",
     "autoAnalyseGame.loss": "Pierdere",
     "autoAnalyseGame.draw": "Egal",
-    "autoAnalyseGame.win": "Câștig"
+    "autoAnalyseGame.win": "Câștig",
+    "explorerEval.bardp": "Precizie bară"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6603,7 +6611,8 @@
     "titledOpponentsLabel": "Только титульные противники:",
     "autoAnalyseGame.loss": "Потери",
     "autoAnalyseGame.draw": "Нарисовать",
-    "autoAnalyseGame.win": "Победить"
+    "autoAnalyseGame.win": "Победить",
+    "explorerEval.bardp": "Точность панели"
   },
   "es-ES": {
     "LiChess Tools": "Herramientas de LiAjess",
@@ -7337,7 +7346,8 @@
     "titledOpponentsLabel": "Sólo oponentes titulados:",
     "autoAnalyseGame.loss": "Pérdida",
     "autoAnalyseGame.draw": "Dibujar",
-    "autoAnalyseGame.win": "Gana"
+    "autoAnalyseGame.win": "Gana",
+    "explorerEval.bardp": "Precisión de barra"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8071,6 +8081,7 @@
     "titledOpponentsLabel": "Only titled opponents:",
     "autoAnalyseGame.loss": "Loss",
     "autoAnalyseGame.draw": "Draw",
-    "autoAnalyseGame.win": "Win"
+    "autoAnalyseGame.win": "Win",
+    "explorerEval.bardp": "Bar precision"
   }
 }
