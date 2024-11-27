@@ -8,7 +8,7 @@
         name: 'explorerEval',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'hidden'],
+        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'bardp', 'hidden'],
         defaultValue: 'ceval,db',
         advanced: true
       }
@@ -23,6 +23,7 @@
         'explorerEval.db': 'From ChessDb',
         'explorerEval.lichess': 'From Lichess',
         'explorerEval.evalRows': 'Rows from eval',
+        'explorerEval.bardp': 'Bar precision',
         'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval, depth %s',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
@@ -39,6 +40,7 @@
         'explorerEval.stats': 'Din statistici',
         'explorerEval.db': 'De la ChessDb',
         'explorerEval.lichess': 'De la Lichess',
+        'explorerEval.bardp': 'Precizie bar\u0103',
         'explorerEval.evalRows': 'R\u00e2nduri din evaluare',
         'explorerEval.hidden': 'Ascunde',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer, ad\u00e2ncime %s',
@@ -152,6 +154,16 @@
           const tdBar = $('td:has(div.bar)', e);
           const tdTitle = tdBar.attr('title')?.split(' / ')?.at(0) + ' / ' + sharpnessTitle;
           tdBar.attr('title', tdTitle);
+          if (this.options.bardp) {
+            [
+              ['white',w],
+              ['draws',d],
+              ['black',l]
+            ].forEach(a=>{
+              const el = tdBar.find('.'+a[0]);
+              if (el.text()) el.text(Math.round(a[1])/10+'%');
+            });
+          }
         }
 
         let text = '';
@@ -424,8 +436,9 @@
         db: lt.isOptionSet(value, 'db') || lt.isOptionSet(value, 'chessdb'),
         lichess: lt.isOptionSet(value, 'lichess'),
         evalRows: lt.isOptionSet(value, 'evalRows'),
+        bardp: lt.isOptionSet(value, 'bardp'),
         hidden: lt.isOptionSet(value, 'hidden'),
-        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows); }
+        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows || this.bardp); }
       };
       const lichess = lt.lichess;
       const $ = lt.$;
