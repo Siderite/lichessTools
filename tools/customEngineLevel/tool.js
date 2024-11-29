@@ -57,18 +57,9 @@
           ? 99
           : this.options.depth;
         if (customDepth && analysis.ceval.enabled() && !analysis.ceval.showingCloud) {
-          const elem = $('div.ceval div.engine span.info')[0];
-          if (elem) {
-            // lichess keeps a reference to the actual node
-            const textNode = Array.from(elem.childNodes).find(n => n.nodeType == 3);
-            if (textNode) {
-              const infoText = textNode.textContent;
-              const newText = infoText.replace(/(\d+)(?:\/\d+)?/, '$1/' + customDepth);
-              if (infoText != newText) {
-                textNode.textContent = newText;
-              }
-            }
-          }
+          const elem = $('div.ceval div.engine span.info');
+          // lichess keeps a reference to the actual node
+          elem.replaceText(text=>text.replace(/(\d+)(?:\/\d+)?/, '$1/' + customDepth))
         }
       }
 

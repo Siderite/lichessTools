@@ -161,7 +161,8 @@
               ['black',l]
             ].forEach(a=>{
               const el = tdBar.find('.'+a[0]);
-              if (el.text()) el.text(Math.round(a[1])/10+'%');
+              // using text breaks Explorer tabs (Lichess keeps reference to the text node)
+              if (el.text()) el.replaceText(Math.round(a[1])/10+'%');
             });
           }
         }
