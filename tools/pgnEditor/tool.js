@@ -850,7 +850,7 @@
 
       const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 16;
       console.debug('Evaluating with level ', depth);
-      const decimals = +lt.currentOptions.getValue('cevalDecimals') || 1;
+      const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
 
       let info = null;
       let lastInfo = null;

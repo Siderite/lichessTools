@@ -82,7 +82,7 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!node.id || node.isCommentedOrMate) return;
-      const decimals = +lt.currentOptions.getValue('cevalDecimals') || 1;
+      const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
       const evalText = "eval: " + (ceval.mate ? '#' + ceval.mate : (ceval.cp > 0 ? '+' : '') + (ceval.cp / 100).toFixed(decimals));
       const cur = analysis.study.currentChapter();
       node.terminationEvaluated = Date.now();

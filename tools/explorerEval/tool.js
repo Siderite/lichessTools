@@ -120,7 +120,7 @@
           }
         }
       }
-      const decimals = +lt.currentOptions.getValue('cevalDecimals') || 1;
+      const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
       $('tr[data-uci],tr.sum', container).each((i, e) => {
         if (!$('td.lichessTools-explorerEval', e).length) {
           $('<td>')
