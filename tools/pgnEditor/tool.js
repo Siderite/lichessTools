@@ -225,8 +225,8 @@
       const dialog = $('<dialog class="lichessTools-pgnEditor">')
         .append(`
     <div class="close-button-anchor">
-        <a class="help-button" data-icon="&#x${lt.icon.InfoCircle.charCodeAt(0).toString(16)};" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor" target="_blank"></a>
-        <button class="close-button" data-icon="&#x${lt.icon.X.charCodeAt(0).toString(16)};" aria-label="Close"/>
+        <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor" target="_blank"></a>
+        <button class="close-button" data-icon="${lt.icon.toEntity(lt.icon.X)}" aria-label="Close"/>
     </div>
     <div class="scrollable">
         <div class="dialog-content">
@@ -234,24 +234,24 @@
             <div class="input-wrapper">
               <textarea autofocus spellcheck="false" autocomplete="false"></textarea>
               <div class="buttons">
-                <button class="button" type="button" data-role="merge" data-icon="&#x${lt.icon.Funnel.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="normalize" data-icon="&#x${lt.icon.ThumbsUp.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="denormalize" data-icon="&#x${lt.icon.StarOutline.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="split" data-icon="&#x${lt.icon.ShareAndroid.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="search" data-icon="&#x${lt.icon.ZoomIn.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="keepFound" data-icon="&#x${lt.icon.Target.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="cutStuff" data-icon="&#x2702;"><span></span></button>
-                <button class="button" type="button" data-role="evaluate" data-icon="&#x${lt.icon.LineGraph.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="extract" data-icon="&#x${lt.icon.List.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="count" data-icon="&#x${lt.icon.BarChart.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="cancel" data-icon="&#x${lt.icon.Cancel.charCodeAt(0).toString(16)};"><span></span></button>
+                <button class="button" type="button" data-role="merge" data-icon="${lt.icon.toEntity(lt.icon.Funnel)}"><span></span></button>
+                <button class="button" type="button" data-role="normalize" data-icon="${lt.icon.toEntity(lt.icon.ThumbsUp)}"><span></span></button>
+                <button class="button" type="button" data-role="denormalize" data-icon="${lt.icon.toEntity(lt.icon.StarOutline)}"><span></span></button>
+                <button class="button" type="button" data-role="split" data-icon="${lt.icon.toEntity(lt.icon.ShareAndroid)}"><span></span></button>
+                <button class="button" type="button" data-role="search" data-icon="${lt.icon.toEntity(lt.icon.ZoomIn)}"><span></span></button>
+                <button class="button" type="button" data-role="keepFound" data-icon="${lt.icon.toEntity(lt.icon.Target)}"><span></span></button>
+                <button class="button" type="button" data-role="cutStuff" data-icon="${lt.icon.toEntity(lt.icon.BlackScissors)}"><span></span></button>
+                <button class="button" type="button" data-role="evaluate" data-icon="${lt.icon.toEntity(lt.icon.LineGraph)}"><span></span></button>
+                <button class="button" type="button" data-role="extract" data-icon="${lt.icon.toEntity(lt.icon.List)}"><span></span></button>
+                <button class="button" type="button" data-role="count" data-icon="${lt.icon.toEntity(lt.icon.BarChart)}"><span></span></button>
+                <button class="button" type="button" data-role="cancel" data-icon="${lt.icon.toEntity(lt.icon.Cancel)}"><span></span></button>
                 <hr></hr>
-                <button class="button" type="button" data-role="copy" data-icon="&#x${lt.icon.Clipboard.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="upload" data-icon="&#x${lt.icon.InternalArrow.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="download" data-icon="&#x${lt.icon.ExternalArrow.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="undo" data-icon="&#x${lt.icon.Back.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="redo" data-icon="&#x${lt.icon.Forward.charCodeAt(0).toString(16)};"><span></span></button>
-                <button class="button" type="button" data-role="clear" data-icon="&#x${lt.icon.X.charCodeAt(0).toString(16)};"><span></span></button>
+                <button class="button" type="button" data-role="copy" data-icon="${lt.icon.toEntity(lt.icon.Clipboard)}"><span></span></button>
+                <button class="button" type="button" data-role="upload" data-icon="${lt.icon.toEntity(lt.icon.InternalArrow)}"><span></span></button>
+                <button class="button" type="button" data-role="download" data-icon="${lt.icon.toEntity(lt.icon.ExternalArrow)}"><span></span></button>
+                <button class="button" type="button" data-role="undo" data-icon="${lt.icon.toEntity(lt.icon.Back)}"><span></span></button>
+                <button class="button" type="button" data-role="redo" data-icon="${lt.icon.toEntity(lt.icon.Forward)}"><span></span></button>
+                <button class="button" type="button" data-role="clear" data-icon="${lt.icon.toEntity(lt.icon.X)}"><span></span></button>
                 <label></label>
               </div>
             </div>
@@ -1890,7 +1890,7 @@
       }
       if ($('.lichessTools-pgnEditor', container).length) return;
       $('<a class="lichessTools-pgnEditor">')
-        .attr('data-icon', '\u2E0E')
+        .attr('data-icon', lt.icon.EditorialCoronis)
         .attr('title', trans.noarg('sendToPgnEditorTitle'))
         .text(trans.noarg('sendToPgnEditorText'))
         .attr('href', '/analysis#pgnEditor')

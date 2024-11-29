@@ -13,6 +13,7 @@
     lichess = null;
 
     icon = {
+          // see https://github.com/lichess-org/lila/blob/master/modules/ui/src/main/Icon.scala
           CautionTriangle: '\ue000',
           Link: '\ue001',
           Rabbit: '\ue002',
@@ -136,7 +137,34 @@
           Reload: '\ue078',
           AccountCircle: '\ue079',
           Logo: '\ue07a',
-          Switch: '\ue07b'
+          Switch: '\ue07b',
+
+          // LiChess Tools icons
+          ShowTranspositions: 'T',
+          FloppyDisk: '\uD83D\uDCBE',
+          LeftwardsDoubleHeadedArrow: '\u219E',
+          LeftwardsArrow: '\u2190',
+          DownwardsZigzagArrow: '\u21AF',
+          RightwardsArrow: '\u2192',
+          RightwardsDoubleHeadedArrow: '\u21A0',
+          SquareFourCorners: '\u26F6',
+          Mirror: '\uD83E\uDE9E',
+          NorthEastDoubleArrow: '\u21D7',
+          RightwardsPairedArrows: '\u21C9',
+          WhiteScissors: '\u2704',
+          BlackScissors: '\u2702',
+          CircledLatinCapitalLetterY: '\u24CE',
+          EditorialCoronis: '\u2E0E',
+          PushPin: '\uD83D\uDCCC',
+          WarningSign: '\u26A0',
+
+          toEntity: function(s) {
+            let result='';
+            for (let i=0; i<s.length; i++) {
+              result+= '&#x'+s.charCodeAt(i).toString(16)+';';
+            }
+            return result;
+          }
       };
 
     crc24 = (data) => {

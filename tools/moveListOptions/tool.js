@@ -598,7 +598,7 @@
               const text = trans.noarg('bookmarkSplitText');
               const title = trans.noarg('bookmarkSplitTitle');
               menuItem = $('<a>')
-                .attr('data-icon', '\u2704')
+                .attr('data-icon', lt.icon.WhiteScissors)
                 .attr('data-role', 'bookmarkSplit')
                 .text(text).attr('title', title)
                 .on('click', this.bookmarkSplit)

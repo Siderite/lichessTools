@@ -126,7 +126,7 @@
         if (elem.length) {
           elem.toggleClass('active', this.isStreamerTvPage());
         } else {
-          $(`<a href="/games#streamers" class="tv-channel lichessTools-streamers"><span data-icon="&#x${lt.icon.AnalogTv.charCodeAt(0).toString(16)};"><span><strong></strong></span></span></a>`)
+          $(`<a href="/games#streamers" class="tv-channel lichessTools-streamers"><span data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}"><span><strong></strong></span></span></a>`)
             .attr('title', trans.noarg('streamersButtonTitle'))
             .insertAfter($('a.lichessTools-friends', container)[0] || $('a.best', container)[0])
             .toggleClass('active', this.isStreamerTvPage())
@@ -146,7 +146,7 @@
         if (elem.length) {
           elem.toggleClass('active', this.isFriendsTvPage());
         } else {
-          $(`<a href="/games#friends" class="tv-channel lichessTools-friends"><span data-icon="&#x${lt.icon.User.charCodeAt(0).toString(16)};"><span><strong></strong></span></span></a>`)
+          $(`<a href="/games#friends" class="tv-channel lichessTools-friends"><span data-icon="${lt.icon.toEntity(lt.icon.User)}"><span><strong></strong></span></span></a>`)
             .attr('title', trans.noarg('friendsButtonTitle'))
             .insertAfter($('a.best', container))
             .toggleClass('active', this.isFriendsTvPage())
@@ -166,7 +166,7 @@
         if (elem.length) {
           elem.toggleClass('active', this.isTeamTvPage());
         } else {
-          $(`<a href="/games#team" class="tv-channel lichessTools-team"><span data-icon="&#x${lt.icon.Group.charCodeAt(0).toString(16)};"><span><strong></strong></span></span></a>`)
+          $(`<a href="/games#team" class="tv-channel lichessTools-team"><span data-icon="${lt.icon.toEntity(lt.icon.Group)}"><span><strong></strong></span></span></a>`)
             .attr('title', trans.noarg('teamButtonTitle'))
             .insertAfter($('a.best', container))
             .toggleClass('active', this.isTeamTvPage())
@@ -504,7 +504,7 @@
             const title = trans.noarg('bookmarkGame');
             $('div.setup', header)
               .prepend(
-                $(`<a class="bookmark lichessTools-bookmark" href="/bookmark/${gameId}"><i data-icon="&#x${lt.icon.Star.charCodeAt(0).toString(16)};" class="on is3"></i><i data-icon="&#x${lt.icon.StarOutline.charCodeAt(0).toString(16)};" class="off is3"></i><span></span></a>`)
+                $(`<a class="bookmark lichessTools-bookmark" href="/bookmark/${gameId}"><i data-icon="${lt.icon.toEntity(lt.icon.Star)}" class="on is3"></i><i data-icon="${lt.icon.toEntity(lt.icon.StarOutline)}" class="off is3"></i><span></span></a>`)
                   .attr('title', title)
               );
           }

@@ -69,7 +69,7 @@
       const studyId = study.data.id;
       if (!pin.length) {
         pin = $('<span class="lichessTools-pin narrow">')
-          .attr('data-icon', '\uD83D\uDCCC')
+          .attr('data-icon', lt.icon.PushPin)
           .attr('title', trans.noarg('pinTitle'))
           .on('click', ev => {
             ev.preventDefault();
@@ -109,7 +109,7 @@
           .addClass('id_' + p.studyId)
           .attr('href', '/study/' + p.studyId)
           .attr('title', 'LiChess Tools - ' + p.studyName)
-          .append($('<i class="img">').attr('data-icon', '\uD83D\uDCCC'))
+          .append($('<i class="img">').attr('data-icon', lt.icon.PushPin))
           .append(innerElem)
           .appendTo(container);
         elem.find('.content .name').text(p.studyName);

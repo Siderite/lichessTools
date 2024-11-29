@@ -87,7 +87,7 @@
       }
       if (this.options.savebutton) {
         $('<button class="button lichessTools-blogAutosave">')
-          .attr('data-icon', '\uD83D\uDCBE')
+          .attr('data-icon', lt.icon.FloppyDisk)
           .text(trans.noarg('blogSave'))
           .on('click', ev => {
             ev.preventDefault();

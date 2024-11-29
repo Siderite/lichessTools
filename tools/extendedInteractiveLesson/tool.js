@@ -972,7 +972,7 @@
 
         let act = container.children('i.act');
         if (!act.length) {
-          act = $('<i class="act lichessTools-reset" data-icon="&#x'+lt.icon.Reload.charCodeAt(0).toString(16)+'">')
+          act = $(`<i class="act lichessTools-reset" data-icon="${lt.icon.toEntity(lt.icon.Reload)}">`)
             .attr('title', trans.noarg('resetButtonTitle'))
             .on('click', ev => {
               ev.preventDefault();

@@ -145,7 +145,7 @@
         html += `<h3>$trans(feedbackTitle)</h3>
 <div class="feedback">
   <textarea enterkeyhint="send"></textarea>
-  <button data-icon="&#x${lt.icon.PlayTriangle.charCodeAt(0).toString(16)};" title="$trans(feedbackButtonTitle)"></button>
+  <button data-icon="${lt.icon.toEntity(lt.icon.PlayTriangle)}" title="$trans(feedbackButtonTitle)"></button>
 </div>`;
       }
 

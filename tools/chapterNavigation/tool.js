@@ -64,11 +64,11 @@
       let container = $('div.study__side div[role="footer"],aside.relay-tour__side div[role="footer"]');
       if (!container.length && list.length > 1) {
         container = $(`<div role="footer">
-          <button class="fbt" data-act="first" data-icon="&#x219E;"/>
-          <button class="fbt" data-act="prev" data-icon="&#x2190;"/>
-          <button class="fbt" data-act="random" data-icon="&#x21AF;"/>
-          <button class="fbt" data-act="next" data-icon="&#x2192;"/>
-          <button class="fbt" data-act="last" data-icon="&#x21A0;"/>
+          <button class="fbt" data-act="first" data-icon="${lt.icon.toEntity(lt.icon.LeftwardsDoubleHeadedArrow)}"/>
+          <button class="fbt" data-act="prev" data-icon="${lt.icon.toEntity(lt.icon.LeftwardsArrow)}"/>
+          <button class="fbt" data-act="random" data-icon="${lt.icon.toEntity(lt.icon.DownwardsZigzagArrow)}"/>
+          <button class="fbt" data-act="next" data-icon="${lt.icon.toEntity(lt.icon.RightwardsArrow)}"/>
+          <button class="fbt" data-act="last" data-icon="${lt.icon.toEntity(lt.icon.RightwardsDoubleHeadedArrow)}"/>
         </div>`)
           .on('click', this.actionChapterControls)
           .attr('title', trans.noarg('chapterControlsTitle'))

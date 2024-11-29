@@ -286,7 +286,7 @@
         const text = trans.noarg('showTransposText');
         const title = trans.noarg('showTransposTitle');
         $('<a>')
-          .attr('data-icon', 'T')
+          .attr('data-icon', lt.icon.ShowTranspositions)
           .attr('data-role', 'showTranspos')
           .text(text).attr('title', title)
           .on('click', this.showTranspos)

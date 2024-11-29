@@ -109,10 +109,10 @@
               .attr('data-icon', lt.icon.Group))
           )
           .append($(`<div class="links dropdown">
-                         <div class="pager prev" data-icon="&#x${lt.icon.UpTriangle.charCodeAt(0).toString(16)};"></div>
-                         <button class="hideNotPlaying button button-empty" data-icon="&#x${lt.icon.AnalogTv.charCodeAt(0).toString(16)};"></button>
+                         <div class="pager prev" data-icon="${lt.icon.toEntity(lt.icon.UpTriangle)}"></div>
+                         <button class="hideNotPlaying button button-empty" data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}"></button>
                          <div class="notifications"></div>
-                         <div class="pager next" data-icon="&#x${lt.icon.DownTriangle.charCodeAt(0).toString(16)};"></div>
+                         <div class="pager next" data-icon="${lt.icon.toEntity(lt.icon.DownTriangle)}"></div>
                        </div>`)
           )
           .insertBefore('.site-buttons div.dasher');
@@ -325,25 +325,25 @@
       if (!$('.lichessTools-liveButtons').length) {
         $('<div>')
           .addClass('lichessTools-liveButtons')
-          .append($(`<i data-icon="&#x${lt.icon.Antichess.charCodeAt(0).toString(16)};" data-role="hideInactive">`)
+          .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.Antichess)}" data-role="hideInactive">`)
             .attr('title', trans.noarg('hideInactiveTitle'))
             .on('click', () => {
               $('main').toggleClass('lichessTools-hideInactive');
               this.scrollIfNeeded();
             }))
-          .append($(`<i data-icon="&#x${lt.icon.DiscOutline.charCodeAt(0).toString(16)};" data-role="hideOffline">`)
+          .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.DiscOutline)}" data-role="hideOffline">`)
             .attr('title', trans.noarg('hideOfflineTitle'))
             .on('click', () => {
               $('main').toggleClass('lichessTools-hideOffline');
               this.scrollIfNeeded();
             }))
-          .append($(`<i data-icon="&#x${lt.icon.AnalogTv.charCodeAt(0).toString(16)};" data-role="hideNotPlaying">`)
+          .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}" data-role="hideNotPlaying">`)
             .attr('title', trans.noarg('hideNotPlayingTitle'))
             .on('click', () => {
               $('main').toggleClass('lichessTools-hideNotPlaying');
               this.scrollIfNeeded();
             }))
-          .append($(`<i data-icon="&#x${lt.icon.BellOutline.charCodeAt(0).toString(16)};" data-role="hideMuted">`)
+          .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.BellOutline)}" data-role="hideMuted">`)
             .attr('title', trans.noarg('hideMutedTitle'))
             .on('click', () => {
               $('main').toggleClass('lichessTools-hideMuted');
@@ -375,13 +375,13 @@
         if (!user) return;
         this.rows[user] = row;
         if (!actions.find('a.lichessTools-tv')[0]) {
-          $(`<a class="text lichessTools-tv" data-icon="&#x${lt.icon.AnalogTv.charCodeAt(0).toString(16)};"></a>`)
+          $(`<a class="text lichessTools-tv" data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}"></a>`)
             .attr('href', '/@/' + user + '/tv')
             .attr('title', watchGamesTitle)
             .prependTo(actions);
         }
         if (hasAlerts && !actions.find('a.lichessTools-mute')[0]) {
-          $(`<a class="text lichessTools-mute" data-icon="&#x${lt.icon.BellOutline.charCodeAt(0).toString(16)};"></a>`)
+          $(`<a class="text lichessTools-mute" data-icon="${lt.icon.toEntity(lt.icon.BellOutline)}"></a>`)
             .attr('title', mutePlayingAlertTitle)
             .on('click', ev => {
               ev.preventDefault();
