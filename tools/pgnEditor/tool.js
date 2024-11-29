@@ -861,7 +861,7 @@
       sf.setDepth(depth);
       sf.on('info', i => { 
           if (i.cp === undefined && i.mate === undefined) return;
-          this.lastInfo = i;
+          lastInfo = i;
         });
       sf.on('bestmove', i => { info = lastInfo; });
 
@@ -894,6 +894,7 @@
         for (const game of games) {
           for (const node of game.lastMoves) {
             totalMoves--;
+            if (node.data?.san?.endsWith('#')) continue;
             const comments = node.data.comments || [];
             if (comments.find(c => /^eval: /.test(c))) continue;
             lastInfo = null;
@@ -908,7 +909,7 @@
             }
             sf.stop();
             const side = node.data.fen.split(' ')[1] == 'b' ? -1 : 1;
-            const evalText = "eval: " + (info.mate ? '#' + (side * info.mate) : ((side * info.cp) > 0 ? '+' : '') + (side * info.cp / 100).toFixed(decimals));
+            const evalText = "eval: " + (info.mate!==undefined ? '#' + (side * info.mate) : ((side * info.cp) > 0 ? '+' : '') + (side * info.cp / 100).toFixed(decimals));
             node.data.comments = [...comments, evalText];
             this.writeNote(trans.pluralSame('evaluatingMoves', totalMoves));
             await lt.timeout(0);
@@ -1509,11 +1510,9 @@
         if (!node.children?.length) {
           if (!node.data?.san) return;
           const comments = node.data?.comments || [];
-          const match = comments.map(c => /(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m => !!m);
+          const match = comments.map(c => /(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<cp>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m => !!m);
           if (!match) return;
-          const evl = match.groups.mate
-            ? 100 * Math.sign(+(match.groups.mate)) - +(match.groups.mate)
-            : +(match.groups.eval);
+          const evl = lt.getCentipawns(match.groups);
           let toRemove = false;
           switch (operator) {
             case '>':
@@ -1642,11 +1641,9 @@
           if (found) return;
           if (!node.children?.length) {
             const comments = node.data?.comments || [];
-            const match = comments.map(c => /(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m => !!m);
+            const match = comments.map(c => /(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<cp>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m => !!m);
             if (!match) return;
-            const evl = match.groups.mate
-              ? 100 * Math.sign(+(match.groups.mate)) - +(match.groups.mate)
-              : +(match.groups.eval);
+            const evl = lt.getCentipawns(match.groups);
             switch (operator) {
               case '>':
                 found = evl > value;

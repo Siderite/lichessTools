@@ -121,11 +121,11 @@
 
       const regChessMove = /\b(?<piece>[NBRQK])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK]))?(?<p2>\+|#)?\b/g;
       const unicodePiece = {
-        'N': '\u2658',
-        'B': '\u2657',
-        'R': '\u2656',
-        'Q': '\u2655',
-        'K': '\u2654',
+        'N': lt.icon.WhiteChessKnight,
+        'B': lt.icon.WhiteChessBishop,
+        'R': lt.icon.WhiteChessRook,
+        'Q': lt.icon.WhiteChessQueen,
+        'K': lt.icon.WhiteChessKing
       };
       function translateUnicode(s) {
         if (!s) return s;

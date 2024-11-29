@@ -119,7 +119,7 @@
       if (this.options.streamerTv) {
         const elem = $('a.lichessTools-streamers', container);
         if (this.isStreamerTvPage()) {
-          lt.global.document.title = lt.global.document.title?.replace(/^.*?\u2022/, trans.noarg('streamers') + ' \u2022');
+          lt.global.document.title = lt.global.document.title?.replace(new RegExp('^.*?'+lt.icon.BulletPoint), trans.noarg('streamers') + ' ' + lt.icon.BulletPoint);
 
           $('a.active:not(.lichessTools-streamers)', container).removeClass('active');
         }
@@ -139,7 +139,7 @@
       if (this.options.friendsTv && lt.getUserId()) {
         const elem = $('a.lichessTools-friends', container);
         if (this.isFriendsTvPage()) {
-          lt.global.document.title = lt.global.document.title?.replace(/^.*?\u2022/, trans.noarg('friends') + ' \u2022');
+          lt.global.document.title = lt.global.document.title?.replace(new RegExp('^.*?'+lt.icon.BulletPoint), trans.noarg('friends') + ' ' + lt.icon.BulletPoint);
 
           $('a.active:not(.lichessTools-friends)', container).removeClass('active');
         }
@@ -159,7 +159,7 @@
       if (this.options.teamTv && lt.getUserId()) {
         const elem = $('a.lichessTools-team', container);
         if (this.isTeamTvPage()) {
-          lt.global.document.title = lt.global.document.title?.replace(/^.*?\u2022/, trans.noarg('team') + ' \u2022');
+          lt.global.document.title = lt.global.document.title?.replace(new RegExp('^.*?' + lt.icon.BulletPoint), trans.noarg('team') + ' ' + lt.icon.BulletPoint);
 
           $('a.active:not(.lichessTools-team)', container).removeClass('active');
         }

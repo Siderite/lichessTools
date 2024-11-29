@@ -167,12 +167,8 @@
     _wdl = {};
     getInfo = (info) => {
       const lt = this.lichessTools;
-      const mate = +(info.mate?.at(0));
-      const cp = mate
-        ? Math.sign(mate) * 10000 - mate
-        : +(info.cp?.at(0));
       const uci = info.pv?.at(0);
-      if (!uci || Number.isNaN(cp)) return;
+      if (!uci || (info.cp===undefined && info.mate===undefined)) return;
       if (lt.debug) {
         const depth = +(info.depth?.at(0));
         const seldepth = +(info.seldepth?.at(0));
@@ -182,6 +178,7 @@
           lt.global.console.debug('Depth:', depth + '/' + seldepth);
         }
       }
+      const cp = lt.getCentipawns(info);
       this._eval[uci] = cp;
       let wdl = info.wdl;
       if (wdl?.length == 3) {

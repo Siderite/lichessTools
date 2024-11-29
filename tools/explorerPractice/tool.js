@@ -199,30 +199,31 @@
 
       const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
       const side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
-      const winValue = (info.cp || Math.sign(info.mate) * 1000) * boardSign * side;
+      const winValue = (info.mate?.at(0) === '0' ? -10000 : lt.getCentipawns(info)) * boardSign * side;
 
       const glyph = {
-        symbol: '\uD83D\uDE10',
+        symbol: lt.icon.NeutralFace,
         name: 'Final evaluation',
         type: 'nonStandard'
       }
+
       if (winValue < -200) {
-        glyph.symbol = '\uD83D\uDE22';
+        glyph.symbol = lt.icon.CryingFace;
         glyph.fill = '#FF4040';
       }
       else if (winValue < -20) {
-        glyph.symbol = '\uD83D\uDE41';
+        glyph.symbol = lt.icon.SlightlyFrowningFace;
         glyph.fill = '#FF8040';
       }
       else if (winValue < 20) {
-        glyph.symbol = '\uD83D\uDE10';
+        glyph.symbol = lt.icon.NeutralFace;
       }
       else if (winValue < 200) {
-        glyph.symbol = '\uD83D\uDE42';
+        glyph.symbol = lt.icon.SlightlySmilyingFace;
         glyph.fill = '#80FF80';
       }
       else if (winValue >= 200) {
-        glyph.symbol = '\uD83D\uDE01';
+        glyph.symbol = lt.icon.GrinningFaceWithSmilingEyes;
         glyph.fill = '#40FF40';
       }
 

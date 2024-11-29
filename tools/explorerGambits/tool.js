@@ -73,7 +73,7 @@
       if (!$('th.lichessTools-explorerGambits', container).length) {
         $('<th>')
           .addClass('lichessTools-explorerGambits')
-          .text('\u2604')
+          .text(lt.icon.Comet)
           .attr('title', trans.noarg('gambitTitle'))
           .appendTo($('thead tr', container));
       }

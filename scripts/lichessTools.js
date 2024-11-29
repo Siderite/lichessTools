@@ -157,6 +157,21 @@
           EditorialCoronis: '\u2E0E',
           PushPin: '\uD83D\uDCCC',
           WarningSign: '\u26A0',
+          CryingFace: '\uD83D\uDE22',
+          SlightlyFrowningFace: '\uD83D\uDE41',
+          NeutralFace: '\uD83D\uDE10',
+          SlightlySmilyingFace: '\uD83D\uDE42',
+          GrinningFaceWithSmilingEyes: '\uD83D\uDE01',
+          NorthEastArrowWithHook: '\u2924',
+          Comet: '\u2604',
+          WhiteChessKnight: '\u2658',
+          WhiteChessBishop: '\u2657',
+          WhiteChessRook: '\u2656',
+          WhiteChessQueen: '\u2655',
+          WhiteChessKing: '\u2654',
+          WhiteStar: '\u2606',
+          BulletPoint: '\u2022',
+          Ellipsis: '\u2026',
 
           toEntity: function(s) {
             let result='';
@@ -166,6 +181,26 @@
             return result;
           }
       };
+
+    getCentipawns = (info) => {
+      if (!info) return;
+      let cp = undefined;
+      const mate = Array.isArray(info.mate) ? info.mate[0] : info.mate;
+      if (mate !== undefined) {
+        const sign = mate?.toString()?.trim()?.startsWith('-')
+          ? -1
+          : 1;
+        cp = sign * (10000 - Math.abs(+mate) * 100);
+      }
+      if (info.cp !== undefined) {
+        cp = +(Array.isArray(info.cp) ? info.cp[0] : info.cp);
+      }
+      if (cp === undefined || Number.isNaN(cp)) {
+        this.global.console.warn('Failed getting centipawns from ',info);
+        return 0;
+      }
+      return cp;
+    };
 
     crc24 = (data) => {
       const polynomial = 0x864CFB;

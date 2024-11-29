@@ -105,7 +105,7 @@
               const result = [];
               if (!s) return result;
               let p = 0;
-              const ellipsis = '\u2026';
+              const ellipsis = lt.icon.Ellipsis;
               while (p + l < s.length) {
                 let frag = s.substr(p, l);
                 const lastWordBoundaryIndex = [...frag.matchAll(/\b/g)].at(-2)?.index;

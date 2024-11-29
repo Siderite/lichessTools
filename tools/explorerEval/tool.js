@@ -93,7 +93,7 @@
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
           .addClass('lichessTools-explorerEval')
-          .text('\u2924')
+          .text(lt.icon.NorthEastArrowWithHook)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
       }
@@ -188,7 +188,7 @@
           explorerItem.mate = move.mate;
 
           if (total >= 100) {
-            const moveCp = move.mate ? Math.sign(move.mate) * (10000 - Math.abs(move.mate) * 100) : move.cp;
+            const moveCp = lt.getCentipawns(move);
             const sim = Math.round(Math.abs(moveCp - cp) / (Math.abs(moveCp) + Math.abs(cp)) * 100);
             if (sim >= 20) {
               explorerItem.diff = Math.abs(moveCp - cp);
