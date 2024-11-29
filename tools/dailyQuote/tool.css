@@ -20,6 +20,13 @@ body.lichessTools .lichessTools-dailyQuote {
   margin-top: calc(var(---site-header-height) + var(---sticky-gap));
 }
 
+@media (prefers-reduced-motion) {
+  body.lichessTools .lichessTools-dailyQuote {
+    background: #80808010;
+    margin-top: 0;
+  }
+}
+
 body.lichessTools .lichessTools-dailyQuote button.close {
   position: absolute;
   top: 0;

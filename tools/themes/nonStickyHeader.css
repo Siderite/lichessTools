@@ -1,5 +1,7 @@
 /* No sticky header */
 
+@media not (prefers-reduced-motion) {
+
 body.lichessTools.lichessTools-theme_nonStickyHeader header#top {
   position: absolute;
 }
@@ -15,7 +17,9 @@ body.lichessTools.lichessTools-theme_nonStickyHeader header#top.hide .dropdown {
   pointer-events: initial;
 }
 
-@media (max-height: 600px) {
+}
+
+@media (max-height: 600px) and not (prefers-reduced-motion) {
   body.lichessTools.lichessTools-theme_nonStickyHeader header#top {
     position: unset;
   }
