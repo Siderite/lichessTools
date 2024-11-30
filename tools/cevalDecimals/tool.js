@@ -28,7 +28,7 @@
     decimals = 2;
     renderEval = (cp, mate) => {
       if (mate) return '#' + mate;
-      if (!cp) return;
+      if (cp !== 0 && !cp) return;
       const e = Math.max(Math.min(cp / 100, 99), -99);
       return (e > 0 ? '+' : '') + e.toFixed(this.decimals);
     };
