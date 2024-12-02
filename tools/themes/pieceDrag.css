@@ -35,3 +35,11 @@ body.lichessTools.lichessTools-theme_pieceDrag .is3d piece {
 body.lichessTools.lichessTools-theme_pieceDrag .is3d piece.pawn {
   clip-path: ellipse(40% 30% at 50% 55%);
 }
+
+/*body.lichessTools.lichessTools-theme_pieceDrag .manipulable cg-board {
+  cursor: pointer;
+}*/
+
+body.lichessTools.lichessTools-theme_pieceDrag .manipulable cg-board:has(piece.dragging) {
+  cursor: grabbing;
+}
