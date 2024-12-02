@@ -17,7 +17,7 @@ body.lichessTools .lichessTools-dailyQuote {
   background: #80808020;
   padding: 0.5em;
   padding-right:1.5em;
-  margin-top: calc(var(---site-header-height) + var(---sticky-gap));
+  margin-top: calc(var(---site-header-height) + var(---site-header-margin) + var(---sticky-gap));
 }
 
 @media (prefers-reduced-motion) {

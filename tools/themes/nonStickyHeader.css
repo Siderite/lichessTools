@@ -1,6 +1,6 @@
 /* No sticky header */
 
-@media (max-height: 600px) and not (prefers-reduced-motion) {
+@media not (prefers-reduced-motion) {
 
   body.lichessTools.lichessTools-theme_nonStickyHeader header#top {
     position: absolute;
@@ -16,8 +16,12 @@
     visibility: initial;
     pointer-events: initial;
   }
+}
+
+@media (prefers-reduced-motion: no-preference) and (max-height: 600px) {
 
   body.lichessTools.lichessTools-theme_nonStickyHeader header#top {
     position: unset;
   }
+
 }
