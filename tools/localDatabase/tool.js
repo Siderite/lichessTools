@@ -48,18 +48,8 @@
       if (!fileHandle) {
         return;
       }
-      const dbKey = 'lichessTools/LT/localDatabase-NIF-'+fileHandle.name+'-data';
-      let indexData = await lt.storage.get(dbKey,{ db: true, raw: true });
       const indexFile = new IndexFile(lt, isCached);
-      if (indexData) {
-        await indexFile.loadData(indexData,fileHandle);
-      } else {
-        await indexFile.loadFile(fileHandle);
-      }
-      const newIndexData = indexFile.getIndexData();
-      if (indexData?.file?.lastModified != newIndexData?.file?.lastModified) {
-        await lt.storage.set(dbKey, newIndexData, { db: true, raw: true });
-      }
+      await indexFile.loadFile(fileHandle);
       return indexFile;
     }
 
@@ -69,16 +59,6 @@
     constructor(lichessTools) {
       this.lichessTools = lichessTools;
       this.position = 0;
-    }
-
-    async loadData(data, file) {
-      if (!file) throw new Error('No file handle provided');
-      this.file = await this.getFileWithPermissions(file);
-      if (!this.file) return;
-      if (this.file?.lastModified != data.lastModified) {
-        await this.loadFile(file);
-        return;
-      }
     }
 
     async loadFile(file) {
@@ -163,7 +143,9 @@
       }
       return result;
     }
-
+    sizeInBytes(nr) {
+      return Math.max(1,Math.ceil(Math.log(nr)/Math.log(256)));
+    }
     dispose() {
       this.file = null;
     }
@@ -176,49 +158,15 @@
       this.cache = isCached ? new Map() : null;
     }
 
-    async loadData(data, file) {
-      await super.loadData(data,file);
-      this.idsString = data.idsString;
-      this.ngramDict = data.ngramDict;
-      this.ngramsize = data.ngramsize;
-      this.ngramIndexSize = data.ngramIndexSize;
-      this.idsize = data.idsize;
-      this.idIndexSize = data.idIndexSize;
-      this.idCountSize = data.idCountSize;
-      this.crcCountSize = data.crcCountSize;
-      this.crcSize = data.crcSize;
-      this.crcs = data.crcs;
-    }
-
-    getIndexData() {
-      return {
-        idsString: this.idsString,
-        ngramDict: this.ngramDict,
-        ngramsize: this.ngramsize,
-        ngramIndexSize: this.ngramIndexSize,
-        idsize: this.idsize,
-        idIndexSize: this.idIndexSize,
-        idCountSize: this.idCountSize,
-        crcCountSize: this.crcCountSize,
-        crcSize: this.crcSize,
-        crcs: this.crcs,
-        lastModified: this.file?.lastModified
-      };
-    }
-
     dispose() {
       super.dispose();
       this.cache = null;
-      this.idsString = null;
-      this.ngramDict = null;
-      this.ngramsize = null;
-      this.ngramIndexSize = null;
-      this.idsize = null;
+      this.idSize = null;
       this.idIndexSize = null;
-      this.idCountSize = null;
-      this.crcCountSize = null;
+      this.ngramSize = null;
       this.crcSize = null;
-      this.crcs = null;
+      this.ngramDict = null;
+      this.idDict = null;
     }
 
     async loadFile(file) {
@@ -226,61 +174,53 @@
       const nif = await this.readString(3);
       if (nif!='NIF') throw new Error('Not a NIF file');
       const version = await this.readByte();
-      if (version!=1) throw new Error('Only NIF version 1 supported');
-      const ngramsize = await this.readByte();
-      const ngramIndexSize = await this.readByte();
-      const idsize = await this.readByte();
-      const idIndexSize = await this.readByte();
+      if (version!=2) throw new Error('Only NIF version 2 supported');
+      const idSize = await this.readByte();
       const idCountSize = await this.readByte();
-      const flags = await this.readUshort();
-      if (flags!=7) throw new Error('Only NIF with ngram and identifier counters and ngram compression supported');
-      this.jump(10);
       const idCount = await this.readUint();
-      this.idsString = await this.readString(idCount*idsize);
-      const compressedSize = await this.readUint();
-      const ngrams = await this.readString(compressedSize);
+      const idIndexSize = this.sizeInBytes(idCount)
+      const ngramSize = await this.readByte();
+      const ngramStringSize = await this.readUint();
+      const crcSize = await this.readByte();
+      if (crcSize!=3) throw new Error('Only crc24 supported');
+      const ngramString = await this.readString(ngramStringSize);
+      this.idStartPosition = this.position;
+      this.jump(idCount * idSize);
       const ngramDict = new Map();
-      const ngramFromIndexDict = new Map();
-      for (let i=0; i<=compressedSize - ngramsize; i++) {
-        const ngram = ngrams.substr(i,ngramsize);
-        if (ngramDict.has(ngram)) continue;
-        ngramDict.set(ngram, { index: i });
-        ngramFromIndexDict.set(i,ngram);
-      }
-      const ngramCount = await this.readUint();
-      let dataPos = this.position + ngramCount * (ngramIndexSize+idCountSize);
-      for (let i=0; i<ngramCount; i++) {
-        const ngramIndex = await this.readNumber(ngramIndexSize);
-        const ngram = ngramFromIndexDict.get(ngramIndex);
-        const info = ngramDict.get(ngram);
-        info.indexCount = await this.readNumber(idCountSize);
-        info.position = dataPos;
-        dataPos += info.indexCount * idIndexSize;
-      }
-      this.seek(dataPos);
-      const crcCountSize = await this.readByte();
-      if (crcCountSize) {
-        const crcSize = await this.readByte();
-        const crcCounts = this.splitToNumbers(await this.readBytes(idCount * crcCountSize),crcCountSize);
-        const crcs = [];
-        dataPos = this.position;
-        for (const crcCount of crcCounts) {
-          crcs.push({
-            count: crcCount,
-            position: dataPos
-          });
-          dataPos += crcCount * crcSize;
+      const ngramBytes = await this.readBytes((ngramStringSize-ngramSize+1)*(4 + idCountSize));
+      for (let i=0; i<ngramStringSize-ngramSize+1; i++) {
+        const ngram = ngramString.substr(i,ngramSize);
+        const data = { 
+          pos: 0, 
+          idCount: 0
         }
-        this.crcCountSize = crcCountSize;
-        this.crcSize = crcSize;
-        this.crcs = crcs;
+        for (let k=0; k<4; k++) {
+          data.pos += (ngramBytes.at(i*(4+idCountSize)+k) << (k*8));
+        }
+        for (let k=0; k<idCountSize; k++) {
+          data.idCount += (ngramBytes.at(i*(4+idCountSize)+4+k) << (k*8));
+        }
+        ngramDict.set(ngram,data);
       }
-      this.ngramDict = ngramDict;
-      this.ngramsize = ngramsize;
-      this.ngramIndexSize = ngramIndexSize;
-      this.idsize = idsize;
+      const idBytes = await this.readBytes(idCount*(4+1));
+      const idDict = [];
+      for (let i=0; i<idCount; i++) {
+        const data = {
+          pos: 0, 
+          crcCount: idBytes.at(i*(4+1)+4)
+        }
+        for (let k=0; k<4; k++) {
+          data.pos += (idBytes.at(i*(4+1)+k) << (k*8));
+        }
+        idDict.push(data);
+      }
+
+      this.idSize = idSize;
       this.idIndexSize = idIndexSize;
-      this.idCountSize = idCountSize;
+      this.ngramSize = ngramSize;
+      this.crcSize = crcSize;
+      this.ngramDict = ngramDict;
+      this.idDict = idDict;
     }
 
     async search(text) {
@@ -289,42 +229,46 @@
       if (result) return result;
       let hits = 0;
       let data = null;
-      for (let i=0; i<=text.length - this.ngramsize; i++) {
-        const ngram = text.substr(i,this.ngramsize);
+      for (let i=0; i<=text.length - this.ngramSize; i++) {
+        const ngram = text.substr(i,this.ngramSize);
         const info = this.ngramDict.get(ngram);
         if (!info) {
           data=[];
           break;
         }
-        if (!info.indexCount) continue;
+        if (!info.idCount) continue;
         hits++;
-        this.seek(info.position);
-        const bytes = await this.readBytes(info.indexCount * this.idIndexSize);
-        const ids = this.splitToNumbers(bytes, this.idIndexSize);
-        data = data ? this.intersect(ids,data) : ids;
+        this.seek(info.pos);
+        const bytes = await this.readBytes(info.idCount * this.idIndexSize);
+        const indexes = this.splitToNumbers(bytes, this.idIndexSize);
+        data = data ? this.intersect(indexes,data) : indexes;
         if (data.length == 0) break;
       }
-      const confidence = Math.round(100*hits/(text.length - this.ngramsize+1));
+      const confidence = Math.round(100*hits/(text.length - this.ngramSize+1));
       //data.length && console.debug('confidence: '+confidence+'% ('+data.length+')');
-      result = [];
+      const idxs = [];
       const lt = this.lichessTools;
       const crc = lt.crc24(text);
       if (data) {
         for (let i=0; i<data.length; i++) {
           const index = data[i];
-          const id = this.idsString.substr(index*this.idsize,this.idsize);
-          if (this.crcs?.length) {
-            const crcInfo = this.crcs[index];
-            this.seek(crcInfo.position);
-            const bytes = await this.readBytes(crcInfo.count * this.crcSize);
+          const info = this.idDict[index];
+          if (info.crcCount) {
+            this.seek(info.pos);
+            const bytes = await this.readBytes(info.crcCount * this.crcSize);
             const crcs = this.splitToNumbers(bytes, this.crcSize);
             if (crcs.includes(crc)) {
-              result.push(id);
+              idxs.push(index);
             }
-          } else {
-            result.push(id);
           }
         }
+      }
+      result = [];
+      for (let index of idxs) {
+        const pos = this.idStartPosition + index * this.idSize;
+        this.seek(pos);
+        const id = await this.readString(this.idSize);
+        result.push(id);
       }
       this.cache?.set(text,result);
       return result;
