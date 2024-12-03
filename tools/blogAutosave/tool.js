@@ -87,7 +87,7 @@
       }
       if (this.options.savebutton) {
         $('<button class="button lichessTools-blogAutosave">')
-          .attr('data-icon', '\uD83D\uDCBE')
+          .attr('data-icon', lt.icon.FloppyDisk)
           .text(trans.noarg('blogSave'))
           .on('click', ev => {
             ev.preventDefault();
@@ -97,7 +97,7 @@
       }
       if (value) {
         $('<p class="lichessTools-saved">')
-          .attr('data-icon', '\uE038')
+          .attr('data-icon', lt.icon.Checkmark)
           .text(trans.noarg('blogSaved'))
           .appendTo('form.ublog-post-form__main');
       }

@@ -77,8 +77,8 @@
       const dialog = $('<dialog class="lichessTools-obsSetup">')
         .append(`
     <div class="close-button-anchor">
-        <a class="help-button" data-icon="&#xE005;" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#obsIntegration" target="_blank"></a>
-        <button type="button" class="close-button" data-icon="&#xE03F;" aria-label="Close"/>
+        <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#obsIntegration" target="_blank"></a>
+        <button type="button" class="close-button" data-icon="${lt.icon.toEntity(lt.icon.X)}" aria-label="Close"/>
     </div>
     <div class="scrollable">
         <div class="dialog-content">
@@ -91,7 +91,7 @@
                 <label data-for="password"></label>
                 <div>
                   <input class="form-control" type="password" name="password">
-                  <i data-icon="&#xE069;" aria-hidden="true" class="togglePassword"></i>
+                  <i data-icon="${lt.icon.toEntity(lt.icon.Eye)}" aria-hidden="true" class="togglePassword"></i>
                 </div>
                 <label data-for="options"></label>
                 <input class="form-control" type="text" name="options">
@@ -265,7 +265,7 @@
             .attr('role', 'tab')
             .on('mousedown', this.buttonClicked)
             .on('contextmenu', ev => ev.preventDefault())
-            .append($('<i>').attr('data-icon', '\u24CE'))
+            .append($('<i>').attr('data-icon', lt.icon.CircledLatinCapitalLetterY))
             .appendTo(container);
           buttonAdded = true;
         }

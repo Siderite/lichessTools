@@ -774,7 +774,7 @@
         const text = trans.noarg('addDeviationText');
         const title = trans.noarg('addDeviationTitle');
         $('<a>')
-          .attr('data-icon', '\uE05E')
+          .attr('data-icon', lt.icon.NotAllowed)
           .attr('data-role', 'addDeviation')
           .text(text).attr('title', title)
           .on('click', this.addDeviation)
@@ -788,7 +788,7 @@
           optionsElem = $('<div class="lichessTools-extendedInteractiveLesson-options">')
             .append($('<span>'))
             .append($('<a target="_blank">')
-              .attr('data-icon', '\uE005')
+              .attr('data-icon', lt.icon.InfoCircle)
               .attr('href', 'https://siderite.dev/blog/lichess-tools---user-manual#extendedInteractiveLesson')
             )
             .attr('title', trans.noarg('extendedInteractiveOptionsTitle'))
@@ -972,7 +972,7 @@
 
         let act = container.children('i.act');
         if (!act.length) {
-          act = $('<i class="act lichessTools-reset" data-icon="&#xE01A">')
+          act = $(`<i class="act lichessTools-reset" data-icon="${lt.icon.toEntity(lt.icon.Reload)}">`)
             .attr('title', trans.noarg('resetButtonTitle'))
             .on('click', ev => {
               ev.preventDefault();

@@ -262,7 +262,7 @@
           )
           .append($('<button>')
             .addClass('remove')
-            .attr('data-icon', '\uE03F')
+            .attr('data-icon', lt.icon.X)
             .on('click', () => this.removeSnap(snap))
           )
           .appendTo(section);

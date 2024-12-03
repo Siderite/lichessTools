@@ -192,7 +192,7 @@
           const entry = {
             id: 'addToTeam',
             isNew: true,
-            icon: '\uE059',
+            icon: lt.icon.Group,
             href: '/team/' + lt.global.encodeURIComponent(this.teamId),
             content: $('<div>')
               .append($('<span>').text(trans.noarg('joinTeamText')))

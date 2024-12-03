@@ -3,7 +3,7 @@ body.lichessTools *[data-icon].lichessTools-icon-rotate:before {
 }
 
 body.lichessTools.lichessTools-evaluationStarted #analyse-cm a[data-role="evaluateTerminations"]:before {
-  content: '\E03F';
+  content: '\E02A'; /* X */
   color: red;
 }
 

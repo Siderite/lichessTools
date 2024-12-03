@@ -28,7 +28,7 @@
     decimals = 2;
     renderEval = (cp, mate) => {
       if (mate) return '#' + mate;
-      if (!cp) return;
+      if (cp !== 0 && !cp) return;
       const e = Math.max(Math.min(cp / 100, 99), -99);
       return (e > 0 ? '+' : '') + e.toFixed(this.decimals);
     };
@@ -46,12 +46,9 @@
       const ceval = analysis.node.ceval;
       if (ceval) {
         const pearl = $('div.ceval pearl');
-        if (pearl.length) {
-          // lichess keeps a reference to the actual node
-          const textNode = Array.from(pearl[0].childNodes).find(n => n.nodeType == 3);
-          const text = this.renderEval(ceval.cp, ceval.mate);
-          if (textNode && text) textNode.textContent = text;
-        }
+        // lichess keeps a reference to the actual node
+        const text = this.renderEval(ceval.cp, ceval.mate);
+        pearl.replaceText(text);
         $('div.ceval.enabled ~ div.pv_box')
           .find('div.pv[data-uci]')
           .each((i, e) => {

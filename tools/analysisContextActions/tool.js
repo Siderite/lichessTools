@@ -82,7 +82,7 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!node.id || node.isCommentedOrMate) return;
-      const decimals = +lt.currentOptions.getValue('cevalDecimals') || 1;
+      const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
       const evalText = "eval: " + (ceval.mate ? '#' + ceval.mate : (ceval.cp > 0 ? '+' : '') + (ceval.cp / 100).toFixed(decimals));
       const cur = analysis.study.currentChapter();
       node.terminationEvaluated = Date.now();
@@ -259,7 +259,7 @@
         const text = trans.noarg('extractVariationText' + (this.suffix || ''));
         const title = trans.noarg('extractVariationTitle');
         $('<a>')
-          .attr('data-icon', '\uE018')
+          .attr('data-icon', lt.icon.ShareAndroid)
           .addClass('lichessTools-icon-rotate')
           .attr('data-role', 'copyPgn')
           .text(text).attr('title', title)
@@ -274,7 +274,7 @@
         const text = trans.noarg('evaluateTerminationsText');
         const title = trans.noarg('evaluateTerminationsTitle');
         $('<a>')
-          .attr('data-icon', '\uE004')
+          .attr('data-icon', lt.icon.BarChart)
           .attr('data-role', 'evaluateTerminations')
           .text(text).attr('title', title)
           .on('click', this.evaluateTerminations)
@@ -286,7 +286,7 @@
         const text = trans.noarg('showTransposText');
         const title = trans.noarg('showTransposTitle');
         $('<a>')
-          .attr('data-icon', 'T')
+          .attr('data-icon', lt.icon.ShowTranspositions)
           .attr('data-role', 'showTranspos')
           .text(text).attr('title', title)
           .on('click', this.showTranspos)
@@ -294,7 +294,7 @@
       }
 
       if (this.options.removeSuperfluous) {
-        $('a[data-icon="\uE056"],a[data-icon="\uE070"],a.glyph-icon', menu).remove();
+        $('a[data-icon="'+lt.icon.BubbleSpeech+'"],a[data-icon="'+lt.icon.Clipboard+'"],a.glyph-icon', menu).remove();
       }
     }
 

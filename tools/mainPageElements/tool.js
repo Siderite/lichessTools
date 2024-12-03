@@ -112,7 +112,7 @@
       }
       $('main').toggleClass('lichessTools-lobbyPlay', isPlay);
       if (isPlay) {
-        lt.global.document.title = $('#topnav > section:first-child span.play').text() + ' \u2022 ' + lt.global.location.hostname;
+        lt.global.document.title = $('#topnav > section:first-child span.play').text() + ' ' + lt.icon.BulletPoint + ' ' + lt.global.location.hostname;
       } else {
         const grid = this.initialGrid.replace(/[a-z]+/g, t => {
           const ft = t === 'timeline' ? 'side' : t;

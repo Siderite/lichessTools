@@ -267,7 +267,7 @@
         if (this.options.shapeDrawing) {
           if (!$('div.analyse__controls div.features button.lichessTools-shapeDrawing').length) {
             $('<button class="fbt">')
-              .attr('data-icon', '\u21D7')
+              .attr('data-icon', lt.icon.NorthEastDoubleArrow)
               .attr('title', trans.noarg('shapeDrawingTitle'))
               .addClass('lichessTools-shapeDrawing')
               .appendTo('div.analyse__controls div.features');
@@ -279,7 +279,7 @@
         if (this.options.randomNextMove) {
           if (!$('div.analyse__controls div.jumps button.lichessTools-randomNextMove').length) {
             $('<button class="fbt">')
-              .attr('data-icon', '\u21C9')
+              .attr('data-icon', lt.icon.RightwardsPairedArrows)
               .attr('title', trans.noarg('randomNextMoveTitle'))
               .addClass('lichessTools-randomNextMove')
               .insertBefore($('div.analyse__controls div.jumps button[data-act="next"]'));
@@ -322,7 +322,7 @@
             const container = $('div.rcontrols div.ricons');
             if (!$('button.lichessTools-shapeDrawing', container).length) {
               $('<button class="fbt lichessTools-shapeDrawing">')
-                .attr('data-icon', '\u21D7')
+                .attr('data-icon', lt.icon.NorthEastDoubleArrow)
                 .attr('title', trans.noarg('shapeDrawingTitle'))
                 .insertBefore($('button.board-menu-toggle', container))
                 .on('touchstart mousedown ', ev => {
@@ -384,7 +384,7 @@
           if (!lockBoardElem.length) {
             $('<div></div>')
               .addClass('lichessTools-lockBoard')
-              .attr('data-icon', '\uE054')
+              .attr('data-icon', lt.icon.Padlock)
               .attr('title', trans.noarg('lockBoardTitle'))
               .on('click', () => {
                 this.isBoardLocked = !this.isBoardLocked;

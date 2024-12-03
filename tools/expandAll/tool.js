@@ -43,7 +43,7 @@
         return;
       }
       button = $('<button type="button" class="lichessTools-expandAll">')
-        .attr('data-icon', '\uE02F')
+        .attr('data-icon', lt.icon.ZoomIn)
         .attr('title', trans.noarg('expandAllTitle'))
         .on('mousedown touchstart', ev => {
           ev.preventDefault();

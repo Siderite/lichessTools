@@ -70,7 +70,7 @@ body.lichessTools .lichessTools-gameListOptions-analysisLink article:after {
   font-weight: normal;
   text-transform: none;
   speak: none;
-  content: "\E034";
+  content: "\E01F"; /* Microscope */
   opacity: .9;
   unicode-bidi: isolate;
 }

@@ -31,8 +31,8 @@
       this.scrollTotal += ev.deltaY * (ev.deltaMode ? 40 : 1);
       if (Math.abs(this.scrollTotal) >= 4) {
         const icon = ev.deltaY > 0
-          ? '\uE04B'
-          : '\uE04C';
+          ? lt.icon.JumpNext
+          : lt.icon.JumpPrev;
         $.cached('.round__app .buttons button.fbt[data-icon="'+icon+'"]')
           .trigger('mousedown');
         this.scrollTotal = 0;

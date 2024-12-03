@@ -8,7 +8,7 @@
         name: 'explorerEval',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'hidden'],
+        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'bardp', 'hidden'],
         defaultValue: 'ceval,db',
         advanced: true
       }
@@ -23,6 +23,7 @@
         'explorerEval.db': 'From ChessDb',
         'explorerEval.lichess': 'From Lichess',
         'explorerEval.evalRows': 'Rows from eval',
+        'explorerEval.bardp': 'Bar precision',
         'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval, depth %s',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
@@ -39,6 +40,7 @@
         'explorerEval.stats': 'Din statistici',
         'explorerEval.db': 'De la ChessDb',
         'explorerEval.lichess': 'De la Lichess',
+        'explorerEval.bardp': 'Precizie bar\u0103',
         'explorerEval.evalRows': 'R\u00e2nduri din evaluare',
         'explorerEval.hidden': 'Ascunde',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer, ad\u00e2ncime %s',
@@ -91,7 +93,7 @@
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
           .addClass('lichessTools-explorerEval')
-          .text('\u2924')
+          .text(lt.icon.NorthEastArrowWithHook)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
       }
@@ -118,7 +120,7 @@
           }
         }
       }
-      const decimals = +lt.currentOptions.getValue('cevalDecimals') || 1;
+      const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
       $('tr[data-uci],tr.sum', container).each((i, e) => {
         if (!$('td.lichessTools-explorerEval', e).length) {
           $('<td>')
@@ -152,6 +154,17 @@
           const tdBar = $('td:has(div.bar)', e);
           const tdTitle = tdBar.attr('title')?.split(' / ')?.at(0) + ' / ' + sharpnessTitle;
           tdBar.attr('title', tdTitle);
+          if (this.options.bardp) {
+            [
+              ['white',w],
+              ['draws',d],
+              ['black',l]
+            ].forEach(a=>{
+              const el = tdBar.find('.'+a[0]);
+              // using text breaks Explorer tabs (Lichess keeps reference to the text node)
+              if (el.text()) el.replaceText(Math.round(a[1])/10+'%');
+            });
+          }
         }
 
         let text = '';
@@ -175,7 +188,7 @@
           explorerItem.mate = move.mate;
 
           if (total >= 100) {
-            const moveCp = move.mate ? Math.sign(move.mate) * (10000 - Math.abs(move.mate) * 100) : move.cp;
+            const moveCp = lt.getCentipawns(move);
             const sim = Math.round(Math.abs(moveCp - cp) / (Math.abs(moveCp) + Math.abs(cp)) * 100);
             if (sim >= 20) {
               explorerItem.diff = Math.abs(moveCp - cp);
@@ -424,8 +437,9 @@
         db: lt.isOptionSet(value, 'db') || lt.isOptionSet(value, 'chessdb'),
         lichess: lt.isOptionSet(value, 'lichess'),
         evalRows: lt.isOptionSet(value, 'evalRows'),
+        bardp: lt.isOptionSet(value, 'bardp'),
         hidden: lt.isOptionSet(value, 'hidden'),
-        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows); }
+        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows || this.bardp); }
       };
       const lichess = lt.lichess;
       const $ = lt.$;

@@ -10,3 +10,8 @@ body.lichessTools textarea.lichessTools-imagePasting {
 body.lichessTools t.lichessTools-bigEmoji {
   font-size: 2.5em;
 }
+
+body.lichessTools img.lichessTools-imagePasting-image {
+  max-width:95vw;
+  max-height:95vh;
+}

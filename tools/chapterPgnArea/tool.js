@@ -47,7 +47,7 @@
 </div>`).appendTo(container);
         $('.form-label', group).text(trans.noarg('PGNText')).attr('title', trans.noarg('PGNTitle'));
         $('button.copy-me__button',group)
-          .attr('data-icon','\uE070');
+          .attr('data-icon',lt.icon.Clipboard);
       }
       const pgn = await lt.exportPgn('');
       $('textarea', group).val(pgn);

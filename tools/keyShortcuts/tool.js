@@ -217,11 +217,11 @@
         lt.bindKeyHandler('i', () => lt.jumpToGlyphSymbols('?!'));
         lt.bindKeyHandler('m', () => lt.jumpToGlyphSymbols('?'));
         lt.bindKeyHandler('b', () => lt.jumpToGlyphSymbols('??'));
-        lt.bindKeyHandler('g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', '\u2606']));
+        lt.bindKeyHandler('g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', lt.icon.WhiteStar]));
         lt.bindKeyHandler('alt+i', () => lt.jumpToGlyphSymbols('?!', true));
         lt.bindKeyHandler('alt+m', () => lt.jumpToGlyphSymbols('?', true));
         lt.bindKeyHandler('alt+b', () => lt.jumpToGlyphSymbols('??', true));
-        lt.bindKeyHandler('alt+g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', '\u2606'], true));
+        lt.bindKeyHandler('alt+g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', lt.icon.WhiteStar], true));
 
         lt.bindKeyHandler('.', () => this.prepareMove('pgn'));
         lt.bindKeyHandler('ctrl+.', () => this.prepareMove('ceval'));

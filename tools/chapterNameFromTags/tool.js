@@ -107,7 +107,7 @@
           .addClass('lichessTools-changeNameButton')
           .text(trans.pluralSame('changeNameToText', text))
           .attr('title', trans.noarg('changeNameToTitle'))
-          .attr('data-icon', '\uE041')
+          .attr('data-icon', lt.icon.ArrowUpRight)
           .on('click', ev => {
             ev.preventDefault();
             $('#chapter-name').val(text)[0].select();

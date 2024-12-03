@@ -144,8 +144,8 @@
       const dialog = $('<dialog class="lichessTools-boardImage">')
         .append(`<form>
     <div class="close-button-anchor">
-        <a class="help-button" data-icon="&#xE005;" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#boardImage" target="_blank"></a>
-        <button class="close-button" data-icon="&#xE03F;" aria-label="Close" formmethod="dialog" value="close"/>
+        <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#boardImage" target="_blank"></a>
+        <button class="close-button" data-icon="${lt.icon.toEntity(lt.icon.X)}" aria-label="Close" formmethod="dialog" value="close"/>
     </div>
     <div class="scrollable">
         <div class="dialog-content">

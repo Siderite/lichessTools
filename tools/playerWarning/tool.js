@@ -67,7 +67,7 @@
           const disconnectPercentage = +(statCount.disconnects) * 100 / +(statCount.all);
           if (!disconnectPercentage || disconnectPercentage < 3) return;
           $('<span class="lichessTools-playerWarning">')
-            .attr('data-icon', '\u26A0')
+            .attr('data-icon', lt.icon.WarningSign)
             .attr('title', trans.pluralSame('percentageTitle', disconnectPercentage.toFixed(1)))
             .appendTo(e);
         });

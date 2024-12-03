@@ -40,7 +40,7 @@
       $('<div class="lichessTools-fullScreen">').append(
         $('<button class="link">')
           .append($('<span>')
-            .attr('data-icon', '\u26F6')
+            .attr('data-icon', lt.icon.SquareFourCorners)
             .attr('title', trans.noarg('fullScreenTitle'))
           )
           .on('click', ev => {

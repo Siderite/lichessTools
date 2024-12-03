@@ -12,7 +12,7 @@
       if (!options.noCloseButton) {
         $('<div class="close-button-anchor">')
           .append($('<button class="close-button" aria-label="Close">')
-            .attr('data-icon', '\uE03F')
+            .attr('data-icon', lt.icon.X)
             .on('click', () => dialog[0]?.close())
           )
           .appendTo(dialog);

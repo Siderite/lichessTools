@@ -105,7 +105,7 @@
               const result = [];
               if (!s) return result;
               let p = 0;
-              const ellipsis = '\u2026';
+              const ellipsis = lt.icon.Ellipsis;
               while (p + l < s.length) {
                 let frag = s.substr(p, l);
                 const lastWordBoundaryIndex = [...frag.matchAll(/\b/g)].at(-2)?.index;
@@ -267,7 +267,7 @@
               const entry = {
                 id: notificationId,
                 isNew: true,
-                icon: '\uE059',
+                icon: lt.icon.Group,
                 href: '/team/' + lt.global.encodeURIComponent(team.teamId),
                 content: $('<div>')
                   .append($('<span>').text(trans.pluralSame('newTeamMessagesText', teamName)))
@@ -345,7 +345,7 @@
         let button = $('td.lichessTools-notify a', e);
         if (!button.length) {
           button = $('<a>')
-            .attr('data-icon', '\uE00F')
+            .attr('data-icon', lt.icon.BellOutline)
             .attr('title', trans.noarg('teamNotifyTitle'))
             .on('click', ev => {
               ev.preventDefault();

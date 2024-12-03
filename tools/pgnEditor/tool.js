@@ -225,8 +225,8 @@
       const dialog = $('<dialog class="lichessTools-pgnEditor">')
         .append(`
     <div class="close-button-anchor">
-        <a class="help-button" data-icon="&#xE005;" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor" target="_blank"></a>
-        <button class="close-button" data-icon="&#xE03F;" aria-label="Close"/>
+        <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor" target="_blank"></a>
+        <button class="close-button" data-icon="${lt.icon.toEntity(lt.icon.X)}" aria-label="Close"/>
     </div>
     <div class="scrollable">
         <div class="dialog-content">
@@ -234,24 +234,24 @@
             <div class="input-wrapper">
               <textarea autofocus spellcheck="false" autocomplete="false"></textarea>
               <div class="buttons">
-                <button class="button" type="button" data-role="merge" data-icon="&#xE037;"><span></span></button>
-                <button class="button" type="button" data-role="normalize" data-icon="&#xE05B;"><span></span></button>
-                <button class="button" type="button" data-role="denormalize" data-icon="&#xE066;"><span></span></button>
-                <button class="button" type="button" data-role="split" data-icon="&#xE018;"><span></span></button>
-                <button class="button" type="button" data-role="search" data-icon="&#xE02F;"><span></span></button>
-                <button class="button" type="button" data-role="keepFound" data-icon="&#xE02A;"><span></span></button>
-                <button class="button" type="button" data-role="cutStuff" data-icon="&#x2702;"><span></span></button>
-                <button class="button" type="button" data-role="evaluate" data-icon="&#xE02C;"><span></span></button>
-                <button class="button" type="button" data-role="extract" data-icon="&#xE032;"><span></span></button>
-                <button class="button" type="button" data-role="count" data-icon="&#xE004;"><span></span></button>
-                <button class="button" type="button" data-role="cancel" data-icon="&#xE071;"><span></span></button>
+                <button class="button" type="button" data-role="merge" data-icon="${lt.icon.toEntity(lt.icon.Funnel)}"><span></span></button>
+                <button class="button" type="button" data-role="normalize" data-icon="${lt.icon.toEntity(lt.icon.ThumbsUp)}"><span></span></button>
+                <button class="button" type="button" data-role="denormalize" data-icon="${lt.icon.toEntity(lt.icon.StarOutline)}"><span></span></button>
+                <button class="button" type="button" data-role="split" data-icon="${lt.icon.toEntity(lt.icon.ShareAndroid)}"><span></span></button>
+                <button class="button" type="button" data-role="search" data-icon="${lt.icon.toEntity(lt.icon.ZoomIn)}"><span></span></button>
+                <button class="button" type="button" data-role="keepFound" data-icon="${lt.icon.toEntity(lt.icon.Target)}"><span></span></button>
+                <button class="button" type="button" data-role="cutStuff" data-icon="${lt.icon.toEntity(lt.icon.BlackScissors)}"><span></span></button>
+                <button class="button" type="button" data-role="evaluate" data-icon="${lt.icon.toEntity(lt.icon.LineGraph)}"><span></span></button>
+                <button class="button" type="button" data-role="extract" data-icon="${lt.icon.toEntity(lt.icon.List)}"><span></span></button>
+                <button class="button" type="button" data-role="count" data-icon="${lt.icon.toEntity(lt.icon.BarChart)}"><span></span></button>
+                <button class="button" type="button" data-role="cancel" data-icon="${lt.icon.toEntity(lt.icon.Cancel)}"><span></span></button>
                 <hr></hr>
-                <button class="button" type="button" data-role="copy" data-icon="&#xE070;"><span></span></button>
-                <button class="button" type="button" data-role="upload" data-icon="&#xE039;"><span></span></button>
-                <button class="button" type="button" data-role="download" data-icon="&#xE024;"><span></span></button>
-                <button class="button" type="button" data-role="undo" data-icon="&#xE05C;"><span></span></button>
-                <button class="button" type="button" data-role="redo" data-icon="&#xE06D;"><span></span></button>
-                <button class="button" type="button" data-role="clear" data-icon="&#xE03F;"><span></span></button>
+                <button class="button" type="button" data-role="copy" data-icon="${lt.icon.toEntity(lt.icon.Clipboard)}"><span></span></button>
+                <button class="button" type="button" data-role="upload" data-icon="${lt.icon.toEntity(lt.icon.InternalArrow)}"><span></span></button>
+                <button class="button" type="button" data-role="download" data-icon="${lt.icon.toEntity(lt.icon.ExternalArrow)}"><span></span></button>
+                <button class="button" type="button" data-role="undo" data-icon="${lt.icon.toEntity(lt.icon.Back)}"><span></span></button>
+                <button class="button" type="button" data-role="redo" data-icon="${lt.icon.toEntity(lt.icon.Forward)}"><span></span></button>
+                <button class="button" type="button" data-role="clear" data-icon="${lt.icon.toEntity(lt.icon.X)}"><span></span></button>
                 <label></label>
               </div>
             </div>
@@ -850,7 +850,7 @@
 
       const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 16;
       console.debug('Evaluating with level ', depth);
-      const decimals = +lt.currentOptions.getValue('cevalDecimals') || 1;
+      const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
 
       let info = null;
       let lastInfo = null;
@@ -861,7 +861,7 @@
       sf.setDepth(depth);
       sf.on('info', i => { 
           if (i.cp === undefined && i.mate === undefined) return;
-          this.lastInfo = i;
+          lastInfo = i;
         });
       sf.on('bestmove', i => { info = lastInfo; });
 
@@ -894,6 +894,7 @@
         for (const game of games) {
           for (const node of game.lastMoves) {
             totalMoves--;
+            if (node.data?.san?.endsWith('#')) continue;
             const comments = node.data.comments || [];
             if (comments.find(c => /^eval: /.test(c))) continue;
             lastInfo = null;
@@ -908,7 +909,7 @@
             }
             sf.stop();
             const side = node.data.fen.split(' ')[1] == 'b' ? -1 : 1;
-            const evalText = "eval: " + (info.mate ? '#' + (side * info.mate) : ((side * info.cp) > 0 ? '+' : '') + (side * info.cp / 100).toFixed(decimals));
+            const evalText = "eval: " + (info.mate!==undefined ? '#' + (side * info.mate) : ((side * info.cp) > 0 ? '+' : '') + (side * info.cp / 100).toFixed(decimals));
             node.data.comments = [...comments, evalText];
             this.writeNote(trans.pluralSame('evaluatingMoves', totalMoves));
             await lt.timeout(0);
@@ -1509,11 +1510,9 @@
         if (!node.children?.length) {
           if (!node.data?.san) return;
           const comments = node.data?.comments || [];
-          const match = comments.map(c => /(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m => !!m);
+          const match = comments.map(c => /(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<cp>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m => !!m);
           if (!match) return;
-          const evl = match.groups.mate
-            ? 100 * Math.sign(+(match.groups.mate)) - +(match.groups.mate)
-            : +(match.groups.eval);
+          const evl = lt.getCentipawns(match.groups);
           let toRemove = false;
           switch (operator) {
             case '>':
@@ -1642,11 +1641,9 @@
           if (found) return;
           if (!node.children?.length) {
             const comments = node.data?.comments || [];
-            const match = comments.map(c => /(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<eval>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m => !!m);
+            const match = comments.map(c => /(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<cp>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m => !!m);
             if (!match) return;
-            const evl = match.groups.mate
-              ? 100 * Math.sign(+(match.groups.mate)) - +(match.groups.mate)
-              : +(match.groups.eval);
+            const evl = lt.getCentipawns(match.groups);
             switch (operator) {
               case '>':
                 found = evl > value;
@@ -1890,7 +1887,7 @@
       }
       if ($('.lichessTools-pgnEditor', container).length) return;
       $('<a class="lichessTools-pgnEditor">')
-        .attr('data-icon', '\u2E0E')
+        .attr('data-icon', lt.icon.EditorialCoronis)
         .attr('title', trans.noarg('sendToPgnEditorTitle'))
         .text(trans.noarg('sendToPgnEditorText'))
         .attr('href', '/analysis#pgnEditor')

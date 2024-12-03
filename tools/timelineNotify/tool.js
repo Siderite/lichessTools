@@ -118,7 +118,7 @@
           const entry = {
             id: 'timelineNotify',
             isNew: true,
-            icon: '\uE058',
+            icon: lt.icon.Envelope,
             href: '/timeline',
             content: $('<div>')
               .append($('<span>').text(trans.noarg('timeline')))

@@ -546,7 +546,7 @@
           const text = trans.noarg('addBookmarkText');
           const title = trans.noarg('addBookmarkTitle');
           menuItem = $('<a>')
-            .attr('data-icon', '\uE062')
+            .attr('data-icon', lt.icon.Tag)
             .attr('data-role', 'bookmark')
             .text(text).attr('title', title)
             .on('click', this.addOrRemoveBookmark)
@@ -561,7 +561,7 @@
             const text = trans.noarg('getBookmarkUrlText');
             const title = trans.noarg('getBookmarkUrlTitle');
             menuItem = $('<a>')
-              .attr('data-icon', '\uE016')
+              .attr('data-icon', lt.icon.Link)
               .attr('data-role', 'bookmarkUrl')
               .text(text).attr('title', title)
               .on('click', () => this.getBookmarkUrl(node.bookmark))
@@ -582,11 +582,11 @@
           if (anyCollapsed) {
             text = trans.noarg('expandAllText');
             title = trans.noarg('expandAllTitle');
-            icon = '\uE042';
+            icon = lt.icon.PlusButton;
           } else {
             text = trans.noarg('collapseAllText');
             title = trans.noarg('collapseAllTitle');
-            icon = '\uE043';
+            icon = lt.icon.MinusButton;
           }
           menuItem
             .attr('data-icon', icon)
@@ -598,7 +598,7 @@
               const text = trans.noarg('bookmarkSplitText');
               const title = trans.noarg('bookmarkSplitTitle');
               menuItem = $('<a>')
-                .attr('data-icon', '\u2704')
+                .attr('data-icon', lt.icon.WhiteScissors)
                 .attr('data-role', 'bookmarkSplit')
                 .text(text).attr('title', title)
                 .on('click', this.bookmarkSplit)
@@ -628,7 +628,7 @@
         }
         if (!button.length) {
           button = $('<a class="lichessTools-analysisPopup">')
-            .attr('data-icon', '\uE024')
+            .attr('data-icon', lt.icon.ExternalArrow)
             .attr('title', trans.noarg('analysisPopupButtonTitle'))
             .on('click', ev => {
               ev.preventDefault();

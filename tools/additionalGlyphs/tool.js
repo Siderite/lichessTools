@@ -26,7 +26,8 @@
     }
 
     isStandardGlyph = (glyph) => {
-      return !['#', '\uD83D\uDE10', '\uD83D\uDE22', '\uD83D\uDE41', '\uD83D\uDE10', '\uD83D\uDE42', '\uD83D\uDE01'].includes(glyph);
+      const lt = this.lichessTools;
+      return !['#', lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes].includes(glyph);
     }
 
     drawGlyphsDirect = () => {

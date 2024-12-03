@@ -145,7 +145,7 @@
         html += `<h3>$trans(feedbackTitle)</h3>
 <div class="feedback">
   <textarea enterkeyhint="send"></textarea>
-  <button data-icon="&#xE03A;" title="$trans(feedbackButtonTitle)"></button>
+  <button data-icon="${lt.icon.toEntity(lt.icon.PlayTriangle)}" title="$trans(feedbackButtonTitle)"></button>
 </div>`;
       }
 
@@ -268,7 +268,7 @@
 
       const container = $('div.page-menu__content');
       let saved = $('p.saved', container);
-      saved = saved.length ? saved.clone() : $('<p class="saved text none" data-icon="\ue038"></p>').text(trans.noarg('preferencesSaved'));
+      saved = saved.length ? saved.clone() : $('<p class="saved text none">').attr('data-icon',lt.icon.Checkmark).text(trans.noarg('preferencesSaved'));
       container.empty()
         .append(html)
         .addClass('lichessTools-preferences');
@@ -517,7 +517,7 @@
         $('<a>')
           .addClass('lichessTools-infoIcon')
           .attr('title', 'User manual (EN)')
-          .attr('data-icon', '\uE005')
+          .attr('data-icon', lt.icon.InfoCircle)
           .attr('href', 'https://siderite.dev/blog/lichess-tools---user-manual/#' + pref)
           .attr('target', '_blank')
           .prependTo(e);
@@ -535,7 +535,7 @@
             .insertBefore('#dasher_app div.subs');
         }
         $('<a class="text lichessTools-preferences">')
-          .attr('data-icon', '\uE019')
+          .attr('data-icon', lt.icon.Gear)
           .attr('href', '/team/all#lichessTools')
           .text(trans.noarg('lichessTools'))
           .attr('title', trans.noarg('lichessToolsPreferences'))

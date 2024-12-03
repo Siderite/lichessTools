@@ -59,7 +59,7 @@ body.lichessTools #topnav section.lichessTools-onlineFriends a i {
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a i:before {
-  content: '\E010';
+  content: '\E06B'; /* Disc */
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a:hover i:before {
@@ -67,27 +67,27 @@ body.lichessTools #topnav section.lichessTools-onlineFriends a:hover i:before {
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:before {
-  content: '\E025' !important;
+  content: '\E010' !important; /* AnalogTv */
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-ultrabullet i:before {
-  content: '\E06E' !important;
+  content: '\E059' !important; /* UltraBullet */
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-bullet i:before {
-  content: '\E047' !important;
+  content: '\E032' !important; /* Bullet */
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-blitz i:before {
-  content: '\E01D' !important;
+  content: '\E008' !important; /* FlameBlitz */
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-rapid i:before {
-  content: '\E017' !important;
+  content: '\E002' !important; /* Rabbit */
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-classical i:before {
-  content: '\E01F' !important;
+  content: '\E00A' !important; /* Turtle */
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:hover {
@@ -263,7 +263,7 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notificatio
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a i:before {
-  content: '\E010';
+  content: '\E06B'; /* Disc */
   font-family: 'lichess';
 }
 
@@ -272,27 +272,27 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notificatio
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing i:before {
-  content: '\E025' !important;
+  content: '\E010' !important; /* AnalogTv */
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-ultrabullet i:before {
-  content: '\E06E' !important;
+  content: '\E059' !important; /* UltraBullet */
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-bullet i:before {
-  content: '\E047' !important;
+  content: '\E032' !important; /* Bullet */
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-blitz i:before {
-  content: '\E01D' !important;
+  content: '\E008' !important; /* FlameBlitz */
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-rapid i:before {
-  content: '\E017' !important;
+  content: '\E002' !important; /* Rabbit */
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-classical i:before {
-  content: '\E01F' !important;
+  content: '\E00A' !important; /* Turtle */
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a:hover {

@@ -534,14 +534,8 @@
     };
 
     getCp = (evl, side = 1) => {
-      let cp = undefined;
-      if (evl?.cp !== undefined) {
-        cp = evl.cp * side;
-      }
-      if (evl?.mate !== undefined) {
-        cp = (Math.sign(evl.mate) * 10000 - evl.mate) * side;
-      }
-      return Number.isNaN(cp) ? undefined : cp;
+      const lt = this.lichessTools;
+      return lt.getCentipawns(evl) * side;
     };
 
     getLocalData = (mainline) => {
@@ -713,7 +707,7 @@
               name = 'Brilliant';
             } else {
               if (v.best) {
-                symbol = '\u2606';
+                symbol = lt.icon.WhiteStar;
                 name = 'Best';
               } else {
                 symbol = '!';
@@ -739,7 +733,7 @@
                   }
           }
           const glyphs = mainline[x].glyphs || [];
-          lt.arrayRemoveAll(glyphs, g => g.type == 'nonStandard' && ['!', '!?', '!!', '\u2606'].includes(g.symbol));
+          lt.arrayRemoveAll(glyphs, g => g.type == 'nonStandard' && ['!', '!?', '!!', lt.icon.WhiteStar].includes(g.symbol));
           if (symbol && !glyphs.length) {
             glyphs.push({
               symbol: symbol,
@@ -802,7 +796,7 @@
         if (move.ply % 2 != side) continue;
         const glyph = move?.glyphs?.at(0);
         if (!glyph) continue;
-        if (!['!', '!!', '!?', '\u2606'].includes(glyph.symbol)) continue;
+        if (!['!', '!!', '!?', lt.icon.WhiteStar].includes(glyph.symbol)) continue;
         result.push({ datasetIndex: 0, index: i - 1 });
       }
       return result;
@@ -821,7 +815,7 @@
         state = lt.traverse();
         if (hcElem) hcElem.traverseState = state;
       }
-      const arr = [].concat.apply([], ['!', '!?', '!!', '\u2606'].map(s => state?.glyphs[s]).filter(a => !!a?.length));
+      const arr = [].concat.apply([], ['!', '!?', '!!', lt.icon.WhiteStar].map(s => state?.glyphs[s]).filter(a => !!a?.length));
       if (!arr.length) return;
       const fill = (container, count, color) => {
         let elem = $('div.lichessTools-goodMoves', container);
@@ -834,7 +828,7 @@
             .attr('title', trans.noarg('goodMovesTitle'))
             .on('click', (ev) => {
               ev.preventDefault();
-              lt.jumpToGlyphSymbols(this.options.moreBrilliant ? ['!?', '!!'] : ['!', '!?', '!!', '\u2606'], color);
+              lt.jumpToGlyphSymbols(this.options.moreBrilliant ? ['!?', '!!'] : ['!', '!?', '!!', lt.icon.WhiteStar], color);
             })
             .on('mouseenter', (ev) => {
               const chart = this._chart;
@@ -1030,7 +1024,7 @@
           $('<div class="lichessTools-chartInfo">')
             .attr('title', trans.noarg('chartInfoTitle'))
             .append($('<a target="_blank">')
-              .attr('data-icon', '\uE05D')
+              .attr('data-icon', lt.icon.CautionCircle)
               .attr('href', 'https://siderite.dev/blog/lichess-tools---user-manual#extraChart'))
             .appendTo(container);
         }

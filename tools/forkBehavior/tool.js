@@ -36,6 +36,7 @@
     }
 
     getMoveText = (move, isTranspo, length) => {
+      const lt = this.lichessTools;
       length = length || 0;
       let result = Math.floor((move.ply + 1) / 2);
       if (!length || move.ply % 2 == 1) {
@@ -45,7 +46,7 @@
       if (length < 5 && move.children.length == 1) {
         result += ' ' + this.getMoveText(move.children[0], false, length + 1);
       } else if (move.children.length) {
-        result += ' \u2026';
+        result += ' '+lt.icon.Ellipsis;
       }
       return result;
     };
@@ -123,7 +124,7 @@
         .attr('href', '/account/preferences/display#lichessTools/forkBehavior')
         .attr('target', '_blank')
         .attr('title', trans.noarg('options.forkBehavior'))
-        .attr('data-icon', '\uE005')
+        .attr('data-icon', lt.icon.InfoCircle)
         .appendTo(dlg);
       $(dlg)
         .on('close', () => lichess.analysis.explorer.setHovering(lichess.analysis.node.fen, null))

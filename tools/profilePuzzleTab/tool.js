@@ -185,7 +185,7 @@
               .clone()
               .attr('href', '/@/' + userId + '/perf/puzzle')
               .attr('title', trans.noarg('puzzleTabTitle'))
-              .attr('data-icon', '\uE051')
+              .attr('data-icon', lt.icon.BarGraph)
               .addClass('lichessTools-profilePuzzleTab')
               .insertBefore($('hr', container).eq(0));
             existing.removeClass('active');

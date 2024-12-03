@@ -53,7 +53,7 @@
         .insertBefore('.board-editor__tools .actions form[action="/study/as"]')
         .find('span.text')
         .text(trans.noarg('mirrorButtonText'))
-        .attr('data-icon', '\uD83E\uDE9E');
+        .attr('data-icon', lt.icon.Mirror);
     }
 
   }
