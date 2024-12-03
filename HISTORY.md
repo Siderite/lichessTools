@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+03 Dec
+
+- NIF v2
+
 27 Nov
 
 - more precise find puzzle
