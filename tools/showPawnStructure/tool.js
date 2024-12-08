@@ -364,7 +364,7 @@
         fuzzy: lt.isOptionSet(value, 'fuzzy')
       };
       const lichess = lt.lichess;
-      if (!lichess) return;
+      if (!lichess || !lt.uiApi) return;
       const $ = lt.$;
       lt.uiApi.socket.events.off('endData', this.refreshStructureDebounced);
       lt.uiApi.socket.events.off('fen', this.miniGameStructure);

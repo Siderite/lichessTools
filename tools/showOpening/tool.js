@@ -231,7 +231,7 @@
         showInExplorer: lt.isOptionSet(value, 'showInExplorer'),
       };
       const lichess = lt.lichess;
-      if (!lichess) return;
+      if (!lichess || !lt.uiApi) return;
       const $ = lt.$;
       lt.uiApi.socket.events.off('fen', this.miniGameOpening);
       lt.uiApi.events.off('ply', this.refreshOpeningDebounced);

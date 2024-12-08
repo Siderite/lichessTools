@@ -446,7 +446,7 @@
         stickyCategory: lt.isOptionSet(value, 'stickyCategory'),
       };
       const lichess = lt.lichess;
-      if (!lichess) return;
+      if (!lichess || !lt.uiApi) return;
       $(lt.global).off('hashchange', this.hashChange);
       lt.uiApi.socket.events.off('close', this.hashChange);
       lt.pubsub.off('content-loaded', this.refreshTimeControls);
