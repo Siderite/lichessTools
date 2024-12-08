@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'fixCoords',
-        category: 'analysis',
+        category: 'general',
         type: 'multiple',
         possibleValues: ['fix', 'larger', 'square'],
         defaultValue: 'fix',
@@ -14,14 +14,14 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.general': 'General',
         'options.fixCoords': 'Fix board coordinate position',
         'fixCoords.fix': 'Fix outside coordinates',
         'fixCoords.larger': 'Larger coordinate font',
         'fixCoords.square': 'On each square'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.general': 'General',
         'options.fixCoords': 'Repar\u0103 pozi\u0163ia coordonatelor tablei',
         'fixCoords.fix': 'Repar\u0103 coordonatele \u00een exterior',
         'fixCoords.larger': 'Font mai mare pentru coordonate',
@@ -35,17 +35,21 @@
       const $ = lt.$;
       let container = $('div.main-board > div.cg-wrap > cg-container');
       if (!container.length) return;
-      if (container.children('coords.lichessTools-fixCoords').length) return;
       if (!container.children('coords').length) return;
-      const coords = $('<coords class="lichessTools-fixCoords">')
-        .appendTo(container);
-      for (let rank = 1; rank <= 8; rank++) {
-        for (let file = 1; file <= 8; file++) {
-          $('<coord>')
-            .text(String.fromCharCode(96 + file) + String.fromCharCode(48 + rank))
-            .css('--rank', rank)
-            .css('--file', file)
-            .appendTo(coords);
+      let coords = container.children('coords.lichessTools-fixCoords');
+      if (!coords.length) {
+        coords = $('<coords class="lichessTools-fixCoords">')
+          .appendTo(container);
+      }
+      if (!coords.find('coord').length) {
+        for (let rank = 1; rank <= 8; rank++) {
+          for (let file = 1; file <= 8; file++) {
+            $('<coord>')
+              .text(String.fromCharCode(96 + file) + String.fromCharCode(48 + rank))
+              .css('--rank', rank)
+              .css('--file', file)
+              .appendTo(coords);
+          }
         }
       }
     };

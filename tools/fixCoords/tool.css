@@ -30,6 +30,7 @@ coords.lichessTools-fixCoords {
 
 body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools-fixCoords {
   display: block;
+  opacity: 1;
   width: 100%;
   height: 100%;
 }
