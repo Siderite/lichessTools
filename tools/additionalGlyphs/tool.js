@@ -80,11 +80,6 @@
       const study = analysis.study;
       lt.pubsub.off('lichessTools.redraw', this.drawGlyphs);
       lt.global.clearInterval(this.interval);
-      if (study) {
-        if (lichess.socket) {
-          lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'additionalGlyphs');
-        }
-      }
       if (!value) {
         if (analysis.chessground) {
           const shapes = analysis.chessground.state.drawable.autoShapes?.filter(s => s.type !== 'glyph') || [];
@@ -92,17 +87,8 @@
         }
         return;
       }
+      // TODO confirm there is no need to handle the 'glyphs' socket message
       lt.pubsub.on('lichessTools.redraw', this.drawGlyphs);
-      if (study) {
-        if (lichess.socket) {
-          lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
-            id: 'additionalGlyphs',
-            after: ($this, result, m) => {
-              if (m.t == 'glyphs') this.drawGlyphs();
-            }
-          });
-        }
-      }
       this.interval = lt.global.setInterval(() => {
         const autoShapes = lt.global.JSON.stringify(analysis.chessground?.state.drawable.autoShapes);
         if (autoShapes != this.prevAutoShapes) {

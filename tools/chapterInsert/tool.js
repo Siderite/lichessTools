@@ -1,6 +1,8 @@
 (() => {
   class ChapterInsertTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitChapterChange'];
+
     preferences = [
       {
         name: 'chapterInsert',
@@ -90,6 +92,15 @@
       this.chapterData = null;
     };
 
+    onChapterChange = (chapterId)=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const study = lichess.analysis.study;
+      if (this._prevChapters.includes(chapterId)) return;
+      this._prevChapters = study.chapters.list.all().map(c=>c.id);
+      this.onChapterAdd(chapterId);
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('chapterInsert');
@@ -105,21 +116,11 @@
       study.chapters.newForm.toggle = lt.unwrapFunction(study.chapters.newForm.toggle, 'chapterInsert');
       $('div.dialog-content div.form-actions button.lichessTools-chapterInsert').remove();
       $('div.dialog-content div.form-actions').addClass('single');
-      if (lichess.socket?.handle) {
-        lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'chapterInsert');
-      }
+      lt.pubsub.off('lichessTools.chapterChange',this.onChapterChange);
       if (!value) return;
-      if (lichess.socket?.handle) {
-        lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
-          id: 'chapterInsert',
-          after: ($this, result, m) => {
-            if (m.t == 'addChapter') {
-              const newChapterId = m.d.p.chapterId;
-              this.onChapterAdd(newChapterId);
-            }
-          }
-        });
-      }
+
+      this._prevChapters = study.chapters.list.all().map(c=>c.id);
+      lt.pubsub.on('lichessTools.chapterChange',this.onChapterChange);
 
       study.chapters.newForm.toggle = lt.wrapFunction(study.chapters.newForm.toggle, {
         id: 'chapterInsert',

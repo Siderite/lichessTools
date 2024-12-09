@@ -42,6 +42,7 @@
         "tools/emitRedraw/tool.js",
         "tools/emitContentLoaded/tool.js",
         "tools/emitChapterChange/tool.js",
+        "tools/emitCommentChange/tool.js",
         "tools/gamebookPlayClass/tool.js",
         "tools/emitPuzzleChange/tool.js",
         "tools/transpositionBehavior/tool.js",
