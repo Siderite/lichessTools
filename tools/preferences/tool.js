@@ -332,7 +332,7 @@
           const text = feedbackTextarea.val();
           feedbackTextarea.val('').css('height', '');
           if (text) {
-            lichess.socket.send('msgSend', { "dest": "totalnoob69", "text": text });
+            lichess.socket?.send('msgSend', { "dest": "totalnoob69", "text": text });
           }
         });
       $('.folder button.picker', container)

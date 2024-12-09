@@ -41,7 +41,7 @@
       const analysis = lichess.analysis;
       const key = fen + '/' + variant;
       let destMan = analysis?.chessground.state?.movable?.dests || this._cache.get(key);
-      if (!destMan) {
+      if (!destMan && lichess.socket?.send) {
         lichess.socket.send('anaDests', { variant: variant, fen: fen, path: key });
         while (!destMan) {
           await lt.timeout(10);

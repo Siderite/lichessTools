@@ -105,9 +105,11 @@
       study.chapters.newForm.toggle = lt.unwrapFunction(study.chapters.newForm.toggle, 'chapterInsert');
       $('div.dialog-content div.form-actions button.lichessTools-chapterInsert').remove();
       $('div.dialog-content div.form-actions').addClass('single');
-      lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'chapterInsert');
+      if (lichess.socket?.handle) {
+        lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'chapterInsert');
+      }
       if (!value) return;
-      if (lichess.socket) {
+      if (lichess.socket?.handle) {
         lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
           id: 'chapterInsert',
           after: ($this, result, m) => {
