@@ -228,7 +228,7 @@
     translator = {
       lichessTools: this,
       format: function (str, args) {
-        if (args.length) {
+        if (args?.length) {
           if (str.includes('%s')) {
             str = str.replace('%s', args[0]);
           } else {

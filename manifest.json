@@ -153,6 +153,7 @@
         "tools/showDeviation/tool.js",
         "tools/linkToAnalysis/tool.js",
         "tools/puzzleOptions/tool.js",
+        "tools/blogHistory/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -257,6 +258,7 @@
         "tools/gameListOptions/tool.css",
         "tools/showDeviation/tool.css",
         "tools/linkToAnalysis/tool.css",
+        "tools/blogHistory/tool.css",
 
         "tools/tvOptions/tool.css",
 

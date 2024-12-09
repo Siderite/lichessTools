@@ -1,0 +1,11 @@
+body.lichessTools div.lichessTools-visited {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  --color: green;
+  padding: 3px;
+}
+
+body.lichessTools div.lichessTools-visited.lichessTools-liked {
+  color: red;
+}

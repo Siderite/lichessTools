@@ -115,6 +115,7 @@ lichessTools.loadTool(LiChessTools.Tools.GameListOptions);
 lichessTools.loadTool(LiChessTools.Tools.ShowDeviation);
 lichessTools.loadTool(LiChessTools.Tools.LinkToAnalysis);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleOptions);
+lichessTools.loadTool(LiChessTools.Tools.BlogHistory);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);

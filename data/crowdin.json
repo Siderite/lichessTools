@@ -732,7 +732,10 @@
     "autoAnalyseGame.loss": "الخسارة",
     "autoAnalyseGame.draw": "ارسم",
     "autoAnalyseGame.win": "فوز",
-    "explorerEval.bardp": "دقة الشريط"
+    "explorerEval.bardp": "دقة الشريط",
+    "options.blogHistory": "سجل زيارات المدونة",
+    "blogHistory.showVisited": "إظهار الزيارة",
+    "visitedTitle": "أدوات شطرنج الحياة - آخر زيارة على %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1467,7 +1470,10 @@
     "autoAnalyseGame.loss": "Loss",
     "autoAnalyseGame.draw": "Draw",
     "autoAnalyseGame.win": "Win",
-    "explorerEval.bardp": "Bar precision"
+    "explorerEval.bardp": "Bar precision",
+    "options.blogHistory": "Blog visit history",
+    "blogHistory.showVisited": "Show visited",
+    "visitedTitle": "LiChess Tools - last visited on %s"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2202,7 +2208,10 @@
     "autoAnalyseGame.loss": "Loss",
     "autoAnalyseGame.draw": "Draw",
     "autoAnalyseGame.win": "Win",
-    "explorerEval.bardp": "Bar precision"
+    "explorerEval.bardp": "Bar precision",
+    "options.blogHistory": "Blog visit history",
+    "blogHistory.showVisited": "Show visited",
+    "visitedTitle": "LiChess Tools - last visited on %s"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2937,7 +2946,10 @@
     "autoAnalyseGame.loss": "Perte",
     "autoAnalyseGame.draw": "Dessiner",
     "autoAnalyseGame.win": "Victoire",
-    "explorerEval.bardp": "Précision des barres"
+    "explorerEval.bardp": "Précision des barres",
+    "options.blogHistory": "Historique des visites de blog",
+    "blogHistory.showVisited": "Afficher les visites",
+    "visitedTitle": "Outils LiChess - dernière visite sur %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3672,7 +3684,10 @@
     "autoAnalyseGame.loss": "Verlust",
     "autoAnalyseGame.draw": "Zeichnen",
     "autoAnalyseGame.win": "Sieg",
-    "explorerEval.bardp": "Balkengenauigkeit"
+    "explorerEval.bardp": "Balkengenauigkeit",
+    "options.blogHistory": "Blog-Besuchsverlauf",
+    "blogHistory.showVisited": "Besuchte anzeigen",
+    "visitedTitle": "LiChess-Tools - zuletzt besucht auf %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4407,7 +4422,10 @@
     "autoAnalyseGame.loss": "Przegrana",
     "autoAnalyseGame.draw": "Remis",
     "autoAnalyseGame.win": "Wygrana",
-    "explorerEval.bardp": "Precyzja słupkowa"
+    "explorerEval.bardp": "Precyzja słupkowa",
+    "options.blogHistory": "Historia wizyt na blogu",
+    "blogHistory.showVisited": "Pokaż odwiedzone",
+    "visitedTitle": "LiChess Tools - last visited on %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5142,7 +5160,10 @@
     "autoAnalyseGame.loss": "Derrota",
     "autoAnalyseGame.draw": "Desenhar",
     "autoAnalyseGame.win": "Vitória",
-    "explorerEval.bardp": "Precisão da barra"
+    "explorerEval.bardp": "Precisão da barra",
+    "options.blogHistory": "Histórico do blog visita",
+    "blogHistory.showVisited": "Exibir visitados",
+    "visitedTitle": "Ferramentas de LiChess - última visitada em %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5877,7 +5898,10 @@
     "autoAnalyseGame.loss": "Pierdere",
     "autoAnalyseGame.draw": "Egal",
     "autoAnalyseGame.win": "Câștig",
-    "explorerEval.bardp": "Precizie bară"
+    "explorerEval.bardp": "Precizie bară",
+    "options.blogHistory": "Istorie vizite blog",
+    "blogHistory.showVisited": "Arată vizite",
+    "visitedTitle": "LiChess Tools - ultima vizită pe %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6612,7 +6636,10 @@
     "autoAnalyseGame.loss": "Потери",
     "autoAnalyseGame.draw": "Нарисовать",
     "autoAnalyseGame.win": "Победить",
-    "explorerEval.bardp": "Точность панели"
+    "explorerEval.bardp": "Точность панели",
+    "options.blogHistory": "История посещений блога",
+    "blogHistory.showVisited": "Показать посещённые",
+    "visitedTitle": "Инструменты Жизни - последнее посещение на %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -7347,7 +7374,10 @@
     "autoAnalyseGame.loss": "Perdida",
     "autoAnalyseGame.draw": "Empate",
     "autoAnalyseGame.win": "Ganada",
-    "explorerEval.bardp": "Precisión de barra"
+    "explorerEval.bardp": "Precisión de barra",
+    "options.blogHistory": "Historial de visitas del blog",
+    "blogHistory.showVisited": "Mostrar visitados",
+    "visitedTitle": "Herramientas de LiChess - última visitada en %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8082,6 +8112,9 @@
     "autoAnalyseGame.loss": "Loss",
     "autoAnalyseGame.draw": "Draw",
     "autoAnalyseGame.win": "Win",
-    "explorerEval.bardp": "Bar precision"
+    "explorerEval.bardp": "Bar precision",
+    "options.blogHistory": "Blog visit history",
+    "blogHistory.showVisited": "Show visited",
+    "visitedTitle": "LiChess Tools - last visited on %s"
   }
 }
