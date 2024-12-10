@@ -424,10 +424,7 @@
             this.saveTeamsData();
             lt.storage?.fire('lichessTools.refreshNotifications');
           }
-          const socketUrl = lichess.socket?.url;
-          const m = /^\/team\/(?<teamId>[^\/]+)$/i.exec(socketUrl);
-          const teams = this.teamsData.filter(t => t.teamId != m?.groups?.teamId);
-          this.sockets = teams.map(t => ({
+          this.sockets = this.teamsData.map(t => ({
             teamId: t.teamId,
             socket: this.createSocket(t.teamId)
           }));

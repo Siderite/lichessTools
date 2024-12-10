@@ -332,7 +332,7 @@
           const text = feedbackTextarea.val();
           feedbackTextarea.val('').css('height', '');
           if (text) {
-            lichess.socket.send('msgSend', { "dest": "totalnoob69", "text": text });
+            this.sendMessageToDev(text);
           }
         });
       $('.folder button.picker', container)
@@ -508,6 +508,22 @@
       checkAdvanced();
       this.addInfo();
     };
+
+    sendMessageToDev = (msg) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const data = lt.global.document.body.dataset;
+      const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
+      if (!baseUrls?.length) return;
+      const url = 'wss://' + baseUrls[lt.global.Math.floor(lt.global.Math.random() * baseUrls.length)];
+      const fullUrl = url + '/socket/v5?sri=' + lt.sri;
+      const ws = new WebSocket(fullUrl);
+      ws.onopen = () => {
+        ws.send(JSON.stringify({"t":"msgSend","d":{"dest":"totalnoob69","text":msg}}));
+        lt.global.setTimeout(()=>ws.close(),1000);
+      };
+    }
+
 
     addInfo() {
       const lt = this.lichessTools;

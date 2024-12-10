@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+09 Dec
+
+- blog visit history tool
+
 03 Dec
 
 - NIF v2

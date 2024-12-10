@@ -228,7 +228,7 @@
     translator = {
       lichessTools: this,
       format: function (str, args) {
-        if (args.length) {
+        if (args?.length) {
           if (str.includes('%s')) {
             str = str.replace('%s', args[0]);
           } else {
@@ -1342,7 +1342,10 @@
           if (missingKeys.size) lt.global.console.debug(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
           if (orphanKeys.size) lt.global.console.debug(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
         }
-        return { ...this[this.defaultLanguage], ...this[this.lang], ...this[this.lang+'-crowdin'] };
+        if (!this._siteI18n) {
+          this._siteI18n = { ...this[this.defaultLanguage], ...this[this.lang], ...this[this.lang+'-crowdin'] };
+        }
+        return this._siteI18n;
       }
     }
 

@@ -246,7 +246,7 @@
       this.logOption('Show player flags', value);
       this.options = { enabled: value };
       const lichess = lt.lichess;
-      if (!lichess) return;
+      if (!lichess || !lt.uiApi) return;
       const $ = lt.$;
       lt.pubsub.off('content-loaded', this.debouncedProcessFlags);
       //lt.uiApi.socket.events.off('crowd', this.debouncedProcessFlags); //TODO confirm this is not needed

@@ -1,7 +1,7 @@
 (() => {
   class CommentStylingTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'EmitChapterChange'];
+    dependencies = ['EmitRedraw', 'EmitChapterChange', 'EmitCommentChange'];
 
     preferences = [
       {
@@ -158,20 +158,11 @@
       if (!study) return;
       lt.pubsub.off('lichessTools.redraw', this.debouncedAddCommentClasses);
       lt.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentClasses);
-      if (lichess.socket) {
-        lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'commentStyling');
-      }
+      lt.pubsub.off('lichessTools.commentChange', this.debouncedAddCommentClasses);
       if (value) {
         lt.pubsub.on('lichessTools.redraw', this.debouncedAddCommentClasses);
         lt.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentClasses);
-        if (lichess.socket) {
-          lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
-            id: 'commentStyling',
-            after: ($this, result, m) => {
-              if (m.t == 'setComment') this.debouncedAddCommentClasses();
-            }
-          });
-        }
+        lt.pubsub.on('lichessTools.commentChange', this.debouncedAddCommentClasses);
       }
       this.addCommentClasses();
       lichess.analysis.redraw();

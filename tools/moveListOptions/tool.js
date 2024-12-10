@@ -1,7 +1,7 @@
 (() => {
   class MoveListOptionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'EmitChapterChange', 'DetectThirdParties', 'GamebookPlayClass'];
+    dependencies = ['EmitRedraw', 'EmitChapterChange', 'EmitCommentChange', 'DetectThirdParties', 'GamebookPlayClass'];
 
     preferences = [
       {
@@ -716,21 +716,12 @@
 
         lt.pubsub.off('lichessTools.redraw', this.debouncedAddCommentBookmarks);
         lt.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
-        if (lichess.socket) {
-          lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'moveListOptions');
-        }
+        lt.pubsub.off('lichessTools.commentChange', this.debouncedAddCommentBookmarks);
         $(lt.global).off('hashchange', this.hashChange);
         if (this.options.bookmarks) {
           lt.pubsub.on('lichessTools.redraw', this.debouncedAddCommentBookmarks);
           lt.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
-          if (lichess.socket) {
-            lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
-              id: 'moveListOptions',
-              after: ($this, result, m) => {
-                if (m.t == 'setComment') this.debouncedAddCommentBookmarks();
-              }
-            });
-          }
+          lt.pubsub.on('lichessTools.commentChange', this.debouncedAddCommentBookmarks);
           this.addCommentBookmarks();
           $(lt.global).on('hashchange', this.hashChange);
           lt.global.setTimeout(this.hashChange, 100);

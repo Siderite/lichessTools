@@ -1,6 +1,8 @@
 (() => {
   class ChapterInsertTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitChapterChange'];
+
     preferences = [
       {
         name: 'chapterInsert',
@@ -67,27 +69,40 @@
     onChapterAdd = (newChapterId) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const $ = lt.$;
       const study = lichess.analysis.study;
       const chapters = study.chapters.list.all();
       if (!chapters || !this.chapterData) return;
-      const newOrder = chapters.map(c => c.id);
+      const newOrder = chapters.map(c => c.id).filter(id => id != newChapterId);
       const index = newOrder.findIndex(id => id == this.chapterData.current.id);
       if (index < 0 || index == chapters.length - 1) return;
       newOrder.splice(index + 1, 0, newChapterId);
-      study.makeChange('sortChapters', newOrder);
-      setTimeout(() => {
-        const elem = $('div.study__chapters button.draggable[data-id="' + newChapterId + '"]')[0];
-        if (!elem) return;
-        if (elem.scrollIntoViewIfNeeded) {
-          elem.scrollIntoViewIfNeeded();
-        } else {
-          if (!lt.inViewport(elem)) {
-            elem.scrollIntoView();
-          }
+      const chapterEl = $('div.study__chapters button.draggable[data-id="' + newChapterId + '"]');
+      if (!chapterEl.length) return;
+      chapterEl
+        .insertAfter('div.study__chapters button.draggable[data-id="' + this.chapterData.current.id + '"]');
+      const elem = chapterEl[0];
+      if (elem.scrollIntoViewIfNeeded) {
+        elem.scrollIntoViewIfNeeded();
+      } else {
+        if (!lt.inViewport(elem)) {
+          elem.scrollIntoView();
         }
-      }, 500);
+      }
+      setTimeout(()=>{
+        study.chapters.sort(newOrder);
+      },1000);
 
       this.chapterData = null;
+    };
+
+    onChapterChange = (chapterId)=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const study = lichess.analysis.study;
+      if (this._prevChapters.includes(chapterId)) return;
+      this._prevChapters = study.chapters.list.all().map(c=>c.id);
+      this.onChapterAdd(chapterId);
     };
 
     async start() {
@@ -105,19 +120,11 @@
       study.chapters.newForm.toggle = lt.unwrapFunction(study.chapters.newForm.toggle, 'chapterInsert');
       $('div.dialog-content div.form-actions button.lichessTools-chapterInsert').remove();
       $('div.dialog-content div.form-actions').addClass('single');
-      lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'chapterInsert');
+      lt.pubsub.off('lichessTools.chapterChange',this.onChapterChange);
       if (!value) return;
-      if (lichess.socket) {
-        lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
-          id: 'chapterInsert',
-          after: ($this, result, m) => {
-            if (m.t == 'addChapter') {
-              const newChapterId = m.d.p.chapterId;
-              this.onChapterAdd(newChapterId);
-            }
-          }
-        });
-      }
+
+      this._prevChapters = study.chapters.list.all().map(c=>c.id);
+      lt.pubsub.on('lichessTools.chapterChange',this.onChapterChange);
 
       study.chapters.newForm.toggle = lt.wrapFunction(study.chapters.newForm.toggle, {
         id: 'chapterInsert',

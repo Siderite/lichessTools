@@ -192,6 +192,8 @@
         $('.lichessTools-video').remove();
       }
 
+      lt.pubsub.off('lichessTools.commentChange', this.alterStudyLinks);
+
       lt.pubsub.off('lichessTools.redraw', this.alterStudyLinks);
       lt.pubsub.off('lichessTools.chapterChange', this.alterStudyLinks);
       if (this.options.studyLinksSameWindow) {
@@ -200,19 +202,10 @@
         this.alterStudyLinks();
       }
 
-      if (lichess.socket) {
-        lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'studyLinks');
-        if (this.options.video || this.options.studyLinksSameWindow) {
-          lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
-            id: 'studyLinks',
-            after: ($this, result, m) => {
-              if (m.t == 'setComment') {
-                if (this.options.video) this.handleVideoLinks();
-                if (this.options.studyLinksSameWindow) this.alterStudyLinks();
-              }
-            }
-          });
-        }
+      lt.pubsub.off('lichessTools.commentChange', this.handleVideoLinks);
+      if (this.options.video || this.options.studyLinksSameWindow) {
+        lt.pubsub.on('lichessTools.commentChange', this.handleVideoLinks);
+        lt.pubsub.on('lichessTools.commentChange', this.alterStudyLinks);
       }
 
     }

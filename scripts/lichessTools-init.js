@@ -13,6 +13,7 @@ lichessTools.loadTool(LiChessTools.Tools.FixAbortController);
 lichessTools.loadTool(LiChessTools.Tools.FixChessgroundResize);
 lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);
 lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
+lichessTools.loadTool(LiChessTools.Tools.EmitCommentChange);
 lichessTools.loadTool(LiChessTools.Tools.GamebookPlayClass);
 lichessTools.loadTool(LiChessTools.Tools.EmitPuzzleChange);
 lichessTools.loadTool(LiChessTools.Tools.TranspositionBehavior);
@@ -115,6 +116,7 @@ lichessTools.loadTool(LiChessTools.Tools.GameListOptions);
 lichessTools.loadTool(LiChessTools.Tools.ShowDeviation);
 lichessTools.loadTool(LiChessTools.Tools.LinkToAnalysis);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleOptions);
+lichessTools.loadTool(LiChessTools.Tools.BlogHistory);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
