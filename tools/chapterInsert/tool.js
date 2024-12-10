@@ -72,22 +72,26 @@
       const study = lichess.analysis.study;
       const chapters = study.chapters.list.all();
       if (!chapters || !this.chapterData) return;
-      const newOrder = chapters.map(c => c.id);
+      const newOrder = chapters.map(c => c.id).filter(id => id != newChapterId);
       const index = newOrder.findIndex(id => id == this.chapterData.current.id);
       if (index < 0 || index == chapters.length - 1) return;
       newOrder.splice(index + 1, 0, newChapterId);
-      study.makeChange('sortChapters', newOrder);
-      setTimeout(() => {
-        const elem = $('div.study__chapters button.draggable[data-id="' + newChapterId + '"]')[0];
-        if (!elem) return;
-        if (elem.scrollIntoViewIfNeeded) {
-          elem.scrollIntoViewIfNeeded();
-        } else {
-          if (!lt.inViewport(elem)) {
-            elem.scrollIntoView();
+      setTimeout(()=>{
+        study.chapters.sort(newOrder);
+        //study.makeChange('sortChapters', newOrder);
+
+        setTimeout(() => {
+          const elem = $('div.study__chapters button.draggable[data-id="' + newChapterId + '"]')[0];
+          if (!elem) return;
+          if (elem.scrollIntoViewIfNeeded) {
+            elem.scrollIntoViewIfNeeded();
+          } else {
+            if (!lt.inViewport(elem)) {
+              elem.scrollIntoView();
+            }
           }
-        }
-      }, 500);
+        }, 500);
+      },1000);
 
       this.chapterData = null;
     };
