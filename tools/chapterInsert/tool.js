@@ -69,6 +69,7 @@
     onChapterAdd = (newChapterId) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const $ = lt.$;
       const study = lichess.analysis.study;
       const chapters = study.chapters.list.all();
       if (!chapters || !this.chapterData) return;
@@ -76,21 +77,20 @@
       const index = newOrder.findIndex(id => id == this.chapterData.current.id);
       if (index < 0 || index == chapters.length - 1) return;
       newOrder.splice(index + 1, 0, newChapterId);
+      const chapterEl = $('div.study__chapters button.draggable[data-id="' + newChapterId + '"]');
+      if (!chapterEl.length) return;
+      chapterEl
+        .insertAfter('div.study__chapters button.draggable[data-id="' + this.chapterData.current.id + '"]');
+      const elem = chapterEl[0];
+      if (elem.scrollIntoViewIfNeeded) {
+        elem.scrollIntoViewIfNeeded();
+      } else {
+        if (!lt.inViewport(elem)) {
+          elem.scrollIntoView();
+        }
+      }
       setTimeout(()=>{
         study.chapters.sort(newOrder);
-        //study.makeChange('sortChapters', newOrder);
-
-        setTimeout(() => {
-          const elem = $('div.study__chapters button.draggable[data-id="' + newChapterId + '"]')[0];
-          if (!elem) return;
-          if (elem.scrollIntoViewIfNeeded) {
-            elem.scrollIntoViewIfNeeded();
-          } else {
-            if (!lt.inViewport(elem)) {
-              elem.scrollIntoView();
-            }
-          }
-        }, 500);
       },1000);
 
       this.chapterData = null;
