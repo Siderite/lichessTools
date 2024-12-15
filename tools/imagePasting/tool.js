@@ -29,9 +29,9 @@
       }
     }
 
-    isInboxOrForumPage = () => {
+    isInboxOrForumOrProfilePage = () => {
       const lt = this.lichessTools;
-      return /\/(inbox|forum)(\/\w+|$)/i.test(lt.global.location.pathname);
+      return /\/(inbox|forum|profile)(\/\w+|$)/i.test(lt.global.location.pathname);
     };
 
     isImage = (file) => {
@@ -90,7 +90,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (this.options.pasteImages) {
-        $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
+        $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, #form3-bio')
           .each((i, e) => {
             if (e.imagePastingInit) return;
             e.imagePastingInit = true;
@@ -134,9 +134,9 @@
         pasteImages: lt.isOptionSet(value, 'pasteImages'),
         bigEmoji: lt.isOptionSet(value, 'bigEmoji')
       };
-      if (!this.isInboxOrForumPage()) return;
+      if (!this.isInboxOrForumOrProfilePage()) return;
       lt.global.clearInterval(this.interval);
-      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text')
+      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, #form3-bio')
         .each((i, e) => {
           $(e).off('paste drop', this.pasteImage);
           e.imagePastingInit = false;
