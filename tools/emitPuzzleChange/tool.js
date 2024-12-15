@@ -35,7 +35,7 @@
       const obs = $('body').observer();
       obs.off('.puzzle__tools',this.processPuzzle);
       obs.on('.puzzle__tools',this.processPuzzle);
-      this.processPuzzle();
+      lt.global.setTimeout(this.processPuzzle,100);
     }
   }
   LiChessTools.Tools.EmitPuzzleChange = EmitPuzzleChangeTool;
