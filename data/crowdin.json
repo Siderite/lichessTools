@@ -737,7 +737,8 @@
     "blogHistory.showVisited": "إظهار الزيارة",
     "visitedTitle": "أدوات شطرنج الحياة - آخر زيارة على %s",
     "puzzleOptions.endTimer": "إظهار وقت الإكمال",
-    "elapsedText": "(%s ثانية)"
+    "elapsedText": "(%s ثانية)",
+    "blogHistory.persistView": "عرض المدونة المستمر"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1477,7 +1478,8 @@
     "blogHistory.showVisited": "Show visited",
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Show completion time",
-    "elapsedText": "(%s s)"
+    "elapsedText": "(%s s)",
+    "blogHistory.persistView": "Persistent blog view"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2217,7 +2219,8 @@
     "blogHistory.showVisited": "Show visited",
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Show completion time",
-    "elapsedText": "(%s s)"
+    "elapsedText": "(%s s)",
+    "blogHistory.persistView": "Persistent blog view"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2957,7 +2960,8 @@
     "blogHistory.showVisited": "Afficher les visites",
     "visitedTitle": "Outils LiChess - dernière visite sur %s",
     "puzzleOptions.endTimer": "Afficher le temps d'achèvement",
-    "elapsedText": "(%s)"
+    "elapsedText": "(%s)",
+    "blogHistory.persistView": "Vue de blog persistante"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3697,7 +3701,8 @@
     "blogHistory.showVisited": "Besuchte anzeigen",
     "visitedTitle": "LiChess-Tools - zuletzt besucht auf %s",
     "puzzleOptions.endTimer": "Vervollständigungszeit anzeigen",
-    "elapsedText": "(%s s)"
+    "elapsedText": "(%s s)",
+    "blogHistory.persistView": "Dauerhafte Blog-Ansicht"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4437,7 +4442,8 @@
     "blogHistory.showVisited": "Pokaż odwiedzone",
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Pokaż czas zakończenia",
-    "elapsedText": "(%s s)"
+    "elapsedText": "(%s s)",
+    "blogHistory.persistView": "Trwały widok bloga"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5177,7 +5183,8 @@
     "blogHistory.showVisited": "Exibir visitados",
     "visitedTitle": "Ferramentas de LiChess - última visitada em %s",
     "puzzleOptions.endTimer": "Mostrar tempo de conclusão",
-    "elapsedText": "(%s)"
+    "elapsedText": "(%s)",
+    "blogHistory.persistView": "Visualização de blog persistente"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5917,7 +5924,8 @@
     "blogHistory.showVisited": "Arată vizite",
     "visitedTitle": "LiChess Tools - ultima vizită pe %s",
     "puzzleOptions.endTimer": "Arată durata completării",
-    "elapsedText": "(%s s)"
+    "elapsedText": "(%s s)",
+    "blogHistory.persistView": "Persistă vizualizarea blogurilor"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6657,7 +6665,8 @@
     "blogHistory.showVisited": "Показать посещённые",
     "visitedTitle": "Инструменты Жизни - последнее посещение на %s",
     "puzzleOptions.endTimer": "Показать время завершения",
-    "elapsedText": "(%s с)"
+    "elapsedText": "(%s с)",
+    "blogHistory.persistView": "Постоянный просмотр блога"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -7397,7 +7406,8 @@
     "blogHistory.showVisited": "Mostrar visitados",
     "visitedTitle": "Herramientas de LiChess - última visitada en %s",
     "puzzleOptions.endTimer": "Mostrar tiempo de finalización",
-    "elapsedText": "(%s)"
+    "elapsedText": "(%s)",
+    "blogHistory.persistView": "Vista de blog persistente"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8137,6 +8147,7 @@
     "blogHistory.showVisited": "Show visited",
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Show completion time",
-    "elapsedText": "(%s s)"
+    "elapsedText": "(%s s)",
+    "blogHistory.persistView": "Persistent blog view"
   }
 }
