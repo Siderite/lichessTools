@@ -214,6 +214,7 @@
         this.pawnStructures = await lt.comm.getData('pawnStructures.json');
         if (!this.pawnStructures) {
           lt.global.console.warn('Could not load pawn structures!');
+          return;
         }
       }
 
@@ -317,7 +318,7 @@
           continue;
         }
         const board = lt.getBoardFromFen(fen);
-        const structure = this.getStructure(board, $(el).attr('data-state').includes('black'));
+        const structure = this.getStructure(board, $(el).attr('data-state')?.includes('black'));
         const structureName = await this.getStructureName(structure);
         this.addStructureAnchor(el, structureName, structure);
         fen = '';

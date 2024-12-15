@@ -1,15 +1,20 @@
-body:has(main.is-relay) span.relay-game__players status:not(:has(.mini-game__clock)),
-body:has(main.is-relay) span.relay-game__players good,
-body:has(main.is-relay) span.relay-game__players bad,
-body:has(main.is-relay) span.mini-game__player span.mini-game__result,
-body:has(main.is-relay) div.study__player span.result {
+body.lichessTools:has(main.is-relay) span.relay-game__players status:not(:has(.mini-game__clock)),
+body.lichessTools:has(main.is-relay) span.relay-game__players good,
+body.lichessTools:has(main.is-relay) span.relay-game__players bad,
+body.lichessTools:has(main.is-relay) span.mini-game__player span.mini-game__result,
+body.lichessTools:has(main.is-relay) div.study__player span.result {
   visibility:hidden;
 }
 
-body:has(main.is-relay).lichessTools-noSpoilers-showBroadcast span.relay-game__players status:not(:has(.mini-game__clock)),
-body:has(main.is-relay).lichessTools-noSpoilers-showBroadcast span.relay-game__players good,
-body:has(main.is-relay).lichessTools-noSpoilers-showBroadcast span.relay-game__players bad,
-body:has(main.is-relay).lichessTools-noSpoilers-showBroadcast span.mini-game__player span.mini-game__result,
-body:has(main.is-relay).lichessTools-noSpoilers-showBroadcast div.study__player span.result {
+body.lichessTools:has(main.is-relay).lichessTools-noSpoilers-showBroadcast span.relay-game__players status:not(:has(.mini-game__clock)),
+body.lichessTools:has(main.is-relay).lichessTools-noSpoilers-showBroadcast span.relay-game__players good,
+body.lichessTools:has(main.is-relay).lichessTools-noSpoilers-showBroadcast span.relay-game__players bad,
+body.lichessTools:has(main.is-relay).lichessTools-noSpoilers-showBroadcast span.mini-game__player span.mini-game__result,
+body.lichessTools:has(main.is-relay).lichessTools-noSpoilers-showBroadcast div.study__player span.result {
   visibility:visible;
+}
+
+body.lichessTools label.lichessTools-noSpoilers input {
+  vertical-align: middle;
+  margin-inline-end: 3px;  
 }

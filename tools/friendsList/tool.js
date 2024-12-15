@@ -674,6 +674,7 @@
       if (this.options.friendsBoxMode || (this.options.liveFriendsPage && lt.isFriendsPage()) || this.options.friendsPlaying) {
         this.onlinesInterval = setInterval(() => {
           if (!this.onlinesInterval) return;
+          if (lt.global.document.visibilityState == 'hidden') return;
           this.requestOnlines();
           this.followingOnlinesRequests++;
           if (this.followingOnlinesRequests > 5) {

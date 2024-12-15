@@ -54,7 +54,13 @@
         const $ = lt.$;
         const trans = lt.translator;
         const fen = lichess.analysis.node.fen?.split(' ').slice(0,2).join(' ');
-        const searchItems = await this.indexFile.search(fen);
+        const reversedFen = lt.reverseFen(fen);
+        const searchItems = (await this.indexFile.search(fen))
+                              .map(i=>({ puzzleId: i, reversed: false }))
+                              .concat(
+                                (await this.indexFile.search(reversedFen))
+                                  .map(i=>({ puzzleId: i, reversed: true }))
+                              );
         const container = $('section.explorer-box div.data');
         let table = $('table.lichessTools-puzzles',container);
         let button = $('.explorer-title button.lichessTools-puzzles',container);
@@ -91,11 +97,13 @@
         const tbody = $('tbody',table);
         const rows = $('tr',tbody);
         rows.each((i,e)=>{ e.toDelete=true; });
-        for (const puzzleId of searchItems.slice(0,500)) {
+        for (const item of searchItems.slice(0,500)) {
+          const puzzleId = item.puzzleId;
           const existing = $('tr[data-id="'+puzzleId+'"]',tbody);
           existing.each((i,e)=>{ e.toDelete=false; });
           if (!existing.length) {
-            const row = $('<tr><td><a href="/training/'+puzzleId+'" target="_blank">#'+puzzleId+'</a><span class="tooltip-content"></td></tr>')
+            const text = puzzleId+(item.reversed?' (R)':'');
+            const row = $('<tr><td><a href="/training/'+puzzleId+'" target="_blank">#'+text+'</a><span class="tooltip-content"></td></tr>')
               .on('click',ev=>{
                 ev.preventDefault();
                 lt.global.open('/training/'+puzzleId);

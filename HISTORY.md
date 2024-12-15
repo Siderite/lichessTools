@@ -1,5 +1,12 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Dec
+
+- puzzle timer
+- image pasting in profile bio
+- reverse position puzzle index
+- persist blog view
+
 09 Dec
 
 - blog visit history tool

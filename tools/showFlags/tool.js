@@ -250,13 +250,13 @@
       const $ = lt.$;
       lt.pubsub.off('content-loaded', this.debouncedProcessFlags);
       //lt.uiApi.socket.events.off('crowd', this.debouncedProcessFlags); //TODO confirm this is not needed
-      lt.pubsub.off('lichessTools.puzzleChange', this.resetFlags);
+      lt.pubsub.off('lichessTools.puzzleStart', this.resetFlags);
       $('#form3-flag').off('change', this.clearCache);
       if (value) {
         this.debouncedProcessFlags();
         lt.pubsub.on('content-loaded', this.debouncedProcessFlags);
         //lt.uiApi.socket.events.on('crowd', this.debouncedProcessFlags);  //TODO confirm this is not needed
-        lt.pubsub.on('lichessTools.puzzleChange', this.resetFlags);
+        lt.pubsub.on('lichessTools.puzzleStart', this.resetFlags);
 
         $('#form3-flag').on('change', this.clearCache);
       } else {

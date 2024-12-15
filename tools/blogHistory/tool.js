@@ -6,8 +6,8 @@
         name: 'blogHistory',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['showVisited'],
-        defaultValue: 'showVisited',
+        possibleValues: ['showVisited','persistView'],
+        defaultValue: 'showVisited,persistView',
         advanced: true
       }
     ];
@@ -17,12 +17,14 @@
         'options.general': 'General',
         'options.blogHistory': 'Blog visit history',
         'blogHistory.showVisited': 'Show visited',
+        'blogHistory.persistView': 'Persistent blog view',
         'visitedTitle': 'LiChess Tools - last visited on %s'
       },
       'ro-RO': {
         'options.general': 'General',
         'options.blogHistory': 'Istorie vizite blog',
         'blogHistory.showVisited': 'Arat\u0103 vizite',
+        'blogHistory.persistView': 'Persist\u0103 vizualizarea blogurilor',
         'visitedTitle': 'LiChess Tools - ultima vizit\u0103 pe %s'
       }
     }
@@ -103,7 +105,8 @@
       const value = lt.currentOptions.getValue('blogHistory');
       this.logOption('Blog history', value);
       this.options = {
-        showVisited: lt.isOptionSet(value, 'showVisited')
+        showVisited: lt.isOptionSet(value, 'showVisited'),
+        persistView: lt.isOptionSet(value, 'persistView')
       };
       lt.pubsub.off('content-loaded', this.processBlogCards);
       lt.pubsub.off('lichessTools.redraw', this.processBlogCards);
@@ -122,6 +125,16 @@
         lt.pubsub.on('content-loaded', this.processBlogCards);
         lt.pubsub.on('lichessTools.redraw', this.processBlogCards);
         this.processBlogCards();
+      }
+      if (this.options.persistView) {
+        const isBlogUrl = /^\/blog(\/|$)?/i.test(lt.global.location.pathname);
+        if (isBlogUrl) {
+          lt.storage.set('LiChessTools.blogHistory-view',lt.global.location.href);
+        }
+        const blogViewUrl = lt.storage.get('LiChessTools.blogHistory-view');
+        if (blogViewUrl) {
+          $('#topnav section a[href="/blog/community"]').attr('href', blogViewUrl);
+        }
       }
     }
 

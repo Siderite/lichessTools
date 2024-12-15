@@ -199,7 +199,7 @@
 
       const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
       const side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
-      const winValue = (info.mate?.at(0) === '0' ? -10000 : lt.getCentipawns(info)) * boardSign * side;
+      const winValue = (info.mate?.[0] === '0' ? -10000 : lt.getCentipawns(info)) * boardSign * side;
 
       const glyph = {
         symbol: lt.icon.NeutralFace,

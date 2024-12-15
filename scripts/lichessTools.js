@@ -284,6 +284,7 @@
     };
 
     pubsub = {
+      lichessTools: this,
       allSubs: new Map(),
       on: function (name, cb) {
         let subs = this.allSubs.get(name);
@@ -297,6 +298,8 @@
         this.allSubs.get(name)?.delete(cb);
       },
       emit: function (name, ...args) {
+        const lt = this.lichessTools;
+        if (lt.debug) console.debug('Emitting '+name,args);
         for (const fn of this.allSubs.get(name) || []) fn.apply(null, args);
       }
     };
