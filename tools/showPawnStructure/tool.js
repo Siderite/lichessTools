@@ -317,7 +317,7 @@
           continue;
         }
         const board = lt.getBoardFromFen(fen);
-        const structure = this.getStructure(board, $(el).attr('data-state').includes('black'));
+        const structure = this.getStructure(board, $(el).attr('data-state')?.includes('black'));
         const structureName = await this.getStructureName(structure);
         this.addStructureAnchor(el, structureName, structure);
         fen = '';
