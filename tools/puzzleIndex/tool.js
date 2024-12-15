@@ -47,9 +47,12 @@
         const lt = this.lichessTools;
         const lichess = lt.lichess;
         if (!lichess.analysis.explorer.enabled()) return;
+        while (lichess.analysis.explorer.loading()) {
+          await lt.timeout(10);
+        }
         const fen = lichess.analysis.node.fen?.split(' ').slice(0,2).join(' ');
         if (lt.isStartFen(fen)) return;
-        this.searching=true;
+        this.searching=fen;
         await this.loadData();
         if (!this.indexFile) return;
         await lt.timeout(200);
@@ -70,6 +73,7 @@
           table.remove();
           return;
         }
+        if (fen != lichess.analysis.node.fen?.split(' ').slice(0,2).join(' ')) return;
         if (table.length) {
           if (table.next('table').length) {
             table.appendTo(container);

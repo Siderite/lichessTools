@@ -1598,10 +1598,21 @@
         const sessionData = lt.storage.get('LichessTools.GeneralCache', { session: true, zip: true }) || [];
         const localData = lt.storage.get('LichessTools.GeneralCache', { session: false, zip: true }) || [];
         this._cache = new Map(sessionData.concat(localData));
-        this.save = lt.debounce(this.saveDirect, 1000);
+      },
+      save: function() {
+        const lt = this.lichessTools;
+        if (!this._initSave) {
+          this._initSave = true;
+          lt.global.addEventListener('beforeunload', this.saveDirect.bind(this));
+        }
+        if (!this._saveInterval) {
+          this._saveInterval = lt.global.setInterval(this.saveDirect.bind(this),10000);
+        }
       },
       saveDirect: function () {
         const lt = this.lichessTools;
+        lt.global.clearInterval(this._saveInterval);
+        this._saveInterval = undefined;
         if (!this._cache) return;
         let data = [...this._cache.entries()].filter(e => e[1].persist == 'session');
         if (data.length) {

@@ -61,6 +61,22 @@
       lt.applyOptions(lt.currentOptions);
     };
 
+    addStudyPosition = (studyId, chapterId, path) => {
+      const lt = this.lichessTools;
+      this._studyPositions =  this._studyPositions || lt.storage.get('LichessTools.studyPositions') || {};
+      this._studyPositions[studyId] = {
+        chapterId: chapterId,
+        path: path
+      };
+    };
+
+    saveStudyPositions = ()=>{
+      const data = this._studyPositions;
+      if (!data) return;
+      const lt = this.lichessTools;
+      lt.storage.set('LichessTools.studyPositions', data);
+    };
+
     _pageLoaded = false;
     async start() {
       const lt = this.lichessTools;
@@ -82,6 +98,7 @@
       study.form.open = lt.unwrapFunction(study.form.open, 'stickyStudySettings');
       study.form.save = lt.unwrapFunction(study.form.save, 'stickyStudySettings');
       study.setPath = lt.unwrapFunction(study.setPath, 'stickyStudySettings');
+      lt.global.removeEventListener('beforeunload', this.saveStudyPositions);
       if (this.options.chapterForm) {
         study.form.open = lt.wrapFunction(study.form.open, {
           id: 'stickyStudySettings',
@@ -103,14 +120,10 @@
           before: ($this, path, node) => {
             const studyId = $this.data.id;
             const chapterId = $this.vm.chapterId;
-            const data = lt.storage.get('LichessTools.studyPositions') || {};
-            data[studyId] = {
-              chapterId: chapterId,
-              path: path
-            };
-            lt.storage.set('LichessTools.studyPositions', data);
+            this.addStudyPosition(studyId, chapterId, path);
           }
         });
+        lt.global.addEventListener('beforeunload', this.saveStudyPositions);
         if (!this._pageLoaded && !lichess.analysis.study.gamebookPlay && !lt.isGamePlaying()) {
           this._pageLoaded = true;
           const studyId = study.data.id;
