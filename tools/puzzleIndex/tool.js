@@ -44,16 +44,17 @@
     searchPosition = async ()=>{
       if (this.searching) return;
       try {
-        this.searching=true;
-        await this.loadData();
-        if (!this.indexFile) return;
         const lt = this.lichessTools;
         const lichess = lt.lichess;
         if (!lichess.analysis.explorer.enabled()) return;
+        const fen = lichess.analysis.node.fen?.split(' ').slice(0,2).join(' ');
+        if (lt.isStartFen(fen)) return;
+        this.searching=true;
+        await this.loadData();
+        if (!this.indexFile) return;
         await lt.timeout(200);
         const $ = lt.$;
         const trans = lt.translator;
-        const fen = lichess.analysis.node.fen?.split(' ').slice(0,2).join(' ');
         const reversedFen = lt.reverseFen(fen);
         const searchItems = (await this.indexFile.search(fen))
                               .map(i=>({ puzzleId: i, reversed: false }))
