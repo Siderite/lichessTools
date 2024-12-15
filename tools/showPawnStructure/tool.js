@@ -214,6 +214,7 @@
         this.pawnStructures = await lt.comm.getData('pawnStructures.json');
         if (!this.pawnStructures) {
           lt.global.console.warn('Could not load pawn structures!');
+          return;
         }
       }
 
