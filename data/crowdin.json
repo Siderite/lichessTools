@@ -738,7 +738,8 @@
     "visitedTitle": "أدوات شطرنج الحياة - آخر زيارة على %s",
     "puzzleOptions.endTimer": "إظهار وقت الإكمال",
     "elapsedText": "(%s ثانية)",
-    "blogHistory.persistView": "عرض المدونة المستمر"
+    "blogHistory.persistView": "عرض المدونة المستمر",
+    "themes.fatMove": "تحليل أكبر لخط الحركة"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1479,7 +1480,8 @@
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Persistent blog view"
+    "blogHistory.persistView": "Persistent blog view",
+    "themes.fatMove": "Larger analysis move font"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2220,7 +2222,8 @@
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Persistent blog view"
+    "blogHistory.persistView": "Persistent blog view",
+    "themes.fatMove": "Larger analysis move font"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2961,7 +2964,8 @@
     "visitedTitle": "Outils LiChess - dernière visite sur %s",
     "puzzleOptions.endTimer": "Afficher le temps d'achèvement",
     "elapsedText": "(%s)",
-    "blogHistory.persistView": "Vue de blog persistante"
+    "blogHistory.persistView": "Vue de blog persistante",
+    "themes.fatMove": "Police de déplacement d'analyse plus grande"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3702,7 +3706,8 @@
     "visitedTitle": "LiChess-Tools - zuletzt besucht auf %s",
     "puzzleOptions.endTimer": "Vervollständigungszeit anzeigen",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Dauerhafte Blog-Ansicht"
+    "blogHistory.persistView": "Dauerhafte Blog-Ansicht",
+    "themes.fatMove": "Schriftart für größere Analyse verschieben"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4443,7 +4448,8 @@
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Pokaż czas zakończenia",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Trwały widok bloga"
+    "blogHistory.persistView": "Trwały widok bloga",
+    "themes.fatMove": "Większa analiza przesuwa czcionkę"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5184,7 +5190,8 @@
     "visitedTitle": "Ferramentas de LiChess - última visitada em %s",
     "puzzleOptions.endTimer": "Mostrar tempo de conclusão",
     "elapsedText": "(%s)",
-    "blogHistory.persistView": "Visualização de blog persistente"
+    "blogHistory.persistView": "Visualização de blog persistente",
+    "themes.fatMove": "Fonte de movimento de análise maior"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5925,7 +5932,8 @@
     "visitedTitle": "LiChess Tools - ultima vizită pe %s",
     "puzzleOptions.endTimer": "Arată durata completării",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Persistă vizualizarea blogurilor"
+    "blogHistory.persistView": "Persistă vizualizarea blogurilor",
+    "themes.fatMove": "Text mai mare la mutări"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6666,7 +6674,8 @@
     "visitedTitle": "Инструменты Жизни - последнее посещение на %s",
     "puzzleOptions.endTimer": "Показать время завершения",
     "elapsedText": "(%s с)",
-    "blogHistory.persistView": "Постоянный просмотр блога"
+    "blogHistory.persistView": "Постоянный просмотр блога",
+    "themes.fatMove": "Шрифт перемещения большего размера"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -7407,7 +7416,8 @@
     "visitedTitle": "Herramientas de LiChess - última visitada en %s",
     "puzzleOptions.endTimer": "Mostrar tiempo de finalización",
     "elapsedText": "(%s)",
-    "blogHistory.persistView": "Vista de blog persistente"
+    "blogHistory.persistView": "Vista de blog persistente",
+    "themes.fatMove": "Análisis más amplio mover fuente"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8148,6 +8158,7 @@
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Persistent blog view"
+    "blogHistory.persistView": "Persistent blog view",
+    "themes.fatMove": "Larger analysis move font"
   }
 }

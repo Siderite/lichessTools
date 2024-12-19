@@ -8,7 +8,7 @@
         name: 'themes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge'/*, 'noGrab'*/],
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove'/*, 'noGrab'*/],
         defaultValue: '',
         advanced: true
       }
@@ -32,6 +32,7 @@
         'themes.noPractice': 'No Practice button',
         'themes.gameMoveList': 'Flexible game move list',
         'themes.fatGauge': 'Thick analysis gauge',
+        'themes.fatMove': 'Larger analysis move font',
         'themes.slimmerArrows': '... slimmer'
       },
       'ro-RO': {
@@ -51,6 +52,7 @@
         'themes.noPractice': 'F\u0103r\u0103 buton Antrenament cu calculatorul',
         'themes.gameMoveList': 'List\u0103 mut\u0103ri flexibil\u0103 \u00een joc',
         'themes.fatGauge': 'Bar\u0103 analiz\u0103 groas\u0103',
+        'themes.fatMove': 'Text mai mare la mut\u0103ri',
         'themes.slimmerArrows': '... \u015fi mai sub\u0163iri'
       }
     }

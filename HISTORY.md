@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Dec
+
+- fat moves font theme
+
 15 Dec
 
 - puzzle timer
