@@ -116,7 +116,7 @@
         const dialog = await lt.dialog({
           header: '',
           resizeable: true,
-          html: `<iframe
+          htmlText: `<iframe
   width="100%"
   height="100%" 
   frameborder="0" 

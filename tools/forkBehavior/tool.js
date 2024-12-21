@@ -83,7 +83,7 @@
           }
         }
         dlg = await lt.dialog({
-          html: selectElem[0].outerHTML
+          htmlText: selectElem[0].outerHTML
         });
       } else {
         selectElem = $('<select>')
@@ -109,7 +109,7 @@
           }
         }
         dlg = await lt.dialog({
-          html: selectElem[0].outerHTML + '<span class="dialog-actions"><button class="button submit">' + trans.noarg('OK') + '</button></span>'
+          htmlText: selectElem[0].outerHTML + '<span class="dialog-actions"><button class="button submit">' + trans.noarg('OK') + '</button></span>'
         });
       }
       $('dialog.lichessTools-forkBehavior-chessbase').remove();

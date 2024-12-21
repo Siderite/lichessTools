@@ -74,7 +74,7 @@
       const pgn = makePgn(game);
       const content = $('<div class="lichessTools-puzzleDownload"><textarea readonly></textarea><button type="button" class="copyPgn"/></div>');
       const dlg = await lt.dialog({
-        html: content[0].outerHTML
+        htmlText: content[0].outerHTML
       });
       const textarea = $('textarea',dlg);
       textarea.val(pgn);

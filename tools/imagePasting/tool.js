@@ -104,7 +104,7 @@
           $(e).on('click',async (ev)=>{
             ev.preventDefault();
             const dlg = await lt.dialog({
-              html: $('<div>').append($(e).clone().addClass('lichessTools-imagePasting-image')).html()
+              htmlText: $('<div>').append($(e).clone().addClass('lichessTools-imagePasting-image')).html()
             });
             dlg.showModal();
           });
