@@ -40,10 +40,15 @@
       return m && m[1];
     }
 
+    isPuzzleDashboardPage = ()=>{
+      const lt = this.lichessTools;
+      return /^\/training\/dashboard\/\d+\/dashboard/i.test(lt.global.location.pathname);
+    };
+
     isPuzzleTabPage = ()=>{
       const lt = this.lichessTools;
-      const userId = lt.getUserId();
-      return lt.global.location.pathname.toLowerCase().startsWith('/@/'+userId.toLowerCase()+'/perf/puzzle');
+      const m = /^\/@\/(?<userId>[^\/]+)\/perf\/puzzle/i.exec(lt.global.location.pathname);
+      return m && m.groups.userId?.toLowerCase() == lt.getUserId()?.toLowerCase();
     };
 
     enhancePuzzleTabPage = async ()=>{
@@ -62,14 +67,39 @@
       this.updateData();
     };
 
+    enhancePuzzleDashboardPage = async ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const container = $('.puzzle-dashboard__global');
+      while (!container.length) {
+        await lt.timeout(100);
+      }
+      $('<section class="lichessTools-profilePuzzleTab">')
+        .appendTo(container)
+      this.updateData();
+    };
+
     updateDataDirect = async (sort)=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
       const htmlEncode = lt.htmlEncode;
       const trans = lt.translator;
-      const [currentStart, currentEnd] = this.uiSlider.get().map(x => parseInt(x));
-      const { min: rangeStart, max: rangeEnd } = this.uiSlider.options.range;
+      let currentStart, currentEnd, rangeStart, rangeEnd, days;
+      if (this.uiSlider) {
+        [currentStart, currentEnd] = this.uiSlider.get().map(x => parseInt(x));
+        const range = this.uiSlider.options.range;
+        rangeStart = range.min;
+        rangeEnd = range.max;
+        days = Math.ceil((Date.now()-currentStart)/86400000);
+      } else {
+        const m = /^\/training\/dashboard\/(?<days>\d+)\/dashboard/i.exec(lt.global.location.pathname);
+        days = +m.groups.days;
+        currentEnd = Date.now();
+        currentStart = currentEnd - days*86400000;
+        rangeStart = currentStart;
+        rangeEnd = currentEnd;
+      }
       const section = $('section.lichessTools-profilePuzzleTab');
       if (currentEnd < rangeEnd) {
         section
@@ -77,7 +107,6 @@
           .empty();
         return;
       }
-      const days = Math.ceil((Date.now()-currentStart)/86400000);
       if (section.attr('data-days')==days && !sort) {
         return;
       }
@@ -166,18 +195,21 @@
       if (!userId) return;
 
       if (value) {
-        const group = $('#topnav section a[href="/training"]+div[role="group"]');
+        /*const group = $('#topnav section a[href="/training"]+div[role="group"]');
         if (!$('a.lichessTools-profilePuzzleTab', group).length) {
           $('<a class="lichessTools-profilePuzzleTab">')
             .attr('href', '/@/' + userId + '/perf/puzzle')
             .text(trans.noarg('puzzleTabText'))
             .attr('title', trans.noarg('puzzleTabTitle'))
             .insertBefore($('a[href="/streak"]', group));
-        }
+        }*/
         if (this.isPuzzleTabPage()) {
           this.enhancePuzzleTabPage();
         }
-        const container = $('div.sub-ratings');
+        if (this.isPuzzleDashboardPage()) {
+          this.enhancePuzzleDashboardPage();
+        }
+        /*const container = $('div.sub-ratings');
         if (container.length && !$('a.lichessTools-profilePuzzleTab', container).length) {
           const existing = $('a[href^="/training/dashboard"]', container);
           if (existing.length) {
@@ -190,7 +222,7 @@
               .insertBefore($('hr', container).eq(0));
             existing.removeClass('active');
           }
-        }
+        }*/
       } else {
         $('.lichessTools-profilePuzzleTab').remove();
         this.uiSlider?.off('.lichessTools');
