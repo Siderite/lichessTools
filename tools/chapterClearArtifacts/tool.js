@@ -173,19 +173,19 @@
           const value = elem.val();
           switch (value) {
             case 'comments':
-              if (lt.global.confirm(trans.noarg('removeAll_commentsQuestion'))) {
+              if (await lt.uiApi.dialog.confirm(trans.noarg('removeAll_commentsQuestion'))) {
                 elem.after(lt.spinnerHtml).remove();
                 await this.removeAllComments();
               }
               break;
             case 'glyphs':
-              if (lt.global.confirm(trans.noarg('removeAll_glyphsQuestion'))) {
+              if (await lt.uiApi.dialog.confirm(trans.noarg('removeAll_glyphsQuestion'))) {
                 elem.after(lt.spinnerHtml).remove();
                 await this.removeAllGlyphs();
               }
               break;
             case 'shapes':
-              if (lt.global.confirm(trans.noarg('removeAll_shapesQuestion'))) {
+              if (await lt.uiApi.dialog.confirm(trans.noarg('removeAll_shapesQuestion'))) {
                 elem.after(lt.spinnerHtml).remove();
                 await this.removeAllShapes();
                 analysis.withCg(cg => {
@@ -195,7 +195,7 @@
               }
               break;
             case 'tags':
-              if (lt.global.confirm(trans.noarg('removeAll_tagsQuestion'))) {
+              if (await lt.uiApi.dialog.confirm(trans.noarg('removeAll_tagsQuestion'))) {
                 elem.after(lt.spinnerHtml).remove();
                 await this.removeAllTags();
               }

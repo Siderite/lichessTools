@@ -117,7 +117,7 @@
       }
     };
 
-    snapSettings = () => {
+    snapSettings = async () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const trans = lt.translator;
@@ -127,9 +127,13 @@
         this.highlightSnap(snap);
         return;
       }
-      const text = lt.global.prompt(trans.noarg('addSnapPrompt'));
+      const text = await lt.uiApi.dialog.prompt(trans.noarg('addSnapPrompt'));
       if (!text) return;
-      if (this.options.snaps.find(s => s.text == text) && !lt.global.confirm(trans.pluralSame('replaceSnapPrompt', text))) return;
+      if (this.options.snaps.find(s => s.text == text)) {
+         const confirmation = await lt.uiApi.dialog.confirm(trans.pluralSame('replaceSnapPrompt', text));
+         if (!confirmation) return;
+         lt.arrayRemoveAll(this.options.snaps,(s => s.text == text));
+      }
       snap = {
         text: text,
         settings: settings
