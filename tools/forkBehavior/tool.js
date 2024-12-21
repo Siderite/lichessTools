@@ -82,7 +82,7 @@
               .appendTo(container);
           }
         }
-        dlg = lt.dialog({
+        dlg = await lt.dialog({
           html: selectElem[0].outerHTML
         });
       } else {
@@ -108,7 +108,7 @@
               .appendTo(container);
           }
         }
-        dlg = lt.dialog({
+        dlg = await lt.dialog({
           html: selectElem[0].outerHTML + '<span class="dialog-actions"><button class="button submit">' + trans.noarg('OK') + '</button></span>'
         });
       }

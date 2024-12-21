@@ -1,7 +1,7 @@
 (() => {
   class DialogTool extends LiChessTools.Tools.ToolBase {
 
-    createDialog(options) {
+    async createDialog(options) {
       const lt = this.lichessTools;
       const $ = lt.$;
       const lichess = lt.lichess;

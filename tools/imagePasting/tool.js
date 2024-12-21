@@ -101,9 +101,9 @@
           const url = new URL($(e).attr('src'));
           if (e._lichessTools_mchatOptions_init) return;
           e._lichessTools_mchatOptions_init = true;
-          $(e).on('click',ev=>{
+          $(e).on('click',async (ev)=>{
             ev.preventDefault();
-            const dlg = lt.dialog({
+            const dlg = await lt.dialog({
               html: $('<div>').append($(e).clone().addClass('lichessTools-imagePasting-image')).html()
             });
             dlg.showModal();
