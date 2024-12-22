@@ -2615,6 +2615,26 @@
         }
       ]
     },
+    "r1bqkbnrpp1ppppp2n52p58P1N2N21PPPPPPPR1BQKB1Rb": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "d7d5",
+          "san": "d5",
+          "nr": 1
+        }
+      ]
+    },
+    "r1bqkbnrpp1ppppp2n52p58P1N51PPPPPPPR1BQKBNRw": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "g1f3",
+          "san": "Nf3",
+          "nr": 1
+        }
+      ]
+    },
     "r1bqkbnrpp1ppppp2n583NP38PPP2PPPRNBQKB1Rb": {
       "total": 2,
       "moves": [
@@ -2731,12 +2751,12 @@
       ]
     },
     "r1bqkbnrpp2pppp2n52pp48P1N2N21PPPPPPPR1BQKB1Rw": {
-      "total": 1,
+      "total": 2,
       "moves": [
         {
           "uci": "b2b4",
           "san": "b4",
-          "nr": 1
+          "nr": 2
         }
       ]
     },
@@ -10801,8 +10821,13 @@
       ]
     },
     "rnbqkbnrpp1ppppp82p582N5PPPPPPPPR1BQKBNRw": {
-      "total": 1,
+      "total": 2,
       "moves": [
+        {
+          "uci": "a2a3",
+          "san": "a3",
+          "nr": 1
+        },
         {
           "uci": "b2b4",
           "san": "b4",
@@ -10821,6 +10846,16 @@
         {
           "uci": "d2d4",
           "san": "d4",
+          "nr": 1
+        }
+      ]
+    },
+    "rnbqkbnrpp1ppppp82p58P1N51PPPPPPPR1BQKBNRb": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "b8c6",
+          "san": "Nc6",
           "nr": 1
         }
       ]
@@ -16216,8 +16251,13 @@
       ]
     },
     "rnbqkbnrpppppppp8882N5PPPPPPPPR1BQKBNRb": {
-      "total": 15,
+      "total": 16,
       "moves": [
+        {
+          "uci": "c7c5",
+          "san": "c5",
+          "nr": 2
+        },
         {
           "uci": "b8c6",
           "san": "Nc6",
@@ -16226,11 +16266,6 @@
         {
           "uci": "g8f6",
           "san": "Nf6",
-          "nr": 1
-        },
-        {
-          "uci": "c7c5",
-          "san": "c5",
           "nr": 1
         },
         {
@@ -16341,7 +16376,7 @@
       ]
     },
     "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw": {
-      "total": 538,
+      "total": 539,
       "moves": [
         {
           "uci": "e2e4",
@@ -16376,7 +16411,7 @@
         {
           "uci": "b1c3",
           "san": "Nc3",
-          "nr": 15
+          "nr": 16
         },
         {
           "uci": "g1h3",
