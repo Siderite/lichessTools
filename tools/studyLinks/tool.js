@@ -115,6 +115,7 @@
         $('.lichessTools-video').remove();
         const dialog = await lt.dialog({
           header: '',
+          noClickAway: true,
           resizeable: true,
           htmlText: `<iframe
   width="100%"
