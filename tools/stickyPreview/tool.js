@@ -66,6 +66,9 @@
       const previewButton = $('button.preview');
       previewButton.off('click', this.previewHandler);
       previewButton.on('click', this.previewHandler);
+      const analysisButton = $('.feedback button.analyse');
+      analysisButton.off('click', this.previewHandler);
+      analysisButton.on('click', this.previewHandler);
     };
 
     async start() {
