@@ -1,7 +1,27 @@
-body.lichessTools span.lichessTools-pin.lichessTools-pinned {
-  transform: translate(0, 0.3em) rotate(320deg);
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 25%);
+
+body.lichessTools span.lichessTools-pin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+body.lichessTools span.lichessTools-pin.lichessTools-pinned {
+  align-items: end;
+}
+
+body.lichessTools span.lichessTools-pin.lichessTools-pinned:before {
+  transform-origin: center;
+  transform: rotate(320deg) translate(-0.5em, 0.5em);
+}
+
+body.lichessTools .relay-tour__side__header span.lichessTools-pin {
+  background: var(--c-bg-zebra);
+}
+
+body.lichessTools .relay-tour__side__header span.lichessTools-pin.lichessTools-pinned:before {
+  transform: rotate(320deg) translate(-0.5em, 0.1em);
+}
+
 
 body.lichessTools a.lichessTools-pin {
   display: flex;
