@@ -59,7 +59,7 @@
       const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      const container = $('.study__side div[role=tablist]');
+      const container = $('.study__side div[role=tablist],.relay-tour__side__header');
       if (!container.length) return;
       let pin = $('span.lichessTools-pin', container);
       if (!this.options.enabled) {
@@ -75,7 +75,7 @@
             ev.preventDefault();
             this.pinCurrentStudy();
           })
-          .insertAfter($('span.search', container));
+          .insertAfter($('span.search,.relay-tour__side__name', container));
       }
       const isPinned = !!this.options.pinned.find(p => p.studyId == studyId);
       pin.toggleClass('lichessTools-pinned', isPinned);

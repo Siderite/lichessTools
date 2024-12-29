@@ -1,20 +1,40 @@
 (() => {
   class DialogTool extends LiChessTools.Tools.ToolBase {
 
-    createDialog(options) {
+    async createDialog(options) {
       const lt = this.lichessTools;
       const $ = lt.$;
       const lichess = lt.lichess;
-      const dialog = $('<dialog class="lichessTools-dialog">')
-        .toggleClass('touch-scroll', lt.isTouchDevice());
-      if (options.parent) dialog.css('position', 'absolute');
 
-      if (!options.noCloseButton) {
-        $('<div class="close-button-anchor">')
-          .append($('<button class="close-button" aria-label="Close">')
-            .attr('data-icon', lt.icon.X)
-            .on('click', () => dialog[0]?.close())
-          )
+      let dialog;
+      let view;
+      if (!options.useLT) {
+        const dialogWrapper = await lt.uiApi.dialog.domDialog(options);
+        dialog = $(dialogWrapper.dialog)
+          .addClass('lichessTools-dialog');
+        view = dialog.find('.dialog-content');
+      } else {
+        dialog = $('<dialog class="lichessTools-dialog">')
+          .toggleClass('touch-scroll', lt.isTouchDevice());
+        if (options.parent) dialog.css('position', 'absolute');
+
+        if (!options.noCloseButton) {
+          $('<div class="close-button-anchor">')
+            .append($('<button class="close-button" aria-label="Close">')
+              .attr('data-icon', lt.icon.X)
+              .on('click', () => dialog[0]?.close())
+            )
+            .appendTo(dialog);
+        }
+
+        view = $('<div class="dialog-content">');
+        if (options.class) {
+          options.class.split(/[\. ]/).filter(x => x).forEach(cls => view.addClass(cls));
+        }
+        if (options.htmlText) view.html(options.htmlText);
+
+        const scrollable = $(`<div class="${options.noScrollable ? 'not-' : ''}scrollable">`)
+          .append(view)
           .appendTo(dialog);
       }
 
@@ -40,7 +60,7 @@
       if (options.header !== undefined) {
         const header = $('<div class="dialog-header">')
           .text(options.header)
-          .appendTo(dialog);
+          .insertBefore(dialog.find('.scrollable,.not-scrollable'));
         if (!options.noDrag) {
           header
             .addClass('draggable')
@@ -75,15 +95,7 @@
           header.on('dragstart', () => false);
         }
       }
-      const view = $('<div class="dialog-content">');
-      if (options.class) {
-        options.class.split(/[\. ]/).filter(x => x).forEach(cls => view.addClass(cls));
-      }
-      if (options.html) view.html(options.html);
 
-      const scrollable = $(`<div class="${options.noScrollable ? 'not-' : ''}scrollable">`)
-        .append(view)
-        .appendTo(dialog);
       if (options.resizeable) {
         const resize = $('<div class="dialog-resize">')
           .appendTo(dialog);
@@ -124,8 +136,12 @@
         resize.on('dragstart', () => false);
       }
       dialog
-        .on('close',()=>dialog.remove())
-        .appendTo(options.parent || 'body');
+        .on('close',()=>dialog.remove());
+
+      if (options.useLT) {
+        dialog.appendTo(options.parent || 'body');
+      }
+
       return dialog[0];
     }
 

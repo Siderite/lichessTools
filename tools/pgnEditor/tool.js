@@ -939,7 +939,7 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      const text = lt.global.prompt(trans.noarg('extractPrompt'));
+      const text = await lt.uiApi.dialog.prompt(trans.noarg('extractPrompt'));
       if (/\bfen\b/i.test(text)) {
         await this.extractFen(textarea);
       }
@@ -1273,7 +1273,7 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      const text = lt.global.prompt(trans.noarg('cutStuffPrompt'));
+      const text = await lt.uiApi.dialog.prompt(trans.noarg('cutStuffPrompt'));
       if (/junk/i.test(text)) {
         await this.cutJunk(textarea);
       }
@@ -1570,7 +1570,7 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      const search = lt.global.prompt(trans.noarg('searchPattern'));
+      const search = await lt.uiApi.dialog.prompt(trans.noarg('searchPattern'));
       if (!search) return;
       let searchMode = 'fenOrMoves';
       let plyNumberOperator;

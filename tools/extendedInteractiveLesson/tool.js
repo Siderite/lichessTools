@@ -120,7 +120,7 @@
               const nextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
                 .filter(c => this.isPermanentNode(c));
               if (nextMoves.length) {
-                if (lt.global.confirm(trans.noarg('resetQuestionNoVariations'))) {
+                if (lt.global.confirm(trans.noarg('resetQuestionNoVariations'))) { //TODO can we make this await and use uiApi.dialog?
                   this.resetDone();
                   return gp.makeState();
                 } else {
@@ -489,10 +489,10 @@
       $('<button class="lichessTools-giveUp">')
         .text(trans.noarg('giveUpButtonText'))
         .attr('title', trans.noarg('giveUpButtonTitle'))
-        .on('click', ev => {
+        .on('click', (ev) => {
           ev.preventDefault();
-          lt.global.setTimeout(() => {
-            if (!lt.global.confirm(trans.noarg('giveUpConfirmation'))) return;
+          lt.global.setTimeout(async () => {
+            if (!await lt.uiApi.dialog.confirm(trans.noarg('giveUpConfirmation'))) return;
             const gp = lt.lichess.analysis.gamebookPlay();
             gp.state.feedback = 'end';
             gp.badMoves++;
@@ -683,7 +683,7 @@
       }
     };
 
-    addDeviation = () => {
+    addDeviation = async () => {
       const lt = this.lichessTools;
       const trans = lt.translator;
       const analysis = lt.lichess.analysis;
@@ -695,7 +695,7 @@
         node.gamebook = gamebook;
       }
       const text = trans.noarg('addDeviationText');
-      const deviation = lt.global.prompt(text, gamebook.deviation);
+      const deviation = await lt.uiApi.dialog.prompt(text, gamebook.deviation);
       if (!deviation) return;
       gamebook.deviation = deviation;
       const chapterId = analysis.study.currentChapter()?.id;
@@ -921,9 +921,9 @@
         $('<button class="button button-red lichessTools-reset">')
           .attr('title', trans.noarg('resetButtonTitle'))
           .text(trans.noarg('resetButtonText'))
-          .on('click', ev => {
+          .on('click', async (ev) => {
             ev.preventDefault();
-            if (!lt.global.confirm(trans.noarg('resetQuestion'))) return;
+            if (!await lt.uiApi.dialog.confirm(trans.noarg('resetQuestion'))) return;
             this.resetDone();
           })
           .insertBefore($('div.form-actions button[type="submit"]', modal));
@@ -974,10 +974,10 @@
         if (!act.length) {
           act = $(`<i class="act lichessTools-reset" data-icon="${lt.icon.toEntity(lt.icon.Reload)}">`)
             .attr('title', trans.noarg('resetButtonTitle'))
-            .on('click', ev => {
+            .on('click', async (ev) => {
               ev.preventDefault();
               ev.stopPropagation();
-              if (!lt.global.confirm(trans.noarg('resetQuestion'))) return;
+              if (!await lt.uiApi.dialog.confirm(trans.noarg('resetQuestion'))) return;
               this.resetDone(chapter.id);
             })
             .appendTo(container);
@@ -1117,7 +1117,8 @@
         .find('i.act.lichessTools-reset')
         .remove();
       lt.uiApi.events.off('chat.resize', this.refreshChapterProgress);
-      if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
+      //if (this.options.flow.sequential || this.options.flow.spacedRepetition) 
+      {
         lt.uiApi.events.on('chat.resize', this.refreshChapterProgress);
         this.refreshChapterProgress();
         study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {

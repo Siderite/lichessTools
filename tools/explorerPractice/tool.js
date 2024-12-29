@@ -177,8 +177,10 @@
       const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 16;
       this.info=null;
 
+      let side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
       if (node.ceval?.depth >= depth) {
         this.info = node.ceval;
+        side = 1;
       } else 
       if (!analysis.ceval?.enabled()) {
         this.lastInfo=null;
@@ -198,7 +200,6 @@
       const info={...this.info};
 
       const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
-      const side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
       const winValue = (info.mate?.[0] === '0' ? -10000 : lt.getCentipawns(info)) * boardSign * side;
 
       const glyph = {

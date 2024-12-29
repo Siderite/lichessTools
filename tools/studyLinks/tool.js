@@ -101,7 +101,7 @@
       }
     }
 
-    handleVideoClick = (ev) => {
+    handleVideoClick = async (ev) => {
       const lt = this.lichessTools;
       const supportsCredentialless = !!lt.global.HTMLIFrameElement?.prototype?.hasOwnProperty('credentialless');
       if (!supportsCredentialless) {
@@ -113,10 +113,11 @@
       if (url) {
         ev.preventDefault();
         $('.lichessTools-video').remove();
-        const dialog = lt.dialog({
+        const dialog = await lt.dialog({
           header: '',
+          noClickAway: true,
           resizeable: true,
-          html: `<iframe
+          htmlText: `<iframe
   width="100%"
   height="100%" 
   frameborder="0" 

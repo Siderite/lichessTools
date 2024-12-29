@@ -738,7 +738,8 @@
     "visitedTitle": "أدوات شطرنج الحياة - آخر زيارة على %s",
     "puzzleOptions.endTimer": "إظهار وقت الإكمال",
     "elapsedText": "(%s ثانية)",
-    "blogHistory.persistView": "عرض المدونة المستمر"
+    "blogHistory.persistView": "عرض المدونة المستمر",
+    "themes.fatMove": "تحليل أكبر لخط الحركة"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1479,7 +1480,8 @@
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Persistent blog view"
+    "blogHistory.persistView": "Persistent blog view",
+    "themes.fatMove": "Larger analysis move font"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2220,7 +2222,8 @@
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Persistent blog view"
+    "blogHistory.persistView": "Persistent blog view",
+    "themes.fatMove": "Larger analysis move font"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2961,7 +2964,8 @@
     "visitedTitle": "Outils LiChess - dernière visite sur %s",
     "puzzleOptions.endTimer": "Afficher le temps d'achèvement",
     "elapsedText": "(%s)",
-    "blogHistory.persistView": "Vue de blog persistante"
+    "blogHistory.persistView": "Vue de blog persistante",
+    "themes.fatMove": "Police de déplacement d'analyse plus grande"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3011,10 +3015,10 @@
     "options.command": "Befehle",
     "options.chessOps": "Chessops-Unterstützung",
     "options.exportPGN": "PGN exportieren",
-    "options.stockfish": "Stockfisch",
+    "options.stockfish": "Stockfish",
     "options.stockfish-threads": "LiChess Tools Computeranalyse-Prozessorkerne",
     "options.stockfish-hash": "LiChess Tools Analyse-Engine-Hash (MB)",
-    "couldNotLoadStockfish": "Konnte Stockfisch nicht laden!",
+    "couldNotLoadStockfish": "Konnte Stockfish nicht laden!",
     "options.additionalGlyphs": "Zusätzliche Symbole",
     "options.play": "Abspielen",
     "options.quietModeAllTabs": "Ruhemodus auf allen Tabs",
@@ -3043,25 +3047,25 @@
     "lockBoardTitle": "LiChess-Tools - Bildschirmsperre",
     "options.spaceDisabled": "Strg-Leertaste, um die beste Computerbewegung statt Leertaste zu spielen",
     "onlineFriends": "%s Online-Freunde",
-    "onlineFriends:one": "%s Online-Freund",
+    "onlineFriends:one": "%s Freund online",
     "onlineFriends:zero": "Freunde",
     "friendsMenu": "LiChess Tools - Freunde, denen du folgst",
     "options.friends": "Freunde",
     "options.openFriends": "Freundes-Box",
     "openFriends.default": "Standard",
     "openFriends.open": "Öffnen",
-    "openFriends.hidden": "Hidden",
+    "openFriends.hidden": "Versteckt",
     "openFriends.menu": "Menü",
-    "openFriends.button": "Button",
+    "openFriends.button": "Schaltfläche",
     "watchGames": "Spiele ansehen",
     "enablePlayAlert": "Spielwarnung lautlos",
     "mutePlayAlert": "Abspielalarm stumm",
     "options.liveFriendsPage": "Live-Freundesseite",
-    "hideOfflineTitle": "Online-Spieler",
+    "hideOfflineTitle": "Spieler online",
     "hideNotPlayingTitle": "Spieler online",
     "hideMutedTitle": "Stummgeschaltete Spieler",
     "daysText:one": "ein Tag",
-    "hoursText:one": "an hr",
+    "hoursText:one": "eine Stunde",
     "minutesText:one": "eine Minute",
     "daysText": "%s Tage",
     "hoursText": "%s Stunden",
@@ -3545,7 +3549,7 @@
     "blogAutosave.savebutton": "\"Speichern\"-Taste",
     "blogSaved": "Blog gespeichert",
     "blogSave": "Speichern",
-    "options.autoAnalyseGame": "Gehe zur Analyse am Spielende",
+    "options.autoAnalyseGame": "Analyse am Spielende starten",
     "options.activeIcon": "Aktives Titelsymbol",
     "options.imagePasting": "Chat/Forum-Optionen",
     "imagePasting.pasteImages": "Bildunterstützung einfügen",
@@ -3694,7 +3698,7 @@
     "analysisLinkLabel": "Zum Analysieren klicken:",
     "titledOpponentsLabel": "Nur benannte Gegner:",
     "autoAnalyseGame.loss": "Verlust",
-    "autoAnalyseGame.draw": "Zeichnen",
+    "autoAnalyseGame.draw": "Remis",
     "autoAnalyseGame.win": "Sieg",
     "explorerEval.bardp": "Balkengenauigkeit",
     "options.blogHistory": "Blog-Besuchsverlauf",
@@ -3702,7 +3706,8 @@
     "visitedTitle": "LiChess-Tools - zuletzt besucht auf %s",
     "puzzleOptions.endTimer": "Vervollständigungszeit anzeigen",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Dauerhafte Blog-Ansicht"
+    "blogHistory.persistView": "Dauerhafte Blog-Ansicht",
+    "themes.fatMove": "Schriftart für größere Analyse verschieben"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4443,7 +4448,8 @@
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Pokaż czas zakończenia",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Trwały widok bloga"
+    "blogHistory.persistView": "Trwały widok bloga",
+    "themes.fatMove": "Większa analiza przesuwa czcionkę"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5184,7 +5190,8 @@
     "visitedTitle": "Ferramentas de LiChess - última visitada em %s",
     "puzzleOptions.endTimer": "Mostrar tempo de conclusão",
     "elapsedText": "(%s)",
-    "blogHistory.persistView": "Visualização de blog persistente"
+    "blogHistory.persistView": "Visualização de blog persistente",
+    "themes.fatMove": "Fonte de movimento de análise maior"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5925,7 +5932,8 @@
     "visitedTitle": "LiChess Tools - ultima vizită pe %s",
     "puzzleOptions.endTimer": "Arată durata completării",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Persistă vizualizarea blogurilor"
+    "blogHistory.persistView": "Persistă vizualizarea blogurilor",
+    "themes.fatMove": "Text mai mare la mutări"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6630,9 +6638,9 @@
     "themes.gameMoveList": "Гибкий список ходов",
     "linkToAnalysisTitle": "Инструменты Жизни - ссылка на текущий анализ",
     "themes.fatGauge": "Tолстый индикатор анализа",
-    "avoidMovesHint": "Только один ход принят. Избегайте %s",
-    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Избегать отмеченные как ошибки",
-    "extendedInteractiveLessonFlow.negativeHint": "Подсказка исключена",
+    "avoidMovesHint": "Только один допустимый ход. Избегайте %s",
+    "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Избегайте линий, которые отмечены как ошибки",
+    "extendedInteractiveLessonFlow.negativeHint": "Подсказывать исключенные ходы",
     "themes.slimmerArrows": "... slimmer",
     "options.puzzles": "Пазлы",
     "options.puzzleOptions": "Параметры головоломки",
@@ -6666,7 +6674,8 @@
     "visitedTitle": "Инструменты Жизни - последнее посещение на %s",
     "puzzleOptions.endTimer": "Показать время завершения",
     "elapsedText": "(%s с)",
-    "blogHistory.persistView": "Постоянный просмотр блога"
+    "blogHistory.persistView": "Постоянный просмотр блога",
+    "themes.fatMove": "Шрифт перемещения большего размера"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -7407,7 +7416,8 @@
     "visitedTitle": "Herramientas de LiChess - última visitada en %s",
     "puzzleOptions.endTimer": "Mostrar tiempo de finalización",
     "elapsedText": "(%s)",
-    "blogHistory.persistView": "Vista de blog persistente"
+    "blogHistory.persistView": "Vista de blog persistente",
+    "themes.fatMove": "Análisis más amplio mover fuente"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8148,6 +8158,7 @@
     "visitedTitle": "LiChess Tools - last visited on %s",
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Persistent blog view"
+    "blogHistory.persistView": "Persistent blog view",
+    "themes.fatMove": "Larger analysis move font"
   }
 }

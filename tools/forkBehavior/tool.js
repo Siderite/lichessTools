@@ -82,8 +82,8 @@
               .appendTo(container);
           }
         }
-        dlg = lt.dialog({
-          html: selectElem[0].outerHTML
+        dlg = await lt.dialog({
+          htmlText: selectElem[0].outerHTML
         });
       } else {
         selectElem = $('<select>')
@@ -108,8 +108,8 @@
               .appendTo(container);
           }
         }
-        dlg = lt.dialog({
-          html: selectElem[0].outerHTML + '<span class="dialog-actions"><button class="button submit">' + trans.noarg('OK') + '</button></span>'
+        dlg = await lt.dialog({
+          htmlText: selectElem[0].outerHTML + '<span class="dialog-actions"><button class="button submit">' + trans.noarg('OK') + '</button></span>'
         });
       }
       $('dialog.lichessTools-forkBehavior-chessbase').remove();

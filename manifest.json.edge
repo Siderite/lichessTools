@@ -1,21 +1,25 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
+  "short_name": "LiChessTools",
   "version": "2.3.184",
   "description": "Turbocharge lichess.org with a ton of features",
-  "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
+  "minimum_chrome_version": "111",
   "icons": {
     "16": "images/icon-16.png",
+    "19": "images/icon-19.png",
+    "38": "images/icon-38.png",
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
   },
-  "permissions": [
-    "activeTab",
-    "https://lichess.org/*",
-    "https://lichess.dev/*"
+  "permissions": [],
+  "host_permissions": [
+    "*://lichess.org/*",
+    "*://lichess.dev/*"
   ],
-  "content_scripts": [{
+  "content_scripts": [
+    {
       "js": [
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
@@ -27,7 +31,8 @@
       ],
       "run_at": "document_start",
       "world": "MAIN"
-    }, {
+    },
+    {
       "js": [
         "scripts/dragDropTouch.js",
         "scripts/zip.js",
@@ -270,7 +275,8 @@
       ],
       "run_at": "document_start",
       "world": "MAIN"
-    }, {
+    },
+    {
       "js": [
         "scripts/lichessTools-start.js"
       ],
@@ -280,7 +286,8 @@
       ],
       "run_at": "document_end",
       "world": "MAIN"
-    }, {
+    },
+    {
       "js": [
         "scripts/lichessTools-comm-proxy.js"
       ],
@@ -292,18 +299,10 @@
     }
   ],
   "background": {
-    "page": "background.html"
+    "service_worker": "scripts/service_worker.js"
   },
-  "browser_action": {
+  "action": {
     "default_title": "LiChess Tools",
     "default_popup": "popup.html"
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "strict_min_version": "130.0"
-    },
-    "gecko_android": {
-      "strict_min_version": "130.0"
-    }
   }
 }

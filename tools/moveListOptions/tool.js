@@ -142,12 +142,14 @@
       for (const child of elems) {
         child.toggleClass('lichessTools-childCollapsed', collapse);
       }
-      const studyId = lichess.analysis.study.data.id;
-      if (!this.bookmarks) {
-        this.bookmarks = new Map();
+      if (bookmark) {
+        const studyId = lichess.analysis.study.data.id;
+        if (!this.bookmarks) {
+          this.bookmarks = new Map();
+        }
+        this.bookmarks.set(`${studyId}/${bookmark.label}`, collapse);
+        lt.storage.set('LichessTools.bookmarks', [...this.bookmarks]);
       }
-      this.bookmarks.set(`${studyId}/${bookmark.label}`, collapse);
-      lt.storage.set('LichessTools.bookmarks', [...this.bookmarks]);
     }
 
     toBookmarkName = (text) => {
@@ -394,7 +396,7 @@
       }
     };
 
-    addOrRemoveBookmark = () => {
+    addOrRemoveBookmark = async () => {
       const lt = this.lichessTools;
       const myName = lt.getUserId();
       if (!myName) return;
@@ -411,7 +413,8 @@
       const elem = lt.getElementForNode(node);
       if (!elem) return;
       const oldLabel = this.fromBookmarkName(node.bookmark?.label) || '';
-      const label = this.toBookmarkName(lt.global.prompt(trans.noarg('addBookmarkPrompt'), oldLabel));
+      const bookmarkName = await lt.uiApi.dialog.prompt(trans.noarg('addBookmarkPrompt'));
+      const label = this.toBookmarkName(bookmarkName, oldLabel);
       if (label === undefined) return;
       node.bookmark = label
         ? {
@@ -487,7 +490,7 @@
       if (!label) return;
       const position = study.data?.position;
       if (!position) throw 'Cannot find study position!';
-      if (!lt.global.confirm(trans.noarg(deleteMoves ? 'bookmarkSplitConfirmationDeleteText' : 'bookmarkSplitConfirmationText'))) return;
+      if (!await lt.uiApi.dialog.confirm(trans.noarg(deleteMoves ? 'bookmarkSplitConfirmationDeleteText' : 'bookmarkSplitConfirmationText'))) return;
       if (deleteMoves) {
         for (const child of node.children || []) {
           const path = nodePath + child.id;

@@ -101,10 +101,10 @@
           const url = new URL($(e).attr('src'));
           if (e._lichessTools_mchatOptions_init) return;
           e._lichessTools_mchatOptions_init = true;
-          $(e).on('click',ev=>{
+          $(e).on('click',async (ev)=>{
             ev.preventDefault();
-            const dlg = lt.dialog({
-              html: $('<div>').append($(e).clone().addClass('lichessTools-imagePasting-image')).html()
+            const dlg = await lt.dialog({
+              htmlText: $('<div>').append($(e).clone().addClass('lichessTools-imagePasting-image')).html()
             });
             dlg.showModal();
           });
