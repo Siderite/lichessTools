@@ -155,7 +155,7 @@
       const wrap = $('<div class="cg-wrap lichessTools-boardOverlay">')
         .appendTo('main div.main-board')
         .addClass('lichessTools-passthrough');
-      const { Chessground } = await site.asset.embedChessground();
+      const { Chessground } = await lichess.asset.embedChessground();
       if (!Chessground) {
         console.error('Could not create a Chessground!');
         return;

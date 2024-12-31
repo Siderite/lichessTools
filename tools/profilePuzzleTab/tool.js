@@ -35,47 +35,43 @@
       }
     }
 
-    getUserFromUrl = (url) => {
-      const m = /\/@\/([^\/]+)/.exec(url);
-      return m && m[1];
-    }
-
     isPuzzleDashboardPage = ()=>{
       const lt = this.lichessTools;
       return /^\/training\/dashboard\/\d+\/dashboard/i.test(lt.global.location.pathname);
     };
 
-    isPuzzleTabPage = ()=>{
-      const lt = this.lichessTools;
-      const m = /^\/@\/(?<userId>[^\/]+)\/perf\/puzzle/i.exec(lt.global.location.pathname);
-      return m && m.groups.userId?.toLowerCase() == lt.getUserId()?.toLowerCase();
-    };
-
-    enhancePuzzleTabPage = async ()=>{
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      if ($('section.lichessTools-profilePuzzleTab').length) return;
-      const container = $('.perf-stat__content');
-      while (!container.length) {
-        await lt.timeout(100);
-      }
-      $('<section class="lichessTools-profilePuzzleTab">')
-        .appendTo(container)
-      const uiSlider = $('#time-range-slider')[0]?.noUiSlider;
-      uiSlider.on('update.lichessTools', this.updateData);
-      this.uiSlider = uiSlider;
-      this.updateData();
-    };
-
     enhancePuzzleDashboardPage = async ()=>{
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const asset = lichess.asset;
       const $ = lt.$;
       const container = $('.puzzle-dashboard__global');
       while (!container.length) {
         await lt.timeout(100);
       }
+
+      const userId = lt.getUserId();
+      const data = await lt.net.json('/api/user/'+userId+'/rating-history');
+      const puzzles = data.find(i=>i.name=='Puzzles');
+      const m = /^\/training\/dashboard\/(?<days>\d+)\/dashboard/i.exec(lt.global.location.pathname);
+      const days = +m.groups.days;
+      if (days && puzzles) {
+        const date = new Date();
+        date.setDate(date.getDate()-days);
+        lt.arrayRemoveAll(puzzles.points,p=>{
+          return new Date(p[0],p[1],p[2])<date;
+        });
+        $('<div class="chart-container"><canvas class="rating-history"></div>').appendTo(container);
+        asset.loadEsm('chart.ratingHistory',{ 
+          init: {
+            data: data,
+            singlePerfName: 'Puzzles'
+          }
+        });
+      }
+
       $('<section class="lichessTools-profilePuzzleTab">')
-        .appendTo(container)
+       .appendTo(container)
       this.updateData();
     };
 
@@ -195,34 +191,9 @@
       if (!userId) return;
 
       if (value) {
-        /*const group = $('#topnav section a[href="/training"]+div[role="group"]');
-        if (!$('a.lichessTools-profilePuzzleTab', group).length) {
-          $('<a class="lichessTools-profilePuzzleTab">')
-            .attr('href', '/@/' + userId + '/perf/puzzle')
-            .text(trans.noarg('puzzleTabText'))
-            .attr('title', trans.noarg('puzzleTabTitle'))
-            .insertBefore($('a[href="/streak"]', group));
-        }*/
-        if (this.isPuzzleTabPage()) {
-          this.enhancePuzzleTabPage();
-        }
         if (this.isPuzzleDashboardPage()) {
           this.enhancePuzzleDashboardPage();
         }
-        /*const container = $('div.sub-ratings');
-        if (container.length && !$('a.lichessTools-profilePuzzleTab', container).length) {
-          const existing = $('a[href^="/training/dashboard"]', container);
-          if (existing.length) {
-            existing
-              .clone()
-              .attr('href', '/@/' + userId + '/perf/puzzle')
-              .attr('title', trans.noarg('puzzleTabTitle'))
-              .attr('data-icon', lt.icon.BarGraph)
-              .addClass('lichessTools-profilePuzzleTab')
-              .insertBefore($('hr', container).eq(0));
-            existing.removeClass('active');
-          }
-        }*/
       } else {
         $('.lichessTools-profilePuzzleTab').remove();
         this.uiSlider?.off('.lichessTools');

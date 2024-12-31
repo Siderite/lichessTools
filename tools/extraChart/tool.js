@@ -905,7 +905,9 @@
 
     getChartModule = async () => {
       if (!this._module) {
-        this._module = await site.asset.loadEsm('chart.game');
+        const lt = this.lichessTools;
+        const lichess = lt.lichess;
+        this._module = await lichess.asset.loadEsm('chart.game');
       }
       return this._module;
     };
