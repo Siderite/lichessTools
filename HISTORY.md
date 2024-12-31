@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+30 Dec
+
+- Puzzle Dashboard history chart
+
 21 Dec
 
 - Puzzle stats incorporated in Puzzle Dashboard
