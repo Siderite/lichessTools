@@ -4434,7 +4434,7 @@
     "timeAlert.s300": "5:00",
     "timeAlert.beep": "Ostrzeżenie dźwiękowe",
     "options.soundVolume": "Głośność (0-100)",
-    "gameListOptions.aborted": "Filtr przerwany",
+    "gameListOptions.aborted": "Filtr anulowany",
     "gameListOptions.titledOpponents": "Filtruj utytułowanych przeciwników",
     "gameListOptions.color": "Pokoloruj według graczy",
     "analysisLinkLabel": "Kliknij, aby przeanalizować:",
@@ -4445,11 +4445,11 @@
     "explorerEval.bardp": "Precyzja słupkowa",
     "options.blogHistory": "Historia wizyt na blogu",
     "blogHistory.showVisited": "Pokaż odwiedzone",
-    "visitedTitle": "LiChess Tools - last visited on %s",
-    "puzzleOptions.endTimer": "Pokaż czas zakończenia",
+    "visitedTitle": "LiChess Tools — ostatnio odwiedzone %s",
+    "puzzleOptions.endTimer": "Pokaż czas ukończenia",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Trwały widok bloga",
-    "themes.fatMove": "Większa analiza przesuwa czcionkę"
+    "blogHistory.persistView": "Zapamiętaj widok bloga",
+    "themes.fatMove": "Większa czcionka w analizie"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
