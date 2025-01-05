@@ -119,7 +119,7 @@
 
     async start() {
       const lt = this.lichessTools;
-      const value = lt.currentOptions.getValue('stickyAnalysis');
+      const value = lt.currentOptions.getValue('movesFromTranspositions');
       this.logOption('Next moves from transpositions', value);
       this.options = { enabled: !!value };
       const lichess = lt.lichess;
