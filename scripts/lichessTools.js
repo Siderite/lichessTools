@@ -1861,14 +1861,19 @@
         lichessTools: this,
         getChessDb: async function (fen) {
           const lt = this.lichessTools;
-          const json = await lt.net.fetch({
-            url: 'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
-            args: { fen }
-          }, {
-            ignoreStatuses: [404]
-          });
-          const data = lt.jsonParse(json);
-          return data;
+          try {
+            const json = await lt.net.fetch({
+              url: 'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
+              args: { fen }
+            }, {
+              ignoreStatuses: [404]
+            });
+            const data = lt.jsonParse(json);
+            return data;
+          } catch(e) {
+            lt.global.console.warn('Error getting chessdb.cn data',e);
+            return null;
+          }
         },
         getLichess: async function (fen, multiPv) {
           const lt = this.lichessTools;
@@ -1882,12 +1887,16 @@
             }
           }
           if (!data) {
-            data = await lt.net.json({
-              url: '/api/cloud-eval?fen={fen}&multiPv={multiPv}',
-              args: { fen, multiPv }
-            }, {
-              ignoreStatuses: [404]
-            });
+            try {
+              data = await lt.net.json({
+                url: '/api/cloud-eval?fen={fen}&multiPv={multiPv}',
+                args: { fen, multiPv }
+              }, {
+                ignoreStatuses: [404]
+              });
+            } catch(e) {
+              lt.global.console.warn('Error getting cloud-eval data',e);
+            }
           }
           return !data || cachedByLichess?.pvs?.length > data?.pvs?.length
             ? cachedByLichess
