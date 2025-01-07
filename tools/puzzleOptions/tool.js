@@ -78,13 +78,16 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      let total = 0;
+      let total = null;
       $('.puzzle__session a').each((i,e)=>{
         const text = $(e).text();
         if (text && !$(e).is('.lichessTools-puzzleTotal')) {
           const points = +text;
-          if (points) total+=points;
-        } else {
+          if (points) {
+            total = total ? total+points : points;
+          }
+        } else 
+        if (total !== null) {
           const totalText = (total>0 ? '+' : '') + total;
           $(e)
             .addClass('lichessTools-puzzleTotal')
