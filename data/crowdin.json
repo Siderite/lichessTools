@@ -5718,7 +5718,7 @@
     "searchPattern": "Introdu un text FEN sau PGN parţial (suportă înlocuitori *,?) sau Tag(=,*=)Valoare sau \"Index\"=Valoare sau \"Invalid\" sau \"Ply\"(>,=,<)Valoare sau \"Eval\"(>,=,<)Valoare",
     "foundGames": "%s jocuri găsite",
     "foundGames:one": "Un joc găsit",
-    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply \"Valoare, \"Junk\", \"Eval\"(>,=,<)Valoare în orice combinație (ex: junk, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply \"Valoare, \"Junk\", \"Eval\"(>,=,<)Valoare, \"Eval\", \"Clock\" în orice combinație (ex: eval, junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "Editor PGN",
     "sendToPgnEditorTitle": "LiChess Tools - trimite la Editor PGN",
     "evaluateNeedsAnalysis": "Evaluarea poate fi folosită doar pe paginile de analiză sau studiu - limitare Lichess",

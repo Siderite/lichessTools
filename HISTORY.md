@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - puzzle session total
 - PGN export options
+- cut eval and clock comments in PGN Editor
 
 30 Dec
 
