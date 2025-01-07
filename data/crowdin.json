@@ -739,7 +739,9 @@
     "puzzleOptions.endTimer": "إظهار وقت الإكمال",
     "elapsedText": "(%s ثانية)",
     "blogHistory.persistView": "عرض المدونة المستمر",
-    "themes.fatMove": "تحليل أكبر لخط الحركة"
+    "themes.fatMove": "تحليل أكبر لخط الحركة",
+    "puzzleOptions.showSessionTotal": "إظهار مجموع الجلسة",
+    "puzzleSessionTotalTitle": "أدوات شطرنج الحياة - المجموع"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1481,7 +1483,9 @@
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Persistent blog view",
-    "themes.fatMove": "Larger analysis move font"
+    "themes.fatMove": "Larger analysis move font",
+    "puzzleOptions.showSessionTotal": "Show session total",
+    "puzzleSessionTotalTitle": "LiChess Tools - total"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2223,7 +2227,9 @@
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Persistent blog view",
-    "themes.fatMove": "Larger analysis move font"
+    "themes.fatMove": "Larger analysis move font",
+    "puzzleOptions.showSessionTotal": "Show session total",
+    "puzzleSessionTotalTitle": "LiChess Tools - total"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2965,7 +2971,9 @@
     "puzzleOptions.endTimer": "Afficher le temps d'achèvement",
     "elapsedText": "(%s)",
     "blogHistory.persistView": "Vue de blog persistante",
-    "themes.fatMove": "Police de déplacement d'analyse plus grande"
+    "themes.fatMove": "Police de déplacement d'analyse plus grande",
+    "puzzleOptions.showSessionTotal": "Afficher le total de la session",
+    "puzzleSessionTotalTitle": "Outils LiChess - total"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3707,7 +3715,9 @@
     "puzzleOptions.endTimer": "Vervollständigungszeit anzeigen",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Dauerhafte Blog-Ansicht",
-    "themes.fatMove": "Schriftart für größere Analyse verschieben"
+    "themes.fatMove": "Schriftart für größere Analyse verschieben",
+    "puzzleOptions.showSessionTotal": "Gesamte Sitzung anzeigen",
+    "puzzleSessionTotalTitle": "LiChess Werkzeuge - insgesamt"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4449,7 +4459,9 @@
     "puzzleOptions.endTimer": "Pokaż czas ukończenia",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Zapamiętaj widok bloga",
-    "themes.fatMove": "Większa czcionka w analizie"
+    "themes.fatMove": "Większa czcionka w analizie",
+    "puzzleOptions.showSessionTotal": "Pokaż całą sesję",
+    "puzzleSessionTotalTitle": "Narzędzia LiChess - suma"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5191,7 +5203,9 @@
     "puzzleOptions.endTimer": "Mostrar tempo de conclusão",
     "elapsedText": "(%s)",
     "blogHistory.persistView": "Visualização de blog persistente",
-    "themes.fatMove": "Fonte de movimento de análise maior"
+    "themes.fatMove": "Fonte de movimento de análise maior",
+    "puzzleOptions.showSessionTotal": "Mostrar sessão total",
+    "puzzleSessionTotalTitle": "Ferramentas LiChess - Total"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5933,7 +5947,9 @@
     "puzzleOptions.endTimer": "Arată durata completării",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Persistă vizualizarea blogurilor",
-    "themes.fatMove": "Text mai mare la mutări"
+    "themes.fatMove": "Text mai mare la mutări",
+    "puzzleOptions.showSessionTotal": "Arată total per sesiune",
+    "puzzleSessionTotalTitle": "LiChess Tools - total"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6675,7 +6691,9 @@
     "puzzleOptions.endTimer": "Показать время завершения",
     "elapsedText": "(%s с)",
     "blogHistory.persistView": "Постоянный просмотр блога",
-    "themes.fatMove": "Шрифт перемещения большего размера"
+    "themes.fatMove": "Шрифт перемещения большего размера",
+    "puzzleOptions.showSessionTotal": "Показать итог сессии",
+    "puzzleSessionTotalTitle": "Инструменты Жизни - всего"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -7417,7 +7435,9 @@
     "puzzleOptions.endTimer": "Mostrar tiempo de finalización",
     "elapsedText": "(%s)",
     "blogHistory.persistView": "Vista de blog persistente",
-    "themes.fatMove": "Análisis más amplio mover fuente"
+    "themes.fatMove": "Análisis más amplio mover fuente",
+    "puzzleOptions.showSessionTotal": "Mostrar total de sesión",
+    "puzzleSessionTotalTitle": "Herramientas de LiAjedrez - total"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8159,6 +8179,8 @@
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Persistent blog view",
-    "themes.fatMove": "Larger analysis move font"
+    "themes.fatMove": "Larger analysis move font",
+    "puzzleOptions.showSessionTotal": "Show session total",
+    "puzzleSessionTotalTitle": "LiChess Tools - total"
   }
 }
