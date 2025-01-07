@@ -741,7 +741,10 @@
     "blogHistory.persistView": "عرض المدونة المستمر",
     "themes.fatMove": "تحليل أكبر لخط الحركة",
     "puzzleOptions.showSessionTotal": "إظهار مجموع الجلسة",
-    "puzzleSessionTotalTitle": "أدوات شطرنج الحياة - المجموع"
+    "puzzleSessionTotalTitle": "أدوات شطرنج الحياة - المجموع",
+    "options.exportPGNoptions": "خيارات لصادرات PGN",
+    "exportPGNoptions.exportClock": "تصدير قيم الساعة",
+    "exportPGNoptions.exportEval": "تصدير تقييم الكمبيوتر"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1485,7 +1488,10 @@
     "blogHistory.persistView": "Persistent blog view",
     "themes.fatMove": "Larger analysis move font",
     "puzzleOptions.showSessionTotal": "Show session total",
-    "puzzleSessionTotalTitle": "LiChess Tools - total"
+    "puzzleSessionTotalTitle": "LiChess Tools - total",
+    "options.exportPGNoptions": "Options for PGN exports",
+    "exportPGNoptions.exportClock": "Export clock values",
+    "exportPGNoptions.exportEval": "Export computer evaluation"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2229,7 +2235,10 @@
     "blogHistory.persistView": "Persistent blog view",
     "themes.fatMove": "Larger analysis move font",
     "puzzleOptions.showSessionTotal": "Show session total",
-    "puzzleSessionTotalTitle": "LiChess Tools - total"
+    "puzzleSessionTotalTitle": "LiChess Tools - total",
+    "options.exportPGNoptions": "Options for PGN exports",
+    "exportPGNoptions.exportClock": "Export clock values",
+    "exportPGNoptions.exportEval": "Export computer evaluation"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2973,7 +2982,10 @@
     "blogHistory.persistView": "Vue de blog persistante",
     "themes.fatMove": "Police de déplacement d'analyse plus grande",
     "puzzleOptions.showSessionTotal": "Afficher le total de la session",
-    "puzzleSessionTotalTitle": "Outils LiChess - total"
+    "puzzleSessionTotalTitle": "Outils LiChess - total",
+    "options.exportPGNoptions": "Options pour les exportations PGN",
+    "exportPGNoptions.exportClock": "Exporter les valeurs de l'horloge",
+    "exportPGNoptions.exportEval": "Exporter l'évaluation de l'ordinateur"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3717,7 +3729,10 @@
     "blogHistory.persistView": "Dauerhafte Blog-Ansicht",
     "themes.fatMove": "Schriftart für größere Analyse verschieben",
     "puzzleOptions.showSessionTotal": "Gesamte Sitzung anzeigen",
-    "puzzleSessionTotalTitle": "LiChess Werkzeuge - insgesamt"
+    "puzzleSessionTotalTitle": "LiChess Werkzeuge - insgesamt",
+    "options.exportPGNoptions": "Optionen für PGN-Exporte",
+    "exportPGNoptions.exportClock": "Taktwerte exportieren",
+    "exportPGNoptions.exportEval": "Computerauswertung exportieren"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4461,7 +4476,10 @@
     "blogHistory.persistView": "Zapamiętaj widok bloga",
     "themes.fatMove": "Większa czcionka w analizie",
     "puzzleOptions.showSessionTotal": "Pokaż całą sesję",
-    "puzzleSessionTotalTitle": "Narzędzia LiChess - suma"
+    "puzzleSessionTotalTitle": "Narzędzia LiChess - suma",
+    "options.exportPGNoptions": "Opcje eksportu PGN",
+    "exportPGNoptions.exportClock": "Eksportuj wartości zegara",
+    "exportPGNoptions.exportEval": "Eksportuj ocenę komputera"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5205,7 +5223,10 @@
     "blogHistory.persistView": "Visualização de blog persistente",
     "themes.fatMove": "Fonte de movimento de análise maior",
     "puzzleOptions.showSessionTotal": "Mostrar sessão total",
-    "puzzleSessionTotalTitle": "Ferramentas LiChess - Total"
+    "puzzleSessionTotalTitle": "Ferramentas LiChess - Total",
+    "options.exportPGNoptions": "Opções para exportações PGN",
+    "exportPGNoptions.exportClock": "Exportar valores de relógio",
+    "exportPGNoptions.exportEval": "Exportar avaliação do computador"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5949,7 +5970,10 @@
     "blogHistory.persistView": "Persistă vizualizarea blogurilor",
     "themes.fatMove": "Text mai mare la mutări",
     "puzzleOptions.showSessionTotal": "Arată total per sesiune",
-    "puzzleSessionTotalTitle": "LiChess Tools - total"
+    "puzzleSessionTotalTitle": "LiChess Tools - total",
+    "options.exportPGNoptions": "Opțiuni pentru exporturi PGN",
+    "exportPGNoptions.exportClock": "Exportă timp pe mutări",
+    "exportPGNoptions.exportEval": "Exportă evaluări computer"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6693,7 +6717,10 @@
     "blogHistory.persistView": "Постоянный просмотр блога",
     "themes.fatMove": "Шрифт перемещения большего размера",
     "puzzleOptions.showSessionTotal": "Показать итог сессии",
-    "puzzleSessionTotalTitle": "Инструменты Жизни - всего"
+    "puzzleSessionTotalTitle": "Инструменты Жизни - всего",
+    "options.exportPGNoptions": "Параметры экспорта PGN",
+    "exportPGNoptions.exportClock": "Экспорт значений часов",
+    "exportPGNoptions.exportEval": "Экспорт вычисления компьютера"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -7437,7 +7464,10 @@
     "blogHistory.persistView": "Vista de blog persistente",
     "themes.fatMove": "Análisis más amplio mover fuente",
     "puzzleOptions.showSessionTotal": "Mostrar total de sesión",
-    "puzzleSessionTotalTitle": "Herramientas de LiAjedrez - total"
+    "puzzleSessionTotalTitle": "Herramientas de LiAjedrez - total",
+    "options.exportPGNoptions": "Opciones para exportaciones PGN",
+    "exportPGNoptions.exportClock": "Exportar valores de reloj",
+    "exportPGNoptions.exportEval": "Exportar evaluación por ordenador"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8181,6 +8211,9 @@
     "blogHistory.persistView": "Persistent blog view",
     "themes.fatMove": "Larger analysis move font",
     "puzzleOptions.showSessionTotal": "Show session total",
-    "puzzleSessionTotalTitle": "LiChess Tools - total"
+    "puzzleSessionTotalTitle": "LiChess Tools - total",
+    "options.exportPGNoptions": "Options for PGN exports",
+    "exportPGNoptions.exportClock": "Export clock values",
+    "exportPGNoptions.exportEval": "Export computer evaluation"
   }
 }
