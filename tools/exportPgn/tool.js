@@ -15,8 +15,8 @@
         name: 'exportPGNoptions',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['exportClock', 'exportEval'],
-        defaultValue: 'exportClock,exportEval',
+        possibleValues: ['exportClock', 'exportEval', 'exportTags'],
+        defaultValue: 'exportClock,exportEval,exportTags',
         advanced: true
       }
     ];
@@ -29,7 +29,8 @@
         'clipboardDenied': 'Clipboard access denied',
         'options.exportPGNoptions': 'Options for PGN exports',
         'exportPGNoptions.exportClock': 'Export clock values',
-        'exportPGNoptions.exportEval': 'Export computer evaluation'
+        'exportPGNoptions.exportEval': 'Export computer evaluation',
+        'exportPGNoptions.exportTags': 'Export PGN tags'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -38,7 +39,8 @@
         'clipboardDenied': 'Acces refuzat la clipboard',
         'options.exportPGNoptions': 'Op\u0163iuni pentru exporturi PGN',
         'exportPGNoptions.exportClock': 'Export\u0103 timp pe mut\u0103ri',
-        'exportPGNoptions.exportEval': 'Export\u0103 evalu\u0103ri computer'
+        'exportPGNoptions.exportEval': 'Export\u0103 evalu\u0103ri computer',
+        'exportPGNoptions.exportTags': 'Export\u0103 etichete PGN'
       }
     }
 
@@ -51,6 +53,7 @@
         unicode: false,
         exportClock: this.options.exportClock,
         exportEval: this.options.exportEval,
+        exportTags: this.options.exportTags,
         ...options
       };
       const lt = this.lichessTools;
@@ -267,19 +270,21 @@
         }
         const varNodes = getVarNodes(varNode, options.separateLines);
         const pgns = [];
-        const tags = lt.clone(analysis.study?.data?.chapter?.tags) || [];
-        if (analysis.getOrientation() != 'white') {
+        const tags = (options.exportTags && lt.clone(analysis.study?.data?.chapter?.tags)) || [];
+        if (options.exportTags && analysis.getOrientation() != 'white') {
           addTag(tags, 'StartFlipped', '1');
           addTag(tags, 'Orientation', 'Black');
         }
         if (varNode?.fen && !lt.isStartFen(varNode.fen)) {
           addTag(tags, 'FEN', varNode.fen);
-          addTag(tags, 'SetUp', '1');
+          if (options.exportTags)addTag(tags, 'SetUp', '1');
         }
-        addTag(tags, 'Site', lt.global.location.href, true);
-        const now = new Date().toISOString();
-        addTag(tags, 'UTCDate', now.substr(0, 10).replaceAll('-', '.'), true);
-        addTag(tags, 'UTCTime', now.substr(11, 8), true);
+        if (options.exportTags) {
+          addTag(tags, 'Site', lt.global.location.href, true);
+          const now = new Date().toISOString();
+          addTag(tags, 'UTCDate', now.substr(0, 10).replaceAll('-', '.'), true);
+          addTag(tags, 'UTCTime', now.substr(11, 8), true);
+        }
         const tagString = tags.length ? tags.map(tag => '[' + tag[0] + ' "' + tag[1] + '"]').join('\r\n') + '\r\n' : '';
         for (const node of varNodes) {
           const pgn = tagString + renderNodesTxt(node, true);
@@ -305,7 +310,8 @@
       this.logOption('Export PGN options', opts);
       this.options = {
         exportClock: lt.isOptionSet(opts, 'exportClock'),
-        exportEval: lt.isOptionSet(opts, 'exportEval')
+        exportEval: lt.isOptionSet(opts, 'exportEval'),
+        exportTags: lt.isOptionSet(opts, 'exportTags')
       };
 
       if (value) {
