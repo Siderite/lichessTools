@@ -282,7 +282,7 @@
         addTag(tags, 'UTCTime', now.substr(11, 8), true);
         const tagString = tags.length ? tags.map(tag => '[' + tag[0] + ' "' + tag[1] + '"]').join('\r\n') + '\r\n' : '';
         for (const node of varNodes) {
-          const pgn = tagString + renderNodesTxt(node, options.fromPosition);
+          const pgn = tagString + renderNodesTxt(node, true);
           pgns.push(pgn);
         }
         const result = pgns.join('\r\n\r\n');
