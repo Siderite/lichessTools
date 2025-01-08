@@ -103,11 +103,11 @@ body.lichessTools div.lichessTools-boardOverlay coords {
   opacity: 0;
 }
 
-body.lichessTools.mobile main.lichessTools-standardButtons rm6 div.buttons {
+body.lichessTools.mobile main.lichessTools-standardButtons rm6 rb1 {
   display: flex;
 }
 
-body.lichessTools.mobile main.lichessTools-standardButtons rm6 div.buttons>a {
+body.lichessTools.mobile main.lichessTools-standardButtons rm6 rb1>a {
   align-self: center;
 }
 
