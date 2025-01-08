@@ -149,6 +149,7 @@
         "tools/linkToAnalysis/tool.js",
         "tools/puzzleOptions/tool.js",
         "tools/blogHistory/tool.js",
+        "tools/extraPieceSets/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -256,6 +257,7 @@
         "tools/linkToAnalysis/tool.css",
         "tools/puzzleOptions/tool.css",
         "tools/blogHistory/tool.css",
+        "tools/extraPieceSets/tool.css",
 
         "tools/tvOptions/tool.css",
 

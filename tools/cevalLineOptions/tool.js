@@ -101,15 +101,15 @@
       }
       const analysisTools = $('main .analyse__tools');
       if (analysisTools.length) {
-        const observer = $('main .analyse__tools').observer();
-        observer.off('div.ceval.enabled ~ div.pv_box .pv');
+        analysisTools.removeObserver('cevalLineOptions');
         if (this.options.highlight) {
-          observer.on('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['class']
-          });
+          analysisTools.observer('cevalLineOptions')
+            .on('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
+              childList: true,
+              subtree: true,
+              attributes: true,
+              attributeFilter: ['class']
+            });
         }
         this.handlePvs();
       }

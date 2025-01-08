@@ -715,6 +715,19 @@
       return this.rectIntersection(rect, port);
     };
 
+    scrollIntoViewIfNeeded = (selector) => {
+      const $ = this.$;
+      $(selector).each((i,elem)=>{
+        if (elem.scrollIntoViewIfNeeded) {
+          elem.scrollIntoViewIfNeeded();
+        } else {
+          if (!this.inViewport(elem)) {
+            elem.scrollIntoView();
+          }
+        }
+      });
+    }
+
     computeCollapsedRegex = () => {
       const $ = this.$;
       const lichess = this.lichess;

@@ -110,12 +110,12 @@
       };
       lt.pubsub.off('content-loaded', this.processBlogCards);
       lt.pubsub.off('lichessTools.redraw', this.processBlogCards);
-      $('.ublog-post__meta').removeObserver();
+      $('.ublog-post__meta').removeObserver('blogHistory');
       if (this.options.showVisited) {
         const meta = $('.ublog-post__meta');
         if (meta.length) {
           meta
-            .observer()
+            .observer('blogHistory')
             .on('.ublog-post__like',this.processVisited,{
               subtree:true,
               attributes: true

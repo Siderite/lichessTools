@@ -142,16 +142,18 @@
         lt.pubsub.on('lichessTools.puzzleStart',this.startTimer);
         lt.pubsub.on('lichessTools.puzzleEnd',this.endTimer);
       }
-      const session = $('.puzzle__session');
-      if (this.options.showSessionTotal && this.isTrainingPage()) {
-        if (session.length && !session.hasObserver()) {
-          session
-            .observer()
-            .on('*',this.showTotal);
+      if (this.isTrainingPage()) {
+        const session = $('.puzzle__session');
+        if (this.options.showSessionTotal) {
+          if (session.length && !session.hasObserver('puzzleOptions')) {
+            session
+              .observer()
+              .on('*',this.showTotal);
+            this.showTotal();
+          }
+        } else {
+          session.removeObserver('puzzleOptions');
         }
-        this.showTotal();
-      } else {
-        session.removeObserver();
       }
     }
 

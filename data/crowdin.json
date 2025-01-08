@@ -744,7 +744,11 @@
     "puzzleSessionTotalTitle": "أدوات شطرنج الحياة - المجموع",
     "options.exportPGNoptions": "خيارات لصادرات PGN",
     "exportPGNoptions.exportClock": "تصدير قيم الساعة",
-    "exportPGNoptions.exportEval": "تصدير تقييم الكمبيوتر"
+    "exportPGNoptions.exportEval": "تصدير تقييم الكمبيوتر",
+    "exportPGNoptions.exportTags": "تصدير علامات PGN",
+    "options.extraPieceSets": "مجموعات قطع إضافية",
+    "extraPieceSets.chesscom": "Chess.com",
+    "pieceSetTitle": "أدوات شطرنج الحياة - %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1491,7 +1495,11 @@
     "puzzleSessionTotalTitle": "LiChess Tools - total",
     "options.exportPGNoptions": "Options for PGN exports",
     "exportPGNoptions.exportClock": "Export clock values",
-    "exportPGNoptions.exportEval": "Export computer evaluation"
+    "exportPGNoptions.exportEval": "Export computer evaluation",
+    "exportPGNoptions.exportTags": "Export PGN tags",
+    "options.extraPieceSets": "Extra piece sets",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "LiChess Tools - %s"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2238,7 +2246,11 @@
     "puzzleSessionTotalTitle": "LiChess Tools - total",
     "options.exportPGNoptions": "Options for PGN exports",
     "exportPGNoptions.exportClock": "Export clock values",
-    "exportPGNoptions.exportEval": "Export computer evaluation"
+    "exportPGNoptions.exportEval": "Export computer evaluation",
+    "exportPGNoptions.exportTags": "Export PGN tags",
+    "options.extraPieceSets": "Extra piece sets",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "LiChess Tools - %s"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2985,7 +2997,11 @@
     "puzzleSessionTotalTitle": "Outils LiChess - total",
     "options.exportPGNoptions": "Options pour les exportations PGN",
     "exportPGNoptions.exportClock": "Exporter les valeurs de l'horloge",
-    "exportPGNoptions.exportEval": "Exporter l'évaluation de l'ordinateur"
+    "exportPGNoptions.exportEval": "Exporter l'évaluation de l'ordinateur",
+    "exportPGNoptions.exportTags": "Exporter les tags PGN",
+    "options.extraPieceSets": "Ensemble de pièces supplémentaires",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "Outils LiChess - %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3732,7 +3748,11 @@
     "puzzleSessionTotalTitle": "LiChess Werkzeuge - insgesamt",
     "options.exportPGNoptions": "Optionen für PGN-Exporte",
     "exportPGNoptions.exportClock": "Taktwerte exportieren",
-    "exportPGNoptions.exportEval": "Computerauswertung exportieren"
+    "exportPGNoptions.exportEval": "Computerauswertung exportieren",
+    "exportPGNoptions.exportTags": "PGN Tags exportieren",
+    "options.extraPieceSets": "Zusätzliche Stücksätze",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "LiChess Werkzeuge - %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4479,7 +4499,11 @@
     "puzzleSessionTotalTitle": "Narzędzia LiChess - suma",
     "options.exportPGNoptions": "Opcje eksportu PGN",
     "exportPGNoptions.exportClock": "Eksportuj wartości zegara",
-    "exportPGNoptions.exportEval": "Eksportuj ocenę komputera"
+    "exportPGNoptions.exportEval": "Eksportuj ocenę komputera",
+    "exportPGNoptions.exportTags": "Eksportuj tagi PGN",
+    "options.extraPieceSets": "Dodatkowe zestawy kawałków",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "Narzędzia LiChess - %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5226,7 +5250,11 @@
     "puzzleSessionTotalTitle": "Ferramentas LiChess - Total",
     "options.exportPGNoptions": "Opções para exportações PGN",
     "exportPGNoptions.exportClock": "Exportar valores de relógio",
-    "exportPGNoptions.exportEval": "Exportar avaliação do computador"
+    "exportPGNoptions.exportEval": "Exportar avaliação do computador",
+    "exportPGNoptions.exportTags": "Exportar etiquetas PGN",
+    "options.extraPieceSets": "Conjunto de peças extra",
+    "extraPieceSets.chesscom": "xadrez.com",
+    "pieceSetTitle": "Ferramentas LiChess - %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5973,7 +6001,11 @@
     "puzzleSessionTotalTitle": "LiChess Tools - total",
     "options.exportPGNoptions": "Opțiuni pentru exporturi PGN",
     "exportPGNoptions.exportClock": "Exportă timp pe mutări",
-    "exportPGNoptions.exportEval": "Exportă evaluări computer"
+    "exportPGNoptions.exportEval": "Exportă evaluări computer",
+    "exportPGNoptions.exportTags": "Exportă etichete PGN",
+    "options.extraPieceSets": "Seturi suplimentare de piese",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "LiChess Tools - %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6720,7 +6752,11 @@
     "puzzleSessionTotalTitle": "Инструменты Жизни - всего",
     "options.exportPGNoptions": "Параметры экспорта PGN",
     "exportPGNoptions.exportClock": "Экспорт значений часов",
-    "exportPGNoptions.exportEval": "Экспорт вычисления компьютера"
+    "exportPGNoptions.exportEval": "Экспорт вычисления компьютера",
+    "exportPGNoptions.exportTags": "Экспорт тегов PGN",
+    "options.extraPieceSets": "Дополнительные наборы элементов",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "Инструменты Жизни - %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -7467,7 +7503,11 @@
     "puzzleSessionTotalTitle": "Herramientas de LiAjedrez - total",
     "options.exportPGNoptions": "Opciones para exportaciones PGN",
     "exportPGNoptions.exportClock": "Exportar valores de reloj",
-    "exportPGNoptions.exportEval": "Exportar evaluación por ordenador"
+    "exportPGNoptions.exportEval": "Exportar evaluación por ordenador",
+    "exportPGNoptions.exportTags": "Exportar etiquetas PGN",
+    "options.extraPieceSets": "Conjuntos de piezas extra",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "Herramientas de LiChess - %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8214,6 +8254,10 @@
     "puzzleSessionTotalTitle": "LiChess Tools - total",
     "options.exportPGNoptions": "Options for PGN exports",
     "exportPGNoptions.exportClock": "Export clock values",
-    "exportPGNoptions.exportEval": "Export computer evaluation"
+    "exportPGNoptions.exportEval": "Export computer evaluation",
+    "exportPGNoptions.exportTags": "Export PGN tags",
+    "options.extraPieceSets": "Extra piece sets",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "LiChess Tools - %s"
   }
 }

@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+09 Jan
+
+- extra chess piece sets
+
 07 Jan
 
 - puzzle session total
