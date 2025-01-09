@@ -2,7 +2,6 @@ History of features added to LiChess Tools in time (reversed order)
 
 10 Jan
 
-- blocked players link to Live friends page
 - followers page from Live friends page
 - grid board theme
 - puzzle streak and rating stats for last 7 days
