@@ -1946,14 +1946,36 @@
       },
       relations: {
         lichessTools: this,
-        getFriends: async function () {
+        getFriends: async function (startPage = 1, count = 1000) {
           const lt = this.lichessTools;
           let result = [];
-          let page = await lt.net.json({ url: '/@/{userId}/following', args: { userId: lt.getUserId() } });
+          const userId = lt.getUserId();
+          if (!userId) return result;
+          let page = await lt.net.json({ url: '/@/{userId}/following?page={page}', args: { userId: userId, page: startPage } })
           while (page) {
             result=result.concat(page.paginator.currentPageResults);
-            page = page.paginator.nextPage
-              ? await lt.net.json({ url: '/@/{userId}/following?page={page}', args: { userId: lt.getUserId(), page: page.paginator.nextPage } })
+            result.nextPage = page.paginator.nextPage;
+            result.nbResults = page.paginator.nbResults;
+            count--;
+            page = count && result.nextPage
+              ? await lt.net.json({ url: '/@/{userId}/following?page={page}', args: { userId: userId, page: page.paginator.nextPage } })
+              : null;
+          }
+          return result;
+        },
+        getFollowers: async function (startPage = 1, count = 1000) {
+          const lt = this.lichessTools;
+          let result = [];
+          const userId = lt.getUserId();
+          if (!userId) return result;
+          let page = await lt.net.json({ url: '/@/{userId}/followers?page={page}', args: { userId: userId, page: startPage } })
+          while (page) {
+            result=result.concat(page.paginator.currentPageResults);
+            result.nextPage = page.paginator.nextPage;
+            result.nbResults = page.paginator.nbResults;
+            count--;
+            page = count && result.nextPage
+              ? await lt.net.json({ url: '/@/{userId}/followers?page={page}', args: { userId: userId, page: page.paginator.nextPage } })
               : null;
           }
           return result;

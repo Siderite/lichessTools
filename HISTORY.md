@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+10 Jan
+
+- blocked players link to Live friends page
+- followers page from Live friends page
+
 09 Jan
 
 - extra chess piece sets
