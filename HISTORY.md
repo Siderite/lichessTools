@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - blocked players link to Live friends page
 - followers page from Live friends page
+- grid board theme
 
 09 Jan
 

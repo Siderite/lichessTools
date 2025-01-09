@@ -187,6 +187,7 @@
         "tools/themes/fatGauge.css",
         "tools/themes/fatMove.css",
         "tools/themes/slimmerArrows.css",
+        "tools/themes/gridBoard.css",
 
         "tools/noSpoilers/tool.css",
         "tools/detectThirdParties/tool.css",
