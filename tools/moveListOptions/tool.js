@@ -483,7 +483,7 @@
       const study = analysis?.study;
       const nodePath = analysis?.contextMenuPath;
       if (!study || nodePath === undefined) return;
-      const pgn = await lt.exportPgn(nodePath, { fromPosition: true });
+      const pgn = await lt.exportPgn(nodePath, { fromPosition: true, exportClock: true, exportEval: true, exportTags: true });
       if (!pgn) return;
       const node = analysis.tree.nodeAtPath(nodePath);
       const label = node?.bookmark?.label;

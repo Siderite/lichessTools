@@ -84,7 +84,7 @@
         'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value or "Eval"(>,=,<)Value"',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Junk","Eval"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Junk","Eval"(>,=,<)Value, "Eval", "Clock" in any combination (i.e. eval, junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText': 'PGN Editor',
         'sendToPgnEditorTitle': 'LiChess Tools - send to PGN Editor',
         'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation'
@@ -158,7 +158,7 @@
         'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag(=,*=)Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare sau "Eval"(>,=,<)Valoare',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Junk", "Eval"(>,=,<)Valoare \u00een orice combina\u0163ie (ex: junk, tags, ply 10, eval<0)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Junk", "Eval"(>,=,<)Valoare, "Eval", "Clock" \u00een orice combina\u0163ie (ex: eval, junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText': 'Editor PGN',
         'sendToPgnEditorTitle': 'LiChess Tools - trimite la Editor PGN',
         'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess'
@@ -1273,7 +1273,7 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      const text = await lt.uiApi.dialog.prompt(trans.noarg('cutStuffPrompt'));
+      let text = await lt.uiApi.dialog.prompt(trans.noarg('cutStuffPrompt'));
       if (/junk/i.test(text)) {
         await this.cutJunk(textarea);
       }
@@ -1294,11 +1294,17 @@
         const ply = +(m[1] || m[2]);
         await this.cutPly(textarea, ply);
       }
-      m = /^eval\s*([\<\>=])\s*([\-\+]?\d+(?:\.\d+)?)/i.exec(text);
+      m = /eval\s*(?<op>[\<\>=])\s*(?<val>[\-\+]?\d+(?:\.\d+)?)/i.exec(text);
       if (m) {
-        const operator = m[1];
-        const value = +m[2];
+        const operator = m.groups.op;
+        const value = +m.groups.val;
         await this.cutEval(textarea, operator, value);
+        text = text.substr(0,m.index)+text.substr(m.index+m[0].length);
+      }
+      const cutClock = /clock/i.test(text);
+      const cutEval = /eval/i.test(text);
+      if (cutClock || cutEval) {
+        await this.cutMeta(textarea, cutClock, cutEval);
       }
     };
 
@@ -1320,6 +1326,59 @@
       this.writeGames(textarea, games);
 
       this.countPgn();
+    };
+
+    cutMeta = async (textarea, cutClock, cutEval) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+
+      const co = lt.chessops;
+      const { parsePgn } = co.pgn;
+      const text = textarea.val();
+      let games = parsePgn(text);
+      this.writeNote(trans.pluralSame('preparingGames', games.length));
+      await lt.timeout(0);
+
+      for (const game of games) {
+        this.cutMetaFromGame(game, cutClock, cutEval);
+      }
+
+      this.writeGames(textarea, games);
+
+      this.countPgn();
+    };
+
+    cutMetaFromGame = (game, cutClock, cutEval) => {
+      const lt = this.lichessTools;
+
+      const cleanComments = (comments) => {
+        const arr = [];
+        if (cutClock) arr.push('clk');
+        if (cutEval) arr.push('eval');
+        const pattern = '\\[%(?:'+arr.join('|')+')[^\\]]+\\]';
+        for (let i=0; i<comments.length; i++) {
+          const comment = comments[i];
+          const reg = new RegExp(pattern,'gi');
+          comments[i] = comment.replace(reg,'');
+        }
+        lt.arrayRemoveAll(comments, c=>!c?.trim());
+      };
+
+      const traverse = (node, ply = 0) => {
+        if (node.data?.comments?.length) {
+          cleanComments(node.data.comments);
+        }
+        if (!node.children?.length) return;
+        for (const child of node.children) {
+          traverse(child, ply + 1);
+        }
+      };
+      if (game.comments?.length) {
+        cleanComments(game.comments);
+      }
+      traverse(game.moves);
     };
 
     cutJunk = async (textarea) => {
@@ -1893,7 +1952,7 @@
         .attr('href', '/analysis#pgnEditor')
         .on('click', async ev => {
           ev.preventDefault();
-          const pgn = await lt.exportPgn('', { copyToClipboard: false });
+          const pgn = await lt.exportPgn('', { copyToClipboard: false, exportClock: true, exportEval: true, exportTags: true });
           this.showPgnEditor(pgn);
         })
         .appendTo(container);

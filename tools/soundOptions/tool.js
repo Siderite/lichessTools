@@ -127,12 +127,12 @@
         });
       }
       const hasTimeAlert = this.options.times.find(t=>t.enabled);
+      $('.round__app')
+        .removeObserver('soundOptions')
       if (hasTimeAlert) {
-        $('.round__app').observer()
-          .clear()
+        $('.round__app')
+          .observer('soundOptions')
           .on('.rclock-bottom *',this.checkClock);
-      } else {
-        $('.round__app').removeObserver();
       }
     }
 

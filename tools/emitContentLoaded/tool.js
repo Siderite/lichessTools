@@ -27,14 +27,15 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
-      const observer = $('body').observer();
-      observer.clear();
-      observer.on('*',this.detectNew,{ 
-        subtree: true,
-        childList: true, 
-        attributes: false, 
-        characterData: true
-      });
+      $('body')
+         .removeObserver('emitContentLoaded')
+         .observer('emitContentLoaded')
+         .on('*',this.detectNew,{ 
+           subtree: true,
+           childList: true, 
+           attributes: false, 
+           characterData: true
+         });
     }
 
   }

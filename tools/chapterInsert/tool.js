@@ -81,14 +81,7 @@
       if (!chapterEl.length) return;
       chapterEl
         .insertAfter('div.study__chapters button.draggable[data-id="' + this.chapterData.current.id + '"]');
-      const elem = chapterEl[0];
-      if (elem.scrollIntoViewIfNeeded) {
-        elem.scrollIntoViewIfNeeded();
-      } else {
-        if (!lt.inViewport(elem)) {
-          elem.scrollIntoView();
-        }
-      }
+      lt.scrollIntoViewIfNeeded(chapterEl);
       setTimeout(()=>{
         study.chapters.sort(newOrder);
       },1000);

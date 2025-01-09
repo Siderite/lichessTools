@@ -59,6 +59,7 @@ class Observer {
   constructor(context) {
     this.context = context;
     this.handlers = new Map();
+    this.keys = new Set();
   }
   
   on(selector,func,options) {
@@ -72,7 +73,12 @@ class Observer {
     }
     this.off(selector,func);
     const observer = new MutationObserver((mutations)=>{
-      const matches = mutations.filter(m=>$(m.target).is(selector));
+      const matches = mutations.filter(m=>{
+        const target = $(m.target);
+        if (target.is(selector)) return true;
+        const nodes = Array.from(m.addedNodes||[]).concat(Array.from(m.removedNodes||[]));
+        return nodes.find(n=>$(n).is(selector));
+      });
       if (matches.length) {
         func(matches);
       }
@@ -114,9 +120,26 @@ class Observer {
     this.handlers=new Map();
     return this;
   }
+
+  addKey(key) {
+    this.keys.add(key);
+  }
+
+  removeKey(key) {
+    this.keys.delete(key);
+  }
+  
+  hasKey(key) {
+    this.keys.has(key);
+  }
+  
+  hasKeys() {
+    return !!this.keys.size;
+  }
+
 }
 
-cash.fn.observer = function () {
+cash.fn.observer = function (key) {
   if (this.length!=1) {
     throw new Error('Cannot find element to observe from');
   }
@@ -125,18 +148,28 @@ cash.fn.observer = function () {
     observer = new Observer(this,ctx=>ctx.prop('__observer',null));
     this.prop('__observer',observer);
   }
+  observer.addKey(key);
   return observer;
 }
 
-cash.fn.hasObserver = function () {
+cash.fn.hasObserver = function (key) {
   const observer = this.prop('__observer');
-  return !!observer;
+  return key
+   ? observer?.hasKey(key)
+   : !!observer;
 }
 
-cash.fn.removeObserver = function () {
+cash.fn.removeObserver = function (key) {
   const observer = this.prop('__observer');
-  observer?.clear();
-  this.removeProp('__observer');
+  if (!observer) return this;
+  if (key && observer.hasKey(key)) {
+    observer.removeKey(key);
+  }
+  if (!key || !observer.hasKeys()) {
+    observer?.clear();
+    this.removeProp('__observer');
+  }
+  return this;
 }
 
 cash.fn.replaceText = function(replacement) {
@@ -152,6 +185,7 @@ cash.fn.replaceText = function(replacement) {
       }
     }
   });
+  return this;
 }
 
 })(cash);

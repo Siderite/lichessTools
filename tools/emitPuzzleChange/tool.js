@@ -32,9 +32,10 @@
       const $ = lt.$;
       const puzzleId = this.getPuzzleId();
       if (!puzzleId) return;
-      const obs = $('body').observer();
-      obs.off('.puzzle__tools',this.processPuzzle);
-      obs.on('.puzzle__tools',this.processPuzzle);
+      $('body')
+        .removeObserver('emitPuzzleChange')
+        .observer('emitPuzzleChange')
+        .on('.puzzle__tools',this.processPuzzle);
       lt.global.setTimeout(this.processPuzzle,100);
     }
   }

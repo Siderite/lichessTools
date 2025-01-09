@@ -1,5 +1,15 @@
 History of features added to LiChess Tools in time (reversed order)
 
+09 Jan
+
+- extra chess piece sets
+
+07 Jan
+
+- puzzle session total
+- PGN export options
+- cut eval and clock comments in PGN Editor
+
 30 Dec
 
 - Puzzle Dashboard history chart

@@ -37,8 +37,9 @@
       $('.lichessTools-dailyQuote').remove();
       if (!value) return;
       const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       const closedDate = lt.storage.get('LiChessTools.closedQuote');
-      if (now.toDateString() == closedDate) {
+      if (today.toDateString() == closedDate) {
         return; 
       }
       let quotes = (await lt.comm.getData('quotes.json'))?.quotes;
@@ -47,7 +48,7 @@
         const elem = $('<div class="lichessTools-dailyQuote"><span class="quote"></span><span class="author"></span><button type="button" class="close"></button></div>')
           .attr('title',trans.noarg('dailyQuoteTitle'))
           .insertAfter(header);
-        const index = Math.floor(now.getTime()/86400000) % quotes.length;
+        const index = Math.round(today.getTime()/86400000) % quotes.length;
         const quote = quotes[index];
         $('.quote',elem).text(quote.text);
         $('.author',elem).text(quote.name);
@@ -55,7 +56,7 @@
           .attr('title',trans.noarg('quoteCloseButtonTitle'))
           .on('click',(ev)=>{
             ev.preventDefault();
-            lt.storage.set('LiChessTools.closedQuote',now.toDateString());
+            lt.storage.set('LiChessTools.closedQuote',today.toDateString());
             elem.remove();
           })
       }

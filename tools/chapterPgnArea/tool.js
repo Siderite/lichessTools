@@ -49,7 +49,7 @@
         $('button.copy-me__button',group)
           .attr('data-icon',lt.icon.Clipboard);
       }
-      const pgn = await lt.exportPgn('');
+      const pgn = await lt.exportPgn('', { exportTags: true });
       $('textarea', group).val(pgn);
     };
     setupArea = this.lichessTools.debounce(this.setupAreaDirect, 500);

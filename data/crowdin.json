@@ -739,7 +739,16 @@
     "puzzleOptions.endTimer": "إظهار وقت الإكمال",
     "elapsedText": "(%s ثانية)",
     "blogHistory.persistView": "عرض المدونة المستمر",
-    "themes.fatMove": "تحليل أكبر لخط الحركة"
+    "themes.fatMove": "تحليل أكبر لخط الحركة",
+    "puzzleOptions.showSessionTotal": "إظهار مجموع الجلسة",
+    "puzzleSessionTotalTitle": "أدوات شطرنج الحياة - المجموع",
+    "options.exportPGNoptions": "خيارات لصادرات PGN",
+    "exportPGNoptions.exportClock": "تصدير قيم الساعة",
+    "exportPGNoptions.exportEval": "تصدير تقييم الكمبيوتر",
+    "exportPGNoptions.exportTags": "تصدير علامات PGN",
+    "options.extraPieceSets": "مجموعات قطع إضافية",
+    "extraPieceSets.chesscom": "Chess.com",
+    "pieceSetTitle": "أدوات شطرنج الحياة - %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1481,7 +1490,16 @@
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Persistent blog view",
-    "themes.fatMove": "Larger analysis move font"
+    "themes.fatMove": "Larger analysis move font",
+    "puzzleOptions.showSessionTotal": "Show session total",
+    "puzzleSessionTotalTitle": "LiChess Tools - total",
+    "options.exportPGNoptions": "Options for PGN exports",
+    "exportPGNoptions.exportClock": "Export clock values",
+    "exportPGNoptions.exportEval": "Export computer evaluation",
+    "exportPGNoptions.exportTags": "Export PGN tags",
+    "options.extraPieceSets": "Extra piece sets",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "LiChess Tools - %s"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2223,7 +2241,16 @@
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Persistent blog view",
-    "themes.fatMove": "Larger analysis move font"
+    "themes.fatMove": "Larger analysis move font",
+    "puzzleOptions.showSessionTotal": "Show session total",
+    "puzzleSessionTotalTitle": "LiChess Tools - total",
+    "options.exportPGNoptions": "Options for PGN exports",
+    "exportPGNoptions.exportClock": "Export clock values",
+    "exportPGNoptions.exportEval": "Export computer evaluation",
+    "exportPGNoptions.exportTags": "Export PGN tags",
+    "options.extraPieceSets": "Extra piece sets",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "LiChess Tools - %s"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -2965,7 +2992,16 @@
     "puzzleOptions.endTimer": "Afficher le temps d'achèvement",
     "elapsedText": "(%s)",
     "blogHistory.persistView": "Vue de blog persistante",
-    "themes.fatMove": "Police de déplacement d'analyse plus grande"
+    "themes.fatMove": "Police de déplacement d'analyse plus grande",
+    "puzzleOptions.showSessionTotal": "Afficher le total de la session",
+    "puzzleSessionTotalTitle": "Outils LiChess - total",
+    "options.exportPGNoptions": "Options pour les exportations PGN",
+    "exportPGNoptions.exportClock": "Exporter les valeurs de l'horloge",
+    "exportPGNoptions.exportEval": "Exporter l'évaluation de l'ordinateur",
+    "exportPGNoptions.exportTags": "Exporter les tags PGN",
+    "options.extraPieceSets": "Ensemble de pièces supplémentaires",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "Outils LiChess - %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3707,7 +3743,16 @@
     "puzzleOptions.endTimer": "Vervollständigungszeit anzeigen",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Dauerhafte Blog-Ansicht",
-    "themes.fatMove": "Schriftart für größere Analyse verschieben"
+    "themes.fatMove": "Schriftart für größere Analyse verschieben",
+    "puzzleOptions.showSessionTotal": "Gesamte Sitzung anzeigen",
+    "puzzleSessionTotalTitle": "LiChess Werkzeuge - insgesamt",
+    "options.exportPGNoptions": "Optionen für PGN-Exporte",
+    "exportPGNoptions.exportClock": "Taktwerte exportieren",
+    "exportPGNoptions.exportEval": "Computerauswertung exportieren",
+    "exportPGNoptions.exportTags": "PGN Tags exportieren",
+    "options.extraPieceSets": "Zusätzliche Stücksätze",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "LiChess Werkzeuge - %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4434,7 +4479,7 @@
     "timeAlert.s300": "5:00",
     "timeAlert.beep": "Ostrzeżenie dźwiękowe",
     "options.soundVolume": "Głośność (0-100)",
-    "gameListOptions.aborted": "Filtr przerwany",
+    "gameListOptions.aborted": "Filtr anulowany",
     "gameListOptions.titledOpponents": "Filtruj utytułowanych przeciwników",
     "gameListOptions.color": "Pokoloruj według graczy",
     "analysisLinkLabel": "Kliknij, aby przeanalizować:",
@@ -4445,11 +4490,20 @@
     "explorerEval.bardp": "Precyzja słupkowa",
     "options.blogHistory": "Historia wizyt na blogu",
     "blogHistory.showVisited": "Pokaż odwiedzone",
-    "visitedTitle": "LiChess Tools - last visited on %s",
-    "puzzleOptions.endTimer": "Pokaż czas zakończenia",
+    "visitedTitle": "LiChess Tools — ostatnio odwiedzone %s",
+    "puzzleOptions.endTimer": "Pokaż czas ukończenia",
     "elapsedText": "(%s s)",
-    "blogHistory.persistView": "Trwały widok bloga",
-    "themes.fatMove": "Większa analiza przesuwa czcionkę"
+    "blogHistory.persistView": "Zapamiętaj widok bloga",
+    "themes.fatMove": "Większa czcionka w analizie",
+    "puzzleOptions.showSessionTotal": "Pokaż całą sesję",
+    "puzzleSessionTotalTitle": "Narzędzia LiChess - suma",
+    "options.exportPGNoptions": "Opcje eksportu PGN",
+    "exportPGNoptions.exportClock": "Eksportuj wartości zegara",
+    "exportPGNoptions.exportEval": "Eksportuj ocenę komputera",
+    "exportPGNoptions.exportTags": "Eksportuj tagi PGN",
+    "options.extraPieceSets": "Dodatkowe zestawy kawałków",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "Narzędzia LiChess - %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5191,7 +5245,16 @@
     "puzzleOptions.endTimer": "Mostrar tempo de conclusão",
     "elapsedText": "(%s)",
     "blogHistory.persistView": "Visualização de blog persistente",
-    "themes.fatMove": "Fonte de movimento de análise maior"
+    "themes.fatMove": "Fonte de movimento de análise maior",
+    "puzzleOptions.showSessionTotal": "Mostrar sessão total",
+    "puzzleSessionTotalTitle": "Ferramentas LiChess - Total",
+    "options.exportPGNoptions": "Opções para exportações PGN",
+    "exportPGNoptions.exportClock": "Exportar valores de relógio",
+    "exportPGNoptions.exportEval": "Exportar avaliação do computador",
+    "exportPGNoptions.exportTags": "Exportar etiquetas PGN",
+    "options.extraPieceSets": "Conjunto de peças extra",
+    "extraPieceSets.chesscom": "xadrez.com",
+    "pieceSetTitle": "Ferramentas LiChess - %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -5683,7 +5746,7 @@
     "searchPattern": "Introdu un text FEN sau PGN parţial (suportă înlocuitori *,?) sau Tag(=,*=)Valoare sau \"Index\"=Valoare sau \"Invalid\" sau \"Ply\"(>,=,<)Valoare sau \"Eval\"(>,=,<)Valoare",
     "foundGames": "%s jocuri găsite",
     "foundGames:one": "Un joc găsit",
-    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply \"Valoare, \"Junk\", \"Eval\"(>,=,<)Valoare în orice combinație (ex: junk, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply \"Valoare, \"Junk\", \"Eval\"(>,=,<)Valoare, \"Eval\", \"Clock\" în orice combinație (ex: eval, junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "Editor PGN",
     "sendToPgnEditorTitle": "LiChess Tools - trimite la Editor PGN",
     "evaluateNeedsAnalysis": "Evaluarea poate fi folosită doar pe paginile de analiză sau studiu - limitare Lichess",
@@ -5933,7 +5996,16 @@
     "puzzleOptions.endTimer": "Arată durata completării",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Persistă vizualizarea blogurilor",
-    "themes.fatMove": "Text mai mare la mutări"
+    "themes.fatMove": "Text mai mare la mutări",
+    "puzzleOptions.showSessionTotal": "Arată total per sesiune",
+    "puzzleSessionTotalTitle": "LiChess Tools - total",
+    "options.exportPGNoptions": "Opțiuni pentru exporturi PGN",
+    "exportPGNoptions.exportClock": "Exportă timp pe mutări",
+    "exportPGNoptions.exportEval": "Exportă evaluări computer",
+    "exportPGNoptions.exportTags": "Exportă etichete PGN",
+    "options.extraPieceSets": "Seturi suplimentare de piese",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "LiChess Tools - %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6675,7 +6747,16 @@
     "puzzleOptions.endTimer": "Показать время завершения",
     "elapsedText": "(%s с)",
     "blogHistory.persistView": "Постоянный просмотр блога",
-    "themes.fatMove": "Шрифт перемещения большего размера"
+    "themes.fatMove": "Шрифт перемещения большего размера",
+    "puzzleOptions.showSessionTotal": "Показать итог сессии",
+    "puzzleSessionTotalTitle": "Инструменты Жизни - всего",
+    "options.exportPGNoptions": "Параметры экспорта PGN",
+    "exportPGNoptions.exportClock": "Экспорт значений часов",
+    "exportPGNoptions.exportEval": "Экспорт вычисления компьютера",
+    "exportPGNoptions.exportTags": "Экспорт тегов PGN",
+    "options.extraPieceSets": "Дополнительные наборы элементов",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "Инструменты Жизни - %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -7417,7 +7498,16 @@
     "puzzleOptions.endTimer": "Mostrar tiempo de finalización",
     "elapsedText": "(%s)",
     "blogHistory.persistView": "Vista de blog persistente",
-    "themes.fatMove": "Análisis más amplio mover fuente"
+    "themes.fatMove": "Análisis más amplio mover fuente",
+    "puzzleOptions.showSessionTotal": "Mostrar total de sesión",
+    "puzzleSessionTotalTitle": "Herramientas de LiAjedrez - total",
+    "options.exportPGNoptions": "Opciones para exportaciones PGN",
+    "exportPGNoptions.exportClock": "Exportar valores de reloj",
+    "exportPGNoptions.exportEval": "Exportar evaluación por ordenador",
+    "exportPGNoptions.exportTags": "Exportar etiquetas PGN",
+    "options.extraPieceSets": "Conjuntos de piezas extra",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "Herramientas de LiChess - %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8159,6 +8249,15 @@
     "puzzleOptions.endTimer": "Show completion time",
     "elapsedText": "(%s s)",
     "blogHistory.persistView": "Persistent blog view",
-    "themes.fatMove": "Larger analysis move font"
+    "themes.fatMove": "Larger analysis move font",
+    "puzzleOptions.showSessionTotal": "Show session total",
+    "puzzleSessionTotalTitle": "LiChess Tools - total",
+    "options.exportPGNoptions": "Options for PGN exports",
+    "exportPGNoptions.exportClock": "Export clock values",
+    "exportPGNoptions.exportEval": "Export computer evaluation",
+    "exportPGNoptions.exportTags": "Export PGN tags",
+    "options.extraPieceSets": "Extra piece sets",
+    "extraPieceSets.chesscom": "chess.com",
+    "pieceSetTitle": "LiChess Tools - %s"
   }
 }

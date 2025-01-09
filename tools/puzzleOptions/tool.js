@@ -8,8 +8,8 @@
         name: 'puzzleOptions',
         category: 'puzzles',
         type: 'multiple',
-        possibleValues: ['wakeLock','endTimer'],
-        defaultValue: 'wakeLock',
+        possibleValues: ['wakeLock','endTimer', 'showSessionTotal'],
+        defaultValue: 'wakeLock,showSessionTotal',
         advanced: true
       }
     ];
@@ -20,14 +20,18 @@
         'options.puzzleOptions': 'Options for puzzles',
         'puzzleOptions.wakeLock': 'Prevent screen lock playing puzzles',
         'puzzleOptions.endTimer': 'Show completion time',
-        'elapsedText': '(%s s)'
+        'puzzleOptions.showSessionTotal': 'Show session total',
+        'elapsedText': '(%s s)',
+        'puzzleSessionTotalTitle': 'LiChess Tools - total'
       },
       'ro-RO': {
         'options.puzzles': 'Probleme de \u015Fah',
         'options.puzzleOptions': 'Op\u0163iuni pentru probleme de \u015fah',
         'puzzleOptions.wakeLock': 'Previne blocarea ecranului \u00een probleme de \u015fah',
         'puzzleOptions.endTimer': 'Arat\u0103 durata complet\u0103rii',
-        'elapsedText': '(%s s)'
+        'puzzleOptions.showSessionTotal': 'Arat\u0103 totalul per sesiune',
+        'elapsedText': '(%s s)',
+        'puzzleSessionTotalTitle': 'LiChess Tools - total'
       }
     }
 
@@ -70,6 +74,29 @@
       this.wakeLockTimeout = lt.global.setTimeout(this.requestWakeLock, 1000);
     };
 
+    showTotal = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      let total = null;
+      $('.puzzle__session a').each((i,e)=>{
+        const text = $(e).text();
+        if (text && !$(e).is('.lichessTools-puzzleTotal')) {
+          const points = +text;
+          if (points) {
+            total = total ? total+points : points;
+          }
+        } else 
+        if (total !== null) {
+          const totalText = (total>0 ? '+' : '') + total;
+          $(e)
+            .addClass('lichessTools-puzzleTotal')
+            .attr('title',trans.noarg('puzzleSessionTotalTitle'))
+            .text(totalText);
+        }
+      });
+    };
+
     startTimer = (puzzleId)=>{
       this.startTime = Date.now();
     };
@@ -90,11 +117,13 @@
 
     async start() {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const value = lt.currentOptions.getValue('puzzleOptions');
       this.logOption('Puzzle options', value);
       this.options = {
         wakeLock: lt.isOptionSet(value, 'wakeLock'),
-        endTimer: lt.isOptionSet(value, 'endTimer')
+        endTimer: lt.isOptionSet(value, 'endTimer'),
+        showSessionTotal: lt.isOptionSet(value, 'showSessionTotal')
       };
       lt.pubsub.off('lichessTools.redraw',this.handleWakeLock);
       lt.pubsub.off('lichessTools.puzzleStart',this.handleWakeLock);
@@ -112,6 +141,19 @@
       if (this.options.endTimer && this.isTrainingPage()) {
         lt.pubsub.on('lichessTools.puzzleStart',this.startTimer);
         lt.pubsub.on('lichessTools.puzzleEnd',this.endTimer);
+      }
+      if (this.isTrainingPage()) {
+        const session = $('.puzzle__session');
+        if (this.options.showSessionTotal) {
+          if (session.length && !session.hasObserver('puzzleOptions')) {
+            session
+              .observer()
+              .on('*',this.showTotal);
+            this.showTotal();
+          }
+        } else {
+          session.removeObserver('puzzleOptions');
+        }
       }
     }
 
