@@ -4,6 +4,7 @@ body.lichessTools.lichessTools-theme_fatGauge {
   ---analysis-gauge-width: 50px;
 }
 
+body.lichessTools.lichessTools-theme_fatGauge main.puzzle:has(.eval-gauge),
 body.lichessTools.lichessTools-theme_fatGauge main.analyse:has(.eval-gauge) {
   ---block-gap: var(---analysis-gauge-width);
   /*border-radius: 10px;
