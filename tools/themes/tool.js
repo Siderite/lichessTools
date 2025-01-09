@@ -78,7 +78,7 @@
       const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
       $('body')
         .removeClass(existingThemes.join(' '));
-      const board = $('body .is2d cg-board');
+      const board = $('body .is2d div.cg-wrap cg-board');
       if (board.length) {
         const styles = lt.global.getComputedStyle(board[0], '::before');
         const backgroundImage = styles.getPropertyValue('background-image');
