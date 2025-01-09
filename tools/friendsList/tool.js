@@ -50,8 +50,6 @@
         'hoursText': '%s hrs',
         'minutesText': '%s mins',
         'timeText': '%s ago',
-        'blockedPlayersText': 'Blocked players',
-        'blockedPlayersTitle': 'LiChess Tools - players you have blocked',
         'followersText': 'Followers',
         'followersTitle': 'LiChess Tools - players following you',
         'followersNumberTitle': '%s followers'
@@ -83,8 +81,6 @@
         'hoursText': '%s ore',
         'minutesText': '%s minute',
         'timeText': 'acum %s',
-        'blockedPlayersText': 'Juc\u0103tori bloca\u0163i',
-        'blockedPlayersTitle': 'LiChess Tools - juc\u0103tori pe care i-ai blocat',
         'followersText': 'Urm\u0103ritori',
         'followersTitle': 'LiChess Tools - juc\u0103tori care te urm\u0103resc',
         'followersNumberTitle': '%s urm\u0103ritori'
@@ -342,18 +338,11 @@
         header = $('<div class="lichessTools-livePageHeader">')
           .insertAfter('main.box div.box__top');
       }
-      if (!isFavoritesOrBlocksOrFollowers && !$('.lichessTools-blockedPlayers',header).length) {
-        $('<a class="lichessTools-blockedPlayers">')
+      if (!isFavoritesOrBlocksOrFollowers && !$('.lichessTools-followers',header).length) {
+        $('<a class="lichessTools-followers">')
           .attr('href','/@/'+myName+'/following#followers')
           .attr('title',trans.noarg('followersTitle'))
           .text(trans.noarg('followersText'))
-          .prependTo(header);
-      }
-      if (!isFavoritesOrBlocksOrFollowers && !$('.lichessTools-followers',header).length) {
-        $('<a class="lichessTools-followers">')
-          .attr('href','/rel/blocks')
-          .attr('title',trans.noarg('blockedPlayersTitle'))
-          .text(trans.noarg('blockedPlayersText'))
           .prependTo(header);
       }
       if (!$('.lichessTools-liveButtons',header).length) {
@@ -411,7 +400,7 @@
         const user = this.getUserId(m && m[1]);
         if (!user) return;
         this.rows[user] = row;
-        if (!this.isFollowersPage() && !actions.find('a.lichessTools-tv')[0]) {
+        if (!actions.find('a.lichessTools-tv')[0]) {
           $(`<a class="text lichessTools-tv" data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}"></a>`)
             .attr('href', '/@/' + user + '/tv')
             .attr('title', watchGamesTitle)

@@ -162,10 +162,6 @@ body.lichessTools div.lichessTools-liveButtons {
   margin-left: auto;
 }
 
-body.lichessTools a.lichessTools-blockedPlayers {
-  padding-left: var(---box-padding);
-}
-
 body.lichessTools a.lichessTools-followers {
   padding-left: var(---box-padding);
 }
