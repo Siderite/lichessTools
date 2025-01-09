@@ -1952,7 +1952,7 @@
         .attr('href', '/analysis#pgnEditor')
         .on('click', async ev => {
           ev.preventDefault();
-          const pgn = await lt.exportPgn('', { copyToClipboard: false });
+          const pgn = await lt.exportPgn('', { copyToClipboard: false, exportClock: true, exportEval: true, exportTags: true });
           this.showPgnEditor(pgn);
         })
         .appendTo(container);
