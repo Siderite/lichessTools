@@ -21,7 +21,11 @@
         'dashboard.total': 'Total',
         'dashboard.puzzleCount': 'Puzzles',
         'dashboard.performance': 'Performance',
-        'dashboard.replay': 'To replay'
+        'dashboard.replay': 'To replay',
+        'daysStatsText': 'The last %s days',
+        'puzzleRatingWeekText': 'Puzzle rating gain: %s',
+        'streaksWeekText': 'Puzzle streaks: %s',
+        'maxStreakWeekText': 'Max streak length: %s'
       },
       'ro-RO': {
         'options.puzzles': 'Probleme de \u015Fah',
@@ -31,7 +35,11 @@
         'dashboard.total': 'Total',
         'dashboard.puzzleCount': 'Probleme \u015fah',
         'dashboard.performance': 'Performan\u0163\u0103',
-        'dashboard.replay': 'De rejucat'
+        'dashboard.replay': 'De rejucat',
+        'daysStatsText': '\u00CEn ultimele %s zile',
+        'puzzleRatingWeekText': 'C\u00e2\u015ftig \u00een probleme de \u015fah: %s',
+        'streaksWeekText': 'Serii de probleme \u015fah: %s',
+        'maxStreakWeekText': 'Seria cea mai lung\u0103: %s'
       }
     }
 
@@ -45,13 +53,14 @@
       const lichess = lt.lichess;
       const asset = lichess.asset;
       const $ = lt.$;
+      const trans = lt.translator;
       const container = $('.puzzle-dashboard__global');
       while (!container.length) {
         await lt.timeout(100);
       }
 
       const userId = lt.getUserId();
-      const data = await lt.net.json('/api/user/'+userId+'/rating-history');
+      const data = await lt.api.user.getRatingHistory(userId);
       const puzzles = data.find(i=>i.name=='Puzzles');
       const m = /^\/training\/dashboard\/(?<days>\d+)\/dashboard/i.exec(lt.global.location.pathname);
       const days = +m.groups.days;
@@ -68,6 +77,43 @@
             singlePerfName: 'Puzzles'
           }
         });
+      }
+      const activity = await lt.api.user.getActivity(userId);
+      if (activity?.length) {
+        activity.reverse();
+        const stats = {};
+        for (const item of activity) {
+          if (!stats.ratingStart && item.puzzles?.score?.rp?.before) {
+            stats.ratingStart = +item.puzzles?.score?.rp?.before;
+          }
+          if (item.puzzles?.score?.rp?.after) {
+            stats.ratingEnd = +item.puzzles?.score?.rp?.after;
+          }
+          if (item.streak) {
+            stats.streaks = (stats.streaks || 0) + (+item.streak.runs);
+            stats.maxStreak = stats.maxStreak 
+                                ? Math.max(stats.maxStreak, +item.streak.score) 
+                                : +item.streak.score;
+          }
+        }
+        if ((stats.ratingStart && stats.ratingEnd)||(stats.streaks && stats.maxStreak)) {
+          const text = trans.pluralSame('daysStatsText',activity.length);
+          $('<label class="lichessTools-profilePuzzleTab header">')
+            .text(text)
+            .appendTo(container);
+        }
+        if (stats.ratingStart && stats.ratingEnd) {
+          const text = trans.pluralSame('puzzleRatingWeekText', stats.ratingEnd-stats.ratingStart);
+          $('<label class="lichessTools-profilePuzzleTab">')
+            .text(text)
+            .appendTo(container);
+        }
+        if (stats.streaks && stats.maxStreak) {
+          const text = trans.pluralSame('streaksWeekText', stats.streaks)+' '+trans.pluralSame('maxStreakWeekText', stats.maxStreak);
+          $('<label class="lichessTools-profilePuzzleTab">')
+            .text(text)
+            .appendTo(container);
+        }
       }
 
       $('<section class="lichessTools-profilePuzzleTab">')

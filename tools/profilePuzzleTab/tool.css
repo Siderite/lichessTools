@@ -88,3 +88,15 @@ body.lichessTools .puzzle-dashboard__global section.lichessTools-profilePuzzleTa
   }
 
 }
+
+body.lichessTools label.lichessTools-profilePuzzleTab.header {
+  margin-top:1em;
+  text-shadow: 2px 0 0 blue;
+}
+
+body.lichessTools label.lichessTools-profilePuzzleTab {
+  display: block;
+  font-size: larger;
+  font-weight: bold;
+  line-height: 2em;
+}

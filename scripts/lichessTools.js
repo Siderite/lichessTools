@@ -1799,6 +1799,16 @@
           const lt = this.lichessTools;
           const data = await lt.net.json({ url: '/@/{userId}/perf/{timeControl}', args: { userId, timeControl } });
           return data;
+        },
+        getRatingHistory: async function (userId) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({ url: '/api/user/{userId}/rating-history', args: { userId } });
+          return data;
+        },
+        getActivity: async function (userId) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({ url: '/api/user/{userId}/activity', args: { userId } });
+          return data;
         }
       },
       game: {
