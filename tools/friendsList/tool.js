@@ -315,11 +315,11 @@
       const trans = lt.translator;
       const myName = lt.getUserId();
       if (!myName) return;
-      const isFavorites = lt.isFavoriteOpponentsPage();
-      if (!lt.isFriendsPage() && !isFavorites) return;
       if (!this.options.liveFriendsPage) return;
+      if (!this.isLivePage) return;
+      const isFavoritesOrBlocks = lt.isFavoriteOpponentsPage() || lt.isBlockedPlayersPage();
       if (lt.global.document.hidden) {
-        lt.global.requestAnimationFrame(lt.debounce(this.updateFriendsPage, 500));
+        lt.global.requestAnimationFrame(this.updateFriendsPage);
         return;
       }
       if (!$('.lichessTools-liveButtons').length) {
@@ -399,7 +399,7 @@
       });
       let secondUpdate = false;
       const hasPages = !!$('tr.pager', table).length;
-      if (!isFavorites && !hasPages) {
+      if (!isFavoritesOrBlocks && !hasPages) {
         for (const user of this.user_data.online) {
           let row = this.rows[user];
           if (row) continue;
@@ -643,20 +643,21 @@
       }
       const setInterval = lt.global.setInterval;
       const clearInterval = lt.global.clearInterval;
+      this.isLivePage = lt.isFriendsPage() || lt.isFavoriteOpponentsPage() || lt.isBlockedPlayersPage();
 
       lt.uiApi.onlineFriends.events.off('onlines', this.following_onlines);
       lt.uiApi.onlineFriends.events.off('enters', this.enters);
       lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
       lt.uiApi.onlineFriends.events.off('playing', this.playing);
       lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
-      if (friendsBoxMode == 'menu' || friendsBoxMode == 'button' || (liveFriendsPage && lt.isFriendsPage())) {
+      if (friendsBoxMode == 'menu' || friendsBoxMode == 'button' || (this.options.liveFriendPage && this.isLivePage)) {
         lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
         lt.uiApi.onlineFriends.events.on('enters', this.enters);
         lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
         lt.uiApi.onlineFriends.events.on('playing', this.playing);
         lt.uiApi.onlineFriends.events.on('stopped_playing', this.stopped_playing);
       }
-      if (lt.isFriendsPage()) {
+      if (this.isLivePage) {
         lt.pubsub.off('content-loaded', this.updateFriendsPage);
         if (liveFriendsPage) {
           lt.pubsub.on('content-loaded', this.updateFriendsPage);
@@ -666,12 +667,12 @@
           $('.lichessTools-mute').remove();
           $('.lichessTools-tv').remove();
         }
-        this.updateFriendsPage();
+        this.updateFriendsPageDirect();
       }
 
       this.followingOnlinesRequests = 0;
       clearInterval(this.onlinesInterval);
-      if (this.options.friendsBoxMode || (this.options.liveFriendsPage && lt.isFriendsPage()) || this.options.friendsPlaying) {
+      if (this.options.friendsBoxMode || (this.options.liveFriendsPage && this.isLivePage) || this.options.friendsPlaying) {
         this.onlinesInterval = setInterval(() => {
           if (!this.onlinesInterval) return;
           if (lt.global.document.visibilityState == 'hidden') return;
