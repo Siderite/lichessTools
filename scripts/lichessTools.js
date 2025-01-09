@@ -893,11 +893,15 @@
     };
 
     isFriendsPage = () => {
-      return /\/following([\?#].*)?$/.test(this.global.location.href);
+      return /\/following([\?#].*)?$/.test(this.global.location.pathname);
     };
 
     isFavoriteOpponentsPage = () => {
-      return /\/player\/opponents\b/.test(this.global.location.href);
+      return /\/player\/opponents\b/.test(this.global.location.pathname);
+    };
+
+    isBlockedPlayersPage = () => {
+      return /\/rel\/blocks\b/.test(this.global.location.pathname);
     };
 
     findGlyphNode = (color, symbols) => {

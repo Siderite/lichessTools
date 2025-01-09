@@ -138,7 +138,7 @@
           filters.find('#chkAnalysis').trigger('change');
         }
       }
-      const m = /\/@\/(?<userId>[^\/\?#]+)/.exec(lt.global.location.href);
+      const m = /\/@\/(?<userId>[^\/\?#]+)/.exec(lt.global.location.pathname);
       const userId = m?.groups?.userId || lt.getUserId();
       if (this.options.titledOpponents) {
         if (!$(container).find('#chkTitledOpponents').length) {
