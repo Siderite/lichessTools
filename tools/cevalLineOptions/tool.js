@@ -99,7 +99,7 @@
       this.options = {
         highlight: lt.isOptionSet(value, 'highlight')
       }
-      const analysisTools = $('main .analyse__tools');
+      const analysisTools = $('main .analyse__tools, main .puzzle__tools');
       if (analysisTools.length) {
         analysisTools.removeObserver('cevalLineOptions');
         if (this.options.highlight) {

@@ -90,7 +90,7 @@
       if (!this.options.enabled) return;
       const lt = this.lichessTools;
       const $ = lt.$;
-      const analyseTools = $('.analyse__tools');
+      const analyseTools = $('.analyse__tools, .puzzle__tools');
       if (!analyseTools.length) return;
       if (!analyseTools.hasObserver('cevalDecimals')) {
         const observer = analyseTools.observer('cevalDecimals');
@@ -109,7 +109,7 @@
       const analysis = lichess?.analysis;
       if (!analysis) return;
       lt.pubsub.off('lichessTools.redraw', this.setupObserver);
-      $('.analyse__tools').removeObserver('cevalDecimals');
+      $('.analyse__tools, .puzzle__tools').removeObserver('cevalDecimals');
       if (!value) return;
       lt.pubsub.on('lichessTools.redraw', this.setupObserver);
       this.setupObserver();
