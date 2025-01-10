@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Jan
+
+- quick actions tool
+
 10 Jan
 
 - followers page from Live friends page
