@@ -88,11 +88,11 @@
           }
         } else 
         if (total !== null) {
-          const totalText = (total>0 ? '+' : '') + total;
-          $(e)
-            .addClass('lichessTools-puzzleTotal')
-            .attr('title',trans.noarg('puzzleSessionTotalTitle'))
-            .text(totalText);
+            const totalText = (total>0 ? '+' : '') + total;
+            $(e)
+              .addClass('lichessTools-puzzleTotal')
+              .attr('title',trans.noarg('puzzleSessionTotalTitle'))
+              .text(totalText);
         }
       });
     };
@@ -148,7 +148,11 @@
           if (session.length && !session.hasObserver('puzzleOptions')) {
             session
               .observer()
-              .on('*',this.showTotal);
+              .on('.puzzle__session a',this.showTotal, {
+                childList: true,
+                subtree: false,
+                attributes: true
+              });
             this.showTotal();
           }
         } else {
