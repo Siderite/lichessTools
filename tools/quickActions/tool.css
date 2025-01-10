@@ -1,0 +1,22 @@
+body.lichessTools div.lichessTools-quickActions-tooltip {
+  position: absolute;
+  background: var(--c-bg-page);
+  transform: translateY(-100%);
+  flex-direction: column;
+  border:1px #808080 solid;
+
+  display: none;
+}
+
+body.lichessTools button.fbt[data-act="menu"]:not(.active) + div.lichessTools-quickActions-tooltip button.fbt,
+body.lichessTools button.board-menu-toggle:not(.active) + div.lichessTools-quickActions-tooltip button.fbt {
+  font-size: 1.3rem;
+  height: 3em;
+}
+
+body.lichessTools button.fbt[data-act="menu"]:not(.active):hover + div.lichessTools-quickActions-tooltip,
+body.lichessTools button.fbt[data-act="menu"]:not(.active) + div.lichessTools-quickActions-tooltip:hover,
+body.lichessTools button.board-menu-toggle:not(.active):hover + div.lichessTools-quickActions-tooltip,
+body.lichessTools button.board-menu-toggle:not(.active) + div.lichessTools-quickActions-tooltip:hover {
+  display:flex;
+}
