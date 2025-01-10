@@ -64,11 +64,24 @@
     checkBody = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      if (this.dataBoard != $('body').attr('data-board')) {
+      const board = $('body .is2d div.cg-wrap cg-board')[0];
+      if (this.dataBoard != $('body').attr('data-board') || this.board != board) {
         this.applyThemes();
         this.dataBoard = $('body').attr('data-board');
+        this.board = board;
       }
     };
+
+    setBoardVariables = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const board = $('body .is2d div.cg-wrap cg-board');
+      if (board.length) {
+        const styles = lt.global.getComputedStyle(board[0], '::before');
+        const backgroundImage = styles.getPropertyValue('background-image');
+        lt.global.document.documentElement.style.setProperty('--board-background', backgroundImage||'unset');
+      }
+    }
 
     applyThemes = ()=>{
       const lt = this.lichessTools;
@@ -78,12 +91,7 @@
       const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
       $('body')
         .removeClass(existingThemes.join(' '));
-      const board = $('body .is2d div.cg-wrap cg-board');
-      if (board.length) {
-        const styles = lt.global.getComputedStyle(board[0], '::before');
-        const backgroundImage = styles.getPropertyValue('background-image');
-        lt.global.document.documentElement.style.setProperty('--board-background', backgroundImage||'unset');
-      }
+      this.setBoardVariables();
       $('body')
         .addClass(configuredThemes.join(' '));
     };
@@ -95,11 +103,11 @@
       this.themes = value;
       const $ = lt.$;
       $('body').observer('themes')
-        .on('body',this.checkBody,{
+        .on('body, .main-board cg-board',this.checkBody,{
               childList: false,
               subtree: false,
               attributes: true,
-              attributeFilter: ['data-board']
+              attributeFilter: ['data-board','class']
             });
       this.applyThemes();
     }
