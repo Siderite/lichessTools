@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+12 Jan
+
+- more ceval lines
+
 11 Jan
 
 - quick actions tool

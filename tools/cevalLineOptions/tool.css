@@ -183,3 +183,11 @@ body.lichessTools .pv-san.lichessTools-cevalHighlight-30 {
   color: white;
   border-radius: 33%;
 }
+
+body.lichessTools switch.lichessTools-cevalMoreLines {
+  cursor: pointer;
+}
+
+body.lichessTools switch.lichessTools-cevalMoreLines:hover {
+  scale: 1.2;
+}

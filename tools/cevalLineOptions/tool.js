@@ -6,8 +6,8 @@
         name: 'cevalLineOptions',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['highlight'],
-        defaultValue: false,
+        possibleValues: ['highlight','moreLines'],
+        defaultValue: 'moreLines',
         advanced: true
       }
     ];
@@ -16,12 +16,16 @@
       'en-US': {
         'options.analysis': 'Analysis',
         'options.cevalLineOptions': 'Computer evaluation line options',
-        'cevalLineOptions.highlight': 'Highlight same moves'
+        'cevalLineOptions.highlight': 'Highlight same moves',
+        'cevalLineOptions.moreLines': 'More lines',
+        'moreLinesTitle': 'LiChess Tools - more lines'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.cevalLineOptions': 'Op\u0163iuni linii \u00een evaluarea computerului',
-        'cevalLineOptions.highlight': 'Eviden\u0163iaza acelea\u015Fi mut\u0103ri'
+        'cevalLineOptions.highlight': 'Eviden\u0163iaza acelea\u015Fi mut\u0103ri',
+        'cevalLineOptions.moreLines': 'Mai multe linii',
+        'moreLinesTitle': 'LiChess Tools - mai multe linii'
       }
     }
 
@@ -88,6 +92,46 @@
       }
     };
 
+    updateMoreLinesText = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const input = $('div.setting #analyse-multipv');
+      if (!input.length) return;
+      $('div.setting:has(#analyse-multipv) .range_value')
+        .text(input.val()+' / '+input.attr('max'));
+    };
+
+    handleMoreLines = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const container = $('div.setting:has(#analyse-multipv)');
+      if (!container.length) return;
+      const maxValue = +lt.storage.get('LiChessTools.cevalLineOptions-moreLines') || 5;
+      const input = $('div.setting #analyse-multipv')
+        .attr('max',maxValue)
+        .off('input',this.updateMoreLinesText)
+        .on('input',this.updateMoreLinesText);
+      const value = +lichessTools.storage.get('ceval.multipv');
+      if (value) {
+        input.val(value);
+      }
+      this.updateMoreLinesText();
+      if (!$('.lichessTools-cevalMoreLines',container).length) {
+        $('<switch class="lichessTools-cevalMoreLines">')
+          .text('\u29DF')
+          .attr('title',trans.noarg('moreLinesTitle'))
+          .on('click',()=>{
+            const maxValue = input.attr('max')==5 ? 10 : 5;
+            lt.storage.set('LiChessTools.cevalLineOptions-moreLines',maxValue);
+            input.attr('max',maxValue);
+            lichessTools.storage.set('ceval.multipv',input.val());
+            this.updateMoreLinesText();
+          })
+          .insertAfter($('.range_value',container));
+      };
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('cevalLineOptions');
@@ -97,7 +141,8 @@
       const analysis = lichess?.analysis;
       if (!analysis) return;
       this.options = {
-        highlight: lt.isOptionSet(value, 'highlight')
+        highlight: lt.isOptionSet(value, 'highlight'),
+        moreLines: lt.isOptionSet(value, 'moreLines')
       }
       const analysisTools = $('main .analyse__tools, main .puzzle__tools');
       if (analysisTools.length) {
@@ -111,7 +156,11 @@
               attributeFilter: ['class']
             });
         }
-        this.handlePvs();
+        if (this.options.moreLines) {
+          analysisTools.observer('cevalLineOptions')
+            .on('#ceval-settings-anchor',this.handleMoreLines);
+        }
+        this.handleMoreLines();
       }
     }
 
