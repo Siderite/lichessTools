@@ -761,7 +761,9 @@
     "quickActions.flipBoard": "قلب لوحة اللعبة",
     "quickActions.requestAnalysis": "طلب تحليل الخادم",
     "flipBoardButtonTitle": "أدوات شطرنج الحياة - قلب لوحة اللعبة",
-    "requestAnalysisButtonTitle": "أدوات شطرنج الحياة - طلب تحليل الخادم"
+    "requestAnalysisButtonTitle": "أدوات شطرنج الحياة - طلب تحليل الخادم",
+    "cevalLineOptions.moreLines": "المزيد من الأسطر",
+    "moreLinesTitle": "أدوات شطرنج الحياة - خطوط أكثر"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1525,7 +1527,9 @@
     "quickActions.flipBoard": "Flip game board",
     "quickActions.requestAnalysis": "Request server analysis",
     "flipBoardButtonTitle": "LiChess Tools - flip game board",
-    "requestAnalysisButtonTitle": "LiChess Tools - request server analysis"
+    "requestAnalysisButtonTitle": "LiChess Tools - request server analysis",
+    "cevalLineOptions.moreLines": "More lines",
+    "moreLinesTitle": "LiChess Tools - more lines"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2289,7 +2293,9 @@
     "quickActions.flipBoard": "Flip game board",
     "quickActions.requestAnalysis": "Request server analysis",
     "flipBoardButtonTitle": "LiChess Tools - flip game board",
-    "requestAnalysisButtonTitle": "LiChess Tools - request server analysis"
+    "requestAnalysisButtonTitle": "LiChess Tools - request server analysis",
+    "cevalLineOptions.moreLines": "More lines",
+    "moreLinesTitle": "LiChess Tools - more lines"
   },
   "fr-FR": {
     "LiChess Tools": "Outils LiChess",
@@ -3053,7 +3059,9 @@
     "quickActions.flipBoard": "Retourner le plateau de jeu",
     "quickActions.requestAnalysis": "Analyse du serveur de requête",
     "flipBoardButtonTitle": "Outils LiChess - Retourner le plateau de jeu",
-    "requestAnalysisButtonTitle": "Outils LiChess - analyse du serveur de requêtes"
+    "requestAnalysisButtonTitle": "Outils LiChess - analyse du serveur de requêtes",
+    "cevalLineOptions.moreLines": "Plus de lignes",
+    "moreLinesTitle": "Outils LiChess - plus de lignes"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3817,7 +3825,9 @@
     "quickActions.flipBoard": "Spielbrett spiegeln",
     "quickActions.requestAnalysis": "Serveranalyse anfordern",
     "flipBoardButtonTitle": "LiChess Tools - Wende Spielbrett",
-    "requestAnalysisButtonTitle": "LiChess Tools - Serveranalyse anfordern"
+    "requestAnalysisButtonTitle": "LiChess Tools - Serveranalyse anfordern",
+    "cevalLineOptions.moreLines": "Weitere Zeilen",
+    "moreLinesTitle": "LiChess Werkzeuge - mehr Linien"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4552,7 +4562,7 @@
     "autoAnalyseGame.loss": "Przegrana",
     "autoAnalyseGame.draw": "Remis",
     "autoAnalyseGame.win": "Wygrana",
-    "explorerEval.bardp": "Precyzja słupkowa",
+    "explorerEval.bardp": "Zwiększona precyzja statystyk w bibliotece otwarć",
     "options.blogHistory": "Historia wizyt na blogu",
     "blogHistory.showVisited": "Pokaż odwiedzone",
     "visitedTitle": "LiChess Tools — ostatnio odwiedzone %s",
@@ -4561,27 +4571,29 @@
     "blogHistory.persistView": "Zapamiętaj widok bloga",
     "themes.fatMove": "Większa czcionka w analizie",
     "puzzleOptions.showSessionTotal": "Pokaż całą sesję",
-    "puzzleSessionTotalTitle": "Narzędzia LiChess - suma",
+    "puzzleSessionTotalTitle": "LiChess Tools – suma",
     "options.exportPGNoptions": "Opcje eksportu PGN",
-    "exportPGNoptions.exportClock": "Eksportuj wartości zegara",
-    "exportPGNoptions.exportEval": "Eksportuj ocenę komputera",
+    "exportPGNoptions.exportClock": "Eksportuj wskazania zegara",
+    "exportPGNoptions.exportEval": "Eksportuj ocenę komputerową",
     "exportPGNoptions.exportTags": "Eksportuj tagi PGN",
-    "options.extraPieceSets": "Dodatkowe zestawy kawałków",
+    "options.extraPieceSets": "Dodatkowe zestawy bierek",
     "extraPieceSets.chesscom": "chess.com",
-    "pieceSetTitle": "Narzędzia LiChess - %s",
+    "pieceSetTitle": "LiChess Tools – %s",
     "followersText": "Obserwujący",
-    "followersTitle": "Narzędzia Lichess - gracze obserwujący Ciebie",
+    "followersTitle": "LiChess Tools – gracze obserwujący Ciebie",
     "followersNumberTitle": "%s obserwujących",
-    "themes.gridBoard": "Siatka kwadratowa",
-    "daysStatsText": "The last %s days",
-    "puzzleRatingWeekText": "Zysk rankingu łamigłówek: %s",
-    "streaksWeekText": "Seria łamigłówek: %s",
+    "themes.gridBoard": "Siatka pól",
+    "daysStatsText": "Ostatnie %s dni",
+    "puzzleRatingWeekText": "Wzrost rankingu zadań szachowych: %s",
+    "streaksWeekText": "Seria zadań szachowych: %s",
     "maxStreakWeekText": "Maksymalna długość serii: %s",
-    "options.quickActions": "Szybkie akcje",
-    "quickActions.flipBoard": "Odbij tablicę do gry",
-    "quickActions.requestAnalysis": "Żądanie analizy serwera",
-    "flipBoardButtonTitle": "Narzędzia LiChess - rzuć płytkę do gry",
-    "requestAnalysisButtonTitle": "Narzędzia LiChess - analiza żądań serwera"
+    "options.quickActions": "Szybkie opcje",
+    "quickActions.flipBoard": "Odwróć szachownicę",
+    "quickActions.requestAnalysis": "Poproś o analizę komputerową",
+    "flipBoardButtonTitle": "LiChess Tools – odwróć szachownicę",
+    "requestAnalysisButtonTitle": "LiChess Tools – poproś o analizę komputerową",
+    "cevalLineOptions.moreLines": "Więcej linii",
+    "moreLinesTitle": "Narzędzia LiChess - więcej linii"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5345,7 +5357,9 @@
     "quickActions.flipBoard": "Girar tabuleiro de jogo",
     "quickActions.requestAnalysis": "Solicitar análise do servidor",
     "flipBoardButtonTitle": "Ferramentas LiChess - virar tabuleiro de jogo",
-    "requestAnalysisButtonTitle": "Ferramentas LiChess - solicitar análise do servidor"
+    "requestAnalysisButtonTitle": "Ferramentas LiChess - solicitar análise do servidor",
+    "cevalLineOptions.moreLines": "Mais linhas",
+    "moreLinesTitle": "Ferramentas do LiChess - mais linhas"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -6109,7 +6123,9 @@
     "quickActions.flipBoard": "Rotire tablă",
     "quickActions.requestAnalysis": "Cerere analiză server",
     "flipBoardButtonTitle": "LiChess Tools - rotiți tabla",
-    "requestAnalysisButtonTitle": "LiChess Tools - cereți analiză server"
+    "requestAnalysisButtonTitle": "LiChess Tools - cereți analiză server",
+    "cevalLineOptions.moreLines": "Mai multe linii",
+    "moreLinesTitle": "LiChess Tools - mai multe linii"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -6873,7 +6889,9 @@
     "quickActions.flipBoard": "Отражение игровой доски",
     "quickActions.requestAnalysis": "Запросить анализ сервера",
     "flipBoardButtonTitle": "Инструменты Жизни - перетаскивание игровой доски",
-    "requestAnalysisButtonTitle": "Инструменты Жизни - запрос на анализ сервера"
+    "requestAnalysisButtonTitle": "Инструменты Жизни - запрос на анализ сервера",
+    "cevalLineOptions.moreLines": "Больше строк",
+    "moreLinesTitle": "Инструменты Жизни - больше строк"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -7637,7 +7655,9 @@
     "quickActions.flipBoard": "Voltear tablero",
     "quickActions.requestAnalysis": "Análisis del servidor de solicitudes",
     "flipBoardButtonTitle": "Herramientas de LiChess - Tablero de juegos",
-    "requestAnalysisButtonTitle": "Herramientas de LiChess - Análisis del servidor de peticiones"
+    "requestAnalysisButtonTitle": "Herramientas de LiChess - Análisis del servidor de peticiones",
+    "cevalLineOptions.moreLines": "Más líneas",
+    "moreLinesTitle": "Herramientas de LiChess - más líneas"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8401,6 +8421,8 @@
     "quickActions.flipBoard": "Flip game board",
     "quickActions.requestAnalysis": "Request server analysis",
     "flipBoardButtonTitle": "LiChess Tools - flip game board",
-    "requestAnalysisButtonTitle": "LiChess Tools - request server analysis"
+    "requestAnalysisButtonTitle": "LiChess Tools - request server analysis",
+    "cevalLineOptions.moreLines": "More lines",
+    "moreLinesTitle": "LiChess Tools - more lines"
   }
 }
