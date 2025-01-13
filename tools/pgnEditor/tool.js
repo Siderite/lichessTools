@@ -646,11 +646,11 @@
 
     mergeNodes = (n1, n2) => {
       n1.children = [...n1.children, ...n2.children];
-      const comments = (n1.data?.comments || []).concat((n1.data?.comments || []));
+      const comments = (n1.data?.comments || []).concat((n2.data?.comments || []));
       if (comments.length) {
         n1.data.comments = [...new Set(comments)];
       }
-      const nags = (n1.data?.nags || []).concat((n1.data?.nags || []));
+      const nags = (n1.data?.nags || []).concat((n2.data?.nags || []));
       if (nags.length) {
         n1.data.nags = [...new Set(nags)];
       }
@@ -721,6 +721,10 @@
       }
 
       const mergeGames = (dest, node, src) => {
+        const comments = (dest.comments||[]).concat(src.comments||[]);
+        if (comments.length) {
+          dest.comments = comments;
+        }
         node.children = [...node.children, ...src.moves.children];
         if (dest.fenDict || src.fenDict) {
           if (!dest.fenDict || !src.fenDict) throw new Error('Cannot merge games that have different enhancement (fenDict)');
