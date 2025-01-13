@@ -17,8 +17,7 @@
       if (!lichess.analysis) return;
       const $ = lt.$;
       const observer = $('body')
-        .removeObserver('emitCommentChange')
-        .observer('emitCommentChange')
+        .observer()
         .on('comment',this.detectNew,{ 
           subtree: true,
           childList: true, 

@@ -128,7 +128,8 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
         chesscom: lt.isOptionSet(value, 'chesscom'),
       };
       $('#dasher_app')
-        .removeObserver('extraPieceSets');
+        .observer()
+        .off('.sub.piece.d2',this.addPieces);
       $('style#lichessTools-extraPieceSets').remove();
       if (!value) return;
       if (!this.pieceSets) {
@@ -141,7 +142,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
 
       this.updatePieceSet();
       $('#dasher_app')
-        .observer('extraPieceSets')
+        .observer()
         .on('.sub.piece.d2',this.addPieces);
     }
 

@@ -145,23 +145,30 @@
         moreLines: lt.isOptionSet(value, 'moreLines')
       }
       const analysisTools = $('main .analyse__tools, main .puzzle__tools');
-      if (analysisTools.length) {
-        analysisTools.removeObserver('cevalLineOptions');
-        if (this.options.highlight) {
-          analysisTools.observer('cevalLineOptions')
-            .on('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
-              childList: true,
-              subtree: true,
-              attributes: true,
-              attributeFilter: ['class']
-            });
-        }
-        if (this.options.moreLines) {
-          analysisTools.observer('cevalLineOptions')
-            .on('#ceval-settings-anchor',this.handleMoreLines);
-        }
-        this.handleMoreLines();
+      if (!analysisTools.length) return;
+      analysisTools
+        .observer()
+        .off('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs);
+      analysisTools
+        .observer()
+        .off('#ceval-settings-anchor',this.handleMoreLines);
+      if (this.options.highlight) {
+        analysisTools
+          .observer()
+          .on('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class']
+          });
       }
+      if (this.options.moreLines) {
+        analysisTools
+          .observer()
+          .on('#ceval-settings-anchor',this.handleMoreLines);
+      }
+      this.handleMoreLines();
+      
     }
 
   }

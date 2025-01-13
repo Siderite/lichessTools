@@ -144,8 +144,11 @@
       }
       if (this.isTrainingPage()) {
         const session = $('.puzzle__session');
+        session
+          .observer()
+          .off('.puzzle__session a',this.showTotal);
         if (this.options.showSessionTotal) {
-          if (session.length && !session.hasObserver('puzzleOptions')) {
+          if (session.length) {
             session
               .observer()
               .on('.puzzle__session a',this.showTotal, {

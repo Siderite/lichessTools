@@ -128,7 +128,8 @@
       };
       const $ = lt.$;
       $('body')
-       .removeObserver('quickActions')
+       .observer()
+       .off('button.fbt[data-act="menu"],button.board-menu-toggle,.main-board cg-board',this.initQuickActions);
       lt.pubsub.off('lichessTools.chapterChange',this.initQuickActions);
       this.initQuickActions();
       if (!this.options.isSet) return;

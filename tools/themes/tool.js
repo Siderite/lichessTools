@@ -102,13 +102,13 @@
       this.logOption('Themes', value || 'none');
       this.themes = value;
       const $ = lt.$;
-      $('body').observer('themes')
+      $('body').observer()
         .on('body, .main-board cg-board',this.checkBody,{
-              childList: false,
-              subtree: false,
-              attributes: true,
-              attributeFilter: ['data-board','class']
-            });
+          childList: false,
+          subtree: false,
+          attributes: true,
+          attributeFilter: ['data-board','class']
+        });
       this.applyThemes();
     }
 
