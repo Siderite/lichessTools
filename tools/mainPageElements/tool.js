@@ -8,8 +8,8 @@
         name: 'mainPageElements',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['side', 'side_streams', 'side_spotlights', 'side_timeline', 'app', 'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours', 'about'],
-        defaultValue: 'side,app,table,tv,blog,puzzle,support,feed,tours,about,side_streams,side_spotlights,side_timeline',
+        possibleValues: ['side', 'side_streams', 'side_spotlights', 'side_timeline', 'app','app_bullet','app_blitz','app_rapid','app_classical', 'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours', 'about'],
+        defaultValue: 'side,app,table,app_bullet,app_blitz,app_rapid,app_classical,tv,blog,puzzle,support,feed,tours,about,side_streams,side_spotlights,side_timeline',
         advanced: true
       }
     ];
@@ -30,7 +30,11 @@
         'mainPageElements.about': 'About',
         'mainPageElements.side_streams': 'Side:streams',
         'mainPageElements.side_spotlights': 'Side:spotlights',
-        'mainPageElements.side_timeline': 'Side:timeline'
+        'mainPageElements.side_timeline': 'Side:timeline',
+        'mainPageElements.app_bullet': 'Play:bullet',
+        'mainPageElements.app_blitz': 'Play:blitz',
+        'mainPageElements.app_rapid': 'Play:rapid',
+        'mainPageElements.app_classical': 'Play:classical'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -47,7 +51,11 @@
         'mainPageElements.about': 'Despre',
         'mainPageElements.side_streams': 'Lateral:stream-uri',
         'mainPageElements.side_spotlights': 'Side:prim-plan',
-        'mainPageElements.side_timeline': 'Side:activitate recent\u0103'
+        'mainPageElements.side_timeline': 'Side:activitate recent\u0103',
+        'mainPageElements.app_bullet': 'Joc:bullet',
+        'mainPageElements.app_blitz': 'Joc:blitz',
+        'mainPageElements.app_rapid': 'Joc:rapid',
+        'mainPageElements.app_classical': 'Joc:clasic'
       }
     }
 
@@ -73,6 +81,10 @@
         side_spotlights: lt.isOptionSet(value, 'side_spotlights'),
         side_timeline: lt.isOptionSet(value, 'side_timeline'),
         app: lt.isOptionSet(value, 'app'),
+        app_bullet: lt.isOptionSet(value, 'app_bullet'),
+        app_blitz: lt.isOptionSet(value, 'app_blitz'),
+        app_rapid: lt.isOptionSet(value, 'app_rapid'),
+        app_classical: lt.isOptionSet(value, 'app_classical'),
         table: lt.isOptionSet(value, 'table'),
         tv: lt.isOptionSet(value, 'tv'),
         blog: lt.isOptionSet(value, 'blog'),
@@ -95,8 +107,8 @@
           $('main')
             .removeClass('lichessTools-lobbyPlay')
             .css('grid-template-areas', '');
-          $('main').find('.lobby__side,.lobby__timeline,.lobby__app,main .lobby__table,.lobby__tv,.lobby__blog,.lobby__puzzle,.lobby__support,' +
-            '.lobby__feed,.lobby__tournaments-simuls,.lobby__about').removeClass('lichessTools-hideElement');
+          $('main.lobby .lichessTools-hideElement')
+            .removeClass('lichessTools-hideElement');
         }
         return;
       }
@@ -134,6 +146,14 @@
         $('main .lobby__spotlights').toggleClass('lichessTools-hideElement', !this.options.side || !this.options.side_spotlights);
         $('main .lobby__timeline').toggleClass('lichessTools-hideElement', !this.options.side || !this.options.side_timeline);
         $('main .lobby__app').toggleClass('lichessTools-hideElement', !this.options.app);
+        $('main .lobby__app').find('div[data-id="1+0"],div[data-id="2+1"]')
+          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_bullet);
+        $('main .lobby__app').find('div[data-id="3+0"],div[data-id="3+2"],div[data-id="5+0"],div[data-id="5+3"]')
+          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_blitz);
+        $('main .lobby__app').find('div[data-id="10+0"],div[data-id="10+5"],div[data-id="15+10"]')
+          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_rapid);
+        $('main .lobby__app').find('div[data-id="30+0"],div[data-id="30+20"]')
+          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_classical);
         $('main .lobby__table').toggleClass('lichessTools-hideElement', !this.options.table);
         $('main .lobby__tv').toggleClass('lichessTools-hideElement', !this.options.tv);
         $('main .lobby__blog').toggleClass('lichessTools-hideElement', !this.options.blog);

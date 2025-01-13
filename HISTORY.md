@@ -3,7 +3,8 @@ History of features added to LiChess Tools in time (reversed order)
 13 Jan
 
 - hide individual side elements in lobby
-- active icon piece selection
+- hide individual play buttons in lobby
+- active icon selection
 
 12 Jan
 
