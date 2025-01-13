@@ -171,6 +171,19 @@ body.lichessTools.mobile button.hidden+button.lichessTools-shapeDrawing {
   }
 }
 
+body.lichessTools.mobile.lichessTools-mobileExperience main.analyse:has(.gamebook) div.lichessTools-inInteractive {
+  display: flex;
+  justify-content: space-around;
+}
+
+body.lichessTools.mobile.lichessTools-mobileExperience main.analyse:has(.gamebook) div.lichessTools-inInteractive .fbt {
+  flex: 0 0 2em;
+  text-align: center;
+  border-radius: 0 0 6px 6px;
+  text-shadow: 0 1px 0 var(--c-font-shadow);
+  color: var(--c-font-page);
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .gamebook {

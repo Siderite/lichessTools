@@ -6,6 +6,7 @@ History of features added to LiChess Tools in time (reversed order)
 - hide individual play buttons in lobby
 - active icon selection
 - fast board flip for mobile devices
+- shape drawing and flip board in playing interactive
 
 12 Jan
 
