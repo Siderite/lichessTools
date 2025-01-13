@@ -85,7 +85,7 @@ class Observer {
       observer.__option = options;
       observer.dispose = function() {
         observer.disconnect();
-        const index = observers.indexOf(index);
+        const index = observers.indexOf(observer);
         if (index>=0) observers.splice(index,1);
       };
 
