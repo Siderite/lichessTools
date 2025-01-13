@@ -15,7 +15,7 @@
         name: 'mobileExperienceRound',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['shapeDrawingRound', 'standardButtons', 'invert'],
+        possibleValues: ['shapeDrawingRound', 'standardButtons', 'invert', 'flipBoard'],
         defaultValue: '',
         advanced: true
       },
@@ -44,6 +44,7 @@
         'mobileExperienceRound.shapeDrawingRound': 'Game arrows',
         'mobileExperienceRound.standardButtons': 'Standard buttons',
         'mobileExperienceRound.invert': 'Swap user and clock',
+        'mobileExperienceRound.flipBoard': 'Tap bottom clock to flip board',
         'shapeDrawingTitle': 'LiChess Tools - draw arrows and circles',
         'randomNextMoveTitle': 'LiChess Tools - random move',
         'colorCount.1': 'one',
@@ -66,6 +67,7 @@
         'mobileExperienceRound.shapeDrawingRound': 'S\u0103ge\u0163i \u00een joc',
         'mobileExperienceRound.standardButtons': 'Butoane standard',
         'mobileExperienceRound.invert': 'Inverseaz\u0103 user \u015fi ceas',
+        'mobileExperienceRound.flipBoard': 'Apas\u0103 ceasul de jos pentru rotire tabl\u0103',
         'shapeDrawingTitle': 'LiChess Tools - deseneaz\u0103 s\u0103ge\u0163i \u015Fi cercuri',
         'randomNextMoveTitle': 'LiChess Tools - mutare aleatoare',
         'colorCount.1': 'una',
@@ -335,6 +337,15 @@
             $('div.rcontrols div.ricons button.lichessTools-shapeDrawing').remove();
           }
         }
+      if (this.options.flipBoard) {
+        $('body.mobile .round__app .rclock-bottom').each((i,e)=>{
+          if (e.__initFlipBoard) return;
+          e.__initFlipBoard = true;
+          const handler = lt.getKeyHandler('f');
+          if (!handler) return;
+          $(e).on('click',handler);
+        });
+      }
     };
 
     clearShapes = () => {
@@ -363,6 +374,7 @@
         shapeDrawingRound: lt.isOptionSet(mobileExperienceRound, 'shapeDrawingRound'),
         standardButtons: lt.isOptionSet(mobileExperienceRound, 'standardButtons'),
         invert: lt.isOptionSet(mobileExperienceRound, 'invert'),
+        flipBoard: lt.isOptionSet(mobileExperienceRound, 'flipBoard'),
         colorCount: colorCount
       };
       const lichess = lt.lichess;
