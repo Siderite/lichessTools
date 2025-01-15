@@ -81,10 +81,10 @@
         'operationFailed': 'Operation failed!\r\n(invalid input)',
         'operationCancelled': 'Operation cancelled',
         'pastePGNs': 'drag/paste your PGNs here',
-        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value or "Index"=Value or "Invalid" or "Ply"(>,=,<)Value or "Eval"(>,=,<)Value"',
+        'searchPattern': 'Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, "Index"=Value, "Invalid", "Ply"(>,=,<)Value, "Eval"(>,=,<)Value", "Clock", "Shapes"',
         'foundGames': '%s games found',
         'foundGames:one': 'One game found',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Value,"Junk","Eval"(>,=,<)Value, "Eval", "Clock" in any combination (i.e. eval, junk, tags, ply 10, eval<0)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply" Value, "Junk", "Eval"(>,=,<)Value, "Eval", "Clock", "Shapes" in any combination (i.e. eval, junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText': 'PGN Editor',
         'sendToPgnEditorTitle': 'LiChess Tools - send to PGN Editor',
         'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation'
@@ -155,10 +155,10 @@
         'operationFailed': 'Opera\u0163iune e\u015Fuat\u0103!\r\n(con\u0163inut gre\u015Fit)',
         'operationCancelled': 'Opera\u0163iune anulat\u0103',
         'pastePGNs': 'trage/lipe\u015Fte PGNurile tale aici',
-        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag(=,*=)Valoare sau "Index"=Valoare sau "Invalid" sau "Ply"(>,=,<)Valoare sau "Eval"(>,=,<)Valoare',
+        'searchPattern': 'Introdu un text FEN sau PGN par\u0163ial (suport\u0103 \u00eenlocuitori *,?) sau Tag(=,*=)Valoare, "Index"=Valoare, "Invalid", "Ply"(>,=,<)Valoare, "Eval"(>,=,<)Valoare, "Clock", "Shapes"',
         'foundGames': '%s jocuri g\u0103site',
         'foundGames:one': 'Un joc g\u0103sit',
-        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply "Valoare, "Junk", "Eval"(>,=,<)Valoare, "Eval", "Clock" \u00een orice combina\u0163ie (ex: eval, junk, tags, ply 10, eval<0)',
+        'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply" Valoare, "Junk", "Eval"(>,=,<)Valoare, "Eval", "Clock", "Shapes" \u00een orice combina\u0163ie (ex: eval, junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText': 'Editor PGN',
         'sendToPgnEditorTitle': 'LiChess Tools - trimite la Editor PGN',
         'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess'
@@ -1307,8 +1307,9 @@
       }
       const cutClock = /clock/i.test(text);
       const cutEval = /eval/i.test(text);
-      if (cutClock || cutEval) {
-        await this.cutMeta(textarea, cutClock, cutEval);
+      const cutShapes = /shapes/i.test(text);
+      if (cutClock || cutEval || cutShapes) {
+        await this.cutMeta(textarea, cutClock, cutEval, cutShapes);
       }
     };
 
@@ -1332,7 +1333,7 @@
       this.countPgn();
     };
 
-    cutMeta = async (textarea, cutClock, cutEval) => {
+    cutMeta = async (textarea, cutClock, cutEval, cutShapes) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -1346,7 +1347,7 @@
       await lt.timeout(0);
 
       for (const game of games) {
-        this.cutMetaFromGame(game, cutClock, cutEval);
+        this.cutMetaFromGame(game, cutClock, cutEval, cutShapes);
       }
 
       this.writeGames(textarea, games);
@@ -1354,13 +1355,20 @@
       this.countPgn();
     };
 
-    cutMetaFromGame = (game, cutClock, cutEval) => {
+    cutMetaFromGame = (game, cutClock, cutEval, cutShapes) => {
       const lt = this.lichessTools;
 
       const cleanComments = (comments) => {
         const arr = [];
-        if (cutClock) arr.push('clk');
+        if (cutClock) {
+          arr.push('clk');
+          arr.push('emt');
+        }
         if (cutEval) arr.push('eval');
+        if (cutShapes) {
+          arr.push('csl');
+          arr.push('cal');
+        }
         const pattern = '\\[%(?:'+arr.join('|')+')[^\\]]+\\]';
         for (let i=0; i<comments.length; i++) {
           const comment = comments[i];
@@ -1658,6 +1666,12 @@
         } else {
           if (/^invalid[s]?$/i.test(search)) {
             searchMode = 'invalid';
+          } else
+          if (/^clock[s]?$/i.test(search)) {
+            searchMode = 'clock';
+          } else
+          if (/^shapes[s]?$/i.test(search)) {
+            searchMode = 'shapes';
           } else {
             m = /^\s*(?<tag>\w+)\s*(?<operator>=|\*=)\s*["]?(?<value>.*?)["]?$/.exec(search);
             if (m) {
@@ -1728,6 +1742,49 @@
         return found;
       };
 
+      const hasGameClock = (game) => {
+        let found = false;
+
+        const haveClock = comments=>{
+          return (comments||[]).find(c=>/\[%(?:clk|emt)[^\]]+\]/i.test(c));
+        };
+
+        if (haveClock(game.comments)) return true;
+        const traverse = (node) => {
+          if (found) return;
+          if (haveClock(node.data?.comments)) {
+            found = true;
+            return;
+          }
+          for (const child of node.children) {
+            traverse(child);
+          }
+        };
+        traverse(game.moves);
+        return found;
+      };
+
+      const hasGameShapes = (game) => {
+        let found = false;
+
+        const haveShapes = comments=>{
+          return (comments||[]).find(c=>/\[%(?:csl|cal)[^\]]+\]/i.test(c));
+        };
+
+        if (haveShapes(game.comments)) return true;
+        const traverse = (node) => {
+          if (found) return;
+          if (haveShapes(node.data?.comments)) {
+            found = true;
+            return;
+          }
+          for (const child of node.children) {
+            traverse(child);
+          }
+        };
+        traverse(game.moves);
+        return found;
+      };
 
       let gameIndex = 0;
       const foundGames = [];
@@ -1794,6 +1851,12 @@
               break;
             case 'eval':
               found = isGameEval(game, evalOperator, evalNumber);
+              break;
+            case 'clock':
+              found = hasGameClock(game);
+              break;
+            case 'shapes':
+              found = hasGameShapes(game);
               break;
           }
           if (found) {
