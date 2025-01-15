@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Jan
+
+- show total game duration
+
 13 Jan
 
 - hide individual side elements in lobby

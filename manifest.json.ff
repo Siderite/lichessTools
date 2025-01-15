@@ -151,6 +151,7 @@
         "tools/blogHistory/tool.js",
         "tools/extraPieceSets/tool.js",
         "tools/quickActions/tool.js",
+        "tools/totalGameTime/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -261,6 +262,7 @@
         "tools/blogHistory/tool.css",
         "tools/extraPieceSets/tool.css",
         "tools/quickActions/tool.css",
+        "tools/totalGameTime/tool.css",
 
         "tools/tvOptions/tool.css",
 

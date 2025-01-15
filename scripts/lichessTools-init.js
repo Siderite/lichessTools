@@ -119,6 +119,7 @@ lichessTools.loadTool(LiChessTools.Tools.PuzzleOptions);
 lichessTools.loadTool(LiChessTools.Tools.BlogHistory);
 lichessTools.loadTool(LiChessTools.Tools.ExtraPieceSets);
 lichessTools.loadTool(LiChessTools.Tools.QuickActions);
+lichessTools.loadTool(LiChessTools.Tools.TotalGameTime);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
