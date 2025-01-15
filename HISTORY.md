@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - show total game duration
 - cut shapes in PGN Editor
+- search games by clock or shapes in PGN Editor
 
 13 Jan
 

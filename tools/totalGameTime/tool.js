@@ -21,7 +21,7 @@
       },
       'ro-RO': {
         'options.play': 'Joc',
-        'options.totalGameTime': 'Arat\u0103 durata total\u0103 a jocului',
+        'options.totalGameTime': 'Afi\u015feaz\u0103 durata total\u0103 a jocului',
         'durationLabelTitle': 'LiChess Tools - durata total\u0103 a jocului',
         'durationLabelText': 'Durata total\u0103: %s'
       }
