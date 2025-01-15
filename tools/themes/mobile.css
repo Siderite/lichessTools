@@ -20,6 +20,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile {
     grid-template-rows: auto;
   }
 
+  body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .analyse__moves {
+    max-height: 25em;
+  }
+
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour):has(.action-menu) .analyse__underboard,
@@ -37,7 +41,7 @@ body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-t
 
 body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .analyse__moves {
   flex-basis: max-content;
-  max-height: 25em;
+  max-height: var(--board-size);
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile main.analyse.has-players:not(.has-relay-tour) .main-board {

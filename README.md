@@ -118,6 +118,12 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - link to current Analysis board
 - show player rating deviation
 - game custom time alerts
+- persist last blog view
+- puzzle timer
+- show puzzle total points per session
+- extra piece sets
+- a followers page
+- quick actions: flip board, request server analysis
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:

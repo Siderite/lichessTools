@@ -1,0 +1,30 @@
+/* Grid around squares */
+
+body.lichessTools.lichessTools-theme_gridBoard .is2d div.cg-wrap cg-board::before {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgODAwIDgwMCI+CiAgPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI4MDAiIGZpbGw9Im5vbmUiIC8+CiAgPHBhdGggZD0iCiAgICBNMTAwIDAgTDEwMCA4MDAKICAgIE0yMDAgMCBMMjAwIDgwMAogICAgTTMwMCAwIEwzMDAgODAwCiAgICBNNDAwIDAgTDQwMCA4MDAKICAgIE01MDAgMCBMNTAwIDgwMAogICAgTTYwMCAwIEw2MDAgODAwCiAgICBNNzAwIDAgTDcwMCA4MDAKICAgIAogICAgTTAgMTAwIEw4MDAgMTAwCiAgICBNMCAyMDAgTDgwMCAyMDAKICAgIE0wIDMwMCBMODAwIDMwMAogICAgTTAgNDAwIEw4MDAgNDAwCiAgICBNMCA1MDAgTDgwMCA1MDAKICAgIE0wIDYwMCBMODAwIDYwMAogICAgTTAgNzAwIEw4MDAgNzAwCiAgIiBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEiIC8+Cjwvc3ZnPg==),var(--board-background);
+}
+
+/* source SVG
+
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="none" />
+  <path d="
+    M100 0 L100 800
+    M200 0 L200 800
+    M300 0 L300 800
+    M400 0 L400 800
+    M500 0 L500 800
+    M600 0 L600 800
+    M700 0 L700 800
+    
+    M0 100 L800 100
+    M0 200 L800 200
+    M0 300 L800 300
+    M0 400 L800 400
+    M0 500 L800 500
+    M0 600 L800 600
+    M0 700 L800 700
+  " fill="none" stroke="black" stroke-width="1" />
+</svg>
+
+*/

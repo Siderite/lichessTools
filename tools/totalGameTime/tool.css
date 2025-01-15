@@ -1,0 +1,11 @@
+body.lichessTools #movetimes-chart-container:has(div.lichessTools-totalGameTime) {
+  position: relative;
+}
+
+body.lichessTools div.lichessTools-totalGameTime {
+  position:absolute;
+  bottom: 0;
+  right: 1.5em;
+  pointer-events: none;
+  font-family: Roboto, sans-serif;
+}

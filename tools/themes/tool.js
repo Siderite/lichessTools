@@ -8,7 +8,7 @@
         name: 'themes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove'/*, 'noGrab'*/],
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard'/*, 'noGrab'*/],
         defaultValue: '',
         advanced: true
       }
@@ -33,7 +33,8 @@
         'themes.gameMoveList': 'Flexible game move list',
         'themes.fatGauge': 'Thick analysis gauge',
         'themes.fatMove': 'Larger analysis move font',
-        'themes.slimmerArrows': '... slimmer'
+        'themes.slimmerArrows': '... slimmer',
+        'themes.gridBoard': 'Grid board squares'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -53,21 +54,62 @@
         'themes.gameMoveList': 'List\u0103 mut\u0103ri flexibil\u0103 \u00een joc',
         'themes.fatGauge': 'Bar\u0103 analiz\u0103 groas\u0103',
         'themes.fatMove': 'Text mai mare la mut\u0103ri',
-        'themes.slimmerArrows': '... \u015fi mai sub\u0163iri'
+        'themes.slimmerArrows': '... \u015fi mai sub\u0163iri',
+        'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei'
       }
     }
 
-    async start() {
+    
+
+    checkBody = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const value = lt.currentOptions.getValue('themes');
-      this.logOption('Themes', value || 'none');
+      const board = $('body .is2d div.cg-wrap cg-board')[0];
+      if (this.dataBoard != $('body').attr('data-board') || this.board != board) {
+        this.applyThemes();
+        this.dataBoard = $('body').attr('data-board');
+        this.board = board;
+      }
+    };
+
+    setBoardVariables = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const board = $('body .is2d div.cg-wrap cg-board');
+      if (board.length) {
+        const styles = lt.global.getComputedStyle(board[0], '::before');
+        const backgroundImage = styles.getPropertyValue('background-image');
+        lt.global.document.documentElement.style.setProperty('--board-background', backgroundImage||'unset');
+      }
+    }
+
+    applyThemes = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const existingThemes = [...$('body').prop('classList')]
         .filter(c => c.startsWith('lichessTools-theme_'));
-      const configuredThemes = (value || '').split(',').map(t => 'lichessTools-theme_' + t);
+      const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
       $('body')
-        .removeClass(existingThemes.join(' '))
+        .removeClass(existingThemes.join(' '));
+      this.setBoardVariables();
+      $('body')
         .addClass(configuredThemes.join(' '));
+    };
+
+    async start() {
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('themes');
+      this.logOption('Themes', value || 'none');
+      this.themes = value;
+      const $ = lt.$;
+      $('body').observer()
+        .on('body, .main-board cg-board',this.checkBody,{
+          childList: false,
+          subtree: false,
+          attributes: true,
+          attributeFilter: ['data-board','class']
+        });
+      this.applyThemes();
     }
 
   }

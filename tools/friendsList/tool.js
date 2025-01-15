@@ -49,7 +49,10 @@
         'daysText': '%s days',
         'hoursText': '%s hrs',
         'minutesText': '%s mins',
-        'timeText': '%s ago'
+        'timeText': '%s ago',
+        'followersText': 'Followers',
+        'followersTitle': 'LiChess Tools - players following you',
+        'followersNumberTitle': '%s followers'
       },
       'ro-RO': {
         'onlineFriends': '%s prieteni online',
@@ -77,7 +80,10 @@
         'daysText': '%s zile',
         'hoursText': '%s ore',
         'minutesText': '%s minute',
-        'timeText': 'acum %s'
+        'timeText': 'acum %s',
+        'followersText': 'Urm\u0103ritori',
+        'followersTitle': 'LiChess Tools - juc\u0103tori care te urm\u0103resc',
+        'followersNumberTitle': '%s urm\u0103ritori'
       }
     }
 
@@ -306,6 +312,11 @@
       }
     };
 
+    isFollowersPage = ()=>{
+      const lt = this.lichessTools;
+      return lt.global.location.hash == '#followers';
+    };
+
     rows = {};
     friends = {};
     updateFriendsPageDirect = async () => {
@@ -315,15 +326,27 @@
       const trans = lt.translator;
       const myName = lt.getUserId();
       if (!myName) return;
-      const isFavorites = lt.isFavoriteOpponentsPage();
-      if (!lt.isFriendsPage() && !isFavorites) return;
       if (!this.options.liveFriendsPage) return;
+      if (!this.isLivePage) return;
+      const isFavoritesOrBlocksOrFollowers = !this.isFriendsPage;
       if (lt.global.document.hidden) {
-        lt.global.requestAnimationFrame(lt.debounce(this.updateFriendsPage, 500));
+        lt.global.requestAnimationFrame(this.updateFriendsPage);
         return;
       }
-      if (!$('.lichessTools-liveButtons').length) {
-        $('<div>')
+      let header = $('.lichessTools-livePageHeader');
+      if (!header.length) {
+        header = $('<div class="lichessTools-livePageHeader">')
+          .insertAfter('main.box div.box__top');
+      }
+      if (!isFavoritesOrBlocksOrFollowers && !$('.lichessTools-followers',header).length) {
+        $('<a class="lichessTools-followers">')
+          .attr('href','/@/'+myName+'/following#followers')
+          .attr('title',trans.noarg('followersTitle'))
+          .text(trans.noarg('followersText'))
+          .prependTo(header);
+      }
+      if (!$('.lichessTools-liveButtons',header).length) {
+        const liveButtons = $('<div>')
           .addClass('lichessTools-liveButtons')
           .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.Antichess)}" data-role="hideInactive">`)
             .attr('title', trans.noarg('hideInactiveTitle'))
@@ -342,14 +365,17 @@
             .on('click', () => {
               $('main').toggleClass('lichessTools-hideNotPlaying');
               this.scrollIfNeeded();
-            }))
-          .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.BellOutline)}" data-role="hideMuted">`)
-            .attr('title', trans.noarg('hideMutedTitle'))
-            .on('click', () => {
-              $('main').toggleClass('lichessTools-hideMuted');
-              this.scrollIfNeeded();
-            }))
-          .insertAfter('main.box div.box__top');
+            }));
+        if (!isFavoritesOrBlocksOrFollowers) {
+          liveButtons
+            .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.BellOutline)}" data-role="hideMuted">`)
+              .attr('title', trans.noarg('hideMutedTitle'))
+              .on('click', () => {
+                $('main').toggleClass('lichessTools-hideMuted');
+                this.scrollIfNeeded();
+              }))
+          .appendTo(header);
+        }
       }
       const watchGamesTitle = trans.noarg('watchGames');
       const enablePlayingAlertTitle = trans.noarg('enablePlayAlert');
@@ -362,7 +388,7 @@
       $('tr', table).each((i, tr) => {
         const row = $(tr);
         let actions = $('div.relation-actions', tr);
-        if (!actions.length) {
+        if (!actions.length && !row.is('.pager')) {
           actions = $('<div class="relation-actions">');
           $('<td>')
             .append(actions)
@@ -380,7 +406,7 @@
             .attr('title', watchGamesTitle)
             .prependTo(actions);
         }
-        if (hasAlerts && !actions.find('a.lichessTools-mute')[0]) {
+        if (!isFavoritesOrBlocksOrFollowers && hasAlerts && !actions.find('a.lichessTools-mute')[0]) {
           $(`<a class="text lichessTools-mute" data-icon="${lt.icon.toEntity(lt.icon.BellOutline)}"></a>`)
             .attr('title', mutePlayingAlertTitle)
             .on('click', ev => {
@@ -399,7 +425,7 @@
       });
       let secondUpdate = false;
       const hasPages = !!$('tr.pager', table).length;
-      if (!isFavorites && !hasPages) {
+      if (!isFavoritesOrBlocksOrFollowers && !hasPages) {
         for (const user of this.user_data.online) {
           let row = this.rows[user];
           if (row) continue;
@@ -619,6 +645,64 @@
       }
     };
 
+    hashchange = async (ev) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const table = $('table.slist');
+      if (!table.length) return;
+      const userId = lt.getUserId();
+      if (this.isFollowersPage()) {
+        if (!table[0]._followersPage) {
+          if (ev) {
+            lt.global.location.reload();
+            return;
+          }
+          table[0]._followersPage = 1;
+          const tbody = table.find('tbody').empty();
+          const f = (followers)=>{
+            if (followers.length) {
+              for (const follower of followers) {
+                $(`<tr class="paginated"><td><a class="user-link ulpt" href="/@/${follower.user.id}"><i class="line"></i>${follower.user.name}</a></td></tr>`)
+                  .appendTo(tbody);
+              }
+              if (followers.nextPage) {
+                table[0]._followersPage = followers.nextPage;
+                $('<tr class="lichessTools-pager"><th><a>&#x2398;</a></th></tr>')
+                  .appendTo(tbody)
+                  .find('a')
+                  .attr('href','/@/TotalNoob69/followers?page='+followers.nextPage)
+                  .on('click',async (ev)=>{
+                    ev.preventDefault();
+                    $('.lichessTools-pager',tbody).remove();
+                    followers = await lt.api.relations.getFollowers(followers.nextPage,1);
+                    await f(followers);
+                  });
+              };
+            }
+          };
+          const followers = await lt.api.relations.getFollowers(1,1);
+          $('.box__top h1').replaceText(trans.pluralSame('followersNumberTitle',followers?.nbResults || 0));
+          f(followers);
+        }
+      } else {
+        if (table[0]._followersPage) {
+          lt.global.location.reload();
+          return;
+        }
+      }
+      this.updateFriendsPageDirect();
+    };
+
+    onScroll = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const pager = $('.lichessTools-pager');
+      if (lt.inViewport(pager)) {
+        pager.find('a').trigger('click');
+      }
+    }
+
     menuParent = '#topnav';
 
     followingOnlinesRequests = 0;
@@ -643,20 +727,25 @@
       }
       const setInterval = lt.global.setInterval;
       const clearInterval = lt.global.clearInterval;
+      this.isFriendsPage = lt.isFriendsPage() && !this.isFollowersPage();
+      this.isLivePage = lt.isFriendsPage() || lt.isFavoriteOpponentsPage() || lt.isBlockedPlayersPage() || this.isFollowersPage();
 
       lt.uiApi.onlineFriends.events.off('onlines', this.following_onlines);
       lt.uiApi.onlineFriends.events.off('enters', this.enters);
       lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
       lt.uiApi.onlineFriends.events.off('playing', this.playing);
       lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
-      if (friendsBoxMode == 'menu' || friendsBoxMode == 'button' || (liveFriendsPage && lt.isFriendsPage())) {
+      if (friendsBoxMode == 'menu' || friendsBoxMode == 'button' || (this.options.liveFriendPage && this.isFriendsPage)) {
         lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
         lt.uiApi.onlineFriends.events.on('enters', this.enters);
         lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
         lt.uiApi.onlineFriends.events.on('playing', this.playing);
         lt.uiApi.onlineFriends.events.on('stopped_playing', this.stopped_playing);
       }
-      if (lt.isFriendsPage()) {
+      
+      $(lt.global).off('hashchange', this.hashchange);
+      $(lt.global).off('scroll',this.onScroll);
+      if (this.isLivePage) {
         lt.pubsub.off('content-loaded', this.updateFriendsPage);
         if (liveFriendsPage) {
           lt.pubsub.on('content-loaded', this.updateFriendsPage);
@@ -666,12 +755,14 @@
           $('.lichessTools-mute').remove();
           $('.lichessTools-tv').remove();
         }
-        this.updateFriendsPage();
+        $(lt.global).on('hashchange', this.hashchange);
+        this.hashchange();
+        $(lt.global).on('scroll',this.onScroll);
       }
 
       this.followingOnlinesRequests = 0;
       clearInterval(this.onlinesInterval);
-      if (this.options.friendsBoxMode || (this.options.liveFriendsPage && lt.isFriendsPage()) || this.options.friendsPlaying) {
+      if (this.options.friendsBoxMode || (this.options.liveFriendsPage && this.isFriendsPage) || this.options.friendsPlaying) {
         this.onlinesInterval = setInterval(() => {
           if (!this.onlinesInterval) return;
           if (lt.global.document.visibilityState == 'hidden') return;

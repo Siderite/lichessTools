@@ -128,10 +128,11 @@
       }
       const hasTimeAlert = this.options.times.find(t=>t.enabled);
       $('.round__app')
-        .removeObserver('soundOptions')
+        .observer()
+        .off('.rclock-bottom *',this.checkClock);
       if (hasTimeAlert) {
         $('.round__app')
-          .observer('soundOptions')
+          .observer()
           .on('.rclock-bottom *',this.checkClock);
       }
     }

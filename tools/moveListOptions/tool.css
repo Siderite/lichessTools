@@ -2,6 +2,10 @@ body.lichessTools .tview2:not(.lichessTools-indentedVariations) index.lichessToo
   display: none;
 }
 
+/* weird case with changing inline mode and collapse/expand */
+body.lichessTools .tview2 index.lichessTools-index + index {
+  display: none;
+}
 
 body.lichessTools .tview2.lichessTools-indentedVariations inline {
   padding-left: 7px;

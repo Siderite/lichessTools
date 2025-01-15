@@ -33,8 +33,7 @@
       const puzzleId = this.getPuzzleId();
       if (!puzzleId) return;
       $('body')
-        .removeObserver('emitPuzzleChange')
-        .observer('emitPuzzleChange')
+        .observer()
         .on('.puzzle__tools',this.processPuzzle);
       lt.global.setTimeout(this.processPuzzle,100);
     }

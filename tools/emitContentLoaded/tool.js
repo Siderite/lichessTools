@@ -28,8 +28,7 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       $('body')
-         .removeObserver('emitContentLoaded')
-         .observer('emitContentLoaded')
+         .observer()
          .on('*',this.detectNew,{ 
            subtree: true,
            childList: true, 

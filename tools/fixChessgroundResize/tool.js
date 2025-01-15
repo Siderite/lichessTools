@@ -36,6 +36,8 @@
       if (JSON.stringify(offset) != JSON.stringify(this.offset)) {
         this.offset = offset;
         lt.debug && lt.global.console.debug('Firing board resize event');
+        const boardSize = $('.main-board cg-container').css('width') || $('.main-board cg-container').width()+'px';
+        lt.global.document.documentElement.style.setProperty('--board-size', boardSize);
         $('body').trigger('resize');
       }
     }

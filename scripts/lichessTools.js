@@ -13,174 +13,174 @@
     lichess = null;
 
     icon = {
-          // see https://github.com/lichess-org/lila/blob/master/modules/ui/src/main/Icon.scala
-          CautionTriangle: '\ue000',
-          Link: '\ue001',
-          Rabbit: '\ue002',
-          ShareIos: '\ue003',
-          ShareAndroid: '\ue004',
-          Gear: '\ue005',
-          DieSix: '\ue006',
-          FlagKingHill: '\ue007',
-          FlameBlitz: '\ue008',
-          Feather: '\ue009',
-          Turtle: '\ue00a',
-          FlagChessboard: '\ue00b',
-          ArcheryTarget: '\ue00c',
-          ThreeCheckStack: '\ue00d',
-          UploadCloud: '\ue00e',
-          ExternalArrow: '\ue00f',
-          AnalogTv: '\ue010',
-          RssFeed: '\ue011',
-          StudyBoard: '\ue012',
-          Shield: '\ue013',
-          InkQuill: '\ue014',
-          Target: '\ue015',
-          Crown: '\ue016',
-          LineGraph: '\ue017',
-          GraduateCap: '\ue018',
-          PaperAirplane: '\ue019',
-          ZoomIn: '\ue01a',
-          Expand: '\ue01b',
-          Atom: '\ue01c',
-          List: '\ue01d',
-          Antichess: '\ue01e',
-          Microscope: '\ue01f',
-          ChasingArrows: '\ue020',
-          CrownElite: '\ue021',
-          Funnel: '\ue022',
-          Checkmark: '\ue023',
-          InternalArrow: '\ue024',
-          PlayTriangle: '\ue025',
-          GreaterThan: '\ue026',
-          LessThan: '\ue027',
-          DiscBig: '\ue028',
-          DiscBigOutline: '\ue029',
-          X: '\ue02a',
-          ArrowDownRight: '\ue02b',
-          ArrowUpRight: '\ue02c',
-          PlusButton: '\ue02d',
-          MinusButton: '\ue02e',
-          Fire: '\ue02f',
-          DownTriangle: '\ue030',
-          UpTriangle: '\ue031',
-          Bullet: '\ue032',
-          Swords: '\ue033',
-          JumpLast: '\ue034',
-          JumpFirst: '\ue035',
-          JumpNext: '\ue036',
-          JumpPrev: '\ue037',
-          Pause: '\ue038',
-          Hamburger: '\ue039',
-          Globe: '\ue03a',
-          Book: '\ue03b',
-          BarGraph: '\ue03c',
-          Keypad: '\ue03d',
-          Berserk: '\ue03e',
-          Padlock: '\ue03f',
-          FlagOutline: '\ue040',
-          BubbleSpeech: '\ue041',
-          BubbleConvo: '\ue042',
-          Envelope: '\ue043',
-          Group: '\ue044',
-          Trophy: '\ue045',
-          ThumbsUp: '\ue046',
-          Back: '\ue047',
-          CautionCircle: '\ue048',
-          NotAllowed: '\ue049',
-          RandomColor: '\ue04a',
-          Pencil: '\ue04b',
-          Cogs: '\ue04c',
-          Tag: '\ue04d',
-          Clock: '\ue04e',
-          Trash: '\ue04f',
-          User: '\ue050',
-          StarOutline: '\ue051',
-          Star: '\ue052',
-          MoreTriangle: '\ue053',
-          Eye: '\ue054',
-          Power: '\ue055',
-          Download: '\ue056',
-          Search: '\ue057',
-          Forward: '\ue058',
-          UltraBullet: '\ue059',
-          Storm: '\ue05a',
-          Tools: '\ue05b',
-          Bullseye: '\ue05c',
-          Agent: '\ue05d',
-          Mic: '\ue05e',
-          BarChart: '\ue05f',
-          InfoCircle: '\ue060',
-          ScreenDesktop: '\ue061',
-          PhoneMobile: '\ue062',
-          Multiboard: '\ue063',
-          HeartOutline: '\ue064',
-          FlagRacingKings: '\ue065',
-          Crazyhouse: '\ue066',
-          Tshirt: '\ue067',
-          Heart: '\ue068',
-          RadioTower: '\ue069',
-          BellOutline: '\ue06a',
-          Disc: '\ue06b',
-          Wings: '\ue06c',
-          DiscOutline: '\ue06d',
-          Handset: '\ue06e',
-          ArrowThruApple: '\ue06f',
-          Clipboard: '\ue070',
-          Move: '\ue071',
-          Ibeam: '\ue072',
-          Cancel: '\ue073',
-          Voice: '\ue074',
-          Mask: '\ue075',
-          OneHalf: '\ue076',
-          Mute: '\ue077',
-          Reload: '\ue078',
-          AccountCircle: '\ue079',
-          Logo: '\ue07a',
-          Switch: '\ue07b',
+      // see https://github.com/lichess-org/lila/blob/master/modules/ui/src/main/Icon.scala
+      CautionTriangle: '\ue000',
+      Link: '\ue001',
+      Rabbit: '\ue002',
+      ShareIos: '\ue003',
+      ShareAndroid: '\ue004',
+      Gear: '\ue005',
+      DieSix: '\ue006',
+      FlagKingHill: '\ue007',
+      FlameBlitz: '\ue008',
+      Feather: '\ue009',
+      Turtle: '\ue00a',
+      FlagChessboard: '\ue00b',
+      ArcheryTarget: '\ue00c',
+      ThreeCheckStack: '\ue00d',
+      UploadCloud: '\ue00e',
+      ExternalArrow: '\ue00f',
+      AnalogTv: '\ue010',
+      RssFeed: '\ue011',
+      StudyBoard: '\ue012',
+      Shield: '\ue013',
+      InkQuill: '\ue014',
+      Target: '\ue015',
+      Crown: '\ue016',
+      LineGraph: '\ue017',
+      GraduateCap: '\ue018',
+      PaperAirplane: '\ue019',
+      ZoomIn: '\ue01a',
+      Expand: '\ue01b',
+      Atom: '\ue01c',
+      List: '\ue01d',
+      Antichess: '\ue01e',
+      Microscope: '\ue01f',
+      ChasingArrows: '\ue020',
+      CrownElite: '\ue021',
+      Funnel: '\ue022',
+      Checkmark: '\ue023',
+      InternalArrow: '\ue024',
+      PlayTriangle: '\ue025',
+      GreaterThan: '\ue026',
+      LessThan: '\ue027',
+      DiscBig: '\ue028',
+      DiscBigOutline: '\ue029',
+      X: '\ue02a',
+      ArrowDownRight: '\ue02b',
+      ArrowUpRight: '\ue02c',
+      PlusButton: '\ue02d',
+      MinusButton: '\ue02e',
+      Fire: '\ue02f',
+      DownTriangle: '\ue030',
+      UpTriangle: '\ue031',
+      Bullet: '\ue032',
+      Swords: '\ue033',
+      JumpLast: '\ue034',
+      JumpFirst: '\ue035',
+      JumpNext: '\ue036',
+      JumpPrev: '\ue037',
+      Pause: '\ue038',
+      Hamburger: '\ue039',
+      Globe: '\ue03a',
+      Book: '\ue03b',
+      BarGraph: '\ue03c',
+      Keypad: '\ue03d',
+      Berserk: '\ue03e',
+      Padlock: '\ue03f',
+      FlagOutline: '\ue040',
+      BubbleSpeech: '\ue041',
+      BubbleConvo: '\ue042',
+      Envelope: '\ue043',
+      Group: '\ue044',
+      Trophy: '\ue045',
+      ThumbsUp: '\ue046',
+      Back: '\ue047',
+      CautionCircle: '\ue048',
+      NotAllowed: '\ue049',
+      RandomColor: '\ue04a',
+      Pencil: '\ue04b',
+      Cogs: '\ue04c',
+      Tag: '\ue04d',
+      Clock: '\ue04e',
+      Trash: '\ue04f',
+      User: '\ue050',
+      StarOutline: '\ue051',
+      Star: '\ue052',
+      MoreTriangle: '\ue053',
+      Eye: '\ue054',
+      Power: '\ue055',
+      Download: '\ue056',
+      Search: '\ue057',
+      Forward: '\ue058',
+      UltraBullet: '\ue059',
+      Storm: '\ue05a',
+      Tools: '\ue05b',
+      Bullseye: '\ue05c',
+      Agent: '\ue05d',
+      Mic: '\ue05e',
+      BarChart: '\ue05f',
+      InfoCircle: '\ue060',
+      ScreenDesktop: '\ue061',
+      PhoneMobile: '\ue062',
+      Multiboard: '\ue063',
+      HeartOutline: '\ue064',
+      FlagRacingKings: '\ue065',
+      Crazyhouse: '\ue066',
+      Tshirt: '\ue067',
+      Heart: '\ue068',
+      RadioTower: '\ue069',
+      BellOutline: '\ue06a',
+      Disc: '\ue06b',
+      Wings: '\ue06c',
+      DiscOutline: '\ue06d',
+      Handset: '\ue06e',
+      ArrowThruApple: '\ue06f',
+      Clipboard: '\ue070',
+      Move: '\ue071',
+      Ibeam: '\ue072',
+      Cancel: '\ue073',
+      Voice: '\ue074',
+      Mask: '\ue075',
+      OneHalf: '\ue076',
+      Mute: '\ue077',
+      Reload: '\ue078',
+      AccountCircle: '\ue079',
+      Logo: '\ue07a',
+      Switch: '\ue07b',
 
-          // LiChess Tools icons
-          ShowTranspositions: 'T',
-          FloppyDisk: '\uD83D\uDCBE',
-          LeftwardsDoubleHeadedArrow: '\u219E',
-          LeftwardsArrow: '\u2190',
-          DownwardsZigzagArrow: '\u21AF',
-          RightwardsArrow: '\u2192',
-          RightwardsDoubleHeadedArrow: '\u21A0',
-          SquareFourCorners: '\u26F6',
-          Mirror: '\uD83E\uDE9E',
-          NorthEastDoubleArrow: '\u21D7',
-          RightwardsPairedArrows: '\u21C9',
-          WhiteScissors: '\u2704',
-          BlackScissors: '\u2702',
-          CircledLatinCapitalLetterY: '\u24CE',
-          EditorialCoronis: '\u2E0E',
-          PushPin: '\uD83D\uDCCC',
-          WarningSign: '\u26A0',
-          CryingFace: '\uD83D\uDE22',
-          SlightlyFrowningFace: '\uD83D\uDE41',
-          NeutralFace: '\uD83D\uDE10',
-          SlightlySmilyingFace: '\uD83D\uDE42',
-          GrinningFaceWithSmilingEyes: '\uD83D\uDE01',
-          NorthEastArrowWithHook: '\u2924',
-          Comet: '\u2604',
-          WhiteChessKnight: '\u2658',
-          WhiteChessBishop: '\u2657',
-          WhiteChessRook: '\u2656',
-          WhiteChessQueen: '\u2655',
-          WhiteChessKing: '\u2654',
-          WhiteStar: '\u2606',
-          BulletPoint: '\u2022',
-          Ellipsis: '\u2026',
+      // LiChess Tools icons
+      ShowTranspositions: 'T',
+      FloppyDisk: '\uD83D\uDCBE',
+      LeftwardsDoubleHeadedArrow: '\u219E',
+      LeftwardsArrow: '\u2190',
+      DownwardsZigzagArrow: '\u21AF',
+      RightwardsArrow: '\u2192',
+      RightwardsDoubleHeadedArrow: '\u21A0',
+      SquareFourCorners: '\u26F6',
+      Mirror: '\uD83E\uDE9E',
+      NorthEastDoubleArrow: '\u21D7',
+      RightwardsPairedArrows: '\u21C9',
+      WhiteScissors: '\u2704',
+      BlackScissors: '\u2702',
+      CircledLatinCapitalLetterY: '\u24CE',
+      EditorialCoronis: '\u2E0E',
+      PushPin: '\uD83D\uDCCC',
+      WarningSign: '\u26A0',
+      CryingFace: '\uD83D\uDE22',
+      SlightlyFrowningFace: '\uD83D\uDE41',
+      NeutralFace: '\uD83D\uDE10',
+      SlightlySmilyingFace: '\uD83D\uDE42',
+      GrinningFaceWithSmilingEyes: '\uD83D\uDE01',
+      NorthEastArrowWithHook: '\u2924',
+      Comet: '\u2604',
+      WhiteChessKnight: '\u2658',
+      WhiteChessBishop: '\u2657',
+      WhiteChessRook: '\u2656',
+      WhiteChessQueen: '\u2655',
+      WhiteChessKing: '\u2654',
+      WhiteStar: '\u2606',
+      BulletPoint: '\u2022',
+      Ellipsis: '\u2026',
 
-          toEntity: function(s) {
-            let result='';
-            for (let i=0; i<s.length; i++) {
-              result+= '&#x'+s.charCodeAt(i).toString(16)+';';
-            }
-            return result;
-          }
-      };
+      toEntity: function(s) {
+        let result='';
+        for (let i=0; i<s.length; i++) {
+          result+= '&#x'+s.charCodeAt(i).toString(16)+';';
+        }
+        return result;
+      }
+    };
 
     getCentipawns = (info) => {
       if (!info) return;
@@ -893,11 +893,15 @@
     };
 
     isFriendsPage = () => {
-      return /\/following([\?#].*)?$/.test(this.global.location.href);
+      return /\/following([\?#].*)?$/.test(this.global.location.pathname);
     };
 
     isFavoriteOpponentsPage = () => {
-      return /\/player\/opponents\b/.test(this.global.location.href);
+      return /\/player\/opponents\b/.test(this.global.location.pathname);
+    };
+
+    isBlockedPlayersPage = () => {
+      return /\/rel\/blocks\b/.test(this.global.location.pathname);
     };
 
     findGlyphNode = (color, symbols) => {
@@ -1795,6 +1799,16 @@
           const lt = this.lichessTools;
           const data = await lt.net.json({ url: '/@/{userId}/perf/{timeControl}', args: { userId, timeControl } });
           return data;
+        },
+        getRatingHistory: async function (userId) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({ url: '/api/user/{userId}/rating-history', args: { userId } });
+          return data;
+        },
+        getActivity: async function (userId) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({ url: '/api/user/{userId}/activity', args: { userId } });
+          return data;
         }
       },
       game: {
@@ -1942,14 +1956,36 @@
       },
       relations: {
         lichessTools: this,
-        getFriends: async function () {
+        getFriends: async function (startPage = 1, count = 1000) {
           const lt = this.lichessTools;
           let result = [];
-          let page = await lt.net.json({ url: '/@/{userId}/following', args: { userId: lt.getUserId() } });
+          const userId = lt.getUserId();
+          if (!userId) return result;
+          let page = await lt.net.json({ url: '/@/{userId}/following?page={page}', args: { userId: userId, page: startPage } })
           while (page) {
             result=result.concat(page.paginator.currentPageResults);
-            page = page.paginator.nextPage
-              ? await lt.net.json({ url: '/@/{userId}/following?page={page}', args: { userId: lt.getUserId(), page: page.paginator.nextPage } })
+            result.nextPage = page.paginator.nextPage;
+            result.nbResults = page.paginator.nbResults;
+            count--;
+            page = count && result.nextPage
+              ? await lt.net.json({ url: '/@/{userId}/following?page={page}', args: { userId: userId, page: page.paginator.nextPage } })
+              : null;
+          }
+          return result;
+        },
+        getFollowers: async function (startPage = 1, count = 1000) {
+          const lt = this.lichessTools;
+          let result = [];
+          const userId = lt.getUserId();
+          if (!userId) return result;
+          let page = await lt.net.json({ url: '/@/{userId}/followers?page={page}', args: { userId: userId, page: startPage } })
+          while (page) {
+            result=result.concat(page.paginator.currentPageResults);
+            result.nextPage = page.paginator.nextPage;
+            result.nbResults = page.paginator.nbResults;
+            count--;
+            page = count && result.nextPage
+              ? await lt.net.json({ url: '/@/{userId}/followers?page={page}', args: { userId: userId, page: page.paginator.nextPage } })
               : null;
           }
           return result;

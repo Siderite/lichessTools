@@ -8,8 +8,8 @@
         name: 'mainPageElements',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['side', 'app', 'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours'/*, 'leader', 'winner'*/, 'about'],
-        defaultValue: 'side,app,table,tv,blog,puzzle,support,feed,tours,about', //,leader,winner
+        possibleValues: ['side', 'side_streams', 'side_spotlights', 'side_timeline', 'app','app_bullet','app_blitz','app_rapid','app_classical', 'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours', 'about'],
+        defaultValue: 'side,app,table,app_bullet,app_blitz,app_rapid,app_classical,tv,blog,puzzle,support,feed,tours,about,side_streams,side_spotlights,side_timeline',
         advanced: true
       }
     ];
@@ -27,9 +27,14 @@
         'mainPageElements.support': 'Support',
         'mainPageElements.feed': 'Feed',
         'mainPageElements.tours': 'Tournaments',
-        'mainPageElements.leader': 'Leaderboard',
-        'mainPageElements.winner': 'Winners',
-        'mainPageElements.about': 'About'
+        'mainPageElements.about': 'About',
+        'mainPageElements.side_streams': 'Side:streams',
+        'mainPageElements.side_spotlights': 'Side:spotlights',
+        'mainPageElements.side_timeline': 'Side:timeline',
+        'mainPageElements.app_bullet': 'Play:bullet',
+        'mainPageElements.app_blitz': 'Play:blitz',
+        'mainPageElements.app_rapid': 'Play:rapid',
+        'mainPageElements.app_classical': 'Play:classical'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -43,9 +48,14 @@
         'mainPageElements.support': 'Suport',
         'mainPageElements.feed': 'Nout\u0103\u0163i',
         'mainPageElements.tours': 'Turnee',
-        'mainPageElements.leader': 'Clasament',
-        'mainPageElements.winner': 'C\u00e2\u015ftig\u0103tori',
-        'mainPageElements.about': 'Despre'
+        'mainPageElements.about': 'Despre',
+        'mainPageElements.side_streams': 'Lateral:stream-uri',
+        'mainPageElements.side_spotlights': 'Lateral:prim-plan',
+        'mainPageElements.side_timeline': 'Lateral:activitate recent\u0103',
+        'mainPageElements.app_bullet': 'Joc:bullet',
+        'mainPageElements.app_blitz': 'Joc:blitz',
+        'mainPageElements.app_rapid': 'Joc:rapid',
+        'mainPageElements.app_classical': 'Joc:clasic'
       }
     }
 
@@ -62,8 +72,19 @@
       const $ = lt.$;
       const trans = lt.translator;
       this.options = {
-        side: lt.isOptionSet(value, 'side'),
+        get side() {
+          return lt.isOptionSet(value, 'side')
+                   ? this.side_streams || this.side_spotlights || this.side_timeline
+                   : false;
+        },
+        side_streams: lt.isOptionSet(value, 'side_streams'),
+        side_spotlights: lt.isOptionSet(value, 'side_spotlights'),
+        side_timeline: lt.isOptionSet(value, 'side_timeline'),
         app: lt.isOptionSet(value, 'app'),
+        app_bullet: lt.isOptionSet(value, 'app_bullet'),
+        app_blitz: lt.isOptionSet(value, 'app_blitz'),
+        app_rapid: lt.isOptionSet(value, 'app_rapid'),
+        app_classical: lt.isOptionSet(value, 'app_classical'),
         table: lt.isOptionSet(value, 'table'),
         tv: lt.isOptionSet(value, 'tv'),
         blog: lt.isOptionSet(value, 'blog'),
@@ -71,16 +92,14 @@
         support: lt.isOptionSet(value, 'support'),
         feed: lt.isOptionSet(value, 'feed'),
         tours: lt.isOptionSet(value, 'tours'),
-        leader: lt.isOptionSet(value, 'leader'),
-        winner: lt.isOptionSet(value, 'winner'),
         about: lt.isOptionSet(value, 'about'),
         get allSet() {
           return this.side && this.app && this.table && this.tv && this.blog &&
-            this.puzzle && this.support && this.feed && this.tours && this.leader && this.winner && this.about;
+            this.puzzle && this.support && this.feed && this.tours && this.about;
         },
         get noneSet() {
           return !this.side && !this.app && !this.table && !this.tv && !this.blog &&
-            !this.puzzle && !this.support && !this.feed && !this.tours && !this.leader && !this.winner && !this.about;
+            !this.puzzle && !this.support && !this.feed && !this.tours && !this.about;
         }
       };
       if (this.options.allSet || this.options.noneSet) {
@@ -88,8 +107,8 @@
           $('main')
             .removeClass('lichessTools-lobbyPlay')
             .css('grid-template-areas', '');
-          $('main').find('.lobby__side,.lobby__timeline,.lobby__app,main .lobby__table,.lobby__tv,.lobby__blog,.lobby__puzzle,.lobby__support,' +
-            '.lobby__feed,.lobby__tournaments-simuls,.lobby__leaderboard,.lobby__winners,.lobby__about').removeClass('lichessTools-hideElement');
+          $('main.lobby .lichessTools-hideElement')
+            .removeClass('lichessTools-hideElement');
         }
         return;
       }
@@ -122,8 +141,19 @@
           return res;
         });
         $('main').css('grid-template-areas', grid);
-        $('main .lobby__side,main .lobby__timeline').toggleClass('lichessTools-hideElement', !this.options.side);
+        $('main .lobby__side').toggleClass('lichessTools-hideElement', !this.options.side);
+        $('main .lobby__streams').toggleClass('lichessTools-hideElement', !this.options.side || !this.options.side_streams);
+        $('main .lobby__spotlights').toggleClass('lichessTools-hideElement', !this.options.side || !this.options.side_spotlights);
+        $('main .lobby__timeline').toggleClass('lichessTools-hideElement', !this.options.side || !this.options.side_timeline);
         $('main .lobby__app').toggleClass('lichessTools-hideElement', !this.options.app);
+        $('main .lobby__app').find('div[data-id="1+0"],div[data-id="2+1"]')
+          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_bullet);
+        $('main .lobby__app').find('div[data-id="3+0"],div[data-id="3+2"],div[data-id="5+0"],div[data-id="5+3"]')
+          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_blitz);
+        $('main .lobby__app').find('div[data-id="10+0"],div[data-id="10+5"],div[data-id="15+10"]')
+          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_rapid);
+        $('main .lobby__app').find('div[data-id="30+0"],div[data-id="30+20"]')
+          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_classical);
         $('main .lobby__table').toggleClass('lichessTools-hideElement', !this.options.table);
         $('main .lobby__tv').toggleClass('lichessTools-hideElement', !this.options.tv);
         $('main .lobby__blog').toggleClass('lichessTools-hideElement', !this.options.blog);
@@ -131,8 +161,6 @@
         $('main .lobby__support').toggleClass('lichessTools-hideElement', !this.options.support);
         $('main .lobby__feed').toggleClass('lichessTools-hideElement', !this.options.feed);
         $('main .lobby__tournaments-simuls').toggleClass('lichessTools-hideElement', !this.options.tours);
-        $('main .lobby__leaderboard').toggleClass('lichessTools-hideElement', !this.options.leader);
-        $('main .lobby__winners').toggleClass('lichessTools-hideElement', !this.options.winner);
         $('main .lobby__about').toggleClass('lichessTools-hideElement', !this.options.about);
       }
     }

@@ -19,8 +19,11 @@ body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__about {
 }
 
 body.lichessTools main.lobby .lobby__side.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__streams.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__spotlights.lichessTools-hideElement,
 body.lichessTools main.lobby .lobby__timeline.lichessTools-hideElement,
 body.lichessTools main.lobby .lobby__app.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__app div.lichessTools-hideElement,
 body.lichessTools main.lobby .lobby__table.lichessTools-hideElement:not(:has(dialog)),
 body.lichessTools main.lobby .lobby__tv.lichessTools-hideElement,
 body.lichessTools main.lobby .lobby__blog.lichessTools-hideElement,
@@ -39,13 +42,13 @@ body.lichessTools main.lobby .lobby__side {
   min-height: 300px;
 }
 
-@media(min-width: 499.3px) {
+@media (min-width: 499.3px) {
   body.lichessTools main.lobby .lobby__side {
     min-height: 400px
   }
 }
 
-@media(min-width: 799.3px) {
+@media (min-width: 799.3px) {
   body.lichessTools main.lobby .lobby__side {
     height: 600px;
     max-height: calc(100vh - calc(var(---site-header-height) + var(---site-header-margin) + var(---sticky-gap)) - var(---block-gap))

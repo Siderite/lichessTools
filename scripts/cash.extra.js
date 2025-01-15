@@ -58,8 +58,49 @@ cash.fn.attrSafe = function(attr,value) {
 class Observer {
   constructor(context) {
     this.context = context;
-    this.handlers = new Map();
-    this.keys = new Set();
+  }
+
+  getOrSetObserver(elem,selector,func,options) {
+    let observers = elem.__mutationObservers;
+    if (!observers) {
+      observers = [];
+      elem.__mutationObservers = observers;
+    }
+    let observer = observers.find(o=>o.__selector===selector && o.__func===func && JSON.stringify(o.__options)==JSON.stringify(options));
+    if (!observer) {
+      observer = new MutationObserver((mutations)=>{
+        const matches = mutations.filter(m=>{
+          const target = $(m.target);
+          if (target.is(selector)) return true;
+          if (!options.withNodes) return false;
+          const nodes = Array.from(m.addedNodes||[]).concat(Array.from(m.removedNodes||[]));
+          return nodes.find(n=>$(n).is(selector));
+        });
+        if (matches.length) {
+          func(matches);
+        }
+      });
+      observer.__selector = selector;
+      observer.__func = func;
+      observer.__option = options;
+      observer.dispose = function() {
+        observer.disconnect();
+        const index = observers.indexOf(observer);
+        if (index>=0) observers.splice(index,1);
+      };
+
+      observer.observe(elem,options);
+
+      observers.push(observer);
+    }
+    return observer;
+  }
+
+  getObservers(elem,selector,func) {
+    const observers = elem.__mutationObservers;
+    if (!observers) return [];
+    const result = observers.filter(o=>o.__selector===selector && (!func || o.__func===func));
+    return result;
   }
   
   on(selector,func,options) {
@@ -68,108 +109,30 @@ class Observer {
         subtree: true,
         childList: true, 
         attributes: false, 
-        characterData: true
+        attributeFilter: undefined,
+        characterData: true,
+        withNodes: true
       };
     }
-    this.off(selector,func);
-    const observer = new MutationObserver((mutations)=>{
-      const matches = mutations.filter(m=>{
-        const target = $(m.target);
-        if (target.is(selector)) return true;
-        const nodes = Array.from(m.addedNodes||[]).concat(Array.from(m.removedNodes||[]));
-        return nodes.find(n=>$(n).is(selector));
-      });
-      if (matches.length) {
-        func(matches);
-      }
-    });
-    let list = this.handlers.get(selector);
-    if (!list) {
-      list = []
-      this.handlers.set(selector,list);
-    }
-    list.push({
-      func: func,
-      observer: observer
-    });
-    this.context.each((i, e) => {
-      observer.observe(e,options);
+    this.context.each((i,e)=>{
+      const observer = this.getOrSetObserver(e,selector,func,options);
     });
     return this;
   }
   
   off(selector,func) {
-    let list = this.handlers.get(selector);
-    if (!list) return;
-    if (func) {
-      list.forEach(o=>{
-        if (o.func===func) { o.observer?.disconnect(); }
-      });
-      this.handlers.set(selector,list.filter(o=>o.func!==func));
-    } else {
-      list.forEach(o=>o.observer?.disconnect());
-      this.handlers.delete(selector);
-    }
+    this.context.each((i,e)=>{
+      const observers = this.getObservers(e,selector,func);
+      observers.forEach(o=>o.dispose());
+    });
     return this;
   }
-  
-  clear() {
-    for (const selector of this.handlers.keys()) {
-      this.off(selector);
-    }
-    this.handlers=new Map();
-    return this;
-  }
-
-  addKey(key) {
-    this.keys.add(key);
-  }
-
-  removeKey(key) {
-    this.keys.delete(key);
-  }
-  
-  hasKey(key) {
-    this.keys.has(key);
-  }
-  
-  hasKeys() {
-    return !!this.keys.size;
-  }
-
 }
+Observer.cache = new Map();
 
-cash.fn.observer = function (key) {
-  if (this.length!=1) {
-    throw new Error('Cannot find element to observe from');
-  }
-  let observer = this.prop('__observer');
-  if (!observer) {
-    observer = new Observer(this,ctx=>ctx.prop('__observer',null));
-    this.prop('__observer',observer);
-  }
-  observer.addKey(key);
+cash.fn.observer = function () {
+  const observer = new Observer(this);
   return observer;
-}
-
-cash.fn.hasObserver = function (key) {
-  const observer = this.prop('__observer');
-  return key
-   ? observer?.hasKey(key)
-   : !!observer;
-}
-
-cash.fn.removeObserver = function (key) {
-  const observer = this.prop('__observer');
-  if (!observer) return this;
-  if (key && observer.hasKey(key)) {
-    observer.removeKey(key);
-  }
-  if (!key || !observer.hasKeys()) {
-    observer?.clear();
-    this.removeProp('__observer');
-  }
-  return this;
 }
 
 cash.fn.replaceText = function(replacement) {

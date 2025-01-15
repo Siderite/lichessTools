@@ -6,7 +6,7 @@
         name: 'activeIcon',
         category: 'general',
         type: 'single',
-        possibleValues: [false, true],
+        possibleValues: [false, 'pawn', 'knight', 'king', 'circle'],
         defaultValue: false,
         advanced: true
       }
@@ -15,11 +15,19 @@
     intl = {
       'en-US': {
         'options.general': 'General',
-        'options.activeIcon': 'Active title icon'
+        'options.activeIcon': 'Active title icon',
+        'activeIcon.pawn': 'Pawn',
+        'activeIcon.knight': 'Knight',
+        'activeIcon.king': 'King',
+        'activeIcon.circle': 'Circle'
       },
       'ro-RO': {
         'options.general': 'General',
-        'options.activeIcon': 'Iconi\u0163\u0103 titlu activ\u0103'
+        'options.activeIcon': 'Iconi\u0163\u0103 titlu activ\u0103',
+        'activeIcon.pawn': 'Pion',
+        'activeIcon.knight': 'Cal',
+        'activeIcon.king': 'Rege',
+        'activeIcon.circle': 'Cerc'
       }
     }
 
@@ -27,7 +35,7 @@
     getIcon = (isBlack, isPlaying) => {
       const lt = this.lichessTools;
       const asset = lt.lichess.asset;
-      let key = '';
+      let key = this.options.icon || '';
       switch (isBlack) {
         case true: key += 'b'; break;
         case false: key += 'w'; break;
@@ -36,9 +44,15 @@
       key += isPlaying ? 'p' : 'n';
       let icon = this._iconCache[key];
       if (!icon) {
-        icon = isPlaying
-          ? asset.url(isBlack ? 'cursors/black-pawn.cur' : 'cursors/white-pawn.cur')
-          : asset.flairSrc('activity.lichess');
+        if (isPlaying) {
+          if (this.options.icon == 'circle') {
+            icon = asset.flairSrc(isBlack ? 'symbols.black-circle' : 'symbols.white-circle');
+          } else {
+            icon = asset.url(isBlack ? 'cursors/black-'+this.options.icon+'.cur' : 'cursors/white-'+this.options.icon+'.cur');
+          }
+        } else {
+          icon = asset.flairSrc('activity.lichess');
+        }
         this._iconCache[key] = icon;
       }
       return icon;
@@ -75,6 +89,9 @@
       const $ = lt.$;
       const value = lt.currentOptions.getValue('activeIcon');
       this.logOption('Active icon', value);
+      this.options = {
+        icon: value
+      };
       lt.global.clearInterval(this.interval);
       lt.uiApi.events.off('ply', this.handlePly);
       $('link[rel=icon][source=lichessTools]').remove();

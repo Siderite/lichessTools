@@ -95,7 +95,7 @@
         this.inTeam = true;
         return;
       }
-      const r = await lt.net.json({ url: '/api/team/of/{user}', args: { user } });
+      const r = await lt.api.team.getUserTeams(user);
       this.inTeam = !!r.find(t => t.id == this.teamId);
       if (this.inTeam && !joinedTime) {
         lt.global.localStorage.setItem('LiChessTools.joinedTeam', Date.now());

@@ -1,5 +1,33 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Jan
+
+- show total game duration
+- cut shapes in PGN Editor
+- search games by clock or shapes in PGN Editor
+
+13 Jan
+
+- hide individual side elements in lobby
+- hide individual play buttons in lobby
+- active icon selection
+- fast board flip for mobile devices
+- shape drawing and flip board in playing interactive
+
+12 Jan
+
+- more ceval lines
+
+11 Jan
+
+- quick actions tool
+
+10 Jan
+
+- followers page from Live friends page
+- grid board theme
+- puzzle streak and rating stats for last 7 days
+
 09 Jan
 
 - extra chess piece sets
