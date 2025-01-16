@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Jan
+
+- option to export shapes in PGN
+- ability to upgrade older options with the new preferences
+
 15 Jan
 
 - show total game duration
