@@ -21,6 +21,10 @@
       }
     ];
 
+    upgrades = [
+      { name:'exportPGNoptions', value:'exportShapes', version: '2.3.193' }
+    ];
+
     intl = {
       'en-US': {
         'options.analysis': 'Analysis',
