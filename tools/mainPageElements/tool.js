@@ -102,6 +102,17 @@
             !this.puzzle && !this.support && !this.feed && !this.tours && !this.about;
         }
       };
+      if (!this.options.side_streams && !this.options.side_spotlights && !this.options.side_timeline) {
+        this.options.side_streams = true;
+        this.options.side_spotlights = true;
+        this.options.side_timeline = true;
+      }
+      if (!this.options.app_bullet && !this.options.app_blitz && !this.options.app_rapid && !this.options.app_classical) {
+        this.options.app_bullet = true;
+        this.options.app_blitz = true;
+        this.options.app_rapid = true;
+        this.options.app_classical = true;
+      }
       if (this.options.allSet || this.options.noneSet) {
         if (this.initialGrid) {
           $('main')
