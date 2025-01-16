@@ -15,8 +15,8 @@
         name: 'exportPGNoptions',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['exportClock', 'exportEval', 'exportTags'],
-        defaultValue: 'exportClock,exportEval,exportTags',
+        possibleValues: ['exportClock', 'exportEval', 'exportTags', 'exportShapes'],
+        defaultValue: 'exportClock,exportEval,exportTags,exportShapes',
         advanced: true
       }
     ];
@@ -30,7 +30,8 @@
         'options.exportPGNoptions': 'Options for PGN exports',
         'exportPGNoptions.exportClock': 'Export clock values',
         'exportPGNoptions.exportEval': 'Export computer evaluation',
-        'exportPGNoptions.exportTags': 'Export PGN tags'
+        'exportPGNoptions.exportTags': 'Export PGN tags',
+        'exportPGNoptions.exportShapes': 'Export arrows and circles'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -40,7 +41,8 @@
         'options.exportPGNoptions': 'Op\u0163iuni pentru exporturi PGN',
         'exportPGNoptions.exportClock': 'Export\u0103 timp pe mut\u0103ri',
         'exportPGNoptions.exportEval': 'Export\u0103 evalu\u0103ri computer',
-        'exportPGNoptions.exportTags': 'Export\u0103 etichete PGN'
+        'exportPGNoptions.exportTags': 'Export\u0103 etichete PGN',
+        'exportPGNoptions.exportShapes': 'Export\u0103 s\u0103ge\u0163i \u015fi cercuri'
       }
     }
 
@@ -54,6 +56,7 @@
         exportClock: this.options.exportClock,
         exportEval: this.options.exportEval,
         exportTags: this.options.exportTags,
+        exportShapes: this.options.exportShapes,
         ...options
       };
       const lt = this.lichessTools;
@@ -99,19 +102,21 @@
           s += ' {' + comment.text + '}';
         }
         const groups = [];
-        for (const shape of node.shapes || []) {
-          if (shape.type == 'rank' || shape.customSvg) continue;
-          const type = shape.dest ? 'cal' : 'csl';
-          let group = groups.at(-1);
-          if (group?.type != type) {
-            group = {
-              type: type,
-              shapes: []
-            };
-            groups.push(group);
+        if (options.exportShapes) {
+          for (const shape of node.shapes || []) {
+            if (shape.type == 'rank' || shape.customSvg) continue;
+            const type = shape.dest ? 'cal' : 'csl';
+            let group = groups.at(-1);
+            if (group?.type != type) {
+              group = {
+                type: type,
+                shapes: []
+              };
+              groups.push(group);
+            }
+            const code = shape.brush[0].toUpperCase() + shape.orig + (shape.dest || '');
+            group.shapes.push(code);
           }
-          const code = shape.brush[0].toUpperCase() + shape.orig + (shape.dest || '');
-          group.shapes.push(code);
         }
         if (options.exportClock && node.clock) {
           const group = {
@@ -311,7 +316,8 @@
       this.options = {
         exportClock: lt.isOptionSet(opts, 'exportClock'),
         exportEval: lt.isOptionSet(opts, 'exportEval'),
-        exportTags: lt.isOptionSet(opts, 'exportTags')
+        exportTags: lt.isOptionSet(opts, 'exportTags'),
+        exportShapes: lt.isOptionSet(opts, 'exportShapes')
       };
 
       if (value) {
