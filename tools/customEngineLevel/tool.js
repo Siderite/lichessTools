@@ -58,8 +58,22 @@
           : this.options.depth;
         if (customDepth && analysis.ceval.enabled() && !analysis.ceval.showingCloud) {
           const elem = $('div.ceval div.engine span.info');
-          // lichess keeps a reference to the actual node
-          elem.replaceText(text=>text.replace(/(\d+)(?:\/\d+)?/, '$1/' + customDepth))
+          const pattern = lt.global.i18n?.site?.depthX('\\d+');
+          if (!pattern) {
+            lt.global.console.warn('Could not determine the pattern for depth regular expression');
+            // lichess keeps a reference to the actual node
+            elem.replaceText(text=>{
+              return text
+                       .replace(/(\d+)(?:\/\d+)+/, '$1/' + customDepth);
+            });
+          } else {
+            const reg = new RegExp('^('+pattern+')(?:\\/\\d+)?$');
+            // lichess keeps a reference to the actual node
+            elem.replaceText(text=>{
+              return text
+                       .replace(reg, '$1/' + customDepth);
+            });
+          }
         }
       }
 
