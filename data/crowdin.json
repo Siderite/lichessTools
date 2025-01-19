@@ -780,7 +780,8 @@
     "options.totalGameTime": "إظهار مجموع مدة اللعبة",
     "durationLabelTitle": "أدوات شطرنج الحياة - مجموع مدة اللعبة",
     "durationLabelText": "المدة الاجمالية: %s",
-    "exportPGNoptions.exportShapes": "تصدير الأسهم والدوائر"
+    "exportPGNoptions.exportShapes": "تصدير الأسهم والدوائر",
+    "options.linkToAnalysis": "رابط إلى التحليل الحالي"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1563,7 +1564,8 @@
     "options.totalGameTime": "Show total game duration",
     "durationLabelTitle": "LiChess Tools - total game duration",
     "durationLabelText": "Total duration: %s",
-    "exportPGNoptions.exportShapes": "Export arrows and circles"
+    "exportPGNoptions.exportShapes": "Export arrows and circles",
+    "options.linkToAnalysis": "Link to current analysis"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -2346,7 +2348,8 @@
     "options.totalGameTime": "Show total game duration",
     "durationLabelTitle": "LiChess Tools - total game duration",
     "durationLabelText": "Total duration: %s",
-    "exportPGNoptions.exportShapes": "Export arrows and circles"
+    "exportPGNoptions.exportShapes": "Export arrows and circles",
+    "options.linkToAnalysis": "Link to current analysis"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -2480,7 +2483,7 @@
     "options.keyShortcuts": "Raccourcis clavier supplémentaires",
     "options.showFlags": "Afficher les drapeaux du pays des joueurs",
     "options.shapeRank": "Afficher l'ordre des flèches et des cercles",
-    "options.showOpening": "Afficher les noms des ouverture des parties",
+    "options.showOpening": "Afficher les noms d'ouverture des parties",
     "openingNameTitle": "LiChess Tools - nom d'ouverture",
     "showOpening.showInBoard": "Pour un grand échiquier",
     "showOpening.showInMinigames": "Pour les mini-jeux",
@@ -3101,7 +3104,7 @@
     "followersText": "Suiveurs",
     "followersTitle": "LiChess Tools - joueurs qui vous suivent",
     "followersNumberTitle": "%s suiveurs",
-    "themes.gridBoard": "Cases de la grille",
+    "themes.gridBoard": "Grille pour l'échiquier",
     "daysStatsText": "Les derniers %s jours",
     "puzzleRatingWeekText": "Variation du classement problème : %s",
     "streaksWeekText": "Série de problèmes : %s",
@@ -3129,7 +3132,8 @@
     "options.totalGameTime": "Afficher la durée totale de la partie",
     "durationLabelTitle": "LiChess Tools - durée totale de la partie",
     "durationLabelText": "Durée totale : %s",
-    "exportPGNoptions.exportShapes": "Exporter des flèches et des cercles"
+    "exportPGNoptions.exportShapes": "Exporter des flèches et des cercles",
+    "options.linkToAnalysis": "Lien vers l'analyse actuelle"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -3912,7 +3916,8 @@
     "options.totalGameTime": "Gesamte Spieldauer anzeigen",
     "durationLabelTitle": "LiChess Tools - Gesamtspieldauer",
     "durationLabelText": "Gesamtdauer: %s",
-    "exportPGNoptions.exportShapes": "Pfeile und Kreise exportieren"
+    "exportPGNoptions.exportShapes": "Pfeile und Kreise exportieren",
+    "options.linkToAnalysis": "Link zur aktuellen Analyse"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -4695,7 +4700,8 @@
     "options.totalGameTime": "Pokaż całkowity czas trwania gry",
     "durationLabelTitle": "Narzędzia LiChess - łączny czas trwania gry",
     "durationLabelText": "Łączny czas trwania: %s",
-    "exportPGNoptions.exportShapes": "Eksportuj strzałki i okręgi"
+    "exportPGNoptions.exportShapes": "Eksportuj strzałki i okręgi",
+    "options.linkToAnalysis": "Link do bieżącej analizy"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -5478,7 +5484,8 @@
     "options.totalGameTime": "Mostrar duração total do jogo",
     "durationLabelTitle": "Ferramentas LiChess - duração total do jogo",
     "durationLabelText": "Duração total: %s",
-    "exportPGNoptions.exportShapes": "Exportar setas e círculos"
+    "exportPGNoptions.exportShapes": "Exportar setas e círculos",
+    "options.linkToAnalysis": "Link para a análise atual"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -6261,7 +6268,8 @@
     "options.totalGameTime": "Afișează durata totală a jocului",
     "durationLabelTitle": "LiChess Tools - durata totală a jocului",
     "durationLabelText": "Durata totală: %s",
-    "exportPGNoptions.exportShapes": "Exportă săgeţi şi cercuri"
+    "exportPGNoptions.exportShapes": "Exportă săgeţi şi cercuri",
+    "options.linkToAnalysis": "Link către analiza curentă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -7044,7 +7052,8 @@
     "options.totalGameTime": "Показать общую длительность игры",
     "durationLabelTitle": "Инструменты Жизни - общая продолжительность игры",
     "durationLabelText": "Общая продолжительность: %s",
-    "exportPGNoptions.exportShapes": "Экспорт стрелок и кругов"
+    "exportPGNoptions.exportShapes": "Экспорт стрелок и кругов",
+    "options.linkToAnalysis": "Ссылка на текущий анализ"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -7062,7 +7071,7 @@
     "welcomeToTeam": "¡Bienvenido al equipo de usuarios de LiChess!",
     "byeFromTeam": "¡Lo siento por verte ir!",
     "options.fixAbortController": "Corregir control de cancelación",
-    "options.fixChessgroundResize": "Fijar tamaño de ajedrez",
+    "options.fixChessgroundResize": "Fijar tamaño del ajedrez",
     "options.fixWakeLock": "Corregir WakeLock",
     "options.analysis": "Análisis",
     "options.study": "Estudio",
@@ -7084,20 +7093,20 @@
     "themes.justExplorer": "Sólo explorador",
     "themes.mobile": "Tema móvil",
     "themes.slimArrows": "Flechas finas",
-    "themes.flairX": "Flores de Nicer",
+    "themes.flairX": "Mejores estilos",
     "themes.lessIcons": "Menos iconos",
     "themes.nonStickyHeader": "Sin cabecera pegada",
-    "themes.noStudyChat": "No hay chat de estudio",
+    "themes.noStudyChat": "No hay chat en el estudio",
     "themes.pieceDrag": "Mejor arrastre de pieza",
     "themes.noGrab": "Sin cursor de agarrar",
     "options.cliCommands": "Comandos CLI",
     "options.command": "Comandos",
     "options.chessOps": "Soporte de Chessops",
-    "options.exportPGN": "Exportar PGN",
-    "options.stockfish": "Aceite",
+    "options.exportPGN": "Exportar el PGN",
+    "options.stockfish": "Stockfish",
     "options.stockfish-threads": "Hilos del motor de análisis de LiChess",
     "options.stockfish-hash": "Hash del motor de análisis de LiChess Herramientas (MB)",
-    "couldNotLoadStockfish": "¡No se pudo cargar Estocolmo!",
+    "couldNotLoadStockfish": "¡No se pudo cargar Stockfish!",
     "options.additionalGlyphs": "Glifos adicionales",
     "options.play": "Jugar",
     "options.quietModeAllTabs": "Modo de silencio en todas las pestañas",
@@ -7827,7 +7836,8 @@
     "options.totalGameTime": "Mostrar duración total del juego",
     "durationLabelTitle": "Herramientas de LiChess - duración total del juego",
     "durationLabelText": "Duración total: %s",
-    "exportPGNoptions.exportShapes": "Exportar flechas y círculos"
+    "exportPGNoptions.exportShapes": "Exportar flechas y círculos",
+    "options.linkToAnalysis": "Enlace al análisis actual"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -8610,6 +8620,7 @@
     "options.totalGameTime": "Show total game duration",
     "durationLabelTitle": "LiChess Tools - total game duration",
     "durationLabelText": "Total duration: %s",
-    "exportPGNoptions.exportShapes": "Export arrows and circles"
+    "exportPGNoptions.exportShapes": "Export arrows and circles",
+    "options.linkToAnalysis": "Link to current analysis"
   }
 }
