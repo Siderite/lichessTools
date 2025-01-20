@@ -175,6 +175,10 @@
     };
     addTextToHistory = (text) => {
       const lt = this.lichessTools;
+      if (text?.length>10_000_000) {
+        lt.global.console.warn('Text too large to add to history! (length:'+(text?.length||0)+')');
+        return;
+      }
       try {
         if (!this.history) this.history = [];
         if (this.history[this.historyIndex] == text) return;
@@ -558,7 +562,7 @@
       const text = $('dialog.lichessTools-pgnEditor textarea').val();
       const co = lt.chessops;
       const games = co.pgn.parsePgn(text).filter(g => g.headers.get('FEN') || g.moves?.children?.length);
-
+      this.writeNote(trans.pluralSame('gameCount', games.length).replace(/%2/g, '...'));
       let moveCount = 0;
       const traverse = (node) => {
         if (node.data?.san) moveCount++;
