@@ -886,6 +886,9 @@
   "rnbqkb1rpp1ppppp5n22p52PP48PP2PPPPRNBQKBNRw": [
     "Chess Opening Theory/1. d4/1...Nf6/2. c4/2...c5"
   ],
+  "rnbqkb1rpp1ppppp5n22pP42P58PP2PPPPRNBQKBNRb": [
+    "Chess Opening Theory/1. d4/1...Nf6/2. c4/2...c5/3. d5"
+  ],
   "rnbqkb1rp2ppppp5n21ppP42P58PP2PPPPRNBQKBNRw": [
     "Chess Opening Theory/1. d4/1...Nf6/2. c4/2...c5/3. d5/3...b5"
   ],
