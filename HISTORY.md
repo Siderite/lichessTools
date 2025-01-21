@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+21 Jan
+
+- adding more languages: Dutch, Arabic, Chinese Simplified
+
 16 Jan
 
 - option to export shapes in PGN
