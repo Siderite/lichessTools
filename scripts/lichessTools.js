@@ -424,6 +424,15 @@
       }
     }
 
+    getPuzzleId() {
+      const $ = this.$;
+      const puzzleUrl = $('main.puzzle div.infos.puzzle a[href^="/training"]').attr('href');
+      if (!puzzleUrl) return;
+      const m = /\/training\/([^\/]+)$/.exec(puzzleUrl);
+      if (!m) return;
+      return m[1];
+    };
+
     unbindKeyHandler(combo, onlyMine) {
       const mousetrap = this.lichess.mousetrap;
       if (!mousetrap) return null;

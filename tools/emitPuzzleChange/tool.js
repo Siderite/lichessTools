@@ -1,20 +1,10 @@
 (() => {
   class EmitPuzzleChangeTool extends LiChessTools.Tools.ToolBase {
 
-    getPuzzleId = () => {
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      const puzzleUrl = $('main.puzzle div.infos.puzzle a[href^="/training"]').attr('href');
-      if (!puzzleUrl) return;
-      const m = /\/training\/([^\/]+)$/.exec(puzzleUrl);
-      if (!m) return;
-      return m[1];
-    };
-
     processPuzzle = (records)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const puzzleId = this.getPuzzleId();
+      const puzzleId = lt.getPuzzleId();
       if (puzzleId != this.puzzleId) {
         this.puzzleId = puzzleId;
         lt.pubsub.emit('lichessTools.puzzleStart', puzzleId);
@@ -30,7 +20,7 @@
     async start() {
       const lt = this.lichessTools;
       const $ = lt.$;
-      const puzzleId = this.getPuzzleId();
+      const puzzleId = lt.getPuzzleId();
       if (!puzzleId) return;
       $('body')
         .observer()
