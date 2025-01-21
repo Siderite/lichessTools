@@ -108,7 +108,7 @@
           existing.each((i,e)=>{ e.toDelete=false; });
           if (!existing.length) {
             const text = puzzleId+(item.reversed?' (R)':'');
-            const row = $('<tr><td><a href="/training/'+puzzleId+'" target="_blank">#'+text+'</a><span class="tooltip-content"></td></tr>')
+            const row = $('<tr><td><a href="/training/'+puzzleId+'" target="_blank">#'+text+'</a></td></tr>')
               .on('click',ev=>{
                 ev.preventDefault();
                 lt.global.open('/training/'+puzzleId);

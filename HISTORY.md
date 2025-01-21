@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 Jan
+
+- started puzzle history
+
 21 Jan
 
 - adding more languages: Dutch, Arabic, Chinese Simplified
