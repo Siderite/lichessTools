@@ -82,7 +82,7 @@
         let m = r.exec(text);
         if (!m) continue;
         while (m) {
-          if (m.index > pos) {
+          if (m.index >= pos) {
             rep.push($('<span>').addClass(cls).text(text.slice(pos, m.index)));
           }
           cls = m[1];

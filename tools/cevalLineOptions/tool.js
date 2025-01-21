@@ -168,7 +168,6 @@
           .on('#ceval-settings-anchor',this.handleMoreLines);
       }
       this.handleMoreLines();
-      
     }
 
   }
