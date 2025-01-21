@@ -44,7 +44,8 @@
         'defaultValueLegend': '*Blue bordered preferences are the ones enabled by default',
         'noDirectoryPickerWarning': 'This browser does not support this functionality',
         'folderButtonTitle': 'Pick a folder',
-        'fileButtonTitle': 'Pick a file'
+        'fileButtonTitle': 'Pick a file',
+        'userManualLinkTitle': 'User manual (EN)'
       },
       'ro-RO': {
         yes: 'Da',
@@ -74,7 +75,8 @@
         'defaultValueLegend': '*Preferin\u0163ele cu margine alb\u0103strie sunt cele implicite',
         'noDirectoryPickerWarning': 'Acest browser nu suport\u0103 aceast\u0103 func\u0163ionalitate',
         'folderButtonTitle': 'Alege un director de fi\u015fiere',
-        'fileButtonTitle': 'Alege un fi\u015fier'
+        'fileButtonTitle': 'Alege un fi\u015fier',
+        'userManualLinkTitle': 'Manual utilizator (EN)'
       }
     }
 
@@ -527,12 +529,13 @@
 
     addInfo() {
       const lt = this.lichessTools;
+      const trans = lt.translator;
       const $ = lt.$;
       $('div.page-menu__content section[data-pref]').each((i, e) => {
         const pref = $(e).attr('data-pref');
         $('<a>')
           .addClass('lichessTools-infoIcon')
-          .attr('title', 'User manual (EN)')
+          .attr('title', trans.noarg('userManualLinkTitle'))
           .attr('data-icon', lt.icon.InfoCircle)
           .attr('href', 'https://siderite.dev/blog/lichess-tools---user-manual/#' + pref)
           .attr('target', '_blank')
