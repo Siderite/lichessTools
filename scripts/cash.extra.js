@@ -105,7 +105,7 @@ class Observer {
   
   on(selector,func,options) {
     options =  { 
-      subtree: false,
+      subtree: true,
       childList: true, 
       attributes: false, 
       attributeFilter: undefined,
