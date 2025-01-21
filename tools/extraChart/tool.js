@@ -839,7 +839,7 @@
               if (!this.colors.beforeInterestingMoves) this.colors.beforeInterestingMoves = dataset.hoverBackgroundColor || this.colors.originalChart;
               dataset.hoverBackgroundColor = this.colors.interestingMoves();
               dataset.pointHoverBackgroundColor = this.colors.interestingMoves();
-              chart.setActiveElements(elems);
+              this.safeSetActiveElements(chart,elems,dataset);
               chart.update('none');
             })
             .on('mouseleave', (ev) => {
@@ -850,7 +850,7 @@
               const elems = [];
               dataset.hoverBackgroundColor = this.colors.beforeInterestingMoves;
               dataset.pointHoverBackgroundColor = this.colors.beforeInterestingMoves;
-              chart.setActiveElements(elems);
+              this.safeSetActiveElements(chart,elems,dataset);
               chart.update('none');
             })
             .insertAfter($('div.advice-summary__player', container));
@@ -864,6 +864,11 @@
       container = $('div.advice-summary__side').get(1);
       count = arr.filter(n => n.ply % 2 == 0).length;
       fill(container, count, 'black');
+    };
+
+    safeSetActiveElements = (chart, elems, dataset)=>{
+      const arr = elems.filter(e=>e?.index<dataset?.data?.length);
+      chart.setActiveElements(arr);
     };
 
     showChristmasTree = async () => {
@@ -891,7 +896,7 @@
         const color = colors[Math.round(lt.random() * colors.length)];
         dataset.hoverBackgroundColor = color;
         dataset.pointHoverBackgroundColor = color;
-        chart.setActiveElements(elements);
+        this.safeSetActiveElements(chart,elements,dataset);
         chart.update('none');
         xElem.css('color', color);
         await lt.timeout(150);
@@ -899,7 +904,7 @@
       lt.global.setTimeout(() => xElem.remove(), 1000);
       dataset.hoverBackgroundColor = initHoverBackgroundColor;
       dataset.pointHoverBackgroundColor = initHoverBackgroundColor;
-      chart.setActiveElements(initActiveElements);
+      this.safeSetActiveElements(chart,initActiveElements,dataset);
       chart.update('none');
     };
 
