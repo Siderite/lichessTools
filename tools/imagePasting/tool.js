@@ -115,7 +115,7 @@
           if (e.bigEmojied) return;
           e.bigEmojied = true;
           const text = $(e).text();
-          $(e).toggleClass('lichessTools-bigEmoji', text.length > 1 && [...text].length == 1);
+          $(e).toggleClass('lichessTools-bigEmoji', [...text].length == 1 && /\p{Extended_Pictographic}/u.test(text) );
         });
       }
     };
