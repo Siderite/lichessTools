@@ -165,13 +165,13 @@
         if (days<=0) {
           panel = getOrCreatePanel('today',true);
         } else
-        if (days<1) {
+        if (days<=1) {
           panel = getOrCreatePanel('yesterday');
         } else
         if (days<7) {
-          panel = getOrCreatePanel('week');
+          panel == getOrCreatePanel('week');
         } else
-        if (days<7) {
+        if (days<30) {
           panel = getOrCreatePanel('month');
         } else {
           panel = getOrCreatePanel('rest');
