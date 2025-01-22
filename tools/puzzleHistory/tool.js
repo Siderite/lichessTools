@@ -33,8 +33,8 @@
         'showHistoryTitle': 'LiChess Tools - probleme de \u015fah \u00eencepute pe acest dispozitiv',
         'panelHeader-today': 'Azi',
         'panelHeader-yesterday': 'Ieri',
-        'panelHeader-week': 'Aceast\u0103 s\u0103pt\u0103m\u00e2n\u0103',
-        'panelHeader-month': 'Aceast\u0103 lun\u0103',
+        'panelHeader-week': 'S\u0103pt\u0103m\u00e2na aceasta',
+        'panelHeader-month': 'Luna aceasta',
         'panelHeader-rest': 'Restul'
       }
     }
