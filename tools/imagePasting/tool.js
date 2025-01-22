@@ -114,8 +114,8 @@
         $('.msg-app__convo group t').each((i, e) => {
           if (e.bigEmojied) return;
           e.bigEmojied = true;
-          const text = $(e).text();
-          $(e).toggleClass('lichessTools-bigEmoji', [...text].length == 1 && /\p{Extended_Pictographic}/u.test(text) );
+          const text = $(e).text().replace(/[\uFE00-\uFE0F\u200D\s]/g, '');
+          $(e).toggleClass('lichessTools-bigEmoji', [...text].length <= 5 && /^\p{Extended_Pictographic}+$/u.test(text) );
         });
       }
     };
