@@ -97,8 +97,14 @@
       'p': 100
     };
 
+    getNodeTurn = (node) => {
+      const isWhite = node.fen
+        ? node.fen.includes(' w ')
+        : node.ply % 2 == 0;
+      return isWhite ? 1 : -1;
+    };
 
-    simple_material = (node, isTotal, side) => {
+    simpleMaterial = (node, isTotal, side) => {
       let result = 0;
       if (!node.fen) return result;
       const board = node.fen.split(' ')[0];
@@ -508,10 +514,10 @@
       const Math = lt.global.Math;
       return mainline
         .map((node, x) => {
-          const cp = this.simple_material(node);
+          const cp = this.simpleMaterial(node);
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
-            x: x
+            x: node.ply
           };
         });
     };
@@ -522,12 +528,12 @@
       return mainline
         .map((node, x) => {
           const evl = this.heuristic(node);
-          const mat = this.simple_material(node)
+          const mat = this.simpleMaterial(node)
           let val = evl - mat;
           const cp = val * 2;
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
-            x: x
+            x: node.ply
           };
         })
         .filter(r => !!r);
@@ -550,7 +556,7 @@
           const cp = this.getCp(node.ceval);
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
-            x: x,
+            x: node.ply,
             path: path
           };
         })
@@ -577,9 +583,10 @@
       let prevVal = 0;
       return mainline
         .map((node, x) => {
-          if ((node.ply % 2) * 2 - 1 != side) return {
+          const turn = this.getNodeTurn(node);
+          if (-turn != side) return {
             y: prevVal,
-            x: x
+            x: node.ply
           };
           const evl = this.getNodeCeval(node);
           if (!evl) return null;
@@ -591,7 +598,7 @@
           prevVal = val;
           return {
             y: val,
-            x: x
+            x: node.ply
           };
         })
         .filter(r => !!r);
@@ -613,7 +620,7 @@
           const val = Math.min(sharpness / 100, 0.9);
           return {
             y: val,
-            x: x
+            x: node.ply
           };
         })
         .filter(r => !!r);
@@ -648,8 +655,8 @@
       const mwStartUci = this.materialWon(board, move.sx, move.sy) / 100;
       board = lt.getBoardFromFen(node.fen);
       const mwEndUci = this.materialWon(board, move.x, move.y) / 100;
-      const mat3 = this.simple_material(prev2Node, true, side) / 100;
-      const mat1 = this.simple_material(node, true, side) / 100;
+      const mat3 = this.simpleMaterial(prev2Node, true, side) / 100;
+      const mat1 = this.simpleMaterial(node, true, side) / 100;
       const delta = (mat3 - mat1);
       if (mwStartUci * side + 1 + delta < mwEndUci * side) {
         return 1;
@@ -677,16 +684,15 @@
       const isLocalChart = $('#acpl-chart-container').is('.lichessTools-extraChart');
       const Math = lt.global.Math;
       const showBad = this.options.moreBrilliant && isLocalChart;
+      let p2;
+      let p3;
       mainline
         .map((node, x) => {
-          if (x < 3) return null;
+          if (p2 === undefined || p3 === undefined) return null;
           if (lt.isMate(node)) return null;
-          const m = node.ply % 2 ? 1 : -1;
-          const p1 = node;
-          const p2 = mainline[x - 1];
-          const p3 = mainline[x - 2];
-          const good = this.computeGood(m, p1, p2);
-          const bril = this.computeBrilliant(m, p1, p2, p3);
+          const m = this.getNodeTurn(node);
+          const good = this.computeGood(m, node, p2);
+          const bril = this.computeBrilliant(m, node, p2, p3);
           const result = {
             blunder: showBad && good < -20,
             mistake: showBad && good < -10,
@@ -695,6 +701,8 @@
             best: this.options.moreBrilliant && good >= 0,
             bril: this.options.moreBrilliant ? bril >= 5 : bril >= 3
           };
+          p3 = p2;
+          p2 = node;
           return result;
         })
         .forEach((v, x) => {
@@ -755,10 +763,10 @@
       mainline
         .forEach((node, x) => {
           const tension = this.tension(node);
-          const totalMaterial = this.simple_material(node, true);
+          const totalMaterial = this.simpleMaterial(node, true);
           if (maxT < tension || (maxT == tension && maxM < totalMaterial)) {
             maxT = tension;
-            maxX = x;
+            maxX = node.ply;
             maxM = totalMaterial;
           }
         });
@@ -773,11 +781,11 @@
       mainline
         .forEach((node, x) => {
           const board = lt.getBoardFromFen(node.fen);
-          const m = node.ply % 2 ? -1 : 1;
+          const m = this.getNodeTurn(node);
           const maxMaterial = Math.abs(this.maxMaterialWon(board, m));
           if (maxM < maxMaterial) {
             maxM = maxMaterial;
-            maxX = x;
+            maxX = node.ply;
           }
         });
       return maxX;
@@ -788,12 +796,13 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
-      const side = orientation == 'black' ? 0 : 1;
+      const side = orientation == 'black' ? -1 : 1;
       const mainline = analysis.mainline;
       const result = [];
       for (let i = 0; i < mainline.length; i++) {
         const move = mainline[i];
-        if (move.ply % 2 != side) continue;
+        const turn = this.getNodeTurn(move);
+        if (-turn != side) continue;
         const glyph = move?.glyphs?.at(0);
         if (!glyph) continue;
         if (!['!', '!!', '!?', lt.icon.WhiteStar].includes(glyph.symbol)) continue;
@@ -859,11 +868,13 @@
         $('strong', elem).text(count || 0);
       };
       let container = $('div.advice-summary__side').get(0);
-      let count = arr.filter(n => n.ply % 2 == 1).length;
+      const count = arr.filter(n => {
+        const turn = this.getNodeTurn(n);
+        return turn == -1;
+      }).length;
       fill(container, count, 'white');
       container = $('div.advice-summary__side').get(1);
-      count = arr.filter(n => n.ply % 2 == 0).length;
-      fill(container, count, 'black');
+      fill(container, arr.length - count, 'black');
     };
 
     safeSetActiveElements = (chart, elems, dataset)=>{
@@ -1342,7 +1353,7 @@
       if (!lt.inViewport(container)) return;
       if (node.fen == this.prevFen) return;
       this.prevFen = node.fen;
-      const mat = this.simple_material(node);
+      const mat = this.simpleMaterial(node);
       const material = 2 / (1 + Math.exp(-0.004 * mat)) - 1;
       const evl = this.heuristic(node);
       const val = (evl - mat) * 2;
