@@ -1,6 +1,7 @@
 body.lichessTools #lichessTools-puzzleHistory {
   padding-left: 10%;
   margin-top: 5em;
+  margin-bottom: 15em;
 }
 
 body.lichessTools #lichessTools-puzzleHistory summary {
@@ -47,4 +48,13 @@ body.lichessTools #lichessTools-puzzleHistory div.start {
 
 body.lichessTools #lichessTools-puzzleHistory div.duration {
   width:10%;
+}
+
+body.lichessTools #puzzlePopup {
+  position: absolute;
+  pointer-events:none;
+}
+
+body.lichessTools #puzzlePopup img {
+  max-width:15em;
 }
