@@ -688,19 +688,23 @@
       let p3;
       mainline
         .map((node, x) => {
-          if (p2 === undefined || p3 === undefined) return null;
           if (lt.isMate(node)) return null;
-          const m = this.getNodeTurn(node);
-          const good = this.computeGood(m, node, p2);
-          const bril = this.computeBrilliant(m, node, p2, p3);
-          const result = {
-            blunder: showBad && good < -20,
-            mistake: showBad && good < -10,
-            inaccuracy: showBad && good < -5,
-            good: this.options.moreBrilliant && good >= -1,
-            best: this.options.moreBrilliant && good >= 0,
-            bril: this.options.moreBrilliant ? bril >= 5 : bril >= 3
-          };
+          let result = null;
+          if (p2 !== undefined) {
+            const m = this.getNodeTurn(node);
+            const good = this.computeGood(m, node, p2);
+            const bril = p3 === undefined
+                           ? 0
+                           : this.computeBrilliant(m, node, p2, p3);
+            result = {
+              blunder: showBad && good < -20,
+              mistake: showBad && good < -10,
+              inaccuracy: showBad && good < -5,
+              good: this.options.moreBrilliant && good >= -1,
+              best: this.options.moreBrilliant && good >= 0,
+              bril: this.options.moreBrilliant ? bril >= 5 : bril >= 3
+            };
+          }
           p3 = p2;
           p2 = node;
           return result;
