@@ -5,7 +5,7 @@
       {
         name: 'tournamentTopBoard',
         category: 'play',
-        type: 'multiple',
+        type: 'single',
         possibleValues: [false,true],
         defaultValue: true,
         advanced: true,
@@ -20,7 +20,7 @@
       },
       'ro-RO': {
         'options.play': 'Joc',
-        'options.tournamentTopBoard': 'Urmeaz\u0103 tabla cea mai bun\u0103 \u00een turneu'
+        'options.tournamentTopBoard': 'Urm\u0103re\u015fte tabla principal\u0103 \u00een turneu'
       }
     }
 

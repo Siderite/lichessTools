@@ -791,7 +791,8 @@
     "panelHeader-week": "هذا الأسبوع",
     "panelHeader-month": "هذا الشهر",
     "panelHeader-rest": "الباقي",
-    "quickActions.emoji": "إيموجي الدردشة"
+    "quickActions.emoji": "إيموجي الدردشة",
+    "options.tournamentTopBoard": "اتبع لوحة البطولة العليا"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1585,7 +1586,8 @@
     "panelHeader-week": "本周",
     "panelHeader-month": "本月",
     "panelHeader-rest": "其余的",
-    "quickActions.emoji": "聊天表情符号"
+    "quickActions.emoji": "聊天表情符号",
+    "options.tournamentTopBoard": "跟随锦标赛顶板"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2379,7 +2381,8 @@
     "panelHeader-week": "This week",
     "panelHeader-month": "This month",
     "panelHeader-rest": "The rest",
-    "quickActions.emoji": "Chat emojis"
+    "quickActions.emoji": "Chat emojis",
+    "options.tournamentTopBoard": "Follow tournament top board"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3173,7 +3176,8 @@
     "panelHeader-week": "Deze week",
     "panelHeader-month": "Deze maand",
     "panelHeader-rest": "De rest",
-    "quickActions.emoji": "Chat emojis"
+    "quickActions.emoji": "Chat emojis",
+    "options.tournamentTopBoard": "Volg toernooibord"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -3967,7 +3971,8 @@
     "panelHeader-week": "This week",
     "panelHeader-month": "This month",
     "panelHeader-rest": "The rest",
-    "quickActions.emoji": "Chat emojis"
+    "quickActions.emoji": "Chat emojis",
+    "options.tournamentTopBoard": "Follow tournament top board"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4761,7 +4766,8 @@
     "panelHeader-week": "Cette semaine",
     "panelHeader-month": "Ce mois",
     "panelHeader-rest": "Le reste",
-    "quickActions.emoji": "Émoticônes de chat"
+    "quickActions.emoji": "Émoticônes de chat",
+    "options.tournamentTopBoard": "Suivre le 1er échiquier d’un tournoi"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5555,7 +5561,8 @@
     "panelHeader-week": "Diese Woche",
     "panelHeader-month": "Diesen Monat",
     "panelHeader-rest": "Der Rest",
-    "quickActions.emoji": "Chat-Emojis"
+    "quickActions.emoji": "Chat-Emojis",
+    "options.tournamentTopBoard": "Turnier-Top Board folgen"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6349,7 +6356,8 @@
     "panelHeader-week": "Questa settimana",
     "panelHeader-month": "Questo mese",
     "panelHeader-rest": "Il resto",
-    "quickActions.emoji": "Emoji chat"
+    "quickActions.emoji": "Emoji chat",
+    "options.tournamentTopBoard": "Segui top board del torneo"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7143,7 +7151,8 @@
     "panelHeader-week": "W tym tygodniu",
     "panelHeader-month": "W tym miesiącu",
     "panelHeader-rest": "Reszta",
-    "quickActions.emoji": "Etiopia czatu"
+    "quickActions.emoji": "Etiopia czatu",
+    "options.tournamentTopBoard": "Śledź górną tablicę turniejową"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -7937,7 +7946,8 @@
     "panelHeader-week": "Esta semana",
     "panelHeader-month": "Este mês",
     "panelHeader-rest": "O resto",
-    "quickActions.emoji": "Emojis de chat"
+    "quickActions.emoji": "Emojis de chat",
+    "options.tournamentTopBoard": "Siga o topo do torneio"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -8731,7 +8741,8 @@
     "panelHeader-week": "Esta semana",
     "panelHeader-month": "Este Mês",
     "panelHeader-rest": "O resto",
-    "quickActions.emoji": "Emojis de chat"
+    "quickActions.emoji": "Emojis de chat",
+    "options.tournamentTopBoard": "Siga o topo do torneio"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9525,7 +9536,8 @@
     "panelHeader-week": "Săptămâna aceasta",
     "panelHeader-month": "Luna aceasta",
     "panelHeader-rest": "Restul",
-    "quickActions.emoji": "Emoji în chat"
+    "quickActions.emoji": "Emoji în chat",
+    "options.tournamentTopBoard": "Urmărește tabla principală în turneu"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10319,7 +10331,8 @@
     "panelHeader-week": "Эта неделя",
     "panelHeader-month": "Этот месяц",
     "panelHeader-rest": "Остальные",
-    "quickActions.emoji": "Чат emojis"
+    "quickActions.emoji": "Чат emojis",
+    "options.tournamentTopBoard": "Следите за топ-доской турниром"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11113,7 +11126,8 @@
     "panelHeader-week": "Esta semana",
     "panelHeader-month": "Este mes",
     "panelHeader-rest": "El resto",
-    "quickActions.emoji": "Emojis del chat"
+    "quickActions.emoji": "Emojis del chat",
+    "options.tournamentTopBoard": "Seguir el tablero superior del torneo"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -11907,6 +11921,7 @@
     "panelHeader-week": "This week",
     "panelHeader-month": "This month",
     "panelHeader-rest": "The rest",
-    "quickActions.emoji": "Chat emojis"
+    "quickActions.emoji": "Chat emojis",
+    "options.tournamentTopBoard": "Follow tournament top board"
   }
 }
