@@ -37,6 +37,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
+      if ($.cached('body').is('.playing')) return;
       let fen = '';
       let gameId = '';
       if (el?.id && el?.fen) {

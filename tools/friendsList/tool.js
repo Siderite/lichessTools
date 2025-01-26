@@ -735,7 +735,7 @@
       lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
       lt.uiApi.onlineFriends.events.off('playing', this.playing);
       lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
-      if (friendsBoxMode == 'menu' || friendsBoxMode == 'button' || (this.options.liveFriendPage && this.isFriendsPage)) {
+      if (friendsBoxMode == 'menu' || friendsBoxMode == 'button' || (this.options.liveFriendsPage && this.isFriendsPage)) {
         lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
         lt.uiApi.onlineFriends.events.on('enters', this.enters);
         lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
@@ -763,7 +763,7 @@
       this.followingOnlinesRequests = 0;
       clearInterval(this.onlinesInterval);
       if (this.options.friendsBoxMode || (this.options.liveFriendsPage && this.isFriendsPage) || this.options.friendsPlaying) {
-        this.onlinesInterval = setInterval(() => {
+        const checkOnlineFriends = () => {
           if (!this.onlinesInterval) return;
           if (lt.global.document.visibilityState == 'hidden') return;
           this.requestOnlines();
@@ -772,7 +772,12 @@
             clearInterval(this.onlinesInterval);
             this.getFollowingOnlinesByApi();
           }
-        }, 5000);
+        };
+        this.onlinesInterval = setInterval(checkOnlineFriends, 5000);
+        if (!this.notFirstTime) {
+          checkOnlineFriends();
+          this.notFirstTime = true;
+        }
       }
 
       switch (friendsBoxMode) {

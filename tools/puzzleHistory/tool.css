@@ -1,0 +1,60 @@
+body.lichessTools #lichessTools-puzzleHistory {
+  padding-left: 10%;
+  margin-top: 5em;
+  margin-bottom: 15em;
+}
+
+body.lichessTools #lichessTools-puzzleHistory summary {
+  cursor: pointer;
+}
+
+body.lichessTools #lichessTools-puzzleHistory > details > summary {
+  font-size: x-large;
+  color: var(--c-link);  
+  list-style: none;
+  margin-bottom:1em;
+}
+
+body.lichessTools #lichessTools-puzzleHistory > details details summary {
+  font-size: large;
+  padding: 1em;
+  background: #80808040;
+  border-radius: 2em 2em 0 0;
+  margin-top: 1em;
+}
+
+body.lichessTools #lichessTools-puzzleHistory > details details > div {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 1em;
+  margin-bottom: 4px;
+}
+
+body.lichessTools #lichessTools-puzzleHistory div.puzzle.fail a {
+   color: var(--c-bad);
+}
+
+body.lichessTools #lichessTools-puzzleHistory div.puzzle.success a {
+   color: var(--c-good);
+}
+
+body.lichessTools #lichessTools-puzzleHistory div.puzzle {
+  width:20%;
+}
+
+body.lichessTools #lichessTools-puzzleHistory div.start {
+  width:70%;
+}
+
+body.lichessTools #lichessTools-puzzleHistory div.duration {
+  width:10%;
+}
+
+body.lichessTools #puzzlePopup {
+  position: absolute;
+  pointer-events:none;
+}
+
+body.lichessTools #puzzlePopup img {
+  max-width:15em;
+}

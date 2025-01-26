@@ -64,13 +64,14 @@
       const puzzles = data.find(i=>i.name=='Puzzles');
       const m = /^\/training\/dashboard\/(?<days>\d+)\/dashboard/i.exec(lt.global.location.pathname);
       const days = +m.groups.days;
+      let afterEl = '.puzzle-dashboard__radar';
       if (days && puzzles) {
         const date = new Date();
         date.setDate(date.getDate()-days);
         lt.arrayRemoveAll(puzzles.points,p=>{
           return new Date(p[0],p[1],p[2])<date;
         });
-        $('<div class="chart-container"><canvas class="rating-history"></div>').appendTo(container);
+        afterEl = $('<div class="chart-container"><canvas class="rating-history"></div>').insertAfter(afterEl);
         asset.loadEsm('chart.ratingHistory',{ 
           init: {
             data: data,
@@ -84,10 +85,10 @@
         const stats = {};
         for (const item of activity) {
           if (!stats.ratingStart && item.puzzles?.score?.rp?.before) {
-            stats.ratingStart = +item.puzzles?.score?.rp?.before;
+            stats.ratingStart = +item.puzzles.score.rp.before;
           }
           if (item.puzzles?.score?.rp?.after) {
-            stats.ratingEnd = +item.puzzles?.score?.rp?.after;
+            stats.ratingEnd = +item.puzzles.score.rp.after;
           }
           if (item.streak) {
             stats.streaks = (stats.streaks || 0) + (+item.streak.runs);
@@ -98,26 +99,26 @@
         }
         if ((stats.ratingStart && stats.ratingEnd)||(stats.streaks && stats.maxStreak)) {
           const text = trans.pluralSame('daysStatsText',activity.length);
-          $('<label class="lichessTools-profilePuzzleTab header">')
+          afterEl = $('<label class="lichessTools-profilePuzzleTab header">')
             .text(text)
-            .appendTo(container);
+            .insertAfter(afterEl);
         }
         if (stats.ratingStart && stats.ratingEnd) {
           const text = trans.pluralSame('puzzleRatingWeekText', stats.ratingEnd-stats.ratingStart);
-          $('<label class="lichessTools-profilePuzzleTab">')
+          afterEl = $('<label class="lichessTools-profilePuzzleTab">')
             .text(text)
-            .appendTo(container);
+            .insertAfter(afterEl);
         }
         if (stats.streaks && stats.maxStreak) {
           const text = trans.pluralSame('streaksWeekText', stats.streaks)+' '+trans.pluralSame('maxStreakWeekText', stats.maxStreak);
-          $('<label class="lichessTools-profilePuzzleTab">')
+          afterEl = $('<label class="lichessTools-profilePuzzleTab">')
             .text(text)
-            .appendTo(container);
+            .insertAfter(afterEl);
         }
       }
 
       $('<section class="lichessTools-profilePuzzleTab">')
-       .appendTo(container)
+       .insertAfter(afterEl);
       this.updateData();
     };
 

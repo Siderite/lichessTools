@@ -175,21 +175,29 @@
     };
     addTextToHistory = (text) => {
       const lt = this.lichessTools;
-      if (!this.history) this.history = [];
-      if (this.history[this.historyIndex] == text) return;
-      this.setHistoryIndex(this.historyIndex + 1);
-      this.history[this.historyIndex] = text;
-      if (this.history.length > this.historyIndex + 1) {
-        this.history.splice(this.historyIndex + 1);
+      if (text?.length>10_000_000) {
+        lt.global.console.warn('Text too large to add to history! (length:'+(text?.length||0)+')');
+        return;
       }
-      if (this.history.length > 10) {
-        this.history.splice(0, 1);
+      try {
+        if (!this.history) this.history = [];
+        if (this.history[this.historyIndex] == text) return;
+        this.setHistoryIndex(this.historyIndex + 1);
+        this.history[this.historyIndex] = text;
+        if (this.history.length > this.historyIndex + 1) {
+          this.history.splice(this.historyIndex + 1);
+        }
+        if (this.history.length > 10) {
+          this.history.splice(0, 1);
+        }
+        if (this.historyIndex >= this.history.length) {
+          this.historyIndex = this.history.length - 1;
+        }
+        lt.storage.set('LichessTools.pgnEditor.history', this.history, { session: true, zip: true });
+        lt.storage.set('LichessTools.pgnEditor.historyIndex', this.historyIndex, { session: true });
+      } catch(e) {
+        lt.global.console.warn('Could not add text to history! (length:'+(text?.length||0)+')');
       }
-      if (this.historyIndex >= this.history.length) {
-        this.historyIndex = this.history.length - 1;
-      }
-      lt.storage.set('LichessTools.pgnEditor.history', this.history, { session: true, zip: true });
-      lt.storage.set('LichessTools.pgnEditor.historyIndex', this.historyIndex, { session: true });
     };
     setHistoryIndex = async (val) => {
       const lt = this.lichessTools;
@@ -554,7 +562,7 @@
       const text = $('dialog.lichessTools-pgnEditor textarea').val();
       const co = lt.chessops;
       const games = co.pgn.parsePgn(text).filter(g => g.headers.get('FEN') || g.moves?.children?.length);
-
+      this.writeNote(trans.pluralSame('gameCount', games.length).replace(/%2/g, '...'));
       let moveCount = 0;
       const traverse = (node) => {
         if (node.data?.san) moveCount++;
@@ -1680,7 +1688,7 @@
               tagName = m.groups.tag;
               tagValue = m.groups.value;
             } else {
-              reg = new RegExp(Array.from(search).map(c => {
+              reg = new RegExp(Array.from(search.replaceAll(/\s+/g,'')).map(c => {
                 switch (c) {
                   case '*': return '.*';
                   case '?': return '.';
@@ -1804,7 +1812,7 @@
               }
               break;
             case 'fenOrMoves':
-              let pgn = makePgn(game);
+              let pgn = makePgn(game).replaceAll(/\s+/g,'');
               if (reg.test(pgn)) {
                 found = true;
                 break;
@@ -1812,12 +1820,12 @@
               const game2 = parsePgn(pgn)[0];
               this.cutCommentsFromGame(game2);
               this.cutAnnotationsFromGame(game2);
-              pgn = makePgn(game2);
+              pgn = makePgn(game2).replaceAll(/\s+/g,'');
               if (reg.test(pgn)) {
                 found = true;
                 break;
               }
-              pgn = pgn.replace(/\d+\./g, '').replace(/\s+/g, ' ');
+              pgn = pgn.replaceAll(/\d+\./g, '');
               if (reg.test(pgn)) {
                 found = true;
                 break;

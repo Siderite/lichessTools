@@ -82,7 +82,7 @@
         let m = r.exec(text);
         if (!m) continue;
         while (m) {
-          if (m.index > pos) {
+          if (m.index >= pos) {
             rep.push($('<span>').addClass(cls).text(text.slice(pos, m.index)));
           }
           cls = m[1];
@@ -104,6 +104,21 @@
           $(node).remove();
         }
       }
+
+      const chapterNodes = $('div.lichessTools-chapterControls button[data-id] > h3');
+      chapterNodes.each((i,e) => {
+        e = $(e);
+        const text = e.text();
+        const reg = /\s*\bcls:(?<cls>[^\s]+)/;
+        const match = reg.exec(text);
+        if (match) {
+          const cls = match.groups.cls;
+          e.removeAttr('class')
+            .addClass('lichessTools-'+cls)
+            .replaceText(t=>t.replace(reg,''));
+        }
+      });
+
     }
 
     debouncedAddCommentClasses = this.lichessTools.debounce(this.addCommentClasses, 200);
@@ -146,6 +161,7 @@
 
     async start() {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const value = lt.currentOptions.getValue('commentStyling');
       this.logOption('Styling for study comments', value);
       this.options = { enabled: !!value };
@@ -159,10 +175,14 @@
       lt.pubsub.off('lichessTools.redraw', this.debouncedAddCommentClasses);
       lt.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentClasses);
       lt.pubsub.off('lichessTools.commentChange', this.debouncedAddCommentClasses);
+      $('.study__chapters').observer()
+        .off('button h3',this.debouncedAddCommentClasses);
       if (value) {
         lt.pubsub.on('lichessTools.redraw', this.debouncedAddCommentClasses);
         lt.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentClasses);
         lt.pubsub.on('lichessTools.commentChange', this.debouncedAddCommentClasses);
+        $('.study__chapters').observer()
+          .on('button h3',this.debouncedAddCommentClasses);
       }
       this.addCommentClasses();
       lichess.analysis.redraw();

@@ -43,7 +43,7 @@
 
     isTrainingPage = ()=>{
       const lt = this.lichessTools;
-      return /^\/training/i.test(lt.global.location.pathname);
+      return /^\/training/i.test(lt.global.location.pathname) && !/^\/training\/(?:dashboard|themes)/.test(lt.global.location.pathname);
     };
 
     handleWakeLock = async () => {

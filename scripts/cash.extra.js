@@ -104,16 +104,15 @@ class Observer {
   }
   
   on(selector,func,options) {
-    if (!options) {
-      options =  { 
-        subtree: true,
-        childList: true, 
-        attributes: false, 
-        attributeFilter: undefined,
-        characterData: true,
-        withNodes: true
-      };
-    }
+    options =  { 
+      subtree: true,
+      childList: true, 
+      attributes: false, 
+      attributeFilter: undefined,
+      characterData: true,
+      withNodes: true,
+      ...options
+    };
     this.context.each((i,e)=>{
       const observer = this.getOrSetObserver(e,selector,func,options);
     });

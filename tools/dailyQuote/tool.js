@@ -48,7 +48,8 @@
         const elem = $('<div class="lichessTools-dailyQuote"><span class="quote"></span><span class="author"></span><button type="button" class="close"></button></div>')
           .attr('title',trans.noarg('dailyQuoteTitle'))
           .insertAfter(header);
-        const index = Math.round(today.getTime()/86400000) % quotes.length;
+        quotes.sort((a,b)=>lt.crc24(a.text)-lt.crc24(b.text));
+        const index =  Math.round(today.getTime()/86400000) % quotes.length;
         const quote = quotes[index];
         $('.quote',elem).text(quote.text);
         $('.author',elem).text(quote.name);

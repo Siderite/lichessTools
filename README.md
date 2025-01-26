@@ -124,6 +124,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - extra piece sets
 - a followers page
 - quick actions: flip board, request server analysis
+- started puzzle history
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:
