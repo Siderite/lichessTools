@@ -1999,6 +1999,16 @@
           }
           return result;
         }
+      },
+      tournament: {
+        lichessTools: this,
+        getInfo: async function (tourId) {
+          const lt = this.lichessTools;
+          const userId = lt.getUserId();
+          if (!userId) return null;
+          const data = await lt.net.json({ url: '/tournament/{tourId}?page=1&partial=true&me={userId}', args: { tourId: tourId, userId:userId } });
+          return data;
+        }
       }
     }
 

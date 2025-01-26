@@ -153,6 +153,7 @@
         "tools/quickActions/tool.js",
         "tools/totalGameTime/tool.js",
         "tools/puzzleHistory/tool.js",
+        "tools/tournamentTopBoard/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",

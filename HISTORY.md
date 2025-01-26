@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 Jan
+
+- chapter cls markers
+- tournament top board
+
 22 Jan
 
 - started puzzle history
