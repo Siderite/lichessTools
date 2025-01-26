@@ -172,6 +172,11 @@
       WhiteStar: '\u2606',
       BulletPoint: '\u2022',
       Ellipsis: '\u2026',
+      ThumbsUpSign: '\uD83D\uDC4D',
+      ThumbsDownSign: '\uD83D\uDC4E',
+      PoutingFace: '\uD83D\uDE21',
+      SmilingFaceWithHorns: '\uD83D\uDE08',
+      SparklingHeart: '\uD83D\uDC96',
 
       toEntity: function(s) {
         let result='';

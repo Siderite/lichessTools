@@ -790,15 +790,16 @@
     "panelHeader-yesterday": "أمس",
     "panelHeader-week": "هذا الأسبوع",
     "panelHeader-month": "هذا الشهر",
-    "panelHeader-rest": "الباقي"
+    "panelHeader-rest": "الباقي",
+    "quickActions.emoji": "إيموجي الدردشة"
   },
   "zh-CN": {
-    "LiChess Tools": "Lichess工具",
+    "LiChess Tools": "LiChess Tools",
     "serverOverload": "Lichess认为我们正在加载他们的系统！",
     "options.general": "A. 概况",
     "options.addNotifications": "添加通知",
     "options.community": "社区",
-    "options.addToTeam": "Lichess工具团队",
+    "options.addToTeam": "LiChess Tools 团队",
     "addToTeam.hideForum": "隐藏论坛条目",
     "addToTeam.forumBottom": "最后论坛条目",
     "addToTeam.noNotifications": "禁用通知",
@@ -819,7 +820,7 @@
     "transpositionBehavior.groupSameMove": "不要添加相同的下一个动作",
     "options.randomVariationDepth": "下一个移动概率深度",
     "randomVariationDepth.0": "等于",
-    "randomVariationDepth.2": "一个移动",
+    "randomVariationDepth.2": "一步",
     "randomVariationDepth.4": "两步",
     "randomVariationDepth.6": "三步",
     "randomVariationDepth.8": "四步",
@@ -829,7 +830,7 @@
     "themes.performance": "业绩主题",
     "themes.justExplorer": "仅限浏览器",
     "themes.mobile": "移动主题",
-    "themes.slimArrows": "Slim箭头",
+    "themes.slimArrows": "细箭头",
     "themes.flairX": "较大的签名",
     "themes.lessIcons": "更少图标",
     "themes.nonStickyHeader": "没有置顶标题",
@@ -840,7 +841,7 @@
     "options.command": "命令",
     "options.chessOps": "Chessops 支持",
     "options.exportPGN": "导出 PGN",
-    "options.stockfish": "种群鱼",
+    "options.stockfish": "Stockfish",
     "options.stockfish-threads": "LiChess工具分析引擎线程",
     "options.stockfish-hash": "LiChess工具分析引擎哈希(MB)",
     "couldNotLoadStockfish": "无法加载 Stockfish！",
@@ -1032,11 +1033,11 @@
     "editButtonTitle": "Lichess工具 - 编辑按钮",
     "editButtonsPlaceholder": "按钮/文本 (例如: 高频/有趣! )",
     "options.extraChart": "额外分析图表",
-    "extraChart.material": "材料",
+    "extraChart.material": "子力",
     "extraChart.principled": "原理",
     "extraChart.tension": "最大紧张度",
     "extraChart.potential": "最大潜能值",
-    "extraChart.local": "本地偶像",
+    "extraChart.local": "本地评估",
     "extraChart.accuracy": "精度",
     "extraChart.sharpness": "锐度",
     "extraChart.brilliant": "查找有趣的动作",
@@ -1094,12 +1095,12 @@
     "timelineNotify.plan-start": "成为赞助人",
     "timelineNotify.plan-renew": "更新赞助商",
     "options.explorerEval": "显示对探险家动作的评价",
-    "explorerEval.ceval": "从计算机邪恶的",
-    "explorerEval.stats": "从赢得的统计",
+    "explorerEval.ceval": "来自计算机评估",
+    "explorerEval.stats": "来自胜场统计",
     "explorerEval.db": "来自 ChessDb",
-    "explorerEval.lichess": "从Lichess",
+    "explorerEval.lichess": "来自 Lichess",
     "explorerEval.evalRows": "来自邪恶的行",
-    "explorerEval.hidden": "Hidden",
+    "explorerEval.hidden": "隐藏",
     "fromCevalTitle": "LiChess工具 - 从计算机邪恶，深度 %s",
     "fromStatsTitle": "Lichess 工具 - 从获奖状态",
     "fromChessDbTitle": "生命工具 - 来自 ChessDb",
@@ -1108,7 +1109,7 @@
     "evalWarning": "LiChess工具 - 注意事项",
     "sharpnessTitle": "锐化: %s",
     "options.explorerGambits": "显示浏览器走向gambits",
-    "gambitTitle": "LiChessTools - 可能的 gambits 数量",
+    "gambitTitle": "LiChessTools - 可能的弃兵开局数",
     "gambitRowTitle": "%s gambits",
     "moveEvaluationSettingText": "评价",
     "moveEvaluationSettingTitle": "移动评估列",
@@ -1219,9 +1220,9 @@
     "options.pinOnMainPage": "Pin广播和学习到主页",
     "pinTitle": "LiChess工具 - 主页置顶",
     "unpinTitle": "LiChess工具 - 从主页中取消置顶",
-    "options.pgnEditor": "PGN Editor",
+    "options.pgnEditor": "PGN 编辑器",
     "illegalMove": "%1游戏中非法移动，充分 %3 (%2)",
-    "pgnEditorText": "PGN Editor",
+    "pgnEditorText": "PGN 编辑器",
     "pgnEditorTitle": "LiChess工具 - PGN 编辑器",
     "btnMergeText": "合并",
     "btnMergeTitle": "合并PGN(在可能时)",
@@ -1283,7 +1284,7 @@
     "foundGames": "找到 %s 游戏",
     "foundGames:one": "发现一局游戏",
     "cutStuffPrompt": "\"标签",
-    "sendToPgnEditorText": "PGN Editor",
+    "sendToPgnEditorText": "PGN 编辑器",
     "sendToPgnEditorTitle": "LiChess工具 - 发送到 PGN 编辑器",
     "evaluateNeedsAnalysis": "求值只能用于分析或研究页面 - Lichess限制",
     "options.playerLag": "玩家滞后指示器",
@@ -1306,8 +1307,8 @@
     "downloadAllTitle": "Lichess工具 - 该玩家的所有研究",
     "options.profilePuzzleTab": "配置文件中的拼图性能图",
     "puzzleTabTitle": "Lichess工具 - 拼图",
-    "options.mayTenth": "生命工具日 ！",
-    "mayTenthTitle": "快乐生活工具日！",
+    "options.mayTenth": "LiChess Tools 日！",
+    "mayTenthTitle": "LiChess Tools 日快乐！",
     "options.moveAssistant": "移动助手",
     "assistantButtonTitle": "LiChess工具 - 选定的块移动评价",
     "options.playerWarning": "玩家警告提醒",
@@ -1410,10 +1411,10 @@
     "30lives": "还有30个生命！",
     "options.cevalLineOptions": "计算机评价线选项",
     "cevalLineOptions.highlight": "突出显示相同的动作",
-    "options.noSpoilers": "没有破坏者",
+    "options.noSpoilers": "无剧透",
     "noSpoilers.broadcast": "在广播",
-    "noSpoilersText": "没有破坏者",
-    "noSpoilersTitle": "Lifecess工具 - 隐藏乐队",
+    "noSpoilersText": "无剧透",
+    "noSpoilersTitle": "LiChess工具 - 隐藏分数",
     "options.hideBoardCommand": "命令：显示/隐藏棋盘",
     "hideBoardCommand.helpText": "/board\r\n显示/隐藏棋盘",
     "options.trapValueCommand": "命令：显示位置的陷阱值",
@@ -1426,7 +1427,7 @@
     "options.skipMoveCommand": "命令：移动切换播放边",
     "skipMoveCommand.helpText": "/skipmove\r\n为两个玩家移动到\"跳过移动\"",
     "cannotSkipMove": "无法从此位置跳过移动！",
-    "yes": "否",
+    "yes": "是",
     "no": "否",
     "preferencesSaved": "您的偏好设置已保存",
     "rateThisText": "给它打分！",
@@ -1541,7 +1542,7 @@
     "exportPGNoptions.exportTags": "导出 PGN 标签",
     "options.extraPieceSets": "额外的块集",
     "extraPieceSets.chesscom": "chess.com",
-    "pieceSetTitle": "生命工具 - %s",
+    "pieceSetTitle": "LiChess Tools - %s",
     "followersText": "关注者",
     "followersTitle": "生活工具——跟随你的玩家",
     "followersNumberTitle": "%s followers",
@@ -1583,7 +1584,8 @@
     "panelHeader-yesterday": "昨日",
     "panelHeader-week": "本周",
     "panelHeader-month": "本月",
-    "panelHeader-rest": "其余的"
+    "panelHeader-rest": "其余的",
+    "quickActions.emoji": "聊天表情符号"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2376,7 +2378,8 @@
     "panelHeader-yesterday": "Yesterday",
     "panelHeader-week": "This week",
     "panelHeader-month": "This month",
-    "panelHeader-rest": "The rest"
+    "panelHeader-rest": "The rest",
+    "quickActions.emoji": "Chat emojis"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3169,7 +3172,8 @@
     "panelHeader-yesterday": "gisteren",
     "panelHeader-week": "Deze week",
     "panelHeader-month": "Deze maand",
-    "panelHeader-rest": "De rest"
+    "panelHeader-rest": "De rest",
+    "quickActions.emoji": "Chat emojis"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -3962,7 +3966,8 @@
     "panelHeader-yesterday": "Yesterday",
     "panelHeader-week": "This week",
     "panelHeader-month": "This month",
-    "panelHeader-rest": "The rest"
+    "panelHeader-rest": "The rest",
+    "quickActions.emoji": "Chat emojis"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4755,7 +4760,8 @@
     "panelHeader-yesterday": "Hier",
     "panelHeader-week": "Cette semaine",
     "panelHeader-month": "Ce mois",
-    "panelHeader-rest": "Le reste"
+    "panelHeader-rest": "Le reste",
+    "quickActions.emoji": "Émoticônes de chat"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5548,7 +5554,8 @@
     "panelHeader-yesterday": "Gestern",
     "panelHeader-week": "Diese Woche",
     "panelHeader-month": "Diesen Monat",
-    "panelHeader-rest": "Der Rest"
+    "panelHeader-rest": "Der Rest",
+    "quickActions.emoji": "Chat-Emojis"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6341,7 +6348,8 @@
     "panelHeader-yesterday": "Ieri",
     "panelHeader-week": "Questa settimana",
     "panelHeader-month": "Questo mese",
-    "panelHeader-rest": "Il resto"
+    "panelHeader-rest": "Il resto",
+    "quickActions.emoji": "Emoji chat"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7134,7 +7142,8 @@
     "panelHeader-yesterday": "Wczoraj",
     "panelHeader-week": "W tym tygodniu",
     "panelHeader-month": "W tym miesiącu",
-    "panelHeader-rest": "Reszta"
+    "panelHeader-rest": "Reszta",
+    "quickActions.emoji": "Etiopia czatu"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -7927,7 +7936,8 @@
     "panelHeader-yesterday": "Ontem",
     "panelHeader-week": "Esta semana",
     "panelHeader-month": "Este mês",
-    "panelHeader-rest": "O resto"
+    "panelHeader-rest": "O resto",
+    "quickActions.emoji": "Emojis de chat"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -8720,7 +8730,8 @@
     "panelHeader-yesterday": "ontem",
     "panelHeader-week": "Esta semana",
     "panelHeader-month": "Este Mês",
-    "panelHeader-rest": "O resto"
+    "panelHeader-rest": "O resto",
+    "quickActions.emoji": "Emojis de chat"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9513,7 +9524,8 @@
     "panelHeader-yesterday": "Ieri",
     "panelHeader-week": "Săptămâna aceasta",
     "panelHeader-month": "Luna aceasta",
-    "panelHeader-rest": "Restul"
+    "panelHeader-rest": "Restul",
+    "quickActions.emoji": "Emoji în chat"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10306,7 +10318,8 @@
     "panelHeader-yesterday": "Вчера",
     "panelHeader-week": "Эта неделя",
     "panelHeader-month": "Этот месяц",
-    "panelHeader-rest": "Остальные"
+    "panelHeader-rest": "Остальные",
+    "quickActions.emoji": "Чат emojis"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11099,7 +11112,8 @@
     "panelHeader-yesterday": "Ayer",
     "panelHeader-week": "Esta semana",
     "panelHeader-month": "Este mes",
-    "panelHeader-rest": "El resto"
+    "panelHeader-rest": "El resto",
+    "quickActions.emoji": "Emojis del chat"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -11892,6 +11906,7 @@
     "panelHeader-yesterday": "Yesterday",
     "panelHeader-week": "This week",
     "panelHeader-month": "This month",
-    "panelHeader-rest": "The rest"
+    "panelHeader-rest": "The rest",
+    "quickActions.emoji": "Chat emojis"
   }
 }

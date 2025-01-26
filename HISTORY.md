@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - chapter cls markers
 - tournament top board
+- emoji quick action
 
 22 Jan
 
