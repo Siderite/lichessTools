@@ -173,6 +173,12 @@
         $('main .lobby__feed').toggleClass('lichessTools-hideElement', !this.options.feed);
         $('main .lobby__tournaments-simuls').toggleClass('lichessTools-hideElement', !this.options.tours);
         $('main .lobby__about').toggleClass('lichessTools-hideElement', !this.options.about);
+
+        if (this.options.side && !this.options.side_timeline && this.options.feed) {
+          $('.lobby__feed').appendTo('.lobby__side');
+        } else {
+          $('.lobby__side .lobby__feed').appendTo('main.lobby');
+        }
       }
     }
   }
