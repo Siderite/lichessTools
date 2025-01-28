@@ -77,6 +77,9 @@
                    ? this.side_streams || this.side_spotlights || this.side_timeline
                    : false;
         },
+        get app_all() {
+          return this.app_bullet && this.app_blitz && this.app_rapid && this.app_classical;
+        },
         side_streams: lt.isOptionSet(value, 'side_streams'),
         side_spotlights: lt.isOptionSet(value, 'side_spotlights'),
         side_timeline: lt.isOptionSet(value, 'side_timeline'),
@@ -94,7 +97,7 @@
         tours: lt.isOptionSet(value, 'tours'),
         about: lt.isOptionSet(value, 'about'),
         get allSet() {
-          return this.side && this.app && this.table && this.tv && this.blog &&
+          return this.side && this.app && this.app_all && this.table && this.tv && this.blog &&
             this.puzzle && this.support && this.feed && this.tours && this.about;
         },
         get noneSet() {
