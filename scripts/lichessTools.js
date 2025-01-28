@@ -762,6 +762,12 @@
           collapsedPaths.push(interrupt ? p.slice(0, -2) : p);
         }
       });
+      $('move.lichessTools-bookmark.lichessTools-collapsed').each((i,e)=>{
+        const p = $(e).attr('p');
+        if (p) {
+          collapsedPaths.push(p);
+        }
+      });
       const collapsedRegex = collapsedPaths.length
         ? new RegExp('^(' + collapsedPaths.map(p => this.escapeRegex(p)).join('|') + ')')
         : null;
@@ -805,8 +811,10 @@
             return;
           }
         }
-        this.resetCache();
-        elem = this.elementCache.get(path);
+        if (!this.global.document.body.contains(elem)) {
+          this.resetCache();
+          elem = this.elementCache.get(path);
+        }
       } else {
         if (this.debug && this.collapsedRegex?.test(path)) {
           if (!this.lichess.analysis.tree.pathIsMainline(path)) {
