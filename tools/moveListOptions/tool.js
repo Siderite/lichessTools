@@ -485,19 +485,12 @@
       if (!study || nodePath === undefined) return;
       const pgn = await lt.exportPgn(nodePath, { fromPosition: true, exportClock: true, exportEval: true, exportTags: true });
       if (!pgn) return;
-      const node = analysis.tree.nodeAtPath(nodePath);
+      let node = analysis.tree.nodeAtPath(nodePath);
       const label = node?.bookmark?.label;
       if (!label) return;
       const parentChapterId = study.currentChapter()?.id;
       if (!parentChapterId) throw 'Cannot find chapter id!';
       if (!await lt.uiApi.dialog.confirm(trans.noarg(deleteMoves ? 'bookmarkSplitConfirmationDeleteText' : 'bookmarkSplitConfirmationText'))) return;
-      if (deleteMoves) {
-        for (const child of node.children || []) {
-          const path = nodePath + child.id;
-          study.deleteNode(path);
-          analysis.tree.deleteNodeAt(path);
-        }
-      }
       const setup = study.data?.chapter?.setup;
       study.chapters.newForm.submit({
         name: this.fromBookmarkName(label),
@@ -507,8 +500,6 @@
         mode: 'normal',
         isDefaultName: false
       })
-      let commentText = lt.getNodeComment(node) || '';
-      if (commentText) commentText += '\r\n';
 
       while (true) {
         const chapterId = study.currentChapter()?.id;
@@ -516,8 +507,6 @@
         await lt.timeout(50);
       }
       const newChapterId = study.currentChapter().id;
-      const chapterUrl = lt.global.location.origin + '/study/' + study.data.id + '/' + newChapterId;
-      const chapterText = trans.pluralSame('chapterLink', chapterUrl);
       study.setChapter(parentChapterId);
 
       while (true) {
@@ -525,13 +514,28 @@
         if (chapterId && chapterId == parentChapterId && study.chapters.list.get(chapterId)) break;
         await lt.timeout(50);
       }
-      analysis.jump(nodePath);
-      analysis.redraw();
 
-      while (analysis.path != nodePath) {
-        await lt.timeout(50);
+      const chapterUrl = lt.global.location.origin + '/study/' + study.data.id + '/' + newChapterId;
+      let commentText = lt.getNodeComment(node) || '';
+      if (commentText) commentText += '\r\n';
+      commentText += trans.pluralSame('chapterLink', chapterUrl);
+      lt.saveComment(commentText, nodePath, parentChapterId);
+
+      if (analysis.path != nodePath) {
+        analysis.jump(nodePath);
+        analysis.redraw();
+        while (analysis.path != nodePath) {
+          await lt.timeout(50);
+        }
       }
-      lt.saveComment(commentText + chapterText, nodePath, parentChapterId);
+      if (deleteMoves) {
+        node = analysis.tree.nodeAtPath(nodePath);
+        for (const child of node.children || []) {
+          const path = nodePath + child.id;
+          study.deleteNode(path);
+          analysis.tree.deleteNodeAt(path);
+        }
+      }
     };
 
     analysisContextMenu = () => {
