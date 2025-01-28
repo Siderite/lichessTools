@@ -148,7 +148,10 @@
         const unread = await lt.api.notification.getUnread();
         this._unreadNotifications = unread;
       }
-      this.forcedProcessNotifications();
+      if (!this.notFirstTime) {
+        this.notFirstTime = true;
+        this.forcedProcessNotifications();
+      }
     }
 
   }
