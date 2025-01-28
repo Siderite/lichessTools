@@ -413,8 +413,8 @@
       const elem = lt.getElementForNode(node);
       if (!elem) return;
       const oldLabel = this.fromBookmarkName(node.bookmark?.label) || '';
-      const bookmarkName = await lt.uiApi.dialog.prompt(trans.noarg('addBookmarkPrompt'));
-      const label = this.toBookmarkName(bookmarkName, oldLabel);
+      const bookmarkName = await lt.uiApi.dialog.prompt(trans.noarg('addBookmarkPrompt'), oldLabel);
+      const label = this.toBookmarkName(bookmarkName);
       if (label === undefined) return;
       node.bookmark = label
         ? {
