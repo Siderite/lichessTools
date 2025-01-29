@@ -386,6 +386,7 @@
           if (execute === false) executeOriginal = false;
         }
         let result = null;
+        const func = wrappedFunc.__originalFunction;
         if (executeOriginal && func) {
           if (options?.ignoreErrors) {
             (async () => { return func.apply(this, arguments); })()
