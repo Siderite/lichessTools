@@ -55,7 +55,7 @@
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
-      if (!this.options.enabled) {
+      if (!this.options.enabled || !lt.getNodeCommentsText(analysis.node)) {
         $('.study__buttons span.lichessTools-colors').remove();
         return;
       }
