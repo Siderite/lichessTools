@@ -129,14 +129,15 @@
       const study = lichess?.analysis?.study;
       if (!study) return;
       study.chapters.editForm.toggle = lt.unwrapFunction(study.chapters.editForm.toggle, 'chapterNameFromTags');
+      lt.global.clearInterval(this.interval);
       if (!value) return;
       study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
         id: 'chapterNameFromTags',
         after: ($this, result, data) => {
-          const interval = lt.global.setInterval(() => {
+          this.interval = lt.global.setInterval(() => {
             const input = $('#chapter-name');
             if (!input.length) return;
-            lt.global.clearInterval(interval);
+            lt.global.clearInterval(this.interval);
             this.setupButtons(study.data.id, data.id);
           }, 100);
         }
