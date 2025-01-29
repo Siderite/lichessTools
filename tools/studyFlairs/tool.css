@@ -43,3 +43,7 @@ body.lichessTools button.lichessTools-studyFlairs {
   filter: saturate(0.5);
   margin-right: 2em;
 }
+
+body.lichessTools div.lichessTools-studyFlairs .study__icon {
+  display:none;
+}
