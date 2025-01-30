@@ -42,7 +42,8 @@
     addDeviation = async (el)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      if (!$(el).children().first().is('.upt__info')) return;
+      const firstChild = $(el).children().first();
+      if (!firstChild.is('.upt__info')) return;
       const url = $('.upt__info__top .user-link',el).attr('href');
       const m = /^\/@\/(?<userId>[^\/]+)/.exec(url||'');
       if (!m) return;

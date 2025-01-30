@@ -87,14 +87,14 @@
             total = total ? total+points : points;
           }
         } else 
-        if (total !== null) {
+          if (total !== null) {
             const totalText = (total>0 ? '+' : '') + total;
             $(e)
               .addClass('lichessTools-puzzleTotal')
               .attr('title',trans.noarg('puzzleSessionTotalTitle'))
               .text(totalText);
-        }
-      });
+          }
+        });
     };
 
     startTimer = (puzzleId)=>{
@@ -111,8 +111,12 @@
         return;
       }
       const elapsedText = trans.pluralSame('elapsedText',elapsed.toFixed(2));
-      $('.puzzle__feedback .complete')
-        .replaceText(t=>t+' '+elapsedText);
+      const elem = $('.puzzle__feedback .complete');
+      if (!elem.prop('__puzzleOptions')) {
+        elem
+          .prop('__puzzleOptions', true)
+          .replaceText(t=>t+' '+elapsedText);
+      }
     };
 
     async start() {
@@ -158,8 +162,6 @@
               });
             this.showTotal();
           }
-        } else {
-          session.removeObserver('puzzleOptions');
         }
       }
     }
