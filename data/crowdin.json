@@ -394,7 +394,6 @@
     "untilText": "حتى %s",
     "snapTitle": "التقييم: % درجة\r\nتحكم الوقت: %control\r\n%since\r\n%unحتى",
     "options.miniGameSize": "حجم اللعبة المصغر المخصص",
-    "options.forceSf16": "فرض إضافة المخزون 16+",
     "options.studyLearnFromMistakes": "تعلم من أخطاءك في الدراسة",
     "viewTheSolution": "عرض الحل",
     "anotherWasX": "كان آخر %s",
@@ -788,7 +787,8 @@
     "panelHeader-month": "هذا الشهر",
     "panelHeader-rest": "الباقي",
     "quickActions.emoji": "إيموجي الدردشة",
-    "options.tournamentTopBoard": "اتبع لوحة البطولة العليا"
+    "options.tournamentTopBoard": "اتبع لوحة البطولة العليا",
+    "errorSavingPreferences": "حدث خطأ أثناء حفظ التفضيلات! أعد تحميل الصفحة."
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1185,7 +1185,6 @@
     "untilText": "直到 %s",
     "snapTitle": "Rating: %rating\r\nTime controls: %control\r\n%since\r\n%until",
     "options.miniGameSize": "自定义小游戏大小",
-    "options.forceSf16": "强制添加Stockfish 16+",
     "options.studyLearnFromMistakes": "从学习中的错误学习",
     "viewTheSolution": "查看解答",
     "anotherWasX": "另一个是 %s",
@@ -1579,7 +1578,8 @@
     "panelHeader-month": "本月",
     "panelHeader-rest": "其余的",
     "quickActions.emoji": "聊天表情符号",
-    "options.tournamentTopBoard": "跟随锦标赛顶板"
+    "options.tournamentTopBoard": "跟随锦标赛顶板",
+    "errorSavingPreferences": "保存首选项时出错！重新加载页面。"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1976,7 +1976,6 @@
     "untilText": "直到 %s",
     "snapTitle": "等級分：%rating\n時間控制：%control\n%since\n%until",
     "options.miniGameSize": "自訂迷你遊戲大小",
-    "options.forceSf16": "強制添加 Stockfish 16+",
     "options.studyLearnFromMistakes": "從學習中的錯誤中研究",
     "viewTheSolution": "查看解答",
     "anotherWasX": "另一個是 %s",
@@ -2370,7 +2369,8 @@
     "panelHeader-month": "This month",
     "panelHeader-rest": "The rest",
     "quickActions.emoji": "Chat emojis",
-    "options.tournamentTopBoard": "Follow tournament top board"
+    "options.tournamentTopBoard": "Follow tournament top board",
+    "errorSavingPreferences": "Error saving preferences! Reload the page."
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -2767,7 +2767,6 @@
     "untilText": "tot %s",
     "snapTitle": "Rating: %rating\r\nTijd besturing: %control\r\n%since\r\n%until",
     "options.miniGameSize": "Aangepaste mini-spel grootte",
-    "options.forceSf16": "Forceer voorraadvis 16+",
     "options.studyLearnFromMistakes": "Leer van je fouten in Studies",
     "viewTheSolution": "Bekijk de oplossing",
     "anotherWasX": "Een andere was %s",
@@ -3161,7 +3160,8 @@
     "panelHeader-month": "Deze maand",
     "panelHeader-rest": "De rest",
     "quickActions.emoji": "Chat emojis",
-    "options.tournamentTopBoard": "Volg toernooibord"
+    "options.tournamentTopBoard": "Volg toernooibord",
+    "errorSavingPreferences": "Fout bij opslaan van voorkeuren! Herlaad de pagina."
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -3558,7 +3558,6 @@
     "untilText": "until %s",
     "snapTitle": "Rating: %rating\r\nTime controls: %control\r\n%since\r\n%until",
     "options.miniGameSize": "Custom mini-game size",
-    "options.forceSf16": "Force add Stockfish 16+",
     "options.studyLearnFromMistakes": "Learn from your mistakes in Studies",
     "viewTheSolution": "View the solution",
     "anotherWasX": "Another was %s",
@@ -3952,7 +3951,8 @@
     "panelHeader-month": "This month",
     "panelHeader-rest": "The rest",
     "quickActions.emoji": "Chat emojis",
-    "options.tournamentTopBoard": "Follow tournament top board"
+    "options.tournamentTopBoard": "Follow tournament top board",
+    "errorSavingPreferences": "Error saving preferences! Reload the page."
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4349,7 +4349,6 @@
     "untilText": "jusqu'à %s",
     "snapTitle": "Note : %rating\nContrôle de temps : %control\n%since\n%until",
     "options.miniGameSize": "Taille personnalisée du mini-échiquier",
-    "options.forceSf16": "Forcer l'ajout de Stockfish 16+",
     "options.studyLearnFromMistakes": "Apprenez de vos erreurs dans les études",
     "viewTheSolution": "Voir la solution",
     "anotherWasX": "Un autre était %s",
@@ -4743,7 +4742,8 @@
     "panelHeader-month": "Ce mois",
     "panelHeader-rest": "Le reste",
     "quickActions.emoji": "Émoticônes de chat",
-    "options.tournamentTopBoard": "Suivre le 1er échiquier d’un tournoi"
+    "options.tournamentTopBoard": "Suivre le 1er échiquier d’un tournoi",
+    "errorSavingPreferences": "Erreur lors de l'enregistrement des préférences ! Recharger la page."
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5140,7 +5140,6 @@
     "untilText": "bis %s",
     "snapTitle": "Bewertung: %Bewertung\r\nZeit Steuerung: %control\r\n%since\r\n%until",
     "options.miniGameSize": "Eigene Mini-Spielgröße",
-    "options.forceSf16": "Füge Stockfisch 16+ hinzu",
     "options.studyLearnFromMistakes": "Lernen Sie aus Ihren Fehlern in Studien",
     "viewTheSolution": "Lösung anzeigen",
     "anotherWasX": "Ein anderer war %s",
@@ -5534,7 +5533,8 @@
     "panelHeader-month": "Diesen Monat",
     "panelHeader-rest": "Der Rest",
     "quickActions.emoji": "Chat-Emojis",
-    "options.tournamentTopBoard": "Turnier-Top Board folgen"
+    "options.tournamentTopBoard": "Turnier-Top Board folgen",
+    "errorSavingPreferences": "Fehler beim Speichern der Einstellungen! Seite neu laden."
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -5931,7 +5931,6 @@
     "untilText": "fino a %s",
     "snapTitle": "Punteggio: %rating\nControllo del tempo: %control\n%since\n%until",
     "options.miniGameSize": "Dimensione mini-gioco personalizzata",
-    "options.forceSf16": "Forza l'aggiunta di Stockfish 16+",
     "options.studyLearnFromMistakes": "Impara dai tuoi errori negli studi",
     "viewTheSolution": "Visualizza la soluzione",
     "anotherWasX": "Un'alternativa era %s",
@@ -6325,7 +6324,8 @@
     "panelHeader-month": "Questo mese",
     "panelHeader-rest": "Il resto",
     "quickActions.emoji": "Emoji chat",
-    "options.tournamentTopBoard": "Segui top board del torneo"
+    "options.tournamentTopBoard": "Segui top board del torneo",
+    "errorSavingPreferences": "Errore salvataggio preferenze! Ricarica la pagina."
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -6722,7 +6722,6 @@
     "untilText": "do %s",
     "snapTitle": "Rating: %rating\nTempo gry: %control\n%since\n%until",
     "options.miniGameSize": "Niestandardowy rozmiar minipodglądu rozgrywki",
-    "options.forceSf16": "Wymuś dodawanie Stockfisha 16+",
     "options.studyLearnFromMistakes": "Funkcja \"Ucz się na swoich błędach\" w opracowaniach",
     "viewTheSolution": "Pokaż rozwiązanie",
     "anotherWasX": "Innym było %s",
@@ -7116,7 +7115,8 @@
     "panelHeader-month": "W tym miesiącu",
     "panelHeader-rest": "Reszta",
     "quickActions.emoji": "Emotki czatu",
-    "options.tournamentTopBoard": "Śledź najwyższą szachownicę turnieju"
+    "options.tournamentTopBoard": "Śledź najwyższą szachownicę turnieju",
+    "errorSavingPreferences": "Błąd podczas zapisywania ustawień! Odśwież stronę."
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -7513,7 +7513,6 @@
     "untilText": "até %s",
     "snapTitle": "Classificação: %rating\r\nControle horário: %control\r\n%since\r\n%until",
     "options.miniGameSize": "Tamanho personalizado do mini jogo",
-    "options.forceSf16": "Forçar a adição do Estoque 16+",
     "options.studyLearnFromMistakes": "Aprenda com seus erros nos Estudos",
     "viewTheSolution": "Ver solução",
     "anotherWasX": "Outro foi %s",
@@ -7907,7 +7906,8 @@
     "panelHeader-month": "Este mês",
     "panelHeader-rest": "O resto",
     "quickActions.emoji": "Emojis de chat",
-    "options.tournamentTopBoard": "Siga o topo do torneio"
+    "options.tournamentTopBoard": "Siga o topo do torneio",
+    "errorSavingPreferences": "Erro ao salvar preferências! Recarregue a página."
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -8304,7 +8304,6 @@
     "untilText": "até %s",
     "snapTitle": "Classificação: %rating\r\nControle horário: %control\r\n%since\r\n%until",
     "options.miniGameSize": "Tamanho personalizado do mini jogo",
-    "options.forceSf16": "Forçar a adição do Estoque 16+",
     "options.studyLearnFromMistakes": "Aprenda com seus erros nos Estudos",
     "viewTheSolution": "Ver solução",
     "anotherWasX": "Outro foi %s",
@@ -8698,7 +8697,8 @@
     "panelHeader-month": "Este Mês",
     "panelHeader-rest": "O resto",
     "quickActions.emoji": "Emojis de chat",
-    "options.tournamentTopBoard": "Siga o topo do torneio"
+    "options.tournamentTopBoard": "Siga o topo do torneio",
+    "errorSavingPreferences": "Erro ao salvar preferências! Recarregue a página."
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9095,7 +9095,6 @@
     "untilText": "până la %s",
     "snapTitle": "Rating: %rating\r\nControl timp: %control\r\n%since\r\n%until",
     "options.miniGameSize": "Dimensiune mini joc",
-    "options.forceSf16": "Adaugă forţat Stockfish 16+",
     "options.studyLearnFromMistakes": "Învaţă din greşeli în Studii",
     "viewTheSolution": "Vezi soluţia",
     "anotherWasX": "Altă mutare bună este: %s",
@@ -9489,7 +9488,8 @@
     "panelHeader-month": "Luna aceasta",
     "panelHeader-rest": "Restul",
     "quickActions.emoji": "Emoji în chat",
-    "options.tournamentTopBoard": "Urmărește tabla principală în turneu"
+    "options.tournamentTopBoard": "Urmărește tabla principală în turneu",
+    "errorSavingPreferences": "Eroare salvare preferințe! Reîncarcă pagina."
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -9886,7 +9886,6 @@
     "untilText": "до %s",
     "snapTitle": "Рейтинг: %rating\nКонтроль времени: %control\n%since\n%until",
     "options.miniGameSize": "Пользовательский размер окна мини-игры",
-    "options.forceSf16": "Принудительно добавить Stockfish 16+",
     "options.studyLearnFromMistakes": "Учитесь на своих ошибках в студиях",
     "viewTheSolution": "Посмотреть решение",
     "anotherWasX": "Можно было %s",
@@ -10280,7 +10279,8 @@
     "panelHeader-month": "Этот месяц",
     "panelHeader-rest": "Остальные",
     "quickActions.emoji": "Чат emojis",
-    "options.tournamentTopBoard": "Следите за топ-доской турниром"
+    "options.tournamentTopBoard": "Следите за топ-доской турниром",
+    "errorSavingPreferences": "Ошибка сохранения настроек! Перезагрузите страницу."
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -10677,7 +10677,6 @@
     "untilText": "hasta %s",
     "snapTitle": "Clasificación: %rating\r\nControl de tiempo: %control\r\n%since\r\n%until",
     "options.miniGameSize": "Tamaño personalizado del minijuego",
-    "options.forceSf16": "Forzar añadir Stock 16 +",
     "options.studyLearnFromMistakes": "Aprende de tus errores en Estudios",
     "viewTheSolution": "Ver la solución",
     "anotherWasX": "Otro era %s",
@@ -11071,7 +11070,8 @@
     "panelHeader-month": "Este mes",
     "panelHeader-rest": "El resto",
     "quickActions.emoji": "Emojis del chat",
-    "options.tournamentTopBoard": "Seguir el tablero superior del torneo"
+    "options.tournamentTopBoard": "Seguir el tablero superior del torneo",
+    "errorSavingPreferences": "Error al guardar las preferencias! Recarga la página."
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -11468,7 +11468,6 @@
     "untilText": "until %s",
     "snapTitle": "Rating: %rating\r\nTime controls: %control\r\n%since\r\n%until",
     "options.miniGameSize": "Custom mini-game size",
-    "options.forceSf16": "Force add Stockfish 16+",
     "options.studyLearnFromMistakes": "Learn from your mistakes in Studies",
     "viewTheSolution": "View the solution",
     "anotherWasX": "Another was %s",
@@ -11862,7 +11861,8 @@
     "panelHeader-month": "This month",
     "panelHeader-rest": "The rest",
     "quickActions.emoji": "Chat emojis",
-    "options.tournamentTopBoard": "Follow tournament top board"
+    "options.tournamentTopBoard": "Follow tournament top board",
+    "errorSavingPreferences": "Error saving preferences! Reload the page."
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -12259,7 +12259,6 @@
     "untilText": "until %s",
     "snapTitle": "Rating: %rating\r\nTime controls: %control\r\n%since\r\n%until",
     "options.miniGameSize": "Custom mini-game size",
-    "options.forceSf16": "Force add Stockfish 16+",
     "options.studyLearnFromMistakes": "Learn from your mistakes in Studies",
     "viewTheSolution": "View the solution",
     "anotherWasX": "Another was %s",
@@ -12653,6 +12652,7 @@
     "panelHeader-month": "This month",
     "panelHeader-rest": "The rest",
     "quickActions.emoji": "Chat emojis",
-    "options.tournamentTopBoard": "Follow tournament top board"
+    "options.tournamentTopBoard": "Follow tournament top board",
+    "errorSavingPreferences": "Error saving preferences! Reload the page."
   }
 }
