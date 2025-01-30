@@ -104,7 +104,6 @@
         "tools/showPawnStructure/tool.js",
         "tools/explorerSnaps/tool.js",
         "tools/miniGameSize/tool.js",
-        "tools/forceSf16/tool.js",
         "tools/studyLearnFromMistakes/tool.js",
         "tools/pinOnMainPage/tool.js",
         "tools/pgnEditor/tool.js",
