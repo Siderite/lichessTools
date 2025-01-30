@@ -108,23 +108,35 @@
       this.clearMoveMode();
     };
 
+    boardFrozen = false;
     freezeBoard = () => {
+      const lt = this.lichessTools;
       if (this.makeMoveMode != 'general') {
         this.oldHandlers['f']();
         return;
       }
       this.clearMoveMode();
+      this.boardFrozen = !this.boardFrozen;
+      lt.pubsub.off('lichessTools.redraw',this.renderFreeze);
+      if (this.boardFrozen) {
+        lt.pubsub.on('lichessTools.redraw',this.renderFreeze);
+      }
+      this.renderFreeze();
+    };
+    renderFreeze = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const board = $('cg-container.lichessTools-freezeBoard');
-      if (board.length) {
+      if (!this.boardFrozen) {
         board.remove();
         return;
       };
-      $('cg-container')
-        .clone()
-        .addClass('lichessTools-freezeBoard')
-        .appendTo('div.cg-wrap');
+      if (!board.length) {
+        $('cg-container')
+          .clone()
+          .addClass('lichessTools-freezeBoard')
+          .appendTo('div.cg-wrap');
+      }
     };
 
     toggleSiteHeader = () => {
