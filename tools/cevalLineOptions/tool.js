@@ -112,7 +112,8 @@
         .attr('max',maxValue)
         .off('input',this.updateMoreLinesText)
         .on('input',this.updateMoreLinesText);
-      const value = +lichessTools.storage.get('ceval.multipv');
+      const ceval = lt.lichess.analysis?.ceval;
+      const value = ceval?.storedPv();
       if (value) {
         input.val(value);
       }
@@ -125,7 +126,10 @@
             const maxValue = input.attr('max')==5 ? 10 : 5;
             lt.storage.set('LiChessTools.cevalLineOptions-moreLines',maxValue);
             input.attr('max',maxValue);
-            lichessTools.storage.set('ceval.multipv',+input.val());
+            const ceval = lt.lichess.analysis?.ceval;
+            if (ceval) {
+              ceval.storedPv(+input.val());
+            }
             this.updateMoreLinesText();
           })
           .insertAfter($('.range_value',container));
