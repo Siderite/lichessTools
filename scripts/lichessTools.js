@@ -673,7 +673,7 @@
       const inAnalysisMode = !!this.lichess.analysis;
       const mTv = !inAnalysisMode && /\/tv(\/([^\/]+))?/.exec(this.global.location.pathname);
       const mUser = /\/@\/([^\/]+)/.exec(this.global.location.pathname);
-      const analysisUrl = $('div.buttons .analysis').attr('href') || '';
+      const analysisUrl = $('div.buttons a.analysis,rb1 a.analysis').attr('href') || '';
       const mAnalysis = /^\/([^\/]+)\/?(black)?/.exec(analysisUrl);
       return {
         isTv: !!mTv,
@@ -1724,6 +1724,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000 });
       },
       blog: {
         lichessTools: this,
