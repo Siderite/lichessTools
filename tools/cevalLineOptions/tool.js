@@ -43,50 +43,50 @@
     handlePvs = () => {
       if (this._inHandlePvs) return;
       try {
-      this._inHandlePvs=true;
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
-      [...this.dict.values()].forEach(v => v.count = 0);
-      $('div.pv_box span.pv-san').each((i, e) => {
-        if (!lt.inViewport(e)) return;
-        const key = this.getKey(e);
-        const data = this.dict.get(key);
-        if (data) {
-          data.count++;
-        } else {
-          this.dict.set(key, { count: 1, cls: '' });
-        }
-      });
-      const arr = [...this.dict];
-      arr.sort((a, b) => b[1].count - a[1].count);
-      const demotes = arr.map(entry => entry[1]).filter(val => val.count <= 1 && val.cls);
-      arr.forEach((entry) => {
-        const key = entry[0];
-        const val = entry[1];
-        if (val.count > 1 && !val.cls) {
-          if (demotes.length) {
-            const demote = demotes.shift();
-            val.cls = demote.cls;
-            demote.cls = '';
-          } else {
-            this.clsIndex++;
-            if (this.clsIndex > 30) {
-              lt.global.console.debug('Ceval highlight class index: ', this.clsIndex);
-            }
-            val.cls = 'lichessTools-cevalHighlight-' + this.clsIndex;
-          }
-        }
-      });
-      $('div.pv_box span.pv-san')
-        .each((i, e) => {
+        this._inHandlePvs=true;
+        const lt = this.lichessTools;
+        const $ = lt.$;
+        this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
+        [...this.dict.values()].forEach(v => v.count = 0);
+        $('div.pv_box span.pv-san').each((i, e) => {
+          if (!lt.inViewport(e)) return;
           const key = this.getKey(e);
-          const val = this.dict.get(key);
-          const cls = val?.count > 1 && this.options.highlight
-            ? ('pv-san ' + val.cls).trim()
-            : 'pv-san';
-          if (e.className != cls) e.className = cls;
+          const data = this.dict.get(key);
+          if (data) {
+            data.count++;
+          } else {
+            this.dict.set(key, { count: 1, cls: '' });
+          }
         });
+        const arr = [...this.dict];
+        arr.sort((a, b) => b[1].count - a[1].count);
+        const demotes = arr.map(entry => entry[1]).filter(val => val.count <= 1 && val.cls);
+        arr.forEach((entry) => {
+          const key = entry[0];
+          const val = entry[1];
+          if (val.count > 1 && !val.cls) {
+            if (demotes.length) {
+              const demote = demotes.shift();
+              val.cls = demote.cls;
+              demote.cls = '';
+            } else {
+              this.clsIndex++;
+              if (this.clsIndex > 30) {
+                lt.global.console.debug('Ceval highlight class index: ', this.clsIndex);
+              }
+              val.cls = 'lichessTools-cevalHighlight-' + this.clsIndex;
+            }
+          }
+        });
+        $('div.pv_box span.pv-san')
+          .each((i, e) => {
+            const key = this.getKey(e);
+            const val = this.dict.get(key);
+            const cls = val?.count > 1 && this.options.highlight
+              ? ('pv-san ' + val.cls).trim()
+              : 'pv-san';
+            if (e.className != cls) e.className = cls;
+          });
       } finally {
         this._inHandlePvs=false;
       }
@@ -125,7 +125,7 @@
             const maxValue = input.attr('max')==5 ? 10 : 5;
             lt.storage.set('LiChessTools.cevalLineOptions-moreLines',maxValue);
             input.attr('max',maxValue);
-            lichessTools.storage.set('ceval.multipv',input.val());
+            lichessTools.storage.set('ceval.multipv',+input.val());
             this.updateMoreLinesText();
           })
           .insertAfter($('.range_value',container));
@@ -162,6 +162,7 @@
             attributeFilter: ['class']
           });
       }
+      this.handlePvs();
       if (this.options.moreLines) {
         analysisTools
           .observer()
