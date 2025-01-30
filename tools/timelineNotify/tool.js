@@ -105,6 +105,7 @@
 
       if (/^\/timeline/i.test(lt.global.location.pathname)) this.setAllRead();
       const notification = {
+        id: 'timelineNotify',
         getEntries: async () => {
           this.lastRead = +(lt.storage.get('LiChessTools.lastRead')) || 0;
           const timeline = await lt.api.timeline.get(this.lastRead);

@@ -29,6 +29,7 @@
 
     notifications = [];
     addNotification = (notification) => {
+      if (notification.id && this.notifications.find(n=>n.id == notification.id)) return;
       this.notifications.push(notification);
       this.forcedProcessNotifications();
     };
