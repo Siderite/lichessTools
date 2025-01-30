@@ -34,17 +34,19 @@
       const analysis = lichess?.analysis;
       if (!analysis) return;
       analysis.setAutoShapes = lt.unwrapFunction(analysis.setAutoShapes, 'transpositionArrows');
-      if (!value) return;
-      analysis.setAutoShapes = lt.wrapFunction(analysis.setAutoShapes, {
-        id: 'transpositionArrows',
-        before: ($this, ...args) => {
-          this.childrenNodes = analysis.node.children;
-          analysis.node.children = lt.getNextMoves(analysis.node);
-        },
-        after: ($this, result, ...args) => {
-          analysis.node.children = this.childrenNodes;
-        }
-      });
+      if (value) {
+        analysis.setAutoShapes = lt.wrapFunction(analysis.setAutoShapes, {
+          id: 'transpositionArrows',
+          before: ($this, ...args) => {
+            this.childrenNodes = analysis.node.children;
+            analysis.node.children = lt.getNextMoves(analysis.node);
+          },
+          after: ($this, result, ...args) => {
+            analysis.node.children = this.childrenNodes;
+          }
+        });
+      }
+      analysis.setAutoShapes();
     }
 
   }
