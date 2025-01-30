@@ -31,6 +31,7 @@
 
     getImage = (url) => {
       return new Promise((resolve, reject) => {
+        setTimeout(()=>resolve(null),5000);
         const img = new Image();
         img.onload = () => resolve(img);
         img.src = url;
@@ -63,12 +64,15 @@
       const board = $('div.main-board cg-board');
       const href = $(ev.target).attr('href');
       const backgroundText = lt.global.getComputedStyle(board[0], ':before').backgroundImage;
-      let url = /"(.*)"/.exec(backgroundText || '')?.[1];
+      const match = /"(.*?)"(?:[^"]*"(.*?)")*/.exec(backgroundText);
+      let url = match?.[match.length-1];
+      const assetsUrl = [...match].slice(1).find(m=>/\/assets\//.test(m));
       if (!url) {
         const theme = lt.global.document.dataset?.board || 'maple';
         url = lt.assetUrl('../images/board/' + theme + '.jpg');
       }
-      let img = await this.getImage(url);
+      let img = await this.getImage(url) || (assetsUrl && await this.getImage(assetsUrl));
+      
       ctx.drawImage(img, 0, 0, 800, 800);
       const q = 800 / board.width();
       board.find('square.selected,square.last-move').each((i, e) => {
