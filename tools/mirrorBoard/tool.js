@@ -45,7 +45,7 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
-      $('.board-editor__tools .actions buttons.lichessTools-mirrorBoard').remove();
+      $('.board-editor__tools .actions button.lichessTools-mirrorBoard').remove();
       if (!value) return;
       $('<button class="button button-empty lichessTools-mirrorBoard"><span class="text"></span></button>')
         .attr('title', trans.noarg('mirrorButtonTitle'))
