@@ -181,7 +181,7 @@
         const study = this._studies[studyId];
         if (!study) return;
         const flairs = [];
-        if (this.options.topicFlairs && study.flair) {
+        if (study.flair) {
           flairs.push({ title: trans.noarg('studyFlairTitle'), flair: study.flair });
         }
         if (this.options.topicFlairs && study.topics) {
@@ -201,10 +201,9 @@
           flairs.push(...members);
         }
         if (flairs.length) {
-          e.find('.study__icon').hide();
           e.addClass('lichessTools-studyFlairs');
           const url = lichess.asset.flairSrc(flairs[0].flair);
-          let elem = $('<img>')
+          let elem = $('<img class="lichessTools-studyFlair">')
             .attr('src', url)
             .attr('title', flairs[0].title)
             .prependTo(e.find('div.top'));
@@ -273,8 +272,9 @@
       };
       lt.pubsub.off('content-loaded', this.processStudyListDebounced);
       lt.global.clearInterval(this.interval);
+      $('div.lichessTools-studyFlairs').removeClass('lichessTools-studyFlairs');
+      $('img.lichessTools-studyFlair,.lichessTools-bottomFlairs').remove();
       if (!value) {
-        $('.study__icon').show();
         return;
       }
       if (lichess.analysis?.study || $('.study-topics,.topic-list').length) {

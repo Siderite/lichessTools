@@ -55,21 +55,18 @@
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
-      if (!this.options.enabled) {
+      const showStylingButton = study.vm.mode.write && lt.getNodeCommentsText(analysis.node);
+      if (!this.options.enabled || !showStylingButton) {
         $('.study__buttons span.lichessTools-colors').remove();
-        return;
       }
-      if (!study.vm.mode.write) {
-        $('.study__buttons span.lichessTools-colors').remove();
-      } else {
-        if (!$('.study__buttons span.lichessTools-colors').length) {
-          const button = $('<span>')
-            .attr('title', trans.noarg('commentStyleCycle'))
-            .attr('data-icon', lt.icon.InkQuill)
-            .addClass('lichessTools-colors')
-            .on('click', this.cycleCommentColor)
-            .insertAfter('.study__buttons span.comments');
-        }
+      if (!this.options.enabled) return;
+      if (showStylingButton && !$('.study__buttons span.lichessTools-colors').length) {
+        const button = $('<span>')
+          .attr('title', trans.noarg('commentStyleCycle'))
+          .attr('data-icon', lt.icon.InkQuill)
+          .addClass('lichessTools-colors')
+          .on('click', this.cycleCommentColor)
+          .insertAfter('.study__buttons span.comments');
       }
 
       const commentNodes = this.getCommentNodes($('div.analyse__moves comment, div.gamebook .comment .content'));

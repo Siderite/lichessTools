@@ -2,7 +2,7 @@ body.lichessTools .analyse .tview2 move.lichessTools-lastInLine:after {
   content: '\00a0\1D38';
 }
 
-body.lichessTools .analyse .tview2 move.lichessTools-lastInLine.lichessTools-uncommented {
+body.lichessTools .analyse .tview2 move.lichessTools-uncommented {
   border-bottom: 1px solid red;
 }
 

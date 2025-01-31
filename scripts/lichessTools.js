@@ -12,6 +12,46 @@
     global = null;
     lichess = null;
 
+    intl = {
+      lichessTools: this,
+      defaultLanguage: 'en-US',
+      'en-US': {
+        'LiChess Tools': 'LiChess Tools',
+        serverOverload: 'Lichess thinks we are overloading their system!',
+        errorSavingPreferences: 'Error saving preferences! Reload the page.'
+      },
+      'ro-RO': {
+        serverOverload: 'Lichess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!',
+        errorSavingPreferences: 'Eroare salvare preferin\u0163e! Re\u00eencarc\u0103 pagina.'
+      },
+      get lang() {
+        const lt = this.lichessTools;
+        let lang = lt.global.document.documentElement.lang || this.defaultLanguage;
+        if (!this[lang] && !this[lang+'-crowdin']) lang = this.defaultLanguage;
+        return lang;
+      },
+      get isTranslated() {
+        return this.lang != this.defaultLanguage;
+      },
+      get siteI18n() {
+        const lt = this.lichessTools;
+        if (lt.debug) {
+          const allKeys = Object.keys(this[this.defaultLanguage]);
+          const langKeys = Object.keys({ ...this[this.lang], ...this[this.lang+'-crowdin'] });
+          const missingKeys = new Set(allKeys);
+          for (const key of langKeys) missingKeys.delete(key);
+          const orphanKeys = new Set(langKeys);
+          for (const key of allKeys) orphanKeys.delete(key);
+          if (missingKeys.size) lt.global.console.debug(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
+          if (orphanKeys.size) lt.global.console.debug(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
+        }
+        if (!this._siteI18n) {
+          this._siteI18n = { ...this[this.defaultLanguage], ...this[this.lang], ...this[this.lang+'-crowdin'] };
+        }
+        return this._siteI18n;
+      }
+    };
+
     icon = {
       // see https://github.com/lichess-org/lila/blob/master/modules/ui/src/main/Icon.scala
       CautionTriangle: '\ue000',
@@ -386,6 +426,7 @@
           if (execute === false) executeOriginal = false;
         }
         let result = null;
+        const func = wrappedFunc.__originalFunction;
         if (executeOriginal && func) {
           if (options?.ignoreErrors) {
             (async () => { return func.apply(this, arguments); })()
@@ -632,7 +673,7 @@
       const inAnalysisMode = !!this.lichess.analysis;
       const mTv = !inAnalysisMode && /\/tv(\/([^\/]+))?/.exec(this.global.location.pathname);
       const mUser = /\/@\/([^\/]+)/.exec(this.global.location.pathname);
-      const analysisUrl = $('div.buttons .analysis').attr('href') || '';
+      const analysisUrl = $('div.buttons a.analysis,rb1 a.analysis').attr('href') || '';
       const mAnalysis = /^\/([^\/]+)\/?(black)?/.exec(analysisUrl);
       return {
         isTv: !!mTv,
@@ -762,6 +803,12 @@
           collapsedPaths.push(interrupt ? p.slice(0, -2) : p);
         }
       });
+      $('move.lichessTools-bookmark.lichessTools-collapsed').each((i,e)=>{
+        const p = $(e).attr('p');
+        if (p) {
+          collapsedPaths.push(p);
+        }
+      });
       const collapsedRegex = collapsedPaths.length
         ? new RegExp('^(' + collapsedPaths.map(p => this.escapeRegex(p)).join('|') + ')')
         : null;
@@ -805,8 +852,10 @@
             return;
           }
         }
-        this.resetCache();
-        elem = this.elementCache.get(path);
+        if (!this.global.document.body.contains(elem)) {
+          this.resetCache();
+          elem = this.elementCache.get(path);
+        }
       } else {
         if (this.debug && this.collapsedRegex?.test(path)) {
           if (!this.lichess.analysis.tree.pathIsMainline(path)) {
@@ -1345,44 +1394,6 @@
       return this.tools.find(t => t.name == name);
     }
 
-    intl = {
-      lichessTools: this,
-      defaultLanguage: 'en-US',
-      'en-US': {
-        'LiChess Tools': 'LiChess Tools',
-        serverOverload: 'Lichess thinks we are overloading their system!'
-      },
-      'ro-RO': {
-        serverOverload: 'Lichess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!'
-      },
-      get lang() {
-        const lt = this.lichessTools;
-        let lang = lt.global.document.documentElement.lang || this.defaultLanguage;
-        if (!this[lang] && !this[lang+'-crowdin']) lang = this.defaultLanguage;
-        return lang;
-      },
-      get isTranslated() {
-        return this.lang != this.defaultLanguage;
-      },
-      get siteI18n() {
-        const lt = this.lichessTools;
-        if (lt.debug) {
-          const allKeys = Object.keys(this[this.defaultLanguage]);
-          const langKeys = Object.keys({ ...this[this.lang], ...this[this.lang+'-crowdin'] });
-          const missingKeys = new Set(allKeys);
-          for (const key of langKeys) missingKeys.delete(key);
-          const orphanKeys = new Set(langKeys);
-          for (const key of allKeys) orphanKeys.delete(key);
-          if (missingKeys.size) lt.global.console.debug(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
-          if (orphanKeys.size) lt.global.console.debug(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
-        }
-        if (!this._siteI18n) {
-          this._siteI18n = { ...this[this.defaultLanguage], ...this[this.lang], ...this[this.lang+'-crowdin'] };
-        }
-        return this._siteI18n;
-      }
-    }
-
     net = {
       lichessTools: this,
       slowMode: false,
@@ -1572,7 +1583,7 @@
 
     comm = {
       lichessTools: this,
-      timeout: 5000,
+      timeout: 10000,
       sendResponses: [],
       init: function () {
         const lt = this.lichessTools;
@@ -1713,6 +1724,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000 });
       },
       blog: {
         lichessTools: this,
@@ -2196,8 +2208,12 @@
     }
 
     async saveOptions(options) {
+      const trans = this.translator;
       const data = await this.comm.send({ type: 'getVersion' })
-                                             .catch(e => { throw e; });
+                                             .catch(e => { 
+                                               this.announce(trans.noarg('errorSavingPreferences'));
+                                               throw e;
+                                             });
       const version = data.version;
       this.debug && console.log('Saving options version',version);
       options.version = version;

@@ -307,7 +307,7 @@
         }
         if (this._originalTitle) {
           $('.explorer-title span.lichess')
-            .text(this._originalTitle);
+            .attr('title',this._originalTitle);
         }
         return;
       }

@@ -585,6 +585,7 @@
           id: 'showScore',
           after: ($this, result, ...args) => {
             // fix lichess bug where entering Preview mode keeps using Explorer endpoints in the background
+            // see https://github.com/lichess-org/lila/issues/16890
             if (this.explorerEnabled === undefined) {
               this.explorerEnabled = analysis.explorer.enabled();
             }

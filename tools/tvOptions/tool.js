@@ -78,11 +78,13 @@
     };
 
     isStreamerTvPage = () => {
+      if (!this.options.streamerTv) return false;
       const lt = this.lichessTools;
       return /^\/games\/?$/i.test(lt.global.location.pathname) && location.hash == '#streamers';
     };
 
     isFriendsTvPage = () => {
+      if (!this.options.friendsTv) return false;
       const lt = this.lichessTools;
       return /^\/games\/?$/i.test(lt.global.location.pathname) && location.hash == '#friends';
     };

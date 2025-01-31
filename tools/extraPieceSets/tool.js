@@ -130,7 +130,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
       $('#dasher_app')
         .observer()
         .off('.sub.piece.d2',this.addPieces);
-      $('style#lichessTools-extraPieceSets').remove();
+      $('style#lichessTools-extraPieceSets,button.lichessTools-extraPieceSets').remove();
       if (!value) return;
       if (!this.pieceSets) {
         const data = await lt.comm.getData('pieceSets.json');
@@ -144,6 +144,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
       $('#dasher_app')
         .observer()
         .on('.sub.piece.d2',this.addPieces);
+      this.addPieces();
     }
 
   }

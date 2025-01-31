@@ -171,6 +171,9 @@
 
     createSocket = (teamId) => {
       const lt = this.lichessTools;
+      const existingOpenSocket = this.sockets?.find(s => s.teamId == teamId)?.socket;
+      if (existingOpenSocket && existingOpenSocket.readyState == existingOpenSocket.OPEN) return existingOpenSocket;
+
       const lichess = lt.lichess;
       const data = lt.global.document.body.dataset;
       const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
@@ -371,6 +374,13 @@
     };
     notificationButtonInTeams = this.lichessTools.debounce(this.notificationButtonInTeamsDirect,100);
 
+    destroySockets = (sockets)=>{
+      if (!sockets?.length) return;
+      for (const { teamId, socket } of sockets) {
+        socket.destroy();
+      }
+    };
+
     sockets = [];
     async start() {
       const lt = this.lichessTools;
@@ -392,12 +402,6 @@
       if ($('section.mchat').length && (this.options.urlify || this.options.unlimited || this.options.images)) {
         this.interval = lt.global.setInterval(this.processChat, 1000);
         this.processChat();
-      }
-      if (this.sockets?.length) {
-        for (const { teamId, socket } of this.sockets) {
-          socket.destroy();
-        }
-        this.sockets = null;
       }
       lt.pubsub.off('content-loaded', this.notificationButtonInTeams);
       if (this.options.teamChatNotifications) {
@@ -424,6 +428,8 @@
             this.saveTeamsData();
             lt.storage?.fire('lichessTools.refreshNotifications');
           }
+          const orphanSockets = this.sockets?.filter(s=>!this.teamsData.find(t=>t.teamId==s.teamId));
+          this.destroySockets(orphanSockets);
           this.sockets = this.teamsData.map(t => ({
             teamId: t.teamId,
             socket: this.createSocket(t.teamId)
@@ -433,6 +439,9 @@
           this.notificationButtonInTeams();
           lt.pubsub.on('content-loaded', this.notificationButtonInTeams);
         }
+      } else {
+        this.destroySockets(this.sockets);
+        this.sockets = null;
       }
     }
 

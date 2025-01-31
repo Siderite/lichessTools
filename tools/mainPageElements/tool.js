@@ -71,15 +71,19 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
+      const userId = lt.getUserId();
       this.options = {
         get side() {
           return lt.isOptionSet(value, 'side')
                    ? this.side_streams || this.side_spotlights || this.side_timeline
                    : false;
         },
+        get app_all() {
+          return this.app_bullet && this.app_blitz && this.app_rapid && this.app_classical;
+        },
         side_streams: lt.isOptionSet(value, 'side_streams'),
         side_spotlights: lt.isOptionSet(value, 'side_spotlights'),
-        side_timeline: lt.isOptionSet(value, 'side_timeline'),
+        side_timeline: userId && lt.isOptionSet(value, 'side_timeline'),
         app: lt.isOptionSet(value, 'app'),
         app_bullet: lt.isOptionSet(value, 'app_bullet'),
         app_blitz: lt.isOptionSet(value, 'app_blitz'),
@@ -94,7 +98,7 @@
         tours: lt.isOptionSet(value, 'tours'),
         about: lt.isOptionSet(value, 'about'),
         get allSet() {
-          return this.side && this.app && this.table && this.tv && this.blog &&
+          return this.side && this.app && this.app_all && this.table && this.tv && this.blog &&
             this.puzzle && this.support && this.feed && this.tours && this.about;
         },
         get noneSet() {
@@ -173,6 +177,12 @@
         $('main .lobby__feed').toggleClass('lichessTools-hideElement', !this.options.feed);
         $('main .lobby__tournaments-simuls').toggleClass('lichessTools-hideElement', !this.options.tours);
         $('main .lobby__about').toggleClass('lichessTools-hideElement', !this.options.about);
+
+        if (this.options.side && !this.options.side_timeline && this.options.feed) {
+          $('.lobby__feed').appendTo('.lobby__side');
+        } else {
+          $('.lobby__side .lobby__feed').appendTo('main.lobby');
+        }
       }
     }
   }

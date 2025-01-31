@@ -40,18 +40,14 @@
           .attr('title',trans.noarg('linkToAnalysisTitle'))
           .appendTo('.copyables .pgn .pair');
       }
-      if (analysis.tree.root.children?.length == 0) {
+      if (analysis.tree.root.children?.length == 0 && lt.isStartFen(analysis.node.fen)) {
         button.hide();
         return;
       }
-      let pgn = $('.copyables .pgn textarea.copyable').val();
-      if (!pgn?.trim()) {
-        button.hide();
-        return;
-      }
+      let pgn = $('.copyables .pgn textarea.copyable').val()?.trim() || ' *';
       pgn = pgn.replaceAll(/\[\w+\s+"[^"]*"\]\s+/g,'');
       if (!lt.isStartFen(analysis.tree.root.fen)) {
-        pgn = '[FEN "'+analysis.tree.root.fen+'"]'+pgn;
+        pgn = '[FEN "'+analysis.tree.root.fen+'"]\r\n'+pgn;
       }
       pgn = pgn.replaceAll(/(\d+\.)\s+/g,'$1');
       let url = lt.global.location.origin+'/analysis/pgn/'+lt.global.encodeURIComponent(pgn);

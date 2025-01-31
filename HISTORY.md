@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+30 Jan
+
+- removed forceSf16 and noSpoilers tools
+
 26 Jan
 
 - chapter cls markers

@@ -200,13 +200,13 @@
       if (this.options.studyLinksSameWindow) {
         lt.pubsub.on('lichessTools.redraw', this.alterStudyLinks);
         lt.pubsub.on('lichessTools.chapterChange', this.alterStudyLinks);
-        this.alterStudyLinks();
       }
 
       lt.pubsub.off('lichessTools.commentChange', this.handleVideoLinks);
       if (this.options.video || this.options.studyLinksSameWindow) {
         lt.pubsub.on('lichessTools.commentChange', this.handleVideoLinks);
         lt.pubsub.on('lichessTools.commentChange', this.alterStudyLinks);
+        this.alterStudyLinks();
       }
 
     }

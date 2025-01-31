@@ -135,6 +135,8 @@
       }
       lt.pubsub.off('lichessTools.chapterChange', this.addDivider);
       lt.pubsub.off('lichessTools.redraw', this.addDivider);
+      $('.analyse__tools').observer()
+        .off('.analyse__fork',this.addDividerDirect);
       analysis.explorer.setNode = lt.unwrapFunction(analysis.explorer.setNode, 'resizeExplorer');
       if (!value) {
         const explorerBox = $('main.analyse .analyse__tools .explorer-box');
@@ -145,6 +147,8 @@
       }
       lt.pubsub.on('lichessTools.chapterChange', this.addDivider);
       lt.pubsub.on('lichessTools.redraw', this.addDivider);
+      $('.analyse__tools').observer()
+        .on('.analyse__fork',this.addDividerDirect);
       analysis.explorer.setNode = lt.wrapFunction(analysis.explorer.setNode, {
         id: 'resizeExplorer',
         after: ($this, result, ...args) => {

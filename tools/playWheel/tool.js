@@ -33,8 +33,12 @@
         const icon = ev.deltaY > 0
           ? lt.icon.JumpNext
           : lt.icon.JumpPrev;
-        $.cached('.round__app .buttons button.fbt[data-icon="'+icon+'"]')
-          .trigger('mousedown');
+        const button = $.cached('.round__app .buttons button.fbt[data-icon="'+icon+'"], .round__app rb1 button.fbt[data-icon="'+icon+'"]');
+        if (!button.prop('disabled')) {
+          button
+            .trigger('mousedown')
+            .prop('disabled',true);
+        }
         this.scrollTotal = 0;
       }
     };

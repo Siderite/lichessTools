@@ -8,16 +8,15 @@
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
     intl = {
       'en-US': {
         'options.puzzles': 'Puzzles',
-        'options.profilePuzzleTab': 'Puzzle performance chart in Profile',
-        'puzzleTabTitle': 'LiChess Tools - Puzzle Stats',
-        'puzzleTabText': 'Puzzle Stats',
+        'options.profilePuzzleTab': 'Enhanced Puzzle Dashboard',
         'dashboard.total': 'Total',
         'dashboard.puzzleCount': 'Puzzles',
         'dashboard.performance': 'Performance',
@@ -29,9 +28,7 @@
       },
       'ro-RO': {
         'options.puzzles': 'Probleme de \u015Fah',
-        'options.profilePuzzleTab': 'Grafic de performan\u0163\u0103 la probleme de \u015Fah \u00een Profil',
-        'puzzleTabTitle': 'LiChess Tools - Statistici probleme de \u015Fah',
-        'puzzleTabText': 'Statistici probleme \u015Fah',
+        'options.profilePuzzleTab': 'Panou probleme de \u015Fah \u00eembun\u0103t\u0103\u0163it',
         'dashboard.total': 'Total',
         'dashboard.puzzleCount': 'Probleme \u015fah',
         'dashboard.performance': 'Performan\u0163\u0103',
@@ -71,7 +68,7 @@
         lt.arrayRemoveAll(puzzles.points,p=>{
           return new Date(p[0],p[1],p[2])<date;
         });
-        afterEl = $('<div class="chart-container"><canvas class="rating-history"></div>').insertAfter(afterEl);
+        afterEl = $('<div class="chart-container lichessTools-chart-container"><canvas class="rating-history"></div>').insertAfter(afterEl);
         asset.loadEsm('chart.ratingHistory',{ 
           init: {
             data: data,
@@ -128,28 +125,13 @@
       const $ = lt.$;
       const htmlEncode = lt.htmlEncode;
       const trans = lt.translator;
-      let currentStart, currentEnd, rangeStart, rangeEnd, days;
-      if (this.uiSlider) {
-        [currentStart, currentEnd] = this.uiSlider.get().map(x => parseInt(x));
-        const range = this.uiSlider.options.range;
-        rangeStart = range.min;
-        rangeEnd = range.max;
-        days = Math.ceil((Date.now()-currentStart)/86400000);
-      } else {
-        const m = /^\/training\/dashboard\/(?<days>\d+)\/dashboard/i.exec(lt.global.location.pathname);
-        days = +m.groups.days;
-        currentEnd = Date.now();
-        currentStart = currentEnd - days*86400000;
-        rangeStart = currentStart;
-        rangeEnd = currentEnd;
-      }
+
+      const m = /^\/training\/dashboard\/(?<days>\d+)\/dashboard/i.exec(lt.global.location.pathname);
+      const days = +m.groups.days;
+      const currentEnd = Date.now();
+      const currentStart = currentEnd - days*86400000;
+      
       const section = $('section.lichessTools-profilePuzzleTab');
-      if (currentEnd < rangeEnd) {
-        section
-          .removeAttr('data-days')
-          .empty();
-        return;
-      }
       if (section.attr('data-days')==days && !sort) {
         return;
       }
@@ -237,13 +219,11 @@
       const userId = lt.getUserId();
       if (!userId) return;
 
+      $('.lichessTools-profilePuzzleTab, .lichessTools-chart-container').remove();
       if (value) {
         if (this.isPuzzleDashboardPage()) {
           this.enhancePuzzleDashboardPage();
         }
-      } else {
-        $('.lichessTools-profilePuzzleTab').remove();
-        this.uiSlider?.off('.lichessTools');
       }
     }
 

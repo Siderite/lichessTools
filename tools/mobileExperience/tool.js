@@ -380,16 +380,21 @@
             wrap?.remove();
             $('div.rcontrols div.ricons button.lichessTools-shapeDrawing').remove();
           }
-          if (this.options.flipBoard) {
-            $('body.mobile .round__app .rclock-bottom').each((i, e) => {
-              if (e.__initFlipBoard)
-                return;
-              e.__initFlipBoard = true;
-              const handler = lt.getKeyHandler('f');
-              if (!handler)
-                return;
-              $(e).on('click', handler);
-            });
+          const handler = lt.getKeyHandler('f');
+          if (handler) {
+            if (this.options.flipBoard) {
+              $('body.mobile .round__app .rclock-bottom').each((i, e) => {
+                if (e.__initFlipBoard)
+                  return;
+                e.__initFlipBoard = true;
+                $(e).on('click', handler);
+              });
+            } else {
+              $('body.mobile .round__app .rclock-bottom').each((i, e) => {
+                e.__initFlipBoard = undefined;
+                $(e).off('click', handler);
+              });
+            }
           }
         }
       }

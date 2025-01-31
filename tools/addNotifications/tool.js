@@ -29,6 +29,7 @@
 
     notifications = [];
     addNotification = (notification) => {
+      if (notification.id && this.notifications.find(n=>n.id == notification.id)) return;
       this.notifications.push(notification);
       this.forcedProcessNotifications();
     };
@@ -148,7 +149,10 @@
         const unread = await lt.api.notification.getUnread();
         this._unreadNotifications = unread;
       }
-      this.forcedProcessNotifications();
+      if (!this.notFirstTime) {
+        this.notFirstTime = true;
+        this.forcedProcessNotifications();
+      }
     }
 
   }

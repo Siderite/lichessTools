@@ -295,6 +295,9 @@
 
       if (this.options.removeSuperfluous) {
         $('a[data-icon="'+lt.icon.BubbleSpeech+'"],a[data-icon="'+lt.icon.Clipboard+'"],a.glyph-icon', menu).remove();
+        if (this.options.autoExpand) {
+          $('a[data-icon="'+lt.icon.PlusButton+'"],a[data-icon="'+lt.icon.MinusButton+'"],a.glyph-icon', menu).remove();
+        }
       }
     }
 
@@ -385,7 +388,8 @@
         showTranspos: lt.isOptionSet(value, 'showTranspos'),
         removeSuperfluous: lt.isOptionSet(value, 'removeSuperfluous'),
         showOnEmpty: lt.isOptionSet(value, 'showOnEmpty'),
-        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty; }
+        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty; },
+        autoExpand: lt.isOptionSet(lt.currentOptions.getValue('expandAll'), 'autoExpand')
       };
       clearInterval(this.engineCheckInterval);
       lt.pubsub.off('lichessTools.redraw', this.analysisContextMenu);

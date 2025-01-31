@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'totalGameTime',
-        category: 'play',
+        category: 'analysis',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -14,13 +14,13 @@
 
     intl = {
       'en-US': {
-        'options.play': 'Play',
+        'options.analysis': 'Analysis',
         'options.totalGameTime': 'Show total game duration',
         'durationLabelTitle': 'LiChess Tools - total game duration',
         'durationLabelText': 'Total duration: %s'
       },
       'ro-RO': {
-        'options.play': 'Joc',
+        'options.analysis': 'Analiz\u0103',
         'options.totalGameTime': 'Afi\u015feaz\u0103 durata total\u0103 a jocului',
         'durationLabelTitle': 'LiChess Tools - durata total\u0103 a jocului',
         'durationLabelText': 'Durata total\u0103: %s'

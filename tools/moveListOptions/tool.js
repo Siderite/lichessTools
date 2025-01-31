@@ -413,8 +413,8 @@
       const elem = lt.getElementForNode(node);
       if (!elem) return;
       const oldLabel = this.fromBookmarkName(node.bookmark?.label) || '';
-      const bookmarkName = await lt.uiApi.dialog.prompt(trans.noarg('addBookmarkPrompt'));
-      const label = this.toBookmarkName(bookmarkName, oldLabel);
+      const bookmarkName = await lt.uiApi.dialog.prompt(trans.noarg('addBookmarkPrompt'), oldLabel);
+      const label = this.toBookmarkName(bookmarkName);
       if (label === undefined) return;
       node.bookmark = label
         ? {
@@ -485,19 +485,12 @@
       if (!study || nodePath === undefined) return;
       const pgn = await lt.exportPgn(nodePath, { fromPosition: true, exportClock: true, exportEval: true, exportTags: true });
       if (!pgn) return;
-      const node = analysis.tree.nodeAtPath(nodePath);
+      let node = analysis.tree.nodeAtPath(nodePath);
       const label = node?.bookmark?.label;
       if (!label) return;
-      const position = study.data?.position;
-      if (!position) throw 'Cannot find study position!';
+      const parentChapterId = study.currentChapter()?.id;
+      if (!parentChapterId) throw 'Cannot find chapter id!';
       if (!await lt.uiApi.dialog.confirm(trans.noarg(deleteMoves ? 'bookmarkSplitConfirmationDeleteText' : 'bookmarkSplitConfirmationText'))) return;
-      if (deleteMoves) {
-        for (const child of node.children || []) {
-          const path = nodePath + child.id;
-          study.deleteNode(path);
-          analysis.tree.deleteNodeAt(path);
-        }
-      }
       const setup = study.data?.chapter?.setup;
       study.chapters.newForm.submit({
         name: this.fromBookmarkName(label),
@@ -507,27 +500,42 @@
         mode: 'normal',
         isDefaultName: false
       })
-      let commentText = lt.getNodeComment(node) || '';
-      if (commentText) commentText += '\r\n';
 
-      while (!study.currentChapter() || study.currentChapter().id == position.chapterId) {
+      while (true) {
+        const chapterId = study.currentChapter()?.id;
+        if (chapterId && chapterId != parentChapterId && study.chapters.list.get(chapterId)) break;
         await lt.timeout(50);
       }
       const newChapterId = study.currentChapter().id;
+      study.setChapter(parentChapterId);
+
+      while (true) {
+        const chapterId = study.currentChapter()?.id;
+        if (chapterId && chapterId == parentChapterId && study.chapters.list.get(chapterId)) break;
+        await lt.timeout(50);
+      }
+
       const chapterUrl = lt.global.location.origin + '/study/' + study.data.id + '/' + newChapterId;
-      const chapterText = trans.pluralSame('chapterLink', chapterUrl);
-      study.setChapter(position.chapterId);
+      let commentText = lt.getNodeComment(node) || '';
+      if (commentText) commentText += '\r\n';
+      commentText += trans.pluralSame('chapterLink', chapterUrl);
+      lt.saveComment(commentText, nodePath, parentChapterId);
 
-      while (!study.currentChapter() || study.currentChapter().id != position.chapterId) {
-        await lt.timeout(50);
+      if (analysis.path != nodePath) {
+        analysis.jump(nodePath);
+        analysis.redraw();
+        while (analysis.path != nodePath) {
+          await lt.timeout(50);
+        }
       }
-      analysis.jump(nodePath);
-      analysis.redraw();
-
-      while (analysis.path != nodePath) {
-        await lt.timeout(50);
+      if (deleteMoves) {
+        node = analysis.tree.nodeAtPath(nodePath);
+        for (const child of node.children || []) {
+          const path = nodePath + child.id;
+          study.deleteNode(path);
+          analysis.tree.deleteNodeAt(path);
+        }
       }
-      lt.saveComment(commentText + chapterText, nodePath, position.chapterId);
     };
 
     analysisContextMenu = () => {

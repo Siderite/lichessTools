@@ -30,6 +30,7 @@
     }
 
     setupAreaDirect = async () => {
+      if (!this.options.enabled) return;
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -58,6 +59,7 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('chapterPgnArea');
       this.logOption('Chapter PGN area', value);
+      this.options = { enabled: !!value };
       const lichess = lt.lichess;
       const $ = lt.$;
       const study = lichess?.analysis?.study;

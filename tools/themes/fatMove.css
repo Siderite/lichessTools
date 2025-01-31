@@ -1,5 +1,5 @@
 /* Fat analysis move font */
 
-body.lichessTools.lichessTools-theme_fatMove .tview2-column move {
+body.lichessTools.lichessTools-theme_fatMove .tview2 move {
   font-size: 1.25em;
 }

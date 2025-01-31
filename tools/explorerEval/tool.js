@@ -431,6 +431,7 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('explorerEval');
       this.logOption('Explorer eval', value);
+      const prevBardp = this.options?.bardp;
       this.options = {
         ceval: lt.isOptionSet(value, 'ceval'),
         stats: lt.isOptionSet(value, 'stats'),
@@ -453,6 +454,10 @@
         lt.pubsub.on('lichessTools.redraw', this.rebind);
       }
       this.rebind();
+      if (!this.options.bardp && prevBardp && explorer.enabled()) {
+        explorer.destroy();
+        explorer.reload();
+      }
     }
 
   }

@@ -164,15 +164,16 @@
               }
             });
         }
-        if (this.options.forumBottom) {
-          row.insertAfter($('tr', container).last());
-        } else {
-          row.insertBefore($('tr', container).last());
-        }
       } else {
         if (!this.inTeam && existingRow.length) {
           lt.global.location.reload()
         }
+      }
+      const lastForum = $('tr:not(.lichessTools-addToTeam)', container).last();
+      if (this.options.forumBottom) {
+        row.insertAfter(lastForum);
+      } else {
+        row.insertBefore(lastForum);
       }
     };
 

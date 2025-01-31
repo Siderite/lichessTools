@@ -9,8 +9,9 @@
         category: 'puzzles',
         type: 'single',
         possibleValues: [false,true],
-        defaultValue: true,
-        advanced: true
+        defaultValue: false,
+        advanced: true,
+        needsLogin: true
       }
     ];
 
