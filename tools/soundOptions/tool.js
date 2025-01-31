@@ -106,9 +106,8 @@
       lt.soundVolume = soundVolume;
       const timeAlert = lt.currentOptions.getValue('timeAlert');
       this.logOption('Sound options', soundOptions);
-      this.logOption('Sound volumne', soundVolume);
+      this.logOption('Sound volume', soundVolume);
       this.logOption('Time alert', timeAlert);
-      if (!$('.playing .round__app').length) return; 
       this.options = {
         noMove: lt.isOptionSet(soundOptions, 'noMove'),
         times: [30,60,90,120,180,300].map(s=>({
@@ -117,23 +116,27 @@
         })),
         beep: lt.isOptionSet(timeAlert, 'beep')
       };
-      if (lichess.sound?.move) lichess.sound.move = lt.unwrapFunction(lichess.sound.move, 'soundOptions');
-      if (this.options.noMove) {
-        if (lichess.sound?.move) lichess.sound.move = lt.wrapFunction(lichess.sound.move, {
-          id: 'soundOptions',
-          before: ($this, ...args) => {
-            if (this.options.noMove) return false;
-          }
-        });
+      if (lichess.sound?.move) {
+        lichess.sound.move = lt.unwrapFunction(lichess.sound.move, 'soundOptions');
+        if (this.options.noMove) {
+          lichess.sound.move = lt.wrapFunction(lichess.sound.move, {
+            id: 'soundOptions',
+            before: ($this, ...args) => {
+              if (this.options.noMove) return false;
+            }
+          });
+        }
       }
-      const hasTimeAlert = this.options.times.find(t=>t.enabled);
       $('.round__app')
         .observer()
         .off('.rclock-bottom *',this.checkClock);
-      if (hasTimeAlert) {
-        $('.round__app')
-          .observer()
-          .on('.rclock-bottom *',this.checkClock);
+      if ($('.playing .round__app').length) {
+        const hasTimeAlert = this.options.times.find(t=>t.enabled);
+        if (hasTimeAlert) {
+          $('.round__app')
+            .observer()
+            .on('.rclock-bottom *',this.checkClock);
+        }
       }
     }
 
