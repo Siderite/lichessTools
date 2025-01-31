@@ -71,6 +71,7 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
+      const userId = lt.getUserId();
       this.options = {
         get side() {
           return lt.isOptionSet(value, 'side')
@@ -82,7 +83,7 @@
         },
         side_streams: lt.isOptionSet(value, 'side_streams'),
         side_spotlights: lt.isOptionSet(value, 'side_spotlights'),
-        side_timeline: lt.isOptionSet(value, 'side_timeline'),
+        side_timeline: userId && lt.isOptionSet(value, 'side_timeline'),
         app: lt.isOptionSet(value, 'app'),
         app_bullet: lt.isOptionSet(value, 'app_bullet'),
         app_blitz: lt.isOptionSet(value, 'app_blitz'),
