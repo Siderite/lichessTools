@@ -4455,7 +4455,7 @@
     "options.downloadAllStudies": "Lien pour télécharger toutes les études d'un joueur",
     "downloadAllText": "Télécharger toutes les études",
     "downloadAllTitle": "LiChess Tools - toutes les études pour ce joueur",
-    "options.profilePuzzleTab": "Tableau de bord du puzzle amélioré",
+    "options.profilePuzzleTab": "Tableau de bord des problèmes amélioré",
     "options.mayTenth": "Journée de LiChess Tools!",
     "mayTenthTitle": "Joyeuse journée de LiChess Tools!",
     "options.moveAssistant": "Assistant de coup",
@@ -12621,6 +12621,6 @@
     "panelHeader-rest": "The rest",
     "quickActions.emoji": "Chat emojis",
     "options.tournamentTopBoard": "Follow tournament top board",
-    "errorSavingPreferences": "Error saving preferences! Reload the page."
+    "errorSavingPreferences": "Tùy chọn tiết kiệm lỗi! Tải lại trang."
   }
 }
