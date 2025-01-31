@@ -15,3 +15,9 @@ body.lichessTools.lichessTools-theme_fatGauge .mini-game__gauge {
   flex-basis: 7%;
   scale: 1.25 1;
 }
+
+@media (max-width: 799.3px) {
+  body.lichessTools.lichessTools-theme_fatGauge main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge {
+    width: 1.5em;
+  }
+}
