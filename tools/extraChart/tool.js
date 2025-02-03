@@ -632,7 +632,7 @@
       if (cp1 === undefined || cp2 === undefined) return;
       const w1 = this.winPerc(cp1);
       const w2 = this.winPerc(cp2);
-      return (w1 - w2);
+      return (w1 - w2) * side;
     }
 
     computeBrilliant = (side, node, prevNode, prev2Node) => {
