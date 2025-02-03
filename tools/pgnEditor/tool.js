@@ -1872,7 +1872,6 @@
             foundGames.push(game);
           }
         } catch (ex) {
-          withErrors = true;
           if (ex.ply !== undefined) {
             const data = [gameIndex, ex.san, ex.ply];
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
