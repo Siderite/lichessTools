@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'oneClickMove',
-        category: 'analysis',
+        category: 'analysis2',
         type: 'multiple',
         possibleValues: [/*'play',*/'analysis', 'onlyOrientation', 'moveFromPgn'],
         defaultValue: false,
@@ -16,7 +16,7 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.analysis2': 'Analysis - minor',
         'options.oneClickMove': 'One click move',
         'oneClickMove.analysis': 'Analysis/Study',
         'oneClickMove.play': 'Play/Puzzles',
@@ -24,7 +24,7 @@
         'oneClickMove.moveFromPgn': 'Move from PGN'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.oneClickMove': 'Mutare cu un singur click',
         'oneClickMove.analysis': 'Analiz\u0103/Studiu',
         'oneClickMove.play': 'Joc/Puzzle-uri',

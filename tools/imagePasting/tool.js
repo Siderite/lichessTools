@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'imagePasting',
-        category: 'general',
+        category: 'comm',
         type: 'multiple',
         possibleValues: ['pasteImages', 'bigEmoji'],
         defaultValue: 'pasteImages,bigEmoji',
@@ -14,14 +14,14 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.comm': 'Chat, forums, blogs',
         'options.imagePasting': 'Chat/forum options',
         'imagePasting.pasteImages': 'Paste image support',
         'imagePasting.bigEmoji': 'Large one emoji message',
         'pastingError': 'There was an error generating the image URL'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.comm': 'Chat, forum-uri, blog-uri',
         'options.imagePasting': 'Op\u0163iuni chat/forum',
         'imagePasting.pasteImages': 'Suport lipire imagini',
         'imagePasting.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
@@ -58,7 +58,7 @@
       );
       const res = await lt.comm.send({ type: 'pasteBuffer', options: { buffer: base64 } }, undefined, 10000).catch(e => { lt.global.console.error(e); });
       lt.global.console.debug('... got reply ' + JSON.stringify(res));
-      if (!res.link) {
+      if (!res?.link) {
         lt.global.console.warn('Could not send image!', res?.err);
         return;
       }

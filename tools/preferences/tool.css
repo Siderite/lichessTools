@@ -1,28 +1,58 @@
 /* CSS in preferences should not be under body.lichessTools, as the class can be removed when the extension is disabled */
 
-nav.page-menu__menu a.lichessTools-menu span {
-  filter: drop-shadow(0px 0px 5px black);
+a + a.lichessTools-preferences {
+  margin-left: 1em;
 }
 
-html.dark nav.page-menu__menu a.lichessTools-menu span,
-html.darkBoard nav.page-menu__menu a.lichessTools-menu span {
-  filter: drop-shadow(0px 0px 5px white);
+a.lichessTools-preferences:before {
+  font-size: 0.9em;
+  text-shadow: var(--c-clearer) 1px 0 7px;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) nav.page-menu__menu a.lichessTools-menu span {
-    filter: drop-shadow(0px 0px 5px white);
-  }
+div.lichessTools-preferences .lichessTools-prefCount {
+  font-size: 0.75em;
+  vertical-align: super;
 }
 
+div.lichessTools-preferences:has(.filteredOut) .lichessTools-prefCount {
+  display:none;
+}
+
+div.lichessTools-preferences section.filteredOut {
+  disply:none;
+}
+
+div.lichessTools-preferences form > div:has(input.categoryToggle:checked) section.filteredIn {
+  display:block;
+}
+
+div.lichessTools-preferences div.prefFilter {
+  text-align: center;
+}
+
+div.lichessTools-preferences input.prefFilter {
+  max-width: 30em;
+  width: 100%;
+  border-radius: 1em;
+}
+
+div.lichessTools-preferences form > div:not(.feedback,.prefFilter) {
+  display: none;
+}
+
+body.lichessTools-advancedPreferences div.lichessTools-preferences form > div:not(.feedback,.prefFilter):has(section:not(.filteredOut)),
+div.lichessTools-preferences form > div:not(.feedback,.prefFilter):has(.lichessTools-normalPreference:not(.filteredOut)) {
+  display: block;
+}
 
 div.lichessTools-preferences section[data-pref] {
   position: relative;
 }
 
 div.lichessTools-preferences section[data-pref] a.lichessTools-infoIcon {
-  position: absolute;
-  right: -1.5em;
+  vertical-align: bottom;
+  vertical-align: text-bottom;
+  margin-left: 0.5em;
 }
 
 div.lichessTools-preferences p.saved {
@@ -64,7 +94,9 @@ div.lichessTools-preferences h3 {
 }
 
 div.lichessTools-preferences h3>label {
-  float: right;
+  display: inline-block;
+  width: 100%;
+  text-align: right;
 }
 
 div.lichessTools-preferences input.categoryToggle {
@@ -77,6 +109,12 @@ div.lichessTools-preferences form>div:has(input.categoryToggle)>h3 label {
 
 div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3 label {
   cursor: zoom-in;
+}
+
+div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3 label:after {
+  content: '\E030'; /* DownTriangle */
+  font-family: "lichess";
+  margin-left: 0.25em;
 }
 
 div.lichessTools-preferences form>div:has(input.categoryToggle:checked) section {
@@ -92,9 +130,17 @@ div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3:after
   content: "";
   display: inline-block;
   vertical-align: middle;
-  width: 80%;
+  width: 100%;
   height: 1px;
-  background: linear-gradient(to right, rgba(214, 79, 0, 0.5), hsl(37, 7%, 14%) 80%);
+  background: linear-gradient(to right, var(--c-accent), #80808000 100%);
+  position: absolute;
+  top: 0.75em;
+  left: 0;
+  z-index: -1;
+}
+
+body.mobile div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3:after {
+  background: linear-gradient(to right, var(--c-accent), #80808000 66%);
 }
 
 @keyframes lichessTools-fire {
@@ -157,6 +203,7 @@ body.lichessTools-advancedPreferences div.lichessTools-preferences section.liche
 div.lichessTools-preferences div.feedback {
   display: flex;
   padding-top: 0;
+  margin-bottom: 2em;
 }
 
 div.lichessTools-preferences div.feedback textarea {
@@ -180,6 +227,7 @@ div.lichessTools-preferences div.feedback button {
 }
 
 div.lichessTools-preferences .actionButtons {
+  margin-top: 1em;
   display: flex;
   gap: 1em;
   justify-content: flex-end;

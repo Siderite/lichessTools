@@ -10,7 +10,7 @@
         type: 'single',
         possibleValues: [false, true],
         defaultValue: false,
-        advanced: false,
+        advanced: true,
         hidden: false
       }
     ];

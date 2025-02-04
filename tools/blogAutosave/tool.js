@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'blogAutosave',
-        category: 'general',
+        category: 'comm',
         type: 'multiple',
         possibleValues: ['autosave', 'savebutton'],
         defaultValue: 'savebutton',
@@ -15,7 +15,7 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.comm': 'Chat, forums, blogs',
         'options.blogAutosave': 'Blog editing options',
         'blogAutosave.autosave': 'Auto save',
         'blogAutosave.savebutton': 'Save button',
@@ -23,7 +23,7 @@
         'blogSave': 'Save'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.comm': 'Chat, forum-uri, blog-uri',
         'options.blogAutosave': 'Op\u0163iuni editare blog',
         'blogAutosave.autosave': 'Salvare automat\u0103',
         'blogAutosave.savebutton': 'Buton salvare',

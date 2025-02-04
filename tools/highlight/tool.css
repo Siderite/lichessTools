@@ -1,5 +1,5 @@
 body.lichessTools .analyse .tview2 move.lichessTools-lastInLine:after {
-  content: '\00a0\1D38';
+  content: '\00a0\1D38'; /* SuperscriptCapitalL */
 }
 
 body.lichessTools .analyse .tview2 move.lichessTools-uncommented {

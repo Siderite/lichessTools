@@ -42,8 +42,16 @@
           for (const key of langKeys) missingKeys.delete(key);
           const orphanKeys = new Set(langKeys);
           for (const key of allKeys) orphanKeys.delete(key);
-          if (missingKeys.size) lt.global.console.debug(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
-          if (orphanKeys.size) lt.global.console.debug(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
+          const logs = [];
+          if (missingKeys.size) logs.push(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
+          if (orphanKeys.size) logs.push(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
+          if (logs.length) {
+            const text = logs.join('\r\n');
+            if (this._lastLoggedText != text) {
+              lt.global.setTimeout(()=>lt.global.console.debug(text),100);
+              this._lastLoggedText = text;
+            }
+          }
         }
         if (!this._siteI18n) {
           this._siteI18n = { ...this[this.defaultLanguage], ...this[this.lang], ...this[this.lang+'-crowdin'] };
@@ -217,6 +225,9 @@
       PoutingFace: '\uD83D\uDE21',
       SmilingFaceWithHorns: '\uD83D\uDE08',
       SparklingHeart: '\uD83D\uDC96',
+      SuperscriptCapitalL: '\u00a0\u1D38',
+      WhiteChessPawn: '\u2659',
+      Opposition: '\u260D',
 
       toEntity: function(s) {
         let result='';

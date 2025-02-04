@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'profileSlider',
-        category: 'general',
+        category: 'appearance',
         type: 'multiple',
         possibleValues: ['showText', 'add1w', 'fixSize'],
         defaultValue: 'showText,add1w,fixSize',
@@ -14,7 +14,7 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.appearance': 'Appearance',
         'options.profileSlider': 'Profile slider options',
         'profileSlider.showText': 'Show dates',
         'profileSlider.add1w': 'Add 1W filter',
@@ -23,7 +23,7 @@
         'button1wTitle': 'LiChess Tools - one week'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.appearance': 'Aspect',
         'options.profileSlider': 'Op\u0163iuni pentru slider-ul din Profil',
         'profileSlider.showText': 'Arat\u0103 datele',
         'profileSlider.add1w': 'Adaug\u0103 filtru 1W',

@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'profileTimeline',
-        category: 'general',
+        category: 'appearance',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -15,13 +15,13 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.appearance': 'Appearance',
         'options.profileTimeline': 'Timeline in Profile',
         'timelineText':'Timeline',
         'timelineTitle':'Timeline tab - LiChess Tools'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.appearance': 'Aspect',
         'options.profileTimeline': 'Activitate recent\u0103 \u00een Profil',
         'timelineText':'Activitate recent\u0103',
         'timelineTitle':'Tab activitate recent\u0103 - LiChess Tools'

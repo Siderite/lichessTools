@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'mchatOptions',
-        category: 'general',
+        category: 'comm',
         type: 'multiple',
         possibleValues: ['urlify', 'unlimited', 'images', 'teamChatNotifications'],
         defaultValue: 'urlify,unlimited,images,teamChatNotifications',
@@ -17,7 +17,7 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.comm': 'Chat, forums, blogs',
         'options.mchatOptions': 'Team/Study chat options',
         'mchatOptions.urlify': 'Highlight URLs',
         'mchatOptions.unlimited': 'No length limit',
@@ -29,7 +29,7 @@
         'maximumThreeTeams': 'Maximum team notification limit reached!'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.comm': 'Chat, forum-uri, blog-uri',
         'options.mchatOptions': 'Op\u0163iuni chat echip\u0103/studiu',
         'mchatOptions.urlify': 'Eviden\u0163iaz\u0103 URLuri',
         'mchatOptions.unlimited': 'F\u0103r\u0103 limit\u0103 lungime',

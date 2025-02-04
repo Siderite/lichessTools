@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'linkToAnalysis',
-        category: 'analysis',
+        category: 'analysis2',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -16,12 +16,12 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.analysis2': 'Analysis - minor',
         'options.linkToAnalysis': 'Link to current analysis',
         'linkToAnalysisTitle': 'LiChess Tools - link to current analysis'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.linkToAnalysis': 'Link c\u0103tre analiza curent\u0103',
         'linkToAnalysisTitle': 'LiChess Tools - link c\u0103tre analiza curent\u0103'
       }

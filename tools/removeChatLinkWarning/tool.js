@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'removeChatLinkWarning',
-        category: 'general',
+        category: 'comm',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -17,11 +17,11 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.comm': 'Chat, forums, blogs',
         'options.removeChatLinkWarning': 'Remove chat link warning'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.comm': 'Chat, forum-uri, blog-uri',
         'options.removeChatLinkWarning': 'F\u0103r\u0103 alerte la linkuri din chat'
       }
     }

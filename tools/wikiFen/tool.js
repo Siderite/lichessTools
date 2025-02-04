@@ -5,7 +5,7 @@
 
     preferences = [{
         name: 'wikiFen',
-        category: 'analysis',
+        category: 'analysis2',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -15,11 +15,11 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.analysis2': 'Analysis - minor',
         'options.wikiFen': 'Wiki pages based on FEN'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.wikiFen': 'Pagini wiki din FEN'
       }
     }

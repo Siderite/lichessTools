@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'mainPageElements',
-        category: 'general',
+        category: 'appearance',
         type: 'multiple',
         possibleValues: ['side', 'side_streams', 'side_spotlights', 'side_timeline', 'app','app_bullet','app_blitz','app_rapid','app_classical', 'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours', 'about'],
         defaultValue: 'side,app,table,app_bullet,app_blitz,app_rapid,app_classical,tv,blog,puzzle,support,feed,tours,about,side_streams,side_spotlights,side_timeline',
@@ -16,7 +16,7 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.appearance': 'Appearance',
         'options.mainPageElements': 'Lobby page elements',
         'mainPageElements.side': 'Side',
         'mainPageElements.app': 'Play grid',
@@ -37,7 +37,7 @@
         'mainPageElements.app_classical': 'Play:classical'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.appearance': 'Aspect',
         'options.mainPageElements': 'Elemente pagin\u0103 principal\u0103',
         'mainPageElements.side': 'Lateral',
         'mainPageElements.app': 'Gril\u0103 jocuri',

@@ -6,10 +6,10 @@
     preferences = [
       {
         name: 'openingExplorerUsers',
-        category: 'analysis',
+        category: 'analysis2',
         type: 'multiple',
         possibleValues: ['switchWithMe'],
-        defaultValue: 'switchWithMe',
+        defaultValue: false,
         advanced: true,
         needsLogin: true
       }
@@ -17,14 +17,14 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.analysis2': 'Analysis - minor',
         'options.openingExplorerUsers': 'Opening explorer player features',
         'switchWithMe': 'Me',
         'switchWithMeTitle': 'LiChess Tools - Switch player with yourself',
         'openingExplorerUsers.switchWithMe': 'Me button to switch to your player'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.openingExplorerUsers': 'Facilit\u0103\u0163i pentru juc\u0103tori \u00een Explorator',
         'switchWithMe': 'Eu',
         'switchWithMeTitle': 'LiChess Tools - Schimb\u0103 juc\u0103torul cu tine',

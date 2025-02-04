@@ -79,7 +79,7 @@ html.transp body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
 body.lichessTools tr.lichessTools-warning-red:after,
 body.lichessTools tr.lichessTools-warning-green:after,
 body.lichessTools tr.lichessTools-warning-blue:after {
-  content: '\26A0';
+  content: '\26A0'; /* WarningSign */
   position: relative;
   font-size: smaller;
   margin-left: -1em;

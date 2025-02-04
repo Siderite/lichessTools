@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'spaceDisabled',
-        category: 'analysis',
+        category: 'analysis2',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -14,11 +14,11 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.analysis2': 'Analysis - minor',
         'options.spaceDisabled': 'Ctrl-space to play best computer move instead of Space'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.spaceDisabled': 'Ctrl-space pentru a juca cea mai bun\u0103 mutare a computerului, nu Space'
       }
     }
