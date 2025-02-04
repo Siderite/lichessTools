@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'additionalGlyphs',
-        category: 'study',
+        category: 'analysis',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -16,11 +16,11 @@
 
     intl = {
       'en-US': {
-        'options.study': 'Study',
+        'options.analysis': 'Analysis',
         'options.additionalGlyphs': 'Additional glyphs'
       },
       'ro-RO': {
-        'options.study': 'Studiu',
+        'options.analysis': 'Analiz\u0103',
         'options.additionalGlyphs': 'Simboluri \u00een plus'
       }
     }

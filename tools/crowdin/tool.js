@@ -7,8 +7,7 @@
         category: 'languages',
         type: 'single',
         possibleValues: [false, true],
-        defaultValue: true,
-        advanced: true
+        defaultValue: true
       }
     ];
 

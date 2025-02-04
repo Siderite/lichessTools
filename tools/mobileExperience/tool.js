@@ -5,34 +5,49 @@
 
     preferences = [{
         name: 'mobileExperience',
-        category: 'general',
+        category: 'mobile',
         type: 'multiple',
-        possibleValues: ['showGauge', 'hideOctopus', 'shapeDrawing', 'randomNextMove', 'selectiveRandom', 'lockBoard', 'inInteractive'],
-        defaultValue: 'showGauge,randomNextMove,selectiveRandom'
+        possibleValues: ['showGauge', 'hideOctopus', 'shapeDrawing', 'randomNextMove', 'selectiveRandom', 'inInteractive'],
+        defaultValue: 'showGauge,randomNextMove,selectiveRandom' 
       }, {
         name: 'mobileExperienceRound',
-        category: 'general',
+        category: 'mobile',
         type: 'multiple',
         possibleValues: ['shapeDrawingRound', 'standardButtons', 'invert', 'flipBoard'],
         defaultValue: '',
         advanced: true
       }, {
         name: 'colorCount',
-        category: 'general',
+        category: 'mobile',
         type: 'single',
         possibleValues: [1, 2, 3, 4],
         defaultValue: 1,
+        advanced: true
+      }, {
+        name: 'screenLock',
+        category: 'mobile',
+        type: 'multiple',
+        possibleValues: ['play', 'puzzle'],
+        defaultValue: false,
+        advanced: true
+      }, {
+        name: 'wakeLock',
+        category: 'mobile',
+        type: 'multiple',
+        possibleValues: ['puzzle', 'tv'],
+        defaultValue: 'puzzle,tv',
         advanced: true
       }
     ];
 
     intl = {
       'en-US': {
-        'options.analysis': 'General',
+        'options.mobile': 'Mobile devices',
         'options.mobileExperience': 'Mobile device features',
         'options.mobileExperienceRound': 'Mobile device game features',
         'options.colorCount': 'Colors for shapes on mobile',
-        'mobileExperience.lockBoard': 'Screen lock when playing',
+        'options.screenLock': 'Screen lock',
+        'options.wakeLock': 'Keep screen active',
         'mobileExperience.showGauge': 'Evaluation gauge',
         'mobileExperience.hideOctopus': 'Hide the octopus mascot',
         'mobileExperience.shapeDrawing': 'Analysis arrows',
@@ -49,14 +64,19 @@
         'colorCount.2': 'two',
         'colorCount.3': 'three',
         'colorCount.4': 'four',
+        'screenLock.play': 'During play',
+        'screenLock.puzzle': 'During puzzles',
+        'wakeLock.puzzle': 'During puzzles',
+        'wakeLock.tv': 'Watching TV',
         'lockBoardTitle': 'LiChess Tools - screen lock'
       },
       'ro-RO': {
-        'options.analysis': 'General',
+        'options.mobile': 'Dispozitive mobile',
         'options.mobileExperience': 'Op\u0163iuni pentru aparate mobile',
         'options.mobileExperienceRound': 'Op\u0163iuni pentru joc pe aparate mobile',
         'options.colorCount': 'Culori pentru s\u0103ge\u0163i pe mobile',
-        'mobileExperience.lockBoard': 'Fixare ecran c\u00e2nd joci',
+        'options.screenLock': 'Fixarea ecranului pe mobil',
+        'options.wakeLock': 'P\u0103streaz\u0103 ecranul activ',
         'mobileExperience.showGauge': 'Band\u0103 de evaluare',
         'mobileExperience.hideOctopus': 'Ascunde mascota caracati\u0163\u0103',
         'mobileExperience.shapeDrawing': 'S\u0103ge\u0163i \u00een analiz\u0103',
@@ -73,6 +93,10 @@
         'colorCount.2': 'dou\u0103',
         'colorCount.3': 'trei',
         'colorCount.4': 'patru',
+        'screenLock.play': '\u00CEn timpul jocului',
+        'screenLock.puzzle': '\u00CEn timpul problemelor \u015fah',
+        'wakeLock.puzzle': '\u00CEn timpul problemelor \u015fah',
+        'wakeLock.tv': 'Urm\u0103rind TV',
         'lockBoardTitle': 'LiChess Tools - fixare ecran'
       }
     }
@@ -408,18 +432,55 @@
       this.chessground.state.dom.redraw();
     };
 
+    handleWakeLock = async () => {
+      const lt = this.lichessTools;
+      if (this.isPlaying()) {
+        if (!this.wakelock) {
+          await this.requestWakeLock();
+        }
+      } else {
+        lt.global.clearTimeout(this.wakeLockTimeout);
+        this.wakelock?.release();
+        this.wakelock=null;
+      }
+    };
+
+    requestWakeLock = async () => {
+      const lt = this.lichessTools;
+      try {
+        if (document.visibilityState === 'visible') {
+          this.wakelock?.release();
+          this.wakelock = await lt.global.navigator.wakeLock.request("screen");
+          if (this.wakelock) return;
+        }
+      } catch (err) {
+        console.debug('Wakelock failed:', err);
+      }
+      lt.global.clearTimeout(this.wakeLockTimeout);
+      this.wakeLockTimeout = lt.global.setTimeout(this.requestWakeLock, 1000);
+    };
+
+    isTvPage = () => {
+      const lt = this.lichessTools;
+      return /\/tv\b/i.test(lt.global.location.pathname);
+    };
+
     async start() {
       const lt = this.lichessTools;
       const mobileExperience = lt.currentOptions.getValue('mobileExperience');
       const mobileExperienceRound = lt.currentOptions.getValue('mobileExperienceRound');
       const colorCount = lt.currentOptions.getValue('colorCount');
+      const screenLock = lt.currentOptions.getValue('screenLock');
+      const wakeLock = lt.currentOptions.getValue('wakeLock');
       const $ = lt.$;
       const trans = lt.translator;
       this.logOption('Mobile experience', mobileExperience);
+      this.logOption('Mobile game experience', mobileExperienceRound);
       this.logOption('... color count', lt.currentOptions.getValue('colorCount'));
+      this.logOption('Screen lock', screenLock);
+      this.logOption('Wake lock', wakeLock);
       this.options = {
         showGauge : lt.isOptionSet(mobileExperience, 'showGauge'),
-        lockBoard : lt.isOptionSet(mobileExperience, 'lockBoard'),
         hideOctopus : lt.isOptionSet(mobileExperience, 'hideOctopus'),
         shapeDrawing : lt.isOptionSet(mobileExperience, 'shapeDrawing'),
         randomNextMove : lt.isOptionSet(mobileExperience, 'randomNextMove'),
@@ -429,6 +490,10 @@
         standardButtons : lt.isOptionSet(mobileExperienceRound, 'standardButtons'),
         invert : lt.isOptionSet(mobileExperienceRound, 'invert'),
         flipBoard: lt.isOptionSet(mobileExperienceRound, 'flipBoard'),
+        lockBoardPlay : lt.isOptionSet(screenLock, 'play') || lt.isOptionSet(mobileExperience, 'lockBoard'),
+        lockBoardPuzzle : lt.isOptionSet(screenLock, 'puzzle') || lt.isOptionSet(mobileExperience, 'lockBoard'),
+        wakeBoardPuzzle : lt.isOptionSet(wakeLock, 'puzzle') || lt.isOptionSet(lt.currentOptions.getValue('puzzleOptions'), 'wakeLock'),
+        wakeBoardTv : lt.isOptionSet(wakeLock, 'tv') || lt.isOptionSet(lt.currentOptions.getValue('tvOptions'), 'wakeLock'),
         colorCount: colorCount
       };
       const lichess = lt.lichess;
@@ -438,10 +503,12 @@
         lt.pubsub.on('lichessTools.redraw', this.handleRedraw);
         lt.pubsub.on('lichessTools.chapterChange', this.handleRedraw);
       }
-      const isRound = !!$('main.round,main.puzzle').length;
-      if (isRound) {
+      const isRoundPlay = !!$('main.round').length;
+      const isRoundPuzzle = !!$('main.puzzle').length;
+      const isTv = /\/tv\b/i.test(lt.global.location.pathname);
+      if (isRoundPlay || isRoundPuzzle) {
         const lockBoardElem = $('#top div.site-buttons div.lichessTools-lockBoard');
-        if (this.options.lockBoard && $.cached('body').is('.mobile.playing')) {
+        if ($.cached('body').is('.mobile.playing') && ((this.options.lockBoardPlay && isRoundPlay) || (this.options.lockBoardPuzzle && isRoundPuzzle)) ) {
           $.cached('body').addClass('lichessTools-lockBoard');
           if (this.isBoardLocked === undefined) {
             this.isBoardLocked = lt.storage.get('LiChessTools.boardLocked');
@@ -465,6 +532,9 @@
           $.cached('body').removeClass('lichessTools-lockBoard');
           lockBoardElem.remove();
         }
+      }
+
+      if (isRoundPlay || isRoundPuzzle) {
         lt.uiApi.events.off('ply', this.clearShapes);
         $('main div.cg-wrap:not(.lichessTools-boardOverlay)').off('click', this.clearShapes);
         if (this.options.shapeDrawingRound) {
@@ -472,6 +542,27 @@
           $('main div.cg-wrap:not(.lichessTools-boardOverlay)').on('click', this.clearShapes);
         }
       }
+
+      lt.pubsub.off('lichessTools.redraw',this.handleWakeLock);
+      lt.pubsub.off('lichessTools.puzzleStart',this.handleWakeLock);
+      if (this.options.wakeLockPuzzle && this.isTrainingPage()) {
+        lt.pubsub.on('lichessTools.redraw',this.handleWakeLock);
+        lt.pubsub.on('lichessTools.puzzleStart',this.handleWakeLock);
+        await this.handleWakeLock();
+      } else {
+        lt.global.clearTimeout(this.wakeLockTimeout);
+        this.wakelock?.release();
+        this.wakelock=null;
+      }
+
+      if (this.options.wakelockTv && this.isTvPage()) {
+        this.requestWakeLock();
+      } else {
+        lt.global.clearTimeout(this.wakeLockTimeout);
+        this.wakelock?.release();
+      }
+
+
       this.handleRedraw();
     }
 

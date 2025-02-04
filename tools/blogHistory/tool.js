@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'blogHistory',
-        category: 'general',
+        category: 'comm',
         type: 'multiple',
         possibleValues: ['showVisited','persistView'],
         defaultValue: 'showVisited,persistView',
@@ -14,14 +14,14 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.comm': 'Chat, forums, blogs',
         'options.blogHistory': 'Blog visit history',
         'blogHistory.showVisited': 'Show visited',
         'blogHistory.persistView': 'Persistent blog view',
         'visitedTitle': 'LiChess Tools - last visited on %s'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.comm': 'Chat, forumuri, blog-uri',
         'options.blogHistory': 'Istorie vizite blog',
         'blogHistory.showVisited': 'Arat\u0103 vizite',
         'blogHistory.persistView': 'Persist\u0103 vizualizarea blogurilor',

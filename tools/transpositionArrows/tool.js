@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'transpositionArrows',
-        category: 'analysis',
+        category: 'analysis2',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -16,11 +16,11 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.analysis2': 'Analysis - minor',
         'options.transpositionArrows': 'Variation arrows from transpositions'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.transpositionArrows': 'S\u0103ge\u0163i varia\u0163iuni din transpozi\u0163ii'
       }
     }

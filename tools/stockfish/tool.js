@@ -12,14 +12,14 @@
     },
     {
       name: 'stockfish-threads',
-      category: 'analysis',
+      category: 'analysis2',
       type: 'number',
       defaultValue: 1,
       advanced: true
     },
     {
       name: 'stockfish-hash',
-      category: 'analysis',
+      category: 'analysis2',
       type: 'number',
       defaultValue: 128,
       advanced: true
@@ -30,6 +30,7 @@
     intl = {
       'en-US': {
         'options.general': 'General',
+        'options.analysis2': 'Analysis - minor',
         'options.stockfish': 'Stockfish',
         'options.stockfish-threads': 'LiChess Tools analysis engine threads',
         'options.stockfish-hash': 'LiChess Tools analysis engine hash (MB)',
@@ -37,6 +38,7 @@
       },
       'ro-RO': {
         'options.general': 'General',
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.stockfish': 'Stockfish',
         'options.stockfish-threads': 'Thread-uri pentru motorul de analiz\u0103 LiChess Tools',
         'options.stockfish-hash': 'Hash pentru motorul de analiz\u0103 LiChess Tools (MB)',

@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'activeIcon',
-        category: 'general',
+        category: 'appearance',
         type: 'single',
         possibleValues: [false, 'pawn', 'knight', 'king', 'circle'],
         defaultValue: false,
@@ -14,7 +14,7 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.appearance': 'Appearance',
         'options.activeIcon': 'Active title icon',
         'activeIcon.pawn': 'Pawn',
         'activeIcon.knight': 'Knight',
@@ -22,7 +22,7 @@
         'activeIcon.circle': 'Circle'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.appearance': 'Aspect',
         'options.activeIcon': 'Iconi\u0163\u0103 titlu activ\u0103',
         'activeIcon.pawn': 'Pion',
         'activeIcon.knight': 'Cal',

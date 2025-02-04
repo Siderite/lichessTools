@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'extraPieceSets',
-        category: 'general',
+        category: 'appearance',
         type: 'multiple',
         possibleValues: ['chesscom'],
         defaultValue: false,
@@ -14,13 +14,13 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.appearance': 'Appearance',
         'options.extraPieceSets': 'Extra piece sets',
         'extraPieceSets.chesscom': 'chess.com',
         'pieceSetTitle': 'LiChess Tools - %s'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.appearance': 'Aspect',
         'options.extraPieceSets': 'Seturi suplimentare de piese',
         'extraPieceSets.chesscom': 'chess.com',
         'pieceSetTitle': 'LiChess Tools - %s'

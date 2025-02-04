@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'fixCoords',
-        category: 'general',
+        category: 'appearance',
         type: 'multiple',
         possibleValues: ['fix', 'larger', 'square'],
         defaultValue: 'fix',
@@ -14,14 +14,14 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.appearance': 'Appearance',
         'options.fixCoords': 'Fix board coordinate position',
         'fixCoords.fix': 'Fix outside coordinates',
         'fixCoords.larger': 'Larger coordinate font',
         'fixCoords.square': 'On each square'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.appearance': 'Aspect',
         'options.fixCoords': 'Repar\u0103 pozi\u0163ia coordonatelor tablei',
         'fixCoords.fix': 'Repar\u0103 coordonatele \u00een exterior',
         'fixCoords.larger': 'Font mai mare pentru coordonate',

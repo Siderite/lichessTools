@@ -8,8 +8,8 @@
         name: 'tvOptions',
         category: 'TV',
         type: 'multiple',
-        possibleValues: ['link', 'bookmark', 'streamerTv', 'friendsTv',/*'teamTv',*/'userTvHistory', 'wakelock','stickyCategory'],
-        defaultValue: 'link,bookmark,streamerTv,friendsTv,userTvHistory,wakelock',
+        possibleValues: ['link', 'bookmark', 'streamerTv', 'friendsTv',/*'teamTv',*/'userTvHistory','stickyCategory'],
+        defaultValue: 'link,bookmark,streamerTv,friendsTv,userTvHistory',
         advanced: false
       }
     ];
@@ -24,7 +24,6 @@
         'tvOptions.friendsTv': 'Friends current games',
         'tvOptions.teamTv': 'Team current games',
         'tvOptions.userTvHistory': 'Previous two games in player TV',
-        'tvOptions.wakelock': 'Prevent screen lock with TV',
         'tvOptions.stickyCategory': 'Persistent TV channel',
         'friendsButtonTitle': 'LiChess Tools - games of your friends',
         'streamersButtonTitle': 'LiChess Tools - games of live streamers',
@@ -46,7 +45,6 @@
         'tvOptions.friendsTv': 'Jocurile prietenilor t\u0103i',
         'tvOptions.teamTv': 'Jocurile \u00een echipa ta',
         'tvOptions.userTvHistory': 'Dou\u0103 partide precedente \u00een TVul juc\u0103torilor',
-        'tvOptions.wakelock': 'Previne blocarea ecranului vizion\u00e2nd TV',
         'tvOptions.stickyCategory': 'Canal TV persistent',
         'friendsButtonTitle': 'LiChess Tools - jocurile prietenilor t\u0103i',
         'streamersButtonTitle': 'LiChess Tools - jocurile streamerilor live',
@@ -415,21 +413,6 @@
       }
     };
 
-    requestWakeLock = async () => {
-      const lt = this.lichessTools;
-      try {
-        if (document.visibilityState === 'visible') {
-          this.wakelock?.release();
-          this.wakelock = await lt.global.navigator.wakeLock.request("screen");
-          if (this.wakelock) return;
-        }
-      } catch (err) {
-        console.debug('Wakelock failed:', err);
-      }
-      lt.global.clearTimeout(this.wakeLockTimeout);
-      this.wakeLockTimeout = lt.global.setTimeout(this.requestWakeLock, 1000);
-    };
-
     followingOnlinesRequests = 0;
     async start() {
       const lt = this.lichessTools;
@@ -444,7 +427,6 @@
         friendsTv: lt.isOptionSet(value, 'friendsTv'),
         teamTv: lt.isOptionSet(value, 'teamTv'),
         userTvHistory: lt.isOptionSet(value, 'userTvHistory'),
-        wakelock: lt.isOptionSet(value, 'wakelock'),
         stickyCategory: lt.isOptionSet(value, 'stickyCategory'),
       };
       const lichess = lt.lichess;
@@ -554,13 +536,6 @@
         }
       } else {
         $('div.tv-history.lichessTools-userHistory').remove();
-      }
-
-      if (this.options.wakelock && this.isTvPage()) {
-        this.requestWakeLock();
-      } else {
-        lt.global.clearTimeout(this.wakeLockTimeout);
-        this.wakelock?.release();
       }
 
       if (this.options.stickyCategory && this.isTvPage()) {

@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'randomVariationDepth',
-        category: 'analysis',
+        category: 'analysis2',
         type: 'single',
         possibleValues: [0, 2, 4, 6, 8, 10],
         defaultValue: 8,
@@ -16,7 +16,7 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.analysis2': 'Analysis - minor',
         'options.randomVariationDepth': 'Next move probability depth',
         'randomVariationDepth.0': 'equal',
         'randomVariationDepth.2': 'one move',
@@ -26,7 +26,7 @@
         'randomVariationDepth.10': 'five moves'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.randomVariationDepth': 'Ad\u00E2ncimea probabilit\u0103\u0163ii mut\u0103rii urm\u0103toare',
         'randomVariationDepth.0': 'egal',
         'randomVariationDepth.2': 'o mutare',

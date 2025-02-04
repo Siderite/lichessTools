@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'tournamentTopBoard',
-        category: 'play',
+        category: 'TV',
         type: 'single',
         possibleValues: [false,true],
         defaultValue: true,
@@ -15,11 +15,11 @@
 
     intl = {
       'en-US': {
-        'options.play': 'Play',
+        'options.tv': 'TV',
         'options.tournamentTopBoard': 'Follow tournament top board'
       },
       'ro-RO': {
-        'options.play': 'Joc',
+        'options.tv': 'TV',
         'options.tournamentTopBoard': 'Urm\u0103re\u015fte tabla principal\u0103 \u00een turneu'
       }
     }

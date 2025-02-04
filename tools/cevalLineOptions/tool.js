@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'cevalLineOptions',
-        category: 'analysis',
+        category: 'analysis2',
         type: 'multiple',
         possibleValues: ['highlight','moreLines'],
         defaultValue: 'moreLines',
@@ -14,14 +14,14 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.analysis2': 'Analysis - minor',
         'options.cevalLineOptions': 'Computer evaluation line options',
         'cevalLineOptions.highlight': 'Highlight same moves',
         'cevalLineOptions.moreLines': 'More lines',
         'moreLinesTitle': 'LiChess Tools - more lines'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.cevalLineOptions': 'Op\u0163iuni linii \u00een evaluarea computerului',
         'cevalLineOptions.highlight': 'Eviden\u0163iaza acelea\u015Fi mut\u0103ri',
         'cevalLineOptions.moreLines': 'Mai multe linii',

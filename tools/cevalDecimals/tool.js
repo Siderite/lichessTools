@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'cevalDecimals',
-        category: 'analysis',
+        category: 'analysis2',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: false,
@@ -16,11 +16,11 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.analysis2': 'Analysis - minor',
         'options.cevalDecimals': 'More decimals for computer evaluation'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.cevalDecimals': 'Mai multe zecimale \u00een evaluare computer'
       }
     }

@@ -1,5 +1,12 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Feb
+
+- v2.4.0
+- redesign of Preferences page
+- move screen lock and wake lock in their own mobile preferences
+- splitting features into more categories
+
 30 Jan
 
 - removed forceSf16 and noSpoilers tools

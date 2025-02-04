@@ -4,7 +4,7 @@
     preferences = [
       {
         name: 'pinOnMainPage',
-        category: 'general',
+        category: 'appearance',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -14,13 +14,13 @@
 
     intl = {
       'en-US': {
-        'options.General': 'General',
+        'options.appearance': 'Appearance',
         'options.pinOnMainPage': 'Pin broadcasts and studies to home page',
         'pinTitle': 'LiChess Tools - pin on home page',
         'unpinTitle': 'LiChess Tools - unpin from home page'
       },
       'ro-RO': {
-        'options.General': 'General',
+        'options.appearance': 'Aspect',
         'options.pinOnMainPage': 'Pune transmisiuni \u015fi studii pe pagina principal\u0103',
         'pinTitle': 'LiChess Tools - pune pe pagina principal\u0103',
         'unpinTitle': 'LiChess Tools - scoate de pe pagina principal\u0103'

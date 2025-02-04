@@ -14,7 +14,7 @@ body.lichessTools div.chat__members .lichessTools-opening:before,
 body.lichessTools div.game__meta .lichessTools-opening:before {
   margin-right: 0.4em;
   margin-inline: 0 0.4em;
-  content: '\2659';
+  content: '\2659'; /* WhiteChessPawn */
   transform: scale(1.25);
   transform-origin: center;
   align-self: baseline;

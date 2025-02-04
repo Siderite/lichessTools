@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'themes',
-        category: 'general',
+        category: 'appearance',
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard'/*, 'noGrab'*/],
         defaultValue: '',
@@ -16,7 +16,7 @@
 
     intl = {
       'en-US': {
-        'options.general': 'General',
+        'options.appearance': 'Appearance',
         'options.themes': 'Apply a style theme',
         'themes.default': 'None',
         'themes.performance': 'Performance theme',
@@ -37,7 +37,7 @@
         'themes.gridBoard': 'Grid board squares'
       },
       'ro-RO': {
-        'options.general': 'General',
+        'options.appearance': 'Aspect',
         'options.themes': 'Aplic\u0103 o tem\u0103 de stil',
         'themes.default': 'Nici una',
         'themes.performance': 'Tem\u0103 performan\u0163\u0103',

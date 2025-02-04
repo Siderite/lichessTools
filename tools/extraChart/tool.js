@@ -630,9 +630,9 @@
       const cp1 = this.getCp(this.getNodeCeval(node));
       const cp2 = this.getCp(this.getNodeCeval(prevNode));
       if (cp1 === undefined || cp2 === undefined) return;
-      const w1 = this.winPerc(cp1) * side;
-      const w2 = this.winPerc(cp2) * side;
-      return w1 - w2;
+      const w1 = this.winPerc(cp1);
+      const w2 = this.winPerc(cp2);
+      return (w1 - w2) * side;
     }
 
     computeBrilliant = (side, node, prevNode, prev2Node) => {
@@ -688,10 +688,10 @@
       let p3;
       mainline
         .map((node, x) => {
-          if (lt.isMate(node)) return null;
-          let result = null;
-          if (p2 !== undefined) {
-            const m = this.getNodeTurn(node);
+          try {
+            let result = null;
+            if (lt.isMate(node) || p2 === undefined) return result;
+            const m = -this.getNodeTurn(node);
             const good = this.computeGood(m, node, p2);
             const bril = p3 === undefined
                            ? 0
@@ -704,10 +704,11 @@
               best: this.options.moreBrilliant && good >= 0,
               bril: this.options.moreBrilliant ? bril >= 5 : bril >= 3
             };
+            return result;
+          } finally {
+            p3 = p2;
+            p2 = node;
           }
-          p3 = p2;
-          p2 = node;
-          return result;
         })
         .forEach((v, x) => {
           if (!v) return;

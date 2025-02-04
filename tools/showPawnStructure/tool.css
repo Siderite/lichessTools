@@ -30,7 +30,7 @@ body.lichessTools .copyables .lichessTools-structure {
 body.lichessTools .lichessTools-structure:before {
   margin-right: 0.4em;
   margin-inline: 0 0.4em;
-  content: '\260D';
+  content: '\260D'; /* Opposition */
   transform: scale(1.25);
   transform-origin: center;
   align-self: center;
