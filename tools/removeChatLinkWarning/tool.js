@@ -21,7 +21,7 @@
         'options.removeChatLinkWarning': 'Remove chat link warning'
       },
       'ro-RO': {
-        'options.comm': 'Chat, forum-uri, blog-uri',
+        'options.comm': 'Chat, forumuri, blog-uri',
         'options.removeChatLinkWarning': 'F\u0103r\u0103 alerte la linkuri din chat'
       }
     }

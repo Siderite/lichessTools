@@ -21,7 +21,7 @@
         'pastingError': 'There was an error generating the image URL'
       },
       'ro-RO': {
-        'options.comm': 'Chat, forum-uri, blog-uri',
+        'options.comm': 'Chat, forumuri, blog-uri',
         'options.imagePasting': 'Op\u0163iuni chat/forum',
         'imagePasting.pasteImages': 'Suport lipire imagini',
         'imagePasting.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',

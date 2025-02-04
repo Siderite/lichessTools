@@ -29,7 +29,7 @@
         'maximumThreeTeams': 'Maximum team notification limit reached!'
       },
       'ro-RO': {
-        'options.comm': 'Chat, forum-uri, blog-uri',
+        'options.comm': 'Chat, forumuri, blog-uri',
         'options.mchatOptions': 'Op\u0163iuni chat echip\u0103/studiu',
         'mchatOptions.urlify': 'Eviden\u0163iaz\u0103 URLuri',
         'mchatOptions.unlimited': 'F\u0103r\u0103 limit\u0103 lungime',

@@ -23,7 +23,7 @@
         'blogSave': 'Save'
       },
       'ro-RO': {
-        'options.comm': 'Chat, forum-uri, blog-uri',
+        'options.comm': 'Chat, forumuri, blog-uri',
         'options.blogAutosave': 'Op\u0163iuni editare blog',
         'blogAutosave.autosave': 'Salvare automat\u0103',
         'blogAutosave.savebutton': 'Buton salvare',

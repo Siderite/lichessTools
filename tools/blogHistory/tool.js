@@ -21,7 +21,7 @@
         'visitedTitle': 'LiChess Tools - last visited on %s'
       },
       'ro-RO': {
-        'options.comm': 'Chat, forum-uri, blog-uri',
+        'options.comm': 'Chat, forumuri, blog-uri',
         'options.blogHistory': 'Istorie vizite blog',
         'blogHistory.showVisited': 'Arat\u0103 vizite',
         'blogHistory.persistView': 'Persist\u0103 vizualizarea blogurilor',

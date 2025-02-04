@@ -78,7 +78,7 @@
         'folderButtonTitle': 'Alege un director de fi\u015fiere',
         'fileButtonTitle': 'Alege un fi\u015fier',
         'userManualLinkTitle': 'Manual utilizator (EN)',
-        'preferenceFilterPlaceholder': 'Filtreaz\u0103 preferin\u0163ele'
+        'preferenceFilterPlaceholder': 'Filtru preferin\u0163e'
       }
     }
 
