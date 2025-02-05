@@ -172,10 +172,12 @@
         }
       }
 
-      const order = ['languages', 'community', 'general', 'appearance', 'analysis', 'analysis2', 'study', 'friends', 'play', 'puzzles', 'tv', 'mobile', 'comm', 'integration'];
-      const keys = Object.keys(categs);
-      keys.sort((a,b)=>order.indexOf(a)-order.indexOf(b));
-      for (const key of keys) {
+      const order = ['languages', 'community', 'general', 'appearance', 'analysis', 'analysis2', 'study', 'friends', 'play', 'puzzles', 'TV', 'mobile', 'comm', 'integration'];
+      const diff = new Set(order).symmetricDifference(new Set(Object.keys(categs)));
+      if (diff.size) {
+        lt.global.setTimeout(()=>lt.global.console.warn('There is a difference between category keys and order: ',diff,100));
+      }
+      for (const key of order) {
         const categ = categs[key];
         const prefCount = categ.filter(pref=>(this.options.advanced||!pref.advanced) && !pref.hidden && (isLoggedIn || !pref.needsLogin)).length;
         html += '<div><h3><label for="chk_' + key + '"><span class="lichessTools-prefCount">(' + prefCount + ')</span> $trans(options.' + key + ')</label></h3><input type="checkbox" id="chk_' + key + '" class="categoryToggle" checked>';
