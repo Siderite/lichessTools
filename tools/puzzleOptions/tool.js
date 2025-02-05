@@ -13,6 +13,10 @@
       }
     ];
 
+    upgrades = [
+      { name:'puzzleOptions', value:'wakeLock', version: '2.4.0', type: 'obsolete' }
+    ];
+
     intl = {
       'en-US': {
         'options.puzzles': 'Puzzles',

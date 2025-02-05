@@ -14,6 +14,10 @@
       }
     ];
 
+    upgrades = [
+      { name:'tvOptions', value:'wakeLock', version: '2.4.0', type: 'obsolete' }
+    ];
+
     intl = {
       'en-US': {
         'options.TV': 'TV',

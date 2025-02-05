@@ -40,6 +40,10 @@
       }
     ];
 
+    upgrades = [
+      { name:'mobileExperience', value:'lockBoard', version: '2.4.0', type: 'obsolete' }
+    ];
+
     intl = {
       'en-US': {
         'options.mobile': 'Mobile devices',

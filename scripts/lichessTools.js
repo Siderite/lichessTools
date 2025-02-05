@@ -2145,10 +2145,12 @@
       return false;
     }
 
-    async upgradeOptions(options) {
+    upgradeOptions(options) {
       for (const tool of this.tools) {
         if (!tool.upgrades?.length) continue;
-        const upgrades = tool.upgrades.filter(u=>this.newerVersion(u.version,options.version));
+        const upgrades = tool.upgrades
+                                .filter(u=>!u.type || u.type=='new')
+                                .filter(u=>this.newerVersion(u.version,options.version));
         for (const upgrade of upgrades) {
           const pref = tool.preferences.find(p=>p.name == upgrade.name);
           if (!pref) {
@@ -2173,6 +2175,26 @@
       }
     }
 
+    obsoleteOptions(options) {
+      for (const tool of this.tools) {
+        if (!tool.upgrades?.length) continue;
+        const upgrades = tool.upgrades
+                           .filter(u=>u.type=='obsolete')
+                           .filter(u=>!this.newerVersion(u.version,options.version));
+        for (const upgrade of upgrades) {
+          const pref = tool.preferences.find(p=>p.name == upgrade.name);
+          if (!pref) {
+            this.global.console.warn('Cannot find preference with name',upgrade.name);
+            continue;
+          }
+          let currentValue = options[upgrade.name];
+          if (this.isOptionSet(currentValue,upgrade.value)) {
+            options[upgrade.name] = currentValue.split(/\s*,\s*/).filter(v=>v?.toString()!=upgrade.value).join(',');
+          }
+        }
+      }
+    }
+
     async getOptions() {
       let options = this.global.localStorage.getItem('LiChessTools2.options');
       options = this.jsonParse(options);
@@ -2182,7 +2204,7 @@
         ...defaults,
         ...options
       };
-      await this.upgradeOptions(options);
+      this.upgradeOptions(options);
       options.getValue = function (optionName, optionValue) {
         if (!this.enableLichessTools) return false;
         return this[optionName]
@@ -2227,6 +2249,7 @@
                                              });
       const version = data.version;
       this.debug && console.log('Saving options version',version);
+      this.obsoleteOptions(options);
       options.version = version;
       const optionsJson = this.global.JSON.stringify(options);
       this.global.localStorage.setItem('LiChessTools2.options', optionsJson);
