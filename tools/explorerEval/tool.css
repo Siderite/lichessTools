@@ -105,3 +105,8 @@ body.lichessTools section.explorer-box table.moves:has(.lichessTools-explorerEva
   position: absolute;
   width: -webkit-fill-available;
 }
+
+body.lichessTools section.explorer-box div.lichessTools-spoa {
+  display: flex;
+  justify-content: space-between;
+}

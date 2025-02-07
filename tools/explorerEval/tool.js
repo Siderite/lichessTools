@@ -8,7 +8,7 @@
         name: 'explorerEval',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'bardp', 'hidden'],
+        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'bardp', 'spoa', 'hidden'],
         defaultValue: 'ceval,db',
         advanced: true
       }
@@ -24,6 +24,7 @@
         'explorerEval.lichess': 'From Lichess',
         'explorerEval.evalRows': 'Rows from eval',
         'explorerEval.bardp': 'Bar precision',
+        'explorerEval.spoa': 'Stronger Player Outcome Average',
         'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval, depth %s',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
@@ -31,7 +32,8 @@
         'fromLichessTitle': 'LiChess Tools - from Lichess, depth %s',
         'evaluationTitle': 'LiChess Tools - move evaluation',
         'evalWarning': 'LiChess Tools - pay attention',
-        'sharpnessTitle': 'Sharpness: %s'
+        'sharpnessTitle': 'Sharpness: %s',
+        'spoaTitle': 'LiChess Tools - Stronger Player Outcome Average'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -41,6 +43,7 @@
         'explorerEval.db': 'De la ChessDb',
         'explorerEval.lichess': 'De la Lichess',
         'explorerEval.bardp': 'Precizie bar\u0103',
+        'explorerEval.spoa': 'Media Rezultatelor Juc\u0103torilor mai Buni',
         'explorerEval.evalRows': 'R\u00e2nduri din evaluare',
         'explorerEval.hidden': 'Ascunde',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer, ad\u00e2ncime %s',
@@ -49,7 +52,8 @@
         'fromLichessTitle': 'LiChess Tools - de la Lichess, ad\u00e2ncime %s',
         'evaluationTitle': 'LiChess Tools - evaluare mutare',
         'evalWarning': 'LiChess Tools - aten\u0163ie',
-        'sharpnessTitle': 'Periculozitate: %s'
+        'sharpnessTitle': 'Periculozitate: %s',
+        'spoaTitle': 'LiChess Tools - Media Rezultatelor Juc\u0103torilor mai Buni'
       }
     }
 
@@ -232,7 +236,63 @@
             .attr('title', trans.noarg('evalWarning'));
         }
       });
+      this.showSPOA();
     }
+
+    showSPOA = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+      $('section.explorer-box span.spoa').empty();
+      if (!this.options.spoa) return;
+      const current = lichess.analysis?.explorer?.current();
+      if (!current) return;
+
+      const getSpoa = (games) => {
+        let result = 0;
+        if (!games?.length) return result;
+        for (const game of games) {
+          const key = game.black.rating > game.white.rating ? 'black' : 'white';
+          if (!game.winner) {
+            result += 0.5;
+          } else {
+            if (game.winner == key) result += 1;
+          }
+        }
+        return Math.round(100*result/games.length)+'%';
+      };
+
+      const populateSpoa = (spoa, el) => {
+        if (!el.length) return;
+        if (el.find('div.lichessTools-spoa').length) {
+          el.find('span.spoa').text(spoa);
+        } else {
+          const text = el.text();
+          el.empty()
+            .append($('<div class="lichessTools-spoa">')
+                      .append($('<span>').text(text))
+                      .append($('<span class="spoa">')
+                                .attr('title',trans.noarg('spoaTitle'))
+                                .text(text))
+            );
+        }
+      };
+
+      const tables = $('section.explorer-box .data table.games').get();
+
+      if (current.topGames?.length) {
+        const spoa = getSpoa(current.topGames);
+        const el = $(tables.at(0)).find('thead th.title');
+        populateSpoa(spoa, el);
+      }
+
+      if (current.recentGames?.length) {
+        const spoa = getSpoa(current.recentGames);
+        const el = $(tables.at(-1)).find('thead th.title');
+        populateSpoa(spoa, el);
+      }
+    };
 
     cache404 = {};
     setCached404 = (path) => path ? this._setCached404(path, this.cache404) : false;
@@ -439,8 +499,9 @@
         lichess: lt.isOptionSet(value, 'lichess'),
         evalRows: lt.isOptionSet(value, 'evalRows'),
         bardp: lt.isOptionSet(value, 'bardp'),
+        spoa: lt.isOptionSet(value, 'spoa'),
         hidden: lt.isOptionSet(value, 'hidden'),
-        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows || this.bardp); }
+        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows || this.bardp || this.spoa); }
       };
       const lichess = lt.lichess;
       const $ = lt.$;
