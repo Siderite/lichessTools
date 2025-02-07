@@ -43,6 +43,9 @@
         result += move.ply % 2 == 1 ? '.' : '...';
       }
       result += move.san;
+      if (move.glyphs?.length) {
+        result+=move.glyphs.map(g=>g.symbol).join('');
+      }
       if (length < 5 && move.children.length == 1) {
         result += ' ' + this.getMoveText(move.children[0], false, length + 1);
       } else if (move.children.length) {
