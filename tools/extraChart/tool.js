@@ -623,6 +623,7 @@
     };
 
     computeGood = (side, node, prevNode) => {
+      const lt = this.lichessTools;
       const cp1 = this.getCp(this.getNodeCeval(node));
       const cp2 = this.getCp(this.getNodeCeval(prevNode));
       if (cp1 === undefined || cp2 === undefined) return;
