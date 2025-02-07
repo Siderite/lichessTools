@@ -218,7 +218,7 @@
           } else {
             node.bookmark = {
               label: bookmark,
-              collapsed: this.getCollapsed(bookmark)
+              collapsed: node.children?.length && this.getCollapsed(bookmark)
             };
           }
           const elem = lt.getElementForNode(node);
