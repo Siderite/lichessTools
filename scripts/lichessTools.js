@@ -258,6 +258,10 @@
       return cp;
     };
 
+    winPerc = (cp) => {
+      return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
+    };
+
     crc24 = (data) => {
       const polynomial = 0x864CFB;
       let crc = 0xFFFFFF;
@@ -777,7 +781,7 @@
         if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
       }
       const rect = element.getBoundingClientRect();
-      const port = new DOMRect(0, 0, $(window).width(), $(window).height());
+      const port = new DOMRect(0, 0, $(this.global).width(), $(this.global).height());
       return this.rectIntersection(rect, port);
     };
 
