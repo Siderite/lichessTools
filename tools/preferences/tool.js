@@ -46,7 +46,8 @@
         'folderButtonTitle': 'Pick a folder',
         'fileButtonTitle': 'Pick a file',
         'userManualLinkTitle': 'User manual (EN)',
-        'preferenceFilterPlaceholder': 'Filter preferences'
+        'preferenceFilterPlaceholder': 'Filter preferences',
+        'expandAllButtonText': 'Expand/collapse all'
       },
       'ro-RO': {
         yes: 'Da',
@@ -78,7 +79,8 @@
         'folderButtonTitle': 'Alege un director de fi\u015fiere',
         'fileButtonTitle': 'Alege un fi\u015fier',
         'userManualLinkTitle': 'Manual utilizator (EN)',
-        'preferenceFilterPlaceholder': 'Filtru preferin\u0163e'
+        'preferenceFilterPlaceholder': 'Filtru preferin\u0163e',
+        'expandAllButtonText': 'Extinde/restr\u00e2nge toate'
       }
     }
 
@@ -150,7 +152,8 @@
   <textarea enterkeyhint="send"></textarea>
   <button data-icon="${lt.icon.toEntity(lt.icon.PlayTriangle)}" title="$trans(feedbackButtonTitle)"></button>
 </div>
-<div class="prefFilter">
+<div class="prefTools">
+  <button class="expandAll"></button>
   <input type="text" class="prefFilter" placeholder="$trans(preferenceFilterPlaceholder)">
 </div>`;
       }
@@ -180,7 +183,9 @@
       for (const key of order) {
         const categ = categs[key];
         const prefCount = categ.filter(pref=>(this.options.advanced||!pref.advanced) && !pref.hidden && (isLoggedIn || !pref.needsLogin)).length;
-        html += '<div><h3><label for="chk_' + key + '"><span class="lichessTools-prefCount">(' + prefCount + ')</span> $trans(options.' + key + ')</label></h3><input type="checkbox" id="chk_' + key + '" class="categoryToggle" checked>';
+        const existing = $('#chk_'+key);
+        const checkedStr = !existing.length || existing.prop('checked') ? 'checked' : '';
+        html += '<div><h3><label for="chk_' + key + '"><span class="lichessTools-prefCount">(' + prefCount + ')</span> $trans(options.' + key + ')</label></h3><input type="checkbox" id="chk_' + key + '" class="categoryToggle" '+ checkedStr + '>';
         for (const pref of categ) {
           const defaultValue = (!isLoggedIn && pref.defaultNotLoggedInValue !== undefined) ? pref.defaultNotLoggedInValue : pref.defaultValue;
 
@@ -286,6 +291,8 @@
         return htmlEncode(value ? trans.pluralSame(name, value) : trans.noarg(name));
       });
 
+      const prevFilter = $('input.prefFilter').val();
+
       const container = $('div.page-menu__content');
       let saved = $('p.saved', container);
       saved = saved.length ? saved.clone() : $('<p class="saved text none">').attr('data-icon',lt.icon.Checkmark).text(trans.noarg('preferencesSaved'));
@@ -323,6 +330,23 @@
               .toggleClass('filteredIn',shown && tokens.length)
               .toggleClass('filteredOut',!shown);
           });
+        });
+
+      if (prevFilter) {
+        $('input.prefFilter')
+          .val(prevFilter)
+          .trigger('input');
+      }
+
+      $('button.expandAll')
+        .attr('data-icon',lt.icon.PlusButton)
+        .text(trans.noarg('expandAllButtonText'))
+        .attr('title',trans.noarg('expandAllButtonTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          const checks = $('input[id^=chk_]');
+          const val = !checks.get().find(e=>$(e).prop('checked'));
+          checks.prop('checked',val);
         });
 
       $('form', container).append(saved);
