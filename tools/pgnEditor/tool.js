@@ -1891,13 +1891,6 @@
 
       this.writeGames(textarea, games);
 
-      const foundText = foundGames.map(g => {
-        g.headers.delete('Found');
-        return makePgn(g);
-      }).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g, '');
-      lt.writeToClipboard(foundText, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
-
       this.writeNote(trans.pluralSame('foundGames', foundGames.length));
     };
 
