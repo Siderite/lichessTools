@@ -6,7 +6,7 @@
         name: 'cevalLineOptions',
         category: 'analysis2',
         type: 'multiple',
-        possibleValues: ['highlight','moreLines'],
+        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines'],
         defaultValue: 'moreLines',
         advanced: true
       }
@@ -17,6 +17,7 @@
         'options.analysis2': 'Analysis - minor',
         'options.cevalLineOptions': 'Computer evaluation line options',
         'cevalLineOptions.highlight': 'Highlight same moves',
+        'cevalLineOptions.highlightOnlyMe': '...only current orientation',
         'cevalLineOptions.moreLines': 'More lines',
         'moreLinesTitle': 'LiChess Tools - more lines'
       },
@@ -24,17 +25,20 @@
         'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.cevalLineOptions': 'Op\u0163iuni linii \u00een evaluarea computerului',
         'cevalLineOptions.highlight': 'Eviden\u0163iaza acelea\u015Fi mut\u0103ri',
+        'cevalLineOptions.highlightOnlyMe': '...doar orientarea curent\u0103',
         'cevalLineOptions.moreLines': 'Mai multe linii',
         'moreLinesTitle': 'LiChess Tools - mai multe linii'
       }
     }
 
-    getKey = (elem) => {
+    getKey = (elem, comp) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const e = $(elem);
+      const idx = +($(e).attr('data-move-index')) % 2;
+      if (this.options.highlightOnlyMe && idx != comp) return;
       const san = e.text().replace(/[\+#\?!]/, '');
-      const turn = +(e.attr('data-move-index')) % 2;
+      const turn = (idx + comp) % 2;
       return `${san}-${turn}`;
     };
 
@@ -46,11 +50,16 @@
         this._inHandlePvs=true;
         const lt = this.lichessTools;
         const $ = lt.$;
+        const lichess = lt.lichess;
         this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
         [...this.dict.values()].forEach(v => v.count = 0);
+        const side = lichess.analysis.getOrientation() == 'black' ? 1 : 0;
+        const turn = lichess.analysis.turnColor() == 'black' ? 1 : 0;
+        const comp = side ^ turn;
         $('div.pv_box span.pv-san').each((i, e) => {
           if (!lt.inViewport(e)) return;
-          const key = this.getKey(e);
+          const key = this.getKey(e, comp);
+          if (!key) return;
           const data = this.dict.get(key);
           if (data) {
             data.count++;
@@ -80,7 +89,8 @@
         });
         $('div.pv_box span.pv-san')
           .each((i, e) => {
-            const key = this.getKey(e);
+            const key = this.getKey(e,comp);
+            if (!key) return;
             const val = this.dict.get(key);
             const cls = val?.count > 1 && this.options.highlight
               ? ('pv-san ' + val.cls).trim()
@@ -146,6 +156,7 @@
       if (!analysis) return;
       this.options = {
         highlight: lt.isOptionSet(value, 'highlight'),
+        highlightOnlyMe: lt.isOptionSet(value, 'highlightOnlyMe'),
         moreLines: lt.isOptionSet(value, 'moreLines')
       }
       const analysisTools = $('main .analyse__tools, main .puzzle__tools');
