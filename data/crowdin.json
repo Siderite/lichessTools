@@ -794,7 +794,11 @@
     "wakeLock.tv": "مشاهدة التلفزيون",
     "options.appearance": "المظهر",
     "options.analysis2": "التحليل - ثانوي",
-    "preferenceFilterPlaceholder": "تفضيلات الفلتر"
+    "preferenceFilterPlaceholder": "تفضيلات الفلتر",
+    "expandAllButtonText": "تمديد / انهيار الكل",
+    "explorerEval.spoa": "متوسط نتائج اللاعب الأقوى",
+    "spoaTitle": "أدوات شطرنج الحياة - متوسط نتائج اللاعب الأقوى",
+    "cevalLineOptions.highlightOnlyMe": "الاتجاه الحالي فقط"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1591,7 +1595,11 @@
     "wakeLock.tv": "观看电视中",
     "options.appearance": "外观",
     "options.analysis2": "分析-次要问题",
-    "preferenceFilterPlaceholder": "过滤器首选项"
+    "preferenceFilterPlaceholder": "过滤器首选项",
+    "expandAllButtonText": "展开/折叠所有",
+    "explorerEval.spoa": "更强的玩家平均结果",
+    "spoaTitle": "Lichess工具 - 更强的玩家平均结果",
+    "cevalLineOptions.highlightOnlyMe": "...仅当前方向"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2078,8 +2086,8 @@
     "operationCancelled": "Operation cancelled",
     "pastePGNs": "drag/paste your PGNs here",
     "searchPattern": "Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, \"Index\"=Value, \"Invalid\", \"Ply\"(>,=,<)Value, \"Eval\"(>,=,<)Value\", \"Clock\", \"Shapes\"",
-    "foundGames": "%s games found",
-    "foundGames:one": "One game found",
+    "foundGames": "找到了%s盤棋局",
+    "foundGames:one": "找到了一盤棋局",
     "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value,\"Junk\",\"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN 編輯器",
     "sendToPgnEditorTitle": "LiChess Tools - send to PGN Editor",
@@ -2184,7 +2192,7 @@
     "mchatOptions.images": "Image support",
     "mchatOptions.teamChatNotifications": "Team chat notifications",
     "newTeamMessagesText": "You have new messages in team chat for %s",
-    "newTeamMessagesSubtitle": "New messages",
+    "newTeamMessagesSubtitle": "新訊息",
     "teamNotifyTitle": "Notifications for team chat message",
     "maximumThreeTeams": "Maximum team notification limit reached!",
     "options.fullScreen": "Easy access full screen button",
@@ -2251,13 +2259,13 @@
     "options.timelineNotify": "Timeline notifications",
     "changeNameToText": " \"%s\"",
     "replaceSnapPrompt": "Overwrite snap \"%s\" ?",
-    "hideInactiveTitle": "Active players",
-    "options.languages": "Languages",
-    "options.crowdin": "Crowdin translation",
+    "hideInactiveTitle": "活躍棋手",
+    "options.languages": "語言",
+    "options.crowdin": "Crowdin 翻譯",
     "tvOptions.stickyCategory": "Persistent TV channel",
     "options.playWheel": "Mouse wheel during game play",
     "noDirectoryPickerWarning": "This browser does not support this functionality",
-    "folderButtonTitle": "Pick a folder",
+    "folderButtonTitle": "選擇資料夾",
     "options.filesystem": "Local files",
     "options.localDatabase": "Local database functionality",
     "puzzleHeaderText": "Puzzles",
@@ -2388,7 +2396,11 @@
     "wakeLock.tv": "Watching TV",
     "options.appearance": "Appearance",
     "options.analysis2": "Analysis - minor",
-    "preferenceFilterPlaceholder": "Filter preferences"
+    "preferenceFilterPlaceholder": "Filter preferences",
+    "expandAllButtonText": "Expand/collapse all",
+    "explorerEval.spoa": "Stronger Player Outcome Average",
+    "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
+    "cevalLineOptions.highlightOnlyMe": "...only current orientation"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3185,7 +3197,11 @@
     "wakeLock.tv": "TV kijken",
     "options.appearance": "Uiterlijk",
     "options.analysis2": "Analyse - minor",
-    "preferenceFilterPlaceholder": "Voorkeuren filteren"
+    "preferenceFilterPlaceholder": "Voorkeuren filteren",
+    "expandAllButtonText": "Alles uitvouwen/samenvouwen",
+    "explorerEval.spoa": "Sterkere Speler Resultaat Gemiddelde",
+    "spoaTitle": "LiChess Tools - Sterkere Speler Resultaat Gemiddelde",
+    "cevalLineOptions.highlightOnlyMe": "...alleen huidige oriëntatie"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -3982,7 +3998,11 @@
     "wakeLock.tv": "Watching TV",
     "options.appearance": "Appearance",
     "options.analysis2": "Analysis - minor",
-    "preferenceFilterPlaceholder": "Filter preferences"
+    "preferenceFilterPlaceholder": "Filter preferences",
+    "expandAllButtonText": "Expand/collapse all",
+    "explorerEval.spoa": "Stronger Player Outcome Average",
+    "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
+    "cevalLineOptions.highlightOnlyMe": "...only current orientation"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4779,7 +4799,11 @@
     "wakeLock.tv": "Regarder la TV",
     "options.appearance": "Apparence",
     "options.analysis2": "Analyse - mineure",
-    "preferenceFilterPlaceholder": "Filtrer les préférences"
+    "preferenceFilterPlaceholder": "Filtrer les préférences",
+    "expandAllButtonText": "Développer/réduire tout",
+    "explorerEval.spoa": "Moyenne du résultat du joueur plus fort",
+    "spoaTitle": "Outils LiChess - Moyenne du joueur plus fort",
+    "cevalLineOptions.highlightOnlyMe": "... seulement l'orientation actuelle"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5576,7 +5600,11 @@
     "wakeLock.tv": "TV anschauen",
     "options.appearance": "Erscheinung",
     "options.analysis2": "Analyse - kleine",
-    "preferenceFilterPlaceholder": "Filtereinstellungen"
+    "preferenceFilterPlaceholder": "Filtereinstellungen",
+    "expandAllButtonText": "Alle aufklappen/einklappen",
+    "explorerEval.spoa": "Stärkerer Spielerergebnisdurchschnitt",
+    "spoaTitle": "LiChess Tools - Stärkerer Player Ergebnisdurchschnitt",
+    "cevalLineOptions.highlightOnlyMe": "...nur aktuelle Ausrichtung"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6373,7 +6401,11 @@
     "wakeLock.tv": "Guardando La TV",
     "options.appearance": "Aspetto",
     "options.analysis2": "Analisi - minore",
-    "preferenceFilterPlaceholder": "Preferenze filtro"
+    "preferenceFilterPlaceholder": "Preferenze filtro",
+    "expandAllButtonText": "Espandere/comprimere tutto",
+    "explorerEval.spoa": "Media Risultato Più Forte Del Giocatore",
+    "spoaTitle": "Strumenti LiChess - Più Forte Risultato Del Giocatore Media",
+    "cevalLineOptions.highlightOnlyMe": "...solo orientamento corrente"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7170,7 +7202,11 @@
     "wakeLock.tv": "Oglądanie telewizora",
     "options.appearance": "Wygląd",
     "options.analysis2": "Analiza – niewielka",
-    "preferenceFilterPlaceholder": "Ustawienia filtra"
+    "preferenceFilterPlaceholder": "Ustawienia filtra",
+    "expandAllButtonText": "Rozwiń/zwiń wszystkie",
+    "explorerEval.spoa": "Średni wynik gracza",
+    "spoaTitle": "Narzędzia Lichess - Średni wynik gracza",
+    "cevalLineOptions.highlightOnlyMe": "...tylko aktualna orientacja"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -7967,7 +8003,11 @@
     "wakeLock.tv": "Assistindo TV",
     "options.appearance": "Aparência",
     "options.analysis2": "Análise - menor",
-    "preferenceFilterPlaceholder": "Preferências de filtros"
+    "preferenceFilterPlaceholder": "Preferências de filtros",
+    "expandAllButtonText": "Expandir/recolher tudo",
+    "explorerEval.spoa": "Maior Resultado do Jogador Média",
+    "spoaTitle": "Ferramentas de LiChess - Maior Média de Resultado do Jogador",
+    "cevalLineOptions.highlightOnlyMe": "...apenas orientação atual"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -8764,7 +8804,11 @@
     "wakeLock.tv": "Assistindo TV",
     "options.appearance": "Aparência",
     "options.analysis2": "Análise - menor",
-    "preferenceFilterPlaceholder": "Preferências de filtros"
+    "preferenceFilterPlaceholder": "Preferências de filtros",
+    "expandAllButtonText": "Expandir/recolher tudo",
+    "explorerEval.spoa": "Maior Resultado do Jogador Média",
+    "spoaTitle": "Ferramentas de LiChess - Maior Média de Resultado do Jogador",
+    "cevalLineOptions.highlightOnlyMe": "...apenas orientação atual"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9561,7 +9605,11 @@
     "wakeLock.tv": "Urmărind TV",
     "options.appearance": "Aspect",
     "options.analysis2": "Analiză - mărunțișuri",
-    "preferenceFilterPlaceholder": "Filtru preferințe"
+    "preferenceFilterPlaceholder": "Filtru preferințe",
+    "expandAllButtonText": "Extinde/restrânge toate",
+    "explorerEval.spoa": "Media Rezultatelor Jucătorilor mai Buni",
+    "spoaTitle": "LiChess Tools - Media Rezultatelor Jucătorilor mai Buni",
+    "cevalLineOptions.highlightOnlyMe": "...doar orientarea curentă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10358,7 +10406,11 @@
     "wakeLock.tv": "Просмотр ТВ",
     "options.appearance": "Внешний вид",
     "options.analysis2": "Анализ - незначительная",
-    "preferenceFilterPlaceholder": "Настройки фильтра"
+    "preferenceFilterPlaceholder": "Настройки фильтра",
+    "expandAllButtonText": "Развернуть/свернуть все",
+    "explorerEval.spoa": "Средний доход Сильнейших Игроков",
+    "spoaTitle": "Инструменты Жизни - Средний результат сильнейшего игрока",
+    "cevalLineOptions.highlightOnlyMe": "...только текущая ориентация"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11155,7 +11207,11 @@
     "wakeLock.tv": "Viendo TV",
     "options.appearance": "Apariencia",
     "options.analysis2": "Análisis - menor",
-    "preferenceFilterPlaceholder": "Preferencias de filtro"
+    "preferenceFilterPlaceholder": "Preferencias de filtro",
+    "expandAllButtonText": "Expandir/contraer todo",
+    "explorerEval.spoa": "Media de resultados del jugador más fuerte",
+    "spoaTitle": "Herramientas de LiChess - Media de resultados del jugador más fuerte",
+    "cevalLineOptions.highlightOnlyMe": "...sólo orientación actual"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -11952,7 +12008,11 @@
     "wakeLock.tv": "Watching TV",
     "options.appearance": "Appearance",
     "options.analysis2": "Analysis - minor",
-    "preferenceFilterPlaceholder": "Filter preferences"
+    "preferenceFilterPlaceholder": "Filter preferences",
+    "expandAllButtonText": "Expand/collapse all",
+    "explorerEval.spoa": "Stronger Player Outcome Average",
+    "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
+    "cevalLineOptions.highlightOnlyMe": "...only current orientation"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -12749,6 +12809,10 @@
     "wakeLock.tv": "Watching TV",
     "options.appearance": "Appearance",
     "options.analysis2": "Analysis - minor",
-    "preferenceFilterPlaceholder": "Filter preferences"
+    "preferenceFilterPlaceholder": "Filter preferences",
+    "expandAllButtonText": "Expand/collapse all",
+    "explorerEval.spoa": "Stronger Player Outcome Average",
+    "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
+    "cevalLineOptions.highlightOnlyMe": "...only current orientation"
   }
 }
