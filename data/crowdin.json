@@ -800,7 +800,15 @@
     "spoaTitle": "أدوات شطرنج الحياة - متوسط نتائج اللاعب الأقوى",
     "cevalLineOptions.highlightOnlyMe": "الاتجاه الحالي فقط",
     "dailyQuote.top": "في الأعلى",
-    "dailyQuote.side": "على الجانب"
+    "dailyQuote.side": "على الجانب",
+    "options.botFilters": "فلاتر قائمة البوت",
+    "ratingLabelText": "تقييم الدقيقة/الحد الأقصى",
+    "ratingLabelTitle": "أدوات شطرنج الحياة - تقييم دقيقة/الحد الأقصى",
+    "gamesLabelText": "ألعاب دقيقة/حد أقصى",
+    "gamesLabelTitle": "أدوات شطرنج الحياة - ألعاب دقيقة/الحد الأقصى",
+    "gameTypesLabelText": "أنواع اللعبة",
+    "gameTypesLabelTitle": "أدوات شطرنج الحياة - أنواع اللعبة",
+    "unratedLabelText": "إظهار غير تقييمي:"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1603,7 +1611,15 @@
     "spoaTitle": "Lichess工具 - 更强的玩家平均结果",
     "cevalLineOptions.highlightOnlyMe": "...仅当前方向",
     "dailyQuote.top": "在顶部",
-    "dailyQuote.side": "一侧的"
+    "dailyQuote.side": "一侧的",
+    "options.botFilters": "机器人列表过滤器",
+    "ratingLabelText": "评分最小/最大值",
+    "ratingLabelTitle": "生活工具-最小/最大评分",
+    "gamesLabelText": "游戏最小/最大值",
+    "gamesLabelTitle": "Lichess工具 - 最小/最大游戏",
+    "gameTypesLabelText": "游戏类型",
+    "gameTypesLabelTitle": "Lichess工具 - 游戏类型",
+    "unratedLabelText": "显示已取消评分："
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2406,7 +2422,15 @@
     "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
     "cevalLineOptions.highlightOnlyMe": "...only current orientation",
     "dailyQuote.top": "On top",
-    "dailyQuote.side": "On the side"
+    "dailyQuote.side": "On the side",
+    "options.botFilters": "Bot list filters",
+    "ratingLabelText": "Rating min/max",
+    "ratingLabelTitle": "LiChess Tools - min/max rating",
+    "gamesLabelText": "Games min/max",
+    "gamesLabelTitle": "LiChess Tools - min/max games",
+    "gameTypesLabelText": "Game types",
+    "gameTypesLabelTitle": "LiChess Tools - game types",
+    "unratedLabelText": "Show unrated:"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3209,7 +3233,15 @@
     "spoaTitle": "LiChess Tools - Sterkere Speler Resultaat Gemiddelde",
     "cevalLineOptions.highlightOnlyMe": "...alleen huidige oriëntatie",
     "dailyQuote.top": "Bovenaan",
-    "dailyQuote.side": "Aan de zijkant"
+    "dailyQuote.side": "Aan de zijkant",
+    "options.botFilters": "Bot lijst filters",
+    "ratingLabelText": "Waardering min/max",
+    "ratingLabelTitle": "LiChess Tools - min/max rating",
+    "gamesLabelText": "Games min/max",
+    "gamesLabelTitle": "LiChess Tools - min/max spellen",
+    "gameTypesLabelText": "Spel types",
+    "gameTypesLabelTitle": "LiChess Tools - speltypes",
+    "unratedLabelText": "Toon onbeoordeeld:"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4012,7 +4044,15 @@
     "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
     "cevalLineOptions.highlightOnlyMe": "...only current orientation",
     "dailyQuote.top": "On top",
-    "dailyQuote.side": "On the side"
+    "dailyQuote.side": "On the side",
+    "options.botFilters": "Bot list filters",
+    "ratingLabelText": "Rating min/max",
+    "ratingLabelTitle": "LiChess Tools - min/max rating",
+    "gamesLabelText": "Games min/max",
+    "gamesLabelTitle": "LiChess Tools - min/max games",
+    "gameTypesLabelText": "Game types",
+    "gameTypesLabelTitle": "LiChess Tools - game types",
+    "unratedLabelText": "Show unrated:"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4811,11 +4851,19 @@
     "options.analysis2": "Analyse - mineure",
     "preferenceFilterPlaceholder": "Filtrer les préférences",
     "expandAllButtonText": "Développer/réduire tout",
-    "explorerEval.spoa": "Moyenne du résultat du joueur plus fort",
-    "spoaTitle": "Outils LiChess - Moyenne du joueur plus fort",
+    "explorerEval.spoa": "Moyenne des résultats du joueur le plus fort",
+    "spoaTitle": "LiChess Tools - Moyenne du joueur plus fort",
     "cevalLineOptions.highlightOnlyMe": "... seulement l'orientation actuelle",
-    "dailyQuote.top": "Au premier plan",
-    "dailyQuote.side": "Sur le côté"
+    "dailyQuote.top": "En haut",
+    "dailyQuote.side": "Sur le côté",
+    "options.botFilters": "Filtres de la liste des robots",
+    "ratingLabelText": "Notation min/max",
+    "ratingLabelTitle": "Outils LiChess - évaluation min/max",
+    "gamesLabelText": "Jeux min/max",
+    "gamesLabelTitle": "Outils LiChess - parties min/max",
+    "gameTypesLabelText": "Types de jeu",
+    "gameTypesLabelTitle": "Outils LiChess - types de jeu",
+    "unratedLabelText": "Afficher non évalué :"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5618,7 +5666,15 @@
     "spoaTitle": "LiChess Tools - Stärkerer Player Ergebnisdurchschnitt",
     "cevalLineOptions.highlightOnlyMe": "...nur aktuelle Ausrichtung",
     "dailyQuote.top": "Oben",
-    "dailyQuote.side": "An der Seite"
+    "dailyQuote.side": "An der Seite",
+    "options.botFilters": "Bot-Listen-Filter",
+    "ratingLabelText": "Bewertung min/max",
+    "ratingLabelTitle": "LiChess Werkzeuge - min/max Bewertung",
+    "gamesLabelText": "Spiele min/max",
+    "gamesLabelTitle": "LiChess Tools - min/max Spiele",
+    "gameTypesLabelText": "Spielarten",
+    "gameTypesLabelTitle": "LiChess Tools - Spielarten",
+    "unratedLabelText": "Nicht bewertete zeigen:"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6421,7 +6477,15 @@
     "spoaTitle": "Strumenti LiChess - Più Forte Risultato Del Giocatore Media",
     "cevalLineOptions.highlightOnlyMe": "...solo orientamento corrente",
     "dailyQuote.top": "In alto",
-    "dailyQuote.side": "Sul lato"
+    "dailyQuote.side": "Sul lato",
+    "options.botFilters": "Filtri elenco bot",
+    "ratingLabelText": "Valutazione min/max",
+    "ratingLabelTitle": "Strumenti LiChess - valutazione min/max",
+    "gamesLabelText": "Giochi min/max",
+    "gamesLabelTitle": "Strumenti LiChess - min/max giochi",
+    "gameTypesLabelText": "Tipi di gioco",
+    "gameTypesLabelTitle": "Strumenti LiChess - tipi di gioco",
+    "unratedLabelText": "Mostra non valutato:"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7224,7 +7288,15 @@
     "spoaTitle": "Narzędzia Lichess - Średni wynik gracza",
     "cevalLineOptions.highlightOnlyMe": "...tylko aktualna orientacja",
     "dailyQuote.top": "Na górze",
-    "dailyQuote.side": "Po stronie"
+    "dailyQuote.side": "Po stronie",
+    "options.botFilters": "Filtry listy botów",
+    "ratingLabelText": "Rating min/max",
+    "ratingLabelTitle": "Narzędzia LiChess - ocena min/max",
+    "gamesLabelText": "Gry min/max",
+    "gamesLabelTitle": "Narzędzia LiChess - min/max gier",
+    "gameTypesLabelText": "Typy gier",
+    "gameTypesLabelTitle": "Narzędzia LiChess - typy gier",
+    "unratedLabelText": "Pokaż bez oceny:"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8027,7 +8099,15 @@
     "spoaTitle": "Ferramentas de LiChess - Maior Média de Resultado do Jogador",
     "cevalLineOptions.highlightOnlyMe": "...apenas orientação atual",
     "dailyQuote.top": "No topo",
-    "dailyQuote.side": "Ao lado"
+    "dailyQuote.side": "Ao lado",
+    "options.botFilters": "Filtros de lista de bots",
+    "ratingLabelText": "Classificação min/max",
+    "ratingLabelTitle": "Ferramentas do LiChess - avaliação min/max",
+    "gamesLabelText": "Jogos min/max",
+    "gamesLabelTitle": "Ferramentas LiChess - min/max jogos",
+    "gameTypesLabelText": "Tipos de jogos",
+    "gameTypesLabelTitle": "Ferramentas LiChess - tipos de jogo",
+    "unratedLabelText": "Mostrar não avaliados:"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -8830,7 +8910,15 @@
     "spoaTitle": "Ferramentas de LiChess - Maior Média de Resultado do Jogador",
     "cevalLineOptions.highlightOnlyMe": "...apenas orientação atual",
     "dailyQuote.top": "No topo",
-    "dailyQuote.side": "Ao lado"
+    "dailyQuote.side": "Ao lado",
+    "options.botFilters": "Filtros de lista de bots",
+    "ratingLabelText": "Classificação min/max",
+    "ratingLabelTitle": "Ferramentas do LiChess - avaliação min/max",
+    "gamesLabelText": "Jogos min/max",
+    "gamesLabelTitle": "Ferramentas LiChess - min/max jogos",
+    "gameTypesLabelText": "Tipos de jogos",
+    "gameTypesLabelTitle": "Ferramentas LiChess - tipos de jogo",
+    "unratedLabelText": "Mostrar não avaliados:"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9633,7 +9721,15 @@
     "spoaTitle": "LiChess Tools - Media Rezultatelor Jucătorilor mai Buni",
     "cevalLineOptions.highlightOnlyMe": "...doar orientarea curentă",
     "dailyQuote.top": "Deasupra",
-    "dailyQuote.side": "Pe lateral"
+    "dailyQuote.side": "Pe lateral",
+    "options.botFilters": "Filtre în lista de boți",
+    "ratingLabelText": "Rating min/max",
+    "ratingLabelTitle": "LiChess Tools - rating min/max",
+    "gamesLabelText": "Meciuri min/max",
+    "gamesLabelTitle": "LiChess Tools - meciuri min/max",
+    "gameTypesLabelText": "Tipuri de joc",
+    "gameTypesLabelTitle": "LiChess Tools - tipuri de joc",
+    "unratedLabelText": "Arată fără rating:"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10436,7 +10532,15 @@
     "spoaTitle": "Инструменты Жизни - Средний результат сильнейшего игрока",
     "cevalLineOptions.highlightOnlyMe": "...только текущая ориентация",
     "dailyQuote.top": "Вверху",
-    "dailyQuote.side": "На стороне"
+    "dailyQuote.side": "На стороне",
+    "options.botFilters": "Фильтры списка ботов",
+    "ratingLabelText": "Рейтинг мин/макс",
+    "ratingLabelTitle": "Инструменты Жизни - мин/макс рейтинг",
+    "gamesLabelText": "Игры мин/макс",
+    "gamesLabelTitle": "Инструменты Жизни - мин/макс игры",
+    "gameTypesLabelText": "Типы игр",
+    "gameTypesLabelTitle": "Инструменты Жизни - типы игр",
+    "unratedLabelText": "Показать без оценки:"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11239,7 +11343,15 @@
     "spoaTitle": "Herramientas de LiChess - Media de resultados del jugador más fuerte",
     "cevalLineOptions.highlightOnlyMe": "...sólo orientación actual",
     "dailyQuote.top": "Encima",
-    "dailyQuote.side": "En el lado"
+    "dailyQuote.side": "En el lado",
+    "options.botFilters": "Filtros de lista de bots",
+    "ratingLabelText": "Calificación min/max",
+    "ratingLabelTitle": "Herramientas de LiChess - puntuación mínima y máxima",
+    "gamesLabelText": "Min/max de juegos",
+    "gamesLabelTitle": "Herramientas de LiChess - min/max partidas",
+    "gameTypesLabelText": "Tipos de juegos",
+    "gameTypesLabelTitle": "Herramientas de LiChess - tipos de juego",
+    "unratedLabelText": "Mostrar sin calificar:"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12042,7 +12154,15 @@
     "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
     "cevalLineOptions.highlightOnlyMe": "...only current orientation",
     "dailyQuote.top": "On top",
-    "dailyQuote.side": "On the side"
+    "dailyQuote.side": "On the side",
+    "options.botFilters": "Bot list filters",
+    "ratingLabelText": "Rating min/max",
+    "ratingLabelTitle": "LiChess Tools - min/max rating",
+    "gamesLabelText": "Games min/max",
+    "gamesLabelTitle": "LiChess Tools - min/max games",
+    "gameTypesLabelText": "Game types",
+    "gameTypesLabelTitle": "LiChess Tools - game types",
+    "unratedLabelText": "Show unrated:"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -12845,6 +12965,14 @@
     "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
     "cevalLineOptions.highlightOnlyMe": "...only current orientation",
     "dailyQuote.top": "On top",
-    "dailyQuote.side": "On the side"
+    "dailyQuote.side": "On the side",
+    "options.botFilters": "Bot list filters",
+    "ratingLabelText": "Rating min/max",
+    "ratingLabelTitle": "LiChess Tools - min/max rating",
+    "gamesLabelText": "Games min/max",
+    "gamesLabelTitle": "LiChess Tools - min/max games",
+    "gameTypesLabelText": "Game types",
+    "gameTypesLabelTitle": "LiChess Tools - game types",
+    "unratedLabelText": "Show unrated:"
   }
 }

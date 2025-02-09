@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+10 Feb
+
+- bot list filters
+
 09 Feb
 
 - daily quote on the side

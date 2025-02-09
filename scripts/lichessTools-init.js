@@ -120,6 +120,7 @@ lichessTools.loadTool(LiChessTools.Tools.QuickActions);
 lichessTools.loadTool(LiChessTools.Tools.TotalGameTime);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleHistory);
 lichessTools.loadTool(LiChessTools.Tools.TournamentTopBoard);
+lichessTools.loadTool(LiChessTools.Tools.BotFilters);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
