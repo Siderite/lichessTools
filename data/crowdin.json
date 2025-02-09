@@ -798,7 +798,9 @@
     "expandAllButtonText": "تمديد / انهيار الكل",
     "explorerEval.spoa": "متوسط نتائج اللاعب الأقوى",
     "spoaTitle": "أدوات شطرنج الحياة - متوسط نتائج اللاعب الأقوى",
-    "cevalLineOptions.highlightOnlyMe": "الاتجاه الحالي فقط"
+    "cevalLineOptions.highlightOnlyMe": "الاتجاه الحالي فقط",
+    "dailyQuote.top": "في الأعلى",
+    "dailyQuote.side": "على الجانب"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1599,7 +1601,9 @@
     "expandAllButtonText": "展开/折叠所有",
     "explorerEval.spoa": "更强的玩家平均结果",
     "spoaTitle": "Lichess工具 - 更强的玩家平均结果",
-    "cevalLineOptions.highlightOnlyMe": "...仅当前方向"
+    "cevalLineOptions.highlightOnlyMe": "...仅当前方向",
+    "dailyQuote.top": "在顶部",
+    "dailyQuote.side": "一侧的"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2400,7 +2404,9 @@
     "expandAllButtonText": "Expand/collapse all",
     "explorerEval.spoa": "Stronger Player Outcome Average",
     "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
-    "cevalLineOptions.highlightOnlyMe": "...only current orientation"
+    "cevalLineOptions.highlightOnlyMe": "...only current orientation",
+    "dailyQuote.top": "On top",
+    "dailyQuote.side": "On the side"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3201,7 +3207,9 @@
     "expandAllButtonText": "Alles uitvouwen/samenvouwen",
     "explorerEval.spoa": "Sterkere Speler Resultaat Gemiddelde",
     "spoaTitle": "LiChess Tools - Sterkere Speler Resultaat Gemiddelde",
-    "cevalLineOptions.highlightOnlyMe": "...alleen huidige oriëntatie"
+    "cevalLineOptions.highlightOnlyMe": "...alleen huidige oriëntatie",
+    "dailyQuote.top": "Bovenaan",
+    "dailyQuote.side": "Aan de zijkant"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4002,7 +4010,9 @@
     "expandAllButtonText": "Expand/collapse all",
     "explorerEval.spoa": "Stronger Player Outcome Average",
     "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
-    "cevalLineOptions.highlightOnlyMe": "...only current orientation"
+    "cevalLineOptions.highlightOnlyMe": "...only current orientation",
+    "dailyQuote.top": "On top",
+    "dailyQuote.side": "On the side"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4803,7 +4813,9 @@
     "expandAllButtonText": "Développer/réduire tout",
     "explorerEval.spoa": "Moyenne du résultat du joueur plus fort",
     "spoaTitle": "Outils LiChess - Moyenne du joueur plus fort",
-    "cevalLineOptions.highlightOnlyMe": "... seulement l'orientation actuelle"
+    "cevalLineOptions.highlightOnlyMe": "... seulement l'orientation actuelle",
+    "dailyQuote.top": "Au premier plan",
+    "dailyQuote.side": "Sur le côté"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5604,7 +5616,9 @@
     "expandAllButtonText": "Alle aufklappen/einklappen",
     "explorerEval.spoa": "Stärkerer Spielerergebnisdurchschnitt",
     "spoaTitle": "LiChess Tools - Stärkerer Player Ergebnisdurchschnitt",
-    "cevalLineOptions.highlightOnlyMe": "...nur aktuelle Ausrichtung"
+    "cevalLineOptions.highlightOnlyMe": "...nur aktuelle Ausrichtung",
+    "dailyQuote.top": "Oben",
+    "dailyQuote.side": "An der Seite"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6405,7 +6419,9 @@
     "expandAllButtonText": "Espandere/comprimere tutto",
     "explorerEval.spoa": "Media Risultato Più Forte Del Giocatore",
     "spoaTitle": "Strumenti LiChess - Più Forte Risultato Del Giocatore Media",
-    "cevalLineOptions.highlightOnlyMe": "...solo orientamento corrente"
+    "cevalLineOptions.highlightOnlyMe": "...solo orientamento corrente",
+    "dailyQuote.top": "In alto",
+    "dailyQuote.side": "Sul lato"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7130,7 +7146,7 @@
     "autoAnalyseGame.loss": "Przegrana",
     "autoAnalyseGame.draw": "Remis",
     "autoAnalyseGame.win": "Wygrana",
-    "explorerEval.bardp": "Zwiększona precyzja statystyk w bibliotece otwarć",
+    "explorerEval.bardp": "Precyzja słupkowa",
     "options.blogHistory": "Historia wizyt na blogu",
     "blogHistory.showVisited": "Pokaż odwiedzone",
     "visitedTitle": "LiChess Tools — ostatnio odwiedzone %s",
@@ -7206,7 +7222,9 @@
     "expandAllButtonText": "Rozwiń/zwiń wszystkie",
     "explorerEval.spoa": "Średni wynik gracza",
     "spoaTitle": "Narzędzia Lichess - Średni wynik gracza",
-    "cevalLineOptions.highlightOnlyMe": "...tylko aktualna orientacja"
+    "cevalLineOptions.highlightOnlyMe": "...tylko aktualna orientacja",
+    "dailyQuote.top": "Na górze",
+    "dailyQuote.side": "Po stronie"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8007,7 +8025,9 @@
     "expandAllButtonText": "Expandir/recolher tudo",
     "explorerEval.spoa": "Maior Resultado do Jogador Média",
     "spoaTitle": "Ferramentas de LiChess - Maior Média de Resultado do Jogador",
-    "cevalLineOptions.highlightOnlyMe": "...apenas orientação atual"
+    "cevalLineOptions.highlightOnlyMe": "...apenas orientação atual",
+    "dailyQuote.top": "No topo",
+    "dailyQuote.side": "Ao lado"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -8808,7 +8828,9 @@
     "expandAllButtonText": "Expandir/recolher tudo",
     "explorerEval.spoa": "Maior Resultado do Jogador Média",
     "spoaTitle": "Ferramentas de LiChess - Maior Média de Resultado do Jogador",
-    "cevalLineOptions.highlightOnlyMe": "...apenas orientação atual"
+    "cevalLineOptions.highlightOnlyMe": "...apenas orientação atual",
+    "dailyQuote.top": "No topo",
+    "dailyQuote.side": "Ao lado"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9609,7 +9631,9 @@
     "expandAllButtonText": "Extinde/restrânge toate",
     "explorerEval.spoa": "Media Rezultatelor Jucătorilor mai Buni",
     "spoaTitle": "LiChess Tools - Media Rezultatelor Jucătorilor mai Buni",
-    "cevalLineOptions.highlightOnlyMe": "...doar orientarea curentă"
+    "cevalLineOptions.highlightOnlyMe": "...doar orientarea curentă",
+    "dailyQuote.top": "Deasupra",
+    "dailyQuote.side": "Pe lateral"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10410,7 +10434,9 @@
     "expandAllButtonText": "Развернуть/свернуть все",
     "explorerEval.spoa": "Средний доход Сильнейших Игроков",
     "spoaTitle": "Инструменты Жизни - Средний результат сильнейшего игрока",
-    "cevalLineOptions.highlightOnlyMe": "...только текущая ориентация"
+    "cevalLineOptions.highlightOnlyMe": "...только текущая ориентация",
+    "dailyQuote.top": "Вверху",
+    "dailyQuote.side": "На стороне"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11211,7 +11237,9 @@
     "expandAllButtonText": "Expandir/contraer todo",
     "explorerEval.spoa": "Media de resultados del jugador más fuerte",
     "spoaTitle": "Herramientas de LiChess - Media de resultados del jugador más fuerte",
-    "cevalLineOptions.highlightOnlyMe": "...sólo orientación actual"
+    "cevalLineOptions.highlightOnlyMe": "...sólo orientación actual",
+    "dailyQuote.top": "Encima",
+    "dailyQuote.side": "En el lado"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12012,7 +12040,9 @@
     "expandAllButtonText": "Expand/collapse all",
     "explorerEval.spoa": "Stronger Player Outcome Average",
     "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
-    "cevalLineOptions.highlightOnlyMe": "...only current orientation"
+    "cevalLineOptions.highlightOnlyMe": "...only current orientation",
+    "dailyQuote.top": "On top",
+    "dailyQuote.side": "On the side"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -12813,6 +12843,8 @@
     "expandAllButtonText": "Expand/collapse all",
     "explorerEval.spoa": "Stronger Player Outcome Average",
     "spoaTitle": "LiChess Tools - Stronger Player Outcome Average",
-    "cevalLineOptions.highlightOnlyMe": "...only current orientation"
+    "cevalLineOptions.highlightOnlyMe": "...only current orientation",
+    "dailyQuote.top": "On top",
+    "dailyQuote.side": "On the side"
   }
 }
