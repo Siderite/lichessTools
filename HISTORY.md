@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 10 Feb
 
 - bot list filters
+- color computer engine lines evaluations
 
 09 Feb
 

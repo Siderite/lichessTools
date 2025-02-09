@@ -808,7 +808,8 @@
     "gamesLabelTitle": "أدوات شطرنج الحياة - ألعاب دقيقة/الحد الأقصى",
     "gameTypesLabelText": "أنواع اللعبة",
     "gameTypesLabelTitle": "أدوات شطرنج الحياة - أنواع اللعبة",
-    "unratedLabelText": "إظهار غير تقييمي:"
+    "unratedLabelText": "إظهار غير تقييمي:",
+    "cevalLineOptions.colorEvaluation": "تقييم الألوان"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1619,7 +1620,8 @@
     "gamesLabelTitle": "Lichess工具 - 最小/最大游戏",
     "gameTypesLabelText": "游戏类型",
     "gameTypesLabelTitle": "Lichess工具 - 游戏类型",
-    "unratedLabelText": "显示已取消评分："
+    "unratedLabelText": "显示已取消评分：",
+    "cevalLineOptions.colorEvaluation": "色彩评估"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2430,7 +2432,8 @@
     "gamesLabelTitle": "LiChess Tools - min/max games",
     "gameTypesLabelText": "Game types",
     "gameTypesLabelTitle": "LiChess Tools - game types",
-    "unratedLabelText": "Show unrated:"
+    "unratedLabelText": "Show unrated:",
+    "cevalLineOptions.colorEvaluation": "Color evaluation"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3241,7 +3244,8 @@
     "gamesLabelTitle": "LiChess Tools - min/max spellen",
     "gameTypesLabelText": "Spel types",
     "gameTypesLabelTitle": "LiChess Tools - speltypes",
-    "unratedLabelText": "Toon onbeoordeeld:"
+    "unratedLabelText": "Toon onbeoordeeld:",
+    "cevalLineOptions.colorEvaluation": "Kleur evaluatie"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4052,7 +4056,8 @@
     "gamesLabelTitle": "LiChess Tools - min/max games",
     "gameTypesLabelText": "Game types",
     "gameTypesLabelTitle": "LiChess Tools - game types",
-    "unratedLabelText": "Show unrated:"
+    "unratedLabelText": "Show unrated:",
+    "cevalLineOptions.colorEvaluation": "Color evaluation"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4863,7 +4868,8 @@
     "gamesLabelTitle": "Outils LiChess - parties min/max",
     "gameTypesLabelText": "Types de jeu",
     "gameTypesLabelTitle": "Outils LiChess - types de jeu",
-    "unratedLabelText": "Afficher non évalué :"
+    "unratedLabelText": "Afficher non évalué :",
+    "cevalLineOptions.colorEvaluation": "Évaluation des couleurs"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5674,7 +5680,8 @@
     "gamesLabelTitle": "LiChess Tools - min/max Spiele",
     "gameTypesLabelText": "Spielarten",
     "gameTypesLabelTitle": "LiChess Tools - Spielarten",
-    "unratedLabelText": "Nicht bewertete zeigen:"
+    "unratedLabelText": "Nicht bewertete zeigen:",
+    "cevalLineOptions.colorEvaluation": "Farbauswertung"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6485,7 +6492,8 @@
     "gamesLabelTitle": "Strumenti LiChess - min/max giochi",
     "gameTypesLabelText": "Tipi di gioco",
     "gameTypesLabelTitle": "Strumenti LiChess - tipi di gioco",
-    "unratedLabelText": "Mostra non valutato:"
+    "unratedLabelText": "Mostra non valutato:",
+    "cevalLineOptions.colorEvaluation": "Valutazione del colore"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7296,7 +7304,8 @@
     "gamesLabelTitle": "Narzędzia LiChess - min/max gier",
     "gameTypesLabelText": "Typy gier",
     "gameTypesLabelTitle": "Narzędzia LiChess - typy gier",
-    "unratedLabelText": "Pokaż bez oceny:"
+    "unratedLabelText": "Pokaż bez oceny:",
+    "cevalLineOptions.colorEvaluation": "Ocena kolorów"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8107,7 +8116,8 @@
     "gamesLabelTitle": "Ferramentas LiChess - min/max jogos",
     "gameTypesLabelText": "Tipos de jogos",
     "gameTypesLabelTitle": "Ferramentas LiChess - tipos de jogo",
-    "unratedLabelText": "Mostrar não avaliados:"
+    "unratedLabelText": "Mostrar não avaliados:",
+    "cevalLineOptions.colorEvaluation": "Avaliação de cor"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -8918,7 +8928,8 @@
     "gamesLabelTitle": "Ferramentas LiChess - min/max jogos",
     "gameTypesLabelText": "Tipos de jogos",
     "gameTypesLabelTitle": "Ferramentas LiChess - tipos de jogo",
-    "unratedLabelText": "Mostrar não avaliados:"
+    "unratedLabelText": "Mostrar não avaliados:",
+    "cevalLineOptions.colorEvaluation": "Avaliação de cor"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9729,7 +9740,8 @@
     "gamesLabelTitle": "LiChess Tools - meciuri min/max",
     "gameTypesLabelText": "Tipuri de joc",
     "gameTypesLabelTitle": "LiChess Tools - tipuri de joc",
-    "unratedLabelText": "Arată fără rating:"
+    "unratedLabelText": "Arată fără rating:",
+    "cevalLineOptions.colorEvaluation": "Colorează evaluarea"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10540,7 +10552,8 @@
     "gamesLabelTitle": "Инструменты Жизни - мин/макс игры",
     "gameTypesLabelText": "Типы игр",
     "gameTypesLabelTitle": "Инструменты Жизни - типы игр",
-    "unratedLabelText": "Показать без оценки:"
+    "unratedLabelText": "Показать без оценки:",
+    "cevalLineOptions.colorEvaluation": "Цветовая оценка"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11351,7 +11364,8 @@
     "gamesLabelTitle": "Herramientas de LiChess - min/max partidas",
     "gameTypesLabelText": "Tipos de juegos",
     "gameTypesLabelTitle": "Herramientas de LiChess - tipos de juego",
-    "unratedLabelText": "Mostrar sin calificar:"
+    "unratedLabelText": "Mostrar sin calificar:",
+    "cevalLineOptions.colorEvaluation": "Evaluación de color"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12162,7 +12176,8 @@
     "gamesLabelTitle": "LiChess Tools - min/max games",
     "gameTypesLabelText": "Game types",
     "gameTypesLabelTitle": "LiChess Tools - game types",
-    "unratedLabelText": "Show unrated:"
+    "unratedLabelText": "Show unrated:",
+    "cevalLineOptions.colorEvaluation": "Color evaluation"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -12973,6 +12988,7 @@
     "gamesLabelTitle": "LiChess Tools - min/max games",
     "gameTypesLabelText": "Game types",
     "gameTypesLabelTitle": "LiChess Tools - game types",
-    "unratedLabelText": "Show unrated:"
+    "unratedLabelText": "Show unrated:",
+    "cevalLineOptions.colorEvaluation": "Color evaluation"
   }
 }

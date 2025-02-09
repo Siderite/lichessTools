@@ -6,7 +6,7 @@
         name: 'cevalLineOptions',
         category: 'analysis2',
         type: 'multiple',
-        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines'],
+        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation'],
         defaultValue: 'moreLines',
         advanced: true
       }
@@ -19,6 +19,7 @@
         'cevalLineOptions.highlight': 'Highlight same moves',
         'cevalLineOptions.highlightOnlyMe': '...only current orientation',
         'cevalLineOptions.moreLines': 'More lines',
+        'cevalLineOptions.colorEvaluation': 'Color evaluation',
         'moreLinesTitle': 'LiChess Tools - more lines'
       },
       'ro-RO': {
@@ -27,6 +28,7 @@
         'cevalLineOptions.highlight': 'Eviden\u0163iaza acelea\u015Fi mut\u0103ri',
         'cevalLineOptions.highlightOnlyMe': '...doar orientarea curent\u0103',
         'cevalLineOptions.moreLines': 'Mai multe linii',
+        'cevalLineOptions.colorEvaluation': 'Coloreaz\u0103 evaluarea',
         'moreLinesTitle': 'LiChess Tools - mai multe linii'
       }
     }
@@ -97,6 +99,26 @@
               : 'pv-san';
             if (e.className != cls) e.className = cls;
           });
+        let first = null;
+        $('div.pv_box div.pv > strong')
+          .each((i, e) => {
+            if (e.className) e.className='';
+            if (!this.options.colorEvaluation) return;
+            const text = $(e).text();
+            const info = text.startsWith('#')
+              ? { mate: +text.slice(1) }
+              : { cp: (+text) * 100 };
+            const val = lt.winPerc(lt.getCentipawns(info));
+            if (first === null) {
+              first = val;
+              $(e).addClass('best');
+              return;
+            }
+            const diff = Math.abs(val - first);
+            if (diff<1) $(e).addClass('good');
+            else if (diff>20) $(e).addClass('blunder');
+            else if (diff>10) $(e).addClass('mistake');
+          });
       } finally {
         this._inHandlePvs=false;
       }
@@ -157,7 +179,8 @@
       this.options = {
         highlight: lt.isOptionSet(value, 'highlight'),
         highlightOnlyMe: lt.isOptionSet(value, 'highlightOnlyMe'),
-        moreLines: lt.isOptionSet(value, 'moreLines')
+        moreLines: lt.isOptionSet(value, 'moreLines'),
+        colorEvaluation: lt.isOptionSet(value, 'colorEvaluation')
       }
       const analysisTools = $('main .analyse__tools, main .puzzle__tools');
       if (!analysisTools.length) return;
@@ -167,7 +190,7 @@
       analysisTools
         .observer()
         .off('#ceval-settings-anchor',this.handleMoreLines);
-      if (this.options.highlight) {
+      if (this.options.highlight || this.options.colorEvaluation) {
         analysisTools
           .observer()
           .on('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
