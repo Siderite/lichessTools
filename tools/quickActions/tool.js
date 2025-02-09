@@ -39,6 +39,13 @@
       }
     }
 
+    clearTooltipClass = () =>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $('button.fbt[data-act="menu"], button.board-menu-toggle, button.msg-app__convo__post__submit')
+        .removeClass('lichessTools-quickActions');
+    };
+
     refreshTooltip = (ev)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -54,6 +61,7 @@
             .attr('data-icon',lt.icon.ChasingArrows)
             .attr('title',trans.noarg('flipBoardButtonTitle'))
             .on('click',(ev)=>{
+              this.clearTooltipClass();
               const handler = lt.getKeyHandler('f');
               if (handler) handler();
             })
@@ -69,6 +77,7 @@
             .attr('data-icon',lt.icon.BarGraph)
             .attr('title',trans.noarg('requestAnalysisButtonTitle'))
             .on('click',(ev)=>{
+              this.clearTooltipClass();
               const serverEval = lt.lichess?.analysis?.study?.serverEval;
               if (serverEval) {
                 if (!serverEval.requested && !serverVal?.root?.data?.analysis) {
@@ -102,6 +111,7 @@
             $('<button class="fbt emoji">')
               .attr('data-icon',icon)
               .on('click',(ev)=>{
+                this.clearTooltipClass();
                 const input = $('.msg-app__convo__post__text');
                 input.val(input.val()+icon);
               })
@@ -112,6 +122,13 @@
         $('.emoji',tooltip).remove();
       }
     }
+
+    enableTooltip = (ev)=>{
+      ev.preventDefault();
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $(ev.currentTarget).toggleClass('lichessTools-quickActions');
+    };
 
     canEmoji = ()=>{
       if (!this.options.emoji) return false;
@@ -142,9 +159,14 @@
       const $ = lt.$;
       let button = $('button.fbt[data-act="menu"], button.board-menu-toggle, button.msg-app__convo__post__submit');
       if (!button.length) return;
+      this.clearTooltipClass();
       button.off('mouseenter',this.refreshTooltip);
+      button.off('contextmenu',this.enableTooltip);
+      $('body').off('click',this.clearTooltipClass);
       if (this.options.isSet) {
         button.on('mouseenter',this.refreshTooltip);
+        button.on('contextmenu',this.enableTooltip);
+        $('body').on('click',this.clearTooltipClass);
         let tooltip = $('.lichessTools-quickActions-tooltip');
         if (!tooltip.length) {
           tooltip = $('<div class="lichessTools-quickActions-tooltip">')
