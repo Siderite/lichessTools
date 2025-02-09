@@ -5,6 +5,7 @@ lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitContentLoaded);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
 lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
+lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
 
 lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
 lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);
@@ -108,7 +109,6 @@ lichessTools.loadTool(LiChessTools.Tools.Konami);
 lichessTools.loadTool(LiChessTools.Tools.CevalLineOptions);
 lichessTools.loadTool(LiChessTools.Tools.ProfileTimeline);
 lichessTools.loadTool(LiChessTools.Tools.PlayWheel);
-lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleDownload);
 lichessTools.loadTool(LiChessTools.Tools.GameListOptions);
 lichessTools.loadTool(LiChessTools.Tools.ShowDeviation);

@@ -1,5 +1,12 @@
 History of features added to LiChess Tools in time (reversed order)
 
+09 Feb
+
+- daily quote on the side
+- highlight same moves only for you
+- SPOA in Explorer games
+- don't automatically copy PGN Editor results to clipboard
+
 04 Feb
 
 - v2.4.0

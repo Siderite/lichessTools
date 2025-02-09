@@ -1,13 +1,13 @@
 @media (max-height: 600px) or (max-width: 799.3px) {
 
-  body.lichessTools .lichessTools-dailyQuote {
+  body.lichessTools .lichessTools-dailyQuote.top {
     display: none;
   }
 
 }
 
 @media (min-height: 600px) and (min-width: 799.3px) {
-  body.lichessTools:has(.lichessTools-dailyQuote) #main-wrap {
+  body.lichessTools:has(.lichessTools-dailyQuote.top) #main-wrap {
     margin-top: 0;
   }
 }
@@ -17,11 +17,15 @@ body.lichessTools .lichessTools-dailyQuote {
   background: #80808020;
   padding: 0.5em;
   padding-right:1.5em;
+  height: fit-content;
+}
+
+body.lichessTools .lichessTools-dailyQuote.top {
   margin-top: calc(var(---site-header-height) + var(---site-header-margin) + var(---sticky-gap));
 }
 
 @media (prefers-reduced-motion) {
-  body.lichessTools .lichessTools-dailyQuote {
+  body.lichessTools .lichessTools-dailyQuote.top {
     background: #80808010;
     margin-top: 0;
   }

@@ -2100,6 +2100,7 @@
     }
 
     async start(lichess) {
+      performance.mark('LiChessTools.start');
       if (!lichess) return;
       this.lichess = lichess;
       await lichess.load;
@@ -2112,6 +2113,7 @@
       this.storage?.listen('lichessTools.reloadOptions', () => {
         debouncedApplyOptions();
       });
+      performance.mark('LiChessTools.end');
     }
 
     fireReloadOptions = (samePage) => {
@@ -2161,19 +2163,19 @@
             this.global.console.warn('Cannot find preference with name',upgrade.name);
             continue;
           }
-          if (pref.type != 'multiple') {
-            this.global.console.warn('Preference with name',upgrade.name,'is not multiple');
-            continue;
-          }
           if (!this.isOptionSet(pref.defaultValue,upgrade.value)) {
             this.global.console.warn('Preference value',upgrade.name+'.'+upgrade.value,'is not enabled by default');
             continue;
           }
           let currentValue = options[upgrade.name];
-          if (!this.isOptionSet(currentValue,upgrade.value)) {
-            options[upgrade.name] = currentValue
-                                ? currentValue+','+upgrade.value
-                                : upgrade.value;
+          if (currentValue === true) {
+            options[upgrade.name] = upgrade.value;
+          } else {
+            if (!this.isOptionSet(currentValue,upgrade.value)) {
+              options[upgrade.name] = currentValue
+                                  ? currentValue+','+upgrade.value
+                                  : upgrade.value;
+            }
           }
         }
       }
@@ -2233,10 +2235,14 @@
         ? console.group
         : console.groupCollapsed;
       group('Applying LiChess Tools options...');
+      const totStart = performance.getEntriesByName('LiChessTools.start')[0].startTime;
       for (const tool of this.tools) {
         if (!tool?.start) continue;
         try {
+          const start = performance.now();
           await tool.start().catch(e => { setTimeout(() => { throw e; }, 100); });
+          const end = performance.now();
+          if (this.debug) console.debug(tool.name,Math.round(end-start)+'ms','Tot:',Math.round(end-totStart)+'ms');
         } catch (e) {
           setTimeout(() => { throw e; }, 100);
         }
