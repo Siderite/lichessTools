@@ -228,6 +228,7 @@
       SuperscriptCapitalL: '\u00a0\u1D38',
       WhiteChessPawn: '\u2659',
       Opposition: '\u260D',
+      Document: '\uD83D\uDDCE',
 
       toEntity: function(s) {
         let result='';
@@ -256,6 +257,10 @@
         return 0;
       }
       return cp;
+    };
+
+    winPerc = (cp) => {
+      return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
     };
 
     crc24 = (data) => {
@@ -520,6 +525,20 @@
       return true;
     }
 
+    download(text,name,mimeType) {
+      const $ = this.$;
+      const blob = new this.global.Blob([text], { type: mimeType || 'text/plain' });
+      const url = this.global.URL.createObjectURL(blob);
+      $('<a>')
+        .attr('download', name)
+        .attr('href', url)
+        .trigger('click');
+    }
+
+    toTimeString(date) {
+      return new this.global.Date().toISOString().replace(/[\-T:]/g, '').slice(0, 14);
+    };
+
     async writeToClipboard(value, successText, failText) {
       const navigator = this.global.navigator;
       const console = this.global.console;
@@ -777,7 +796,7 @@
         if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
       }
       const rect = element.getBoundingClientRect();
-      const port = new DOMRect(0, 0, $(window).width(), $(window).height());
+      const port = new DOMRect(0, 0, $(this.global).width(), $(this.global).height());
       return this.rectIntersection(rect, port);
     };
 
@@ -1268,6 +1287,9 @@
         if (this.debug) console.debug('Speech error:', e);
       }
     };
+    stopSpeaking = ()=>{
+      this.global.speechSynthesis.cancel();
+    };
 
     play = async (path, volume) => {
       const sound = await this.lichess.sound.load(path, this.lichess.sound.url(path));
@@ -1444,7 +1466,9 @@
         const lt = this.lichessTools;
         if (!options) options = {};
         if (!options.headers) options.headers = {};
-        options.headers.Accept ||= 'application/json';
+        options.headers.Accept ||= (options.ndjson
+                            ? 'application/x-ndjson'
+                            : 'application/json');
         options.headers['x-requested-with'] ||= 'XMLHttpRequest';
         const json = await this.fetch(url, options);
         if (!json) return null;
@@ -1857,18 +1881,22 @@
               .map(k => k + '=' + lt.global.encodeURIComponent(options[k]))
               .join('&')
             : '';
-          const pgn = await lt.net.fetch(
+          const result = await lt.net.fetch(
             '/api/games/export/_ids' + query,
             {
               method: 'POST',
               headers: {
-                'Accept':'application/x-chess-pgn'
+                'Accept': options.ndjson
+                            ? 'application/x-ndjson'
+                            : 'application/x-chess-pgn'
               },
               body: gameIds.join(','),
               cache: 'default'
             }
-          );
-          return pgn;
+          );  
+          return options.ndjson
+            ? lt.ndjsonParse(result)
+            : result;
         },
         getUserPgns: async function (userId, options) {
           const lt = this.lichessTools;
@@ -2096,6 +2124,7 @@
     }
 
     async start(lichess) {
+      performance.mark('LiChessTools.start');
       if (!lichess) return;
       this.lichess = lichess;
       await lichess.load;
@@ -2108,6 +2137,7 @@
       this.storage?.listen('lichessTools.reloadOptions', () => {
         debouncedApplyOptions();
       });
+      performance.mark('LiChessTools.end');
     }
 
     fireReloadOptions = (samePage) => {
@@ -2145,18 +2175,16 @@
       return false;
     }
 
-    async upgradeOptions(options) {
+    upgradeOptions(options) {
       for (const tool of this.tools) {
         if (!tool.upgrades?.length) continue;
-        const upgrades = tool.upgrades.filter(u=>this.newerVersion(u.version,options.version));
+        const upgrades = tool.upgrades
+                                .filter(u=>!u.type || u.type=='new')
+                                .filter(u=>this.newerVersion(u.version,options.version));
         for (const upgrade of upgrades) {
           const pref = tool.preferences.find(p=>p.name == upgrade.name);
           if (!pref) {
             this.global.console.warn('Cannot find preference with name',upgrade.name);
-            continue;
-          }
-          if (pref.type != 'multiple') {
-            this.global.console.warn('Preference with name',upgrade.name,'is not multiple');
             continue;
           }
           if (!this.isOptionSet(pref.defaultValue,upgrade.value)) {
@@ -2164,10 +2192,34 @@
             continue;
           }
           let currentValue = options[upgrade.name];
-          if (!this.isOptionSet(currentValue,upgrade.value)) {
-            options[upgrade.name] = currentValue
-                                ? currentValue+','+upgrade.value
-                                : upgrade.value;
+          if (currentValue === true) {
+            options[upgrade.name] = upgrade.value;
+          } else {
+            if (!this.isOptionSet(currentValue,upgrade.value)) {
+              options[upgrade.name] = currentValue
+                                  ? currentValue+','+upgrade.value
+                                  : upgrade.value;
+            }
+          }
+        }
+      }
+    }
+
+    obsoleteOptions(options) {
+      for (const tool of this.tools) {
+        if (!tool.upgrades?.length) continue;
+        const upgrades = tool.upgrades
+                           .filter(u=>u.type=='obsolete')
+                           .filter(u=>!this.newerVersion(u.version,options.version));
+        for (const upgrade of upgrades) {
+          const pref = tool.preferences.find(p=>p.name == upgrade.name);
+          if (!pref) {
+            this.global.console.warn('Cannot find preference with name',upgrade.name);
+            continue;
+          }
+          let currentValue = options[upgrade.name];
+          if (this.isOptionSet(currentValue,upgrade.value)) {
+            options[upgrade.name] = currentValue.split(/\s*,\s*/).filter(v=>v?.toString()!=upgrade.value).join(',');
           }
         }
       }
@@ -2182,7 +2234,7 @@
         ...defaults,
         ...options
       };
-      await this.upgradeOptions(options);
+      this.upgradeOptions(options);
       options.getValue = function (optionName, optionValue) {
         if (!this.enableLichessTools) return false;
         return this[optionName]
@@ -2207,10 +2259,14 @@
         ? console.group
         : console.groupCollapsed;
       group('Applying LiChess Tools options...');
+      const totStart = performance.getEntriesByName('LiChessTools.start')[0].startTime;
       for (const tool of this.tools) {
         if (!tool?.start) continue;
         try {
+          const start = performance.now();
           await tool.start().catch(e => { setTimeout(() => { throw e; }, 100); });
+          const end = performance.now();
+          if (this.debug) console.debug(tool.name,Math.round(end-start)+'ms','Tot:',Math.round(end-totStart)+'ms');
         } catch (e) {
           setTimeout(() => { throw e; }, 100);
         }
@@ -2227,6 +2283,7 @@
                                              });
       const version = data.version;
       this.debug && console.log('Saving options version',version);
+      this.obsoleteOptions(options);
       options.version = version;
       const optionsJson = this.global.JSON.stringify(options);
       this.global.localStorage.setItem('LiChessTools2.options', optionsJson);

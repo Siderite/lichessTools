@@ -191,3 +191,19 @@ body.lichessTools switch.lichessTools-cevalMoreLines {
 body.lichessTools switch.lichessTools-cevalMoreLines:hover {
   scale: 1.2;
 }
+
+body.lichessTools .pv strong.best {
+  color: var(--c-brilliant);
+}
+
+body.lichessTools .pv strong.good {
+  color: var(--c-good-move);
+}
+
+body.lichessTools .pv strong.mistake {
+  color: var(--c-mistake);
+}
+
+body.lichessTools .pv strong.blunder {
+  color: var(--c-blunder);
+}

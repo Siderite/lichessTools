@@ -26,8 +26,19 @@ div.lichessTools-preferences form > div:has(input.categoryToggle:checked) sectio
   display:block;
 }
 
-div.lichessTools-preferences div.prefFilter {
-  text-align: center;
+div.lichessTools-preferences div.prefTools {
+  display: flex;
+  justify-content: space-around;
+}
+
+div.lichessTools-preferences button.expandAll {
+  background: none;
+  border: none;
+  font-size:1.25em;
+}
+
+div.lichessTools-preferences button.expandAll:before {
+  margin-right:0.5em;
 }
 
 div.lichessTools-preferences input.prefFilter {
@@ -36,12 +47,12 @@ div.lichessTools-preferences input.prefFilter {
   border-radius: 1em;
 }
 
-div.lichessTools-preferences form > div:not(.feedback,.prefFilter) {
+div.lichessTools-preferences form > div:not(.feedback,.prefTools) {
   display: none;
 }
 
-body.lichessTools-advancedPreferences div.lichessTools-preferences form > div:not(.feedback,.prefFilter):has(section:not(.filteredOut)),
-div.lichessTools-preferences form > div:not(.feedback,.prefFilter):has(.lichessTools-normalPreference:not(.filteredOut)) {
+body.lichessTools-advancedPreferences div.lichessTools-preferences form > div:not(.feedback,.prefTools):has(section:not(.filteredOut)),
+div.lichessTools-preferences form > div:not(.feedback,.prefTools):has(.lichessTools-normalPreference:not(.filteredOut)) {
   display: block;
 }
 

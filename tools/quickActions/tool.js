@@ -26,7 +26,8 @@
         'quickActions.requestAnalysis': 'Request server analysis',
         'quickActions.emoji': 'Chat emojis',
         'flipBoardButtonTitle': 'LiChess Tools - flip game board',
-        'requestAnalysisButtonTitle': 'LiChess Tools - request server analysis'
+        'requestAnalysisButtonTitle': 'LiChess Tools - request server analysis',
+        'readCommentsButtonTitle': 'LiChess Tools - toggle comment reading'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -35,9 +36,17 @@
         'quickActions.requestAnalysis': 'Cerere analiz\u0103 server',
         'quickActions.emoji': 'Emoji \u00een chat',
         'flipBoardButtonTitle': 'LiChess Tools - roti\u0163i tabla',
-        'requestAnalysisButtonTitle': 'LiChess Tools - cere\u0163i analiz\u0103 server'
+        'requestAnalysisButtonTitle': 'LiChess Tools - cere\u0163i analiz\u0103 server',
+        'readCommentsButtonTitle': 'LiChess Tools - comut\u0103 citire comentarii'
       }
     }
+
+    clearTooltipClass = () =>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $('button.fbt[data-act="menu"], button.board-menu-toggle, button.msg-app__convo__post__submit')
+        .removeClass('lichessTools-quickActions');
+    };
 
     refreshTooltip = (ev)=>{
       const lt = this.lichessTools;
@@ -48,12 +57,32 @@
       const tooltip = $('.lichessTools-quickActions-tooltip');
       tooltip.css({ left: button.offsetLeft, top: button.offsetTop, width: button.offsetWidth });
 
+      if (this.canReadComments()) {
+        let button = $('.readComments',tooltip);
+        if (!button.length) {
+          button = $('<button class="fbt readComments">')
+            .attr('data-icon',lt.icon.Voice)
+            .attr('title',trans.noarg('readCommentsButtonTitle'))
+            .on('click',(ev)=>{
+              this.clearTooltipClass();
+              const dontReadComments = lt.tools.AnalysisReadCommentsTool.toggleReadingComments();
+              button.toggleClass('dontReadComments',dontReadComments);
+            })
+            .appendTo(tooltip);
+        }
+        const dontReadComments = lt.storage.get('LiChessTools.dontReadComments');
+        button.toggleClass('dontReadComments',dontReadComments);
+      } else {
+        $('.readComments',tooltip).remove();
+      }
+
       if (this.canFlip()) {
         if (!$('.flipBoard',tooltip).length) {
           $('<button class="fbt flipBoard">')
             .attr('data-icon',lt.icon.ChasingArrows)
             .attr('title',trans.noarg('flipBoardButtonTitle'))
             .on('click',(ev)=>{
+              this.clearTooltipClass();
               const handler = lt.getKeyHandler('f');
               if (handler) handler();
             })
@@ -69,6 +98,7 @@
             .attr('data-icon',lt.icon.BarGraph)
             .attr('title',trans.noarg('requestAnalysisButtonTitle'))
             .on('click',(ev)=>{
+              this.clearTooltipClass();
               const serverEval = lt.lichess?.analysis?.study?.serverEval;
               if (serverEval) {
                 if (!serverEval.requested && !serverVal?.root?.data?.analysis) {
@@ -102,6 +132,7 @@
             $('<button class="fbt emoji">')
               .attr('data-icon',icon)
               .on('click',(ev)=>{
+                this.clearTooltipClass();
                 const input = $('.msg-app__convo__post__text');
                 input.val(input.val()+icon);
               })
@@ -111,6 +142,21 @@
       } else {
         $('.emoji',tooltip).remove();
       }
+    }
+
+    enableTooltip = (ev)=>{
+      ev.preventDefault();
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $(ev.currentTarget).toggleClass('lichessTools-quickActions');
+    };
+
+    canReadComments = ()=>{
+      const lt = this.lichessTools;
+      if (!lt.tools.AnalysisReadCommentsTool?.options?.enabled) return false;
+      const analysis = lt.lichess.analysis;
+      if (!analysis || analysis.study?.relay) return false;
+      return true;
     }
 
     canEmoji = ()=>{
@@ -142,9 +188,14 @@
       const $ = lt.$;
       let button = $('button.fbt[data-act="menu"], button.board-menu-toggle, button.msg-app__convo__post__submit');
       if (!button.length) return;
+      this.clearTooltipClass();
       button.off('mouseenter',this.refreshTooltip);
+      button.off('contextmenu',this.enableTooltip);
+      $('body').off('click',this.clearTooltipClass);
       if (this.options.isSet) {
         button.on('mouseenter',this.refreshTooltip);
+        button.on('contextmenu',this.enableTooltip);
+        $('body').on('click',this.clearTooltipClass);
         let tooltip = $('.lichessTools-quickActions-tooltip');
         if (!tooltip.length) {
           tooltip = $('<div class="lichessTools-quickActions-tooltip">')

@@ -1,0 +1,37 @@
+body.lichessTools .types input[type="checkbox"][data-icon] {
+  visibility: hidden;
+  margin-right: 0.5em;
+  cursor: pointer;
+}
+
+body.lichessTools .types input[type="checkbox"][data-icon]:before {
+  visibility: visible;
+}
+
+body.lichessTools .types input[type="checkbox"][data-icon]:checked {
+  text-shadow: 0 0 10px var(--c-clearer);
+}
+
+body.lichessTools .bots__list__entry.filteredOut {
+  display: none;
+}
+
+body.lichessTools .lichessTools-botFilters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 2em 5vh;
+}
+
+body.lichessTools .lichessTools-botFilters fieldset {
+  border: none;
+}
+
+body.lichessTools .lichessTools-botFilters label[for="chk_unrated"] {
+  margin-left: 2em;
+}
+
+body.lichessTools .lichessTools-botFilters input[type="number"] {
+  padding: 0.1em;
+  max-width: 7em;
+}

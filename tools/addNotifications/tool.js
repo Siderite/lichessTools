@@ -146,12 +146,15 @@
 
       lt.uiApi.socket.events.on('notifications', this.updateNotificationCount);
       if (this._unreadNotifications === undefined) {
-        const unread = await lt.api.notification.getUnread();
-        this._unreadNotifications = unread;
+        this._unreadNotifications = 0;
+        lt.global.setTimeout(async ()=>{
+          const unread = await lt.api.notification.getUnread();
+          this._unreadNotifications = unread;
+        },100);
       }
       if (!this.notFirstTime) {
         this.notFirstTime = true;
-        this.forcedProcessNotifications();
+        lt.global.setTimeout(this.forcedProcessNotifications,500);
       }
     }
 

@@ -1,5 +1,22 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Feb
+
+- read comments tool
+- download games as CSV
+
+10 Feb
+
+- bot list filters
+- color computer engine lines evaluations
+
+09 Feb
+
+- daily quote on the side
+- highlight same moves only for you
+- SPOA in Explorer games
+- don't automatically copy PGN Editor results to clipboard
+
 04 Feb
 
 - v2.4.0

@@ -6,10 +6,16 @@
         name: 'dailyQuote',
         category: 'general',
         type: 'single',
-        possibleValues: [false, true],
-        defaultValue: true,
+        possibleValues: [false, 'top', 'side'],
+        defaultValue: 'top',
         advanced: true
       }
+    ];
+
+
+    upgrades = [
+      { name:'dailyQuote', value:'true', version: '2.4.2', type: 'obsolete' },
+      { name:'dailyQuote', value:'top', version: '2.4.2', type: 'new' }
     ];
 
     intl = {
@@ -17,13 +23,17 @@
         'options.general': 'General',
         'options.dailyQuote': 'Daily quote',
         'dailyQuoteTitle': 'LiChess Tools - daily quote',
-        'quoteCloseButtonTitle': 'Hide today\'s quote'
+        'quoteCloseButtonTitle': 'Hide today\'s quote',
+        'dailyQuote.top': 'On top',
+        'dailyQuote.side': 'On the side'
       },
       'ro-RO': {
         'options.general': 'General',
         'options.dailyQuote': 'Citatul zilei',
         'dailyQuoteTitle': 'LiChess Tools - citatul zilei',
-        'quoteCloseButtonTitle': 'Ascunde citatul de azi'
+        'quoteCloseButtonTitle': 'Ascunde citatul de azi',
+        'dailyQuote.top': 'Deasupra',
+        'dailyQuote.side': 'Pe lateral'
       }
     }
 
@@ -42,24 +52,33 @@
       if (today.toDateString() == closedDate) {
         return; 
       }
+      const elem = $('<div class="lichessTools-dailyQuote"><span class="quote"></span><span class="author"></span><button type="button" class="close"></button></div>')
+        .attr('title',trans.noarg('dailyQuoteTitle'));
+      if (value === true || value == 'top') {
+        elem
+          .addClass('top')
+          .insertAfter('header#top');
+      } else if (value == 'side') {
+        elem
+          .addClass('side')
+          .prependTo('.lobby__side');
+      }
       let quotes = (await lt.comm.getData('quotes.json'))?.quotes;
       if (quotes?.length) {
-        const header = $('header#top');
-        const elem = $('<div class="lichessTools-dailyQuote"><span class="quote"></span><span class="author"></span><button type="button" class="close"></button></div>')
-          .attr('title',trans.noarg('dailyQuoteTitle'))
-          .insertAfter(header);
-        quotes.sort((a,b)=>lt.crc24(a.text)-lt.crc24(b.text));
-        const index =  Math.round(today.getTime()/86400000) % quotes.length;
-        const quote = quotes[index];
-        $('.quote',elem).text(quote.text);
-        $('.author',elem).text(quote.name);
-        $('.close',elem)
-          .attr('title',trans.noarg('quoteCloseButtonTitle'))
-          .on('click',(ev)=>{
-            ev.preventDefault();
-            lt.storage.set('LiChessTools.closedQuote',today.toDateString());
-            elem.remove();
-          })
+        lt.global.setTimeout(async ()=>{
+          quotes.sort((a,b)=>lt.crc24(a.text)-lt.crc24(b.text));
+          const index =  Math.round(today.getTime()/86400000) % quotes.length;
+          const quote = quotes[index];
+          $('.quote',elem).text(quote.text);
+          $('.author',elem).text(quote.name);
+          $('.close',elem)
+            .attr('title',trans.noarg('quoteCloseButtonTitle'))
+            .on('click',(ev)=>{
+              ev.preventDefault();
+              lt.storage.set('LiChessTools.closedQuote',today.toDateString());
+              elem.remove();
+            })
+        },100);
       }
     }
 

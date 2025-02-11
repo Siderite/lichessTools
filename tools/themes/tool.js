@@ -65,7 +65,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const board = $('body .is2d div.cg-wrap cg-board')[0];
-      if (this.dataBoard != $('body').attr('data-board') || this.board != board) {
+      if (this.dataBoard != $('body').attr('data-board') || this.board != board || (board && !lt.global.document.documentElement.style.getPropertyValue('--board-background'))) {
         this.applyThemes();
         this.dataBoard = $('body').attr('data-board');
         this.board = board;
@@ -102,6 +102,8 @@
       this.logOption('Themes', value || 'none');
       this.themes = value;
       const $ = lt.$;
+      $(lt.global).off('hashchange', this.applyThemes);
+      $(lt.global).on('hashchange', this.applyThemes);
       $('body').observer()
         .on('body, .main-board cg-board',this.checkBody,{
           childList: false,

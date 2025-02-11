@@ -218,7 +218,7 @@
           } else {
             node.bookmark = {
               label: bookmark,
-              collapsed: this.getCollapsed(bookmark)
+              collapsed: node.children?.length && this.getCollapsed(bookmark)
             };
           }
           const elem = lt.getElementForNode(node);
@@ -628,7 +628,7 @@
       let button = $('div.analyse__tools a.lichessTools-analysisPopup');
       if (this.options.analysisPopup && study) {
         let container = $('div.analyse__tools div.ceval');
-        if (container.length) {
+        if (container.length || $('.action-menu').length) {
           $('div.lichessTools-moveListOptions-header').remove();
         } else {
           container = $('div.lichessTools-moveListOptions-header');

@@ -446,12 +446,7 @@
           const text = textarea.val();
           if (!text) return;
           this.runOperation('download', () => {
-            const blob = new Blob([text], { type: 'application/x-chess-pgn' });
-            const url = URL.createObjectURL(blob);
-            $('<a>')
-              .attr('download', 'pgnEditor_' + (new Date().toISOString().replace(/[\-T:]/g, '').slice(0, 14)) + '.pgn')
-              .attr('href', url)
-              .trigger('click');
+            lt.download(text,'pgnEditor_' + lt.toTimeString(new Date()) + '.pgn','application/x-chess-pgn');
           });
         })
         .find('span')
@@ -1020,12 +1015,7 @@
 
         fenText += gameIndex + '\r\n' + [...fenSet].join('\r\n') + '\r\n\r\n';
       }
-      const blob = new Blob([fenText], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      $('<a>')
-        .attr('download', 'pgnEditor_fens_' + (new Date().toISOString().replace(/[\-T:]/g, '').slice(0, 14)) + '.txt')
-        .attr('href', url)
-        .trigger('click');
+      lt.download(fenText,'pgnEditor_fens_' + lt.toTimeString(new Date()) + '.txt');
     };
 
     normalizePgn = async (textarea) => {
@@ -1837,7 +1827,7 @@
             case 'tag':
               const val = tagName.toLowerCase() == 'index'
                 ? gameIndex.toString()
-                : [...game.headers.entries()].find(p => p[0]?.toLowerCase() == tagName?.toLowerCase())[1];
+                : [...game.headers.entries()].find(p => p[0]?.toLowerCase() == tagName?.toLowerCase())?.[1];
               switch (tagOperator) {
                 case '=': found = (val?.replace(/\s+/g, '') == tagValue?.replace(/\s+/g, '')); break;
                 case '*=': found = (val?.replace(/\s+/g, ''))?.includes(tagValue?.replace(/\s+/g, '')); break;
@@ -1890,13 +1880,6 @@
       }
 
       this.writeGames(textarea, games);
-
-      const foundText = foundGames.map(g => {
-        g.headers.delete('Found');
-        return makePgn(g);
-      }).join('\r\n\r\n')
-        .replace(/\[[^\s]+\s+"[\?\.\*]*"\]\s*/g, '');
-      lt.writeToClipboard(foundText, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
 
       this.writeNote(trans.pluralSame('foundGames', foundGames.length));
     };

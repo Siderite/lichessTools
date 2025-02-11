@@ -563,10 +563,6 @@
         .filter(r => !!r);
     };
 
-    winPerc = (cp) => {
-      return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
-    };
-
     getNodeCeval = (node) => {
       if (!this.options.local) return node.eval;
       const ceval = node.ceval;
@@ -591,7 +587,7 @@
           const evl = this.getNodeCeval(node);
           if (!evl) return null;
           const cp = this.getCp(evl, side);
-          const winPerc = this.winPerc(cp);
+          const winPerc = lt.winPerc(cp);
           const accuracy = 103.1668 * Math.exp(-0.04354 * (prevWinPerc - winPerc)) - 3.1669;
           prevWinPerc = winPerc;
           const val = Math.max(Math.min(accuracy, 100), 0) / 50 - 1;
@@ -627,11 +623,12 @@
     };
 
     computeGood = (side, node, prevNode) => {
+      const lt = this.lichessTools;
       const cp1 = this.getCp(this.getNodeCeval(node));
       const cp2 = this.getCp(this.getNodeCeval(prevNode));
       if (cp1 === undefined || cp2 === undefined) return;
-      const w1 = this.winPerc(cp1);
-      const w2 = this.winPerc(cp2);
+      const w1 = lt.winPerc(cp1);
+      const w2 = lt.winPerc(cp2);
       return (w1 - w2) * side;
     }
 
