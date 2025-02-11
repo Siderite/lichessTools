@@ -159,6 +159,7 @@
         "tools/puzzleHistory/tool.js",
         "tools/tournamentTopBoard/tool.js",
         "tools/botFilters/tool.js",
+        "tools/analysisReadComments/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -271,6 +272,7 @@
         "tools/totalGameTime/tool.css",
         "tools/puzzleHistory/tool.css",
         "tools/botFilters/tool.css",
+        "tools/analysisReadComments/tool.css",
 
         "tools/tvOptions/tool.css",
 

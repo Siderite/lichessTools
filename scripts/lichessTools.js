@@ -1272,6 +1272,9 @@
         if (this.debug) console.debug('Speech error:', e);
       }
     };
+    stopSpeaking = ()=>{
+      this.global.speechSynthesis.cancel();
+    };
 
     play = async (path, volume) => {
       const sound = await this.lichess.sound.load(path, this.lichess.sound.url(path));

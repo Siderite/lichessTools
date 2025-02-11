@@ -127,6 +127,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - started puzzle history
 - bot list filters
 - color computer engine evaluations
+- read move comments aloud
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:

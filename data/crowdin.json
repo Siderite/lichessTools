@@ -809,7 +809,9 @@
     "gameTypesLabelText": "أنواع اللعبة",
     "gameTypesLabelTitle": "أدوات شطرنج الحياة - أنواع اللعبة",
     "unratedLabelText": "إظهار غير تقييمي:",
-    "cevalLineOptions.colorEvaluation": "تقييم الألوان"
+    "cevalLineOptions.colorEvaluation": "تقييم الألوان",
+    "options.analysisReadComments": "قراءة التعليقات المنقولة",
+    "readCommentsButtonTitle": "أدوات شطرنج الحياة - تبديل قراءة التعليق"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1621,7 +1623,9 @@
     "gameTypesLabelText": "游戏类型",
     "gameTypesLabelTitle": "Lichess工具 - 游戏类型",
     "unratedLabelText": "显示已取消评分：",
-    "cevalLineOptions.colorEvaluation": "色彩评估"
+    "cevalLineOptions.colorEvaluation": "色彩评估",
+    "options.analysisReadComments": "读取移动评论",
+    "readCommentsButtonTitle": "LiChess工具 - 切换评论阅读"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2433,7 +2437,9 @@
     "gameTypesLabelText": "Game types",
     "gameTypesLabelTitle": "LiChess Tools - game types",
     "unratedLabelText": "Show unrated:",
-    "cevalLineOptions.colorEvaluation": "Color evaluation"
+    "cevalLineOptions.colorEvaluation": "Color evaluation",
+    "options.analysisReadComments": "Read move comments",
+    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3245,7 +3251,9 @@
     "gameTypesLabelText": "Spel types",
     "gameTypesLabelTitle": "LiChess Tools - speltypes",
     "unratedLabelText": "Toon onbeoordeeld:",
-    "cevalLineOptions.colorEvaluation": "Kleur evaluatie"
+    "cevalLineOptions.colorEvaluation": "Kleur evaluatie",
+    "options.analysisReadComments": "Lees verplaats commentaren",
+    "readCommentsButtonTitle": "LiChess Tools - in-/uitschakelen van reacties"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4057,7 +4065,9 @@
     "gameTypesLabelText": "Game types",
     "gameTypesLabelTitle": "LiChess Tools - game types",
     "unratedLabelText": "Show unrated:",
-    "cevalLineOptions.colorEvaluation": "Color evaluation"
+    "cevalLineOptions.colorEvaluation": "Color evaluation",
+    "options.analysisReadComments": "Read move comments",
+    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4861,15 +4871,17 @@
     "cevalLineOptions.highlightOnlyMe": "... seulement l'orientation actuelle",
     "dailyQuote.top": "En haut",
     "dailyQuote.side": "Sur le côté",
-    "options.botFilters": "Filtres de la liste des robots",
-    "ratingLabelText": "Notation min/max",
-    "ratingLabelTitle": "Outils LiChess - évaluation min/max",
-    "gamesLabelText": "Jeux min/max",
-    "gamesLabelTitle": "Outils LiChess - parties min/max",
-    "gameTypesLabelText": "Types de jeu",
-    "gameTypesLabelTitle": "Outils LiChess - types de jeu",
-    "unratedLabelText": "Afficher non évalué :",
-    "cevalLineOptions.colorEvaluation": "Évaluation des couleurs"
+    "options.botFilters": "Filtres pour la liste des bots",
+    "ratingLabelText": "Classement min/max",
+    "ratingLabelTitle": "LiChess Tools - classement min/max",
+    "gamesLabelText": "Parties min/max",
+    "gamesLabelTitle": "LiChess Tools - parties min/max",
+    "gameTypesLabelText": "Types de variante",
+    "gameTypesLabelTitle": "LiChess Tools - types de variante",
+    "unratedLabelText": "Afficher non-classés :",
+    "cevalLineOptions.colorEvaluation": "Évaluations en couleur",
+    "options.analysisReadComments": "Lire les commentaires de déplacement",
+    "readCommentsButtonTitle": "Outils LiChess - activer/désactiver la lecture de commentaires"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5681,7 +5693,9 @@
     "gameTypesLabelText": "Spielarten",
     "gameTypesLabelTitle": "LiChess Tools - Spielarten",
     "unratedLabelText": "Nicht bewertete zeigen:",
-    "cevalLineOptions.colorEvaluation": "Farbauswertung"
+    "cevalLineOptions.colorEvaluation": "Farbauswertung",
+    "options.analysisReadComments": "Verschiebe Kommentare lesen",
+    "readCommentsButtonTitle": "LiChess-Tools - Kommentar-Lesen umschalten"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6493,7 +6507,9 @@
     "gameTypesLabelText": "Tipi di gioco",
     "gameTypesLabelTitle": "Strumenti LiChess - tipi di gioco",
     "unratedLabelText": "Mostra non valutato:",
-    "cevalLineOptions.colorEvaluation": "Valutazione del colore"
+    "cevalLineOptions.colorEvaluation": "Valutazione del colore",
+    "options.analysisReadComments": "Leggi i commenti di spostamento",
+    "readCommentsButtonTitle": "Strumenti LiChess - toggle lettura del commento"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7305,7 +7321,9 @@
     "gameTypesLabelText": "Typy gier",
     "gameTypesLabelTitle": "Narzędzia LiChess - typy gier",
     "unratedLabelText": "Pokaż bez oceny:",
-    "cevalLineOptions.colorEvaluation": "Ocena kolorów"
+    "cevalLineOptions.colorEvaluation": "Ocena kolorów",
+    "options.analysisReadComments": "Przeczytaj komentarze",
+    "readCommentsButtonTitle": "Narzędzia LiChess - przełącz czytanie komentarzy"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8117,7 +8135,9 @@
     "gameTypesLabelText": "Tipos de jogos",
     "gameTypesLabelTitle": "Ferramentas LiChess - tipos de jogo",
     "unratedLabelText": "Mostrar não avaliados:",
-    "cevalLineOptions.colorEvaluation": "Avaliação de cor"
+    "cevalLineOptions.colorEvaluation": "Avaliação de cor",
+    "options.analysisReadComments": "Ler comentários da movimento",
+    "readCommentsButtonTitle": "Ferramentas LiChess - alternar leitura de comentários"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -8929,7 +8949,9 @@
     "gameTypesLabelText": "Tipos de jogos",
     "gameTypesLabelTitle": "Ferramentas LiChess - tipos de jogo",
     "unratedLabelText": "Mostrar não avaliados:",
-    "cevalLineOptions.colorEvaluation": "Avaliação de cor"
+    "cevalLineOptions.colorEvaluation": "Avaliação de cor",
+    "options.analysisReadComments": "Ler comentários da movimento",
+    "readCommentsButtonTitle": "Ferramentas LiChess - alternar leitura de comentários"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9741,7 +9763,9 @@
     "gameTypesLabelText": "Tipuri de joc",
     "gameTypesLabelTitle": "LiChess Tools - tipuri de joc",
     "unratedLabelText": "Arată fără rating:",
-    "cevalLineOptions.colorEvaluation": "Colorează evaluarea"
+    "cevalLineOptions.colorEvaluation": "Colorează evaluarea",
+    "options.analysisReadComments": "Citește comentarii mutări",
+    "readCommentsButtonTitle": "LiChess Tools - comută citirea comentariilor"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10553,7 +10577,9 @@
     "gameTypesLabelText": "Типы игр",
     "gameTypesLabelTitle": "Инструменты Жизни - типы игр",
     "unratedLabelText": "Показать без оценки:",
-    "cevalLineOptions.colorEvaluation": "Цветовая оценка"
+    "cevalLineOptions.colorEvaluation": "Цветовая оценка",
+    "options.analysisReadComments": "Читать комментарии перемещения",
+    "readCommentsButtonTitle": "Инструменты Жизни - переключение чтения комментариев"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11365,7 +11391,9 @@
     "gameTypesLabelText": "Tipos de juegos",
     "gameTypesLabelTitle": "Herramientas de LiChess - tipos de juego",
     "unratedLabelText": "Mostrar sin calificar:",
-    "cevalLineOptions.colorEvaluation": "Evaluación de color"
+    "cevalLineOptions.colorEvaluation": "Evaluación de color",
+    "options.analysisReadComments": "Leer comentarios de movimiento",
+    "readCommentsButtonTitle": "Herramientas de LiChess - cambia la lectura de comentarios"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12177,7 +12205,9 @@
     "gameTypesLabelText": "Game types",
     "gameTypesLabelTitle": "LiChess Tools - game types",
     "unratedLabelText": "Show unrated:",
-    "cevalLineOptions.colorEvaluation": "Color evaluation"
+    "cevalLineOptions.colorEvaluation": "Color evaluation",
+    "options.analysisReadComments": "Read move comments",
+    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -12989,6 +13019,8 @@
     "gameTypesLabelText": "Game types",
     "gameTypesLabelTitle": "LiChess Tools - game types",
     "unratedLabelText": "Show unrated:",
-    "cevalLineOptions.colorEvaluation": "Color evaluation"
+    "cevalLineOptions.colorEvaluation": "Color evaluation",
+    "options.analysisReadComments": "Read move comments",
+    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading"
   }
 }

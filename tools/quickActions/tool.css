@@ -26,3 +26,7 @@ body.lichessTools button.msg-app__convo__post__submit.lichessTools-quickActions 
 body.lichessTools:not(.mobile) button.msg-app__convo__post__submit:not(.active) + div.lichessTools-quickActions-tooltip:has(button):hover {
   display:flex;
 }
+
+body.lichessTools div.lichessTools-quickActions-tooltip .readComments.dontReadComments {
+  opacity:0.5;
+}

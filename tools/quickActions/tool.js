@@ -26,7 +26,8 @@
         'quickActions.requestAnalysis': 'Request server analysis',
         'quickActions.emoji': 'Chat emojis',
         'flipBoardButtonTitle': 'LiChess Tools - flip game board',
-        'requestAnalysisButtonTitle': 'LiChess Tools - request server analysis'
+        'requestAnalysisButtonTitle': 'LiChess Tools - request server analysis',
+        'readCommentsButtonTitle': 'LiChess Tools - toggle comment reading'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -35,7 +36,8 @@
         'quickActions.requestAnalysis': 'Cerere analiz\u0103 server',
         'quickActions.emoji': 'Emoji \u00een chat',
         'flipBoardButtonTitle': 'LiChess Tools - roti\u0163i tabla',
-        'requestAnalysisButtonTitle': 'LiChess Tools - cere\u0163i analiz\u0103 server'
+        'requestAnalysisButtonTitle': 'LiChess Tools - cere\u0163i analiz\u0103 server',
+        'readCommentsButtonTitle': 'LiChess Tools - comut\u0103 citire comentarii'
       }
     }
 
@@ -54,6 +56,25 @@
       if (!button) return;
       const tooltip = $('.lichessTools-quickActions-tooltip');
       tooltip.css({ left: button.offsetLeft, top: button.offsetTop, width: button.offsetWidth });
+
+      if (this.canReadComments()) {
+        let button = $('.readComments',tooltip);
+        if (!button.length) {
+          button = $('<button class="fbt readComments">')
+            .attr('data-icon',lt.icon.Voice)
+            .attr('title',trans.noarg('readCommentsButtonTitle'))
+            .on('click',(ev)=>{
+              this.clearTooltipClass();
+              const dontReadComments = lt.tools.AnalysisReadCommentsTool.toggleReadingComments();
+              button.toggleClass('dontReadComments',dontReadComments);
+            })
+            .appendTo(tooltip);
+        }
+        const dontReadComments = lt.storage.get('LiChessTools.dontReadComments');
+        button.toggleClass('dontReadComments',dontReadComments);
+      } else {
+        $('.readComments',tooltip).remove();
+      }
 
       if (this.canFlip()) {
         if (!$('.flipBoard',tooltip).length) {
@@ -129,6 +150,14 @@
       const $ = lt.$;
       $(ev.currentTarget).toggleClass('lichessTools-quickActions');
     };
+
+    canReadComments = ()=>{
+      const lt = this.lichessTools;
+      if (!lt.tools.AnalysisReadCommentsTool?.options?.enabled) return false;
+      const analysis = lt.lichess.analysis;
+      if (!analysis || analysis.study?.relay) return false;
+      return true;
+    }
 
     canEmoji = ()=>{
       if (!this.options.emoji) return false;

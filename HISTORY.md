@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Feb
+
+- read comments tool
+
 10 Feb
 
 - bot list filters
