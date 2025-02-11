@@ -680,7 +680,7 @@
     "options.gameListOptions": "خيارات قائمة اللعبة",
     "abortedGamesLabel": "إظهار الألعاب المحطمة:",
     "gameListOptions.select": "التحديد",
-    "copyGamesButtonTitle": "تحميل اللعبة المحددة PGNs",
+    "copyGamesButtonTitle": "تحميل الألعاب المحددة كPGN",
     "dashboard.total": "المجموع",
     "dashboard.puzzleCount": "ألغاز",
     "dashboard.performance": "الأداء",
@@ -811,7 +811,8 @@
     "unratedLabelText": "إظهار غير تقييمي:",
     "cevalLineOptions.colorEvaluation": "تقييم الألوان",
     "options.analysisReadComments": "قراءة التعليقات المنقولة",
-    "readCommentsButtonTitle": "أدوات شطرنج الحياة - تبديل قراءة التعليق"
+    "readCommentsButtonTitle": "أدوات شطرنج الحياة - تبديل قراءة التعليق",
+    "csvGamesButtonTitle": "تحميل الألعاب المحددة كـ CSV"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1494,7 +1495,7 @@
     "options.gameListOptions": "游戏列表选项",
     "abortedGamesLabel": "显示中止：",
     "gameListOptions.select": "选择",
-    "copyGamesButtonTitle": "下载选中的游戏 PGN",
+    "copyGamesButtonTitle": "将选中的游戏下载为PGN",
     "dashboard.total": "总计",
     "dashboard.puzzleCount": "拼图",
     "dashboard.performance": "业绩",
@@ -1625,7 +1626,8 @@
     "unratedLabelText": "显示已取消评分：",
     "cevalLineOptions.colorEvaluation": "色彩评估",
     "options.analysisReadComments": "读取移动评论",
-    "readCommentsButtonTitle": "LiChess工具 - 切换评论阅读"
+    "readCommentsButtonTitle": "LiChess工具 - 切换评论阅读",
+    "csvGamesButtonTitle": "以CSV格式下载选中的游戏"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2308,7 +2310,7 @@
     "options.gameListOptions": "Game list options",
     "abortedGamesLabel": "Show aborted:",
     "gameListOptions.select": "Selection",
-    "copyGamesButtonTitle": "Download selected game PGNs",
+    "copyGamesButtonTitle": "Download selected games as PGN",
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
@@ -2439,7 +2441,8 @@
     "unratedLabelText": "Show unrated:",
     "cevalLineOptions.colorEvaluation": "Color evaluation",
     "options.analysisReadComments": "Read move comments",
-    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading"
+    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading",
+    "csvGamesButtonTitle": "Download selected games as CSV"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3122,7 +3125,7 @@
     "options.gameListOptions": "Spellijst opties",
     "abortedGamesLabel": "Toon afgebroken:",
     "gameListOptions.select": "Selectie",
-    "copyGamesButtonTitle": "Download geselecteerde spel PGNs",
+    "copyGamesButtonTitle": "Download geselecteerde spellen als PGN",
     "dashboard.total": "Totaal",
     "dashboard.puzzleCount": "Puzzel",
     "dashboard.performance": "Prestaties",
@@ -3253,7 +3256,8 @@
     "unratedLabelText": "Toon onbeoordeeld:",
     "cevalLineOptions.colorEvaluation": "Kleur evaluatie",
     "options.analysisReadComments": "Lees verplaats commentaren",
-    "readCommentsButtonTitle": "LiChess Tools - in-/uitschakelen van reacties"
+    "readCommentsButtonTitle": "LiChess Tools - in-/uitschakelen van reacties",
+    "csvGamesButtonTitle": "Download geselecteerde spellen als CSV"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -3936,7 +3940,7 @@
     "options.gameListOptions": "Game list options",
     "abortedGamesLabel": "Show aborted:",
     "gameListOptions.select": "Selection",
-    "copyGamesButtonTitle": "Download selected game PGNs",
+    "copyGamesButtonTitle": "Download selected games as PGN",
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
@@ -4067,7 +4071,8 @@
     "unratedLabelText": "Show unrated:",
     "cevalLineOptions.colorEvaluation": "Color evaluation",
     "options.analysisReadComments": "Read move comments",
-    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading"
+    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading",
+    "csvGamesButtonTitle": "Download selected games as CSV"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4750,7 +4755,7 @@
     "options.gameListOptions": "Options pour la liste de parties",
     "abortedGamesLabel": "Afficher les parties annulées :",
     "gameListOptions.select": "Sélection",
-    "copyGamesButtonTitle": "Télécharger le PGN des parties sélectionnées",
+    "copyGamesButtonTitle": "Télécharger les jeux sélectionnés en PGN",
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Problèmes",
     "dashboard.performance": "Performances",
@@ -4881,7 +4886,8 @@
     "unratedLabelText": "Afficher non-classés :",
     "cevalLineOptions.colorEvaluation": "Évaluations en couleur",
     "options.analysisReadComments": "Lire les commentaires de déplacement",
-    "readCommentsButtonTitle": "Outils LiChess - activer/désactiver la lecture de commentaires"
+    "readCommentsButtonTitle": "Outils LiChess - activer/désactiver la lecture de commentaires",
+    "csvGamesButtonTitle": "Télécharger les jeux sélectionnés au format CSV"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5564,7 +5570,7 @@
     "options.gameListOptions": "Spiellisten-Optionen",
     "abortedGamesLabel": "Abgebrochene Spiele anzeigen:",
     "gameListOptions.select": "Auswahl",
-    "copyGamesButtonTitle": "Ausgewählte Spiel PGNs herunterladen",
+    "copyGamesButtonTitle": "Gewählte Spiele als PGN herunterladen",
     "dashboard.total": "Gesamt",
     "dashboard.puzzleCount": "Rätsel",
     "dashboard.performance": "Leistung",
@@ -5695,7 +5701,8 @@
     "unratedLabelText": "Nicht bewertete zeigen:",
     "cevalLineOptions.colorEvaluation": "Farbauswertung",
     "options.analysisReadComments": "Verschiebe Kommentare lesen",
-    "readCommentsButtonTitle": "LiChess-Tools - Kommentar-Lesen umschalten"
+    "readCommentsButtonTitle": "LiChess-Tools - Kommentar-Lesen umschalten",
+    "csvGamesButtonTitle": "Gewählte Spiele als CSV herunterladen"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6378,7 +6385,7 @@
     "options.gameListOptions": "Opzioni elenco partite",
     "abortedGamesLabel": "Mostra interrotto:",
     "gameListOptions.select": "Selezione",
-    "copyGamesButtonTitle": "Scarica i PGN delle partite selezionate",
+    "copyGamesButtonTitle": "Scarica i giochi selezionati come PGN",
     "dashboard.total": "Totale",
     "dashboard.puzzleCount": "Problemi",
     "dashboard.performance": "Prestazioni",
@@ -6509,7 +6516,8 @@
     "unratedLabelText": "Mostra non valutato:",
     "cevalLineOptions.colorEvaluation": "Valutazione del colore",
     "options.analysisReadComments": "Leggi i commenti di spostamento",
-    "readCommentsButtonTitle": "Strumenti LiChess - toggle lettura del commento"
+    "readCommentsButtonTitle": "Strumenti LiChess - toggle lettura del commento",
+    "csvGamesButtonTitle": "Scarica i giochi selezionati come CSV"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7192,7 +7200,7 @@
     "options.gameListOptions": "Opcje historii rozegranych partii",
     "abortedGamesLabel": "Pokaż porzucone:",
     "gameListOptions.select": "Wybór",
-    "copyGamesButtonTitle": "Pobierz PGN-y wybranych partii",
+    "copyGamesButtonTitle": "Pobierz wybrane gry jako PGN",
     "dashboard.total": "W sumie",
     "dashboard.puzzleCount": "Zadania szachowe",
     "dashboard.performance": "Wyniki",
@@ -7323,7 +7331,8 @@
     "unratedLabelText": "Pokaż bez oceny:",
     "cevalLineOptions.colorEvaluation": "Ocena kolorów",
     "options.analysisReadComments": "Przeczytaj komentarze",
-    "readCommentsButtonTitle": "Narzędzia LiChess - przełącz czytanie komentarzy"
+    "readCommentsButtonTitle": "Narzędzia LiChess - przełącz czytanie komentarzy",
+    "csvGamesButtonTitle": "Pobierz wybrane gry jako CSV"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8006,7 +8015,7 @@
     "options.gameListOptions": "Opções da lista de jogos",
     "abortedGamesLabel": "Mostrar cancelado:",
     "gameListOptions.select": "Seleção",
-    "copyGamesButtonTitle": "Baixar o jogo selecionado PGNs",
+    "copyGamesButtonTitle": "Baixar jogos selecionados como PGN",
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Problemas",
     "dashboard.performance": "Desempenho",
@@ -8137,7 +8146,8 @@
     "unratedLabelText": "Mostrar não avaliados:",
     "cevalLineOptions.colorEvaluation": "Avaliação de cor",
     "options.analysisReadComments": "Ler comentários da movimento",
-    "readCommentsButtonTitle": "Ferramentas LiChess - alternar leitura de comentários"
+    "readCommentsButtonTitle": "Ferramentas LiChess - alternar leitura de comentários",
+    "csvGamesButtonTitle": "Baixar jogos selecionados como CSV"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -8820,7 +8830,7 @@
     "options.gameListOptions": "Opções da lista de jogos",
     "abortedGamesLabel": "Mostrar jogos cancelados:",
     "gameListOptions.select": "Seleção",
-    "copyGamesButtonTitle": "Baixar o jogo selecionado PGNs",
+    "copyGamesButtonTitle": "Baixar jogos selecionados como PGN",
     "dashboard.total": "Total:",
     "dashboard.puzzleCount": "Problemas",
     "dashboard.performance": "Desempenho",
@@ -8951,7 +8961,8 @@
     "unratedLabelText": "Mostrar não avaliados:",
     "cevalLineOptions.colorEvaluation": "Avaliação de cor",
     "options.analysisReadComments": "Ler comentários da movimento",
-    "readCommentsButtonTitle": "Ferramentas LiChess - alternar leitura de comentários"
+    "readCommentsButtonTitle": "Ferramentas LiChess - alternar leitura de comentários",
+    "csvGamesButtonTitle": "Baixar jogos selecionados como CSV"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9634,7 +9645,7 @@
     "options.gameListOptions": "Filtre în liste de jocuri",
     "abortedGamesLabel": "Arată anulate:",
     "gameListOptions.select": "Selecţie",
-    "copyGamesButtonTitle": "Descarcă PGNurile jocurilor selectate",
+    "copyGamesButtonTitle": "Descarcă jocurile selectate ca PGN",
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Probleme șah",
     "dashboard.performance": "Performanță",
@@ -9765,7 +9776,8 @@
     "unratedLabelText": "Arată fără rating:",
     "cevalLineOptions.colorEvaluation": "Colorează evaluarea",
     "options.analysisReadComments": "Citește comentarii mutări",
-    "readCommentsButtonTitle": "LiChess Tools - comută citirea comentariilor"
+    "readCommentsButtonTitle": "LiChess Tools - comută citirea comentariilor",
+    "csvGamesButtonTitle": "Descarcă jocurile selectate ca CSV"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10448,7 +10460,7 @@
     "options.gameListOptions": "Настройки списка игр",
     "abortedGamesLabel": "Показать прерванные игры:",
     "gameListOptions.select": "Выбор",
-    "copyGamesButtonTitle": "Скопировать выбранные игры PGNs",
+    "copyGamesButtonTitle": "Скачать выбранные игры как PGN",
     "dashboard.total": "Итого",
     "dashboard.puzzleCount": "Задачи",
     "dashboard.performance": "Результативность",
@@ -10579,7 +10591,8 @@
     "unratedLabelText": "Показать без оценки:",
     "cevalLineOptions.colorEvaluation": "Цветовая оценка",
     "options.analysisReadComments": "Читать комментарии перемещения",
-    "readCommentsButtonTitle": "Инструменты Жизни - переключение чтения комментариев"
+    "readCommentsButtonTitle": "Инструменты Жизни - переключение чтения комментариев",
+    "csvGamesButtonTitle": "Скачать выбранные игры в CSV"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11262,7 +11275,7 @@
     "options.gameListOptions": "Opciones de lista de juegos",
     "abortedGamesLabel": "Mostrar juegos abortados:",
     "gameListOptions.select": "Selección",
-    "copyGamesButtonTitle": "Descargar PGNs del juego seleccionado",
+    "copyGamesButtonTitle": "Descargar juegos seleccionados como PGN",
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Rendimiento",
@@ -11393,7 +11406,8 @@
     "unratedLabelText": "Mostrar sin calificar:",
     "cevalLineOptions.colorEvaluation": "Evaluación de color",
     "options.analysisReadComments": "Leer comentarios de movimiento",
-    "readCommentsButtonTitle": "Herramientas de LiChess - cambia la lectura de comentarios"
+    "readCommentsButtonTitle": "Herramientas de LiChess - cambia la lectura de comentarios",
+    "csvGamesButtonTitle": "Descargar juegos seleccionados como CSV"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12076,7 +12090,7 @@
     "options.gameListOptions": "Game list options",
     "abortedGamesLabel": "Show aborted:",
     "gameListOptions.select": "Selection",
-    "copyGamesButtonTitle": "Download selected game PGNs",
+    "copyGamesButtonTitle": "Download selected games as PGN",
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
@@ -12207,7 +12221,8 @@
     "unratedLabelText": "Show unrated:",
     "cevalLineOptions.colorEvaluation": "Color evaluation",
     "options.analysisReadComments": "Read move comments",
-    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading"
+    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading",
+    "csvGamesButtonTitle": "Download selected games as CSV"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -12890,7 +12905,7 @@
     "options.gameListOptions": "Game list options",
     "abortedGamesLabel": "Show aborted:",
     "gameListOptions.select": "Selection",
-    "copyGamesButtonTitle": "Download selected game PGNs",
+    "copyGamesButtonTitle": "Download selected games as PGN",
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Puzzles",
     "dashboard.performance": "Performance",
@@ -13021,6 +13036,7 @@
     "unratedLabelText": "Show unrated:",
     "cevalLineOptions.colorEvaluation": "Color evaluation",
     "options.analysisReadComments": "Read move comments",
-    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading"
+    "readCommentsButtonTitle": "LiChess Tools - toggle comment reading",
+    "csvGamesButtonTitle": "Download selected games as CSV"
   }
 }

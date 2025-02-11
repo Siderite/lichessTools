@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 11 Feb
 
 - read comments tool
+- download games as CSV
 
 10 Feb
 

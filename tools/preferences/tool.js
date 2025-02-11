@@ -552,12 +552,7 @@
           ev.preventDefault();
           const options = await lt.getOptions();
           const text = lt.global.JSON.stringify({...options, userId: lt.getUserId()}, null, 2);
-          const blob = new Blob([text], { type: 'application/json' });
-          const url = URL.createObjectURL(blob);
-          $('<a>')
-            .attr('download', 'lichesToolsOptions_' + (new Date().toISOString().replace(/[\-T:]/g, '').slice(0, 14)) + '.json')
-            .attr('href', url)
-            .trigger('click');
+          lt.download(text,'lichesToolsOptions_' + lt.toTimeString(new Date()) + '.json','application/json');
         });
       $('div.actionButtons #btnRestore', container)
         .on('click', async ev => {

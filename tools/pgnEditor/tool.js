@@ -446,12 +446,7 @@
           const text = textarea.val();
           if (!text) return;
           this.runOperation('download', () => {
-            const blob = new Blob([text], { type: 'application/x-chess-pgn' });
-            const url = URL.createObjectURL(blob);
-            $('<a>')
-              .attr('download', 'pgnEditor_' + (new Date().toISOString().replace(/[\-T:]/g, '').slice(0, 14)) + '.pgn')
-              .attr('href', url)
-              .trigger('click');
+            lt.download(text,'pgnEditor_' + lt.toTimeString(new Date()) + '.pgn','application/x-chess-pgn');
           });
         })
         .find('span')
@@ -1020,12 +1015,7 @@
 
         fenText += gameIndex + '\r\n' + [...fenSet].join('\r\n') + '\r\n\r\n';
       }
-      const blob = new Blob([fenText], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      $('<a>')
-        .attr('download', 'pgnEditor_fens_' + (new Date().toISOString().replace(/[\-T:]/g, '').slice(0, 14)) + '.txt')
-        .attr('href', url)
-        .trigger('click');
+      lt.download(fenText,'pgnEditor_fens_' + lt.toTimeString(new Date()) + '.txt');
     };
 
     normalizePgn = async (textarea) => {

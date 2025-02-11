@@ -228,6 +228,7 @@
       SuperscriptCapitalL: '\u00a0\u1D38',
       WhiteChessPawn: '\u2659',
       Opposition: '\u260D',
+      Document: '\uD83D\uDDCE',
 
       toEntity: function(s) {
         let result='';
@@ -523,6 +524,20 @@
       }
       return true;
     }
+
+    download(text,name,mimeType) {
+      const $ = this.$;
+      const blob = new this.global.Blob([text], { type: mimeType || 'text/plain' });
+      const url = this.global.URL.createObjectURL(blob);
+      $('<a>')
+        .attr('download', name)
+        .attr('href', url)
+        .trigger('click');
+    }
+
+    toTimeString(date) {
+      return new this.global.Date().toISOString().replace(/[\-T:]/g, '').slice(0, 14);
+    };
 
     async writeToClipboard(value, successText, failText) {
       const navigator = this.global.navigator;
@@ -1451,7 +1466,9 @@
         const lt = this.lichessTools;
         if (!options) options = {};
         if (!options.headers) options.headers = {};
-        options.headers.Accept ||= 'application/json';
+        options.headers.Accept ||= (options.ndjson
+                            ? 'application/x-ndjson'
+                            : 'application/json');
         options.headers['x-requested-with'] ||= 'XMLHttpRequest';
         const json = await this.fetch(url, options);
         if (!json) return null;
@@ -1864,18 +1881,22 @@
               .map(k => k + '=' + lt.global.encodeURIComponent(options[k]))
               .join('&')
             : '';
-          const pgn = await lt.net.fetch(
+          const result = await lt.net.fetch(
             '/api/games/export/_ids' + query,
             {
               method: 'POST',
               headers: {
-                'Accept':'application/x-chess-pgn'
+                'Accept': options.ndjson
+                            ? 'application/x-ndjson'
+                            : 'application/x-chess-pgn'
               },
               body: gameIds.join(','),
               cache: 'default'
             }
-          );
-          return pgn;
+          );  
+          return options.ndjson
+            ? lt.ndjsonParse(result)
+            : result;
         },
         getUserPgns: async function (userId, options) {
           const lt = this.lichessTools;

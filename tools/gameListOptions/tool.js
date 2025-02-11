@@ -29,7 +29,8 @@
         'analysedGamesLabel': 'Only analysed:',
         'analysisLinkLabel': 'Click to analysis:',
         'titledOpponentsLabel': 'Only titled opponents:',
-        'copyGamesButtonTitle': 'Download selected game PGNs',
+        'copyGamesButtonTitle': 'Download selected games as PGN',
+        'csvGamesButtonTitle': 'Download selected games as CSV',
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
         'clipboardDenied': 'Clipboard access denied' 
       },
@@ -47,7 +48,8 @@
         'analysedGamesLabel': 'Doar analizate:',
         'titledOpponentsLabel': 'Doar adversari cu titlu:',
         'analysisLinkLabel': 'Click pentru analiz\u0103:',
-        'copyGamesButtonTitle': 'Descarc\u0103 PGNurile jocurilor selectate',
+        'copyGamesButtonTitle': 'Descarc\u0103 jocurile selectate ca PGN',
+        'csvGamesButtonTitle': 'Descarc\u0103 jocurile selectate ca CSV',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
         'clipboardDenied': 'Acces refuzat la clipboard'
       }
@@ -86,12 +88,96 @@
                 pgns+=batchPgns;
               }
               lt.writeToClipboard(pgns, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
+              lt.download(pgns,'lichessTools_' + lt.toTimeString(new Date()) + '.pgn','application/x-chess-pgn');
+            })
+            .appendTo(filters);
+        }
+        if (!$('button.lichessTools-gameListOptions-csv',filters).length) {
+          $('<button class="lichessTools-gameListOptions-csv">')
+            .attr('data-icon',lt.icon.Document)
+            .attr('title',trans.noarg('csvGamesButtonTitle'))
+            .on('click',async ev=>{
+              ev.preventDefault();
+              const ids = container.find('.lichessTools-gameListOptions-select input[type="checkbox"]:checked')
+                .get()
+                .map((e)=>{
+                  const href = $(e).next('a').attr('href');
+                  return href?href.substr(1,8):null;
+                })
+                .filter(id=>!!id);
+              let pgns = [];
+              let batch;
+              while ((batch = ids.splice(0,300)).length) {
+                if (pgns!='') {
+                  pgns+='\r\n';
+                  await lt.timeout(2000);
+                }
+                const batchPgns=await lt.api.game.getPgns(batch,{ moves: true, tags: true, clocks: true, evals: true, opening: true, accuracy: true, literate: true, pgnInJson: true, division: true, ndjson: true });
+                pgns=pgns.concat(batchPgns);
+              }
+              const csv = this.getCsv(pgns);
+              lt.writeToClipboard(csv, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
+              lt.download(csv,'lichessTools_' + lt.toTimeString(new Date()) + '.csv','text/csv');
             })
             .appendTo(filters);
         }
       } else {
         $('button.lichessTools-gameListOptions-copy',filters).remove();
+        $('button.lichessTools-gameListOptions-csv',filters).remove();
       }
+    };
+
+    getCsv = (pgns)=>{
+      const lt = this.lichessTools;
+      const result=[];
+      result.push('"id","rated","variant","speed","perf","createdAt","lastMoveAt","status","white","black","whiteRating","blackRating","whiteRatingDiff","blackRatingDiff","winner","eco","opening","clockInitial","clockIncrement","totalTime","middle","end","pgn","moves","clocks"');
+      const dateString = (time)=>{
+        const d = new lt.global.Date(time);
+        return d.getUTCFullYear() + 
+               '-'+(d.getUTCMonth()+1).toString().padStart(2,'0') +
+               '-'+d.getUTCDate().toString().padStart(2,'0') +
+               ' '+d.getUTCHours().toString().padStart(2,'0') +
+               ':'+d.getUTCMinutes().toString().padStart(2,'0') +
+               ':'+d.getUTCSeconds().toString().padStart(2,'0');
+      };
+      const csvString = (arr)=>{
+        return arr.map(i=>{
+          const s = (i?.toString()||'').replaceAll(/"/g,'""');
+          return /[",\r\n]/.test(s)
+            ? '"'+s+'"'
+            : s;
+        }).join(',');
+      };
+      for (const pgn of pgns) {
+        result.push(csvString([
+          pgn.id,
+          pgn.rated,
+          pgn.variant,
+          pgn.speed,
+          pgn.perf,
+          dateString(pgn.createdAt),
+          dateString(pgn.lastMoveAt),
+          pgn.status,
+          pgn.players?.white?.user?.name,
+          pgn.players?.black?.user?.name,
+          pgn.players?.white?.rating,
+          pgn.players?.black?.rating,
+          pgn.players?.white?.ratingDiff,
+          pgn.players?.black?.ratingDiff,
+          pgn.winner,
+          pgn.opening?.eco,
+          pgn.opening?.name,
+          pgn.clock?.initial,
+          pgn.clock?.increment,
+          pgn.clock?.totalTime,
+          pgn.division?.middle,
+          pgn.division?.end,
+          pgn.pgn,
+          pgn.moves,
+          '="'+(pgn.clocks||[]).join(',')+'"'
+        ]));
+      }
+      return result.join('\r\n');
     };
 
     processListsDirect = ()=>{
