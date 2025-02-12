@@ -2,6 +2,8 @@ body.lichessTools .types input[type="checkbox"][data-icon] {
   visibility: hidden;
   margin-right: 0.5em;
   cursor: pointer;
+  appearance:none;
+  padding:0;
 }
 
 body.lichessTools .types input[type="checkbox"][data-icon]:before {
