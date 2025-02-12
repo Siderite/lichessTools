@@ -250,27 +250,34 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
-      const studyId = analysis.study.data.id;
-      const chapterId = analysis.study.currentChapter().id;
+      const studyId = analysis.study?.data?.id;
+      const chapterId = analysis.study?.currentChapter().id;
       const path = analysis.contextMenuPath.slice(0,-2);
 
       let arr=[ index-1, index ];
       for (let i=index-2; i>=0; i--) arr.push(i);
       arr = arr.map(i=>path+parentNode.children[i].id);
 
-      const data = lt.global.document.body.dataset;
-      const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
-      const url = 'wss://' + baseUrls[lt.global.Math.floor(lt.global.Math.random() * baseUrls.length)];
-      const fullUrl = url + '/study/'+studyId+'/socket/v6?sri=' + lt.sri;
-      const ws = new WebSocket(fullUrl);
-      ws.onopen = async () => {
+
+      if (studyId && chapterId) {
+        const data = lt.global.document.body.dataset;
+        const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
+        const url = 'wss://' + baseUrls[lt.global.Math.floor(lt.global.Math.random() * baseUrls.length)];
+        const fullUrl = url + '/study/'+studyId+'/socket/v6?sri=' + lt.sri;
+        const ws = new WebSocket(fullUrl);
+        ws.onopen = async () => {
+          for (const childPath of arr) {
+            ws.send(JSON.stringify({"t":"promote","d":{"toMainline":false,"path":childPath,"ch":chapterId}}));
+            await lt.timeout(50);
+          }
+          await lt.timeout(1000);
+          ws.close();
+        };
+      } else {
         for (const childPath of arr) {
-          ws.send(JSON.stringify({"t":"promote","d":{"toMainline":false,"path":childPath,"ch":chapterId}}));
-          await lt.timeout(50);
+          analysis.tree.promoteAt(childPath,false);
         }
-        await lt.timeout(1000);
-        ws.close();
-      };
+      }
     };
 
     analysisContextMenu = (ev) => {
