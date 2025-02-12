@@ -123,7 +123,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - show puzzle total points per session
 - extra piece sets
 - a followers page
-- quick actions: flip board, request server analysis
+- quick actions: flip board, request server analysis, chat emojis, toggle comment reading
 - started puzzle history
 - bot list filters
 - color computer engine evaluations
