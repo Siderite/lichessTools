@@ -128,6 +128,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - bot list filters
 - color computer engine evaluations
 - read move comments aloud
+- reorder variations
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:

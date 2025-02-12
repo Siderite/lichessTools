@@ -8,9 +8,13 @@
         name: 'analysisContextActions',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['copyPgn', 'moveEval', 'showTranspos', 'removeSuperfluous', 'showOnEmpty'],
-        defaultValue: 'copyPgn,moveEval,removeSuperfluous,showOnEmpty'
+        possibleValues: ['copyPgn', 'moveEval', 'showTranspos', 'removeSuperfluous', 'showOnEmpty', 'reorderVariations'],
+        defaultValue: 'copyPgn,moveEval,removeSuperfluous,showOnEmpty,reorderVariations'
       }
+    ];
+
+    upgrades = [
+      { name:'analysisContextActions', value:'reorderVariations', version: '2.4.5', type: 'new' }
     ];
 
     intl = {
@@ -22,6 +26,7 @@
         'analysisContextActions.showTranspos': 'Highlight all transpositions',
         'analysisContextActions.removeSuperfluous': 'Remove superfluous entries',
         'analysisContextActions.showOnEmpty': 'Show context menu when no moves',
+        'analysisContextActions.reorderVariations': 'Reorder variations',
         'extractVariationText': 'Copy branch as PGN',
         'extractVariationText_f': 'Copy PGN (fen)',
         'extractVariationText_s': 'Copy PGN (separate)',
@@ -37,7 +42,11 @@
         'evaluateTerminationsTitle': 'LiChess Tools - add evaluation comment to all branch terminating moves',
         'evaluateTerminationsStarted': 'Evaluation commenting started: %s',
         'showTransposText': 'Highlight all transpositions',
-        'showTransposTitle': 'LiChess Tools - highlight all transpositions'
+        'showTransposTitle': 'LiChess Tools - highlight all transpositions',
+        'bumpUpVariationText': 'Bump up',
+        'bumpUpVariationTitle': 'LiChess Tools - bump up variation',
+        'bumpDownVariationText': 'Bump down',
+        'bumpDownVariationTitle': 'LiChess Tools - bump down variation'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -47,6 +56,7 @@
         'analysisContextActions.showTranspos': 'Arat\u0103 toate transpozi\u0163iile',
         'analysisContextActions.removeSuperfluous': 'Elimin\u0103 ce e \u00een plus',
         'analysisContextActions.showOnEmpty': 'Arat\u0103 meniul context c\u00E2nd nu sunt mut\u0103ri',
+        'analysisContextActions.reorderVariations': 'Ordoneaz\u0103 varia\u0163iuni',
         'extractVariationText': 'Copiaz\u0103 varia\u0163iunea ca PGN',
         'extractVariationText_f': 'Copiaz\u0103 PGN (fen)',
         'extractVariationText_s': 'Copiaz\u0103 PGN (separate)',
@@ -62,7 +72,11 @@
         'evaluateTerminationsTitle': 'LiChess Tools - adaug\u0103 comentarii cu evaluarea mut\u0103rilor finale din fiecare ramur\u0103',
         'evaluateTerminationsStarted': 'Comentarea cu evalu\u0103ri pornit\u0103: %s',
         'showTransposText': 'Arat\u0103 toate transpozi\u0163iile',
-        'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile'
+        'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile',
+        'bumpUpVariationText': 'Urc\u0103',
+        'bumpUpVariationTitle': 'LiChess Tools - urc\u0103 varia\u0163unea',
+        'bumpDownVariationText': 'Coboar\u0103',
+        'bumpDownVariationTitle': 'LiChess Tools - coboar\u0103 varia\u0163unea'
       }
     }
 
@@ -232,6 +246,33 @@
       }
     };
 
+    bump = (parentNode, index) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      const studyId = analysis.study.data.id;
+      const chapterId = analysis.study.currentChapter().id;
+      const path = analysis.contextMenuPath.slice(0,-2);
+
+      let arr=[ index-1, index ];
+      for (let i=index-2; i>=0; i--) arr.push(i);
+      arr = arr.map(i=>path+parentNode.children[i].id);
+
+      const data = lt.global.document.body.dataset;
+      const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
+      const url = 'wss://' + baseUrls[lt.global.Math.floor(lt.global.Math.random() * baseUrls.length)];
+      const fullUrl = url + '/study/'+studyId+'/socket/v6?sri=' + lt.sri;
+      const ws = new WebSocket(fullUrl);
+      ws.onopen = async () => {
+        for (const childPath of arr) {
+          ws.send(JSON.stringify({"t":"promote","d":{"toMainline":false,"path":childPath,"ch":chapterId}}));
+          await lt.timeout(50);
+        }
+        await lt.timeout(1000);
+        ws.close();
+      };
+    };
+
     analysisContextMenu = (ev) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -297,6 +338,36 @@
         $('a[data-icon="'+lt.icon.BubbleSpeech+'"],a[data-icon="'+lt.icon.Clipboard+'"],a.glyph-icon', menu).remove();
         if (this.options.autoExpand) {
           $('a[data-icon="'+lt.icon.PlusButton+'"],a[data-icon="'+lt.icon.MinusButton+'"],a.glyph-icon', menu).remove();
+        }
+      }
+
+      if (this.options.reorderVariations) {
+        const node = analysis?.contextMenuPath && analysis.tree.nodeAtPath(analysis.contextMenuPath);
+        const parentNode = analysis?.contextMenuPath && analysis.tree.nodeAtPath(analysis.contextMenuPath.slice(0,-2));
+        const index = parentNode?.children?.indexOf(node);
+        const total = parentNode?.children?.length;
+
+        if (total>1 && index>1
+          && !menu.has('a[data-role="bumpUp"]').length) {
+            const text = trans.noarg('bumpUpVariationText');
+            const title = trans.noarg('bumpUpVariationTitle');
+            $('<a>')
+              .attr('data-icon', lt.icon.UpwardsWhiteArrow)
+              .attr('data-role', 'bumpUp')
+              .text(text).attr('title', title)
+              .on('click', ()=>this.bump(parentNode,index))
+              .appendTo(menu);
+        }
+        if (total>1 && index<total-1
+          && !menu.has('a[data-role="bumpDown"]').length) {
+            const text = trans.noarg('bumpDownVariationText');
+            const title = trans.noarg('bumpDownVariationTitle');
+            $('<a>')
+              .attr('data-icon', lt.icon.DownwardsWhiteArrow)
+              .attr('data-role', 'bumpDown')
+              .text(text).attr('title', title)
+              .on('click', ()=>this.bump(parentNode,index+1))
+              .appendTo(menu);
         }
       }
     }
@@ -388,7 +459,8 @@
         showTranspos: lt.isOptionSet(value, 'showTranspos'),
         removeSuperfluous: lt.isOptionSet(value, 'removeSuperfluous'),
         showOnEmpty: lt.isOptionSet(value, 'showOnEmpty'),
-        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty; },
+        reorderVariations: lt.isOptionSet(value, 'reorderVariations'),
+        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; },
         autoExpand: lt.isOptionSet(lt.currentOptions.getValue('expandAll'), 'autoExpand')
       };
       clearInterval(this.engineCheckInterval);

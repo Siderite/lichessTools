@@ -229,6 +229,8 @@
       WhiteChessPawn: '\u2659',
       Opposition: '\u260D',
       Document: '\uD83D\uDDCE',
+      UpwardsWhiteArrow: '\u21E7',
+      DownwardsWhiteArrow: '\u21E9',
 
       toEntity: function(s) {
         let result='';

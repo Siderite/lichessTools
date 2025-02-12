@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+12 Feb
+
+- bump variations up/down
+
 11 Feb
 
 - read comments tool

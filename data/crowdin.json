@@ -812,7 +812,12 @@
     "cevalLineOptions.colorEvaluation": "تقييم الألوان",
     "options.analysisReadComments": "قراءة التعليقات المنقولة",
     "readCommentsButtonTitle": "أدوات شطرنج الحياة - تبديل قراءة التعليق",
-    "csvGamesButtonTitle": "تحميل الألعاب المحددة كـ CSV"
+    "csvGamesButtonTitle": "تحميل الألعاب المحددة كـ CSV",
+    "analysisContextActions.reorderVariations": "إعادة ترتيب الاختلافات",
+    "bumpUpVariationText": "الإنتقال للأعلى",
+    "bumpUpVariationTitle": "أدوات شطرنج الحياة - تنويعات متقطعة",
+    "bumpDownVariationText": "التقط لأسفل",
+    "bumpDownVariationTitle": "أدوات شطرنج الحياة - تنخفض التباين"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1627,7 +1632,12 @@
     "cevalLineOptions.colorEvaluation": "色彩评估",
     "options.analysisReadComments": "读取移动评论",
     "readCommentsButtonTitle": "LiChess工具 - 切换评论阅读",
-    "csvGamesButtonTitle": "以CSV格式下载选中的游戏"
+    "csvGamesButtonTitle": "以CSV格式下载选中的游戏",
+    "analysisContextActions.reorderVariations": "重新排序变化",
+    "bumpUpVariationText": "向上跳转",
+    "bumpUpVariationTitle": "LiChess工具 - 弹出变化",
+    "bumpDownVariationText": "倒计时",
+    "bumpDownVariationTitle": "LiChess工具 - 退回下面的变化"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2442,7 +2452,12 @@
     "cevalLineOptions.colorEvaluation": "Color evaluation",
     "options.analysisReadComments": "Read move comments",
     "readCommentsButtonTitle": "LiChess Tools - toggle comment reading",
-    "csvGamesButtonTitle": "Download selected games as CSV"
+    "csvGamesButtonTitle": "Download selected games as CSV",
+    "analysisContextActions.reorderVariations": "Reorder variations",
+    "bumpUpVariationText": "Bump up",
+    "bumpUpVariationTitle": "LiChess Tools - bump up variation",
+    "bumpDownVariationText": "Bump down",
+    "bumpDownVariationTitle": "LiChess Tools - bump down variation"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3257,7 +3272,12 @@
     "cevalLineOptions.colorEvaluation": "Kleur evaluatie",
     "options.analysisReadComments": "Lees verplaats commentaren",
     "readCommentsButtonTitle": "LiChess Tools - in-/uitschakelen van reacties",
-    "csvGamesButtonTitle": "Download geselecteerde spellen als CSV"
+    "csvGamesButtonTitle": "Download geselecteerde spellen als CSV",
+    "analysisContextActions.reorderVariations": "Variaties herordenen",
+    "bumpUpVariationText": "Spring omhoog",
+    "bumpUpVariationTitle": "LiChess gereedschap - variatie bijhouden",
+    "bumpDownVariationText": "Omlaag pompen",
+    "bumpDownVariationTitle": "LiChess gereedschappen - afkappen variatie"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4072,7 +4092,12 @@
     "cevalLineOptions.colorEvaluation": "Color evaluation",
     "options.analysisReadComments": "Read move comments",
     "readCommentsButtonTitle": "LiChess Tools - toggle comment reading",
-    "csvGamesButtonTitle": "Download selected games as CSV"
+    "csvGamesButtonTitle": "Download selected games as CSV",
+    "analysisContextActions.reorderVariations": "Reorder variations",
+    "bumpUpVariationText": "Bump up",
+    "bumpUpVariationTitle": "LiChess Tools - bump up variation",
+    "bumpDownVariationText": "Bump down",
+    "bumpDownVariationTitle": "LiChess Tools - bump down variation"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4755,7 +4780,7 @@
     "options.gameListOptions": "Options pour la liste de parties",
     "abortedGamesLabel": "Afficher les parties annulées :",
     "gameListOptions.select": "Sélection",
-    "copyGamesButtonTitle": "Télécharger les jeux sélectionnés en PGN",
+    "copyGamesButtonTitle": "Télécharger les parties sélectionnées en PGN",
     "dashboard.total": "Total",
     "dashboard.puzzleCount": "Problèmes",
     "dashboard.performance": "Performances",
@@ -4885,9 +4910,14 @@
     "gameTypesLabelTitle": "LiChess Tools - types de variante",
     "unratedLabelText": "Afficher non-classés :",
     "cevalLineOptions.colorEvaluation": "Évaluations en couleur",
-    "options.analysisReadComments": "Lire les commentaires de déplacement",
-    "readCommentsButtonTitle": "Outils LiChess - activer/désactiver la lecture de commentaires",
-    "csvGamesButtonTitle": "Télécharger les jeux sélectionnés au format CSV"
+    "options.analysisReadComments": "Lire les commentaires du coup",
+    "readCommentsButtonTitle": "LiChess Tools - activer/désactiver la lecture des commentaires",
+    "csvGamesButtonTitle": "Télécharger les parties sélectionnées au format CSV",
+    "analysisContextActions.reorderVariations": "Réorganiser les variations",
+    "bumpUpVariationText": "Monter",
+    "bumpUpVariationTitle": "Outils LiChess - Variation augmentée",
+    "bumpDownVariationText": "Bump down",
+    "bumpDownVariationTitle": "Outils LiChess - Variation de bas en bas"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5702,7 +5732,12 @@
     "cevalLineOptions.colorEvaluation": "Farbauswertung",
     "options.analysisReadComments": "Verschiebe Kommentare lesen",
     "readCommentsButtonTitle": "LiChess-Tools - Kommentar-Lesen umschalten",
-    "csvGamesButtonTitle": "Gewählte Spiele als CSV herunterladen"
+    "csvGamesButtonTitle": "Gewählte Spiele als CSV herunterladen",
+    "analysisContextActions.reorderVariations": "Variationen neu anordnen",
+    "bumpUpVariationText": "Bumpf hoch",
+    "bumpUpVariationTitle": "LiChess-Tools - Bump Up-Variation",
+    "bumpDownVariationText": "Bumpf nach unten",
+    "bumpDownVariationTitle": "LiChess-Tools - Abwärtsvariation"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6517,7 +6552,12 @@
     "cevalLineOptions.colorEvaluation": "Valutazione del colore",
     "options.analysisReadComments": "Leggi i commenti di spostamento",
     "readCommentsButtonTitle": "Strumenti LiChess - toggle lettura del commento",
-    "csvGamesButtonTitle": "Scarica i giochi selezionati come CSV"
+    "csvGamesButtonTitle": "Scarica i giochi selezionati come CSV",
+    "analysisContextActions.reorderVariations": "Riordina le variazioni",
+    "bumpUpVariationText": "Saltare su",
+    "bumpUpVariationTitle": "Strumenti di LiChess - variazione di bump up",
+    "bumpDownVariationText": "Saltare giù",
+    "bumpDownVariationTitle": "Strumenti LiChess - variazione sbalzo verso il basso"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7332,7 +7372,12 @@
     "cevalLineOptions.colorEvaluation": "Ocena kolorów",
     "options.analysisReadComments": "Przeczytaj komentarze",
     "readCommentsButtonTitle": "Narzędzia LiChess - przełącz czytanie komentarzy",
-    "csvGamesButtonTitle": "Pobierz wybrane gry jako CSV"
+    "csvGamesButtonTitle": "Pobierz wybrane gry jako CSV",
+    "analysisContextActions.reorderVariations": "Zmień kolejność zmian",
+    "bumpUpVariationText": "Zrzuć w górę",
+    "bumpUpVariationTitle": "Narzędzia LiChess - zmiana odrzutu",
+    "bumpDownVariationText": "Zrzuć",
+    "bumpDownVariationTitle": "Narzędzia LiChess - zmiana odrzutu"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8147,7 +8192,12 @@
     "cevalLineOptions.colorEvaluation": "Avaliação de cor",
     "options.analysisReadComments": "Ler comentários da movimento",
     "readCommentsButtonTitle": "Ferramentas LiChess - alternar leitura de comentários",
-    "csvGamesButtonTitle": "Baixar jogos selecionados como CSV"
+    "csvGamesButtonTitle": "Baixar jogos selecionados como CSV",
+    "analysisContextActions.reorderVariations": "Reordenar variações",
+    "bumpUpVariationText": "Salvar para cima",
+    "bumpUpVariationTitle": "Ferramentas LiChess - Escalar variação",
+    "bumpDownVariationText": "Saltar para baixo",
+    "bumpDownVariationTitle": "Ferramentas LiChess - Escalar para baixo variação"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -8962,7 +9012,12 @@
     "cevalLineOptions.colorEvaluation": "Avaliação de cor",
     "options.analysisReadComments": "Ler comentários da movimento",
     "readCommentsButtonTitle": "Ferramentas LiChess - alternar leitura de comentários",
-    "csvGamesButtonTitle": "Baixar jogos selecionados como CSV"
+    "csvGamesButtonTitle": "Baixar jogos selecionados como CSV",
+    "analysisContextActions.reorderVariations": "Reordenar variações",
+    "bumpUpVariationText": "Salvar para cima",
+    "bumpUpVariationTitle": "Ferramentas LiChess - Escalar variação",
+    "bumpDownVariationText": "Saltar para baixo",
+    "bumpDownVariationTitle": "Ferramentas LiChess - Escalar para baixo variação"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9777,7 +9832,12 @@
     "cevalLineOptions.colorEvaluation": "Colorează evaluarea",
     "options.analysisReadComments": "Citește comentarii mutări",
     "readCommentsButtonTitle": "LiChess Tools - comută citirea comentariilor",
-    "csvGamesButtonTitle": "Descarcă jocurile selectate ca CSV"
+    "csvGamesButtonTitle": "Descarcă jocurile selectate ca CSV",
+    "analysisContextActions.reorderVariations": "Reordonare variațiuni",
+    "bumpUpVariationText": "Urcă",
+    "bumpUpVariationTitle": "LiChess Tools - urcă variațiunea",
+    "bumpDownVariationText": "Coboară",
+    "bumpDownVariationTitle": "LiChess Tools - coboară variațiunea"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10592,7 +10652,12 @@
     "cevalLineOptions.colorEvaluation": "Цветовая оценка",
     "options.analysisReadComments": "Читать комментарии перемещения",
     "readCommentsButtonTitle": "Инструменты Жизни - переключение чтения комментариев",
-    "csvGamesButtonTitle": "Скачать выбранные игры в CSV"
+    "csvGamesButtonTitle": "Скачать выбранные игры в CSV",
+    "analysisContextActions.reorderVariations": "Изменить порядок вариантов",
+    "bumpUpVariationText": "Ускорить",
+    "bumpUpVariationTitle": "Инструменты Жизни - ускорение вариации",
+    "bumpDownVariationText": "Свернуть вниз",
+    "bumpDownVariationTitle": "Инструменты Жизни - оттолкнуть вариацию"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11407,7 +11472,12 @@
     "cevalLineOptions.colorEvaluation": "Evaluación de color",
     "options.analysisReadComments": "Leer comentarios de movimiento",
     "readCommentsButtonTitle": "Herramientas de LiChess - cambia la lectura de comentarios",
-    "csvGamesButtonTitle": "Descargar juegos seleccionados como CSV"
+    "csvGamesButtonTitle": "Descargar juegos seleccionados como CSV",
+    "analysisContextActions.reorderVariations": "Reordenar variaciones",
+    "bumpUpVariationText": "Volcar arriba",
+    "bumpUpVariationTitle": "Herramientas de LiChess - variación de volcado",
+    "bumpDownVariationText": "Bajar",
+    "bumpDownVariationTitle": "Herramientas de LiAjedrez - variación de caída"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12222,7 +12292,12 @@
     "cevalLineOptions.colorEvaluation": "Color evaluation",
     "options.analysisReadComments": "Read move comments",
     "readCommentsButtonTitle": "LiChess Tools - toggle comment reading",
-    "csvGamesButtonTitle": "Download selected games as CSV"
+    "csvGamesButtonTitle": "Download selected games as CSV",
+    "analysisContextActions.reorderVariations": "Reorder variations",
+    "bumpUpVariationText": "Bump up",
+    "bumpUpVariationTitle": "LiChess Tools - bump up variation",
+    "bumpDownVariationText": "Bump down",
+    "bumpDownVariationTitle": "LiChess Tools - bump down variation"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13037,6 +13112,11 @@
     "cevalLineOptions.colorEvaluation": "Color evaluation",
     "options.analysisReadComments": "Read move comments",
     "readCommentsButtonTitle": "LiChess Tools - toggle comment reading",
-    "csvGamesButtonTitle": "Download selected games as CSV"
+    "csvGamesButtonTitle": "Download selected games as CSV",
+    "analysisContextActions.reorderVariations": "Reorder variations",
+    "bumpUpVariationText": "Bump up",
+    "bumpUpVariationTitle": "LiChess Tools - bump up variation",
+    "bumpDownVariationText": "Bump down",
+    "bumpDownVariationTitle": "LiChess Tools - bump down variation"
   }
 }
