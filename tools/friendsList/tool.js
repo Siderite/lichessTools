@@ -779,9 +779,8 @@
           }
         };
         this.onlinesInterval = setInterval(checkOnlineFriends, 5000);
-        if (!this.notFirstTime) {
+        if (!this.ranStart) {
           checkOnlineFriends();
-          this.notFirstTime = true;
         }
       }
 
