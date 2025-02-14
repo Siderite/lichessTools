@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Feb
+
+- additional book glyph
+- new option for extra charting to show percentages of moves based on glyphs
+
 12 Feb
 
 - bump variations up/down

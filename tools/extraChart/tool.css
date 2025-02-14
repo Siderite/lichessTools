@@ -53,3 +53,69 @@ body.lichessTools span.lichessTools-christmas {
   text-align: center;
   transition: color 1s;
 }
+
+body.lichessTools .lichessTools-extraChart-tooltip {
+  position: absolute;
+  display: flex;
+  font-size:1.5em;
+  height: 2.5em;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: row;
+  pointer-events: none;
+  font-weight: bold;
+  border-radius: 1em;
+  overflow: hidden;
+  transform: translateY(-100%);
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip.hide {
+  display:none;
+}
+
+body.lichessTools .lichessTools-extraChart-accuracyPlus {
+  cursor: pointer;
+}
+
+body.lichessTools .lichessTools-extraChart-accuracyPlus:has(span > a:hover) + .lichessTools-extraChart-tooltip {
+  display:none;
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--c-border);
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip .node-6006044 {
+  background-color: color-mix(in srgb, var(--c-good-move), white 30%);
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip .node-12723379 {
+  background-color: var(--c-brilliant);
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip .node-14517938 {
+  background-color: color-mix(in srgb, var(--c-brilliant), white 30%);
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip .node-2669098 {
+  background-color: var(--c-good-move);
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip .node-13054711 {
+  background-color: var(--c-border-light);
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip .node-2573582 {
+  background-color: var(--c-inaccuracy);
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip .node-12330621 {
+  background-color: var(--c-mistake);
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip .node-11786585 {
+  background-color: var(--c-blunder);
+}
