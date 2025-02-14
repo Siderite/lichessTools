@@ -817,7 +817,8 @@
     "bumpUpVariationText": "الإنتقال للأعلى",
     "bumpUpVariationTitle": "أدوات شطرنج الحياة - تنويعات متقطعة",
     "bumpDownVariationText": "التقط لأسفل",
-    "bumpDownVariationTitle": "أدوات شطرنج الحياة - تنخفض التباين"
+    "bumpDownVariationTitle": "أدوات شطرنج الحياة - تنخفض التباين",
+    "extraChart.accuracyPlus": "المزيد من المعلومات حول الدقة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1637,7 +1638,8 @@
     "bumpUpVariationText": "向上跳转",
     "bumpUpVariationTitle": "LiChess工具 - 弹出变化",
     "bumpDownVariationText": "倒计时",
-    "bumpDownVariationTitle": "LiChess工具 - 退回下面的变化"
+    "bumpDownVariationTitle": "LiChess工具 - 退回下面的变化",
+    "extraChart.accuracyPlus": "关于准确性的更多信息"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2457,7 +2459,8 @@
     "bumpUpVariationText": "Bump up",
     "bumpUpVariationTitle": "LiChess Tools - bump up variation",
     "bumpDownVariationText": "Bump down",
-    "bumpDownVariationTitle": "LiChess Tools - bump down variation"
+    "bumpDownVariationTitle": "LiChess Tools - bump down variation",
+    "extraChart.accuracyPlus": "More info on Accuracy"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3277,7 +3280,8 @@
     "bumpUpVariationText": "Spring omhoog",
     "bumpUpVariationTitle": "LiChess gereedschap - variatie bijhouden",
     "bumpDownVariationText": "Omlaag pompen",
-    "bumpDownVariationTitle": "LiChess gereedschappen - afkappen variatie"
+    "bumpDownVariationTitle": "LiChess gereedschappen - afkappen variatie",
+    "extraChart.accuracyPlus": "Meer informatie over Nauwkeurigheid"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4097,7 +4101,8 @@
     "bumpUpVariationText": "Bump up",
     "bumpUpVariationTitle": "LiChess Tools - bump up variation",
     "bumpDownVariationText": "Bump down",
-    "bumpDownVariationTitle": "LiChess Tools - bump down variation"
+    "bumpDownVariationTitle": "LiChess Tools - bump down variation",
+    "extraChart.accuracyPlus": "More info on Accuracy"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4913,11 +4918,12 @@
     "options.analysisReadComments": "Lire les commentaires du coup",
     "readCommentsButtonTitle": "LiChess Tools - activer/désactiver la lecture des commentaires",
     "csvGamesButtonTitle": "Télécharger les parties sélectionnées au format CSV",
-    "analysisContextActions.reorderVariations": "Réorganiser les variations",
+    "analysisContextActions.reorderVariations": "Réarranger les variantes",
     "bumpUpVariationText": "Monter",
-    "bumpUpVariationTitle": "Outils LiChess - Variation augmentée",
-    "bumpDownVariationText": "Bump down",
-    "bumpDownVariationTitle": "Outils LiChess - Variation de bas en bas"
+    "bumpUpVariationTitle": "LiChess Tools - monter la variante",
+    "bumpDownVariationText": "Descendre",
+    "bumpDownVariationTitle": "LiChess Tools - descendre la variante",
+    "extraChart.accuracyPlus": "Plus d'infos sur la précision"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5737,7 +5743,8 @@
     "bumpUpVariationText": "Bumpf hoch",
     "bumpUpVariationTitle": "LiChess-Tools - Bump Up-Variation",
     "bumpDownVariationText": "Bumpf nach unten",
-    "bumpDownVariationTitle": "LiChess-Tools - Abwärtsvariation"
+    "bumpDownVariationTitle": "LiChess-Tools - Abwärtsvariation",
+    "extraChart.accuracyPlus": "Weitere Informationen zur Genauigkeit"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6557,7 +6564,8 @@
     "bumpUpVariationText": "Saltare su",
     "bumpUpVariationTitle": "Strumenti di LiChess - variazione di bump up",
     "bumpDownVariationText": "Saltare giù",
-    "bumpDownVariationTitle": "Strumenti LiChess - variazione sbalzo verso il basso"
+    "bumpDownVariationTitle": "Strumenti LiChess - variazione sbalzo verso il basso",
+    "extraChart.accuracyPlus": "Maggiori informazioni su Precisione"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7377,7 +7385,8 @@
     "bumpUpVariationText": "Zrzuć w górę",
     "bumpUpVariationTitle": "Narzędzia LiChess - zmiana odrzutu",
     "bumpDownVariationText": "Zrzuć",
-    "bumpDownVariationTitle": "Narzędzia LiChess - zmiana odrzutu"
+    "bumpDownVariationTitle": "Narzędzia LiChess - zmiana odrzutu",
+    "extraChart.accuracyPlus": "Więcej informacji na temat dokładności"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8197,7 +8206,8 @@
     "bumpUpVariationText": "Salvar para cima",
     "bumpUpVariationTitle": "Ferramentas LiChess - Escalar variação",
     "bumpDownVariationText": "Saltar para baixo",
-    "bumpDownVariationTitle": "Ferramentas LiChess - Escalar para baixo variação"
+    "bumpDownVariationTitle": "Ferramentas LiChess - Escalar para baixo variação",
+    "extraChart.accuracyPlus": "Mais informações sobre precisão"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9017,7 +9027,8 @@
     "bumpUpVariationText": "Salvar para cima",
     "bumpUpVariationTitle": "Ferramentas LiChess - Escalar variação",
     "bumpDownVariationText": "Saltar para baixo",
-    "bumpDownVariationTitle": "Ferramentas LiChess - Escalar para baixo variação"
+    "bumpDownVariationTitle": "Ferramentas LiChess - Escalar para baixo variação",
+    "extraChart.accuracyPlus": "Mais informações sobre precisão"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9837,7 +9848,8 @@
     "bumpUpVariationText": "Urcă",
     "bumpUpVariationTitle": "LiChess Tools - urcă variațiunea",
     "bumpDownVariationText": "Coboară",
-    "bumpDownVariationTitle": "LiChess Tools - coboară variațiunea"
+    "bumpDownVariationTitle": "LiChess Tools - coboară variațiunea",
+    "extraChart.accuracyPlus": "Informații în plus pe Acuratețe"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10657,7 +10669,8 @@
     "bumpUpVariationText": "Ускорить",
     "bumpUpVariationTitle": "Инструменты Жизни - ускорение вариации",
     "bumpDownVariationText": "Свернуть вниз",
-    "bumpDownVariationTitle": "Инструменты Жизни - оттолкнуть вариацию"
+    "bumpDownVariationTitle": "Инструменты Жизни - оттолкнуть вариацию",
+    "extraChart.accuracyPlus": "Подробнее о точности"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11477,7 +11490,8 @@
     "bumpUpVariationText": "Volcar arriba",
     "bumpUpVariationTitle": "Herramientas de LiChess - variación de volcado",
     "bumpDownVariationText": "Bajar",
-    "bumpDownVariationTitle": "Herramientas de LiAjedrez - variación de caída"
+    "bumpDownVariationTitle": "Herramientas de LiAjedrez - variación de caída",
+    "extraChart.accuracyPlus": "Más información sobre precisión"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12297,7 +12311,8 @@
     "bumpUpVariationText": "Bump up",
     "bumpUpVariationTitle": "LiChess Tools - bump up variation",
     "bumpDownVariationText": "Bump down",
-    "bumpDownVariationTitle": "LiChess Tools - bump down variation"
+    "bumpDownVariationTitle": "LiChess Tools - bump down variation",
+    "extraChart.accuracyPlus": "More info on Accuracy"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13117,6 +13132,7 @@
     "bumpUpVariationText": "Bump up",
     "bumpUpVariationTitle": "LiChess Tools - bump up variation",
     "bumpDownVariationText": "Bump down",
-    "bumpDownVariationTitle": "LiChess Tools - bump down variation"
+    "bumpDownVariationTitle": "LiChess Tools - bump down variation",
+    "extraChart.accuracyPlus": "More info on Accuracy"
   }
 }
