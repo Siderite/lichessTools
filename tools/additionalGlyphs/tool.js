@@ -27,7 +27,7 @@
 
     isStandardGlyph = (glyph) => {
       const lt = this.lichessTools;
-      return !['#', lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes].includes(glyph);
+      return !['#', lt.icon.Book, lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes].includes(glyph);
     }
 
     drawGlyphsDirect = () => {
@@ -37,8 +37,11 @@
       const analysis = lichess?.analysis;
       if (!analysis?.chessground) return;
       let glyph = analysis.node.glyphs?.at(0)?.symbol;
-      const fill = analysis.node.glyphs?.at(0)?.fill || '#557766';
-      if (!glyph && lt.isMate(analysis.node)) glyph = '#';
+      const fill = analysis.node.glyphs?.at(0)?.fill || '#557766B0';
+      if (!glyph) {
+        if (lt.isMate(analysis.node)) glyph = '#';
+        if (analysis.node.opening) glyph = lt.icon.Book;
+      }
       if (!glyph) return;
       if (this.isStandardGlyph(glyph) || lt.storage.get('analyse.show-move-annotation') === false) {
         const shapes = analysis.chessground.state.drawable.autoShapes?.filter(s => s.type !== 'glyph') || [];
