@@ -269,9 +269,7 @@
       }
       for (const childPath of arr) {
         analysis.tree.promoteAt(childPath,false);
-        analysis.study && await lt.timeout(50);
       }
-      analysis.study && await lt.timeout(200);
       for (const subPath of forceVariation) {
         const node = analysis.tree.nodeAtPath(subPath);
         if (!node.children[0].forceVariation) {
