@@ -123,7 +123,7 @@
                  href="https://siderite.dev/blog/new-chrome-extension-lichess-tools" target="_blank">siderite.dev</a>
             </div>
             <form>
-<table class="allows lichessTools-globalSwitch">
+<table class="lichessTools-globalSwitch">
     <tbody>
         <tr>
             <td>$trans(enableExtension)</td>
