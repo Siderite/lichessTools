@@ -246,38 +246,39 @@
       }
     };
 
-    bump = (parentNode, index) => {
+    bump = async (parentNode, index) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
-      const studyId = analysis.study?.data?.id;
-      const chapterId = analysis.study?.currentChapter().id;
       const path = analysis.contextMenuPath.slice(0,-2);
 
       let arr=[ index-1, index ];
       for (let i=index-2; i>=0; i--) arr.push(i);
       arr = arr.map(i=>path+parentNode.children[i].id);
-
-
-      if (studyId && chapterId) {
-        const data = lt.global.document.body.dataset;
-        const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
-        const url = 'wss://' + baseUrls[lt.global.Math.floor(lt.global.Math.random() * baseUrls.length)];
-        const fullUrl = url + '/study/'+studyId+'/socket/v6?sri=' + lt.sri;
-        const ws = new WebSocket(fullUrl);
-        ws.onopen = async () => {
-          for (const childPath of arr) {
-            ws.send(JSON.stringify({"t":"promote","d":{"toMainline":false,"path":childPath,"ch":chapterId}}));
-            await lt.timeout(50);
-          }
-          await lt.timeout(1000);
-          ws.close();
-        };
-      } else {
-        for (const childPath of arr) {
-          analysis.tree.promoteAt(childPath,false);
+      
+      const forceVariation = [];
+      for (let i=0; i<=path.length; i+=2) {
+        const subPath = path.slice(0, i);
+        const node = analysis.tree.nodeAtPath(subPath);
+        if (node.children[0].forceVariation) {
+          forceVariation.push(subPath);
         }
       }
+      if (forceVariation.at(-1) == path) {
+        analysis.forceVariation(path+parentNode.children[0].id,false);
+      }
+      for (const childPath of arr) {
+        analysis.tree.promoteAt(childPath,false);
+        analysis.study && await lt.timeout(50);
+      }
+      analysis.study && await lt.timeout(200);
+      for (const subPath of forceVariation) {
+        const node = analysis.tree.nodeAtPath(subPath);
+        if (!node.children[0].forceVariation) {
+          analysis.forceVariation(subPath+node.children[0].id,true);
+        }
+      }
+      analysis.redraw();
     };
 
     analysisContextMenu = (ev) => {
@@ -354,7 +355,7 @@
         const index = parentNode?.children?.indexOf(node);
         const total = parentNode?.children?.length;
 
-        if (total>1 && index>1
+        if (total>1 && index>0
           && !menu.has('a[data-role="bumpUp"]').length) {
             const text = trans.noarg('bumpUpVariationText');
             const title = trans.noarg('bumpUpVariationTitle');
