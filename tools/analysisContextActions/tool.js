@@ -439,16 +439,17 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      if (!this.options.copyPgn) return;
-
       this.suffix = (ev.shiftKey ? 'f' : '') + (ev.ctrlKey ? 's' : '') + (ev.altKey ? 't' : '');
       if (this.suffix) this.suffix = '_' + this.suffix;
 
-      const menuItem = $('#analyse-cm a[data-role="copyPgn"]');
-      if (!menuItem.length) return;
-      if (ev.altKey) ev.preventDefault();
-      const text = trans.noarg('extractVariationText' + this.suffix);
-      menuItem.text(text);
+      if (this.options.copyPgn) {
+        const menuItem = $('#analyse-cm a[data-role="copyPgn"]');
+        if (menuItem.length) {
+          if (ev.altKey) ev.preventDefault();
+          const text = trans.noarg('extractVariationText' + this.suffix);
+          menuItem.text(text);
+        }
+      }
     }
 
     async start() {
