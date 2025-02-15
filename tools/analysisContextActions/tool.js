@@ -348,7 +348,7 @@
         }
       }
 
-      if (this.options.reorderVariations && study?.vm.mode.write) {
+      if (this.options.reorderVariations && (!study || study?.vm.mode.write)) {
         const node = analysis?.contextMenuPath && analysis.tree.nodeAtPath(analysis.contextMenuPath);
         const parentNode = analysis?.contextMenuPath && analysis.tree.nodeAtPath(analysis.contextMenuPath.slice(0,-2));
         const index = parentNode?.children?.indexOf(node);
