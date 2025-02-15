@@ -123,7 +123,7 @@
                  href="https://siderite.dev/blog/new-chrome-extension-lichess-tools" target="_blank">siderite.dev</a>
             </div>
             <form>
-<table class="lichessTools-globalSwitch">
+<table class="allows lichessTools-globalSwitch">
     <tbody>
         <tr>
             <td>$trans(enableExtension)</td>
@@ -664,7 +664,7 @@
       let $this = this;
       const f = function () {
         if (location.hash?.startsWith('#lichessTools')) {
-          lichess.asset.loadCssPath('bits.account');
+          lichess.asset.loadCssPath('user.account');
           openPreferences();
           const fc = () => {
             const m = /#lichessTools\/(?<pref>.*)$/.exec(location.hash);
