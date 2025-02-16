@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "LiChess Tools, by Siderite",
-  "version": "2.4.8",
+  "version": "2.4.9",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -179,7 +179,6 @@
         "tools/themes/nonStickyHeader.css",
         "tools/themes/noStudyChat.css",
         "tools/themes/pieceDrag.css",
-        "tools/themes/noGrab.css",
         "tools/themes/noPractice.css",
         "tools/themes/gameMoveList.css",
         "tools/themes/fatGauge.css",

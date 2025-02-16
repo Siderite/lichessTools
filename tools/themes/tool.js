@@ -8,7 +8,7 @@
         name: 'themes',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard'/*, 'noGrab'*/],
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard'],
         defaultValue: '',
         advanced: true
       }
@@ -28,7 +28,6 @@
         'themes.nonStickyHeader': 'No sticky header',
         'themes.noStudyChat': 'No study chat',
         'themes.pieceDrag': 'Nicer piece drag',
-        'themes.noGrab': 'No grab cursor',
         'themes.noPractice': 'No Practice button',
         'themes.gameMoveList': 'Flexible game move list',
         'themes.fatGauge': 'Thick analysis gauge',
@@ -49,7 +48,6 @@
         'themes.nonStickyHeader': 'Antet fix \u00een pagin\u0103',
         'themes.noStudyChat': 'F\u0103r\u0103 chat \u00een studii',
         'themes.pieceDrag': 'Apucat piese mai frumos',
-        'themes.noGrab': 'F\u0103r\u0103 cursor care apuc\u0103',
         'themes.noPractice': 'F\u0103r\u0103 buton Antrenament cu calculatorul',
         'themes.gameMoveList': 'List\u0103 mut\u0103ri flexibil\u0103 \u00een joc',
         'themes.fatGauge': 'Bar\u0103 analiz\u0103 groas\u0103',
