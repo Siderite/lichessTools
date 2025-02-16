@@ -79,6 +79,7 @@
         const backgroundImage = styles.getPropertyValue('background-image');
         lt.global.document.documentElement.style.setProperty('--board-background', backgroundImage||'unset');
       }
+      $('body').toggleClass('lichessTools-hasBoardBackground', !!board.length);
     }
 
     applyThemes = ()=>{
