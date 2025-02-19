@@ -49,6 +49,7 @@
         return;
       }
       let orig = analysis.node.uci?.slice(2, 4);
+      if (!orig) return;
       if (analysis.node.san?.startsWith('O-O')) {
         switch (orig) {
           case 'a1': orig='c1'; break;
