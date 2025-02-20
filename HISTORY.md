@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+20 Feb
+
+- Toggle study chat theme
+
 14 Feb
 
 - additional book glyph
