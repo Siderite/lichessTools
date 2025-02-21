@@ -9,7 +9,7 @@
         category: 'analysis',
         type: 'multiple',
         possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'smooth', 'gauge', 'accuracyPlus'],
-        defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge',
+        defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,accuracyPlus',
         defaultNotLoggedInValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,local,moreBrilliant,accuracyPlus',
         advanced: true
       },
