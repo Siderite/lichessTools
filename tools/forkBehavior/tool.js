@@ -38,9 +38,10 @@
     getMoveText = (move, isTranspo, length) => {
       const lt = this.lichessTools;
       length = length || 0;
-      let result = Math.floor((move.ply + 1) / 2);
+      let result = '';
       if (!length || move.ply % 2 == 1) {
-        result += move.ply % 2 == 1 ? '.' : '...';
+        const moveNumber = Math.floor((move.ply + 1) / 2);
+        result += moveNumber + (move.ply % 2 == 1 ? '.' : '...');
       }
       result += move.san;
       if (move.glyphs?.length) {
