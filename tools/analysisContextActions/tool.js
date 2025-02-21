@@ -268,7 +268,7 @@
         analysis.forceVariation(path+parentNode.children[0].id,false);
       }
       for (const childPath of arr) {
-        analysis.tree.promoteAt(childPath,false);
+        analysis.promote(childPath,false);
       }
       for (const subPath of forceVariation) {
         const node = analysis.tree.nodeAtPath(subPath);
