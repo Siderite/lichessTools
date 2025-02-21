@@ -65,7 +65,7 @@
     handleVideoLinks = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      $('comment a,div.comment a').each((i, e) => {
+      $('.study__comment a, comment a,div.comment a').each((i, e) => {
         if (e.handleVideoLink) return;
         if (this.getYoutubeId(e) || this.getTwitchId(e) || this.getVimeoId(e)) {
           $(e).on('click', this.handleVideoClick);
@@ -154,7 +154,7 @@
       if (!this.options.studyLinksSameWindow) return;
       const lt = this.lichessTools;
       const $ = lt.$;
-      $('comment a[target],div.comment a[target]').each((i, e) => {
+      $('.study__comment a[target],comment a[target],div.comment a[target]').each((i, e) => {
         const href = $(e).attr('href');
         if (!e._contextMenuEnabled) {
           $(e)
@@ -184,7 +184,7 @@
 
       lt.pubsub.off('lichessTools.redraw', this.handleLinks);
       lt.pubsub.off('lichessTools.setDialogPlacement', this.setDialogPlacement);
-      $('comment a,div.comment a').off('click', this.handleVideoClick);
+      $('.study__comment a,comment a,div.comment a').off('click', this.handleVideoClick);
       if (this.options.video) {
         lt.pubsub.on('lichessTools.redraw', this.handleVideoLinks);
         lt.pubsub.on('lichessTools.setDialogPlacement', this.setDialogPlacement);
