@@ -1,7 +1,7 @@
 body.lichessTools div.lichessTools-quickActions-tooltip {
   position: absolute;
   background: var(--c-bg-page);
-  transform: translateY(-100%);
+  transform: translateY(calc(2px - 100%));
   flex-direction: column;
   border:1px #808080 solid;
 
