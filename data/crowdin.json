@@ -821,7 +821,8 @@
     "themes.toggleStudyChat": "تبديل دردشة الدراسة",
     "additionalGlyphs.enabled": "تمكين",
     "additionalGlyphs.mate": "ماتيه",
-    "additionalGlyphs.book": "كتاب"
+    "additionalGlyphs.book": "كتاب",
+    "customEngineOptions.infiniteExternal": "تحليل لا نهائي للمحركات الخارجية"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1645,7 +1646,8 @@
     "themes.toggleStudyChat": "切换学习聊天",
     "additionalGlyphs.enabled": "已启用",
     "additionalGlyphs.mate": "马特文",
-    "additionalGlyphs.book": "书"
+    "additionalGlyphs.book": "书",
+    "customEngineOptions.infiniteExternal": "外部引擎无限分析"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2469,7 +2471,8 @@
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Enabled",
     "additionalGlyphs.mate": "Mate",
-    "additionalGlyphs.book": "Book"
+    "additionalGlyphs.book": "Book",
+    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3293,7 +3296,8 @@
     "themes.toggleStudyChat": "Studiechat aan-/uitzetten",
     "additionalGlyphs.enabled": "Ingeschakeld",
     "additionalGlyphs.mate": "Mat",
-    "additionalGlyphs.book": "Boek"
+    "additionalGlyphs.book": "Boek",
+    "customEngineOptions.infiniteExternal": "Oneindige analyse voor externe motoren"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4117,7 +4121,8 @@
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Enabled",
     "additionalGlyphs.mate": "Mate",
-    "additionalGlyphs.book": "Book"
+    "additionalGlyphs.book": "Book",
+    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4941,7 +4946,8 @@
     "themes.toggleStudyChat": "Basculer le chat des études",
     "additionalGlyphs.enabled": "Activé",
     "additionalGlyphs.mate": "Famille Mate",
-    "additionalGlyphs.book": "Réserver"
+    "additionalGlyphs.book": "Réserver",
+    "customEngineOptions.infiniteExternal": "Analyse infinie des moteurs externes"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5765,7 +5771,8 @@
     "themes.toggleStudyChat": "Lernchat umschalten",
     "additionalGlyphs.enabled": "Aktiviert",
     "additionalGlyphs.mate": "Matt",
-    "additionalGlyphs.book": "Buch"
+    "additionalGlyphs.book": "Buch",
+    "customEngineOptions.infiniteExternal": "Endlose Analyse für externe Engines"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6589,7 +6596,8 @@
     "themes.toggleStudyChat": "Attiva/Disattiva chat di studio",
     "additionalGlyphs.enabled": "Abilitato",
     "additionalGlyphs.mate": "Mate",
-    "additionalGlyphs.book": "Libro"
+    "additionalGlyphs.book": "Libro",
+    "customEngineOptions.infiniteExternal": "Analisi infinita per motori esterni"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7413,7 +7421,8 @@
     "themes.toggleStudyChat": "Przełącz czat naukowy",
     "additionalGlyphs.enabled": "Włączone",
     "additionalGlyphs.mate": "Mąka",
-    "additionalGlyphs.book": "Książka"
+    "additionalGlyphs.book": "Książka",
+    "customEngineOptions.infiniteExternal": "Analiza nieskończonych silników zewnętrznych"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8237,7 +8246,8 @@
     "themes.toggleStudyChat": "Ativar/desativar chat do estudo",
     "additionalGlyphs.enabled": "Ativado",
     "additionalGlyphs.mate": "Mate",
-    "additionalGlyphs.book": "Reservar"
+    "additionalGlyphs.book": "Reservar",
+    "customEngineOptions.infiniteExternal": "Análise infinita para motores externos"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9061,7 +9071,8 @@
     "themes.toggleStudyChat": "Ativar/desativar chat do estudo",
     "additionalGlyphs.enabled": "Ativado",
     "additionalGlyphs.mate": "Mate",
-    "additionalGlyphs.book": "Reservar"
+    "additionalGlyphs.book": "Reservar",
+    "customEngineOptions.infiniteExternal": "Análise infinita para motores externos"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9885,7 +9896,8 @@
     "themes.toggleStudyChat": "Comută chat în studii",
     "additionalGlyphs.enabled": "Activate",
     "additionalGlyphs.mate": "Mat",
-    "additionalGlyphs.book": "Deschidere"
+    "additionalGlyphs.book": "Deschidere",
+    "customEngineOptions.infiniteExternal": "Analiză infinită pentru motoare externe"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10709,7 +10721,8 @@
     "themes.toggleStudyChat": "Переключить чат студии",
     "additionalGlyphs.enabled": "Включено",
     "additionalGlyphs.mate": "Мат",
-    "additionalGlyphs.book": "Книга"
+    "additionalGlyphs.book": "Книга",
+    "customEngineOptions.infiniteExternal": "Бесконечный анализ для внешних двигателей"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11533,7 +11546,8 @@
     "themes.toggleStudyChat": "Alternar chat de estudio",
     "additionalGlyphs.enabled": "Activado",
     "additionalGlyphs.mate": "Mate",
-    "additionalGlyphs.book": "Reservar"
+    "additionalGlyphs.book": "Reservar",
+    "customEngineOptions.infiniteExternal": "Análisis infinito para motores externos"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12357,7 +12371,8 @@
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Enabled",
     "additionalGlyphs.mate": "Mate",
-    "additionalGlyphs.book": "Book"
+    "additionalGlyphs.book": "Book",
+    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13181,6 +13196,7 @@
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Enabled",
     "additionalGlyphs.mate": "Mate",
-    "additionalGlyphs.book": "Book"
+    "additionalGlyphs.book": "Book",
+    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines"
   }
 }

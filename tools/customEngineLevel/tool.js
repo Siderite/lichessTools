@@ -15,7 +15,7 @@
         name: 'customEngineOptions',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['noCloud', 'noCloudExternal', 'practice', 'fix503'],
+        possibleValues: ['noCloud', 'noCloudExternal', 'infiniteExternal', 'practice', 'fix503'],
         defaultValue: false,
         advanced: true
       }
@@ -28,6 +28,7 @@
         'options.customEngineOptions': 'Custom analysis engine options',
         'customEngineOptions.noCloud': 'Ignore cloud data for evaluation',
         'customEngineOptions.noCloudExternal': 'Ignore cloud data for external engines',
+        'customEngineOptions.infiniteExternal': 'Infinite analysis for external engines',
         'customEngineOptions.practice': 'Apply in Practice mode',
         'customEngineOptions.fix503': 'Fix external engine 503 errors',
         'applyInPractice': 'Custom engine settings in Practice mode'
@@ -38,6 +39,7 @@
         'options.customEngineOptions': 'Op\u0163iuni motor analiz\u0103 personalizat',
         'customEngineOptions.noCloud': 'Ignor\u0103 cloud pentru evalu\u0103ri',
         'customEngineOptions.noCloudExternal': 'Ignor\u0103 cloud pentru motoare externe',
+        'customEngineOptions.infiniteExternal': 'Analiz\u0103 infinit\u0103 pentru motoare externe',
         'customEngineOptions.practice': 'Aplic\u0103 \u00een mod Practic\u0103',
         'customEngineOptions.fix503': 'Repar\u0103 erori 503 la motoare analiz\u0103 externe',
         'applyInPractice': 'Set\u0103ri motor personalizat \u00een mod Practic\u0103'
@@ -52,8 +54,10 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
 
+      const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
+
       if (!analysis.practice) {
-        const customDepth = analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper)
+        const customDepth = analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)
           ? 99
           : this.options.depth;
         if (customDepth && analysis.ceval.enabled() && !analysis.ceval.showingCloud) {
@@ -77,9 +81,7 @@
         }
       }
 
-      const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
-
-      $('.tview2').toggleClass('lichessTools-noCloud', this.options.noCloud || (isExternal && this.options.noCloudExternal));
+      $('.tview2').toggleClass('lichessTools-noCloud', this.options.noCloud || (isExternalEngine && this.options.noCloudExternal));
       const container = $('div.analyse__tools div.action-menu');
       if (!container.length) return;
 
@@ -136,7 +138,7 @@
       }
       $('#abset-noCloudExternal')
         .prop('checked', this.options.noCloudExternal);
-      $('div.abset-noCloudExternal').toggle(isExternal);
+      $('div.abset-noCloudExternal').toggle(isExternalEngine);
 
 
       if (!$('.abset-practice', container).length) {
@@ -184,10 +186,10 @@
         : node.ceval?.depth;
       const state = analysis.ceval.state;
       const isIdle = state == 0 || state == 2;
-      const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
-      const noCloud = this.options.noCloud || (isExternal && this.options.noCloudExternal);
+      const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
+      const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
       if (analysis.ceval.canGoDeeper && isIdle) {
-        if ((analysis.ceval.showingCloud && noCloud) || (this.options.depth && curDepth < (node.autoDeeper || this.options.depth))) {
+        if ((analysis.ceval.showingCloud && noCloud) || (this.options.depth && curDepth < (node.autoDeeper || this.options.depth)) || (this.options.infiniteExternal && isExternalEngine)) {
           node.autoDeeper = this.options.depth;
           analysis.ceval.goDeeper();
           analysis.redraw();
@@ -195,7 +197,7 @@
         }
       }
       if (!analysis.ceval.showingCloud && (node.autoDeeper || !analysis.ceval.isDeeper())
-        && this.options.depth && curDepth >= this.options.depth) {
+        && this.options.depth && curDepth >= this.options.depth && (!this.options.infiniteExternal || !isExternalEngine)) {
         node.autoDeeper = undefined;
         if (analysis.ceval.state == 3) {
           analysis.ceval.stop();
@@ -216,7 +218,7 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
 
-      if (this.options.depth || this.options.noCloud || this.options.noCloudExternal) {
+      if (this.options.depth || this.options.noCloud || this.options.noCloudExternal || this.options.infiniteExternal) {
         if (!lt.isWrappedFunction(analysis.evalCache.onLocalCeval, 'customEngineOptions')) {
           analysis.evalCache.onLocalCeval = lt.wrapFunction(analysis.evalCache.onLocalCeval, {
             id: 'customEngineOptions',
@@ -234,8 +236,8 @@
           analysis.evalCache.fetch = lt.wrapFunction(analysis.evalCache.fetch, {
             id: 'customEngineOptions',
             before: ($this, ...args) => {
-              const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
-              const noCloud = this.options.noCloud || (isExternal && this.options.noCloudExternal);
+              const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
+              const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
               if (!noCloud) return;
               if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
               return false;
@@ -246,15 +248,15 @@
           analysis.explorer.fetchTablebaseHit = lt.wrapFunction(analysis.explorer.fetchTablebaseHit, {
             id: 'customEngineOptions',
             before: ($this, ...args) => {
-              const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
-              const noCloud = this.options.noCloud || (isExternal && this.options.noCloudExternal);
+              const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
+              const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
               if (!noCloud) return;
               if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
               return false;
             },
             after: ($this, result, ...args) => {
-              const isExternal = /external/i.test(analysis.ceval?.engines?.active?.tech);
-              const noCloud = this.options.noCloud || (isExternal && this.options.noCloudExternal);
+              const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
+              const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
               if (!noCloud) return;
               if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
               return Promise.reject('Cloud disabled');
@@ -302,6 +304,7 @@
         depth: value,
         noCloud: lt.isOptionSet(customEngineOptions, 'noCloud'),
         noCloudExternal: lt.isOptionSet(customEngineOptions, 'noCloudExternal'),
+        infiniteExternal: lt.isOptionSet(customEngineOptions, 'infiniteExternal'),
         practice: lt.isOptionSet(customEngineOptions, 'practice'),
         fix503: lt.isOptionSet(customEngineOptions, 'fix503'),
         get isSet() { return this.depth || this.noCloud || this.noCloudExternal || this.practice || this.fix503; }
