@@ -822,7 +822,9 @@
     "additionalGlyphs.enabled": "تمكين",
     "additionalGlyphs.mate": "ماتيه",
     "additionalGlyphs.book": "كتاب",
-    "customEngineOptions.infiniteExternal": "تحليل لا نهائي للمحركات الخارجية"
+    "customEngineOptions.infiniteExternal": "تحليل لا نهائي للمحركات الخارجية",
+    "addHintText": "تلميح عند الطلب للاعب",
+    "addHintTitle": "أدوات شطرنج الحياة - اختياري، تلميح عند الطلب للاعب"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1647,7 +1649,9 @@
     "additionalGlyphs.enabled": "已启用",
     "additionalGlyphs.mate": "马特文",
     "additionalGlyphs.book": "书",
-    "customEngineOptions.infiniteExternal": "外部引擎无限分析"
+    "customEngineOptions.infiniteExternal": "外部引擎无限分析",
+    "addHintText": "为玩家点播提示",
+    "addHintTitle": "LiChess工具 - 供玩家选择的在线提示"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2472,7 +2476,9 @@
     "additionalGlyphs.enabled": "Enabled",
     "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Book",
-    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines"
+    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
+    "addHintText": "On-demand hint for the player",
+    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3297,7 +3303,9 @@
     "additionalGlyphs.enabled": "Ingeschakeld",
     "additionalGlyphs.mate": "Mat",
     "additionalGlyphs.book": "Boek",
-    "customEngineOptions.infiniteExternal": "Oneindige analyse voor externe motoren"
+    "customEngineOptions.infiniteExternal": "Oneindige analyse voor externe motoren",
+    "addHintText": "On-demand hint voor de speler",
+    "addHintTitle": "LiChess Tools - optioneel, op vraag-hint voor de speler"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4122,7 +4130,9 @@
     "additionalGlyphs.enabled": "Enabled",
     "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Book",
-    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines"
+    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
+    "addHintText": "On-demand hint for the player",
+    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4947,7 +4957,9 @@
     "additionalGlyphs.enabled": "Activé",
     "additionalGlyphs.mate": "Famille Mate",
     "additionalGlyphs.book": "Réserver",
-    "customEngineOptions.infiniteExternal": "Analyse infinie des moteurs externes"
+    "customEngineOptions.infiniteExternal": "Analyse infinie des moteurs externes",
+    "addHintText": "Indice à la demande pour le joueur",
+    "addHintTitle": "Outils LiChess - Indice facultatif à la demande du joueur"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5772,7 +5784,9 @@
     "additionalGlyphs.enabled": "Aktiviert",
     "additionalGlyphs.mate": "Matt",
     "additionalGlyphs.book": "Buch",
-    "customEngineOptions.infiniteExternal": "Endlose Analyse für externe Engines"
+    "customEngineOptions.infiniteExternal": "Endlose Analyse für externe Engines",
+    "addHintText": "Hinweis auf Nachfrage für den Spieler",
+    "addHintTitle": "LiChess Tools - optionaler Hinweis auf Wunsch für den Spieler"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6597,7 +6611,9 @@
     "additionalGlyphs.enabled": "Abilitato",
     "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Libro",
-    "customEngineOptions.infiniteExternal": "Analisi infinita per motori esterni"
+    "customEngineOptions.infiniteExternal": "Analisi infinita per motori esterni",
+    "addHintText": "Suggerimento su richiesta per il giocatore",
+    "addHintTitle": "Strumenti LiChess - opzionale, suggerimento on-demand per il giocatore"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7422,7 +7438,9 @@
     "additionalGlyphs.enabled": "Włączone",
     "additionalGlyphs.mate": "Mąka",
     "additionalGlyphs.book": "Książka",
-    "customEngineOptions.infiniteExternal": "Analiza nieskończonych silników zewnętrznych"
+    "customEngineOptions.infiniteExternal": "Analiza nieskończonych silników zewnętrznych",
+    "addHintText": "Wskazówka dla gracza na żądanie",
+    "addHintTitle": "Narzędzia LiChess - opcjonalne, podpowiedź na żądanie dla gracza"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8247,7 +8265,9 @@
     "additionalGlyphs.enabled": "Ativado",
     "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Reservar",
-    "customEngineOptions.infiniteExternal": "Análise infinita para motores externos"
+    "customEngineOptions.infiniteExternal": "Análise infinita para motores externos",
+    "addHintText": "Dica sob demanda para o jogador",
+    "addHintTitle": "Ferramentas de LiChess - dica opcional, sob demanda para o jogador"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9072,7 +9092,9 @@
     "additionalGlyphs.enabled": "Ativado",
     "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Reservar",
-    "customEngineOptions.infiniteExternal": "Análise infinita para motores externos"
+    "customEngineOptions.infiniteExternal": "Análise infinita para motores externos",
+    "addHintText": "Dica sob demanda para o jogador",
+    "addHintTitle": "Ferramentas de LiChess - dica opcional, sob demanda para o jogador"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9897,7 +9919,9 @@
     "additionalGlyphs.enabled": "Activate",
     "additionalGlyphs.mate": "Mat",
     "additionalGlyphs.book": "Deschidere",
-    "customEngineOptions.infiniteExternal": "Analiză infinită pentru motoare externe"
+    "customEngineOptions.infiniteExternal": "Analiză infinită pentru motoare externe",
+    "addHintText": "Indiciu la cerere pentru jucător",
+    "addHintTitle": "LiChess Tools - opțional, Indiciu la cerere pentru jucător"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10722,7 +10746,9 @@
     "additionalGlyphs.enabled": "Включено",
     "additionalGlyphs.mate": "Мат",
     "additionalGlyphs.book": "Книга",
-    "customEngineOptions.infiniteExternal": "Бесконечный анализ для внешних двигателей"
+    "customEngineOptions.infiniteExternal": "Бесконечный анализ для внешних двигателей",
+    "addHintText": "Подсказка по требованию для игрока",
+    "addHintTitle": "Инструменты Жизни - необязательно, подсказка по требованию для игрока"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11547,7 +11573,9 @@
     "additionalGlyphs.enabled": "Activado",
     "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Reservar",
-    "customEngineOptions.infiniteExternal": "Análisis infinito para motores externos"
+    "customEngineOptions.infiniteExternal": "Análisis infinito para motores externos",
+    "addHintText": "Sugerencia a petición para el jugador",
+    "addHintTitle": "Herramientas de LiChess - opcional, pista a petición del jugador"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12372,7 +12400,9 @@
     "additionalGlyphs.enabled": "Enabled",
     "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Book",
-    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines"
+    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
+    "addHintText": "On-demand hint for the player",
+    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13197,6 +13227,8 @@
     "additionalGlyphs.enabled": "Enabled",
     "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Book",
-    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines"
+    "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
+    "addHintText": "On-demand hint for the player",
+    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player"
   }
 }
