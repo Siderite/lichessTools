@@ -824,7 +824,9 @@
     "additionalGlyphs.book": "كتاب",
     "customEngineOptions.infiniteExternal": "تحليل لا نهائي للمحركات الخارجية",
     "addHintText": "تلميح عند الطلب للاعب",
-    "addHintTitle": "أدوات شطرنج الحياة - اختياري، تلميح عند الطلب للاعب"
+    "addHintTitle": "أدوات شطرنج الحياة - اختياري، تلميح عند الطلب للاعب",
+    "options.commentEditing": "تحسين التحرير للتعليقات على الدراسة",
+    "editCommentTitle": "نسخ وتحرير"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1651,7 +1653,9 @@
     "additionalGlyphs.book": "书",
     "customEngineOptions.infiniteExternal": "外部引擎无限分析",
     "addHintText": "为玩家点播提示",
-    "addHintTitle": "LiChess工具 - 供玩家选择的在线提示"
+    "addHintTitle": "LiChess工具 - 供玩家选择的在线提示",
+    "options.commentEditing": "改进学习评论的编辑",
+    "editCommentTitle": "复制和编辑"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2478,7 +2482,9 @@
     "additionalGlyphs.book": "Book",
     "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
     "addHintText": "On-demand hint for the player",
-    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player"
+    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player",
+    "options.commentEditing": "Improved editing for study comments",
+    "editCommentTitle": "Copy and edit"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3305,7 +3311,9 @@
     "additionalGlyphs.book": "Boek",
     "customEngineOptions.infiniteExternal": "Oneindige analyse voor externe motoren",
     "addHintText": "On-demand hint voor de speler",
-    "addHintTitle": "LiChess Tools - optioneel, op vraag-hint voor de speler"
+    "addHintTitle": "LiChess Tools - optioneel, op vraag-hint voor de speler",
+    "options.commentEditing": "Verbeterde bewerking voor studiereacties",
+    "editCommentTitle": "Kopiëren en bewerken"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4132,7 +4140,9 @@
     "additionalGlyphs.book": "Book",
     "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
     "addHintText": "On-demand hint for the player",
-    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player"
+    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player",
+    "options.commentEditing": "Improved editing for study comments",
+    "editCommentTitle": "Copy and edit"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4959,7 +4969,9 @@
     "additionalGlyphs.book": "Réserver",
     "customEngineOptions.infiniteExternal": "Analyse infinie des moteurs externes",
     "addHintText": "Indice à la demande pour le joueur",
-    "addHintTitle": "Outils LiChess - Indice facultatif à la demande du joueur"
+    "addHintTitle": "Outils LiChess - Indice facultatif à la demande du joueur",
+    "options.commentEditing": "Amélioration de l'édition des commentaires d'étude",
+    "editCommentTitle": "Copier et éditer"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5786,7 +5798,9 @@
     "additionalGlyphs.book": "Buch",
     "customEngineOptions.infiniteExternal": "Endlose Analyse für externe Engines",
     "addHintText": "Hinweis auf Nachfrage für den Spieler",
-    "addHintTitle": "LiChess Tools - optionaler Hinweis auf Wunsch für den Spieler"
+    "addHintTitle": "LiChess Tools - optionaler Hinweis auf Wunsch für den Spieler",
+    "options.commentEditing": "Verbesserte Bearbeitung für Lernkommentare",
+    "editCommentTitle": "Kopieren und bearbeiten"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6613,7 +6627,9 @@
     "additionalGlyphs.book": "Libro",
     "customEngineOptions.infiniteExternal": "Analisi infinita per motori esterni",
     "addHintText": "Suggerimento su richiesta per il giocatore",
-    "addHintTitle": "Strumenti LiChess - opzionale, suggerimento on-demand per il giocatore"
+    "addHintTitle": "Strumenti LiChess - opzionale, suggerimento on-demand per il giocatore",
+    "options.commentEditing": "Modifica migliorata per commenti di studio",
+    "editCommentTitle": "Copia e modifica"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7440,7 +7456,9 @@
     "additionalGlyphs.book": "Książka",
     "customEngineOptions.infiniteExternal": "Analiza nieskończonych silników zewnętrznych",
     "addHintText": "Wskazówka dla gracza na żądanie",
-    "addHintTitle": "Narzędzia LiChess - opcjonalne, podpowiedź na żądanie dla gracza"
+    "addHintTitle": "Narzędzia LiChess - opcjonalne, podpowiedź na żądanie dla gracza",
+    "options.commentEditing": "Ulepszona edycja komentarzy do badań",
+    "editCommentTitle": "Kopiuj i edytuj"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8267,7 +8285,9 @@
     "additionalGlyphs.book": "Reservar",
     "customEngineOptions.infiniteExternal": "Análise infinita para motores externos",
     "addHintText": "Dica sob demanda para o jogador",
-    "addHintTitle": "Ferramentas de LiChess - dica opcional, sob demanda para o jogador"
+    "addHintTitle": "Ferramentas de LiChess - dica opcional, sob demanda para o jogador",
+    "options.commentEditing": "Edição melhorada para comentários de estudo",
+    "editCommentTitle": "Copiar e editar"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9094,7 +9114,9 @@
     "additionalGlyphs.book": "Reservar",
     "customEngineOptions.infiniteExternal": "Análise infinita para motores externos",
     "addHintText": "Dica sob demanda para o jogador",
-    "addHintTitle": "Ferramentas de LiChess - dica opcional, sob demanda para o jogador"
+    "addHintTitle": "Ferramentas de LiChess - dica opcional, sob demanda para o jogador",
+    "options.commentEditing": "Edição melhorada para comentários de estudo",
+    "editCommentTitle": "Copiar e editar"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9921,7 +9943,9 @@
     "additionalGlyphs.book": "Deschidere",
     "customEngineOptions.infiniteExternal": "Analiză infinită pentru motoare externe",
     "addHintText": "Indiciu la cerere pentru jucător",
-    "addHintTitle": "LiChess Tools - opțional, Indiciu la cerere pentru jucător"
+    "addHintTitle": "LiChess Tools - opțional, Indiciu la cerere pentru jucător",
+    "options.commentEditing": "Editare mai bună a comentariilor în studii",
+    "editCommentTitle": "Copiază și editează"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10748,7 +10772,9 @@
     "additionalGlyphs.book": "Книга",
     "customEngineOptions.infiniteExternal": "Бесконечный анализ для внешних двигателей",
     "addHintText": "Подсказка по требованию для игрока",
-    "addHintTitle": "Инструменты Жизни - необязательно, подсказка по требованию для игрока"
+    "addHintTitle": "Инструменты Жизни - необязательно, подсказка по требованию для игрока",
+    "options.commentEditing": "Улучшено редактирование комментариев к обучению",
+    "editCommentTitle": "Копировать и редактировать"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11575,7 +11601,9 @@
     "additionalGlyphs.book": "Reservar",
     "customEngineOptions.infiniteExternal": "Análisis infinito para motores externos",
     "addHintText": "Sugerencia a petición para el jugador",
-    "addHintTitle": "Herramientas de LiChess - opcional, pista a petición del jugador"
+    "addHintTitle": "Herramientas de LiChess - opcional, pista a petición del jugador",
+    "options.commentEditing": "Edición mejorada para comentarios de estudio",
+    "editCommentTitle": "Copiar y editar"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12402,7 +12430,9 @@
     "additionalGlyphs.book": "Book",
     "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
     "addHintText": "On-demand hint for the player",
-    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player"
+    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player",
+    "options.commentEditing": "Improved editing for study comments",
+    "editCommentTitle": "Copy and edit"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13229,6 +13259,8 @@
     "additionalGlyphs.book": "Book",
     "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
     "addHintText": "On-demand hint for the player",
-    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player"
+    "addHintTitle": "LiChess Tools - optional, on-demand hint for the player",
+    "options.commentEditing": "Improved editing for study comments",
+    "editCommentTitle": "Copy and edit"
   }
 }

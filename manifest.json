@@ -160,6 +160,7 @@
         "tools/tournamentTopBoard/tool.js",
         "tools/botFilters/tool.js",
         "tools/analysisReadComments/tool.js",
+        "tools/commentEditing/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -273,6 +274,7 @@
         "tools/puzzleHistory/tool.css",
         "tools/botFilters/tool.css",
         "tools/analysisReadComments/tool.css",
+        "tools/commentEditing/tool.css",
 
         "tools/tvOptions/tool.css",
 

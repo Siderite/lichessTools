@@ -122,6 +122,7 @@ lichessTools.loadTool(LiChessTools.Tools.PuzzleHistory);
 lichessTools.loadTool(LiChessTools.Tools.TournamentTopBoard);
 lichessTools.loadTool(LiChessTools.Tools.BotFilters);
 lichessTools.loadTool(LiChessTools.Tools.AnalysisReadComments);
+lichessTools.loadTool(LiChessTools.Tools.CommentEditing);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
