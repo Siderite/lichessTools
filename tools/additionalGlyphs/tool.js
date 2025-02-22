@@ -7,9 +7,9 @@
       {
         name: 'additionalGlyphs',
         category: 'analysis',
-        type: 'single',
-        possibleValues: [false, true],
-        defaultValue: true,
+        type: 'multiple',
+        possibleValues: ['enabled','mate', 'book'],
+        defaultValue: 'enabled,mate,book',
         advanced: true
       }
     ];
@@ -17,17 +17,23 @@
     intl = {
       'en-US': {
         'options.analysis': 'Analysis',
-        'options.additionalGlyphs': 'Additional glyphs'
+        'options.additionalGlyphs': 'Additional glyphs',
+        'additionalGlyphs.enabled': 'Enabled',
+        'additionalGlyphs.mate': 'Mate',
+        'additionalGlyphs.book': 'Book'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.additionalGlyphs': 'Simboluri \u00een plus'
+        'options.additionalGlyphs': 'Simboluri \u00een plus',
+        'additionalGlyphs.enabled': 'Activate',
+        'additionalGlyphs.mate': 'Mat',
+        'additionalGlyphs.book': 'Deschidere'
       }
     }
 
     isStandardGlyph = (glyph) => {
       const lt = this.lichessTools;
-      return !['#', lt.icon.Book, lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes].includes(glyph);
+      return ![lt.icon.Mate, lt.icon.Book, lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes].includes(glyph);
     }
 
     drawGlyphsDirect = () => {
@@ -39,8 +45,11 @@
       let glyph = analysis.node.glyphs?.at(0)?.symbol;
       let fill = analysis.node.glyphs?.at(0)?.fill || '#557766B0';
       if (!glyph) {
-        if (lt.isMate(analysis.node)) glyph = '#';
-        if (analysis.node.opening) {
+        if (this.options.mate && lt.isMate(analysis.node)) {
+          glyph = lt.icon.Mate;
+          fill = '#557766B0';
+        } else
+        if (this.options.book && analysis.node.opening) {
           glyph = lt.icon.Book;
           fill = '#999933B0';
         }
@@ -84,10 +93,15 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
+      this.options = {
+        enabled: lt.isOptionSet(value, 'enabled'),
+        mate: lt.isOptionSet(value, 'mate'),
+        book: lt.isOptionSet(value, 'book')
+      };
       const study = analysis.study;
       lt.pubsub.off('lichessTools.redraw', this.drawGlyphs);
       lt.global.clearInterval(this.interval);
-      if (!value) {
+      if (!this.options.enabled) {
         if (analysis.chessground) {
           const shapes = analysis.chessground.state.drawable.autoShapes?.filter(s => s.type !== 'glyph') || [];
           analysis.chessground.setAutoShapes(shapes);

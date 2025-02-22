@@ -818,7 +818,10 @@
     "bumpDownVariationText": "التقط لأسفل",
     "bumpDownVariationTitle": "أدوات شطرنج الحياة - تنخفض التباين",
     "extraChart.accuracyPlus": "المزيد من المعلومات حول الدقة",
-    "themes.toggleStudyChat": "تبديل دردشة الدراسة"
+    "themes.toggleStudyChat": "تبديل دردشة الدراسة",
+    "additionalGlyphs.enabled": "تمكين",
+    "additionalGlyphs.mate": "ماتيه",
+    "additionalGlyphs.book": "كتاب"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1639,7 +1642,10 @@
     "bumpDownVariationText": "倒计时",
     "bumpDownVariationTitle": "LiChess工具 - 退回下面的变化",
     "extraChart.accuracyPlus": "关于准确性的更多信息",
-    "themes.toggleStudyChat": "切换学习聊天"
+    "themes.toggleStudyChat": "切换学习聊天",
+    "additionalGlyphs.enabled": "已启用",
+    "additionalGlyphs.mate": "马特文",
+    "additionalGlyphs.book": "书"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2460,7 +2466,10 @@
     "bumpDownVariationText": "Bump down",
     "bumpDownVariationTitle": "LiChess Tools - bump down variation",
     "extraChart.accuracyPlus": "More info on Accuracy",
-    "themes.toggleStudyChat": "Toggle study chat"
+    "themes.toggleStudyChat": "Toggle study chat",
+    "additionalGlyphs.enabled": "Enabled",
+    "additionalGlyphs.mate": "Mate",
+    "additionalGlyphs.book": "Book"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3281,7 +3290,10 @@
     "bumpDownVariationText": "Omlaag pompen",
     "bumpDownVariationTitle": "LiChess Tools - afkappen variatie",
     "extraChart.accuracyPlus": "Meer informatie over Nauwkeurigheid",
-    "themes.toggleStudyChat": "Studiechat aan-/uitzetten"
+    "themes.toggleStudyChat": "Studiechat aan-/uitzetten",
+    "additionalGlyphs.enabled": "Ingeschakeld",
+    "additionalGlyphs.mate": "Mat",
+    "additionalGlyphs.book": "Boek"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4102,7 +4114,10 @@
     "bumpDownVariationText": "Bump down",
     "bumpDownVariationTitle": "LiChess Tools - bump down variation",
     "extraChart.accuracyPlus": "More info on Accuracy",
-    "themes.toggleStudyChat": "Toggle study chat"
+    "themes.toggleStudyChat": "Toggle study chat",
+    "additionalGlyphs.enabled": "Enabled",
+    "additionalGlyphs.mate": "Mate",
+    "additionalGlyphs.book": "Book"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4923,7 +4938,10 @@
     "bumpDownVariationText": "Descendre",
     "bumpDownVariationTitle": "LiChess Tools - descendre la variante",
     "extraChart.accuracyPlus": "Plus d'infos sur la précision",
-    "themes.toggleStudyChat": "Basculer le chat des études"
+    "themes.toggleStudyChat": "Basculer le chat des études",
+    "additionalGlyphs.enabled": "Activé",
+    "additionalGlyphs.mate": "Famille Mate",
+    "additionalGlyphs.book": "Réserver"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5744,7 +5762,10 @@
     "bumpDownVariationText": "Bumpf nach unten",
     "bumpDownVariationTitle": "LiChess-Tools - Abwärtsvariation",
     "extraChart.accuracyPlus": "Weitere Informationen zur Genauigkeit",
-    "themes.toggleStudyChat": "Lernchat umschalten"
+    "themes.toggleStudyChat": "Lernchat umschalten",
+    "additionalGlyphs.enabled": "Aktiviert",
+    "additionalGlyphs.mate": "Matt",
+    "additionalGlyphs.book": "Buch"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6565,7 +6586,10 @@
     "bumpDownVariationText": "Saltare giù",
     "bumpDownVariationTitle": "Strumenti LiChess - variazione sbalzo verso il basso",
     "extraChart.accuracyPlus": "Maggiori informazioni su Precisione",
-    "themes.toggleStudyChat": "Attiva/Disattiva chat di studio"
+    "themes.toggleStudyChat": "Attiva/Disattiva chat di studio",
+    "additionalGlyphs.enabled": "Abilitato",
+    "additionalGlyphs.mate": "Mate",
+    "additionalGlyphs.book": "Libro"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7386,7 +7410,10 @@
     "bumpDownVariationText": "Zrzuć",
     "bumpDownVariationTitle": "Narzędzia LiChess - zmiana odrzutu",
     "extraChart.accuracyPlus": "Więcej informacji na temat dokładności",
-    "themes.toggleStudyChat": "Przełącz czat naukowy"
+    "themes.toggleStudyChat": "Przełącz czat naukowy",
+    "additionalGlyphs.enabled": "Włączone",
+    "additionalGlyphs.mate": "Mąka",
+    "additionalGlyphs.book": "Książka"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8207,7 +8234,10 @@
     "bumpDownVariationText": "Saltar para baixo",
     "bumpDownVariationTitle": "Ferramentas LiChess - Escalar para baixo variação",
     "extraChart.accuracyPlus": "Mais informações sobre precisão",
-    "themes.toggleStudyChat": "Ativar/desativar chat do estudo"
+    "themes.toggleStudyChat": "Ativar/desativar chat do estudo",
+    "additionalGlyphs.enabled": "Ativado",
+    "additionalGlyphs.mate": "Mate",
+    "additionalGlyphs.book": "Reservar"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9028,7 +9058,10 @@
     "bumpDownVariationText": "Saltar para baixo",
     "bumpDownVariationTitle": "Ferramentas LiChess - Escalar para baixo variação",
     "extraChart.accuracyPlus": "Mais informações sobre precisão",
-    "themes.toggleStudyChat": "Ativar/desativar chat do estudo"
+    "themes.toggleStudyChat": "Ativar/desativar chat do estudo",
+    "additionalGlyphs.enabled": "Ativado",
+    "additionalGlyphs.mate": "Mate",
+    "additionalGlyphs.book": "Reservar"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9849,7 +9882,10 @@
     "bumpDownVariationText": "Coboară",
     "bumpDownVariationTitle": "LiChess Tools - coboară variațiunea",
     "extraChart.accuracyPlus": "Informații în plus pe Acuratețe",
-    "themes.toggleStudyChat": "Comută chat în studii"
+    "themes.toggleStudyChat": "Comută chat în studii",
+    "additionalGlyphs.enabled": "Activate",
+    "additionalGlyphs.mate": "Mat",
+    "additionalGlyphs.book": "Deschidere"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10670,7 +10706,10 @@
     "bumpDownVariationText": "Свернуть вниз",
     "bumpDownVariationTitle": "Инструменты Жизни - оттолкнуть вариацию",
     "extraChart.accuracyPlus": "Подробнее о точности",
-    "themes.toggleStudyChat": "Переключить чат студии"
+    "themes.toggleStudyChat": "Переключить чат студии",
+    "additionalGlyphs.enabled": "Включено",
+    "additionalGlyphs.mate": "Мат",
+    "additionalGlyphs.book": "Книга"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11491,7 +11530,10 @@
     "bumpDownVariationText": "Bajar",
     "bumpDownVariationTitle": "Herramientas de LiAjedrez - variación de caída",
     "extraChart.accuracyPlus": "Más información sobre precisión",
-    "themes.toggleStudyChat": "Alternar chat de estudio"
+    "themes.toggleStudyChat": "Alternar chat de estudio",
+    "additionalGlyphs.enabled": "Activado",
+    "additionalGlyphs.mate": "Mate",
+    "additionalGlyphs.book": "Reservar"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12312,7 +12354,10 @@
     "bumpDownVariationText": "Bump down",
     "bumpDownVariationTitle": "LiChess Tools - bump down variation",
     "extraChart.accuracyPlus": "More info on Accuracy",
-    "themes.toggleStudyChat": "Toggle study chat"
+    "themes.toggleStudyChat": "Toggle study chat",
+    "additionalGlyphs.enabled": "Enabled",
+    "additionalGlyphs.mate": "Mate",
+    "additionalGlyphs.book": "Book"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13133,6 +13178,9 @@
     "bumpDownVariationText": "Bump down",
     "bumpDownVariationTitle": "LiChess Tools - bump down variation",
     "extraChart.accuracyPlus": "More info on Accuracy",
-    "themes.toggleStudyChat": "Toggle study chat"
+    "themes.toggleStudyChat": "Toggle study chat",
+    "additionalGlyphs.enabled": "Enabled",
+    "additionalGlyphs.mate": "Mate",
+    "additionalGlyphs.book": "Book"
   }
 }

@@ -231,6 +231,7 @@
       Document: '\uD83D\uDDCE',
       UpwardsWhiteArrow: '\u21E7',
       DownwardsWhiteArrow: '\u21E9',
+      Mate: '\u266F',
       Book: '\uD83D\uDD6E',
 
       toEntity: function(s) {
