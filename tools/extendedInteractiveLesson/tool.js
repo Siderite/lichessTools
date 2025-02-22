@@ -42,6 +42,8 @@
         'interactiveLessonsText': 'Interactive lessons',
         'addDeviationText': 'Explain why other moves are wrong',
         'addDeviationTitle': 'LiChess Tools - explain why moves from here not in the PGN are wrong',
+        'addHintText': 'On-demand hint for the player',
+        'addHintTitle': 'LiChess Tools - optional, on-demand hint for the player',
         'options.extendedInteractiveLessonFlow': 'Extended interactive lesson flow',
         'extendedInteractiveLessonFlow.sequential': 'Sequential',
         'extendedInteractiveLessonFlow.spacedRepetition': 'Spaced Repetition',
@@ -76,6 +78,8 @@
         'interactiveLessonsText': 'Lec\u0163ii interactive',
         'addDeviationText': 'Explic\u0103 de ce alte mut\u0103ri sunt gre\u015Fite',
         'addDeviationTitle': 'LiChess Tools - explic\u0103 de ce mut\u0103ri de aici lips\u0103 din PGN sunt gre\u015Fite',
+        'addHintText': 'Indiciu la cerere pentru juc\u0103tor',
+        'addHintTitle': 'LiChess Tools - op\u0163ional, un indiciu la cerere pentru juc\u0103tor',
         'options.extendedInteractiveLessonFlow': 'Cursul lec\u0163iilor interactive extinse',
         'extendedInteractiveLessonFlow.sequential': 'Secven\u0163ial',
         'extendedInteractiveLessonFlow.spacedRepetition': 'Repeti\u0163ie distan\u0163at\u0103',
@@ -697,7 +701,7 @@
       }
       const text = trans.noarg('addDeviationText');
       const deviation = await lt.uiApi.dialog.prompt(text, gamebook.deviation);
-      if (!deviation) return;
+      if (deviation == gamebook.deviation) return;
       gamebook.deviation = deviation;
       const chapterId = analysis.study.currentChapter()?.id;
       if (!chapterId) {
@@ -711,6 +715,36 @@
       });
       if (analysis.node === node) {
         $('div.gamebook-edit div.deviation textarea').val(deviation);
+      }
+    };
+
+    addHint = async () => {
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const analysis = lt.lichess.analysis;
+      const nodePath = analysis.contextMenuPath;
+      const node = analysis.tree.nodeAtPath(nodePath);
+      let gamebook = node.gamebook;
+      if (!gamebook) {
+        gamebook = {};
+        node.gamebook = gamebook;
+      }
+      const text = trans.noarg('addHintText');
+      const hint = await lt.uiApi.dialog.prompt(text, gamebook.hint);
+      if (hint == gamebook.hint) return;
+      gamebook.hint = hint;
+      const chapterId = analysis.study.currentChapter()?.id;
+      if (!chapterId) {
+        lt.global.console.warn('Could not determine chapterId');
+        return;
+      }
+      analysis.study.makeChange('setGamebook', {
+        ch: chapterId,
+        path: nodePath,
+        gamebook: gamebook
+      });
+      if (analysis.node === node) {
+        $('div.gamebook-edit div.hint textarea').val(hint);
       }
     };
 
@@ -779,6 +813,16 @@
           .attr('data-role', 'addDeviation')
           .text(text).attr('title', title)
           .on('click', this.addDeviation)
+          .appendTo(menu);
+      }
+      if (menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addHint"]').length) {
+        const text = trans.noarg('addHintText');
+        const title = trans.noarg('addHintTitle');
+        $('<a>')
+          .attr('data-icon', lt.icon.InfoCircle)
+          .attr('data-role', 'addHint')
+          .text(text).attr('title', title)
+          .on('click', this.addHint)
           .appendTo(menu);
       }
 
