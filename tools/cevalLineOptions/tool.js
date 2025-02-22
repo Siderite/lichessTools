@@ -186,14 +186,14 @@
       if (!analysisTools.length) return;
       analysisTools
         .observer()
-        .off('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs);
+        .off('div.ceval, div.ceval.enabled ~ div.pv_box .pv',this.handlePvs);
       analysisTools
         .observer()
         .off('#ceval-settings-anchor',this.handleMoreLines);
       if (this.options.highlight || this.options.colorEvaluation) {
         analysisTools
           .observer()
-          .on('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
+          .on('div.ceval, div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
             childList: true,
             subtree: true,
             attributes: true,

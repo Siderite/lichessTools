@@ -229,6 +229,10 @@
       WhiteChessPawn: '\u2659',
       Opposition: '\u260D',
       Document: '\uD83D\uDDCE',
+      UpwardsWhiteArrow: '\u21E7',
+      DownwardsWhiteArrow: '\u21E9',
+      Mate: '\u266F',
+      Book: '\uD83D\uDD6E',
 
       toEntity: function(s) {
         let result='';
@@ -2265,6 +2269,7 @@
         try {
           const start = performance.now();
           await tool.start().catch(e => { setTimeout(() => { throw e; }, 100); });
+          tool.ranStart = true;
           const end = performance.now();
           if (this.debug) console.debug(tool.name,Math.round(end-start)+'ms','Tot:',Math.round(end-totStart)+'ms');
         } catch (e) {

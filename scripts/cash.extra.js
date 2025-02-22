@@ -54,6 +54,15 @@ cash.fn.attrSafe = function(attr,value) {
   return this;
 }
 
+cash.fn.toggleClassSafe = function(className, value) {
+  const existing = this.hasClass(className);
+  if (value === undefined) value = !existing;
+  if (existing !== value) {
+    this.toggleClass(className, value);
+  }
+  return this;
+}
+
 
 class Observer {
   constructor(context) {
@@ -70,11 +79,11 @@ class Observer {
     if (!observer) {
       observer = new MutationObserver((mutations)=>{
         const matches = mutations.filter(m=>{
-          const target = $(m.target);
+          const target = cash(m.target);
           if (target.is(selector)) return true;
           if (!options.withNodes) return false;
           const nodes = Array.from(m.addedNodes||[]).concat(Array.from(m.removedNodes||[]));
-          return nodes.find(n=>$(n).is(selector));
+          return nodes.find(n=>cash(n).is(selector));
         });
         if (matches.length) {
           func(matches);

@@ -79,6 +79,7 @@
         await this.removeAllComments(child, chapterId);
       }
     };
+
     removeAllGlyphs = async (node, chapterId) => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
@@ -102,6 +103,7 @@
         await this.removeAllGlyphs(child, chapterId);
       }
     };
+
     removeAllTags = async (chapterId) => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
@@ -121,6 +123,7 @@
       }
       this.clearTagSelect();
     };
+
     removeAllShapes = async (node, chapterId) => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
@@ -145,6 +148,7 @@
         await this.removeAllShapes(child, chapterId);
       }
     };
+
     setupButtons = () => {
       const lt = this.lichessTools;
       this.state = lt.traverse();
@@ -210,6 +214,7 @@
       )
         .remove();
     };
+
     setupTagDelete = () => {
       const lt = this.lichessTools;
       const trans = lt.translator;
@@ -243,6 +248,13 @@
                 value: ''
               });
             if (tags.length == 1) this.clearTagSelect();
+            if (tagName.toLowerCase()=='result') {
+              const chapter = study.chapters.list.get(chapterId);
+              if (chapter) {
+                chapter.status=undefined;
+                study.redraw();
+              }
+            }
           })
           .prependTo(e);
       });

@@ -254,9 +254,27 @@ html.transp body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-r
 
 @media print {
 
+  body.lichessTools.lichessTools-analysisPopup .analyse__board {
+    visibility:hidden;
+  }
+
+  body.lichessTools.lichessTools-analysisPopup .analyse__side,
+  body.lichessTools.lichessTools-analysisPopup .analyse__round-training,
+  body.lichessTools.lichessTools-analysisPopup .analyse__underboard,
   body.lichessTools.lichessTools-analysisPopup .analyse__controls,
-  body.lichessTools.lichessTools-analysisPopup .analyse__tools .ceval {
+  body.lichessTools.lichessTools-analysisPopup .chat__members,
+  body.lichessTools.lichessTools-analysisPopup section.mchat,
+  body.lichessTools.lichessTools-analysisPopup .analyse__tools .ceval,
+  body.lichessTools.lichessTools-analysisPopup .analyse__tools .pv_box,
+  body.lichessTools.lichessTools-analysisPopup .analyse__tools .analyse__fork {
     display: none;
+  }
+
+  body.lichessTools.lichessTools-analysisPopup .analyse__moves * {
+    border: none !important;
+    outline: none !important;
+    color: initial !important;
+    background: initial !important;
   }
 
   body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools {

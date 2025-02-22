@@ -8,9 +8,9 @@
         name: 'extraChart',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'smooth', 'gauge'],
-        defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge',
-        defaultNotLoggedInValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,local,moreBrilliant',
+        possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'smooth', 'gauge', 'accuracyPlus'],
+        defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,accuracyPlus',
+        defaultNotLoggedInValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,local,moreBrilliant,accuracyPlus',
         advanced: true
       },
       {
@@ -22,6 +22,10 @@
         advanced: true,
         hidden: true
       }
+    ];
+
+    upgrades = [
+      { name:'extraChart', value:'accuracyPlus', version: '2.4.5', type: 'new' }
     ];
 
     intl = {
@@ -39,6 +43,7 @@
         'extraChart.moreBrilliant': '... more moves',
         'extraChart.smooth': 'Chart smoothing',
         'extraChart.gauge': 'on Eval gauge',
+        'extraChart.accuracyPlus': 'More info on Accuracy',
         'chartInfoTitle': 'LiChess Tools - extra charting',
         'tensionLineTitle': 'Max tension',
         'potentialLineTitle': 'Max potential',
@@ -61,6 +66,7 @@
         'extraChart.moreBrilliant': '... mai multe mut\u0103ri',
         'extraChart.smooth': 'Netezire grafice',
         'extraChart.gauge': 'pe bara de Eval',
+        'extraChart.accuracyPlus': 'Informa\u0163ii \u00een plus pe Acurate\u0163e',
         'chartInfoTitle': 'LiChess Tools - grafice \u00een plus',
         'tensionLineTitle': 'Tensiune maxim\u0103',
         'potentialLineTitle': 'Poten\u0163ial maxim',
@@ -694,6 +700,7 @@
                            ? 0
                            : this.computeBrilliant(m, node, p2, p3);
             result = {
+              //book: node.opening,
               blunder: showBad && good < -20,
               mistake: showBad && good < -10,
               inaccuracy: showBad && good < -5,
@@ -712,6 +719,10 @@
           let symbol = null;
           let name = null;
           if (v.good) {
+            if (v.book) {
+              symbol = lt.icon.Book;
+              name = 'Book';
+            } else
             if (v.bril) {
               symbol = '!!';
               name = 'Brilliant';
@@ -729,18 +740,18 @@
               symbol = '!?';
               name = 'Interesting';
             } else
-              if (v.blunder) {
-                symbol = '??';
-                name = 'Blunder';
-              } else
-                if (v.mistake) {
-                  symbol = '?';
-                  name = 'Mistake';
-                } else
-                  if (v.inaccuracy) {
-                    symbol = '?!';
-                    name = 'Inaccuracy';
-                  }
+            if (v.blunder) {
+              symbol = '??';
+              name = 'Blunder';
+            } else
+            if (v.mistake) {
+              symbol = '?';
+              name = 'Mistake';
+            } else
+            if (v.inaccuracy) {
+              symbol = '?!';
+              name = 'Inaccuracy';
+            }
           }
           const glyphs = mainline[x].glyphs || [];
           lt.arrayRemoveAll(glyphs, g => g.type == 'nonStandard' && ['!', '!?', '!!', lt.icon.WhiteStar].includes(g.symbol));
@@ -957,6 +968,21 @@
       }
     };
 
+    getLocalLine = ()=>{
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
+      if (analysis.onMainline) {
+        return analysis.mainline;
+      } else {
+        const localLine = [...analysis.nodeList];
+        let lastNode = localLine.at(-1)?.children[0];
+        while (lastNode) {
+          localLine.push(lastNode);
+          lastNode = lastNode.children[0];
+        }
+        return localLine;
+      }
+    };
 
     prevBrilliant = null;
     generateCharts = async (forced) => {
@@ -975,16 +1001,7 @@
       }
       let localLine = null;
       if (this.options.local) {
-        if (lichess.analysis.onMainline) {
-          localLine = lichess.analysis.mainline;
-        } else {
-          localLine = [...lichess.analysis.nodeList];
-          let lastNode = localLine.at(-1)?.children[0];
-          while (lastNode) {
-            localLine.push(lastNode);
-            lastNode = lastNode.children[0];
-          }
-        }
+        localLine = this.getLocalLine();
       }
 
       if (lichess.analysis.mainline.find(n => n.eval)) {
@@ -1164,7 +1181,7 @@
         existingAccuracy = -1;
         updateChart = true;
       }
-      if (this.options.accuracy) {
+      if (this.options.accuracy || this.tempAccuracyOn) {
         const mainline = lichess.analysis.mainline;
         if (existingAccuracy < 0) {
           chart.data.datasets.push({
@@ -1405,6 +1422,84 @@
       console.log('bingo!');
     };
 
+    showAccuracy = (ev)=>{
+      const el = ev.currentTarget;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      var isWhite = $(el).closest('.advice-summary__side').has('.is.white').length ? 1 : 0;
+      var localLine = this.getLocalLine().filter(n=>n.ply && (n.ply % 2) == isWhite);
+      if (!localLine.length) return;
+      const dict = new Map();
+      for (const node of localLine) {
+        if (node.glyphs?.length) {
+          for (const glyph of node.glyphs) {
+            dict.set(glyph.symbol,(dict.get(glyph.symbol) || 0)+1);
+          } 
+        } else {
+          dict.set(' ',(dict.get(' ') || 0)+1);
+        }
+      }
+      const arr = [...dict.entries()];
+      const order = ['!!',lt.icon.WhiteStar,'!',' ','?!','?','??'];
+      const index = (x)=>{
+        const i = order.indexOf(x);
+        return i<0 ? 1000 : i;
+      };
+      arr.sort((a,b)=>index(a[0])-index(b[0]));
+      const total = arr.reduce((a,v)=>a+v[1],0);
+      const q = 100 / total;
+
+      let tooltip = $(el).next('.lichessTools-extraChart-tooltip');
+      if (!tooltip.length) {
+        tooltip = $('<div class="lichessTools-extraChart-tooltip">')
+          .insertAfter(el);
+      }
+      tooltip
+        .empty()
+        .css({ left: el.offsetLeft, top: el.offsetTop, width: el.offsetWidth });
+      let rest = 100;
+      for (let i=0; i<arr.length; i++) {
+        const [symbol,count] = arr[i];
+        const perc = i==arr.length - 1
+          ? rest
+          : Math.round(count*q);
+        rest -= perc;
+        const id = lt.crc24(symbol);
+        $('<div>')
+          .addClass('node-'+id)
+          .css('flex-grow',count)
+          .text(symbol+' '+perc+'%')
+          .appendTo(tooltip);
+      }
+      tooltip
+        .removeClass('hide');
+      this.tempAccuracyOn = lichess.analysis.getOrientation()=='black' 
+        ? isWhite == 0
+        : isWhite == 1;
+    };
+
+    hideAccuracy = (ev)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $('.lichessTools-extraChart-tooltip')
+        .addClass('hide');
+      this.tempAccuracyOn = false;
+    };
+
+    initAccuracyPlus = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $('.advice-summary__accuracy').each((i,e)=>{
+        if (e._initAccuracyPlus) return;
+        e._initAccuracyPlus = true;
+        $(e)
+          .on('mouseenter',this.showAccuracy)
+          .on('mouseleave',this.hideAccuracy)
+          .addClass('lichessTools-extraChart-accuracyPlus');
+      });
+    };
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -1423,6 +1518,7 @@
         sharpness: lt.isOptionSet(value, 'sharpness'),
         smooth: lt.isOptionSet(value, 'smooth'),
         get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness; },
+        accuracyPlus: lt.isOptionSet(value, 'accuracyPlus'),
         gauge: lt.isOptionSet(value, 'gauge'),
         christmas: !!lt.currentOptions.getValue('christmas')
       };
@@ -1452,6 +1548,14 @@
       lt.pubsub.off('lichessTools.chapterChange', this.forceGenerateCharts);
       if (this.options.brilliant) {
         lt.pubsub.on('lichessTools.chapterChange', this.forceGenerateCharts);
+      }
+
+      $('main.analyse').observer()
+        .off('.advice-summary__accuracy',this.initAccuracyPlus);
+      if (this.options.accuracyPlus) {
+        $('main.analyse').observer()
+          .on('.advice-summary__accuracy',this.initAccuracyPlus);
+        this.initAccuracyPlus();
       }
     }
 

@@ -93,6 +93,7 @@
       const lt = this.lichessTools;
       if (!lt.inViewport(el)) return;
       const Math = lt.global.Math;
+      const node = (fen && lt.lichess?.analysis?.node?.fen == fen && lt.lichess.analysis.node);
       if (!fen) fen = lt.getPositionFromBoard(el, true);
       const pos = lt.getPositionFromFen(fen);
       if (pos) {
@@ -112,6 +113,9 @@
           if (op && op != '*') opening = op + ' (R)';
         }
         if (opening) {
+          if (node && !node.opening) {
+            node.opening = { name: opening };
+          }
           el.openingData = { time: Date.now(), opening, el };
           return el.openingData;
         }

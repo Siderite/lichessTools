@@ -49,7 +49,10 @@
       text = text.replaceAll(/e\.\s*p\./gi,'un phsaant');
       text = text.replaceAll(this.urlRegex,(m)=>{
         const url = new URL(m);
-        return url.host+' URL ';
+        const host = url.host
+                        .replaceAll(/youtu.be/gi,'youtube')
+                        .replaceAll(/(^www\.|\.com$|\.org|\.net$|\.co\.\w+$)/gi,'');
+        return host+' URL ';
       });
       text = text.replaceAll(this.regChessMove,(...arr)=>{
         const result = [];

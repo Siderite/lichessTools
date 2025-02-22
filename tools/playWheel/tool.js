@@ -29,7 +29,7 @@
       const $ = lt.$;
       if (!this.options.enabled || !$.cached('body').is('.playing')) return;
       this.scrollTotal += ev.deltaY * (ev.deltaMode ? 40 : 1);
-      if (Math.abs(this.scrollTotal) >= 4) {
+      if (Math.abs(this.scrollTotal) >= 20) {
         const icon = ev.deltaY > 0
           ? lt.icon.JumpNext
           : lt.icon.JumpPrev;
@@ -37,7 +37,8 @@
         if (!button.prop('disabled')) {
           button
             .trigger('mousedown')
-            .prop('disabled',true);
+            .trigger('mouseup');
+            //.prop('disabled',true);
         }
         this.scrollTotal = 0;
       }

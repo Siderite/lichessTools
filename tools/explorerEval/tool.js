@@ -446,6 +446,9 @@
       }
       if (result.moves?.length) {
         this.cache[fen] = result;
+        if (result.moves.find(m=>m.depth>15)) {
+          lt.arrayRemoveAll(result.moves, m=>m.depth<12);
+        }
       }
       this.showEvaluations(result);
     };

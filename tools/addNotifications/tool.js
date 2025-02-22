@@ -152,8 +152,7 @@
           this._unreadNotifications = unread;
         },100);
       }
-      if (!this.notFirstTime) {
-        this.notFirstTime = true;
+      if (!this.ranStart) {
         lt.global.setTimeout(this.forcedProcessNotifications,500);
       }
     }

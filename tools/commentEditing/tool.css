@@ -1,0 +1,15 @@
+body.lichessTools .study__comment a.lichessTools-commentEditing {
+  float: right;
+  line-height: 1;
+  margin-inline-start:8px;
+  opacity: .7;
+  display: none
+}
+
+body.lichessTools .study__comment:hover a.lichessTools-commentEditing {
+  display: block
+}
+
+body.lichessTools .study__comment a.lichessTools-commentEditing:hover {
+  opacity: 1
+}

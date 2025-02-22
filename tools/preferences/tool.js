@@ -664,7 +664,7 @@
       let $this = this;
       const f = function () {
         if (location.hash?.startsWith('#lichessTools')) {
-          lichess.asset.loadCssPath('bits.account');
+          lichess.asset.loadCssPath('user.account');
           openPreferences();
           const fc = () => {
             const m = /#lichessTools\/(?<pref>.*)$/.exec(location.hash);

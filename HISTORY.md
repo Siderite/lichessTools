@@ -1,5 +1,25 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 Feb
+
+- add hint menu for interactive variations
+- separate mate/book preferences
+- option for infinite analysis with external engines
+- make read only comments editable in studies
+
+20 Feb
+
+- Toggle study chat theme
+
+14 Feb
+
+- additional book glyph
+- new option for extra charting to show percentages of moves based on glyphs
+
+12 Feb
+
+- bump variations up/down
+
 11 Feb
 
 - read comments tool

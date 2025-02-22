@@ -320,7 +320,7 @@
                             const isUserId = userId && el.text()?.trim()?.toLowerCase() == userId?.toLowerCase();
                             return !isUserId && isTitledPlayer;
                           });
-        $(e).toggleClass('lichessTools-hasTitledOpponent',hasTitledOpponent);
+        $(e).toggleClassSafe('lichessTools-hasTitledOpponent', hasTitledOpponent);
       });
     };
     processLists = this.lichessTools.debounce(this.processListsDirect,100);

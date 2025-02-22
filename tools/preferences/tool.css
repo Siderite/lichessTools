@@ -98,7 +98,6 @@ div.lichessTools-preferences form>div {
 
 div.lichessTools-preferences h3 {
   position: relative;
-  top: -0.75em;
   font-size: x-large;
   width: 100%;
   z-index: 1;
@@ -108,6 +107,24 @@ div.lichessTools-preferences h3>label {
   display: inline-block;
   width: 100%;
   text-align: right;
+}
+
+div.lichessTools-preferences table.lichessTools-globalSwitch {
+  width: 100%;
+  margin: 0 0 4em 0;
+  font-size: 1.1em;
+  table-layout: fixed;
+}
+
+div.lichessTools-preferences table.lichessTools-globalSwitch td:first-child {
+  width: 50%;
+  text-align: left;
+}
+
+div.lichessTools-preferences table.lichessTools-globalSwitch td {
+  width: 15%;
+  padding: 1em;
+  text-align: center;
 }
 
 div.lichessTools-preferences input.categoryToggle {

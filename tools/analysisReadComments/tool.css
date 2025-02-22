@@ -1,5 +1,6 @@
 body.lichessTools .analyse .gamebook button.lichessTools-readComments {
   position: absolute;
+  z-index: 2;
   right: 50%;
   bottom: 0.75em;
   width: fit-content;

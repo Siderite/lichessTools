@@ -39,7 +39,7 @@ body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-t
   min-height: 20em;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .analyse__moves {
+body.lichessTools.lichessTools-theme_mobile.mobile.lichessTools-hasBoardSize main.analyse:not(.has-relay-tour) .analyse__moves {
   flex-basis: max-content;
   max-height: var(--board-size);
 }

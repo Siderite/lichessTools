@@ -17,7 +17,7 @@
     max-height: calc(100vh - 17em - var(---site-header-height));
   }
 
-  body.lichessTools.lichessTools-theme_noStudyChat main.analyse:not(.is-relay) aside.analyse__side {
+  body.lichessTools.lichessTools-theme_noStudyChat main.analyse:has(.study__chapters):not(.is-relay) aside.analyse__side {
     position: absolute;
     width: var(--left-side-width);
   }
