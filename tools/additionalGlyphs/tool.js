@@ -37,10 +37,13 @@
       const analysis = lichess?.analysis;
       if (!analysis?.chessground) return;
       let glyph = analysis.node.glyphs?.at(0)?.symbol;
-      const fill = analysis.node.glyphs?.at(0)?.fill || '#557766B0';
+      let fill = analysis.node.glyphs?.at(0)?.fill || '#557766B0';
       if (!glyph) {
         if (lt.isMate(analysis.node)) glyph = '#';
-        if (analysis.node.opening) glyph = lt.icon.Book;
+        if (analysis.node.opening) {
+          glyph = lt.icon.Book;
+          fill = '#999933B0';
+        }
       }
       if (!glyph) return;
       if (this.isStandardGlyph(glyph) || lt.storage.get('analyse.show-move-annotation') === false) {
