@@ -175,13 +175,27 @@
       };
     };
 
+    setupHighlightSameMoves = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const main = $('main.analyse, main.puzzle');
+      main
+        .observer()
+        .on('div.ceval, div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['class']
+        });
+      this.handlePvs();
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('cevalLineOptions');
       this.logOption('Ceval line options', value || 'no');
       const lichess = lt.lichess;
       const $ = lt.$;
-      const analysis = lichess?.analysis;
       this.options = {
         highlight: lt.isOptionSet(value, 'highlight'),
         highlightOnlyMe: lt.isOptionSet(value, 'highlightOnlyMe'),
@@ -191,21 +205,15 @@
       const main = $('main.analyse, main.puzzle');
       main
         .observer()
-        .off('div.ceval, div.ceval.enabled ~ div.pv_box .pv',this.handlePvs);
+        .off('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs);
       main
         .observer()
         .off('#ceval-settings-anchor',this.handleMoreLines);
+      lt.pubsub.off('lichessTools.redraw',this.setupHighlightSameMoves);
       if (this.options.highlight || this.options.colorEvaluation) {
-        main
-          .observer()
-          .on('div.ceval, div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['class']
-          });
+        lt.pubsub.on('lichessTools.redraw',this.setupHighlightSameMoves);
+        this.setupHighlightSameMoves();
       }
-      this.handlePvs();
       if (this.options.moreLines) {
         main
           .observer()
