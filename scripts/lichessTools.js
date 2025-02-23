@@ -2174,7 +2174,7 @@
       const arr2 = v2.split('.');
       const l = Math.max(arr1.length, arr2.length);
       for (let i=0; i<l; i++) {
-        if ((arr1[i]||0)>(arr2[i]||0)) return true;
+        if ((+arr1[i]||0)>(+arr2[i]||0)) return true;
       }
       return false;
     }

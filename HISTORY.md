@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+23 Feb
+
+- options for comment reading
+
 22 Feb
 
 - add hint menu for interactive variations
