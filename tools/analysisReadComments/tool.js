@@ -46,6 +46,7 @@
     getSpeakableText = (text)=>{
       if (!text) return;
       text = text.replaceAll(/(cls|bkm|prc|rnd):([^\s]*)\s*/gi,'');
+      text = text.replaceAll(/\p{Extended_Pictographic}+/ugi,' emoji ');
       text = text.replaceAll(/e\.\s*p\./gi,'un phsaant');
       text = text.replaceAll(this.urlRegex,(m)=>{
         const url = new URL(m);
