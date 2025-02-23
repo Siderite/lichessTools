@@ -156,7 +156,11 @@
       const val = !lt.storage.get('LiChessTools.dontReadComments');
       lt.storage.set('LiChessTools.dontReadComments',val);
       this.prevComments = false;
-      if (!val) this.readComments();
+      if (val) {
+        lt.stopSpeaking();
+      } else {
+        this.readComments();
+      }
       return val;
     };
 
