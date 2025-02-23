@@ -250,6 +250,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
+      const startPosition = analysis.path;
       const path = analysis.contextMenuPath.slice(0,-2);
 
       let arr=[ index-1, index ];
@@ -276,7 +277,7 @@
           analysis.forceVariation(subPath+node.children[0].id,true);
         }
       }
-      analysis.redraw();
+      analysis.userJump(startPosition);      
     };
 
     analysisContextMenu = (ev) => {
