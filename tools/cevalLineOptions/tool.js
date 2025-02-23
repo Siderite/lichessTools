@@ -53,10 +53,14 @@
         const lt = this.lichessTools;
         const $ = lt.$;
         const lichess = lt.lichess;
+        const analysisTools = $('main .analyse__tools, main .puzzle__tools');
+        if (!analysisTools.length) return;
         this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
         [...this.dict.values()].forEach(v => v.count = 0);
-        const side = lichess.analysis.getOrientation() == 'black' ? 1 : 0;
-        const turn = lichess.analysis.turnColor() == 'black' ? 1 : 0;
+        const fen = lt.getPositionFromBoard($('.main-board')[0],true);
+        if (!fen) return;
+        const side = $('.main-board .cg-wrap').is('.orientation-black') ? 1 : 0;
+        const turn = fen.endsWith(' b') ? 1 : 0;
         const comp = side ^ turn;
         $('div.pv_box span.pv-san').each((i, e) => {
           if (!lt.inViewport(e)) return;
@@ -137,6 +141,9 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      if (!analysis) return;
       const container = $('div.setting:has(#analyse-multipv)');
       if (!container.length) return;
       const maxValue = +lt.storage.get('LiChessTools.cevalLineOptions-moreLines') || 5;
@@ -144,7 +151,7 @@
         .attr('max',maxValue)
         .off('input',this.updateMoreLinesText)
         .on('input',this.updateMoreLinesText);
-      const ceval = lt.lichess.analysis?.ceval;
+      const ceval = analysis?.ceval;
       const value = ceval?.storedPv();
       if (value) {
         input.val(value);
@@ -158,7 +165,7 @@
             const maxValue = input.attr('max')==5 ? 10 : 5;
             lt.storage.set('LiChessTools.cevalLineOptions-moreLines',maxValue);
             input.attr('max',maxValue);
-            const ceval = lt.lichess.analysis?.ceval;
+            const ceval = analysis?.ceval;
             if (ceval) {
               ceval.storedPv(+input.val());
             }
@@ -175,23 +182,21 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
-      if (!analysis) return;
       this.options = {
         highlight: lt.isOptionSet(value, 'highlight'),
         highlightOnlyMe: lt.isOptionSet(value, 'highlightOnlyMe'),
         moreLines: lt.isOptionSet(value, 'moreLines'),
         colorEvaluation: lt.isOptionSet(value, 'colorEvaluation')
       }
-      const analysisTools = $('main .analyse__tools, main .puzzle__tools');
-      if (!analysisTools.length) return;
-      analysisTools
+      const main = $('main.analyse, main.puzzle');
+      main
         .observer()
         .off('div.ceval, div.ceval.enabled ~ div.pv_box .pv',this.handlePvs);
-      analysisTools
+      main
         .observer()
         .off('#ceval-settings-anchor',this.handleMoreLines);
       if (this.options.highlight || this.options.colorEvaluation) {
-        analysisTools
+        main
           .observer()
           .on('div.ceval, div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
             childList: true,
@@ -202,7 +207,7 @@
       }
       this.handlePvs();
       if (this.options.moreLines) {
-        analysisTools
+        main
           .observer()
           .on('#ceval-settings-anchor',this.handleMoreLines);
       }
