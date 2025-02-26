@@ -66,7 +66,7 @@
       let selectElem = null;
       if ($('body').is('.mobile')) {
         selectElem = $('<ul>');
-        let container = hasTranspos
+        let container = hasTranspos && nextMoves.length
           ? $('<ul>').text(trans.noarg('movesGroupLabel')).appendTo(selectElem)
           : selectElem;
         for (const move of nextMoves) {
@@ -92,7 +92,7 @@
       } else {
         selectElem = $('<select>')
           .attr('size', size);
-        let container = hasTranspos
+        let container = hasTranspos && nextMoves.length
           ? $('<optgroup>').attr('label', trans.noarg('movesGroupLabel')).appendTo(selectElem)
           : selectElem;
         for (const move of nextMoves) {
@@ -255,7 +255,7 @@
               const nextSansCount = noDuplicates
                 ? new Set(nextSans).size
                 : nextSans.length;
-              if (!this.inForkClick && nextSansCount > 1) {
+              if (!this.inForkClick && (nextSansCount > 1 || nextTranspos.length)) {
                 switch (this.options.value) {
                   case 'hybrid':
                     if (this.variationSelect != analysis.path) {
