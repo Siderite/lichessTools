@@ -109,6 +109,9 @@
         getEntries: async () => {
           this.lastRead = +(lt.storage.get('LiChessTools.lastRead')) || 0;
           const timeline = await lt.api.timeline.get(this.lastRead);
+          if (!this.lastRead) {
+            this.setAllRead();
+          }
           if (!timeline) return [];
           const newEntries = timeline.entries
             .filter(e => e.date > this.lastRead)
