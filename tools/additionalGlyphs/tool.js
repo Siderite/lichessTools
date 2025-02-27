@@ -51,7 +51,7 @@
         } else
         if (this.options.book && analysis.node.opening) {
           glyph = lt.icon.Book;
-          fill = '#999933B0';
+          fill = '#999900BB';
         }
       }
       if (!glyph) return;
