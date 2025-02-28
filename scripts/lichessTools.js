@@ -426,6 +426,28 @@
       return result;
     }
 
+    arrayDifferent(arr1, arr2) {
+      if (arr1 === arr2) return false;
+      if (arr1.length !== arr2.length) return true;
+      const frequencyMap = new Map();
+      for (const item of arr1) {
+        frequencyMap.set(item, (frequencyMap.get(item) || 0) + 1);
+      }
+
+      for (const item of arr2) {
+        const count = frequencyMap.get(item);
+        if (!count) return true;
+        frequencyMap.set(item, count - 1);
+      }
+
+      for (const count of frequencyMap.values()) {
+        if (count !== 0) return true;
+      }
+
+      return false;
+    }
+
+
     isWrappedFunction(func, id) {
       if (!func) return false;
       if (!id || func.__wrapId === id) {

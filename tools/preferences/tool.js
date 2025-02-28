@@ -176,8 +176,7 @@
       }
 
       const order = ['languages', 'community', 'general', 'appearance', 'analysis', 'analysis2', 'study', 'friends', 'play', 'puzzles', 'TV', 'mobile', 'comm', 'integration'];
-      const diff = new Set(order).symmetricDifference(new Set(Object.keys(categs)));
-      if (diff.size) {
+      if (lt.arrayDifferent(order,Object.keys(categs))) {
         lt.global.setTimeout(()=>lt.global.console.warn('There is a difference between category keys and order: ',diff,100));
       }
       for (const key of order) {
