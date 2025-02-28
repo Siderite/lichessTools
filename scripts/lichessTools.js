@@ -1980,6 +1980,10 @@
         getChessDb: async function (fen) {
           const lt = this.lichessTools;
           try {
+            if (this.chessDbErrors > 5) {
+              lt.global.console.debug('More than 5 Chess DB errors. Waiting for a page refresh');
+              return null;
+            }
             const json = await lt.net.fetch({
               url: 'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
               args: { fen }
@@ -1990,6 +1994,7 @@
             return data;
           } catch(e) {
             lt.global.console.warn('Error getting chessdb.cn data',e);
+            this.chessDbErrors = (this.chessDbErrors || 0)+1;
             return null;
           }
         },
