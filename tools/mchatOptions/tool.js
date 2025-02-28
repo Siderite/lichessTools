@@ -411,6 +411,7 @@
         });
         this.userTeams = await lt.api.team.getUserTeams(lt.getUserId());
         this.loadTeamsData();
+        this.handleNotificationsDirect();
         const configuredTeamsCount = this.teamsData?.length;
         if (configuredTeamsCount) {
           let saveTeams = false;
