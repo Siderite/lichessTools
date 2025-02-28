@@ -829,7 +829,8 @@
     "editCommentTitle": "نسخ وتحرير",
     "analysisReadComments.enabled": "تمكين",
     "analysisReadComments.stripEmoji": "تجاهل الرمز التعبيري",
-    "analysisReadComments.readAnnotations": "قراءة الشروح"
+    "analysisReadComments.readAnnotations": "قراءة الشروح",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1661,7 +1662,8 @@
     "editCommentTitle": "复制和编辑",
     "analysisReadComments.enabled": "已启用",
     "analysisReadComments.stripEmoji": "忽略表情",
-    "analysisReadComments.readAnnotations": "读取注释"
+    "analysisReadComments.readAnnotations": "读取注释",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2493,7 +2495,8 @@
     "editCommentTitle": "Copy and edit",
     "analysisReadComments.enabled": "Enabled",
     "analysisReadComments.stripEmoji": "Ignore emoji",
-    "analysisReadComments.readAnnotations": "Read annotations"
+    "analysisReadComments.readAnnotations": "Read annotations",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3325,7 +3328,8 @@
     "editCommentTitle": "Kopiëren en bewerken",
     "analysisReadComments.enabled": "Ingeschakeld",
     "analysisReadComments.stripEmoji": "Emoji negeren",
-    "analysisReadComments.readAnnotations": "Lees aantekeningen"
+    "analysisReadComments.readAnnotations": "Lees aantekeningen",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4157,7 +4161,8 @@
     "editCommentTitle": "Copy and edit",
     "analysisReadComments.enabled": "Enabled",
     "analysisReadComments.stripEmoji": "Ignore emoji",
-    "analysisReadComments.readAnnotations": "Read annotations"
+    "analysisReadComments.readAnnotations": "Read annotations",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4372,7 +4377,7 @@
     "options.explorerPracticeOptions": "Options d'entraînement de l'explorateur",
     "explorerPracticeTitle": "LiChess Tools - s'entraîner contre les coups de l'explorateur",
     "outOfMoves": "Coups hors de l'explorateur",
-    "explorerPracticeOptions.showSmileys": "Afficher les émoticônes quand il n'y a plus de coups",
+    "explorerPracticeOptions.showSmileys": "Afficher les émojis quand il n'y a plus de coups",
     "explorerPracticeOptions.sumClick": "Cliquer sur le Σ de l'explorateur pour jouer un coup",
     "explorerPracticeOptions.showNames": "Afficher le nom de l'adversaire",
     "explorerPracticeOptions.showInfoStudy": "Données de l'explorateur dans l'étude",
@@ -4740,7 +4745,7 @@
     "options.activeIcon": "Icône de titre actif",
     "options.imagePasting": "Options pour le chat/forum",
     "imagePasting.pasteImages": "Prise en charge du collage d'images",
-    "imagePasting.bigEmoji": "Message agrandi lorsqu'il y a seulement un émoji",
+    "imagePasting.bigEmoji": "Émoji agrandi lorsque seul contenu d’un message",
     "pastingError": "Une erreur s'est produite lors de la création de l'URL de l'image",
     "options.removeChatLinkWarning": "Supprimer l'avertissement relatif au lien dans un chat",
     "options.mchatOptions": "Options pour le chat Équipe/Étude",
@@ -4940,7 +4945,7 @@
     "panelHeader-week": "Cette semaine",
     "panelHeader-month": "Ce mois",
     "panelHeader-rest": "Le reste",
-    "quickActions.emoji": "Émoticônes de chat",
+    "quickActions.emoji": "Émojis pour le chat",
     "options.tournamentTopBoard": "Suivre le 1er échiquier d’un tournoi",
     "errorSavingPreferences": "Erreur lors de l'enregistrement des préférences ! Recharger la page.",
     "options.comm": "Chat, forums, blogs",
@@ -4989,7 +4994,8 @@
     "editCommentTitle": "Copier et éditer",
     "analysisReadComments.enabled": "Activé",
     "analysisReadComments.stripEmoji": "Ignorer les émojis",
-    "analysisReadComments.readAnnotations": "Lire les annotations"
+    "analysisReadComments.readAnnotations": "Lire les annotations",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5821,7 +5827,8 @@
     "editCommentTitle": "Kopieren und bearbeiten",
     "analysisReadComments.enabled": "Aktiviert",
     "analysisReadComments.stripEmoji": "Emoji ignorieren",
-    "analysisReadComments.readAnnotations": "Anmerkungen lesen"
+    "analysisReadComments.readAnnotations": "Anmerkungen lesen",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6653,7 +6660,8 @@
     "editCommentTitle": "Copia e modifica",
     "analysisReadComments.enabled": "Abilitato",
     "analysisReadComments.stripEmoji": "Ignora emoji",
-    "analysisReadComments.readAnnotations": "Leggi annotazioni"
+    "analysisReadComments.readAnnotations": "Leggi annotazioni",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7485,7 +7493,8 @@
     "editCommentTitle": "Kopiuj i edytuj",
     "analysisReadComments.enabled": "Włączone",
     "analysisReadComments.stripEmoji": "Ignoruj emoji",
-    "analysisReadComments.readAnnotations": "Czytaj adnotacje"
+    "analysisReadComments.readAnnotations": "Czytaj adnotacje",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8317,7 +8326,8 @@
     "editCommentTitle": "Copiar e editar",
     "analysisReadComments.enabled": "Ativado",
     "analysisReadComments.stripEmoji": "Ignorar emoji",
-    "analysisReadComments.readAnnotations": "Ler anotações"
+    "analysisReadComments.readAnnotations": "Ler anotações",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9149,7 +9159,8 @@
     "editCommentTitle": "Copiar e editar",
     "analysisReadComments.enabled": "Ativado",
     "analysisReadComments.stripEmoji": "Ignorar emoji",
-    "analysisReadComments.readAnnotations": "Ler anotações"
+    "analysisReadComments.readAnnotations": "Ler anotações",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9981,7 +9992,8 @@
     "editCommentTitle": "Copiază și editează",
     "analysisReadComments.enabled": "Activat",
     "analysisReadComments.stripEmoji": "Ignoră emoji",
-    "analysisReadComments.readAnnotations": "Citește adnotări"
+    "analysisReadComments.readAnnotations": "Citește adnotări",
+    "studyLinks.commentTab": "Asigură tab de comentarii în studii"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10813,7 +10825,8 @@
     "editCommentTitle": "Копировать и редактировать",
     "analysisReadComments.enabled": "Включено",
     "analysisReadComments.stripEmoji": "Игнорировать эмодзи",
-    "analysisReadComments.readAnnotations": "Прочитать аннотации"
+    "analysisReadComments.readAnnotations": "Прочитать аннотации",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11645,7 +11658,8 @@
     "editCommentTitle": "Copiar y editar",
     "analysisReadComments.enabled": "Activado",
     "analysisReadComments.stripEmoji": "Ignorar emoji",
-    "analysisReadComments.readAnnotations": "Leer anotaciones"
+    "analysisReadComments.readAnnotations": "Leer anotaciones",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12477,7 +12491,8 @@
     "editCommentTitle": "Copy and edit",
     "analysisReadComments.enabled": "Enabled",
     "analysisReadComments.stripEmoji": "Ignore emoji",
-    "analysisReadComments.readAnnotations": "Read annotations"
+    "analysisReadComments.readAnnotations": "Read annotations",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13309,6 +13324,7 @@
     "editCommentTitle": "Copy and edit",
     "analysisReadComments.enabled": "Enabled",
     "analysisReadComments.stripEmoji": "Ignore emoji",
-    "analysisReadComments.readAnnotations": "Read annotations"
+    "analysisReadComments.readAnnotations": "Read annotations",
+    "studyLinks.commentTab": "Ensure comment tab in studies"
   }
 }
