@@ -133,7 +133,9 @@
         }
         const uci = $(e).attr('data-uci');
         let move = moves?.find(m => m.uci == uci);
-        let explorerItem = (analysis.explorer.current()?.moves || []).find(i => i.uci == uci);
+        let explorerItem = uci
+          ? (analysis.explorer.current()?.moves || []).find(i => i.uci == uci)
+          : analysis.explorer.current();
         if (!explorerItem) {
           if (this.options.evalRows && moves?.length) {
             explorerItem = {};
@@ -153,11 +155,13 @@
         const q = 1000 / total;
         const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
         const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
-        if (sharpness && Number.isFinite(sharpness)) {
-          const sharpnessTitle = trans.pluralSame('sharpnessTitle', sharpness);
-          const tdBar = $('td:has(div.bar)', e);
-          const tdTitle = tdBar.attr('title')?.split(' / ')?.at(0) + ' / ' + sharpnessTitle;
-          tdBar.attr('title', tdTitle);
+        const tdBar = $('td:has(div.bar)', e);
+        if (tdBar.length && !Number.isNaN(total)) {
+          if (sharpness && Number.isFinite(sharpness)) {
+            const sharpnessTitle = trans.pluralSame('sharpnessTitle', sharpness);
+            const tdTitle = tdBar.attr('title')?.split(' / ')?.at(0) + ' / ' + sharpnessTitle;
+            tdBar.attr('title', tdTitle);
+          }
           if (this.options.bardp) {
             [
               ['white',w],
@@ -332,7 +336,7 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
-      if (!analysis.explorer?.enabled()) return;
+      if (!analysis.explorer?.enabled() || analysis.explorer?.loading()) return;
       if (lt.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!this.options.evalRows) {
