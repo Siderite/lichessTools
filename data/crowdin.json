@@ -830,7 +830,8 @@
     "analysisReadComments.enabled": "تمكين",
     "analysisReadComments.stripEmoji": "تجاهل الرمز التعبيري",
     "analysisReadComments.readAnnotations": "قراءة الشروح",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "ضمان تبويب التعليق في الدراسات",
+    "cevalLineOptions.depthChart": "مخطط العمق"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1663,7 +1664,8 @@
     "analysisReadComments.enabled": "已启用",
     "analysisReadComments.stripEmoji": "忽略表情",
     "analysisReadComments.readAnnotations": "读取注释",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "确保研究报告中的评论选项卡",
+    "cevalLineOptions.depthChart": "深度图"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2496,7 +2498,8 @@
     "analysisReadComments.enabled": "Enabled",
     "analysisReadComments.stripEmoji": "Ignore emoji",
     "analysisReadComments.readAnnotations": "Read annotations",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Ensure comment tab in studies",
+    "cevalLineOptions.depthChart": "Depth chart"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3329,7 +3332,8 @@
     "analysisReadComments.enabled": "Ingeschakeld",
     "analysisReadComments.stripEmoji": "Emoji negeren",
     "analysisReadComments.readAnnotations": "Lees aantekeningen",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Zorg voor commentaar tab in studies",
+    "cevalLineOptions.depthChart": "Diepte grafiek"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4162,7 +4166,8 @@
     "analysisReadComments.enabled": "Enabled",
     "analysisReadComments.stripEmoji": "Ignore emoji",
     "analysisReadComments.readAnnotations": "Read annotations",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Ensure comment tab in studies",
+    "cevalLineOptions.depthChart": "Depth chart"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4995,7 +5000,8 @@
     "analysisReadComments.enabled": "Activé",
     "analysisReadComments.stripEmoji": "Ignorer les émojis",
     "analysisReadComments.readAnnotations": "Lire les annotations",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Toujours l'onglet commentaire dans les études",
+    "cevalLineOptions.depthChart": "Graphique de profondeur"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5828,7 +5834,8 @@
     "analysisReadComments.enabled": "Aktiviert",
     "analysisReadComments.stripEmoji": "Emoji ignorieren",
     "analysisReadComments.readAnnotations": "Anmerkungen lesen",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Kommentar-Tab in Studien sicherstellen",
+    "cevalLineOptions.depthChart": "Tiefendiagramm"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6661,7 +6668,8 @@
     "analysisReadComments.enabled": "Abilitato",
     "analysisReadComments.stripEmoji": "Ignora emoji",
     "analysisReadComments.readAnnotations": "Leggi annotazioni",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Assicurati la scheda dei commenti negli studi",
+    "cevalLineOptions.depthChart": "Grafico di profondità"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7494,7 +7502,8 @@
     "analysisReadComments.enabled": "Włączone",
     "analysisReadComments.stripEmoji": "Ignoruj emoji",
     "analysisReadComments.readAnnotations": "Czytaj adnotacje",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Zapewnij zakładkę komentarzy w badaniach",
+    "cevalLineOptions.depthChart": "Wykres głębokości"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8327,7 +8336,8 @@
     "analysisReadComments.enabled": "Ativado",
     "analysisReadComments.stripEmoji": "Ignorar emoji",
     "analysisReadComments.readAnnotations": "Ler anotações",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Garanta aba de comentários nos estudos",
+    "cevalLineOptions.depthChart": "Gráfico de Profundidade"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9160,7 +9170,8 @@
     "analysisReadComments.enabled": "Ativado",
     "analysisReadComments.stripEmoji": "Ignorar emoji",
     "analysisReadComments.readAnnotations": "Ler anotações",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Garanta aba de comentários nos estudos",
+    "cevalLineOptions.depthChart": "Gráfico de Profundidade"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9993,7 +10004,8 @@
     "analysisReadComments.enabled": "Activat",
     "analysisReadComments.stripEmoji": "Ignoră emoji",
     "analysisReadComments.readAnnotations": "Citește adnotări",
-    "studyLinks.commentTab": "Asigură tab de comentarii în studii"
+    "studyLinks.commentTab": "Asigură tab de comentarii în studii",
+    "cevalLineOptions.depthChart": "Grafic adâncime"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10826,7 +10838,8 @@
     "analysisReadComments.enabled": "Включено",
     "analysisReadComments.stripEmoji": "Игнорировать эмодзи",
     "analysisReadComments.readAnnotations": "Прочитать аннотации",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Обеспечьте вкладку комментариев в исследованиях",
+    "cevalLineOptions.depthChart": "Глубина графика"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11659,7 +11672,8 @@
     "analysisReadComments.enabled": "Activado",
     "analysisReadComments.stripEmoji": "Ignorar emoji",
     "analysisReadComments.readAnnotations": "Leer anotaciones",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Asegúrate de la pestaña de comentarios en estudios",
+    "cevalLineOptions.depthChart": "Gráfico de longitud"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12492,7 +12506,8 @@
     "analysisReadComments.enabled": "Enabled",
     "analysisReadComments.stripEmoji": "Ignore emoji",
     "analysisReadComments.readAnnotations": "Read annotations",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Ensure comment tab in studies",
+    "cevalLineOptions.depthChart": "Depth chart"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13325,6 +13340,7 @@
     "analysisReadComments.enabled": "Enabled",
     "analysisReadComments.stripEmoji": "Ignore emoji",
     "analysisReadComments.readAnnotations": "Read annotations",
-    "studyLinks.commentTab": "Ensure comment tab in studies"
+    "studyLinks.commentTab": "Ensure comment tab in studies",
+    "cevalLineOptions.depthChart": "Depth chart"
   }
 }

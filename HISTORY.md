@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+02 Mar
+
+- ceval depth chart
+
 23 Feb
 
 - options for comment reading

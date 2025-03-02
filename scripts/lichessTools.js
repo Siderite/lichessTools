@@ -447,6 +447,10 @@
       return false;
     }
 
+    sigmoidClamp(x, min = 0, max = 100, expectedRange = 1000) {
+      const k = expectedRange / 5; // Adjust transition steepness based on expected range
+      return min + (max - min) / (1 + Math.exp(-x / k));
+    }
 
     isWrappedFunction(func, id) {
       if (!func) return false;
