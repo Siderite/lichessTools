@@ -2,25 +2,25 @@ body.lichessTools.lichessTools-fixCoords-larger cg-container coords {
   font-size: 1.3em;
 }
 
-body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile) cg-container coords.ranks {
+body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile,:has(.lpv__board)) cg-container coords.ranks {
   right: -0.8em;
 }
 
-body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile) cg-container coords.files {
+body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile,:has(.lpv__board)) cg-container coords.files {
   bottom: -1.3em;
 }
 
 @media (min-width: 1259.3px) {
-  body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) main.gauge-on div.analyse__board {
+  body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) main.gauge-on div.analyse__board {
     left: -1.2em;
   }
 }
 
-body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.study__player-bot {
+body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) div.study__player-bot {
   margin-top: 1em;
 }
 
-body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.analyse__board {
+body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) div.analyse__board {
   margin-bottom: 1em;
 }
 
@@ -68,16 +68,16 @@ body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger cg-contain
   font-size: 1.3em !important;
 }
 
-body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger.coords-out:not(.mobile) cg-container coords.files {
+body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger.coords-out:not(.mobile,:has(.lpv__board)) cg-container coords.files {
   bottom: -1.3em !important;
 }
 
 @media (min-width: 1259.3px) {
-  body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile) main.gauge-on div.analyse__board {
+  body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) main.gauge-on div.analyse__board {
     left: -0.6em;
   }
 }
 
-body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile) div.study__player-bot {
+body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) div.study__player-bot {
   margin-top: 1em !important;
 }
