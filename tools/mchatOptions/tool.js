@@ -384,8 +384,9 @@
     sockets = [];
     async start() {
       const lt = this.lichessTools;
-      const $ = lt.$;
       const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
+      const $ = lt.$;
       const value = lt.currentOptions.getValue('mchatOptions');
       this.logOption('Team/Study chat', value);
       this.options = {

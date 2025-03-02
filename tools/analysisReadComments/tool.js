@@ -167,6 +167,7 @@
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const $ = lt.$;
       const value = lt.currentOptions.getValue('analysisReadComments');
       this.logOption('Analysis read comments', value);

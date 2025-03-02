@@ -305,6 +305,8 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('explorerPractice');
       const options = lt.currentOptions.getValue('explorerPracticeOptions');
       this.options = {
@@ -316,7 +318,6 @@
       };
       this.logOption('Explorer practice', value);
       this.logOption(' ... options', options);
-      const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;

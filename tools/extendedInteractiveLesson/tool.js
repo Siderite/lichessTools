@@ -1050,12 +1050,13 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('extendedInteractiveLesson');
       const flow = lt.currentOptions.getValue('extendedInteractiveLessonFlow');
       this.logOption('Extended interactive lessons', value, 'flow', flow);
       const $ = lt.$;
-      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;

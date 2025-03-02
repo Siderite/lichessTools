@@ -160,9 +160,10 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('keyboardHelp');
       this.logOption('Keyboard help', value);
-      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       lt.uiApi.events.off('analysis.closeAll', this.processHelp);

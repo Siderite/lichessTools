@@ -2017,10 +2017,11 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('pgnEditor');
       this.logOption('PGN editor', value);
       this.options = { enabled: !!value };
-      const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
       const container = $('#topnav section a[href="/analysis"]+div[role="group"]');

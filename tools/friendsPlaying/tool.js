@@ -155,6 +155,8 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('friendsPlaying');
       this.logOption('Friends playing alert', value);
@@ -166,8 +168,6 @@
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      const lichess = lt.lichess;
-      if (!lichess) return;
       const setInterval = lt.global.setInterval;
       const clearInterval = lt.global.clearInterval;
       lt.uiApi.onlineFriends.events.off('playing', this.playFriendSound);

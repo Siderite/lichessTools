@@ -688,10 +688,11 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('moveListOptions');
       this.logOption('Move list options', value);
       const $ = lt.$;
-      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       //if (!analysis) return;
       this.options = {

@@ -157,9 +157,10 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('chapterNavigation');
       this.logOption('Study chapter navigation', value);
-      const lichess = lt.lichess;
       const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;

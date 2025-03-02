@@ -149,6 +149,7 @@
         }
         lichess.analysis.redraw();
       }
+
       const highlight = (ev) => {
         const val = selectElem.val() || $(ev?.target).attr('value');
         if (!val) return;
@@ -163,6 +164,7 @@
         lichess.analysis.setAutoShapes();
         lichess.analysis.redraw();
       };
+
       const mobileMakeMove = (ev) => {
         ev?.preventDefault();
         const elem = $(ev?.target);
@@ -175,6 +177,7 @@
         }
         makeMove(ev);
       };
+
       $('button.submit', dlg).on('click', (ev) => {
         ev.preventDefault();
         makeMove();
@@ -296,8 +299,9 @@
 
     async start() {
       const lt = this.lichessTools;
-      const $ = lt.$;
       const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
+      const $ = lt.$;
       const value = lt.currentOptions.getValue('forkBehavior');
       this.logOption('Fork behavior', value);
       this.options = {

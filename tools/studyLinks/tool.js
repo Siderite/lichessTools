@@ -191,6 +191,8 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('studyLinks');
       this.logOption('Study link options', value);
       this.options = {
@@ -198,7 +200,6 @@
         video: lt.isOptionSet(value, 'video'),
         commentTab: lt.isOptionSet(value, 'commentTab')
       };
-      const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
