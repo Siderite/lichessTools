@@ -217,7 +217,7 @@
       const watcherCount = data?.users?.length;
       const team = this.teamsData?.find(t => t.teamId == teamId);
       if (team) team.crowd = watcherCount;
-      if (watcherCount > 1) {
+      if (lt.debug && watcherCount > 1) {
         lt.global.console.debug(new Date().toLocaleString(lt.intl.lang), ' Someone is in the ' + teamId + ' page', data.users);
       }
       if (!team || !this.isTeamsListPage()) return;
