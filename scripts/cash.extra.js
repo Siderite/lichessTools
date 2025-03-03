@@ -54,6 +54,13 @@ cash.fn.attrSafe = function(attr,value) {
   return this;
 }
 
+cash.fn.removeAttrSafe = function(attr) {
+  if (this.attr(attr)) {
+    this.removeAttr(attr);
+  }
+  return this;
+}
+
 cash.fn.toggleClassSafe = function(className, value) {
   const existing = this.hasClass(className);
   if (value === undefined) value = !existing;
