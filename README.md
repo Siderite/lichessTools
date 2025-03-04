@@ -129,6 +129,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - color computer engine evaluations
 - read move comments aloud
 - reorder variations
+- study subchapters
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:

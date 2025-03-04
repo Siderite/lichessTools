@@ -38,7 +38,7 @@
             .attr('title',trans.noarg('editCommentTitle'))
             .on('click',(ev)=>{
               ev.preventDefault();
-              const comment = (analysis.node.comments || []).find(c=>$(e).is('.'+c.id));
+              const comment = (analysis.node.comments || []).find(c=>[...e.classList].includes(c.id));
               if (!comment) return;
               const textarea = $('textarea#comment-text');
               let text = textarea.val().trim();

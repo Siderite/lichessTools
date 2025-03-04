@@ -81,7 +81,7 @@
         }
       }
 
-      $('.tview2').toggleClass('lichessTools-noCloud', this.options.noCloud || (isExternalEngine && this.options.noCloudExternal));
+      $('.tview2').toggleClassSafe('lichessTools-noCloud', this.options.noCloud || (isExternalEngine && this.options.noCloudExternal));
       const container = $('div.analyse__tools div.action-menu');
       if (!container.length) return;
 

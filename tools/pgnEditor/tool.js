@@ -224,6 +224,17 @@
       this.setHistoryIndex(index);
     };
 
+    mobileFirstTap = (el) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (!$('body').is('.mobile')) return;
+      const isActive = $(el).is('.lichessTools-mobileActive');
+      $('.lichessTools-mobileActive').removeClass('lichessTools-mobileActive');
+      if (isActive) return false;
+      $(el).addClass('lichessTools-mobileActive');
+      return true;
+    };
+
     showPgnEditor = async (showPgnText) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -295,11 +306,15 @@
             this.redo(textarea);
           }
           this.writeNote('');
+        })
+        .on('focus', ev=> {
+          $('.lichessTools-mobileActive').removeClass('lichessTools-mobileActive');
         });
       $('[data-role="merge"]', dialog)
         .attr('title', trans.noarg('btnMergeTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('merge', () => this.mergePgn(textarea));
         })
         .find('span')
@@ -308,6 +323,7 @@
         .attr('title', trans.noarg('btnNormalizeTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('normalize', () => this.normalizePgn(textarea));
         })
         .find('span')
@@ -316,6 +332,7 @@
         .attr('title', trans.noarg('btnDenormalizeTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('denormalize', () => this.denormalizePgn(textarea));
         })
         .find('span')
@@ -324,6 +341,7 @@
         .attr('title', trans.noarg('btnSplitTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('split', () => this.splitPgn(textarea));
         })
         .find('span')
@@ -332,6 +350,7 @@
         .attr('title', trans.noarg('btnSearchTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('search', () => this.searchPgn(textarea));
         })
         .find('span')
@@ -340,6 +359,7 @@
         .attr('title', trans.noarg('btnKeepFoundTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('keepFound', () => this.keepFound(textarea));
         })
         .find('span')
@@ -348,6 +368,7 @@
         .attr('title', trans.noarg('btnCutStuffTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('cutStuff', () => this.cutStuff(textarea));
         })
         .find('span')
@@ -356,6 +377,7 @@
         .attr('title', trans.noarg('btnCountTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('count', () => this.countPgn(textarea));
         })
         .find('span')
@@ -364,6 +386,7 @@
         .attr('title', trans.noarg('btnEvaluateTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('evaluate', () => this.evaluatePosition(textarea));
         })
         .find('span')
@@ -372,6 +395,7 @@
         .attr('title', trans.noarg('btnExtractTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('extract', () => this.extract(textarea));
         })
         .find('span')
@@ -380,6 +404,7 @@
         .attr('title', trans.noarg('btnCancelTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.stopOperations();
         })
         .find('span')
@@ -388,6 +413,7 @@
         .attr('title', trans.noarg('btnCopyTitle'))
         .on('click', async ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('copy', async () => {
             const text = textarea.val();
             if (!text) return;
@@ -400,6 +426,7 @@
         .attr('title', trans.noarg('btnUploadTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           $('<input type="file">')
             .on('change', async e => {
               if (this._runningOperation) return;
@@ -443,6 +470,7 @@
         .attr('title', trans.noarg('btnDownloadTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           const text = textarea.val();
           if (!text) return;
           this.runOperation('download', () => {
@@ -455,6 +483,7 @@
         .attr('title', trans.noarg('btnUndoTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('undo', () => this.undo(textarea));
         })
         .find('span')
@@ -463,6 +492,7 @@
         .attr('title', trans.noarg('btnRedoTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('redo', () => this.redo(textarea));
         })
         .find('span')
@@ -471,6 +501,7 @@
         .attr('title', trans.noarg('btnClearTitle'))
         .on('click', ev => {
           ev.preventDefault();
+          if (this.mobileFirstTap(ev.currentTarget)) return;
           this.runOperation('clear', () => this.clear(textarea));
         })
         .find('span')
@@ -516,7 +547,6 @@
       if (this._runningOperation) return;
       const now = Date.now();
       try {
-
         this._cancelRequested = false;
         this._runningOperation = name;
         this.toggleCancel(true);
@@ -2017,10 +2047,11 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('pgnEditor');
       this.logOption('PGN editor', value);
       this.options = { enabled: !!value };
-      const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
       const container = $('#topnav section a[href="/analysis"]+div[role="group"]');

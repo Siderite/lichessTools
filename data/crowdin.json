@@ -826,7 +826,15 @@
     "addHintText": "تلميح عند الطلب للاعب",
     "addHintTitle": "أدوات شطرنج الحياة - اختياري، تلميح عند الطلب للاعب",
     "options.commentEditing": "تحسين التحرير للتعليقات على الدراسة",
-    "editCommentTitle": "نسخ وتحرير"
+    "editCommentTitle": "نسخ وتحرير",
+    "analysisReadComments.enabled": "تمكين",
+    "analysisReadComments.stripEmoji": "تجاهل الرمز التعبيري",
+    "analysisReadComments.readAnnotations": "قراءة الشروح",
+    "studyLinks.commentTab": "ضمان تبويب التعليق في الدراسات",
+    "cevalLineOptions.depthChart": "مخطط العمق",
+    "chapterNavigation.controls": "ضوابط التنقل",
+    "chapterNavigation.hideNextButton": "إخفاء زر الفصل التالي",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1655,7 +1663,15 @@
     "addHintText": "为玩家点播提示",
     "addHintTitle": "LiChess工具 - 供玩家选择的在线提示",
     "options.commentEditing": "改进学习评论的编辑",
-    "editCommentTitle": "复制和编辑"
+    "editCommentTitle": "复制和编辑",
+    "analysisReadComments.enabled": "已启用",
+    "analysisReadComments.stripEmoji": "忽略表情",
+    "analysisReadComments.readAnnotations": "读取注释",
+    "studyLinks.commentTab": "确保研究报告中的评论选项卡",
+    "cevalLineOptions.depthChart": "深度图",
+    "chapterNavigation.controls": "导航控制",
+    "chapterNavigation.hideNextButton": "隐藏下一章按钮",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2484,7 +2500,15 @@
     "addHintText": "On-demand hint for the player",
     "addHintTitle": "LiChess Tools - optional, on-demand hint for the player",
     "options.commentEditing": "Improved editing for study comments",
-    "editCommentTitle": "Copy and edit"
+    "editCommentTitle": "Copy and edit",
+    "analysisReadComments.enabled": "Enabled",
+    "analysisReadComments.stripEmoji": "Ignore emoji",
+    "analysisReadComments.readAnnotations": "Read annotations",
+    "studyLinks.commentTab": "Ensure comment tab in studies",
+    "cevalLineOptions.depthChart": "Depth chart",
+    "chapterNavigation.controls": "Navigation controls",
+    "chapterNavigation.hideNextButton": "Hide next chapter button",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3313,7 +3337,15 @@
     "addHintText": "On-demand hint voor de speler",
     "addHintTitle": "LiChess Tools - optioneel, op vraag-hint voor de speler",
     "options.commentEditing": "Verbeterde bewerking voor studiereacties",
-    "editCommentTitle": "Kopiëren en bewerken"
+    "editCommentTitle": "Kopiëren en bewerken",
+    "analysisReadComments.enabled": "Ingeschakeld",
+    "analysisReadComments.stripEmoji": "Emoji negeren",
+    "analysisReadComments.readAnnotations": "Lees aantekeningen",
+    "studyLinks.commentTab": "Zorg voor commentaar tab in studies",
+    "cevalLineOptions.depthChart": "Diepte grafiek",
+    "chapterNavigation.controls": "Navigatie bediening",
+    "chapterNavigation.hideNextButton": "Volgende hoofdstuk knop verbergen",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4142,7 +4174,15 @@
     "addHintText": "On-demand hint for the player",
     "addHintTitle": "LiChess Tools - optional, on-demand hint for the player",
     "options.commentEditing": "Improved editing for study comments",
-    "editCommentTitle": "Copy and edit"
+    "editCommentTitle": "Copy and edit",
+    "analysisReadComments.enabled": "Enabled",
+    "analysisReadComments.stripEmoji": "Ignore emoji",
+    "analysisReadComments.readAnnotations": "Read annotations",
+    "studyLinks.commentTab": "Ensure comment tab in studies",
+    "cevalLineOptions.depthChart": "Depth chart",
+    "chapterNavigation.controls": "Navigation controls",
+    "chapterNavigation.hideNextButton": "Hide next chapter button",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4287,7 +4327,7 @@
     "switchWithMe": "Moi",
     "switchWithMeTitle": "LiChess Tools - intervertir le joueur et vous-même",
     "openingExplorerUsers.switchWithMe": "Bouton \"moi\" pour basculer vers votre joueur",
-    "options.chapterNavigation": "Outils de navigation dans les chapitres de l'étude",
+    "options.chapterNavigation": "Boutons de navigation dans les chapitres de l'étude",
     "chapterControlsTitle": "LiChess Tools - navigation par chapitre",
     "options.stickyPreview": "Mode d'aperçu de l'étude épinglé",
     "options.stickyAnalysis": "Sauvegarde automatique de l'analyse",
@@ -4357,7 +4397,7 @@
     "options.explorerPracticeOptions": "Options d'entraînement de l'explorateur",
     "explorerPracticeTitle": "LiChess Tools - s'entraîner contre les coups de l'explorateur",
     "outOfMoves": "Coups hors de l'explorateur",
-    "explorerPracticeOptions.showSmileys": "Afficher les émoticônes quand il n'y a plus de coups",
+    "explorerPracticeOptions.showSmileys": "Afficher les émojis quand il n'y a plus de coups",
     "explorerPracticeOptions.sumClick": "Cliquer sur le Σ de l'explorateur pour jouer un coup",
     "explorerPracticeOptions.showNames": "Afficher le nom de l'adversaire",
     "explorerPracticeOptions.showInfoStudy": "Données de l'explorateur dans l'étude",
@@ -4446,7 +4486,7 @@
     "options.explorerEval": "Afficher l'évaluation de l'explorateur de coups",
     "explorerEval.ceval": "À partir de l'évaluation de l'ordinateur",
     "explorerEval.stats": "À partir des statistiques gagnantes",
-    "explorerEval.db": "À partir de la base de données",
+    "explorerEval.db": "À partir de ChessDb",
     "explorerEval.lichess": "À partir de Lichess",
     "explorerEval.evalRows": "Variantes proposées par l'évaluation",
     "explorerEval.hidden": "Masqué",
@@ -4725,7 +4765,7 @@
     "options.activeIcon": "Icône de titre actif",
     "options.imagePasting": "Options pour le chat/forum",
     "imagePasting.pasteImages": "Prise en charge du collage d'images",
-    "imagePasting.bigEmoji": "Message agrandi lorsqu'il y a seulement un émoji",
+    "imagePasting.bigEmoji": "Émoji agrandi lorsque seul contenu d’un message",
     "pastingError": "Une erreur s'est produite lors de la création de l'URL de l'image",
     "options.removeChatLinkWarning": "Supprimer l'avertissement relatif au lien dans un chat",
     "options.mchatOptions": "Options pour le chat Équipe/Étude",
@@ -4925,7 +4965,7 @@
     "panelHeader-week": "Cette semaine",
     "panelHeader-month": "Ce mois",
     "panelHeader-rest": "Le reste",
-    "quickActions.emoji": "Émoticônes de chat",
+    "quickActions.emoji": "Émojis pour le chat",
     "options.tournamentTopBoard": "Suivre le 1er échiquier d’un tournoi",
     "errorSavingPreferences": "Erreur lors de l'enregistrement des préférences ! Recharger la page.",
     "options.comm": "Chat, forums, blogs",
@@ -4963,15 +5003,23 @@
     "bumpDownVariationText": "Descendre",
     "bumpDownVariationTitle": "LiChess Tools - descendre la variante",
     "extraChart.accuracyPlus": "Plus d'infos sur la précision",
-    "themes.toggleStudyChat": "Basculer le chat des études",
+    "themes.toggleStudyChat": "Oui/non chat dans études",
     "additionalGlyphs.enabled": "Activé",
-    "additionalGlyphs.mate": "Famille Mate",
-    "additionalGlyphs.book": "Réserver",
-    "customEngineOptions.infiniteExternal": "Analyse infinie des moteurs externes",
+    "additionalGlyphs.mate": "Mat",
+    "additionalGlyphs.book": "Coup théorique",
+    "customEngineOptions.infiniteExternal": "Analyse infinie pour les moteurs externes",
     "addHintText": "Indice à la demande pour le joueur",
-    "addHintTitle": "Outils LiChess - Indice facultatif à la demande du joueur",
-    "options.commentEditing": "Amélioration de l'édition des commentaires d'étude",
-    "editCommentTitle": "Copier et éditer"
+    "addHintTitle": "LiChess Tools - facultatif, indice à la demande pour le joueur",
+    "options.commentEditing": "Édition améliorée des commentaires dans les études",
+    "editCommentTitle": "Copier et éditer",
+    "analysisReadComments.enabled": "Activé",
+    "analysisReadComments.stripEmoji": "Ignorer les émojis",
+    "analysisReadComments.readAnnotations": "Lire les annotations",
+    "studyLinks.commentTab": "Toujours l'onglet commentaire dans les études",
+    "cevalLineOptions.depthChart": "Graphique éval. selon la profondeur",
+    "chapterNavigation.controls": "Boutons de navigation",
+    "chapterNavigation.hideNextButton": "Masquer le bouton \"Chapitre suivant\"",
+    "chapterNavigation.subChapters": "Sous-chapitres"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5800,7 +5848,15 @@
     "addHintText": "Hinweis auf Nachfrage für den Spieler",
     "addHintTitle": "LiChess Tools - optionaler Hinweis auf Wunsch für den Spieler",
     "options.commentEditing": "Verbesserte Bearbeitung für Lernkommentare",
-    "editCommentTitle": "Kopieren und bearbeiten"
+    "editCommentTitle": "Kopieren und bearbeiten",
+    "analysisReadComments.enabled": "Aktiviert",
+    "analysisReadComments.stripEmoji": "Emoji ignorieren",
+    "analysisReadComments.readAnnotations": "Anmerkungen lesen",
+    "studyLinks.commentTab": "Kommentar-Tab in Studien sicherstellen",
+    "cevalLineOptions.depthChart": "Tiefendiagramm",
+    "chapterNavigation.controls": "Navigationssteuerung",
+    "chapterNavigation.hideNextButton": "Nächste Kapitelschaltfläche ausblenden",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6629,7 +6685,15 @@
     "addHintText": "Suggerimento su richiesta per il giocatore",
     "addHintTitle": "Strumenti LiChess - opzionale, suggerimento on-demand per il giocatore",
     "options.commentEditing": "Modifica migliorata per commenti di studio",
-    "editCommentTitle": "Copia e modifica"
+    "editCommentTitle": "Copia e modifica",
+    "analysisReadComments.enabled": "Abilitato",
+    "analysisReadComments.stripEmoji": "Ignora emoji",
+    "analysisReadComments.readAnnotations": "Leggi annotazioni",
+    "studyLinks.commentTab": "Assicurati la scheda dei commenti negli studi",
+    "cevalLineOptions.depthChart": "Grafico di profondità",
+    "chapterNavigation.controls": "Controlli di navigazione",
+    "chapterNavigation.hideNextButton": "Nascondi il pulsante del capitolo successivo",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7458,7 +7522,15 @@
     "addHintText": "Wskazówka dla gracza na żądanie",
     "addHintTitle": "Narzędzia LiChess - opcjonalne, podpowiedź na żądanie dla gracza",
     "options.commentEditing": "Ulepszona edycja komentarzy do badań",
-    "editCommentTitle": "Kopiuj i edytuj"
+    "editCommentTitle": "Kopiuj i edytuj",
+    "analysisReadComments.enabled": "Włączone",
+    "analysisReadComments.stripEmoji": "Ignoruj emoji",
+    "analysisReadComments.readAnnotations": "Czytaj adnotacje",
+    "studyLinks.commentTab": "Zapewnij zakładkę komentarzy w badaniach",
+    "cevalLineOptions.depthChart": "Wykres głębokości",
+    "chapterNavigation.controls": "Sterowanie nawigacją",
+    "chapterNavigation.hideNextButton": "Ukryj przycisk następnego rozdziału",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8287,7 +8359,15 @@
     "addHintText": "Dica sob demanda para o jogador",
     "addHintTitle": "Ferramentas de LiChess - dica opcional, sob demanda para o jogador",
     "options.commentEditing": "Edição melhorada para comentários de estudo",
-    "editCommentTitle": "Copiar e editar"
+    "editCommentTitle": "Copiar e editar",
+    "analysisReadComments.enabled": "Ativado",
+    "analysisReadComments.stripEmoji": "Ignorar emoji",
+    "analysisReadComments.readAnnotations": "Ler anotações",
+    "studyLinks.commentTab": "Garanta aba de comentários nos estudos",
+    "cevalLineOptions.depthChart": "Gráfico de Profundidade",
+    "chapterNavigation.controls": "Controles de navegação",
+    "chapterNavigation.hideNextButton": "Ocultar botão de capítulo seguinte",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9116,7 +9196,15 @@
     "addHintText": "Dica sob demanda para o jogador",
     "addHintTitle": "Ferramentas de LiChess - dica opcional, sob demanda para o jogador",
     "options.commentEditing": "Edição melhorada para comentários de estudo",
-    "editCommentTitle": "Copiar e editar"
+    "editCommentTitle": "Copiar e editar",
+    "analysisReadComments.enabled": "Ativado",
+    "analysisReadComments.stripEmoji": "Ignorar emoji",
+    "analysisReadComments.readAnnotations": "Ler anotações",
+    "studyLinks.commentTab": "Garanta aba de comentários nos estudos",
+    "cevalLineOptions.depthChart": "Gráfico de Profundidade",
+    "chapterNavigation.controls": "Controles de navegação",
+    "chapterNavigation.hideNextButton": "Ocultar botão de capítulo seguinte",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -9945,7 +10033,15 @@
     "addHintText": "Indiciu la cerere pentru jucător",
     "addHintTitle": "LiChess Tools - opțional, Indiciu la cerere pentru jucător",
     "options.commentEditing": "Editare mai bună a comentariilor în studii",
-    "editCommentTitle": "Copiază și editează"
+    "editCommentTitle": "Copiază și editează",
+    "analysisReadComments.enabled": "Activat",
+    "analysisReadComments.stripEmoji": "Ignoră emoji",
+    "analysisReadComments.readAnnotations": "Citește adnotări",
+    "studyLinks.commentTab": "Asigură tab de comentarii în studii",
+    "cevalLineOptions.depthChart": "Grafic adâncime",
+    "chapterNavigation.controls": "Controale navigare",
+    "chapterNavigation.hideNextButton": "Ascunde butonul pentru capitolul următor",
+    "chapterNavigation.subChapters": "Subcapitole"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10774,7 +10870,15 @@
     "addHintText": "Подсказка по требованию для игрока",
     "addHintTitle": "Инструменты Жизни - необязательно, подсказка по требованию для игрока",
     "options.commentEditing": "Улучшено редактирование комментариев к обучению",
-    "editCommentTitle": "Копировать и редактировать"
+    "editCommentTitle": "Копировать и редактировать",
+    "analysisReadComments.enabled": "Включено",
+    "analysisReadComments.stripEmoji": "Игнорировать эмодзи",
+    "analysisReadComments.readAnnotations": "Прочитать аннотации",
+    "studyLinks.commentTab": "Обеспечьте вкладку комментариев в исследованиях",
+    "cevalLineOptions.depthChart": "Глубина графика",
+    "chapterNavigation.controls": "Управление навигацией",
+    "chapterNavigation.hideNextButton": "Скрыть кнопку следующей главы",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11603,7 +11707,15 @@
     "addHintText": "Sugerencia a petición para el jugador",
     "addHintTitle": "Herramientas de LiChess - opcional, pista a petición del jugador",
     "options.commentEditing": "Edición mejorada para comentarios de estudio",
-    "editCommentTitle": "Copiar y editar"
+    "editCommentTitle": "Copiar y editar",
+    "analysisReadComments.enabled": "Activado",
+    "analysisReadComments.stripEmoji": "Ignorar emoji",
+    "analysisReadComments.readAnnotations": "Leer anotaciones",
+    "studyLinks.commentTab": "Asegúrate de la pestaña de comentarios en estudios",
+    "cevalLineOptions.depthChart": "Gráfico de longitud",
+    "chapterNavigation.controls": "Controles de navegación",
+    "chapterNavigation.hideNextButton": "Ocultar botón del siguiente capítulo",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12432,7 +12544,15 @@
     "addHintText": "On-demand hint for the player",
     "addHintTitle": "LiChess Tools - optional, on-demand hint for the player",
     "options.commentEditing": "Improved editing for study comments",
-    "editCommentTitle": "Copy and edit"
+    "editCommentTitle": "Copy and edit",
+    "analysisReadComments.enabled": "Enabled",
+    "analysisReadComments.stripEmoji": "Ignore emoji",
+    "analysisReadComments.readAnnotations": "Read annotations",
+    "studyLinks.commentTab": "Ensure comment tab in studies",
+    "cevalLineOptions.depthChart": "Depth chart",
+    "chapterNavigation.controls": "Navigation controls",
+    "chapterNavigation.hideNextButton": "Hide next chapter button",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13261,6 +13381,14 @@
     "addHintText": "On-demand hint for the player",
     "addHintTitle": "LiChess Tools - optional, on-demand hint for the player",
     "options.commentEditing": "Improved editing for study comments",
-    "editCommentTitle": "Copy and edit"
+    "editCommentTitle": "Copy and edit",
+    "analysisReadComments.enabled": "Enabled",
+    "analysisReadComments.stripEmoji": "Ignore emoji",
+    "analysisReadComments.readAnnotations": "Read annotations",
+    "studyLinks.commentTab": "Ensure comment tab in studies",
+    "cevalLineOptions.depthChart": "Depth chart",
+    "chapterNavigation.controls": "Navigation controls",
+    "chapterNavigation.hideNextButton": "Hide next chapter button",
+    "chapterNavigation.subChapters": "Subchapters"
   }
 }

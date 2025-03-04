@@ -297,7 +297,7 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
-      $('.tview2').toggleClass('lichessTools-indentedVariations', this.options.indentedVariations);
+      $('.tview2').toggleClassSafe('lichessTools-indentedVariations', this.options.indentedVariations);
       const container = $('div.analyse__tools div.action-menu');
       if (!container.length) return;
 
@@ -688,10 +688,11 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('moveListOptions');
       this.logOption('Move list options', value);
       const $ = lt.$;
-      const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       //if (!analysis) return;
       this.options = {

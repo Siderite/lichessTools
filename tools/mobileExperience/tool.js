@@ -471,6 +471,8 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const mobileExperience = lt.currentOptions.getValue('mobileExperience');
       const mobileExperienceRound = lt.currentOptions.getValue('mobileExperienceRound');
       const colorCount = lt.currentOptions.getValue('colorCount');
@@ -500,7 +502,6 @@
         wakeBoardTv : lt.isOptionSet(wakeLock, 'tv') || lt.isOptionSet(lt.currentOptions.getValue('tvOptions'), 'wakeLock'),
         colorCount: colorCount
       };
-      const lichess = lt.lichess;
       lt.pubsub.off('lichessTools.redraw', this.handleRedraw);
       lt.pubsub.off('lichessTools.chapterChange', this.handleRedraw);
       if (this.options.showGauge || this.options.hideOctopus || this.options.standardButtons || this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove) {

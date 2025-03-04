@@ -152,7 +152,7 @@
           .appendTo(container);
 
         const duration = Math.round(((item.fail || item.end) - item.start)/1000);
-        const durationText = duration || '';
+        const durationText = duration > 0 ? duration+'s' : '';
         $('<div class="duration">')
           .text(durationText)
           .appendTo(container);

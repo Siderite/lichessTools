@@ -277,6 +277,8 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('customChatButtons');
       this.logOption('Customize chat buttons', value);
       if (!lt.getUserId()) {

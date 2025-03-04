@@ -1,9 +1,12 @@
 body.lichessTools section.lichessTools-explorerSnaps {
   margin-top: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1.25em;
 }
 
 body.lichessTools section.lichessTools-explorerSnaps>div {
-  display: inline;
+  display: inline-block;
 }
 
 body.lichessTools section.lichessTools-explorerSnaps button.button {

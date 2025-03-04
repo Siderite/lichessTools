@@ -8,10 +8,14 @@
         name: 'studyLinks',
         category: 'study',
         type: 'multiple',
-        possibleValues: ['video', 'studyLinksSameWindow'],
-        defaultValue: 'video,studyLinksSameWindow',
+        possibleValues: ['video', 'studyLinksSameWindow','commentTab'],
+        defaultValue: 'video,studyLinksSameWindow,commentTab',
         advanced: true
       }
+    ];
+
+    upgrades = [
+      { name:'studyLinks', value:'commentTab', version: '2.4.13', type: 'new' }
     ];
 
     intl = {
@@ -19,13 +23,15 @@
         'options.study': 'Study',
         'options.studyLinks': 'Study link options',
         'studyLinks.video': 'Video popup',
-        'studyLinks.studyLinksSameWindow': 'Open links to studies in same window'
+        'studyLinks.studyLinksSameWindow': 'Open links to studies in same window',
+        'studyLinks.commentTab': 'Ensure comment tab in studies'
       },
       'ro-RO': {
         'options.study': 'Studiu',
         'options.studyLinks': 'Op\u0163iuni linkuri \u00een studii',
         'studyLinks.video': 'Popup video',
-        'studyLinks.studyLinksSameWindow': 'Deschide linkuri la studii \u00een aceea\u015Fi fereastr\u0103'
+        'studyLinks.studyLinksSameWindow': 'Deschide linkuri la studii \u00een aceea\u015Fi fereastr\u0103',
+        'studyLinks.commentTab': 'Asigur\u0103 tab de comentarii \u00een studii'
       }
     };
 
@@ -168,15 +174,32 @@
 
     alterStudyLinks = this.lichessTools.debounce(this.alterStudyLinksDirect, 100);
 
+    countComments = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const analysis = lichess?.analysis;
+      const study = analysis?.study;
+      if (!study) return;
+      const count = analysis.node.comments?.length || 0;
+      if (count) {
+        $('span.comments count').attr('data-count',count);
+      } else {
+        $('span.comments count').removeAttr('data-count');
+      }
+    };
+
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('studyLinks');
       this.logOption('Study link options', value);
       this.options = {
         studyLinksSameWindow: lt.isOptionSet(value, 'studyLinksSameWindow'),
-        video: lt.isOptionSet(value, 'video')
+        video: lt.isOptionSet(value, 'video'),
+        commentTab: lt.isOptionSet(value, 'commentTab')
       };
-      const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
@@ -207,6 +230,24 @@
         lt.pubsub.on('lichessTools.commentChange', this.handleVideoLinks);
         lt.pubsub.on('lichessTools.commentChange', this.alterStudyLinks);
         this.alterStudyLinks();
+      }
+      lt.uiApi.events.off('analysis.change',this.countComments);
+      if (this.options.commentTab) {
+        const anchorElem = $('span.tags:not(:has(+span.comments))');
+        if (anchorElem.length) {
+          $('<span class="comments" role="tab">')
+            .attr('title',lt.global.i18n?.study?.commentThisPosition)
+            .append('<count class="data-count">')
+            .append($('<i>').attr('data-icon',lt.icon.BubbleSpeech))
+            .on('click',()=>{
+              study.vm.toolTab('comments');
+              study.redraw();
+            })
+            .insertAfter(anchorElem);
+          study.redraw();
+        }
+        lt.uiApi.events.on('analysis.change',this.countComments);
+        this.countComments();
       }
 
     }

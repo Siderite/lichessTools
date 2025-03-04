@@ -250,6 +250,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
+      const startPosition = analysis.path;
       const path = analysis.contextMenuPath.slice(0,-2);
 
       let arr=[ index-1, index ];
@@ -276,7 +277,7 @@
           analysis.forceVariation(subPath+node.children[0].id,true);
         }
       }
-      analysis.redraw();
+      analysis.userJump(startPosition);      
     };
 
     analysisContextMenu = (ev) => {
@@ -385,8 +386,8 @@
 
       if (this.options.showOnEmpty) {
         $('div.tview2')
-          .addClass('lichessTools-showOnEmpty')
-          .attr('p', '*'); //lichess checks this against empty so we must add something ...
+          .toggleClassSafe('lichessTools-showOnEmpty',true)
+          .attrSafe('p', '*'); //lichess checks this against empty so we must add something ...
         if (!lt.isWrappedFunction(analysis.jump, 'showOnEmpty')) {
           analysis.jump = lt.wrapFunction(analysis.jump, {
             id: 'showOnEmpty',
@@ -397,8 +398,8 @@
         }
       } else {
         $('div.tview2')
-          .removeClass('lichessTools-showOnEmpty')
-          .removeAttr('p');
+          .toggleClassSafe('lichessTools-showOnEmpty', false)
+          .removeAttrSafe('p');
       }
     };
 

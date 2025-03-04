@@ -90,6 +90,17 @@ body.lichessTools dialog.lichessTools-pgnEditor a.help-button:hover {
     left: 0;
     width: 100%;
   }
+
+  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button.lichessTools-mobileActive {
+    width: 13em;
+    left: calc(100% - 13em);
+  }
+
+  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button.lichessTools-mobileActive span {
+    display: inline-block;
+    width: 100%;
+  }
+
 }
 
 body.lichessTools .analyse__tools .action-menu__tools a.lichessTools-pgnEditor:before {

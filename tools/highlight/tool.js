@@ -50,7 +50,7 @@
       }
       $('div.analyse__moves move.lichessTools-lastInLine').filter((i, e) => !toHighlight.includes(e)).removeClass('lichessTools-lastInLine');
       for (const elem of toHighlight) {
-        $(elem).addClass('lichessTools-lastInLine');
+        $(elem).toggleClassSafe('lichessTools-lastInLine',true);
       }
     };
 
@@ -67,7 +67,7 @@
       }
       $('div.analyse__moves move.lichessTools-inCheck').filter((i, e) => !toHighlight.includes(e)).removeClass('lichessTools-inCheck');
       for (const elem of toHighlight) {
-        $(elem).addClass('lichessTools-inCheck');
+        $(elem).toggleClassSafe('lichessTools-inCheck',true);
       }
     };
 
@@ -86,7 +86,7 @@
       }
       $('div.analyse__moves move.lichessTools-uncommented').filter((i, e) => !toHighlight.includes(e)).removeClass('lichessTools-uncommented');
       for (const elem of toHighlight) {
-        $(elem).addClass('lichessTools-uncommented');
+        $(elem).toggleClassSafe('lichessTools-uncommented',true);
       }
     };
 
@@ -114,7 +114,7 @@
       }
       $('div.analyse__moves move.lichessTools-transposition').filter((i, e) => !toHighlight.includes(e)).removeClass('lichessTools-transposition');
       for (const elem of toHighlight) {
-        $(elem).addClass('lichessTools-transposition');
+        $(elem).toggleClassSafe('lichessTools-transposition',true);
       }
     };
 

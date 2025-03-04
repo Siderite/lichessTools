@@ -1,11 +1,13 @@
 /* for the next two rules, see https://github.com/lichess-org/lila/issues/16889 */
 body.lichessTools .study__buttons span:has(count) {
   overflow: visible;
+  display: inline-flex;
+  justify-content: center;
 }
 
 body.lichessTools .study__buttons count.data-count {
-  float:right;
-  right:-0.5em;
+  right:-0.75em;
+  order: 1;
 }
 
 body.lichessTools .lichessTools-red {

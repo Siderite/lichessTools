@@ -217,7 +217,7 @@
       const watcherCount = data?.users?.length;
       const team = this.teamsData?.find(t => t.teamId == teamId);
       if (team) team.crowd = watcherCount;
-      if (watcherCount > 1) {
+      if (lt.debug && watcherCount > 1) {
         lt.global.console.debug(new Date().toLocaleString(lt.intl.lang), ' Someone is in the ' + teamId + ' page', data.users);
       }
       if (!team || !this.isTeamsListPage()) return;
@@ -384,8 +384,9 @@
     sockets = [];
     async start() {
       const lt = this.lichessTools;
-      const $ = lt.$;
       const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
+      const $ = lt.$;
       const value = lt.currentOptions.getValue('mchatOptions');
       this.logOption('Team/Study chat', value);
       this.options = {
@@ -411,6 +412,7 @@
         });
         this.userTeams = await lt.api.team.getUserTeams(lt.getUserId());
         this.loadTeamsData();
+        this.handleNotificationsDirect();
         const configuredTeamsCount = this.teamsData?.length;
         if (configuredTeamsCount) {
           let saveTeams = false;

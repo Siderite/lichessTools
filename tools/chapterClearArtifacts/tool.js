@@ -263,13 +263,14 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('chapterClearArtifacts');
       this.logOption('Clear chapter artifacts', value);
       if (!lt.getUserId()) {
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      const lichess = lt.lichess;
       const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;

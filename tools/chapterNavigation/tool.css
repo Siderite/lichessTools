@@ -61,8 +61,26 @@ body.lichessTools aside.relay-tour__side.lichessTools-chapterControls div.relay_
   flex-grow: 1;
 }
 
-body.lichessTools:has(.lichessTools-chapterControls) div.analyse__moves button.next {
-  display: none;
+body.lichessTools .lichessTools-hideNextButton button.next {
+  display:none;
+}
+
+body.lichessTools .study__chapters button.lichessTools-collapsedChapter {
+  display:none;
+}
+
+body.lichessTools .study__chapters div.lichessTools-expander {
+  font-family: 'lichess';
+  align-self: center;
+  margin-right:0.25em;
+}
+
+body.lichessTools .study__chapters div.lichessTools-expander:after {
+  content:'\e02e';
+}
+
+body.lichessTools .study__chapters div.lichessTools-expander.collapsed:after {
+  content:'\e02d';
 }
 
 /* Prettier */

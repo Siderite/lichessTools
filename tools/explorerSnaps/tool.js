@@ -276,9 +276,10 @@
 
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('explorerSnaps');
       this.logOption('Explorer snaps', value);
-      const lichess = lt.lichess;
       const $ = lt.$;
       const explorer = lichess?.analysis?.explorer;
       if (!explorer) return;

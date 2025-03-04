@@ -1,5 +1,17 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Mar
+
+- study subchapters
+
+02 Mar
+
+- ceval depth chart
+
+23 Feb
+
+- options for comment reading
+
 22 Feb
 
 - add hint menu for interactive variations

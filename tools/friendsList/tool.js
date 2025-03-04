@@ -708,6 +708,8 @@
     followingOnlinesRequests = 0;
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const $ = lt.$;
       const friendsBoxMode = lt.currentOptions.getValue('openFriends');
       const liveFriendsPage = lt.currentOptions.getValue('liveFriendsPage');
@@ -719,8 +721,6 @@
         friendsPlaying: lt.currentOptions.getValue('friendsPlaying'),
         mutedPlayers: lt.currentOptions.getValue('mutedPlayers')
       };
-      const lichess = lt.lichess;
-      if (!lichess) return;
       if (!lt.getUserId()) {
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;

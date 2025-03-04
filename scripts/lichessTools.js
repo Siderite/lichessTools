@@ -426,6 +426,32 @@
       return result;
     }
 
+    arrayDifferent(arr1, arr2) {
+      if (arr1 === arr2) return false;
+      if (arr1.length !== arr2.length) return true;
+      const frequencyMap = new Map();
+      for (const item of arr1) {
+        frequencyMap.set(item, (frequencyMap.get(item) || 0) + 1);
+      }
+
+      for (const item of arr2) {
+        const count = frequencyMap.get(item);
+        if (!count) return true;
+        frequencyMap.set(item, count - 1);
+      }
+
+      for (const count of frequencyMap.values()) {
+        if (count !== 0) return true;
+      }
+
+      return false;
+    }
+
+    sigmoidClamp(x, min = 0, max = 100, expectedRange = 1000) {
+      const k = expectedRange / 5; // Adjust transition steepness based on expected range
+      return min + (max - min) / (1 + Math.exp(-x / k));
+    }
+
     isWrappedFunction(func, id) {
       if (!func) return false;
       if (!id || func.__wrapId === id) {
@@ -1958,6 +1984,10 @@
         getChessDb: async function (fen) {
           const lt = this.lichessTools;
           try {
+            if (this.chessDbErrors > 5) {
+              lt.global.console.debug('More than 5 Chess DB errors. Waiting for a page refresh');
+              return null;
+            }
             const json = await lt.net.fetch({
               url: 'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
               args: { fen }
@@ -1968,6 +1998,7 @@
             return data;
           } catch(e) {
             lt.global.console.warn('Error getting chessdb.cn data',e);
+            this.chessDbErrors = (this.chessDbErrors || 0)+1;
             return null;
           }
         },
@@ -2174,7 +2205,7 @@
       const arr2 = v2.split('.');
       const l = Math.max(arr1.length, arr2.length);
       for (let i=0; i<l; i++) {
-        if ((arr1[i]||0)>(arr2[i]||0)) return true;
+        if ((+arr1[i]||0)>(+arr2[i]||0)) return true;
       }
       return false;
     }

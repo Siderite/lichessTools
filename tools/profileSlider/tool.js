@@ -135,7 +135,7 @@
         $('.time-selector-buttons button:not(.lichessTools-1w)')
           .on('mousedown', this.restoreFullRange);
       }
-      if (this.options.add1w) {
+      if (this.options.add1w && $('.time-selector-buttons .btn-rack__btn').length>1) {
         $('<button class="btn-rack__btn lichessTools-1w">')
           .text('1w')
           .attr('title', trans.noarg('button1wTitle'))

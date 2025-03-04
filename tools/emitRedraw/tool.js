@@ -35,14 +35,14 @@
           after: emit
         });
       }
-      lt.uiApi.events.off('analysis.change', emit);
-      lt.uiApi.events.on('analysis.change', emit);
+      lt.uiApi?.events.off('analysis.change', emit);
+      lt.uiApi?.events.on('analysis.change', emit);
     }
 
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
-      if (!lichess || !lt.uiApi) return;
+      if (!lichess) return;
       const $ = lt.$;
       let emit = null;
       emit = lt.debounce(() => {
@@ -55,10 +55,12 @@
       }, 250);
       lt.emitRedraw = emit;
       this.analysisStart();
-      lt.uiApi.events.off('ply', emit);
-      lt.uiApi.events.on('ply', emit);
-      lt.uiApi.events.off('chat.resize', emit);
-      lt.uiApi.events.on('chat.resize', emit);
+      if (lt.uiApi) {
+        lt.uiApi.events.off('ply', emit);
+        lt.uiApi.events.on('ply', emit);
+        lt.uiApi.events.off('chat.resize', emit);
+        lt.uiApi.events.on('chat.resize', emit);
+      }
       lt.global.clearInterval(this._interval);
       this._interval = lt.global.setInterval(() => {
         const board = $('div.main-board div.cg-wrap');

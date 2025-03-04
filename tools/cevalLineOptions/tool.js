@@ -6,7 +6,7 @@
         name: 'cevalLineOptions',
         category: 'analysis2',
         type: 'multiple',
-        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation'],
+        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart'],
         defaultValue: 'moreLines',
         advanced: true
       }
@@ -20,6 +20,7 @@
         'cevalLineOptions.highlightOnlyMe': '...only current orientation',
         'cevalLineOptions.moreLines': 'More lines',
         'cevalLineOptions.colorEvaluation': 'Color evaluation',
+        'cevalLineOptions.depthChart': 'Depth chart',
         'moreLinesTitle': 'LiChess Tools - more lines'
       },
       'ro-RO': {
@@ -29,6 +30,7 @@
         'cevalLineOptions.highlightOnlyMe': '...doar orientarea curent\u0103',
         'cevalLineOptions.moreLines': 'Mai multe linii',
         'cevalLineOptions.colorEvaluation': 'Coloreaz\u0103 evaluarea',
+        'cevalLineOptions.depthChart': 'Grafic ad\u00e2ncime',
         'moreLinesTitle': 'LiChess Tools - mai multe linii'
       }
     }
@@ -53,10 +55,14 @@
         const lt = this.lichessTools;
         const $ = lt.$;
         const lichess = lt.lichess;
+        const analysisTools = $('main .analyse__tools, main .puzzle__tools');
+        if (!analysisTools.length) return;
         this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
         [...this.dict.values()].forEach(v => v.count = 0);
-        const side = lichess.analysis.getOrientation() == 'black' ? 1 : 0;
-        const turn = lichess.analysis.turnColor() == 'black' ? 1 : 0;
+        const fen = lt.getPositionFromBoard($('.main-board')[0],true);
+        if (!fen) return;
+        const side = $('.main-board .cg-wrap').is('.orientation-black') ? 1 : 0;
+        const turn = fen.endsWith(' b') ? 1 : 0;
         const comp = side ^ turn;
         $('div.pv_box span.pv-san').each((i, e) => {
           if (!lt.inViewport(e)) return;
@@ -137,6 +143,9 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      if (!analysis) return;
       const container = $('div.setting:has(#analyse-multipv)');
       if (!container.length) return;
       const maxValue = +lt.storage.get('LiChessTools.cevalLineOptions-moreLines') || 5;
@@ -144,7 +153,7 @@
         .attr('max',maxValue)
         .off('input',this.updateMoreLinesText)
         .on('input',this.updateMoreLinesText);
-      const ceval = lt.lichess.analysis?.ceval;
+      const ceval = analysis?.ceval;
       const value = ceval?.storedPv();
       if (value) {
         input.val(value);
@@ -158,7 +167,7 @@
             const maxValue = input.attr('max')==5 ? 10 : 5;
             lt.storage.set('LiChessTools.cevalLineOptions-moreLines',maxValue);
             input.attr('max',maxValue);
-            const ceval = lt.lichess.analysis?.ceval;
+            const ceval = analysis?.ceval;
             if (ceval) {
               ceval.storedPv(+input.val());
             }
@@ -168,45 +177,107 @@
       };
     };
 
+    setupHighlightSameMoves = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const main = $('main.analyse, main.puzzle');
+      main
+        .observer()
+        .on('div.ceval, div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['class']
+        });
+      this.handlePvs();
+    };
+
+    db = new Map();
+    drawChart = () => {
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
+      if (!analysis) return;
+      const $ = lt.$;
+      const db = this.db.get(analysis.path);
+      if (!db) return;
+      const pearl = $('.ceval pearl');
+      if (!pearl.length) return;
+
+      const depths = [...db.keys()];
+      depths.sort((a,b)=>a-b);
+      const canvas = pearl.find('canvas')[0]
+                     || $('<canvas class="lichessTools-cevalLineOptions">')
+                          .appendTo(pearl)[0];
+      canvas.width = depths.at(-1)+1;
+      canvas.height = 20;
+
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = '#FFFFFF80';
+      ctx.beginPath();
+      ctx.moveTo(0, 10);
+      for (let i of depths) {
+        const cp = lt.getCentipawns(db.get(i));
+        const v = lt.sigmoidClamp(-cp,0,20,2000);
+        ctx.lineTo(i, v);
+      }
+      ctx.stroke();
+    };
+
     async start() {
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('cevalLineOptions');
       this.logOption('Ceval line options', value || 'no');
-      const lichess = lt.lichess;
       const $ = lt.$;
-      const analysis = lichess?.analysis;
-      if (!analysis) return;
       this.options = {
         highlight: lt.isOptionSet(value, 'highlight'),
         highlightOnlyMe: lt.isOptionSet(value, 'highlightOnlyMe'),
         moreLines: lt.isOptionSet(value, 'moreLines'),
-        colorEvaluation: lt.isOptionSet(value, 'colorEvaluation')
+        colorEvaluation: lt.isOptionSet(value, 'colorEvaluation'),
+        depthChart: lt.isOptionSet(value, 'depthChart')
       }
-      const analysisTools = $('main .analyse__tools, main .puzzle__tools');
-      if (!analysisTools.length) return;
-      analysisTools
+      const main = $('main.analyse, main.puzzle');
+      main
         .observer()
-        .off('div.ceval, div.ceval.enabled ~ div.pv_box .pv',this.handlePvs);
-      analysisTools
+        .off('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs);
+      main
         .observer()
         .off('#ceval-settings-anchor',this.handleMoreLines);
+      lt.pubsub.off('lichessTools.redraw',this.setupHighlightSameMoves);
       if (this.options.highlight || this.options.colorEvaluation) {
-        analysisTools
-          .observer()
-          .on('div.ceval, div.ceval.enabled ~ div.pv_box .pv',this.handlePvs,{
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['class']
-          });
+        lt.pubsub.on('lichessTools.redraw',this.setupHighlightSameMoves);
+        this.setupHighlightSameMoves();
       }
-      this.handlePvs();
       if (this.options.moreLines) {
-        analysisTools
+        main
           .observer()
           .on('#ceval-settings-anchor',this.handleMoreLines);
       }
       this.handleMoreLines();
+      lt.uiApi.events.off('analysis.change',this.drawChart);
+      const analysis = lichess.analysis;
+      const ctrl = analysis?.ceval?.engines?.ctrl;
+      if (ctrl) {
+        ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalLineOptions');
+        if (this.options.depthChart) {
+          ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
+            id: 'cevalLineOptions',
+            after: ($this, result, data, meta)=>{
+              if (!data?.depth || meta?.path != analysis.path) return;
+              let db = this.db.get(meta.path);
+              if (!db) {
+                db = new Map();
+                this.db.set(meta.path,db);
+              }
+              db.set(data.depth,data);
+              this.drawChart();
+            }
+          });
+          lt.uiApi.events.on('analysis.change',this.drawChart);
+        }
+      }
     }
 
   }

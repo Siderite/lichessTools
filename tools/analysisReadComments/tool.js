@@ -5,8 +5,8 @@
       {
         name: 'analysisReadComments',
         category: 'analysis2',
-        type: 'single',
-        possibleValues: [false, true],
+        type: 'multiple',
+        possibleValues: ['enabled', 'stripEmoji', 'readAnnotations'],
         defaultValue: false,
         advanced: true
       }
@@ -16,11 +16,17 @@
       'en-US': {
         'options.analysis2': 'Analysis - minor',
         'options.analysisReadComments': 'Read move comments',
+        'analysisReadComments.enabled': 'Enabled',
+        'analysisReadComments.stripEmoji': 'Ignore emojis',
+        'analysisReadComments.readAnnotations': 'Read annotations',
         'readCommentsButtonTitle': 'LiChess Tools - toggle comment reading'
       },
       'ro-RO': {
         'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.analysisReadComments': 'Cite\u015fte comentarii mut\u0103ri',
+        'analysisReadComments.enabled': 'Activat',
+        'analysisReadComments.stripEmoji': 'Ignor\u0103 emoji',
+        'analysisReadComments.readAnnotations': 'Cite\u0157te adnot\u0103ri',
         'readCommentsButtonTitle': 'LiChess Tools - comut\u0103 citire comentarii'
       }
     }
@@ -46,6 +52,9 @@
     getSpeakableText = (text)=>{
       if (!text) return;
       text = text.replaceAll(/(cls|bkm|prc|rnd):([^\s]*)\s*/gi,'');
+      if (this.options.stripEmoji) {
+        text = text.replaceAll(/\p{Extended_Pictographic}+/ugi,' ');
+      }
       text = text.replaceAll(/e\.\s*p\./gi,'un phsaant');
       text = text.replaceAll(this.urlRegex,(m)=>{
         const url = new URL(m);
@@ -109,11 +118,19 @@
       const node = lichess.analysis.node;
       if (!node) return;
       const comments = lt.getNodeCommentsText(node);
-      if (comments === this.prevComments) return;
       this.prevComments = comments;
-      if (!comments) return;
-      const speakable = this.getSpeakableText(comments);
-      lt.speak(speakable, { rate: 1.25 });
+      let speakable = this.getSpeakableText(comments);
+      if (this.options.readAnnotations && node.glyphs?.length) {
+        speakable = node.glyphs
+          .map(g=>g.name || this.annotations[g.symbol])
+          .concat([speakable])
+          .filter(g=>g)
+          .join(', ');
+      }
+      if (speakable?.trim() && speakable != this.prevSpeakable) {
+        lt.speak(speakable, { rate: 1.25 });
+      }
+      this.prevSpeakable = speakable;
     }
 
     showInteractiveButton = () => {
@@ -139,17 +156,26 @@
       const val = !lt.storage.get('LiChessTools.dontReadComments');
       lt.storage.set('LiChessTools.dontReadComments',val);
       this.prevComments = false;
-      if (!val) this.readComments();
+      if (val) {
+        lt.stopSpeaking();
+      } else {
+        this.readComments();
+      }
       return val;
     };
 
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      if (!lichess || !lt.uiApi) return;
       const $ = lt.$;
       const value = lt.currentOptions.getValue('analysisReadComments');
       this.logOption('Analysis read comments', value);
-      this.options = { enabled: !!value };
+      this.options = {
+        enabled: lt.isOptionSet(value, 'enabled'),
+        stripEmoji: lt.isOptionSet(value, 'stripEmoji'),
+        readAnnotations: lt.isOptionSet(value, 'readAnnotations')
+      };
 
       if (!lichess?.analysis || !lt.uiApi) return;
       const isRelay = lichess.analysis.study?.relay;
