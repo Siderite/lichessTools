@@ -4327,7 +4327,7 @@
     "switchWithMe": "Moi",
     "switchWithMeTitle": "LiChess Tools - intervertir le joueur et vous-même",
     "openingExplorerUsers.switchWithMe": "Bouton \"moi\" pour basculer vers votre joueur",
-    "options.chapterNavigation": "Outils de navigation dans les chapitres de l'étude",
+    "options.chapterNavigation": "Boutons de navigation dans les chapitres de l'étude",
     "chapterControlsTitle": "LiChess Tools - navigation par chapitre",
     "options.stickyPreview": "Mode d'aperçu de l'étude épinglé",
     "options.stickyAnalysis": "Sauvegarde automatique de l'analyse",
@@ -5017,9 +5017,9 @@
     "analysisReadComments.readAnnotations": "Lire les annotations",
     "studyLinks.commentTab": "Toujours l'onglet commentaire dans les études",
     "cevalLineOptions.depthChart": "Graphique éval. selon la profondeur",
-    "chapterNavigation.controls": "Contrôles de navigation",
-    "chapterNavigation.hideNextButton": "Cacher le bouton du chapitre suivant",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.controls": "Boutons de navigation",
+    "chapterNavigation.hideNextButton": "Masquer le bouton \"Chapitre suivant\"",
+    "chapterNavigation.subChapters": "Sous-chapitres"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
