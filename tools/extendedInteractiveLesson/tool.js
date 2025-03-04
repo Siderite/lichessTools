@@ -428,7 +428,7 @@
       if (success) {
         item.interval = 2;
       } else {
-        item.interval /= 2;
+        item.interval = Math.max(1/144,item.interval/2);
       }
       paths[path] = item;
 
