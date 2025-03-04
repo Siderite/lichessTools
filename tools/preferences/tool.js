@@ -658,7 +658,7 @@
       lt.global.clearInterval(this.interval);
       this.interval = lt.global.setInterval(this.addPreferencesMenu,500);
 
-      if ($('a.lichessTools-menu').length) return;
+      if (!isTeams || $('a.lichessTools-menu').length) return;
       const openPreferences = this.openPreferences;
 
       let $this = this;
