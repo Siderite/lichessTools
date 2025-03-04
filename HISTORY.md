@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Mar
+
+- study subchapters
+
 02 Mar
 
 - ceval depth chart

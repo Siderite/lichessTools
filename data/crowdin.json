@@ -831,7 +831,10 @@
     "analysisReadComments.stripEmoji": "تجاهل الرمز التعبيري",
     "analysisReadComments.readAnnotations": "قراءة الشروح",
     "studyLinks.commentTab": "ضمان تبويب التعليق في الدراسات",
-    "cevalLineOptions.depthChart": "مخطط العمق"
+    "cevalLineOptions.depthChart": "مخطط العمق",
+    "chapterNavigation.controls": "ضوابط التنقل",
+    "chapterNavigation.hideNextButton": "إخفاء زر الفصل التالي",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1665,7 +1668,10 @@
     "analysisReadComments.stripEmoji": "忽略表情",
     "analysisReadComments.readAnnotations": "读取注释",
     "studyLinks.commentTab": "确保研究报告中的评论选项卡",
-    "cevalLineOptions.depthChart": "深度图"
+    "cevalLineOptions.depthChart": "深度图",
+    "chapterNavigation.controls": "导航控制",
+    "chapterNavigation.hideNextButton": "隐藏下一章按钮",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2499,7 +2505,10 @@
     "analysisReadComments.stripEmoji": "Ignore emoji",
     "analysisReadComments.readAnnotations": "Read annotations",
     "studyLinks.commentTab": "Ensure comment tab in studies",
-    "cevalLineOptions.depthChart": "Depth chart"
+    "cevalLineOptions.depthChart": "Depth chart",
+    "chapterNavigation.controls": "Navigation controls",
+    "chapterNavigation.hideNextButton": "Hide next chapter button",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3333,7 +3342,10 @@
     "analysisReadComments.stripEmoji": "Emoji negeren",
     "analysisReadComments.readAnnotations": "Lees aantekeningen",
     "studyLinks.commentTab": "Zorg voor commentaar tab in studies",
-    "cevalLineOptions.depthChart": "Diepte grafiek"
+    "cevalLineOptions.depthChart": "Diepte grafiek",
+    "chapterNavigation.controls": "Navigatie bediening",
+    "chapterNavigation.hideNextButton": "Volgende hoofdstuk knop verbergen",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4167,7 +4179,10 @@
     "analysisReadComments.stripEmoji": "Ignore emoji",
     "analysisReadComments.readAnnotations": "Read annotations",
     "studyLinks.commentTab": "Ensure comment tab in studies",
-    "cevalLineOptions.depthChart": "Depth chart"
+    "cevalLineOptions.depthChart": "Depth chart",
+    "chapterNavigation.controls": "Navigation controls",
+    "chapterNavigation.hideNextButton": "Hide next chapter button",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4471,7 +4486,7 @@
     "options.explorerEval": "Afficher l'évaluation de l'explorateur de coups",
     "explorerEval.ceval": "À partir de l'évaluation de l'ordinateur",
     "explorerEval.stats": "À partir des statistiques gagnantes",
-    "explorerEval.db": "À partir de la base de données",
+    "explorerEval.db": "À partir de ChessDb",
     "explorerEval.lichess": "À partir de Lichess",
     "explorerEval.evalRows": "Variantes proposées par l'évaluation",
     "explorerEval.hidden": "Masqué",
@@ -5001,7 +5016,10 @@
     "analysisReadComments.stripEmoji": "Ignorer les émojis",
     "analysisReadComments.readAnnotations": "Lire les annotations",
     "studyLinks.commentTab": "Toujours l'onglet commentaire dans les études",
-    "cevalLineOptions.depthChart": "Graphique de profondeur"
+    "cevalLineOptions.depthChart": "Graphique éval. selon la profondeur",
+    "chapterNavigation.controls": "Contrôles de navigation",
+    "chapterNavigation.hideNextButton": "Cacher le bouton du chapitre suivant",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5835,7 +5853,10 @@
     "analysisReadComments.stripEmoji": "Emoji ignorieren",
     "analysisReadComments.readAnnotations": "Anmerkungen lesen",
     "studyLinks.commentTab": "Kommentar-Tab in Studien sicherstellen",
-    "cevalLineOptions.depthChart": "Tiefendiagramm"
+    "cevalLineOptions.depthChart": "Tiefendiagramm",
+    "chapterNavigation.controls": "Navigationssteuerung",
+    "chapterNavigation.hideNextButton": "Nächste Kapitelschaltfläche ausblenden",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6669,7 +6690,10 @@
     "analysisReadComments.stripEmoji": "Ignora emoji",
     "analysisReadComments.readAnnotations": "Leggi annotazioni",
     "studyLinks.commentTab": "Assicurati la scheda dei commenti negli studi",
-    "cevalLineOptions.depthChart": "Grafico di profondità"
+    "cevalLineOptions.depthChart": "Grafico di profondità",
+    "chapterNavigation.controls": "Controlli di navigazione",
+    "chapterNavigation.hideNextButton": "Nascondi il pulsante del capitolo successivo",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7503,7 +7527,10 @@
     "analysisReadComments.stripEmoji": "Ignoruj emoji",
     "analysisReadComments.readAnnotations": "Czytaj adnotacje",
     "studyLinks.commentTab": "Zapewnij zakładkę komentarzy w badaniach",
-    "cevalLineOptions.depthChart": "Wykres głębokości"
+    "cevalLineOptions.depthChart": "Wykres głębokości",
+    "chapterNavigation.controls": "Sterowanie nawigacją",
+    "chapterNavigation.hideNextButton": "Ukryj przycisk następnego rozdziału",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8337,7 +8364,10 @@
     "analysisReadComments.stripEmoji": "Ignorar emoji",
     "analysisReadComments.readAnnotations": "Ler anotações",
     "studyLinks.commentTab": "Garanta aba de comentários nos estudos",
-    "cevalLineOptions.depthChart": "Gráfico de Profundidade"
+    "cevalLineOptions.depthChart": "Gráfico de Profundidade",
+    "chapterNavigation.controls": "Controles de navegação",
+    "chapterNavigation.hideNextButton": "Ocultar botão de capítulo seguinte",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9171,7 +9201,10 @@
     "analysisReadComments.stripEmoji": "Ignorar emoji",
     "analysisReadComments.readAnnotations": "Ler anotações",
     "studyLinks.commentTab": "Garanta aba de comentários nos estudos",
-    "cevalLineOptions.depthChart": "Gráfico de Profundidade"
+    "cevalLineOptions.depthChart": "Gráfico de Profundidade",
+    "chapterNavigation.controls": "Controles de navegação",
+    "chapterNavigation.hideNextButton": "Ocultar botão de capítulo seguinte",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -10005,7 +10038,10 @@
     "analysisReadComments.stripEmoji": "Ignoră emoji",
     "analysisReadComments.readAnnotations": "Citește adnotări",
     "studyLinks.commentTab": "Asigură tab de comentarii în studii",
-    "cevalLineOptions.depthChart": "Grafic adâncime"
+    "cevalLineOptions.depthChart": "Grafic adâncime",
+    "chapterNavigation.controls": "Controale navigare",
+    "chapterNavigation.hideNextButton": "Ascunde butonul pentru capitolul următor",
+    "chapterNavigation.subChapters": "Subcapitole"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10839,7 +10875,10 @@
     "analysisReadComments.stripEmoji": "Игнорировать эмодзи",
     "analysisReadComments.readAnnotations": "Прочитать аннотации",
     "studyLinks.commentTab": "Обеспечьте вкладку комментариев в исследованиях",
-    "cevalLineOptions.depthChart": "Глубина графика"
+    "cevalLineOptions.depthChart": "Глубина графика",
+    "chapterNavigation.controls": "Управление навигацией",
+    "chapterNavigation.hideNextButton": "Скрыть кнопку следующей главы",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11673,7 +11712,10 @@
     "analysisReadComments.stripEmoji": "Ignorar emoji",
     "analysisReadComments.readAnnotations": "Leer anotaciones",
     "studyLinks.commentTab": "Asegúrate de la pestaña de comentarios en estudios",
-    "cevalLineOptions.depthChart": "Gráfico de longitud"
+    "cevalLineOptions.depthChart": "Gráfico de longitud",
+    "chapterNavigation.controls": "Controles de navegación",
+    "chapterNavigation.hideNextButton": "Ocultar botón del siguiente capítulo",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12507,7 +12549,10 @@
     "analysisReadComments.stripEmoji": "Ignore emoji",
     "analysisReadComments.readAnnotations": "Read annotations",
     "studyLinks.commentTab": "Ensure comment tab in studies",
-    "cevalLineOptions.depthChart": "Depth chart"
+    "cevalLineOptions.depthChart": "Depth chart",
+    "chapterNavigation.controls": "Navigation controls",
+    "chapterNavigation.hideNextButton": "Hide next chapter button",
+    "chapterNavigation.subChapters": "Subchapters"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13341,6 +13386,9 @@
     "analysisReadComments.stripEmoji": "Ignore emoji",
     "analysisReadComments.readAnnotations": "Read annotations",
     "studyLinks.commentTab": "Ensure comment tab in studies",
-    "cevalLineOptions.depthChart": "Depth chart"
+    "cevalLineOptions.depthChart": "Depth chart",
+    "chapterNavigation.controls": "Navigation controls",
+    "chapterNavigation.hideNextButton": "Hide next chapter button",
+    "chapterNavigation.subChapters": "Subchapters"
   }
 }
