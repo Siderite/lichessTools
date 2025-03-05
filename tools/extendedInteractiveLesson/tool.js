@@ -946,7 +946,7 @@
         .prop('checked', this.options.fastInteractive);
     };
 
-    setupReset = () => {
+    setupReset = (chapterId) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       this.state = lt.traverse(undefined, undefined, true);
@@ -958,7 +958,7 @@
       if (!modal.length) return;
       this.loadChapterPaths(null);
       if (!this._paths) return;
-      const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
+      const key = analysis.study.data.id + '/' + chapterId;
       const paths = this._paths[key];
       const button = $('div.form-actions button.lichessTools-reset', modal);
       if (paths) {
@@ -969,7 +969,7 @@
           .on('click', async (ev) => {
             ev.preventDefault();
             if (!await lt.uiApi.dialog.confirm(trans.noarg('resetQuestion'))) return;
-            this.resetDone();
+            this.resetDone(chapterId);
           })
           .insertBefore($('div.form-actions button[type="submit"]', modal));
       } else {
@@ -1169,15 +1169,14 @@
         this.refreshChapterProgress();
         study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
           id: 'extendedInteractiveLessonFlow',
-          after: ($this, result, data) => {
+          after: ($this, result, chapter) => {
             const interval = lt.global.setInterval(() => {
-              const currentChapterId = study.currentChapter()?.id;
+              const currentChapterId = chapter.id;
               if (!currentChapterId) return;
-              if (!study.data.chapter.gamebook) return;
               const modal = $('div.dialog-content');
               if (!modal.length) return;
               lt.global.clearInterval(interval);
-              this.setupReset();
+              this.setupReset(currentChapterId);
             }, 100);
           }
         });
