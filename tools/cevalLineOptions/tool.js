@@ -48,7 +48,7 @@
 
     dict = new Map();
     clsIndex = 0;
-    handlePvs = () => {
+    handlePvsDirect = () => {
       if (this._inHandlePvs) return;
       try {
         this._inHandlePvs=true;
@@ -117,18 +117,19 @@
             const val = lt.winPerc(lt.getCentipawns(info));
             if (first === null) {
               first = val;
-              $(e).addClass('best');
+              $(e).toggleClassSafe('best',true);
               return;
             }
             const diff = Math.abs(val - first);
-            if (diff<1) $(e).addClass('good');
-            else if (diff>20) $(e).addClass('blunder');
-            else if (diff>10) $(e).addClass('mistake');
+            if (diff<1) $(e).toggleClassSafe('good',true)
+            else if (diff>20) $(e).toggleClassSafe('blunder',true);
+            else if (diff>10) $(e).toggleClassSafe('mistake',true);
           });
       } finally {
         this._inHandlePvs=false;
       }
     };
+    handlePvs = lichessTools.debounce(this.handlePvsDirect,100);
 
     updateMoreLinesText = ()=>{
       const lt = this.lichessTools;
