@@ -232,7 +232,7 @@
       UpwardsWhiteArrow: '\u21E7',
       DownwardsWhiteArrow: '\u21E9',
       Mate: '\u266F',
-      Book: '\uD83D\uDD6E',
+      OpenBook: '\uD83D\uDCD6',
 
       toEntity: function(s) {
         let result='';
