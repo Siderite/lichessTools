@@ -515,28 +515,30 @@
       const trans = lt.translator;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
-      if (!this.options.showFinalScore && !this.options.alwaysShowScore) return;
-      gp.goodMoves = +(gp.goodMoves) || 0;
-      gp.badMoves = +(gp.badMoves) || 0;
-      if (gp.goodMoves + gp.badMoves == 0) return;
-      const score = gp.goodMoves / (gp.goodMoves + gp.badMoves);
-      const scoreText = trans.pluralSame(isFinal ? 'finalScore' : 'currentScore', Math.round(100 * score));
-      const scoreRating = score > 0.90 ? 4 : score > 0.75 ? 3 : score > 0.50 ? 2 : 1;
-      const el = $('<span/>')
-        .addClass('lichessTools-score')
-        .addClass('lichessTools-score' + scoreRating)
-        .text(scoreText)
-        .attr('title', gp.goodMoves + ' | ' + gp.badMoves);
-      const f = () => {
-        const container = $('div.gamebook .comment .content');
-        if (!container.length) {
-          lt.global.setTimeout(f, 100);
-          return;
+      if (this.options.showFinalScore || this.options.alwaysShowScore) {
+        gp.goodMoves = +(gp.goodMoves) || 0;
+        gp.badMoves = +(gp.badMoves) || 0;
+        if (gp.goodMoves + gp.badMoves > 0) {
+          const score = gp.goodMoves / (gp.goodMoves + gp.badMoves);
+          const scoreText = trans.pluralSame(isFinal ? 'finalScore' : 'currentScore', Math.round(100 * score));
+          const scoreRating = score > 0.90 ? 4 : score > 0.75 ? 3 : score > 0.50 ? 2 : 1;
+          const el = $('<span/>')
+            .addClass('lichessTools-score')
+            .addClass('lichessTools-score' + scoreRating)
+            .text(scoreText)
+            .attr('title', gp.goodMoves + ' | ' + gp.badMoves);
+          const f = () => {
+            const container = $('div.gamebook .comment .content');
+            if (!container.length) {
+              lt.global.setTimeout(f, 100);
+              return;
+            }
+            container.find('.lichessTools-score').remove();
+            container.append(el);
+          };
+          f();
         }
-        container.find('.lichessTools-score').remove();
-        container.append(el);
-      };
-      f();
+      }
       if (isFinal) gp.resetStats();
     };
 
@@ -580,9 +582,9 @@
         gp.retry = lt.unwrapFunction(gp.retry, 'extendedInteractiveLessons');
         gp.next = lt.unwrapFunction(gp.next, 'extendedInteractiveLessons');
         gp.solution = lt.unwrapFunction(gp.solution, 'extendedInteractiveLessons');
-        gp.isExtendedInteractiveLessons = true;
+        gp.isExtendedInteractiveLessons = false;
       }
-      if ((this.options.showFinalScore || this.options.alwaysShowScore) && !gp.isShowScore) {
+      if (this.options.extendedInteractive) {
         gp.fens = {};
         gp.resetStats = this.extendedGamebook.resetStats;
         gp.makeState = lt.wrapFunction(gp.makeState, {
@@ -669,7 +671,7 @@
         });
         gp.isShowScore = true;
         gp.redraw();
-      } else if (!this.options.showFinalScore && gp.isShowScore) {
+      } else {
         gp.makeState = lt.unwrapFunction(gp.makeState, 'showScore');
         gp.next = lt.unwrapFunction(gp.next, 'showScore');
         gp.retry = lt.unwrapFunction(gp.retry, 'showScore');
@@ -1163,8 +1165,7 @@
         .find('i.act.lichessTools-reset')
         .remove();
       lt.uiApi.events.off('chat.resize', this.refreshChapterProgress);
-      //if (this.options.flow.sequential || this.options.flow.spacedRepetition) 
-      {
+      if (this.options.extendedInteractive) {
         lt.uiApi.events.on('chat.resize', this.refreshChapterProgress);
         this.refreshChapterProgress();
         study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
