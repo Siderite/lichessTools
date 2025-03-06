@@ -584,7 +584,8 @@
         gp.solution = lt.unwrapFunction(gp.solution, 'extendedInteractiveLessons');
         gp.isExtendedInteractiveLessons = false;
       }
-      if (this.options.extendedInteractive) {
+      if (gp.isExtendedInteractiveLessons && !gp.isShowScore) {
+        gp.isShowScore = true;
         gp.fens = {};
         gp.resetStats = this.extendedGamebook.resetStats;
         gp.makeState = lt.wrapFunction(gp.makeState, {
@@ -669,15 +670,14 @@
             }
           }
         });
-        gp.isShowScore = true;
         gp.redraw();
-      } else {
+      } else if (!gp.isExtendedInteractiveLessons && gp.isShowScore) {
+        gp.isShowScore = false;
         gp.makeState = lt.unwrapFunction(gp.makeState, 'showScore');
         gp.next = lt.unwrapFunction(gp.next, 'showScore');
         gp.retry = lt.unwrapFunction(gp.retry, 'showScore');
         gp.redraw = lt.unwrapFunction(gp.redraw, 'showScore');
         gp.solution = lt.unwrapFunction(gp.solution, 'showScore');
-        gp.isShowScore = false;
       }
       if (analysis.path === '') {
         lt.traverse(undefined, undefined, true);
