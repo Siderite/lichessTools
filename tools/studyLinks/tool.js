@@ -171,15 +171,23 @@
             .prop('_contextMenuEnabled',true)
             .on('contextmenu',ev=>ev.stopPropagation());
         }
-        const uri = URL.canParse(href)
-          ? new URL(href)
-          : new URL(href, lt.global.location);
+        let uri;
+        try {
+          uri = URL.canParse(href)
+            ? new URL(href)
+            : new URL(href, lt.global.location);
+        } catch {
+          lt.global.console.debug('Could not URL',href);
+          return;
+        }
         const m = /\/study\/(?<studyId>[^\/\?#]+)?(?:\/(?<chapterId>[^\/\?#]+))?/.exec(uri.pathname);
         if (!m) return;
         $(e).removeAttr('target');
-        if (uri.origin != lt.global.location.origin
-              || uri.searchParams?.size || uri.hash) return;
-        if (m.groups?.studyId == study.data?.id && m.groups?.chapterId) {
+        if (uri.origin.toLowerCase() == lt.global.location.origin.toLowerCase()
+              && !uri.searchParams?.size
+              && !uri.hash
+              && m.groups?.studyId == study.data?.id
+              && m.groups?.chapterId) {
           $(e).on('click',ev=>{
             ev.preventDefault();
             study.setChapter(m.groups.chapterId);
