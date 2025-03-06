@@ -159,7 +159,11 @@
     alterStudyLinksDirect = () => {
       if (!this.options.studyLinksSameWindow) return;
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const $ = lt.$;
+      const analysis = lichess?.analysis;
+      const study = analysis?.study;
+      if (!study) return;
       $('.study__comment a[target],comment a[target],div.comment a[target]').each((i, e) => {
         const href = $(e).attr('href');
         if (!e._contextMenuEnabled) {
@@ -167,8 +171,20 @@
             .prop('_contextMenuEnabled',true)
             .on('contextmenu',ev=>ev.stopPropagation());
         }
-        if (!/\/study\//.test(href)) return;
+        const uri = URL.canParse(href)
+          ? new URL(href)
+          : new URL(href, lt.global.location);
+        const m = /\/study\/(?<studyId>[^\/\?#]+)?(?:\/(?<chapterId>[^\/\?#]+))?/.exec(uri.pathname);
+        if (!m) return;
         $(e).removeAttr('target');
+        if (uri.origin != lt.global.location.origin
+              || uri.searchParams?.size || uri.hash) return;
+        if (m.groups?.studyId == study.data?.id && m.groups?.chapterId) {
+          $(e).on('click',ev=>{
+            ev.preventDefault();
+            study.setChapter(m.groups.chapterId);
+          });
+        }
       });
     };
 
