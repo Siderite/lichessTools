@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+09 Mar
+
+- no game result popup theme
+
 04 Mar
 
 - study subchapters

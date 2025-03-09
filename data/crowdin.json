@@ -834,7 +834,8 @@
     "cevalLineOptions.depthChart": "مخطط العمق",
     "chapterNavigation.controls": "ضوابط التنقل",
     "chapterNavigation.hideNextButton": "إخفاء زر الفصل التالي",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "لا توجد نتائج للعبة منبثقة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1671,7 +1672,8 @@
     "cevalLineOptions.depthChart": "深度图",
     "chapterNavigation.controls": "导航控制",
     "chapterNavigation.hideNextButton": "隐藏下一章按钮",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "没有弹出游戏"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2154,14 +2156,14 @@
     "preparingGames:one": "準備 1 個 PGN",
     "cannotMerge": "無法合併！(無共同局面)",
     "operationFailed": "操作失敗！(輸入無效)",
-    "operationCancelled": "Operation cancelled",
-    "pastePGNs": "drag/paste your PGNs here",
+    "operationCancelled": "操作已取消",
+    "pastePGNs": "拖曳/貼上你的PGNs到這裡",
     "searchPattern": "Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, \"Index\"=Value, \"Invalid\", \"Ply\"(>,=,<)Value, \"Eval\"(>,=,<)Value\", \"Clock\", \"Shapes\"",
     "foundGames": "找到了%s盤棋局",
     "foundGames:one": "找到了一盤棋局",
     "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value,\"Junk\",\"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN 編輯器",
-    "sendToPgnEditorTitle": "LiChess Tools - send to PGN Editor",
+    "sendToPgnEditorTitle": "LiChess Tools - 傳送至PGN 編輯器",
     "evaluateNeedsAnalysis": "Evaluate can only be used on the analysis or study pages - Lichess limitation",
     "options.playerLag": "Player lag indicators",
     "playerLagTitle": "LiChess Tools - ping %1ms/latency %2ms",
@@ -2508,7 +2510,8 @@
     "cevalLineOptions.depthChart": "Depth chart",
     "chapterNavigation.controls": "Navigation controls",
     "chapterNavigation.hideNextButton": "Hide next chapter button",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "No game result popup"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3345,7 +3348,8 @@
     "cevalLineOptions.depthChart": "Diepte grafiek",
     "chapterNavigation.controls": "Navigatie bediening",
     "chapterNavigation.hideNextButton": "Volgende hoofdstuk knop verbergen",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "Geen spel resultaat popup"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4182,7 +4186,8 @@
     "cevalLineOptions.depthChart": "Depth chart",
     "chapterNavigation.controls": "Navigation controls",
     "chapterNavigation.hideNextButton": "Hide next chapter button",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "No game result popup"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5019,7 +5024,8 @@
     "cevalLineOptions.depthChart": "Graphique éval. selon la profondeur",
     "chapterNavigation.controls": "Boutons de navigation",
     "chapterNavigation.hideNextButton": "Masquer le bouton \"Chapitre suivant\"",
-    "chapterNavigation.subChapters": "Sous-chapitres"
+    "chapterNavigation.subChapters": "Sous-chapitres",
+    "themes.noResultPopup": "Pas de popup de résultat de jeu"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5856,7 +5862,8 @@
     "cevalLineOptions.depthChart": "Tiefendiagramm",
     "chapterNavigation.controls": "Navigationssteuerung",
     "chapterNavigation.hideNextButton": "Nächste Kapitelschaltfläche ausblenden",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "Kein Spielergebnis-Popup"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6693,7 +6700,8 @@
     "cevalLineOptions.depthChart": "Grafico di profondità",
     "chapterNavigation.controls": "Controlli di navigazione",
     "chapterNavigation.hideNextButton": "Nascondi il pulsante del capitolo successivo",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "Nessun risultato di gioco popup"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7530,7 +7538,8 @@
     "cevalLineOptions.depthChart": "Wykres głębokości",
     "chapterNavigation.controls": "Sterowanie nawigacją",
     "chapterNavigation.hideNextButton": "Ukryj przycisk następnego rozdziału",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "Brak wyskakujących okienek wyników gry"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8367,7 +8376,8 @@
     "cevalLineOptions.depthChart": "Gráfico de Profundidade",
     "chapterNavigation.controls": "Controles de navegação",
     "chapterNavigation.hideNextButton": "Ocultar botão de capítulo seguinte",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "Nenhum resultado popup"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9204,7 +9214,8 @@
     "cevalLineOptions.depthChart": "Gráfico de Profundidade",
     "chapterNavigation.controls": "Controles de navegação",
     "chapterNavigation.hideNextButton": "Ocultar botão de capítulo seguinte",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "Nenhum resultado popup"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -10041,7 +10052,8 @@
     "cevalLineOptions.depthChart": "Grafic adâncime",
     "chapterNavigation.controls": "Controale navigare",
     "chapterNavigation.hideNextButton": "Ascunde butonul pentru capitolul următor",
-    "chapterNavigation.subChapters": "Subcapitole"
+    "chapterNavigation.subChapters": "Subcapitole",
+    "themes.noResultPopup": "Fără pop-up cu rezultat joc"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10878,7 +10890,8 @@
     "cevalLineOptions.depthChart": "Глубина графика",
     "chapterNavigation.controls": "Управление навигацией",
     "chapterNavigation.hideNextButton": "Скрыть кнопку следующей главы",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "Нет всплывающих результатов игры"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11715,7 +11728,8 @@
     "cevalLineOptions.depthChart": "Gráfico de longitud",
     "chapterNavigation.controls": "Controles de navegación",
     "chapterNavigation.hideNextButton": "Ocultar botón del siguiente capítulo",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "No hay resultados del juego"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12552,7 +12566,8 @@
     "cevalLineOptions.depthChart": "Depth chart",
     "chapterNavigation.controls": "Navigation controls",
     "chapterNavigation.hideNextButton": "Hide next chapter button",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "No game result popup"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13389,6 +13404,7 @@
     "cevalLineOptions.depthChart": "Depth chart",
     "chapterNavigation.controls": "Navigation controls",
     "chapterNavigation.hideNextButton": "Hide next chapter button",
-    "chapterNavigation.subChapters": "Subchapters"
+    "chapterNavigation.subChapters": "Subchapters",
+    "themes.noResultPopup": "No game result popup"
   }
 }

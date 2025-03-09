@@ -8,7 +8,7 @@
         name: 'themes',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard'],
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup'],
         defaultValue: '',
         advanced: true
       }
@@ -34,7 +34,8 @@
         'themes.fatGauge': 'Thick analysis gauge',
         'themes.fatMove': 'Larger analysis move font',
         'themes.slimmerArrows': '... slimmer',
-        'themes.gridBoard': 'Grid board squares'
+        'themes.gridBoard': 'Grid board squares',
+        'themes.noResultPopup': 'No game result popup'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -55,7 +56,8 @@
         'themes.fatGauge': 'Bar\u0103 analiz\u0103 groas\u0103',
         'themes.fatMove': 'Text mai mare la mut\u0103ri',
         'themes.slimmerArrows': '... \u015fi mai sub\u0163iri',
-        'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei'
+        'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei',
+        'themes.noResultPopup': 'F\u0103r\u0103 popup cu rezultat joc'
       }
     }
 
