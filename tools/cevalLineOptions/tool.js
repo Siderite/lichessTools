@@ -245,7 +245,7 @@
         .off('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs);
       main
         .observer()
-        .off('#ceval-settings-anchor',this.handleMoreLines);
+        .off('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
       lt.pubsub.off('lichessTools.redraw',this.setupHighlightSameMoves);
       if (this.options.highlight || this.options.colorEvaluation) {
         lt.pubsub.on('lichessTools.redraw',this.setupHighlightSameMoves);
@@ -254,7 +254,7 @@
       if (this.options.moreLines) {
         main
           .observer()
-          .on('#ceval-settings-anchor',this.handleMoreLines);
+          .on('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
       }
       this.handleMoreLines();
       lt.uiApi.events.off('analysis.change',this.drawChart);
