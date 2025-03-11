@@ -490,7 +490,7 @@
       const trans = lt.translator;
       const container = $('.gamebook .comment');
       if (!container.length || $('.lichessTools-giveUp', container).length) return;
-      $('<button class="lichessTools-giveUp">')
+      $('<button type="button" class="lichessTools-giveUp">')
         .text(trans.noarg('giveUpButtonText'))
         .attr('title', trans.noarg('giveUpButtonTitle'))
         .on('click', (ev) => {
@@ -965,7 +965,7 @@
       const button = $('div.form-actions button.lichessTools-reset', modal);
       if (paths) {
         if (button.length) return;
-        $('<button class="button button-red lichessTools-reset">')
+        $('<button type="button" class="button button-red lichessTools-reset">')
           .attr('title', trans.noarg('resetButtonTitle'))
           .text(trans.noarg('resetButtonText'))
           .on('click', async (ev) => {
