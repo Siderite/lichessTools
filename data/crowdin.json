@@ -5025,7 +5025,7 @@
     "chapterNavigation.controls": "Boutons de navigation",
     "chapterNavigation.hideNextButton": "Masquer le bouton \"Chapitre suivant\"",
     "chapterNavigation.subChapters": "Sous-chapitres",
-    "themes.noResultPopup": "Pas de popup de résultat de jeu"
+    "themes.noResultPopup": "Pas de popup du résultat de la partie"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",

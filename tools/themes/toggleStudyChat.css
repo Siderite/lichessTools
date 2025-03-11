@@ -20,6 +20,10 @@
     left: 1em;
   }
 
+  body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat__tab .switch label:before {
+    content: '\e041'; /* BubbleSpeech */
+  }
+
   body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .study__chapters {
     max-height: calc(100vh - 17em - var(---site-header-height));
   }
