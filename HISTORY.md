@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+12 Mar
+
+- option to disable mouse over the command input
+
 09 Mar
 
 - no game result popup theme

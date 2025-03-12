@@ -175,9 +175,9 @@
         }
       }
 
-      const order = ['languages', 'community', 'general', 'appearance', 'analysis', 'analysis2', 'study', 'friends', 'play', 'puzzles', 'TV', 'mobile', 'comm', 'integration'];
+      const order = ['languages', 'community', 'general', 'appearance', 'analysis', 'analysis2', 'study', 'friends', 'play', 'puzzles', 'TV', 'mobile', 'comm', 'command', 'integration'];
       if (lt.arrayDifferent(order,Object.keys(categs))) {
-        lt.global.setTimeout(()=>lt.global.console.warn('There is a difference between category keys and order: ',diff,100));
+        lt.global.setTimeout(()=>lt.global.console.warn('There is a difference between category keys and order!'));
       }
       for (const key of order) {
         const categ = categs[key];
