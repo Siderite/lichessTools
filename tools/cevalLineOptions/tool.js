@@ -274,39 +274,41 @@
         this.setupHighlightSameMoves();
       }
       const analysis = lichess.analysis;
-      analysis.ceval.selectEngine = lt.unwrapFunction(analysis.ceval.selectEngine,'cevalLineOptions-moreLines');
-      if (this.options.moreLines) {
-        main
-          .observer()
-          .on('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
-        analysis.ceval.selectEngine = lt.wrapFunction(analysis.ceval.selectEngine,{
-          id: 'cevalLineOptions-moreLines',
-          after: ($this, result,...args)=> {
-            this.handleExternalEngine();
-          }
-        });
-        this.handleExternalEngine();
-      }
-      this.handleMoreLines();
-      lt.uiApi.events.off('analysis.change',this.drawChart);
-      const ctrl = analysis?.ceval?.engines?.ctrl;
-      if (ctrl) {
-        ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalLineOptions');
-        if (this.options.depthChart) {
-          ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
-            id: 'cevalLineOptions',
-            after: ($this, result, data, meta)=>{
-              if (!data?.depth || meta?.path != analysis.path) return;
-              let db = this.db.get(meta.path);
-              if (!db) {
-                db = new Map();
-                this.db.set(meta.path,db);
-              }
-              db.set(data.depth,data);
-              this.drawChart();
+      if (analysis?.ceval) {
+        analysis.ceval.selectEngine = lt.unwrapFunction(analysis.ceval.selectEngine,'cevalLineOptions-moreLines');
+        if (this.options.moreLines) {
+          main
+            .observer()
+            .on('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
+          analysis.ceval.selectEngine = lt.wrapFunction(analysis.ceval.selectEngine,{
+            id: 'cevalLineOptions-moreLines',
+            after: ($this, result,...args)=> {
+              this.handleExternalEngine();
             }
           });
-          lt.uiApi.events.on('analysis.change',this.drawChart);
+          this.handleExternalEngine();
+        }
+        this.handleMoreLines();
+        lt.uiApi.events.off('analysis.change',this.drawChart);
+        const ctrl = analysis.ceval.engines?.ctrl;
+        if (ctrl) {
+          ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalLineOptions');
+          if (this.options.depthChart) {
+            ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
+              id: 'cevalLineOptions',
+              after: ($this, result, data, meta)=>{
+                if (!data?.depth || meta?.path != analysis.path) return;
+                let db = this.db.get(meta.path);
+                if (!db) {
+                  db = new Map();
+                  this.db.set(meta.path,db);
+                }
+                db.set(data.depth,data);
+                this.drawChart();
+              }
+            });
+            lt.uiApi.events.on('analysis.change',this.drawChart);
+          }
         }
       }
     }
