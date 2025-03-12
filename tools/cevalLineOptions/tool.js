@@ -140,6 +140,24 @@
         .text(input.val()+' / '+input.attr('max'));
     };
 
+    //Lichess API limitation: https://github.com/lichess-org/lila/issues/17127
+    handleExternalEngine = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const analysis = lt.lichess.analysis;
+      const engine = analysis?.ceval?.engines?.activeEngine;
+      const isExternalEngine = engine?.tech == 'EXTERNAL';
+      $('div.analyse__tools').toggleClassSafe('lichessTools-externalEngine',isExternalEngine);
+      if (isExternalEngine) {
+        if (analysis.ceval.storedPv()>5) {
+          site.analysis.ceval.storedPv(5);
+        }
+        const input = $('div.setting #analyse-multipv');
+        input.attr('max',5);
+      }
+      return isExternalEngine;
+    };
+
     handleMoreLines = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -149,7 +167,11 @@
       if (!analysis) return;
       const container = $('div.setting:has(#analyse-multipv)');
       if (!container.length) return;
-      const maxValue = +lt.storage.get('LiChessTools.cevalLineOptions-moreLines') || 5;
+      let maxValue = +lt.storage.get('LiChessTools.cevalLineOptions-moreLines') || 5;
+      const isExternalEngine = this.handleExternalEngine();
+      if (isExternalEngine) {
+        maxValue = 5;
+      }
       const input = $('div.setting #analyse-multipv')
         .attr('max',maxValue)
         .off('input',this.updateMoreLinesText)
@@ -157,7 +179,7 @@
       const ceval = analysis?.ceval;
       const value = ceval?.storedPv();
       if (value) {
-        input.val(value);
+        input.val(Math.max(maxValue,+value));
       }
       this.updateMoreLinesText();
       if (!$('.lichessTools-cevalMoreLines',container).length) {
@@ -251,14 +273,22 @@
         lt.pubsub.on('lichessTools.redraw',this.setupHighlightSameMoves);
         this.setupHighlightSameMoves();
       }
+      const analysis = lichess.analysis;
+      analysis.ceval.selectEngine = lt.unwrapFunction(analysis.ceval.selectEngine,'cevalLineOptions-moreLines');
       if (this.options.moreLines) {
         main
           .observer()
           .on('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
+        analysis.ceval.selectEngine = lt.wrapFunction(analysis.ceval.selectEngine,{
+          id: 'cevalLineOptions-moreLines',
+          after: ($this, result,...args)=> {
+            this.handleExternalEngine();
+          }
+        });
+        this.handleExternalEngine();
       }
       this.handleMoreLines();
       lt.uiApi.events.off('analysis.change',this.drawChart);
-      const analysis = lichess.analysis;
       const ctrl = analysis?.ceval?.engines?.ctrl;
       if (ctrl) {
         ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalLineOptions');

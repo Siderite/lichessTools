@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 12 Mar
 
 - option to disable mouse over the command input
+- limit number of ceval lines to 5 for external engines
 
 09 Mar
 
