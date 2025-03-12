@@ -243,6 +243,16 @@
                 </div></group>`;
             }
               break;
+            case 'select': {
+              html += `<group>
+                <div>
+                  <select class="form-control" name="${pref.name}">`;
+              for (const [v,n] of pref.possibleValues) {
+                html += `<option value="${lt.htmlEncode(v?.toString()||'')}">${lt.htmlEncode(n?.toString()||'')}</option>`;
+              }
+              html += `</select></div></group>`;
+            }
+              break;
             case 'text': {
               html += `<group>
                 <div>
@@ -387,6 +397,30 @@
             ? $('input[name="' + optionName + '"]').filter((i, e) => $(e).is(':checked')).map((i, e) => $(e).attr('value')).get()
             : [$(this).val()];
           let value = optionValues.join(',');
+          if (value === 'true') value = true;
+          else if (value === 'false') value = false;
+          currentOptions[optionName] = value;
+          await applyOptions(currentOptions);
+          lt.fireReloadOptions();
+          checkGlobalSwitch();
+          checkAdvanced();
+          showSaved();
+        }, 500));
+      $('form select')
+        .each((i, e) => {
+          const optionName = $(e).attr('name');
+          const optionValue = $(e).attr('value');
+          const currentValue = currentOptions[optionName];
+          const preferences = lt.tools
+            .find(t => t.preferences?.find(p => p.name == optionName))?.preferences
+            .find(p => p.name == optionName);
+          if (currentValue !== undefined) {
+            $(e).val(currentValue);
+          }
+        })
+        .on('change',lt.debounce(async function () {
+          const optionName = $(this).attr('name');
+          let value = $(this).val();
           if (value === 'true') value = true;
           else if (value === 'false') value = false;
           currentOptions[optionName] = value;

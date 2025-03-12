@@ -17,6 +17,13 @@
         defaultValue: 70
       },
       {
+        name: 'soundVoice',
+        category: 'general',
+        type: 'select',
+        possibleValues: [], // loaded in init
+        defaultValue: 0
+      },
+      {
         name: 'timeAlert',
         category: 'play',
         type: 'multiple',
@@ -32,6 +39,7 @@
         'options.play': 'Play',
         'options.soundOptions': 'Sound options',
         'options.soundVolume': 'Sound volume (0-100)',
+        'options.soundVoice': 'Speech voice',
         'soundOptions.noMove': 'No move sounds',
         'options.timeAlert': 'Time alert (minutes)',
         'timeAlert.s30': '0:30',
@@ -47,6 +55,7 @@
         'options.play': 'Joc',
         'options.soundOptions': 'Op\u0163iuni sunet',
         'options.soundVolume': 'Volum sonor (0-100)',
+        'options.soundVoice': 'Voce folosit\u0103',
         'soundOptions.noMove': 'F\u0103r\u0103 sunet la mutare',
         'options.timeAlert': 'Alert\u0103 timp (minute)',
         'timeAlert.s30': '0:30',
@@ -96,6 +105,17 @@
       }
     };
 
+    async init() {
+      const lt = this.lichessTools;
+      const ss = lt.global.speechSynthesis;
+      if (ss) {
+        ss.onvoiceschanged = ()=>{
+          const pref = this.preferences.find(p=>p.name=='soundVoice');
+          pref.possibleValues = ss.getVoices()?.map((v,i)=>[i,v.name]) || [];
+        };
+      }
+    }
+
     async start() {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -104,9 +124,13 @@
       let soundVolume = +lt.currentOptions.getValue('soundVolume');
       if (Number.isNaN(soundVolume)) soundValume = this.preferences.find(p=>p.name='soundVolume')?.defaultValue;
       lt.soundVolume = soundVolume;
+      let soundVoice = +lt.currentOptions.getValue('soundVoice');
+      if (Number.isNaN(soundVoice)) soundVaice = this.preferences.find(p=>p.name='soundVoice')?.defaultValue;
+      lt.speechVoiceIndex = soundVoice;
       const timeAlert = lt.currentOptions.getValue('timeAlert');
       this.logOption('Sound options', soundOptions);
       this.logOption('Sound volume', soundVolume);
+      this.logOption('Sound voice', soundVoice);
       this.logOption('Time alert', timeAlert);
       this.options = {
         noMove: lt.isOptionSet(soundOptions, 'noMove'),

@@ -835,7 +835,10 @@
     "chapterNavigation.controls": "ضوابط التنقل",
     "chapterNavigation.hideNextButton": "إخفاء زر الفصل التالي",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "لا توجد نتائج للعبة منبثقة"
+    "themes.noResultPopup": "لا توجد نتائج للعبة منبثقة",
+    "options.cliCommandsOptions": "خيارات أوامر CLI",
+    "cliCommandsOptions.disableMouseOver": "تعطيل الفأرة فوق",
+    "options.soundVoice": "صوت الكلام"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1673,7 +1676,10 @@
     "chapterNavigation.controls": "导航控制",
     "chapterNavigation.hideNextButton": "隐藏下一章按钮",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "没有弹出游戏"
+    "themes.noResultPopup": "没有弹出游戏",
+    "options.cliCommandsOptions": "CLI 命令选项",
+    "cliCommandsOptions.disableMouseOver": "禁用鼠标悬停。",
+    "options.soundVoice": "语音声音"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2511,7 +2517,10 @@
     "chapterNavigation.controls": "Navigation controls",
     "chapterNavigation.hideNextButton": "Hide next chapter button",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "No game result popup"
+    "themes.noResultPopup": "No game result popup",
+    "options.cliCommandsOptions": "CLI commands options",
+    "cliCommandsOptions.disableMouseOver": "Disable mouse over",
+    "options.soundVoice": "Speech voice"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3349,7 +3358,10 @@
     "chapterNavigation.controls": "Navigatie bediening",
     "chapterNavigation.hideNextButton": "Volgende hoofdstuk knop verbergen",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "Geen spel resultaat popup"
+    "themes.noResultPopup": "Geen spel resultaat popup",
+    "options.cliCommandsOptions": "CLI commando's opties",
+    "cliCommandsOptions.disableMouseOver": "muis over uitschakelen",
+    "options.soundVoice": "Spraak stem"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4187,7 +4199,10 @@
     "chapterNavigation.controls": "Navigation controls",
     "chapterNavigation.hideNextButton": "Hide next chapter button",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "No game result popup"
+    "themes.noResultPopup": "No game result popup",
+    "options.cliCommandsOptions": "CLI commands options",
+    "cliCommandsOptions.disableMouseOver": "Disable mouse over",
+    "options.soundVoice": "Speech voice"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5025,7 +5040,10 @@
     "chapterNavigation.controls": "Boutons de navigation",
     "chapterNavigation.hideNextButton": "Masquer le bouton \"Chapitre suivant\"",
     "chapterNavigation.subChapters": "Sous-chapitres",
-    "themes.noResultPopup": "Pas de popup du résultat de la partie"
+    "themes.noResultPopup": "Pas de popup du résultat de la partie",
+    "options.cliCommandsOptions": "Options des commandes CLI",
+    "cliCommandsOptions.disableMouseOver": "Désactiver le survol de la souris",
+    "options.soundVoice": "Voix vocale"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5863,7 +5881,10 @@
     "chapterNavigation.controls": "Navigationssteuerung",
     "chapterNavigation.hideNextButton": "Nächste Kapitelschaltfläche ausblenden",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "Kein Spielergebnis-Popup"
+    "themes.noResultPopup": "Kein Spielergebnis-Popup",
+    "options.cliCommandsOptions": "CLI Befehle Optionen",
+    "cliCommandsOptions.disableMouseOver": "Maus über deaktivieren",
+    "options.soundVoice": "Sprachstimme"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6701,7 +6722,10 @@
     "chapterNavigation.controls": "Controlli di navigazione",
     "chapterNavigation.hideNextButton": "Nascondi il pulsante del capitolo successivo",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "Nessun risultato di gioco popup"
+    "themes.noResultPopup": "Nessun risultato di gioco popup",
+    "options.cliCommandsOptions": "Opzioni comandi CLI",
+    "cliCommandsOptions.disableMouseOver": "Disabilita il mouse sopra",
+    "options.soundVoice": "Voce vocale"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7539,7 +7563,10 @@
     "chapterNavigation.controls": "Sterowanie nawigacją",
     "chapterNavigation.hideNextButton": "Ukryj przycisk następnego rozdziału",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "Brak wyskakujących okienek wyników gry"
+    "themes.noResultPopup": "Brak wyskakujących okienek wyników gry",
+    "options.cliCommandsOptions": "Opcje poleceń CLI",
+    "cliCommandsOptions.disableMouseOver": "Wyłącz mysz nad",
+    "options.soundVoice": "Głos mowy"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8377,7 +8404,10 @@
     "chapterNavigation.controls": "Controles de navegação",
     "chapterNavigation.hideNextButton": "Ocultar botão de capítulo seguinte",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "Nenhum resultado popup"
+    "themes.noResultPopup": "Nenhum resultado popup",
+    "options.cliCommandsOptions": "Opções de comandos CLI",
+    "cliCommandsOptions.disableMouseOver": "Desativar mouse sobre",
+    "options.soundVoice": "Voz de voz"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9215,7 +9245,10 @@
     "chapterNavigation.controls": "Controles de navegação",
     "chapterNavigation.hideNextButton": "Ocultar botão de capítulo seguinte",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "Nenhum resultado popup"
+    "themes.noResultPopup": "Nenhum resultado popup",
+    "options.cliCommandsOptions": "Opções de comandos CLI",
+    "cliCommandsOptions.disableMouseOver": "Desativar mouse sobre",
+    "options.soundVoice": "Voz de voz"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -10053,7 +10086,10 @@
     "chapterNavigation.controls": "Controale navigare",
     "chapterNavigation.hideNextButton": "Ascunde butonul pentru capitolul următor",
     "chapterNavigation.subChapters": "Subcapitole",
-    "themes.noResultPopup": "Fără pop-up cu rezultat joc"
+    "themes.noResultPopup": "Fără pop-up cu rezultat joc",
+    "options.cliCommandsOptions": "Opțiuni comenzi CLI",
+    "cliCommandsOptions.disableMouseOver": "Dezactivează mouse over",
+    "options.soundVoice": "Vocea folosită"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10891,7 +10927,10 @@
     "chapterNavigation.controls": "Управление навигацией",
     "chapterNavigation.hideNextButton": "Скрыть кнопку следующей главы",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "Нет всплывающих результатов игры"
+    "themes.noResultPopup": "Нет всплывающих результатов игры",
+    "options.cliCommandsOptions": "Параметры команд CLI",
+    "cliCommandsOptions.disableMouseOver": "Отключить мышь над",
+    "options.soundVoice": "Голос речи"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11729,7 +11768,10 @@
     "chapterNavigation.controls": "Controles de navegación",
     "chapterNavigation.hideNextButton": "Ocultar botón del siguiente capítulo",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "No hay resultados del juego"
+    "themes.noResultPopup": "No hay resultados del juego",
+    "options.cliCommandsOptions": "Opciones de comandos CLI",
+    "cliCommandsOptions.disableMouseOver": "Desactivar el ratón sobre",
+    "options.soundVoice": "Voz de voz"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12567,7 +12609,10 @@
     "chapterNavigation.controls": "Navigation controls",
     "chapterNavigation.hideNextButton": "Hide next chapter button",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "No game result popup"
+    "themes.noResultPopup": "No game result popup",
+    "options.cliCommandsOptions": "CLI commands options",
+    "cliCommandsOptions.disableMouseOver": "Disable mouse over",
+    "options.soundVoice": "Speech voice"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13405,6 +13450,9 @@
     "chapterNavigation.controls": "Navigation controls",
     "chapterNavigation.hideNextButton": "Hide next chapter button",
     "chapterNavigation.subChapters": "Subchapters",
-    "themes.noResultPopup": "No game result popup"
+    "themes.noResultPopup": "No game result popup",
+    "options.cliCommandsOptions": "CLI commands options",
+    "cliCommandsOptions.disableMouseOver": "Disable mouse over",
+    "options.soundVoice": "Speech voice"
   }
 }
