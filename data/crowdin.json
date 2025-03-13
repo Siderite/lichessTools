@@ -5043,7 +5043,7 @@
     "themes.noResultPopup": "Pas de popup du résultat de la partie",
     "options.cliCommandsOptions": "Options des commandes CLI",
     "cliCommandsOptions.disableMouseOver": "Désactiver le survol de la souris",
-    "options.soundVoice": "Voix vocale"
+    "options.soundVoice": "Voix pour la lecture"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",

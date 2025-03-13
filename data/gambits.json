@@ -19692,6 +19692,26 @@
         }
       ]
     },
+    "r1bqkbnrpppp1ppp2n1p382PP48PP2PPPPRNBQKBNRw": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "e2e4",
+          "san": "e4",
+          "nr": 1
+        }
+      ]
+    },
+    "r1bqkbnrpppp1ppp2n1p382PPP38PP3PPPRNBQKBNRb": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "e6e5",
+          "san": "e5",
+          "nr": 1
+        }
+      ]
+    },
     "r1bqkbnrpppp1ppp2n1p383PP32N5PPP2PPPR1BQKBNRb": {
       "total": 1,
       "moves": [
@@ -19847,6 +19867,16 @@
         }
       ]
     },
+    "r1bqkbnrpppp1ppp2n54P32P1P38PP3PPPRNBQKBNRb": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "d7d6",
+          "san": "d6",
+          "nr": 1
+        }
+      ]
+    },
     "r1bqkbnrpppp1ppp2n54P32P58PP2PPPPRNBQKBNRb": {
       "total": 1,
       "moves": [
@@ -19858,6 +19888,16 @@
       ]
     },
     "r1bqkbnrpppp1ppp2n54p32PP48PP2PPPPRNBQKBNRw": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "d4e5",
+          "san": "dxe5",
+          "nr": 1
+        }
+      ]
+    },
+    "r1bqkbnrpppp1ppp2n54p32PPP38PP3PPPRNBQKBNRw": {
       "total": 1,
       "moves": [
         {
@@ -28778,8 +28818,13 @@
       ]
     },
     "rnbqkbnrpppp1ppp4p382PP48PP2PPPPRNBQKBNRb": {
-      "total": 3,
+      "total": 4,
       "moves": [
+        {
+          "uci": "b8c6",
+          "san": "Nc6",
+          "nr": 1
+        },
         {
           "uci": "b7b6",
           "san": "b6",
@@ -28788,6 +28833,16 @@
         {
           "uci": "e6e5",
           "san": "e5",
+          "nr": 1
+        }
+      ]
+    },
+    "rnbqkbnrpppp1ppp4p383P48PPP1PPPPRNBQKBNRw": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "c2c4",
+          "san": "c4",
           "nr": 1
         }
       ]
@@ -29908,8 +29963,13 @@
       ]
     },
     "rnbqkbnrpppppppp883P48PPP1PPPPRNBQKBNRb": {
-      "total": 107,
+      "total": 108,
       "moves": [
+        {
+          "uci": "e7e6",
+          "san": "e6",
+          "nr": 1
+        },
         {
           "uci": "d7d5",
           "san": "d5",
@@ -30193,17 +30253,17 @@
       ]
     },
     "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw": {
-      "total": 386,
+      "total": 387,
       "moves": [
+        {
+          "uci": "d2d4",
+          "san": "d4",
+          "nr": 108
+        },
         {
           "uci": "g1f3",
           "san": "Nf3",
           "nr": 12
-        },
-        {
-          "uci": "d2d4",
-          "san": "d4",
-          "nr": 107
         },
         {
           "uci": "e2e4",
