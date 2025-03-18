@@ -40,7 +40,7 @@
       if (!form.length) return;
       const queryText = form.find('input[name="q"]').val();
       if (!queryText) return;
-      const m = /\bowner:(\w+)/i.exec(queryText);
+      const m = /\bowner:([^\s]+)/i.exec(queryText);
       if (!m) return;
       const userId = m[1].toLowerCase();
       $('<a class="lichessTools-downloadAllStudies">')
