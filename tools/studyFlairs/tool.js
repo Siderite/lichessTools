@@ -150,6 +150,8 @@
       const trans = lt.translator;
       const $ = lt.$;
       const href = $('.infinite-scroll .pager > a').attr('href');
+      const modeMatch = /^\/study(?:\/(?<mode>[^\/]+))?/.exec(lt.global.location.pathname);
+      const mode = modeMatch?.groups?.mode;
       let page = 1;
       if (href) {
         const m = /page=(\d+)/.exec(href);
@@ -182,21 +184,21 @@
         if (!study) return;
         const flairs = [];
         if (study.flair) {
-          flairs.push({ title: trans.noarg('studyFlairTitle'), flair: study.flair });
+          flairs.push({ title: trans.noarg('studyFlairTitle'), flair: study.flair, type: 'study' });
         }
         if (this.options.topicFlairs && study.topics) {
           for (const topic of study.topics) {
             const m = /^flair\.([^\)]+)/.exec(topic);
-            if (m?.at(1)) flairs.push({ title: m[1], flair: m[1] });
+            if (m?.at(1)) flairs.push({ title: m[1], flair: m[1], type: 'topic' });
           }
         }
         if (this.options.authorFlair && study.owner?.flair) {
-          flairs.push({ title: this.getFullname(study.owner), flair: study.owner.flair, url: '/@/' + study.owner.id });
+          flairs.push({ title: this.getFullname(study.owner), flair: study.owner.flair, url: '/@/' + study.owner.id, type: 'owner' });
         }
         if (this.options.memberFlairs && study.members?.length) {
           const members = study.members
             .filter(m => m.user.id != study.owner.id)
-            .map(m => { return { title: this.getFullname(m.user), flair: m.user.flair, url: '/@/' + m.user.id }; })
+            .map(m => { return { title: this.getFullname(m.user), flair: m.user.flair, url: '/@/' + m.user.id, type: 'member' }; })
             .filter(f => f.flair);
           flairs.push(...members);
         }
@@ -212,7 +214,8 @@
               .attr('data-href', flairs[0].url)
               .attr('data-name', flairs[0].title);
             lichess.powertip?.manualUser(elem[0]);
-          } else {
+          } else
+          if (flairs[0].type=='topic') {
             elem
               .on('contextmenu', ev => {
                 ev.preventDefault();
@@ -233,7 +236,8 @@
                   .attr('data-href', flairs[i].url)
                   .attr('data-name', flairs[i].title);
                 lichess.powertip?.manualUser(elem[0]);
-              } else {
+              } else
+              if (flairs[i].type=='topic') {
                 elem
                   .on('contextmenu', ev => {
                     ev.preventDefault();
