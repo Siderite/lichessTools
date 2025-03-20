@@ -1524,6 +1524,8 @@
             }
           }
           if (this.slowMode) await lt.timeout(1000);
+          const ltHeader = `LiChessTools/${lt.currentOptions?.version}`;
+          options = {...options,headers: {...options?.headers,'X-Request-ID': ltHeader } };
           const response = await lt.global.fetch(url, options);
           const status = +(response.status);
           if (options?.ignoreStatuses?.includes(status)) {
