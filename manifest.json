@@ -37,7 +37,7 @@
       "js": [
         "scripts/dragDropTouch.js",
         "scripts/zip.js",
-        "scripts/urlCanParse.js",
+        "scripts/URLpolyfill.js",
         "tools/crowdin/tool.js",
         "tools/emitEsmLoaded/tool.js",
         "tools/interceptEventHandlers/tool.js",
@@ -161,6 +161,7 @@
         "tools/botFilters/tool.js",
         "tools/analysisReadComments/tool.js",
         "tools/commentEditing/tool.js",
+        "tools/playerExtraButtons/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -276,6 +277,7 @@
         "tools/botFilters/tool.css",
         "tools/analysisReadComments/tool.css",
         "tools/commentEditing/tool.css",
+        "tools/playerExtraButtons/tool.css",
 
         "tools/tvOptions/tool.css",
 

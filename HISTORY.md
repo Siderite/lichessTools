@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+20 Mar
+
+- quick report and block option
+
 12 Mar
 
 - option to disable mouse over the command input

@@ -1,0 +1,4 @@
+body.lichessTools #powerTip .playerExtraButtons-report {
+  color: var(--c-error);
+  max-width: 3em;
+}
