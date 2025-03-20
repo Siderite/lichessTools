@@ -3,6 +3,9 @@ History of features added to LiChess Tools in time (reversed order)
 20 Mar
 
 - quick report and block option
+- count total in friends page
+- show blog like percentage tooltip
+- refresh inbox chat on new messages
 
 12 Mar
 

@@ -6,8 +6,8 @@
         name: 'imagePasting',
         category: 'comm',
         type: 'multiple',
-        possibleValues: ['pasteImages', 'bigEmoji'],
-        defaultValue: 'pasteImages,bigEmoji',
+        possibleValues: ['pasteImages', 'bigEmoji', 'refreshOnMessage'],
+        defaultValue: 'pasteImages,bigEmoji,refreshOnMessage',
         needsLogin: true
       }
     ];
@@ -18,6 +18,7 @@
         'options.imagePasting': 'Chat/forum options',
         'imagePasting.pasteImages': 'Paste image support',
         'imagePasting.bigEmoji': 'Large one emoji message',
+        'imagePasting.refreshOnMessage': 'Refresh on new message',
         'pastingError': 'There was an error generating the image URL'
       },
       'ro-RO': {
@@ -25,6 +26,7 @@
         'options.imagePasting': 'Op\u0163iuni chat/forum',
         'imagePasting.pasteImages': 'Suport lipire imagini',
         'imagePasting.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
+        'imagePasting.refreshOnMessage': 'Re\uee00mprosp\u0103teaz\u0103 la mesaj nou',
         'pastingError': 'A ap\u0103rut o eroare \u00een generarea URLului imaginii'
       }
     }
@@ -120,6 +122,17 @@
       }
     };
 
+    refreshChatDirect = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const el = $('.msg-app__side__contact.active')[0];
+      if (!el) return;
+      const handler = lt.getEventHandlers(el,'mousedown')[0]?.bind(el);
+      if (handler) handler();
+    };
+    refreshChat = lichessTools.debounce(this.refreshChatDirect,3000);
+
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -132,7 +145,8 @@
       }
       this.options = {
         pasteImages: lt.isOptionSet(value, 'pasteImages'),
-        bigEmoji: lt.isOptionSet(value, 'bigEmoji')
+        bigEmoji: lt.isOptionSet(value, 'bigEmoji'),
+        refreshOnMessage: lt.isOptionSet(value, 'refreshOnMessage')
       };
       if (!this.isInboxOrForumOrProfilePage()) return;
       lt.global.clearInterval(this.interval);
@@ -145,6 +159,12 @@
       if (this.options.pasteImages || this.options.bigEmoji) {
         this.interval = lt.global.setInterval(this.initControls, 1000);
         this.initControls();
+      }
+      $('.msg-app.pane-convo').observer()
+        .off('their,mine',this.refreshChat);
+      if (this.options.refreshOnMessage) {
+        $('.msg-app.pane-convo').observer()
+          .on('their,mine',this.refreshChat);
       }
     }
 
