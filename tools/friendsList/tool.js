@@ -53,7 +53,9 @@
         'followersText': 'Followers',
         'followersTitle': 'LiChess Tools - players following you',
         'followersNumberTitle': '%s followers',
-        'friendsNumberTitle': '%s friends'
+        'friendsNumberTitle': '%s friends',
+        'friendsNumberTitle:one': 'One friend',
+        'friendsNumberTitle:zero': 'Friends'
       },
       'ro-RO': {
         'onlineFriends': '%s prieteni online',
@@ -85,7 +87,9 @@
         'followersText': 'Urm\u0103ritori',
         'followersTitle': 'LiChess Tools - juc\u0103tori care te urm\u0103resc',
         'followersNumberTitle': '%s urm\u0103ritori',
-        'friendsNumberTitle': '%s prieteni'
+        'friendsNumberTitle': '%s prieteni',
+        'friendsNumberTitle:one': 'Un prieten',
+        'friendsNumberTitle:zero': 'Prieteni'
       }
     }
 

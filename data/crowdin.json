@@ -838,7 +838,13 @@
     "themes.noResultPopup": "لا توجد نتائج للعبة منبثقة",
     "options.cliCommandsOptions": "خيارات أوامر CLI",
     "cliCommandsOptions.disableMouseOver": "تعطيل الفأرة فوق",
-    "options.soundVoice": "صوت الكلام"
+    "options.soundVoice": "صوت الكلام",
+    "friendsNumberTitle": "أصدقاء %s",
+    "friendsNumberTitle:one": "صديق واحد",
+    "friendsNumberTitle:zero": "الأصدقاء",
+    "options.playerExtraButtons": "أزرار تلميح اللاعب",
+    "playerExtraButtons.report": "تقرير و كتلة",
+    "imagePasting.refreshOnMessage": "تحديث الرسالة الجديدة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1679,7 +1685,13 @@
     "themes.noResultPopup": "没有弹出游戏",
     "options.cliCommandsOptions": "CLI 命令选项",
     "cliCommandsOptions.disableMouseOver": "禁用鼠标悬停。",
-    "options.soundVoice": "语音声音"
+    "options.soundVoice": "语音声音",
+    "friendsNumberTitle": "%s 好友",
+    "friendsNumberTitle:one": "一位朋友",
+    "friendsNumberTitle:zero": "朋友",
+    "options.playerExtraButtons": "播放器工具提示按钮",
+    "playerExtraButtons.report": "报告和块",
+    "imagePasting.refreshOnMessage": "在新消息上刷新"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2520,7 +2532,13 @@
     "themes.noResultPopup": "No game result popup",
     "options.cliCommandsOptions": "CLI commands options",
     "cliCommandsOptions.disableMouseOver": "Disable mouse over",
-    "options.soundVoice": "Speech voice"
+    "options.soundVoice": "Speech voice",
+    "friendsNumberTitle": "%s friends",
+    "friendsNumberTitle:one": "One friend",
+    "friendsNumberTitle:zero": "Friends",
+    "options.playerExtraButtons": "Player tooltip buttons",
+    "playerExtraButtons.report": "Report and block",
+    "imagePasting.refreshOnMessage": "Refresh on new message"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3361,7 +3379,13 @@
     "themes.noResultPopup": "Geen spel resultaat popup",
     "options.cliCommandsOptions": "CLI commando's opties",
     "cliCommandsOptions.disableMouseOver": "muis over uitschakelen",
-    "options.soundVoice": "Spraak stem"
+    "options.soundVoice": "Spraak stem",
+    "friendsNumberTitle": "%s vrienden",
+    "friendsNumberTitle:one": "Eén vriend",
+    "friendsNumberTitle:zero": "Vrienden",
+    "options.playerExtraButtons": "Speler tooltip knoppen",
+    "playerExtraButtons.report": "Rapporteren en blokkeren",
+    "imagePasting.refreshOnMessage": "Ververs bij nieuw bericht"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4202,7 +4226,13 @@
     "themes.noResultPopup": "No game result popup",
     "options.cliCommandsOptions": "CLI commands options",
     "cliCommandsOptions.disableMouseOver": "Disable mouse over",
-    "options.soundVoice": "Speech voice"
+    "options.soundVoice": "Speech voice",
+    "friendsNumberTitle": "%s friends",
+    "friendsNumberTitle:one": "One friend",
+    "friendsNumberTitle:zero": "Friends",
+    "options.playerExtraButtons": "Player tooltip buttons",
+    "playerExtraButtons.report": "Report and block",
+    "imagePasting.refreshOnMessage": "Refresh on new message"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5043,7 +5073,13 @@
     "themes.noResultPopup": "Pas de popup du résultat de la partie",
     "options.cliCommandsOptions": "Options des commandes CLI",
     "cliCommandsOptions.disableMouseOver": "Désactiver le survol de la souris",
-    "options.soundVoice": "Voix pour la lecture"
+    "options.soundVoice": "Voix pour la lecture",
+    "friendsNumberTitle": "%s amis",
+    "friendsNumberTitle:one": "Un ami",
+    "friendsNumberTitle:zero": "Amis",
+    "options.playerExtraButtons": "Boutons d'info-bulle du joueur",
+    "playerExtraButtons.report": "Signaler et bloquer",
+    "imagePasting.refreshOnMessage": "Rafraîchir le nouveau message"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5884,7 +5920,13 @@
     "themes.noResultPopup": "Kein Spielergebnis-Popup",
     "options.cliCommandsOptions": "CLI Befehle Optionen",
     "cliCommandsOptions.disableMouseOver": "Maus über deaktivieren",
-    "options.soundVoice": "Sprachstimme"
+    "options.soundVoice": "Sprachstimme",
+    "friendsNumberTitle": "%s Freunde",
+    "friendsNumberTitle:one": "Ein Freund",
+    "friendsNumberTitle:zero": "Freunde",
+    "options.playerExtraButtons": "Spieler-Tooltipp-Schaltflächen",
+    "playerExtraButtons.report": "Bericht und Block",
+    "imagePasting.refreshOnMessage": "Bei neuer Nachricht aktualisieren"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6725,7 +6767,13 @@
     "themes.noResultPopup": "Nessun risultato di gioco popup",
     "options.cliCommandsOptions": "Opzioni comandi CLI",
     "cliCommandsOptions.disableMouseOver": "Disabilita il mouse sopra",
-    "options.soundVoice": "Voce vocale"
+    "options.soundVoice": "Voce vocale",
+    "friendsNumberTitle": "%s amici",
+    "friendsNumberTitle:one": "Un amico",
+    "friendsNumberTitle:zero": "Amici",
+    "options.playerExtraButtons": "Pulsanti tooltip del lettore",
+    "playerExtraButtons.report": "Segnala e blocca",
+    "imagePasting.refreshOnMessage": "Aggiorna al nuovo messaggio"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7566,7 +7614,13 @@
     "themes.noResultPopup": "Brak wyskakujących okienek wyników gry",
     "options.cliCommandsOptions": "Opcje poleceń CLI",
     "cliCommandsOptions.disableMouseOver": "Wyłącz mysz nad",
-    "options.soundVoice": "Głos mowy"
+    "options.soundVoice": "Głos mowy",
+    "friendsNumberTitle": "%s znajomych",
+    "friendsNumberTitle:one": "Jeden znajomy",
+    "friendsNumberTitle:zero": "Znajomi",
+    "options.playerExtraButtons": "Przyciski podpowiedzi gracza",
+    "playerExtraButtons.report": "Raport i blok",
+    "imagePasting.refreshOnMessage": "Odśwież nową wiadomość"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8407,7 +8461,13 @@
     "themes.noResultPopup": "Nenhum resultado popup",
     "options.cliCommandsOptions": "Opções de comandos CLI",
     "cliCommandsOptions.disableMouseOver": "Desativar mouse sobre",
-    "options.soundVoice": "Voz de voz"
+    "options.soundVoice": "Voz de voz",
+    "friendsNumberTitle": "%s amigos",
+    "friendsNumberTitle:one": "Um amigo",
+    "friendsNumberTitle:zero": "Amigos",
+    "options.playerExtraButtons": "Botões de dica",
+    "playerExtraButtons.report": "Relatar e bloquear",
+    "imagePasting.refreshOnMessage": "Atualizar ao receber nova mensagem"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9248,7 +9308,13 @@
     "themes.noResultPopup": "Nenhum resultado popup",
     "options.cliCommandsOptions": "Opções de comandos CLI",
     "cliCommandsOptions.disableMouseOver": "Desativar mouse sobre",
-    "options.soundVoice": "Voz de voz"
+    "options.soundVoice": "Voz de voz",
+    "friendsNumberTitle": "%s amigos",
+    "friendsNumberTitle:one": "Um amigo",
+    "friendsNumberTitle:zero": "Amigos",
+    "options.playerExtraButtons": "Botões de dica",
+    "playerExtraButtons.report": "Relatar e bloquear",
+    "imagePasting.refreshOnMessage": "Atualizar ao receber nova mensagem"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -10089,7 +10155,13 @@
     "themes.noResultPopup": "Fără pop-up cu rezultat joc",
     "options.cliCommandsOptions": "Opțiuni comenzi CLI",
     "cliCommandsOptions.disableMouseOver": "Dezactivează mouse over",
-    "options.soundVoice": "Vocea folosită"
+    "options.soundVoice": "Vocea folosită",
+    "friendsNumberTitle": "%s prieteni",
+    "friendsNumberTitle:one": "Un prieten",
+    "friendsNumberTitle:zero": "Prieteni",
+    "options.playerExtraButtons": "Butoane tooltip jucători",
+    "playerExtraButtons.report": "Raportează și blochează",
+    "imagePasting.refreshOnMessage": "Reîmprospătează la mesaj nou"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -10930,7 +11002,13 @@
     "themes.noResultPopup": "Нет всплывающих результатов игры",
     "options.cliCommandsOptions": "Параметры команд CLI",
     "cliCommandsOptions.disableMouseOver": "Отключить мышь над",
-    "options.soundVoice": "Голос речи"
+    "options.soundVoice": "Голос речи",
+    "friendsNumberTitle": "%s друзей",
+    "friendsNumberTitle:one": "Один друг",
+    "friendsNumberTitle:zero": "Друзья",
+    "options.playerExtraButtons": "Кнопки подсказки плеера",
+    "playerExtraButtons.report": "Сообщить и заблокировать",
+    "imagePasting.refreshOnMessage": "Обновить при новом сообщении"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11771,7 +11849,13 @@
     "themes.noResultPopup": "No hay resultados del juego",
     "options.cliCommandsOptions": "Opciones de comandos CLI",
     "cliCommandsOptions.disableMouseOver": "Desactivar el ratón sobre",
-    "options.soundVoice": "Voz de voz"
+    "options.soundVoice": "Voz de voz",
+    "friendsNumberTitle": "%s amigos",
+    "friendsNumberTitle:one": "Un amigo",
+    "friendsNumberTitle:zero": "Amigos",
+    "options.playerExtraButtons": "Botones de ayuda del jugador",
+    "playerExtraButtons.report": "Reportar y bloquear",
+    "imagePasting.refreshOnMessage": "Actualizar en un nuevo mensaje"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12612,7 +12696,13 @@
     "themes.noResultPopup": "No game result popup",
     "options.cliCommandsOptions": "CLI commands options",
     "cliCommandsOptions.disableMouseOver": "Disable mouse over",
-    "options.soundVoice": "Speech voice"
+    "options.soundVoice": "Speech voice",
+    "friendsNumberTitle": "%s friends",
+    "friendsNumberTitle:one": "One friend",
+    "friendsNumberTitle:zero": "Friends",
+    "options.playerExtraButtons": "Player tooltip buttons",
+    "playerExtraButtons.report": "Report and block",
+    "imagePasting.refreshOnMessage": "Refresh on new message"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13453,6 +13543,12 @@
     "themes.noResultPopup": "No game result popup",
     "options.cliCommandsOptions": "CLI commands options",
     "cliCommandsOptions.disableMouseOver": "Disable mouse over",
-    "options.soundVoice": "Speech voice"
+    "options.soundVoice": "Speech voice",
+    "friendsNumberTitle": "%s friends",
+    "friendsNumberTitle:one": "One friend",
+    "friendsNumberTitle:zero": "Friends",
+    "options.playerExtraButtons": "Player tooltip buttons",
+    "playerExtraButtons.report": "Report and block",
+    "imagePasting.refreshOnMessage": "Refresh on new message"
   }
 }

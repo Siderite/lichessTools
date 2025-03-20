@@ -23,7 +23,7 @@
       'ro-RO': {
         'options.general': 'General',
         'options.playerExtraButtons': 'Butoane tooltip juc\u0103tori',
-        'playerExtraButtons.report': 'Raporteaz\u0103 \u105fi blocheaz\u0103 juc\u0103tor'
+        'playerExtraButtons.report': 'Raporteaz\u0103 \u105fi blocheaz\u0103'
       }
     }
 
