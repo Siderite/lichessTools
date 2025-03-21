@@ -46,6 +46,28 @@ body.lichessTools div.tview2.lichessTools-showOnEmpty:not(:has(move)):hover {
   background: #80808040;
 }
 
+body.lichessTools .lichessTools-positionInfo .dialog-header {
+  padding: 0.5em;
+  text-align: center;
+  font-weight:bold;
+  font-size: 1.25em;
+}
+
+body.lichessTools .lichessTools-positionInfo .dialog-content > div {
+  display:flex;
+  justify-content: space-between;
+  padding:0.5em;
+}
+
+body.lichessTools .lichessTools-positionInfo .dialog-content > div span:first-child {
+  font-weight: bold;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-positionInfo .dialog-content {
+  padding: 0.5em 2em;
+  min-width:26em;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {

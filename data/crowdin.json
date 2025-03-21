@@ -844,7 +844,11 @@
     "friendsNumberTitle:zero": "الأصدقاء",
     "options.playerExtraButtons": "أزرار تلميح اللاعب",
     "playerExtraButtons.report": "تقرير و كتلة",
-    "imagePasting.refreshOnMessage": "تحديث الرسالة الجديدة"
+    "imagePasting.refreshOnMessage": "تحديث الرسالة الجديدة",
+    "analysisContextActions.positionInfo": "معلومات الموقع",
+    "positionInfoText": "معلومات الموقع",
+    "positionInfoTitle": "أدوات شطرنج الحياة - إظهار معلومات حول الموضع المحدد",
+    "positionInfoOutputText": "نصيحة: $ply\r\nيتحرك حتى الآن: $movesSoFar\r\nمتابعة التحركات الرئيسية: $movesMain\r\nمتابعة مجموع التحركات: $movesTotal\r\nتتبع الفروع: $branches"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1691,7 +1695,11 @@
     "friendsNumberTitle:zero": "朋友",
     "options.playerExtraButtons": "播放器工具提示按钮",
     "playerExtraButtons.report": "报告和块",
-    "imagePasting.refreshOnMessage": "在新消息上刷新"
+    "imagePasting.refreshOnMessage": "在新消息上刷新",
+    "analysisContextActions.positionInfo": "位置信息",
+    "positionInfoText": "位置信息",
+    "positionInfoTitle": "LiChess工具 - 显示所选位置的信息",
+    "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2538,7 +2546,11 @@
     "friendsNumberTitle:zero": "Friends",
     "options.playerExtraButtons": "Player tooltip buttons",
     "playerExtraButtons.report": "Report and block",
-    "imagePasting.refreshOnMessage": "Refresh on new message"
+    "imagePasting.refreshOnMessage": "Refresh on new message",
+    "analysisContextActions.positionInfo": "Position info",
+    "positionInfoText": "Position info",
+    "positionInfoTitle": "LiChess Tools - show information about selected position",
+    "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3385,7 +3397,11 @@
     "friendsNumberTitle:zero": "Vrienden",
     "options.playerExtraButtons": "Speler tooltip knoppen",
     "playerExtraButtons.report": "Rapporteren en blokkeren",
-    "imagePasting.refreshOnMessage": "Ververs bij nieuw bericht"
+    "imagePasting.refreshOnMessage": "Ververs bij nieuw bericht",
+    "analysisContextActions.positionInfo": "Positie info",
+    "positionInfoText": "Positie info",
+    "positionInfoTitle": "LiChess Tools - informatie over geselecteerde positie tonen",
+    "positionInfoOutputText": "Ply: $ply\r\nBewegingen tot nu toe: $movesSoFar\r\nVolgende hoofdbewegingen: $movesMain\r\nVolgende totale bewegingen: $movesTotal\r\nVolgende branches: $branches"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4232,7 +4248,11 @@
     "friendsNumberTitle:zero": "Friends",
     "options.playerExtraButtons": "Player tooltip buttons",
     "playerExtraButtons.report": "Report and block",
-    "imagePasting.refreshOnMessage": "Refresh on new message"
+    "imagePasting.refreshOnMessage": "Refresh on new message",
+    "analysisContextActions.positionInfo": "Position info",
+    "positionInfoText": "Position info",
+    "positionInfoTitle": "LiChess Tools - show information about selected position",
+    "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5079,7 +5099,11 @@
     "friendsNumberTitle:zero": "Amis",
     "options.playerExtraButtons": "Boutons d'info-bulle du joueur",
     "playerExtraButtons.report": "Signaler et bloquer",
-    "imagePasting.refreshOnMessage": "Rafraîchir le nouveau message"
+    "imagePasting.refreshOnMessage": "Rafraîchir le nouveau message",
+    "analysisContextActions.positionInfo": "Informations sur la position",
+    "positionInfoText": "Informations sur la position",
+    "positionInfoTitle": "Outils LiChess - afficher des informations sur la position sélectionnée",
+    "positionInfoOutputText": "Ply: $ply\r\nDéplace jusqu'à présent : $movesSoFar\r\nSuivant les mouvements principaux : $movesMain\r\nSuivant le total des mouvements : $movesTotal\r\nBranches suivantes : $branches"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5926,7 +5950,11 @@
     "friendsNumberTitle:zero": "Freunde",
     "options.playerExtraButtons": "Spieler-Tooltipp-Schaltflächen",
     "playerExtraButtons.report": "Bericht und Block",
-    "imagePasting.refreshOnMessage": "Bei neuer Nachricht aktualisieren"
+    "imagePasting.refreshOnMessage": "Bei neuer Nachricht aktualisieren",
+    "analysisContextActions.positionInfo": "Positionsinfo",
+    "positionInfoText": "Positionsinfo",
+    "positionInfoTitle": "LiChess Tools - Informationen über die ausgewählte Position anzeigen",
+    "positionInfoOutputText": "Ply: $ply\r\nbewegt sich bisher: $movesSoFar\r\nFolgende Hauptbewegungen: $movesMain\r\nFolgende Zusammenfassungen: $movesTotal\r\nFolgende Branchen: $branches"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6773,7 +6801,11 @@
     "friendsNumberTitle:zero": "Amici",
     "options.playerExtraButtons": "Pulsanti tooltip del lettore",
     "playerExtraButtons.report": "Segnala e blocca",
-    "imagePasting.refreshOnMessage": "Aggiorna al nuovo messaggio"
+    "imagePasting.refreshOnMessage": "Aggiorna al nuovo messaggio",
+    "analysisContextActions.positionInfo": "Informazioni posizione",
+    "positionInfoText": "Informazioni posizione",
+    "positionInfoTitle": "Strumenti LiChess - mostra informazioni sulla posizione selezionata",
+    "positionInfoOutputText": "Ply: $ply\r\nSpostarsi finora: $movesSoFar\r\nSeguendo le mosse principali: $movesMain\r\nSeguendo le mosse totali: $movesTotal\r\nSeguenti rami: $branches"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7620,7 +7652,11 @@
     "friendsNumberTitle:zero": "Znajomi",
     "options.playerExtraButtons": "Przyciski podpowiedzi gracza",
     "playerExtraButtons.report": "Raport i blok",
-    "imagePasting.refreshOnMessage": "Odśwież nową wiadomość"
+    "imagePasting.refreshOnMessage": "Odśwież nową wiadomość",
+    "analysisContextActions.positionInfo": "Informacje o pozycji",
+    "positionInfoText": "Informacje o pozycji",
+    "positionInfoTitle": "Narzędzia LiChess - pokaż informacje o wybranej pozycji",
+    "positionInfoOutputText": "Planie: $ply\r\nPorusza się do tej pory: $movesSoFar\r\nPo głównych ruchach: $movesMain\r\nPo całkowitym ruchach: $movesTotal\r\nPo gałęziach: $branches"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8467,7 +8503,11 @@
     "friendsNumberTitle:zero": "Amigos",
     "options.playerExtraButtons": "Botões de dica",
     "playerExtraButtons.report": "Relatar e bloquear",
-    "imagePasting.refreshOnMessage": "Atualizar ao receber nova mensagem"
+    "imagePasting.refreshOnMessage": "Atualizar ao receber nova mensagem",
+    "analysisContextActions.positionInfo": "Informação de posição",
+    "positionInfoText": "Informação de posição",
+    "positionInfoTitle": "Ferramentas LiChess - mostrar informações sobre a posição selecionada",
+    "positionInfoOutputText": "Ply: $ply\r\nMoves até agora: $movesSoFar\r\nSeguindo os principais movimentos: $movesMain\r\nApós os movimentos totais: $movesTotal\r\nSeguindo os cursos: $branches"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9314,7 +9354,11 @@
     "friendsNumberTitle:zero": "Amigos",
     "options.playerExtraButtons": "Botões de dica",
     "playerExtraButtons.report": "Relatar e bloquear",
-    "imagePasting.refreshOnMessage": "Atualizar ao receber nova mensagem"
+    "imagePasting.refreshOnMessage": "Atualizar ao receber nova mensagem",
+    "analysisContextActions.positionInfo": "Informação de posição",
+    "positionInfoText": "Informação de posição",
+    "positionInfoTitle": "Ferramentas LiChess - mostrar informações sobre a posição selecionada",
+    "positionInfoOutputText": "Ply: $ply\r\nMoves até agora: $movesSoFar\r\nSeguindo os principais movimentos: $movesMain\r\nApós os movimentos totais: $movesTotal\r\nSeguindo os cursos: $branches"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -10161,7 +10205,11 @@
     "friendsNumberTitle:zero": "Prieteni",
     "options.playerExtraButtons": "Butoane tooltip jucători",
     "playerExtraButtons.report": "Raportează și blochează",
-    "imagePasting.refreshOnMessage": "Reîmprospătează la mesaj nou"
+    "imagePasting.refreshOnMessage": "Reîmprospătează la mesaj nou",
+    "analysisContextActions.positionInfo": "Informații poziție",
+    "positionInfoText": "Informații poziție",
+    "positionInfoTitle": "LiChess Tools - afișează informații despre poziția selectată",
+    "positionInfoOutputText": "Ply: $ply\nMutări până acum: $movesSoFar\nMișcări principale următoare: $movesMain\nTotal mișcări următoare: $movesTotal\nVariațiuni următoare: $branches"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -11008,7 +11056,11 @@
     "friendsNumberTitle:zero": "Друзья",
     "options.playerExtraButtons": "Кнопки подсказки плеера",
     "playerExtraButtons.report": "Сообщить и заблокировать",
-    "imagePasting.refreshOnMessage": "Обновить при новом сообщении"
+    "imagePasting.refreshOnMessage": "Обновить при новом сообщении",
+    "analysisContextActions.positionInfo": "Информация о позиции",
+    "positionInfoText": "Информация о позиции",
+    "positionInfoTitle": "Инструменты Жизни - показать информацию о выбранной позиции",
+    "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11855,7 +11907,11 @@
     "friendsNumberTitle:zero": "Amigos",
     "options.playerExtraButtons": "Botones de ayuda del jugador",
     "playerExtraButtons.report": "Reportar y bloquear",
-    "imagePasting.refreshOnMessage": "Actualizar en un nuevo mensaje"
+    "imagePasting.refreshOnMessage": "Actualizar en un nuevo mensaje",
+    "analysisContextActions.positionInfo": "Información de posición",
+    "positionInfoText": "Información de posición",
+    "positionInfoTitle": "Herramientas de LiChess - mostrar información sobre la posición seleccionada",
+    "positionInfoOutputText": "Ply: $ply\r\nSe mueve hasta ahora: $movesSoFar\r\nSiguiendo los movimientos principales: $movesMain\r\nEl total de los siguientes se mueve: $movesTotal\r\nSiguientes sucursales: $branches"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12702,7 +12758,11 @@
     "friendsNumberTitle:zero": "Friends",
     "options.playerExtraButtons": "Player tooltip buttons",
     "playerExtraButtons.report": "Report and block",
-    "imagePasting.refreshOnMessage": "Refresh on new message"
+    "imagePasting.refreshOnMessage": "Refresh on new message",
+    "analysisContextActions.positionInfo": "Position info",
+    "positionInfoText": "Position info",
+    "positionInfoTitle": "LiChess Tools - show information about selected position",
+    "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13549,6 +13609,10 @@
     "friendsNumberTitle:zero": "Friends",
     "options.playerExtraButtons": "Player tooltip buttons",
     "playerExtraButtons.report": "Report and block",
-    "imagePasting.refreshOnMessage": "Refresh on new message"
+    "imagePasting.refreshOnMessage": "Refresh on new message",
+    "analysisContextActions.positionInfo": "Position info",
+    "positionInfoText": "Position info",
+    "positionInfoTitle": "LiChess Tools - show information about selected position",
+    "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches"
   }
 }

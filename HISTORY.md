@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+21 Mar
+
+- position info context menu
+
 20 Mar
 
 - quick report and block option
