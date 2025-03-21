@@ -1,6 +1,8 @@
 (() => {
   class ImagePastingTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['Dialog'];
+
     preferences = [
       {
         name: 'imagePasting',
