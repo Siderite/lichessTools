@@ -79,8 +79,13 @@
       const $ = lt.$;
       const board = $('body .is2d div.cg-wrap cg-board');
       if (board.length) {
-        const styles = lt.global.getComputedStyle(board[0], '::before');
-        const backgroundImage = styles.getPropertyValue('background-image');
+        let backgroundImage = $('link[rel=preload][href$=".png"],link[rel=preload][href$=".jpg"],link[rel=preload][href$=".svg"]').eq(0).attr('href');
+        if (backgroundImage) {
+          backgroundImage = 'url('+backgroundImage+')';
+        } else {
+          const styles = lt.global.getComputedStyle(board[0], '::before');
+          backgroundImage = styles.getPropertyValue('background-image');
+        }
         lt.global.document.documentElement.style.setProperty('--board-background', backgroundImage||'unset');
       }
       $('body').toggleClass('lichessTools-hasBoardBackground', !!board.length);
