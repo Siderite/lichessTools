@@ -16,12 +16,15 @@ body.lichessTools dialog.lichessTools-dialog:backdrop {
   animation: none;
 }
 
-body.lichessTools dialog.lichessTools-dialog .dialog-header.draggable {
+body.lichessTools dialog.lichessTools-dialog .dialog-header {
   width: auto;
   min-height: 2em;
   background: #80808080;
-  cursor: move;
   touch-action: none;
+}
+
+body.lichessTools dialog.lichessTools-dialog .dialog-header.draggable {
+  cursor: move;
 }
 
 body.lichessTools dialog.lichessTools-dialog.resizing {
