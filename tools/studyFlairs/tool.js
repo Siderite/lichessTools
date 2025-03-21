@@ -150,8 +150,8 @@
       const trans = lt.translator;
       const $ = lt.$;
       const href = $('.infinite-scroll .pager > a').attr('href');
-      const modeMatch = /^\/study(?:\/(?<mode>[^\/]+))?/.exec(lt.global.location.pathname);
-      const mode = modeMatch?.groups?.mode;
+      const modeMatch = /\/(?<mode>hot|newest|oldest|updated|popular|alphabetical|mine)\b/i.exec(lt.global.location.pathname);
+      const mode = modeMatch?.groups?.mode || 'hot';
       let page = 1;
       if (href) {
         const m = /page=(\d+)/.exec(href);
