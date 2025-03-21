@@ -8,8 +8,8 @@
         name: 'themes',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup'],
-        defaultValue: '',
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup','fixThirdParties'],
+        defaultValue: 'fixThirdParties',
         advanced: true
       }
     ];
@@ -35,7 +35,8 @@
         'themes.fatMove': 'Larger analysis move font',
         'themes.slimmerArrows': '... slimmer',
         'themes.gridBoard': 'Grid board squares',
-        'themes.noResultPopup': 'No game result popup'
+        'themes.noResultPopup': 'No game result popup',
+        'themes.fixThirdParties': 'Fix third parties'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -57,7 +58,8 @@
         'themes.fatMove': 'Text mai mare la mut\u0103ri',
         'themes.slimmerArrows': '... \u015fi mai sub\u0163iri',
         'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei',
-        'themes.noResultPopup': 'F\u0103r\u0103 popup cu rezultat joc'
+        'themes.noResultPopup': 'F\u0103r\u0103 popup cu rezultat joc',
+        'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i'
       }
     }
 
