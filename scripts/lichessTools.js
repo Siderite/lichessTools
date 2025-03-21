@@ -1525,7 +1525,7 @@
           }
           if (this.slowMode) await lt.timeout(1000);
           const ltHeader = `LiChessTools/${lt.currentOptions?.version}`;
-          if (!options.noUserAgent) {
+          if (!options?.noUserAgent) {
             options = {...options,headers: {...options?.headers,'X-UA': ltHeader } };
           }
           const response = await lt.global.fetch(url, options);
