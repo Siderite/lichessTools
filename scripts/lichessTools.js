@@ -1525,7 +1525,9 @@
           }
           if (this.slowMode) await lt.timeout(1000);
           const ltHeader = `LiChessTools/${lt.currentOptions?.version}`;
-          options = {...options,headers: {...options?.headers,'X-UA': ltHeader } };
+          if (!options.noUserAgent) {
+            options = {...options,headers: {...options?.headers,'X-UA': ltHeader } };
+          }
           const response = await lt.global.fetch(url, options);
           const status = +(response.status);
           if (options?.ignoreStatuses?.includes(status)) {
@@ -1994,7 +1996,8 @@
               url: 'https://www.chessdb.cn/cdb.php?action=queryall&board={fen}&json=1',
               args: { fen }
             }, {
-              ignoreStatuses: [404]
+              ignoreStatuses: [404],
+              noUserAgent: true
             });
             const data = lt.jsonParse(json);
             return data;
