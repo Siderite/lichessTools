@@ -13,8 +13,7 @@ body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .anal
   background: none !important;
 }
 
-body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .lobby__side .lobby__feed,
-body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .lobby__side .lobby__timeline {
+body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .lobby__side > div {
   overflow: hidden;
   min-height: max-content;
 }
