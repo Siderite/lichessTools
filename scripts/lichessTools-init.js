@@ -5,6 +5,7 @@ lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitContentLoaded);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
 lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
+lichessTools.loadTool(LiChessTools.Tools.Dialog);
 lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
 
 lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
@@ -25,7 +26,6 @@ lichessTools.loadTool(LiChessTools.Tools.CliCommands);
 lichessTools.loadTool(LiChessTools.Tools.ChessOps);
 lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
-lichessTools.loadTool(LiChessTools.Tools.Dialog);
 lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);

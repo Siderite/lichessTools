@@ -1,10 +1,14 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 Mar
+
+- clickable quote author
+
 21 Mar
 
 - position info context menu
 - grid board theme shows correct board in Prettier
-- theme to fix third party issues (Prettier) + Prettier fixes
+- theme to fix third party issues
 
 20 Mar
 
