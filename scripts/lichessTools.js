@@ -2355,7 +2355,7 @@
     async getItem(key) {
       const dbInfo = this.getDbInfo(key);
       const db = await this.dbConnect(dbInfo);
-      const store = db.transaction(dbInfo.storeName,'readonly').objectStore(dbInfo.storeName);
+      const store = db.transaction([dbInfo.storeName],'readonly').objectStore(dbInfo.storeName);
       const result = store.get(dbInfo.itemName);
       return await this.actionPromise(result);
     }
@@ -2363,7 +2363,7 @@
     async setItem(key, value) {
       const dbInfo = this.getDbInfo(key);
       const db = await this.dbConnect(dbInfo);
-      const store = db.transaction(dbInfo.storeName,'readwrite').objectStore(dbInfo.storeName);
+      const store = db.transaction([dbInfo.storeName],'readwrite').objectStore(dbInfo.storeName);
       const result = store.put(value, dbInfo.itemName);
       return await this.actionPromise(result);
     }
@@ -2371,51 +2371,79 @@
     async removeItem(key) {
       const dbInfo = this.getDbInfo(key);
       const db = await this.dbConnect(dbInfo);
-      const store = db.transaction(dbInfo.storeName,'readwrite').objectStore(dbInfo.storeName);
+      const store = db.transaction([dbInfo.storeName],'readwrite').objectStore(dbInfo.storeName);
       const result = store.delete(dbInfo.itemName);
       return await this.actionPromise(result);
     }
 
+    async clearStore(key) {
+      const dbInfo = this.getDbInfo(key);
+      const db = await this.dbConnect(dbInfo);
+      const store = db.transaction([dbInfo.storeName],'readwrite').objectStore(dbInfo.storeName);
+      const result = store.clear();
+      return await this.actionPromise(result);
+    }
+
     getDbInfo(key) {
-      const match=/^(?<dbName>[^\/]+?)(?::(?<version>\d+))?\/(?<storeName>[^\/]+?)\/(?<itemName>[^\/]+)$/.exec(key);
+      const match=/^(?<dbName>[^\/]+?)\/(?<storeName>[^\/]+?)\/(?<itemName>[^\/]+)$/.exec(key);
       if (!match) throw new Error('Invalid db storage key: '+key);
-      const { dbName, version, storeName, itemName } = match.groups;
-      return { dbName, version:+(version) || 1, storeName, itemName };
+      const { dbName, storeName, itemName } = match.groups;
+      return { dbName, storeName, itemName };
     }
 
     actionPromise(res) {
       return new Promise((resolve, reject) => {
         res.onsuccess = (e) => resolve(e.target.result);
-        res.onerror = (e) => reject(e.target.result);
+        res.onerror = (e) => {
+          if (e.target.error.name === "QuotaExceededError") {
+            globalThis.console.warn("Storage limit reached!");
+          }
+          reject(e.target.error);
+        }
       });
     }
 
     async dbConnect(dbInfo) {
       return new Promise((resolve, reject) => {
-        const result = globalThis.indexedDB.open(dbInfo.dbName, dbInfo.version);
+        const versionCheckRequest = globalThis.indexedDB.open(dbInfo.dbName);
 
-        result.onsuccess = (e) => {
-          const result = e.target.result;
-          result.onversionchange = ()=>{
-            result.close();
-            throw new Error("Database is outdated, please reload the page.")
+        versionCheckRequest.onsuccess = (ev) => {
+          let result = event.target.result;
+          const currentVersion = result.version;
+          const hasStore = result.objectStoreNames.contains(dbInfo.storeName);
+          result.close();
+
+          const finalVersion = hasStore ? currentVersion : currentVersion + 1;
+
+          result = globalThis.indexedDB.open(dbInfo.dbName, finalVersion);
+
+          result.onsuccess = (e) => {
+            const result = e.target.result;
+            result.onversionchange = (ev)=>{
+              result.close();
+              globalThis.console.debug("Database is outdated, please reload the page.",ev)
+            };
+            resolve(result);
           };
-          resolve(result);
-        };
-        result.onerror = (e) => reject(e.target.error ?? 'IndexedDB Unavailable');
-        result.onupgradeneeded = (e) => {
-          const db = e.target.result;
-          const txn = e.target.transaction;
-          const store = db.objectStoreNames.contains(dbInfo.storeName)
-            ? txn.objectStore(dbInfo.storeName)
-            : db.createObjectStore(dbInfo.storeName);
+          result.onerror = (e) => reject(e.target.error ?? 'IndexedDB Unavailable');
+          result.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            const txn = e.target.transaction;
+            const store = db.objectStoreNames.contains(dbInfo.storeName)
+              ? txn.objectStore(dbInfo.storeName)
+              : db.createObjectStore(dbInfo.storeName);
 
-          dbInfo.upgrade?.(e, store);
-        };
-        result.onblocked = ()=>{
-          throw new Error("Database is blocked, connection must be open elsewhere.")
+            dbInfo.upgrade?.(e, store);
+          };
+          result.onblocked = ()=>{
+            throw new Error("Database is blocked, connection must be open elsewhere.")
+          };
         };
       });
+
+      versionCheckRequest.onerror = (event) => {
+        globalThis.console.error("Database version check failed:", event.target.errorCode);
+      };
     }
   }
 

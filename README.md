@@ -130,6 +130,9 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - read move comments aloud
 - reorder variations
 - study subchapters
+- quick report and block option
+- position info context menu
+- local evaluation persistent cache
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:

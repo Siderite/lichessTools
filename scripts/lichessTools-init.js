@@ -124,6 +124,7 @@ lichessTools.loadTool(LiChessTools.Tools.BotFilters);
 lichessTools.loadTool(LiChessTools.Tools.AnalysisReadComments);
 lichessTools.loadTool(LiChessTools.Tools.CommentEditing);
 lichessTools.loadTool(LiChessTools.Tools.PlayerExtraButtons);
+lichessTools.loadTool(LiChessTools.Tools.CevalCache);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

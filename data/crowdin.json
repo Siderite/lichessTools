@@ -850,7 +850,8 @@
     "positionInfoTitle": "أدوات شطرنج الحياة - إظهار معلومات حول الموضع المحدد",
     "positionInfoOutputText": "نصيحة: $ply\r\nيتحرك حتى الآن: $movesSoFar\r\nمتابعة التحركات الرئيسية: $movesMain\r\nمتابعة مجموع التحركات: $movesTotal\r\nتتبع الفروع: $branches",
     "themes.fixThirdParties": "إصلاح الأطراف الثالثة",
-    "allQuotesByAuthorText": "جميع الاقتباسات بواسطة %s"
+    "allQuotesByAuthorText": "جميع الاقتباسات بواسطة %s",
+    "options.cevalCache": "تذكر تقييم الكمبيوتر المحلي"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1703,7 +1704,8 @@
     "positionInfoTitle": "LiChess工具 - 显示所选位置的信息",
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "修复第三方",
-    "allQuotesByAuthorText": "所有引用的 %s"
+    "allQuotesByAuthorText": "所有引用的 %s",
+    "options.cevalCache": "记住本地计算机评价"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2556,7 +2558,8 @@
     "positionInfoTitle": "LiChess Tools - show information about selected position",
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "Fix third parties",
-    "allQuotesByAuthorText": "All quotes by %s"
+    "allQuotesByAuthorText": "All quotes by %s",
+    "options.cevalCache": "Remember local computer evaluation"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3409,7 +3412,8 @@
     "positionInfoTitle": "LiChess Tools - informatie over geselecteerde positie tonen",
     "positionInfoOutputText": "Ply: $ply\r\nBewegingen tot nu toe: $movesSoFar\r\nVolgende hoofdbewegingen: $movesMain\r\nVolgende totale bewegingen: $movesTotal\r\nVolgende branches: $branches",
     "themes.fixThirdParties": "Repareer derden",
-    "allQuotesByAuthorText": "Alle aanhalingstekens van %s"
+    "allQuotesByAuthorText": "Alle aanhalingstekens van %s",
+    "options.cevalCache": "Lokale computerevaluatie onthouden"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4262,7 +4266,8 @@
     "positionInfoTitle": "LiChess Tools - show information about selected position",
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "Fix third parties",
-    "allQuotesByAuthorText": "All quotes by %s"
+    "allQuotesByAuthorText": "All quotes by %s",
+    "options.cevalCache": "Remember local computer evaluation"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5115,7 +5120,8 @@
     "positionInfoTitle": "Outils LiChess - afficher des informations sur la position sélectionnée",
     "positionInfoOutputText": "Ply: $ply\r\nDéplace jusqu'à présent : $movesSoFar\r\nSuivant les mouvements principaux : $movesMain\r\nSuivant le total des mouvements : $movesTotal\r\nBranches suivantes : $branches",
     "themes.fixThirdParties": "Corriger des tiers",
-    "allQuotesByAuthorText": "Tous les devis par %s"
+    "allQuotesByAuthorText": "Tous les devis par %s",
+    "options.cevalCache": "Se souvenir de l'évaluation de l'ordinateur local"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5968,7 +5974,8 @@
     "positionInfoTitle": "LiChess Tools - Informationen über die ausgewählte Position anzeigen",
     "positionInfoOutputText": "Ply: $ply\r\nbewegt sich bisher: $movesSoFar\r\nFolgende Hauptbewegungen: $movesMain\r\nFolgende Zusammenfassungen: $movesTotal\r\nFolgende Branchen: $branches",
     "themes.fixThirdParties": "Drittanbieter fixieren",
-    "allQuotesByAuthorText": "Alle Zitate von %s"
+    "allQuotesByAuthorText": "Alle Zitate von %s",
+    "options.cevalCache": "Lokale Computerauswertung merken"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6821,7 +6828,8 @@
     "positionInfoTitle": "Strumenti LiChess - mostra informazioni sulla posizione selezionata",
     "positionInfoOutputText": "Ply: $ply\r\nSpostarsi finora: $movesSoFar\r\nSeguendo le mosse principali: $movesMain\r\nSeguendo le mosse totali: $movesTotal\r\nSeguenti rami: $branches",
     "themes.fixThirdParties": "Correggi terzi",
-    "allQuotesByAuthorText": "Tutti i preventivi di %s"
+    "allQuotesByAuthorText": "Tutti i preventivi di %s",
+    "options.cevalCache": "Ricorda la valutazione del computer locale"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7674,7 +7682,8 @@
     "positionInfoTitle": "LiChess Tools — pokaż informacje o wybranej pozycji",
     "positionInfoOutputText": "Liczba półruchów: $ply\nLiczba dotychczasowych ruchów: $movesSoFar\nPo głównej linii: $movesMain\nPo wszystkich liniach: $movesTotal\nPo liniach bocznych: $branches",
     "themes.fixThirdParties": "Napraw strony trzecie",
-    "allQuotesByAuthorText": "Wszystkie cudzysłowy %s"
+    "allQuotesByAuthorText": "Wszystkie cudzysłowy %s",
+    "options.cevalCache": "Zapamiętaj lokalną ocenę komputera"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8527,7 +8536,8 @@
     "positionInfoTitle": "Ferramentas LiChess - mostrar informações sobre a posição selecionada",
     "positionInfoOutputText": "Ply: $ply\r\nMoves até agora: $movesSoFar\r\nSeguindo os principais movimentos: $movesMain\r\nApós os movimentos totais: $movesTotal\r\nSeguindo os cursos: $branches",
     "themes.fixThirdParties": "Corrigir terceiros",
-    "allQuotesByAuthorText": "Todas as citações de %s"
+    "allQuotesByAuthorText": "Todas as citações de %s",
+    "options.cevalCache": "Lembrar avaliação local do computador"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9380,7 +9390,8 @@
     "positionInfoTitle": "Ferramentas LiChess - mostrar informações sobre a posição selecionada",
     "positionInfoOutputText": "Ply: $ply\r\nMoves até agora: $movesSoFar\r\nSeguindo os principais movimentos: $movesMain\r\nApós os movimentos totais: $movesTotal\r\nSeguindo os cursos: $branches",
     "themes.fixThirdParties": "Corrigir terceiros",
-    "allQuotesByAuthorText": "Todas as citações de %s"
+    "allQuotesByAuthorText": "Todas as citações de %s",
+    "options.cevalCache": "Lembrar avaliação local do computador"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -10233,7 +10244,8 @@
     "positionInfoTitle": "LiChess Tools - afișează informații despre poziția selectată",
     "positionInfoOutputText": "Ply: $ply\nMutări până acum: $movesSoFar\nMișcări principale următoare: $movesMain\nTotal mișcări următoare: $movesTotal\nVariațiuni următoare: $branches",
     "themes.fixThirdParties": "Repară terțe părți",
-    "allQuotesByAuthorText": "Toate citate de %s"
+    "allQuotesByAuthorText": "Toate citate de %s",
+    "options.cevalCache": "Reţine evaluarea locală a computerului"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -11086,7 +11098,8 @@
     "positionInfoTitle": "Инструменты Жизни - показать информацию о выбранной позиции",
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "Исправить третьи стороны",
-    "allQuotesByAuthorText": "Все котировки от %s"
+    "allQuotesByAuthorText": "Все котировки от %s",
+    "options.cevalCache": "Запомнить оценку локального компьютера"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11939,7 +11952,8 @@
     "positionInfoTitle": "Herramientas de LiChess - mostrar información sobre la posición seleccionada",
     "positionInfoOutputText": "Ply: $ply\r\nSe mueve hasta ahora: $movesSoFar\r\nSiguiendo los movimientos principales: $movesMain\r\nEl total de los siguientes se mueve: $movesTotal\r\nSiguientes sucursales: $branches",
     "themes.fixThirdParties": "Fijar a terceros",
-    "allQuotesByAuthorText": "Todas las comillas de %s"
+    "allQuotesByAuthorText": "Todas las comillas de %s",
+    "options.cevalCache": "Recordar evaluación local del ordenador"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12792,7 +12806,8 @@
     "positionInfoTitle": "LiChess Tools - show information about selected position",
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "Fix third parties",
-    "allQuotesByAuthorText": "All quotes by %s"
+    "allQuotesByAuthorText": "All quotes by %s",
+    "options.cevalCache": "Remember local computer evaluation"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13645,6 +13660,7 @@
     "positionInfoTitle": "LiChess Tools - show information about selected position",
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "Fix third parties",
-    "allQuotesByAuthorText": "All quotes by %s"
+    "allQuotesByAuthorText": "All quotes by %s",
+    "options.cevalCache": "Remember local computer evaluation"
   }
 }

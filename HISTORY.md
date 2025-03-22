@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 22 Mar
 
 - clickable quote author
+- local eval cache
 
 21 Mar
 
