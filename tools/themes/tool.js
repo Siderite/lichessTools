@@ -65,23 +65,40 @@
 
     
 
-    checkBody = ()=>{
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      const board = $('body .is2d div.cg-wrap cg-board')[0];
-      if (this.dataBoard != $('body').attr('data-board') || this.board != board || (board && !lt.global.document.documentElement.style.getPropertyValue('--board-background'))) {
-        this.applyThemes();
-        this.dataBoard = $('body').attr('data-board');
-        this.board = board;
+    checkBody = async ()=>{
+      if (this._inCheckBody) return;
+      try {
+        this._inCheckBody = true;
+        const lt = this.lichessTools;
+        const $ = lt.$;
+        const board = $('body #main-wrap div.cg-wrap cg-board')[0];
+        const boardChanged = this.dataBoard != $('body').attr('data-board') || this.dataBoard3d != $('body').attr('data-board3d');
+        if (boardChanged || this.board != board || (board && !lt.global.document.documentElement.style.getPropertyValue('--board-background'))) {
+          await this.applyThemes(boardChanged);
+          this.dataBoard = $('body').attr('data-board');
+          this.dataBoard3d = $('body').attr('data-board3d');
+          this.board = board;
+        }
+      } finally {
+        this._inCheckBody = false;
       }
     };
 
-    setBoardVariables = ()=>{
+    setBoardVariables = async (boardChanged)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const board = $('body .is2d div.cg-wrap cg-board');
+      const board = $('body #main-wrap div.cg-wrap cg-board');
+      const is3d = $('#main-wrap').is('.is3d');
       if (board.length) {
-        let backgroundImage = $('link[rel=preload][href$=".png"],link[rel=preload][href$=".jpg"],link[rel=preload][href$=".svg"]').eq(0).attr('href');
+        let container = $('html');
+        if (boardChanged) {
+          const html = await lt.net.fetch('/dgt');
+          container = $('<div>'+html+'</div>');
+        }
+        let backgroundImage = $('link[rel=preload][as=image]',container)
+                                .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
+                                .eq(is3d?1:0)
+                                .attr('href');
         if (backgroundImage) {
           backgroundImage = 'url('+backgroundImage+')';
         } else {
@@ -93,17 +110,21 @@
       $('body').toggleClass('lichessTools-hasBoardBackground', !!board.length);
     }
 
-    applyThemes = ()=>{
+    applyThemes = async (boardChanged)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const existingThemes = [...$('body').prop('classList')]
         .filter(c => c.startsWith('lichessTools-theme_'));
       const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
-      $('body')
-        .removeClass(existingThemes.join(' '));
-      this.setBoardVariables();
-      $('body')
-        .addClass(configuredThemes.join(' '));
+      if (!boardChanged) {
+        $('body')
+          .removeClass(existingThemes.join(' '));
+      }
+      await this.setBoardVariables(boardChanged);
+      if (!boardChanged) {
+        $('body')
+          .addClass(configuredThemes.join(' '));
+      }
     };
 
     async start() {
@@ -115,13 +136,13 @@
       $(lt.global).off('hashchange', this.applyThemes);
       $(lt.global).on('hashchange', this.applyThemes);
       $('body').observer()
-        .on('body, .main-board cg-board',this.checkBody,{
+        .on('body, #main-wrap, .main-board cg-board',this.checkBody,{
           childList: false,
           subtree: false,
           attributes: true,
-          attributeFilter: ['data-board','class']
+          attributeFilter: ['data-board','data-board3d','class']
         });
-      this.applyThemes();
+      await this.applyThemes();
     }
 
   }

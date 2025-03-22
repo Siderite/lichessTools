@@ -12,3 +12,9 @@ body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .anal
   backdrop-filter: none !important;
   background: none !important;
 }
+
+body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .lobby__side .lobby__feed,
+body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .lobby__side .lobby__timeline {
+  overflow: hidden;
+  min-height: max-content;
+}
