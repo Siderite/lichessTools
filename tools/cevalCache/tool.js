@@ -66,7 +66,7 @@
               const dbKey = 'lichessTools/evalCache/'+key;
               let value = await lt.storage.get(dbKey,{ db: true, raw: true });
               const node = analysis.tree.nodeAtPath(meta.path);
-              if (node.ceval?.depth <= value?.depth) return;
+              if (data.depth <= 20 || data.depth <= value?.depth) return;
               value = { depth: data.depth };
               if (data.cp) value.cp = data.cp;
               if (data.mate) value.mate = data.mate;
