@@ -78,7 +78,8 @@ body.lichessTools div.lichessTools-dailyQuote .author {
 }
 
 body.lichessTools dialog.lichessTools-dailyQuote {
-  max-width: 30em;
+  min-width: 20em;
+  max-width: min(80vw, 30em);
 }
 
 body.lichessTools dialog.lichessTools-dailyQuote .dialog-header {
@@ -88,4 +89,8 @@ body.lichessTools dialog.lichessTools-dailyQuote .dialog-header {
 
 body.lichessTools dialog.lichessTools-dailyQuote .dialog-content > div {
   padding: 0.25em;
+}
+
+body.lichessTools dialog.lichessTools-dailyQuote .dialog-content > div:nth-child(even) {
+  background: var(--c-bg-zebra2);
 }
