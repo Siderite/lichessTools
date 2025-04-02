@@ -5114,14 +5114,14 @@
     "friendsNumberTitle:zero": "Amis",
     "options.playerExtraButtons": "Boutons d'info-bulle du joueur",
     "playerExtraButtons.report": "Signaler et bloquer",
-    "imagePasting.refreshOnMessage": "Rafraîchir le nouveau message",
+    "imagePasting.refreshOnMessage": "Actualiser en cas de nouveau message",
     "analysisContextActions.positionInfo": "Informations sur la position",
     "positionInfoText": "Informations sur la position",
-    "positionInfoTitle": "Outils LiChess - afficher des informations sur la position sélectionnée",
-    "positionInfoOutputText": "Ply: $ply\r\nDéplace jusqu'à présent : $movesSoFar\r\nSuivant les mouvements principaux : $movesMain\r\nSuivant le total des mouvements : $movesTotal\r\nBranches suivantes : $branches",
+    "positionInfoTitle": "LiChess Tools - afficher informations concernant la position sélectionnée",
+    "positionInfoOutputText": "Ply: $ply\nCoups joués jusqu'à présent : $movesSoFar\nCoups principaux suivants : $movesMain\nTotal des coups suivants : $movesTotal\nVariantes suivantes : $branches",
     "themes.fixThirdParties": "Corriger des tiers",
-    "allQuotesByAuthorText": "Tous les devis par %s",
-    "options.cevalCache": "Se souvenir de l'évaluation de l'ordinateur local"
+    "allQuotesByAuthorText": "Toutes les citations de %s",
+    "options.cevalCache": "Mémoriser les évaluations du module exécuté en local"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
