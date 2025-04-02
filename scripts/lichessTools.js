@@ -466,24 +466,28 @@
         console.warn('Trying to wrap no function', options);
       }
       const wrappedFunc = function () {
+        let args = [...arguments];
+        if (options?.changeArgs) {
+          args = options.changeArgs(args);
+        }
         let executeOriginal = true;
         if (options?.before) {
-          const execute = options.before(this, ...arguments);
+          const execute = options.before(this, ...args);
           if (execute === false) executeOriginal = false;
         }
         let result = null;
         const func = wrappedFunc.__originalFunction;
         if (executeOriginal && func) {
           if (options?.ignoreErrors) {
-            (async () => { return func.apply(this, arguments); })()
+            (async () => { return func.apply(this, args); })()
               .then(r => { result = r; })
-              .catch(e => console.log('Wrapped function error:', e))
+              .catch(e => console.log('Wrapped function error:', e));
           } else {
-            result = func.apply(this, arguments);
+            result = func.apply(this, args);
           }
         }
         if (options?.after) {
-          const newResult = options.after(this, result, ...arguments);
+          const newResult = options.after(this, result, ...args);
           if (newResult !== undefined) result = newResult;
         }
         return result;
@@ -2047,8 +2051,10 @@
         lichessTools: this,
         getList: async function () {
           const lt = this.lichessTools;
-          const text = await lt.net.fetch(lt.assetUrl('flair/list.txt'));
-          return text;
+          /*const text = await lt.net.fetch(lt.assetUrl('flair/list.txt'));
+          return text.split(/[\r\n]+/).filter(f=>!!f);*/
+          const result = await lt.comm.getData('flairs.json');
+          return result.flairs;
         }
       },
       timeline: {

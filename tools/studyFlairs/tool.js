@@ -283,13 +283,8 @@
       }
       if (lichess.analysis?.study || $('.study-topics,.topic-list').length) {
         if (!this.flairs) {
-          let text = '';
-          try {
-            text = await lt.api.flair.getList();
-          } catch {
-            lt.global.console.debug('Could not retrieve flair list!');
-          }
-          this.flairs = text.split(/[\r\n]+/).map(f => 'flair.' + f.trim());
+          const flairs = await lt.api.flair.getList();
+          this.flairs = flairs.map(f => 'flair.' + f.trim());
         }
         this.interval = lt.global.setInterval(this.processStudy, 500);
         this.processStudy();
