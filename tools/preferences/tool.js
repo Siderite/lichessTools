@@ -122,8 +122,15 @@
               <a class="blog" title="$trans(blogLinkTitle)"
                  href="https://siderite.dev/blog/new-chrome-extension-lichess-tools" target="_blank">siderite.dev</a>
             </div>
-            <form>
-<table class="allows lichessTools-globalSwitch">
+            <form>`;
+      if (isLoggedIn) {
+        html += `<h3 class="feedback">$trans(feedbackTitle)</h3>
+<div class="feedback">
+  <textarea enterkeyhint="send"></textarea>
+  <button data-icon="${lt.icon.toEntity(lt.icon.PlayTriangle)}" title="$trans(feedbackButtonTitle)"></button>
+</div>`;
+      }
+      html += `<table class="allows lichessTools-globalSwitch">
     <tbody>
         <tr>
             <td>$trans(enableExtension)</td>
@@ -145,18 +152,10 @@
         </tr>
     </tbody>
 </table>
-`;
-      if (isLoggedIn) {
-        html += `<h3>$trans(feedbackTitle)</h3>
-<div class="feedback">
-  <textarea enterkeyhint="send"></textarea>
-  <button data-icon="${lt.icon.toEntity(lt.icon.PlayTriangle)}" title="$trans(feedbackButtonTitle)"></button>
-</div>
 <div class="prefTools">
   <button class="expandAll"></button>
   <input type="text" class="prefFilter" placeholder="$trans(preferenceFilterPlaceholder)">
 </div>`;
-      }
 
       const categs = {};
       for (const tool of tools) {
