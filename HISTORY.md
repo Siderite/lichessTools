@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+08 Apr
+
+- Toggle practice quick action
+
 07 Apr
 
 - custom engine level for practice

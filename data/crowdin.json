@@ -856,7 +856,9 @@
     "practiceDepthTitle": "أدوات شطرنج الحياة - عمق محرك التدريب المخصص",
     "practiceDepthText": "عمق المحرك التدريبي: %s",
     "engineDepthText": "عمق محرك مخصص: %s",
-    "engineDepthTitle": "أدوات شطرنج الحياة - عمق محرك مخصص"
+    "engineDepthTitle": "أدوات شطرنج الحياة - عمق محرك مخصص",
+    "quickActions.practice": "تبديل التدريب",
+    "togglePracticeTitle": "أدوات شطرنج الحياة - تبديل التدريب"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1715,7 +1717,9 @@
     "practiceDepthTitle": "LiChess工具 - 自定义练习引擎深度",
     "practiceDepthText": "练习引擎深度: %s",
     "engineDepthText": "自定义引擎深度: %s",
-    "engineDepthTitle": "Lichess 工具 - 自定义引擎深度"
+    "engineDepthTitle": "Lichess 工具 - 自定义引擎深度",
+    "quickActions.practice": "切换练习",
+    "togglePracticeTitle": "Lichess工具 - 切换练习"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2574,7 +2578,9 @@
     "practiceDepthTitle": "LiChess Tools - custom practice engine depth",
     "practiceDepthText": "Practice engine depth: %s",
     "engineDepthText": "Custom engine depth: %s",
-    "engineDepthTitle": "LiChess Tools - custom engine depth"
+    "engineDepthTitle": "LiChess Tools - custom engine depth",
+    "quickActions.practice": "Toggle practice",
+    "togglePracticeTitle": "LiChess Tools - toggle practice"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3433,7 +3439,9 @@
     "practiceDepthTitle": "LiChess Tools - aangepaste oefenmotor diepte",
     "practiceDepthText": "Oefening motor diepte: %s",
     "engineDepthText": "Eigen engine diepte: %s",
-    "engineDepthTitle": "LiChess Tools - aangepaste engine diepte"
+    "engineDepthTitle": "LiChess Tools - aangepaste engine diepte",
+    "quickActions.practice": "Schakel oefenen",
+    "togglePracticeTitle": "LiChess Tools - toggle practice"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4292,7 +4300,9 @@
     "practiceDepthTitle": "LiChess Tools - custom practice engine depth",
     "practiceDepthText": "Practice engine depth: %s",
     "engineDepthText": "Custom engine depth: %s",
-    "engineDepthTitle": "LiChess Tools - custom engine depth"
+    "engineDepthTitle": "LiChess Tools - custom engine depth",
+    "quickActions.practice": "Toggle practice",
+    "togglePracticeTitle": "LiChess Tools - toggle practice"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5147,11 +5157,13 @@
     "themes.fixThirdParties": "Corriger des tiers",
     "allQuotesByAuthorText": "Toutes les citations de %s",
     "options.cevalCache": "Mémoriser les évaluations du module exécuté en local",
-    "options.customEnginePracticeLevel": "Profondeur personnalisée du moteur d'entraînement",
-    "practiceDepthTitle": "Outils LiChess - profondeur du moteur d'entraînement personnalisée",
+    "options.customEnginePracticeLevel": "Profondeur du moteur d'entraînement personnalisée",
+    "practiceDepthTitle": "LiChess Tools - profondeur du moteur d'entraînement personnalisée",
     "practiceDepthText": "Profondeur du moteur d'entraînement : %s",
-    "engineDepthText": "Profondeur du moteur personnalisé : %s",
-    "engineDepthTitle": "Outils LiChess - profondeur du moteur personnalisé"
+    "engineDepthText": "Profondeur du moteur personnalisée : %s",
+    "engineDepthTitle": "LiChess Tools - profondeur du moteur personnalisée",
+    "quickActions.practice": "Activer/désactiver la pratique",
+    "togglePracticeTitle": "Outils LiChess - Entraînement"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6010,7 +6022,9 @@
     "practiceDepthTitle": "LiChess Tools - benutzerdefinierte Praxis-Tiefe",
     "practiceDepthText": "Übungsmotortiefe %s",
     "engineDepthText": "Eigene Engine-Tiefe: %s",
-    "engineDepthTitle": "LiChess Tools - benutzerdefinierte Engine-Tiefe"
+    "engineDepthTitle": "LiChess Tools - benutzerdefinierte Engine-Tiefe",
+    "quickActions.practice": "Übung umschalten",
+    "togglePracticeTitle": "LiChess Werkzeuge - Übung umschalten"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6869,7 +6883,9 @@
     "practiceDepthTitle": "LiChess Tools - Profondità del motore di pratica personalizzata",
     "practiceDepthText": "Profondità del motore di pratica: %s",
     "engineDepthText": "Profondità personalizzata del motore: %s",
-    "engineDepthTitle": "LiChess Tools - Profondità del motore personalizzato"
+    "engineDepthTitle": "LiChess Tools - Profondità del motore personalizzato",
+    "quickActions.practice": "Attiva/disattiva pratica",
+    "togglePracticeTitle": "Strumenti LiChess - attiva/disattiva pratica"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7728,7 +7744,9 @@
     "practiceDepthTitle": "Narzędzia LiChess - niestandardowa głębokość silnika",
     "practiceDepthText": "Poćwicz głębokość silnika: %s",
     "engineDepthText": "Niestandardowa głębokość silnika: %s",
-    "engineDepthTitle": "Narzędzia LiChess - niestandardowa głębokość silnika"
+    "engineDepthTitle": "Narzędzia LiChess - niestandardowa głębokość silnika",
+    "quickActions.practice": "Przełącz ćwiczenie",
+    "togglePracticeTitle": "Narzędzia LiChess - przełącz ćwiczenie"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8587,7 +8605,9 @@
     "practiceDepthTitle": "Ferramentas LiChess - profundidade do motor de prática personalizado",
     "practiceDepthText": "Profundidade do motor de treino: %s",
     "engineDepthText": "Profundidade do mecanismo personalizado: %s",
-    "engineDepthTitle": "LiChess Tools - profundidade de motor personalizado"
+    "engineDepthTitle": "LiChess Tools - profundidade de motor personalizado",
+    "quickActions.practice": "Alternar prática",
+    "togglePracticeTitle": "Ferramentas de LiChess - alternar prática"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9446,7 +9466,9 @@
     "practiceDepthTitle": "Ferramentas LiChess - profundidade do motor de prática personalizado",
     "practiceDepthText": "Profundidade do motor de treino: %s",
     "engineDepthText": "Profundidade do mecanismo personalizado: %s",
-    "engineDepthTitle": "LiChess Tools - profundidade de motor personalizado"
+    "engineDepthTitle": "LiChess Tools - profundidade de motor personalizado",
+    "quickActions.practice": "Alternar prática",
+    "togglePracticeTitle": "Ferramentas de LiChess - alternar prática"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -10305,7 +10327,9 @@
     "practiceDepthTitle": "LiChess Tools - nivel pentru motorul de analiză în mod Practică",
     "practiceDepthText": "Nivel motor în mod Practică: %s",
     "engineDepthText": "Nivel motor analiză: %s",
-    "engineDepthTitle": "LiChess Tools - nivel personalizat pentru motorul de analiză"
+    "engineDepthTitle": "LiChess Tools - nivel personalizat pentru motorul de analiză",
+    "quickActions.practice": "Mod Practică",
+    "togglePracticeTitle": "LiChess Tools - comută mod Practică"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -11164,7 +11188,9 @@
     "practiceDepthTitle": "Инструменты Жизни - глубина движка пользовательской практики",
     "practiceDepthText": "Глубина движка: %s",
     "engineDepthText": "Глубина движка: %s",
-    "engineDepthTitle": "Инструменты Жизни - пользовательская глубина движка"
+    "engineDepthTitle": "Инструменты Жизни - пользовательская глубина движка",
+    "quickActions.practice": "Переключить практику",
+    "togglePracticeTitle": "Инструменты Жизни - переключение практики"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -12023,7 +12049,9 @@
     "practiceDepthTitle": "Herramientas de LiChess - Profundidad del motor de prácticas personalizadas",
     "practiceDepthText": "Profundidad del motor de prácticas: %s",
     "engineDepthText": "Profundidad del motor personalizado: %s",
-    "engineDepthTitle": "Herramientas de LiChess - Profundidad de motor personalizada"
+    "engineDepthTitle": "Herramientas de LiChess - Profundidad de motor personalizada",
+    "quickActions.practice": "Alternar práctica",
+    "togglePracticeTitle": "Herramientas de LiChess - practica alternativo"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12882,7 +12910,9 @@
     "practiceDepthTitle": "LiChess Tools - custom practice engine depth",
     "practiceDepthText": "Practice engine depth: %s",
     "engineDepthText": "Custom engine depth: %s",
-    "engineDepthTitle": "LiChess Tools - custom engine depth"
+    "engineDepthTitle": "LiChess Tools - custom engine depth",
+    "quickActions.practice": "Toggle practice",
+    "togglePracticeTitle": "LiChess Tools - toggle practice"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13741,6 +13771,8 @@
     "practiceDepthTitle": "LiChess Tools - custom practice engine depth",
     "practiceDepthText": "Practice engine depth: %s",
     "engineDepthText": "Custom engine depth: %s",
-    "engineDepthTitle": "LiChess Tools - custom engine depth"
+    "engineDepthTitle": "LiChess Tools - custom engine depth",
+    "quickActions.practice": "Toggle practice",
+    "togglePracticeTitle": "LiChess Tools - toggle practice"
   }
 }
