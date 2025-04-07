@@ -75,10 +75,10 @@
 
       const isPractice = analysis.practice?.running() || analysis.study?.practice;
       if (!isPractice || this.options.practice) {
-        const targetDepth = isPractice && this.options.practice
-          ? this.options.practiceDepth || this.options.depth
+        const targetDepth = isPractice
+          ? this.options.practiceDepth || 15
           : this.options.depth;
-        const customDepth = analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)
+        const customDepth = (analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)) && !targetDepth
           ? 99
           : targetDepth;
         if (customDepth && analysis.ceval.enabled() && !analysis.ceval.showingCloud) {
@@ -280,7 +280,7 @@
       const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
 
       if (analysis.ceval.canGoDeeper && isIdle) {
-        if ((analysis.ceval.showingCloud && noCloud) || (targetDepth && curDepth < (node.autoDeeper || targetDepth)) || (this.options.infiniteExternal && isExternalEngine)) {
+        if ((analysis.ceval.showingCloud && noCloud) || (targetDepth && curDepth < (node.autoDeeper || targetDepth)) || (this.options.infiniteExternal && isExternalEngine && !targetDepth)) {
           node.autoDeeper = targetDepth;
           analysis.ceval.goDeeper();
           analysis.redraw();
@@ -288,7 +288,7 @@
         }
       }
       if (!analysis.ceval.showingCloud && (node.autoDeeper || !analysis.ceval.isDeeper())
-        && targetDepth && curDepth >= targetDepth && (!this.options.infiniteExternal || !isExternalEngine)) {
+        && targetDepth && curDepth >= targetDepth) {
         node.autoDeeper = undefined;
         if (analysis.ceval.state == 3) {
           analysis.ceval.stop();
