@@ -851,7 +851,12 @@
     "positionInfoOutputText": "نصيحة: $ply\r\nيتحرك حتى الآن: $movesSoFar\r\nمتابعة التحركات الرئيسية: $movesMain\r\nمتابعة مجموع التحركات: $movesTotal\r\nتتبع الفروع: $branches",
     "themes.fixThirdParties": "إصلاح الأطراف الثالثة",
     "allQuotesByAuthorText": "جميع الاقتباسات بواسطة %s",
-    "options.cevalCache": "تذكر تقييم الكمبيوتر المحلي"
+    "options.cevalCache": "تذكر تقييم الكمبيوتر المحلي",
+    "options.customEnginePracticeLevel": "عمق محرك التدريب المخصص",
+    "practiceDepthTitle": "أدوات شطرنج الحياة - عمق محرك التدريب المخصص",
+    "practiceDepthText": "عمق المحرك التدريبي: %s",
+    "engineDepthText": "عمق محرك مخصص: %s",
+    "engineDepthTitle": "أدوات شطرنج الحياة - عمق محرك مخصص"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1705,7 +1710,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "修复第三方",
     "allQuotesByAuthorText": "所有引用的 %s",
-    "options.cevalCache": "记住本地计算机评价"
+    "options.cevalCache": "记住本地计算机评价",
+    "options.customEnginePracticeLevel": "自定义练习引擎深度",
+    "practiceDepthTitle": "LiChess工具 - 自定义练习引擎深度",
+    "practiceDepthText": "练习引擎深度: %s",
+    "engineDepthText": "自定义引擎深度: %s",
+    "engineDepthTitle": "Lichess 工具 - 自定义引擎深度"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2559,7 +2569,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "Fix third parties",
     "allQuotesByAuthorText": "All quotes by %s",
-    "options.cevalCache": "Remember local computer evaluation"
+    "options.cevalCache": "Remember local computer evaluation",
+    "options.customEnginePracticeLevel": "Custom practice engine depth",
+    "practiceDepthTitle": "LiChess Tools - custom practice engine depth",
+    "practiceDepthText": "Practice engine depth: %s",
+    "engineDepthText": "Custom engine depth: %s",
+    "engineDepthTitle": "LiChess Tools - custom engine depth"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3413,7 +3428,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nBewegingen tot nu toe: $movesSoFar\r\nVolgende hoofdbewegingen: $movesMain\r\nVolgende totale bewegingen: $movesTotal\r\nVolgende branches: $branches",
     "themes.fixThirdParties": "Repareer derden",
     "allQuotesByAuthorText": "Alle aanhalingstekens van %s",
-    "options.cevalCache": "Lokale computerevaluatie onthouden"
+    "options.cevalCache": "Lokale computerevaluatie onthouden",
+    "options.customEnginePracticeLevel": "Aangepaste praktijk motordiepte",
+    "practiceDepthTitle": "LiChess Tools - aangepaste oefenmotor diepte",
+    "practiceDepthText": "Oefening motor diepte: %s",
+    "engineDepthText": "Eigen engine diepte: %s",
+    "engineDepthTitle": "LiChess Tools - aangepaste engine diepte"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4267,7 +4287,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "Fix third parties",
     "allQuotesByAuthorText": "All quotes by %s",
-    "options.cevalCache": "Remember local computer evaluation"
+    "options.cevalCache": "Remember local computer evaluation",
+    "options.customEnginePracticeLevel": "Custom practice engine depth",
+    "practiceDepthTitle": "LiChess Tools - custom practice engine depth",
+    "practiceDepthText": "Practice engine depth: %s",
+    "engineDepthText": "Custom engine depth: %s",
+    "engineDepthTitle": "LiChess Tools - custom engine depth"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5121,7 +5146,12 @@
     "positionInfoOutputText": "Ply: $ply\nCoups joués jusqu'à présent : $movesSoFar\nCoups principaux suivants : $movesMain\nTotal des coups suivants : $movesTotal\nVariantes suivantes : $branches",
     "themes.fixThirdParties": "Corriger des tiers",
     "allQuotesByAuthorText": "Toutes les citations de %s",
-    "options.cevalCache": "Mémoriser les évaluations du module exécuté en local"
+    "options.cevalCache": "Mémoriser les évaluations du module exécuté en local",
+    "options.customEnginePracticeLevel": "Profondeur personnalisée du moteur d'entraînement",
+    "practiceDepthTitle": "Outils LiChess - profondeur du moteur d'entraînement personnalisée",
+    "practiceDepthText": "Profondeur du moteur d'entraînement : %s",
+    "engineDepthText": "Profondeur du moteur personnalisé : %s",
+    "engineDepthTitle": "Outils LiChess - profondeur du moteur personnalisé"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5975,7 +6005,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nbewegt sich bisher: $movesSoFar\r\nFolgende Hauptbewegungen: $movesMain\r\nFolgende Zusammenfassungen: $movesTotal\r\nFolgende Branchen: $branches",
     "themes.fixThirdParties": "Drittanbieter fixieren",
     "allQuotesByAuthorText": "Alle Zitate von %s",
-    "options.cevalCache": "Lokale Computerauswertung merken"
+    "options.cevalCache": "Lokale Computerauswertung merken",
+    "options.customEnginePracticeLevel": "Benutzerdefinierte Übungsmotortiefe",
+    "practiceDepthTitle": "LiChess Tools - benutzerdefinierte Praxis-Tiefe",
+    "practiceDepthText": "Übungsmotortiefe %s",
+    "engineDepthText": "Eigene Engine-Tiefe: %s",
+    "engineDepthTitle": "LiChess Tools - benutzerdefinierte Engine-Tiefe"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6829,7 +6864,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nSpostarsi finora: $movesSoFar\r\nSeguendo le mosse principali: $movesMain\r\nSeguendo le mosse totali: $movesTotal\r\nSeguenti rami: $branches",
     "themes.fixThirdParties": "Correggi terzi",
     "allQuotesByAuthorText": "Tutti i preventivi di %s",
-    "options.cevalCache": "Ricorda la valutazione del computer locale"
+    "options.cevalCache": "Ricorda la valutazione del computer locale",
+    "options.customEnginePracticeLevel": "Profondità del motore di pratica personalizzata",
+    "practiceDepthTitle": "LiChess Tools - Profondità del motore di pratica personalizzata",
+    "practiceDepthText": "Profondità del motore di pratica: %s",
+    "engineDepthText": "Profondità personalizzata del motore: %s",
+    "engineDepthTitle": "LiChess Tools - Profondità del motore personalizzato"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7683,7 +7723,12 @@
     "positionInfoOutputText": "Liczba półruchów: $ply\nLiczba dotychczasowych ruchów: $movesSoFar\nPo głównej linii: $movesMain\nPo wszystkich liniach: $movesTotal\nPo liniach bocznych: $branches",
     "themes.fixThirdParties": "Napraw strony trzecie",
     "allQuotesByAuthorText": "Wszystkie cudzysłowy %s",
-    "options.cevalCache": "Zapamiętaj lokalną ocenę komputera"
+    "options.cevalCache": "Zapamiętaj lokalną ocenę komputera",
+    "options.customEnginePracticeLevel": "Niestandardowa głębokość silnika",
+    "practiceDepthTitle": "Narzędzia LiChess - niestandardowa głębokość silnika",
+    "practiceDepthText": "Poćwicz głębokość silnika: %s",
+    "engineDepthText": "Niestandardowa głębokość silnika: %s",
+    "engineDepthTitle": "Narzędzia LiChess - niestandardowa głębokość silnika"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8537,7 +8582,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nMoves até agora: $movesSoFar\r\nSeguindo os principais movimentos: $movesMain\r\nApós os movimentos totais: $movesTotal\r\nSeguindo os cursos: $branches",
     "themes.fixThirdParties": "Corrigir terceiros",
     "allQuotesByAuthorText": "Todas as citações de %s",
-    "options.cevalCache": "Lembrar avaliação local do computador"
+    "options.cevalCache": "Lembrar avaliação local do computador",
+    "options.customEnginePracticeLevel": "Profundidade do mecanismo de prática personalizada",
+    "practiceDepthTitle": "Ferramentas LiChess - profundidade do motor de prática personalizado",
+    "practiceDepthText": "Profundidade do motor de treino: %s",
+    "engineDepthText": "Profundidade do mecanismo personalizado: %s",
+    "engineDepthTitle": "LiChess Tools - profundidade de motor personalizado"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9391,7 +9441,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nMoves até agora: $movesSoFar\r\nSeguindo os principais movimentos: $movesMain\r\nApós os movimentos totais: $movesTotal\r\nSeguindo os cursos: $branches",
     "themes.fixThirdParties": "Corrigir terceiros",
     "allQuotesByAuthorText": "Todas as citações de %s",
-    "options.cevalCache": "Lembrar avaliação local do computador"
+    "options.cevalCache": "Lembrar avaliação local do computador",
+    "options.customEnginePracticeLevel": "Profundidade do mecanismo de prática personalizada",
+    "practiceDepthTitle": "Ferramentas LiChess - profundidade do motor de prática personalizado",
+    "practiceDepthText": "Profundidade do motor de treino: %s",
+    "engineDepthText": "Profundidade do mecanismo personalizado: %s",
+    "engineDepthTitle": "LiChess Tools - profundidade de motor personalizado"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -10245,7 +10300,12 @@
     "positionInfoOutputText": "Ply: $ply\nMutări până acum: $movesSoFar\nMișcări principale următoare: $movesMain\nTotal mișcări următoare: $movesTotal\nVariațiuni următoare: $branches",
     "themes.fixThirdParties": "Repară terțe părți",
     "allQuotesByAuthorText": "Toate citate de %s",
-    "options.cevalCache": "Reţine evaluarea locală a computerului"
+    "options.cevalCache": "Reţine evaluarea locală a computerului",
+    "options.customEnginePracticeLevel": "Nivel personalizat pentru motorul de analiză",
+    "practiceDepthTitle": "LiChess Tools - nivel pentru motorul de analiză în mod Practică",
+    "practiceDepthText": "Nivel motor în mod Practică: %s",
+    "engineDepthText": "Nivel motor analiză: %s",
+    "engineDepthTitle": "LiChess Tools - nivel personalizat pentru motorul de analiză"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -11099,7 +11159,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "Исправить третьи стороны",
     "allQuotesByAuthorText": "Все котировки от %s",
-    "options.cevalCache": "Запомнить оценку локального компьютера"
+    "options.cevalCache": "Запомнить оценку локального компьютера",
+    "options.customEnginePracticeLevel": "Глубина движка",
+    "practiceDepthTitle": "Инструменты Жизни - глубина движка пользовательской практики",
+    "practiceDepthText": "Глубина движка: %s",
+    "engineDepthText": "Глубина движка: %s",
+    "engineDepthTitle": "Инструменты Жизни - пользовательская глубина движка"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -11953,7 +12018,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nSe mueve hasta ahora: $movesSoFar\r\nSiguiendo los movimientos principales: $movesMain\r\nEl total de los siguientes se mueve: $movesTotal\r\nSiguientes sucursales: $branches",
     "themes.fixThirdParties": "Fijar a terceros",
     "allQuotesByAuthorText": "Todas las comillas de %s",
-    "options.cevalCache": "Recordar evaluación local del ordenador"
+    "options.cevalCache": "Recordar evaluación local del ordenador",
+    "options.customEnginePracticeLevel": "Profundidad personalizada del motor de prácticas",
+    "practiceDepthTitle": "Herramientas de LiChess - Profundidad del motor de prácticas personalizadas",
+    "practiceDepthText": "Profundidad del motor de prácticas: %s",
+    "engineDepthText": "Profundidad del motor personalizado: %s",
+    "engineDepthTitle": "Herramientas de LiChess - Profundidad de motor personalizada"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12807,7 +12877,12 @@
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "Fix third parties",
     "allQuotesByAuthorText": "All quotes by %s",
-    "options.cevalCache": "Remember local computer evaluation"
+    "options.cevalCache": "Remember local computer evaluation",
+    "options.customEnginePracticeLevel": "Custom practice engine depth",
+    "practiceDepthTitle": "LiChess Tools - custom practice engine depth",
+    "practiceDepthText": "Practice engine depth: %s",
+    "engineDepthText": "Custom engine depth: %s",
+    "engineDepthTitle": "LiChess Tools - custom engine depth"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13661,6 +13736,11 @@
     "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
     "themes.fixThirdParties": "Fix third parties",
     "allQuotesByAuthorText": "All quotes by %s",
-    "options.cevalCache": "Remember local computer evaluation"
+    "options.cevalCache": "Remember local computer evaluation",
+    "options.customEnginePracticeLevel": "Custom practice engine depth",
+    "practiceDepthTitle": "LiChess Tools - custom practice engine depth",
+    "practiceDepthText": "Practice engine depth: %s",
+    "engineDepthText": "Custom engine depth: %s",
+    "engineDepthTitle": "LiChess Tools - custom engine depth"
   }
 }

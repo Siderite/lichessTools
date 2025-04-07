@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Apr
+
+- custom engine level for practice
+
 22 Mar
 
 - clickable quote author
