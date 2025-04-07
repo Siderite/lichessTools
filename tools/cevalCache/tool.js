@@ -67,15 +67,14 @@
               let value = await lt.storage.get(dbKey,{ db: true, raw: true });
               const node = analysis.tree.nodeAtPath(meta.path);
               if (data.depth <= 20 || data.depth <= value?.depth) return;
-              value = { depth: data.depth };
-              if (data.cp) value.cp = data.cp;
-              if (data.mate) value.mate = data.mate;
+              value = { time: Date.now(), ...data };
               try {
                 await lt.storage.set(dbKey,value,{ db: true, raw: true });
               } catch(e) {
                 if (e.name === "QuotaExceededError") {
                   const dbStorage = lt.storage.getStore({ db: true, raw: true });
-                  dbStorage.clearStore(dbKey);
+                  //dbStorage.clearStore(dbKey);
+                  dbStorage.removeAllBy(dbKey,'time','upperBound',Date.now()-86400*1000*30);
                 }
               };
             }

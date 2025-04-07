@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 07 Apr
 
 - custom engine level for practice
+- full data storage for local eval cache
 
 22 Mar
 
