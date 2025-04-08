@@ -78,7 +78,7 @@
         const targetDepth = isPractice
           ? this.options.practiceDepth || 15
           : this.options.depth;
-        const customDepth = (analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)) && !targetDepth
+        const customDepth = analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)
           ? 99
           : targetDepth;
         if (customDepth && analysis.ceval.enabled() && !analysis.ceval.showingCloud) {
