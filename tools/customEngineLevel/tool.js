@@ -75,7 +75,7 @@
 
       const isPractice = analysis.practice?.running() || analysis.study?.practice;
       if (!isPractice || this.options.practice) {
-        const targetDepth = isPractice && this.options.practice
+        const targetDepth = isPractice
           ? this.options.practiceDepth || this.options.depth
           : this.options.depth;
         const customDepth = analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)
