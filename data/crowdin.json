@@ -5162,8 +5162,8 @@
     "practiceDepthText": "Profondeur du moteur d'entraînement : %s",
     "engineDepthText": "Profondeur du moteur personnalisée : %s",
     "engineDepthTitle": "LiChess Tools - profondeur du moteur personnalisée",
-    "quickActions.practice": "Activer/désactiver la pratique",
-    "togglePracticeTitle": "Outils LiChess - Entraînement"
+    "quickActions.practice": "Activer/désactiver l'entraînement",
+    "togglePracticeTitle": "LiChess Tools - activer/désactiver l'entraînement"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
