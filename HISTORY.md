@@ -1,5 +1,42 @@
 History of features added to LiChess Tools in time (reversed order)
 
+08 Apr
+
+- Toggle practice quick action
+
+07 Apr
+
+- custom engine level for practice
+- full data storage for local eval cache
+
+22 Mar
+
+- clickable quote author
+- local eval cache
+
+21 Mar
+
+- position info context menu
+- grid board theme shows correct board in Prettier
+- theme to fix third party issues
+
+20 Mar
+
+- quick report and block option
+- count total in friends page
+- show blog like percentage tooltip
+- refresh inbox chat on new messages
+
+12 Mar
+
+- option to disable mouse over the command input
+- limit number of ceval lines to 5 for external engines
+- choose voice for reading text aloud
+
+09 Mar
+
+- no game result popup theme
+
 04 Mar
 
 - study subchapters

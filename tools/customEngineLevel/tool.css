@@ -1,0 +1,7 @@
+body.lichessTools .abset-practice:has(#abset-practice:not(:checked)) + .abset-practice-depth {
+  opacity: 0.5;
+}
+
+body.lichessTools .abset-practice:has(#abset-practice:not(:checked)) + .abset-practice-depth input {
+  pointer-events: none;
+}

@@ -52,7 +52,10 @@
         'timeText': '%s ago',
         'followersText': 'Followers',
         'followersTitle': 'LiChess Tools - players following you',
-        'followersNumberTitle': '%s followers'
+        'followersNumberTitle': '%s followers',
+        'friendsNumberTitle': '%s friends',
+        'friendsNumberTitle:one': 'One friend',
+        'friendsNumberTitle:zero': 'Friends'
       },
       'ro-RO': {
         'onlineFriends': '%s prieteni online',
@@ -83,7 +86,10 @@
         'timeText': 'acum %s',
         'followersText': 'Urm\u0103ritori',
         'followersTitle': 'LiChess Tools - juc\u0103tori care te urm\u0103resc',
-        'followersNumberTitle': '%s urm\u0103ritori'
+        'followersNumberTitle': '%s urm\u0103ritori',
+        'friendsNumberTitle': '%s prieteni',
+        'friendsNumberTitle:one': 'Un prieten',
+        'friendsNumberTitle:zero': 'Prieteni'
       }
     }
 
@@ -337,6 +343,14 @@
       if (!header.length) {
         header = $('<div class="lichessTools-livePageHeader">')
           .insertAfter('main.box div.box__top');
+      }
+      if (this.isFriendsPage) {
+          const topHeader = $('.box__top h1');
+          if (!topHeader.prop('_friendsInit')) {
+            topHeader.prop('_friendsInit',true);
+            const friends = await lt.api.relations.getFriends(1,1);
+            $('.box__top h1').replaceText(trans.pluralSame('friendsNumberTitle',friends?.nbResults || 0));
+          }
       }
       if (!isFavoritesOrBlocksOrFollowers && !$('.lichessTools-followers',header).length) {
         $('<a class="lichessTools-followers">')

@@ -50,3 +50,9 @@ body.lichessTools a.lichessTools-pin:hover span.lichessTools-unpin {
 body.lichessTools a.lichessTools-pin:hover span.lichessTools-unpin:hover {
   color: red;
 }
+
+/* Prettier Lichess */
+
+body.lichessTools.lichessTools-prettier span.lichessTools-pin.lichessTools-pinned:before {
+  transform: rotate(320deg) translate(-0.76em, 0.5em);
+}

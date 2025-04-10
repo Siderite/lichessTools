@@ -30,3 +30,7 @@ body.lichessTools:not(.mobile) button.msg-app__convo__post__submit:not(.active) 
 body.lichessTools div.lichessTools-quickActions-tooltip .readComments.dontReadComments {
   opacity:0.5;
 }
+
+body.lichessTools main.lichessTools-quickActions-practice button[data-act="practice"]:not(.active) {
+  display:none;
+}

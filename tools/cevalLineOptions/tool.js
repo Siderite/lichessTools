@@ -48,7 +48,7 @@
 
     dict = new Map();
     clsIndex = 0;
-    handlePvs = () => {
+    handlePvsDirect = () => {
       if (this._inHandlePvs) return;
       try {
         this._inHandlePvs=true;
@@ -117,18 +117,19 @@
             const val = lt.winPerc(lt.getCentipawns(info));
             if (first === null) {
               first = val;
-              $(e).addClass('best');
+              $(e).toggleClassSafe('best',true);
               return;
             }
             const diff = Math.abs(val - first);
-            if (diff<1) $(e).addClass('good');
-            else if (diff>20) $(e).addClass('blunder');
-            else if (diff>10) $(e).addClass('mistake');
+            if (diff<1) $(e).toggleClassSafe('good',true)
+            else if (diff>20) $(e).toggleClassSafe('blunder',true);
+            else if (diff>10) $(e).toggleClassSafe('mistake',true);
           });
       } finally {
         this._inHandlePvs=false;
       }
     };
+    handlePvs = lichessTools.debounce(this.handlePvsDirect,100);
 
     updateMoreLinesText = ()=>{
       const lt = this.lichessTools;
@@ -137,6 +138,24 @@
       if (!input.length) return;
       $('div.setting:has(#analyse-multipv) .range_value')
         .text(input.val()+' / '+input.attr('max'));
+    };
+
+    //Lichess API limitation: https://github.com/lichess-org/lila/issues/17127
+    handleExternalEngine = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const analysis = lt.lichess.analysis;
+      const engine = analysis?.ceval?.engines?.activeEngine;
+      const isExternalEngine = engine?.tech == 'EXTERNAL';
+      $('div.analyse__tools').toggleClassSafe('lichessTools-externalEngine',isExternalEngine);
+      if (isExternalEngine) {
+        if (analysis.ceval.storedPv()>5) {
+          site.analysis.ceval.storedPv(5);
+        }
+        const input = $('div.setting #analyse-multipv');
+        input.attr('max',5);
+      }
+      return isExternalEngine;
     };
 
     handleMoreLines = ()=>{
@@ -148,7 +167,11 @@
       if (!analysis) return;
       const container = $('div.setting:has(#analyse-multipv)');
       if (!container.length) return;
-      const maxValue = +lt.storage.get('LiChessTools.cevalLineOptions-moreLines') || 5;
+      let maxValue = +lt.storage.get('LiChessTools.cevalLineOptions-moreLines') || 5;
+      const isExternalEngine = this.handleExternalEngine();
+      if (isExternalEngine) {
+        maxValue = 5;
+      }
       const input = $('div.setting #analyse-multipv')
         .attr('max',maxValue)
         .off('input',this.updateMoreLinesText)
@@ -156,7 +179,7 @@
       const ceval = analysis?.ceval;
       const value = ceval?.storedPv();
       if (value) {
-        input.val(value);
+        input.val(Math.max(maxValue,+value));
       }
       this.updateMoreLinesText();
       if (!$('.lichessTools-cevalMoreLines',container).length) {
@@ -244,38 +267,48 @@
         .off('div.ceval.enabled ~ div.pv_box .pv',this.handlePvs);
       main
         .observer()
-        .off('#ceval-settings-anchor',this.handleMoreLines);
+        .off('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
       lt.pubsub.off('lichessTools.redraw',this.setupHighlightSameMoves);
       if (this.options.highlight || this.options.colorEvaluation) {
         lt.pubsub.on('lichessTools.redraw',this.setupHighlightSameMoves);
         this.setupHighlightSameMoves();
       }
-      if (this.options.moreLines) {
-        main
-          .observer()
-          .on('#ceval-settings-anchor',this.handleMoreLines);
-      }
-      this.handleMoreLines();
-      lt.uiApi.events.off('analysis.change',this.drawChart);
       const analysis = lichess.analysis;
-      const ctrl = analysis?.ceval?.engines?.ctrl;
-      if (ctrl) {
-        ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalLineOptions');
-        if (this.options.depthChart) {
-          ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
-            id: 'cevalLineOptions',
-            after: ($this, result, data, meta)=>{
-              if (!data?.depth || meta?.path != analysis.path) return;
-              let db = this.db.get(meta.path);
-              if (!db) {
-                db = new Map();
-                this.db.set(meta.path,db);
-              }
-              db.set(data.depth,data);
-              this.drawChart();
+      if (analysis?.ceval) {
+        analysis.ceval.selectEngine = lt.unwrapFunction(analysis.ceval.selectEngine,'cevalLineOptions-moreLines');
+        if (this.options.moreLines) {
+          main
+            .observer()
+            .on('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
+          analysis.ceval.selectEngine = lt.wrapFunction(analysis.ceval.selectEngine,{
+            id: 'cevalLineOptions-moreLines',
+            after: ($this, result,...args)=> {
+              this.handleExternalEngine();
             }
           });
-          lt.uiApi.events.on('analysis.change',this.drawChart);
+          this.handleExternalEngine();
+        }
+        this.handleMoreLines();
+        lt.uiApi.events.off('analysis.change',this.drawChart);
+        const ctrl = analysis.ceval.engines?.ctrl;
+        if (ctrl) {
+          ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalLineOptions');
+          if (this.options.depthChart) {
+            ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
+              id: 'cevalLineOptions',
+              after: ($this, result, data, meta)=>{
+                if (!data?.depth || meta?.path != analysis.path) return;
+                let db = this.db.get(meta.path);
+                if (!db) {
+                  db = new Map();
+                  this.db.set(meta.path,db);
+                }
+                db.set(data.depth,data);
+                this.drawChart();
+              }
+            });
+            lt.uiApi.events.on('analysis.change',this.drawChart);
+          }
         }
       }
     }

@@ -1,14 +1,14 @@
 (() => {
   class AnalysisContextActionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'CustomEngineLevel', 'ExportPGN', 'DetectThirdParties'];
+    dependencies = ['EmitRedraw', 'CustomEngineLevel', 'ExportPGN', 'DetectThirdParties', 'Dialog'];
 
     preferences = [
       {
         name: 'analysisContextActions',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['copyPgn', 'moveEval', 'showTranspos', 'removeSuperfluous', 'showOnEmpty', 'reorderVariations'],
+        possibleValues: ['copyPgn', 'moveEval', 'showTranspos', 'removeSuperfluous', 'showOnEmpty', 'reorderVariations', 'positionInfo'],
         defaultValue: 'copyPgn,moveEval,removeSuperfluous,showOnEmpty,reorderVariations'
       }
     ];
@@ -27,6 +27,7 @@
         'analysisContextActions.removeSuperfluous': 'Remove superfluous entries',
         'analysisContextActions.showOnEmpty': 'Show context menu when no moves',
         'analysisContextActions.reorderVariations': 'Reorder variations',
+        'analysisContextActions.positionInfo': 'Position info',
         'extractVariationText': 'Copy branch as PGN',
         'extractVariationText_f': 'Copy PGN (fen)',
         'extractVariationText_s': 'Copy PGN (separate)',
@@ -46,7 +47,14 @@
         'bumpUpVariationText': 'Bump up',
         'bumpUpVariationTitle': 'LiChess Tools - bump up variation',
         'bumpDownVariationText': 'Bump down',
-        'bumpDownVariationTitle': 'LiChess Tools - bump down variation'
+        'bumpDownVariationTitle': 'LiChess Tools - bump down variation',
+        'positionInfoText': 'Position info',
+        'positionInfoTitle': 'LiChess Tools - show information about selected position',
+        'positionInfoOutputText': `Ply: $ply
+Moves so far: $movesSoFar
+Following main moves: $movesMain
+Following total moves: $movesTotal
+Following branches: $branches`
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -57,6 +65,7 @@
         'analysisContextActions.removeSuperfluous': 'Elimin\u0103 ce e \u00een plus',
         'analysisContextActions.showOnEmpty': 'Arat\u0103 meniul context c\u00E2nd nu sunt mut\u0103ri',
         'analysisContextActions.reorderVariations': 'Ordoneaz\u0103 varia\u0163iuni',
+        'analysisContextActions.positionInfo': 'Informa\u0163ii pozi\u0163ie',
         'extractVariationText': 'Copiaz\u0103 varia\u0163iunea ca PGN',
         'extractVariationText_f': 'Copiaz\u0103 PGN (fen)',
         'extractVariationText_s': 'Copiaz\u0103 PGN (separate)',
@@ -76,9 +85,67 @@
         'bumpUpVariationText': 'Urc\u0103',
         'bumpUpVariationTitle': 'LiChess Tools - urc\u0103 varia\u0163unea',
         'bumpDownVariationText': 'Coboar\u0103',
-        'bumpDownVariationTitle': 'LiChess Tools - coboar\u0103 varia\u0163unea'
+        'bumpDownVariationTitle': 'LiChess Tools - coboar\u0103 varia\u0163unea',
+        'positionInfoText': 'Informa\u0163ii pozi\u0163ie',
+        'positionInfoTitle': 'LiChess Tools - afi\u015feaz\u0103 informa\u0163ii despre pozi\u0163ia selectat\u0103',
+        'positionInfoOutputText': `Ply: $ply
+Mut\u0103ri p\u00e2na acum: $movesSoFar
+Mut\u0103ri principale urm\u0103toare: $movesMain
+Total mut\u0103ri urm\u0103toare: $movesTotal
+Varia\u0163iuni urm\u0103toare: $branches`
       }
     }
+
+    showPositionInfo = async (ev) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+      const analysis = lichess.analysis;
+      const path = analysis?.contextMenuPath;
+      if (path === undefined) return;
+      const node = analysis.tree.nodeAtPath(path);
+      const movesSoFar = path.length/2;
+      let movesMain = 0;
+      let movesTotal = 0;
+      let branches = 0;
+      const f = (n)=>{
+        if (!n.children?.length) return;
+        for (let i = 0; i<n.children.length; i++) {
+          if (i===0) movesMain++;
+          movesTotal++;
+          branches+=n.children.length-1;
+          f(n.children[i]);
+        }
+      };
+      f(node);
+      if (movesTotal) branches++;
+      const ply = node.ply;
+      const text = trans.noarg('positionInfoOutputText')
+        .replace('$ply',`${ply}`)
+        .replace('$movesSoFar',`${movesSoFar}`)
+        .replace('$movesMain',`${movesMain}`)
+        .replace('$movesTotal',`${movesTotal}`)
+        .replace('$branches',`${branches}`);
+      const moveNumber = Math.floor((ply + 1) / 2);
+      let header = moveNumber + (ply % 2 == 1 ? '. ' : '...');
+      header += node.san;
+      if (node.glyphs?.length) {
+        header += node.glyphs.map(g=>g.symbol).join('');
+      }
+      const dialog = await lt.dialog({
+        header: header,
+        noDrag: true
+      });
+      for (const line of text.split(/[\r\n]+/)) {
+        const [k,v] = line.split(/\s*:\s*/);
+        $('<div>')
+          .append($('<span>').text(k))
+          .append($('<span>').text(v))
+          .appendTo($('.dialog-content',dialog));
+      }
+      $(dialog).addClass('lichessTools-positionInfo');
+      dialog.showModal();
+    };
 
     extractVariationAsPGN = (ev) => {
       const lt = this.lichessTools;
@@ -377,6 +444,17 @@
               .appendTo(menu);
         }
       }
+
+      if (this.options.positionInfo && !menu.has('a[data-role="positionInfo"]').length) {
+        const text = trans.noarg('positionInfoText' + (this.suffix || ''));
+        const title = trans.noarg('positionInfoTitle');
+        $('<a>')
+          .attr('data-icon', lt.icon.StudyBoard)
+          .attr('data-role', 'positionInfo')
+          .text(text).attr('title', title)
+          .on('click', this.showPositionInfo)
+          .appendTo(menu);
+      }
     }
 
     ensureShowOnEmpty = () => {
@@ -468,6 +546,7 @@
         removeSuperfluous: lt.isOptionSet(value, 'removeSuperfluous'),
         showOnEmpty: lt.isOptionSet(value, 'showOnEmpty'),
         reorderVariations: lt.isOptionSet(value, 'reorderVariations'),
+        positionInfo: lt.isOptionSet(value, 'positionInfo'),
         get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; },
         autoExpand: lt.isOptionSet(lt.currentOptions.getValue('expandAll'), 'autoExpand')
       };

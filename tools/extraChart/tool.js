@@ -754,7 +754,7 @@
             }
           }
           const glyphs = mainline[x].glyphs || [];
-          lt.arrayRemoveAll(glyphs, g => g.type == 'nonStandard' && ['!', '!?', '!!', lt.icon.WhiteStar].includes(g.symbol));
+          lt.arrayRemoveAll(glyphs, g => g.type == 'nonStandard' && (this.options.moreBrilliant || ['!', '!?', '!!', lt.icon.WhiteStar, lt.icon.OpenBook].includes(g.symbol)));
           if (symbol && !glyphs.length) {
             glyphs.push({
               symbol: symbol,

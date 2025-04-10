@@ -88,7 +88,7 @@
                 })
             )
             .appendTo(dataElem);
-          dataElem.removeClass('empty');
+          dataElem.toggleClassSafe('empty',false);
         } else {
           return;
         }
@@ -96,7 +96,7 @@
       if (lt.isGamePlaying()) return;
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
-          .addClass('lichessTools-explorerEval')
+          .toggleClass('lichessTools-explorerEval')
           .text(lt.icon.NorthEastArrowWithHook)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
@@ -110,6 +110,7 @@
         const sumElem = $('tr.sum', container);
         for (const newRow of newRows) {
           const uci = newRow.uci;
+          if (!uci) continue;
           const move = co.parseUci(uci);
           const san = co.san.makeSan(ch, move);
           if ($('td', container).filter((i, e) => $(e).text() == san).length) continue; //castling can be identified by multiple ucis (i.e. e1g1, e1h1)
@@ -217,26 +218,26 @@
         $('td.lichessTools-explorerEval', e)
           .text(text)
           .attr('title', title)
-          .toggleClass('lichessTools-stat', rank === -1)
-          .toggleClass('lichessTools-bad', rank === 0)
-          .toggleClass('lichessTools-good', rank === 1)
-          .toggleClass('lichessTools-best', rank === 2)
-          .toggleClass('lichessTools-cloud', rank === 5);
+          .toggleClassSafe('lichessTools-stat', rank === -1)
+          .toggleClassSafe('lichessTools-bad', rank === 0)
+          .toggleClassSafe('lichessTools-good', rank === 1)
+          .toggleClassSafe('lichessTools-best', rank === 2)
+          .toggleClassSafe('lichessTools-cloud', rank === 5);
         $('td.lichessTools-evalRow', e)
           .text(title);
         $(e)
-          .removeClass('lichessTools-warning-red')
-          .removeClass('lichessTools-warning-green')
-          .removeClass('lichessTools-warning-blue')
-          .removeAttr('title');
+          .toggleClassSafe('lichessTools-warning-red', false)
+          .toggleClassSafe('lichessTools-warning-green', false)
+          .toggleClassSafe('lichessTools-warning-blue', false)
+          .removeAttrSafe('title');
         if (explorerItem.diff > 200) {
           $(e)
-            .addClass(explorerItem.signVal < 0 ? 'lichessTools-warning-red' : 'lichessTools-warning-green')
+            .toggleClassSafe(explorerItem.signVal < 0 ? 'lichessTools-warning-red' : 'lichessTools-warning-green', true)
             .attr('title', trans.noarg('evalWarning'));
-        }
+        } else
         if (sharpness >= 100) {
           $(e)
-            .addClass('lichessTools-warning-blue')
+            .toggleClassSafe('lichessTools-warning-blue', true)
             .attr('title', trans.noarg('evalWarning'));
         }
       });
@@ -422,7 +423,7 @@
         }
       }
       result = result || { moves: [] };
-      const ceval = analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval;
+      const ceval = analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval || analysis.node.ceval;
       const pvs = this.options.ceval && ceval?.fen == analysis.node.fen
         ? ceval?.pvs
         : null;

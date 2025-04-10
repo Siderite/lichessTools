@@ -490,7 +490,7 @@
       const trans = lt.translator;
       const container = $('.gamebook .comment');
       if (!container.length || $('.lichessTools-giveUp', container).length) return;
-      $('<button class="lichessTools-giveUp">')
+      $('<button type="button" class="lichessTools-giveUp">')
         .text(trans.noarg('giveUpButtonText'))
         .attr('title', trans.noarg('giveUpButtonTitle'))
         .on('click', (ev) => {
@@ -515,28 +515,30 @@
       const trans = lt.translator;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
-      if (!this.options.showFinalScore && !this.options.alwaysShowScore) return;
-      gp.goodMoves = +(gp.goodMoves) || 0;
-      gp.badMoves = +(gp.badMoves) || 0;
-      if (gp.goodMoves + gp.badMoves == 0) return;
-      const score = gp.goodMoves / (gp.goodMoves + gp.badMoves);
-      const scoreText = trans.pluralSame(isFinal ? 'finalScore' : 'currentScore', Math.round(100 * score));
-      const scoreRating = score > 0.90 ? 4 : score > 0.75 ? 3 : score > 0.50 ? 2 : 1;
-      const el = $('<span/>')
-        .addClass('lichessTools-score')
-        .addClass('lichessTools-score' + scoreRating)
-        .text(scoreText)
-        .attr('title', gp.goodMoves + ' | ' + gp.badMoves);
-      const f = () => {
-        const container = $('div.gamebook .comment .content');
-        if (!container.length) {
-          lt.global.setTimeout(f, 100);
-          return;
+      if (this.options.showFinalScore || this.options.alwaysShowScore) {
+        gp.goodMoves = +(gp.goodMoves) || 0;
+        gp.badMoves = +(gp.badMoves) || 0;
+        if (gp.goodMoves + gp.badMoves > 0) {
+          const score = gp.goodMoves / (gp.goodMoves + gp.badMoves);
+          const scoreText = trans.pluralSame(isFinal ? 'finalScore' : 'currentScore', Math.round(100 * score));
+          const scoreRating = score > 0.90 ? 4 : score > 0.75 ? 3 : score > 0.50 ? 2 : 1;
+          const el = $('<span/>')
+            .addClass('lichessTools-score')
+            .addClass('lichessTools-score' + scoreRating)
+            .text(scoreText)
+            .attr('title', gp.goodMoves + ' | ' + gp.badMoves);
+          const f = () => {
+            const container = $('div.gamebook .comment .content');
+            if (!container.length) {
+              lt.global.setTimeout(f, 100);
+              return;
+            }
+            container.find('.lichessTools-score').remove();
+            container.append(el);
+          };
+          f();
         }
-        container.find('.lichessTools-score').remove();
-        container.append(el);
-      };
-      f();
+      }
       if (isFinal) gp.resetStats();
     };
 
@@ -580,9 +582,10 @@
         gp.retry = lt.unwrapFunction(gp.retry, 'extendedInteractiveLessons');
         gp.next = lt.unwrapFunction(gp.next, 'extendedInteractiveLessons');
         gp.solution = lt.unwrapFunction(gp.solution, 'extendedInteractiveLessons');
-        gp.isExtendedInteractiveLessons = true;
+        gp.isExtendedInteractiveLessons = false;
       }
-      if ((this.options.showFinalScore || this.options.alwaysShowScore) && !gp.isShowScore) {
+      if (gp.isExtendedInteractiveLessons && !gp.isShowScore) {
+        gp.isShowScore = true;
         gp.fens = {};
         gp.resetStats = this.extendedGamebook.resetStats;
         gp.makeState = lt.wrapFunction(gp.makeState, {
@@ -667,15 +670,14 @@
             }
           }
         });
-        gp.isShowScore = true;
         gp.redraw();
-      } else if (!this.options.showFinalScore && gp.isShowScore) {
+      } else if (!gp.isExtendedInteractiveLessons && gp.isShowScore) {
+        gp.isShowScore = false;
         gp.makeState = lt.unwrapFunction(gp.makeState, 'showScore');
         gp.next = lt.unwrapFunction(gp.next, 'showScore');
         gp.retry = lt.unwrapFunction(gp.retry, 'showScore');
         gp.redraw = lt.unwrapFunction(gp.redraw, 'showScore');
         gp.solution = lt.unwrapFunction(gp.solution, 'showScore');
-        gp.isShowScore = false;
       }
       if (analysis.path === '') {
         lt.traverse(undefined, undefined, true);
@@ -946,7 +948,7 @@
         .prop('checked', this.options.fastInteractive);
     };
 
-    setupReset = () => {
+    setupReset = (chapterId) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       this.state = lt.traverse(undefined, undefined, true);
@@ -958,18 +960,18 @@
       if (!modal.length) return;
       this.loadChapterPaths(null);
       if (!this._paths) return;
-      const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
+      const key = analysis.study.data.id + '/' + chapterId;
       const paths = this._paths[key];
       const button = $('div.form-actions button.lichessTools-reset', modal);
       if (paths) {
         if (button.length) return;
-        $('<button class="button button-red lichessTools-reset">')
+        $('<button type="button" class="button button-red lichessTools-reset">')
           .attr('title', trans.noarg('resetButtonTitle'))
           .text(trans.noarg('resetButtonText'))
           .on('click', async (ev) => {
             ev.preventDefault();
             if (!await lt.uiApi.dialog.confirm(trans.noarg('resetQuestion'))) return;
-            this.resetDone();
+            this.resetDone(chapterId);
           })
           .insertBefore($('div.form-actions button[type="submit"]', modal));
       } else {
@@ -1163,21 +1165,19 @@
         .find('i.act.lichessTools-reset')
         .remove();
       lt.uiApi.events.off('chat.resize', this.refreshChapterProgress);
-      //if (this.options.flow.sequential || this.options.flow.spacedRepetition) 
-      {
+      if (this.options.extendedInteractive) {
         lt.uiApi.events.on('chat.resize', this.refreshChapterProgress);
         this.refreshChapterProgress();
         study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
           id: 'extendedInteractiveLessonFlow',
-          after: ($this, result, data) => {
+          after: ($this, result, chapter) => {
             const interval = lt.global.setInterval(() => {
-              const currentChapterId = study.currentChapter()?.id;
+              const currentChapterId = chapter.id;
               if (!currentChapterId) return;
-              if (!study.data.chapter.gamebook) return;
               const modal = $('div.dialog-content');
               if (!modal.length) return;
               lt.global.clearInterval(interval);
-              this.setupReset();
+              this.setupReset(currentChapterId);
             }, 100);
           }
         });

@@ -1,7 +1,7 @@
 (() => {
   class ForkBehaviorTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['RandomVariation', 'EmitRedraw', 'EmitChapterChange', 'TranspositionBehavior', 'InterceptEventHandlers'];
+    dependencies = ['RandomVariation', 'EmitRedraw', 'EmitChapterChange', 'TranspositionBehavior', 'InterceptEventHandlers', 'Dialog'];
 
     preferences = [
       {

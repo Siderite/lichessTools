@@ -122,8 +122,15 @@
               <a class="blog" title="$trans(blogLinkTitle)"
                  href="https://siderite.dev/blog/new-chrome-extension-lichess-tools" target="_blank">siderite.dev</a>
             </div>
-            <form>
-<table class="allows lichessTools-globalSwitch">
+            <form>`;
+      if (isLoggedIn) {
+        html += `<h3 class="feedback">$trans(feedbackTitle)</h3>
+<div class="feedback">
+  <textarea enterkeyhint="send"></textarea>
+  <button data-icon="${lt.icon.toEntity(lt.icon.PlayTriangle)}" title="$trans(feedbackButtonTitle)"></button>
+</div>`;
+      }
+      html += `<table class="allows lichessTools-globalSwitch">
     <tbody>
         <tr>
             <td>$trans(enableExtension)</td>
@@ -145,18 +152,10 @@
         </tr>
     </tbody>
 </table>
-`;
-      if (isLoggedIn) {
-        html += `<h3>$trans(feedbackTitle)</h3>
-<div class="feedback">
-  <textarea enterkeyhint="send"></textarea>
-  <button data-icon="${lt.icon.toEntity(lt.icon.PlayTriangle)}" title="$trans(feedbackButtonTitle)"></button>
-</div>
 <div class="prefTools">
   <button class="expandAll"></button>
   <input type="text" class="prefFilter" placeholder="$trans(preferenceFilterPlaceholder)">
 </div>`;
-      }
 
       const categs = {};
       for (const tool of tools) {
@@ -175,9 +174,9 @@
         }
       }
 
-      const order = ['languages', 'community', 'general', 'appearance', 'analysis', 'analysis2', 'study', 'friends', 'play', 'puzzles', 'TV', 'mobile', 'comm', 'integration'];
+      const order = ['languages', 'community', 'general', 'appearance', 'analysis', 'analysis2', 'study', 'friends', 'play', 'puzzles', 'TV', 'mobile', 'comm', 'command', 'integration'];
       if (lt.arrayDifferent(order,Object.keys(categs))) {
-        lt.global.setTimeout(()=>lt.global.console.warn('There is a difference between category keys and order: ',diff,100));
+        lt.global.setTimeout(()=>lt.global.console.warn('There is a difference between category keys and order!'));
       }
       for (const key of order) {
         const categ = categs[key];
@@ -241,6 +240,16 @@
                 <div>
                   <input class="form-control" type="number" name="${pref.name}"/>
                 </div></group>`;
+            }
+              break;
+            case 'select': {
+              html += `<group>
+                <div>
+                  <select class="form-control" name="${pref.name}">`;
+              for (const [v,n] of pref.possibleValues) {
+                html += `<option value="${lt.htmlEncode(v?.toString()||'')}">${lt.htmlEncode(n?.toString()||'')}</option>`;
+              }
+              html += `</select></div></group>`;
             }
               break;
             case 'text': {
@@ -387,6 +396,30 @@
             ? $('input[name="' + optionName + '"]').filter((i, e) => $(e).is(':checked')).map((i, e) => $(e).attr('value')).get()
             : [$(this).val()];
           let value = optionValues.join(',');
+          if (value === 'true') value = true;
+          else if (value === 'false') value = false;
+          currentOptions[optionName] = value;
+          await applyOptions(currentOptions);
+          lt.fireReloadOptions();
+          checkGlobalSwitch();
+          checkAdvanced();
+          showSaved();
+        }, 500));
+      $('form select')
+        .each((i, e) => {
+          const optionName = $(e).attr('name');
+          const optionValue = $(e).attr('value');
+          const currentValue = currentOptions[optionName];
+          const preferences = lt.tools
+            .find(t => t.preferences?.find(p => p.name == optionName))?.preferences
+            .find(p => p.name == optionName);
+          if (currentValue !== undefined) {
+            $(e).val(currentValue);
+          }
+        })
+        .on('change',lt.debounce(async function () {
+          const optionName = $(this).attr('name');
+          let value = $(this).val();
           if (value === 'true') value = true;
           else if (value === 'false') value = false;
           currentOptions[optionName] = value;

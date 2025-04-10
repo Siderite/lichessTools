@@ -84,15 +84,22 @@
 
     async load() {
       const lichess = this.lt.lichess;
-      const useSf17=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) > 4;
+      let engineId;
+      let engineRoot;
+      const useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) > 4;
+      if (useBetterEngine) {
+        engineId = '__sf17_1nnue79';
+        engineRoot = 'sf171-79.js';
+      } else {
+        engineId = '__sf16nnue40';
+        engineRoot = 'sf-nnue-40.js';
+      }
       try {
         if (!this._module) {
           this.lt.debug && this.lt.global.console.debug('SF', 'loading module...');
           const engines = lichess?.analysis?.ceval?.engines;
-          const engineId = useSf17?'__sf17nnue79' : '__sf16nnue40';
-          const engineRoot = useSf17?'sf17-79.js' : 'sf-nnue-40.js';
           const engine = engines?.localEngines?.find(e => e.id == engineId);
-          const assetUrl = engine && engine.assets?.js
+          const assetUrl = engine?.assets?.js
             ? engine.assets.root + '/' + engine.assets.js
             : 'npm/lila-stockfish-web/' + engineRoot;
           this.lt.global.console.debug('SF', 'loading engine ' + engineId + (engine ? ' (' + engine.name + ')' : '') + ' from ' + assetUrl);
@@ -111,7 +118,7 @@
         if (!this._instance) {
           this.lt.debug && this.lt.global.console.debug('SF', 'creating instance...');
           const sf = await this._stockfish();
-          if (useSf17) {
+          if (useBetterEngine) {
             const getBuffer=async (i)=>{
               const nnueFilename = sf.getRecommendedNnue(i);
               let result = await this.lt.storage.get('nnue--db/nnue/'+nnueFilename, { db:true, raw:true });

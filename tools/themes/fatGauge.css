@@ -7,8 +7,6 @@ body.lichessTools.lichessTools-theme_fatGauge {
 body.lichessTools.lichessTools-theme_fatGauge main.puzzle:has(.eval-gauge),
 body.lichessTools.lichessTools-theme_fatGauge main.analyse:has(.eval-gauge) {
   ---block-gap: var(---analysis-gauge-width);
-  /*border-radius: 10px;
-  border: 1px solid var(--c-border);*/
 }
 
 body.lichessTools.lichessTools-theme_fatGauge .mini-game__gauge {

@@ -5,6 +5,7 @@ lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitContentLoaded);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
 lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
+lichessTools.loadTool(LiChessTools.Tools.Dialog);
 lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
 
 lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
@@ -25,7 +26,6 @@ lichessTools.loadTool(LiChessTools.Tools.CliCommands);
 lichessTools.loadTool(LiChessTools.Tools.ChessOps);
 lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
-lichessTools.loadTool(LiChessTools.Tools.Dialog);
 lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
@@ -123,6 +123,8 @@ lichessTools.loadTool(LiChessTools.Tools.TournamentTopBoard);
 lichessTools.loadTool(LiChessTools.Tools.BotFilters);
 lichessTools.loadTool(LiChessTools.Tools.AnalysisReadComments);
 lichessTools.loadTool(LiChessTools.Tools.CommentEditing);
+lichessTools.loadTool(LiChessTools.Tools.PlayerExtraButtons);
+lichessTools.loadTool(LiChessTools.Tools.CevalCache);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

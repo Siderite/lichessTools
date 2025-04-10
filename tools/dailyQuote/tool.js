@@ -1,6 +1,8 @@
 (() => {
   class DailyQuoteTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = [ 'Dialog' ];
+
     preferences = [
       {
         name: 'dailyQuote',
@@ -25,7 +27,8 @@
         'dailyQuoteTitle': 'LiChess Tools - daily quote',
         'quoteCloseButtonTitle': 'Hide today\'s quote',
         'dailyQuote.top': 'On top',
-        'dailyQuote.side': 'On the side'
+        'dailyQuote.side': 'On the side',
+        'allQuotesByAuthorText': 'All quotes by %s'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -33,9 +36,31 @@
         'dailyQuoteTitle': 'LiChess Tools - citatul zilei',
         'quoteCloseButtonTitle': 'Ascunde citatul de azi',
         'dailyQuote.top': 'Deasupra',
-        'dailyQuote.side': 'Pe lateral'
+        'dailyQuote.side': 'Pe lateral',
+        'allQuotesByAuthorText': 'Toate citatele de %s'
       }
     }
+
+    authorSearch = async (ev) => {
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const $ = lt.$;
+      ev.preventDefault();
+      const author = $(ev.currentTarget).text();
+      const quotes = this.quotes.filter(q=>q.name==author);
+      const header = trans.pluralSame('allQuotesByAuthorText',author); 
+      const dialog = await lt.dialog({
+        header: header,
+        noDrag: true
+      });
+      $(dialog).addClass('lichessTools-dailyQuote');
+      for (const quote of quotes) {
+        $('<div>')
+          .append($('<span class="text">').text(quote.text))
+          .appendTo($('.dialog-content',dialog));
+      }
+      dialog.showModal();
+    };
 
     async start() {
       const lt = this.lichessTools;
@@ -63,14 +88,17 @@
           .addClass('side')
           .prependTo('.lobby__side');
       }
-      let quotes = (await lt.comm.getData('quotes.json'))?.quotes;
+      const quotes = (await lt.comm.getData('quotes.json'))?.quotes;
       if (quotes?.length) {
         lt.global.setTimeout(async ()=>{
           quotes.sort((a,b)=>lt.crc24(a.text)-lt.crc24(b.text));
           const index =  Math.round(today.getTime()/86400000) % quotes.length;
           const quote = quotes[index];
           $('.quote',elem).text(quote.text);
-          $('.author',elem).text(quote.name);
+          $('.author',elem)
+            .off('click',this.authorSearch)
+            .on('click',this.authorSearch)
+            .text(quote.name);
           $('.close',elem)
             .attr('title',trans.noarg('quoteCloseButtonTitle'))
             .on('click',(ev)=>{
@@ -79,6 +107,7 @@
               elem.remove();
             })
         },100);
+        this.quotes = quotes;
       }
     }
 

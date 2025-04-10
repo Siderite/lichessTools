@@ -70,3 +70,27 @@ body.lichessTools .lichessTools-dailyQuote .author {
   font-size: small;
   white-space: nowrap;
 }
+
+body.lichessTools div.lichessTools-dailyQuote .author {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--c-link);
+}
+
+body.lichessTools dialog.lichessTools-dailyQuote {
+  min-width: 20em;
+  max-width: min(80vw, 30em);
+}
+
+body.lichessTools dialog.lichessTools-dailyQuote .dialog-header {
+  text-align: center;
+  font-size: 1.25em;
+}
+
+body.lichessTools dialog.lichessTools-dailyQuote .dialog-content > div {
+  padding: 0.25em;
+}
+
+body.lichessTools dialog.lichessTools-dailyQuote .dialog-content > div:nth-child(even) {
+  background: var(--c-bg-zebra2);
+}

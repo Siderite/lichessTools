@@ -11,16 +11,30 @@
         advanced: true,
         hidden: true,
         offValue: false
+      },
+      {
+        name: 'cliCommandsOptions',
+        category: 'command',
+        type: 'multiple',
+        possibleValues: ['disableMouseOver'],
+        defaultValue: false,
+        advanced: true
       }
+
     ];
 
     intl = {
       'en-US': {
         'options.cliCommands': 'CLI commands',
+        'options.cliCommandsOptions': 'CLI commands options',
+        'cliCommandsOptions.disableMouseOver': 'Disable mouse over',
         'options.command': 'Commands'
       },
       'ro-RO': {
-        'options.cliCommands': 'Comenzi CLI'
+        'options.cliCommands': 'Comenzi CLI',
+        'options.cliCommandsOptions': 'Op\u0163iuni comenzi CLI',
+        'cliCommandsOptions.disableMouseOver': 'Dezactiveaz\u0103 mouse over',
+        'options.command': 'Comenzi'
       }
     };
 
@@ -121,6 +135,29 @@
       lt.unregisterCommand = null;
     };
 
+    handleCliEvents = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const elem = $('#clinput .link')[0];
+      if (!elem) return;
+      const handler = lt.getEventHandlers(elem,'mouseover')[0];
+      if (this.options.disableMouseOver) {
+        if (!handler && !this.mouseOverHandler) {
+          lt.global.setTimeout(this.handleCliEvents,100);
+          return;
+        }
+        this.mouseOverHandler ||= handler;
+        if (handler) {
+          $(elem).off('mouseover',handler);
+        }
+      } else {
+        if (!handler && this.mouseOverHandler) {
+          $(elem).on('mouseover',this.mouseOverHandler);
+          this.mouseOverHandler = null;
+        }
+      }
+    };
+
     commands = {};
 
     async start() {
@@ -129,10 +166,15 @@
       if (!lichess || !lt.uiApi) return;
       const $ = lt.$;
       const value = lt.currentOptions.getValue('cliCommands');
+      const optionsValue = lt.currentOptions.getValue('cliCommandsOptions');
       this.logOption('CLI commands', value);
-      this.options = { enabled: value };
+      this.logOption('CLI commands options', optionsValue);
+      this.options = { 
+        enabled: !!value,
+        disableMouseOver: value && lt.isOptionSet(optionsValue, 'disableMouseOver')
+      };
       this.boot();
-      if (value) {
+      if (this.options.enabled) {
         lt.registerCommand = (key, command) => {
           this.commands[key] = command;
         };
@@ -142,6 +184,7 @@
       } else {
         this.removeCommandFunctions();
       }
+      this.handleCliEvents();
     }
   }
   LiChessTools.Tools.CliCommands = CliCommandsTool;

@@ -3,6 +3,7 @@ window.addEventListener('LichessTools.send', async (ev) => {
   if (!extensionId) return;
   const uid = ev.detail.uid;
   const response = await chrome.runtime.sendMessage(ev.detail);
+  if (chrome.runtime.lastError) globalThis.console.warn('Error sending message:', chrome.runtime.lastError);
   let newDetail={ ...response, uid: uid };
   if (globalThis.cloneInto) {
     newDetail=cloneInto(newDetail,document.defaultView);

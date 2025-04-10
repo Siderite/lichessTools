@@ -1,0 +1,19 @@
+/* Fix third parties */
+
+
+/** Prettier **/
+
+body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties #dasher_app {
+  overflow: visible !important;
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .analyse__side {
+  border: none !important;
+  backdrop-filter: none !important;
+  background: none !important;
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .lobby__side > div {
+  overflow: hidden;
+  min-height: max-content;
+}

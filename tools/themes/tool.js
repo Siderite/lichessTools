@@ -8,8 +8,8 @@
         name: 'themes',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard'],
-        defaultValue: '',
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup','fixThirdParties'],
+        defaultValue: 'fixThirdParties',
         advanced: true
       }
     ];
@@ -34,7 +34,9 @@
         'themes.fatGauge': 'Thick analysis gauge',
         'themes.fatMove': 'Larger analysis move font',
         'themes.slimmerArrows': '... slimmer',
-        'themes.gridBoard': 'Grid board squares'
+        'themes.gridBoard': 'Grid board squares',
+        'themes.noResultPopup': 'No game result popup',
+        'themes.fixThirdParties': 'Fix third parties'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -55,46 +57,74 @@
         'themes.fatGauge': 'Bar\u0103 analiz\u0103 groas\u0103',
         'themes.fatMove': 'Text mai mare la mut\u0103ri',
         'themes.slimmerArrows': '... \u015fi mai sub\u0163iri',
-        'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei'
+        'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei',
+        'themes.noResultPopup': 'F\u0103r\u0103 popup cu rezultat joc',
+        'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i'
       }
     }
 
     
 
-    checkBody = ()=>{
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      const board = $('body .is2d div.cg-wrap cg-board')[0];
-      if (this.dataBoard != $('body').attr('data-board') || this.board != board || (board && !lt.global.document.documentElement.style.getPropertyValue('--board-background'))) {
-        this.applyThemes();
-        this.dataBoard = $('body').attr('data-board');
-        this.board = board;
+    checkBody = async ()=>{
+      if (this._inCheckBody) return;
+      try {
+        this._inCheckBody = true;
+        const lt = this.lichessTools;
+        const $ = lt.$;
+        const board = $('body #main-wrap div.cg-wrap cg-board')[0];
+        const boardChanged = this.dataBoard != $('body').attr('data-board') || this.dataBoard3d != $('body').attr('data-board3d');
+        if (boardChanged || this.board != board || (board && !lt.global.document.documentElement.style.getPropertyValue('--board-background'))) {
+          await this.applyThemes(boardChanged);
+          this.dataBoard = $('body').attr('data-board');
+          this.dataBoard3d = $('body').attr('data-board3d');
+          this.board = board;
+        }
+      } finally {
+        this._inCheckBody = false;
       }
     };
 
-    setBoardVariables = ()=>{
+    setBoardVariables = async (boardChanged)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const board = $('body .is2d div.cg-wrap cg-board');
+      const board = $('body #main-wrap div.cg-wrap cg-board');
+      const is3d = $('#main-wrap').is('.is3d');
       if (board.length) {
-        const styles = lt.global.getComputedStyle(board[0], '::before');
-        const backgroundImage = styles.getPropertyValue('background-image');
+        let container = $('html');
+        if (boardChanged) {
+          const html = await lt.net.fetch('/dgt');
+          container = $('<div>'+html+'</div>');
+        }
+        let backgroundImage = $('link[rel=preload][as=image]',container)
+                                .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
+                                .eq(is3d?1:0)
+                                .attr('href');
+        if (backgroundImage) {
+          backgroundImage = 'url('+backgroundImage+')';
+        } else {
+          const styles = lt.global.getComputedStyle(board[0], '::before');
+          backgroundImage = styles.getPropertyValue('background-image');
+        }
         lt.global.document.documentElement.style.setProperty('--board-background', backgroundImage||'unset');
       }
       $('body').toggleClass('lichessTools-hasBoardBackground', !!board.length);
     }
 
-    applyThemes = ()=>{
+    applyThemes = async (boardChanged)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const existingThemes = [...$('body').prop('classList')]
         .filter(c => c.startsWith('lichessTools-theme_'));
       const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
-      $('body')
-        .removeClass(existingThemes.join(' '));
-      this.setBoardVariables();
-      $('body')
-        .addClass(configuredThemes.join(' '));
+      if (!boardChanged) {
+        $('body')
+          .removeClass(existingThemes.join(' '));
+      }
+      await this.setBoardVariables(boardChanged);
+      if (!boardChanged) {
+        $('body')
+          .addClass(configuredThemes.join(' '));
+      }
     };
 
     async start() {
@@ -106,13 +136,13 @@
       $(lt.global).off('hashchange', this.applyThemes);
       $(lt.global).on('hashchange', this.applyThemes);
       $('body').observer()
-        .on('body, .main-board cg-board',this.checkBody,{
+        .on('body, #main-wrap, .main-board cg-board',this.checkBody,{
           childList: false,
           subtree: false,
           attributes: true,
-          attributeFilter: ['data-board','class']
+          attributeFilter: ['data-board','data-board3d','class']
         });
-      this.applyThemes();
+      await this.applyThemes();
     }
 
   }

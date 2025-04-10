@@ -33,7 +33,7 @@
 
     isStandardGlyph = (glyph) => {
       const lt = this.lichessTools;
-      return ![lt.icon.Mate, lt.icon.Book, lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes].includes(glyph);
+      return ![lt.icon.Mate, lt.icon.OpenBook, lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes].includes(glyph);
     }
 
     drawGlyphsDirect = () => {
@@ -50,7 +50,7 @@
           fill = '#557766B0';
         } else
         if (this.options.book && analysis.node.opening) {
-          glyph = lt.icon.Book;
+          glyph = lt.icon.OpenBook;
           fill = '#999900BB';
         }
       }

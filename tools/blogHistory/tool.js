@@ -64,6 +64,12 @@
       if (!m) return;
       const isLiked = !!$('button.ublog-post__like.ublog-post__like--liked').length;
       this.logVisit(m.groups.userId,m.groups.slug,m.groups.postId,isLiked);
+
+      // show percentage of likes over views
+      const viewsEl = $('.ublog-post__views');
+      const views = +viewsEl.text().replaceAll(/[^\d]+/g,'') || 0;
+      const likes = +$('.ublog-post__like').text().replaceAll(/[^\d]+/g,'') || 0;
+      if (views>100) viewsEl.attr('title',lt.global.Math.round(likes*10000/views)/100 + '%');
     };
 
     processBlogCards = ()=>{

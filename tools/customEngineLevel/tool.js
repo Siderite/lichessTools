@@ -12,6 +12,13 @@
         advanced: true
       },
       {
+          name: 'customEnginePracticeLevel',
+          category: 'analysis',
+          type: 'number',
+          defaultValue: undefined,
+          advanced: true
+      },
+      {
         name: 'customEngineOptions',
         category: 'analysis',
         type: 'multiple',
@@ -25,24 +32,34 @@
       'en-US': {
         'options.analysis': 'Analysis',
         'options.customEngineLevel': 'Custom analysis engine depth',
+        'options.customEnginePracticeLevel': 'Custom practice engine depth',
         'options.customEngineOptions': 'Custom analysis engine options',
         'customEngineOptions.noCloud': 'Ignore cloud data for evaluation',
         'customEngineOptions.noCloudExternal': 'Ignore cloud data for external engines',
         'customEngineOptions.infiniteExternal': 'Infinite analysis for external engines',
         'customEngineOptions.practice': 'Apply in Practice mode',
         'customEngineOptions.fix503': 'Fix external engine 503 errors',
-        'applyInPractice': 'Custom engine settings in Practice mode'
+        'applyInPractice': 'Custom engine settings in Practice mode',
+        'practiceDepthTitle': 'LiChess Tools - custom practice engine depth',
+        'practiceDepthText': 'Practice engine depth: %s',
+        'engineDepthTitle': 'LiChess Tools - custom engine depth',
+        'engineDepthText': 'Custom engine depth: %s'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.customEngineLevel': 'Nivel personalizat pentru motorul de analiz\u0103',
+        'options.customEnginePracticeLevel': 'Nivel pentru motorul de analiz\u0103 \u00een mod Practic\u0103',
         'options.customEngineOptions': 'Op\u0163iuni motor analiz\u0103 personalizat',
         'customEngineOptions.noCloud': 'Ignor\u0103 cloud pentru evalu\u0103ri',
         'customEngineOptions.noCloudExternal': 'Ignor\u0103 cloud pentru motoare externe',
         'customEngineOptions.infiniteExternal': 'Analiz\u0103 infinit\u0103 pentru motoare externe',
         'customEngineOptions.practice': 'Aplic\u0103 \u00een mod Practic\u0103',
         'customEngineOptions.fix503': 'Repar\u0103 erori 503 la motoare analiz\u0103 externe',
-        'applyInPractice': 'Set\u0103ri motor personalizat \u00een mod Practic\u0103'
+        'applyInPractice': 'Set\u0103ri motor personalizat \u00een mod Practic\u0103',
+        'practiceDepthTitle': 'LiChess Tools - nivel pentru motorul de analiz\u0103 \u00een mod Practic\u0103',
+        'practiceDepthText': 'Nivel motor \u00een mod Practic\u0103: %s',
+        'engineDepthTitle': 'LiChess Tools - nivel personalizat pentru motorul de analiz\u0103',
+        'engineDepthText': 'Nivel motor analiz\u0103: %s'
       }
     }
 
@@ -56,10 +73,14 @@
 
       const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
 
-      if (!analysis.practice) {
+      const isPractice = analysis.practice?.running() || analysis.study?.practice;
+      if (!isPractice || this.options.practice) {
+        const targetDepth = isPractice
+          ? this.options.practiceDepth || this.options.depth
+          : this.options.depth;
         const customDepth = analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)
           ? 99
-          : this.options.depth;
+          : targetDepth;
         if (customDepth && analysis.ceval.enabled() && !analysis.ceval.showingCloud) {
           const elem = $('div.ceval div.engine span.info');
           const pattern = lt.global.i18n?.site?.depthX('\\d+');
@@ -80,6 +101,7 @@
           }
         }
       }
+      
 
       $('.tview2').toggleClassSafe('lichessTools-noCloud', this.options.noCloud || (isExternalEngine && this.options.noCloudExternal));
       const container = $('div.analyse__tools div.action-menu');
@@ -141,6 +163,36 @@
       $('div.abset-noCloudExternal').toggle(isExternalEngine);
 
 
+      if (!$('.abset-engine-depth', container).length) {
+        const html = `<div class="setting abset-engine-depth">
+          <label for="abset-engine-depth"></label>
+          <input id="abset-engine-depth" type="range" min="0" max="50">
+        </div>`;
+        $(html).insertAfter($('div.abset-noCloudExternal', container).eq(0));
+        $('div.abset-engine-depth',container)
+          .attr('title',trans.noarg('engineDepthTitle'));
+        const input = $('#abset-engine-depth');
+        const saveEngineDepth = lt.debounce(async ()=>{
+            const options = lt.currentOptions;
+            options.customEngineLevel = +input.val() || undefined;
+            await lt.applyOptions(options);
+            lt.fireReloadOptions();
+          },1000);
+        input
+          .on('input',()=>{
+            const depth = +input.val() || '';
+            $('label[for="abset-engine-depth"]',container)
+              .text(trans.pluralSame('engineDepthText',depth));
+            saveEngineDepth();
+          });
+      }
+      const engineDepth = this.options.depth || '';
+      $('label[for="abset-engine-depth"]',container)
+        .text(trans.pluralSame('engineDepthText',engineDepth));
+      $('#abset-engine-depth')
+        .val(this.options.depth || 0);
+
+
       if (!$('.abset-practice', container).length) {
         const html = `<div class="setting abset-practice" title="LiChess Tools - $trans(applyInPractice)">
       <div class="switch">
@@ -151,7 +203,7 @@
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
           return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
-        $(html).insertAfter($('div.abset-noCloudExternal', container).eq(0));
+        $(html).insertAfter($('div.abset-engine-depth', container).eq(0));
         $('#abset-practice')
           .on('change', async () => {
             const options = lt.currentOptions;
@@ -167,37 +219,76 @@
       $('#abset-practice')
         .prop('checked', this.options.practice);
 
+      if (!$('.abset-practice-depth', container).length) {
+        const html = `<div class="setting abset-practice-depth">
+          <label for="abset-practice-depth"></label>
+          <input id="abset-practice-depth" type="range" min="0" max="50">
+        </div>`;
+        $(html).insertAfter($('div.abset-practice', container).eq(0));
+        $('div.abset-practice-depth',container)
+          .attr('title',trans.noarg('practiceDepthTitle'));
+        const input = $('#abset-practice-depth');
+        const savePracticeDepth = lt.debounce(async ()=>{
+            const options = lt.currentOptions;
+            options.customEnginePracticeLevel = +input.val() || undefined;
+            await lt.applyOptions(options);
+            lt.fireReloadOptions();
+          },1000);
+        input
+          .on('input',()=>{
+            const depth = +input.val() || this.options.depth || '';
+            $('label[for="abset-practice-depth"]',container)
+              .text(trans.pluralSame('practiceDepthText',depth));
+            savePracticeDepth();
+          });
+      }
+      const practiceDepth = (this.options.practice && (this.options.practiceDepth || this.options.depth)) || '';
+      $('label[for="abset-practice-depth"]',container)
+        .text(trans.pluralSame('practiceDepthText',practiceDepth));
+      $('#abset-practice-depth')
+        .val(this.options.practiceDepth || 0);
+      $('div.abset-practice-depth',container)
+        .find('input')
+        .prop('disabled',!this.options.practice);
     };
 
 
-    determineCevalState = () => {
+    determineCevalState = (evl, work) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
 
-      if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
+      const isPractice = analysis.practice?.running() || analysis.study?.practice;
+      if (isPractice && !this.options.practice) return;
       if (!analysis.ceval.enabled()) return;
 
-      const node = analysis.ceval.lastStarted?.steps?.at(-1);
+      const node = work
+        ? analysis.tree.nodeAtPath(work.path)
+        : analysis.ceval.lastStarted?.steps?.at(-1);
       if (!node) return;
-      const curDepth = analysis.threatMode()
+
+      const targetDepth = isPractice 
+        ? this.options.practiceDepth || this.options.depth
+        : this.options.depth;
+      const curDepth = (work?.threatMode || analysis.threatMode())
         ? analysis.ceval.curEval.depth
-        : node.ceval?.depth;
+        : evl?.depth || node.ceval?.depth;
       const state = analysis.ceval.state;
       const isIdle = state == 0 || state == 2;
       const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
       const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
+
       if (analysis.ceval.canGoDeeper && isIdle) {
-        if ((analysis.ceval.showingCloud && noCloud) || (this.options.depth && curDepth < (node.autoDeeper || this.options.depth)) || (this.options.infiniteExternal && isExternalEngine)) {
-          node.autoDeeper = this.options.depth;
+        if ((analysis.ceval.showingCloud && noCloud) || (targetDepth && curDepth < (node.autoDeeper || targetDepth)) || (this.options.infiniteExternal && isExternalEngine)) {
+          node.autoDeeper = targetDepth;
           analysis.ceval.goDeeper();
           analysis.redraw();
           return;
         }
       }
       if (!analysis.ceval.showingCloud && (node.autoDeeper || !analysis.ceval.isDeeper())
-        && this.options.depth && curDepth >= this.options.depth && (!this.options.infiniteExternal || !isExternalEngine)) {
+        && targetDepth && curDepth >= targetDepth && (!this.options.infiniteExternal || !isExternalEngine)) {
         node.autoDeeper = undefined;
         if (analysis.ceval.state == 3) {
           analysis.ceval.stop();
@@ -209,6 +300,7 @@
             analysis.node.ceval.depth = depth;
           }
         }
+        return false;
       }
     };
 
@@ -218,7 +310,7 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
 
-      if (this.options.depth || this.options.noCloud || this.options.noCloudExternal || this.options.infiniteExternal) {
+      if (this.options.depth || this.options.practiceDepth || this.options.noCloud || this.options.noCloudExternal || this.options.infiniteExternal) {
         if (!lt.isWrappedFunction(analysis.evalCache.onLocalCeval, 'customEngineOptions')) {
           analysis.evalCache.onLocalCeval = lt.wrapFunction(analysis.evalCache.onLocalCeval, {
             id: 'customEngineOptions',
@@ -227,8 +319,19 @@
             }
           });
         }
+        if (analysis.ceval?.onEmit && !lt.isWrappedFunction(analysis.ceval.onEmit, 'customEngineOptions')) {
+          analysis.ceval.onEmit = lt.wrapFunction(analysis.ceval.onEmit, {
+            id: 'customEngineOptions',
+            before: ($this, evl, node, threatMode) => {
+              return this.determineCevalState(evl, node, threatMode);
+            }
+          });
+        }
       } else {
         analysis.evalCache.onLocalCeval = lt.unwrapFunction(analysis.evalCache.onLocalCeval, 'customEngineOptions');
+        if (analysis.ceval?.onEmit) {
+          analysis.ceval.onEmit = lt.unwrapFunction(analysis.ceval.onEmit, 'customEngineOptions');
+        }
       }
 
       if (this.options.noCloud || this.options.noCloudExternal) {
@@ -296,12 +399,15 @@
 
     async start() {
       const lt = this.lichessTools;
-      const value = +(lt.currentOptions.getValue('customEngineLevel'));
+      const value = +(lt.currentOptions.getValue('customEngineLevel')) || 0;
       const customEngineOptions = lt.currentOptions.getValue('customEngineOptions');
+      const practiceValue = +(lt.currentOptions.getValue('customEnginePracticeLevel')) || 0;
       this.logOption('Custom engine level', value || 'Not set');
+      this.logOption('Custom practice engine level', practiceValue || 'Not set');
       this.logOption('Custom engine options', customEngineOptions || 'Not set');
       this.options = {
         depth: value,
+        practiceDepth: practiceValue,
         noCloud: lt.isOptionSet(customEngineOptions, 'noCloud'),
         noCloudExternal: lt.isOptionSet(customEngineOptions, 'noCloudExternal'),
         infiniteExternal: lt.isOptionSet(customEngineOptions, 'infiniteExternal'),

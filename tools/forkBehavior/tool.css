@@ -95,3 +95,10 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase button.close-button
   border-radius: 50%;
   border: none;
 }
+
+/* Prettier Lichess */
+
+
+body.lichessTools.lichessTools-prettier dialog.lichessTools-forkBehavior-chessbase select {
+  background: initial !important;
+}

@@ -53,6 +53,10 @@ body.lichessTools main.lobby .lobby__side {
     height: 600px;
     max-height: calc(100vh - calc(var(---site-header-height) + var(---site-header-margin) + var(---sticky-gap)) - var(---block-gap))
   }
+
+  body.lichessTools main.lobby .lobby__side .daily-feed__updates {
+    margin-bottom:4em;
+  }
 }
 
 /* Prettier Lichess CSS */

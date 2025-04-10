@@ -7,3 +7,9 @@ body.lichessTools a.lichessTools-downloadAllStudies {
   right: 2em;
   bottom: 1em;
 }
+
+/** Prettier **/
+
+body.lichessTools.lichessTools-prettier a.lichessTools-downloadAllStudies {
+  bottom: 0.5em;
+}

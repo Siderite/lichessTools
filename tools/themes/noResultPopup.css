@@ -1,0 +1,5 @@
+/* No game result popup */
+
+body.lichessTools.lichessTools-theme_noResultPopup.playing:has(main.round) dialog:not(:has(.close-button)) {
+  display:none;
+}

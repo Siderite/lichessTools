@@ -192,6 +192,11 @@ body.lichessTools switch.lichessTools-cevalMoreLines:hover {
   scale: 1.2;
 }
 
+body.lichessTools div.analyse__tools.lichessTools-externalEngine switch.lichessTools-cevalMoreLines {
+  display:none;
+}
+
+
 body.lichessTools .pv strong.best {
   color: var(--c-brilliant);
 }

@@ -66,7 +66,11 @@
           }
         });
         const selector = [];
-        if (!$('div.study__side .study__chapters,aside.relay-tour__side .relay-games').length) return;
+        let anchor = $('div.study__side .study__chapters,aside.relay-tour__side .vertical-resize-separator').eq(0);
+        if (!anchor.length) {
+          anchor = $('aside.relay-tour__side .relay-games');
+        }
+        if (!anchor.length) return;
         const trans = lt.translator;
         list = study.chapters.list.all();
         let container = $('div.study__side div[role="footer"],aside.relay-tour__side div[role="footer"]');
@@ -80,7 +84,7 @@
           </div>`)
             .on('click', this.actionChapterControls)
             .attr('title', trans.noarg('chapterControlsTitle'))
-            .insertAfter('div.study__side .study__chapters,aside.relay-tour__side .relay-games');
+            .insertAfter(anchor);
           $('div.study__side,aside.relay-tour__side').addClass('lichessTools-chapterControls');
         }
         const chapterId = study.currentChapter()?.id;
@@ -128,10 +132,6 @@
             expander.remove();
           }
         } 
-      } else {
-        $('.lichessTools-expander').remove();
-        $('.lichessTools-collapsedChapter').removeClass('lichessTools-collapsedChapter');
-        $('button[data-id].collapsed').removeClass('collapsed');
       }
     };
     debouncedRefreshChapterControls = this.lichessTools.debounce(this.refreshChapterControls, 100);
@@ -239,13 +239,19 @@
         .removeClass('lichessTools-chapterControls')
         .find('div[role="footer"]')
         .remove();
-      study.chapters.sort = lt.unwrapFunction(study.chapters.sort,'chapterNavigation');
-      if (this.options.controls) {
+      if (this.options.controls || this.options.subChapters) {
         lt.pubsub.on('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
         lt.pubsub.on('lichessTools.redraw', this.debouncedRefreshChapterControls);
         lt.uiApi.events.on('chat.resize', this.debouncedRefreshChapterControls);
         $('.study__chapters').observer()
           .on('button[data-id]',this.debouncedRefreshChapterControls);
+        this.refreshChapterControls();
+      }
+      $('.lichessTools-expander').remove();
+      $('.lichessTools-collapsedChapter').removeClass('lichessTools-collapsedChapter');
+      $('button[data-id].collapsed').removeClass('collapsed');
+      study.chapters.sort = lt.unwrapFunction(study.chapters.sort,'chapterNavigation');
+      if (this.options.subChapters) {
         study.chapters.sort = lt.wrapFunction(study.chapters.sort,{
           id: 'chapterNavigation',
           before: ($this,data)=>{
@@ -281,7 +287,6 @@
             return false;
           }
         });
-        this.refreshChapterControls();
       }
     }
 
