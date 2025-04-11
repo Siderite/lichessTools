@@ -66,7 +66,11 @@
           }
         });
         const selector = [];
-        if (!$('div.study__side .study__chapters,aside.relay-tour__side .relay-games').length) return;
+        let anchor = $('div.study__side .study__chapters,aside.relay-tour__side .vertical-resize-separator').eq(0);
+        if (!anchor.length) {
+          anchor = $('aside.relay-tour__side .relay-games');
+        }
+        if (!anchor.length) return;
         const trans = lt.translator;
         list = study.chapters.list.all();
         let container = $('div.study__side div[role="footer"],aside.relay-tour__side div[role="footer"]');
@@ -80,7 +84,7 @@
           </div>`)
             .on('click', this.actionChapterControls)
             .attr('title', trans.noarg('chapterControlsTitle'))
-            .insertAfter('div.study__side .study__chapters,aside.relay-tour__side .relay-games');
+            .insertAfter(anchor);
           $('div.study__side,aside.relay-tour__side').addClass('lichessTools-chapterControls');
         }
         const chapterId = study.currentChapter()?.id;

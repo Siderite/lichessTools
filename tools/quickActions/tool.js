@@ -8,7 +8,7 @@
         name: 'quickActions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['flipBoard', 'requestAnalysis','emoji'],
+        possibleValues: ['flipBoard', 'requestAnalysis','emoji','practice'],
         defaultValue: 'flipBoard,requestAnalysis,emoji',
         advanced: true
       }
@@ -25,9 +25,11 @@
         'quickActions.flipBoard': 'Flip game board',
         'quickActions.requestAnalysis': 'Request server analysis',
         'quickActions.emoji': 'Chat emojis',
+        'quickActions.practice': 'Toggle practice',
         'flipBoardButtonTitle': 'LiChess Tools - flip game board',
         'requestAnalysisButtonTitle': 'LiChess Tools - request server analysis',
-        'readCommentsButtonTitle': 'LiChess Tools - toggle comment reading'
+        'readCommentsButtonTitle': 'LiChess Tools - toggle comment reading',
+        'togglePracticeTitle': 'LiChess Tools - toggle practice'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -35,9 +37,11 @@
         'quickActions.flipBoard': 'Rotire tabl\u0103',
         'quickActions.requestAnalysis': 'Cerere analiz\u0103 server',
         'quickActions.emoji': 'Emoji \u00een chat',
+        'quickActions.practice': 'Mod practic\u0103',
         'flipBoardButtonTitle': 'LiChess Tools - roti\u0163i tabla',
         'requestAnalysisButtonTitle': 'LiChess Tools - cere\u0163i analiz\u0103 server',
-        'readCommentsButtonTitle': 'LiChess Tools - comut\u0103 citire comentarii'
+        'readCommentsButtonTitle': 'LiChess Tools - comut\u0103 citire comentarii',
+        'togglePracticeTitle': 'LiChess Tools - comut\u0103 mod Practic\u0103'
       }
     }
 
@@ -142,6 +146,21 @@
       } else {
         $('.emoji',tooltip).remove();
       }
+
+      if (this.canPractice()) {
+        if (!$('.practice',tooltip).length) {
+          $('<button class="fbt practice">')
+            .attr('data-icon',lt.icon.Bullseye)
+            .attr('title',trans.noarg('togglePracticeTitle'))
+            .on('click',(ev)=>{
+              this.clearTooltipClass();
+              lt.lichess?.analysis?.togglePractice();
+            })
+            .appendTo(tooltip);
+        }
+      } else {
+        $('.practice',tooltip).remove();
+      }
     }
 
     enableTooltip = (ev)=>{
@@ -164,6 +183,16 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       return $('.msg-app__convo__post__text').length;
+    }
+
+    canPractice = ()=>{
+      if (!this.options.practice) return false;
+      const lt = this.lichessTools;
+      const analysis = lt.lichess?.analysis;
+      if (!analysis?.ceval?.possible) return false;
+      if (!analysis?.ceval?.allowed()) return false;
+      if (analysis?.isGamebook()) return false;
+      return true;
     }
 
     canFlip = ()=>{
@@ -215,9 +244,11 @@
         flipBoard: lt.isOptionSet(value, 'flipBoard'),
         requestAnalysis: lt.isOptionSet(value, 'requestAnalysis'),
         emoji: lt.isOptionSet(value, 'emoji'),
-        get isSet() { return this.flipBoard || this.requestAnalysis || this.emoji; }
+        practice: lt.isOptionSet(value, 'practice'),
+        get isSet() { return this.flipBoard || this.requestAnalysis || this.emoji || this.practice; }
       };
       const $ = lt.$;
+      $('main').toggleClassSafe('lichessTools-quickActions-practice',!!this.options.practice);
       $('body')
        .observer()
        .off('button.fbt[data-act="menu"],button.board-menu-toggle,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);

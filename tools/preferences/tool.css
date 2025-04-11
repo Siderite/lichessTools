@@ -29,6 +29,7 @@ div.lichessTools-preferences form > div:has(input.categoryToggle:checked) sectio
 div.lichessTools-preferences div.prefTools {
   display: flex;
   justify-content: space-around;
+  padding-top: 0;
 }
 
 div.lichessTools-preferences button.expandAll {
@@ -109,9 +110,14 @@ div.lichessTools-preferences h3>label {
   text-align: right;
 }
 
+div.lichessTools-preferences h3.feedback {
+  position: static;
+  margin-bottom: 0.5em;
+}
+
 div.lichessTools-preferences table.lichessTools-globalSwitch {
   width: 100%;
-  margin: 0 0 4em 0;
+  margin: 0 0 2em 0;
   font-size: 1.1em;
   table-layout: fixed;
 }

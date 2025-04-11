@@ -423,7 +423,7 @@
         }
       }
       result = result || { moves: [] };
-      const ceval = analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval;
+      const ceval = analysis.ceval?.curEval || analysis.ceval?.lastStarted?.steps?.at(-1)?.ceval || analysis.node.ceval;
       const pvs = this.options.ceval && ceval?.fen == analysis.node.fen
         ? ceval?.pvs
         : null;
