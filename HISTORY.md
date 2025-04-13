@@ -489,7 +489,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 21 Mar
 
-- themes for less icons and non sticky header
+- themes for fewer icons and non sticky header
 - hide/show lobby page elements
 
 17 Mar

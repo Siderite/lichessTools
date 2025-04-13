@@ -24,7 +24,7 @@
         'themes.mobile': 'Mobile theme',
         'themes.slimArrows': 'Slim arrows',
         'themes.flairX': 'Nicer flairs',
-        'themes.lessIcons': 'Less Icons',
+        'themes.lessIcons': 'Fewer icons',
         'themes.nonStickyHeader': 'No sticky header',
         'themes.noStudyChat': 'No study chat',
         'themes.toggleStudyChat': 'Toggle study chat',
