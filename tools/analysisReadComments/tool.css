@@ -21,6 +21,8 @@ body.lichessTools .analyse .gamebook .comment.hinted button.lichessTools-readCom
   display: none;
 }
 
+/*
 body.lichessTools .analyse .gamebook:has(.feedback.end) button.lichessTools-readComments {
   display: none;
 }
+*/
