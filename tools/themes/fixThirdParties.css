@@ -17,3 +17,22 @@ body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .lobb
   overflow: hidden;
   min-height: max-content;
 }
+
+@media (min-width: 800px) {
+  body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .gamebook {
+    margin-left: -1em !important;
+  }
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .analyse:not(.has-players) {
+  margin-top: 0 !important;
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .analyse .gamebook .comment:has(button.lichessTools-readComments):not(.hinted, :has(button.hint)) {
+  padding-bottom: 0;
+}
+
+html:has(body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties.lichessTools-hasBoardBackground)[style*="#FFFFFF00"] main cg-board::before {
+  background: var(--board-background) !important;
+  background-size: 100% 100% !important;
+}
