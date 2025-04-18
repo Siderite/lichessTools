@@ -109,11 +109,19 @@
         const ch = co.Chess.fromSetup(fen).unwrap();
         const sumElem = $('tr.sum', container);
         for (const newRow of newRows) {
-          const uci = newRow.uci;
+          let uci = newRow.uci;
           if (!uci) continue;
           const move = co.parseUci(uci);
           const san = co.san.makeSan(ch, move);
-          if ($('td', container).filter((i, e) => $(e).text() == san).length) continue; //castling can be identified by multiple ucis (i.e. e1g1, e1h1)
+          //castling can be identified by multiple ucis (i.e. e1g1, e1h1)
+          const existingCell = $('td', container).filter((i, e) => $(e).text() == san);
+          if (existingCell.length) {
+            const fixedUci = existingCell.closest('tr[data-uci]').attr('data-uci');
+            if (fixedUci) {
+              newRow.uci = fixedUci;
+            }
+            continue;
+          }
           const newTr = $('<tr>')
             .attr('data-uci', uci)
             .append($('<td>').text(san))
