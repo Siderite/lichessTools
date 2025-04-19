@@ -62,7 +62,7 @@
           ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
             id: 'cevalCache',
             after: async ($this, result, data, meta)=>{
-              const key = analysis.ceval.engines.activeEngine.id+'|'+meta.variant+'|'+lt.getPositionFromFen(data.fen, true);
+              const key = analysis.ceval.storedPv()+'|'+analysis.ceval.engines.activeEngine.id+'|'+meta.variant+'|'+lt.getPositionFromFen(data.fen, true);
               const dbKey = 'lichessTools/evalCache/'+key;
               let value = await lt.storage.get(dbKey,{ db: true, raw: true });
               const node = analysis.tree.nodeAtPath(meta.path);
