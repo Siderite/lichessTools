@@ -222,7 +222,7 @@
       if (!$('.abset-practice-depth', container).length) {
         const html = `<div class="setting abset-practice-depth">
           <label for="abset-practice-depth"></label>
-          <input id="abset-practice-depth" type="range" min="0" max="50">
+          <input id="abset-practice-depth" type="range" min="0" max="15"><!-- Lichess limitation -->
         </div>`;
         $(html).insertAfter($('div.abset-practice', container).eq(0));
         $('div.abset-practice-depth',container)
@@ -236,13 +236,15 @@
           },1000);
         input
           .on('input',()=>{
-            const depth = +input.val() || this.options.depth || '';
+            let depth = +input.val() || this.options.depth || '';
+            if (depth>15) depth = 15; // Lichess limitation
             $('label[for="abset-practice-depth"]',container)
               .text(trans.pluralSame('practiceDepthText',depth));
             savePracticeDepth();
           });
       }
-      const practiceDepth = (this.options.practice && (this.options.practiceDepth || this.options.depth)) || '';
+      let practiceDepth = (this.options.practice && (this.options.practiceDepth || this.options.depth)) || '';
+      if (practiceDepth>15) practiceDepth = 15; // Lichess limitation
       $('label[for="abset-practice-depth"]',container)
         .text(trans.pluralSame('practiceDepthText',practiceDepth));
       $('#abset-practice-depth')
