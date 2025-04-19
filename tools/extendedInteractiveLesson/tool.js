@@ -214,19 +214,21 @@
             func = () => {
               oldFunc();
               $('div.gamebook .comment')
-                .removeClass('good bad')
-                .addClass(state.feedback);
+                .toggleClassSafe('good',state.feedback == 'good')
+                .toggleClassSafe('bad',state.feedback == 'bad');
             };
           }
           if (func) {
             lt.global.setTimeout(func, delay);
           } else {
             $('div.gamebook .comment')
-              .removeClass('good bad');
+                .toggleClassSafe('good',false)
+                .toggleClassSafe('bad',false);
           }
         } else {
           $('div.gamebook .comment')
-            .removeClass('good bad');
+            .toggleClassSafe('good',false)
+            .toggleClassSafe('bad',false);
         }
       },
       retry: () => {
