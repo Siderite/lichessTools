@@ -42,8 +42,9 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis?.chessground) return;
-      let glyph = analysis.node.glyphs?.at(0)?.symbol;
-      let fill = analysis.node.glyphs?.at(0)?.fill || '#557766B0';
+      const firstGlyph = analysis.node.glyphs?.at(0);
+      let glyph = firstGlyph?.symbol;
+      let fill = firstGlyph?.fill || '#557766B0';
       if (!glyph) {
         if (this.options.mate && lt.isMate(analysis.node)) {
           glyph = lt.icon.Mate;
@@ -56,8 +57,11 @@
       }
       if (!glyph) return;
       if (this.isStandardGlyph(glyph) || lt.storage.get('analyse.show-move-annotation') === false) {
-        const shapes = analysis.chessground.state.drawable.autoShapes?.filter(s => s.type !== 'glyph') || [];
-        analysis.chessground.setAutoShapes(shapes);
+        const autoShapes = analysis.chessground.state.drawable.autoShapes;
+        const shapes = autoShapes?.filter(s => s.type !== 'glyph') || [];
+        if (shapes?.length !== autoShapes?.length) {
+          analysis.chessground.setAutoShapes(shapes);
+        }
         return;
       }
       let orig = analysis.node.uci?.slice(2, 4);
@@ -110,13 +114,24 @@
       }
       // TODO confirm there is no need to handle the 'glyphs' socket message
       lt.pubsub.on('lichessTools.redraw', this.drawGlyphs);
-      this.interval = lt.global.setInterval(() => {
-        const autoShapes = lt.global.JSON.stringify(analysis.chessground?.state.drawable.autoShapes);
-        if (autoShapes != this.prevAutoShapes) {
-          this.prevAutoShapes = autoShapes;
-          this.drawGlyphsDirect();
-        }
-      }, 100);
+      const drawable = analysis.chessground?.state.drawable;
+      if (drawable) {
+        this.interval = lt.global.setInterval(() => {
+          let same = drawable.autoShapes?.length === this.prevAutoShapes?.length;
+          if (same && this.prevAutoShapes?.length) {
+            for (let i=0; i<this.prevAutoShapes?.length; i++) {
+              if (this.prevAutoShapes[i] !== drawable.autoShapes[i]) {
+                same = false;
+                break;
+              }
+            }
+          }
+          if (!same) {
+            this.prevAutoShapes = [ ...drawable.autoShapes ];
+            this.drawGlyphsDirect();
+          }
+        }, 250);
+      }
     }
 
   }

@@ -197,6 +197,8 @@
     setBookmarks = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const analysis = lt.lichess.analysis;
+      if (analysis.isGamebook()) return;
       const r = /bkm:([^\s]+)\s*/s;
       const thereAreBookmarks = !!lt.global.document.querySelector('bookmark');
 

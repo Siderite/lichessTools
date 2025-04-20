@@ -109,11 +109,19 @@
         const ch = co.Chess.fromSetup(fen).unwrap();
         const sumElem = $('tr.sum', container);
         for (const newRow of newRows) {
-          const uci = newRow.uci;
+          let uci = newRow.uci;
           if (!uci) continue;
           const move = co.parseUci(uci);
           const san = co.san.makeSan(ch, move);
-          if ($('td', container).filter((i, e) => $(e).text() == san).length) continue; //castling can be identified by multiple ucis (i.e. e1g1, e1h1)
+          //castling can be identified by multiple ucis (i.e. e1g1, e1h1)
+          const existingCell = $('td', container).filter((i, e) => $(e).text() == san);
+          if (existingCell.length) {
+            const fixedUci = existingCell.closest('tr[data-uci]').attr('data-uci');
+            if (fixedUci) {
+              newRow.uci2 = fixedUci;
+            }
+            continue;
+          }
           const newTr = $('<tr>')
             .attr('data-uci', uci)
             .append($('<td>').text(san))
@@ -133,7 +141,7 @@
             .insertAfter($('td:nth-child(1)', e));
         }
         const uci = $(e).attr('data-uci');
-        let move = moves?.find(m => m.uci == uci);
+        let move = moves?.find(m => m.uci == uci || (m.uci2 && m.uci2 == uci));
         let explorerItem = uci
           ? (analysis.explorer.current()?.moves || []).find(i => i.uci == uci)
           : analysis.explorer.current();
@@ -146,33 +154,38 @@
         }
 
         const total = explorerItem.white + explorerItem.draws + explorerItem.black;
-        const wr = (explorerItem.white + explorerItem.draws / 2) / total;
-        let cp = -Math.log(1 / wr - 1) * 330
-        const isInfinite = !Number.isFinite(cp);
-        if (isInfinite) {
-          cp = Math.sign(cp) * 10000;
-        }
-
-        const q = 1000 / total;
-        const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
-        const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
-        const tdBar = $('td:has(div.bar)', e);
-        if (tdBar.length && !Number.isNaN(total)) {
-          if (sharpness && Number.isFinite(sharpness)) {
-            const sharpnessTitle = trans.pluralSame('sharpnessTitle', sharpness);
-            const tdTitle = tdBar.attr('title')?.split(' / ')?.at(0) + ' / ' + sharpnessTitle;
-            tdBar.attr('title', tdTitle);
+        let cp;
+        let isInfinite;
+        let sharpness;
+        if (!Number.isNaN(total)) {
+          const wr = (explorerItem.white + explorerItem.draws / 2) / total;
+          cp = -Math.log(1 / wr - 1) * 330
+          isInfinite = !Number.isFinite(cp);
+          if (isInfinite) {
+            cp = Math.sign(cp) * 10000;
           }
-          if (this.options.bardp) {
-            [
-              ['white',w],
-              ['draws',d],
-              ['black',l]
-            ].forEach(a=>{
-              const el = tdBar.find('.'+a[0]);
-              // using text breaks Explorer tabs (Lichess keeps reference to the text node)
-              if (el.text()) el.replaceText(Math.round(a[1])/10+'%');
-            });
+
+          const q = 1000 / total;
+          const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
+          const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+          const tdBar = $('td:has(div.bar)', e);
+          if (tdBar.length && !Number.isNaN(total)) {
+            if (sharpness && Number.isFinite(sharpness)) {
+              const sharpnessTitle = trans.pluralSame('sharpnessTitle', sharpness);
+              const tdTitle = tdBar.attr('title')?.split(' / ')?.at(0) + ' / ' + sharpnessTitle;
+              tdBar.attr('title', tdTitle);
+            }
+            if (this.options.bardp) {
+              [
+                ['white',w],
+                ['draws',d],
+                ['black',l]
+              ].forEach(a=>{
+                const el = tdBar.find('.'+a[0]);
+                // using text breaks Explorer tabs (Lichess keeps reference to the text node)
+                if (el.text()) el.replaceText(Math.round(a[1])/10+'%');
+              });
+            }
           }
         }
 

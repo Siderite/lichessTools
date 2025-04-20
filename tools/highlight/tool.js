@@ -40,17 +40,21 @@
     highlightLastMoves = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const analysis = lt.lichess.analysis;
       const toHighlight = [];
       if (this.options.lastMove && this.state?.lastMoves?.length) {
+        const orientation = analysis.getOrientation() == 'white' ? 0 : 1;
         for (const node of this.state.lastMoves) {
           const elem = lt.getElementForNode(node);
           if (!elem) continue;
-          toHighlight.push(elem);
+          const inverted = (node.ply%2 == 0) != orientation;
+          toHighlight.push([elem,inverted]);
         }
       }
       $('div.analyse__moves move.lichessTools-lastInLine').filter((i, e) => !toHighlight.includes(e)).removeClass('lichessTools-lastInLine');
-      for (const elem of toHighlight) {
+      for (const [elem,inverted] of toHighlight) {
         $(elem).toggleClassSafe('lichessTools-lastInLine',true);
+        $(elem).toggleClassSafe('inverted',inverted);
       }
     };
 

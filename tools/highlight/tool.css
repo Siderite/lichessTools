@@ -1,5 +1,13 @@
 body.lichessTools main.analyse .tview2 move.lichessTools-lastInLine:after {
-  content: '\00a0\1D38'; /* SuperscriptCapitalL */
+  content: '\1D38'; /* SuperscriptCapitalL */
+  line-height: 1;
+  vertical-align: super;
+  display: inline-block;
+  margin-left: 0.25em;
+}
+
+body.lichessTools main.analyse .tview2 move.lichessTools-lastInLine.inverted:after {
+  transform: scaleX(-1);
 }
 
 body.lichessTools main.analyse .tview2 move.lichessTools-uncommented {

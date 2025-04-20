@@ -1,8 +1,8 @@
 {
   "quotes": [
     {
-      "text": "'My ultimate fantasy,' she says, eyes flashing, Russian accent on full, 'is to play e4 and d4 equally well...to be a two-headed monster. That's a dream with some soul in it.'",
-      "name": "Irina Krush (as quoted at Chessbase in 2005)"
+      "text": "'My ultimate fantasy,' she says, eyes flashing, Russian accent on full, 'is to play e4 and d4 equally well...to be a two-headed monster. That's a dream with some soul in it.  (as quoted at Chessbase in 2005)'",
+      "name": "Irina Krush"
     },
     {
       "text": "(My first tournament victory) endowed me with a curious psychological weakness which I have had to work long and hard to eradicate - if indeed I have eradicated it! - the impression that I could always, or nearly always, when in a bad position, conjure up some unexpected combination to extricate me from my difficulties. A dangerous delusion.",
@@ -14,7 +14,7 @@
     },
     {
       "text": "... far more people make a living as professional chess players today than ever before. Thanks partly to the availability of computer programs and online matches, there has been a mini-boom in chess interest among young people in many countries.",
-      "name": "Kenneth Rogoff (2012)"
+      "name": "Kenneth Rogoff"
     },
     {
       "text": "... generalizations are like spectacles for the short-sighted. They help, but they are no substitute for excellent eyesight, or positional judgement.",
@@ -62,7 +62,7 @@
     },
     {
       "text": "... though combinations are without number, the number of ideas are limited.",
-      "name": "Eugene Znosko-Borowski"
+      "name": "Eugene Znosko-Borovsky"
     },
     {
       "text": "... Today many players, especially young ones, think that the older openings are so thoroughly analysed that nothing more can be tried. This is a serious mistake. The methods of positional play become deeper and finer each year. Being well acquainted with them it is possible even in openings which seem to be fully explored to find ways to create a real fight.",
@@ -161,8 +161,8 @@
       "name": "Mikhail Botvinnik"
     },
     {
-      "text": "A lot of these ideas are built under wrong presumptions which officials have that chess players are lazy bastards whose sole idea is to deceive the public and to make short draws and go home. It's not true. It's a lie.",
-      "name": "Boris Gelfand (On the Sofia Corsica rule)"
+      "text": "A lot of these ideas are built under wrong presumptions which officials have that chess players are lazy bastards whose sole idea is to deceive the public and to make short draws and go home. It's not true. It's a lie. (On the Sofia Corsica rule)",
+      "name": "Boris Gelfand"
     },
     {
       "text": "A male scorpion is stabbed to death after mating. In chess, the powerful queen often does the same to the king without giving him the satisfaction of a lover.",
@@ -203,10 +203,6 @@
     {
       "text": "A sacrifice is best refuted by accepting it.",
       "name": "Wilhelm Steinitz"
-    },
-    {
-      "text": "A Soviet diplomat, like a skilled chess player, does not expect his opposite number to give up something for nothing, not even a pawn.",
-      "name": "Arthur H. Dean (advisor to US presidents, UN delegate)"
     },
     {
       "text": "A sport, a struggle for results and a fight for prizes. I think that the discussion about 'chess is science or chess is art' is already inappropriate. The purpose of modern chess is to reach a result.",
@@ -285,20 +281,16 @@
       "name": "Eugene Znosko-Borovsky"
     },
     {
-      "text": "All features for free; for everyone; forever.",
-      "name": "lichess.org"
-    },
-    {
       "text": "All I expect are wins and to get pleasure from the game. And if someone thinks something about me, if someone's dissatisfied with something... that's not my headache. I hope someday I'll become World Champion - and I'll make all these people happy. But even if for some reason that doesn't happen it won't stop me getting pleasure from chess. I'm sure of that.",
-      "name": "Magnus Carlsen (2012)"
+      "name": "Magnus Carlsen"
     },
     {
       "text": "All I want to do, ever, is just play chess.",
       "name": "Bobby Fischer"
     },
     {
-      "text": "All lines of play which lead to the imprisonment of the bishop are on principle to be condemned.",
-      "name": "Siegbert Tarrasch (on the closed Ruy Lopez)"
+      "text": "All lines of play which lead to the imprisonment of the bishop are on principle to be condemned. (on the closed Ruy Lopez)",
+      "name": "Siegbert Tarrasch"
     },
     {
       "text": "All my games are real.",
@@ -309,8 +301,8 @@
       "name": "Bobby Fischer"
     },
     {
-      "text": "All that now seems to stand between Nigel and the prospect of the world crown is the unfortunate fact that fate brought him into this world only two years after Kasparov.",
-      "name": "Garry Kasparov (prophetic comment in 1987)"
+      "text": "All that now seems to stand between Nigel and the prospect of the world crown is the unfortunate fact that fate brought him into this world only two years after Kasparov. (prophetic comment in 1987)",
+      "name": "Garry Kasparov"
     },
     {
       "text": "Along with my retirement from chess analytical work seems to have gone too.",
@@ -365,16 +357,12 @@
       "name": "Tony Santasiere"
     },
     {
-      "text": "And whan I saw my fers (Queen) awaye,/ Allas! I kouthe no lenger playe.",
-      "name": "the knight in Chaucer's 'Book of the Duchess' (1369)"
-    },
-    {
       "text": "Any experienced player knows how a change in the character of the play influences your psychological mood.",
       "name": "Garry Kasparov"
     },
     {
       "text": "Any material change in a position must come about by mate, a capture, or a pawn promotion.",
-      "name": "Cecil Purdy"
+      "name": "Cecil John Seddon Purdy (Chielamangus)"
     },
     {
       "text": "Anyone who wishes to learn how to play chess well must make himself or herself thoroughly conversant with the play in positions where the players have castled on opposite sides.",
@@ -421,16 +409,8 @@
       "name": "Siegbert Tarrasch"
     },
     {
-      "text": "At the ches with me she [Fortune] gan to pleye; With her false draughts [pieces] dyvers/She staal on me, and took away my fers. And when I sawgh my fers awaye, Allas! I kouthe no lenger playe.",
-      "name": "Geoffrey Chaucer (from The Book of the Duchess, 1369 - a knight mourning his wife compares that to the loss of a chess queen in a game against Fortune)"
-    },
-    {
       "text": "At this time Fischer is simply a level above all the best chess players in the world.",
       "name": "John Jacobs"
-    },
-    {
-      "text": "Atomic is just like regular chess, except you're exploding, everything's exploding, and you're in bullet hell.",
-      "name": "Unihedron 0"
     },
     {
       "text": "Attack! Always Attack!",
@@ -473,20 +453,20 @@
       "name": "Siegbert Tarrasch"
     },
     {
-      "text": "Begone! Ignorant and impudent knight, not even in chess can a King be taken.",
-      "name": "King Louis VI (reputedly stated to one of his knights in 1110 after he was nearly captured by enemy forces)"
+      "text": "Begone! Ignorant and impudent knight, not even in chess can a King be taken. (reputedly stated to one of his knights in 1110 after he was nearly captured by enemy forces)",
+      "name": "King Louis VI"
     },
     {
       "text": "Best by test: 1. e4.",
       "name": "Bobby Fischer"
     },
     {
-      "text": "Black's d5-square is too weak.",
-      "name": "Ulf Andersson (on the Dragon variation)"
+      "text": "Black's d5-square is too weak. (on the Dragon variation)",
+      "name": "Ulf Andersson"
     },
     {
       "text": "Blessed be the memory of him who gave the world this immortal game.",
-      "name": "A. G. Gardiner"
+      "name": "Alfred George Gardiner"
     },
     {
       "text": "Blitz chess kills your ideas.",
@@ -533,8 +513,8 @@
       "name": "Garry Kasparov"
     },
     {
-      "text": "But alas! Like many another consummation devoutly to be wished, the actual performance was a disappointing one.",
-      "name": "Fred Reinfeld (on the long awaited Lasker-Capablanca match in 1921)"
+      "text": "But alas! Like many another consummation devoutly to be wished, the actual performance was a disappointing one. (on the long awaited Lasker-Capablanca match in 1921)",
+      "name": "Fred Reinfeld"
     },
     {
       "text": "But how difficult it can be to gain the desired full point against an opponent of inferior strength, when this is demanded by the tournament position!",
@@ -585,16 +565,16 @@
       "name": "Garry Kasparov"
     },
     {
-      "text": "By this measure, I consider him the greatest world champion.",
-      "name": "Garry Kasparov (on the gap between Fischer & his contemporaries)"
+      "text": "By this measure, I consider him the greatest world champion. (on the gap between Fischer & his contemporaries)",
+      "name": "Garry Kasparov"
     },
     {
       "text": "By what right does White, in an absolutely even position, such as after move one, when both sides have advanced 1. e4, sacrifice a pawn, whose recapture is quite uncertain, and open up his kingside to attack? And then follow up this policy by leaving the check of the black queen open? None whatever !",
       "name": "Emanuel Lasker"
     },
     {
-      "text": "Campo, as everyone in chess recognized, had a 2600 rating as a politician.",
-      "name": "Raymond Keene (on F.I.D.E. President Florencio Campomanes)"
+      "text": "Campo, as everyone in chess recognized, had a 2600 rating as a politician. (on FIDE President Florencio Campomanes)",
+      "name": "Raymond Keene"
     },
     {
       "text": "Can you imagine the relief it gives a mother when her child amuses herself quietly for hours on end?",
@@ -606,7 +586,7 @@
     },
     {
       "text": "Capablanca used to talk calmly and moderately about everything. However, when our conversation turned to the problems of the battle for the world championship, in front of me was a quite different person: an enraged lion, although with the fervour typical only of a southerner, with his temperamental patter, which made it hard to follow the torrent of his indignant exclamations and words.",
-      "name": "Alexander Koblenz"
+      "name": "Alexander Koblencs"
     },
     {
       "text": "Capture of the adverse king is the ultimate but not the first object of the game.",
@@ -638,7 +618,7 @@
     },
     {
       "text": "Chess can never reach its height by following in the path of science... Let us, therefore, make a new effort and with the help of our imagination turn the struggle of technique into a battle of ideas.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "Chess can never reach its height by following in the path of science... let us, therefore, make a effort and with the help of our imagination turn the struggle of technique into a battle of ideas.",
@@ -662,7 +642,7 @@
     },
     {
       "text": "Chess is 99% tactics.",
-      "name": "Rudolph Teichmann"
+      "name": "Rudolf Teichmann"
     },
     {
       "text": "Chess is a battle between your aversion to thinking and your aversion to losing.",
@@ -674,7 +654,7 @@
     },
     {
       "text": "Chess is a bond of brotherhood amongst all lovers of the noble game, as perfect as free masonry. It is a leveller of rank - title, wealth, nationality, politics, religion - all are forgotten across the board.",
-      "name": "Frederick Milnes Edge"
+      "name": "Frederick Milne Edge"
     },
     {
       "text": "Chess is a cold bath for the mind.",
@@ -722,7 +702,7 @@
     },
     {
       "text": "Chess is a great game. No matter how good one is, there is always somebody better. No matter how bad one is, there is always somebody worse.",
-      "name": "I. A. Horowitz"
+      "name": "Israel Albert Horowitz"
     },
     {
       "text": "Chess is a matter of delicate judgement, knowing when to punch and how to duck.",
@@ -779,10 +759,6 @@
     {
       "text": "Chess is an infinitely complex game, which one can play in infinitely numerous and varied ways.",
       "name": "Vladimir Kramnik"
-    },
-    {
-      "text": "Chess is as much a mystery as women.",
-      "name": "Purdy"
     },
     {
       "text": "Chess is beautiful enough to waste your life for.",
@@ -974,7 +950,7 @@
     },
     {
       "text": "Chess players, people who travel all over the world, should be trusted or else not sent anywhere at all. Why are these four people (Antoshion and three other official 'minders') sent along to supervise us? With their meagre experience, all that thay did was interfere, more than ever before. And when they were needed, they weren't to be found...",
-      "name": "Victor Kortchnoi"
+      "name": "Viktor Korchnoi"
     },
     {
       "text": "Chess problems demand from the composer the same virtues that characterize all worthwhile art: originality, invention, conciseness, harmony, complexity, and splendid insincerity.",
@@ -1070,7 +1046,7 @@
     },
     {
       "text": "Deschapelles became a first-rate player in three days, at the age of something like thirty. Nobody ever believed the statement, not even Deschapelles himself, although his biographer declares he had told the lie so often that he at last forgot the facts of the case.",
-      "name": "Frederick Milnes Edge"
+      "name": "Frederick Milne Edge"
     },
     {
       "text": "Despite the development of chess theory, there is much that remains secret and unexplored in chess.",
@@ -1085,8 +1061,8 @@
       "name": "Rueben Fine"
     },
     {
-      "text": "Do not bring your Queen out too early.",
-      "name": "from Francisco Bernardina Calogno's poem 'On the Game of Chess' ('De ludo scachorum') circa 1500"
+      "text": "Do not bring your Queen out too early. (from his poem 'On the Game of Chess'/'De ludo scachorum' circa 1500",
+      "name": "Francisco Bernardina Calogno"
     },
     {
       "text": "Do not permit yourself to fall in love with the end-game play to the exclusion of entire games. It is well to have the whole story of how it happened; the complete play, not the denouement only. Do not embrace the rag-time and vaudeville of chess.",
@@ -1113,8 +1089,8 @@
       "name": "Dan Heisman"
     },
     {
-      "text": "Don't worry kids, you'll find work. After all, my machine will need strong chess player-programmers. You will be the first.",
-      "name": "Mikhail Botvinnik (to Karpov & students, 1965)"
+      "text": "Don't worry kids, you'll find work. After all, my machine will need strong chess player-programmers. You will be the first. (to Karpov & students, 1965)",
+      "name": "Mikhail Botvinnik"
     },
     {
       "text": "Drawing general conclusions about your main weaknesses can provide a great stimulus to further growth.",
@@ -1189,10 +1165,6 @@
       "name": "Irving Chernev"
     },
     {
-      "text": "Every chess player is a premium user.",
-      "name": "lichess.org"
-    },
-    {
       "text": "Every chess player likes attacking play.",
       "name": "Zhu Chen"
     },
@@ -1218,15 +1190,19 @@
     },
     {
       "text": "Examine moves that smite! A good eye for smites is far more important than a knowledge of strategical principles.",
-      "name": "Cecil Purdy"
+      "name": "Cecil John Seddon Purdy (Chielamangus)"
+    },
+    {
+      "text": "Chess is as much a mystery as women.",
+      "name": "Cecil John Seddon Purdy (Chielamangus)"
     },
     {
       "text": "Excellence at chess is one mark of a scheming mind.",
       "name": "Sir Arthur Conan Doyle"
     },
     {
-      "text": "Excellent! I will still be in time for the ballet!",
-      "name": "José Raúl Capablanca (upon defeating Ossip Bernstein in the famous 29 move exhibition game played in Moscow in 1914, before setting off to the Bolshoi Theatre in horse-drawn carriage)"
+      "text": "Excellent! I will still be in time for the ballet! (upon defeating Ossip Bernstein in the famous 29 move exhibition game played in Moscow in 1914, before setting off to the Bolshoi Theatre in horse-drawn carriage)",
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "Excelling at chess has long been considered a symbol of more general intelligence. That is an incorrect assumption in my view, as pleasant as it might be.",
@@ -1313,8 +1289,8 @@
       "name": "Viswanathan Anand"
     },
     {
-      "text": "For me right now I think being the world number one is a bigger deal than being the world champion because I think it shows better who plays the best chess. That sounds self-serving but I think it's also right.",
-      "name": "Magnus Carlsen (2012)"
+      "text": "For me right now I think being the world number one is a bigger deal than being the world champion because I think it shows better who plays the best chess. That sounds self-serving but I think it's also right. (2012)",
+      "name": "Magnus Carlsen"
     },
     {
       "text": "For me, chess is a language, and if it's not my native tongue, it is one I learned via the immersion method at a young age.",
@@ -1346,7 +1322,7 @@
     },
     {
       "text": "For surely of all the drugs in the world, chess must be the most permanently pleasurable.",
-      "name": "Assiac"
+      "name": "Heinrich Fraenkel (Assiac)"
     },
     {
       "text": "Formerly I played to amuse myself, then to study, but now I play to create.",
@@ -1373,10 +1349,6 @@
       "name": "Bobby Fischer"
     },
     {
-      "text": "Gens una sumus; 'We are one people'",
-      "name": "FIDE"
-    },
-    {
       "text": "GM Naiditsch reckoned that me playing the King's Indian against Anand was something akin to a samurai running at a machine gun with a sword.",
       "name": "Hikaru Nakamura"
     },
@@ -1397,8 +1369,8 @@
       "name": "Gerald Abrahams"
     },
     {
-      "text": "Greg Kaidanov tried to get me to view his behavior as part of what makes him great - if he wouldn't get so upset about losing, he'd never maintain the level that he has. I see his point, but somehow I can't accept the idea that these sorts of verbal assaults on people are justified, no matter what their end goal is.",
-      "name": "Irina Krush (following her defeat of Viktor Kortchnoi and the post-mortem)"
+      "text": "Greg Kaidanov tried to get me to view his behavior as part of what makes him great - if he wouldn't get so upset about losing, he'd never maintain the level that he has. I see his point, but somehow I can't accept the idea that these sorts of verbal assaults on people are justified, no matter what their end goal is. (following her defeat of Viktor Korchnoi and the post-mortem)",
+      "name": "Irina Krush"
     },
     {
       "text": "Had I not played the Sicilian with Black I could have saved myself the trouble of studying for more than 20 years all the more popular lines of this opening, which comprise probably more than 25 percent of all published opening theory!",
@@ -1437,8 +1409,8 @@
       "name": "Daniel King"
     },
     {
-      "text": "He played with enormous energy and great fighting spirit. Offering him a draw was a waste of time. He would decline it politely, but firmly. 'No, thank you,' he would say and the fight would go on and on and on.",
-      "name": "Lubomir Kavalek on Bent Larsen"
+      "text": "He played with enormous energy and great fighting spirit. Offering him a draw was a waste of time. He would decline it politely, but firmly. 'No, thank you,' he would say and the fight would go on and on and on. (on Bent Larsen)",
+      "name": "Lubomir Kavalek"
     },
     {
       "text": "He who analyses blitz is stupid.",
@@ -1469,8 +1441,8 @@
       "name": "Yasser Seirawan"
     },
     {
-      "text": "How vain are our fears! I thought to myself. Sometimes we fear that which our opponent (or fate) had never even considered! After this, then, is it any longer worthwhile to rack one's brain to find new ghosts to fear? No, indeed: All hail optimism!",
-      "name": "Aaron Nimzowitsch (upon playing Hermanis Mattison after he overlooked an unusual knight manouevre)"
+      "text": "How vain are our fears! I thought to myself. Sometimes we fear that which our opponent (or fate) had never even considered! After this, then, is it any longer worthwhile to rack one's brain to find new ghosts to fear? No, indeed: All hail optimism! (upon playing Hermanis Mattison after he overlooked an unusual knight manouevre)",
+      "name": "Aaron Nimzowitsch"
     },
     {
       "text": "How would these young players feel if their own coach would use the confidential analysis and information against them in important events like the Olympiad, World Cup, US Championship, or other major events? I think this would break that bond and there will be problems with the trust issue. My job is to help these young players reach their full potential, and not compete against or try to beat them.",
@@ -1497,12 +1469,12 @@
       "name": "Nigel Short"
     },
     {
-      "text": "I am both sad and pleased that in his last tournament, Rashid Gibiatovich came to my home in Latvia. He did not take first place, but the prize for beauty, as always, he took with him. Players die, tournaments are forgotten, but the works of great artists are left behind them to live on forever.",
-      "name": "Mikhail Tal (on Nezhmetdinov)"
+      "text": "I am both sad and pleased that in his last tournament, Rashid Gibiatovich came to my home in Latvia. He did not take first place, but the prize for beauty, as always, he took with him. Players die, tournaments are forgotten, but the works of great artists are left behind them to live on forever. (on Nezhmetdinov)",
+      "name": "Mikhail Tal"
     },
     {
-      "text": "I am pleased that in a match for the World Championship I was able to conduct a game in the style of Akiba Rubinstein, where the entire strategic course was maintained from the first to the last move.",
-      "name": "Boris Gelfand (on Game 7 of his 2012 match with Anand)"
+      "text": "I am pleased that in a match for the World Championship I was able to conduct a game in the style of Akiba Rubinstein, where the entire strategic course was maintained from the first to the last move. (on Game 7 of his 2012 match with Anand)",
+      "name": "Boris Gelfand"
     },
     {
       "text": "I am still a victim of chess. It has all the beauty of art and much more. It cannot be commercialized. Chess is much purer than art in its social position.",
@@ -1665,7 +1637,7 @@
       "name": "Ron Gross"
     },
     {
-      "text": "I had a slightly inferior endgame that probably should have been drawn, but Kortchnoi kept torturing me with little threats until finally, exhausted and exasperated, I made a losing mistake.",
+      "text": "I had a slightly inferior endgame that probably should have been drawn, but Korchnoi kept torturing me with little threats until finally, exhausted and exasperated, I made a losing mistake.",
       "name": "Pal Benko"
     },
     {
@@ -1705,12 +1677,12 @@
       "name": "Wilhelm Steinitz"
     },
     {
-      "text": "I have not given any drawn or lost games, because I thought them inadequate to the purpose of the book.",
-      "name": "Jose Capablanca (in his book 'My Chess Career' published in 1920)"
+      "text": "I have not given any drawn or lost games, because I thought them inadequate to the purpose of the book. (in his book 'My Chess Career' published in 1920)",
+      "name": "José Raúl Capablanca"
     },
     {
-      "text": "I honestly don't like him playing chess. I mean I see him sitting there for ten minutes thinking four moves ahead before he makes one. And he actually does the same thing in the ring - he thinks too much.",
-      "name": "Emmanuel Steward (on Lennox Lewis, undisputed heavyweight boxing champion of the world, who he was coaching)"
+      "text": "I honestly don't like him playing chess. I mean I see him sitting there for ten minutes thinking four moves ahead before he makes one. And he actually does the same thing in the ring - he thinks too much. (on Lennox Lewis, undisputed heavyweight boxing champion of the world, who he was coaching)",
+      "name": "Emmanuel Steward"
     },
     {
       "text": "I know people who have all the will in the world, but still can't play good chess.",
@@ -1721,12 +1693,12 @@
       "name": "Nigel Short"
     },
     {
-      "text": "I know the knights walke in this game too well, Hee maye skip over mee, and where am I then?",
-      "name": "Thomas Middleton (1624)"
+      "text": "I know the knights walke in this game too well, Hee maye skip over mee, and where am I then? (1624)",
+      "name": "Thomas Middleton"
     },
     {
-      "text": "I learnt an enormous amount, but there came a point where I found there was too much stress. It was no fun any more. Outside of the chessboard I avoid conflict, so I thought this wasn't worth it.",
-      "name": "Magnus Carlsen (on training sessions with Kasparov)"
+      "text": "I learnt an enormous amount, but there came a point where I found there was too much stress. It was no fun any more. Outside of the chessboard I avoid conflict, so I thought this wasn't worth it. (on training sessions with Kasparov)",
+      "name": "Magnus Carlsen"
     },
     {
       "text": "I leave this to you.",
@@ -1745,8 +1717,8 @@
       "name": "Bobby Fischer"
     },
     {
-      "text": "I like to play against people who are alive :)",
-      "name": "Judit Polgar (In response to the question: 'Which of the great dead players would you like to play?')"
+      "text": "I like to play against people who are alive. (In response to the question: 'Which of the great dead players would you like to play?')",
+      "name": "Judit Polgar"
     },
     {
       "text": "I like to say that Bobby Fischer was the greatest player ever. But what made Fischer a genius was his ability to blend an American freshness and pragmatism with Russian ideas about strategy.",
@@ -1757,8 +1729,8 @@
       "name": "Siegbert Tarrasch"
     },
     {
-      "text": "I lost the match. I blame only myself for this. There were many opportunities to win. But I missed them, no one else.",
-      "name": "Anatoly Karpov (on Lyons/New York World Championship Match with Kasparov)"
+      "text": "I lost the match. I blame only myself for this. There were many opportunities to win. But I missed them, no one else. (on Lyons/New York World Championship Match with Kasparov)",
+      "name": "Anatoly Karpov"
     },
     {
       "text": "I love all positions. Give me a difficult positional game, I will play it. But totally won positions, I cannot stand them.",
@@ -1770,11 +1742,11 @@
     },
     {
       "text": "I maintain that in every position that arises, we should deliberately search, among other things, for pieces which have no retreat. If we see one, we automatically look to see if it can be netted.",
-      "name": "C.J.S. Purdy"
+      "name": "Cecil John Seddon Purdy (Chielamangus)"
     },
     {
       "text": "I met with similar fate (as Martina Navritalova) after I left Czechoslovakia in 1968. Chess tournaments in which I participated were not reported or appeared without my name. The same year Martina left, a book of chess puzzles by two Czech grandmasters, Vlastimil Hort and Vlastimil Jansa, was published in Prague. The publisher Olympia printed 18,000 copies and when it was done, some censors discovered my name attached to one of the games. They did something unbelievable: they cut out the page with my name, printed a new one without my name and glued it back in the book. They did it page by page, book by book - 18,000 times.",
-      "name": "Lubosh Kavalek"
+      "name": "Lubomir Kavalek"
     },
     {
       "text": "I never lose. I either win or learn.",
@@ -1793,8 +1765,8 @@
       "name": "Mark Twain"
     },
     {
-      "text": "I played like a child.",
-      "name": "Magnus Carlsen (13 year old Magnus after a loss in the second game of a rapid chess match with Kasparov - after having drawn the first game)"
+      "text": "I played like a child. (13 year old, after a loss in the second game of a rapid chess match with Kasparov, having drawn the first game)",
+      "name": "Magnus Carlsen"
     },
     {
       "text": "I prefer to lose a really good game than to win a bad one.",
@@ -1865,8 +1837,8 @@
       "name": "Magnus Carlsen"
     },
     {
-      "text": "I walked about 55 kilometers and was awake for 25 hours. Now I have to think about setting a sleeping record.",
-      "name": "Ehsan Ghaem-Maghami (after setting a World Record by playing 614 games simultaneously)"
+      "text": "I walked about 55 kilometers and was awake for 25 hours. Now I have to think about setting a sleeping record. (after setting a World Record by playing 614 games simultaneously)",
+      "name": "Ehsan Ghaem-Maghami"
     },
     {
       "text": "I was labeled as a tricky player early on and have been regarded as tricky throughout my whole career. It was said that I was able to pull out tricks from nowhere.",
@@ -1877,8 +1849,8 @@
       "name": "Mikhail Tal"
     },
     {
-      "text": "I won't play with you anymore. You have insulted my friend!",
-      "name": "Miguel Najdorf (when an opponent cursed himself for a blunder)"
+      "text": "I won't play with you anymore. You have insulted my friend! (when an opponent cursed himself for a blunder)",
+      "name": "Miguel Najdorf"
     },
     {
       "text": "I would never suggest to anyone that they drop school for chess. First of all even if you can make it in chess, your social skills need to be developed there.",
@@ -1901,12 +1873,12 @@
       "name": "Bobby Fischer"
     },
     {
-      "text": "I'm sorry Frank, I think you missed it. Queen to bishop three, bishop takes queen, knight takes bishop, mate.",
-      "name": "HAL 9000 in the movie '2001: A Space Odyssey' to astronaut Frank Poole"
+      "text": "I'm sorry Frank, I think you missed it. Queen to bishop three, bishop takes queen, knight takes bishop, mate. (in the movie '2001: A Space Odyssey' to astronaut Frank Poole)",
+      "name": "HAL 9000"
     },
     {
-      "text": "I'm submitting a formal complaint to the players - the games are far too interesting. They should be rationed to only one exciting game per round, as it is not fair to chess journalists.",
-      "name": "John Saunders (after Round 2 of The London Chess Classic 2011)"
+      "text": "I'm submitting a formal complaint to the players - the games are far too interesting. They should be rationed to only one exciting game per round, as it is not fair to chess journalists. (after Round 2 of The London Chess Classic 2011)",
+      "name": "John Saunders"
     },
     {
       "text": "I've never been much of a computer guy at least in terms of playing with computers. Actually until I was about 11 I didn't use a computer for preparing for games at all. Now, obviously, the computer is an important tool for me preparing for my games. I analyze when I'm on the computer, either my games or my opponents. But mostly my own.",
@@ -1974,19 +1946,19 @@
     },
     {
       "text": "If the student forces himself to examine all the moves that smite, however absurd they look at first glance, he is on the way to becoming a master of tactics.",
-      "name": "Cecil Purdy"
+      "name": "Cecil John Seddon Purdy (Chielamangus)"
     },
     {
       "text": "If the weather is too cold or rainy, I take shelter in the Regence Cafe, where I entertain myself by watching chess being played. Paris is the world center, and this cafe is the Paris centre for the finest skill at this game.",
-      "name": "Diderot (1713-1784)"
+      "name": "Denis Diderot (1713-1784)"
     },
     {
       "text": "If there were a 1:1 ratio of women and men in the chess world I would agree that all tournaments should be integrated. But a lot of women feel alienated at these mixed events, so it's positive to have occasional all women's events.",
       "name": "Jennifer Shahade"
     },
     {
-      "text": "If we are to elevate the game of chess to a popular sport, grandmasters must become gladiators, otherwise the game will languish on the periphery, a voice crying in the wilderness, condemned to live and die on a cold arctic shore.",
-      "name": "Michael Basman (2012)"
+      "text": "If we are to elevate the game of chess to a popular sport, grandmasters must become gladiators, otherwise the game will languish on the periphery, a voice crying in the wilderness, condemned to live and die on a cold arctic shore. (2012)",
+      "name": "Michael Basman"
     },
     {
       "text": "If we talk about pure abilities and skills, I believe there should be no reason why women cannot play as well as men.",
@@ -2033,8 +2005,8 @@
       "name": "Alexander Kotov"
     },
     {
-      "text": "If you watch it, you should watch it with other players and try to find moves, like it was before. Now on many sites you watch together with the computer and the pleasure is gone.",
-      "name": "Boris Gelfand (on watching broadcast games)"
+      "text": "If you watch it, you should watch it with other players and try to find moves, like it was before. Now on many sites you watch together with the computer and the pleasure is gone. (on watching broadcast games)",
+      "name": "Boris Gelfand"
     },
     {
       "text": "If you wish to succeed, you must brave the risk of failure.",
@@ -2094,7 +2066,7 @@
     },
     {
       "text": "In chess, as in life, a man is his own most dangerous opponent.",
-      "name": "Vasíliy Smyslóv"
+      "name": "Vasily Smyslov"
     },
     {
       "text": "In chess, as in life, opportunity strikes but once.",
@@ -2110,7 +2082,7 @@
     },
     {
       "text": "In chess, just as in life, today's bliss may be tomorrow's poison.",
-      "name": "Assiac, Heinrich Fraenkel"
+      "name": "Heinrich Fraenkel (Assiac)"
     },
     {
       "text": "In chess, knowledge is a very transient thing. It changes so fast that even a single mouse-slip sometimes changes the evaluation.",
@@ -2170,7 +2142,7 @@
     },
     {
       "text": "In order to improve your game, you must study the endgame before everything else, for whereas the endings can be studied and mastered by themselves, the middle game and the opening must be studied in relation to the endgame.",
-      "name": "Jose Raul Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "In the current FIDE World Championship, on the knock-out system, weaker players have good chances. Those, who in a long match would practically have no chance, here may creep through.",
@@ -2194,11 +2166,11 @@
     },
     {
       "text": "In the opening a master should play like a book, in the mid-game he should play like a magician, in the ending he should play like a machine.",
-      "name": "Rudolph Spielmann"
+      "name": "Rudolf Spielmann"
     },
     {
       "text": "In the perfect chess combination as in a first-rate short story, the whole plot and counter-plot should lead up to a striking finale, the interest not being allayed until the very last moment.",
-      "name": "Yates and Winter"
+      "name": "Fred Dewhirst Yates and Edward Winter"
     },
     {
       "text": "In the Soviets' view, chess was not merely an art or a science or even a sport; it was what it had been invented to simulate: war.",
@@ -2218,7 +2190,7 @@
     },
     {
       "text": "Inexperienced players have a fear of this piece, which seems to them enigmatic, mysterious, and astonishing in its power. We must admit that it has remarkable characteristics which compel respect and occasionally surprise the most wary players.",
-      "name": "Eugene Znosko-Borowski"
+      "name": "Eugene Znosko-Borovsky"
     },
     {
       "text": "Intellectual activity is perhaps the greatest pleasure of life; chess is one of the forms of intellectual activity.",
@@ -2233,8 +2205,8 @@
       "name": "Salo Flohr"
     },
     {
-      "text": "It began to feel as though you were playing against chess itself.",
-      "name": "Walter Shipman (on playing against Bobby Fischer)"
+      "text": "It began to feel as though you were playing against chess itself. (on playing against Bobby Fischer)",
+      "name": "Walter Shipman"
     },
     {
       "text": "It cannot be too greatly emphasized that the most important role in pawn endings is played by the king.",
@@ -2254,19 +2226,19 @@
     },
     {
       "text": "It has been stated that a characteristic mark of a combination is surprise; surprise for the defender, not for the assailant, since otherwise the combination will probably be unsound.",
-      "name": "Eugene Znosko-Borowski"
+      "name": "Eugene Znosko-Borovsky"
     },
     {
       "text": "It is a curse upon man. There is no happiness in chess.",
-      "name": "H.G. Wells"
+      "name": "Herbert George Wells"
     },
     {
       "text": "It is a delight to watch a young and gifted chess player. To him have come no sinister experiences; to him continual carping care is foreign. Therefore he loves the attack and the bold sacrifice; for theirin lies the shortest way to his ultimate objective.",
-      "name": "Richard Reti"
+      "name": "Richard Réti"
     },
     {
       "text": "It is a profound mistake to imagine mistake to imagine that the art of combination depends only on natural talent, and that it cannot be learned. Every player knows that all (or almost all) combinations arise from a recollection of familiar elements.",
-      "name": "Richard Reti"
+      "name": "Richard Réti"
     },
     {
       "text": "It is a well known fact that almost all the outstanding chess-players have been first-class analysts.",
@@ -2362,11 +2334,11 @@
     },
     {
       "text": "It is unjust, and sometimes very untrue, though it is a common theory, to hold that it is sacrifices which make the beauty of a combination, and that the combination is prettier by the magnitude of the sacrifices.",
-      "name": "Eugene Znosko-Borowski"
+      "name": "Eugene Znosko-Borovsky"
     },
     {
       "text": "It is unpleasant for the players, when the organizers arrange for play to take place in the morning. The games from such last rounds, in view of the large number of mistakes, are not fit for publication!",
-      "name": "Victor Kortchnoi"
+      "name": "Viktor Korchnoi"
     },
     {
       "text": "It is very difficult to play a single blitz game! You want to play for a long time. So I tend not to do that anymore.",
@@ -2406,7 +2378,7 @@
     },
     {
       "text": "It will be cheering to know that many people are skillful chessplayers, though in many instances their brains, in a general way, compare unfavorably with the cognitive faculties of a rabbit.",
-      "name": "Mortimer"
+      "name": "James Henry Gerard Mortimer"
     },
     {
       "text": "It would be as naive to study the song of the nightingale, as it would be ridiculous to try and win a King's Gambit against a representative of the old chess guard.",
@@ -2414,15 +2386,15 @@
     },
     {
       "text": "It would be idle, and presumptuous, to wish to imitate the achievements of a Morphy or an Alekhine; but their methods and their manner of expressing themselves are within the reach of all.",
-      "name": "Eugene Znosko-Borowski"
+      "name": "Eugene Znosko-Borovsky"
     },
     {
       "text": "It's a funny thing, most players think that if they can get a higher rating, they become a better player, but it's the other way 'round.",
       "name": "Stewart Rueben"
     },
     {
-      "text": "It's a very special generation, because during our careers the computer entered chess. So we know how to play without computers, which is also important. We can analyse without computers. I am not saying that younger players cannot do this, but we are more in the habit of doing this. That's important to improve your chess understanding.",
-      "name": "Vassily Ivanchuk, born 1969 (2012)"
+      "text": "It's a very special generation, because during our careers the computer entered chess. So we know how to play without computers, which is also important. We can analyse without computers. I am not saying that younger players cannot do this, but we are more in the habit of doing this. That's important to improve your chess understanding. (2012)",
+      "name": "Vasyl Ivanchuk"
     },
     {
       "text": "It's just you and your opponent at the board and you're trying to prove something.",
@@ -2434,7 +2406,7 @@
     },
     {
       "text": "It's one of those types of positions where he has pieces on squares.",
-      "name": "John ~ZugAddict~ Chernoff"
+      "name": "John Chernoff (ZugAddict)"
     },
     {
       "text": "It's true that in chess as in politics, fund-raising and glad-handing matter.",
@@ -2457,7 +2429,7 @@
       "name": "Arpad Elo"
     },
     {
-      "text": "Kortchnoi's heritage is many-faceted - over the decades he has several times corrected and changed his style. But the main thing has invariably remained his search for chess truth.",
+      "text": "Korchnoi's heritage is many-faceted - over the decades he has several times corrected and changed his style. But the main thing has invariably remained his search for chess truth.",
       "name": "Garry Kasparov"
     },
     {
@@ -2517,20 +2489,16 @@
       "name": "Savielly Tartakower"
     },
     {
-      "text": "Listen, I don't want to boast but I do happen to be national champion in Scotland. It just isn't conceivable that you can design a program strong enough to beat players like me.",
-      "name": "David Levy, 1969"
+      "text": "Listen, I don't want to boast but I do happen to be national champion in Scotland. It just isn't conceivable that you can design a program strong enough to beat players like me. (1969)",
+      "name": "David Levy"
     },
     {
-      "text": "Live by the sword and die by the sword. Sometimes I wonder just how many of these games I can play in the KID before I die of a heart attack.",
-      "name": "Hikaru Nakamura (after defeating Viswanathan Anand at The London Chess Classic 2011)"
+      "text": "Live by the sword and die by the sword. Sometimes I wonder just how many of these games I can play in the KID before I die of a heart attack. (after defeating Viswanathan Anand at The London Chess Classic 2011)",
+      "name": "Hikaru Nakamura"
     },
     {
       "text": "Live, lose, and learn, by observing your opponent how to win.",
       "name": "Amber Steenbock"
-    },
-    {
-      "text": "Look at Garry Kasparov. After he loses, invariably he wins the next game. He just kills the guy. That's something that we have to learn to be able to do.",
-      "name": "Maurice Ashley"
     },
     {
       "text": "Look at Garry Kasparov. After he loses, invariably he wins the next game. He just kills the next guy. That's something that we have to learn to be able to do.",
@@ -2573,12 +2541,12 @@
       "name": "Mikhail Botvinnik"
     },
     {
-      "text": "Method rules his training, which blends the physical with the mental. How many chess masters put in, prior to an important match, an allotted time daily to bicycling and shadow-boxing, followed by a cold douche and a brisk rub down?",
-      "name": "Hans Kmoch (on Max Euwe)"
+      "text": "Method rules his training, which blends the physical with the mental. How many chess masters put in, prior to an important match, an allotted time daily to bicycling and shadow-boxing, followed by a cold douche and a brisk rub down? (on Max Euwe)",
+      "name": "Hans Kmoch"
     },
     {
       "text": "Methodical thinking is of more use in chess than inspiration.",
-      "name": "Cecil Purdy"
+      "name": "Cecil John Seddon Purdy (Chielamangus)"
     },
     {
       "text": "Mistrust is the most necessary characteristic of the chess player.",
@@ -2598,7 +2566,7 @@
     },
     {
       "text": "Most chess players know, thanks to the study of master games, that two bishops are stronger than two knights or than bishop and knight, though very few know the reason for this advantage and how to turn it to account.",
-      "name": "Richard Reti"
+      "name": "Richard Réti"
     },
     {
       "text": "Most of all I like 'bad' lines, that is those considered bad, in my opinion unjustly, by theory. The reason for the last quotation marks is that most so-called theory is only a collection of examples from master practice.",
@@ -2610,7 +2578,7 @@
     },
     {
       "text": "Most players... do not like losing, and consider defeat as something shameful. This is a wrong attitude. Those who wish to perfect themselves must regard their losses as lessons and learn from them what sorts of things to avoid in the future.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "Most strong players are completely self-centered.... They are blind to how other people feel or else simply don't care.",
@@ -2641,8 +2609,8 @@
       "name": "Lev Polugaevsky"
     },
     {
-      "text": "My opponent is Short and the match will be short.",
-      "name": "Kasparov's quip before his 1993 PCA World Championship match with Nigel Short."
+      "text": "My opponent is Short and the match will be short - quip before his 1993 PCA World Championship match with Nigel Short",
+      "name": "Garry Kasparov"
     },
     {
       "text": "My opponent left a glass of whisky 'en prise' and I took it 'en passant'.",
@@ -2698,7 +2666,7 @@
     },
     {
       "text": "Ninety percent of the book variations have no great value, because either they contain mistakes or they are based on fallacious assumptions; just forget about the openings and spend all that time on the endings.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "No chess Grandmaster is normal; they only differ in the extent of their madness.",
@@ -2722,11 +2690,11 @@
     },
     {
       "text": "No one has ever played these endgames with such elegant ease as Capablanca.",
-      "name": "Richard Reti"
+      "name": "Richard Réti"
     },
     {
-      "text": "No other master has such a terrific will to win. At the board he radiates danger, and even the strongest opponents tend to freeze, like rabbits when they smell a panther. Even his weaknesses are dangerous.",
-      "name": "Anonymous German Expert"
+      "text": "No other master has such a terrific will to win. At the board he radiates danger, and even the strongest opponents tend to freeze, like rabbits when they smell a panther. Even his weaknesses are dangerous. (Life Magazine, 12 November 1971)",
+      "name": "Brad Darrach"
     },
     {
       "text": "No pawn exchanges, no file-opening, no attack.",
@@ -2734,7 +2702,7 @@
     },
     {
       "text": "No price is too great for the scalp of the enemy king.",
-      "name": "Koblentz"
+      "name": "Alexander Koblencs"
     },
     {
       "text": "Nonsense was the last thing Fischer was interested in, as far as chess was concerned.",
@@ -2761,8 +2729,8 @@
       "name": "Dominic Lawson"
     },
     {
-      "text": "Now I have the pawn and the compensation.",
-      "name": "Roman Dzindzichashvili (during a blitz game)"
+      "text": "Now I have the pawn and the compensation. (during a blitz game)",
+      "name": "Roman Dzindzichashvili"
     },
     {
       "text": "Nowadays games immediately appear on the Internet and thus the life of novelties is measured in hours. Modern professionals do not have the right to be forgetful - it is 'life threatening'.",
@@ -2773,8 +2741,8 @@
       "name": "David Bronstein"
     },
     {
-      "text": "Nowadays tournaments are for nurseries. Look at those kiddies.",
-      "name": "Miguel Najdorf (pointing to Fischer, Spassky, and Larsen in 1966)"
+      "text": "Nowadays tournaments are for nurseries. Look at those kiddies. (pointing to Fischer, Spassky, and Larsen in 1966)",
+      "name": "Miguel Najdorf"
     },
     {
       "text": "Nowadays, when you're not a Grandmaster at 14, you can forget about it.",
@@ -2826,7 +2794,7 @@
     },
     {
       "text": "On the bright side, I no longer have any more pieces to lose.",
-      "name": "John ~ZugAddict~ Chernoff"
+      "name": "John Chernoff (ZugAddict)"
     },
     {
       "text": "On the chessboard lies and hypocrisy do not last long.",
@@ -2858,7 +2826,7 @@
     },
     {
       "text": "One bad move nullifies forty good ones.",
-      "name": "I. A. Horowitz"
+      "name": "Israel Albert Horowitz"
     },
     {
       "text": "One can say that in the last decades chess has become more of a sport than of a science. I see it from an artistic point of view.",
@@ -2918,7 +2886,7 @@
     },
     {
       "text": "Pawn endings are to chess what putting is to golf.",
-      "name": "Cecil Purdy"
+      "name": "Cecil John Seddon Purdy (Chielamangus)"
     },
     {
       "text": "Pawns are born free, yet they are everywhere in chains.",
@@ -2937,12 +2905,12 @@
       "name": "François-André Danican Philidor"
     },
     {
-      "text": "People sometimes complain that there are fewer 'brilliant' sacrifices than there used to be in the past. However, the point is that players just don't allow them anymore!",
-      "name": "Alexander Grischuk (2012)"
+      "text": "People sometimes complain that there are fewer 'brilliant' sacrifices than there used to be in the past. However, the point is that players just don't allow them anymore! (2012)",
+      "name": "Alexander Grischuk"
     },
     {
       "text": "People who want to improve should take their defeats as lessons, and endeavor to learn what to avoid in the future. You must also have the courage of your convictions. If you think your move is good, make it.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "Perhaps chess is the wrong game for the times. Poker is now everywhere, as amateurs dream of winning millions and being on television for playing a card game whose complexities can be detailed on a single piece of paper.",
@@ -2958,11 +2926,11 @@
     },
     {
       "text": "Place the board so that the sun is in your opponent's eyes.",
-      "name": "Ruy Lopez de Segura (c 1530-1580)"
+      "name": "Ruy López de Segura (c 1530-1580)"
     },
     {
       "text": "Place the contents of the chess box in a hat, shake them up vigorously, pour them on the board from a height of two feet, and you get the style of Steinitz.",
-      "name": "H. E. Bird"
+      "name": "Henry Edward Bird"
     },
     {
       "text": "Play on both sides of the board is my favourite strategy.",
@@ -2985,8 +2953,8 @@
       "name": "Hikaru Nakamura"
     },
     {
-      "text": "Playing black, I put great stake in the Ruy Lopez: I liked it, feel it, and understand it; in matches with Hjartarson and Timman it served me well.",
-      "name": "Anatoly Karpov (on preparing for World Championship versus Garry Kasparov)"
+      "text": "Playing black, I put great stake in the Ruy Lopez: I liked it, feel it, and understand it; in matches with Hjartarson and Timman it served me well. (on preparing for World Championship versus Garry Kasparov)",
+      "name": "Anatoly Karpov"
     },
     {
       "text": "Playing chess has many aspects that can be useful in everyday situations like planning, concentration and combinations. You learn to win but also to lose and to be creative.",
@@ -3041,28 +3009,28 @@
       "name": "Tony Santasiere"
     },
     {
-      "text": "Rating systems work perfectly for players who play only in round robin closed events. I think most of them are overrated. Organizers invite same people over and over because they have the same rating and their rating stays high.",
-      "name": "Alexander Khalifman (after winning 1999 FIDE World Championship while ranked # 44 in the world)"
+      "text": "Rating systems work perfectly for players who play only in round robin closed events. I think most of them are overrated. Organizers invite same people over and over because they have the same rating and their rating stays high. (after winning 1999 FIDE World Championship while ranked # 44 in the world)",
+      "name": "Alexander Khalifman"
     },
     {
       "text": "Real chessplayers think about chess more or less 24 hours a day. It is a passion and a fate that one has to live with - and it lasts a lifetime.",
       "name": "Simen Agdestein"
     },
     {
-      "text": "Remember the king cannot check. So in a mad rush to checkmate your opponent do not get mated because that way you would have indirectly blocked your emergency exit also.",
-      "name": "All About Chess, by Priya & R. Raman, Minerva Press, New Delhi, 2000  (from what may very well be the worst chess book in history)"
+      "text": "Remember the king cannot check. So in a mad rush to checkmate your opponent do not get mated because that way you would have indirectly blocked your emergency exit also. (All About Chess, by Priya & R. Raman, Minerva Press, New Delhi, 2000 - what may very well be the worst chess book in history)",
+      "name": "Priya & R. Raman"
     },
     {
       "text": "Remember, my darling, the most dangerous thing for the family life is - chess!",
-      "name": "character from 1925 Russian silent film 'Chess Fever'"
+      "name": "1925 Russian silent film 'Chess Fever'"
     },
     {
       "text": "Repeating moves in an ending can be very useful. Apart from the obvious gain of time on the clock one notices that the side with the advantage gains psychological benefit.",
       "name": "Sergey Belavenets"
     },
     {
-      "text": "Reti took his hard-earned honours with becoming modesty, but he was the lion of the hour. Such moments are to chess players what the flush of victory is to generals in the field.",
-      "name": "Hermann Helms (on Reti's sensational defeat of Capablanca in New York, 1924)"
+      "text": "Reti took his hard-earned honours with becoming modesty, but he was the lion of the hour. Such moments are to chess players what the flush of victory is to generals in the field. (on Reti's sensational defeat of Capablanca in New York, 1924)",
+      "name": "Hermann Helms"
     },
     {
       "text": "Ridicule can do much, for instance embitter the existence of young talents.",
@@ -3109,8 +3077,8 @@
       "name": "Alexander Kotov"
     },
     {
-      "text": "Sit your opponent with the sun in his eyes.",
-      "name": "Ruy Lopez (1561)"
+      "text": "Sit your opponent with the sun in his eyes. (1561)",
+      "name": "Ruy López de Segura (c 1530-1580)"
     },
     {
       "text": "Some part of a mistake is always correct.",
@@ -3129,8 +3097,8 @@
       "name": "Mikhail Tal"
     },
     {
-      "text": "Some scientist needs to explain to spectators Einstein's relativity theory. Before his explanation, he says: 'I have to suffer a lot explaining something I don't understand myself.' This relates to my game: I didn't understand anything!",
-      "name": "Vasily Ivanchuk (on losing to Magnus Carlsen at the 2011 Sao Paolo/Bilbao tournament)"
+      "text": "Some scientist needs to explain to spectators Einstein's relativity theory. Before his explanation, he says: 'I have to suffer a lot explaining something I don't understand myself.' This relates to my game: I didn't understand anything! (on losing to Magnus Carlsen at the 2011 Sao Paolo/Bilbao tournament)",
+      "name": "Vasyl Ivanchuk"
     },
     {
       "text": "Some studies make such a deep impression on you that they stay etched in your memory forever.",
@@ -3146,11 +3114,11 @@
     },
     {
       "text": "Sometimes I even say that I have surpassed Lasker in using psychology. How? Well, sometimes I use psychology with a portion of risk. That is something else, something that Lasker wouldn't allow.",
-      "name": "Viktor Kortchnoi"
+      "name": "Viktor Korchnoi"
     },
     {
-      "text": "Sometimes it happens that the computer's assessment is very abstract. It's correct, but it's not useful for a practical game. You have to prove the assessment with very strong moves and if you don't find all of these strong moves you may lose very quickly. For a computer this is not a problem, but for humans it is not so easy.",
-      "name": "Vassily Ivanchuk (2012)"
+      "text": "Sometimes it happens that the computer's assessment is very abstract. It's correct, but it's not useful for a practical game. You have to prove the assessment with very strong moves and if you don't find all of these strong moves you may lose very quickly. For a computer this is not a problem, but for humans it is not so easy. (2012)",
+      "name": "Vasyl Ivanchuk"
     },
     {
       "text": "Sometimes players need to gain time on the clock by repeating the position, but most often its purpose is to wear down the opponent psychologically.",
@@ -3190,7 +3158,7 @@
     },
     {
       "text": "Tactics... Tactics are your friends. But they are weird friends who do strange things.",
-      "name": "John ~ZugAddict~ Chernoff"
+      "name": "John Chernoff (ZugAddict)"
     },
     {
       "text": "Tal's combinations often exert a sort of paralysing influence on the opponent's play. It would seem that the element of surprise plays a big part in this.",
@@ -3201,20 +3169,20 @@
       "name": "Samuel Reshevsky"
     },
     {
-      "text": "Thank you, darling, for learning to play chess. It is an absolute necessity for any well organized family.",
-      "name": "Alexander Pushkin (in a letter to his wife)"
+      "text": "Thank you, darling, for learning to play chess. It is an absolute necessity for any well organized family. (in a letter to his wife)",
+      "name": "Alexander Pushkin"
     },
     {
-      "text": "Thanks to the Polgars, the adjective \"men's\" before events and the \"affirmative action\" women's titles such as \"Woman Grandmaster\" have become anachronisms (though they are still in use).",
-      "name": "Garry Kasparov (2007)"
+      "text": "Thanks to the Polgars, the adjective \"men's\" before events and the \"affirmative action\" women's titles such as \"Woman Grandmaster\" have become anachronisms (though they are still in use). (2007)",
+      "name": "Garry Kasparov"
     },
     {
       "text": "That's what chess is all about. One day you give your opponent a lesson, the next day he gives you one.",
       "name": "Bobby Fischer"
     },
     {
-      "text": "The 'classical' starting position is very harmonious and when you play the random version I felt the positions tend to lead to wing games. You are developing your bishops all the time and the battle becomes rather slow and consequently dynamism is lost.",
-      "name": "Helgi Olafsson (on FischerRandom)"
+      "text": "The 'classical' starting position is very harmonious and when you play the random version I felt the positions tend to lead to wing games. You are developing your bishops all the time and the battle becomes rather slow and consequently dynamism is lost. (on FischerRandom)",
+      "name": "Helgi Olafsson"
     },
     {
       "text": "The ability to create and to control the tension of battle is perhaps the principal attainment of the great player.",
@@ -3226,7 +3194,7 @@
     },
     {
       "text": "The aim was simple: to deprive Karpov of his favourite occupation - standing at the board, staring straight at his opponent. While I was wearing these glasses, all he could admire was his own reflection.",
-      "name": "Viktor Kortchnoi"
+      "name": "Viktor Korchnoi"
     },
     {
       "text": "The amount of points that can be gained (and saved) by correct endgame play is enormous, yet often underestimated by youngsters and amateurs.",
@@ -3261,12 +3229,12 @@
       "name": "Boris Spassky"
     },
     {
-      "text": "The best reason to abolish it, in my opinion, is that everyone should deal with his time in the best way; there is no good reason why you should get half a minute extra with each move, except that it's a bit easier for the arbiter.",
-      "name": "Jan Timman (on incremental time controls)"
+      "text": "The best reason to abolish it, in my opinion, is that everyone should deal with his time in the best way; there is no good reason why you should get half a minute extra with each move, except that it's a bit easier for the arbiter. (on incremental time controls)",
+      "name": "Jan Timman"
     },
     {
       "text": "The best way to learn endings, as well as openings, is from the games of the masters.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "The biggest problem I see among people who want to excel in chess - and in business and life in general - is not trusting these instincts enough. Too often they rely on having all the information, which the forces them to a conclusion. This effectively reduces them to the role of a microprocessor...",
@@ -3297,16 +3265,16 @@
       "name": "Marcel Duchamp"
     },
     {
-      "text": "The chess world is obligated to organize a match between the champion of the world and the winner of this Carlsbad tournament - indeed, this is a moral obligation. If the world of chess should remain deaf to its obligation, on the other hand, it would amount to an absolutely unforgivable omission, carrying with it a heavy burden of guilt.",
-      "name": "Aaron Nimzowitsch (upon finishing clear first ahead of Capablanca in Carlsbad 1929, where reigning world champion Alekhine did not participate)"
+      "text": "The chess world is obligated to organize a match between the champion of the world and the winner of this Carlsbad tournament - indeed, this is a moral obligation. If the world of chess should remain deaf to its obligation, on the other hand, it would amount to an absolutely unforgivable omission, carrying with it a heavy burden of guilt. (upon finishing clear first ahead of Capablanca in Carlsbad 1929, where reigning world champion Alekhine did not participate)",
+      "name": "Aaron Nimzowitsch"
     },
     {
       "text": "The chessboard is the world, the pieces are the phenomena of the universe, the rules of the game are what we call the laws of nature, and the player on the other side is hidden from us.",
       "name": "Thomas Huxley"
     },
     {
-      "text": "The chesse, of all games wherein is no bodily exercise, is mooste to be commended; for therein is right subtile engine, whereby the wytte is made more sharpe and remembrance quickened. And it is the more commendable and also more commodiouse if the players haue radde the moralization of the chesse, and whan they playe do think upon hit; whiche bokes be in englisshe. But they be very scarse, by cause fewe men do seeke in plaies for vertue or wisdome.",
-      "name": "Sir Thomas Eliot 1531"
+      "text": "The chesse, of all games wherein is no bodily exercise, is mooste to be commended; for therein is right subtile engine, whereby the wytte is made more sharpe and remembrance quickened. And it is the more commendable and also more commodiouse if the players haue radde the moralization of the chesse, and whan they playe do think upon hit; whiche bokes be in englisshe. But they be very scarse, by cause fewe men do seeke in plaies for vertue or wisdome. (1531)",
+      "name": "Sir Thomas Eliot"
     },
     {
       "text": "The choice of opening, whether to aim for quiet or risky play, depends not only on the style of a player, but also on the disposition with which he sits down at the board.",
@@ -3322,7 +3290,7 @@
     },
     {
       "text": "The conflict between Black's activity and White's better structure is central to the modern approach to the King's Gambit.",
-      "name": "Neil MacDonald"
+      "name": "Neil McDonald"
     },
     {
       "text": "The criterion of real strength is a deep penetration into the secrets of a position.",
@@ -3354,7 +3322,7 @@
     },
     {
       "text": "The essential disadvantage of the isolated pawn... lies not in the pawn itself, but in the square in front of the pawn.",
-      "name": "Richard Reti"
+      "name": "Richard Réti"
     },
     {
       "text": "The fact that a knight is temporarily on the edge of the board is of no great significance.",
@@ -3398,7 +3366,7 @@
     },
     {
       "text": "The game might be divided into three parts, the opening, the middle-game and the end-game. There is one thing you must strive for, to be equally efficient in the three parts.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "The game of chess is not merely an idle amusement; several very valuable qualities of the mind are to be acquired and strengthened by it, so as to become habits ready on all occasions; for life is a kind of chess.",
@@ -3445,8 +3413,8 @@
       "name": "Edmar Mednis"
     },
     {
-      "text": "The KID is sort of back in fashion these days. For some reason, no one bothers to take it seriously and refute it once and for all.",
-      "name": "Anish Giri (2012)"
+      "text": "The King Indian Defense is sort of back in fashion these days. For some reason, no one bothers to take it seriously and refute it once and for all. (2012)",
+      "name": "Anish Giri"
     },
     {
       "text": "The king is a fighting piece. Use it!",
@@ -3458,11 +3426,11 @@
     },
     {
       "text": "The King plays a most important part in the endgame, and gains in power and activity as the number of pieces on the board diminishes. Acting in eight different directions, he becomes, instead of the weakest piece, one of the most formidable units.",
-      "name": "Eugene Znosko-Borowski"
+      "name": "Eugene Znosko-Borovsky"
     },
     {
       "text": "The king, which during the opening and middlegame stage is often a burden because it has to be defended, becomes in the endgame a very important and aggressive piece, and the beginner should realize this, and utilize his king as much as possible.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "The kings are an apt metaphor for human beings: utterly constrained by the rules of the game, defenseless against bombardment from all sides, able only to temporarily dodge disaster by moving one step in any direction.",
@@ -3493,8 +3461,8 @@
       "name": "Garry Kasparov"
     },
     {
-      "text": "The machine does not teach playing flexibility, does not help in taking account of human facxtors in the battle, and on whole, strictly speaking, it restricts the possibilities for young players.",
-      "name": "Sergey Shipov (2013)"
+      "text": "The machine does not teach playing flexibility, does not help in taking account of human facxtors in the battle, and on whole, strictly speaking, it restricts the possibilities for young players. (2013)",
+      "name": "Sergey Shipov"
     },
     {
       "text": "The main line of the Yugoslav Attack has become just too vast for most players to study in depth, and anyone intending to venture into such tricky waters needs to have an intimate knowledge of all the hidden reefs.",
@@ -3506,7 +3474,7 @@
     },
     {
       "text": "The majority of people imagine a chess master as being a townsman who passes his life in an atmosphere of smoke and play in cafes and clubs: a neurasthenic individual, whose nerves and brains are continually working at tension: a one-sided person who has given up his whole soul to chess.",
-      "name": "Richard Reti"
+      "name": "Richard Réti"
     },
     {
       "text": "The masters and grandmasters can be divided into three groups - the inveterate time trouble merchants, those who sometimes get into trouble, and those for whom the phenomenon is a very rare occurence.",
@@ -3549,8 +3517,8 @@
       "name": "Samuel Reshevsky"
     },
     {
-      "text": "The only positive contribution to chess from Fischer in the last 20 years...",
-      "name": "Viktor Kortchnoi (on the Fischer clock)"
+      "text": "The only positive contribution to chess from Fischer in the last 20 years... (on the Fischer clock)",
+      "name": "Viktor Korchnoi"
     },
     {
       "text": "The only thing chess players have in common is chess.",
@@ -3562,11 +3530,11 @@
     },
     {
       "text": "The passion for playing chess is one of the most unaccountable in the world.",
-      "name": "H. G. Wells"
+      "name": "Herbert George Wells"
     },
     {
       "text": "The passion for playing chess is one of the most unaccountable in the world. It slaps the theory of natural selection in the face. It is the most absorbing of occupations. The least satisfying of desires. A nameless excrescence upon life. It annihilates a man. You have, let us say, a promising politician, a rising artist that you wish to destroy. Dagger or bomb are archaic and unreliable - but teach him, inoculate him with chess.",
-      "name": "H.G. Wells"
+      "name": "Herbert George Wells"
     },
     {
       "text": "The pawn move is a capital investment. Every one of the forty-eight should, from the beginning, be spent as if it were one of the last forty-eight apprehensive and responsible dollars between yourself and starvation.",
@@ -3586,7 +3554,7 @@
     },
     {
       "text": "The pleasure to be derived from a chess combination lie in the feeling that a human mind is behind the game, dominating the inanimate pieces... and giving them breath of life.",
-      "name": "Richard Reti"
+      "name": "Richard Réti"
     },
     {
       "text": "The power of hanging pawns is based precisely in their mobility, in their ability to create acute situations instantly.",
@@ -3622,7 +3590,7 @@
     },
     {
       "text": "The pupil wants not so much to learn, as to learn how to learn.",
-      "name": "Samuel Boden"
+      "name": "Samuel Standidge Boden"
     },
     {
       "text": "The Queen's Gambit is like a piece of dead fish kept overlong on ice.",
@@ -3637,8 +3605,8 @@
       "name": "Alexander Alekhine"
     },
     {
-      "text": "The rise of the Soviet school to the summit of world chess is a logical result of socialist cultural development.",
-      "name": "Alexander Kotov (1958)"
+      "text": "The rise of the Soviet school to the summit of world chess is a logical result of socialist cultural development. (1958)",
+      "name": "Alexander Kotov"
     },
     {
       "text": "The Ruy Lopez occupied a constant place in my opening repertoire. In it is reflected the classical interpretation of the problem of the centre.",
@@ -3674,15 +3642,15 @@
     },
     {
       "text": "The study of combinations should enrich the analytical spirit of studious amateurs. Thereafter the most gifted among them will be able to catch some sparks of the genius of masters, and in addition some rays of the glory that is the masters.",
-      "name": "Eugene Znosko-Borowski"
+      "name": "Eugene Znosko-Borovsky"
     },
     {
       "text": "The study of typical plans is something that the leading grandmasters devote a great deal of time to. I would say that the most far-seeing of them devote as much time to this as to the study of openings.",
       "name": "Alexander Kotov"
     },
     {
-      "text": "The system set up by F.I.D.E. ... Insures that there will always be a Russian world champion... The Russians arranged it that way.",
-      "name": "Bobby Fischer (1962)"
+      "text": "The system set up by FIDE ... Insures that there will always be a Russian world champion... The Russians arranged it that way. (1962)",
+      "name": "Bobby Fischer"
     },
     {
       "text": "The tactician knows what to do when there is something to do; whereas the strategian knows what to do when there is nothing to do.",
@@ -3710,11 +3678,11 @@
     },
     {
       "text": "The true sweetness of chess, if it can ever be called sweet, is to see a victory snatched, by some happy impertinence, out of the shadows of apparently irrevocable disaster.",
-      "name": "H.G. Wells"
+      "name": "Herbert George Wells"
     },
     {
-      "text": "The true value of opening theory is not generally understood. Studying the opening to such a degree that one may reel off a dozen or 20 moves by rote is, above all, an aid to digestion. Some tournament organisers, for reasons best known to themselves, insist on starting play in the very early afternoon. This presents a stark choice: forgo lunch, risk indigestion by attempting to think too soon after a meal, or rely on opening theory until the meal is digested.",
-      "name": "Colonel Walter Polhill (in column for The Independent)"
+      "text": "The true value of opening theory is not generally understood. Studying the opening to such a degree that one may reel off a dozen or 20 moves by rote is, above all, an aid to digestion. Some tournament organisers, for reasons best known to themselves, insist on starting play in the very early afternoon. This presents a stark choice: forgo lunch, risk indigestion by attempting to think too soon after a meal, or rely on opening theory until the meal is digested. (The Independent)",
+      "name": "Colonel Walter Polhill"
     },
     {
       "text": "The truth is that my chess development was nothing out of the ordinary, and it proceeded probably at a pace no faster than others.",
@@ -3730,7 +3698,7 @@
     },
     {
       "text": "The weaker the player the more terrible the Knight is to him, but as a player increases in strength the value of the Bishop becomes more evident to him, and of course there is, or should be, a corresponding decrease in his estimation of the value of the Knight as compared to the bishop.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "The winner of the game is the player who makes the next-to-last mistake.",
@@ -3738,7 +3706,7 @@
     },
     {
       "text": "The winning of a pawn among good players of even strength often means the winning of the game.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "The worst enemy of the strategist is the clock. Time trouble... Reduces us all to pure reflex and reaction, tactical play. Emotion and instinct cloud our strategic vision when there is no time for proper evaluation.",
@@ -3746,7 +3714,7 @@
     },
     {
       "text": "The young people have read my book. Now I have no chance.",
-      "name": "Efim Bogolubow"
+      "name": "Efim Bogoljubow"
     },
     {
       "text": "Theory regards this opening as incorrect, but it is impossible to agree with this. Out of the five tournament games played by me with the King's Gambit, I have won all five.",
@@ -3770,7 +3738,7 @@
     },
     {
       "text": "There came a time when I realized that the ability to defend was - for a good chess player - insufficient. You can't be dependent upon your opponent's will, but must try to impose your will on him.",
-      "name": "Victor Kortchnoi"
+      "name": "Viktor Korchnoi"
     },
     {
       "text": "There can be no finer example of the inspiring powers of competition to shatter the status quo than Hungary's Judit Polgar.",
@@ -3798,11 +3766,11 @@
     },
     {
       "text": "There is no remorse like a remorse of chess. It is a curse upon man. There is no happiness in chess.",
-      "name": "H.G. Wells"
+      "name": "Herbert George Wells"
     },
     {
       "text": "There is no remorse like the remorse of chess.",
-      "name": "H. G. Wells"
+      "name": "Herbert George Wells"
     },
     {
       "text": "There is not a single true chess-player in the world whose heart does not beat faster at the mere sound of such long beloved and familiar words as 'gambit games'.",
@@ -3833,20 +3801,20 @@
       "name": "Lisa Lane"
     },
     {
-      "text": "There's not the mystery in ten murders that there is in one game of chess.",
-      "name": "Detective David Linley (character in Lord Dunsany's short story 'Two Bottles of Relish: A Play In One Act')"
+      "text": "There's not the mystery in ten murders that there is in one game of chess. (in Lord Dunsany's short story 'Two Bottles of Relish: A Play In One Act')",
+      "name": "Detective David Linley"
     },
     {
       "text": "These are not pieces, they are men! For any man to walk into the line of fire will be one less man in your army to fight for you. Value every troop and use him wisely, throw him not to the dogs as he is there to serve his king.",
       "name": "Jamie Walter Adams"
     },
     {
-      "text": "They (Europeans) overlook that the game is an image of battle, for which reason the terms Queen and Bishop are inappropriate and ought to be replaced by Supreme General and Elephant - as is the practice among eastern nations who were the founders and inventors of the game.",
-      "name": "Thomas Hyde (1694)"
+      "text": "They (Europeans) overlook that the game is an image of battle, for which reason the terms Queen and Bishop are inappropriate and ought to be replaced by Supreme General and Elephant - as is the practice among eastern nations who were the founders and inventors of the game. (1694)",
+      "name": "Thomas Hyde"
     },
     {
-      "text": "This game reminded me of the wonderful times of my youth, when 'the sunshine was brighter, and the girls were prettier', the openings were not so well studied, and chess was far more interesting.",
-      "name": "Alexander Grischuk (after a victory vs. Morozevich in Khanty-Mansiysk 2011)"
+      "text": "This game reminded me of the wonderful times of my youth, when 'the sunshine was brighter, and the girls were prettier', the openings were not so well studied, and chess was far more interesting. (after a victory vs. Morozevich in Khanty-Mansiysk 2011)",
+      "name": "Alexander Grischuk"
     },
     {
       "text": "This is the essential element that cannot be measured by any analysis or device, and I believe it's at the heart of success in all things: the power of intuition and the ability to harness and use it like a master.",
@@ -3857,8 +3825,8 @@
       "name": "Serafino Dubois"
     },
     {
-      "text": "This sacrifice of a pawn nowadays is only played for drawing purposes. Especially against the very strongest masters it has proved to be quite useful to this end.",
-      "name": "Jan Hein Donner (1966 on the Marshall)"
+      "text": "This sacrifice of a pawn nowadays is only played for drawing purposes. Especially against the very strongest masters it has proved to be quite useful to this end. (1966 - on the Marshall)",
+      "name": "Jan Hein Donner"
     },
     {
       "text": "Those who know the marvels of chess and wonder why this game of all games does not enjoy greater popularity may also ask why Pepsi-Cola is consumed by more people than Chateau Lafite, or the Beatles are more familiar than Beethoven.",
@@ -3870,7 +3838,7 @@
     },
     {
       "text": "Those who think that it is easy to play chess are mistaken. During a game a player lives on his nerves, and at the same time he must be perfectly composed.",
-      "name": "Victor Kortchnoi"
+      "name": "Viktor Korchnoi"
     },
     {
       "text": "Though I would have liked my chances in a rematch in 1998 if I were better prepared, it was clear then that computer superiority over humans in chess had always been just a matter of time.",
@@ -3914,11 +3882,11 @@
     },
     {
       "text": "To have a knight planted in your game at K6 is worse than a rusty nail in your knee.",
-      "name": "Efim Bogolubow"
+      "name": "Efim Bogoljubow"
     },
     {
       "text": "To improve at chess you should in the first instance study the endgame.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "To lose one's objective attitude to a position, nearly always means ruining your game.",
@@ -3930,7 +3898,7 @@
     },
     {
       "text": "To my way of thinking, Troitzky has no peer among endgame composers; no one else has composed so many and such varied endings of the first rank.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "To play a match for the World Championship is the cherished dream of every chess player.",
@@ -3953,8 +3921,8 @@
       "name": "Karl Robatsch"
     },
     {
-      "text": "Today, chess programs have become so good that even grandmasters sometimes struggle to understand the logic behind some of their moves.",
-      "name": "Ken Rogoff, 2010"
+      "text": "Today, chess programs have become so good that even grandmasters sometimes struggle to understand the logic behind some of their moves. (2010)",
+      "name": "Kenneth Rogoff"
     },
     {
       "text": "Too many times, people don't try their best. They don't have the keen spirit; the winning spirit. And once you make it you've got to guard your reputation - every day go in like an unknown to prove yourself. That's why I don't clown around. I don't believe in wasting time. My goal is to win the World Chess Championship; to beat the Russians. I take this very seriously.",
@@ -3998,7 +3966,7 @@
     },
     {
       "text": "Ultimately chess is just chess - not the best thing in the world and not the worst thing in the world, but there is nothing quite like it.",
-      "name": "W.C. Fields"
+      "name": "W.C. Fields (William Claude Dukenfield)"
     },
     {
       "text": "Ultimately, what separates a winner from a loser at the grandmaster level is the willingness to do the unthinkable. A brilliant strategy is, certainly, a matter of intelligence, but intelligence without audaciousness is not enough. Given the opportunity, I must have the guts to explode the game, to upend my opponent's thinking and, in so doing, unnerve him. So it is in business: One does not succeed by sticking to convention. When your opponent can easily anticipate every move you make, your strategy deteriorates and becomes commoditized.",
@@ -4017,16 +3985,16 @@
       "name": "Edmar Mednis"
     },
     {
-      "text": "Unlike my esteemed colleague Garry Kasparov, I don't restrict the strength of opposition to Elo < 2000, as fly-swatting makes poor spectator sport.",
-      "name": "Nigel Short (on simultaneous exhibitions)"
+      "text": "Unlike my esteemed colleague Garry Kasparov, I don't restrict the strength of opposition to Elo < 2000, as fly-swatting makes poor spectator sport. (on simultaneous exhibitions)",
+      "name": "Nigel Short"
     },
     {
       "text": "Up to this point White has been following well-known analysis. But now he makes a fatal error: he begins to use his own head.",
       "name": "Siegbert Tarrasch"
     },
     {
-      "text": "Utter Crap",
-      "name": "Tony Miles (review in Kingpin magazine of 'Unorthodox Openings' by Eric Schiller)"
+      "text": "Utter Crap (review in Kingpin magazine of 'Unorthodox Openings' by Eric Schiller)",
+      "name": "Tony Miles"
     },
     {
       "text": "Vanity should never tempt a player to engage in a combat at the risk of loss of health. It is bad enough to lose without the additional annoyance of paying doctors' bills.",
@@ -4049,16 +4017,12 @@
       "name": "ChessNetwork"
     },
     {
-      "text": "We are in truth but pieces on this chess board of life, which in the end we leave, only to drop one by one into the grave of nothingness.",
-      "name": "Omar Khayyam (c 1120)"
+      "text": "We are in truth but pieces on this chess board of life, which in the end we leave, only to drop one by one into the grave of nothingness. (c 1120)",
+      "name": "Omar Khayyam"
     },
     {
       "text": "We cannot resist the fascination of sacrifice, since a passion for sacrifices is part of a chess player's nature.",
       "name": "Rudolf Spielmann"
-    },
-    {
-      "text": "We do not track you. It's a rare feature, nowadays.",
-      "name": "lichess.org"
     },
     {
       "text": "We don't really know how the game was invented, though there are suspicions. As soon as we discover the culprits, we'll let you know.",
@@ -4081,16 +4045,12 @@
       "name": "Samuel Reshevsky"
     },
     {
-      "text": "We see no objection to ladies entering the tournament by correspondence but should recommend them to use the name of some male relative ( a father or a brother), unless her opponent is a lady also. Many ladies are clever chess players, and good housewives too.",
-      "name": "reply to reader of Household Chess Magazine 1865"
+      "text": "We see no objection to ladies entering the tournament by correspondence but should recommend them to use the name of some male relative ( a father or a brother), unless her opponent is a lady also. Many ladies are clever chess players, and good housewives too. (reply to reader of 1865)",
+      "name": "Household Chess Magazine"
     },
     {
       "text": "We should praise, rather, the courage of the player who, relying only on his intuition, plunges into a brilliant combination of which the issue does not appear to him too clear.",
-      "name": "Eugene Znosko-Borowski"
-    },
-    {
-      "text": "We will never display ads.",
-      "name": "lichess.org"
+      "name": "Eugene Znosko-Borovsky"
     },
     {
       "text": "Weak points or holes in the opponent's position must be occupied by pieces, not pawns.",
@@ -4101,8 +4061,8 @@
       "name": "Siegbert Tarrasch"
     },
     {
-      "text": "What the devil possessed me to reply 1. ... e5?? I compltely forgot that Spassky, like Spielmann in the past, very much likes to play the King's Gambit.",
-      "name": "David Bronstein (on their famous game in the 1960 USSR Championship)"
+      "text": "What the devil possessed me to reply 1. ... e5?? I compltely forgot that Spassky, like Spielmann in the past, very much likes to play the King's Gambit. (on their famous game in the 1960 USSR Championship)",
+      "name": "David Bronstein"
     },
     {
       "text": "What we need are lots of girls who aren't as good as us, who'll treat us with the proper respect and reverance.",
@@ -4126,7 +4086,7 @@
     },
     {
       "text": "When chess masters err, ordinary wood pushers tend to derive a measure of satisfaction, if not actual glee.",
-      "name": "I.A. Horowitz"
+      "name": "Israel Albert Horowitz"
     },
     {
       "text": "When everything on the board is clear it can be so difficult to conceal your thoughts from your opponent.",
@@ -4149,16 +4109,16 @@
       "name": "Nona Gaprindashvili"
     },
     {
-      "text": "When I found that idea I simply couldn't resist playing it. And look, people talk about me as a player who doesn't care about beauty. That's not true. It's simply that during the game each person sees beauty in different things. I like the beauty of the endgame, but I also get pleasure from finding ideas like those against Grischuk.",
-      "name": "Magnus Carlsen (on his game vs. Grischuk at the Tal Memorial 2012)"
+      "text": "When I found that idea I simply couldn't resist playing it. And look, people talk about me as a player who doesn't care about beauty. That's not true. It's simply that during the game each person sees beauty in different things. I like the beauty of the endgame, but I also get pleasure from finding ideas like those against Grischuk. (on his game vs. Grischuk at the Tal Memorial 2012)",
+      "name": "Magnus Carlsen"
     },
     {
-      "text": "When I have White, I win because I am White; when I have Black, I win because I am Bogolyubov.",
-      "name": "Efim Bogolyubov"
+      "text": "When I have White, I win because I am White; when I have Black, I win because I am Bogoljubow.",
+      "name": "Efim Bogoljubow"
     },
     {
       "text": "When I start to play a game I try to forget about previous games and try to concentrate on this game. This game is now the most important to me. But of course I am not a computer and you cannot simply press a button, delete, and everything you want to forget disappears automatically. But if you want to play well, it's important to concentrate on the now.",
-      "name": "Vassily Ivanchuk"
+      "name": "Vasyl Ivanchuk"
     },
     {
       "text": "When I started chess, it was like reading a book, a new world opens up for you, and I quickly realized that I loved this world. I loved to compete, to play, to win.",
@@ -4185,8 +4145,8 @@
       "name": "Walter Tevis"
     },
     {
-      "text": "When Marx got into a difficult position he would get angry and losing a game would cause him to fly into a rage.",
-      "name": "Wilhelm Liebknecht (on Karl Marx)"
+      "text": "When Marx got into a difficult position he would get angry and losing a game would cause him to fly into a rage. (on Karl Marx)",
+      "name": "Wilhelm Liebknecht"
     },
     {
       "text": "When men lose against me, they always have a headache... or things of that kind. I have never beaten a completely healthy man!",
@@ -4225,8 +4185,8 @@
       "name": "Alexander Kotov"
     },
     {
-      "text": "When you look at them, kneel down or crouch in such a way that you can look through the glass stright into their faces and look them in the eye. You will see human beings across the passage of time. They have remarkable quality. They speak to you.",
-      "name": "British Museum curator Irving Finkel (on the Isle of Lewis Pieces)"
+      "text": "When you look at them, kneel down or crouch in such a way that you can look through the glass stright into their faces and look them in the eye. You will see human beings across the passage of time. They have remarkable quality. They speak to you. (on the Isle of Lewis Pieces)",
+      "name": "Irving Finkel (British Museum curator)"
     },
     {
       "text": "When you play against an experienced opponent who exploits all the defensive resources at his command you sometimes have to walk time and again, along the narrow path of 'the only move'.",
@@ -4242,7 +4202,7 @@
     },
     {
       "text": "When you sit down to play a game you should think only about the position, but not about the opponent. Whether chess is regarded as a science, or an art, or a sport, all the same psychology bears no relation to it and only stands in the way of real chess.",
-      "name": "Jose Capablanca"
+      "name": "José Raúl Capablanca"
     },
     {
       "text": "When you trade, the key concern is not always the value of the pieces being exchanged, but what's left on the board.",
@@ -4281,16 +4241,16 @@
       "name": "Akiba Rubinstein"
     },
     {
-      "text": "Whoever has known bumper to bumper traffic snarls of a Sunday afternoon on the way home to the big city (and who has not?) would gladly give up a Rook for the open road. ",
-      "name": "Tony Santasiere (commenting on Spielmann-Eljaschoff, Munich 1903)"
+      "text": "Whoever has known bumper to bumper traffic snarls of a Sunday afternoon on the way home to the big city (and who has not?) would gladly give up a Rook for the open road. (commenting on Spielmann-Eljaschoff, Munich 1903)",
+      "name": "Tony Santasiere"
     },
     {
       "text": "Whoever sees no other aim in the game than that of giving checkmate to one's opponent will never become a good chess player.",
       "name": "Max Euwe"
     },
     {
-      "text": "Why are not more King's Gambits played nowadays? Well, in the first place, if you offfered the King's Gambit to a master, eight times out of ten he would decline it, either with 2. ... d5 or 2. ... Bc5.",
-      "name": "Frank Marshall (1914)"
+      "text": "Why are not more King's Gambits played nowadays? Well, in the first place, if you offfered the King's Gambit to a master, eight times out of ten he would decline it, either with 2. ... d5 or 2. ... Bc5. (1914)",
+      "name": "Frank Marshall"
     },
     {
       "text": "Win with grace, lose with dignity.",
@@ -4317,8 +4277,8 @@
       "name": "Burt Hochberg"
     },
     {
-      "text": "With this mistake I deprived myself of the possibility to make a contribution to the treasury of chess art.",
-      "name": "Garry Kasparov (annotating his move 18. ...g4? versus Kortchnoi at Debrecen, Hungary in 1992)"
+      "text": "With this mistake I deprived myself of the possibility to make a contribution to the treasury of chess art. (annotating his move 18. ...g4? versus Korchnoi at Debrecen, Hungary in 1992)",
+      "name": "Garry Kasparov"
     },
     {
       "text": "Without error there can be no brilliancy.",
@@ -4334,11 +4294,11 @@
     },
     {
       "text": "You are for me the queen on d8 and I am the pawn on d7!!",
-      "name": "GM Eduard Gufeld"
+      "name": "Eduard Gufeld"
     },
     {
-      "text": "You are not a born CEO or investor or chess grandmaster. You will achieve greatness only through an enormous amount of hard work over many years.",
-      "name": "Geoffrey Colvin (In 'What It Takes To Be Great' FORTUNE Oct. 30, 2006)"
+      "text": "You are not a born CEO or investor or chess grandmaster. You will achieve greatness only through an enormous amount of hard work over many years. (in 'What It Takes To Be Great' FORTUNE Oct. 30, 2006)",
+      "name": "Geoffrey Colvin"
     },
     {
       "text": "You can become a big master in chess only if you see your mistakes and shortcomings. Exactly the same as in life itself.",
@@ -4354,7 +4314,7 @@
     },
     {
       "text": "You can't take the pawn because then the other will queen. Like wonder twin powers",
-      "name": "John ~ZugAddict~ Chernoff"
+      "name": "John Chernoff (ZugAddict)"
     },
     {
       "text": "You cannot play at chess if you are kind-hearted.",
@@ -4369,8 +4329,8 @@
       "name": "Bobby Fischer"
     },
     {
-      "text": "You know you're going to lose. Even when I was ahead I knew I was going to lose",
-      "name": "Andrew Soltis (on playing against Fischer)"
+      "text": "You know you're going to lose. Even when I was ahead I knew I was going to lose. (on playing against Fischer)",
+      "name": "Andrew Soltis"
     },
     {
       "text": "You know, comrade Pachman, I don't enjoy being a Minister, I would rather play chess like you, or make a revolution in Venezuela.",
@@ -4437,12 +4397,12 @@
       "name": "Edmar Mednis"
     },
     {
-      "text": "Your Soviet players are cheating, losing the games on purpose to my rival, Botvinnik, in order to increase his points on the score.",
-      "name": "Jose Capablanca (to Stalin in Moscow 1936 where he finished in 1st place, 1 point ahead of Botvinnik)"
+      "text": "Your Soviet players are cheating, losing the games on purpose to my rival, Botvinnik, in order to increase his points on the score. (to Stalin in Moscow 1936 where he finished in 1st place, 1 point ahead of Botvinnik)",
+      "name": "José Raúl Capablanca"
     },
     {
-      "text": "Youth has triumphed.",
-      "name": "84-year old Jacques Mieses (upon defeating 86-year-old Dirk van Foreest)"
+      "text": "Youth has triumphed. (84-year old, upon defeating 86-year-old Dirk van Foreest)",
+      "name": "Jacques Mieses"
     },
     {
       "text": "I AM THE INVENTOR OF THE ALIEN GAMBIT! MY LEGACY WILL GO ON!",
