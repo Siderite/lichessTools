@@ -46,8 +46,8 @@
       const trans = lt.translator;
       const $ = lt.$;
       ev.preventDefault();
-      const author = $(ev.currentTarget).text();
-      const quotes = this.quotes.filter(q=>q.name==author);
+      const author = $(ev.currentTarget).text().replaceAll(/\(.*?\)/g,'').trim();
+      const quotes = this.quotes.filter(q=>q.name.replaceAll(/\(.*?\)/g,'').trim() == author);
       const header = trans.pluralSame('allQuotesByAuthorText',author); 
       const dialog = await lt.dialog({
         header: header,
