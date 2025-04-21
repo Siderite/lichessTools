@@ -150,7 +150,7 @@
       const lichess = lt.lichess;
       const trans = lt.translator;
       const $ = lt.$;
-      if (lichess.analysis.isGamebook()) return;
+      if (lichess.analysis?.isGamebook()) return;
       const href = $('.infinite-scroll .pager > a').attr('href');
       const modeMatch = /\/(?<mode>hot|newest|oldest|updated|popular|alphabetical|mine)\b/i.exec(lt.global.location.pathname);
       const mode = modeMatch?.groups?.mode || 'hot';
