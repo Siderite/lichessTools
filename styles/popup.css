@@ -8,6 +8,7 @@ body {
   color: black;
   font-size: 1rem;
   width: 26rem;
+  max-width: 98vw;
   overflow-x: hidden;
 }
 
