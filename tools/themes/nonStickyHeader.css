@@ -2,7 +2,7 @@
 
 @media not (prefers-reduced-motion) {
 
-  body.lichessTools.lichessTools-theme_nonStickyHeader header#top {
+  body.lichessTools.lichessTools-theme_nonStickyHeader:not(.zen) header#top {
     position: absolute;
   }
 
