@@ -115,7 +115,7 @@
 
       //TODO add link to translation project
       let html = `<div class="account box box-pad">
-            <h1 class="box__top">$trans(LiChess Tools)</h1>
+            <h1 class="box__top">$trans(lichessToolsPreferences)</h1>
             <div class="links">
               <a class="rate" title="$trans(rateThisTitle)"
                  href="https://chromewebstore.google.com/detail/lichess-tools-by-siderite/langlhlcknngldkeliapahbhbcmlcbcj/reviews" target="_blank">$trans(rateThisText)</a>
@@ -124,9 +124,8 @@
             </div>
             <form>`;
       if (isLoggedIn) {
-        html += `<h3 class="feedback">$trans(feedbackTitle)</h3>
-<div class="feedback">
-  <textarea enterkeyhint="send"></textarea>
+        html += `<div class="feedback">
+  <textarea enterkeyhint="send" placeholder="$trans(feedbackTitle)"></textarea>
   <button data-icon="${lt.icon.toEntity(lt.icon.PlayTriangle)}" title="$trans(feedbackButtonTitle)"></button>
 </div>`;
       }
