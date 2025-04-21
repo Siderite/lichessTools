@@ -43,7 +43,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       if (!this.options.topicFlairs) return;
-      if (lichess.analysis.isGamebook()) return;
+      if (lichess.analysis?.isGamebook()) return;
       const container = $('.study-topics');
       if (lt.inViewport(container)) {
         const tagify = $('tags+textarea', container)[0]?.__tagify;
