@@ -86,7 +86,7 @@
       const lichess = this.lt.lichess;
       let engineId;
       let engineRoot;
-      const useBetterEngine=false;//this.lt.storage.supportsDb && (await this.lt.getMemorySize()) > 4;
+      const useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) >= 4;
       if (useBetterEngine) {
         engineId = '__sf17_1nnue79';
         engineRoot = 'sf171-79.js';
