@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+24 Apr
+
+- bulk delete of imported games
+
 08 Apr
 
 - Toggle practice quick action

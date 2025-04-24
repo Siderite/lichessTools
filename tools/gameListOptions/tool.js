@@ -32,7 +32,10 @@
         'copyGamesButtonTitle': 'Download selected games as PGN',
         'csvGamesButtonTitle': 'Download selected games as CSV',
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
-        'clipboardDenied': 'Clipboard access denied' 
+        'clipboardDenied': 'Clipboard access denied',
+        'deleteGamesButtonTitle': 'Delete selected imported games',
+        'deleteSelectedQuestion': 'Are you sure you want to delete %s games?',
+        'deleteSelectedQuestion:one': 'Are you sure you want to delete one game?'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -51,7 +54,10 @@
         'copyGamesButtonTitle': 'Descarc\u0103 jocurile selectate ca PGN',
         'csvGamesButtonTitle': 'Descarc\u0103 jocurile selectate ca CSV',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
-        'clipboardDenied': 'Acces refuzat la clipboard'
+        'clipboardDenied': 'Acces refuzat la clipboard',
+        'deleteGamesButtonTitle': '\u015Eterge jocurile importante selectate',
+        'deleteSelectedQuestion': 'Sigur vrei sa \u015ftergi %s jocuri selectate?',
+        'deleteSelectedQuestion:one': 'Sigur vrei sa \u015ftergi jocul selectat?'
       }
     }
 
@@ -121,9 +127,42 @@
             })
             .appendTo(filters);
         }
+        const m = /\/@\/(?<userId>[^\/\?#]+)\/imported/.exec(lt.global.location.pathname);
+        const userId = lt.getUserId()?.toLowerCase();
+        const isImportedPage = userId && m?.groups?.userId?.toLowerCase() == userId;
+        if (isImportedPage && !$('button.lichessTools-gameListOptions-delete',filters).length) {
+          $('<button class="lichessTools-gameListOptions-delete">')
+            .attr('data-icon',lt.icon.Trash)
+            .attr('title',trans.noarg('deleteGamesButtonTitle'))
+            .on('click',async ev=>{
+              ev.preventDefault();
+              const items = container.find('.lichessTools-gameListOptions-select input[type="checkbox"]:checked')
+                .get()
+                .map((e)=>{
+                  const href = $(e).next('a').attr('href');
+                  const id = href
+                    ? href.substr(1,8)
+                    : null;
+                  return { id: id, el: $(e).closest('article') };
+                })
+                .filter(item=>!!item.id);
+              if (!await lt.uiApi.dialog.confirm(trans.pluralSame('deleteSelectedQuestion',items.length))) {
+                return;
+              }
+              for (const item of items) {
+                await lt.net.fetch({ url: '/{id}/delete', args: { id: item.id } },{ method: 'POST' });
+                item.el.remove();
+                await lt.timeout(100);
+              }
+              lt.global.document.location.reload();
+            })
+            .appendTo(filters);
+        }
+
       } else {
         $('button.lichessTools-gameListOptions-copy',filters).remove();
         $('button.lichessTools-gameListOptions-csv',filters).remove();
+        $('button.lichessTools-gameListOptions-delete',filters).remove();
       }
     };
 

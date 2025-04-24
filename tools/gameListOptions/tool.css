@@ -3,17 +3,23 @@ body.lichessTools div.lichessTools-gameListOptions {
 }
 
 body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-csv,
-body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-copy {
+body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-copy,
+body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-delete {
   border: none;
   background: none;
 }
 
-body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-csv {
+body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-csv,
+body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-delete {
   margin-left: 0.5em;
 }
 
 body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-copy {
   margin-left: auto;
+}
+
+body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-delete {
+   color: var(--c-bad);
 }
 
 body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-csv:hover,
