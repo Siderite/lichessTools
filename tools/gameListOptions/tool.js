@@ -127,7 +127,7 @@
             })
             .appendTo(filters);
         }
-        const m = /\/@\/(?<userId>[^\/\?#]+)\/imported/.exec(lt.global.location.pathname);
+        const m = /\/@\/(?<userId>[^\/\?#]+)\/imported\b/.exec(lt.global.location.pathname);
         const userId = lt.getUserId()?.toLowerCase();
         const isImportedPage = userId && m?.groups?.userId?.toLowerCase() == userId;
         if (isImportedPage && !$('button.lichessTools-gameListOptions-delete',filters).length) {
