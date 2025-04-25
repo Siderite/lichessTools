@@ -861,7 +861,8 @@
     "togglePracticeTitle": "أدوات شطرنج الحياة - تبديل التدريب",
     "deleteGamesButtonTitle": "حذف الألعاب المستوردة المحددة",
     "deleteSelectedQuestion": "هل أنت متأكد من أنك تريد حذف ألعاب %s؟",
-    "deleteSelectedQuestion:one": "هل أنت متأكد من أنك تريد حذف لعبة واحدة؟"
+    "deleteSelectedQuestion:one": "هل أنت متأكد من أنك تريد حذف لعبة واحدة؟",
+    "predictedRatingChangeText": "التغييرات المتوقعة في التصنيف: %s"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1725,7 +1726,8 @@
     "togglePracticeTitle": "Lichess工具 - 切换练习",
     "deleteGamesButtonTitle": "删除选中的已导入游戏",
     "deleteSelectedQuestion": "您确定要删除 %s 游戏吗？",
-    "deleteSelectedQuestion:one": "您确定要删除一个游戏吗？"
+    "deleteSelectedQuestion:one": "您确定要删除一个游戏吗？",
+    "predictedRatingChangeText": "预测的评分变化： %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2589,7 +2591,8 @@
     "togglePracticeTitle": "LiChess Tools - toggle practice",
     "deleteGamesButtonTitle": "Delete selected imported games",
     "deleteSelectedQuestion": "Are you sure you want to delete %s games?",
-    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?"
+    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
+    "predictedRatingChangeText": "Predicted rating changes: %s"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3453,7 +3456,8 @@
     "togglePracticeTitle": "LiChess Tools - toggle practice",
     "deleteGamesButtonTitle": "Verwijder geselecteerde geïmporteerde spellen",
     "deleteSelectedQuestion": "Weet je zeker dat je %s spellen wilt verwijderen?",
-    "deleteSelectedQuestion:one": "Weet je zeker dat je één spel wilt verwijderen?"
+    "deleteSelectedQuestion:one": "Weet je zeker dat je één spel wilt verwijderen?",
+    "predictedRatingChangeText": "Voorspelde beoordelingswijzigingen: %s"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4317,7 +4321,8 @@
     "togglePracticeTitle": "LiChess Tools - toggle practice",
     "deleteGamesButtonTitle": "Delete selected imported games",
     "deleteSelectedQuestion": "Are you sure you want to delete %s games?",
-    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?"
+    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
+    "predictedRatingChangeText": "Predicted rating changes: %s"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5179,9 +5184,10 @@
     "engineDepthTitle": "LiChess Tools - profondeur du moteur personnalisée",
     "quickActions.practice": "Activer/désactiver l'entraînement",
     "togglePracticeTitle": "LiChess Tools - activer/désactiver l'entraînement",
-    "deleteGamesButtonTitle": "Supprimer les jeux importés sélectionnés",
-    "deleteSelectedQuestion": "Êtes-vous sûr de vouloir supprimer les parties %s?",
-    "deleteSelectedQuestion:one": "Êtes-vous sûr de vouloir supprimer une partie ?"
+    "deleteGamesButtonTitle": "Supprimer les parties importées sélectionnées",
+    "deleteSelectedQuestion": "Êtes-vous sûr de vouloir supprimer %s parties ?",
+    "deleteSelectedQuestion:one": "Êtes-vous sûr de vouloir supprimer une partie ?",
+    "predictedRatingChangeText": "Changements de notation prévus : %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6045,7 +6051,8 @@
     "togglePracticeTitle": "LiChess Werkzeuge - Übung umschalten",
     "deleteGamesButtonTitle": "Ausgewählte importierte Spiele löschen",
     "deleteSelectedQuestion": "Bist du sicher, dass du %s Spiele löschen möchtest?",
-    "deleteSelectedQuestion:one": "Bist du sicher, dass du ein Spiel löschen möchtest?"
+    "deleteSelectedQuestion:one": "Bist du sicher, dass du ein Spiel löschen möchtest?",
+    "predictedRatingChangeText": "Prognostizierte Bewertungsänderungen: %s"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6909,7 +6916,8 @@
     "togglePracticeTitle": "Strumenti LiChess - attiva/disattiva pratica",
     "deleteGamesButtonTitle": "Elimina i giochi importati selezionati",
     "deleteSelectedQuestion": "Sei sicuro di voler eliminare i giochi %s?",
-    "deleteSelectedQuestion:one": "Sei sicuro di voler eliminare una partita?"
+    "deleteSelectedQuestion:one": "Sei sicuro di voler eliminare una partita?",
+    "predictedRatingChangeText": "Cambiamenti di valutazione previsti: %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7773,7 +7781,8 @@
     "togglePracticeTitle": "Narzędzia LiChess - przełącz ćwiczenie",
     "deleteGamesButtonTitle": "Usuń wybrane zaimportowane gry",
     "deleteSelectedQuestion": "Czy na pewno chcesz usunąć Gry %s?",
-    "deleteSelectedQuestion:one": "Czy na pewno chcesz usunąć jedną grę?"
+    "deleteSelectedQuestion:one": "Czy na pewno chcesz usunąć jedną grę?",
+    "predictedRatingChangeText": "Przewidywane zmiany oceny: %s"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8637,7 +8646,8 @@
     "togglePracticeTitle": "Ferramentas de LiChess - alternar prática",
     "deleteGamesButtonTitle": "Excluir jogos importados selecionados",
     "deleteSelectedQuestion": "Tem certeza que deseja excluir partidas de %s?",
-    "deleteSelectedQuestion:one": "Tem certeza de que deseja excluir um jogo?"
+    "deleteSelectedQuestion:one": "Tem certeza de que deseja excluir um jogo?",
+    "predictedRatingChangeText": "Alterações de classificação previstas: %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9501,7 +9511,8 @@
     "togglePracticeTitle": "Ferramentas de LiChess - alternar prática",
     "deleteGamesButtonTitle": "Excluir jogos importados selecionados",
     "deleteSelectedQuestion": "Tem certeza que deseja excluir partidas de %s?",
-    "deleteSelectedQuestion:one": "Tem certeza de que deseja excluir um jogo?"
+    "deleteSelectedQuestion:one": "Tem certeza de que deseja excluir um jogo?",
+    "predictedRatingChangeText": "Alterações de classificação previstas: %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -10365,7 +10376,8 @@
     "togglePracticeTitle": "LiChess Tools - comută mod Practică",
     "deleteGamesButtonTitle": "Șterge jocurile importate selectate",
     "deleteSelectedQuestion": "Sigur vrei sa ștergi %s jocuri selectate?",
-    "deleteSelectedQuestion:one": "Sigur vrei sa ștergi jocul selectat?"
+    "deleteSelectedQuestion:one": "Sigur vrei sa ștergi jocul selectat?",
+    "predictedRatingChangeText": "Simulare schimbare rating: %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -11229,7 +11241,8 @@
     "togglePracticeTitle": "Инструменты Жизни - переключение практики",
     "deleteGamesButtonTitle": "Удалить выбранные импортированные игры",
     "deleteSelectedQuestion": "Вы уверены, что хотите удалить игры %s?",
-    "deleteSelectedQuestion:one": "Вы уверены, что хотите удалить одну игру?"
+    "deleteSelectedQuestion:one": "Вы уверены, что хотите удалить одну игру?",
+    "predictedRatingChangeText": "Прогнозируемые изменения рейтинга: %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -12093,7 +12106,8 @@
     "togglePracticeTitle": "Herramientas de LiChess - practica alternativo",
     "deleteGamesButtonTitle": "Eliminar juegos importados seleccionados",
     "deleteSelectedQuestion": "¿Estás seguro de que quieres eliminar partidas %s?",
-    "deleteSelectedQuestion:one": "¿Estás seguro de que quieres eliminar un juego?"
+    "deleteSelectedQuestion:one": "¿Estás seguro de que quieres eliminar un juego?",
+    "predictedRatingChangeText": "Cambios de puntuación previstos: %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12957,7 +12971,8 @@
     "togglePracticeTitle": "LiChess Tools - toggle practice",
     "deleteGamesButtonTitle": "Delete selected imported games",
     "deleteSelectedQuestion": "Are you sure you want to delete %s games?",
-    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?"
+    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
+    "predictedRatingChangeText": "Predicted rating changes: %s"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13821,6 +13836,7 @@
     "togglePracticeTitle": "LiChess Tools - toggle practice",
     "deleteGamesButtonTitle": "Delete selected imported games",
     "deleteSelectedQuestion": "Are you sure you want to delete %s games?",
-    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?"
+    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
+    "predictedRatingChangeText": "Predicted rating changes: %s"
   }
 }
