@@ -2,21 +2,21 @@ body.lichessTools header.lichessTools-fullScreen {
   visibility: hidden;
 }
 
-body.lichessTools.lichessTools-fullScreen-enabled.zen header#top:not(.lichessTools-fullScreen) {
+body.lichessTools.lichessTools-fullScreen-enabled.zenable.zen header#top:not(.lichessTools-fullScreen) {
   width: 100%;
   justify-content: end;
 }
 
-body.lichessTools.lichessTools-fullScreen-enabled.zen header:not(.lichessTools-fullScreen) div.site-buttons {
+body.lichessTools.lichessTools-fullScreen-enabled.zenable.zen header:not(.lichessTools-fullScreen) div.site-buttons {
   visibility: hidden;
   display: flex;
 }
 
-body.lichessTools.zen header:not(.lichessTools-fullScreen) div.lichessTools-fullScreen {
+body.lichessTools.zenable.zen header:not(.lichessTools-fullScreen) div.lichessTools-fullScreen {
   visibility: visible;
 }
 
-body.lichessTools.zen:has(header.lichessTools-fullScreen) #zenzone {
+body.lichessTools.zenable.zen:has(header.lichessTools-fullScreen) #zenzone {
   display: none;
 }
 

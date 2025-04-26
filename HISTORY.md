@@ -1,5 +1,17 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 Apr
+
+- show K-MAPS
+
+25 Apr
+
+- show expected rating change when playing against a user
+
+24 Apr
+
+- bulk delete of imported games
+
 08 Apr
 
 - Toggle practice quick action

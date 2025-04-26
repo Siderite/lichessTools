@@ -858,7 +858,12 @@
     "engineDepthText": "عمق محرك مخصص: %s",
     "engineDepthTitle": "أدوات شطرنج الحياة - عمق محرك مخصص",
     "quickActions.practice": "تبديل التدريب",
-    "togglePracticeTitle": "أدوات شطرنج الحياة - تبديل التدريب"
+    "togglePracticeTitle": "أدوات شطرنج الحياة - تبديل التدريب",
+    "deleteGamesButtonTitle": "حذف الألعاب المستوردة المحددة",
+    "deleteSelectedQuestion": "هل أنت متأكد من أنك تريد حذف ألعاب %s؟",
+    "deleteSelectedQuestion:one": "هل أنت متأكد من أنك تريد حذف لعبة واحدة؟",
+    "predictedRatingChangeText": "التغييرات المتوقعة في التصنيف: %s",
+    "kmapsTitle": "أدوات شطرنج الحياة - K-MAPS\r\n  أمن الملك: $K\r\n  المواد: $M\r\n  النشاط: $A\r\n  بنية البيد: $P\r\n  الفضاء: $S"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1719,7 +1724,12 @@
     "engineDepthText": "自定义引擎深度: %s",
     "engineDepthTitle": "Lichess 工具 - 自定义引擎深度",
     "quickActions.practice": "切换练习",
-    "togglePracticeTitle": "Lichess工具 - 切换练习"
+    "togglePracticeTitle": "Lichess工具 - 切换练习",
+    "deleteGamesButtonTitle": "删除选中的已导入游戏",
+    "deleteSelectedQuestion": "您确定要删除 %s 游戏吗？",
+    "deleteSelectedQuestion:one": "您确定要删除一个游戏吗？",
+    "predictedRatingChangeText": "预测的评分变化： %s",
+    "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2580,7 +2590,12 @@
     "engineDepthText": "Custom engine depth: %s",
     "engineDepthTitle": "LiChess Tools - custom engine depth",
     "quickActions.practice": "Toggle practice",
-    "togglePracticeTitle": "LiChess Tools - toggle practice"
+    "togglePracticeTitle": "LiChess Tools - toggle practice",
+    "deleteGamesButtonTitle": "Delete selected imported games",
+    "deleteSelectedQuestion": "Are you sure you want to delete %s games?",
+    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
+    "predictedRatingChangeText": "Predicted rating changes: %s",
+    "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3441,7 +3456,12 @@
     "engineDepthText": "Eigen engine diepte: %s",
     "engineDepthTitle": "LiChess Tools - aangepaste engine diepte",
     "quickActions.practice": "Schakel oefenen",
-    "togglePracticeTitle": "LiChess Tools - toggle practice"
+    "togglePracticeTitle": "LiChess Tools - toggle practice",
+    "deleteGamesButtonTitle": "Verwijder geselecteerde geïmporteerde spellen",
+    "deleteSelectedQuestion": "Weet je zeker dat je %s spellen wilt verwijderen?",
+    "deleteSelectedQuestion:one": "Weet je zeker dat je één spel wilt verwijderen?",
+    "predictedRatingChangeText": "Voorspelde beoordelingswijzigingen: %s",
+    "kmapsTitle": "LiChess gereedschappen - K-MAPS\r\n  Kingveiligheid: $K\r\n  Materiaal: $M\r\n  Activiteit: $A\r\n  Pioningstructuur: $P\r\n  ruimte: $S"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4302,7 +4322,12 @@
     "engineDepthText": "Custom engine depth: %s",
     "engineDepthTitle": "LiChess Tools - custom engine depth",
     "quickActions.practice": "Toggle practice",
-    "togglePracticeTitle": "LiChess Tools - toggle practice"
+    "togglePracticeTitle": "LiChess Tools - toggle practice",
+    "deleteGamesButtonTitle": "Delete selected imported games",
+    "deleteSelectedQuestion": "Are you sure you want to delete %s games?",
+    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
+    "predictedRatingChangeText": "Predicted rating changes: %s",
+    "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5163,7 +5188,12 @@
     "engineDepthText": "Profondeur du moteur personnalisée : %s",
     "engineDepthTitle": "LiChess Tools - profondeur du moteur personnalisée",
     "quickActions.practice": "Activer/désactiver l'entraînement",
-    "togglePracticeTitle": "LiChess Tools - activer/désactiver l'entraînement"
+    "togglePracticeTitle": "LiChess Tools - activer/désactiver l'entraînement",
+    "deleteGamesButtonTitle": "Supprimer les parties importées sélectionnées",
+    "deleteSelectedQuestion": "Êtes-vous sûr de vouloir supprimer %s parties ?",
+    "deleteSelectedQuestion:one": "Êtes-vous sûr de vouloir supprimer une partie ?",
+    "predictedRatingChangeText": "Changements de notation prévus : %s",
+    "kmapsTitle": "Outils LiChess - K-MAPS\r\n  Sécurité du Roi : $K\r\n  Matériel : $M\r\n  Activité : $A\r\n  Structure du Pawn : $P\r\n  Espace : $S"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6024,7 +6054,12 @@
     "engineDepthText": "Eigene Engine-Tiefe: %s",
     "engineDepthTitle": "LiChess Tools - benutzerdefinierte Engine-Tiefe",
     "quickActions.practice": "Übung umschalten",
-    "togglePracticeTitle": "LiChess Werkzeuge - Übung umschalten"
+    "togglePracticeTitle": "LiChess Werkzeuge - Übung umschalten",
+    "deleteGamesButtonTitle": "Ausgewählte importierte Spiele löschen",
+    "deleteSelectedQuestion": "Bist du sicher, dass du %s Spiele löschen möchtest?",
+    "deleteSelectedQuestion:one": "Bist du sicher, dass du ein Spiel löschen möchtest?",
+    "predictedRatingChangeText": "Prognostizierte Bewertungsänderungen: %s",
+    "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King Sicherheit: $K\r\n  Material: $M\r\n  Aktivität: $A\r\n  Pfandstruktur: $P\r\n  Leerzeichen: $S"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -6885,7 +6920,12 @@
     "engineDepthText": "Profondità personalizzata del motore: %s",
     "engineDepthTitle": "LiChess Tools - Profondità del motore personalizzato",
     "quickActions.practice": "Attiva/disattiva pratica",
-    "togglePracticeTitle": "Strumenti LiChess - attiva/disattiva pratica"
+    "togglePracticeTitle": "Strumenti LiChess - attiva/disattiva pratica",
+    "deleteGamesButtonTitle": "Elimina i giochi importati selezionati",
+    "deleteSelectedQuestion": "Sei sicuro di voler eliminare i giochi %s?",
+    "deleteSelectedQuestion:one": "Sei sicuro di voler eliminare una partita?",
+    "predictedRatingChangeText": "Cambiamenti di valutazione previsti: %s",
+    "kmapsTitle": "Strumenti LiChess - K-MAPS\r\n  King safety: $K\r\n  Materiale: $M\r\n  Attività: $A\r\n  Struttura dei pedoni: $P\r\n  Spazio: $S"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -7746,7 +7786,12 @@
     "engineDepthText": "Niestandardowa głębokość silnika: %s",
     "engineDepthTitle": "Narzędzia LiChess - niestandardowa głębokość silnika",
     "quickActions.practice": "Przełącz ćwiczenie",
-    "togglePracticeTitle": "Narzędzia LiChess - przełącz ćwiczenie"
+    "togglePracticeTitle": "Narzędzia LiChess - przełącz ćwiczenie",
+    "deleteGamesButtonTitle": "Usuń wybrane zaimportowane gry",
+    "deleteSelectedQuestion": "Czy na pewno chcesz usunąć Gry %s?",
+    "deleteSelectedQuestion:one": "Czy na pewno chcesz usunąć jedną grę?",
+    "predictedRatingChangeText": "Przewidywane zmiany oceny: %s",
+    "kmapsTitle": "Narzędzia LiChess - K-MAPS\r\n  Bezpieczeństwo Króla: $K\r\n  Materiał: $M\r\n  Aktywność: $A\r\n  Struktura awna: $P\r\n  Miejsce: $S"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -8607,7 +8652,12 @@
     "engineDepthText": "Profundidade do mecanismo personalizado: %s",
     "engineDepthTitle": "LiChess Tools - profundidade de motor personalizado",
     "quickActions.practice": "Alternar prática",
-    "togglePracticeTitle": "Ferramentas de LiChess - alternar prática"
+    "togglePracticeTitle": "Ferramentas de LiChess - alternar prática",
+    "deleteGamesButtonTitle": "Excluir jogos importados selecionados",
+    "deleteSelectedQuestion": "Tem certeza que deseja excluir partidas de %s?",
+    "deleteSelectedQuestion:one": "Tem certeza de que deseja excluir um jogo?",
+    "predictedRatingChangeText": "Alterações de classificação previstas: %s",
+    "kmapsTitle": "Ferramentas de LiChess - K-MAPS\r\n  Rei Segurança: $K\r\n  Material: $M\r\n  Atividade: $A\r\n  Estrutura do Peão: $P\r\n  Espaço: $S"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -9468,7 +9518,12 @@
     "engineDepthText": "Profundidade do mecanismo personalizado: %s",
     "engineDepthTitle": "LiChess Tools - profundidade de motor personalizado",
     "quickActions.practice": "Alternar prática",
-    "togglePracticeTitle": "Ferramentas de LiChess - alternar prática"
+    "togglePracticeTitle": "Ferramentas de LiChess - alternar prática",
+    "deleteGamesButtonTitle": "Excluir jogos importados selecionados",
+    "deleteSelectedQuestion": "Tem certeza que deseja excluir partidas de %s?",
+    "deleteSelectedQuestion:one": "Tem certeza de que deseja excluir um jogo?",
+    "predictedRatingChangeText": "Alterações de classificação previstas: %s",
+    "kmapsTitle": "Ferramentas de LiChess - K-MAPS\r\n  Rei Segurança: $K\r\n  Material: $M\r\n  Atividade: $A\r\n  Estrutura do Peão: $P\r\n  Espaço: $S"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -10329,7 +10384,12 @@
     "engineDepthText": "Nivel motor analiză: %s",
     "engineDepthTitle": "LiChess Tools - nivel personalizat pentru motorul de analiză",
     "quickActions.practice": "Mod Practică",
-    "togglePracticeTitle": "LiChess Tools - comută mod Practică"
+    "togglePracticeTitle": "LiChess Tools - comută mod Practică",
+    "deleteGamesButtonTitle": "Șterge jocurile importate selectate",
+    "deleteSelectedQuestion": "Sigur vrei sa ștergi %s jocuri selectate?",
+    "deleteSelectedQuestion:one": "Sigur vrei sa ștergi jocul selectat?",
+    "predictedRatingChangeText": "Simulare schimbare rating: %s",
+    "kmapsTitle": "LiChess Tools - K-MAPS\n  Siguranță rege: $K\n  Material: $M\n  Activitate: $A\n  Structură pioni: $P\n  Spațiu: $S"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -11190,7 +11250,12 @@
     "engineDepthText": "Глубина движка: %s",
     "engineDepthTitle": "Инструменты Жизни - пользовательская глубина движка",
     "quickActions.practice": "Переключить практику",
-    "togglePracticeTitle": "Инструменты Жизни - переключение практики"
+    "togglePracticeTitle": "Инструменты Жизни - переключение практики",
+    "deleteGamesButtonTitle": "Удалить выбранные импортированные игры",
+    "deleteSelectedQuestion": "Вы уверены, что хотите удалить игры %s?",
+    "deleteSelectedQuestion:one": "Вы уверены, что хотите удалить одну игру?",
+    "predictedRatingChangeText": "Прогнозируемые изменения рейтинга: %s",
+    "kmapsTitle": "Инструменты Жизни - K-MAPS\r\n  Королевская безопасность: $K\r\n  Материал: $M\r\n  Деятельность: $A\r\n  Структура пешком: $P\r\n  Пробел: $S"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -12051,7 +12116,12 @@
     "engineDepthText": "Profundidad del motor personalizado: %s",
     "engineDepthTitle": "Herramientas de LiChess - Profundidad de motor personalizada",
     "quickActions.practice": "Alternar práctica",
-    "togglePracticeTitle": "Herramientas de LiChess - practica alternativo"
+    "togglePracticeTitle": "Herramientas de LiChess - practica alternativo",
+    "deleteGamesButtonTitle": "Eliminar juegos importados seleccionados",
+    "deleteSelectedQuestion": "¿Estás seguro de que quieres eliminar partidas %s?",
+    "deleteSelectedQuestion:one": "¿Estás seguro de que quieres eliminar un juego?",
+    "predictedRatingChangeText": "Cambios de puntuación previstos: %s",
+    "kmapsTitle": "Herramientas de LiAjedrez - K-MAPS\r\n  Rey Rey: $K\r\n  Material: $M\r\n  Actividad: $A\r\n  Estructura de amanecer: $P\r\n  Espacio: $S"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -12912,7 +12982,12 @@
     "engineDepthText": "Custom engine depth: %s",
     "engineDepthTitle": "LiChess Tools - custom engine depth",
     "quickActions.practice": "Toggle practice",
-    "togglePracticeTitle": "LiChess Tools - toggle practice"
+    "togglePracticeTitle": "LiChess Tools - toggle practice",
+    "deleteGamesButtonTitle": "Delete selected imported games",
+    "deleteSelectedQuestion": "Are you sure you want to delete %s games?",
+    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
+    "predictedRatingChangeText": "Predicted rating changes: %s",
+    "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -13773,6 +13848,11 @@
     "engineDepthText": "Custom engine depth: %s",
     "engineDepthTitle": "LiChess Tools - custom engine depth",
     "quickActions.practice": "Toggle practice",
-    "togglePracticeTitle": "LiChess Tools - toggle practice"
+    "togglePracticeTitle": "LiChess Tools - toggle practice",
+    "deleteGamesButtonTitle": "Delete selected imported games",
+    "deleteSelectedQuestion": "Are you sure you want to delete %s games?",
+    "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
+    "predictedRatingChangeText": "Predicted rating changes: %s",
+    "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S"
   }
 }

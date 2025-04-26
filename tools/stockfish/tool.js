@@ -86,13 +86,13 @@
       const lichess = this.lt.lichess;
       let engineId;
       let engineRoot;
-      const useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) > 4;
+      const useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) >= 4;
       if (useBetterEngine) {
         engineId = '__sf17_1nnue79';
         engineRoot = 'sf171-79.js';
       } else {
-        engineId = '__sf16nnue40';
-        engineRoot = 'sf-nnue-40.js';
+        engineId = '__sf16nnue7';
+        engineRoot = 'sf16-7.js';
       }
       try {
         if (!this._module) {

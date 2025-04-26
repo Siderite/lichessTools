@@ -148,7 +148,8 @@
       this.options = {
         pasteImages: lt.isOptionSet(value, 'pasteImages'),
         bigEmoji: lt.isOptionSet(value, 'bigEmoji'),
-        refreshOnMessage: lt.isOptionSet(value, 'refreshOnMessage')
+        refreshOnMessage: lt.isOptionSet(value, 'refreshOnMessage'),
+        get isSet() { return this.pasteImages || this.bigEmoji || this.refreshOnMessage },
       };
       if (!this.isInboxOrForumOrProfilePage()) return;
       lt.global.clearInterval(this.interval);
@@ -168,6 +169,7 @@
         $('.msg-app.pane-convo').observer()
           .on('their,mine',this.refreshChat);
       }
+      $('body').toggleClassSafe('lichess-inboxChat',this.options.isSet)
     }
 
   }
