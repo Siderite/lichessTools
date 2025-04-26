@@ -74,9 +74,16 @@
       }
       const render = (val)=>{
         const q = 0.6;
-        const color = val>0
-          ? lt.getGradientColor(Math.pow(val, q), [{ q: 0, color: '#FFFFFF' }, { q: 1, color: '#00FF00' }])
-          : lt.getGradientColor(Math.pow(-val, q), [{ q: 0, color: '#FFFFFF' }, { q: 1, color: '#FF0000' }]);
+        let color;
+        if (lt.isDark()) {
+          color = val>0
+            ? lt.getGradientColor(Math.pow(val, q), [{ q: 0, color: '#FFFFFF' }, { q: 1, color: '#00FF00' }])
+            : lt.getGradientColor(Math.pow(-val, q), [{ q: 0, color: '#FFFFFF' }, { q: 1, color: '#FF0000' }]);
+        } else {
+          color = val>0
+            ? lt.getGradientColor(Math.pow(val, q), [{ q: 0, color: '#404040' }, { q: 1, color: '#00FF00' }])
+            : lt.getGradientColor(Math.pow(-val, q), [{ q: 0, color: '#404040' }, { q: 1, color: '#FF0000' }]);
+        }
         return $('<span>')
          .css('--kmaps-color',color);
       }
