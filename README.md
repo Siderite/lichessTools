@@ -134,6 +134,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - position info context menu
 - local evaluation persistent cache
 - bulk delete of imported games
+- K-MAPS analysis of the position
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:
