@@ -1,0 +1,43 @@
+body.lichessTools span.lichessTools-kmaps span {
+  cursor: pointer;
+  color: var(--kmaps-color);
+}
+
+body.lichessTools div.game__meta .lichessTools-kmaps,
+body.lichessTools div.chat__members .lichessTools-kmaps {
+  margin-left: 1em;
+  display: flex;
+  font-size: x-small;
+  align-items: center;
+  overflow: hidden;
+  justify-content: right;
+}
+
+body.lichessTools a.mini-game .lichessTools-kmaps {
+  margin: 3px 0.5em 0.3em 0.7em;
+  display: block;
+  opacity: 0.7;
+  height: auto;
+  font-size: x-small;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+body.lichessTools div.analyse__wiki .lichessTools-kmaps,
+body.lichessTools .copyables .lichessTools-kmaps {
+  font-size: 0.8em;
+  width: 100%;
+  display: block;
+  text-align: right;
+}
+
+body.lichessTools.lichessTools-kmapsMiniGames a.mini-game:not(:has(.lichessTools-kmaps)) {
+  padding-bottom: 2em;
+}
+
+@media (min-width: 1259.3px) {
+  main.analyse.is-relay:not(.has-relay-tour) .chat__members:has(.lichessTools-kmaps) {
+    display: block;
+  }
+}
