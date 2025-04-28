@@ -50,7 +50,8 @@
         'goodMovesText': 'good/brilliant/interesting moves',
         'goodMovesTitle': 'LiChess Tools - good/brilliant/interesting moves',
         'merryChristmas': 'Merry Christmas from LiChess Tools!',
-        'options.christmas': 'Show Christmas lights on chart on the 25th of December'
+        'options.christmas': 'Show Christmas lights on chart on the 25th of December',
+        'estimatedRating': 'Estimated rating: %s'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -72,7 +73,8 @@
         'potentialLineTitle': 'Poten\u0163ial maxim',
         'goodMovesText': 'mut\u0103ri bune/briliante/interesante',
         'goodMovesTitle': 'LiChess Tools - mut\u0103ri bune/briliante/interesante',
-        'merryChristmas': 'Cr\u0103ciun fericit de la LiChess Tools!'
+        'merryChristmas': 'Cr\u0103ciun fericit de la LiChess Tools!',
+        'estimatedRating': 'Rating estimat: %s'
       }
     }
 
@@ -659,7 +661,7 @@
         bonus += 1; // a tactical underpromotion adds to brilliancy
       }
 
-      const balancingBonus = Math.abs(cp1) < 100 ? 0 : (cp1 * side < -100 ? -1 : 1);
+      const balancingBonus = Math.abs(cp1) < 100 ? 0 : (cp1 * side < -100 ? 1 : -1);
       bonus += balancingBonus;
 
       const move = {
@@ -1574,6 +1576,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
+      const trans = lt.translator;
       var isWhite = $(el).closest('.advice-summary__side').has('.is.white').length ? 1 : 0;
       var localLine = this.getLocalLine().filter(n=>n.ply && (n.ply % 2) == isWhite);
       if (!localLine.length) return;
@@ -1619,6 +1622,11 @@
           .text(symbol+' '+perc+'%')
           .appendTo(tooltip);
       }
+      const accuracy = +(/\d+/.exec($(el).text())[0]);
+      const estimatedRating = Math.round(0.3657*accuracy**2 - 4.5536*accuracy);
+      $('<div class="lichessTools-extraChart-estimatedRating">')
+        .text(trans.pluralSame('estimatedRating',estimatedRating))
+        .appendTo(tooltip);
       tooltip
         .removeClass('hide');
       this.tempAccuracyOn = lichess.analysis.getOrientation()=='black' 
