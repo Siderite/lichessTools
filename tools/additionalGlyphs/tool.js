@@ -42,6 +42,8 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis?.chessground) return;
+      const bounds = analysis.chessground?.state?.dom?.bounds();
+      if (!bounds?.height || !bounds?.width) return;
       const firstGlyph = analysis.node.glyphs?.at(0);
       let glyph = firstGlyph?.symbol;
       let fill = firstGlyph?.fill || '#557766B0';
