@@ -639,10 +639,10 @@
                                 }
                                 return defends && !defenders;
                               });
-      whiteScore -= whiteBackward.length * 0.5; //TODO should we take into account the number of the pawns?
-      blackScore -= blackBackward.length * 0.5;
+      whiteScore -= whiteBackward.length * 0.3;
+      blackScore -= blackBackward.length * 0.3;
 
-      const diff = whiteScore - blackScore;
+      const diff = whiteScore - blackScore; //TODO should we take into account the number of the pawns?
       return this.normalize(diff, -7, 7,'P'); //max delta ~15.5, but average is ~7
     }
   

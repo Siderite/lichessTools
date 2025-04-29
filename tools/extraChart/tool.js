@@ -1623,7 +1623,7 @@
           .appendTo(tooltip);
       }
       const accuracy = +(/\d+/.exec($(el).text())[0]);
-      const estimatedRating = Math.round(0.3657*accuracy**2 - 4.5536*accuracy);
+      const estimatedRating = Math.round(3800 / (1 + Math.exp(-0.07 * (accuracy - 76))));
       $('<div class="lichessTools-extraChart-estimatedRating">')
         .text(trans.pluralSame('estimatedRating',estimatedRating))
         .appendTo(tooltip);
