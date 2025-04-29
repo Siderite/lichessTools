@@ -64,7 +64,7 @@
         const key = this.getPerfKey($(e).attr('data-icon'));
         if (!key) return;
         const perf = user.perfs[key];
-        if (!perf) return;
+        if (!perf || perf.prov) return;
         $('.lichessTools-showDeviation',e).remove();
         const deviation = $('<span class="lichessTools-showDeviation">')
           .text('\u00B1'+perf.rd)

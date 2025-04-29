@@ -74,9 +74,16 @@
       }
       const render = (val)=>{
         const q = 0.6;
-        const color = val>0
-          ? lt.getGradientColor(Math.pow(val, q), [{ q: 0, color: '#FFFFFF' }, { q: 1, color: '#00FF00' }])
-          : lt.getGradientColor(Math.pow(-val, q), [{ q: 0, color: '#FFFFFF' }, { q: 1, color: '#FF0000' }]);
+        let color;
+        if (lt.isDark()) {
+          color = val>0
+            ? lt.getGradientColor(Math.pow(val, q), [{ q: 0, color: '#FFFFFF' }, { q: 1, color: '#00FF00' }])
+            : lt.getGradientColor(Math.pow(-val, q), [{ q: 0, color: '#FFFFFF' }, { q: 1, color: '#FF0000' }]);
+        } else {
+          color = val>0
+            ? lt.getGradientColor(Math.pow(val, q), [{ q: 0, color: '#404040' }, { q: 1, color: '#00FF00' }])
+            : lt.getGradientColor(Math.pow(-val, q), [{ q: 0, color: '#404040' }, { q: 1, color: '#FF0000' }]);
+        }
         return $('<span>')
          .css('--kmaps-color',color);
       }
@@ -188,6 +195,7 @@
   class ChessPositionEvaluator {
     constructor(fen) {
       this.board = this.parseFEN(fen);
+      this.movesCache = new Map();
       this.pieceValues = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
       this.centralSquares = [27, 28, 35, 36]; // d4, d5, e4, e5
     }
@@ -198,6 +206,7 @@
       const position = fen.split(' ')[0];
       let square = 0;
       for (const char of position) {
+        if (square >= board.length) break;
         if (char === '/') continue;
         if (/\d/.test(char)) {
           square += parseInt(char);
@@ -210,10 +219,18 @@
     }
   
     // Normalize a score to [-1, 1]
-    normalize(score, min, max) {
-      if (score >= max) return 1;
-      if (score <= min) return -1;
-      return (2 * (score - min)) / (max - min) - 1;
+    normalize(score, min, max, area) {
+      if (score >= max) {
+        //console.log(area,score+' larger than max '+max);
+        return 1;
+      }
+      if (score <= min) {
+        //console.log(area,score+' smaller than min '+min);
+        return -1;
+      }
+      const normalized = (2 * (score - min)) / (max - min) - 1;
+      //console.log(area,score+' normalized to '+normalized);
+      return normalized;
     }
   
     // King Safety (K)
@@ -240,9 +257,15 @@
       const blackThreats = this.getEnemyThreats(blackKingIdx, false);
       whiteScore -= whiteThreats * 1;
       blackScore -= blackThreats * 1;
+
+      // Hole detection: squares that can never be attacked by friendly pawns
+      const whiteHoles = this.getKingHoles(whiteKingIdx, true);
+      const blackHoles = this.getKingHoles(blackKingIdx, false);
+      whiteScore -= whiteHoles * 0.5;  // Penalize 1 point per hole
+      blackScore -= blackHoles * 0.5;
   
       const diff = whiteScore - blackScore;
-      return this.normalize(diff, -10, 10);
+      return this.normalize(diff, -20, 20,'K'); //max is ~37, decisive should be 20
     }
   
     getPawnShield(kingIdx, isWhite) {
@@ -291,20 +314,57 @@
           }
         }
       }
-      return threats / 10; // Scale down
+      return threats / 10;
     }
-  
+
+    getKingHoles(kingIdx, isWhite) {
+      const file = kingIdx % 8;
+      const rank = Math.floor(kingIdx / 8);
+      let holes = 0;
+      for (let r = Math.max(0, rank - 1); r <= Math.min(7, rank + 1); r++) {
+        for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
+          if (r === rank && f === file) continue;
+          if (isWhite && r <= 1) continue;
+          if (!isWhite && r >= 6) continue;
+          const idx = r * 8 + f;
+          if (!this.canEverBeAttackedByPawn(idx, isWhite)) holes++;
+        }
+      }
+      return holes;
+    }
+
+    canEverBeAttackedByPawn(idx, isWhite) {
+      const file = idx % 8;
+      const rank = Math.floor(idx / 8);
+      const pawnRank = isWhite ? rank - 1 : rank + 1; // Rank where pawn would attack from
+
+      if (pawnRank < 0 || pawnRank > 7) return false;
+
+      const friendlyPawn = isWhite ? 'P' : 'p';
+      for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
+        if (f === file) continue;
+        const pawnIdx = pawnRank * 8 + f;
+        if (this.board[pawnIdx] === friendlyPawn) return true;
+      }
+      return false;
+    }
+
     // Material (M)
     evaluateMaterial() {
       let whiteMaterial = 0, blackMaterial = 0;
+      let whiteBishops = 0, blackBishops = 0;
       for (const piece of this.board) {
         if (!piece) continue;
+        if (piece == 'B') whiteBishops++;
+        if (piece == 'b') blackBishops++;
         const value = this.pieceValues[piece.toLowerCase()] || 0;
         if (/[A-Z]/.test(piece)) whiteMaterial += value;
         else blackMaterial += value;
       }
+      if (whiteBishops == 2) whiteMaterial+0.3;
+      if (blackBishops == 2) blackMaterial+0.3;
       const diff = whiteMaterial - blackMaterial;
-      return this.normalize(diff, -31, 31); // Max material difference (Q+2R+2B+2N = 9+10+6+6)
+      return this.normalize(diff, -10, 10,'M'); // Max ~39, but 10 is decisive
     }
   
     // Piece Activity (A)
@@ -323,25 +383,89 @@
           blackScore += moves.length * 0.1;
         }
       }
-  
-      // Central control
-      for (const idx of this.centralSquares) {
-        const piece = this.board[idx];
-        if (piece) {
-          const isWhite = /[A-Z]/.test(piece);
-          if (isWhite) {
-            whiteScore += 0.5;
-          } else {
-            blackScore += 0.5;
+
+      // Bonus for rooks and queens on open files
+      for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (!piece) continue;
+        const isWhite = /[A-Z]/.test(piece);
+        const type = piece.toLowerCase();
+        if (type === 'r' || type === 'q') {
+          const file = i % 8;
+          if (this.isOpenFile(file)) {
+            if (isWhite) {
+              whiteScore += 0.3;
+            } else {
+              blackScore += 0.3;
+            }
           }
         }
       }
-  
+
+      // Central control
+      for (const centerIdx of this.centralSquares) {
+        let whiteAttacks = 0, blackAttacks = 0;
+        for (let i = 0; i < 64; i++) {
+          const piece = this.board[i];
+          if (!piece) continue;
+          const isWhitePiece = /[A-Z]/.test(piece);
+          if (piece.toLowerCase() === 'p') {
+            // Pawn attacks
+            const attacks = this.getPawnAttacks(i, isWhitePiece);
+            if (attacks.includes(centerIdx)) {
+              if (isWhitePiece) {
+                whiteAttacks++;
+              } else {
+                blackAttacks++;
+              }
+            }
+          } else {
+            // Other pieces use pseudo-legal moves
+            const moves = this.getPseudoLegalMoves(i, piece);
+            if (moves.includes(centerIdx)) {
+              if (isWhitePiece) {
+                whiteAttacks++;
+              } else {
+                blackAttacks++;
+              }
+            }
+          }
+        }
+        // Award bonus if more attackers
+        if (whiteAttacks > blackAttacks) {
+          whiteScore += 0.5;
+        } else if (blackAttacks > whiteAttacks) {
+          blackScore += 0.5;
+        }
+      }  
+
       const diff = whiteScore - blackScore;
-      return this.normalize(diff, -10, 10);
+      return this.normalize(diff, -10, 10,'A'); // max is ~19, but decisive would be 10
+    }
+
+    getPawnAttacks(idx, isWhite) {
+      const file = idx % 8;
+      const rank = Math.floor(idx / 8);
+      const attacks = [];
+      const dir = isWhite ? -1 : 1; // White attacks up, Black attacks down
+      // Diagonal attacks
+      const attackOffsets = [-1, 1]; // Left and right files
+      for (const fOffset of attackOffsets) {
+        const newFile = file + fOffset;
+        const newRank = rank + dir;
+        if (newFile >= 0 && newFile <= 7 && newRank >= 0 && newRank <= 7) {
+          const attackIdx = newRank * 8 + newFile;
+          attacks.push(attackIdx);
+        }
+      }
+      return attacks;
     }
   
-    getPseudoLegalMoves(idx, piece) {
+    getPseudoLegalMoves(idx, piece, control) {
+      const cacheKey = `${piece}${idx}`;
+      let result = this.movesCache.get(cacheKey);
+      if (result) return result;
+
       const moves = [];
       const file = idx % 8;
       const rank = Math.floor(idx / 8);
@@ -349,14 +473,15 @@
       const type = piece.toLowerCase();
   
       const directions = {
-        r: [[0, 1], [0, -1], [1, 0], [-1, 0]], // Rook
-        b: [[1, 1], [1, -1], [-1, 1], [-1, -1]], // Bishop
-        q: [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]], // Queen
-        n: [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], // Knight
-        k: [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]], // King
+        r: [[0, 1], [0, -1], [1, 0], [-1, 0]],
+        b: [[1, 1], [1, -1], [-1, 1], [-1, -1]],
+        q: [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]],
+        n: [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]],
+        k: [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]],
       };
   
       if (type === 'p') {
+        if (control) throw 'Should not use control=true for pawns';
         const dir = isWhite ? -1 : 1;
         const startRank = isWhite ? 6 : 1;
         // Forward move
@@ -386,16 +511,30 @@
           while (steps-- && r >= 0 && r < 8 && f >= 0 && f < 8) {
             const newIdx = r * 8 + f;
             const target = this.board[newIdx];
+            if (target) {
+              const targetWhite = /[A-Z]/.test(target);
+              if (targetWhite == isWhite && !control) break;
+              moves.push(newIdx);
+              break;
+            }
             moves.push(newIdx);
-            if (target) break; // Blocked by piece
-            if (type === 'n' || type === 'k') break;
             r += dr;
             f += df;
           }
         }
       }
   
-      return moves.filter(i => i >= 0 && i < 64);
+      result = moves.filter(i => i >= 0 && i < 64);
+      this.movesCache.set(cacheKey, result);
+      return result;
+    }
+
+    isOpenFile(file) {
+      for (let r = 0; r < 8; r++) {
+        const idx = r * 8 + file;
+        if (this.board[idx] === 'P' || this.board[idx] === 'p') return false;
+      }
+      return true;
     }
   
     // Pawn Structure (P)
@@ -431,15 +570,80 @@
       // Passed pawns
       for (let i = 0; i < 64; i++) {
         const piece = this.board[i];
-        if (piece === 'P') {
-          if (this.isPassedPawn(i, true)) whiteScore += 1;
-        } else if (piece === 'p') {
-          if (this.isPassedPawn(i, false)) blackScore += 1;
+        if (piece === 'P') { // White pawn
+          if (this.isPassedPawn(i, true)) {
+            const r = Math.floor(i / 8); // Row from 0 (rank 8) to 7 (rank 1)
+            const advancedRows = 6 - r; // Rows advanced from starting row 6
+            whiteScore += 0.2 * advancedRows;
+          }
+        } else if (piece === 'p') { // Black pawn
+          if (this.isPassedPawn(i, false)) {
+            const r = Math.floor(i / 8);
+            const advancedRows = r - 1; // Rows advanced from starting row 1
+            blackScore += 0.2 * advancedRows;
+          }
         }
       }
-  
-      const diff = whiteScore - blackScore;
-      return this.normalize(diff, -8, 8);
+
+      // Pawn islands
+      const whiteIslands = this.countPawnIslands(whitePawns);
+      const blackIslands = this.countPawnIslands(blackPawns);
+      whiteScore -= (whiteIslands - 1) * 0.5;
+      blackScore -= (blackIslands - 1) * 0.5;
+
+      // Backward pawns
+      const whites = [];
+      const blacks = [];
+      for (let i=0; i<64; i++) {
+        const file = i % 8;
+        const rank = Math.floor(i / 8);
+        const piece = this.board[i];
+        if (piece=='p') {
+          blacks.push(i);
+        } else
+        if (piece=='P') {
+          whites.push(i);
+        }
+      }
+      const whiteBackward = whites
+                              .filter(pawn=>{
+                                const pf = pawn%8;
+                                const pr = Math.floor(pawn/8);
+                                let defenders = 0;
+                                let defends = 0;
+                                for (const def of whites) {
+                                  if (def==pawn) continue;
+                                  const df = def%8;
+                                  const dr = Math.floor(def/8);
+                                  if ([pf-1,pf+1].includes(df)) {
+                                    if (dr>=pr) defenders++;
+                                    else defends++;
+                                  }
+                                }
+                                return defends && !defenders;
+                              });
+      const blackBackward = blacks
+                              .filter(pawn=>{
+                                const pf = pawn%8;
+                                const pr = Math.floor(pawn/8);
+                                let defenders = 0;
+                                let defends = 0;
+                                for (const def of blacks) {
+                                  if (def==pawn) continue;
+                                  const df = def%8;
+                                  const dr = Math.floor(def/8);
+                                  if ([pf-1,pf+1].includes(df)) {
+                                    if (dr<=pr) defenders++;
+                                    else defends++;
+                                  }
+                                }
+                                return defends && !defenders;
+                              });
+      whiteScore -= whiteBackward.length * 0.3;
+      blackScore -= blackBackward.length * 0.3;
+
+      const diff = whiteScore - blackScore; //TODO should we take into account the number of the pawns?
+      return this.normalize(diff, -7, 7,'P'); //max delta ~15.5, but average is ~7
     }
   
     isPassedPawn(idx, isWhite) {
@@ -456,32 +660,73 @@
       }
       return true;
     }
+
+    countPawnIslands(pawns) {
+      let islands = 0;
+      let inIsland = false;
+      for (let f = 0; f < 8; f++) {
+        if (pawns[f] > 0) {
+          if (!inIsland) {
+            islands++;
+            inIsland = true;
+          }
+        } else {
+          inIsland = false;
+        }
+      }
+      return islands;
+    }
+   
+    isBackwardPawn(idx, isWhite) {
+      const file = idx % 8;
+      const rank = Math.floor(idx / 8);
+      const dir = isWhite ? -1 : 1;
+      const nextRank = rank + dir;
+      if (nextRank < 0 || nextRank > 7) return false;
+    
+      const forwardIdx = nextRank * 8 + file;
+      if (this.board[forwardIdx]) return false;
+    
+      const canBeCaptured = this.canBeCaptured(forwardIdx, isWhite);
+      if (!canBeCaptured) return false;
+    
+      const hasSupport = (file > 0 && this.board[rank * 8 + file - 1] === (isWhite ? 'P' : 'p')) ||
+                         (file < 7 && this.board[rank * 8 + file + 1] === (isWhite ? 'P' : 'p'));
+      return !hasSupport;
+    }
   
     // Space Advantage (S)
     evaluateSpace() {
       let whiteScore = 0, blackScore = 0;
   
       // Count controlled squares in opponent's half
+      const whiteControlled = new Set();
+      const blackControlled = new Set();
       for (let i = 0; i < 64; i++) {
         const piece = this.board[i];
         if (!piece) continue;
+        const isPawn = /p/i.test(piece);
         const isWhite = /[A-Z]/.test(piece);
-        const moves = this.getPseudoLegalMoves(i, piece);
+        const moves = isPawn
+                        ? this.getPawnAttacks(i, isWhite)
+                        : this.getPseudoLegalMoves(i, piece, true);
         for (const move of moves) {
           const rank = Math.floor(move / 8);
-          if (isWhite && rank <= 3) whiteScore += 0.1; // Black's half
-          if (!isWhite && rank >= 4) blackScore += 0.1; // White's half
+          if (isWhite && rank <= 3) whiteControlled.add(move);
+          if (!isWhite && rank >= 4) blackControlled.add(move);
         }
       }
+      whiteScore += whiteControlled.size * 0.1;
+      blackScore += blackControlled.size * 0.1;
   
       // Bonus for central pawns
       for (const idx of this.centralSquares) {
-        if (this.board[idx] === 'P') whiteScore += 0.5;
-        if (this.board[idx] === 'p') blackScore += 0.5;
+        if (this.board[idx] === 'P') whiteScore += 1;
+        if (this.board[idx] === 'p') blackScore += 1;
       }
   
       const diff = whiteScore - blackScore;
-      return this.normalize(diff, -10, 10);
+      return this.normalize(diff, -7, 7,'S'); //max is ~11, 7 should be decisive
     }
   
     // Main evaluation function

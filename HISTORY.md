@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+28 Apr
+
+- estimate rating based on accuracy
+
 26 Apr
 
 - show K-MAPS

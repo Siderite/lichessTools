@@ -17512,26 +17512,6 @@
         }
       ]
     },
-    "r1bqk1nrp1p2ppp2p53P41b62P5PP3PPPRNBQKB1Rb": {
-      "total": 1,
-      "moves": [
-        {
-          "uci": "b4c5",
-          "san": "Bc5",
-          "nr": 1
-        }
-      ]
-    },
-    "r1bqk1nrp1p2ppp2p53P41b68PPP2PPPRNBQKB1Rw": {
-      "total": 1,
-      "moves": [
-        {
-          "uci": "c2c3",
-          "san": "c3",
-          "nr": 1
-        }
-      ]
-    },
     "r1bqk1nrpp1pbppp2n52p1p32B1P32N2N2PPPP1PPPR1BQK2Rw": {
       "total": 1,
       "moves": [

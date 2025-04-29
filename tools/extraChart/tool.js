@@ -50,7 +50,8 @@
         'goodMovesText': 'good/brilliant/interesting moves',
         'goodMovesTitle': 'LiChess Tools - good/brilliant/interesting moves',
         'merryChristmas': 'Merry Christmas from LiChess Tools!',
-        'options.christmas': 'Show Christmas lights on chart on the 25th of December'
+        'options.christmas': 'Show Christmas lights on chart on the 25th of December',
+        'estimatedRating': 'Estimated rating: %s'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -72,7 +73,8 @@
         'potentialLineTitle': 'Poten\u0163ial maxim',
         'goodMovesText': 'mut\u0103ri bune/briliante/interesante',
         'goodMovesTitle': 'LiChess Tools - mut\u0103ri bune/briliante/interesante',
-        'merryChristmas': 'Cr\u0103ciun fericit de la LiChess Tools!'
+        'merryChristmas': 'Cr\u0103ciun fericit de la LiChess Tools!',
+        'estimatedRating': 'Rating estimat: %s'
       }
     }
 
@@ -644,10 +646,24 @@
       const cp1 = this.getCp(this.getNodeCeval(node));
       const cp2 = this.getCp(this.getNodeCeval(prevNode));
       if (cp1 === undefined || cp2 === undefined) return 0;
-      if ((cp1 - cp2) * side < -25) return 0;
+
+      const threshold = Math.abs(cp1) > 200 || this.hasTacticalMotif(node, side, prevNode) ? -50 : -25;
+      if ((cp1 - cp2) * side < threshold) return 0;
+
       if (Math.abs(cp1) > 75 && Math.sign(side) != Math.sign(cp1)) return 0;
+
       if (this.inCheck(prevNode.fen)) return 0;
-      if (this.isPromotion(node)) return 0;
+
+      let bonus = 0;
+      if (this.isPromotion(node)) {
+        if (/q$/i.test(node.uci)) return 0;
+        if (!this.hasTacticalMotif(node, side, prevNode) && (cp1 - cp2) * side < 50) return 0;
+        bonus += 1; // a tactical underpromotion adds to brilliancy
+      }
+
+      const balancingBonus = Math.abs(cp1) < 100 ? 0 : (cp1 * side < -100 ? 1 : -1);
+      bonus += balancingBonus;
+
       const move = {
         sx: 104 - node.uci.charCodeAt(0),
         sy: node.uci.charCodeAt(1) - 49,
@@ -662,14 +678,147 @@
       const mat1 = this.simpleMaterial(node, true, side) / 100;
       const delta = (mat3 - mat1);
       if (mwStartUci * side + 1 + delta < mwEndUci * side) {
-        return 1;
+        return 1 + bonus;
       }
       board = lt.getBoardFromFen(prev2Node.fen);
       const mmw3 = this.maxMaterialWon(board, side) / 100;
       board = lt.getBoardFromFen(node.fen);
       const mmw1 = this.maxMaterialWon(board, side) / 100;
       const bril = (mmw1 - mmw3) * side - delta;
-      return bril;
+      return bril + bonus;
+    };
+
+    getAttacks = (board, x, y, pieceType) => {
+      const attacks = [];
+      if (pieceType === 'n') { // Knight
+        const knightMoves = [
+          [-2, -1], [-2, 1], [-1, -2], [-1, 2],
+          [1, -2], [1, 2], [2, -1], [2, 1]
+        ];
+        for (const [dx, dy] of knightMoves) {
+          const nx = x + dx, ny = y + dy;
+          if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8) {
+            attacks.push([nx, ny]);
+          }
+        }
+      } else if (pieceType === 'b' || pieceType === 'q') {
+        const bishopDirs = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
+        for (const [dx, dy] of bishopDirs) {
+          for (let i = 1; i < 8; i++) {
+            const nx = x + dx * i, ny = y + dy * i;
+            if (nx < 0 || nx >= 8 || ny < 0 || ny >= 8) break;
+            attacks.push([nx, ny]);
+            if (board[ny][nx]) break;
+          }
+        }
+      }
+      if (pieceType === 'r' || pieceType === 'q') {
+        const rookDirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+        for (const [dx, dy] of rookDirs) {
+          for (let i = 1; i < 8; i++) {
+            const nx = x + dx * i, ny = y + dy * i;
+            if (nx < 0 || nx >= 8 || ny < 0 || ny >= 8) break;
+            attacks.push([nx, ny]);
+            if (board[ny][nx]) break;
+          }
+        }
+      }
+      return attacks;
+    };
+
+    hasTacticalMotif = (node, side, prevNode) => {
+      const lt = this.lichessTools;
+
+      const board = lt.getBoardFromFen(node.fen);
+      if (!board) return false;
+
+      const uci = node.uci;
+      const toX = 104 - uci.charCodeAt(2);
+      const toY = uci.charCodeAt(3) - 49;
+      const piece = board[toY][toX];
+      if (!piece) return false;
+
+      const pieceSide = piece === piece.toUpperCase() ? -1 : 1;
+      if (pieceSide !== side) return false;
+      const pieceType = piece.toLowerCase();
+
+      // Check for Fork
+      const attacks = this.getAttacks(board, toX, toY, pieceType);
+      let opponentPiecesAttacked = 0;
+      for (const [nx, ny] of attacks) {
+        const target = board[ny][nx];
+        if (!target) continue;
+        const targetSide = target === target.toUpperCase() ? -1 : 1;
+        if (targetSide === side) continue;
+        if (target.toLowerCase() !== 'k') {
+          opponentPiecesAttacked++;
+        }
+      }
+      if (opponentPiecesAttacked >= 2) {
+        return true; // Fork detected
+      }
+
+      // Check for Pin (bishop, rook, queen only)
+      if (['b', 'r', 'q'].includes(pieceType)) {
+        const pinDirs = pieceType === 'b' ? [[-1, -1], [-1, 1], [1, -1], [1, 1]] :
+                        pieceType === 'r' ? [[-1, 0], [1, 0], [0, -1], [0, 1]] :
+                        [[-1, -1], [-1, 1], [1, -1], [1, 1], [-1, 0], [1, 0], [0, -1], [0, 1]];
+        for (const [dx, dy] of pinDirs) {
+          let firstPiece = null, secondPiece = null;
+          for (let i = 1; i < 8; i++) {
+            const nx = toX + dx * i, ny = toY + dy * i;
+            if (nx < 0 || nx >= 8 || ny < 0 || ny >= 8) break;
+            const target = board[ny][nx];
+            if (!target) continue;
+            const targetSide = target === target.toUpperCase() ? -1 : 1;
+            if (targetSide === side) break;
+            if (!firstPiece) {
+              firstPiece = { x: nx, y: ny, piece: target };
+            } else {
+              secondPiece = { x: nx, y: ny, piece: target };
+              break;
+            }
+          }
+          if (firstPiece && secondPiece) {
+            const firstValue = this.pieceMaterial[firstPiece.piece.toLowerCase()] || 0;
+            const secondValue = this.pieceMaterial[secondPiece.piece.toLowerCase()] || (secondPiece.piece.toLowerCase() === 'k' ? 10000 : 0);
+            if (firstValue < secondValue) {
+              return true;
+            }
+          }
+        }
+      }
+
+      // Check for Discovered Attack
+      if (!prevNode) throw 'Need previous position';
+      const prevBoard = lt.getBoardFromFen(prevNode.fen);
+      const fromX = 104 - uci.charCodeAt(0);
+      const fromY = uci.charCodeAt(1) - 49;
+
+      // Find pieces that could attack through the moved piece s old position
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          const otherPiece = prevBoard[y][x];
+          if (!otherPiece || otherPiece === piece) continue;
+          if ((otherPiece === otherPiece.toUpperCase() ? -1 : 1) !== side) continue;
+          const otherType = otherPiece.toLowerCase();
+          if (!['b', 'r', 'q'].includes(otherType)) continue;
+          const otherAttacks = this.getAttacks(board, x, y, otherType);
+          if (otherAttacks.some(([ax, ay]) => ax === fromX && ay === fromY)) {
+            for (const [ax, ay] of otherAttacks) {
+              if (ax === fromX && ay === fromY) continue;
+              const target = board[ay][ax];
+              if (!target) continue;
+              if ((target === target.toUpperCase() ? -1 : 1) === side) continue;
+              if (target.toLowerCase() !== 'k') {
+                return true;
+              }
+            }
+          }
+        }
+      }
+
+      return false;
     };
 
     getChartContainerSelector = () => {
@@ -1427,6 +1576,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
+      const trans = lt.translator;
       var isWhite = $(el).closest('.advice-summary__side').has('.is.white').length ? 1 : 0;
       var localLine = this.getLocalLine().filter(n=>n.ply && (n.ply % 2) == isWhite);
       if (!localLine.length) return;
@@ -1472,6 +1622,11 @@
           .text(symbol+' '+perc+'%')
           .appendTo(tooltip);
       }
+      const accuracy = +(/\d+/.exec($(el).text())[0]);
+      const estimatedRating = Math.round(3800 / (1 + Math.exp(-0.07 * (accuracy - 76))));
+      $('<div class="lichessTools-extraChart-estimatedRating">')
+        .text(trans.pluralSame('estimatedRating',estimatedRating))
+        .appendTo(tooltip);
       tooltip
         .removeClass('hide');
       this.tempAccuracyOn = lichess.analysis.getOrientation()=='black' 

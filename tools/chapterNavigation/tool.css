@@ -51,13 +51,7 @@ body.lichessTools .lichessTools-chapterControls div[role="footer"] button {
   flex-grow: 1;
 }
 
-body.lichessTools div.study__side.lichessTools-chapterControls,
-body.lichessTools aside.relay-tour__side.lichessTools-chapterControls {
-  flex-grow: 1;
-}
-
-body.lichessTools div.study__side.lichessTools-chapterControls div.study__chapters,
-body.lichessTools aside.relay-tour__side.lichessTools-chapterControls div.relay_games {
+body.lichessTools aside.relay-tour__side.lichessTools-chapterControls div.relay-games {
   flex-grow: 1;
 }
 

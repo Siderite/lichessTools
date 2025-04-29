@@ -67,6 +67,7 @@ body.lichessTools .lichessTools-extraChart-tooltip {
   border-radius: 1em;
   overflow: hidden;
   transform: translateY(-100%);
+  flex-wrap: wrap;
 }
 
 body.lichessTools .lichessTools-extraChart-tooltip.hide {
@@ -86,6 +87,12 @@ body.lichessTools .lichessTools-extraChart-tooltip div {
   justify-content: center;
   align-items: center;
   background-color: var(--c-border);
+}
+
+body.lichessTools .lichessTools-extraChart-tooltip .lichessTools-extraChart-estimatedRating {
+  flex: 1 0 100%;
+  font-size: 0.75em;
+  height:1em;
 }
 
 body.lichessTools .lichessTools-extraChart-tooltip .node-6006044 {
