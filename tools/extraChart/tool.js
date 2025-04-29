@@ -1606,9 +1606,10 @@
         tooltip = $('<div class="lichessTools-extraChart-tooltip">')
           .insertAfter(el);
       }
+      const offsetRight = el.offsetParent.offsetWidth - (el.offsetLeft + el.offsetWidth);
       tooltip
         .empty()
-        .css({ left: el.offsetLeft, top: el.offsetTop, width: el.offsetWidth });
+        .css({ right: offsetRight, top: el.offsetTop, width: el.offsetWidth });
       let rest = 100;
       for (let i=0; i<arr.length; i++) {
         const [symbol,count] = arr[i];
