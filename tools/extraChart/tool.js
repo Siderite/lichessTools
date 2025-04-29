@@ -1026,8 +1026,9 @@
             })
             .insertAfter($('div.advice-summary__player', container));
         }
-        elem.toggleClass('symbol', !!count);
-        $('strong', elem).text(count || 0);
+        elem.toggleClassSafe('symbol', !!count);
+        const newText = (count || 0).toString();
+        $('strong', elem).replaceText(newText);
       };
       let container = $('div.advice-summary__side').get(0);
       const count = arr.filter(n => {
@@ -1706,10 +1707,10 @@
       }
 
       $('main.analyse').observer()
-        .off('.advice-summary__accuracy',this.initAccuracyPlus);
+        .off('.advice-summary__accuracy,.analyse__underboard',this.initAccuracyPlus);
       if (this.options.accuracyPlus) {
         $('main.analyse').observer()
-          .on('.advice-summary__accuracy',this.initAccuracyPlus);
+          .on('.advice-summary__accuracy,.analyse__underboard',this.initAccuracyPlus);
         this.initAccuracyPlus();
       }
     }

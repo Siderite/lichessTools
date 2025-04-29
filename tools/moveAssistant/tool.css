@@ -37,6 +37,10 @@ body.lichessTools button.lichessTools-moveAssistant.lichessTools-enabled {
   color: #00A000;
 }
 
+body.lichessTools .lichessTools-hideMoveAssistant {
+  display: disabled;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier button.lichessTools-moveAssistant.lichessTools-enabled {

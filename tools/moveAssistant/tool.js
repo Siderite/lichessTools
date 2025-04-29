@@ -55,10 +55,10 @@
         && dests?.length
         && !isInteractiveOrPractice
       );
-      $('main.analyse div.cg-wrap').toggleClass('lichessTools-moveAssistant', isActive);
+      $('main.analyse div.cg-wrap').toggleClassSafe('lichessTools-moveAssistant', isActive);
       $('div.ceval button.lichessTools-moveAssistant')
-        .toggleClass('lichessTools-enabled', !!this.isEnabled)
-        .toggle(!isInteractiveOrPractice);
+        .toggleClassSafe('lichessTools-enabled', !!this.isEnabled)
+        .toggleClassSafe('lichessTools-hideMoveAssistant',!!isInteractiveOrPractice);
       if (!isActive) {
         if (this._evaluating) {
           this._evaluating = false;
