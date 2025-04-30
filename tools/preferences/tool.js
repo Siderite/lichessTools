@@ -124,9 +124,8 @@
             </div>
             <form>`;
       if (isLoggedIn) {
-        html += `<div class="feedback">
-  <textarea enterkeyhint="send" placeholder="$trans(feedbackTitle)"></textarea>
-  <button data-icon="${lt.icon.toEntity(lt.icon.PlayTriangle)}" title="$trans(feedbackButtonTitle)"></button>
+        html += `<div class="feedback shiny-text" title="$trans(feedbackButtonTitle)">
+  <a class="user-link" href="/inbox/TotalNoob69" data-href="/@/TotalNoob69">$trans(feedbackTitle)</a>
 </div>`;
       }
       html += `<table class="allows lichessTools-globalSwitch">
@@ -428,21 +427,7 @@
           checkAdvanced();
           showSaved();
         }, 500));
-      const feedbackTextarea = $('div.feedback textarea', container)
-        .on('input keypress paste send', function (ev) {
-          if (this.clientHeight < this.scrollHeight) {
-            $(this).height(this.scrollHeight);
-          }
-        });
-      $('div.feedback button', container)
-        .on('click', ev => {
-          ev.preventDefault();
-          const text = feedbackTextarea.val();
-          feedbackTextarea.val('').css('height', '');
-          if (text) {
-            this.sendMessageToDev(text);
-          }
-        });
+      lichess.powertip?.manualUser($('div.feedback a', container)[0]);
       $('.folder button.picker', container)
         .on('click', async ev => {
           ev.preventDefault();
