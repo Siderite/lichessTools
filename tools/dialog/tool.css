@@ -21,6 +21,9 @@ body.lichessTools dialog.lichessTools-dialog .dialog-header {
   min-height: 2em;
   background: #80808080;
   touch-action: none;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 body.lichessTools dialog.lichessTools-dialog .dialog-header.draggable {
