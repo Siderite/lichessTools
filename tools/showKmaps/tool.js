@@ -265,7 +265,7 @@
       blackScore -= blackHoles * 0.5;
   
       const diff = whiteScore - blackScore;
-      return this.normalize(diff, -20, 20,'K'); //max is ~37, decisive should be 20
+      return this.normalize(diff, -20, 20,'K'); //max is ~-10, but it can go to -25
     }
   
     getPawnShield(kingIdx, isWhite) {
