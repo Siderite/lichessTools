@@ -54,7 +54,7 @@ div.lichessTools-preferences div.feedback {
   margin-bottom: 1em;
 }
 
-.shiny-text {
+body:not(.mobile) div.lichessTools-preferences .shiny-text {
   background: linear-gradient(
     120deg,
     var(--c-font) 0%,
@@ -67,6 +67,7 @@ div.lichessTools-preferences div.feedback {
   background-position: -100% 0;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
   animation: shine-text 3s ease-in-out infinite;
 }
 
