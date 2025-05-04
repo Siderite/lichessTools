@@ -66,3 +66,7 @@ body.lichessTools dialog.lichessTools-dialog.resizing .dialog-content {
   pointer-events: none;
   opacity: 0.25;
 }
+
+body.lichessTools dialog.lichessTools-dialog option:checked {
+  background-color: var(--c-bg-zebra2);
+}
