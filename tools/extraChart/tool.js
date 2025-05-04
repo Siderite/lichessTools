@@ -661,7 +661,7 @@
         bonus += 1; // a tactical underpromotion adds to brilliancy
       }
 
-      const balancingBonus = Math.abs(cp1) < 100 ? 0 : (cp1 * side < -100 ? 1 : -1);
+      const balancingBonus = Math.abs(cp1) < 100 ? 0 : (cp1 * side < -100 ? 0.5 : -0.5);
       bonus += balancingBonus;
 
       const move = {
