@@ -612,7 +612,6 @@
       let timeout = null;
       let isRunning = false;
       let lastExecution = 0;
-      let lastResult = undefined;
 
       return function () {
         const context = this;
@@ -620,9 +619,9 @@
 
         const f = ()=>{
           isRunning = true;
-          lastResult = fn.apply(context, args);
-          if (lastResult?.then) {
-            lastResult.then(() => {
+          const result = fn.apply(context, args);
+          if (result?.then) {
+            result.then(() => {
               isRunning = false;
               lastExecution = Date.now();
             });
@@ -630,17 +629,15 @@
             isRunning = false;
             lastExecution = Date.now();
           }
-          return lastResult;
         };
 
         if (!defer && !isRunning && Date.now() - lastExecution > wait) {
-          return f();
+          setTimeout(f,1);
         } else {
           clearTimeout(timeout);
           timeout = setTimeout(()=>{
             f();
           }, wait);
-          return lastResult; // this is a terrible hack returning the last result of the function. Normally one should not debounce a function with a usable return value.
         }
       };
     }
