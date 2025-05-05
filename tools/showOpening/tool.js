@@ -160,14 +160,22 @@
     showOpeningInExplorer = (opening) => {
       if (!this.options.showInExplorer) return;
       const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       const $ = lt.$;
       const trans = lt.translator;
       const elem = $('section.explorer-box div.data div.title a');
       if (!elem.length) return;
       const existing = elem.text();
+      let href = elem.attr('href');
+      let m = /\/opening\/(?<openingName>[^\/]+)/i.exec(href);
+      if (m) {
+        const moveList = analysis.nodeList.map(n=>n.san).filter(s=>s).slice(0,10).join('_');
+        href='/opening/'+m.groups.openingName+'/'+moveList;
+        elem.attrSafe('href',href);
+      }
       opening = opening || '';
       const reg = /[\w\(\)\.\/]+/ig;
-      let m = reg.exec(opening);
+      m = reg.exec(opening);
       let index = 0;
       const words = [];
       while (m) {
@@ -190,7 +198,7 @@
           .insertAfter(elem);
       }
       const suffix = ' ' + words.join(' ');
-      openingElem.text(suffix);
+      openingElem.replaceText(suffix);
     };
 
     refreshOpening = async (ply) => {
