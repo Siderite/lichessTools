@@ -43,7 +43,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       if (!this.options.topicFlairs) return;
-      if (lichess.analysis?.isGamebook()) return;
+      if (lichess.analysis?.gamebookPlay()) return;
       const container = $('.study-topics');
       if (lt.inViewport(container)) {
         const tagify = $('tags+textarea', container)[0]?.__tagify;
@@ -150,7 +150,7 @@
       const lichess = lt.lichess;
       const trans = lt.translator;
       const $ = lt.$;
-      if (lichess.analysis?.isGamebook()) return;
+      if (lichess.analysis?.gamebookPlay()) return;
       const href = $('.infinite-scroll .pager > a').attr('href');
       const modeMatch = /\/(?<mode>hot|newest|oldest|updated|popular|alphabetical|mine)\b/i.exec(lt.global.location.pathname);
       const mode = modeMatch?.groups?.mode || 'hot';

@@ -191,7 +191,7 @@
       const analysis = lt.lichess?.analysis;
       if (!analysis?.ceval?.possible) return false;
       if (!analysis?.ceval?.allowed()) return false;
-      if (analysis?.isGamebook()) return false;
+      if (analysis?.gamebookPlay()) return false;
       return true;
     }
 
