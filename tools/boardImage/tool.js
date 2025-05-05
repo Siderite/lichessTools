@@ -70,7 +70,7 @@
       const assetsUrl = [...match].slice(1).find(m=>/\/assets\//.test(m));
       if (!url) {
         const theme = lt.global.document.dataset?.board || 'maple';
-        url = lt.assetUrl('../images/board/' + theme + '.jpg');
+        url = lt.assetUrl('images/board/' + theme + '.jpg');
       }
       let img = await this.getImage(url) || (assetsUrl && await this.getImage(assetsUrl));
       
