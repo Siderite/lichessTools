@@ -30,7 +30,7 @@
       }
     }
 
-    setupButtons = async (studyId, chapterId) => {
+    setupButtonsDirect = async (studyId, chapterId) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -115,6 +115,7 @@
         target.append(namesButton);
       }
     };
+    setupButtons = lichessTools.debounce(this.setupButtonsDirect,3000);
 
     async start() {
       const lt = this.lichessTools;
@@ -129,15 +130,14 @@
       const study = lichess?.analysis?.study;
       if (!study) return;
       study.chapters.editForm.toggle = lt.unwrapFunction(study.chapters.editForm.toggle, 'chapterNameFromTags');
-      lt.global.clearInterval(this.interval);
       if (!value) return;
       study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
         id: 'chapterNameFromTags',
         after: ($this, result, data) => {
-          this.interval = lt.global.setInterval(() => {
+          const interval = lt.global.setInterval(() => {
             const input = $('#chapter-name');
             if (!input.length) return;
-            lt.global.clearInterval(this.interval);
+            lt.global.clearInterval(interval);
             this.setupButtons(study.data.id, data.id);
           }, 100);
         }

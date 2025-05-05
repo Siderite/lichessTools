@@ -198,8 +198,7 @@
       for (const item of data) {
         if (!item.countryName) continue;
         const elems = dict[item.id];
-        for (const elem of elems) {
-          if (!elem[0]?.offsetParent) return;
+        for (const elem of elems.filter(e=>!!e.offsetParent)) {
           const next = elem.next();
           if (next.is('img.flag')) return;
           if (next.has('img.flag').length) return;

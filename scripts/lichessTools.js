@@ -608,35 +608,40 @@
       return this.global.navigator?.deviceMemory || (await this.global.navigator?.storage?.estimate())?.quota/(1024*1024*1024);
     }
 
-    debounce(fn, wait) {
+    debounce(fn, wait, defer) {
       let timeout = null;
       let isRunning = false;
-      const c = () => {
-        this.global.clearTimeout(timeout);
-        timeout = null;
-      };
-      const t = (f) => {
-        timeout = this.global.setTimeout(f, wait);
-      };
+      let lastExecution = 0;
+      let lastResult = undefined;
+
       return function () {
         const context = this;
         const args = arguments;
-        const f = function () {
-          if (isRunning) {
-            t(f);
-            return;
-          };
+
+        const f = ()=>{
           isRunning = true;
-          const result = fn.apply(context, args);
-          if (result?.then) {
-            result.then(() => isRunning = false);
+          lastResult = fn.apply(context, args);
+          if (lastResult?.then) {
+            lastResult.then(() => {
+              isRunning = false;
+              lastExecution = Date.now();
+            });
           } else {
             isRunning = false;
+            lastExecution = Date.now();
           }
+          return lastResult;
         };
-        timeout
-          ? c() || t(f)
-          : t(f);
+
+        if (!defer && !isRunning && Date.now() - lastExecution > wait) {
+          return f();
+        } else {
+          clearTimeout(timeout);
+          timeout = setTimeout(()=>{
+            f();
+          }, wait);
+          return lastResult; // this is a terrible hack returning the last result of the function. Normally one should not debounce a function with a usable return value.
+        }
       };
     }
 
@@ -822,10 +827,10 @@
     };
 
     inViewport = (element) => {
+      if (this.global.document.visibilityState == 'hidden') return 0;
       if (element?.length === 0) return 0;
       if (element?.length) element = element[0];
       if (!element?.offsetParent && $(element).css('position') != 'fixed') return 0;
-      if (this.global.document.visibilityState == 'hidden') return 0;
       if (element?.checkVisibility) {
         if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
       }
@@ -894,6 +899,7 @@
       $('move', container).each((i, e) => {
         const $e = $(e);
         if ($e.is('.empty')) return;
+        const unused = e.offsetParent; // required to optimize rendering
         const p = $e.attr('p') || '';
         this.elementCache.set(p, e);
       });
@@ -903,7 +909,7 @@
     getElementForPath(path) {
       const $ = this.$;
       let elem = this.elementCache?.get(path);
-      if (!elem?.offsetParent) {
+      if (!this.inViewport(elem)) {
         if (!elem) {
           if (this.collapsedRegex?.test(path)) {
             this.debug && this.global.console.debug(path + ' is collapsed');

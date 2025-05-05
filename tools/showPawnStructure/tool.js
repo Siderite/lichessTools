@@ -270,7 +270,6 @@
         structureElem.remove();
         return;
       }
-      structureElem.filter((i, e) => !lt.inViewport(e)).remove();
 
       const isLink = !!structureName.url;
       if ((isLink && structureElem.is('span')) || (!isLink && structureElem.is('a'))) {
@@ -289,10 +288,10 @@
       let title = trans.pluralSame('structureNameTitle', structure);
       if (structureName.best) title += '\r\n' + structureName.best.value.name + ' ' + structureName.best.similarity + '%';
       structureElem
-        .text(structureName.name)
-        .attr('title', title);
+        .replaceText(structureName.name)
+        .attrSafe('title', title);
       if (isLink) {
-        structureElem.attr('href', structureName.url);
+        structureElem.attrSafe('href', structureName.url);
       }
     };
 
