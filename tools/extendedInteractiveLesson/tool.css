@@ -120,6 +120,7 @@ body.lichessTools .analyse .gamebook button.hint.data-count[data-count='1']::aft
 
 body.lichessTools .analyse .gamebook button.lichessTools-giveUp {
   position: absolute;
+  z-index: 2;
   right: 1em;
   bottom: 0.75em;
   width: fit-content;
