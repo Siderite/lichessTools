@@ -1087,7 +1087,7 @@
       }
       const elem = $(el).is('cg-container')
         ? el
-        : $('cg-container', el)[0]
+        : $(el).find('cg-container')[0]
       const container = $(elem);
       if (!container.length || !this.inViewport(container)) return;
 
@@ -1533,7 +1533,7 @@
           if (this.slowMode) await lt.timeout(1000);
           const ltHeader = `LiChessTools/${lt.currentOptions?.version}`;
           if (!options?.noUserAgent) {
-            options = {...options,headers: {...options?.headers,'X-UA': ltHeader } };
+            options = {...options,headers: { ...options?.headers,'X-UA': ltHeader } };
           }
           const response = await lt.global.fetch(url, options);
           const status = +(response.status);

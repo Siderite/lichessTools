@@ -24,6 +24,20 @@
       }
     }
 
+    extractHtml = (html, title) => {
+      const wikiBooksUrl = 'https://en.wikibooks.org';
+
+      const removeH1 = (html) => html.replace(/<h1>.+<\/h1>/g, '');
+      const removeEmptyParagraph = (html) => html.replace(/<p>(<br \/>|\s)*<\/p>/g, '');
+      const removeTableHeader = (html) => html.replace('<h2><span id="Theory_table">Theory table</span></h2>', '');
+      const removeTableExpl = (html) => html.replace(/For explanation of theory tables see theory table and for notation see algebraic notation.?/,'');
+      const removeContributing = (html) => html.replace('When contributing to this Wikibook, please follow the Conventions for organization.', '');
+
+      const readMore = (title) => `<p><a target="_blank" href="${wikiBooksUrl}/wiki/${title}">Read more on WikiBooks</a></p>`;
+
+      return removeH1(removeEmptyParagraph(removeTableHeader(removeTableExpl(removeContributing(html))))) + readMore(title);
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('wikiFen');
@@ -33,8 +47,7 @@
       };
       const lichess = lt.lichess;
       const analysis = lichess?.analysis;
-      if (!analysis?.wiki)
-        return;
+      if (analysis?.wiki) {
       analysis.wiki = lt.unwrapFunction(analysis.wiki, 'wikiFen');
       if (value) {
         analysis.wiki = lt.wrapFunction(analysis.wiki, {
@@ -45,7 +58,7 @@
             if (!this.wikiUrls_dict) {
               lt.comm.getData('wikiUrls.json').then(dict => {
                 if (!dict) {
-                  lt.global.console.warn('Could not load pawn wiki URLs!');
+                  lt.global.console.warn('Could not load wiki URLs!');
                   return;
                 }
                 this.wikiUrls_dict = dict;
@@ -89,6 +102,32 @@
         });
       }
       analysis.wiki(analysis.nodeList);
+      }
+
+      const openingWikiContainer = $('div.opening__wiki__markup__placeholder'); 
+      const text = openingWikiContainer.text();
+      if (text && text.length<60) {
+        if (!this.wikiUrls_dict) {
+          const dict = await lt.comm.getData('wikiUrls.json');
+          if (!dict) {
+            lt.global.console.warn('Could not load wiki URLs!');
+          } else {
+            this.wikiUrls_dict = dict;
+          };
+        }
+        if (this.wikiUrls_dict) {
+          const position = lt.getPositionFromBoard($('.opening__intro'));
+          const title = this.wikiUrls_dict[position]?.at(0);
+          if (title) {
+            const wikiBooksUrl = 'https://en.wikibooks.org';
+            const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
+            const json = await lt.net.fetch(`${wikiBooksUrl}/w/api.php?titles=${title}&${apiArgs}`,{ noUserAgent: true });
+            const obj = JSON.parse(json);
+            const html = this.extractHtml(obj.query.pages[0].extract,title);
+            openingWikiContainer.html(html);
+          }
+        }
+      }
     }
 
   }
