@@ -619,6 +619,7 @@
 
         const f = ()=>{
           isRunning = true;
+          lastExecution = Date.now();
           const result = fn.apply(context, args);
           if (result?.then) {
             result.then(() => {
@@ -632,7 +633,7 @@
         };
 
         if (!defer && !isRunning && Date.now() - lastExecution > wait) {
-          setTimeout(f,1);
+          timeout = setTimeout(f,1);
         } else {
           clearTimeout(timeout);
           timeout = setTimeout(()=>{
