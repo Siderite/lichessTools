@@ -170,8 +170,10 @@
       let m = /\/opening\/(?<openingName>[^\/]+)/i.exec(href);
       if (m) {
         const moveList = analysis.nodeList.map(n=>n.san).filter(s=>s).slice(0,10).join('_');
-        href='/opening/'+m.groups.openingName+'/'+moveList;
-        elem.attrSafe('href',href);
+        if (moveList) {
+          href='/opening/'+m.groups.openingName+'/'+moveList;
+          elem.attrSafe('href',href);
+        }
       }
       opening = opening || '';
       const reg = /[\w\(\)\.\/]+/ig;

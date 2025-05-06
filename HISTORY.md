@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+06 May
+
+- extended Explorer opening link URL
+- FEN Wiki URLs for Openings (just like in Analysis Board)
+
 28 Apr
 
 - estimate rating based on accuracy
