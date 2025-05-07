@@ -85,3 +85,9 @@ body.lichessTools.lichessTools-prettier .lichessTools-chapterControls div[role="
 body.lichessTools.lichessTools-prettier section.mchat {
   margin-top: 2px !important;
 }
+
+/* Lichess Helper */
+
+body.lichessTools.lichessTools-lichessHelper .study__chapters div.lichessTools-expander {
+  font-family: 'lichess' !important;
+}

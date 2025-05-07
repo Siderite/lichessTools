@@ -4,6 +4,7 @@ body.lichessTools div.lichessTools-quickActions-tooltip {
   transform: translateY(calc(2px - 100%));
   flex-direction: column;
   border:1px #808080 solid;
+  width: min-content;
 
   display: none;
 }
@@ -13,6 +14,11 @@ body.lichessTools button.board-menu-toggle:not(.active) + div.lichessTools-quick
 body.lichessTools button.msg-app__convo__post__submit:not(.active) + div.lichessTools-quickActions-tooltip button.fbt {
   font-size: 1.3rem;
   height: 3em;
+  border: none;
+}
+
+body.lichessTools div.lichessTools-quickActions-tooltip button.fbt:hover {
+  background-color: var(--c-bg-zebra2);
 }
 
 body.lichessTools:not(.mobile) button.fbt[data-act="menu"]:not(.active):hover + div.lichessTools-quickActions-tooltip:has(button),
@@ -33,4 +39,12 @@ body.lichessTools div.lichessTools-quickActions-tooltip .readComments.dontReadCo
 
 body.lichessTools main.lichessTools-quickActions-practice button[data-act="practice"]:not(.active) {
   display:none;
+}
+
+/* LichessHelper CSS */
+
+body.lichessTools.lichessTools-lichessHelper button.fbt[data-act="menu"]:not(.active) + div.lichessTools-quickActions-tooltip button.fbt,
+body.lichessTools.lichessTools-lichessHelper button.board-menu-toggle:not(.active) + div.lichessTools-quickActions-tooltip button.fbt,
+body.lichessTools.lichessTools-lichessHelper button.msg-app__convo__post__submit:not(.active) + div.lichessTools-quickActions-tooltip button.fbt {
+  height: 3em !important;
 }

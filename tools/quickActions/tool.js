@@ -59,7 +59,7 @@
       const button = $('button.fbt[data-act="menu"],button.board-menu-toggle,.msg-app__convo__post__submit')[0];
       if (!button) return;
       const tooltip = $('.lichessTools-quickActions-tooltip');
-      tooltip.css({ left: button.offsetLeft, top: button.offsetTop, width: button.offsetWidth });
+      tooltip.css({ left: button.offsetLeft, top: button.offsetTop });
 
       if (this.canReadComments()) {
         let button = $('.readComments',tooltip);

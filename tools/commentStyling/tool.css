@@ -79,3 +79,33 @@ body.lichessTools .lichessTools-bold {
 body.lichessTools .lichessTools-cursive {
   font-family: cursive;
 }
+
+/* Lichess Helper CSS */
+
+body.lichessTools.lichessTools-lichessHelper .lichessTools-red {
+  text-shadow: 0.25px 0.25px 0px darkgray !important;
+}
+
+body.lichessTools.lichessTools-lichessHelper .lichessTools-blue {
+  text-shadow: 0.25px 0.25px 0px darkgray !important;
+}
+
+body.lichessTools.lichessTools-lichessHelper .lichessTools-yellow {
+  text-shadow: 0.1px 0.5px 0px gray !important;
+}
+
+body.lichessTools.lichessTools-lichessHelper .lichessTools-lightblue {
+  text-shadow: 0.25px 0.25px 0px darkgray !important;
+}
+
+body.lichessTools.lichessTools-lichessHelper .lichessTools-lightgreen {
+  text-shadow: 0.25px 0.25px 0px darkgray !important;
+}
+
+body.lichessTools.lichessTools-lichessHelper .lichessTools-cyan {
+  text-shadow: 0.1px 0.5px 0px gray !important;
+}
+
+body.lichessTools.lichessTools-lichessHelper .lichessTools-cursive {
+  font-family: cursive !important;
+}

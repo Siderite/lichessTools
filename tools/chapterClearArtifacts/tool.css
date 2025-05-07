@@ -20,3 +20,8 @@ body.lichessTools table.study__tags button.lichessTools-deleteTag {
 body.lichessTools table.study__tags th {
   width: 20%;
 }
+
+/* LichessHelper */
+body.lichessTools.lichessTools-lichessHelper table.study__tags button.lichessTools-deleteTag {
+  font-family: lichess !important;
+}

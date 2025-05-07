@@ -22,3 +22,9 @@ body.lichessTools #puzzlePopup img {
 body.lichessTools button.lichessTools-puzzles {
   font-family: 'lichess';
 }
+
+/* Lichess Helper CSS */
+
+body.lichessTools.lichessTools-lichessHelper button.lichessTools-puzzles {
+  font-family: 'lichess' !important;
+}

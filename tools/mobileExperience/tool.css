@@ -231,3 +231,9 @@ body.lichessTools.lichessTools-prettier.mobile main.lichessTools-standardButtons
   background: #979924 !important;
   color: black !important;
 }
+
+/* LichessHelper CSS */
+
+body.lichessTools.lichessTools-lichessHelper.mobile.lichessTools-mobileExperience main.analyse:has(.gamebook) div.lichessTools-inInteractive .fbt {
+  border-radius: 0 0 6px 6px !important;
+}
