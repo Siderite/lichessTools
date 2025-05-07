@@ -1800,13 +1800,14 @@
         });
       },
       memoizeAsyncFunction: function (obj, funcName, options) {
+        if (!options) throw new Error('No options provided to memoizeAsyncFunction');
         const cache = this;
         const lt = cache.lichessTools;
         const original = obj[funcName];
         obj[funcName] = async function (...args) {
           const key = options.keyFunction
             ? options.keyFunction(obj, funcName, args)
-            : funcName + JSON.stringify(args);
+            : (options.keyPrefix||'') + funcName + JSON.stringify(args);
           await cache.waitRelease(key);
           const cached = cache.getCached(key);
           if (cached && !cached.isExpired) {
@@ -1841,7 +1842,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_' });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000 });
       },
       blog: {
