@@ -1712,6 +1712,7 @@
 
     cache = {
       lichessTools: this,
+      _lock: '__lock cache keys__',
       init: function () {
         const lt = this.lichessTools;
         const sessionData = lt.storage.get('LichessTools.GeneralCache', { session: true, zip: true }) || [];
@@ -1746,6 +1747,7 @@
         if (!this._cache) {
           this.init();
         }
+        if (this.isLocked(key)) throw new Error('trying to get '+key+' when locked');
         const cached = this._cache.get(key);
         if (cached) {
           cached.isExpired = cached.expiry < Date.now();
@@ -1765,6 +1767,38 @@
         this._cache.set(key, cached);
         this.save();
       },
+      lock: function(key) {
+        if (!this._cache) {
+          this.init();
+        }
+        this._cache.set(key+this._lock,true);
+      },
+      isLocked: function(key) {
+        if (!this._cache) {
+          this.init();
+        }
+        return !!this._cache.get(key+this._lock);
+      },
+      release: function(key) {
+        if (!this._cache) {
+          this.init();
+        }
+        this._cache.delete(key+this._lock);
+      },
+      async waitRelease(key, resolution = 50) {
+        return new Promise(resolve=>{
+          if (this.isLocked(key)) {
+            const interval = setInterval(()=>{
+              if (!this.isLocked(key)) {
+                clearInterval(interval);
+                resolve();
+              }
+            },resolution);
+          } else {
+            resolve();
+          }
+        });
+      },
       memoizeAsyncFunction: function (obj, funcName, options) {
         const cache = this;
         const lt = cache.lichessTools;
@@ -1773,6 +1807,7 @@
           const key = options.keyFunction
             ? options.keyFunction(obj, funcName, args)
             : funcName + JSON.stringify(args);
+          await cache.waitRelease(key);
           const cached = cache.getCached(key);
           if (cached && !cached.isExpired) {
             if (options.sliding) {
@@ -1780,13 +1815,19 @@
             }
             return cached.value;
           }
-          lt.$('body').addClass('lichessTools-apiLoading');
+          lt.$('body').toggleClassSafe('lichessTools-apiLoading',true);
           try {
-            const result = await original.apply(obj, args);
+            cache.lock(key);
+            const immediateResult = original.apply(obj, args);
+            if (!options.knownSyncFunction) {
+              if (!immediateResult?.then) throw new Error('Memoize only works on async functions or known sync functions!');
+            }
+            const result = await immediateResult;
             cache.setCached(key, result, options);
             return result;
           } finally {
-            lt.$('body').removeClass('lichessTools-apiLoading');
+            cache.release(key);
+            lt.$('body').toggleClassSafe('lichessTools-apiLoading',false);
           }
         }
       }
