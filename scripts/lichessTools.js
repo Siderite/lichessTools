@@ -872,14 +872,17 @@
     };
 
     inViewport = (element) => {
-      if (element?.length === 0) return 0;
-      if (element?.length) element = element[0];
+      if (!element) return 0;
+      if ('length' in element) element = element[0];
+      if (!element) return 0;
       if (this.global.document.visibilityState == 'hidden') return 0;
-      if (this.traverseState?.nodeIndex > 2500) return true; // for large studies, stop caring about this
-      if (element?.checkVisibility) {
+
+	  if (this.traverseState?.nodeIndex > 2500) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
+
+      if (element.checkVisibility) {
         if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
       } else {
-        if (!element?.offsetParent && $(element).css('position') != 'fixed') return 0;
+        if (!element.offsetParent && $(element).css('position') != 'fixed') return 0;
       }
       const rect = element.getBoundingClientRect();
       const port = new DOMRect(0, 0, $(this.global).width(), $(this.global).height());
