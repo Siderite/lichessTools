@@ -288,7 +288,7 @@
         this.saveTeamsData();
       }
     };
-    handleNotifications = this.lichessTools.debounce(this.handleNotificationsDirect, 5000);
+    handleNotifications = this.lichessTools.debounce(this.handleNotificationsDirect, 5000, { defer:true });
 
     isTeamsListPage = () => {
       const lt = this.lichessTools;
@@ -372,7 +372,7 @@
         }
       });
     };
-    notificationButtonInTeams = this.lichessTools.debounce(this.notificationButtonInTeamsDirect,100);
+    notificationButtonInTeams = this.lichessTools.debounce(this.notificationButtonInTeamsDirect,100,{ defer:true });
 
     destroySockets = (sockets)=>{
       if (!sockets?.length) return;

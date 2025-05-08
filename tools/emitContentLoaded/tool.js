@@ -1,7 +1,7 @@
 (() => {
   class EmitContentLoadedTool extends LiChessTools.Tools.ToolBase {
 
-    emit = (el) => {
+    emitDirect = (el) => {
       const lt = this.lichessTools;
       if (lt.global.document.hidden) {
         lt.global.setTimeout(()=>this.emit(el),250);
@@ -10,6 +10,7 @@
       lt.debug && lt.global.console.debug('content-loaded',el);
       lt.pubsub.emit('content-loaded',el);
     };
+    emit = lichessTools.debounce(this.emitDirect,250,{ defer: true });
 
     detectNew = (records)=>{
       const lt = this.lichessTools;

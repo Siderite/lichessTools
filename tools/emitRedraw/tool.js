@@ -39,11 +39,30 @@
       lt.uiApi?.events.on('analysis.change', emit);
     }
 
+    fixAnalysisRedraw = ()=>{
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
+      if (!analysis) return;
+
+      const isDebounced = f => {
+        if (f.__debounced) return true;
+        if (f.__originalFunction) return isDebounced(f.__originalFunction);
+        return false;
+      };
+
+      if (!isDebounced(analysis.redraw)) {
+        analysis.redraw = lt.debounce(analysis.redraw,100,{ defer: true, noAdapt:true });
+      }
+    };
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       if (!lichess) return;
       const $ = lt.$;
+
+      //this.fixAnalysisRedraw();
+
       let emit = null;
       emit = lt.debounce(() => {
         if (lt.global.document.hidden) {
@@ -52,7 +71,7 @@
         }
         lt.debug && lt.global.console.debug('redraw');
         lt.pubsub.emit('lichessTools.redraw');
-      }, 250);
+      }, 250, { defer: true });
       lt.emitRedraw = emit;
       this.analysisStart();
       if (lt.uiApi) {

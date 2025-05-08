@@ -608,14 +608,55 @@
       return this.global.navigator?.deviceMemory || (await this.global.navigator?.storage?.estimate())?.quota/(1024*1024*1024);
     }
 
-    debounce(fn, wait, defer) {
+  debounceOld(fn, wait) {
       let timeout = null;
       let isRunning = false;
-      let lastExecution = 0;
-
+      const c = () => {
+        this.global.clearTimeout(timeout);
+        timeout = null;
+      };
+      const t = (f) => {
+        timeout = this.global.setTimeout(f, wait);
+      };
       return function () {
         const context = this;
         const args = arguments;
+        const f = function () {
+          if (isRunning) {
+            t(f);
+            return;
+          };
+          isRunning = true;
+          const result = fn.apply(context, args);
+          if (result?.then) {
+            result.then(() => isRunning = false);
+          } else {
+            isRunning = false;
+          }
+        };
+        timeout
+          ? c() || t(f)
+          : t(f);
+      };
+    }
+
+    debounce(fn, wait, options) {
+      let timeout = null;
+      let isRunning = false;
+      let lastExecution = 0;
+      let averageTime = wait;
+
+      const adaptTime = (start,end)=>{
+        if (options?.noAdapt) return;
+        const executionTime = Math.max(wait, +(end-start)||0);
+        averageTime += (executionTime-averageTime)*0.2;
+        if (options?.debugName) this.global.console.debug(options.debugName+': '+Math.round(averageTime));
+      };
+
+      const debouncedFunction = function() {
+        const context = this;
+        const args = arguments;
+        const startTime = Date.now();
 
         const f = ()=>{
           isRunning = true;
@@ -625,22 +666,28 @@
             result.then(() => {
               isRunning = false;
               lastExecution = Date.now();
+              adaptTime(startTime, lastExecution);
             });
           } else {
             isRunning = false;
             lastExecution = Date.now();
+            adaptTime(startTime, lastExecution);
           }
         };
 
-        if (!defer && !isRunning && Date.now() - lastExecution > wait) {
+        clearTimeout(timeout);
+        if (!options?.defer && !isRunning && Date.now() - lastExecution > averageTime) {
           timeout = setTimeout(f,1);
         } else {
-          clearTimeout(timeout);
           timeout = setTimeout(()=>{
             f();
-          }, wait);
+          }, averageTime);
         }
       };
+
+      debouncedFunction.__debounced = true;
+
+      return debouncedFunction;
     }
 
     getPgnTag(text, tagName) {
@@ -825,9 +872,9 @@
     };
 
     inViewport = (element) => {
-      if (this.global.document.visibilityState == 'hidden') return 0;
       if (element?.length === 0) return 0;
       if (element?.length) element = element[0];
+      if (this.global.document.visibilityState == 'hidden') return 0;
       if (!element?.offsetParent && $(element).css('position') != 'fixed') return 0;
       if (element?.checkVisibility) {
         if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
@@ -1744,10 +1791,11 @@
         }
       },
       getCached: function (key) {
+        const lt = this.lichessTools;
         if (!this._cache) {
           this.init();
         }
-        if (this.isLocked(key)) throw new Error('trying to get '+key+' when locked');
+        if (this.isLocked(key)) lt.global.console.debug('trying to get '+key+' when locked');
         const cached = this._cache.get(key);
         if (cached) {
           cached.isExpired = cached.expiry < Date.now();
@@ -1774,23 +1822,18 @@
         this._cache.set(key+this._lock,true);
       },
       isLocked: function(key) {
-        if (!this._cache) {
-          this.init();
-        }
-        return !!this._cache.get(key+this._lock);
+        return !!this._cache?.get(key+this._lock);
       },
       release: function(key) {
-        if (!this._cache) {
-          this.init();
-        }
-        this._cache.delete(key+this._lock);
+        this._cache?.delete(key+this._lock);
       },
-      async waitRelease(key, resolution = 50) {
+      waitRelease(key, resolution = 50) {
+        const lt = this.lichessTools;
         return new Promise(resolve=>{
           if (this.isLocked(key)) {
-            const interval = setInterval(()=>{
+            const interval = lt.global.setInterval(()=>{
               if (!this.isLocked(key)) {
-                clearInterval(interval);
+                lt.global.clearInterval(interval);
                 resolve();
               }
             },resolution);

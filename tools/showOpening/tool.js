@@ -86,7 +86,7 @@
         gameId = '';
       }
     };
-    miniGameOpeningDebounced = this.lichessTools.debounce(this.miniGameOpening, 500);
+    miniGameOpeningDebounced = this.lichessTools.debounce(this.miniGameOpening, 500,{ defer:true });
 
     openingTime = 0;
     withOpening = async (gameId, el, ply, fen, isMini) => {
@@ -234,7 +234,7 @@
         await this.miniGameOpening();
       }
     };
-    refreshOpeningDebounced = this.lichessTools.debounce(this.refreshOpening, 500);
+    refreshOpeningDebounced = this.lichessTools.debounce(this.refreshOpening, 500, { defer:true });
 
     async start() {
       const lt = this.lichessTools;

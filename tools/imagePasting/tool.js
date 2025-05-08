@@ -132,7 +132,7 @@
       const handler = lt.getEventHandlers(el,'mousedown')[0]?.bind(el);
       if (handler) handler();
     };
-    refreshChat = lichessTools.debounce(this.refreshChatDirect,3000);
+    refreshChat = lichessTools.debounce(this.refreshChatDirect,3000,{ defer:true });
 
 
     async start() {

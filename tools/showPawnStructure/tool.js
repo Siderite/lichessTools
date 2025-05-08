@@ -323,7 +323,7 @@
         fen = '';
       }
     };
-    miniGameStructureDebounced = this.lichessTools.debounce(this.miniGameStructure, 500);
+    miniGameStructureDebounced = this.lichessTools.debounce(this.miniGameStructure, 500, { defer:true });
 
     refreshStructure = async (ply) => {
       const lt = this.lichessTools;
@@ -352,7 +352,7 @@
         await this.miniGameStructure();
       }
     };
-    refreshStructureDebounced = this.lichessTools.debounce(this.refreshStructure, 500);
+    refreshStructureDebounced = this.lichessTools.debounce(this.refreshStructure, 500, { defer:true });
 
     async start() {
       const lt = this.lichessTools;

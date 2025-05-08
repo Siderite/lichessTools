@@ -263,7 +263,7 @@
         });
       }
     };
-    processStudyListDebounced = this.lichessTools.debounce(this.processStudyList, 1000);
+    processStudyListDebounced = this.lichessTools.debounce(this.processStudyList, 1000, { defer:true });
 
     async start() {
       const lt = this.lichessTools;

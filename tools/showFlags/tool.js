@@ -126,7 +126,7 @@
       lt.storage.set('LiChessTools.countryCache', [...countryCache]);
       lt.storage.set('LiChessTools.flagCache', [...this.flagCache]);
     };
-    debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100);
+    debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100, { defer:true });
 
     processFlags = async () => {
       const lt = this.lichessTools;
@@ -220,7 +220,7 @@
       }
       this.debouncedProcessFlags();
     };
-    debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500);
+    debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500, { defer:true });
 
     resetFlags = () => {
       const lt = this.lichessTools;

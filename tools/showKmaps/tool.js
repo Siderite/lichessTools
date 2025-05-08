@@ -127,7 +127,7 @@
         fen = '';
       }
     };
-    miniGameKmapsDebounced = this.lichessTools.debounce(this.miniGameKmaps, 500);
+    miniGameKmapsDebounced = this.lichessTools.debounce(this.miniGameKmaps, 500, { defer:true });
 
     refreshKmaps = async (ply) => {
       const lt = this.lichessTools;
@@ -153,7 +153,7 @@
         await this.miniGameKmaps();
       }
     };
-    refreshKmapsDebounced = this.lichessTools.debounce(this.refreshKmaps, 500);
+    refreshKmapsDebounced = this.lichessTools.debounce(this.refreshKmaps, 500, { defer:true });
 
     async start() {
       const lt = this.lichessTools;
