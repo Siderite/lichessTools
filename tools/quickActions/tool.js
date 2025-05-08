@@ -212,7 +212,7 @@
       return !!$('form.future-game-analysis').length
     }
 
-    initQuickActions = ()=>{
+    initQuickActions = (start)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       let button = $('button.fbt[data-act="menu"], button.board-menu-toggle, button.msg-app__convo__post__submit');
@@ -230,7 +230,6 @@
           tooltip = $('<div class="lichessTools-quickActions-tooltip">')
             .insertAfter(button);
         }
-        this.refreshTooltip();
       } else {
         $('.lichessTools-quickActions-tooltip').remove();
       }
@@ -254,6 +253,7 @@
        .off('button.fbt[data-act="menu"],button.board-menu-toggle,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
       lt.pubsub.off('lichessTools.chapterChange',this.initQuickActions);
       this.initQuickActions();
+      this.refreshTooltip();
       if (!this.options.isSet) return;
       lt.pubsub.on('lichessTools.chapterChange',this.initQuickActions);
       $('body')

@@ -64,7 +64,7 @@
       }
     };
 
-    showDecimalsMoves = () => {
+    showDecimalsMovesDirect = () => {
       try {
         if (this._inShowDecimalsMoves) return;
         this._inShowDecimalsMoves=true;
@@ -97,6 +97,7 @@
         this._inShowDecimalsMoves=false;
       }
     };
+    showDecimalsMoves = lichessTools.debounce(this.showDecimalsMovesDirect,100);
 
     setupObserver = ()=>{
       if (!this.options.enabled) return;

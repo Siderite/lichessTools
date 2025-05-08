@@ -875,9 +875,11 @@
       if (element?.length === 0) return 0;
       if (element?.length) element = element[0];
       if (this.global.document.visibilityState == 'hidden') return 0;
-      if (!element?.offsetParent && $(element).css('position') != 'fixed') return 0;
+      if (this.traverseState?.nodeIndex > 2500) return true; // for large studies, stop caring about this
       if (element?.checkVisibility) {
         if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
+      } else {
+        if (!element?.offsetParent && $(element).css('position') != 'fixed') return 0;
       }
       const rect = element.getBoundingClientRect();
       const port = new DOMRect(0, 0, $(this.global).width(), $(this.global).height());
@@ -998,8 +1000,9 @@
     }
 
     traverse = (snode, func, forced) => {
+      const lt = this;
       if (!snode) {
-        snode = this.lichess?.analysis?.tree.root;
+        snode = lt.lichess?.analysis?.tree.root;
         snode.depth = 0;
         this.isTreeviewVisible(true);
       }
@@ -1010,6 +1013,7 @@
         glyphs: {},
         nodeIndex: +(snode?.nodeIndex) || 0
       };
+      lt.traverseState = state;
       if (!snode || snode.comp) {
         return state;
       }
@@ -1027,6 +1031,7 @@
         node.path = path;
         node.nodeIndex = state.nodeIndex;
         state.nodeIndex++;
+
         node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
         node.position = this.getNodePosition(node);
         let pos = state.positions[node.position];

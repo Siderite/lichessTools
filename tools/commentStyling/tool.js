@@ -182,7 +182,7 @@
           .on('button h3',this.debouncedAddCommentClasses);
       }
       this.addCommentClasses();
-      lichess.analysis.redraw();
+      lt.analysisRedraw();
     }
 
   }

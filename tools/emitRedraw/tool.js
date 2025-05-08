@@ -39,29 +39,24 @@
       lt.uiApi?.events.on('analysis.change', emit);
     }
 
-    fixAnalysisRedraw = ()=>{
-      const lt = this.lichessTools;
-      const analysis = lt.lichess.analysis;
-      if (!analysis) return;
-
-      const isDebounced = f => {
-        if (f.__debounced) return true;
-        if (f.__originalFunction) return isDebounced(f.__originalFunction);
-        return false;
-      };
-
-      if (!isDebounced(analysis.redraw)) {
-        analysis.redraw = lt.debounce(analysis.redraw,100,{ defer: true, noAdapt:true });
-      }
-    };
-
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       if (!lichess) return;
       const $ = lt.$;
 
-      //this.fixAnalysisRedraw();
+      if (!('analysisRedraw' in lt)) {
+        Object.defineProperty(lt, 'analysisRedraw', {
+          get() {
+            if (this.__analysisRedraw) return this.__analysisRedraw;
+            const analysis = this.lichess.analysis;
+            this.__analysisRedraw = analysis
+              ? this.debounce(analysis.redraw,100,{ defer: true })
+              : ()=>{};
+            return this.__analysisRedraw;
+          }
+        });
+      }
 
       let emit = null;
       emit = lt.debounce(() => {

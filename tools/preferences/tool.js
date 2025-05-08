@@ -172,12 +172,14 @@
         }
       }
 
-      const order = ['languages', 'community', 'general', 'appearance', 'analysis', 'analysis2', 'study', 'friends', 'play', 'puzzles', 'TV', 'mobile', 'comm', 'command', 'integration', 'filesystem'];
+      const order = ['languages', 'community', 'general', 'appearance', 'analysis', 'analysis2', 'study', 'friends', 'play', 'puzzles', 'TV', 'mobile', 'comm', 'command', 'integration'];
+      if (lt.debug) order.push('filesystem');
       if (lt.arrayDifferent(order,Object.keys(categs))) {
         lt.global.setTimeout(()=>lt.global.console.warn('There is a difference between category keys and order!'));
       }
       for (const key of order) {
         const categ = categs[key];
+        if (!categ) continue;
         const prefCount = categ.filter(pref=>(this.options.advanced||!pref.advanced) && !pref.hidden && (isLoggedIn || !pref.needsLogin)).length;
         const existing = $('#chk_'+key);
         const checkedStr = !existing.length || existing.prop('checked') ? 'checked' : '';

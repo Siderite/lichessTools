@@ -229,7 +229,7 @@
       }
 
       node.glyphs = [glyph];
-      analysis.redraw();
+      lt.analysisRedraw();
     };
 
     makeRandomMove = () => {
