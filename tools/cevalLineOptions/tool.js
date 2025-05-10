@@ -152,7 +152,7 @@
       $('div.analyse__tools').toggleClassSafe('lichessTools-externalEngine',isExternalEngine);
       if (isExternalEngine) {
         if (analysis.ceval.storedPv()>5) {
-          site.analysis.ceval.storedPv(5);
+          analysis.ceval.storedPv(5);
         }
         const input = $('div.setting #analyse-multipv');
         input.attr('max',5);

@@ -49,10 +49,17 @@
       if (!lt.isStartFen(analysis.tree.root.fen)) {
         pgn = '[FEN "'+analysis.tree.root.fen+'"]\r\n'+pgn;
       }
-      pgn = pgn.replaceAll(/(\d+\.)\s+/g,'$1');
+      pgn = pgn.replaceAll(/(\d+\.(?:\.\.)?)\s+/g,'$1');
       let url = lt.global.location.origin+'/analysis/pgn/'+lt.global.encodeURIComponent(pgn);
+      url+=' '; // Lichess removes trailing closing parentheses (https://github.com/lichess-org/lila/issues/17508)
       if (analysis.getOrientation()=='black') url+='?color=black';
-      if (analysis.node.ply) url += '#'+analysis.node.ply;
+      if (analysis.node.ply) {
+        if (analysis.onMainline) {
+          url += '#'+analysis.node.ply;
+        } else {
+          url += '#'+lt.global.encodeURIComponent(analysis.path);
+        }
+      }
       url = url.replaceAll('%20','+');
       if (url.length>2048) {
         button.hide();
@@ -61,6 +68,10 @@
       button.attrSafe('href',url);
       button.show();
     };
+
+    async init() {
+      this.initialHash = location.hash;
+    }
 
     async start() {
       const lt = this.lichessTools;
@@ -76,6 +87,14 @@
       lt.pubsub.off('lichessTools.redraw', this.generateLink);
       if (!value) return;
       lt.pubsub.on('lichessTools.redraw', this.generateLink);
+      if (this.initialHash) { // remove this if https://github.com/lichess-org/lila/issues/17507 is solved
+        const path = lt.global.decodeURIComponent(this.initialHash.slice(1).replaceAll(/\+/g,' '));
+        this.initialHash = null;
+        const node = analysis.tree.nodeAtPath(path);
+        if (node?.id) {
+          analysis.jump(path);
+        }
+      }
     }
 
   }
