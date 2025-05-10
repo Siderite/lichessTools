@@ -59,7 +59,9 @@
         if (!analysisTools.length) return;
         this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
         [...this.dict.values()].forEach(v => v.count = 0);
-        const fen = lt.getPositionFromBoard($('.main-board')[0],true);
+        const fen = lichess.analysis
+          ? lichess.analysis.node.fen
+          : lt.getPositionFromBoard($('.main-board')[0],true);
         if (!fen) return;
         const side = $('.main-board .cg-wrap').is('.orientation-black') ? 1 : 0;
         const turn = fen.endsWith(' b') ? 1 : 0;

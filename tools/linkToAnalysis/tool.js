@@ -58,7 +58,7 @@
         button.hide();
         return;
       }
-      button.attr('href',url);
+      button.attrSafe('href',url);
       button.show();
     };
 

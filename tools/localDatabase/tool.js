@@ -100,21 +100,26 @@
       this.position = length;
     }
     splitToNumbers(bytes, byteCount) {
-      const result = [];
-      for (var i=0; i<bytes.byteLength; i+=byteCount) {
-        let val=0;
-        switch(byteCount) {
-          case 1: val = bytes.getUint8(i); break;
-          case 2: val = bytes.getUint16(i,true); break;
-          case 3: val = bytes.getUint16(i,true) | (bytes.getUint8(i+2) << 16); break;
-          case 4: val = bytes.getUint32(i,true); break;
-          default:
+      let f;
+      switch(byteCount) {
+        case 1: f = (i) => bytes.getUint8(i); break;
+        case 2: f = (i) => bytes.getUint16(i,true); break;
+        case 3: f = (i) => bytes.getUint16(i,true) | (bytes.getUint8(i+2) << 16); break;
+        case 4: f = (i) => bytes.getUint32(i,true); break;
+        default:
+          f = (i) => {
+            let val = 0;
             for (var k=0; k<byteCount; k++) {
               val|=(bytes.getUint8(i+k) << (8*k));
             }
-            break;
-        }
-        result.push(val);
+            return val;
+          };
+          break;
+      }
+
+      const result = [];
+      for (var i=0; i<bytes.byteLength; i+=byteCount) {
+        result.push(f(i));
       }
       return result;
     }

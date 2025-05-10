@@ -55,7 +55,7 @@
               const uci = $(e).attr('data-uci');
               const pv = ceval.pvs.find(p => p.moves?.at(0) === uci);
               if (pv) {
-                $('strong', e).text(this.renderEval(pv.cp, pv.mate));
+                $('strong', e).replaceText(this.renderEval(pv.cp, pv.mate));
               }
             });
         }
