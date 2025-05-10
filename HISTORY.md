@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+10 May
+
+- more info button for game lists
+
 06 May
 
 - extended Explorer opening link URL

@@ -8,10 +8,14 @@
         name: 'gameListOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['aborted', 'analysis', 'titledOpponents', 'select', 'analysisLink', 'color'],
-        defaultValue: 'select,analysis,analysisLink,color,aborted',
+        possibleValues: ['aborted', 'analysis', 'titledOpponents', 'select', 'analysisLink', 'color', 'extraInfo'],
+        defaultValue: 'select,analysis,analysisLink,color,aborted,extraInfo',
         advanced: true
       }
+    ];
+
+    upgrades = [
+      { name:'gameListOptions', value:'extraInfo', version: '2.4.40', type: 'new' }
     ];
 
     intl = {
@@ -24,6 +28,7 @@
         'gameListOptions.color': 'Color by players',
         'gameListOptions.select': 'Selection',
         'gameListOptions.analysisLink': 'Go direct to analysis',
+        'gameListOptions.extraInfo': 'More info button',
         'abortedGamesLabel': 'Show aborted:',
         'colorGamesLabel': 'Color by players:',
         'analysedGamesLabel': 'Only analysed:',
@@ -35,7 +40,13 @@
         'clipboardDenied': 'Clipboard access denied',
         'deleteGamesButtonTitle': 'Delete selected imported games',
         'deleteSelectedQuestion': 'Are you sure you want to delete %s games?',
-        'deleteSelectedQuestion:one': 'Are you sure you want to delete one game?'
+        'deleteSelectedQuestion:one': 'Are you sure you want to delete one game?',
+        'extraInfoButtonTitle': 'More game information',
+        'extraInfoTitle': `Accuracy: $accuracy
+Average centipawn loss: $acpl
+Inaccuracies / mistakes / blunders
+  White: $whiteMoves
+  Black: $blackMoves`
       },
       'ro-RO': {
         'options.general': 'General',
@@ -46,6 +57,7 @@
         'gameListOptions.color': 'Culoare dup\u0103 juc\u0103tori',
         'gameListOptions.select': 'Selec\u0163ie',
         'gameListOptions.analysisLink': 'Direct la analiz\u0103',
+        'gameListOptions.extraInfo': 'Buton informa\u0163ii \u00een plus',
         'abortedGamesLabel': 'Arat\u0103 anulate:',
         'colorGamesLabel': 'Culoare dup\u0103 juc\u0103tori:',
         'analysedGamesLabel': 'Doar analizate:',
@@ -57,7 +69,13 @@
         'clipboardDenied': 'Acces refuzat la clipboard',
         'deleteGamesButtonTitle': '\u015Eterge jocurile importante selectate',
         'deleteSelectedQuestion': 'Sigur vrei sa \u015ftergi %s jocuri selectate?',
-        'deleteSelectedQuestion:one': 'Sigur vrei sa \u015ftergi jocul selectat?'
+        'deleteSelectedQuestion:one': 'Sigur vrei sa \u015ftergi jocul selectat?',
+        'extraInfoButtonTitle': 'Informa\u0163ii \u00een plus despre jocuri',
+        'extraInfoTitle': `Acurate\u01063e: $accuracy
+ACPL: $acpl
+Inexactit\u0103\u0163i/gre\u015feli/gafe
+  Alb: $whiteMoves
+  Negru: $blackMoves`
       }
     }
 
@@ -69,6 +87,68 @@
       const container = $('div.search__result');
       if (!container.length) return;
       const filters = $('.lichessTools-gameListOptions',container);
+      if (this.options.extraInfo && container.find('article .metadata').length) {
+        if (!$('button.lichessTools-gameListOptions-extraInfo',filters).length) {
+          $('<button class="lichessTools-gameListOptions-extraInfo">')
+            .attr('data-icon',lt.icon.BarChart)
+            .attr('title',trans.noarg('extraInfoButtonTitle'))
+            .on('click',async ev=>{
+              ev.preventDefault();
+              const ids = container.find('article:has(.metadata:not(.lichessTools-extraInfo)) .game-row__overlay')
+                .get()
+                .map((e)=>{
+                  const href = $(e).attr('href');
+                  return href ? href.substr(1,8) : null;
+                })
+                .filter(id=>!!id);
+              let info = new Map();
+              let batch;
+              while ((batch = ids.splice(0,300)).length) {
+                if (info.length) {
+                  await lt.timeout(2000);
+                }
+                const games=await lt.api.game.getPgns(batch,{ ndjson: true, accuracy: true, moves: false, tags: false, clocks: false, evals: false, opening: false, literate: false });
+                for (const game of games) {
+                  info.set(game.id,game);
+                }
+              }
+              container.find('article:has(.metadata:not(.lichessTools-extraInfo)) .game-row__overlay')
+                .each((i,e)=>{
+                  const href = $(e).attr('href');
+                  const gameId = href ? href.substr(1,8) : null;
+                  const game = info.get(gameId);
+                  if (!game) return;
+
+                  const wa = game.players?.white?.analysis;
+                  const ba = game.players?.black?.analysis;
+                  const accText = [wa?.accuracy, ba?.accuracy].join(' / ');
+                  const acplText = [wa?.acpl, ba?.acpl].join(' / ');
+                  const whiteMovesText = [wa.mistake, wa.inaccuracy, wa.blunder].join(' / ')
+                  const blackMovesText = [ba.mistake, ba.inaccuracy, ba.blunder].join(' / ')
+
+                  const infoText = accText;
+                  const infoTitle = trans.noarg('extraInfoTitle')
+                    .replace('$accuracy',accText)
+                    .replace('$acpl',acplText)
+                    .replace('$whiteMoves',whiteMovesText)
+                    .replace('$blackMoves',blackMovesText);
+
+
+                  $(e).closest('article').find('.metadata')
+                    .each((i2,e2)=>{
+                      const metadata = $(e2);
+                      metadata
+                        .addClass('lichessTools-extraInfo')
+                        .attr('title',infoTitle)
+                        .append($('<span>').text(infoText));
+                    });
+                });
+            })
+            .appendTo(filters);
+        }
+      } else {
+        $('lichessTools-gameListOptions-extraInfo',filters).remove();
+      }
       if (container.find('.lichessTools-gameListOptions-select input[type="checkbox"]:checked').length) {
         if (!$('button.lichessTools-gameListOptions-copy',filters).length) {
           $('<button class="lichessTools-gameListOptions-copy">')
@@ -80,7 +160,7 @@
                 .get()
                 .map((e)=>{
                   const href = $(e).next('a').attr('href');
-                  return href?href.substr(1,8):null;
+                  return href ? href.substr(1,8) : null;
                 })
                 .filter(id=>!!id);
               let pgns = '';
@@ -377,7 +457,8 @@
         analysis: lt.isOptionSet(value, 'analysis'),
         analysisLink: lt.isOptionSet(value, 'analysisLink'),
         titledOpponents: lt.isOptionSet(value, 'titledOpponents'),
-        get isSet() { return this.aborted || this.color || this.select || this.analysis || this.analysisLink || this.titledOpponents; }
+        extraInfo: lt.isOptionSet(value, 'extraInfo'),
+        get isSet() { return this.aborted || this.color || this.select || this.analysis || this.analysisLink || this.titledOpponents || this.extraInfo; }
       };
       $('div.search__result .lichessTools-gameListOptions').remove();
       $('.lichessTools-gameListOptions-select')

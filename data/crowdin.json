@@ -861,7 +861,10 @@
     "deleteSelectedQuestion:one": "هل أنت متأكد من أنك تريد حذف لعبة واحدة؟",
     "predictedRatingChangeText": "التغييرات المتوقعة في التصنيف: %s",
     "kmapsTitle": "أدوات شطرنج الحياة - K-MAPS\r\n  أمن الملك: $K\r\n  المواد: $M\r\n  النشاط: $A\r\n  بنية البيد: $P\r\n  الفضاء: $S",
-    "estimatedRating": "تقدير تقديري: %s"
+    "estimatedRating": "تقدير تقديري: %s",
+    "gameListOptions.extraInfo": "زر المزيد من المعلومات",
+    "extraInfoButtonTitle": "المزيد من معلومات اللعبة",
+    "extraInfoTitle": "الدقة: $accuracy\r\nمتوسط الخسارة في السنتيبون: $acpl\r\nعدم الدقة / الأخطاء / الأخطاء\r\n  الأبيض: $whiteMoves\r\n  أسود: $blackMoves"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1725,7 +1728,10 @@
     "deleteSelectedQuestion:one": "您确定要删除一个游戏吗？",
     "predictedRatingChangeText": "预测的评分变化： %s",
     "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S",
-    "estimatedRating": "估计评分： %s"
+    "estimatedRating": "估计评分： %s",
+    "gameListOptions.extraInfo": "更多信息按钮",
+    "extraInfoButtonTitle": "更多游戏信息",
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2589,7 +2595,10 @@
     "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
     "predictedRatingChangeText": "Predicted rating changes: %s",
     "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S",
-    "estimatedRating": "Estimated rating: %s"
+    "estimatedRating": "Estimated rating: %s",
+    "gameListOptions.extraInfo": "More info button",
+    "extraInfoButtonTitle": "More game information",
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3453,7 +3462,10 @@
     "deleteSelectedQuestion:one": "Weet je zeker dat je één spel wilt verwijderen?",
     "predictedRatingChangeText": "Voorspelde beoordelingswijzigingen: %s",
     "kmapsTitle": "LiChess gereedschappen - K-MAPS\r\n  Kingveiligheid: $K\r\n  Materiaal: $M\r\n  Activiteit: $A\r\n  Pioningstructuur: $P\r\n  ruimte: $S",
-    "estimatedRating": "Geschatte beoordeling: %s"
+    "estimatedRating": "Geschatte beoordeling: %s",
+    "gameListOptions.extraInfo": "Meer info knop",
+    "extraInfoButtonTitle": "Meer spelinformatie",
+    "extraInfoTitle": "Nauwkeurigheid: $accuracy\r\nGemiddeld centipiwn verlies: $acpl\r\nInnauwkeurigheden / vergissingen / blunders\r\n  Wit: $whiteMoves\r\n  Zwart: $blackMoves"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4317,7 +4329,10 @@
     "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
     "predictedRatingChangeText": "Predicted rating changes: %s",
     "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S",
-    "estimatedRating": "Estimated rating: %s"
+    "estimatedRating": "Estimated rating: %s",
+    "gameListOptions.extraInfo": "More info button",
+    "extraInfoButtonTitle": "More game information",
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5181,7 +5196,10 @@
     "deleteSelectedQuestion:one": "Êtes-vous sûr de vouloir supprimer une partie ?",
     "predictedRatingChangeText": "Variations de classement prévues : %s",
     "kmapsTitle": "LiChess Tools - S-MASE\n  Sécurité du Roi : $K\n  Matériel : $M\n  Activité : $A\n  Structure des pions : $P\n  Espace : $S",
-    "estimatedRating": "Classement Elo estimé : %s"
+    "estimatedRating": "Classement Elo estimé : %s",
+    "gameListOptions.extraInfo": "Bouton \"Plus d'infos\"",
+    "extraInfoButtonTitle": "Plus d'informations sur le jeu",
+    "extraInfoTitle": "Précision : $accuracy\r\nPerte moyenne de centipawn : $acpl\r\nInexactitudes / erreurs / contours\r\n  Blanche : $whiteMoves\r\n  Noir : $blackMoves"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6045,7 +6063,10 @@
     "deleteSelectedQuestion:one": "Bist du sicher, dass du ein Spiel löschen möchtest?",
     "predictedRatingChangeText": "Prognostizierte Bewertungsänderungen: %s",
     "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King Sicherheit: $K\r\n  Material: $M\r\n  Aktivität: $A\r\n  Pfandstruktur: $P\r\n  Leerzeichen: $S",
-    "estimatedRating": "Geschätzte Bewertung: %s"
+    "estimatedRating": "Geschätzte Bewertung: %s",
+    "gameListOptions.extraInfo": "Mehr Info-Button",
+    "extraInfoButtonTitle": "Weitere Spielinformationen",
+    "extraInfoTitle": "Genauigkeit: $accuracy\r\nDurchschnittlicher Zentimeter Verlust: $acpl\r\nUngenauigkeiten / Fehler / Fehler\r\n  Weiß: $whiteMoves\r\n  Schwarz: $blackMoves"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6909,7 +6930,10 @@
     "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
     "predictedRatingChangeText": "Predicted rating changes: %s",
     "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S",
-    "estimatedRating": "Estimated rating: %s"
+    "estimatedRating": "Estimated rating: %s",
+    "gameListOptions.extraInfo": "More info button",
+    "extraInfoButtonTitle": "More game information",
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7773,7 +7797,10 @@
     "deleteSelectedQuestion:one": "Sei sicuro di voler eliminare una partita?",
     "predictedRatingChangeText": "Cambiamenti di valutazione previsti: %s",
     "kmapsTitle": "Strumenti LiChess - K-MAPS\r\n  King safety: $K\r\n  Materiale: $M\r\n  Attività: $A\r\n  Struttura dei pedoni: $P\r\n  Spazio: $S",
-    "estimatedRating": "Valutazione stimata: %s"
+    "estimatedRating": "Valutazione stimata: %s",
+    "gameListOptions.extraInfo": "Più info pulsante",
+    "extraInfoButtonTitle": "Ulteriori informazioni sul gioco",
+    "extraInfoTitle": "Precisione: $accuracy\r\nPerdita media di centipawn: $acpl\r\nInaccuratezza / errori / blunders\r\n  Bianco: $whiteMoves\r\n  Nero: $blackMoves"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -8637,7 +8664,10 @@
     "deleteSelectedQuestion:one": "Czy na pewno chcesz usunąć jedną grę?",
     "predictedRatingChangeText": "Przewidywane zmiany oceny: %s",
     "kmapsTitle": "Narzędzia LiChess - K-MAPS\r\n  Bezpieczeństwo Króla: $K\r\n  Materiał: $M\r\n  Aktywność: $A\r\n  Struktura awna: $P\r\n  Miejsce: $S",
-    "estimatedRating": "Szacowana ocena: %s"
+    "estimatedRating": "Szacowana ocena: %s",
+    "gameListOptions.extraInfo": "Przycisk więcej informacji",
+    "extraInfoButtonTitle": "Więcej informacji o grze",
+    "extraInfoTitle": "Dokładność: $accuracy\r\nŚrednia utrata motywów: $acpl\r\nNieścisłości / błędy / zamazania\r\n  Białe: $whiteMoves\r\n  Czarny: $blackMoves"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -9501,7 +9531,10 @@
     "deleteSelectedQuestion:one": "Tem certeza de que deseja excluir um jogo?",
     "predictedRatingChangeText": "Alterações de classificação previstas: %s",
     "kmapsTitle": "Ferramentas de LiChess - K-MAPS\r\n  Rei Segurança: $K\r\n  Material: $M\r\n  Atividade: $A\r\n  Estrutura do Peão: $P\r\n  Espaço: $S",
-    "estimatedRating": "Classificação estimada: %s"
+    "estimatedRating": "Classificação estimada: %s",
+    "gameListOptions.extraInfo": "Mais informações",
+    "extraInfoButtonTitle": "Mais informações de jogo",
+    "extraInfoTitle": "Precisão: $accuracy\r\nPerda média do centípare: $acpl\r\nImprecisões / erros / gafes\r\n  Branco: $whiteMoves\r\n  Preta: $blackMoves"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -10365,7 +10398,10 @@
     "deleteSelectedQuestion:one": "Tem certeza de que deseja excluir um jogo?",
     "predictedRatingChangeText": "Alterações de classificação previstas: %s",
     "kmapsTitle": "Ferramentas de LiChess - K-MAPS\r\n  Rei Segurança: $K\r\n  Material: $M\r\n  Atividade: $A\r\n  Estrutura do Peão: $P\r\n  Espaço: $S",
-    "estimatedRating": "Classificação estimada: %s"
+    "estimatedRating": "Classificação estimada: %s",
+    "gameListOptions.extraInfo": "Mais informações",
+    "extraInfoButtonTitle": "Mais informações de jogo",
+    "extraInfoTitle": "Precisão: $accuracy\r\nPerda média do centípare: $acpl\r\nImprecisões / erros / gafes\r\n  Branco: $whiteMoves\r\n  Preta: $blackMoves"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -11229,7 +11265,10 @@
     "deleteSelectedQuestion:one": "Sigur vrei sa ștergi jocul selectat?",
     "predictedRatingChangeText": "Simulare schimbare rating: %s",
     "kmapsTitle": "LiChess Tools - K-MAPS\n  Siguranță rege: $K\n  Material: $M\n  Activitate: $A\n  Structură pioni: $P\n  Spațiu: $S",
-    "estimatedRating": "Rating estimat: %s"
+    "estimatedRating": "Rating estimat: %s",
+    "gameListOptions.extraInfo": "Buton informații în plus",
+    "extraInfoButtonTitle": "Informații în plus despre jocuri",
+    "extraInfoTitle": "Acuratețe: $accuracy\nACPL: $acpl\nInexactități / greșeli / gafe\n  Alb: $whiteMoves\n  Negru: $blackMoves"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -12093,7 +12132,10 @@
     "deleteSelectedQuestion:one": "Вы уверены, что хотите удалить одну игру?",
     "predictedRatingChangeText": "Прогнозируемые изменения рейтинга: %s",
     "kmapsTitle": "LiChess Tools - K-MAPS\n  Безопасность короля: $K\n  Материал: $M\n  Активность: $A\n  Пешечная структура: $P\n  Пространство: $S",
-    "estimatedRating": "Примерный рейтинг: %s"
+    "estimatedRating": "Примерный рейтинг: %s",
+    "gameListOptions.extraInfo": "Кнопка \"Подробнее\"",
+    "extraInfoButtonTitle": "Больше информации об игре",
+    "extraInfoTitle": "Точность: $accuracy\r\nСредняя потеря центипеука: $acpl\r\nНеточности / ошибки / дроби\r\n  Белые: $whiteMoves\r\n  Черный: $blackMoves"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -12957,7 +12999,10 @@
     "deleteSelectedQuestion:one": "¿Estás seguro de que quieres eliminar un juego?",
     "predictedRatingChangeText": "Cambios de puntuación previstos: %s",
     "kmapsTitle": "Herramientas de LiAjedrez - K-MAPS\r\n  Rey Rey: $K\r\n  Material: $M\r\n  Actividad: $A\r\n  Estructura de amanecer: $P\r\n  Espacio: $S",
-    "estimatedRating": "Puntuación estimada: %s"
+    "estimatedRating": "Puntuación estimada: %s",
+    "gameListOptions.extraInfo": "Botón de más información",
+    "extraInfoButtonTitle": "Más información del juego",
+    "extraInfoTitle": "Precisión: $accuracy\r\nPérdida media del centipan: $acpl\r\nInexactitudes / errores / errores\r\n  Blanco: $whiteMoves\r\n  Negro: $blackMoves"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -13821,7 +13866,10 @@
     "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
     "predictedRatingChangeText": "Predicted rating changes: %s",
     "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S",
-    "estimatedRating": "Estimated rating: %s"
+    "estimatedRating": "Estimated rating: %s",
+    "gameListOptions.extraInfo": "More info button",
+    "extraInfoButtonTitle": "More game information",
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -14685,7 +14733,10 @@
     "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
     "predictedRatingChangeText": "Predicted rating changes: %s",
     "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S",
-    "estimatedRating": "Estimated rating: %s"
+    "estimatedRating": "Estimated rating: %s",
+    "gameListOptions.extraInfo": "More info button",
+    "extraInfoButtonTitle": "More game information",
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -15549,6 +15600,9 @@
     "deleteSelectedQuestion:one": "Are you sure you want to delete one game?",
     "predictedRatingChangeText": "Predicted rating changes: %s",
     "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S",
-    "estimatedRating": "Estimated rating: %s"
+    "estimatedRating": "Estimated rating: %s",
+    "gameListOptions.extraInfo": "More info button",
+    "extraInfoButtonTitle": "More game information",
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
   }
 }
