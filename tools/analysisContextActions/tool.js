@@ -203,6 +203,10 @@ Varia\u0163iuni urm\u0103toare: $branches`
       if (!this.evaluateTerminationsTotal) this.evaluateTerminationsTotal = nodes.length;
       const percent = (this.evaluateTerminationsTotal - nodes.length) + '/' + this.evaluateTerminationsTotal;
       const liveStatus = trans.pluralSame('evaluateTerminationsStarted', percent);
+      if (this.options.moveEval && analysis.study && !$('div.lichessTools-liveStatus').length) {
+        $('main.analyse div.analyse__controls.analyse-controls')
+          .after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
+      }
       $('.lichessTools-liveStatus label').text(liveStatus);
       const node = nodes[0];
       if (!node) {
