@@ -64,7 +64,7 @@
           : lt.getPositionFromBoard($('.main-board')[0],true);
         if (!fen) return;
         const side = $('.main-board .cg-wrap').is('.orientation-black') ? 1 : 0;
-        const turn = fen.endsWith(' b') ? 1 : 0;
+        const turn = fen.includes(' b') ? 1 : 0;
         const comp = side ^ turn;
         $('div.pv_box span.pv-san').each((i, e) => {
           if (!lt.inViewport(e)) return;
