@@ -252,7 +252,8 @@ Varia\u0163iuni urm\u0103toare: $branches`
       const analysis = lichess.analysis;
       const setTimeout = lt.global.setTimeout;
 
-      function checkState(resolve) {
+      const checkState = (resolve) => {
+        if (!this.evaluateTerminationsStarted) return;
         if (!analysis?.ceval?.allowed()) {
           return;
         }
@@ -263,11 +264,12 @@ Varia\u0163iuni urm\u0103toare: $branches`
         }
         const state = analysis.ceval.state;
         if (state <= 1) {
+          this.doEvaluation();
           setTimeout(() => checkState(resolve), 1000);
           return;
         }
         resolve();
-      }
+      };
 
       return new Promise((resolve, reject) => {
         checkState(resolve);

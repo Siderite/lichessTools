@@ -294,7 +294,6 @@
         node.autoDeeper = undefined;
         if (analysis.ceval.state == 3) {
           analysis.ceval.stop();
-          analysis.redraw();
           if (analysis.node.ceval) {
             const depth = analysis.node.ceval.depth;
             if (analysis.practice?.running()) {
@@ -307,6 +306,7 @@
               }
             }
           }
+          lt.global.setTimeout(analysis.redraw,100);
         }
         return false;
       }
