@@ -2276,7 +2276,7 @@
         : 0;
       this.global.console.debug('%c site code age: ' + Math.round(age * 10) / 10 + ' days', age < 7 ? 'background: red; color:white;' : '');
       await this.applyOptions();
-      const debouncedApplyOptions = this.debounce(this.applyOptions, 250);
+      const debouncedApplyOptions = this.debounce(this.applyOptions, 250, true);
       this.storage?.listen('lichessTools.reloadOptions', () => {
         debouncedApplyOptions();
       });
