@@ -152,7 +152,7 @@
 </table>
 <div class="prefTools">
   <button class="expandAll"></button>
-  <input type="text" class="prefFilter" placeholder="$trans(preferenceFilterPlaceholder)">
+  <input type="text" class="prefFilter" placeholder="$trans(preferenceFilterPlaceholder)" autofocus>
 </div>`;
 
       const categs = {};
