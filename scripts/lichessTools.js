@@ -1930,8 +1930,9 @@
           const lt = this.lichessTools;
           const mm = /\/(hot|newest|updated|popular)$/.exec(lt.global.location.pathname);
           const mode = mm?.at(1) || 'hot';
-          const p = baseUrl.includes('?') ? '&' : '?';
-          const json = await lt.net.json(baseUrl + p + 'page=' + page);
+          const url = new URL(baseUrl);
+          url.searchParams.set('page',page);
+          const json = await lt.net.json(url.toString());
           return json;
         }
       },

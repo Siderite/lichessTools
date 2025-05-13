@@ -166,6 +166,11 @@
         page = this._nextPage;
       }
       const baseUrl = lt.global.location.href;
+      if (!this._currentPage) {
+        const url = new URL(baseUrl);
+        const hrefPage = +url.searchParams.get('page');
+        if (hrefPage) this._currentPage = hrefPage;
+      }
       while (this._currentPage < page) {
         const json = await lt.api.study.getStudyListPage(baseUrl, this._currentPage + 1);
         const loadedPage = +json?.paginator?.currentPage;
