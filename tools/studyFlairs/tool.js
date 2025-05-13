@@ -165,6 +165,7 @@
       } else if (this._nextPage) {
         page = this._nextPage;
       }
+      if (page > 40) page = 40; // Lichess API limitation
       const baseUrl = lt.global.location.href;
       if (!this._currentPage) {
         const url = new URL(baseUrl);
