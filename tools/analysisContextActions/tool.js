@@ -419,6 +419,7 @@ Varia\u0163iuni urm\u0103toare: $branches`
           .appendTo(menu);
       }
 
+      menu.toggleClassSafe('lichessTools-removeSuperfluous',this.options.removeSuperfluous);
       if (this.options.removeSuperfluous) {
         $('a[data-icon="'+lt.icon.BubbleSpeech+'"],a[data-icon="'+lt.icon.Clipboard+'"],a.glyph-icon', menu).remove();
         if (this.options.autoExpand) {
