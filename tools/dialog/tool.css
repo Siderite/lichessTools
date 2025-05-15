@@ -1,3 +1,8 @@
+html:has(body.lichessTools dialog.lichessTools-dialog) {
+  overflow: hidden;
+}
+
+
 body.lichessTools:has(dialog.lichessTools-dialog.dragged),
 body.lichessTools:has(dialog.lichessTools-dialog.resizing) {
   user-select: none;
