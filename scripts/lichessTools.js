@@ -608,7 +608,7 @@
       return this.global.navigator?.deviceMemory || (await this.global.navigator?.storage?.estimate())?.quota/(1024*1024*1024);
     }
 
-  debounceOld(fn, wait) {
+  debounce(fn, wait) {
       let timeout = null;
       let isRunning = false;
       const c = () => {
@@ -640,7 +640,7 @@
       };
     }
 
-    debounce(fn, wait, options) {
+    debounceNew(fn, wait, options) {
       let timeout = null;
       let isRunning = false;
       let lastExecution = 0;
