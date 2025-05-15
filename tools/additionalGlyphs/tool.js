@@ -41,9 +41,8 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
-      if (!analysis?.chessground) return;
-      const bounds = analysis.chessground?.state?.dom?.bounds();
-      if (!bounds?.height || !bounds?.width) return;
+      const chessground = analysis?.chessground;
+      if (!chessground) return;
       const firstGlyph = analysis.node.glyphs?.at(0);
       let glyph = firstGlyph?.symbol;
       let fill = firstGlyph?.fill || '#557766B0';
@@ -58,12 +57,18 @@
         }
       }
       if (!glyph) return;
-      if (this.isStandardGlyph(glyph) || lt.storage.get('analyse.show-move-annotation') === false) {
-        const autoShapes = analysis.chessground.state.drawable.autoShapes;
+
+      const setShape = (shape) => {
+        const autoShapes = chessground.state?.drawable?.autoShapes;
         const shapes = autoShapes?.filter(s => s.type !== 'glyph') || [];
-        if (shapes?.length !== autoShapes?.length) {
-          analysis.chessground.setAutoShapes(shapes);
+        if (shape) shapes.push(shape);
+        if (lt.global.JSON.stringify(autoShapes)!=lt.global.JSON.stringify(shapes)) {
+          chessground.setAutoShapes(shapes);
         }
+      };
+
+      if (this.isStandardGlyph(glyph) || lt.storage.get('analyse.show-move-annotation') === false) {
+        setShape();
         return;
       }
       let orig = analysis.node.uci?.slice(2, 4);
@@ -76,8 +81,7 @@
           case 'h8': orig='g8'; break;
         }
       }
-      const shapes = analysis.chessground.state.drawable.autoShapes?.filter(s => s.type !== 'glyph') || [];
-      shapes.push({
+      setShape({
         type: 'glyph',
         orig: orig,
         label: {
@@ -85,9 +89,8 @@
           text: glyph
         }
       });
-      analysis.chessground.setAutoShapes(shapes);
       const existing = $('svg.cg-custom-svgs g').filter(g=>$(g).attr('cgHash')?.includes(','+orig));
-      $('circle',existing).attr('fill',fill);
+      $('circle',existing).attrSafe('fill',fill);
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);
 
@@ -107,18 +110,26 @@
       const study = analysis.study;
       lt.pubsub.off('lichessTools.redraw', this.drawGlyphs);
       lt.global.clearInterval(this.interval);
-      if (!this.options.enabled) {
-        if (analysis.chessground) {
-          const shapes = analysis.chessground.state.drawable.autoShapes?.filter(s => s.type !== 'glyph') || [];
-          analysis.chessground.setAutoShapes(shapes);
+
+      const clearShapes = ()=>{
+        const chessground = analysis.chessground;
+        if (!chessground) return;
+        const autoShapes = chessground.state?.drawable?.autoShapes;
+        const shapes = autoShapes?.filter(s => s.type !== 'glyph') || [];
+        if (lt.global.JSON.stringify(autoShapes)!=lt.global.JSON.stringify(shapes)) {
+          chessground.setAutoShapes(shapes);
         }
+      };
+
+      if (!this.options.enabled) {
+        clearShapes();
         return;
       }
-      // TODO confirm there is no need to handle the 'glyphs' socket message
+
       lt.pubsub.on('lichessTools.redraw', this.drawGlyphs);
-      const drawable = analysis.chessground?.state.drawable;
-      if (drawable) {
+      if (analysis.chessground?.state.drawable) {
         this.interval = lt.global.setInterval(() => {
+          const drawable = analysis.chessground?.state.drawable;
           let same = drawable.autoShapes?.length === this.prevAutoShapes?.length;
           if (same && this.prevAutoShapes?.length) {
             for (let i=0; i<this.prevAutoShapes?.length; i++) {
