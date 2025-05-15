@@ -306,7 +306,11 @@
               }
             }
           }
-          lt.global.setTimeout(analysis.redraw,100);
+          lt.global.setTimeout(()=>{
+            if (!$('div.ceval a.deeper').length) {
+              analysis.redraw();
+            }
+          },100);
         }
         return false;
       }
