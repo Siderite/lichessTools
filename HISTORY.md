@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 May
+
+- Vintage Adamisko theme
+
 10 May
 
 - more info button for game lists

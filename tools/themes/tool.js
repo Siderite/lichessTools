@@ -8,7 +8,7 @@
         name: 'themes',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup','fixThirdParties'],
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup','adamisko','fixThirdParties'],
         defaultValue: 'fixThirdParties',
         advanced: true
       }
@@ -36,6 +36,7 @@
         'themes.slimmerArrows': '... slimmer',
         'themes.gridBoard': 'Grid board squares',
         'themes.noResultPopup': 'No game result popup',
+        'themes.adamisko': 'Vintage Adamisko',
         'themes.fixThirdParties': 'Fix third parties'
       },
       'ro-RO': {
