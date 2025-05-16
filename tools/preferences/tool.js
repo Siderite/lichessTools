@@ -92,7 +92,7 @@
       const tools = lt.tools;
       const htmlEncode = lt.htmlEncode;
       const currentOptions = lt.currentOptions;
-      const applyOptions = lt.saveOptions.bind(lt);
+      const applyOptions = lt.applyOptions.bind(lt);
       const lichess = lt.lichess;
       const isOptionSet = lt.isOptionSet;
       const isLoggedIn = !!lt.getUserId();
