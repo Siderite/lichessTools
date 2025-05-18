@@ -13,8 +13,9 @@ body.lichessTools button.fbt[data-act="menu"]:not(.active) + div.lichessTools-qu
 body.lichessTools button.board-menu-toggle:not(.active) + div.lichessTools-quickActions-tooltip button.fbt,
 body.lichessTools button.msg-app__convo__post__submit:not(.active) + div.lichessTools-quickActions-tooltip button.fbt {
   font-size: 1.3rem;
-  height: 3em;
+  height: 2.5em;
   border: none;
+  min-width: 2.5em;
 }
 
 body.lichessTools div.lichessTools-quickActions-tooltip button.fbt:hover {
