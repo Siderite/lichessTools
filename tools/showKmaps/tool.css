@@ -16,7 +16,8 @@ body.lichessTools span.lichessTools-kmaps canvas {
   cursor: pointer;
 }
 
-body.lichessTools .game__meta:has(span.lichessTools-kmaps canvas:hover) {
+body.lichessTools .game__meta:has(span.lichessTools-kmaps canvas:hover),
+body.lichessTools .chat__members:has(span.lichessTools-kmaps canvas) {
   overflow: visible;
 }
 
