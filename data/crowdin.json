@@ -864,7 +864,9 @@
     "estimatedRating": "تقدير تقديري: %s",
     "gameListOptions.extraInfo": "زر المزيد من المعلومات",
     "extraInfoButtonTitle": "المزيد من معلومات اللعبة",
-    "extraInfoTitle": "الدقة: $accuracy\r\nمتوسط الخسارة في السنتيبون: $acpl\r\nعدم الدقة / الأخطاء / الأخطاء\r\n  الأبيض: $whiteMoves\r\n  أسود: $blackMoves"
+    "extraInfoTitle": "الدقة: $accuracy\r\nمتوسط الخسارة في السنتيبون: $acpl\r\nعدم الدقة / الأخطاء / الأخطاء\r\n  الأبيض: $whiteMoves\r\n  أسود: $blackMoves",
+    "additionalGlyphs.miss": "الآنسة",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1731,7 +1733,9 @@
     "estimatedRating": "估计评分： %s",
     "gameListOptions.extraInfo": "更多信息按钮",
     "extraInfoButtonTitle": "更多游戏信息",
-    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
+    "additionalGlyphs.miss": "小节",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2598,7 +2602,9 @@
     "estimatedRating": "Estimated rating: %s",
     "gameListOptions.extraInfo": "More info button",
     "extraInfoButtonTitle": "More game information",
-    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
+    "additionalGlyphs.miss": "Miss",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3465,7 +3471,9 @@
     "estimatedRating": "Geschatte beoordeling: %s",
     "gameListOptions.extraInfo": "Meer info knop",
     "extraInfoButtonTitle": "Meer spelinformatie",
-    "extraInfoTitle": "Nauwkeurigheid: $accuracy\r\nGemiddeld centipiwn verlies: $acpl\r\nInnauwkeurigheden / vergissingen / blunders\r\n  Wit: $whiteMoves\r\n  Zwart: $blackMoves"
+    "extraInfoTitle": "Nauwkeurigheid: $accuracy\r\nGemiddeld centipiwn verlies: $acpl\r\nInnauwkeurigheden / vergissingen / blunders\r\n  Wit: $whiteMoves\r\n  Zwart: $blackMoves",
+    "additionalGlyphs.miss": "Mis",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4332,7 +4340,9 @@
     "estimatedRating": "Estimated rating: %s",
     "gameListOptions.extraInfo": "More info button",
     "extraInfoButtonTitle": "More game information",
-    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
+    "additionalGlyphs.miss": "Miss",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5199,7 +5209,9 @@
     "estimatedRating": "Classement Elo estimé : %s",
     "gameListOptions.extraInfo": "Bouton \"Plus d'infos\"",
     "extraInfoButtonTitle": "Plus d'informations sur la partie",
-    "extraInfoTitle": "Précision : $accuracy\nPerte moyenne de centipions : $acpl\nImprécisions / erreurs / gaffes\n  Blancs : $whiteMoves\n  Noirs : $blackMoves"
+    "extraInfoTitle": "Précision : $accuracy\nPerte moyenne de centipions : $acpl\nImprécisions / erreurs / gaffes\n  Blancs : $whiteMoves\n  Noirs : $blackMoves",
+    "additionalGlyphs.miss": "Manquantes",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6066,7 +6078,9 @@
     "estimatedRating": "Geschätzte Bewertung: %s",
     "gameListOptions.extraInfo": "Mehr Info-Button",
     "extraInfoButtonTitle": "Weitere Spielinformationen",
-    "extraInfoTitle": "Genauigkeit: $accuracy\r\nDurchschnittlicher Zentimeter Verlust: $acpl\r\nUngenauigkeiten / Fehler / Fehler\r\n  Weiß: $whiteMoves\r\n  Schwarz: $blackMoves"
+    "extraInfoTitle": "Genauigkeit: $accuracy\r\nDurchschnittlicher Zentimeter Verlust: $acpl\r\nUngenauigkeiten / Fehler / Fehler\r\n  Weiß: $whiteMoves\r\n  Schwarz: $blackMoves",
+    "additionalGlyphs.miss": "Miss",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6933,7 +6947,9 @@
     "estimatedRating": "Estimated rating: %s",
     "gameListOptions.extraInfo": "More info button",
     "extraInfoButtonTitle": "More game information",
-    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
+    "additionalGlyphs.miss": "Miss",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7800,7 +7816,9 @@
     "estimatedRating": "Valutazione stimata: %s",
     "gameListOptions.extraInfo": "Più info pulsante",
     "extraInfoButtonTitle": "Ulteriori informazioni sul gioco",
-    "extraInfoTitle": "Precisione: $accuracy\r\nPerdita media di centipawn: $acpl\r\nInaccuratezza / errori / blunders\r\n  Bianco: $whiteMoves\r\n  Nero: $blackMoves"
+    "extraInfoTitle": "Precisione: $accuracy\r\nPerdita media di centipawn: $acpl\r\nInaccuratezza / errori / blunders\r\n  Bianco: $whiteMoves\r\n  Nero: $blackMoves",
+    "additionalGlyphs.miss": "Sig.na",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -8667,7 +8685,9 @@
     "estimatedRating": "Szacowana ocena: %s",
     "gameListOptions.extraInfo": "Przycisk więcej informacji",
     "extraInfoButtonTitle": "Więcej informacji o grze",
-    "extraInfoTitle": "Dokładność: $accuracy\r\nŚrednia utrata motywów: $acpl\r\nNieścisłości / błędy / zamazania\r\n  Białe: $whiteMoves\r\n  Czarny: $blackMoves"
+    "extraInfoTitle": "Dokładność: $accuracy\r\nŚrednia utrata motywów: $acpl\r\nNieścisłości / błędy / zamazania\r\n  Białe: $whiteMoves\r\n  Czarny: $blackMoves",
+    "additionalGlyphs.miss": "Brakuje",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -9534,7 +9554,9 @@
     "estimatedRating": "Classificação estimada: %s",
     "gameListOptions.extraInfo": "Mais informações",
     "extraInfoButtonTitle": "Mais informações de jogo",
-    "extraInfoTitle": "Precisão: $accuracy\r\nPerda média do centípare: $acpl\r\nImprecisões / erros / gafes\r\n  Branco: $whiteMoves\r\n  Preta: $blackMoves"
+    "extraInfoTitle": "Precisão: $accuracy\r\nPerda média do centípare: $acpl\r\nImprecisões / erros / gafes\r\n  Branco: $whiteMoves\r\n  Preta: $blackMoves",
+    "additionalGlyphs.miss": "Perdeu",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -10401,7 +10423,9 @@
     "estimatedRating": "Classificação estimada: %s",
     "gameListOptions.extraInfo": "Mais informações",
     "extraInfoButtonTitle": "Mais informações de jogo",
-    "extraInfoTitle": "Precisão: $accuracy\r\nPerda média do centípare: $acpl\r\nImprecisões / erros / gafes\r\n  Branco: $whiteMoves\r\n  Preta: $blackMoves"
+    "extraInfoTitle": "Precisão: $accuracy\r\nPerda média do centípare: $acpl\r\nImprecisões / erros / gafes\r\n  Branco: $whiteMoves\r\n  Preta: $blackMoves",
+    "additionalGlyphs.miss": "Perdeu",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -11268,7 +11292,9 @@
     "estimatedRating": "Rating estimat: %s",
     "gameListOptions.extraInfo": "Buton informații în plus",
     "extraInfoButtonTitle": "Informații în plus despre jocuri",
-    "extraInfoTitle": "Acuratețe: $accuracy\nACPL: $acpl\nInexactități / greșeli / gafe\n  Alb: $whiteMoves\n  Negru: $blackMoves"
+    "extraInfoTitle": "Acuratețe: $accuracy\nACPL: $acpl\nInexactități / greșeli / gafe\n  Alb: $whiteMoves\n  Negru: $blackMoves",
+    "additionalGlyphs.miss": "Rateu",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -12135,7 +12161,9 @@
     "estimatedRating": "Примерный рейтинг: %s",
     "gameListOptions.extraInfo": "Кнопка \"Подробнее\"",
     "extraInfoButtonTitle": "Больше информации об игре",
-    "extraInfoTitle": "Точность: $accuracy\r\nСредняя потеря центипеука: $acpl\r\nНеточности / ошибки / дроби\r\n  Белые: $whiteMoves\r\n  Черный: $blackMoves"
+    "extraInfoTitle": "Точность: $accuracy\r\nСредняя потеря центипеука: $acpl\r\nНеточности / ошибки / дроби\r\n  Белые: $whiteMoves\r\n  Черный: $blackMoves",
+    "additionalGlyphs.miss": "Мисс",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13002,7 +13030,9 @@
     "estimatedRating": "Puntuación estimada: %s",
     "gameListOptions.extraInfo": "Botón de más información",
     "extraInfoButtonTitle": "Más información del juego",
-    "extraInfoTitle": "Precisión: $accuracy\r\nPérdida media del centipan: $acpl\r\nInexactitudes / errores / errores\r\n  Blanco: $whiteMoves\r\n  Negro: $blackMoves"
+    "extraInfoTitle": "Precisión: $accuracy\r\nPérdida media del centipan: $acpl\r\nInexactitudes / errores / errores\r\n  Blanco: $whiteMoves\r\n  Negro: $blackMoves",
+    "additionalGlyphs.miss": "Beso",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -13869,7 +13899,9 @@
     "estimatedRating": "Estimated rating: %s",
     "gameListOptions.extraInfo": "More info button",
     "extraInfoButtonTitle": "More game information",
-    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
+    "additionalGlyphs.miss": "Miss",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -14736,7 +14768,9 @@
     "estimatedRating": "Estimated rating: %s",
     "gameListOptions.extraInfo": "More info button",
     "extraInfoButtonTitle": "More game information",
-    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
+    "additionalGlyphs.miss": "Miss",
+    "themes.adamisko": "Vintage Adamisko"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -15603,6 +15637,8 @@
     "estimatedRating": "Estimated rating: %s",
     "gameListOptions.extraInfo": "More info button",
     "extraInfoButtonTitle": "More game information",
-    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves"
+    "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
+    "additionalGlyphs.miss": "Miss",
+    "themes.adamisko": "Vintage Adamisko"
   }
 }
