@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+18 May
+
+- KMAPS radar chart
+
 16 May
 
 - Vintage Adamisko theme

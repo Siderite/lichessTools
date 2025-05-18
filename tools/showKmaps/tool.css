@@ -1,3 +1,29 @@
+body.lichessTools span.lichessTools-kmaps {
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  overflow: visible;
+}
+
+body.lichessTools span.lichessTools-kmaps canvas {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1 / 1;
+  z-index: 3;
+  image-rendering: crisp-edges;
+  transform: scale(2);
+  cursor: pointer;
+}
+
+body.lichessTools .game__meta:has(span.lichessTools-kmaps canvas:hover) {
+  overflow: visible;
+}
+
+body.lichessTools span.lichessTools-kmaps canvas:hover {
+  transform: scale(10);
+}
+
 body.lichessTools span.lichessTools-kmaps span {
   cursor: pointer;
   color: var(--kmaps-color);
@@ -6,21 +32,14 @@ body.lichessTools span.lichessTools-kmaps span {
 body.lichessTools div.game__meta .lichessTools-kmaps,
 body.lichessTools div.chat__members .lichessTools-kmaps {
   margin-left: 1em;
-  display: flex;
   font-size: x-small;
-  align-items: center;
-  overflow: hidden;
-  justify-content: right;
 }
 
 body.lichessTools a.mini-game .lichessTools-kmaps {
   margin: 3px 0.5em 0.3em 0.7em;
-  display: block;
   opacity: 0.7;
-  height: auto;
   font-size: x-small;
   text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 
@@ -28,7 +47,6 @@ body.lichessTools div.analyse__wiki .lichessTools-kmaps,
 body.lichessTools .copyables .lichessTools-kmaps {
   font-size: 0.8em;
   width: 100%;
-  display: block;
   text-align: right;
 }
 

@@ -9,8 +9,7 @@
         category: 'general',
         type: 'single',
         possibleValues: [false,true],
-        defaultValue: false,
-        wip: true
+        defaultValue: true
       }
     ];
 
@@ -60,6 +59,16 @@
       };
     };
 
+    toggleView = (ev)=>{
+      ev.preventDefault();
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const radarChart = !!lt.storage.get('LiChessTools.showKmaps.radar');
+      lt.storage.set('LiChessTools.showKmaps.radar',!radarChart);
+      $('.lichessTools-kmaps').empty();
+      this.refreshKmaps();
+    };
+
     addKmapsAnchor = (el, kmaps) => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -70,9 +79,10 @@
         const visibleEl = el.filter((i, e) => !!lt.inViewport(e)).eq(0);
         kmapsElem = $('<span>')
           .addClass('lichessTools-kmaps')
+          .on('click',this.toggleView)
           .appendTo(visibleEl);
       }
-      const render = (val)=>{
+      const getColor = (val)=>{
         const q = 0.6;
         let color;
         if (lt.isDark()) {
@@ -84,8 +94,7 @@
             ? lt.getGradientColor(Math.pow(val, q), [{ q: 0, color: '#404040' }, { q: 1, color: '#00FF00' }])
             : lt.getGradientColor(Math.pow(-val, q), [{ q: 0, color: '#404040' }, { q: 1, color: '#FF0000' }]);
         }
-        return $('<span>')
-         .css('--kmaps-color',color);
+        return color;
       }
       kmapsElem.empty()
         .attr('title',trans.noarg('kmapsTitle')
@@ -93,13 +102,98 @@
                         .replace('$M',Math.round(kmaps.M*100))
                         .replace('$A',Math.round(kmaps.A*100))
                         .replace('$P',Math.round(kmaps.P*100))
-                        .replace('$S',Math.round(kmaps.S*100)))
-        .append(render(kmaps.K).text('K'))
-        .append($('<span>').text('-'))
-        .append(render(kmaps.M).text('M'))
-        .append(render(kmaps.A).text('A'))
-        .append(render(kmaps.P).text('P'))
-        .append(render(kmaps.S).text('S'));
+                        .replace('$S',Math.round(kmaps.S*100)));
+      const radarChart = !!lt.storage.get('LiChessTools.showKmaps.radar');
+      if (radarChart) {
+         // Get canvas and context
+         const canvas = document.createElement('canvas');
+         canvas.width = 400;
+         canvas.height = 400;
+         const ctx = canvas.getContext('2d');
+         
+         // Canvas properties
+         const centerX = canvas.width / 2;
+         const centerY = canvas.height / 2;
+         const maxRadius = 170; // Maximum radius for value = 1
+
+         const labels = ['K', 'M', 'A', 'P', 'S'];
+         const numAxes = labels.length;
+         const angleStep = (2 * Math.PI) / numAxes; // Angle between axes
+
+         const minVal = -1;
+         const maxVal = Math.max(0,Math.max(...labels.map(l=>kmaps[l])));
+         const valueToRadius = (value)=>{
+           return ((value - minVal) / (maxVal - minVal)) * maxRadius;
+         };
+
+         const xy = (radius, i)=>{
+           const angle = i * angleStep - Math.PI/2;
+           const x = centerX + radius * Math.cos(angle);
+           const y = centerY + radius * Math.sin(angle);
+           return [x,y];
+         };
+
+         // Draw zero-value circle
+         ctx.beginPath();
+         ctx.strokeStyle = '#80808080';
+         ctx.lineWidth = 2;
+         ctx.arc(centerX, centerY, valueToRadius(0), 0, 2 * Math.PI);
+         ctx.stroke();
+         
+         // Draw data polygon
+         ctx.beginPath();
+         ctx.fillStyle = 'rgba(0, 128, 255, 0.3)';
+         ctx.strokeStyle = 'blue';
+         ctx.lineWidth = 2;
+
+         // Draw labels
+         labels.forEach((label, i) => {
+           const value = kmaps[label];
+           const radius = valueToRadius(value);
+           const [x, y] = xy(radius, i);
+           if (i === 0) {
+             ctx.moveTo(x, y);
+           } else {
+             ctx.lineTo(x, y);
+           }
+         });
+         ctx.closePath();
+         ctx.fill();
+         ctx.stroke();
+         
+         // Draw labels
+         ctx.font = 'bold 3em Arial';
+         ctx.textAlign = 'center';
+         ctx.textBaseline = 'middle';
+         labels.forEach((label, i) => {
+           const value = kmaps[label];
+           ctx.fillStyle = getColor(value);
+           const radius = valueToRadius(value);
+           const [x, y] = xy(radius+10, i);
+           ctx.fillText(label, x, y);
+         });
+
+        kmapsElem
+          .append(canvas);
+      } else {
+        kmapsElem
+          .append($('<span>')
+                    .css('--kmaps-color',getColor(kmaps.K))
+                    .text('K'))
+          .append($('<span>').text('-'))
+          .append($('<span>')
+                    .css('--kmaps-color',getColor(kmaps.M))
+                    .text('M'))
+          .append($('<span>')
+                    .css('--kmaps-color',getColor(kmaps.A))
+                    .text('A'))
+          .append($('<span>')
+                    .css('--kmaps-color',getColor(kmaps.P))
+                    .text('P'))
+          .append($('<span>')
+                    .css('--kmaps-color',getColor(kmaps.S))
+                    .text('S'));
+      }
     };
 
     miniGameKmaps = async (el) => {
