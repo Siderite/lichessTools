@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 18 May
 
 - KMAPS radar chart
+- Miss opportunity glyph
 
 16 May
 
