@@ -23452,6 +23452,26 @@
         }
       ]
     },
+    "rnbqkb1rp1pppppp5n21p62PP48PP2PPPPRNBQKBNRw": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "c4b5",
+          "san": "cxb5",
+          "nr": 1
+        }
+      ]
+    },
+    "rnbqkb1rp1pppppp5n21P63P48PP2PPPPRNBQKBNRb": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "c7c5",
+          "san": "c5",
+          "nr": 1
+        }
+      ]
+    },
     "rnbqkb1rp2ppppp5n21ppP42P58PP2PPPPRNBQKBNRw": {
       "total": 1,
       "moves": [
@@ -25568,8 +25588,13 @@
       ]
     },
     "rnbqkb1rpppppppp5n282P58PP1PPPPPRNBQKBNRw": {
-      "total": 2,
+      "total": 3,
       "moves": [
+        {
+          "uci": "d2d4",
+          "san": "d4",
+          "nr": 1
+        },
         {
           "uci": "b1c3",
           "san": "Nc3",
@@ -25583,8 +25608,13 @@
       ]
     },
     "rnbqkb1rpppppppp5n282PP48PP2PPPPRNBQKBNRb": {
-      "total": 32,
+      "total": 33,
       "moves": [
+        {
+          "uci": "b7b5",
+          "san": "b5",
+          "nr": 2
+        },
         {
           "uci": "a7a6",
           "san": "a6",
@@ -25594,11 +25624,6 @@
           "uci": "e7e5",
           "san": "e5",
           "nr": 6
-        },
-        {
-          "uci": "b7b5",
-          "san": "b5",
-          "nr": 1
         },
         {
           "uci": "c7c5",
@@ -30098,17 +30123,17 @@
       ]
     },
     "rnbqkbnrpppppppp882P58PP1PPPPPRNBQKBNRb": {
-      "total": 17,
+      "total": 18,
       "moves": [
+        {
+          "uci": "g8f6",
+          "san": "Nf6",
+          "nr": 3
+        },
         {
           "uci": "a7a6",
           "san": "a6",
           "nr": 1
-        },
-        {
-          "uci": "g8f6",
-          "san": "Nf6",
-          "nr": 2
         },
         {
           "uci": "b7b5",
@@ -30433,8 +30458,13 @@
       ]
     },
     "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw": {
-      "total": 392,
+      "total": 393,
       "moves": [
+        {
+          "uci": "c2c4",
+          "san": "c4",
+          "nr": 18
+        },
         {
           "uci": "e2e4",
           "san": "e4",
@@ -30459,11 +30489,6 @@
           "uci": "f2f4",
           "san": "f4",
           "nr": 11
-        },
-        {
-          "uci": "c2c4",
-          "san": "c4",
-          "nr": 17
         },
         {
           "uci": "b1a3",
