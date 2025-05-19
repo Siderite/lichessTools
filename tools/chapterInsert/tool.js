@@ -56,11 +56,12 @@
       container.removeClass('single');
       $('<button type="button" class="button lichessTools-chapterInsert">')
         .on('click', (ev) => {
+          ev.preventDefault();
           this.chapterData = {
             chapters: allChapters,
             current: currentChapter
           };
-          $(ev.target).closest('form')[0].submit();
+          $(ev.target).closest('form')[0]?.requestSubmit();
         })
         .text(trans.noarg('chapterInsertText'))
         .attr('title', trans.noarg('chapterInsertTitle'))
