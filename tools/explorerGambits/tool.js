@@ -151,7 +151,7 @@
       const result = gambits[side].get(pos);
       await this.showGambits(result);
     };
-    findGambitsDebounced = this.lichessTools.debounce(this.findGambits, 100);
+    findGambitsDebounced = this.lichessTools.debounce(this.findGambits, 100, { defer:true });
 
     checkGambits = () => {
       const lt = this.lichessTools;

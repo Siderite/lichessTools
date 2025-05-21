@@ -294,13 +294,23 @@
         node.autoDeeper = undefined;
         if (analysis.ceval.state == 3) {
           analysis.ceval.stop();
-          analysis.redraw();
-          if (analysis.node.ceval && analysis.practice?.running()) {
+          if (analysis.node.ceval) {
             const depth = analysis.node.ceval.depth;
-            analysis.node.ceval.depth = 100;
-            analysis.practice.onCeval();
-            analysis.node.ceval.depth = depth;
+            if (analysis.practice?.running()) {
+              analysis.node.ceval.depth = 100;
+              analysis.practice.onCeval();
+              analysis.node.ceval.depth = depth;
+            } else {
+              if (curDepth>depth) {
+                analysis.node.ceval.depth = curDepth;
+              }
+            }
           }
+          lt.global.setTimeout(()=>{
+            if (!$('div.ceval a.deeper').length) {
+              analysis.redraw();
+            }
+          },100);
         }
         return false;
       }

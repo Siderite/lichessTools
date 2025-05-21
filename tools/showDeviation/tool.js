@@ -45,7 +45,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      const firstChild = $(el).children().first();
+      const firstChild = $(el).children().first().closest('.upt__info');
       if (!firstChild.is('.upt__info')) return;
       const url = $('.upt__info__top .user-link',el).attr('href');
       const m = /^\/@\/(?<userId>[^\/]+)/.exec(url||'');

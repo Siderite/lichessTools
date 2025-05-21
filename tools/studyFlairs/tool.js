@@ -43,7 +43,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       if (!this.options.topicFlairs) return;
-      if (lichess.analysis?.isGamebook()) return;
+      if (lichess.analysis?.gamebookPlay()) return;
       const container = $('.study-topics');
       if (lt.inViewport(container)) {
         const tagify = $('tags+textarea', container)[0]?.__tagify;
@@ -150,7 +150,7 @@
       const lichess = lt.lichess;
       const trans = lt.translator;
       const $ = lt.$;
-      if (lichess.analysis?.isGamebook()) return;
+      if (lichess.analysis?.gamebookPlay()) return;
       const href = $('.infinite-scroll .pager > a').attr('href');
       const modeMatch = /\/(?<mode>hot|newest|oldest|updated|popular|alphabetical|mine)\b/i.exec(lt.global.location.pathname);
       const mode = modeMatch?.groups?.mode || 'hot';
@@ -165,7 +165,13 @@
       } else if (this._nextPage) {
         page = this._nextPage;
       }
+      if (page > 40) page = 40; // Lichess API limitation
       const baseUrl = lt.global.location.href;
+      if (!this._currentPage) {
+        const url = new URL(baseUrl);
+        const hrefPage = +url.searchParams.get('page');
+        if (hrefPage) this._currentPage = hrefPage;
+      }
       while (this._currentPage < page) {
         const json = await lt.api.study.getStudyListPage(baseUrl, this._currentPage + 1);
         const loadedPage = +json?.paginator?.currentPage;
@@ -263,7 +269,7 @@
         });
       }
     };
-    processStudyListDebounced = this.lichessTools.debounce(this.processStudyList, 1000);
+    processStudyListDebounced = this.lichessTools.debounce(this.processStudyList, 1000, { defer:true });
 
     async start() {
       const lt = this.lichessTools;

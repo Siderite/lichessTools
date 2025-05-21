@@ -53,6 +53,7 @@
     };
 
     getBoardImage = async (ev) => {
+      if (ev.ctrlKey || ev.shiftKey) return;
       ev.preventDefault();
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -69,7 +70,7 @@
       const assetsUrl = [...match].slice(1).find(m=>/\/assets\//.test(m));
       if (!url) {
         const theme = lt.global.document.dataset?.board || 'maple';
-        url = lt.assetUrl('../images/board/' + theme + '.jpg');
+        url = lt.assetUrl('images/board/' + theme + '.jpg');
       }
       let img = await this.getImage(url) || (assetsUrl && await this.getImage(assetsUrl));
       
@@ -173,20 +174,19 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      let removeRedraw = false;
+      const analysis = lt.lichess.analysis;
       const analysisPgn = $('main.analyse .copyables div.pgn');
       if (analysisPgn.length) {
-        if (!analysisPgn.parent().find('a.lichessTools-boardImage').length) {
-          const analysis = lt.lichess.analysis;
-          const url = '/export/fen.gif?fen=' + lt.global.encodeURIComponent(analysis.node.fen) + '&color=' + analysis.getOrientation();
-          $('<a class="lichessTools-boardImage">')
+        let boardImageLink = analysisPgn.parent().find('a.lichessTools-boardImage');
+        if (!boardImageLink.length) {
+          boardImageLink = $('<a class="lichessTools-boardImage">')
             .text(trans.noarg('screenshotButtonText'))
             .attr('title', trans.noarg('screenshotButtonTitle'))
-            .attr('href', url)
             .on('click', this.getBoardImage)
             .insertAfter(analysisPgn);
-          removeRedraw = true;
         }
+        const url = '/export/fen.gif?fen=' + lt.global.encodeURIComponent(analysis.node.fen) + '&color=' + analysis.getOrientation();
+        boardImageLink.attr('href', url);
       }
       $('div.study__share,div.board-editor .copyables, .position-gif')
         .find('a[href*="fen.gif"]')
@@ -196,12 +196,7 @@
             .addClass('lichessTools-boardImage')
             .attr('title', trans.noarg('screenshotButtonTitle'))
             .on('click', this.getBoardImage);
-          removeRedraw = true;
         });
-      if (removeRedraw) {
-        const lichess = lt.lichess;
-        lt.pubsub.off('lichessTools.redraw', this.enhanceButton);
-      }
     };
     enhanceButton = this.lichessTools.debounce(this.enhanceButtonDirect, 500);
 

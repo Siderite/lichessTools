@@ -42,7 +42,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       if (el !== true && !$(el).is('div.notifications')) return;
-      this.lastRead = lt.storage.get('LiChessTools.lastRead', 0);
+      this.lastRead = lt.storage.get('LiChessTools.lastRead') || 0;
 
       if ($('.shown div.notifications').length || this._unreadNotifications === undefined) {
         this._unreadNotifications = 0;

@@ -48,6 +48,38 @@ div.lichessTools-preferences input.prefFilter {
   border-radius: 1em;
 }
 
+div.lichessTools-preferences div.feedback {
+  justify-self: center;
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+body:not(.mobile) div.lichessTools-preferences .shiny-text {
+  background: linear-gradient(
+    120deg,
+    var(--c-font) 0%,
+    var(--c-font) 45%,
+    cyan 50%,
+    var(--c-font) 55%,
+    var(--c-font) 100%
+  );
+  background-size: 200% 100%;
+  background-position: -100% 0;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  animation: shine-text 3s ease-in-out infinite;
+}
+
+@keyframes shine-text {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
 div.lichessTools-preferences form > div:not(.feedback,.prefTools) {
   display: none;
 }
@@ -93,7 +125,7 @@ div.lichessTools-preferences div.links .blog {
   float: right;
 }
 
-div.lichessTools-preferences form>div {
+div.lichessTools-preferences form>div:not(.feedback) {
   padding-top: 3em;
 }
 
@@ -108,11 +140,6 @@ div.lichessTools-preferences h3>label {
   display: inline-block;
   width: 100%;
   text-align: right;
-}
-
-div.lichessTools-preferences h3.feedback {
-  position: static;
-  margin-bottom: 0.5em;
 }
 
 div.lichessTools-preferences table.lichessTools-globalSwitch {
@@ -231,33 +258,6 @@ body.lichessTools-advancedPreferences div.lichessTools-preferences section.liche
   content: 'WIP';
   float: left;
   margin-right: 1em;
-}
-
-
-div.lichessTools-preferences div.feedback {
-  display: flex;
-  padding-top: 0;
-  margin-bottom: 2em;
-}
-
-div.lichessTools-preferences div.feedback textarea {
-  outline: 0;
-  flex: 1 1 100%;
-  border-radius: 1.5em;
-  resize: none;
-  overflow: none;
-}
-
-div.lichessTools-preferences div.feedback button {
-  background: #629924;
-  color: white;
-  outline: 0;
-  margin-left: 1em;
-  border-radius: 50%;
-  flex: 0 0 3em;
-  font-size: 1.5em;
-  border: none;
-  height: 3em;
 }
 
 div.lichessTools-preferences .actionButtons {

@@ -59,7 +59,7 @@
       const button = $('button.fbt[data-act="menu"],button.board-menu-toggle,.msg-app__convo__post__submit')[0];
       if (!button) return;
       const tooltip = $('.lichessTools-quickActions-tooltip');
-      tooltip.css({ left: button.offsetLeft, top: button.offsetTop, width: button.offsetWidth });
+      tooltip.css({ left: button.offsetLeft, top: button.offsetTop });
 
       if (this.canReadComments()) {
         let button = $('.readComments',tooltip);
@@ -191,7 +191,7 @@
       const analysis = lt.lichess?.analysis;
       if (!analysis?.ceval?.possible) return false;
       if (!analysis?.ceval?.allowed()) return false;
-      if (analysis?.isGamebook()) return false;
+      if (analysis?.gamebookPlay()) return false;
       return true;
     }
 
@@ -212,7 +212,7 @@
       return !!$('form.future-game-analysis').length
     }
 
-    initQuickActions = ()=>{
+    initQuickActions = (start)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       let button = $('button.fbt[data-act="menu"], button.board-menu-toggle, button.msg-app__convo__post__submit');
@@ -230,7 +230,6 @@
           tooltip = $('<div class="lichessTools-quickActions-tooltip">')
             .insertAfter(button);
         }
-        this.refreshTooltip();
       } else {
         $('.lichessTools-quickActions-tooltip').remove();
       }
@@ -254,6 +253,7 @@
        .off('button.fbt[data-act="menu"],button.board-menu-toggle,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
       lt.pubsub.off('lichessTools.chapterChange',this.initQuickActions);
       this.initQuickActions();
+      this.refreshTooltip();
       if (!this.options.isSet) return;
       lt.pubsub.on('lichessTools.chapterChange',this.initQuickActions);
       $('body')

@@ -222,7 +222,7 @@
       this.highlightChecks();
     };
 
-    debouncedTraverseTree = this.lichessTools.debounce(this.traverseTree, 800);
+    debouncedTraverseTree = this.lichessTools.debounce(this.traverseTree, 800, { defer:true });
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('highlight');

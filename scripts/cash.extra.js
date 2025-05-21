@@ -161,6 +161,13 @@ cash.fn.observer = function () {
 cash.fn.replaceText = function(replacement) {
   this.each((i,elem)=>{
     const textNodes = Array.from(elem.childNodes).filter(n => n.nodeType == 3);
+    if (!textNodes.length) {
+      const newText = typeof replacement === 'function'
+        ? replacement('')
+        : replacement;
+      elem.textContent = newText;
+      return;
+    }
     for (const textNode of textNodes) {
       const infoText = textNode.textContent;
       const newText = typeof replacement === 'function'

@@ -1,7 +1,7 @@
 /* Performance */
 
 body.lichessTools.lichessTools-theme_performance,
-body.lichessTools.lichessTools-theme_performance *:not(.spinner,.spinner *) {
+body.lichessTools.lichessTools-theme_performance *:not(.spinner,.spinner *,.eval-gauge .black) {
   transition: none !important;
   transition-property: none !important;
   animation: none !important;

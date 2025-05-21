@@ -37,3 +37,10 @@ body.lichessTools .lichessTools-botFilters input[type="number"] {
   padding: 0.1em;
   max-width: 7em;
 }
+
+/* Lichess Helper CSS */
+
+
+body.lichessTools.lichessTools-lichessHelper .types input[type="checkbox"][data-icon]:checked {
+  text-shadow: 0 0 10px var(--c-clearer) !important;
+}

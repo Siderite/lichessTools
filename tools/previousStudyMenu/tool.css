@@ -51,3 +51,13 @@ body.lichessTools.lichessTools-prettier nav#topnav a.lichessTools-previousStudy 
     clip-path: unset !important;
   }
 }
+
+/* Lichess Helper CSS */
+
+@media (min-width: 1019.3px) {
+
+  body.lichessTools.lichessTools-lichessHelper #topnav div[role="group"] {
+    overflow: visible !important;
+  }
+
+}

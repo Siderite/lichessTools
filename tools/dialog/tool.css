@@ -1,3 +1,8 @@
+html:has(body.lichessTools dialog.lichessTools-dialog) {
+  overflow: hidden;
+}
+
+
 body.lichessTools:has(dialog.lichessTools-dialog.dragged),
 body.lichessTools:has(dialog.lichessTools-dialog.resizing) {
   user-select: none;
@@ -21,6 +26,9 @@ body.lichessTools dialog.lichessTools-dialog .dialog-header {
   min-height: 2em;
   background: #80808080;
   touch-action: none;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 body.lichessTools dialog.lichessTools-dialog .dialog-header.draggable {
@@ -62,4 +70,8 @@ body.lichessTools dialog.lichessTools-dialog.dragged .dialog-content,
 body.lichessTools dialog.lichessTools-dialog.resizing .dialog-content {
   pointer-events: none;
   opacity: 0.25;
+}
+
+body.lichessTools dialog.lichessTools-dialog option:checked {
+  background-color: var(--c-bg-zebra2);
 }

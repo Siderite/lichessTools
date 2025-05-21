@@ -15,8 +15,3 @@ body.lichessTools img.lichessTools-imagePasting-image {
   max-width:95vw;
   max-height:95vh;
 }
-
-body.lichessTools.lichess-inboxChat .msg-app__convo__msgs their,
-body.lichessTools.lichess-inboxChat .msg-app__convo__msgs mine {
-  white-space-collapse: preserve;
-}

@@ -608,7 +608,7 @@
       return this.global.navigator?.deviceMemory || (await this.global.navigator?.storage?.estimate())?.quota/(1024*1024*1024);
     }
 
-    debounce(fn, wait) {
+  debounce(fn, wait) {
       let timeout = null;
       let isRunning = false;
       const c = () => {
@@ -638,6 +638,56 @@
           ? c() || t(f)
           : t(f);
       };
+    }
+
+    debounceNew(fn, wait, options) {
+      let timeout = null;
+      let isRunning = false;
+      let lastExecution = 0;
+      let averageTime = wait;
+
+      const adaptTime = (start,end)=>{
+        if (options?.noAdapt) return;
+        const executionTime = Math.max(wait, +(end-start)||0);
+        averageTime += (executionTime-averageTime)*0.2;
+        if (options?.debugName) this.global.console.debug(options.debugName+': '+Math.round(averageTime));
+      };
+
+      const debouncedFunction = function() {
+        const context = this;
+        const args = arguments;
+        const startTime = Date.now();
+
+        const f = ()=>{
+          isRunning = true;
+          lastExecution = Date.now();
+          const result = fn.apply(context, args);
+          if (result?.then) {
+            result.then(() => {
+              isRunning = false;
+              lastExecution = Date.now();
+              adaptTime(startTime, lastExecution);
+            });
+          } else {
+            isRunning = false;
+            lastExecution = Date.now();
+            adaptTime(startTime, lastExecution);
+          }
+        };
+
+        clearTimeout(timeout);
+        if (!options?.defer && !isRunning && Date.now() - lastExecution > averageTime) {
+          timeout = setTimeout(f,1);
+        } else {
+          timeout = setTimeout(()=>{
+            f();
+          }, averageTime);
+        }
+      };
+
+      debouncedFunction.__debounced = true;
+
+      return debouncedFunction;
     }
 
     getPgnTag(text, tagName) {
@@ -822,12 +872,17 @@
     };
 
     inViewport = (element) => {
-      if (element?.length === 0) return 0;
-      if (element?.length) element = element[0];
-      if (!element?.offsetParent && $(element).css('position') != 'fixed') return 0;
+      if (!element) return 0;
+      if ('length' in element) element = element[0];
+      if (!element) return 0;
       if (this.global.document.visibilityState == 'hidden') return 0;
-      if (element?.checkVisibility) {
+
+	  if (this.traverseState?.nodeIndex > 2500) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
+
+      if (element.checkVisibility) {
         if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
+      } else {
+        if (!element.offsetParent && $(element).css('position') != 'fixed') return 0;
       }
       const rect = element.getBoundingClientRect();
       const port = new DOMRect(0, 0, $(this.global).width(), $(this.global).height());
@@ -894,6 +949,7 @@
       $('move', container).each((i, e) => {
         const $e = $(e);
         if ($e.is('.empty')) return;
+        const unused = e.offsetParent; // required to optimize rendering
         const p = $e.attr('p') || '';
         this.elementCache.set(p, e);
       });
@@ -903,7 +959,7 @@
     getElementForPath(path) {
       const $ = this.$;
       let elem = this.elementCache?.get(path);
-      if (!elem?.offsetParent) {
+      if (!this.inViewport(elem)) {
         if (!elem) {
           if (this.collapsedRegex?.test(path)) {
             this.debug && this.global.console.debug(path + ' is collapsed');
@@ -947,8 +1003,9 @@
     }
 
     traverse = (snode, func, forced) => {
+      const lt = this;
       if (!snode) {
-        snode = this.lichess?.analysis?.tree.root;
+        snode = lt.lichess?.analysis?.tree.root;
         snode.depth = 0;
         this.isTreeviewVisible(true);
       }
@@ -959,6 +1016,7 @@
         glyphs: {},
         nodeIndex: +(snode?.nodeIndex) || 0
       };
+      lt.traverseState = state;
       if (!snode || snode.comp) {
         return state;
       }
@@ -976,6 +1034,7 @@
         node.path = path;
         node.nodeIndex = state.nodeIndex;
         state.nodeIndex++;
+
         node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
         node.position = this.getNodePosition(node);
         let pos = state.positions[node.position];
@@ -1084,7 +1143,7 @@
       }
       const elem = $(el).is('cg-container')
         ? el
-        : $('cg-container', el)[0]
+        : $(el).find('cg-container')[0]
       const container = $(elem);
       if (!container.length || !this.inViewport(container)) return;
 
@@ -1530,7 +1589,7 @@
           if (this.slowMode) await lt.timeout(1000);
           const ltHeader = `LiChessTools/${lt.currentOptions?.version}`;
           if (!options?.noUserAgent) {
-            options = {...options,headers: {...options?.headers,'X-UA': ltHeader } };
+            options = {...options,headers: { ...options?.headers,'X-UA': ltHeader } };
           }
           const response = await lt.global.fetch(url, options);
           const status = +(response.status);
@@ -1708,6 +1767,7 @@
 
     cache = {
       lichessTools: this,
+      _lock: '__lock cache keys__',
       init: function () {
         const lt = this.lichessTools;
         const sessionData = lt.storage.get('LichessTools.GeneralCache', { session: true, zip: true }) || [];
@@ -1739,9 +1799,11 @@
         }
       },
       getCached: function (key) {
+        const lt = this.lichessTools;
         if (!this._cache) {
           this.init();
         }
+        if (this.isLocked(key)) lt.global.console.debug('trying to get '+key+' when locked');
         const cached = this._cache.get(key);
         if (cached) {
           cached.isExpired = cached.expiry < Date.now();
@@ -1761,14 +1823,43 @@
         this._cache.set(key, cached);
         this.save();
       },
+      lock: function(key) {
+        if (!this._cache) {
+          this.init();
+        }
+        this._cache.set(key+this._lock,true);
+      },
+      isLocked: function(key) {
+        return !!this._cache?.get(key+this._lock);
+      },
+      release: function(key) {
+        this._cache?.delete(key+this._lock);
+      },
+      waitRelease(key, resolution = 50) {
+        const lt = this.lichessTools;
+        return new Promise(resolve=>{
+          if (this.isLocked(key)) {
+            const interval = lt.global.setInterval(()=>{
+              if (!this.isLocked(key)) {
+                lt.global.clearInterval(interval);
+                resolve();
+              }
+            },resolution);
+          } else {
+            resolve();
+          }
+        });
+      },
       memoizeAsyncFunction: function (obj, funcName, options) {
+        if (!options) throw new Error('No options provided to memoizeAsyncFunction');
         const cache = this;
         const lt = cache.lichessTools;
         const original = obj[funcName];
         obj[funcName] = async function (...args) {
           const key = options.keyFunction
             ? options.keyFunction(obj, funcName, args)
-            : funcName + JSON.stringify(args);
+            : (options.keyPrefix||'') + funcName + JSON.stringify(args);
+          await cache.waitRelease(key);
           const cached = cache.getCached(key);
           if (cached && !cached.isExpired) {
             if (options.sliding) {
@@ -1776,13 +1867,19 @@
             }
             return cached.value;
           }
-          lt.$('body').addClass('lichessTools-apiLoading');
+          lt.$('body').toggleClassSafe('lichessTools-apiLoading',true);
           try {
-            const result = await original.apply(obj, args);
+            cache.lock(key);
+            const immediateResult = original.apply(obj, args);
+            if (!options.knownSyncFunction) {
+              if (!immediateResult?.then) throw new Error('Memoize only works on async functions or known sync functions!');
+            }
+            const result = await immediateResult;
             cache.setCached(key, result, options);
             return result;
           } finally {
-            lt.$('body').removeClass('lichessTools-apiLoading');
+            cache.release(key);
+            lt.$('body').toggleClassSafe('lichessTools-apiLoading',false);
           }
         }
       }
@@ -1796,7 +1893,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_' });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000 });
       },
       blog: {
@@ -1833,8 +1930,9 @@
           const lt = this.lichessTools;
           const mm = /\/(hot|newest|updated|popular)$/.exec(lt.global.location.pathname);
           const mode = mm?.at(1) || 'hot';
-          const p = baseUrl.includes('?') ? '&' : '?';
-          const json = await lt.net.json(baseUrl + p + 'page=' + page);
+          const url = new URL(baseUrl);
+          url.searchParams.set('page',page);
+          const json = await lt.net.json(url.toString());
           return json;
         }
       },
@@ -2179,7 +2277,7 @@
         : 0;
       this.global.console.debug('%c site code age: ' + Math.round(age * 10) / 10 + ' days', age < 7 ? 'background: red; color:white;' : '');
       await this.applyOptions();
-      const debouncedApplyOptions = this.debounce(this.applyOptions, 250);
+      const debouncedApplyOptions = this.debounce(this.applyOptions, 250, true);
       this.storage?.listen('lichessTools.reloadOptions', () => {
         debouncedApplyOptions();
       });

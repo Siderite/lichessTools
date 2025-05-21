@@ -29,7 +29,7 @@
       const $ = lt.$;
       const dict = {};
       $.cached('.user-link,a[href^="/@/"]', 2000).each((i, e) => {
-        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members').length) return;
+        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members/*,score*/').length) return;
         if (!lt.inViewport(e)) return;
 
         let textEl = $('.text', e);
@@ -126,7 +126,7 @@
       lt.storage.set('LiChessTools.countryCache', [...countryCache]);
       lt.storage.set('LiChessTools.flagCache', [...this.flagCache]);
     };
-    debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100);
+    debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100, { defer:true });
 
     processFlags = async () => {
       const lt = this.lichessTools;
@@ -198,8 +198,7 @@
       for (const item of data) {
         if (!item.countryName) continue;
         const elems = dict[item.id];
-        for (const elem of elems) {
-          if (!elem[0]?.offsetParent) return;
+        for (const elem of elems.filter(e=>!!e.offsetParent)) {
           const next = elem.next();
           if (next.is('img.flag')) return;
           if (next.has('img.flag').length) return;
@@ -221,7 +220,7 @@
       }
       this.debouncedProcessFlags();
     };
-    debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500);
+    debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500, { defer:true });
 
     resetFlags = () => {
       const lt = this.lichessTools;

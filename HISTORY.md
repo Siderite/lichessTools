@@ -1,5 +1,23 @@
 History of features added to LiChess Tools in time (reversed order)
 
+18 May
+
+- KMAPS radar chart
+- Miss opportunity glyph
+
+16 May
+
+- Vintage Adamisko theme
+
+10 May
+
+- more info button for game lists
+
+06 May
+
+- extended Explorer opening link URL
+- FEN Wiki URLs for Openings (just like in Analysis Board)
+
 28 Apr
 
 - estimate rating based on accuracy

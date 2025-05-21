@@ -203,6 +203,10 @@ Varia\u0163iuni urm\u0103toare: $branches`
       if (!this.evaluateTerminationsTotal) this.evaluateTerminationsTotal = nodes.length;
       const percent = (this.evaluateTerminationsTotal - nodes.length) + '/' + this.evaluateTerminationsTotal;
       const liveStatus = trans.pluralSame('evaluateTerminationsStarted', percent);
+      if (this.options.moveEval && analysis.study && !$('div.lichessTools-liveStatus').length) {
+        $('main.analyse div.analyse__controls.analyse-controls')
+          .after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
+      }
       $('.lichessTools-liveStatus label').text(liveStatus);
       const node = nodes[0];
       if (!node) {
@@ -252,7 +256,8 @@ Varia\u0163iuni urm\u0103toare: $branches`
       const analysis = lichess.analysis;
       const setTimeout = lt.global.setTimeout;
 
-      function checkState(resolve) {
+      const checkState = (resolve) => {
+        if (!this.evaluateTerminationsStarted) return;
         if (!analysis?.ceval?.allowed()) {
           return;
         }
@@ -263,11 +268,12 @@ Varia\u0163iuni urm\u0103toare: $branches`
         }
         const state = analysis.ceval.state;
         if (state <= 1) {
+          this.doEvaluation();
           setTimeout(() => checkState(resolve), 1000);
           return;
         }
         resolve();
-      }
+      };
 
       return new Promise((resolve, reject) => {
         checkState(resolve);
@@ -413,6 +419,7 @@ Varia\u0163iuni urm\u0103toare: $branches`
           .appendTo(menu);
       }
 
+      menu.toggleClassSafe('lichessTools-removeSuperfluous',this.options.removeSuperfluous);
       if (this.options.removeSuperfluous) {
         $('a[data-icon="'+lt.icon.BubbleSpeech+'"],a[data-icon="'+lt.icon.Clipboard+'"],a.glyph-icon', menu).remove();
         if (this.options.autoExpand) {

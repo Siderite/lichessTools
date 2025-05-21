@@ -1,0 +1,44 @@
+/* Vintage Adamisko */
+
+body.lichessTools.lichessTools-theme_adamisko .last-move {
+   background-color: transparent;
+   border: solid 3px #530A0E;
+}
+
+body.lichessTools.lichessTools-theme_adamisko cg-board:before {
+   filter: grayscale(1) contrast(1.25);
+   outline: solid 5px #606060;
+}
+
+body.lichessTools.lichessTools-theme_adamisko .eval-gauge {
+   background-color:white;
+   border-radius: 5px;
+   outline: 1px solid gray;
+}
+
+body.lichessTools.lichessTools-theme_adamisko .eval-gauge div.black {
+   background-color:black;
+}
+
+body.lichessTools.lichessTools-theme_adamisko .eval-gauge tick {
+   border-bottom: 3px solid #A0A040;
+   opacity: 1;
+}
+
+body.lichessTools.lichessTools-theme_adamisko cg-board square.selected {
+   background-color: transparent;
+}
+
+body.lichessTools.lichessTools-theme_adamisko .pv_box .pv strong {
+  margin-right:0.25em;
+}
+
+body.lichessTools.lichessTools-theme_adamisko .pv_box .pv strong,
+body.lichessTools.lichessTools-theme_adamisko .pv_box .pv span,
+body.lichessTools.lichessTools-theme_adamisko .pv_box .pv .pv-san {
+   font-family: 'serif';
+   font-weight: bold;
+   font-size: 1.25em;
+   color: #B0A060;
+}
+

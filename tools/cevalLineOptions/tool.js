@@ -59,10 +59,12 @@
         if (!analysisTools.length) return;
         this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
         [...this.dict.values()].forEach(v => v.count = 0);
-        const fen = lt.getPositionFromBoard($('.main-board')[0],true);
+        const fen = lichess.analysis
+          ? lichess.analysis.node.fen
+          : lt.getPositionFromBoard($('.main-board')[0],true);
         if (!fen) return;
         const side = $('.main-board .cg-wrap').is('.orientation-black') ? 1 : 0;
-        const turn = fen.endsWith(' b') ? 1 : 0;
+        const turn = fen.includes(' b') ? 1 : 0;
         const comp = side ^ turn;
         $('div.pv_box span.pv-san').each((i, e) => {
           if (!lt.inViewport(e)) return;
@@ -150,7 +152,7 @@
       $('div.analyse__tools').toggleClassSafe('lichessTools-externalEngine',isExternalEngine);
       if (isExternalEngine) {
         if (analysis.ceval.storedPv()>5) {
-          site.analysis.ceval.storedPv(5);
+          analysis.ceval.storedPv(5);
         }
         const input = $('div.setting #analyse-multipv');
         input.attr('max',5);

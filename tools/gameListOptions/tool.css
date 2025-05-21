@@ -4,32 +4,38 @@ body.lichessTools div.lichessTools-gameListOptions {
 
 body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-csv,
 body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-copy,
+body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-extraInfo,
 body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-delete {
   border: none;
   background: none;
 }
 
-body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-csv,
-body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-delete {
-  margin-left: 0.5em;
+body.lichessTools div.lichessTools-gameListOptions button {
+  order: 1;
+  margin-left: auto;
 }
 
-body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-copy {
-  margin-left: auto;
+body.lichessTools div.lichessTools-gameListOptions button + button {
+  margin-left: 0.5em;
 }
 
 body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-delete {
    color: var(--c-bad);
 }
 
-body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-csv:hover,
-body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-copy:hover {
+body.lichessTools div.lichessTools-gameListOptions button:hover {
   background:#80808040;
 }
 
-body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-csv:active,
-body.lichessTools div.lichessTools-gameListOptions .lichessTools-gameListOptions-copy:active {
+body.lichessTools div.lichessTools-gameListOptions button:active {
   background:#80808080;
+}
+
+.metadata.lichessTools-extraInfo span {
+  margin-left: 0.5em;
+  font-style: italic;
+  position: relative;
+  z-index: 3;
 }
 
 body.lichessTools .lichessTools-gameListOptions-hideAborted article:has(.mini-board[data-state^="rnbqkbnr/pppppppp"],.mini-board[data-state*="PPPPPPPP/RNBQKBNR"]) {

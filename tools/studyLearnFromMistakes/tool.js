@@ -134,7 +134,7 @@
           })
           .insertAfter($('div.advice-summary__side', container).eq(0));
       }
-      button.toggleClass('active', !!lichess.analysis.retro);
+      button.toggleClassSafe('active', !!lichess.analysis.retro);
     };
 
     closeRetro = () => {

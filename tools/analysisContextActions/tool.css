@@ -68,6 +68,11 @@ body.lichessTools dialog.lichessTools-dialog.lichessTools-positionInfo .dialog-c
   min-width:26em;
 }
 
+body.lichessTools #analyse-cm.lichessTools-removeSuperfluous a[data-icon="\E04F"]:before {
+  color: var(--c-accent);
+}
+
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier .analyse .tview2 move.lichessTools-transpositionAll {

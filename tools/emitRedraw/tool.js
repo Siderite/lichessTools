@@ -44,6 +44,20 @@
       const lichess = lt.lichess;
       if (!lichess) return;
       const $ = lt.$;
+
+      if (!('analysisRedraw' in lt)) {
+        Object.defineProperty(lt, 'analysisRedraw', {
+          get() {
+            if (this.__analysisRedraw) return this.__analysisRedraw;
+            const analysis = this.lichess.analysis;
+            this.__analysisRedraw = analysis
+              ? this.debounce(analysis.redraw,100,{ defer: true })
+              : ()=>{};
+            return this.__analysisRedraw;
+          }
+        });
+      }
+
       let emit = null;
       emit = lt.debounce(() => {
         if (lt.global.document.hidden) {
@@ -52,7 +66,7 @@
         }
         lt.debug && lt.global.console.debug('redraw');
         lt.pubsub.emit('lichessTools.redraw');
-      }, 250);
+      }, 250, { defer: true });
       lt.emitRedraw = emit;
       this.analysisStart();
       if (lt.uiApi) {

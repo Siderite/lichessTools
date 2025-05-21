@@ -33,7 +33,7 @@
       return (e > 0 ? '+' : '') + e.toFixed(this.decimals);
     };
 
-    showDecimalsDirect = () => {
+    showDecimals = () => {
       try {
         if (this._inShowDecimals) return;
         this._inShowDecimals=true;
@@ -55,7 +55,7 @@
               const uci = $(e).attr('data-uci');
               const pv = ceval.pvs.find(p => p.moves?.at(0) === uci);
               if (pv) {
-                $('strong', e).text(this.renderEval(pv.cp, pv.mate));
+                $('strong', e).replaceText(this.renderEval(pv.cp, pv.mate));
               }
             });
         }
@@ -63,7 +63,6 @@
         this._inShowDecimals=false;
       }
     };
-    showDecimals = lichessTools.debounce(this.showDecimalsDirect,100);
 
     showDecimalsMovesDirect = () => {
       try {
@@ -86,9 +85,7 @@
                 evalElem = $('<eval class="lichessTools-cevalDecimals">').appendTo(elem);
               }
               const text = this.renderEval(evl.cp, evl.mate);
-              if (evalElem.text() != text) {
-                evalElem.text(text);
-              }
+              evalElem.replaceText(text);
             }
           }
           for (const child of node.children || []) {
@@ -100,7 +97,7 @@
         this._inShowDecimalsMoves=false;
       }
     };
-    showDecimalsMoves = lichessTools.debounce(this.showDecimalsMovesDirect,500);
+    showDecimalsMoves = lichessTools.debounce(this.showDecimalsMovesDirect,100);
 
     setupObserver = ()=>{
       if (!this.options.enabled) return;

@@ -36,7 +36,7 @@
                                     pvs: [ { moves:[],cp:value.cp,mate:value.mate } ]
                                   };
       node.ceval = { ...ceval, ... value };
-      analysis.redraw();
+      lt.analysisRedraw();
     }
 
     async start() {

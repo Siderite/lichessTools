@@ -58,15 +58,16 @@
       return icon;
     }
 
-    setIcon = (isBlack, isPlaying) => {
+    setIconDirect = (isBlack, isPlaying) => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const analysis = lt.lichess.analysis;
       if (!$('div.main-board').length) {
         isBlack = false;
         isPlaying = false;
       }
       if (isBlack === undefined) {
-        const fen = lt.getPositionFromBoard($('div.main-board'), true);
+        const fen = analysis?.node?.fen || lt.getPositionFromBoard($('div.main-board'), true);
         isBlack = / b\b/.test(fen);
       }
       if (isPlaying !== false) {
@@ -74,9 +75,9 @@
       }
       const icon = this.getIcon(isBlack, isPlaying);
       const elem = $('link[rel=icon][source=lichessTools]');
-      const href = elem.attr('href');
-      if (href != icon) elem.attr('href', icon);
+      elem.attrSafe('href', icon);
     };
+    setIcon = lichessTools.debounce(this.setIconDirect,300,{ defer:true });
 
     handlePly = (ply) => {
       this.setIcon(ply % 2 == 1, true);

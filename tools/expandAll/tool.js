@@ -69,9 +69,9 @@
       if (!tview2) return;
       const autoExpanded = analysis.tree.root;
       if (tview2.autoExpanded !== autoExpanded) {
+        tview2.autoExpanded = autoExpanded;
         this.expandAll();
       }
-      tview2.autoExpanded = autoExpanded;
     }
 
     async start() {
@@ -96,7 +96,7 @@
       }
       if (this.options.autoExpand) {
         lt.pubsub.on('lichessTools.redraw', this.autoExpand);
-        this.autoExpand();
+        lt.global.setTimeout(this.autoExpand,500);
       }
     }
 

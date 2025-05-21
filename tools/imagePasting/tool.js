@@ -132,7 +132,7 @@
       const handler = lt.getEventHandlers(el,'mousedown')[0]?.bind(el);
       if (handler) handler();
     };
-    refreshChat = lichessTools.debounce(this.refreshChatDirect,3000);
+    refreshChat = lichessTools.debounce(this.refreshChatDirect,3000,{ defer:true });
 
 
     async start() {
@@ -169,7 +169,6 @@
         $('.msg-app.pane-convo').observer()
           .on('their,mine',this.refreshChat);
       }
-      $('body').toggleClassSafe('lichess-inboxChat',this.options.isSet)
     }
 
   }
