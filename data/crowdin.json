@@ -866,7 +866,11 @@
     "extraInfoButtonTitle": "المزيد من معلومات اللعبة",
     "extraInfoTitle": "الدقة: $accuracy\r\nمتوسط الخسارة في السنتيبون: $acpl\r\nعدم الدقة / الأخطاء / الأخطاء\r\n  الأبيض: $whiteMoves\r\n  أسود: $blackMoves",
     "additionalGlyphs.miss": "الآنسة",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "عتيق أداميسكو",
+    "gameListOptions.remove": "إزالة الألعاب",
+    "removeBookmarksButtonTitle": "إزالة الإشارات المرجعية المحددة",
+    "removeBookmarksQuestion": "هل أنت متأكد من أنك تريد إزالة الإشارات المرجعية %s؟",
+    "removeBookmarksQuestion:one": "هل أنت متأكد من أنك تريد إزالة الإشارة المرجعية؟"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1735,7 +1739,11 @@
     "extraInfoButtonTitle": "更多游戏信息",
     "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
     "additionalGlyphs.miss": "小节",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "维纳蒂·阿达米斯科文",
+    "gameListOptions.remove": "移除游戏",
+    "removeBookmarksButtonTitle": "删除选中的书签",
+    "removeBookmarksQuestion": "您确定要删除 %s 书签吗？",
+    "removeBookmarksQuestion:one": "您确定要删除书签吗？"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2604,7 +2612,11 @@
     "extraInfoButtonTitle": "More game information",
     "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
     "additionalGlyphs.miss": "Miss",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Remove games",
+    "removeBookmarksButtonTitle": "Remove selected bookmarks",
+    "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3473,7 +3485,11 @@
     "extraInfoButtonTitle": "Meer spelinformatie",
     "extraInfoTitle": "Nauwkeurigheid: $accuracy\r\nGemiddeld centipiwn verlies: $acpl\r\nInnauwkeurigheden / vergissingen / blunders\r\n  Wit: $whiteMoves\r\n  Zwart: $blackMoves",
     "additionalGlyphs.miss": "Mis",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Spellen verwijderen",
+    "removeBookmarksButtonTitle": "Geselecteerde bladwijzers verwijderen",
+    "removeBookmarksQuestion": "Weet u zeker dat u %s bladwijzers wilt verwijderen?",
+    "removeBookmarksQuestion:one": "Weet u zeker dat u de bladwijzer wilt verwijderen?"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4342,7 +4358,11 @@
     "extraInfoButtonTitle": "More game information",
     "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
     "additionalGlyphs.miss": "Miss",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Remove games",
+    "removeBookmarksButtonTitle": "Remove selected bookmarks",
+    "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5211,7 +5231,11 @@
     "extraInfoButtonTitle": "Plus d'informations sur la partie",
     "extraInfoTitle": "Précision : $accuracy\nPerte moyenne de centipions : $acpl\nImprécisions / erreurs / gaffes\n  Blancs : $whiteMoves\n  Noirs : $blackMoves",
     "additionalGlyphs.miss": "Manqués",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Supprimer les parties",
+    "removeBookmarksButtonTitle": "Supprimer les favoris sélectionnés",
+    "removeBookmarksQuestion": "Êtes-vous sûr de vouloir supprimer les signets %s?",
+    "removeBookmarksQuestion:one": "Êtes-vous sûr de vouloir supprimer le favori ?"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6080,7 +6104,11 @@
     "extraInfoButtonTitle": "Weitere Spielinformationen",
     "extraInfoTitle": "Genauigkeit: $accuracy\r\nDurchschnittlicher Zentimeter Verlust: $acpl\r\nUngenauigkeiten / Fehler / Fehler\r\n  Weiß: $whiteMoves\r\n  Schwarz: $blackMoves",
     "additionalGlyphs.miss": "Miss",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Spiele entfernen",
+    "removeBookmarksButtonTitle": "Ausgewählte Lesezeichen entfernen",
+    "removeBookmarksQuestion": "Sind Sie sicher, dass Sie %s Lesezeichen entfernen möchten?",
+    "removeBookmarksQuestion:one": "Sind Sie sicher, dass Sie das Lesezeichen entfernen möchten?"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6949,7 +6977,11 @@
     "extraInfoButtonTitle": "More game information",
     "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
     "additionalGlyphs.miss": "Miss",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Remove games",
+    "removeBookmarksButtonTitle": "Remove selected bookmarks",
+    "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7818,7 +7850,11 @@
     "extraInfoButtonTitle": "Ulteriori informazioni sul gioco",
     "extraInfoTitle": "Precisione: $accuracy\r\nPerdita media di centipawn: $acpl\r\nInaccuratezza / errori / blunders\r\n  Bianco: $whiteMoves\r\n  Nero: $blackMoves",
     "additionalGlyphs.miss": "Sig.na",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Rimuovi giochi",
+    "removeBookmarksButtonTitle": "Rimuovi i segnalibri selezionati",
+    "removeBookmarksQuestion": "Sei sicuro di voler rimuovere i segnalibri %s?",
+    "removeBookmarksQuestion:one": "Sei sicuro di voler rimuovere il segnalibro?"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -8687,7 +8723,11 @@
     "extraInfoButtonTitle": "Więcej informacji o grze",
     "extraInfoTitle": "Dokładność: $accuracy\r\nŚrednia utrata motywów: $acpl\r\nNieścisłości / błędy / zamazania\r\n  Białe: $whiteMoves\r\n  Czarny: $blackMoves",
     "additionalGlyphs.miss": "Brakuje",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Usuń gry",
+    "removeBookmarksButtonTitle": "Usuń wybrane zakładki",
+    "removeBookmarksQuestion": "Czy na pewno chcesz usunąć zakładki %s?",
+    "removeBookmarksQuestion:one": "Czy na pewno chcesz usunąć zakładkę?"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -9556,7 +9596,11 @@
     "extraInfoButtonTitle": "Mais informações de jogo",
     "extraInfoTitle": "Precisão: $accuracy\r\nPerda média do centípare: $acpl\r\nImprecisões / erros / gafes\r\n  Branco: $whiteMoves\r\n  Preta: $blackMoves",
     "additionalGlyphs.miss": "Perdeu",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Adamisko Vintage",
+    "gameListOptions.remove": "Remover jogos",
+    "removeBookmarksButtonTitle": "Remover os favoritos selecionados",
+    "removeBookmarksQuestion": "Tem certeza que deseja remover %s favoritos?",
+    "removeBookmarksQuestion:one": "Tem certeza que deseja remover o marcador?"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -10425,7 +10469,11 @@
     "extraInfoButtonTitle": "Mais informações de jogo",
     "extraInfoTitle": "Precisão: $accuracy\r\nPerda média do centípare: $acpl\r\nImprecisões / erros / gafes\r\n  Branco: $whiteMoves\r\n  Preta: $blackMoves",
     "additionalGlyphs.miss": "Perdeu",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Adamisko Vintage",
+    "gameListOptions.remove": "Remover jogos",
+    "removeBookmarksButtonTitle": "Remover os favoritos selecionados",
+    "removeBookmarksQuestion": "Tem certeza que deseja remover %s favoritos?",
+    "removeBookmarksQuestion:one": "Tem certeza que deseja remover o marcador?"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -11294,7 +11342,11 @@
     "extraInfoButtonTitle": "Informații în plus despre jocuri",
     "extraInfoTitle": "Acuratețe: $accuracy\nACPL: $acpl\nInexactități / greșeli / gafe\n  Alb: $whiteMoves\n  Negru: $blackMoves",
     "additionalGlyphs.miss": "Rateu",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Elimină jocuri",
+    "removeBookmarksButtonTitle": "Elimină bookmarkurile selectate",
+    "removeBookmarksQuestion": "Sigur vrei sa elimini %s bookmarkuri?",
+    "removeBookmarksQuestion:one": "Sigur vrei sa elimini bookmarkul selectat?"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -12163,7 +12215,11 @@
     "extraInfoButtonTitle": "Больше информации об игре",
     "extraInfoTitle": "Точность: $accuracy\r\nСредняя потеря центипеука: $acpl\r\nНеточности / ошибки / дроби\r\n  Белые: $whiteMoves\r\n  Черный: $blackMoves",
     "additionalGlyphs.miss": "Упущение",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Винтаж Адамиско",
+    "gameListOptions.remove": "Удалить игры",
+    "removeBookmarksButtonTitle": "Удалить выбранные закладки",
+    "removeBookmarksQuestion": "Вы уверены, что хотите удалить закладки %s?",
+    "removeBookmarksQuestion:one": "Вы уверены, что хотите удалить закладку?"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13032,7 +13088,11 @@
     "extraInfoButtonTitle": "Más información del juego",
     "extraInfoTitle": "Precisión: $accuracy\r\nPérdida media del centipan: $acpl\r\nInexactitudes / errores / errores\r\n  Blanco: $whiteMoves\r\n  Negro: $blackMoves",
     "additionalGlyphs.miss": "Beso",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Eliminar juegos",
+    "removeBookmarksButtonTitle": "Eliminar marcadores seleccionados",
+    "removeBookmarksQuestion": "¿Está seguro de que desea eliminar los marcadores %s?",
+    "removeBookmarksQuestion:one": "¿Está seguro de que desea eliminar el marcador?"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -13901,7 +13961,11 @@
     "extraInfoButtonTitle": "More game information",
     "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
     "additionalGlyphs.miss": "Miss",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Remove games",
+    "removeBookmarksButtonTitle": "Remove selected bookmarks",
+    "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -14770,7 +14834,11 @@
     "extraInfoButtonTitle": "More game information",
     "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
     "additionalGlyphs.miss": "Miss",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Remove games",
+    "removeBookmarksButtonTitle": "Remove selected bookmarks",
+    "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -15639,6 +15707,10 @@
     "extraInfoButtonTitle": "More game information",
     "extraInfoTitle": "Accuracy: $accuracy\r\nAverage centipawn loss: $acpl\r\nInaccuracies / mistakes / blunders\r\n  White: $whiteMoves\r\n  Black: $blackMoves",
     "additionalGlyphs.miss": "Miss",
-    "themes.adamisko": "Vintage Adamisko"
+    "themes.adamisko": "Vintage Adamisko",
+    "gameListOptions.remove": "Remove games",
+    "removeBookmarksButtonTitle": "Remove selected bookmarks",
+    "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
   }
 }
