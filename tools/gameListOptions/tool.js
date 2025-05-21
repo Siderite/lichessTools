@@ -8,14 +8,15 @@
         name: 'gameListOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['aborted', 'analysis', 'titledOpponents', 'select', 'analysisLink', 'color', 'extraInfo'],
-        defaultValue: 'select,analysis,analysisLink,color,aborted,extraInfo',
+        possibleValues: ['aborted', 'analysis', 'titledOpponents', 'select', 'analysisLink', 'color', 'extraInfo', 'remove'],
+        defaultValue: 'select,analysis,analysisLink,color,aborted,extraInfo,remove',
         advanced: true
       }
     ];
 
     upgrades = [
-      { name:'gameListOptions', value:'extraInfo', version: '2.4.40', type: 'new' }
+      { name:'gameListOptions', value:'extraInfo', version: '2.4.40', type: 'new' },
+      { name:'gameListOptions', value:'remove', version: '2.4.47', type: 'new' }
     ];
 
     intl = {
@@ -29,6 +30,7 @@
         'gameListOptions.select': 'Selection',
         'gameListOptions.analysisLink': 'Go direct to analysis',
         'gameListOptions.extraInfo': 'More info button',
+        'gameListOptions.remove': 'Remove games',
         'abortedGamesLabel': 'Show aborted:',
         'colorGamesLabel': 'Color by players:',
         'analysedGamesLabel': 'Only analysed:',
@@ -41,6 +43,9 @@
         'deleteGamesButtonTitle': 'Delete selected imported games',
         'deleteSelectedQuestion': 'Are you sure you want to delete %s games?',
         'deleteSelectedQuestion:one': 'Are you sure you want to delete one game?',
+        'removeBookmarksButtonTitle': 'Remove selected bookmarks',
+        'removeBookmarksQuestion': 'Are you sure you want to remove %s bookmarks?',
+        'removeBookmarksQuestion:one': 'Are you sure you want to remove the bookmark?',
         'extraInfoButtonTitle': 'More game information',
         'extraInfoTitle': `Accuracy: $accuracy
 Average centipawn loss: $acpl
@@ -58,6 +63,7 @@ Inaccuracies / mistakes / blunders
         'gameListOptions.select': 'Selec\u0163ie',
         'gameListOptions.analysisLink': 'Direct la analiz\u0103',
         'gameListOptions.extraInfo': 'Buton informa\u0163ii \u00een plus',
+        'gameListOptions.remove': 'Elimin\u0103 jocuri',
         'abortedGamesLabel': 'Arat\u0103 anulate:',
         'colorGamesLabel': 'Culoare dup\u0103 juc\u0103tori:',
         'analysedGamesLabel': 'Doar analizate:',
@@ -70,6 +76,9 @@ Inaccuracies / mistakes / blunders
         'deleteGamesButtonTitle': '\u015Eterge jocurile importante selectate',
         'deleteSelectedQuestion': 'Sigur vrei sa \u015ftergi %s jocuri selectate?',
         'deleteSelectedQuestion:one': 'Sigur vrei sa \u015ftergi jocul selectat?',
+        'removeBookmarksButtonTitle': '\u015Eterge bookmarkurile selectate',
+        'removeBookmarksQuestion': 'Sigur vrei sa elimini %s bookmarkuri selectate?',
+        'removeBookmarksQuestion:one': 'Sigur vrei sa elimini bookmarkul selectat?',
         'extraInfoButtonTitle': 'Informa\u0163ii \u00een plus despre jocuri',
         'extraInfoTitle': `Acurate\u01063e: $accuracy
 ACPL: $acpl
@@ -207,10 +216,10 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
             })
             .appendTo(filters);
         }
-        const m = /\/@\/(?<userId>[^\/\?#]+)\/imported\b/.exec(lt.global.location.pathname);
         const userId = lt.getUserId()?.toLowerCase();
+        let m = /\/@\/(?<userId>[^\/\?#]+)\/imported\b/.exec(lt.global.location.pathname);
         const isImportedPage = userId && m?.groups?.userId?.toLowerCase() == userId;
-        if (isImportedPage && !$('button.lichessTools-gameListOptions-delete',filters).length) {
+        if (this.options.remove && isImportedPage && !$('button.lichessTools-gameListOptions-delete',filters).length) {
           $('<button class="lichessTools-gameListOptions-delete">')
             .attr('data-icon',lt.icon.Trash)
             .attr('title',trans.noarg('deleteGamesButtonTitle'))
@@ -230,7 +239,7 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
                 return;
               }
               for (const item of items) {
-                await lt.net.fetch({ url: '/{id}/delete', args: { id: item.id } },{ method: 'POST' });
+                await lt.api.game.deleteImported(item.id);
                 item.el.remove();
                 await lt.timeout(100);
               }
@@ -238,7 +247,36 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
             })
             .appendTo(filters);
         }
-
+        m = /\/@\/(?<userId>[^\/\?#]+)\/bookmark\b/.exec(lt.global.location.pathname);
+        const isBookmarksPage = userId && m?.groups?.userId?.toLowerCase() == userId;
+        if (this.options.remove && isBookmarksPage && !$('button.lichessTools-gameListOptions-delete',filters).length) {
+          $('<button class="lichessTools-gameListOptions-delete">')
+            .attr('data-icon',lt.icon.Trash)
+            .attr('title',trans.noarg('removeBookmarksButtonTitle'))
+            .on('click',async ev=>{
+              ev.preventDefault();
+              const items = container.find('.lichessTools-gameListOptions-select input[type="checkbox"]:checked')
+                .get()
+                .map((e)=>{
+                  const href = $(e).next('a').attr('href');
+                  const id = href
+                    ? href.substr(1,8)
+                    : null;
+                  return { id: id, el: $(e).closest('article') };
+                })
+                .filter(item=>!!item.id);
+              if (!await lt.uiApi.dialog.confirm(trans.pluralSame('removeBookmarksQuestion',items.length))) {
+                return;
+              }
+              for (const item of items) {
+                await lt.api.game.removeBookmark(item.id);
+                item.el.remove();
+                await lt.timeout(100);
+              }
+              lt.global.document.location.reload();
+            })
+            .appendTo(filters);
+        }
       } else {
         $('button.lichessTools-gameListOptions-copy',filters).remove();
         $('button.lichessTools-gameListOptions-csv',filters).remove();
@@ -458,7 +496,8 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
         analysisLink: lt.isOptionSet(value, 'analysisLink'),
         titledOpponents: lt.isOptionSet(value, 'titledOpponents'),
         extraInfo: lt.isOptionSet(value, 'extraInfo'),
-        get isSet() { return this.aborted || this.color || this.select || this.analysis || this.analysisLink || this.titledOpponents || this.extraInfo; }
+        remove: lt.isOptionSet(value, 'remove'),
+        get isSet() { return this.aborted || this.color || this.select || this.analysis || this.analysisLink || this.titledOpponents || this.extraInfo || this.remove; }
       };
       $('div.search__result .lichessTools-gameListOptions').remove();
       $('.lichessTools-gameListOptions-select')

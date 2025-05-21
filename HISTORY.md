@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+21 May
+
+- bulk remove bookmarked games button
+
 18 May
 
 - KMAPS radar chart
