@@ -530,6 +530,12 @@
             .val('')
             .trigger('change');
         });
+      $('select[name="soundVoice"]', container)
+        .on('change',ev=>{
+          const index = $(ev.target).val();
+          lt.speechVoiceIndex = index;
+          lt.speak('You have selected this voice for LiChess Tools');
+        });
       $('div.actionButtons #btnReset', container)
         .on('click', async ev => {
           ev.preventDefault();

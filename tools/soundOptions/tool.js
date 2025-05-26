@@ -108,11 +108,24 @@
     async init() {
       const lt = this.lichessTools;
       const ss = lt.global.speechSynthesis;
-      if (ss) {
-        ss.onvoiceschanged = ()=>{
-          const pref = this.preferences.find(p=>p.name=='soundVoice');
-          pref.possibleValues = ss.getVoices()?.map((v,i)=>[i,v.name]) || [];
+      const pref = this.preferences.find(p=>p.name=='soundVoice');
+      if (ss && pref) {
+
+        const loadVoices = ()=>{
+          const voices = ss.getVoices();
+          if (voices.length) {
+            pref.possibleValues = voices.map((v, i) => [i, v.name]);
+          } else {
+            lt.global.setTimeout(loadVoices, 100);
+          }
         };
+
+        // Always call getVoices once to initialize voices in Firefox
+        ss.getVoices();
+        // Attach event listener for Chromium
+        ss.onvoiceschanged = loadVoices;
+        // Fallback for Firefox or early-loaded voices
+        loadVoices();
       }
     }
 
