@@ -64,17 +64,21 @@
       const size = nextMoves.length + nextTranspos.length + (hasTranspos ? 2 : 0);
       let dlg = null;
       let selectElem = null;
+      const selectedIndex = lichess.analysis?.fork?.state()?.selected || 0;
       if ($('body').is('.mobile')) {
         selectElem = $('<ul>');
         let container = hasTranspos && nextMoves.length
           ? $('<ul>').text(trans.noarg('movesGroupLabel')).appendTo(selectElem)
           : selectElem;
+        let index = 0;
         for (const move of nextMoves) {
           $('<li>')
             .attr('value', move.uci)
             .attr('fen', move.fen)
+            .toggleClass('selected',selectedIndex == index)
             .text(this.getMoveText(move, false))
             .appendTo(container);
+          index++;
         }
         if (hasTranspos) {
           container = $('<ul>').text(trans.noarg('transposGroupLabel')).appendTo(selectElem);
@@ -95,12 +99,14 @@
         let container = hasTranspos && nextMoves.length
           ? $('<optgroup>').attr('label', trans.noarg('movesGroupLabel')).appendTo(selectElem)
           : selectElem;
+        let index = 0;
         for (const move of nextMoves) {
           $('<option>')
             .attr('value', move.uci)
             .attr('fen', move.fen)
             .text(this.getMoveText(move, false))
             .appendTo(container);
+          index++;
         }
         if (hasTranspos) {
           container = $('<optgroup>').attr('label', trans.noarg('transposGroupLabel')).appendTo(selectElem);
@@ -191,11 +197,20 @@
         .on('click', mobileMakeMove);
 
       selectElem.each((i, e) => {
-        e.selectedIndex = 0;
+        e.selectedIndex = selectedIndex;
         e.focus();
       });
       selectElem.on('keydown', (ev) => {
-        if (ev.shiftKey || ev.altKey || ev.ctrlKey) return;
+        if (ev.altKey || ev.ctrlKey) return;
+        if (ev.shiftKey) {
+          const dir = ev.code == 'ShiftLeft' ? -1 : 1;
+          selectElem.each((i, e) => {
+            e.selectedIndex = (e.selectedIndex + e.options.length + dir) % e.options.length;
+            highlight();
+            e.focus();
+          });
+          return;
+        }
         switch (ev.key) {
           case 'ArrowRight':
           case 'Enter':
