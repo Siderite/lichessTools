@@ -275,7 +275,7 @@
         : this.options.depth;
       const curDepth = (work?.threatMode || analysis.threatMode())
         ? analysis.ceval.curEval.depth
-        : evl?.depth || node.ceval?.depth;
+        : node.ceval?.depth || evl?.depth;
       const state = analysis.ceval.state;
       const isIdle = state == 0 || state == 2;
       const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
