@@ -200,6 +200,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
+      if ($.cached('body').is('.playing')) return;
       let fen = '';
       if (el?.id && el?.fen) {
         fen = el.fen;

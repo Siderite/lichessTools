@@ -299,6 +299,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
+      if ($.cached('body').is('.playing')) return;
       const trans = lt.translator;
       let fen = '';
       if (el?.id && el?.fen) {
