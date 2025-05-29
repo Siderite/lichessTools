@@ -41,7 +41,7 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        if (!analysis) return;
+        if (!analysis?.showComputer()) return;
         const trans = lt.translator;
         const ceval = analysis.node.ceval;
         if (ceval) {
@@ -72,7 +72,7 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        if (!analysis) return;
+        if (!analysis?.showComputer()) return;
         const traverse = (node, path) => {
           let evl = node.eval;
           const ceval = node.ceval;
@@ -130,7 +130,17 @@
       analyseTools
         .observer()
         .off('move, eval',this.showDecimalsMoves);
+      analysis.toggleComputer = lt.unwrapFunction(analysis.toggleComputer,'cevalDecimals');
+      $('.lichessTools-cevalDecimals').remove();
       if (!value) return;
+      analysis.toggleComputer = lt.wrapFunction(analysis.toggleComputer, {
+        id: 'cevalDecimals',
+        after: ($this,result,...args)=>{
+          $('.lichessTools-cevalDecimals').remove();
+          this.showDecimals();
+          this.showDecimalsMoves();
+        }
+      });
       lt.pubsub.on('lichessTools.redraw', this.setupObserver);
       this.setupObserver();
       this.showDecimals();
