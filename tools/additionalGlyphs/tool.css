@@ -10,3 +10,8 @@ body.lichessTools.mobile svg.cg-custom-svgs > g > g g {
   scale: 1.3;
   translate: -20% -10%;
 }
+
+/* fix for https://github.com/lichess-org/lila/issues/17602 */
+body.lichessTools:has(.comp-off__hint) .cg-custom-svgs {
+  display:none;
+}
