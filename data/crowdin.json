@@ -870,7 +870,9 @@
     "gameListOptions.remove": "إزالة الألعاب",
     "removeBookmarksButtonTitle": "إزالة الإشارات المرجعية المحددة",
     "removeBookmarksQuestion": "هل أنت متأكد من أنك تريد إزالة الإشارات المرجعية %s؟",
-    "removeBookmarksQuestion:one": "هل أنت متأكد من أنك تريد إزالة الإشارة المرجعية؟"
+    "removeBookmarksQuestion:one": "هل أنت متأكد من أنك تريد إزالة الإشارة المرجعية؟",
+    "options.challengeOptions": "خيارات التحدي",
+    "challengeOptions.latestGames": "إظهار أحدث الألعاب"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1743,7 +1745,9 @@
     "gameListOptions.remove": "移除游戏",
     "removeBookmarksButtonTitle": "删除选中的书签",
     "removeBookmarksQuestion": "您确定要删除 %s 书签吗？",
-    "removeBookmarksQuestion:one": "您确定要删除书签吗？"
+    "removeBookmarksQuestion:one": "您确定要删除书签吗？",
+    "options.challengeOptions": "挑战选项",
+    "challengeOptions.latestGames": "显示最新游戏"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2616,7 +2620,9 @@
     "gameListOptions.remove": "Remove games",
     "removeBookmarksButtonTitle": "Remove selected bookmarks",
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
-    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
+    "options.challengeOptions": "Challenge options",
+    "challengeOptions.latestGames": "Show latest games"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3489,7 +3495,9 @@
     "gameListOptions.remove": "Spellen verwijderen",
     "removeBookmarksButtonTitle": "Geselecteerde bladwijzers verwijderen",
     "removeBookmarksQuestion": "Weet u zeker dat u %s bladwijzers wilt verwijderen?",
-    "removeBookmarksQuestion:one": "Weet u zeker dat u de bladwijzer wilt verwijderen?"
+    "removeBookmarksQuestion:one": "Weet u zeker dat u de bladwijzer wilt verwijderen?",
+    "options.challengeOptions": "Uitdaging opties",
+    "challengeOptions.latestGames": "Toon laatste spellen"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4362,7 +4370,9 @@
     "gameListOptions.remove": "Remove games",
     "removeBookmarksButtonTitle": "Remove selected bookmarks",
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
-    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
+    "options.challengeOptions": "Challenge options",
+    "challengeOptions.latestGames": "Show latest games"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5235,7 +5245,9 @@
     "gameListOptions.remove": "Supprimer les parties",
     "removeBookmarksButtonTitle": "Supprimer les signets sélectionnés",
     "removeBookmarksQuestion": "Êtes-vous sûr de vouloir supprimer %s signets ?",
-    "removeBookmarksQuestion:one": "Êtes-vous sûr de vouloir supprimer le signet ?"
+    "removeBookmarksQuestion:one": "Êtes-vous sûr de vouloir supprimer le signet ?",
+    "options.challengeOptions": "Options du défi",
+    "challengeOptions.latestGames": "Afficher les derniers jeux"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6108,7 +6120,9 @@
     "gameListOptions.remove": "Spiele entfernen",
     "removeBookmarksButtonTitle": "Ausgewählte Lesezeichen entfernen",
     "removeBookmarksQuestion": "Sind Sie sicher, dass Sie %s Lesezeichen entfernen möchten?",
-    "removeBookmarksQuestion:one": "Sind Sie sicher, dass Sie das Lesezeichen entfernen möchten?"
+    "removeBookmarksQuestion:one": "Sind Sie sicher, dass Sie das Lesezeichen entfernen möchten?",
+    "options.challengeOptions": "Challenge-Optionen",
+    "challengeOptions.latestGames": "Neueste Spiele anzeigen"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6981,7 +6995,9 @@
     "gameListOptions.remove": "Remove games",
     "removeBookmarksButtonTitle": "Remove selected bookmarks",
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
-    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
+    "options.challengeOptions": "Challenge options",
+    "challengeOptions.latestGames": "Show latest games"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7854,7 +7870,9 @@
     "gameListOptions.remove": "Rimuovi giochi",
     "removeBookmarksButtonTitle": "Rimuovi i segnalibri selezionati",
     "removeBookmarksQuestion": "Sei sicuro di voler rimuovere i segnalibri %s?",
-    "removeBookmarksQuestion:one": "Sei sicuro di voler rimuovere il segnalibro?"
+    "removeBookmarksQuestion:one": "Sei sicuro di voler rimuovere il segnalibro?",
+    "options.challengeOptions": "Opzioni sfida",
+    "challengeOptions.latestGames": "Mostra i giochi più recenti"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8727,7 +8745,9 @@
     "gameListOptions.remove": "Remove games",
     "removeBookmarksButtonTitle": "Remove selected bookmarks",
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
-    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
+    "options.challengeOptions": "Challenge options",
+    "challengeOptions.latestGames": "Show latest games"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9600,7 +9620,9 @@
     "gameListOptions.remove": "Usuń gry",
     "removeBookmarksButtonTitle": "Usuń wybrane zakładki",
     "removeBookmarksQuestion": "Czy na pewno chcesz usunąć zakładki %s?",
-    "removeBookmarksQuestion:one": "Czy na pewno chcesz usunąć zakładkę?"
+    "removeBookmarksQuestion:one": "Czy na pewno chcesz usunąć zakładkę?",
+    "options.challengeOptions": "Opcje wyzwania",
+    "challengeOptions.latestGames": "Pokaż najnowsze gry"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10473,7 +10495,9 @@
     "gameListOptions.remove": "Remover jogos",
     "removeBookmarksButtonTitle": "Remover os favoritos selecionados",
     "removeBookmarksQuestion": "Tem certeza que deseja remover %s favoritos?",
-    "removeBookmarksQuestion:one": "Tem certeza que deseja remover o marcador?"
+    "removeBookmarksQuestion:one": "Tem certeza que deseja remover o marcador?",
+    "options.challengeOptions": "Opções de desafio",
+    "challengeOptions.latestGames": "Mostrar últimos jogos"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11346,7 +11370,9 @@
     "gameListOptions.remove": "Remover jogos",
     "removeBookmarksButtonTitle": "Remover os favoritos selecionados",
     "removeBookmarksQuestion": "Tem certeza que deseja remover %s favoritos?",
-    "removeBookmarksQuestion:one": "Tem certeza que deseja remover o marcador?"
+    "removeBookmarksQuestion:one": "Tem certeza que deseja remover o marcador?",
+    "options.challengeOptions": "Opções de desafio",
+    "challengeOptions.latestGames": "Mostrar últimos jogos"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12219,7 +12245,9 @@
     "gameListOptions.remove": "Elimină jocuri",
     "removeBookmarksButtonTitle": "Elimină bookmarkurile selectate",
     "removeBookmarksQuestion": "Sigur vrei sa elimini %s bookmarkuri?",
-    "removeBookmarksQuestion:one": "Sigur vrei sa elimini bookmarkul selectat?"
+    "removeBookmarksQuestion:one": "Sigur vrei sa elimini bookmarkul selectat?",
+    "options.challengeOptions": "Opţiuni provocări",
+    "challengeOptions.latestGames": "Arată ultimele jocuri"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13092,7 +13120,9 @@
     "gameListOptions.remove": "Удалить игры",
     "removeBookmarksButtonTitle": "Удалить выбранные закладки",
     "removeBookmarksQuestion": "Вы уверены, что хотите удалить закладки %s?",
-    "removeBookmarksQuestion:one": "Вы уверены, что хотите удалить закладку?"
+    "removeBookmarksQuestion:one": "Вы уверены, что хотите удалить закладку?",
+    "options.challengeOptions": "Опции вызовов",
+    "challengeOptions.latestGames": "Показать последние игры"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13965,7 +13995,9 @@
     "gameListOptions.remove": "Eliminar juegos",
     "removeBookmarksButtonTitle": "Eliminar marcadores seleccionados",
     "removeBookmarksQuestion": "¿Está seguro de que desea eliminar los marcadores %s?",
-    "removeBookmarksQuestion:one": "¿Está seguro de que desea eliminar el marcador?"
+    "removeBookmarksQuestion:one": "¿Está seguro de que desea eliminar el marcador?",
+    "options.challengeOptions": "Opciones de desafío",
+    "challengeOptions.latestGames": "Mostrar los últimos juegos"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14838,7 +14870,9 @@
     "gameListOptions.remove": "Remove games",
     "removeBookmarksButtonTitle": "Remove selected bookmarks",
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
-    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
+    "options.challengeOptions": "Challenge options",
+    "challengeOptions.latestGames": "Show latest games"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15711,7 +15745,9 @@
     "gameListOptions.remove": "Remove games",
     "removeBookmarksButtonTitle": "Remove selected bookmarks",
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
-    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
+    "options.challengeOptions": "Challenge options",
+    "challengeOptions.latestGames": "Show latest games"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16584,6 +16620,8 @@
     "gameListOptions.remove": "Remove games",
     "removeBookmarksButtonTitle": "Remove selected bookmarks",
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
-    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?"
+    "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
+    "options.challengeOptions": "Challenge options",
+    "challengeOptions.latestGames": "Show latest games"
   }
 }
