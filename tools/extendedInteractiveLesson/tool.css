@@ -266,6 +266,25 @@ body.lichessTools.lichessTools-extendedInteractiveLesson main.gamebook-play .stu
   text-wrap: auto;
 }
 
+body.lichessTools.lichessTools-extendedInteractiveLesson .lichessTools-extendedInteractiveLesson-info {
+  padding: 1em;
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson .lichessTools-rate-green {
+  color: var(--c-good);
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson .lichessTools-rate-yellow {
+  color: var(--c-mistake);
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson .lichessTools-rate-orange {
+  color: var(--c-warn);
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson .lichessTools-rate-red {
+  color: var(--c-bad);
+}
 
 /* Prettier Lichess CSS */
 

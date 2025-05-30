@@ -436,22 +436,71 @@
     markPathFinished = (path, goodMoves, badMoves, askedForSolution) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
       const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
       this.loadChapterPaths({});
       const paths = this._paths[key] || {};
+
       const success = badMoves == 0 && !askedForSolution && goodMoves >= Math.floor(path.length / 4);
+      const successRate = badMoves + goodMoves 
+        ? goodMoves / (badMoves + goodMoves)
+        : 1;
+
       const item = paths[path] || { path };
       item.time = Date.now();
       item.success = success;
       if (!item.interval) item.interval = 1;
-      if (success) {
-        item.interval = 2;
-      } else {
-        item.interval = Math.max(1/144,item.interval/2);
+
+      const colorCodeSuccessRate = (rate) => {
+        const cls = rate > 0.9 ? 'green'
+                     : rate >= 0.7 ? 'yellow'
+                     : rate >= 0.5 ? 'orange'
+                     : 'red';
+        const elem = $('<span>')
+                 .addClass('lichessTools-rate-'+cls)
+                 .text((rate*100).toFixed(0)+'%');
+        return elem;
+      };
+
+      const colorCodeFactor = (factor) => {
+        const cls = factor >= 1 ? 'green'
+                     : factor >= 0.85 ? 'yellow'
+                     : factor >= 0.7 ? 'orange'
+                     : 'red';
+        const elem = $('<span>')
+                 .addClass('lichessTools-rate-'+cls)
+                 .text((factor*100).toFixed(0)+'%');
+        return elem;
+      };
+
+      const previousInterval = item.interval;
+      let infoElem = $('.lichessTools-extendedInteractiveLesson-info');
+      if (!infoElem.length) {
+        infoElem = $('<div class="lichessTools-extendedInteractiveLesson-info">')
+          .appendTo('.gamebook .comment');
       }
+      $('<div>')
+       .appendSpan(`${goodMoves} ${lt.icon.Checked} | ${badMoves} ${lt.icon.RedX} (`)
+       .append(colorCodeSuccessRate(successRate))
+       .appendSpan(')')
+       .appendTo(infoElem);
+
+      if (this.options.flow.spacedRepetition) {
+        const factor = successRate >= 0.7
+          ? 1 + ((successRate - 0.7) / 0.3) * 0.5
+          : 0.5 + 0.5 * (successRate / 0.7);
+        item.interval = Math.max(1/144, item.interval * factor);
+        $('<div>')
+          .appendSpan(trans.pluralSame('daysText',`${previousInterval.toFixed(1)} ${lt.icon.RightwardsArrow} ${item.interval.toFixed(1)}`) +' (')
+          .append(colorCodeFactor(factor))
+          .appendSpan(')')
+          .appendTo(infoElem);
+      }
+
       paths[path] = item;
 
       const traverse = (node, nodeList) => {

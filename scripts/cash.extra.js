@@ -70,6 +70,11 @@ cash.fn.toggleClassSafe = function(className, value) {
   return this;
 }
 
+cash.fn.appendSpan = function(text) {
+  if (text===undefined) text='';
+  $('<span>').text(text).appendTo(this);
+  return this;
+}
 
 class Observer {
   constructor(context) {

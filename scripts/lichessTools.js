@@ -233,6 +233,8 @@
       DownwardsWhiteArrow: '\u21E9',
       Mate: '\u266F',
       OpenBook: '\uD83D\uDCD6',
+      Checked: '\u2713',
+      RedX: '\u2716',
 
       toEntity: function(s) {
         let result='';
