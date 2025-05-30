@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+30 May
+
+- challenge options tool: show latest games
+
 21 May
 
 - bulk remove bookmarked games button
