@@ -195,29 +195,29 @@
           state.feedback = 'good';
         }
         gp.state = state;
+        let func = null;
+        let delay = 0;
+        switch (state.feedback) {
+          case 'good':
+            func = gp.next;
+            delay = 300;
+            break;
+          case 'bad':
+            func = gp.retry;
+            delay = analysis.path ? 1000 : 800;
+            break;
+        }
+        if (!state.isNavigateBack && !gp.isMyMove() && func && this.options.fastInteractive) {
+          delay = 50;
+          const oldFunc = func;
+          func = () => {
+            oldFunc();
+            $('div.gamebook .comment')
+              .toggleClassSafe('good',state.feedback == 'good')
+              .toggleClassSafe('bad',state.feedback == 'bad');
+          };
+        }
         if (!state.comment) {
-          let func = null;
-          let delay = 0;
-          switch (state.feedback) {
-            case 'good':
-              func = gp.next;
-              delay = 300;
-              break;
-            case 'bad':
-              func = gp.retry;
-              delay = analysis.path ? 1000 : 800;
-              break;
-          }
-          if (!state.isNavigateBack && !gp.isMyMove() && func && this.options.fastInteractive) {
-            delay = 50;
-            const oldFunc = func;
-            func = () => {
-              oldFunc();
-              $('div.gamebook .comment')
-                .toggleClassSafe('good',state.feedback == 'good')
-                .toggleClassSafe('bad',state.feedback == 'bad');
-            };
-          }
           if (func) {
             lt.global.setTimeout(func, delay);
           } else {
@@ -229,6 +229,12 @@
           $('div.gamebook .comment')
             .toggleClassSafe('good',false)
             .toggleClassSafe('bad',false);
+          if (func && this.options.fastInteractive) {
+            if (this.alreadySeen(gp.path,state.comment)) {
+              lt.global.setTimeout(func, delay+500);
+            }
+            this.markSeenOnce(gp.path,state.comment);
+          }
         }
       },
       retry: () => {
@@ -311,6 +317,20 @@
         gp.threeFoldRepetition = false;
         gp.fens = {};
       }
+    };
+
+    markSeenOnce = (path, comment) => {
+      if (!this.seen) this.seen=new Map();
+      const key = path+'|'+comment;
+      const times = this.seen.get(key)||[];
+      times.push(Date.now());
+      if (times.length == 1) this.seen.set(key,times);
+    };
+    alreadySeen = (path, comment) => {
+      if (!this.seen) return false;
+      const key = path+'|'+comment;
+      const times = this.seen.get(key);
+      return times?.length > 5;
     };
 
     areBadGlyphNodes = (nodeList) => {
