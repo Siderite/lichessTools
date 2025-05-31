@@ -267,7 +267,7 @@ body.lichessTools.lichessTools-extendedInteractiveLesson main.gamebook-play .stu
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson .lichessTools-extendedInteractiveLesson-info {
-  padding: 1em;
+  padding: 0 1em 1em 1em;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson .lichessTools-rate-green {
@@ -284,6 +284,27 @@ body.lichessTools.lichessTools-extendedInteractiveLesson .lichessTools-rate-oran
 
 body.lichessTools.lichessTools-extendedInteractiveLesson .lichessTools-rate-red {
   color: var(--c-bad);
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson *[data-tooltip] {
+  position: relative;
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson *[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  white-space: pre;
+  pointer-events: none;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  color: var(--c-font);
+  background: var(--c-bg-popup);
+  padding: 1em;
+  border-radius: 4px;
+  opacity: 1;
+  z-index: 100000;
 }
 
 /* Prettier Lichess CSS */

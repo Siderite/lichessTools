@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 30 May
 
 - challenge options tool: show latest games
+- improvements in sequential and spaced repetition flows in extended interactive
 
 21 May
 
