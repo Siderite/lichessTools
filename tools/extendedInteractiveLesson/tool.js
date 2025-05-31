@@ -128,6 +128,8 @@
         };
         gp.path = analysis.path;
 
+        $('.lichessTools-extendedInteractiveLesson-info').remove();
+
         if (state.init || gp.state?.init) {
           gp.resetStats();
           if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
@@ -142,7 +144,8 @@
                     .then(doReset=>{
                       if (!doReset) return;
                       this.resetDone();
-                      gp.makeState();
+                      analysis.userJump('');
+                      analysis.redraw();
                     })
                     .finally(doReset=>{
                       this._inConfirm = false;
