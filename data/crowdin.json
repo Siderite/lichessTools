@@ -4720,7 +4720,7 @@
     "addBookmarkPrompt": "Ajouter/Supprimer signet",
     "collapseExpandTitle": "LiChess Tools - réduire/Développer",
     "URLCopiedToClipboard": "URL copiée dans le presse-papiers",
-    "getBookmarkUrlText": "Obtenir le lien de favori",
+    "getBookmarkUrlText": "Obtenir le lien du signet",
     "getBookmarkUrlTitle": "LiChess Tools - obtenir un lien de signet",
     "collapseAllText": "Réduire tous les signets",
     "collapseAllTitle": "LiChess Tools - réduire tous les signets",
@@ -5246,8 +5246,8 @@
     "removeBookmarksButtonTitle": "Supprimer les signets sélectionnés",
     "removeBookmarksQuestion": "Êtes-vous sûr de vouloir supprimer %s signets ?",
     "removeBookmarksQuestion:one": "Êtes-vous sûr de vouloir supprimer le signet ?",
-    "options.challengeOptions": "Options du défi",
-    "challengeOptions.latestGames": "Afficher les derniers jeux"
+    "options.challengeOptions": "Options pour les défis",
+    "challengeOptions.latestGames": "Afficher les dernières parties"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
