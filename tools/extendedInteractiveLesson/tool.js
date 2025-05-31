@@ -475,6 +475,7 @@
       const item = paths[path] || { path };
       item.time = Date.now();
       item.success = success;
+      item.successRate = successRate;
       if (!item.interval) item.interval = 1;
 
       const colorCodeSuccessRate = (rate) => {
@@ -1115,8 +1116,16 @@
             const done = this.options.flow.spacedRepetition
               ? item && Date.now() < item.time + item.interval * 86400000
               : item?.success
+            let status = done ? lt.icon.Checked : lt.icon.Ellipsis;
+            if (!done && item.successRate) {
+              if (item.successRate>0.7) status='...';
+              else
+              if (item.successRate>0.4) status='..';
+              else
+              status='.';
+            }
             if (total<10) {
-              tooltip += '\u000a'+(total+1)+': '+(done?lt.icon.Checked:'')+(this.options.flow.spacedRepetition?' '+this.getTimeText(item.interval * 86400000):'');
+              tooltip += '\u000a'+(total+1)+': '+(status)+(this.options.flow.spacedRepetition?' '+this.getTimeText(item.interval * 86400000):'');
             } else if (total==10) {
               tooltip += '\u000a  '+lt.icon.Ellipsis;
             }
