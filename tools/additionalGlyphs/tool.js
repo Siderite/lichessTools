@@ -45,8 +45,16 @@
     updateGlyphs = ()=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const $ = lt.$;
       const analysis = lichess?.analysis;
       const firstGlyph = analysis.node.glyphs?.at(0);
+      let orig = analysis.node.uci?.slice(2, 4);
+      if (firstGlyph?.type && orig) {
+        lt.global.requestAnimationFrame(()=>{
+          const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
+          existing.toggleClassSafe('lichessTools-glyphType-'+firstGlyph.type, true);
+        });
+      }
       let glyph = firstGlyph?.symbol;
       if (glyph == '??' && this.options.miss && analysis.nodeList.length>2) {
         const [cp2,cp1,cp]=analysis.nodeList.slice(-3).map(n=>lt.getCentipawns(n.ceval || n.eval));
@@ -119,7 +127,7 @@
           text: glyph
         }
       });
-      const existing = $('svg.cg-custom-svgs g').filter(g=>$(g).attr('cgHash')?.includes(','+orig));
+      const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
       $('circle',existing).attrSafe('fill',fill);
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);

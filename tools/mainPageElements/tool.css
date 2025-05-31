@@ -18,7 +18,7 @@ body.lichessTools main.lobby.lichessTools-lobbyPlay .lobby__about {
   display: none;
 }
 
-body.lichessTools main.lobby .lobby__side.lichessTools-hideElement,
+body.lichessTools main.lobby .lobby__side .lichessTools-hideElement,
 body.lichessTools main.lobby .lobby__streams.lichessTools-hideElement,
 body.lichessTools main.lobby .lobby__spotlights.lichessTools-hideElement,
 body.lichessTools main.lobby .lobby__timeline.lichessTools-hideElement,

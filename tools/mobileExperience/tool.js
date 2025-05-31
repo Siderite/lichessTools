@@ -451,11 +451,13 @@
 
     requestWakeLock = async () => {
       const lt = this.lichessTools;
+      if (lt.global.document.visibilityState !== 'visible') return;
+      if (this.wakelock?.released === false) return;
       try {
-        if (document.visibilityState === 'visible') {
-          this.wakelock?.release();
-          this.wakelock = await lt.global.navigator.wakeLock.request("screen");
-          if (this.wakelock) return;
+        this.wakelock = await lt.global.navigator.wakeLock?.request('screen');
+        if (this.wakelock) {
+          console.debug('Wakelock not available or it was refused');
+          return;
         }
       } catch (err) {
         console.debug('Wakelock failed:', err);

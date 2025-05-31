@@ -186,7 +186,7 @@
 
       const allRatings = [400, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500];
       const ratingText = compress(allRatings, settings.avgRating);
-      const allControls = ['ultrabullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
+      const allControls = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
       const controlText = compress(allControls, settings.timeControl);
       const sinceText = settings.since ? trans.pluralSame('sinceText', timeString(settings.since)) : '';
       const untilText = settings.until ? trans.pluralSame('untilText', timeString(settings.until)) : '';
@@ -196,6 +196,33 @@
         .replace('%since', sinceText)
         .replace('%until', untilText)
         .trim();
+    };
+
+    lichessHandler = (ev) => {
+      ev.preventDefault();
+      const lt = this.lichessTools;
+      const analysis = lt.lichess?.analysis;
+      this._origLichessHandler(ev);
+      if (this._prevControls) {
+        const data = analysis?.explorer?.config?.data;
+        data.speed(this._prevControls);
+        this._prevControls = null;
+      }
+    };
+
+    playerHandler = (ev) => {
+      ev.preventDefault();
+      const lt = this.lichessTools;
+      const analysis = lt.lichess?.analysis;
+      this._origPlayerHandler(ev);
+      if (ev.ctrlKey) {
+        const data = analysis?.explorer?.config?.data;
+        this._prevControls = data.speed();
+        const allControls = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
+        data.speed(allControls);
+      } else {
+        this._prevControls = null;
+      }
     };
 
     showSnapsDirect = () => {
@@ -225,6 +252,28 @@
           titleElem.addClass('lichessTools-explorerSnaps')
         }
       }
+
+      const playerElem = $('.explorer-title button.player');
+      if (playerElem.length && !playerElem.prop('_snapInit')) {
+        playerElem.prop('_snapInit',true);
+        const handler = lt.getEventHandlers(playerElem[0],'click')[0];
+        this._origPlayerHandler = handler;
+        lt.removeEventHandlers(playerElem[0],'click');
+        playerElem.on('click',this.playerHandler);
+      }
+
+      const dbElems = $('.explorer-title button.button-link');
+      if (dbElems.length>=2) {
+        const lichessElem = dbElems[1];
+        if (!lichessElem._snapInit) {
+          lichessElem._snapInit=true;
+          const handler = lt.getEventHandlers(lichessElem,'click')[0];
+          this._origLichessHandler = handler;
+          lt.removeEventHandlers(lichessElem,'click');
+          $(lichessElem).on('click',this.lichessHandler);
+        }
+      }
+
       if (!lichess.analysis?.explorer?.config?.data?.open()) return;
       const container = $('section.explorer-box div.config >div:has(section.date)');
       if (!container.length) return;

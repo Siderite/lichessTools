@@ -489,11 +489,11 @@
       const trans = lt.translator;
       let result;
       const days = Math.round(value / 86400000);
-      if (days) {
+      if (Math.trunc(value / 86400000)) {
         result = trans.plural('daysText', days, days);
       } else {
         const hours = Math.round(value / 3600000);
-        if (hours) {
+        if (Math.trunc(value / 3600000)) {
           result = trans.plural('hoursText', hours, hours);
         } else {
           const minutes = Math.round(value / 60000);

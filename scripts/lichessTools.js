@@ -233,6 +233,8 @@
       DownwardsWhiteArrow: '\u21E9',
       Mate: '\u266F',
       OpenBook: '\uD83D\uDCD6',
+      Checked: '\u2713',
+      RedX: '\u2716',
 
       toEntity: function(s) {
         let result='';
@@ -2056,6 +2058,14 @@
             args: { gameId }
           });
           return html;
+        },
+        deleteImported: async function(gameId) {
+          const lt = this.lichessTools;
+          await lt.net.fetch({ url: '/{id}/delete', args: { id: gameId } },{ method: 'POST' });
+        },
+        toggleBookmark: async function(gameId) {
+          const lt = this.lichessTools;
+          await lt.net.fetch({ url: '/bookmark/{id}', args: { id: gameId } },{ method: 'POST' });
         }
       },
       team: {
@@ -2198,6 +2208,10 @@
               : null;
           }
           return result;
+        },
+        blockPlayer: async function(userId) {
+          const lt = this.lichessTools;
+          await lt.net.fetch({ url: 'api/rel/block/{userId}', args: { userId: userId } },{ method: 'POST' });
         }
       },
       tournament: {

@@ -86,11 +86,16 @@
       const lichess = lt.lichess;
       const trans = lt.translator;
       const $ = lt.$;
-      const container = $('div.lobby__spotlights');
-      if (!container.length) return;
+      const side = $('.lobby__side');
+      if (!side) return;
+      let container = $('div.lichessTools-pins');
       if (!this.options.enabled) {
-        $('.lichessTools-pin', container).remove();
+        container.remove();
         return;
+      }
+      if (!container.length) {
+        container = $('<div class="lichessTools-pins">')
+          .appendTo(side);
       }
       this.options.pinned.forEach(p => {
         let elem = $('a.id_' + p.studyId, container);

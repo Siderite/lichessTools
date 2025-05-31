@@ -57,7 +57,13 @@
         'extendedInteractiveOptionsTitle': 'LiChess Tools - interactive lesson preferences',
         'giveUpButtonText': 'Give up',
         'giveUpButtonTitle': 'Abandons the interactive run',
-        'giveUpConfirmation': 'Are you sure you want to abandon the interactive run?'
+        'giveUpConfirmation': 'Are you sure you want to abandon the interactive run?',
+        'daysText:one': 'a day',
+        'hoursText:one': 'an hr',
+        'minutesText:one': 'a min',
+        'daysText': '%s days',
+        'hoursText': '%s hrs',
+        'minutesText': '%s mins'
       },
       'ro-RO': {
         'options.study': 'Studiu',
@@ -93,7 +99,13 @@
         'extendedInteractiveOptionsTitle': 'LiChess Tools - preferin\u0163e lec\u0163ie interactiv\u0103',
         'giveUpButtonText': 'Renun\u0163',
         'giveUpButtonTitle': 'Abandoneaz\u0103 lec\u0163ia interactiv\u0103',
-        'giveUpConfirmation': 'E\u015Fti sigur ca vrei sa abandonezi lec\u0163ia interactiv\u0103?'
+        'giveUpConfirmation': 'E\u015Fti sigur ca vrei sa abandonezi lec\u0163ia interactiv\u0103?',
+        'daysText:one': 'o zi',
+        'hoursText:one': 'o or\u0103',
+        'minutesText:one': 'un minut',
+        'daysText': '%s zile',
+        'hoursText': '%s ore',
+        'minutesText': '%s minute'
       }
     }
 
@@ -116,23 +128,33 @@
         };
         gp.path = analysis.path;
 
+        $('.lichessTools-extendedInteractiveLesson-info').remove();
+
         if (state.init || gp.state?.init) {
           gp.resetStats();
           if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
             gp.currentPath = this.getCurrentPath();
             if (!gp.currentPath) {
               const nextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
-                .filter(c => this.isPermanentNode(c));
+                .filter(c => this.isPermanentNode(c) && !this.areBadGlyphNodes([c]));
               if (nextMoves.length) {
-                if (lt.global.confirm(trans.noarg('resetQuestionNoVariations'))) { //TODO can we make this await and use uiApi.dialog?
-                  this.resetDone();
-                  return gp.makeState();
-                } else {
-                  analysis.path = 'x'; // needed for Play again to work
-                  state.feedback = 'end';
-                  gp.state = state;
-                  return;
+                if (!this._inConfirm) {
+                  this._inConfirm = true;
+                  lt.uiApi.dialog.confirm(trans.noarg('resetQuestionNoVariations'))
+                    .then(doReset=>{
+                      if (!doReset) return;
+                      this.resetDone();
+                      analysis.userJump('');
+                      analysis.redraw();
+                    })
+                    .finally(doReset=>{
+                      this._inConfirm = false;
+                    });
                 }
+                analysis.path = 'x'; // needed for Play again to work
+                state.feedback = 'end';
+                gp.state = state;
+                return;
               }
             }
           }
@@ -195,29 +217,29 @@
           state.feedback = 'good';
         }
         gp.state = state;
+        let func = null;
+        let delay = 0;
+        switch (state.feedback) {
+          case 'good':
+            func = gp.next;
+            delay = 300;
+            break;
+          case 'bad':
+            func = gp.retry;
+            delay = analysis.path ? 1000 : 800;
+            break;
+        }
+        if (!state.isNavigateBack && !gp.isMyMove() && func && this.options.fastInteractive) {
+          delay = 50;
+          const oldFunc = func;
+          func = () => {
+            oldFunc();
+            $('div.gamebook .comment')
+              .toggleClassSafe('good',state.feedback == 'good')
+              .toggleClassSafe('bad',state.feedback == 'bad');
+          };
+        }
         if (!state.comment) {
-          let func = null;
-          let delay = 0;
-          switch (state.feedback) {
-            case 'good':
-              func = gp.next;
-              delay = 300;
-              break;
-            case 'bad':
-              func = gp.retry;
-              delay = analysis.path ? 1000 : 800;
-              break;
-          }
-          if (!state.isNavigateBack && !gp.isMyMove() && func && this.options.fastInteractive) {
-            delay = 50;
-            const oldFunc = func;
-            func = () => {
-              oldFunc();
-              $('div.gamebook .comment')
-                .toggleClassSafe('good',state.feedback == 'good')
-                .toggleClassSafe('bad',state.feedback == 'bad');
-            };
-          }
           if (func) {
             lt.global.setTimeout(func, delay);
           } else {
@@ -229,6 +251,12 @@
           $('div.gamebook .comment')
             .toggleClassSafe('good',false)
             .toggleClassSafe('bad',false);
+          if (func && this.options.fastInteractive) {
+            if (this.alreadySeen(gp.path,state.comment)) {
+              lt.global.setTimeout(func, delay+500);
+            }
+            this.markSeenOnce(gp.path,state.comment);
+          }
         }
       },
       retry: () => {
@@ -311,6 +339,20 @@
         gp.threeFoldRepetition = false;
         gp.fens = {};
       }
+    };
+
+    markSeenOnce = (path, comment) => {
+      if (!this.seen) this.seen=new Map();
+      const key = path+'|'+comment;
+      const times = this.seen.get(key)||[];
+      times.push(Date.now());
+      if (times.length == 1) this.seen.set(key,times);
+    };
+    alreadySeen = (path, comment) => {
+      if (!this.seen) return false;
+      const key = path+'|'+comment;
+      const times = this.seen.get(key);
+      return times?.length > 5;
     };
 
     areBadGlyphNodes = (nodeList) => {
@@ -416,22 +458,65 @@
     markPathFinished = (path, goodMoves, badMoves, askedForSolution) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const trans = lt.translator;
+      const $ = lt.$;
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
       const key = analysis.study.data.id + '/' + analysis.study.currentChapter()?.id;
       this.loadChapterPaths({});
       const paths = this._paths[key] || {};
+
       const success = badMoves == 0 && !askedForSolution && goodMoves >= Math.floor(path.length / 4);
+      const successRate = badMoves + goodMoves 
+        ? goodMoves / (badMoves + goodMoves)
+        : 1;
+
       const item = paths[path] || { path };
       item.time = Date.now();
       item.success = success;
+      item.successRate = successRate;
       if (!item.interval) item.interval = 1;
-      if (success) {
-        item.interval = 2;
-      } else {
-        item.interval = Math.max(1/144,item.interval/2);
+
+      const colorCodeSuccessRate = (rate) => {
+        const cls = rate > 0.9 ? 'green'
+                     : rate >= 0.7 ? 'yellow'
+                     : rate >= 0.5 ? 'orange'
+                     : 'red';
+        const elem = $('<span>')
+                 .addClass('lichessTools-rate-'+cls)
+                 .text((rate*100).toFixed(0)+'%');
+        return elem;
+      };
+
+      const previousInterval = item.interval;
+      const infoElem = $('<div class="lichessTools-extendedInteractiveLesson-info">');
+      $('<div>')
+       .appendSpan(`${goodMoves} ${lt.icon.Checked} | ${badMoves} ${lt.icon.RedX} (`)
+       .append(colorCodeSuccessRate(successRate))
+       .appendSpan(')')
+       .appendTo(infoElem);
+
+      if (this.options.flow.spacedRepetition) {
+        const factor = successRate >= 0.7
+          ? 1 + ((successRate - 0.7) / 0.3) * 0.5
+          : 0.5 + 0.5 * (successRate / 0.7);
+        item.interval = Math.max(1/144, item.interval * factor);
+        $('<div>')
+          .text(trans.pluralSame('daysText',`${previousInterval.toFixed(1)} ${lt.icon.RightwardsArrow} ${item.interval.toFixed(1)}`))
+          .appendTo(infoElem);
       }
+      const attach = ()=>{
+        const container = $('.gamebook .comment');
+        if (!container.length) {
+          lt.global.setTimeout(attach,100);
+          return;
+        }
+        $('.lichessTools-extendedInteractiveLesson-info',container).remove();
+        infoElem.appendTo(container);
+      };
+      attach();
+
       paths[path] = item;
 
       const traverse = (node, nodeList) => {
@@ -981,6 +1066,26 @@
       }
     };
 
+    getTimeText = (value) => {
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      let result;
+      const days = Math.round(value / 86400000);
+      if (Math.trunc(value / 86400000)) {
+        result = trans.plural('daysText', days, days);
+      } else {
+        const hours = Math.round(value / 3600000);
+        if (Math.trunc(value / 3600000)) {
+          result = trans.plural('hoursText', hours, hours);
+        } else {
+          const minutes = Math.round(value / 60000);
+          result = trans.plural('minutesText', minutes, minutes)
+        }
+      }
+      return result;
+    };
+
+
     refreshChapterProgress = () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -990,6 +1095,8 @@
       if (!study) return;
       const trans = lt.translator;
       this.loadChapterPaths(null);
+      //$('.study__chapters button[title]').removeAttr('title');
+      $('.study__chapters button[data-tooltip]').removeAttr('data-tooltip');
       if (!this._paths) return;
       const list = study.chapters.list.all();
       $('div.study__chapters').addClass('lichesstools-extendedInteractiveLessonFlow');
@@ -1002,20 +1109,39 @@
         let total = 0;
         let doneCount = 0;
         if (paths) {
+          let tooltip = '';
           for (const k in paths) {
             if (k == 'currentPath') continue;
             const item = paths[k];
             const done = this.options.flow.spacedRepetition
               ? item && Date.now() < item.time + item.interval * 86400000
               : item?.success
+            let status = done ? lt.icon.Checked : lt.icon.Ellipsis;
+            if (!done && item.successRate) {
+              if (item.successRate>0.7) status='...';
+              else
+              if (item.successRate>0.4) status='..';
+              else
+              status='.';
+            }
+            if (total<10) {
+              tooltip += '\u000a'+(total+1)+': '+(status)+(this.options.flow.spacedRepetition?' '+this.getTimeText(item.interval * 86400000):'');
+            } else if (total==10) {
+              tooltip += '\u000a  '+lt.icon.Ellipsis;
+            }
             total++;
             if (done) doneCount++;
           }
           if (total) {
+            tooltip = trans.pluralSame('progressTitle', doneCount + '/' + total)+tooltip;
             perc = (100 * doneCount / total) + '%';
-            container.attr('title', trans.pluralSame('progressTitle', doneCount + '/' + total));
+            container
+              //.attr('title', tooltip)
+              .attr('data-tooltip', tooltip);
           } else {
-            container.removeAttr('title');
+            container
+              //.removeAttr('title')
+              .removeAttr('data-tooltip');
           }
         }
 

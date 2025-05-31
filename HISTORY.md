@@ -1,5 +1,18 @@
 History of features added to LiChess Tools in time (reversed order)
 
+31 May
+
+- ctrl-player tab in Explorer to reset time controls
+
+30 May
+
+- challenge options tool: show latest games
+- improvements in sequential and spaced repetition flows in extended interactive
+
+21 May
+
+- bulk remove bookmarked games button
+
 18 May
 
 - KMAPS radar chart

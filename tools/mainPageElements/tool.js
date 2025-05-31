@@ -150,7 +150,7 @@
       } else {
         const grid = this.initialGrid.replace(/[a-z]+/g, t => {
           const ft = t === 'timeline' ? 'side' : t;
-          const res = this.options[ft]
+          const res = this.options[ft] || (ft == 'side' && $('.lichessTools-pins *,.lichessTools-dailyQuote.side').length)
             ? t
             : '.'.padEnd(t.length, ' ');
           return res;

@@ -1,0 +1,36 @@
+body.lichessTools #challenge-app:has(.lichessTools-challengeOptions) .empty {
+  display:none;
+}
+
+body.lichessTools #challenge-app:has(.challenges) .lichessTools-challengeOptions {
+  display:none;
+}
+
+body.lichessTools #challenge-app .lichessTools-challengeOptions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(5em, auto));
+}
+
+body.lichessTools #challenge-app .lichessTools-challengeOptions .game {
+  display: contents;
+}
+
+body.lichessTools #challenge-app .lichessTools-challengeOptions .game a {
+  padding: 1em 0.5em;
+  box-sizing: border-box;
+  border-left: 1px dotted #808080;
+  border-bottom: 1px solid #808080;
+  text-decoration: underline;
+}
+
+body.lichessTools #challenge-app .lichessTools-challengeOptions .game a.win {
+  color: var(--c-good);
+}
+
+body.lichessTools #challenge-app .lichessTools-challengeOptions .game a.loss {
+  color: var(--c-bad);
+}
+
+body.lichessTools #challenge-app .lichessTools-challengeOptions .game img.flag {
+  display:none;
+}
