@@ -172,6 +172,7 @@
         const hrefPage = +url.searchParams.get('page');
         if (hrefPage) this._currentPage = hrefPage;
       }
+      let delay = false;
       while (this._currentPage < page) {
         const json = await lt.api.study.getStudyListPage(baseUrl, this._currentPage + 1);
         const loadedPage = +json?.paginator?.currentPage;
@@ -182,6 +183,11 @@
           }
         } else {
           this._currentPage++;
+        }
+        if (delay) {
+         await lt.timeout(1000);
+        } else {
+         delay = true;
         }
       }
       $('div.study.paginated').each((i, e) => {
