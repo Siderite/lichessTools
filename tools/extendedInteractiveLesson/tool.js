@@ -136,15 +136,22 @@
               const nextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
                 .filter(c => this.isPermanentNode(c) && !this.areBadGlyphNodes([c]));
               if (nextMoves.length) {
-                if (lt.global.confirm(trans.noarg('resetQuestionNoVariations'))) { //TODO can we make this await and use uiApi.dialog?
-                  this.resetDone();
-                  return gp.makeState();
-                } else {
-                  analysis.path = 'x'; // needed for Play again to work
-                  state.feedback = 'end';
-                  gp.state = state;
-                  return;
+                if (!this._inConfirm) {
+                  this._inConfirm = true;
+                  lt.uiApi.dialog.confirm(trans.noarg('resetQuestionNoVariations'))
+                    .then(doReset=>{
+                      if (!doReset) return;
+                      this.resetDone();
+                      gp.makeState();
+                    })
+                    .finally(doReset=>{
+                      this._inConfirm = false;
+                    });
                 }
+                analysis.path = 'x'; // needed for Play again to work
+                state.feedback = 'end';
+                gp.state = state;
+                return;
               }
             }
           }
