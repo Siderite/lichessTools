@@ -872,7 +872,10 @@
     "removeBookmarksQuestion": "هل أنت متأكد من أنك تريد إزالة الإشارات المرجعية %s؟",
     "removeBookmarksQuestion:one": "هل أنت متأكد من أنك تريد إزالة الإشارة المرجعية؟",
     "options.challengeOptions": "خيارات التحدي",
-    "challengeOptions.latestGames": "إظهار أحدث الألعاب"
+    "challengeOptions.latestGames": "إظهار أحدث الألعاب",
+    "challengeOptions.randomChallenge": "زر التحدي العشوائي",
+    "randomChallengeButtonText": "قبول تحدي عشوائي",
+    "randomChallengeButtonTitle": "أدوات شطرنج الحياة - قبول تحدي عشوائي"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1747,7 +1750,10 @@
     "removeBookmarksQuestion": "您确定要删除 %s 书签吗？",
     "removeBookmarksQuestion:one": "您确定要删除书签吗？",
     "options.challengeOptions": "挑战选项",
-    "challengeOptions.latestGames": "显示最新游戏"
+    "challengeOptions.latestGames": "显示最新游戏",
+    "challengeOptions.randomChallenge": "随机挑战按钮",
+    "randomChallengeButtonText": "接受随机挑战",
+    "randomChallengeButtonTitle": "LiChess工具 - 接受随机挑战"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2622,7 +2628,10 @@
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
     "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
     "options.challengeOptions": "Challenge options",
-    "challengeOptions.latestGames": "Show latest games"
+    "challengeOptions.latestGames": "Show latest games",
+    "challengeOptions.randomChallenge": "Random challenge button",
+    "randomChallengeButtonText": "Accept random challenge",
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3497,7 +3506,10 @@
     "removeBookmarksQuestion": "Weet u zeker dat u %s bladwijzers wilt verwijderen?",
     "removeBookmarksQuestion:one": "Weet u zeker dat u de bladwijzer wilt verwijderen?",
     "options.challengeOptions": "Uitdaging opties",
-    "challengeOptions.latestGames": "Toon laatste spellen"
+    "challengeOptions.latestGames": "Toon laatste spellen",
+    "challengeOptions.randomChallenge": "Willekeurige uitdagings knop",
+    "randomChallengeButtonText": "Willekeurige uitdaging accepteren",
+    "randomChallengeButtonTitle": "LiChess Tools - accepteer willekeurige challenge"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4372,7 +4384,10 @@
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
     "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
     "options.challengeOptions": "Challenge options",
-    "challengeOptions.latestGames": "Show latest games"
+    "challengeOptions.latestGames": "Show latest games",
+    "challengeOptions.randomChallenge": "Random challenge button",
+    "randomChallengeButtonText": "Accept random challenge",
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5247,7 +5262,10 @@
     "removeBookmarksQuestion": "Êtes-vous sûr de vouloir supprimer %s signets ?",
     "removeBookmarksQuestion:one": "Êtes-vous sûr de vouloir supprimer le signet ?",
     "options.challengeOptions": "Options pour les défis",
-    "challengeOptions.latestGames": "Afficher les dernières parties"
+    "challengeOptions.latestGames": "Afficher les dernières parties",
+    "challengeOptions.randomChallenge": "Bouton de défi aléatoire",
+    "randomChallengeButtonText": "Accepter le défi aléatoire",
+    "randomChallengeButtonTitle": "Outils LiChess - accepter un défi aléatoire"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6122,7 +6140,10 @@
     "removeBookmarksQuestion": "Sind Sie sicher, dass Sie %s Lesezeichen entfernen möchten?",
     "removeBookmarksQuestion:one": "Sind Sie sicher, dass Sie das Lesezeichen entfernen möchten?",
     "options.challengeOptions": "Challenge-Optionen",
-    "challengeOptions.latestGames": "Neueste Spiele anzeigen"
+    "challengeOptions.latestGames": "Neueste Spiele anzeigen",
+    "challengeOptions.randomChallenge": "Zufällige Challenge-Taste",
+    "randomChallengeButtonText": "Zufällige Herausforderung akzeptieren",
+    "randomChallengeButtonTitle": "LiChess Tools - Akzeptiere zufällige Challenge"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6997,7 +7018,10 @@
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
     "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
     "options.challengeOptions": "Challenge options",
-    "challengeOptions.latestGames": "Show latest games"
+    "challengeOptions.latestGames": "Show latest games",
+    "challengeOptions.randomChallenge": "Random challenge button",
+    "randomChallengeButtonText": "Accept random challenge",
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7872,7 +7896,10 @@
     "removeBookmarksQuestion": "Sei sicuro di voler rimuovere i segnalibri %s?",
     "removeBookmarksQuestion:one": "Sei sicuro di voler rimuovere il segnalibro?",
     "options.challengeOptions": "Opzioni sfida",
-    "challengeOptions.latestGames": "Mostra i giochi più recenti"
+    "challengeOptions.latestGames": "Mostra i giochi più recenti",
+    "challengeOptions.randomChallenge": "Pulsante di sfida casuale",
+    "randomChallengeButtonText": "Accetta sfida casuale",
+    "randomChallengeButtonTitle": "Strumenti LiChess - accetta la sfida casuale"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8747,7 +8774,10 @@
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
     "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
     "options.challengeOptions": "Challenge options",
-    "challengeOptions.latestGames": "Show latest games"
+    "challengeOptions.latestGames": "Show latest games",
+    "challengeOptions.randomChallenge": "Random challenge button",
+    "randomChallengeButtonText": "Accept random challenge",
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9622,7 +9652,10 @@
     "removeBookmarksQuestion": "Czy na pewno chcesz usunąć zakładki %s?",
     "removeBookmarksQuestion:one": "Czy na pewno chcesz usunąć zakładkę?",
     "options.challengeOptions": "Opcje wyzwania",
-    "challengeOptions.latestGames": "Pokaż najnowsze gry"
+    "challengeOptions.latestGames": "Pokaż najnowsze gry",
+    "challengeOptions.randomChallenge": "Przycisk losowego wyzwania",
+    "randomChallengeButtonText": "Zaakceptuj losowe wyzwanie",
+    "randomChallengeButtonTitle": "Narzędzia Lichess - zaakceptuj losowe wyzwanie"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10497,7 +10530,10 @@
     "removeBookmarksQuestion": "Tem certeza que deseja remover %s favoritos?",
     "removeBookmarksQuestion:one": "Tem certeza que deseja remover o marcador?",
     "options.challengeOptions": "Opções de desafio",
-    "challengeOptions.latestGames": "Mostrar últimos jogos"
+    "challengeOptions.latestGames": "Mostrar últimos jogos",
+    "challengeOptions.randomChallenge": "Botão de desafio aleatório",
+    "randomChallengeButtonText": "Aceitar desafio aleatório",
+    "randomChallengeButtonTitle": "Ferramentas LiChess - aceitar desafio aleatório"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11372,7 +11408,10 @@
     "removeBookmarksQuestion": "Tem certeza que deseja remover %s favoritos?",
     "removeBookmarksQuestion:one": "Tem certeza que deseja remover o marcador?",
     "options.challengeOptions": "Opções de desafio",
-    "challengeOptions.latestGames": "Mostrar últimos jogos"
+    "challengeOptions.latestGames": "Mostrar últimos jogos",
+    "challengeOptions.randomChallenge": "Botão de desafio aleatório",
+    "randomChallengeButtonText": "Aceitar desafio aleatório",
+    "randomChallengeButtonTitle": "Ferramentas LiChess - aceitar desafio aleatório"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12247,7 +12286,10 @@
     "removeBookmarksQuestion": "Sigur vrei sa elimini %s bookmarkuri?",
     "removeBookmarksQuestion:one": "Sigur vrei sa elimini bookmarkul selectat?",
     "options.challengeOptions": "Opţiuni provocări",
-    "challengeOptions.latestGames": "Arată ultimele jocuri"
+    "challengeOptions.latestGames": "Arată ultimele jocuri",
+    "challengeOptions.randomChallenge": "Buton provocare aleatorie",
+    "randomChallengeButtonText": "Acceptă provocare aleatorie",
+    "randomChallengeButtonTitle": "LiChess Tools - acceptă provocare aleatorie"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13122,7 +13164,10 @@
     "removeBookmarksQuestion": "Вы уверены, что хотите удалить закладки %s?",
     "removeBookmarksQuestion:one": "Вы уверены, что хотите удалить закладку?",
     "options.challengeOptions": "Опции вызовов",
-    "challengeOptions.latestGames": "Показать последние игры"
+    "challengeOptions.latestGames": "Показать последние игры",
+    "challengeOptions.randomChallenge": "Случайная кнопка испытания",
+    "randomChallengeButtonText": "Принять случайное испытание",
+    "randomChallengeButtonTitle": "Инструменты Жизни - принимать случайное испытание"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13997,7 +14042,10 @@
     "removeBookmarksQuestion": "¿Está seguro de que desea eliminar los marcadores %s?",
     "removeBookmarksQuestion:one": "¿Está seguro de que desea eliminar el marcador?",
     "options.challengeOptions": "Opciones de desafío",
-    "challengeOptions.latestGames": "Mostrar los últimos juegos"
+    "challengeOptions.latestGames": "Mostrar los últimos juegos",
+    "challengeOptions.randomChallenge": "Botón de desafío aleatorio",
+    "randomChallengeButtonText": "Aceptar desafío aleatorio",
+    "randomChallengeButtonTitle": "Herramientas de LiChess - aceptar desafío aleatorio"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14872,7 +14920,10 @@
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
     "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
     "options.challengeOptions": "Challenge options",
-    "challengeOptions.latestGames": "Show latest games"
+    "challengeOptions.latestGames": "Show latest games",
+    "challengeOptions.randomChallenge": "Random challenge button",
+    "randomChallengeButtonText": "Accept random challenge",
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15747,7 +15798,10 @@
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
     "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
     "options.challengeOptions": "Challenge options",
-    "challengeOptions.latestGames": "Show latest games"
+    "challengeOptions.latestGames": "Show latest games",
+    "challengeOptions.randomChallenge": "Random challenge button",
+    "randomChallengeButtonText": "Accept random challenge",
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16622,6 +16676,9 @@
     "removeBookmarksQuestion": "Are you sure you want to remove %s bookmarks?",
     "removeBookmarksQuestion:one": "Are you sure you want to remove the bookmark?",
     "options.challengeOptions": "Challenge options",
-    "challengeOptions.latestGames": "Show latest games"
+    "challengeOptions.latestGames": "Show latest games",
+    "challengeOptions.randomChallenge": "Random challenge button",
+    "randomChallengeButtonText": "Accept random challenge",
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
   }
 }

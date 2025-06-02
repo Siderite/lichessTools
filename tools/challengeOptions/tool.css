@@ -34,3 +34,12 @@ body.lichessTools #challenge-app .lichessTools-challengeOptions .game a.loss {
 body.lichessTools #challenge-app .lichessTools-challengeOptions .game img.flag {
   display:none;
 }
+
+body.lichessTools #challenge-app .lichessTools-randomChallenge button {
+  width: 100%;
+  background-color: var(--c-secondary-dim);
+  border-radius: 6px 6px 0 0;
+  border: none;
+  padding: 0.5em;
+  color: var(--c-font-clear);
+}
