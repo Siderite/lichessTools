@@ -5263,9 +5263,9 @@
     "removeBookmarksQuestion:one": "Êtes-vous sûr de vouloir supprimer le signet ?",
     "options.challengeOptions": "Options pour les défis",
     "challengeOptions.latestGames": "Afficher les dernières parties",
-    "challengeOptions.randomChallenge": "Bouton de défi aléatoire",
-    "randomChallengeButtonText": "Accepter le défi aléatoire",
-    "randomChallengeButtonTitle": "Outils LiChess - accepter un défi aléatoire"
+    "challengeOptions.randomChallenge": "Bouton de défi au hasard",
+    "randomChallengeButtonText": "Accepter le défi au hasard",
+    "randomChallengeButtonTitle": "LiChess Tools - accepter un défi au hasard"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
