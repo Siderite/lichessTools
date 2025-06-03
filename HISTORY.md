@@ -1,6 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
-02 May
+03 Jun
+
+- time flicker sound option
+
+02 Jun
 
 - random challenge button
 

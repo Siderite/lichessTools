@@ -875,7 +875,8 @@
     "challengeOptions.latestGames": "إظهار أحدث الألعاب",
     "challengeOptions.randomChallenge": "زر التحدي العشوائي",
     "randomChallengeButtonText": "قبول تحدي عشوائي",
-    "randomChallengeButtonTitle": "أدوات شطرنج الحياة - قبول تحدي عشوائي"
+    "randomChallengeButtonTitle": "أدوات شطرنج الحياة - قبول تحدي عشوائي",
+    "soundOptions.flickerSound": "صوت اللمس الزمني"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1753,7 +1754,8 @@
     "challengeOptions.latestGames": "显示最新游戏",
     "challengeOptions.randomChallenge": "随机挑战按钮",
     "randomChallengeButtonText": "接受随机挑战",
-    "randomChallengeButtonTitle": "LiChess工具 - 接受随机挑战"
+    "randomChallengeButtonTitle": "LiChess工具 - 接受随机挑战",
+    "soundOptions.flickerSound": "时间闪烁声音"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2631,7 +2633,8 @@
     "challengeOptions.latestGames": "Show latest games",
     "challengeOptions.randomChallenge": "Random challenge button",
     "randomChallengeButtonText": "Accept random challenge",
-    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
+    "soundOptions.flickerSound": "Time flicker sound"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3509,7 +3512,8 @@
     "challengeOptions.latestGames": "Toon laatste spellen",
     "challengeOptions.randomChallenge": "Willekeurige uitdagings knop",
     "randomChallengeButtonText": "Willekeurige uitdaging accepteren",
-    "randomChallengeButtonTitle": "LiChess Tools - accepteer willekeurige challenge"
+    "randomChallengeButtonTitle": "LiChess Tools - accepteer willekeurige challenge",
+    "soundOptions.flickerSound": "Tijd flikkergeluid"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4387,7 +4391,8 @@
     "challengeOptions.latestGames": "Show latest games",
     "challengeOptions.randomChallenge": "Random challenge button",
     "randomChallengeButtonText": "Accept random challenge",
-    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
+    "soundOptions.flickerSound": "Time flicker sound"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5265,7 +5270,8 @@
     "challengeOptions.latestGames": "Afficher les dernières parties",
     "challengeOptions.randomChallenge": "Bouton de défi au hasard",
     "randomChallengeButtonText": "Accepter le défi au hasard",
-    "randomChallengeButtonTitle": "LiChess Tools - accepter un défi au hasard"
+    "randomChallengeButtonTitle": "LiChess Tools - accepter un défi au hasard",
+    "soundOptions.flickerSound": "Son du scintillement de l'heure"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6143,7 +6149,8 @@
     "challengeOptions.latestGames": "Neueste Spiele anzeigen",
     "challengeOptions.randomChallenge": "Zufällige Challenge-Taste",
     "randomChallengeButtonText": "Zufällige Herausforderung akzeptieren",
-    "randomChallengeButtonTitle": "LiChess Tools - Akzeptiere zufällige Challenge"
+    "randomChallengeButtonTitle": "LiChess Tools - Akzeptiere zufällige Challenge",
+    "soundOptions.flickerSound": "Time Flicker Ton"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -7021,7 +7028,8 @@
     "challengeOptions.latestGames": "Show latest games",
     "challengeOptions.randomChallenge": "Random challenge button",
     "randomChallengeButtonText": "Accept random challenge",
-    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
+    "soundOptions.flickerSound": "Time flicker sound"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7899,7 +7907,8 @@
     "challengeOptions.latestGames": "Mostra i giochi più recenti",
     "challengeOptions.randomChallenge": "Pulsante di sfida casuale",
     "randomChallengeButtonText": "Accetta sfida casuale",
-    "randomChallengeButtonTitle": "Strumenti LiChess - accetta la sfida casuale"
+    "randomChallengeButtonTitle": "Strumenti LiChess - accetta la sfida casuale",
+    "soundOptions.flickerSound": "Suono sfarfallio tempo"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8777,7 +8786,8 @@
     "challengeOptions.latestGames": "Show latest games",
     "challengeOptions.randomChallenge": "Random challenge button",
     "randomChallengeButtonText": "Accept random challenge",
-    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
+    "soundOptions.flickerSound": "Time flicker sound"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9655,7 +9665,8 @@
     "challengeOptions.latestGames": "Pokaż najnowsze gry",
     "challengeOptions.randomChallenge": "Przycisk losowego wyzwania",
     "randomChallengeButtonText": "Zaakceptuj losowe wyzwanie",
-    "randomChallengeButtonTitle": "Narzędzia Lichess - zaakceptuj losowe wyzwanie"
+    "randomChallengeButtonTitle": "Narzędzia Lichess - zaakceptuj losowe wyzwanie",
+    "soundOptions.flickerSound": "Dźwięk migotania czasu"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10533,7 +10544,8 @@
     "challengeOptions.latestGames": "Mostrar últimos jogos",
     "challengeOptions.randomChallenge": "Botão de desafio aleatório",
     "randomChallengeButtonText": "Aceitar desafio aleatório",
-    "randomChallengeButtonTitle": "Ferramentas LiChess - aceitar desafio aleatório"
+    "randomChallengeButtonTitle": "Ferramentas LiChess - aceitar desafio aleatório",
+    "soundOptions.flickerSound": "Som de tempo cintilante"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11411,7 +11423,8 @@
     "challengeOptions.latestGames": "Mostrar últimos jogos",
     "challengeOptions.randomChallenge": "Botão de desafio aleatório",
     "randomChallengeButtonText": "Aceitar desafio aleatório",
-    "randomChallengeButtonTitle": "Ferramentas LiChess - aceitar desafio aleatório"
+    "randomChallengeButtonTitle": "Ferramentas LiChess - aceitar desafio aleatório",
+    "soundOptions.flickerSound": "Som de tempo cintilante"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12289,7 +12302,8 @@
     "challengeOptions.latestGames": "Arată ultimele jocuri",
     "challengeOptions.randomChallenge": "Buton provocare aleatorie",
     "randomChallengeButtonText": "Acceptă provocare aleatorie",
-    "randomChallengeButtonTitle": "LiChess Tools - acceptă provocare aleatorie"
+    "randomChallengeButtonTitle": "LiChess Tools - acceptă provocare aleatorie",
+    "soundOptions.flickerSound": "Sunet la salt de timp"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13167,7 +13181,8 @@
     "challengeOptions.latestGames": "Показать последние игры",
     "challengeOptions.randomChallenge": "Случайная кнопка испытания",
     "randomChallengeButtonText": "Принять случайное испытание",
-    "randomChallengeButtonTitle": "Инструменты Жизни - принимать случайное испытание"
+    "randomChallengeButtonTitle": "Инструменты Жизни - принимать случайное испытание",
+    "soundOptions.flickerSound": "Звук мерцания времени"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -14045,7 +14060,8 @@
     "challengeOptions.latestGames": "Mostrar los últimos juegos",
     "challengeOptions.randomChallenge": "Botón de desafío aleatorio",
     "randomChallengeButtonText": "Aceptar desafío aleatorio",
-    "randomChallengeButtonTitle": "Herramientas de LiChess - aceptar desafío aleatorio"
+    "randomChallengeButtonTitle": "Herramientas de LiChess - aceptar desafío aleatorio",
+    "soundOptions.flickerSound": "Sonido de parpadeo de tiempo"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14923,7 +14939,8 @@
     "challengeOptions.latestGames": "Show latest games",
     "challengeOptions.randomChallenge": "Random challenge button",
     "randomChallengeButtonText": "Accept random challenge",
-    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
+    "soundOptions.flickerSound": "Time flicker sound"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15801,7 +15818,8 @@
     "challengeOptions.latestGames": "Show latest games",
     "challengeOptions.randomChallenge": "Random challenge button",
     "randomChallengeButtonText": "Accept random challenge",
-    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
+    "soundOptions.flickerSound": "Time flicker sound"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16679,6 +16697,7 @@
     "challengeOptions.latestGames": "Show latest games",
     "challengeOptions.randomChallenge": "Random challenge button",
     "randomChallengeButtonText": "Accept random challenge",
-    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge"
+    "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
+    "soundOptions.flickerSound": "Time flicker sound"
   }
 }
