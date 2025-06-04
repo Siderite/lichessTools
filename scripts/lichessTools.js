@@ -1764,6 +1764,23 @@
           if (error) lt.global.console.error(error);
         }
         return data;
+      },
+      _texts: new Map(),
+      fetchText: async function(url, options) {
+        options = { retries: 3, url: url, ...options };
+        const lt = this.lichessTools;
+        let data = this._texts.get(url);
+        let error = null;
+        for (let i=0; i<options.retries && !data; i++) {
+          data = await lt.comm.send({ type: 'fetchText', options: options })
+                                             .catch(e => { error = e; });
+        }
+        if (data) {
+          this._texts.set(url,data);
+        } else {
+          if (error) lt.global.console.error(error);
+        }
+        return data;
       }
     };
 
