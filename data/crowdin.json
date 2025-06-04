@@ -5255,7 +5255,7 @@
     "deleteSelectedQuestion": "Êtes-vous sûr de vouloir supprimer %s parties ?",
     "deleteSelectedQuestion:one": "Êtes-vous sûr de vouloir supprimer une partie ?",
     "predictedRatingChangeText": "Variations de classement prévues : %s",
-    "kmapsTitle": "LiChess Tools - S-MASE\n  Sécurité du Roi : $K\n  Matériel : $M\n  Activité : $A\n  Structure des pions : $P\n  Espace : $S",
+    "kmapsTitle": "LiChess Tools - K-MAPS\n  K = sécurité du Roi : $K\n  M = matériel : $M\n  A = activité : $A\n  P = structure des pions : $P\n  S = espace : $S",
     "estimatedRating": "Classement Elo estimé : %s",
     "gameListOptions.extraInfo": "Bouton \"Plus d'infos\"",
     "extraInfoButtonTitle": "Plus d'informations sur la partie",
@@ -5271,7 +5271,7 @@
     "challengeOptions.randomChallenge": "Bouton de défi au hasard",
     "randomChallengeButtonText": "Accepter le défi au hasard",
     "randomChallengeButtonTitle": "LiChess Tools - accepter un défi au hasard",
-    "soundOptions.flickerSound": "Son du scintillement de l'heure"
+    "soundOptions.flickerSound": "Son lors d'instabilité de la pendule"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -13187,7 +13187,7 @@
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
     "serverOverload": "¡Lichess piensa que estamos sobrecargando su sistema!",
-    "options.general": "General",
+    "options.general": "General\n",
     "options.addNotifications": "Añadir notificaciones",
     "options.community": "Comunidad",
     "options.addToTeam": "Equipo de Herramientas de LiChess",
