@@ -105,7 +105,7 @@
         }
         if (node.comments?.length) {
           if (options.print) {
-            s += '<br/>\r\n<br/>\r\n<img src="/export/fen.gif?fen='+encodeURIComponent(node.fen)+'&color='+analysis.getOrientation()+'&lastMove='+node.uci+'" /><br/>\r\n';
+            s += '<br/>\r\n<br/>\r\n<img src="https://lichess.org/export/fen.gif?fen='+encodeURIComponent(node.fen)+'&color='+analysis.getOrientation()+'&lastMove='+node.uci+'" /><br/>\r\n';
           }
           for (const comment of node.comments) {
             if (options.print) {

@@ -235,6 +235,7 @@
       OpenBook: '\uD83D\uDCD6',
       Checked: '\u2713',
       RedX: '\u2716',
+      Print: '\uD83D\uDDB6',
 
       toEntity: function(s) {
         let result='';
