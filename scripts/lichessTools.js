@@ -575,7 +575,7 @@
       return new this.global.Date().toISOString().replace(/[\-T:]/g, '').slice(0, 14);
     };
 
-    async writeToClipboard(value, successText, failText) {
+    async writeToClipboard(value, successText, failText, asHtml) {
       const navigator = this.global.navigator;
       const console = this.global.console;
       const announce = this.announce;
@@ -590,7 +590,12 @@
       const permission = await hasPermission();
       if (permission !== false) {
         try {
-          await navigator.clipboard.writeText(value);
+          await navigator.clipboard.write([
+            new ClipboardItem({
+             'text/html': asHtml ? new Blob([value], { type: 'text/html' }) : undefined,
+             'text/plain': new Blob([value], { type: 'text/plain' }) // Fallback for plain text
+            })
+          ]);
           announcement = successText;
         } catch(e) {
           console.warn('Error copying PGN to clipboard',e);
@@ -1931,7 +1936,8 @@
               body: bodyContent,
               method: 'POST',
               mode: 'cors',
-              credentials: 'include'
+              credentials: 'include',
+              ignoreStatuses: [ 404 ]
             });
         }
       },
