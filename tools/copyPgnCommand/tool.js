@@ -37,6 +37,7 @@
         separateLines: /\bseparate\b/.test(commandText),
         toPosition: /\btohere\b/.test(commandText),
         unicode: /\bunicode\b/.test(commandText),
+        print: /\bprint\b/.test(commandText),
         path: analysis.path
       };
 
@@ -45,7 +46,8 @@
         fromPosition: options.fromPosition,
         separateLines: options.separateLines,
         toPosition: options.toPosition,
-        unicode: options.unicode
+        unicode: options.unicode,
+        print: options.print
       });
     };
 

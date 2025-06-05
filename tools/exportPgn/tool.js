@@ -57,6 +57,7 @@
         toPosition: false,
         separateLines: false,
         unicode: false,
+        print: false,
         exportClock: this.options.exportClock,
         exportEval: this.options.exportEval,
         exportTags: this.options.exportTags,
@@ -102,8 +103,20 @@
               : ' $' + glyph.id;
           }
         }
-        for (const comment of node.comments || []) {
-          s += ' {' + comment.text + '}';
+        if (node.comments?.length) {
+          if (options.print) {
+            s += '<br/>\r\n<br/>\r\n<img src="/export/fen.gif?fen='+encodeURIComponent(node.fen)+'&color='+analysis.getOrientation()+'&lastMove='+node.uci+'" /><br/>\r\n';
+          }
+          for (const comment of node.comments) {
+            if (options.print) {
+              s += '<br/>\r\n' + comment.text;
+            } else {
+              s += ' {' + comment.text + '}';
+            }
+          }
+          if (options.print) {
+            s += '<br/>\r\n<br/>\r\n';
+          }
         }
         const groups = [];
         if (options.exportShapes) {
@@ -137,7 +150,7 @@
           };
           groups.push(group);
         }
-        if (groups.length) {
+        if (!options.print && groups.length) {
           s += ' {';
           for (const group of groups) {
             s += '[%' + group.type + ' ' + group.shapes.join(',') + ']';
@@ -294,14 +307,16 @@
           addTag(tags, 'UTCDate', now.substr(0, 10).replaceAll('-', '.'), true);
           addTag(tags, 'UTCTime', now.substr(11, 8), true);
         }
-        const tagString = tags.length ? tags.map(tag => '[' + tag[0] + ' "' + tag[1] + '"]').join('\r\n') + '\r\n' : '';
+        const tagString = !options.print && tags.length 
+          ? tags.map(tag => '[' + tag[0] + ' "' + tag[1] + '"]').join('\r\n') + '\r\n' 
+          : '';
         for (const node of varNodes) {
           const pgn = tagString + renderNodesTxt(node, true);
           pgns.push(pgn);
         }
         const result = pgns.join('\r\n\r\n');
         if (options.copyToClipboard) {
-          await lt.writeToClipboard(result, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'));
+          await lt.writeToClipboard(result, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'), !!options.print);
         }
         return result;
       } catch (e) {
