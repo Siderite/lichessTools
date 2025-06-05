@@ -877,7 +877,8 @@
     "randomChallengeButtonText": "قبول تحدي عشوائي",
     "randomChallengeButtonTitle": "أدوات شطرنج الحياة - قبول تحدي عشوائي",
     "soundOptions.flickerSound": "صوت اللمس الزمني",
-    "options.showKmaps": "إظهار K-MAPS"
+    "options.showKmaps": "إظهار K-MAPS",
+    "deleteCommentQuestion": "حذف تعليق %s؟"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1757,7 +1758,8 @@
     "randomChallengeButtonText": "接受随机挑战",
     "randomChallengeButtonTitle": "LiChess工具 - 接受随机挑战",
     "soundOptions.flickerSound": "时间闪烁声音",
-    "options.showKmaps": "显示 K-MAPS"
+    "options.showKmaps": "显示 K-MAPS",
+    "deleteCommentQuestion": "删除 %s的评论吗？"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2637,7 +2639,8 @@
     "randomChallengeButtonText": "Accept random challenge",
     "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
     "soundOptions.flickerSound": "Time flicker sound",
-    "options.showKmaps": "Show K-MAPS"
+    "options.showKmaps": "Show K-MAPS",
+    "deleteCommentQuestion": "Delete %s's comment?"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3517,7 +3520,8 @@
     "randomChallengeButtonText": "Willekeurige uitdaging accepteren",
     "randomChallengeButtonTitle": "LiChess Tools - accepteer willekeurige challenge",
     "soundOptions.flickerSound": "Tijd flikkergeluid",
-    "options.showKmaps": "Toon K-MAPS"
+    "options.showKmaps": "Toon K-MAPS",
+    "deleteCommentQuestion": "Opmerking van %sverwijderen?"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4397,7 +4401,8 @@
     "randomChallengeButtonText": "Accept random challenge",
     "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
     "soundOptions.flickerSound": "Time flicker sound",
-    "options.showKmaps": "Show K-MAPS"
+    "options.showKmaps": "Show K-MAPS",
+    "deleteCommentQuestion": "Delete %s's comment?"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5277,7 +5282,8 @@
     "randomChallengeButtonText": "Accepter le défi au hasard",
     "randomChallengeButtonTitle": "LiChess Tools - accepter un défi au hasard",
     "soundOptions.flickerSound": "Son lors d'instabilité de la pendule",
-    "options.showKmaps": "Afficher le K-MAPS"
+    "options.showKmaps": "Afficher le K-MAPS",
+    "deleteCommentQuestion": "Supprimer le commentaire de %s?"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6157,7 +6163,8 @@
     "randomChallengeButtonText": "Zufällige Herausforderung akzeptieren",
     "randomChallengeButtonTitle": "LiChess Tools - Akzeptiere zufällige Challenge",
     "soundOptions.flickerSound": "Time Flicker Ton",
-    "options.showKmaps": "K-MAPS anzeigen"
+    "options.showKmaps": "K-MAPS anzeigen",
+    "deleteCommentQuestion": "%sKommentar löschen?"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -7037,7 +7044,8 @@
     "randomChallengeButtonText": "Accept random challenge",
     "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
     "soundOptions.flickerSound": "Time flicker sound",
-    "options.showKmaps": "Show K-MAPS"
+    "options.showKmaps": "Show K-MAPS",
+    "deleteCommentQuestion": "Delete %s's comment?"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7917,7 +7925,8 @@
     "randomChallengeButtonText": "Accetta sfida casuale",
     "randomChallengeButtonTitle": "Strumenti LiChess - accetta la sfida casuale",
     "soundOptions.flickerSound": "Suono sfarfallio tempo",
-    "options.showKmaps": "Mostra K-MAPS"
+    "options.showKmaps": "Mostra K-MAPS",
+    "deleteCommentQuestion": "Eliminare il commento di %s?"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8797,7 +8806,8 @@
     "randomChallengeButtonText": "Accept random challenge",
     "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
     "soundOptions.flickerSound": "Time flicker sound",
-    "options.showKmaps": "Show K-MAPS"
+    "options.showKmaps": "Show K-MAPS",
+    "deleteCommentQuestion": "Delete %s's comment?"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9677,7 +9687,8 @@
     "randomChallengeButtonText": "Zaakceptuj losowe wyzwanie",
     "randomChallengeButtonTitle": "Narzędzia Lichess - zaakceptuj losowe wyzwanie",
     "soundOptions.flickerSound": "Dźwięk migotania czasu",
-    "options.showKmaps": "Pokaż K-MAPS"
+    "options.showKmaps": "Pokaż K-MAPS",
+    "deleteCommentQuestion": "Usunąć komentarz %s?"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10557,7 +10568,8 @@
     "randomChallengeButtonText": "Aceitar desafio aleatório",
     "randomChallengeButtonTitle": "Ferramentas LiChess - aceitar desafio aleatório",
     "soundOptions.flickerSound": "Som de tempo cintilante",
-    "options.showKmaps": "Exibir K-MAPS"
+    "options.showKmaps": "Exibir K-MAPS",
+    "deleteCommentQuestion": "Excluir comentário %s?"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11437,7 +11449,8 @@
     "randomChallengeButtonText": "Aceitar desafio aleatório",
     "randomChallengeButtonTitle": "Ferramentas LiChess - aceitar desafio aleatório",
     "soundOptions.flickerSound": "Som de tempo cintilante",
-    "options.showKmaps": "Exibir K-MAPS"
+    "options.showKmaps": "Exibir K-MAPS",
+    "deleteCommentQuestion": "Excluir comentário %s?"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12317,7 +12330,8 @@
     "randomChallengeButtonText": "Acceptă provocare aleatorie",
     "randomChallengeButtonTitle": "LiChess Tools - acceptă provocare aleatorie",
     "soundOptions.flickerSound": "Sunet la salt de timp",
-    "options.showKmaps": "Arată K-MAPS"
+    "options.showKmaps": "Arată K-MAPS",
+    "deleteCommentQuestion": "Șterg comentariul de la %s?"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13197,7 +13211,8 @@
     "randomChallengeButtonText": "Принять случайное испытание",
     "randomChallengeButtonTitle": "Инструменты Жизни - принимать случайное испытание",
     "soundOptions.flickerSound": "Звук мерцания времени",
-    "options.showKmaps": "Показать K-MAPS"
+    "options.showKmaps": "Показать K-MAPS",
+    "deleteCommentQuestion": "Удалить комментарий %s?"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -14077,7 +14092,8 @@
     "randomChallengeButtonText": "Aceptar desafío aleatorio",
     "randomChallengeButtonTitle": "Herramientas de LiChess - aceptar desafío aleatorio",
     "soundOptions.flickerSound": "Sonido de parpadeo de tiempo",
-    "options.showKmaps": "Mostrar K-MAPS"
+    "options.showKmaps": "Mostrar K-MAPS",
+    "deleteCommentQuestion": "¿Eliminar comentario de %s?"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14957,7 +14973,8 @@
     "randomChallengeButtonText": "Accept random challenge",
     "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
     "soundOptions.flickerSound": "Time flicker sound",
-    "options.showKmaps": "Show K-MAPS"
+    "options.showKmaps": "Show K-MAPS",
+    "deleteCommentQuestion": "Delete %s's comment?"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15837,7 +15854,8 @@
     "randomChallengeButtonText": "Accept random challenge",
     "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
     "soundOptions.flickerSound": "Time flicker sound",
-    "options.showKmaps": "Show K-MAPS"
+    "options.showKmaps": "Show K-MAPS",
+    "deleteCommentQuestion": "Delete %s's comment?"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16717,6 +16735,7 @@
     "randomChallengeButtonText": "Accept random challenge",
     "randomChallengeButtonTitle": "LiChess Tools - accept random challenge",
     "soundOptions.flickerSound": "Time flicker sound",
-    "options.showKmaps": "Show K-MAPS"
+    "options.showKmaps": "Show K-MAPS",
+    "deleteCommentQuestion": "Delete %s's comment?"
   }
 }

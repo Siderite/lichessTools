@@ -13,3 +13,7 @@ body.lichessTools .study__comment:hover a.lichessTools-commentEditing {
 body.lichessTools .study__comment a.lichessTools-commentEditing:hover {
   opacity: 1
 }
+
+body.lichessTools .study__comment:hover a.lichessTools-deleteComment.shiftPressed {
+  color: var(--c-error);
+}
