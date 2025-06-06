@@ -25,7 +25,6 @@
         "youBrowsedAway": "You browsed away",
         "evaluatingYourMove": "Evaluating your move ...",
         "learnFromYourMistakes": "Learn from your mistakes",
-        "learnFromThisMistake": "Learn from this mistake",
         "skipThisMove": "Skip this move",
         "next": "Next",
         "xWasPlayed": "%s was played",
@@ -55,7 +54,6 @@
         "youBrowsedAway": "A\u0163i p\u0103r\u0103sit jocul cu computer-ul",
         "evaluatingYourMove": "Evalu\u00e2ndu-\u0163i mutarea ...",
         "learnFromYourMistakes": "\u00CEnva\u0163\u0103 din gre\u015Felile tale",
-        "learnFromThisMistake": "\u00CEnva\u0163\u0103 din aceast\u0103 gre\u015Feal\u0103",
         "skipThisMove": "S\u0103ri peste aceast\u0103 mutare",
         "next": "Urm\u0103toarea",
         "xWasPlayed": "S-a mutat %s",
@@ -76,18 +74,6 @@
         "reviewBlackMistakes": "Analizeaz\u0103 gre\u015Felile negrelor",
         "goodMove": "Mutare bun\u0103"
       }
-    };
-
-    translateRetro = () => {
-      const lt = this.lichessTools;
-      const lichess = lt.lichess;
-      const trans = lt.translator;
-      const analysis = lichess.analysis;
-      const retro = analysis.retro;
-      if (!retro || retro.trans === trans) return;
-      retro.trans = trans;
-      retro.noarg = trans.noarg.bind(trans);
-      analysis.redraw();
     };
 
     toggleRetro = () => {
@@ -112,7 +98,6 @@
         if (compChild) compChild.comp = true;
       });
       analysis.toggleRetro();
-      this.translateRetro();
       analysis.redraw();
     };
 
@@ -162,7 +147,6 @@
       if (!study) return;
       lt.global.clearInterval(this.interval);
       lt.pubsub.off('lichessTools.chapterChange', this.closeRetro);
-      lt.pubsub.off('lichessTools.redraw', this.translateRetro);
       if (!value) {
         $('div.advice-summary a.button').remove();
         this.closeRetro();
@@ -170,19 +154,6 @@
       }
       this.interval = lt.global.setInterval(this.handleButton, 1000);
       lt.pubsub.on('lichessTools.chapterChange', this.closeRetro);
-      lt.pubsub.on('lichessTools.redraw', this.translateRetro);
-
-      // learnFromThisMistake translation uses the analysis.trans object (https://github.com/lichess-org/lila/issues/14324)
-      if (analysis.trans?.noarg && !lt.isWrappedFunction(analysis.trans.noarg,'studyLearnFromMistakes')) {
-        analysis.trans.noarg = lt.wrapFunction(analysis.trans.noarg,{
-          id: 'studyLearnFromMistakes',
-          after: ($this, result, ...args)=>{
-            if (args[0]==='learnFromThisMistake') {
-              return lt.translator.noarg(...args);
-            }
-          }
-        })
-      }
     }
 
   }
