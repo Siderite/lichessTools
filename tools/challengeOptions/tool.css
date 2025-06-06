@@ -21,6 +21,8 @@ body.lichessTools #challenge-app .lichessTools-challengeOptions .game a {
   border-left: 1px dotted #808080;
   border-bottom: 1px solid #808080;
   text-decoration: underline;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 body.lichessTools #challenge-app .lichessTools-challengeOptions .game a.win {
