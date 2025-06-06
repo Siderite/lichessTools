@@ -24,10 +24,10 @@
       },
       'ro-RO': {
         'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
-        'options.betterBestArrow': 'S\u0103geat\u0103 cea mai bun\u0103 mutare \u00eembun\u0103t\u0103\u0163it\u0103',
+        'options.betterBestArrow': 'S\u0103geat\u0103 cu cea mai bun\u0103 mutare \u00eembun\u0103t\u0103\u0163it\u0103',
         'betterBestArrow.enabled': 'Activat',
-        'betterBestArrow.localEval': 'Cu evaluare local\u0103',
-        'betterBestArrow.allMoves': 'Pe toate mut\u0103rile'
+        'betterBestArrow.localEval': 'Folose\u015fte evaluarea local\u0103',
+        'betterBestArrow.allMoves': 'La toate mut\u0103rile'
       }
     }
 
