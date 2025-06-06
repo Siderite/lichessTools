@@ -1,0 +1,7 @@
+/* 
+fix for best arrow being not as visible 
+https://github.com/lichess-org/lila/issues/17648
+*/
+body.lichessTools.lichessTools-betterBestArrow svg.cg-shapes g[cgHash*="paleGreen"] line[opacity="0.4"] {
+  opacity: 0.55;
+}

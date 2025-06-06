@@ -126,6 +126,7 @@ lichessTools.loadTool(LiChessTools.Tools.PlayerExtraButtons);
 lichessTools.loadTool(LiChessTools.Tools.CevalCache);
 lichessTools.loadTool(LiChessTools.Tools.ShowKmaps);
 lichessTools.loadTool(LiChessTools.Tools.ChallengeOptions);
+lichessTools.loadTool(LiChessTools.Tools.BetterBestArrow);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

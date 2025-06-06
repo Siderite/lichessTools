@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+06 Jun
+
+- Improved best move arrow
+
 05 Jun
 
 - shift-click to delete study comment without prompt
