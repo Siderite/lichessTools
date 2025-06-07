@@ -73,17 +73,20 @@
       const analysis = lichess?.analysis;
       if (this._init_in === undefined) this._init_in = body.is('.coords-in');
       if (this._init_out === undefined) this._init_out = body.is('.coords-out');
+      if (this._init_all === undefined) this._init_all = body.is('.coords-all');
       if (this.options.fix && analysis) {
         const pref = analysis.data?.pref?.coords;
         if (pref) {
           body
-            .toggleClass('coords-in', pref == 1)
-            .toggleClass('coords-out', pref == 2);
+            .toggleClassSafe('coords-in', pref == 1)
+            .toggleClassSafe('coords-out', pref == 2)
+            .toggleClassSafe('coords-all', pref == 3);
         }
       } else {
         body
-          .toggleClass('coords-in', this._init_in)
-          .toggleClass('coords-out', this._init_out);
+          .toggleClassSafe('coords-in', this._init_in)
+          .toggleClassSafe('coords-out', this._init_out)
+          .toggleClassSafe('coords-all', this._init_all);
       }
       lt.global.clearInterval(this.interval);
       if (this.options.square) {
