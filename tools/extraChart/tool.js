@@ -74,7 +74,7 @@
         'goodMovesText': 'mut\u0103ri bune/briliante/interesante',
         'goodMovesTitle': 'LiChess Tools - mut\u0103ri bune/briliante/interesante',
         'merryChristmas': 'Cr\u0103ciun fericit de la LiChess Tools!',
-        'estimatedRating': 'Rating estimat: %s'
+        'estimatedRating': 'Cot\u0103 estimat\u0103: %s'
       }
     }
 

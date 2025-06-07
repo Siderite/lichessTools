@@ -37,7 +37,7 @@
         'allText': 'toate',
         'sinceText': 'de la %s',
         'untilText': 'p\u00e2n\u0103 la %s',
-        'snapTitle': 'Rating: %rating\r\nControl timp: %control\r\n%since\r\n%until'
+        'snapTitle': 'Cot\u0103: %rating\r\nControl timp: %control\r\n%since\r\n%until'
       }
     };
 
