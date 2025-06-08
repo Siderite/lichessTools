@@ -59,14 +59,14 @@ Following branches: $branches`
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.analysisContextActions': 'Op\u0163iuni \u00een plus \u00een meniul context',
-        'analysisContextActions.copyPgn': 'Copiaz\u0103 varia\u0163iunea ca PGN',
+        'analysisContextActions.copyPgn': 'Copiaz\u0103 varia\u0163ia ca PGN',
         'analysisContextActions.moveEval': 'Evaluare mut\u0103ri finale',
         'analysisContextActions.showTranspos': 'Arat\u0103 toate transpozi\u0163iile',
         'analysisContextActions.removeSuperfluous': 'Elimin\u0103 ce e \u00een plus',
         'analysisContextActions.showOnEmpty': 'Arat\u0103 meniul context c\u00E2nd nu sunt mut\u0103ri',
-        'analysisContextActions.reorderVariations': 'Ordoneaz\u0103 varia\u0163iuni',
+        'analysisContextActions.reorderVariations': 'Ordoneaz\u0103 varia\u0163ii',
         'analysisContextActions.positionInfo': 'Informa\u0163ii pozi\u0163ie',
-        'extractVariationText': 'Copiaz\u0103 varia\u0163iunea ca PGN',
+        'extractVariationText': 'Copiaz\u0103 varia\u0163ia ca PGN',
         'extractVariationText_f': 'Copiaz\u0103 PGN (fen)',
         'extractVariationText_s': 'Copiaz\u0103 PGN (separate)',
         'extractVariationText_t': 'Copiaz\u0103 PGN (p\u00e2n\u0103 aici)',
@@ -74,7 +74,7 @@ Following branches: $branches`
         'extractVariationText_ft': 'Copiaz\u0103 PGN (pozi\u0163ie FEN)',
         'extractVariationText_st': 'Copiaz\u0103 PGN (p\u00e2n\u0103 aici)',
         'extractVariationText_fst': 'Copiaz\u0103 PGN (pozi\u0163ie FEN)',
-        'extractVariationTitle': 'LiChess Tools - copiaz\u0103 varia\u0163iunea \u015Fi continu\u0103rile ca PGN\r\nShift/Ctrl/Alt-click pentru op\u0163iuni',
+        'extractVariationTitle': 'LiChess Tools - copiaz\u0103 varia\u0163ia \u015Fi continu\u0103rile ca PGN\r\nShift/Ctrl/Alt-click pentru op\u0163iuni',
         'errorGeneratingPGN': 'Eroare generare PGN',
         'setCustomEngineDepth': 'Trebuie s\u0103 setezi un nivel personalizat pentru motorul de analiz\u0103!',
         'evaluateTerminationsText': 'Evalueaz\u0103 mut\u0103rile finale',
@@ -83,16 +83,16 @@ Following branches: $branches`
         'showTransposText': 'Arat\u0103 toate transpozi\u0163iile',
         'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile',
         'bumpUpVariationText': 'Urc\u0103',
-        'bumpUpVariationTitle': 'LiChess Tools - urc\u0103 varia\u0163unea',
+        'bumpUpVariationTitle': 'LiChess Tools - urc\u0103 varia\u0163ia',
         'bumpDownVariationText': 'Coboar\u0103',
-        'bumpDownVariationTitle': 'LiChess Tools - coboar\u0103 varia\u0163unea',
+        'bumpDownVariationTitle': 'LiChess Tools - coboar\u0103 varia\u0163ia',
         'positionInfoText': 'Informa\u0163ii pozi\u0163ie',
         'positionInfoTitle': 'LiChess Tools - afi\u015feaz\u0103 informa\u0163ii despre pozi\u0163ia selectat\u0103',
         'positionInfoOutputText': `Ply: $ply
 Mut\u0103ri p\u00e2na acum: $movesSoFar
 Mut\u0103ri principale urm\u0103toare: $movesMain
 Total mut\u0103ri urm\u0103toare: $movesTotal
-Varia\u0163iuni urm\u0103toare: $branches`
+Varia\u0163ii urm\u0103toare: $branches`
       }
     }
 

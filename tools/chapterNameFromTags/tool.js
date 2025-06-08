@@ -26,7 +26,7 @@
         'options.study': 'Studiu',
         'options.chapterNameFromTags': 'Schimb\u0103 numele capitolului din taguri PGN',
         'changeNameToText': ' "%s"',
-        'changeNameToTitle': 'LiChess Tools - Schimb\u0103 u\u015For numele'
+        'changeNameToTitle': 'LiChess Tools - Schimb\u0103 numele cu u\u015furin\u0163\u0103'
       }
     }
 

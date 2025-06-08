@@ -27,12 +27,12 @@
       },
       'ro-RO': {
         'options.highlight': 'Eviden\u0163iaz\u0103 mut\u0103ri \u00een analiz\u0103',
-        'highlight.lastMove': 'Ultima mutare din fiecare varia\u0163iune',
+        'highlight.lastMove': 'Ultima mutare din fiecare varia\u0163ie',
         'highlight.notCommented': 'Ultime mut\u0103ri necomentate',
         'highlight.transposition': 'Transpozi\u0163iile la mutarea curent\u0103',
         'highlight.mainLine': 'Eviden\u0163iaz\u0103 tabla c\u00e2nd nu pe linia principal\u0103',
         'highlight.mainLinePieces': 'Eviden\u0163iaz\u0103 piese c\u00e2nd nu pe linia principal\u0103',
-        'highlight.variationDepth': 'Eviden\u0163iaz\u0103 ad\u00e2ncimea varia\u0163iunii',
+        'highlight.variationDepth': 'Eviden\u0163iaz\u0103 ad\u00e2ncimea varia\u0163iilor',
         'highlight.checks': 'Eviden\u0163iaz\u0103 regi \u00een \u015fah',
       }
     }

@@ -34,7 +34,7 @@
         'dashboard.performance': 'Performan\u0163\u0103',
         'dashboard.replay': 'De rejucat',
         'daysStatsText': '\u00CEn ultimele %s zile',
-        'puzzleRatingWeekText': 'Cot\u0103 c\u00e2\u015ftigat\u0103 \u00een probleme de \u015fah: %s',
+        'puzzleRatingWeekText': 'Rating c\u00e2\u015ftigat \u00een probleme de \u015fah: %s',
         'streaksWeekText': 'Serii de probleme \u015fah: %s',
         'maxStreakWeekText': 'Seria cea mai lung\u0103: %s'
       }

@@ -21,7 +21,7 @@
       },
       'ro-RO': {
         'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
-        'options.transpositionArrows': 'S\u0103ge\u0163i varia\u0163iuni din transpozi\u0163ii'
+        'options.transpositionArrows': 'S\u0103ge\u0163i varia\u0163ii din transpozi\u0163ii'
       }
     }
 

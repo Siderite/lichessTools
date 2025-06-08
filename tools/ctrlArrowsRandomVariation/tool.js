@@ -21,7 +21,7 @@
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.ctrlArrows': 'Ctrl-Dreapta pentru a alege o urm\u0103toare mutare la \u00eent\u00E2mplare'
+        'options.ctrlArrows': 'Ctrl-dreapta pentru a alege la \u00eent\u00E2mplare o urm\u0103toare mutare'
       }
     }
 

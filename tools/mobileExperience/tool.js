@@ -85,7 +85,7 @@
         'mobileExperience.hideOctopus': 'Ascunde mascota caracati\u0163\u0103',
         'mobileExperience.shapeDrawing': 'S\u0103ge\u0163i \u00een analiz\u0103',
         'mobileExperience.randomNextMove': 'Buton mutare aleatoare',
-        'mobileExperience.selectiveRandom': '...doar c\u00e2nd sunt varia\u0163iuni',
+        'mobileExperience.selectiveRandom': '...doar c\u00e2nd sunt varia\u0163ii',
         'mobileExperience.inInteractive': 'Butoane suplimentare \u00een lec\u0163ii interactive',
         'mobileExperienceRound.shapeDrawingRound': 'S\u0103ge\u0163i \u00een joc',
         'mobileExperienceRound.standardButtons': 'Butoane standard',

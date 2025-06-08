@@ -22,8 +22,8 @@
       },
       'ro-RO': {
         'options.general': 'General',
-        'options.showDeviation': 'Arat\u0103 devierea cot\u0103 la juc\u0103tori',
-        'predictedRatingChangeText': 'Simulare schimbare cot\u0104: %s'
+        'options.showDeviation': 'Arat\u0103 deviere rating la juc\u0103tori',
+        'predictedRatingChangeText': 'Simulare schimbare rating: %s'
       }
     }
 

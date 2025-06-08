@@ -26,7 +26,7 @@
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.forkBehavior': 'Comportament la mutare urm\u0103toare pentru varia\u0163iuni',
+        'options.forkBehavior': 'Comportament la mutare urm\u0103toare pentru varia\u0163ii',
         'forkBehavior.normal': 'Normal',
         'forkBehavior.hybrid': 'Hibrid',
         'forkBehavior.chessbase': 'For\u0163eaz\u0103 alegere',

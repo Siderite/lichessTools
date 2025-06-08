@@ -27,8 +27,8 @@
       'ro-RO': {
         'options.general': 'General',
         'options.botFilters': 'Filtre \u00een lista de bo\u0163i', 
-        'ratingLabelText': 'Cot\u0103 min/max', 
-        'ratingLabelTitle': 'LiChess Tools - cot\u0103 min/max', 
+        'ratingLabelText': 'Rating min/max', 
+        'ratingLabelTitle': 'LiChess Tools - rating min/max', 
         'unratedLabelText': 'Arat\u0103 necotate:', 
         'gamesLabelText': 'Meciuri min/max', 
         'gamesLabelTitle': 'LiChess Tools - meciuri min/max', 

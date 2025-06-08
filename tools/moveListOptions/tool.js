@@ -46,7 +46,7 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.moveListOptions': 'Op\u0163iuni pentru list\u0103 mut\u0103ri',
-        'moveListOptions.indentedVariations': 'Varia\u0163iuni indentate',
+        'moveListOptions.indentedVariations': 'Varia\u0163ii indentate',
         'moveListOptions.bookmarks': 'Bookmarkuri',
         'moveListOptions.fullWidthAnalysis': 'List\u0103 mut\u0103ri l\u0103rgit\u0103',
         'moveListOptions.hideLeftSide': 'Ascunde partea st\u00e2ng\u0103',

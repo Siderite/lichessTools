@@ -66,7 +66,7 @@
         'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
         'extraChart.moreBrilliant': '... mai multe mut\u0103ri',
         'extraChart.smooth': 'Netezire grafice',
-        'extraChart.gauge': 'pe bara de Eval',
+        'extraChart.gauge': 'pe bara de evaluare',
         'extraChart.accuracyPlus': 'Informa\u0163ii \u00een plus pe Acurate\u0163e',
         'chartInfoTitle': 'LiChess Tools - grafice \u00een plus',
         'tensionLineTitle': 'Tensiune maxim\u0103',
@@ -74,7 +74,7 @@
         'goodMovesText': 'mut\u0103ri bune/briliante/interesante',
         'goodMovesTitle': 'LiChess Tools - mut\u0103ri bune/briliante/interesante',
         'merryChristmas': 'Cr\u0103ciun fericit de la LiChess Tools!',
-        'estimatedRating': 'Cot\u0103 estimat\u0103: %s'
+        'estimatedRating': 'Rating estimat: %s'
       }
     }
 

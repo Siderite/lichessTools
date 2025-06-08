@@ -24,10 +24,10 @@
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.expandAll': 'Expandare toate varia\u0163iunile',
+        'options.expandAll': 'Expandare toate varia\u0163iile',
         'expandAll.showButton': 'Arat\u0103 butonul',
         'expandAll.autoExpand': 'Expandeaz\u0103 automat',
-        'expandAllTitle': 'LiChess Tools - expandeaz\u0103 toate varia\u0163iunile'
+        'expandAllTitle': 'LiChess Tools - expandeaz\u0103 toate varia\u0163iile'
       }
     }
 
