@@ -2,7 +2,8 @@
 
 a.lichessTools-preferences:before {
   font-size: 1.2em;
-  text-shadow: var(--c-clearer) 1px 0 7px;
+  text-shadow: var(--c-accent-dim) 1px 0 7px;
+  color: var(--c-accent);
 }
 
 div.lichessTools-preferences .lichessTools-prefCount {
