@@ -1,11 +1,7 @@
 /* CSS in preferences should not be under body.lichessTools, as the class can be removed when the extension is disabled */
 
-a + a.lichessTools-preferences {
-  margin-left: 1em;
-}
-
 a.lichessTools-preferences:before {
-  font-size: 0.9em;
+  font-size: 1.2em;
   text-shadow: var(--c-clearer) 1px 0 7px;
 }
 
