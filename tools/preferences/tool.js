@@ -643,7 +643,7 @@
       const $ = lt.$;
       if (!$('#dasher_app a.lichessTools-preferences').length) {
         const elem = $('<a class="text lichessTools-preferences">')
-          .attr('data-icon', lt.icon.Gear)
+          .attr('data-icon', lt.icon.LightVerticalAndBottomRight)
           .attr('href', '/team/all#lichessTools')
           .text(trans.noarg('lichessTools'))
           .attr('title', trans.noarg('lichessToolsPreferences'));

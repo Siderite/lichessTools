@@ -237,6 +237,7 @@
       Checked: '\u2713',
       RedX: '\u2716',
       Print: '\uD83D\uDDB6',
+      LightVerticalAndBottomRight: '\u23BF',
 
       toEntity: function(s) {
         let result='';
