@@ -186,6 +186,7 @@
       AccountCircle: '\ue079',
       Logo: '\ue07a',
       Switch: '\ue07b',
+      Blindfold: '\ue07c',
 
       // LiChess Tools icons
       ShowTranspositions: 'T',
