@@ -24,6 +24,7 @@
       }
     }
 
+    wikiBooksUrl = 'https://en.wikibooks.org';
     _cache = new Map();
 
     getWikiHtml = async (pos)=>{
@@ -35,9 +36,8 @@
 
       const title = this.wikiUrls_dict[pos]?.at(0);
       if (!title) return;
-      const wikiBooksUrl = 'https://en.wikibooks.org';
       const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
-      const json = await lt.net.fetch(`${wikiBooksUrl}/w/api.php?titles=${title}&${apiArgs}`,{ noUserAgent: true });
+      const json = await lt.net.fetch(`${this.wikiBooksUrl}/w/api.php?titles=${title}&${apiArgs}`,{ noUserAgent: true });
       const obj = lt.global.JSON.parse(json);
       html = this.extractHtml(obj.query.pages[0].extract,title);
       this._cache.set(pos,html);
@@ -45,15 +45,13 @@
     };
 
     extractHtml = (html, title) => {
-      const wikiBooksUrl = 'https://en.wikibooks.org';
-
       const removeH1 = (html) => html.replace(/<h1>.+<\/h1>/g, '');
       const removeEmptyParagraph = (html) => html.replace(/<p>(<br \/>|\s)*<\/p>/g, '');
       const removeTableHeader = (html) => html.replace('<h2><span id="Theory_table">Theory table</span></h2>', '');
       const removeTableExpl = (html) => html.replace(/For explanation of theory tables see theory table and for notation see algebraic notation.?/,'');
       const removeContributing = (html) => html.replace('When contributing to this Wikibook, please follow the Conventions for organization.', '');
 
-      const readMore = (title) => `<p><a target="_blank" href="${wikiBooksUrl}/wiki/${title}">Read more on WikiBooks</a></p>`;
+      const readMore = (title) => `<p><a target="_blank" href="${this.wikiBooksUrl}/wiki/${title}">Read more on WikiBooks</a></p>`;
 
       return removeH1(removeEmptyParagraph(removeTableHeader(removeTableExpl(removeContributing(html))))) + readMore(title);
     };
