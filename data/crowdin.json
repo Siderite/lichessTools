@@ -857,7 +857,8 @@
     "options.betterBestArrow": "تحسين أفضل أسهم الحركة",
     "betterBestArrow.enabled": "تمكين",
     "betterBestArrow.localEval": "استخدام التقييم المحلي",
-    "betterBestArrow.allMoves": "في جميع التحركات"
+    "betterBestArrow.allMoves": "في جميع التحركات",
+    "themes.timeControls": "التحكم بالوقت"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1717,7 +1718,8 @@
     "options.betterBestArrow": "改进最佳移动箭头",
     "betterBestArrow.enabled": "已启用",
     "betterBestArrow.localEval": "使用本地评价",
-    "betterBestArrow.allMoves": "在所有动作上"
+    "betterBestArrow.allMoves": "在所有动作上",
+    "themes.timeControls": "时间控制"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2577,7 +2579,8 @@
     "options.betterBestArrow": "Improved best move arrow",
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
-    "betterBestArrow.allMoves": "On all moves"
+    "betterBestArrow.allMoves": "On all moves",
+    "themes.timeControls": "Time controls"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3437,7 +3440,8 @@
     "options.betterBestArrow": "Verbeterde beste beweegpijl",
     "betterBestArrow.enabled": "Ingeschakeld",
     "betterBestArrow.localEval": "Gebruik lokale evaluatie",
-    "betterBestArrow.allMoves": "Bij alle zetten"
+    "betterBestArrow.allMoves": "Bij alle zetten",
+    "themes.timeControls": "Tijd bediening"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4297,7 +4301,8 @@
     "options.betterBestArrow": "Improved best move arrow",
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
-    "betterBestArrow.allMoves": "On all moves"
+    "betterBestArrow.allMoves": "On all moves",
+    "themes.timeControls": "Time controls"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5157,7 +5162,8 @@
     "options.betterBestArrow": "Flèche du meilleur coup améliorée",
     "betterBestArrow.enabled": "Activé",
     "betterBestArrow.localEval": "Utiliser l'évaluation locale",
-    "betterBestArrow.allMoves": "Pour tous les coups"
+    "betterBestArrow.allMoves": "Pour tous les coups",
+    "themes.timeControls": "Contrôles de temps"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6017,7 +6023,8 @@
     "options.betterBestArrow": "Verbesserter Pfeil nach Bewegung",
     "betterBestArrow.enabled": "Aktiviert",
     "betterBestArrow.localEval": "Lokale Auswertung verwenden",
-    "betterBestArrow.allMoves": "Bei allen Zügen"
+    "betterBestArrow.allMoves": "Bei allen Zügen",
+    "themes.timeControls": "Zeitsteuerung"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6877,7 +6884,8 @@
     "options.betterBestArrow": "Improved best move arrow",
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
-    "betterBestArrow.allMoves": "On all moves"
+    "betterBestArrow.allMoves": "On all moves",
+    "themes.timeControls": "Time controls"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7737,7 +7745,8 @@
     "options.betterBestArrow": "Migliorata la migliore freccia di movimento",
     "betterBestArrow.enabled": "Abilitato",
     "betterBestArrow.localEval": "Usa valutazione locale",
-    "betterBestArrow.allMoves": "Su tutte le mosse"
+    "betterBestArrow.allMoves": "Su tutte le mosse",
+    "themes.timeControls": "Controlli del tempo"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8597,7 +8606,8 @@
     "options.betterBestArrow": "Improved best move arrow",
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
-    "betterBestArrow.allMoves": "On all moves"
+    "betterBestArrow.allMoves": "On all moves",
+    "themes.timeControls": "Time controls"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9457,7 +9467,8 @@
     "options.betterBestArrow": "Ulepszona najlepsza strzałka ruchu",
     "betterBestArrow.enabled": "Włączone",
     "betterBestArrow.localEval": "Użyj oceny lokalnej",
-    "betterBestArrow.allMoves": "We wszystkich ruchach"
+    "betterBestArrow.allMoves": "We wszystkich ruchach",
+    "themes.timeControls": "Kontrole czasu"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10317,7 +10328,8 @@
     "options.betterBestArrow": "Seta de melhor movimento melhorada",
     "betterBestArrow.enabled": "Ativado",
     "betterBestArrow.localEval": "Usar avaliação local",
-    "betterBestArrow.allMoves": "Em todos os movimentos"
+    "betterBestArrow.allMoves": "Em todos os movimentos",
+    "themes.timeControls": "Controles de tempo"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11177,7 +11189,8 @@
     "options.betterBestArrow": "Seta de melhor movimento melhorada",
     "betterBestArrow.enabled": "Ativado",
     "betterBestArrow.localEval": "Usar avaliação local",
-    "betterBestArrow.allMoves": "Em todos os movimentos"
+    "betterBestArrow.allMoves": "Em todos os movimentos",
+    "themes.timeControls": "Controles de tempo"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12037,7 +12050,8 @@
     "options.betterBestArrow": "Săgeată cu cea mai bună mutare înbunătățită",
     "betterBestArrow.enabled": "Activat",
     "betterBestArrow.localEval": "Folosește evaluarea locală",
-    "betterBestArrow.allMoves": "La toate mutările"
+    "betterBestArrow.allMoves": "La toate mutările",
+    "themes.timeControls": "Controale de timp"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -12073,7 +12087,7 @@
     "randomVariationDepth.10": "пять ходов",
     "options.themes": "Применить стиль темы",
     "themes.default": "Отменить",
-    "themes.performance": "Эффективная тема",
+    "themes.performance": "Производительность",
     "themes.justExplorer": "Увеличить книгу дебютов",
     "themes.mobile": "Мобильная версия",
     "themes.slimArrows": "Тонкие стрелки",
@@ -12354,7 +12368,7 @@
     "sharpnessTitle": "Острота: %s",
     "options.explorerGambits": "Показать ходы в справочнике, ведущие к гамбитам",
     "gambitTitle": "LiChess Tools - Количество возможных гамбитов",
-    "gambitRowTitle": "%s gambits",
+    "gambitRowTitle": "%s гамбитов",
     "moveEvaluationSettingText": "Оценка",
     "moveEvaluationSettingTitle": "Столбец оценки ходов",
     "gambitsSettingText": "Гамбиты",
@@ -12742,7 +12756,7 @@
     "blogHistory.persistView": "Постоянный просмотр блога",
     "themes.fatMove": "Шрифт перемещения большего размера",
     "puzzleOptions.showSessionTotal": "Показать итог сессии",
-    "puzzleSessionTotalTitle": "Инструменты Жизни - всего",
+    "puzzleSessionTotalTitle": "LiChess Tools - всего",
     "options.exportPGNoptions": "Параметры экспорта PGN",
     "exportPGNoptions.exportClock": "Экспорт значений часов",
     "exportPGNoptions.exportEval": "Экспорт вычисления компьютера",
@@ -12778,8 +12792,8 @@
     "activeIcon.circle": "Круг",
     "mobileExperience.inInteractive": "Дополнительные кнопки в интерактивном",
     "mobileExperienceRound.flipBoard": "Нажмите на нижние часы, чтобы перевернуть доску",
-    "options.totalGameTime": "Показать общую длительность игры",
-    "durationLabelTitle": "Инструменты Жизни - общая продолжительность игры",
+    "options.totalGameTime": "Показать общую продолжительность игры",
+    "durationLabelTitle": "LiChess Tools - общая продолжительность игры",
     "durationLabelText": "Общая продолжительность: %s",
     "exportPGNoptions.exportShapes": "Экспорт стрелок и кругов",
     "options.linkToAnalysis": "Ссылка на текущий анализ",
@@ -12860,7 +12874,7 @@
     "analysisContextActions.positionInfo": "Информация о позиции",
     "positionInfoText": "Информация о позиции",
     "positionInfoTitle": "Инструменты Жизни - показать информацию о выбранной позиции",
-    "positionInfoOutputText": "Ход: $ply\nХодов сыграно: $movesSoFar\nОсновных ходов: $movesMain\nВсего ходов: $movesTotal\nРазветвлений: $branches",
+    "positionInfoOutputText": "Ход: $ply\nСделано ходов: $movesSoFar\nОсновных ходов: $movesMain\nВсего ходов: $movesTotal\nРазветвлений: $branches",
     "themes.fixThirdParties": "Исправить третьи стороны",
     "allQuotesByAuthorText": "Все котировки от %s",
     "options.cevalCache": "Запомнить оценку локального компьютера",
@@ -12897,7 +12911,8 @@
     "options.betterBestArrow": "Улучшена лучшая стрелка перемещения",
     "betterBestArrow.enabled": "Включено",
     "betterBestArrow.localEval": "Использовать локальную оценку",
-    "betterBestArrow.allMoves": "На всех ходах"
+    "betterBestArrow.allMoves": "На всех ходах",
+    "themes.timeControls": "Контроль времени"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13757,7 +13772,8 @@
     "options.betterBestArrow": "Flecha de movimiento mejorada",
     "betterBestArrow.enabled": "Activado",
     "betterBestArrow.localEval": "Usar evaluación local",
-    "betterBestArrow.allMoves": "En todos los movimientos"
+    "betterBestArrow.allMoves": "En todos los movimientos",
+    "themes.timeControls": "Controles de tiempo"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14617,7 +14633,8 @@
     "options.betterBestArrow": "Improved best move arrow",
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
-    "betterBestArrow.allMoves": "On all moves"
+    "betterBestArrow.allMoves": "On all moves",
+    "themes.timeControls": "Time controls"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15477,7 +15494,8 @@
     "options.betterBestArrow": "Improved best move arrow",
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
-    "betterBestArrow.allMoves": "On all moves"
+    "betterBestArrow.allMoves": "On all moves",
+    "themes.timeControls": "Time controls"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16337,6 +16355,7 @@
     "options.betterBestArrow": "Improved best move arrow",
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
-    "betterBestArrow.allMoves": "On all moves"
+    "betterBestArrow.allMoves": "On all moves",
+    "themes.timeControls": "Time controls"
   }
 }
