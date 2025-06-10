@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 10 Jun
 
 - Time controls theme
+- FEN based wiki tooltip on study opening link
 
 06 Jun
 
