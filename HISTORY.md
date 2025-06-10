@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+10 Jun
+
+- Time controls theme
+
 06 Jun
 
 - Improved best move arrow

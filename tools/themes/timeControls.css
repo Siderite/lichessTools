@@ -1,0 +1,18 @@
+/* Time controls */
+
+body.lichessTools.lichessTools-theme_timeControls #powerTip:has(a[data-tc]),
+body.lichessTools.lichessTools-theme_timeControls #miniGame:has(a[data-tc]) {
+  overflow:visible;
+}
+
+body.lichessTools.lichessTools-theme_timeControls #powerTip a[data-tc]:after,
+body.lichessTools.lichessTools-theme_timeControls #miniGame a[data-tc]:after {
+  content: attr(data-tc);
+  top: -1.5em;
+  right: 0;
+  position: absolute;
+  z-index: 10;
+  background: var(--c-bg-low);
+  padding: 0.2em;
+  border-radius: 2px;
+}
