@@ -858,7 +858,8 @@
     "betterBestArrow.enabled": "تمكين",
     "betterBestArrow.localEval": "استخدام التقييم المحلي",
     "betterBestArrow.allMoves": "في جميع التحركات",
-    "themes.timeControls": "التحكم بالوقت"
+    "themes.timeControls": "التحكم بالوقت",
+    "betterBestArrow.justOrientation": "التحركات فقط لجانب التوجيه"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1719,7 +1720,8 @@
     "betterBestArrow.enabled": "已启用",
     "betterBestArrow.localEval": "使用本地评价",
     "betterBestArrow.allMoves": "在所有动作上",
-    "themes.timeControls": "时间控制"
+    "themes.timeControls": "时间控制",
+    "betterBestArrow.justOrientation": "仅在方向侧移动"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2580,7 +2582,8 @@
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
-    "themes.timeControls": "Time controls"
+    "themes.timeControls": "Time controls",
+    "betterBestArrow.justOrientation": "Only moves for orientation side"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3441,7 +3444,8 @@
     "betterBestArrow.enabled": "Ingeschakeld",
     "betterBestArrow.localEval": "Gebruik lokale evaluatie",
     "betterBestArrow.allMoves": "Bij alle zetten",
-    "themes.timeControls": "Tijd bediening"
+    "themes.timeControls": "Tijd bediening",
+    "betterBestArrow.justOrientation": "Beweegt alleen voor de oriëntatiezijde"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4302,7 +4306,8 @@
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
-    "themes.timeControls": "Time controls"
+    "themes.timeControls": "Time controls",
+    "betterBestArrow.justOrientation": "Only moves for orientation side"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5163,7 +5168,8 @@
     "betterBestArrow.enabled": "Activé",
     "betterBestArrow.localEval": "Utiliser l'évaluation locale",
     "betterBestArrow.allMoves": "Pour tous les coups",
-    "themes.timeControls": "Contrôles de temps"
+    "themes.timeControls": "Contrôles de temps",
+    "betterBestArrow.justOrientation": "Mouvement uniquement pour le côté orientation"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6024,7 +6030,8 @@
     "betterBestArrow.enabled": "Aktiviert",
     "betterBestArrow.localEval": "Lokale Auswertung verwenden",
     "betterBestArrow.allMoves": "Bei allen Zügen",
-    "themes.timeControls": "Zeitsteuerung"
+    "themes.timeControls": "Zeitsteuerung",
+    "betterBestArrow.justOrientation": "Nur Züge für Orientierungsseite"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6885,7 +6892,8 @@
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
-    "themes.timeControls": "Time controls"
+    "themes.timeControls": "Time controls",
+    "betterBestArrow.justOrientation": "Only moves for orientation side"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7746,7 +7754,8 @@
     "betterBestArrow.enabled": "Abilitato",
     "betterBestArrow.localEval": "Usa valutazione locale",
     "betterBestArrow.allMoves": "Su tutte le mosse",
-    "themes.timeControls": "Controlli del tempo"
+    "themes.timeControls": "Controlli del tempo",
+    "betterBestArrow.justOrientation": "Muovi solo per il lato di orientamento"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8607,7 +8616,8 @@
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
-    "themes.timeControls": "Time controls"
+    "themes.timeControls": "Time controls",
+    "betterBestArrow.justOrientation": "Only moves for orientation side"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9468,7 +9478,8 @@
     "betterBestArrow.enabled": "Włączone",
     "betterBestArrow.localEval": "Użyj oceny lokalnej",
     "betterBestArrow.allMoves": "We wszystkich ruchach",
-    "themes.timeControls": "Kontrole czasu"
+    "themes.timeControls": "Kontrole czasu",
+    "betterBestArrow.justOrientation": "Przesuwa się tylko o stronę orientacji"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10329,7 +10340,8 @@
     "betterBestArrow.enabled": "Ativado",
     "betterBestArrow.localEval": "Usar avaliação local",
     "betterBestArrow.allMoves": "Em todos os movimentos",
-    "themes.timeControls": "Controles de tempo"
+    "themes.timeControls": "Controles de tempo",
+    "betterBestArrow.justOrientation": "Apenas movimentos para o lado da orientação"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11190,7 +11202,8 @@
     "betterBestArrow.enabled": "Ativado",
     "betterBestArrow.localEval": "Usar avaliação local",
     "betterBestArrow.allMoves": "Em todos os movimentos",
-    "themes.timeControls": "Controles de tempo"
+    "themes.timeControls": "Controles de tempo",
+    "betterBestArrow.justOrientation": "Apenas movimentos para o lado da orientação"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12051,7 +12064,8 @@
     "betterBestArrow.enabled": "Activat",
     "betterBestArrow.localEval": "Folosește evaluarea locală",
     "betterBestArrow.allMoves": "La toate mutările",
-    "themes.timeControls": "Controale de timp"
+    "themes.timeControls": "Controale de timp",
+    "betterBestArrow.justOrientation": "Doar mutări ale părții orientării"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -12912,7 +12926,8 @@
     "betterBestArrow.enabled": "Включено",
     "betterBestArrow.localEval": "Использовать локальную оценку",
     "betterBestArrow.allMoves": "На всех ходах",
-    "themes.timeControls": "Контроль времени"
+    "themes.timeControls": "Контроль времени",
+    "betterBestArrow.justOrientation": "Перемещение только для стороны ориентации"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13773,7 +13788,8 @@
     "betterBestArrow.enabled": "Activado",
     "betterBestArrow.localEval": "Usar evaluación local",
     "betterBestArrow.allMoves": "En todos los movimientos",
-    "themes.timeControls": "Controles de tiempo"
+    "themes.timeControls": "Controles de tiempo",
+    "betterBestArrow.justOrientation": "Solo movimientos para el lado de orientación"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14634,7 +14650,8 @@
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
-    "themes.timeControls": "Time controls"
+    "themes.timeControls": "Time controls",
+    "betterBestArrow.justOrientation": "Only moves for orientation side"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15495,7 +15512,8 @@
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
-    "themes.timeControls": "Time controls"
+    "themes.timeControls": "Time controls",
+    "betterBestArrow.justOrientation": "Only moves for orientation side"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16356,6 +16374,7 @@
     "betterBestArrow.enabled": "Enabled",
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
-    "themes.timeControls": "Time controls"
+    "themes.timeControls": "Time controls",
+    "betterBestArrow.justOrientation": "Only moves for orientation side"
   }
 }
