@@ -195,6 +195,7 @@
       if (toSaveCache) {
         this.debouncedSaveCache();
       }
+      lt.global.requestAnimationFrame(()=>{
       for (const item of data) {
         if (!item.countryName) continue;
         const elems = dict[item.id];
@@ -218,6 +219,7 @@
           }
         }
       }
+      });
       this.debouncedProcessFlags();
     };
     debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500, { defer:true });

@@ -149,7 +149,9 @@
       const pos = lt.getPositionFromFen(analysis.node.fen);
       const gambits = await this.gambit_dict();
       const result = gambits[side].get(pos);
-      await this.showGambits(result);
+      lt.global.requestAnimationFrame(async ()=>{
+        await this.showGambits(result);
+      });
     };
     findGambitsDebounced = this.lichessTools.debounce(this.findGambits, 100, { defer:true });
 
