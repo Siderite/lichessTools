@@ -4699,7 +4699,7 @@
     "allText": "Tous",
     "sinceText": "depuis %s",
     "untilText": "jusqu'à %s",
-    "snapTitle": "Note : %rating\nContrôle de temps : %control\n%since\n%until",
+    "snapTitle": "Classement Elo : %rating\nCadence : %control\n%since\n%until",
     "options.miniGameSize": "Taille personnalisée du mini-échiquier",
     "options.studyLearnFromMistakes": "Apprenez de vos erreurs dans les études",
     "learnFromYourMistakes": "Apprenez de vos erreurs",
@@ -5168,8 +5168,8 @@
     "betterBestArrow.enabled": "Activé",
     "betterBestArrow.localEval": "Utiliser l'évaluation locale",
     "betterBestArrow.allMoves": "Pour tous les coups",
-    "themes.timeControls": "Contrôles de temps",
-    "betterBestArrow.justOrientation": "Mouvement uniquement pour le côté orientation"
+    "themes.timeControls": "Cadences",
+    "betterBestArrow.justOrientation": "Coups uniquement pour le côté orienté"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
