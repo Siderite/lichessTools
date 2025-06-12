@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+12 Jun
+
+- read position command
+
 10 Jun
 
 - Time controls theme
