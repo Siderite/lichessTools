@@ -859,7 +859,8 @@
     "betterBestArrow.localEval": "استخدام التقييم المحلي",
     "betterBestArrow.allMoves": "في جميع التحركات",
     "themes.timeControls": "التحكم بالوقت",
-    "betterBestArrow.justOrientation": "التحركات فقط لجانب التوجيه"
+    "betterBestArrow.justOrientation": "التحركات فقط لجانب التوجيه",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n السرعة الافتراضية = 100، الصوت = 0\n للإقلاع ، الفضاء للإيقاف المؤقت\nقراءة الموضع"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1721,7 +1722,8 @@
     "betterBestArrow.localEval": "使用本地评价",
     "betterBestArrow.allMoves": "在所有动作上",
     "themes.timeControls": "时间控制",
-    "betterBestArrow.justOrientation": "仅在方向侧移动"
+    "betterBestArrow.justOrientation": "仅在方向侧移动",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2583,7 +2585,8 @@
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
     "themes.timeControls": "Time controls",
-    "betterBestArrow.justOrientation": "Only moves for orientation side"
+    "betterBestArrow.justOrientation": "Only moves for orientation side",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3445,7 +3448,8 @@
     "betterBestArrow.localEval": "Gebruik lokale evaluatie",
     "betterBestArrow.allMoves": "Bij alle zetten",
     "themes.timeControls": "Tijd bediening",
-    "betterBestArrow.justOrientation": "Beweegt alleen voor de oriëntatiezijde"
+    "betterBestArrow.justOrientation": "Beweegt alleen voor de oriëntatiezijde",
+    "readPositionCommand.helpText": "/leespositie [speed] [voice]\n standaard snelheid = 100, voice=0\n Esc om te stoppen, ruimte om\nLezen positie te pauzeren"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4307,7 +4311,8 @@
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
     "themes.timeControls": "Time controls",
-    "betterBestArrow.justOrientation": "Only moves for orientation side"
+    "betterBestArrow.justOrientation": "Only moves for orientation side",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5169,7 +5174,8 @@
     "betterBestArrow.localEval": "Utiliser l'évaluation locale",
     "betterBestArrow.allMoves": "Pour tous les coups",
     "themes.timeControls": "Cadences",
-    "betterBestArrow.justOrientation": "Coups uniquement pour le côté orienté"
+    "betterBestArrow.justOrientation": "Coups uniquement pour le côté orienté",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n vitesse par défaut = 100, voix=0\n Esc pour arrêter, Espace pour faire une pause\nPosition de lecture"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6031,7 +6037,8 @@
     "betterBestArrow.localEval": "Lokale Auswertung verwenden",
     "betterBestArrow.allMoves": "Bei allen Zügen",
     "themes.timeControls": "Zeitsteuerung",
-    "betterBestArrow.justOrientation": "Nur Züge für Orientierungsseite"
+    "betterBestArrow.justOrientation": "Nur Züge für Orientierungsseite",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n Standardgeschwindigkeit = 100, Voice=0\n Esc zum stoppen, Leerzeichen zum Pausieren\nLese-Position"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6893,7 +6900,8 @@
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
     "themes.timeControls": "Time controls",
-    "betterBestArrow.justOrientation": "Only moves for orientation side"
+    "betterBestArrow.justOrientation": "Only moves for orientation side",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7755,7 +7763,8 @@
     "betterBestArrow.localEval": "Usa valutazione locale",
     "betterBestArrow.allMoves": "Su tutte le mosse",
     "themes.timeControls": "Controlli del tempo",
-    "betterBestArrow.justOrientation": "Muovi solo per il lato di orientamento"
+    "betterBestArrow.justOrientation": "Muovi solo per il lato di orientamento",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocità predefinita = 100, voice=0\n Esc per fermare, Spazio per mettere in pausa\nPosizione di lettura"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8617,7 +8626,8 @@
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
     "themes.timeControls": "Time controls",
-    "betterBestArrow.justOrientation": "Only moves for orientation side"
+    "betterBestArrow.justOrientation": "Only moves for orientation side",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9479,7 +9489,8 @@
     "betterBestArrow.localEval": "Użyj oceny lokalnej",
     "betterBestArrow.allMoves": "We wszystkich ruchach",
     "themes.timeControls": "Kontrole czasu",
-    "betterBestArrow.justOrientation": "Przesuwa się tylko o stronę orientacji"
+    "betterBestArrow.justOrientation": "Przesuwa się tylko o stronę orientacji",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n domyślna prędkość = 100, głos=0\n Esc, aby zatrzymać, przestrzeń do wstrzymania\nCzytaj pozycję"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10341,7 +10352,8 @@
     "betterBestArrow.localEval": "Usar avaliação local",
     "betterBestArrow.allMoves": "Em todos os movimentos",
     "themes.timeControls": "Controles de tempo",
-    "betterBestArrow.justOrientation": "Apenas movimentos para o lado da orientação"
+    "betterBestArrow.justOrientation": "Apenas movimentos para o lado da orientação",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocidade padrão = 100, voice=0\n Esc para parar, Espaço para pausar\nLer posição"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11203,7 +11215,8 @@
     "betterBestArrow.localEval": "Usar avaliação local",
     "betterBestArrow.allMoves": "Em todos os movimentos",
     "themes.timeControls": "Controles de tempo",
-    "betterBestArrow.justOrientation": "Apenas movimentos para o lado da orientação"
+    "betterBestArrow.justOrientation": "Apenas movimentos para o lado da orientação",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocidade padrão = 100, voice=0\n Esc para parar, Espaço para pausar\nLer posição"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12065,7 +12078,8 @@
     "betterBestArrow.localEval": "Folosește evaluarea locală",
     "betterBestArrow.allMoves": "La toate mutările",
     "themes.timeControls": "Controale de timp",
-    "betterBestArrow.justOrientation": "Doar mutări ale părții orientării"
+    "betterBestArrow.justOrientation": "Doar mutări ale părții orientării",
+    "readPositionCommand.helpText": "/readposition [viteză] [voce]\n viteza standard = 100, voce=0\n Esc pentru stop, Space pentru pauză\nCiteşte poziția"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -12927,7 +12941,8 @@
     "betterBestArrow.localEval": "Использовать локальную оценку",
     "betterBestArrow.allMoves": "На всех ходах",
     "themes.timeControls": "Контроль времени",
-    "betterBestArrow.justOrientation": "Перемещение только для стороны ориентации"
+    "betterBestArrow.justOrientation": "Перемещение только для стороны ориентации",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n по умолчанию скорость = 100, голос=0\n Esc остановить, Пространство для паузы\nЧтение позиции"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13789,7 +13804,8 @@
     "betterBestArrow.localEval": "Usar evaluación local",
     "betterBestArrow.allMoves": "En todos los movimientos",
     "themes.timeControls": "Controles de tiempo",
-    "betterBestArrow.justOrientation": "Solo movimientos para el lado de orientación"
+    "betterBestArrow.justOrientation": "Solo movimientos para el lado de orientación",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocidad predeterminada = 100, voice=0\n Esc para parar, Espacio para pausar\nLeer posición"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14224,22 +14240,22 @@
     "btnUndoTitle": "Undo text changes",
     "btnRedoText": "Redo",
     "btnRedoTitle": "Redo text changes",
-    "btnClearText": "Clear",
-    "btnClearTitle": "Clear text and history!",
-    "gameCount": "%s PGNs, %2 moves",
-    "gameCount:one": "one PGN, %2 moves",
-    "mergingGames": "Merging %s PGNs",
-    "mergingGames:one": "Merging one PGN",
-    "normalizingGames": "Normalizing %s PGNs",
+    "btnClearText": "அகற்று",
+    "btnClearTitle": "உரையையும் வரலாற்றையும் அகற்று!",
+    "gameCount": "%s PGNகள், %2 நகர்வுகள்",
+    "gameCount:one": "ஒரு PGN, %2 நகர்வுகள்",
+    "mergingGames": "%s PGNகளை இணைக்கிறது",
+    "mergingGames:one": "ஒரு PGN ஐ இணைத்தல்",
+    "normalizingGames": "%s PGNகளை இயல்பாக்குகிறது",
     "normalizingGames:one": "Normalizing one PGN",
     "denormalizingGames": "Denormalizing %s PGNs",
     "denormalizingGames:one": "Denormalizing one PGN",
-    "splittingGames": "Splitting %s PGNs",
-    "splittingGames:one": "Splitting one PGN",
-    "searchingGames": "Searching %s PGNs",
-    "searchingGames:one": "Searching one PGN",
-    "evaluatingGames": "Evaluating %s PGNs",
-    "evaluatingGames:one": "Evaluating one PGN",
+    "splittingGames": "%s PGNகளைப் பிரிக்கிறது",
+    "splittingGames:one": "ஒரு PGN ஐப் பிரித்தல்",
+    "searchingGames": "%s PGNகளைத் தேடுகிறது",
+    "searchingGames:one": "ஒரு PGN-ஐத் தேடுகிறது",
+    "evaluatingGames": "%s PGNகளை மதிப்பிடுதல்",
+    "evaluatingGames:one": "ஒரு PGN-ஐ மதிப்பிடுதல்",
     "evaluatingMoves": "Evaluating %s moves",
     "evaluatingMoves:one": "Evaluating move",
     "preparingGames": "Preparing %s PGNs",
@@ -14271,8 +14287,8 @@
     "fixCoords.larger": "Larger coordinate font",
     "fixCoords.square": "On each square",
     "options.downloadAllStudies": "Link to download all studies of a player",
-    "downloadAllText": "Download all studies",
-    "downloadAllTitle": "LiChess Tools - all studies for this player",
+    "downloadAllText": "அனைத்து ஆய்வுகளையும் பதிவிறக்கவும்",
+    "downloadAllTitle": "LiChess Tools - இந்த வீரருக்கான அனைத்து ஆய்வுகளும்",
     "options.profilePuzzleTab": "Enhanced Puzzle Dashboard",
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
@@ -14286,8 +14302,8 @@
     "options.mirrorBoard": "Mirror button in Board Editor",
     "mirrorButtonText": "Mirror",
     "mirrorButtonTitle": "LiChess Tools - mirror position",
-    "options.cevalDecimals": "More decimals for computer evaluation",
-    "options.autoUnselectPiece": "Unselect piece after specified seconds",
+    "options.cevalDecimals": "கணினி மதிப்பீட்டிற்கான கூடுதல் தசமங்கள்",
+    "options.autoUnselectPiece": "குறிப்பிட்ட வினாடிகளுக்குப் பிறகு பகுதியைத் தேர்வுநீக்கு",
     "options.studyFlairs": "Study flairs",
     "studyFlairs.authorFlair": "Author flair",
     "studyFlairs.memberFlairs": "Member flairs",
@@ -14651,7 +14667,8 @@
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
     "themes.timeControls": "Time controls",
-    "betterBestArrow.justOrientation": "Only moves for orientation side"
+    "betterBestArrow.justOrientation": "Only moves for orientation side",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15513,7 +15530,8 @@
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
     "themes.timeControls": "Time controls",
-    "betterBestArrow.justOrientation": "Only moves for orientation side"
+    "betterBestArrow.justOrientation": "Only moves for orientation side",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16375,6 +16393,7 @@
     "betterBestArrow.localEval": "Use local evaluation",
     "betterBestArrow.allMoves": "On all moves",
     "themes.timeControls": "Time controls",
-    "betterBestArrow.justOrientation": "Only moves for orientation side"
+    "betterBestArrow.justOrientation": "Only moves for orientation side",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position"
   }
 }
