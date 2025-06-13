@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 13 Jun
 
 - Retry on Space flow option in Interactive Lessons
+- tap&drag shape drawing
 
 12 Jun
 

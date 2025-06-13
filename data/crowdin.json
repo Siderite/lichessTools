@@ -861,7 +861,9 @@
     "themes.timeControls": "التحكم بالوقت",
     "betterBestArrow.justOrientation": "التحركات فقط لجانب التوجيه",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n السرعة الافتراضية = 100، الصوت = 0\n للإقلاع ، الفضاء للإيقاف المؤقت\nقراءة الموضع",
-    "extendedInteractiveLessonFlow.spaceRetry": "إعادة المحاولة على الفضاء"
+    "extendedInteractiveLessonFlow.spaceRetry": "إعادة المحاولة على الفضاء",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1725,7 +1727,9 @@
     "themes.timeControls": "时间控制",
     "betterBestArrow.justOrientation": "仅在方向侧移动",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
-    "extendedInteractiveLessonFlow.spaceRetry": "在空间上重试"
+    "extendedInteractiveLessonFlow.spaceRetry": "在空间上重试",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2589,7 +2593,9 @@
     "themes.timeControls": "Time controls",
     "betterBestArrow.justOrientation": "Only moves for orientation side",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
-    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space"
+    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3453,7 +3459,9 @@
     "themes.timeControls": "Tijd bediening",
     "betterBestArrow.justOrientation": "Beweegt alleen voor de oriëntatiezijde",
     "readPositionCommand.helpText": "/leespositie [speed] [voice]\n standaard snelheid = 100, voice=0\n Esc om te stoppen, ruimte om\nLezen positie te pauzeren",
-    "extendedInteractiveLessonFlow.spaceRetry": "Opnieuw proberen op ruimte"
+    "extendedInteractiveLessonFlow.spaceRetry": "Opnieuw proberen op ruimte",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4317,7 +4325,9 @@
     "themes.timeControls": "Time controls",
     "betterBestArrow.justOrientation": "Only moves for orientation side",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
-    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space"
+    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5181,7 +5191,9 @@
     "themes.timeControls": "Cadences",
     "betterBestArrow.justOrientation": "Coups uniquement pour le côté orienté",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n vitesse par défaut = 100, voix=0\n Esc pour arrêter, Espace pour faire une pause\nPosition de lecture",
-    "extendedInteractiveLessonFlow.spaceRetry": "Réessayer sur Espace"
+    "extendedInteractiveLessonFlow.spaceRetry": "Réessayer sur Espace",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6045,7 +6057,9 @@
     "themes.timeControls": "Zeitsteuerung",
     "betterBestArrow.justOrientation": "Nur Züge für Orientierungsseite",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n Standardgeschwindigkeit = 100, Voice=0\n Esc zum stoppen, Leerzeichen zum Pausieren\nLese-Position",
-    "extendedInteractiveLessonFlow.spaceRetry": "Erneut auf Leerzeichen"
+    "extendedInteractiveLessonFlow.spaceRetry": "Erneut auf Leerzeichen",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6909,7 +6923,9 @@
     "themes.timeControls": "Time controls",
     "betterBestArrow.justOrientation": "Only moves for orientation side",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
-    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space"
+    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7773,7 +7789,9 @@
     "themes.timeControls": "Controlli del tempo",
     "betterBestArrow.justOrientation": "Muovi solo per il lato di orientamento",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocità predefinita = 100, voice=0\n Esc per fermare, Spazio per mettere in pausa\nPosizione di lettura",
-    "extendedInteractiveLessonFlow.spaceRetry": "Riprova nello spazio"
+    "extendedInteractiveLessonFlow.spaceRetry": "Riprova nello spazio",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8637,7 +8655,9 @@
     "themes.timeControls": "Time controls",
     "betterBestArrow.justOrientation": "Only moves for orientation side",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
-    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space"
+    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9501,7 +9521,9 @@
     "themes.timeControls": "Kontrole czasu",
     "betterBestArrow.justOrientation": "Przesuwa się tylko o stronę orientacji",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n domyślna prędkość = 100, głos=0\n Esc, aby zatrzymać, przestrzeń do wstrzymania\nCzytaj pozycję",
-    "extendedInteractiveLessonFlow.spaceRetry": "Ponów w kosmosie"
+    "extendedInteractiveLessonFlow.spaceRetry": "Ponów w kosmosie",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10365,7 +10387,9 @@
     "themes.timeControls": "Controles de tempo",
     "betterBestArrow.justOrientation": "Apenas movimentos para o lado da orientação",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocidade padrão = 100, voice=0\n Esc para parar, Espaço para pausar\nLer posição",
-    "extendedInteractiveLessonFlow.spaceRetry": "Repetir no Espaço"
+    "extendedInteractiveLessonFlow.spaceRetry": "Repetir no Espaço",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11229,7 +11253,9 @@
     "themes.timeControls": "Controles de tempo",
     "betterBestArrow.justOrientation": "Apenas movimentos para o lado da orientação",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocidade padrão = 100, voice=0\n Esc para parar, Espaço para pausar\nLer posição",
-    "extendedInteractiveLessonFlow.spaceRetry": "Repetir no Espaço"
+    "extendedInteractiveLessonFlow.spaceRetry": "Repetir no Espaço",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12093,7 +12119,9 @@
     "themes.timeControls": "Controale de timp",
     "betterBestArrow.justOrientation": "Doar mutări ale părții orientării",
     "readPositionCommand.helpText": "/readposition [viteză] [voce]\n viteza standard = 100, voce=0\n Esc pentru stop, Space pentru pauză\nCiteşte poziția",
-    "extendedInteractiveLessonFlow.spaceRetry": "Restart la Space"
+    "extendedInteractiveLessonFlow.spaceRetry": "Restart la Space",
+    "mobileExperience.tapDrag": "Atinge și trage",
+    "mobileExperienceRound.tapDragRound": "Atinge și trage"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -12957,7 +12985,9 @@
     "themes.timeControls": "Контроль времени",
     "betterBestArrow.justOrientation": "Перемещение только для стороны ориентации",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n по умолчанию скорость = 100, голос=0\n Esc остановить, Пространство для паузы\nЧтение позиции",
-    "extendedInteractiveLessonFlow.spaceRetry": "Повторить в Пространстве"
+    "extendedInteractiveLessonFlow.spaceRetry": "Повторить в Пространстве",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13821,7 +13851,9 @@
     "themes.timeControls": "Controles de tiempo",
     "betterBestArrow.justOrientation": "Solo movimientos para el lado de orientación",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocidad predeterminada = 100, voice=0\n Esc para parar, Espacio para pausar\nLeer posición",
-    "extendedInteractiveLessonFlow.spaceRetry": "Reintentar en el espacio"
+    "extendedInteractiveLessonFlow.spaceRetry": "Reintentar en el espacio",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14685,7 +14717,9 @@
     "themes.timeControls": "Time controls",
     "betterBestArrow.justOrientation": "Only moves for orientation side",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
-    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space"
+    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15549,7 +15583,9 @@
     "themes.timeControls": "Time controls",
     "betterBestArrow.justOrientation": "Only moves for orientation side",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
-    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space"
+    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16413,6 +16449,8 @@
     "themes.timeControls": "Time controls",
     "betterBestArrow.justOrientation": "Only moves for orientation side",
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
-    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space"
+    "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
+    "mobileExperience.tapDrag": "Tap&Drag",
+    "mobileExperienceRound.tapDragRound": "Tap&Drag"
   }
 }
