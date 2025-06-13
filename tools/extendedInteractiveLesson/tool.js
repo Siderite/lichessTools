@@ -15,7 +15,7 @@
         name: 'extendedInteractiveLessonFlow',
         category: 'study',
         type: 'multiple',
-        possibleValues: ['sequential', 'spacedRepetition', 'ignoreBadGlyphs', 'negativeHint'],
+        possibleValues: ['sequential', 'spacedRepetition', 'ignoreBadGlyphs', 'negativeHint','spaceRetry'],
         defaultValue: 'ignoreBadGlyphs',
         advanced: true,
         wip: true
@@ -49,6 +49,7 @@
         'extendedInteractiveLessonFlow.spacedRepetition': 'Spaced Repetition',
         'extendedInteractiveLessonFlow.ignoreBadGlyphs': 'Avoid lines marked as mistakes',
         'extendedInteractiveLessonFlow.negativeHint': 'Hint excluded moves',
+        'extendedInteractiveLessonFlow.spaceRetry': 'Retry on Space',
         'resetQuestionNoVariations': 'No more variations. Reset?',
         'resetQuestion': 'Reset variation progress?',
         'resetButtonText': 'Reset',
@@ -91,6 +92,7 @@
         'extendedInteractiveLessonFlow.spacedRepetition': 'Repeti\u0163ie distan\u0163at\u0103',
         'extendedInteractiveLessonFlow.ignoreBadGlyphs': 'Evit\u0103 linii marcate ca gre\u015fite',
         'extendedInteractiveLessonFlow.negativeHint': 'Indiciu mut\u0103ri excluse',
+        'extendedInteractiveLessonFlow.spaceRetry': 'Restart la Space',
         'resetQuestionNoVariations': 'Nu mai sunt varia\u0163ii. Resetez?',
         'resetQuestion': 'Resetez progresul \u00een varia\u0163ii?',
         'resetButtonText': 'Resetare',
@@ -652,6 +654,19 @@
         gp.retry = this.replaceFunction(gp.retry, this.extendedGamebook.retry, 'extendedInteractiveLessons');
         gp.next = this.replaceFunction(gp.next, this.extendedGamebook.next, 'extendedInteractiveLessons');
         gp.solution = this.replaceFunction(gp.solution, this.extendedGamebook.solution, 'extendedInteractiveLessons');
+        gp.onSpace = lt.wrapFunction(gp.onSpace,{
+          id: 'extendedInteractiveLessons',
+          before: ($this, ...args)=>{
+            if (!this.options.flow.spaceRetry) return;
+            if (!this.options.flow.sequential && !this.options.flow.spacedRepetition) return;
+            if (gp.state.feedback=='end') {
+              const nextPath = this.getCurrentPath();
+              if (!nextPath) return;
+              gp.retry();
+              return false;
+            }
+          }
+        });
         gp.isExtendedInteractiveLessons = true;
         gp.fens = {};
         gp.resetStats = this.extendedGamebook.resetStats;
@@ -669,6 +684,7 @@
         gp.retry = lt.unwrapFunction(gp.retry, 'extendedInteractiveLessons');
         gp.next = lt.unwrapFunction(gp.next, 'extendedInteractiveLessons');
         gp.solution = lt.unwrapFunction(gp.solution, 'extendedInteractiveLessons');
+        gp.onSpace = lt.unwrapFunction(gp.onSpace, 'extendedInteractiveLessons');
         gp.isExtendedInteractiveLessons = false;
       }
       if (gp.isExtendedInteractiveLessons && !gp.isShowScore) {
@@ -1201,7 +1217,8 @@
           'sequential': lt.isOptionSet(flow, 'sequential'),
           'spacedRepetition': lt.isOptionSet(flow, 'spacedRepetition'),
           'ignoreBadGlyphs': lt.isOptionSet(flow, 'ignoreBadGlyphs'),
-          'negativeHint': lt.isOptionSet(flow, 'negativeHint')
+          'negativeHint': lt.isOptionSet(flow, 'negativeHint'),
+          'spaceRetry': lt.isOptionSet(flow, 'spaceRetry')
         }
       };
       lt.isPermanentNode = this.isPermanentNode.bind(this);
