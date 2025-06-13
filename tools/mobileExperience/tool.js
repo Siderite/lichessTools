@@ -7,13 +7,13 @@
         name: 'mobileExperience',
         category: 'mobile',
         type: 'multiple',
-        possibleValues: ['showGauge', 'hideOctopus', 'shapeDrawing', 'tapDrag', 'randomNextMove', 'selectiveRandom', 'inInteractive'],
+        possibleValues: ['showGauge', 'hideOctopus', 'shapeDrawing',/* 'tapDrag'*/, 'randomNextMove', 'selectiveRandom', 'inInteractive'],
         defaultValue: 'showGauge,randomNextMove,selectiveRandom' 
       }, {
         name: 'mobileExperienceRound',
         category: 'mobile',
         type: 'multiple',
-        possibleValues: ['shapeDrawingRound', 'tapDragRound', 'standardButtons', 'invert', 'flipBoard'],
+        possibleValues: ['shapeDrawingRound',/* 'tapDragRound'*/, 'standardButtons', 'invert', 'flipBoard'],
         defaultValue: '',
         advanced: true
       }, {
