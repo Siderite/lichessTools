@@ -5190,10 +5190,10 @@
     "betterBestArrow.allMoves": "Pour tous les coups",
     "themes.timeControls": "Cadences",
     "betterBestArrow.justOrientation": "Coups uniquement pour le côté orienté",
-    "readPositionCommand.helpText": "/readposition [speed] [voice]\n vitesse par défaut = 100, voix=0\n Esc pour arrêter, Espace pour faire une pause\nPosition de lecture",
-    "extendedInteractiveLessonFlow.spaceRetry": "Réessayer sur Espace",
-    "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "readPositionCommand.helpText": "/lire la position [vitesse] [voix]\n vitesse par défaut = 100, voix=0\n Esc pour arrêter, Espace pour mettre en pause\nLire la position",
+    "extendedInteractiveLessonFlow.spaceRetry": "Rejouer en appuyant sur Espace",
+    "mobileExperience.tapDrag": "Tapoter&Glisser",
+    "mobileExperienceRound.tapDragRound": "Tapoter&Glisser"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
