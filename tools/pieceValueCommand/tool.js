@@ -19,11 +19,11 @@
     intl = {
       'en-US': {
         'options.pieceValueCommand': 'Command: show piece values for position',
-        'pieceValueCommand.helpText': '/piecevalue\r\nShow piece values for position'
+        'pieceValueCommand.helpText': '/piecevalue [depth=20]\r\nShow piece values for position'
       },
       'ro-RO': {
         'options.pieceValueCommand': 'Comand\u0103: arat\u0103 valorile pieselor pentru pozi\u0163ie',
-        'pieceValueCommand.helpText': '/piecevalue\r\nArat\u0103 valorile pieselor pentru pozi\u0163ie'
+        'pieceValueCommand.helpText': '/piecevalue [ad\u00e2ncime=20]\r\nArat\u0103 valorile pieselor pentru pozi\u0163ie'
       }
     };
 
@@ -51,9 +51,9 @@
       }
     };
 
-    getEval = async (fen, sf)=>{
+    getEval = async (fen, sf, depth)=>{
       const lt = this.lichessTools;
-      sf.setDepth(20);
+      sf.setDepth(depth);
       sf.setPosition(fen);
       this.info=null;
       sf.start();
@@ -61,13 +61,45 @@
         await lt.timeout(100);
       }
       await sf.stop();
-      return lt.getCentipawns(this.info);
+      const turn = fen.includes(' b ') ? -1 : 1;
+      const result = lt.getCentipawns(this.info) * turn;
       this.info=null;
+      this.lastInfo=null;
+      return result;
     };
 
-    pieceValues = { 'p':1, 'r':5, 'n':3, 'b':3, 'q':9 };
+    invalidBecauseCheck = (board, isBlackTurn) => {
+      const turnPieces = isBlackTurn ? 'qrb' : 'QRB';
+      const targetKing = isBlackTurn ? 'K' : 'k';
+      for (let j=0; j<8; j++) {
+        for (let i=0; i<8; i++) {
+          const ch = board[j][i];
+          if (!turnPieces.includes(ch)) continue;
+          const rookDirections = [[-1,0],[1,0],[0,-1],[0,1]];
+          const bishopDirections = [[-1,-1],[1,1],[1,-1],[-1,1]];
+          let directions;
+          switch(ch.toLowerCase()) {
+            case 'q': directions = rookDirections.concat(bishopDirections); break;
+            case 'r': directions = rookDirections; break;
+            case 'b': directions = bishopDirections; break;
+          }
+          for (const direction of directions) {
+            const pos={ i, j };
+            while (true) {
+              pos.i+=direction[0];
+              pos.j+=direction[1];
+              if (pos.i<0 || pos.i>7 || pos.j<0 || pos.j>7) break;
+              const ch2 = board[pos.j][pos.i];
+              if (!ch2) continue;
+              if (ch2 !== targetKing) break;
+              return true;
+            }
+          }
+        }
+      }
+    };
 
-    showPieceValue = async ()=>{
+    showPieceValue = async (depth)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const lichess = lt.lichess;
@@ -76,7 +108,7 @@
       const m = /^.*?\s+(.*)$/.exec(fen);
       const suffix = m ? ' '+m[1] : '';
       const sf=await this.getEngine();
-      const baseEval = await this.getEval(fen, sf);
+      const baseEval = await this.getEval(fen, sf, depth);
       const board = lt.getBoardFromFen(fen);
       if (this.lastProcessedFen == fen) return;
       this.lastProcessedFen = fen;
@@ -94,9 +126,10 @@
         const ch = board[y][x];
         if ([undefined,'k','K'].includes(ch)) continue;
         board[y][x]=undefined;
+        if (this.invalidBecauseCheck(board,fen.split(' ')[1]=='b')) continue;
         const pfen = lt.getFenFromBoard(board)+suffix;
         board[y][x]=ch;
-        this.current = { e, ch, baseEval };
+        this.current = { e, ch, baseEval, fen };
         const style = $(e).attr('style');
         const newStyle = style.replaceAll(/transform:([^;]+);/g,(...m)=>{
           if (m[1].includes('scale')) return m[0];
@@ -105,38 +138,38 @@
         if (style!=newStyle) {
           $(e).attr('style',newStyle);
         }
-        const val = await this.getEval(pfen, sf);
-        const pieceValue = Math.round(2*Math.abs(val-baseEval)/100)/2;
-        const text = String(pieceValue);
-        const defaultValue = this.pieceValues[ch.toLowerCase()];
-        const q = pieceValue / defaultValue;
-        $(e)
-          .toggleClassSafe('lichessTools-terriblePiece',q<=0.5)
-          .toggleClassSafe('lichessTools-badPiece',q>0.5 && q<=0.75)
-          .toggleClassSafe('lichessTools-goodPiece',q>1.25 && q<=1.5)
-          .toggleClassSafe('lichessTools-greatPiece',q>1.5);
-        $(e).attrSafe('data-eval',text);
+        const val = await this.getEval(pfen, sf, depth);
+        this.displayValue(e, val-baseEval, ch);
       }
       this.current = null;
       this.sf?.destroy();
       this.sf = null;
     };
 
-    onInfo = async (info)=>{
+    displayValue = (e, val, ch)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      if (!this.current) return;
-      const val = lt.getCentipawns(info)-this.current.baseEval;
-      const pieceValue = Math.round(2*Math.abs(val)/100)/2;
-      const text = String(pieceValue);
-      const defaultValue = this.pieceValues[this.current.ch.toLowerCase()];
+      const pieceValues = { 'p':0.75, 'r':3.5, 'n':2.5, 'b':2.5, 'q':7.5 };
+      const sgn = ch === ch.toLowerCase() ? 1 : -1;
+      const pieceValue = sgn * Math.round(val/10)/10;
+      const text = pieceValue.toFixed(1);
+      const defaultValue = pieceValues[ch.toLowerCase()];
       const q = pieceValue / defaultValue;
-      $(this.current.e)
+      $(e)
         .toggleClassSafe('lichessTools-terriblePiece',q<=0.5)
         .toggleClassSafe('lichessTools-badPiece',q>0.5 && q<=0.75)
         .toggleClassSafe('lichessTools-goodPiece',q>1.25 && q<=1.5)
         .toggleClassSafe('lichessTools-greatPiece',q>1.5)
         .attrSafe('data-eval',text);
+    };
+
+    onInfo = async (info)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (!this.current) return;
+      const turn = this.current.fen.split(' ')[1]=='b' ? -1 : 1;
+      const val = lt.getCentipawns(info) * turn - this.current.baseEval;
+      this.displayValue(this.current.e, val, this.current.ch);
     };
 
     handleChange = ()=>{
@@ -177,8 +210,10 @@
         lt.pubsub.on('lichessTools.redraw', this.handleChange);
         lt.registerCommand && lt.registerCommand('pieceValueCommand', {
           handle: (val) => {
-            if (val == 'piecevalue') {
-              this.showPieceValue();
+            const m = /^\s*piecevalue(?:\s+(?<depth>\d+))?/.exec(val);
+            if (m) {
+              const depth = +m.groups?.depth || 20;
+              this.showPieceValue(depth);
               return true;
             }
           },
