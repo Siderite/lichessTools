@@ -863,7 +863,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n السرعة الافتراضية = 100، الصوت = 0\n للإقلاع ، الفضاء للإيقاف المؤقت\nقراءة الموضع",
     "extendedInteractiveLessonFlow.spaceRetry": "إعادة المحاولة على الفضاء",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "الأمر: إظهار قيم القطعة للموقع",
+    "pieceValueCommand.helpText": "/القطعة تقييم\r\nإظهار قيم القطع للموضع"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1729,7 +1731,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
     "extendedInteractiveLessonFlow.spaceRetry": "在空间上重试",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "命令：显示位置的块值",
+    "pieceValueCommand.helpText": "/screalue\r\n显示位置的块值"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2595,7 +2599,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
     "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Command: show piece values for position",
+    "pieceValueCommand.helpText": "/piecevalue\r\nShow piece values for position"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3461,7 +3467,9 @@
     "readPositionCommand.helpText": "/leespositie [speed] [voice]\n standaard snelheid = 100, voice=0\n Esc om te stoppen, ruimte om\nLezen positie te pauzeren",
     "extendedInteractiveLessonFlow.spaceRetry": "Opnieuw proberen op ruimte",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Commando: toon stuk waarden voor positie",
+    "pieceValueCommand.helpText": "/piecevalue\r\nToon stukjes waardes voor positie"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4327,7 +4335,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
     "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Command: show piece values for position",
+    "pieceValueCommand.helpText": "/piecevalue\r\nShow piece values for position"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5193,7 +5203,9 @@
     "readPositionCommand.helpText": "/lire la position [vitesse] [voix]\n vitesse par défaut = 100, voix=0\n Esc pour arrêter, Espace pour mettre en pause\nLire la position",
     "extendedInteractiveLessonFlow.spaceRetry": "Rejouer en appuyant sur Espace",
     "mobileExperience.tapDrag": "Tapoter&Glisser",
-    "mobileExperienceRound.tapDragRound": "Tapoter&Glisser"
+    "mobileExperienceRound.tapDragRound": "Tapoter&Glisser",
+    "options.pieceValueCommand": "Commande : afficher les valeurs de la pièce pour la position",
+    "pieceValueCommand.helpText": "/piecevalue\r\nAfficher les valeurs de la pièce pour la position"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6059,7 +6071,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n Standardgeschwindigkeit = 100, Voice=0\n Esc zum stoppen, Leerzeichen zum Pausieren\nLese-Position",
     "extendedInteractiveLessonFlow.spaceRetry": "Erneut auf Leerzeichen",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Befehl: Zeige Stückwerte für Position",
+    "pieceValueCommand.helpText": "/piecevalue\r\nStückwerte für Position anzeigen"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6925,7 +6939,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
     "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Command: show piece values for position",
+    "pieceValueCommand.helpText": "/piecevalue\r\nShow piece values for position"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7791,7 +7807,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocità predefinita = 100, voice=0\n Esc per fermare, Spazio per mettere in pausa\nPosizione di lettura",
     "extendedInteractiveLessonFlow.spaceRetry": "Riprova nello spazio",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Comando: mostra valori del pezzo per la posizione",
+    "pieceValueCommand.helpText": "/piecevalue\r\nMostra i valori del pezzo per la posizione"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8657,7 +8675,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
     "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Command: show piece values for position",
+    "pieceValueCommand.helpText": "/piecevalue\r\nShow piece values for position"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9523,7 +9543,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n domyślna prędkość = 100, głos=0\n Esc, aby zatrzymać, przestrzeń do wstrzymania\nCzytaj pozycję",
     "extendedInteractiveLessonFlow.spaceRetry": "Ponów w kosmosie",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Polecenie: pokaż wartości elementów dla pozycji",
+    "pieceValueCommand.helpText": "/sztucevalue\r\nPokaż wartości elementów dla pozycji"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10389,7 +10411,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocidade padrão = 100, voice=0\n Esc para parar, Espaço para pausar\nLer posição",
     "extendedInteractiveLessonFlow.spaceRetry": "Repetir no Espaço",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Comando: mostrar valores de partes para a posição",
+    "pieceValueCommand.helpText": "/piecevalue\r\nMostrar valores de partes para a posição"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11255,7 +11279,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocidade padrão = 100, voice=0\n Esc para parar, Espaço para pausar\nLer posição",
     "extendedInteractiveLessonFlow.spaceRetry": "Repetir no Espaço",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Comando: mostrar valores de partes para a posição",
+    "pieceValueCommand.helpText": "/piecevalue\r\nMostrar valores de partes para a posição"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12121,7 +12147,9 @@
     "readPositionCommand.helpText": "/readposition [viteză] [voce]\n viteza standard = 100, voce=0\n Esc pentru stop, Space pentru pauză\nCiteşte poziția",
     "extendedInteractiveLessonFlow.spaceRetry": "Restart la Space",
     "mobileExperience.tapDrag": "Atinge și trage",
-    "mobileExperienceRound.tapDragRound": "Atinge și trage"
+    "mobileExperienceRound.tapDragRound": "Atinge și trage",
+    "options.pieceValueCommand": "Comandă: arată valorile pieselor pentru poziție",
+    "pieceValueCommand.helpText": "/piecevalue\nArată valorile pieselor pentru poziție"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -12987,7 +13015,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n по умолчанию скорость = 100, голос=0\n Esc остановить, Пространство для паузы\nЧтение позиции",
     "extendedInteractiveLessonFlow.spaceRetry": "Повторить в Пространстве",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Команда: показывать значения деталей для позиции",
+    "pieceValueCommand.helpText": "/piecevalue\r\nПоказать значения части позиции"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13853,7 +13883,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n velocidad predeterminada = 100, voice=0\n Esc para parar, Espacio para pausar\nLeer posición",
     "extendedInteractiveLessonFlow.spaceRetry": "Reintentar en el espacio",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Comando: mostrar los valores de las piezas para la posición",
+    "pieceValueCommand.helpText": "/piecevalue\r\nMuestra los valores de las piezas para la posición"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14719,7 +14751,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
     "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Command: show piece values for position",
+    "pieceValueCommand.helpText": "/piecevalue\r\nShow piece values for position"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15585,7 +15619,9 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
     "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Command: show piece values for position",
+    "pieceValueCommand.helpText": "/piecevalue\r\nShow piece values for position"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16451,6 +16487,8 @@
     "readPositionCommand.helpText": "/readposition [speed] [voice]\n default speed = 100, voice=0\n Esc to stop, Space to pause\nRead position",
     "extendedInteractiveLessonFlow.spaceRetry": "Retry on Space",
     "mobileExperience.tapDrag": "Tap&Drag",
-    "mobileExperienceRound.tapDragRound": "Tap&Drag"
+    "mobileExperienceRound.tapDragRound": "Tap&Drag",
+    "options.pieceValueCommand": "Command: show piece values for position",
+    "pieceValueCommand.helpText": "/piecevalue\r\nShow piece values for position"
   }
 }

@@ -168,6 +168,7 @@
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
+        "tools/pieceValueCommand/tool.js",
         "tools/copyPgnCommand/tool.js",
         "tools/readGameCommand/tool.js",
         "tools/readPositionCommand/tool.js",
@@ -294,6 +295,7 @@
         "tools/tvOptions/tool.css",
 
         "tools/hideBoardCommand/tool.css",
+        "tools/pieceValueCommand/tool.css",
 
         "tools/puzzleIndex/tool.css",
 

@@ -893,7 +893,7 @@
       this.writeNote(trans.pluralSame('evaluatingGames', games.length));
       await lt.timeout(0);
 
-      const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 16;
+      const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 20;
       console.debug('Evaluating with level ', depth);
       const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
 
@@ -952,7 +952,7 @@
             if (this._cancelRequested) {
               break;
             }
-            sf.stop();
+            await sf.stop();
             const side = node.data.fen.split(' ')[1] == 'b' ? -1 : 1;
             const evalText = "eval: " + (info.mate!==undefined ? '#' + (side * info.mate) : ((side * info.cp) > 0 ? '+' : '') + (side * info.cp / 100).toFixed(decimals));
             node.data.comments = [...comments, evalText];

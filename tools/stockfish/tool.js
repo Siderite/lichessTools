@@ -82,11 +82,13 @@
       this.restartDebounced = this.lt.debounce(this.restart, 500, { defer:true });
     }
 
-    async load() {
+    async load(useBetterEngine) {
       const lichess = this.lt.lichess;
       let engineId;
       let engineRoot;
-      const useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) >= 4;
+      if (useBetterEngine === undefined) {
+        useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) >= 4;
+      }
       if (useBetterEngine) {
         engineId = '__sf17_1nnue79';
         engineRoot = 'sf171-79.js';
@@ -206,9 +208,9 @@
       this.restartDebounced();
     }
 
-    restart() {
-      if (!this._isStarted) return;
-      this.start();
+    async restart() {
+      if (this._isStarted) return;
+      await this.start();
     }
 
     start() {
@@ -218,6 +220,7 @@
         return;
       }
       this.postMessage('stop');
+      this._isStarted = false;
       //this.postMessage('ucinewgame');
       //this.postMessage('setoption name UCI_AnalyseMode value true');
       this.postMessage('setoption name UCI_Elo value 3190');
@@ -228,9 +231,13 @@
       this.lt.debug && this.lt.global.console.debug('SF', 'Engine started');
     }
 
-    stop() {
+    async stop() {
       const sf = this._instance;
       sf?.postMessage('stop');
+      let k=0;
+      while (this._isStarted && k++<6) {
+        await this.lt.timeout(50);
+      }
       this._isStarted = false;
     }
 
@@ -254,7 +261,11 @@
         this._uciok = true;
         return;
       }
-      if (/^(info|bestmove)/.test(data)) {
+      const m = /^(info|bestmove)/.exec(data);
+      if (m) {
+        if (m[1]=='bestmove') {
+          this._isStarted = false;
+        }
         const splits = data.split(' ');
         let arr = null;
         const info = {};

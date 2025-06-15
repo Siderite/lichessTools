@@ -174,7 +174,7 @@
       const node = analysis.node;
 
       if (node.glyphs?.length) return;
-      const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 16;
+      const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 20;
       this.info=null;
 
       let side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
@@ -193,7 +193,7 @@
         while (!this.info && !this.stopCeval && analysis.node === node) {
           await lt.timeout(100);
         }
-        sf.stop();
+        await sf.stop();
       }
 
       if (!this.info) return;

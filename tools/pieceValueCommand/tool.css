@@ -1,0 +1,41 @@
+body.lichessTools piece[data-eval]:after {
+  content: attr(data-eval);
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 1px 1px 0 var(--lt-shadow), -1px -1px 0 var(--lt-shadow), 1px -1px 0 var(--lt-shadow), -1px 1px 0 var(--lt-shadow),
+               2px 2px 0 var(--lt-shadow), -2px -2px 0 var(--lt-shadow), 2px -2px 0 var(--lt-shadow), -2px 2px 0 var(--lt-shadow);
+  color: var(--lt-text);
+}
+
+body.lichessTools piece.black[data-eval] {
+  --lt-shadow: black;
+  --lt-text: white;
+}
+
+body.lichessTools piece.white[data-eval] {
+  --lt-shadow: white;
+  --lt-text: black
+}
+
+body.lichessTools piece.lichessTools-terriblePiece {
+  --lt-scale: 0.8;
+  transition: transform 0.3s ease;
+}
+
+body.lichessTools piece.lichessTools-badPiece {
+  --lt-scale: 0.9;
+  transition: transform 0.3s ease;
+}
+
+body.lichessTools piece.lichessTools-goodPiece {
+  --lt-scale: 1.1;
+  transition: transform 0.3s ease;
+}
+
+body.lichessTools piece.lichessTools-greatPiece {
+  --lt-scale: 1.2;
+  transition: transform 0.3s ease;
+}

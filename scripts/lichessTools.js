@@ -1305,6 +1305,32 @@
       return result;
     };
 
+    getFenFromBoard = (board) => {
+      let fen = '';
+      for (let i = 0; i < 8; i++) {
+        let emptyCount = 0;
+        for (let j = 0; j < 8; j++) {
+          const piece = board[i][j];
+          if (!piece) {
+            emptyCount++;
+          } else {
+            if (emptyCount > 0) {
+              fen += emptyCount;
+              emptyCount = 0;
+            }
+            fen += piece;
+          }
+        }
+        if (emptyCount > 0) {
+          fen += emptyCount;
+        }
+        if (i < 7) {
+          fen += '/';
+        }
+      }
+      return fen;
+    };
+
     reverseFen = (fen) => {
       if (!fen) return fen;
 
@@ -1441,6 +1467,13 @@
       return this.global.Math.random().toString(36).slice(2, 12);
     };
 
+    arrayShuffle = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(this.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
 
     jsonParse = (funcOrText, defaultValue) => {
       const console = this.global.console;

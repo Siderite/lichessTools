@@ -131,6 +131,7 @@ lichessTools.loadTool(LiChessTools.Tools.BetterBestArrow);
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
+lichessTools.loadTool(LiChessTools.Tools.PieceValueCommand);
 lichessTools.loadTool(LiChessTools.Tools.CopyPgnCommand);
 lichessTools.loadTool(LiChessTools.Tools.ReadGameCommand);
 lichessTools.loadTool(LiChessTools.Tools.ReadPositionCommand);

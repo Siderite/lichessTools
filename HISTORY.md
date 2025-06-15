@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Jun
+
+- /piecevalue command
+
 13 Jun
 
 - Retry on Space flow option in Interactive Lessons
