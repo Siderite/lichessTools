@@ -78,10 +78,8 @@
       const sf=await this.getEngine();
       const baseEval = await this.getEval(fen, sf);
       const board = lt.getBoardFromFen(fen);
-      const vals = [];
-      for (let i = 0; i < 8; i++) vals.push(Array(8));
-      if (this.currentFen == fen) return;
-      this.currentFen = fen;
+      if (this.lastProcessedFen == fen) return;
+      this.lastProcessedFen = fen;
       const pieces = $('cg-container piece').get();
       lt.arrayShuffle(pieces);
       for (const e of pieces) {
@@ -108,7 +106,6 @@
           $(e).attr('style',newStyle);
         }
         const val = await this.getEval(pfen, sf);
-        vals[y][x] = val-baseEval;
         const pieceValue = Math.round(2*Math.abs(val-baseEval)/100)/2;
         const text = String(pieceValue);
         const defaultValue = this.pieceValues[ch.toLowerCase()];
@@ -120,9 +117,8 @@
           .toggleClassSafe('lichessTools-greatPiece',q>1.5);
         $(e).attrSafe('data-eval',text);
       }
-      console.debug(this.getTable(vals));
       this.current = null;
-      this.sf.destroy();
+      this.sf?.destroy();
       this.sf = null;
     };
 
@@ -147,7 +143,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
-      if (this.currentFen == analysis.node.fen) return;
+      if (this.lastProcessedFen == analysis.node.fen) return;
       this.clearValues();
     };
 
@@ -155,7 +151,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       this.current = null;
-      this.currentFen = null;
+      this.lastProcessedFen = null;
       this.info = null;
       this.lastInfo = null;
       $('piece')
@@ -164,32 +160,6 @@
         .toggleClassSafe('lichessTools-badPiece',false)
         .toggleClassSafe('lichessTools-goodPiece',false)
         .toggleClassSafe('lichessTools-greatPiece',false)
-    };
-
-    getTable = (arr) => {
-      const lt = this.lichessTools;
-      const invert = lt.lichess.analysis.getOrientation() == 'black';
-      const maxLength = Math.max(...arr.flat().map(item => String(item).length));
-
-      let table = '';
-      table += '+' + '-'.repeat(maxLength*8+7) + '+\n';
-
-      const rows = [...arr];
-      if (invert) rows.reverse();    
-      rows.forEach(row => {
-        table += '|';
-        const pieces = [...row];
-        if (invert) pieces.reverse();
-        pieces.forEach(item => {
-          const str = item === undefined ? '' : String(item);
-          const pre = Math.floor((maxLength-str.length)/2);
-          table += (' '.repeat(pre)+str).padEnd(maxLength) + '|';
-        });
-        table += '\n';
-        table += '+' + '-'.repeat(maxLength*8+7) + '+\n';
-      });
-    
-      return table;
     };
 
     async start() {

@@ -1,5 +1,6 @@
 body.lichessTools piece[data-eval]:after {
   content: attr(data-eval);
+  font-size: 1.25em;
   position: absolute;
   z-index: 100;
   left: 50%;
@@ -22,20 +23,16 @@ body.lichessTools piece.white[data-eval] {
 
 body.lichessTools piece.lichessTools-terriblePiece {
   --lt-scale: 0.8;
-  transition: transform 0.3s ease;
 }
 
 body.lichessTools piece.lichessTools-badPiece {
   --lt-scale: 0.9;
-  transition: transform 0.3s ease;
 }
 
 body.lichessTools piece.lichessTools-goodPiece {
   --lt-scale: 1.1;
-  transition: transform 0.3s ease;
 }
 
 body.lichessTools piece.lichessTools-greatPiece {
   --lt-scale: 1.2;
-  transition: transform 0.3s ease;
 }

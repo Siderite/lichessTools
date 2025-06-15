@@ -48,25 +48,34 @@ cash.single = function (selector, context) {
 };
 
 cash.fn.attrSafe = function(attr,value) {
-  if (this.attr(attr)!==value) {
-    this.attr(attr,value);
-  }
+  this.each((i,e)=>{
+    if (cash(e).attr(attr)!==value) {
+      cash(e).attr(attr,value);
+    }
+  });
   return this;
 }
 
 cash.fn.removeAttrSafe = function(attr) {
-  if (this.attr(attr)) {
-    this.removeAttr(attr);
-  }
+  this.each((i,e)=>{
+    if (cash(e).attr(attr)) {
+      cash(e).removeAttr(attr);
+    }
+  });
   return this;
 }
 
 cash.fn.toggleClassSafe = function(className, value) {
-  const existing = this.hasClass(className);
-  if (value === undefined) value = !existing;
-  if (existing !== value) {
-    this.toggleClass(className, value);
+  if (value === undefined && this.length>2)  {
+    throw new Error('Cannot use toggleClassSafe with undefined value for multiple elements');
   }
+  this.each((i,e)=>{
+    const existing = cash(e).hasClass(className);
+    if (value === undefined) value = !existing;
+    if (existing !== value) {
+      cash(e).toggleClass(className, value);
+    }
+  });
   return this;
 }
 
