@@ -8,7 +8,7 @@
         name: 'analysisContextActions',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['copyPgn', 'moveEval', 'showTranspos', 'removeSuperfluous', 'showOnEmpty', 'reorderVariations', 'positionInfo'],
+        possibleValues: ['copyPgn', 'moveEval', 'showTranspos', 'removeSuperfluous', 'showOnEmpty', 'reorderVariations', 'positionInfo', 'lineEval'],
         defaultValue: 'copyPgn,moveEval,removeSuperfluous,showOnEmpty,reorderVariations'
       }
     ];
@@ -23,6 +23,7 @@
         'options.analysisContextActions': 'Extra context menu options',
         'analysisContextActions.copyPgn': 'Copy branch as PGN',
         'analysisContextActions.moveEval': 'Engine evaluation for last moves',
+        'analysisContextActions.lineEval': 'Engine evaluation for previous moves',
         'analysisContextActions.showTranspos': 'Highlight all transpositions',
         'analysisContextActions.removeSuperfluous': 'Remove superfluous entries',
         'analysisContextActions.showOnEmpty': 'Show context menu when no moves',
@@ -42,6 +43,8 @@
         'evaluateTerminationsText': 'Evaluate terminating moves',
         'evaluateTerminationsTitle': 'LiChess Tools - add evaluation comment to all branch terminating moves',
         'evaluateTerminationsStarted': 'Evaluation commenting started: %s',
+        'evaluateLineText': 'Evaluate previous moves',
+        'evaluateLineTitle': 'LiChess Tools - evaluate all previous moves',
         'showTransposText': 'Highlight all transpositions',
         'showTransposTitle': 'LiChess Tools - highlight all transpositions',
         'bumpUpVariationText': 'Bump up',
@@ -61,6 +64,7 @@ Following branches: $branches`
         'options.analysisContextActions': 'Op\u0163iuni \u00een plus \u00een meniul context',
         'analysisContextActions.copyPgn': 'Copiaz\u0103 varia\u0163ia ca PGN',
         'analysisContextActions.moveEval': 'Evaluare mut\u0103ri finale',
+        'analysisContextActions.lineEval': 'Evaluare mut\u0103ri precedente',
         'analysisContextActions.showTranspos': 'Arat\u0103 toate transpozi\u0163iile',
         'analysisContextActions.removeSuperfluous': 'Elimin\u0103 ce e \u00een plus',
         'analysisContextActions.showOnEmpty': 'Arat\u0103 meniul context c\u00E2nd nu sunt mut\u0103ri',
@@ -80,6 +84,8 @@ Following branches: $branches`
         'evaluateTerminationsText': 'Evalueaz\u0103 mut\u0103rile finale',
         'evaluateTerminationsTitle': 'LiChess Tools - adaug\u0103 comentarii cu evaluarea mut\u0103rilor finale din fiecare ramur\u0103',
         'evaluateTerminationsStarted': 'Comentarea cu evalu\u0103ri pornit\u0103: %s',
+        'evaluateLineText': 'Evalueaz\u0103 mut\u0103rile precedente',
+        'evaluateLineTitle': 'LiChess Tools - evalueaz\u0103 toate mut\u0103rile precedente',
         'showTransposText': 'Arat\u0103 toate transpozi\u0163iile',
         'showTransposTitle': 'LiChess Tools - arat\u0103 toate transpozi\u0163iile',
         'bumpUpVariationText': 'Urc\u0103',
@@ -156,7 +162,7 @@ Varia\u0163ii urm\u0103toare: $branches`
     };
 
     addEvalComment = (node, ceval) => {
-      if (!this.evaluateTerminationsStarted) return;
+      if (!this.evaluateTerminationsStarted && !this.evaluateLineStarted) return;
       if (!ceval) return;
       const lt = this.lichessTools;
       const Math = lt.global.Math;
@@ -166,20 +172,50 @@ Varia\u0163ii urm\u0103toare: $branches`
       const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
       const evalText = "eval: " + (ceval.mate ? '#' + ceval.mate : (ceval.cp > 0 ? '+' : '') + (ceval.cp / 100).toFixed(decimals));
       const cur = analysis.study.currentChapter();
-      node.terminationEvaluated = Date.now();
       if (node.path === undefined) return;
       lt.saveComment(evalText, node.path);
-      this.doEvaluation();
     };
 
     setTerminationsEvaluation = (value) => {
-      if (this.evaluateTerminationsStarted == value) return;
       const lt = this.lichessTools;
       const $ = lt.$;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      if (this.evaluateLineStarted) {
+        if (analysis.ceval.enabled()) {
+          analysis.toggleCeval();
+        }
+        this.setLineEvaluation(false);
+        return;
+      }
+      if (!!this.evaluateTerminationsStarted == !!value) return;
       this.evaluateTerminationsStarted = value;
       $.cached('body').toggleClass('lichessTools-evaluationStarted', !!value);
       if (!value) {
-        this.evaluateTerminationsTotal = 0;
+        this.evaluatedNodesTotal = 0;
+        $('.lichessTools-liveStatus label').text('');
+        this._analysedNode = null;
+      }
+    };
+
+    setLineEvaluation = (value, path) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      if (this.evaluateTerminationsStarted) {
+        if (analysis.ceval.enabled()) {
+          analysis.toggleCeval();
+        }
+        this.setTerminationsEvaluation(false);
+        return;
+      }
+      if (!!this.evaluateLineStarted == !!value) return;
+      this.evaluateLinePath = value ? path : null;
+      this.evaluateLineStarted = value;
+      $.cached('body').toggleClass('lichessTools-evaluationStarted', !!value);
+      if (!value) {
+        this.evaluatedNodesTotal = 0;
         $('.lichessTools-liveStatus label').text('');
         this._analysedNode = null;
       }
@@ -192,18 +228,25 @@ Varia\u0163ii urm\u0103toare: $branches`
       const trans = lt.translator;
       const analysis = lichess.analysis;
       const study = analysis?.study;
-      if (!this.evaluateTerminationsStarted) return;
-      if (!study || !lt.isTreeviewVisible()) return;
+      if (!this.evaluateTerminationsStarted && !this.evaluateLineStarted) return;
+      if (!lt.isTreeviewVisible()) return;
+      if (!study && this.evaluateTerminationsStarted) return;
       if (!analysis.ceval.enabled() || analysis.threatMode()) {
         this.setTerminationsEvaluation(false);
+        this.setLineEvaluation(false);
         return;
       }
       this.state = lt.traverse();
-      const nodes = this.state.lastMoves.filter(n => n.id && !n.isCommentedOrMate && (!n.terminationEvaluated || Date.now() - n.terminationEvaluated > 10000));
-      if (!this.evaluateTerminationsTotal) this.evaluateTerminationsTotal = nodes.length;
-      const percent = (this.evaluateTerminationsTotal - nodes.length) + '/' + this.evaluateTerminationsTotal;
+      let nodes = this.evaluateLineStarted
+        ? analysis.tree.getNodeList(this.evaluateLinePath)
+        : this.state.lastMoves;
+      nodes = nodes.filter(n => n.id && !n.isCommentedOrMate && (!n.nodeEvaluated || Date.now() - n.nodeEvaluated > 10000));
+      if (!this.evaluatedNodesTotal || this.evaluatedNodesTotal < nodes.length) {
+        this.evaluatedNodesTotal = nodes.length;
+      }
+      const percent = (this.evaluatedNodesTotal - nodes.length) + '/' + this.evaluatedNodesTotal;
       const liveStatus = trans.pluralSame('evaluateTerminationsStarted', percent);
-      if (this.options.moveEval && analysis.study && !$('div.lichessTools-liveStatus').length) {
+      if (((this.options.moveEval && study) || this.options.lineEval) && !$('div.lichessTools-liveStatus').length) {
         $('main.analyse div.analyse__controls.analyse-controls')
           .after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
       }
@@ -211,6 +254,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       const node = nodes[0];
       if (!node) {
         this.setTerminationsEvaluation(false);
+        this.setLineEvaluation(false);
         if (analysis.ceval.enabled()) {
           analysis.toggleCeval();
         }
@@ -250,6 +294,33 @@ Varia\u0163ii urm\u0103toare: $branches`
       this.doEvaluation();
     };
 
+    evaluateLine = async (ev) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const announce = lt.announce;
+      const trans = lt.translator;
+      const analysis = lichess.analysis;
+      const customEngineDepth = lt.currentOptions.getValue('customEngineLevel');
+      if (ev) ev.preventDefault();
+      if (!lt.isTreeviewVisible()) return;
+      if (this.evaluateLineStarted) {
+        this.setLineEvaluation(false);
+        return;
+      }
+      if (analysis.threatMode()) {
+        analysis.threatMode(false);
+      }
+      if (!customEngineDepth) {
+        const dependsOnCustomEngineDepth = trans.noarg('setCustomEngineDepth');
+        announce(dependsOnCustomEngineDepth);
+        return;
+      }
+      this.setLineEvaluation(true, analysis.contextMenuPath);
+      await this.ensureCevalRunning()
+      this.doEvaluation();
+    };
+
     ensureCevalRunning = () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -257,7 +328,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       const setTimeout = lt.global.setTimeout;
 
       const checkState = (resolve) => {
-        if (!this.evaluateTerminationsStarted) return;
+        if (!this.evaluateTerminationsStarted && !this.evaluateLineStarted) return;
         if (!analysis?.ceval?.allowed()) {
           return;
         }
@@ -407,6 +478,19 @@ Varia\u0163ii urm\u0103toare: $branches`
           .appendTo(menu);
       }
 
+      if (this.options.lineEval
+        && $('.analyse__tools > .ceval').length
+        && !menu.has('a[data-role="evaluateLine"]').length) {
+        const text = trans.noarg('evaluateLineText');
+        const title = trans.noarg('evaluateLineTitle');
+        $('<a>')
+          .attr('data-icon', lt.icon.LineGraph)
+          .attr('data-role', 'evaluateLine')
+          .text(text).attr('title', title)
+          .on('click', this.evaluateLine)
+          .appendTo(menu);
+      }
+
       if (this.options.showTranspos
         && !menu.has('a[data-role="showTranspos"]').length) {
         const text = trans.noarg('showTransposText');
@@ -507,19 +591,25 @@ Varia\u0163ii urm\u0103toare: $branches`
       const ceval = analysis.ceval;
       if (!ceval.enabled() || analysis.threatMode()) {
         this.setTerminationsEvaluation(false);
+        this.setLineEvaluation(false);
         return;
       }
       if (this._analysedNode && analysis.node != this._analysedNode) {
         this.setTerminationsEvaluation(false);
+        this.setLineEvaluation(false);
         return;
       }
       const state = ceval.state;
       const isIdle = state == 0 || state == 2 || ceval.showingCloud;
       const isRunning = state == 3 && !ceval.showingCloud;
-      if (this.evaluateTerminationsStarted) {
+      if (this.evaluateTerminationsStarted || this.evaluateLineStarted) {
         const node = this._analysedNode;
         if (node?.ceval?.depth > customEngineDepth || (node?.ceval?.depth == customEngineDepth && isIdle)) {
-          this.addEvalComment(node, node.ceval);
+          if (this.evaluateTerminationsStarted) {
+            this.addEvalComment(node, node.ceval);
+          }
+          node.nodeEvaluated = Date.now();
+          this.doEvaluation();
         }
       }
     };
@@ -554,12 +644,13 @@ Varia\u0163ii urm\u0103toare: $branches`
       this.options = {
         copyPgn: lt.isOptionSet(value, 'copyPgn'),
         moveEval: lt.isOptionSet(value, 'moveEval'),
+        lineEval: lt.isOptionSet(value, 'lineEval'),
         showTranspos: lt.isOptionSet(value, 'showTranspos'),
         removeSuperfluous: lt.isOptionSet(value, 'removeSuperfluous'),
         showOnEmpty: lt.isOptionSet(value, 'showOnEmpty'),
         reorderVariations: lt.isOptionSet(value, 'reorderVariations'),
         positionInfo: lt.isOptionSet(value, 'positionInfo'),
-        get isSet() { return this.copyPgn || this.moveEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; },
+        get isSet() { return this.copyPgn || this.moveEval || this.lineEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; },
         autoExpand: lt.isOptionSet(lt.currentOptions.getValue('expandAll'), 'autoExpand')
       };
       clearInterval(this.engineCheckInterval);
@@ -575,8 +666,9 @@ Varia\u0163ii urm\u0103toare: $branches`
         this.engineCheckInterval = setInterval(this.checkEngineLevel, 1000);
       } else {
         this.setTerminationsEvaluation(false);
+        this.setLineEvaluation(false);
       }
-      if (this.options.moveEval && analysis.study && !$('div.lichessTools-liveStatus').length) {
+      if (((this.options.moveEval && analysis.study) || this.options.lineEval) && !$('div.lichessTools-liveStatus').length) {
         $('main.analyse div.analyse__controls.analyse-controls')
           .after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
       }

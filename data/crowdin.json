@@ -865,7 +865,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "الأمر: إظهار قيم القطعة للموقع",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nإظهار قيم القطع للموقع"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nإظهار قيم القطع للموقع",
+    "analysisContextActions.lineEval": "تقييم المحركات للتحركات السابقة",
+    "evaluateLineText": "تقييم التحركات السابقة",
+    "evaluateLineTitle": "أدوات شطرنج الحياة - تقييم جميع التحركات السابقة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1733,7 +1736,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "命令：显示位置的块值",
-    "pieceValueCommand.helpText": "/zit evalue [depth=20]\n显示位置的块值"
+    "pieceValueCommand.helpText": "/zit evalue [depth=20]\n显示位置的块值",
+    "analysisContextActions.lineEval": "对以往动作的引擎评估",
+    "evaluateLineText": "评估先前的动作",
+    "evaluateLineTitle": "LiChess工具 - 计算所有以前的动作"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2601,7 +2607,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Command: show piece values for position",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position",
+    "analysisContextActions.lineEval": "Engine evaluation for previous moves",
+    "evaluateLineText": "Evaluate previous moves",
+    "evaluateLineTitle": "LiChess Tools - evaluate all previous moves"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3469,7 +3478,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Commando: toon stuk waarden voor positie",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nToon stukwaarden voor de positie"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nToon stukwaarden voor de positie",
+    "analysisContextActions.lineEval": "Engine evaluatie voor vorige zetten",
+    "evaluateLineText": "Eerdere zetten evalueren",
+    "evaluateLineTitle": "LiChess Tools - evaluatie van alle vorige zetten"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4337,7 +4349,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Command: show piece values for position",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position",
+    "analysisContextActions.lineEval": "Engine evaluation for previous moves",
+    "evaluateLineText": "Evaluate previous moves",
+    "evaluateLineTitle": "LiChess Tools - evaluate all previous moves"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5205,7 +5220,10 @@
     "mobileExperience.tapDrag": "Tapoter&Glisser",
     "mobileExperienceRound.tapDragRound": "Tapoter&Glisser",
     "options.pieceValueCommand": "Commande : afficher la valeur des pièces dans la position",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nAfficher la valeur des pièces dans la position"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nAfficher la valeur des pièces dans la position",
+    "analysisContextActions.lineEval": "Évaluation du moteur pour les coups précédents",
+    "evaluateLineText": "Évaluer les coups précédents",
+    "evaluateLineTitle": "Outils LiChess - Évaluez tous les coups précédents"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6073,7 +6091,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Befehl: Zeige Stückwerte für Position",
-    "pieceValueCommand.helpText": "/piecevalue [Tiefe=20]\nStückwerte für Position anzeigen"
+    "pieceValueCommand.helpText": "/piecevalue [Tiefe=20]\nStückwerte für Position anzeigen",
+    "analysisContextActions.lineEval": "Auswertung der Engine für vorherige Schritte",
+    "evaluateLineText": "Vorherige Schritte bewerten",
+    "evaluateLineTitle": "LiChess Tools - bewerte alle vorherigen Schritte"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6941,7 +6962,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Command: show piece values for position",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position",
+    "analysisContextActions.lineEval": "Engine evaluation for previous moves",
+    "evaluateLineText": "Evaluate previous moves",
+    "evaluateLineTitle": "LiChess Tools - evaluate all previous moves"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7809,7 +7833,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Comando: mostra valori del pezzo per la posizione",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nMostra i valori del pezzo per la posizione"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nMostra i valori del pezzo per la posizione",
+    "analysisContextActions.lineEval": "Valutazione del motore per le mosse precedenti",
+    "evaluateLineText": "Valuta le mosse precedenti",
+    "evaluateLineTitle": "Strumenti LiChess - valutare tutte le mosse precedenti"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8677,7 +8704,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Command: show piece values for position",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position",
+    "analysisContextActions.lineEval": "Engine evaluation for previous moves",
+    "evaluateLineText": "Evaluate previous moves",
+    "evaluateLineTitle": "LiChess Tools - evaluate all previous moves"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9545,7 +9575,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Polecenie: pokaż wartości elementów dla pozycji",
-    "pieceValueCommand.helpText": "/sztucevalue [depth=20]\nPokaż wartości części dla pozycji"
+    "pieceValueCommand.helpText": "/sztucevalue [depth=20]\nPokaż wartości części dla pozycji",
+    "analysisContextActions.lineEval": "Ocena silnika w odniesieniu do poprzednich ruchów",
+    "evaluateLineText": "Oceń poprzednie ruchy",
+    "evaluateLineTitle": "Narzędzia LiChess - oceń wszystkie poprzednie ruchy"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10413,7 +10446,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Comando: mostrar valores de partes para a posição",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nMostrar valores de partes para a posição"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nMostrar valores de partes para a posição",
+    "analysisContextActions.lineEval": "Avaliação de motor de movimentos anteriores",
+    "evaluateLineText": "Avaliar movimentos anteriores",
+    "evaluateLineTitle": "Ferramentas LiChess - avaliar todos os movimentos anteriores"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11281,7 +11317,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Comando: mostrar valores de partes para a posição",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nMostrar valores de partes para a posição"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nMostrar valores de partes para a posição",
+    "analysisContextActions.lineEval": "Avaliação de motor de movimentos anteriores",
+    "evaluateLineText": "Avaliar movimentos anteriores",
+    "evaluateLineTitle": "Ferramentas LiChess - avaliar todos os movimentos anteriores"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12149,7 +12188,10 @@
     "mobileExperience.tapDrag": "Atinge și trage",
     "mobileExperienceRound.tapDragRound": "Atinge și trage",
     "options.pieceValueCommand": "Comandă: arată valorile pieselor pentru poziție",
-    "pieceValueCommand.helpText": "/piecevalue [adâncime=20]\nArată valorile piesei pentru poziție"
+    "pieceValueCommand.helpText": "/piecevalue [adâncime=20]\nArată valorile piesei pentru poziție",
+    "analysisContextActions.lineEval": "Evaluare mutări precedente",
+    "evaluateLineText": "Evaluează mutările precedente",
+    "evaluateLineTitle": "LiChess Tools - evaluează toate mutările precedente"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13017,7 +13059,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Команда: показывать значения деталей для позиции",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nПоказать значения деталей для позиции"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nПоказать значения деталей для позиции",
+    "analysisContextActions.lineEval": "Оценка двигателя для предыдущих ходов",
+    "evaluateLineText": "Оценить предыдущие ходы",
+    "evaluateLineTitle": "Инструменты Жизни - оценить все предыдущие ходы"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13885,7 +13930,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Comando: mostrar los valores de las piezas para la posición",
-    "pieceValueCommand.helpText": "/piecevalue [profundth=20]\nMuestra los valores de las piezas para la posición"
+    "pieceValueCommand.helpText": "/piecevalue [profundth=20]\nMuestra los valores de las piezas para la posición",
+    "analysisContextActions.lineEval": "Evaluación del motor de movimientos anteriores",
+    "evaluateLineText": "Evaluar movimientos anteriores",
+    "evaluateLineTitle": "Herramientas de LiChess - evaluar todas las jugadas anteriores"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14753,7 +14801,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Command: show piece values for position",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position",
+    "analysisContextActions.lineEval": "Engine evaluation for previous moves",
+    "evaluateLineText": "Evaluate previous moves",
+    "evaluateLineTitle": "LiChess Tools - evaluate all previous moves"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15621,7 +15672,10 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Command: show piece values for position",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position",
+    "analysisContextActions.lineEval": "Engine evaluation for previous moves",
+    "evaluateLineText": "Evaluate previous moves",
+    "evaluateLineTitle": "LiChess Tools - evaluate all previous moves"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16489,6 +16543,9 @@
     "mobileExperience.tapDrag": "Tap&Drag",
     "mobileExperienceRound.tapDragRound": "Tap&Drag",
     "options.pieceValueCommand": "Command: show piece values for position",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position"
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nShow piece values for position",
+    "analysisContextActions.lineEval": "Engine evaluation for previous moves",
+    "evaluateLineText": "Evaluate previous moves",
+    "evaluateLineTitle": "LiChess Tools - evaluate all previous moves"
   }
 }

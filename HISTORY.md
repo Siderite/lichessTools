@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Jun
+
+- evaluate previous moves menu
+- friends button on mobile
+
 15 Jun
 
 - /piecevalue command
