@@ -642,8 +642,9 @@
       const trans = lt.translator;
       const $ = lt.$;
       if (!$('#dasher_app a.lichessTools-preferences').length) {
+        const isLoggedIn = !!lt.getUserId();
         const elem = $('<a class="text lichessTools-preferences">')
-          .attr('data-icon', lt.icon.LightVerticalAndBottomRight)
+          .attr('data-icon', isLoggedIn ? lt.icon.LightVerticalAndBottomRight : lt.icon.Gear)
           .attr('href', '/team/all#lichessTools')
           .text(trans.noarg('lichessTools'))
           .attr('title', trans.noarg('lichessToolsPreferences'));
