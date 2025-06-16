@@ -4932,7 +4932,7 @@
     "trapValueCommand.valueText": "Valeur du piège : %s",
     "options.copyPgnCommand": "Commande : copier les coups dans le presse-papiers",
     "options.readGameCommand": "Commande : lire les coups de la partie à partir d'ici",
-    "readGameCommand.helpText": "/readgame [speed] [voice] [instrument]\n vitesse par défaut = 100, voix=0, instrument=0\n Esc pour arrêter\nLire les coups de la partie à partir d'ici",
+    "readGameCommand.helpText": "/readgame [speed] [voice] [instrument]\n vitesse par défaut = 100, voix = 0, instrument = 0\n Esc pour arrêter\nLire les coups de la partie à partir d'ici",
     "options.skipMoveCommand": "Commande : changer de côté de jeu",
     "skipMoveCommand.helpText": "/skipmove\nCoup pour les deux joueurs pour \"sauter le coup\"",
     "cannotSkipMove": "Impossible de sauter un coup dans cette position !",
@@ -4958,7 +4958,7 @@
     "restoreButtonText": "Restaurer",
     "restoreButtonTitle": "LiChess Tools - restaurer les préférences à partir d'un fichier",
     "defaultValueLegend": "*Les préférences avec des bordures bleues sont celles activées par défaut",
-    "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: à partir de la position actuelle\n separate : diviser les variantes\n tohere : à la position actuelle\n unicode : caractère de pièce unicode\nCopier les coups dans le presse-papiers",
+    "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen : à partir de la position actuelle\n separate : diviser les variantes\n tohere : à la position actuelle\n unicode : caractère de pièce unicode\nCopier les coups dans le presse-papiers",
     "extractPrompt": "\"fen\"",
     "extractingFens": "Extraire les FENs",
     "options.profileTimeline": "Chronologie dans le profil",
@@ -5200,12 +5200,12 @@
     "betterBestArrow.allMoves": "Pour tous les coups",
     "themes.timeControls": "Cadences",
     "betterBestArrow.justOrientation": "Coups uniquement pour le côté orienté",
-    "readPositionCommand.helpText": "/lire la position [vitesse] [voix]\n vitesse par défaut = 100, voix=0\n Esc pour arrêter, Espace pour mettre en pause\nLire la position",
+    "readPositionCommand.helpText": "/readposition [speed] [voice]\n vitesse par défaut = 100, voix = 0\n Esc pour arrêter, Espace pour mettre en pause\nLire la position",
     "extendedInteractiveLessonFlow.spaceRetry": "Rejouer en appuyant sur Espace",
     "mobileExperience.tapDrag": "Tapoter&Glisser",
     "mobileExperienceRound.tapDragRound": "Tapoter&Glisser",
-    "options.pieceValueCommand": "Commande : afficher les valeurs de la pièce pour la position",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nAfficher les valeurs de la pièce pour la position"
+    "options.pieceValueCommand": "Commande : afficher la valeur des pièces dans la position",
+    "pieceValueCommand.helpText": "/piecevalue [depth=20]\nAfficher la valeur des pièces dans la position"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
