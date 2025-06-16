@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - evaluate previous moves menu
 - friends button on mobile
+- Analysis Board page title from opening name
 
 15 Jun
 
