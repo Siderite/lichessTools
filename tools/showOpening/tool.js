@@ -9,12 +9,8 @@
         category: 'general',
         type: 'multiple',
         possibleValues: ['showInBoard', 'showInMinigames', 'showInExplorer','showInAnalysisTitle'],
-        defaultValue: 'showInBoard,showInMinigames,showInExplorer,showInAnalysisTitle'
+        defaultValue: 'showInBoard,showInMinigames,showInExplorer'
       }
-    ];
-
-    upgrades = [
-      { name:'showOpening', value:'showInAnalysisTitle', version: '2.4.57', type: 'new' }
     ];
 
     intl = {
