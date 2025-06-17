@@ -34,7 +34,8 @@
         'options.stockfish': 'Stockfish',
         'options.stockfish-threads': 'LiChess Tools analysis engine threads',
         'options.stockfish-hash': 'LiChess Tools analysis engine hash (MB)',
-        'couldNotLoadStockfish': 'Could not load Stockfish!'
+        'couldNotLoadStockfish': 'Could not load Stockfish!',
+        'stockfishError': 'Error running StockFish!'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -42,7 +43,8 @@
         'options.stockfish': 'Stockfish',
         'options.stockfish-threads': 'Thread-uri pentru motorul de analiz\u0103 LiChess Tools',
         'options.stockfish-hash': 'Hash pentru motorul de analiz\u0103 LiChess Tools (MB)',
-        'couldNotLoadStockfish': 'Nu am putut \u00eenc\u0103rca Stockfish!'
+        'couldNotLoadStockfish': 'Nu am putut \u00eenc\u0103rca Stockfish!',
+        'stockfishError': 'Eroare rul\u00e2nd StockFish!'
       }
     }
 
@@ -120,6 +122,11 @@
         if (!this._instance) {
           this.lt.debug && this.lt.global.console.debug('SF', 'creating instance...');
           const sf = await this._stockfish();
+          sf.onError = (e)=>{
+            this.lt.global.console.debug('SF error: ',e);
+            this.lt.announce(this.lt.translator.noarg('stockfishError'));
+            this.emit('error',e);
+          };
           if (useBetterEngine) {
             const getBuffer=async (i)=>{
               const nnueFilename = sf.getRecommendedNnue(i);
