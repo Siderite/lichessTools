@@ -641,6 +641,7 @@
       const lt = this.lichessTools;
       const trans = lt.translator;
       const $ = lt.$;
+      if (!$('#dasher_app *').length) return;
       if (!$('#dasher_app a.lichessTools-preferences').length) {
         const isLoggedIn = !!lt.getUserId();
         const elem = $('<a class="text lichessTools-preferences">')
