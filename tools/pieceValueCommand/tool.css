@@ -18,7 +18,15 @@ body.lichessTools piece.black[data-eval] {
 
 body.lichessTools piece.white[data-eval] {
   --lt-shadow: white;
-  --lt-text: black
+  --lt-text: black;
+}
+
+body.lichessTools piece.black.lichessTools-intermediateResult[data-eval] {
+  --lt-text: pink;
+}
+
+body.lichessTools piece.white.lichessTools-intermediateResult[data-eval] {
+  --lt-text: red;
 }
 
 body.lichessTools piece.lichessTools-terriblePiece {
@@ -35,4 +43,13 @@ body.lichessTools piece.lichessTools-goodPiece {
 
 body.lichessTools piece.lichessTools-greatPiece {
   --lt-scale: 1.2;
+}
+
+body.lichessTools .cg-wrap .spinner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(0, 100%);
+  z-index: 1;
+  pointer-events: none;
 }

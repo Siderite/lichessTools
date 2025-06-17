@@ -53,6 +53,7 @@
 
     getEval = async (fen, sf, depth)=>{
       const lt = this.lichessTools;
+      await sf.stop();
       sf.setDepth(depth);
       sf.setPosition(fen);
       this.info=null;
@@ -105,57 +106,72 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const fen = analysis.node.fen;
+      if (this.lastProcessedFen == fen) return;
       const m = /^.*?\s+(.*)$/.exec(fen);
       const suffix = m ? ' '+m[1] : '';
       const sf=await this.getEngine();
-      const baseEval = await this.getEval(fen, sf, depth);
-      const board = lt.getBoardFromFen(fen);
-      if (this.lastProcessedFen == fen) return;
-      this.lastProcessedFen = fen;
-      const pieces = $('cg-container piece').get();
-      lt.arrayShuffle(pieces);
-      for (const e of pieces) {
-        if (analysis.node.fen != fen) {
-          this.clearValues();
-          return;
-        }
-        const key = e.cgKey;
-        if (!key) continue;
-        const x = key.charCodeAt(0)-97;
-        const y = 56-key.charCodeAt(1);
-        const ch = board[y][x];
-        if ([undefined,'k','K'].includes(ch)) continue;
-        board[y][x]=undefined;
-        if (this.invalidBecauseCheck(board,fen.split(' ')[1]=='b')) continue;
-        const pfen = lt.getFenFromBoard(board)+suffix;
-        board[y][x]=ch;
-        this.current = { e, ch, baseEval, fen };
-        const style = $(e).attr('style');
-        const newStyle = style.replaceAll(/transform:([^;]+);/g,(...m)=>{
-          if (m[1].includes('scale')) return m[0];
-          return 'transform: '+m[1]+' scale(var(--lt-scale, 1));';
-        });
-        if (style!=newStyle) {
-          $(e).attr('style',newStyle);
-        }
-        const val = await this.getEval(pfen, sf, depth);
-        this.displayValue(e, val-baseEval, ch);
+      if (!$('.cg-wrap .spinner').length) {
+        $('.cg-wrap').append(lt.spinnerHtml);
       }
-      this.current = null;
-      this.sf?.destroy();
-      this.sf = null;
+      try {
+        this.lastProcessedFen = fen;
+        const board = lt.getBoardFromFen(fen);
+        const pieces = $('cg-container piece').get();
+        lt.arrayShuffle(pieces);
+        const depths = depth>25 ? [14,depth] : [depth];
+        for (const currentDepth of depths) {
+          const baseEval = await this.getEval(fen, sf, currentDepth);
+          for (const e of pieces) {
+            if (analysis.node.fen != fen) {
+              this.current = null;
+              this.sf?.destroy();
+              this.sf = null;
+              this.clearValues();
+              return;
+            }
+            const key = e.cgKey;
+            if (!key) continue;
+            const x = key.charCodeAt(0)-97;
+            const y = 56-key.charCodeAt(1);
+            const ch = board[y][x];
+            if ([undefined,'k','K'].includes(ch)) continue;
+            board[y][x]=undefined;
+            if (this.invalidBecauseCheck(board,fen.split(' ')[1]=='b')) continue;
+            const pfen = lt.getFenFromBoard(board)+suffix;
+            board[y][x]=ch;
+            this.current = { e, ch, baseEval, fen };
+            const style = $(e).attr('style');
+            const newStyle = style.replaceAll(/transform:([^;]+);/g,(...m)=>{
+              if (m[1].includes('scale')) return m[0];
+              return 'transform: '+m[1]+' scale(var(--lt-scale, 1));';
+            });
+            if (style!=newStyle) {
+              $(e).attr('style',newStyle);
+            }
+            const val = await this.getEval(pfen, sf, currentDepth);
+            this.displayValue(e, baseEval-val, ch);
+            this.current = null;
+          }
+        }
+      } finally {
+        this.current = null;
+        this.sf?.destroy();
+        this.sf = null;
+        $('.cg-wrap .spinner').remove();
+      }
     };
 
-    displayValue = (e, val, ch)=>{
+    displayValue = (e, val, ch, intermediate)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const pieceValues = { 'p':0.75, 'r':3.5, 'n':2.5, 'b':2.5, 'q':7.5 };
-      const sgn = ch === ch.toLowerCase() ? 1 : -1;
+      const sgn = ch === ch.toLowerCase() ? -1 : 1;
       const pieceValue = sgn * Math.round(val/10)/10;
       const text = pieceValue.toFixed(1);
       const defaultValue = pieceValues[ch.toLowerCase()];
       const q = pieceValue / defaultValue;
       $(e)
+        .toggleClassSafe('lichessTools-intermediateResult',!!intermediate)
         .toggleClassSafe('lichessTools-terriblePiece',q<=0.5)
         .toggleClassSafe('lichessTools-badPiece',q>0.5 && q<=0.75)
         .toggleClassSafe('lichessTools-goodPiece',q>1.25 && q<=1.5)
@@ -164,12 +180,13 @@
     };
 
     onInfo = async (info)=>{
+      if (!this.current) return;
       const lt = this.lichessTools;
       const $ = lt.$;
       if (!this.current) return;
       const turn = this.current.fen.split(' ')[1]=='b' ? -1 : 1;
-      const val = lt.getCentipawns(info) * turn - this.current.baseEval;
-      this.displayValue(this.current.e, val, this.current.ch);
+      const val = lt.getCentipawns(info) * turn;
+      this.displayValue(this.current.e, this.current.baseEval - val, this.current.ch, true);
     };
 
     handleChange = ()=>{
@@ -189,10 +206,12 @@
       this.lastInfo = null;
       $('piece')
         .removeAttrSafe('data-eval')
+        .toggleClassSafe('lichessTools-intermediateResult',false)
         .toggleClassSafe('lichessTools-terriblePiece',false)
         .toggleClassSafe('lichessTools-badPiece',false)
         .toggleClassSafe('lichessTools-goodPiece',false)
         .toggleClassSafe('lichessTools-greatPiece',false)
+      $('.cg-wrap .spinner').remove();
     };
 
     async start() {
