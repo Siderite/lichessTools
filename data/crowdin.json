@@ -5228,8 +5228,8 @@
     "pieceValueCommand.helpText": "/piecevalue [depth=20]\nAfficher la valeur des pièces dans la position",
     "analysisContextActions.lineEval": "Évaluation du moteur pour les coups précédents",
     "evaluateLineText": "Évaluer les coups précédents",
-    "evaluateLineTitle": "Outils LiChess - Évaluez tous les coups précédents",
-    "showOpening.showInAnalysisTitle": "Dans le titre de la page du tableau d'analyse"
+    "evaluateLineTitle": "LiChess Tools - Évaluer tous les coups précédents",
+    "showOpening.showInAnalysisTitle": "Dans le titre de la page de l'échiquier d'analyse"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
