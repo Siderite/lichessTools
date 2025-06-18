@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+18 Jun
+
+- read last 5 seconds during play
+
 16 Jun
 
 - evaluate previous moves menu

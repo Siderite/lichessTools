@@ -869,7 +869,8 @@
     "analysisContextActions.lineEval": "تقييم المحركات للتحركات السابقة",
     "evaluateLineText": "تقييم التحركات السابقة",
     "evaluateLineTitle": "أدوات شطرنج الحياة - تقييم جميع التحركات السابقة",
-    "showOpening.showInAnalysisTitle": "عنوان صفحة مجلس التحليل"
+    "showOpening.showInAnalysisTitle": "عنوان صفحة مجلس التحليل",
+    "timeAlert.speak5": "قراءة الثواني عندما يكون أقل من 6"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1741,7 +1742,8 @@
     "analysisContextActions.lineEval": "对以往动作的引擎评估",
     "evaluateLineText": "评估先前的动作",
     "evaluateLineTitle": "LiChess工具 - 计算所有以前的动作",
-    "showOpening.showInAnalysisTitle": "在分析板页面标题"
+    "showOpening.showInAnalysisTitle": "在分析板页面标题",
+    "timeAlert.speak5": "不足6秒时读取秒"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2613,7 +2615,8 @@
     "analysisContextActions.lineEval": "Engine evaluation for previous moves",
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
-    "showOpening.showInAnalysisTitle": "In Analysis Board page title"
+    "showOpening.showInAnalysisTitle": "In Analysis Board page title",
+    "timeAlert.speak5": "Read seconds when less than 6"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3485,7 +3488,8 @@
     "analysisContextActions.lineEval": "Engine evaluatie voor vorige zetten",
     "evaluateLineText": "Eerdere zetten evalueren",
     "evaluateLineTitle": "LiChess Tools - evaluatie van alle vorige zetten",
-    "showOpening.showInAnalysisTitle": "In bord van Analyse pagina titel"
+    "showOpening.showInAnalysisTitle": "In bord van Analyse pagina titel",
+    "timeAlert.speak5": "Lees seconden wanneer minder dan 6"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4357,7 +4361,8 @@
     "analysisContextActions.lineEval": "Engine evaluation for previous moves",
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
-    "showOpening.showInAnalysisTitle": "In Analysis Board page title"
+    "showOpening.showInAnalysisTitle": "In Analysis Board page title",
+    "timeAlert.speak5": "Read seconds when less than 6"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5229,7 +5234,8 @@
     "analysisContextActions.lineEval": "Évaluation du moteur pour les coups précédents",
     "evaluateLineText": "Évaluer les coups précédents",
     "evaluateLineTitle": "LiChess Tools - Évaluer tous les coups précédents",
-    "showOpening.showInAnalysisTitle": "Dans le titre de la page de l'échiquier d'analyse"
+    "showOpening.showInAnalysisTitle": "Dans le titre de la page de l'échiquier d'analyse",
+    "timeAlert.speak5": "Lire les secondes quand moins de 6"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6101,7 +6107,8 @@
     "analysisContextActions.lineEval": "Auswertung der Engine für vorherige Schritte",
     "evaluateLineText": "Vorherige Schritte bewerten",
     "evaluateLineTitle": "LiChess Tools - bewerte alle vorherigen Schritte",
-    "showOpening.showInAnalysisTitle": "In AnalyseBoard Seitentitel"
+    "showOpening.showInAnalysisTitle": "In AnalyseBoard Seitentitel",
+    "timeAlert.speak5": "Sekunden lesen, wenn weniger als 6"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6973,7 +6980,8 @@
     "analysisContextActions.lineEval": "Engine evaluation for previous moves",
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
-    "showOpening.showInAnalysisTitle": "In Analysis Board page title"
+    "showOpening.showInAnalysisTitle": "In Analysis Board page title",
+    "timeAlert.speak5": "Read seconds when less than 6"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7845,7 +7853,8 @@
     "analysisContextActions.lineEval": "Valutazione del motore per le mosse precedenti",
     "evaluateLineText": "Valuta le mosse precedenti",
     "evaluateLineTitle": "Strumenti LiChess - valutare tutte le mosse precedenti",
-    "showOpening.showInAnalysisTitle": "Nel titolo della pagina della scheda di analisi"
+    "showOpening.showInAnalysisTitle": "Nel titolo della pagina della scheda di analisi",
+    "timeAlert.speak5": "Leggere i secondi quando sono inferiori a 6"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8717,7 +8726,8 @@
     "analysisContextActions.lineEval": "Engine evaluation for previous moves",
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
-    "showOpening.showInAnalysisTitle": "In Analysis Board page title"
+    "showOpening.showInAnalysisTitle": "In Analysis Board page title",
+    "timeAlert.speak5": "Read seconds when less than 6"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9589,7 +9599,8 @@
     "analysisContextActions.lineEval": "Ocena silnika w odniesieniu do poprzednich ruchów",
     "evaluateLineText": "Oceń poprzednie ruchy",
     "evaluateLineTitle": "Narzędzia LiChess - oceń wszystkie poprzednie ruchy",
-    "showOpening.showInAnalysisTitle": "Tytuł strony tablicy analitycznej"
+    "showOpening.showInAnalysisTitle": "Tytuł strony tablicy analitycznej",
+    "timeAlert.speak5": "Odczytuj sekundy gdy mniej niż 6"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10461,7 +10472,8 @@
     "analysisContextActions.lineEval": "Avaliação de motor de movimentos anteriores",
     "evaluateLineText": "Avaliar movimentos anteriores",
     "evaluateLineTitle": "Ferramentas LiChess - avaliar todos os movimentos anteriores",
-    "showOpening.showInAnalysisTitle": "Título da página em Análise do Board"
+    "showOpening.showInAnalysisTitle": "Título da página em Análise do Board",
+    "timeAlert.speak5": "Ler segundos quando inferior a 6"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11333,7 +11345,8 @@
     "analysisContextActions.lineEval": "Avaliação de motor de movimentos anteriores",
     "evaluateLineText": "Avaliar movimentos anteriores",
     "evaluateLineTitle": "Ferramentas LiChess - avaliar todos os movimentos anteriores",
-    "showOpening.showInAnalysisTitle": "Título da página em Análise do Board"
+    "showOpening.showInAnalysisTitle": "Título da página em Análise do Board",
+    "timeAlert.speak5": "Ler segundos quando inferior a 6"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12205,7 +12218,8 @@
     "analysisContextActions.lineEval": "Evaluare mutări precedente",
     "evaluateLineText": "Evaluează mutările precedente",
     "evaluateLineTitle": "LiChess Tools - evaluează toate mutările precedente",
-    "showOpening.showInAnalysisTitle": "În titlul paginii Tablă de Analiză"
+    "showOpening.showInAnalysisTitle": "În titlul paginii Tablă de Analiză",
+    "timeAlert.speak5": "Citește secundele când mai puține de 6"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13077,7 +13091,8 @@
     "analysisContextActions.lineEval": "Оценка двигателя для предыдущих ходов",
     "evaluateLineText": "Оценить предыдущие ходы",
     "evaluateLineTitle": "Инструменты Жизни - оценить все предыдущие ходы",
-    "showOpening.showInAnalysisTitle": "В заголовке страницы аналитической доски"
+    "showOpening.showInAnalysisTitle": "В заголовке страницы аналитической доски",
+    "timeAlert.speak5": "Читать секунды, когда меньше 6"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13949,7 +13964,8 @@
     "analysisContextActions.lineEval": "Evaluación del motor de movimientos anteriores",
     "evaluateLineText": "Evaluar movimientos anteriores",
     "evaluateLineTitle": "Herramientas de LiChess - evaluar todas las jugadas anteriores",
-    "showOpening.showInAnalysisTitle": "En el título de la página del foro de análisis"
+    "showOpening.showInAnalysisTitle": "En el título de la página del foro de análisis",
+    "timeAlert.speak5": "Leer segundos cuando menos de 6"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14821,7 +14837,8 @@
     "analysisContextActions.lineEval": "Engine evaluation for previous moves",
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
-    "showOpening.showInAnalysisTitle": "In Analysis Board page title"
+    "showOpening.showInAnalysisTitle": "In Analysis Board page title",
+    "timeAlert.speak5": "Read seconds when less than 6"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15693,7 +15710,8 @@
     "analysisContextActions.lineEval": "Engine evaluation for previous moves",
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
-    "showOpening.showInAnalysisTitle": "In Analysis Board page title"
+    "showOpening.showInAnalysisTitle": "In Analysis Board page title",
+    "timeAlert.speak5": "Read seconds when less than 6"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16565,6 +16583,7 @@
     "analysisContextActions.lineEval": "Engine evaluation for previous moves",
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
-    "showOpening.showInAnalysisTitle": "In Analysis Board page title"
+    "showOpening.showInAnalysisTitle": "In Analysis Board page title",
+    "timeAlert.speak5": "Read seconds when less than 6"
   }
 }

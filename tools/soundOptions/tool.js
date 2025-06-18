@@ -27,7 +27,7 @@
         name: 'timeAlert',
         category: 'play',
         type: 'multiple',
-        possibleValues: ['s30','s60','s90','s120','s180','s300','beep'],
+        possibleValues: ['s30','s60','s90','s120','s180','s300','beep','speak5'],
         defaultValue: false,
         advanced: true
       }
@@ -49,7 +49,8 @@
         'timeAlert.s120': '2:00',
         'timeAlert.s180': '3:00',
         'timeAlert.s300': '5:00',
-        'timeAlert.beep': 'Sound alert'
+        'timeAlert.beep': 'Sound alert',
+        'timeAlert.speak5': 'Read seconds when less than 6'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -66,7 +67,8 @@
         'timeAlert.s120': '2:00',
         'timeAlert.s180': '3:00',
         'timeAlert.s300': '5:00',
-        'timeAlert.beep': 'Alert\u0103 sonor\u0103'
+        'timeAlert.beep': 'Alert\u0103 sonor\u0103',
+        'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd mai pu\u0163ine de 6'
       }
     }
 
@@ -116,6 +118,14 @@
           this.alertPlayer(t.seconds);
         }
         break;
+      }
+      if (this.options.speak5 && time<=5) {
+        const seconds = Math.floor(time);
+        if (this.lastSpeak != seconds) {
+          this.lastSpeak = seconds;
+          lt.stopSpeaking();
+          lt.speak(seconds);
+        }
       }
       if (!(this.lastTime<time)) {
         this.lastTime = time;
@@ -169,7 +179,8 @@
           seconds: s,
           enabled: lt.isOptionSet(timeAlert, 's'+s)
         })),
-        beep: lt.isOptionSet(timeAlert, 'beep')
+        beep: lt.isOptionSet(timeAlert, 'beep'),
+        speak5: lt.isOptionSet(timeAlert, 'speak5')
       };
       if (lichess.sound?.move) {
         lichess.sound.move = lt.unwrapFunction(lichess.sound.move, 'soundOptions');
