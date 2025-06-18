@@ -85,6 +85,7 @@
     }
 
     async load(useBetterEngine) {
+      this._lastUseBetterEngine = useBetterEngine;
       const lichess = this.lt.lichess;
       let engineId;
       let engineRoot;
@@ -223,7 +224,7 @@
     start() {
       const sf = this._instance;
       if (!sf) {
-        this.load().then(this.start.bind(this));
+        this.load(this._lastUseBetterEngine).then(this.start.bind(this));
         return;
       }
       this.postMessage('stop');

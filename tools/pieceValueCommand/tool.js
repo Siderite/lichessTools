@@ -44,6 +44,7 @@
           this.onInfo(i);
         });
         sf.on('bestmove', i => { this.info = this.lastInfo; });
+        sf.on('error',e=>{ this.error = e||'error'; });
         this.sf=sf;
         return sf;
       } finally {
@@ -57,8 +58,13 @@
       sf.setDepth(depth);
       sf.setPosition(fen);
       this.info=null;
+      this.error=null;
       sf.start();
       while (!this.info) {
+        if (this.error) {
+          this.lastProcessedFen = null;
+          throw this.error;
+        }
         await lt.timeout(100);
       }
       await sf.stop();
@@ -107,8 +113,7 @@
       const analysis = lichess.analysis;
       const fen = analysis.node.fen;
       if (this.lastProcessedFen == fen) return;
-      const m = /^.*?\s+(.*)$/.exec(fen);
-      const suffix = m ? ' '+m[1] : '';
+      const splits = fen.split(/\s+/);
       const sf=await this.getEngine();
       if (!$('.cg-wrap .spinner').length) {
         $('.cg-wrap').append(lt.spinnerHtml);
@@ -124,8 +129,6 @@
           for (const e of pieces) {
             if (analysis.node.fen != fen) {
               this.current = null;
-              this.sf?.destroy();
-              this.sf = null;
               this.clearValues();
               return;
             }
@@ -137,7 +140,28 @@
             if ([undefined,'k','K'].includes(ch)) continue;
             board[y][x]=undefined;
             if (this.invalidBecauseCheck(board,fen.split(' ')[1]=='b')) continue;
-            const pfen = lt.getFenFromBoard(board)+suffix;
+            const psplits = lt.getFenFromBoard(board).split(/\s+/);
+            const fenSplits = [];
+            for (let i=0; i<splits.length; i++) {
+              if (i<psplits.length) {
+                fenSplits.push(psplits[i]);
+              } else {
+                let val = splits[i];
+                if (i==2) {
+                  val = [...val].filter(c=>{
+                    switch(c) {
+                      case 'k': return board[0][7]=='r';
+                      case 'q': return board[0][0]=='r';
+                      case 'K': return board[7][7]=='R';
+                      case 'Q': return board[7][7]=='R';
+                    }
+                  }).join('');
+                  val ||='-';
+                }
+                fenSplits.push(val);
+              }
+            }
+            const pfen = fenSplits.join(' ');
             board[y][x]=ch;
             this.current = { e, ch, baseEval, fen };
             const style = $(e).attr('style');
@@ -155,8 +179,6 @@
         }
       } finally {
         this.current = null;
-        this.sf?.destroy();
-        this.sf = null;
         $('.cg-wrap .spinner').remove();
       }
     };
