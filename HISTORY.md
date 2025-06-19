@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Jun
+
+- glyphs alter "Good move" feedback
+
 18 Jun
 
 - read last 5 seconds during play

@@ -870,7 +870,8 @@
     "evaluateLineText": "تقييم التحركات السابقة",
     "evaluateLineTitle": "أدوات شطرنج الحياة - تقييم جميع التحركات السابقة",
     "showOpening.showInAnalysisTitle": "عنوان صفحة مجلس التحليل",
-    "timeAlert.speak5": "قراءة الثواني عندما يكون أقل من 6"
+    "timeAlert.speak5": "قراءة الثواني عندما يكون أقل من 6",
+    "continueFromHere": "استمر!"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1743,7 +1744,8 @@
     "evaluateLineText": "评估先前的动作",
     "evaluateLineTitle": "LiChess工具 - 计算所有以前的动作",
     "showOpening.showInAnalysisTitle": "在分析板页面标题",
-    "timeAlert.speak5": "不足6秒时读取秒"
+    "timeAlert.speak5": "不足6秒时读取秒",
+    "continueFromHere": "继续！"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2616,7 +2618,8 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6"
+    "timeAlert.speak5": "Read seconds when less than 6",
+    "continueFromHere": "Go on!"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3489,7 +3492,8 @@
     "evaluateLineText": "Eerdere zetten evalueren",
     "evaluateLineTitle": "LiChess Tools - evaluatie van alle vorige zetten",
     "showOpening.showInAnalysisTitle": "In bord van Analyse pagina titel",
-    "timeAlert.speak5": "Lees seconden wanneer minder dan 6"
+    "timeAlert.speak5": "Lees seconden wanneer minder dan 6",
+    "continueFromHere": "Doorgaan!"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4362,7 +4366,8 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6"
+    "timeAlert.speak5": "Read seconds when less than 6",
+    "continueFromHere": "Go on!"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5235,7 +5240,8 @@
     "evaluateLineText": "Évaluer les coups précédents",
     "evaluateLineTitle": "LiChess Tools - Évaluer tous les coups précédents",
     "showOpening.showInAnalysisTitle": "Dans le titre de la page de l'échiquier d'analyse",
-    "timeAlert.speak5": "Lire les secondes quand moins de 6"
+    "timeAlert.speak5": "Lire les secondes quand moins de 6",
+    "continueFromHere": "Continuez !"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6108,7 +6114,8 @@
     "evaluateLineText": "Vorherige Schritte bewerten",
     "evaluateLineTitle": "LiChess Tools - bewerte alle vorherigen Schritte",
     "showOpening.showInAnalysisTitle": "In AnalyseBoard Seitentitel",
-    "timeAlert.speak5": "Sekunden lesen, wenn weniger als 6"
+    "timeAlert.speak5": "Sekunden lesen, wenn weniger als 6",
+    "continueFromHere": "Weiter!"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6981,7 +6988,8 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6"
+    "timeAlert.speak5": "Read seconds when less than 6",
+    "continueFromHere": "Go on!"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7854,7 +7862,8 @@
     "evaluateLineText": "Valuta le mosse precedenti",
     "evaluateLineTitle": "Strumenti LiChess - valutare tutte le mosse precedenti",
     "showOpening.showInAnalysisTitle": "Nel titolo della pagina della scheda di analisi",
-    "timeAlert.speak5": "Leggere i secondi quando sono inferiori a 6"
+    "timeAlert.speak5": "Leggere i secondi quando sono inferiori a 6",
+    "continueFromHere": "Continua!"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8727,7 +8736,8 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6"
+    "timeAlert.speak5": "Read seconds when less than 6",
+    "continueFromHere": "Go on!"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9600,7 +9610,8 @@
     "evaluateLineText": "Oceń poprzednie ruchy",
     "evaluateLineTitle": "Narzędzia LiChess - oceń wszystkie poprzednie ruchy",
     "showOpening.showInAnalysisTitle": "Tytuł strony tablicy analitycznej",
-    "timeAlert.speak5": "Odczytuj sekundy gdy mniej niż 6"
+    "timeAlert.speak5": "Odczytuj sekundy gdy mniej niż 6",
+    "continueFromHere": "Kontynuuj!"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10473,7 +10484,8 @@
     "evaluateLineText": "Avaliar movimentos anteriores",
     "evaluateLineTitle": "Ferramentas LiChess - avaliar todos os movimentos anteriores",
     "showOpening.showInAnalysisTitle": "Título da página em Análise do Board",
-    "timeAlert.speak5": "Ler segundos quando inferior a 6"
+    "timeAlert.speak5": "Ler segundos quando inferior a 6",
+    "continueFromHere": "Continuar!"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11346,7 +11358,8 @@
     "evaluateLineText": "Avaliar movimentos anteriores",
     "evaluateLineTitle": "Ferramentas LiChess - avaliar todos os movimentos anteriores",
     "showOpening.showInAnalysisTitle": "Título da página em Análise do Board",
-    "timeAlert.speak5": "Ler segundos quando inferior a 6"
+    "timeAlert.speak5": "Ler segundos quando inferior a 6",
+    "continueFromHere": "Continuar!"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12219,7 +12232,8 @@
     "evaluateLineText": "Evaluează mutările precedente",
     "evaluateLineTitle": "LiChess Tools - evaluează toate mutările precedente",
     "showOpening.showInAnalysisTitle": "În titlul paginii Tablă de Analiză",
-    "timeAlert.speak5": "Citește secundele când mai puține de 6"
+    "timeAlert.speak5": "Citește secundele când mai puține de 6",
+    "continueFromHere": "Continuă!"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13092,7 +13106,8 @@
     "evaluateLineText": "Оценить предыдущие ходы",
     "evaluateLineTitle": "Инструменты Жизни - оценить все предыдущие ходы",
     "showOpening.showInAnalysisTitle": "В заголовке страницы аналитической доски",
-    "timeAlert.speak5": "Читать секунды, когда меньше 6"
+    "timeAlert.speak5": "Читать секунды, когда меньше 6",
+    "continueFromHere": "Далее!"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13965,7 +13980,8 @@
     "evaluateLineText": "Evaluar movimientos anteriores",
     "evaluateLineTitle": "Herramientas de LiChess - evaluar todas las jugadas anteriores",
     "showOpening.showInAnalysisTitle": "En el título de la página del foro de análisis",
-    "timeAlert.speak5": "Leer segundos cuando menos de 6"
+    "timeAlert.speak5": "Leer segundos cuando menos de 6",
+    "continueFromHere": "¡Continuar!"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14838,7 +14854,8 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6"
+    "timeAlert.speak5": "Read seconds when less than 6",
+    "continueFromHere": "Go on!"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15711,7 +15728,8 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6"
+    "timeAlert.speak5": "Read seconds when less than 6",
+    "continueFromHere": "Go on!"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16584,6 +16602,7 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6"
+    "timeAlert.speak5": "Read seconds when less than 6",
+    "continueFromHere": "Go on!"
   }
 }
