@@ -7,7 +7,7 @@
         category: 'study',
         type: 'single',
         possibleValues: [false, true],
-        defaultValue: true,
+        defaultValue: false,
         advanced: true
       }
     ];
