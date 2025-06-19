@@ -64,7 +64,8 @@
         'minutesText:one': 'a min',
         'daysText': '%s days',
         'hoursText': '%s hrs',
-        'minutesText': '%s mins'
+        'minutesText': '%s mins',
+        'continueFromHere': 'Go on!'
       },
       'ro-RO': {
         'options.study': 'Studiu',
@@ -107,7 +108,8 @@
         'minutesText:one': 'un minut',
         'daysText': '%s zile',
         'hoursText': '%s ore',
-        'minutesText': '%s minute'
+        'minutesText': '%s minute',
+        'continueFromHere': 'Continu\u0103!'
       }
     }
 
@@ -1194,6 +1196,41 @@
       });
     };
 
+    updateFeedbackText = async ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const lichess = lt.lichess;
+      const analysis = lichess?.analysis;
+
+      const el = $('.gamebook .feedback.good');
+      if (!el.length) return;
+      const glyph = analysis.node.glyphs?.at(0);
+      if (!glyph?.id) return;
+      if (!this.allGlyphs) {
+        const all = analysis.study.glyphForm.all();
+        if (!all) return;
+        let arr=[];
+        for (const k in all) arr=arr.concat(all[k]);
+        this.allGlyphs=new Map();
+        for (const g of arr) {
+          this.allGlyphs.set(g.id,g.name);
+        } 
+      }
+      const translation = this.allGlyphs.get(glyph.id);
+      if (translation) {
+        const html = translation+'<br/>'+trans.noarg('continueFromHere');
+        const text = $('<div>').html(html).text();
+        if (el.text()!=text) {
+          el
+            .html(html)
+            .attr('data-icon',glyph.symbol)
+            .addClass('ch'+glyph.symbol.length)
+            .addClass('lichessTools-extendedInteractiveLesson-feedback');
+        }
+      }
+    };
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -1310,6 +1347,8 @@
         .find('i.act.lichessTools-reset')
         .remove();
       lt.uiApi.events.off('chat.resize', this.refreshChapterProgress);
+      $('main.analyse').observer()
+        .off('.feedback.good',this.updateFeedbackText);
       if (this.options.extendedInteractive) {
         lt.uiApi.events.on('chat.resize', this.refreshChapterProgress);
         this.refreshChapterProgress();
@@ -1326,6 +1365,15 @@
             }, 100);
           }
         });
+        const form = study?.glyphForm;
+        if (form) {
+          let all = form.all();
+          if (!all) {
+            form.loadGlyphs();
+          }
+          $('main.analyse').observer()
+            .on('.feedback.good',this.updateFeedbackText);
+        }
       }
     }
   }
