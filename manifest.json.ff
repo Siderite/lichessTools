@@ -159,6 +159,7 @@
         "tools/showKmaps/tool.js",
         "tools/challengeOptions/tool.js",
         "tools/betterBestArrow/tool.js",
+        "tools/downloadBroadcastPgn/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -285,6 +286,7 @@
         "tools/showKmaps/tool.css",
         "tools/challengeOptions/tool.css",
         "tools/betterBestArrow/tool.css",
+        "tools/downloadBroadcastPgn/tool.css",
 
         "tools/tvOptions/tool.css",
 

@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 19 Jun
 
 - glyphs alter "Good move" feedback
+- download broadcast tool
 
 18 Jun
 

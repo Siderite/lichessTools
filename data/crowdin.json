@@ -871,7 +871,9 @@
     "evaluateLineTitle": "أدوات شطرنج الحياة - تقييم جميع التحركات السابقة",
     "showOpening.showInAnalysisTitle": "عنوان صفحة مجلس التحليل",
     "timeAlert.speak5": "قراءة الثواني عندما يكون أقل من 6",
-    "continueFromHere": "استمر!"
+    "continueFromHere": "استمر!",
+    "options.downloadBroadcastPgn": "تحميل بث PGN",
+    "downloadBroadcastTitle": "أدوات شطرنج الحياة - تحميل بث PGN"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1745,7 +1747,9 @@
     "evaluateLineTitle": "LiChess工具 - 计算所有以前的动作",
     "showOpening.showInAnalysisTitle": "在分析板页面标题",
     "timeAlert.speak5": "不足6秒时读取秒",
-    "continueFromHere": "继续！"
+    "continueFromHere": "继续！",
+    "options.downloadBroadcastPgn": "下载广播 PGN",
+    "downloadBroadcastTitle": "Lichess 工具 - 下载PGN"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2619,7 +2623,9 @@
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
     "timeAlert.speak5": "Read seconds when less than 6",
-    "continueFromHere": "Go on!"
+    "continueFromHere": "Go on!",
+    "options.downloadBroadcastPgn": "Download broadcast PGN",
+    "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3493,7 +3499,9 @@
     "evaluateLineTitle": "LiChess Tools - evaluatie van alle vorige zetten",
     "showOpening.showInAnalysisTitle": "In bord van Analyse pagina titel",
     "timeAlert.speak5": "Lees seconden wanneer minder dan 6",
-    "continueFromHere": "Doorgaan!"
+    "continueFromHere": "Doorgaan!",
+    "options.downloadBroadcastPgn": "Verstuur PGN downloaden",
+    "downloadBroadcastTitle": "LiChess Tools - zend signaal PGN downloaden"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4367,7 +4375,9 @@
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
     "timeAlert.speak5": "Read seconds when less than 6",
-    "continueFromHere": "Go on!"
+    "continueFromHere": "Go on!",
+    "options.downloadBroadcastPgn": "Download broadcast PGN",
+    "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5241,7 +5251,9 @@
     "evaluateLineTitle": "LiChess Tools - Évaluer tous les coups précédents",
     "showOpening.showInAnalysisTitle": "Dans le titre de la page de l'échiquier d'analyse",
     "timeAlert.speak5": "Lire les secondes quand moins de 6",
-    "continueFromHere": "Continuez !"
+    "continueFromHere": "Continuez !",
+    "options.downloadBroadcastPgn": "Télécharger le PGN de diffusion",
+    "downloadBroadcastTitle": "Outils LiChess - Télécharger la diffusion PGN"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6115,7 +6127,9 @@
     "evaluateLineTitle": "LiChess Tools - bewerte alle vorherigen Schritte",
     "showOpening.showInAnalysisTitle": "In AnalyseBoard Seitentitel",
     "timeAlert.speak5": "Sekunden lesen, wenn weniger als 6",
-    "continueFromHere": "Weiter!"
+    "continueFromHere": "Weiter!",
+    "options.downloadBroadcastPgn": "Download Sendung PGN",
+    "downloadBroadcastTitle": "LiChess Tools - Download Broadcast PGN"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6989,7 +7003,9 @@
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
     "timeAlert.speak5": "Read seconds when less than 6",
-    "continueFromHere": "Go on!"
+    "continueFromHere": "Go on!",
+    "options.downloadBroadcastPgn": "Download broadcast PGN",
+    "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7863,7 +7879,9 @@
     "evaluateLineTitle": "Strumenti LiChess - valutare tutte le mosse precedenti",
     "showOpening.showInAnalysisTitle": "Nel titolo della pagina della scheda di analisi",
     "timeAlert.speak5": "Leggere i secondi quando sono inferiori a 6",
-    "continueFromHere": "Continua!"
+    "continueFromHere": "Continua!",
+    "options.downloadBroadcastPgn": "Scarica trasmissione PGN",
+    "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8737,7 +8755,9 @@
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
     "timeAlert.speak5": "Read seconds when less than 6",
-    "continueFromHere": "Go on!"
+    "continueFromHere": "Go on!",
+    "options.downloadBroadcastPgn": "Download broadcast PGN",
+    "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9611,7 +9631,9 @@
     "evaluateLineTitle": "Narzędzia LiChess - oceń wszystkie poprzednie ruchy",
     "showOpening.showInAnalysisTitle": "Tytuł strony tablicy analitycznej",
     "timeAlert.speak5": "Odczytuj sekundy gdy mniej niż 6",
-    "continueFromHere": "Kontynuuj!"
+    "continueFromHere": "Kontynuuj!",
+    "options.downloadBroadcastPgn": "Pobierz transmisję PGN",
+    "downloadBroadcastTitle": "Narzędzia LiChess - pobierz transmisję PGN"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10485,7 +10507,9 @@
     "evaluateLineTitle": "Ferramentas LiChess - avaliar todos os movimentos anteriores",
     "showOpening.showInAnalysisTitle": "Título da página em Análise do Board",
     "timeAlert.speak5": "Ler segundos quando inferior a 6",
-    "continueFromHere": "Continuar!"
+    "continueFromHere": "Continuar!",
+    "options.downloadBroadcastPgn": "Baixar PGN de transmissão",
+    "downloadBroadcastTitle": "Ferramentas LiChess - baixar PGN de transmissão"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11359,7 +11383,9 @@
     "evaluateLineTitle": "Ferramentas LiChess - avaliar todos os movimentos anteriores",
     "showOpening.showInAnalysisTitle": "Título da página em Análise do Board",
     "timeAlert.speak5": "Ler segundos quando inferior a 6",
-    "continueFromHere": "Continuar!"
+    "continueFromHere": "Continuar!",
+    "options.downloadBroadcastPgn": "Baixar PGN de transmissão",
+    "downloadBroadcastTitle": "Ferramentas LiChess - baixar PGN de transmissão"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12233,7 +12259,9 @@
     "evaluateLineTitle": "LiChess Tools - evaluează toate mutările precedente",
     "showOpening.showInAnalysisTitle": "În titlul paginii Tablă de Analiză",
     "timeAlert.speak5": "Citește secundele când mai puține de 6",
-    "continueFromHere": "Continuă!"
+    "continueFromHere": "Continuă!",
+    "options.downloadBroadcastPgn": "Descarcă PGN-ul transmisiunii",
+    "downloadBroadcastTitle": "LiChess Tools - descarcă PGN-ul transmisiunii"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13107,7 +13135,9 @@
     "evaluateLineTitle": "Инструменты Жизни - оценить все предыдущие ходы",
     "showOpening.showInAnalysisTitle": "В заголовке страницы аналитической доски",
     "timeAlert.speak5": "Читать секунды, когда меньше 6",
-    "continueFromHere": "Далее!"
+    "continueFromHere": "Далее!",
+    "options.downloadBroadcastPgn": "Скачать PGN трансляции",
+    "downloadBroadcastTitle": "Инструменты Жизни - скачать PGN трансляции"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13981,7 +14011,9 @@
     "evaluateLineTitle": "Herramientas de LiChess - evaluar todas las jugadas anteriores",
     "showOpening.showInAnalysisTitle": "En el título de la página del foro de análisis",
     "timeAlert.speak5": "Leer segundos cuando menos de 6",
-    "continueFromHere": "¡Continuar!"
+    "continueFromHere": "¡Continuar!",
+    "options.downloadBroadcastPgn": "Descargar difusión PGN",
+    "downloadBroadcastTitle": "Herramientas de LiChess - descarga PGN"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14855,7 +14887,9 @@
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
     "timeAlert.speak5": "Read seconds when less than 6",
-    "continueFromHere": "Go on!"
+    "continueFromHere": "Go on!",
+    "options.downloadBroadcastPgn": "Download broadcast PGN",
+    "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15729,7 +15763,9 @@
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
     "timeAlert.speak5": "Read seconds when less than 6",
-    "continueFromHere": "Go on!"
+    "continueFromHere": "Go on!",
+    "options.downloadBroadcastPgn": "Download broadcast PGN",
+    "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16603,6 +16639,8 @@
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
     "timeAlert.speak5": "Read seconds when less than 6",
-    "continueFromHere": "Go on!"
+    "continueFromHere": "Go on!",
+    "options.downloadBroadcastPgn": "Download broadcast PGN",
+    "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN"
   }
 }
