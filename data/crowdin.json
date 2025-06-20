@@ -5252,8 +5252,8 @@
     "showOpening.showInAnalysisTitle": "Dans le titre de la page de l'échiquier d'analyse",
     "timeAlert.speak5": "Lire les secondes quand moins de 6",
     "continueFromHere": "Continuez !",
-    "options.downloadBroadcastPgn": "Télécharger le PGN de diffusion",
-    "downloadBroadcastTitle": "Outils LiChess - Télécharger la diffusion PGN"
+    "options.downloadBroadcastPgn": "Télécharger le PGN de la diffusion",
+    "downloadBroadcastTitle": "LiChess Tools - télécharger le PGN de la diffusion"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
