@@ -311,7 +311,7 @@ body.lichessTools div[data-icon].lichessTools-extendedInteractiveLesson-feedback
   position:relative;
   border-radius: 0.5em;
   font-size: 1.5em;
-  background: #00A000A0 !important;
+  background: #00A060A0;
 }
 
 body.lichessTools div[data-icon].lichessTools-extendedInteractiveLesson-feedback:before {
