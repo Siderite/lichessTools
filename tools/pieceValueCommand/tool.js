@@ -112,7 +112,7 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const fen = analysis.node.fen;
-      if (this.lastProcessedFen == fen) return;
+      if (this.lastProcessedFen == fen && !$('piece:not([data-eval])').length) return;
       const splits = fen.split(/\s+/);
       const sf=await this.getEngine();
       if (!$('.cg-wrap .spinner').length) {
