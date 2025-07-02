@@ -12926,7 +12926,7 @@
     "gameListOptions.analysisLink": "Перейти к анализу",
     "analysedGamesLabel": "Только проанализированные",
     "themes.gameMoveList": "Гибкий список ходов",
-    "linkToAnalysisTitle": "Инструменты Жизни - ссылка на текущий анализ",
+    "linkToAnalysisTitle": "LiChess Tools - ссылка на текущий анализ",
     "themes.fatGauge": "Tолстый индикатор анализа",
     "avoidMovesHint": "Только один допустимый ход. Избегайте %s",
     "extendedInteractiveLessonFlow.ignoreBadGlyphs": "Избегайте линий, которые отмечены как ошибки",
@@ -13103,7 +13103,7 @@
     "estimatedRating": "Примерный рейтинг: %s",
     "gameListOptions.extraInfo": "Кнопка \"Подробнее\"",
     "extraInfoButtonTitle": "Больше информации об игре",
-    "extraInfoTitle": "Точность: $accuracy\r\nСредняя потеря центипеука: $acpl\r\nНеточности / ошибки / дроби\r\n  Белые: $whiteMoves\r\n  Черный: $blackMoves",
+    "extraInfoTitle": "Точность: $accuracy\nСредняя потеря центипеука: $acpl\nНеточности / ошибки / дроби\n  Белые: $whiteMoves\n  Черный: $blackMoves",
     "additionalGlyphs.miss": "Упущение",
     "themes.adamisko": "Винтаж Адамиско",
     "gameListOptions.remove": "Удалить игры",
@@ -13137,7 +13137,7 @@
     "timeAlert.speak5": "Читать секунды, когда меньше 6",
     "continueFromHere": "Далее!",
     "options.downloadBroadcastPgn": "Скачать PGN трансляции",
-    "downloadBroadcastTitle": "Инструменты Жизни - скачать PGN трансляции"
+    "downloadBroadcastTitle": "LiChess Tools - скачать PGN трансляции"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
