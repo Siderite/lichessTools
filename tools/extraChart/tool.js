@@ -1154,7 +1154,7 @@
         localLine = this.getLocalLine();
       }
 
-      if (lichess.analysis.mainline.find(n => n.eval)) {
+      if (lichess.analysis.mainline.find(n => n.eval && n.eval._originator != 'lichessTools')) {
         $('#acpl-chart-container').removeClass('lichessTools-extraChart');
         $('form.future-game-analysis').remove();
       }

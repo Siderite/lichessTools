@@ -69,7 +69,7 @@
             : cbest || ebest;
           if (!this.options.justOrientation || analysis.getOrientation() != analysis.turnColor()) {
             if (best && node.eval?.best != best) {
-              node.eval ||= {};
+              node.eval ||= { _originator: 'lichessTools',cp:prevNode?.ceval?.pvs?.at(0)?.cp,mate:prevNode?.ceval?.pvs?.at(0)?.mate };
               node.eval.best = best;
             }
           }
