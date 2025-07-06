@@ -24,6 +24,8 @@
 
     async loadTranslations() {
       const lt = this.lichessTools;
+      const $ = lt.$;
+      if ($('html').attr('lang')?.startsWith('en')) return;
       const console = lt.global.console;
       const intl = await lt.comm.getData('crowdin.json');
       if (intl) {
