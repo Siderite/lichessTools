@@ -1984,7 +1984,7 @@
           const pgn = await lt.net.fetch({
             url: '/study/{studyId}/{chapterId}.pgn',
             args: { studyId, chapterId }
-          });
+          },{ ignoreStatuses: [404] });
           return pgn;
         },
         getStudyListPage: async function (baseUrl, page) {
