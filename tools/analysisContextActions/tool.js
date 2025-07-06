@@ -240,7 +240,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       let nodes = this.evaluateLineStarted
         ? analysis.tree.getNodeList(this.evaluateLinePath)
         : this.state.lastMoves;
-      nodes = nodes.filter(n => n.id && !n.isCommentedOrMate && (!n.nodeEvaluated || Date.now() - n.nodeEvaluated > 10000));
+      nodes = nodes.filter(n => n.id && !n.isCommentedOrMate && !n.nodeEvaluated);
       if (!this.evaluatedNodesTotal || this.evaluatedNodesTotal < nodes.length) {
         this.evaluatedNodesTotal = nodes.length;
       }
@@ -609,6 +609,7 @@ Varia\u0163ii urm\u0103toare: $branches`
             this.addEvalComment(node, node.ceval);
           }
           node.nodeEvaluated = Date.now();
+
           this.doEvaluation();
         }
       }
