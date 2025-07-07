@@ -153,6 +153,7 @@
         return;
       }
       lt.pubsub.on('lichessTools.redraw', this.searchPosition);
+      this.searchPosition();
     }
 
   }
