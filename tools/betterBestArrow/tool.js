@@ -61,16 +61,29 @@
           if (!isBadMove && !this.options.allMoves) return;
           const prevNode = analysis.nodeList.at(-2);
           const ebest = node.eval?.best;
+          const newCeval = prevNode?.ceval?.pvs?.at(0);
           const cbest = this.options.localEval
-            ? prevNode?.ceval?.pvs?.at(0)?.moves?.at(0)
+            ? newCeval?.moves?.at(0)
             : null;
           const best = ebest && cbest && node.ceval?.depth < 15
             ? ebest
             : cbest || ebest;
           if (!this.options.justOrientation || analysis.getOrientation() != analysis.turnColor()) {
             if (best && node.eval?.best != best) {
-              node.eval ||= { _originator: 'lichessTools',cp:prevNode?.ceval?.pvs?.at(0)?.cp,mate:prevNode?.ceval?.pvs?.at(0)?.mate };
-              node.eval.best = best;
+              if (node.eval) {
+                const newCp = lt.getCentipawns(newCeval);
+                const existingCp = lt.getCentipawns(node.eval);
+                if (newCp >= existingCp && newCeval.depth >= (node.eval.depth || 0)) {
+                  node.eval.best = best;
+                }
+              } else {
+                node.eval = {
+                               _originator: 'lichessTools',
+                               cp:newCeval?.cp,
+                               mate:newCeval?.mate,
+                               best:best
+                            };
+              }
             }
           }
           currBest = best;
