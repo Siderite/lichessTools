@@ -57,8 +57,29 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
-      analysis.setAllCollapsed('', false);
-      $('button.lichessTools-expandAll').remove();
+      if (!this.expandAllHandler) {
+        $('.analyse__moves')
+          .trigger('contextmenu')
+          .trigger('click');
+        const menuItems = $('#analyse-cm a[data-icon="'+lt.icon.PlusButton+'"]');
+        var item;
+        switch (menuItems.length) {
+          case 0: return;
+          case 1:
+            item = menuItems[0];
+            break;
+          default:
+            item = menuItems.get().find((e)=>$(e).text()=='Show all variations') || menuItems[menuItems.length-1];
+            break;
+        }
+        if (item) {
+          this.expandAllHandler = lt.getEventHandlers(item,'click')[0];
+        }
+      }
+      if (this.expandAllHandler) {
+        this.expandAllHandler();
+        $('button.lichessTools-expandAll').remove();
+      }
     }
 
     autoExpand = () => {
