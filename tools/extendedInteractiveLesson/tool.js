@@ -52,8 +52,8 @@
         'extendedInteractiveLessonFlow.spaceRetry': 'Retry on Space',
         'resetQuestionNoVariations': 'No more variations. Reset?',
         'resetQuestion': 'Reset variation progress?',
-        'resetButtonText': 'Reset',
-        'resetButtonTitle': 'LiChess Tools - reset variation progress',
+        'resetVariationsButtonText': 'Reset',
+        'resetVariationsButtonTitle': 'LiChess Tools - reset variation progress',
         'progressTitle': 'LiChess Tools - %s variations',
         'extendedInteractiveOptionsTitle': 'LiChess Tools - interactive lesson preferences',
         'giveUpButtonText': 'Give up',
@@ -96,8 +96,8 @@
         'extendedInteractiveLessonFlow.spaceRetry': 'Restart la Space',
         'resetQuestionNoVariations': 'Nu mai sunt varia\u0163ii. Resetez?',
         'resetQuestion': 'Resetez progresul \u00een varia\u0163ii?',
-        'resetButtonText': 'Resetare',
-        'resetButtonTitle': 'LiChess Tools - resetare progres \u00een varia\u0163ii',
+        'resetVariationsButtonText': 'Resetare',
+        'resetVariationsButtonTitle': 'LiChess Tools - resetare progres \u00een varia\u0163ii',
         'progressTitle': 'LiChess Tools - %s varia\u0163ii',
         'extendedInteractiveOptionsTitle': 'LiChess Tools - preferin\u0163e lec\u0163ie interactiv\u0103',
         'giveUpButtonText': 'Renun\u0163',
@@ -1071,8 +1071,8 @@
       if (paths) {
         if (button.length) return;
         $('<button type="button" class="button button-red lichessTools-reset">')
-          .attr('title', trans.noarg('resetButtonTitle'))
-          .text(trans.noarg('resetButtonText'))
+          .attr('title', trans.noarg('resetVariationsButtonTitle'))
+          .text(trans.noarg('resetVariationsButtonText'))
           .on('click', async (ev) => {
             ev.preventDefault();
             if (!await lt.uiApi.dialog.confirm(trans.noarg('resetQuestion'))) return;
@@ -1166,7 +1166,7 @@
         let act = container.children('i.act');
         if (!act.length) {
           act = $(`<i class="act lichessTools-reset" data-icon="${lt.icon.toEntity(lt.icon.Reload)}">`)
-            .attr('title', trans.noarg('resetButtonTitle'))
+            .attr('title', trans.noarg('resetVariationsButtonTitle'))
             .on('click', async (ev) => {
               ev.preventDefault();
               ev.stopPropagation();

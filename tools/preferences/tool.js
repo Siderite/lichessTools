@@ -31,9 +31,9 @@
         'lichessToolsPreferences': 'LiChess Tools preferences',
         'feedbackButtonTitle': 'Send feedback about LiChess Tools',
         'feedbackTitle': 'Send a message to the developer',
-        'resetButtonText': 'Reset',
-        'resetButtonTitle': 'LiChess Tools - reset settings',
-        'resetButtonWarning': 'Are you sure? This will restore all settings to defaults. I recommend a backup first.',
+        'resetSettingsButtonText': 'Reset',
+        'resetSettingsButtonTitle': 'LiChess Tools - reset settings',
+        'resetSettingsButtonWarning': 'Are you sure? This will restore all settings to defaults. I recommend a backup first.',
         'minimalButtonText': 'All off',
         'minimalButtonTitle': 'LiChess Tools - turn all features individually off',
         'minimalButtonWarning': 'Are you sure? You will have to reenable each feature one by one. I recommend a backup first.',
@@ -64,9 +64,9 @@
         'lichessToolsPreferences': 'Preferin\u0163e LiChess Tools',
         'feedbackButtonTitle': 'Trimite p\u0103reri despre LiChess Tools',
         'feedbackTitle': 'Trimite un mesaj programatorului',
-        'resetButtonText': 'Resetare',
-        'resetButtonTitle': 'LiChess Tools - reseteaz\u0103 op\u0163iunile',
-        'resetButtonWarning': 'Sigur? Toate op\u0163iunile vor fi resetate pe valori standard. Recomand un backup \u00eenainte.',
+        'resetSettingsButtonText': 'Resetare',
+        'resetSettingsButtonTitle': 'LiChess Tools - reseteaz\u0103 op\u0163iunile',
+        'resetSettingsButtonWarning': 'Sigur? Toate op\u0163iunile vor fi resetate pe valori standard. Recomand un backup \u00eenainte.',
         'minimalButtonText': 'Toate oprite',
         'minimalButtonTitle': 'LiChess Tools - opre\u015fte toate op\u0163iunile individual',
         'minimalButtonWarning': 'Sigur? Va trebui sa porne\u015fti fiecare op\u0163iune una c\u00e2te una. Recomand un backup \u00eenainte.',
@@ -289,7 +289,7 @@
       html += `</form>
 <div class="actionButtons">
 <span>$trans(defaultValueLegend)</span>
-<button id="btnReset" type="button" class="btn button button-red" title="$trans(resetButtonTitle)">$trans(resetButtonText)</button>
+<button id="btnReset" type="button" class="btn button button-red" title="$trans(resetSettingsButtonTitle)">$trans(resetSettingsButtonText)</button>
 <button id="btnMinimal" type="button" class="btn button button-red" title="$trans(minimalButtonTitle)">$trans(minimalButtonText)</button>
 <button id="btnBackup" type="button" class="btn button" title="$trans(backupButtonTitle)">$trans(backupButtonText)</button>
 <button id="btnRestore" type="button" class="btn button" title="$trans(restoreButtonTitle)">$trans(restoreButtonText)</button>
@@ -539,7 +539,7 @@
       $('div.actionButtons #btnReset', container)
         .on('click', async ev => {
           ev.preventDefault();
-          if (!await lt.uiApi.dialog.confirm(trans.noarg('resetButtonWarning'))) return;
+          if (!await lt.uiApi.dialog.confirm(trans.noarg('resetSettingsButtonWarning'))) return;
           const options = await lt.getOptions();
           const data = lt.tools
             .map(t => t.preferences)

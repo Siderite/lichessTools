@@ -19,7 +19,7 @@
         'options.showFlags': 'Show player country flags'
       },
       'ro-RO': {
-        'options.study': 'General',
+        'options.general': 'General',
         'options.showFlags': 'Arat\u0103 steagurile \u0163\u0103rilor juc\u0103torilor'
       }
     }

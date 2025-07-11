@@ -20,14 +20,14 @@
         'options.expandAll': 'Expand all variations',
         'expandAll.showButton': 'Show button',
         'expandAll.autoExpand': 'Auto expand',
-        'expandAllTitle': 'LiChess Tools - expand all variations'
+        'expandAllVariationsTitle': 'LiChess Tools - expand all variations'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.expandAll': 'Expandare toate varia\u0163iile',
         'expandAll.showButton': 'Arat\u0103 butonul',
         'expandAll.autoExpand': 'Expandeaz\u0103 automat',
-        'expandAllTitle': 'LiChess Tools - expandeaz\u0103 toate varia\u0163iile'
+        'expandAllVariationsTitle': 'LiChess Tools - expandeaz\u0103 toate varia\u0163iile'
       }
     }
 
@@ -44,7 +44,7 @@
       }
       button = $('<button type="button" class="lichessTools-expandAll">')
         .attr('data-icon', lt.icon.ZoomIn)
-        .attr('title', trans.noarg('expandAllTitle'))
+        .attr('title', trans.noarg('expandAllVariationsTitle'))
         .on('mousedown touchstart', ev => {
           ev.preventDefault();
           ev.stopPropagation();

@@ -2308,9 +2308,10 @@
             for (const key in toolLang) {
               if (existingLang[key] === undefined) {
                 existingLang[key] = toolLang[key];
+              } else if (existingLang[key] != toolLang[key]) {
+                this.global.console.warn('Translation key '+key+' used for different texts');
               }
             }
-            //this.intl[lang] = { ...this.intl[lang], ...tool.intl[lang] };
           }
         }
         if (tool.dependencies) {
