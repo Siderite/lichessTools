@@ -11,7 +11,6 @@
         possibleValues: [
           'forum-post',
           'ublog-post',
-          'blog-post',
           'stream-start',
           'simul-create',
           'simul-join',
@@ -40,7 +39,6 @@
         'timelineNotifyTitle': 'LiChess Tools - go to Timeline',
         'timelineNotify.forum-post': 'Forum post',
         'timelineNotify.ublog-post': 'Blog post',
-        'timelineNotify.blog-post': 'Lichess announcement',
         'timelineNotify.stream-start': 'Stream start',
         'timelineNotify.simul-create': 'Simul create',
         'timelineNotify.simul-join': 'Simul join',
@@ -62,7 +60,6 @@
         'timelineNotifyTitle': 'LiChess Tools - c\u0103tre Activitate recent\u0103',
         'timelineNotify.forum-post': 'Post pe forum',
         'timelineNotify.ublog-post': 'Post pe blog',
-        'timelineNotify.blog-post': 'Anun\u0163 Lichess',
         'timelineNotify.stream-start': 'Stream live',
         'timelineNotify.simul-create': 'Creare simul',
         'timelineNotify.simul-join': 'Participare la simul',
