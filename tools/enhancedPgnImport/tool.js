@@ -58,6 +58,9 @@
       };
       const items = [];
       let m = this.regPgn.exec(input);
+      if (!m) {
+        return [ importPgn(input) ];
+      }
       while (m) {
         const item = {
           type: m[1] ? 1 : 2,
