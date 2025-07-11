@@ -36,7 +36,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       let button = $('button.lichessTools-expandAll');
-      if ($.single('.tview2 line.expand').length) {
+      if ($.single('.tview2 a.disclosure[data-icon="'+lt.icon.PlusButton+'"]').length) {
         if (button.length) return;
       } else {
         button.remove();
