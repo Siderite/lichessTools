@@ -1,0 +1,6 @@
+/* Hide mobile first/last buttons */
+
+body.lichessTools.lichessTools-theme_mobileHideStartEndButtons.mobile .analyse__controls .jumps button[data-act="first"],
+body.lichessTools.lichessTools-theme_mobileHideStartEndButtons.mobile .analyse__controls .jumps button[data-act="last"] {
+  display:none;
+}
