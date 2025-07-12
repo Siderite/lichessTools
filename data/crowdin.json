@@ -876,7 +876,8 @@
     "downloadBroadcastTitle": "أدوات شطرنج الحياة - تحميل بث PGN",
     "expandAllBookmarksTitle": "أدوات شطرنج الحياة - توسيع جميع الإشارات المرجعية",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "أدوات شطرنج الحياة - إعادة تعيين تقدم التباين"
+    "resetVariationsButtonTitle": "أدوات شطرنج الحياة - إعادة تعيين تقدم التباين",
+    "themes.mobileHideStartEndButtons": "إخفاء أزرار البدء/النهاية"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1755,7 +1756,8 @@
     "downloadBroadcastTitle": "Lichess 工具 - 下载PGN",
     "expandAllBookmarksTitle": "LiChess工具 - 展开所有书签",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "LiChess工具 - 重置变化进度"
+    "resetVariationsButtonTitle": "LiChess工具 - 重置变化进度",
+    "themes.mobileHideStartEndButtons": "移动设备隐藏开始/结束按钮"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2634,7 +2636,8 @@
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress"
+    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3513,7 +3516,8 @@
     "downloadBroadcastTitle": "LiChess Tools - zend signaal PGN downloaden",
     "expandAllBookmarksTitle": "LiChess Tools - alle bladwijzers uitbreiden",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "LiChess Tools - variatie voortgang resetten"
+    "resetVariationsButtonTitle": "LiChess Tools - variatie voortgang resetten",
+    "themes.mobileHideStartEndButtons": "Mobiel verbergen start- en eindknoppen"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4392,7 +4396,8 @@
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress"
+    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5271,7 +5276,8 @@
     "downloadBroadcastTitle": "LiChess Tools - télécharger le PGN de la diffusion",
     "expandAllBookmarksTitle": "LiChess Tools - développer tous les signets",
     "resetVariationsButtonText": "Réinitialiser",
-    "resetVariationsButtonTitle": "LiChess Tools - réinitialiser les variantes en cours"
+    "resetVariationsButtonTitle": "LiChess Tools - réinitialiser les variantes en cours",
+    "themes.mobileHideStartEndButtons": "Boutons de début / fin cachés sur le mobile"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6150,7 +6156,8 @@
     "downloadBroadcastTitle": "LiChess Tools - Download Broadcast PGN",
     "expandAllBookmarksTitle": "LiChess Tools - erweitern Sie alle Lesezeichen",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "LiChess Tools - Fortschritt der Variation zurücksetzen"
+    "resetVariationsButtonTitle": "LiChess Tools - Fortschritt der Variation zurücksetzen",
+    "themes.mobileHideStartEndButtons": "Start-/End-Buttons für Mobile Verstecke"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -7029,7 +7036,8 @@
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress"
+    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7908,7 +7916,8 @@
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
     "expandAllBookmarksTitle": "Strumenti LiChess - espandere tutti i segnalibri",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "Strumenti LiChess - azzera l'avanzamento delle variazioni"
+    "resetVariationsButtonTitle": "Strumenti LiChess - azzera l'avanzamento delle variazioni",
+    "themes.mobileHideStartEndButtons": "Pulsanti per nascondere inizio/fine per dispositivi mobili"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8787,7 +8796,8 @@
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress"
+    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9666,7 +9676,8 @@
     "downloadBroadcastTitle": "Narzędzia LiChess - pobierz transmisję PGN",
     "expandAllBookmarksTitle": "Narzędzia LiChess - rozwiń wszystkie zakładki",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "Narzędzia LiChess - resetuj postęp zmian"
+    "resetVariationsButtonTitle": "Narzędzia LiChess - resetuj postęp zmian",
+    "themes.mobileHideStartEndButtons": "Ukrywanie przycisków start/end"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10545,7 +10556,8 @@
     "downloadBroadcastTitle": "Ferramentas LiChess - baixar PGN de transmissão",
     "expandAllBookmarksTitle": "Ferramentas de LiChess - expandir todos os favoritos",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "Ferramentas LiChess - redefinir progresso de variação"
+    "resetVariationsButtonTitle": "Ferramentas LiChess - redefinir progresso de variação",
+    "themes.mobileHideStartEndButtons": "Ocultar botões de início/final"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11424,7 +11436,8 @@
     "downloadBroadcastTitle": "Ferramentas LiChess - baixar PGN de transmissão",
     "expandAllBookmarksTitle": "Ferramentas de LiChess - expandir todos os favoritos",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "Ferramentas LiChess - redefinir progresso de variação"
+    "resetVariationsButtonTitle": "Ferramentas LiChess - redefinir progresso de variação",
+    "themes.mobileHideStartEndButtons": "Ocultar botões de início/final"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12302,8 +12315,9 @@
     "options.downloadBroadcastPgn": "Descarcă PGN-ul transmisiunii",
     "downloadBroadcastTitle": "LiChess Tools - descarcă PGN-ul transmisiunii",
     "expandAllBookmarksTitle": "LiChess Tools - expandează toate bookmarkurile",
-    "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "Unelte de Luminozitate - resetează progresul variației"
+    "resetVariationsButtonText": "Resetare",
+    "resetVariationsButtonTitle": "LiChess Tools - resetează progresul variațiunilor jucate",
+    "themes.mobileHideStartEndButtons": "Ascunde butoanele start/final pe mobil"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13182,7 +13196,8 @@
     "downloadBroadcastTitle": "LiChess Tools - скачать PGN трансляции",
     "expandAllBookmarksTitle": "Инструменты Жизни - раскрыть все закладки",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "Инструменты Жизни - сбросить прогресс вариации"
+    "resetVariationsButtonTitle": "Инструменты Жизни - сбросить прогресс вариации",
+    "themes.mobileHideStartEndButtons": "Кнопки старта/конец мобильных скрытий"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -14061,7 +14076,8 @@
     "downloadBroadcastTitle": "Herramientas de LiChess - descarga PGN",
     "expandAllBookmarksTitle": "Herramientas de LiChess - expande todos los marcadores",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "Herramientas de LiChess - restablecer el progreso de variación"
+    "resetVariationsButtonTitle": "Herramientas de LiChess - restablecer el progreso de variación",
+    "themes.mobileHideStartEndButtons": "Ocultar botones de inicio/fin móvil"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14940,7 +14956,8 @@
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress"
+    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15819,7 +15836,8 @@
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress"
+    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16698,6 +16716,7 @@
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
-    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress"
+    "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
   }
 }

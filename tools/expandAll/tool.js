@@ -35,6 +35,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
+      $('.tview2').toggleClassSafe('lichessTools-expandAllVariations',true);
       let button = $('button.lichessTools-expandAll');
       if ($.single('.tview2 a.disclosure[data-icon="'+lt.icon.PlusButton+'"]').length) {
         if (button.length) return;
@@ -118,6 +119,8 @@
       if (this.options.autoExpand) {
         lt.pubsub.on('lichessTools.redraw', this.autoExpand);
         lt.global.setTimeout(this.autoExpand,500);
+      } else {
+        $('.tview2').removeClass('lichessTools.expandAllVariations');
       }
     }
 
