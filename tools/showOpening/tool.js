@@ -171,7 +171,7 @@
       let href = elem.attr('href');
       let m = /\/opening\/(?<openingName>[^\/]+)/i.exec(href);
       if (m) {
-        const moveList = analysis.nodeList.map(n=>n.san).filter(s=>s).slice(0,10).join('_');
+        const moveList = analysis?.nodeList?.map(n=>n.san).filter(s=>s).slice(0,10).join('_');
         if (moveList) {
           href='/opening/'+m.groups.openingName+'/'+moveList;
           elem.attrSafe('href',href);
@@ -238,7 +238,7 @@
         }
         const title = result.opening && result.opening!='*'
           ? result.opening
-          : analysis.nodeList.findLast(n=>n.opening)?.opening;
+          : analysis?.nodeList?.findLast(n=>n.opening)?.opening;
         lt.global.document.title = title || this.originalTitle;
       }
       this.showOpeningInExplorer(result.opening);
