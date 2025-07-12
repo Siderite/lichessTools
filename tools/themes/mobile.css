@@ -45,6 +45,14 @@ body.lichessTools.lichessTools-theme_mobile.mobile {
   body.lichessTools.lichessTools-theme_mobile.mobile:has(.ricons .fbt.analysis) rm6 rb1 a.fbt.analysis {
     display:none;
   }
+
+  body.lichessTools.lichessTools-theme_mobile.mobile.playing main.round {
+     grid-template-areas: "app" "side" "under" "uchat"
+  }
+  body.lichessTools.lichessTools-theme_mobile.mobile.playing main.round div.crosstable {
+     opacity:0.7;
+     pointer-events: none;
+  }
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour):has(.action-menu) .analyse__underboard,
