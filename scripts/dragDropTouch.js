@@ -195,13 +195,13 @@
                   e.preventDefault();
                 }
                 // show context menu if the user hasn't started dragging after a while
-                /*setTimeout(function () {
+                setTimeout(function () {
                   if (_this._dragSource == src && _this._img == null) {
                     if (_this._dispatchEvent(e, 'contextmenu', src)) {
                       _this._reset();
                     }
                   }
-                }, DragDropTouch._CTXMENU);*/
+                }, DragDropTouch._CTXMENU);
                 if (DragDropTouch._ISPRESSHOLDMODE) {
                   this._pressHoldInterval = setTimeout(function () {
                     _this._isDragEnabled = true;
@@ -449,7 +449,7 @@
       // constants
       DragDropTouch._THRESHOLD = 5; // pixels to move before drag starts
       DragDropTouch._OPACITY = 0.5; // drag image opacity
-      DragDropTouch._DBLCLICK = 500; // max ms between clicks in a double click
+      DragDropTouch._DBLCLICK = 200; // max ms between clicks in a double click (was 500)
       DragDropTouch._CTXMENU = 900; // ms to hold before raising 'contextmenu' event
       DragDropTouch._ISPRESSHOLDMODE = false; // decides of press & hold mode presence
       DragDropTouch._PRESSHOLDAWAIT = 400; // ms to wait before press & hold is detected

@@ -76,6 +76,9 @@
     addDividerDirect = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      if (this.isMobile) {
+        this.fixDblClickOnMoveList();
+      }
       const toolsElem = $('main.analyse .analyse__tools ');
       const explorerBox = toolsElem.find('.explorer-box');
       let divider = $('.lichessTools-resizeExplorer', explorerBox.parent());
@@ -121,6 +124,19 @@
       return false;
     };
 
+    fixDblClickOnMoveList = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const el = $('.analyse__moves')[0];
+      if (!el || el._dblClickDisabled) return;
+      el.addEventListener('dblclick', (event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return false;
+      }, { capture: true });
+      el._dblClickDisabled = true;
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('resizeExplorer');
@@ -129,10 +145,6 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      if (lt.isMobile()) {
-        this.isMobile = true;
-        LiChessTools.enableMobileDragAndDrop();
-      }
       lt.pubsub.off('lichessTools.chapterChange', this.addDivider);
       lt.pubsub.off('lichessTools.redraw', this.addDivider);
       $('.analyse__tools').observer()
@@ -144,6 +156,11 @@
         $('.lichessTools-resizeExplorer').remove();
         lt.storage.remove('LichessTools.resizeExplorer');
         return;
+      }
+      if (!this.isMobile && lt.isMobile()) {
+        this.isMobile = true;
+        this.fixDblClickOnMoveList();
+        LiChessTools.enableMobileDragAndDrop();
       }
       lt.pubsub.on('lichessTools.chapterChange', this.addDivider);
       lt.pubsub.on('lichessTools.redraw', this.addDivider);
