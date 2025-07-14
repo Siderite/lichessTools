@@ -505,9 +505,12 @@ Varia\u0163ii urm\u0103toare: $branches`
 
       menu.toggleClassSafe('lichessTools-removeSuperfluous',this.options.removeSuperfluous);
       if (this.options.removeSuperfluous) {
-        $('a[data-icon="'+lt.icon.BubbleSpeech+'"],a[data-icon="'+lt.icon.Clipboard+'"],a.glyph-icon', menu).remove();
+        $('a[data-icon="'+lt.icon.BubbleSpeech+'"],a.glyph-icon', menu).remove();
+        if (this.options.copyPgn) {
+          $('a[data-icon="'+lt.icon.Clipboard+'"]', menu).remove();
+        }
         if (this.options.autoExpand) {
-          $('a[data-icon="'+lt.icon.PlusButton+'"],a[data-icon="'+lt.icon.MinusButton+'"],a.glyph-icon', menu).remove();
+          $('a[data-icon="'+lt.icon.PlusButton+'"],a[data-icon="'+lt.icon.MinusButton+'"]', menu).remove();
         }
       }
 
