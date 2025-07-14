@@ -593,12 +593,15 @@
       const permission = await hasPermission();
       if (permission !== false) {
         try {
-          await navigator.clipboard.write([
-            new ClipboardItem({
-             'text/html': asHtml ? new Blob([value], { type: 'text/html' }) : undefined,
-             'text/plain': new Blob([value], { type: 'text/plain' }) // Fallback for plain text
-            })
-          ]);
+          const item = asHtml
+            ? new ClipboardItem({
+               'text/html': new Blob([value], { type: 'text/html' }),
+               'text/plain': new Blob([value], { type: 'text/plain' }) // Fallback for plain text
+             })
+            : new ClipboardItem({
+               'text/plain': new Blob([value], { type: 'text/plain' })
+             });
+          await navigator.clipboard.write([ item ]);
           announcement = successText;
         } catch(e) {
           console.warn('Error copying PGN to clipboard',e);
