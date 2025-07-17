@@ -64,7 +64,7 @@
           this._evaluating = false;
           this._fen = null;
           this.clearSquares();
-          this._sf?.stop();
+          await this._sf?.stop();
         }
         return;
       }

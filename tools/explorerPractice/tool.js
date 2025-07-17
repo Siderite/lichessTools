@@ -38,7 +38,7 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.explorerPractice': 'Antrenament contra mut\u0103ri din Explorator',
-        'options.explorerPracticeOptions': 'Op\u0163iuni pentru Antrenament cu Exploratorul',
+        'options.explorerPracticeOptions': 'Op\u0163iuni pentru Practic\u0103 cu Exploratorul',
         'explorerPracticeTitle': 'LiChess Tools - antrenament contra mut\u0103ri din Explorator',
         'outOfMoves': 'Nu mai sunt mut\u0103ri \u00een Explorator',
         'explorerPracticeOptions.showSmileys': 'Arat\u0103 emoji c\u00E2nd nu mai sunt mut\u0103ri',
@@ -174,7 +174,7 @@
       const node = analysis.node;
 
       if (node.glyphs?.length) return;
-      const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 16;
+      const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 20;
       this.info=null;
 
       let side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
@@ -193,7 +193,7 @@
         while (!this.info && !this.stopCeval && analysis.node === node) {
           await lt.timeout(100);
         }
-        sf.stop();
+        await sf.stop();
       }
 
       if (!this.info) return;

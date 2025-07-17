@@ -7,13 +7,13 @@
         name: 'mobileExperience',
         category: 'mobile',
         type: 'multiple',
-        possibleValues: ['showGauge', 'hideOctopus', 'shapeDrawing', 'randomNextMove', 'selectiveRandom', 'inInteractive'],
+        possibleValues: ['showGauge', 'hideOctopus', 'shapeDrawing',/* 'tapDrag',*/ 'randomNextMove', 'selectiveRandom', 'inInteractive'],
         defaultValue: 'showGauge,randomNextMove,selectiveRandom' 
       }, {
         name: 'mobileExperienceRound',
         category: 'mobile',
         type: 'multiple',
-        possibleValues: ['shapeDrawingRound', 'standardButtons', 'invert', 'flipBoard'],
+        possibleValues: ['shapeDrawingRound',/* 'tapDragRound',*/ 'standardButtons', 'invert', 'flipBoard'],
         defaultValue: '',
         advanced: true
       }, {
@@ -55,10 +55,12 @@
         'mobileExperience.showGauge': 'Evaluation gauge',
         'mobileExperience.hideOctopus': 'Hide the octopus mascot',
         'mobileExperience.shapeDrawing': 'Analysis arrows',
+        'mobileExperience.tapDrag': 'Tap&Drag',
         'mobileExperience.randomNextMove': 'Random move button',
         'mobileExperience.selectiveRandom': '...only when variations',
         'mobileExperience.inInteractive': 'Extra buttons in interactive',
         'mobileExperienceRound.shapeDrawingRound': 'Game arrows',
+        'mobileExperienceRound.tapDragRound': 'Tap&Drag',
         'mobileExperienceRound.standardButtons': 'Standard buttons',
         'mobileExperienceRound.invert': 'Swap user and clock',
         'mobileExperienceRound.flipBoard': 'Tap bottom clock to flip board',
@@ -84,10 +86,12 @@
         'mobileExperience.showGauge': 'Band\u0103 de evaluare',
         'mobileExperience.hideOctopus': 'Ascunde mascota caracati\u0163\u0103',
         'mobileExperience.shapeDrawing': 'S\u0103ge\u0163i \u00een analiz\u0103',
+        'mobileExperience.tapDrag': 'Atinge \u015fi trage',
         'mobileExperience.randomNextMove': 'Buton mutare aleatoare',
-        'mobileExperience.selectiveRandom': '...doar c\u00e2nd sunt varia\u0163iuni',
+        'mobileExperience.selectiveRandom': '...doar c\u00e2nd sunt varia\u0163ii',
         'mobileExperience.inInteractive': 'Butoane suplimentare \u00een lec\u0163ii interactive',
         'mobileExperienceRound.shapeDrawingRound': 'S\u0103ge\u0163i \u00een joc',
+        'mobileExperienceRound.tapDragRound': 'Atinge \u015fi trage',
         'mobileExperienceRound.standardButtons': 'Butoane standard',
         'mobileExperienceRound.invert': 'Inverseaz\u0103 user \u015fi ceas',
         'mobileExperienceRound.flipBoard': 'Atinge ceasul de jos pentru a roti tabla',
@@ -106,43 +110,110 @@
     }
 
     touchStart = e => {
-      if (!this.drawingBrush || !this.chessground)
+      if (!this.chessground)
         return;
-      e.preventDefault();
-      e.stopPropagation();
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
-      const ev = e.targetTouches?.[0] || e;
-      const pos = [ev.clientX, ev.clientY];
-      const square = this.chessground.getKeyAtDomPos(pos);
-      this.chessground.state.drawable.current = {
-        orig: square,
-        brush: this.drawingBrush,
-        snapToValidMove: this.chessground.state.drawable.defaultSnapToValidMove,
-        pos: pos
-      };
-      this.chessground.state.dom.redraw();
+      switch (e.targetTouches?.length) {
+        case 1: {
+            const ev = e.targetTouches?.[0] || e;
+            const pos = [ev.clientX, ev.clientY];
+            const square = this.chessground.getKeyAtDomPos(pos);
+            if (this.drawingBrush) {
+              e.preventDefault();
+              e.stopPropagation();
+              this.chessground.state.drawable.current = {
+                orig: square,
+                brush: this.drawingBrush,
+                snapToValidMove: this.chessground.state.drawable.defaultSnapToValidMove,
+                pos: pos
+              };
+              this.chessground.state.dom.redraw();
+            } else 
+            if (this.options.tapDrag && ev.identifier) {
+              e.preventDefault();
+              e.stopPropagation();
+              this.holdingFinger = {
+                id: ev.identifier,
+                startX: ev.clientX,
+                startY: ev.clientY
+              };
+            }
+          }
+          break;
+        case 2: {
+            if (this.options.tapDrag && !this.drawingBrush && this.holdingFinger) {
+              const others = e.targetTouches?.filter(t=>t.identifier != this.holdingFinger.id);
+              if (others.length==1 && others[0].identifier) {
+                e.preventDefault();
+                e.stopPropagation();
+                const ev = others[0];
+                this.drawingFinger = {
+                  id: ev.identifier
+                };
+                $('button.lichessTools-shapeDrawing').toggleClassSafe('lichessTools-mobileExperience-tapDrag',true);
+                const pos = [ev.clientX, ev.clientY];
+                const square = this.chessground.getKeyAtDomPos(pos);
+                this.chessground.state.drawable.current = {
+                  orig: square,
+                  brush: this.brushes[0],
+                  snapToValidMove: this.chessground.state.drawable.defaultSnapToValidMove,
+                  pos: pos
+                };
+                this.chessground.state.dom.redraw();
+              }
+            }
+          }
+          break;
+      }
     };
+
+    isStationary = (touch) => {
+      if (!touch) return false;
+      const holdThreshold = 10;
+      return Math.abs(touch.clientX - this.holdingFinger.startX) < holdThreshold &&
+             Math.abs(touch.clientY - this.holdingFinger.startY) < holdThreshold;
+    };
+
     touchMove = e => {
-      if (!this.drawingBrush || !this.chessground)
+      if (!this.chessground)
         return;
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
       if (!this.chessground.state.drawable.current)
         return;
-      const ev = e.targetTouches?.[0] || e;
-      const pos = [ev.clientX, ev.clientY];
-      const square = this.chessground.getKeyAtDomPos(pos);
-      const current = this.chessground.state.drawable.current;
-      current.pos = pos;
-      current.mouseSq = square;
-      current.dest = square;
-      this.chessground.state.dom.redraw();
+      let ev = null;
+      if (this.drawingBrush) {
+        e.preventDefault();
+        e.stopPropagation();
+        ev = e.targetTouches?.[0] || e;
+      } else
+      if (this.holdingFinger && this.drawingFinger) {
+        e.preventDefault();
+        e.stopPropagation();
+        const holding = e.targetTouches?.filter(t=>t.identifier == this.holdingFinger.id)[0];
+        if (this.isStationary(holding)) {
+          ev = e.targetTouches?.filter(t=>t.identifier == this.drawingFinger.id)[0];
+        } else {
+          this.holdingFinger = null;
+          this.drawingFinger = null;
+        }
+      }
+      if (ev) {
+        const pos = [ev.clientX, ev.clientY];
+        const square = this.chessground.getKeyAtDomPos(pos);
+        const current = this.chessground.state.drawable.current;
+        current.pos = pos;
+        current.mouseSq = square;
+        current.dest = square;
+        this.chessground.state.dom.redraw();
+      }
     };
+
     touchEnd = e => {
-      if (!this.drawingBrush || !this.chessground)
+      if (!this.chessground)
         return;
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -151,13 +222,13 @@
         return;
       e.preventDefault();
       e.stopPropagation();
-      const ev = e.targetTouches?.[0] || e;
-      const pos = [ev.clientX, ev.clientY];
-      const square = this.chessground.getKeyAtDomPos(pos);
       this.handleGesture(this.chessground.state.drawable.current);
       this.chessground.state.drawable.current = undefined;
       this.chessground.state.dom.redraw();
       lt.pubsub.emit('lichessTools.shapeRank');
+      this.holdingFinger = null;
+      this.drawingFinger = null;
+      $('button.lichessTools-shapeDrawing').toggleClassSafe('lichessTools-mobileExperience-tapDrag',false);
     };
 
     handleGesture = (shape) => {
@@ -221,6 +292,8 @@
 
     brushes = ['green', 'red', 'blue', 'yellow'];
     toggleBrush = (ev) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (!this.chessground)
         return;
       ev.preventDefault();
@@ -234,8 +307,7 @@
       state.draggable.enabled = !this.drawingBrush;
       state.selectable.enabled = !this.drawingBrush;
       for (const brush of this.brushes) {
-        $(ev.target)
-        .toggleClass('lichessTools-' + brush + 'Brush', this.drawingBrush == brush);
+        $(ev.target).toggleClassSafe('lichessTools-' + brush + 'Brush', this.drawingBrush == brush);
       }
     };
 

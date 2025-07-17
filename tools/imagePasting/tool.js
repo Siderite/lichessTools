@@ -94,7 +94,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (this.options.pasteImages) {
-        $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, #form3-bio')
+        $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, main.forum textarea.edit-post-box, #form3-bio')
           .each((i, e) => {
             if (e.imagePastingInit) return;
             e.imagePastingInit = true;

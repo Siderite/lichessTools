@@ -74,16 +74,21 @@
       const $ = lt.$;
       const study = lichess.analysis.study;
       const chapters = study.chapters.list.all();
-      if (!chapters || !this.chapterData) return;
+      if (!chapters || !this.chapterData) {
+        return;
+      }
       const newOrder = chapters.map(c => c.id).filter(id => id != newChapterId);
       const index = newOrder.findIndex(id => id == this.chapterData.current.id);
-      if (index < 0 || index == chapters.length - 1) return;
+      if (index < 0 || index == chapters.length - 1) {
+        return;
+      }
       newOrder.splice(index + 1, 0, newChapterId);
       const chapterEl = $('div.study__chapters button.draggable[data-id="' + newChapterId + '"]');
-      if (!chapterEl.length) return;
-      chapterEl
-        .insertAfter('div.study__chapters button.draggable[data-id="' + this.chapterData.current.id + '"]');
-      lt.scrollIntoViewIfNeeded(chapterEl);
+      if (chapterEl.length) {
+        chapterEl
+          .insertAfter('div.study__chapters button.draggable[data-id="' + this.chapterData.current.id + '"]');
+        lt.scrollIntoViewIfNeeded(chapterEl);
+      }
       setTimeout(()=>{
         study.chapters.sort(newOrder);
       },1000);
@@ -92,6 +97,7 @@
     };
 
     onChapterChange = (chapterId)=>{
+      if (!chapterId) return;
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const study = lichess.analysis.study;

@@ -1,7 +1,9 @@
 /* CSS in preferences should not be under body.lichessTools, as the class can be removed when the extension is disabled */
 
-a + a.lichessTools-preferences {
-  margin-left: 1em;
+a + a.lichessTools-preferences:before {
+  padding-left: 0.5em;
+  left: -0.25em;
+  top: -0.5em;
 }
 
 a.lichessTools-preferences:before {

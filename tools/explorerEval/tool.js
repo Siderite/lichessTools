@@ -468,7 +468,9 @@
           lt.arrayRemoveAll(result.moves, m=>m.depth<12);
         }
       }
-      this.showEvaluations(result);
+      lt.global.requestAnimationFrame(async ()=>{
+        this.showEvaluations(result);
+      });
     };
     doEvaluationDebounced = this.lichessTools.debounce(this.doEvaluation, 100);
 

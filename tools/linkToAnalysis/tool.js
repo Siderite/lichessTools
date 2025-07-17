@@ -53,12 +53,10 @@
       let url = lt.global.location.origin+'/analysis/pgn/'+lt.global.encodeURIComponent(pgn);
       url+=' '; // Lichess removes trailing closing parentheses (https://github.com/lichess-org/lila/issues/17508)
       if (analysis.getOrientation()=='black') url+='?color=black';
-      if (analysis.node.ply) {
-        if (analysis.onMainline) {
-          url += '#'+analysis.node.ply;
-        } else {
-          url += '#'+lt.global.encodeURIComponent(analysis.path);
-        }
+      if (analysis.onMainline) {
+        url += '#'+analysis.node.ply;
+      } else {
+        url += '#'+lt.global.encodeURIComponent(analysis.path);
       }
       url = url.replaceAll('%20','+');
       if (url.length>2048) {

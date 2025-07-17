@@ -2,7 +2,8 @@ body.lichessTools *[data-icon].lichessTools-icon-rotate:before {
   transform: rotate(-60deg);
 }
 
-body.lichessTools.lichessTools-evaluationStarted #analyse-cm a[data-role="evaluateTerminations"]:before {
+body.lichessTools.lichessTools-evaluationStarted #analyse-cm a[data-role="evaluateTerminations"]:before,
+body.lichessTools.lichessTools-evaluationStarted #analyse-cm a[data-role="evaluateLine"]:before {
   content: '\E02A'; /* X */
   color: red;
 }

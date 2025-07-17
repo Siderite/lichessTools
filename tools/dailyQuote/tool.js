@@ -37,7 +37,7 @@
         'quoteCloseButtonTitle': 'Ascunde citatul de azi',
         'dailyQuote.top': 'Deasupra',
         'dailyQuote.side': 'Pe lateral',
-        'allQuotesByAuthorText': 'Toate citatele de %s'
+        'allQuotesByAuthorText': 'Toate citatele de la %s'
       }
     }
 

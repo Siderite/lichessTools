@@ -31,10 +31,10 @@
         'clipboardDenied': 'Clipboard access denied',
         'getBookmarkUrlText': 'Get bookmark link',
         'getBookmarkUrlTitle': 'LiChess Tools - get bookmark link',
-        'collapseAllText': 'Collapse all bookmarks',
-        'collapseAllTitle': 'LiChess Tools - Collapse all bookmarks',
-        'expandAllText': 'Expand all bookmarks',
-        'expandAllTitle': 'LiChess Tools - Expand all bookmarks',
+        'collapseAllBookmarksText': 'Collapse all bookmarks',
+        'collapseAllBookmarksTitle': 'LiChess Tools - Collapse all bookmarks',
+        'expandAllBookmarksText': 'Expand all bookmarks',
+        'expandAllBookmarksTitle': 'LiChess Tools - Expand all bookmarks',
         'bookmarkSplitConfirmationText': 'Sure you want to split the chapter on this bookmark?',
         'bookmarkSplitConfirmationDeleteText': 'Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW',
         'bookmarkSplitText': 'Split chapter here',
@@ -46,7 +46,7 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.moveListOptions': 'Op\u0163iuni pentru list\u0103 mut\u0103ri',
-        'moveListOptions.indentedVariations': 'Varia\u0163iuni indentate',
+        'moveListOptions.indentedVariations': 'Varia\u0163ii indentate',
         'moveListOptions.bookmarks': 'Bookmarkuri',
         'moveListOptions.fullWidthAnalysis': 'List\u0103 mut\u0103ri l\u0103rgit\u0103',
         'moveListOptions.hideLeftSide': 'Ascunde partea st\u00e2ng\u0103',
@@ -60,10 +60,10 @@
         'clipboardDenied': 'Acces refuzat la clipboard',
         'getBookmarkUrlText': 'Link la bookmark',
         'getBookmarkUrlTitle': 'LiChess Tools - link la bookmark',
-        'collapseAllText': 'Colapseaz\u0103 toate bookmarkurile',
-        'collapseAllTitle': 'LiChess Tools - Colapseaz\u0103 toate bookmarkurile',
-        'expandAllText': 'Expandeaz\u0103 toate bookmarkurile',
-        'expandAllTitle': 'LiChess Tools - Expandeaz\u0103 toate bookmarkurile',
+        'collapseAllBookmarksText': 'Colapseaz\u0103 toate bookmarkurile',
+        'collapseAllBookmarksTitle': 'LiChess Tools - Colapseaz\u0103 toate bookmarkurile',
+        'expandAllBookmarksText': 'Expandeaz\u0103 toate bookmarkurile',
+        'expandAllBookmarksTitle': 'LiChess Tools - Expandeaz\u0103 toate bookmarkurile',
         'bookmarkSplitConfirmationText': 'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?',
         'bookmarkSplitConfirmationDeleteText': 'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?\r\nASTA VA \u015ETERGE MUT\u0102RILE URM\u0102TOARE DIN ACEST CAPITOL',
         'bookmarkSplitText': 'Taie un nou capitol de aici',
@@ -593,12 +593,12 @@
           let title = undefined;
           let icon = undefined;
           if (anyCollapsed) {
-            text = trans.noarg('expandAllText');
-            title = trans.noarg('expandAllTitle');
+            text = trans.noarg('expandAllBookmarksText');
+            title = trans.noarg('expandAllBookmarksTitle');
             icon = lt.icon.PlusButton;
           } else {
-            text = trans.noarg('collapseAllText');
-            title = trans.noarg('collapseAllTitle');
+            text = trans.noarg('collapseAllBookmarksText');
+            title = trans.noarg('collapseAllBookmarksTitle');
             icon = lt.icon.MinusButton;
           }
           menuItem

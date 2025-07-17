@@ -52,17 +52,52 @@
       return await this.getImage(url);
     };
 
+    drawArrow = (ctx, fromX, fromY, toX, toY, headLength = 10) => {
+      const dx = toX - fromX;
+      const dy = toY - fromY;
+      const angle = Math.atan2(dy, dx);
+
+      // Draw the line
+      ctx.beginPath();
+      ctx.moveTo(fromX, fromY);
+      ctx.lineTo(toX, toY);
+      ctx.stroke();
+
+      // Draw the arrowhead
+      ctx.beginPath();
+      ctx.moveTo(toX, toY);
+      ctx.lineTo(toX - headLength * Math.cos(angle - Math.PI / 6),
+                  toY - headLength * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(toX - headLength * Math.cos(angle + Math.PI / 6),
+                  toY - headLength * Math.sin(angle + Math.PI / 6));
+      ctx.lineTo(toX, toY);
+      ctx.fill();
+    };
+
     getBoardImage = async (ev) => {
       if (ev.ctrlKey || ev.shiftKey) return;
       ev.preventDefault();
       const lt = this.lichessTools;
       const $ = lt.$;
       const lichess = lt.lichess;
+      const board = $('div.main-board cg-board');
+
+      const fontSize = 20;
+      let coordSetting;
+      const body = $('body');
+      if (body.is('.coords-in')) coordSetting = 1;
+      if (body.is('.coords-out')) coordSetting = 2;
+      if (body.is('.coords-all')) coordSetting = 3;
+      const coordsOutside = coordSetting == 2;
+      const size = 800 +  (coordsOutside ? fontSize : 0);
+      const orientation = lichess?.analysis?.getOrientation() || ( board.closest('.cg-wrap').is('.orientation-black') ? 'black' : 'white' );
+      const turn = lichess?.analysis?.turnColor() || $('div.color > select').val();
+
       const canvas = $('<canvas>')[0];
       const ctx = canvas.getContext('2d');
-      ctx.canvas.width = 800;
-      ctx.canvas.height = 800;
-      const board = $('div.main-board cg-board');
+      ctx.canvas.width = size;
+      ctx.canvas.height = size;
+
       const href = $(ev.target).attr('href');
       const backgroundText = lt.global.getComputedStyle(board[0], ':before').backgroundImage;
       const match = /"(.*?)"(?:[^"]*"(.*?)")*/.exec(backgroundText);
@@ -89,57 +124,76 @@
         ctx.fillRect(x, y, 100, 100);
       });
       if (!ev.shiftKey) {
+        const isBlack = orientation == 'black';
         const ranks = $('coords.ranks',board.parent());
         if (ranks.length) {
-          const isBlack = ranks.is('.black');
-          const fontSize = 20;
           ctx.font = fontSize+'px arial';
+          const offset = coordsOutside ? (100-fontSize)/2 : 0;
           for (let i=0; i<8; i++) {
-            ctx.fillStyle = i%2==0 ? '#dddddd' : '#222222';
+            ctx.fillStyle = i%2==0 || coordsOutside ? '#dddddd' : '#222222';
+            
             const digit = isBlack ? i+1 : (8-i);
-            ctx.fillText(digit,800-fontSize*0.75,100*i+fontSize);
+            ctx.fillText(digit,size-fontSize*0.75,100*i+fontSize+offset);
             const letter = String.fromCharCode(97+(isBlack ? (7-i) : i));
-            ctx.fillText(letter,100*i,800-fontSize*0.5);
+            ctx.fillText(letter,100*i+offset,size-fontSize*0.25);
+          }
+        }
+        ctx.fillStyle = '#808080';
+        if (turn=='white') {
+          if (orientation == 'white') {
+            this.drawArrow(ctx, 393, 797, 393, 777);
+          } else {
+            this.drawArrow(ctx, 407, 3, 407, 23);
+          }
+        }
+        if (turn=='black') {
+          if (orientation == 'black') {
+            this.drawArrow(ctx, 393, 797, 393, 777);
+          } else {
+            this.drawArrow(ctx, 407, 3, 407, 23);
           }
         }
       }
-      board.find('square.move-dest').each((i, e) => {
-        const css = {
-          background: '#14551e80',
-          borderColor: $(e).css('border-color'),
-          borderRadius: $(e).css('border-radius')?.replace('%', ''),
-        };
-        const style = $(e).attr('style') || '';
-        const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)/.exec(style);
-        if (!m) return;
-        const x = +m[1] * q;
-        const y = +m[2] * q;
+      board.find('square.move-dest')
+        .each((i, e) => {
+          const css = {
+            background: '#14551e80',
+            borderColor: $(e).css('border-color'),
+            borderRadius: $(e).css('border-radius')?.replace('%', ''),
+          };
+          const style = $(e).attr('style') || '';
+          const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)/.exec(style);
+          if (!m) return;
+          const x = +m[1] * q;
+          const y = +m[2] * q;
 
-        const gradient = ctx.createRadialGradient(x + 50, y + 50, 0, x + 50, y + 50, 100);
-        gradient.addColorStop(0, css.background);
-        gradient.addColorStop(0.149, css.background);
-        gradient.addColorStop(0.15, "transparent");
-        gradient.addColorStop(1, "transparent");
-        ctx.fillStyle = gradient;
-        ctx.fillRect(x, y, 100, 100);
+          const gradient = ctx.createRadialGradient(x + 50, y + 50, 0, x + 50, y + 50, 100);
+          gradient.addColorStop(0, css.background);
+          gradient.addColorStop(0.149, css.background);
+          gradient.addColorStop(0.15, "transparent");
+          gradient.addColorStop(1, "transparent");
+          ctx.fillStyle = gradient;
+          ctx.fillRect(x, y, 100, 100);
 
-        ctx.strokeStyle = css.borderColor;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.roundRect(x, y, 100, 100, css.borderRadius);
-        ctx.stroke();
-      });
-      board.find('piece').each(async (i, e) => {
-        url = $(e).css('background-image')?.replace(/url\(["']?|["']?\)/g, '');
-        if (!url) return;
-        const style = $(e).attr('style') || '';
-        const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)?/.exec(style);
-        if (!m) return;
-        img = await this.getImage(url);
-        const x = +m[1] * q;
-        const y = (+m[2]||0) * q;
-        ctx.drawImage(img, x, y, 100, 100);
-      });
+          ctx.strokeStyle = css.borderColor;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.roundRect(x, y, 100, 100, css.borderRadius);
+          ctx.stroke();
+        });
+      board.find('piece')
+        .each(async (i, e) => {
+          url = $(e).css('background-image')?.replace(/url\(["']?|["']?\)/g, '');
+          if (!url) return;
+          const style = $(e).attr('style') || '';
+          const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)?/.exec(style);
+          if (!m) return;
+          img = await this.getImage(url);
+          const x = +m[1] * q;
+          const y = (+m[2]||0) * q;
+          ctx.drawImage(img, x, y, 100, 100);
+        });
+      
       const svgs = board.parent().children('svg').get();
       svgs.forEach(async (e) => {
         const img = await this.drawSvg(e);

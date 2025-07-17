@@ -8,7 +8,7 @@
         name: 'showOpening',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['showInBoard', 'showInMinigames', 'showInExplorer'],
+        possibleValues: ['showInBoard', 'showInMinigames', 'showInExplorer','showInAnalysisTitle'],
         defaultValue: 'showInBoard,showInMinigames,showInExplorer'
       }
     ];
@@ -20,7 +20,8 @@
         'openingNameTitle': 'LiChess Tools - opening name',
         'showOpening.showInBoard': 'For large board',
         'showOpening.showInMinigames': 'For minigames',
-        'showOpening.showInExplorer': 'In Explorer'
+        'showOpening.showInExplorer': 'In Explorer',
+        'showOpening.showInAnalysisTitle': 'In Analysis Board page title'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -28,7 +29,8 @@
         'openingNameTitle': 'LiChess Tools - numele deschiderii',
         'showOpening.showInBoard': 'Pentru tabla mare',
         'showOpening.showInMinigames': 'Pentru table mici',
-        'showOpening.showInExplorer': '\u00cen Explorator'
+        'showOpening.showInExplorer': '\u00cen Explorator',
+        'showOpening.showInAnalysisTitle': '\u00cen titlul paginii Tabl\u0103 de Analiz\u0103'
       }
     }
 
@@ -169,7 +171,7 @@
       let href = elem.attr('href');
       let m = /\/opening\/(?<openingName>[^\/]+)/i.exec(href);
       if (m) {
-        const moveList = analysis.nodeList.map(n=>n.san).filter(s=>s).slice(0,10).join('_');
+        const moveList = analysis?.nodeList?.map(n=>n.san).filter(s=>s).slice(0,10).join('_');
         if (moveList) {
           href='/opening/'+m.groups.openingName+'/'+moveList;
           elem.attrSafe('href',href);
@@ -207,12 +209,13 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
+      const analysis = lichess.analysis;
       if (lt.global.document.hidden) return;
       if ($.cached('body').is('.playing')) return;
       const trans = lt.translator;
       const tvOptions = lt.getTvOptions();
-      const gameId = tvOptions.gameId || lichess.analysis?.data?.game?.id;
-      const fen = lichess.analysis?.node?.fen || lichess.analysis?.data?.game?.fen;
+      const gameId = tvOptions.gameId || analysis?.data?.game?.id;
+      const fen = analysis?.node?.fen || analysis?.data?.game?.fen;
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables', 10000);
       const result = await this.withOpening(gameId, $.cached('main.round, main.analyse, main#board-editor', 10000)[0], ply, fen, false);
       if (!result) {
@@ -229,6 +232,15 @@
         }
         metaSection.find('span.lichessTools-opening').text(result.opening);
       }
+      if (this.options.showInAnalysisTitle || lt.global.location.pathname=='/analysis') {
+        if (!this.originalTitle) {
+          this.originalTitle = lt.global.document.title;
+        }
+        const title = result.opening && result.opening!='*'
+          ? result.opening
+          : analysis?.nodeList?.findLast(n=>n.opening)?.opening;
+        lt.global.document.title = title || this.originalTitle;
+      }
       this.showOpeningInExplorer(result.opening);
       if (!ply) {
         await this.miniGameOpening();
@@ -244,6 +256,7 @@
         showInBoard: lt.isOptionSet(value, 'showInBoard'),
         showInMinigames: lt.isOptionSet(value, 'showInMinigames'),
         showInExplorer: lt.isOptionSet(value, 'showInExplorer'),
+        showInAnalysisTitle: lt.isOptionSet(value, 'showInAnalysisTitle')
       };
       const lichess = lt.lichess;
       if (!lichess || !lt.uiApi) return;
@@ -257,7 +270,7 @@
       metaSection.find('.lichessTools-opening').remove();
       $('a.mini-game .lichessTools-opening').remove();
       $('div.title .lichessTools-opening').remove();
-      if (this.options.showInBoard) {
+      if (this.options.showInBoard || this.options.showInAnalysisTitle) {
         lt.uiApi.socket.events.on('endData', this.refreshOpeningDebounced);
         lt.uiApi.events.on('ply', this.refreshOpeningDebounced);
         const intervalTime = $('main').is('#board-editor')

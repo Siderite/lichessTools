@@ -38,6 +38,8 @@
       const form = $('form.ublog-post-form__main');
       if (!form.length) return;
       if (!forced && form.find('[name="live"]').is(':checked')) return;
+      const content = $('#form3-markdown').val();
+      if (!content) return;
       const arr = form
         .find('input,textarea,select')
         .get()

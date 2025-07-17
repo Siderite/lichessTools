@@ -186,6 +186,7 @@
       AccountCircle: '\ue079',
       Logo: '\ue07a',
       Switch: '\ue07b',
+      Blindfold: '\ue07c',
 
       // LiChess Tools icons
       ShowTranspositions: 'T',
@@ -235,6 +236,8 @@
       OpenBook: '\uD83D\uDCD6',
       Checked: '\u2713',
       RedX: '\u2716',
+      Print: '\uD83D\uDDB6',
+      LightVerticalAndBottomRight: '\u23BF',
 
       toEntity: function(s) {
         let result='';
@@ -575,7 +578,7 @@
       return new this.global.Date().toISOString().replace(/[\-T:]/g, '').slice(0, 14);
     };
 
-    async writeToClipboard(value, successText, failText) {
+    async writeToClipboard(value, successText, failText, asHtml) {
       const navigator = this.global.navigator;
       const console = this.global.console;
       const announce = this.announce;
@@ -590,7 +593,15 @@
       const permission = await hasPermission();
       if (permission !== false) {
         try {
-          await navigator.clipboard.writeText(value);
+          const item = asHtml
+            ? new ClipboardItem({
+               'text/html': new Blob([value], { type: 'text/html' }),
+               'text/plain': new Blob([value], { type: 'text/plain' }) // Fallback for plain text
+             })
+            : new ClipboardItem({
+               'text/plain': new Blob([value], { type: 'text/plain' })
+             });
+          await navigator.clipboard.write([ item ]);
           announcement = successText;
         } catch(e) {
           console.warn('Error copying PGN to clipboard',e);
@@ -1297,6 +1308,32 @@
       return result;
     };
 
+    getFenFromBoard = (board) => {
+      let fen = '';
+      for (let i = 0; i < 8; i++) {
+        let emptyCount = 0;
+        for (let j = 0; j < 8; j++) {
+          const piece = board[i][j];
+          if (!piece) {
+            emptyCount++;
+          } else {
+            if (emptyCount > 0) {
+              fen += emptyCount;
+              emptyCount = 0;
+            }
+            fen += piece;
+          }
+        }
+        if (emptyCount > 0) {
+          fen += emptyCount;
+        }
+        if (i < 7) {
+          fen += '/';
+        }
+      }
+      return fen;
+    };
+
     reverseFen = (fen) => {
       if (!fen) return fen;
 
@@ -1433,6 +1470,13 @@
       return this.global.Math.random().toString(36).slice(2, 12);
     };
 
+    arrayShuffle = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(this.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
 
     jsonParse = (funcOrText, defaultValue) => {
       const console = this.global.console;
@@ -1764,6 +1808,23 @@
           if (error) lt.global.console.error(error);
         }
         return data;
+      },
+      _texts: new Map(),
+      fetchText: async function(url, options) {
+        options = { retries: 3, url: url, ...options };
+        const lt = this.lichessTools;
+        let data = this._texts.get(url);
+        let error = null;
+        for (let i=0; i<options.retries && !data; i++) {
+          data = await lt.comm.send({ type: 'fetchText', options: options })
+                                             .catch(e => { error = e; });
+        }
+        if (data) {
+          this._texts.set(url,data);
+        } else {
+          if (error) lt.global.console.error(error);
+        }
+        return data;
       }
     };
 
@@ -1914,7 +1975,8 @@
               body: bodyContent,
               method: 'POST',
               mode: 'cors',
-              credentials: 'include'
+              credentials: 'include',
+              ignoreStatuses: [ 404 ]
             });
         }
       },
@@ -1925,7 +1987,7 @@
           const pgn = await lt.net.fetch({
             url: '/study/{studyId}/{chapterId}.pgn',
             args: { studyId, chapterId }
-          });
+          },{ ignoreStatuses: [404] });
           return pgn;
         },
         getStudyListPage: async function (baseUrl, page) {
@@ -2249,9 +2311,10 @@
             for (const key in toolLang) {
               if (existingLang[key] === undefined) {
                 existingLang[key] = toolLang[key];
+              } else if (existingLang[key] != toolLang[key]) {
+                this.global.console.warn('Translation key '+key+' used for different texts');
               }
             }
-            //this.intl[lang] = { ...this.intl[lang], ...tool.intl[lang] };
           }
         }
         if (tool.dependencies) {

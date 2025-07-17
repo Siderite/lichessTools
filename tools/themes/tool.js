@@ -8,7 +8,9 @@
         name: 'themes',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat', 'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup','adamisko','fixThirdParties'],
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat',
+                         'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup','adamisko','fixThirdParties','timeControls',
+                         'mobileHideStartEndButtons'],
         defaultValue: 'fixThirdParties',
         advanced: true
       }
@@ -37,7 +39,9 @@
         'themes.gridBoard': 'Grid board squares',
         'themes.noResultPopup': 'No game result popup',
         'themes.adamisko': 'Vintage Adamisko',
-        'themes.fixThirdParties': 'Fix third parties'
+        'themes.fixThirdParties': 'Fix third parties',
+        'themes.timeControls': 'Hover time controls',
+        'themes.mobileHideStartEndButtons': 'Mobile hide start/end buttons'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -60,7 +64,9 @@
         'themes.slimmerArrows': '... \u015fi mai sub\u0163iri',
         'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei',
         'themes.noResultPopup': 'F\u0103r\u0103 popup cu rezultat joc',
-        'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i'
+        'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i',
+        'themes.timeControls': 'Controale timp la hover',
+        'themes.mobileHideStartEndButtons': 'Ascunde butoanele start/final pe mobil'
       }
     }
 

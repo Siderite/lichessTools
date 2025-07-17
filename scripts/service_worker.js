@@ -68,6 +68,13 @@ const handlers = {
     const obj = await response.json();
     return obj;
   },
+  fetchText: async (data) => {
+    const url = data?.options?.url;
+    if (!url) return;
+    const response = await fetch(url, data.options);
+    const text = await response.text();
+    return text;
+  },
   getVersion: async (data)=>{
     const manifest = chrome.runtime.getManifest();
     return { version: manifest.version };
@@ -82,7 +89,7 @@ const handleRequest = async (request) => {
     try {
       return await handler(data);
     } catch (e) {
-      return { err: JSON.stringify(e) };
+      return { err: e.toString() };
     }
   }
 };

@@ -725,12 +725,13 @@
       const lichess = lt.lichess;
       if (!lichess || !lt.uiApi) return;
       const $ = lt.$;
-      const friendsBoxMode = lt.currentOptions.getValue('openFriends');
+      const friendsBoxMode = lt.currentOptions.getValue('openFriends') || 'menu';
       const liveFriendsPage = lt.currentOptions.getValue('liveFriendsPage');
       this.logOption('Online friend list', friendsBoxMode);
       this.logOption('Live friends page', liveFriendsPage);
+      const isLowWidth = lt.global.innerWidth<=1020;
       this.options = {
-        openFriends: friendsBoxMode,
+        openFriends: isLowWidth && friendsBoxMode!='hidden' ? 'button' : friendsBoxMode,
         liveFriendsPage: liveFriendsPage,
         friendsPlaying: lt.currentOptions.getValue('friendsPlaying'),
         mutedPlayers: lt.currentOptions.getValue('mutedPlayers')
@@ -749,7 +750,7 @@
       lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
       lt.uiApi.onlineFriends.events.off('playing', this.playing);
       lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
-      if (friendsBoxMode == 'menu' || friendsBoxMode == 'button' || (this.options.liveFriendsPage && this.isFriendsPage)) {
+      if (this.options.openFriends == 'menu' || this.options.openFriends == 'button' || (this.options.liveFriendsPage && this.isFriendsPage)) {
         lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
         lt.uiApi.onlineFriends.events.on('enters', this.enters);
         lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
@@ -781,7 +782,7 @@
 
       this.followingOnlinesRequests = 0;
       clearInterval(this.onlinesInterval);
-      if (this.options.friendsBoxMode || (this.options.liveFriendsPage && this.isFriendsPage) || this.options.friendsPlaying) {
+      if (this.options.openFriends || (this.options.liveFriendsPage && this.isFriendsPage) || this.options.friendsPlaying) {
         const checkOnlineFriends = () => {
           if (!this.onlinesInterval) return;
           if (lt.global.document.visibilityState == 'hidden') return;
@@ -798,7 +799,7 @@
         }
       }
 
-      switch (friendsBoxMode) {
+      switch (this.options.openFriends) {
         case true:
         case 'true':
         case 'open': {

@@ -66,7 +66,7 @@
         'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
         'extraChart.moreBrilliant': '... mai multe mut\u0103ri',
         'extraChart.smooth': 'Netezire grafice',
-        'extraChart.gauge': 'pe bara de Eval',
+        'extraChart.gauge': 'pe bara de evaluare',
         'extraChart.accuracyPlus': 'Informa\u0163ii \u00een plus pe Acurate\u0163e',
         'chartInfoTitle': 'LiChess Tools - grafice \u00een plus',
         'tensionLineTitle': 'Tensiune maxim\u0103',
@@ -1154,7 +1154,7 @@
         localLine = this.getLocalLine();
       }
 
-      if (lichess.analysis.mainline.find(n => n.eval)) {
+      if (lichess.analysis.mainline.find(n => n.eval && n.eval._originator != 'lichessTools')) {
         $('#acpl-chart-container').removeClass('lichessTools-extraChart');
         $('form.future-game-analysis').remove();
       }

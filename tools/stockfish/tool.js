@@ -34,7 +34,8 @@
         'options.stockfish': 'Stockfish',
         'options.stockfish-threads': 'LiChess Tools analysis engine threads',
         'options.stockfish-hash': 'LiChess Tools analysis engine hash (MB)',
-        'couldNotLoadStockfish': 'Could not load Stockfish!'
+        'couldNotLoadStockfish': 'Could not load Stockfish!',
+        'stockfishError': 'Error running StockFish!'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -42,7 +43,8 @@
         'options.stockfish': 'Stockfish',
         'options.stockfish-threads': 'Thread-uri pentru motorul de analiz\u0103 LiChess Tools',
         'options.stockfish-hash': 'Hash pentru motorul de analiz\u0103 LiChess Tools (MB)',
-        'couldNotLoadStockfish': 'Nu am putut \u00eenc\u0103rca Stockfish!'
+        'couldNotLoadStockfish': 'Nu am putut \u00eenc\u0103rca Stockfish!',
+        'stockfishError': 'Eroare rul\u00e2nd StockFish!'
       }
     }
 
@@ -82,11 +84,14 @@
       this.restartDebounced = this.lt.debounce(this.restart, 500, { defer:true });
     }
 
-    async load() {
+    async load(useBetterEngine) {
+      this._lastUseBetterEngine = useBetterEngine;
       const lichess = this.lt.lichess;
       let engineId;
       let engineRoot;
-      const useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) >= 4;
+      if (useBetterEngine === undefined) {
+        useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) >= 4;
+      }
       if (useBetterEngine) {
         engineId = '__sf17_1nnue79';
         engineRoot = 'sf171-79.js';
@@ -118,6 +123,11 @@
         if (!this._instance) {
           this.lt.debug && this.lt.global.console.debug('SF', 'creating instance...');
           const sf = await this._stockfish();
+          sf.onError = (e)=>{
+            this.lt.global.console.debug('SF error: ',e);
+            this.lt.announce(this.lt.translator.noarg('stockfishError'));
+            this.emit('error',e);
+          };
           if (useBetterEngine) {
             const getBuffer=async (i)=>{
               const nnueFilename = sf.getRecommendedNnue(i);
@@ -206,18 +216,19 @@
       this.restartDebounced();
     }
 
-    restart() {
-      if (!this._isStarted) return;
-      this.start();
+    async restart() {
+      if (this._isStarted) return;
+      await this.start();
     }
 
     start() {
       const sf = this._instance;
       if (!sf) {
-        this.load().then(this.start.bind(this));
+        this.load(this._lastUseBetterEngine).then(this.start.bind(this));
         return;
       }
       this.postMessage('stop');
+      this._isStarted = false;
       //this.postMessage('ucinewgame');
       //this.postMessage('setoption name UCI_AnalyseMode value true');
       this.postMessage('setoption name UCI_Elo value 3190');
@@ -228,9 +239,13 @@
       this.lt.debug && this.lt.global.console.debug('SF', 'Engine started');
     }
 
-    stop() {
+    async stop() {
       const sf = this._instance;
       sf?.postMessage('stop');
+      let k=0;
+      while (this._isStarted && k++<6) {
+        await this.lt.timeout(50);
+      }
       this._isStarted = false;
     }
 
@@ -254,7 +269,11 @@
         this._uciok = true;
         return;
       }
-      if (/^(info|bestmove)/.test(data)) {
+      const m = /^(info|bestmove)/.exec(data);
+      if (m) {
+        if (m[1]=='bestmove') {
+          this._isStarted = false;
+        }
         const splits = data.split(' ');
         let arr = null;
         const info = {};

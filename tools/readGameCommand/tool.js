@@ -24,7 +24,7 @@
         'readGameCommand.helpText': '/readgame [speed] [voice] [instrument]\r\n default speed = ' + this.defaultSpeed + ', voice=0, instrument=0\r\n Esc to stop\r\nRead game moves from here'
       },
       'ro-RO': {
-        'options.readGameCommand': 'Comand\u0103: arat\u0103 valoare capcan\u0103 pentru pozi\u0163ie',
+        'options.readGameCommand': 'Comand\u0103: cite\u015fte mut\u0103rile jocului de aici',
         'readGameCommand.helpText': '/readgame [vitez\u0103] [voce] [instrument]\r\n viteza standard = ' + this.defaultSpeed + ', voce=0, instrument=0\r\n Esc pentru stop\r\nCite\u015Fte mut\u0103rile de aici'
       }
     };

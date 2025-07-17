@@ -1,0 +1,10 @@
+body.lichessTools .relay-tour__side__header a.lichessTools-downloadBroadcastPgn {
+  background: var(--c-bg-zebra);
+  padding: 0 5px;
+}
+
+body.lichessTools .relay-tour__side__header a.lichessTools-downloadBroadcastPgn:before {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}

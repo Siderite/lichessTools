@@ -19,7 +19,7 @@
         'options.showFlags': 'Show player country flags'
       },
       'ro-RO': {
-        'options.study': 'General',
+        'options.general': 'General',
         'options.showFlags': 'Arat\u0103 steagurile \u0163\u0103rilor juc\u0103torilor'
       }
     }
@@ -195,6 +195,7 @@
       if (toSaveCache) {
         this.debouncedSaveCache();
       }
+      lt.global.requestAnimationFrame(()=>{
       for (const item of data) {
         if (!item.countryName) continue;
         const elems = dict[item.id];
@@ -218,6 +219,7 @@
           }
         }
       }
+      });
       this.debouncedProcessFlags();
     };
     debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500, { defer:true });

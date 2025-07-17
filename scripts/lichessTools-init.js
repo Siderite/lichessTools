@@ -126,12 +126,16 @@ lichessTools.loadTool(LiChessTools.Tools.PlayerExtraButtons);
 lichessTools.loadTool(LiChessTools.Tools.CevalCache);
 lichessTools.loadTool(LiChessTools.Tools.ShowKmaps);
 lichessTools.loadTool(LiChessTools.Tools.ChallengeOptions);
+lichessTools.loadTool(LiChessTools.Tools.BetterBestArrow);
+lichessTools.loadTool(LiChessTools.Tools.DownloadBroadcastPgn);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
 lichessTools.loadTool(LiChessTools.Tools.TrapValueCommand);
+lichessTools.loadTool(LiChessTools.Tools.PieceValueCommand);
 lichessTools.loadTool(LiChessTools.Tools.CopyPgnCommand);
 lichessTools.loadTool(LiChessTools.Tools.ReadGameCommand);
+lichessTools.loadTool(LiChessTools.Tools.ReadPositionCommand);
 lichessTools.loadTool(LiChessTools.Tools.SkipMoveCommand);
 
 lichessTools.loadTool(LiChessTools.Tools.LocalDatabase);

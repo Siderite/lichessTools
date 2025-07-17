@@ -17,12 +17,12 @@
     intl = {
       'en-US': {
         'options.general': 'General',
-        'options.showDeviation': 'Show player score deviation',
-        'predictedRatingChangeText': 'Predicted rating changes: %s'
+        'options.showDeviation': 'Show player rating deviation',
+        'predictedRatingChangeText': 'Predicted rating change: %s'
       },
       'ro-RO': {
         'options.general': 'General',
-        'options.showDeviation': 'Arat\u0103 devierea de scor la juc\u0103tori',
+        'options.showDeviation': 'Arat\u0103 deviere rating la juc\u0103tori',
         'predictedRatingChangeText': 'Simulare schimbare rating: %s'
       }
     }

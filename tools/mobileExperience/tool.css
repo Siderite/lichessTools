@@ -184,6 +184,11 @@ body.lichessTools.mobile.lichessTools-mobileExperience main.analyse:has(.gameboo
   color: var(--c-font-page);
 }
 
+body.lichessTools .lichessTools-shapeDrawing.lichessTools-mobileExperience-tapDrag {
+  background: #629924;
+  color: white;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .gamebook {

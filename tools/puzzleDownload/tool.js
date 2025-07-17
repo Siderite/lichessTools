@@ -97,17 +97,20 @@
       const puzzleLinks = $('.infos.puzzle a[href^="/training/"]')
         .each((i,e)=>{
           if ($(e).next('.lichessTools-puzzleDownload').length) return;
-          const href = $(e).attr('href');
+          let href = $(e).attr('href');
           if (!href) return;
-          const m = /^\/training\/(?<id>\w+)$/.exec(href);
+          let m = /^\/training\/(?<id>\w+)$/.exec(href);
           if (!m) return;
-          const puzzleId = m.groups.id;
+          let puzzleId = m.groups.id;
           if ('#'+puzzleId != $(e).text()) return;
           $('<button type="button" class="lichessTools-puzzleDownload">')
             .attr('data-icon',lt.icon.ExternalArrow)
             .attr('title',trans.noarg('puzzlePgnButtonTitle'))
             .on('click',ev=>{
               ev.preventDefault();
+              href = $(ev.target).prev('a[href^="/training/"]').attr('href');
+              m = /^\/training\/(?<id>\w+)$/.exec(href);
+              puzzleId = m.groups.id;
               this.showPuzzlePgn(puzzleId);
             })
             .insertAfter(e);

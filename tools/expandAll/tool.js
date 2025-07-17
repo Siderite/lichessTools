@@ -20,14 +20,14 @@
         'options.expandAll': 'Expand all variations',
         'expandAll.showButton': 'Show button',
         'expandAll.autoExpand': 'Auto expand',
-        'expandAllTitle': 'LiChess Tools - expand all variations'
+        'expandAllVariationsTitle': 'LiChess Tools - expand all variations'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.expandAll': 'Expandare toate varia\u0163iunile',
+        'options.expandAll': 'Expandare toate varia\u0163iile',
         'expandAll.showButton': 'Arat\u0103 butonul',
         'expandAll.autoExpand': 'Expandeaz\u0103 automat',
-        'expandAllTitle': 'LiChess Tools - expandeaz\u0103 toate varia\u0163iunile'
+        'expandAllVariationsTitle': 'LiChess Tools - expandeaz\u0103 toate varia\u0163iile'
       }
     }
 
@@ -36,7 +36,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       let button = $('button.lichessTools-expandAll');
-      if ($.single('.tview2 line.expand').length) {
+      if ($.single('.tview2 a.disclosure[data-icon="'+lt.icon.PlusButton+'"]').length) {
         if (button.length) return;
       } else {
         button.remove();
@@ -44,7 +44,7 @@
       }
       button = $('<button type="button" class="lichessTools-expandAll">')
         .attr('data-icon', lt.icon.ZoomIn)
-        .attr('title', trans.noarg('expandAllTitle'))
+        .attr('title', trans.noarg('expandAllVariationsTitle'))
         .on('mousedown touchstart', ev => {
           ev.preventDefault();
           ev.stopPropagation();
@@ -57,7 +57,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
-      analysis.setAllCollapsed('', false);
+      analysis.setCollapsedForCtxMenu('',false);
       $('button.lichessTools-expandAll').remove();
     }
 
@@ -97,6 +97,8 @@
       if (this.options.autoExpand) {
         lt.pubsub.on('lichessTools.redraw', this.autoExpand);
         lt.global.setTimeout(this.autoExpand,500);
+      } else {
+        $('.tview2').removeClass('lichessTools.expandAllVariations');
       }
     }
 

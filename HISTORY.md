@@ -1,5 +1,55 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Jun
+
+- glyphs alter "Good move" feedback
+- download broadcast tool
+
+18 Jun
+
+- read last 5 seconds during play
+
+16 Jun
+
+- evaluate previous moves menu
+- friends button on mobile
+- Analysis Board page title from opening name
+
+15 Jun
+
+- /piecevalue command
+
+13 Jun
+
+- Retry on Space flow option in Interactive Lessons
+- tap&drag shape drawing
+
+12 Jun
+
+- read position command
+
+10 Jun
+
+- Time controls theme
+- FEN based wiki tooltip on study opening link
+- option to show best move just for orientation side
+
+06 Jun
+
+- Improved best move arrow
+
+05 Jun
+
+- shift-click to delete study comment without prompt
+
+03 Jun
+
+- time flicker sound option
+
+02 Jun
+
+- random challenge button
+
 31 May
 
 - ctrl-player tab in Explorer to reset time controls

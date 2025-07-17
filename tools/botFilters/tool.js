@@ -29,7 +29,7 @@
         'options.botFilters': 'Filtre \u00een lista de bo\u0163i', 
         'ratingLabelText': 'Rating min/max', 
         'ratingLabelTitle': 'LiChess Tools - rating min/max', 
-        'unratedLabelText': 'Arat\u0103 f\u0103r\u0103 rating:', 
+        'unratedLabelText': 'Arat\u0103 necotate:', 
         'gamesLabelText': 'Meciuri min/max', 
         'gamesLabelTitle': 'LiChess Tools - meciuri min/max', 
         'gameTypesLabelText': 'Tipuri de joc', 

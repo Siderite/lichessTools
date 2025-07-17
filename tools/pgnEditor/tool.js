@@ -102,7 +102,7 @@
         'btnDenormalizeText': 'Denormalizeaz\u0103',
         'btnDenormalizeTitle': 'Extinde transpozi\u0163ii \u00een mut\u0103ri',
         'btnSplitText': 'Sparge',
-        'btnSplitTitle': 'Sparge \u00een mai multe PGNuri f\u0103r\u0103 varia\u0163iuni',
+        'btnSplitTitle': 'Sparge \u00een mai multe PGNuri f\u0103r\u0103 varia\u0163ii',
         'btnCountText': 'Num\u0103r\u0103',
         'btnCountTitle': 'Statistici PGN',
         'btnEvaluateText': 'Evaluare',
@@ -128,9 +128,9 @@
         'btnUndoText': '\u00CEnapoi',
         'btnUndoTitle': 'Anuleaz\u0103 schimb\u0103rile text',
         'btnRedoText': 'Ref\u0103',
-        'btnRedoTitle': 'Ref\u0103 schimb\u0103rile text',
+        'btnRedoTitle': 'Ref\u0103 schimb\u0103rile \u00een text',
         'btnClearText': '\u015Eterge',
-        'btnClearTitle': '\u015Eterge textul \u015Fi istoria!',
+        'btnClearTitle': '\u015Eterge textul \u015Fi istoricul!',
         'PGNCopiedToClipboard': 'PGN copiat \u00een clipboard',
         'clipboardDenied': 'Acces refuzat la clipboard',
         'gameCount': '%s PGNuri, %2 mut\u0103ri',
@@ -240,8 +240,15 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
-      $('dialog.lichessTools-pgnEditor').remove();
+
+      this._prevTitle ||= lt.global.document.title;
+      lt.global.document.title = trans.noarg('pgnEditorTitle');
+
+      $('dialog.lichessTools-pgnEditor').trigger('close').remove();
       const dialog = $('<dialog class="lichessTools-pgnEditor">')
+        .on('close',()=>{
+          lt.global.document.title = this._prevTitle;
+        })
         .append(`
     <div class="close-button-anchor">
         <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor" target="_blank"></a>
@@ -278,6 +285,7 @@
     </div>
 `)
         .appendTo('body');
+
       $('div.dialog-content>h2').text(trans.noarg('pgnEditorText'));
       const textarea = $('textarea', dialog)
         .attr('placeholder', trans.noarg('pastePGNs'))
@@ -510,7 +518,7 @@
         .on('click', ev => {
           ev.preventDefault();
           this.stopOperations();
-          dialog.remove();
+          dialog.trigger('close').remove();
           if (lt.global.location.hash = '#pgnEditor') {
             lt.global.history.pushState(null, null, ' ');
           }
@@ -885,7 +893,7 @@
       this.writeNote(trans.pluralSame('evaluatingGames', games.length));
       await lt.timeout(0);
 
-      const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 16;
+      const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 20;
       console.debug('Evaluating with level ', depth);
       const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
 
@@ -944,7 +952,7 @@
             if (this._cancelRequested) {
               break;
             }
-            sf.stop();
+            await sf.stop();
             const side = node.data.fen.split(' ')[1] == 'b' ? -1 : 1;
             const evalText = "eval: " + (info.mate!==undefined ? '#' + (side * info.mate) : ((side * info.cp) > 0 ? '+' : '') + (side * info.cp / 100).toFixed(decimals));
             node.data.comments = [...comments, evalText];
@@ -2010,7 +2018,7 @@
           this.showPgnEditor();
         }
       } else {
-        $('dialog.lichessTools-pgnEditor').remove();
+        $('dialog.lichessTools-pgnEditor').trigger('close').remove();
       }
     };
 
@@ -2023,12 +2031,8 @@
       if (!analysis) return;
       const container = $('div.analyse__tools .action-menu__tools');
       if (!container.length) return;
-      if (!this.options.enabled || !lt.exportPgn) {
-        $('.lichessTools-pgnEditor', container).remove();
-        return;
-      }
-      if (lt.isGamePlaying()) {
-        $('.lichessTools-pgnEditor', container).remove();
+      if (!this.options.enabled || !lt.exportPgn || lt.isGamePlaying()) {
+        $('.lichessTools-pgnEditor', container).trigger('close').remove();
         return;
       }
       if ($('.lichessTools-pgnEditor', container).length) return;
@@ -2055,7 +2059,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       const container = $('#topnav section a[href="/analysis"]+div[role="group"]');
-      $('a.lichessTools-pgnEditor', container).remove();
+      $('.lichessTools-pgnEditor', container).trigger('close').remove();
 
       if (lichess.analysis) {
         lt.pubsub.off('lichessTools.redraw', this.analysisControls);
@@ -2071,7 +2075,7 @@
       }
 
       if (!value) {
-        $('dialog.lichessTools-pgnEditor').remove();
+        $('dialog.lichessTools-pgnEditor').trigger('close').remove();
         return;
       }
       $('<a/>')

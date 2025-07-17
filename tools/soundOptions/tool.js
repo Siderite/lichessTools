@@ -6,7 +6,7 @@
         name: 'soundOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['noMove'],
+        possibleValues: ['noMove', 'flickerSound'],
         defaultValue: false,
         advanced: true
       },
@@ -27,7 +27,7 @@
         name: 'timeAlert',
         category: 'play',
         type: 'multiple',
-        possibleValues: ['s30','s60','s90','s120','s180','s300','beep'],
+        possibleValues: ['s30','s60','s90','s120','s180','s300','beep','speak5'],
         defaultValue: false,
         advanced: true
       }
@@ -41,6 +41,7 @@
         'options.soundVolume': 'Sound volume (0-100)',
         'options.soundVoice': 'Speech voice',
         'soundOptions.noMove': 'No move sounds',
+        'soundOptions.flickerSound': 'Time flicker sound',
         'options.timeAlert': 'Time alert (minutes)',
         'timeAlert.s30': '0:30',
         'timeAlert.s60': '1:00',
@@ -48,7 +49,8 @@
         'timeAlert.s120': '2:00',
         'timeAlert.s180': '3:00',
         'timeAlert.s300': '5:00',
-        'timeAlert.beep': 'Sound alert'
+        'timeAlert.beep': 'Sound alert',
+        'timeAlert.speak5': 'Read seconds when less than 6'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -57,6 +59,7 @@
         'options.soundVolume': 'Volum sonor (0-100)',
         'options.soundVoice': 'Voce folosit\u0103',
         'soundOptions.noMove': 'F\u0103r\u0103 sunet la mutare',
+        'soundOptions.flickerSound': 'Sunet la salt de timp',
         'options.timeAlert': 'Alert\u0103 timp (minute)',
         'timeAlert.s30': '0:30',
         'timeAlert.s60': '1:00',
@@ -64,7 +67,8 @@
         'timeAlert.s120': '2:00',
         'timeAlert.s180': '3:00',
         'timeAlert.s300': '5:00',
-        'timeAlert.beep': 'Alert\u0103 sonor\u0103'
+        'timeAlert.beep': 'Alert\u0103 sonor\u0103',
+        'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd mai pu\u0163ine de 6'
       }
     }
 
@@ -82,6 +86,14 @@
       }
     };
 
+    makeFlickerSound = (seconds) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (this.options.flickerSound) {
+        lt.play('other/failure2.mp3');
+      }
+    };
+
     checkClock = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -90,6 +102,13 @@
       const m = /^\s*(?:(?<h>\d+):)?(?<m>\d+):(?<s>\d+(?:\.\d+)?)\s*$/.exec(timeStr);
       if (!m) return;
       const time = (+m.groups.h||0)*3600 + (+m.groups.m||0)*60 + (+m.groups.s||0);
+      if (this.options.flickerSound) {
+        if (time<this.prevTime-1) {
+          this.makeFlickerSound();
+        }
+      }
+      this.prevTime = time;
+
       for (let i=this.options.times.length - 1; i>=0; i--) {
         const t = this.options.times[i];
         if (!t.enabled) continue;
@@ -99,6 +118,14 @@
           this.alertPlayer(t.seconds);
         }
         break;
+      }
+      if (this.options.speak5 && time<=5) {
+        const seconds = Math.floor(time);
+        if (this.lastSpeak != seconds) {
+          this.lastSpeak = seconds;
+          lt.stopSpeaking();
+          lt.speak(seconds);
+        }
       }
       if (!(this.lastTime<time)) {
         this.lastTime = time;
@@ -147,11 +174,13 @@
       this.logOption('Time alert', timeAlert);
       this.options = {
         noMove: lt.isOptionSet(soundOptions, 'noMove'),
+        flickerSound: lt.isOptionSet(soundOptions, 'flickerSound'),
         times: [30,60,90,120,180,300].map(s=>({
           seconds: s,
           enabled: lt.isOptionSet(timeAlert, 's'+s)
         })),
-        beep: lt.isOptionSet(timeAlert, 'beep')
+        beep: lt.isOptionSet(timeAlert, 'beep'),
+        speak5: lt.isOptionSet(timeAlert, 'speak5')
       };
       if (lichess.sound?.move) {
         lichess.sound.move = lt.unwrapFunction(lichess.sound.move, 'soundOptions');
@@ -168,7 +197,7 @@
         .observer()
         .off('.rclock-bottom *',this.checkClock);
       if ($('.playing .round__app').length) {
-        const hasTimeAlert = this.options.times.find(t=>t.enabled);
+        const hasTimeAlert = this.options.flickerSound || this.options.times.find(t=>t.enabled);
         if (hasTimeAlert) {
           $('.round__app')
             .observer()

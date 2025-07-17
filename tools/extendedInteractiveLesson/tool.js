@@ -15,7 +15,7 @@
         name: 'extendedInteractiveLessonFlow',
         category: 'study',
         type: 'multiple',
-        possibleValues: ['sequential', 'spacedRepetition', 'ignoreBadGlyphs', 'negativeHint'],
+        possibleValues: ['sequential', 'spacedRepetition', 'ignoreBadGlyphs', 'negativeHint','spaceRetry'],
         defaultValue: 'ignoreBadGlyphs',
         advanced: true,
         wip: true
@@ -49,10 +49,11 @@
         'extendedInteractiveLessonFlow.spacedRepetition': 'Spaced Repetition',
         'extendedInteractiveLessonFlow.ignoreBadGlyphs': 'Avoid lines marked as mistakes',
         'extendedInteractiveLessonFlow.negativeHint': 'Hint excluded moves',
+        'extendedInteractiveLessonFlow.spaceRetry': 'Retry on Space',
         'resetQuestionNoVariations': 'No more variations. Reset?',
         'resetQuestion': 'Reset variation progress?',
-        'resetButtonText': 'Reset',
-        'resetButtonTitle': 'LiChess Tools - reset variation progress',
+        'resetVariationsButtonText': 'Reset',
+        'resetVariationsButtonTitle': 'LiChess Tools - reset variation progress',
         'progressTitle': 'LiChess Tools - %s variations',
         'extendedInteractiveOptionsTitle': 'LiChess Tools - interactive lesson preferences',
         'giveUpButtonText': 'Give up',
@@ -63,12 +64,13 @@
         'minutesText:one': 'a min',
         'daysText': '%s days',
         'hoursText': '%s hrs',
-        'minutesText': '%s mins'
+        'minutesText': '%s mins',
+        'continueFromHere': 'Go on!'
       },
       'ro-RO': {
         'options.study': 'Studiu',
         'options.extendedInteractiveLesson': 'Lec\u0163ii interactive extinse',
-        'extendedInteractiveLesson.extendedInteractive': 'Joac\u0103 toate varia\u0163iunile',
+        'extendedInteractiveLesson.extendedInteractive': 'Joac\u0103 toate varia\u0163iile',
         'extendedInteractiveLesson.showFinalScore': 'Arat\u0103 scorul final',
         'extendedInteractiveLesson.alwaysShowScore': 'Arat\u0103 scorul tot timpul',
         'extendedInteractiveLesson.returnToPreview': 'Joac\u0103 din nou de unde ai intrat \u00een Preview',
@@ -83,7 +85,7 @@
         'avoidMovesHint': 'O singur\u0103 mutare. Evit\u0103 %s',
         'interactiveLessonsText': 'Lec\u0163ii interactive',
         'addDeviationText': 'Explic\u0103 de ce alte mut\u0103ri sunt gre\u015Fite',
-        'addDeviationTitle': 'LiChess Tools - explic\u0103 de ce mut\u0103ri de aici lips\u0103 din PGN sunt gre\u015Fite',
+        'addDeviationTitle': 'LiChess Tools - explic\u0103 de ce mut\u0103ri lips\u0103 din PGN f\u0103cute de aici ar fi gre\u015Fite',
         'addHintText': 'Indiciu la cerere pentru juc\u0103tor',
         'addHintTitle': 'LiChess Tools - op\u0163ional, un indiciu la cerere pentru juc\u0103tor',
         'options.extendedInteractiveLessonFlow': 'Cursul lec\u0163iilor interactive extinse',
@@ -91,11 +93,12 @@
         'extendedInteractiveLessonFlow.spacedRepetition': 'Repeti\u0163ie distan\u0163at\u0103',
         'extendedInteractiveLessonFlow.ignoreBadGlyphs': 'Evit\u0103 linii marcate ca gre\u015fite',
         'extendedInteractiveLessonFlow.negativeHint': 'Indiciu mut\u0103ri excluse',
-        'resetQuestionNoVariations': 'Nu mai sunt varia\u0163uni. Resetez?',
-        'resetQuestion': 'Resetez progresul \u00een varia\u0163uni?',
-        'resetButtonText': 'Resetare',
-        'resetButtonTitle': 'LiChess Tools - resetare progres \u00een varia\u0163uni',
-        'progressTitle': 'LiChess Tools - %s varia\u0163uni',
+        'extendedInteractiveLessonFlow.spaceRetry': 'Restart la Space',
+        'resetQuestionNoVariations': 'Nu mai sunt varia\u0163ii. Resetez?',
+        'resetQuestion': 'Resetez progresul \u00een varia\u0163ii?',
+        'resetVariationsButtonText': 'Resetare',
+        'resetVariationsButtonTitle': 'LiChess Tools - resetare progres \u00een varia\u0163ii',
+        'progressTitle': 'LiChess Tools - %s varia\u0163ii',
         'extendedInteractiveOptionsTitle': 'LiChess Tools - preferin\u0163e lec\u0163ie interactiv\u0103',
         'giveUpButtonText': 'Renun\u0163',
         'giveUpButtonTitle': 'Abandoneaz\u0103 lec\u0163ia interactiv\u0103',
@@ -105,7 +108,8 @@
         'minutesText:one': 'un minut',
         'daysText': '%s zile',
         'hoursText': '%s ore',
-        'minutesText': '%s minute'
+        'minutesText': '%s minute',
+        'continueFromHere': 'Continu\u0103!'
       }
     }
 
@@ -652,6 +656,19 @@
         gp.retry = this.replaceFunction(gp.retry, this.extendedGamebook.retry, 'extendedInteractiveLessons');
         gp.next = this.replaceFunction(gp.next, this.extendedGamebook.next, 'extendedInteractiveLessons');
         gp.solution = this.replaceFunction(gp.solution, this.extendedGamebook.solution, 'extendedInteractiveLessons');
+        gp.onSpace = lt.wrapFunction(gp.onSpace,{
+          id: 'extendedInteractiveLessons',
+          before: ($this, ...args)=>{
+            if (!this.options.flow.spaceRetry) return;
+            if (!this.options.flow.sequential && !this.options.flow.spacedRepetition) return;
+            if (gp.state.feedback=='end') {
+              const nextPath = this.getCurrentPath();
+              if (!nextPath) return;
+              gp.retry();
+              return false;
+            }
+          }
+        });
         gp.isExtendedInteractiveLessons = true;
         gp.fens = {};
         gp.resetStats = this.extendedGamebook.resetStats;
@@ -669,6 +686,7 @@
         gp.retry = lt.unwrapFunction(gp.retry, 'extendedInteractiveLessons');
         gp.next = lt.unwrapFunction(gp.next, 'extendedInteractiveLessons');
         gp.solution = lt.unwrapFunction(gp.solution, 'extendedInteractiveLessons');
+        gp.onSpace = lt.unwrapFunction(gp.onSpace, 'extendedInteractiveLessons');
         gp.isExtendedInteractiveLessons = false;
       }
       if (gp.isExtendedInteractiveLessons && !gp.isShowScore) {
@@ -1053,8 +1071,8 @@
       if (paths) {
         if (button.length) return;
         $('<button type="button" class="button button-red lichessTools-reset">')
-          .attr('title', trans.noarg('resetButtonTitle'))
-          .text(trans.noarg('resetButtonText'))
+          .attr('title', trans.noarg('resetVariationsButtonTitle'))
+          .text(trans.noarg('resetVariationsButtonText'))
           .on('click', async (ev) => {
             ev.preventDefault();
             if (!await lt.uiApi.dialog.confirm(trans.noarg('resetQuestion'))) return;
@@ -1148,7 +1166,7 @@
         let act = container.children('i.act');
         if (!act.length) {
           act = $(`<i class="act lichessTools-reset" data-icon="${lt.icon.toEntity(lt.icon.Reload)}">`)
-            .attr('title', trans.noarg('resetButtonTitle'))
+            .attr('title', trans.noarg('resetVariationsButtonTitle'))
             .on('click', async (ev) => {
               ev.preventDefault();
               ev.stopPropagation();
@@ -1178,6 +1196,41 @@
       });
     };
 
+    updateFeedbackText = async ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const lichess = lt.lichess;
+      const analysis = lichess?.analysis;
+
+      const el = $('.gamebook .feedback.good');
+      if (!el.length) return;
+      const glyph = analysis.node.glyphs?.at(0);
+      if (!glyph?.id) return;
+      if (!this.allGlyphs) {
+        const all = analysis.study.glyphForm.all();
+        if (!all) return;
+        let arr=[];
+        for (const k in all) arr=arr.concat(all[k]);
+        this.allGlyphs=new Map();
+        for (const g of arr) {
+          this.allGlyphs.set(g.id,g.name);
+        } 
+      }
+      const translation = this.allGlyphs.get(glyph.id);
+      if (translation) {
+        const html = translation+'<br/>'+trans.noarg('continueFromHere');
+        const text = $('<div>').html(html).text();
+        if (el.text()!=text) {
+          el
+            .html(html)
+            .attr('data-icon',glyph.symbol)
+            .addClass('ch'+glyph.symbol.length)
+            .addClass('lichessTools-extendedInteractiveLesson-feedback');
+        }
+      }
+    };
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -1201,7 +1254,8 @@
           'sequential': lt.isOptionSet(flow, 'sequential'),
           'spacedRepetition': lt.isOptionSet(flow, 'spacedRepetition'),
           'ignoreBadGlyphs': lt.isOptionSet(flow, 'ignoreBadGlyphs'),
-          'negativeHint': lt.isOptionSet(flow, 'negativeHint')
+          'negativeHint': lt.isOptionSet(flow, 'negativeHint'),
+          'spaceRetry': lt.isOptionSet(flow, 'spaceRetry')
         }
       };
       lt.isPermanentNode = this.isPermanentNode.bind(this);
@@ -1293,6 +1347,8 @@
         .find('i.act.lichessTools-reset')
         .remove();
       lt.uiApi.events.off('chat.resize', this.refreshChapterProgress);
+      $('main.analyse').observer()
+        .off('.feedback.good',this.updateFeedbackText);
       if (this.options.extendedInteractive) {
         lt.uiApi.events.on('chat.resize', this.refreshChapterProgress);
         this.refreshChapterProgress();
@@ -1309,6 +1365,15 @@
             }, 100);
           }
         });
+        const form = study?.glyphForm;
+        if (form) {
+          let all = form.all();
+          if (!all) {
+            form.loadGlyphs();
+          }
+          $('main.analyse').observer()
+            .on('.feedback.good',this.updateFeedbackText);
+        }
       }
     }
   }
