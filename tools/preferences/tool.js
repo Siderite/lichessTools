@@ -97,6 +97,8 @@
       const isOptionSet = lt.isOptionSet;
       const isLoggedIn = !!lt.getUserId();
 
+      const container = $('div.page-menu__content');
+      container.empty();
       lt.global.document.title = trans.noarg('lichessToolsPreferences');
 
       const subnav = $('main nav.subnav').hide();
@@ -301,10 +303,9 @@
 
       const prevFilter = $('input.prefFilter').val();
 
-      const container = $('div.page-menu__content');
       let saved = $('p.saved', container);
       saved = saved.length ? saved.clone() : $('<p class="saved text none">').attr('data-icon',lt.icon.Checkmark).text(trans.noarg('preferencesSaved'));
-      container.empty()
+      container
         .append(html)
         .addClass('lichessTools-preferences');
 
