@@ -9,10 +9,6 @@ body.lichessTools button.lichessTools-expandAll+index {
   flex-basis: 6.66%;
 }
 
-body.lichessTools .lichessTools-expandAllVariations a.disclosure {
-  display:none;
-}
-
 @media print {
   body.lichessTools button.lichessTools-expandAll {
     display: none;
