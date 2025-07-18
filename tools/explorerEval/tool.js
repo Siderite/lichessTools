@@ -368,16 +368,15 @@
       $('table.moves tr.sum td.lichessTools-explorerEval').remove();
       const fen = analysis.node.fen;
       const whosMove = analysis.node.ply % 2 ? -1 : 1;
-      let result = this.cache[fen];
+      let result = this.cache[fen] || { moves: [] };
       if (this.getCached404(analysis.path)) {
         result = { moves: [] };
       }
       let newMoves = [];
-      if ((this.options.db || this.options.lichess) && !lt.net.slowMode && result === undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
-        result = { moves: [] };
-        if (this.options.db && !newMoves?.length) {
+      if ((this.options.db || this.options.lichess) && !lt.net.slowMode && (!this.options.ceval || !analysis.ceval.enabled())) {
+        if (this.options.db && !result.dbLoaded) {
           const obj = await lt.api.evaluation.getChessDb(fen);
-          newMoves = obj?.moves?.map(m => {
+          newMoves.push(...obj?.moves?.map(m => {
             return {
               depth: 50, //assumed
               uci: m.uci,
@@ -385,12 +384,13 @@
               mate: m.winrate ? null : whosMove * Math.sign(m.score) * (30000 - Math.abs(m.score)),
               rank: m.rank
             };
-          });
+          }));
+          result.dbLoaded = true;
         }
-        if (this.options.lichess && !newMoves?.length) {
+        if (this.options.lichess && !result.lichessLoaded) {
           let obj = await lt.api.evaluation.getLichess(fen, 5);
           if (obj) {
-            newMoves = obj?.pvs?.map(m => {
+            newMoves.push(...obj?.pvs?.map(m => {
               return {
                 depth: obj.depth,
                 uci: m.moves?.split(' ')[0],
@@ -398,7 +398,7 @@
                 mate: m.mate,
                 rank: 5
               };
-            });
+            }));
             if (newMoves?.length && !lt.net.slowMode) {
               obj = await lt.api.evaluation.getLichess(fen, 10);
               if (obj) {
@@ -415,6 +415,7 @@
                 });
               }
             }
+            result.lichessLoaded = true;
           }
         }
         if (newMoves?.length) {
