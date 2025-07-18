@@ -254,10 +254,22 @@ html.transp body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-r
 
 @media print {
 
-  body.lichessTools.lichessTools-analysisPopup .analyse__board {
-    visibility:hidden;
+  body.lichessTools.lichessTools-analysisPopup {
+    overflow-y: auto !important;
   }
 
+
+  body.lichessTools.lichessTools-analysisPopup #main-wrap,
+  body.lichessTools.lichessTools-analysisPopup main.analyse {
+    grid-template: none !important;
+    margin: 0 !important;
+  }
+
+  body.lichessTools.lichessTools-analysisPopup .analyse__board {
+    visibility:hidden !important;
+  }
+
+  body.lichessTools.lichessTools-analysisPopup header,
   body.lichessTools.lichessTools-analysisPopup .analyse__side,
   body.lichessTools.lichessTools-analysisPopup .analyse__round-training,
   body.lichessTools.lichessTools-analysisPopup .analyse__underboard,
@@ -266,19 +278,32 @@ html.transp body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-r
   body.lichessTools.lichessTools-analysisPopup section.mchat,
   body.lichessTools.lichessTools-analysisPopup .analyse__tools .ceval,
   body.lichessTools.lichessTools-analysisPopup .analyse__tools .pv_box,
-  body.lichessTools.lichessTools-analysisPopup .analyse__tools .analyse__fork {
-    display: none;
+  body.lichessTools.lichessTools-analysisPopup .analyse__tools .analyse__fork,
+  body.lichessTools.lichessTools-analysisPopup .analyse__moves branch {
+    display: none !important;
+  }
+
+  body.lichessTools.lichessTools-analysisPopup .analyse__moves,
+  body.lichessTools.lichessTools-analysisPopup .explorer-box {
+    overflow: visible !important;
   }
 
   body.lichessTools.lichessTools-analysisPopup .analyse__moves * {
+    position: static !important;
     border: none !important;
     outline: none !important;
     color: initial !important;
     background: initial !important;
+    page-break-inside: auto !important; /* Allow breaking across pages */
+    page-break-before: auto !important; /* Prevent forced new pages */
+    page-break-after: auto !important;
+    outline: none !important;
   }
 
   body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools {
-    height: 100vh;
+    height: max-content !important;
+    position:static;
+    overflow: visible !important;
   }
 }
 
