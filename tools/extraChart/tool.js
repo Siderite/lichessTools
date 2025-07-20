@@ -680,11 +680,10 @@
       if (mwStartUci * side + 1 + delta < mwEndUci * side) {
         return 1 + bonus;
       }
+      const mmw1 = this.maxMaterialWon(board, side) / 100;
       board = lt.getBoardFromFen(prev2Node.fen);
       const mmw3 = this.maxMaterialWon(board, side) / 100;
-      board = lt.getBoardFromFen(node.fen);
-      const mmw1 = this.maxMaterialWon(board, side) / 100;
-      const bril = (mmw1 - mmw3) * side - delta;
+      const bril = Math.min(4,(mmw1 - mmw3) * side - delta);
       return bril + bonus;
     };
 
