@@ -376,7 +376,7 @@
       if ((this.options.db || this.options.lichess) && !lt.net.slowMode && (!this.options.ceval || !analysis.ceval.enabled())) {
         if (this.options.db && !result.dbLoaded) {
           const obj = await lt.api.evaluation.getChessDb(fen);
-          newMoves.push(...obj?.moves?.map(m => {
+          const moves = obj?.moves?.map(m => {
             return {
               depth: 50, //assumed
               uci: m.uci,
@@ -384,13 +384,16 @@
               mate: m.winrate ? null : whosMove * Math.sign(m.score) * (30000 - Math.abs(m.score)),
               rank: m.rank
             };
-          }));
+          });
+          if (moves?.length) {
+            newMoves.push(...moves);
+          }
           result.dbLoaded = true;
         }
         if (this.options.lichess && !result.lichessLoaded) {
           let obj = await lt.api.evaluation.getLichess(fen, 5);
           if (obj) {
-            newMoves.push(...obj?.pvs?.map(m => {
+            const moves = obj?.pvs?.map(m => {
               return {
                 depth: obj.depth,
                 uci: m.moves?.split(' ')[0],
@@ -398,7 +401,10 @@
                 mate: m.mate,
                 rank: 5
               };
-            }));
+            });
+            if (moves?.length) {
+              newMoves.push(...moves);
+            }
             if (newMoves?.length && !lt.net.slowMode) {
               obj = await lt.api.evaluation.getLichess(fen, 10);
               if (obj) {
