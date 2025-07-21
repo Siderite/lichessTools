@@ -1,16 +1,16 @@
 (() => {
   class DetectThirdPartiesTool extends LiChessTools.Tools.ToolBase {
 
-  styleBlockContains(text) {
-    const lt = this.lichessTools;
-    const styleTags = document.querySelectorAll('style');
-  for (const style of styleTags) {
-    if (style.textContent.includes(text)) {
-      return true;
-    }
-  }
-  return false;
-}
+    styleBlockContains = (text) => {
+      const lt = this.lichessTools;
+      const styleTags = document.querySelectorAll('style');
+      for (const style of styleTags) {
+        if (style.textContent.includes(text)) {
+          return true;
+        }
+      }
+      return false;
+    };
 
     async start() {
       const lt = this.lichessTools;
