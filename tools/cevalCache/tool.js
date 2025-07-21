@@ -35,8 +35,11 @@
                                     fen: node.fen,
                                     pvs: [ { moves:[],cp:value.cp,mate:value.mate } ]
                                   };
-      node.ceval = { ...ceval, ... value };
-      lt.analysisRedraw();
+      const newVal = { ...ceval, ... value };
+      if (lt.global.JSON.stringify(newVal)!=lt.global.JSON.stringify(node.ceval)) {
+        node.ceval = newVal;
+        lt.analysisRedraw();
+      }
     }
 
     async start() {
