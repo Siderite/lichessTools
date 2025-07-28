@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+28 Jul
+
+- removed the "No study chat" theme (use "Toggle study chat")
+
 19 Jun
 
 - glyphs alter "Good move" feedback
