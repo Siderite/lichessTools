@@ -40,7 +40,6 @@
     "themes.flairX": "نكهات نيكر",
     "themes.lessIcons": "أقل أيقونات",
     "themes.nonStickyHeader": "لا يوجد رأس مثبت",
-    "themes.noStudyChat": "لا توجد دردشة دراسية",
     "themes.pieceDrag": "سحب قطعة أنيق",
     "options.cliCommands": "أوامر CLI",
     "options.command": "الأوامر",
@@ -877,7 +876,9 @@
     "expandAllBookmarksTitle": "أدوات شطرنج الحياة - توسيع جميع الإشارات المرجعية",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "أدوات شطرنج الحياة - إعادة تعيين تقدم التباين",
-    "themes.mobileHideStartEndButtons": "إخفاء أزرار البدء/النهاية"
+    "themes.mobileHideStartEndButtons": "إخفاء أزرار البدء/النهاية",
+    "FENCopiedToClipboard": "تم نسخ FEN إلى الحافظة",
+    "copyFenToClipboard": "نسخ FEN إلى الحافظة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -920,7 +921,6 @@
     "themes.flairX": "较大的签名",
     "themes.lessIcons": "更少图标",
     "themes.nonStickyHeader": "没有置顶标题",
-    "themes.noStudyChat": "没有学习聊天",
     "themes.pieceDrag": "较强的块拖动",
     "options.cliCommands": "CLI 命令",
     "options.command": "命令",
@@ -1757,7 +1757,9 @@
     "expandAllBookmarksTitle": "LiChess工具 - 展开所有书签",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "LiChess工具 - 重置变化进度",
-    "themes.mobileHideStartEndButtons": "移动设备隐藏开始/结束按钮"
+    "themes.mobileHideStartEndButtons": "移动设备隐藏开始/结束按钮",
+    "FENCopiedToClipboard": "FEN已复制到剪贴板",
+    "copyFenToClipboard": "复制 FEN 到剪贴板"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -1800,7 +1802,6 @@
     "themes.flairX": "優化使用者標籤",
     "themes.lessIcons": "更少圖示",
     "themes.nonStickyHeader": "隱藏釘選標題",
-    "themes.noStudyChat": "隱藏研究聊天室",
     "themes.pieceDrag": "優化棋子拖曳",
     "options.cliCommands": "CLI 指令",
     "options.command": "指令",
@@ -2637,7 +2638,9 @@
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
-    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
+    "FENCopiedToClipboard": "FEN copied to clipboard",
+    "copyFenToClipboard": "Copy FEN to clipboard"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -2680,7 +2683,6 @@
     "themes.flairX": "Mooiere flairs",
     "themes.lessIcons": "Minder iconen",
     "themes.nonStickyHeader": "Geen sticky header",
-    "themes.noStudyChat": "Geen studiechat",
     "themes.pieceDrag": "Fijner slepen van stukken",
     "options.cliCommands": "CLI commando's",
     "options.command": "Opdrachten",
@@ -3517,7 +3519,9 @@
     "expandAllBookmarksTitle": "LiChess Tools - alle bladwijzers uitbreiden",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "LiChess Tools - variatie voortgang resetten",
-    "themes.mobileHideStartEndButtons": "Mobiel verbergen start- en eindknoppen"
+    "themes.mobileHideStartEndButtons": "Mobiel verbergen start- en eindknoppen",
+    "FENCopiedToClipboard": "FEN gekopieerd naar klembord",
+    "copyFenToClipboard": "FEN naar klembord kopiëren"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -3560,7 +3564,6 @@
     "themes.flairX": "Nicer flairs",
     "themes.lessIcons": "Fewer icons",
     "themes.nonStickyHeader": "No sticky header",
-    "themes.noStudyChat": "No study chat",
     "themes.pieceDrag": "Nicer piece drag",
     "options.cliCommands": "CLI commands",
     "options.command": "Commands",
@@ -4397,7 +4400,9 @@
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
-    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
+    "FENCopiedToClipboard": "FEN copied to clipboard",
+    "copyFenToClipboard": "Copy FEN to clipboard"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -4440,7 +4445,6 @@
     "themes.flairX": "Des flairs plus jolis",
     "themes.lessIcons": "Moins d'icônes",
     "themes.nonStickyHeader": "Pas d'en-tête épinglé",
-    "themes.noStudyChat": "Pas de chat dans les études",
     "themes.pieceDrag": "Glissement des pièces plus joli",
     "options.cliCommands": "Commandes CLI",
     "options.command": "Commandes",
@@ -5277,7 +5281,9 @@
     "expandAllBookmarksTitle": "LiChess Tools - développer tous les signets",
     "resetVariationsButtonText": "Réinitialiser",
     "resetVariationsButtonTitle": "LiChess Tools - réinitialiser les variantes en cours",
-    "themes.mobileHideStartEndButtons": "Boutons de début / fin cachés sur le mobile"
+    "themes.mobileHideStartEndButtons": "Boutons début / fin masqués sur mobile",
+    "FENCopiedToClipboard": "FEN copié dans le presse-papiers",
+    "copyFenToClipboard": "Copier FEN dans le presse-papiers"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -5320,7 +5326,6 @@
     "themes.flairX": "Schönere Flairs",
     "themes.lessIcons": "Weniger Symbole",
     "themes.nonStickyHeader": "Keine angepinnte Kopfzeile",
-    "themes.noStudyChat": "Kein Lernchat",
     "themes.pieceDrag": "Schönere Figurenbewegung",
     "options.cliCommands": "CLI-Befehle",
     "options.command": "Befehle",
@@ -6157,7 +6162,9 @@
     "expandAllBookmarksTitle": "LiChess Tools - erweitern Sie alle Lesezeichen",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "LiChess Tools - Fortschritt der Variation zurücksetzen",
-    "themes.mobileHideStartEndButtons": "Start-/End-Buttons für Mobile Verstecke"
+    "themes.mobileHideStartEndButtons": "Start-/End-Buttons für Mobile Verstecke",
+    "FENCopiedToClipboard": "FEN in Zwischenablage kopiert",
+    "copyFenToClipboard": "FEN in Zwischenablage kopieren"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -6200,7 +6207,6 @@
     "themes.flairX": "Nicer flairs",
     "themes.lessIcons": "Fewer icons",
     "themes.nonStickyHeader": "No sticky header",
-    "themes.noStudyChat": "No study chat",
     "themes.pieceDrag": "Nicer piece drag",
     "options.cliCommands": "CLI commands",
     "options.command": "Commands",
@@ -7037,7 +7043,9 @@
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
-    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
+    "FENCopiedToClipboard": "FEN copied to clipboard",
+    "copyFenToClipboard": "Copy FEN to clipboard"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7080,7 +7088,6 @@
     "themes.flairX": "Flairs più belli",
     "themes.lessIcons": "Meno Icone",
     "themes.nonStickyHeader": "Nessuna intestazione adesiva",
-    "themes.noStudyChat": "Nessuna chat di studio",
     "themes.pieceDrag": "Miglior trascina pezzi",
     "options.cliCommands": "Comandi CLI",
     "options.command": "Comandi",
@@ -7917,7 +7924,9 @@
     "expandAllBookmarksTitle": "Strumenti LiChess - espandere tutti i segnalibri",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "Strumenti LiChess - azzera l'avanzamento delle variazioni",
-    "themes.mobileHideStartEndButtons": "Pulsanti per nascondere inizio/fine per dispositivi mobili"
+    "themes.mobileHideStartEndButtons": "Pulsanti per nascondere inizio/fine per dispositivi mobili",
+    "FENCopiedToClipboard": "FEN copiato negli appunti",
+    "copyFenToClipboard": "Copia FEN negli appunti"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -7960,7 +7969,6 @@
     "themes.flairX": "Nicer flairs",
     "themes.lessIcons": "Fewer icons",
     "themes.nonStickyHeader": "No sticky header",
-    "themes.noStudyChat": "No study chat",
     "themes.pieceDrag": "Nicer piece drag",
     "options.cliCommands": "CLI commands",
     "options.command": "Commands",
@@ -8797,7 +8805,9 @@
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
-    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
+    "FENCopiedToClipboard": "FEN copied to clipboard",
+    "copyFenToClipboard": "Copy FEN to clipboard"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -8840,7 +8850,6 @@
     "themes.flairX": "Ulepszone emblematy",
     "themes.lessIcons": "Mniej ikon",
     "themes.nonStickyHeader": "Wyłącz przytwierdzenie nagłówka strony",
-    "themes.noStudyChat": "Wyłącz czat w opracowaniach",
     "themes.pieceDrag": "Ulepszone przesuwanie bierek",
     "options.cliCommands": "Polecenia CLI",
     "options.command": "Polecenia",
@@ -9677,7 +9686,9 @@
     "expandAllBookmarksTitle": "Narzędzia LiChess - rozwiń wszystkie zakładki",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "Narzędzia LiChess - resetuj postęp zmian",
-    "themes.mobileHideStartEndButtons": "Ukrywanie przycisków start/end"
+    "themes.mobileHideStartEndButtons": "Ukrywanie przycisków start/end",
+    "FENCopiedToClipboard": "FEN skopiowany do schowka",
+    "copyFenToClipboard": "Skopiuj FEN do schowka"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -9720,7 +9731,6 @@
     "themes.flairX": "Flairs mais agradáveis",
     "themes.lessIcons": "Menos Ícones",
     "themes.nonStickyHeader": "Sem cabeçalho fixo",
-    "themes.noStudyChat": "Sem conversa no estudo",
     "themes.pieceDrag": "Arrasto de peça melhor",
     "options.cliCommands": "Comandos CLI",
     "options.command": "Comandos",
@@ -10557,7 +10567,9 @@
     "expandAllBookmarksTitle": "Ferramentas de LiChess - expandir todos os favoritos",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "Ferramentas LiChess - redefinir progresso de variação",
-    "themes.mobileHideStartEndButtons": "Ocultar botões de início/final"
+    "themes.mobileHideStartEndButtons": "Ocultar botões de início/final",
+    "FENCopiedToClipboard": "FEN copiado para área de transferência",
+    "copyFenToClipboard": "Copiar FEN para área de transferência"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -10600,7 +10612,6 @@
     "themes.flairX": "Linhas mais nítidas",
     "themes.lessIcons": "Menos Ícones",
     "themes.nonStickyHeader": "Sem cabeçalho fixo",
-    "themes.noStudyChat": "Nenhuma conversa de estudo",
     "themes.pieceDrag": "Arrasto de peça mais legal",
     "options.cliCommands": "Comandos CLI",
     "options.command": "Comandos",
@@ -11437,7 +11448,9 @@
     "expandAllBookmarksTitle": "Ferramentas de LiChess - expandir todos os favoritos",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "Ferramentas LiChess - redefinir progresso de variação",
-    "themes.mobileHideStartEndButtons": "Ocultar botões de início/final"
+    "themes.mobileHideStartEndButtons": "Ocultar botões de início/final",
+    "FENCopiedToClipboard": "FEN copiado para área de transferência",
+    "copyFenToClipboard": "Copiar FEN para área de transferência"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -11480,7 +11493,6 @@
     "themes.flairX": "Flair-uri mai bune",
     "themes.lessIcons": "Mai puţine pictograme",
     "themes.nonStickyHeader": "Antet fix în pagină",
-    "themes.noStudyChat": "Fără chat în studii",
     "themes.pieceDrag": "Apucat piese mai frumos",
     "options.cliCommands": "Comenzi CLI",
     "options.command": "Comenzi",
@@ -12317,7 +12329,9 @@
     "expandAllBookmarksTitle": "LiChess Tools - expandează toate bookmarkurile",
     "resetVariationsButtonText": "Resetare",
     "resetVariationsButtonTitle": "LiChess Tools - resetează progresul variațiunilor jucate",
-    "themes.mobileHideStartEndButtons": "Ascunde butoanele start/final pe mobil"
+    "themes.mobileHideStartEndButtons": "Ascunde butoanele start/final pe mobil",
+    "FENCopiedToClipboard": "FEN copiat în clipboard",
+    "copyFenToClipboard": "Copiază FEN în clipboard"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -12360,7 +12374,6 @@
     "themes.flairX": "Лучшие смайлики",
     "themes.lessIcons": "Меньше иконок",
     "themes.nonStickyHeader": "Без липкого заголовка",
-    "themes.noStudyChat": "Нет чата в студиях",
     "themes.pieceDrag": "Улучшенное перетаскивание",
     "options.cliCommands": "Команды CLI",
     "options.command": "Команды",
@@ -13197,7 +13210,9 @@
     "expandAllBookmarksTitle": "Инструменты Жизни - раскрыть все закладки",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "Инструменты Жизни - сбросить прогресс вариации",
-    "themes.mobileHideStartEndButtons": "Кнопки старта/конец мобильных скрытий"
+    "themes.mobileHideStartEndButtons": "Кнопки старта/конец мобильных скрытий",
+    "FENCopiedToClipboard": "FEN скопирован в буфер обмена",
+    "copyFenToClipboard": "Копировать FEN в буфер обмена"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -13240,7 +13255,6 @@
     "themes.flairX": "Mejores estilos",
     "themes.lessIcons": "Menos iconos",
     "themes.nonStickyHeader": "Sin cabecera pegada",
-    "themes.noStudyChat": "No hay chat en el estudio",
     "themes.pieceDrag": "Mejor arrastre de pieza",
     "options.cliCommands": "Comandos CLI",
     "options.command": "Comandos",
@@ -14077,7 +14091,9 @@
     "expandAllBookmarksTitle": "Herramientas de LiChess - expande todos los marcadores",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "Herramientas de LiChess - restablecer el progreso de variación",
-    "themes.mobileHideStartEndButtons": "Ocultar botones de inicio/fin móvil"
+    "themes.mobileHideStartEndButtons": "Ocultar botones de inicio/fin móvil",
+    "FENCopiedToClipboard": "FEN copiado al portapapeles",
+    "copyFenToClipboard": "Copiar FEN al portapapeles"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14120,7 +14136,6 @@
     "themes.flairX": "நல்ல Flairs",
     "themes.lessIcons": "குறைவான Icons",
     "themes.nonStickyHeader": "No sticky header",
-    "themes.noStudyChat": "No study chat",
     "themes.pieceDrag": "Nicer piece drag",
     "options.cliCommands": "CLI கட்டளைகள்",
     "options.command": "கட்டளைகள்",
@@ -14957,7 +14972,9 @@
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
-    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
+    "FENCopiedToClipboard": "FEN copied to clipboard",
+    "copyFenToClipboard": "Copy FEN to clipboard"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15000,7 +15017,6 @@
     "themes.flairX": "Nicer flairs",
     "themes.lessIcons": "Fewer icons",
     "themes.nonStickyHeader": "No sticky header",
-    "themes.noStudyChat": "No study chat",
     "themes.pieceDrag": "Nicer piece drag",
     "options.cliCommands": "CLI commands",
     "options.command": "Commands",
@@ -15837,7 +15853,9 @@
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
-    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
+    "FENCopiedToClipboard": "FEN copied to clipboard",
+    "copyFenToClipboard": "Copy FEN to clipboard"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -15880,7 +15898,6 @@
     "themes.flairX": "Nicer flairs",
     "themes.lessIcons": "Fewer icons",
     "themes.nonStickyHeader": "No sticky header",
-    "themes.noStudyChat": "Không có trò chuyện nghiên cứu",
     "themes.pieceDrag": "Nicer piece drag",
     "options.cliCommands": "Các câu lệnh CLI",
     "options.command": "Danh sách lệnh",
@@ -16717,6 +16734,8 @@
     "expandAllBookmarksTitle": "LiChess Tools - expand all bookmarks",
     "resetVariationsButtonText": "Reset",
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
-    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons"
+    "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
+    "FENCopiedToClipboard": "FEN copied to clipboard",
+    "copyFenToClipboard": "Copy FEN to clipboard"
   }
 }

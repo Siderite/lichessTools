@@ -15,11 +15,15 @@
     intl = {
       'en-US': {
         'options.general': 'General',
-        'options.keyShortcuts': 'Extra key shortcuts'
+        'options.keyShortcuts': 'Extra key shortcuts',
+        'FENCopiedToClipboard': 'FEN copied to clipboard',
+        'clipboardDenied': 'Clipboard access denied'
       },
       'ro-RO': {
         'options.general': 'General',
-        'options.keyShortcuts': 'Combina\u0163ii de taste \u00een plus'
+        'options.keyShortcuts': 'Combina\u0163ii de taste \u00een plus',
+        'FENCopiedToClipboard': 'FEN copiat \u00een clipboard',
+        'clipboardDenied': 'Acces refuzat la clipboard'
       }
     }
 
@@ -285,6 +289,14 @@
       $('.no-square', container).eq(index - 1)?.trigger('mouseup');
     }
 
+    copyFen = () => {
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const analysis = lt.lichess?.analysis;
+      const fen = analysis?.node?.fen || lt.getPositionFromBoard($('div.main-board'), true);
+      lt.writeToClipboard(fen, trans.noarg('FENCopiedToClipboard'), trans.noarg('clipboardDenied'));
+    };
+
     bindKeysForEditor = () => {
       const lt = this.lichessTools;
       for (let i = 1; i <= 8; i++) {
@@ -309,9 +321,11 @@
       const lt = this.lichessTools;
       lt.unbindKeyHandler('`', true);
       lt.unbindKeyHandler('h', true);
+      lt.unbindKeyHandler('ctrl+c', true);
       if (this.options.enabled) {
         lt.bindKeyHandler('`', () => this.prepareMove('general'));
         lt.bindKeyHandler('h', this.toggleSiteHeader);
+        lt.bindKeyHandler('ctrl+c', this.copyFen);
       }
     };
 
@@ -330,10 +344,8 @@
         this.bindKeysForAnalysis();
       } else if (isEditorBoard) {
         this.bindKeysForEditor();
-        this.bindKeysForGeneral();
-      } else {
-        this.bindKeysForGeneral();
       }
+      this.bindKeysForGeneral();
       if (!value) this.clearMoveMode();
     }
   }
