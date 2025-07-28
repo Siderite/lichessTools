@@ -294,6 +294,7 @@
       const trans = lt.translator;
       const analysis = lt.lichess?.analysis;
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('div.main-board'), true);
+      if (!fen) return;
       lt.writeToClipboard(fen, trans.noarg('FENCopiedToClipboard'), trans.noarg('clipboardDenied'));
     };
 
