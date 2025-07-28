@@ -66,7 +66,7 @@
           }
         });
         const selector = [];
-        let anchor = $('div.study__side .study__chapters,aside.relay-tour__side .vertical-resize-separator').eq(0);
+        let anchor = $('div.study__side .study__chapters,aside.relay-tour__side .vertical-resize').eq(0);
         if (!anchor.length) {
           anchor = $('aside.relay-tour__side .relay-games');
         }
