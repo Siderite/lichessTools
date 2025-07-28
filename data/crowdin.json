@@ -878,7 +878,8 @@
     "resetVariationsButtonTitle": "أدوات شطرنج الحياة - إعادة تعيين تقدم التباين",
     "themes.mobileHideStartEndButtons": "إخفاء أزرار البدء/النهاية",
     "FENCopiedToClipboard": "تم نسخ FEN إلى الحافظة",
-    "copyFenToClipboard": "نسخ FEN إلى الحافظة"
+    "copyFenToClipboard": "نسخ FEN إلى الحافظة",
+    "explorerEval.highlightList": "أبرز تحركات القائمة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1759,7 +1760,8 @@
     "resetVariationsButtonTitle": "LiChess工具 - 重置变化进度",
     "themes.mobileHideStartEndButtons": "移动设备隐藏开始/结束按钮",
     "FENCopiedToClipboard": "FEN已复制到剪贴板",
-    "copyFenToClipboard": "复制 FEN 到剪贴板"
+    "copyFenToClipboard": "复制 FEN 到剪贴板",
+    "explorerEval.highlightList": "高亮列表移动"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2640,7 +2642,8 @@
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
-    "copyFenToClipboard": "Copy FEN to clipboard"
+    "copyFenToClipboard": "Copy FEN to clipboard",
+    "explorerEval.highlightList": "Highlight list moves"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3521,7 +3524,8 @@
     "resetVariationsButtonTitle": "LiChess Tools - variatie voortgang resetten",
     "themes.mobileHideStartEndButtons": "Mobiel verbergen start- en eindknoppen",
     "FENCopiedToClipboard": "FEN gekopieerd naar klembord",
-    "copyFenToClipboard": "FEN naar klembord kopiëren"
+    "copyFenToClipboard": "FEN naar klembord kopiëren",
+    "explorerEval.highlightList": "Lijstbewegingen markeren"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4402,7 +4406,8 @@
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
-    "copyFenToClipboard": "Copy FEN to clipboard"
+    "copyFenToClipboard": "Copy FEN to clipboard",
+    "explorerEval.highlightList": "Highlight list moves"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5283,7 +5288,8 @@
     "resetVariationsButtonTitle": "LiChess Tools - réinitialiser les variantes en cours",
     "themes.mobileHideStartEndButtons": "Boutons début / fin masqués sur mobile",
     "FENCopiedToClipboard": "FEN copié dans le presse-papiers",
-    "copyFenToClipboard": "Copier FEN dans le presse-papiers"
+    "copyFenToClipboard": "Copier FEN dans le presse-papiers",
+    "explorerEval.highlightList": "Mettre en surbrillance les coups de la liste"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6164,7 +6170,8 @@
     "resetVariationsButtonTitle": "LiChess Tools - Fortschritt der Variation zurücksetzen",
     "themes.mobileHideStartEndButtons": "Start-/End-Buttons für Mobile Verstecke",
     "FENCopiedToClipboard": "FEN in Zwischenablage kopiert",
-    "copyFenToClipboard": "FEN in Zwischenablage kopieren"
+    "copyFenToClipboard": "FEN in Zwischenablage kopieren",
+    "explorerEval.highlightList": "Bewegungen der Liste hervorheben"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -7045,7 +7052,8 @@
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
-    "copyFenToClipboard": "Copy FEN to clipboard"
+    "copyFenToClipboard": "Copy FEN to clipboard",
+    "explorerEval.highlightList": "Highlight list moves"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7926,7 +7934,8 @@
     "resetVariationsButtonTitle": "Strumenti LiChess - azzera l'avanzamento delle variazioni",
     "themes.mobileHideStartEndButtons": "Pulsanti per nascondere inizio/fine per dispositivi mobili",
     "FENCopiedToClipboard": "FEN copiato negli appunti",
-    "copyFenToClipboard": "Copia FEN negli appunti"
+    "copyFenToClipboard": "Copia FEN negli appunti",
+    "explorerEval.highlightList": "Evidenzia le mosse della lista"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8807,7 +8816,8 @@
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
-    "copyFenToClipboard": "Copy FEN to clipboard"
+    "copyFenToClipboard": "Copy FEN to clipboard",
+    "explorerEval.highlightList": "Highlight list moves"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9688,7 +9698,8 @@
     "resetVariationsButtonTitle": "Narzędzia LiChess - resetuj postęp zmian",
     "themes.mobileHideStartEndButtons": "Ukrywanie przycisków start/end",
     "FENCopiedToClipboard": "FEN skopiowany do schowka",
-    "copyFenToClipboard": "Skopiuj FEN do schowka"
+    "copyFenToClipboard": "Skopiuj FEN do schowka",
+    "explorerEval.highlightList": "Podświetl ruchy listy"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10569,7 +10580,8 @@
     "resetVariationsButtonTitle": "Ferramentas LiChess - redefinir progresso de variação",
     "themes.mobileHideStartEndButtons": "Ocultar botões de início/final",
     "FENCopiedToClipboard": "FEN copiado para área de transferência",
-    "copyFenToClipboard": "Copiar FEN para área de transferência"
+    "copyFenToClipboard": "Copiar FEN para área de transferência",
+    "explorerEval.highlightList": "Realçar movimentos"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11450,7 +11462,8 @@
     "resetVariationsButtonTitle": "Ferramentas LiChess - redefinir progresso de variação",
     "themes.mobileHideStartEndButtons": "Ocultar botões de início/final",
     "FENCopiedToClipboard": "FEN copiado para área de transferência",
-    "copyFenToClipboard": "Copiar FEN para área de transferência"
+    "copyFenToClipboard": "Copiar FEN para área de transferência",
+    "explorerEval.highlightList": "Realçar movimentos"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12331,7 +12344,8 @@
     "resetVariationsButtonTitle": "LiChess Tools - resetează progresul variațiunilor jucate",
     "themes.mobileHideStartEndButtons": "Ascunde butoanele start/final pe mobil",
     "FENCopiedToClipboard": "FEN copiat în clipboard",
-    "copyFenToClipboard": "Copiază FEN în clipboard"
+    "copyFenToClipboard": "Copiază FEN în clipboard",
+    "explorerEval.highlightList": "Evidențiază mutări din listă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13212,7 +13226,8 @@
     "resetVariationsButtonTitle": "Инструменты Жизни - сбросить прогресс вариации",
     "themes.mobileHideStartEndButtons": "Кнопки старта/конец мобильных скрытий",
     "FENCopiedToClipboard": "FEN скопирован в буфер обмена",
-    "copyFenToClipboard": "Копировать FEN в буфер обмена"
+    "copyFenToClipboard": "Копировать FEN в буфер обмена",
+    "explorerEval.highlightList": "Выделить ходы списка"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -14093,7 +14108,8 @@
     "resetVariationsButtonTitle": "Herramientas de LiChess - restablecer el progreso de variación",
     "themes.mobileHideStartEndButtons": "Ocultar botones de inicio/fin móvil",
     "FENCopiedToClipboard": "FEN copiado al portapapeles",
-    "copyFenToClipboard": "Copiar FEN al portapapeles"
+    "copyFenToClipboard": "Copiar FEN al portapapeles",
+    "explorerEval.highlightList": "Resaltar los movimientos de la lista"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14974,7 +14990,8 @@
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
-    "copyFenToClipboard": "Copy FEN to clipboard"
+    "copyFenToClipboard": "Copy FEN to clipboard",
+    "explorerEval.highlightList": "Highlight list moves"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15855,7 +15872,8 @@
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
-    "copyFenToClipboard": "Copy FEN to clipboard"
+    "copyFenToClipboard": "Copy FEN to clipboard",
+    "explorerEval.highlightList": "Highlight list moves"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16736,6 +16754,7 @@
     "resetVariationsButtonTitle": "LiChess Tools - reset variation progress",
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
-    "copyFenToClipboard": "Copy FEN to clipboard"
+    "copyFenToClipboard": "Copy FEN to clipboard",
+    "explorerEval.highlightList": "Highlight list moves"
   }
 }
