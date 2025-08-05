@@ -289,13 +289,20 @@
       $('.no-square', container).eq(index - 1)?.trigger('mouseup');
     }
 
-    copyFen = () => {
+    copyFen = (event) => {
       const lt = this.lichessTools;
       const trans = lt.translator;
-      const analysis = lt.lichess?.analysis;
+      const selection = lt.global.getSelection && lt.global.getSelection();
+      const selectedText = selection.toString();
+      if (selectedText) return;
+
+      const analysis = lt.lichess.analysis;
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('div.main-board'), true);
       if (!fen) return;
-      lt.writeToClipboard(fen, trans.noarg('FENCopiedToClipboard'), trans.noarg('clipboardDenied'));
+
+      event.clipboardData.setData('text/plain', fen);
+      event.preventDefault();
+      lt.announce(trans.noarg('FENCopiedToClipboard'));
     };
 
     bindKeysForEditor = () => {
@@ -322,11 +329,12 @@
       const lt = this.lichessTools;
       lt.unbindKeyHandler('`', true);
       lt.unbindKeyHandler('h', true);
-      lt.unbindKeyHandler('ctrl+c', true);
+      const document = lt.global.document;
+      $(document).off('copy', this.copyFen);
       if (this.options.enabled) {
         lt.bindKeyHandler('`', () => this.prepareMove('general'));
         lt.bindKeyHandler('h', this.toggleSiteHeader);
-        lt.bindKeyHandler('ctrl+c', this.copyFen);
+        $(document).on('copy', this.copyFen);
       }
     };
 

@@ -7141,6 +7141,7 @@
   "rnbq1rk1pp3ppp4pn22p52BP4P1P1P34NPPPR1BQK2Rb": "Nimzo-Indian: Botvinnik, 7...dxc4 8.Bxc4 c5 9.Ne2",
   "rnbq1rk1pp3ppp4pn22p52BP4P1P1P35PPPR1BQK1NRw": "Nimzo-Indian: Botvinnik, 7...dxc4 8.Bxc4 c5",
   "rnbq1rk1pp3ppp4pn22pP41b1P42NBP3PP2NPPPR1BQK2Rb": "Nimzo-Indian: 4.e3 O-O 5.Bd3 d5 6.Ne2 c5 7.cxd5",
+  "rnbq1rk1pp3ppp4pn22pp41bPP42N1PN2PPQ2PPPR1B1KB1Rw": "Nimzo-Indian Defense: Classical Variation, Berlin Variation",
   "rnbq1rk1pp3ppp4pn22pp41bPP42NBP3PP2NPPPR1BQ1RK1b": "Nimzo-Indian: 4.e3 O-O 5.Bd3 d5 6.Ne2 c5 7.O-O",
   "rnbq1rk1pp3ppp4pn22pp41bPP42NBP3PP2NPPPR1BQK2Rw": "Nimzo-Indian: 4.e3 O-O 5.Bd3 d5 6.Ne2 c5",
   "rnbq1rk1pp3ppp4pn22pp41bPP42NBPN2PP3PPPR1BQ1RK1b": "Nimzo-Indian: Main Line, 6...c5 7.O-O",
