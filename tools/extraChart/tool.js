@@ -683,7 +683,7 @@
       const mmw1 = this.maxMaterialWon(board, side) / 100;
       board = lt.getBoardFromFen(prev2Node.fen);
       const mmw3 = this.maxMaterialWon(board, side) / 100;
-      const bril = (mmw3 - mmw1) - delta; // TODO thesis: brilliant if there is a lot of material loss but still a good move
+      const bril = ((mmw3 - mmw1) * side - delta)*0.7; // TODO thesis: brilliant if there is a lot of material loss but still a good move
       return bril + bonus;
     };
 
