@@ -13,7 +13,8 @@
   "permissions": [
     "activeTab",
     "https://lichess.org/*",
-    "https://lichess.dev/*"
+    "https://lichess.dev/*",
+    "https://testy.lichess.dev/*"
   ],
   "content_scripts": [{
       "js": [
@@ -23,7 +24,8 @@
       ],
       "matches": [
         "*://lichess.org/*",
-        "*://lichess.dev/*"
+        "*://lichess.dev/*",
+        "*://testy.lichess.dev/*"
       ],
       "run_at": "document_start",
       "world": "MAIN"
@@ -300,7 +302,8 @@
       ],
       "matches": [
         "*://lichess.org/*",
-        "*://lichess.dev/*"
+        "*://lichess.dev/*",
+        "*://testy.lichess.dev/*"
       ],
       "run_at": "document_start",
       "world": "MAIN"
@@ -310,7 +313,8 @@
       ],
       "matches": [
         "*://lichess.org/*",
-        "*://lichess.dev/*"
+        "*://lichess.dev/*",
+        "*://testy.lichess.dev/*"
       ],
       "run_at": "document_end",
       "world": "MAIN"
@@ -320,7 +324,8 @@
       ],
       "matches": [
         "*://lichess.org/*",
-        "*://lichess.dev/*"
+        "*://lichess.dev/*",
+        "*://testy.lichess.dev/*"
       ],
       "run_at": "document_start"
     }

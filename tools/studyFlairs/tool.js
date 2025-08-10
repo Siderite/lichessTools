@@ -211,7 +211,7 @@
         }
         if (this.options.memberFlairs && study.members?.length) {
           const members = study.members
-            .filter(m => m.user.id != study.owner.id)
+            .filter(m => m.user.id != study.owner?.id) // owner is null in test environments
             .map(m => { return { title: this.getFullname(m.user), flair: m.user.flair, url: '/@/' + m.user.id, type: 'member' }; })
             .filter(f => f.flair);
           flairs.push(...members);
