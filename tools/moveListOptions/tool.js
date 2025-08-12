@@ -553,7 +553,8 @@
       if (!menu.length) return;
 
       if (!this.options.bookmarks) return;
-      if (study?.vm.mode.write) {
+      const isWritableStudy = study?.isWriting();
+      if (isWritableStudy) {
         let menuItem = $('a[data-role="bookmark"]', menu);
         if (!menuItem.length) {
           const text = trans.noarg('addBookmarkText');
@@ -605,7 +606,7 @@
             .attr('data-icon', icon)
             .text(text).attr('title', title);
 
-          if (study?.vm.mode.write && node.children?.length) {
+          if (isWritableStudy && node.children?.length) {
             let menuItem = $('a[data-role="bookmarkSplit"]', menu);
             if (!menuItem.length) {
               const text = trans.noarg('bookmarkSplitText');

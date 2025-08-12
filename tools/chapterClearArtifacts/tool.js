@@ -224,7 +224,8 @@
       if (!analysis) return;
       const study = analysis.study;
       if (!study) return;
-      if (!study.vm.mode.write) {
+      const isWritableStudy = study?.isWriting();
+      if (!isWritableStudy) {
         $('table.study__tags button.lichessTools-deleteTag').remove();
         return;
       }

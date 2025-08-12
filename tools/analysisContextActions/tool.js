@@ -464,8 +464,9 @@ Varia\u0163ii urm\u0103toare: $branches`
           .appendTo(menu);
       }
 
+      const isWritableStudy = study?.isWriting();
       if (this.options.moveEval
-        && study?.vm.mode.write
+        && isWritableStudy
         && $('.analyse__tools > .ceval').length
         && !menu.has('a[data-role="evaluateTerminations"]').length) {
         const text = trans.noarg('evaluateTerminationsText');
@@ -514,7 +515,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         }
       }
 
-      if (this.options.reorderVariations && (!study || study?.vm.mode.write)) {
+      if (this.options.reorderVariations && (!study || isWritableStudy)) {
         const node = analysis?.contextMenuPath && analysis.tree.nodeAtPath(analysis.contextMenuPath);
         const parentNode = analysis?.contextMenuPath && analysis.tree.nodeAtPath(analysis.contextMenuPath.slice(0,-2));
         const index = parentNode?.children?.indexOf(node);
