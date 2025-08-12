@@ -106,10 +106,9 @@
       const analyseTools = $('.analyse__tools, .puzzle__tools');
       if (!analyseTools.length) return;
       analyseTools
+        .toggleClassSafe('lichessTools-cevalDecimals',true)
         .observer()
-        .on('div.ceval pearl, div.ceval.enabled ~ div.pv_box .pv',this.showDecimals);
-      analyseTools
-        .observer()
+        .on('div.ceval pearl, div.ceval.enabled ~ div.pv_box .pv',this.showDecimals)
         .on('move, eval',this.showDecimalsMoves);
     };
 
@@ -125,10 +124,9 @@
       lt.pubsub.off('lichessTools.redraw', this.setupObserver);
       const analyseTools = $('.analyse__tools, .puzzle__tools');
       analyseTools
+        .toggleClassSafe('lichessTools-cevalDecimals',false)
         .observer()
-        .off('div.ceval pearl, div.ceval.enabled ~ div.pv_box .pv',this.showDecimals);
-      analyseTools
-        .observer()
+        .off('div.ceval pearl, div.ceval.enabled ~ div.pv_box .pv',this.showDecimals)
         .off('move, eval',this.showDecimalsMoves);
       analysis.toggleComputer = lt.unwrapFunction(analysis.toggleComputer,'cevalDecimals');
       $('.lichessTools-cevalDecimals').remove();
