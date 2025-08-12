@@ -36,7 +36,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       let button = $('button.lichessTools-expandAll');
-      if ($.single('.tview2 a.disclosure[data-icon="'+lt.icon.PlusButton+'"]').length) {
+      if ($.single('.tview2 a[data-icon="'+lt.icon.PlusButton+'"],.tview2 a.disclosure:not(.expanded)').length) {
         if (button.length) return;
       } else {
         button.remove();
@@ -57,7 +57,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       $('button.lichessTools-expandAll').remove();
-      if (!$.single('.tview2 a.disclosure[data-icon="'+lt.icon.PlusButton+'"]').length) {
+      if (!$.single('.tview2 a[data-icon="'+lt.icon.PlusButton+'"],.tview2 a.disclosure:not(.expanded)').length) {
         return;
       }
       const analysis = lt.lichess.analysis;
