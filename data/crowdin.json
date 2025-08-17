@@ -879,7 +879,8 @@
     "themes.mobileHideStartEndButtons": "إخفاء أزرار البدء/النهاية",
     "FENCopiedToClipboard": "تم نسخ FEN إلى الحافظة",
     "copyFenToClipboard": "نسخ FEN إلى الحافظة",
-    "explorerEval.highlightList": "أبرز تحركات القائمة"
+    "explorerEval.highlightList": "أبرز تحركات القائمة",
+    "themes.mobileNoFish": "لا يوجد زر سمكة على الجوال"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1761,7 +1762,8 @@
     "themes.mobileHideStartEndButtons": "移动设备隐藏开始/结束按钮",
     "FENCopiedToClipboard": "FEN已复制到剪贴板",
     "copyFenToClipboard": "复制 FEN 到剪贴板",
-    "explorerEval.highlightList": "高亮列表移动"
+    "explorerEval.highlightList": "高亮列表移动",
+    "themes.mobileNoFish": "移动设备上没有鱼类按钮"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2643,7 +2645,8 @@
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
-    "explorerEval.highlightList": "Highlight list moves"
+    "explorerEval.highlightList": "Highlight list moves",
+    "themes.mobileNoFish": "No fish button on mobile"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3525,7 +3528,8 @@
     "themes.mobileHideStartEndButtons": "Mobiel verbergen start- en eindknoppen",
     "FENCopiedToClipboard": "FEN gekopieerd naar klembord",
     "copyFenToClipboard": "FEN naar klembord kopiëren",
-    "explorerEval.highlightList": "Lijstbewegingen markeren"
+    "explorerEval.highlightList": "Lijstbewegingen markeren",
+    "themes.mobileNoFish": "Geen vis knop op mobiel"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4407,7 +4411,8 @@
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
-    "explorerEval.highlightList": "Highlight list moves"
+    "explorerEval.highlightList": "Highlight list moves",
+    "themes.mobileNoFish": "No fish button on mobile"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5289,7 +5294,8 @@
     "themes.mobileHideStartEndButtons": "Boutons début / fin masqués sur mobile",
     "FENCopiedToClipboard": "FEN copié dans le presse-papiers",
     "copyFenToClipboard": "Copier FEN dans le presse-papiers",
-    "explorerEval.highlightList": "Mettre en surbrillance les coups de la liste"
+    "explorerEval.highlightList": "Mettre en surbrillance les coups de la liste",
+    "themes.mobileNoFish": "Aucun bouton de poisson sur mobile"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6171,7 +6177,8 @@
     "themes.mobileHideStartEndButtons": "Start-/End-Buttons für Mobile Verstecke",
     "FENCopiedToClipboard": "FEN in Zwischenablage kopiert",
     "copyFenToClipboard": "FEN in Zwischenablage kopieren",
-    "explorerEval.highlightList": "Bewegungen der Liste hervorheben"
+    "explorerEval.highlightList": "Bewegungen der Liste hervorheben",
+    "themes.mobileNoFish": "Keine Fisch-Taste auf dem Handy"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -7053,7 +7060,8 @@
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
-    "explorerEval.highlightList": "Highlight list moves"
+    "explorerEval.highlightList": "Highlight list moves",
+    "themes.mobileNoFish": "No fish button on mobile"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7145,7 +7153,7 @@
     "watchGames": "Guarda le partite",
     "enablePlayAlert": "Attiva avviso di gioco",
     "mutePlayAlert": "Silenzia avviso di gioco",
-    "options.liveFriendsPage": "Pagina amici dal vivo",
+    "options.liveFriendsPage": "Pagina amici online",
     "hideOfflineTitle": "Giocatori online",
     "hideNotPlayingTitle": "Giocatori in gioco",
     "hideMutedTitle": "Giocatori con avvisi di gioco",
@@ -7267,7 +7275,7 @@
     "options.explorerPracticeOptions": "Opzioni di Esercitazione Explorer",
     "explorerPracticeTitle": "LiChess Tools - pratica contro le mosse di Explorer",
     "outOfMoves": "Fuori dall'esploratore si muove",
-    "explorerPracticeOptions.showSmileys": "Mostra emoji quando non si muove",
+    "explorerPracticeOptions.showSmileys": "Valuta con emoji quando si va fuori database",
     "explorerPracticeOptions.sumClick": "Fare clic su Explorer Σ per fare una mossa",
     "explorerPracticeOptions.showNames": "Mostra nome avversario",
     "explorerPracticeOptions.showInfoStudy": "Dati dell'Explorer nello studio",
@@ -7319,7 +7327,7 @@
     "nextOpponentBlunder": "Prossimo blunder avversario",
     "nextOpponentMistake": "Prossimo errore avversario",
     "nextOpponentInaccuracy": "Prossima imprecisione avversaria",
-    "nextOpponentGood": "Prossimo avversario buono/brillante/interessante",
+    "nextOpponentGood": "Prossima buona/brillante/interessante avversario",
     "variationLine": "N-esima Variante",
     "cevalLine": "N-esima linea di valutazione computer",
     "explorerLine": "N-esima linea Explorer",
@@ -7935,7 +7943,8 @@
     "themes.mobileHideStartEndButtons": "Pulsanti per nascondere inizio/fine per dispositivi mobili",
     "FENCopiedToClipboard": "FEN copiato negli appunti",
     "copyFenToClipboard": "Copia FEN negli appunti",
-    "explorerEval.highlightList": "Evidenzia le mosse della lista"
+    "explorerEval.highlightList": "Evidenzia le mosse della lista",
+    "themes.mobileNoFish": "Nessun pulsante per pesci sul cellulare"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8817,7 +8826,8 @@
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
-    "explorerEval.highlightList": "Highlight list moves"
+    "explorerEval.highlightList": "Highlight list moves",
+    "themes.mobileNoFish": "No fish button on mobile"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9699,7 +9709,8 @@
     "themes.mobileHideStartEndButtons": "Ukrywanie przycisków start/end",
     "FENCopiedToClipboard": "FEN skopiowany do schowka",
     "copyFenToClipboard": "Skopiuj FEN do schowka",
-    "explorerEval.highlightList": "Podświetl ruchy listy"
+    "explorerEval.highlightList": "Podświetl ruchy listy",
+    "themes.mobileNoFish": "Brak przycisku ryby na urządzeniu mobilnym"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10581,7 +10592,8 @@
     "themes.mobileHideStartEndButtons": "Ocultar botões de início/final",
     "FENCopiedToClipboard": "FEN copiado para área de transferência",
     "copyFenToClipboard": "Copiar FEN para área de transferência",
-    "explorerEval.highlightList": "Realçar movimentos"
+    "explorerEval.highlightList": "Realçar movimentos",
+    "themes.mobileNoFish": "Nenhum botão de peixe no celular"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11463,7 +11475,8 @@
     "themes.mobileHideStartEndButtons": "Ocultar botões de início/final",
     "FENCopiedToClipboard": "FEN copiado para área de transferência",
     "copyFenToClipboard": "Copiar FEN para área de transferência",
-    "explorerEval.highlightList": "Realçar movimentos"
+    "explorerEval.highlightList": "Realçar movimentos",
+    "themes.mobileNoFish": "Nenhum botão de peixe no celular"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12345,7 +12358,8 @@
     "themes.mobileHideStartEndButtons": "Ascunde butoanele start/final pe mobil",
     "FENCopiedToClipboard": "FEN copiat în clipboard",
     "copyFenToClipboard": "Copiază FEN în clipboard",
-    "explorerEval.highlightList": "Evidențiază mutări din listă"
+    "explorerEval.highlightList": "Evidențiază mutări din listă",
+    "themes.mobileNoFish": "Fără buton cu pește pe mobil"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13227,7 +13241,8 @@
     "themes.mobileHideStartEndButtons": "Кнопки старта/конец мобильных скрытий",
     "FENCopiedToClipboard": "FEN скопирован в буфер обмена",
     "copyFenToClipboard": "Копировать FEN в буфер обмена",
-    "explorerEval.highlightList": "Выделить ходы списка"
+    "explorerEval.highlightList": "Выделить ходы списка",
+    "themes.mobileNoFish": "Нет рыбы на мобильном устройстве"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -14109,7 +14124,8 @@
     "themes.mobileHideStartEndButtons": "Ocultar botones de inicio/fin móvil",
     "FENCopiedToClipboard": "FEN copiado al portapapeles",
     "copyFenToClipboard": "Copiar FEN al portapapeles",
-    "explorerEval.highlightList": "Resaltar los movimientos de la lista"
+    "explorerEval.highlightList": "Resaltar los movimientos de la lista",
+    "themes.mobileNoFish": "Ningún botón de pez en el móvil"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14991,7 +15007,8 @@
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
-    "explorerEval.highlightList": "Highlight list moves"
+    "explorerEval.highlightList": "Highlight list moves",
+    "themes.mobileNoFish": "No fish button on mobile"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15873,7 +15890,8 @@
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
-    "explorerEval.highlightList": "Highlight list moves"
+    "explorerEval.highlightList": "Highlight list moves",
+    "themes.mobileNoFish": "No fish button on mobile"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16755,6 +16773,7 @@
     "themes.mobileHideStartEndButtons": "Mobile hide start/end buttons",
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
-    "explorerEval.highlightList": "Highlight list moves"
+    "explorerEval.highlightList": "Highlight list moves",
+    "themes.mobileNoFish": "No fish button on mobile"
   }
 }

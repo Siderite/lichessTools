@@ -1,0 +1,9 @@
+/* No fish button on mobile */
+
+body.lichessTools.lichessTools-theme_mobileNoFish.mobile .analyse__controls .jumps button[data-act="ceval"] {
+  display:none;
+}
+
+body.lichessTools.lichessTools-theme_mobileNoFish.mobile .analyse__tools div.ceval {
+  display:flex;
+}

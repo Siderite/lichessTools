@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+17 Aug
+
+- added "No fish button on mobile" theme
+
 28 Jul
 
 - removed the "No study chat" theme (use "Toggle study chat")
