@@ -229,6 +229,7 @@
       SmilingFaceWithHorns: '\uD83D\uDE08',
       SparklingHeart: '\uD83D\uDC96',
       SuperscriptCapitalL: '\u00a0\u1D38',
+      SuperscriptCapitalT: '\u00a0\u1D40',
       WhiteChessPawn: '\u2659',
       Opposition: '\u260D',
       Document: '\uD83D\uDDCE',
