@@ -67,6 +67,7 @@ body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disab
 @media (max-width: 500px) {
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls:not(.lichessTools-liveStatus) {
     display: inline-grid;
+    height: unset;
   }
 
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls div.features {
