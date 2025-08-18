@@ -35,7 +35,3 @@ body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse:not(.has-r
 body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse .analyse__controls .jumps {
   flex: 1 1 auto;
 }
-
-body.lichessTools.lichessTools-theme_justExplorer.mobile main.analyse .analyse__controls .features {
-  flex: 2 1 auto;
-}
