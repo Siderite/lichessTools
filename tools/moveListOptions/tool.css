@@ -210,7 +210,7 @@ body.lichessTools.lichessTools-analysisPopup a.lichessTools-analysisPopup {
   display: none;
 }
 
-body.lichessTools.lichessTools-analysisPopup button[data-act="practice"] {
+body.lichessTools.lichessTools-analysisPopup button[data-act="ceval-practice"] {
   display: none;
 }
 
