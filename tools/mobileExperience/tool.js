@@ -441,11 +441,11 @@
           const elem = $('.analyse__controls')[0];
           if (elem) {
             if (!this.originalHandler) {
-              this.originalHandler = lt.getEventHandlers(elem, 'touchstart')?.at(0)?.bind(elem);
+              this.originalHandler = lt.getEventHandlers(elem, 'pointerdown')?.at(0)?.bind(elem);
             }
-            lt.removeEventHandlers(elem, 'touchstart');
+            lt.removeEventHandlers(elem, 'pointerdown');
             $('div.analyse__controls')
-            .on('touchstart', ev => {
+            .on('pointerdown', ev => {
               this.originalHandler(ev);
               this.clickOrTapAnalysisControls(ev);
             })
@@ -456,9 +456,9 @@
           if (this.originalHandler) {
             const elem = $('.analyse__controls')[0];
             if (elem && this.originalHandler) {
-              lt.removeEventHandlers(elem, 'touchstart');
+              lt.removeEventHandlers(elem, 'pointerdown');
               $('div.analyse__controls')
-              .on('touchstart', this.originalHandler)
+              .on('pointerdown', this.originalHandler)
               .off('mousedown', this.clickOrTapAnalysisControls);
             }
           }

@@ -56,8 +56,7 @@ body.lichessTools button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
 
 body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
   flex: 1 1 1em;
-  font-size: 1.5em;
-  margin-top: -0.6em;
+  line-height: normal;
 }
 
 body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disabled) .lichessTools-randomNextMove {
@@ -69,6 +68,12 @@ body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disab
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls:not(.lichessTools-liveStatus) {
     display: inline-grid;
     height: unset;
+  }
+
+  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button {
+    min-width: 2.5em;
+    min-height: 2.5em;
+    margin: 0;
   }
 
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button[data-act="menu"] {
