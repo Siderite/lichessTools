@@ -401,7 +401,7 @@
                   .appendTo(container);
                 }
               } else {
-                $('div.analyse__controls div.features button.lichessTools-shapeDrawing').remove();
+                $('div.analyse__controls button.lichessTools-shapeDrawing').remove();
               }
             }
           } else {
@@ -410,17 +410,18 @@
         }
         let addHandler = false;
         if (this.options.shapeDrawing) {
-          const container = $('div.analyse__controls:not(.lichessTools-liveStatus) div.features');
+          const container = $('div.analyse__controls:not(.lichessTools-liveStatus)');
           if (!container.find('button.lichessTools-shapeDrawing').length) {
+            const anchor = container.children('button[data-act]:not([data-act="menu"])').last();
             $('<button class="fbt">')
             .attr('data-icon', lt.icon.NorthEastDoubleArrow)
             .attr('title', trans.noarg('shapeDrawingTitle'))
             .addClass('lichessTools-shapeDrawing')
-            .appendTo(container);
+            .insertAfter(anchor);
             addHandler = true;
           }
         } else {
-          $('div.analyse__controls div.features button.lichessTools-shapeDrawing').remove();
+          $('div.analyse__controls button.lichessTools-shapeDrawing').remove();
         }
         if (this.options.randomNextMove) {
           if (!$('div.analyse__controls div.jumps button.lichessTools-randomNextMove').length) {
@@ -440,11 +441,11 @@
           const elem = $('.analyse__controls')[0];
           if (elem) {
             if (!this.originalHandler) {
-              this.originalHandler = lt.getEventHandlers(elem, 'touchstart')?.at(0)?.bind(elem);
+              this.originalHandler = lt.getEventHandlers(elem, 'pointerdown')?.at(0)?.bind(elem);
             }
-            lt.removeEventHandlers(elem, 'touchstart');
+            lt.removeEventHandlers(elem, 'pointerdown');
             $('div.analyse__controls')
-            .on('touchstart', ev => {
+            .on('pointerdown', ev => {
               this.originalHandler(ev);
               this.clickOrTapAnalysisControls(ev);
             })
@@ -455,9 +456,9 @@
           if (this.originalHandler) {
             const elem = $('.analyse__controls')[0];
             if (elem && this.originalHandler) {
-              lt.removeEventHandlers(elem, 'touchstart');
+              lt.removeEventHandlers(elem, 'pointerdown');
               $('div.analyse__controls')
-              .on('touchstart', this.originalHandler)
+              .on('pointerdown', this.originalHandler)
               .off('mousedown', this.clickOrTapAnalysisControls);
             }
           }

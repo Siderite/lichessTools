@@ -8,9 +8,9 @@
         name: 'themes',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'noStudyChat', 'toggleStudyChat',
+        possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
                          'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup','adamisko','fixThirdParties','timeControls',
-                         'mobileHideStartEndButtons'],
+                         'mobileHideStartEndButtons', 'mobileNoFish'],
         defaultValue: 'fixThirdParties',
         advanced: true
       }
@@ -28,7 +28,6 @@
         'themes.flairX': 'Nicer flairs',
         'themes.lessIcons': 'Fewer icons',
         'themes.nonStickyHeader': 'No sticky header',
-        'themes.noStudyChat': 'No study chat',
         'themes.toggleStudyChat': 'Toggle study chat',
         'themes.pieceDrag': 'Nicer piece drag',
         'themes.noPractice': 'No Practice button',
@@ -41,7 +40,8 @@
         'themes.adamisko': 'Vintage Adamisko',
         'themes.fixThirdParties': 'Fix third parties',
         'themes.timeControls': 'Hover time controls',
-        'themes.mobileHideStartEndButtons': 'Mobile hide start/end buttons'
+        'themes.mobileHideStartEndButtons': 'Mobile hide start/end buttons',
+        'themes.mobileNoFish': 'No fish button on mobile'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -54,7 +54,6 @@
         'themes.flairX': 'Flair-uri mai bune',
         'themes.lessIcons': 'Mai pu\u0163ine pictograme',
         'themes.nonStickyHeader': 'Antet fix \u00een pagin\u0103',
-        'themes.noStudyChat': 'F\u0103r\u0103 chat \u00een studii',
         'themes.toggleStudyChat': 'Comut\u0103 chat \u00een studii',
         'themes.pieceDrag': 'Apucat piese mai frumos',
         'themes.noPractice': 'F\u0103r\u0103 buton Antrenament cu calculatorul',
@@ -66,7 +65,8 @@
         'themes.noResultPopup': 'F\u0103r\u0103 popup cu rezultat joc',
         'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i',
         'themes.timeControls': 'Controale timp la hover',
-        'themes.mobileHideStartEndButtons': 'Ascunde butoanele start/final pe mobil'
+        'themes.mobileHideStartEndButtons': 'Ascunde butoanele start/final pe mobil',
+        'themes.mobileNoFish': 'F\u0103r\u0103 buton cu pe\u015fte pe mobil'
       }
     }
 

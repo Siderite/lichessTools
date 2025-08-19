@@ -40,7 +40,8 @@
         'jumpToCurrent': 'Jump to current position',
         'obsIntegration': 'Toggle OBS integration for this broadcast',
         'toggleSiteHeader': 'Toggle site header (works everywhere)',
-        'switchExplorerTabs': 'Explorer cycle Lichess/Masters'
+        'switchExplorerTabs': 'Explorer cycle Lichess/Masters',
+        'copyFenToClipboard': 'Copy FEN to clipboard'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -67,7 +68,8 @@
         'jumpToCurrent': 'Sari la pozi\u0163ia curent\u0103',
         'obsIntegration': 'Comut\u0103 integrarea OBS pentru acest broadcast',
         'toggleSiteHeader': 'Ascunde header-ul paginii',
-        'switchExplorerTabs': 'Cicleaz\u0103 Lichess/Masters \u00een Explorator'
+        'switchExplorerTabs': 'Cicleaz\u0103 Lichess/Masters \u00een Explorator',
+        'copyFenToClipboard': 'Copiaz\u0103 FEN \u00een clipboard'
       }
     }
 
@@ -134,6 +136,7 @@
         if (analysis.explorer.enabled()) {
           row(['shift', 't'], 'switchExplorerTabs');
         }
+        row(['ctrl', 'c'], 'copyFenToClipboard');
       }
       if (lt.currentOptions.getValue('ctrlArrows')) {
         row(['ctrl', '&rarr;'], 'randomMove');

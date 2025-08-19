@@ -8,8 +8,8 @@
         name: 'explorerEval',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'bardp', 'spoa', 'hidden'],
-        defaultValue: 'ceval,db',
+        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'hidden'],
+        defaultValue: 'ceval,db,highlightList',
         advanced: true
       }
     ];
@@ -23,6 +23,7 @@
         'explorerEval.db': 'From ChessDb',
         'explorerEval.lichess': 'From Lichess',
         'explorerEval.evalRows': 'Rows from eval',
+        'explorerEval.highlightList': 'Highlight list moves',
         'explorerEval.bardp': 'Bar precision',
         'explorerEval.spoa': 'Stronger Player Outcome Average',
         'explorerEval.hidden': 'Hidden',
@@ -45,6 +46,7 @@
         'explorerEval.bardp': 'Precizie bar\u0103',
         'explorerEval.spoa': 'Media Rezultatelor Juc\u0103torilor mai Buni',
         'explorerEval.evalRows': 'R\u00e2nduri din evaluare',
+        'explorerEval.highlightList': 'Eviden\u0163iaz\u0103 mut\u0103ri din list\u0103',
         'explorerEval.hidden': 'Ascunde',
         'fromCevalTitle': 'LiChess Tools - din evaluare computer, ad\u00e2ncime %s',
         'fromStatsTitle': 'LiChess Tools - din statistici',
@@ -134,6 +136,7 @@
         }
       }
       const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
+      const listUcis = analysis.node.children.map(c=>c.uci);
       $('tr[data-uci],tr.sum', container).each((i, e) => {
         if (!$('td.lichessTools-explorerEval', e).length) {
           $('<td>')
@@ -141,6 +144,10 @@
             .insertAfter($('td:nth-child(1)', e));
         }
         const uci = $(e).attr('data-uci');
+        if (uci && this.options.highlightList) {
+          const inList = !!listUcis.find(u => u == uci);
+          $(e).toggleClassSafe('lichessTools-explorerEval-inList',inList);
+        }
         let move = moves?.find(m => m.uci == uci || (m.uci2 && m.uci2 == uci));
         let explorerItem = uci
           ? (analysis.explorer.current()?.moves || []).find(i => i.uci == uci)
@@ -368,16 +375,15 @@
       $('table.moves tr.sum td.lichessTools-explorerEval').remove();
       const fen = analysis.node.fen;
       const whosMove = analysis.node.ply % 2 ? -1 : 1;
-      let result = this.cache[fen];
+      let result = this.cache[fen] || { moves: [] };
       if (this.getCached404(analysis.path)) {
         result = { moves: [] };
       }
       let newMoves = [];
-      if ((this.options.db || this.options.lichess) && !lt.net.slowMode && result === undefined && (!this.options.ceval || !analysis.ceval.enabled())) {
-        result = { moves: [] };
-        if (this.options.db && !newMoves?.length) {
+      if ((this.options.db || this.options.lichess) && !lt.net.slowMode && (!this.options.ceval || !analysis.ceval.enabled())) {
+        if (this.options.db && !result.dbLoaded) {
           const obj = await lt.api.evaluation.getChessDb(fen);
-          newMoves = obj?.moves?.map(m => {
+          const moves = obj?.moves?.map(m => {
             return {
               depth: 50, //assumed
               uci: m.uci,
@@ -386,11 +392,15 @@
               rank: m.rank
             };
           });
+          if (moves?.length) {
+            newMoves.push(...moves);
+          }
+          result.dbLoaded = true;
         }
-        if (this.options.lichess && !newMoves?.length) {
+        if (this.options.lichess && !result.lichessLoaded) {
           let obj = await lt.api.evaluation.getLichess(fen, 5);
           if (obj) {
-            newMoves = obj?.pvs?.map(m => {
+            const moves = obj?.pvs?.map(m => {
               return {
                 depth: obj.depth,
                 uci: m.moves?.split(' ')[0],
@@ -399,6 +409,9 @@
                 rank: 5
               };
             });
+            if (moves?.length) {
+              newMoves.push(...moves);
+            }
             if (newMoves?.length && !lt.net.slowMode) {
               obj = await lt.api.evaluation.getLichess(fen, 10);
               if (obj) {
@@ -415,6 +428,7 @@
                 });
               }
             }
+            result.lichessLoaded = true;
           }
         }
         if (newMoves?.length) {
@@ -521,6 +535,7 @@
         db: lt.isOptionSet(value, 'db') || lt.isOptionSet(value, 'chessdb'),
         lichess: lt.isOptionSet(value, 'lichess'),
         evalRows: lt.isOptionSet(value, 'evalRows'),
+        highlightList: lt.isOptionSet(value, 'highlightList'),
         bardp: lt.isOptionSet(value, 'bardp'),
         spoa: lt.isOptionSet(value, 'spoa'),
         hidden: lt.isOptionSet(value, 'hidden'),

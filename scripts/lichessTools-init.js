@@ -14,6 +14,7 @@ lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);
 lichessTools.loadTool(LiChessTools.Tools.FixAbortController);
 lichessTools.loadTool(LiChessTools.Tools.FixChessgroundResize);
 lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);
+lichessTools.loadTool(LiChessTools.Tools.FixChessvision);
 lichessTools.loadTool(LiChessTools.Tools.EmitChapterChange);
 lichessTools.loadTool(LiChessTools.Tools.EmitCommentChange);
 lichessTools.loadTool(LiChessTools.Tools.GamebookPlayClass);

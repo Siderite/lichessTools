@@ -40,6 +40,10 @@
       const nodePath = analysis.path;
       const tools = $('div.analyse__tools');
       let fork = $('div.lichessTools-transpositions', tools);
+      if (analysis.disclosureMode && analysis.disclosureMode()) {
+        fork.remove();
+        return;
+      }
       this.state = lt.traverse();
       let transpositions = currNode.transposition;
       if (lt.transpositionBehavior?.excludeSameLine) {
@@ -52,10 +56,12 @@
       if (!fork.length) {
         fork = $('<div>')
           .addClass('analyse__fork lichessTools-transpositions')
-          .attr('title', trans.noarg('transpositionBox'));
+          .attr('title', trans.noarg('transpositionBox'))
+          .insertAfter($('.analyse__fork, .analyse__moves', tools).last());
       }
-      if (!fork.prev().is('.analyse__fork')) {
-        fork.insertAfter($('.analyse__fork, .analyse__moves', tools).last());
+      const lichessFork = $('.analyse__fork:not(.lichessTools-transpositions)', tools);
+      if (!fork.prev().is('.analyse__fork') && lichessFork.length) {
+        fork.insertAfter(lichessFork);
       }
       transpositions = transpositions.filter(n => n != currNode);
       const noDuplicates = lt.transpositionBehavior?.groupSameMove;
@@ -67,8 +73,11 @@
       const addForkMove = (targetElem, path, child, isNextMove) => {
         const prefix = isNextMove ? '' : 'T';
         const forkMove = $('<move>')
+          .toggleClass('lichessTools-transposition',!isNextMove)
           .attr('p', path)
-          .append($('<index>').addClass('sbhint' + child.ply).text(prefix + Math.ceil(child.ply / 2) + (child.ply % 2 ? '.' : '...')))
+          .append($('<index>')
+                    .addClass('sbhint' + child.ply)
+                    .text(prefix + Math.ceil(child.ply / 2) + (child.ply % 2 ? '.' : '...')))
           .append($('<san>').text(child.san))
           .on('mouseover', function () {
             $('.analyse__fork move').removeClass('selected');
@@ -91,10 +100,10 @@
         } else {
           forkMove.appendTo(fork);
         }
+        return forkMove;
       };
 
       const sans = currNode.children.map(c => c.san);
-      let onlyMoveAdded = false;
       for (const node of transpositions) {
         if (node.path === undefined) {
           continue;
@@ -104,10 +113,6 @@
           const forkMove = $('move', fork).filter((i, e) => $(e).attr('p') == path);
           if (forkMove.length) continue;
           const targetElem = lt.getElementForPath(path);
-          if (currNode.children.length == 1 && child.san == currNode.children[0].san && !onlyMoveAdded) {
-            addForkMove(targetElem, path, child, true);
-            onlyMoveAdded = true;
-          };
           if (noDuplicates && sans.includes(child.san)) {
             continue;
           }
@@ -115,6 +120,15 @@
           addForkMove(targetElem, path, child, false);
         }
       }
+      if (currNode.children.length == 1) {
+          const child = currNode.children[0];
+          const path = currNode.path+child.id;
+          const forkMove = $('move', fork).filter((i, e) => $(e).attr('p') == path);
+          if (!forkMove.length) {
+            const targetElem = lt.getElementForPath(path);
+            addForkMove(targetElem, path, child, true);
+          }
+      };
     };
 
     async start() {

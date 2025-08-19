@@ -1,5 +1,5 @@
 /* No Practice button */
 
-body.lichessTools.lichessTools-theme_noPractice button[data-act="practice"]:not(.active) {
+body.lichessTools.lichessTools-theme_noPractice button[data-act="ceval-practice"]:not(.active) {
   display:none;
 }

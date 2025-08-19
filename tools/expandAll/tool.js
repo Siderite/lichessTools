@@ -36,7 +36,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       let button = $('button.lichessTools-expandAll');
-      if ($.single('.tview2 a.disclosure[data-icon="'+lt.icon.PlusButton+'"]').length) {
+      if ($.single('.tview2 a[data-icon="'+lt.icon.PlusButton+'"],.tview2 a.disclosure:not(.expanded)').length) {
         if (button.length) return;
       } else {
         button.remove();
@@ -56,9 +56,16 @@
     expandAll = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      const analysis = lt.lichess.analysis;
-      analysis.setCollapsedForCtxMenu('',false);
       $('button.lichessTools-expandAll').remove();
+      if (!$.single('.tview2 a[data-icon="'+lt.icon.PlusButton+'"],.tview2 a.disclosure:not(.expanded)').length) {
+        return;
+      }
+      const analysis = lt.lichess.analysis;
+      if (analysis.idbTree) {
+        analysis.idbTree.setCollapsedFrom('',false);
+      } else {
+        analysis.setCollapsedForCtxMenu('',false);
+      }
     }
 
     autoExpand = () => {
@@ -71,6 +78,7 @@
       if (tview2.autoExpanded !== autoExpanded) {
         tview2.autoExpanded = autoExpanded;
         this.expandAll();
+        $('.tview2').toggleClassSafe('lichessTools-expandAllVariations',true);
       }
     }
 
@@ -94,11 +102,23 @@
         lt.pubsub.on('lichessTools.redraw', this.addExpandAllButton);
         this.addExpandAllButton();
       }
+      if (analysis.idbTree) {
+        analysis.idbTree.saveCollapsed = lt.unwrapFunction(analysis.idbTree.saveCollapsed, 'expandAll');
+      }
       if (this.options.autoExpand) {
+        if (analysis.idbTree) {
+          analysis.idbTree.saveCollapsed = lt.wrapFunction(analysis.idbTree.saveCollapsed, {
+            id: 'expandAll',
+            after: ($this, ...args) => {
+              const tview2 = $('.tview2')[0];
+              tview2.autoExpanded = null;
+            }
+          });
+        }
         lt.pubsub.on('lichessTools.redraw', this.autoExpand);
         lt.global.setTimeout(this.autoExpand,500);
       } else {
-        $('.tview2').removeClass('lichessTools.expandAllVariations');
+        $('.tview2').removeClass('lichessTools-expandAllVariations');
       }
     }
 

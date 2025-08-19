@@ -76,6 +76,11 @@ html.transp body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
   color: #8080AF;
 }
 
+body.lichessTools tr.lichessTools-explorerEval-inList td:first-child {
+  font-weight: bold;
+  font-size: larger;
+}
+
 body.lichessTools tr.lichessTools-warning-red:after,
 body.lichessTools tr.lichessTools-warning-green:after,
 body.lichessTools tr.lichessTools-warning-blue:after {

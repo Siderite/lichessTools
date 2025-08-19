@@ -123,10 +123,6 @@ body.lichessTools.lichessTools-theme_mobile.mobile main.round div.rcontrols:has(
   display: none;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools:has(.retro-box) .analyse__moves {
-  order: 2;
-}
-
 body.lichessTools.lichessTools-theme_mobile.mobile .training-box .choices {
   margin-bottom: 0;
 }
@@ -173,6 +169,31 @@ body.lichessTools.lichessTools-theme_mobile.mobile div.analyse__player_strip {
 body.lichessTools.lichessTools-theme_mobile.mobile aside.analyse__side div.game__meta__players {
   display: block;
 }
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools div.analyse__fork {
+  order: 0;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools div.ceval {
+  order: 1;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools div.pv_box {
+  order: 2;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools section.explorer-box {
+  order: 3;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools .lichessTools-resizeExplorer {
+  order: 5;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools .analyse__moves {
+  order: 6;
+}
+
 
 /** Prettier **/
 

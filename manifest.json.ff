@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "LiChess Tools, by Siderite",
-  "version": "2.4.67",
+  "version": "2.4.75",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -13,7 +13,8 @@
   "permissions": [
     "activeTab",
     "https://lichess.org/*",
-    "https://lichess.dev/*"
+    "https://lichess.dev/*",
+    "https://testy.lichess.dev/*"
   ],
   "content_scripts": [{
       "js": [
@@ -23,7 +24,8 @@
       ],
       "matches": [
         "*://lichess.org/*",
-        "*://lichess.dev/*"
+        "*://lichess.dev/*",
+        "*://testy.lichess.dev/*"
       ],
       "run_at": "document_start",
       "world": "MAIN"
@@ -39,6 +41,7 @@
         "tools/fixAbortController/tool.js",
         "tools/fixChessgroundResize/tool.js",
         "tools/fixWakeLock/tool.js",
+        "tools/fixChessvision/tool.js",
         "tools/emitRedraw/tool.js",
         "tools/emitContentLoaded/tool.js",
         "tools/emitChapterChange/tool.js",
@@ -185,7 +188,6 @@
         "tools/themes/flairX.css",
         "tools/themes/lessIcons.css",
         "tools/themes/nonStickyHeader.css",
-        "tools/themes/noStudyChat.css",
         "tools/themes/pieceDrag.css",
         "tools/themes/noPractice.css",
         "tools/themes/gameMoveList.css",
@@ -199,6 +201,7 @@
         "tools/themes/fixThirdParties.css",
         "tools/themes/timeControls.css",
         "tools/themes/mobileHideStartEndButtons.css",
+        "tools/themes/nofish.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
@@ -300,7 +303,8 @@
       ],
       "matches": [
         "*://lichess.org/*",
-        "*://lichess.dev/*"
+        "*://lichess.dev/*",
+        "*://testy.lichess.dev/*"
       ],
       "run_at": "document_start",
       "world": "MAIN"
@@ -310,7 +314,8 @@
       ],
       "matches": [
         "*://lichess.org/*",
-        "*://lichess.dev/*"
+        "*://lichess.dev/*",
+        "*://testy.lichess.dev/*"
       ],
       "run_at": "document_end",
       "world": "MAIN"
@@ -320,7 +325,8 @@
       ],
       "matches": [
         "*://lichess.org/*",
-        "*://lichess.dev/*"
+        "*://lichess.dev/*",
+        "*://testy.lichess.dev/*"
       ],
       "run_at": "document_start"
     }

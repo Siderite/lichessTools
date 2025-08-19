@@ -276,6 +276,7 @@
               if (!this.inForkClick && (nextSansCount > 1 || nextTranspos.length)) {
                 switch (this.options.value) {
                   case 'hybrid':
+                    if (analysis.disclosureMode && analysis.disclosureMode()) break;
                     if (this.variationSelect != analysis.path) {
                       this.variationSelect = analysis.path;
                       $('.analyse__tools').addClass('lichessTools-forkBehavior-hybrid');

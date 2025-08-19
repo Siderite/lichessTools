@@ -6,3 +6,11 @@ body.lichessTools .analyse .tview2 move.lichessTools-highlight {
   border: solid 1px gray;
   border-radius: 3px;
 }
+
+body.lichessTools.mobile move.lichessTools-transposition san:after {
+  content: '\1D40'; /* SuperscriptCapitalT */
+  line-height: 1;
+  vertical-align: super;
+  display: inline-block;
+  margin-left: 0.25em;
+}

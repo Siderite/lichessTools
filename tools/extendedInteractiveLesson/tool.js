@@ -912,7 +912,8 @@
       }
 
       const menu = $('#analyse-cm');
-      if (menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addDeviation"]').length) {
+      const isWritableStudy = analysis?.study?.isWriting();
+      if (isWritableStudy && menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addDeviation"]').length) {
         const text = trans.noarg('addDeviationText');
         const title = trans.noarg('addDeviationTitle');
         $('<a>')
@@ -922,7 +923,7 @@
           .on('click', this.addDeviation)
           .appendTo(menu);
       }
-      if (menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addHint"]').length) {
+      if (isWritableStudy && menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addHint"]').length) {
         const text = trans.noarg('addHintText');
         const title = trans.noarg('addHintTitle');
         $('<a>')

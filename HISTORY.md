@@ -1,5 +1,15 @@
 History of features added to LiChess Tools in time (reversed order)
 
+17 Aug
+
+- added "No fish button on mobile" theme
+
+28 Jul
+
+- removed the "No study chat" theme (use "Toggle study chat")
+- added Ctrl-C as general key shortcut to copy the FEN
+- highlight Explorer moves that are in the move list as next
+
 19 Jun
 
 - glyphs alter "Good move" feedback
