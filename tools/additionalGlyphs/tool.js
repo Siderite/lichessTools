@@ -128,7 +128,7 @@
         }
       });
       const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
-      $('circle',existing).attrSafe('fill',fill);
+      existing.find('circle').attrSafe('fill',fill);
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);
 
