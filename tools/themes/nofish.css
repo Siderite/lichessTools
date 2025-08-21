@@ -4,7 +4,7 @@ body.lichessTools.lichessTools-theme_mobileNoFish.mobile .analyse__controls butt
   display:none;
 }
 
-body.lichessTools.lichessTools-theme_mobileNoFish.mobile .analyse__tools div.ceval {
+body.lichessTools.lichessTools-theme_mobileNoFish.mobile .analyse .analyse__tools div.ceval {
   display:flex;
 }
 
