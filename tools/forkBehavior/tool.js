@@ -8,7 +8,7 @@
         name: 'forkBehavior',
         category: 'analysis',
         type: 'single',
-        possibleValues: ['normal', 'hybrid', 'chessbase'],
+        possibleValues: ['hidden', 'normal', 'hybrid', 'chessbase'],
         defaultValue: 'normal',
         advanced: true
       }
@@ -18,6 +18,7 @@
       'en-US': {
         'options.analysis': 'Analysis',
         'options.forkBehavior': 'Next move behavior for variations',
+        'forkBehavior.hidden': 'Hidden',
         'forkBehavior.normal': 'Normal',
         'forkBehavior.hybrid': 'Hybrid',
         'forkBehavior.chessbase': 'Force choice',
@@ -27,9 +28,10 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.forkBehavior': 'Comportament la mutare urm\u0103toare pentru varia\u0163ii',
+        'forkBehavior.hidden': 'Ascunse',
         'forkBehavior.normal': 'Normal',
         'forkBehavior.hybrid': 'Hibrid',
-        'forkBehavior.chessbase': 'For\u0163eaz\u0103 alegere',
+        'forkBehavior.chessbase': 'For\u0163eaz\u0103 alegerea',
         'movesGroupLabel': 'Mut\u0103ri',
         'transposGroupLabel': 'Transpozi\u0163ii'
       }
@@ -310,7 +312,9 @@
 
     clearVariationSelect = () => {
       this.variationSelect = 'unset';
-      $('.analyse__tools').removeClass('lichessTools-forkBehavior-hybrid');
+      $('.analyse__tools')
+        .removeClass('lichessTools-forkBehavior-hidden')
+        .removeClass('lichessTools-forkBehavior-hybrid');
     };
 
     async start() {
@@ -340,6 +344,8 @@
         this.bindFork();
         lt.pubsub.on('lichessTools.chapterChange', this.clearVariationSelect);
       }
+      $('.analyse__tools')
+        .toggleClassSafe('lichessTools-forkBehavior-hidden',value == 'hidden');
     }
 
   }

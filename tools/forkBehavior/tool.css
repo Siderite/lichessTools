@@ -95,6 +95,10 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase button.close-button
   border: none;
 }
 
+body.lichessTools .analyse__tools.lichessTools-forkBehavior-hidden .analyse__fork {
+  display:none;
+}
+
 /* Prettier Lichess */
 
 

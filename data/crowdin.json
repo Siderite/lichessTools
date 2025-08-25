@@ -880,7 +880,8 @@
     "FENCopiedToClipboard": "تم نسخ FEN إلى الحافظة",
     "copyFenToClipboard": "نسخ FEN إلى الحافظة",
     "explorerEval.highlightList": "أبرز تحركات القائمة",
-    "themes.mobileNoFish": "لا يوجد زر سمكة على الجوال"
+    "themes.mobileNoFish": "لا يوجد زر سمكة على الجوال",
+    "forkBehavior.hidden": "Hidden"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1763,7 +1764,8 @@
     "FENCopiedToClipboard": "FEN已复制到剪贴板",
     "copyFenToClipboard": "复制 FEN 到剪贴板",
     "explorerEval.highlightList": "高亮列表移动",
-    "themes.mobileNoFish": "移动设备上没有鱼类按钮"
+    "themes.mobileNoFish": "移动设备上没有鱼类按钮",
+    "forkBehavior.hidden": "Hidden"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2646,7 +2648,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "themes.mobileNoFish": "No fish button on mobile"
+    "themes.mobileNoFish": "No fish button on mobile",
+    "forkBehavior.hidden": "Hidden"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3529,7 +3532,8 @@
     "FENCopiedToClipboard": "FEN gekopieerd naar klembord",
     "copyFenToClipboard": "FEN naar klembord kopiëren",
     "explorerEval.highlightList": "Lijstbewegingen markeren",
-    "themes.mobileNoFish": "Geen vis knop op mobiel"
+    "themes.mobileNoFish": "Geen vis knop op mobiel",
+    "forkBehavior.hidden": "Hidden"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4412,7 +4416,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "themes.mobileNoFish": "No fish button on mobile"
+    "themes.mobileNoFish": "No fish button on mobile",
+    "forkBehavior.hidden": "Hidden"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5295,7 +5300,8 @@
     "FENCopiedToClipboard": "FEN copié dans le presse-papiers",
     "copyFenToClipboard": "Copier FEN dans le presse-papiers",
     "explorerEval.highlightList": "Mettre en surbrillance les coups de la liste",
-    "themes.mobileNoFish": "Aucun bouton de poisson sur mobile"
+    "themes.mobileNoFish": "Aucun bouton Stockfish sur mobile",
+    "forkBehavior.hidden": "Hidden"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6178,7 +6184,8 @@
     "FENCopiedToClipboard": "FEN in Zwischenablage kopiert",
     "copyFenToClipboard": "FEN in Zwischenablage kopieren",
     "explorerEval.highlightList": "Bewegungen der Liste hervorheben",
-    "themes.mobileNoFish": "Keine Fisch-Taste auf dem Handy"
+    "themes.mobileNoFish": "Keine Fisch-Taste auf dem Handy",
+    "forkBehavior.hidden": "Hidden"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -7061,7 +7068,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "themes.mobileNoFish": "No fish button on mobile"
+    "themes.mobileNoFish": "No fish button on mobile",
+    "forkBehavior.hidden": "Hidden"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7069,14 +7077,14 @@
     "options.general": "Generale",
     "options.addNotifications": "Aggiungi notifiche",
     "options.community": "Comunità",
-    "options.addToTeam": "LiChess Tools team",
+    "options.addToTeam": "Gruppo LiChess Tools",
     "addToTeam.hideForum": "Nascondi voce forum",
     "addToTeam.forumBottom": "Ultima voce nel forum",
     "addToTeam.noNotifications": "Disabilita notifiche",
-    "joinTeamText": "Unisciti al team",
+    "joinTeamText": "Unisciti al gruppo",
     "teamTitle": "Utenti dell'estensione del browser LiChess Tools",
-    "teamSubtitle": "Unisciti al team per accedere al forum, incontrare altri utenti, ottenere aggiornamenti o dare un feedback",
-    "welcomeToTeam": "Benvenuto nel team di utenti LiChess Tools!",
+    "teamSubtitle": "Unisciti al gruppo per accedere al forum, incontrare altri utenti, ottenere aggiornamenti o dare un feedback",
+    "welcomeToTeam": "Benvenuto nel gruppo di utenti LiChess Tools!",
     "byeFromTeam": "Mi dispiace vederti andare!",
     "options.fixAbortController": "Correggi AbortController",
     "options.fixChessgroundResize": "Correggi Chessground resize",
@@ -7944,7 +7952,8 @@
     "FENCopiedToClipboard": "FEN copiato negli appunti",
     "copyFenToClipboard": "Copia FEN negli appunti",
     "explorerEval.highlightList": "Evidenzia le mosse della lista",
-    "themes.mobileNoFish": "Nessun pulsante per pesci sul cellulare"
+    "themes.mobileNoFish": "Nessun pulsante per pesci sul cellulare",
+    "forkBehavior.hidden": "Hidden"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8827,7 +8836,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "themes.mobileNoFish": "No fish button on mobile"
+    "themes.mobileNoFish": "No fish button on mobile",
+    "forkBehavior.hidden": "Hidden"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9710,7 +9720,8 @@
     "FENCopiedToClipboard": "FEN skopiowany do schowka",
     "copyFenToClipboard": "Skopiuj FEN do schowka",
     "explorerEval.highlightList": "Podświetl ruchy listy",
-    "themes.mobileNoFish": "Brak przycisku ryby na urządzeniu mobilnym"
+    "themes.mobileNoFish": "Brak przycisku ryby na urządzeniu mobilnym",
+    "forkBehavior.hidden": "Hidden"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10593,7 +10604,8 @@
     "FENCopiedToClipboard": "FEN copiado para área de transferência",
     "copyFenToClipboard": "Copiar FEN para área de transferência",
     "explorerEval.highlightList": "Realçar movimentos",
-    "themes.mobileNoFish": "Nenhum botão de peixe no celular"
+    "themes.mobileNoFish": "Nenhum botão de peixe no celular",
+    "forkBehavior.hidden": "Hidden"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11476,7 +11488,8 @@
     "FENCopiedToClipboard": "FEN copiado para área de transferência",
     "copyFenToClipboard": "Copiar FEN para área de transferência",
     "explorerEval.highlightList": "Realçar movimentos",
-    "themes.mobileNoFish": "Nenhum botão de peixe no celular"
+    "themes.mobileNoFish": "Nenhum botão de peixe no celular",
+    "forkBehavior.hidden": "Hidden"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12018,7 +12031,7 @@
     "options.forkBehavior": "Comportament la mutare următoare pentru variaţii",
     "forkBehavior.normal": "Normală",
     "forkBehavior.hybrid": "Hibrid",
-    "forkBehavior.chessbase": "Forţează alegere",
+    "forkBehavior.chessbase": "Forţează alegerea",
     "movesGroupLabel": "Mutări",
     "transposGroupLabel": "Transpoziţii",
     "options.blogAutosave": "Opţiuni editare blog",
@@ -12359,7 +12372,8 @@
     "FENCopiedToClipboard": "FEN copiat în clipboard",
     "copyFenToClipboard": "Copiază FEN în clipboard",
     "explorerEval.highlightList": "Evidențiază mutări din listă",
-    "themes.mobileNoFish": "Fără buton cu pește pe mobil"
+    "themes.mobileNoFish": "Fără buton cu pește pe mobil",
+    "forkBehavior.hidden": "Ascunse"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13242,7 +13256,8 @@
     "FENCopiedToClipboard": "FEN скопирован в буфер обмена",
     "copyFenToClipboard": "Копировать FEN в буфер обмена",
     "explorerEval.highlightList": "Выделить ходы списка",
-    "themes.mobileNoFish": "Нет рыбы на мобильном устройстве"
+    "themes.mobileNoFish": "Нет рыбы на мобильном устройстве",
+    "forkBehavior.hidden": "Hidden"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -14125,7 +14140,8 @@
     "FENCopiedToClipboard": "FEN copiado al portapapeles",
     "copyFenToClipboard": "Copiar FEN al portapapeles",
     "explorerEval.highlightList": "Resaltar los movimientos de la lista",
-    "themes.mobileNoFish": "Ningún botón de pez en el móvil"
+    "themes.mobileNoFish": "Ningún botón de pez en el móvil",
+    "forkBehavior.hidden": "Hidden"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -15008,7 +15024,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "themes.mobileNoFish": "No fish button on mobile"
+    "themes.mobileNoFish": "No fish button on mobile",
+    "forkBehavior.hidden": "Hidden"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15891,7 +15908,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "themes.mobileNoFish": "No fish button on mobile"
+    "themes.mobileNoFish": "No fish button on mobile",
+    "forkBehavior.hidden": "Hidden"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16774,6 +16792,7 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "themes.mobileNoFish": "No fish button on mobile"
+    "themes.mobileNoFish": "No fish button on mobile",
+    "forkBehavior.hidden": "Hidden"
   }
 }
