@@ -992,6 +992,9 @@
   "rnbqkb1rpppp1ppp5n24p32PP48PP1BPPPPRN1QKBNRb": [
     "Chess Opening Theory/1. d4/1...Nf6/2. c4/2...e5/3. Bd2"
   ],
+  "rnbqkb1rpppp1ppp5n23Pp32P58PP2PPPPRNBQKBNRb": [
+    "Chess Opening Theory/1. d4/1...Nf6/2. c4/2...e5/3. d5"
+  ],
   "rnbqkb1rpppp1ppp5n24P32P58PP2PPPPRNBQKBNRb": [
     "Chess Opening Theory/1. d4/1...Nf6/2. c4/2...e5/3. dxe5"
   ],
@@ -1270,9 +1273,6 @@
   ],
   "rnbqkb1rpppppp1p5np183P42N5PPP1PPPPR1BQKBNRw": [
     "Chess Opening Theory/1. d4/1...Nf6/2. Nc3/2...g6"
-  ],
-  "rnbqkb1rpppppppp5n283P48PPPNPPPPR1BQKBNRb": [
-    "Chess Opening Theory/1. d4/1...Nf6/2. Nd2"
   ],
   "rnbqkb1rpppppppp5n283P45N2PPP1PPPPRNBQKB1Rb": [
     "Chess Opening Theory/1. d4/1...Nf6/2. Nf3"
@@ -2324,9 +2324,6 @@
   "rnbqkbnrpp2pppp2p583PN38PPP2PPPR1BQKBNRb": [
     "Chess Opening Theory/1. e4/1...c6/2. d4/2...d5/3. Nc3/3...dxe4/4. Nxe4"
   ],
-  "rn1qkbnrpp2pppp2p55b23PN38PPP2PPPR1BQKBNRw": [
-    "Chess Opening Theory/1. e4/1...c6/2. d4/2...d5/3. Nc3/3...dxe4/4. Nxe4/4...Bf5"
-  ],
   "rn1qkbnrpp2pppp2p55b23PN33B4PPP2PPPR1BQK1NRb": [
     "Chess Opening Theory/1. e4/1...c6/2. d4/2...d5/3. Nc3/3...dxe4/4. Nxe4/4...Bf5/5. Bd3"
   ],
@@ -2576,6 +2573,9 @@
   ],
   "rnb1kbnrppp1pppp8q782N5PPPP1PPPR1BQKBNRw": [
     "Chess Opening Theory/1. e4/1...d5/2. exd5/2...Qxd5/3. Nc3/3...Qa5"
+  ],
+  "rnb1kbnrppp1pppp8q71P62N5P1PP1PPPR1BQKBNRb": [
+    "Chess Opening Theory/1. e4/1...d5/2. exd5/2...Qxd5/3. Nc3/3...Qa5/4. b4"
   ],
   "rnb1kbnrppp1pppp1q681P62N5P1PP1PPPR1BQKBNRw": [
     "Chess Opening Theory/1. e4/1...d5/2. exd5/2...Qxd5/3. Nc3/3...Qa5/4. b4/4...Qb6"
@@ -3017,6 +3017,9 @@
   ],
   "rnbqkbnrpppp1p1p882B1Pp25p2PPPP2PPRNBQ1RK1w": [
     "Chess Opening Theory/1. e4/1...e5/2. f4/2...exf4/3. Nf3/3...g5/4. Bc4/4...g4/5. O-O/5...gxf3"
+  ],
+  "rnbqkbnrpppp1p1p86p13PPp25N2PPP3PPRNBQKB1Rb": [
+    "Chess Opening Theory/1. e4/1...e5/2. f4/2...exf4/3. Nf3/3...g5/4. d4"
   ],
   "rnbqkbnrpppp1p1p86p14Pp1P5N2PPPP2P1RNBQKB1Rb": [
     "Chess Opening Theory/1. e4/1...e5/2. f4/2...exf4/3. Nf3/3...g5/4. h4"

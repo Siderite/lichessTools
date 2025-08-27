@@ -5301,7 +5301,7 @@
     "copyFenToClipboard": "Copier FEN dans le presse-papiers",
     "explorerEval.highlightList": "Mettre en surbrillance les coups de la liste",
     "themes.mobileNoFish": "Aucun bouton Stockfish sur mobile",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Masqué"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
