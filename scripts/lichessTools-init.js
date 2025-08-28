@@ -7,6 +7,7 @@ lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
 lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 lichessTools.loadTool(LiChessTools.Tools.Dialog);
 lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
+lichessTools.loadTool(LiChessTools.Tools.CacheBoundingRect);
 
 lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
 lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);

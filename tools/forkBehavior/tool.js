@@ -203,7 +203,7 @@
           e.selectedIndex = selectedIndex;
         }
         if (lt.global.document.activeElement != e) {
-          e.focus();
+          lt.global.requestAnimationFrame(()=>e.focus());
         }
       });
       selectElem.on('keydown', (ev) => {

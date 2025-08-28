@@ -48,6 +48,8 @@
         "tools/fixChessgroundResize/tool.js",
         "tools/fixWakeLock/tool.js",
         "tools/fixChessvision/tool.js",
+        "tools/cacheBoundingRect/tool.js",
+
         "tools/emitRedraw/tool.js",
         "tools/emitContentLoaded/tool.js",
         "tools/emitChapterChange/tool.js",
