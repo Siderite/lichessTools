@@ -199,8 +199,12 @@
         .on('click', mobileMakeMove);
 
       selectElem.each((i, e) => {
-        e.selectedIndex = selectedIndex;
-        e.focus();
+        if (e.selectedIndex != selectedIndex) {
+          e.selectedIndex = selectedIndex;
+        }
+        if (lt.global.document.activeElement != e) {
+          e.focus();
+        }
       });
       selectElem.on('keydown', (ev) => {
         if (ev.altKey || ev.ctrlKey) return;
