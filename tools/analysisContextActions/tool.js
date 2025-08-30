@@ -183,7 +183,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       const analysis = lichess.analysis;
       if (this.evaluateLineStarted) {
         if (analysis.cevalEnabled()) {
-          analysis.toggleCeval();
+          analysis.cevalEnabled(false);
         }
         this.setLineEvaluation(false);
         return;
@@ -205,7 +205,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       const analysis = lichess.analysis;
       if (this.evaluateTerminationsStarted) {
         if (analysis.cevalEnabled()) {
-          analysis.toggleCeval();
+          analysis.cevalEnabled(false);
         }
         this.setTerminationsEvaluation(false);
         return;
@@ -256,7 +256,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         this.setTerminationsEvaluation(false);
         this.setLineEvaluation(false);
         if (analysis.cevalEnabled()) {
-          analysis.toggleCeval();
+          analysis.cevalEnabled(false);
         }
         return;
       }
@@ -333,7 +333,7 @@ Varia\u0163ii urm\u0103toare: $branches`
           return;
         }
         if (!analysis.cevalEnabled()) {
-          analysis.toggleCeval();
+          analysis.cevalEnabled(true);
           setTimeout(() => checkState(resolve), 1000);
           return;
         }
