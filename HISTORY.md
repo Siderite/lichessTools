@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+30 Aug
+
+- removed "No fish button on mobile" theme after Lichess changes.
+
 25 Aug
 
 - 'hidden' fork behaviour option
