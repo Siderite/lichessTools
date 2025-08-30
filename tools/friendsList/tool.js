@@ -696,7 +696,10 @@
             }
           };
           const followers = await lt.api.relations.getFollowers(1,1);
-          $('.box__top h1').replaceText(trans.pluralSame('followersNumberTitle',followers?.nbResults || 0));
+          $('.box__top h1')
+            .replaceText(trans.pluralSame('followersNumberTitle',followers?.nbResults || 0));
+          $('.box__top h1 a')
+            .attr('href','/@/'+userId+'/following');
           f(followers);
         }
       } else {
