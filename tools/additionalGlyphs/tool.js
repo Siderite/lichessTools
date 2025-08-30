@@ -79,6 +79,7 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
+      $('body').toggleClassSafe('lichessTools-compOff',!analysis.showFishnetAnalysis());
       const chessground = analysis?.chessground;
       if (!chessground) return;
       const firstGlyph = analysis.node.glyphs?.at(0);
