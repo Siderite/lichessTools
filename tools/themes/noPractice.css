@@ -1,5 +1,5 @@
 /* No Practice button */
 
-body.lichessTools.lichessTools-theme_noPractice button[data-act="engine-mode"]:not(.active) {
+body.lichessTools.lichessTools-theme_noPractice button[data-mode="practice"]:not(.active) {
   display:none;
 }

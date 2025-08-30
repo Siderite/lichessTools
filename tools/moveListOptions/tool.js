@@ -628,7 +628,6 @@
       const $ = lt.$;
       const trans = lt.translator;
       const study = lt.lichess.analysis?.study;
-      let button = $('div.analyse__tools a.lichessTools-analysisPopup');
       if (this.options.analysisPopup && study) {
         let container = $('div.analyse__tools div.ceval');
         if (container.length || $('.action-menu').length) {
@@ -640,6 +639,7 @@
               .prependTo('div.analyse__tools');
           }
         }
+        let button = $('div.analyse__tools a.lichessTools-analysisPopup');
         if (!button.length) {
           button = $('<a class="lichessTools-analysisPopup">')
             .attr('data-icon', lt.icon.ExternalArrow)
@@ -663,7 +663,7 @@
           }
         }
       } else {
-        button.remove();
+        $('div.analyse__tools a.lichessTools-analysisPopup').remove();
         $('div.lichessTools-moveListOptions-header').remove();
       }
     };

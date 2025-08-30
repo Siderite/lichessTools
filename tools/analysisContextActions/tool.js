@@ -329,7 +329,7 @@ Varia\u0163ii urm\u0103toare: $branches`
 
       const checkState = (resolve) => {
         if (!this.evaluateTerminationsStarted && !this.evaluateLineStarted) return;
-        if (!analysis?.ceval?.allowed()) {
+        if (!analysis?.isCevalAllowed()) {
           return;
         }
         if (!analysis.cevalEnabled()) {
@@ -467,7 +467,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       const isWritableStudy = study?.isWriting();
       if (this.options.moveEval
         && isWritableStudy
-        && $('.analyse__tools > .ceval').length
+        && analysis.isCevalAllowed()
         && !menu.has('a[data-role="evaluateTerminations"]').length) {
         const text = trans.noarg('evaluateTerminationsText');
         const title = trans.noarg('evaluateTerminationsTitle');
@@ -480,7 +480,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       }
 
       if (this.options.lineEval
-        && $('.analyse__tools > .ceval').length
+        && analysis.isCevalAllowed()
         && !menu.has('a[data-role="evaluateLine"]').length) {
         const text = trans.noarg('evaluateLineText');
         const title = trans.noarg('evaluateLineTitle');

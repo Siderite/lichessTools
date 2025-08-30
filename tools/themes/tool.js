@@ -10,7 +10,7 @@
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
                          'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup','adamisko','fixThirdParties','timeControls',
-                         'mobileHideStartEndButtons', 'mobileNoFish'],
+                         'mobileHideStartEndButtons'],
         defaultValue: 'fixThirdParties',
         advanced: true
       }
@@ -40,8 +40,7 @@
         'themes.adamisko': 'Vintage Adamisko',
         'themes.fixThirdParties': 'Fix third parties',
         'themes.timeControls': 'Hover time controls',
-        'themes.mobileHideStartEndButtons': 'Mobile hide start/end buttons',
-        'themes.mobileNoFish': 'No fish button on mobile'
+        'themes.mobileHideStartEndButtons': 'Mobile hide start/end buttons'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -65,8 +64,7 @@
         'themes.noResultPopup': 'F\u0103r\u0103 popup cu rezultat joc',
         'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i',
         'themes.timeControls': 'Controale timp la hover',
-        'themes.mobileHideStartEndButtons': 'Ascunde butoanele start/final pe mobil',
-        'themes.mobileNoFish': 'F\u0103r\u0103 buton cu pe\u015fte pe mobil'
+        'themes.mobileHideStartEndButtons': 'Ascunde butoanele start/final pe mobil'
       }
     }
 

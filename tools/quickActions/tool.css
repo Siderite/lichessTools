@@ -38,7 +38,7 @@ body.lichessTools div.lichessTools-quickActions-tooltip .readComments.dontReadCo
   opacity:0.5;
 }
 
-body.lichessTools main.lichessTools-quickActions-practice button[data-act="engine-mode"]:not(.active) {
+body.lichessTools main.lichessTools-quickActions-practice button[data-mode="practice"]:not(.active) {
   display:none;
 }
 

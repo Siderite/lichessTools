@@ -189,8 +189,7 @@
       if (!this.options.practice) return false;
       const lt = this.lichessTools;
       const analysis = lt.lichess?.analysis;
-      if (!analysis?.ceval?.possible) return false;
-      if (!analysis?.ceval?.allowed()) return false;
+      if (!analysis?.isCevalAllowed()) return false;
       if (analysis?.gamebookPlay()) return false;
       return true;
     }

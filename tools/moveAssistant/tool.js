@@ -41,9 +41,8 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
-      if (!analysis) return;
+      if (!analysis.isCevalAllowed()) return;
       if (lt.isGamePlaying()) return;
-      if (!$('.analyse__tools > .ceval').length) return;
       const selected = analysis.chessground?.state?.selected;
       const dests = selected
         ? analysis.chessground?.state?.movable?.dests?.get(selected)
@@ -202,7 +201,17 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      let button = $('div.ceval button.lichessTools-moveAssistant');
+      let container = $('div.analyse__tools div.ceval');
+      if (container.length || $('.action-menu').length) {
+        $('div.lichessTools-moveListOptions-header').remove();
+      } else {
+        container = $('div.lichessTools-moveListOptions-header');
+        if (!container.length) {
+          container = $('<div class="lichessTools-moveListOptions-header">')
+            .prependTo('div.analyse__tools');
+        }
+      }
+      let button = $('button.lichessTools-moveAssistant');
       if (!this.options.enabled) {
         button.remove();
         return;
@@ -215,8 +224,13 @@
             ev.preventDefault();
             this.isEnabled = !this.isEnabled;
             button.toggleClass('lichessTools-enabled', !!this.isEnabled);
-          })
-          .insertBefore('div.ceval button.settings-gear');
+          });
+        const anchor = $('div.ceval button.settings-gear')[0];
+        if (anchor) {
+          button.insertBefore(anchor);
+        } else {
+          container.prepend(button);
+        }
       }
     }
 

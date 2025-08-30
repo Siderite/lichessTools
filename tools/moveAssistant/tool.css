@@ -18,11 +18,14 @@ body.lichessTools div.cg-wrap.lichessTools-moveAssistant square.move-dest .liche
 body.lichessTools button.lichessTools-moveAssistant {
   color: #b0b0b0;
   font-size: 16px;
-  margin-right: -3px;
   align-self: center;
   background: none;
   border: none;
   outline: none;
+}
+
+body.lichessTools .ceval button.lichessTools-moveAssistant {
+  margin-right: -3px;
 }
 
 body.lichessTools button.lichessTools-moveAssistant {
@@ -39,6 +42,15 @@ body.lichessTools button.lichessTools-moveAssistant.lichessTools-enabled {
 
 body.lichessTools .lichessTools-hideMoveAssistant {
   display: disabled;
+}
+
+body.lichessTools div.lichessTools-moveListOptions-header {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  flex-wrap: wrap;
+  max-height: 2em;
+  gap: 1em;
 }
 
 /* Prettier Lichess CSS */

@@ -209,7 +209,6 @@
         "tools/themes/fixThirdParties.css",
         "tools/themes/timeControls.css",
         "tools/themes/mobileHideStartEndButtons.css",
-        "tools/themes/nofish.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
