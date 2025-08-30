@@ -253,7 +253,7 @@
        .off('button.fbt[data-act="menu"],button.board-menu-toggle,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
       lt.pubsub.off('lichessTools.chapterChange',this.initQuickActions);
       this.initQuickActions();
-      this.refreshTooltip();
+      lt.global.setTimeout(this.refreshTooltip,100);
       if (!this.options.isSet) return;
       lt.pubsub.on('lichessTools.chapterChange',this.initQuickActions);
       $('body')

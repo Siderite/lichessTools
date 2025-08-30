@@ -28,7 +28,8 @@
 
     clearRankShapes = (shapes) => {
       const lt = this.lichessTools;
-      lt.arrayRemoveAll(shapes, s => s.type === 'rank');
+      const removed = lt.arrayRemoveAll(shapes, s => s.type === 'rank');
+      return !!removed.length;
     };
 
     ensureShapeRank = () => {
@@ -105,8 +106,9 @@
         if (isWrapped) {
           this.chessground.state.drawable.onChange = lt.unwrapFunction(this.chessground.state.drawable.onChange, 'shapeRank');
         }
-        this.clearRankShapes(this.chessground.state.drawable.shapes);
-        this.chessground.redrawAll();
+        if (this.clearRankShapes(this.chessground.state.drawable.shapes)) {
+          this.chessground.redrawAll();
+        }
       }
     };
 

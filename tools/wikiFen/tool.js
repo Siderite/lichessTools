@@ -28,6 +28,7 @@
     _cache = new Map();
 
     getWikiHtml = async (pos)=>{
+      if (!this.wikiUrls_dict) return;
       const lt = this.lichessTools;
 
       if (!pos) return;
@@ -69,6 +70,22 @@
       lt.global.requestAnimationFrame(()=>{
         $('.explorer-box .data div.title').attrSafe('title',text);
       });
+    };
+
+    updateOpeningWiki = async ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const analysis = lt.lichess.analysis;
+      if (!analysis?.study || !analysis?.wiki || !this.wikiUrls_dict) return;
+      const openingWikiContainer = $('div.opening__wiki__markup__placeholder'); 
+      const text = openingWikiContainer.text();
+      if (text?.length<60) {
+        const position = lt.getPositionFromBoard($('.opening__intro'));
+        const html = await this.getWikiHtml(position);
+        if (html) {
+          openingWikiContainer.html(html);
+        }
+      }
     };
 
     async start() {
@@ -129,30 +146,22 @@
         analysis.wiki(analysis.nodeList);
       }
 
-      const openingWikiContainer = $('div.opening__wiki__markup__placeholder'); 
-      const text = openingWikiContainer.text();
+      lt.uiApi.events.off('ply', this.handlePly);
       if (analysis?.study || analysis?.wiki) {
         if (!this.wikiUrls_dict) {
-          const dict = await lt.comm.getData('wikiUrls.json');
-          if (!dict) {
-            lt.global.console.warn('Could not load wiki URLs!');
-          } else {
-            this.wikiUrls_dict = dict;
-          };
+          const self = this;
+          lt.comm.getData('wikiUrls.json').then(dict=>{
+            if (!dict) {
+              lt.global.console.warn('Could not load wiki URLs!');
+            } else {
+              self.wikiUrls_dict = dict;
+            };
+            self.updateOpeningWiki();
+          });
+        } else {
+          this.updateOpeningWiki();
         }
-      }
-      if (text && text.length<60) {
-        if (this.wikiUrls_dict) {
-          const position = lt.getPositionFromBoard($('.opening__intro'));
-          const html = await this.getWikiHtml(position);
-          if (html) {
-            openingWikiContainer.html(html);
-          }
-        }
-      }
-      if (analysis?.study) {
-        lt.uiApi.events.off('ply', this.handlePly);
-        if (this.options.enabled && this.wikiUrls_dict) {
+        if (this.options.enabled) {
           lt.uiApi.events.on('ply', this.handlePly);
           this.handlePly();
         }

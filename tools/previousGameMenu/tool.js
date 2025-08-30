@@ -74,7 +74,13 @@
       const gameId = games[index - 1];
       if (gameId) {
         item.attr('href', '/' + gameId);
-        lichess.powertip?.manualGame(item[0]);
+        const f = ()=>{
+          lichess.powertip?.manualGame(item[0]);
+          item
+            .off('mouseover',f)
+            .trigger('mouseover');
+        };
+        item.on('mouseover',f);
       } else {
         item.removeAttr('href');
       }

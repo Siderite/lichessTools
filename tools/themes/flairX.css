@@ -9,8 +9,6 @@ body.lichessTools.lichessTools-theme_flairX img.uflair:hover {
 }
 
 body.lichessTools.lichessTools-theme_flairX #powerTip:has(img.uflair:hover),
-body.lichessTools.lichessTools-theme_flairX *:has(> img.uflair:hover),
-body.lichessTools.lichessTools-theme_flairX *:has(> * > img.uflair:hover),
-body.lichessTools.lichessTools-theme_flairX *:has(> * > * > img.uflair:hover):not(.mchat__messages) {
+body.lichessTools.lichessTools-theme_flairX *:has(> img.uflair:hover,> * > img.uflair:hover,> * > * > img.uflair:hover):not(.mchat__messages) {
   overflow: visible;
 }
