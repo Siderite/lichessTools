@@ -346,6 +346,10 @@ body.lichessTools div.lichessTools-moveListOptions-header {
   gap: 1em;
 }
 
+body.lichessTools.mobile div.lichessTools-moveListOptions-header {
+  order: 3;
+}
+
 /* Prettier */
 
 @media (min-width: 1261px) {

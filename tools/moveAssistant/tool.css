@@ -53,6 +53,10 @@ body.lichessTools div.lichessTools-moveListOptions-header {
   gap: 1em;
 }
 
+body.lichessTools.mobile div.lichessTools-moveListOptions-header {
+  order: 3;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier button.lichessTools-moveAssistant.lichessTools-enabled {

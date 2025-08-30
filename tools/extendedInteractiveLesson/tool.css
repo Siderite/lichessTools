@@ -177,11 +177,10 @@ html.transp body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse
   }
 }
 
-
-body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleGreen"] line,
-body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleRed"] line {
-  stroke: white;
-  marker-end: url(#arrowhead-hiliteWhite);
+body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes-below g[cgHash*="paleGreen"] line,
+body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes-below g[cgHash*="paleRed"] line {
+  stroke: #15781B;
+  marker-end: url(#arrowhead-pg);
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g.lichessTools-threat line {
