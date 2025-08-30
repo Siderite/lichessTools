@@ -182,7 +182,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (this.evaluateLineStarted) {
-        if (analysis.ceval.enabled()) {
+        if (analysis.cevalEnabled()) {
           analysis.toggleCeval();
         }
         this.setLineEvaluation(false);
@@ -204,7 +204,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (this.evaluateTerminationsStarted) {
-        if (analysis.ceval.enabled()) {
+        if (analysis.cevalEnabled()) {
           analysis.toggleCeval();
         }
         this.setTerminationsEvaluation(false);
@@ -231,7 +231,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       if (!this.evaluateTerminationsStarted && !this.evaluateLineStarted) return;
       if (!lt.isTreeviewVisible()) return;
       if (!study && this.evaluateTerminationsStarted) return;
-      if (!analysis.ceval.enabled() || analysis.threatMode()) {
+      if (!analysis.cevalEnabled() || analysis.threatMode()) {
         this.setTerminationsEvaluation(false);
         this.setLineEvaluation(false);
         return;
@@ -255,7 +255,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       if (!node) {
         this.setTerminationsEvaluation(false);
         this.setLineEvaluation(false);
-        if (analysis.ceval.enabled()) {
+        if (analysis.cevalEnabled()) {
           analysis.toggleCeval();
         }
         return;
@@ -332,7 +332,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         if (!analysis?.ceval?.allowed()) {
           return;
         }
-        if (!analysis.ceval.enabled()) {
+        if (!analysis.cevalEnabled()) {
           analysis.toggleCeval();
           setTimeout(() => checkState(resolve), 1000);
           return;
@@ -593,7 +593,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       if (analysis.practice || analysis.study?.practice) return;
       const customEngineDepth = lt.currentOptions.getValue('customEngineLevel');
       const ceval = analysis.ceval;
-      if (!ceval.enabled() || analysis.threatMode()) {
+      if (!analysis.cevalEnabled() || analysis.threatMode()) {
         this.setTerminationsEvaluation(false);
         this.setLineEvaluation(false);
         return;

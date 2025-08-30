@@ -49,7 +49,7 @@
           break;
         case 'ceval': {
           const analysis = lt.lichess.analysis;
-          if (!analysis?.ceval || !analysis?.ceval.enabled()) return;
+          if (!analysis?.ceval || !analysis?.cevalEnabled()) return;
         }
           break;
         case 'explorer': {
@@ -88,7 +88,7 @@
           break;
         case 'ceval': {
           const analysis = lt.lichess.analysis;
-          if (!analysis?.ceval || !analysis?.ceval.enabled()) return;
+          if (!analysis?.ceval || !analysis?.cevalEnabled()) return;
           const pvs = analysis?.node?.ceval?.pvs;
           if (!pvs || !pvs[index]) return;
           const uci = pvs[index].moves[0];

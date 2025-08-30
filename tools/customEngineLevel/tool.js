@@ -81,7 +81,7 @@
         const customDepth = analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)
           ? 99
           : targetDepth;
-        if (customDepth && analysis.ceval.enabled() && !analysis.ceval.showingCloud) {
+        if (customDepth && analysis.cevalEnabled() && !analysis.ceval.showingCloud) {
           const elem = $('div.ceval div.engine span.info');
           const pattern = lt.global.i18n?.site?.depthX('\\d+');
           if (!pattern) {
@@ -263,7 +263,7 @@
 
       const isPractice = analysis.practice?.running() || analysis.study?.practice;
       if (isPractice && !this.options.practice) return;
-      if (!analysis.ceval.enabled()) return;
+      if (!analysis.cevalEnabled()) return;
 
       const node = work
         ? analysis.tree.nodeAtPath(work.path)
@@ -391,7 +391,7 @@
               if (!this.options.fix503) return;
               if (errorMessage?.includes('Status 503')) {
                 if (!this.lastGoDeeper || Date.now() - this.lastGoDeeper > 5000) {
-                  if (analysis.ceval.enabled()) {
+                  if (analysis.cevalEnabled()) {
                     analysis.ceval.goDeeper();
                     lt.global.console.log('503 error. Trying to restart engine');
                     this.lastGoDeeper = Date.now();

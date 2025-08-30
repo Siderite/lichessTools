@@ -12,7 +12,9 @@ body.lichessTools button.lichessTools-expandAll+index {
 body.lichessTools .lichessTools-expandAllVariations .disclosure.expanded,
 body.lichessTools .lichessTools-expandAllVariations .tview2 a[data-icon="\e02e"],
 body.lichessTools .lichessTools-expandAllVariations .disclosure.expanded+index:before,
-body.lichessTools .lichessTools-expandAllVariations .disclosure.expanded+san:before {
+body.lichessTools .lichessTools-expandAllVariations .disclosure.expanded+san:before,
+body.lichessTools .lichessTools-expandAllVariations branch,
+body.lichessTools .lichessTools-expandAllVariations .disclosure-connector {
   display:none;
 }
 

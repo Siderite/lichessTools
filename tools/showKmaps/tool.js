@@ -229,7 +229,7 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || lichess.analysis?.showComputer() === false) return;
+      if ($.cached('body').is('.playing') || lichess.analysis?.showFishnetAnalysis() === false) return;
       if (this.isGamesPage() || this.isBroadcastPage()) {
         return;
       }

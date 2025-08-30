@@ -1270,7 +1270,7 @@
             if (o == 'play') {
               this._previewPath = analysis.path;
               // fix lichess bug where entering Preview mode with engine on keeps engine running
-              if (analysis.ceval.enabled()) {
+              if (analysis.cevalEnabled()) {
                 analysis.ceval.stop();
                 analysis.ceval.isDeeper(false);
               }

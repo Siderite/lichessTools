@@ -47,7 +47,7 @@ body.lichessTools div.main-board cg-board label.lichessTools-explorerPractice.bl
   text-shadow: 1px 1px #808080;
 }
 
-body.lichessTools main:has(.analyse__tools .lichessTools-explorerPractice.active) div.analyse__controls button[data-act="ceval-practice"] {
+body.lichessTools main:has(.analyse__tools .lichessTools-explorerPractice.active) div.analyse__controls button[data-act="engine-mode"] {
   display: none;
 }
 
