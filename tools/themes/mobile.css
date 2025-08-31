@@ -3,6 +3,7 @@
 body.lichessTools.lichessTools-theme_mobile.mobile {
   ---site-header-height: 30px;
   ---site-header-margin: 4px;
+  margin-top: 0;
 }
 
 @media (max-width: 799.3px) and (orientation: portrait) {
