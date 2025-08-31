@@ -111,7 +111,9 @@
             id: 'expandAll',
             after: ($this, ...args) => {
               const tview2 = $('.tview2')[0];
-              tview2.autoExpanded = null;
+              if (tview2) {
+                tview2.autoExpanded = null;
+              }
             }
           });
         }
