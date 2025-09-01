@@ -1518,9 +1518,12 @@
       if (!analysis) return;
       const node = analysis.node;
       const container = $('div.eval-gauge');
-      if (!lt.inViewport(container)) return;
+
       if (node.fen == this.prevFen) return;
       this.prevFen = node.fen;
+
+      if (!lt.inViewport(container)) return;
+
       const mat = this.simpleMaterial(node);
       const material = 2 / (1 + Math.exp(-0.004 * mat)) - 1;
       const evl = this.heuristic(node);

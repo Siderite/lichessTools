@@ -70,24 +70,19 @@
 
     
 
-    checkBody = async ()=>{
-      if (this._inCheckBody) return;
-      try {
-        this._inCheckBody = true;
-        const lt = this.lichessTools;
-        const $ = lt.$;
-        const board = $('body #main-wrap div.cg-wrap cg-board')[0];
-        const boardChanged = this.dataBoard != $('body').attr('data-board') || this.dataBoard3d != $('body').attr('data-board3d');
-        if (boardChanged || this.board != board || (board && !lt.global.document.documentElement.style.getPropertyValue('--board-background'))) {
-          await this.applyThemes(boardChanged);
-          this.dataBoard = $('body').attr('data-board');
-          this.dataBoard3d = $('body').attr('data-board3d');
-          this.board = board;
-        }
-      } finally {
-        this._inCheckBody = false;
+    checkBodyDirect = async ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const board = $('body #main-wrap div.cg-wrap cg-board')[0];
+      const boardChanged = this.dataBoard != $('body').attr('data-board') || this.dataBoard3d != $('body').attr('data-board3d');
+      if (boardChanged || this.board != board || (board && !lt.global.document.documentElement.style.getPropertyValue('--board-background'))) {
+        await this.applyThemes(boardChanged);
+        this.dataBoard = $('body').attr('data-board');
+        this.dataBoard3d = $('body').attr('data-board3d');
+        this.board = board;
       }
     };
+    checkBody = lichessTools.debounce(this.checkBodyDirect,1000);
 
     setBoardVariables = async (boardChanged)=>{
       const lt = this.lichessTools;
@@ -97,7 +92,7 @@
       if (board.length) {
         let container = $('html');
         if (boardChanged) {
-          const html = await lt.net.fetch('/dgt');
+          const html = this.dgtHtml || (this.dgtHtml = await lt.net.fetch('/dgt'));
           container = $('<div>'+html+'</div>');
         }
         let backgroundImage = $('link[rel=preload][as=image]',container)

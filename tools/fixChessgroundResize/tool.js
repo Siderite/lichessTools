@@ -29,7 +29,8 @@
         const parents = [];
         let current = el.parentElement;
         while (current) {
-          if (getComputedStyle(current).position === 'absolute' || getComputedStyle(current).position === 'fixed') {
+          const position = getComputedStyle(current).position;
+          if (position === 'absolute' || position === 'fixed') {
             parents.push(current);
           }
           current = current.parentElement;
@@ -100,6 +101,7 @@
 
     checkBoardPosition = () => {
       const lt = this.lichessTools;
+      if (lt.global.document.readyState != 'complete') return;
       const $ = lt.$;
       const element = $('.main-board cg-board')[0];
       if (element!=this.board) {
