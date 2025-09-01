@@ -140,6 +140,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
             lt.global.console.warn('Could not load piece sets!');
           }
           self.pieceSets = data?.pieceSets || [];
+          this.updatePieceSet();
         });
       }
 
