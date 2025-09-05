@@ -575,6 +575,18 @@
       return true;
     };
 
+    updateGiveUpButton = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const analysis = lt.lichess.analysis;
+      const gp = analysis?.gamebookPlay();
+      if (this.options.giveUpButton && gp?.state?.feedback != 'end') {
+        this.showGiveUpButton();
+      } else {
+        $('.lichessTools-giveUp').remove();
+      }
+    };
+
     showGiveUpButton = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -739,9 +751,7 @@
               if (this.options.alwaysShowScore) {
                 this.showScore();
               }
-            if (this.options.giveUpButton && gp.state.feedback != 'end') {
-              this.showGiveUpButton();
-            }
+            this.updateGiveUpButton();
           }
         });
         gp.next = lt.wrapFunction(gp.next, {
@@ -1349,7 +1359,8 @@
         .remove();
       lt.uiApi.events.off('chat.resize', this.refreshChapterProgress);
       $('main.analyse').observer()
-        .off('.feedback.good',this.updateFeedbackText);
+        .off('.feedback.good',this.updateFeedbackText)
+        .off('.gamebook .comment',this.updateGiveUpButton);
       if (this.options.extendedInteractive) {
         lt.uiApi.events.on('chat.resize', this.refreshChapterProgress);
         this.refreshChapterProgress();
@@ -1375,6 +1386,10 @@
           $('main.analyse').observer()
             .on('.feedback.good',this.updateFeedbackText);
         }
+      }
+      if (this.options.giveUpButton) {
+        $('main.analyse').observer()
+          .on('.gamebook .comment',this.updateGiveUpButton);
       }
     }
   }
