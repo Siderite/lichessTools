@@ -24,23 +24,18 @@
 
     monitorElement = (element, callback) => {
 
-      // Find all absolutely positioned parents
-      const getAbsoluteParents = (el) => {
-        const parents = [];
+      const getElementAndParents = (el) => {
+        const arr = [el];
         let current = el.parentElement;
-        while (current) {
-          const position = getComputedStyle(current).position;
-          if (position === 'absolute' || position === 'fixed') {
-            parents.push(current);
-          }
+        while (current && current !== lt.global.document) {
+          arr.push(current);
           current = current.parentElement;
         }
-        return parents;
+        return arr;
       };
 
-      const absoluteParents = getAbsoluteParents(element);
+      const elemAndParents = getElementAndParents(element);
 
-      // ResizeObserver for size changes of the target element
       const resizeObserver = new ResizeObserver(entries => {
         for (let entry of entries) {
           const { width, height } = entry.contentRect;
@@ -53,7 +48,6 @@
         }
       });
 
-      // MutationObserver for style or class changes on the target and its absolute parents
       const mutationObserver = new MutationObserver(mutations => {
         mutations.forEach(mutation => {
           callback({
@@ -65,15 +59,9 @@
         });
       });
 
-      // Observe the target element
       resizeObserver.observe(element);
-      mutationObserver.observe(element, {
-        attributes: true,
-        attributeFilter: ['style', 'class']
-      });
 
-      // Observe all absolutely positioned parents
-      absoluteParents.forEach(parent => {
+      elemAndParents.forEach(parent => {
         mutationObserver.observe(parent, {
           attributes: true,
           attributeFilter: ['style', 'class']
@@ -92,7 +80,7 @@
       const $ = lt.$;
       lt.debug && lt.global.console.debug('Firing board resize event');
       const boardSize = $('.main-board cg-container').css('width') || $('.main-board cg-container').width()+'px';
-      lt.global.document.documentElement.style.setProperty('--board-size', boardSize);
+      $('html').css('--board-size', boardSize);
       $('body')
         .toggleClassSafe('lichessTools-hasBoardSize', true)
         .trigger('resize');

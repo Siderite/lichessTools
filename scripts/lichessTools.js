@@ -963,11 +963,8 @@
       this.elementCache.clear();
       const container = $('div.analyse__moves');
 
-      $('move', container).each((i, e) => {
-        const $e = $(e);
-        if ($e.is('.empty')) return;
-        const unused = e.offsetParent; // required to optimize rendering
-        const p = $e.attr('p') || '';
+      $('move:not(.empty)', container).each((i, e) => {
+        const p = e.getAttribute('p') || '';
         this.elementCache.set(p, e);
       });
       this.debug && this.global.console.debug('Element cache reset');
