@@ -57,7 +57,7 @@
       return result;
     };
 
-    showPopup = async (nextMoves, nextTranspos) => {
+    showPopupDirect = async (nextMoves, nextTranspos) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const trans = lt.translator;
@@ -198,6 +198,31 @@
       selectElem.find('li')
         .on('click', mobileMakeMove);
 
+      const keyHandler = (ev) => {
+        if (ev.altKey || ev.ctrlKey) return;
+        if (ev.shiftKey) {
+          const dir = ev.code == 'ShiftLeft' ? -1 : 1;
+          const e = ev.currentTarget;
+          e.selectedIndex = (e.selectedIndex + e.options.length + dir) % e.options.length;
+          highlight();
+          e.focus();
+          return;
+        }
+        switch (ev.key) {
+          case 'ArrowRight':
+          case 'Enter':
+            ev.preventDefault();
+            ev.stopPropagation();
+            makeMove();
+            break;
+          case 'ArrowLeft':
+            ev.preventDefault();
+            ev.stopPropagation();
+            dlg.close();
+            break;
+        };
+      };
+
       selectElem.each((i, e) => {
         if (e.selectedIndex != selectedIndex) {
           e.selectedIndex = selectedIndex;
@@ -205,31 +230,19 @@
         if (lt.global.document.activeElement != e) {
           lt.global.requestAnimationFrame(()=>e.focus());
         }
-      });
-      selectElem.on('keydown', (ev) => {
-        if (ev.altKey || ev.ctrlKey) return;
-        if (ev.shiftKey) {
-          const dir = ev.code == 'ShiftLeft' ? -1 : 1;
-          selectElem.each((i, e) => {
-            e.selectedIndex = (e.selectedIndex + e.options.length + dir) % e.options.length;
-            highlight();
-            e.focus();
-          });
-          return;
-        }
-        switch (ev.key) {
-          case 'ArrowRight':
-          case 'Enter':
-            ev.preventDefault();
-            makeMove();
-            break;
-          case 'ArrowLeft':
-            ev.preventDefault();
-            dlg.close();
-            break;
-        };
+        e.addEventListener('keydown', keyHandler, { capture: true });
       });
       highlight();
+    };
+
+    showPopup = async (nextMoves, nextTranspos) => {
+      try {
+        if (this.inShowPopup) return;
+        this.inShowPopup = true;
+        return await this.showPopupDirect(nextMoves, nextTranspos);
+      } finally {
+        this.inShowPopup = false;
+      }
     };
 
     mousewheelHandler = (ev) => {
