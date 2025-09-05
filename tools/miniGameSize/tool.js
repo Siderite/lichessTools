@@ -29,7 +29,7 @@
       this.logOption('Mini-game size', value || 'Not set');
       $.cached('body').toggleClass('lichessTools-miniGameSize', !!value);
       if (value) {
-        $.cached('body')[0].style.setProperty('--lichessToolsMiniGameSize', value + 'rem');
+        $.cached('body').css('--lichessToolsMiniGameSize', value + 'rem');
       }
     }
 

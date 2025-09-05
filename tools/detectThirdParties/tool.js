@@ -5,7 +5,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       this.options = {
-        isPrettier: document.documentElement.style.getPropertyValue('--boardLightRGB'),
+        isPrettier: !!$('html').css('--boardLightRGB'),
         lichessHelper: !!$('style').get().find((s)=>$(s).text().includes('LichessHelper'))
       };
 

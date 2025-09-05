@@ -75,7 +75,7 @@
       const $ = lt.$;
       const board = $('body #main-wrap div.cg-wrap cg-board')[0];
       const boardChanged = this.dataBoard != $('body').attr('data-board') || this.dataBoard3d != $('body').attr('data-board3d');
-      if (boardChanged || this.board != board || (board && !lt.global.document.documentElement.style.getPropertyValue('--board-background'))) {
+      if (boardChanged || this.board != board || (board && !$('html').css('--board-background'))) {
         await this.applyThemes(boardChanged);
         this.dataBoard = $('body').attr('data-board');
         this.dataBoard3d = $('body').attr('data-board3d');
@@ -105,9 +105,9 @@
           const styles = lt.global.getComputedStyle(board[0], '::before');
           backgroundImage = styles.getPropertyValue('background-image');
         }
-        lt.global.document.documentElement.style.setProperty('--board-background', backgroundImage||'unset');
+        $('html').css('--board-background', backgroundImage||'unset');
       }
-      $('body').toggleClass('lichessTools-hasBoardBackground', !!board.length);
+      $('body').toggleClassSafe('lichessTools-hasBoardBackground', !!board.length);
     }
 
     applyThemes = async (boardChanged)=>{
