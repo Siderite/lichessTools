@@ -27,7 +27,7 @@
       const getElementAndParents = (el) => {
         const arr = [el];
         let current = el.parentElement;
-        while (current && current !== lt.global.document) {
+        while (current && current !== document) {
           arr.push(current);
           current = current.parentElement;
         }
