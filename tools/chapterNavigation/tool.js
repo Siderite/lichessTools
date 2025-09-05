@@ -43,6 +43,26 @@
       }
     }
 
+    elemCache = { all:[], map:new Map() };
+    getChapterElements = (chapterId, forced)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (!forced) {
+        for (const elem of this.elemCache.all) {
+          if (!elem.isConnected) {
+            return this.getChapterElements(chapterId, true);
+          }
+        }
+        return chapterId 
+          ? this.elemCache.all
+          : this.elemCache.map.get(chapterId);
+      }
+      this.elemCache.map.clear();
+      this.elemCache.all = $('.study__chapters button[data-id]').get();
+      for (const elem of this.elemCache.all) this.elemCache.set(elem.getAtrribute('data-id'),elem);
+      return this.getChapterElements(chapterId, false);
+    };
+
     refreshChapterControls = () => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
@@ -51,7 +71,8 @@
       if (!study) return;
       let list = null;
       if (this.options.controls) {
-        $('div.lichessTools-chapterControls button[data-id] > h3').each((i,e) => {
+        const chapterElems = this.getChapterElements();
+        $(chapterElems).children('h3').each((i,e) => {
           e = $(e);
           if (e.is('.lichessTools-chapterNavigation-perc')) return;
           const text = e.text();
@@ -116,8 +137,9 @@
           const chapter = list[i];
           const next = list[i+1];
           const hasSubchapters = this.isSubChapter(next) && !this.isSubChapter(chapter);
-          const el = $('.study__chapters button[data-id]').get().find(e=>$(e).attr('data-id') == chapter.id);
-          let expander = $('.lichessTools-expander',el);
+          const chapterElem = this.getChapterElements(chapter.id);
+          if (!chapterElem) continue;
+          let expander = $('.lichessTools-expander',chapterElem);
           if (hasSubchapters) {
             if (!expander.length) {
               expander = $('<div class="lichessTools-expander">')
@@ -126,7 +148,7 @@
                              ev.stopPropagation();
                              this.expandChapter(chapter.id);
                            })
-                           .insertBefore($('h3',el));
+                           .insertBefore($('h3',chapterElem));
             }
           } else {
             expander.remove();
@@ -145,17 +167,18 @@
     expandChapter = (chapterId)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const chapterElems = $('.study__chapters button[data-id]').get();
-      const index = chapterElems.findIndex(e=>$(e).attr('data-id')==chapterId);
+      const chapterElems = this.getChapterElements();
+      const chapterElem = this.getChapterElements(chapterId);
+      if (!chapterElem) return;
+      const index = chapterElems.indexOf(chapterElem);
       if (index<0) return;
-      const el = chapterElems[index];
-      const expander = $('.lichessTools-expander',el);
+      const expander = $('.lichessTools-expander',chapterElem);
       const isCollapsed = !expander.is('.collapsed');
       expander.toggleClass('collapsed',isCollapsed);
       for (let i = index+1; i<chapterElems.length; i++) {
         const next = chapterElems[i];
         if (!this.isSubChapter($('h3',next).text())) break;
-        $(next).toggleClass('lichessTools-collapsedChapter',isCollapsed);
+        $(next).toggleClassSafe('lichessTools-collapsedChapter',isCollapsed);
       }
     };
 
@@ -257,13 +280,14 @@
           before: ($this,data)=>{
             const orig = $this.sort.__originalFunction.bind($this);
             const list = $this.list.all();
-            const chapterElems = $('.study__chapters button[data-id]').get();
+            const chapterElems = this.getChapterElements();
             const subMap = new Map();
             const allSubChapters = new Set();
             for (const id of data) {
               const subChapters = [];
               subMap.set(id,subChapters);
-              const el = chapterElems.find(e=>$(e).attr('data-id')==id);
+              const el = this.getChapterElements(id);
+              if (!el) continue;
               if (!$('.lichessTools-expander',el).is('.collapsed')) {
                 continue;
               }
