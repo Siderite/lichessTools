@@ -96,6 +96,7 @@
 
     getMoveElements = (elem, list) => {
       if (!list) list = [];
+      const isMainline = $(elem).is('.mainline');
       let next = $(elem).next();
       if (next.is('move.empty')) next = next.next();
       if (next.is('comment')) {
@@ -107,8 +108,14 @@
         return list;
       }
       if (next.is('interrupt')) {
-        const child = next.children().eq(0);
-        if (child.is('comment')) list.push(child);
+        if (isMainline) {
+          const child = next.children().eq(0);
+          if (child.is('comment')) {
+            list.push(child);
+          }
+        } else {
+          list.push(next);
+        }
         next = next.next();
       }
       while (next.length) {
