@@ -510,9 +510,6 @@ Varia\u0163ii urm\u0103toare: $branches`
         if (this.options.copyPgn) {
           $('a[data-icon="'+lt.icon.Clipboard+'"]', menu).remove();
         }
-        if (this.options.autoExpand) {
-          $('a[data-icon="'+lt.icon.PlusButton+'"],a[data-icon="'+lt.icon.MinusButton+'"]', menu).remove();
-        }
       }
 
       if (this.options.reorderVariations && (!study || isWritableStudy)) {
@@ -655,8 +652,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         showOnEmpty: lt.isOptionSet(value, 'showOnEmpty'),
         reorderVariations: lt.isOptionSet(value, 'reorderVariations'),
         positionInfo: lt.isOptionSet(value, 'positionInfo'),
-        get isSet() { return this.copyPgn || this.moveEval || this.lineEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; },
-        autoExpand: lt.isOptionSet(lt.currentOptions.getValue('expandAll'), 'autoExpand')
+        get isSet() { return this.copyPgn || this.moveEval || this.lineEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; }
       };
       clearInterval(this.engineCheckInterval);
       lt.pubsub.off('lichessTools.redraw', this.analysisContextMenu);

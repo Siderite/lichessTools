@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+05 Sep
+
+- remove expand all tool, since there is a native disclosure toggle
+
 30 Aug
 
 - removed "No fish button on mobile" theme after Lichess changes.
