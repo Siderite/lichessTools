@@ -35,7 +35,10 @@
     regPgn = /(?:((?:\s*\[\s*\w+\s+"[^"]*"\s*\])+)|((?:^|\r?\n)\s*(?:\{[^\}]*\}\s*)?1\.[^\.]))/g;
 
     isEmpty = (data) => {
-      if (!data?.treeParts?.length) return true;
+      const lt = this.lichessTools;
+      if (!data) return true;
+      if (data.game?.fen && !lt.isStartFen(data.game?.fen)) return false;
+      if (!data.treeParts?.length) return true;
       if (data.treeParts.length == 1 && data.treeParts[0].id == '') return true;
       return false;
     }
