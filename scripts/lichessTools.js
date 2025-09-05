@@ -891,6 +891,7 @@
       if (!element) return 0;
       if ('length' in element) element = element[0];
       if (!element) return 0;
+      if (this.global.document.readyState != 'complete') return 1;
       if (this.global.document.visibilityState == 'hidden') return 0;
 
 	  if (this.traverseState?.nodeIndex > 2500) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
