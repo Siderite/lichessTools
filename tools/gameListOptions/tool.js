@@ -34,6 +34,7 @@
         'abortedGamesLabel': 'Show aborted:',
         'colorGamesLabel': 'Color by players:',
         'analysedGamesLabel': 'Only analysed:',
+        'notAnalysedGamesLabel': 'Only not analysed:',
         'analysisLinkLabel': 'Click to analysis:',
         'titledOpponentsLabel': 'Only titled opponents:',
         'copyGamesButtonTitle': 'Download selected games as PGN',
@@ -67,6 +68,7 @@ Inaccuracies / mistakes / blunders
         'abortedGamesLabel': 'Arat\u0103 anulate:',
         'colorGamesLabel': 'Culoare dup\u0103 juc\u0103tori:',
         'analysedGamesLabel': 'Doar analizate:',
+        'notAnalysedGamesLabel': 'Doar neanalizate:',
         'titledOpponentsLabel': 'Doar adversari cu titlu:',
         'analysisLinkLabel': 'Click pentru analiz\u0103:',
         'copyGamesButtonTitle': 'Descarc\u0103 jocurile selectate ca PGN',
@@ -366,6 +368,20 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
         }
       }
       if (this.options.analysis) {
+        if (!$(container).find('#chkNoAnalysis').length) {
+          filters
+            .prepend($('<input type="checkbox" id="chkNoAnalysis"/>')
+              .on('change',ev=>{
+                const checked = !!ev.target.checked;
+                lt.storage.set('LiChessTools.gameListOptions.noAnalysis',checked);
+                container.toggleClass('lichessTools-gameListOptions-noAnalysis',checked);
+                $('body').trigger('scroll');
+              })     
+              .prop('checked', !!lt.storage.get('LiChessTools.gameListOptions.noAnalysis'))
+            )
+            .prepend($('<label for="chkNoAnalysis"></label>').text(trans.noarg('notAnalysedGamesLabel')));
+          filters.find('#chkNoAnalysis').trigger('change');
+        }
         if (!$(container).find('#chkAnalysis').length) {
           filters
             .prepend($('<input type="checkbox" id="chkAnalysis"/>')

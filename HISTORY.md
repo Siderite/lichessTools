@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 05 Sep
 
 - remove expand all tool, since there is a native disclosure toggle
+- add 'not analysed' game list filter
 
 30 Aug
 

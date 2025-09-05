@@ -876,7 +876,8 @@
     "FENCopiedToClipboard": "تم نسخ FEN إلى الحافظة",
     "copyFenToClipboard": "نسخ FEN إلى الحافظة",
     "explorerEval.highlightList": "أبرز تحركات القائمة",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "لم يتم التحليل فقط"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1755,7 +1756,8 @@
     "FENCopiedToClipboard": "FEN已复制到剪贴板",
     "copyFenToClipboard": "复制 FEN 到剪贴板",
     "explorerEval.highlightList": "高亮列表移动",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "仅未分析"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2634,7 +2636,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Only not analysed"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -3513,7 +3516,8 @@
     "FENCopiedToClipboard": "FEN gekopieerd naar klembord",
     "copyFenToClipboard": "FEN naar klembord kopiëren",
     "explorerEval.highlightList": "Lijstbewegingen markeren",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Alleen niet geanalyseerd"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -4392,7 +4396,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Only not analysed"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -5271,7 +5276,8 @@
     "FENCopiedToClipboard": "FEN copié dans le presse-papiers",
     "copyFenToClipboard": "Copier FEN dans le presse-papiers",
     "explorerEval.highlightList": "Mettre en surbrillance les coups de la liste",
-    "forkBehavior.hidden": "Masqué"
+    "forkBehavior.hidden": "Masqué",
+    "notAnalysedGamesLabel": "Seulement non analysé"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -6150,7 +6156,8 @@
     "FENCopiedToClipboard": "FEN in Zwischenablage kopiert",
     "copyFenToClipboard": "FEN in Zwischenablage kopieren",
     "explorerEval.highlightList": "Bewegungen der Liste hervorheben",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Nur nicht analysiert"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -7029,7 +7036,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Only not analysed"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -7908,7 +7916,8 @@
     "FENCopiedToClipboard": "FEN copiato negli appunti",
     "copyFenToClipboard": "Copia FEN negli appunti",
     "explorerEval.highlightList": "Evidenzia le mosse della lista",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Solo non analizzato"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -8787,7 +8796,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Only not analysed"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -9666,7 +9676,8 @@
     "FENCopiedToClipboard": "FEN skopiowany do schowka",
     "copyFenToClipboard": "Skopiuj FEN do schowka",
     "explorerEval.highlightList": "Podświetl ruchy listy",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Tylko nieanalizowane"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -10545,7 +10556,8 @@
     "FENCopiedToClipboard": "FEN copiado para área de transferência",
     "copyFenToClipboard": "Copiar FEN para área de transferência",
     "explorerEval.highlightList": "Realçar movimentos",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Apenas não analisados"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -11424,7 +11436,8 @@
     "FENCopiedToClipboard": "FEN copiado para área de transferência",
     "copyFenToClipboard": "Copiar FEN para área de transferência",
     "explorerEval.highlightList": "Realçar movimentos",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Apenas não analisados"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -12303,7 +12316,8 @@
     "FENCopiedToClipboard": "FEN copiat în clipboard",
     "copyFenToClipboard": "Copiază FEN în clipboard",
     "explorerEval.highlightList": "Evidențiază mutări din listă",
-    "forkBehavior.hidden": "Ascunse"
+    "forkBehavior.hidden": "Ascunse",
+    "notAnalysedGamesLabel": "Doar neanalizate"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -13182,7 +13196,8 @@
     "FENCopiedToClipboard": "FEN скопирован в буфер обмена",
     "copyFenToClipboard": "Копировать FEN в буфер обмена",
     "explorerEval.highlightList": "Выделить ходы списка",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Только не проанализированные"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -14061,7 +14076,8 @@
     "FENCopiedToClipboard": "FEN copiado al portapapeles",
     "copyFenToClipboard": "Copiar FEN al portapapeles",
     "explorerEval.highlightList": "Resaltar los movimientos de la lista",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Sólo no analizado"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -14940,7 +14956,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Only not analysed"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -15819,7 +15836,8 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Only not analysed"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -16698,6 +16716,7 @@
     "FENCopiedToClipboard": "FEN copied to clipboard",
     "copyFenToClipboard": "Copy FEN to clipboard",
     "explorerEval.highlightList": "Highlight list moves",
-    "forkBehavior.hidden": "Hidden"
+    "forkBehavior.hidden": "Hidden",
+    "notAnalysedGamesLabel": "Only not analysed"
   }
 }
