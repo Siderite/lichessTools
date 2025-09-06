@@ -339,6 +339,16 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
       return result.join('\r\n');
     };
 
+    rightClickGame = ev=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+       const href = $(ev.currentTarget).closest('article.game-row').attr('data-orig-href');
+       if (href) {
+         ev.preventDefault();
+         lt.global.open(href, '_blank');
+       }
+    };
+
     processListsDirect = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -474,13 +484,17 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
           const xref = m
             ? '/' + m.groups.gameId.slice(0,8) + (isBlack?'/black':'')
             : href;
-          elem.attr('href',xref);
+          elem
+            .on('contextmenu',this.rightClickGame)
+            .attr('href',xref);
           $(e).attr('data-orig-href',href);
         }  
         if (!isAnalysisLink && $(e).attr('data-orig-href')) {
           const elem = $(e).find('a.game-row__overlay');
           const href = $(e).attr('data-orig-href');
-          elem.attr('href',href);
+          elem
+            .off('contextmenu',this.rightClickGame)
+            .attr('href',href);
           $(e).removeAttr('data-orig-href');
         }
 

@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+06 Sep
+
+- right click to go to game link when Go directly to analysis is on
+
 05 Sep
 
 - remove expand all tool, since there is a native disclosure toggle
