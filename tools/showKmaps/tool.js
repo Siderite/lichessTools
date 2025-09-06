@@ -469,8 +469,8 @@
       }
 
       // bishop pair
-      if (whiteBishops == 2) whiteMaterial+0.3;
-      if (blackBishops == 2) blackMaterial+0.3;
+      if (whiteBishops == 2) whiteMaterial+=0.3;
+      if (blackBishops == 2) blackMaterial+=0.3;
 
       // Minor piece vs. rook imbalance penalty
       if (whiteRooks === 1 && whiteBishops + whiteKnights >= 2 && blackRooks === 0) whiteMaterial -= 0.2;
