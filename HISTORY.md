@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Sep
+
+- haptic feedback tool
+
 06 Sep
 
 - right click to go to game link when Go directly to analysis is on
