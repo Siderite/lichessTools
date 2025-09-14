@@ -9,8 +9,7 @@
         category: 'appearance',
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
-                         'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','noResultPopup','adamisko','fixThirdParties','timeControls',
-                         'mobileHideStartEndButtons'],
+                         'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','fixThirdParties','timeControls'],
         defaultValue: 'fixThirdParties',
         advanced: true
       }
@@ -36,11 +35,9 @@
         'themes.fatMove': 'Larger analysis move font',
         'themes.slimmerArrows': '... slimmer',
         'themes.gridBoard': 'Grid board squares',
-        'themes.noResultPopup': 'No game result popup',
         'themes.adamisko': 'Vintage Adamisko',
         'themes.fixThirdParties': 'Fix third parties',
-        'themes.timeControls': 'Hover time controls',
-        'themes.mobileHideStartEndButtons': 'Mobile hide start/end buttons'
+        'themes.timeControls': 'Hover time controls'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -61,10 +58,8 @@
         'themes.fatMove': 'Text mai mare la mut\u0103ri',
         'themes.slimmerArrows': '... \u015fi mai sub\u0163iri',
         'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei',
-        'themes.noResultPopup': 'F\u0103r\u0103 popup cu rezultat joc',
         'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i',
-        'themes.timeControls': 'Controale timp la hover',
-        'themes.mobileHideStartEndButtons': 'Ascunde butoanele start/final pe mobil'
+        'themes.timeControls': 'Controale timp la hover'
       }
     }
 

@@ -198,11 +198,9 @@
         "tools/themes/slimmerArrows.css",
         "tools/themes/gridBoard.css",
         "tools/themes/toggleStudyChat.css",
-        "tools/themes/noResultPopup.css",
         "tools/themes/adamisko.css",
         "tools/themes/fixThirdParties.css",
         "tools/themes/timeControls.css",
-        "tools/themes/mobileHideStartEndButtons.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",

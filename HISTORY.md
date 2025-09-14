@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Sep
+
+- removed Mobile start/end hiding theme
+- removed No game result popup theme
+
 07 Sep
 
 - haptic feedback tool
