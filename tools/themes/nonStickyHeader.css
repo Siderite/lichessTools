@@ -1,6 +1,6 @@
 /* No sticky header */
 
-@media not (prefers-reduced-motion) {
+@media not (prefers-reduced-motion) and (max-height: 600px) {
 
   body.lichessTools.lichessTools-theme_nonStickyHeader:not(.zen) header#top {
     position: absolute;
