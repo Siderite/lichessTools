@@ -120,7 +120,7 @@
 
     async init() {
       const lt = this.lichessTools;
-      lt.feedback = new FeedbackProvider(lt);
+      lt.feedback = new FeedbackProvider(lt, false);
     }
 
     async start() {
@@ -159,13 +159,16 @@
   }
 
   class FeedbackProvider {
-    constructor(lt) {
+    constructor(lt,useBeeps) {
       this.lichessTools = lt;
       this.navigator = lt.global.navigator;
       this.hasVibration = 'vibrate' in navigator;
+      if (useBeeps) {
+        this.audioContext = new lt.global.AudioContext();
+      }
     }
 
-    give(pattern, element) {
+    async give(pattern, element) {
       if (!pattern) return;
       if (this.disabled) return;
 
@@ -180,63 +183,106 @@
           lt.debug && console.debug('Vibrate failed');
         }
       }
-
-      /*if (!element) element = $('.main-board')[0];
-      if (!element) return;
-      if (typeof pattern === 'number') {
-        pattern = [pattern];
-      }
-      let delay = 0;
-      const timeouts = [];
-      pattern.forEach((duration, index) => {
-        if (index % 2 === 0) { // "On" durations (0, 2, 4, ...)
-          const timeout = setTimeout(() => {
-            element.style.animationDuration = `${duration}ms`;
-            element.classList.add('lichessTools-flash');
-            setTimeout(() => element.classList.remove('lichessTools-flash'), duration);
-          }, delay);
-          timeouts.push(timeout);
+      if (this.audioContext && this.navigator.userActivation?.hasBeenActive) {
+        try {
+          clearTimeout(this.beepTimeout);
+          await this.stopBeeps();
+          this.playBeepPattern(pattern);
+        } catch(e) {
+          lt.debug && console.debug('Play beeps failed');
         }
-        delay += duration; // Add "on" or "off" duration to total delay
-      });
-      return ()=>{
-        timeouts.forEach(t=>clearTimeout(t));
-        element.classList.remove('lichessTools-flash');
-      };*/
+      }
     }
 
-    onGrabPiece() {
+    playBeep(frequency = 440, duration = 100, volume = 0.1, type = 'sine') {
+      const ctx = this.audioContext;
+      if (!ctx) return;
+
+      const oscillator = ctx.createOscillator();
+      oscillator.type = type; // Wave type: 'sine', 'square', 'sawtooth', or 'triangle'
+      oscillator.frequency.setValueAtTime(frequency, ctx.currentTime); // Frequency in Hz (A4 note is 440 Hz)
+
+      const gainNode = ctx.createGain();
+      gainNode.gain.setValueAtTime(volume, ctx.currentTime);
+
+      oscillator.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + duration / 1000); // Convert ms to seconds
+    }
+
+    playBeepPattern(pattern) {
+      if (!pattern) return;
+      if (typeof pattern == 'number') pattern = [pattern];
+      if (this.disabled) return;
+
+      const ctx = this.audioContext;
+      if (!ctx) return;
+      if (ctx.state === 'suspended') {
+        ctx.resume().then(() => {
+          this.playBeepPattern(pattern);
+        });
+        return;
+      }
+
+      let currentTime = 0;
+
+      const playNext = (index) => {
+        if (index >= pattern.length) return;
+
+        const beepDuration = pattern[index];
+        const pauseDuration = +(pattern[index+1])||0;
+
+        this.playBeep(25, beepDuration, 1, 'square');
+
+        this.beepTimeout = setTimeout(() => {
+          playNext(index + 2);
+        }, beepDuration + pauseDuration);
+      };
+
+      playNext(0);
+    }
+
+    async stopBeeps() {
+      if (!this.audioContext) return;
+      const lt = this.lichessTools;
+      await this.audioContext.close()
+      this.audioContext = new lt.global.AudioContext();
+    }
+
+    async onGrabPiece() {
       const pattern = 50;
-      return this.give(pattern);
+      await this.give(pattern);
     }
 
-    onDropPiece() {
+    async onDropPiece() {
       const pattern = 100;
-      return this.give(pattern);
+      await this.give(pattern);
     }
 
-    onOpponentMove() {
+    async onOpponentMove() {
       const pattern = 75;
-      return this.give(pattern);
+      await this.give(pattern);
     }
 
-    onGameEvent(eventType) {
+    async onGameEvent(eventType) {
       let pattern = null;
       switch (eventType) {
         case 'start':
-          pattern = [50, 50, 50];
+          pattern = [100, 50, 100];
           break;
         case 'win':
-          pattern = [100, 50, 100, 50, 100];
+          pattern = [50, 50, 50, 50, 150];
           break;
         case 'draw':
-          pattern = [100, 25, 75];
+          pattern = [100, 100, 100];
           break;
         case 'loss':
-          pattern = [100, 100, 50];
+          pattern = [150, 100, 350];
           break;
       }
-      return this.give(pattern);
+      await this.give(pattern);
     }
   }
 
