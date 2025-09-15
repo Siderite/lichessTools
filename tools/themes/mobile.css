@@ -115,6 +115,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"]:after 
   font-size: large;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__tools:has(.action-menu) {
+  overflow: visible;
+}
+
 body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__tools .explorer-box .moves tbody tr.sum {
   position: sticky;
   bottom: 0;
