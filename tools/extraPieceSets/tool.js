@@ -50,7 +50,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
         }
       }
       styleStr+='</style>';
-      $(styleStr).insertAfter('#piece-sprite');
+      $(styleStr).appendTo('head');
       this.addPieces();
     };
 
