@@ -52,6 +52,7 @@ body.lichessTools .lichessTools-gameListOptions-color article.game-row {
 
 body.lichessTools #chkAborted,
 body.lichessTools #chkAnalysis,
+body.lichessTools #chkNoAnalysis,
 body.lichessTools #chkAnalysisLink,
 body.lichessTools #chkTitledOpponents,
 body.lichessTools #chkColor {
@@ -61,6 +62,7 @@ body.lichessTools #chkColor {
 
 body.lichessTools label[for="chkAborted"],
 body.lichessTools label[for="chkAnalysis"],
+body.lichessTools label[for="chkNoAnalysis"],
 body.lichessTools label[for="chkAnalysisLink"],
 body.lichessTools label[for="chkTitledOpponents"],
 body.lichessTools label[for="chkColor"] {
@@ -81,6 +83,10 @@ body.lichessTools article.lichessTools-gameListOptions-select .game-row__overlay
 }
 
 body.lichessTools .lichessTools-gameListOptions-analysis article:not(:has(.metadata)) {
+  display: none;
+}
+
+body.lichessTools .lichessTools-gameListOptions-noAnalysis article:has(.metadata) {
   display: none;
 }
 

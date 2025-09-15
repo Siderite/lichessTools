@@ -92,7 +92,7 @@
       const tools = lt.tools;
       const htmlEncode = lt.htmlEncode;
       const currentOptions = lt.currentOptions;
-      const applyOptions = lt.saveOptions.bind(lt);
+      const saveOptions = lt.saveOptions.bind(lt);
       const lichess = lt.lichess;
       const isOptionSet = lt.isOptionSet;
       const isLoggedIn = !!lt.getUserId();
@@ -309,6 +309,8 @@
         .append(html)
         .addClass('lichessTools-preferences');
 
+      $('.prefFilter').each((i,e)=>e.focus());
+
       $('input.prefFilter',container)
         .on('input',ev=>{
           const tokens = (ev.target.value?.split(/\s+/) || []).filter(t=>t).map(t=>t.toLowerCase());
@@ -400,7 +402,7 @@
           if (value === 'true') value = true;
           else if (value === 'false') value = false;
           currentOptions[optionName] = value;
-          await applyOptions(currentOptions);
+          await saveOptions(currentOptions);
           lt.fireReloadOptions();
           checkGlobalSwitch();
           checkAdvanced();
@@ -424,7 +426,7 @@
           if (value === 'true') value = true;
           else if (value === 'false') value = false;
           currentOptions[optionName] = value;
-          await applyOptions(currentOptions);
+          await saveOptions(currentOptions);
           lt.fireReloadOptions();
           checkGlobalSwitch();
           checkAdvanced();
@@ -551,7 +553,7 @@
               return { name: p.name, value: defaultValue };
             });
           for (const { name, value } of data) options[name] = value;
-          await applyOptions(options);
+          await lt.applyOptions(options);
           lt.fireReloadOptions();
           checkGlobalSwitch();
           checkAdvanced();
@@ -565,7 +567,7 @@
           const options = await lt.getOptions();
           const keys = lt.tools.map(t => t.preferences).flat().filter(p => p && (!p.hidden || p.offValue !== undefined)).map(p => ({ key: p.name, offValue: p.offValue || false }));
           for (const { key, offValue } of keys) options[key] = offValue;
-          await applyOptions(options);
+          await lt.applyOptions(options);
           lt.fireReloadOptions();
           checkGlobalSwitch();
           checkAdvanced();
@@ -590,7 +592,7 @@
               reader.onload = async (e) => {
                 const text = e.target.result;
                 const options = lt.global.JSON.parse(text);
-                await applyOptions(options);
+                await lt.applyOptions(options);
                 lt.fireReloadOptions();
                 checkGlobalSwitch();
                 checkAdvanced();

@@ -284,7 +284,14 @@
               .append('<i class="line"></i>' + userName)
               .attr('data-pt-pos', 'e')
               .appendTo(group);
-            lichess.powertip?.manualUser(friendMenu[0]);
+            const friendMenuElem = friendMenu[0];
+            const f = ()=>{
+              lichess.powertip?.manualUser(friendMenuElem);
+              friendMenu
+                .off('mouseover',f)
+                .trigger('mouseover');
+            };
+            friendMenu.on('mouseover',f);
           }
           friendMenu[0].dataset.href = '/@/' + user;
           if (isPlaying) {
@@ -696,7 +703,10 @@
             }
           };
           const followers = await lt.api.relations.getFollowers(1,1);
-          $('.box__top h1').replaceText(trans.pluralSame('followersNumberTitle',followers?.nbResults || 0));
+          $('.box__top h1')
+            .replaceText(trans.pluralSame('followersNumberTitle',followers?.nbResults || 0));
+          $('.box__top h1 a')
+            .attr('href','/@/'+userId+'/following');
           f(followers);
         }
       } else {

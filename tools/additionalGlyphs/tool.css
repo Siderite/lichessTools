@@ -12,6 +12,6 @@ body.lichessTools.mobile svg.cg-custom-svgs > g > g g {
 }
 
 /* fix for https://github.com/lichess-org/lila/issues/17602 */
-body.lichessTools:has(.comp-off__hint) .cg-custom-svgs {
+body.lichessTools.lichessTools-compOff .cg-custom-svgs {
   display:none;
 }

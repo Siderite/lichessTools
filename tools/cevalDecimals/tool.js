@@ -41,7 +41,7 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        if (!analysis?.showComputer()) return;
+        if (!analysis?.showFishnetAnalysis()) return;
         const trans = lt.translator;
         const ceval = analysis.node.ceval;
         if (ceval) {
@@ -72,7 +72,7 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        if (!analysis?.showComputer()) return;
+        if (!analysis?.showFishnetAnalysis()) return;
         const traverse = (node, path) => {
           let evl = node.eval;
           const ceval = node.ceval;
@@ -106,7 +106,7 @@
       const analyseTools = $('.analyse__tools, .puzzle__tools');
       if (!analyseTools.length) return;
       analyseTools
-        .toggleClassSafe('lichessTools-cevalDecimals',true)
+        .toggleClassSafe('lichessTools-cevalDecimals-toggled',true)
         .observer()
         .on('div.ceval pearl, div.ceval.enabled ~ div.pv_box .pv',this.showDecimals)
         .on('move, eval',this.showDecimalsMoves);
@@ -124,14 +124,14 @@
       lt.pubsub.off('lichessTools.redraw', this.setupObserver);
       const analyseTools = $('.analyse__tools, .puzzle__tools');
       analyseTools
-        .toggleClassSafe('lichessTools-cevalDecimals',false)
+        .toggleClassSafe('lichessTools-cevalDecimals-toggled',false)
         .observer()
         .off('div.ceval pearl, div.ceval.enabled ~ div.pv_box .pv',this.showDecimals)
         .off('move, eval',this.showDecimalsMoves);
-      analysis.toggleComputer = lt.unwrapFunction(analysis.toggleComputer,'cevalDecimals');
+      analysis.toggleFishnetAnalysis = lt.unwrapFunction(analysis.toggleFishnetAnalysis,'cevalDecimals');
       $('.lichessTools-cevalDecimals').remove();
       if (!value) return;
-      analysis.toggleComputer = lt.wrapFunction(analysis.toggleComputer, {
+      analysis.toggleFishnetAnalysis = lt.wrapFunction(analysis.toggleFishnetAnalysis, {
         id: 'cevalDecimals',
         after: ($this,result,...args)=>{
           $('.lichessTools-cevalDecimals').remove();

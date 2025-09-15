@@ -182,8 +182,8 @@ Varia\u0163ii urm\u0103toare: $branches`
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (this.evaluateLineStarted) {
-        if (analysis.ceval.enabled()) {
-          analysis.toggleCeval();
+        if (analysis.cevalEnabled()) {
+          analysis.cevalEnabled(false);
         }
         this.setLineEvaluation(false);
         return;
@@ -204,8 +204,8 @@ Varia\u0163ii urm\u0103toare: $branches`
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (this.evaluateTerminationsStarted) {
-        if (analysis.ceval.enabled()) {
-          analysis.toggleCeval();
+        if (analysis.cevalEnabled()) {
+          analysis.cevalEnabled(false);
         }
         this.setTerminationsEvaluation(false);
         return;
@@ -231,7 +231,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       if (!this.evaluateTerminationsStarted && !this.evaluateLineStarted) return;
       if (!lt.isTreeviewVisible()) return;
       if (!study && this.evaluateTerminationsStarted) return;
-      if (!analysis.ceval.enabled() || analysis.threatMode()) {
+      if (!analysis.cevalEnabled() || analysis.threatMode()) {
         this.setTerminationsEvaluation(false);
         this.setLineEvaluation(false);
         return;
@@ -255,8 +255,8 @@ Varia\u0163ii urm\u0103toare: $branches`
       if (!node) {
         this.setTerminationsEvaluation(false);
         this.setLineEvaluation(false);
-        if (analysis.ceval.enabled()) {
-          analysis.toggleCeval();
+        if (analysis.cevalEnabled()) {
+          analysis.cevalEnabled(false);
         }
         return;
       }
@@ -329,11 +329,11 @@ Varia\u0163ii urm\u0103toare: $branches`
 
       const checkState = (resolve) => {
         if (!this.evaluateTerminationsStarted && !this.evaluateLineStarted) return;
-        if (!analysis?.ceval?.allowed()) {
+        if (!analysis?.isCevalAllowed()) {
           return;
         }
-        if (!analysis.ceval.enabled()) {
-          analysis.toggleCeval();
+        if (!analysis.cevalEnabled()) {
+          analysis.cevalEnabled(true);
           setTimeout(() => checkState(resolve), 1000);
           return;
         }
@@ -467,7 +467,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       const isWritableStudy = study?.isWriting();
       if (this.options.moveEval
         && isWritableStudy
-        && $('.analyse__tools > .ceval').length
+        && analysis.isCevalAllowed()
         && !menu.has('a[data-role="evaluateTerminations"]').length) {
         const text = trans.noarg('evaluateTerminationsText');
         const title = trans.noarg('evaluateTerminationsTitle');
@@ -480,7 +480,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       }
 
       if (this.options.lineEval
-        && $('.analyse__tools > .ceval').length
+        && analysis.isCevalAllowed()
         && !menu.has('a[data-role="evaluateLine"]').length) {
         const text = trans.noarg('evaluateLineText');
         const title = trans.noarg('evaluateLineTitle');
@@ -509,9 +509,6 @@ Varia\u0163ii urm\u0103toare: $branches`
         $('a[data-icon="'+lt.icon.BubbleSpeech+'"],a.glyph-icon', menu).remove();
         if (this.options.copyPgn) {
           $('a[data-icon="'+lt.icon.Clipboard+'"]', menu).remove();
-        }
-        if (this.options.autoExpand) {
-          $('a[data-icon="'+lt.icon.PlusButton+'"],a[data-icon="'+lt.icon.MinusButton+'"]', menu).remove();
         }
       }
 
@@ -593,7 +590,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       if (analysis.practice || analysis.study?.practice) return;
       const customEngineDepth = lt.currentOptions.getValue('customEngineLevel');
       const ceval = analysis.ceval;
-      if (!ceval.enabled() || analysis.threatMode()) {
+      if (!analysis.cevalEnabled() || analysis.threatMode()) {
         this.setTerminationsEvaluation(false);
         this.setLineEvaluation(false);
         return;
@@ -655,8 +652,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         showOnEmpty: lt.isOptionSet(value, 'showOnEmpty'),
         reorderVariations: lt.isOptionSet(value, 'reorderVariations'),
         positionInfo: lt.isOptionSet(value, 'positionInfo'),
-        get isSet() { return this.copyPgn || this.moveEval || this.lineEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; },
-        autoExpand: lt.isOptionSet(lt.currentOptions.getValue('expandAll'), 'autoExpand')
+        get isSet() { return this.copyPgn || this.moveEval || this.lineEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; }
       };
       clearInterval(this.engineCheckInterval);
       lt.pubsub.off('lichessTools.redraw', this.analysisContextMenu);

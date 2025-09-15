@@ -79,6 +79,7 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
+      $('body').toggleClassSafe('lichessTools-compOff',!analysis.showFishnetAnalysis());
       const chessground = analysis?.chessground;
       if (!chessground) return;
       const firstGlyph = analysis.node.glyphs?.at(0);
@@ -128,7 +129,7 @@
         }
       });
       const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
-      $('circle',existing).attrSafe('fill',fill);
+      existing.find('circle').attrSafe('fill',fill);
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);
 

@@ -98,7 +98,7 @@
             tagify.dropdown.show = lt.wrapFunction(tagify.dropdown.show, {
               id: 'studyFlairs',
               before: ($this, term) => {
-                if (!term) return;
+                if (!term || !this.flairs) return;
                 term = term.toLowerCase();
                 const flairs = this.flairs.filter(f => f.includes(term));
                 if (!flairs.length) return;
@@ -297,8 +297,10 @@
       }
       if (lichess.analysis?.study || $('.study-topics,.topic-list').length) {
         if (!this.flairs) {
-          const flairs = await lt.api.flair.getList();
-          this.flairs = flairs.map(f => 'flair.' + f.trim());
+          const self = this;
+          lt.api.flair.getList().then(flairs=>{
+            self.flairs = flairs.map(f => 'flair.' + f.trim());
+          });
         }
         this.interval = lt.global.setInterval(this.processStudy, 500);
         this.processStudy();

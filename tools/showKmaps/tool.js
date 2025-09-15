@@ -229,7 +229,7 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || lichess.analysis?.showComputer() === false) return;
+      if ($.cached('body').is('.playing') || lichess.analysis?.showFishnetAnalysis() === false) return;
       if (this.isGamesPage() || this.isBroadcastPage()) {
         return;
       }
@@ -469,8 +469,8 @@
       }
 
       // bishop pair
-      if (whiteBishops == 2) whiteMaterial+0.3;
-      if (blackBishops == 2) blackMaterial+0.3;
+      if (whiteBishops == 2) whiteMaterial += 0.3;
+      if (blackBishops == 2) blackMaterial += 0.3;
 
       // Minor piece vs. rook imbalance penalty
       if (whiteRooks === 1 && whiteBishops + whiteKnights >= 2 && blackRooks === 0) whiteMaterial -= 0.2;

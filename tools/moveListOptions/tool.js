@@ -96,6 +96,7 @@
 
     getMoveElements = (elem, list) => {
       if (!list) list = [];
+      const isMainline = $(elem).is('.mainline');
       let next = $(elem).next();
       if (next.is('move.empty')) next = next.next();
       if (next.is('comment')) {
@@ -107,8 +108,14 @@
         return list;
       }
       if (next.is('interrupt')) {
-        const child = next.children().eq(0);
-        if (child.is('comment')) list.push(child);
+        if (isMainline) {
+          const child = next.children().eq(0);
+          if (child.is('comment')) {
+            list.push(child);
+          }
+        } else {
+          list.push(next);
+        }
         next = next.next();
       }
       while (next.length) {
@@ -628,7 +635,6 @@
       const $ = lt.$;
       const trans = lt.translator;
       const study = lt.lichess.analysis?.study;
-      let button = $('div.analyse__tools a.lichessTools-analysisPopup');
       if (this.options.analysisPopup && study) {
         let container = $('div.analyse__tools div.ceval');
         if (container.length || $('.action-menu').length) {
@@ -640,6 +646,7 @@
               .prependTo('div.analyse__tools');
           }
         }
+        let button = $('div.analyse__tools a.lichessTools-analysisPopup');
         if (!button.length) {
           button = $('<a class="lichessTools-analysisPopup">')
             .attr('data-icon', lt.icon.ExternalArrow)
@@ -663,7 +670,7 @@
           }
         }
       } else {
-        button.remove();
+        $('div.analyse__tools a.lichessTools-analysisPopup').remove();
         $('div.lichessTools-moveListOptions-header').remove();
       }
     };

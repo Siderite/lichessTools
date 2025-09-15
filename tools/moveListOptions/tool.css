@@ -210,7 +210,7 @@ body.lichessTools.lichessTools-analysisPopup a.lichessTools-analysisPopup {
   display: none;
 }
 
-body.lichessTools.lichessTools-analysisPopup button[data-act="ceval-practice"] {
+body.lichessTools.lichessTools-analysisPopup button[data-act="engine-mode"] {
   display: none;
 }
 
@@ -343,6 +343,11 @@ body.lichessTools div.lichessTools-moveListOptions-header {
   align-content: center;
   flex-wrap: wrap;
   max-height: 2em;
+  gap: 1em;
+}
+
+body.lichessTools.mobile div.lichessTools-moveListOptions-header {
+  order: 3;
 }
 
 /* Prettier */

@@ -31,6 +31,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       $('style#lichessTools-extraPieceSets').remove();
+      if (!this.pieceSets) return;
       const setName = lt.storage.get('extraPieceSets-set');
       if (!setName) return;
       const pieceSet = this.pieceSets.find(ps=>ps.name == setName);
@@ -49,7 +50,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
         }
       }
       styleStr+='</style>';
-      $(styleStr).insertAfter('#piece-sprite');
+      $(styleStr).appendTo('head');
       this.addPieces();
     };
 
@@ -91,7 +92,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
           });
         });
       const template = list.find('button').eq(0).clone().removeClass('active');
-      if (this.options.chesscom && !list.find('button.lichessTools-extraPieceSets.chesscom').length) {
+      if (this.options.chesscom && this.pieceSets && !list.find('button.lichessTools-extraPieceSets.chesscom').length) {
         const pieceSets = this.pieceSets.filter(ps=>ps.category='chesscom');
         for (const pieceSet of pieceSets) {
           const url = this.getUrl(pieceSet,'knight','white');
@@ -133,11 +134,14 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
       $('style#lichessTools-extraPieceSets,button.lichessTools-extraPieceSets').remove();
       if (!value) return;
       if (!this.pieceSets) {
-        const data = await lt.comm.getData('pieceSets.json');
-        if (!data) {
-          lt.global.console.warn('Could not load piece sets!');
-        }
-        this.pieceSets = data?.pieceSets || [];
+        const self = this;
+        lt.comm.getData('pieceSets.json').then(data=>{
+          if (!data) {
+            lt.global.console.warn('Could not load piece sets!');
+          }
+          self.pieceSets = data?.pieceSets || [];
+          this.updatePieceSet();
+        });
       }
 
       this.updatePieceSet();

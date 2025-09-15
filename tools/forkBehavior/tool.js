@@ -8,7 +8,7 @@
         name: 'forkBehavior',
         category: 'analysis',
         type: 'single',
-        possibleValues: ['normal', 'hybrid', 'chessbase'],
+        possibleValues: ['hidden', 'normal', 'hybrid', 'chessbase'],
         defaultValue: 'normal',
         advanced: true
       }
@@ -18,6 +18,7 @@
       'en-US': {
         'options.analysis': 'Analysis',
         'options.forkBehavior': 'Next move behavior for variations',
+        'forkBehavior.hidden': 'Hidden',
         'forkBehavior.normal': 'Normal',
         'forkBehavior.hybrid': 'Hybrid',
         'forkBehavior.chessbase': 'Force choice',
@@ -27,9 +28,10 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.forkBehavior': 'Comportament la mutare urm\u0103toare pentru varia\u0163ii',
+        'forkBehavior.hidden': 'Ascunse',
         'forkBehavior.normal': 'Normal',
         'forkBehavior.hybrid': 'Hibrid',
-        'forkBehavior.chessbase': 'For\u0163eaz\u0103 alegere',
+        'forkBehavior.chessbase': 'For\u0163eaz\u0103 alegerea',
         'movesGroupLabel': 'Mut\u0103ri',
         'transposGroupLabel': 'Transpozi\u0163ii'
       }
@@ -55,7 +57,7 @@
       return result;
     };
 
-    showPopup = async (nextMoves, nextTranspos) => {
+    showPopupDirect = async (nextMoves, nextTranspos) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const trans = lt.translator;
@@ -196,34 +198,51 @@
       selectElem.find('li')
         .on('click', mobileMakeMove);
 
-      selectElem.each((i, e) => {
-        e.selectedIndex = selectedIndex;
-        e.focus();
-      });
-      selectElem.on('keydown', (ev) => {
+      const keyHandler = (ev) => {
         if (ev.altKey || ev.ctrlKey) return;
         if (ev.shiftKey) {
           const dir = ev.code == 'ShiftLeft' ? -1 : 1;
-          selectElem.each((i, e) => {
-            e.selectedIndex = (e.selectedIndex + e.options.length + dir) % e.options.length;
-            highlight();
-            e.focus();
-          });
+          const e = ev.currentTarget;
+          e.selectedIndex = (e.selectedIndex + e.options.length + dir) % e.options.length;
+          highlight();
+          e.focus();
           return;
         }
         switch (ev.key) {
           case 'ArrowRight':
           case 'Enter':
             ev.preventDefault();
+            ev.stopPropagation();
             makeMove();
             break;
           case 'ArrowLeft':
             ev.preventDefault();
+            ev.stopPropagation();
             dlg.close();
             break;
         };
+      };
+
+      selectElem.each((i, e) => {
+        if (e.selectedIndex != selectedIndex) {
+          e.selectedIndex = selectedIndex;
+        }
+        if (lt.global.document.activeElement != e) {
+          lt.global.requestAnimationFrame(()=>e.focus());
+        }
+        e.addEventListener('keydown', keyHandler, { capture: true });
       });
       highlight();
+    };
+
+    showPopup = async (nextMoves, nextTranspos) => {
+      try {
+        if (this.inShowPopup) return;
+        this.inShowPopup = true;
+        return await this.showPopupDirect(nextMoves, nextTranspos);
+      } finally {
+        this.inShowPopup = false;
+      }
     };
 
     mousewheelHandler = (ev) => {
@@ -310,7 +329,9 @@
 
     clearVariationSelect = () => {
       this.variationSelect = 'unset';
-      $('.analyse__tools').removeClass('lichessTools-forkBehavior-hybrid');
+      $('.analyse__tools')
+        .removeClass('lichessTools-forkBehavior-hidden')
+        .removeClass('lichessTools-forkBehavior-hybrid');
     };
 
     async start() {
@@ -340,6 +361,8 @@
         this.bindFork();
         lt.pubsub.on('lichessTools.chapterChange', this.clearVariationSelect);
       }
+      $('.analyse__tools')
+        .toggleClassSafe('lichessTools-forkBehavior-hidden',value == 'hidden');
     }
 
   }

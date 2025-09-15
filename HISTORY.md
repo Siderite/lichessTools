@@ -1,5 +1,31 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Sep
+
+- removed Mobile start/end hiding theme
+- removed No game result popup theme
+
+07 Sep
+
+- haptic feedback tool
+
+06 Sep
+
+- right click to go to game link when Go directly to analysis is on
+
+05 Sep
+
+- remove expand all tool, since there is a native disclosure toggle
+- add 'not analysed' game list filter
+
+30 Aug
+
+- removed "No fish button on mobile" theme after Lichess changes.
+
+25 Aug
+
+- 'hidden' fork behaviour option
+
 17 Aug
 
 - added "No fish button on mobile" theme

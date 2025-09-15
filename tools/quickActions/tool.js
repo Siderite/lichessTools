@@ -189,8 +189,7 @@
       if (!this.options.practice) return false;
       const lt = this.lichessTools;
       const analysis = lt.lichess?.analysis;
-      if (!analysis?.ceval?.possible) return false;
-      if (!analysis?.ceval?.allowed()) return false;
+      if (!analysis?.isCevalAllowed()) return false;
       if (analysis?.gamebookPlay()) return false;
       return true;
     }
@@ -253,7 +252,7 @@
        .off('button.fbt[data-act="menu"],button.board-menu-toggle,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
       lt.pubsub.off('lichessTools.chapterChange',this.initQuickActions);
       this.initQuickActions();
-      this.refreshTooltip();
+      lt.global.setTimeout(this.refreshTooltip,1000);
       if (!this.options.isSet) return;
       lt.pubsub.on('lichessTools.chapterChange',this.initQuickActions);
       $('body')

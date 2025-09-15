@@ -380,7 +380,7 @@
         result = { moves: [] };
       }
       let newMoves = [];
-      if ((this.options.db || this.options.lichess) && !lt.net.slowMode && (!this.options.ceval || !analysis.ceval.enabled())) {
+      if ((this.options.db || this.options.lichess) && !lt.net.slowMode && (!this.options.ceval || !analysis.cevalEnabled())) {
         if (this.options.db && !result.dbLoaded) {
           const obj = await lt.api.evaluation.getChessDb(fen);
           const moves = obj?.moves?.map(m => {

@@ -3,6 +3,7 @@
 body.lichessTools.lichessTools-theme_mobile.mobile {
   ---site-header-height: 30px;
   ---site-header-margin: 4px;
+  margin-top: 0;
 }
 
 @media (max-width: 799.3px) and (orientation: portrait) {
@@ -114,6 +115,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"]:after 
   font-size: large;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__tools:has(.action-menu) {
+  overflow: visible;
+}
+
 body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__tools .explorer-box .moves tbody tr.sum {
   position: sticky;
   bottom: 0;
@@ -170,6 +175,26 @@ body.lichessTools.lichessTools-theme_mobile.mobile aside.analyse__side div.game_
   display: block;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__controls .jumps i.scrub-help {
+  padding: 1em;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__controls .switch {
+  transform: rotate(90deg);
+  position: relative;
+  left: -0.3em;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__controls [data-mode=ceval]:after  {
+  padding-inline-start: 0.5em;
+  padding-inline-end: 0.5em;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__controls .switch label[for="analyse-toggle-ceval"]:before {
+  transform: rotate(-90deg);
+}
+
+
 body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools div.analyse__fork {
   order: 0;
 }
@@ -182,8 +207,12 @@ body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools div.pv_box {
   order: 2;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools section.explorer-box {
+body.lichessTools.mobile div.lichessTools-moveListOptions-header {
   order: 3;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools section.explorer-box {
+  order: 4;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools .lichessTools-resizeExplorer {

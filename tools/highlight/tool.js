@@ -51,10 +51,13 @@
           toHighlight.push([elem,inverted]);
         }
       }
-      $('div.analyse__moves move.lichessTools-lastInLine').filter((i, e) => !toHighlight.includes(e)).removeClass('lichessTools-lastInLine');
+      $('div.analyse__moves move.lichessTools-lastInLine')
+        .filter((i, e) => !toHighlight.find(arr=>arr[0]==e))
+        .toggleClassSafe('lichessTools-lastInLine',false);
       for (const [elem,inverted] of toHighlight) {
-        $(elem).toggleClassSafe('lichessTools-lastInLine',true);
-        $(elem).toggleClassSafe('inverted',inverted);
+        $(elem)
+          .toggleClassSafe('lichessTools-lastInLine',true)
+          .toggleClassSafe('inverted',inverted);
       }
     };
 
@@ -69,7 +72,9 @@
           toHighlight.push(elem);
         }
       }
-      $('div.analyse__moves move.lichessTools-inCheck').filter((i, e) => !toHighlight.includes(e)).removeClass('lichessTools-inCheck');
+      $('div.analyse__moves move.lichessTools-inCheck')
+        .filter((i, e) => !toHighlight.includes(e))
+        .toggleClassSafe('lichessTools-inCheck',false);
       for (const elem of toHighlight) {
         $(elem).toggleClassSafe('lichessTools-inCheck',true);
       }
@@ -88,7 +93,9 @@
           toHighlight.push(elem);
         }
       }
-      $('div.analyse__moves move.lichessTools-uncommented').filter((i, e) => !toHighlight.includes(e)).removeClass('lichessTools-uncommented');
+      $('div.analyse__moves move.lichessTools-uncommented')
+         .filter((i, e) => !toHighlight.includes(e))
+         .toggleClassSafe('lichessTools-uncommented',false);
       for (const elem of toHighlight) {
         $(elem).toggleClassSafe('lichessTools-uncommented',true);
       }
@@ -116,7 +123,9 @@
           }
         }
       }
-      $('div.analyse__moves move.lichessTools-transposition').filter((i, e) => !toHighlight.includes(e)).removeClass('lichessTools-transposition');
+      $('div.analyse__moves move.lichessTools-transposition')
+        .filter((i, e) => !toHighlight.includes(e))
+        .toggleClassSafe('lichessTools-transposition',false);
       for (const elem of toHighlight) {
         $(elem).toggleClassSafe('lichessTools-transposition',true);
       }

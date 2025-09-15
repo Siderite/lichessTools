@@ -149,6 +149,7 @@ class Observer {
       attributeFilter: undefined,
       characterData: true,
       withNodes: true,
+      useCash: false,
       ...options
     };
     this.context.each((i,e)=>{

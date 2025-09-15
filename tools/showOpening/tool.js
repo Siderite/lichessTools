@@ -216,6 +216,10 @@
       const tvOptions = lt.getTvOptions();
       const gameId = tvOptions.gameId || analysis?.data?.game?.id;
       const fen = analysis?.node?.fen || analysis?.data?.game?.fen;
+
+      if (fen && fen === this.prevFen) return;
+      this.prevFen = fen;
+
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables', 10000);
       const result = await this.withOpening(gameId, $.cached('main.round, main.analyse, main#board-editor', 10000)[0], ply, fen, false);
       if (!result) {

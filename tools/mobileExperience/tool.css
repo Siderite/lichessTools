@@ -70,6 +70,10 @@ body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disab
     height: unset;
   }
 
+  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__tools:has(.action-menu)+.analyse__controls:not(.lichessTools-liveStatus) {
+    height: 3em;
+  }
+
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button {
     min-width: 2.5em;
     min-height: 2.5em;

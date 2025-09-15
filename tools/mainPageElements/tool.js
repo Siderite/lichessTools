@@ -64,6 +64,58 @@
       lt.global.location.reload();
     }
 
+    applyLobbyElements = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (!this.initialGrid) {
+        this.initialGrid = $('main').css('grid-template-areas');
+      }
+      $('main').toggleClass('lichessTools-lobbyPlay', this.isPlay);
+      if (this.isPlay) {
+        lt.global.document.title = $('#topnav > section:first-child span.play').text() + ' ' + lt.icon.BulletPoint + ' ' + lt.global.location.hostname;
+      } else {
+        const grid = this.initialGrid.replace(/[a-z]+/g, t => {
+          const ft = t === 'timeline' ? 'side' : t;
+          const res = this.options[ft] || (ft == 'side' && $('.lichessTools-pins *,.lichessTools-dailyQuote.side').length)
+            ? t
+            : '.'.padEnd(t.length, ' ');
+          return res;
+        });
+        $('main').css('grid-template-areas', grid);
+        $('main .lobby__side').toggleClassSafe('lichessTools-hideElement', !this.options.side);
+        $('main .lobby__streams').toggleClassSafe('lichessTools-hideElement', !this.options.side || !this.options.side_streams);
+        $('main .lobby__spotlights').toggleClassSafe('lichessTools-hideElement', !this.options.side || !this.options.side_spotlights);
+        $('main .lobby__timeline').toggleClassSafe('lichessTools-hideElement', !this.options.side || !this.options.side_timeline);
+        $('main .lobby__app').toggleClassSafe('lichessTools-hideElement', !this.options.app);
+        $('main .lobby__app').find('div[data-id="1+0"],div[data-id="2+1"]')
+          .toggleClassSafe('lichessTools-hideElement', !this.options.app || !this.options.app_bullet);
+        $('main .lobby__app').find('div[data-id="3+0"],div[data-id="3+2"],div[data-id="5+0"],div[data-id="5+3"]')
+          .toggleClassSafe('lichessTools-hideElement', !this.options.app || !this.options.app_blitz);
+        $('main .lobby__app').find('div[data-id="10+0"],div[data-id="10+5"],div[data-id="15+10"]')
+          .toggleClassSafe('lichessTools-hideElement', !this.options.app || !this.options.app_rapid);
+        $('main .lobby__app').find('div[data-id="30+0"],div[data-id="30+20"]')
+          .toggleClassSafe('lichessTools-hideElement', !this.options.app || !this.options.app_classical);
+        $('main .lobby__table').toggleClassSafe('lichessTools-hideElement', !this.options.table);
+        $('main .lobby__tv').toggleClassSafe('lichessTools-hideElement', !this.options.tv);
+        $('main .lobby__blog').toggleClassSafe('lichessTools-hideElement', !this.options.blog);
+        $('main .lobby__puzzle').toggleClassSafe('lichessTools-hideElement', !this.options.puzzle);
+        $('main .lobby__support').toggleClassSafe('lichessTools-hideElement', !this.options.support);
+        $('main .lobby__feed').toggleClassSafe('lichessTools-hideElement', !this.options.feed);
+        $('main .lobby__tournaments-simuls').toggleClassSafe('lichessTools-hideElement', !this.options.tours);
+        $('main .lobby__about').toggleClassSafe('lichessTools-hideElement', !this.options.about);
+
+        if (this.options.side && !this.options.side_timeline && this.options.feed) {
+          if (!$('.lobby__side').parent().is('.lobby__feed')) {
+            $('.lobby__feed').appendTo('.lobby__side');
+          }
+        } else {
+          if (!$('.lobby__side .lobby__feed').parent().is('main.lobby')) {
+            $('.lobby__side .lobby__feed').appendTo('main.lobby');
+          }
+        }
+      }
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('mainPageElements');
@@ -127,12 +179,12 @@
         }
         return;
       }
-      let isPlay = false;
+      this.isPlay = false;
       if (!this.options.app) {
         if (!$('body').is('.mobile')) {
           $('#topnav > section:first-child > a').attr('href', '/#play');
         }
-        isPlay = lt.global.location.hash == '#play';
+        this.isPlay = lt.global.location.hash == '#play';
       } else {
         $('#topnav > section:first-child > a').attr('href', '/');
       }
@@ -141,49 +193,9 @@
         $(lt.global).off('hashchange', this.hashChange);
         $(lt.global).on('hashchange', this.hashChange);
       }
-      if (!this.initialGrid) {
-        this.initialGrid = $('main').css('grid-template-areas');
-      }
-      $('main').toggleClass('lichessTools-lobbyPlay', isPlay);
-      if (isPlay) {
-        lt.global.document.title = $('#topnav > section:first-child span.play').text() + ' ' + lt.icon.BulletPoint + ' ' + lt.global.location.hostname;
-      } else {
-        const grid = this.initialGrid.replace(/[a-z]+/g, t => {
-          const ft = t === 'timeline' ? 'side' : t;
-          const res = this.options[ft] || (ft == 'side' && $('.lichessTools-pins *,.lichessTools-dailyQuote.side').length)
-            ? t
-            : '.'.padEnd(t.length, ' ');
-          return res;
-        });
-        $('main').css('grid-template-areas', grid);
-        $('main .lobby__side').toggleClass('lichessTools-hideElement', !this.options.side);
-        $('main .lobby__streams').toggleClass('lichessTools-hideElement', !this.options.side || !this.options.side_streams);
-        $('main .lobby__spotlights').toggleClass('lichessTools-hideElement', !this.options.side || !this.options.side_spotlights);
-        $('main .lobby__timeline').toggleClass('lichessTools-hideElement', !this.options.side || !this.options.side_timeline);
-        $('main .lobby__app').toggleClass('lichessTools-hideElement', !this.options.app);
-        $('main .lobby__app').find('div[data-id="1+0"],div[data-id="2+1"]')
-          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_bullet);
-        $('main .lobby__app').find('div[data-id="3+0"],div[data-id="3+2"],div[data-id="5+0"],div[data-id="5+3"]')
-          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_blitz);
-        $('main .lobby__app').find('div[data-id="10+0"],div[data-id="10+5"],div[data-id="15+10"]')
-          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_rapid);
-        $('main .lobby__app').find('div[data-id="30+0"],div[data-id="30+20"]')
-          .toggleClass('lichessTools-hideElement', !this.options.app || !this.options.app_classical);
-        $('main .lobby__table').toggleClass('lichessTools-hideElement', !this.options.table);
-        $('main .lobby__tv').toggleClass('lichessTools-hideElement', !this.options.tv);
-        $('main .lobby__blog').toggleClass('lichessTools-hideElement', !this.options.blog);
-        $('main .lobby__puzzle').toggleClass('lichessTools-hideElement', !this.options.puzzle);
-        $('main .lobby__support').toggleClass('lichessTools-hideElement', !this.options.support);
-        $('main .lobby__feed').toggleClass('lichessTools-hideElement', !this.options.feed);
-        $('main .lobby__tournaments-simuls').toggleClass('lichessTools-hideElement', !this.options.tours);
-        $('main .lobby__about').toggleClass('lichessTools-hideElement', !this.options.about);
-
-        if (this.options.side && !this.options.side_timeline && this.options.feed) {
-          $('.lobby__feed').appendTo('.lobby__side');
-        } else {
-          $('.lobby__side .lobby__feed').appendTo('main.lobby');
-        }
-      }
+      this.applyLobbyElements();
+      $('main.lobby').observer()
+        .on('.lobby__app-pools',this.applyLobbyElements);
     }
   }
   LiChessTools.Tools.MainPageElements = MainPageElementsTool;

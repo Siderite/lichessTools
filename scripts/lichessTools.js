@@ -407,9 +407,9 @@
     }
 
     async arrayRemoveAllAsync(arr,asyncPredicate) {
-      if (!arr?.length) return;
-      let i = 0;
       let result = [];
+      if (!arr?.length) return result;
+      let i = 0;
       while (i < arr.length) {
         if (await asyncPredicate(arr[i])) {
           result = result.concat(arr.splice(i, 1));
@@ -421,9 +421,9 @@
     }
 
     arrayRemoveAll(arr, predicate) {
-      if (!arr?.length) return;
-      let i = 0;
       let result = [];
+      if (!arr?.length) return result;
+      let i = 0;
       while (i < arr.length) {
         if (predicate(arr[i])) {
           result = result.concat(arr.splice(i, 1));
@@ -891,6 +891,7 @@
       if (!element) return 0;
       if ('length' in element) element = element[0];
       if (!element) return 0;
+      if (this.global.document.readyState != 'complete') return 1;
       if (this.global.document.visibilityState == 'hidden') return 0;
 
 	  if (this.traverseState?.nodeIndex > 2500) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
@@ -962,11 +963,8 @@
       this.elementCache.clear();
       const container = $('div.analyse__moves');
 
-      $('move', container).each((i, e) => {
-        const $e = $(e);
-        if ($e.is('.empty')) return;
-        const unused = e.offsetParent; // required to optimize rendering
-        const p = $e.attr('p') || '';
+      $('move:not(.empty)', container).each((i, e) => {
+        const p = e.getAttribute('p') || '';
         this.elementCache.set(p, e);
       });
       this.debug && this.global.console.debug('Element cache reset');
@@ -1548,7 +1546,7 @@
     };
 
     isGamePlaying() {
-      return this.lichess.analysis?.ongoing || this.lichess.analysis?.studyPractice;
+      return this.lichess.analysis?.ongoing || this.lichess.analysis?.study?.practice;
       /*const game = this.lichess.analysis?.data?.game;
       if (!game) return false;
       if (game.id=='synthetic') return false;
@@ -2484,6 +2482,7 @@
         : console.groupCollapsed;
       group('Applying LiChess Tools options...');
       const totStart = performance.getEntriesByName('LiChessTools.start')[0].startTime;
+      const perfData = [];
       for (const tool of this.tools) {
         if (!tool?.start) continue;
         try {
@@ -2491,10 +2490,23 @@
           await tool.start().catch(e => { setTimeout(() => { throw e; }, 100); });
           tool.ranStart = true;
           const end = performance.now();
-          if (this.debug) console.debug(tool.name,Math.round(end-start)+'ms','Tot:',Math.round(end-totStart)+'ms');
+          const duration = Math.round(end-start);
+          if (this.debug) {
+            console.debug(tool.name,duration+'ms','Tot:',Math.round(end-totStart)+'ms');
+          }
+          perfData.push({
+            name: tool.name,
+            startDuration: duration
+          });
         } catch (e) {
           setTimeout(() => { throw e; }, 100);
         }
+      }
+      perfData.sort((a,b)=>a.startDuration-b.startDuration);
+      if (!this.debug) this.arrayRemoveAll(perfData,p=>p.startDuration<100);
+      if (perfData.length) {
+        console.log('Tool load times:');
+        console.table(perfData);
       }
       console.groupEnd();
     }
