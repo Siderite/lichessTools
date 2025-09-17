@@ -43,7 +43,7 @@
         const analysis = lichess?.analysis;
         if (!analysis?.showFishnetAnalysis()) return;
         const trans = lt.translator;
-        const ceval = analysis.node.ceval;
+        let ceval = analysis.node.ceval;
         if (ceval) {
           const pearl = $('div.ceval pearl');
           // lichess keeps a reference to the actual node
@@ -58,6 +58,13 @@
                 $('strong', e).replaceText(this.renderEval(pv.cp, pv.mate));
               }
             });
+        }
+        ceval = analysis.node.eval;
+        if (ceval) {
+          const pearl = $('div.ceval pearl');
+          // lichess keeps a reference to the actual node
+          const text = this.renderEval(ceval.cp, ceval.mate);
+          pearl.replaceText(text);
         }
       } finally {
         this._inShowDecimals=false;

@@ -98,11 +98,13 @@ class Observer {
     }
     let observer = observers.find(o=>o.__selector===selector && o.__func===func && JSON.stringify(o.__options)==JSON.stringify(options));
     if (!observer) {
-      const matchFunc = options.useCash
-        ? el=>cash(el).is(selector)
-        : el=>(el.nodeType == 1
-                 ? el.matches(selector)
-                 : cash(el).is(selector));
+      const matchFunc = el => {
+        if (!options.useCash) {
+          if (el.nodeType == 1) return el.matches(selector);
+          if (el.nodeType == 3) return el.parentElement?.matches(selector);
+        }
+        return cash(el).is(selector);
+      };
       observer = new MutationObserver((mutations)=>{
         const matches = mutations.filter(m=>{
           if (matchFunc(m.target)) return true;
