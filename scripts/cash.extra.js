@@ -182,7 +182,9 @@ cash.fn.replaceText = function(replacement) {
       const newText = typeof replacement === 'function'
         ? replacement('')
         : replacement;
-      elem.textContent = newText;
+      if (elem.textContent != newText) {
+        elem.textContent = newText;
+      }
       return;
     }
     for (const textNode of textNodes) {

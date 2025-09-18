@@ -33,7 +33,7 @@
       return (e > 0 ? '+' : '') + e.toFixed(this.decimals);
     };
 
-    showDecimals = () => {
+    showDecimalsDirect = () => {
       try {
         if (this._inShowDecimals) return;
         this._inShowDecimals=true;
@@ -70,6 +70,7 @@
         this._inShowDecimals=false;
       }
     };
+    showDecimals = lichessTools.debounce(this.showDecimalsDirect,100);
 
     showDecimalsMovesDirect = () => {
       try {
