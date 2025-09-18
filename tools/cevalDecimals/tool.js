@@ -58,13 +58,14 @@
                 $('strong', e).replaceText(this.renderEval(pv.cp, pv.mate));
               }
             });
-        }
-        ceval = analysis.node.eval;
-        if (ceval) {
-          const pearl = $('div.ceval pearl');
-          // lichess keeps a reference to the actual node
-          const text = this.renderEval(ceval.cp, ceval.mate);
-          pearl.replaceText(text);
+        } else {
+          ceval = analysis.node.eval;
+          if (ceval) {
+            const pearl = $('div.ceval pearl');
+            // lichess keeps a reference to the actual node
+            const text = this.renderEval(ceval.cp, ceval.mate);
+            pearl.replaceText(text);
+          }
         }
       } finally {
         this._inShowDecimals=false;
