@@ -66,7 +66,7 @@
       const size = nextMoves.length + nextTranspos.length + (hasTranspos ? 2 : 0);
       let dlg = null;
       let selectElem = null;
-      const selectedIndex = lichess.analysis?.fork?.state()?.selected || 0;
+      const selectedIndex = lichess.analysis?.fork?.selectedIndex || 0;
       if ($('body').is('.mobile')) {
         selectElem = $('<ul>');
         let container = hasTranspos && nextMoves.length
@@ -163,12 +163,11 @@
         if (!val) return;
         const [uci, path] = val.split(' ');
         lichess.analysis.explorer.setHovering(lichess.analysis.node.fen, uci);
-        const state = lichess.analysis.fork?.state();
-        if (!state?.displayed) return;
-        const index = state.node.children.findIndex(c => c.uci == uci);
-        if (index < 0 || state.selected == index) return;
-        for (let i = state.selected; i < index; i++) lichess.analysis.fork.next();
-        for (let i = state.selected; i > index; i--) lichess.analysis.fork.prev();
+        const fork = lichess.analysis.fork;
+        if (!fork?.forks?.length) return;
+        const index = fork.forks.findIndex(c => c.uci == uci);
+        if (index < 0 || fork.selectedIndex == index) return;
+        fork.selectedIndex = index;
         lichess.analysis.setAutoShapes();
         lichess.analysis.redraw();
       };
