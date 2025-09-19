@@ -85,7 +85,7 @@
         let weightTotal = 0;
         for (const node of defaultPrc) {
           const descendants = getGamebookDescendants(node, depth, 1, isInteractive);
-          const weight = 1 + descendants.filter(n => analysis.visibleChildren(n)?.length > 1).length;
+          const weight = 1 + descendants.filter(n => analysis.visibleChildren(n).length > 1).length;
           list.push({ node: node, weight: weight });
           weightTotal += weight;
         }
@@ -102,7 +102,8 @@
 
     getNextMoves = (node, noTranspositions, noMoves) => {
       const lt = this.lichessTools;
-      const arr = noMoves ? [] : [...lt.analysis.visibleChildren(node)];
+      const analysis = lt.lichess.analysis;
+      const arr = noMoves ? [] : [...analysis.visibleChildren(node)];
       arr.transpositionStartIndex = arr.length;
       if (noTranspositions || !lt.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
       let transpositions = node.transposition.filter(n => n !== node);
@@ -110,7 +111,7 @@
         transpositions = transpositions?.filter(n => n.path && !n.path.startsWith(node.path) && !node.path.startsWith(n.path));
       }
       for (const child of transpositions) {
-        const grandchildren = lt.analysis.visibleChildren(child);
+        const grandchildren = analysis.visibleChildren(child);
         if (!grandchildren?.length) continue;
         for (const grandchild of grandchildren) {
           arr.push(grandchild);

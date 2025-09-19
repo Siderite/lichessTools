@@ -188,7 +188,7 @@
       Switch: '\ue07b',
       Blindfold: '\ue07c',
       NextLine: '\ue07d',
-      Stockfish: '\ue07e',
+      Cpu: '\ue07e',
 
       // LiChess Tools icons
       ShowTranspositions: 'T',
