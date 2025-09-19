@@ -103,12 +103,12 @@
         return forkMove;
       };
 
-      const sans = currNode.children.map(c => c.san);
+      const sans = analysis.visibleChildren(currNode).map(c => c.san);
       for (const node of transpositions) {
         if (node.path === undefined) {
           continue;
         }
-        for (const child of node.children) {
+        for (const child of analysis.visibleChildren(node)) {
           const path = node.path + child.id;
           const forkMove = $('move', fork).filter((i, e) => $(e).attr('p') == path);
           if (forkMove.length) continue;
@@ -120,8 +120,9 @@
           addForkMove(targetElem, path, child, false);
         }
       }
-      if (currNode.children.length == 1) {
-          const child = currNode.children[0];
+      const currChildren = analysis.visibleChildren(currNode);
+      if (currChildren.length == 1) {
+          const child = currChildren[0];
           const path = currNode.path+child.id;
           const forkMove = $('move', fork).filter((i, e) => $(e).attr('p') == path);
           if (!forkMove.length) {

@@ -136,7 +136,7 @@
         }
       }
       const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
-      const listUcis = analysis.node.children.map(c=>c.uci);
+      const listUcis = analysis.visibleChildren(analysis.node).map(c=>c.uci);
       $('tr[data-uci],tr.sum', container).each((i, e) => {
         if (!$('td.lichessTools-explorerEval', e).length) {
           $('<td>')
