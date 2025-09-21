@@ -165,8 +165,14 @@
       const analysis = lt.lichess.analysis;
       const $ = lt.$;
       const trans = lt.translator;
-      const elem = $('section.explorer-box div.data div.title a');
-      if (!elem.length) return;
+      let titleElem = $('section.explorer-box div.data div.title');
+      if (!titleElem.length) {
+        if (!opening) return;
+        titleElem = $('<div class="title">')
+                      .append($('<a>'))
+                      .insertAfter('section.explorer-box div.data .explorer-title');
+      }
+      const elem = titleElem.children('a');
       const existing = elem.text();
       let href = elem.attr('href');
       let m = /\/opening\/(?<openingName>[^\/]+)/i.exec(href);
