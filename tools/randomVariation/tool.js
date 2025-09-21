@@ -39,6 +39,7 @@
 
     populatePercent = (nodes, isInteractive, depth) => {
       const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       const Math = lt.global.Math;
       const getGamebookDescendants = (node, depth, currentDepth, isInteractive) => {
         if (!depth) depth = 0;
