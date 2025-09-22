@@ -1959,6 +1959,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_' });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserPgns', { persist: 'session', interval: 10 * 1000 });
       },
       blog: {
         lichessTools: this,
