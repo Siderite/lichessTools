@@ -881,7 +881,8 @@
     "feedback.pieceDrop": "نقل القطع",
     "feedback.opponentMove": "نقلة الخصم",
     "feedback.gameStart": "بدء اللعبة",
-    "feedback.gameEnd": "نهاية اللعبة"
+    "feedback.gameEnd": "نهاية اللعبة",
+    "ImageCopiedToClipboard": "تم نسخ الصورة إلى الحافظة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1765,7 +1766,8 @@
     "feedback.pieceDrop": "区块移动",
     "feedback.opponentMove": "反对者的移动",
     "feedback.gameStart": "游戏开始",
-    "feedback.gameEnd": "游戏结束"
+    "feedback.gameEnd": "游戏结束",
+    "ImageCopiedToClipboard": "图像已复制到剪贴板"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2649,7 +2651,8 @@
     "feedback.pieceDrop": "Piece move",
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
-    "feedback.gameEnd": "End of game"
+    "feedback.gameEnd": "End of game",
+    "ImageCopiedToClipboard": "Image copied to clipboard"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -2676,7 +2679,7 @@
     "transpositionBehavior.excludeSameLine": "Vyloučit na stejném řádku",
     "transpositionBehavior.consideredVariations": "Přehrát tahy od provedení",
     "transpositionBehavior.groupSameMove": "Nepřidávat identické další tahy",
-    "options.randomVariationDepth": "Hloubka pravděpodobnosti dalšího pohybu",
+    "options.randomVariationDepth": "Hloubka pravděpodobnosti dalšího tahu",
     "randomVariationDepth.0": "rovno",
     "randomVariationDepth.2": "jeden tah",
     "randomVariationDepth.4": "dva tahy",
@@ -2726,8 +2729,8 @@
     "colorCount.3": "tři",
     "colorCount.4": "čtyři",
     "lockBoardTitle": "LiChess Tools - zámek obrazovky",
-    "options.spaceDisabled": "Ctrl-prostor pro přehrávání nejlepšího pohybu počítače namísto vesmíru",
-    "onlineFriends": "%s online přátelé",
+    "options.spaceDisabled": "Ctrl-prostor pro přehrávání nejlepšího tahu počítače namísto vesmíru",
+    "onlineFriends": "%s online přátel",
     "onlineFriends:one": "%s online přítel",
     "onlineFriends:zero": "Přátelé",
     "friendsMenu": "LiChess Tools - přátelé, které sledujete",
@@ -2757,19 +2760,19 @@
     "gameType-rapid": "Rapid",
     "gameType-blitz": "Blitz",
     "gameType-bullet": "Bullet",
-    "gameType-ultrabullet": "Ultrabulleta",
+    "gameType-ultrabullet": "Ultrabullet",
     "gameType-standard": "Pouze standardní",
-    "options.friendsPlaying": "Upozornění na zvuk a hlas, když přátelé začnou hrát",
+    "options.friendsPlaying": "Zvukové a hlasové upozornění, když přátele začnou hrát",
     "audioNotAllowedTitle": "LiChess Tools - zvuk je povolen pouze po akci uživatele",
     "options.highlight": "Zvýraznit tahy při analýze",
-    "highlight.lastMove": "Poslední pohyb v každé variantě",
+    "highlight.lastMove": "Poslední tah v každé variantě",
     "highlight.notCommented": "Neokomentovaly poslední tahy",
-    "highlight.transposition": "Přechody k aktuálnímu přesunu",
+    "highlight.transposition": "Přechody k aktuálnímu tahu",
     "highlight.mainLine": "Zvýraznit šachovnici když je mimo hlavní čáru",
     "highlight.mainLinePieces": "Zvýraznit kousky při vychýlení z hlavní linie",
     "highlight.variationDepth": "Hloubka zvýraznění variace",
     "highlight.checks": "Zvýraznit kontroly králům",
-    "options.ctrlArrows": "Ctrl-right pro přehrání náhodného dalšího přesunu ze seznamu",
+    "options.ctrlArrows": "Ctrl-right pro přehrání náhodného dalšího tahu ze seznamu",
     "options.customEngineLevel": "Vlastní analytická hloubka motoru",
     "options.customEngineOptions": "Volby vlastního analyzátoru",
     "customEngineOptions.noCloud": "Ignorovat data z cloudu pro hodnocení",
@@ -2778,9 +2781,9 @@
     "customEngineOptions.fix503": "Opravit externí chyby engine 503",
     "applyInPractice": "Vlastní nastavení motoru v tréninkovém režimu",
     "options.keyShortcuts": "Zkratky pro další klávesy",
-    "options.showFlags": "Zobrazit vlajky hráčských zemí",
+    "options.showFlags": "Zobrazit vlajky zemí hráčů",
     "options.shapeRank": "Zobrazit pořadí šipek a kruhů",
-    "options.showOpening": "Zobrazit jména pro otevření hry",
+    "options.showOpening": "Zobrazit jména zahájení hry",
     "openingNameTitle": "LiChess Tools - název zahájení",
     "showOpening.showInBoard": "Pro velkou šachovnici",
     "showOpening.showInMinigames": "Pro minihry",
@@ -2824,13 +2827,13 @@
     "PGNCopiedToClipboard": "PGN zkopírováno do schránky",
     "setCustomEngineDepth": "Musíte nastavit vlastní hloubku motoru pro tuto funkci!",
     "evaluateTerminationsText": "Vyhodnotit ukončení tahů",
-    "evaluateTerminationsTitle": "LiChess Tools - přidejte hodnotící komentář ke všem větvím ukončujícím pohyby",
+    "evaluateTerminationsTitle": "LiChess Tools - přidejte hodnotící komentář ke všem větvím ukončující tahy",
     "evaluateTerminationsStarted": "Komentace hodnocení začala: %s",
     "showTransposText": "Zvýraznit všechny transpozice",
     "showTransposTitle": "LiChess Tools - zvýraznit všechny transpozice",
     "clipboardDenied": "Přístup ke schránce byl odepřen",
     "options.movesFromTranspositions": "Zobrazit další kroky z provedení",
-    "transpositionBox": "LiChess Tools - pohyby po transpozici",
+    "transpositionBox": "LiChess Tools - tahy po transpozici",
     "options.extendedInteractiveLesson": "Rozšířené interaktivní lekce",
     "extendedInteractiveLesson.extendedInteractive": "Přehrát všechny varianty",
     "extendedInteractiveLesson.showFinalScore": "Zobrazit konečné skóre",
@@ -2843,9 +2846,9 @@
     "finalScore": "Finální skóre: %s%",
     "currentScore": "Dosavadní skóre: %s%",
     "nextMovesCount": "Udělejte jeden z %s přijatých tahů",
-    "nextMovesCount:one": "Pouze jeden přijatý krok k provedení",
+    "nextMovesCount:one": "Pouze jeden přijatý tah k provedení",
     "interactiveLessonsText": "Interaktivní lekce",
-    "addDeviationText": "Vysvětlete, proč jsou jiné pohyby nesprávné",
+    "addDeviationText": "Vysvětlete, proč jsou ostatní tahy špatné",
     "addDeviationTitle": "LiChess Tools - vysvětlete, proč se pohyby zde nejsou v PGN špatně",
     "options.extendedInteractiveLessonFlow": "Rozšířený tok interaktivních lekcí",
     "extendedInteractiveLessonFlow.sequential": "Sekvenční",
@@ -2859,16 +2862,16 @@
     "giveUpButtonText": "Dát",
     "giveUpButtonTitle": "Zruší interaktivní běh",
     "giveUpConfirmation": "Jste si jisti, že chcete zrušit interaktivní spuštění?",
-    "options.explorerPractice": "Procvič si proti krokům z Otevírání Průzkumníka",
+    "options.explorerPractice": "Procvičit tahy proti průzkumníku zahájení",
     "options.explorerPracticeOptions": "Možnosti cvičení Průzkumníka",
-    "explorerPracticeTitle": "LiChess Tools - procvičování proti pohybům Průzkumníka",
+    "explorerPracticeTitle": "LiChess Tools - procvičování proti tahům Průzkumníka",
     "outOfMoves": "Pohyby mimo Průzkumníka",
-    "explorerPracticeOptions.showSmileys": "Zobrazit emoji při vyjetí z pohybu",
-    "explorerPracticeOptions.sumClick": "Klepněte na Průzkumník Σ pro posun",
+    "explorerPracticeOptions.showSmileys": "Zobrazit emoji při vyjetí z tahu",
+    "explorerPracticeOptions.sumClick": "Klepněte na Průzkumník Σ pro tah",
     "explorerPracticeOptions.showNames": "Zobrazit jméno soupeře",
     "explorerPracticeOptions.showInfoStudy": "Data průzkumníka ve studiu",
     "explorerPracticeOptions.showInfoAnalysis": "Údaje průzkumníka v analýze",
-    "sumClickTitle": "LiChess Tools - klepněte pro posun",
+    "sumClickTitle": "LiChess Tools - klepněte pro tah",
     "options.chapterClearArtifacts": "Vymazat artefakty kapitoly",
     "removeAllText": "Odstranit ...",
     "removeAll_commentsText": "... komentáře",
@@ -3002,7 +3005,7 @@
     "collapseAllBookmarksTitle": "LiChess Tools - Sbalit všechny záložky",
     "expandAllBookmarksText": "Rozbalit všechny záložky",
     "bookmarkSplitConfirmationText": "Určitě chcete rozdělit kapitolu do této záložky?",
-    "bookmarkSplitConfirmationDeleteText": "Určitě chcete rozdělit kapitolu do této záložky?\r\nTO WILLETE OD TOHOTO KAPITOLY MŮŽE SLEDUJÍCÍM",
+    "bookmarkSplitConfirmationDeleteText": "Určitě chcete rozdělit kapitolu do této záložky?\nTÍMTO VYMAŽETE NÁSLEDUJÍCÍ TAHY Z KAPITOLY",
     "bookmarkSplitText": "Rozdělit kapitolu",
     "bookmarkSplitTitle": "LiChess Tools - vytvořte novou kapitolu s následujícími tahy odkudkoliv\nStiskněte Shift pro jejich odstranění",
     "chapterLink": "Pokračovat zde: %s",
@@ -3055,7 +3058,7 @@
     "btnNormalizeText": "Normalizovat",
     "btnNormalizeTitle": "Skupina pohybů ze stejné pozice šachovnice",
     "btnDenormalizeText": "Denormalizace",
-    "btnDenormalizeTitle": "Rozšířit transpozici na pohyby",
+    "btnDenormalizeTitle": "Rozšířit transpozici na tahy",
     "btnSplitText": "Rozdělit",
     "btnSplitTitle": "Rozdělit na vícenásobnou cestu PGNs",
     "btnCountText": "Počet",
@@ -3084,7 +3087,7 @@
     "btnRedoTitle": "Opakovat změny textu",
     "btnClearText": "Vyčistit",
     "btnClearTitle": "Vymazat text a historii!",
-    "gameCount": "%s PGN, %2 pohyby",
+    "gameCount": "%s PGN, %2 tahy",
     "gameCount:one": "jeden PGN, %2 tahy",
     "mergingGames": "Sloučení %s PGNs",
     "mergingGames:one": "Slučování jednoho PGN",
@@ -3099,7 +3102,7 @@
     "evaluatingGames": "Hodnocení %s PGNs",
     "evaluatingGames:one": "Hodnocení jednoho PGN",
     "evaluatingMoves": "Hodnocení %s tahů",
-    "evaluatingMoves:one": "Hodnocení posunu",
+    "evaluatingMoves:one": "Hodnocení tahu",
     "preparingGames": "Příprava %s PGNs",
     "preparingGames:one": "Příprava jednoho PGN",
     "cannotMerge": "Nelze sloučit!\r\n(žádné společné pozice tabulky)",
@@ -3124,7 +3127,7 @@
     "profileSlider.fixSize": "Opravit malé intervaly",
     "sliderLabelTitle": "LiChess Tools - možnosti posuvníku profilu",
     "button1wTitle": "LiChess Tools - jeden týden",
-    "options.fixCoords": "Opravit pozici souřadnice desky",
+    "options.fixCoords": "Opravit pozici souřadnice šachovnice",
     "fixCoords.fix": "Opravit vnější souřadnice",
     "fixCoords.larger": "Větší písmo souřadnic",
     "fixCoords.square": "Na každém čtverci",
@@ -3133,9 +3136,9 @@
     "downloadAllTitle": "LiChess Tools - všechny studie pro tohoto hráče",
     "options.profilePuzzleTab": "Vylepšená nástěnka úloh",
     "options.mayTenth": "LiChess Tools den!",
-    "mayTenthTitle": "Šťastný den nástrojů LiChese!",
-    "options.moveAssistant": "Přesunout asistent",
-    "assistantButtonTitle": "LiChess Tools - hodnocení posunu vybraných kusů",
+    "mayTenthTitle": "Šťastný den LiChess Tools!",
+    "options.moveAssistant": "Přesunout asistenta",
+    "assistantButtonTitle": "LiChess Tools - hodnocení tahu vybraných kusů",
     "options.playerWarning": "Upozornění hráče",
     "percentageTitle": "LiChess Tools - %s% rychlost odpojení",
     "options.boardImage": "Lepší exportovaný obrázek fóra",
@@ -3166,7 +3169,7 @@
     "mainPageElements.about": "O aplikaci",
     "options.resizeExplorer": "Změna velikosti Průzkumníka",
     "options.soundOptions": "Možnosti zvuku",
-    "soundOptions.noMove": "Žádné zvuky přesunu",
+    "soundOptions.noMove": "Žádné zvuky při tazích",
     "options.playLayout": "Rozložení přehrávání",
     "playLayout.normal": "Normální",
     "playLayout.noSide": "Skrýt levou stranu",
@@ -3191,7 +3194,7 @@
     "forkBehavior.normal": "Normální",
     "forkBehavior.hybrid": "Hybridy",
     "forkBehavior.chessbase": "Vynutit výběr",
-    "movesGroupLabel": "Pohyby",
+    "movesGroupLabel": "Tahy",
     "transposGroupLabel": "Přechodná ustanovení",
     "options.blogAutosave": "Možnosti úpravy blogu",
     "blogAutosave.autosave": "Automatické ukládání",
@@ -3217,7 +3220,7 @@
     "options.fullScreen": "Tlačítko snadného přístupu na celou obrazovku",
     "fullScreenTitle": "LiChess Tools - celá obrazovka",
     "options.oneClickMove": "Přesunout jedním kliknutím",
-    "oneClickMove.analysis": "Analýza / studie",
+    "oneClickMove.analysis": "Analýza/Studie",
     "oneClickMove.play": "Přehrát/Úlohy",
     "oneClickMove.onlyOrientation": "Pouze orientační strana",
     "oneClickMove.moveFromPgn": "Přesunout z PGN",
@@ -3237,8 +3240,8 @@
     "trapValueCommand.helpText": "/past hodnota\r\nZobrazí hodnotu past pro pozici",
     "noExplorerMoves": "Nejsou k dispozici žádná data průzkumníka",
     "trapValueCommand.valueText": "Hodnota pasti: %s",
-    "options.copyPgnCommand": "Příkaz: Kopírovat pohyby do schránky",
-    "options.readGameCommand": "Příkaz: přečtěte si hru odsud",
+    "options.copyPgnCommand": "Příkaz: Kopírovat tahy do schránky",
+    "options.readGameCommand": "Příkaz: přečtěte si herní tahy\n, odsud",
     "readGameCommand.helpText": "/readgame [speed] [voice] [instrument]\r\n výchozí rychlost = 100, hlasu=0, instrument=0\r\n Esc pro zastavení\r\nPřečtěte si hru zde",
     "options.skipMoveCommand": "Příkaz: pro přepnutí hrané strany",
     "skipMoveCommand.helpText": "/přeskočit\r\nPřesuňte pro oba hráče \"přeskočit\"",
@@ -3533,7 +3536,8 @@
     "feedback.pieceDrop": "Pohyb díry",
     "feedback.opponentMove": "Soupeřův tah",
     "feedback.gameStart": "Začátek hry",
-    "feedback.gameEnd": "Konec hry"
+    "feedback.gameEnd": "Konec hry",
+    "ImageCopiedToClipboard": "Obrázek zkopírován do schránky"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4417,7 +4421,8 @@
     "feedback.pieceDrop": "Stukjes verplaatsen",
     "feedback.opponentMove": "Tegenstander zet",
     "feedback.gameStart": "Begin van het spel",
-    "feedback.gameEnd": "Einde van het spel"
+    "feedback.gameEnd": "Einde van het spel",
+    "ImageCopiedToClipboard": "Afbeelding gekopieerd naar klembord"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -5301,7 +5306,8 @@
     "feedback.pieceDrop": "Piece move",
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
-    "feedback.gameEnd": "End of game"
+    "feedback.gameEnd": "End of game",
+    "ImageCopiedToClipboard": "Image copied to clipboard"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6185,7 +6191,8 @@
     "feedback.pieceDrop": "Déplacement de pièce",
     "feedback.opponentMove": "Coup de l'adversaire",
     "feedback.gameStart": "Début de la partie",
-    "feedback.gameEnd": "Fin de la partie"
+    "feedback.gameEnd": "Fin de la partie",
+    "ImageCopiedToClipboard": "Image copiée dans le presse-papiers"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7069,7 +7076,8 @@
     "feedback.pieceDrop": "Stückbewegung",
     "feedback.opponentMove": "Gegnerzug",
     "feedback.gameStart": "Beginn des Spiels",
-    "feedback.gameEnd": "Ende des Spiels"
+    "feedback.gameEnd": "Ende des Spiels",
+    "ImageCopiedToClipboard": "Bild in Zwischenablage kopiert"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -7953,7 +7961,8 @@
     "feedback.pieceDrop": "Piece move",
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
-    "feedback.gameEnd": "End of game"
+    "feedback.gameEnd": "End of game",
+    "ImageCopiedToClipboard": "Image copied to clipboard"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -8837,7 +8846,8 @@
     "feedback.pieceDrop": "Spostamento dei pezzi",
     "feedback.opponentMove": "Spostamento avversario",
     "feedback.gameStart": "Inizio della partita",
-    "feedback.gameEnd": "Fine della partita"
+    "feedback.gameEnd": "Fine della partita",
+    "ImageCopiedToClipboard": "Immagine copiata negli appunti"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -9721,7 +9731,8 @@
     "feedback.pieceDrop": "Piece move",
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
-    "feedback.gameEnd": "End of game"
+    "feedback.gameEnd": "End of game",
+    "ImageCopiedToClipboard": "Image copied to clipboard"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10605,7 +10616,8 @@
     "feedback.pieceDrop": "Ruch częściowy",
     "feedback.opponentMove": "Ruch przeciwnika",
     "feedback.gameStart": "Początek gry",
-    "feedback.gameEnd": "Koniec gry"
+    "feedback.gameEnd": "Koniec gry",
+    "ImageCopiedToClipboard": "Obraz skopiowany do schowka"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11489,7 +11501,8 @@
     "feedback.pieceDrop": "Movimento das peças",
     "feedback.opponentMove": "Lance do oponente",
     "feedback.gameStart": "Início do jogo",
-    "feedback.gameEnd": "Fim do jogo"
+    "feedback.gameEnd": "Fim do jogo",
+    "ImageCopiedToClipboard": "Imagem copiada para área de transferência"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12373,7 +12386,8 @@
     "feedback.pieceDrop": "Movimento das peças",
     "feedback.opponentMove": "Lance do oponente",
     "feedback.gameStart": "Início do jogo",
-    "feedback.gameEnd": "Fim do jogo"
+    "feedback.gameEnd": "Fim do jogo",
+    "ImageCopiedToClipboard": "Imagem copiada para área de transferência"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13257,7 +13271,8 @@
     "feedback.pieceDrop": "Mutare piesă",
     "feedback.opponentMove": "Mutare adversar",
     "feedback.gameStart": "Început de joc",
-    "feedback.gameEnd": "Final de joc"
+    "feedback.gameEnd": "Final de joc",
+    "ImageCopiedToClipboard": "Imagine copiată în clipboard"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14141,7 +14156,8 @@
     "feedback.pieceDrop": "Перемещение части",
     "feedback.opponentMove": "Переход противника",
     "feedback.gameStart": "Начало игры",
-    "feedback.gameEnd": "Конец игры"
+    "feedback.gameEnd": "Конец игры",
+    "ImageCopiedToClipboard": "Изображение скопировано в буфер обмена"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15025,7 +15041,8 @@
     "feedback.pieceDrop": "Movimiento de pieza",
     "feedback.opponentMove": "Movimiento opuesto",
     "feedback.gameStart": "Inicio del juego",
-    "feedback.gameEnd": "Fin del juego"
+    "feedback.gameEnd": "Fin del juego",
+    "ImageCopiedToClipboard": "Imagen copiada al portapapeles"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -15909,7 +15926,8 @@
     "feedback.pieceDrop": "Piece move",
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
-    "feedback.gameEnd": "End of game"
+    "feedback.gameEnd": "End of game",
+    "ImageCopiedToClipboard": "Image copied to clipboard"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -16793,7 +16811,8 @@
     "feedback.pieceDrop": "Piece move",
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
-    "feedback.gameEnd": "End of game"
+    "feedback.gameEnd": "End of game",
+    "ImageCopiedToClipboard": "Image copied to clipboard"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -17677,6 +17696,7 @@
     "feedback.pieceDrop": "Piece move",
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
-    "feedback.gameEnd": "End of game"
+    "feedback.gameEnd": "End of game",
+    "ImageCopiedToClipboard": "Image copied to clipboard"
   }
 }
