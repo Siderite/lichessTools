@@ -273,8 +273,10 @@
         $('div.analyse__fork').each((i, e) => {
           if (e.lichessTools_forkBehavior_init) return;
           e.lichessTools_forkBehavior_init = true;
-          e.addEventListener('click', () => this.inForkClick = true, { capture: true });
-          e.addEventListener('click', () => this.inForkClick = false, { capture: false });
+          e.addEventListener('pointerdown', () => this.inForkClick = true, { capture: true });
+          for (const eventName of ['click','pointerup','pointercancel','mouseout']) {
+            e.addEventListener(eventName, () => this.inForkClick = false, { capture: false });
+          }
         });
         if (!lt.isWrappedFunction(analysis.fork.proceed, 'forkBehavior')) {
           analysis.fork.proceed = lt.wrapFunction(analysis.fork.proceed, {
