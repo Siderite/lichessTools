@@ -882,7 +882,8 @@
     "feedback.opponentMove": "نقلة الخصم",
     "feedback.gameStart": "بدء اللعبة",
     "feedback.gameEnd": "نهاية اللعبة",
-    "ImageCopiedToClipboard": "تم نسخ الصورة إلى الحافظة"
+    "ImageCopiedToClipboard": "تم نسخ الصورة إلى الحافظة",
+    "friendFilterTitle": "مرشح الاسم"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1767,7 +1768,8 @@
     "feedback.opponentMove": "反对者的移动",
     "feedback.gameStart": "游戏开始",
     "feedback.gameEnd": "游戏结束",
-    "ImageCopiedToClipboard": "图像已复制到剪贴板"
+    "ImageCopiedToClipboard": "图像已复制到剪贴板",
+    "friendFilterTitle": "名称过滤器"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2652,7 +2654,8 @@
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
-    "ImageCopiedToClipboard": "Image copied to clipboard"
+    "ImageCopiedToClipboard": "Image copied to clipboard",
+    "friendFilterTitle": "Name filter"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3537,7 +3540,8 @@
     "feedback.opponentMove": "Soupeřův tah",
     "feedback.gameStart": "Začátek hry",
     "feedback.gameEnd": "Konec hry",
-    "ImageCopiedToClipboard": "Obrázek zkopírován do schránky"
+    "ImageCopiedToClipboard": "Obrázek zkopírován do schránky",
+    "friendFilterTitle": "Filtr jmen"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4422,7 +4426,8 @@
     "feedback.opponentMove": "Tegenstander zet",
     "feedback.gameStart": "Begin van het spel",
     "feedback.gameEnd": "Einde van het spel",
-    "ImageCopiedToClipboard": "Afbeelding gekopieerd naar klembord"
+    "ImageCopiedToClipboard": "Afbeelding gekopieerd naar klembord",
+    "friendFilterTitle": "Naam filter"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -5307,7 +5312,8 @@
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
-    "ImageCopiedToClipboard": "Image copied to clipboard"
+    "ImageCopiedToClipboard": "Image copied to clipboard",
+    "friendFilterTitle": "Name filter"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6192,7 +6198,8 @@
     "feedback.opponentMove": "Coup de l'adversaire",
     "feedback.gameStart": "Début de la partie",
     "feedback.gameEnd": "Fin de la partie",
-    "ImageCopiedToClipboard": "Image copiée dans le presse-papiers"
+    "ImageCopiedToClipboard": "Image copiée dans le presse-papiers",
+    "friendFilterTitle": "Filtre de nom"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7077,7 +7084,8 @@
     "feedback.opponentMove": "Gegnerzug",
     "feedback.gameStart": "Beginn des Spiels",
     "feedback.gameEnd": "Ende des Spiels",
-    "ImageCopiedToClipboard": "Bild in Zwischenablage kopiert"
+    "ImageCopiedToClipboard": "Bild in Zwischenablage kopiert",
+    "friendFilterTitle": "Namensfilter"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -7962,7 +7970,8 @@
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
-    "ImageCopiedToClipboard": "Image copied to clipboard"
+    "ImageCopiedToClipboard": "Image copied to clipboard",
+    "friendFilterTitle": "Name filter"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -8847,7 +8856,8 @@
     "feedback.opponentMove": "Spostamento avversario",
     "feedback.gameStart": "Inizio della partita",
     "feedback.gameEnd": "Fine della partita",
-    "ImageCopiedToClipboard": "Immagine copiata negli appunti"
+    "ImageCopiedToClipboard": "Immagine copiata negli appunti",
+    "friendFilterTitle": "Filtro nomi"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -9732,7 +9742,8 @@
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
-    "ImageCopiedToClipboard": "Image copied to clipboard"
+    "ImageCopiedToClipboard": "Image copied to clipboard",
+    "friendFilterTitle": "Name filter"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10617,7 +10628,8 @@
     "feedback.opponentMove": "Ruch przeciwnika",
     "feedback.gameStart": "Początek gry",
     "feedback.gameEnd": "Koniec gry",
-    "ImageCopiedToClipboard": "Obraz skopiowany do schowka"
+    "ImageCopiedToClipboard": "Obraz skopiowany do schowka",
+    "friendFilterTitle": "Filtr nazw"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11502,7 +11514,8 @@
     "feedback.opponentMove": "Lance do oponente",
     "feedback.gameStart": "Início do jogo",
     "feedback.gameEnd": "Fim do jogo",
-    "ImageCopiedToClipboard": "Imagem copiada para área de transferência"
+    "ImageCopiedToClipboard": "Imagem copiada para área de transferência",
+    "friendFilterTitle": "Filtro de nome"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12387,7 +12400,8 @@
     "feedback.opponentMove": "Lance do oponente",
     "feedback.gameStart": "Início do jogo",
     "feedback.gameEnd": "Fim do jogo",
-    "ImageCopiedToClipboard": "Imagem copiada para área de transferência"
+    "ImageCopiedToClipboard": "Imagem copiada para área de transferência",
+    "friendFilterTitle": "Filtro de nome"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13272,7 +13286,8 @@
     "feedback.opponentMove": "Mutare adversar",
     "feedback.gameStart": "Început de joc",
     "feedback.gameEnd": "Final de joc",
-    "ImageCopiedToClipboard": "Imagine copiată în clipboard"
+    "ImageCopiedToClipboard": "Imagine copiată în clipboard",
+    "friendFilterTitle": "Filtru nume"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14157,7 +14172,8 @@
     "feedback.opponentMove": "Переход противника",
     "feedback.gameStart": "Начало игры",
     "feedback.gameEnd": "Конец игры",
-    "ImageCopiedToClipboard": "Изображение скопировано в буфер обмена"
+    "ImageCopiedToClipboard": "Изображение скопировано в буфер обмена",
+    "friendFilterTitle": "Фильтр по имени"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15042,7 +15058,8 @@
     "feedback.opponentMove": "Movimiento opuesto",
     "feedback.gameStart": "Inicio del juego",
     "feedback.gameEnd": "Fin del juego",
-    "ImageCopiedToClipboard": "Imagen copiada al portapapeles"
+    "ImageCopiedToClipboard": "Imagen copiada al portapapeles",
+    "friendFilterTitle": "Filtro de nombre"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -15927,7 +15944,8 @@
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
-    "ImageCopiedToClipboard": "Image copied to clipboard"
+    "ImageCopiedToClipboard": "Image copied to clipboard",
+    "friendFilterTitle": "Name filter"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -16812,7 +16830,8 @@
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
-    "ImageCopiedToClipboard": "Image copied to clipboard"
+    "ImageCopiedToClipboard": "Image copied to clipboard",
+    "friendFilterTitle": "Name filter"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -17697,6 +17716,7 @@
     "feedback.opponentMove": "Opponent move",
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
-    "ImageCopiedToClipboard": "Image copied to clipboard"
+    "ImageCopiedToClipboard": "Image copied to clipboard",
+    "friendFilterTitle": "Name filter"
   }
 }

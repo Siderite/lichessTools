@@ -55,7 +55,8 @@
         'followersNumberTitle': '%s followers',
         'friendsNumberTitle': '%s friends',
         'friendsNumberTitle:one': 'One friend',
-        'friendsNumberTitle:zero': 'Friends'
+        'friendsNumberTitle:zero': 'Friends',
+        'friendFilterTitle': 'Name filter'
       },
       'ro-RO': {
         'onlineFriends': '%s prieteni online',
@@ -89,7 +90,8 @@
         'followersNumberTitle': '%s urm\u0103ritori',
         'friendsNumberTitle': '%s prieteni',
         'friendsNumberTitle:one': 'Un prieten',
-        'friendsNumberTitle:zero': 'Prieteni'
+        'friendsNumberTitle:zero': 'Prieteni',
+        'friendFilterTitle': 'Filtru nume'
       }
     }
 
@@ -330,6 +332,22 @@
       return lt.global.location.hash == '#followers';
     };
 
+    filterFriendsDirect = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const val = $('.lichessTools-friendFilter').val()?.trim()?.toLowerCase();
+      if (!val) {
+        $('.lichessTools-hideFiltered').removeClass('lichessTools-hideFiltered');
+      } else {
+        $('table.slist tr > td:first-child').each((i,e)=>{
+          $(e).closest('tr')
+              .toggleClassSafe('lichessTools-hideFiltered',!$(e).text().toLowerCase().includes(val));
+        });
+      }
+      this.scrollIfNeeded();
+    };
+    filterFriends = lichessTools.debounce(this.filterFriendsDirect,200);
+
     rows = {};
     friends = {};
     updateFriendsPageDirect = async () => {
@@ -369,6 +387,10 @@
       if (!$('.lichessTools-liveButtons',header).length) {
         const liveButtons = $('<div>')
           .addClass('lichessTools-liveButtons')
+          .append($('<input type="text" class="lichessTools-friendFilter">')
+                    .attr('placeholder',trans.noarg('friendFilterTitle'))
+                    .on('input',this.filterFriends)
+                 )
           .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.Antichess)}" data-role="hideInactive">`)
             .attr('title', trans.noarg('hideInactiveTitle'))
             .on('click', () => {
@@ -488,6 +510,7 @@
           .toggleClass('online', isOnline)
           .toggleClass('offline', !isOnline);
       }
+      this.filterFriends();
     };
     updateFriendsPage=this.lichessTools.debounce(this.updateFriendsPageDirect,100);
 
@@ -725,6 +748,7 @@
       if (lt.inViewport(pager)) {
         pager.find('a').trigger('click');
       }
+      this.filterFriends();
     }
 
     menuParent = '#topnav';

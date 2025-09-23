@@ -154,12 +154,19 @@ body.lichessTools div.lichessTools-livePageHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 5px;
 }
 
 body.lichessTools div.lichessTools-liveButtons {
   padding-right: var(---box-padding);
   height: 3em;
   margin-left: auto;
+}
+
+body.lichessTools .lichessTools-friendFilter {
+  padding: 0.5em;
+  width:20em;
+  max-width:50vw;
 }
 
 body.lichessTools a.lichessTools-followers {
@@ -434,6 +441,10 @@ body.lichessTools table.slist .relation-actions {
 
 body.lichessTools table.slist .relation-actions a[data-icon]:before {
   font-size: 1.25rem;
+}
+
+body.lichessTools table.slist .lichessTools-hideFiltered {
+  display:none;
 }
 
 /* Unrated CSS */
