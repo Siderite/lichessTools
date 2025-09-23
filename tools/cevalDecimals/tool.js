@@ -43,28 +43,22 @@
         const analysis = lichess?.analysis;
         if (!analysis?.showFishnetAnalysis()) return;
         const trans = lt.translator;
-        let ceval = analysis.node.ceval;
+        const ceval = analysis.node.ceval || analysis.node.eval;
         if (ceval) {
           const pearl = $('div.ceval pearl');
           // lichess keeps a reference to the actual node
           const text = this.renderEval(ceval.cp, ceval.mate);
           pearl.replaceText(text);
-          $('div.ceval.enabled ~ div.pv_box')
-            .find('div.pv[data-uci]')
-            .each((i, e) => {
-              const uci = $(e).attr('data-uci');
-              const pv = ceval.pvs.find(p => p.moves?.at(0) === uci);
-              if (pv) {
-                $('strong', e).replaceText(this.renderEval(pv.cp, pv.mate));
-              }
-            });
-        } else {
-          ceval = analysis.node.eval;
-          if (ceval) {
-            const pearl = $('div.ceval pearl');
-            // lichess keeps a reference to the actual node
-            const text = this.renderEval(ceval.cp, ceval.mate);
-            pearl.replaceText(text);
+          if (ceval.pvs) {
+            $('div.ceval.enabled ~ div.pv_box')
+              .find('div.pv[data-uci]')
+              .each((i, e) => {
+                const uci = $(e).attr('data-uci');
+                const pv = ceval.pvs.find(p => p.moves?.at(0) === uci);
+                if (pv) {
+                  $('strong', e).replaceText(this.renderEval(pv.cp, pv.mate));
+                }
+              });
           }
         }
       } finally {
