@@ -729,7 +729,7 @@
         timeout = undefined;
         this.global.requestAnimationFrame(()=>$('#announce').remove());
       };
-      kill();
+      $('#announce').remove();
       if (!d?.msg) return;
       $('<div id="announce" class="announce">')
         .append($('<span>').text(d.msg))
