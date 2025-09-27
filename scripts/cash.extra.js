@@ -175,10 +175,10 @@ cash.fn.observer = function () {
   return observer;
 }
 
-cash.fn.replaceText = function(replacement) {
+cash.fn.replaceText = function(replacement, onlyIfExisting) {
   this.each((i,elem)=>{
     const textNodes = Array.from(elem.childNodes).filter(n => n.nodeType == 3);
-    if (!textNodes.length) {
+    if (!textNodes.length && !onlyIfExisting) {
       const newText = typeof replacement === 'function'
         ? replacement('')
         : replacement;
