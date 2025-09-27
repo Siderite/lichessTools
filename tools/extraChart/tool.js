@@ -1028,9 +1028,11 @@
             .insertAfter(adviceSummary);
           }
         }
-        elem.toggleClassSafe('symbol', !!count);
-        const newText = (count || 0).toString();
-        $('strong', elem).replaceText(newText);
+        if (elem.length) {
+          elem.toggleClassSafe('symbol', !!count);
+          const newText = (count || 0).toString();
+          elem.find('strong').replaceText(newText);
+        }
       };
       let container = $('div.advice-summary__side').get(0);
       const count = arr.filter(n => {

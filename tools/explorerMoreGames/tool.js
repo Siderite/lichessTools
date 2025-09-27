@@ -58,7 +58,7 @@
       const explorer = analysis?.explorer;
       if (!explorer?.enabled()) return;
       const current = explorer.current();
-      if (!current) return;
+      if (!current?.recentGames) return;
       const extraGameIds = new Set(current.recentGames
                              .filter(g=>g.source=='lichessTools')
                              .map(g=>g.id));
