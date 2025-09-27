@@ -1,5 +1,14 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Sep
+
+- more Explorer games tool
+
+23 Sep
+
+- name filter on friends page
+- Ctrl-C to copy the board image when in Screenshot dialog
+
 14 Sep
 
 - removed Mobile start/end hiding theme

@@ -136,7 +136,7 @@
         }
       }
       const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
-      const listUcis = analysis.node.children.map(c=>c.uci);
+      const listUcis = analysis.visibleChildren(analysis.node).map(c=>c.uci);
       $('tr[data-uci],tr.sum', container).each((i, e) => {
         if (!$('td.lichessTools-explorerEval', e).length) {
           $('<td>')
@@ -278,7 +278,7 @@
         let result = 0;
         if (!games?.length) return result;
         for (const game of games) {
-          const key = game.black.rating > game.white.rating ? 'black' : 'white';
+          const key = game.black?.rating > game.white?.rating ? 'black' : 'white';
           if (!game.winner) {
             result += 0.5;
           } else {

@@ -33,7 +33,7 @@
       return (e > 0 ? '+' : '') + e.toFixed(this.decimals);
     };
 
-    showDecimals = () => {
+    showDecimalsDirect = () => {
       try {
         if (this._inShowDecimals) return;
         this._inShowDecimals=true;
@@ -43,26 +43,29 @@
         const analysis = lichess?.analysis;
         if (!analysis?.showFishnetAnalysis()) return;
         const trans = lt.translator;
-        const ceval = analysis.node.ceval;
+        const ceval = analysis.node.ceval || analysis.node.eval;
         if (ceval) {
           const pearl = $('div.ceval pearl');
           // lichess keeps a reference to the actual node
           const text = this.renderEval(ceval.cp, ceval.mate);
-          pearl.replaceText(text);
-          $('div.ceval.enabled ~ div.pv_box')
-            .find('div.pv[data-uci]')
-            .each((i, e) => {
-              const uci = $(e).attr('data-uci');
-              const pv = ceval.pvs.find(p => p.moves?.at(0) === uci);
-              if (pv) {
-                $('strong', e).replaceText(this.renderEval(pv.cp, pv.mate));
-              }
-            });
+          pearl.replaceText(text, true);
+          if (ceval.pvs) {
+            $('div.ceval.enabled ~ div.pv_box')
+              .find('div.pv[data-uci]')
+              .each((i, e) => {
+                const uci = $(e).attr('data-uci');
+                const pv = ceval.pvs.find(p => p.moves?.at(0) === uci);
+                if (pv) {
+                  $('strong', e).replaceText(this.renderEval(pv.cp, pv.mate));
+                }
+              });
+          }
         }
       } finally {
         this._inShowDecimals=false;
       }
     };
+    showDecimals = lichessTools.debounce(this.showDecimalsDirect,100);
 
     showDecimalsMovesDirect = () => {
       try {

@@ -419,7 +419,7 @@
       const allPaths = [];
       const traverse = (node, path, nodeList) => {
         if (!refreshChapterPaths && this.options.flow.sequential && currentPaths.length) return;
-        const nextMoves = node.children
+        const nextMoves = analysis.visibleChildren(node)
           .filter(c => this.isPermanentNode(c));
         if (!nextMoves.length && !this.areBadGlyphNodes(nodeList)) {
           allPaths.push(path);
@@ -524,7 +524,7 @@
       paths[path] = item;
 
       const traverse = (node, nodeList) => {
-        const nextMoves = node.children
+        const nextMoves = analysis.visibleChildren(node)
           .filter(c => this.isPermanentNode(c));
         if (!nextMoves.length) {
           if (this.areBadGlyphNodes(nodeList)) {

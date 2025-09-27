@@ -188,7 +188,7 @@
       Switch: '\ue07b',
       Blindfold: '\ue07c',
       NextLine: '\ue07d',
-      Stockfish: '\ue07e',
+      Cpu: '\ue07e',
 
       // LiChess Tools icons
       ShowTranspositions: 'T',
@@ -712,11 +712,12 @@
       return m && m[1];
     }
 
-    announce = this.debounce((text, duration, date) => {
+    announce = this.debounce((text, duration, date, parentSelector) => {
       this.announceDirect({
         msg: text,
         duration: duration,
-        date: date
+        date: date,
+        parentSelector: parentSelector
       });
     }, 1000);
 
@@ -724,17 +725,17 @@
       const $ = this.$;
       let timeout;
       const kill = () => {
-        if (timeout) clearTimeout(timeout);
+        if (timeout) this.global.clearTimeout(timeout);
         timeout = undefined;
-        $('#announce').remove();
+        this.global.requestAnimationFrame(()=>$('#announce').remove());
       };
-      kill();
+      $('#announce').remove();
       if (!d?.msg) return;
       $('<div id="announce" class="announce">')
         .append($('<span>').text(d.msg))
         .append(d.date ? $('<time class="timeago">').attr('datetime', d.date) : '')
         .append($('<div class="actions">').append($('<a class="close">').text('x').on('click', kill)))
-        .appendTo('body');
+        .appendTo($(d.parentSelector || 'body'));
       const duration = +d.duration || (d.date ? new Date(d.date).getTime() - Date.now() : 5000);
       timeout = this.global.setTimeout(kill, duration);
       if (d.date) {
@@ -1959,6 +1960,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_' });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserPgns', { persist: 'session', interval: 10 * 1000 });
       },
       blog: {
         lichessTools: this,

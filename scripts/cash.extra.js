@@ -98,11 +98,13 @@ class Observer {
     }
     let observer = observers.find(o=>o.__selector===selector && o.__func===func && JSON.stringify(o.__options)==JSON.stringify(options));
     if (!observer) {
-      const matchFunc = options.useCash
-        ? el=>cash(el).is(selector)
-        : el=>(el.nodeType == 1
-                 ? el.matches(selector)
-                 : cash(el).is(selector));
+      const matchFunc = el => {
+        if (!options.useCash) {
+          if (el.nodeType == 1) return el.matches(selector);
+          if (el.nodeType == 3) return el.parentElement?.matches(selector);
+        }
+        return cash(el).is(selector);
+      };
       observer = new MutationObserver((mutations)=>{
         const matches = mutations.filter(m=>{
           if (matchFunc(m.target)) return true;
@@ -173,14 +175,16 @@ cash.fn.observer = function () {
   return observer;
 }
 
-cash.fn.replaceText = function(replacement) {
+cash.fn.replaceText = function(replacement, onlyIfExisting) {
   this.each((i,elem)=>{
     const textNodes = Array.from(elem.childNodes).filter(n => n.nodeType == 3);
-    if (!textNodes.length) {
+    if (!textNodes.length && !onlyIfExisting) {
       const newText = typeof replacement === 'function'
         ? replacement('')
         : replacement;
-      elem.textContent = newText;
+      if (elem.textContent != newText) {
+        elem.textContent = newText;
+      }
       return;
     }
     for (const textNode of textNodes) {

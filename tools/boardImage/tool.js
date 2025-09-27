@@ -33,6 +33,7 @@
       return new Promise((resolve, reject) => {
         setTimeout(()=>resolve(null),5000);
         const img = new Image();
+        img.crossOrigin = "anonymous";
         img.onload = () => resolve(img);
         img.src = url;
       });

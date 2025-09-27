@@ -138,7 +138,7 @@
         }
       }
       if (!this.isRunning) return;
-      if (this.isPlayMove) return;
+      if (this.inPlayMove) return;
       lt.announce(trans.noarg('outOfMoves'));
       this.evaluatePosition();
     };

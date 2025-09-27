@@ -39,13 +39,14 @@
 
     populatePercent = (nodes, isInteractive, depth) => {
       const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       const Math = lt.global.Math;
       const getGamebookDescendants = (node, depth, currentDepth, isInteractive) => {
         if (!depth) depth = 0;
         if (!currentDepth) currentDepth = 1;
         const arr = [];
         if (currentDepth <= depth && node?.children) {
-          for (const child of node.children) {
+          for (const child of analysis.visibleChildren(node)) {
             if (isInteractive && !child.gamebook) continue;
             arr.push(child);
             arr.push.apply(arr, getGamebookDescendants(child, depth, currentDepth + 1, isInteractive));
@@ -85,7 +86,7 @@
         let weightTotal = 0;
         for (const node of defaultPrc) {
           const descendants = getGamebookDescendants(node, depth, 1, isInteractive);
-          const weight = 1 + descendants.filter(n => n.children?.length > 1).length;
+          const weight = 1 + descendants.filter(n => analysis.visibleChildren(n).length > 1).length;
           list.push({ node: node, weight: weight });
           weightTotal += weight;
         }
@@ -102,7 +103,8 @@
 
     getNextMoves = (node, noTranspositions, noMoves) => {
       const lt = this.lichessTools;
-      const arr = noMoves ? [] : [...node.children];
+      const analysis = lt.lichess.analysis;
+      const arr = noMoves ? [] : [...analysis.visibleChildren(node)];
       arr.transpositionStartIndex = arr.length;
       if (noTranspositions || !lt.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
       let transpositions = node.transposition.filter(n => n !== node);
@@ -110,8 +112,9 @@
         transpositions = transpositions?.filter(n => n.path && !n.path.startsWith(node.path) && !node.path.startsWith(n.path));
       }
       for (const child of transpositions) {
-        if (!child.children?.length) continue;
-        for (const grandchild of child.children) {
+        const grandchildren = analysis.visibleChildren(child);
+        if (!grandchildren?.length) continue;
+        for (const grandchild of grandchildren) {
           arr.push(grandchild);
         }
       }

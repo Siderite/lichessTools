@@ -115,12 +115,13 @@ Varia\u0163ii urm\u0103toare: $branches`
       let movesTotal = 0;
       let branches = 0;
       const f = (n)=>{
-        if (!n.children?.length) return;
-        for (let i = 0; i<n.children.length; i++) {
+        const children = analysis.visibleChildren(n);
+        if (!children?.length) return;
+        for (let i = 0; i<children.length; i++) {
           if (i===0) movesMain++;
           movesTotal++;
-          branches+=n.children.length-1;
-          f(n.children[i]);
+          branches+=children.length-1;
+          f(children[i]);
         }
       };
       f(node);

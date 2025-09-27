@@ -17,12 +17,14 @@
         'options.general': 'General',
         'options.keyShortcuts': 'Extra key shortcuts',
         'FENCopiedToClipboard': 'FEN copied to clipboard',
+        'ImageCopiedToClipboard': 'Image copied to clipboard',
         'clipboardDenied': 'Clipboard access denied'
       },
       'ro-RO': {
         'options.general': 'General',
         'options.keyShortcuts': 'Combina\u0163ii de taste \u00een plus',
         'FENCopiedToClipboard': 'FEN copiat \u00een clipboard',
+        'ImageCopiedToClipboard': 'Imagine copiat\u0103 \u00een clipboard',
         'clipboardDenied': 'Acces refuzat la clipboard'
       }
     }
@@ -289,12 +291,27 @@
       $('.no-square', container).eq(index - 1)?.trigger('mouseup');
     }
 
-    copyFen = (event) => {
+    copyFenOrImage = async (event) => {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const trans = lt.translator;
       const selection = lt.global.getSelection && lt.global.getSelection();
       const selectedText = selection.toString();
       if (selectedText) return;
+
+      const canvas = $('dialog.lichessTools-boardImage canvas')[0];
+      if (canvas) {
+        const blob = await new Promise((resolve) => {
+          canvas.toBlob(resolve, 'image/png');
+        });
+
+        await lt.global.navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': blob })
+        ]);
+
+        lt.announce(trans.noarg('ImageCopiedToClipboard'),undefined,undefined,'.lichessTools-boardImage');
+        return;
+      }
 
       const analysis = lt.lichess.analysis;
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('div.main-board'), true);
@@ -330,11 +347,11 @@
       lt.unbindKeyHandler('`', true);
       lt.unbindKeyHandler('h', true);
       const document = lt.global.document;
-      $(document).off('copy', this.copyFen);
+      $(document).off('copy', this.copyFenOrImage);
       if (this.options.enabled) {
         lt.bindKeyHandler('`', () => this.prepareMove('general'));
         lt.bindKeyHandler('h', this.toggleSiteHeader);
-        $(document).on('copy', this.copyFen);
+        $(document).on('copy', this.copyFenOrImage);
       }
     };
 

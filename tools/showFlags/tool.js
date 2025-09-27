@@ -29,7 +29,7 @@
       const $ = lt.$;
       const dict = {};
       $.cached('.user-link,a[href^="/@/"]', 2000).each((i, e) => {
-        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members/*,score*/').length) return;
+        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app').length) return;
 
         let textEl = $('.text', e);
         if (!textEl.length) textEl = $(e);
@@ -202,7 +202,7 @@
       for (const item of data) {
         if (!item.countryName) continue;
         const elems = dict[item.id];
-        for (const elem of elems.filter(e=>!!e.parentNode && !!e.offsetParent)) {
+        for (const elem of elems.filter(e=>!!e[0].parentNode && !!e[0].offsetParent)) {
           const next = elem.next();
           if (next.is('img.flag')) return;
           if (next.has('img.flag').length) return;
@@ -210,7 +210,7 @@
             elem.addClass('lichessTools-noflag');
           } else {
             elem.addClass('lichessTools-flag');
-            const flagUrl = lt.assetUrl('images/flags/' + item.country + '.png');
+            const flagUrl = lt.assetUrl('flags/' + item.country + '.png');
             elem.after($('<img>')
               .addClass('flag')
               .attr('loading', 'lazy')

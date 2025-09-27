@@ -279,7 +279,9 @@
         const divComment = $(node).closest('div.comment');
         if (comment.length) {
           node.textContent = text.slice(0, m.index) + text.slice(m.index + m[0].length);
-          const isEmpty = !Array.from(comment[0].childNodes || []).filter(n => n.nodeType == 3).find(n => !!n.nodeValue?.trim());
+          const isEmpty = !Array.from(comment[0].childNodes || [])
+                             .filter(n => (n.nodeType == 3) || (n.tagName?.toLowerCase() == 'span'))
+                             .find(n => !!n.textContent?.trim());
           comment.toggleClass('lichessTools-empty', isEmpty);
         } else if (divComment.length) {
           node.textContent = text.replace(r, trans.noarg('bookmarkLabelForInteractive') + this.fromBookmarkName(m[1]));
