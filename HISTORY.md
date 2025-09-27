@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Sep
+
+- more Explorer games tool
+
 23 Sep
 
 - name filter on friends page

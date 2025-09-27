@@ -278,7 +278,7 @@
         let result = 0;
         if (!games?.length) return result;
         for (const game of games) {
-          const key = game.black.rating > game.white.rating ? 'black' : 'white';
+          const key = game.black?.rating > game.white?.rating ? 'black' : 'white';
           if (!game.winner) {
             result += 0.5;
           } else {

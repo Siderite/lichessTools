@@ -990,6 +990,8 @@
       const fill = (container, count, color) => {
         let elem = $('div.lichessTools-goodMoves', container);
         if (!elem.length) {
+          const adviceSummary = $('div.advice-summary__player', container);
+          if (adviceSummary.length) {
           elem = $('<div></div>')
             .addClass('lichessTools-goodMoves')
             .addClass('advice-summary__error')
@@ -1023,7 +1025,8 @@
               this.safeSetActiveElements(chart,elems,dataset);
               chart.update('none');
             })
-            .insertAfter($('div.advice-summary__player', container));
+            .insertAfter(adviceSummary);
+          }
         }
         elem.toggleClassSafe('symbol', !!count);
         const newText = (count || 0).toString();

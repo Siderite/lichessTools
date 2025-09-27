@@ -18,6 +18,7 @@
     intl = {
       'en-US': {
         'options.analysis': 'Analysis',
+        'options.explorerSettings': 'Add some preferences to Explorer settings',
         'lichessTools': 'LiChess Tools',
         'moveEvaluationSettingText': 'Evaluation',
         'moveEvaluationSettingTitle': 'Move evaluation column',
@@ -27,7 +28,8 @@
         'explorerPracticeSettingTitle': 'Button to practice against Explorer moves',
         'meButtonSettingText': 'Me button',
         'meButtonSettingTitle': 'Button to switch player with your user',
-        'options.explorerSettings': 'Add some preferences to Explorer settings'
+        'moreGamesButtonText': 'More games',
+        'moreGamesButtonTitle': 'Show more games in Recent Games'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -39,7 +41,9 @@
         'explorerPracticeSettingText': 'Antrenament',
         'explorerPracticeSettingTitle': 'Buton pentru antrenament contra mut\u0103ri din Explorator',
         'meButtonSettingText': 'Button Eu',
-        'meButtonSettingTitle': 'Buton care schimb\u0103 juc\u0103torul cu tine'
+        'meButtonSettingTitle': 'Buton care schimb\u0103 juc\u0103torul cu tine',
+        'moreGamesButtonText': 'Mai multe jocuri',
+        'moreGamesButtonTitle': 'Arat\u0103 mai multe jocuri \u00een Jocuri Recente'
       }
     };
 
@@ -92,6 +96,16 @@
                 this.showSettingsDirect();
               }))
         }
+        if (lt.getToolByName('ExplorerMoreGames')) {
+          choices
+            .append($('<button class="lichessTools-moreGames">').text(trans.noarg('moreGamesButtonText')).attr('title', trans.noarg('moreGamesButtonTitle'))
+              .on('click', ev => {
+                ev.preventDefault();
+                const value = lt.currentOptions.getValue('explorerMoreGames');
+                this.setOption('explorerMoreGames', !value);
+                this.showSettingsDirect();
+              }));
+        }
         if (lt.getToolByName('OpeningExplorerUsers')) {
           choices
             .append($('<button class="lichessTools-meButton">').text(trans.noarg('meButtonSettingText')).attr('title', trans.noarg('meButtonSettingTitle'))
@@ -121,6 +135,10 @@
       $('button.lichessTools-explorerPractice', section)
         .attr('aria-pressed', value.toString())
         .prop('disabled', lt.isGamePlaying());
+
+      value = lt.currentOptions.getValue('explorerMoreGames');
+      $('button.lichessTools-moreGames', section)
+        .attr('aria-pressed', value.toString());
 
       value = lt.currentOptions.getValue('openingExplorerUsers');
       value = lt.isOptionSet(value, 'switchWithMe');

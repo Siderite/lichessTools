@@ -883,7 +883,11 @@
     "feedback.gameStart": "بدء اللعبة",
     "feedback.gameEnd": "نهاية اللعبة",
     "ImageCopiedToClipboard": "تم نسخ الصورة إلى الحافظة",
-    "friendFilterTitle": "مرشح الاسم"
+    "friendFilterTitle": "مرشح الاسم",
+    "moreGamesButtonText": "المزيد من الألعاب",
+    "moreGamesButtonTitle": "إظهار المزيد من الألعاب في الألعاب الأخيرة",
+    "options.explorerMoreGames": "إظهار المزيد من ألعاب المستكشف",
+    "explorerMoreGamesTitle": "أدوات شطرنج الحياة - المزيد من ألعاب المستكشف"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1769,7 +1773,11 @@
     "feedback.gameStart": "游戏开始",
     "feedback.gameEnd": "游戏结束",
     "ImageCopiedToClipboard": "图像已复制到剪贴板",
-    "friendFilterTitle": "名称过滤器"
+    "friendFilterTitle": "名称过滤器",
+    "moreGamesButtonText": "更多游戏",
+    "moreGamesButtonTitle": "在最近的游戏中显示更多游戏",
+    "options.explorerMoreGames": "显示更多浏览器游戏",
+    "explorerMoreGamesTitle": "Lichess工具 - 更多的资源管理器游戏"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2655,7 +2663,11 @@
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
     "ImageCopiedToClipboard": "Image copied to clipboard",
-    "friendFilterTitle": "Name filter"
+    "friendFilterTitle": "Name filter",
+    "moreGamesButtonText": "More games",
+    "moreGamesButtonTitle": "Show more games in Recent Games",
+    "options.explorerMoreGames": "Show more Explorer games",
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -2706,7 +2718,7 @@
     "options.stockfish": "Stockfish",
     "options.stockfish-threads": "Analyzovat vlákna z LiChess Tools",
     "options.stockfish-hash": "Nástroj na analýzu odlišeného hash (MB)",
-    "couldNotLoadStockfish": "Nelze načíst Stockfish!",
+    "couldNotLoadStockfish": "Nelze načíst Stockfishe!",
     "options.additionalGlyphs": "Další glyfy",
     "options.play": "Hrát",
     "options.quietModeAllTabs": "Tichý režim na všech panelech",
@@ -3147,7 +3159,7 @@
     "options.boardImage": "Lepší exportovaný obrázek fóra",
     "screenshotButtonText": "SCREENSHOT",
     "screenshotButtonTitle": "LiChess Tools - získat snímek šachovnice",
-    "options.mirrorBoard": "Zrcadlové tlačítko v šachovnici editoru",
+    "options.mirrorBoard": "Zrcadlové tlačítko v editoru šachovnice",
     "mirrorButtonText": "Zrcadlení",
     "mirrorButtonTitle": "LiChess Tools - umístění zrcadla",
     "options.cevalDecimals": "Více desetinných míst pro vyhodnocování počítačů",
@@ -3160,16 +3172,16 @@
     "flairButtonTitle": "LiChess Tools - přidejte studijní fráze",
     "studyFlairTitle": "Studijní lístek",
     "options.mainPageElements": "Lobby prvky stránky",
-    "mainPageElements.side": "Boční",
+    "mainPageElements.side": "Strana",
     "mainPageElements.app": "Přehrát mřížku",
     "mainPageElements.table": "Tlačítka přehrávání",
-    "mainPageElements.tv": "Telefon",
+    "mainPageElements.tv": "TV",
     "mainPageElements.blog": "Blog",
     "mainPageElements.puzzle": "Denní úloha",
     "mainPageElements.support": "Podpora",
-    "mainPageElements.feed": "Zdroj",
+    "mainPageElements.feed": "Fedd",
     "mainPageElements.tours": "Turnaje",
-    "mainPageElements.about": "O aplikaci",
+    "mainPageElements.about": "O rozšíření",
     "options.resizeExplorer": "Změna velikosti Průzkumníka",
     "options.soundOptions": "Možnosti zvuku",
     "soundOptions.noMove": "Žádné zvuky při tazích",
@@ -3180,7 +3192,7 @@
     "playLayout.smallSideable": "Možnost skrýt chat",
     "toggleLayoutTitle": "LiChess Tools - klikněte na ikonu pro skrytí/zobrazení chatu",
     "options.integration": "Integrace",
-    "options.obsIntegration": "Otevřený Broadcaster Software (OBS)",
+    "options.obsIntegration": "Open Broadcaster Software (OBS)",
     "OBSText": "OBS",
     "OBSTitle": "Lichess Tools - Open Broadcaster Software",
     "OBSTitleDisabled": "Zakázáno - pro povolení klepnutím pravým tlačítkem myši nebo typem O",
@@ -3193,9 +3205,9 @@
     "btnSaveText": "Uložit možnosti OBS",
     "btnSaveTitle": "LiChess Tools - uložit možnosti OBS",
     "togglePasswordTitle": "Zobrazit heslo",
-    "options.forkBehavior": "Chování pro varianty při dalším přesunu",
+    "options.forkBehavior": "Chování pro varianty při dalším tahu",
     "forkBehavior.normal": "Normální",
-    "forkBehavior.hybrid": "Hybridy",
+    "forkBehavior.hybrid": "Hybridní",
     "forkBehavior.chessbase": "Vynutit výběr",
     "movesGroupLabel": "Tahy",
     "transposGroupLabel": "Přechodná ustanovení",
@@ -3207,8 +3219,8 @@
     "options.autoAnalyseGame": "Přejít na analýzu na konci hry",
     "options.activeIcon": "Ikona aktivního názvu",
     "options.imagePasting": "Možnosti chatu/fóra",
-    "imagePasting.pasteImages": "Vložit podporu obrázků",
-    "imagePasting.bigEmoji": "Velká jedna zpráva emoji",
+    "imagePasting.pasteImages": "Podpora vložení obrázků",
+    "imagePasting.bigEmoji": "Jdna velká emoji zpráva",
     "pastingError": "Při generování URL obrázku došlo k chybě",
     "options.removeChatLinkWarning": "Odstranit upozornění na odkaz chatu",
     "options.mchatOptions": "Možnosti týmu/Study chatu",
@@ -3231,7 +3243,7 @@
     "commonTeamsTitlePrefix:one": "LiChess Tools - jeden společný tým",
     "commonTeamsTitlePrefix": "LiChess Tools - Běžné týmy %s",
     "options.studyLinks": "Možnosti odkazu studia",
-    "studyLinks.video": "Video vyskakovací okno",
+    "studyLinks.video": "Video v vyskakovacím okně",
     "studyLinks.studyLinksSameWindow": "Otevřít odkazy na studie ve stejném okně",
     "options.konami": "Podváděcí kód",
     "30lives": "30 dalších životů!",
@@ -3364,28 +3376,28 @@
     "extraPieceSets.chesscom": "chess.com",
     "pieceSetTitle": "LiChess Tools - %s",
     "followersText": "Sledující",
-    "followersTitle": "LiChess Tools - hráči vás sledují",
-    "followersNumberTitle": "%s následovníci",
-    "themes.gridBoard": "čtverce mřížkové desky",
-    "daysStatsText": "Poslední %s dny",
+    "followersTitle": "LiChess Tools - hráči kteří vás sledují",
+    "followersNumberTitle": "%s sledující",
+    "themes.gridBoard": "Čtverce mřížkové šachovnice",
+    "daysStatsText": "Posledních %s dnů",
     "puzzleRatingWeekText": "Zisk hodnocení úlohy: %s",
     "streaksWeekText": "Streak úloh: %s",
     "maxStreakWeekText": "Maximální délka série: %s",
     "options.quickActions": "Rychlé akce",
-    "quickActions.flipBoard": "Překlopit herní desku",
-    "quickActions.requestAnalysis": "Požádat o analýzu serveru",
-    "flipBoardButtonTitle": "LiChess Tools - překlopit herní desku",
-    "requestAnalysisButtonTitle": "LiChess Tools - žádost o analýzu serveru",
+    "quickActions.flipBoard": "Překlopit šachovnici",
+    "quickActions.requestAnalysis": "Požádat o serverovou analýzu",
+    "flipBoardButtonTitle": "LiChess Tools - překlopit šachovnici",
+    "requestAnalysisButtonTitle": "LiChess Tools - požádat o serverovou analýzu",
     "cevalLineOptions.moreLines": "Více řádků",
     "moreLinesTitle": "LiChess Tools - více řádků",
     "mainPageElements.side_streams": "Bo:streamy",
     "mainPageElements.side_spotlights": "Bo:spotlights",
     "mainPageElements.side_timeline": "Bo:timeline",
-    "mainPageElements.app_bullet": "Přehrát:odrážka",
+    "mainPageElements.app_bullet": "Hrát:bullet",
     "mainPageElements.app_blitz": "Hrát:blitz",
-    "mainPageElements.app_rapid": "Hrát:rychlé",
+    "mainPageElements.app_rapid": "Hrát:rapid",
     "mainPageElements.app_classical": "Hrát:klasický",
-    "activeIcon.pawn": "Pawn",
+    "activeIcon.pawn": "Pěšec",
     "activeIcon.knight": "Rytíř",
     "activeIcon.king": "Král",
     "activeIcon.circle": "Kruh",
@@ -3541,7 +3553,11 @@
     "feedback.gameStart": "Začátek hry",
     "feedback.gameEnd": "Konec hry",
     "ImageCopiedToClipboard": "Obrázek zkopírován do schránky",
-    "friendFilterTitle": "Filtr jmen"
+    "friendFilterTitle": "Filtr jmen",
+    "moreGamesButtonText": "Další hry",
+    "moreGamesButtonTitle": "Zobrazit více her v nedávných hrách",
+    "options.explorerMoreGames": "Zobrazit více Průzkumníků",
+    "explorerMoreGamesTitle": "Nástroje LiChess - více Průzkumníků"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4427,7 +4443,11 @@
     "feedback.gameStart": "Begin van het spel",
     "feedback.gameEnd": "Einde van het spel",
     "ImageCopiedToClipboard": "Afbeelding gekopieerd naar klembord",
-    "friendFilterTitle": "Naam filter"
+    "friendFilterTitle": "Naam filter",
+    "moreGamesButtonText": "Meer spellen",
+    "moreGamesButtonTitle": "Toon meer spellen in Recente Spellen",
+    "options.explorerMoreGames": "Meer Ontdekkers spellen weergeven",
+    "explorerMoreGamesTitle": "LiChess Tools - meer Ontdekkersspellen"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -5313,7 +5333,11 @@
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
     "ImageCopiedToClipboard": "Image copied to clipboard",
-    "friendFilterTitle": "Name filter"
+    "friendFilterTitle": "Name filter",
+    "moreGamesButtonText": "More games",
+    "moreGamesButtonTitle": "Show more games in Recent Games",
+    "options.explorerMoreGames": "Show more Explorer games",
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6199,7 +6223,11 @@
     "feedback.gameStart": "Début de la partie",
     "feedback.gameEnd": "Fin de la partie",
     "ImageCopiedToClipboard": "Image copiée dans le presse-papiers",
-    "friendFilterTitle": "Filtre de nom"
+    "friendFilterTitle": "Filtre de nom",
+    "moreGamesButtonText": "Plus de parties",
+    "moreGamesButtonTitle": "Afficher plus de parties dans les jeux récents",
+    "options.explorerMoreGames": "Afficher plus de jeux Explorer",
+    "explorerMoreGamesTitle": "Outils LiChess - plus de parties Explorer"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7085,7 +7113,11 @@
     "feedback.gameStart": "Beginn des Spiels",
     "feedback.gameEnd": "Ende des Spiels",
     "ImageCopiedToClipboard": "Bild in Zwischenablage kopiert",
-    "friendFilterTitle": "Namensfilter"
+    "friendFilterTitle": "Namensfilter",
+    "moreGamesButtonText": "Weitere Spiele",
+    "moreGamesButtonTitle": "Mehr Spiele in den letzten Spielen anzeigen",
+    "options.explorerMoreGames": "Mehr Explorer-Spiele anzeigen",
+    "explorerMoreGamesTitle": "LiChess Tools - mehr Explorer-Spiele"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -7971,7 +8003,11 @@
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
     "ImageCopiedToClipboard": "Image copied to clipboard",
-    "friendFilterTitle": "Name filter"
+    "friendFilterTitle": "Name filter",
+    "moreGamesButtonText": "More games",
+    "moreGamesButtonTitle": "Show more games in Recent Games",
+    "options.explorerMoreGames": "Show more Explorer games",
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -8857,7 +8893,11 @@
     "feedback.gameStart": "Inizio della partita",
     "feedback.gameEnd": "Fine della partita",
     "ImageCopiedToClipboard": "Immagine copiata negli appunti",
-    "friendFilterTitle": "Filtro nomi"
+    "friendFilterTitle": "Filtro nomi",
+    "moreGamesButtonText": "Altri giochi",
+    "moreGamesButtonTitle": "Mostra più giochi nei giochi recenti",
+    "options.explorerMoreGames": "Mostra più giochi Explorer",
+    "explorerMoreGamesTitle": "LiChess Tools - più Explorer giochi"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -9743,7 +9783,11 @@
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
     "ImageCopiedToClipboard": "Image copied to clipboard",
-    "friendFilterTitle": "Name filter"
+    "friendFilterTitle": "Name filter",
+    "moreGamesButtonText": "More games",
+    "moreGamesButtonTitle": "Show more games in Recent Games",
+    "options.explorerMoreGames": "Show more Explorer games",
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10629,7 +10673,11 @@
     "feedback.gameStart": "Początek gry",
     "feedback.gameEnd": "Koniec gry",
     "ImageCopiedToClipboard": "Obraz skopiowany do schowka",
-    "friendFilterTitle": "Filtr nazw"
+    "friendFilterTitle": "Filtr nazw",
+    "moreGamesButtonText": "Więcej gier",
+    "moreGamesButtonTitle": "Pokaż więcej gier w ostatnich grach",
+    "options.explorerMoreGames": "Pokaż więcej gier odkrywców",
+    "explorerMoreGamesTitle": "Narzędzia LiChess - więcej gier Odkrywców"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11515,7 +11563,11 @@
     "feedback.gameStart": "Início do jogo",
     "feedback.gameEnd": "Fim do jogo",
     "ImageCopiedToClipboard": "Imagem copiada para área de transferência",
-    "friendFilterTitle": "Filtro de nome"
+    "friendFilterTitle": "Filtro de nome",
+    "moreGamesButtonText": "Mais jogos",
+    "moreGamesButtonTitle": "Mostrar mais jogos em Jogos Recentes",
+    "options.explorerMoreGames": "Mostrar mais jogos do Explorador",
+    "explorerMoreGamesTitle": "Ferramentas LiChess - mais jogos para exploradores"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12401,7 +12453,11 @@
     "feedback.gameStart": "Início do jogo",
     "feedback.gameEnd": "Fim do jogo",
     "ImageCopiedToClipboard": "Imagem copiada para área de transferência",
-    "friendFilterTitle": "Filtro de nome"
+    "friendFilterTitle": "Filtro de nome",
+    "moreGamesButtonText": "Mais jogos",
+    "moreGamesButtonTitle": "Mostrar mais jogos em Jogos Recentes",
+    "options.explorerMoreGames": "Mostrar mais jogos do Explorador",
+    "explorerMoreGamesTitle": "Ferramentas LiChess - mais jogos para exploradores"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13287,7 +13343,11 @@
     "feedback.gameStart": "Început de joc",
     "feedback.gameEnd": "Final de joc",
     "ImageCopiedToClipboard": "Imagine copiată în clipboard",
-    "friendFilterTitle": "Filtru nume"
+    "friendFilterTitle": "Filtru nume",
+    "moreGamesButtonText": "Mai multe jocuri",
+    "moreGamesButtonTitle": "Arată mai multe jocuri în Jocuri Recente",
+    "options.explorerMoreGames": "Arată mai multe jocuri în Explorator",
+    "explorerMoreGamesTitle": "LiChess Tools - mai multe jocuri în Explorator"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14173,7 +14233,11 @@
     "feedback.gameStart": "Начало игры",
     "feedback.gameEnd": "Конец игры",
     "ImageCopiedToClipboard": "Изображение скопировано в буфер обмена",
-    "friendFilterTitle": "Фильтр по имени"
+    "friendFilterTitle": "Фильтр по имени",
+    "moreGamesButtonText": "Больше игр",
+    "moreGamesButtonTitle": "Показать больше игр в последних играх",
+    "options.explorerMoreGames": "Показать больше игр Explorer",
+    "explorerMoreGamesTitle": "Инструменты Жизни - больше игр Explorer"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15059,7 +15123,11 @@
     "feedback.gameStart": "Inicio del juego",
     "feedback.gameEnd": "Fin del juego",
     "ImageCopiedToClipboard": "Imagen copiada al portapapeles",
-    "friendFilterTitle": "Filtro de nombre"
+    "friendFilterTitle": "Filtro de nombre",
+    "moreGamesButtonText": "Más juegos",
+    "moreGamesButtonTitle": "Mostrar más partidas en Juegos Recientes",
+    "options.explorerMoreGames": "Mostrar más partidas de explorador",
+    "explorerMoreGamesTitle": "Herramientas de LiChess - más juegos de Explorador"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -15945,7 +16013,11 @@
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
     "ImageCopiedToClipboard": "Image copied to clipboard",
-    "friendFilterTitle": "Name filter"
+    "friendFilterTitle": "Name filter",
+    "moreGamesButtonText": "More games",
+    "moreGamesButtonTitle": "Show more games in Recent Games",
+    "options.explorerMoreGames": "Show more Explorer games",
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -16831,7 +16903,11 @@
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
     "ImageCopiedToClipboard": "Image copied to clipboard",
-    "friendFilterTitle": "Name filter"
+    "friendFilterTitle": "Name filter",
+    "moreGamesButtonText": "More games",
+    "moreGamesButtonTitle": "Show more games in Recent Games",
+    "options.explorerMoreGames": "Show more Explorer games",
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -17717,6 +17793,10 @@
     "feedback.gameStart": "Start of game",
     "feedback.gameEnd": "End of game",
     "ImageCopiedToClipboard": "Image copied to clipboard",
-    "friendFilterTitle": "Name filter"
+    "friendFilterTitle": "Name filter",
+    "moreGamesButtonText": "More games",
+    "moreGamesButtonTitle": "Show more games in Recent Games",
+    "options.explorerMoreGames": "Show more Explorer games",
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
   }
 }

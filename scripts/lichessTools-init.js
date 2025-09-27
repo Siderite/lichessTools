@@ -130,6 +130,7 @@ lichessTools.loadTool(LiChessTools.Tools.ShowKmaps);
 lichessTools.loadTool(LiChessTools.Tools.ChallengeOptions);
 lichessTools.loadTool(LiChessTools.Tools.BetterBestArrow);
 lichessTools.loadTool(LiChessTools.Tools.DownloadBroadcastPgn);
+lichessTools.loadTool(LiChessTools.Tools.ExplorerMoreGames);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
