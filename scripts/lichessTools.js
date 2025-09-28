@@ -1564,10 +1564,6 @@
       return !this.global.matchMedia('(hover: hover) and (pointer: fine)').matches;
     }
 
-    getToolByName(name) {
-      return this.tools.find(t => t.name == name);
-    }
-
     net = {
       lichessTools: this,
       slowMode: false,
@@ -2322,7 +2318,7 @@
         }
         if (tool.dependencies) {
           for (const name of tool.dependencies) {
-            if (!this.getToolByName(name)) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not loaded');
+            if (!this.tools[toolClass.name]) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not loaded');
           }
         }
       } catch (e) {
