@@ -45,10 +45,12 @@
         const trans = lt.translator;
         const ceval = analysis.node.ceval || analysis.node.eval;
         if (ceval) {
-          const pearl = $('div.ceval pearl');
+          const pearl = $('div.ceval pearl,button[data-mode] eval');
           // lichess keeps a reference to the actual node
           const text = this.renderEval(ceval.cp, ceval.mate);
-          pearl.replaceText(text, true);
+          pearl
+            .replaceText(text, true);
+          
           if (ceval.pvs) {
             $('div.ceval.enabled ~ div.pv_box')
               .find('div.pv[data-uci]')

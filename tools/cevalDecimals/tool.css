@@ -5,3 +5,7 @@ body.lichessTools div.tview2 move eval.lichessTools-cevalDecimals {
 body.lichessTools .lichessTools-cevalDecimals-toggled .pv_box .pv strong {
   width:3.4em;
 }
+
+body.lichessTools:has(.lichessTools-cevalDecimals-toggled) .analyse__controls button[data-mode] {
+  max-width: 6em;
+}
