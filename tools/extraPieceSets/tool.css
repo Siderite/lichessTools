@@ -1,4 +1,29 @@
-body.lichessTools button.lichessTools-extraPieceSets {
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.chesscom {
   border-radius:33%;
-  background: #80808080;
+  border: 1px solid #5d9948;
+}
+
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.hollowleaf {
+  border-radius:33%;
+  border: 1px solid black;
+}
+
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.bend-n {
+  border-radius:33%;
+  border: 1px solid blue;
+}
+
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.comfysage {
+  border-radius:33%;
+  border: 1px solid orange;
+}
+
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.tage64 {
+  border-radius:33%;
+  border: 1px solid cyan;
+}
+
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.OwOHamper {
+  border-radius:33%;
+  border: 1px solid pink;
 }

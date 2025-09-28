@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+28 Sep
+
+- added more piece sets
+
 27 Sep
 
 - more Explorer games tool
