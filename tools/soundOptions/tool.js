@@ -132,6 +132,25 @@
       }
     };
 
+    allSoundNames = [
+      'berserk', 'capture', 'check', 'checkmate', 'confirmation', 'countdown0', 'countdown1', 'countdown10', 'countdown2', 'countdown3',
+      'countdown4', 'countdown5', 'countdown6', 'countdown7', 'countdown8', 'countdown9', 'defeat', 'draw', 'error', 'explosion',
+      'genericnotify', 'lowtime', 'move', 'newchallenge', 'newpm', 'outofbound', 'tournament1st', 'tournament2nd', 'tournament3rd',
+      'tournamentother', 'victory' ];
+    soundUrls = new Map();
+    loadSound = async (e) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!this.options.customThemeUrl) return;
+      const url = this.options.customThemeUrl+e?.[0]?.toUpperCase()+e?.substr(1)+'.mp3';
+      const data = await lt.comm.getDataUrl(url,true);
+      if (data.dataUrl) {
+        const dataUrl = data.dataUrl.replace('text/plain','audio/mpeg');
+        this.soundUrls.set(e,dataUrl);
+        return dataUrl;
+      }
+    };
+
     async init() {
       const lt = this.lichessTools;
       const ss = lt.global.speechSynthesis;
@@ -204,6 +223,35 @@
             .on('.rclock-bottom *',this.checkClock);
         }
       }
+      lichess.sound.changeSet = lt.unwrapFunction(lichess.sound.changeSet,'soundOptions');
+      lichess.sound.resolvePath = lt.unwrapFunction(lichess.sound.resolvePath,'soundOptions');
+
+      lichess.sound.changeSet = lt.wrapFunction(lichess.sound.changeSet,{
+        id: 'soundOptions',
+        after: ($this,result,e)=>{
+          this.soundUrls.clear();
+          this.options.customThemeUrl = URL.canParse(lichess.sound?.theme) && lichess.sound?.theme;
+          if (this.options.customThemeUrl) {
+            if (!this.options.customThemeUrl.endsWith('/')) this.options.customThemeUrl+='/';
+            this.allSoundNames.forEach(e=>this.loadSound(e));
+          }
+        }
+      });
+      lichess.sound.resolvePath = lt.wrapFunction(lichess.sound.resolvePath,{
+        id: 'soundOptions',
+        before: ($this,e)=>{
+          if (!this.options.customThemeUrl) return;
+          const url = this.soundUrls.get(e);
+          if (url) return false;
+          this.loadSound(e);
+        },
+        after: ($this,result,e)=>{
+          if (!this.options.customThemeUrl) return;
+          const url = this.soundUrls.get(e);
+          return url || result;
+        }
+      });
+      lichess.sound.changeSet($('body').attr('data-sound-set'));
     }
 
   }

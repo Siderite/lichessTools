@@ -1615,6 +1615,19 @@
           return lt.jsonParse(json);
         }
       },
+      postForm: async function(url, data, options) {
+        const formData = new FormData();
+        if (data) {
+          for (const key in data) {
+            formData.append(key, data[key]);
+          }
+        }
+        return await this.fetch(url, {
+          method: 'POST',
+          body: formData,
+          ...options
+        });
+      },
       fetch: async function (url, options) {
         const lt = this.lichessTools;
         const console = lt.global.console;
@@ -1823,6 +1836,17 @@
           if (error) lt.global.console.error(error);
         }
         return data;
+      },
+      getDataUrl: async function(url, useProxy) {
+        const options = { url: url, useProxy: !!useProxy };
+        const lt = this.lichessTools;
+        const data = await lt.comm.send({ type: 'getDataUrl', options: options })
+                                             .catch(e => { error = e; });
+        if (data) {
+          return data;
+        } else {
+          if (error) lt.global.console.error(error);
+        }
       }
     };
 
