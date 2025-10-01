@@ -59,6 +59,32 @@
       }
     }
 
+    prepareEvaluations() {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const analysis = lichess?.analysis;
+      $('section.explorer-box table.moves.lichessTools-evalTable').remove();
+      let container = $('section.explorer-box table.moves');
+      if (!container.length) return;
+      if (lt.isGamePlaying()) return;
+      if (!$('th.lichessTools-explorerEval', container).length) {
+        $('<th>')
+          .toggleClass('lichessTools-explorerEval')
+          .text(lt.icon.NorthEastArrowWithHook)
+          .attr('title', trans.noarg('evaluationTitle'))
+          .insertAfter($('th:nth-child(1)', container));
+      }
+      $('tr[data-uci],tr.sum', container).each((i, e) => {
+        if (!$('td.lichessTools-explorerEval', e).length) {
+          $('<td>')
+            .addClass('lichessTools-explorerEval')
+            .insertAfter($('td:nth-child(1)', e));
+        }
+      });
+    }
+
     showEvaluations(result) {
       const moves = result?.moves;
       const lt = this.lichessTools;
@@ -68,6 +94,7 @@
       const analysis = lichess?.analysis;
       const orientation = analysis.getOrientation() == 'black' ? -1 : 1;
       $('section.explorer-box table.moves.lichessTools-evalTable').remove();
+      if (lt.isGamePlaying()) return;
       let container = $('section.explorer-box table.moves');
       if (!container.length) {
         if (this.options.evalRows && moves?.length) {
@@ -95,7 +122,6 @@
           return;
         }
       }
-      if (lt.isGamePlaying()) return;
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
           .toggleClass('lichessTools-explorerEval')
@@ -353,6 +379,7 @@
 
     cache = {};
     doEvaluation = async () => {
+      this.prepareEvaluations();
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
