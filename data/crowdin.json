@@ -889,7 +889,12 @@
     "options.explorerMoreGames": "إظهار المزيد من ألعاب المستكشف",
     "explorerMoreGamesTitle": "أدوات شطرنج الحياة - المزيد من ألعاب المستكشف",
     "options.soundThemes": "سمات الصوت",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "العدادات الإضافية",
+    "totalGamesPlayed": "مجموع الألعاب: %s",
+    "yearGamesPlayed": "ألعاب هذا العام: %s",
+    "monthGamesPlayed": "ألعاب هذا الشهر: %s",
+    "dayGamesPlayed": "ألعاب اليوم: %s"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1781,7 +1786,12 @@
     "options.explorerMoreGames": "显示更多浏览器游戏",
     "explorerMoreGamesTitle": "Lichess工具 - 更多的资源管理器游戏",
     "options.soundThemes": "声音主题",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "额外计数器",
+    "totalGamesPlayed": "游戏总数: %s",
+    "yearGamesPlayed": "今年的游戏： %s",
+    "monthGamesPlayed": "本月游戏: %s",
+    "dayGamesPlayed": "今日游戏： %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2673,7 +2683,12 @@
     "options.explorerMoreGames": "Show more Explorer games",
     "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
     "options.soundThemes": "Sound themes",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Extra counters",
+    "totalGamesPlayed": "Total games: %s",
+    "yearGamesPlayed": "Games this year: %s",
+    "monthGamesPlayed": "Games this month: %s",
+    "dayGamesPlayed": "Games today: %s"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3565,7 +3580,12 @@
     "options.explorerMoreGames": "Zobrazit více her v Průzkumníku",
     "explorerMoreGamesTitle": "LiChess Tools - více her v Průzkumníku",
     "options.soundThemes": "Zvukové motivy",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Extra počítadla",
+    "totalGamesPlayed": "Celkem her: %s",
+    "yearGamesPlayed": "Letos hry: %s",
+    "monthGamesPlayed": "Hry tento měsíc: %s",
+    "dayGamesPlayed": "Dnešní hry: %s"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4457,7 +4477,12 @@
     "options.explorerMoreGames": "Meer Ontdekkers spellen weergeven",
     "explorerMoreGamesTitle": "LiChess Tools - meer Ontdekkersspellen",
     "options.soundThemes": "Geluid thema's",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Extra tellers",
+    "totalGamesPlayed": "Totaal aantal spellen: %s",
+    "yearGamesPlayed": "Partijen dit jaar: %s",
+    "monthGamesPlayed": "Partijen deze maand: %s",
+    "dayGamesPlayed": "Spellen vandaag: %s"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -5349,7 +5374,12 @@
     "options.explorerMoreGames": "Show more Explorer games",
     "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
     "options.soundThemes": "Sound themes",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Extra counters",
+    "totalGamesPlayed": "Total games: %s",
+    "yearGamesPlayed": "Games this year: %s",
+    "monthGamesPlayed": "Games this month: %s",
+    "dayGamesPlayed": "Games today: %s"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6241,7 +6271,12 @@
     "options.explorerMoreGames": "Afficher plus de parties dans l'explorateur",
     "explorerMoreGamesTitle": "LiChess Tools - plus de parties dans l'explorateur",
     "options.soundThemes": "Thèmes sonores",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Compteurs supplémentaires",
+    "totalGamesPlayed": "Nombre total de parties : %s",
+    "yearGamesPlayed": "Jeux de cette année : %s",
+    "monthGamesPlayed": "Jeux de ce mois-ci : %s",
+    "dayGamesPlayed": "Jeux d'aujourd'hui : %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7133,7 +7168,12 @@
     "options.explorerMoreGames": "Mehr Explorer-Spiele anzeigen",
     "explorerMoreGamesTitle": "LiChess Tools - mehr Explorer-Spiele",
     "options.soundThemes": "Tonthemen",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Zusätzliche Zähler",
+    "totalGamesPlayed": "Gesamte Spiele: %s",
+    "yearGamesPlayed": "Spiele in diesem Jahr: %s",
+    "monthGamesPlayed": "Spiele in diesem Monat: %s",
+    "dayGamesPlayed": "Spiele heute: %s"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8025,7 +8065,12 @@
     "options.explorerMoreGames": "Show more Explorer games",
     "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
     "options.soundThemes": "Sound themes",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Extra counters",
+    "totalGamesPlayed": "Total games: %s",
+    "yearGamesPlayed": "Games this year: %s",
+    "monthGamesPlayed": "Games this month: %s",
+    "dayGamesPlayed": "Games today: %s"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -8917,7 +8962,12 @@
     "options.explorerMoreGames": "Mostra più giochi Explorer",
     "explorerMoreGamesTitle": "LiChess Tools - più Explorer giochi",
     "options.soundThemes": "Temi sonori",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Contatori aggiuntivi",
+    "totalGamesPlayed": "Totale giochi: %s",
+    "yearGamesPlayed": "Giochi quest'anno: %s",
+    "monthGamesPlayed": "Giochi questo mese: %s",
+    "dayGamesPlayed": "Giochi oggi: %s"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -9809,7 +9859,12 @@
     "options.explorerMoreGames": "Show more Explorer games",
     "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
     "options.soundThemes": "Sound themes",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Extra counters",
+    "totalGamesPlayed": "Total games: %s",
+    "yearGamesPlayed": "Games this year: %s",
+    "monthGamesPlayed": "Games this month: %s",
+    "dayGamesPlayed": "Games today: %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10701,7 +10756,12 @@
     "options.explorerMoreGames": "Pokaż więcej gier odkrywców",
     "explorerMoreGamesTitle": "Narzędzia LiChess - więcej gier Odkrywców",
     "options.soundThemes": "Motywy dźwięku",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Dodatkowe liczniki",
+    "totalGamesPlayed": "Gry ogółem: %s",
+    "yearGamesPlayed": "Gry w tym roku: %s",
+    "monthGamesPlayed": "Gry w tym miesiącu: %s",
+    "dayGamesPlayed": "Dzisiaj gry: %s"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11593,7 +11653,12 @@
     "options.explorerMoreGames": "Mostrar mais jogos do Explorador",
     "explorerMoreGamesTitle": "Ferramentas LiChess - mais jogos para exploradores",
     "options.soundThemes": "Temas de som",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Contadores extras",
+    "totalGamesPlayed": "Total de jogos: %s",
+    "yearGamesPlayed": "Jogos este ano: %s",
+    "monthGamesPlayed": "Jogos neste mês: %s",
+    "dayGamesPlayed": "Partidas hoje: %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12485,7 +12550,12 @@
     "options.explorerMoreGames": "Mostrar mais jogos do Explorador",
     "explorerMoreGamesTitle": "Ferramentas LiChess - mais jogos para exploradores",
     "options.soundThemes": "Temas de som",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Contadores extras",
+    "totalGamesPlayed": "Total de jogos: %s",
+    "yearGamesPlayed": "Jogos este ano: %s",
+    "monthGamesPlayed": "Jogos neste mês: %s",
+    "dayGamesPlayed": "Partidas hoje: %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13377,7 +13447,12 @@
     "options.explorerMoreGames": "Arată mai multe jocuri în Explorator",
     "explorerMoreGamesTitle": "LiChess Tools - mai multe jocuri în Explorator",
     "options.soundThemes": "Teme de sunet",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Contoare în plus",
+    "totalGamesPlayed": "Total jocuri: %s",
+    "yearGamesPlayed": "Jocuri anul acesta: %s",
+    "monthGamesPlayed": "Jocuri luna aceasta: %s",
+    "dayGamesPlayed": "Jocuri azi: %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14269,7 +14344,12 @@
     "options.explorerMoreGames": "Показать больше игр Explorer",
     "explorerMoreGamesTitle": "Инструменты Жизни - больше игр Explorer",
     "options.soundThemes": "Звуковые темы",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Дополнительные счетчики",
+    "totalGamesPlayed": "Всего игр: %s",
+    "yearGamesPlayed": "Игры в этом году: %s",
+    "monthGamesPlayed": "Игры в этом месяце: %s",
+    "dayGamesPlayed": "Сегодняшние игры: %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15161,7 +15241,12 @@
     "options.explorerMoreGames": "Mostrar más partidas de explorador",
     "explorerMoreGamesTitle": "Herramientas de LiChess - más juegos de Explorador",
     "options.soundThemes": "Temas de sonido",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Contadores extra",
+    "totalGamesPlayed": "Partidas totales: %s",
+    "yearGamesPlayed": "Juegos de este año: %s",
+    "monthGamesPlayed": "Juegos de este mes: %s",
+    "dayGamesPlayed": "Juegos de hoy: %s"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16053,7 +16138,12 @@
     "options.explorerMoreGames": "Show more Explorer games",
     "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
     "options.soundThemes": "Sound themes",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Extra counters",
+    "totalGamesPlayed": "Total games: %s",
+    "yearGamesPlayed": "Games this year: %s",
+    "monthGamesPlayed": "Games this month: %s",
+    "dayGamesPlayed": "Games today: %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -16945,7 +17035,12 @@
     "options.explorerMoreGames": "Show more Explorer games",
     "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
     "options.soundThemes": "Sound themes",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Extra counters",
+    "totalGamesPlayed": "Total games: %s",
+    "yearGamesPlayed": "Games this year: %s",
+    "monthGamesPlayed": "Games this month: %s",
+    "dayGamesPlayed": "Games today: %s"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -17837,6 +17932,11 @@
     "options.explorerMoreGames": "Show more Explorer games",
     "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
     "options.soundThemes": "Sound themes",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "mainPageElements.extraCounters": "Extra counters",
+    "totalGamesPlayed": "Total games: %s",
+    "yearGamesPlayed": "Games this year: %s",
+    "monthGamesPlayed": "Games this month: %s",
+    "dayGamesPlayed": "Games today: %s"
   }
 }

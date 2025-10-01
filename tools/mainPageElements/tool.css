@@ -59,6 +59,10 @@ body.lichessTools main.lobby .lobby__side {
   }
 }
 
+body.lichessTools .lichessTools-extraCounters {
+  display:contents;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier main.lobby.lichessTools-lobbyPlay .lobby__support {
