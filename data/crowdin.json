@@ -887,7 +887,9 @@
     "moreGamesButtonText": "المزيد من الألعاب",
     "moreGamesButtonTitle": "إظهار المزيد من الألعاب في الألعاب الأخيرة",
     "options.explorerMoreGames": "إظهار المزيد من ألعاب المستكشف",
-    "explorerMoreGamesTitle": "أدوات شطرنج الحياة - المزيد من ألعاب المستكشف"
+    "explorerMoreGamesTitle": "أدوات شطرنج الحياة - المزيد من ألعاب المستكشف",
+    "options.soundThemes": "سمات الصوت",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1777,7 +1779,9 @@
     "moreGamesButtonText": "更多游戏",
     "moreGamesButtonTitle": "在最近的游戏中显示更多游戏",
     "options.explorerMoreGames": "显示更多浏览器游戏",
-    "explorerMoreGamesTitle": "Lichess工具 - 更多的资源管理器游戏"
+    "explorerMoreGamesTitle": "Lichess工具 - 更多的资源管理器游戏",
+    "options.soundThemes": "声音主题",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2667,7 +2671,9 @@
     "moreGamesButtonText": "More games",
     "moreGamesButtonTitle": "Show more games in Recent Games",
     "options.explorerMoreGames": "Show more Explorer games",
-    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
+    "options.soundThemes": "Sound themes",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3557,7 +3563,9 @@
     "moreGamesButtonText": "Více her",
     "moreGamesButtonTitle": "Zobrazit více her v nedávných hrách",
     "options.explorerMoreGames": "Zobrazit více her v Průzkumníku",
-    "explorerMoreGamesTitle": "LiChess Tools - více her v Průzkumníku"
+    "explorerMoreGamesTitle": "LiChess Tools - více her v Průzkumníku",
+    "options.soundThemes": "Zvukové motivy",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4447,7 +4455,9 @@
     "moreGamesButtonText": "Meer spellen",
     "moreGamesButtonTitle": "Toon meer spellen in Recente Spellen",
     "options.explorerMoreGames": "Meer Ontdekkers spellen weergeven",
-    "explorerMoreGamesTitle": "LiChess Tools - meer Ontdekkersspellen"
+    "explorerMoreGamesTitle": "LiChess Tools - meer Ontdekkersspellen",
+    "options.soundThemes": "Geluid thema's",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -5337,7 +5347,9 @@
     "moreGamesButtonText": "More games",
     "moreGamesButtonTitle": "Show more games in Recent Games",
     "options.explorerMoreGames": "Show more Explorer games",
-    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
+    "options.soundThemes": "Sound themes",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6225,9 +6237,11 @@
     "ImageCopiedToClipboard": "Image copiée dans le presse-papiers",
     "friendFilterTitle": "Filtre de nom",
     "moreGamesButtonText": "Plus de parties",
-    "moreGamesButtonTitle": "Afficher plus de parties dans les jeux récents",
-    "options.explorerMoreGames": "Afficher plus de jeux Explorer",
-    "explorerMoreGamesTitle": "Outils LiChess - plus de parties Explorer"
+    "moreGamesButtonTitle": "Afficher plus de parties dans les parties récentes",
+    "options.explorerMoreGames": "Afficher plus de parties dans l'explorateur",
+    "explorerMoreGamesTitle": "LiChess Tools - plus de parties dans l'explorateur",
+    "options.soundThemes": "Thèmes sonores",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7117,7 +7131,9 @@
     "moreGamesButtonText": "Weitere Spiele",
     "moreGamesButtonTitle": "Mehr Spiele in den letzten Spielen anzeigen",
     "options.explorerMoreGames": "Mehr Explorer-Spiele anzeigen",
-    "explorerMoreGamesTitle": "LiChess Tools - mehr Explorer-Spiele"
+    "explorerMoreGamesTitle": "LiChess Tools - mehr Explorer-Spiele",
+    "options.soundThemes": "Tonthemen",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8007,7 +8023,9 @@
     "moreGamesButtonText": "More games",
     "moreGamesButtonTitle": "Show more games in Recent Games",
     "options.explorerMoreGames": "Show more Explorer games",
-    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
+    "options.soundThemes": "Sound themes",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -8897,7 +8915,9 @@
     "moreGamesButtonText": "Altri giochi",
     "moreGamesButtonTitle": "Mostra più giochi nei giochi recenti",
     "options.explorerMoreGames": "Mostra più giochi Explorer",
-    "explorerMoreGamesTitle": "LiChess Tools - più Explorer giochi"
+    "explorerMoreGamesTitle": "LiChess Tools - più Explorer giochi",
+    "options.soundThemes": "Temi sonori",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -9787,7 +9807,9 @@
     "moreGamesButtonText": "More games",
     "moreGamesButtonTitle": "Show more games in Recent Games",
     "options.explorerMoreGames": "Show more Explorer games",
-    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
+    "options.soundThemes": "Sound themes",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10677,7 +10699,9 @@
     "moreGamesButtonText": "Więcej gier",
     "moreGamesButtonTitle": "Pokaż więcej gier w ostatnich grach",
     "options.explorerMoreGames": "Pokaż więcej gier odkrywców",
-    "explorerMoreGamesTitle": "Narzędzia LiChess - więcej gier Odkrywców"
+    "explorerMoreGamesTitle": "Narzędzia LiChess - więcej gier Odkrywców",
+    "options.soundThemes": "Motywy dźwięku",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11567,7 +11591,9 @@
     "moreGamesButtonText": "Mais jogos",
     "moreGamesButtonTitle": "Mostrar mais jogos em Jogos Recentes",
     "options.explorerMoreGames": "Mostrar mais jogos do Explorador",
-    "explorerMoreGamesTitle": "Ferramentas LiChess - mais jogos para exploradores"
+    "explorerMoreGamesTitle": "Ferramentas LiChess - mais jogos para exploradores",
+    "options.soundThemes": "Temas de som",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12457,7 +12483,9 @@
     "moreGamesButtonText": "Mais jogos",
     "moreGamesButtonTitle": "Mostrar mais jogos em Jogos Recentes",
     "options.explorerMoreGames": "Mostrar mais jogos do Explorador",
-    "explorerMoreGamesTitle": "Ferramentas LiChess - mais jogos para exploradores"
+    "explorerMoreGamesTitle": "Ferramentas LiChess - mais jogos para exploradores",
+    "options.soundThemes": "Temas de som",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13347,7 +13375,9 @@
     "moreGamesButtonText": "Mai multe jocuri",
     "moreGamesButtonTitle": "Arată mai multe jocuri în Jocuri Recente",
     "options.explorerMoreGames": "Arată mai multe jocuri în Explorator",
-    "explorerMoreGamesTitle": "LiChess Tools - mai multe jocuri în Explorator"
+    "explorerMoreGamesTitle": "LiChess Tools - mai multe jocuri în Explorator",
+    "options.soundThemes": "Teme de sunet",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14237,7 +14267,9 @@
     "moreGamesButtonText": "Больше игр",
     "moreGamesButtonTitle": "Показать больше игр в последних играх",
     "options.explorerMoreGames": "Показать больше игр Explorer",
-    "explorerMoreGamesTitle": "Инструменты Жизни - больше игр Explorer"
+    "explorerMoreGamesTitle": "Инструменты Жизни - больше игр Explorer",
+    "options.soundThemes": "Звуковые темы",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15127,7 +15159,9 @@
     "moreGamesButtonText": "Más juegos",
     "moreGamesButtonTitle": "Mostrar más partidas en Juegos Recientes",
     "options.explorerMoreGames": "Mostrar más partidas de explorador",
-    "explorerMoreGamesTitle": "Herramientas de LiChess - más juegos de Explorador"
+    "explorerMoreGamesTitle": "Herramientas de LiChess - más juegos de Explorador",
+    "options.soundThemes": "Temas de sonido",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16017,7 +16051,9 @@
     "moreGamesButtonText": "More games",
     "moreGamesButtonTitle": "Show more games in Recent Games",
     "options.explorerMoreGames": "Show more Explorer games",
-    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
+    "options.soundThemes": "Sound themes",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -16907,7 +16943,9 @@
     "moreGamesButtonText": "More games",
     "moreGamesButtonTitle": "Show more games in Recent Games",
     "options.explorerMoreGames": "Show more Explorer games",
-    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
+    "options.soundThemes": "Sound themes",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -17797,6 +17835,8 @@
     "moreGamesButtonText": "More games",
     "moreGamesButtonTitle": "Show more games in Recent Games",
     "options.explorerMoreGames": "Show more Explorer games",
-    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games"
+    "explorerMoreGamesTitle": "LiChess Tools - more Explorer games",
+    "options.soundThemes": "Sound themes",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   }
 }
