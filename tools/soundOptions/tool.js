@@ -11,6 +11,14 @@
         advanced: true
       },
       {
+        name: 'soundThemes',
+        category: 'general',
+        type: 'multiple',
+        possibleValues: ['mortalKombat'],
+        defaultValue: 'mortalKombat',
+        advanced: true
+      },
+      {
         name: 'soundVolume',
         category: 'general',
         type: 'number',
@@ -38,6 +46,7 @@
         'options.general': 'General',
         'options.play': 'Play',
         'options.soundOptions': 'Sound options',
+        'options.soundThemes': 'Sound themes',
         'options.soundVolume': 'Sound volume (0-100)',
         'options.soundVoice': 'Speech voice',
         'soundOptions.noMove': 'No move sounds',
@@ -50,12 +59,14 @@
         'timeAlert.s180': '3:00',
         'timeAlert.s300': '5:00',
         'timeAlert.beep': 'Sound alert',
-        'timeAlert.speak5': 'Read seconds when less than 6'
+        'timeAlert.speak5': 'Read seconds when less than 6',
+        'soundThemes.mortalKombat': 'Mortal Kombat'
       },
       'ro-RO': {
         'options.general': 'General',
         'options.play': 'Joc',
         'options.soundOptions': 'Op\u0163iuni sunet',
+        'options.soundThemes': 'Teme de sunet',
         'options.soundVolume': 'Volum sonor (0-100)',
         'options.soundVoice': 'Voce folosit\u0103',
         'soundOptions.noMove': 'F\u0103r\u0103 sunet la mutare',
@@ -68,7 +79,8 @@
         'timeAlert.s180': '3:00',
         'timeAlert.s300': '5:00',
         'timeAlert.beep': 'Alert\u0103 sonor\u0103',
-        'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd mai pu\u0163ine de 6'
+        'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd mai pu\u0163ine de 6',
+        'soundThemes.mortalKombat': 'Mortal Kombat'
       }
     }
 
@@ -132,20 +144,62 @@
       }
     };
 
+    addThemes = ()=>{
+      const lt = this.lichessTools;
+      const sound = lt.lichess.sound;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const list = $('#dasher_app .sub.sound .selector');
+      if (!list.length) return;
+      list.find('button.lichessTools-extraThemes').remove();
+      const template = list.find('button').eq(0).clone().removeClass('active');
+      const pref = this.preferences.find(p=>p.name=='soundThemes');
+      if (!pref) return;
+      const soundThemes = lt.currentOptions.getValue('soundThemes');
+      const themes = pref.possibleValues
+                         .filter(v=>lt.isOptionSet(soundThemes, v));
+
+      if (!themes.length) return;
+
+      const currentTheme = lt.storage.get('LichessTools.customSoundTheme');
+      if (currentTheme) {
+        list.find('button.active').removeClass('active');
+      }
+      for (const theme of themes) {
+        template.clone()
+          .text(trans.noarg('soundThemes.'+theme))
+          .attr('data-name',theme)
+          .addClass('lichessTools-extraThemes')
+          .toggleClassSafe('active',theme==currentTheme)
+          .on('click',()=>{
+            sound.changeSet(theme);
+            this.loadSound('genericNotify').then(u=>{
+              if (u) sound.play('genericNotify');
+            });
+          })
+          .appendTo(list);
+      }
+      lt.scrollIntoViewIfNeeded(list.find('button.active'));
+    };
+    
+
     allSoundNames = [
       'berserk', 'capture', 'check', 'checkmate', 'confirmation', 'countdown0', 'countdown1', 'countdown10', 'countdown2', 'countdown3',
       'countdown4', 'countdown5', 'countdown6', 'countdown7', 'countdown8', 'countdown9', 'defeat', 'draw', 'error', 'explosion',
       'genericnotify', 'lowtime', 'move', 'newchallenge', 'newpm', 'outofbound', 'tournament1st', 'tournament2nd', 'tournament3rd',
       'tournamentother', 'victory' ];
+    themeUrls = new Map([
+      ['mortalKombat','https://siderite.dev/sounds/MK1SFX-main/']
+    ]);
     soundUrls = new Map();
     loadSound = async (e) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       if (!this.options.customThemeUrl) return;
       const url = this.options.customThemeUrl+e?.[0]?.toUpperCase()+e?.substr(1)+'.mp3';
-      const data = await lt.comm.getDataUrl(url,true);
+      const data = await lt.comm.getDataUrl(url);
       if (data.dataUrl) {
-        const dataUrl = data.dataUrl.replace('text/plain','audio/mpeg');
+        const dataUrl = data.dataUrl;
         this.soundUrls.set(e,dataUrl);
         return dataUrl;
       }
@@ -180,6 +234,12 @@
       const $ = lt.$;
       const lichess = lt.lichess;
       const soundOptions = lt.currentOptions.getValue('soundOptions');
+      const soundThemes = lt.currentOptions.getValue('soundThemes');
+      let customTheme = lt.storage.get('LichessTools.customSoundTheme');
+      if (customTheme) {
+        const index = this.preferences.find(p=>p.name=='soundThemes').possibleValues.indexOf(customTheme);
+        if (index<0) customTheme = null;
+      }
       let soundVolume = +lt.currentOptions.getValue('soundVolume');
       if (Number.isNaN(soundVolume)) soundValume = this.preferences.find(p=>p.name='soundVolume')?.defaultValue;
       lt.soundVolume = soundVolume;
@@ -188,6 +248,10 @@
       lt.speechVoiceIndex = soundVoice;
       const timeAlert = lt.currentOptions.getValue('timeAlert');
       this.logOption('Sound options', soundOptions);
+      this.logOption('Sound themes', soundThemes);
+      if (customTheme) {
+        this.logOption('Custom sound theme', customTheme);
+      }
       this.logOption('Sound volume', soundVolume);
       this.logOption('Sound voice', soundVoice);
       this.logOption('Time alert', timeAlert);
@@ -199,7 +263,7 @@
           enabled: lt.isOptionSet(timeAlert, 's'+s)
         })),
         beep: lt.isOptionSet(timeAlert, 'beep'),
-        speak5: lt.isOptionSet(timeAlert, 'speak5')
+        speak5: lt.isOptionSet(timeAlert, 'speak5') 
       };
       if (lichess.sound?.move) {
         lichess.sound.move = lt.unwrapFunction(lichess.sound.move, 'soundOptions');
@@ -225,33 +289,48 @@
       }
       lichess.sound.changeSet = lt.unwrapFunction(lichess.sound.changeSet,'soundOptions');
       lichess.sound.resolvePath = lt.unwrapFunction(lichess.sound.resolvePath,'soundOptions');
+      this.options.customThemeUrl = null;
+      $('#dasher_app')
+        .observer()
+        .off('.sub.sound',this.addThemes);
 
-      lichess.sound.changeSet = lt.wrapFunction(lichess.sound.changeSet,{
-        id: 'soundOptions',
-        after: ($this,result,e)=>{
-          this.soundUrls.clear();
-          this.options.customThemeUrl = URL.canParse(lichess.sound?.theme) && lichess.sound?.theme;
-          if (this.options.customThemeUrl) {
-            if (!this.options.customThemeUrl.endsWith('/')) this.options.customThemeUrl+='/';
-            this.allSoundNames.forEach(e=>this.loadSound(e));
+      if (soundThemes) {
+        lichess.sound.changeSet = lt.wrapFunction(lichess.sound.changeSet,{
+          id: 'soundOptions',
+          after: ($this,result,e)=>{
+            this.soundUrls.clear();
+            let customThemeUrl = this.themeUrls.get(e);
+            if (customThemeUrl) {
+              this.options.customThemeUrl = customThemeUrl;
+              if (!customThemeUrl.endsWith('/')) customThemeUrl+='/';
+              this.allSoundNames.forEach(e=>this.loadSound(e));
+              lt.storage.set('LichessTools.customSoundTheme',e);
+            } else {
+              lt.storage.remove('LichessTools.customSoundTheme');
+              this.options.customThemeUrl = null;
+            }
+            this.addThemes();
           }
+        });
+        lichess.sound.resolvePath = lt.wrapFunction(lichess.sound.resolvePath,{
+          id: 'soundOptions',
+          before: ($this,e)=>{
+            if (!this.options.customThemeUrl) return;
+            const url = this.soundUrls.get(e);
+            if (url) return false;
+            this.loadSound(e);
+          },
+          after: ($this,result,e)=>{
+            if (!this.options.customThemeUrl) return;
+            const url = this.soundUrls.get(e);
+            return url || result;
+          }
+        });
+        $('#dasher_app')
+          .observer()
+          .on('.sub.sound',this.addThemes);
         }
-      });
-      lichess.sound.resolvePath = lt.wrapFunction(lichess.sound.resolvePath,{
-        id: 'soundOptions',
-        before: ($this,e)=>{
-          if (!this.options.customThemeUrl) return;
-          const url = this.soundUrls.get(e);
-          if (url) return false;
-          this.loadSound(e);
-        },
-        after: ($this,result,e)=>{
-          if (!this.options.customThemeUrl) return;
-          const url = this.soundUrls.get(e);
-          return url || result;
-        }
-      });
-      lichess.sound.changeSet($('body').attr('data-sound-set'));
+      lichess.sound.changeSet(customTheme || $('body').attr('data-sound-set'));
     }
 
   }

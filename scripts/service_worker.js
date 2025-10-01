@@ -85,7 +85,7 @@ const handlers = {
     let url = data?.options?.url;
     if (!url) return;
     if (data?.options.useProxy) {
-      url = 'https://siderite.dev/proxy/'+url;
+      url = 'https://proxy.site/proxy/'+url;
     }
     const response = await fetch(url,data.options);
     if (!response.ok) return;

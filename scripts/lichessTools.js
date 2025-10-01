@@ -1840,6 +1840,7 @@
       getDataUrl: async function(url, useProxy) {
         const options = { url: url, useProxy: !!useProxy };
         const lt = this.lichessTools;
+        let error = null;
         const data = await lt.comm.send({ type: 'getDataUrl', options: options })
                                              .catch(e => { error = e; });
         if (data) {
