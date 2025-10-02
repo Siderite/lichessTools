@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+02 Oct
+
+- more piece sets
+
 01 Oct
 
 - custom sound themes

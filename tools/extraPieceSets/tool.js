@@ -6,7 +6,7 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper'],
+        possibleValues: ['chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper'],
         defaultValue: false,
         advanced: true
       }
@@ -18,6 +18,7 @@
         'options.extraPieceSets': 'Extra piece sets',
         'extraPieceSets.chesscom': 'chess.com',
         'extraPieceSets.hollowleaf': 'HollowLeaf',
+        'extraPieceSets.fordCrownVictoria': 'FordCrownVictoria',
         'extraPieceSets.bend-n': 'bend-n',
         'extraPieceSets.comfysage': 'comfysage',
         'extraPieceSets.tage64': 'tage64',
@@ -29,6 +30,7 @@
         'options.extraPieceSets': 'Seturi suplimentare de piese',
         'extraPieceSets.chesscom': 'chess.com',
         'extraPieceSets.hollowleaf': 'HollowLeaf',
+        'extraPieceSets.fordCrownVictoria': 'FordCrownVictoria',
         'extraPieceSets.bend-n': 'bend-n',
         'extraPieceSets.comfysage': 'comfysage',
         'extraPieceSets.tage64': 'tage64',
@@ -83,6 +85,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           return pieceSet.url+color[0]+pieceLetter+'.png';
         }
+        case 'fordCrownVictoria':
         case 'hollowleaf':
         case 'bend-n':
         {
