@@ -1783,6 +1783,7 @@
             sendResponse(ev.detail);
           }
         });
+        lt.cache.memoizeAsyncFunction(lt.comm, 'getDataUrl', { persist: 'session', interval: 1 * 86400 * 1000 });
       },
       send: function (data, sendResponse, timeout) {
         const lt = this.lichessTools;
