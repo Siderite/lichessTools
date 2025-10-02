@@ -189,7 +189,7 @@
       'genericnotify', 'lowtime', 'move', 'newchallenge', 'newpm', 'outofbound', 'tournament1st', 'tournament2nd', 'tournament3rd',
       'tournamentother', 'victory' ];
     themeUrls = new Map([
-      ['mortalKombat','https://siderite.dev/sounds/MK1SFX-main/']
+      ['mortalKombat','https://fordcrownvictoria1234-art.github.io/MK1SFX/']
     ]);
     soundUrls = new Map();
     loadSound = async (e) => {
