@@ -16,25 +16,19 @@
       'en-US': {
         'options.appearance': 'Appearance',
         'options.extraPieceSets': 'Extra piece sets',
-        'extraPieceSets.chesscom': 'chess.com',
+        'pieceSetTitle': 'LiChess Tools - %s',
+
+        'extraPieceSets.chesscom': 'chess.com', // don't translate these
         'extraPieceSets.hollowleaf': 'HollowLeaf',
         'extraPieceSets.fordCrownVictoria': 'FordCrownVictoria',
         'extraPieceSets.bend-n': 'bend-n',
         'extraPieceSets.comfysage': 'comfysage',
         'extraPieceSets.tage64': 'tage64',
-        'extraPieceSets.OwOHamper': 'OwOHamper',
-        'pieceSetTitle': 'LiChess Tools - %s'
+        'extraPieceSets.OwOHamper': 'OwOHamper'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
         'options.extraPieceSets': 'Seturi suplimentare de piese',
-        'extraPieceSets.chesscom': 'chess.com',
-        'extraPieceSets.hollowleaf': 'HollowLeaf',
-        'extraPieceSets.fordCrownVictoria': 'FordCrownVictoria',
-        'extraPieceSets.bend-n': 'bend-n',
-        'extraPieceSets.comfysage': 'comfysage',
-        'extraPieceSets.tage64': 'tage64',
-        'extraPieceSets.OwOHamper': 'OwOHamper',
         'pieceSetTitle': 'LiChess Tools - %s'
       }
     }

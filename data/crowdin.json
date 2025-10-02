@@ -6274,9 +6274,9 @@
     "soundThemes.mortalKombat": "Mortal Kombat",
     "mainPageElements.extraCounters": "Compteurs supplémentaires",
     "totalGamesPlayed": "Nombre total de parties : %s",
-    "yearGamesPlayed": "Jeux de cette année : %s",
-    "monthGamesPlayed": "Jeux de ce mois-ci : %s",
-    "dayGamesPlayed": "Jeux d'aujourd'hui : %s"
+    "yearGamesPlayed": "Parties cette année : %s",
+    "monthGamesPlayed": "Parties ce mois-ci : %s",
+    "dayGamesPlayed": "Parties aujourd'hui : %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
