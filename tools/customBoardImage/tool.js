@@ -34,14 +34,16 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       $('style#lichessTools-customBoardImage').remove();
-      if (!this.options.customBoardUrl) return;
-      let styleStr = `<style id="lichessTools-customBoardImage">
+      if (this.options.customBoardUrl) {
+        let styleStr = `<style id="lichessTools-customBoardImage">
 body.lichessTools .is2d cg-board::before {
   background-image: url(${this.options.customBoardUrl});
 }
 </style>`;
-      $(styleStr).appendTo('head');
-      this.addCustomBoard();
+        $(styleStr).appendTo('head');
+        this.addCustomBoard();
+      }
+      lt.tools.ThemesTool?.setBoardVariables(true);
     };
 
     chooseCustomBoardImageUrl = async ()=>{
