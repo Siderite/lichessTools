@@ -894,7 +894,9 @@
     "totalGamesPlayed": "مجموع الألعاب: %s",
     "yearGamesPlayed": "ألعاب هذا العام: %s",
     "monthGamesPlayed": "ألعاب هذا الشهر: %s",
-    "dayGamesPlayed": "ألعاب اليوم: %s"
+    "dayGamesPlayed": "ألعاب اليوم: %s",
+    "options.playLayoutElements": "تشغيل عناصر التخطيط",
+    "playLayoutElements.deadCrosstable": "غير متفاعلة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1791,7 +1793,9 @@
     "totalGamesPlayed": "游戏总数: %s",
     "yearGamesPlayed": "今年的游戏： %s",
     "monthGamesPlayed": "本月游戏: %s",
-    "dayGamesPlayed": "今日游戏： %s"
+    "dayGamesPlayed": "今日游戏： %s",
+    "options.playLayoutElements": "播放布局元素",
+    "playLayoutElements.deadCrosstable": "非交互滚动"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2688,7 +2692,9 @@
     "totalGamesPlayed": "Total games: %s",
     "yearGamesPlayed": "Games this year: %s",
     "monthGamesPlayed": "Games this month: %s",
-    "dayGamesPlayed": "Games today: %s"
+    "dayGamesPlayed": "Games today: %s",
+    "options.playLayoutElements": "Play layout elements",
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3585,7 +3591,9 @@
     "totalGamesPlayed": "Celkem her: %s",
     "yearGamesPlayed": "Letos hry: %s",
     "monthGamesPlayed": "Hry tento měsíc: %s",
-    "dayGamesPlayed": "Dnešní hry: %s"
+    "dayGamesPlayed": "Dnešní hry: %s",
+    "options.playLayoutElements": "Přehrát prvky rozvržení",
+    "playLayoutElements.deadCrosstable": "Neinteraktivní crosstable"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4482,7 +4490,9 @@
     "totalGamesPlayed": "Totaal aantal spellen: %s",
     "yearGamesPlayed": "Partijen dit jaar: %s",
     "monthGamesPlayed": "Partijen deze maand: %s",
-    "dayGamesPlayed": "Spellen vandaag: %s"
+    "dayGamesPlayed": "Spellen vandaag: %s",
+    "options.playLayoutElements": "Opmaakelementen afspelen",
+    "playLayoutElements.deadCrosstable": "Niet interactief crosstable"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -5379,7 +5389,9 @@
     "totalGamesPlayed": "Total games: %s",
     "yearGamesPlayed": "Games this year: %s",
     "monthGamesPlayed": "Games this month: %s",
-    "dayGamesPlayed": "Games today: %s"
+    "dayGamesPlayed": "Games today: %s",
+    "options.playLayoutElements": "Play layout elements",
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6276,7 +6288,9 @@
     "totalGamesPlayed": "Nombre total de parties : %s",
     "yearGamesPlayed": "Parties cette année : %s",
     "monthGamesPlayed": "Parties ce mois-ci : %s",
-    "dayGamesPlayed": "Parties aujourd'hui : %s"
+    "dayGamesPlayed": "Parties aujourd'hui : %s",
+    "options.playLayoutElements": "Jouer les éléments de mise en page",
+    "playLayoutElements.deadCrosstable": "Croisable non interactif"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7173,7 +7187,9 @@
     "totalGamesPlayed": "Gesamte Spiele: %s",
     "yearGamesPlayed": "Spiele in diesem Jahr: %s",
     "monthGamesPlayed": "Spiele in diesem Monat: %s",
-    "dayGamesPlayed": "Spiele heute: %s"
+    "dayGamesPlayed": "Spiele heute: %s",
+    "options.playLayoutElements": "Layoutelemente abspielen",
+    "playLayoutElements.deadCrosstable": "Nicht interaktive Kreuzung"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8070,7 +8086,9 @@
     "totalGamesPlayed": "Total games: %s",
     "yearGamesPlayed": "Games this year: %s",
     "monthGamesPlayed": "Games this month: %s",
-    "dayGamesPlayed": "Games today: %s"
+    "dayGamesPlayed": "Games today: %s",
+    "options.playLayoutElements": "Play layout elements",
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -8967,7 +8985,9 @@
     "totalGamesPlayed": "Totale giochi: %s",
     "yearGamesPlayed": "Giochi quest'anno: %s",
     "monthGamesPlayed": "Giochi questo mese: %s",
-    "dayGamesPlayed": "Giochi oggi: %s"
+    "dayGamesPlayed": "Giochi oggi: %s",
+    "options.playLayoutElements": "Riproduci elementi di layout",
+    "playLayoutElements.deadCrosstable": "Crosstable non interattivo"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -9864,7 +9884,9 @@
     "totalGamesPlayed": "Total games: %s",
     "yearGamesPlayed": "Games this year: %s",
     "monthGamesPlayed": "Games this month: %s",
-    "dayGamesPlayed": "Games today: %s"
+    "dayGamesPlayed": "Games today: %s",
+    "options.playLayoutElements": "Play layout elements",
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10761,7 +10783,9 @@
     "totalGamesPlayed": "Gry ogółem: %s",
     "yearGamesPlayed": "Gry w tym roku: %s",
     "monthGamesPlayed": "Gry w tym miesiącu: %s",
-    "dayGamesPlayed": "Dzisiaj gry: %s"
+    "dayGamesPlayed": "Dzisiaj gry: %s",
+    "options.playLayoutElements": "Odtwórz elementy układu",
+    "playLayoutElements.deadCrosstable": "Nieinteraktywna skrzyżowana"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11658,7 +11682,9 @@
     "totalGamesPlayed": "Total de jogos: %s",
     "yearGamesPlayed": "Jogos este ano: %s",
     "monthGamesPlayed": "Jogos neste mês: %s",
-    "dayGamesPlayed": "Partidas hoje: %s"
+    "dayGamesPlayed": "Partidas hoje: %s",
+    "options.playLayoutElements": "Reproduzir elementos de layout",
+    "playLayoutElements.deadCrosstable": "Cruzamento interativo"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12555,7 +12581,9 @@
     "totalGamesPlayed": "Total de jogos: %s",
     "yearGamesPlayed": "Jogos este ano: %s",
     "monthGamesPlayed": "Jogos neste mês: %s",
-    "dayGamesPlayed": "Partidas hoje: %s"
+    "dayGamesPlayed": "Partidas hoje: %s",
+    "options.playLayoutElements": "Reproduzir elementos de layout",
+    "playLayoutElements.deadCrosstable": "Cruzamento interativo"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13452,7 +13480,9 @@
     "totalGamesPlayed": "Total jocuri: %s",
     "yearGamesPlayed": "Jocuri anul acesta: %s",
     "monthGamesPlayed": "Jocuri luna aceasta: %s",
-    "dayGamesPlayed": "Jocuri azi: %s"
+    "dayGamesPlayed": "Jocuri azi: %s",
+    "options.playLayoutElements": "Elemente vizuale",
+    "playLayoutElements.deadCrosstable": "Tabel rezultate neinteractiv"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14349,7 +14379,9 @@
     "totalGamesPlayed": "Всего игр: %s",
     "yearGamesPlayed": "Игры в этом году: %s",
     "monthGamesPlayed": "Игры в этом месяце: %s",
-    "dayGamesPlayed": "Сегодняшние игры: %s"
+    "dayGamesPlayed": "Сегодняшние игры: %s",
+    "options.playLayoutElements": "Играть элементы макета",
+    "playLayoutElements.deadCrosstable": "Неинтерактивный кросстабильный"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15246,7 +15278,9 @@
     "totalGamesPlayed": "Partidas totales: %s",
     "yearGamesPlayed": "Juegos de este año: %s",
     "monthGamesPlayed": "Juegos de este mes: %s",
-    "dayGamesPlayed": "Juegos de hoy: %s"
+    "dayGamesPlayed": "Juegos de hoy: %s",
+    "options.playLayoutElements": "Reproducir elementos de diseño",
+    "playLayoutElements.deadCrosstable": "Cruce estable no interactivo"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16143,7 +16177,9 @@
     "totalGamesPlayed": "Total games: %s",
     "yearGamesPlayed": "Games this year: %s",
     "monthGamesPlayed": "Games this month: %s",
-    "dayGamesPlayed": "Games today: %s"
+    "dayGamesPlayed": "Games today: %s",
+    "options.playLayoutElements": "Play layout elements",
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -17040,7 +17076,9 @@
     "totalGamesPlayed": "Total games: %s",
     "yearGamesPlayed": "Games this year: %s",
     "monthGamesPlayed": "Games this month: %s",
-    "dayGamesPlayed": "Games today: %s"
+    "dayGamesPlayed": "Games today: %s",
+    "options.playLayoutElements": "Play layout elements",
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -17937,6 +17975,8 @@
     "totalGamesPlayed": "Total games: %s",
     "yearGamesPlayed": "Games this year: %s",
     "monthGamesPlayed": "Games this month: %s",
-    "dayGamesPlayed": "Games today: %s"
+    "dayGamesPlayed": "Games today: %s",
+    "options.playLayoutElements": "Play layout elements",
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
   }
 }
