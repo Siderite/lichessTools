@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+03 Oct
+
+- play layout elements: non interactive crosstable
+
 02 Oct
 
 - more piece sets
