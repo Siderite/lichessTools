@@ -896,7 +896,12 @@
     "monthGamesPlayed": "ألعاب هذا الشهر: %s",
     "dayGamesPlayed": "ألعاب اليوم: %s",
     "options.playLayoutElements": "تشغيل عناصر التخطيط",
-    "playLayoutElements.deadCrosstable": "غير متفاعلة"
+    "playLayoutElements.deadCrosstable": "غير متفاعلة",
+    "options.customBoardImage": "صورة لوحة مخصصة",
+    "customBoardUrlPrompt": "أدخل عنوان URL لصورة لوحتك",
+    "invalidUrl": "رابط غير صالح",
+    "customBoardImageUrlText": "لوحة مخصصة",
+    "customBoardImageUrlTitle": "أدوات شطرنج الحياة - لوحة مخصصة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1795,7 +1800,12 @@
     "monthGamesPlayed": "本月游戏: %s",
     "dayGamesPlayed": "今日游戏： %s",
     "options.playLayoutElements": "播放布局元素",
-    "playLayoutElements.deadCrosstable": "非交互滚动"
+    "playLayoutElements.deadCrosstable": "非交互滚动",
+    "options.customBoardImage": "自定义棋盘图像",
+    "customBoardUrlPrompt": "输入您的棋盘图像 URL",
+    "invalidUrl": "无效的 URL",
+    "customBoardImageUrlText": "自定义板",
+    "customBoardImageUrlTitle": "LiChess工具 - 自定义板"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2694,7 +2704,12 @@
     "monthGamesPlayed": "Games this month: %s",
     "dayGamesPlayed": "Games today: %s",
     "options.playLayoutElements": "Play layout elements",
-    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable",
+    "options.customBoardImage": "Custom board image",
+    "customBoardUrlPrompt": "Enter your board image URL",
+    "invalidUrl": "Invalid URL",
+    "customBoardImageUrlText": "Custom board",
+    "customBoardImageUrlTitle": "LiChess Tools - custom board"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3593,7 +3608,12 @@
     "monthGamesPlayed": "Hry tento měsíc: %s",
     "dayGamesPlayed": "Dnešní hry: %s",
     "options.playLayoutElements": "Přehrát prvky rozvržení",
-    "playLayoutElements.deadCrosstable": "Neinteraktivní crosstable"
+    "playLayoutElements.deadCrosstable": "Neinteraktivní crosstable",
+    "options.customBoardImage": "Vlastní obrázek desky",
+    "customBoardUrlPrompt": "Zadejte URL obrázku desky",
+    "invalidUrl": "Neplatná URL",
+    "customBoardImageUrlText": "Vlastní deska",
+    "customBoardImageUrlTitle": "Nástroje LiChess - vlastní deska"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4492,7 +4512,12 @@
     "monthGamesPlayed": "Partijen deze maand: %s",
     "dayGamesPlayed": "Spellen vandaag: %s",
     "options.playLayoutElements": "Opmaakelementen afspelen",
-    "playLayoutElements.deadCrosstable": "Niet interactief crosstable"
+    "playLayoutElements.deadCrosstable": "Niet interactief crosstable",
+    "options.customBoardImage": "Aangepaste board afbeelding",
+    "customBoardUrlPrompt": "Voer de URL van uw board afbeelding in",
+    "invalidUrl": "Ongeldige URL",
+    "customBoardImageUrlText": "Aangepast bord",
+    "customBoardImageUrlTitle": "LiChess Tools - aangepast bord"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -5391,7 +5416,12 @@
     "monthGamesPlayed": "Games this month: %s",
     "dayGamesPlayed": "Games today: %s",
     "options.playLayoutElements": "Play layout elements",
-    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable",
+    "options.customBoardImage": "Custom board image",
+    "customBoardUrlPrompt": "Enter your board image URL",
+    "invalidUrl": "Invalid URL",
+    "customBoardImageUrlText": "Custom board",
+    "customBoardImageUrlTitle": "LiChess Tools - custom board"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6290,7 +6320,12 @@
     "monthGamesPlayed": "Parties ce mois-ci : %s",
     "dayGamesPlayed": "Parties aujourd'hui : %s",
     "options.playLayoutElements": "Jouer les éléments de mise en page",
-    "playLayoutElements.deadCrosstable": "Croisable non interactif"
+    "playLayoutElements.deadCrosstable": "Croisable non interactif",
+    "options.customBoardImage": "Image du tableau personnalisé",
+    "customBoardUrlPrompt": "Entrez l'URL de l'image de votre tableau",
+    "invalidUrl": "URL invalide",
+    "customBoardImageUrlText": "Tableau personnalisé",
+    "customBoardImageUrlTitle": "Outils LiChess - Tableau personnalisé"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7189,7 +7224,12 @@
     "monthGamesPlayed": "Spiele in diesem Monat: %s",
     "dayGamesPlayed": "Spiele heute: %s",
     "options.playLayoutElements": "Layoutelemente abspielen",
-    "playLayoutElements.deadCrosstable": "Nicht interaktive Kreuzung"
+    "playLayoutElements.deadCrosstable": "Nicht interaktive Kreuzung",
+    "options.customBoardImage": "Eigenes Brettbild",
+    "customBoardUrlPrompt": "URL des Boardbildes eingeben",
+    "invalidUrl": "Ungültige URL",
+    "customBoardImageUrlText": "Benutzerdefiniertes Board",
+    "customBoardImageUrlTitle": "LiChess-Werkzeuge - benutzerdefiniertes Board"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8088,7 +8128,12 @@
     "monthGamesPlayed": "Games this month: %s",
     "dayGamesPlayed": "Games today: %s",
     "options.playLayoutElements": "Play layout elements",
-    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable",
+    "options.customBoardImage": "Custom board image",
+    "customBoardUrlPrompt": "Enter your board image URL",
+    "invalidUrl": "Invalid URL",
+    "customBoardImageUrlText": "Custom board",
+    "customBoardImageUrlTitle": "LiChess Tools - custom board"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -8987,7 +9032,12 @@
     "monthGamesPlayed": "Giochi questo mese: %s",
     "dayGamesPlayed": "Giochi oggi: %s",
     "options.playLayoutElements": "Riproduci elementi di layout",
-    "playLayoutElements.deadCrosstable": "Crosstable non interattivo"
+    "playLayoutElements.deadCrosstable": "Crosstable non interattivo",
+    "options.customBoardImage": "Immagine scheda personalizzata",
+    "customBoardUrlPrompt": "Inserisci l'URL dell'immagine della scheda",
+    "invalidUrl": "Url Non Valido",
+    "customBoardImageUrlText": "Scheda personalizzata",
+    "customBoardImageUrlTitle": "Strumenti LiChess - scheda personalizzata"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -9886,7 +9936,12 @@
     "monthGamesPlayed": "Games this month: %s",
     "dayGamesPlayed": "Games today: %s",
     "options.playLayoutElements": "Play layout elements",
-    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable",
+    "options.customBoardImage": "Custom board image",
+    "customBoardUrlPrompt": "Enter your board image URL",
+    "invalidUrl": "Invalid URL",
+    "customBoardImageUrlText": "Custom board",
+    "customBoardImageUrlTitle": "LiChess Tools - custom board"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10785,7 +10840,12 @@
     "monthGamesPlayed": "Gry w tym miesiącu: %s",
     "dayGamesPlayed": "Dzisiaj gry: %s",
     "options.playLayoutElements": "Odtwórz elementy układu",
-    "playLayoutElements.deadCrosstable": "Nieinteraktywna skrzyżowana"
+    "playLayoutElements.deadCrosstable": "Nieinteraktywna skrzyżowana",
+    "options.customBoardImage": "Własny obraz tablicy",
+    "customBoardUrlPrompt": "Wprowadź adres URL obrazu tablicy",
+    "invalidUrl": "Nieprawidłowy adres URL",
+    "customBoardImageUrlText": "Własna tablica",
+    "customBoardImageUrlTitle": "Narzędzia LiChess - niestandardowa płytka"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11684,7 +11744,12 @@
     "monthGamesPlayed": "Jogos neste mês: %s",
     "dayGamesPlayed": "Partidas hoje: %s",
     "options.playLayoutElements": "Reproduzir elementos de layout",
-    "playLayoutElements.deadCrosstable": "Cruzamento interativo"
+    "playLayoutElements.deadCrosstable": "Cruzamento interativo",
+    "options.customBoardImage": "Imagem de board personalizada",
+    "customBoardUrlPrompt": "Digite a URL da imagem do fórum",
+    "invalidUrl": "URL inválida",
+    "customBoardImageUrlText": "Board personalizado",
+    "customBoardImageUrlTitle": "Ferramentas LiChess - board personalizado"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12583,7 +12648,12 @@
     "monthGamesPlayed": "Jogos neste mês: %s",
     "dayGamesPlayed": "Partidas hoje: %s",
     "options.playLayoutElements": "Reproduzir elementos de layout",
-    "playLayoutElements.deadCrosstable": "Cruzamento interativo"
+    "playLayoutElements.deadCrosstable": "Cruzamento interativo",
+    "options.customBoardImage": "Imagem de board personalizada",
+    "customBoardUrlPrompt": "Digite a URL da imagem do fórum",
+    "invalidUrl": "URL inválida",
+    "customBoardImageUrlText": "Board personalizado",
+    "customBoardImageUrlTitle": "Ferramentas LiChess - board personalizado"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13482,7 +13552,12 @@
     "monthGamesPlayed": "Jocuri luna aceasta: %s",
     "dayGamesPlayed": "Jocuri azi: %s",
     "options.playLayoutElements": "Elemente vizuale",
-    "playLayoutElements.deadCrosstable": "Tabel rezultate neinteractiv"
+    "playLayoutElements.deadCrosstable": "Tabel rezultate neinteractiv",
+    "options.customBoardImage": "Tablă personalizată",
+    "customBoardUrlPrompt": "Introdu URL-ul imaginii tablei",
+    "invalidUrl": "URL nevalid",
+    "customBoardImageUrlText": "Tablă personalizată",
+    "customBoardImageUrlTitle": "LiChess Tools - tablă personalizată"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14381,7 +14456,12 @@
     "monthGamesPlayed": "Игры в этом месяце: %s",
     "dayGamesPlayed": "Сегодняшние игры: %s",
     "options.playLayoutElements": "Играть элементы макета",
-    "playLayoutElements.deadCrosstable": "Неинтерактивный кросстабильный"
+    "playLayoutElements.deadCrosstable": "Неинтерактивный кросстабильный",
+    "options.customBoardImage": "Пользовательское изображение доски",
+    "customBoardUrlPrompt": "Введите URL изображения вашей платы",
+    "invalidUrl": "Неверный URL",
+    "customBoardImageUrlText": "Пользовательская доска",
+    "customBoardImageUrlTitle": "Инструменты Lichess - пользовательская доска"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15280,7 +15360,12 @@
     "monthGamesPlayed": "Juegos de este mes: %s",
     "dayGamesPlayed": "Juegos de hoy: %s",
     "options.playLayoutElements": "Reproducir elementos de diseño",
-    "playLayoutElements.deadCrosstable": "Cruce estable no interactivo"
+    "playLayoutElements.deadCrosstable": "Cruce estable no interactivo",
+    "options.customBoardImage": "Imagen de tablero personalizada",
+    "customBoardUrlPrompt": "Introduzca la URL de la imagen del foro",
+    "invalidUrl": "URL inválida",
+    "customBoardImageUrlText": "Tablero personalizado",
+    "customBoardImageUrlTitle": "Herramientas de LiChess - tablero personalizado"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16179,7 +16264,12 @@
     "monthGamesPlayed": "Games this month: %s",
     "dayGamesPlayed": "Games today: %s",
     "options.playLayoutElements": "Play layout elements",
-    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable",
+    "options.customBoardImage": "Custom board image",
+    "customBoardUrlPrompt": "Enter your board image URL",
+    "invalidUrl": "Invalid URL",
+    "customBoardImageUrlText": "Custom board",
+    "customBoardImageUrlTitle": "LiChess Tools - custom board"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -17078,7 +17168,12 @@
     "monthGamesPlayed": "Games this month: %s",
     "dayGamesPlayed": "Games today: %s",
     "options.playLayoutElements": "Play layout elements",
-    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable",
+    "options.customBoardImage": "Custom board image",
+    "customBoardUrlPrompt": "Enter your board image URL",
+    "invalidUrl": "Invalid URL",
+    "customBoardImageUrlText": "Custom board",
+    "customBoardImageUrlTitle": "LiChess Tools - custom board"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -17977,6 +18072,11 @@
     "monthGamesPlayed": "Games this month: %s",
     "dayGamesPlayed": "Games today: %s",
     "options.playLayoutElements": "Play layout elements",
-    "playLayoutElements.deadCrosstable": "Non interactive crosstable"
+    "playLayoutElements.deadCrosstable": "Non interactive crosstable",
+    "options.customBoardImage": "Custom board image",
+    "customBoardUrlPrompt": "Enter your board image URL",
+    "invalidUrl": "Invalid URL",
+    "customBoardImageUrlText": "Custom board",
+    "customBoardImageUrlTitle": "LiChess Tools - custom board"
   }
 }
