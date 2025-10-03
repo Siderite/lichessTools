@@ -115,9 +115,12 @@ body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"]:after 
   font-size: large;
 }
 
+/* removed because tapping the menu when computer eval is running is making the screen zoom in
+   but I don't remember what it was here in the first place
 body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__tools:has(.action-menu) {
   overflow: visible;
 }
+*/
 
 body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__tools .explorer-box .moves tbody tr.sum {
   position: sticky;
