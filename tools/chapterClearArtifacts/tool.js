@@ -238,6 +238,7 @@
         const tagName = $(e).text();
         if (!tags.find(t => t[0] === tagName)) return;
         if ($('button.lichessTools-deleteTag', e).length) return;
+        if (!$(e).parent().find('input').length) return; // readonly tag
         $('<button class="lichessTools-deleteTag">').text(lt.icon.Cancel)
           .attr('title', trans.pluralSame('deleteTagTitle', tagName))
           .on('click', ev => {
