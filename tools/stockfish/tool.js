@@ -96,8 +96,8 @@
         engineId = '__sf17_1nnue79';
         engineRoot = 'sf171-79.js';
       } else {
-        engineId = '__sf16nnue7';
-        engineRoot = 'sf16-7.js';
+        engineId = '__sf17_1nnue7';
+        engineRoot = 'sf171-7.js';
       }
       try {
         if (!this._module) {
