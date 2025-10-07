@@ -895,16 +895,31 @@
       if (this.global.document.readyState != 'complete') return 1;
       if (this.global.document.visibilityState == 'hidden') return 0;
 
-	  if (this.traverseState?.nodeIndex > 1000) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
-
-      if (element.checkVisibility) {
-        if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
-      } else {
-        if (!element.offsetParent && $(element).css('position') != 'fixed') return 0;
+      if (Date.now() - element.__inViewport?.time < 5000) {
+        return element.__inViewport.value;
       }
-      const rect = element.getBoundingClientRect();
-      const port = new DOMRect(0, 0, $(this.global).width(), $(this.global).height());
-      return this.rectIntersection(rect, port);
+
+      const calculateViewport = ()=>{
+
+        if (this.traverseState?.nodeIndex > 1000) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
+
+        if (element.checkVisibility) {
+          if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
+        } else {
+          if (!element.offsetParent && $(element).css('position') != 'fixed') return 0;
+        }
+        const rect = element.getBoundingClientRect();
+        const port = new DOMRect(0, 0, $(this.global).width(), $(this.global).height());
+      
+        return this.rectIntersection(rect, port);
+      };
+
+      const result = calculateViewport();
+      element.__inViewport = {
+        time: Date.now(),
+        value: result
+      };
+      return result;
     };
 
     scrollIntoViewIfNeeded = (selector) => {
