@@ -177,8 +177,8 @@
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Juno/"
     }, {
       "category": "hollowleaf",
-      "name": "Junpiter",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Junpiter/"
+      "name": "Jupiter",
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Jupiter/"
     }, {
       "category": "hollowleaf",
       "name": "Mars",
@@ -195,6 +195,10 @@
       "category": "hollowleaf",
       "name": "Venus",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Venus/"
+    }, {
+      "category": "hollowleaf",
+      "name": "Cyborg",
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Cyborg/"
     },
 
 
