@@ -260,6 +260,9 @@
         if (!friendMenu?.length) {
           friendMenu = $(e).clone()
             .attr('data-pt-pos', 'e');
+          friendMenu.find('i')
+            .toggleClassSafe('line',true);
+
           group.append(friendMenu);
         }
         friendMenu[0].dataset.href = href;
