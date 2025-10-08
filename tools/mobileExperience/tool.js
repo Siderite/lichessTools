@@ -334,14 +334,14 @@
       const isAnalyse = !!$('main.analyse').length;
       const isRound = !!$('main.round,main.puzzle').length;
       const isEnabled = !!(this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove);
-      $.cached('body').toggleClass('lichessTools-mobileExperience', isEnabled);
+      $.cached('body').toggleClassSafe('lichessTools-mobileExperience', isEnabled);
 
       let wrap = null;
       this.chessground = null;
       if (isAnalyse) {
         $('main.analyse')
-        .toggleClass('lichessTools-gaugeOnMobile', this.options.showGauge)
-        .toggleClass('lichessTools-hideOctopus', this.options.hideOctopus);
+        .toggleClassSafe('lichessTools-gaugeOnMobile', this.options.showGauge)
+        .toggleClassSafe('lichessTools-hideOctopus', this.options.hideOctopus);
         wrap = $('main.analyse div.cg-wrap');
         if (this.options.shapeDrawing) {
           this.chessground = lt.lichess.analysis?.chessground;
@@ -349,8 +349,8 @@
       } else {
         if (isRound) {
           $('main')
-          .toggleClass('lichessTools-invert', this.options.invert)
-          .toggleClass('lichessTools-standardButtons', this.options.standardButtons);
+          .toggleClassSafe('lichessTools-invert', this.options.invert)
+          .toggleClassSafe('lichessTools-standardButtons', this.options.standardButtons);
           wrap = $('main div.cg-wrap.lichessTools-boardOverlay');
           if (this.options.shapeDrawingRound) {
             if (!wrap.length) {
@@ -474,7 +474,7 @@
               .insertBefore($('button.board-menu-toggle', container))
               .on('touchstart mousedown ', ev => {
                 this.toggleBrush(ev);
-                wrap?.toggleClass('lichessTools-passthrough', !this.drawingBrush);
+                wrap?.toggleClassSafe('lichessTools-passthrough', !this.drawingBrush);
               });
             }
           } else {
@@ -555,6 +555,7 @@
       const wakeLock = lt.currentOptions.getValue('wakeLock');
       const $ = lt.$;
       const trans = lt.translator;
+      const analysis  = lichess.analysis;
       this.logOption('Mobile experience', mobileExperience);
       this.logOption('Mobile game experience', mobileExperienceRound);
       this.logOption('... color count', lt.currentOptions.getValue('colorCount'));
@@ -579,6 +580,21 @@
       };
       lt.pubsub.off('lichessTools.redraw', this.handleRedraw);
       lt.pubsub.off('lichessTools.chapterChange', this.handleRedraw);
+      if (analysis) {
+        analysis.showEvalGauge = lt.unwrapFunction(analysis.showEvalGauge, 'mobileExperience');
+        if (this.options.showGauge) {
+          analysis.showEvalGauge = lt.wrapFunction(analysis.showEvalGauge, {
+            id: 'mobileExperience',
+            after: ($this, result, ...args) => {
+              return $this.showGauge()
+                     && $this.showAnalysis()
+                     && $this.isCevalAllowed()
+                     && !$this.outcome();
+            }
+          });
+        }
+        analysis.redraw();
+      }
       if (this.options.showGauge || this.options.hideOctopus || this.options.standardButtons || this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove) {
         lt.pubsub.on('lichessTools.redraw', this.handleRedraw);
         lt.pubsub.on('lichessTools.chapterChange', this.handleRedraw);
@@ -589,7 +605,7 @@
       if (isRoundPlay || isRoundPuzzle) {
         const lockBoardElem = $('#top div.site-buttons div.lichessTools-lockBoard');
         if ($.cached('body').is('.mobile.playing') && ((this.options.lockBoardPlay && isRoundPlay) || (this.options.lockBoardPuzzle && isRoundPuzzle)) ) {
-          $.cached('body').addClass('lichessTools-lockBoard');
+          $.cached('body').toggleClassSafe('lichessTools-lockBoard',true);
           if (this.isBoardLocked === undefined) {
             this.isBoardLocked = lt.storage.get('LiChessTools.boardLocked');
             if (this.isBoardLocked === undefined)
@@ -603,13 +619,13 @@
             .on('click', () => {
               this.isBoardLocked = !this.isBoardLocked;
               lt.storage.set('LiChessTools.boardLocked', this.isBoardLocked);
-              $.cached('body').toggleClass('lichessTools-lockBoard', this.isBoardLocked);
+              $.cached('body').toggleClassSafe('lichessTools-lockBoard', this.isBoardLocked);
             })
             .prependTo($('#top div.site-buttons'));
           }
-          $.cached('body').toggleClass('lichessTools-lockBoard', this.isBoardLocked);
+          $.cached('body').toggleClassSafe('lichessTools-lockBoard', this.isBoardLocked);
         } else {
-          $.cached('body').removeClass('lichessTools-lockBoard');
+          $.cached('body').toggleClassSafe('lichessTools-lockBoard',false);
           lockBoardElem.remove();
         }
       }
