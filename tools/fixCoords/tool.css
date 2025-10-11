@@ -33,6 +33,7 @@ body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools
   opacity: 1;
   width: 100%;
   height: 100%;
+  filter: brightness(1.25);
 }
 
 body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools-fixCoords>coord {
@@ -46,6 +47,14 @@ body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools
   opacity: calc(var(---board-opacity) / 100);
   font-size: max(8px, calc(var(---cg-width) / 50));
   font-weight: lighter;
+}
+
+body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools-fixCoords>coord.light {
+  color: var(---cg-ccb);
+}
+
+body.lichessTools.lichessTools-fixCoords-square cg-container coords.lichessTools-fixCoords>coord.dark {
+  color: var(---cg-ccw);
 }
 
 body.lichessTools.lichessTools-fixCoords-square .orientation-black cg-container coords.lichessTools-fixCoords>coord {
