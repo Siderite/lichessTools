@@ -34,6 +34,7 @@
         'evaluationTitle': 'LiChess Tools - move evaluation',
         'evalWarning': 'LiChess Tools - pay attention',
         'sharpnessTitle': 'Sharpness: %s',
+        'winMarginTitle': 'Win margin: %s%',
         'spoaTitle': 'LiChess Tools - Stronger Player Outcome Average'
       },
       'ro-RO': {
@@ -55,6 +56,7 @@
         'evaluationTitle': 'LiChess Tools - evaluare mutare',
         'evalWarning': 'LiChess Tools - aten\u0163ie',
         'sharpnessTitle': 'Periculozitate: %s',
+        'winMarginTitle': 'Marj\u0103 victorie: %s%',
         'spoaTitle': 'LiChess Tools - Media Rezultatelor Juc\u0103torilor mai Buni'
       }
     }
@@ -201,12 +203,22 @@
           const q = 1000 / total;
           const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
           const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+          const winMargin = Math.round(10000*(explorerItem.white-explorerItem.black)/total)/100;
+
           const tdBar = $('td:has(div.bar)', e);
-          if (tdBar.length && !Number.isNaN(total)) {
+          if (tdBar.length) {
+            let arr = (tdBar.attr('title')||'').split(' / ');
             if (sharpness && Number.isFinite(sharpness)) {
               const sharpnessTitle = trans.pluralSame('sharpnessTitle', sharpness);
-              const tdTitle = tdBar.attr('title')?.split(' / ')?.at(0) + ' / ' + sharpnessTitle;
-              tdBar.attr('title', tdTitle);
+              arr[1] = sharpnessTitle;
+            }
+            if (Number.isFinite(winMargin)) {
+              const winMarginTitle = trans.pluralSame('winMarginTitle', winMargin);
+              arr[2] = winMarginTitle;
+            }
+            const tdTitle = arr.join(' / ');
+            if (tdTitle) {
+              tdBar.attrSafe('title', tdTitle);
             }
             if (this.options.bardp) {
               [

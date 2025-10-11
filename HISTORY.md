@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Oct
+
+- win margin tooltip in Explorer Eval
+
 03 Oct
 
 - play layout elements: non interactive crosstable
