@@ -28,11 +28,11 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   min-width:2em;
 }
 
-body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing:hover {
+/* fix for Kiwi mobile hover bug */
+/*body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing:hover {
   background: initial;
-  /* fix for Kiwi mobile hover bug */
   color: initial;
-}
+}*/
 
 body.lichessTools button.lichessTools-shapeDrawing.lichessTools-greenBrush {
   background: #629924;
