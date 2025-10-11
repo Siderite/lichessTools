@@ -128,7 +128,8 @@
             this.lt.announce(this.lt.translator.noarg('stockfishError'));
             this.emit('error',e);
           };
-          if (useBetterEngine) {
+          // TODO maybe should be using non NNUE engine for simple analysis
+          //if (useBetterEngine) {
             const getBuffer=async (i)=>{
               const nnueFilename = sf.getRecommendedNnue(i);
               let result = await this.lt.storage.get('nnue--db/nnue/'+nnueFilename, { db:true, raw:true });
@@ -143,7 +144,7 @@
             }
             sf.setNnueBuffer(await getBuffer(0),0);
             sf.setNnueBuffer(await getBuffer(1),1);
-          }
+          //}
           if (sf.uci && !sf.postMessage) sf.postMessage = sf.uci;
           await sf.ready;
           sf.listen = this.listen.bind(this);
