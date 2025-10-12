@@ -122,11 +122,21 @@
           $(e).toggleClass('lichessTools-bigEmoji', [...text].length <= 5 && /^\p{Extended_Pictographic}+$/u.test(text) );
         });
       }
+      if (this.options.refreshOnMessage) {
+        const moreButton = $('button.msg-app__convo__msgs__more')[0];
+        if (moreButton && !moreButton.__initRefreshOnMessage) {
+          moreButton.__initRefreshOnMessage = true;
+          $(moreButton).on('click',()=>{
+            $('.msg-app__convo__msgs__content').toggleClassSafe('lichessTools-moreButtonPressed',true);
+          });
+        }
+      }
     };
 
     refreshChatDirect = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      if ($('.msg-app__convo__msgs__content').is('.lichessTools-moreButtonPressed')) return;
       const el = $('.msg-app__side__contact.active')[0];
       if (!el) return;
       const handler = lt.getEventHandlers(el,'mousedown')[0]?.bind(el);
