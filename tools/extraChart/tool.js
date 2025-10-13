@@ -1715,10 +1715,10 @@
       }
 
       $('main.analyse').observer()
-        .off('.advice-summary__accuracy,.analyse__underboard',this.initAccuracyPlus);
+        .off('.advice-summary__accuracy,.analyse__underboard,.analyse__round-training',this.initAccuracyPlus);
       if (this.options.accuracyPlus) {
         $('main.analyse').observer()
-          .on('.advice-summary__accuracy,.analyse__underboard',this.initAccuracyPlus);
+          .on('.advice-summary__accuracy,.analyse__underboard,.analyse__round-training',this.initAccuracyPlus);
         this.initAccuracyPlus();
       }
     }
