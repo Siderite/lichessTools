@@ -1,11 +1,11 @@
 (() => {
-  class ImagePastingTool extends LiChessTools.Tools.ToolBase {
+  class ChatForumBlogsTool extends LiChessTools.Tools.ToolBase {
 
     dependencies = ['Dialog'];
 
     preferences = [
       {
-        name: 'imagePasting',
+        name: 'chatForumBlogs',
         category: 'comm',
         type: 'multiple',
         possibleValues: ['pasteImages', 'bigEmoji', 'refreshOnMessage'],
@@ -17,18 +17,18 @@
     intl = {
       'en-US': {
         'options.comm': 'Chat, forums, blogs',
-        'options.imagePasting': 'Chat/forum options',
-        'imagePasting.pasteImages': 'Paste image support',
-        'imagePasting.bigEmoji': 'Large one emoji message',
-        'imagePasting.refreshOnMessage': 'Refresh on new message',
+        'options.chatForumBlogs': 'Chat/forum options',
+        'chatForumBlogs.pasteImages': 'Paste image support',
+        'chatForumBlogs.bigEmoji': 'Large one emoji message',
+        'chatForumBlogs.refreshOnMessage': 'Refresh on new message',
         'pastingError': 'There was an error generating the image URL'
       },
       'ro-RO': {
         'options.comm': 'Chat, forumuri, blog-uri',
-        'options.imagePasting': 'Op\u0163iuni chat/forum',
-        'imagePasting.pasteImages': 'Suport lipire imagini',
-        'imagePasting.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
-        'imagePasting.refreshOnMessage': 'Re\uee00mprosp\u0103teaz\u0103 la mesaj nou',
+        'options.chatForumBlogs': 'Op\u0163iuni chat/forum',
+        'chatForumBlogs.pasteImages': 'Suport lipire imagini',
+        'chatForumBlogs.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
+        'chatForumBlogs.refreshOnMessage': 'Re\uee00mprosp\u0103teaz\u0103 la mesaj nou',
         'pastingError': 'A ap\u0103rut o eroare \u00een generarea URLului imaginii'
       }
     }
@@ -154,7 +154,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
-      const value = lt.currentOptions.getValue('imagePasting');
+      const value = lt.currentOptions.getValue('chatForumBlogs');
       this.logOption('Inbox chat', value);
       if (!lt.getUserId()) {
         lt.global.console.debug(' ... Disabled (not logged in)');
@@ -187,5 +187,5 @@
     }
 
   }
-  LiChessTools.Tools.ImagePasting = ImagePastingTool;
+  LiChessTools.Tools.ChatForumBlogs = ChatForumBlogsTool;
 })();
