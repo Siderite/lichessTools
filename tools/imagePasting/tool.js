@@ -137,6 +137,11 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if ($('.msg-app__convo__msgs__content').is('.lichessTools-moreButtonPressed')) return;
+      let scrollQ = 0;
+      $('.msg-app__convo__msgs').each((i,e)=>{
+        scrollQ = e.scrollTop/e.scrollHeight;
+      });
+      if (scrollQ<0.9) return;
       const el = $('.msg-app__side__contact.active')[0];
       if (!el) return;
       const handler = lt.getEventHandlers(el,'mousedown')[0]?.bind(el);
