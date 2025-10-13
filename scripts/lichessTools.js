@@ -2073,7 +2073,24 @@
               mode: 'cors',
               credentials: 'include'
             });
-        }
+        },
+        getTopicStudies: async function (topic, startPage = 1, count = 1000) {
+          const lt = this.lichessTools;
+          let result = [];
+          const userId = lt.getUserId();
+          if (!userId) return result;
+          let page = await lt.net.json({ url: '/study/topic/{topic}/mine?page={page}', args: { topic: topic, page: startPage } })
+          while (page) {
+            result=result.concat(page.paginator.currentPageResults);
+            result.nextPage = page.paginator.nextPage;
+            result.nbResults = page.paginator.nbResults;
+            count--;
+            page = count && result.nextPage
+              ? await lt.net.json({ url: '/study/topic/{topic}/mine?page={page}', args: { topic: topic, page: page.paginator.nextPage } })
+              : null;
+          }
+          return result;
+        },
       },
       puzzle: {
         lichessTools: this,

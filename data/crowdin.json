@@ -908,7 +908,8 @@
     "bulkPgnTagsEditText": "تعديل علامات PGN",
     "bulkPgnTagsEditTitle": "أدوات شطرنج الحياة - تحرير علامات PGN",
     "options.studyTopics": "خيارات مواضيع الدراسة",
-    "studyTopics.sortable": "فرز"
+    "studyTopics.sortable": "فرز",
+    "studyTopics.expandable": "قابل للتوسع"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1819,7 +1820,8 @@
     "bulkPgnTagsEditText": "编辑 PGN 标签",
     "bulkPgnTagsEditTitle": "Lichess工具 - 编辑 PGN 标签",
     "options.studyTopics": "学习主题选项",
-    "studyTopics.sortable": "可排序"
+    "studyTopics.sortable": "可排序",
+    "studyTopics.expandable": "可扩展"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2730,7 +2732,8 @@
     "bulkPgnTagsEditText": "Edit PGN tags",
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
-    "studyTopics.sortable": "Sortable"
+    "studyTopics.sortable": "Sortable",
+    "studyTopics.expandable": "Expandable"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3641,7 +3644,8 @@
     "bulkPgnTagsEditText": "Upravit PGN tagy",
     "bulkPgnTagsEditTitle": "Nástroje LiChess - upravit PGN tagy",
     "options.studyTopics": "Možnosti témat studia",
-    "studyTopics.sortable": "Třídit"
+    "studyTopics.sortable": "Třídit",
+    "studyTopics.expandable": "Rozšiřitelné"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4552,7 +4556,8 @@
     "bulkPgnTagsEditText": "Bewerk PGN-tags",
     "bulkPgnTagsEditTitle": "LiChess Tools - Bewerk PGN tags",
     "options.studyTopics": "Opties voor topics bestuderen",
-    "studyTopics.sortable": "Sorteerbaar"
+    "studyTopics.sortable": "Sorteerbaar",
+    "studyTopics.expandable": "Uitklapbaar"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5463,7 +5468,8 @@
     "bulkPgnTagsEditText": "Edit PGN tags",
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
-    "studyTopics.sortable": "Sortable"
+    "studyTopics.sortable": "Sortable",
+    "studyTopics.expandable": "Expandable"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6374,7 +6380,8 @@
     "bulkPgnTagsEditText": "Modifier les tags PGN",
     "bulkPgnTagsEditTitle": "Outils LiChess - Modifier les tags PGN",
     "options.studyTopics": "Options des sujets d'étude",
-    "studyTopics.sortable": "Triable"
+    "studyTopics.sortable": "Triable",
+    "studyTopics.expandable": "Extensible"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7285,7 +7292,8 @@
     "bulkPgnTagsEditText": "PGN Tags bearbeiten",
     "bulkPgnTagsEditTitle": "LiChess Tools - PGN Tags bearbeiten",
     "options.studyTopics": "Lernthemen-Optionen",
-    "studyTopics.sortable": "Sortierbar"
+    "studyTopics.sortable": "Sortierbar",
+    "studyTopics.expandable": "Erweiterbar"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8196,7 +8204,8 @@
     "bulkPgnTagsEditText": "Edit PGN tags",
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
-    "studyTopics.sortable": "Sortable"
+    "studyTopics.sortable": "Sortable",
+    "studyTopics.expandable": "Expandable"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9107,7 +9116,8 @@
     "bulkPgnTagsEditText": "Modifica tag PGN",
     "bulkPgnTagsEditTitle": "Strumenti LiChess - Modifica tag PGN",
     "options.studyTopics": "Opzioni degli argomenti di studio",
-    "studyTopics.sortable": "Ordinabile"
+    "studyTopics.sortable": "Ordinabile",
+    "studyTopics.expandable": "Espandibile"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10018,7 +10028,8 @@
     "bulkPgnTagsEditText": "Edit PGN tags",
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
-    "studyTopics.sortable": "Sortable"
+    "studyTopics.sortable": "Sortable",
+    "studyTopics.expandable": "Expandable"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10929,7 +10940,8 @@
     "bulkPgnTagsEditText": "Edytuj tagi PGN",
     "bulkPgnTagsEditTitle": "Narzędzia LiChess - Edytuj tagi PGN",
     "options.studyTopics": "Opcje tematów",
-    "studyTopics.sortable": "Sortowalne"
+    "studyTopics.sortable": "Sortowalne",
+    "studyTopics.expandable": "Rozszerzone"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11840,7 +11852,8 @@
     "bulkPgnTagsEditText": "Editar tags PGN",
     "bulkPgnTagsEditTitle": "Ferramentas LiChess - Editar tags PGN",
     "options.studyTopics": "Opções de estudos de tópicos",
-    "studyTopics.sortable": "Ordenável"
+    "studyTopics.sortable": "Ordenável",
+    "studyTopics.expandable": "Expansível"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12751,7 +12764,8 @@
     "bulkPgnTagsEditText": "Editar tags PGN",
     "bulkPgnTagsEditTitle": "Ferramentas LiChess - Editar tags PGN",
     "options.studyTopics": "Opções de estudos de tópicos",
-    "studyTopics.sortable": "Ordenável"
+    "studyTopics.sortable": "Ordenável",
+    "studyTopics.expandable": "Expansível"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13662,7 +13676,8 @@
     "bulkPgnTagsEditText": "Modifică etichete PGN",
     "bulkPgnTagsEditTitle": "LiChess Tools - modifică etichete PGN",
     "options.studyTopics": "Opțiuni subiecte studii",
-    "studyTopics.sortable": "Sortabile"
+    "studyTopics.sortable": "Sortabile",
+    "studyTopics.expandable": "Expandabile"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14573,7 +14588,8 @@
     "bulkPgnTagsEditText": "Изменить PGN теги",
     "bulkPgnTagsEditTitle": "Инструменты Жизни - Изменить PGN теги",
     "options.studyTopics": "Настройки темы обучения",
-    "studyTopics.sortable": "Сортировка"
+    "studyTopics.sortable": "Сортировка",
+    "studyTopics.expandable": "Расширяемый"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15484,7 +15500,8 @@
     "bulkPgnTagsEditText": "Editar etiquetas PGN",
     "bulkPgnTagsEditTitle": "Herramientas de LiChess - Editar etiquetas PGN",
     "options.studyTopics": "Opciones de temas de estudio",
-    "studyTopics.sortable": "Ordenable"
+    "studyTopics.sortable": "Ordenable",
+    "studyTopics.expandable": "Expandible"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16395,15 +16412,16 @@
     "bulkPgnTagsEditText": "Edit PGN tags",
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
-    "studyTopics.sortable": "Sortable"
+    "studyTopics.sortable": "Sortable",
+    "studyTopics.expandable": "Expandable"
   },
   "tr-TR": {
-    "LiChess Tools": "LiChess Tools",
+    "LiChess Tools": "LiChess Araçları",
     "serverOverload": "Lichess thinks we are overloading their system!",
-    "options.general": "General",
+    "options.general": "Genel",
     "options.addNotifications": "Add notifications",
-    "options.community": "Community",
-    "options.addToTeam": "LiChess Tools team",
+    "options.community": "Topluluk",
+    "options.addToTeam": "LiChess Araçları takımı",
     "addToTeam.hideForum": "Hide forum entry",
     "addToTeam.forumBottom": "Forum entry last",
     "addToTeam.noNotifications": "Disable notifications",
@@ -16415,7 +16433,7 @@
     "options.fixAbortController": "Fix AbortController",
     "options.fixChessgroundResize": "Fix Chessground resize",
     "options.fixWakeLock": "Fix WakeLock",
-    "options.analysis": "Analysis",
+    "options.analysis": "Analiz",
     "options.study": "Study",
     "options.gamebookPlayClass": "Add CSS class with playing interactive",
     "options.transpositionBehavior": "Behavior/definition of transpositions",
@@ -16467,10 +16485,10 @@
     "mobileExperienceRound.invert": "Swap user and clock",
     "shapeDrawingTitle": "LiChess Tools - draw arrows and circles",
     "randomNextMoveTitle": "LiChess Tools - random move",
-    "colorCount.1": "one",
-    "colorCount.2": "two",
-    "colorCount.3": "three",
-    "colorCount.4": "four",
+    "colorCount.1": "bir",
+    "colorCount.2": "iki",
+    "colorCount.3": "üç",
+    "colorCount.4": "dört",
     "lockBoardTitle": "LiChess Tools - screen lock",
     "options.spaceDisabled": "Ctrl-space to play best computer move instead of Space",
     "onlineFriends": "%s online friends",
@@ -16479,16 +16497,16 @@
     "friendsMenu": "LiChess Tools - friends you follow",
     "options.friends": "Friends",
     "options.openFriends": "Friends box",
-    "openFriends.default": "Default",
-    "openFriends.open": "Open",
-    "openFriends.hidden": "Hidden",
-    "openFriends.menu": "Menu",
+    "openFriends.default": "Varsayılan",
+    "openFriends.open": "Aç",
+    "openFriends.hidden": "Gizli",
+    "openFriends.menu": "Menü",
     "openFriends.button": "Button",
     "watchGames": "Watch games",
     "enablePlayAlert": "Unmute playing alert",
     "mutePlayAlert": "Mute playing alert",
     "options.liveFriendsPage": "Live friends page",
-    "hideOfflineTitle": "Online players",
+    "hideOfflineTitle": "Çevrimiçi oyuncular",
     "hideNotPlayingTitle": "Playing players",
     "hideMutedTitle": "Players with play alerts",
     "daysText:one": "a day",
@@ -16497,9 +16515,9 @@
     "daysText": "%s days",
     "hoursText": "%s hrs",
     "minutesText": "%s mins",
-    "timeText": "%s ago",
+    "timeText": "%s önce",
     "playing": "%s playing",
-    "gameType-classical": "Classical",
+    "gameType-classical": "Klasik",
     "gameType-rapid": "Rapid",
     "gameType-blitz": "Blitz",
     "gameType-bullet": "Bullet",
@@ -16701,7 +16719,7 @@
     "explorerEval.db": "From ChessDb",
     "explorerEval.lichess": "From Lichess",
     "explorerEval.evalRows": "Rows from eval",
-    "explorerEval.hidden": "Hidden",
+    "explorerEval.hidden": "Gizli",
     "fromCevalTitle": "LiChess Tools - from computer eval, depth %s",
     "fromStatsTitle": "LiChess Tools - from winning stats",
     "fromChessDbTitle": "LiChess Tools - from ChessDb",
@@ -16732,7 +16750,7 @@
     "PGNTitle": "LiChess Tools - show chapter PGN",
     "options.moveListOptions": "Move list options",
     "moveListOptions.indentedVariations": "Indented variations",
-    "moveListOptions.bookmarks": "Bookmarks",
+    "moveListOptions.bookmarks": "Yer işaretleri",
     "moveListOptions.fullWidthAnalysis": "Expanded move list",
     "moveListOptions.hideLeftSide": "Hide left side",
     "moveListOptions.analysisPopup": "Open in new window",
@@ -16774,7 +16792,7 @@
     "fromLiChessTools": "from LiChess Tools",
     "previouslyOnTV": "Previously on %s TV",
     "options.showPawnStructure": "Show pawn structures",
-    "showPawnStructure.enabled": "Enabled",
+    "showPawnStructure.enabled": "Etkinleştirildi",
     "showPawnStructure.onlyNamed": "Only named structures",
     "showPawnStructure.fuzzy": "Fuzzy search",
     "structureNameTitle": "LiChess Tools - pawn structure - %s",
@@ -16782,7 +16800,7 @@
     "addSnapPrompt": "Title of new snap",
     "snapSettingsButtonText": "Snap!",
     "snapSettingsButtonTitle": "LiChess Tools - create a snap of current Explorer settings",
-    "allText": "all",
+    "allText": "tümü",
     "sinceText": "since %s",
     "untilText": "until %s",
     "snapTitle": "Rating: %rating\r\nTime controls: %control\r\n%since\r\n%until",
@@ -16808,9 +16826,9 @@
     "btnCountTitle": "PGN statistics",
     "btnEvaluateText": "Evaluate",
     "btnEvaluateTitle": "Evaluate end positions",
-    "btnSearchText": "Search",
+    "btnSearchText": "Ara",
     "btnSearchTitle": "Search on partial FEN, tags, index, invalid, ply",
-    "btnKeepFoundText": "Result",
+    "btnKeepFoundText": "Sonuç",
     "btnKeepFoundTitle": "Keep only the found results",
     "btnExtractText": "Extract",
     "btnExtractTitle": "Extract information",
@@ -17306,7 +17324,8 @@
     "bulkPgnTagsEditText": "Edit PGN tags",
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
-    "studyTopics.sortable": "Sortable"
+    "studyTopics.sortable": "Sortable",
+    "studyTopics.expandable": "Expandable"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18217,6 +18236,7 @@
     "bulkPgnTagsEditText": "Edit PGN tags",
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
-    "studyTopics.sortable": "Sortable"
+    "studyTopics.sortable": "Sortable",
+    "studyTopics.expandable": "Expandable"
   }
 }

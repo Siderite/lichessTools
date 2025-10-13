@@ -1,0 +1,30 @@
+body.lichessTools nav.subnav__inner > a .lichessTools-topicExpander {
+  width: 1em;
+  background: transparent;
+  border: none;
+  margin-right: 0.5em;
+}
+
+body.lichessTools nav.subnav__inner > a .lichessTools-topicExpander:before {
+  content:'\e02d';
+  font-family: lichess;
+}
+
+body.lichessTools nav.subnav__inner > a.lichessTools-expandedTopic .lichessTools-topicExpander:before {
+  content:'\e02e';
+}
+
+body.lichessTools nav.subnav__inner > a .lichessTools-topicStudies {
+  display: none;
+}
+
+body.lichessTools nav.subnav__inner > a.lichessTools-expandedTopic .lichessTools-topicStudies {
+  display: block;
+}
+
+body.lichessTools nav.subnav__inner > a .lichessTools-topicStudies a {
+  color: var(--c-link);
+  max-width: 20em;
+  white-space: break-spaces;
+}
+  

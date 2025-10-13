@@ -124,8 +124,14 @@
           }
         }
       }
+      this.processGeneral();
+    };
 
-      $('div.study__topics a.topic, nav.page-menu__menu a[href^="/study/topic/flair."], .topic-list a[href^="/study/topic/flair."]').each((i, e) => {
+    processGeneral = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      $('div.study__topics a.topic, nav.page-menu__menu a[href^="/study/topic/flair."]:not(:has(span)), nav.page-menu__menu a[href^="/study/topic/flair."] > span, .topic-list a[href^="/study/topic/flair."]').each((i, e) => {
         const m = /^flair\.([^\)]+)/.exec($(e).text());
         if (m) {
           const url = lichess.asset.flairSrc(m[1]);
@@ -136,7 +142,7 @@
             .addClass('lichessTools-studyFlairs');
         }
       });
-    };
+    }
 
     getFullname = (user) => {
       return [user.title, user.name].filter(s => s).join(' ');
@@ -274,6 +280,7 @@
           }
         });
       }
+      this.processGeneral();
     };
     processStudyListDebounced = this.lichessTools.debounce(this.processStudyList, 1000, { defer:true });
 

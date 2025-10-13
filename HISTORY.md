@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - bulk edit chapter PGN tags
 - sortable study topics
+- expandable study topics
 
 11 Oct
 
