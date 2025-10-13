@@ -902,7 +902,11 @@
     "invalidUrl": "رابط غير صالح",
     "customBoardImageUrlText": "لوحة مخصصة",
     "customBoardImageUrlTitle": "أدوات شطرنج الحياة - لوحة مخصصة",
-    "winMarginTitle": "الفوز: %s%"
+    "winMarginTitle": "الفوز: %s%",
+    "bulkPgnTagEditHeader": "محرر علامات PGN",
+    "updatePgnTagsText": "تحديث علامات PGN",
+    "bulkPgnTagsEditText": "تعديل علامات PGN",
+    "bulkPgnTagsEditTitle": "أدوات شطرنج الحياة - تحرير علامات PGN"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1807,7 +1811,11 @@
     "invalidUrl": "URL 无效",
     "customBoardImageUrlText": "自定义棋盘",
     "customBoardImageUrlTitle": "LiChess Tools - 自定义棋盘",
-    "winMarginTitle": "赢得的保证金： %s%"
+    "winMarginTitle": "赢得的保证金： %s%",
+    "bulkPgnTagEditHeader": "PGN 标签编辑器",
+    "updatePgnTagsText": "更新 PGN 标签",
+    "bulkPgnTagsEditText": "编辑 PGN 标签",
+    "bulkPgnTagsEditTitle": "Lichess工具 - 编辑 PGN 标签"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2712,7 +2720,11 @@
     "invalidUrl": "Invalid URL",
     "customBoardImageUrlText": "Custom board",
     "customBoardImageUrlTitle": "LiChess Tools - custom board",
-    "winMarginTitle": "Win margin: %s%"
+    "winMarginTitle": "Win margin: %s%",
+    "bulkPgnTagEditHeader": "PGN tags editor",
+    "updatePgnTagsText": "Update PGN tags",
+    "bulkPgnTagsEditText": "Edit PGN tags",
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3617,7 +3629,11 @@
     "invalidUrl": "Neplatná URL",
     "customBoardImageUrlText": "Vlastní deska",
     "customBoardImageUrlTitle": "Nástroje LiChess - vlastní deska",
-    "winMarginTitle": "Výherní rozdíl: %s%"
+    "winMarginTitle": "Výherní rozdíl: %s%",
+    "bulkPgnTagEditHeader": "Editor PGN značek",
+    "updatePgnTagsText": "Aktualizovat PGN tagy",
+    "bulkPgnTagsEditText": "Upravit PGN tagy",
+    "bulkPgnTagsEditTitle": "Nástroje LiChess - upravit PGN tagy"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4522,7 +4538,11 @@
     "invalidUrl": "Ongeldige URL",
     "customBoardImageUrlText": "Aangepast bord",
     "customBoardImageUrlTitle": "LiChess Tools - aangepast bord",
-    "winMarginTitle": "Win margin: %s%"
+    "winMarginTitle": "Win margin: %s%",
+    "bulkPgnTagEditHeader": "PGN tags bewerker",
+    "updatePgnTagsText": "PGN-tags bijwerken",
+    "bulkPgnTagsEditText": "Bewerk PGN-tags",
+    "bulkPgnTagsEditTitle": "LiChess Tools - Bewerk PGN tags"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5427,7 +5447,11 @@
     "invalidUrl": "Invalid URL",
     "customBoardImageUrlText": "Custom board",
     "customBoardImageUrlTitle": "LiChess Tools - custom board",
-    "winMarginTitle": "Win margin: %s%"
+    "winMarginTitle": "Win margin: %s%",
+    "bulkPgnTagEditHeader": "PGN tags editor",
+    "updatePgnTagsText": "Update PGN tags",
+    "bulkPgnTagsEditText": "Edit PGN tags",
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6332,7 +6356,11 @@
     "invalidUrl": "URL invalide",
     "customBoardImageUrlText": "Échiquier personnalisé",
     "customBoardImageUrlTitle": "LiChess Tools - Échiquier personnalisé",
-    "winMarginTitle": "Marge de gain : %s%"
+    "winMarginTitle": "Marge de gain : %s%",
+    "bulkPgnTagEditHeader": "Éditeur de tags PGN",
+    "updatePgnTagsText": "Mettre à jour les tags PGN",
+    "bulkPgnTagsEditText": "Modifier les tags PGN",
+    "bulkPgnTagsEditTitle": "Outils LiChess - Modifier les tags PGN"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7237,7 +7265,11 @@
     "invalidUrl": "Ungültige URL",
     "customBoardImageUrlText": "Benutzerdefiniertes Board",
     "customBoardImageUrlTitle": "LiChess-Werkzeuge - benutzerdefiniertes Board",
-    "winMarginTitle": "Gewinnspanne: %s%"
+    "winMarginTitle": "Gewinnspanne: %s%",
+    "bulkPgnTagEditHeader": "PGN Tag-Editor",
+    "updatePgnTagsText": "PGN Tags aktualisieren",
+    "bulkPgnTagsEditText": "PGN Tags bearbeiten",
+    "bulkPgnTagsEditTitle": "LiChess Tools - PGN Tags bearbeiten"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8142,7 +8174,11 @@
     "invalidUrl": "Invalid URL",
     "customBoardImageUrlText": "Custom board",
     "customBoardImageUrlTitle": "LiChess Tools - custom board",
-    "winMarginTitle": "Win margin: %s%"
+    "winMarginTitle": "Win margin: %s%",
+    "bulkPgnTagEditHeader": "PGN tags editor",
+    "updatePgnTagsText": "Update PGN tags",
+    "bulkPgnTagsEditText": "Edit PGN tags",
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9047,7 +9083,11 @@
     "invalidUrl": "Url Non Valido",
     "customBoardImageUrlText": "Scheda personalizzata",
     "customBoardImageUrlTitle": "Strumenti LiChess - scheda personalizzata",
-    "winMarginTitle": "Margine vincente: %s%"
+    "winMarginTitle": "Margine vincente: %s%",
+    "bulkPgnTagEditHeader": "Editor tag PGN",
+    "updatePgnTagsText": "Aggiorna tag PGN",
+    "bulkPgnTagsEditText": "Modifica tag PGN",
+    "bulkPgnTagsEditTitle": "Strumenti LiChess - Modifica tag PGN"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -9952,7 +9992,11 @@
     "invalidUrl": "Invalid URL",
     "customBoardImageUrlText": "Custom board",
     "customBoardImageUrlTitle": "LiChess Tools - custom board",
-    "winMarginTitle": "Win margin: %s%"
+    "winMarginTitle": "Win margin: %s%",
+    "bulkPgnTagEditHeader": "PGN tags editor",
+    "updatePgnTagsText": "Update PGN tags",
+    "bulkPgnTagsEditText": "Edit PGN tags",
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10857,7 +10901,11 @@
     "invalidUrl": "Nieprawidłowy adres URL",
     "customBoardImageUrlText": "Własna tablica",
     "customBoardImageUrlTitle": "Narzędzia LiChess - niestandardowa płytka",
-    "winMarginTitle": "Margines Wygranych: %s%"
+    "winMarginTitle": "Margines Wygranych: %s%",
+    "bulkPgnTagEditHeader": "Edytor tagów PGN",
+    "updatePgnTagsText": "Aktualizuj tagi PGN",
+    "bulkPgnTagsEditText": "Edytuj tagi PGN",
+    "bulkPgnTagsEditTitle": "Narzędzia LiChess - Edytuj tagi PGN"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11762,7 +11810,11 @@
     "invalidUrl": "URL inválida",
     "customBoardImageUrlText": "Board personalizado",
     "customBoardImageUrlTitle": "Ferramentas LiChess - board personalizado",
-    "winMarginTitle": "Vencer Vitória: %s%"
+    "winMarginTitle": "Vencer Vitória: %s%",
+    "bulkPgnTagEditHeader": "Editor de tags PGN",
+    "updatePgnTagsText": "Atualizar tags PGN",
+    "bulkPgnTagsEditText": "Editar tags PGN",
+    "bulkPgnTagsEditTitle": "Ferramentas LiChess - Editar tags PGN"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12667,7 +12719,11 @@
     "invalidUrl": "URL inválida",
     "customBoardImageUrlText": "Board personalizado",
     "customBoardImageUrlTitle": "Ferramentas LiChess - board personalizado",
-    "winMarginTitle": "Vencer Vitória: %s%"
+    "winMarginTitle": "Vencer Vitória: %s%",
+    "bulkPgnTagEditHeader": "Editor de tags PGN",
+    "updatePgnTagsText": "Atualizar tags PGN",
+    "bulkPgnTagsEditText": "Editar tags PGN",
+    "bulkPgnTagsEditTitle": "Ferramentas LiChess - Editar tags PGN"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13572,7 +13628,11 @@
     "invalidUrl": "URL nevalid",
     "customBoardImageUrlText": "Tablă personalizată",
     "customBoardImageUrlTitle": "LiChess Tools - tablă personalizată",
-    "winMarginTitle": "Marjă victorie %s%"
+    "winMarginTitle": "Marjă victorie %s%",
+    "bulkPgnTagEditHeader": "Editor etichete PGN",
+    "updatePgnTagsText": "Modifică etichetele PGN",
+    "bulkPgnTagsEditText": "Modifică etichete PGN",
+    "bulkPgnTagsEditTitle": "LiChess Tools - modifică etichete PGN"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14477,7 +14537,11 @@
     "invalidUrl": "Неверный URL",
     "customBoardImageUrlText": "Пользовательская доска",
     "customBoardImageUrlTitle": "Инструменты Lichess - пользовательская доска",
-    "winMarginTitle": "Победная маржа: %s%"
+    "winMarginTitle": "Победная маржа: %s%",
+    "bulkPgnTagEditHeader": "Редактор тегов PGN",
+    "updatePgnTagsText": "Обновить PGN теги",
+    "bulkPgnTagsEditText": "Изменить PGN теги",
+    "bulkPgnTagsEditTitle": "Инструменты Жизни - Изменить PGN теги"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15382,7 +15446,11 @@
     "invalidUrl": "URL inválida",
     "customBoardImageUrlText": "Tablero personalizado",
     "customBoardImageUrlTitle": "Herramientas de LiChess - tablero personalizado",
-    "winMarginTitle": "Margen de victoria: %s%"
+    "winMarginTitle": "Margen de victoria: %s%",
+    "bulkPgnTagEditHeader": "Editor de etiquetas PGN",
+    "updatePgnTagsText": "Actualizar etiquetas PGN",
+    "bulkPgnTagsEditText": "Editar etiquetas PGN",
+    "bulkPgnTagsEditTitle": "Herramientas de LiChess - Editar etiquetas PGN"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16287,7 +16355,11 @@
     "invalidUrl": "Invalid URL",
     "customBoardImageUrlText": "Custom board",
     "customBoardImageUrlTitle": "LiChess Tools - custom board",
-    "winMarginTitle": "Win margin: %s%"
+    "winMarginTitle": "Win margin: %s%",
+    "bulkPgnTagEditHeader": "PGN tags editor",
+    "updatePgnTagsText": "Update PGN tags",
+    "bulkPgnTagsEditText": "Edit PGN tags",
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -17192,7 +17264,11 @@
     "invalidUrl": "Invalid URL",
     "customBoardImageUrlText": "Custom board",
     "customBoardImageUrlTitle": "LiChess Tools - custom board",
-    "winMarginTitle": "Win margin: %s%"
+    "winMarginTitle": "Win margin: %s%",
+    "bulkPgnTagEditHeader": "PGN tags editor",
+    "updatePgnTagsText": "Update PGN tags",
+    "bulkPgnTagsEditText": "Edit PGN tags",
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18097,6 +18173,10 @@
     "invalidUrl": "Invalid URL",
     "customBoardImageUrlText": "Custom board",
     "customBoardImageUrlTitle": "LiChess Tools - custom board",
-    "winMarginTitle": "Win margin: %s%"
+    "winMarginTitle": "Win margin: %s%",
+    "bulkPgnTagEditHeader": "PGN tags editor",
+    "updatePgnTagsText": "Update PGN tags",
+    "bulkPgnTagsEditText": "Edit PGN tags",
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
   }
 }

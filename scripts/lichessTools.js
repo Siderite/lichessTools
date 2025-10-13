@@ -1639,6 +1639,9 @@
         }
         return await this.fetch(url, {
           method: 'POST',
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+          },
           body: formData,
           ...options
         });
@@ -2022,10 +2025,15 @@
       },
       study: {
         lichessTools: this,
-        getChapterPgn: async function (studyId, chapterId) {
+        getChapterPgn: async function (studyId, chapterId, options) {
           const lt = this.lichessTools;
+          const query = options
+            ? '?' + Object.keys(options)
+              .map(k => k + '=' + lt.global.encodeURIComponent(options[k]))
+              .join('&')
+            : '';
           const pgn = await lt.net.fetch({
-            url: '/study/{studyId}/{chapterId}.pgn',
+            url: '/study/{studyId}/{chapterId}.pgn'+query,
             args: { studyId, chapterId }
           },{ ignoreStatuses: [404] });
           return pgn;
@@ -2038,6 +2046,18 @@
           url.searchParams.set('page',page);
           const json = await lt.net.json(url.toString());
           return json;
+        },
+        updatePgnTags: async function(studyId, chapterId, pgn) {
+          const lt = this.lichessTools;
+          await lt.net.postForm({
+              url: '/api/study/{studyId}/{chapterId}/tags',
+              args: { studyId, chapterId }
+            },
+            { pgn: pgn },
+            {
+              mode: 'cors',
+              credentials: 'include'
+            });
         }
       },
       puzzle: {

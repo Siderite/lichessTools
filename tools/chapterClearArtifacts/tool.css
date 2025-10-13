@@ -21,6 +21,34 @@ body.lichessTools table.study__tags th {
   width: 20%;
 }
 
+body.lichessTools a.lichessTools-bulkPgnTagsEdit {
+  margin-left: auto;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-radius: 5px;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+}
+
+body.lichessTools dialog.lichessTools-bulkPgnTagsEdit {
+  width: auto;
+}
+
+body.lichessTools dialog.lichessTools-bulkPgnTagsEdit textarea {
+  display: block;
+  min-height: 20em;
+  width: 100%;
+}
+
+body.lichessTools dialog.lichessTools-bulkPgnTagsEdit textarea.lichessTools-error {
+  border:1px solid red;
+}
+
+body.lichessTools dialog.lichessTools-bulkPgnTagsEdit .lichessTools-errorText {
+  display: block;
+  color: var(--c-mistake);
+}
+
 /* LichessHelper */
 body.lichessTools.lichessTools-lichessHelper table.study__tags button.lichessTools-deleteTag {
   font-family: lichess !important;

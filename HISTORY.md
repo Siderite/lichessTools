@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+13 Oct
+
+- bulk edit chapter PGN tags
+
 11 Oct
 
 - win margin tooltip in Explorer Eval
