@@ -6,7 +6,7 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['chesscom'],
+        possibleValues: ['chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper'],
         defaultValue: false,
         advanced: true
       }
@@ -16,13 +16,19 @@
       'en-US': {
         'options.appearance': 'Appearance',
         'options.extraPieceSets': 'Extra piece sets',
-        'extraPieceSets.chesscom': 'chess.com',
-        'pieceSetTitle': 'LiChess Tools - %s'
+        'pieceSetTitle': 'LiChess Tools - %s',
+
+        'extraPieceSets.chesscom': 'chess.com', // don't translate these
+        'extraPieceSets.hollowleaf': 'HollowLeaf',
+        'extraPieceSets.fordCrownVictoria': 'FordCrownVictoria',
+        'extraPieceSets.bend-n': 'bend-n',
+        'extraPieceSets.comfysage': 'comfysage',
+        'extraPieceSets.tage64': 'tage64',
+        'extraPieceSets.OwOHamper': 'OwOHamper'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
         'options.extraPieceSets': 'Seturi suplimentare de piese',
-        'extraPieceSets.chesscom': 'chess.com',
         'pieceSetTitle': 'LiChess Tools - %s'
       }
     }
@@ -41,7 +47,6 @@
       }
       let styleStr = '<style id="lichessTools-extraPieceSets">';
       for (const piece of ['pawn','knight','bishop','rook','queen','king']) {
-        const pieceLetter = piece == 'knight' ? 'n' : piece[0];
         for (const color of ['white','black']) {
           const url = this.getUrl(pieceSet,piece,color);
           styleStr += `
@@ -68,8 +73,24 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
     getUrl = (pieceSet,piece,color) => {
       switch(pieceSet.category) {
         case 'chesscom':
+        case 'tage64':
+        case 'OwOHamper':
+        {
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           return pieceSet.url+color[0]+pieceLetter+'.png';
+        }
+        case 'fordCrownVictoria':
+        case 'hollowleaf':
+        case 'bend-n':
+        {
+          const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
+          return pieceSet.url+color[0]+pieceLetter+'.png';
+        }
+        case 'comfysage':
+        {
+          const pieceLetter = piece == 'knight' ? 'n' : piece[0];
+          return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.png';
+        }
         default:
           throw new Error('Unknown piece set type' + type);
       }
@@ -81,6 +102,14 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
       const trans = lt.translator;
       const list = $('#dasher_app .sub.piece.d2 .list');
       if (!list.length) return;
+      const moreButton = list.parent().find('button.more');
+      moreButton
+        .off('click',this.addPieces)
+        .on('click',this.addPieces);
+      const isCollapsed = moreButton.text() != '-';
+      if (isCollapsed) {
+        list.find('button.lichessTools-extraPieceSets').remove();
+      }
       list.find('button:not(.lichessTools-extraPieceSets)')
         .each((i,e)=>{
           if (e._initExtraPieceSets) return;
@@ -92,28 +121,39 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
           });
         });
       const template = list.find('button').eq(0).clone().removeClass('active');
-      if (this.options.chesscom && this.pieceSets && !list.find('button.lichessTools-extraPieceSets.chesscom').length) {
-        const pieceSets = this.pieceSets.filter(ps=>ps.category='chesscom');
+      if (!this.pieceSets) return;
+      const currentSetName = lt.storage.get('extraPieceSets-set');
+      const categories = Object.keys(this.options);
+      for (const category of categories) {
+        if (!this.options[category]) {
+          list.find('button.lichessTools-extraPieceSets.'+category).remove();
+          continue;
+        }
+        const pieceSets = this.pieceSets.filter(ps=>ps.category==category);
         for (const pieceSet of pieceSets) {
+          if (isCollapsed && pieceSet.name != currentSetName) continue;
+          if (list
+                .find('button.lichessTools-extraPieceSets')
+                .filter((i,e)=>$(e).attr('data-setName')==pieceSet.name).length) continue;
           const url = this.getUrl(pieceSet,'knight','white');
+          const title = category + ' ' + pieceSet.name.replace('_'+category,'');
           template.clone()
-            .attr('title',trans.pluralSame('pieceSetTitle','chess.com ' + pieceSet.name))
+            .attr('title',trans.pluralSame('pieceSetTitle',title))
             .attr('data-setName',pieceSet.name)
             .addClass('lichessTools-extraPieceSets')
-            .addClass('chesscom')
+            .addClass(category)
             .on('click',()=>this.setPieceSet(pieceSet.name))
             .appendTo(list)
             .find('piece')
             .css('background-image','url('+url+')');
         }
       }
-      const setName = lt.storage.get('extraPieceSets-set');
-      if (setName) {
+      if (currentSetName) {
         const activeElems = list.find('button.active');
-        if (activeElems.get().find(e=>$(e).attr('data-setName')!=setName)) {
+        if (activeElems.get().find(e=>$(e).attr('data-setName') != currentSetName)) {
           activeElems.removeClass('active');
           list.find('button')
-            .filter((i,e)=>$(e).attr('data-setName')==setName)
+            .filter((i,e)=>$(e).attr('data-setName') == currentSetName)
             .addClass('active');
         }
       }
@@ -125,9 +165,12 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
       const $ = lt.$;
       const value = lt.currentOptions.getValue('extraPieceSets');
       this.logOption('Extra piece sets', value);
-      this.options = {
-        chesscom: lt.isOptionSet(value, 'chesscom'),
-      };
+      this.options = {}
+      const categories = this.preferences.find(p=>p.name=='extraPieceSets').possibleValues;
+      for (const category of categories) {
+        this.options[category] =lt.isOptionSet(value, category);
+      }
+
       $('#dasher_app')
         .observer()
         .off('.sub.piece.d2',this.addPieces);
@@ -140,6 +183,10 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
             lt.global.console.warn('Could not load piece sets!');
           }
           self.pieceSets = data?.pieceSets || [];
+          for (const pieceSet of self.pieceSets) {
+            if (pieceSet.category == 'chesscom') continue;
+            pieceSet.name+='_'+pieceSet.category;
+          }
           this.updatePieceSet();
         });
       }

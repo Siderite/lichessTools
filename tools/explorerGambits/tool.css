@@ -1,5 +1,6 @@
 body.lichessTools th.lichessTools-explorerGambits {
   text-align: center;
+  max-width:6em;
 }
 
 body.lichessTools .explorer-box .moves td.lichessTools-explorerGambits {

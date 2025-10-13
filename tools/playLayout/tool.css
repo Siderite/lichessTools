@@ -6,6 +6,10 @@ body.lichessTools.playing.lichessTools-smallSide aside.round__side .mchat {
   display: none;
 }
 
+body.lichessTools.playing.lichessTools-deadCrosstable .crosstable {
+  pointer-events: none;
+}
+
 
 @media (min-width: 1259.3px) {
   body.lichessTools.playing.lichessTools-smallSide aside.round__side .game__meta {

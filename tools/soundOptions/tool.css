@@ -12,3 +12,7 @@ body.lichessTools .round__app.lichessTools-timeAlert .rclock-bottom {
 body.lichessTools .round__app.lichessTools-timeAlert .rclock-bottom * {
   background: none;
 }
+
+body.lichessTools #dasher_app .selector button.lichessTools-extraThemes {
+  filter: drop-shadow(0px 0px 10px var(--c-clearer));
+}

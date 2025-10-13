@@ -47,19 +47,20 @@
     getChapterElements = (chapterId, forced)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      if (!forced) {
+      if (forced===undefined) forced = !this.elemCache.all.length;
+      if (forced===false) {
         for (const elem of this.elemCache.all) {
           if (!elem.isConnected) {
             return this.getChapterElements(chapterId, true);
           }
         }
         return chapterId 
-          ? this.elemCache.all
-          : this.elemCache.map.get(chapterId);
+          ? this.elemCache.map.get(chapterId)
+          : this.elemCache.all;
       }
       this.elemCache.map.clear();
       this.elemCache.all = $('.study__chapters button[data-id]').get();
-      for (const elem of this.elemCache.all) this.elemCache.set(elem.getAtrribute('data-id'),elem);
+      for (const elem of this.elemCache.all) this.elemCache.map.set($(elem).attr('data-id'),elem);
       return this.getChapterElements(chapterId, false);
     };
 

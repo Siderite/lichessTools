@@ -1,0 +1,16 @@
+body.lichessTools #dasher_app .board .list button.lichessTools-customBoardImage.active {
+  border: 3px solid var(--c-good);
+}
+
+body.lichessTools #dasher_app .board .list button.lichessTools-customBoardImage {
+  flex: 0 0 33%;
+  height: 40px;
+  justify-content: center;
+  display: flex;
+  background: none;
+  flex-flow: row wrap;
+  align-items: center;
+  order: 9999;
+  padding: 0.5em;
+  white-space:nowrap;
+}

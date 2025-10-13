@@ -8,8 +8,8 @@
         name: 'mainPageElements',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['side', 'side_streams', 'side_spotlights', 'side_timeline', 'app','app_bullet','app_blitz','app_rapid','app_classical', 'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours', 'about'],
-        defaultValue: 'side,app,table,app_bullet,app_blitz,app_rapid,app_classical,tv,blog,puzzle,support,feed,tours,about,side_streams,side_spotlights,side_timeline',
+        possibleValues: ['side', 'side_streams', 'side_spotlights', 'side_timeline', 'app','app_bullet','app_blitz','app_rapid','app_classical', 'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours', 'about', 'extraCounters'],
+        defaultValue: true,
         advanced: true
       }
     ];
@@ -34,7 +34,12 @@
         'mainPageElements.app_bullet': 'Play:bullet',
         'mainPageElements.app_blitz': 'Play:blitz',
         'mainPageElements.app_rapid': 'Play:rapid',
-        'mainPageElements.app_classical': 'Play:classical'
+        'mainPageElements.app_classical': 'Play:classical',
+        'mainPageElements.extraCounters': 'Extra counters',
+        'totalGamesPlayed': 'Total games: %s',
+        'yearGamesPlayed': 'Games this year: %s',
+        'monthGamesPlayed': 'Games this month: %s',
+        'dayGamesPlayed': 'Games today: %s'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -55,7 +60,12 @@
         'mainPageElements.app_bullet': 'Joc:bullet',
         'mainPageElements.app_blitz': 'Joc:blitz',
         'mainPageElements.app_rapid': 'Joc:rapid',
-        'mainPageElements.app_classical': 'Joc:clasic'
+        'mainPageElements.app_classical': 'Joc:clasic',
+        'mainPageElements.extraCounters': 'Contoare \u00een plus',
+        'totalGamesPlayed': 'Total jocuri: %s',
+        'yearGamesPlayed': 'Jocuri anul acesta: %s',
+        'monthGamesPlayed': 'Jocuri luna aceasta: %s',
+        'dayGamesPlayed': 'Jocuri azi: %s'
       }
     }
 
@@ -116,6 +126,79 @@
       }
     };
 
+    updateCounters = async ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const countersElem = $('.lobby__counters');
+      if (!countersElem.length) return;
+      let container = countersElem.find('.lichessTools-extraCounters');
+      if (!container.length) {
+        container = $('<span class="lichessTools-extraCounters">')
+          .append('<span class="total">')
+          .append('<span class="year">')
+          .append('<span class="month">')
+          .append('<span class="day">')
+          .appendTo(countersElem);
+      }
+      const gamesInPlay = +(countersElem.find('a[href="/games"] strong').text().replaceAll(/,/g,'')) || 0;
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1;
+      if (!this.explorerInfo) {
+        const startFen = encodeURIComponent('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
+        let data = await lt.net.json(`https://explorer.lichess.ovh/lichess?fen=${startFen}`,{ noUserAgent:true });
+        if (!data) return;
+        const explorerInfo = {};
+        explorerInfo.totalGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+        const monthText = data.recentGames?.[0]?.month;
+        if (monthText) {
+          const m = /^(?<year>\d+)-(?<month>\d+)$/.exec(monthText)
+          explorerInfo.dbYear = +m.groups.year;
+          explorerInfo.dbMonth = +m.groups.month;
+          explorerInfo.monthText = monthText;
+        } else {
+          const date = new Date();
+          date.setMonth(date.getMonth() - 1);
+          const month = date.getMonth() + 1;
+          explorerInfo.dbYear = year;
+          explorerInfo.dbMonth = month;
+          explorerInfo.monthText = `${year}-${month.padStart(2, '0')}`;
+        }
+        data = await lt.net.json(`https://explorer.lichess.ovh/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}`,{ noUserAgent:true });
+        if (!data) return;
+        explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+        this.explorerInfo=explorerInfo;
+      }
+      const millisecondsPerMonth = 365.25*86400*1000/12;
+
+      const lastDateInDb = new Date(this.explorerInfo.dbYear,this.explorerInfo.dbMonth,1);
+      const qMonth = (currentDate-lastDateInDb) / millisecondsPerMonth;
+      const totalGames = Math.round(this.explorerInfo.totalGames+this.explorerInfo.monthGames*qMonth+gamesInPlay);
+
+      const startOfYear = new Date(year, 0, 1, 0, 0, 0);
+      const startOfNextYear = new Date(year + 1, 0, 1, 0, 0, 0);
+      const qYear = (currentDate - startOfYear) / (startOfNextYear - startOfYear);
+      const yearGames = Math.round(this.explorerInfo.monthGames*12*qYear)+gamesInPlay;
+
+      const startOfMonth = new Date(year, month-1, 1);
+      const startOfNextMonth = new Date(year, month, 1);
+      const monthGames = Math.round((currentDate - startOfMonth) / (startOfNextMonth - startOfMonth) * this.explorerInfo.monthGames + gamesInPlay) ;
+      const daysPerMonth = (startOfNextMonth-startOfMonth)/86400000;
+      
+      const startOfDay = new Date(year, month-1, currentDate.getDate());
+      const startOfNextDay = new Date(year, month-1, currentDate.getDate()+1);
+      const dayGames = Math.round((currentDate - startOfDay) / (startOfNextDay - startOfDay) * this.explorerInfo.monthGames/daysPerMonth + gamesInPlay) ;
+
+      const formatter = new Intl.NumberFormat('en-US');
+      container.find('.total').text(trans.pluralSame('totalGamesPlayed',formatter.format(totalGames)));
+      container.find('.year').text(trans.pluralSame('yearGamesPlayed',formatter.format(yearGames)));
+      container.find('.month').text(trans.pluralSame('monthGamesPlayed',formatter.format(monthGames)));
+      container.find('.day').text(trans.pluralSame('dayGamesPlayed',formatter.format(dayGames)));
+      this.extraCountersTimeout = lt.global.setTimeout(this.updateCounters,Math.random()*1500);
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('mainPageElements');
@@ -149,6 +232,7 @@
         feed: lt.isOptionSet(value, 'feed'),
         tours: lt.isOptionSet(value, 'tours'),
         about: lt.isOptionSet(value, 'about'),
+        extraCounters: lt.isOptionSet(value, 'extraCounters'),
         get allSet() {
           return this.side && this.app && this.app_all && this.table && this.tv && this.blog &&
             this.puzzle && this.support && this.feed && this.tours && this.about;
@@ -189,6 +273,11 @@
         $('#topnav > section:first-child > a').attr('href', '/');
       }
       if (!$('main').is('.lobby')) return;
+      $('.lichessTools-extraCounters').remove();
+      lt.global.clearTimeout(this.extraCountersTimeout);
+      if (this.options.extraCounters) {
+        this.extraCountersTimeout = lt.global.setTimeout(this.updateCounters,1000);
+      }
       if (!this.options.app) {
         $(lt.global).off('hashchange', this.hashChange);
         $(lt.global).on('hashchange', this.hashChange);

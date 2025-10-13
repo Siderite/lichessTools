@@ -4,7 +4,7 @@ body.lichessTools img.flag {
   /*justify-self: end;/* conflict with LiTags extension */
   vertical-align: baseline;
   margin-left: 5px;
-  margin-right: auto;
+  margin-right: 5px; /* auto */
 }
 
 body.lichessTools .fide-federation img.flag,
@@ -82,7 +82,7 @@ body.lichessTools .lichessTools-flag+img.flag {
 
 @media (max-width: 799.29px) and (orientation: portrait) {
   body.lichessTools .ruser {
-    width: fit-content;
+    -width: fit-content;
   }
 }
 

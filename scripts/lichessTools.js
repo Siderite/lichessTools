@@ -895,16 +895,31 @@
       if (this.global.document.readyState != 'complete') return 1;
       if (this.global.document.visibilityState == 'hidden') return 0;
 
-	  if (this.traverseState?.nodeIndex > 2500) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
-
-      if (element.checkVisibility) {
-        if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
-      } else {
-        if (!element.offsetParent && $(element).css('position') != 'fixed') return 0;
+      if (Date.now() - element.__inViewport?.time < 5000) {
+        return element.__inViewport.value;
       }
-      const rect = element.getBoundingClientRect();
-      const port = new DOMRect(0, 0, $(this.global).width(), $(this.global).height());
-      return this.rectIntersection(rect, port);
+
+      const calculateViewport = ()=>{
+
+        if (this.traverseState?.nodeIndex > 1000) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
+
+        if (element.checkVisibility) {
+          if (!element.checkVisibility({ visibilityProperty: true, opacityProperty:true })) return 0;
+        } else {
+          if (!element.offsetParent && $(element).css('position') != 'fixed') return 0;
+        }
+        const rect = element.getBoundingClientRect();
+        const port = new DOMRect(0, 0, $(this.global).width(), $(this.global).height());
+      
+        return this.rectIntersection(rect, port);
+      };
+
+      const result = calculateViewport();
+      element.__inViewport = {
+        time: Date.now(),
+        value: result
+      };
+      return result;
     };
 
     scrollIntoViewIfNeeded = (selector) => {
@@ -1564,10 +1579,6 @@
       return !this.global.matchMedia('(hover: hover) and (pointer: fine)').matches;
     }
 
-    getToolByName(name) {
-      return this.tools.find(t => t.name == name);
-    }
-
     net = {
       lichessTools: this,
       slowMode: false,
@@ -1618,6 +1629,19 @@
         } else {
           return lt.jsonParse(json);
         }
+      },
+      postForm: async function(url, data, options) {
+        const formData = new FormData();
+        if (data) {
+          for (const key in data) {
+            formData.append(key, data[key]);
+          }
+        }
+        return await this.fetch(url, {
+          method: 'POST',
+          body: formData,
+          ...options
+        });
       },
       fetch: async function (url, options) {
         const lt = this.lichessTools;
@@ -1774,6 +1798,7 @@
             sendResponse(ev.detail);
           }
         });
+        lt.cache.memoizeAsyncFunction(lt.comm, 'getDataUrl', { persist: 'session', interval: 1 * 86400 * 1000 });
       },
       send: function (data, sendResponse, timeout) {
         const lt = this.lichessTools;
@@ -1827,6 +1852,18 @@
           if (error) lt.global.console.error(error);
         }
         return data;
+      },
+      getDataUrl: async function(url, useProxy) {
+        const options = { url: url, useProxy: !!useProxy };
+        const lt = this.lichessTools;
+        let error = null;
+        const data = await lt.comm.send({ type: 'getDataUrl', options: options })
+                                             .catch(e => { error = e; });
+        if (data) {
+          return data;
+        } else {
+          if (error) lt.global.console.error(error);
+        }
       }
     };
 
@@ -2322,7 +2359,7 @@
         }
         if (tool.dependencies) {
           for (const name of tool.dependencies) {
-            if (!this.getToolByName(name)) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not loaded');
+            if (!this.tools[toolClass.name]) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not loaded');
           }
         }
       } catch (e) {

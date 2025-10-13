@@ -35,7 +35,7 @@
       const $ = lt.$;
       let container = $('div.main-board > div.cg-wrap > cg-container');
       if (!container.length) return;
-      if (!container.children('coords').length) return;
+      //if (!container.children('coords').length) return;
       let coords = container.children('coords.lichessTools-fixCoords');
       if (!coords.length) {
         coords = $('<coords class="lichessTools-fixCoords">')
@@ -48,6 +48,7 @@
               .text(String.fromCharCode(96 + file) + String.fromCharCode(48 + rank))
               .css('--rank', rank)
               .css('--file', file)
+              .addClass((rank+file)%2?'light':'dark')
               .appendTo(coords);
           }
         }

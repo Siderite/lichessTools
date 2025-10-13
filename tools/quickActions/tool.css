@@ -5,6 +5,7 @@ body.lichessTools div.lichessTools-quickActions-tooltip {
   flex-direction: column;
   border:1px #808080 solid;
   width: min-content;
+  z-index: 3;
 
   display: none;
 }

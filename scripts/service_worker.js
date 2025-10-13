@@ -65,6 +65,7 @@ const handlers = {
     if (!filename) return;
     const url = chrome.runtime.getURL(filename);
     const response = await fetch(url);
+    if (!response.ok) return;
     const obj = await response.json();
     return obj;
   },
@@ -72,12 +73,30 @@ const handlers = {
     const url = data?.options?.url;
     if (!url) return;
     const response = await fetch(url, data.options);
+    if (!response.ok) return;
     const text = await response.text();
-    return text;
+    return { text: text };
   },
   getVersion: async (data)=>{
     const manifest = chrome.runtime.getManifest();
     return { version: manifest.version };
+  },
+  getDataUrl: async (data) =>{
+    let url = data?.options?.url;
+    if (!url) return;
+    if (data?.options.useProxy) {
+      url = 'https://proxy.site/proxy/'+url;
+    }
+    const response = await fetch(url,data.options);
+    if (!response.ok) return;
+    const blob = await response.blob();
+    const dataUrl = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+    return { dataUrl: dataUrl };
   }
 };
 

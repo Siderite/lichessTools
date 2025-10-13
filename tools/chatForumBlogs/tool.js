@@ -1,11 +1,11 @@
 (() => {
-  class ImagePastingTool extends LiChessTools.Tools.ToolBase {
+  class ChatForumBlogsTool extends LiChessTools.Tools.ToolBase {
 
     dependencies = ['Dialog'];
 
     preferences = [
       {
-        name: 'imagePasting',
+        name: 'chatForumBlogs',
         category: 'comm',
         type: 'multiple',
         possibleValues: ['pasteImages', 'bigEmoji', 'refreshOnMessage'],
@@ -17,18 +17,18 @@
     intl = {
       'en-US': {
         'options.comm': 'Chat, forums, blogs',
-        'options.imagePasting': 'Chat/forum options',
-        'imagePasting.pasteImages': 'Paste image support',
-        'imagePasting.bigEmoji': 'Large one emoji message',
-        'imagePasting.refreshOnMessage': 'Refresh on new message',
+        'options.chatForumBlogs': 'Chat/forum options',
+        'chatForumBlogs.pasteImages': 'Paste image support',
+        'chatForumBlogs.bigEmoji': 'Large one emoji message',
+        'chatForumBlogs.refreshOnMessage': 'Refresh on new message',
         'pastingError': 'There was an error generating the image URL'
       },
       'ro-RO': {
         'options.comm': 'Chat, forumuri, blog-uri',
-        'options.imagePasting': 'Op\u0163iuni chat/forum',
-        'imagePasting.pasteImages': 'Suport lipire imagini',
-        'imagePasting.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
-        'imagePasting.refreshOnMessage': 'Re\uee00mprosp\u0103teaz\u0103 la mesaj nou',
+        'options.chatForumBlogs': 'Op\u0163iuni chat/forum',
+        'chatForumBlogs.pasteImages': 'Suport lipire imagini',
+        'chatForumBlogs.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
+        'chatForumBlogs.refreshOnMessage': 'Re\uee00mprosp\u0103teaz\u0103 la mesaj nou',
         'pastingError': 'A ap\u0103rut o eroare \u00een generarea URLului imaginii'
       }
     }
@@ -122,11 +122,26 @@
           $(e).toggleClass('lichessTools-bigEmoji', [...text].length <= 5 && /^\p{Extended_Pictographic}+$/u.test(text) );
         });
       }
+      if (this.options.refreshOnMessage) {
+        const moreButton = $('button.msg-app__convo__msgs__more')[0];
+        if (moreButton && !moreButton.__initRefreshOnMessage) {
+          moreButton.__initRefreshOnMessage = true;
+          $(moreButton).on('click',()=>{
+            $('.msg-app__convo__msgs__content').toggleClassSafe('lichessTools-moreButtonPressed',true);
+          });
+        }
+      }
     };
 
     refreshChatDirect = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      if ($('.msg-app__convo__msgs__content').is('.lichessTools-moreButtonPressed')) return;
+      let scrollQ = 0;
+      $('.msg-app__convo__msgs').each((i,e)=>{
+        scrollQ = e.scrollTop/e.scrollHeight;
+      });
+      if (scrollQ<0.9) return;
       const el = $('.msg-app__side__contact.active')[0];
       if (!el) return;
       const handler = lt.getEventHandlers(el,'mousedown')[0]?.bind(el);
@@ -139,7 +154,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
-      const value = lt.currentOptions.getValue('imagePasting');
+      const value = lt.currentOptions.getValue('chatForumBlogs');
       this.logOption('Inbox chat', value);
       if (!lt.getUserId()) {
         lt.global.console.debug(' ... Disabled (not logged in)');
@@ -153,7 +168,7 @@
       };
       if (!this.isInboxOrForumOrProfilePage()) return;
       lt.global.clearInterval(this.interval);
-      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, #form3-bio')
+      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, main.forum textarea.edit-post-box, #form3-bio')
         .each((i, e) => {
           $(e).off('paste drop', this.pasteImage);
           e.imagePastingInit = false;
@@ -172,5 +187,5 @@
     }
 
   }
-  LiChessTools.Tools.ImagePasting = ImagePastingTool;
+  LiChessTools.Tools.ChatForumBlogs = ChatForumBlogsTool;
 })();

@@ -1,9 +1,11 @@
 body.lichessTools th.lichessTools-explorerEval {
   text-align: center;
+  max-width:6em;
 }
 
 body.lichessTools td.lichessTools-explorerEval {
   font-size: smaller;
+  max-width:6em;
 }
 
 body.lichessTools td.lichessTools-explorerEval.lichessTools-stat {

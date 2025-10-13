@@ -27,7 +27,7 @@
       }
     }
 
-    generateLink = ()=>{
+    generateLinkDirect = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const lichess = lt.lichess;
@@ -66,6 +66,7 @@
       button.attrSafe('href',url);
       button.show();
     };
+    generateLink = lichessTools.debounce(this.generateLinkDirect,500);
 
     async init() {
       this.initialHash = location.hash;

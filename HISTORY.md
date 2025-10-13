@@ -1,5 +1,27 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Oct
+
+- win margin tooltip in Explorer Eval
+
+03 Oct
+
+- play layout elements: non interactive crosstable
+- custom board tool
+
+02 Oct
+
+- more piece sets
+
+01 Oct
+
+- custom sound themes
+- extra lobby counters
+
+28 Sep
+
+- added more piece sets
+
 27 Sep
 
 - more Explorer games tool

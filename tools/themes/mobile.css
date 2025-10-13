@@ -61,7 +61,7 @@ body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-t
   display: none;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .action-menu {
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .analyse__tools:has(.action-menu) {
   min-height: 50vh;
 }
 
@@ -113,10 +113,6 @@ body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"]:after 
   align-items: center;
   justify-content: center;
   font-size: large;
-}
-
-body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__tools:has(.action-menu) {
-  overflow: visible;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile main.analyse div.analyse__tools .explorer-box .moves tbody tr.sum {

@@ -65,7 +65,7 @@
       let section = $('section.lichessTools-explorerSettings', container);
       if (!section.length) {
         const choices = $('<div class="choices">');
-        if (lt.getToolByName('ExplorerEval')) {
+        if (lt.tools.ExplorerEval) {
           choices
             .append($('<button class="lichessTools-moveEvaluation">').text(trans.noarg('moveEvaluationSettingText')).attr('title', trans.noarg('moveEvaluationSettingTitle'))
               .on('click', ev => {
@@ -76,7 +76,7 @@
                 this.showSettingsDirect();
               }))
         }
-        if (lt.getToolByName('ExplorerGambits')) {
+        if (lt.tools.ExplorerGambits) {
           choices
             .append($('<button class="lichessTools-gambits">').text(trans.noarg('gambitsSettingText')).attr('title', trans.noarg('gambitsSettingTitle'))
               .on('click', ev => {
@@ -86,7 +86,7 @@
                 this.showSettingsDirect();
               }))
         }
-        if (lt.getToolByName('ExplorerPractice')) {
+        if (lt.tools.ExplorerPractice) {
           choices
             .append($('<button class="lichessTools-explorerPractice">').text(trans.noarg('explorerPracticeSettingText')).attr('title', trans.noarg('explorerPracticeSettingTitle'))
               .on('click', ev => {
@@ -96,7 +96,7 @@
                 this.showSettingsDirect();
               }))
         }
-        if (lt.getToolByName('ExplorerMoreGames')) {
+        if (lt.tools.ExplorerMoreGames) {
           choices
             .append($('<button class="lichessTools-moreGames">').text(trans.noarg('moreGamesButtonText')).attr('title', trans.noarg('moreGamesButtonTitle'))
               .on('click', ev => {
@@ -106,7 +106,7 @@
                 this.showSettingsDirect();
               }));
         }
-        if (lt.getToolByName('OpeningExplorerUsers')) {
+        if (lt.tools.OpeningExplorerUsers) {
           choices
             .append($('<button class="lichessTools-meButton">').text(trans.noarg('meButtonSettingText')).attr('title', trans.noarg('meButtonSettingTitle'))
               .on('click', ev => {

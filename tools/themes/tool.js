@@ -90,10 +90,13 @@
           const html = this.dgtHtml || (this.dgtHtml = await lt.net.fetch('/dgt'));
           container = $('<div>'+html+'</div>');
         }
-        let backgroundImage = $('link[rel=preload][as=image]',container)
-                                .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
-                                .eq(is3d?1:0)
-                                .attr('href');
+        let backgroundImage = lt.currentOptions.customBoardImage && !is3d
+          ? lt.currentOptions.customBoardImage
+          : $('link[rel=preload][as=image]',container)
+            .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
+            .eq(is3d?1:0)
+            .attr('href');
+
         if (backgroundImage) {
           backgroundImage = 'url('+backgroundImage+')';
         } else {

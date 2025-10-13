@@ -28,11 +28,11 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   min-width:2em;
 }
 
-body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing:hover {
+/* fix for Kiwi mobile hover bug */
+/*body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing:hover {
   background: initial;
-  /* fix for Kiwi mobile hover bug */
   color: initial;
-}
+}*/
 
 body.lichessTools button.lichessTools-shapeDrawing.lichessTools-greenBrush {
   background: #629924;
@@ -161,18 +161,18 @@ body.lichessTools.mobile button.hidden+button.lichessTools-shapeDrawing {
 
 @media (max-width: 799.29px) and (orientation: portrait) {
 
-  body.lichessTools.mobile main.lichessTools-invert .round__app .ruser-bottom,
-  body.lichessTools.mobile main.lichessTools-invert .round__app .ruser-top {
+  body.lichessTools.mobile main.lichessTools-invert .round__app:not(.swap-clock) .ruser-bottom,
+  body.lichessTools.mobile main.lichessTools-invert .round__app:not(.swap-clock) .ruser-top {
     justify-self: end;
   }
 
-  body.lichessTools.mobile main.lichessTools-invert .round__app .rclock-bottom,
-  body.lichessTools.mobile main.lichessTools-invert .round__app .rclock-top {
+  body.lichessTools.mobile main.lichessTools-invert .round__app:not(.swap-clock) .rclock-bottom,
+  body.lichessTools.mobile main.lichessTools-invert .round__app:not(.swap-clock) .rclock-top {
     justify-self: start;
   }
 
-  body.lichessTools.mobile main.lichessTools-invert .round__app .material-bottom,
-  body.lichessTools.mobile main.lichessTools-invert .round__app .material-top {
+  body.lichessTools.mobile main.lichessTools-invert .round__app:not(.swap-clock) .material-bottom,
+  body.lichessTools.mobile main.lichessTools-invert .round__app:not(.swap-clock) .material-top {
     justify-self: end;
   }
 }

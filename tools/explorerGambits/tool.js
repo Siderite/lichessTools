@@ -55,6 +55,40 @@
       return co.fen.makeFen(ch.toSetup());
     };
 
+    prepareGambits = async () => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const container = $('section.explorer-box table.moves');
+      if (!container.length) return;
+      if (lt.isGamePlaying()) return;
+      if (!$('th.lichessTools-explorerGambits', container).length) {
+        $('<th>')
+          .addClass('lichessTools-explorerGambits')
+          .text(lt.icon.Comet)
+          .attr('title', trans.noarg('gambitTitle'))
+          .appendTo($('thead tr', container));
+      }
+      $('tr[data-uci]', container).each((i, e) => {
+        if ($('td:has(div.bar)', e).addClass('lichessTools-bar').length) {
+          if (!$('td.lichessTools-explorerGambits', e).length) {
+            $('<td>')
+              .addClass('lichessTools-explorerGambits')
+              .appendTo(e);
+          }
+        }
+      });
+      $('tr.sum', container).each((i, e) => {
+        $('td:has(div.bar)', e).addClass('lichessTools-bar');
+        if (!$('td.lichessTools-explorerGambits', e).length) {
+          $('<td>')
+            .addClass('lichessTools-explorerGambits')
+            .appendTo(e);
+        }
+      });
+    };
+
     showGambits = async (result) => {
       const moves = result?.moves;
       const lt = this.lichessTools;
@@ -132,6 +166,7 @@
 
     findGambits = async () => {
       if (!this.options.enabled) return;
+      this.prepareGambits();
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
