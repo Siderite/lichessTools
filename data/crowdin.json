@@ -906,7 +906,9 @@
     "bulkPgnTagEditHeader": "محرر علامات PGN",
     "updatePgnTagsText": "تحديث علامات PGN",
     "bulkPgnTagsEditText": "تعديل علامات PGN",
-    "bulkPgnTagsEditTitle": "أدوات شطرنج الحياة - تحرير علامات PGN"
+    "bulkPgnTagsEditTitle": "أدوات شطرنج الحياة - تحرير علامات PGN",
+    "options.studyTopics": "خيارات مواضيع الدراسة",
+    "studyTopics.sortable": "فرز"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1815,7 +1817,9 @@
     "bulkPgnTagEditHeader": "PGN 标签编辑器",
     "updatePgnTagsText": "更新 PGN 标签",
     "bulkPgnTagsEditText": "编辑 PGN 标签",
-    "bulkPgnTagsEditTitle": "Lichess工具 - 编辑 PGN 标签"
+    "bulkPgnTagsEditTitle": "Lichess工具 - 编辑 PGN 标签",
+    "options.studyTopics": "学习主题选项",
+    "studyTopics.sortable": "可排序"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2724,7 +2728,9 @@
     "bulkPgnTagEditHeader": "PGN tags editor",
     "updatePgnTagsText": "Update PGN tags",
     "bulkPgnTagsEditText": "Edit PGN tags",
-    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
+    "options.studyTopics": "Study topics options",
+    "studyTopics.sortable": "Sortable"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3633,7 +3639,9 @@
     "bulkPgnTagEditHeader": "Editor PGN značek",
     "updatePgnTagsText": "Aktualizovat PGN tagy",
     "bulkPgnTagsEditText": "Upravit PGN tagy",
-    "bulkPgnTagsEditTitle": "Nástroje LiChess - upravit PGN tagy"
+    "bulkPgnTagsEditTitle": "Nástroje LiChess - upravit PGN tagy",
+    "options.studyTopics": "Možnosti témat studia",
+    "studyTopics.sortable": "Třídit"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4542,7 +4550,9 @@
     "bulkPgnTagEditHeader": "PGN tags bewerker",
     "updatePgnTagsText": "PGN-tags bijwerken",
     "bulkPgnTagsEditText": "Bewerk PGN-tags",
-    "bulkPgnTagsEditTitle": "LiChess Tools - Bewerk PGN tags"
+    "bulkPgnTagsEditTitle": "LiChess Tools - Bewerk PGN tags",
+    "options.studyTopics": "Opties voor topics bestuderen",
+    "studyTopics.sortable": "Sorteerbaar"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5451,7 +5461,9 @@
     "bulkPgnTagEditHeader": "PGN tags editor",
     "updatePgnTagsText": "Update PGN tags",
     "bulkPgnTagsEditText": "Edit PGN tags",
-    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
+    "options.studyTopics": "Study topics options",
+    "studyTopics.sortable": "Sortable"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6360,7 +6372,9 @@
     "bulkPgnTagEditHeader": "Éditeur de tags PGN",
     "updatePgnTagsText": "Mettre à jour les tags PGN",
     "bulkPgnTagsEditText": "Modifier les tags PGN",
-    "bulkPgnTagsEditTitle": "Outils LiChess - Modifier les tags PGN"
+    "bulkPgnTagsEditTitle": "Outils LiChess - Modifier les tags PGN",
+    "options.studyTopics": "Options des sujets d'étude",
+    "studyTopics.sortable": "Triable"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7269,7 +7283,9 @@
     "bulkPgnTagEditHeader": "PGN Tag-Editor",
     "updatePgnTagsText": "PGN Tags aktualisieren",
     "bulkPgnTagsEditText": "PGN Tags bearbeiten",
-    "bulkPgnTagsEditTitle": "LiChess Tools - PGN Tags bearbeiten"
+    "bulkPgnTagsEditTitle": "LiChess Tools - PGN Tags bearbeiten",
+    "options.studyTopics": "Lernthemen-Optionen",
+    "studyTopics.sortable": "Sortierbar"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8178,7 +8194,9 @@
     "bulkPgnTagEditHeader": "PGN tags editor",
     "updatePgnTagsText": "Update PGN tags",
     "bulkPgnTagsEditText": "Edit PGN tags",
-    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
+    "options.studyTopics": "Study topics options",
+    "studyTopics.sortable": "Sortable"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9087,7 +9105,9 @@
     "bulkPgnTagEditHeader": "Editor tag PGN",
     "updatePgnTagsText": "Aggiorna tag PGN",
     "bulkPgnTagsEditText": "Modifica tag PGN",
-    "bulkPgnTagsEditTitle": "Strumenti LiChess - Modifica tag PGN"
+    "bulkPgnTagsEditTitle": "Strumenti LiChess - Modifica tag PGN",
+    "options.studyTopics": "Opzioni degli argomenti di studio",
+    "studyTopics.sortable": "Ordinabile"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -9996,7 +10016,9 @@
     "bulkPgnTagEditHeader": "PGN tags editor",
     "updatePgnTagsText": "Update PGN tags",
     "bulkPgnTagsEditText": "Edit PGN tags",
-    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
+    "options.studyTopics": "Study topics options",
+    "studyTopics.sortable": "Sortable"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10905,7 +10927,9 @@
     "bulkPgnTagEditHeader": "Edytor tagów PGN",
     "updatePgnTagsText": "Aktualizuj tagi PGN",
     "bulkPgnTagsEditText": "Edytuj tagi PGN",
-    "bulkPgnTagsEditTitle": "Narzędzia LiChess - Edytuj tagi PGN"
+    "bulkPgnTagsEditTitle": "Narzędzia LiChess - Edytuj tagi PGN",
+    "options.studyTopics": "Opcje tematów",
+    "studyTopics.sortable": "Sortowalne"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11814,7 +11838,9 @@
     "bulkPgnTagEditHeader": "Editor de tags PGN",
     "updatePgnTagsText": "Atualizar tags PGN",
     "bulkPgnTagsEditText": "Editar tags PGN",
-    "bulkPgnTagsEditTitle": "Ferramentas LiChess - Editar tags PGN"
+    "bulkPgnTagsEditTitle": "Ferramentas LiChess - Editar tags PGN",
+    "options.studyTopics": "Opções de estudos de tópicos",
+    "studyTopics.sortable": "Ordenável"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12723,7 +12749,9 @@
     "bulkPgnTagEditHeader": "Editor de tags PGN",
     "updatePgnTagsText": "Atualizar tags PGN",
     "bulkPgnTagsEditText": "Editar tags PGN",
-    "bulkPgnTagsEditTitle": "Ferramentas LiChess - Editar tags PGN"
+    "bulkPgnTagsEditTitle": "Ferramentas LiChess - Editar tags PGN",
+    "options.studyTopics": "Opções de estudos de tópicos",
+    "studyTopics.sortable": "Ordenável"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13632,7 +13660,9 @@
     "bulkPgnTagEditHeader": "Editor etichete PGN",
     "updatePgnTagsText": "Modifică etichetele PGN",
     "bulkPgnTagsEditText": "Modifică etichete PGN",
-    "bulkPgnTagsEditTitle": "LiChess Tools - modifică etichete PGN"
+    "bulkPgnTagsEditTitle": "LiChess Tools - modifică etichete PGN",
+    "options.studyTopics": "Opțiuni subiecte studii",
+    "studyTopics.sortable": "Sortabile"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14541,7 +14571,9 @@
     "bulkPgnTagEditHeader": "Редактор тегов PGN",
     "updatePgnTagsText": "Обновить PGN теги",
     "bulkPgnTagsEditText": "Изменить PGN теги",
-    "bulkPgnTagsEditTitle": "Инструменты Жизни - Изменить PGN теги"
+    "bulkPgnTagsEditTitle": "Инструменты Жизни - Изменить PGN теги",
+    "options.studyTopics": "Настройки темы обучения",
+    "studyTopics.sortable": "Сортировка"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15450,7 +15482,9 @@
     "bulkPgnTagEditHeader": "Editor de etiquetas PGN",
     "updatePgnTagsText": "Actualizar etiquetas PGN",
     "bulkPgnTagsEditText": "Editar etiquetas PGN",
-    "bulkPgnTagsEditTitle": "Herramientas de LiChess - Editar etiquetas PGN"
+    "bulkPgnTagsEditTitle": "Herramientas de LiChess - Editar etiquetas PGN",
+    "options.studyTopics": "Opciones de temas de estudio",
+    "studyTopics.sortable": "Ordenable"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16359,7 +16393,9 @@
     "bulkPgnTagEditHeader": "PGN tags editor",
     "updatePgnTagsText": "Update PGN tags",
     "bulkPgnTagsEditText": "Edit PGN tags",
-    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
+    "options.studyTopics": "Study topics options",
+    "studyTopics.sortable": "Sortable"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -17268,7 +17304,9 @@
     "bulkPgnTagEditHeader": "PGN tags editor",
     "updatePgnTagsText": "Update PGN tags",
     "bulkPgnTagsEditText": "Edit PGN tags",
-    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
+    "options.studyTopics": "Study topics options",
+    "studyTopics.sortable": "Sortable"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18177,6 +18215,8 @@
     "bulkPgnTagEditHeader": "PGN tags editor",
     "updatePgnTagsText": "Update PGN tags",
     "bulkPgnTagsEditText": "Edit PGN tags",
-    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags"
+    "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
+    "options.studyTopics": "Study topics options",
+    "studyTopics.sortable": "Sortable"
   }
 }

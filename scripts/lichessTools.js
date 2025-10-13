@@ -2058,6 +2058,21 @@
               mode: 'cors',
               credentials: 'include'
             });
+        },
+        setTopics: async function(topics) {
+          const lt = this.lichessTools;
+          const json = lt.global.JSON.stringify(topics.map(t=>({ value: t })));
+          const bodyContent = 'topics=' + lt.global.encodeURIComponent(json);
+          await lt.net.fetch('/study/topic',
+            {
+              headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+              },
+              body: bodyContent,
+              method: 'POST',
+              mode: 'cors',
+              credentials: 'include'
+            });
         }
       },
       puzzle: {
