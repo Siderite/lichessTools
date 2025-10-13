@@ -65,10 +65,6 @@ body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-t
   min-height: 50vh;
 }
 
-body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .action-menu {
-  min-height: 50vh;
-}
-
 body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) .explorer-box {
   min-height: 20em;
 }
