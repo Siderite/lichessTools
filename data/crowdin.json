@@ -1814,14 +1814,14 @@
     "invalidUrl": "URL 无效",
     "customBoardImageUrlText": "自定义棋盘",
     "customBoardImageUrlTitle": "LiChess Tools - 自定义棋盘",
-    "winMarginTitle": "赢得的保证金： %s%",
+    "winMarginTitle": "胜率差：%s%",
     "bulkPgnTagEditHeader": "PGN 标签编辑器",
     "updatePgnTagsText": "更新 PGN 标签",
     "bulkPgnTagsEditText": "编辑 PGN 标签",
-    "bulkPgnTagsEditTitle": "Lichess工具 - 编辑 PGN 标签",
-    "options.studyTopics": "学习主题选项",
+    "bulkPgnTagsEditTitle": "LiChess Tools - 编辑 PGN 标签",
+    "options.studyTopics": "研习主题选项",
     "studyTopics.sortable": "可排序",
-    "studyTopics.expandable": "可扩展"
+    "studyTopics.expandable": "可展开"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -6374,14 +6374,14 @@
     "invalidUrl": "URL invalide",
     "customBoardImageUrlText": "Échiquier personnalisé",
     "customBoardImageUrlTitle": "LiChess Tools - Échiquier personnalisé",
-    "winMarginTitle": "Marge de gain : %s%",
+    "winMarginTitle": "Diff. de victoires : %s%",
     "bulkPgnTagEditHeader": "Éditeur de tags PGN",
     "updatePgnTagsText": "Mettre à jour les tags PGN",
     "bulkPgnTagsEditText": "Modifier les tags PGN",
-    "bulkPgnTagsEditTitle": "Outils LiChess - Modifier les tags PGN",
-    "options.studyTopics": "Options des sujets d'étude",
+    "bulkPgnTagsEditTitle": "LiChess Tools - Modifier les tags PGN",
+    "options.studyTopics": "Options des thèmes de l'étude",
     "studyTopics.sortable": "Triable",
-    "studyTopics.expandable": "Extensible"
+    "studyTopics.expandable": "Développable"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
