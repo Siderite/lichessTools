@@ -45,6 +45,14 @@
       lt.global.location.reload();
     };
 
+    sortTags = async ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      if (!this.options.sortable) return;
+      this.tagify?.updateValueByDOMTags();
+    };
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -61,11 +69,25 @@
       this.sortable?.destroy();
       if (this.options.sortable && topicAnchors.length>1) {
         this.makeSortable ||= await site.asset.loadEsm('sortable.esm', { npm: true });
+
         this.sortable = this.makeSortable.create($('nav.subnav__inner')[0], {
           draggable: 'nav.subnav__inner a[href^="/study/topic/"]',
           handle: 'ontouchstart' in window ? 'span' : undefined,
           onSort: this.sortTopics
         });
+
+        const textarea = $('#form3-topics');
+        if (textarea.length) {
+          if (!lt.global.Tagify) {
+            await site.asset.loadIife('npm/tagify.min.js')
+          }
+          this.tagify ||= new lt.global.Tagify(textarea[0]);
+          this.tagsSortable = this.makeSortable.create($('form.form3 tags')[0], {
+            draggable: 'form.form3 tags tag',
+            handle: 'ontouchstart' in window ? 'span' : undefined,
+            onSort: this.sortTags
+          });
+        }
       }
 
       if (this.options.expandable && topicAnchors.length && !$('body').is('.mobile')) {
