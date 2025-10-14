@@ -909,7 +909,9 @@
     "bulkPgnTagsEditTitle": "أدوات شطرنج الحياة - تحرير علامات PGN",
     "options.studyTopics": "خيارات مواضيع الدراسة",
     "studyTopics.sortable": "فرز",
-    "studyTopics.expandable": "قابل للتوسع"
+    "studyTopics.expandable": "قابل للتوسع",
+    "gameListOptions.textFilter": "فلتر النص",
+    "textFilterPlaceholder": "تصفية الكلمات"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1821,7 +1823,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - 编辑 PGN 标签",
     "options.studyTopics": "研习主题选项",
     "studyTopics.sortable": "可排序",
-    "studyTopics.expandable": "可展开"
+    "studyTopics.expandable": "可展开",
+    "gameListOptions.textFilter": "文本过滤器",
+    "textFilterPlaceholder": "过滤单词"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2733,7 +2737,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
     "studyTopics.sortable": "Sortable",
-    "studyTopics.expandable": "Expandable"
+    "studyTopics.expandable": "Expandable",
+    "gameListOptions.textFilter": "Text filter",
+    "textFilterPlaceholder": "filter words"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3645,7 +3651,9 @@
     "bulkPgnTagsEditTitle": "Nástroje LiChess - upravit PGN tagy",
     "options.studyTopics": "Možnosti témat studia",
     "studyTopics.sortable": "Třídit",
-    "studyTopics.expandable": "Rozšiřitelné"
+    "studyTopics.expandable": "Rozšiřitelné",
+    "gameListOptions.textFilter": "Textový filtr",
+    "textFilterPlaceholder": "slova filtru"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4557,7 +4565,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - Bewerk PGN tags",
     "options.studyTopics": "Opties voor topics bestuderen",
     "studyTopics.sortable": "Sorteerbaar",
-    "studyTopics.expandable": "Uitklapbaar"
+    "studyTopics.expandable": "Uitklapbaar",
+    "gameListOptions.textFilter": "Tekst filter",
+    "textFilterPlaceholder": "woorden filteren"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5469,7 +5479,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
     "studyTopics.sortable": "Sortable",
-    "studyTopics.expandable": "Expandable"
+    "studyTopics.expandable": "Expandable",
+    "gameListOptions.textFilter": "Text filter",
+    "textFilterPlaceholder": "filter words"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6381,7 +6393,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - Modifier les tags PGN",
     "options.studyTopics": "Options des thèmes de l'étude",
     "studyTopics.sortable": "Triable",
-    "studyTopics.expandable": "Développable"
+    "studyTopics.expandable": "Développable",
+    "gameListOptions.textFilter": "Filtre de texte",
+    "textFilterPlaceholder": "filtrer les mots"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7293,7 +7307,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - PGN Tags bearbeiten",
     "options.studyTopics": "Lernthemen-Optionen",
     "studyTopics.sortable": "Sortierbar",
-    "studyTopics.expandable": "Erweiterbar"
+    "studyTopics.expandable": "Erweiterbar",
+    "gameListOptions.textFilter": "Textfilter",
+    "textFilterPlaceholder": "Wörter filtern"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8205,7 +8221,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
     "studyTopics.sortable": "Sortable",
-    "studyTopics.expandable": "Expandable"
+    "studyTopics.expandable": "Expandable",
+    "gameListOptions.textFilter": "Text filter",
+    "textFilterPlaceholder": "filter words"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9117,7 +9135,9 @@
     "bulkPgnTagsEditTitle": "Strumenti LiChess - Modifica tag PGN",
     "options.studyTopics": "Opzioni degli argomenti di studio",
     "studyTopics.sortable": "Ordinabile",
-    "studyTopics.expandable": "Espandibile"
+    "studyTopics.expandable": "Espandibile",
+    "gameListOptions.textFilter": "Filtro testo",
+    "textFilterPlaceholder": "filtra le parole"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10029,7 +10049,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
     "studyTopics.sortable": "Sortable",
-    "studyTopics.expandable": "Expandable"
+    "studyTopics.expandable": "Expandable",
+    "gameListOptions.textFilter": "Text filter",
+    "textFilterPlaceholder": "filter words"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10941,7 +10963,9 @@
     "bulkPgnTagsEditTitle": "Narzędzia LiChess - Edytuj tagi PGN",
     "options.studyTopics": "Opcje tematów",
     "studyTopics.sortable": "Sortowalne",
-    "studyTopics.expandable": "Rozszerzone"
+    "studyTopics.expandable": "Rozszerzone",
+    "gameListOptions.textFilter": "Filtr tekstu",
+    "textFilterPlaceholder": "filtruj słowa"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11853,7 +11877,9 @@
     "bulkPgnTagsEditTitle": "Ferramentas LiChess - Editar tags PGN",
     "options.studyTopics": "Opções de estudos de tópicos",
     "studyTopics.sortable": "Ordenável",
-    "studyTopics.expandable": "Expansível"
+    "studyTopics.expandable": "Expansível",
+    "gameListOptions.textFilter": "Filtro de texto",
+    "textFilterPlaceholder": "filtrar palavras"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12765,7 +12791,9 @@
     "bulkPgnTagsEditTitle": "Ferramentas LiChess - Editar tags PGN",
     "options.studyTopics": "Opções de estudos de tópicos",
     "studyTopics.sortable": "Ordenável",
-    "studyTopics.expandable": "Expansível"
+    "studyTopics.expandable": "Expansível",
+    "gameListOptions.textFilter": "Filtro de texto",
+    "textFilterPlaceholder": "filtrar palavras"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13677,7 +13705,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - modifică etichete PGN",
     "options.studyTopics": "Opțiuni subiecte studii",
     "studyTopics.sortable": "Sortabile",
-    "studyTopics.expandable": "Expandabile"
+    "studyTopics.expandable": "Expandabile",
+    "gameListOptions.textFilter": "Filtru text",
+    "textFilterPlaceholder": "cuvinte filtru"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14589,7 +14619,9 @@
     "bulkPgnTagsEditTitle": "Инструменты Жизни - Изменить PGN теги",
     "options.studyTopics": "Настройки темы обучения",
     "studyTopics.sortable": "Сортировка",
-    "studyTopics.expandable": "Расширяемый"
+    "studyTopics.expandable": "Расширяемый",
+    "gameListOptions.textFilter": "Текстовый фильтр",
+    "textFilterPlaceholder": "фильтровать слова"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15501,7 +15533,9 @@
     "bulkPgnTagsEditTitle": "Herramientas de LiChess - Editar etiquetas PGN",
     "options.studyTopics": "Opciones de temas de estudio",
     "studyTopics.sortable": "Ordenable",
-    "studyTopics.expandable": "Expandible"
+    "studyTopics.expandable": "Expandible",
+    "gameListOptions.textFilter": "Filtro de texto",
+    "textFilterPlaceholder": "palabras de filtro"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16413,7 +16447,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
     "studyTopics.sortable": "Sortable",
-    "studyTopics.expandable": "Expandable"
+    "studyTopics.expandable": "Expandable",
+    "gameListOptions.textFilter": "Text filter",
+    "textFilterPlaceholder": "filter words"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17325,7 +17361,9 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
     "studyTopics.sortable": "Sortable",
-    "studyTopics.expandable": "Expandable"
+    "studyTopics.expandable": "Expandable",
+    "gameListOptions.textFilter": "Text filter",
+    "textFilterPlaceholder": "filter words"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18237,6 +18275,8 @@
     "bulkPgnTagsEditTitle": "LiChess Tools - Edit PGN tags",
     "options.studyTopics": "Study topics options",
     "studyTopics.sortable": "Sortable",
-    "studyTopics.expandable": "Expandable"
+    "studyTopics.expandable": "Expandable",
+    "gameListOptions.textFilter": "Text filter",
+    "textFilterPlaceholder": "filter words"
   }
 }

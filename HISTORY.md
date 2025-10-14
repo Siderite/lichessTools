@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - imgBB image pasting
 - sortable study topic tags
+- game list text filter
 
 13 Oct
 

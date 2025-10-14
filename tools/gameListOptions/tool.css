@@ -65,7 +65,8 @@ body.lichessTools label[for="chkAnalysis"],
 body.lichessTools label[for="chkNoAnalysis"],
 body.lichessTools label[for="chkAnalysisLink"],
 body.lichessTools label[for="chkTitledOpponents"],
-body.lichessTools label[for="chkColor"] {
+body.lichessTools label[for="chkColor"],
+body.lichessTools label[for="txtTextFilter"] {
   margin-left: 1em;
 }
 
@@ -101,4 +102,19 @@ body.lichessTools .lichessTools-gameListOptions-analysisLink article:after {
   content: "\E01F"; /* Microscope */
   opacity: .9;
   unicode-bidi: isolate;
+}
+
+body.lichessTools article.lichessTools-textFiltered {
+  display:none;
+}
+
+body.lichessTools div.lichessTools-gameListOptions {
+  flex-wrap: wrap;
+}
+body.lichessTools div.lichessTools-gameListOptions #txtTextFilter {
+  order: 99;
+  padding: 0.5em;
+  width: 100%;
+  margin-left: 1em;
+  margin-right: 1em;
 }
