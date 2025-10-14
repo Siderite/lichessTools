@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Oct
+
+- imgBB image pasting
+- sortable study topic tags
+
 13 Oct
 
 - bulk edit chapter PGN tags
