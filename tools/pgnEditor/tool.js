@@ -2058,8 +2058,6 @@
       this.options = { enabled: !!value };
       const $ = lt.$;
       const trans = lt.translator;
-      const container = $('#topnav section a[href="/analysis"]+div[role="group"]');
-      $('.lichessTools-pgnEditor', container).trigger('close').remove();
 
       if (lichess.analysis) {
         lt.pubsub.off('lichessTools.redraw', this.analysisControls);
@@ -2074,10 +2072,13 @@
         this.analysisControls();
       }
 
+      $(lt.global).off('hashchange', this.hashchange);
       if (!value) {
         $('dialog.lichessTools-pgnEditor').trigger('close').remove();
         return;
       }
+
+      const container = $('#topnav section a[href="/analysis"]+div[role="group"]');
       $('<a/>')
         .addClass('lichessTools-pgnEditor')
         .text(trans.noarg('pgnEditorText'))
