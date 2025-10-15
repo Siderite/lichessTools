@@ -90,8 +90,9 @@
           const html = this.dgtHtml || (this.dgtHtml = await lt.net.fetch('/dgt'));
           container = $('<div>'+html+'</div>');
         }
-        let backgroundImage = lt.currentOptions.customBoardImage && !is3d
-          ? lt.currentOptions.customBoardImage
+        const boardImage = lt.currentOptions.getValue('customBoardImage');
+        let backgroundImage = boardImage && !is3d
+          ? boardImage
           : $('link[rel=preload][as=image]',container)
             .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
             .eq(is3d?1:0)
