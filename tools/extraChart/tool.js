@@ -1145,7 +1145,7 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      if (!forced && Math.random() > 0.95) forced = true; // hack to sometimes update this anyway
+      if (!forced && lt.random() > 0.95) forced = true; // hack to sometimes update this anyway
 
       if (!lichess.analysis) return;
       const currentBrilliant = [this.options.brilliant, this.options.moreBrilliant].join(',');

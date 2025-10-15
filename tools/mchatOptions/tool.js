@@ -178,7 +178,7 @@
       const data = lt.global.document.body.dataset;
       const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
       if (!baseUrls?.length) return;
-      const url = 'wss://' + baseUrls[Math.floor(lt.global.Math.random() * baseUrls.length)];
+      const url = 'wss://' + baseUrls[Math.floor(lt.random() * baseUrls.length)];
       const fullUrl = url + '/team/' + teamId + '?v=1&sri=' + lt.sri;
       const ws = new WebSocket(fullUrl);
       const console = lt.global.console;

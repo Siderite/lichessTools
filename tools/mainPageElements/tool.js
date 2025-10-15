@@ -196,7 +196,7 @@
       container.find('.year').text(trans.pluralSame('yearGamesPlayed',formatter.format(yearGames)));
       container.find('.month').text(trans.pluralSame('monthGamesPlayed',formatter.format(monthGames)));
       container.find('.day').text(trans.pluralSame('dayGamesPlayed',formatter.format(dayGames)));
-      this.extraCountersTimeout = lt.global.setTimeout(this.updateCounters,Math.random()*1500);
+      this.extraCountersTimeout = lt.global.setTimeout(this.updateCounters,lt.random()*1500);
     };
 
     async start() {
