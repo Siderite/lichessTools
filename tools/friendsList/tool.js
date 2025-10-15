@@ -762,7 +762,7 @@
       const lichess = lt.lichess;
       if (!lichess || !lt.uiApi) return;
       const $ = lt.$;
-      const friendsBoxMode = lt.currentOptions.getValue('openFriends') || 'menu';
+      const friendsBoxMode = lt.currentOptions.getValue('openFriends');
       const liveFriendsPage = lt.currentOptions.getValue('liveFriendsPage');
       this.logOption('Online friend list', friendsBoxMode);
       this.logOption('Live friends page', liveFriendsPage);
