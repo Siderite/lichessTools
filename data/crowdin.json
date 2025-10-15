@@ -912,7 +912,8 @@
     "studyTopics.expandable": "قابل للتوسع",
     "gameListOptions.textFilter": "فلتر النص",
     "textFilterPlaceholder": "تصفية الكلمات",
-    "toggleLiChessToolsTitle": "تمكين/تعطيل أدوات شطرنج الحياة"
+    "toggleLiChessToolsTitle": "تمكين/تعطيل أدوات شطرنج الحياة",
+    "disableLiChessToolsForTodayQuestion": "تعطيل أدوات الشطرنج اليوم؟"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1827,7 +1828,8 @@
     "studyTopics.expandable": "可展开",
     "gameListOptions.textFilter": "文本过滤器",
     "textFilterPlaceholder": "过滤单词",
-    "toggleLiChessToolsTitle": "启用/禁用 LiChess工具"
+    "toggleLiChessToolsTitle": "启用/禁用 LiChess工具",
+    "disableLiChessToolsForTodayQuestion": "今天禁用LiChess工具吗？"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2742,7 +2744,8 @@
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
     "textFilterPlaceholder": "filter words",
-    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3657,7 +3660,8 @@
     "studyTopics.expandable": "Rozšiřitelné",
     "gameListOptions.textFilter": "Textový filtr",
     "textFilterPlaceholder": "slova filtru",
-    "toggleLiChessToolsTitle": "Povolit/zakázat nástroje LiChess"
+    "toggleLiChessToolsTitle": "Povolit/zakázat nástroje LiChess",
+    "disableLiChessToolsForTodayQuestion": "Zakázat nástroje LiChess pro dnešek?"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4572,7 +4576,8 @@
     "studyTopics.expandable": "Uitklapbaar",
     "gameListOptions.textFilter": "Tekst filter",
     "textFilterPlaceholder": "woorden filteren",
-    "toggleLiChessToolsTitle": "Inschakelen/uitschakelen LiChess Tools"
+    "toggleLiChessToolsTitle": "Inschakelen/uitschakelen LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "LiChess Tools voor vandaag uitschakelen?"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5487,7 +5492,8 @@
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
     "textFilterPlaceholder": "filter words",
-    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6402,7 +6408,8 @@
     "studyTopics.expandable": "Développable",
     "gameListOptions.textFilter": "Filtre de texte",
     "textFilterPlaceholder": "filtrer les mots",
-    "toggleLiChessToolsTitle": "Activer/désactiver les outils LiChess"
+    "toggleLiChessToolsTitle": "Activer/désactiver les outils LiChess",
+    "disableLiChessToolsForTodayQuestion": "Désactiver les outils LiChess pour aujourd'hui ?"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7317,7 +7324,8 @@
     "studyTopics.expandable": "Erweiterbar",
     "gameListOptions.textFilter": "Textfilter",
     "textFilterPlaceholder": "Wörter filtern",
-    "toggleLiChessToolsTitle": "Aktiviere/Deaktiviere LiChess Tools"
+    "toggleLiChessToolsTitle": "Aktiviere/Deaktiviere LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "LiChess Tools für heute deaktivieren?"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8232,7 +8240,8 @@
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
     "textFilterPlaceholder": "filter words",
-    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9147,7 +9156,8 @@
     "studyTopics.expandable": "Espandibile",
     "gameListOptions.textFilter": "Filtro testo",
     "textFilterPlaceholder": "filtra le parole",
-    "toggleLiChessToolsTitle": "Abilita/Disabilita Strumenti LiChess"
+    "toggleLiChessToolsTitle": "Abilita/Disabilita Strumenti LiChess",
+    "disableLiChessToolsForTodayQuestion": "Disabilitare LiChess Tools per oggi?"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10062,7 +10072,8 @@
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
     "textFilterPlaceholder": "filter words",
-    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10977,7 +10988,8 @@
     "studyTopics.expandable": "Rozszerzone",
     "gameListOptions.textFilter": "Filtr tekstu",
     "textFilterPlaceholder": "filtruj słowa",
-    "toggleLiChessToolsTitle": "Włącz/wyłącz narzędzia LiChess"
+    "toggleLiChessToolsTitle": "Włącz/wyłącz narzędzia LiChess",
+    "disableLiChessToolsForTodayQuestion": "Wyłączyć narzędzia LiChess na dziś?"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11892,7 +11904,8 @@
     "studyTopics.expandable": "Expansível",
     "gameListOptions.textFilter": "Filtro de texto",
     "textFilterPlaceholder": "filtrar palavras",
-    "toggleLiChessToolsTitle": "Ativar/desativar Ferramentas do LiChess"
+    "toggleLiChessToolsTitle": "Ativar/desativar Ferramentas do LiChess",
+    "disableLiChessToolsForTodayQuestion": "Desativar Ferramentas de LiChess para hoje?"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12807,7 +12820,8 @@
     "studyTopics.expandable": "Expansível",
     "gameListOptions.textFilter": "Filtro de texto",
     "textFilterPlaceholder": "filtrar palavras",
-    "toggleLiChessToolsTitle": "Ativar/desativar Ferramentas do LiChess"
+    "toggleLiChessToolsTitle": "Ativar/desativar Ferramentas do LiChess",
+    "disableLiChessToolsForTodayQuestion": "Desativar Ferramentas de LiChess para hoje?"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13722,7 +13736,8 @@
     "studyTopics.expandable": "Expandabile",
     "gameListOptions.textFilter": "Filtru text",
     "textFilterPlaceholder": "cuvinte filtru",
-    "toggleLiChessToolsTitle": "Activează/dezactivează LiChess Tools"
+    "toggleLiChessToolsTitle": "Activează/dezactivează LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "Dezactivez LiChess Tools pentru azi?"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14637,7 +14652,8 @@
     "studyTopics.expandable": "Расширяемый",
     "gameListOptions.textFilter": "Текстовый фильтр",
     "textFilterPlaceholder": "фильтровать слова",
-    "toggleLiChessToolsTitle": "Включить/выключить Инструменты Жизни"
+    "toggleLiChessToolsTitle": "Включить/выключить Инструменты Жизни",
+    "disableLiChessToolsForTodayQuestion": "Отключить инструменты Жизни сегодня?"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15552,7 +15568,8 @@
     "studyTopics.expandable": "Expandible",
     "gameListOptions.textFilter": "Filtro de texto",
     "textFilterPlaceholder": "palabras de filtro",
-    "toggleLiChessToolsTitle": "Activar/desactivar las herramientas de LiChess"
+    "toggleLiChessToolsTitle": "Activar/desactivar las herramientas de LiChess",
+    "disableLiChessToolsForTodayQuestion": "¿Deshabilitar las herramientas de LiChess para hoy?"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16467,7 +16484,8 @@
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
     "textFilterPlaceholder": "filter words",
-    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17382,7 +17400,8 @@
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
     "textFilterPlaceholder": "filter words",
-    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18297,6 +18316,7 @@
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
     "textFilterPlaceholder": "filter words",
-    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?"
   }
 }

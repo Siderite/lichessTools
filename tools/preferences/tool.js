@@ -48,7 +48,8 @@
         'userManualLinkTitle': 'User manual (EN)',
         'preferenceFilterPlaceholder': 'Filter preferences',
         'expandAllButtonText': 'Expand/collapse all',
-        'toggleLiChessToolsTitle': 'Enable/disable LiChess Tools'
+        'toggleLiChessToolsTitle': 'Enable/disable LiChess Tools',
+        'disableLiChessToolsForTodayQuestion': 'Disable LiChess Tools for today?'
       },
       'ro-RO': {
         yes: 'Da',
@@ -82,7 +83,8 @@
         'userManualLinkTitle': 'Manual utilizator (EN)',
         'preferenceFilterPlaceholder': 'Filtru preferin\u0163e',
         'expandAllButtonText': 'Extinde/restr\u00e2nge toate',
-        'toggleLiChessToolsTitle': 'Activeaz\u0103/dezactiveaz\u0103 LiChess Tools'
+        'toggleLiChessToolsTitle': 'Activeaz\u0103/dezactiveaz\u0103 LiChess Tools',
+        'disableLiChessToolsForTodayQuestion': 'Dezactivez LiChess Tools pentru azi?'
       }
     }
 
@@ -620,7 +622,7 @@
       const data = lt.global.document.body.dataset;
       const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
       if (!baseUrls?.length) return;
-      const url = 'wss://' + baseUrls[lt.global.Math.floor(lt.global.Math.random() * baseUrls.length)];
+      const url = 'wss://' + baseUrls[lt.global.Math.floor(lt.random() * baseUrls.length)];
       const fullUrl = url + '/socket/v5?sri=' + lt.sri;
       const ws = new WebSocket(fullUrl);
       ws.onopen = () => {
@@ -649,9 +651,11 @@
     addPreferencesMenu = () => {
       const lt = this.lichessTools;
       const trans = lt.translator;
+      const lichess = lt.lichess;
       const $ = lt.$;
       if (!$('#dasher_app *').length) return;
       if (!$('#dasher_app a.lichessTools-preferences').length) {
+        lichess.asset.loadCssPath('user.account');
         const isLoggedIn = !!lt.getUserId();
         const elem = $('<a class="text lichessTools-preferences">')
           .attr('data-icon', isLoggedIn ? lt.icon.LightVerticalAndBottomRight : lt.icon.Gear)
@@ -664,7 +668,21 @@
                      </span>`)
                    .attr('title',trans.noarg('toggleLiChessToolsTitle'))
                    .on('change',async (ev)=>{
-                     lt.currentOptions.enableLichessTools = $(ev.target).prop('checked');
+                     const enabled = $(ev.target).prop('checked');
+                     if (!enabled) {
+                       const answer = await lt.uiApi.dialog.confirm(trans.noarg('disableLiChessToolsForTodayQuestion'));
+                       if (!answer) {
+                         this.checkGlobalSwitch();
+                         return;
+                       }
+                     }
+                     lt.currentOptions.enableLichessTools = enabled;
+                     if (!enabled) {
+                       const tomorrow = new Date();
+                       tomorrow.setDate(tomorrow.getDate() + 1);
+                       tomorrow.setHours(0, 0, 0, 0);
+                       lt.currentOptions['enableLichessTools.enableTime'] = +tomorrow;
+                     }
                      await lt.applyOptions(lt.currentOptions);
                      this.checkGlobalSwitch();
                    })

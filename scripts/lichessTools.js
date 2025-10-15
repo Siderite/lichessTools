@@ -1460,8 +1460,11 @@
     };
 
     random = () => {
+      if (!this.global.crypto) {
+        return this.global.Math.random();
+      }
       const arr = new Uint32Array(2);
-      crypto.getRandomValues(arr);
+      this.global.crypto.getRandomValues(arr);
       const mantissa = (arr[0] * Math.pow(2, 20)) + (arr[1] >>> 12);
       return mantissa * Math.pow(2, -52);
     };
@@ -2562,6 +2565,15 @@
         await this.saveOptions(options);
       }
       options = await this.getOptions();
+      if (!options.enableLichessTools) {
+        const enableTime = +options['enableLichessTools.enableTime'];
+        if (enableTime && Date.now()>enableTime) {
+          console.log('Re-enabling LiChess Tools');
+          options.enableLichessTools = true;
+        }
+      } else {
+        delete options['enableLichessTools.enableTime'];
+      }
       if (this.prevOptions === this.global.JSON.stringify(options)) {
         return;
       }
