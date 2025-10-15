@@ -2565,14 +2565,23 @@
         await this.saveOptions(options);
       }
       options = await this.getOptions();
-      if (!options.enableLichessTools) {
-        const enableTime = +options['enableLichessTools.enableTime'];
-        if (enableTime && Date.now()>enableTime) {
-          console.log('Re-enabling LiChess Tools');
-          options.enableLichessTools = true;
+      const enableTime = +(options['enableLichessTools.enableTime']||0);
+      if (enableTime) {
+        let saveOptions = false;
+        if (options.enableLichessTools) {
+          delete options['enableLichessTools.enableTime'];
+          saveOptions = true;
+        } else {
+          if (Date.now()>enableTime) {
+            console.log('Re-enabling LiChess Tools');
+            options.enableLichessTools = true;
+            delete options['enableLichessTools.enableTime'];
+            saveOptions = true;
+          }
         }
-      } else {
-        delete options['enableLichessTools.enableTime'];
+        if (saveOptions) {
+          this.saveOptions(options);
+        }
       }
       if (this.prevOptions === this.global.JSON.stringify(options)) {
         return;
