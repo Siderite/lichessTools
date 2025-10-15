@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Oct
+
+- extension toggle in user menu
+
 14 Oct
 
 - imgBB image pasting

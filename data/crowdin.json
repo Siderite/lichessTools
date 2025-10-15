@@ -911,7 +911,8 @@
     "studyTopics.sortable": "فرز",
     "studyTopics.expandable": "قابل للتوسع",
     "gameListOptions.textFilter": "فلتر النص",
-    "textFilterPlaceholder": "تصفية الكلمات"
+    "textFilterPlaceholder": "تصفية الكلمات",
+    "toggleLiChessToolsTitle": "تمكين/تعطيل أدوات شطرنج الحياة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1825,7 +1826,8 @@
     "studyTopics.sortable": "可排序",
     "studyTopics.expandable": "可展开",
     "gameListOptions.textFilter": "文本过滤器",
-    "textFilterPlaceholder": "过滤单词"
+    "textFilterPlaceholder": "过滤单词",
+    "toggleLiChessToolsTitle": "启用/禁用 LiChess工具"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2739,7 +2741,8 @@
     "studyTopics.sortable": "Sortable",
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
-    "textFilterPlaceholder": "filter words"
+    "textFilterPlaceholder": "filter words",
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3653,7 +3656,8 @@
     "studyTopics.sortable": "Třídit",
     "studyTopics.expandable": "Rozšiřitelné",
     "gameListOptions.textFilter": "Textový filtr",
-    "textFilterPlaceholder": "slova filtru"
+    "textFilterPlaceholder": "slova filtru",
+    "toggleLiChessToolsTitle": "Povolit/zakázat nástroje LiChess"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4567,7 +4571,8 @@
     "studyTopics.sortable": "Sorteerbaar",
     "studyTopics.expandable": "Uitklapbaar",
     "gameListOptions.textFilter": "Tekst filter",
-    "textFilterPlaceholder": "woorden filteren"
+    "textFilterPlaceholder": "woorden filteren",
+    "toggleLiChessToolsTitle": "Inschakelen/uitschakelen LiChess Tools"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5481,7 +5486,8 @@
     "studyTopics.sortable": "Sortable",
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
-    "textFilterPlaceholder": "filter words"
+    "textFilterPlaceholder": "filter words",
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6395,7 +6401,8 @@
     "studyTopics.sortable": "Triable",
     "studyTopics.expandable": "Développable",
     "gameListOptions.textFilter": "Filtre de texte",
-    "textFilterPlaceholder": "filtrer les mots"
+    "textFilterPlaceholder": "filtrer les mots",
+    "toggleLiChessToolsTitle": "Activer/désactiver les outils LiChess"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7309,7 +7316,8 @@
     "studyTopics.sortable": "Sortierbar",
     "studyTopics.expandable": "Erweiterbar",
     "gameListOptions.textFilter": "Textfilter",
-    "textFilterPlaceholder": "Wörter filtern"
+    "textFilterPlaceholder": "Wörter filtern",
+    "toggleLiChessToolsTitle": "Aktiviere/Deaktiviere LiChess Tools"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8223,7 +8231,8 @@
     "studyTopics.sortable": "Sortable",
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
-    "textFilterPlaceholder": "filter words"
+    "textFilterPlaceholder": "filter words",
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9137,7 +9146,8 @@
     "studyTopics.sortable": "Ordinabile",
     "studyTopics.expandable": "Espandibile",
     "gameListOptions.textFilter": "Filtro testo",
-    "textFilterPlaceholder": "filtra le parole"
+    "textFilterPlaceholder": "filtra le parole",
+    "toggleLiChessToolsTitle": "Abilita/Disabilita Strumenti LiChess"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10051,7 +10061,8 @@
     "studyTopics.sortable": "Sortable",
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
-    "textFilterPlaceholder": "filter words"
+    "textFilterPlaceholder": "filter words",
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10965,7 +10976,8 @@
     "studyTopics.sortable": "Sortowalne",
     "studyTopics.expandable": "Rozszerzone",
     "gameListOptions.textFilter": "Filtr tekstu",
-    "textFilterPlaceholder": "filtruj słowa"
+    "textFilterPlaceholder": "filtruj słowa",
+    "toggleLiChessToolsTitle": "Włącz/wyłącz narzędzia LiChess"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11879,7 +11891,8 @@
     "studyTopics.sortable": "Ordenável",
     "studyTopics.expandable": "Expansível",
     "gameListOptions.textFilter": "Filtro de texto",
-    "textFilterPlaceholder": "filtrar palavras"
+    "textFilterPlaceholder": "filtrar palavras",
+    "toggleLiChessToolsTitle": "Ativar/desativar Ferramentas do LiChess"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12793,7 +12806,8 @@
     "studyTopics.sortable": "Ordenável",
     "studyTopics.expandable": "Expansível",
     "gameListOptions.textFilter": "Filtro de texto",
-    "textFilterPlaceholder": "filtrar palavras"
+    "textFilterPlaceholder": "filtrar palavras",
+    "toggleLiChessToolsTitle": "Ativar/desativar Ferramentas do LiChess"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13707,7 +13721,8 @@
     "studyTopics.sortable": "Sortabile",
     "studyTopics.expandable": "Expandabile",
     "gameListOptions.textFilter": "Filtru text",
-    "textFilterPlaceholder": "cuvinte filtru"
+    "textFilterPlaceholder": "cuvinte filtru",
+    "toggleLiChessToolsTitle": "Activează/dezactivează LiChess Tools"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14621,7 +14636,8 @@
     "studyTopics.sortable": "Сортировка",
     "studyTopics.expandable": "Расширяемый",
     "gameListOptions.textFilter": "Текстовый фильтр",
-    "textFilterPlaceholder": "фильтровать слова"
+    "textFilterPlaceholder": "фильтровать слова",
+    "toggleLiChessToolsTitle": "Включить/выключить Инструменты Жизни"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15535,7 +15551,8 @@
     "studyTopics.sortable": "Ordenable",
     "studyTopics.expandable": "Expandible",
     "gameListOptions.textFilter": "Filtro de texto",
-    "textFilterPlaceholder": "palabras de filtro"
+    "textFilterPlaceholder": "palabras de filtro",
+    "toggleLiChessToolsTitle": "Activar/desactivar las herramientas de LiChess"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16449,7 +16466,8 @@
     "studyTopics.sortable": "Sortable",
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
-    "textFilterPlaceholder": "filter words"
+    "textFilterPlaceholder": "filter words",
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17363,7 +17381,8 @@
     "studyTopics.sortable": "Sortable",
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
-    "textFilterPlaceholder": "filter words"
+    "textFilterPlaceholder": "filter words",
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18277,6 +18296,7 @@
     "studyTopics.sortable": "Sortable",
     "studyTopics.expandable": "Expandable",
     "gameListOptions.textFilter": "Text filter",
-    "textFilterPlaceholder": "filter words"
+    "textFilterPlaceholder": "filter words",
+    "toggleLiChessToolsTitle": "Enable/disable LiChess Tools"
   }
 }
