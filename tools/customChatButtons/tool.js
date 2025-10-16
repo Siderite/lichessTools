@@ -61,6 +61,8 @@
       return buttons;
     }
 
+    getButtonRegex = ()=>/^([\p{L}\p{N}]{2,4})\/([\p{L}\p{N}]{1,})$/u;
+
     saveButtons = async buttons => {
       const lt = this.lichessTools;
       lt.currentOptions['customChatButtons.buttons'] = buttons;
@@ -120,7 +122,7 @@
       if (!chat.length) return;
       const chatInput = $('input.mchat__say', chat);
       const chatText = chatInput.val();
-      const m = /^(\w{2,4})\/(\w.*)$/i.exec(chatText);
+      const m = this.getButtonRegex().exec(chatText);
       if (!m) {
         this.jiggle(chatInput);
         return;
@@ -158,7 +160,7 @@
         return;
       }
       if (this.editMode == 'edit') {
-        const m = /^(\w{2,4})\/(\w.*)$/i.exec(chatText);
+        const m = this.getButtonRegex().exec(chatText);
         if (!m) {
           this.jiggle(chatInput);
           return;
@@ -267,7 +269,7 @@
         chatInput[0].isCustomized = true;
         chatInput.on('change keyup paste', () => {
           const chatText = chatInput.val();
-          const m = /^(\w{2,4})\/(\w.*)$/i.exec(chatText);
+          const m = this.getButtonRegex().exec(chatText);
           addButton.toggleClass('lichessTools-disabled', !m || !m[1]);
         })
         chatInput.trigger('change');
