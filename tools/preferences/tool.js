@@ -662,7 +662,7 @@
           .attr('href', '/team/all#lichessTools')
           .attr('title', trans.noarg('lichessToolsPreferences'))
           .append($('<span>').text(trans.noarg('lichessTools')))
-          .append($(`<span>
+          .append($(`<span class="lichessTools-toggleExtension">
                       <input id="toggleLiChessTools" name="toggleLiChessTools" type="checkbox" class="form-control cmn-toggle"/>
                       <label for="toggleLiChessTools"/>
                      </span>`)

@@ -4,9 +4,13 @@
   display: flex;
 }
 
-a.lichessTools-preferences span:last-child {
+a.lichessTools-preferences span.lichessTools-toggleExtension {
   margin-left: auto;
   margin-right: 1em;
+}
+
+a.lichessTools-preferences:hover span.lichessTools-toggleExtension {
+  filter: hue-rotate(45deg);
 }
 
 
