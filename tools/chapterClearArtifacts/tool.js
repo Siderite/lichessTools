@@ -288,37 +288,40 @@
                     textarea.removeClass('lichessTools-error');
                     $(dialog).find('.lichessTools-errorText').text('');
                     const pgn = textarea.val();
+
+                    const useApi = false;
+
                     try {
                       if (!/^\s*(\[\s*[^\s]+\s+\"[^\"]*\"\s*\][\s\r\n]*)*\s*$/.test(pgn)) {
                         throw new Error('Restrict your input to PGN tags only');
                       }
-                      const useApi = false;
-                      if (useApi) {
-                        await lt.api.study.updatePgnTags(studyId, chapterId, pgnTags);
-                      } else {
-                        const tagsMap = new Map();
-                        const newTagsMap = new Map();
-                        tags.forEach(t=>{
-                          tagsMap.set(t[0],t[1]);
-                          newTagsMap.set(t[0],'');
+                      const tagsArray = [];
+                      const tagsMap = new Map();
+                      const newTagsMap = new Map();
+                      tags.forEach(t=>{
+                        tagsMap.set(t[0],t[1]);
+                        newTagsMap.set(t[0],'');
+                      });
+                      const study = lichess.analysis.study;
+                      const types = new Map(study.tags.types.map(t=>[t.toLowerCase(),t]));
+                      const regex = /\[\s*(?<tagName>[^\s]+)\s+\"(?<tagValue>[^\"]*)\"\s*\]/g;
+                      pgn.matchAll(regex)
+                        .forEach(t=>{
+                          const name = types.get(t.groups.tagName.toLowerCase());
+                          if (!name) {
+                            throw new Error(`Tag name ${t.groups.tagName} is not valid`);
+                          }
+                          const value = t.groups.tagValue;
+                          newTagsMap.set(name, value);
                         });
-                        const study = lichess.analysis.study;
-                        const types = new Map(study.tags.types.map(t=>[t.toLowerCase(),t]));
-                        const regex = /\[\s*(?<tagName>[^\s]+)\s+\"(?<tagValue>[^\"]*)\"\s*\]/g;
-                        pgn.matchAll(regex)
-                          .forEach(t=>{
-                            const name = types.get(t.groups.tagName.toLowerCase());
-                            if (!name) {
-                              throw new Error(`Tag name ${t.groups.tagName} is not valid`);
-                            }
-                            const value = t.groups.tagValue;
-                            newTagsMap.set(name, value);
-                          });
-                        for (const entry of newTagsMap) {
-                          const name = entry[0];
-                          const value = entry[1];
-                          const existing = tagsMap.get(name);
-                          if (value !== existing) {
+                      for (const entry of newTagsMap) {
+                        const name = entry[0];
+                        const value = entry[1];
+                        const existing = tagsMap.get(name);
+                        if (value !== existing) {
+                          if (useApi) {
+                            tagsArray.push(`[${name} "${value}"]`);
+                          } else {
                             study.makeChange('setTag',
                             {
                               chapterId: chapterId,
@@ -327,7 +330,10 @@
                             });
                             await lt.timeout(50);
                           }
-                        }    
+                        }
+                      }    
+                      if (tagsArray.length) {
+                        await lt.api.study.updatePgnTags(studyId, chapterId, tagsArray.join('\r\n'));
                       }
                       dialog.close();
                     } catch(e) {
