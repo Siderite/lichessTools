@@ -17,7 +17,7 @@ body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile,:has(.lpv
 }
 
 body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) div.study__player-bot {
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 
 body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) div.analyse__board {
