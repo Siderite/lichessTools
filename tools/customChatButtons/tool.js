@@ -61,7 +61,7 @@
       return buttons;
     }
 
-    getButtonRegex = ()=>/^([\p{L}\p{N}]{2,4})\/([\p{L}\p{N}\p{P}]{1,})$/u;
+    getButtonRegex = ()=>/^([\p{L}\p{N}]{2,4})\/([\p{L}\p{N}\p{P}\p{Z}]{1,})$/u;
 
     saveButtons = async buttons => {
       const lt = this.lichessTools;
