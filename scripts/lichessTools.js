@@ -1634,10 +1634,10 @@
         }
       },
       postForm: async function(url, data, options) {
-        const formData = new FormData();
+        const params = new URLSearchParams();
         if (data) {
           for (const key in data) {
-            formData.append(key, data[key]);
+            params.append(key, data[key]);
           }
         }
         return await this.fetch(url, {
@@ -1645,7 +1645,7 @@
           headers: {
             'content-type': 'application/x-www-form-urlencoded',
           },
-          body: formData,
+          body: params.toString(),
           ...options
         });
       },
