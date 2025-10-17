@@ -60,6 +60,22 @@
       return tagify;
     };
 
+    makeSortable = async (elem, options) => {
+      options = {
+        handle: 'ontouchstart' in window ? 'span' : undefined,
+        animation: 150,
+        ghostClass: 'lichessTools-sortableGhost',
+        ...options
+      };
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      this._sortable ||= await lichess.asset.loadEsm('sortable.esm', { npm: true });
+      const sortable = this._sortable.create(elem, options);
+      this.sortables ||= new Set();
+      this.sortables.add(sortable);
+    };
+
+
     handleTopicsDialog = async ()=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -69,10 +85,8 @@
       if (textarea.length) {
         const tagify = await this.getTagify(textarea[0]);
 
-        this.makeSortable ||= await lichess.asset.loadEsm('sortable.esm', { npm: true });
-        this.tagsSortable = this.makeSortable.create($('.study-topics tags')[0], {
+        await this.makeSortable($('.study-topics tags')[0], {
           draggable: '.study-topics tags tag',
-          handle: 'ontouchstart' in window ? 'span' : undefined,
           onSort: ()=>this.sortTags(tagify)
         });
       }
@@ -91,16 +105,13 @@
       const $ = lt.$;
 
       const topicAnchors = $('nav.subnav__inner a[href^="/study/topic/"]');
-      this.sortable?.destroy();
+      this.sortables?.forEach(s=>s.destroy());
       $('body').observer()
         .off('tags.tagify',this.handleTopicsDialog);
       if (this.options.sortable) {
         if (topicAnchors.length>1) {
-          this.makeSortable ||= await lichess.asset.loadEsm('sortable.esm', { npm: true });
-
-          this.sortable = this.makeSortable.create($('nav.subnav__inner')[0], {
+          await this.makeSortable($('nav.subnav__inner')[0], {
             draggable: 'nav.subnav__inner a[href^="/study/topic/"]',
-            handle: 'ontouchstart' in window ? 'span' : undefined,
             onSort: this.sortTopics
           });
 
@@ -108,9 +119,8 @@
           if (textarea.length) {
             const tagify = await this.getTagify(textarea[0]);
 
-            this.tagsSortable = this.makeSortable.create($('form.form3 tags')[0], {
+            await this.makeSortable($('form.form3 tags')[0], {
               draggable: 'form.form3 tags tag',
-              handle: 'ontouchstart' in window ? 'span' : undefined,
               onSort: ()=>this.sortTags(tagify)
             });
           }

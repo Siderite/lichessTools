@@ -27,4 +27,8 @@ body.lichessTools nav.subnav__inner > a .lichessTools-topicStudies a {
   max-width: 20em;
   white-space: break-spaces;
 }
-  
+
+body.lichessTools tag.lichessTools-sortableGhost {
+  opacity: 0.6;
+  outline: 1px solid var(--c-primary);
+}
