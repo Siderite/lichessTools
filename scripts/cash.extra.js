@@ -105,6 +105,13 @@ class Observer {
         }
         return cash(el).is(selector);
       };
+      let timeout = 0;
+      const execFunc = options.executeDirect
+        ? func
+        : (mutations) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(()=>func(mutations),50);
+          };
       observer = new MutationObserver((mutations)=>{
         const matches = mutations.filter(m=>{
           if (matchFunc(m.target)) return true;
@@ -117,7 +124,7 @@ class Observer {
           }
         });
         if (matches.length) {
-          func(matches);
+          execFunc(matches);
         }
       });
       observer.__selector = selector;

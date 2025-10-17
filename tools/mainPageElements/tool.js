@@ -253,6 +253,8 @@
         this.options.app_rapid = true;
         this.options.app_classical = true;
       }
+      $('main.lobby').observer()
+        .off('.lobby__app-pools',this.applyLobbyElements);
       if (this.options.allSet || this.options.noneSet) {
         if (this.initialGrid) {
           $('main')

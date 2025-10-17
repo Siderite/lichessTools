@@ -133,6 +133,9 @@
       this.themes = value;
       const $ = lt.$;
       $(lt.global).off('hashchange', this.applyThemes);
+      $('body').observer()
+        .off('body, #main-wrap, .main-board cg-board',this.checkBody);
+      if (!lt.currentOptions.enableLichessTools) return;
       $(lt.global).on('hashchange', this.applyThemes);
       $('body').observer()
         .on('body, #main-wrap, .main-board cg-board',this.checkBody,{
