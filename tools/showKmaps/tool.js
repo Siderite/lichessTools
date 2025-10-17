@@ -227,16 +227,17 @@
     refreshKmaps = async (ply) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const analysis = lichess.analysis;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || lichess.analysis?.showFishnetAnalysis() === false) return;
+      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
       if (this.isGamesPage() || this.isBroadcastPage()) {
         return;
       }
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
-      const fen = lichess.analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
+      const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;
-      const analysisOrientation = lichess.analysis?.getOrientation();
+      const analysisOrientation = analysis?.getOrientation();
       const isBlackOrientation = (analysisOrientation && analysisOrientation == 'black') || $('.cg-wrap').eq(0).is('.orientation-black');
       const kmaps = await this.getKmaps(fen, isBlackOrientation);
       if (!kmaps) {
