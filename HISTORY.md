@@ -1,5 +1,12 @@
 History of features added to LiChess Tools in time (reversed order)
 
+17 Oct
+
+- fix custom chat buttons to support all languages
+- fix Explorer settings
+- sortable topics in the study topic dialog
+- page init data tool
+
 15 Oct
 
 - extension toggle in user menu
