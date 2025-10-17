@@ -1,6 +1,22 @@
 (() => {
   class DetectThirdPartiesTool extends LiChessTools.Tools.ToolBase {
 
+    async init() {
+      const oldFunc=Node.prototype.insertBefore;
+      if (oldFunc.__initErrorCatch) return;
+      const newFunc = function() {
+        try {
+          return oldFunc.apply(this,arguments);
+        } catch(e) {
+          const args = [...arguments];
+          const text = args.map(a=>`#${a.id} .${a.className}`).join('\r\n');
+          console.warn('LiChess Tools: error with insertBefore:',args,text);
+        }
+      };
+      newFunc.__initErrorCatch=true;
+      Node.prototype.insertBefore = newFunc;
+    }
+
     async start() {
       const lt = this.lichessTools;
       const $ = lt.$;
