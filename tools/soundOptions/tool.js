@@ -149,7 +149,7 @@
       const sound = lt.lichess.sound;
       const $ = lt.$;
       const trans = lt.translator;
-      const list = $('#dasher_app .sub.sound .selector');
+      const list = $('#dasher_app .sub.sound .content .selector');
       if (!list.length) return;
       list.find('button.lichessTools-extraThemes').remove();
       const template = list.find('button').eq(0).clone().removeClass('active');
