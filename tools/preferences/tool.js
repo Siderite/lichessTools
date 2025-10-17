@@ -96,6 +96,7 @@
     };
 
     openPreferences = () => {
+      const self = this;
       const lt = this.lichessTools;
       const Math = lt.global.Math;
       const $ = lt.$;
@@ -407,12 +408,14 @@
             ? $('input[name="' + optionName + '"]').filter((i, e) => $(e).is(':checked')).map((i, e) => $(e).attr('value')).get()
             : [$(this).val()];
           let value = optionValues.join(',');
-          if (value === 'true') value = true;
-          else if (value === 'false') value = false;
+          switch(value) {
+            case 'true': value = true; break;
+            case 'false': value = false; break;
+          }
           currentOptions[optionName] = value;
           await saveOptions(currentOptions);
           lt.fireReloadOptions();
-          this.checkGlobalSwitch();
+          self.checkGlobalSwitch();
           checkAdvanced();
           showSaved();
         }, 500));
@@ -431,12 +434,14 @@
         .on('change',lt.debounce(async function () {
           const optionName = $(this).attr('name');
           let value = $(this).val();
-          if (value === 'true') value = true;
-          else if (value === 'false') value = false;
+          switch(value) {
+            case 'true': value = true; break;
+            case 'false': value = false; break;
+          }
           currentOptions[optionName] = value;
           await saveOptions(currentOptions);
           lt.fireReloadOptions();
-          this.checkGlobalSwitch();
+          self.checkGlobalSwitch();
           checkAdvanced();
           showSaved();
         }, 500));
