@@ -1,5 +1,5 @@
 (() => {
-  class RoundDataTool extends LiChessTools.Tools.ToolBase {
+  class PageInitDataTool extends LiChessTools.Tools.ToolBase {
 
     async init() {
       const lt = this.lichessTools;
@@ -9,7 +9,7 @@
       const newFunc = function() {
         if (lt.currentOptions?.enableLichessTools !== false && this.id === 'page-init-data') {
           try {
-            lt.roundData = JSON.parse(this.innerHTML);
+            lt.pageInitData = JSON.parse(this.innerHTML);
           } catch(e) {
             console.warn('Error parsing round data:',e);
           }
@@ -21,5 +21,5 @@
     }
 
   }
-  LiChessTools.Tools.RoundData = RoundDataTool;
+  LiChessTools.Tools.PageInitData = PageInitDataTool;
 })();

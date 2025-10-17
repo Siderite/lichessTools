@@ -1,7 +1,7 @@
 window.lichessTools = new LiChessTools(window, cash);
 
 lichessTools.loadTool(LiChessTools.Tools.Crowdin);
-lichessTools.loadTool(LiChessTools.Tools.RoundData);
+lichessTools.loadTool(LiChessTools.Tools.PageInitData);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitContentLoaded);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
