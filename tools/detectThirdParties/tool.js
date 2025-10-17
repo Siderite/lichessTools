@@ -13,7 +13,7 @@
           return oldFunc.apply(this,arguments);
         } catch(e) {
           const args = [...arguments];
-          const text = args.map(a=>`${a?.tagName} #${a?.id} .${a?.className}`).join('\r\n');
+          const text = args.map(a=>a?`${a.tagName} #${a.id} .${a.className}`:a).join('\r\n');
           console.warn('LiChess Tools: error with insertBefore:',args,text);
         }
       };
