@@ -45,13 +45,38 @@
       lt.global.location.reload();
     };
 
-    sortTags = async ()=>{
+    sortTags = async (tagify)=>{
+      if (!this.options.sortable) return;
+      tagify?.updateValueByDOMTags();
+    };
+
+    getTagify = async (textarea) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      if (!lt.global.Tagify) {
+        await lichess.asset.loadIife('npm/tagify.min.js')
+      }
+      const tagify = textarea.__tagify || new lt.global.Tagify(textarea);
+      return tagify;
+    };
+
+    handleTopicsDialog = async ()=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
       if (!this.options.sortable) return;
-      this.tagify?.updateValueByDOMTags();
-    };
+      const textarea = $('.study-topics:has(tags) textarea');
+      if (textarea.length) {
+        const tagify = await this.getTagify(textarea[0]);
+
+        this.makeSortable ||= await lichess.asset.loadEsm('sortable.esm', { npm: true });
+        this.tagsSortable = this.makeSortable.create($('.study-topics tags')[0], {
+          draggable: '.study-topics tags tag',
+          handle: 'ontouchstart' in window ? 'span' : undefined,
+          onSort: ()=>this.sortTags(tagify)
+        });
+      }
+    }
 
     async start() {
       const lt = this.lichessTools;
@@ -67,27 +92,31 @@
 
       const topicAnchors = $('nav.subnav__inner a[href^="/study/topic/"]');
       this.sortable?.destroy();
-      if (this.options.sortable && topicAnchors.length>1) {
-        this.makeSortable ||= await site.asset.loadEsm('sortable.esm', { npm: true });
+      $('body').observer()
+        .off('tags.tagify',this.handleTopicsDialog);
+      if (this.options.sortable) {
+        if (topicAnchors.length>1) {
+          this.makeSortable ||= await lichess.asset.loadEsm('sortable.esm', { npm: true });
 
-        this.sortable = this.makeSortable.create($('nav.subnav__inner')[0], {
-          draggable: 'nav.subnav__inner a[href^="/study/topic/"]',
-          handle: 'ontouchstart' in window ? 'span' : undefined,
-          onSort: this.sortTopics
-        });
-
-        const textarea = $('#form3-topics');
-        if (textarea.length) {
-          if (!lt.global.Tagify) {
-            await site.asset.loadIife('npm/tagify.min.js')
-          }
-          this.tagify ||= new lt.global.Tagify(textarea[0]);
-          this.tagsSortable = this.makeSortable.create($('form.form3 tags')[0], {
-            draggable: 'form.form3 tags tag',
+          this.sortable = this.makeSortable.create($('nav.subnav__inner')[0], {
+            draggable: 'nav.subnav__inner a[href^="/study/topic/"]',
             handle: 'ontouchstart' in window ? 'span' : undefined,
-            onSort: this.sortTags
+            onSort: this.sortTopics
           });
+
+          const textarea = $('#form3-topics');
+          if (textarea.length) {
+            const tagify = await this.getTagify(textarea[0]);
+
+            this.tagsSortable = this.makeSortable.create($('form.form3 tags')[0], {
+              draggable: 'form.form3 tags tag',
+              handle: 'ontouchstart' in window ? 'span' : undefined,
+              onSort: ()=>this.sortTags(tagify)
+            });
+          }
         }
+        $('body').observer()
+          .on('tags.tagify',this.handleTopicsDialog);
       }
 
       if (this.options.expandable && topicAnchors.length && !$('body').is('.mobile')) {
