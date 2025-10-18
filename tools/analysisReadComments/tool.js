@@ -184,7 +184,10 @@
       lt.uiApi.events.off('ply', this.readComments);
       lt.global.removeEventListener('beforeunload', lt.stopSpeaking);
       $('.lichessTools-readComments').remove();
-      if (!this.options.enabled) return;
+      $('main').observer()
+        .off('.gamebook, .gamebook .comment',this.showInteractiveButton);
+      if (this.options.enabled) return;
+
       lt.uiApi.events.on('ply', this.readComments);
       this.readComments();
       lt.global.addEventListener('beforeunload', lt.stopSpeaking);

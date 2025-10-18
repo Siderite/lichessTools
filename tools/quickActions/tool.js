@@ -211,7 +211,7 @@
       return !!$('form.future-game-analysis').length
     }
 
-    initQuickActions = (start)=>{
+    initQuickActions = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       let button = $('button.fbt[data-act="menu"], button.board-menu-toggle, button.msg-app__convo__post__submit');
