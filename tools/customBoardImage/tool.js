@@ -130,8 +130,10 @@ body .is2d cg-board::before {
     async init() {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const options = this.options || await lt.getOptions();
+      if (!options?.getValue('customBoardUrl')) return;
 
-      const f = (mutations)=>{
+      const f = async (mutations)=>{
         if ($('style#lichessTools-customBoardImage').length) return;
         const styleStr = lt.storage.get('customBoardImage-lastStyle');
         if (!styleStr) return;

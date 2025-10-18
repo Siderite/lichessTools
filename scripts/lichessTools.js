@@ -1105,7 +1105,7 @@
     };
 
     getUserId = () => {
-      return this.global.document.body.dataset?.user;
+      return this.global.document.body?.dataset?.user;
     };
 
     isFriendsPage = () => {
