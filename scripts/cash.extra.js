@@ -159,6 +159,7 @@ class Observer {
       characterData: true,
       withNodes: true,
       useCash: false,
+      executeDirect: false,
       ...options
     };
     this.context.each((i,e)=>{
