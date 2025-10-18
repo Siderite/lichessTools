@@ -1,9 +1,10 @@
 (() => {
   class DetectThirdPartiesTool extends LiChessTools.Tools.ToolBase {
 
-    async init() {
+    makeFunctionSafe = (parent, key) => {
       const lt = this.lichessTools;
-      const oldFunc=Node.prototype.insertBefore;
+      const oldFunc=parent[key];
+      if (!oldFunc) throw new Error('Could not find member '+key+' to make safe!');
       if (oldFunc.__initErrorCatch) return;
       const newFunc = function() {
         if (lt?.currentOptions?.enabledLichessTools === false) {
@@ -14,11 +15,16 @@
         } catch(e) {
           const args = [...arguments];
           const text = args.map(a=>a?`${a.tagName} #${a.id} .${a.className}`:a).join('\r\n');
-          console.warn('LiChess Tools: error with insertBefore:',args,text);
+          console.warn('LiChess Tools: error with '+key+':',args,text);
         }
       };
       newFunc.__initErrorCatch=true;
-      Node.prototype.insertBefore = newFunc;
+      parent[key] = newFunc;
+    };
+
+    async init() {
+      this.makeFunctionSafe(Node.prototype,'insertBefore');
+      this.makeFunctionSafe(Node.prototype,'removeChild');
     }
 
     async start() {
