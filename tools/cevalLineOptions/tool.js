@@ -181,7 +181,7 @@
       const ceval = analysis?.ceval;
       const value = ceval?.storedPv();
       if (value) {
-        input.val(Math.max(maxValue,+value));
+        input.val(Math.min(maxValue,+value));
       }
       this.updateMoreLinesText();
       if (!$('.lichessTools-cevalMoreLines',container).length) {
