@@ -6407,9 +6407,9 @@
     "studyTopics.sortable": "Triable",
     "studyTopics.expandable": "Développable",
     "gameListOptions.textFilter": "Filtre de texte",
-    "textFilterPlaceholder": "filtrer les mots",
-    "toggleLiChessToolsTitle": "Activer/désactiver les outils LiChess",
-    "disableLiChessToolsForTodayQuestion": "Désactiver les outils LiChess pour aujourd'hui ?"
+    "textFilterPlaceholder": "mots de filtrage",
+    "toggleLiChessToolsTitle": "Activer/désactiver LiChess Tools",
+    "disableLiChessToolsForTodayQuestion": "Désactiver LiChess Tools pour aujourd'hui ?"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
