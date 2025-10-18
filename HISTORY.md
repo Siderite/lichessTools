@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+18 Oct
+
+- added fixSnabdom
+
 17 Oct
 
 - fix custom chat buttons to support all languages
