@@ -53,10 +53,13 @@
     getTagify = async (textarea) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      let tagify = textarea.__tagify;
+      if (tagify) return tagify;
+
       if (!lt.global.Tagify) {
         await lichess.asset.loadIife('npm/tagify.min.js')
       }
-      const tagify = textarea.__tagify || new lt.global.Tagify(textarea);
+      tagify = new lt.global.Tagify(textarea);
       return tagify;
     };
 
@@ -67,6 +70,8 @@
         ghostClass: 'lichessTools-sortableGhost',
         ...options
       };
+      const key = Object.keys(elem).find(k=>/^Sortable\d+$/.test(k));
+      if (key) return elem[key];
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       this._sortable ||= await lichess.asset.loadEsm('sortable.esm', { npm: true });
