@@ -186,8 +186,6 @@
     async init() {
       const lt = this.lichessTools;
       const $ = lt.$;
-      const styleStr = lt.storage.get('extraPieceSets-lastStyle');
-      if (!styleStr) return;
 
       $('html').observer()
         .on('style',(mutations)=>{
@@ -198,6 +196,8 @@
                                  .map(m=>m.target)
                                  .find(t=>t.tagName==='STYLE' && t.id != 'lichessTools-extraPieceSets' && t.innerHTML.includes('---white-king'));
           if (!ltRemovedStyle && !lichessStyle) return;
+          const styleStr = lt.storage.get('extraPieceSets-lastStyle');
+          if (!styleStr) return;
           if (lichessStyle) {
             lichessStyle.id = 'lichessTools-extraPieceSets';
             lichessStyle.innerHTML=styleStr;

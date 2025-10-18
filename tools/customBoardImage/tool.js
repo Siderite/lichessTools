@@ -130,20 +130,19 @@ body .is2d cg-board::before {
     async init() {
       const lt = this.lichessTools;
       const $ = lt.$;
-      const styleStr = lt.storage.get('customBoardImage-lastStyle');
-      if (!styleStr) return;
+
+      const f = (mutations)=>{
+        if ($('style#lichessTools-customBoardImage').length) return;
+        const styleStr = lt.storage.get('customBoardImage-lastStyle');
+        if (!styleStr) return;
+        $(styleStr).appendTo('head');
+      };
 
       $('html').observer()
-        .on('link[rel="stylesheet"][href*="/site."]',(mutations)=>{
-          if ($('style#lichessTools-customBoardImage').length) return;
-          $(styleStr).appendTo('head');
-        },{ executeDirect: true });
+        .on('link[rel="stylesheet"][href*="/site."]',f,{ executeDirect: true });
 
       $('html').observer()
-        .on('cg-board',(mutations)=>{
-          if ($('style#lichessTools-customBoardImage').length) return;
-          $(styleStr).appendTo('head');
-        },{ executeDirect: true });
+        .on('cg-board',f,{ executeDirect: true });
     }
 
     async start() {
