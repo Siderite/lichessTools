@@ -33,28 +33,51 @@
       }
     }
 
-    updatePieceSet = ()=>{
+    removePieceStyleAttributes = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      $('style#lichessTools-extraPieceSets').remove();
-      if (!this.pieceSets) return;
+      const bodyStyle = $('body').attr('style');
+      const newStyle = bodyStyle
+                         .split(';')
+                         .filter(s=>!/^\s*---(white|black)-(pawn|knight|bishop|rook|queen|king)/.test(s))
+                         .join(';');
+      if (newStyle != bodyStyle) {
+        $('body').attr('style',newStyle);
+      }
+    };
+
+    updatePieceSet = (forced)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const existingStyle = $('style#lichessTools-extraPieceSets');
+      if (!this.pieceSets) {
+        existingStyle.remove();
+        return;
+      }
+      if (forced) {
+        existingStyle.remove();
+      } else
+      if (existingStyle.length) {
+        return;
+      }
+      lt.storage.remove('extraPieceSets-lastStyle');
       const setName = lt.storage.get('extraPieceSets-set');
       if (!setName) return;
+      this.removePieceStyleAttributes();
       const pieceSet = this.pieceSets.find(ps=>ps.name == setName);
       if (!pieceSet) {
         lt.global.console.warn('Piece set '+setName+' not loaded!');
         return;
       }
-      let styleStr = '<style id="lichessTools-extraPieceSets">';
+      let styleStr = '<style id="lichessTools-extraPieceSets">:root body.lichessTools {';
       for (const piece of ['pawn','knight','bishop','rook','queen','king']) {
         for (const color of ['white','black']) {
           const url = this.getUrl(pieceSet,piece,color);
-          styleStr += `
-body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
-`;
+          styleStr += `---${color}-${piece}:  url(${url});`;
         }
       }
-      styleStr+='</style>';
+      styleStr+='}</style>';
+      lt.storage.set('extraPieceSets-lastStyle',styleStr);
       $(styleStr).appendTo('head');
       this.addPieces();
     };
@@ -67,7 +90,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
       } else {
         lt.storage.set('extraPieceSets-set',name);
       }
-      this.updatePieceSet();
+      this.updatePieceSet(true);
     };
 
     getUrl = (pieceSet,piece,color) => {
@@ -160,6 +183,42 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
       lt.scrollIntoViewIfNeeded(list.find('button.active'));
     };
 
+    async init() {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const styleStr = lt.storage.get('extraPieceSets-lastStyle');
+      if (!styleStr) return;
+
+      $('html').observer()
+        .on('style',(mutations)=>{
+          const ltRemovedStyle = mutations
+                                 .flatMap(m=>m.removedNodes||[])
+                                 .find(n=>n.tagName==='STYLE' && n.id == 'lichessTools-extraPieceSets');
+          const lichessStyle = mutations
+                                 .map(m=>m.target)
+                                 .find(t=>t.tagName==='STYLE' && t.id != 'lichessTools-extraPieceSets' && t.innerHTML.includes('---white-king'));
+          if (!ltRemovedStyle && !lichessStyle) return;
+          if (lichessStyle) {
+            lichessStyle.id = 'lichessTools-extraPieceSets';
+            lichessStyle.innerHTML=styleStr;
+          }
+          if ($('style#lichessTools-extraPieceSets').length) return;
+          $(styleStr).appendTo('head');
+        },{ executeDirect: true });
+
+
+      $('html').observer()
+        .on('body',()=>{
+          if ($('style#lichessTools-extraPieceSets').length) {
+            this.removePieceStyleAttributes();
+          }
+
+        },{
+          attributes: true,
+          attributeFilter: ['style']
+        });
+    }
+
     async start() {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -168,7 +227,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
       this.options = {}
       const categories = this.preferences.find(p=>p.name=='extraPieceSets').possibleValues;
       for (const category of categories) {
-        this.options[category] =lt.isOptionSet(value, category);
+        this.options[category] = lt.isOptionSet(value, category);
       }
 
       $('#dasher_app')
@@ -176,6 +235,7 @@ body.lichessTools .is2d .${piece}.${color} {  background-image: url('${url}'); }
         .off('.sub.piece.d2',this.addPieces);
       $('style#lichessTools-extraPieceSets,button.lichessTools-extraPieceSets').remove();
       if (!value) return;
+
       if (!this.pieceSets) {
         const self = this;
         lt.comm.getData('pieceSets.json').then(data=>{

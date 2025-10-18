@@ -32,6 +32,8 @@ lichessTools.loadTool(LiChessTools.Tools.ChessOps);
 lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
 lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);
+lichessTools.loadTool(LiChessTools.Tools.CustomBoardImage);
+lichessTools.loadTool(LiChessTools.Tools.ExtraPieceSets);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
 lichessTools.loadTool(LiChessTools.Tools.MobileExperience);
@@ -118,7 +120,6 @@ lichessTools.loadTool(LiChessTools.Tools.ShowDeviation);
 lichessTools.loadTool(LiChessTools.Tools.LinkToAnalysis);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleOptions);
 lichessTools.loadTool(LiChessTools.Tools.BlogHistory);
-lichessTools.loadTool(LiChessTools.Tools.ExtraPieceSets);
 lichessTools.loadTool(LiChessTools.Tools.QuickActions);
 lichessTools.loadTool(LiChessTools.Tools.TotalGameTime);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleHistory);
@@ -133,7 +134,6 @@ lichessTools.loadTool(LiChessTools.Tools.ChallengeOptions);
 lichessTools.loadTool(LiChessTools.Tools.BetterBestArrow);
 lichessTools.loadTool(LiChessTools.Tools.DownloadBroadcastPgn);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerMoreGames);
-lichessTools.loadTool(LiChessTools.Tools.CustomBoardImage);
 lichessTools.loadTool(LiChessTools.Tools.StudyTopics);
 
 

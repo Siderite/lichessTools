@@ -91,7 +91,7 @@
     checkGlobalSwitch = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      $.cached('body').toggleClass('lichessTools-globalDisable', !lt.currentOptions.enableLichessTools);
+      $.cached('body').toggleClassSafe('lichessTools-globalDisable', !lt.currentOptions.enableLichessTools);
       $('#toggleLiChessTools').prop('checked',!!lt.currentOptions.enableLichessTools);
     };
 
@@ -121,7 +121,7 @@
       };
       const checkAdvanced = () => {
         this.options.advanced = !!lt.currentOptions.getValue('advancedPreferences');
-        $.cached('body').toggleClass('lichessTools-advancedPreferences', this.options.advanced);
+        $.cached('body').toggleClassSafe('lichessTools-advancedPreferences', this.options.advanced);
       };
 
       //TODO add link to translation project
@@ -347,8 +347,8 @@
             const pref = $(e).attr('data-pref');
             const shown = visiblePrefs.includes(pref);
             $(e)
-              .toggleClass('filteredIn',shown && tokens.length)
-              .toggleClass('filteredOut',!shown);
+              .toggleClassSafe('filteredIn',shown && tokens.length)
+              .toggleClassSafe('filteredOut',!shown);
           });
         });
 
