@@ -8,6 +8,9 @@ body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active
   transform: scale(1.2);
 }
 
+body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active.lichessTools-outOfMoves {
+  filter: contrast(0.5);
+}
 
 @media not print and (prefers-color-scheme: dark) {
   html:not(.dark, .darkBoard, .light) body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {

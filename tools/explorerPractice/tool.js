@@ -108,6 +108,7 @@
       const trans = lt.translator;
       const $ = lt.$;
       const analysis = lichess?.analysis;
+
       const turn = analysis.turnColor();
       if (!ignoreSide && turn === analysis.getOrientation()) {
         this.inPlayMove = false;
@@ -139,6 +140,8 @@
       }
       if (!this.isRunning) return;
       if (this.inPlayMove) return;
+      $('span.lichessTools-explorerPractice')
+         .toggleClassSafe('lichessTools-outOfMoves',true);
       lt.announce(trans.noarg('outOfMoves'));
       this.evaluatePosition();
     };
@@ -342,6 +345,8 @@
       analysis.userJump = lt.wrapFunction(analysis.userJump, {
         id: 'explorerPractice',
         after: ($this, result, ...args) => {
+          $('span.lichessTools-explorerPractice')
+            .toggleClassSafe('lichessTools-outOfMoves',false);
           this.inPlayMove = false;
         }
       });
