@@ -60,9 +60,9 @@
           ? trans.noarg('quietModeDisableTitle')
           : trans.noarg('quietModeEnableTitle');
         elem
-          .text(text)
-          .attr('title', title)
-          .toggleClass('lichessTools-forcedQuietMode', !!lichess.quietMode);
+          .textSafe(text)
+          .attrSafe('title', title)
+          .toggleClassSafe('lichessTools-forcedQuietMode', !!lichess.quietMode);
       } else {
         $('a.lichessTools-quietMode', container).remove();
       }

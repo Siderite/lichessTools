@@ -49,8 +49,19 @@ cash.single = function (selector, context) {
 
 cash.fn.attrSafe = function(attr,value) {
   this.each((i,e)=>{
-    if (cash(e).attr(attr)!==value) {
-      cash(e).attr(attr,value);
+    const $e = cash(e);
+    if ($e.attr(attr)!==value) {
+      $e.attr(attr,value);
+    }
+  });
+  return this;
+}
+
+cash.fn.textSafe = function(attr,value) {
+  this.each((i,e)=>{
+    const $e = cash(e);
+    if ($e.text()!==value) {
+      $e.text(value);
     }
   });
   return this;
@@ -58,8 +69,9 @@ cash.fn.attrSafe = function(attr,value) {
 
 cash.fn.removeAttrSafe = function(attr) {
   this.each((i,e)=>{
-    if (cash(e).attr(attr)) {
-      cash(e).removeAttr(attr);
+    const $e = cash(e);
+    if ($e.attr(attr)) {
+      $e.removeAttr(attr);
     }
   });
   return this;
