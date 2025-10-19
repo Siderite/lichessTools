@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - Opponents link in the live friends page
 - Link to help translate LiChess Tools
+- Game chat buttons to auto whisper, auto prepend move and insert move
 
 18 Oct
 

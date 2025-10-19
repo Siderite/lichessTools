@@ -916,7 +916,17 @@
     "disableLiChessToolsForTodayQuestion": "تعطيل أدوات الشطرنج اليوم؟",
     "opponentsText": "المعارضون",
     "opponentsTitle": "أدوات شطرنج الحياة - اللاعبين الذين لعبتهم ضد معظم",
-    "helpTranslateLiChessToolsText": "ترجمة أدوات الشطرنج الحياة"
+    "helpTranslateLiChessToolsText": "ترجمة أدوات الشطرنج الحياة",
+    "mchatOptions.autoWhisper": "زر الهمس التلقائي",
+    "mchatOptions.prependMove": "إضافة تلقائية لزر النقل",
+    "mchatOptions.insertSelectedMove": "إدراج زر النقل",
+    "autoWhisperButtonText": "/ث",
+    "autoWhisperButtonTitle": "أدوات شطرنج الحياة - الهوس التلقائي",
+    "autoMoveButtonText": "م",
+    "autoMoveButtonTitle": "أدوات شطرنج الحياة - إلحاق مسبق بآخر نقلة في اللعبة",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "أدوات شطرنج الحياة - أدخل النقل المحدد",
+    "whispered": "أنت مهسوس: %s"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1835,7 +1845,17 @@
     "disableLiChessToolsForTodayQuestion": "今日禁用 LiChess Tools？",
     "opponentsText": "反对者",
     "opponentsTitle": "Lichess工具 - 您已经对大多数玩家玩过的玩家",
-    "helpTranslateLiChessToolsText": "翻译LiChess工具"
+    "helpTranslateLiChessToolsText": "翻译LiChess工具",
+    "mchatOptions.autoWhisper": "自动whisper按钮",
+    "mchatOptions.prependMove": "自动添加移动按钮",
+    "mchatOptions.insertSelectedMove": "插入移动按钮",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess工具 - 自动whisper",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess工具 - 在游戏中自动前置上次移动",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess工具 - 插入选中的移动",
+    "whispered": "你当心： %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2754,7 +2774,17 @@
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
     "opponentsTitle": "LiChess Tools - players you've played against most",
-    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools",
+    "mchatOptions.autoWhisper": "Auto whisper button",
+    "mchatOptions.prependMove": "Auto add move button",
+    "mchatOptions.insertSelectedMove": "Insert move button",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - auto whisper",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
+    "whispered": "You whispered: %s"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3673,7 +3703,17 @@
     "disableLiChessToolsForTodayQuestion": "Zakázat nástroje LiChess pro dnešek?",
     "opponentsText": "Odpůrci",
     "opponentsTitle": "Nástroj LiChess - hráče, které jste hráli proti většině",
-    "helpTranslateLiChessToolsText": "Přeložit nástroje LiChess"
+    "helpTranslateLiChessToolsText": "Přeložit nástroje LiChess",
+    "mchatOptions.autoWhisper": "Tlačítko automatického whisperu",
+    "mchatOptions.prependMove": "Tlačítko automatického přidávání tahů",
+    "mchatOptions.insertSelectedMove": "Vložit tlačítko přesunutí",
+    "autoWhisperButtonText": "/W",
+    "autoWhisperButtonTitle": "Nástroje LiŠess - automatické šeptání",
+    "autoMoveButtonText": "MM",
+    "autoMoveButtonTitle": "Nástroje Lišess - automaticky přidat poslední tah ve hře",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "Nástroje LiChess - vložte vybraný tah",
+    "whispered": "Šeptáváte: %s"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4592,7 +4632,17 @@
     "disableLiChessToolsForTodayQuestion": "LiChess Tools voor vandaag uitschakelen?",
     "opponentsText": "Tegenstanders",
     "opponentsTitle": "LiChess Tools - spelers die je tegen de meeste hebt gespeeld",
-    "helpTranslateLiChessToolsText": "LiChess tools vertalen"
+    "helpTranslateLiChessToolsText": "LiChess tools vertalen",
+    "mchatOptions.autoWhisper": "Auto fluisterknop",
+    "mchatOptions.prependMove": "Automatisch verplaatsen knop toevoegen",
+    "mchatOptions.insertSelectedMove": "Voeg verplaatsingsknop in",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - automatische fluisteraar",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess Tools - automatisch de laatste zet in het spel",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess Tools - het geselecteerde verplaatsen invoegen",
+    "whispered": "Je fluisterde: %s"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5511,7 +5561,17 @@
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
     "opponentsTitle": "LiChess Tools - players you've played against most",
-    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools",
+    "mchatOptions.autoWhisper": "Auto whisper button",
+    "mchatOptions.prependMove": "Auto add move button",
+    "mchatOptions.insertSelectedMove": "Insert move button",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - auto whisper",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
+    "whispered": "You whispered: %s"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6430,7 +6490,17 @@
     "disableLiChessToolsForTodayQuestion": "Désactiver LiChess Tools pour aujourd'hui ?",
     "opponentsText": "Adversaires",
     "opponentsTitle": "Outils LiChess - des joueurs que vous avez joué contre la plupart",
-    "helpTranslateLiChessToolsText": "Traduire les outils LiChess"
+    "helpTranslateLiChessToolsText": "Traduire les outils LiChess",
+    "mchatOptions.autoWhisper": "Bouton chuchoter automatiquement",
+    "mchatOptions.prependMove": "Bouton d'ajout automatique de mouvement",
+    "mchatOptions.insertSelectedMove": "Insérer un bouton de déplacement",
+    "autoWhisperButtonText": "/s",
+    "autoWhisperButtonTitle": "Outils LiChess - chuchotement automatique",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "Outils LiChess - Préfixer automatiquement le dernier coup de la partie",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "Outils LiChess - Insérez le coup sélectionné",
+    "whispered": "Vous avez chuchoté : %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7349,7 +7419,17 @@
     "disableLiChessToolsForTodayQuestion": "LiChess Tools für heute deaktivieren?",
     "opponentsText": "Gegner",
     "opponentsTitle": "LiChess Tools - Spieler, die du gegen die meisten gespielt hast",
-    "helpTranslateLiChessToolsText": "LiChess Werkzeuge übersetzen"
+    "helpTranslateLiChessToolsText": "LiChess Werkzeuge übersetzen",
+    "mchatOptions.autoWhisper": "Auto-Flüster-Taste",
+    "mchatOptions.prependMove": "Verschiebe-Button automatisch hinzufügen",
+    "mchatOptions.insertSelectedMove": "Verschiebe-Taste einfügen",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - Auto-Flüstern",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess Tools - Letzter Zug automatisch voranstellen",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess Werkzeuge - Fügen Sie den ausgewählten Zug ein",
+    "whispered": "Du flüsterst: %s"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8268,7 +8348,17 @@
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
     "opponentsTitle": "LiChess Tools - players you've played against most",
-    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools",
+    "mchatOptions.autoWhisper": "Auto whisper button",
+    "mchatOptions.prependMove": "Auto add move button",
+    "mchatOptions.insertSelectedMove": "Insert move button",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - auto whisper",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
+    "whispered": "You whispered: %s"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9187,7 +9277,17 @@
     "disableLiChessToolsForTodayQuestion": "Disabilitare LiChess Tools per oggi?",
     "opponentsText": "Avversari",
     "opponentsTitle": "Strumenti LiChess - giocatori che hai giocato contro la maggior parte",
-    "helpTranslateLiChessToolsText": "Traduci Strumenti LiChess"
+    "helpTranslateLiChessToolsText": "Traduci Strumenti LiChess",
+    "mchatOptions.autoWhisper": "Pulsante di sussurro automatico",
+    "mchatOptions.prependMove": "Aggiungi automaticamente il pulsante di spostamento",
+    "mchatOptions.insertSelectedMove": "Inserisci pulsante di spostamento",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "Strumenti LiChess - sussurro automatico",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "Strumenti LiChess - anteprima automatica ultima mossa nel gioco",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "Strumenti LiChess - inserisci la mossa selezionata",
+    "whispered": "Hai sussurrato: %s"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10106,7 +10206,17 @@
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
     "opponentsTitle": "LiChess Tools - players you've played against most",
-    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools",
+    "mchatOptions.autoWhisper": "Auto whisper button",
+    "mchatOptions.prependMove": "Auto add move button",
+    "mchatOptions.insertSelectedMove": "Insert move button",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - auto whisper",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
+    "whispered": "You whispered: %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11025,7 +11135,17 @@
     "disableLiChessToolsForTodayQuestion": "Wyłączyć narzędzia LiChess na dziś?",
     "opponentsText": "Przeciwnicy",
     "opponentsTitle": "Narzędzia LiChess - graczy, których grałeś przeciwko większości",
-    "helpTranslateLiChessToolsText": "Tłumacz narzędzia LiChess"
+    "helpTranslateLiChessToolsText": "Tłumacz narzędzia LiChess",
+    "mchatOptions.autoWhisper": "Przycisk automatycznego szepka",
+    "mchatOptions.prependMove": "Przycisk \"Przenieś automatycznie\"",
+    "mchatOptions.insertSelectedMove": "Wstaw przycisk \"Przesuń\"",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "Narzędzia LiChess - auto whisper",
+    "autoMoveButtonText": "Pr",
+    "autoMoveButtonTitle": "Narzędzia LiChess - automatycznie poprzedzaj ostatni ruch w grze",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "Narzędzia LiChess - wstaw wybrany ruch",
+    "whispered": "Wyszepczyłeś: %s"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11944,7 +12064,17 @@
     "disableLiChessToolsForTodayQuestion": "Desativar Ferramentas de LiChess para hoje?",
     "opponentsText": "Adversários",
     "opponentsTitle": "Ferramentas de LiChess - jogadores que você jogou contra a maioria",
-    "helpTranslateLiChessToolsText": "Traduzir Ferramentas LiChess"
+    "helpTranslateLiChessToolsText": "Traduzir Ferramentas LiChess",
+    "mchatOptions.autoWhisper": "Botão do sussurro automático",
+    "mchatOptions.prependMove": "Adicionar botão de movimento automaticamente",
+    "mchatOptions.insertSelectedMove": "Inserir botão de movimento",
+    "autoWhisperButtonText": "/s",
+    "autoWhisperButtonTitle": "Ferramentas LiChess - sussurro automático",
+    "autoMoveButtonText": "MM",
+    "autoMoveButtonTitle": "Ferramentas LiChess - auto adicionar última jogada no jogo",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "Ferramentas LiChess - inserir o lance selecionado",
+    "whispered": "Você sussurrou: %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12863,7 +12993,17 @@
     "disableLiChessToolsForTodayQuestion": "Desativar Ferramentas de LiChess para hoje?",
     "opponentsText": "Adversários",
     "opponentsTitle": "Ferramentas de LiChess - jogadores que você jogou contra a maioria",
-    "helpTranslateLiChessToolsText": "Traduzir Ferramentas LiChess"
+    "helpTranslateLiChessToolsText": "Traduzir Ferramentas LiChess",
+    "mchatOptions.autoWhisper": "Botão do sussurro automático",
+    "mchatOptions.prependMove": "Adicionar botão de movimento automaticamente",
+    "mchatOptions.insertSelectedMove": "Inserir botão de movimento",
+    "autoWhisperButtonText": "/s",
+    "autoWhisperButtonTitle": "Ferramentas LiChess - sussurro automático",
+    "autoMoveButtonText": "MM",
+    "autoMoveButtonTitle": "Ferramentas LiChess - auto adicionar última jogada no jogo",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "Ferramentas LiChess - inserir o lance selecionado",
+    "whispered": "Você sussurrou: %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13782,7 +13922,17 @@
     "disableLiChessToolsForTodayQuestion": "Dezactivez LiChess Tools pentru azi?",
     "opponentsText": "Adversari",
     "opponentsTitle": "LiChess Tools - jucători împotriva cărora ai jucat mai mult",
-    "helpTranslateLiChessToolsText": "Tradu LiChess Tools"
+    "helpTranslateLiChessToolsText": "Tradu LiChess Tools",
+    "mchatOptions.autoWhisper": "Buton auto whisper",
+    "mchatOptions.prependMove": "Buton auto adaugă mutare",
+    "mchatOptions.insertSelectedMove": "Buton introdu mutarea curentă",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - auto whisper",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess Tools - auto adaugă ultima mutare din joc",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess Tools - introdu mutarea curentă",
+    "whispered": "Ai șoptit: %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14701,7 +14851,17 @@
     "disableLiChessToolsForTodayQuestion": "Отключить инструменты Жизни сегодня?",
     "opponentsText": "Противники",
     "opponentsTitle": "Инструменты Жизни - игроки, которые вы играли против большинства",
-    "helpTranslateLiChessToolsText": "Перевести инструменты жизни"
+    "helpTranslateLiChessToolsText": "Перевести инструменты жизни",
+    "mchatOptions.autoWhisper": "Авто-шепчет",
+    "mchatOptions.prependMove": "Автодобавление кнопки перемещения",
+    "mchatOptions.insertSelectedMove": "Вставить кнопку перемещения",
+    "autoWhisperButtonText": "/р",
+    "autoWhisperButtonTitle": "Инструменты Жизни - авто шепчет",
+    "autoMoveButtonText": "М",
+    "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "Инструменты Жизни - вставить выбранный ход",
+    "whispered": "Вы шепнули: %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15620,7 +15780,17 @@
     "disableLiChessToolsForTodayQuestion": "¿Deshabilitar las herramientas de LiChess para hoy?",
     "opponentsText": "Oponentes",
     "opponentsTitle": "Herramientas de LiChess - jugadores contra los que más has jugado",
-    "helpTranslateLiChessToolsText": "Traducir herramientas de LiChess"
+    "helpTranslateLiChessToolsText": "Traducir herramientas de LiChess",
+    "mchatOptions.autoWhisper": "Auto-susurro botón",
+    "mchatOptions.prependMove": "Autoañadir botón mover",
+    "mchatOptions.insertSelectedMove": "Insertar botón mover",
+    "autoWhisperButtonText": "/s",
+    "autoWhisperButtonTitle": "Herramientas de LiChess - susurro automático",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "Herramientas de LiChess - Anteponer el último movimiento en el juego",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "Herramientas de LiChess - inserte el movimiento seleccionado",
+    "whispered": "Has susurrado: %s"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16539,7 +16709,17 @@
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
     "opponentsTitle": "LiChess Tools - players you've played against most",
-    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools",
+    "mchatOptions.autoWhisper": "Auto whisper button",
+    "mchatOptions.prependMove": "Auto add move button",
+    "mchatOptions.insertSelectedMove": "Insert move button",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - auto whisper",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
+    "whispered": "You whispered: %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17458,7 +17638,17 @@
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
     "opponentsTitle": "LiChess Tools - players you've played against most",
-    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools",
+    "mchatOptions.autoWhisper": "Auto whisper button",
+    "mchatOptions.prependMove": "Auto add move button",
+    "mchatOptions.insertSelectedMove": "Insert move button",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - auto whisper",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
+    "whispered": "You whispered: %s"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18377,6 +18567,16 @@
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
     "opponentsTitle": "LiChess Tools - players you've played against most",
-    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools",
+    "mchatOptions.autoWhisper": "Auto whisper button",
+    "mchatOptions.prependMove": "Auto add move button",
+    "mchatOptions.insertSelectedMove": "Insert move button",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - auto whisper",
+    "autoMoveButtonText": "M",
+    "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
+    "insertSelectedMoveButtonText": "+",
+    "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
+    "whispered": "You whispered: %s"
   }
 }

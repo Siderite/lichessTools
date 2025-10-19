@@ -57,12 +57,27 @@ cash.fn.attrSafe = function(attr,value) {
   return this;
 }
 
-cash.fn.textSafe = function(attr,value) {
+cash.fn.textSafe = function(value) {
   this.each((i,e)=>{
     const $e = cash(e);
     if ($e.text()!==value) {
       $e.text(value);
     }
+  });
+  return this;
+}
+
+cash.fn.textInsert = function(value, focus) {
+  if (!value) return;
+  this.each((i,e)=>{
+    const start = e.selectionStart;
+    const end = e.selectionEnd;
+    const text = e.value;
+    e.value = text.substring(0, start) + value + text.substring(end);
+
+    const newCursorPos = start + value.length;
+    e.setSelectionRange(newCursorPos, newCursorPos);
+    if (focus) e.focus();
   });
   return this;
 }
