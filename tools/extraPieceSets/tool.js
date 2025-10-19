@@ -186,8 +186,7 @@
     async init() {
       const lt = this.lichessTools;
       const $ = lt.$;
-      const options = this.options || await lt.getOptions();
-      if (!options?.getValue('extraPieceSets')) return;
+      if (!lt.currentOptions?.getValue('extraPieceSets')) return;
 
       $('html').observer()
         .on('style',(mutations)=>{

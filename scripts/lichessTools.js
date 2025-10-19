@@ -2429,6 +2429,7 @@
       this.global.addEventListener('pagehide', () => {
         this.net.storeLog();
       });
+      this.currentOptions = await this.getOptions();
       for (const tool of this.tools) {
         if (!tool?.init) continue;
         try {
