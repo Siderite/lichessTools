@@ -2079,16 +2079,18 @@
       }
 
       const container = $('#topnav section a[href="/analysis"]+div[role="group"]');
-      $('<a/>')
-        .addClass('lichessTools-pgnEditor')
-        .text(trans.noarg('pgnEditorText'))
-        .attr('title', trans.noarg('pgnEditorTitle'))
-        .on('click', ev => {
-          ev.preventDefault();
-          this.showPgnEditor();
-          $('nav#topnav').trigger('mouseout');
-        })
-        .appendTo(container);
+      if (!container.find('.lichessTools-pgnEditor').length) {
+        $('<a/>')
+          .addClass('lichessTools-pgnEditor')
+          .text(trans.noarg('pgnEditorText'))
+          .attr('title', trans.noarg('pgnEditorTitle'))
+          .on('click', ev => {
+            ev.preventDefault();
+            this.showPgnEditor();
+            $('nav#topnav').trigger('mouseout');
+          })
+          .appendTo(container);
+      }
       $(lt.global).on('hashchange', this.hashchange);
       this.hashchange();
     }
