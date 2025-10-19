@@ -153,6 +153,7 @@ body.lichessTools tr.lichessTools-online {
 
 body.lichessTools div.lichessTools-livePageHeader {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 5px;
@@ -170,8 +171,10 @@ body.lichessTools .lichessTools-friendFilter {
   max-width:50vw;
 }
 
-body.lichessTools a.lichessTools-followers {
+body.lichessTools div.lichessTools-links {
   padding-left: var(---box-padding);
+  display: flex;
+  gap: 1em;
 }
 
 body.lichessTools div.lichessTools-liveButtons i {

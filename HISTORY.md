@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Oct
+
+- Opponents link in the live friends page
+
 18 Oct
 
 - added fixSnabdom

@@ -4283,9 +4283,6 @@
   "r1bqk2rpppp1ppp2n2n281bBPP35N2PP3PPPRNBQK2Rw": [
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Bc4/3...Bc5/4. c3/4...Nf6/5. d4/5...exd4/6. cxd4/6...Bb4"
   ],
-  "r1bqk2rpppp1ppp2n2n281bBPP32N2N2PP3PPPR1BQK2Rb": [
-    "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Bc4/3...Bc5/4. c3/4...Nf6/5. d4/5...exd4/6. cxd4/6...Bb4/7. Nc3"
-  ],
   "r1bqk1nrpppp1ppp2n52b1p32B1P33P1N2PPP2PPPRNBQK2Rb": [
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Bc4/3...Bc5/4. d3"
   ],
@@ -4481,9 +4478,6 @@
   ],
   "r2qkbnrppp2ppp2np44N32B1P1b12N5PPPP1PPPR1BQK2Rb": [
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Bc4/3...d6/4. Nc3/4...Bg4/5. Nxe5"
-  ],
-  "r1bqkbnrpppp2pp2n54pp22B1P35N2PPPP1PPPRNBQK2Rw": [
-    "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Bc4/3...f5"
   ],
   "r1bqkbnrpppp2pp2n54pp22B1P33P1N2PPP2PPPRNBQK2Rb": [
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Bc4/3...f5/4. d3"
@@ -4778,9 +4772,6 @@
   ],
   "r1b2rk1pppp1Npp2n582Bqp2R5KP1PPPP4RNBQ4w": [
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Bc4/3...Nf6/4. Ng5/4...Bc5/5. Nxf7/5...Bxf2/6. Kxf2/6...Nxe4/7. Ke3/7...Qh4/8. g3/8...Nxg3/9. hxg3/9...Qd4/10. Kf3/10...O-O/11. Rh4/11...e4"
-  ],
-  "r1bqk2rpppp1Npp2n54p32B1n38PPPP2PPRNBQ2KRb": [
-    "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Bc4/3...Nf6/4. Ng5/4...Bc5/5. Nxf7/5...Bxf2/6. Kxf2/6...Nxe4/7. Kg1"
   ],
   "r1b1k2rpppp1Npp2n54p32B1n2q8PPPP2PPRNBQ2KRw": [
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Bc4/3...Nf6/4. Ng5/4...Bc5/5. Nxf7/5...Bxf2/6. Kxf2/6...Nxe4/7. Kg1/7...Qh4"
@@ -5306,9 +5297,6 @@
   ],
   "r1bqkb1rppp2ppp2p2n284P33P4PPP2PPPRNBQKB1Rb": [
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nf6/3. Nxe5/3...Nc6/4. Nxc6/4...dxc6/5. d3"
-  ],
-  "r1bqk2rppp2ppp2p2n22b54P33P4PPP2PPPRNBQKB1Rw": [
-    "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nf6/3. Nxe5/3...Nc6/4. Nxc6/4...dxc6/5. d3/5...Bc5"
   ],
   "r1bqk2rppp2ppp2p2n22b54P33P4PPP1BPPPRNBQK2Rb": [
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nf6/3. Nxe5/3...Nc6/4. Nxc6/4...dxc6/5. d3/5...Bc5/6. Be2"

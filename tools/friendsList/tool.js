@@ -56,7 +56,9 @@
         'friendsNumberTitle': '%s friends',
         'friendsNumberTitle:one': 'One friend',
         'friendsNumberTitle:zero': 'Friends',
-        'friendFilterTitle': 'Name filter'
+        'friendFilterTitle': 'Name filter',
+        'opponentsText': 'Opponents',
+        'opponentsTitle': 'LiChess Tools - players you\'ve played against most'
       },
       'ro-RO': {
         'onlineFriends': '%s prieteni online',
@@ -91,7 +93,9 @@
         'friendsNumberTitle': '%s prieteni',
         'friendsNumberTitle:one': 'Un prieten',
         'friendsNumberTitle:zero': 'Prieteni',
-        'friendFilterTitle': 'Filtru nume'
+        'friendFilterTitle': 'Filtru nume',
+        'opponentsText': 'Adversari',
+        'opponentsTitle': 'LiChess Tools - juc\u0103tori \u00eempotriva c\u0103rora ai jucat mai mult'
       }
     }
 
@@ -380,11 +384,16 @@
             $('.box__top h1').replaceText(trans.pluralSame('friendsNumberTitle',friends?.nbResults || 0));
           }
       }
-      if (!isFavoritesOrBlocksOrFollowers && !$('.lichessTools-followers',header).length) {
-        $('<a class="lichessTools-followers">')
-          .attr('href','/@/'+myName+'/following#followers')
-          .attr('title',trans.noarg('followersTitle'))
-          .text(trans.noarg('followersText'))
+      if (!isFavoritesOrBlocksOrFollowers && !$('.lichessTools-links',header).length) {
+        $('<div class="lichessTools-links">')
+          .append($('<a class="lichessTools-followers">')
+                    .attr('href','/@/'+myName+'/following#followers')
+                    .attr('title',trans.noarg('followersTitle'))
+                    .text(trans.noarg('followersText')))
+          .append($('<a class="lichessTools-opponents">')
+                    .attr('href','/player/opponents')
+                    .attr('title',trans.noarg('opponentsTitle'))
+                    .text(trans.noarg('opponentsText')))
           .prependTo(header);
       }
       if (!$('.lichessTools-liveButtons',header).length) {
