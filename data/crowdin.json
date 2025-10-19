@@ -915,7 +915,8 @@
     "toggleLiChessToolsTitle": "تمكين/تعطيل أدوات شطرنج الحياة",
     "disableLiChessToolsForTodayQuestion": "تعطيل أدوات الشطرنج اليوم؟",
     "opponentsText": "المعارضون",
-    "opponentsTitle": "أدوات شطرنج الحياة - اللاعبين الذين لعبتهم ضد معظم"
+    "opponentsTitle": "أدوات شطرنج الحياة - اللاعبين الذين لعبتهم ضد معظم",
+    "helpTranslateLiChessToolsText": "ترجمة أدوات الشطرنج الحياة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1833,7 +1834,8 @@
     "toggleLiChessToolsTitle": "启用/禁用 LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "今日禁用 LiChess Tools？",
     "opponentsText": "反对者",
-    "opponentsTitle": "Lichess工具 - 您已经对大多数玩家玩过的玩家"
+    "opponentsTitle": "Lichess工具 - 您已经对大多数玩家玩过的玩家",
+    "helpTranslateLiChessToolsText": "翻译LiChess工具"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2751,7 +2753,8 @@
     "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
-    "opponentsTitle": "LiChess Tools - players you've played against most"
+    "opponentsTitle": "LiChess Tools - players you've played against most",
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3669,7 +3672,8 @@
     "toggleLiChessToolsTitle": "Povolit/zakázat nástroje LiChess",
     "disableLiChessToolsForTodayQuestion": "Zakázat nástroje LiChess pro dnešek?",
     "opponentsText": "Odpůrci",
-    "opponentsTitle": "Nástroj LiChess - hráče, které jste hráli proti většině"
+    "opponentsTitle": "Nástroj LiChess - hráče, které jste hráli proti většině",
+    "helpTranslateLiChessToolsText": "Přeložit nástroje LiChess"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4587,7 +4591,8 @@
     "toggleLiChessToolsTitle": "Inschakelen/uitschakelen LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "LiChess Tools voor vandaag uitschakelen?",
     "opponentsText": "Tegenstanders",
-    "opponentsTitle": "LiChess Tools - spelers die je tegen de meeste hebt gespeeld"
+    "opponentsTitle": "LiChess Tools - spelers die je tegen de meeste hebt gespeeld",
+    "helpTranslateLiChessToolsText": "LiChess tools vertalen"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5505,7 +5510,8 @@
     "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
-    "opponentsTitle": "LiChess Tools - players you've played against most"
+    "opponentsTitle": "LiChess Tools - players you've played against most",
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6423,7 +6429,8 @@
     "toggleLiChessToolsTitle": "Activer/désactiver LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "Désactiver LiChess Tools pour aujourd'hui ?",
     "opponentsText": "Adversaires",
-    "opponentsTitle": "Outils LiChess - des joueurs que vous avez joué contre la plupart"
+    "opponentsTitle": "Outils LiChess - des joueurs que vous avez joué contre la plupart",
+    "helpTranslateLiChessToolsText": "Traduire les outils LiChess"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7341,7 +7348,8 @@
     "toggleLiChessToolsTitle": "Aktiviere/Deaktiviere LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "LiChess Tools für heute deaktivieren?",
     "opponentsText": "Gegner",
-    "opponentsTitle": "LiChess Tools - Spieler, die du gegen die meisten gespielt hast"
+    "opponentsTitle": "LiChess Tools - Spieler, die du gegen die meisten gespielt hast",
+    "helpTranslateLiChessToolsText": "LiChess Werkzeuge übersetzen"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8259,7 +8267,8 @@
     "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
-    "opponentsTitle": "LiChess Tools - players you've played against most"
+    "opponentsTitle": "LiChess Tools - players you've played against most",
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9177,7 +9186,8 @@
     "toggleLiChessToolsTitle": "Abilita/Disabilita Strumenti LiChess",
     "disableLiChessToolsForTodayQuestion": "Disabilitare LiChess Tools per oggi?",
     "opponentsText": "Avversari",
-    "opponentsTitle": "Strumenti LiChess - giocatori che hai giocato contro la maggior parte"
+    "opponentsTitle": "Strumenti LiChess - giocatori che hai giocato contro la maggior parte",
+    "helpTranslateLiChessToolsText": "Traduci Strumenti LiChess"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10095,7 +10105,8 @@
     "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
-    "opponentsTitle": "LiChess Tools - players you've played against most"
+    "opponentsTitle": "LiChess Tools - players you've played against most",
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11013,7 +11024,8 @@
     "toggleLiChessToolsTitle": "Włącz/wyłącz narzędzia LiChess",
     "disableLiChessToolsForTodayQuestion": "Wyłączyć narzędzia LiChess na dziś?",
     "opponentsText": "Przeciwnicy",
-    "opponentsTitle": "Narzędzia LiChess - graczy, których grałeś przeciwko większości"
+    "opponentsTitle": "Narzędzia LiChess - graczy, których grałeś przeciwko większości",
+    "helpTranslateLiChessToolsText": "Tłumacz narzędzia LiChess"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11931,7 +11943,8 @@
     "toggleLiChessToolsTitle": "Ativar/desativar Ferramentas do LiChess",
     "disableLiChessToolsForTodayQuestion": "Desativar Ferramentas de LiChess para hoje?",
     "opponentsText": "Adversários",
-    "opponentsTitle": "Ferramentas de LiChess - jogadores que você jogou contra a maioria"
+    "opponentsTitle": "Ferramentas de LiChess - jogadores que você jogou contra a maioria",
+    "helpTranslateLiChessToolsText": "Traduzir Ferramentas LiChess"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12849,7 +12862,8 @@
     "toggleLiChessToolsTitle": "Ativar/desativar Ferramentas do LiChess",
     "disableLiChessToolsForTodayQuestion": "Desativar Ferramentas de LiChess para hoje?",
     "opponentsText": "Adversários",
-    "opponentsTitle": "Ferramentas de LiChess - jogadores que você jogou contra a maioria"
+    "opponentsTitle": "Ferramentas de LiChess - jogadores que você jogou contra a maioria",
+    "helpTranslateLiChessToolsText": "Traduzir Ferramentas LiChess"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13767,7 +13781,8 @@
     "toggleLiChessToolsTitle": "Activează/dezactivează LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "Dezactivez LiChess Tools pentru azi?",
     "opponentsText": "Adversari",
-    "opponentsTitle": "LiChess Tools - jucători împotriva cărora ai jucat mai mult"
+    "opponentsTitle": "LiChess Tools - jucători împotriva cărora ai jucat mai mult",
+    "helpTranslateLiChessToolsText": "Tradu LiChess Tools"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14685,7 +14700,8 @@
     "toggleLiChessToolsTitle": "Включить/выключить Инструменты Жизни",
     "disableLiChessToolsForTodayQuestion": "Отключить инструменты Жизни сегодня?",
     "opponentsText": "Противники",
-    "opponentsTitle": "Инструменты Жизни - игроки, которые вы играли против большинства"
+    "opponentsTitle": "Инструменты Жизни - игроки, которые вы играли против большинства",
+    "helpTranslateLiChessToolsText": "Перевести инструменты жизни"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15603,7 +15619,8 @@
     "toggleLiChessToolsTitle": "Activar/desactivar las herramientas de LiChess",
     "disableLiChessToolsForTodayQuestion": "¿Deshabilitar las herramientas de LiChess para hoy?",
     "opponentsText": "Oponentes",
-    "opponentsTitle": "Herramientas de LiChess - jugadores contra los que más has jugado"
+    "opponentsTitle": "Herramientas de LiChess - jugadores contra los que más has jugado",
+    "helpTranslateLiChessToolsText": "Traducir herramientas de LiChess"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16521,7 +16538,8 @@
     "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
-    "opponentsTitle": "LiChess Tools - players you've played against most"
+    "opponentsTitle": "LiChess Tools - players you've played against most",
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17439,7 +17457,8 @@
     "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
-    "opponentsTitle": "LiChess Tools - players you've played against most"
+    "opponentsTitle": "LiChess Tools - players you've played against most",
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18357,6 +18376,7 @@
     "toggleLiChessToolsTitle": "Enable/disable LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "Disable LiChess Tools for today?",
     "opponentsText": "Opponents",
-    "opponentsTitle": "LiChess Tools - players you've played against most"
+    "opponentsTitle": "LiChess Tools - players you've played against most",
+    "helpTranslateLiChessToolsText": "Translate LiChess Tools"
   }
 }

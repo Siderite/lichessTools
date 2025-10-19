@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 19 Oct
 
 - Opponents link in the live friends page
+- Link to help translate LiChess Tools
 
 18 Oct
 
