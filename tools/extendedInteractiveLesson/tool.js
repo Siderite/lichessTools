@@ -1249,6 +1249,7 @@
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('extendedInteractiveLesson');
       const flow = lt.currentOptions.getValue('extendedInteractiveLessonFlow');
+      if (lt.currentOptions.enableLichessTools === false) return;
       this.logOption('Extended interactive lessons', value, 'flow', flow);
       const $ = lt.$;
       const analysis = lichess?.analysis;

@@ -417,6 +417,7 @@
       this.logOption('Custom engine level', value || 'Not set');
       this.logOption('Custom practice engine level', practiceValue || 'Not set');
       this.logOption('Custom engine options', customEngineOptions || 'Not set');
+      if (lt.currentOptions?.enableLichessTools === false) return;
       this.options = {
         depth: value,
         practiceDepth: practiceValue,

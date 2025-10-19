@@ -224,6 +224,7 @@
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
+      if (!value) return;
       this.options = {
         hideForum: lt.isOptionSet(value, 'hideForum'),
         forumBottom: lt.isOptionSet(value, 'forumBottom'),

@@ -2,6 +2,7 @@
 
 #dasher_app .links a.lichessTools-preferences {
   display: flex;
+  overflow: visible;
 }
 
 a.lichessTools-preferences span.lichessTools-toggleExtension {

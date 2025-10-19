@@ -186,6 +186,7 @@
     async init() {
       const lt = this.lichessTools;
       const $ = lt.$;
+      if (lt.currentOptions?.enableLichessTools === false) return;
       if (!lt.currentOptions?.getValue('extraPieceSets')) return;
 
       $('html').observer()
@@ -225,6 +226,7 @@
       const $ = lt.$;
       const value = lt.currentOptions.getValue('extraPieceSets');
       this.logOption('Extra piece sets', value);
+      if (lt.currentOptions?.enableLichessTools === false) return;
       this.options = {}
       const categories = this.preferences.find(p=>p.name=='extraPieceSets').possibleValues;
       for (const category of categories) {

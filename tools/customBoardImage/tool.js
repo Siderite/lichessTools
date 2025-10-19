@@ -130,6 +130,7 @@ body .is2d cg-board::before {
     async init() {
       const lt = this.lichessTools;
       const $ = lt.$;
+      if (lt.currentOptions?.enableLichessTools === false) return;
       if (!lt.currentOptions?.getValue('customBoardImage')) return;
 
       const f = async (mutations)=>{
@@ -151,6 +152,7 @@ body .is2d cg-board::before {
       const $ = lt.$;
       const value = lt.currentOptions.getValue('customBoardImage');
       this.logOption('Custom board image', value);
+      if (lt.currentOptions?.enableLichessTools === false) return;
       this.options = { customBoardUrl : value };
 
       $('#dasher_app')
