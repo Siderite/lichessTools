@@ -36,7 +36,7 @@
       const lichess = lt.lichess;
       const trans = lt.translator;
       const crosstable = $('div.crosstable');
-      if (!crosstable.length) return;
+      if (!crosstable.length || crosstable.prop('checkedCommonTeams')) return;
       const commonTeamsLink = $('a.lichessTools-commonTeams');
       if (commonTeamsLink.length) return;
       const teamsArr = [];
@@ -67,6 +67,7 @@
       for (const teams of teamsArr) {
         commonTeams = commonTeams?.filter(t => teams.find(tt => tt.id == t.id)) || teams;
       }
+      crosstable.prop('checkedCommonTeams',true);
       if (!commonTeams.length) return;
       const teamId = commonTeams[0].id;
       const prefix = trans.plural('commonTeamsTitlePrefix', commonTeams.length, commonTeams.length);

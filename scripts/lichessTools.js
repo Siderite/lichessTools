@@ -1207,6 +1207,11 @@
         lastMove[key] = true;
       });
 
+      const positionKey = this.global.JSON.stringify(lastMove);
+      if (container.prop('__lastPositionKey')===positionKey) {
+        return container.prop('__lastPosition');
+      }
+
       let turn = '';
       const pieceDict = {};
       $('piece', container).each((i, p) => {
@@ -1286,6 +1291,10 @@
         }
       }
       pos += turn[0];
+
+      container.prop('__lastPosition',pos);
+      container.prop('__lastPositionKey',positionKey);
+
       return pos;
     };
 
@@ -1731,12 +1740,12 @@
         const lt = this.lichessTools;
         const store = this.getStore(options);
         let text = store.getItem(key);
-        if (text && options?.zip) {
+        if (typeof text === 'string' && text?.startsWith('LTPK')) {
           try {
             const decompressed = LiChessTools.unzip(text);
             if (decompressed != null) text = decompressed;
           } catch (ex) {
-            lt.global.console.debug('Cannot unzip text. Using raw', ex);
+            lt.global.console.warn('Cannot unzip text. Using raw', ex);
           }
         }
         if (text === undefined || options?.raw) return text;
@@ -1755,13 +1764,22 @@
           return;
         }
         let text = options?.raw ? value : JSON.stringify(value);
-        if (options?.zip) {
+        const zip = options?.zip === true || (text?.length >= +options?.zip);
+        if (zip) {
           try {
             const compressed = LiChessTools.zip(text);
             if (compressed != null) text = compressed;
           } catch (ex) {
-            lt.global.console.debug('Cannot zip text. Using raw', ex);
+            lt.global.console.warn('Cannot zip text. Using raw', ex);
           }
+        }
+        try {
+          store.setItem(key, text);
+        } catch(e) {
+          if (e instanceof QuotaExceededError) {
+            lt.global.console.warn(`Storage quota exceeded for ${key} (${text?.length}) Session: ${options?.session}`);
+          }
+          throw e;
         }
         store.setItem(key, text);
       },
@@ -1878,8 +1896,8 @@
       _lock: '__lock cache keys__',
       init: function () {
         const lt = this.lichessTools;
-        const sessionData = lt.storage.get('LichessTools.GeneralCache', { session: true, zip: true }) || [];
-        const localData = lt.storage.get('LichessTools.GeneralCache', { session: false, zip: true }) || [];
+        const sessionData = lt.storage.get('LichessTools.GeneralCache', { session: true }) || [];
+        const localData = lt.storage.get('LichessTools.GeneralCache', { session: false }) || [];
         this._cache = new Map(sessionData.concat(localData));
       },
       save: function() {
@@ -1897,13 +1915,38 @@
         lt.global.clearInterval(this._saveInterval);
         this._saveInterval = undefined;
         if (!this._cache) return;
-        let data = [...this._cache.entries()].filter(e => e[1].persist == 'session');
-        if (data.length) {
-          lt.storage.set('LichessTools.GeneralCache', data, { session: true, zip: true });
+
+        const totalEntries = [...this._cache.entries()];
+        const sessionEntries = [];
+        const localEntries = [];
+        totalEntries.forEach(e=>{
+          switch(e[1].persist) {
+            case 'session': sessionEntries.push(e); break;
+            case 'local': localEntries.push(e); break;
+          }
+        });
+        const minSizeForZip = 2000000;
+        if (sessionEntries.length) {
+          try {
+            lt.storage.set('LichessTools.GeneralCache', sessionEntries, { session: true, zip: minSizeForZip });
+          } catch(e) {
+            if (e instanceof QuotaExceededError) {
+              lt.storage.set('LichessTools.GeneralCache', sessionEntries, { session: true, zip: true });
+            } else {
+              throw e;
+            }
+          }
         }
-        data = [...this._cache.entries()].filter(e => e[1].persist == 'local');
-        if (data.length) {
-          lt.storage.set('LichessTools.GeneralCache', data, { session: false, zip: true });
+        if (localEntries.length) {
+          try {
+            lt.storage.set('LichessTools.GeneralCache', localEntries, { session: false, zip: minSizeForZip });
+          } catch(e) {
+            if (e instanceof QuotaExceededError) {
+              lt.storage.set('LichessTools.GeneralCache', localEntries, { session: false, zip: true });
+            } else {
+              throw e;
+            }
+          }
         }
       },
       getCached: function (key) {
