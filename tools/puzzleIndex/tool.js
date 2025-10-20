@@ -27,7 +27,7 @@
       'en-US': {
         'options.puzzles': 'Puzzles',
         'options.puzzleIndex': 'Find position in Lichess puzzles',
-        'options.yourPuzzleIndex': 'Find position in puzzles from your game',
+        'options.yourPuzzleIndex': 'Find position in puzzles from your games',
         'puzzleHeaderText': 'Puzzles',
         'positionReversedText': 'Position reversed',
         'yourPuzzleText': 'From your games'
