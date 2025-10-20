@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+20 Oct
+
+- Find current position in puzzles from your games
+
 19 Oct
 
 - Opponents link in the live friends page

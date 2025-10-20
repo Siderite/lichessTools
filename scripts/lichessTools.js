@@ -2004,6 +2004,12 @@
         lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_' });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserPgns', { persist: 'session', interval: 10 * 1000 });
+        lt.api.puzzle.getPuzzlesOfPlayerPageMemoized = async (...args)=>{
+          const result = await lt.api.puzzle.getPuzzlesOfPlayerPage(...args);
+          await lt.timeout(500);
+          return result;
+        };
+        lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
       },
       blog: {
         lichessTools: this,
@@ -2116,6 +2122,51 @@
             }
           });
           return data;
+        },
+        getPuzzlesOfPlayerPage: async function(userId='', page=1, count=0) {
+          const lt = this.lichessTools;
+          const $ = lt.$;
+          const html = await lt.net.fetch({
+            url: '/training/of-player?name={user}&page={page}',
+            args: { user: userId, page: page }
+          });
+          const $html = $(html);
+          const puzzleElems = $html.find('.puzzle-of-player__puzzle');
+          const pagePuzzles = puzzleElems.get()
+                           .map(e=>{
+                             const $e = $(e);
+                             return {
+                               fen: $e.find('.puzzle-of-player__puzzle__board').attr('data-state')?.split(',')?.[0],
+                               id: $e.find('.puzzle-of-player__puzzle__id').text(),
+                               rating: +$e.find('.puzzle-of-player__puzzle__rating').text()
+                             };
+                           });
+          const result = {
+            userId: userId,
+            puzzles: pagePuzzles
+          };
+          if (!count) {
+            const title = $html.find('.puzzle-of-player__results strong:first-child')
+                               .text()
+                               .replaceAll(/[\.,]/g,'');
+            const m = /^.*?(?<count>\d+)/.exec(title);
+            count = +m?.groups?.count || pagePuzzles.length;
+          }
+          result.next = +/page=(?<page>\d+)/.exec($html.find('.pager a').attr('href'))?.groups?.page || null;
+          result.count = count;
+          return result;
+        },
+        getPuzzlesOfPlayer: async function(userId) {
+          const lt = this.lichessTools;
+          const puzzles = []
+          let result = await this.getPuzzlesOfPlayerPage(userId,1,0);
+          puzzles.push(...result.puzzles);
+
+          while (result.next) {
+            result = await this.getPuzzlesOfPlayerPageMemoized(result.userId, result.next, result.count);
+            puzzles.push(...result.puzzles);
+          }
+          return puzzles;
         }
       },
       user: {
