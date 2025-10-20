@@ -613,7 +613,7 @@
     "restoreButtonText": "إستعادة",
     "restoreButtonTitle": "أدوات الشطرنج -استعادة التفضيلات من ملف",
     "defaultValueLegend": "* التفضيلات المتبلورة باللون الأزرق هي التفضيلات التي تم تفعيلها بشكل افتراضي",
-    "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"منفصلة\"] [\"tohere\"] [\"unicode\"]\r\n من: من الوضع الحالي\r\n منفصل: فروع منفصلة\r\n إلى هنا: إلى الموقع الحالي\r\n unicode: unicode piece أحرف القطع\r\nنسخ إلى الحافظة",
+    "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: من الوضع الحالي\n separate: فروع منفصلة\n tohere: إلى الموقع الحالي\n unicode: unicode أحرف القطع\nنسخ إلى الحافظة",
     "extractPrompt": "\"زين\"",
     "extractingFens": "استخراج FENs",
     "options.profileTimeline": "الخط الزمني في الملف الشخصي",
@@ -926,7 +926,10 @@
     "autoMoveButtonTitle": "أدوات شطرنج الحياة - إلحاق مسبق بآخر نقلة في اللعبة",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "أدوات شطرنج الحياة - أدخل النقل المحدد",
-    "whispered": "أنت مهسوس: %s"
+    "whispered": "أنت مهسوس: %s",
+    "options.yourPuzzleIndex": "العثور على موضع في الألغاز من ألعابك",
+    "positionReversedText": "تم عكس الموقع",
+    "yourPuzzleText": "من ألعابك"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1843,19 +1846,22 @@
     "textFilterPlaceholder": "筛选词",
     "toggleLiChessToolsTitle": "启用/禁用 LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "今日禁用 LiChess Tools？",
-    "opponentsText": "反对者",
-    "opponentsTitle": "Lichess工具 - 您已经对大多数玩家玩过的玩家",
-    "helpTranslateLiChessToolsText": "翻译LiChess工具",
-    "mchatOptions.autoWhisper": "自动whisper按钮",
-    "mchatOptions.prependMove": "自动添加移动按钮",
-    "mchatOptions.insertSelectedMove": "插入移动按钮",
+    "opponentsText": "对手",
+    "opponentsTitle": "LiChess Tools - 与你对弈最多的棋手",
+    "helpTranslateLiChessToolsText": "翻译 LiChess Tools",
+    "mchatOptions.autoWhisper": "自动私信观众按钮",
+    "mchatOptions.prependMove": "自动添加着法按钮",
+    "mchatOptions.insertSelectedMove": "插入着法按钮",
     "autoWhisperButtonText": "/w",
-    "autoWhisperButtonTitle": "LiChess工具 - 自动whisper",
+    "autoWhisperButtonTitle": "LiChess Tools - 自动私信观众",
     "autoMoveButtonText": "M",
-    "autoMoveButtonTitle": "LiChess工具 - 在游戏中自动前置上次移动",
+    "autoMoveButtonTitle": "LiChess Tools - 自动添加上一着法",
     "insertSelectedMoveButtonText": "+",
-    "insertSelectedMoveButtonTitle": "LiChess工具 - 插入选中的移动",
-    "whispered": "你当心： %s"
+    "insertSelectedMoveButtonTitle": "LiChess Tools - 插入所选着法",
+    "whispered": "您私信观众：%s",
+    "options.yourPuzzleIndex": "从您的游戏中查找拼图中的位置",
+    "positionReversedText": "位置已反转",
+    "yourPuzzleText": "来自您的游戏"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2784,7 +2790,10 @@
     "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
-    "whispered": "You whispered: %s"
+    "whispered": "You whispered: %s",
+    "options.yourPuzzleIndex": "Find position in puzzles from your games",
+    "positionReversedText": "Position reversed",
+    "yourPuzzleText": "From your games"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3713,7 +3722,10 @@
     "autoMoveButtonTitle": "Nástroje Lišess - automaticky přidat poslední tah ve hře",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "Nástroje LiChess - vložte vybraný tah",
-    "whispered": "Šeptáváte: %s"
+    "whispered": "Šeptáváte: %s",
+    "options.yourPuzzleIndex": "Find position in puzzles from your games",
+    "positionReversedText": "Pozice obrácená",
+    "yourPuzzleText": "Z vašich her"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4642,7 +4654,10 @@
     "autoMoveButtonTitle": "LiChess Tools - automatisch de laatste zet in het spel",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "LiChess Tools - het geselecteerde verplaatsen invoegen",
-    "whispered": "Je fluisterde: %s"
+    "whispered": "Je fluisterde: %s",
+    "options.yourPuzzleIndex": "Zoek positie in puzzels van je games",
+    "positionReversedText": "Positie omgekeerd",
+    "yourPuzzleText": "Van je spellen"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5571,7 +5586,10 @@
     "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
-    "whispered": "You whispered: %s"
+    "whispered": "You whispered: %s",
+    "options.yourPuzzleIndex": "Find position in puzzles from your games",
+    "positionReversedText": "Position reversed",
+    "yourPuzzleText": "From your games"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6489,18 +6507,21 @@
     "toggleLiChessToolsTitle": "Activer/désactiver LiChess Tools",
     "disableLiChessToolsForTodayQuestion": "Désactiver LiChess Tools pour aujourd'hui ?",
     "opponentsText": "Adversaires",
-    "opponentsTitle": "Outils LiChess - des joueurs que vous avez joué contre la plupart",
-    "helpTranslateLiChessToolsText": "Traduire les outils LiChess",
+    "opponentsTitle": "LiChess Tools - les joueurs contre lesquels vous avez le plus joué",
+    "helpTranslateLiChessToolsText": "Traduire LiChess Tools",
     "mchatOptions.autoWhisper": "Bouton chuchoter automatiquement",
-    "mchatOptions.prependMove": "Bouton d'ajout automatique de mouvement",
-    "mchatOptions.insertSelectedMove": "Insérer un bouton de déplacement",
-    "autoWhisperButtonText": "/s",
-    "autoWhisperButtonTitle": "Outils LiChess - chuchotement automatique",
+    "mchatOptions.prependMove": "Bouton d'ajout automatique du coup",
+    "mchatOptions.insertSelectedMove": "Ajouter un bouton du coup",
+    "autoWhisperButtonText": "/w",
+    "autoWhisperButtonTitle": "LiChess Tools - chuchotement automatique",
     "autoMoveButtonText": "M",
-    "autoMoveButtonTitle": "Outils LiChess - Préfixer automatiquement le dernier coup de la partie",
+    "autoMoveButtonTitle": "LiChess Tools - Ajouter automatiquement le dernier coup de la partie",
     "insertSelectedMoveButtonText": "+",
-    "insertSelectedMoveButtonTitle": "Outils LiChess - Insérez le coup sélectionné",
-    "whispered": "Vous avez chuchoté : %s"
+    "insertSelectedMoveButtonTitle": "LiChess Tools - Insérer le coup sélectionné",
+    "whispered": "Vous avez chuchoté : %s",
+    "options.yourPuzzleIndex": "Trouver la position dans les puzzles de vos parties",
+    "positionReversedText": "Position inversée",
+    "yourPuzzleText": "De vos parties"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7429,7 +7450,10 @@
     "autoMoveButtonTitle": "LiChess Tools - Letzter Zug automatisch voranstellen",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "LiChess Werkzeuge - Fügen Sie den ausgewählten Zug ein",
-    "whispered": "Du flüsterst: %s"
+    "whispered": "Du flüsterst: %s",
+    "options.yourPuzzleIndex": "Finde Position in Puzzles aus deinen Spielen",
+    "positionReversedText": "Position umgekehrt",
+    "yourPuzzleText": "Aus deinen Spielen"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8358,7 +8382,10 @@
     "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
-    "whispered": "You whispered: %s"
+    "whispered": "You whispered: %s",
+    "options.yourPuzzleIndex": "Find position in puzzles from your games",
+    "positionReversedText": "Position reversed",
+    "yourPuzzleText": "From your games"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9287,7 +9314,10 @@
     "autoMoveButtonTitle": "Strumenti LiChess - anteprima automatica ultima mossa nel gioco",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "Strumenti LiChess - inserisci la mossa selezionata",
-    "whispered": "Hai sussurrato: %s"
+    "whispered": "Hai sussurrato: %s",
+    "options.yourPuzzleIndex": "Trova posizione nei puzzle dai tuoi giochi",
+    "positionReversedText": "Posizione invertita",
+    "yourPuzzleText": "Dai tuoi giochi"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10216,7 +10246,10 @@
     "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
-    "whispered": "You whispered: %s"
+    "whispered": "You whispered: %s",
+    "options.yourPuzzleIndex": "Find position in puzzles from your games",
+    "positionReversedText": "Position reversed",
+    "yourPuzzleText": "From your games"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11145,7 +11178,10 @@
     "autoMoveButtonTitle": "Narzędzia LiChess - automatycznie poprzedzaj ostatni ruch w grze",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "Narzędzia LiChess - wstaw wybrany ruch",
-    "whispered": "Wyszepczyłeś: %s"
+    "whispered": "Wyszepczyłeś: %s",
+    "options.yourPuzzleIndex": "Znajdź pozycję w łamigłówkach z twoich gier",
+    "positionReversedText": "Pozycja odwrócona",
+    "yourPuzzleText": "Z twoich gier"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11761,7 +11797,7 @@
     "restoreButtonText": "RESTAURAR",
     "restoreButtonTitle": "Ferramentas LiChess - restaurar preferências a partir de um arquivo",
     "defaultValueLegend": "*Preferências de bordas azuis são as ativadas por padrão",
-    "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separado\"] [\"tohere\"] [\"unicode\"]\r\n fen: da posição atual\r\n separada: branches\r\n separados aqui: para a posição atual\r\n unicode: caracteres unicode\r\nCopiar movimentos para área de transferência",
+    "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: da posição atual\n separate: branches\n tohere: para a posição atual\n unicode: caracteres unicode\nCopiar movimentos para área de transferência",
     "extractPrompt": "\"f\"",
     "extractingFens": "Extraindo FENs",
     "options.profileTimeline": "Linha do tempo no perfil",
@@ -12074,7 +12110,10 @@
     "autoMoveButtonTitle": "Ferramentas LiChess - auto adicionar última jogada no jogo",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "Ferramentas LiChess - inserir o lance selecionado",
-    "whispered": "Você sussurrou: %s"
+    "whispered": "Você sussurrou: %s",
+    "options.yourPuzzleIndex": "Encontre posição nos quebra-cabeças de seus jogos",
+    "positionReversedText": "Posição invertida",
+    "yourPuzzleText": "Dos seus jogos"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13003,7 +13042,10 @@
     "autoMoveButtonTitle": "Ferramentas LiChess - auto adicionar última jogada no jogo",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "Ferramentas LiChess - inserir o lance selecionado",
-    "whispered": "Você sussurrou: %s"
+    "whispered": "Você sussurrou: %s",
+    "options.yourPuzzleIndex": "Encontre posição nos quebra-cabeças de seus jogos",
+    "positionReversedText": "Posição invertida",
+    "yourPuzzleText": "Dos seus jogos"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13932,7 +13974,10 @@
     "autoMoveButtonTitle": "LiChess Tools - auto adaugă ultima mutare din joc",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "LiChess Tools - introdu mutarea curentă",
-    "whispered": "Ai șoptit: %s"
+    "whispered": "Ai șoptit: %s",
+    "options.yourPuzzleIndex": "Găsește poziția în problemele de șah din jocurile tale",
+    "positionReversedText": "Poziție inversată",
+    "yourPuzzleText": "Din jocurile tale"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14861,7 +14906,10 @@
     "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "Инструменты Жизни - вставить выбранный ход",
-    "whispered": "Вы шепнули: %s"
+    "whispered": "Вы шепнули: %s",
+    "options.yourPuzzleIndex": "Найдите позицию в головоломках из ваших игр",
+    "positionReversedText": "Позиция отменена",
+    "yourPuzzleText": "Из ваших игр"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -14869,7 +14917,7 @@
     "options.general": "General\n",
     "options.addNotifications": "Añadir notificaciones",
     "options.community": "Comunidad",
-    "options.addToTeam": "Equipo de Herramientas de LiChess",
+    "options.addToTeam": "Equipo de LiChess Tools",
     "addToTeam.hideForum": "Ocultar la entrada del foro",
     "addToTeam.forumBottom": "Última entrada del foro",
     "addToTeam.noNotifications": "Desactivar notificaciones",
@@ -14877,7 +14925,7 @@
     "teamTitle": "Usuarios de la extensión del navegador LiChess Tools",
     "teamSubtitle": "Únete al equipo para acceder al foro, conocer a otros usuarios, obtener actualizaciones o dar comentarios",
     "welcomeToTeam": "¡Bienvenido al equipo de usuarios de LiChess!",
-    "byeFromTeam": "¡Lamento que te vayas!",
+    "byeFromTeam": "¡Lamento que se vaya!",
     "options.fixAbortController": "Corregir control de cancelación",
     "options.fixChessgroundResize": "Fijar tamaño del tablero",
     "options.fixWakeLock": "Corregir WakeLock",
@@ -15150,7 +15198,7 @@
     "timelineNotify.ublog-post": "Entrada",
     "timelineNotify.blog-post": "Anuncio de licencia",
     "timelineNotify.stream-start": "Inicio de la secuencia",
-    "timelineNotify.simul-create": "Simul crear",
+    "timelineNotify.simul-create": "Crear Simul",
     "timelineNotify.simul-join": "Simul unirse",
     "timelineNotify.team-create": "Crear equipo",
     "timelineNotify.team-join": "Unirse al equipo",
@@ -15214,7 +15262,7 @@
     "collapseAllBookmarksTitle": "LiChess Tools - Colapsar todos los marcadores",
     "expandAllBookmarksText": "Expandir todos los marcadores",
     "bookmarkSplitConfirmationText": "¿Seguro que desea dividir el capítulo en este marcador?",
-    "bookmarkSplitConfirmationDeleteText": "¿Seguro que desea dividir el capítulo en este marcador?\nEDTO ELIMINARÁ DE ESTE CAPITULO LOS MOVIMIENTOS SIGUIENTES",
+    "bookmarkSplitConfirmationDeleteText": "¿Seguro que quieres dividir el capítulo en este marcador?\nESTO ELIMINARÁ DE EL CAPÍTULO LOS MOVIMIENTOS QUE CONTINUAN",
     "bookmarkSplitText": "Dividir capítulo aquí",
     "bookmarkSplitTitle": "LiChess Tools - crea un nuevo capítulo con los siguientes movimientos desde aquí\nPresiona Mayús para también eliminarlos de aquí",
     "chapterLink": "Continuar aquí: %s",
@@ -15477,7 +15525,7 @@
     "restoreButtonText": "Restaurar",
     "restoreButtonTitle": "LiChess Tools - restaurar preferencias desde un archivo",
     "defaultValueLegend": "*Las preferencias de bordes azules son las habilitadas por defecto",
-    "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separar\"] [\"tohere\"] [\"unicode\"]\r\n fen: de la posición actual\r\n separar: separar ramas\r\n tohere: a la posición actual\r\n unicode: caracteres unicode pieza\r\nCopiar movimientos al portapapeles",
+    "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: de la posición actual\n separate: separar ramas\n tohere: a la posición actual\n unicode: caracteres unicode pieza\nCopiar movimientos al portapapeles",
     "extractPrompt": "\"Fen\"",
     "extractingFens": "Extrayendo FENs",
     "options.profileTimeline": "Línea temporal en el perfil",
@@ -15697,7 +15745,7 @@
     "estimatedRating": "Puntuación estimada: %s",
     "gameListOptions.extraInfo": "Botón de más información",
     "extraInfoButtonTitle": "Más información del juego",
-    "extraInfoTitle": "Precisión: $accuracy\r\nPérdida media del centipan: $acpl\r\nInexactitudes / errores / errores\r\n  Blanco: $whiteMoves\r\n  Negro: $blackMoves",
+    "extraInfoTitle": "Precisión: $accuracy\nPérdida media del centipan: $acpl\nInexactitudes / errores / errores\n  Blanco: $whiteMoves\n  Negro: $blackMoves",
     "additionalGlyphs.miss": "Beso",
     "themes.adamisko": "Vintage Adamisko",
     "gameListOptions.remove": "Eliminar juegos",
@@ -15751,7 +15799,7 @@
     "moreGamesButtonText": "Más juegos",
     "moreGamesButtonTitle": "Mostrar más partidas en Juegos Recientes",
     "options.explorerMoreGames": "Mostrar más partidas de explorador",
-    "explorerMoreGamesTitle": "Herramientas de LiChess - más juegos de Explorador",
+    "explorerMoreGamesTitle": "LiChess Tools - más juegos de Explorador",
     "options.soundThemes": "Temas de sonido",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "mainPageElements.extraCounters": "Contadores extra",
@@ -15790,7 +15838,10 @@
     "autoMoveButtonTitle": "Herramientas de LiChess - Anteponer el último movimiento en el juego",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "Herramientas de LiChess - inserte el movimiento seleccionado",
-    "whispered": "Has susurrado: %s"
+    "whispered": "Has susurrado: %s",
+    "options.yourPuzzleIndex": "Encuentra la posición en rompecabezas de tus juegos",
+    "positionReversedText": "Posición invertida",
+    "yourPuzzleText": "De tus juegos"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16719,7 +16770,10 @@
     "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
-    "whispered": "You whispered: %s"
+    "whispered": "You whispered: %s",
+    "options.yourPuzzleIndex": "Find position in puzzles from your games",
+    "positionReversedText": "Position reversed",
+    "yourPuzzleText": "From your games"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17648,7 +17702,10 @@
     "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
-    "whispered": "You whispered: %s"
+    "whispered": "You whispered: %s",
+    "options.yourPuzzleIndex": "Find position in puzzles from your games",
+    "positionReversedText": "Position reversed",
+    "yourPuzzleText": "From your games"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18577,6 +18634,9 @@
     "autoMoveButtonTitle": "LiChess Tools - auto prepend last move in the game",
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "LiChess Tools - insert the selected move",
-    "whispered": "You whispered: %s"
+    "whispered": "You whispered: %s",
+    "options.yourPuzzleIndex": "Find position in puzzles from your games",
+    "positionReversedText": "Position reversed",
+    "yourPuzzleText": "From your games"
   }
 }
