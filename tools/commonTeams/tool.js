@@ -9,7 +9,7 @@
         category: 'play',
         type: 'single',
         possibleValues: [false, true],
-        defaultValue: true,
+        defaultValue: false,
         advanced: true
       }
     ];
@@ -29,32 +29,40 @@
       }
     }
 
+    teamsCache = new Map();
     refreshTeams = async () => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const lichess = lt.lichess;
       const trans = lt.translator;
       const crosstable = $('div.crosstable');
-      if (!crosstable.length || !lt.inViewport(crosstable)) return;
+      if (!crosstable.length) return;
       const commonTeamsLink = $('a.lichessTools-commonTeams');
       if (commonTeamsLink.length) return;
       const teamsArr = [];
       const promises = [];
-      $('.game__meta__players a.user-link')
+      const userLinks = $('.game__meta__players a.user-link');
+      if (userLinks.length<2) return;
+      userLinks
         .each((i, e) => {
           if (e.checkedCommonTeams) return;
           e.checkedCommonTeams = true;
+          const href = $(e).attr('href');
+          if (!href) return;
+          const hrefUserId = /\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();
+          if (!hrefUserId) return;
           promises.push((async () => {
-            const href = $(e).attr('href');
-            if (!href) return;
-            const hrefUserId = /\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();
-            if (!hrefUserId) return;
-            const teams = await lt.api.team.getUserTeams(hrefUserId);
+            let teams = this.teamsCache.get(hrefUserId);
+            if (!teams) {
+              teams = await lt.api.team.getUserTeams(hrefUserId);
+              this.teamsCache.set(hrefUserId,teams);
+            }
             teamsArr.push(teams);
           })());
         });
       await Promise.all(promises);
-      if (!teamsArr.length) return;
+      if (teamsArr.length<2) return;
+
       let commonTeams = null;
       for (const teams of teamsArr) {
         commonTeams = commonTeams?.filter(t => teams.find(tt => tt.id == t.id)) || teams;
