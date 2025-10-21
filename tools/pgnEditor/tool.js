@@ -241,6 +241,8 @@
       const $ = lt.$;
       const trans = lt.translator;
 
+      $('body').toggleClassSafe('lichessTools-page',true);
+
       this._prevTitle ||= lt.global.document.title;
       lt.global.document.title = trans.noarg('pgnEditorTitle');
 
@@ -248,6 +250,7 @@
       const dialog = $('<dialog class="lichessTools-pgnEditor">')
         .on('close',()=>{
           lt.global.document.title = this._prevTitle;
+          $('body').toggleClassSafe('lichessTools-page',false);
         })
         .append(`
     <div class="close-button-anchor">

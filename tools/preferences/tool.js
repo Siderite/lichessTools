@@ -113,6 +113,8 @@
       container.empty();
       lt.global.document.title = trans.noarg('lichessToolsPreferences');
 
+      $('body').toggleClassSafe('lichessTools-page',true);
+
       const subnav = $('main nav.subnav').hide();
 
       const showSaved = () => {
