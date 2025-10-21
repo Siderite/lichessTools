@@ -212,7 +212,7 @@
         }
       }
       let button = $('button.lichessTools-moveAssistant');
-      if (!this.options.enabled) {
+      if (!this.options.enabled || lt.isGamePlaying()) {
         button.remove();
         return;
       }

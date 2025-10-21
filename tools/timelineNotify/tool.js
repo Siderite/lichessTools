@@ -11,7 +11,6 @@
         possibleValues: [
           'forum-post',
           'ublog-post',
-          'stream-start',
           'simul-create',
           'simul-join',
           'team-create',
@@ -20,6 +19,7 @@
           'follow',
           'study-like',
           'ublog-post-like'/*,
+          'stream-start',
           'game-end',
           'plan-start',
           'plan-renew'*/

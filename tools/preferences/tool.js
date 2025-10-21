@@ -47,7 +47,9 @@
         'fileButtonTitle': 'Pick a file',
         'userManualLinkTitle': 'User manual (EN)',
         'preferenceFilterPlaceholder': 'Filter preferences',
-        'expandAllButtonText': 'Expand/collapse all'
+        'expandAllButtonText': 'Expand/collapse all',
+        'toggleLiChessToolsTitle': 'Enable/disable LiChess Tools',
+        'disableLiChessToolsForTodayQuestion': 'Disable LiChess Tools for today?'
       },
       'ro-RO': {
         yes: 'Da',
@@ -80,11 +82,21 @@
         'fileButtonTitle': 'Alege un fi\u015fier',
         'userManualLinkTitle': 'Manual utilizator (EN)',
         'preferenceFilterPlaceholder': 'Filtru preferin\u0163e',
-        'expandAllButtonText': 'Extinde/restr\u00e2nge toate'
+        'expandAllButtonText': 'Extinde/restr\u00e2nge toate',
+        'toggleLiChessToolsTitle': 'Activeaz\u0103/dezactiveaz\u0103 LiChess Tools',
+        'disableLiChessToolsForTodayQuestion': 'Dezactivez LiChess Tools pentru azi?'
       }
     }
 
+    checkGlobalSwitch = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $.cached('body').toggleClassSafe('lichessTools-globalDisable', !lt.currentOptions.enableLichessTools);
+      $('#toggleLiChessTools').prop('checked',!!lt.currentOptions.enableLichessTools);
+    };
+
     openPreferences = () => {
+      const self = this;
       const lt = this.lichessTools;
       const Math = lt.global.Math;
       const $ = lt.$;
@@ -101,18 +113,17 @@
       container.empty();
       lt.global.document.title = trans.noarg('lichessToolsPreferences');
 
+      $('body').toggleClassSafe('lichessTools-page',true);
+
       const subnav = $('main nav.subnav').hide();
 
       const showSaved = () => {
         $('.saved').removeClass('none');
         lt.global.setTimeout(() => $('.saved').addClass('none'), 2000);
       };
-      const checkGlobalSwitch = () => {
-        $.cached('body').toggleClass('lichessTools-globalDisable', !lt.currentOptions.enableLichessTools);
-      };
       const checkAdvanced = () => {
         this.options.advanced = !!lt.currentOptions.getValue('advancedPreferences');
-        $.cached('body').toggleClass('lichessTools-advancedPreferences', this.options.advanced);
+        $.cached('body').toggleClassSafe('lichessTools-advancedPreferences', this.options.advanced);
       };
 
       //TODO add link to translation project
@@ -338,8 +349,8 @@
             const pref = $(e).attr('data-pref');
             const shown = visiblePrefs.includes(pref);
             $(e)
-              .toggleClass('filteredIn',shown && tokens.length)
-              .toggleClass('filteredOut',!shown);
+              .toggleClassSafe('filteredIn',shown && tokens.length)
+              .toggleClassSafe('filteredOut',!shown);
           });
         });
 
@@ -399,12 +410,14 @@
             ? $('input[name="' + optionName + '"]').filter((i, e) => $(e).is(':checked')).map((i, e) => $(e).attr('value')).get()
             : [$(this).val()];
           let value = optionValues.join(',');
-          if (value === 'true') value = true;
-          else if (value === 'false') value = false;
+          switch(value) {
+            case 'true': value = true; break;
+            case 'false': value = false; break;
+          }
           currentOptions[optionName] = value;
           await saveOptions(currentOptions);
           lt.fireReloadOptions();
-          checkGlobalSwitch();
+          self.checkGlobalSwitch();
           checkAdvanced();
           showSaved();
         }, 500));
@@ -423,12 +436,14 @@
         .on('change',lt.debounce(async function () {
           const optionName = $(this).attr('name');
           let value = $(this).val();
-          if (value === 'true') value = true;
-          else if (value === 'false') value = false;
+          switch(value) {
+            case 'true': value = true; break;
+            case 'false': value = false; break;
+          }
           currentOptions[optionName] = value;
           await saveOptions(currentOptions);
           lt.fireReloadOptions();
-          checkGlobalSwitch();
+          self.checkGlobalSwitch();
           checkAdvanced();
           showSaved();
         }, 500));
@@ -555,7 +570,7 @@
           for (const { name, value } of data) options[name] = value;
           await lt.applyOptions(options);
           lt.fireReloadOptions();
-          checkGlobalSwitch();
+          this.checkGlobalSwitch();
           checkAdvanced();
           this.openPreferences();
           showSaved();
@@ -569,7 +584,7 @@
           for (const { key, offValue } of keys) options[key] = offValue;
           await lt.applyOptions(options);
           lt.fireReloadOptions();
-          checkGlobalSwitch();
+          this.checkGlobalSwitch();
           checkAdvanced();
           this.openPreferences();
           showSaved();
@@ -594,7 +609,7 @@
                 const options = lt.global.JSON.parse(text);
                 await lt.applyOptions(options);
                 lt.fireReloadOptions();
-                checkGlobalSwitch();
+                this.checkGlobalSwitch();
                 checkAdvanced();
                 this.openPreferences();
                 showSaved();
@@ -603,7 +618,7 @@
             })
             .trigger('click');
         });
-      checkGlobalSwitch();
+      this.checkGlobalSwitch();
       checkAdvanced();
       this.addInfo();
     };
@@ -614,7 +629,7 @@
       const data = lt.global.document.body.dataset;
       const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
       if (!baseUrls?.length) return;
-      const url = 'wss://' + baseUrls[lt.global.Math.floor(lt.global.Math.random() * baseUrls.length)];
+      const url = 'wss://' + baseUrls[lt.global.Math.floor(lt.random() * baseUrls.length)];
       const fullUrl = url + '/socket/v5?sri=' + lt.sri;
       const ws = new WebSocket(fullUrl);
       ws.onopen = () => {
@@ -643,15 +658,42 @@
     addPreferencesMenu = () => {
       const lt = this.lichessTools;
       const trans = lt.translator;
+      const lichess = lt.lichess;
       const $ = lt.$;
       if (!$('#dasher_app *').length) return;
       if (!$('#dasher_app a.lichessTools-preferences').length) {
+        lichess.asset.loadCssPath('user.account');
         const isLoggedIn = !!lt.getUserId();
         const elem = $('<a class="text lichessTools-preferences">')
           .attr('data-icon', isLoggedIn ? lt.icon.LightVerticalAndBottomRight : lt.icon.Gear)
           .attr('href', '/team/all#lichessTools')
-          .text(trans.noarg('lichessTools'))
-          .attr('title', trans.noarg('lichessToolsPreferences'));
+          .attr('title', trans.noarg('lichessToolsPreferences'))
+          .append($('<span>').text(trans.noarg('lichessTools')))
+          .append($(`<span class="lichessTools-toggleExtension">
+                      <input id="toggleLiChessTools" name="toggleLiChessTools" type="checkbox" class="form-control cmn-toggle"/>
+                      <label for="toggleLiChessTools"/>
+                     </span>`)
+                   .attr('title',trans.noarg('toggleLiChessToolsTitle'))
+                   .on('change',async (ev)=>{
+                     const enabled = $(ev.target).prop('checked');
+                     if (!enabled) {
+                       const answer = await lt.uiApi.dialog.confirm(trans.noarg('disableLiChessToolsForTodayQuestion'));
+                       if (!answer) {
+                         this.checkGlobalSwitch();
+                         return;
+                       }
+                     }
+                     lt.currentOptions.enableLichessTools = enabled;
+                     if (!enabled) {
+                       const tomorrow = new Date();
+                       tomorrow.setDate(tomorrow.getDate() + 1);
+                       tomorrow.setHours(0, 0, 0, 0);
+                       lt.currentOptions['enableLichessTools.enableTime'] = +tomorrow;
+                     }
+                     await lt.applyOptions(lt.currentOptions);
+                     this.checkGlobalSwitch();
+                   })
+                 );
         let links = $('#dasher_app div.links');
         if (!links.length) {
           links = $('<div class="links">')
@@ -661,6 +703,7 @@
           elem
             .insertAfter($('[href="/account/profile"]',links));
         }
+        this.checkGlobalSwitch();
       }
     };
 
@@ -683,6 +726,8 @@
         lt.global.location = '/team/all'+lt.global.location.hash;
         return;
       }
+
+      this.checkGlobalSwitch();
 
       const isTeams = location.pathname == '/team/all';
       lt.global.clearInterval(this.interval);

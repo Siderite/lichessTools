@@ -33,10 +33,18 @@ body.lichessTools .studies div.study.lichessTools-studyFlairs div.lichessTools-b
 
 body.lichessTools div.topic-list a.lichessTools-studyFlairs img,
 body.lichessTools a.lichessTools-studyFlairs img,
+body.lichessTools a span.lichessTools-studyFlairs img,
 body.lichessTools div.tagify__dropdown div.lichessTools-studyFlairs img,
 body.lichessTools tag.lichessTools-studyFlairs img {
   max-width: 1.5em;
 }
+
+body.lichessTools a.active.lichessTools-studyFlairs img,
+body.lichessTools a.active span.lichessTools-studyFlairs img {
+  border: 1px solid var(--c-accent);
+  border-radius: 25%;
+}
+
 
 body.lichessTools button.lichessTools-studyFlairs {
   float: left;

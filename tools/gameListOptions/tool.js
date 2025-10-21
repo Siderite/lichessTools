@@ -8,7 +8,7 @@
         name: 'gameListOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['aborted', 'analysis', 'titledOpponents', 'select', 'analysisLink', 'color', 'extraInfo', 'remove'],
+        possibleValues: ['aborted', 'analysis', 'titledOpponents', 'select', 'analysisLink', 'color', 'extraInfo', 'remove', 'textFilter'],
         defaultValue: 'select,analysis,analysisLink,color,aborted,extraInfo,remove',
         advanced: true
       }
@@ -31,6 +31,7 @@
         'gameListOptions.analysisLink': 'Go direct to analysis',
         'gameListOptions.extraInfo': 'More info button',
         'gameListOptions.remove': 'Remove games',
+        'gameListOptions.textFilter': 'Text filter',
         'abortedGamesLabel': 'Show aborted:',
         'colorGamesLabel': 'Color by players:',
         'analysedGamesLabel': 'Only analysed:',
@@ -52,7 +53,8 @@
 Average centipawn loss: $acpl
 Inaccuracies / mistakes / blunders
   White: $whiteMoves
-  Black: $blackMoves`
+  Black: $blackMoves`,
+        'textFilterPlaceholder': 'filter words'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -65,6 +67,7 @@ Inaccuracies / mistakes / blunders
         'gameListOptions.analysisLink': 'Direct la analiz\u0103',
         'gameListOptions.extraInfo': 'Buton informa\u0163ii \u00een plus',
         'gameListOptions.remove': 'Elimin\u0103 jocuri',
+        'gameListOptions.textFilter': 'Filtru text',
         'abortedGamesLabel': 'Arat\u0103 anulate:',
         'colorGamesLabel': 'Culoare dup\u0103 juc\u0103tori:',
         'analysedGamesLabel': 'Doar analizate:',
@@ -86,7 +89,8 @@ Inaccuracies / mistakes / blunders
 ACPL: $acpl
 Inexactit\u0103\u0163i/gre\u015feli/gafe
   Alb: $whiteMoves
-  Negru: $blackMoves`
+  Negru: $blackMoves`,
+        'textFilterPlaceholder': 'cuvinte filtru'
       }
     }
 
@@ -357,9 +361,24 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
       const container = $('div.search__result');
       if (!container.length) return;
       let filters = $('.lichessTools-gameListOptions',container);
+      const gamesContainer = $('.search__rows, .games',container);
       if (!filters.length) {
         filters = $('<div class="lichessTools-gameListOptions">')
-          .insertBefore($('.search__rows, .games',container));
+          .insertBefore(gamesContainer);
+      }
+      if (this.options.textFilter) {
+        if (!$(container).find('#txtTextFilter').length) {
+          filters
+            .prepend($('<input type="text" id="txtTextFilter"/>')
+              .attr('placeholder',trans.noarg('textFilterPlaceholder'))
+              .on('change',ev=>{
+                const text = $(ev.target).val();
+                gamesContainer.css('min-height',text?'calc(100vh - '+gamesContainer.offset().top+'px + '+window.scrollY+'px)':'')
+                this.processLists();
+              })
+            );
+          filters.find('#txtTextFilter').trigger('input');
+        }
       }
       if (this.options.aborted) {
         if (!$(container).find('#chkAborted').length) {
@@ -508,7 +527,15 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
                             return !isUserId && isTitledPlayer;
                           });
         $(e).toggleClassSafe('lichessTools-hasTitledOpponent', hasTitledOpponent);
+
+        const text = container.find('#txtTextFilter').val()?.toLowerCase() || '';
+        const splits = [...text.matchAll(/"(?<quoted>[^"]*)"|(?<unquoted>[^\s]+)/g)]
+                         .map(m=>m.groups.quoted || m.groups.unquoted)
+                         .filter(s=>s);
+        const isTextFiltered = splits.length && splits.find(s=>!$(e).text().toLowerCase().includes(s));
+        $(e).toggleClassSafe('lichessTools-textFiltered', !!isTextFiltered);
       });
+      $('body').trigger('scroll');
     };
     processLists = this.lichessTools.debounce(this.processListsDirect,100);
 
@@ -527,7 +554,8 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
         titledOpponents: lt.isOptionSet(value, 'titledOpponents'),
         extraInfo: lt.isOptionSet(value, 'extraInfo'),
         remove: lt.isOptionSet(value, 'remove'),
-        get isSet() { return this.aborted || this.color || this.select || this.analysis || this.analysisLink || this.titledOpponents || this.extraInfo || this.remove; }
+        textFilter: lt.isOptionSet(value, 'textFilter'),
+        get isSet() { return this.aborted || this.color || this.select || this.analysis || this.analysisLink || this.titledOpponents || this.extraInfo || this.remove || this.textFilter; }
       };
       $('div.search__result .lichessTools-gameListOptions').remove();
       $('.lichessTools-gameListOptions-select')

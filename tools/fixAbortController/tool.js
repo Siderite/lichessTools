@@ -25,6 +25,8 @@
     async init() {
       const lt = this.lichessTools;
       if (!lt.global.AbortController) return;
+      const value = lt.currentOptions?.getValue('fixAbortController');
+      if (!value) return;
       lt.global.AbortController.prototype.abort = lt.wrapFunction(lt.global.AbortController.prototype.abort, {
         id: 'fixAbortController',
         before: ($this, ...args) => {

@@ -224,6 +224,7 @@
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
+      if (lt.currentOptions.enableLichessTools === false) return;
       this.options = {
         hideForum: lt.isOptionSet(value, 'hideForum'),
         forumBottom: lt.isOptionSet(value, 'forumBottom'),

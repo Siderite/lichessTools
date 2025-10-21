@@ -104,7 +104,7 @@
       const lt = this.lichessTools;
       let count = ev?.unread;
       if (count === undefined) {
-        lt.global.console.warn('Could not read unread value from socket.in.notifications', ev);
+        return;
       }
       count = +count;
       if (this._unreadNotifications != count) {

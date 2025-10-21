@@ -54,7 +54,7 @@
       const file = ev.clipboardData?.files[0] || ev.dataTransfer?.files[0]
       if (!this.isImage(file)) return;
       ev.preventDefault();
-      lt.global.console.debug('Sending image to Imgur...');
+      lt.global.console.debug('Sending image to hosting service...');
       const buffer = await file.arrayBuffer();
       const base64 = btoa(
         new Uint8Array(buffer)

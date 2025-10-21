@@ -196,7 +196,7 @@
       container.find('.year').text(trans.pluralSame('yearGamesPlayed',formatter.format(yearGames)));
       container.find('.month').text(trans.pluralSame('monthGamesPlayed',formatter.format(monthGames)));
       container.find('.day').text(trans.pluralSame('dayGamesPlayed',formatter.format(dayGames)));
-      this.extraCountersTimeout = lt.global.setTimeout(this.updateCounters,Math.random()*1500);
+      this.extraCountersTimeout = lt.global.setTimeout(this.updateCounters,lt.random()*1500);
     };
 
     async start() {
@@ -253,6 +253,8 @@
         this.options.app_rapid = true;
         this.options.app_classical = true;
       }
+      $('main.lobby').observer()
+        .off('.lobby__app-pools',this.applyLobbyElements);
       if (this.options.allSet || this.options.noneSet) {
         if (this.initialGrid) {
           $('main')

@@ -49,17 +49,44 @@ cash.single = function (selector, context) {
 
 cash.fn.attrSafe = function(attr,value) {
   this.each((i,e)=>{
-    if (cash(e).attr(attr)!==value) {
-      cash(e).attr(attr,value);
+    const $e = cash(e);
+    if ($e.attr(attr)!==value) {
+      $e.attr(attr,value);
     }
+  });
+  return this;
+}
+
+cash.fn.textSafe = function(value) {
+  this.each((i,e)=>{
+    const $e = cash(e);
+    if ($e.text()!==value) {
+      $e.text(value);
+    }
+  });
+  return this;
+}
+
+cash.fn.textInsert = function(value, focus) {
+  if (!value) return;
+  this.each((i,e)=>{
+    const start = e.selectionStart;
+    const end = e.selectionEnd;
+    const text = e.value;
+    e.value = text.substring(0, start) + value + text.substring(end);
+
+    const newCursorPos = start + value.length;
+    e.setSelectionRange(newCursorPos, newCursorPos);
+    if (focus) e.focus();
   });
   return this;
 }
 
 cash.fn.removeAttrSafe = function(attr) {
   this.each((i,e)=>{
-    if (cash(e).attr(attr)) {
-      cash(e).removeAttr(attr);
+    const $e = cash(e);
+    if ($e.attr(attr)) {
+      $e.removeAttr(attr);
     }
   });
   return this;
@@ -105,6 +132,13 @@ class Observer {
         }
         return cash(el).is(selector);
       };
+      let timeout = 0;
+      const execFunc = options.executeDirect
+        ? func
+        : (mutations) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(()=>func(mutations),50);
+          };
       observer = new MutationObserver((mutations)=>{
         const matches = mutations.filter(m=>{
           if (matchFunc(m.target)) return true;
@@ -117,7 +151,7 @@ class Observer {
           }
         });
         if (matches.length) {
-          func(matches);
+          execFunc(matches);
         }
       });
       observer.__selector = selector;
@@ -152,6 +186,7 @@ class Observer {
       characterData: true,
       withNodes: true,
       useCash: false,
+      executeDirect: false,
       ...options
     };
     this.context.each((i,e)=>{

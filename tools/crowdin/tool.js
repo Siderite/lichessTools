@@ -14,13 +14,30 @@
     intl = {
       'en-US': {
         'options.languages': 'Languages',
-        'options.crowdin': 'Crowdin translation'
+        'options.crowdin': 'Crowdin translation',
+        'helpTranslateLiChessToolsText':'Translate LiChess Tools'
       },
       'ro-RO': {
         'options.languages': 'Limbi',
-        'options.crowdin': 'Traducere cu Crowdin'
+        'options.crowdin': 'Traducere cu Crowdin',
+        'helpTranslateLiChessToolsText':'Tradu LiChess Tools'
       }
     }
+
+    addHelpTranslateLink = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const container = $('#dasher_app .sub.langs');
+      if (!container.length) return;
+      if (container.find('.lichessTools-helpTranslate').length) return;
+      $('<a class="help text lichessTools-helpTranslate">')
+        .attr('target','_blank')
+        .attr('href','https://crowdin.com/project/lichess-tools')
+        .attr('data-icon',lt.icon.Tools)
+        .text(trans.noarg('helpTranslateLiChessToolsText'))
+        .appendTo(container);
+    };
 
     async loadTranslations() {
       const lt = this.lichessTools;
@@ -40,11 +57,21 @@
 
     async start() {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const value = !!lt.currentOptions.getValue('crowdin');
       this.logOption('Crowdin', value);
-      if (value) {
-        await this.loadTranslations();
-      }
+
+      $('#dasher_app')
+        .observer()
+        .off('.sub.langs',this.addHelpTranslateLink);
+      if (!value) return;
+
+      await this.loadTranslations();
+
+      $('#dasher_app')
+        .observer()
+        .on('.sub.langs',this.addHelpTranslateLink);
+      this.addHelpTranslateLink();
     }
 
   }

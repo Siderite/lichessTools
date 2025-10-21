@@ -138,14 +138,18 @@
         get isSet() { return this.piecePick || this.pieceDrop || this.opponentMove || this.gameEnd || this.gameStart }
       };
       $('body').observer()
-        .off('.selected,.last-move',this.checkMove, { attributes: true, attributeFilter: ['style'] });
+        .off('.selected,.last-move',this.checkMove);
       lt.uiApi.socket.events.off('endData', this.checkGameEnd);
 
       if (!this.options.isSet) return;
 
       if (this.options.piecePick || this.options.pieceDrop || this.options.opponentMove) {
         $('body').observer()
-          .on('.selected,.last-move',this.checkMove, { attributes: true, attributeFilter: ['style'] });
+          .on('.selected,.last-move',this.checkMove, {
+          attributes: true,
+          attributeFilter: ['style'],
+          executeDirect: true
+        });
       }
       if (this.options.gameStart) {
         if ($('body').is('.playing') && $('.main-board').length) {

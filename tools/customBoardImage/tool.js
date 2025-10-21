@@ -30,17 +30,35 @@
       }
     }
 
-    updateBoardImage = ()=>{
+    updateBoardImage = (forced)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      $('style#lichessTools-customBoardImage').remove();
+      const existingStyle = $('style#lichessTools-customBoardImage');
+      if (!this.options.customBoardUrl) {
+        existingStyle.remove();
+        lt.storage.remove('customBoardImage-lastStyle');
+        return;
+      }
+      if (forced) {
+        existingStyle.remove();
+      } else
+      if (existingStyle.length && !existingStyle.html().includes('!important')) {
+        return;
+      }
       if (this.options.customBoardUrl) {
-        let styleStr = `<style id="lichessTools-customBoardImage">
+        const styleStr = `<style id="lichessTools-customBoardImage">
 body.lichessTools .is2d cg-board::before {
   background-image: url(${this.options.customBoardUrl});
 }
 </style>`;
+        const initStyleStr = `<style id="lichessTools-customBoardImage">
+body .is2d cg-board::before {
+  background-image: url(${this.options.customBoardUrl}) !important;
+}
+</style>`;
         $(styleStr).appendTo('head');
+        existingStyle.remove();
+        lt.storage.set('customBoardImage-lastStyle',initStyleStr);
         this.addCustomBoard();
       }
       lt.tools.ThemesTool?.setBoardVariables(true);
@@ -52,7 +70,7 @@ body.lichessTools .is2d cg-board::before {
       const trans = lt.translator;
       const list = $('#dasher_app .sub.board.d2 .list');
       if (!list.length) return;
-      const url = await lt.uiApi.dialog.prompt(trans.noarg('customBoardUrlPrompt'));
+      const url = await lt.uiApi.dialog.prompt(trans.noarg('customBoardUrlPrompt'),this.options.customBoardUrl||'');
       if (url && !URL.canParse(url)) {
         lt.announce(trans.noarg('invalidUrl'));
         return;
@@ -62,7 +80,7 @@ body.lichessTools .is2d cg-board::before {
       lt.currentOptions.customBoardImage = url;
       this.options.customBoardUrl = url;
       lt.saveOptions(lt.currentOptions);
-      this.updateBoardImage();
+      this.updateBoardImage(true);
     };
 
     addCustomBoard = ()=>{
@@ -88,8 +106,8 @@ body.lichessTools .is2d cg-board::before {
               this.options.customBoardUrl = null;
               lt.currentOptions.customBoardImage = null;
               lt.saveOptions(lt.currentOptions);
-              this.updateBoardImage();
             }
+            this.updateBoardImage(true);
             list.find('button.active').removeClass('active');
             $(e).addClass('active');
           });
@@ -108,12 +126,33 @@ body.lichessTools .is2d cg-board::before {
       }
       lt.scrollIntoViewIfNeeded(list.find('button.active'));
     };
+    
+    async init() {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (lt.currentOptions?.enableLichessTools === false) return;
+      if (!lt.currentOptions?.getValue('customBoardImage')) return;
+
+      const f = async (mutations)=>{
+        if ($('style#lichessTools-customBoardImage').length) return;
+        const styleStr = lt.storage.get('customBoardImage-lastStyle');
+        if (!styleStr) return;
+        $(styleStr).appendTo('head');
+      };
+
+      $('html').observer()
+        .on('link[rel="stylesheet"][href*="/site."]',f,{ executeDirect: true });
+
+      $('html').observer()
+        .on('cg-board',f,{ executeDirect: true });
+    }
 
     async start() {
       const lt = this.lichessTools;
       const $ = lt.$;
       const value = lt.currentOptions.getValue('customBoardImage');
       this.logOption('Custom board image', value);
+      if (lt.currentOptions?.enableLichessTools === false) return;
       this.options = { customBoardUrl : value };
 
       $('#dasher_app')

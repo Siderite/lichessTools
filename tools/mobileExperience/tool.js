@@ -261,6 +261,7 @@
     initializeOverlayWrap = async() => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const $ = lt.$;
       const wrap = $('<div class="cg-wrap lichessTools-boardOverlay">')
         .appendTo('main div.main-board')
         .addClass('lichessTools-passthrough');
@@ -502,6 +503,8 @@
     };
 
     clearShapes = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const isRound = !!$('main.round,main.puzzle').length;
       if (!isRound || !this.chessground)
         return;

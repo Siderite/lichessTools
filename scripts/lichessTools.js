@@ -1105,7 +1105,7 @@
     };
 
     getUserId = () => {
-      return this.global.document.body.dataset?.user;
+      return this.global.document.body?.dataset?.user;
     };
 
     isFriendsPage = () => {
@@ -1207,6 +1207,11 @@
         lastMove[key] = true;
       });
 
+      const positionKey = this.global.JSON.stringify(lastMove);
+      if (container.prop('__lastPositionKey')===positionKey) {
+        return container.prop('__lastPosition');
+      }
+
       let turn = '';
       const pieceDict = {};
       $('piece', container).each((i, p) => {
@@ -1286,6 +1291,10 @@
         }
       }
       pos += turn[0];
+
+      container.prop('__lastPosition',pos);
+      container.prop('__lastPositionKey',positionKey);
+
       return pos;
     };
 
@@ -1460,8 +1469,11 @@
     };
 
     random = () => {
+      if (!this.global.crypto) {
+        return this.global.Math.random();
+      }
       const arr = new Uint32Array(2);
-      crypto.getRandomValues(arr);
+      this.global.crypto.getRandomValues(arr);
       const mantissa = (arr[0] * Math.pow(2, 20)) + (arr[1] >>> 12);
       return mantissa * Math.pow(2, -52);
     };
@@ -1631,15 +1643,18 @@
         }
       },
       postForm: async function(url, data, options) {
-        const formData = new FormData();
+        const params = new URLSearchParams();
         if (data) {
           for (const key in data) {
-            formData.append(key, data[key]);
+            params.append(key, data[key]);
           }
         }
         return await this.fetch(url, {
           method: 'POST',
-          body: formData,
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+          },
+          body: params.toString(),
           ...options
         });
       },
@@ -1725,12 +1740,12 @@
         const lt = this.lichessTools;
         const store = this.getStore(options);
         let text = store.getItem(key);
-        if (text && options?.zip) {
+        if (typeof text === 'string' && text?.startsWith('LTPK')) {
           try {
             const decompressed = LiChessTools.unzip(text);
             if (decompressed != null) text = decompressed;
           } catch (ex) {
-            lt.global.console.debug('Cannot unzip text. Using raw', ex);
+            lt.global.console.warn('Cannot unzip text. Using raw', ex);
           }
         }
         if (text === undefined || options?.raw) return text;
@@ -1749,13 +1764,22 @@
           return;
         }
         let text = options?.raw ? value : JSON.stringify(value);
-        if (options?.zip) {
+        const zip = options?.zip === true || (text?.length >= +options?.zip);
+        if (zip) {
           try {
             const compressed = LiChessTools.zip(text);
             if (compressed != null) text = compressed;
           } catch (ex) {
-            lt.global.console.debug('Cannot zip text. Using raw', ex);
+            lt.global.console.warn('Cannot zip text. Using raw', ex);
           }
+        }
+        try {
+          store.setItem(key, text);
+        } catch(e) {
+          if (e instanceof QuotaExceededError) {
+            lt.global.console.warn(`Storage quota exceeded for ${key} (${text?.length}) Session: ${options?.session}`);
+          }
+          throw e;
         }
         store.setItem(key, text);
       },
@@ -1872,8 +1896,8 @@
       _lock: '__lock cache keys__',
       init: function () {
         const lt = this.lichessTools;
-        const sessionData = lt.storage.get('LichessTools.GeneralCache', { session: true, zip: true }) || [];
-        const localData = lt.storage.get('LichessTools.GeneralCache', { session: false, zip: true }) || [];
+        const sessionData = lt.storage.get('LichessTools.GeneralCache', { session: true }) || [];
+        const localData = lt.storage.get('LichessTools.GeneralCache', { session: false }) || [];
         this._cache = new Map(sessionData.concat(localData));
       },
       save: function() {
@@ -1891,13 +1915,38 @@
         lt.global.clearInterval(this._saveInterval);
         this._saveInterval = undefined;
         if (!this._cache) return;
-        let data = [...this._cache.entries()].filter(e => e[1].persist == 'session');
-        if (data.length) {
-          lt.storage.set('LichessTools.GeneralCache', data, { session: true, zip: true });
+
+        const totalEntries = [...this._cache.entries()];
+        const sessionEntries = [];
+        const localEntries = [];
+        totalEntries.forEach(e=>{
+          switch(e[1].persist) {
+            case 'session': sessionEntries.push(e); break;
+            case 'local': localEntries.push(e); break;
+          }
+        });
+        const minSizeForZip = 2000000;
+        if (sessionEntries.length) {
+          try {
+            lt.storage.set('LichessTools.GeneralCache', sessionEntries, { session: true, zip: minSizeForZip });
+          } catch(e) {
+            if (e instanceof QuotaExceededError) {
+              lt.storage.set('LichessTools.GeneralCache', sessionEntries, { session: true, zip: true });
+            } else {
+              throw e;
+            }
+          }
         }
-        data = [...this._cache.entries()].filter(e => e[1].persist == 'local');
-        if (data.length) {
-          lt.storage.set('LichessTools.GeneralCache', data, { session: false, zip: true });
+        if (localEntries.length) {
+          try {
+            lt.storage.set('LichessTools.GeneralCache', localEntries, { session: false, zip: minSizeForZip });
+          } catch(e) {
+            if (e instanceof QuotaExceededError) {
+              lt.storage.set('LichessTools.GeneralCache', localEntries, { session: false, zip: true });
+            } else {
+              throw e;
+            }
+          }
         }
       },
       getCached: function (key) {
@@ -1998,6 +2047,12 @@
         lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_' });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserPgns', { persist: 'session', interval: 10 * 1000 });
+        lt.api.puzzle.getPuzzlesOfPlayerPageMemoized = async (...args)=>{
+          const result = await lt.api.puzzle.getPuzzlesOfPlayerPage(...args);
+          await lt.timeout(500);
+          return result;
+        };
+        lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
       },
       blog: {
         lichessTools: this,
@@ -2022,10 +2077,15 @@
       },
       study: {
         lichessTools: this,
-        getChapterPgn: async function (studyId, chapterId) {
+        getChapterPgn: async function (studyId, chapterId, options) {
           const lt = this.lichessTools;
+          const query = options
+            ? '?' + Object.keys(options)
+              .map(k => k + '=' + lt.global.encodeURIComponent(options[k]))
+              .join('&')
+            : '';
           const pgn = await lt.net.fetch({
-            url: '/study/{studyId}/{chapterId}.pgn',
+            url: '/study/{studyId}/{chapterId}.pgn'+query,
             args: { studyId, chapterId }
           },{ ignoreStatuses: [404] });
           return pgn;
@@ -2038,7 +2098,51 @@
           url.searchParams.set('page',page);
           const json = await lt.net.json(url.toString());
           return json;
-        }
+        },
+        updatePgnTags: async function(studyId, chapterId, pgn) {
+          const lt = this.lichessTools;
+          await lt.net.postForm({
+              url: '/api/study/{studyId}/{chapterId}/tags',
+              args: { studyId, chapterId }
+            },
+            { pgn: pgn },
+            {
+              mode: 'cors',
+              credentials: 'include'
+            });
+        },
+        setTopics: async function(topics) {
+          const lt = this.lichessTools;
+          const json = lt.global.JSON.stringify(topics.map(t=>({ value: t })));
+          const bodyContent = 'topics=' + lt.global.encodeURIComponent(json);
+          await lt.net.fetch('/study/topic',
+            {
+              headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+              },
+              body: bodyContent,
+              method: 'POST',
+              mode: 'cors',
+              credentials: 'include'
+            });
+        },
+        getTopicStudies: async function (topic, startPage = 1, count = 1000) {
+          const lt = this.lichessTools;
+          let result = [];
+          const userId = lt.getUserId();
+          if (!userId) return result;
+          let page = await lt.net.json({ url: '/study/topic/{topic}/mine?page={page}', args: { topic: topic, page: startPage } })
+          while (page) {
+            result=result.concat(page.paginator.currentPageResults);
+            result.nextPage = page.paginator.nextPage;
+            result.nbResults = page.paginator.nbResults;
+            count--;
+            page = count && result.nextPage
+              ? await lt.net.json({ url: '/study/topic/{topic}/mine?page={page}', args: { topic: topic, page: page.paginator.nextPage } })
+              : null;
+          }
+          return result;
+        },
       },
       puzzle: {
         lichessTools: this,
@@ -2061,6 +2165,51 @@
             }
           });
           return data;
+        },
+        getPuzzlesOfPlayerPage: async function(userId='', page=1, count=0) {
+          const lt = this.lichessTools;
+          const $ = lt.$;
+          const html = await lt.net.fetch({
+            url: '/training/of-player?name={user}&page={page}',
+            args: { user: userId, page: page }
+          });
+          const $html = $(html);
+          const puzzleElems = $html.find('.puzzle-of-player__puzzle');
+          const pagePuzzles = puzzleElems.get()
+                           .map(e=>{
+                             const $e = $(e);
+                             return {
+                               fen: $e.find('.puzzle-of-player__puzzle__board').attr('data-state')?.split(',')?.[0],
+                               id: $e.find('.puzzle-of-player__puzzle__id').text(),
+                               rating: +$e.find('.puzzle-of-player__puzzle__rating').text()
+                             };
+                           });
+          const result = {
+            userId: userId,
+            puzzles: pagePuzzles
+          };
+          if (!count) {
+            const title = $html.find('.puzzle-of-player__results strong:first-child')
+                               .text()
+                               .replaceAll(/[\.,]/g,'');
+            const m = /^.*?(?<count>\d+)/.exec(title);
+            count = +m?.groups?.count || pagePuzzles.length;
+          }
+          result.next = +/page=(?<page>\d+)/.exec($html.find('.pager a').attr('href'))?.groups?.page || null;
+          result.count = count;
+          return result;
+        },
+        getPuzzlesOfPlayer: async function(userId) {
+          const lt = this.lichessTools;
+          const puzzles = []
+          let result = await this.getPuzzlesOfPlayerPage(userId,1,0);
+          puzzles.push(...result.puzzles);
+
+          while (result.next) {
+            result = await this.getPuzzlesOfPlayerPageMemoized(result.userId, result.next, result.count);
+            puzzles.push(...result.puzzles);
+          }
+          return puzzles;
         }
       },
       user: {
@@ -2374,6 +2523,7 @@
       this.global.addEventListener('pagehide', () => {
         this.net.storeLog();
       });
+      this.currentOptions = await this.getOptions();
       for (const tool of this.tools) {
         if (!tool?.init) continue;
         try {
@@ -2510,6 +2660,24 @@
         await this.saveOptions(options);
       }
       options = await this.getOptions();
+      const enableTime = +(options['enableLichessTools.enableTime']||0);
+      if (enableTime) {
+        let saveOptions = false;
+        if (options.enableLichessTools) {
+          delete options['enableLichessTools.enableTime'];
+          saveOptions = true;
+        } else {
+          if (Date.now()>enableTime) {
+            console.log('Re-enabling LiChess Tools');
+            options.enableLichessTools = true;
+            delete options['enableLichessTools.enableTime'];
+            saveOptions = true;
+          }
+        }
+        if (saveOptions) {
+          this.saveOptions(options);
+        }
+      }
       if (this.prevOptions === this.global.JSON.stringify(options)) {
         return;
       }

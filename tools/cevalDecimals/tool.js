@@ -41,7 +41,7 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        if (!analysis?.showFishnetAnalysis()) return;
+        if (!analysis?.showFishnetAnalysis() && !analysis?.cevalEnabled()) return;
         const trans = lt.translator;
         const ceval = analysis.node.ceval || analysis.node.eval;
         if (ceval) {

@@ -1145,7 +1145,7 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      if (!forced && Math.random() > 0.95) forced = true; // hack to sometimes update this anyway
+      if (!forced && lt.random() > 0.95) forced = true; // hack to sometimes update this anyway
 
       if (!lichess.analysis) return;
       const currentBrilliant = [this.options.brilliant, this.options.moreBrilliant].join(',');
@@ -1715,10 +1715,10 @@
       }
 
       $('main.analyse').observer()
-        .off('.advice-summary__accuracy,.analyse__underboard',this.initAccuracyPlus);
+        .off('.advice-summary__accuracy,.analyse__underboard,.analyse__round-training',this.initAccuracyPlus);
       if (this.options.accuracyPlus) {
         $('main.analyse').observer()
-          .on('.advice-summary__accuracy,.analyse__underboard',this.initAccuracyPlus);
+          .on('.advice-summary__accuracy,.analyse__underboard,.analyse__round-training',this.initAccuracyPlus);
         this.initAccuracyPlus();
       }
     }

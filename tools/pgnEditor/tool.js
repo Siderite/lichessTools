@@ -241,6 +241,8 @@
       const $ = lt.$;
       const trans = lt.translator;
 
+      $('body').toggleClassSafe('lichessTools-page',true);
+
       this._prevTitle ||= lt.global.document.title;
       lt.global.document.title = trans.noarg('pgnEditorTitle');
 
@@ -248,6 +250,7 @@
       const dialog = $('<dialog class="lichessTools-pgnEditor">')
         .on('close',()=>{
           lt.global.document.title = this._prevTitle;
+          $('body').toggleClassSafe('lichessTools-page',false);
         })
         .append(`
     <div class="close-button-anchor">
@@ -2058,8 +2061,6 @@
       this.options = { enabled: !!value };
       const $ = lt.$;
       const trans = lt.translator;
-      const container = $('#topnav section a[href="/analysis"]+div[role="group"]');
-      $('.lichessTools-pgnEditor', container).trigger('close').remove();
 
       if (lichess.analysis) {
         lt.pubsub.off('lichessTools.redraw', this.analysisControls);
@@ -2074,20 +2075,25 @@
         this.analysisControls();
       }
 
+      $(lt.global).off('hashchange', this.hashchange);
       if (!value) {
         $('dialog.lichessTools-pgnEditor').trigger('close').remove();
         return;
       }
-      $('<a/>')
-        .addClass('lichessTools-pgnEditor')
-        .text(trans.noarg('pgnEditorText'))
-        .attr('title', trans.noarg('pgnEditorTitle'))
-        .on('click', ev => {
-          ev.preventDefault();
-          this.showPgnEditor();
-          $('nav#topnav').trigger('mouseout');
-        })
-        .appendTo(container);
+
+      const container = $('#topnav section a[href="/analysis"]+div[role="group"]');
+      if (!container.find('.lichessTools-pgnEditor').length) {
+        $('<a/>')
+          .addClass('lichessTools-pgnEditor')
+          .text(trans.noarg('pgnEditorText'))
+          .attr('title', trans.noarg('pgnEditorTitle'))
+          .on('click', ev => {
+            ev.preventDefault();
+            this.showPgnEditor();
+            $('nav#topnav').trigger('mouseout');
+          })
+          .appendTo(container);
+      }
       $(lt.global).on('hashchange', this.hashchange);
       this.hashchange();
     }

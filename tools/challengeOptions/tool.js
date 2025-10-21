@@ -52,6 +52,7 @@
           : '/@/'+lt.global.encodeURIComponent(other);
         const text = await lt.api.game.getUserPgns(userId,{ moves: false, max: 5 });
         const co = lt.chessops;
+        if (!co) return;
         const { parsePgn } = co.pgn;
         const games = parsePgn(text);
         container.empty();

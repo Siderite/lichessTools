@@ -1,5 +1,42 @@
 History of features added to LiChess Tools in time (reversed order)
 
+20 Oct
+
+- Find current position in puzzles from your games
+
+19 Oct
+
+- Opponents link in the live friends page
+- Link to help translate LiChess Tools
+- Game chat buttons to auto whisper, auto prepend move and insert move
+
+18 Oct
+
+- added fixSnabdom
+
+17 Oct
+
+- fix custom chat buttons to support all languages
+- fix Explorer settings
+- sortable topics in the study topic dialog
+- page init data tool
+
+15 Oct
+
+- extension toggle in user menu
+
+14 Oct
+
+- imgBB image pasting
+- sortable study topic tags
+- game list text filter
+
+13 Oct
+
+- bulk edit chapter PGN tags
+- sortable study topics
+- expandable study topics
+
 11 Oct
 
 - win margin tooltip in Explorer Eval

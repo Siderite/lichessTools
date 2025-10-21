@@ -221,7 +221,7 @@
           }
           let newIndex = index;
           while (newIndex == index) {
-            let perc = Math.random()*100;
+            let perc = lt.random()*100;
             for (let i=0; i<list.length; i++) {
               perc -= list[i].perc;
               if (perc<=0) {

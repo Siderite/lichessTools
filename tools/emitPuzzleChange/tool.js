@@ -24,7 +24,7 @@
       if (!puzzleId) return;
       $('body')
         .observer()
-        .on('.puzzle__tools',this.processPuzzle);
+        .on('.puzzle__tools',this.processPuzzle,{ executeDirect: true });
       lt.global.setTimeout(this.processPuzzle,100);
     }
   }

@@ -8,7 +8,7 @@
         name: 'mchatOptions',
         category: 'comm',
         type: 'multiple',
-        possibleValues: ['urlify', 'unlimited', 'images', 'teamChatNotifications'],
+        possibleValues: ['urlify', 'unlimited', 'images', 'teamChatNotifications','autoWhisper','prependMove','insertSelectedMove'],
         defaultValue: 'urlify,unlimited,images,teamChatNotifications',
         advanced: true,
         needsLogin: true
@@ -23,10 +23,20 @@
         'mchatOptions.unlimited': 'No length limit',
         'mchatOptions.images': 'Image support',
         'mchatOptions.teamChatNotifications': 'Team chat notifications',
+        'mchatOptions.autoWhisper': 'Auto whisper button',
+        'mchatOptions.prependMove': 'Auto add move button',
+        'mchatOptions.insertSelectedMove': 'Insert move button',
         'newTeamMessagesText': 'You have new messages in team chat for %s',
         'newTeamMessagesSubtitle': 'New messages',
         'teamNotifyTitle': 'Notifications for team chat message',
-        'maximumThreeTeams': 'Maximum team notification limit reached!'
+        'maximumThreeTeams': 'Maximum team notification limit reached!',
+        'autoWhisperButtonText': '/w',
+        'autoWhisperButtonTitle': 'LiChess Tools - auto whisper',
+        'autoMoveButtonText': 'M',
+        'autoMoveButtonTitle': 'LiChess Tools - auto prepend last move in the game',
+        'insertSelectedMoveButtonText': '+',
+        'insertSelectedMoveButtonTitle': 'LiChess Tools - insert the selected move',
+        'whispered': 'You whispered: %s'
       },
       'ro-RO': {
         'options.comm': 'Chat, forumuri, blog-uri',
@@ -35,10 +45,20 @@
         'mchatOptions.unlimited': 'F\u0103r\u0103 limit\u0103 lungime',
         'mchatOptions.images': 'Suport imagini',
         'mchatOptions.teamChatNotifications': 'Notific\u0103ri la chat \u00een echip\u0103',
+        'mchatOptions.autoWhisper': 'Buton auto whisper',
+        'mchatOptions.prependMove': 'Buton auto adaug\u0103 mutare',
+        'mchatOptions.insertSelectedMove': 'Buton introdu mutarea curent\u0103',
         'newTeamMessagesText': 'Ai noi mesaje \u00een chat-ul echipei %s',
         'newTeamMessagesSubtitle': 'Mesaje noi',
         'teamNotifyTitle': 'Notific\u0103ri mesaje \u00een chat-ul echipei',
-        'maximumThreeTeams': 'Ai atins num\u0103rul maxim de echipe pentru notificare!'
+        'maximumThreeTeams': 'Ai atins num\u0103rul maxim de echipe pentru notificare!',
+        'autoWhisperButtonText': '/w',
+        'autoWhisperButtonTitle': 'LiChess Tools - auto whisper',
+        'autoMoveButtonText': 'M',
+        'autoMoveButtonTitle': 'LiChess Tools - auto adaug\u0103 ultima mutare din joc',
+        'insertSelectedMoveButtonText': '+',
+        'insertSelectedMoveButtonTitle': 'LiChess Tools - introdu mutarea curent\u0103',
+        'whispered': 'Ai \u015foptit: %s'
       }
     }
 
@@ -178,7 +198,7 @@
       const data = lt.global.document.body.dataset;
       const baseUrls = (data.socketAlts || data.socketDomains)?.split(',');
       if (!baseUrls?.length) return;
-      const url = 'wss://' + baseUrls[Math.floor(lt.global.Math.random() * baseUrls.length)];
+      const url = 'wss://' + baseUrls[Math.floor(lt.random() * baseUrls.length)];
       const fullUrl = url + '/team/' + teamId + '?v=1&sri=' + lt.sri;
       const ws = new WebSocket(fullUrl);
       const console = lt.global.console;
@@ -381,6 +401,166 @@
       }
     };
 
+    isInGame = (running, playing)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (running && $('.result-wrap').length) return false;
+      if (!$('main l4x').length) return false;
+      if (playing && !$('body').is('.playing')) return false;
+      return true;
+    };
+
+    canWhisper = ()=>{
+      if (!this.options.autoWhisper) return false;
+      if (!this.isInGame(true,true)) return false;
+      return true;
+    };
+
+    canPrependMove = ()=>{
+      if (!this.options.prependMove) return false;
+      if (!this.isInGame(true,false)) return false;
+      return true;
+    };
+
+    canInsertMove = ()=>{
+      if (!this.options.insertSelectedMove) return false;
+      if (!this.isInGame(false,false)) return false;
+      return true;
+    };
+
+    refreshChatButtons = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+
+      this._autoWhisper = this.options.autoWhisper
+                            ? !!lt.storage.get('LiChessTools.autoWhisper')
+                            : false;
+      this._prependMove = this.options.prependMove
+                            ? !!lt.storage.get('LiChessTools.prependMove')
+                            : false;
+
+      const container = $('.lichessTools-mchatOptions-extraButtons');
+      if (!this.options.autoWhisper && !this.options.prependMove && !this.options.insertSelectedMove) {
+        container.remove();
+        return;
+      }
+      if (!container.length) {
+        $('<div class="lichessTools-mchatOptions-extraButtons">')
+          .insertBefore('.mchat__messages');
+      }
+      let autoWhisperButton = container.find('.lichessTools-autoWhisper');
+      if (!autoWhisperButton.length) {
+        autoWhisperButton = $('<button type="button" class="lichessTools-autoWhisper">')
+          .text(trans.noarg('autoWhisperButtonText'))
+          .attr('title',trans.noarg('autoWhisperButtonTitle'))
+          .on('click',(ev)=>{
+            ev.preventDefault();
+            this._autoWhisper = !this._autoWhisper;
+            lt.storage.set('LiChessTools.autoWhisper',this._autoWhisper);
+            this.refreshChatButtons();
+          })
+          .appendTo(container);
+      }
+      autoWhisperButton
+        .toggleClassSafe('lichessTools-buttonOn',this._autoWhisper)
+        .toggleClassSafe('lichessTools-buttonActive',this.canWhisper());
+
+      let autoMoveButton = container.find('.lichessTools-prependMove');
+      if (!autoMoveButton.length) {
+        autoMoveButton = $('<button type="button" class="lichessTools-prependMove">')
+          .text(trans.noarg('autoMoveButtonText'))
+          .attr('title',trans.noarg('autoMoveButtonTitle'))
+          .on('click',(ev)=>{
+            ev.preventDefault();
+            this._prependMove = !this._prependMove;
+            lt.storage.set('LiChessTools.prependMove',this._prependMove);
+            this.refreshChatButtons();
+          })
+          .appendTo(container);
+      }
+      autoMoveButton
+        .toggleClassSafe('lichessTools-buttonOn',this._prependMove)
+        .toggleClassSafe('lichessTools-buttonActive',this.canPrependMove());
+
+      let insertButton = container.find('.lichessTools-insertMove');
+      if (!insertButton.length) {
+        insertButton = $('<button type="button" class="lichessTools-insertMove">')
+          .text(trans.noarg('insertSelectedMoveButtonText'))
+          .attr('title',trans.noarg('insertSelectedMoveButtonTitle'))
+          .on('click',(ev)=>{
+            ev.preventDefault();
+            const moveString = this.getMoveString(true);
+            $('.mchat__content .mchat__say')
+              .textInsert(moveString,true);
+          })
+          .appendTo(container);
+      }
+      insertButton
+        .toggleClassSafe('lichessTools-buttonActive',this.canInsertMove());
+
+        $('.mchat__content .mchat__say')
+          .each((i,e)=>{
+            if (e.__initButtons) return;
+            e.__initButtons = true;
+            $(e)
+              .on('input focus',this.handleInput)
+              .on('keyup',(ev)=>{
+                if (ev.key != 'Enter') return;
+                const value = $(ev.currentTarget).val();
+                if (!value?.trim()) return;
+                const m = /^(?<whisper>\s*\/w\s+)?(?<text>.*)$/i.exec(value);
+                if (!m.groups.whisper) return;
+                $('<li class="me lichessTools-whisper">')
+                  .append($('<t>').text(trans.pluralSame('whispered',m.groups.text)))
+                  .appendTo('.mchat__content .mchat__messages');
+              });
+          });
+
+      this.handleInput();
+    };
+
+    getMoveString = (selected)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const el = $('main.round l4x kwdb'+(selected?'.a1t':'')).last();
+      const index = el.index()+1;
+      if (index==0) return '';
+      const sideIndicator = index % 3 == 0 ? '...' : '.';
+      const moveNumber = Math.round(index / 3);
+      const move = el.text();
+      return `(${moveNumber}${sideIndicator}${move})`;
+    };
+
+    doPrependMove = (value)=>{
+      const moveString = this.getMoveString(false);
+      const m = /^(?<whisper>\s*\/w\s+)?(?<text>.*)$/i.exec(value);
+      if (!/^\(\d+\.{1,3}.{2,7}\)/.test(m.groups.text)) {
+        value = (m.groups.whisper||'')  + moveString +' '+m.groups.text;
+      }
+      return value;
+    };
+
+    doAutoWhisper = (value)=>{
+      const m = /^(?<whisper>\s*\/w\s+)?(?<text>.*)$/i.exec(value);
+      value = '/w '+m.groups.text;
+      return value;
+    };
+
+    handleInput = (ev)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (['deleteContentForward','deleteContentBackward'].includes(ev?.inputType)) return;
+      const $e = $('.mchat__content .mchat__say');
+      const initValue = $e.val();
+      let value = initValue;
+      if (this._prependMove) value = this.doPrependMove(value);
+      if (this._autoWhisper) value = this.doAutoWhisper(value);
+      if (value != initValue) {
+        $e.val(value);
+      }
+    };
+
     sockets = [];
     async start() {
       const lt = this.lichessTools;
@@ -393,7 +573,10 @@
         urlify: lt.isOptionSet(value, 'urlify'),
         unlimited: lt.isOptionSet(value, 'unlimited'),
         images: lt.isOptionSet(value, 'images'),
-        teamChatNotifications: lt.isOptionSet(value, 'teamChatNotifications')
+        teamChatNotifications: lt.isOptionSet(value, 'teamChatNotifications'),
+        autoWhisper: lt.isOptionSet(value, 'autoWhisper'),
+        prependMove: lt.isOptionSet(value, 'prependMove'),
+        insertSelectedMove: lt.isOptionSet(value, 'insertSelectedMove')
       };
       if (!lt.getUserId()) {
         lt.global.console.debug(' ... Disabled (not logged in)');
@@ -444,6 +627,16 @@
       } else {
         this.destroySockets(this.sockets);
         this.sockets = null;
+      }
+
+      $('body').observer()
+        .off('.mchat__content,.result-wrap',this.refreshChatButtons);
+      $('.lichessTools-mchatOptions-extraButtons').remove();
+
+      if (this.options.autoWhisper || this.options.prependMove) {
+        $('body').observer()
+          .on('.mchat__content,.result-wrap',this.refreshChatButtons);
+        this.refreshChatButtons();
       }
     }
 

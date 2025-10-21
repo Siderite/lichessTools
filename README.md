@@ -137,6 +137,18 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - K-MAPS analysis of the position
 - show latest games in challenge menu
 - custom piece sets, sound themes and board images
+- estimate rating based on game accuracy
+- bulk removal of imported games
+- show latest 5 challenges when no active ones
+- random challenge button
+- improved best move arrow
+- evaluate all branch moves
+- highlight next moves in Explorer
+- Ctrl-C to copy current position
+- extra lobby counters
+- sortable and expandable study topics
+- Bulk edit study chapter PGN tags
+- Quick LiChess Tools toggle in the user menu
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:

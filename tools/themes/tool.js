@@ -90,8 +90,9 @@
           const html = this.dgtHtml || (this.dgtHtml = await lt.net.fetch('/dgt'));
           container = $('<div>'+html+'</div>');
         }
-        let backgroundImage = lt.currentOptions.customBoardImage && !is3d
-          ? lt.currentOptions.customBoardImage
+        const boardImage = lt.currentOptions.getValue('customBoardImage');
+        let backgroundImage = boardImage && !is3d
+          ? boardImage
           : $('link[rel=preload][as=image]',container)
             .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
             .eq(is3d?1:0)
@@ -132,6 +133,9 @@
       this.themes = value;
       const $ = lt.$;
       $(lt.global).off('hashchange', this.applyThemes);
+      $('body').observer()
+        .off('body, #main-wrap, .main-board cg-board',this.checkBody);
+      if (!lt.currentOptions.enableLichessTools) return;
       $(lt.global).on('hashchange', this.applyThemes);
       $('body').observer()
         .on('body, #main-wrap, .main-board cg-board',this.checkBody,{

@@ -161,8 +161,9 @@
       const value = lt.currentOptions.getValue('friendsPlaying');
       this.logOption('Friends playing alert', value);
       this.options = { enabled: !!value };
-      if (lt.currentOptions.getValue('mutedPlayers')?.length) {
-        this.logOption(' ... muted', lt.currentOptions.getValue('mutedPlayers').join(','));
+      const mutedPlayers = lt.currentOptions.getValue('mutedPlayers');
+      if (mutedPlayers?.length) {
+        this.logOption(' ... muted', mutedPlayers.join(','));
       }
       if (!lt.getUserId()) {
         lt.global.console.debug(' ... Disabled (not logged in)');

@@ -34,7 +34,8 @@
            subtree: true,
            childList: true, 
            attributes: false, 
-           characterData: true
+           characterData: true,
+           executeDirect: true
          });
     }
 

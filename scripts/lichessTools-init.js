@@ -1,6 +1,7 @@
 window.lichessTools = new LiChessTools(window, cash);
 
 lichessTools.loadTool(LiChessTools.Tools.Crowdin);
+lichessTools.loadTool(LiChessTools.Tools.PageInitData);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitContentLoaded);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
@@ -14,6 +15,7 @@ lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
 lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);
 //lichessTools.loadTool(LiChessTools.Tools.InterceptTimeouts);
 lichessTools.loadTool(LiChessTools.Tools.FixAbortController);
+lichessTools.loadTool(LiChessTools.Tools.FixSnabdom);
 lichessTools.loadTool(LiChessTools.Tools.FixChessgroundResize);
 lichessTools.loadTool(LiChessTools.Tools.FixWakeLock);
 lichessTools.loadTool(LiChessTools.Tools.FixChessvision);
@@ -30,6 +32,8 @@ lichessTools.loadTool(LiChessTools.Tools.ChessOps);
 lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
 lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);
+lichessTools.loadTool(LiChessTools.Tools.CustomBoardImage);
+lichessTools.loadTool(LiChessTools.Tools.ExtraPieceSets);
 
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
 lichessTools.loadTool(LiChessTools.Tools.MobileExperience);
@@ -116,7 +120,6 @@ lichessTools.loadTool(LiChessTools.Tools.ShowDeviation);
 lichessTools.loadTool(LiChessTools.Tools.LinkToAnalysis);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleOptions);
 lichessTools.loadTool(LiChessTools.Tools.BlogHistory);
-lichessTools.loadTool(LiChessTools.Tools.ExtraPieceSets);
 lichessTools.loadTool(LiChessTools.Tools.QuickActions);
 lichessTools.loadTool(LiChessTools.Tools.TotalGameTime);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleHistory);
@@ -131,7 +134,8 @@ lichessTools.loadTool(LiChessTools.Tools.ChallengeOptions);
 lichessTools.loadTool(LiChessTools.Tools.BetterBestArrow);
 lichessTools.loadTool(LiChessTools.Tools.DownloadBroadcastPgn);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerMoreGames);
-lichessTools.loadTool(LiChessTools.Tools.CustomBoardImage);
+lichessTools.loadTool(LiChessTools.Tools.StudyTopics);
+lichessTools.loadTool(LiChessTools.Tools.RipDanya);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

@@ -3,3 +3,31 @@ body.lichessTools td.lichessTools-notify a:not(.lichessTools-enabled) {
   transform: rotate(45deg);
   opacity: 0.3;
 }
+
+body.lichessTools div.lichessTools-mchatOptions-extraButtons {
+  display: flex;
+  gap: 3px;
+  margin-left: 3px;
+}
+
+body.lichessTools div.lichessTools-mchatOptions-extraButtons button {
+  display: none;
+  padding: 3px;
+  min-width: 2em;
+  background:none;
+  border: var(--c-link) 1px solid;
+  border-radius: 33%;
+}
+
+body.lichessTools div.lichessTools-mchatOptions-extraButtons button.lichessTools-buttonOn {
+  background: var(--c-link);
+}
+
+body.lichessTools div.lichessTools-mchatOptions-extraButtons button.lichessTools-buttonActive {
+  display: block;
+}
+
+body.lichessTools .mchat__messages li.lichessTools-whisper {
+  color: var(--c-good);
+  font-style: italic;
+}

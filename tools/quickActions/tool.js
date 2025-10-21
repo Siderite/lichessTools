@@ -211,7 +211,7 @@
       return !!$('form.future-game-analysis').length
     }
 
-    initQuickActions = (start)=>{
+    initQuickActions = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       let button = $('button.fbt[data-act="menu"], button.board-menu-toggle, button.msg-app__convo__post__submit');
@@ -256,7 +256,7 @@
       if (!this.options.isSet) return;
       lt.pubsub.on('lichessTools.chapterChange',this.initQuickActions);
       $('body')
-       .observer('quickActions')
+       .observer()
        .on('button.fbt[data-act="menu"],button.board-menu-toggle,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
     }
 

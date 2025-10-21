@@ -106,7 +106,7 @@
           .addClass('lichessTools-playerLag')
           .appendTo(container);
       }
-      container.siblings('signal').remove();
+      container.siblings('signal').hide();
       const lagRating = !lag ? 0 : lag < 150 ? 4 : lag < 300 ? 3 : lag < 500 ? 2 : 1;
       signal
         .attr('title', trans.noarg('playerLagTitle').replaceAll('%1', Math.round(lag)).replaceAll('%2', Math.round(latency)))

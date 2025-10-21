@@ -111,7 +111,7 @@
 
     readComments = ()=>{
       const lt = this.lichessTools;
-      if (lt.storage.get('LiChessTools.dontReadComments')) return;
+      if (!this.options.enabled || lt.storage.get('LiChessTools.dontReadComments')) return;
       const lichess = lt.lichess;
 
       lt.stopSpeaking();
@@ -184,7 +184,10 @@
       lt.uiApi.events.off('ply', this.readComments);
       lt.global.removeEventListener('beforeunload', lt.stopSpeaking);
       $('.lichessTools-readComments').remove();
+      $('main').observer()
+        .off('.gamebook, .gamebook .comment',this.showInteractiveButton);
       if (!this.options.enabled) return;
+
       lt.uiApi.events.on('ply', this.readComments);
       this.readComments();
       lt.global.addEventListener('beforeunload', lt.stopSpeaking);
