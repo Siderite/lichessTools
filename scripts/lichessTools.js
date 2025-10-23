@@ -18,11 +18,25 @@
       'en-US': {
         'LiChess Tools': 'LiChess Tools',
         serverOverload: 'Lichess thinks we are overloading their system!',
-        errorSavingPreferences: 'Error saving preferences! Reload the page.'
+        errorSavingPreferences: 'Error saving preferences! Reload the page.',
+        'daysText:one': 'a day',
+        'hoursText:one': 'an hr',
+        'minutesText:one': 'a min',
+        'daysText': '%s days',
+        'hoursText': '%s hrs',
+        'minutesText': '%s mins',
+        'timeText': '%s ago'
       },
       'ro-RO': {
         serverOverload: 'Lichess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!',
-        errorSavingPreferences: 'Eroare salvare preferin\u0163e! Re\u00eencarc\u0103 pagina.'
+        errorSavingPreferences: 'Eroare salvare preferin\u0163e! Re\u00eencarc\u0103 pagina.',
+        'daysText:one': 'o zi',
+        'hoursText:one': 'o or\u0103',
+        'minutesText:one': 'un minut',
+        'daysText': '%s zile',
+        'hoursText': '%s ore',
+        'minutesText': '%s minute',
+        'timeText': 'acum %s'
       },
       get lang() {
         const lt = this.lichessTools;
@@ -249,6 +263,25 @@
         }
         return result;
       }
+    };
+
+    getTimeText = (value) => {
+      const trans = this.translator;
+      let result;
+      const days = Math.round(value / 86400000);
+      if (Math.trunc(value / 86400000)) {
+        result = trans.plural('daysText', days, days);
+      } else {
+        const hours = Math.round(value / 3600000);
+        if (Math.trunc(value / 3600000)) {
+          result = trans.plural('hoursText', hours, hours);
+        } else {
+          const minutes = Math.round(value / 60000);
+          result = trans.plural('minutesText', minutes, minutes)
+        }
+      }
+      result = trans.pluralSame('timeText', result);
+      return result;
     };
 
     getCentipawns = (info) => {

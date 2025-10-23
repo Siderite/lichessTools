@@ -43,13 +43,6 @@
         'hideNotPlayingTitle': 'Playing players',
         'hideMutedTitle': 'Not muted players',
         'hideInactiveTitle': 'Active players',
-        'daysText:one': 'a day',
-        'hoursText:one': 'an hr',
-        'minutesText:one': 'a min',
-        'daysText': '%s days',
-        'hoursText': '%s hrs',
-        'minutesText': '%s mins',
-        'timeText': '%s ago',
         'followersText': 'Followers',
         'followersTitle': 'LiChess Tools - players following you',
         'followersNumberTitle': '%s followers',
@@ -80,13 +73,6 @@
         'hideNotPlayingTitle': 'Juc\u0103tori care joac\u0103',
         'hideMutedTitle': 'Juc\u0103tori cu alert\u0103 de joc permis\u0103',
         'hideInactiveTitle': 'Juc\u0103tori activi',
-        'daysText:one': 'o zi',
-        'hoursText:one': 'o or\u0103',
-        'minutesText:one': 'un minut',
-        'daysText': '%s zile',
-        'hoursText': '%s ore',
-        'minutesText': '%s minute',
-        'timeText': 'acum %s',
         'followersText': 'Urm\u0103ritori',
         'followersTitle': 'LiChess Tools - juc\u0103tori care te urm\u0103resc',
         'followersNumberTitle': '%s urm\u0103ritori',
@@ -525,26 +511,6 @@
       this.filterFriends();
     };
     updateFriendsPage=this.lichessTools.debounce(this.updateFriendsPageDirect,100);
-
-    getTimeText = (value) => {
-      const lt = this.lichessTools;
-      const trans = lt.translator;
-      let result;
-      const days = Math.round(value / 86400000);
-      if (Math.trunc(value / 86400000)) {
-        result = trans.plural('daysText', days, days);
-      } else {
-        const hours = Math.round(value / 3600000);
-        if (Math.trunc(value / 3600000)) {
-          result = trans.plural('hoursText', hours, hours);
-        } else {
-          const minutes = Math.round(value / 60000);
-          result = trans.plural('minutesText', minutes, minutes)
-        }
-      }
-      result = trans.pluralSame('timeText', result);
-      return result;
-    };
 
     getUserId = (user) => user?.toLowerCase().replace(/^\w+\s/, '');
 

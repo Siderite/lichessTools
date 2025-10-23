@@ -89,11 +89,16 @@
           gameId = '';
           continue;
         }
-        const opening = result.opening;
+        let opening = result.opening;
         const container = result.el;
         let openingEl = $('.lichessTools-opening', container);
         if (!openingEl.length) {
           openingEl = $('<span class="lichessTools-opening"/>')
+            .appendTo(container);
+        }
+        if (el.gameTime && !$(el).find('.lichessTools-time').length && $(el).closest('#miniGame').length) {
+          $('<span class="lichessTools-time"/>')
+            .text(el.gameTime)
             .appendTo(container);
         }
         openingEl
@@ -181,6 +186,11 @@
         el.openingData = { time: time, opening: opening, el };
         if (ply) {
           el.maxPly = Math.max(ply, +el.maxPly || 0);
+        }
+        const timeString = (lt.getPgnTag(pgn, 'UTCDate')||'') +' '+ (lt.getPgnTag(pgn, 'UTCTime')||'');
+        const gameTime = Date.parse(timeString);
+        if (gameTime) {
+          el.gameTime = lt.getTimeText(time-gameTime);
         }
         return el.openingData;
       }
