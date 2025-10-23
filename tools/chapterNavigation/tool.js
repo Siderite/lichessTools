@@ -263,18 +263,21 @@
         .removeClass('lichessTools-chapterControls')
         .find('div[role="footer"]')
         .remove();
+
       if (this.options.controls || this.options.subChapters) {
         lt.pubsub.on('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
         lt.pubsub.on('lichessTools.redraw', this.debouncedRefreshChapterControls);
         lt.uiApi.events.on('chat.resize', this.debouncedRefreshChapterControls);
         $('.study__chapters').observer()
-          .on('button[data-id]',this.debouncedRefreshChapterControls);
+          .on('button[data-id], button[data-id] h3',this.debouncedRefreshChapterControls);
         this.refreshChapterControls();
       }
+
       $('.lichessTools-expander').remove();
       $('.lichessTools-collapsedChapter').removeClass('lichessTools-collapsedChapter');
       $('button[data-id].collapsed').removeClass('collapsed');
       study.chapters.sort = lt.unwrapFunction(study.chapters.sort,'chapterNavigation');
+
       if (this.options.subChapters) {
         study.chapters.sort = lt.wrapFunction(study.chapters.sort,{
           id: 'chapterNavigation',
