@@ -354,5 +354,18 @@
     "gecko_android": {
       "strict_min_version": "130.0"
     }
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "tools/showKmaps/chess.js",
+        "tools/showKmaps/kmaps.js"
+      ],
+      "matches": [
+        "*://lichess.org/*",
+        "*://lichess.dev/*",
+        "*://testy.lichess.dev/*"
+      ]
+    }
+  ]
 }

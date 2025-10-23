@@ -46,9 +46,13 @@
       return /^\/broadcast\//i.test(lt.global.location.pathname);
     };
 
-    getKmaps = (fen, isBlack) => {
-      const evaluator = new ChessPositionEvaluator(fen);
-      const kmaps = evaluator.evaluate();
+    getKmaps = async (fen, isBlack) => {
+      const lt = this.lichessTools;
+      const useHollowLeaf = !!lt.storage.get('LiChessTools.showKmaps.useHollowLeaf');
+      const evaluator = useHollowLeaf
+        ? new HollowLeafEvaluator(fen, lt)
+        : new ChessPositionEvaluator(fen, lt);
+      const kmaps = await evaluator.evaluate();
       const q = isBlack ? -1 : 1;
       return { 
         K:q*kmaps.K,
@@ -217,7 +221,7 @@
           lt.global.console.warn('Could not get fen for element', el);
           continue;
         }
-        const kmaps = this.getKmaps(fen, $(el).attr('data-state')?.includes('black'));
+        const kmaps = await this.getKmaps(fen, $(el).attr('data-state')?.includes('black'));
         this.addKmapsAnchor(el, kmaps);
         fen = '';
       }
@@ -286,6 +290,28 @@
       }
     }
 
+  }
+
+  class HollowLeafEvaluator {
+    constructor(fen, lt) {
+      this.fen = fen;
+      this.lichessTools = lt;
+    }
+
+    async evaluate() {
+      const lt = this.lichessTools;
+      if (!HollowLeafEvaluator.computeKMAPS) {
+        const url = await lt.comm.getChromeUrl('tools/showKmaps/kmaps.js');
+        const { computeKMAPS } = await import(url);
+        HollowLeafEvaluator.computeKMAPS = computeKMAPS;
+      }
+      const kmaps = HollowLeafEvaluator.computeKMAPS(this.fen);
+      const result = {};
+      for (const itm of kmaps) {
+        result[itm.metric[0]]=(itm.White-itm.Black)||0;
+      }
+      return result;
+    }
   }
 
   class ChessPositionEvaluator {
@@ -972,7 +998,7 @@
     }
   
     // Main evaluation function
-    evaluate() {
+    async evaluate() {
       return {
         K: this.evaluateKingSafety(),
         M: this.evaluateMaterial(),

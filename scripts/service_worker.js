@@ -115,6 +115,10 @@ const handlers = {
     const manifest = chrome.runtime.getManifest();
     return { version: manifest.version };
   },
+  getChromeUrl: async (data)=>{
+    const url = chrome.runtime.getURL(data.options.url);
+    return { url: url };
+  },
   getDataUrl: async (data) =>{
     let url = data?.options?.url;
     if (!url) return;

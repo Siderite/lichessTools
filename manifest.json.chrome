@@ -354,5 +354,18 @@
   "action": {
     "default_title": "LiChess Tools",
     "default_popup": "popup.html"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "tools/showKmaps/chess.js",
+        "tools/showKmaps/kmaps.js"
+      ],
+      "matches": [
+        "*://lichess.org/*",
+        "*://lichess.dev/*",
+        "*://testy.lichess.dev/*"
+      ]
+    }
+  ]
 }

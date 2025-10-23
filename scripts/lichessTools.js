@@ -1888,7 +1888,20 @@
         } else {
           if (error) lt.global.console.error(error);
         }
+      },
+      getChromeUrl: async function(url) {
+        const options = { url: url };
+        const lt = this.lichessTools;
+        let error = null;
+        const data = await lt.comm.send({ type: 'getChromeUrl', options: options })
+                                             .catch(e => { error = e; });
+        if (data) {
+          return data.url;
+        } else {
+          if (error) lt.global.console.error(error);
+        }
       }
+
     };
 
     cache = {
