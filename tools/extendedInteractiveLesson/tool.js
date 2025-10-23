@@ -256,7 +256,7 @@
             .toggleClassSafe('good',false)
             .toggleClassSafe('bad',false);
           if (func && this.options.fastInteractive) {
-            if (this.alreadySeen(gp.path,state.comment)) {
+            if (!gp.state.isNavigateBack && this.alreadySeen(gp.path,state.comment,gp.isMyMove())) {
               lt.global.setTimeout(func, delay+500);
             }
             this.markSeenOnce(gp.path,state.comment);
@@ -352,11 +352,11 @@
       times.push(Date.now());
       if (times.length == 1) this.seen.set(key,times);
     };
-    alreadySeen = (path, comment) => {
+    alreadySeen = (path, comment, isMyMove) => {
       if (!this.seen) return false;
       const key = path+'|'+comment;
       const times = this.seen.get(key);
-      return times?.length > 5;
+      return times?.length > (isMyMove ? 3 : 1);
     };
 
     areBadGlyphNodes = (nodeList) => {
