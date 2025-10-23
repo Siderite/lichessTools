@@ -69,7 +69,7 @@
       const $ = lt.$;
       const radarChart = !!lt.storage.get('LiChessTools.showKmaps.radar');
       lt.storage.set('LiChessTools.showKmaps.radar',!radarChart);
-      $('.lichessTools-kmaps').empty();
+      $('.lichessTools-kmaps').remove();
       this.refreshKmaps();
     };
 

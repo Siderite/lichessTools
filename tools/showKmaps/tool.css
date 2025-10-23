@@ -43,6 +43,15 @@ body.lichessTools a.mini-game .lichessTools-kmaps {
   text-overflow: ellipsis;
 }
 
+body.lichessTools a.mini-game .lichessTools-kmaps:has(canvas) {
+  position:relative;
+  z-index:2;
+}
+
+
+body.lichessTools a.mini-game:has(.lichessTools-kmaps:hover) {
+  overflow: visible;
+}
 
 body.lichessTools div.analyse__wiki .lichessTools-kmaps,
 body.lichessTools .copyables .lichessTools-kmaps {
