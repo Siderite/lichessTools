@@ -300,6 +300,8 @@
       const $ = lt.$;
       if (lt.global.document.hidden) return;
       if ($.cached('body').is('.playing')) return;
+
+      const withParameter = !!el;
       const trans = lt.translator;
       let fen = '';
       if (el?.id && el?.fen) {
@@ -310,8 +312,16 @@
       if (!$(el).length) el = $.cached('body');
       const elems = $(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
+      if (withParameter && !elems.length) {
+        this.miniGameStructure();
+        return;
+      }
+      let notInViewport = false;
       for (const el of elems) {
-        if (!lt.inViewport(el)) continue;
+        if (!lt.inViewport(el)) {
+          notInViewport = true;
+          continue;
+        }
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
           lt.global.console.warn('Could not get fen for element', el);
@@ -323,6 +333,7 @@
         this.addStructureAnchor(el, structureName, structure);
         fen = '';
       }
+      if (notInViewport) this.miniGameStructureDebounced();
     };
     miniGameStructureDebounced = this.lichessTools.debounce(this.miniGameStructure, 500, { defer:true });
 

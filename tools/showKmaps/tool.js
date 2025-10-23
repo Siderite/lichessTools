@@ -79,7 +79,11 @@
       const trans = lt.translator;
       if (!el.length) el = $(el);
       let kmapsElem = el.find('.lichessTools-kmaps');
-      if (!kmapsElem.length) {
+      if (kmapsElem.length) {
+        const kmapsJson = lt.global.JSON.stringify(kmaps);
+        if (kmapsElem.prop('kmapsJson') == kmapsJson) return;
+        kmapsElem.prop('kmapsJson',kmapsJson);
+      } else {
         const visibleEl = el.filter((i, e) => !!lt.inViewport(e)).eq(0);
         kmapsElem = $('<span>')
           .addClass('lichessTools-kmaps')
@@ -205,6 +209,8 @@
       const $ = lt.$;
       if (lt.global.document.hidden) return;
       if ($.cached('body').is('.playing')) return;
+
+      const withParameter = !!el;
       let fen = '';
       if (el?.id && el?.fen) {
         fen = el.fen;
@@ -214,8 +220,16 @@
       if (!$(el).length) el = $.cached('body');
       const elems = $(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
+      if (withParameter && !elems.length) {
+        this.miniGameKmaps();
+        return;
+      }
+      let notInViewport = false;
       for (const el of elems) {
-        if (!lt.inViewport(el)) continue;
+        if (!lt.inViewport(el)) {
+          notInViewport = true;
+          continue;
+        }
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
           lt.global.console.warn('Could not get fen for element', el);
@@ -225,6 +239,7 @@
         this.addKmapsAnchor(el, kmaps);
         fen = '';
       }
+      if (notInViewport) this.miniGameKmapsDebounced();
     };
     miniGameKmapsDebounced = this.lichessTools.debounce(this.miniGameKmaps, 500, { defer:true });
 

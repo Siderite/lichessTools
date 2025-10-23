@@ -40,6 +40,8 @@
       const $ = lt.$;
       if (lt.global.document.hidden) return;
       if ($.cached('body').is('.playing')) return;
+
+      const withParameter = !!el;
       let fen = '';
       let gameId = '';
       if (el?.id && el?.fen) {
@@ -51,21 +53,34 @@
       if (!el) el = $.cached('body');
       const elems = $(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
+      if (withParameter && !elems.length) {
+        this.miniGameOpening();
+        return;
+      }
+      let notInViewport = false;
       for (const el of elems) {
+        if (!lt.inViewport(el)) {
+          notInViewport = true;
+          continue;
+        }
         fen = fen || $(el).attr('data-state');
         if (!gameId) {
-          gameId = $(el).attr('href');
-          if (!gameId) {
+          const href = $(el).attr('href');
+          if (!href) {
             fen = '';
             gameId = '';
             continue;
           }
-          const m = /\/([^\/]+)/.exec(gameId);
-          gameId = m && m[1];
+          const m = /\/([^\/]+)/.exec(href);
+          gameId = m?.[1];
           if (!gameId) {
             fen = '';
             gameId = '';
             continue;
+          } else {
+            if (gameId=='broadcast') {
+              gameId = href.match(/\/(?<gameId>[^\/]+\/[^\/]+)(?:[\?\#]|$)/)?.groups?.gameId;
+            }
           }
         }
         const result = await this.withOpening(gameId, el, undefined, fen, true);
@@ -87,6 +102,7 @@
         fen = '';
         gameId = '';
       }
+      if (notInViewport) this.miniGameOpeningDebounced();
     };
     miniGameOpeningDebounced = this.lichessTools.debounce(this.miniGameOpening, 500,{ defer:true });
 
@@ -136,13 +152,22 @@
       if (Date.now() - this.openingTime < 1000) return; // not more often than 1 second
       this.openingTime = Date.now();
 
-      const pgn = await lt.api.game.getPgns([gameId], {
-        tags: true,
-        opening: true,
-        moves: false,
-        clocks: false,
-        evals: false
-      });
+      const splits = gameId.split('/');
+      const pgn = splits.length==2
+        ? await lt.api.study.getChapterPgn(splits[0], splits[1], {
+          tags: true,
+          opening: true,
+          moves: false,
+          clocks: false,
+          evals: false
+        })
+        : await lt.api.game.getPgns([gameId], {
+          tags: true,
+          opening: true,
+          moves: false,
+          clocks: false,
+          evals: false
+        });
       const opening = lt.getPgnTag(pgn, 'Opening');
       if (!opening || opening == '?') {
         return;
