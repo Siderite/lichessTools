@@ -48,6 +48,8 @@ body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons la
 
 body.lichessTools:has(dialog.lichessTools-pgnEditor) div#announce {
   z-index: 111;
+  position: sticky;
+  width: fit-content;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor a.help-button {
