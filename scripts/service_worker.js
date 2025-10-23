@@ -22,6 +22,8 @@ const getObs = async (options) => {
   return obs;
 }
 
+const hostingService = 'imgbb';
+
 const handlers = {
   disconnect: async (data) => {
     obs?.disconnect();
@@ -43,7 +45,6 @@ const handlers = {
     const buffer = data?.options?.buffer;
     if (!buffer)
       return;
-    const hostingService = 'imgbb';
     switch (hostingService) {
       case 'imgur': {
         const formData = new FormData();
@@ -63,7 +64,10 @@ const handlers = {
           throw new Error('Imgur upload failed with status ' + response.status);
         const responseData = await response.json();
         return {
-          link: responseData.data?.link
+          link: responseData.data?.link,
+          id: responseData.data?.id,
+          deleteHash: responseData.data?.deletehash,
+          service: hostingService
         };
       }
       break;
@@ -86,13 +90,50 @@ const handlers = {
           throw new Error('Imgbb upload failed with status ' + response.status);
         const responseData = await response.json();
         return {
-          link : responseData.data?.url
+          link : responseData.data?.url,
+          id: responseData.data?.id,
+          deleteHash: responseData.data?.delete_url?.match(/\/(?<hash>[^\/]+)$/)?.groups?.hash,
+          service: hostingService
         };
       }
       break;
       default:
         throw new Error('Image hosting service ' + hostingService + ' not supported!');
     }
+  },
+  deleteImage: async (data) => {
+    const id = data?.options?.id;
+    const hash = data?.options?.hash;
+    if (!hash) return;
+    const service = data?.options?.service || hostingService;
+    switch (service) {
+      case 'imgur': {
+        const response = await fetch('https://api.imgur.com/3/image/'+hash,{ method: 'DELETE' });
+        if (!response.ok)
+          throw new Error('Imgur delete failed with status ' + response.status);
+        }
+        break;
+      case 'imgbb': {
+        const url = 'https://ibb.co/json';
+        const formData = new FormData();
+        formData.append('pathname', `/${id}/${hash}`);
+        formData.append('action', 'delete');
+        formData.append('delete', 'image');
+        formData.append('from', 'resource');
+        formData.append('deleting[id]', id);
+        formData.append('deleting[hash]', hash);
+
+        const response = await fetch(url, {
+          method: 'POST',
+          body: formData,
+          cors: true
+        });
+        if (!response.ok)
+          throw new Error('Imgbb delete failed with status ' + response.status);
+        }
+        break;
+    }
+    return { ok: true };
   },
   getFile: async (data) => {
     const filename = data?.options?.filename;

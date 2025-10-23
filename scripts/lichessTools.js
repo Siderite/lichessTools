@@ -1764,7 +1764,7 @@
           return;
         }
         let text = options?.raw ? value : JSON.stringify(value);
-        const zip = options?.zip === true || (text?.length >= +options?.zip);
+        const zip = options?.zip === true || (!!options?.zip && text?.length >= +options?.zip);
         if (zip) {
           try {
             const compressed = LiChessTools.zip(text);
@@ -1897,6 +1897,18 @@
                                              .catch(e => { error = e; });
         if (data) {
           return data.url;
+        } else {
+          if (error) lt.global.console.error(error);
+        }
+      },
+      deleteImage: async function(id, hash, service) {
+        const options = { id: id, hash: hash, service: service };
+        const lt = this.lichessTools;
+        let error = null;
+        const data = await lt.comm.send({ type: 'deleteImage', options: options })
+                                             .catch(e => { error = e; });
+        if (data) {
+          return data.ok;
         } else {
           if (error) lt.global.console.error(error);
         }

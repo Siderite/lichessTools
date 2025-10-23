@@ -929,7 +929,10 @@
     "whispered": "أنت مهسوس: %s",
     "options.yourPuzzleIndex": "العثور على موضع في الألغاز من ألعابك",
     "positionReversedText": "تم عكس الموقع",
-    "yourPuzzleText": "من ألعابك"
+    "yourPuzzleText": "من ألعابك",
+    "deleteImageButtonTitle": "أدوات شطرنج الحياة - حذف الصورة",
+    "deleteImageQuestion": "هل أنت متأكد من أنك تريد حذف هذه الصورة للجميع؟",
+    "imageDeletedSuccessfully": "تم حذف الصورة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1861,7 +1864,10 @@
     "whispered": "您私信观众：%s",
     "options.yourPuzzleIndex": "从您的对局中查找对应谜题",
     "positionReversedText": "棋盘颜色互换",
-    "yourPuzzleText": "来自您的对局"
+    "yourPuzzleText": "来自您的对局",
+    "deleteImageButtonTitle": "LiChess工具 - 删除图像",
+    "deleteImageQuestion": "您确定要删除此图像给每个人吗？",
+    "imageDeletedSuccessfully": "图像已删除"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2793,7 +2799,10 @@
     "whispered": "You whispered: %s",
     "options.yourPuzzleIndex": "Find position in puzzles from your games",
     "positionReversedText": "Position reversed",
-    "yourPuzzleText": "From your games"
+    "yourPuzzleText": "From your games",
+    "deleteImageButtonTitle": "LiChess Tools - delete image",
+    "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
+    "imageDeletedSuccessfully": "Image deleted"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3723,9 +3732,12 @@
     "insertSelectedMoveButtonText": "+",
     "insertSelectedMoveButtonTitle": "Nástroje LiChess - vložte vybraný tah",
     "whispered": "Šeptáváte: %s",
-    "options.yourPuzzleIndex": "Find position in puzzles from your games",
+    "options.yourPuzzleIndex": "Najít pozici v hádankách ve vašich hrách",
     "positionReversedText": "Pozice obrácená",
-    "yourPuzzleText": "Z vašich her"
+    "yourPuzzleText": "Z vašich her",
+    "deleteImageButtonTitle": "Nástroje LiChess - smazat obrázek",
+    "deleteImageQuestion": "Jste si jisti, že chcete odstranit tento obrázek pro všechny?",
+    "imageDeletedSuccessfully": "Obrázek odstraněn"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4657,7 +4669,10 @@
     "whispered": "Je fluisterde: %s",
     "options.yourPuzzleIndex": "Zoek positie in puzzels van je games",
     "positionReversedText": "Positie omgekeerd",
-    "yourPuzzleText": "Van je spellen"
+    "yourPuzzleText": "Van je spellen",
+    "deleteImageButtonTitle": "LiChess Tools - verwijder afbeelding",
+    "deleteImageQuestion": "Weet u zeker dat u deze afbeelding voor iedereen wilt verwijderen?",
+    "imageDeletedSuccessfully": "Afbeelding verwijderd"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5589,7 +5604,10 @@
     "whispered": "You whispered: %s",
     "options.yourPuzzleIndex": "Find position in puzzles from your games",
     "positionReversedText": "Position reversed",
-    "yourPuzzleText": "From your games"
+    "yourPuzzleText": "From your games",
+    "deleteImageButtonTitle": "LiChess Tools - delete image",
+    "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
+    "imageDeletedSuccessfully": "Image deleted"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6521,7 +6539,10 @@
     "whispered": "Vous avez chuchoté : %s",
     "options.yourPuzzleIndex": "Trouver la position dans les puzzles de vos parties",
     "positionReversedText": "Position inversée",
-    "yourPuzzleText": "De vos parties"
+    "yourPuzzleText": "De vos parties",
+    "deleteImageButtonTitle": "Outils LiChess - supprimer l'image",
+    "deleteImageQuestion": "Êtes-vous sûr de vouloir supprimer cette image pour tout le monde ?",
+    "imageDeletedSuccessfully": "Image supprimée"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7453,7 +7474,10 @@
     "whispered": "Du flüsterst: %s",
     "options.yourPuzzleIndex": "Finde Position in Puzzles aus deinen Spielen",
     "positionReversedText": "Position umgekehrt",
-    "yourPuzzleText": "Aus deinen Spielen"
+    "yourPuzzleText": "Aus deinen Spielen",
+    "deleteImageButtonTitle": "LiChess Tools - Bild löschen",
+    "deleteImageQuestion": "Sind Sie sicher, dass Sie dieses Bild für alle löschen möchten?",
+    "imageDeletedSuccessfully": "Bild gelöscht"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8385,7 +8409,10 @@
     "whispered": "You whispered: %s",
     "options.yourPuzzleIndex": "Find position in puzzles from your games",
     "positionReversedText": "Position reversed",
-    "yourPuzzleText": "From your games"
+    "yourPuzzleText": "From your games",
+    "deleteImageButtonTitle": "LiChess Tools - delete image",
+    "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
+    "imageDeletedSuccessfully": "Image deleted"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9317,7 +9344,10 @@
     "whispered": "Hai sussurrato: %s",
     "options.yourPuzzleIndex": "Trova posizione nei puzzle dai tuoi giochi",
     "positionReversedText": "Posizione invertita",
-    "yourPuzzleText": "Dai tuoi giochi"
+    "yourPuzzleText": "Dai tuoi giochi",
+    "deleteImageButtonTitle": "Strumenti LiChess - elimina immagine",
+    "deleteImageQuestion": "Sei sicuro di voler eliminare questa immagine per tutti?",
+    "imageDeletedSuccessfully": "Immagine eliminata"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10249,7 +10279,10 @@
     "whispered": "You whispered: %s",
     "options.yourPuzzleIndex": "Find position in puzzles from your games",
     "positionReversedText": "Position reversed",
-    "yourPuzzleText": "From your games"
+    "yourPuzzleText": "From your games",
+    "deleteImageButtonTitle": "LiChess Tools - delete image",
+    "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
+    "imageDeletedSuccessfully": "Image deleted"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11181,7 +11214,10 @@
     "whispered": "Wyszepczyłeś: %s",
     "options.yourPuzzleIndex": "Znajdź pozycję w łamigłówkach z twoich gier",
     "positionReversedText": "Pozycja odwrócona",
-    "yourPuzzleText": "Z twoich gier"
+    "yourPuzzleText": "Z twoich gier",
+    "deleteImageButtonTitle": "Narzędzia LiChess - usuń obraz",
+    "deleteImageQuestion": "Czy na pewno chcesz usunąć ten obraz dla wszystkich?",
+    "imageDeletedSuccessfully": "Obraz usunięty"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12113,7 +12149,10 @@
     "whispered": "Você sussurrou: %s",
     "options.yourPuzzleIndex": "Encontre posição nos quebra-cabeças de seus jogos",
     "positionReversedText": "Posição invertida",
-    "yourPuzzleText": "Dos seus jogos"
+    "yourPuzzleText": "Dos seus jogos",
+    "deleteImageButtonTitle": "Ferramentas LiChess - excluir imagem",
+    "deleteImageQuestion": "Tem certeza que deseja excluir esta imagem para todos?",
+    "imageDeletedSuccessfully": "Imagem excluída"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13045,7 +13084,10 @@
     "whispered": "Você sussurrou: %s",
     "options.yourPuzzleIndex": "Encontre posição nos quebra-cabeças de seus jogos",
     "positionReversedText": "Posição invertida",
-    "yourPuzzleText": "Dos seus jogos"
+    "yourPuzzleText": "Dos seus jogos",
+    "deleteImageButtonTitle": "Ferramentas LiChess - excluir imagem",
+    "deleteImageQuestion": "Tem certeza que deseja excluir esta imagem para todos?",
+    "imageDeletedSuccessfully": "Imagem excluída"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13977,7 +14019,10 @@
     "whispered": "Ai șoptit: %s",
     "options.yourPuzzleIndex": "Găsește poziția în problemele de șah din jocurile tale",
     "positionReversedText": "Poziție inversată",
-    "yourPuzzleText": "Din jocurile tale"
+    "yourPuzzleText": "Din jocurile tale",
+    "deleteImageButtonTitle": "LiChess Tools - șterge imaginea",
+    "deleteImageQuestion": "Sigur șterg imaginea pentru toată lumea?",
+    "imageDeletedSuccessfully": "Imaginea a fost ștearsă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14909,7 +14954,10 @@
     "whispered": "Вы шепнули: %s",
     "options.yourPuzzleIndex": "Найдите позицию в головоломках из ваших игр",
     "positionReversedText": "Позиция отменена",
-    "yourPuzzleText": "Из ваших игр"
+    "yourPuzzleText": "Из ваших игр",
+    "deleteImageButtonTitle": "Инструменты Lichess - удалить изображение",
+    "deleteImageQuestion": "Вы уверены, что хотите удалить это изображение для всех?",
+    "imageDeletedSuccessfully": "Изображение удалено"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15841,7 +15889,10 @@
     "whispered": "Has susurrado: %s",
     "options.yourPuzzleIndex": "Encuentra la posición en rompecabezas de tus juegos",
     "positionReversedText": "Posición invertida",
-    "yourPuzzleText": "De tus juegos"
+    "yourPuzzleText": "De tus juegos",
+    "deleteImageButtonTitle": "Herramientas de LiChess - borrar imagen",
+    "deleteImageQuestion": "¿Estás seguro de que quieres eliminar esta imagen para todos?",
+    "imageDeletedSuccessfully": "Imagen eliminada"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16773,7 +16824,10 @@
     "whispered": "You whispered: %s",
     "options.yourPuzzleIndex": "Find position in puzzles from your games",
     "positionReversedText": "Position reversed",
-    "yourPuzzleText": "From your games"
+    "yourPuzzleText": "From your games",
+    "deleteImageButtonTitle": "LiChess Tools - delete image",
+    "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
+    "imageDeletedSuccessfully": "Image deleted"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17705,7 +17759,10 @@
     "whispered": "You whispered: %s",
     "options.yourPuzzleIndex": "Find position in puzzles from your games",
     "positionReversedText": "Position reversed",
-    "yourPuzzleText": "From your games"
+    "yourPuzzleText": "From your games",
+    "deleteImageButtonTitle": "LiChess Tools - delete image",
+    "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
+    "imageDeletedSuccessfully": "Image deleted"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18637,6 +18694,9 @@
     "whispered": "You whispered: %s",
     "options.yourPuzzleIndex": "Find position in puzzles from your games",
     "positionReversedText": "Position reversed",
-    "yourPuzzleText": "From your games"
+    "yourPuzzleText": "From your games",
+    "deleteImageButtonTitle": "LiChess Tools - delete image",
+    "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
+    "imageDeletedSuccessfully": "Image deleted"
   }
 }

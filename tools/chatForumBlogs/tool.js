@@ -21,7 +21,10 @@
         'chatForumBlogs.pasteImages': 'Paste image support',
         'chatForumBlogs.bigEmoji': 'Large one emoji message',
         'chatForumBlogs.refreshOnMessage': 'Refresh on new message',
-        'pastingError': 'There was an error generating the image URL'
+        'pastingError': 'There was an error generating the image URL',
+        'deleteImageButtonTitle': 'LiChess Tools - delete image',
+        'deleteImageQuestion': 'Are you sure you want to delete this image for everybody?',
+        'imageDeletedSuccessfully': 'Image deleted'
       },
       'ro-RO': {
         'options.comm': 'Chat, forumuri, blog-uri',
@@ -29,7 +32,10 @@
         'chatForumBlogs.pasteImages': 'Suport lipire imagini',
         'chatForumBlogs.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
         'chatForumBlogs.refreshOnMessage': 'Re\uee00mprosp\u0103teaz\u0103 la mesaj nou',
-        'pastingError': 'A ap\u0103rut o eroare \u00een generarea URLului imaginii'
+        'pastingError': 'A ap\u0103rut o eroare \u00een generarea URLului imaginii',
+        'deleteImageButtonTitle': 'LiChess Tools - \u015fterge imaginea',
+        'deleteImageQuestion': 'Sigur \u015fterg imaginea pentru toat\u0103 lumea?',
+        'imageDeletedSuccessfully': 'Imaginea a fost \u015ftears\u0103'
       }
     }
 
@@ -66,6 +72,10 @@
         lt.global.console.warn('Could not send image!', res?.err);
         return;
       }
+      const imageData = lt.storage.get('LiChessTools.imageData')||[];
+      const key = res.link.replace(/\.(?:png|jpg|jpeg)$/,'');
+      imageData.push([key,res]);
+      lt.storage.set('LiChessTools.imageData', imageData, { zip:true });
       return res.link;
     };
 
@@ -93,6 +103,7 @@
     initControls = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const trans = lt.translator;
       if (this.options.pasteImages) {
         $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, main.forum textarea.edit-post-box, #form3-bio')
           .each((i, e) => {
@@ -100,11 +111,12 @@
             e.imagePastingInit = true;
             $(e).on('paste drop', this.pasteImage);
           });
+
+        let imageData = null;
         const container = $('.msg-app__convo__msgs__content');
-        $('group a img',container).each((i, e) => {
-          const url = new URL($(e).attr('src'));
-          if (e._lichessTools_mchatOptions_init) return;
-          e._lichessTools_mchatOptions_init = true;
+        $('group a img, .forum-post__message img',container).each((i, e) => {
+          if (e._lichessTools_chat_init) return;
+          e._lichessTools_chat_init = true;
           $(e).on('click',async (ev)=>{
             ev.preventDefault();
             const dlg = await lt.dialog({
@@ -112,6 +124,34 @@
             });
             dlg.showModal();
           });
+        });
+        $('group a img, .forum-post__message img, .forum-post__message a',container).each((i, e) => {
+          if (e._lichessTools_imageDelete_init) return;
+          e._lichessTools_imageDelete_init = true;
+          const url = $(e).attr('src') || $(e).attr('href');
+          if (url?.match(/imgur\.com\/[^\/\.]+\.|ibb\.co\/[^\/]+\/[^\/\.]+\./)) {
+            imageData ||= new Map(lt.storage.get('LiChessTools.imageData')||[]);
+            const key = url.replace(/\.(?:png|jpg|jpeg)$/,'');
+            const data = imageData.get(key);
+            if (data) {
+              $('<button type="button" class="lichessTools-deleteImage"/>')
+                .attr('title',trans.noarg('deleteImageButtonTitle'))
+                .on('click',async ev=>{
+                  ev.preventDefault();
+                  if (await lt.uiApi.dialog.confirm(trans.noarg('deleteImageQuestion'))) {
+                    const success = await lt.comm.deleteImage(data.id, data.deleteHash, data.service);
+                    if (success) {
+                      $(ev.target).remove();
+                      imageData = new Map(lt.storage.get('LiChessTools.imageData')||[]);
+                      imageData.delete(key);
+                      lt.storage.set('LiChessTools.imageData', [...imageData.entries()], { zip:true });
+                      lt.announce(trans.noarg('imageDeletedSuccessfully'));
+                    }
+                  }
+                })
+                .insertAfter(e);
+            }
+          }
         });
       }
       if (this.options.bigEmoji) {
