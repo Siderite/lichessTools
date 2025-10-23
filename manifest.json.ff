@@ -356,8 +356,6 @@
     }
   },
   "web_accessible_resources": [
-    {
-      "resources": [
         "tools/chessops/attacks.js",
         "tools/chessops/badrap.result.js",
         "tools/chessops/board.js",
@@ -377,12 +375,5 @@
 
         "tools/showKmaps/chess.js",
         "tools/showKmaps/kmaps.js"
-      ],
-      "matches": [
-        "*://lichess.org/*",
-        "*://lichess.dev/*",
-        "*://testy.lichess.dev/*"
-      ]
-    }
   ]
 }
