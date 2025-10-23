@@ -1,5 +1,11 @@
 History of features added to LiChess Tools in time (reversed order)
 
+23 Oct
+
+- Button to delete pasted images
+- improve show opening, structure and kmaps
+- faster interactive lesson
+
 20 Oct
 
 - Find current position in puzzles from your games
