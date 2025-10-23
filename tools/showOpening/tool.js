@@ -149,7 +149,9 @@
         if (isMini) return; // don't get the opening for minigames from API once retrieved
       }
 
-      if (Date.now() - this.openingTime < 1000) return; // not more often than 1 second
+      if (Date.now() - this.openingTime < 1000) { // not more often than 1 second
+          return; 
+      }
       this.openingTime = Date.now();
 
       const splits = gameId.split('/');
