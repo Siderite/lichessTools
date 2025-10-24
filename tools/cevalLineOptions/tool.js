@@ -283,7 +283,7 @@
       let text = lt.global.JSON.stringify([...db.values()],undefined,2);
       const cevalPanelText = this.getCevalPanelText();
       if (cevalPanelText) {
-        text+='\r\n\/*\r\n'+cevalPanelText+'\r\n*\/';
+        text = '\/*\r\n'+cevalPanelText+'\r\n*\/\r\n'+text;
       }
       lt.download(text,'analysis (' + fen + ').json','application/json');
     };
