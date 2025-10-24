@@ -289,7 +289,7 @@ body.lichessTools.lichessTools-extendedInteractiveLesson *[data-tooltip] {
   position: relative;
 }
 
-body.lichessTools.lichessTools-extendedInteractiveLesson *[data-tooltip]:hover::after {
+body.lichessTools.lichessTools-extendedInteractiveLesson *[data-tooltip]:hover:after {
   content: attr(data-tooltip);
   position: absolute;
   white-space: pre;
@@ -299,7 +299,8 @@ body.lichessTools.lichessTools-extendedInteractiveLesson *[data-tooltip]:hover::
   transform: translateX(-50%);
 
   color: var(--c-font);
-  background: var(--c-bg-popup);
+  background: var(--c-bg-page);
+  border: 1px solid var(--c-border-light);
   padding: 1em;
   border-radius: 4px;
   opacity: 1;

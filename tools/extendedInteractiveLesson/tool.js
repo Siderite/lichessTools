@@ -1165,12 +1165,12 @@
             tooltip = trans.pluralSame('progressTitle', doneCount + '/' + total)+tooltip;
             perc = (100 * doneCount / total) + '%';
             container
-              //.attr('title', tooltip)
-              .attr('data-tooltip', tooltip);
+              .attr('title', tooltip);
+              //.attr('data-tooltip', tooltip);
           } else {
             container
-              //.removeAttr('title')
-              .removeAttr('data-tooltip');
+              .removeAttr('title');
+              //.removeAttr('data-tooltip');
           }
         }
 
