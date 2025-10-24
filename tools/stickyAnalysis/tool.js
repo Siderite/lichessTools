@@ -56,6 +56,11 @@
       if (!textarea.length) return;
       const savedPgn = lt.storage.get('LiChessTools.stickyAnalysis.pgn', { zip: true });
       if (!savedPgn) return;
+      const currentFen = lichess.analysis.tree.root.fen;
+      if (!lt.isStartFen(currentFen)) {
+        const newFen = lt.getPgnTag(savedPgn,'FEN');
+        if (lt.getPositionFromFen(currentFen) != lt.getPositionFromFen(newFen)) return; //don't replace the current start position
+      }
       textarea.val(savedPgn);
       lichess.analysis.pgnInput = savedPgn;
     };
