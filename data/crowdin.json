@@ -6540,7 +6540,7 @@
     "options.yourPuzzleIndex": "Trouver la position dans les puzzles de vos parties",
     "positionReversedText": "Position inversée",
     "yourPuzzleText": "De vos parties",
-    "deleteImageButtonTitle": "Outils LiChess - supprimer l'image",
+    "deleteImageButtonTitle": "LiChess Tools - supprimer l'image",
     "deleteImageQuestion": "Êtes-vous sûr de vouloir supprimer cette image pour tout le monde ?",
     "imageDeletedSuccessfully": "Image supprimée"
   },
