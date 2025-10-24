@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+24 Oct
+
+- Button to download local computer analysis
+
 23 Oct
 
 - Button to delete pasted images

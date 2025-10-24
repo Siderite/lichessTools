@@ -932,7 +932,9 @@
     "yourPuzzleText": "من ألعابك",
     "deleteImageButtonTitle": "أدوات شطرنج الحياة - حذف الصورة",
     "deleteImageQuestion": "هل أنت متأكد من أنك تريد حذف هذه الصورة للجميع؟",
-    "imageDeletedSuccessfully": "تم حذف الصورة"
+    "imageDeletedSuccessfully": "تم حذف الصورة",
+    "cevalLineOptions.downloadCeval": "تحميل تحليل محرك",
+    "downloadCevalButtonTitle": "أدوات شطرنج الحياة - تحليل التحميل"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1867,7 +1869,9 @@
     "yourPuzzleText": "来自您的对局",
     "deleteImageButtonTitle": "LiChess工具 - 删除图像",
     "deleteImageQuestion": "您确定要删除此图像给每个人吗？",
-    "imageDeletedSuccessfully": "图像已删除"
+    "imageDeletedSuccessfully": "图像已删除",
+    "cevalLineOptions.downloadCeval": "下载引擎分析",
+    "downloadCevalButtonTitle": "LiChess工具 - 下载分析"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2802,7 +2806,9 @@
     "yourPuzzleText": "From your games",
     "deleteImageButtonTitle": "LiChess Tools - delete image",
     "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
-    "imageDeletedSuccessfully": "Image deleted"
+    "imageDeletedSuccessfully": "Image deleted",
+    "cevalLineOptions.downloadCeval": "Download engine analysis",
+    "downloadCevalButtonTitle": "LiChess Tools - download analysis"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3737,7 +3743,9 @@
     "yourPuzzleText": "Z vašich her",
     "deleteImageButtonTitle": "Nástroje LiChess - smazat obrázek",
     "deleteImageQuestion": "Jste si jisti, že chcete odstranit tento obrázek pro všechny?",
-    "imageDeletedSuccessfully": "Obrázek odstraněn"
+    "imageDeletedSuccessfully": "Obrázek odstraněn",
+    "cevalLineOptions.downloadCeval": "Stáhnout analýzu jádra",
+    "downloadCevalButtonTitle": "Nástroje LiChess - stáhnout analýzu"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4672,7 +4680,9 @@
     "yourPuzzleText": "Van je spellen",
     "deleteImageButtonTitle": "LiChess Tools - verwijder afbeelding",
     "deleteImageQuestion": "Weet u zeker dat u deze afbeelding voor iedereen wilt verwijderen?",
-    "imageDeletedSuccessfully": "Afbeelding verwijderd"
+    "imageDeletedSuccessfully": "Afbeelding verwijderd",
+    "cevalLineOptions.downloadCeval": "Download engine analyse",
+    "downloadCevalButtonTitle": "LiChess Tools - download analyse"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5607,7 +5617,9 @@
     "yourPuzzleText": "From your games",
     "deleteImageButtonTitle": "LiChess Tools - delete image",
     "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
-    "imageDeletedSuccessfully": "Image deleted"
+    "imageDeletedSuccessfully": "Image deleted",
+    "cevalLineOptions.downloadCeval": "Download engine analysis",
+    "downloadCevalButtonTitle": "LiChess Tools - download analysis"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6542,7 +6554,9 @@
     "yourPuzzleText": "De vos parties",
     "deleteImageButtonTitle": "LiChess Tools - supprimer l'image",
     "deleteImageQuestion": "Êtes-vous sûr de vouloir supprimer cette image pour tout le monde ?",
-    "imageDeletedSuccessfully": "Image supprimée"
+    "imageDeletedSuccessfully": "Image supprimée",
+    "cevalLineOptions.downloadCeval": "Télécharger l'analyse du moteur",
+    "downloadCevalButtonTitle": "Outils LiChess - analyse de téléchargement"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7477,7 +7491,9 @@
     "yourPuzzleText": "Aus deinen Spielen",
     "deleteImageButtonTitle": "LiChess Tools - Bild löschen",
     "deleteImageQuestion": "Sind Sie sicher, dass Sie dieses Bild für alle löschen möchten?",
-    "imageDeletedSuccessfully": "Bild gelöscht"
+    "imageDeletedSuccessfully": "Bild gelöscht",
+    "cevalLineOptions.downloadCeval": "Engine-Analyse herunterladen",
+    "downloadCevalButtonTitle": "LiChess-Tools - Download-Analyse"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8412,7 +8428,9 @@
     "yourPuzzleText": "From your games",
     "deleteImageButtonTitle": "LiChess Tools - delete image",
     "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
-    "imageDeletedSuccessfully": "Image deleted"
+    "imageDeletedSuccessfully": "Image deleted",
+    "cevalLineOptions.downloadCeval": "Download engine analysis",
+    "downloadCevalButtonTitle": "LiChess Tools - download analysis"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9347,7 +9365,9 @@
     "yourPuzzleText": "Dai tuoi giochi",
     "deleteImageButtonTitle": "Strumenti LiChess - elimina immagine",
     "deleteImageQuestion": "Sei sicuro di voler eliminare questa immagine per tutti?",
-    "imageDeletedSuccessfully": "Immagine eliminata"
+    "imageDeletedSuccessfully": "Immagine eliminata",
+    "cevalLineOptions.downloadCeval": "Scarica analisi del motore",
+    "downloadCevalButtonTitle": "LiChess Tools - analisi download"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10282,7 +10302,9 @@
     "yourPuzzleText": "From your games",
     "deleteImageButtonTitle": "LiChess Tools - delete image",
     "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
-    "imageDeletedSuccessfully": "Image deleted"
+    "imageDeletedSuccessfully": "Image deleted",
+    "cevalLineOptions.downloadCeval": "Download engine analysis",
+    "downloadCevalButtonTitle": "LiChess Tools - download analysis"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11217,7 +11239,9 @@
     "yourPuzzleText": "Z twoich gier",
     "deleteImageButtonTitle": "Narzędzia LiChess - usuń obraz",
     "deleteImageQuestion": "Czy na pewno chcesz usunąć ten obraz dla wszystkich?",
-    "imageDeletedSuccessfully": "Obraz usunięty"
+    "imageDeletedSuccessfully": "Obraz usunięty",
+    "cevalLineOptions.downloadCeval": "Pobierz analizę silnika",
+    "downloadCevalButtonTitle": "Narzędzia LiChess - pobieranie analizy"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12152,7 +12176,9 @@
     "yourPuzzleText": "Dos seus jogos",
     "deleteImageButtonTitle": "Ferramentas LiChess - excluir imagem",
     "deleteImageQuestion": "Tem certeza que deseja excluir esta imagem para todos?",
-    "imageDeletedSuccessfully": "Imagem excluída"
+    "imageDeletedSuccessfully": "Imagem excluída",
+    "cevalLineOptions.downloadCeval": "Download do motor de análise",
+    "downloadCevalButtonTitle": "Ferramentas LiChess - baixar análise"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13087,7 +13113,9 @@
     "yourPuzzleText": "Dos seus jogos",
     "deleteImageButtonTitle": "Ferramentas LiChess - excluir imagem",
     "deleteImageQuestion": "Tem certeza que deseja excluir esta imagem para todos?",
-    "imageDeletedSuccessfully": "Imagem excluída"
+    "imageDeletedSuccessfully": "Imagem excluída",
+    "cevalLineOptions.downloadCeval": "Download do motor de análise",
+    "downloadCevalButtonTitle": "Ferramentas LiChess - baixar análise"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14022,7 +14050,9 @@
     "yourPuzzleText": "Din jocurile tale",
     "deleteImageButtonTitle": "LiChess Tools - șterge imaginea",
     "deleteImageQuestion": "Sigur șterg imaginea pentru toată lumea?",
-    "imageDeletedSuccessfully": "Imaginea a fost ștearsă"
+    "imageDeletedSuccessfully": "Imaginea a fost ștearsă",
+    "cevalLineOptions.downloadCeval": "Descărcare analiză computer",
+    "downloadCevalButtonTitle": "LiChess Tools - descărcare analiză computer"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14957,7 +14987,9 @@
     "yourPuzzleText": "Из ваших игр",
     "deleteImageButtonTitle": "Инструменты Lichess - удалить изображение",
     "deleteImageQuestion": "Вы уверены, что хотите удалить это изображение для всех?",
-    "imageDeletedSuccessfully": "Изображение удалено"
+    "imageDeletedSuccessfully": "Изображение удалено",
+    "cevalLineOptions.downloadCeval": "Анализ загрузок",
+    "downloadCevalButtonTitle": "Инструменты Lichess - анализ загрузки"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15892,7 +15924,9 @@
     "yourPuzzleText": "De tus juegos",
     "deleteImageButtonTitle": "Herramientas de LiChess - borrar imagen",
     "deleteImageQuestion": "¿Estás seguro de que quieres eliminar esta imagen para todos?",
-    "imageDeletedSuccessfully": "Imagen eliminada"
+    "imageDeletedSuccessfully": "Imagen eliminada",
+    "cevalLineOptions.downloadCeval": "Análisis del motor de descarga",
+    "downloadCevalButtonTitle": "Herramientas de LiChess - análisis de descargas"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16827,7 +16861,9 @@
     "yourPuzzleText": "From your games",
     "deleteImageButtonTitle": "LiChess Tools - delete image",
     "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
-    "imageDeletedSuccessfully": "Image deleted"
+    "imageDeletedSuccessfully": "Image deleted",
+    "cevalLineOptions.downloadCeval": "Download engine analysis",
+    "downloadCevalButtonTitle": "LiChess Tools - download analysis"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17762,7 +17798,9 @@
     "yourPuzzleText": "From your games",
     "deleteImageButtonTitle": "LiChess Tools - delete image",
     "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
-    "imageDeletedSuccessfully": "Image deleted"
+    "imageDeletedSuccessfully": "Image deleted",
+    "cevalLineOptions.downloadCeval": "Download engine analysis",
+    "downloadCevalButtonTitle": "LiChess Tools - download analysis"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18697,6 +18735,8 @@
     "yourPuzzleText": "From your games",
     "deleteImageButtonTitle": "LiChess Tools - delete image",
     "deleteImageQuestion": "Are you sure you want to delete this image for everybody?",
-    "imageDeletedSuccessfully": "Image deleted"
+    "imageDeletedSuccessfully": "Image deleted",
+    "cevalLineOptions.downloadCeval": "Download engine analysis",
+    "downloadCevalButtonTitle": "LiChess Tools - download analysis"
   }
 }
