@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 24 Oct
 
 - Button to download local computer analysis
+- Volume bar in main menu
 
 23 Oct
 

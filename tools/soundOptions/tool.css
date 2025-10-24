@@ -16,3 +16,25 @@ body.lichessTools .round__app.lichessTools-timeAlert .rclock-bottom * {
 body.lichessTools #dasher_app .selector button.lichessTools-extraThemes {
   filter: drop-shadow(0px 0px 10px var(--c-clearer));
 }
+
+body.lichessTools #dasher_app:has(.lichessTools-volumeBar:not(.silent)) {
+  display: flex;
+  width: 265px;
+}
+
+body.lichessTools #dasher_app:has(.lichessTools-volumeBar) .sound input[type=range] {
+  display:none;
+}
+
+
+body.lichessTools .lichessTools-volumeBar {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  max-height: min(100vh, 650px);
+  margin-top: 3em;
+  margin-bottom: 1em;
+}
+
+body.lichessTools .lichessTools-volumeBar.silent {
+  display:none;
+}
