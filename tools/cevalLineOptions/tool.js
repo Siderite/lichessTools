@@ -254,6 +254,23 @@
       ctx.stroke();
     };
 
+    getCevalPanelText = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const container = $('.analyse__tools .pv_box');
+      if (!container.length) return;
+      const fen = container.attr('data-fen');
+      const arr=[];
+      container.find('div.pv').each((i,e)=>{
+        const text = $(e).find('*:not(.pv-wrap-toggle)').get()
+          .map(e2=>$(e2).text())
+          .join(' ');
+        arr.push(text);
+      });
+      return 'FEN: '+fen+'\r\n'+arr.join('\r\n');
+    };
+
     downloadCevalData = ()=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -263,7 +280,11 @@
       if (!db) return;
       const fen = db.values().next()?.value?.fen;
       if (!fen) return;
-      const text = lt.global.JSON.stringify([...db.values()],undefined,2);
+      let text = lt.global.JSON.stringify([...db.values()],undefined,2);
+      const cevalPanelText = this.getCevalPanelText();
+      if (cevalPanelText) {
+        text+='\r\n\/*\r\n'+cevalPanelText+'\r\n*\/';
+      }
       lt.download(text,'analysis (' + fen + ').json','application/json');
     };
 
