@@ -303,6 +303,16 @@
           };
           reader.readAsText(file, "UTF-8");
         })
+        .on('paste', ev => {
+          const text = ev.clipboardData.getData('text');
+          if (!text?.trim()) return;
+          const translatedText = this.translateToPgn(text);
+          if (translatedText != text) {
+            ev.preventDefault();
+            textarea.insertText(translatedText);
+            return;
+          }
+        })
         .on('change', ev => {
           this.addTextToHistory(textarea.val());
           this.writeNote('');
@@ -547,6 +557,70 @@
       this.setHistoryIndex(this.historyIndex);
     };
 
+    translateToPgn = (text)=>{
+      if (!text) return text;
+      const lt = this.lichessTools;
+      let json = '';
+      try {
+        json = lt.global.JSON.parse(text);
+      } catch(e) {
+        return text;
+      }
+      if (json.book?.pgn_games) { // ChessMind
+        const book = json.book;
+        const userId = lt.getUserId();
+        const arr = [];
+        arr.write = (text)=> {
+          arr.push(text);
+          return arr;
+        }
+        arr
+          .write(`[Event "${book.title}: Intro"]`)
+          .write(`[StudyName "${book.title}"]`)
+          .write(`[ChapterName "Intro"]`)
+          .write(`[Annotator "https://lichess.org/@/${userId}"]`)
+          .write('')
+          .write(`{ Study made from the Chessmind lesson '${book.title}'
+https://chessmind.ai/openings/${book.url}/ } *`)
+          .write('');
+        let index = 0;
+        for (const game of book.pgn_games) {
+          index++;
+          arr
+            .write(`[Event "${book.title}: Lesson ${index}"]`)
+            .write(`[StudyName "${book.title}"]`)
+            .write(`[ChapterName "Lesson ${index}"]`)
+            .write(`[Annotator "https://lichess.org/@/${userId}"]`);
+          const fen = game.pgn_json.headers.Fen;
+          if (fen && !lt.isStartFen(fen)) {
+            arr.write(`[FEN "${fen}"]`);
+          }
+          arr
+            .write('')
+          let pgnText = '';
+          if (game.pgn_json.headers.Comment) {
+            const comment = $(game.pgn_json.headers.Comment).text();
+            if (comment?.trim()) {
+              pgnText+=`{ ${comment.replaceAll('#NEW_FEN#','').trim()} } `;
+            }
+          }
+          for (const move of game.pgn_json.pgn) {
+            pgnText+=`${move.printable_move} `;
+            if (move.comment) {
+              const comment = $(move.comment).text();
+              if (comment?.trim()) {
+                pgnText+=`{ ${comment.replaceAll('#NEW_FEN#','').trim()} } `;
+              }
+            }
+          }
+          arr.write(pgnText.trim()||'*');
+          arr.write('');
+        }
+        return arr.join('\r\n');
+      }
+      return text;
+    };
+
     stopOperations = () => {
       if (!this._runningOperation) return;
       this._cancelRequested = true;
@@ -690,7 +764,7 @@
 
     mergeNodes = (n1, n2) => {
       n1.children = [...n1.children, ...n2.children];
-      const comments = (n1.data?.comments || []).concat((n2.data?.comments || []));
+      const comments = [...new Set((n1.data?.comments || []).concat((n2.data?.comments || [])))];
       if (comments.length) {
         n1.data.comments = [...new Set(comments)];
       }
@@ -765,7 +839,7 @@
       }
 
       const mergeGames = (dest, node, src) => {
-        const comments = (dest.comments||[]).concat(src.comments||[]);
+        const comments = [... new Set((dest.comments||[]).concat(src.comments||[]))];
         if (comments.length) {
           dest.comments = comments;
         }
