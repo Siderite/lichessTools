@@ -67,7 +67,7 @@ cash.fn.textSafe = function(value) {
   return this;
 }
 
-cash.fn.textInsert = function(value, focus) {
+cash.fn.insertText = function(value, focus) {
   if (!value) return;
   this.each((i,e)=>{
     const start = e.selectionStart;

@@ -492,7 +492,7 @@
             ev.preventDefault();
             const moveString = this.getMoveString(true);
             $('.mchat__content .mchat__say')
-              .textInsert(moveString,true);
+              .insertText(moveString,true);
           })
           .appendTo(container);
       }
