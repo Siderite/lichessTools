@@ -653,6 +653,13 @@
         .parentNode.innerHTML;
     };
 
+    htmlDecode = (html) => {
+      const document = this.global.document;
+      const e = document.createElement('a');
+      e.innerHTML = html;
+      return e.textContent;
+    };
+
     async getMemorySize() {
       return this.global.navigator?.deviceMemory || (await this.global.navigator?.storage?.estimate())?.quota/(1024*1024*1024);
     }
