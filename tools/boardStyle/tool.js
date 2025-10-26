@@ -23,7 +23,7 @@
       }
     }
 
-    addLastMoveArrow = ()=>{
+    processBoards = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       $('cg-container').each((i,e)=>{
@@ -115,13 +115,13 @@
       this.logOption('Board style', value);
       const $ = lt.$;
       $('body').observer()
-        .off('square.last-move,square.selected',this.addLastMoveArrow);
+        .off('square.last-move,square.selected',this.processBoards);
       $('.lichessTools-lastMoveArrow').remove();
       $('cg-container').toggleClassSafe('lichessTools-boardStyle',false);
       if (value) {
         $('body').observer()
-          .on('square.last-move,square.selected',this.addLastMoveArrow, { attributes: true });
-        this.addLastMoveArrow();
+          .on('square.last-move,square.selected',this.processBoards, { attributes: true });
+        this.processBoards();
       }
     }
 

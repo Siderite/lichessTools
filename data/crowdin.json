@@ -935,7 +935,8 @@
     "imageDeletedSuccessfully": "تم حذف الصورة",
     "cevalLineOptions.downloadCeval": "تحميل تحليل محرك",
     "downloadCevalButtonTitle": "أدوات شطرنج الحياة - تحليل التحميل",
-    "soundOptions.volumeBar": "شريط مستوى صوت القائمة الرئيسية"
+    "soundOptions.volumeBar": "شريط مستوى صوت القائمة الرئيسية",
+    "options.boardStyle": "Board styling"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1873,7 +1874,8 @@
     "imageDeletedSuccessfully": "图像已删除",
     "cevalLineOptions.downloadCeval": "下载引擎分析",
     "downloadCevalButtonTitle": "LiChess工具 - 下载分析",
-    "soundOptions.volumeBar": "主菜单音量栏"
+    "soundOptions.volumeBar": "主菜单音量栏",
+    "options.boardStyle": "Board styling"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2811,7 +2813,8 @@
     "imageDeletedSuccessfully": "Image deleted",
     "cevalLineOptions.downloadCeval": "Download engine analysis",
     "downloadCevalButtonTitle": "LiChess Tools - download analysis",
-    "soundOptions.volumeBar": "Main menu volume bar"
+    "soundOptions.volumeBar": "Main menu volume bar",
+    "options.boardStyle": "Board styling"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3749,7 +3752,8 @@
     "imageDeletedSuccessfully": "Obrázek odstraněn",
     "cevalLineOptions.downloadCeval": "Stáhnout analýzu jádra",
     "downloadCevalButtonTitle": "Nástroje LiChess - stáhnout analýzu",
-    "soundOptions.volumeBar": "Panel hlasitosti hlavního menu"
+    "soundOptions.volumeBar": "Panel hlasitosti hlavního menu",
+    "options.boardStyle": "Board styling"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4687,7 +4691,8 @@
     "imageDeletedSuccessfully": "Afbeelding verwijderd",
     "cevalLineOptions.downloadCeval": "Download engine analyse",
     "downloadCevalButtonTitle": "LiChess Tools - download analyse",
-    "soundOptions.volumeBar": "Volume hoofdmenu balk"
+    "soundOptions.volumeBar": "Volume hoofdmenu balk",
+    "options.boardStyle": "Board styling"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5625,7 +5630,8 @@
     "imageDeletedSuccessfully": "Image deleted",
     "cevalLineOptions.downloadCeval": "Download engine analysis",
     "downloadCevalButtonTitle": "LiChess Tools - download analysis",
-    "soundOptions.volumeBar": "Main menu volume bar"
+    "soundOptions.volumeBar": "Main menu volume bar",
+    "options.boardStyle": "Board styling"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6562,8 +6568,9 @@
     "deleteImageQuestion": "Êtes-vous sûr de vouloir supprimer cette image pour tout le monde ?",
     "imageDeletedSuccessfully": "Image supprimée",
     "cevalLineOptions.downloadCeval": "Télécharger l'analyse du moteur",
-    "downloadCevalButtonTitle": "Outils LiChess - analyse de téléchargement",
-    "soundOptions.volumeBar": "Barre de volume du menu principal"
+    "downloadCevalButtonTitle": "LiChess Tools - téléchargement de l'analyse",
+    "soundOptions.volumeBar": "Curseur de volume dans le menu principal",
+    "options.boardStyle": "Board styling"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7501,7 +7508,8 @@
     "imageDeletedSuccessfully": "Bild gelöscht",
     "cevalLineOptions.downloadCeval": "Engine-Analyse herunterladen",
     "downloadCevalButtonTitle": "LiChess-Tools - Download-Analyse",
-    "soundOptions.volumeBar": "Hauptmenü-Lautstärkeleiste"
+    "soundOptions.volumeBar": "Hauptmenü-Lautstärkeleiste",
+    "options.boardStyle": "Board styling"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8439,7 +8447,8 @@
     "imageDeletedSuccessfully": "Image deleted",
     "cevalLineOptions.downloadCeval": "Download engine analysis",
     "downloadCevalButtonTitle": "LiChess Tools - download analysis",
-    "soundOptions.volumeBar": "Main menu volume bar"
+    "soundOptions.volumeBar": "Main menu volume bar",
+    "options.boardStyle": "Board styling"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9377,7 +9386,8 @@
     "imageDeletedSuccessfully": "Immagine eliminata",
     "cevalLineOptions.downloadCeval": "Scarica analisi del motore",
     "downloadCevalButtonTitle": "LiChess Tools - analisi download",
-    "soundOptions.volumeBar": "Barra del volume principale del menu"
+    "soundOptions.volumeBar": "Barra del volume principale del menu",
+    "options.boardStyle": "Board styling"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10315,7 +10325,8 @@
     "imageDeletedSuccessfully": "Image deleted",
     "cevalLineOptions.downloadCeval": "Download engine analysis",
     "downloadCevalButtonTitle": "LiChess Tools - download analysis",
-    "soundOptions.volumeBar": "Main menu volume bar"
+    "soundOptions.volumeBar": "Main menu volume bar",
+    "options.boardStyle": "Board styling"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11253,7 +11264,8 @@
     "imageDeletedSuccessfully": "Obraz usunięty",
     "cevalLineOptions.downloadCeval": "Pobierz analizę silnika",
     "downloadCevalButtonTitle": "Narzędzia LiChess - pobieranie analizy",
-    "soundOptions.volumeBar": "Pasek głośności menu głównego"
+    "soundOptions.volumeBar": "Pasek głośności menu głównego",
+    "options.boardStyle": "Board styling"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12191,7 +12203,8 @@
     "imageDeletedSuccessfully": "Imagem excluída",
     "cevalLineOptions.downloadCeval": "Download do motor de análise",
     "downloadCevalButtonTitle": "Ferramentas LiChess - baixar análise",
-    "soundOptions.volumeBar": "Barra de volume do menu principal"
+    "soundOptions.volumeBar": "Barra de volume do menu principal",
+    "options.boardStyle": "Board styling"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13129,7 +13142,8 @@
     "imageDeletedSuccessfully": "Imagem excluída",
     "cevalLineOptions.downloadCeval": "Download do motor de análise",
     "downloadCevalButtonTitle": "Ferramentas LiChess - baixar análise",
-    "soundOptions.volumeBar": "Barra de volume do menu principal"
+    "soundOptions.volumeBar": "Barra de volume do menu principal",
+    "options.boardStyle": "Board styling"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14067,7 +14081,8 @@
     "imageDeletedSuccessfully": "Imaginea a fost ștearsă",
     "cevalLineOptions.downloadCeval": "Descărcare analiză computer",
     "downloadCevalButtonTitle": "LiChess Tools - descărcare analiză computer",
-    "soundOptions.volumeBar": "Bară volum în meniul principal"
+    "soundOptions.volumeBar": "Bară volum în meniul principal",
+    "options.boardStyle": "Stilare tablă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15005,7 +15020,8 @@
     "imageDeletedSuccessfully": "Изображение удалено",
     "cevalLineOptions.downloadCeval": "Анализ загрузок",
     "downloadCevalButtonTitle": "Инструменты Lichess - анализ загрузки",
-    "soundOptions.volumeBar": "Панель громкости главного меню"
+    "soundOptions.volumeBar": "Панель громкости главного меню",
+    "options.boardStyle": "Board styling"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15943,7 +15959,8 @@
     "imageDeletedSuccessfully": "Imagen eliminada",
     "cevalLineOptions.downloadCeval": "Análisis del motor de descarga",
     "downloadCevalButtonTitle": "Herramientas de LiChess - análisis de descargas",
-    "soundOptions.volumeBar": "Barra de volumen del menú principal"
+    "soundOptions.volumeBar": "Barra de volumen del menú principal",
+    "options.boardStyle": "Board styling"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16881,7 +16898,8 @@
     "imageDeletedSuccessfully": "Image deleted",
     "cevalLineOptions.downloadCeval": "Download engine analysis",
     "downloadCevalButtonTitle": "LiChess Tools - download analysis",
-    "soundOptions.volumeBar": "Main menu volume bar"
+    "soundOptions.volumeBar": "Main menu volume bar",
+    "options.boardStyle": "Board styling"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17819,7 +17837,8 @@
     "imageDeletedSuccessfully": "Image deleted",
     "cevalLineOptions.downloadCeval": "Download engine analysis",
     "downloadCevalButtonTitle": "LiChess Tools - download analysis",
-    "soundOptions.volumeBar": "Main menu volume bar"
+    "soundOptions.volumeBar": "Main menu volume bar",
+    "options.boardStyle": "Board styling"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18757,6 +18776,7 @@
     "imageDeletedSuccessfully": "Image deleted",
     "cevalLineOptions.downloadCeval": "Download engine analysis",
     "downloadCevalButtonTitle": "LiChess Tools - download analysis",
-    "soundOptions.volumeBar": "Main menu volume bar"
+    "soundOptions.volumeBar": "Main menu volume bar",
+    "options.boardStyle": "Board styling"
   }
 }
