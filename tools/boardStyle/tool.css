@@ -1,0 +1,21 @@
+body.lichessTools .lichessTools-lastMoveArrow {
+  display: none;
+  --lt-color: #202020A0;
+  --lt-reverse-color: #A0A0A0;
+  --lt-width: 3;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index:2;
+  pointer-events: none;
+  filter: drop-shadow(2px 4px 6px var(--lt-reverse-color));
+}
+
+body.lichessTools .lichessTools-lastMoveArrow .arrow-line {
+  stroke: var(--lt-color);
+  stroke-width: var(--lt-width);
+}
+
+body.lichessTools .lichessTools-lastMoveArrow .arrowhead {
+  fill: var(--lt-color);
+}

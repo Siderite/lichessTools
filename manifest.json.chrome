@@ -68,6 +68,7 @@
         "tools/stockfish/tool.js",
         "tools/addNotifications/tool.js",
         "tools/additionalGlyphs/tool.js",
+        "tools/boardStyle/tool.js",
 
         "tools/extraChart/raccoon.js",
 
@@ -240,6 +241,8 @@
         "tools/mobileExperience/tool.css",
         "tools/explorerPractice/tool.css",
         "tools/additionalGlyphs/tool.css",
+        "tools/boardStyle/tool.css",
+
         "tools/extraChart/tool.css",
         "tools/keyboardHelp/tool.css",
         "tools/previousStudyMenu/tool.css",

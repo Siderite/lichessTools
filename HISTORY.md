@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 Oct
+
+- Board style tool
+
 24 Oct
 
 - Button to download local computer analysis
