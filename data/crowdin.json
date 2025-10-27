@@ -6493,7 +6493,7 @@
     "mobileExperience.tapDrag": "Tapoter&Glisser",
     "mobileExperienceRound.tapDragRound": "Tapoter&Glisser",
     "options.pieceValueCommand": "Commande : afficher la valeur des pièces dans la position",
-    "pieceValueCommand.helpText": "/piecevalue [depth=20] [c] ...ontinuous\n/stop Stop execution\nShow piece values for position",
+    "pieceValueCommand.helpText": "/piecevalue [depth=20] [c] ...ontinu\n/stop Arrêter l’exécution\nAfficher la valeur des pièces dans la position",
     "analysisContextActions.lineEval": "Évaluation du moteur pour les coups précédents",
     "evaluateLineText": "Évaluer les coups précédents",
     "evaluateLineTitle": "LiChess Tools - Évaluer tous les coups précédents",
@@ -6570,7 +6570,7 @@
     "cevalLineOptions.downloadCeval": "Télécharger l'analyse du moteur",
     "downloadCevalButtonTitle": "LiChess Tools - téléchargement de l'analyse",
     "soundOptions.volumeBar": "Curseur de volume dans le menu principal",
-    "options.boardStyle": "Board styling"
+    "options.boardStyle": "Stylisation de l'échiquier"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
