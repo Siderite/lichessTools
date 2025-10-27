@@ -1,7 +1,6 @@
 /* Arcade */
 
 body.lichessTools.lichessTools-theme_arcade cg-board:before {
-  filter: brightness(0.75);
 }
 
 body.lichessTools.lichessTools-theme_arcade square.last-move {
