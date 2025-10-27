@@ -111,7 +111,7 @@
         } else {
           arrow.remove();
           container
-            .removeAttrSafe('sideToPlay')
+            .attrSafe('sideToPlay','white')
             .removeAttrSafe('lastMovedPiece')
             .removeAttrSafe('lastMoveSquare')
             .removeAttrSafe('lastPieceCaptured');
