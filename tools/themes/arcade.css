@@ -53,3 +53,31 @@ body.lichessTools.lichessTools-theme_arcade square.move-dest:hover {
 body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] square.move-dest:hover {
   box-shadow: inset 0px 0px 4px 4px #38DCFFA0;
 }
+
+
+
+body.lichessTools.lichessTools-theme_arcade .mini-game square.last-move:after {
+  box-shadow: inset 0 0 1px 1px #38DCFF;
+}
+
+body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest.oc:before {
+  inset: 1px;
+  box-shadow: inset 0px 0 3px 1px #D33B22;
+}
+
+body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest:not(:hover,.oc) {
+  filter: drop-shadow(0 0 1px #4040FF) drop-shadow(0 0 4px #FFFFFF);
+}
+
+
+body.lichessTools.lichessTools-theme_arcade .mini-game cg-container[sideToPlay="white"] square.last-move:after {
+  box-shadow: inset 0 0 1px 1px #C34B32;
+}
+
+body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest:hover {
+  box-shadow: inset 0px 0px 2px 2px #C34B32A0;
+}
+
+body.lichessTools.lichessTools-theme_arcade .mini-game cg-container[sideToPlay="white"] square.move-dest:hover {
+  box-shadow: inset 0px 0px 2px 2px #38DCFFA0;
+}
