@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 27 Oct
 
 - Arcade theme
+- Continuous /piecevalue
 
 26 Oct
 

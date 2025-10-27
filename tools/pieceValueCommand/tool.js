@@ -19,11 +19,11 @@
     intl = {
       'en-US': {
         'options.pieceValueCommand': 'Command: show piece values for position',
-        'pieceValueCommand.helpText': '/piecevalue [depth=20]\r\nShow piece values for position'
+        'pieceValueCommand.helpText': '/piecevalue [depth=20] [c] ...ontinuous\r\n/stop Stop execution\r\nShow piece values for position'
       },
       'ro-RO': {
         'options.pieceValueCommand': 'Comand\u0103: arat\u0103 valorile pieselor pentru pozi\u0163ie',
-        'pieceValueCommand.helpText': '/piecevalue [ad\u00e2ncime=20]\r\nArat\u0103 valorile pieselor pentru pozi\u0163ie'
+        'pieceValueCommand.helpText': '/piecevalue [ad\u00e2ncime=20] [c] ...ontinuu\r\n/stop Opre\u015fte execu\u0163ia\r\nArat\u0103 valorile pieselor pentru pozi\u0163ie'
       }
     };
 
@@ -106,30 +106,37 @@
       }
     };
 
-    showPieceValue = async (depth)=>{
+    showPieceValue = async (depth, continuous)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
-      const fen = analysis.node.fen;
-      if (this.lastProcessedFen == fen && !$('piece:not([data-eval])').length) return;
-      const splits = fen.split(/\s+/);
-      const sf=await this.getEngine();
       if (!$('.cg-wrap .spinner').length) {
         $('.cg-wrap').append(lt.spinnerHtml);
       }
+      let clearValues = true;
+      if (this.running) return;
       try {
+        this.running = true;
+        const sf=await this.getEngine();
+        const fen = analysis.node.fen;
+        const splits = fen.split(/\s+/);
+        if (this.lastProcessedFen && this.lastProcessedFen != fen) {
+          return;
+        }
         this.lastProcessedFen = fen;
         const board = lt.getBoardFromFen(fen);
-        const pieces = $('cg-container piece').get();
+        const pieces = $('cg-container piece:not([data-eval])').get();
+        if (!pieces.length) {
+          clearValues = false;
+          return;
+        }
         lt.arrayShuffle(pieces);
         const depths = depth>25 ? [14,depth] : [depth];
         for (const currentDepth of depths) {
           const baseEval = await this.getEval(fen, sf, currentDepth);
           for (const e of pieces) {
-            if (analysis.node.fen != fen) {
-              this.current = null;
-              this.clearValues();
+            if (analysis.node.fen != fen || this.stopRequested) {
               return;
             }
             const key = e.cgKey;
@@ -177,9 +184,16 @@
             this.current = null;
           }
         }
+        clearValues = false;
       } finally {
-        this.current = null;
-        $('.cg-wrap .spinner').remove();
+        if (clearValues) {
+          this.clearValues();
+        }
+        if (continuous && !this.stopRequested) {
+          lt.global.setTimeout(()=>this.showPieceValue(depth, continuous),100);
+        }
+        this.stopRequested = false;
+        this.running = false;
       }
     };
 
@@ -211,14 +225,6 @@
       this.displayValue(this.current.e, this.current.baseEval - val, this.current.ch, true);
     };
 
-    handleChange = ()=>{
-      const lt = this.lichessTools;
-      const lichess = lt.lichess;
-      const analysis = lichess.analysis;
-      if (this.lastProcessedFen == analysis.node.fen) return;
-      this.clearValues();
-    };
-
     clearValues = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -246,16 +252,21 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
-      lt.pubsub.on('lichessTools.redraw', this.handleChange);
       if (value) {
-        lt.pubsub.on('lichessTools.redraw', this.handleChange);
         lt.registerCommand && lt.registerCommand('pieceValueCommand', {
           handle: (val) => {
-            const m = /^\s*piecevalue(?:\s+(?<depth>\d+))?/.exec(val);
+            let m = /^\s*piecevalue\b/.exec(val);
             if (m) {
-              const depth = +m.groups?.depth || 20;
-              this.showPieceValue(depth);
+              m = /(?<depth>\d+)/.exec(val);
+              const depth = +m?.groups?.depth || 20;
+              const continuous = /\bc/.test(val);
+              this.showPieceValue(depth, continuous);
               return true;
+            } else {
+              m = /^\s*stop\b/.exec(val);
+              if (m) {
+                this.stopRequested = true;
+              }
             }
           },
           getHelp: () => trans.noarg('pieceValueCommand.helpText')
