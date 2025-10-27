@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Oct
+
+- Arcade theme
+
 26 Oct
 
 - Board style tool
