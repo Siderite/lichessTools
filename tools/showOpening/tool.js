@@ -38,8 +38,11 @@
       if (!this.options.showInMinigames) return;
       const lt = this.lichessTools;
       const $ = lt.$;
+      const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing')) return;
+      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
+      if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
 
       const withParameter = !!el;
       let fen = '';
@@ -63,7 +66,11 @@
           notInViewport = true;
           continue;
         }
-        fen = fen || $(el).attr('data-state');
+        fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
+        if (!fen) {
+          //lt.global.console.warn('Could not get fen for element', el);
+          continue;
+        }
         if (!gameId) {
           const href = $(el).attr('href');
           if (!href) {
@@ -248,7 +255,7 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing')) return;
+      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
       const trans = lt.translator;
       const tvOptions = lt.getTvOptions();
       const gameId = tvOptions.gameId || analysis?.data?.game?.id;
@@ -311,6 +318,10 @@
       metaSection.find('.lichessTools-opening').remove();
       $('a.mini-game .lichessTools-opening').remove();
       $('div.title .lichessTools-opening').remove();
+      $('body').observer()
+        .off('input[type=checkbox]',this.miniGameOpening);
+      $('body').observer()
+        .off('input[type=checkbox]',this.refreshOpeningDebounced);
       if (this.options.showInBoard || this.options.showInAnalysisTitle) {
         lt.uiApi.socket.events.on('endData', this.refreshOpeningDebounced);
         lt.uiApi.events.on('ply', this.refreshOpeningDebounced);
@@ -319,6 +330,10 @@
           : 3500;
         this.interval = lt.global.setInterval(this.refreshOpeningDebounced, intervalTime);
         //this.refreshOpeningDebounced(); this is not essential to loading
+        $('body').observer()
+          .on('input[type=checkbox]',this.miniGameOpening,{ attributes: true });
+        $('body').observer()
+          .on('input[type=checkbox]',this.refreshOpeningDebounced,{ attributes: true });
       }
       if (this.options.showInMinigames) {
         lt.uiApi.socket.events.on('fen', this.miniGameOpening);

@@ -69,3 +69,7 @@ body.lichessTools.lichessTools-kmapsMiniGames a.mini-game:not(:has(.lichessTools
     display: block;
   }
 }
+
+body.lichessTools:has(.study__multiboard__options label.eval input:not(:checked)) .lichessTools-kmaps {
+  display: none;
+}

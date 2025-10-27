@@ -6,10 +6,6 @@ body.lichessTools div.game__meta .lichessTools-opening {
   overflow: hidden;
 }
 
-body.lichessTools div.chat__members .lichessTools-opening {
-  float: left;
-}
-
 body.lichessTools div.chat__members .lichessTools-opening:before,
 body.lichessTools div.game__meta .lichessTools-opening:before {
   margin-right: 0.4em;
@@ -63,6 +59,10 @@ body.lichessTools .copyables .pgn:has(.is-error) {
   main.analyse.is-relay:not(.has-relay-tour) .chat__members:has(.lichessTools-opening) {
     display: block;
   }
+}
+
+body.lichessTools:has(.study__multiboard__options label.eval input:not(:checked)) .lichessTools-opening {
+  display: none;
 }
 
 /* Prettier Lichess CSS */

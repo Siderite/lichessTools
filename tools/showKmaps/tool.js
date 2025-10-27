@@ -41,11 +41,6 @@
       return /^\/games(\/|$)?/i.test(lt.global.location.pathname);
     };
 
-    isBroadcastPage = () => {
-      const lt = this.lichessTools;
-      return /^\/broadcast\//i.test(lt.global.location.pathname);
-    };
-
     getKmaps = async (fen, isBlack) => {
       const lt = this.lichessTools;
       const useHollowLeaf = !!lt.storage.get('LiChessTools.showKmaps.useHollowLeaf');
@@ -209,6 +204,8 @@
       const $ = lt.$;
       if (lt.global.document.hidden) return;
       if ($.cached('body').is('.playing')) return;
+      const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
+      if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
 
       const withParameter = !!el;
       let fen = '';
@@ -232,7 +229,7 @@
         }
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
-          lt.global.console.warn('Could not get fen for element', el);
+          //lt.global.console.warn('Could not get fen for element', el);
           continue;
         }
         const kmaps = await this.getKmaps(fen, $(el).attr('data-state')?.includes('black'));
@@ -250,9 +247,7 @@
       const $ = lt.$;
       if (lt.global.document.hidden) return;
       if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
-      if (this.isGamesPage() || this.isBroadcastPage()) {
-        return;
-      }
+
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;
@@ -286,6 +281,10 @@
       lt.pubsub.off('lichessTools.redraw', this.refreshKmapsDebounced);
       lt.pubsub.off('content-loaded', this.miniGameKmapsDebounced);
       lt.global.clearInterval(this.interval);
+      $('body').observer()
+        .off('input[type=checkbox]',this.miniGameKmapsDebounced);
+      $('body').observer()
+        .off('input[type=checkbox]',this.refreshKmapsDebounced);
       if (this.options.enabled) {
         lt.uiApi.socket.events.on('endData', this.refreshKmapsDebounced);
         lt.uiApi.socket.events.on('fen', this.miniGameKmaps);
@@ -296,11 +295,15 @@
         if ($('main').is('#board-editor')) {
           this.interval = lt.global.setInterval(this.refreshKmapsDebounced, 1000);
         }
+        $('body').observer()
+          .on('input[type=checkbox]',this.miniGameKmapsDebounced,{ attributes: true });
+        $('body').observer()
+          .on('input[type=checkbox]',this.refreshKmapsDebounced,{ attributes: true });
       } else {
         const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables');
         metaSection.find('.lichessTools-kmaps').remove();
       }
-      if (this.isGamesPage() || this.isBroadcastPage()) {
+      if (this.isGamesPage()) {
         $.cached('body').toggleClass('lichessTools-kmapsMiniGames', this.options.enabled);
       }
     }
