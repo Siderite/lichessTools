@@ -28,7 +28,8 @@
       const $ = lt.$;
       $('cg-container').each((i,e)=>{
         const container = $(e);
-        const offset=container.offset();
+        const containerRect = e.getBoundingClientRect();
+        const q = 800/containerRect.width;
         container.toggleClassSafe('lichessTools-boardStyle',true);
 
         const selectedKey = container.find('square.selected').prop('cgKey');
@@ -64,20 +65,29 @@
 
           const pos = lastMoves
                             .map(s=>s.getBoundingClientRect())
-                            .map(r=>({ x:r.x+r.width/2-offset.left, y:r.y+r.height/2-offset.top }));
+                            .map(r=>({ x:q*(r.x+r.width/2-containerRect.x), y:q*(r.y+r.height/2-containerRect.y) }));
           const dest = pos[0];
           const orig = pos[1];
           if (!arrow.length) {
-            arrow = $(`<svg class="lichessTools-lastMoveArrow">
+            arrow = $(`<svg class="lichessTools-lastMoveArrow" viewBox="0 0 800 800">
       <defs>
+        <linearGradient id="arrowGradient" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" class="stop-0" />
+          <stop offset="100%" class="stop-100" />
+        </linearGradient>
         <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="3" refY="1.75" orient="auto" markerUnits="strokeWidth">
           <polygon points="0 0, 5 1.75, 0 3.5" class="arrowhead" />
         </marker>
       </defs>
-      <line class="arrow-line" marker-end="url(#arrowhead)" />
+      <line class="arrow-line" />
     </svg>`).appendTo(container);
           }
           arrow.find('.arrow-line')
+            .attrSafe('x1',orig.x)
+            .attrSafe('y1',orig.y)
+            .attrSafe('x2',dest.x)
+            .attrSafe('y2',dest.y);
+          arrow.find('#arrowGradient')
             .attrSafe('x1',orig.x)
             .attrSafe('y1',orig.y)
             .attrSafe('x2',dest.x)
