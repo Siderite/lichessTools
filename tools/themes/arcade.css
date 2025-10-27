@@ -1,5 +1,9 @@
 /* Arcade */
 
+body.lichessTools.lichessTools-theme_arcade cg-board:before {
+  filter: brightness(0.5);
+}
+
 body.lichessTools.lichessTools-theme_arcade square.last-move {
   background: none;
 }
@@ -13,17 +17,7 @@ body.lichessTools.lichessTools-theme_arcade square.last-move:after {
 }
 
 body.lichessTools.lichessTools-theme_arcade square.selected {
-  background: none;
-}
-
-body.lichessTools.lichessTools-theme_arcade square.selected:before {
-  content:'';
-  inset: 3px;
-  position:absolute;
-  box-shadow: inset 0px 0 5px 3px #C34B32;
-  background: none;
-  border-radius: 50%;
-  pointer-events:none;
+  background: #FFFFFF10;
 }
 
 body.lichessTools.lichessTools-theme_arcade square.move-dest.oc {
@@ -34,14 +28,15 @@ body.lichessTools.lichessTools-theme_arcade square.move-dest.oc:before {
   content:'';
   inset: 3px;
   position:absolute;
-  box-shadow: inset 0px 0 10px 10px #C34B32A0;
+  box-shadow: inset 0px 0 5px 3px #D33B22;
   background: none;
   border-radius: 50%;
   pointer-events:none;
 }
 
-body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] square.selected:before {
-  box-shadow: inset 0px 0 5px 3px #38DCFF;
+body.lichessTools.lichessTools-theme_arcade square.move-dest:not(:hover,.oc) {
+  background: radial-gradient(#FFFFFF80 19%, #00000000 20%);
+  filter: drop-shadow(0 0 3px #4040FF) drop-shadow(0 0 8px #FFFFFF);
 }
 
 
@@ -51,10 +46,10 @@ body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] squ
 
 body.lichessTools.lichessTools-theme_arcade square.move-dest:hover {
   background: unset;
-  box-shadow: inset 0px 0px 7px 7px #C34B3280;
+  box-shadow: inset 0px 0px 4px 4px #C34B32A0;
   backdrop-filter: brightness(90%);
 }
 
 body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] square.move-dest:hover {
-  box-shadow: inset 0px 0px 7px 7px #38DCFF80;
+  box-shadow: inset 0px 0px 4px 4px #38DCFFA0;
 }
