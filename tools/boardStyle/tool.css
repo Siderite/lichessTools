@@ -1,5 +1,5 @@
 body.lichessTools .lichessTools-lastMoveArrow {
-  -display: none;
+  display: none;
   --lt-start-color: #40404040;
   --lt-end-color: #404040;
   --lt-glow-color: cyan;
