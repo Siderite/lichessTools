@@ -329,7 +329,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
-      if (!$.cached('body').is('.mobile'))
+      if (!lt.isMobile() && !lt.isTouchDevice())
         return;
       const trans = lt.translator;
       const isAnalyse = !!$('main.analyse').length;
@@ -485,14 +485,14 @@
           const handler = lt.getKeyHandler('f');
           if (handler) {
             if (this.options.flipBoard) {
-              $('body.mobile .round__app .rclock-bottom').each((i, e) => {
+              $('body .round__app .rclock-bottom').each((i, e) => {
                 if (e.__initFlipBoard)
                   return;
                 e.__initFlipBoard = true;
                 $(e).on('click', handler);
               });
             } else {
-              $('body.mobile .round__app .rclock-bottom').each((i, e) => {
+              $('body .round__app .rclock-bottom').each((i, e) => {
                 e.__initFlipBoard = undefined;
                 $(e).off('click', handler);
               });
@@ -607,7 +607,7 @@
       const isTv = /\/tv\b/i.test(lt.global.location.pathname);
       if (isRoundPlay || isRoundPuzzle) {
         const lockBoardElem = $('#top div.site-buttons div.lichessTools-lockBoard');
-        if ($.cached('body').is('.mobile.playing') && ((this.options.lockBoardPlay && isRoundPlay) || (this.options.lockBoardPuzzle && isRoundPuzzle)) ) {
+        if (lt.isMobile() && $.cached('body').is('playing') && ((this.options.lockBoardPlay && isRoundPlay) || (this.options.lockBoardPuzzle && isRoundPuzzle)) ) {
           $.cached('body').toggleClassSafe('lichessTools-lockBoard',true);
           if (this.isBoardLocked === undefined) {
             this.isBoardLocked = lt.storage.get('LiChessTools.boardLocked');

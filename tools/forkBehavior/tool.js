@@ -67,7 +67,7 @@
       let dlg = null;
       let selectElem = null;
       const selectedIndex = lichess.analysis?.fork?.selectedIndex || 0;
-      if ($('body').is('.mobile')) {
+      if (lt.isMobile()) {
         selectElem = $('<ul>');
         let container = hasTranspos && nextMoves.length
           ? $('<ul>').text(trans.noarg('movesGroupLabel')).appendTo(selectElem)

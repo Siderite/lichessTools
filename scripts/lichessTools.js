@@ -834,11 +834,6 @@
       return state;
     }
 
-    isMobile() {
-      const $ = this.$;
-      return $('body').is('.mobile');
-    }
-
     getTvOptions = () => {
       const $ = this.$;
       const inAnalysisMode = !!this.lichess.analysis;
@@ -1630,6 +1625,11 @@
 
     isTouchDevice() {
       return !this.global.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    }
+
+    isMobile() {
+      const $ = this.$;
+      return $('body').is('.mobile');
     }
 
     net = {

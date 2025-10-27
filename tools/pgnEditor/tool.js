@@ -227,7 +227,7 @@
     mobileFirstTap = (el) => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      if (!$('body').is('.mobile')) return;
+      if (!lt.isMobile()) return;
       const isActive = $(el).is('.lichessTools-mobileActive');
       $('.lichessTools-mobileActive').removeClass('lichessTools-mobileActive');
       if (isActive) return false;

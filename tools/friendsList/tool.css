@@ -363,6 +363,14 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown .hideNotPlaying
   box-shadow: none;
 }
 
+body.lichessTools .lichessTools-onlineFriends div.links.dropdown .lichessTools-friendsLink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.5rem;
+  box-shadow: none;
+}
+
 body.lichessTools .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying>button.toggle {
   color: #1b78d0;
 }
@@ -449,6 +457,18 @@ body.lichessTools table.slist .relation-actions a[data-icon]:before {
 
 body.lichessTools table.slist .lichessTools-hideFiltered {
   display:none;
+}
+
+body.lichessTools #topnav section .lichessTools-touchFriendsLink {
+  text-decoration: underline 1px solid var(--c-link);
+  text-underline-offset: 4px;
+}
+
+body.lichessTools #topnav section .lichessTools-touchFriendsLink:before {
+  width: 1.5em;
+  margin-left: 0.5em;
+  display: inline-block;
+  color: var(--c-link);
 }
 
 /* Unrated CSS */
