@@ -9,7 +9,7 @@
         category: 'appearance',
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
-                         'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','fixThirdParties','timeControls'],
+                         'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls'],
         defaultValue: 'fixThirdParties',
         advanced: true
       }
@@ -36,6 +36,7 @@
         'themes.slimmerArrows': '... slimmer',
         'themes.gridBoard': 'Grid board squares',
         'themes.adamisko': 'Vintage Adamisko',
+        'themes.arcade': 'Arcade',
         'themes.fixThirdParties': 'Fix third parties',
         'themes.timeControls': 'Hover time controls'
       },
@@ -62,8 +63,6 @@
         'themes.timeControls': 'Controale timp la hover'
       }
     }
-
-    
 
     checkBodyDirect = async ()=>{
       const lt = this.lichessTools;
