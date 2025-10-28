@@ -41,7 +41,7 @@
 
     isInboxOrForumOrProfilePage = () => {
       const lt = this.lichessTools;
-      return /\/(inbox|forum|profile)(\/\w+|$)/i.test(lt.global.location.pathname);
+      return /\/(inbox|forum|profile|team\/.*?\/edit)(\/\w+|$)/i.test(lt.global.location.pathname);
     };
 
     isImage = (file) => {
@@ -83,20 +83,22 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      const el = ev.target;
+      const el = $(ev.target);
       let loader = null;
       try {
-        $(el).addClass('lichessTools-imagePasting');
+        el.addClass('lichessTools-imagePasting');
         loader = $('<div class="ddloader"></div>').insertAfter(el);
         const url = await this.getImageUrl(ev);
         if (!url) return;
-        const [start, end] = [el.selectionStart, el.selectionEnd];
-        el.setRangeText(url, start, end, 'end');
+        const text = el.closest('.markdown-textarea').length
+          ? `![${url}](${url})`
+          : url;
+        el.insertText(text);
       } catch (e) {
         lt.announce(trans.noarg('pastingError'));
       } finally {
         loader.remove();
-        $(el).removeClass('lichessTools-imagePasting');
+        el.removeClass('lichessTools-imagePasting');
       }
     };
 
@@ -105,7 +107,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       if (this.options.pasteImages) {
-        $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, main.forum textarea.edit-post-box, #form3-bio')
+        $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, main.forum textarea.edit-post-box, #form3-bio, #form3-description, #form3-descPrivate')
           .each((i, e) => {
             if (e.imagePastingInit) return;
             e.imagePastingInit = true;
@@ -208,7 +210,7 @@
       };
       if (!this.isInboxOrForumOrProfilePage()) return;
       lt.global.clearInterval(this.interval);
-      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, main.forum textarea.edit-post-box, #form3-bio')
+      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, main.forum textarea.edit-post-box, #form3-bio, #form3-description, #form3-descPrivate')
         .each((i, e) => {
           $(e).off('paste drop', this.pasteImage);
           e.imagePastingInit = false;
