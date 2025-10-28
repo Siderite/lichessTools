@@ -1510,8 +1510,8 @@
       }
       const arr = new Uint32Array(2);
       this.global.crypto.getRandomValues(arr);
-      const mantissa = (arr[0] * Math.pow(2, 20)) + (arr[1] >>> 12);
-      return mantissa * Math.pow(2, -52);
+      const m = (arr[0] * 0x100000) + (arr[1] >>> 12);
+      return m * 2.220446049250313e-16; // 1 / 2^52
     };
 
     hash = (text) => {
