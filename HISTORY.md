@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+28 Oct
+
+- Paste image with markdown
+
 27 Oct
 
 - Arcade theme
