@@ -1,0 +1,14 @@
+body.lichessTools #dasher_app .lichessTools-themes .head .lichessTools-infoIcon { 
+  float: right;
+}
+
+body.lichessTools #dasher_app .lichessTools-themes .selector { 
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-height: min(calc(11 * (1em + 1.7rem)), 90vh);
+}
+
+body.lichessTools #dasher_app .lichessTools-themes .selector button.default:before {
+  opacity: 1;
+  color: var(--c-font);
+}
