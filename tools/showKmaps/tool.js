@@ -41,14 +41,13 @@
       return /^\/games(\/|$)?/i.test(lt.global.location.pathname);
     };
 
-    isBroadcastPage = () => {
+    getKmaps = async (fen, isBlack) => {
       const lt = this.lichessTools;
-      return /^\/broadcast\//i.test(lt.global.location.pathname);
-    };
-
-    getKmaps = (fen, isBlack) => {
-      const evaluator = new ChessPositionEvaluator(fen);
-      const kmaps = evaluator.evaluate();
+      const useHollowLeaf = !!lt.storage.get('LiChessTools.showKmaps.useHollowLeaf');
+      const evaluator = useHollowLeaf
+        ? new HollowLeafEvaluator(fen, lt)
+        : new ChessPositionEvaluator(fen, lt);
+      const kmaps = await evaluator.evaluate();
       const q = isBlack ? -1 : 1;
       return { 
         K:q*kmaps.K,
@@ -65,7 +64,7 @@
       const $ = lt.$;
       const radarChart = !!lt.storage.get('LiChessTools.showKmaps.radar');
       lt.storage.set('LiChessTools.showKmaps.radar',!radarChart);
-      $('.lichessTools-kmaps').empty();
+      $('.lichessTools-kmaps').remove();
       this.refreshKmaps();
     };
 
@@ -75,7 +74,11 @@
       const trans = lt.translator;
       if (!el.length) el = $(el);
       let kmapsElem = el.find('.lichessTools-kmaps');
-      if (!kmapsElem.length) {
+      if (kmapsElem.length) {
+        const kmapsJson = lt.global.JSON.stringify(kmaps);
+        if (kmapsElem.prop('kmapsJson') == kmapsJson) return;
+        kmapsElem.prop('kmapsJson',kmapsJson);
+      } else {
         const visibleEl = el.filter((i, e) => !!lt.inViewport(e)).eq(0);
         kmapsElem = $('<span>')
           .addClass('lichessTools-kmaps')
@@ -201,6 +204,10 @@
       const $ = lt.$;
       if (lt.global.document.hidden) return;
       if ($.cached('body').is('.playing')) return;
+      const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
+      if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
+
+      const withParameter = !!el;
       let fen = '';
       if (el?.id && el?.fen) {
         fen = el.fen;
@@ -210,17 +217,26 @@
       if (!$(el).length) el = $.cached('body');
       const elems = $(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
+      if (withParameter && !elems.length) {
+        this.miniGameKmaps();
+        return;
+      }
+      let notInViewport = false;
       for (const el of elems) {
-        if (!lt.inViewport(el)) continue;
-        fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
-        if (!fen) {
-          lt.global.console.warn('Could not get fen for element', el);
+        if (!lt.inViewport(el)) {
+          notInViewport = true;
           continue;
         }
-        const kmaps = this.getKmaps(fen, $(el).attr('data-state')?.includes('black'));
+        fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
+        if (!fen) {
+          //lt.global.console.warn('Could not get fen for element', el);
+          continue;
+        }
+        const kmaps = await this.getKmaps(fen, $(el).attr('data-state')?.includes('black'));
         this.addKmapsAnchor(el, kmaps);
         fen = '';
       }
+      if (notInViewport) this.miniGameKmapsDebounced();
     };
     miniGameKmapsDebounced = this.lichessTools.debounce(this.miniGameKmaps, 500, { defer:true });
 
@@ -231,9 +247,7 @@
       const $ = lt.$;
       if (lt.global.document.hidden) return;
       if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
-      if (this.isGamesPage() || this.isBroadcastPage()) {
-        return;
-      }
+
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;
@@ -267,6 +281,10 @@
       lt.pubsub.off('lichessTools.redraw', this.refreshKmapsDebounced);
       lt.pubsub.off('content-loaded', this.miniGameKmapsDebounced);
       lt.global.clearInterval(this.interval);
+      $('body').observer()
+        .off('input[type=checkbox]',this.miniGameKmapsDebounced);
+      $('body').observer()
+        .off('input[type=checkbox]',this.refreshKmapsDebounced);
       if (this.options.enabled) {
         lt.uiApi.socket.events.on('endData', this.refreshKmapsDebounced);
         lt.uiApi.socket.events.on('fen', this.miniGameKmaps);
@@ -277,15 +295,41 @@
         if ($('main').is('#board-editor')) {
           this.interval = lt.global.setInterval(this.refreshKmapsDebounced, 1000);
         }
+        $('body').observer()
+          .on('input[type=checkbox]',this.miniGameKmapsDebounced,{ attributes: true });
+        $('body').observer()
+          .on('input[type=checkbox]',this.refreshKmapsDebounced,{ attributes: true });
       } else {
         const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables');
         metaSection.find('.lichessTools-kmaps').remove();
       }
-      if (this.isGamesPage() || this.isBroadcastPage()) {
+      if (this.isGamesPage()) {
         $.cached('body').toggleClass('lichessTools-kmapsMiniGames', this.options.enabled);
       }
     }
 
+  }
+
+  class HollowLeafEvaluator {
+    constructor(fen, lt) {
+      this.fen = fen;
+      this.lichessTools = lt;
+    }
+
+    async evaluate() {
+      const lt = this.lichessTools;
+      if (!HollowLeafEvaluator.computeKMAPS) {
+        const url = await lt.comm.getChromeUrl('tools/showKmaps/kmaps.js');
+        const { computeKMAPS } = await import(url);
+        HollowLeafEvaluator.computeKMAPS = computeKMAPS;
+      }
+      const kmaps = HollowLeafEvaluator.computeKMAPS(this.fen);
+      const result = {};
+      for (const itm of kmaps) {
+        result[itm.metric[0]]=(itm.White-itm.Black)||0;
+      }
+      return result;
+    }
   }
 
   class ChessPositionEvaluator {
@@ -972,7 +1016,7 @@
     }
   
     // Main evaluation function
-    evaluate() {
+    async evaluate() {
       return {
         K: this.evaluateKingSafety(),
         M: this.evaluateMaterial(),

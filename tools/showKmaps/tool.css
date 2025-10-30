@@ -43,6 +43,15 @@ body.lichessTools a.mini-game .lichessTools-kmaps {
   text-overflow: ellipsis;
 }
 
+body.lichessTools a.mini-game .lichessTools-kmaps:has(canvas) {
+  position:relative;
+  z-index:2;
+}
+
+
+body.lichessTools a.mini-game:has(.lichessTools-kmaps:hover) {
+  overflow: visible;
+}
 
 body.lichessTools div.analyse__wiki .lichessTools-kmaps,
 body.lichessTools .copyables .lichessTools-kmaps {
@@ -59,4 +68,8 @@ body.lichessTools.lichessTools-kmapsMiniGames a.mini-game:not(:has(.lichessTools
   main.analyse.is-relay:not(.has-relay-tour) .chat__members:has(.lichessTools-kmaps) {
     display: block;
   }
+}
+
+body.lichessTools:has(.study__multiboard__options label.eval input:not(:checked)) .lichessTools-kmaps {
+  display: none;
 }

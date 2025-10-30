@@ -28,7 +28,7 @@
     handleResize = (ev) => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      const isFullscreen = lt.global.screen.height == lt.global.innerHeight;
+      const isFullscreen = lt.global.screen.height == lt.global.innerHeight && !lt.isTouchDevice();
       $('header#top').toggleClass('lichessTools-fullScreen', isFullscreen);
     };
 

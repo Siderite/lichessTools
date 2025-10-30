@@ -21,7 +21,7 @@ body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__b
 }
 
 body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) div.analyse__board {
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
 }
 
 coords.lichessTools-fixCoords {

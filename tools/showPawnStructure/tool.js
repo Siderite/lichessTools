@@ -37,11 +37,6 @@
       return /^\/games(\/|$)?/i.test(lt.global.location.pathname);
     };
 
-    isBroadcastPage = () => {
-      const lt = this.lichessTools;
-      return /^\/broadcast\//i.test(lt.global.location.pathname);
-    };
-
     getStructure = (board, blackOrientation) => {
       if (!board) return null;
       const lt = this.lichessTools;
@@ -298,8 +293,13 @@
     miniGameStructure = async (el) => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing')) return;
+      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
+      if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
+
+      const withParameter = !!el;
       const trans = lt.translator;
       let fen = '';
       if (el?.id && el?.fen) {
@@ -310,11 +310,19 @@
       if (!$(el).length) el = $.cached('body');
       const elems = $(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
+      if (withParameter && !elems.length) {
+        this.miniGameStructure();
+        return;
+      }
+      let notInViewport = false;
       for (const el of elems) {
-        if (!lt.inViewport(el)) continue;
+        if (!lt.inViewport(el)) {
+          notInViewport = true;
+          continue;
+        }
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
-          lt.global.console.warn('Could not get fen for element', el);
+          //lt.global.console.warn('Could not get fen for element', el);
           continue;
         }
         const board = lt.getBoardFromFen(fen);
@@ -323,24 +331,26 @@
         this.addStructureAnchor(el, structureName, structure);
         fen = '';
       }
+      if (notInViewport) this.miniGameStructureDebounced();
     };
     miniGameStructureDebounced = this.lichessTools.debounce(this.miniGameStructure, 500, { defer:true });
 
     refreshStructure = async (ply) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const analysis = lichess.analysis;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing')) return;
-      if (this.isGamesPage() || this.isBroadcastPage()) {
+      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
+      if (this.isGamesPage()) {
         return;
       }
       const trans = lt.translator;
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
-      const fen = lichess.analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
+      const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;
       const board = lt.getBoardFromFen(fen);
-      const analysisOrientation = lichess.analysis?.getOrientation();
+      const analysisOrientation = analysis?.getOrientation();
       const isBlackOrientation = (analysisOrientation && analysisOrientation == 'black') || $('.cg-wrap').eq(0).is('.orientation-black');
       const structure = await this.getStructure(board, isBlackOrientation);
       if (!structure) {
@@ -373,6 +383,10 @@
       lt.pubsub.off('lichessTools.redraw', this.refreshStructureDebounced);
       lt.pubsub.off('content-loaded', this.miniGameStructureDebounced);
       lt.global.clearInterval(this.interval);
+      $('body').observer()
+        .off('input[type=checkbox]',this.miniGameStructure);
+      $('body').observer()
+        .off('input[type=checkbox]',this.refreshStructureDebounced);
       if (this.options.enabled) {
         lt.uiApi.socket.events.on('endData', this.refreshStructureDebounced);
         lt.uiApi.socket.events.on('fen', this.miniGameStructure);
@@ -383,11 +397,15 @@
         if ($('main').is('#board-editor')) {
           this.interval = lt.global.setInterval(this.refreshStructureDebounced, 1000);
         }
+        $('body').observer()
+          .on('input[type=checkbox]',this.miniGameStructure,{ attributes: true });
+        $('body').observer()
+          .on('input[type=checkbox]',this.refreshStructureDebounced,{ attributes: true });
       } else {
         const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables');
         metaSection.find('.lichessTools-structure').remove();
       }
-      if (this.isGamesPage() || this.isBroadcastPage()) {
+      if (this.isGamesPage()) {
         $.cached('body').toggleClass('lichessTools-structureMiniGames', this.options.enabled);
       }
     }

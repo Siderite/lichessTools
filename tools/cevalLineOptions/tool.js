@@ -6,7 +6,7 @@
         name: 'cevalLineOptions',
         category: 'analysis2',
         type: 'multiple',
-        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart'],
+        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart', 'downloadCeval'],
         defaultValue: 'moreLines',
         advanced: true
       }
@@ -21,7 +21,9 @@
         'cevalLineOptions.moreLines': 'More lines',
         'cevalLineOptions.colorEvaluation': 'Color evaluation',
         'cevalLineOptions.depthChart': 'Depth chart',
-        'moreLinesTitle': 'LiChess Tools - more lines'
+        'cevalLineOptions.downloadCeval': 'Download engine analysis',
+        'moreLinesTitle': 'LiChess Tools - more lines',
+        'downloadCevalButtonTitle': 'LiChess Tools - download analysis'
       },
       'ro-RO': {
         'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
@@ -31,7 +33,9 @@
         'cevalLineOptions.moreLines': 'Mai multe linii',
         'cevalLineOptions.colorEvaluation': 'Coloreaz\u0103 evaluarea',
         'cevalLineOptions.depthChart': 'Grafic ad\u00e2ncime',
-        'moreLinesTitle': 'LiChess Tools - mai multe linii'
+        'cevalLineOptions.downloadCeval': 'Desc\u0103rcare analiz\u0103 computer',
+        'moreLinesTitle': 'LiChess Tools - mai multe linii',
+        'downloadCevalButtonTitle': 'LiChess Tools - download analysis'
       }
     }
 
@@ -225,6 +229,7 @@
       const $ = lt.$;
       const db = this.db.get(analysis.path);
       if (!db) return;
+
       const pearl = $('.ceval pearl');
       if (!pearl.length) return;
 
@@ -249,6 +254,67 @@
       ctx.stroke();
     };
 
+    getCevalPanelText = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const container = $('.analyse__tools .pv_box');
+      if (!container.length) return;
+      const fen = container.attr('data-fen');
+      const arr=[];
+      container.find('div.pv').each((i,e)=>{
+        const text = $(e).find('*:not(.pv-wrap-toggle)').get()
+          .map(e2=>$(e2).text())
+          .join(' ');
+        arr.push(text);
+      });
+      return 'FEN: '+fen+'\r\n'+arr.join('\r\n');
+    };
+
+    downloadCevalData = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      if (!analysis) return;
+      const db = this.db.get(analysis.path);
+      if (!db) return;
+      const fen = db.values().next()?.value?.fen;
+      if (!fen) return;
+      let text = lt.global.JSON.stringify([...db.values()],undefined,2);
+      const cevalPanelText = this.getCevalPanelText();
+      if (cevalPanelText) {
+        text = '\/*\r\n'+cevalPanelText+'\r\n*\/\r\n'+text;
+      }
+      lt.download(text,'analysis (' + fen + ').json','application/json');
+    };
+
+    setupDownloadButtonDirect = () => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      if (!analysis) return;
+      const $ = lt.$;
+      const trans = lt.translator;
+      let button = $('button.lichessTools-downloadCeval');
+      if (!this.options.downloadCeval) {
+        button.remove();
+        return;
+      }
+      if (!button.length) {
+        button = $('<button type="button" class="lichessTools-downloadCeval">')
+                   .text(lt.icon.Download)
+                   .attr('title',trans.noarg('downloadCevalButtonTitle'))
+                   .on('click',ev=>{
+                     ev.preventDefault();
+                     this.downloadCevalData();
+                   })
+                   .prependTo('.ceval div.engine');
+      }
+      const hasAnalysis = this.db.has(analysis.path);
+      button.toggleClassSafe('hasAnalysis',hasAnalysis);
+    };
+    setupDownloadButton = lichessTools.debounce(this.setupDownloadButtonDirect,500);
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -261,7 +327,8 @@
         highlightOnlyMe: lt.isOptionSet(value, 'highlightOnlyMe'),
         moreLines: lt.isOptionSet(value, 'moreLines'),
         colorEvaluation: lt.isOptionSet(value, 'colorEvaluation'),
-        depthChart: lt.isOptionSet(value, 'depthChart')
+        depthChart: lt.isOptionSet(value, 'depthChart'),
+        downloadCeval: lt.isOptionSet(value, 'downloadCeval')
       }
       const main = $('main.analyse, main.puzzle');
       main
@@ -295,7 +362,7 @@
         const ctrl = analysis.ceval.engines?.ctrl;
         if (ctrl) {
           ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalLineOptions');
-          if (this.options.depthChart) {
+          if (this.options.depthChart||this.options.downloadCeval) {
             ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
               id: 'cevalLineOptions',
               after: ($this, result, data, meta)=>{
@@ -306,12 +373,20 @@
                   this.db.set(meta.path,db);
                 }
                 db.set(data.depth,data);
-                this.drawChart();
+                if (this.options.depthChart) {
+                  this.drawChart();
+                }
               }
             });
             lt.uiApi.events.on('analysis.change',this.drawChart);
           }
         }
+
+        lt.pubsub.off('lichessTools.redraw',this.setupDownloadButton);
+        if (this.options.downloadCeval) {
+          lt.pubsub.on('lichessTools.redraw',this.setupDownloadButton);
+        }
+        this.setupDownloadButton();
       }
     }
 

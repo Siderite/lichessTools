@@ -18,11 +18,25 @@
       'en-US': {
         'LiChess Tools': 'LiChess Tools',
         serverOverload: 'Lichess thinks we are overloading their system!',
-        errorSavingPreferences: 'Error saving preferences! Reload the page.'
+        errorSavingPreferences: 'Error saving preferences! Reload the page.',
+        'daysText:one': 'a day',
+        'hoursText:one': 'an hr',
+        'minutesText:one': 'a min',
+        'daysText': '%s days',
+        'hoursText': '%s hrs',
+        'minutesText': '%s mins',
+        'timeText': '%s ago'
       },
       'ro-RO': {
         serverOverload: 'Lichess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!',
-        errorSavingPreferences: 'Eroare salvare preferin\u0163e! Re\u00eencarc\u0103 pagina.'
+        errorSavingPreferences: 'Eroare salvare preferin\u0163e! Re\u00eencarc\u0103 pagina.',
+        'daysText:one': 'o zi',
+        'hoursText:one': 'o or\u0103',
+        'minutesText:one': 'un minut',
+        'daysText': '%s zile',
+        'hoursText': '%s ore',
+        'minutesText': '%s minute',
+        'timeText': 'acum %s'
       },
       get lang() {
         const lt = this.lichessTools;
@@ -249,6 +263,25 @@
         }
         return result;
       }
+    };
+
+    getTimeText = (value) => {
+      const trans = this.translator;
+      let result;
+      const days = Math.round(value / 86400000);
+      if (Math.trunc(value / 86400000)) {
+        result = trans.plural('daysText', days, days);
+      } else {
+        const hours = Math.round(value / 3600000);
+        if (Math.trunc(value / 3600000)) {
+          result = trans.plural('hoursText', hours, hours);
+        } else {
+          const minutes = Math.round(value / 60000);
+          result = trans.plural('minutesText', minutes, minutes)
+        }
+      }
+      result = trans.pluralSame('timeText', result);
+      return result;
     };
 
     getCentipawns = (info) => {
@@ -620,6 +653,13 @@
         .parentNode.innerHTML;
     };
 
+    htmlDecode = (html) => {
+      const document = this.global.document;
+      const e = document.createElement('a');
+      e.innerHTML = html;
+      return e.textContent;
+    };
+
     async getMemorySize() {
       return this.global.navigator?.deviceMemory || (await this.global.navigator?.storage?.estimate())?.quota/(1024*1024*1024);
     }
@@ -794,11 +834,6 @@
       return state;
     }
 
-    isMobile() {
-      const $ = this.$;
-      return $('body').is('.mobile');
-    }
-
     getTvOptions = () => {
       const $ = this.$;
       const inAnalysisMode = !!this.lichess.analysis;
@@ -895,12 +930,13 @@
       if (this.global.document.readyState != 'complete') return 1;
       if (this.global.document.visibilityState == 'hidden') return 0;
 
+      return 1; // this is too expensive
+
       if (Date.now() - element.__inViewport?.time < 5000) {
         return element.__inViewport.value;
       }
 
       const calculateViewport = ()=>{
-
         if (this.traverseState?.nodeIndex > 1000) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
 
         if (element.checkVisibility) {
@@ -1474,8 +1510,8 @@
       }
       const arr = new Uint32Array(2);
       this.global.crypto.getRandomValues(arr);
-      const mantissa = (arr[0] * Math.pow(2, 20)) + (arr[1] >>> 12);
-      return mantissa * Math.pow(2, -52);
+      const m = (arr[0] * 0x100000) + (arr[1] >>> 12);
+      return m * 2.220446049250313e-16; // 1 / 2^52
     };
 
     hash = (text) => {
@@ -1589,6 +1625,11 @@
 
     isTouchDevice() {
       return !this.global.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    }
+
+    isMobile() {
+      const $ = this.$;
+      return $('body').is('.mobile');
     }
 
     net = {
@@ -1764,7 +1805,7 @@
           return;
         }
         let text = options?.raw ? value : JSON.stringify(value);
-        const zip = options?.zip === true || (text?.length >= +options?.zip);
+        const zip = options?.zip === true || (!!options?.zip && text?.length >= +options?.zip);
         if (zip) {
           try {
             const compressed = LiChessTools.zip(text);
@@ -1888,7 +1929,32 @@
         } else {
           if (error) lt.global.console.error(error);
         }
+      },
+      getChromeUrl: async function(url) {
+        const options = { url: url };
+        const lt = this.lichessTools;
+        let error = null;
+        const data = await lt.comm.send({ type: 'getChromeUrl', options: options })
+                                             .catch(e => { error = e; });
+        if (data) {
+          return data.url;
+        } else {
+          if (error) lt.global.console.error(error);
+        }
+      },
+      deleteImage: async function(id, hash, service) {
+        const options = { id: id, hash: hash, service: service };
+        const lt = this.lichessTools;
+        let error = null;
+        const data = await lt.comm.send({ type: 'deleteImage', options: options })
+                                             .catch(e => { error = e; });
+        if (data) {
+          return data.ok;
+        } else {
+          if (error) lt.global.console.error(error);
+        }
       }
+
     };
 
     cache = {

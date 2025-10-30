@@ -38,8 +38,13 @@
       if (!this.options.showInMinigames) return;
       const lt = this.lichessTools;
       const $ = lt.$;
+      const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing')) return;
+      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
+      if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
+
+      const withParameter = !!el;
       let fen = '';
       let gameId = '';
       if (el?.id && el?.fen) {
@@ -51,21 +56,38 @@
       if (!el) el = $.cached('body');
       const elems = $(el).find('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game').get();
       if ($(el).is('a[href].mini-game,div.boards>a[href],.study__multiboard a.mini-game,div.mini-game')) elems.push(el[0]);
+      if (withParameter && !elems.length) {
+        this.miniGameOpening();
+        return;
+      }
+      let notInViewport = false;
       for (const el of elems) {
-        fen = fen || $(el).attr('data-state');
+        if (!lt.inViewport(el)) {
+          notInViewport = true;
+          continue;
+        }
+        fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
+        if (!fen) {
+          //lt.global.console.warn('Could not get fen for element', el);
+          continue;
+        }
         if (!gameId) {
-          gameId = $(el).attr('href');
-          if (!gameId) {
+          const href = $(el).attr('href');
+          if (!href) {
             fen = '';
             gameId = '';
             continue;
           }
-          const m = /\/([^\/]+)/.exec(gameId);
-          gameId = m && m[1];
+          const m = /\/([^\/]+)/.exec(href);
+          gameId = m?.[1];
           if (!gameId) {
             fen = '';
             gameId = '';
             continue;
+          } else {
+            if (gameId=='broadcast') {
+              gameId = href.match(/\/(?<gameId>[^\/]+\/[^\/]+)(?:[\?\#]|$)/)?.groups?.gameId;
+            }
           }
         }
         const result = await this.withOpening(gameId, el, undefined, fen, true);
@@ -74,11 +96,16 @@
           gameId = '';
           continue;
         }
-        const opening = result.opening;
+        let opening = result.opening;
         const container = result.el;
         let openingEl = $('.lichessTools-opening', container);
         if (!openingEl.length) {
           openingEl = $('<span class="lichessTools-opening"/>')
+            .appendTo(container);
+        }
+        if (el.gameTime && !$(el).find('.lichessTools-time').length && $(el).closest('#miniGame').length) {
+          $('<span class="lichessTools-time"/>')
+            .text(el.gameTime)
             .appendTo(container);
         }
         openingEl
@@ -87,6 +114,7 @@
         fen = '';
         gameId = '';
       }
+      if (notInViewport) this.miniGameOpeningDebounced();
     };
     miniGameOpeningDebounced = this.lichessTools.debounce(this.miniGameOpening, 500,{ defer:true });
 
@@ -133,16 +161,27 @@
         if (isMini) return; // don't get the opening for minigames from API once retrieved
       }
 
-      if (Date.now() - this.openingTime < 1000) return; // not more often than 1 second
+      if (Date.now() - this.openingTime < 1000) { // not more often than 1 second
+          return; 
+      }
       this.openingTime = Date.now();
 
-      const pgn = await lt.api.game.getPgns([gameId], {
-        tags: true,
-        opening: true,
-        moves: false,
-        clocks: false,
-        evals: false
-      });
+      const splits = gameId.split('/');
+      const pgn = splits.length==2
+        ? await lt.api.study.getChapterPgn(splits[0], splits[1], {
+          tags: true,
+          opening: true,
+          moves: false,
+          clocks: false,
+          evals: false
+        })
+        : await lt.api.game.getPgns([gameId], {
+          tags: true,
+          opening: true,
+          moves: false,
+          clocks: false,
+          evals: false
+        });
       const opening = lt.getPgnTag(pgn, 'Opening');
       if (!opening || opening == '?') {
         return;
@@ -154,6 +193,11 @@
         el.openingData = { time: time, opening: opening, el };
         if (ply) {
           el.maxPly = Math.max(ply, +el.maxPly || 0);
+        }
+        const timeString = (lt.getPgnTag(pgn, 'UTCDate')||'') +' '+ (lt.getPgnTag(pgn, 'UTCTime')||'');
+        const gameTime = Date.parse(timeString);
+        if (gameTime) {
+          el.gameTime = lt.getTimeText(time-gameTime);
         }
         return el.openingData;
       }
@@ -211,7 +255,7 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing')) return;
+      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
       const trans = lt.translator;
       const tvOptions = lt.getTvOptions();
       const gameId = tvOptions.gameId || analysis?.data?.game?.id;
@@ -274,6 +318,10 @@
       metaSection.find('.lichessTools-opening').remove();
       $('a.mini-game .lichessTools-opening').remove();
       $('div.title .lichessTools-opening').remove();
+      $('body').observer()
+        .off('input[type=checkbox]',this.miniGameOpening);
+      $('body').observer()
+        .off('input[type=checkbox]',this.refreshOpeningDebounced);
       if (this.options.showInBoard || this.options.showInAnalysisTitle) {
         lt.uiApi.socket.events.on('endData', this.refreshOpeningDebounced);
         lt.uiApi.events.on('ply', this.refreshOpeningDebounced);
@@ -282,6 +330,10 @@
           : 3500;
         this.interval = lt.global.setInterval(this.refreshOpeningDebounced, intervalTime);
         //this.refreshOpeningDebounced(); this is not essential to loading
+        $('body').observer()
+          .on('input[type=checkbox]',this.miniGameOpening,{ attributes: true });
+        $('body').observer()
+          .on('input[type=checkbox]',this.refreshOpeningDebounced,{ attributes: true });
       }
       if (this.options.showInMinigames) {
         lt.uiApi.socket.events.on('fen', this.miniGameOpening);

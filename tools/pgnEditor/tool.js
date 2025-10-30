@@ -227,7 +227,7 @@
     mobileFirstTap = (el) => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      if (!$('body').is('.mobile')) return;
+      if (!lt.isMobile()) return;
       const isActive = $(el).is('.lichessTools-mobileActive');
       $('.lichessTools-mobileActive').removeClass('lichessTools-mobileActive');
       if (isActive) return false;
@@ -302,6 +302,16 @@
             this.countPgn();
           };
           reader.readAsText(file, "UTF-8");
+        })
+        .on('paste', ev => {
+          const text = ev.clipboardData.getData('text');
+          if (!text?.trim()) return;
+          const translatedText = this.translateToPgn(text);
+          if (translatedText != text) {
+            ev.preventDefault();
+            textarea.insertText(translatedText);
+            return;
+          }
         })
         .on('change', ev => {
           this.addTextToHistory(textarea.val());
@@ -547,6 +557,164 @@
       this.setHistoryIndex(this.historyIndex);
     };
 
+    getWriter = ()=>{
+      const lt = this.lichessTools;
+      const arr = [];
+      arr.write = (text, condition)=> {
+        if (condition === undefined || condition) arr.push(text||'');
+        return arr;
+      }
+      arr.writeTags = (studyName, chapterName, fen, userId)=>{
+        arr
+          .write(`[Event "${studyName}: ${chapterName}"]`)
+          .write(`[StudyName "${studyName}"]`)
+          .write(`[ChapterName "${chapterName}"]`)
+          .write(`[Annotator "https://lichess.org/@/${userId}"]`, !!userId)
+          .write(`[FEN "${fen}"]`, fen && !lt.isStartFen(fen))
+          .write('');
+        return arr;
+      };
+      arr.append = (text) => {
+        if (!arr.length) arr.push('');
+        arr[arr.length-1]+=text;
+        return arr;
+      };
+      arr.appendComment = (text) => {
+        return arr.append(`{ ${text} } `);
+      };
+      arr.toString = ()=>arr.join('\r\n');
+      return arr;
+    };
+
+    translateToPgn = (text)=>{
+      if (!text) return text;
+      const lt = this.lichessTools;
+      let json = '';
+      try {
+        json = lt.global.JSON.parse(text);
+      } catch(e) {
+        return text;
+      }
+      if (json.book?.pgn_games) {
+        const book = json.book;
+        return this.translateChessMind(book);
+      }
+      if (json.list?.format == 'getList') {
+        const list = json.list;
+        return this.translateChessableList(list);
+      }
+      if (json.lesson.chapter) {
+        const lesson = json.lesson;
+        return this.translateChessableLesson(lesson);
+      }
+      return text;
+    };
+
+    translateChessableList = (list) =>{
+      const lt = this.lichessTools;
+      const userId = lt.getUserId();
+      const arr = this.getWriter();
+
+      const courseId = list.data?.[0]?.bid;
+      arr
+        .writeTags(list.name, 'Intro', '', userId)
+        .write(`{ Study made from the Chessable lesson '${list.name}'
+https://www.chessable.com/course/${courseId}/ } *`)
+        .write('');
+
+      arr.write('');
+      for (const game of list.data) {
+        const fen = game.initialFEN;
+        arr
+          .writeTags(list.name, game.name, fen, userId)
+        for (const move of game.moves) {
+          arr.append(`${move.san} `);
+        }
+        arr
+          .append(' *')
+          .write('');
+      }
+      return arr.toString();
+    };
+
+    translateChessableLesson = (lesson) =>{
+      const lt = this.lichessTools;
+      const userId = lt.getUserId();
+      const arr = this.getWriter();
+
+      const fen = lesson.moves?.[0].move_fen;
+      const studyName = lesson.books[Object.keys(lesson.books)[0]].name;
+      const chapterName = lesson.chapter.title;
+      arr
+        .writeTags(studyName, chapterName, fen, userId);
+      let index = 0;
+      arr
+        .write('');
+      for (const move of lesson.moves) {
+        index++;
+        const beforeComment = move.comment_before_white || move.comment_before_black;
+        if (beforeComment) {
+          const data = lt.global.JSON.parse(beforeComment);
+          const comment = data.data?.find(i=>i.key=='C')?.val;
+          if (comment) {
+            arr.appendComment(lt.htmlDecode(`${comment.replaceAll(/@@[^@]+@@/g,'').trim()}`));
+          }
+        }
+        const isBlack = !!move.move_black;
+        const moveText = move.move_white || move.move_black;
+        arr.append(`${index}${isBlack?'...':'.'}${moveText} `);
+        const afterComment = move.comment_white || move.comment_black;
+        if (afterComment) {
+          const data = lt.global.JSON.parse(afterComment);
+          const comment = data.data?.find(i=>i.key=='C')?.val;
+          if (comment) {
+            arr.appendComment(lt.htmlDecode(`${comment.replaceAll(/@@[^@]+@@/g,'').trim()}`));
+          }
+        }
+      }
+      arr
+        .append(' *')
+        .write('');
+      // TODO arrows and squares
+      return arr.toString();
+    };
+
+    translateChessMind = (book) =>{
+      const lt = this.lichessTools;
+      const userId = lt.getUserId();
+      const arr = this.getWriter();
+
+      arr
+        .writeTags(book.title, 'Intro', '', userId);
+      let index = 0;
+      for (const game of book.pgn_games) {
+        index++;
+        const fen = game.pgn_json.headers.Fen;
+        arr
+          .writeTags(book.title, `Lesson ${index}`, fen, userId)
+        arr.write('');
+        if (game.pgn_json.headers.Comment) {
+          const comment = $(game.pgn_json.headers.Comment).text();
+          if (comment?.trim()) {
+            arr.appendComment(`${comment.replaceAll('#NEW_FEN#','').trim()}`);
+          }
+        }
+        for (const move of game.pgn_json.pgn) {
+          arr.append(`${move.printable_move} `);
+          if (move.comment) {
+            const comment = $(move.comment).text();
+            if (comment?.trim()) {
+              arr.appendComment(`${comment.replaceAll('#NEW_FEN#','').trim()}`);
+            }
+          }
+        }
+        arr
+          .append(' *')
+          .write('');
+      }
+      return arr.toString();
+    };
+
     stopOperations = () => {
       if (!this._runningOperation) return;
       this._cancelRequested = true;
@@ -690,7 +858,7 @@
 
     mergeNodes = (n1, n2) => {
       n1.children = [...n1.children, ...n2.children];
-      const comments = (n1.data?.comments || []).concat((n2.data?.comments || []));
+      const comments = [...new Set((n1.data?.comments || []).concat((n2.data?.comments || [])))];
       if (comments.length) {
         n1.data.comments = [...new Set(comments)];
       }
@@ -765,7 +933,7 @@
       }
 
       const mergeGames = (dest, node, src) => {
-        const comments = (dest.comments||[]).concat(src.comments||[]);
+        const comments = [... new Set((dest.comments||[]).concat(src.comments||[]))];
         if (comments.length) {
           dest.comments = comments;
         }

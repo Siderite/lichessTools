@@ -267,7 +267,7 @@
       }
       this.isPlay = false;
       if (!this.options.app) {
-        if (!$('body').is('.mobile')) {
+        if (!lt.isMobile()) {
           $('#topnav > section:first-child > a').attr('href', '/#play');
         }
         this.isPlay = lt.global.location.hash == '#play';

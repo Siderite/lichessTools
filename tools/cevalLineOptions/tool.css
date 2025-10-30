@@ -225,3 +225,23 @@ body.lichessTools pearl .lichessTools-cevalLineOptions {
   height: 100%;
   mix-blend-mode: difference;
 }
+
+body.lichessTools .engine:has(.lichessTools-downloadCeval) {
+  position: relative;
+}
+
+body.lichessTools .lichessTools-downloadCeval {
+  display: none;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: lichess;
+  position: absolute;
+  top: 0;
+  right: 1em;
+  z-index: auto;
+}
+
+body.lichessTools .lichessTools-downloadCeval.hasAnalysis {
+  display: initial;
+}

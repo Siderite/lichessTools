@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "LiChess Tools, by Siderite",
-  "version": "2.4.110",
+  "version": "2.4.114",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -62,6 +62,7 @@
         "tools/stockfish/tool.js",
         "tools/addNotifications/tool.js",
         "tools/additionalGlyphs/tool.js",
+        "tools/boardStyle/tool.js",
 
         "tools/extraChart/raccoon.js",
 
@@ -189,6 +190,8 @@
         "scripts/lichessTools-init.js"
       ],
       "css": [
+        "tools/themes/tool.css",
+
         "tools/themes/performance.css",
         "tools/themes/justExplorer.css",
         "tools/themes/mobile.css",
@@ -205,6 +208,7 @@
         "tools/themes/gridBoard.css",
         "tools/themes/toggleStudyChat.css",
         "tools/themes/adamisko.css",
+        "tools/themes/arcade.css",
         "tools/themes/fixThirdParties.css",
         "tools/themes/timeControls.css",
 
@@ -234,6 +238,8 @@
         "tools/mobileExperience/tool.css",
         "tools/explorerPractice/tool.css",
         "tools/additionalGlyphs/tool.css",
+        "tools/boardStyle/tool.css",
+
         "tools/extraChart/tool.css",
         "tools/keyboardHelp/tool.css",
         "tools/previousStudyMenu/tool.css",
@@ -354,5 +360,26 @@
     "gecko_android": {
       "strict_min_version": "130.0"
     }
-  }
+  },
+  "web_accessible_resources": [
+        "tools/chessops/attacks.js",
+        "tools/chessops/badrap.result.js",
+        "tools/chessops/board.js",
+        "tools/chessops/chess.js",
+        "tools/chessops/compat.js",
+        "tools/chessops/debug.js",
+        "tools/chessops/fen.js",
+        "tools/chessops/index.js",
+        "tools/chessops/pgn.js",
+        "tools/chessops/san.js",
+        "tools/chessops/setup.js",
+        "tools/chessops/squareSet.js",
+        "tools/chessops/transform.js",
+        "tools/chessops/types.js",
+        "tools/chessops/util.js",
+        "tools/chessops/variant.js",
+
+        "tools/showKmaps/chess.js",
+        "tools/showKmaps/kmaps.js"
+  ]
 }

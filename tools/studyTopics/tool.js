@@ -134,7 +134,7 @@
           .on('tags.tagify',this.handleTopicsDialog);
       }
 
-      if (this.options.expandable && topicAnchors.length && !$('body').is('.mobile')) {
+      if (this.options.expandable && topicAnchors.length && !lt.isMobile()) {
         topicAnchors.each((i,e)=>{
           if (e.__initExpandable) return;
           e.__initExpandable = true;

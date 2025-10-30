@@ -46,3 +46,7 @@ body.lichessTools.lichessTools-structureMiniGames a.mini-game:not(:has(.lichessT
     display: block;
   }
 }
+
+body.lichessTools:has(.study__multiboard__options label.eval input:not(:checked)) .lichessTools-structure {
+  display: none;
+}

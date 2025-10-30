@@ -15,3 +15,29 @@ body.lichessTools img.lichessTools-imagePasting-image {
   max-width:95vw;
   max-height:95vh;
 }
+
+body.lichessTools a:has(button.lichessTools-deleteImage) {
+  position: relative;
+  display: inline-block;
+}
+
+body.lichessTools a button.lichessTools-deleteImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+body.lichessTools button.lichessTools-deleteImage {
+  width: 1em;
+  height: 1em;
+  background: #80808080;
+  border-radius: 50%;
+  border: none;
+  font-size:1.25em;
+}
+
+body.lichessTools button.lichessTools-deleteImage:before {
+  font-family: lichess;
+  content: '\E02A'; /* X */
+  color: red;
+}

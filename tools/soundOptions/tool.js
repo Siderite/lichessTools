@@ -6,7 +6,7 @@
         name: 'soundOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['noMove', 'flickerSound'],
+        possibleValues: ['noMove', 'flickerSound','volumeBar'],
         defaultValue: false,
         advanced: true
       },
@@ -51,6 +51,7 @@
         'options.soundVoice': 'Speech voice',
         'soundOptions.noMove': 'No move sounds',
         'soundOptions.flickerSound': 'Time flicker sound',
+        'soundOptions.volumeBar': 'Main menu volume bar',
         'options.timeAlert': 'Time alert (minutes)',
         'timeAlert.s30': '0:30',
         'timeAlert.s60': '1:00',
@@ -71,6 +72,7 @@
         'options.soundVoice': 'Voce folosit\u0103',
         'soundOptions.noMove': 'F\u0103r\u0103 sunet la mutare',
         'soundOptions.flickerSound': 'Sunet la salt de timp',
+        'soundOptions.volumeBar': 'Bar\u0103 volum \u00een meniul principal',
         'options.timeAlert': 'Alert\u0103 timp (minute)',
         'timeAlert.s30': '0:30',
         'timeAlert.s60': '1:00',
@@ -142,6 +144,32 @@
       if (!(this.lastTime<time)) {
         this.lastTime = time;
       }
+    };
+
+    addVolumeBar = ()=>{
+      const lt = this.lichessTools;
+      const sound = lt.lichess.sound;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const container = $('#dasher_app');
+      let volumeBar = container.find('.lichessTools-volumeBar');
+      if (!volumeBar.length) {
+        const setVolume = lt.debounce((value)=>{
+          sound.setVolume(value);
+          if (sound.theme=='speech') {
+            sound.say('knight F 7');
+          } else {
+            sound.play('genericNotify');
+          }
+        },100);
+        volumeBar = $('<input type="range" min="0" max="1" step="0.01" orient="vertical" class="lichessTools-volumeBar">')
+          .on('input',async ev=>{
+            ev.preventDefault();
+            setVolume($(ev.target).val());
+          })
+          .prependTo(container);
+      }
+      volumeBar.toggleClassSafe('silent',sound.theme=='silent');
     };
 
     addThemes = ()=>{
@@ -258,6 +286,7 @@
       this.options = {
         noMove: lt.isOptionSet(soundOptions, 'noMove'),
         flickerSound: lt.isOptionSet(soundOptions, 'flickerSound'),
+        volumeBar: lt.isOptionSet(soundOptions, 'volumeBar'),
         times: [30,60,90,120,180,300].map(s=>({
           seconds: s,
           enabled: lt.isOptionSet(timeAlert, 's'+s)
@@ -329,7 +358,27 @@
         $('#dasher_app')
           .observer()
           .on('.sub.sound',this.addThemes);
-        }
+      }
+
+      $('.lichessTools-volumeBar').remove();
+      $('#dasher_app')
+        .observer()
+        .off('div',this.addVolumeBar);
+      $('body').observer()
+        .off('body',this.addVolumeBar)
+      if (this.options.volumeBar) {
+        $('#dasher_app')
+          .observer()
+          .on('div',this.addVolumeBar);
+        $('body').observer()
+          .on('body',this.addVolumeBar,{ 
+             subtree: false,
+             childList: false,
+             atttributes: true,
+             attributeFiler: ['data-sound-set']
+          })
+      }
+
       lichess.sound.changeSet(customTheme || $('body').attr('data-sound-set'));
     }
 

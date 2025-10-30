@@ -1,5 +1,33 @@
 History of features added to LiChess Tools in time (reversed order)
 
+29 Oct
+
+- Themes menu
+
+28 Oct
+
+- Paste image with markdown
+
+27 Oct
+
+- Arcade theme
+- Continuous /piecevalue
+
+26 Oct
+
+- Board style tool
+
+24 Oct
+
+- Button to download local computer analysis
+- Volume bar in main menu
+
+23 Oct
+
+- Button to delete pasted images
+- improve show opening, structure and kmaps
+- faster interactive lesson
+
 20 Oct
 
 - Find current position in puzzles from your games

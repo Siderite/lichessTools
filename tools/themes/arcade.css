@@ -1,0 +1,82 @@
+/* Arcade */
+
+body.lichessTools.lichessTools-theme_arcade cg-board:before {
+}
+
+body.lichessTools.lichessTools-theme_arcade square.last-move {
+  background: none;
+}
+
+body.lichessTools.lichessTools-theme_arcade square.last-move:after {
+  content:'';
+  box-shadow: inset 0 0 1px 3px #38DCFF;
+  position: absolute;
+  inset: 0;
+  pointer-events:none;
+}
+
+body.lichessTools.lichessTools-theme_arcade square.selected {
+  background: #FFFFFF10;
+}
+
+body.lichessTools.lichessTools-theme_arcade square.move-dest.oc {
+  background: none;
+}
+
+body.lichessTools.lichessTools-theme_arcade square.move-dest.oc:before {
+  content:'';
+  inset: 3px;
+  position:absolute;
+  box-shadow: inset 0px 0 5px 3px #D33B22;
+  background: none;
+  border-radius: 50%;
+  pointer-events:none;
+}
+
+body.lichessTools.lichessTools-theme_arcade square.move-dest:not(:hover,.oc) {
+  background: radial-gradient(#FFFFFF80 19%, #00000000 20%);
+  filter: drop-shadow(0 0 3px #4040FF) drop-shadow(0 0 8px #FFFFFF);
+}
+
+
+body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] square.last-move:after {
+  box-shadow: inset 0 0 1px 3px #C34B32;
+}
+
+body.lichessTools.lichessTools-theme_arcade square.move-dest:hover {
+  background: unset;
+  box-shadow: inset 0px 0px 4px 4px #C34B32A0;
+  backdrop-filter: brightness(90%);
+}
+
+body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] square.move-dest:hover {
+  box-shadow: inset 0px 0px 4px 4px #38DCFFA0;
+}
+
+
+
+body.lichessTools.lichessTools-theme_arcade .mini-game square.last-move:after {
+  box-shadow: inset 0 0 1px 1px #38DCFF;
+}
+
+body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest.oc:before {
+  inset: 1px;
+  box-shadow: inset 0px 0 3px 1px #D33B22;
+}
+
+body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest:not(:hover,.oc) {
+  filter: drop-shadow(0 0 1px #4040FF) drop-shadow(0 0 4px #FFFFFF);
+}
+
+
+body.lichessTools.lichessTools-theme_arcade .mini-game cg-container[sideToPlay="white"] square.last-move:after {
+  box-shadow: inset 0 0 1px 1px #C34B32;
+}
+
+body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest:hover {
+  box-shadow: inset 0px 0px 2px 2px #C34B32A0;
+}
+
+body.lichessTools.lichessTools-theme_arcade .mini-game cg-container[sideToPlay="white"] square.move-dest:hover {
+  box-shadow: inset 0px 0px 2px 2px #38DCFFA0;
+}

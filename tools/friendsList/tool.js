@@ -43,13 +43,6 @@
         'hideNotPlayingTitle': 'Playing players',
         'hideMutedTitle': 'Not muted players',
         'hideInactiveTitle': 'Active players',
-        'daysText:one': 'a day',
-        'hoursText:one': 'an hr',
-        'minutesText:one': 'a min',
-        'daysText': '%s days',
-        'hoursText': '%s hrs',
-        'minutesText': '%s mins',
-        'timeText': '%s ago',
         'followersText': 'Followers',
         'followersTitle': 'LiChess Tools - players following you',
         'followersNumberTitle': '%s followers',
@@ -80,13 +73,6 @@
         'hideNotPlayingTitle': 'Juc\u0103tori care joac\u0103',
         'hideMutedTitle': 'Juc\u0103tori cu alert\u0103 de joc permis\u0103',
         'hideInactiveTitle': 'Juc\u0103tori activi',
-        'daysText:one': 'o zi',
-        'hoursText:one': 'o or\u0103',
-        'minutesText:one': 'un minut',
-        'daysText': '%s zile',
-        'hoursText': '%s ore',
-        'minutesText': '%s minute',
-        'timeText': 'acum %s',
         'followersText': 'Urm\u0103ritori',
         'followersTitle': 'LiChess Tools - juc\u0103tori care te urm\u0103resc',
         'followersNumberTitle': '%s urm\u0103ritori',
@@ -116,6 +102,9 @@
       if (!myName) return;
       let container = $('div.lichessTools-onlineFriends', $('.site-buttons'));
       if (!container.length) {
+        const myName = lt.getUserId();
+        if (!myName) return;
+        const friendsUrl = '/@/' + myName + '/following';
         const title = trans.noarg('friendsMenu');
         container = $('<div class="lichessTools-onlineFriends"/>')
           .append($('<button class="toggle link">')
@@ -128,6 +117,7 @@
           )
           .append($(`<div class="links dropdown">
                          <div class="pager prev" data-icon="${lt.icon.toEntity(lt.icon.UpTriangle)}"></div>
+                         <a class="lichessTools-friendsLink button button-empty" data-icon="${lt.icon.toEntity(lt.icon.Group)}" href="${friendsUrl}"></a>
                          <button class="hideNotPlaying button button-empty" data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}"></button>
                          <div class="notifications"></div>
                          <div class="pager next" data-icon="${lt.icon.toEntity(lt.icon.DownTriangle)}"></div>
@@ -155,6 +145,8 @@
             this.hideNotPlaying = !this.hideNotPlaying;
             this.updateFriendsButton();
           });
+        $('lichessTools-touchFriendsLink', container)
+          .attr('title', title);
       }
       const items = this.hideNotPlaying
         ? this.user_data.playing
@@ -210,8 +202,8 @@
       const trans = lt.translator;
       const myName = lt.getUserId();
       if (!myName) return;
+      const friendsUrl = '/@/' + myName + '/following';
       if (!$('section.lichessTools-onlineFriends', $(this.menuParent)).length) {
-        const friendsUrl = '/@/' + myName + '/following';
         const title = trans.noarg('friendsMenu');
         $(this.menuParent)
           .append($('<section class="lichessTools-onlineFriends"/>')
@@ -219,12 +211,12 @@
               .attr('title', title)
               .attr('class', 'data-count')
               .on('mouseover', () => {
-                if (!$.cached('body').is('.mobile')) {
+                if (!lt.isTouchDevice()) {
                   this.requestOnlines();
                 }
               })
               .on('click', ev => {
-                if ($.cached('body').is('.mobile')) {
+                if (lt.isTouchDevice()) {
                   this.requestOnlines();
                   ev.preventDefault();
                 }
@@ -233,7 +225,14 @@
           );
       }
       const section = $('section.lichessTools-onlineFriends', $(this.menuParent));
-      const group = section.children('div').eq(0);
+      const group = section.children('div[role="group"]');
+      if (lt.isTouchDevice() && !group.find('a.lichessTools-touchFriendsLink').length) {
+        $('<a class="lichessTools-touchFriendsLink">')
+          .attr('href', friendsUrl)
+          .attr('data-icon',lt.icon.Group)
+          .text(trans.noarg('options.liveFriendsPage'))
+          .prependTo(group);
+      }
       const menu = section.children('a').eq(0);
       const friends = $('#friend_box a.user-link');
       const text = trans.pluralSame('onlineFriends', this.user_data.online.length);
@@ -525,26 +524,6 @@
       this.filterFriends();
     };
     updateFriendsPage=this.lichessTools.debounce(this.updateFriendsPageDirect,100);
-
-    getTimeText = (value) => {
-      const lt = this.lichessTools;
-      const trans = lt.translator;
-      let result;
-      const days = Math.round(value / 86400000);
-      if (Math.trunc(value / 86400000)) {
-        result = trans.plural('daysText', days, days);
-      } else {
-        const hours = Math.round(value / 3600000);
-        if (Math.trunc(value / 3600000)) {
-          result = trans.plural('hoursText', hours, hours);
-        } else {
-          const minutes = Math.round(value / 60000);
-          result = trans.plural('minutesText', minutes, minutes)
-        }
-      }
-      result = trans.pluralSame('timeText', result);
-      return result;
-    };
 
     getUserId = (user) => user?.toLowerCase().replace(/^\w+\s/, '');
 

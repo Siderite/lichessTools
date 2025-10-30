@@ -1,0 +1,4 @@
+- start with https://github.com/HollowLeaf1981/chess-kmaps
+more precisely https://github.com/HollowLeaf1981/chess-kmaps/blob/main/dist/index.esm.js and rename it to kmaps.js
+- download the chess.js file from https://app.unpkg.com/chess.js@1.4.0/files/dist/esm/chess.js
+- alter kmaps.js to load chess.js from file: import { Chess } from './chess.js';

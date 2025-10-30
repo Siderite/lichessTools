@@ -1,0 +1,32 @@
+body.lichessTools .lichessTools-lastMoveArrow {
+  display: none;
+  --lt-start-color: #40404040;
+  --lt-end-color: #404040;
+  --lt-glow-color: cyan;
+  --lt-width: 10;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index:2;
+  pointer-events: none;
+  filter: drop-shadow(2px 4px 6px var(--lt-glow-color));
+  opacity: 0.7;
+}
+
+body.lichessTools .lichessTools-lastMoveArrow .arrow-line {
+  stroke: url(#arrowGradient);
+  stroke-width: var(--lt-width);
+  marker-end: url(#arrowhead);
+}
+
+body.lichessTools .lichessTools-lastMoveArrow .arrowhead {
+  fill: var(--lt-end-color);
+}
+
+body.lichessTools .lichessTools-lastMoveArrow .stop-0 {
+  stop-color: var(--lt-start-color);
+}
+
+body.lichessTools .lichessTools-lastMoveArrow .stop-100 {
+  stop-color: var(--lt-end-color);
+}
