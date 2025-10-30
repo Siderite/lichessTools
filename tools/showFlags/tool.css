@@ -5,6 +5,7 @@ body.lichessTools img.flag {
   vertical-align: baseline;
   margin-left: 5px;
   margin-right: 5px; /* auto */
+  display:inline;
 }
 
 body.lichessTools .fide-federation img.flag,
