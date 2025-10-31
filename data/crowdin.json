@@ -940,7 +940,8 @@
     "options.themesMenu": "قائمة السمات",
     "themesMenuText": "السمات",
     "themesMenuTitle": "أدوات الشطرنج - السمات البصرية",
-    "themesMenuHeaderText": "السمات"
+    "themesMenuHeaderText": "السمات",
+    "nextChapterButtonTitle": "الفصل التالي"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1883,7 +1884,8 @@
     "options.themesMenu": "主题菜单",
     "themesMenuText": "主题",
     "themesMenuTitle": "LiChess Tools-视觉主题",
-    "themesMenuHeaderText": "主题"
+    "themesMenuHeaderText": "主题",
+    "nextChapterButtonTitle": "下一章节"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2826,7 +2828,8 @@
     "options.themesMenu": "Themes menu",
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
-    "themesMenuHeaderText": "Themes"
+    "themesMenuHeaderText": "Themes",
+    "nextChapterButtonTitle": "Next chapter"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3769,7 +3772,8 @@
     "options.themesMenu": "Nabídka motivů",
     "themesMenuText": "Motivy",
     "themesMenuTitle": "LiChess Tools - vizuální témata",
-    "themesMenuHeaderText": "Motivy"
+    "themesMenuHeaderText": "Motivy",
+    "nextChapterButtonTitle": "Další kapitola"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4712,7 +4716,8 @@
     "options.themesMenu": "Thema's menu",
     "themesMenuText": "Thema’s",
     "themesMenuTitle": "LiChess Tools - visuele thema's",
-    "themesMenuHeaderText": "Thema’s"
+    "themesMenuHeaderText": "Thema’s",
+    "nextChapterButtonTitle": "Volgende hoofdstuk"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5655,7 +5660,8 @@
     "options.themesMenu": "Themes menu",
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
-    "themesMenuHeaderText": "Themes"
+    "themesMenuHeaderText": "Themes",
+    "nextChapterButtonTitle": "Next chapter"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6598,7 +6604,8 @@
     "options.themesMenu": "Menu thèmes",
     "themesMenuText": "Thèmes",
     "themesMenuTitle": "LiChess Tools - thèmes visuels",
-    "themesMenuHeaderText": "Thèmes"
+    "themesMenuHeaderText": "Thèmes",
+    "nextChapterButtonTitle": "Chapitre suivant"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7541,7 +7548,8 @@
     "options.themesMenu": "Theme-Menü",
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visuelle Themen",
-    "themesMenuHeaderText": "Themes"
+    "themesMenuHeaderText": "Themes",
+    "nextChapterButtonTitle": "Nächstes Kapitel"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8484,7 +8492,8 @@
     "options.themesMenu": "Themes menu",
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
-    "themesMenuHeaderText": "Themes"
+    "themesMenuHeaderText": "Themes",
+    "nextChapterButtonTitle": "Next chapter"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9427,7 +9436,8 @@
     "options.themesMenu": "Menu temi",
     "themesMenuText": "Temi",
     "themesMenuTitle": "LiChess Tools - temi visivi",
-    "themesMenuHeaderText": "Temi"
+    "themesMenuHeaderText": "Temi",
+    "nextChapterButtonTitle": "Capitolo successivo"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10370,7 +10380,8 @@
     "options.themesMenu": "Themes menu",
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
-    "themesMenuHeaderText": "Themes"
+    "themesMenuHeaderText": "Themes",
+    "nextChapterButtonTitle": "Next chapter"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11313,7 +11324,8 @@
     "options.themesMenu": "Menu motywów",
     "themesMenuText": "Motywy",
     "themesMenuTitle": "LiChess Tools - motywy wizualne",
-    "themesMenuHeaderText": "Motywy"
+    "themesMenuHeaderText": "Motywy",
+    "nextChapterButtonTitle": "Następny rozdział"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12256,7 +12268,8 @@
     "options.themesMenu": "Menu de Temas",
     "themesMenuText": "Temas",
     "themesMenuTitle": "LiChess Tools - Temas visuais",
-    "themesMenuHeaderText": "Temas"
+    "themesMenuHeaderText": "Temas",
+    "nextChapterButtonTitle": "Próximo capítulo"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13199,7 +13212,8 @@
     "options.themesMenu": "Menu de Temas",
     "themesMenuText": "Temas",
     "themesMenuTitle": "LiChess Tools - Temas visuais",
-    "themesMenuHeaderText": "Temas"
+    "themesMenuHeaderText": "Temas",
+    "nextChapterButtonTitle": "Próximo capítulo"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14142,7 +14156,8 @@
     "options.themesMenu": "Meniu teme",
     "themesMenuText": "Teme",
     "themesMenuTitle": "LiChess Tools - teme vizuale",
-    "themesMenuHeaderText": "Teme"
+    "themesMenuHeaderText": "Teme",
+    "nextChapterButtonTitle": "Următorul capitol"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15085,7 +15100,8 @@
     "options.themesMenu": "Меню тем",
     "themesMenuText": "Темы",
     "themesMenuTitle": "LiChess Tools - визуальные темы",
-    "themesMenuHeaderText": "Темы"
+    "themesMenuHeaderText": "Темы",
+    "nextChapterButtonTitle": "Следующая глава"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16028,7 +16044,8 @@
     "options.themesMenu": "Menú de temas",
     "themesMenuText": "Temas",
     "themesMenuTitle": "LiChess Tools - Temas visuales",
-    "themesMenuHeaderText": "Temas"
+    "themesMenuHeaderText": "Temas",
+    "nextChapterButtonTitle": "Siguiente capítulo"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16971,7 +16988,8 @@
     "options.themesMenu": "Themes menu",
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
-    "themesMenuHeaderText": "Themes"
+    "themesMenuHeaderText": "Themes",
+    "nextChapterButtonTitle": "Next chapter"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17914,7 +17932,8 @@
     "options.themesMenu": "Themes menu",
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
-    "themesMenuHeaderText": "Themes"
+    "themesMenuHeaderText": "Themes",
+    "nextChapterButtonTitle": "Next chapter"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18857,6 +18876,7 @@
     "options.themesMenu": "Themes menu",
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
-    "themesMenuHeaderText": "Themes"
+    "themesMenuHeaderText": "Themes",
+    "nextChapterButtonTitle": "Next chapter"
   }
 }

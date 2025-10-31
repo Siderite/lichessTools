@@ -26,7 +26,8 @@
         'lastChapterTitle': 'Last chapter',
         'chapterNavigation.controls': 'Navigation controls',
         'chapterNavigation.hideNextButton': 'Hide next chapter button',
-        'chapterNavigation.subChapters': 'Subchapters'
+        'chapterNavigation.subChapters': 'Subchapters',
+        'nextChapterButtonTitle': 'Next chapter'
       },
       'ro-RO': {
         'options.study': 'Studiu',
@@ -39,7 +40,8 @@
         'lastChapterTitle': 'Ultimul capitol',
         'chapterNavigation.controls': 'Controale navigare',
         'chapterNavigation.hideNextButton': 'Ascunde butonul pentru capitolul urm\u0103tor',
-        'chapterNavigation.subChapters': 'Subcapitole'
+        'chapterNavigation.subChapters': 'Subcapitole',
+        'nextChapterButtonTitle': 'Urm\u0103torul capitol'
       }
     }
 
@@ -68,6 +70,7 @@
       const lt = this.lichessTools;
       const Math = lt.global.Math;
       const $ = lt.$;
+      const trans = lt.translator;
       const study = lt.lichess.analysis?.study;
       if (!study) return;
       let list = null;
@@ -130,7 +133,30 @@
           .toggleClass('disabled', index == list.length - 1);
       }
 
-      $('main').toggleClassSafe('lichessTools-hideNextButton',this.options.hideNextButton);
+      const hasButton = !!$('.feedback.end button.next').length;
+      $('main')
+        .toggleClassSafe('lichessTools-hideNextButton',this.options.hideNextButton)
+        .toggleClassSafe('lichessTools-hasNextButton',hasButton);
+      if (this.options.hideNextButton) {
+        let button = $('.gamebook .comment .lichessTools-nextChapter');
+        if (hasButton && !button.length) {
+          button = $('<a class="lichessTools-nextChapter">')
+            .attr('title',trans.noarg('nextChapterButtonTitle'))
+            .attr('data-icon',lt.icon.PlayTriangle)
+            .appendTo('.gamebook .comment');
+        }
+        let href = '#';
+        const chapterId = study.currentChapter()?.id;
+        if (chapterId) {
+          const list = study.chapters.list.all();
+          const index = list.findIndex(c => c.id == chapterId);
+          const nextChapter = list[index+1];
+          if (nextChapter) {
+            href = `/study/${study.data.id}/${nextChapter.id}`;
+          }
+        }
+        button.attr('href',href);
+      }
 
       if (this.options.subChapters) {
         list ||= study.chapters.list.all();

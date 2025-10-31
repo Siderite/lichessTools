@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+31 Oct
+
+- Next chapter button improvements
+
 29 Oct
 
 - Themes menu

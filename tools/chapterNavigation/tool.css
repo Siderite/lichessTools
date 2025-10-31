@@ -77,6 +77,23 @@ body.lichessTools .study__chapters div.lichessTools-expander.collapsed:after {
   content:'\e02d';
 }
 
+body.lichessTools .gamebook .comment .lichessTools-nextChapter {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  right: 1em;
+  bottom: 0.75em;
+  width: fit-content;
+  padding-top: 0px;
+  color: var(--c-primary);
+  font-size: 1rem;
+}
+
+
+body.lichessTools main.lichessTools-hideNextButton.lichessTools-hasNextButton .gamebook .comment .lichessTools-nextChapter {
+  display: inline;
+}
+
 /* Prettier */
 body.lichessTools.lichessTools-prettier .lichessTools-chapterControls div[role="footer"] {
   background: var(--backgroundColor);
