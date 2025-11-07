@@ -185,7 +185,7 @@
         this.info = node.ceval;
         side = 1;
       } else 
-      if (!analysis.ceval?.enabled()) {
+      if (!analysis.cevalEnabled()) {
         this.lastInfo=null;
         this.stopCeval = false;
 
