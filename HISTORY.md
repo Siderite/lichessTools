@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 07 Nov
 
 - Removed total game duration (implemented in Lichess)
+- Removed image pasting support from markdown areas where Lichess has that
 
 31 Oct
 

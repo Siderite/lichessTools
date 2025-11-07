@@ -55,6 +55,21 @@
       ].includes(file?.type);
     };
 
+    getImagePastingElements = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const arr = [
+        'textarea.msg-app__convo__post__text', // inbox chat
+        //'main.forum textarea#form3-text', // forum reply (Lichess native has it)
+        //'main.forum textarea#form3-post_text', // forum new post (Lichess native has it)
+        //'main.forum textarea.edit-post-box', // forum edit post (Lichess native has it)
+        '#form3-bio', // biography
+        //'#form3-description', // team description (Lichess native has it)
+        //'#form3-descPrivate' // team private description (Lichess native has it)
+      ];
+      return $(arr.join(', '));
+    };
+
     getImageUrl = async (ev) => {
       const lt = this.lichessTools;
       const file = ev.clipboardData?.files[0] || ev.dataTransfer?.files[0]
@@ -107,7 +122,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       if (this.options.pasteImages) {
-        $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, main.forum textarea.edit-post-box, #form3-bio, #form3-description, #form3-descPrivate')
+        this.getImagePastingElements()
           .each((i, e) => {
             if (e.imagePastingInit) return;
             e.imagePastingInit = true;
@@ -210,7 +225,7 @@
       };
       if (!this.isInboxOrForumOrProfilePage()) return;
       lt.global.clearInterval(this.interval);
-      $('textarea.msg-app__convo__post__text, main.forum textarea#form3-text, main.forum textarea#form3-post_text, main.forum textarea.edit-post-box, #form3-bio, #form3-description, #form3-descPrivate')
+      this.getImagePastingElements()
         .each((i, e) => {
           $(e).off('paste drop', this.pasteImage);
           e.imagePastingInit = false;
