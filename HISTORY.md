@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Nov
+
+- Removed total game duration (implemented in Lichess)
+
 31 Oct
 
 - Next chapter button improvements
