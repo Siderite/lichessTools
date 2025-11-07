@@ -9,7 +9,7 @@
         category: 'general',
         type: 'single',
         possibleValues: [false, 'top', 'side'],
-        defaultValue: 'top',
+        defaultValue: 'side',
         advanced: true
       }
     ];
