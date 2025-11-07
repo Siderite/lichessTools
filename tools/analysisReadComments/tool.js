@@ -120,17 +120,26 @@
       const comments = lt.getNodeCommentsText(node);
       this.prevComments = comments;
       let speakable = this.getSpeakableText(comments);
-      if (this.options.readAnnotations && node.glyphs?.length) {
-        speakable = node.glyphs
+      let shouldSpeak = speakable != this.prevSpeakable;
+      const isCheck = node.san?.endsWith('+');
+      const isMate = node.san?.endsWith('#');
+      if (this.options.readAnnotations && (node.glyphs?.length || isCheck || isMate)) {
+        speakable = (node.glyphs || [])
           .map(g=>g.name || this.annotations[g.symbol])
-          .concat([speakable])
+          .concat([
+            isCheck?'check':'',
+            isMate?'checkmate':'',
+            speakable
+          ])
           .filter(g=>g)
           .join(', ');
+        shouldSpeak = node.fen != this.prevFen;
       }
-      if (speakable?.trim() && speakable != this.prevSpeakable) {
+      if (shouldSpeak && speakable?.trim()) {
         lt.speak(speakable, { rate: 1.25 });
       }
       this.prevSpeakable = speakable;
+      this.prevFen = node.fen;
     }
 
     showInteractiveButton = () => {
