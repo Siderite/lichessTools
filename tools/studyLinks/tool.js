@@ -206,11 +206,7 @@
       const study = analysis?.study;
       if (!study) return;
       const count = analysis.node.comments?.length || 0;
-      if (count) {
-        $('span.comments count').attr('data-count',count);
-      } else {
-        $('span.comments count').removeAttr('data-count');
-      }
+      $('span.comments count').attrSafe('data-count',count || null);
     };
 
     async start() {
@@ -259,7 +255,7 @@
       if (this.options.commentTab) {
         const anchorElem = $('span.tags:not(:has(+span.comments))');
         if (anchorElem.length) {
-          $('<span class="comments" role="tab">')
+          $('<span class="lichessTools-comments comments" role="tab">')
             .attr('title',lt.global.i18n?.study?.commentThisPosition)
             .append('<count class="data-count">')
             .append($('<i>').attr('data-icon',lt.icon.BubbleSpeech))
