@@ -143,19 +143,28 @@
           button = $('<a class="lichessTools-nextChapter">')
             .attr('title',trans.noarg('nextChapterButtonTitle'))
             .attr('data-icon',lt.icon.PlayTriangle)
+            .on('click',ev=>{
+              const chapterId = button.attr('data-chapter-id');
+              if (!chapterId) return;
+              ev.preventDefault();
+              study.setChapter(chapterId);
+            })
             .appendTo('.gamebook .comment');
         }
         let href = '#';
+        let nextChapter = null;
         const chapterId = study.currentChapter()?.id;
         if (chapterId) {
           const list = study.chapters.list.all();
           const index = list.findIndex(c => c.id == chapterId);
-          const nextChapter = list[index+1];
+          nextChapter = list[index+1];
           if (nextChapter) {
             href = `/study/${study.data.id}/${nextChapter.id}`;
           }
         }
-        button.attr('href',href);
+        button
+          .attrSafe('href', href)
+          .attrSafe('data-chapter-id', nextChapter?.id || null);
       }
 
       if (this.options.subChapters) {
