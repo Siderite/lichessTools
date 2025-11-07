@@ -106,7 +106,7 @@
       if (board.length) {
         let container = $('html');
         if (boardChanged) {
-          const html = this.dgtHtml || (this.dgtHtml = await lt.net.fetch('/dgt'));
+          const html = await lt.net.fetch('/dgt');
           container = $('<div>'+html+'</div>');
         }
         const boardImage = lt.currentOptions.getValue('customBoardImage');

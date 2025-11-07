@@ -33,35 +33,38 @@
     updateBoardImage = (forced)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const existingStyle = $('style#lichessTools-customBoardImage');
-      if (!this.options.customBoardUrl) {
-        existingStyle.remove();
-        lt.storage.remove('customBoardImage-lastStyle');
-        return;
-      }
-      if (forced) {
-        existingStyle.remove();
-      } else
-      if (existingStyle.length && !existingStyle.html().includes('!important')) {
-        return;
-      }
-      if (this.options.customBoardUrl) {
-        const styleStr = `<style id="lichessTools-customBoardImage">
+      try {
+        const existingStyle = $('style#lichessTools-customBoardImage');
+        if (!this.options.customBoardUrl) {
+          existingStyle.remove();
+          lt.storage.remove('customBoardImage-lastStyle');
+          return;
+        }
+        if (forced) {
+          existingStyle.remove();
+        } else
+        if (existingStyle.length && !existingStyle.html().includes('!important')) {
+          return;
+        }
+        if (this.options.customBoardUrl) {
+          const styleStr = `<style id="lichessTools-customBoardImage">
 body.lichessTools .is2d cg-board::before {
   background-image: url(${this.options.customBoardUrl});
 }
 </style>`;
-        const initStyleStr = `<style id="lichessTools-customBoardImage">
+          const initStyleStr = `<style id="lichessTools-customBoardImage">
 body .is2d cg-board::before {
   background-image: url(${this.options.customBoardUrl}) !important;
 }
 </style>`;
-        $(styleStr).appendTo('head');
-        existingStyle.remove();
-        lt.storage.set('customBoardImage-lastStyle',initStyleStr);
-        this.addCustomBoard();
+          $(styleStr).appendTo('head');
+          existingStyle.remove();
+          lt.storage.set('customBoardImage-lastStyle',initStyleStr);
+          this.addCustomBoard();
+        }
+      } finally {
+        lt.tools.ThemesTool?.setBoardVariables(true);
       }
-      lt.tools.ThemesTool?.setBoardVariables(true);
     };
 
     chooseCustomBoardImageUrl = async ()=>{
