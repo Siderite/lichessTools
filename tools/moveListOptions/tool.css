@@ -163,7 +163,7 @@ body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play
 @media (min-width: 1259.3px) {
   body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) {
     grid-template-columns: minmax(calc(var(--left-side-width) - 100px), var(--left-side-width)) var(---block-gap) var(---col3-uniboard-width) var(---block-gap) minmax(240px, var(--move-list-width));
-    grid-template-rows: auto var(---chat-height) 2.5em 1fr;
+    grid-template-rows: calc(100vh - var(---site-header-height) - 6rem) var(---chat-height) 2.5em 1fr;
     grid-template-areas:
       "side . board gauge tools"
       "chat . board gauge tools"
