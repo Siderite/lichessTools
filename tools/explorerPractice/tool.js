@@ -265,7 +265,7 @@
       }
       const sumRow = $('tr.sum', explorerContainer);
       sumRow.off('click', this.makeRandomMove);
-      if (this.options.sumClick) {
+      if (this.options.sumClick && !analysis.study?.relay && analysis.study?.isWriting() !== false) {
         sumRow
           .addClass('lichessTools-sumClick')
           .attr('title', trans.noarg('sumClickTitle'))
