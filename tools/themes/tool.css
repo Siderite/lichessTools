@@ -12,3 +12,50 @@ body.lichessTools #dasher_app .lichessTools-themes .selector button.default:befo
   opacity: 1;
   color: var(--c-font);
 }
+
+body.lichessTools div.lichessTools-themes .content {
+  position: relative;
+}
+
+
+body.lichessTools div.lichessTools-themes .selector:after,
+body.lichessTools div.lichessTools-themes .selector:before {
+  font-family: lichess;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 40px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.25s ease;
+  backdrop-filter: blur(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.lichessTools div.lichessTools-themes .selector:before {
+  top: 0;
+  content: '\e031'; /* UpTriangle */
+  background: linear-gradient(
+    to bottom,
+    rgba(128, 128, 128, 0.5),
+    transparent
+  );
+}
+
+body.lichessTools div.lichessTools-themes .selector:after {
+  bottom: 0;
+  content: '\e030'; /* DownTriangle */
+  background: linear-gradient(
+    to top,
+    rgba(128, 128, 128, 0.5),
+    transparent
+  );
+}
+
+body.lichessTools div.lichessTools-themes .selector.can-scroll-up:before,
+body.lichessTools div.lichessTools-themes .selector.can-scroll-down:after {
+  opacity: 1;
+}

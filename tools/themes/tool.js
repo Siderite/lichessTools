@@ -51,7 +51,8 @@
         'themes.adamisko': 'Vintage Adamisko',
         'themes.arcade': 'Arcade',
         'themes.fixThirdParties': 'Fix third parties',
-        'themes.timeControls': 'Hover time controls'
+        'themes.timeControls': 'Hover time controls',
+        'enableBoardStyleQuestion': 'This theme requires Board Styling for full functionality, which may add a little overhead. Should I enable it?'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -78,7 +79,8 @@
         'themes.slimmerArrows': '... \u015fi mai sub\u0163iri',
         'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei',
         'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i',
-        'themes.timeControls': 'Controale timp la hover'
+        'themes.timeControls': 'Controale timp la hover',
+        'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 are nevoie de Stilare Tabl\u0103 pentru func\u01063ionalitate complet\u0103. O pornesc?'
       }
     }
 
@@ -143,6 +145,32 @@
       }
     };
 
+    isBoardStyleTheme = (theme) => {
+      return ['arcade'].includes(theme);
+    };
+
+    setupScrollClasses = (el) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if ($(el).prop('__scrollClasses')) return;
+
+      const updateClasses = (ev) => {
+        const container = ev.currentTarget;
+        const atTop = container.scrollTop === 0;
+        const tolerance = 1; // 1px grace
+        const atBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - tolerance;
+
+        $(container)
+          .toggleClassSafe('can-scroll-up',!atTop)
+          .toggleClassSafe('can-scroll-down',!atBottom);
+      };
+
+      $(el)
+        .prop('__scrollClasses', true)
+        .on('scroll', updateClasses)
+        .trigger('scroll');
+    };
+
     populateThemes = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -171,9 +199,14 @@
           .toggleClass('default',isDefault)
           .attr('data-icon',lt.icon.Checkmark)
           .text(trans.noarg(`themes.${theme}`))
-          .on('click',ev=>{
+          .on('click',async ev=>{
             ev.preventDefault();
             const isThemeSet = isSet(theme);
+            if (!isThemeSet && this.isBoardStyleTheme(theme) && !lt.currentOptions.getValue('boardStyle')) {
+              if (await lt.uiApi.dialog.confirm(trans.noarg('enableBoardStyleQuestion'))) {
+                lt.currentOptions.boardStyle = true;
+              }
+            }
             this.themes = themes.filter(t=>isThemeSet
               ? isSet(t) && t!=theme
               : isSet(t) || t==theme
@@ -186,6 +219,7 @@
           })
           .appendTo(selector);
       }
+      this.setupScrollClasses(selector);
     };
    
     addThemesMenu = ()=>{
