@@ -938,7 +938,9 @@
     "themesMenuText": "السمات",
     "themesMenuTitle": "أدوات الشطرنج - السمات البصرية",
     "themesMenuHeaderText": "السمات",
-    "nextChapterButtonTitle": "الفصل التالي"
+    "nextChapterButtonTitle": "الفصل التالي",
+    "puzzleIndexUpdateText": "تحديث ملف NIF الخاص بك!",
+    "puzzleIndexUpdateTitle": "إصدار السيرفر من ملف NIF أحدث من النسخة المحلية الخاصة بك"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1879,7 +1881,9 @@
     "themesMenuText": "主题",
     "themesMenuTitle": "LiChess Tools-视觉主题",
     "themesMenuHeaderText": "主题",
-    "nextChapterButtonTitle": "下一章节"
+    "nextChapterButtonTitle": "下一章节",
+    "puzzleIndexUpdateText": "更新您的 NIF 文件！",
+    "puzzleIndexUpdateTitle": "服务器版本的 NIF 文件比您本地版本更新"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2820,7 +2824,9 @@
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
     "themesMenuHeaderText": "Themes",
-    "nextChapterButtonTitle": "Next chapter"
+    "nextChapterButtonTitle": "Next chapter",
+    "puzzleIndexUpdateText": "Update your NIF file!",
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3761,7 +3767,9 @@
     "themesMenuText": "Motivy",
     "themesMenuTitle": "LiChess Tools - vizuální témata",
     "themesMenuHeaderText": "Motivy",
-    "nextChapterButtonTitle": "Další kapitola"
+    "nextChapterButtonTitle": "Další kapitola",
+    "puzzleIndexUpdateText": "Aktualizujte svůj NIF soubor!",
+    "puzzleIndexUpdateTitle": "Server verze NIF souboru je novější než vaše lokální"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4702,7 +4710,9 @@
     "themesMenuText": "Thema’s",
     "themesMenuTitle": "LiChess Tools - visuele thema's",
     "themesMenuHeaderText": "Thema’s",
-    "nextChapterButtonTitle": "Volgende hoofdstuk"
+    "nextChapterButtonTitle": "Volgende hoofdstuk",
+    "puzzleIndexUpdateText": "Uw NIF bestand bijwerken!",
+    "puzzleIndexUpdateTitle": "Server versie van het NIF bestand is nieuwer dan uw lokale bestand"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5643,7 +5653,9 @@
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
     "themesMenuHeaderText": "Themes",
-    "nextChapterButtonTitle": "Next chapter"
+    "nextChapterButtonTitle": "Next chapter",
+    "puzzleIndexUpdateText": "Update your NIF file!",
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6584,7 +6596,9 @@
     "themesMenuText": "Thèmes",
     "themesMenuTitle": "LiChess Tools - thèmes visuels",
     "themesMenuHeaderText": "Thèmes",
-    "nextChapterButtonTitle": "Chapitre suivant"
+    "nextChapterButtonTitle": "Chapitre suivant",
+    "puzzleIndexUpdateText": "Mettez à jour votre fichier NIF !",
+    "puzzleIndexUpdateTitle": "La version serveur du fichier NIF est plus récente que votre fichier local"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7525,7 +7539,9 @@
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visuelle Themen",
     "themesMenuHeaderText": "Themes",
-    "nextChapterButtonTitle": "Nächstes Kapitel"
+    "nextChapterButtonTitle": "Nächstes Kapitel",
+    "puzzleIndexUpdateText": "Aktualisieren Sie Ihre NIF-Datei!",
+    "puzzleIndexUpdateTitle": "Server-Version der NIF-Datei ist neuer als Ihre lokale"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8466,7 +8482,9 @@
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
     "themesMenuHeaderText": "Themes",
-    "nextChapterButtonTitle": "Next chapter"
+    "nextChapterButtonTitle": "Next chapter",
+    "puzzleIndexUpdateText": "Update your NIF file!",
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9407,7 +9425,9 @@
     "themesMenuText": "Temi",
     "themesMenuTitle": "LiChess Tools - temi visivi",
     "themesMenuHeaderText": "Temi",
-    "nextChapterButtonTitle": "Capitolo successivo"
+    "nextChapterButtonTitle": "Capitolo successivo",
+    "puzzleIndexUpdateText": "Aggiorna il tuo file NIF!",
+    "puzzleIndexUpdateTitle": "La versione del server del file NIF è più recente di quella locale"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10348,7 +10368,9 @@
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
     "themesMenuHeaderText": "Themes",
-    "nextChapterButtonTitle": "Next chapter"
+    "nextChapterButtonTitle": "Next chapter",
+    "puzzleIndexUpdateText": "Update your NIF file!",
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11289,7 +11311,9 @@
     "themesMenuText": "Motywy",
     "themesMenuTitle": "LiChess Tools - motywy wizualne",
     "themesMenuHeaderText": "Motywy",
-    "nextChapterButtonTitle": "Następny rozdział"
+    "nextChapterButtonTitle": "Następny rozdział",
+    "puzzleIndexUpdateText": "Zaktualizuj swój plik NIF!",
+    "puzzleIndexUpdateTitle": "Wersja serwera pliku NIF jest nowsza niż wersja lokalna"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12230,7 +12254,9 @@
     "themesMenuText": "Temas",
     "themesMenuTitle": "LiChess Tools - Temas visuais",
     "themesMenuHeaderText": "Temas",
-    "nextChapterButtonTitle": "Próximo capítulo"
+    "nextChapterButtonTitle": "Próximo capítulo",
+    "puzzleIndexUpdateText": "Atualize seu arquivo NIF!",
+    "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13171,7 +13197,9 @@
     "themesMenuText": "Temas",
     "themesMenuTitle": "LiChess Tools - Temas visuais",
     "themesMenuHeaderText": "Temas",
-    "nextChapterButtonTitle": "Próximo capítulo"
+    "nextChapterButtonTitle": "Próximo capítulo",
+    "puzzleIndexUpdateText": "Atualize seu arquivo NIF!",
+    "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14112,7 +14140,9 @@
     "themesMenuText": "Teme",
     "themesMenuTitle": "LiChess Tools - teme vizuale",
     "themesMenuHeaderText": "Teme",
-    "nextChapterButtonTitle": "Următorul capitol"
+    "nextChapterButtonTitle": "Următorul capitol",
+    "puzzleIndexUpdateText": "Actualizează fișierul NIF!",
+    "puzzleIndexUpdateTitle": "Versiunea fișierului NIF de pe server este mai nouă decât cea locală"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15053,7 +15083,9 @@
     "themesMenuText": "Темы",
     "themesMenuTitle": "LiChess Tools - визуальные темы",
     "themesMenuHeaderText": "Темы",
-    "nextChapterButtonTitle": "Следующая глава"
+    "nextChapterButtonTitle": "Следующая глава",
+    "puzzleIndexUpdateText": "Обновите NIF файл!",
+    "puzzleIndexUpdateTitle": "Версия NIF файла на сервере новее, чем локальный"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15994,7 +16026,9 @@
     "themesMenuText": "Temas",
     "themesMenuTitle": "LiChess Tools - Temas visuales",
     "themesMenuHeaderText": "Temas",
-    "nextChapterButtonTitle": "Siguiente capítulo"
+    "nextChapterButtonTitle": "Siguiente capítulo",
+    "puzzleIndexUpdateText": "¡Actualiza tu archivo NIF!",
+    "puzzleIndexUpdateTitle": "La versión del servidor del archivo NIF es más reciente que la local"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16935,7 +16969,9 @@
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
     "themesMenuHeaderText": "Themes",
-    "nextChapterButtonTitle": "Next chapter"
+    "nextChapterButtonTitle": "Next chapter",
+    "puzzleIndexUpdateText": "Update your NIF file!",
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17876,7 +17912,9 @@
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
     "themesMenuHeaderText": "Themes",
-    "nextChapterButtonTitle": "Next chapter"
+    "nextChapterButtonTitle": "Next chapter",
+    "puzzleIndexUpdateText": "Update your NIF file!",
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -17885,8 +17923,8 @@
     "options.addNotifications": "Thêm thông báo",
     "options.community": "Cộng đồng",
     "options.addToTeam": "Đội LiChess Tools",
-    "addToTeam.hideForum": "Hide forum entry",
-    "addToTeam.forumBottom": "Forum entry last",
+    "addToTeam.hideForum": "Ẩn Đội",
+    "addToTeam.forumBottom": "Di chuyển Đội xuống cuối",
     "addToTeam.noNotifications": "Vô hiệu hóa thông báo",
     "joinTeamText": "Tham gia nhóm",
     "teamTitle": "Người dùng phần mở rộng trình duyệt của LiChess Tools",
@@ -17898,12 +17936,12 @@
     "options.fixWakeLock": "Khắc phục WakeLock",
     "options.analysis": "Phân tích",
     "options.study": "Nghiên cứu",
-    "options.gamebookPlayClass": "Add CSS class with playing interactive",
+    "options.gamebookPlayClass": "Thêm lớp CSS cho tương tác chơi",
     "options.transpositionBehavior": "Hành vi/định nghĩa của chuyển vị",
     "transpositionBehavior.excludeSameLine": "Loại trừ nếu trong cùng một dòng",
-    "transpositionBehavior.consideredVariations": "Play moves from transpositions",
-    "transpositionBehavior.groupSameMove": "Don't add identical next moves",
-    "options.randomVariationDepth": "Next move probability depth",
+    "transpositionBehavior.consideredVariations": "Chơi nước đi từ chuyển vị",
+    "transpositionBehavior.groupSameMove": "Không thêm các nước đi giống nhau",
+    "options.randomVariationDepth": "Độ sâu tính toán cho nước đi tiếp theo",
     "randomVariationDepth.0": "bằng",
     "randomVariationDepth.2": "một nước",
     "randomVariationDepth.4": "hai nước",
@@ -17912,66 +17950,66 @@
     "randomVariationDepth.10": "năm nước",
     "options.themes": "Áp dụng một chủ đề phong cách",
     "themes.default": "Không có",
-    "themes.performance": "Performance theme",
-    "themes.justExplorer": "Just Explorer",
+    "themes.performance": "Hiệu suất",
+    "themes.justExplorer": "Chủ đề chỉ tìm kiếm",
     "themes.mobile": "Chủ đề di động",
-    "themes.slimArrows": "Slim arrows",
-    "themes.flairX": "Nicer flairs",
-    "themes.lessIcons": "Fewer icons",
+    "themes.slimArrows": "Chủ đề mũi tên mỏng",
+    "themes.flairX": "Chủ đề đẹp hơn",
+    "themes.lessIcons": "Chủ đề ít biểu tượng hơn",
     "themes.nonStickyHeader": "No sticky header",
-    "themes.pieceDrag": "Nicer piece drag",
+    "themes.pieceDrag": "Kéo quân đẹp hơn",
     "options.cliCommands": "Các câu lệnh CLI",
     "options.command": "Danh sách lệnh",
-    "options.chessOps": "Chessops support",
+    "options.chessOps": "Hỗ trợ Chessops",
     "options.exportPGN": "Xuất PGN",
     "options.stockfish": "Stockfish",
-    "options.stockfish-threads": "LiChess Tools analysis engine threads",
-    "options.stockfish-hash": "LiChess Tools analysis engine hash (MB)",
-    "couldNotLoadStockfish": "Could not load Stockfish!",
-    "options.additionalGlyphs": "Additional glyphs",
+    "options.stockfish-threads": "Luồng máy tính phân tích LiChess Tools",
+    "options.stockfish-hash": "Bộ nhớ Hash Máy Phân tích LiChess Tools (MB)",
+    "couldNotLoadStockfish": "Không thể tải Stockfish!",
+    "options.additionalGlyphs": "Kí hiệu bổ sung",
     "options.play": "Chạy",
-    "options.quietModeAllTabs": "Quiet mode on all tabs",
+    "options.quietModeAllTabs": "Chế độ im lặng trên tất cả các tab",
     "quietModeDisableText": "Tắt chế độ im lặng",
     "quietModeEnableText": "Bật chế độ im lặng",
     "quietModeDisableTitle": "Tắt chế độ yên lặng",
     "quietModeEnableTitle": "Bật chế độ yên lặng",
     "options.mobileExperience": "Chức năng cho điện thoại",
     "options.mobileExperienceRound": "Chức năng cho điện thoại",
-    "options.colorCount": "Colors for shapes on mobile",
+    "options.colorCount": "Số lượng màu cho hình trên điện thoại",
     "mobileExperience.showGauge": "Thang đo lợi thế",
-    "mobileExperience.hideOctopus": "Hide the octopus mascot",
-    "mobileExperience.shapeDrawing": "Analysis arrows",
-    "mobileExperience.randomNextMove": "Random move button",
-    "mobileExperience.selectiveRandom": "...only when variations",
-    "mobileExperienceRound.shapeDrawingRound": "Game arrows",
+    "mobileExperience.hideOctopus": "Ẩn linh vật Bạch tuộc",
+    "mobileExperience.shapeDrawing": "Mũi tên khi phân tích",
+    "mobileExperience.randomNextMove": "Nút nước đi ngẫu nhiên",
+    "mobileExperience.selectiveRandom": "...chỉ trong biến thể",
+    "mobileExperienceRound.shapeDrawingRound": "Mũi tên trò chơi",
     "mobileExperienceRound.standardButtons": "Nút chuẩn",
-    "mobileExperienceRound.invert": "Swap user and clock",
+    "mobileExperienceRound.invert": "Chuyển đồng hồ ra chỗ tên người dùng",
     "shapeDrawingTitle": "Lichess Tools - vẽ mũi tên và hình tròn",
     "randomNextMoveTitle": "Lichess Tools - nước đi ngẫu nhiên",
     "colorCount.1": "một",
     "colorCount.2": "hai",
     "colorCount.3": "ba",
     "colorCount.4": "bốn",
-    "lockBoardTitle": "LiChess Tools - screen lock",
-    "options.spaceDisabled": "Ctrl-space to play best computer move instead of Space",
+    "lockBoardTitle": "LiChess Tools - khóa màn hình",
+    "options.spaceDisabled": "Ctrl - phím cách để chơi nước đi tốt nhất của máy tính thay vì chỉ phím cách",
     "onlineFriends": "%s bạn trực tuyến",
     "onlineFriends:one": "%s bạn trực tuyến",
     "onlineFriends:zero": "Bạn bè",
     "friendsMenu": "LiChess Tools - những người bạn mà bạn theo dõi",
     "options.friends": "Bạn bè",
-    "options.openFriends": "Friends box",
+    "options.openFriends": "Hộp bạn bè",
     "openFriends.default": "Mặc định",
     "openFriends.open": "Mở",
     "openFriends.hidden": "Ẩn",
     "openFriends.menu": "Danh mục",
     "openFriends.button": "Nút",
     "watchGames": "Xem các ván đấu",
-    "enablePlayAlert": "Unmute playing alert",
-    "mutePlayAlert": "Mute playing alert",
-    "options.liveFriendsPage": "Live friends page",
+    "enablePlayAlert": "Bật tiếng cảnh báo khi đang chơi",
+    "mutePlayAlert": "Tắt tiếng cảnh báo khi đang chơi",
+    "options.liveFriendsPage": "Cập nhật danh sách bạn bè theo thời gian thực",
     "hideOfflineTitle": "Các kỳ thủ có mặt",
     "hideNotPlayingTitle": "Những kỳ thủ đang trong trận",
-    "hideMutedTitle": "Players with play alerts",
+    "hideMutedTitle": "Người chơi với cảnh báo chơi",
     "daysText:one": "một ngày",
     "hoursText:one": "một giờ",
     "minutesText:one": "một phút",
@@ -17987,23 +18025,23 @@
     "gameType-ultrabullet": "Siêu đạn",
     "gameType-standard": "Chỉ cờ tiêu chuẩn",
     "options.friendsPlaying": "Cảnh báo âm thanh và giọng nói khi bạn bè bắt đầu chơi",
-    "audioNotAllowedTitle": "LiChess Tools - Audio allowed only after user action",
-    "options.highlight": "Highlight moves in analysis",
-    "highlight.lastMove": "Last move in each variation",
-    "highlight.notCommented": "Not commented last moves",
-    "highlight.transposition": "Transpositions to current move",
-    "highlight.mainLine": "Highlight board when out of main line",
-    "highlight.mainLinePieces": "Highlight pieces when out of main line",
-    "highlight.variationDepth": "Highlight variation depth",
-    "highlight.checks": "Highlight checks to kings",
-    "options.ctrlArrows": "Ctrl-right to play random next move from list",
-    "options.customEngineLevel": "Custom analysis engine depth",
-    "options.customEngineOptions": "Custom analysis engine options",
-    "customEngineOptions.noCloud": "Ignore cloud data for evaluation",
-    "customEngineOptions.noCloudExternal": "Ignore cloud data for external engines",
-    "customEngineOptions.practice": "Apply in Practice mode",
-    "customEngineOptions.fix503": "Fix external engine 503 errors",
-    "applyInPractice": "Custom engine settings in Practice mode",
+    "audioNotAllowedTitle": "LiChess Tools - cho phép âm thanh chỉ sau khi có tương tác của người dùng",
+    "options.highlight": "In đậm nước đi khi đang phân tích",
+    "highlight.lastMove": "Nước đi cuối cùng trong mỗi biến thể",
+    "highlight.notCommented": "Không bình luận nước đi cuối cùng",
+    "highlight.transposition": "Từ chuyển vị đến nước đi hiện tại",
+    "highlight.mainLine": "In đậm bàn cờ khi đi ra khỏi hướng đi chính",
+    "highlight.mainLinePieces": "In đậm quân cờ khi đi ra khỏi hướng đi chính",
+    "highlight.variationDepth": "In đậm độ sâu biến thể",
+    "highlight.checks": "In đậm khi chiếu",
+    "options.ctrlArrows": "Ctrl phải để chơi nước đi tiếp theo ngẫu nhiên từ danh sách",
+    "options.customEngineLevel": "Tủy chỉnh mức độ sâu của máy phân tích",
+    "options.customEngineOptions": "Tủy chỉnh máy phân tích",
+    "customEngineOptions.noCloud": "Bỏ qua đánh giá của dữ liệu đám mây",
+    "customEngineOptions.noCloudExternal": "Bỏ qua dữ liệu đám mây cho máy cờ vua mở rộng",
+    "customEngineOptions.practice": "Áp dụng cho chế độ luyện tập",
+    "customEngineOptions.fix503": "Sửa chữa lỗi 503 cho máy cờ vua bên ngoài",
+    "applyInPractice": "Tùy chỉnh cài đặt máy cờ vua trong chế độ luyện tập",
     "options.keyShortcuts": "Extra key shortcuts",
     "options.showFlags": "Show player country flags",
     "options.shapeRank": "Show the order of arrows and circles",
@@ -18817,6 +18855,8 @@
     "themesMenuText": "Themes",
     "themesMenuTitle": "LiChess Tools - visual themes",
     "themesMenuHeaderText": "Themes",
-    "nextChapterButtonTitle": "Next chapter"
+    "nextChapterButtonTitle": "Next chapter",
+    "puzzleIndexUpdateText": "Update your NIF file!",
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
   }
 }

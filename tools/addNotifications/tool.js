@@ -75,16 +75,21 @@
         let elem = $('a.site_notification.lichessTools-addNotifications', notifications)
           .filter((i, e) => $(e).attr('data-id') == entry.id);
         if (!elem.length) {
+          const handler = entry.handler;
           elem = $(`<a class="site_notification lichessTools-addNotifications">
             </a>`)
             .append($('<i>').attr('data-icon', entry.icon))
             .append($('<span class="content">').append(entry.content))
             .attr('data-id', entry.id)
             .attr('href', entry.href)
+            .attr('target', entry.target || null)
             .attr('title', entry.title)
             .prependTo(notifications);
+          if (handler) {
+            elem.on('click',handler);
+          }
         }
-        elem.toggleClass('new', entry.isNew)
+        elem.toggleClass('new', !!entry.isNew)
       }
 
       let title = toggle.attr('title');

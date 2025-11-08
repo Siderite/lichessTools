@@ -176,6 +176,28 @@ const handlers = {
       reader.readAsDataURL(blob);
     });
     return { dataUrl: dataUrl };
+  },
+  getHeadData: async (data) => {
+    const url = data?.options?.url;
+    if (!url) return;
+    const options = { method: 'HEAD', ...data.options };
+    const response = await fetch(url, options);
+    if (!response.ok) return;
+    const headers = {
+      contentType: response.headers.get('content-type'),
+      contentLength: response.headers.get('content-length'),
+      lastModified: response.headers.get('last-modified'),
+      etag: response.headers.get('etag'),
+      cacheControl: response.headers.get('cache-control'),
+      server: response.headers.get('server'),
+    };
+
+    return {
+      url: response.url,
+      status: response.status,
+      statusText: response.statusText,
+      headers
+    };
   }
 };
 

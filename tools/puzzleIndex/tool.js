@@ -1,7 +1,7 @@
 (() => {
   class PuzzleIndexTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['LocalDatabase'];
+    dependencies = ['LocalDatabase', 'AddNotifications'];
 
     preferences = [
       {
@@ -30,7 +30,9 @@
         'options.yourPuzzleIndex': 'Find position in puzzles from your games',
         'puzzleHeaderText': 'Puzzles',
         'positionReversedText': 'Position reversed',
-        'yourPuzzleText': 'From your games'
+        'yourPuzzleText': 'From your games',
+        'puzzleIndexUpdateText': 'Update your NIF file!',
+        'puzzleIndexUpdateTitle': 'Server version of the NIF file is newer than your local one'
       },
       'ro-RO': {
         'options.puzzles': 'Probleme de \u015Fah',
@@ -38,9 +40,38 @@
         'options.yourPuzzleIndex': 'G\u0103se\u015fte pozi\u0163ia \u00een problemele de \u015fah din jocurile tale',
         'puzzleHeaderText': 'Probleme de \u015fah',
         'positionReversedText': 'Pozi\u0163ie inversat\u0103',
-        'yourPuzzleText': 'Din jocurile tale'
+        'yourPuzzleText': 'Din jocurile tale',
+        'puzzleIndexUpdateText': 'Actualizeaz\u0103 fi\u015fierul NIF!',
+        'puzzleIndexUpdateTitle': 'Versiunea fi\u015fierului NIF de pe server este mai nou\u0103 dec\u00e2t cea local\u0103'
       }
     }
+
+    showUpdateNotification = ()=>{
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      this.lastRead = +(lt.storage.get('LiChessTools.puzzleIndexLastRead')) || 0;
+      if (this.lastRead>Date.now()-86400000*3) return;
+      const notification = {
+        id: 'puzzleIndexNotify',
+        getEntries: async () => {
+          const entry = {
+            id: 'puzzleIndexNotify',
+            isNew: true,
+            icon: lt.icon.ArcheryTarget,
+            href: 'https://siderite.dev/blog/lichess-tools---user-manual/#puzzleIndex',
+            target: '_blank',
+            handler: ()=>lt.storage.set('LiChessTools.puzzleIndexLastRead',Date.now()),
+            content: $('<div>')
+              .append($('<span>').text(trans.noarg('options.puzzleIndex')))
+              .append($('<span>').text(trans.noarg('puzzleIndexUpdateText')))
+              .html(),
+            title: trans.noarg('puzzleIndexUpdateTitle')
+          };
+          return [entry];
+        }
+      };
+      lt.notifications.add(notification);
+    };
 
     loadData = async ()=>{
       const lt = this.lichessTools;
@@ -50,6 +81,13 @@
         if (!this.indexFile && lt.file) {
           const dbKey = 'lichessTools/LT/puzzleIndex-file';
           const fileHandle = await lt.storage.get(dbKey,{ db: true, raw: true });
+          const file = await fileHandle.getFile();
+          const lastModified = file.lastModified;
+          const onServer = await lt.comm.getHeadData('https://siderite.dev/puzzle.nif.zip');
+          const lastOnServer = Date.parse(onServer?.headers?.lastModified);
+          if (lastOnServer && lastOnServer-lastModified>86400000) {
+            this.showUpdateNotification();
+          }
           this.indexFile = await lt.file.openIndex(fileHandle, true);
           this.searchPosition();
         }

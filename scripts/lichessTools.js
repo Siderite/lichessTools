@@ -1953,7 +1953,19 @@
         } else {
           if (error) lt.global.console.error(error);
         }
-      }
+      },
+      getHeadData: async function(url, options) {
+        options = { retries: 3, url: url, ...options };
+        const lt = this.lichessTools;
+        let error = null;
+        let data = null;
+        for (let i=0; i<options.retries && !data; i++) {
+          data = await lt.comm.send({ type: 'getHeadData', options: options })
+                                             .catch(e => { error = e; });
+        }
+        if (error) lt.global.console.error(error);
+        return data;
+      },
 
     };
 
