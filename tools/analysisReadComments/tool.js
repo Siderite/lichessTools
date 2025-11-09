@@ -46,7 +46,7 @@
       '?':'mistake',
       '!!':'brilliant',
       '??':'blunder',
-      '?!':'dubious move',
+      '?!':'inaccuracy',
       '!?':'interesting'
     };
     getSpeakableText = (text)=>{
@@ -124,15 +124,25 @@
       const isCheck = node.san?.endsWith('+');
       const isMate = node.san?.endsWith('#');
       if (this.options.readAnnotations && (node.glyphs?.length || isCheck || isMate)) {
-        speakable = (node.glyphs || [])
-          .map(g=>g.name || this.annotations[g.symbol])
+        const additional = (node.glyphs || [])
+          .map(g=>{
+            let name = g.name;
+            if (name?.toLowerCase() == 'dubious move') name='inaccuracy';
+            return name || this.annotations[g.symbol]
+          })
           .concat([
             isCheck?'check':'',
-            isMate?'checkmate':'',
-            speakable
+            isMate?'checkmate':''
           ])
           .filter(g=>g)
           .join(', ');
+        if (!speakable) {
+          speakable = additional;
+        } else {
+          if (additional && !speakable.toLowerCase().includes(additional.toLowerCase())) {
+            speakable = `${additional}, ${speakable}`;
+          }
+        }
         shouldSpeak = node.fen != this.prevFen;
       }
       if (shouldSpeak && speakable?.trim()) {
