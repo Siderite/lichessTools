@@ -183,8 +183,6 @@ body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play
       "uchat . side";
     grid-row-gap: 0;
   }
-
-  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) {}
 }
 
 @media (max-width: 1259.2px) {

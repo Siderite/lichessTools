@@ -309,7 +309,7 @@
         .observer()
         .off('.rclock-bottom *',this.checkClock);
       if ($('.playing .round__app').length) {
-        const hasTimeAlert = this.options.flickerSound || this.options.times.find(t=>t.enabled);
+        const hasTimeAlert = this.options.flickerSound || this.options.times.find(t=>t.enabled) || this.options.speak5;
         if (hasTimeAlert) {
           $('.round__app')
             .observer()
