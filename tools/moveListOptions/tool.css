@@ -145,7 +145,7 @@ body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) #ma
 }
 
 body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) #main-wrap:has(main.analyse):not(:has(main.has-relay-tour)) {
-  --move-list-width: 100%;
+  --move-list-width: 1fr;
 }
 
 @media (min-width: 799.3px) {
@@ -163,25 +163,24 @@ body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play
 @media (min-width: 1259.3px) {
   body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) {
     grid-template-columns: minmax(calc(var(--left-side-width) - 100px), var(--left-side-width)) var(---block-gap) var(---col3-uniboard-width) var(---block-gap) minmax(240px, var(--move-list-width));
-    grid-template-rows: calc(100vh - var(---site-header-height) - 6rem) var(---chat-height) 2.5em 1fr;
-    grid-template-areas:
-      "side . board gauge tools"
-      "chat . board gauge tools"
-      "uchat . under . controls"
-      "uchat . under . round-training";
   }
 
+  body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) main.analyse:not(.is-relay):not(.has-relay-tour) section.mchat {
+    align-self: end;
+  }
+
+  body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) main.analyse.is-relay:not(.has-relay-tour) {
+    grid-template-rows: calc(100vh - var(---site-header-height) - 6rem) var(---chat-height) auto 2.5em 1fr;
+    ---chat-height: fit-content(0);
+  }
+
+  body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) .tview2-column>index {
+    max-width: 6em;
+  }
+
+
   body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) {
-    grid-template-columns: var(---col2-uniboard-width) var(---block-gap) minmax(240px, var(--move-list-width));
-    grid-template-rows: fit-content(0);
-    grid-template-areas:
-      "board gauge tools"
-      "under . controls"
-      "under . round-training"
-      "under . side"
-      "chat . side"
-      "uchat . side";
-    grid-row-gap: 0;
+    grid-template-columns: minmax(calc(var(--left-side-width) - 100px), var(--left-side-width)) var(---block-gap) var(---col3-uniboard-width) var(---block-gap) minmax(240px, var(--move-list-width));
   }
 }
 
