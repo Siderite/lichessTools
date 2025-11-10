@@ -1946,7 +1946,7 @@
         .text(trans.pluralSame('estimatedRating',estimatedRating))
         .appendTo(tooltip);
 
-      const line = this.getLocalLine();
+      const line = lichess.analysis.mainline;
       const gamePhases = this.getGamePhases(line);
       const values = [];
       if (gamePhases.middleGame) {
