@@ -1,3 +1,19 @@
 body.lichessTools section.lichessTools-explorerSettings button[disabled] {
   opacity: 0.3;
 }
+
+/* fix too many things in the Explorer table */
+
+body.lichessTools section.explorer-box .data {
+  min-width: fit-content;
+}
+
+body.lichessTools section.explorer-box td.lichessTools-evalRow {
+  text-align: center;
+}
+
+/* Prettie Lichess fixes */
+
+body.lichessTools.lichessTools-prettier .explorer-box td {
+  padding: 5px !important;
+}

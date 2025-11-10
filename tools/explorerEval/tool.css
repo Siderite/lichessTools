@@ -104,8 +104,8 @@ body.lichessTools tr.lichessTools-warning-blue:after {
   color: #8080A0;
 }
 
-body.lichessTools section.explorer-box td.lichessTools-evalRow {
-  text-align: center;
+body.lichessTools section.explorer-box {
+  overflow-x: auto;
 }
 
 body.lichessTools section.explorer-box table.moves:has(.lichessTools-explorerEval) td:nth-child(4):last-child {
