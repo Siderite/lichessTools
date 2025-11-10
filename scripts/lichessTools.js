@@ -76,6 +76,7 @@
 
     icon = {
       // see https://github.com/lichess-org/lila/blob/master/modules/ui/src/main/Icon.scala
+      // and https://lichess1.org/assets/oops/font.html
       CautionTriangle: '\ue000',
       Link: '\ue001',
       Rabbit: '\ue002',

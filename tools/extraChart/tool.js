@@ -1826,9 +1826,10 @@
           return { turn: turn, winPerc: winPerc }
         })
         .filter(wp=>wp!==undefined);
-      if (winPercs.length) {
-        winPercs.unshift({ turn: -winPercs[0].turn, winPerc: initialWinPerc });
-      }
+      if (!winPercs.length) return;
+
+      winPercs.unshift({ turn: -winPercs[0].turn, winPerc: initialWinPerc });
+      
       const n = winPercs.length;
       const windowSize = Maths.atLeast(Maths.atMost(Math.floor(n / 10), 8), 2);
 
@@ -1951,23 +1952,33 @@
       const values = [];
       if (gamePhases.middleGame) {
         let accuracies = this.calculateAccuracy(line,0,gamePhases.middleGame);
-        let accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
-        values.push(accuracyText);
-        if (gamePhases.endGame) {
-          accuracies = this.calculateAccuracy(line,gamePhases.middleGame,gamePhases.endGame);
-          accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
+        if (accuracies) {
+          let accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
           values.push(accuracyText);
-          accuracies = this.calculateAccuracy(line,gamePhases.endGame);
-          accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
-          values.push(accuracyText);
-        } else {
-          accuracies = this.calculateAccuracy(line,gamePhases.middleGame);
-          accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
-          values.push(accuracyText);
+          if (gamePhases.endGame) {
+            accuracies = this.calculateAccuracy(line,gamePhases.middleGame,gamePhases.endGame);
+            if (accuracies) {
+              accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
+              values.push(accuracyText);
+            }
+            accuracies = this.calculateAccuracy(line,gamePhases.endGame);
+            if (accuracies) {
+              accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
+              values.push(accuracyText);
+            }
+          } else {
+            accuracies = this.calculateAccuracy(line,gamePhases.middleGame);
+            if (accuracies) {
+              accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
+              values.push(accuracyText);
+            }
+          }
         }
-        $('<div class="lichessTools-extraChart-gamePhases">')
-          .text(trans.pluralSame('gamePhasesText',values.join(' ')))
-          .appendTo(tooltip);
+        if (values.length) {
+          $('<div class="lichessTools-extraChart-gamePhases">')
+            .text(trans.pluralSame('gamePhasesText',values.join(' ')))
+            .appendTo(tooltip);
+        }
       }
 
       tooltip
