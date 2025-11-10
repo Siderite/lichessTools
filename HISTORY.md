@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+10 Nov
+
+- accuracy calculation per game phase
+
 08 Nov
 
 - Notification for NIF file

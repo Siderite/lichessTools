@@ -51,7 +51,8 @@
         'goodMovesTitle': 'LiChess Tools - good/brilliant/interesting moves',
         'merryChristmas': 'Merry Christmas from LiChess Tools!',
         'options.christmas': 'Show Christmas lights on chart on the 25th of December',
-        'estimatedRating': 'Estimated rating: %s'
+        'estimatedRating': 'Estimated rating: %s',
+        'gamePhasesText': 'Phases accuracy: %s'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -74,7 +75,8 @@
         'goodMovesText': 'mut\u0103ri bune/briliante/interesante',
         'goodMovesTitle': 'LiChess Tools - mut\u0103ri bune/briliante/interesante',
         'merryChristmas': 'Cr\u0103ciun fericit de la LiChess Tools!',
-        'estimatedRating': 'Rating estimat: %s'
+        'estimatedRating': 'Rating estimat: %s',
+        'gamePhasesText': 'Acurate\u0163e pe faze: %s'
       }
     }
 
@@ -93,7 +95,9 @@
       sharpnessChart: this.thematic('#FFA0A0','#B09090'),
       maxTensionLine: '#FF0000',
       maxPotentialLine: '#008000',
-      interestingMoves: this.thematic('#168226','#009914')
+      interestingMoves: this.thematic('#168226','#009914'),
+      middleGame: '#707070',
+      endGame: '#707070'
     };
 
     pieceMaterial = {
@@ -596,7 +600,7 @@
           if (!evl) return null;
           const cp = this.getCp(evl, side);
           const winPerc = lt.winPerc(cp);
-          const accuracy = 103.1668 * Math.exp(-0.04354 * (prevWinPerc - winPerc)) - 3.1669;
+          const accuracy = lt.accuracy(prevWinPerc, winPerc);
           prevWinPerc = winPerc;
           const val = Math.max(Math.min(accuracy, 100), 0) / 50 - 1;
           prevVal = val;
@@ -932,6 +936,97 @@
           }
         });
       return maxX;
+    };
+
+    getGamePhases = (mainline) => {
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      let middleGame = 0;
+      let endGame = 0;
+
+      const majorsAndMinors = (board) => {
+        return board
+                 .flat()
+                 .filter(p=>'rnbq'.includes(p.toLowerCase()))
+                 .length;
+      };
+
+      const backrankSparse = (board) => {
+        return board[0].filter(p=>p).length<4
+               || board[7].filter(p=>p).length<4;
+      };
+
+      const score = (y) => {
+        return (white, black) => {
+          const w = Number(white);
+          const b = Number(black);
+
+          switch (true) {
+            case w === 0 && b === 0: return 0;
+            case w === 1 && b === 0: return 1 + (8 - y);
+            case w === 2 && b === 0: return y > 2 ? 2 + (y - 2) : 0;
+            case w === 3 && b === 0: return y > 1 ? 3 + (y - 1) : 0;
+            case w === 4 && b === 0: return y > 1 ? 3 + (y - 1) : 0; // group of 4 on homerow = 0
+            case w === 0 && b === 1: return 1 + y;
+            case w === 1 && b === 1: return 5 + Math.abs(4 - y);
+            case w === 2 && b === 1: return 4 + (y - 1);
+            case w === 3 && b === 1: return 5 + (y - 1);
+            case w === 0 && b === 2: return y < 6 ? 2 + (6 - y) : 0;
+            case w === 1 && b === 2: return 4 + (7 - y);
+            case w === 2 && b === 2: return 7;
+            case w === 0 && b === 3: return y < 7 ? 3 + (7 - y) : 0;
+            case w === 1 && b === 3: return 5 + (7 - y);
+            case w === 0 && b === 4: return y < 7 ? 3 + (7 - y) : 0;
+            default: return 0;
+          }
+        };
+      };
+
+      const mixednessRegions = [];
+      for (let y = 0; y <= 6; ++y) {
+        for (let x = 0; x <= 6; ++x) {
+          mixednessRegions.push({ x, y });
+        }
+      }
+
+      const countInSquare = (board, topX, topY) => {
+        let white = 0, black = 0;
+        for (let dy = 0; dy < 2; ++dy) {
+          for (let dx = 0; dx < 2; ++dx) {
+            const piece = board[topY + dy][topX + dx];
+            if (!piece) continue;
+            if (piece === piece.toUpperCase()) ++white;
+            else                               ++black;
+          }
+        }
+        return [white, black];
+      }
+
+      const mixedness = (board) => {
+        return mixednessRegions.reduce((acc, region) => {
+          const [w, b] = countInSquare(board, region.x, region.y);
+          return acc + score(7-region.y)(w, b);
+        }, 0);
+      };
+
+      for (const node of mainline) {
+        const board = lt.getBoardFromFen(node.fen);
+        const mm = majorsAndMinors(board);
+        const bs = backrankSparse(board);
+        const mx = mixedness(board);
+        if (!middleGame && (mm <= 10 || bs || mx > 150)) {
+          middleGame = node.ply;
+          continue;
+        }
+        if (middleGame && mm <= 6) {
+          endGame = node.ply;
+          break;
+        }
+      }
+      return {
+        middleGame: middleGame,
+        endGame: endGame
+      };
     };
 
     getMaxPotential = (mainline) => {
@@ -1486,6 +1581,110 @@
         }
       }
 
+      const middleGameText = lt.global.i18n?.site?.middlegame || 'Middlegame';
+      let existingMiddleGame = chart.data.datasets.findIndex(s => s.label === middleGameText);
+      if (existingMiddleGame >= 0 && !this.options.accuracyPlus) {
+        chart.data.datasets.splice(existingMiddleGame, 1);
+        existingMiddleGame = -1;
+        updateChart = true;
+      }
+      if (this.options.accuracyPlus) {
+        if (existingMiddleGame < 0) {
+          const x = this.getGamePhases(lichess.analysis.mainline).middleGame;
+          if (x) {
+          chart.data.datasets.push({
+            label: middleGameText,
+            type: 'line',
+            data: [
+              { x: x, y: -1.05 },
+              { x: x, y: 1.05 }
+            ],
+            borderWidth: 1,
+            //borderDash: [2, 4],
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.middleGame,
+            order: 1,
+            datalabels: {
+              offset: -5,
+              align: 45,
+              rotation: 90,
+              formatter: _ => trans.noarg('middleGameTitle')
+            }
+          });
+          } else {
+          if (existingMiddleGame>=0) {
+            chart.data.datasets.splice(existingMiddleGame, 1);
+            existingMiddleGame = -1;
+          }
+          }
+          updateChart = true;
+        } else {
+          const dataset = chart.data.datasets[existingMiddleGame];
+          if (this.prevMainlineLength != lichess.analysis.mainline.length) {
+          const x = this.getGamePhases(lichess.analysis.mainline).middleGame;
+            dataset.data = [
+              { x: x, y: -1.05 },
+              { x: x, y: 1.05 }
+            ];
+            updateChart = true;
+          }
+        }
+      }
+
+      const endGameText = lt.global.i18n?.site?.endgame || 'Endgame';
+      let existingEndGame = chart.data.datasets.findIndex(s => s.label === endGameText);
+      if (existingEndGame >= 0 && !this.options.accuracyPlus) {
+        chart.data.datasets.splice(existingEndGame, 1);
+        existingEndGame = -1;
+        updateChart = true;
+      }
+      if (this.options.accuracyPlus) {
+        if (existingEndGame < 0) {
+          const x = this.getGamePhases(lichess.analysis.mainline).endGame;
+          if (x) {
+          chart.data.datasets.push({
+            label: endGameText,
+            type: 'line',
+            data: [
+              { x: x, y: -1.05 },
+              { x: x, y: 1.05 }
+            ],
+            borderWidth: 1,
+            //borderDash: [2, 4],
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.endGame,
+            order: 1,
+            datalabels: {
+              offset: -5,
+              align: 45,
+              rotation: 90,
+              formatter: _ => trans.noarg('endGameTitle')
+            }
+          });
+          } else {
+          if (existingEndGame>=0) {
+            chart.data.datasets.splice(existingEndGame, 1);
+            existingEndGame = -1;
+          }
+          }
+          updateChart = true;
+        } else {
+          const dataset = chart.data.datasets[existingEndGame];
+          if (this.prevMainlineLength != lichess.analysis.mainline.length) {
+          const x = this.getGamePhases(lichess.analysis.mainline).endGame;
+            dataset.data = [
+              { x: x, y: -1.05 },
+              { x: x, y: 1.05 }
+            ];
+            updateChart = true;
+          }
+        }
+      }
+
       if (this.options.brilliant) {
         this.setBrilliant(lichess.analysis.mainline, forced);
 
@@ -1575,8 +1774,118 @@
 
     forceGenerateCharts = () => this.generateCharts(true);
 
-    clientGameAnalysis = () => {
-      console.log('bingo!');
+    calculateAccuracy = (nodes, startPly, endPly) => {
+      const lt = this.lichessTools;
+      const startIndex = startPly ? nodes.findIndex(n=>n.ply == startPly) : 0;
+      const endIndex = endPly ? nodes.findIndex(n=>n.ply == endPly) : nodes.length-1;
+      let initialWinPerc = 50;
+      if (startIndex) {
+        const node = nodes[startIndex-1];
+        const turn = this.getNodeTurn(node);
+        const evl = this.getNodeCeval(node);
+        if (evl) {
+          const cp = this.getCp(evl, 1);
+          initialWinPerc = lt.winPerc(cp);
+        }
+      } 
+
+      const Maths = {
+        atLeast: (x, min) => Math.max(x, min),
+        atMost: (x, max) => Math.min(x, max),
+        orZero: (x) => (isNaN(x) || x === null || x === undefined ? 0 : x),
+        standardDeviation: (xs) => {
+          if (xs.length === 0) return 0;
+          const mean = xs.reduce((a, b) => a + b, 0) / xs.length;
+          const variance =
+            xs.reduce((sum, val) => sum + (val - mean) ** 2, 0) / xs.length;
+          return Math.sqrt(variance);
+        },
+        weightedMean: (items) => {
+          if (items.length === 0) return 0;
+          const [sumProduct, sumWeight] = items.reduce(
+            ([sp, sw], [val, weight]) => [sp + val * weight, sw + weight],
+            [0, 0]
+          );
+          return sumProduct / sumWeight;
+        },
+        harmonicMean: (xs) => {
+          if (xs.length === 0) return 0;
+          const sumRecip = xs.reduce((sum, x) => sum + 1 / (x || 1e-10), 0);
+          return xs.length / sumRecip;
+        },
+      };
+
+      const winPercs = nodes
+        .slice(startIndex, endIndex+1)
+        .map((node) => {
+          const turn = this.getNodeTurn(node);
+          const evl = this.getNodeCeval(node);
+          if (!evl) return;
+          const cp = this.getCp(evl, 1);
+          const winPerc = lt.winPerc(cp);
+          return { turn: turn, winPerc: winPerc }
+        })
+        .filter(wp=>wp!==undefined);
+      if (winPercs.length) {
+        winPercs.unshift({ turn: -winPercs[0].turn, winPerc: initialWinPerc });
+      }
+      const n = winPercs.length;
+      const windowSize = Maths.atLeast(Maths.atMost(Math.floor(n / 10), 8), 2);
+
+      const initialWindows = Array(Maths.atMost(windowSize, winPercs.length) - 2)
+        .fill(null)
+        .map(() => winPercs.slice(0, windowSize));
+
+      const slidingWindows = [];
+      for (let i = 0; i <= winPercs.length - windowSize; i++) {
+        slidingWindows.push(winPercs.slice(i, i + windowSize));
+      }
+
+      const windows = [...initialWindows, ...slidingWindows];
+
+      // Compute volatility weights (std dev clamped [0.5, 12])
+      const weights = windows.map((xs) => {
+        const std = Maths.standardDeviation(xs.map(x=>x.winPerc));
+        return Maths.atLeast(Maths.atMost(Maths.orZero(std), 12), 0.5);
+      });
+
+      // Pair consecutive win percents with weights and index
+      const weightedAccuracies = [];
+      let weightIdx = 0;
+
+      for (let i = 0; i < winPercs.length - 1; i++) {
+        const prev = winPercs[i];
+        const next = winPercs[i + 1];
+        const weight = weights[weightIdx++] || weights[weights.length - 1];
+
+        const [expected, played] = next.turn == 1 
+         ? [ next.winPerc , prev.winPerc]
+         : [ prev.winPerc , next.winPerc];
+
+        const accuracy = lt.accuracy(expected, played);
+
+        weightedAccuracies.push({ accuracy, weight, color: prev.turn });
+      }
+
+      const colorAccuracy = (color) => {
+        const items = weightedAccuracies.filter((x) => x.color === color);
+
+        const weightedValues = items.map((x) => [x.accuracy, x.weight]);
+        const accuracies = items.map((x) => x.accuracy);
+
+        const weighted = weightedValues.length > 0 ? Maths.weightedMean(weightedValues) : 0;
+        const harmonic = accuracies.length > 0 ? Maths.harmonicMean(accuracies) : 0;
+
+        const avg = (weighted + harmonic) / 2;
+        return Maths.atMost(Maths.atLeast(avg, 0), 100);
+      };
+
+      const whiteAcc = colorAccuracy(1);
+      const blackAcc = colorAccuracy(-1);
+
+      if (whiteAcc === 0 && blackAcc === 0) return null;
+
+      return { white: whiteAcc, black: blackAcc };
     };
 
     showAccuracy = (ev)=>{
@@ -1636,6 +1945,31 @@
       $('<div class="lichessTools-extraChart-estimatedRating">')
         .text(trans.pluralSame('estimatedRating',estimatedRating))
         .appendTo(tooltip);
+
+      const line = this.getLocalLine();
+      const gamePhases = this.getGamePhases(line);
+      const values = [];
+      if (gamePhases.middleGame) {
+        let accuracies = this.calculateAccuracy(line,0,gamePhases.middleGame);
+        let accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
+        values.push(accuracyText);
+        if (gamePhases.endGame) {
+          accuracies = this.calculateAccuracy(line,gamePhases.middleGame,gamePhases.endGame);
+          accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
+          values.push(accuracyText);
+          accuracies = this.calculateAccuracy(line,gamePhases.endGame);
+          accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
+          values.push(accuracyText);
+        } else {
+          accuracies = this.calculateAccuracy(line,gamePhases.middleGame);
+          accuracyText = Math.round(isWhite ? accuracies.white : accuracies.black)+'%';
+          values.push(accuracyText);
+        }
+        $('<div class="lichessTools-extraChart-gamePhases">')
+          .text(trans.pluralSame('gamePhasesText',values.join(' ')))
+          .appendTo(tooltip);
+      }
+
       tooltip
         .removeClass('hide');
       this.tempAccuracyOn = lichess.analysis.getOrientation()=='black' 

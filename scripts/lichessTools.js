@@ -308,6 +308,10 @@
       return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
     };
 
+    accuracy = (expected, played) =>{
+      return Math.max(0,103.1668 * Math.exp(-0.04354 * Math.max(0, expected - (played||0))) - 3.1669);
+    };
+
     crc24 = (data) => {
       const polynomial = 0x864CFB;
       let crc = 0xFFFFFF;

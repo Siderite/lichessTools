@@ -58,7 +58,7 @@ body.lichessTools .lichessTools-extraChart-tooltip {
   position: absolute;
   display: flex;
   font-size:1.5em;
-  height: 2.5em;
+  height: auto;
   justify-content: center;
   align-items: stretch;
   flex-direction: row;
@@ -89,7 +89,8 @@ body.lichessTools .lichessTools-extraChart-tooltip div {
   background-color: var(--c-border);
 }
 
-body.lichessTools .lichessTools-extraChart-tooltip .lichessTools-extraChart-estimatedRating {
+body.lichessTools .lichessTools-extraChart-tooltip .lichessTools-extraChart-estimatedRating,
+body.lichessTools .lichessTools-extraChart-tooltip .lichessTools-extraChart-gamePhases {
   flex: 1 0 100%;
   font-size: 0.75em;
   height:1em;

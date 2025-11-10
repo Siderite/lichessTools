@@ -940,7 +940,8 @@
     "themesMenuHeaderText": "السمات",
     "nextChapterButtonTitle": "الفصل التالي",
     "puzzleIndexUpdateText": "تحديث ملف NIF الخاص بك!",
-    "puzzleIndexUpdateTitle": "إصدار السيرفر من ملف NIF أحدث من النسخة المحلية الخاصة بك"
+    "puzzleIndexUpdateTitle": "إصدار السيرفر من ملف NIF أحدث من النسخة المحلية الخاصة بك",
+    "gamePhasesText": "دقة المراحل: %s"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1883,7 +1884,8 @@
     "themesMenuHeaderText": "主题",
     "nextChapterButtonTitle": "下一章节",
     "puzzleIndexUpdateText": "更新您的 NIF 文件！",
-    "puzzleIndexUpdateTitle": "服务器版本的 NIF 文件比您本地版本更新"
+    "puzzleIndexUpdateTitle": "服务器版本的 NIF 文件比您本地版本更新",
+    "gamePhasesText": "相位精度： %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2826,7 +2828,8 @@
     "themesMenuHeaderText": "Themes",
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
-    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
+    "gamePhasesText": "Phases accuracy: %s"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3769,7 +3772,8 @@
     "themesMenuHeaderText": "Motivy",
     "nextChapterButtonTitle": "Další kapitola",
     "puzzleIndexUpdateText": "Aktualizujte svůj NIF soubor!",
-    "puzzleIndexUpdateTitle": "Server verze NIF souboru je novější než vaše lokální"
+    "puzzleIndexUpdateTitle": "Server verze NIF souboru je novější než vaše lokální",
+    "gamePhasesText": "Přesnost fází: %s"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4712,7 +4716,8 @@
     "themesMenuHeaderText": "Thema’s",
     "nextChapterButtonTitle": "Volgende hoofdstuk",
     "puzzleIndexUpdateText": "Uw NIF bestand bijwerken!",
-    "puzzleIndexUpdateTitle": "Server versie van het NIF bestand is nieuwer dan uw lokale bestand"
+    "puzzleIndexUpdateTitle": "Server versie van het NIF bestand is nieuwer dan uw lokale bestand",
+    "gamePhasesText": "Fases nauwkeurigheid: %s"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5655,7 +5660,8 @@
     "themesMenuHeaderText": "Themes",
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
-    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
+    "gamePhasesText": "Phases accuracy: %s"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6598,7 +6604,8 @@
     "themesMenuHeaderText": "Thèmes",
     "nextChapterButtonTitle": "Chapitre suivant",
     "puzzleIndexUpdateText": "Mettez à jour votre fichier NIF !",
-    "puzzleIndexUpdateTitle": "La version serveur du fichier NIF est plus récente que votre fichier local"
+    "puzzleIndexUpdateTitle": "La version serveur du fichier NIF est plus récente que votre fichier local",
+    "gamePhasesText": "Précision des phases : %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7541,7 +7548,8 @@
     "themesMenuHeaderText": "Themes",
     "nextChapterButtonTitle": "Nächstes Kapitel",
     "puzzleIndexUpdateText": "Aktualisieren Sie Ihre NIF-Datei!",
-    "puzzleIndexUpdateTitle": "Server-Version der NIF-Datei ist neuer als Ihre lokale"
+    "puzzleIndexUpdateTitle": "Server-Version der NIF-Datei ist neuer als Ihre lokale",
+    "gamePhasesText": "Phasengenauigkeit: %s"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8484,7 +8492,8 @@
     "themesMenuHeaderText": "Themes",
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
-    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
+    "gamePhasesText": "Phases accuracy: %s"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9427,7 +9436,8 @@
     "themesMenuHeaderText": "Temi",
     "nextChapterButtonTitle": "Capitolo successivo",
     "puzzleIndexUpdateText": "Aggiorna il tuo file NIF!",
-    "puzzleIndexUpdateTitle": "La versione del server del file NIF è più recente di quella locale"
+    "puzzleIndexUpdateTitle": "La versione del server del file NIF è più recente di quella locale",
+    "gamePhasesText": "Precisione delle fasi: %s"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10370,7 +10380,8 @@
     "themesMenuHeaderText": "Themes",
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
-    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
+    "gamePhasesText": "Phases accuracy: %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11313,7 +11324,8 @@
     "themesMenuHeaderText": "Motywy",
     "nextChapterButtonTitle": "Następny rozdział",
     "puzzleIndexUpdateText": "Zaktualizuj swój plik NIF!",
-    "puzzleIndexUpdateTitle": "Wersja serwera pliku NIF jest nowsza niż wersja lokalna"
+    "puzzleIndexUpdateTitle": "Wersja serwera pliku NIF jest nowsza niż wersja lokalna",
+    "gamePhasesText": "Dokładność faz %s"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12256,7 +12268,8 @@
     "themesMenuHeaderText": "Temas",
     "nextChapterButtonTitle": "Próximo capítulo",
     "puzzleIndexUpdateText": "Atualize seu arquivo NIF!",
-    "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local"
+    "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local",
+    "gamePhasesText": "Frases de precisão: %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13199,7 +13212,8 @@
     "themesMenuHeaderText": "Temas",
     "nextChapterButtonTitle": "Próximo capítulo",
     "puzzleIndexUpdateText": "Atualize seu arquivo NIF!",
-    "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local"
+    "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local",
+    "gamePhasesText": "Frases de precisão: %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14142,7 +14156,8 @@
     "themesMenuHeaderText": "Teme",
     "nextChapterButtonTitle": "Următorul capitol",
     "puzzleIndexUpdateText": "Actualizează fișierul NIF!",
-    "puzzleIndexUpdateTitle": "Versiunea fișierului NIF de pe server este mai nouă decât cea locală"
+    "puzzleIndexUpdateTitle": "Versiunea fișierului NIF de pe server este mai nouă decât cea locală",
+    "gamePhasesText": "Acuratețe pe faze: %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15085,7 +15100,8 @@
     "themesMenuHeaderText": "Темы",
     "nextChapterButtonTitle": "Следующая глава",
     "puzzleIndexUpdateText": "Обновите NIF файл!",
-    "puzzleIndexUpdateTitle": "Версия NIF файла на сервере новее, чем локальный"
+    "puzzleIndexUpdateTitle": "Версия NIF файла на сервере новее, чем локальный",
+    "gamePhasesText": "Точность фазов: %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16028,7 +16044,8 @@
     "themesMenuHeaderText": "Temas",
     "nextChapterButtonTitle": "Siguiente capítulo",
     "puzzleIndexUpdateText": "¡Actualiza tu archivo NIF!",
-    "puzzleIndexUpdateTitle": "La versión del servidor del archivo NIF es más reciente que la local"
+    "puzzleIndexUpdateTitle": "La versión del servidor del archivo NIF es más reciente que la local",
+    "gamePhasesText": "Precisión de las fases: %s"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16971,7 +16988,8 @@
     "themesMenuHeaderText": "Themes",
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
-    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
+    "gamePhasesText": "Phases accuracy: %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17914,7 +17932,8 @@
     "themesMenuHeaderText": "Themes",
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
-    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
+    "gamePhasesText": "Phases accuracy: %s"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18857,6 +18876,7 @@
     "themesMenuHeaderText": "Themes",
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
-    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one"
+    "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
+    "gamePhasesText": "Phases accuracy: %s"
   }
 }
