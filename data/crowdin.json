@@ -942,7 +942,8 @@
     "puzzleIndexUpdateText": "تحديث ملف NIF الخاص بك!",
     "puzzleIndexUpdateTitle": "إصدار السيرفر من ملف NIF أحدث من النسخة المحلية الخاصة بك",
     "gamePhasesText": "دقة المراحل: %s",
-    "timeControlSuspicionTitle": "- درجة الشك في ضبط الوقت: %s"
+    "timeControlSuspicionTitle": "- درجة الشك في ضبط الوقت: %s",
+    "timeAlert.behind": "التنبيه عند التخلف في الوقت المحدد"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1887,7 +1888,8 @@
     "puzzleIndexUpdateText": "更新您的 NIF 文件！",
     "puzzleIndexUpdateTitle": "服务器版本的 NIF 文件比您本地版本更新",
     "gamePhasesText": "相位精度： %s",
-    "timeControlSuspicionTitle": "- 时间控制怀疑得分： %s"
+    "timeControlSuspicionTitle": "- 时间控制怀疑得分： %s",
+    "timeAlert.behind": "按时提醒"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2832,7 +2834,8 @@
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
-    "timeControlSuspicionTitle": "- time control suspicion score: %s"
+    "timeControlSuspicionTitle": "- time control suspicion score: %s",
+    "timeAlert.behind": "Alert when behind on time"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3777,7 +3780,8 @@
     "puzzleIndexUpdateText": "Aktualizujte svůj NIF soubor!",
     "puzzleIndexUpdateTitle": "Server verze NIF souboru je novější než vaše lokální",
     "gamePhasesText": "Přesnost fází: %s",
-    "timeControlSuspicionTitle": "- časová kontrola podezřelého skóre: %s"
+    "timeControlSuspicionTitle": "- časová kontrola podezřelého skóre: %s",
+    "timeAlert.behind": "Upozornění za časem"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4722,7 +4726,8 @@
     "puzzleIndexUpdateText": "Uw NIF bestand bijwerken!",
     "puzzleIndexUpdateTitle": "Server versie van het NIF bestand is nieuwer dan uw lokale bestand",
     "gamePhasesText": "Fases nauwkeurigheid: %s",
-    "timeControlSuspicionTitle": "- tijdcontrole verdenkscore: %s"
+    "timeControlSuspicionTitle": "- tijdcontrole verdenkscore: %s",
+    "timeAlert.behind": "Waarschuw wanneer op tijd achterloopt"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5667,7 +5672,8 @@
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
-    "timeControlSuspicionTitle": "- time control suspicion score: %s"
+    "timeControlSuspicionTitle": "- time control suspicion score: %s",
+    "timeAlert.behind": "Alert when behind on time"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6612,7 +6618,8 @@
     "puzzleIndexUpdateText": "Mettez à jour votre fichier NIF !",
     "puzzleIndexUpdateTitle": "La version serveur du fichier NIF est plus récente que votre fichier local",
     "gamePhasesText": "Précision des phases de jeu : %s",
-    "timeControlSuspicionTitle": "- Temps contrôle score suspicion : %s"
+    "timeControlSuspicionTitle": "- Temps contrôle score suspicion : %s",
+    "timeAlert.behind": "Alerte quand en retard de temps"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7557,7 +7564,8 @@
     "puzzleIndexUpdateText": "Aktualisieren Sie Ihre NIF-Datei!",
     "puzzleIndexUpdateTitle": "Server-Version der NIF-Datei ist neuer als Ihre lokale",
     "gamePhasesText": "Phasengenauigkeit: %s",
-    "timeControlSuspicionTitle": "- Zeitkontrolle Verdacht Punktestand: %s"
+    "timeControlSuspicionTitle": "- Zeitkontrolle Verdacht Punktestand: %s",
+    "timeAlert.behind": "Warnen, wenn rechtzeitig hinkt"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8502,7 +8510,8 @@
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
-    "timeControlSuspicionTitle": "- time control suspicion score: %s"
+    "timeControlSuspicionTitle": "- time control suspicion score: %s",
+    "timeAlert.behind": "Alert when behind on time"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9447,7 +9456,8 @@
     "puzzleIndexUpdateText": "Aggiorna il tuo file NIF!",
     "puzzleIndexUpdateTitle": "La versione del server del file NIF è più recente di quella locale",
     "gamePhasesText": "Precisione delle fasi: %s",
-    "timeControlSuspicionTitle": "- punteggio sospetto controllo tempo: %s"
+    "timeControlSuspicionTitle": "- punteggio sospetto controllo tempo: %s",
+    "timeAlert.behind": "Avviso quando è in ritardo"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10392,7 +10402,8 @@
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
-    "timeControlSuspicionTitle": "- time control suspicion score: %s"
+    "timeControlSuspicionTitle": "- time control suspicion score: %s",
+    "timeAlert.behind": "Alert when behind on time"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11337,7 +11348,8 @@
     "puzzleIndexUpdateText": "Zaktualizuj swój plik NIF!",
     "puzzleIndexUpdateTitle": "Wersja serwera pliku NIF jest nowsza niż wersja lokalna",
     "gamePhasesText": "Dokładność faz %s",
-    "timeControlSuspicionTitle": "- punktacja podejrzeń kontroli czasu: %s"
+    "timeControlSuspicionTitle": "- punktacja podejrzeń kontroli czasu: %s",
+    "timeAlert.behind": "Powiadomienie kiedy czas jest opóźniony"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12282,7 +12294,8 @@
     "puzzleIndexUpdateText": "Atualize seu arquivo NIF!",
     "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local",
     "gamePhasesText": "Frases de precisão: %s",
-    "timeControlSuspicionTitle": "- pontos de suspeita de controle de tempo: %s"
+    "timeControlSuspicionTitle": "- pontos de suspeita de controle de tempo: %s",
+    "timeAlert.behind": "Alertar quando estiver atrasado no tempo"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13227,7 +13240,8 @@
     "puzzleIndexUpdateText": "Atualize seu arquivo NIF!",
     "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local",
     "gamePhasesText": "Frases de precisão: %s",
-    "timeControlSuspicionTitle": "- pontos de suspeita de controle de tempo: %s"
+    "timeControlSuspicionTitle": "- pontos de suspeita de controle de tempo: %s",
+    "timeAlert.behind": "Alertar quando estiver atrasado no tempo"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14172,7 +14186,8 @@
     "puzzleIndexUpdateText": "Actualizează fișierul NIF!",
     "puzzleIndexUpdateTitle": "Versiunea fișierului NIF de pe server este mai nouă decât cea locală",
     "gamePhasesText": "Acuratețe pe faze: %s",
-    "timeControlSuspicionTitle": "- scorul suspiciunii pe controale de timp: %s"
+    "timeControlSuspicionTitle": "- scorul suspiciunii pe controale de timp: %s",
+    "timeAlert.behind": "Alertă când în urmă la timp"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15117,7 +15132,8 @@
     "puzzleIndexUpdateText": "Обновите NIF файл!",
     "puzzleIndexUpdateTitle": "Версия NIF файла на сервере новее, чем локальный",
     "gamePhasesText": "Точность фазов: %s",
-    "timeControlSuspicionTitle": "- рейтинг контроля времени подозрения: %s"
+    "timeControlSuspicionTitle": "- рейтинг контроля времени подозрения: %s",
+    "timeAlert.behind": "Оповещение, когда прошло вовремя"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16062,7 +16078,8 @@
     "puzzleIndexUpdateText": "¡Actualiza tu archivo NIF!",
     "puzzleIndexUpdateTitle": "La versión del servidor del archivo NIF es más reciente que la local",
     "gamePhasesText": "Precisión de las fases: %s",
-    "timeControlSuspicionTitle": "- puntuación de sospecha de control de tiempo: %s"
+    "timeControlSuspicionTitle": "- puntuación de sospecha de control de tiempo: %s",
+    "timeAlert.behind": "Alertar cuando esté retrasado"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -17007,7 +17024,8 @@
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
-    "timeControlSuspicionTitle": "- time control suspicion score: %s"
+    "timeControlSuspicionTitle": "- time control suspicion score: %s",
+    "timeAlert.behind": "Alert when behind on time"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17952,7 +17970,8 @@
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
-    "timeControlSuspicionTitle": "- time control suspicion score: %s"
+    "timeControlSuspicionTitle": "- time control suspicion score: %s",
+    "timeAlert.behind": "Alert when behind on time"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18897,6 +18916,7 @@
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
-    "timeControlSuspicionTitle": "- time control suspicion score: %s"
+    "timeControlSuspicionTitle": "- time control suspicion score: %s",
+    "timeAlert.behind": "Alert when behind on time"
   }
 }
