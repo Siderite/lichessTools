@@ -485,7 +485,7 @@
     "options.moveAssistant": "نقل المساعد",
     "assistantButtonTitle": "أدوات شطرنج الحياة - تقييم نقل القطعة المختارة",
     "options.playerWarning": "تحذير اللاعب",
-    "percentageTitle": "أدوات شطرنج الحياة - %s% معدل قطع الاتصال",
+    "percentageTitle": "- %s% معدل قطع الاتصال",
     "options.boardImage": "صورة لوحة تصديرية أفضل",
     "screenshotButtonText": "سكرينشوت",
     "screenshotButtonTitle": "أدوات شطرنج الحياة - احصل على لقطة للوحة",
@@ -941,7 +941,8 @@
     "nextChapterButtonTitle": "الفصل التالي",
     "puzzleIndexUpdateText": "تحديث ملف NIF الخاص بك!",
     "puzzleIndexUpdateTitle": "إصدار السيرفر من ملف NIF أحدث من النسخة المحلية الخاصة بك",
-    "gamePhasesText": "دقة المراحل: %s"
+    "gamePhasesText": "دقة المراحل: %s",
+    "timeControlSuspicionTitle": "- درجة الشك في ضبط الوقت: %s"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1429,7 +1430,7 @@
     "options.moveAssistant": "着法助手",
     "assistantButtonTitle": "LiChess Tools - 所选棋子的着法评估",
     "options.playerWarning": "玩家警告提示",
-    "percentageTitle": "LiChess Tools - %s% 断线率",
+    "percentageTitle": "- %s%断开连接",
     "options.boardImage": "更好的棋盘导出图片",
     "screenshotButtonText": "截图",
     "screenshotButtonTitle": "LiChess Tools - 获取棋盘截图",
@@ -1885,7 +1886,8 @@
     "nextChapterButtonTitle": "下一章节",
     "puzzleIndexUpdateText": "更新您的 NIF 文件！",
     "puzzleIndexUpdateTitle": "服务器版本的 NIF 文件比您本地版本更新",
-    "gamePhasesText": "相位精度： %s"
+    "gamePhasesText": "相位精度： %s",
+    "timeControlSuspicionTitle": "- 时间控制怀疑得分： %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2373,7 +2375,7 @@
     "options.moveAssistant": "Move assistant",
     "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
     "options.playerWarning": "Player warning alert",
-    "percentageTitle": "LiChess Tools - %s% disconnect rate",
+    "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "更好的截圖畫質",
     "screenshotButtonText": "截圖",
     "screenshotButtonTitle": "LiChess Tools - 取得棋盤截圖",
@@ -2829,7 +2831,8 @@
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
-    "gamePhasesText": "Phases accuracy: %s"
+    "gamePhasesText": "Phases accuracy: %s",
+    "timeControlSuspicionTitle": "- time control suspicion score: %s"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3317,7 +3320,7 @@
     "options.moveAssistant": "Přesunout asistenta",
     "assistantButtonTitle": "LiChess Tools - hodnocení tahu vybraných kusů",
     "options.playerWarning": "Upozornění hráče",
-    "percentageTitle": "LiChess Tools - %s% rychlost odpojení",
+    "percentageTitle": "- %s% rychlost odpojení",
     "options.boardImage": "Lepší exportovaný obrázek fóra",
     "screenshotButtonText": "SCREENSHOT",
     "screenshotButtonTitle": "LiChess Tools - získat snímek šachovnice",
@@ -3773,7 +3776,8 @@
     "nextChapterButtonTitle": "Další kapitola",
     "puzzleIndexUpdateText": "Aktualizujte svůj NIF soubor!",
     "puzzleIndexUpdateTitle": "Server verze NIF souboru je novější než vaše lokální",
-    "gamePhasesText": "Přesnost fází: %s"
+    "gamePhasesText": "Přesnost fází: %s",
+    "timeControlSuspicionTitle": "- časová kontrola podezřelého skóre: %s"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4261,7 +4265,7 @@
     "options.moveAssistant": "Assistent verplaatsen",
     "assistantButtonTitle": "LiChess Tools - geselecteerd stuk evaluatie verplaatsen",
     "options.playerWarning": "Speler waarschuwing waarschuwing",
-    "percentageTitle": "LiChess Tools - %s% verbinding verbreken",
+    "percentageTitle": "- %s% verbinding verbreken",
     "options.boardImage": "Betere geëxporteerde board afbeelding",
     "screenshotButtonText": "SCREENSHOT",
     "screenshotButtonTitle": "LiChess Tools - maak een schermafbeelding van het bord",
@@ -4717,7 +4721,8 @@
     "nextChapterButtonTitle": "Volgende hoofdstuk",
     "puzzleIndexUpdateText": "Uw NIF bestand bijwerken!",
     "puzzleIndexUpdateTitle": "Server versie van het NIF bestand is nieuwer dan uw lokale bestand",
-    "gamePhasesText": "Fases nauwkeurigheid: %s"
+    "gamePhasesText": "Fases nauwkeurigheid: %s",
+    "timeControlSuspicionTitle": "- tijdcontrole verdenkscore: %s"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5205,7 +5210,7 @@
     "options.moveAssistant": "Move assistant",
     "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
     "options.playerWarning": "Player warning alert",
-    "percentageTitle": "LiChess Tools - %s% disconnect rate",
+    "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
     "screenshotButtonText": "SCREENSHOT",
     "screenshotButtonTitle": "LiChess Tools - get a screenshot of the board",
@@ -5661,7 +5666,8 @@
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
-    "gamePhasesText": "Phases accuracy: %s"
+    "gamePhasesText": "Phases accuracy: %s",
+    "timeControlSuspicionTitle": "- time control suspicion score: %s"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6149,7 +6155,7 @@
     "options.moveAssistant": "Assistant de coup",
     "assistantButtonTitle": "LiChess Tools - évaluation des coups de la pièce sélectionnée",
     "options.playerWarning": "Alerte d'avertissement pour les joueurs",
-    "percentageTitle": "LiChess Tools - taux de déconnexion %s%",
+    "percentageTitle": "- Taux de déconnexion %s%",
     "options.boardImage": "Mieux exporter l'image de l'échiquier",
     "screenshotButtonText": "CAPTURE DE L'ÉCHIQUIER",
     "screenshotButtonTitle": "LiChess Tools - obtenir une capture d'écran de l'échiquier",
@@ -6605,7 +6611,8 @@
     "nextChapterButtonTitle": "Chapitre suivant",
     "puzzleIndexUpdateText": "Mettez à jour votre fichier NIF !",
     "puzzleIndexUpdateTitle": "La version serveur du fichier NIF est plus récente que votre fichier local",
-    "gamePhasesText": "Précision des phases : %s"
+    "gamePhasesText": "Précision des phases de jeu : %s",
+    "timeControlSuspicionTitle": "- Temps contrôle score suspicion : %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7093,7 +7100,7 @@
     "options.moveAssistant": "Assistent verschieben",
     "assistantButtonTitle": "LiChess Tools - Auswertung ausgewählter Stückbewegungen",
     "options.playerWarning": "Warnung des Spielers",
-    "percentageTitle": "LiChess Tools - %s% Verbindungsrate",
+    "percentageTitle": "- %s% Trennungsrate",
     "options.boardImage": "Bessere exportierte Brettbild",
     "screenshotButtonText": "Bildschirmaufnahme",
     "screenshotButtonTitle": "LiChess Tools - Erhalte einen Screenshot vom Board",
@@ -7549,7 +7556,8 @@
     "nextChapterButtonTitle": "Nächstes Kapitel",
     "puzzleIndexUpdateText": "Aktualisieren Sie Ihre NIF-Datei!",
     "puzzleIndexUpdateTitle": "Server-Version der NIF-Datei ist neuer als Ihre lokale",
-    "gamePhasesText": "Phasengenauigkeit: %s"
+    "gamePhasesText": "Phasengenauigkeit: %s",
+    "timeControlSuspicionTitle": "- Zeitkontrolle Verdacht Punktestand: %s"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8037,7 +8045,7 @@
     "options.moveAssistant": "Move assistant",
     "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
     "options.playerWarning": "Player warning alert",
-    "percentageTitle": "LiChess Tools - %s% disconnect rate",
+    "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
     "screenshotButtonText": "SCREENSHOT",
     "screenshotButtonTitle": "LiChess Tools - get a screenshot of the board",
@@ -8493,7 +8501,8 @@
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
-    "gamePhasesText": "Phases accuracy: %s"
+    "gamePhasesText": "Phases accuracy: %s",
+    "timeControlSuspicionTitle": "- time control suspicion score: %s"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -8981,7 +8990,7 @@
     "options.moveAssistant": "Assistenza mossa",
     "assistantButtonTitle": "LiChess Tools - valutazione mossa del pezzo selezionato",
     "options.playerWarning": "Avviso giocatore",
-    "percentageTitle": "LiChess Tools - %s% tasso di disconnessione",
+    "percentageTitle": "- %s% tasso di disconnessione",
     "options.boardImage": "Migliore immagine di esportazione scacchiera ",
     "screenshotButtonText": "SCREENSHOT",
     "screenshotButtonTitle": "LiChess Tools - ottieni uno screenshot della scacchiera",
@@ -9437,7 +9446,8 @@
     "nextChapterButtonTitle": "Capitolo successivo",
     "puzzleIndexUpdateText": "Aggiorna il tuo file NIF!",
     "puzzleIndexUpdateTitle": "La versione del server del file NIF è più recente di quella locale",
-    "gamePhasesText": "Precisione delle fasi: %s"
+    "gamePhasesText": "Precisione delle fasi: %s",
+    "timeControlSuspicionTitle": "- punteggio sospetto controllo tempo: %s"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -9925,7 +9935,7 @@
     "options.moveAssistant": "Move assistant",
     "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
     "options.playerWarning": "Player warning alert",
-    "percentageTitle": "LiChess Tools - %s% disconnect rate",
+    "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
     "screenshotButtonText": "SCREENSHOT",
     "screenshotButtonTitle": "LiChess Tools - get a screenshot of the board",
@@ -10381,7 +10391,8 @@
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
-    "gamePhasesText": "Phases accuracy: %s"
+    "gamePhasesText": "Phases accuracy: %s",
+    "timeControlSuspicionTitle": "- time control suspicion score: %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -10869,7 +10880,7 @@
     "options.moveAssistant": "Asystent posunięć",
     "assistantButtonTitle": "LiChess Tools — ocena posunięć wybranej bierki",
     "options.playerWarning": "Ikona ostrzeżenia o przeciwniku",
-    "percentageTitle": "LiChess Tools — odsetek rozłączeń: %s%",
+    "percentageTitle": "- Szybkość rozłączenia %s%",
     "options.boardImage": "Lepszy eksportowany obraz szachownicy",
     "screenshotButtonText": "ZRZUT EKRANU",
     "screenshotButtonTitle": "LiChess Tools — wykonaj zrzut ekranu szachownicy",
@@ -11325,7 +11336,8 @@
     "nextChapterButtonTitle": "Następny rozdział",
     "puzzleIndexUpdateText": "Zaktualizuj swój plik NIF!",
     "puzzleIndexUpdateTitle": "Wersja serwera pliku NIF jest nowsza niż wersja lokalna",
-    "gamePhasesText": "Dokładność faz %s"
+    "gamePhasesText": "Dokładność faz %s",
+    "timeControlSuspicionTitle": "- punktacja podejrzeń kontroli czasu: %s"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -11813,7 +11825,7 @@
     "options.moveAssistant": "Mover assistente",
     "assistantButtonTitle": "LiChess Tools - avaliação de movimento de peça selecionada",
     "options.playerWarning": "Alerta de jogador",
-    "percentageTitle": "LiChess Tools - %s% de taxa de desconexão",
+    "percentageTitle": "- Taxa de desconexão %s%",
     "options.boardImage": "Imagem do board exportada melhor",
     "screenshotButtonText": "REINICIAR",
     "screenshotButtonTitle": "LiChess Tools - obter uma captura de tela do quadro",
@@ -12269,7 +12281,8 @@
     "nextChapterButtonTitle": "Próximo capítulo",
     "puzzleIndexUpdateText": "Atualize seu arquivo NIF!",
     "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local",
-    "gamePhasesText": "Frases de precisão: %s"
+    "gamePhasesText": "Frases de precisão: %s",
+    "timeControlSuspicionTitle": "- pontos de suspeita de controle de tempo: %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -12757,7 +12770,7 @@
     "options.moveAssistant": "Mover assistente",
     "assistantButtonTitle": "Ferramentas de LiChess - avaliação de movimento de peça selecionada",
     "options.playerWarning": "Alerta de jogador",
-    "percentageTitle": "LiChess Tools - %s% taxa de desconexão",
+    "percentageTitle": "- Taxa de desconexão %s%",
     "options.boardImage": "Imagem do board exportada melhor",
     "screenshotButtonText": "REINICIAR",
     "screenshotButtonTitle": "Ferramentas de LiChess - obter uma captura de tela do quadro",
@@ -13213,7 +13226,8 @@
     "nextChapterButtonTitle": "Próximo capítulo",
     "puzzleIndexUpdateText": "Atualize seu arquivo NIF!",
     "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local",
-    "gamePhasesText": "Frases de precisão: %s"
+    "gamePhasesText": "Frases de precisão: %s",
+    "timeControlSuspicionTitle": "- pontos de suspeita de controle de tempo: %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -13701,7 +13715,7 @@
     "options.moveAssistant": "Asistent mutări",
     "assistantButtonTitle": "LiChess Tools - evaluarea mutărilor piesei selectate",
     "options.playerWarning": "Alertă avertizare jucători",
-    "percentageTitle": "LiChess Tools - rată de deconectare %s%",
+    "percentageTitle": "- rată de deconectare %s%",
     "options.boardImage": "O imagine exportată a tablei mai bună",
     "screenshotButtonText": "CAPTURĂ TABLĂ",
     "screenshotButtonTitle": "LiChess Tools - imagine a tablei",
@@ -14157,7 +14171,8 @@
     "nextChapterButtonTitle": "Următorul capitol",
     "puzzleIndexUpdateText": "Actualizează fișierul NIF!",
     "puzzleIndexUpdateTitle": "Versiunea fișierului NIF de pe server este mai nouă decât cea locală",
-    "gamePhasesText": "Acuratețe pe faze: %s"
+    "gamePhasesText": "Acuratețe pe faze: %s",
+    "timeControlSuspicionTitle": "- scorul suspiciunii pe controale de timp: %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -14645,7 +14660,7 @@
     "options.moveAssistant": "Ассистент ходов",
     "assistantButtonTitle": "LiChess Tools  - оценка всех ходов выбранной фигуры",
     "options.playerWarning": "Предупреждение об игроке",
-    "percentageTitle": "LiChess Tools - %s% процент покинутых игор",
+    "percentageTitle": "- %s% скорость отключения",
     "options.boardImage": "Лучшее изображение для экспорта доски",
     "screenshotButtonText": "СКРИНШОТ",
     "screenshotButtonTitle": "LiChess Tools - получите скриншот доски",
@@ -15101,7 +15116,8 @@
     "nextChapterButtonTitle": "Следующая глава",
     "puzzleIndexUpdateText": "Обновите NIF файл!",
     "puzzleIndexUpdateTitle": "Версия NIF файла на сервере новее, чем локальный",
-    "gamePhasesText": "Точность фазов: %s"
+    "gamePhasesText": "Точность фазов: %s",
+    "timeControlSuspicionTitle": "- рейтинг контроля времени подозрения: %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -15589,7 +15605,7 @@
     "options.moveAssistant": "Mover asistente",
     "assistantButtonTitle": "LiChess Tools - evaluación de movimiento de piezas seleccionada",
     "options.playerWarning": "Alerta del jugador",
-    "percentageTitle": "LiChess Tools - %s% tasa de desconexión",
+    "percentageTitle": "- %s% tasa de desconexión",
     "options.boardImage": "Mejor imagen de tablero exportada",
     "screenshotButtonText": "CAPTURA DE PANTALLA ",
     "screenshotButtonTitle": "LiChess Tools - Obtén una captura de pantalla del tablero",
@@ -16045,7 +16061,8 @@
     "nextChapterButtonTitle": "Siguiente capítulo",
     "puzzleIndexUpdateText": "¡Actualiza tu archivo NIF!",
     "puzzleIndexUpdateTitle": "La versión del servidor del archivo NIF es más reciente que la local",
-    "gamePhasesText": "Precisión de las fases: %s"
+    "gamePhasesText": "Precisión de las fases: %s",
+    "timeControlSuspicionTitle": "- puntuación de sospecha de control de tiempo: %s"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -16533,7 +16550,7 @@
     "options.moveAssistant": "Move assistant",
     "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
     "options.playerWarning": "Player warning alert",
-    "percentageTitle": "LiChess Tools - %s% disconnect rate",
+    "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
     "screenshotButtonText": "SCREENSHOT",
     "screenshotButtonTitle": "LiChess Tools - get a screenshot of the board",
@@ -16989,7 +17006,8 @@
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
-    "gamePhasesText": "Phases accuracy: %s"
+    "gamePhasesText": "Phases accuracy: %s",
+    "timeControlSuspicionTitle": "- time control suspicion score: %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17477,7 +17495,7 @@
     "options.moveAssistant": "Move assistant",
     "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
     "options.playerWarning": "Player warning alert",
-    "percentageTitle": "LiChess Tools - %s% disconnect rate",
+    "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
     "screenshotButtonText": "SCREENSHOT",
     "screenshotButtonTitle": "LiChess Tools - get a screenshot of the board",
@@ -17933,7 +17951,8 @@
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
-    "gamePhasesText": "Phases accuracy: %s"
+    "gamePhasesText": "Phases accuracy: %s",
+    "timeControlSuspicionTitle": "- time control suspicion score: %s"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18421,7 +18440,7 @@
     "options.moveAssistant": "Move assistant",
     "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
     "options.playerWarning": "Player warning alert",
-    "percentageTitle": "LiChess Tools - %s% disconnect rate",
+    "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
     "screenshotButtonText": "SCREENSHOT",
     "screenshotButtonTitle": "LiChess Tools - get a screenshot of the board",
@@ -18877,6 +18896,7 @@
     "nextChapterButtonTitle": "Next chapter",
     "puzzleIndexUpdateText": "Update your NIF file!",
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
-    "gamePhasesText": "Phases accuracy: %s"
+    "gamePhasesText": "Phases accuracy: %s",
+    "timeControlSuspicionTitle": "- time control suspicion score: %s"
   }
 }

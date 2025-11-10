@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 10 Nov
 
 - accuracy calculation per game phase
+- time control rating suspicion score
 
 08 Nov
 
