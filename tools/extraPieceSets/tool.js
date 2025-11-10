@@ -196,11 +196,17 @@
                                  .find(n=>n.tagName==='STYLE' && n.id == 'lichessTools-extraPieceSets');
           const lichessStyle = mutations
                                  .map(m=>m.target)
-                                 .find(t=>t.tagName==='STYLE' && t.id != 'lichessTools-extraPieceSets' && t.innerHTML.includes('---white-king'));
+                                 .find(t=>t.tagName==='STYLE' && !t.id?.startsWith('lichessTools-') && t.innerHTML.includes('---white-king'));
           if (!ltRemovedStyle && !lichessStyle) return;
           const styleStr = lt.storage.get('extraPieceSets-lastStyle');
           if (!styleStr) return;
           if (lichessStyle) {
+            let originalStyle = $('style#lichessTools-removedStyle');
+            if (!originalStyle.length) {
+              originalStyle = $(lichessStyle).clone()
+                 .attr('id','lichessTools-removedStyle');
+              lt.global.setTimeout(()=>originalStyle.prependTo('head'),2000);
+            }
             lichessStyle.id = 'lichessTools-extraPieceSets';
             lichessStyle.innerHTML=styleStr;
           }
