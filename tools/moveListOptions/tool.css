@@ -181,9 +181,30 @@ body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play
 
   body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) {
     grid-template-columns: minmax(calc(var(--left-side-width) - 100px), var(--left-side-width)) var(---block-gap) var(---col3-uniboard-width) var(---block-gap) minmax(240px, var(--move-list-width));
+    grid-template-columns: var(---col2-uniboard-width) var(---block-gap) minmax(240px, var(--move-list-width));
+    grid-template-rows: fit-content(0);
+    grid-template-areas:
+      "board gauge tools"
+      "under . controls"
+      "under . round-training"
+      "under . side"
+      "chat . side"
+      "uchat . side";
+    grid-row-gap: 0;
   }
 
-  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) .analyse__side {
+  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse.is-relay:not(.has-relay-tour) {
+    grid-template-rows: repeat(2, calc(var(---cg-height) / 2)) 2.5em;
+    grid-template-areas:
+    "board gauge side"
+    "board gauge tools"
+    "board . controls"
+    "under under under"
+    "relay-admin . .";
+    grid-row-gap: 0;
+  }
+
+  xbody.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) .analyse__side {
     display: none;
   }
 }
