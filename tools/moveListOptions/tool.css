@@ -182,6 +182,10 @@ body.lichessTools.lichessTools-fullWidthAnalysis:not(.lichessTools-gamebook-play
   body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) {
     grid-template-columns: minmax(calc(var(--left-side-width) - 100px), var(--left-side-width)) var(---block-gap) var(---col3-uniboard-width) var(---block-gap) minmax(240px, var(--move-list-width));
   }
+
+  body.lichessTools.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play) main.analyse:not(.has-relay-tour) .analyse__side {
+    display: none;
+  }
 }
 
 @media (max-width: 1259.2px) {
