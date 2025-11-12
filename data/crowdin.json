@@ -946,7 +946,8 @@
     "timeAlert.behind": "التنبيه عند التخلف في الوقت المحدد",
     "chessPursuitText": "ملاحقة الشطرنج",
     "chessPursuitTitle": "أدوات Lichess - لعب الشطرنج متابعة",
-    "chessPursuitHeader": "ملاحقة الشطرنج"
+    "chessPursuitHeader": "ملاحقة الشطرنج",
+    "options.chessPursuit": "متابعة الشطرنج في القائمة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1895,7 +1896,8 @@
     "timeAlert.behind": "按时提醒",
     "chessPursuitText": "国际象棋追求中",
     "chessPursuitTitle": "Lichess工具 - 播放国际象棋。",
-    "chessPursuitHeader": "国际象棋追求中"
+    "chessPursuitHeader": "国际象棋追求中",
+    "options.chessPursuit": "国际象棋在菜单中继续关注"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2844,7 +2846,8 @@
     "timeAlert.behind": "Alert when behind on time",
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
-    "chessPursuitHeader": "Chess Pursuit"
+    "chessPursuitHeader": "Chess Pursuit",
+    "options.chessPursuit": "Chess Pursuit in menu"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3793,7 +3796,8 @@
     "timeAlert.behind": "Upozornění za časem",
     "chessPursuitText": "Šachy pokračují",
     "chessPursuitTitle": "Lichess Tools - hrát šachové pokračování",
-    "chessPursuitHeader": "Šachy pokračují"
+    "chessPursuitHeader": "Šachy pokračují",
+    "options.chessPursuit": "Šachy pokračují v menu"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4742,7 +4746,8 @@
     "timeAlert.behind": "Waarschuw wanneer op tijd achterloopt",
     "chessPursuitText": "Schaken Purpak",
     "chessPursuitTitle": "Lichess Tools - speel SchaakPurpak",
-    "chessPursuitHeader": "Schaken Purpak"
+    "chessPursuitHeader": "Schaken Purpak",
+    "options.chessPursuit": "Schaken Purpak in menu"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5691,7 +5696,8 @@
     "timeAlert.behind": "Alert when behind on time",
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
-    "chessPursuitHeader": "Chess Pursuit"
+    "chessPursuitHeader": "Chess Pursuit",
+    "options.chessPursuit": "Chess Pursuit in menu"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6640,7 +6646,8 @@
     "timeAlert.behind": "Alerte quand en retard de temps",
     "chessPursuitText": "Poursuite d'échecs",
     "chessPursuitTitle": "Outils lichess - Poursuite d'échecs",
-    "chessPursuitHeader": "Poursuite d'échecs"
+    "chessPursuitHeader": "Poursuite d'échecs",
+    "options.chessPursuit": "Poursuite d'échecs dans le menu"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7589,7 +7596,8 @@
     "timeAlert.behind": "Warnen, wenn rechtzeitig hinkt",
     "chessPursuitText": "SchachPursuit",
     "chessPursuitTitle": "Lichess Tools - SchachPursuit spielen",
-    "chessPursuitHeader": "SchachPursuit"
+    "chessPursuitHeader": "SchachPursuit",
+    "options.chessPursuit": "SchachPursuit im Menü"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8538,7 +8546,8 @@
     "timeAlert.behind": "Alert when behind on time",
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
-    "chessPursuitHeader": "Chess Pursuit"
+    "chessPursuitHeader": "Chess Pursuit",
+    "options.chessPursuit": "Chess Pursuit in menu"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9487,7 +9496,8 @@
     "timeAlert.behind": "Avviso quando è in ritardo",
     "chessPursuitText": "Inseguimento Degli Scacchi",
     "chessPursuitTitle": "Strumenti di Lichess - giocare a scacchi inseguimento",
-    "chessPursuitHeader": "Inseguimento Degli Scacchi"
+    "chessPursuitHeader": "Inseguimento Degli Scacchi",
+    "options.chessPursuit": "Inseguimento degli scacchi nel menu"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10436,7 +10446,8 @@
     "timeAlert.behind": "Alert when behind on time",
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
-    "chessPursuitHeader": "Chess Pursuit"
+    "chessPursuitHeader": "Chess Pursuit",
+    "options.chessPursuit": "Chess Pursuit in menu"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11385,7 +11396,8 @@
     "timeAlert.behind": "Powiadomienie kiedy czas jest opóźniony",
     "chessPursuitText": "Śledzenie szachów",
     "chessPursuitTitle": "Narzędzia Lichess - graj w szachy",
-    "chessPursuitHeader": "Śledzenie szachów"
+    "chessPursuitHeader": "Śledzenie szachów",
+    "options.chessPursuit": "Śledzenie szachów w menu"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12334,7 +12346,8 @@
     "timeAlert.behind": "Alertar quando estiver atrasado no tempo",
     "chessPursuitText": "Perseguição de xadrez",
     "chessPursuitTitle": "Ferramentas Lichess - jogar Xadrez",
-    "chessPursuitHeader": "Perseguição de xadrez"
+    "chessPursuitHeader": "Perseguição de xadrez",
+    "options.chessPursuit": "Perseguição de Xadrez no menu"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13283,7 +13296,8 @@
     "timeAlert.behind": "Alertar quando estiver atrasado no tempo",
     "chessPursuitText": "Perseguição de xadrez",
     "chessPursuitTitle": "Ferramentas Lichess - jogar Xadrez",
-    "chessPursuitHeader": "Perseguição de xadrez"
+    "chessPursuitHeader": "Perseguição de xadrez",
+    "options.chessPursuit": "Perseguição de Xadrez no menu"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14232,7 +14246,8 @@
     "timeAlert.behind": "Alertă când în urmă la timp",
     "chessPursuitText": "Urmărire în șah",
     "chessPursuitTitle": "LiChess Tools - joacă Urmărire în șah",
-    "chessPursuitHeader": "Urmărire în șah"
+    "chessPursuitHeader": "Urmărire în șah",
+    "options.chessPursuit": "Urmărire în șah în meniu"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15181,7 +15196,8 @@
     "timeAlert.behind": "Оповещение, когда прошло вовремя",
     "chessPursuitText": "Выслеживание шахмат",
     "chessPursuitTitle": "Lichess Tools - играть в шахматы",
-    "chessPursuitHeader": "Выслеживание шахмат"
+    "chessPursuitHeader": "Выслеживание шахмат",
+    "options.chessPursuit": "Выслеживание шахмат в меню"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16130,7 +16146,8 @@
     "timeAlert.behind": "Alertar cuando esté retrasado",
     "chessPursuitText": "Búsqueda de ajedrez",
     "chessPursuitTitle": "Herramientas de Lichess - Juega a Ajedrez",
-    "chessPursuitHeader": "Búsqueda de ajedrez"
+    "chessPursuitHeader": "Búsqueda de ajedrez",
+    "options.chessPursuit": "Búsqueda de ajedrez en el menú"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -17079,7 +17096,8 @@
     "timeAlert.behind": "Alert when behind on time",
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
-    "chessPursuitHeader": "Chess Pursuit"
+    "chessPursuitHeader": "Chess Pursuit",
+    "options.chessPursuit": "Chess Pursuit in menu"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -18028,7 +18046,8 @@
     "timeAlert.behind": "Alert when behind on time",
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
-    "chessPursuitHeader": "Chess Pursuit"
+    "chessPursuitHeader": "Chess Pursuit",
+    "options.chessPursuit": "Chess Pursuit in menu"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18977,6 +18996,7 @@
     "timeAlert.behind": "Alert when behind on time",
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
-    "chessPursuitHeader": "Chess Pursuit"
+    "chessPursuitHeader": "Chess Pursuit",
+    "options.chessPursuit": "Chess Pursuit in menu"
   }
 }
