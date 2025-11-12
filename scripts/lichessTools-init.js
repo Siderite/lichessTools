@@ -135,6 +135,7 @@ lichessTools.loadTool(LiChessTools.Tools.BetterBestArrow);
 lichessTools.loadTool(LiChessTools.Tools.DownloadBroadcastPgn);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerMoreGames);
 lichessTools.loadTool(LiChessTools.Tools.StudyTopics);
+lichessTools.loadTool(LiChessTools.Tools.ChessPursuit);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

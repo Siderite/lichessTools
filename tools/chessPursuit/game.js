@@ -70,7 +70,13 @@ ArcadeAudio.prototype.add = function( key, count, settings ) {
 	}, this );
 };
 
+let isMute = false;
+ArcadeAudio.prototype.toggleMute = function (value) {
+  isMute = value === undefined ? !isMute : !!value;
+}
+
 ArcadeAudio.prototype.play = function( key ) {
+    if (isMute) return;
 	var sound = this.sounds[ key ];
 	var soundData = sound.length > 1 ? sound[ Math.floor( Math.random() * sound.length ) ] : sound[ 0 ];
 	soundData.pool[ soundData.tick ].play();
@@ -2371,13 +2377,14 @@ LiChessTools.loadChessPursuit = function(gameContainer){
 		38: "up",   // up arrow
 		90: "up",	// z
 		87: "up",	// w
-		83: "down",	// d
+		83: "down",	// s
 		40: "down",
 		39: "right",// right arrow
-		68: "right",//d
+		68: "right",// d
 		32: "space",
 		27: "esc",
-		13: "enter"
+		13: "enter",
+		77: "mute"  // m
 	};
 	// keyName => isDown bool
 	var keyBoolMap = {};
@@ -2391,6 +2398,9 @@ LiChessTools.loadChessPursuit = function(gameContainer){
 
 		var keyName = keyMap[c];
 		if(keyName){
+            if (!isDown && keyName=='mute') {
+              aa.toggleMute();
+            }
 			//only take events that represent an actual change
 			if(keyBoolMap[keyName] !== isDown){
 				keyBoolMap[keyName] = isDown;

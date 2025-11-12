@@ -13,7 +13,7 @@
         name: 'playLayoutElements',
         category: 'play',
         type: 'multiple',
-        possibleValues: ['deadCrosstable','chessPursuit'],
+        possibleValues: ['deadCrosstable'],
         defaultValue: false,
         advanced: true
       }
@@ -29,11 +29,7 @@
         'playLayout.smallSide': 'Hide chat',
         'playLayout.smallSideable': 'Option to hide chat',
         'playLayoutElements.deadCrosstable': 'Non interactive crosstable',
-        'playLayoutElements.chessPursuit': 'Chess Pursuit menu',
-        'toggleLayoutTitle': 'LiChess Tools - click on the icon to hide/show chat',
-        'chessPursuitText': 'Chess Pursuit',
-        'chessPursuitTitle': 'Lichess Tools - play Chess Pursuit',
-        'chessPursuitHeader': 'Chess Pursuit'
+        'toggleLayoutTitle': 'LiChess Tools - click on the icon to hide/show chat'
       },
       'ro-RO': {
         'options.play': 'Joc',
@@ -44,11 +40,7 @@
         'playLayout.smallSide': 'Ascunde chat',
         'playLayout.smallSideable': 'Op\u0163iune s\u0103 ascunzi chat',
         'playLayoutElements.deadCrosstable': 'Tabel rezultate neinteractiv',
-        'playLayoutElements.chessPursuit': 'Meniu Chess Pursuit',
-        'toggleLayoutTitle': 'LiChess Tools - apas\u0103 pictograma ca s\u0103 ascunzi/ar\u0103\u0163i chat',
-        'chessPursuitText': 'Urm\u0103rire \u00een \u015fah',
-        'chessPursuitTitle': 'Lichess Tools - joac\u0103 Urm\u0103rire \u00een \u015fah',
-        'chessPursuitHeader': 'Urm\u0103rire \u00een \u015fah'
+        'toggleLayoutTitle': 'LiChess Tools - apas\u0103 pictograma ca s\u0103 ascunzi/ar\u0103\u0163i chat'
       }
     }
 
@@ -88,25 +80,6 @@
       }
     };
 
-    proxyKeyEvents = (ev)=>{
-      ev.preventDefault();
-      const clonedEvent = new KeyboardEvent(ev.type, {
-        key: ev.key,
-        code: ev.code,
-        keyCode: ev.keyCode,
-        ctrlKey: ev.ctrlKey,
-        shiftKey: ev.shiftKey,
-        altKey: ev.altKey,
-        metaKey: ev.metaKey,
-        repeat: ev.repeat,
-        bubbles: false,
-        cancelable: true
-      });
-      $(ev.target)
-        .find('.dialog-content')
-        .trigger(clonedEvent);
-    };
-
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -116,8 +89,7 @@
       const playLayoutElements = lt.currentOptions.getValue('playLayoutElements');
       this.options = { 
         playLayout: playLayout,
-        deadCrosstable: lt.isOptionSet(playLayoutElements, 'deadCrosstable'),
-        chessPursuit: lt.isOptionSet(playLayoutElements, 'chessPursuit')
+        deadCrosstable: lt.isOptionSet(playLayoutElements, 'deadCrosstable')
       };
       this.logOption('Play layout', playLayout);
       this.logOption('Play layout elements', playLayoutElements);
@@ -139,35 +111,6 @@
         }
         this.applyLayout();
       }
-      const container = $('#topnav section a[href="/"]+div[role="group"]');
-      container.find('.lichessTools-chessPursuit').remove();
-      if (this.options.chessPursuit) {
-        $('<a>')
-          .addClass('lichessTools-chessPursuit')
-          .text(trans.noarg('chessPursuitText'))
-          .attr('title', trans.noarg('chessPursuitTitle'))
-          .on('click',async (ev)=>{
-            ev.preventDefault();
-            const dlg = await lt.dialog({
-              header: trans.noarg('chessPursuitHeader')
-            });
-            $(dlg)
-              .addClass('lichessTools-chessPursuit')
-
-            lt.global.setTimeout(()=>{
-              const container = $(dlg).find('.dialog-content')[0];
-              const dispose = LiChessTools.loadChessPursuit(container);
-              $(dlg).on('keyup keydown',this.proxyKeyEvents);
-              $(dlg).on('close',()=>{
-                dispose();
-                $(dlg).off('keyup keydown',this.proxyKeyEvents);
-              });
-            },100);
-            dlg.showModal();
-          })
-          .appendTo(container);
-      }
-
     }
 
   }

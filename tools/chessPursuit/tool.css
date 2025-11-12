@@ -1,0 +1,28 @@
+body.lichessTools dialog.lichessTools-chessPursuit .scrollable {
+  overflow: hidden;
+}
+
+body.lichessTools dialog.lichessTools-chessPursuit .dialog-content {
+  --game-size: min(80vw, calc(0.8 * 90vh));
+  width: var(--game-size);
+  height: calc(1.25 * var(--game-size));
+  cursor: pointer;
+}
+
+body.lichessTools dialog.lichessTools-chessPursuit canvas,
+body.lichessTools dialog.lichessTools-chessPursuit svg {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--game-size);
+}
+
+body.lichessTools dialog.lichessTools-chessPursuit svg {
+  overflow: hidden;
+  height: calc(1.25 * var(--game-size));
+}
+
+body.lichessTools dialog.lichessTools-chessPursuit #shadow {
+  display: none;
+}
