@@ -52,7 +52,6 @@
 
     async start() {
       const lt = this.lichessTools;
-      const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
       const chessPursuit = lt.currentOptions.getValue('chessPursuit');
