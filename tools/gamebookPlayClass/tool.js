@@ -32,6 +32,7 @@
       const study = lichess.analysis?.study;
       const $ = lt.$;
       if (!study) return;
+      if (study.relay) return;
       const override = study.vm.gamebookOverride;
       const cls = 'lichessTools-gamebook-' + override;
       const all = ['lichessTools-gamebook-play', 'lichessTools-gamebook-analyse']

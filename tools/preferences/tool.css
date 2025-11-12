@@ -3,10 +3,12 @@
 #dasher_app .links a.lichessTools-preferences {
   display: flex;
   overflow: visible;
+  align-items: center;
 }
 
 a.lichessTools-preferences span.lichessTools-toggleExtension {
-  margin-left: auto;
+  position: absolute;
+  right: 1em;
 }
 
 a.lichessTools-preferences:hover span.lichessTools-toggleExtension {

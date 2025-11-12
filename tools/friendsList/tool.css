@@ -163,6 +163,8 @@ body.lichessTools div.lichessTools-liveButtons {
   padding-right: var(---box-padding);
   height: 3em;
   margin-left: auto;
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 body.lichessTools .lichessTools-friendFilter {
@@ -361,6 +363,7 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown .hideNotPlaying
   right: 0;
   padding: 0.5rem;
   box-shadow: none;
+  z-index:2;
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown .lichessTools-friendsLink {
@@ -369,6 +372,7 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown .lichessTools-f
   left: 0;
   padding: 0.5rem;
   box-shadow: none;
+  z-index:2;
 }
 
 body.lichessTools .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying>button.toggle {
@@ -409,10 +413,24 @@ body.lichessTools div.site-buttons .lichessTools-onlineFriends .dropdown {
   box-shadow: 4px 4px gray;
 }
 
+@media (max-width: 649.29px) {
+  body.lichessTools main.lichessTools-friendsPage table td:last-child {
+    display: initial;
+  }
+}
+
+body.lichessTools main.lichessTools-friendsPage {
+  overflow: auto;
+}
 
 body.lichessTools main.lichessTools-friendsPage table.slist tr {
   background: none !important;
   height: 5rem;
+}
+
+body.lichessTools main.lichessTools-friendsPage table.slist tr td {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 body.lichessTools main.lichessTools-friendsPage table.slist tbody {

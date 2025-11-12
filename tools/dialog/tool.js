@@ -136,7 +136,9 @@
         resize.on('dragstart', () => false);
       }
       dialog
-        .on('close',()=>dialog.remove());
+        .on('close',()=>{
+          lt.global.setTimeout(()=>dialog.remove(),100)
+        });
 
       if (options.useLT) {
         dialog.appendTo(options.parent || 'body');

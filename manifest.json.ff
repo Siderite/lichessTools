@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "LiChess Tools, by Siderite",
-  "version": "2.4.114",
+  "version": "2.4.116",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -132,6 +132,7 @@
         "tools/resizeExplorer/tool.js",
         "tools/soundOptions/tool.js",
         "tools/playLayout/tool.js",
+        "tools/playLayout/game.js",
         "tools/obsIntegration/tool.js",
         "tools/forkBehavior/tool.js",
         "tools/blogAutosave/tool.js",
@@ -156,7 +157,6 @@
         "tools/blogHistory/tool.js",
         "tools/extraPieceSets/tool.js",
         "tools/quickActions/tool.js",
-        "tools/totalGameTime/tool.js",
         "tools/puzzleHistory/tool.js",
         "tools/tournamentTopBoard/tool.js",
         "tools/botFilters/tool.js",
@@ -171,7 +171,6 @@
         "tools/explorerMoreGames/tool.js",
         "tools/customBoardImage/tool.js",
         "tools/studyTopics/tool.js",
-        "tools/ripDanya/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -291,7 +290,6 @@
         "tools/blogHistory/tool.css",
         "tools/extraPieceSets/tool.css",
         "tools/quickActions/tool.css",
-        "tools/totalGameTime/tool.css",
         "tools/puzzleHistory/tool.css",
         "tools/botFilters/tool.css",
         "tools/analysisReadComments/tool.css",
@@ -305,7 +303,6 @@
         "tools/explorerMoreGames/tool.css",
         "tools/customBoardImage/tool.css",
         "tools/studyTopics/tool.css",
-        "tools/ripDanya/tool.css",
 
         "tools/tvOptions/tool.css",
 

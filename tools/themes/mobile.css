@@ -223,6 +223,23 @@ body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools .analyse__mov
   order: 7;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile main.forum:has(.slist.topics) {
+  overflow: auto;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist.topics {
+  table-layout: auto;
+  min-width: 45em;
+}
+
+/*body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist th.right,*/
+body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist td.right {
+  display: table-cell;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist td:last-child {
+  display: table-cell;
+}
 
 /** Prettier **/
 

@@ -76,6 +76,7 @@
 
     icon = {
       // see https://github.com/lichess-org/lila/blob/master/modules/ui/src/main/Icon.scala
+      // and https://lichess1.org/assets/oops/font.html
       CautionTriangle: '\ue000',
       Link: '\ue001',
       Rabbit: '\ue002',
@@ -306,6 +307,10 @@
 
     winPerc = (cp) => {
       return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
+    };
+
+    accuracy = (expected, played) =>{
+      return Math.max(0,103.1668 * Math.exp(-0.04354 * Math.max(0, expected - (played||0))) - 3.1669);
     };
 
     crc24 = (data) => {
@@ -1953,7 +1958,19 @@
         } else {
           if (error) lt.global.console.error(error);
         }
-      }
+      },
+      getHeadData: async function(url, options) {
+        options = { retries: 3, url: url, ...options };
+        const lt = this.lichessTools;
+        let error = null;
+        let data = null;
+        for (let i=0; i<options.retries && !data; i++) {
+          data = await lt.comm.send({ type: 'getHeadData', options: options })
+                                             .catch(e => { error = e; });
+        }
+        if (error) lt.global.console.error(error);
+        return data;
+      },
 
     };
 

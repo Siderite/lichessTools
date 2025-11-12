@@ -35,7 +35,7 @@
         name: 'timeAlert',
         category: 'play',
         type: 'multiple',
-        possibleValues: ['s30','s60','s90','s120','s180','s300','beep','speak5'],
+        possibleValues: ['s30','s60','s90','s120','s180','s300','beep','speak5', 'behind'],
         defaultValue: false,
         advanced: true
       }
@@ -61,6 +61,7 @@
         'timeAlert.s300': '5:00',
         'timeAlert.beep': 'Sound alert',
         'timeAlert.speak5': 'Read seconds when less than 6',
+        'timeAlert.behind': 'Alert when behind on time',
         'soundThemes.mortalKombat': 'Mortal Kombat'
       },
       'ro-RO': {
@@ -82,6 +83,7 @@
         'timeAlert.s300': '5:00',
         'timeAlert.beep': 'Alert\u0103 sonor\u0103',
         'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd mai pu\u0163ine de 6',
+        'timeAlert.behind': 'Alert\u0103 c\u00e2nd \u00een urm\u0103 la timp',
         'soundThemes.mortalKombat': 'Mortal Kombat'
       }
     }
@@ -139,6 +141,20 @@
           this.lastSpeak = seconds;
           lt.stopSpeaking();
           lt.speak(seconds);
+        }
+      }
+      if (this.options.behind) {
+        const timeStr = $('.round__app .rclock-top .time').text();
+        if (timeStr) {
+          const m = /^\s*(?:(?<h>\d+):)?(?<m>\d+):(?<s>\d+(?:\.\d+)?)\s*$/.exec(timeStr);
+          if (m) {
+            const opponentTime = (+m.groups.h||0)*3600 + (+m.groups.m||0)*60 + (+m.groups.s||0);
+            const difference = time - opponentTime;
+            if (this.lastDifference >= 0 && difference < 0) {
+              this.alertPlayer(difference);
+            }
+            this.lastDifference = difference;
+          }
         }
       }
       if (!(this.lastTime<time)) {
@@ -292,7 +308,8 @@
           enabled: lt.isOptionSet(timeAlert, 's'+s)
         })),
         beep: lt.isOptionSet(timeAlert, 'beep'),
-        speak5: lt.isOptionSet(timeAlert, 'speak5') 
+        speak5: lt.isOptionSet(timeAlert, 'speak5'),
+        behind: lt.isOptionSet(timeAlert, 'behind') 
       };
       if (lichess.sound?.move) {
         lichess.sound.move = lt.unwrapFunction(lichess.sound.move, 'soundOptions');
@@ -307,13 +324,13 @@
       }
       $('.round__app')
         .observer()
-        .off('.rclock-bottom *',this.checkClock);
+        .off('.rclock-bottom *,.rclock-top *',this.checkClock);
       if ($('.playing .round__app').length) {
-        const hasTimeAlert = this.options.flickerSound || this.options.times.find(t=>t.enabled);
+        const hasTimeAlert = this.options.flickerSound || this.options.times.find(t=>t.enabled) || this.options.speak5 || this.options.behind;
         if (hasTimeAlert) {
           $('.round__app')
             .observer()
-            .on('.rclock-bottom *',this.checkClock);
+            .on('.rclock-bottom *,.rclock-top *',this.checkClock);
         }
       }
       lichess.sound.changeSet = lt.unwrapFunction(lichess.sound.changeSet,'soundOptions');

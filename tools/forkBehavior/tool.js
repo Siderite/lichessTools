@@ -246,8 +246,20 @@
 
     mousewheelHandler = (ev) => {
       this.mousewheelOn = true;
-      this.oldWheelHandler(ev);
-      this.mousewheelOn = false;
+      try {
+        this.oldWheelHandler(ev);
+      } finally {
+        this.mousewheelOn = false;
+      }
+    };
+
+    pointermoveHandler = (ev) => {
+      this.pointermoveOn = true;
+      try {
+        this.oldPointerMove(ev);
+      } finally {
+        this.pointermoveOn = false;
+      }
     };
 
     nextResult = false;
@@ -269,6 +281,16 @@
               .prop('forkBehavior_init', true);
           }
         }
+        const analyseControls = $('div.analyse__controls');
+        if (!analyseControls.prop('forkBehavior_init')) {
+          this.oldPointerMove = lt.getEventHandlers(analyseControls[0], 'pointermove')[0];
+          if (this.oldPointerMove) {
+            lt.removeEventHandlers(analyseControls[0], 'pointermove');
+            analyseControls
+              .on('pointermove', this.pointermoveHandler)
+              .prop('forkBehavior_init', true);
+          }
+        }
 
         $('div.analyse__fork').each((i, e) => {
           if (e.lichessTools_forkBehavior_init) return;
@@ -282,7 +304,7 @@
           analysis.fork.proceed = lt.wrapFunction(analysis.fork.proceed, {
             id: 'forkBehavior',
             before: ($this, ...args) => {
-              if (this.mousewheelOn || analysis.gamebookPlay()) {
+              if (this.mousewheelOn || this.pointermoveOn || analysis.gamebookPlay()) {
                 this.nextResult = undefined;
                 return;
               }
@@ -355,6 +377,12 @@
           .off('wheel', this.mousewheelHandler)
           .on('wheel', this.oldWheelHandler);
         this.oldWheelHandler = null;
+      }
+      if (this.oldPointerMove) {
+        $('div.analyse__controls')
+          .off('pointermove', this.pointermoveHandler)
+          .on('pointermove', this.oldPointerMove);
+        this.oldPointerMove = null;
       }
       this.clearVariationSelect();
       if (['hybrid', 'chessbase'].includes(value)) {

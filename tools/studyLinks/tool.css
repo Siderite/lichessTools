@@ -19,3 +19,7 @@ body.lichessTools.mobile dialog.lichessTools-video .dialog-content {
   width: 80vw;
   height: 80vh;
 }
+
+body.lichessTools .lichessTools-comments:not(:has(count[data-count])) {
+  display: none;
+}

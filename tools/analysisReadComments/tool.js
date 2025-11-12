@@ -46,7 +46,7 @@
       '?':'mistake',
       '!!':'brilliant',
       '??':'blunder',
-      '?!':'dubious move',
+      '?!':'inaccuracy',
       '!?':'interesting'
     };
     getSpeakableText = (text)=>{
@@ -120,17 +120,36 @@
       const comments = lt.getNodeCommentsText(node);
       this.prevComments = comments;
       let speakable = this.getSpeakableText(comments);
-      if (this.options.readAnnotations && node.glyphs?.length) {
-        speakable = node.glyphs
-          .map(g=>g.name || this.annotations[g.symbol])
-          .concat([speakable])
+      let shouldSpeak = speakable != this.prevSpeakable;
+      const isCheck = node.san?.endsWith('+');
+      const isMate = node.san?.endsWith('#');
+      if (this.options.readAnnotations && (node.glyphs?.length || isCheck || isMate)) {
+        const additional = (node.glyphs || [])
+          .map(g=>{
+            let name = g.name;
+            if (name?.toLowerCase() == 'dubious move') name='inaccuracy';
+            return name || this.annotations[g.symbol]
+          })
+          .concat([
+            isCheck?'check':'',
+            isMate?'checkmate':''
+          ])
           .filter(g=>g)
           .join(', ');
+        if (!speakable) {
+          speakable = additional;
+        } else {
+          if (additional && !speakable.toLowerCase().includes(additional.toLowerCase())) {
+            speakable = `${additional}, ${speakable}`;
+          }
+        }
+        shouldSpeak = node.fen != this.prevFen;
       }
-      if (speakable?.trim() && speakable != this.prevSpeakable) {
+      if (shouldSpeak && speakable?.trim()) {
         lt.speak(speakable, { rate: 1.25 });
       }
       this.prevSpeakable = speakable;
+      this.prevFen = node.fen;
     }
 
     showInteractiveButton = () => {

@@ -1,5 +1,28 @@
 History of features added to LiChess Tools in time (reversed order)
 
+12 Nov
+
+- Chess Pursuit menu item
+
+10 Nov
+
+- accuracy calculation per game phase
+- time control rating suspicion score
+- alert when behind on time
+
+08 Nov
+
+- Notification for NIF file
+
+07 Nov
+
+- Removed total game duration (implemented in Lichess)
+- Removed image pasting support from markdown areas where Lichess has that
+
+31 Oct
+
+- Next chapter button improvements
+
 29 Oct
 
 - Themes menu
