@@ -138,6 +138,7 @@
         "tools/resizeExplorer/tool.js",
         "tools/soundOptions/tool.js",
         "tools/playLayout/tool.js",
+        "tools/playLayout/game.js",
         "tools/obsIntegration/tool.js",
         "tools/forkBehavior/tool.js",
         "tools/blogAutosave/tool.js",

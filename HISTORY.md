@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+12 Nov
+
+- Chess Pursuit menu item
+
 10 Nov
 
 - accuracy calculation per game phase

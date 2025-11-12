@@ -943,7 +943,10 @@
     "puzzleIndexUpdateTitle": "إصدار السيرفر من ملف NIF أحدث من النسخة المحلية الخاصة بك",
     "gamePhasesText": "دقة المراحل: %s",
     "timeControlSuspicionTitle": "- درجة الشك في ضبط الوقت: %s",
-    "timeAlert.behind": "التنبيه عند التخلف في الوقت المحدد"
+    "timeAlert.behind": "التنبيه عند التخلف في الوقت المحدد",
+    "chessPursuitText": "ملاحقة الشطرنج",
+    "chessPursuitTitle": "أدوات Lichess - لعب الشطرنج متابعة",
+    "chessPursuitHeader": "ملاحقة الشطرنج"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1889,7 +1892,10 @@
     "puzzleIndexUpdateTitle": "服务器版本的 NIF 文件比您本地版本更新",
     "gamePhasesText": "相位精度： %s",
     "timeControlSuspicionTitle": "- 时间控制怀疑得分： %s",
-    "timeAlert.behind": "按时提醒"
+    "timeAlert.behind": "按时提醒",
+    "chessPursuitText": "国际象棋追求中",
+    "chessPursuitTitle": "Lichess工具 - 播放国际象棋。",
+    "chessPursuitHeader": "国际象棋追求中"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2835,7 +2841,10 @@
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
     "timeControlSuspicionTitle": "- time control suspicion score: %s",
-    "timeAlert.behind": "Alert when behind on time"
+    "timeAlert.behind": "Alert when behind on time",
+    "chessPursuitText": "Chess Pursuit",
+    "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
+    "chessPursuitHeader": "Chess Pursuit"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3781,7 +3790,10 @@
     "puzzleIndexUpdateTitle": "Server verze NIF souboru je novější než vaše lokální",
     "gamePhasesText": "Přesnost fází: %s",
     "timeControlSuspicionTitle": "- časová kontrola podezřelého skóre: %s",
-    "timeAlert.behind": "Upozornění za časem"
+    "timeAlert.behind": "Upozornění za časem",
+    "chessPursuitText": "Šachy pokračují",
+    "chessPursuitTitle": "Lichess Tools - hrát šachové pokračování",
+    "chessPursuitHeader": "Šachy pokračují"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4727,7 +4739,10 @@
     "puzzleIndexUpdateTitle": "Server versie van het NIF bestand is nieuwer dan uw lokale bestand",
     "gamePhasesText": "Fases nauwkeurigheid: %s",
     "timeControlSuspicionTitle": "- tijdcontrole verdenkscore: %s",
-    "timeAlert.behind": "Waarschuw wanneer op tijd achterloopt"
+    "timeAlert.behind": "Waarschuw wanneer op tijd achterloopt",
+    "chessPursuitText": "Schaken Purpak",
+    "chessPursuitTitle": "Lichess Tools - speel SchaakPurpak",
+    "chessPursuitHeader": "Schaken Purpak"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5673,7 +5688,10 @@
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
     "timeControlSuspicionTitle": "- time control suspicion score: %s",
-    "timeAlert.behind": "Alert when behind on time"
+    "timeAlert.behind": "Alert when behind on time",
+    "chessPursuitText": "Chess Pursuit",
+    "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
+    "chessPursuitHeader": "Chess Pursuit"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6161,7 +6179,7 @@
     "options.moveAssistant": "Assistant de coup",
     "assistantButtonTitle": "LiChess Tools - évaluation des coups de la pièce sélectionnée",
     "options.playerWarning": "Alerte d'avertissement pour les joueurs",
-    "percentageTitle": "- Taux de déconnexion %s%",
+    "percentageTitle": "- Taux de déconnexion : %s%",
     "options.boardImage": "Mieux exporter l'image de l'échiquier",
     "screenshotButtonText": "CAPTURE DE L'ÉCHIQUIER",
     "screenshotButtonTitle": "LiChess Tools - obtenir une capture d'écran de l'échiquier",
@@ -6618,8 +6636,11 @@
     "puzzleIndexUpdateText": "Mettez à jour votre fichier NIF !",
     "puzzleIndexUpdateTitle": "La version serveur du fichier NIF est plus récente que votre fichier local",
     "gamePhasesText": "Précision des phases de jeu : %s",
-    "timeControlSuspicionTitle": "- Temps contrôle score suspicion : %s",
-    "timeAlert.behind": "Alerte quand en retard de temps"
+    "timeControlSuspicionTitle": "- Score suspicion entre cadences : %s",
+    "timeAlert.behind": "Alerte quand en retard de temps",
+    "chessPursuitText": "Poursuite d'échecs",
+    "chessPursuitTitle": "Outils lichess - Poursuite d'échecs",
+    "chessPursuitHeader": "Poursuite d'échecs"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7565,7 +7586,10 @@
     "puzzleIndexUpdateTitle": "Server-Version der NIF-Datei ist neuer als Ihre lokale",
     "gamePhasesText": "Phasengenauigkeit: %s",
     "timeControlSuspicionTitle": "- Zeitkontrolle Verdacht Punktestand: %s",
-    "timeAlert.behind": "Warnen, wenn rechtzeitig hinkt"
+    "timeAlert.behind": "Warnen, wenn rechtzeitig hinkt",
+    "chessPursuitText": "SchachPursuit",
+    "chessPursuitTitle": "Lichess Tools - SchachPursuit spielen",
+    "chessPursuitHeader": "SchachPursuit"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8511,7 +8535,10 @@
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
     "timeControlSuspicionTitle": "- time control suspicion score: %s",
-    "timeAlert.behind": "Alert when behind on time"
+    "timeAlert.behind": "Alert when behind on time",
+    "chessPursuitText": "Chess Pursuit",
+    "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
+    "chessPursuitHeader": "Chess Pursuit"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9457,7 +9484,10 @@
     "puzzleIndexUpdateTitle": "La versione del server del file NIF è più recente di quella locale",
     "gamePhasesText": "Precisione delle fasi: %s",
     "timeControlSuspicionTitle": "- punteggio sospetto controllo tempo: %s",
-    "timeAlert.behind": "Avviso quando è in ritardo"
+    "timeAlert.behind": "Avviso quando è in ritardo",
+    "chessPursuitText": "Inseguimento Degli Scacchi",
+    "chessPursuitTitle": "Strumenti di Lichess - giocare a scacchi inseguimento",
+    "chessPursuitHeader": "Inseguimento Degli Scacchi"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10403,7 +10433,10 @@
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
     "timeControlSuspicionTitle": "- time control suspicion score: %s",
-    "timeAlert.behind": "Alert when behind on time"
+    "timeAlert.behind": "Alert when behind on time",
+    "chessPursuitText": "Chess Pursuit",
+    "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
+    "chessPursuitHeader": "Chess Pursuit"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11349,7 +11382,10 @@
     "puzzleIndexUpdateTitle": "Wersja serwera pliku NIF jest nowsza niż wersja lokalna",
     "gamePhasesText": "Dokładność faz %s",
     "timeControlSuspicionTitle": "- punktacja podejrzeń kontroli czasu: %s",
-    "timeAlert.behind": "Powiadomienie kiedy czas jest opóźniony"
+    "timeAlert.behind": "Powiadomienie kiedy czas jest opóźniony",
+    "chessPursuitText": "Śledzenie szachów",
+    "chessPursuitTitle": "Narzędzia Lichess - graj w szachy",
+    "chessPursuitHeader": "Śledzenie szachów"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12295,7 +12331,10 @@
     "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local",
     "gamePhasesText": "Frases de precisão: %s",
     "timeControlSuspicionTitle": "- pontos de suspeita de controle de tempo: %s",
-    "timeAlert.behind": "Alertar quando estiver atrasado no tempo"
+    "timeAlert.behind": "Alertar quando estiver atrasado no tempo",
+    "chessPursuitText": "Perseguição de xadrez",
+    "chessPursuitTitle": "Ferramentas Lichess - jogar Xadrez",
+    "chessPursuitHeader": "Perseguição de xadrez"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13241,7 +13280,10 @@
     "puzzleIndexUpdateTitle": "A versão do servidor do arquivo NIF é mais nova que a do seu local",
     "gamePhasesText": "Frases de precisão: %s",
     "timeControlSuspicionTitle": "- pontos de suspeita de controle de tempo: %s",
-    "timeAlert.behind": "Alertar quando estiver atrasado no tempo"
+    "timeAlert.behind": "Alertar quando estiver atrasado no tempo",
+    "chessPursuitText": "Perseguição de xadrez",
+    "chessPursuitTitle": "Ferramentas Lichess - jogar Xadrez",
+    "chessPursuitHeader": "Perseguição de xadrez"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14187,7 +14229,10 @@
     "puzzleIndexUpdateTitle": "Versiunea fișierului NIF de pe server este mai nouă decât cea locală",
     "gamePhasesText": "Acuratețe pe faze: %s",
     "timeControlSuspicionTitle": "- scorul suspiciunii pe controale de timp: %s",
-    "timeAlert.behind": "Alertă când în urmă la timp"
+    "timeAlert.behind": "Alertă când în urmă la timp",
+    "chessPursuitText": "Urmărire în șah",
+    "chessPursuitTitle": "LiChess Tools - joacă Urmărire în șah",
+    "chessPursuitHeader": "Urmărire în șah"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15133,7 +15178,10 @@
     "puzzleIndexUpdateTitle": "Версия NIF файла на сервере новее, чем локальный",
     "gamePhasesText": "Точность фазов: %s",
     "timeControlSuspicionTitle": "- рейтинг контроля времени подозрения: %s",
-    "timeAlert.behind": "Оповещение, когда прошло вовремя"
+    "timeAlert.behind": "Оповещение, когда прошло вовремя",
+    "chessPursuitText": "Выслеживание шахмат",
+    "chessPursuitTitle": "Lichess Tools - играть в шахматы",
+    "chessPursuitHeader": "Выслеживание шахмат"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16079,7 +16127,10 @@
     "puzzleIndexUpdateTitle": "La versión del servidor del archivo NIF es más reciente que la local",
     "gamePhasesText": "Precisión de las fases: %s",
     "timeControlSuspicionTitle": "- puntuación de sospecha de control de tiempo: %s",
-    "timeAlert.behind": "Alertar cuando esté retrasado"
+    "timeAlert.behind": "Alertar cuando esté retrasado",
+    "chessPursuitText": "Búsqueda de ajedrez",
+    "chessPursuitTitle": "Herramientas de Lichess - Juega a Ajedrez",
+    "chessPursuitHeader": "Búsqueda de ajedrez"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -17025,7 +17076,10 @@
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
     "timeControlSuspicionTitle": "- time control suspicion score: %s",
-    "timeAlert.behind": "Alert when behind on time"
+    "timeAlert.behind": "Alert when behind on time",
+    "chessPursuitText": "Chess Pursuit",
+    "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
+    "chessPursuitHeader": "Chess Pursuit"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -17971,7 +18025,10 @@
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
     "timeControlSuspicionTitle": "- time control suspicion score: %s",
-    "timeAlert.behind": "Alert when behind on time"
+    "timeAlert.behind": "Alert when behind on time",
+    "chessPursuitText": "Chess Pursuit",
+    "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
+    "chessPursuitHeader": "Chess Pursuit"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18917,6 +18974,9 @@
     "puzzleIndexUpdateTitle": "Server version of the NIF file is newer than your local one",
     "gamePhasesText": "Phases accuracy: %s",
     "timeControlSuspicionTitle": "- time control suspicion score: %s",
-    "timeAlert.behind": "Alert when behind on time"
+    "timeAlert.behind": "Alert when behind on time",
+    "chessPursuitText": "Chess Pursuit",
+    "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
+    "chessPursuitHeader": "Chess Pursuit"
   }
 }
