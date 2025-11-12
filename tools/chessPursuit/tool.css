@@ -1,5 +1,6 @@
 body.lichessTools dialog.lichessTools-chessPursuit .scrollable {
   overflow: hidden;
+  touch-action: none;
 }
 
 body.lichessTools dialog.lichessTools-chessPursuit .dialog-content {
@@ -7,6 +8,7 @@ body.lichessTools dialog.lichessTools-chessPursuit .dialog-content {
   width: var(--game-size);
   height: calc(1.25 * var(--game-size));
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 body.lichessTools dialog.lichessTools-chessPursuit canvas,

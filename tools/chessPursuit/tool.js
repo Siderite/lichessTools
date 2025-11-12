@@ -29,7 +29,6 @@
     }
 
     proxyKeyEvents = (ev)=>{
-      ev.preventDefault();
       const clonedEvent = new KeyboardEvent(ev.type, {
         key: ev.key,
         code: ev.code,
@@ -46,6 +45,9 @@
       $(ev.target)
         .find('.dialog-content')
         .trigger(clonedEvent);
+      if (clonedEvent.defaultPrevented) {
+        ev.preventDefault();
+      }
     };
 
     async start() {
