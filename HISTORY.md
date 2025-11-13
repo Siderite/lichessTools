@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Nov
+
+- Chess Pursuit sound theme
+- Chess Pursuit piece set
+
 12 Nov
 
 - Chess Pursuit menu item

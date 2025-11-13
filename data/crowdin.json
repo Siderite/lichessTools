@@ -947,7 +947,8 @@
     "chessPursuitText": "ملاحقة الشطرنج",
     "chessPursuitTitle": "أدوات Lichess - لعب الشطرنج متابعة",
     "chessPursuitHeader": "ملاحقة الشطرنج",
-    "options.chessPursuit": "متابعة الشطرنج في القائمة"
+    "options.chessPursuit": "متابعة الشطرنج في القائمة",
+    "soundThemes.chessPursuit": "ملاحقة الشطرنج"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1897,7 +1898,8 @@
     "chessPursuitText": "国际象棋追求中",
     "chessPursuitTitle": "Lichess工具 - 播放国际象棋。",
     "chessPursuitHeader": "国际象棋追求中",
-    "options.chessPursuit": "国际象棋在菜单中继续关注"
+    "options.chessPursuit": "国际象棋在菜单中继续关注",
+    "soundThemes.chessPursuit": "国际象棋追求中"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2847,7 +2849,8 @@
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
     "chessPursuitHeader": "Chess Pursuit",
-    "options.chessPursuit": "Chess Pursuit in menu"
+    "options.chessPursuit": "Chess Pursuit in menu",
+    "soundThemes.chessPursuit": "Chess Pursuit"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3797,7 +3800,8 @@
     "chessPursuitText": "Šachy pokračují",
     "chessPursuitTitle": "Lichess Tools - hrát šachové pokračování",
     "chessPursuitHeader": "Šachy pokračují",
-    "options.chessPursuit": "Šachy pokračují v menu"
+    "options.chessPursuit": "Šachy pokračují v menu",
+    "soundThemes.chessPursuit": "Šachy pokračují"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4747,7 +4751,8 @@
     "chessPursuitText": "Schaken Purpak",
     "chessPursuitTitle": "Lichess Tools - speel SchaakPurpak",
     "chessPursuitHeader": "Schaken Purpak",
-    "options.chessPursuit": "Schaken Purpak in menu"
+    "options.chessPursuit": "Schaken Purpak in menu",
+    "soundThemes.chessPursuit": "Schaken Purpak"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5697,7 +5702,8 @@
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
     "chessPursuitHeader": "Chess Pursuit",
-    "options.chessPursuit": "Chess Pursuit in menu"
+    "options.chessPursuit": "Chess Pursuit in menu",
+    "soundThemes.chessPursuit": "Chess Pursuit"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6644,10 +6650,11 @@
     "gamePhasesText": "Précision des phases de jeu : %s",
     "timeControlSuspicionTitle": "- Score suspicion entre cadences : %s",
     "timeAlert.behind": "Alerte quand en retard de temps",
-    "chessPursuitText": "Poursuite d'échecs",
-    "chessPursuitTitle": "Outils lichess - Poursuite d'échecs",
-    "chessPursuitHeader": "Poursuite d'échecs",
-    "options.chessPursuit": "Poursuite d'échecs dans le menu"
+    "chessPursuitText": "Échecs poursuite",
+    "chessPursuitTitle": "Lichess Tools - Jouer à échecs poursuite",
+    "chessPursuitHeader": "Échecs poursuite",
+    "options.chessPursuit": "Échecs poursuite dans le menu",
+    "soundThemes.chessPursuit": "Échecs poursuite"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7597,7 +7604,8 @@
     "chessPursuitText": "SchachPursuit",
     "chessPursuitTitle": "Lichess Tools - SchachPursuit spielen",
     "chessPursuitHeader": "SchachPursuit",
-    "options.chessPursuit": "SchachPursuit im Menü"
+    "options.chessPursuit": "SchachPursuit im Menü",
+    "soundThemes.chessPursuit": "SchachPursuit"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8547,7 +8555,8 @@
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
     "chessPursuitHeader": "Chess Pursuit",
-    "options.chessPursuit": "Chess Pursuit in menu"
+    "options.chessPursuit": "Chess Pursuit in menu",
+    "soundThemes.chessPursuit": "Chess Pursuit"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9497,7 +9506,8 @@
     "chessPursuitText": "Inseguimento Degli Scacchi",
     "chessPursuitTitle": "Strumenti di Lichess - giocare a scacchi inseguimento",
     "chessPursuitHeader": "Inseguimento Degli Scacchi",
-    "options.chessPursuit": "Inseguimento degli scacchi nel menu"
+    "options.chessPursuit": "Inseguimento degli scacchi nel menu",
+    "soundThemes.chessPursuit": "Inseguimento Degli Scacchi"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10447,7 +10457,8 @@
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
     "chessPursuitHeader": "Chess Pursuit",
-    "options.chessPursuit": "Chess Pursuit in menu"
+    "options.chessPursuit": "Chess Pursuit in menu",
+    "soundThemes.chessPursuit": "Chess Pursuit"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11397,7 +11408,8 @@
     "chessPursuitText": "Śledzenie szachów",
     "chessPursuitTitle": "Narzędzia Lichess - graj w szachy",
     "chessPursuitHeader": "Śledzenie szachów",
-    "options.chessPursuit": "Śledzenie szachów w menu"
+    "options.chessPursuit": "Śledzenie szachów w menu",
+    "soundThemes.chessPursuit": "Śledzenie szachów"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12347,7 +12359,8 @@
     "chessPursuitText": "Perseguição de xadrez",
     "chessPursuitTitle": "Ferramentas Lichess - jogar Xadrez",
     "chessPursuitHeader": "Perseguição de xadrez",
-    "options.chessPursuit": "Perseguição de Xadrez no menu"
+    "options.chessPursuit": "Perseguição de Xadrez no menu",
+    "soundThemes.chessPursuit": "Perseguição de xadrez"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13297,7 +13310,8 @@
     "chessPursuitText": "Perseguição de xadrez",
     "chessPursuitTitle": "Ferramentas Lichess - jogar Xadrez",
     "chessPursuitHeader": "Perseguição de xadrez",
-    "options.chessPursuit": "Perseguição de Xadrez no menu"
+    "options.chessPursuit": "Perseguição de Xadrez no menu",
+    "soundThemes.chessPursuit": "Perseguição de xadrez"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14247,7 +14261,8 @@
     "chessPursuitText": "Urmărire în șah",
     "chessPursuitTitle": "LiChess Tools - joacă Urmărire în șah",
     "chessPursuitHeader": "Urmărire în șah",
-    "options.chessPursuit": "Urmărire în șah în meniu"
+    "options.chessPursuit": "Urmărire în șah în meniu",
+    "soundThemes.chessPursuit": "Urmărire în șah"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15197,7 +15212,8 @@
     "chessPursuitText": "Выслеживание шахмат",
     "chessPursuitTitle": "Lichess Tools - играть в шахматы",
     "chessPursuitHeader": "Выслеживание шахмат",
-    "options.chessPursuit": "Выслеживание шахмат в меню"
+    "options.chessPursuit": "Выслеживание шахмат в меню",
+    "soundThemes.chessPursuit": "Выслеживание шахмат"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16147,7 +16163,8 @@
     "chessPursuitText": "Búsqueda de ajedrez",
     "chessPursuitTitle": "Herramientas de Lichess - Juega a Ajedrez",
     "chessPursuitHeader": "Búsqueda de ajedrez",
-    "options.chessPursuit": "Búsqueda de ajedrez en el menú"
+    "options.chessPursuit": "Búsqueda de ajedrez en el menú",
+    "soundThemes.chessPursuit": "Búsqueda de ajedrez"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -17097,7 +17114,8 @@
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
     "chessPursuitHeader": "Chess Pursuit",
-    "options.chessPursuit": "Chess Pursuit in menu"
+    "options.chessPursuit": "Chess Pursuit in menu",
+    "soundThemes.chessPursuit": "Chess Pursuit"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -18047,7 +18065,8 @@
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
     "chessPursuitHeader": "Chess Pursuit",
-    "options.chessPursuit": "Chess Pursuit in menu"
+    "options.chessPursuit": "Chess Pursuit in menu",
+    "soundThemes.chessPursuit": "Chess Pursuit"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -18997,6 +19016,7 @@
     "chessPursuitText": "Chess Pursuit",
     "chessPursuitTitle": "Lichess Tools - play Chess Pursuit",
     "chessPursuitHeader": "Chess Pursuit",
-    "options.chessPursuit": "Chess Pursuit in menu"
+    "options.chessPursuit": "Chess Pursuit in menu",
+    "soundThemes.chessPursuit": "Chess Pursuit"
   }
 }

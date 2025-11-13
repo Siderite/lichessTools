@@ -1,6 +1,12 @@
 {
   "pieceSets": [
     {
+      "category": "siderite",
+      "name": "Chess Pursuit",
+      "url": "https://siderite.github.io/ChessPursuit/pieces/"
+    },
+
+    {
       "category": "chesscom",
       "name": "Neo",
       "url": "https://assets-themes.chess.com/image/ejgfv/150/"

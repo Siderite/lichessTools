@@ -280,6 +280,21 @@
       soundData.pool[soundData.tick].play();
       soundData.tick = (soundData.tick + 1) % soundData.count;
     }
+
+    downloadWav(key) {
+      const sound = this.sounds[key];
+      let i=0;
+      for (const soundData of sound) {
+        i++;
+        const url = soundData.pool[soundData.tick].src;
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = key+'_'+i+'.wav';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    }
   }
 
   class Projection {
