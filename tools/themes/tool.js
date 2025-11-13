@@ -98,6 +98,23 @@
     };
     checkBody = lichessTools.debounce(this.checkBodyDirect,1000);
 
+    getImageSizeFromUrl = (url, element = document.documentElement) => {
+      const img = new Image();
+
+      return new Promise((resolve, reject) => {
+        img.onload = () => {
+          resolve({
+            width: img.naturalWidth,
+            height: img.naturalHeight
+          });
+        };
+        img.onerror = () => {
+          resolve(null);
+        };
+        img.src = url;
+      });
+    }
+
     setBoardVariables = async (boardChanged)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -110,12 +127,21 @@
           container = $('<div>'+html+'</div>');
         }
         const boardImage = lt.currentOptions.getValue('customBoardImage');
-        let backgroundImage = boardImage && !is3d
-          ? boardImage
-          : $('link[rel=preload][as=image]',container)
-            .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
-            .eq(is3d?1:0)
-            .attr('href');
+        let backgroundImage;
+        if (boardImage && !is3d) {
+          backgroundImage = boardImage;
+        } else {
+          const preloadedImages = $('link[rel=preload][as=image]',container)
+                                    .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
+                                    .get();
+          const boardUrls = [];
+          for (const image of preloadedImages) {
+            const url = $(image).attr('href');
+            const size = await this.getImageSizeFromUrl(url);
+            if (size?.width>100) boardUrls.push(url);
+          }
+          backgroundImage = is3d ? boardUrls.at(-1) : boardUrls.at(0);
+        }
 
         if (backgroundImage) {
           backgroundImage = 'url('+backgroundImage+')';
