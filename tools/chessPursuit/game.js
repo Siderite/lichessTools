@@ -392,6 +392,7 @@ constructor() {
   this.CELL_SIZE = this.SIZE / this.NUM_CELLS;
   this.NUM_CELLS_DISPLAYED = this.NUM_CELLS * 2 + 3;
   this.DIALOG_MARGIN = 6;
+  this.CHECK_POINT_HEIGHT = 5;
 
   this.BG_COLOR = "#193441";
   this.CELL_COLOR_1 = "#D1DBBD";
@@ -417,11 +418,6 @@ constructor() {
 load(gameContainer) {
 
   this.root = gameContainer;
-
-  let win = window;
-  let document = win.document;
-  let Math = win.Math;
-  this.PI = Math.PI;
 
   //------------------------------------------------------------------------------------------------------------------
   // game logic
@@ -529,7 +525,7 @@ initSkyCanvas() {
   ctx.fillStyle = "#FFE7CA";
   const sunRadius = this.SIZE / 4;
   ctx.beginPath();
-  ctx.arc(this.SIZE / 2, this.HORIZON_Y + 0.3 * sunRadius, sunRadius, 0, this.PI, true);
+  ctx.arc(this.SIZE / 2, this.HORIZON_Y + 0.3 * sunRadius, sunRadius, 0, Math.PI, true);
   ctx.fill();
   ctx.restore();
   //Draw Mountains
@@ -1067,14 +1063,13 @@ initCheckBoard(startCheckPointIndex) {
   }
   this.checkBoard = [];
   this.checkPoints = [0];
-  const CHECK_POINT_HEIGHT = 5;
   let currentRowIndex = 0;
 
   // Local helper functions
   const checkPoint = () => {
-    const center = Math.ceil(CHECK_POINT_HEIGHT / 2);
+    const center = Math.ceil(this.CHECK_POINT_HEIGHT / 2);
     this.checkPoints.push(currentRowIndex + center);
-    for (let i = 0; i < CHECK_POINT_HEIGHT; i++) {
+    for (let i = 0; i < this.CHECK_POINT_HEIGHT; i++) {
       this.checkBoard[currentRowIndex] = [];
       if (i === center) {
         for (let j = 0; j < this.NUM_CELLS; j++) {
@@ -1484,10 +1479,10 @@ updateIntro() {
     this.skipIntroTweens();
     if (whiteKing) {
       whiteKing.talking = false;
-      whiteKing.talkingStarTime = now;
+      whiteKing.talkingStartTime = now;
     }
     blackKing.talking = false;
-    blackKing.talkingStarTime = now;
+    blackKing.talkingStartTime = now;
   }
 
   if (this.introStep === -1) {
@@ -1621,7 +1616,7 @@ updateIntro() {
       this.hideDialog();
       this.pressSpaceText.style.display = "none";
     }
-    this.introProgress = (now - this.introStartTime) / (4 * 1000);
+    this.introProgress = (now - this.introStartTime) * this.MS_TO_S / 4;
     if (this.introProgress > 1) {
       this.introStep = 9;
     } else {
@@ -2344,7 +2339,7 @@ render() {
           if (piece.talking) {
             const bounce =
               -Math.abs(
-                Math.sin(((now - piece.talkingStarTime) * this.PI) / 800)
+                Math.sin(((now - piece.talkingStartTime) * Math.PI) / 800)
               ) *
               this.CELL_SIZE *
               0.2;
@@ -2383,13 +2378,13 @@ render() {
       }
       this.player.invalid = false;
     } else {
-      playerAnimProgress = Math.sin(playerAnimProgress * this.PI * 0.5); // Ease out
+      playerAnimProgress = Math.sin(playerAnimProgress * Math.PI * 0.5); // Ease out
       if (this.player.invalid) {
         const shakeAmplitude =
           0.4 *
           (playerAnimProgress < 0.5 ? playerAnimProgress : 1 - playerAnimProgress) *
           this.CELL_SIZE;
-        const shake = Math.sin(6 * playerAnimProgress * this.PI) * shakeAmplitude;
+        const shake = Math.sin(6 * playerAnimProgress * Math.PI) * shakeAmplitude;
         this.player.x += shake;
         this.updatePieceStyle(this.player);
         // Highlight threatening piece
@@ -2420,7 +2415,7 @@ render() {
   // Update removed pieces
   for (let i = 0, len = this.removedPieces.length; i < len; i++) {
     const removedPiece = this.removedPieces[i];
-    const removedPieceProgress = (now - removedPiece.removedTime) / 1000;
+    const removedPieceProgress = (now - removedPiece.removedTime) * this.MS_TO_S;
     if (removedPieceProgress > 1) {
       this.removeSvgShape(removedPiece);
       this.removedPieces[i] = this.removedPieces[--len];
@@ -2439,7 +2434,7 @@ render() {
       }
       removedPiece.y =
         removedPiece.removedY -
-        Math.sin(removedPieceProgress * this.PI) * this.SIZE * 0.4;
+        Math.sin(removedPieceProgress * Math.PI) * this.SIZE * 0.4;
       this.updatePieceStyle(removedPiece);
     }
   }
