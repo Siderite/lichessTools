@@ -468,12 +468,13 @@ load(gameContainer) {
   this.tic();
 }
 
-loadAudio() {
+loadAudio() { // http://sfxr.me/
   this.audio = new ArcadeAudio();
   this.audio.add('check', 1, [[2,, 0.1747,, 0.1291, 0.6731, 0.2, -0.2999,,,,,, 0.4368, 0.1862,, 0.28,, 1,,, 0.1596,, 0.5]]);
   this.audio.add('move', 5, [[3,, 0.0316,, 0.1483, 0.5871,, -0.6609,,,,,,,,,,, 1,,, 0.0227,, 0.25]]);
   this.audio.add('capture', 5, [[0,, 0.3065,, 0.2516, 0.36,, 0.1584,,,,,, 0.1149,,,,, 1,,, 0.2188,, 0.25]]);
   this.audio.add('checkmate', 1, [[1,, 0.2402,, 0.3917, 0.2242,, 0.1535,,,,,,,, 0.5609,,, 1,,,,, 0.5]]);
+  this.audio.add('win', 1, [[3, -0.895, 0.437, 0.012, 1.019, 1.207, 0, -0.861, 0.083, -0.005, -0.687, -0.541, 0.477, 0.876, -0.24, 0.709, -0.071, 0.414, 0.9, -0.135, 0.514, 0.148, -0.388, 0.25]]);
 }
 
 createCanvases() {
@@ -2135,6 +2136,7 @@ setGameIsOver(val, win) {
     this.raf = false;
     this.gameIsOver = true;
     this.winScreen.style.display = "block";
+    this.audio.play('win');
   } else {
     if (val != this.gameIsOver) {
       this.gameIsOver = val;
