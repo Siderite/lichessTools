@@ -232,6 +232,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist.topics {
   min-width: 45em;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist td.subject {
+  min-width: 20em;
+}
+
 /*body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist th.right,*/
 body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist td.right {
   display: table-cell;
