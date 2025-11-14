@@ -19,7 +19,7 @@ body.lichessTools #dasher_app .selector button.lichessTools-extraThemes {
 
 body.lichessTools .dasher.shown #dasher_app:has(.lichessTools-volumeBar:not(.silent)) {
   display: flex;
-  width: 250px;
+  width: 260px;
 }
 
 body.lichessTools #dasher_app:has(.lichessTools-volumeBar) .sound input[type=range] {
