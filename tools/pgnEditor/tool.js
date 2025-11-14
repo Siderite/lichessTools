@@ -1886,14 +1886,6 @@ https://www.chessable.com/course/${courseId}/ } *`)
               tagOperator = m.groups.operator;
               tagName = m.groups.tag;
               tagValue = m.groups.value;
-            } else {
-              reg = new RegExp(Array.from(search.replaceAll(/\s+/g,'')).map(c => {
-                switch (c) {
-                  case '*': return '.*';
-                  case '?': return '.';
-                  default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
-                }
-              }).join(''));
             }
           }
         }
@@ -1993,6 +1985,15 @@ https://www.chessable.com/course/${courseId}/ } *`)
         return found;
       };
 
+      const normalizeString = (text)=>{
+        if (!text) return '';
+        return text
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/\s+/g, '');
+      };
+
       let gameIndex = 0;
       const foundGames = [];
       for (const game of games) {
@@ -2011,21 +2012,33 @@ https://www.chessable.com/course/${courseId}/ } *`)
               }
               break;
             case 'fenOrMoves':
-              let pgn = makePgn(game).replaceAll(/\s+/g,'');
-              if (reg.test(pgn)) {
+              const reg = new RegExp(Array.from(search.replaceAll(/\s+/g,'')).map(c => {
+                switch (c) {
+                  case '*': return '.*';
+                  case '?': return '.';
+                  default: return normalizeString(c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&'));
+                }
+              }).join(''));
+
+              let pgn = makePgn(game);
+              let normalizedPgn = normalizeString(pgn);
+              if (reg.test(normalizedPgn)) {
                 found = true;
                 break;
               }
+
               const game2 = parsePgn(pgn)[0];
               this.cutCommentsFromGame(game2);
               this.cutAnnotationsFromGame(game2);
-              pgn = makePgn(game2).replaceAll(/\s+/g,'');
-              if (reg.test(pgn)) {
+
+              pgn = makePgn(game2);
+              normalizedPgn = normalizeString(pgn);
+              if (reg.test(normalizedPgn)) {
                 found = true;
                 break;
               }
-              pgn = pgn.replaceAll(/\d+\./g, '');
-              if (reg.test(pgn)) {
+              normalizedPgn = normalizedPgn.replaceAll(/\d+\./g, '');
+              if (reg.test(normalizedPgn)) {
                 found = true;
                 break;
               }
