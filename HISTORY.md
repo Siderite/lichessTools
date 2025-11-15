@@ -1,5 +1,13 @@
 History of features added to LiChess Tools in time (reversed order)
 
+15 Nov
+
+- video links open in a window on Firefox, but not alwaysOnTop
+- CrownVictoria sounds and pieces have vanished, as well as his user
+- APIs semaphore
+- more Chess Pursuit refactoring
+- PGN Editor ignores accents in Search
+
 14 Nov
 
 - Chess Pursuit sound theme
