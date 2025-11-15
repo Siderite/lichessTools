@@ -22,6 +22,16 @@ const getObs = async (options) => {
   return obs;
 }
 
+const getCenteredPosition = async (width, height) => {
+  return new Promise((resolve) => {
+    chrome.windows.getCurrent({ populate: false }, (win) => {
+      const left = Math.round((win.width - width) / 2) + win.left;
+      const top = Math.round((win.height - height) / 2) + win.top;
+      resolve({ left, top });
+    });
+  });
+};
+
 const hostingService = 'imgbb';
 
 const handlers = {
@@ -198,6 +208,25 @@ const handlers = {
       statusText: response.statusText,
       headers
     };
+  },
+  openWindow: async (data) => {
+    const url = data?.options?.url;
+    if (!url) return { ok: false };
+    const width = 800;
+    const height = 600;
+
+    const { left, top } = await getCenteredPosition(width, height);
+
+    const win = chrome.windows.create({
+      url: url,
+      type: 'popup',
+      width,
+      height,
+      left,
+      top,
+      focused: true
+    });
+    return { ok: true };
   }
 };
 

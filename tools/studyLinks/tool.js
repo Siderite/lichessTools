@@ -81,11 +81,13 @@
       });
     };
 
-    getVideoUrl = (e) => {
+    getVideoUrl = (e,forWindow) => {
       const lt = this.lichessTools;
       let data = this.getYoutubeId(e);
       if (data) {
-        return `https://www.youtube.com/embed/${data.id}?state=1&autoplay=1&autohide=0&showinfo=0&rel=0&start=${data.time}&end=${data.end}`;
+        return forWindow
+          ? `https://www.youtube.com/video/${data.id}?state=1&autoplay=1&autohide=0&showinfo=0&rel=0&t=${data.time}&e=${data.end}`
+          : `https://www.youtube.com/embed/${data.id}?state=1&autoplay=1&autohide=0&showinfo=0&rel=0&start=${data.time}&end=${data.end}`;
       }
       data = this.getVimeoId(e);
       if (data) {
@@ -108,17 +110,20 @@
     }
 
     handleVideoClick = async (ev) => {
+      if (ev.shiftKey || ev.ctrlKey) return;
       const lt = this.lichessTools;
-      const supportsCredentialless = !!lt.global.HTMLIFrameElement?.prototype?.hasOwnProperty('credentialless');
-      if (!supportsCredentialless) {
-        console.warn('This browser does not support credentialless iframes. Video popups cannot work!');
-        return;
-      }
       const $ = lt.$;
-      const url = this.getVideoUrl(ev.target);
+      let url = this.getVideoUrl(ev.target);
       if (url) {
         ev.preventDefault();
         $('.lichessTools-video').remove();
+        const supportsCredentialless = !!lt.global.HTMLIFrameElement?.prototype?.hasOwnProperty('credentialless');
+        if (!supportsCredentialless) {
+          console.warn('This browser does not support credentialless iframes. Opening in new window.');
+          url = this.getVideoUrl(ev.target, true);
+          lt.comm.openWindow(url);
+          return;
+        }
         const dialog = await lt.dialog({
           header: '',
           noClickAway: true,
@@ -127,12 +132,15 @@
   width="100%"
   height="100%" 
   frameborder="0" 
-  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen=""
+  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-top-navigation-by-user-activation"
+  allow="autoplay; fullscreen; picture-in-picture"
+  allowfullscreen
+  loading="lazy"
   src="${url}"
   credentialless=""
 />`
         });
+$(dialog).find('iframe').each((i,e)=>console.log(e.sandbox));
         $(dialog)
           .addClass('lichessTools-video')
           .on('close', (ev) => $(ev.target).remove());
