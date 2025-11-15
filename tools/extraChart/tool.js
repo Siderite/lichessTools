@@ -1583,12 +1583,12 @@
 
       const middleGameText = lt.global.i18n?.site?.middlegame || 'Middlegame';
       let existingMiddleGame = chart.data.datasets.findIndex(s => s.label === middleGameText);
-      if (existingMiddleGame >= 0 && !this.options.accuracyPlus) {
+      if (existingMiddleGame >= 0 && !this.options.local) {
         chart.data.datasets.splice(existingMiddleGame, 1);
         existingMiddleGame = -1;
         updateChart = true;
       }
-      if (this.options.accuracyPlus) {
+      if (this.options.local) {
         if (existingMiddleGame < 0) {
           const x = this.getGamePhases(lichess.analysis.mainline).middleGame;
           if (x) {
@@ -1635,12 +1635,12 @@
 
       const endGameText = lt.global.i18n?.site?.endgame || 'Endgame';
       let existingEndGame = chart.data.datasets.findIndex(s => s.label === endGameText);
-      if (existingEndGame >= 0 && !this.options.accuracyPlus) {
+      if (existingEndGame >= 0 && !this.options.local) {
         chart.data.datasets.splice(existingEndGame, 1);
         existingEndGame = -1;
         updateChart = true;
       }
-      if (this.options.accuracyPlus) {
+      if (this.options.local) {
         if (existingEndGame < 0) {
           const x = this.getGamePhases(lichess.analysis.mainline).endGame;
           if (x) {
