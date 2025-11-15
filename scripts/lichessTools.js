@@ -1982,6 +1982,7 @@
         const sessionData = lt.storage.get('LichessTools.GeneralCache', { session: true }) || [];
         const localData = lt.storage.get('LichessTools.GeneralCache', { session: false }) || [];
         this._cache = new Map(sessionData.concat(localData));
+        this._semaphore = new APISemaphore(lt);
       },
       save: function() {
         const lt = this.lichessTools;
@@ -2088,8 +2089,11 @@
         if (!options) throw new Error('No options provided to memoizeAsyncFunction');
         const cache = this;
         const lt = cache.lichessTools;
+
         const original = obj[funcName];
+        if (!original) throw new Error('Could not find function '+funcName);
         obj[funcName] = async function (...args) {
+          const funcKey = 'sema_'+ (options.keyPrefix||'') + funcName;
           const key = options.keyFunction
             ? options.keyFunction(obj, funcName, args)
             : (options.keyPrefix||'') + funcName + JSON.stringify(args);
@@ -2104,7 +2108,9 @@
           lt.$('body').toggleClassSafe('lichessTools-apiLoading',true);
           try {
             cache.lock(key);
-            const immediateResult = original.apply(obj, args);
+            const immediateResult = options.minTime
+              ? cache._semaphore.execute(()=>original.apply(obj, args),funcKey,options.minTime)
+              : original.apply(obj, args);
             if (!options.knownSyncFunction) {
               if (!immediateResult?.then) throw new Error('Memoize only works on async functions or known sync functions!');
             }
@@ -2123,13 +2129,15 @@
       lichessTools: this,
       init: function () {
         const lt = this.lichessTools;
-        lt.cache.memoizeAsyncFunction(lt.api.team, 'getUserTeams', { persist: 'session', interval: 10 * 86400 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.game, 'getUserPgns', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.team, 'getUserTeams', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
+        lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_' });
-        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserPgns', { persist: 'session', interval: 10 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000, minTime: 1 });
+        lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_', minTime: 1 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserStatus', { persist: 'session', interval: 5 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.study, 'getChapterPgn', { persist: 'session', interval: 1000, minTime: 1000 });
         lt.api.puzzle.getPuzzlesOfPlayerPageMemoized = async (...args)=>{
           const result = await lt.api.puzzle.getPuzzlesOfPlayerPage(...args);
           await lt.timeout(500);
@@ -2992,6 +3000,46 @@
       versionCheckRequest.onerror = (event) => {
         globalThis.console.error("Database version check failed:", event.target.errorCode);
       };
+    }
+  }
+
+  class APISemaphore {
+
+    constructor(lichessTools) {
+      this.lichessTools = lichessTools;
+    }
+
+    get(key) {
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+
+      try {
+        const { expiresAt } = JSON.parse(raw);
+        const remainingTime = expiresAt - Date.now();
+        return remainingTime > 0 ? { expiresAt, remainingTime } : null;
+      } catch {
+        return null;
+      }
+    }
+
+    createLock(key, ms) {
+      const lock = { expiresAt: Date.now() + ms };
+      localStorage.setItem(key, JSON.stringify(lock));
+    }
+
+    async execute(fn, key, ms) {
+      const lt = this.lichessTools;
+      let lock = this.get(key);
+
+      while (lock?.remainingTime > 0) {
+        await lt.timeout(lock.remainingTime);
+        lock = this.get(key);
+      }
+
+      this.createLock(key, ms);
+
+      return await fn();
+      this.createLock(key, ms);
     }
   }
 
