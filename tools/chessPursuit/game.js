@@ -1,4 +1,162 @@
 (function (hook) {
+  class InputManager {
+    KEY_LATENCY = 6;
+    KEY_DONE = -1;
+
+    /** Map of key codes -> logical key names */
+    keyMap = {
+      37: "left", // left arrow
+      65: "left", // a
+      81: "left", // q
+      38: "up", // up arrow
+      90: "up", // z
+      87: "up", // w
+      83: "down", // s
+      40: "down", // down arrow
+      39: "right", // right arrow
+      68: "right", // d
+      32: "space", // space
+      27: "esc",
+      13: "enter",
+      77: "mute", // m
+    };
+
+    /** Tracks whether a key is currently held down */
+    keyBoolMap = {};
+
+    /** Tracks press state: >0 = down, 0 = released */
+    keys = {};
+
+    /** Mouse / touch state */
+    mouse = { click: false, x: 0, y: 0 };
+
+    handlers = [];
+
+    processInput() {
+      let dx = 0;
+      let dy = 0;
+      if (!this.keysBlockedUntilAllUp) {
+        //read keys that were just released or that were pressed just a few frames ago
+        //this leaves some time for a combination (ie: up+right)
+        if (this.keys.down == this.KEY_LATENCY || this.keys.down === 0) {
+          dy = -1;
+        }
+        if (this.keys.up == this.KEY_LATENCY || this.keys.up === 0) {
+          dy = 1;
+        }
+        if (this.keys.left == this.KEY_LATENCY || this.keys.left === 0) {
+          dx = -1;
+        }
+        if (this.keys.right == this.KEY_LATENCY || this.keys.right === 0) {
+          dx = 1;
+        }
+        if (dx || dy) {
+          //look for a combo: another key that was pressed during the latency
+          if (!dx) {
+            if (this.keys.left <= this.KEY_LATENCY && this.keys.left > 0) {
+              dx = -1;
+            }
+            if (this.keys.right <= this.KEY_LATENCY && this.keys.right > 0) {
+              dx = 1;
+            }
+          } else {
+            if (this.keys.up <= this.KEY_LATENCY && this.keys.up > 0) {
+              dy = 1;
+            }
+            if (this.keys.down <= this.KEY_LATENCY && this.keys.down > 0) {
+              dy = -1;
+            }
+          }
+          this.emit({type:'move',dx,dy});
+          this.keysBlockedUntilAllUp = true;
+        }
+      }
+      let keyName;
+      if (this.keysBlockedUntilAllUp) {
+        let allUp = true;
+        for (keyName in this.keyBoolMap) {
+          if (this.keyBoolMap[keyName]) {
+            allUp = false;
+            break;
+          }
+        }
+        this.keysBlockedUntilAllUp = !allUp;
+      }
+
+      //update key pressed counters
+      for (keyName in this.keys) {
+        if (this.keys[keyName] >= 1) {
+          this.keys[keyName]++;
+        } else if (this.keys[keyName] > this.KEY_DONE) {
+          this.keys[keyName]--;
+        }
+      }
+
+      this.emit({type:'mouse',...this.mouse});
+    }
+
+    /** Core key handler â€“ called from keydown/keyup */
+    onkey(isDown, e) {
+      const c = e.keyCode || e.charCode;
+      const keyName = this.keyMap[c];
+      if (!keyName) return;
+
+      e.preventDefault();
+
+      // Only react to state changes
+      if (this.keyBoolMap[keyName] !== isDown) {
+        this.keyBoolMap[keyName] = isDown;
+        if (!this.keys[keyName]) this.keys[keyName] = -1;
+
+        if (isDown) {
+          if (this.keys[keyName] < 1) this.keys[keyName] = 1;
+        } else {
+          if (this.keys[keyName] > 0) this.keys[keyName] = 0;
+        }
+      }
+      this.emit({type:'key',isDown});
+    }
+
+    /** Pointer down/up/cancel ? click handling */
+    onmouse(isClick, e) {
+      e.preventDefault();
+      this.mouse.click = isClick;
+      this.onmousemove(e);
+      if (!isClick) {
+        this.root?.releasePointerCapture?.(e.pointerId);
+      }
+    }
+
+    /** Update mouse position (scaled to game coordinates) */
+    onmousemove(e) {
+      this.mouse.x = e.clientX;
+      this.mouse.y = e.clientY;
+    }
+
+    /** Attach all input listeners â€“ call from load() */
+    setup(root) {
+      this.root = root;
+
+      // ---- Keyboard ----
+      root.addEventListener("keydown", (e) => this.onkey(true, e));
+      root.addEventListener("keyup", (e) => this.onkey(false, e));
+
+      // ---- Pointer (mouse / touch) ----
+      root.addEventListener("pointerdown", (e) => this.onmouse(true, e));
+      root.addEventListener("pointerup", (e) => this.onmouse(false, e));
+      root.addEventListener("pointercancel", (e) => this.onmouse(false, e));
+      root.addEventListener("pointermove", (e) => this.onmousemove(e));
+    }
+
+    emit(event){
+      for (const handler of this.handlers) handler(event);
+    }
+
+    onEmit(handler) {
+      this.handlers.push(handler);
+    }
+  }
+
   class SoundParams {
     constructor(settings) {
       for (let i = 0; i < 24; i++) {
@@ -420,10 +578,6 @@
       this.THRESHOLD_DOWN = -0.02;
       this.THRESHOLD_UP = 0.02;
 
-      this.KEY_LATENCY = 6;
-      this.KEY_DONE = -1;
-      this.mouse = {};
-
       this.svgCache = {};
     }
 
@@ -474,10 +628,110 @@
       //------------------------------------------------------------------------------------------------------------------
       // initialization
       //------------------------------------------------------------------------------------------------------------------
-      this.setupInput();
+      this.input = new InputManager();
+      this.input.setup(this.root);
+      this.input.onEmit(this.handleInput.bind(this));
+
+      this.setupVisibilityChange();
+
       this.initCheckBoard(0);
       this.tic();
     }
+
+    setupVisibilityChange() {
+      // ---- Visibility change (pause when tab is hidden) ----
+      document.addEventListener("visibilitychange", () => {
+        const isActive = !document.hidden;
+        if (isActive && !this.isDocumentActive) {
+          this.lastTime = Date.now();
+          this.tic();
+        }
+        this.isDocumentActive = isActive;
+      });
+    }
+
+    handleInput(ev) {
+      switch(ev.type) {
+        case 'move':
+          if (!this.gameIsOver && !this.intro && this.topRowDisplayed > 0 && !this.player.invalid) {
+            this.movePlayer(this.player.row + ev.dy, this.player.col + ev.dx);
+          }
+          break;
+        case 'mouse':
+          if (this.input.mouse.click) {
+            if (this.gameIsOver) {
+              this.setGameIsOver(false);
+            } else
+            if (this.intro && this.introStep >= 0) {
+              this.nextIntroStep();
+            }
+          }
+          if (!this.gameIsOver && !this.intro && this.topRowDisplayed > 0 && !this.player.invalid) {
+            const rect = this.root.getBoundingClientRect();
+            const scaleX = this.SIZE / rect.width;
+            const scaleY = (1.25 * this.SIZE) / rect.height;
+
+            const mx = (ev.x - rect.left) * scaleX;
+            const my = (ev.y - rect.top) * scaleY;
+            if (
+              !this.player.anim &&
+              mx > 0 &&
+              mx < this.SIZE &&
+              my > this.HORIZON_Y &&
+              my < this.SIZE + this.HORIZON_Y
+            ) {
+              const mouseX = mx / this.SIZE;
+              const mouseY = (my - this.HORIZON_Y) / this.SIZE;
+              const revPos = this.projection.reverseProject(mouseX, mouseY);
+              this.mouseCol = Math.floor(revPos.x * this.NUM_CELLS);
+              this.mouseRow = Math.floor(revPos.y * this.NUM_CELLS + this.progress);
+              let dx = this.mouseCol - this.player.col;
+              let dy = this.mouseRow - this.player.row;
+              this.mouseRow = this.player.row + dy;
+              this.mouseCol = this.player.col + dx;
+              if (ev.click && (dx || dy)) {
+                dx = Math.max(-1, Math.min(1, dx));
+                dy = Math.max(-1, Math.min(1, dy));
+                this.mouseRow = this.player.row + dy;
+                this.mouseCol = this.player.col + dx;
+
+                this.movePlayer(this.mouseRow, this.mouseCol);
+              }
+            } else {
+              this.mouseCol = -1;
+              this.mouseRow = -1;
+            }
+          }
+          this.input.mouse.click = false;
+          break;
+        case 'key':
+          if (this.input.keys.space === 0) {
+            this.input.keys.space = -1;
+            if (this.gameIsOver) {
+              this.setGameIsOver(false);
+            } else
+            if (this.intro && this.introStep >= 0) {
+              this.nextIntroStep();
+            }
+          }
+          // Mute toggle on 'm' (only on key-up)
+          if (!ev.isDown && this.input.keyBoolMap.mute) {
+            this.audio.toggleMute();
+          }
+
+          // Special: Enter toggles pause (only when not in intro/game-over)
+          if (!this.intro && this.input.keyBoolMap.enter && !this.gameIsOver) {
+            this.raf = !this.raf;
+            this.pauseText.style.display = this.raf ? "none" : "block";
+            if (this.raf) {
+              this.lastTime = Date.now();
+              this.tic();
+            }
+          }
+
+          break;
+      }
+    };
 
     loadAudio() {
       // http://sfxr.me/
@@ -2130,27 +2384,15 @@
     }
 
     tic() {
-      if (this.gameIsOver) {
-        if (this.keys.space === 0 || this.mouse.click) {
-          this.setGameIsOver(false);
-          this.keys.space = -1;
-        }
-      } else {
-        if (!this.intro) {
-          this.processInput();
-          this.update();
-        } else {
-          if (this.introStep >= 0) {
-            if (this.keys.space === 0 || this.mouse.click) {
-              this.keys.space = -1;
-              this.nextIntroStep();
-            }
-          }
+      this.input.processInput();
+      if (!this.gameIsOver) {
+        if (this.intro) {
           this.updateIntro();
+        } else {
+          this.update();
         }
         this.render();
       }
-      this.mouse.click = false;
       if (this.raf && this.isDocumentActive) {
         requestAnimationFrame(() => this.tic());
       }
@@ -2172,104 +2414,6 @@
             this.restart();
           }
         }
-      }
-    }
-
-    processInput() {
-      if (this.topRowDisplayed <= 0) {
-        return;
-      }
-      if (this.player.invalid || this.intro) {
-        //can't during animation
-        return;
-      }
-      let dx = 0;
-      let dy = 0;
-      if (!this.keysBlockedUntilAllUp) {
-        //read keys that were just released or that were pressed just a few frames ago
-        //this leaves some time for a combination (ie: up+right)
-        if (this.keys.down == this.KEY_LATENCY || this.keys.down === 0) {
-          dy = -1;
-        }
-        if (this.keys.up == this.KEY_LATENCY || this.keys.up === 0) {
-          dy = 1;
-        }
-        if (this.keys.left == this.KEY_LATENCY || this.keys.left === 0) {
-          dx = -1;
-        }
-        if (this.keys.right == this.KEY_LATENCY || this.keys.right === 0) {
-          dx = 1;
-        }
-        if (dx || dy) {
-          //look for a combo: another key that was pressed during the latency
-          if (!dx) {
-            if (this.keys.left <= this.KEY_LATENCY && this.keys.left > 0) {
-              dx = -1;
-            }
-            if (this.keys.right <= this.KEY_LATENCY && this.keys.right > 0) {
-              dx = 1;
-            }
-          } else {
-            if (this.keys.up <= this.KEY_LATENCY && this.keys.up > 0) {
-              dy = 1;
-            }
-            if (this.keys.down <= this.KEY_LATENCY && this.keys.down > 0) {
-              dy = -1;
-            }
-          }
-          this.movePlayer(this.player.row + dy, this.player.col + dx);
-          this.keysBlockedUntilAllUp = true;
-        }
-      }
-      let keyName;
-      if (this.keysBlockedUntilAllUp) {
-        let allUp = true;
-        for (keyName in this.keyBoolMap) {
-          if (this.keyBoolMap[keyName]) {
-            allUp = false;
-            break;
-          }
-        }
-        this.keysBlockedUntilAllUp = !allUp;
-      }
-
-      //update key pressed counters
-      for (keyName in this.keys) {
-        if (this.keys[keyName] >= 1) {
-          this.keys[keyName]++;
-        } else if (this.keys[keyName] > this.KEY_DONE) {
-          this.keys[keyName]--;
-        }
-      }
-
-      // no keyboard input => check mouse
-      if (
-        !this.player.anim &&
-        this.mouse.x > 0 &&
-        this.mouse.x < this.SIZE &&
-        this.mouse.y > this.HORIZON_Y &&
-        this.mouse.y < this.SIZE + this.HORIZON_Y
-      ) {
-        const mouseX = this.mouse.x / this.SIZE;
-        const mouseY = (this.mouse.y - this.HORIZON_Y) / this.SIZE;
-        const revPos = this.projection.reverseProject(mouseX, mouseY);
-        this.mouseCol = Math.floor(revPos.x * this.NUM_CELLS);
-        this.mouseRow = Math.floor(revPos.y * this.NUM_CELLS + this.progress);
-        dx = this.mouseCol - this.player.col;
-        dy = this.mouseRow - this.player.row;
-        this.mouseRow = this.player.row + dy;
-        this.mouseCol = this.player.col + dx;
-        if (this.mouse.click && (dx || dy)) {
-          dx = Math.max(-1, Math.min(1, dx));
-          dy = Math.max(-1, Math.min(1, dy));
-          this.mouseRow = this.player.row + dy;
-          this.mouseCol = this.player.col + dx;
-
-          this.movePlayer(this.mouseRow, this.mouseCol);
-        }
-      } else {
-        this.mouseCol = -1;
-        this.mouseRow = -1;
       }
     }
 
@@ -3006,120 +3150,6 @@
       if (stroke !== undefined) attrs.stroke = stroke;
       if (strokeWidth !== undefined) attrs["stroke-width"] = strokeWidth;
       return this.svgAttrs(svgElem, attrs);
-    }
-
-    // ---------------------------------------------------------------------
-    // INPUT HANDLING
-    // ---------------------------------------------------------------------
-
-    /** Map of key codes ? logical key names */
-    keyMap = {
-      37: "left", // left arrow
-      65: "left", // a
-      81: "left", // q
-      38: "up", // up arrow
-      90: "up", // z
-      87: "up", // w
-      83: "down", // s
-      40: "down", // down arrow
-      39: "right", // right arrow
-      68: "right", // d
-      32: "space", // space
-      27: "esc",
-      13: "enter",
-      77: "mute", // m
-    };
-
-    /** Tracks whether a key is currently held down */
-    keyBoolMap = {};
-
-    /** Tracks press state: >0 = down, 0 = released */
-    keys = {};
-
-    /** Mouse / touch state */
-    mouse = { click: false, x: 0, y: 0 };
-
-    /** Core key handler â€“ called from keydown/keyup */
-    onkey(isDown, e) {
-      const c = e.keyCode || e.charCode;
-      const keyName = this.keyMap[c];
-      if (!keyName) return;
-
-      e.preventDefault();
-
-      // Mute toggle on 'm' (only on key-up)
-      if (!isDown && keyName === "mute") {
-        this.audio.toggleMute();
-      }
-
-      // Only react to state changes
-      if (this.keyBoolMap[keyName] !== isDown) {
-        this.keyBoolMap[keyName] = isDown;
-        if (!this.keys[keyName]) this.keys[keyName] = -1;
-
-        if (isDown) {
-          if (this.keys[keyName] < 1) this.keys[keyName] = 1;
-        } else {
-          if (this.keys[keyName] > 0) this.keys[keyName] = 0;
-        }
-      }
-    }
-
-    /** Pointer down/up/cancel ? click handling */
-    onmouse(isClick, e) {
-      e.preventDefault();
-      this.mouse.click = isClick;
-      this.onmousemove(e);
-      if (!isClick) {
-        this.root?.releasePointerCapture?.(e.pointerId);
-      }
-    }
-
-    /** Update mouse position (scaled to game coordinates) */
-    onmousemove(e) {
-      const rect = this.root.getBoundingClientRect();
-      const scaleX = this.SIZE / rect.width;
-      const scaleY = (1.25 * this.SIZE) / rect.height;
-
-      this.mouse.x = (e.clientX - rect.left) * scaleX;
-      this.mouse.y = (e.clientY - rect.top) * scaleY;
-    }
-
-    /** Attach all input listeners â€“ call from load() */
-    setupInput() {
-      const root = this.root;
-
-      // ---- Keyboard ----
-      root.addEventListener("keydown", (e) => this.onkey(true, e));
-      root.addEventListener("keyup", (e) => {
-        // Special: Enter toggles pause (only when not in intro/game-over)
-        if (!this.intro && this.keyBoolMap.enter && !this.gameIsOver) {
-          e.preventDefault();
-          this.raf = !this.raf;
-          this.pauseText.style.display = this.raf ? "none" : "block";
-          if (this.raf) {
-            this.lastTime = Date.now();
-            this.tic();
-          }
-        }
-        this.onkey(false, e);
-      });
-
-      // ---- Pointer (mouse / touch) ----
-      root.addEventListener("pointerdown", (e) => this.onmouse(true, e));
-      root.addEventListener("pointerup", (e) => this.onmouse(false, e));
-      root.addEventListener("pointercancel", (e) => this.onmouse(false, e));
-      root.addEventListener("pointermove", (e) => this.onmousemove(e));
-
-      // ---- Visibility change (pause when tab is hidden) ----
-      document.addEventListener("visibilitychange", () => {
-        const isActive = !document.hidden;
-        if (isActive && !this.isDocumentActive) {
-          this.lastTime = Date.now();
-          this.tic();
-        }
-        this.isDocumentActive = isActive;
-      });
     }
   }
 
