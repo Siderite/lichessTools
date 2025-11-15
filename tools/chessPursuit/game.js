@@ -1,4 +1,34 @@
 (function (hook) {
+  class Canvas {
+
+    constructor(id, width, height) {
+      this.canvas = document.createElement("canvas");
+      this.canvas.id = id;
+      this.canvas.width = width;
+      this.canvas.height = height;
+      this.ctx = this.canvas.getContext("2d");
+    }
+
+    appendTo(parent) {
+      parent.appendChild(this.canvas);
+    }
+
+    opacity(value) {
+      if (value === undefined) return this.canvas.style.opacity;
+      this.canvas.style.opacity = value;
+    }
+
+    top(value) {
+      if (value === undefined) return parseFloat(this.canvas.style.top);
+      this.canvas.style.top = value+'px';
+    }
+
+    pointerEvents(value) {
+      if (value === undefined) return this.canvas.style.pointerEvents != 'none';
+      this.canvas.style.pointerEvents = value ? undefined : 'none';
+    }
+  }
+
   class InputManager {
     KEY_LATENCY = 6;
     KEY_DONE = -1;
@@ -744,42 +774,21 @@
     }
 
     createCanvases() {
-      this.bgCanvas = this.makeCanvas(this.SIZE, this.SIZE, "bg");
-      this.bgCtx = this.getContext(this.bgCanvas);
-      this.shadowCanvas = this.makeCanvas(this.SIZE, this.SIZE, "shadow");
-      this.shadowCtx = this.getContext(this.shadowCanvas);
-      this.skyCanvas = this.makeCanvas(this.SIZE, 2 * this.SIZE, "sky");
-      this.skyCtx = this.getContext(this.skyCanvas);
-
       this.initCheckBoardCanvas();
       this.initSkyCanvas();
       this.initSvg();
       this.initShadowCanvas();
     }
 
-    makeCanvas(width, height, id) {
-      const canvas = document.createElement("canvas");
-      if (id) canvas.id = id;
-      canvas.width = width;
-      canvas.height = height;
-      return canvas;
-    }
-
-    getContext(canvas) {
-      return canvas.getContext("2d");
-    }
-
     initCheckBoardCanvas() {
-      this.root.appendChild(this.bgCanvas);
-      this.bgCanvas.width = this.SIZE;
-      this.bgCanvas.height = this.SIZE + this.HORIZON_Y;
+      this.bgCanvas = new Canvas('bg', this.SIZE, this.SIZE + this.HORIZON_Y);
+      this.bgCanvas.appendTo(this.root);
     }
 
     initSkyCanvas() {
+      this.skyCanvas = new Canvas('sky', this.SIZE, 0.2 * this.SIZE + this.HORIZON_Y);
       const shadowSize = this.SIZE * 0.02;
-      this.skyCanvas.width = this.SIZE;
-      this.skyCanvas.height = this.HORIZON_Y + shadowSize;
-      const ctx = this.skyCtx;
+      const ctx = this.skyCanvas.ctx;
       ctx.clearRect(0, 0, this.SIZE, this.SIZE);
       ctx.save();
       //Draw sky
@@ -833,7 +842,7 @@
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, this.SIZE, shadowSize);
       ctx.restore();
-      this.root.appendChild(this.skyCanvas);
+      this.skyCanvas.appendTo(this.root);
     }
 
     initSvg() {
@@ -1324,7 +1333,9 @@
     }
 
     initShadowCanvas() {
-      const ctx = this.shadowCtx;
+      this.shadowCanvas = new Canvas('shadow', this.SIZE, this.SIZE);
+
+      const ctx = this.shadowCanvas.ctx;
       //Top down shadow
       const grd = ctx.createLinearGradient(0, 0, 0, this.SIZE);
       const c = "rgba(10,20,25,";
@@ -1336,9 +1347,9 @@
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, this.SIZE, this.SIZE);
       ctx.restore();
-      this.shadowCanvas.style.top = this.HORIZON_Y + "px";
-      this.shadowCanvas.style.pointerEvents = "none";
-      this.root.appendChild(this.shadowCanvas);
+      this.shadowCanvas.top(this.HORIZON_Y)
+      this.shadowCanvas.pointerEvents(false);
+      this.shadowCanvas.appendTo(this.root)
     }
 
     initCheckBoard(startCheckPointIndex) {
@@ -1774,8 +1785,8 @@
       }
 
       if (this.introStep === -1) {
-        this.shadowCanvas.style.opacity = 0;
-        this.skyCanvas.style.opacity = 0;
+        this.shadowCanvas.opacity(0);
+        this.skyCanvas.opacity(0);
         this.perspectiveProgress = 0;
         this.update();
         this.lastTime = null;
@@ -1905,10 +1916,10 @@
           } else if (this.perspectiveProgress > 1) {
             this.perspectiveProgress = 1;
           }
-          this.shadowCanvas.style.opacity = this.perspectiveProgress;
+          this.shadowCanvas.opacity(this.perspectiveProgress);
           if (this.introProgress > 0.8) {
             this.introScreen.style.opacity = (1 - this.introProgress) / 0.2;
-            this.skyCanvas.style.opacity = 1 - this.introScreen.style.opacity;
+            this.skyCanvas.opacity(1 - this.introScreen.style.opacity);
           }
         }
       }
@@ -1942,8 +1953,8 @@
         this.intro = false;
         this.perspectiveProgress = 1;
         this.introScreen.style.display = "none";
-        this.shadowCanvas.style.opacity = 1;
-        this.skyCanvas.style.opacity = 1;
+        this.shadowCanvas.opacity(1);
+        this.skyCanvas.opacity(1);
         this.pressSpaceText.style.display = "none";
         this.hideDialog();
         this.player.talking = false;
@@ -2668,13 +2679,14 @@
 
       // CANVAS ------------------------------------------------------------------------------------------------------
 
-      this.bgCtx.save();
-      this.bgCtx.translate(0, this.HORIZON_Y);
-      this.bgCtx.fillStyle = this.BG_COLOR;
-      this.bgCtx.beginPath();
-      this.bgCtx.rect(0, 0, this.SIZE, this.SIZE);
-      this.bgCtx.fill();
-      this.bgCtx.clip();
+      const bgCtx = this.bgCanvas.ctx;
+      bgCtx.save();
+      bgCtx.translate(0, this.HORIZON_Y);
+      bgCtx.fillStyle = this.BG_COLOR;
+      bgCtx.beginPath();
+      bgCtx.rect(0, 0, this.SIZE, this.SIZE);
+      bgCtx.fill();
+      bgCtx.clip();
 
       const progressIndex = Math.floor(this.progress);
       const di = -(this.progress - progressIndex);
@@ -2705,13 +2717,13 @@
             this.perspectiveProgress
           );
 
-          this.bgCtx.beginPath();
-          this.bgCtx.moveTo(p1.x * this.SIZE, p1.y * this.SIZE);
-          this.bgCtx.lineTo(p2.x * this.SIZE, p2.y * this.SIZE);
-          this.bgCtx.lineTo(p3.x * this.SIZE, p3.y * this.SIZE);
-          this.bgCtx.lineTo(p4.x * this.SIZE, p4.y * this.SIZE);
-          this.bgCtx.closePath();
-          this.bgCtx.lineWidth = 1;
+          bgCtx.beginPath();
+          bgCtx.moveTo(p1.x * this.SIZE, p1.y * this.SIZE);
+          bgCtx.lineTo(p2.x * this.SIZE, p2.y * this.SIZE);
+          bgCtx.lineTo(p3.x * this.SIZE, p3.y * this.SIZE);
+          bgCtx.lineTo(p4.x * this.SIZE, p4.y * this.SIZE);
+          bgCtx.closePath();
+          bgCtx.lineWidth = 1;
 
           // Mouse over highlight
           if (
@@ -2722,28 +2734,28 @@
           ) {
             const dx = this.mouseCol - this.player.col;
             const dy = this.mouseRow - this.player.row;
-            this.bgCtx.fillStyle =
+            bgCtx.fillStyle =
               dx < -1 || dx > 1 || dy < -1 || dy > 1
                 ? this.ROLLOVER_COLOR_TOO_FAR
                 : this.ROLLOVER_COLOR;
           } else {
-            this.bgCtx.fillStyle =
+            bgCtx.fillStyle =
               (i + j + progressIndex) % 2 === 0
                 ? this.CELL_COLOR_1
                 : this.CELL_COLOR_2;
           }
-          this.bgCtx.fill();
+          bgCtx.fill();
 
           row = this.checkBoard[i + progressIndex];
           if (row?.[j]) {
             const cell = row[j];
             if (cell.showThreat) {
-              this.bgCtx.fillStyle = `rgba(${this.INVALID_CELL_COLOR_RGB},0.5)`;
-              this.bgCtx.fill();
+              bgCtx.fillStyle = `rgba(${this.INVALID_CELL_COLOR_RGB},0.5)`;
+              bgCtx.fill();
             }
             if (cell.checkPoint) {
-              this.bgCtx.fillStyle = this.CHECK_POINT_COLOR;
-              this.bgCtx.fill();
+              bgCtx.fillStyle = this.CHECK_POINT_COLOR;
+              bgCtx.fill();
             }
           }
 
@@ -2757,12 +2769,12 @@
               (playerAnimProgress < 0.5
                 ? playerAnimProgress
                 : 1 - playerAnimProgress);
-            this.bgCtx.fillStyle = `rgba(${this.INVALID_CELL_COLOR_RGB},${invalidOpacity})`;
-            this.bgCtx.fill();
+            bgCtx.fillStyle = `rgba(${this.INVALID_CELL_COLOR_RGB},${invalidOpacity})`;
+            bgCtx.fill();
           }
         }
       }
-      this.bgCtx.restore();
+      bgCtx.restore();
     }
 
     // ---------------------------------------------------------------------
