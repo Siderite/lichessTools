@@ -52,7 +52,7 @@
         .removeClass('lichessTools-quickActions');
     };
 
-    refreshTooltip = (ev)=>{
+    refreshTooltipDirect = (ev)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
@@ -162,6 +162,7 @@
         $('.practice',tooltip).remove();
       }
     }
+    refreshTooltip = this.lichessTools.debounce(this.refreshTooltipDirect, 100);
 
     enableTooltip = (ev)=>{
       ev.preventDefault();
