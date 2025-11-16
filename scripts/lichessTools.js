@@ -1201,7 +1201,7 @@
       const analysis = lt.lichess.analysis;
       if (!analysis) return;
 
-      if (lt._inAnalysisRedrawTimeout) {
+      if (lt._inAnalysisRedrawTimeout || lt._inApplyOptions) {
         lt.global.clearTimeout(lt._analysisRedrawTimeout);
         lt._inAnalysisRedrawTimeout = lt.global.setTimeout(()=>{
           lt.global.console.debug('Delayed analysis redraw');
@@ -2834,6 +2834,7 @@
       group('Applying LiChess Tools options...');
       const totStart = performance.getEntriesByName('LiChessTools.start')[0].startTime;
       const perfData = [];
+      this._inApplyOptions = true;
       for (const tool of this.tools) {
         if (!tool?.start) continue;
         try {
@@ -2853,6 +2854,7 @@
           setTimeout(() => { throw e; }, 100);
         }
       }
+      this._inApplyOptions = false;
       perfData.sort((a,b)=>a.startDuration-b.startDuration);
       if (!this.debug) this.arrayRemoveAll(perfData,p=>p.startDuration<100);
       if (perfData.length) {

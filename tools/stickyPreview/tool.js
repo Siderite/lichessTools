@@ -52,7 +52,7 @@
       if (this.previousOverride == 'play' && override != this.previousOverride) {
         lt.global.setTimeout(() => {
           study.setGamebookOverride('play');
-          study.redraw();
+          lt.analysisRedraw();
         }, 100);
       }
     };

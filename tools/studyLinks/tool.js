@@ -269,10 +269,10 @@ $(dialog).find('iframe').each((i,e)=>console.log(e.sandbox));
             .append($('<i>').attr('data-icon',lt.icon.BubbleSpeech))
             .on('click',()=>{
               study.vm.toolTab('comments');
-              study.redraw();
+              lt.analysisRedraw();
             })
             .insertAfter(anchorElem);
-          study.redraw();
+          lt.analysisRedraw();
         }
         lt.uiApi.events.on('analysis.change',this.countComments);
         this.countComments();

@@ -156,6 +156,14 @@
         if (backgroundImage) {
           backgroundImage = 'url('+backgroundImage+')';
         } else {
+          const body = $('body');
+          const className = body.attr('class');
+          const newClassName = className.split(/\s+/)
+            .filter(c => !c.startsWith('lichessTools-theme_'));
+
+          if (newClassName != className) {
+            body.attr('class',newClassName);
+          }
           const styles = lt.global.getComputedStyle(board[0], '::before');
           backgroundImage = styles.getPropertyValue('background-image');
         }
@@ -170,17 +178,17 @@
         this._inApplyThemes = true;
         const lt = this.lichessTools;
         const $ = lt.$;
-        const existingThemes = [...$('body').prop('classList')]
-          .filter(c => c.startsWith('lichessTools-theme_'));
-        const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
-        if (!boardChanged) {
-          $('body')
-            .removeClass(existingThemes.join(' '));
-        }
         await this.setBoardVariables(boardChanged);
-        if (!boardChanged) {
-          $('body')
-            .addClass(configuredThemes.join(' '));
+
+        const body = $('body');
+        const className = body.attr('class');
+        const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
+        const newClassName = className.split(/\s+/)
+          .filter(c => !c.startsWith('lichessTools-theme_'))
+          .concat(configuredThemes)
+          .join(' ');
+        if (newClassName != className) {
+          body.attr('class',newClassName);
         }
       } finally {
         this._inApplyThemes = false;
