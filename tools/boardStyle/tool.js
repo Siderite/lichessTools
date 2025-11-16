@@ -35,9 +35,9 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       $('cg-container').each((i,e)=>{
-        const container = $(e);
         const containerWidth = e.clientWidth;
         if (!containerWidth) return;
+        const container = $(e);
         const q = 800/containerWidth;
         container.toggleClassSafe('lichessTools-boardStyle',true);
 
