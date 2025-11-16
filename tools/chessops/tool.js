@@ -33,9 +33,9 @@
         return;
       }
       if (!lt.chessops) {
-        const url = await lt.comm.getChromeUrl('tools/chessops/index.js');
-        const chessops = await import(url);
-        lt.chessops = chessops;
+        lt.comm.getChromeUrl('tools/chessops/index.js').then(async (url)=>{
+          lt.chessops = await import(url);
+        });
       }
     }
 
