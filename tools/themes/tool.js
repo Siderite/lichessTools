@@ -121,16 +121,18 @@
       const board = $('body #main-wrap div.cg-wrap cg-board');
       const is3d = $('#main-wrap').is('.is3d');
       if (board.length) {
-        let container = $('html');
-        if (boardChanged) {
-          const html = await lt.net.fetch('/dgt');
-          container = $('<div>'+html+'</div>');
-        }
         const boardImage = lt.currentOptions.getValue('customBoardImage');
         let backgroundImage;
         if (boardImage && !is3d) {
           backgroundImage = boardImage;
         } else {
+          let container;
+          if (boardChanged) {
+            const html = await lt.net.fetch('/dgt');
+            container = $('<div>'+html+'</div>');
+          } else {
+            container = $('html');
+          }
           const preloadedImages = $('link[rel=preload][as=image]',container)
                                     .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
                                     .get();
