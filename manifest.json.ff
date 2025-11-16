@@ -187,9 +187,11 @@
         "tools/addToTeam/tool.js",
         "tools/preferences/tool.js",
 
+        "tools/fixMoveListLoad/tool.js",
         "scripts/lichessTools-init.js"
       ],
       "css": [
+        "tools/fixMoveListLoad/tool.css",
         "tools/themes/tool.css",
 
         "tools/themes/performance.css",

@@ -150,5 +150,6 @@ lichessTools.loadTool(LiChessTools.Tools.LocalDatabase);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleIndex);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);
+lichessTools.loadTool(LiChessTools.Tools.FixMoveListLoad);
 
 lichessTools.init();
