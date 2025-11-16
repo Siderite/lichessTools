@@ -2725,7 +2725,10 @@
       const arr2 = v2.split('.');
       const l = Math.max(arr1.length, arr2.length);
       for (let i=0; i<l; i++) {
-        if ((+arr1[i]||0)>(+arr2[i]||0)) return true;
+        const sv1 = +arr1[i]||0;
+        const sv2 = +arr2[i]||0;
+        if (sv1<sv2) return false;
+        if (sv1>sv2) return true;
       }
       return false;
     }
