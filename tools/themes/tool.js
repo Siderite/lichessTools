@@ -165,19 +165,25 @@
     }
 
     applyThemes = async (boardChanged)=>{
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      const existingThemes = [...$('body').prop('classList')]
-        .filter(c => c.startsWith('lichessTools-theme_'));
-      const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
-      if (!boardChanged) {
-        $('body')
-          .removeClass(existingThemes.join(' '));
-      }
-      await this.setBoardVariables(boardChanged);
-      if (!boardChanged) {
-        $('body')
-          .addClass(configuredThemes.join(' '));
+      if (this._inApplyThemes) return;
+      try {
+        this._inApplyThemes = true;
+        const lt = this.lichessTools;
+        const $ = lt.$;
+        const existingThemes = [...$('body').prop('classList')]
+          .filter(c => c.startsWith('lichessTools-theme_'));
+        const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
+        if (!boardChanged) {
+          $('body')
+            .removeClass(existingThemes.join(' '));
+        }
+        await this.setBoardVariables(boardChanged);
+        if (!boardChanged) {
+          $('body')
+            .addClass(configuredThemes.join(' '));
+        }
+      } finally {
+        this._inApplyThemes = false;
       }
     };
 
