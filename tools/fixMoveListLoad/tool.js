@@ -22,17 +22,28 @@
       }
     }
 
-    async start() {
+    showTree = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
+      const tree = $('.analyse__tools .tview2');
+      if (tree.css('display') == 'none') {
+        tree.css('display','flex');
+      }
+    };
+
+    async start() {
+      const lt = this.lichessTools;
       const value = $('body').css('display')=='none';
       this.logOption('Fix move list load', value);
       const analysis = lt.lichess.analysis;
       if (!analysis) return;
-      const tree = $('.analyse__tools .tview2');
-      if (tree.css('display')=='none') {
-        tree.css('display','flex');
+      if (!lt.isWrappedFunction(analysis.redraw,'fixMoveListLoad')) {
+        analysis.redraw = lt.wrapFunction(analysis.redraw, {
+          id: 'fixMoveListLoad',
+          after: this.showTree
+        });
       }
+      this.showTree();
     }
   }
   LiChessTools.Tools.FixMoveListLoad = FixMoveListLoadTool;
