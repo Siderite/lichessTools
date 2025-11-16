@@ -31,7 +31,7 @@
       return position;
     };
 
-    processBoards = ()=>{
+    processBoardsDirect = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       $('cg-container').each((i,e)=>{
@@ -136,6 +136,7 @@
         }
       });
     };
+    processBoards = this.lichessTools.debounce(this.processBoardsDirect,100);
 
     async start() {
       const lt = this.lichessTools;
