@@ -317,6 +317,7 @@ body.lichessTools button[data-icon].lichessTools-extendedInteractiveLesson-feedb
 }
 
 body.lichessTools button[data-icon].lichessTools-extendedInteractiveLesson-feedback:before {
+  font-family: "Noto Sans",Sans-Serif;
   position: absolute;
   background: #808080;
   border:none;

@@ -1043,7 +1043,7 @@
             const options = lt.currentOptions
             if ($('#abset-extendedInteractive').is(':checked')) arr.push('extendedInteractive');
             if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
-            if ($('#abset-alwaysShowScore').is(':checked')) arr.push('alwaysShowFinalScore');
+            if ($('#abset-alwaysShowScore').is(':checked')) arr.push('alwaysShowScore');
             if ($('#abset-returnToPreview').is(':checked')) arr.push('returnToPreview');
             if ($('#abset-fastInteractive').is(':checked')) arr.push('fastInteractive');
             options.extendedInteractiveLesson = arr.join(',');
