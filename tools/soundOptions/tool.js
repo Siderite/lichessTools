@@ -232,8 +232,8 @@
     allSoundNames = [
       'berserk', 'capture', 'check', 'checkmate', 'confirmation', 'countdown0', 'countdown1', 'countdown10', 'countdown2', 'countdown3',
       'countdown4', 'countdown5', 'countdown6', 'countdown7', 'countdown8', 'countdown9', 'defeat', 'draw', 'error', 'explosion',
-      'genericnotify', 'lowtime', 'move', 'newchallenge', 'newpm', 'outofbound', 'tournament1st', 'tournament2nd', 'tournament3rd',
-      'tournamentother', 'victory' ];
+      'genericNotify', 'lowtime', 'move', 'newChallenge', 'newPM', 'outofbound', 'practiceComplete', 'tournament1st', 'tournament2nd', 'tournament3rd',
+      'tournamentOther', 'victory' ];
     themeUrls = new Map([
       //['mortalKombat','https://fordcrownvictoria1234-art.github.io/MK1SFX/'],
       ['chessPursuit','https://siderite.github.io/ChessPursuit/sound/']
