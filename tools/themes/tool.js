@@ -309,7 +309,11 @@
       $(lt.global).off('hashchange', this.applyThemes);
       $('body').observer()
         .off('body, #main-wrap, .main-board cg-board',this.checkBody);
+      if (!value && !this.ranStart) {
+        return;
+      }
       if (!lt.currentOptions.enableLichessTools) return;
+
       if (value) {
         $(lt.global).on('hashchange', this.applyThemes);
         $('body').observer()

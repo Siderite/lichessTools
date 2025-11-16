@@ -5,8 +5,8 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       this.options = {
-        isPrettier: !!$('html').css('--boardLightRGB'),
-        lichessHelper: !!$('style').get().find((s)=>$(s).text().includes('LichessHelper'))
+        isPrettier: this.options?.isPrettier === undefined ? !!$('html').css('--boardLightRGB') : this.options.isPrettier,
+        lichessHelper: this.options?.lichessHelper === undefined ? !!$('style').get().find((s)=>$(s).text().includes('LichessHelper')) || this.options.lichessHelper
       };
 
       this.logOption('Detected third parties', Object.keys(this.options).filter(k => this.options[k]).join(', ') || 'none');

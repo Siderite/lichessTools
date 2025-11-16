@@ -17,7 +17,7 @@
 
     upgrades = [
       { name:'dailyQuote', value:'true', version: '2.4.2', type: 'obsolete' },
-      { name:'dailyQuote', value:'top', version: '2.4.2', type: 'new' }
+      { name:'dailyQuote', value:'side', version: '2.4.118', type: 'new' }
     ];
 
     intl = {
