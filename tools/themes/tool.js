@@ -115,36 +115,44 @@
       });
     }
 
+    getBoardBackground = async (boardChanged)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const is3d = $('#main-wrap').is('.is3d');
+      const boardImage = lt.currentOptions.getValue('customBoardImage');
+      if (boardImage && !is3d) {
+        return boardImage;
+      }
+
+      let container;
+      if (boardChanged) {
+        const html = await lt.net.fetch('/dgt');
+        container = $('<div>'+html+'</div>');
+      } else {
+        container = $('html');
+      }
+      const preloadedImages = $('link[rel=preload][as=image]',container)
+                                .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
+                                .get();
+      const boardUrls = [];
+      for (const image of preloadedImages) {
+        const url = $(image).attr('href');
+        const size = await this.getImageSizeFromUrl(url);
+        if (size?.width>100) boardUrls.push(url);
+      }
+
+      const index = is3d ? Math.min(1,boardUrls.length-1) : 0;
+      return boardUrls[index];
+    }
+
     setBoardVariables = async (boardChanged)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const board = $('body #main-wrap div.cg-wrap cg-board');
       const is3d = $('#main-wrap').is('.is3d');
+      let backgroundImage = null;
       if (board.length) {
-        const boardImage = lt.currentOptions.getValue('customBoardImage');
-        let backgroundImage;
-        if (boardImage && !is3d) {
-          backgroundImage = boardImage;
-        } else {
-          let container;
-          if (boardChanged) {
-            const html = await lt.net.fetch('/dgt');
-            container = $('<div>'+html+'</div>');
-          } else {
-            container = $('html');
-          }
-          const preloadedImages = $('link[rel=preload][as=image]',container)
-                                    .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
-                                    .get();
-          const boardUrls = [];
-          for (const image of preloadedImages) {
-            const url = $(image).attr('href');
-            const size = await this.getImageSizeFromUrl(url);
-            if (size?.width>100) boardUrls.push(url);
-          }
-          backgroundImage = is3d ? boardUrls.at(-1) : boardUrls.at(0);
-        }
-
+        backgroundImage = await this.getBoardBackground(boardChanged);
         if (backgroundImage) {
           backgroundImage = 'url('+backgroundImage+')';
         } else {
@@ -153,7 +161,7 @@
         }
         $('html').css('--board-background', backgroundImage||'unset');
       }
-      $('body').toggleClassSafe('lichessTools-hasBoardBackground', !!board.length);
+      $('body').toggleClassSafe('lichessTools-hasBoardBackground', !!backgroundImage);
     }
 
     applyThemes = async (boardChanged)=>{
