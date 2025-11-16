@@ -403,7 +403,7 @@
       }, true);
       if (destinationNode?.path) {
         lichess.analysis.jump(destinationNode.path);
-        lichess.analysis.redraw();
+        lt.analysisRedraw();
       }
     };
 

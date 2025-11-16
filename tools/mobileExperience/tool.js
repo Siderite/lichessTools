@@ -254,7 +254,7 @@
       const child = lt.getRandomVariation(node);
       if (child) {
         lichess.analysis.userJump(child.path || (path + child.id));
-        lichess.analysis.redraw();
+        lt.analysisRedraw();
       }
     };
 
@@ -596,7 +596,7 @@
             }
           });
         }
-        analysis.redraw();
+        lt.analysisRedraw();
       }
       if (this.options.showGauge || this.options.hideOctopus || this.options.standardButtons || this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove) {
         lt.pubsub.on('lichessTools.redraw', this.handleRedraw);

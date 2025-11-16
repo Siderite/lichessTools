@@ -285,7 +285,7 @@
         if ((analysis.ceval.showingCloud && noCloud) || (targetDepth && curDepth < (node.autoDeeper || targetDepth)) || (this.options.infiniteExternal && isExternalEngine)) {
           node.autoDeeper = targetDepth;
           analysis.ceval.goDeeper();
-          analysis.redraw();
+          lt.analysisRedraw();
           return;
         }
       }
@@ -308,7 +308,7 @@
           }
           lt.global.setTimeout(()=>{
             if (!$('div.ceval a.deeper').length) {
-              analysis.redraw();
+              lt.analysisRedraw();
             }
           },100);
         }

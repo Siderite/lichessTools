@@ -74,7 +74,7 @@
       if (!explorer?.allowed) return;
       if (!explorer.enabled()) {
         explorer.enabled(true);
-        analysis.redraw();
+        lt.analysisRedraw();
       }
       if (initialPath === undefined) {
         initialPath = analysis.path;
@@ -137,7 +137,7 @@
         : '?';
       lt.announce(text);
       analysis.setPath(initialPath);
-      analysis.redraw();
+      lt.analysisRedraw();
     };
 
     async start() {

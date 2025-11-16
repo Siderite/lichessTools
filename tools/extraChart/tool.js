@@ -1213,7 +1213,7 @@
         lichess.analysis.jump(path);
       } else if (data?.index !== undefined) {
         lichess.analysis.jumpToIndex(data.index);
-        lichess.analysis.redraw();
+        lt.analysisRedraw();
       }
     };
 

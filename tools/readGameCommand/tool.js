@@ -111,7 +111,7 @@
       let path = analysis.path;
       while (this.reading && node) {
         analysis.userJump(path);
-        analysis.redraw();
+        lt.analysisRedraw();
         const text = this.getReadText(node);
         const evl = node.eval || node.ceval;
         if (instrument && evl) {

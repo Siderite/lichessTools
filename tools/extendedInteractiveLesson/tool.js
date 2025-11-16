@@ -149,7 +149,7 @@
                       if (!doReset) return;
                       this.resetDone();
                       analysis.userJump('');
-                      analysis.redraw();
+                      lt.analysisRedraw();
                     })
                     .finally(doReset=>{
                       this._inConfirm = false;
@@ -869,7 +869,7 @@
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
       analysis.userJump(this.options.returnToPreview && this._previewPath || '');
-      analysis.redraw();
+      lt.analysisRedraw();
     };
 
     collapseGamebookEdit = (ev) => {
@@ -1303,7 +1303,7 @@
             this.patchGamebook();
             const gp = analysis.gamebookPlay();
             gp?.makeState();
-            analysis.redraw();
+            lt.analysisRedraw();
             if (o == 'play') {
               analysis.userJump(analysis.path);
             }

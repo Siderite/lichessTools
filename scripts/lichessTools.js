@@ -444,6 +444,28 @@
       }
     }
 
+    lazyLoad = (obj, key, func) => {
+      Object.defineProperty(obj, key, {
+        get() {
+          let value = null;
+          try {
+            value = func();
+          } catch(e) {
+            console.warn('Error lazy loading data:',e);
+          }
+          Object.defineProperty(obj, key, {
+            value: value,
+            writable: true,
+            enumerable: true,
+            configurable: true
+          });
+          return value;
+        },
+        enumerable: true,
+        configurable: true
+      });
+    };
+
     async arrayRemoveAllAsync(arr,asyncPredicate) {
       let result = [];
       if (!arr?.length) return result;
@@ -1174,6 +1196,24 @@
       return arr.find(n => n.ply % 2 === plyColor && n.nodeIndex > index) || arr.find(n => n.ply % 2 === plyColor);
     };
 
+    analysisRedraw = ()=>{
+      const lt = this;
+      const analysis = lt.lichess.analysis;
+      if (!analysis) return;
+
+      if (lt._inAnalysisRedrawTimeout) {
+        lt.global.clearTimeout(lt._analysisRedrawTimeout);
+        lt._inAnalysisRedrawTimeout = lt.global.setTimeout(()=>{
+          analysis.redraw();
+          lt._analysisRedrawTimeout = 0;
+        },100);
+        return;
+      }
+      lt._analysisRedrawTimeout = -1;
+      analysis.redraw();
+      lt._analysisRedrawTimeout = 0;
+    };
+
     jumpToGlyphSymbols = (symbols, side) => {
       const analysis = this.lichess?.analysis;
       if (!analysis) return;
@@ -1189,7 +1229,7 @@
       const node = this.findGlyphNode(color, symbols);
       if (!node?.path) return;
       analysis.userJumpIfCan(node.path);
-      analysis.redraw();
+      this.analysisRedraw();
     };
 
     getPositionFromFen = (fen, deep) => {

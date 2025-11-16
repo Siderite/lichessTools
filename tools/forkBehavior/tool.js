@@ -155,7 +155,7 @@
         } else {
           lichess.analysis.playUci(uci);
         }
-        lichess.analysis.redraw();
+        lt.analysisRedraw();
       }
 
       const highlight = (ev) => {
@@ -169,7 +169,7 @@
         if (index < 0 || fork.selectedIndex == index) return;
         fork.selectedIndex = index;
         lichess.analysis.setAutoShapes();
-        lichess.analysis.redraw();
+        lt.analysisRedraw();
       };
 
       const mobileMakeMove = (ev) => {

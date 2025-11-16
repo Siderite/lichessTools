@@ -59,8 +59,20 @@ body.lichessTools main.lobby .lobby__side {
   }
 }
 
+body.lichessTools .lobby__counters:has(.lichessTools-extraCounters) {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 body.lichessTools .lichessTools-extraCounters {
   display:contents;
+}
+
+body.lichessTools .lichessTools-extraCounters > span {
+  flex-basis: 100%;
 }
 
 /* Prettier Lichess CSS */

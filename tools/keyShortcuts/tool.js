@@ -174,7 +174,7 @@
       const analysis = lichess.analysis;
       if (!analysis?.ongoing || !(analysis.data.game.turns > 0)) return false;
       analysis.jumpToIndex(analysis.data.game.turns - 1);
-      analysis.redraw();
+      lt.analysisRedraw();
     };
 
     switchExplorerTabs = () => {
