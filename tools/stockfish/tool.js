@@ -103,7 +103,7 @@
         if (!this._module) {
           this.lt.debug && this.lt.global.console.debug('SF', 'loading module...');
           const engines = lichess?.analysis?.ceval?.engines;
-          const engine = engines?.localEngines?.find(e => e.id == engineId);
+          const engine = engines?.localEngines?.find(e => e.id == engineId) || engines?.[0];
           const assetUrl = engine?.assets?.js
             ? engine.assets.root + '/' + engine.assets.js
             : 'npm/lila-stockfish-web/' + engineRoot;
