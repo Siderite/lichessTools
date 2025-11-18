@@ -57,6 +57,7 @@
         names.push(text);
       }
       const co = lt.chessops;
+      if (!co) return;
       const { parsePgn } = co.pgn;
       const { parseFen } = co.fen;
       const game = parsePgn(pgn)[0];

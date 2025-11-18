@@ -1,7 +1,7 @@
 (() => {
   class SkipMoveCommandTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['CliCommands'];
+    dependencies = ['CliCommands', 'ChessOps'];
 
     preferences = [
       {
@@ -45,6 +45,10 @@
       const analysis = lichess.analysis;
 
       const co = lt.chessops;
+      if (!co) {
+        lt.global.console.warn('ChessOps not loaded');
+        return;
+      }
       const fen = co.fen.parseFen(analysis.node.fen).unwrap();
       let ch = co.Chess.fromSetup(fen).unwrap();
 

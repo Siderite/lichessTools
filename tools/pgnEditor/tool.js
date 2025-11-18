@@ -724,6 +724,11 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const lt = this.lichessTools;
       const trans = lt.translator;
       if (this._runningOperation) return;
+      const co = lt.chessops;
+      if (!co) {
+        lt.global.console.warn('ChessOps not loaded');
+        return;
+      }
       const now = Date.now();
       try {
         this._cancelRequested = false;

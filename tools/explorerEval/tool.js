@@ -132,8 +132,8 @@
           .insertAfter($('th:nth-child(1)', container));
       }
       $('tr:has(.lichessTools-evalRow)', container).remove();
-      if (this.options.evalRows && moves?.length) {
-        const co = lt.chessops;
+      const co = lt.chessops;
+      if (co && this.options.evalRows && moves?.length) {
         const newRows = moves.filter(m => !$('tr[data-uci="' + m.uci + '"]', container).length);
         const fen = co.fen.parseFen(analysis.node.fen).unwrap();
         const ch = co.Chess.fromSetup(fen).unwrap();
