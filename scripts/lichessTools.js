@@ -1204,14 +1204,14 @@
       if (lt._inAnalysisRedrawTimeout || lt._inApplyOptions) {
         lt.global.clearTimeout(lt._analysisRedrawTimeout);
         lt._inAnalysisRedrawTimeout = lt.global.setTimeout(()=>{
-          lt.global.console.debug('Delayed analysis redraw');
+          lt.debug && lt.global.console.debug('Delayed analysis redraw');
           analysis.redraw();
           lt._analysisRedrawTimeout = 0;
         },100);
         return;
       }
       lt._analysisRedrawTimeout = -1;
-      lt.global.console.debug('Direct analysis redraw');
+      lt.debug && lt.global.console.debug('Direct analysis redraw');
       analysis.redraw();
       lt._analysisRedrawTimeout = 0;
     };
