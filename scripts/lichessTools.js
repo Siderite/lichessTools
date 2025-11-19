@@ -1199,6 +1199,7 @@
       const analysis = this.lichess?.analysis;
       if (!analysis) return;
       const state = this.traverse();
+      if (!state) return;
       const arr = [].concat.apply([], symbols.map(s => state.glyphs[s]).filter(a => !!a?.length));
       if (!arr.length) return;
       arr.sort((n1, n2) => n1.nodeIndex - n2.nodeIndex);

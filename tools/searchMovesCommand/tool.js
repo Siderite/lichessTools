@@ -104,7 +104,8 @@
           .insertBefore('.analyse__moves');
       }
       bar.find('input.search')
-        .val(pattern)
+        .val(pattern);
+      bar.find('input.search:not(:focus)')
         .each((i,e)=>e.select());
       this.goToNode(0);
     };
@@ -141,6 +142,8 @@
       if (value) {
         lt.registerCommand && lt.registerCommand('searchMovesCommand', {
           handle: (val) => {
+            if (lt.isGamePlaying()) return;
+            if (analysis.gamebookPlay()) return;
             const m = /^\s*s(\s+(?<pattern>.*))?/.exec(val);
             if (!m) return;
             const pattern = m?.groups?.pattern;
