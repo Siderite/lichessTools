@@ -515,6 +515,17 @@
       return false;
     }
 
+
+    normalizeString = (text)=>{
+      if (!text) return '';
+      return text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, '');
+    };
+
+
     sigmoidClamp(x, min = 0, max = 100, expectedRange = 1000) {
       const k = expectedRange / 5; // Adjust transition steepness based on expected range
       return min + (max - min) / (1 + Math.exp(-x / k));

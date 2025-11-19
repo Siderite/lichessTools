@@ -180,6 +180,7 @@
         "tools/readGameCommand/tool.js",
         "tools/readPositionCommand/tool.js",
         "tools/skipMoveCommand/tool.js",
+        "tools/searchMovesCommand/tool.js",
 
         "tools/localDatabase/tool.js",
         "tools/puzzleIndex/tool.js",
@@ -312,6 +313,7 @@
 
         "tools/hideBoardCommand/tool.css",
         "tools/pieceValueCommand/tool.css",
+        "tools/searchMovesCommand/tool.css",
 
         "tools/puzzleIndex/tool.css",
 

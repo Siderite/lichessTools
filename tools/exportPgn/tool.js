@@ -62,6 +62,10 @@
         exportEval: this.options.exportEval,
         exportTags: this.options.exportTags,
         exportShapes: this.options.exportShapes,
+        exportComments: true,
+        exportGlyphs: true,
+        exportPly: true,
+        searchObj: null,
         ...options
       };
       const lt = this.lichessTools;
@@ -79,6 +83,7 @@
       }
 
       function plyPrefix(node) {
+        if (!options.exportPly) return '';
         return `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '. ' : '... '}`;
       }
 
@@ -94,8 +99,9 @@
         if (evl.mate !== undefined) return '#'+evl.mate;
       }
 
-      function renderComments(node) {
+      function renderGlyphs(node) {
         let s = '';
+        if (!options.exportGlyphs) return s;
         for (const glyph of node.glyphs || []) {
           if (glyph.id) { // tools like Explorer Practice don't set id
             s += glyph.id >= 1 && glyph.id <= 6
@@ -103,6 +109,12 @@
               : ' $' + glyph.id;
           }
         }
+        return s;
+      }
+
+      function renderComments(node) {
+        let s = '';
+        if (!options.exportComments) return s;
         if (node.comments?.length) {
           if (options.print) {
             s += '<br/>\r\n<br/>\r\n<img src="https://lichess.org/export/fen.gif?fen='+encodeURIComponent(node.fen)+'&color='+analysis.getOrientation()+'&lastMove='+node.uci+'" /><br/>\r\n';
@@ -180,20 +192,49 @@
       function renderNodesTxt(node, forcePly) {
         let s = '';
 
-        if (node.id == '') s += renderComments(node);
+        if (node.id == '') {
+          s += renderGlyphs(node);
+          s += renderComments(node);
+        }
         if (s) s += '\r\n'
         if (node.children.length === 0) return s;
 
 
         const first = node.children[0];
+        first.path = node.path + first.id;
         if (forcePly || first.ply % 2 === 1) s += plyPrefix(first);
         s += fixCrazySan(first.san);
 
+        s += renderGlyphs(first);
         s += renderComments(first);
+
+        const reg = options.searchObj?.reg;
+        if (reg) {
+          let output = options.searchObj.output;
+          if (s) {
+            output += lt.normalizeString(s);
+            options.searchObj.output = output;
+          }
+          const lastFind = options.searchObj.lastFind||0;
+          reg.lastIndex = 0;
+          let match = reg.exec(first.fen||'');
+          if (match) {
+            options.searchObj.nodes.push(first.path);
+          } else {
+            reg.lastIndex = lastFind;
+            match = reg.exec(output);
+            if (match) {
+              options.searchObj.nodes.push(first.path);
+              options.searchObj.lastFind = output.length;
+            }
+          }
+        }
 
         for (let i = 1; i < node.children.length; i++) {
           const child = node.children[i];
+          child.id = node.path + child.id;
           s += ` (${plyPrefix(child)}${fixCrazySan(child.san)}`;
+          s += renderGlyphs(child);
           s += renderComments(child);
           const variation = renderNodesTxt(child, false);
           if (variation) s += ' ' + variation;
@@ -224,7 +265,8 @@
           ply: n2.ply,
           san: n2.san,
           uci: n2.uci,
-          fen: n2.fen
+          fen: n2.fen,
+          path: n2.path
         };
         if (!withoutChildren) {
           n2.children.forEach(function (c) {
@@ -255,7 +297,11 @@
                 for (let i = 0; i < nrChildren; i++) {
                   const root = clone(item.root);
                   const res = { root: root, current: root };
-                  while (res.current.children?.length == 1) res.current = res.current.children[0];
+                  while (res.current.children?.length == 1) {
+                    const path = res.current.path;
+                    res.current = res.current.children[0];
+                    res.current.path = path + res.current.id;
+                  }
                   res.current.children = [res.current.children[i]];
                   newArr.push(res);
                   loop = true;
@@ -279,13 +325,22 @@
       }
 
       try {
+        const reg = options.searchObj?.reg;
+        if (reg) {
+          options.searchObj.nodes ||= [];
+          options.searchObj.lastFind = 0;
+          options.searchObj.output = '';
+        }
         const nodes = analysis.tree.getNodeList(path);
         const startIndex = options.fromPosition ? Math.max(0, nodes.length - 1) : 0;
         let prevNode = null;
         let varNode = null;
+        let nodePath = options.fromPosition ? path?.slice(0, -2) : '';
         for (let i = startIndex; i < nodes.length; i++) {
           const isLast = i == nodes.length - 1 && !options.toPosition;
           const node = clone(nodes[i], !isLast);
+          nodePath += node.id;
+          node.path = nodePath;
           if (prevNode) prevNode.children = [node];
           prevNode = node;
           if (!varNode) varNode = node;

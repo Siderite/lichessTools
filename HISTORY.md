@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Nov
+
+- Search move list tool
+
 15 Nov
 
 - video links open in a window on Firefox, but not alwaysOnTop

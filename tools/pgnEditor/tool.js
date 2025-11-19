@@ -1990,15 +1990,6 @@ https://www.chessable.com/course/${courseId}/ } *`)
         return found;
       };
 
-      const normalizeString = (text)=>{
-        if (!text) return '';
-        return text
-          .toLowerCase()
-          .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '')
-          .replace(/\s+/g, '');
-      };
-
       let gameIndex = 0;
       const foundGames = [];
       for (const game of games) {
@@ -2017,16 +2008,16 @@ https://www.chessable.com/course/${courseId}/ } *`)
               }
               break;
             case 'fenOrMoves':
-              const reg = new RegExp(Array.from(search.replaceAll(/\s+/g,'')).map(c => {
+              const reg = new RegExp(Array.from(lt.normalizeString(search)).map(c => {
                 switch (c) {
                   case '*': return '.*';
                   case '?': return '.';
-                  default: return normalizeString(c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&'));
+                  default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
                 }
               }).join(''));
 
               let pgn = makePgn(game);
-              let normalizedPgn = normalizeString(pgn);
+              let normalizedPgn = lt.normalizeString(pgn);
               if (reg.test(normalizedPgn)) {
                 found = true;
                 break;
@@ -2037,12 +2028,12 @@ https://www.chessable.com/course/${courseId}/ } *`)
               this.cutAnnotationsFromGame(game2);
 
               pgn = makePgn(game2);
-              normalizedPgn = normalizeString(pgn);
+              normalizedPgn = lt.normalizeString(pgn);
               if (reg.test(normalizedPgn)) {
                 found = true;
                 break;
               }
-              normalizedPgn = normalizedPgn.replaceAll(/\d+\./g, '');
+              normalizedPgn = normalizedPgn.replaceAll(/\d+\.+/g, '');
               if (reg.test(normalizedPgn)) {
                 found = true;
                 break;

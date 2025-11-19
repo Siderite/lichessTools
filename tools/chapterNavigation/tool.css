@@ -55,7 +55,7 @@ body.lichessTools aside.relay-tour__side.lichessTools-chapterControls div.relay-
   flex-grow: 1;
 }
 
-body.lichessTools .lichessTools-hideNextButton button.next {
+body.lichessTools .lichessTools-hideNextButton .feedback.end button.next {
   display:none;
 }
 
