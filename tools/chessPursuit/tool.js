@@ -5,7 +5,7 @@
       {
         name: 'chessPursuit',
         category: 'play',
-        type: 'multiple',
+        type: 'single',
         possibleValues: [false, true],
         defaultValue: true
       }
