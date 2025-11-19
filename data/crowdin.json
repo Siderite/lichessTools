@@ -6667,8 +6667,8 @@
     "chessPursuitHeader": "Échecs poursuite",
     "options.chessPursuit": "Échecs poursuite dans le menu",
     "soundThemes.chessPursuit": "Échecs poursuite",
-    "options.searchMovesCommand": "Commande : liste de coups de recherche",
-    "searchMovesCommand.helpText": "/s <FEN | PGN | text>\r\n * et ? caractères génériques pris en charge par\r\nRecherche dans la liste de déplacement"
+    "options.searchMovesCommand": "Commande : recherche dans la liste de coups",
+    "searchMovesCommand.helpText": "/s <FEN | PGN | text>\n Les caractères génériques * et ? sont pris en charge\nRecherche dans la liste de coups"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
