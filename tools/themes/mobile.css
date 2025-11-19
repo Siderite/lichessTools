@@ -219,6 +219,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools .lichessTools
   order: 6;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools .lichessTools-searchMovesCommand {
+  order: 7;
+}
+
 body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools .analyse__moves {
   order: 7;
 }
