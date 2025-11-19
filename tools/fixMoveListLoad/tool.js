@@ -25,10 +25,8 @@
     showTree = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const tree = $('.analyse__tools .tview2');
-      if (tree.css('display') == 'none') {
-        tree.css('display','flex');
-      }
+      $('.analyse__tools .tview2')
+        .toggleClassSafe('redrawn',true);
     };
 
     async start() {
