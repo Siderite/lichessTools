@@ -1048,8 +1048,6 @@
             if ($('#abset-fastInteractive').is(':checked')) arr.push('fastInteractive');
             options.extendedInteractiveLesson = arr.join(',');
             await lt.applyOptions(options)
-            await lt.saveOptions(options)
-            lt.fireReloadOptions();
           });
       }
       $('#abset-extendedInteractive')
@@ -1271,7 +1269,8 @@
         }
       };
       lt.isPermanentNode = this.isPermanentNode.bind(this);
-      if (this.options.extendedInteractive && !lt.isWrappedFunction(study.setGamebookOverride, 'extendedInteractive')) {
+      study.setGamebookOverride = lt.unwrapFunction(study.setGamebookOverride, 'extendedInteractive');
+      if (this.options.extendedInteractive) {
         study.setGamebookOverride = lt.wrapFunction(study.setGamebookOverride, {
           id: 'extendedInteractive',
           before: ($this, o) => {
@@ -1309,8 +1308,6 @@
             }
           }
         });
-      } else {
-        study.setGamebookOverride = lt.unwrapFunction(study.setGamebookOverride, 'extendedInteractive');
       }
       if (this.options.extendedInteractive && !this.currentVersion) {
         this.refreshNodeVersion();
