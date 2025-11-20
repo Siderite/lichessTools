@@ -98,6 +98,7 @@
       $('section.explorer-box table.moves.lichessTools-evalTable').remove();
       if (lt.isGamePlaying()) return;
       let container = $('section.explorer-box table.moves');
+      const tablebase = $('section.explorer-box table.tablebase');
       if (!container.length) {
         if (this.options.evalRows && moves?.length) {
           const dataElem = $('section.explorer-box div.data');
@@ -144,7 +145,10 @@
           const move = co.parseUci(uci);
           const san = co.san.makeSan(ch, move);
           //castling can be identified by multiple ucis (i.e. e1g1, e1h1)
-          const existingCell = $('td', container).filter((i, e) => $(e).text() == san);
+          let existingCell = container.find('td').filter((i, e) => $(e).text() == san);
+          if (!existingCell.length) {
+            existingCell = tablebase.find('td').filter((i, e) => $(e).text() == san);
+          }
           if (existingCell.length) {
             const fixedUci = existingCell.closest('tr[data-uci]').attr('data-uci');
             if (fixedUci) {
