@@ -75,6 +75,104 @@ body.lichessTools .lichessTools-extraCounters > span {
   flex-basis: 100%;
 }
 
+body.lichessTools .lobby__table:has(.lichessTools-recentGames) .lobby__start {
+  margin-top: 3em;
+  flex-direction: row;
+  flex-grow: 0;
+}
+
+body.lichessTools .lobby__table:has(.lichessTools-recentGames) .lobby__start .lobby__start__button {
+  padding: 1em;
+  max-width: 3.8em;
+  overflow: hidden;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 1em;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames div.header {
+  margin-left: 1.5em;
+  margin-bottom: 0.5em;
+  font-size: large;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game {
+  margin-left: 1em;
+  margin-top: 0.5em;
+  font-size: large;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game:before {
+  content: '\E06D'; /* DiscOutline */
+  color: var(--c-font-clearer);
+  font-size: 1.2em;
+  vertical-align: middle;
+  font-family: "lichess";
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  speak: none;
+  opacity: .9;
+  unicode-bidi: isolate;
+  margin:0 0.5em;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game:after {
+  content: '\E029'; /* DiscBigOutline */
+  color: var(--c-font);
+  font-size: 1.2em;
+  vertical-align: middle;
+  font-family: "lichess";
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  speak: none;
+  opacity: .9;
+  unicode-bidi: isolate;
+  margin:0 0.5em;
+  float: right;
+  padding-right: 1em;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.ultrabullet:before {
+  content: '\E059'; /* UltraBullet */
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.bullet:before {
+  content: '\E032'; /* Bullet */
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.blitz:before {
+  content: '\E008'; /* FlameBlitz */
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.rapid:before {
+  content: '\E002'; /* Rabbit */
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.classical:before {
+  content: '\E00A'; /* Turtle */
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.moreGames {
+  align-self: end;
+  margin-right: 3em;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.win:after {
+  content: '\E023'; /* Checkmark */
+  color: var(--c-good);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.loss:after {
+  content: '\E02A'; /* X */
+  color: var(--c-bad);
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier main.lobby.lichessTools-lobbyPlay .lobby__support {

@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - Extra chart legend
 - Option to show "Request analysis" right after the game ends
+- Recent games lobby section
 
 19 Nov
 

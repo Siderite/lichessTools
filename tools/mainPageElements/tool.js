@@ -1,15 +1,22 @@
 (() => {
   class MainPageElementsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['DetectThirdParties'];
+    dependencies = ['DetectThirdParties','ChessOps'];
 
     preferences = [
       {
         name: 'mainPageElements',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['side', 'side_streams', 'side_spotlights', 'side_timeline', 'app','app_bullet','app_blitz','app_rapid','app_classical', 'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours', 'about', 'extraCounters'],
-        defaultValue: true,
+        possibleValues: [
+          'side', 'side_streams', 'side_spotlights', 'side_timeline', 
+          'app','app_bullet','app_blitz','app_rapid','app_classical',
+          'table', 'tv', 'blog', 'puzzle', 'support', 'feed', 'tours', 
+          'about', 'extraCounters', 'recentGames'],
+        defaultValue: 'side, side_streams, side_spotlights, side_timeline,'+ 
+          'app, app_bullet, app_blitz, app_rapid, app_classical,'+
+          'table, tv, blog, puzzle, support, feed, tours,'+ 
+          'about, extraCounters',
         advanced: true
       }
     ];
@@ -36,10 +43,13 @@
         'mainPageElements.app_rapid': 'Play:rapid',
         'mainPageElements.app_classical': 'Play:classical',
         'mainPageElements.extraCounters': 'Extra counters',
+        'mainPageElements.recentGames': 'Recent games',
         'totalGamesPlayed': 'Total games: %s',
         'yearGamesPlayed': 'Games this year: %s',
         'monthGamesPlayed': 'Games this month: %s',
-        'dayGamesPlayed': 'Games today: %s'
+        'dayGamesPlayed': 'Games today: %s',
+        'recentGamesHeaderText': 'Recent games',
+        'moreGamesText': 'More >'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -62,10 +72,13 @@
         'mainPageElements.app_rapid': 'Joc:rapid',
         'mainPageElements.app_classical': 'Joc:clasic',
         'mainPageElements.extraCounters': 'Contoare \u00een plus',
+        'mainPageElements.recentGames': 'Jocuri recente',
         'totalGamesPlayed': 'Total jocuri: %s',
         'yearGamesPlayed': 'Jocuri anul acesta: %s',
         'monthGamesPlayed': 'Jocuri luna aceasta: %s',
-        'dayGamesPlayed': 'Jocuri azi: %s'
+        'dayGamesPlayed': 'Jocuri azi: %s',
+        'recentGamesHeaderText': 'Jocuri recente',
+        'moreGamesText': 'Mai mult >'
       }
     }
 
@@ -74,13 +87,15 @@
       lt.global.location.reload();
     }
 
-    applyLobbyElements = ()=>{
+    applyLobbyElements = async ()=>{
       const lt = this.lichessTools;
+      const trans = lt.translator;
       const $ = lt.$;
       if (!this.initialGrid) {
         this.initialGrid = $('main').css('grid-template-areas');
       }
-      $('main').toggleClass('lichessTools-lobbyPlay', this.isPlay);
+      $('main')
+        .toggleClass('lichessTools-lobbyPlay', this.isPlay);
       if (this.isPlay) {
         lt.global.document.title = $('#topnav > section:first-child span.play').text() + ' ' + lt.icon.BulletPoint + ' ' + lt.global.location.hostname;
       } else {
@@ -122,6 +137,61 @@
           if (!$('.lobby__side .lobby__feed').parent().is('main.lobby')) {
             $('.lobby__side .lobby__feed').appendTo('main.lobby');
           }
+        }
+
+        $('.lichessTools-recentGames').remove();
+        const userId = lt.getUserId();
+        if (userId && this.options.recentGames) {
+          const container = $('<div class="lichessTools-recentGames">')
+            .append($('<div class="header">').text(trans.noarg('recentGamesHeaderText')))
+            .insertAfter('.lobby__start');
+          const text = await lt.api.game.getUserPgns(userId,{ moves: false, max: 8 });
+          const co = lt.chessops;
+          if (!co) {
+            lt.global.setTimeout(this.applyLobbyElements,100);
+            return;
+          }
+          const { parsePgn } = co.pgn;
+          const results = [];
+          const games = parsePgn(text);
+          for (const game of games) {
+            const site = game.headers.get('Site');
+            const timeControl = game.headers.get('TimeControl');
+            const white = game.headers.get('White');
+            const black = game.headers.get('Black');
+            const userWhite = white?.toLowerCase() == userId;
+            const opponentId = userWhite ? black : white;
+            const opponentRating = userWhite ? +game.headers.get('BlackElo') : game.headers.get('WhiteElo');
+            const result = game.headers.get('Result') || '*';
+            let resultClass = '';
+            if (result === '1-0') resultClass = userWhite?'win':'loss';
+            if (result === '0-1') resultClass = userWhite?'loss':'win';
+            results.push({
+             site,
+             timeControl: lt.getGameTime(timeControl),
+             opponentId,
+             opponentRating,
+             resultClass
+            });
+          }
+          const users = await lt.api.user.getUsers([...new Set(results.map(r=>r.opponentId).filter(id=>id))]);
+          for (const result of results) {
+            const user = users.find(u=>u.id == result.opponentId);
+            if (user) {
+              result.opponentName = (user.title?user.title+' ':'') + user.username;
+            }
+            const name = result.opponentName || result.opponentId;
+            $('<a class="game">')
+              .addClass(result.resultClass)
+              .addClass(result.timeControl)
+              .attr('href',result.site)
+              .text(name+' '+result.opponentRating)
+              .appendTo(container);
+          }
+          $('<a class="moreGames">')
+            .attr('href',`/games/search?players.a=${userId}&sort.field=d&sort.order=desc#results`)
+            .text(trans.noarg('moreGamesText'))
+            .appendTo(container);
         }
       }
     };
@@ -233,6 +303,7 @@
         tours: lt.isOptionSet(value, 'tours'),
         about: lt.isOptionSet(value, 'about'),
         extraCounters: lt.isOptionSet(value, 'extraCounters'),
+        recentGames: lt.isOptionSet(value, 'recentGames'),
         get allSet() {
           return this.side && this.app && this.app_all && this.table && this.tv && this.blog &&
             this.puzzle && this.support && this.feed && this.tours && this.about;

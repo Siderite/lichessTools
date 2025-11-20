@@ -969,7 +969,10 @@
     "moveTypesLegendTitle": "تحركات مثيرة للاهتمام وجيدة وأفضل وأذكى",
     "extraChart.hideLegend": "إخفاء الأسطورة",
     "autoAnalyseGame.showRequestAnalysis": "زر تحليل الطلب",
-    "requestAComputerAnalysis": "طلب تحليل كمبيوتر"
+    "requestAComputerAnalysis": "طلب تحليل كمبيوتر",
+    "recentGamesHeaderText": "ألعاب حديثة",
+    "moreGamesText": "المزيد >",
+    "mainPageElements.recentGames": "ألعاب حديثة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1941,7 +1944,10 @@
     "moveTypesLegendTitle": "有趣、良好、优秀和优秀的动作",
     "extraChart.hideLegend": "隐藏图例",
     "autoAnalyseGame.showRequestAnalysis": "请求分析按钮",
-    "requestAComputerAnalysis": "请求计算机分析"
+    "requestAComputerAnalysis": "请求计算机分析",
+    "recentGamesHeaderText": "最近的游戏",
+    "moreGamesText": "更多>",
+    "mainPageElements.recentGames": "最近的游戏"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2913,7 +2919,10 @@
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
     "extraChart.hideLegend": "Hide legend",
     "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
-    "requestAComputerAnalysis": "Request a computer analysis"
+    "requestAComputerAnalysis": "Request a computer analysis",
+    "recentGamesHeaderText": "Recent games",
+    "moreGamesText": "More >",
+    "mainPageElements.recentGames": "Recent games"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3885,7 +3894,10 @@
     "moveTypesLegendTitle": "Zajímavé, dobré, nejlepší a geniální pohyby",
     "extraChart.hideLegend": "Skrýt legendu",
     "autoAnalyseGame.showRequestAnalysis": "Tlačítko analýzy žádosti",
-    "requestAComputerAnalysis": "Požádat o počítačovou analýzu"
+    "requestAComputerAnalysis": "Požádat o počítačovou analýzu",
+    "recentGamesHeaderText": "Nedávné hry",
+    "moreGamesText": "Více >",
+    "mainPageElements.recentGames": "Nedávné hry"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4857,7 +4869,10 @@
     "moveTypesLegendTitle": "Interessant, goede, beste en briljante zetten",
     "extraChart.hideLegend": "Legenda Verbergen",
     "autoAnalyseGame.showRequestAnalysis": "Verzoek analyse knop",
-    "requestAComputerAnalysis": "Vraag een computeranalyse aan"
+    "requestAComputerAnalysis": "Vraag een computeranalyse aan",
+    "recentGamesHeaderText": "Recente spellen",
+    "moreGamesText": "Meer >",
+    "mainPageElements.recentGames": "Recente spellen"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5829,7 +5844,10 @@
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
     "extraChart.hideLegend": "Hide legend",
     "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
-    "requestAComputerAnalysis": "Request a computer analysis"
+    "requestAComputerAnalysis": "Request a computer analysis",
+    "recentGamesHeaderText": "Recent games",
+    "moreGamesText": "More >",
+    "mainPageElements.recentGames": "Recent games"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6784,24 +6802,27 @@
     "options.searchMovesCommand": "Commande : recherche dans la liste de coups",
     "searchMovesCommand.helpText": "/s <FEN | PGN | text>\n Les caractères génériques * et ? sont pris en charge\nRecherche dans la liste de coups",
     "materialLegendText": "Matériel",
-    "materialLegendTitle": "Différence de matériau",
+    "materialLegendTitle": "Différence matérielle",
     "principledLegendText": "Principes",
-    "principledLegendTitle": "Différence de qualité en position",
+    "principledLegendTitle": "Différence du point de vue positionnel",
     "accuracyLegendText": "Précision",
-    "accuracyLegendTitle": "Précision du lecteur d'orientation",
+    "accuracyLegendTitle": "Précision du joueur orienté",
     "sharpnessLegendText": "Tranchant",
-    "sharpnessLegendTitle": "La netteté nécessite l'ouverture de l'explorateur",
-    "localLegendText": "Locale",
+    "sharpnessLegendTitle": "Le tranchant nécessite l'ouverture de l'explorateur",
+    "localLegendText": "Local",
     "localLegendTitle": "Évaluation du moteur local",
     "tensionLegendText": "Tension",
     "tensionLegendTitle": "Point de tension maximum",
     "potentialLegendText": "Potentiel",
-    "potentialLegendTitle": "Point potentiel maximum",
-    "moveTypesLegendText": "Déplacements",
-    "moveTypesLegendTitle": "Des mouvements intéressants, bons, meilleurs et brillants",
+    "potentialLegendTitle": "Point de potentiel maximum",
+    "moveTypesLegendText": "Coups",
+    "moveTypesLegendTitle": "Des coups intéressants, bons, excellents et brillants",
     "extraChart.hideLegend": "Masquer la légende",
     "autoAnalyseGame.showRequestAnalysis": "Bouton de demande d'analyse",
-    "requestAComputerAnalysis": "Demander une analyse de l'ordinateur"
+    "requestAComputerAnalysis": "Demander une analyse de l'ordinateur",
+    "recentGamesHeaderText": "Parties récentes",
+    "moreGamesText": "Plus >",
+    "mainPageElements.recentGames": "Parties récentes"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7773,7 +7794,10 @@
     "moveTypesLegendTitle": "Interessante, gute, beste und brillante Züge",
     "extraChart.hideLegend": "Legende ausblenden",
     "autoAnalyseGame.showRequestAnalysis": "Analyse-Button anfordern",
-    "requestAComputerAnalysis": "Computeranalyse anfordern"
+    "requestAComputerAnalysis": "Computeranalyse anfordern",
+    "recentGamesHeaderText": "Letzte Spiele",
+    "moreGamesText": "Mehr >",
+    "mainPageElements.recentGames": "Letzte Spiele"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8745,7 +8769,10 @@
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
     "extraChart.hideLegend": "Hide legend",
     "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
-    "requestAComputerAnalysis": "Request a computer analysis"
+    "requestAComputerAnalysis": "Request a computer analysis",
+    "recentGamesHeaderText": "Recent games",
+    "moreGamesText": "More >",
+    "mainPageElements.recentGames": "Recent games"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9717,7 +9744,10 @@
     "moveTypesLegendTitle": "Interessante, buono, le mosse migliori e brillanti",
     "extraChart.hideLegend": "Nascondi legenda",
     "autoAnalyseGame.showRequestAnalysis": "Richiedi il pulsante di analisi",
-    "requestAComputerAnalysis": "Richiedi un'analisi del computer"
+    "requestAComputerAnalysis": "Richiedi un'analisi del computer",
+    "recentGamesHeaderText": "Partite recenti",
+    "moreGamesText": "Altro >",
+    "mainPageElements.recentGames": "Partite recenti"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10689,7 +10719,10 @@
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
     "extraChart.hideLegend": "Hide legend",
     "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
-    "requestAComputerAnalysis": "Request a computer analysis"
+    "requestAComputerAnalysis": "Request a computer analysis",
+    "recentGamesHeaderText": "Recent games",
+    "moreGamesText": "More >",
+    "mainPageElements.recentGames": "Recent games"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11661,7 +11694,10 @@
     "moveTypesLegendTitle": "Ciekawe, dobre, najlepsze i świetne ruchy",
     "extraChart.hideLegend": "Ukryj legendę",
     "autoAnalyseGame.showRequestAnalysis": "Przycisk analizy żądania",
-    "requestAComputerAnalysis": "Poproś o analizę komputerową"
+    "requestAComputerAnalysis": "Poproś o analizę komputerową",
+    "recentGamesHeaderText": "Ostatnie gry",
+    "moreGamesText": "Więcej >",
+    "mainPageElements.recentGames": "Ostatnie gry"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12633,7 +12669,10 @@
     "moveTypesLegendTitle": "Ondas interessantes, boas, melhores e brilhantes",
     "extraChart.hideLegend": "Ocultar Legenda",
     "autoAnalyseGame.showRequestAnalysis": "Botão de análise de requisição",
-    "requestAComputerAnalysis": "Solicitar uma análise do computador"
+    "requestAComputerAnalysis": "Solicitar uma análise do computador",
+    "recentGamesHeaderText": "Jogos recentes",
+    "moreGamesText": "Mais >",
+    "mainPageElements.recentGames": "Jogos recentes"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13605,7 +13644,10 @@
     "moveTypesLegendTitle": "Ondas interessantes, boas, melhores e brilhantes",
     "extraChart.hideLegend": "Ocultar Legenda",
     "autoAnalyseGame.showRequestAnalysis": "Botão de análise de requisição",
-    "requestAComputerAnalysis": "Solicitar uma análise do computador"
+    "requestAComputerAnalysis": "Solicitar uma análise do computador",
+    "recentGamesHeaderText": "Jogos recentes",
+    "moreGamesText": "Mais >",
+    "mainPageElements.recentGames": "Jogos recentes"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14577,7 +14619,10 @@
     "moveTypesLegendTitle": "Mutări interesante, bune, cele mai bune și briliante",
     "extraChart.hideLegend": "Ascunde legenda",
     "autoAnalyseGame.showRequestAnalysis": "Buton analiză calculator",
-    "requestAComputerAnalysis": "Cere o analiză făcută de calculator"
+    "requestAComputerAnalysis": "Cere o analiză făcută de calculator",
+    "recentGamesHeaderText": "Jocuri recente",
+    "moreGamesText": "Mai mult >",
+    "mainPageElements.recentGames": "Jocuri recente"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15549,7 +15594,10 @@
     "moveTypesLegendTitle": "Интересные, хорошие, лучшие и блестящие ходы",
     "extraChart.hideLegend": "Скрыть легенду",
     "autoAnalyseGame.showRequestAnalysis": "Кнопка анализа запросов",
-    "requestAComputerAnalysis": "Запросить компьютерный анализ"
+    "requestAComputerAnalysis": "Запросить компьютерный анализ",
+    "recentGamesHeaderText": "Недавние игры",
+    "moreGamesText": "Больше >",
+    "mainPageElements.recentGames": "Недавние игры"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16521,7 +16569,10 @@
     "moveTypesLegendTitle": "Movimientos interesantes, buenos, mejores y brillantes",
     "extraChart.hideLegend": "Ocultar leyenda",
     "autoAnalyseGame.showRequestAnalysis": "Botón de análisis de solicitud",
-    "requestAComputerAnalysis": "Solicitar un análisis del ordenador"
+    "requestAComputerAnalysis": "Solicitar un análisis del ordenador",
+    "recentGamesHeaderText": "Juegos recientes",
+    "moreGamesText": "Más >",
+    "mainPageElements.recentGames": "Juegos recientes"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -17493,7 +17544,10 @@
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
     "extraChart.hideLegend": "Hide legend",
     "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
-    "requestAComputerAnalysis": "Request a computer analysis"
+    "requestAComputerAnalysis": "Request a computer analysis",
+    "recentGamesHeaderText": "Recent games",
+    "moreGamesText": "More >",
+    "mainPageElements.recentGames": "Recent games"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -18465,7 +18519,10 @@
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
     "extraChart.hideLegend": "Hide legend",
     "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
-    "requestAComputerAnalysis": "Request a computer analysis"
+    "requestAComputerAnalysis": "Request a computer analysis",
+    "recentGamesHeaderText": "Recent games",
+    "moreGamesText": "More >",
+    "mainPageElements.recentGames": "Recent games"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -19437,6 +19494,9 @@
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
     "extraChart.hideLegend": "Hide legend",
     "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
-    "requestAComputerAnalysis": "Request a computer analysis"
+    "requestAComputerAnalysis": "Request a computer analysis",
+    "recentGamesHeaderText": "Recent games",
+    "moreGamesText": "More >",
+    "mainPageElements.recentGames": "Recent games"
   }
 }
