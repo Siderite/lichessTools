@@ -123,7 +123,9 @@ body.lichessTools .lobby__table .lichessTools-recentGames a.game:before {
 
 body.lichessTools .lobby__table .lichessTools-recentGames a.game:after {
   content: '\E029'; /* DiscBigOutline */
-  color: var(--c-font);
+  background: #000000C0;
+  border: solid 1px white;
+  border-radius: 5px;
   font-size: 1.2em;
   vertical-align: middle;
   font-family: "lichess";
@@ -135,7 +137,12 @@ body.lichessTools .lobby__table .lichessTools-recentGames a.game:after {
   unicode-bidi: isolate;
   margin:0 0.5em;
   float: right;
-  padding-right: 1em;
+  margin-right: 1em;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.white:after {
+  background: #FFFFFFC0;
+  border: solid 1px black;
 }
 
 body.lichessTools .lobby__table .lichessTools-recentGames a.game.ultrabullet:before {

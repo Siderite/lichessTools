@@ -171,7 +171,8 @@
              timeControl: lt.getGameTime(timeControl),
              opponentId,
              opponentRating,
-             resultClass
+             resultClass,
+             userWhite
             });
           }
           const users = await lt.api.user.getUsers([...new Set(results.map(r=>r.opponentId).filter(id=>id))]);
@@ -184,6 +185,7 @@
             $('<a class="game">')
               .addClass(result.resultClass)
               .addClass(result.timeControl)
+              .toggleClass('white',result.userWhite)
               .attr('href',result.site)
               .text(name+' '+result.opponentRating)
               .appendTo(container);
