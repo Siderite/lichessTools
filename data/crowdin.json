@@ -966,7 +966,8 @@
     "potentialLegendText": "الاحتمالات",
     "potentialLegendTitle": "الحد الأقصى للنقطة المحتملة",
     "moveTypesLegendText": "التحركات",
-    "moveTypesLegendTitle": "تحركات مثيرة للاهتمام وجيدة وأفضل وأذكى"
+    "moveTypesLegendTitle": "تحركات مثيرة للاهتمام وجيدة وأفضل وأذكى",
+    "extraChart.hideLegend": "إخفاء الأسطورة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1935,7 +1936,8 @@
     "potentialLegendText": "D. 潜力",
     "potentialLegendTitle": "最大潜在点",
     "moveTypesLegendText": "移动",
-    "moveTypesLegendTitle": "有趣、良好、优秀和优秀的动作"
+    "moveTypesLegendTitle": "有趣、良好、优秀和优秀的动作",
+    "extraChart.hideLegend": "隐藏图例"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2904,7 +2906,8 @@
     "potentialLegendText": "Potential",
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
-    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves"
+    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
+    "extraChart.hideLegend": "Hide legend"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3873,7 +3876,8 @@
     "potentialLegendText": "Potenciál",
     "potentialLegendTitle": "Maximální potenciální bod",
     "moveTypesLegendText": "Pohyby",
-    "moveTypesLegendTitle": "Zajímavé, dobré, nejlepší a geniální pohyby"
+    "moveTypesLegendTitle": "Zajímavé, dobré, nejlepší a geniální pohyby",
+    "extraChart.hideLegend": "Skrýt legendu"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4842,7 +4846,8 @@
     "potentialLegendText": "Potentieel",
     "potentialLegendTitle": "Maximale potentiële punt",
     "moveTypesLegendText": "Bewegingen",
-    "moveTypesLegendTitle": "Interessant, goede, beste en briljante zetten"
+    "moveTypesLegendTitle": "Interessant, goede, beste en briljante zetten",
+    "extraChart.hideLegend": "Legenda Verbergen"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5811,7 +5816,8 @@
     "potentialLegendText": "Potential",
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
-    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves"
+    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
+    "extraChart.hideLegend": "Hide legend"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6780,7 +6786,8 @@
     "potentialLegendText": "Potentiel",
     "potentialLegendTitle": "Point potentiel maximum",
     "moveTypesLegendText": "Déplacements",
-    "moveTypesLegendTitle": "Des mouvements intéressants, bons, meilleurs et brillants"
+    "moveTypesLegendTitle": "Des mouvements intéressants, bons, meilleurs et brillants",
+    "extraChart.hideLegend": "Masquer la légende"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7749,7 +7756,8 @@
     "potentialLegendText": "Mögliche",
     "potentialLegendTitle": "Maximaler potentieller Punkt",
     "moveTypesLegendText": "Züge",
-    "moveTypesLegendTitle": "Interessante, gute, beste und brillante Züge"
+    "moveTypesLegendTitle": "Interessante, gute, beste und brillante Züge",
+    "extraChart.hideLegend": "Legende ausblenden"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8718,7 +8726,8 @@
     "potentialLegendText": "Potential",
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
-    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves"
+    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
+    "extraChart.hideLegend": "Hide legend"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9687,7 +9696,8 @@
     "potentialLegendText": "Potenziale",
     "potentialLegendTitle": "Punto potenziale massimo",
     "moveTypesLegendText": "Mosse",
-    "moveTypesLegendTitle": "Interessante, buono, le mosse migliori e brillanti"
+    "moveTypesLegendTitle": "Interessante, buono, le mosse migliori e brillanti",
+    "extraChart.hideLegend": "Nascondi legenda"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10656,7 +10666,8 @@
     "potentialLegendText": "Potential",
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
-    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves"
+    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
+    "extraChart.hideLegend": "Hide legend"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11625,7 +11636,8 @@
     "potentialLegendText": "Potencjał",
     "potentialLegendTitle": "Maksymalny potencjalny punkt",
     "moveTypesLegendText": "Ruchy",
-    "moveTypesLegendTitle": "Ciekawe, dobre, najlepsze i świetne ruchy"
+    "moveTypesLegendTitle": "Ciekawe, dobre, najlepsze i świetne ruchy",
+    "extraChart.hideLegend": "Ukryj legendę"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12594,7 +12606,8 @@
     "potentialLegendText": "Oportunidade",
     "potentialLegendTitle": "Ponto máximo em potencial",
     "moveTypesLegendText": "Movimentos",
-    "moveTypesLegendTitle": "Ondas interessantes, boas, melhores e brilhantes"
+    "moveTypesLegendTitle": "Ondas interessantes, boas, melhores e brilhantes",
+    "extraChart.hideLegend": "Ocultar Legenda"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13563,7 +13576,8 @@
     "potentialLegendText": "Oportunidade",
     "potentialLegendTitle": "Ponto máximo em potencial",
     "moveTypesLegendText": "Movimentos",
-    "moveTypesLegendTitle": "Ondas interessantes, boas, melhores e brilhantes"
+    "moveTypesLegendTitle": "Ondas interessantes, boas, melhores e brilhantes",
+    "extraChart.hideLegend": "Ocultar Legenda"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14532,7 +14546,8 @@
     "potentialLegendText": "Potențial",
     "potentialLegendTitle": "Punctul de potențial maxim",
     "moveTypesLegendText": "Mutări",
-    "moveTypesLegendTitle": "Mutări interesante, bune, cele mai bune și briliante"
+    "moveTypesLegendTitle": "Mutări interesante, bune, cele mai bune și briliante",
+    "extraChart.hideLegend": "Ascunde legenda"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15501,7 +15516,8 @@
     "potentialLegendText": "Потенциальный",
     "potentialLegendTitle": "Максимальная потенциальная точка",
     "moveTypesLegendText": "Перемещения",
-    "moveTypesLegendTitle": "Интересные, хорошие, лучшие и блестящие ходы"
+    "moveTypesLegendTitle": "Интересные, хорошие, лучшие и блестящие ходы",
+    "extraChart.hideLegend": "Скрыть легенду"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16470,7 +16486,8 @@
     "potentialLegendText": "Potential",
     "potentialLegendTitle": "Máximo punto potencial",
     "moveTypesLegendText": "Movimiento",
-    "moveTypesLegendTitle": "Movimientos interesantes, buenos, mejores y brillantes"
+    "moveTypesLegendTitle": "Movimientos interesantes, buenos, mejores y brillantes",
+    "extraChart.hideLegend": "Ocultar leyenda"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -17439,7 +17456,8 @@
     "potentialLegendText": "Potential",
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
-    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves"
+    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
+    "extraChart.hideLegend": "Hide legend"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -18408,7 +18426,8 @@
     "potentialLegendText": "Potential",
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
-    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves"
+    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
+    "extraChart.hideLegend": "Hide legend"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -19377,6 +19396,7 @@
     "potentialLegendText": "Potential",
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
-    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves"
+    "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
+    "extraChart.hideLegend": "Hide legend"
   }
 }

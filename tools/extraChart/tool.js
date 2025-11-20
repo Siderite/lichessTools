@@ -8,7 +8,7 @@
         name: 'extraChart',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'smooth', 'gauge', 'accuracyPlus'],
+        possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'smooth', 'gauge', 'accuracyPlus','hideLegend'],
         defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,accuracyPlus',
         defaultNotLoggedInValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,local,moreBrilliant,accuracyPlus',
         advanced: true
@@ -44,6 +44,7 @@
         'extraChart.smooth': 'Chart smoothing',
         'extraChart.gauge': 'on Eval gauge',
         'extraChart.accuracyPlus': 'More info on Accuracy',
+        'extraChart.hideLegend': 'Hide legend',
         'chartInfoTitle': 'LiChess Tools - extra charting',
         'tensionLineTitle': 'Max tension',
         'potentialLineTitle': 'Max potential',
@@ -85,6 +86,7 @@
         'extraChart.smooth': 'Netezire grafice',
         'extraChart.gauge': 'pe bara de evaluare',
         'extraChart.accuracyPlus': 'Informa\u0163ii \u00een plus pe Acurate\u0163e',
+        'extraChart.hideLegend': 'Ascunde legenda',
         'chartInfoTitle': 'LiChess Tools - grafice \u00een plus',
         'tensionLineTitle': 'Tensiune maxim\u0103',
         'potentialLineTitle': 'Poten\u0163ial maxim',
@@ -1339,6 +1341,9 @@
         $('div.lichessTools-chartInfo', container).remove();
         $('div.lichessTools-chartLegend', container).remove();
       } else {
+        if (this.options.hideLegend) {
+          $('div.lichessTools-chartLegend', container).remove();
+        }
         if (!$('div.lichessTools-chartInfo', container).length) {
           $('<div class="lichessTools-chartInfo">')
             .attr('title', trans.noarg('chartInfoTitle'))
@@ -1347,7 +1352,7 @@
               .attr('href', 'https://siderite.dev/blog/lichess-tools---user-manual#extraChart'))
             .appendTo(container);
         }
-        if (!$('div.lichessTools-chartLegend', container).length) {
+        if (!this.options.hideLegend && !$('div.lichessTools-chartLegend', container).length) {
 
           const clickHandler = async (ev)=>{
             ev.preventDefault();
@@ -2173,8 +2178,9 @@
         get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness; },
         accuracyPlus: lt.isOptionSet(value, 'accuracyPlus'),
         gauge: lt.isOptionSet(value, 'gauge'),
+        hideLegend: lt.isOptionSet(value, 'hideLegend'),
         christmas: !!lt.currentOptions.getValue('christmas'),
-        toString: function() { return Object.keys(this).filter(k=>!['needsChart','toString'].includes(k)).join(','); }
+        toString: function() { return Object.keys(this).filter(k=>!['needsChart','christmas','toString'].includes(k)).join(','); }
       };
       lt.pubsub.off('lichessTools.esmLoaded', this.handleEsmLoaded);
       if (this.options.needsChart) {
@@ -2211,6 +2217,7 @@
           .on('.advice-summary__accuracy,.analyse__underboard,.analyse__round-training',this.initAccuracyPlus);
         this.initAccuracyPlus();
       }
+
     }
 
   }
