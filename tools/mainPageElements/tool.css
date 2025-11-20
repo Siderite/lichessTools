@@ -165,6 +165,10 @@ body.lichessTools .lobby__table .lichessTools-recentGames a.game.classical:befor
   content: '\E00A'; /* Turtle */
 }
 
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.correspondence:before {
+  content: '\E019'; /* PaperAirplane */
+}
+
 body.lichessTools .lobby__table .lichessTools-recentGames a.moreGames {
   align-self: end;
   margin-right: 3em;

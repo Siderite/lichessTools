@@ -157,6 +157,8 @@
           for (const game of games) {
             const site = game.headers.get('Site');
             const timeControl = game.headers.get('TimeControl');
+            let timeControlClass =  lt.getGameTime(timeControl);
+            if (timeControlClass == '-') timeControlClass = 'correspondence';
             const white = game.headers.get('White');
             const black = game.headers.get('Black');
             const userWhite = white?.toLowerCase() == userId;
@@ -168,7 +170,7 @@
             if (result === '0-1') resultClass = userWhite?'loss':'win';
             results.push({
              site,
-             timeControl: lt.getGameTime(timeControl),
+             timeControlClass,
              opponentId,
              opponentRating,
              resultClass,
@@ -184,7 +186,7 @@
             const name = result.opponentName || result.opponentId;
             $('<a class="game">')
               .addClass(result.resultClass)
-              .addClass(result.timeControl)
+              .addClass(result.timeControlClass)
               .toggleClass('white',result.userWhite)
               .attr('href',result.site)
               .text(name+' '+result.opponentRating)
