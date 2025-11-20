@@ -1040,14 +1040,14 @@
         $('#abset-extendedInteractive,#abset-showScore,#abset-alwaysShowScore,#abset-returnToPreview,#abset-fastInteractive')
           .on('change', async () => {
             const arr = [];
-            const options = lt.currentOptions
+            const options = lt.currentOptions;
             if ($('#abset-extendedInteractive').is(':checked')) arr.push('extendedInteractive');
             if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
             if ($('#abset-alwaysShowScore').is(':checked')) arr.push('alwaysShowScore');
             if ($('#abset-returnToPreview').is(':checked')) arr.push('returnToPreview');
             if ($('#abset-fastInteractive').is(':checked')) arr.push('fastInteractive');
             options.extendedInteractiveLesson = arr.join(',');
-            await lt.applyOptions(options)
+            await lt.applyOptions(options);
           });
       }
       $('#abset-extendedInteractive')

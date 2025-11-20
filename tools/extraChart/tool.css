@@ -2,6 +2,10 @@ body.lichessTools div.study__server-eval.ready {
   position: relative;
 }
 
+body.lichessTools #acpl-chart-container.lichessTools-extraChart {
+  max-height:265px;
+}
+
 body.lichessTools #acpl-chart-container {
   position: relative;
 }
@@ -127,3 +131,203 @@ body.lichessTools .lichessTools-extraChart-tooltip .node-12330621 {
 body.lichessTools .lichessTools-extraChart-tooltip .node-11786585 {
   background-color: var(--c-blunder);
 }
+
+body.lichessTools #acpl-chart-container:has(.lichessTools-chartLegend),
+body.lichessTools div.study__server-eval.ready:has(.lichessTools-chartLegend) {
+  padding-bottom: 3em;
+}
+
+
+body.lichessTools .lichessTools-chartLegend {
+  height: 2em;
+  overflow-y: hidden;
+  overflow-x: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  white-space: nowrap;
+  gap: 0.5em;
+  webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  cursor: pointer;
+  user-select: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body.lichessTools .lichessTools-chartLegend button {
+  background: none;
+  border: none;
+  position: relative;
+  opacity: 0.5;
+}
+
+body.lichessTools .lichessTools-chartLegend button:hover {
+  border-bottom: solid 1px var(--c-link);
+}
+
+body.lichessTools .lichessTools-chartLegend button.enabled {
+  opacity: 1;
+}
+
+body.lichessTools .lichessTools-chartLegend button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+
+  background-repeat: repeat-x;
+  background-position: 0 0;
+}
+
+body.lichessTools .lichessTools-chartLegend button[data-option="material"]::before {
+  background-image: linear-gradient(90deg,
+    #258F0B 0 3px,
+    transparent 3px 6px
+  );
+  background-size: 6px 2px;
+}
+
+body.lichessTools .lichessTools-chartLegend button[data-option="principled"]::before {
+  background-image: linear-gradient(90deg,
+    #250B8F 0 4px,
+    transparent 4px 6px
+  );
+  background-size: 6px 2px;
+}
+
+body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before {
+  background-image: linear-gradient(90deg,
+    #700058 0 2px,
+    transparent 2px 5px
+  );
+  background-size: 5px 2px;
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before {
+    background-image: linear-gradient(90deg,
+      #FF00FF 0 2px,
+      transparent 2px 5px
+    );
+  }
+}
+
+html.transp body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before,
+html.darkBoard body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before,
+html.dark body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before {
+  background-image: linear-gradient(90deg,
+    #FF00FF 0 2px,
+    transparent 2px 5px
+  );
+}
+
+body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before {
+  background-image: linear-gradient(90deg,
+    #705800A0 0 6px,
+    transparent 6px 6px
+  );
+  background-size: 6px 2px;
+}
+             
+@media not print and (prefers-color-scheme: dark) {
+  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before {
+    background-image: linear-gradient(90deg,
+      #EFEF00A0 0 6px,
+      transparent 6px 6px
+    );
+  }
+}
+
+html.transp body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before,
+html.darkBoard body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before,
+html.dark body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before {
+  background-image: linear-gradient(90deg,
+    #EFEF00A0 0 6px,
+    transparent 6px 6px
+  );
+}
+
+body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before {
+  background-image: linear-gradient(90deg,
+    #B09090 0 3px,
+    transparent 3px 7px
+  );
+  background-size: 7px 2px;
+}
+             
+@media not print and (prefers-color-scheme: dark) {
+  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before {
+    background-image: linear-gradient(90deg,
+      #FFA0A0 0 3px,
+      transparent 3px 7px
+    );
+  }
+}
+
+html.transp body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before,
+html.darkBoard body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before,
+html.dark body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before {
+  background-image: linear-gradient(90deg,
+    #FFA0A0 0 3px,
+    transparent 3px 7px
+  );
+}
+
+body.lichessTools .lichessTools-chartLegend button[data-option="tension"]::before {
+  background-image: linear-gradient(90deg,
+    #FF0000 0 4px,
+    transparent 4px 7px
+  );
+  background-size: 7px 2px;
+}
+
+body.lichessTools .lichessTools-chartLegend button[data-option="potential"]::before {
+  background-image: linear-gradient(90deg,
+    #008000 0 2px,
+    transparent 2px 6px
+  );
+  background-size: 6px 2px;
+}
+
+body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"] {
+  color: #009914;
+}
+             
+@media not print and (prefers-color-scheme: dark) {
+  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"] {
+    color: #ea45d8;
+  }
+}
+
+html.transp body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"],
+html.darkBoard body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"],
+html.dark body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"] {
+  color: #ea45d8;
+}
+
+body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"].enabled {
+  text-shadow:
+    0 0 6px #fff,
+    0 0 3px #000,
+    0 0 0 currentColor;
+}
+
+body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"].enabled.moreEnabled {
+  text-shadow:
+    0 0 8px currentColor,
+    0 0 12px currentColor,
+    0 0 20px rgba(255,255,255,0.9);
+}
+
+body.lichessTools .lichessTools-chartLegend.dragging,
+body.lichessTools .lichessTools-chartLegend.dragging button {
+  cursor: grabbing;
+}
+
+body.lichessTools .lichessTools-chartLegend::-webkit-scrollbar {
+  display: none;
+}
+

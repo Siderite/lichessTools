@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+20 Nov
+
+- Extra chart legend
+
 19 Nov
 
 - Search move list tool

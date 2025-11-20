@@ -52,7 +52,23 @@
         'merryChristmas': 'Merry Christmas from LiChess Tools!',
         'options.christmas': 'Show Christmas lights on chart on the 25th of December',
         'estimatedRating': 'Estimated rating: %s',
-        'gamePhasesText': 'Phases accuracy: %s'
+        'gamePhasesText': 'Phases accuracy: %s',
+        'materialLegendText': 'Material',
+        'materialLegendTitle': 'Material difference',
+        'principledLegendText': 'Principled',
+        'principledLegendTitle': 'Positional quality difference',
+        'accuracyLegendText': 'Accuracy',
+        'accuracyLegendTitle': 'Accuracy of the orientation player',
+        'sharpnessLegendText': 'Sharpness',
+        'sharpnessLegendTitle': 'Sharpness requires Explorer open',
+        'localLegendText': 'Local',
+        'localLegendTitle': 'Local engine evaluation',
+        'tensionLegendText': 'Tension',
+        'tensionLegendTitle': 'Maximum tension point',
+        'potentialLegendText': 'Potential',
+        'potentialLegendTitle': 'Maximum potential point',
+        'moveTypesLegendText': 'Moves',
+        'moveTypesLegendTitle': 'Interesting, good, best and brilliant moves'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -76,7 +92,23 @@
         'goodMovesTitle': 'LiChess Tools - mut\u0103ri bune/briliante/interesante',
         'merryChristmas': 'Cr\u0103ciun fericit de la LiChess Tools!',
         'estimatedRating': 'Rating estimat: %s',
-        'gamePhasesText': 'Acurate\u0163e pe faze: %s'
+        'gamePhasesText': 'Acurate\u0163e pe faze: %s',
+        'materialLegendText': 'Material',
+        'materialLegendTitle': 'Diferen\u0163\u0103 material',
+        'principledLegendText': 'Principial',
+        'principledLegendTitle': 'Diferen\u0163\u0103 de calitate a pozi\u0163iei',
+        'accuracyLegendText': 'Acurate\u0163e',
+        'accuracyLegendTitle': 'Acurate\u0163e pentru juc\u0103torul orient\u1003rii tablei',
+        'sharpnessLegendText': 'Periculozitate',
+        'sharpnessLegendTitle': 'Periculozitatea necesit\u0103 Exploratorul deschis',
+        'localLegendText': 'Local',
+        'localLegendTitle': 'Evaluare motorului local',
+        'tensionLegendText': 'Tensiune',
+        'tensionLegendTitle': 'Punctul de tensiune maxim\u0103',
+        'potentialLegendText': 'Poten\u0163ial',
+        'potentialLegendTitle': 'Punctul de poten\u0163ial maxim',
+        'moveTypesLegendText': 'Mut\u0103ri',
+        'moveTypesLegendTitle': 'Mut\u0103ri interesante, bune, cele mai bune \u015fi briliante'
       }
     }
 
@@ -1194,7 +1226,7 @@
       const chart = this._chart;
       if (!chart) return;
       const lt = this.lichessTools;
-      const removed = lt.arrayRemoveAll(chart.data.datasets, d => ['Material', 'Principled', 'Local', 'Max tension', 'Max potential'].includes(d.label));
+      const removed = lt.arrayRemoveAll(chart.data.datasets, d => [ 'Material', 'Principled', 'Local', 'Accuracy', 'Sharpness', 'Max tension', 'Max potential'].includes(d.label));
       if (removed.length) {
         chart.options.scales.x.max = Math.max.apply(null, chart.data.datasets.map(ds => ds.data.map(p => p.x)).flat());
         chart.update('none');
@@ -1305,6 +1337,7 @@
       if (!lt.inViewport(container)) return;
       if (!this.options.needsChart) {
         $('div.lichessTools-chartInfo', container).remove();
+        $('div.lichessTools-chartLegend', container).remove();
       } else {
         if (!$('div.lichessTools-chartInfo', container).length) {
           $('<div class="lichessTools-chartInfo">')
@@ -1313,6 +1346,117 @@
               .attr('data-icon', lt.icon.CautionCircle)
               .attr('href', 'https://siderite.dev/blog/lichess-tools---user-manual#extraChart'))
             .appendTo(container);
+        }
+        if (!$('div.lichessTools-chartLegend', container).length) {
+
+          const clickHandler = async (ev)=>{
+            ev.preventDefault();
+            const key = $(ev.target).attr('data-option');
+            this.options[key] = !this.options[key];
+            $(ev.currentTarget).toggleClass('enabled',this.options[key]);
+            const options = lt.currentOptions;
+            options.extraChart = this.options.toString();
+            await lt.applyOptions(options);
+          };
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+
+          const legend = $('<div class="lichessTools-chartLegend">')
+            .append($('<button type="button">')
+                      .attr('data-option','accuracy')
+                      .text(trans.noarg('accuracyLegendText'))
+                      .attr('title',trans.noarg('accuracyLegendTitle'))
+                      .toggleClass('enabled',this.options.accuracy)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','local')
+                      .text(trans.noarg('localLegendText'))
+                      .attr('title',trans.noarg('localLegendTitle'))
+                      .toggleClass('enabled',this.options.local)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','material')
+                      .text(trans.noarg('materialLegendText'))
+                      .attr('title',trans.noarg('materialLegendTitle'))
+                      .toggleClass('enabled',this.options.material)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','principled')
+                      .text(trans.noarg('principledLegendText'))
+                      .attr('title',trans.noarg('principledLegendTitle'))
+                      .toggleClass('enabled',this.options.principled)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','tension')
+                      .text(trans.noarg('tensionLegendText'))
+                      .attr('title',trans.noarg('tensionLegendTitle'))
+                      .toggleClass('enabled',this.options.tension)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','potential')
+                      .text(trans.noarg('potentialLegendText'))
+                      .attr('title',trans.noarg('potentialLegendTitle'))
+                      .toggleClass('enabled',this.options.potential)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','sharpness')
+                      .text(trans.noarg('sharpnessLegendText'))
+                      .attr('title',trans.noarg('sharpnessLegendTitle'))
+                      .toggleClass('enabled',this.options.sharpness)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','moveTypes')
+                      .text(trans.noarg('moveTypesLegendText'))
+                      .attr('title',trans.noarg('moveTypesLegendTitle'))
+                      .toggleClass('enabled',this.options.brilliant)
+                      .toggleClass('moreEnabled',this.options.moreBrilliant)
+                      .each((i,e)=>e.addEventListener('click',async (ev) => {
+                        ev.preventDefault();
+                        if (!this.options.brilliant) {
+                          this.options.brilliant = true;
+                          this.options.moreBrilliant = false;
+                        } else if (!this.options.moreBrilliant) {
+                          this.options.moreBrilliant = true;
+                        } else {
+                          this.options.brilliant = false;
+                          this.options.moreBrilliant = false;
+                        }
+                        $(ev.currentTarget)
+                          .toggleClass('enabled',this.options.brilliant)
+                          .toggleClass('moreEnabled',this.options.moreBrilliant);
+                        const options = lt.currentOptions;
+                        options.extraChart = this.options.toString();
+                        await lt.applyOptions(options);
+                      }, { capture: true}))
+            )
+            .on('mousedown',(ev)=>{
+              isDown = true;
+              startX = ev.pageX - ev.currentTarget.offsetLeft;
+              scrollLeft = ev.currentTarget.scrollLeft;
+              legend.addClass('dragging');
+            })
+            .appendTo(container);
+
+          $(lt.global.document)
+            .on('mouseup',(ev)=>{
+              isDown = false;
+              legend.removeClass('dragging');
+            })
+            .on('mousemove',(ev)=>{
+              if (!isDown) return;
+              ev.preventDefault();
+              const x = ev.pageX - legend[0].offsetLeft;
+              const walk = (x - startX) * 2;
+              legend[0].scrollLeft = scrollLeft - walk;
+            })
         }
       }
 
@@ -2029,7 +2173,8 @@
         get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness; },
         accuracyPlus: lt.isOptionSet(value, 'accuracyPlus'),
         gauge: lt.isOptionSet(value, 'gauge'),
-        christmas: !!lt.currentOptions.getValue('christmas')
+        christmas: !!lt.currentOptions.getValue('christmas'),
+        toString: function() { return Object.keys(this).filter(k=>!['needsChart','toString'].includes(k)).join(','); }
       };
       lt.pubsub.off('lichessTools.esmLoaded', this.handleEsmLoaded);
       if (this.options.needsChart) {
