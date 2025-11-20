@@ -2180,7 +2180,7 @@
         gauge: lt.isOptionSet(value, 'gauge'),
         hideLegend: lt.isOptionSet(value, 'hideLegend'),
         christmas: !!lt.currentOptions.getValue('christmas'),
-        toString: function() { return Object.keys(this).filter(k=>!['needsChart','christmas','toString'].includes(k)).join(','); }
+        toString: function() { return Object.keys(this).filter(k=>!['needsChart','christmas','toString'].includes(k) && this[k]).join(','); }
       };
       lt.pubsub.off('lichessTools.esmLoaded', this.handleEsmLoaded);
       if (this.options.needsChart) {
