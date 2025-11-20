@@ -967,7 +967,9 @@
     "potentialLegendTitle": "الحد الأقصى للنقطة المحتملة",
     "moveTypesLegendText": "التحركات",
     "moveTypesLegendTitle": "تحركات مثيرة للاهتمام وجيدة وأفضل وأذكى",
-    "extraChart.hideLegend": "إخفاء الأسطورة"
+    "extraChart.hideLegend": "إخفاء الأسطورة",
+    "autoAnalyseGame.showRequestAnalysis": "زر تحليل الطلب",
+    "requestAComputerAnalysis": "طلب تحليل كمبيوتر"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1937,7 +1939,9 @@
     "potentialLegendTitle": "最大潜在点",
     "moveTypesLegendText": "移动",
     "moveTypesLegendTitle": "有趣、良好、优秀和优秀的动作",
-    "extraChart.hideLegend": "隐藏图例"
+    "extraChart.hideLegend": "隐藏图例",
+    "autoAnalyseGame.showRequestAnalysis": "请求分析按钮",
+    "requestAComputerAnalysis": "请求计算机分析"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2907,7 +2911,9 @@
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
-    "extraChart.hideLegend": "Hide legend"
+    "extraChart.hideLegend": "Hide legend",
+    "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
+    "requestAComputerAnalysis": "Request a computer analysis"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3877,7 +3883,9 @@
     "potentialLegendTitle": "Maximální potenciální bod",
     "moveTypesLegendText": "Pohyby",
     "moveTypesLegendTitle": "Zajímavé, dobré, nejlepší a geniální pohyby",
-    "extraChart.hideLegend": "Skrýt legendu"
+    "extraChart.hideLegend": "Skrýt legendu",
+    "autoAnalyseGame.showRequestAnalysis": "Tlačítko analýzy žádosti",
+    "requestAComputerAnalysis": "Požádat o počítačovou analýzu"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4847,7 +4855,9 @@
     "potentialLegendTitle": "Maximale potentiële punt",
     "moveTypesLegendText": "Bewegingen",
     "moveTypesLegendTitle": "Interessant, goede, beste en briljante zetten",
-    "extraChart.hideLegend": "Legenda Verbergen"
+    "extraChart.hideLegend": "Legenda Verbergen",
+    "autoAnalyseGame.showRequestAnalysis": "Verzoek analyse knop",
+    "requestAComputerAnalysis": "Vraag een computeranalyse aan"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5817,7 +5827,9 @@
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
-    "extraChart.hideLegend": "Hide legend"
+    "extraChart.hideLegend": "Hide legend",
+    "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
+    "requestAComputerAnalysis": "Request a computer analysis"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6787,7 +6799,9 @@
     "potentialLegendTitle": "Point potentiel maximum",
     "moveTypesLegendText": "Déplacements",
     "moveTypesLegendTitle": "Des mouvements intéressants, bons, meilleurs et brillants",
-    "extraChart.hideLegend": "Masquer la légende"
+    "extraChart.hideLegend": "Masquer la légende",
+    "autoAnalyseGame.showRequestAnalysis": "Bouton de demande d'analyse",
+    "requestAComputerAnalysis": "Demander une analyse de l'ordinateur"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7757,7 +7771,9 @@
     "potentialLegendTitle": "Maximaler potentieller Punkt",
     "moveTypesLegendText": "Züge",
     "moveTypesLegendTitle": "Interessante, gute, beste und brillante Züge",
-    "extraChart.hideLegend": "Legende ausblenden"
+    "extraChart.hideLegend": "Legende ausblenden",
+    "autoAnalyseGame.showRequestAnalysis": "Analyse-Button anfordern",
+    "requestAComputerAnalysis": "Computeranalyse anfordern"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8727,7 +8743,9 @@
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
-    "extraChart.hideLegend": "Hide legend"
+    "extraChart.hideLegend": "Hide legend",
+    "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
+    "requestAComputerAnalysis": "Request a computer analysis"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9697,7 +9715,9 @@
     "potentialLegendTitle": "Punto potenziale massimo",
     "moveTypesLegendText": "Mosse",
     "moveTypesLegendTitle": "Interessante, buono, le mosse migliori e brillanti",
-    "extraChart.hideLegend": "Nascondi legenda"
+    "extraChart.hideLegend": "Nascondi legenda",
+    "autoAnalyseGame.showRequestAnalysis": "Richiedi il pulsante di analisi",
+    "requestAComputerAnalysis": "Richiedi un'analisi del computer"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10667,7 +10687,9 @@
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
-    "extraChart.hideLegend": "Hide legend"
+    "extraChart.hideLegend": "Hide legend",
+    "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
+    "requestAComputerAnalysis": "Request a computer analysis"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11637,7 +11659,9 @@
     "potentialLegendTitle": "Maksymalny potencjalny punkt",
     "moveTypesLegendText": "Ruchy",
     "moveTypesLegendTitle": "Ciekawe, dobre, najlepsze i świetne ruchy",
-    "extraChart.hideLegend": "Ukryj legendę"
+    "extraChart.hideLegend": "Ukryj legendę",
+    "autoAnalyseGame.showRequestAnalysis": "Przycisk analizy żądania",
+    "requestAComputerAnalysis": "Poproś o analizę komputerową"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12607,7 +12631,9 @@
     "potentialLegendTitle": "Ponto máximo em potencial",
     "moveTypesLegendText": "Movimentos",
     "moveTypesLegendTitle": "Ondas interessantes, boas, melhores e brilhantes",
-    "extraChart.hideLegend": "Ocultar Legenda"
+    "extraChart.hideLegend": "Ocultar Legenda",
+    "autoAnalyseGame.showRequestAnalysis": "Botão de análise de requisição",
+    "requestAComputerAnalysis": "Solicitar uma análise do computador"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13577,7 +13603,9 @@
     "potentialLegendTitle": "Ponto máximo em potencial",
     "moveTypesLegendText": "Movimentos",
     "moveTypesLegendTitle": "Ondas interessantes, boas, melhores e brilhantes",
-    "extraChart.hideLegend": "Ocultar Legenda"
+    "extraChart.hideLegend": "Ocultar Legenda",
+    "autoAnalyseGame.showRequestAnalysis": "Botão de análise de requisição",
+    "requestAComputerAnalysis": "Solicitar uma análise do computador"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14547,7 +14575,9 @@
     "potentialLegendTitle": "Punctul de potențial maxim",
     "moveTypesLegendText": "Mutări",
     "moveTypesLegendTitle": "Mutări interesante, bune, cele mai bune și briliante",
-    "extraChart.hideLegend": "Ascunde legenda"
+    "extraChart.hideLegend": "Ascunde legenda",
+    "autoAnalyseGame.showRequestAnalysis": "Buton analiză calculator",
+    "requestAComputerAnalysis": "Cere o analiză făcută de calculator"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15517,7 +15547,9 @@
     "potentialLegendTitle": "Максимальная потенциальная точка",
     "moveTypesLegendText": "Перемещения",
     "moveTypesLegendTitle": "Интересные, хорошие, лучшие и блестящие ходы",
-    "extraChart.hideLegend": "Скрыть легенду"
+    "extraChart.hideLegend": "Скрыть легенду",
+    "autoAnalyseGame.showRequestAnalysis": "Кнопка анализа запросов",
+    "requestAComputerAnalysis": "Запросить компьютерный анализ"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16487,7 +16519,9 @@
     "potentialLegendTitle": "Máximo punto potencial",
     "moveTypesLegendText": "Movimiento",
     "moveTypesLegendTitle": "Movimientos interesantes, buenos, mejores y brillantes",
-    "extraChart.hideLegend": "Ocultar leyenda"
+    "extraChart.hideLegend": "Ocultar leyenda",
+    "autoAnalyseGame.showRequestAnalysis": "Botón de análisis de solicitud",
+    "requestAComputerAnalysis": "Solicitar un análisis del ordenador"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -17457,7 +17491,9 @@
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
-    "extraChart.hideLegend": "Hide legend"
+    "extraChart.hideLegend": "Hide legend",
+    "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
+    "requestAComputerAnalysis": "Request a computer analysis"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -18427,7 +18463,9 @@
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
-    "extraChart.hideLegend": "Hide legend"
+    "extraChart.hideLegend": "Hide legend",
+    "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
+    "requestAComputerAnalysis": "Request a computer analysis"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -19397,6 +19435,8 @@
     "potentialLegendTitle": "Maximum potential point",
     "moveTypesLegendText": "Moves",
     "moveTypesLegendTitle": "Interesting, good, best and brilliant moves",
-    "extraChart.hideLegend": "Hide legend"
+    "extraChart.hideLegend": "Hide legend",
+    "autoAnalyseGame.showRequestAnalysis": "Request analysis button",
+    "requestAComputerAnalysis": "Request a computer analysis"
   }
 }
