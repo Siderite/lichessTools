@@ -164,12 +164,13 @@
             const userWhite = white?.toLowerCase() == userId;
             const opponentId = userWhite ? black : white;
             const opponentRating = userWhite ? +game.headers.get('BlackElo') : game.headers.get('WhiteElo');
+            const href = site + (userWhite?'':'/black');
             const result = game.headers.get('Result') || '*';
             let resultClass = '';
             if (result === '1-0') resultClass = userWhite?'win':'loss';
             if (result === '0-1') resultClass = userWhite?'loss':'win';
             results.push({
-             site,
+             href,
              timeControlClass,
              opponentId,
              opponentRating,
@@ -188,7 +189,7 @@
               .addClass(result.resultClass)
               .addClass(result.timeControlClass)
               .toggleClass('white',result.userWhite)
-              .attr('href',result.site)
+              .attr('href',result.href)
               .text(name+' '+result.opponentRating)
               .appendTo(container);
           }
