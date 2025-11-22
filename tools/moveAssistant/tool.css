@@ -65,28 +65,19 @@ body.lichessTools square.lichessTools-weakSquareOpponent {
   background: radial-gradient(circle at center, #00ff0080, #00ff0010);
 }
 
-body.lichessTools piece.lichessTools-hangingPawn {
+body.lichessTools piece.lichessTools-hangingPawn,
+body.lichessTools piece.lichessTools-hangingPawnOpponent {
   filter: drop-shadow(2px 4px 8px #ffff00);
 }
 
-body.lichessTools piece.lichessTools-backwardPawn {
-  filter: drop-shadow(2px 4px 8px #ff0000);
-}
-
-body.lichessTools piece.lichessTools-isolatedPawn {
-  filter: drop-shadow(2px 4px 8px #ff0000);
-}
-
-body.lichessTools piece.lichessTools-hangingPawnOpponent {
-  filter: drop-shadow(2px 4px 8px #00ffff);
-}
-
+body.lichessTools piece.lichessTools-backwardPawn,
 body.lichessTools piece.lichessTools-backwardPawnOpponent {
-  filter: drop-shadow(2px 4px 8px #00ff00);
+  filter: drop-shadow(2px 4px 8px #ff0000);
 }
 
+body.lichessTools piece.lichessTools-isolatedPawn,
 body.lichessTools piece.lichessTools-isolatedPawnOpponent {
-  filter: drop-shadow(2px 4px 8px #00ff00);
+  filter: drop-shadow(2px 4px 8px #ff0000);
 }
 
 /* Prettier Lichess CSS */
