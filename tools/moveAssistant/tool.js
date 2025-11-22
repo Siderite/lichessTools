@@ -491,6 +491,10 @@
       if (!onlyStockfish) {
         this._lastJson = null;
         this._lastSize = null;
+        this._lastShapeJson = null;
+        this._lastShapeSize = null;
+        this.clearArrows('moveAssistant');
+        this.processHighlights();
         ['weakSquare','backwardPawn','isolatedPawn','hangingPawn'].forEach(c=>{
           [c,c+'Opponent'].forEach(c2=>{
             $('.lichessTools-'+c2).removeClass('lichessTools-'+c2);
