@@ -113,6 +113,77 @@
       return myPawns;
     };
 
+    getPawnBreaks = (board,isWhite) => {
+      const lt = this.lichessTools;
+      const pawn = isWhite ? 'P' : 'p';
+      const myPawns = [];
+      const theirPawns = [];
+      for (let x=0; x<8; x++) {
+        let empty = true;
+        for (let y=0; y<8; y++) {
+          const p = board[y][x];
+          if (p?.toLowerCase() == 'p') {
+            if (p == pawn) {
+              myPawns.push({x,y});
+            } else {
+              theirPawns.push({x,y});
+            }
+          }
+        }
+      }
+      myPawns.forEach(p=>{
+        const dests = [];
+        if (isWhite) {
+          dests.push({x:p.x, y:p.y-1});
+          if (p.y==6) dests.push({x:p.x, y:p.y-2});
+          for (const dest of dests) {
+            if ([-1,1].find(d=>myPawns.find(mp=>mp.x==dest.x+d && mp.y==dest.y) && theirPawns.find(tp=>tp.x==dest.x+d && tp.y==dest.y-1))) {
+              (p.breaks||=[]).push(dest);
+            }
+          }
+        } else {
+          dests.push({x:p.x, y:p.y+1});
+          if (p.y==1) dests.push({x:p.x, y:p.y+2});
+          for (const dest of dests) {
+            if ([-1,1].find(d=>myPawns.find(mp=>mp.x==dest.x+d && mp.y==dest.y) && theirPawns.find(tp=>tp.x==dest.x+d && tp.y==dest.y+1))) {
+              (p.breaks||=[]).push(dest);
+            }
+          }
+        }
+      });
+
+      return myPawns.filter(p=>p.breaks?.length);
+    };
+
+    addArrow = (x1,y1,x2,y2, options) => {
+      const lt = this.lichessTools;
+      const cg = lt.lichess?.analysis?.chessground;
+      if (!cg) return;
+
+      const orig = this.getCgKey(x1,y1);
+      const dest = this.getCgKey(x2,y2);
+      const drawable = cg.state?.drawable;
+      if (drawable?.shapes?.find(s=>s.orig==orig && s.dest == dest)) return;
+
+      const shape = {
+        orig: orig,
+        dest: dest,
+        brush: 'white',
+        ...options
+      };
+      const shapes = (drawable.shapes ||= []);
+      shapes.push(shape);
+      this.processHighlights();
+    };
+
+    clearArrows = (source) => {
+      const lt = this.lichessTools;
+      const cg = lt.lichess?.analysis?.chessground;
+      const shapes = cg?.state?.drawable?.shapes;
+      if (!shapes?.length) return;
+      lt.arrayRemoveAll(shapes,s=>s.source == source);
+    };
+
     highlight = (x,y, className) => {
       const lt = this.lichessTools;
       const cg = lt.lichess?.analysis?.chessground;
@@ -142,18 +213,39 @@
       const lt = this.lichessTools;
       const cg = lt.lichess?.analysis?.chessground;
       if (!cg) return;
-      const squareMap = (cg.state.highlight.custom ||= new Map());
-      if (!squareMap) return;
-      let json = null;
-      if (squareMap.size == this._lastSize) {
-        json = lt.global.JSON.stringify([...squareMap]);
-        if (json == this._lastJson) return;
+
+      const checkSquares = ()=>{
+        const squareMap = cg.state?.highlight?.custom;
+        if (!squareMap) return;
+        let json = null;
+        if (squareMap.size == this._lastSize) {
+          json = lt.global.JSON.stringify([...squareMap]);
+          if (json == this._lastJson) return;
+        }
+        json ||= lt.global.JSON.stringify([...squareMap]);
+        this._lastJson = json;
+        this._lastSize = squareMap.size;
+        return true;
+      };
+
+      const checkShapes = ()=>{
+        const shapes = cg.state?.drawable?.shapes;
+        if (!shapes) return;
+        let json = null;
+        if (shapes.length == this._lastShapeSize) {
+          json = lt.global.JSON.stringify(shapes);
+          if (json == this._lastShapeJson) return;
+        }
+        json ||= lt.global.JSON.stringify(shapes);
+        this._lastShapeJson = json;
+        this._lastShapeSize = shapes.length;
+        return true;
+      };
+
+      if (checkSquares() || checkShapes()) {
+        cg.redrawAll();
+        this.evaluatePawns(); // remove the flicker
       }
-      json ||= lt.global.JSON.stringify([...squareMap]);
-      this._lastJson = json;
-      this._lastSize = squareMap.size
-      cg.redrawAll();
-      this.evaluatePawns(); // remove the flicker
     };
     processHighlights = this.lichessTools.debounce(this.processHighlightsDirect,50);
 
@@ -187,6 +279,7 @@
       const $ = lt.$;
       const lichess = lt.lichess;
       const analysis = lichess?.analysis;
+
       if (!this.isEnabled) return;
       if (!this.options.pawns) return;
       const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
@@ -195,7 +288,7 @@
       if (lt.isGamePlaying()) return;
 
       const board = lt.getBoardFromFen(analysis.node.fen);
-      const isWhite = analysis.getOrientation() != 'black';
+      let isWhite = analysis.getOrientation() != 'black';
 
       const pieces = $('.cg-wrap cg-board piece.pawn');
       this.getPawns(board,isWhite)
@@ -215,6 +308,20 @@
             .toggleClassSafe('lichessTools-backwardPawnOpponent',!!r.backward)
             .toggleClassSafe('lichessTools-isolatedPawnOpponent',!!r.isolated)
             .toggleClassSafe('lichessTools-hangingPawnOpponent',!!r.hanging);
+        });
+
+      isWhite = analysis.turnColor() != 'black';
+      this.clearArrows('moveAssistant');
+      this.getPawnBreaks(board,isWhite)
+        .forEach(r=>{
+          r.breaks.forEach(b=>{
+            this.addArrow(r.x,r.y,b.x,b.y,{
+              brush: 'purple',
+              modifiers: { lineWidth:5, hilite: '#ffff00' },
+              below: true,
+              source: 'moveAssistant'
+            });
+          });
         });
     };
 
