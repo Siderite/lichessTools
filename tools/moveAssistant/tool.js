@@ -134,16 +134,20 @@
       myPawns.forEach(p=>{
         const dests = [];
         if (isWhite) {
-          dests.push({x:p.x, y:p.y-1});
-          if (p.y==6) dests.push({x:p.x, y:p.y-2});
+          if (!board[p.y-1][p.x]) {
+            dests.push({x:p.x, y:p.y-1});
+            if (p.y==6 && !board[p.y-2][p.x]) dests.push({x:p.x, y:p.y-2});
+          }
           for (const dest of dests) {
             if ([-1,1].find(d=>myPawns.find(mp=>mp.x==dest.x+d && mp.y==dest.y) && theirPawns.find(tp=>tp.x==dest.x+d && tp.y==dest.y-1))) {
               (p.breaks||=[]).push(dest);
             }
           }
         } else {
-          dests.push({x:p.x, y:p.y+1});
-          if (p.y==1) dests.push({x:p.x, y:p.y+2});
+          if (!board[p.y+1][p.x]) {
+            dests.push({x:p.x, y:p.y+1});
+            if (p.y==1 && !board[p.y+2][p.x]) dests.push({x:p.x, y:p.y+2});
+          }
           for (const dest of dests) {
             if ([-1,1].find(d=>myPawns.find(mp=>mp.x==dest.x+d && mp.y==dest.y) && theirPawns.find(tp=>tp.x==dest.x+d && tp.y==dest.y+1))) {
               (p.breaks||=[]).push(dest);
