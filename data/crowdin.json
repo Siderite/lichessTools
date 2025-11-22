@@ -483,7 +483,7 @@
     "options.mayTenth": "يوم أدوات الشطرنج الحياة!",
     "mayTenthTitle": "يوم أدوات شطرنج الحياة السعيدة!",
     "options.moveAssistant": "نقل المساعد",
-    "assistantButtonTitle": "أدوات شطرنج الحياة - تقييم نقل القطعة المختارة",
+    "assistantButtonTitle": "أدوات شطرنج الحياة - نقل التقييم",
     "options.playerWarning": "تحذير اللاعب",
     "percentageTitle": "- %s% معدل قطع الاتصال",
     "options.boardImage": "صورة لوحة تصديرية أفضل",
@@ -972,7 +972,10 @@
     "requestAComputerAnalysis": "طلب تحليل كمبيوتر",
     "recentGamesHeaderText": "ألعاب حديثة",
     "moreGamesText": "المزيد >",
-    "mainPageElements.recentGames": "ألعاب حديثة"
+    "mainPageElements.recentGames": "ألعاب حديثة",
+    "moveAssistant.dests": "نقل الوجهات",
+    "moveAssistant.squares": "مربعات",
+    "moveAssistant.pawns": "البارد"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1458,7 +1461,7 @@
     "options.mayTenth": "LiChess Tools 日！",
     "mayTenthTitle": "LiChess Tools 日快乐！",
     "options.moveAssistant": "着法助手",
-    "assistantButtonTitle": "LiChess Tools - 所选棋子的着法评估",
+    "assistantButtonTitle": "LiChess工具 - 移动评价",
     "options.playerWarning": "玩家警告提示",
     "percentageTitle": "- %s%断开连接",
     "options.boardImage": "更好的棋盘导出图片",
@@ -1947,7 +1950,10 @@
     "requestAComputerAnalysis": "请求计算机分析",
     "recentGamesHeaderText": "最近的游戏",
     "moreGamesText": "更多>",
-    "mainPageElements.recentGames": "最近的游戏"
+    "mainPageElements.recentGames": "最近的游戏",
+    "moveAssistant.dests": "移动目标",
+    "moveAssistant.squares": "正方形",
+    "moveAssistant.pawns": "爪子"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2433,7 +2439,7 @@
     "options.mayTenth": "LiChess Tools 節日！",
     "mayTenthTitle": "LiChess Tools 節快樂！",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
+    "assistantButtonTitle": "LiChess Tools - move evaluation",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "更好的截圖畫質",
@@ -2922,7 +2928,10 @@
     "requestAComputerAnalysis": "Request a computer analysis",
     "recentGamesHeaderText": "Recent games",
     "moreGamesText": "More >",
-    "mainPageElements.recentGames": "Recent games"
+    "mainPageElements.recentGames": "Recent games",
+    "moveAssistant.dests": "Move destinations",
+    "moveAssistant.squares": "Squares",
+    "moveAssistant.pawns": "Pawns"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3408,7 +3417,7 @@
     "options.mayTenth": "LiChess Tools den!",
     "mayTenthTitle": "Šťastný den LiChess Tools!",
     "options.moveAssistant": "Přesunout asistenta",
-    "assistantButtonTitle": "LiChess Tools - hodnocení tahu vybraných kusů",
+    "assistantButtonTitle": "Nástroje Lišek - posunout hodnocení",
     "options.playerWarning": "Upozornění hráče",
     "percentageTitle": "- %s% rychlost odpojení",
     "options.boardImage": "Lepší exportovaný obrázek fóra",
@@ -3897,7 +3906,10 @@
     "requestAComputerAnalysis": "Požádat o počítačovou analýzu",
     "recentGamesHeaderText": "Nedávné hry",
     "moreGamesText": "Více >",
-    "mainPageElements.recentGames": "Nedávné hry"
+    "mainPageElements.recentGames": "Nedávné hry",
+    "moveAssistant.dests": "Přesunout destinace",
+    "moveAssistant.squares": "Čtverce",
+    "moveAssistant.pawns": "Hřebeny"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4383,7 +4395,7 @@
     "options.mayTenth": "LiChess Gereedschap Dag!",
     "mayTenthTitle": "Gelukkige LiChess Gereedschapsdag!",
     "options.moveAssistant": "Assistent verplaatsen",
-    "assistantButtonTitle": "LiChess Tools - geselecteerd stuk evaluatie verplaatsen",
+    "assistantButtonTitle": "Lischass Tools - evaluatie verplaatsen",
     "options.playerWarning": "Speler waarschuwing waarschuwing",
     "percentageTitle": "- %s% verbinding verbreken",
     "options.boardImage": "Betere geëxporteerde board afbeelding",
@@ -4872,7 +4884,10 @@
     "requestAComputerAnalysis": "Vraag een computeranalyse aan",
     "recentGamesHeaderText": "Recente spellen",
     "moreGamesText": "Meer >",
-    "mainPageElements.recentGames": "Recente spellen"
+    "mainPageElements.recentGames": "Recente spellen",
+    "moveAssistant.dests": "Bestemmingen verplaatsen",
+    "moveAssistant.squares": "Vierkantjes",
+    "moveAssistant.pawns": "Pionnen"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5358,7 +5373,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
+    "assistantButtonTitle": "LiChess Tools - move evaluation",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -5847,7 +5862,10 @@
     "requestAComputerAnalysis": "Request a computer analysis",
     "recentGamesHeaderText": "Recent games",
     "moreGamesText": "More >",
-    "mainPageElements.recentGames": "Recent games"
+    "mainPageElements.recentGames": "Recent games",
+    "moveAssistant.dests": "Move destinations",
+    "moveAssistant.squares": "Squares",
+    "moveAssistant.pawns": "Pawns"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6333,7 +6351,7 @@
     "options.mayTenth": "Journée de LiChess Tools!",
     "mayTenthTitle": "Joyeuse journée de LiChess Tools!",
     "options.moveAssistant": "Assistant de coup",
-    "assistantButtonTitle": "LiChess Tools - évaluation des coups de la pièce sélectionnée",
+    "assistantButtonTitle": "Outils LiChess - évaluation des mouvements",
     "options.playerWarning": "Alerte d'avertissement pour les joueurs",
     "percentageTitle": "- Taux de déconnexion : %s%",
     "options.boardImage": "Mieux exporter l'image de l'échiquier",
@@ -6822,7 +6840,10 @@
     "requestAComputerAnalysis": "Demander une analyse de l'ordinateur",
     "recentGamesHeaderText": "Parties récentes",
     "moreGamesText": "Plus >",
-    "mainPageElements.recentGames": "Parties récentes"
+    "mainPageElements.recentGames": "Parties récentes",
+    "moveAssistant.dests": "Déplacer les destinations",
+    "moveAssistant.squares": "Carrés",
+    "moveAssistant.pawns": "Pions"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7308,7 +7329,7 @@
     "options.mayTenth": "LiChess-Tools-Tag!",
     "mayTenthTitle": "Einen frohen LiChess-Tools-Tag!",
     "options.moveAssistant": "Assistent verschieben",
-    "assistantButtonTitle": "LiChess Tools - Auswertung ausgewählter Stückbewegungen",
+    "assistantButtonTitle": "LiChess Werkzeuge - Verschiebung",
     "options.playerWarning": "Warnung des Spielers",
     "percentageTitle": "- %s% Trennungsrate",
     "options.boardImage": "Bessere exportierte Brettbild",
@@ -7797,7 +7818,10 @@
     "requestAComputerAnalysis": "Computeranalyse anfordern",
     "recentGamesHeaderText": "Letzte Spiele",
     "moreGamesText": "Mehr >",
-    "mainPageElements.recentGames": "Letzte Spiele"
+    "mainPageElements.recentGames": "Letzte Spiele",
+    "moveAssistant.dests": "Ziele verschieben",
+    "moveAssistant.squares": "Quadrate",
+    "moveAssistant.pawns": "Pfoten"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8283,7 +8307,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
+    "assistantButtonTitle": "LiChess Tools - move evaluation",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -8772,7 +8796,10 @@
     "requestAComputerAnalysis": "Request a computer analysis",
     "recentGamesHeaderText": "Recent games",
     "moreGamesText": "More >",
-    "mainPageElements.recentGames": "Recent games"
+    "mainPageElements.recentGames": "Recent games",
+    "moveAssistant.dests": "Move destinations",
+    "moveAssistant.squares": "Squares",
+    "moveAssistant.pawns": "Pawns"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9258,7 +9285,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Felice LiChess Tools day!",
     "options.moveAssistant": "Assistenza mossa",
-    "assistantButtonTitle": "LiChess Tools - valutazione mossa del pezzo selezionato",
+    "assistantButtonTitle": "Strumenti LiChess - spostare la valutazione",
     "options.playerWarning": "Avviso giocatore",
     "percentageTitle": "- %s% tasso di disconnessione",
     "options.boardImage": "Migliore immagine di esportazione scacchiera ",
@@ -9747,7 +9774,10 @@
     "requestAComputerAnalysis": "Richiedi un'analisi del computer",
     "recentGamesHeaderText": "Partite recenti",
     "moreGamesText": "Altro >",
-    "mainPageElements.recentGames": "Partite recenti"
+    "mainPageElements.recentGames": "Partite recenti",
+    "moveAssistant.dests": "Sposta destinazioni",
+    "moveAssistant.squares": "Quadrati",
+    "moveAssistant.pawns": "Gamberi"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10233,7 +10263,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
+    "assistantButtonTitle": "LiChess Tools - move evaluation",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -10722,7 +10752,10 @@
     "requestAComputerAnalysis": "Request a computer analysis",
     "recentGamesHeaderText": "Recent games",
     "moreGamesText": "More >",
-    "mainPageElements.recentGames": "Recent games"
+    "mainPageElements.recentGames": "Recent games",
+    "moveAssistant.dests": "Move destinations",
+    "moveAssistant.squares": "Squares",
+    "moveAssistant.pawns": "Pawns"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11208,7 +11241,7 @@
     "options.mayTenth": "Dzień LiChess Tools!",
     "mayTenthTitle": "Szczęśliwego Dnia LiChess Tools!",
     "options.moveAssistant": "Asystent posunięć",
-    "assistantButtonTitle": "LiChess Tools — ocena posunięć wybranej bierki",
+    "assistantButtonTitle": "Narzędzia LiChess - ocena przesunięć",
     "options.playerWarning": "Ikona ostrzeżenia o przeciwniku",
     "percentageTitle": "- Szybkość rozłączenia %s%",
     "options.boardImage": "Lepszy eksportowany obraz szachownicy",
@@ -11697,7 +11730,10 @@
     "requestAComputerAnalysis": "Poproś o analizę komputerową",
     "recentGamesHeaderText": "Ostatnie gry",
     "moreGamesText": "Więcej >",
-    "mainPageElements.recentGames": "Ostatnie gry"
+    "mainPageElements.recentGames": "Ostatnie gry",
+    "moveAssistant.dests": "Przenieś miejsca docelowe",
+    "moveAssistant.squares": "Kwadraty",
+    "moveAssistant.pawns": "Pawły"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12183,7 +12219,7 @@
     "options.mayTenth": "Dia de LiChess Tools!",
     "mayTenthTitle": "Feliz dia de LiChess Tools!",
     "options.moveAssistant": "Mover assistente",
-    "assistantButtonTitle": "LiChess Tools - avaliação de movimento de peça selecionada",
+    "assistantButtonTitle": "Ferramentas de LiChess - avaliação de movimentos",
     "options.playerWarning": "Alerta de jogador",
     "percentageTitle": "- Taxa de desconexão %s%",
     "options.boardImage": "Imagem do board exportada melhor",
@@ -12672,7 +12708,10 @@
     "requestAComputerAnalysis": "Solicitar uma análise do computador",
     "recentGamesHeaderText": "Jogos recentes",
     "moreGamesText": "Mais >",
-    "mainPageElements.recentGames": "Jogos recentes"
+    "mainPageElements.recentGames": "Jogos recentes",
+    "moveAssistant.dests": "Mover destinos",
+    "moveAssistant.squares": "Quadrados",
+    "moveAssistant.pawns": "Peões"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13158,7 +13197,7 @@
     "options.mayTenth": "Dia de LiChess Tools!",
     "mayTenthTitle": "Feliz dia de LiChess Tools!",
     "options.moveAssistant": "Mover assistente",
-    "assistantButtonTitle": "Ferramentas de LiChess - avaliação de movimento de peça selecionada",
+    "assistantButtonTitle": "Ferramentas de LiChess - avaliação de movimentos",
     "options.playerWarning": "Alerta de jogador",
     "percentageTitle": "- Taxa de desconexão %s%",
     "options.boardImage": "Imagem do board exportada melhor",
@@ -13647,7 +13686,10 @@
     "requestAComputerAnalysis": "Solicitar uma análise do computador",
     "recentGamesHeaderText": "Jogos recentes",
     "moreGamesText": "Mais >",
-    "mainPageElements.recentGames": "Jogos recentes"
+    "mainPageElements.recentGames": "Jogos recentes",
+    "moveAssistant.dests": "Mover destinos",
+    "moveAssistant.squares": "Quadrados",
+    "moveAssistant.pawns": "Peões"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14133,7 +14175,7 @@
     "options.mayTenth": "Ziua LiChess Tools!",
     "mayTenthTitle": "La mulţi ani, LiChess Tools!",
     "options.moveAssistant": "Asistent mutări",
-    "assistantButtonTitle": "LiChess Tools - evaluarea mutărilor piesei selectate",
+    "assistantButtonTitle": "LiChess Tools - evaluarea mutărilor",
     "options.playerWarning": "Alertă avertizare jucători",
     "percentageTitle": "- rată de deconectare %s%",
     "options.boardImage": "O imagine exportată a tablei mai bună",
@@ -14622,7 +14664,10 @@
     "requestAComputerAnalysis": "Cere o analiză făcută de calculator",
     "recentGamesHeaderText": "Jocuri recente",
     "moreGamesText": "Mai mult >",
-    "mainPageElements.recentGames": "Jocuri recente"
+    "mainPageElements.recentGames": "Jocuri recente",
+    "moveAssistant.dests": "Destinații mutări",
+    "moveAssistant.squares": "Pătrate tablă",
+    "moveAssistant.pawns": "Pioni"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15108,7 +15153,7 @@
     "options.mayTenth": "День LiChess Tools!",
     "mayTenthTitle": "С Днём LiChess Tools!",
     "options.moveAssistant": "Ассистент ходов",
-    "assistantButtonTitle": "LiChess Tools  - оценка всех ходов выбранной фигуры",
+    "assistantButtonTitle": "Инструменты Жизни - оценка перемещения",
     "options.playerWarning": "Предупреждение об игроке",
     "percentageTitle": "- %s% скорость отключения",
     "options.boardImage": "Лучшее изображение для экспорта доски",
@@ -15597,7 +15642,10 @@
     "requestAComputerAnalysis": "Запросить компьютерный анализ",
     "recentGamesHeaderText": "Недавние игры",
     "moreGamesText": "Больше >",
-    "mainPageElements.recentGames": "Недавние игры"
+    "mainPageElements.recentGames": "Недавние игры",
+    "moveAssistant.dests": "Переместить места назначения",
+    "moveAssistant.squares": "Квадраты",
+    "moveAssistant.pawns": "Пешки"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16083,7 +16131,7 @@
     "options.mayTenth": "¡Día de las Herramientas de Liaje!",
     "mayTenthTitle": "¡Feliz día de las herramientas de LiAjedrez!",
     "options.moveAssistant": "Mover asistente",
-    "assistantButtonTitle": "LiChess Tools - evaluación de movimiento de piezas seleccionada",
+    "assistantButtonTitle": "Herramientas de LiChess - mueve la evaluación",
     "options.playerWarning": "Alerta del jugador",
     "percentageTitle": "- %s% tasa de desconexión",
     "options.boardImage": "Mejor imagen de tablero exportada",
@@ -16572,7 +16620,10 @@
     "requestAComputerAnalysis": "Solicitar un análisis del ordenador",
     "recentGamesHeaderText": "Juegos recientes",
     "moreGamesText": "Más >",
-    "mainPageElements.recentGames": "Juegos recientes"
+    "mainPageElements.recentGames": "Juegos recientes",
+    "moveAssistant.dests": "Mover destinos",
+    "moveAssistant.squares": "Cuadrados",
+    "moveAssistant.pawns": "Alambres"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -17058,7 +17109,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
+    "assistantButtonTitle": "LiChess Tools - move evaluation",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -17547,7 +17598,10 @@
     "requestAComputerAnalysis": "Request a computer analysis",
     "recentGamesHeaderText": "Recent games",
     "moreGamesText": "More >",
-    "mainPageElements.recentGames": "Recent games"
+    "mainPageElements.recentGames": "Recent games",
+    "moveAssistant.dests": "Move destinations",
+    "moveAssistant.squares": "Squares",
+    "moveAssistant.pawns": "Pawns"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -18033,7 +18087,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
+    "assistantButtonTitle": "LiChess Tools - move evaluation",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -18522,7 +18576,10 @@
     "requestAComputerAnalysis": "Request a computer analysis",
     "recentGamesHeaderText": "Recent games",
     "moreGamesText": "More >",
-    "mainPageElements.recentGames": "Recent games"
+    "mainPageElements.recentGames": "Recent games",
+    "moveAssistant.dests": "Move destinations",
+    "moveAssistant.squares": "Squares",
+    "moveAssistant.pawns": "Pawns"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -19008,7 +19065,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - selected piece move evaluation",
+    "assistantButtonTitle": "LiChess Tools - move evaluation",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -19497,6 +19554,9 @@
     "requestAComputerAnalysis": "Request a computer analysis",
     "recentGamesHeaderText": "Recent games",
     "moreGamesText": "More >",
-    "mainPageElements.recentGames": "Recent games"
+    "mainPageElements.recentGames": "Recent games",
+    "moveAssistant.dests": "Move destinations",
+    "moveAssistant.squares": "Squares",
+    "moveAssistant.pawns": "Pawns"
   }
 }

@@ -1573,6 +1573,15 @@
       return m * 2.220446049250313e-16; // 1 / 2^52
     };
 
+    range = (start, end, step) => {
+      if (start == end) return [start];
+      if (!step) step = end>start ? 1 : -1;
+      return Array.from(
+        { length: this.global.Math.floor((end - start) / step) + 1 },
+        (_, i) => start + i * step
+      );
+    };
+
     hash = (text) => {
       let hval = 0x811c9dc5;
       if (!text) return hval;

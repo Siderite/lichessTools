@@ -57,6 +57,40 @@ body.lichessTools.mobile div.lichessTools-moveListOptions-header {
   order: 3;
 }
 
+body.lichessTools square.lichessTools-weakSquare {
+  background: radial-gradient(circle at center, #ff000080, #ff000010);
+}
+
+body.lichessTools square.lichessTools-weakSquareOpponent {
+  background: radial-gradient(circle at center, #00ff0080, #00ff0010);
+}
+
+body.lichessTools piece.lichessTools-backwardPawn {
+  filter: drop-shadow(2px 4px 8px #ff0000);
+}
+
+body.lichessTools piece.lichessTools-isolatedPawn {
+  filter: drop-shadow(2px 4px 8px #ff0000);
+}
+
+body.lichessTools piece.lichessTools-hangingPawn {
+  filter: drop-shadow(2px 4px 8px #ffff00);
+}
+
+body.lichessTools piece.lichessTools-backwardPawnOpponent {
+  filter: drop-shadow(2px 4px 8px #00ff00);
+}
+
+body.lichessTools piece.lichessTools-isolatedPawnOpponent {
+  filter: drop-shadow(2px 4px 8px #00ff00);
+}
+
+body.lichessTools piece.lichessTools-hangingPawnOpponent {
+  filter: drop-shadow(2px 4px 8px #00ffff);
+}
+
+
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier button.lichessTools-moveAssistant.lichessTools-enabled {

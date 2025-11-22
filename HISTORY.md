@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+21 Nov
+
+- Move Assistant square and pawn highlight
+- Show computer eval move "level"
+
 20 Nov
 
 - Extra chart legend
