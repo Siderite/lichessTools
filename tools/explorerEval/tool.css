@@ -108,6 +108,10 @@ body.lichessTools section.explorer-box {
   overflow-x: auto;
 }
 
+body.lichessTools section.explorer-box div.title {
+  contain: inline-size;
+}
+
 body.lichessTools section.explorer-box table.moves:has(.lichessTools-explorerEval) td:nth-child(4):last-child {
   position: absolute;
   width: -webkit-fill-available;
