@@ -226,6 +226,17 @@ body.lichessTools pearl .lichessTools-cevalLineOptions {
   mix-blend-mode: difference;
 }
 
+body.lichessTools pearl[data-depth]:after {
+  content: attr(data-depth);
+  color: var(--data-color);
+  position: absolute;
+  top: -1em;
+  left: 0em;
+  font-size: small;
+  width: 1em;
+  height: 1em;
+}
+
 body.lichessTools .engine:has(.lichessTools-downloadCeval) {
   position: relative;
 }

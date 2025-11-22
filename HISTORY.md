@@ -3,7 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 21 Nov
 
 - Move Assistant square and pawn highlight
-- Show computer eval move "level"
+- Show computer eval depth of maximum deviation
 
 20 Nov
 

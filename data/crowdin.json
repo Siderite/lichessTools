@@ -975,7 +975,8 @@
     "mainPageElements.recentGames": "ألعاب حديثة",
     "moveAssistant.dests": "نقل الوجهات",
     "moveAssistant.squares": "مربعات",
-    "moveAssistant.pawns": "البارد"
+    "moveAssistant.pawns": "البارد",
+    "pearlDeviationTitle": "أدوات شطرنج الحياة - ينحرف التقييم في $depth ($deviation)"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1953,7 +1954,8 @@
     "mainPageElements.recentGames": "最近的游戏",
     "moveAssistant.dests": "移动目标",
     "moveAssistant.squares": "正方形",
-    "moveAssistant.pawns": "爪子"
+    "moveAssistant.pawns": "爪子",
+    "pearlDeviationTitle": "LiChess Tools - evaluation deviates at $depth ($deviation)"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2931,7 +2933,8 @@
     "mainPageElements.recentGames": "Recent games",
     "moveAssistant.dests": "Move destinations",
     "moveAssistant.squares": "Squares",
-    "moveAssistant.pawns": "Pawns"
+    "moveAssistant.pawns": "Pawns",
+    "pearlDeviationTitle": "LiChess Tools - evaluation deviates at $depth ($deviation)"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3909,7 +3912,8 @@
     "mainPageElements.recentGames": "Nedávné hry",
     "moveAssistant.dests": "Přesunout destinace",
     "moveAssistant.squares": "Čtverce",
-    "moveAssistant.pawns": "Hřebeny"
+    "moveAssistant.pawns": "Hřebeny",
+    "pearlDeviationTitle": "Nástroje LiŠess - hodnocení se odchyluje na $depth ($deviation)"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4887,7 +4891,8 @@
     "mainPageElements.recentGames": "Recente spellen",
     "moveAssistant.dests": "Bestemmingen verplaatsen",
     "moveAssistant.squares": "Vierkantjes",
-    "moveAssistant.pawns": "Pionnen"
+    "moveAssistant.pawns": "Pionnen",
+    "pearlDeviationTitle": "LiChess Tools - evaluatie wijkt af bij $depth ($deviation)"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5865,7 +5870,8 @@
     "mainPageElements.recentGames": "Recent games",
     "moveAssistant.dests": "Move destinations",
     "moveAssistant.squares": "Squares",
-    "moveAssistant.pawns": "Pawns"
+    "moveAssistant.pawns": "Pawns",
+    "pearlDeviationTitle": "LiChess Tools - evaluation deviates at $depth ($deviation)"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6843,7 +6849,8 @@
     "mainPageElements.recentGames": "Parties récentes",
     "moveAssistant.dests": "Déplacer les destinations",
     "moveAssistant.squares": "Carrés",
-    "moveAssistant.pawns": "Pions"
+    "moveAssistant.pawns": "Pions",
+    "pearlDeviationTitle": "Outils LiChess - l'évaluation s'écarte à $depth ($deviation)"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7821,7 +7828,8 @@
     "mainPageElements.recentGames": "Letzte Spiele",
     "moveAssistant.dests": "Ziele verschieben",
     "moveAssistant.squares": "Quadrate",
-    "moveAssistant.pawns": "Pfoten"
+    "moveAssistant.pawns": "Pfoten",
+    "pearlDeviationTitle": "LiChess Tools - Auswertung variiert bei $depth ($deviation)"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8799,7 +8807,8 @@
     "mainPageElements.recentGames": "Recent games",
     "moveAssistant.dests": "Move destinations",
     "moveAssistant.squares": "Squares",
-    "moveAssistant.pawns": "Pawns"
+    "moveAssistant.pawns": "Pawns",
+    "pearlDeviationTitle": "LiChess Tools - evaluation deviates at $depth ($deviation)"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9777,7 +9786,8 @@
     "mainPageElements.recentGames": "Partite recenti",
     "moveAssistant.dests": "Sposta destinazioni",
     "moveAssistant.squares": "Quadrati",
-    "moveAssistant.pawns": "Gamberi"
+    "moveAssistant.pawns": "Gamberi",
+    "pearlDeviationTitle": "Strumenti LiChess - la valutazione si discosta da $depth ($deviation)"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10755,7 +10765,8 @@
     "mainPageElements.recentGames": "Recent games",
     "moveAssistant.dests": "Move destinations",
     "moveAssistant.squares": "Squares",
-    "moveAssistant.pawns": "Pawns"
+    "moveAssistant.pawns": "Pawns",
+    "pearlDeviationTitle": "LiChess Tools - evaluation deviates at $depth ($deviation)"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11733,7 +11744,8 @@
     "mainPageElements.recentGames": "Ostatnie gry",
     "moveAssistant.dests": "Przenieś miejsca docelowe",
     "moveAssistant.squares": "Kwadraty",
-    "moveAssistant.pawns": "Pawły"
+    "moveAssistant.pawns": "Pawły",
+    "pearlDeviationTitle": "Narzędzia LiChess - ocena różni się od $depth ($deviation)"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12711,7 +12723,8 @@
     "mainPageElements.recentGames": "Jogos recentes",
     "moveAssistant.dests": "Mover destinos",
     "moveAssistant.squares": "Quadrados",
-    "moveAssistant.pawns": "Peões"
+    "moveAssistant.pawns": "Peões",
+    "pearlDeviationTitle": "Ferramentas de LiChess - Desvio de avaliação em $depth ($deviation)"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13689,7 +13702,8 @@
     "mainPageElements.recentGames": "Jogos recentes",
     "moveAssistant.dests": "Mover destinos",
     "moveAssistant.squares": "Quadrados",
-    "moveAssistant.pawns": "Peões"
+    "moveAssistant.pawns": "Peões",
+    "pearlDeviationTitle": "Ferramentas de LiChess - Desvio de avaliação em $depth ($deviation)"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14667,7 +14681,8 @@
     "mainPageElements.recentGames": "Jocuri recente",
     "moveAssistant.dests": "Destinații mutări",
     "moveAssistant.squares": "Pătrate tablă",
-    "moveAssistant.pawns": "Pioni"
+    "moveAssistant.pawns": "Pioni",
+    "pearlDeviationTitle": "LiChess Tools - evaluarea deviază la $depth ($deviation)"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15645,7 +15660,8 @@
     "mainPageElements.recentGames": "Недавние игры",
     "moveAssistant.dests": "Переместить места назначения",
     "moveAssistant.squares": "Квадраты",
-    "moveAssistant.pawns": "Пешки"
+    "moveAssistant.pawns": "Пешки",
+    "pearlDeviationTitle": "Lichess Tools - оценка отклоняется на $depth ($deviation)"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16623,7 +16639,8 @@
     "mainPageElements.recentGames": "Juegos recientes",
     "moveAssistant.dests": "Mover destinos",
     "moveAssistant.squares": "Cuadrados",
-    "moveAssistant.pawns": "Alambres"
+    "moveAssistant.pawns": "Alambres",
+    "pearlDeviationTitle": "Herramientas de LiChess - evaluación desviada en $depth ($deviation)"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -17601,7 +17618,8 @@
     "mainPageElements.recentGames": "Recent games",
     "moveAssistant.dests": "Move destinations",
     "moveAssistant.squares": "Squares",
-    "moveAssistant.pawns": "Pawns"
+    "moveAssistant.pawns": "Pawns",
+    "pearlDeviationTitle": "LiChess Tools - evaluation deviates at $depth ($deviation)"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -18579,7 +18597,8 @@
     "mainPageElements.recentGames": "Recent games",
     "moveAssistant.dests": "Move destinations",
     "moveAssistant.squares": "Squares",
-    "moveAssistant.pawns": "Pawns"
+    "moveAssistant.pawns": "Pawns",
+    "pearlDeviationTitle": "LiChess Tools - evaluation deviates at $depth ($deviation)"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -19557,6 +19576,7 @@
     "mainPageElements.recentGames": "Recent games",
     "moveAssistant.dests": "Move destinations",
     "moveAssistant.squares": "Squares",
-    "moveAssistant.pawns": "Pawns"
+    "moveAssistant.pawns": "Pawns",
+    "pearlDeviationTitle": "LiChess Tools - evaluation deviates at $depth ($deviation)"
   }
 }
