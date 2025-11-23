@@ -292,14 +292,17 @@
     };
 
     brushes = ['green', 'red', 'blue', 'yellow'];
-    toggleBrush = (ev) => {
+    toggleBrush = (ev, index) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       if (!this.chessground)
         return;
       ev.preventDefault();
-      let index = this.brushes.indexOf(this.drawingBrush) + 1;
-      this.drawingBrush = index >= this.options.colorCount
+      const isTooltip = index !== undefined;
+      if (!isTooltip) {
+        index = this.brushes.indexOf(this.drawingBrush) + 1;
+      }
+      this.drawingBrush = index<0 || index >= this.options.colorCount
          ? null
          : this.brushes[index];
       const state = this.chessground.state;
@@ -307,9 +310,56 @@
       state.movable.showDests = !this.drawingBrush;
       state.draggable.enabled = !this.drawingBrush;
       state.selectable.enabled = !this.drawingBrush;
+      const mainButton = $('button.lichessTools-shapeDrawing');
       for (const brush of this.brushes) {
-        $(ev.target).toggleClassSafe('lichessTools-' + brush + 'Brush', this.drawingBrush == brush);
+        mainButton.toggleClassSafe('lichessTools-' + brush + 'Brush', this.drawingBrush == brush);
       }
+
+      this.populateTooltip();
+      $('.lichessTools-shapeDrawing-tooltip')
+                        .toggleClassSafe('show', !isTooltip)
+                        .css('left',mainButton.offset().left+'px');
+      this._tappedBrush = true;
+    };
+
+    clearTooltipShow = ()=>{
+      const shouldClear = !this._tappedBrush;
+      this._tappedBrush = false;
+      if (!shouldClear) return;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $('.lichessTools-shapeDrawing-tooltip')
+        .toggleClassSafe('show',false);
+    };
+
+    populateTooltip = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const tooltip = $('.lichessTools-shapeDrawing-tooltip');
+      if (this.options.colorCount<1) {
+        tooltip.empty();
+        return;
+      }
+
+      const addButton = (brush, index)=>{
+        const className = 'lichessTools-'+brush+'Brush';
+        const shouldBeRemoved = this.options.colorCount<2 || index>=this.options.colorCount;
+        const button = tooltip.find('.'+className);
+        if (button.length) {
+          if (shouldBeRemoved) button.remove();
+          return;
+        }
+        $('<button class="fbt">')
+          .addClass('lichessTools-'+brush+'Brush')
+          .on('pointerdown',(ev)=>this.toggleBrush(ev,index))
+          .appendTo(tooltip);
+      };
+
+      for (let i=0; i<this.brushes.length; i++) {
+        const brush = this.brushes[i];
+        addButton(brush,i);
+      }
+      addButton('empty',-1);
     };
 
     clickOrTapAnalysisControls = (ev) => {
@@ -394,15 +444,22 @@
                 .appendTo(container);
               if (this.options.shapeDrawing) {
                 if (!container.find('button.lichessTools-shapeDrawing').length) {
-                  $('<button class="fbt">')
-                  .attr('data-icon', lt.icon.NorthEastDoubleArrow)
-                  .attr('title', trans.noarg('shapeDrawingTitle'))
-                  .addClass('lichessTools-shapeDrawing')
-                  .on('click',this.toggleBrush)
-                  .appendTo(container);
+                  const button = $('<button class="fbt">')
+                    .attr('data-icon', lt.icon.NorthEastDoubleArrow)
+                    .attr('title', trans.noarg('shapeDrawingTitle'))
+                    .addClass('lichessTools-shapeDrawing')
+                    .on('click',this.toggleBrush)
+                    .appendTo(container);
+                  let tooltip = $('.lichessTools-shapeDrawing-tooltip');
+                  if (!tooltip.length) {
+                    tooltip = $('<div class="lichessTools-shapeDrawing-tooltip">')
+                      .insertAfter(button);
+                  }
                 }
+                this.populateTooltip();
               } else {
                 $('div.analyse__controls button.lichessTools-shapeDrawing').remove();
+                $('div.analyse__controls button.lichessTools-shapeDrawing-tooltip').remove();
               }
             }
           } else {
@@ -414,15 +471,22 @@
           const container = $('div.analyse__controls:not(.lichessTools-liveStatus)');
           if (!container.find('button.lichessTools-shapeDrawing').length) {
             const anchor = container.children('button[data-act]:not([data-act="menu"])').last();
-            $('<button class="fbt">')
-            .attr('data-icon', lt.icon.NorthEastDoubleArrow)
-            .attr('title', trans.noarg('shapeDrawingTitle'))
-            .addClass('lichessTools-shapeDrawing')
-            .insertAfter(anchor);
+            const button = $('<button class="fbt">')
+              .attr('data-icon', lt.icon.NorthEastDoubleArrow)
+              .attr('title', trans.noarg('shapeDrawingTitle'))
+              .addClass('lichessTools-shapeDrawing')
+              .insertAfter(anchor);
             addHandler = true;
+            let tooltip = $('.lichessTools-shapeDrawing-tooltip');
+            if (!tooltip.length) {
+              tooltip = $('<div class="lichessTools-shapeDrawing-tooltip">')
+                .insertAfter(button);
+            }
           }
+          this.populateTooltip();
         } else {
           $('div.analyse__controls button.lichessTools-shapeDrawing').remove();
+          $('div.analyse__controls button.lichessTools-shapeDrawing-tooltip').remove();
         }
         if (this.options.randomNextMove) {
           if (!$('div.analyse__controls div.jumps button.lichessTools-randomNextMove').length) {
@@ -469,18 +533,25 @@
           if (this.options.shapeDrawingRound) {
             const container = $('div.rcontrols div.ricons');
             if (!$('button.lichessTools-shapeDrawing', container).length) {
-              $('<button class="fbt lichessTools-shapeDrawing">')
-              .attr('data-icon', lt.icon.NorthEastDoubleArrow)
-              .attr('title', trans.noarg('shapeDrawingTitle'))
-              .insertBefore($('button.board-menu-toggle', container))
-              .on('touchstart mousedown ', ev => {
-                this.toggleBrush(ev);
-                wrap?.toggleClassSafe('lichessTools-passthrough', !this.drawingBrush);
-              });
+              const button = $('<button class="fbt lichessTools-shapeDrawing">')
+                .attr('data-icon', lt.icon.NorthEastDoubleArrow)
+                .attr('title', trans.noarg('shapeDrawingTitle'))
+                .insertBefore($('button.board-menu-toggle', container))
+                .on('touchstart mousedown ', ev => {
+                  this.toggleBrush(ev);
+                  wrap?.toggleClassSafe('lichessTools-passthrough', !this.drawingBrush);
+                });
+              let tooltip = $('.lichessTools-shapeDrawing-tooltip');
+              if (!tooltip.length) {
+                tooltip = $('<div class="lichessTools-shapeDrawing-tooltip">')
+                  .insertAfter(button);
+              }
             }
+            this.populateTooltip();
           } else {
             wrap?.remove();
             $('div.rcontrols div.ricons button.lichessTools-shapeDrawing').remove();
+            $('div.rcontrols div.ricons button.lichessTools-shapeDrawing-tooltip').remove();
           }
           const handler = lt.getKeyHandler('f');
           if (handler) {
@@ -637,11 +708,21 @@
 
       if (isRoundPlay || isRoundPuzzle) {
         lt.uiApi.events.off('ply', this.clearShapes);
+        $('body').off('mouseup',this.clearTooltipShow);
         $('main div.cg-wrap:not(.lichessTools-boardOverlay)').off('click', this.clearShapes);
         if (this.options.shapeDrawingRound) {
           lt.uiApi.events.on('ply', this.clearShapes);
+          $('body').on('mouseup',this.clearTooltipShow);
           $('main div.cg-wrap:not(.lichessTools-boardOverlay)').on('click', this.clearShapes);
         }
+      }
+
+      const body = $('body')[0];
+      body.removeEventListener('pointerup',this.clearTooltipShow, { capture: true });
+      if ((analysis && this.options.shapeDrawing)
+          ||
+          ((isRoundPlay || isRoundPuzzle) && this.options.shapeDrawingRound)) {
+        body.addEventListener('pointerup',this.clearTooltipShow, { capture: true });
       }
 
       lt.pubsub.off('lichessTools.redraw',this.handleWakeLock);

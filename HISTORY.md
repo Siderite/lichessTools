@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - Move Assistant pawn breaks
 - First interaction theme
+- Mobile shape drawing popup
 
 21 Nov
 

@@ -34,22 +34,22 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   color: initial;
 }*/
 
-body.lichessTools button.lichessTools-shapeDrawing.lichessTools-greenBrush {
+body.lichessTools button.lichessTools-greenBrush {
   background: #629924;
   color: white;
 }
 
-body.lichessTools button.lichessTools-shapeDrawing.lichessTools-redBrush {
+body.lichessTools button.lichessTools-redBrush {
   background: #992424;
   color: white;
 }
 
-body.lichessTools button.lichessTools-shapeDrawing.lichessTools-blueBrush {
+body.lichessTools button.lichessTools-blueBrush {
   background: #362499;
   color: white;
 }
 
-body.lichessTools button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
+body.lichessTools button.lichessTools-yellowBrush {
   background: #979924;
   color: black;
 }
@@ -194,6 +194,39 @@ body.lichessTools .lichessTools-shapeDrawing.lichessTools-mobileExperience-tapDr
   background: #629924;
   color: white;
 }
+
+body.lichessTools div.lichessTools-shapeDrawing-tooltip {
+  position: absolute;
+  background: none;
+  transform: translateY(calc(-5px - 100%));
+  flex-direction: column;
+  border:none;
+  width: min-content;
+  z-index: 3;
+  gap:2px;
+
+  display: none;
+}
+
+body.lichessTools div.lichessTools-shapeDrawing-tooltip.show {
+  display: flex;
+}
+
+body.lichessTools div.lichessTools-shapeDrawing-tooltip button {
+  font-size: 1.3rem;
+  height: 2.5em;
+  border: none;
+  min-width: 2.5em;
+  border-radius:50%;
+}
+
+body.lichessTools button.lichessTools-redBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-redBrush,
+body.lichessTools button.lichessTools-blueBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-blueBrush,
+body.lichessTools button.lichessTools-greenBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-greenBrush,
+body.lichessTools button.lichessTools-yellowBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-yellowBrush {
+  border: 1px solid white;
+}
+
 
 /* Prettier Lichess CSS */
 
