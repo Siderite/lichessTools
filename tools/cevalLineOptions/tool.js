@@ -285,7 +285,7 @@
       pearl
         .attr('data-deviation',displayDeviation?s.deviation.toFixed(2):null)
         .attr('data-depth', displayDeviation?s.depth:null)
-        .attr('title', trans.noarg('pearlDeviationTitle').replace('$deviation',s.deviation.toFixed(2)).replace('$depth',s.depth))
+        .attr('title', trans.noarg('pearlDeviationTitle').replace('$deviation',(s.deviation/100).toFixed(2)).replace('$depth',s.depth))
         .css('--data-color', displayDeviation?color:null);
     };
 

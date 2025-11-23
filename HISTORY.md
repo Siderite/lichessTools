@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+23 Nov
+
+- Move Assistant pawn breaks
+- First interaction theme
+
 21 Nov
 
 - Move Assistant square and pawn highlight
