@@ -100,9 +100,9 @@
            .forEach(f=>myPawns.filter(p=>p.x==f).forEach(p=>p.isolated=true));
       files.filter(f=> f>1 && f<6)
            .filter(f=>
-            (files.includes(f-1) && !files.includes(f-2) && !files.includes(f+1))
+            (f>2 && files.includes(f-1) && !files.includes(f-2) && !files.includes(f+1))
             ||
-            (files.includes(f+1) && !files.includes(f+2) && !files.includes(f-1))
+            (f<5 && files.includes(f+1) && !files.includes(f+2) && !files.includes(f-1))
            )
            .forEach(f=>myPawns.filter(p=>p.x==f && (isWhite||p.y<6) && (!isWhite||p.y>1)).forEach(p=>p.hanging=true));
 
