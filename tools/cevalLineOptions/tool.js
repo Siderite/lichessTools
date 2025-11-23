@@ -226,6 +226,7 @@
     db = new Map();
     drawChart = () => {
       const lt = this.lichessTools;
+      const trans = lt.translator;
       const analysis = lt.lichess.analysis;
       if (!analysis) return;
       const $ = lt.$;

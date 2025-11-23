@@ -107,10 +107,11 @@
            .forEach(f=>myPawns.filter(p=>p.x==f && (isWhite||p.y<6) && (!isWhite||p.y>1)).forEach(p=>p.hanging=true));
 
       myPawns.forEach(p=>{
+        const dy = isWhite ? -1 : 1;
+        if (board[p.y+dy][p.x]) return;
         const ys = isWhite ? lt.range(p.y,7) : lt.range(p.y,1);
         if (myPawns.find(mp=>ys.includes(mp.y) && ((mp.x==p.x+1)||(mp.x==p.x-1)))) return;
-        const dy = isWhite ? -2 : 2;
-        if (theirPawns.find(mp=>mp.y==p.y+dy && ((mp.x==p.x+1)||(mp.x==p.x-1)))) p.backward = true;
+        if (theirPawns.find(mp=>mp.y==p.y+dy*2 && ((mp.x==p.x+1)||(mp.x==p.x-1)))) p.backward = true;
       });
 
       return myPawns;
@@ -136,25 +137,14 @@
       }
       myPawns.forEach(p=>{
         const dests = [];
-        if (isWhite) {
-          if (!board[p.y-1][p.x]) {
-            dests.push({x:p.x, y:p.y-1});
-            if (p.y==6 && !board[p.y-2][p.x]) dests.push({x:p.x, y:p.y-2});
-          }
-          for (const dest of dests) {
-            if ([-1,1].find(d=>myPawns.find(mp=>mp.x==dest.x+d && mp.y==dest.y) && theirPawns.find(tp=>tp.x==dest.x+d && tp.y==dest.y-1))) {
-              (p.breaks||=[]).push(dest);
-            }
-          }
-        } else {
-          if (!board[p.y+1][p.x]) {
-            dests.push({x:p.x, y:p.y+1});
-            if (p.y==1 && !board[p.y+2][p.x]) dests.push({x:p.x, y:p.y+2});
-          }
-          for (const dest of dests) {
-            if ([-1,1].find(d=>myPawns.find(mp=>mp.x==dest.x+d && mp.y==dest.y) && theirPawns.find(tp=>tp.x==dest.x+d && tp.y==dest.y+1))) {
-              (p.breaks||=[]).push(dest);
-            }
+        const dy = isWhite ? -1 : 1;
+        if (!board[p.y+dy][p.x]) {
+          dests.push({x:p.x, y:p.y+dy});
+          if (p.y==(isWhite?6:1) && !board[p.y+dy*2][p.x]) dests.push({x:p.x, y:p.y+dy*2});
+        }
+        for (const dest of dests) {
+          if ([-1,1].find(dx=>myPawns.find(mp=>mp.x==dest.x+dx && mp.y==dest.y) && theirPawns.find(tp=>tp.x==dest.x+dx && tp.y==dest.y+dy))) {
+            (p.breaks||=[]).push(dest);
           }
         }
       });
