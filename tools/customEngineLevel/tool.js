@@ -117,7 +117,7 @@
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
           return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
-        $(html).insertAfter($('div.abset-gauge', container).eq(0));
+        $(html).insertAfter($('div.abset-gauge, .setting', container).last());
         $('#abset-noCloud')
           .on('change', async () => {
             const options = lt.currentOptions;
