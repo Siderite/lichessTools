@@ -292,7 +292,7 @@
     };
 
     getCentipawns = (info) => {
-      if (!info) return;
+      if (!info || info.depth === 0) return;
       let cp = undefined;
       const mate = Array.isArray(info.mate) ? info.mate[0] : info.mate;
       if (mate !== undefined) {

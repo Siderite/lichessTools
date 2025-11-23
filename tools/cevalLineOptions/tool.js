@@ -230,11 +230,18 @@
       const analysis = lt.lichess.analysis;
       if (!analysis) return;
       const $ = lt.$;
-      const db = this.db.get(analysis.path);
-      if (!db) return;
-
       const pearl = $('.ceval pearl');
       if (!pearl.length) return;
+
+      const db = this.db.get(analysis.path);
+      if (!db) {
+        pearl
+          .removeAttr('data-deviation')
+          .removeAttr('data-depth')
+          .removeAttr('title')
+          .css('--data-color', null);
+        return;
+      }
 
       const depths = [...db.keys()];
       depths.sort((a,b)=>a-b);
