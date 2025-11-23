@@ -35,7 +35,7 @@
         'options.stockfish-threads': 'LiChess Tools analysis engine threads',
         'options.stockfish-hash': 'LiChess Tools analysis engine hash (MB)',
         'couldNotLoadStockfish': 'Could not load Stockfish!',
-        'stockfishError': 'Error running StockFish!'
+        'stockfishError': 'Error running Stockfish!'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -44,7 +44,7 @@
         'options.stockfish-threads': 'Thread-uri pentru motorul de analiz\u0103 LiChess Tools',
         'options.stockfish-hash': 'Hash pentru motorul de analiz\u0103 LiChess Tools (MB)',
         'couldNotLoadStockfish': 'Nu am putut \u00eenc\u0103rca Stockfish!',
-        'stockfishError': 'Eroare rul\u00e2nd StockFish!'
+        'stockfishError': 'Eroare rul\u00e2nd Stockfish!'
       }
     }
 

@@ -214,6 +214,7 @@
         "tools/themes/arcade.css",
         "tools/themes/fixThirdParties.css",
         "tools/themes/timeControls.css",
+        "tools/themes/firstInteraction.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",

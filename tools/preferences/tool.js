@@ -126,7 +126,6 @@
         $.cached('body').toggleClassSafe('lichessTools-advancedPreferences', this.options.advanced);
       };
 
-      //TODO add link to translation project
       let html = `<div class="account box box-pad">
             <h1 class="box__top">$trans(lichessToolsPreferences)</h1>
             <div class="links">

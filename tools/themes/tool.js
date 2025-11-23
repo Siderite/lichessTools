@@ -9,7 +9,8 @@
         category: 'appearance',
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
-                         'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls'],
+                         'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls',
+                         'firstInteraction'],
         defaultValue: 'fixThirdParties',
         advanced: true
       },
@@ -52,6 +53,7 @@
         'themes.arcade': 'Arcade',
         'themes.fixThirdParties': 'Fix third parties',
         'themes.timeControls': 'Hover time controls',
+        'themes.firstInteraction': 'First interaction',
         'enableBoardStyleQuestion': 'This theme requires Board Styling for full functionality, which may add a little overhead. Should I enable it?'
       },
       'ro-RO': {
@@ -80,7 +82,8 @@
         'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei',
         'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i',
         'themes.timeControls': 'Controale timp la hover',
-        'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 are nevoie de Stilare Tabl\u0103 pentru func\u01063ionalitate complet\u0103. O pornesc?'
+        'themes.firstInteraction': 'Prima interac\u016fiune',
+        'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 necesit\u0103 Stilare Tabl\u0103 pentru func\u0163ionalitate complet\u0103. O activez?'
       }
     }
 
@@ -299,6 +302,17 @@
       }
     };
 
+    addFirstInteractionClass = (ev) => {
+      const lt = this.lichessTools;
+
+      if (!ev.isTrusted) return;
+      if (lt.global?.navigator?.userActivation && !lt.global.navigator.userActivation.hasBeenActive) return;
+
+      const $ = lt.$;
+      $('body').addClass('lichessTools-userInteraction');
+      $(document).off('click keydown touchstart pointerdown',this.addFirstInteractionClass);
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('themes');
@@ -323,6 +337,7 @@
             attributes: true,
             attributeFilter: ['data-board','data-board3d','class']
           });
+        $(document).on('click keydown touchstart pointerdown',this.addFirstInteractionClass);
       }
       await this.applyThemes();
       $('#dasher_app')

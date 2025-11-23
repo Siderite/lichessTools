@@ -59,10 +59,16 @@
           const logs = [];
           if (missingKeys.size) logs.push(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
           if (orphanKeys.size) logs.push(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
+          if  (this[this.lang+'-crowdin']) {
+            const crowdinKeys = Object.keys(this[this.lang+'-crowdin']);
+            const missingCrowdinKeys = new Set(allKeys);
+            for (const key of crowdinKeys) missingCrowdinKeys.delete(key);
+            if (missingCrowdinKeys.size) logs.push(missingCrowdinKeys.size+' missing Crowdin keys for '+this.lang+': '+[...missingCrowdinKeys].join(', '));
+          }
           if (logs.length) {
             const text = logs.join('\r\n');
             if (this._lastLoggedText != text) {
-              lt.global.setTimeout(()=>lt.global.console.debug(text),100);
+              lt.global.setTimeout(()=>lt.global.console.warn(text),100);
               this._lastLoggedText = text;
             }
           }
@@ -355,7 +361,7 @@
         const dict = lt.intl.siteI18n;
         const result =  dict[key] || lt.global?.i18n(key);
         if (result) return result;
-        lt.global.console.debug('Translation not found for key ',key);
+        lt.global.console.warn('Translation not found for key ',key);
         return key;
       },
       plural: function (key, count, ...args) {
