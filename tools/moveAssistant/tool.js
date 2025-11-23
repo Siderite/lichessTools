@@ -208,20 +208,22 @@
 
     processHighlightsDirect = ()=>{
       const lt = this.lichessTools;
-      const cg = lt.lichess?.analysis?.chessground;
+      const analysis = lt.lichess?.analysis;
+      const cg = analysis?.chessground;
       if (!cg) return;
 
       const checkSquares = ()=>{
         const squareMap = cg.state?.highlight?.custom;
         if (!squareMap) return;
         let json = null;
-        if (squareMap.size == this._lastSize) {
+        if (analysis.node.fen == this._lastFen && squareMap.size == this._lastSize) {
           json = lt.global.JSON.stringify([...squareMap]);
           if (json == this._lastJson) return;
         }
         json ||= lt.global.JSON.stringify([...squareMap]);
         this._lastJson = json;
         this._lastSize = squareMap.size;
+        this._lastFen = analysis.node.fen;
         return true;
       };
 
@@ -229,13 +231,14 @@
         const shapes = cg.state?.drawable?.shapes;
         if (!shapes) return;
         let json = null;
-        if (shapes.length == this._lastShapeSize) {
+        if (analysis.node.fen == this._lastShapeFen && shapes.length == this._lastShapeSize) {
           json = lt.global.JSON.stringify(shapes);
           if (json == this._lastShapeJson) return;
         }
         json ||= lt.global.JSON.stringify(shapes);
         this._lastShapeJson = json;
         this._lastShapeSize = shapes.length;
+        this._lastShapeFen = analysis.node.fen;
         return true;
       };
 
