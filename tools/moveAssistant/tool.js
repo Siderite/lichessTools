@@ -8,8 +8,8 @@
         name: 'moveAssistant',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['dests', 'squares', 'pawns'],
-        defaultValue: 'dests,squares,pawns'
+        possibleValues: ['dests', 'squares', 'pawns', 'moves'],
+        defaultValue: 'dests,squares,pawns,moves'
       }
     ];
 
@@ -20,7 +20,8 @@
         'assistantButtonTitle': 'LiChess Tools - move evaluation',
         'moveAssistant.dests': 'Move destinations',
         'moveAssistant.squares': 'Squares',
-        'moveAssistant.pawns': 'Pawns'
+        'moveAssistant.pawns': 'Pawns',
+        'moveAssistant.moves': 'Moves'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -28,7 +29,8 @@
         'assistantButtonTitle': 'LiChess Tools - evaluarea mut\u0103rilor',
         'moveAssistant.dests': 'Destina\u0163ii mut\u0103ri',
         'moveAssistant.squares': 'P\u0103trate tabl\u0103',
-        'moveAssistant.pawns': 'Pioni'
+        'moveAssistant.pawns': 'Pioni',
+        'moveAssistant.moves': 'Mut\u0103ri'
       }
     }
 
@@ -39,6 +41,7 @@
         await this.evaluateDests();
         await this.evaluatePawns();
         await this.evaluateSquares();
+        await this.evaluateMoves();
       } finally {
         this.inEvaluate=false;
       };
@@ -313,10 +316,26 @@
             .toggleClassSafe('lichessTools-isolatedPawnOpponent',!!r.isolated)
             .toggleClassSafe('lichessTools-hangingPawnOpponent',!!r.hanging);
         });
+    };
 
-      isWhite = analysis.turnColor() != 'black';
+    evaluateMoves = async () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const analysis = lichess?.analysis;
+
+      if (!this.isEnabled) return;
+      if (!this.options.moves) return;
+      const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
+      if (isInteractiveOrPractice) return;
+      if (!analysis.isCevalAllowed()) return;
+      if (lt.isGamePlaying()) return;
+
+      const board = lt.getBoardFromFen(analysis.node.fen);
+
       this.clearArrows('moveAssistant');
-      this.getPawnBreaks(board,isWhite)
+      this.getPawnBreaks(board,true)
+        .concat(this.getPawnBreaks(board,false))
         .forEach(r=>{
           r.breaks.forEach(b=>{
             this.addArrow(r.x,r.y,b.x,b.y,{
@@ -563,7 +582,8 @@
         dests: lt.isOptionSet(value,'dests'),
         squares: lt.isOptionSet(value,'squares'),
         pawns: lt.isOptionSet(value,'pawns'),
-        get isSet() { return this.dests || this.squares || this.pawns }
+        moves: lt.isOptionSet(value,'moves'),
+        get isSet() { return this.dests || this.squares || this.pawns || this.moves }
       };
       const lichess = lt.lichess;
       const $ = lt.$;
