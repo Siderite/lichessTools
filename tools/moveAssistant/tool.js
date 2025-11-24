@@ -104,7 +104,7 @@
            .forEach(f=>myPawns.filter(p=>p.x==f).forEach(p=>p.isolated=true));
 
       myPawns
-        .filter(p=>p.x>1 && p.x<6&& (isWhite||p.y<6) && (!isWhite||p.y>1))
+        .filter(p=>p.x>1 && p.x<6&& (isWhite||p.y>1) && (!isWhite||p.y<6))
         .forEach(p=>{
           let surroundingPawns=[];
           if (!files.includes(p.x-1) && !files.includes(p.x+2)) {
