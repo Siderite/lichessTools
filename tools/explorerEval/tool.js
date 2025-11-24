@@ -74,7 +74,7 @@
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
           .toggleClass('lichessTools-explorerEval')
-          .text(lt.icon.NorthEastArrowWithHook)
+          .text(lt.icon.BarChart)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
       }

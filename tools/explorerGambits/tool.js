@@ -67,7 +67,7 @@
       if (!$('th.lichessTools-explorerGambits', container).length) {
         $('<th>')
           .addClass('lichessTools-explorerGambits')
-          .text(lt.icon.Comet)
+          .text(lt.icon.ExclamationQuestionMark)
           .attr('title', trans.noarg('gambitTitle'))
           .appendTo($('thead tr', container));
       }

@@ -262,6 +262,7 @@
       RedX: '\u2716',
       Print: '\uD83D\uDDB6',
       LightVerticalAndBottomRight: '\u23BF',
+      ExclamationQuestionMark: '\u2049',
 
       toEntity: function(s) {
         let result='';
