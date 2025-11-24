@@ -98,13 +98,22 @@
       let files = lt.range(0,7).filter(x=>myPawns.find(p=>p.x==x));
       files.filter(f=>!files.includes(f-1) && !files.includes(f+1))
            .forEach(f=>myPawns.filter(p=>p.x==f).forEach(p=>p.isolated=true));
-      files.filter(f=> f>1 && f<6)
-           .filter(f=>
-            (f>2 && files.includes(f-1) && !files.includes(f-2) && !files.includes(f+1))
-            ||
-            (f<5 && files.includes(f+1) && !files.includes(f+2) && !files.includes(f-1))
-           )
-           .forEach(f=>myPawns.filter(p=>p.x==f && (isWhite||p.y<6) && (!isWhite||p.y>1)).forEach(p=>p.hanging=true));
+
+      myPawns
+        .filter(p=>p.x>1 && p.x<6&& (isWhite||p.y<6) && (!isWhite||p.y>1))
+        .forEach(p=>{
+          let surroundingPawns=[];
+          if (!files.includes(p.x-1) && !files.includes(p.x+2)) {
+            surroundingPawns = myPawns.filter(mp=>mp!=p && mp.x==p.x+1);
+          } else
+          if (!files.includes(p.x+1) && !files.includes(p.x-2)) {
+            surroundingPawns = myPawns.filter(mp=>mp!=p && mp.x==p.x-1);
+          }
+          if (surroundingPawns.length!=1) return;
+          const op = surroundingPawns[0];
+          if (op.x<=1 || op.x>=6 || op.y!=p.y) return;
+          p.hanging = true;
+        });
 
       myPawns.forEach(p=>{
         const dy = isWhite ? -1 : 1;
