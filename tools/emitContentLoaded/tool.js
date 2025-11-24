@@ -30,6 +30,7 @@
       const $ = lt.$;
       $('body')
          .observer()
+         .off('*',this.detectNew)
          .on('*',this.detectNew,{ 
            subtree: true,
            childList: true, 
