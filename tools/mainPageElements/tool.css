@@ -103,7 +103,7 @@ body.lichessTools .lobby__table .lichessTools-recentGames div.header {
 body.lichessTools .lobby__table .lichessTools-recentGames a.game {
   margin-left: 1em;
   margin-top: 0.5em;
-  font-size: large;
+  font-size: 1.2em;
 }
 
 body.lichessTools .lobby__table .lichessTools-recentGames a.game:before {
@@ -123,10 +123,11 @@ body.lichessTools .lobby__table .lichessTools-recentGames a.game:before {
 
 body.lichessTools .lobby__table .lichessTools-recentGames a.game:after {
   content: '\E029'; /* DiscBigOutline */
-  background: #000000C0;
-  border: solid 1px white;
+  background: radial-gradient(circle at center, #00000040, #00000040, #000000FF);
+  border: none;
   border-radius: 5px;
-  font-size: 1.2em;
+  padding: 0.2em;
+  font-size: 1em;
   vertical-align: middle;
   font-family: "lichess";
   font-style: normal;
@@ -141,8 +142,8 @@ body.lichessTools .lobby__table .lichessTools-recentGames a.game:after {
 }
 
 body.lichessTools .lobby__table .lichessTools-recentGames a.game.white:after {
-  background: #FFFFFFC0;
-  border: solid 1px black;
+  background: radial-gradient(circle at center, #FFFFFF40, #FFFFFF40, #FFFFFFFF);
+  border: none;
 }
 
 body.lichessTools .lobby__table .lichessTools-recentGames a.game.ultrabullet:before {
