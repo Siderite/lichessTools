@@ -381,7 +381,7 @@
         if (this._evaluating) {
           this._evaluating = false;
           this._fen = null;
-          this.clearSquares(true);
+          this.clearAll(true);
           await this._sf?.stop();
         }
         return;
@@ -506,7 +506,7 @@
       }
     };
 
-    clearSquares = (onlyStockfish) => {
+    clearAll = (onlyStockfish) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       $('main.analyse div.cg-wrap').removeClass('lichessTools-moveAssistant');
@@ -520,6 +520,8 @@
         this._lastShapeJson = null;
         this._lastShapeSize = null;
         this.clearArrows('moveAssistant');
+        this.clearHighlight('lichessTools-weakSquare');
+        this.clearHighlight('lichessTools-weakSquareOpponent');
         this.processHighlights();
         ['weakSquare','backwardPawn','isolatedPawn','hangingPawn'].forEach(c=>{
           [c,c+'Opponent'].forEach(c2=>{
@@ -556,7 +558,7 @@
             ev.preventDefault();
             this.isEnabled = !this.isEnabled;
             button.toggleClass('lichessTools-enabled', !!this.isEnabled);
-            if (!this.isEnabled) this.clearSquares();
+            if (!this.isEnabled) this.clearAll();
           });
         const anchor = $('div.ceval button.settings-gear')[0];
         if (anchor) {
@@ -596,7 +598,7 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      this.clearSquares();
+      this.clearAll();
       lt.global.clearInterval(this.interval);
       this.setControls();
       lt.pubsub.off('lichessTools.redraw', this.setControls);
