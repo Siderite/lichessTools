@@ -55,22 +55,21 @@
       const dy = isWhite ? -1 : 1;
       for (let x=0; x<8; x++) {
         const candidates = [];
-        const ys = isWhite ? lt.range(5,0) : lt.range(2,7);
-        for (const y of ys) {
+        for (let y=0; y<8; y++) {
           const p = board[y][x];
           if (!p) {
-            if (board[y-dy][x] == pawn) {
+            if ((isWhite || y>1) && (!isWhite || y<6) && board[y-dy][x] == pawn) {
               candidates.push(y);
             } else
-            if (board[y+dy]?.[x+1] == opponentPawn || board[y+dy]?.[x-1] == opponentPawn) {
+            if ((isWhite || y<4) && (!isWhite || y>3) && (board[y+dy]?.[x+1] == opponentPawn || board[y+dy]?.[x-1] == opponentPawn)) {
               candidates.push(y);
             }
           }
         }
         for (const c of candidates) {
           let weak = true;
-          const ays = isWhite ? lt.range(c+1,6) : lt.range(c-1,1);
-          for (const y of ays) {
+          const ys = isWhite ? lt.range(c+1,6) : lt.range(c-1,1);
+          for (const y of ys) {
             if (board[y][x-1] == pawn || board[y][x+1] == pawn) {
               weak = false;
               break;
