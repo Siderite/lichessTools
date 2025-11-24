@@ -107,7 +107,7 @@ body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"] span {
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"]:after {
-  content: "\2630";
+  content: var(--icon-TrigramForHeaven);
   height: 100%;
   display: flex;
   align-items: center;

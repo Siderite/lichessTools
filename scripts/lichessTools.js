@@ -263,6 +263,9 @@
       Print: '\uD83D\uDDB6',
       LightVerticalAndBottomRight: '\u23BF',
       ExclamationQuestionMark: '\u2049',
+      BlackDownPointingSmallTriangle: '\u25B8',
+      BlackRightPointingSmallTriangle: '\u25BE',
+      TrigramForHeaven: '\u2630',
 
       toEntity: function(s) {
         let result='';
@@ -1648,6 +1651,22 @@
         console.warn('Error parsing JSON: ', json, ex);
         return defaultValue;
       }
+    };
+
+    dateParseUTC = (text) => {
+      if (!text) return 0;
+      const isUtc = text.endsWith('Z');
+      const localDate = new this.global.Date(text);
+      if (isUtc) return localDate;
+      return +this.global.Date.UTC(
+        localDate.getFullYear(),
+        localDate.getMonth(),
+        localDate.getDate(),
+        localDate.getHours(),
+        localDate.getMinutes(),
+        localDate.getSeconds(),
+        localDate.getMilliseconds()
+      );
     };
 
     getColor = (text) => {

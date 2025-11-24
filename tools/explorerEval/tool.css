@@ -87,7 +87,7 @@ body.lichessTools tr.lichessTools-explorerEval-inList td:first-child {
 body.lichessTools tr.lichessTools-warning-red:after,
 body.lichessTools tr.lichessTools-warning-green:after,
 body.lichessTools tr.lichessTools-warning-blue:after {
-  content: '\26A0'; /* WarningSign */
+  content: var(--icon-WarningSign);
   position: relative;
   font-size: smaller;
   margin-left: -1em;

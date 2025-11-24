@@ -472,7 +472,7 @@
         }
         const lastAt = $('time.set',row).attr('datetime');
         if (lastAt) {
-          const time = Date.now()-Date.parse(lastAt);
+          const time = Date.now()-lt.dateParseUTC(lastAt);
           const inactive = time>1*86400*365.25*1000;
           row.toggleClass('lichessTools-inactive',inactive);
         }

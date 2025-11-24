@@ -27,7 +27,7 @@
   }
 
   body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat__tab .switch label:before {
-    content: '\e041'; /* BubbleSpeech */
+    content: var(--icon-BubbleSpeech);
   }
 
   body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .study-list {

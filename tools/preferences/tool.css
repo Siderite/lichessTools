@@ -191,7 +191,7 @@ div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3 label
 }
 
 div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3 label:after {
-  content: '\E030'; /* DownTriangle */
+  content: var(--icon-BlackRightPointingSmallTriangle);
   font-family: "lichess";
   margin-left: 0.25em;
 }

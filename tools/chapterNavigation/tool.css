@@ -70,11 +70,11 @@ body.lichessTools .study__chapters div.lichessTools-expander {
 }
 
 body.lichessTools .study__chapters div.lichessTools-expander:after {
-  content:'\e02e';
+  content: var(--icon-MinusButton);
 }
 
 body.lichessTools .study__chapters div.lichessTools-expander.collapsed:after {
-  content:'\e02d';
+  content: var(--icon-PlusButton);
 }
 
 body.lichessTools .gamebook .comment .lichessTools-nextChapter {

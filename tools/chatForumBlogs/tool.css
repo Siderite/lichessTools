@@ -38,6 +38,6 @@ body.lichessTools button.lichessTools-deleteImage {
 
 body.lichessTools button.lichessTools-deleteImage:before {
   font-family: lichess;
-  content: '\E02A'; /* X */
+  content: var(--icon-X);
   color: red;
 }

@@ -107,79 +107,79 @@ body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.classical span
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.ultrabullet span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.ultrabullet span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.ultrabullet span.cg-wrap:after {
-  content: '\E059'; /* Ultrabullet */
+  content: var(--icon-Ultrabullet);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.bullet span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.bullet span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.bullet span.cg-wrap:after {
-  content: '\E032'; /* Bullet */
+  content: var(--icon-Bullet);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.blitz span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.blitz span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.blitz span.cg-wrap:after {
-  content: '\E008'; /* FlameBlitz */
+  content: var(--icon-FlameBlitz);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.rapid span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.rapid span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.rapid span.cg-wrap:after {
-  content: '\E002'; /* Rabbit */
+  content: var(--icon-Rabbit);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.classical span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.classical span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.classical span.cg-wrap:after {
-  content: '\E00A'; /* Turtle */
+  content: var(--icon-Turtle);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.chess960 span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.chess960 span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.chess960 span.cg-wrap:after {
-  content: '\E006';  /* DieSix */
+  content: var(--icon-DieSix);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.kingOfTheHill span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.kingOfTheHill span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.kingOfTheHill span.cg-wrap:after {
-  content: '\E007'; /* FlagKingHill */
+  content: var(--icon-FlagKingHill);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.threeCheck span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.threeCheck span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.threeCheck span.cg-wrap:after {
-  content: '\E00D'; /* ThreeCheckStack */
+  content: var(--icon-ThreeCheckStack);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.antichess span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.antichess span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.antichess span.cg-wrap:after {
-  content: '\E01E';  /* Antichess */
+  content: var(--icon-Antichess);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.atomic span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.atomic span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.atomic span.cg-wrap:after {
-  content: '\E01C';  /* Atom */
+  content: var(--icon-Atom);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.horde span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.horde span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.horde span.cg-wrap:after {
-  content: '\E03D';  /* Keypad */
+  content: var(--icon-Keypad);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.racingKings span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.racingKings span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.racingKings span.cg-wrap:after {
-  content: '\E065'; /* FlagRacingKings */
+  content: var(--icon-FlagRacingKings);
 }
 
 body.lichessTools div.now-playing.lichessTools-friendsTv a.mini-game.crazyhouse span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.crazyhouse span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-streamerTv a.mini-game.crazyhouse span.cg-wrap:after {
-  content: '\E066'; /* Crazyhouse */
+  content: var(--icon-Crazyhouse);
 }
 
 body.lichessTools .tv-history.lichessTools-userHistory h2 {

@@ -192,6 +192,7 @@
         "scripts/lichessTools-init.js"
       ],
       "css": [
+        "styles/icons.css",
         "tools/fixMoveListLoad/tool.css",
         "tools/themes/tool.css",
 

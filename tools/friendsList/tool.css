@@ -60,7 +60,7 @@ body.lichessTools #topnav section.lichessTools-onlineFriends a i {
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a i:before {
-  content: '\E06B'; /* Disc */
+  content: var(--icon-Disc);
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a:hover i:before {
@@ -68,27 +68,27 @@ body.lichessTools #topnav section.lichessTools-onlineFriends a:hover i:before {
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing i:before {
-  content: '\E010' !important; /* AnalogTv */
+  content: var(--icon-AnalogTv) !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-ultrabullet i:before {
-  content: '\E059' !important; /* UltraBullet */
+  content: var(--icon-UltraBullet) !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-bullet i:before {
-  content: '\E032' !important; /* Bullet */
+  content: var(--icon-Bullet) !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-blitz i:before {
-  content: '\E008' !important; /* FlameBlitz */
+  content: var(--icon-FlameBlitz) !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-rapid i:before {
-  content: '\E002' !important; /* Rabbit */
+  content: var(--icon-Rabbit) !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-classical i:before {
-  content: '\E00A' !important; /* Turtle */
+  content: var(--icon-Turtle) !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover i:hover {
@@ -286,7 +286,7 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notificatio
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a i:before {
-  content: '\E06B'; /* Disc */
+  content: var(--icon-Disc);
   font-family: 'lichess';
 }
 
@@ -295,27 +295,27 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notificatio
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing i:before {
-  content: '\E010' !important; /* AnalogTv */
+  content: var(--icon-AnalogTv) !important;
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-ultrabullet i:before {
-  content: '\E059' !important; /* UltraBullet */
+  content: var(--icon-UltraBullet) !important;
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-bullet i:before {
-  content: '\E032' !important; /* Bullet */
+  content: var(--icon-Bullet) !important;
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-blitz i:before {
-  content: '\E008' !important; /* FlameBlitz */
+  content: var(--icon-FlameBlitz) !important;
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-rapid i:before {
-  content: '\E002' !important; /* Rabbit */
+  content: var(--icon-Rabbit) !important;
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-classical i:before {
-  content: '\E00A' !important; /* Turtle */
+  content: var(--icon-Turtle) !important;
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a:hover {
