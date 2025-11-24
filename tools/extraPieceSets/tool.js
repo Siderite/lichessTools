@@ -6,8 +6,8 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper'],
-        defaultValue: false,
+        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper'],
+        defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
     ];
@@ -21,7 +21,6 @@
         'extraPieceSets.siderite': 'Siderite', // don't translate these
         'extraPieceSets.chesscom': 'chess.com',
         'extraPieceSets.hollowleaf': 'HollowLeaf',
-        'extraPieceSets.fordCrownVictoria': 'FordCrownVictoria',
         'extraPieceSets.bend-n': 'bend-n',
         'extraPieceSets.comfysage': 'comfysage',
         'extraPieceSets.tage64': 'tage64',
@@ -108,7 +107,6 @@
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           return pieceSet.url+color[0]+pieceLetter+'.png';
         }
-        case 'fordCrownVictoria':
         case 'hollowleaf':
         case 'bend-n':
         {

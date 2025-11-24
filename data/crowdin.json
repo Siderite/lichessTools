@@ -6879,13 +6879,13 @@
     "moveAssistant.squares": "Cases",
     "moveAssistant.pawns": "Pions",
     "pearlDeviationTitle": "LiChess Tools - l'évaluation s'écarte de $depth ($deviation)",
-    "moveAssistant.moves": "Déplacements",
+    "moveAssistant.moves": "Coups",
     "themes.firstInteraction": "Première interaction",
-    "enableBoardStyleQuestion": "Ce thème nécessite le style Board pour une fonctionnalité complète, qui peut ajouter un peu de surface. Devrais-je l'activer ?",
-    "stockfishError": "Erreur lors de l'exécution de Stockfish!",
+    "enableBoardStyleQuestion": "Ce thème nécessite le style de l'échiquier pour fonctionner pleinenement, ce qui peut consommer un peu plus de ressources. Dois-je l'activer ?",
+    "stockfishError": "Erreur lors de l'exécution de Stockfish !",
     "playerWarning.disconnect": "Taux de déconnexion",
-    "playerWarning.timecontrol": "Discordances de contrôle du temps",
-    "options.readPositionCommand": "Commande : lire la position pour configurer un tableau"
+    "playerWarning.timecontrol": "Écarts de classement entre cadences",
+    "options.readPositionCommand": "Commande : épeler la position pour configurer un échiquier"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
