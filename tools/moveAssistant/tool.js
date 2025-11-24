@@ -51,16 +51,21 @@
       const lt = this.lichessTools;
       const result = [];
       const pawn = isWhite ? 'P' : 'p';
+      const opponentPawn = isWhite ? 'p' : 'P';
+      const dy = isWhite ? -1 : 1;
       for (let x=0; x<8; x++) {
         const candidates = [];
-        let prev = board[isWhite?6:1][x];
         const ys = isWhite ? lt.range(5,0) : lt.range(2,7);
         for (const y of ys) {
           const p = board[y][x];
-          if (!p && prev == pawn) {
-            candidates.push(y);
+          if (!p) {
+            if (board[y-dy][x] == pawn) {
+              candidates.push(y);
+            } else
+            if (board[y+dy]?.[x+1] == opponentPawn || board[y+dy]?.[x-1] == opponentPawn) {
+              candidates.push(y);
+            }
           }
-          prev = p;
         }
         for (const c of candidates) {
           let weak = true;
