@@ -3318,6 +3318,9 @@
   "rnbqk2rpppp1ppp5n24p31bB1P32N5PPPP1PPPR1BQK1NRw": [
     "Chess Opening Theory/1. e4/1...e5/2. Nc3/2...Nf6/3. Bc4/3...Bb4"
   ],
+  "r1bqkb1rpppp1ppp2n2n24p32B1P32N5PPPP1PPPR1BQK1NRw": [
+    "Chess Opening Theory/1. e4/1...e5/2. Nc3/2...Nf6/3. Bc4/3...Nc6"
+  ],
   "rnbqkb1rpppp1ppp84p32B1n32N5PPPP1PPPR1BQK1NRw": [
     "Chess Opening Theory/1. e4/1...e5/2. Nc3/2...Nf6/3. Bc4/3...Nxe4"
   ],

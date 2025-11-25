@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 Nov
+
+- added Piece coordination chart line
+
 23 Nov
 
 - Move Assistant pawn breaks

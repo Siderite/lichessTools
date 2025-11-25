@@ -981,7 +981,10 @@
     "stockfishError": "خطأ في تشغيل المخزون!",
     "playerWarning.disconnect": "معدل قطع الاتصال",
     "playerWarning.timecontrol": "أوجه التباين في تحديد الوقت",
-    "options.readPositionCommand": "الأمر: قراءة الموضع لإعداد لوحة"
+    "options.readPositionCommand": "الأمر: قراءة الموضع لإعداد لوحة",
+    "extraChart.coord": "التنسيق",
+    "coordLegendText": "التنسيق",
+    "coordLegendTitle": "تنسيق القطع"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1965,7 +1968,10 @@
     "stockfishError": "运行Stockfish时出错！",
     "playerWarning.disconnect": "断开连接率",
     "playerWarning.timecontrol": "时间控制差异",
-    "options.readPositionCommand": "命令：读取要设置棋盘的位置"
+    "options.readPositionCommand": "命令：读取要设置棋盘的位置",
+    "extraChart.coord": "协 调",
+    "coordLegendText": "协 调",
+    "coordLegendTitle": "部门协调"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2949,7 +2955,10 @@
     "stockfishError": "Error running Stockfish!",
     "playerWarning.disconnect": "Disconnect rate",
     "playerWarning.timecontrol": "Time control discrepancies",
-    "options.readPositionCommand": "Command: read position to set up a board"
+    "options.readPositionCommand": "Command: read position to set up a board",
+    "extraChart.coord": "Coordination",
+    "coordLegendText": "Coordination",
+    "coordLegendTitle": "Piece coordination"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3933,7 +3942,10 @@
     "stockfishError": "Chyba při běhu Stockfish!",
     "playerWarning.disconnect": "Odpojit rychlost",
     "playerWarning.timecontrol": "Rozdíly v časové kontrole",
-    "options.readPositionCommand": "Příkaz: přečtěte si pozici k nastavení paluby"
+    "options.readPositionCommand": "Příkaz: přečtěte si pozici k nastavení paluby",
+    "extraChart.coord": "Koordinace",
+    "coordLegendText": "Koordinace",
+    "coordLegendTitle": "Koordinace částí"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4917,7 +4929,10 @@
     "stockfishError": "Fout bij het uitvoeren van voorraadvis!",
     "playerWarning.disconnect": "Ontkoppel tarief",
     "playerWarning.timecontrol": "Tijd controle afwijkingen",
-    "options.readPositionCommand": "Opdracht: lees positie om een bord op te zetten"
+    "options.readPositionCommand": "Opdracht: lees positie om een bord op te zetten",
+    "extraChart.coord": "Coördinatie",
+    "coordLegendText": "Coördinatie",
+    "coordLegendTitle": "Coördinatie van stukken"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5901,7 +5916,10 @@
     "stockfishError": "Error running Stockfish!",
     "playerWarning.disconnect": "Disconnect rate",
     "playerWarning.timecontrol": "Time control discrepancies",
-    "options.readPositionCommand": "Command: read position to set up a board"
+    "options.readPositionCommand": "Command: read position to set up a board",
+    "extraChart.coord": "Coordination",
+    "coordLegendText": "Coordination",
+    "coordLegendTitle": "Piece coordination"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6885,7 +6903,10 @@
     "stockfishError": "Erreur lors de l'exécution de Stockfish !",
     "playerWarning.disconnect": "Taux de déconnexion",
     "playerWarning.timecontrol": "Écarts de classement entre cadences",
-    "options.readPositionCommand": "Commande : épeler la position pour configurer un échiquier"
+    "options.readPositionCommand": "Commande : épeler la position pour configurer un échiquier",
+    "extraChart.coord": "Coordonnées",
+    "coordLegendText": "Coordonnées",
+    "coordLegendTitle": "Coordonnées des pièces"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7869,7 +7890,10 @@
     "stockfishError": "Fehler beim Ausführen des Stockfischs!",
     "playerWarning.disconnect": "Verbindungsrate",
     "playerWarning.timecontrol": "Abweichungen der Zeitsteuerung",
-    "options.readPositionCommand": "Befehl: Lese-Position zum Einrichten eines Boards"
+    "options.readPositionCommand": "Befehl: Lese-Position zum Einrichten eines Boards",
+    "extraChart.coord": "Koordination",
+    "coordLegendText": "Koordination",
+    "coordLegendTitle": "Stückkoordination"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -8853,7 +8877,10 @@
     "stockfishError": "Error running Stockfish!",
     "playerWarning.disconnect": "Disconnect rate",
     "playerWarning.timecontrol": "Time control discrepancies",
-    "options.readPositionCommand": "Command: read position to set up a board"
+    "options.readPositionCommand": "Command: read position to set up a board",
+    "extraChart.coord": "Coordination",
+    "coordLegendText": "Coordination",
+    "coordLegendTitle": "Piece coordination"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -9837,7 +9864,10 @@
     "stockfishError": "Errore nell'esecuzione di Stockfish!",
     "playerWarning.disconnect": "Tasso di disconnessione",
     "playerWarning.timecontrol": "Discordanze di controllo temporale",
-    "options.readPositionCommand": "Comando: leggi la posizione per configurare una scheda"
+    "options.readPositionCommand": "Comando: leggi la posizione per configurare una scheda",
+    "extraChart.coord": "Coordinamento",
+    "coordLegendText": "Coordinamento",
+    "coordLegendTitle": "Coordinamento dei pezzi"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -10821,7 +10851,10 @@
     "stockfishError": "Error running Stockfish!",
     "playerWarning.disconnect": "Disconnect rate",
     "playerWarning.timecontrol": "Time control discrepancies",
-    "options.readPositionCommand": "Command: read position to set up a board"
+    "options.readPositionCommand": "Command: read position to set up a board",
+    "extraChart.coord": "Coordination",
+    "coordLegendText": "Coordination",
+    "coordLegendTitle": "Piece coordination"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -11805,7 +11838,10 @@
     "stockfishError": "Błąd podczas uruchamiania Stockfish!",
     "playerWarning.disconnect": "Szybkość rozłączenia",
     "playerWarning.timecontrol": "Rozbieżności w czasie kontroli",
-    "options.readPositionCommand": "Polecenie: odczyt pozycji do ustawiania tablicy"
+    "options.readPositionCommand": "Polecenie: odczyt pozycji do ustawiania tablicy",
+    "extraChart.coord": "Koordynacja",
+    "coordLegendText": "Koordynacja",
+    "coordLegendTitle": "Częściowa koordynacja"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -12789,7 +12825,10 @@
     "stockfishError": "Erro ao executar Stockfish!",
     "playerWarning.disconnect": "Taxa de desconexão",
     "playerWarning.timecontrol": "Diferenças no controle de tempo",
-    "options.readPositionCommand": "Comando: leia a posição para configurar um quadro"
+    "options.readPositionCommand": "Comando: leia a posição para configurar um quadro",
+    "extraChart.coord": "Coordenada",
+    "coordLegendText": "Coordenada",
+    "coordLegendTitle": "Coordenação dos pedaços"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -13773,7 +13812,10 @@
     "stockfishError": "Erro ao executar Stockfish!",
     "playerWarning.disconnect": "Taxa de desconexão",
     "playerWarning.timecontrol": "Diferenças no controle de tempo",
-    "options.readPositionCommand": "Comando: leia a posição para configurar um quadro"
+    "options.readPositionCommand": "Comando: leia a posição para configurar um quadro",
+    "extraChart.coord": "Coordenada",
+    "coordLegendText": "Coordenada",
+    "coordLegendTitle": "Coordenação dos pedaços"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -14757,7 +14799,10 @@
     "stockfishError": "Eroare rulând Stockfish!",
     "playerWarning.disconnect": "Rata de deconectare",
     "playerWarning.timecontrol": "Discrepanțe control timp",
-    "options.readPositionCommand": "Comandă: citește poziția pentru a configura o tablă"
+    "options.readPositionCommand": "Comandă: citește poziția pentru a configura o tablă",
+    "extraChart.coord": "Coordonare",
+    "coordLegendText": "Coordonare",
+    "coordLegendTitle": "Coordonarea pieselor"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -15741,7 +15786,10 @@
     "stockfishError": "Ошибка запуска Stockfish!",
     "playerWarning.disconnect": "Скорость отключения",
     "playerWarning.timecontrol": "Несоответствия в контроле времени",
-    "options.readPositionCommand": "Команда: чтение позиции для установки платы"
+    "options.readPositionCommand": "Команда: чтение позиции для установки платы",
+    "extraChart.coord": "Координация",
+    "coordLegendText": "Координация",
+    "coordLegendTitle": "Координация фигур"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -16725,7 +16773,10 @@
     "stockfishError": "Error ejecutando Stockfish!",
     "playerWarning.disconnect": "Desconectar tasa",
     "playerWarning.timecontrol": "discrepancias de control de tiempo",
-    "options.readPositionCommand": "Comando: leer posición para configurar un tablero"
+    "options.readPositionCommand": "Comando: leer posición para configurar un tablero",
+    "extraChart.coord": "Coordinación",
+    "coordLegendText": "Coordinación",
+    "coordLegendTitle": "Coordenada de piezas"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -17709,7 +17760,10 @@
     "stockfishError": "Error running Stockfish!",
     "playerWarning.disconnect": "Disconnect rate",
     "playerWarning.timecontrol": "Time control discrepancies",
-    "options.readPositionCommand": "Command: read position to set up a board"
+    "options.readPositionCommand": "Command: read position to set up a board",
+    "extraChart.coord": "Coordination",
+    "coordLegendText": "Coordination",
+    "coordLegendTitle": "Piece coordination"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -18693,7 +18747,10 @@
     "stockfishError": "Error running Stockfish!",
     "playerWarning.disconnect": "Disconnect rate",
     "playerWarning.timecontrol": "Time control discrepancies",
-    "options.readPositionCommand": "Command: read position to set up a board"
+    "options.readPositionCommand": "Command: read position to set up a board",
+    "extraChart.coord": "Coordination",
+    "coordLegendText": "Coordination",
+    "coordLegendTitle": "Piece coordination"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -19677,6 +19734,9 @@
     "stockfishError": "Error running Stockfish!",
     "playerWarning.disconnect": "Disconnect rate",
     "playerWarning.timecontrol": "Time control discrepancies",
-    "options.readPositionCommand": "Command: read position to set up a board"
+    "options.readPositionCommand": "Command: read position to set up a board",
+    "extraChart.coord": "Coordination",
+    "coordLegendText": "Coordination",
+    "coordLegendTitle": "Piece coordination"
   }
 }

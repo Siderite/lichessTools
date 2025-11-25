@@ -8,7 +8,8 @@
         name: 'extraChart',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'smooth', 'gauge', 'accuracyPlus','hideLegend'],
+        possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'coord',
+                         'smooth', 'gauge', 'accuracyPlus','hideLegend'],
         defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,accuracyPlus',
         defaultNotLoggedInValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,local,moreBrilliant,accuracyPlus',
         advanced: true
@@ -39,6 +40,7 @@
         'extraChart.local': 'Local eval',
         'extraChart.accuracy': 'Accuracy',
         'extraChart.sharpness': 'Sharpness',
+        'extraChart.coord': 'Coordination',
         'extraChart.brilliant': 'Find interesting moves',
         'extraChart.moreBrilliant': '... more moves',
         'extraChart.smooth': 'Chart smoothing',
@@ -62,6 +64,8 @@
         'accuracyLegendTitle': 'Accuracy of the orientation player',
         'sharpnessLegendText': 'Sharpness',
         'sharpnessLegendTitle': 'Sharpness requires Explorer open',
+        'coordLegendText': 'Coordination',
+        'coordLegendTitle': 'Piece coordination',
         'localLegendText': 'Local',
         'localLegendTitle': 'Local engine evaluation',
         'tensionLegendText': 'Tension',
@@ -81,6 +85,7 @@
         'extraChart.local': 'Evaluare local\u0103',
         'extraChart.accuracy': 'Acurate\u0163e',
         'extraChart.sharpness': 'Periculozitate',
+        'extraChart.coord': 'Coordinare',
         'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
         'extraChart.moreBrilliant': '... mai multe mut\u0103ri',
         'extraChart.smooth': 'Netezire grafice',
@@ -103,6 +108,8 @@
         'accuracyLegendTitle': 'Acurate\u0163e pentru juc\u0103torul orient\u1003rii tablei',
         'sharpnessLegendText': 'Periculozitate',
         'sharpnessLegendTitle': 'Periculozitatea necesit\u0103 Exploratorul deschis',
+        'coordLegendText': 'Coordinare',
+        'coordLegendTitle': 'Coordonarea pieselor',
         'localLegendText': 'Local',
         'localLegendTitle': 'Evaluare motorului local',
         'tensionLegendText': 'Tensiune',
@@ -127,6 +134,7 @@
       localChartHover: this.thematic('#FFFF00','#604800'),
       accuracyChart: this.thematic('#FF00FF','#700058'),
       sharpnessChart: this.thematic('#FFA0A0','#B09090'),
+      coordChart: '#60A0A0',
       maxTensionLine: '#FF0000',
       maxPotentialLine: '#008000',
       interestingMoves: this.thematic('#168226','#009914'),
@@ -660,6 +668,23 @@
           const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
           const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
           const val = Math.min(sharpness / 100, 0.9);
+          return {
+            y: val,
+            x: node.ply
+          };
+        })
+        .filter(r => !!r);
+    };
+
+    getCoordData = (mainline) => {
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
+      this.coordinationCalculator ||= new CoordinationCalculator();
+      return mainline
+        .map((node, x) => {
+          const coordination = this.coordinationCalculator.getCoordination(node.fen);
+          const k = 15;
+          const val = Math.tanh(coordination / k);
           return {
             y: val,
             x: node.ply
@@ -1228,7 +1253,7 @@
       const chart = this._chart;
       if (!chart) return;
       const lt = this.lichessTools;
-      const removed = lt.arrayRemoveAll(chart.data.datasets, d => [ 'Material', 'Principled', 'Local', 'Accuracy', 'Sharpness', 'Max tension', 'Max potential'].includes(d.label));
+      const removed = lt.arrayRemoveAll(chart.data.datasets, d => [ 'Material', 'Principled', 'Local', 'Accuracy', 'Sharpness', 'Coordination', 'Max tension', 'Max potential'].includes(d.label));
       if (removed.length) {
         chart.options.scales.x.max = Math.max.apply(null, chart.data.datasets.map(ds => ds.data.map(p => p.x)).flat());
         chart.update('none');
@@ -1415,6 +1440,13 @@
                       .text(trans.noarg('sharpnessLegendText'))
                       .attr('title',trans.noarg('sharpnessLegendTitle'))
                       .toggleClass('enabled',this.options.sharpness)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','coord')
+                      .text(trans.noarg('coordLegendText'))
+                      .attr('title',trans.noarg('coordLegendTitle'))
+                      .toggleClass('enabled',this.options.coord)
                       .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
             )
             .append($('<button type="button">')
@@ -1636,6 +1668,40 @@
           const dataset = chart.data.datasets[existingSharpness];
           const existingData = dataset.data;
           const newData = this.smooth(this.getSharpnessData(mainline));
+          updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
+          if (updateChart) dataset.data = newData;
+        }
+      }
+
+      let existingCoord = chart.data.datasets.findIndex(s => s.label === 'Coordination');
+      if (existingCoord >= 0 && (this.prevSmooth != this.options.smooth || !this.options.coord)) {
+        chart.data.datasets.splice(existingCoord, 1);
+        existingCoord = -1;
+        updateChart = true;
+      }
+      if (this.options.coord) {
+        const mainline = lichess.analysis.mainline;
+        if (existingCoord < 0) {
+          chart.data.datasets.push({
+            label: 'Coordination',
+            type: 'line',
+            data: this.smooth(this.getCoordData(mainline)),
+            borderWidth: 2,
+            borderDash: [1, 4],
+            cubicInterpolationMode: this.options.smooth ? 'monotone' : 'default',
+            tension: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.coordChart,
+            order: 1,
+            datalabels: { display: false }
+          });
+          updateChart = true;
+        } else {
+          const dataset = chart.data.datasets[existingCoord];
+          const existingData = dataset.data;
+          const newData = this.smooth(this.getCoordData(mainline));
           updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
           if (updateChart) dataset.data = newData;
         }
@@ -2174,8 +2240,9 @@
         local: lt.isOptionSet(value, 'local'),
         accuracy: lt.isOptionSet(value, 'accuracy'),
         sharpness: lt.isOptionSet(value, 'sharpness'),
+        coord: lt.isOptionSet(value, 'coord'),
         smooth: lt.isOptionSet(value, 'smooth'),
-        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness; },
+        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness || this.coord; },
         accuracyPlus: lt.isOptionSet(value, 'accuracyPlus'),
         gauge: lt.isOptionSet(value, 'gauge'),
         hideLegend: lt.isOptionSet(value, 'hideLegend'),
@@ -2221,5 +2288,408 @@
     }
 
   }
+
+  class CoordinationCalculator {
+  MOVE_CAP = 3; // treat up to 3 moves as their real cost
+  ISOLATED_PENALTY = 5; // anything >MOVE_CAP or unreachable => this penalty
+
+  parseFEN(fen) {
+    const rows = fen.split(" ")[0].split("/");
+    const board = Array.from({ length: 8 }, () => Array(8).fill(null));
+    for (let r = 0; r < 8; r++) {
+      let c = 0;
+      for (const ch of rows[r]) {
+        if (/\d/.test(ch)) {
+          c += Number(ch);
+        } else {
+          const isWhite = ch === ch.toUpperCase();
+          board[r][c++] = {
+            type: ch.toLowerCase(),
+            color: isWhite ? "w" : "b",
+          };
+        }
+      }
+    }
+    return board;
+  }
+
+  inBounds(r, c) {
+    return r >= 0 && r < 8 && c >= 0 && c < 8;
+  }
+
+  squareAttackedBy(board, r, c, color) {
+    const attacks = [];
+
+    const directions = {
+      n: [
+        [-2, -1],
+        [-2, 1],
+        [-1, -2],
+        [-1, 2],
+        [1, -2],
+        [1, 2],
+        [2, -1],
+        [2, 1],
+      ],
+      b: [
+        [-1, -1],
+        [-1, 1],
+        [1, -1],
+        [1, 1],
+      ],
+      r: [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1],
+      ],
+      q: [
+        [-1, -1],
+        [-1, 1],
+        [1, -1],
+        [1, 1],
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1],
+      ],
+      k: [
+        [-1, -1],
+        [-1, 1],
+        [1, -1],
+        [1, 1],
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1],
+      ],
+    };
+
+    const forward = color === "w" ? -1 : 1;
+
+    const pushAttack = (rr, cc) => {
+      if (this.inBounds(rr, cc)) attacks.push([rr, cc]);
+    };
+
+    if (board[r][c]?.type === "p") {
+      pushAttack(r + forward, c - 1);
+      pushAttack(r + forward, c + 1);
+      return attacks;
+    }
+
+    if (board[r][c]?.type === "n") {
+      for (const [dr, dc] of directions.n) {
+        pushAttack(r + dr, c + dc);
+      }
+      return attacks;
+    }
+
+    if (board[r][c]?.type === "k") {
+      for (const [dr, dc] of directions.k) {
+        pushAttack(r + dr, c + dc);
+      }
+      return attacks;
+    }
+
+    const isB = board[r][c]?.type === "b";
+    const isR = board[r][c]?.type === "r";
+    const isQ = board[r][c]?.type === "q";
+
+    const dirs = [];
+    if (isB || isQ) dirs.push(...directions.b);
+    if (isR || isQ) dirs.push(...directions.r);
+
+    for (const [dr, dc] of dirs) {
+      let rr = r + dr,
+        cc = c + dc;
+      while (this.inBounds(rr, cc)) {
+        pushAttack(rr, cc);
+        if (board[rr][cc] !== null) break;
+        rr += dr;
+        cc += dc;
+      }
+    }
+
+    return attacks;
+  }
+
+  computeControlMap(board, color) {
+    const control = Array.from({ length: 8 }, () => Array(8).fill(false));
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        if (board[r][c]?.color === color) {
+          const attacks = this.squareAttackedBy(board, r, c, color);
+          for (const [rr, cc] of attacks) control[rr][cc] = true;
+        }
+      }
+    }
+    return control;
+  }
+
+  movementTargets(board, r, c, control) {
+    const piece = board[r][c];
+    if (!piece) return [];
+
+    const color = piece.color;
+    const type = piece.type;
+
+    const results = [];
+
+    const tryPush = (rr, cc) => {
+      if (!this.inBounds(rr, cc)) return;
+      if (board[rr][cc] !== null) return; 
+      if (!control[rr][cc]) return;
+      results.push([rr, cc]);
+    };
+
+    const directions = {
+      n: [
+        [-2, -1],
+        [-2, 1],
+        [-1, -2],
+        [-1, 2],
+        [1, -2],
+        [1, 2],
+        [2, -1],
+        [2, 1],
+      ],
+      b: [
+        [-1, -1],
+        [-1, 1],
+        [1, -1],
+        [1, 1],
+      ],
+      r: [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1],
+      ],
+      q: [
+        [-1, -1],
+        [-1, 1],
+        [1, -1],
+        [1, 1],
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1],
+      ],
+      k: [
+        [-1, -1],
+        [-1, 1],
+        [1, -1],
+        [1, 1],
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1],
+      ],
+    };
+
+    if (type === "n") {
+      for (const [dr, dc] of directions.n) tryPush(r + dr, c + dc);
+      return results;
+    }
+
+    if (type === "k") {
+      for (const [dr, dc] of directions.k) tryPush(r + dr, c + dc);
+      return results;
+    }
+
+    if (type === "b" || type === "r" || type === "q") {
+      const dirs = [];
+      if (type !== "r") dirs.push(...directions.b);
+      if (type !== "b") dirs.push(...directions.r);
+
+      for (const [dr, dc] of dirs) {
+        let rr = r + dr,
+          cc = c + dc;
+        while (this.inBounds(rr, cc)) {
+          if (board[rr][cc] !== null) break;
+          if (control[rr][cc]) results.push([rr, cc]);
+          rr += dr;
+          cc += dc;
+        }
+      }
+      return results;
+    }
+
+    return [];
+  }
+
+  bfsDistances(board, startR, startC, control) {
+    const dist = Array.from({ length: 8 }, () => Array(8).fill(Infinity));
+    const queue = [[startR, startC]];
+    dist[startR][startC] = 0;
+
+    while (queue.length) {
+      const [r, c] = queue.shift();
+      const d = dist[r][c];
+      const moves = this.movementTargets(board, r, c, control);
+      for (const [rr, cc] of moves) {
+        if (dist[rr][cc] > d + 1) {
+          dist[rr][cc] = d + 1;
+          queue.push([rr, cc]);
+        }
+      }
+    }
+
+    return dist;
+  }
+
+  computeConnectionMetric(fen) {
+    const board = this.parseFEN(fen);
+
+    const pieces = [];
+    for (let r = 0; r < 8; r++)
+      for (let c = 0; c < 8; c++)
+        if (board[r][c] && board[r][c].type !== "p")
+          pieces.push({ r, c, color: board[r][c].color });
+
+    const controlW = this.computeControlMap(board, "w");
+    const controlB = this.computeControlMap(board, "b");
+
+    const cost = [];
+
+    for (let i = 0; i < pieces.length; i++) {
+      const { r, c, color } = pieces[i];
+      const control = color === "w" ? controlW : controlB;
+
+      const dist = this.bfsDistances(board, r, c, control);
+
+      let best = Infinity;
+      for (let j = 0; j < pieces.length; j++) {
+        if (i === j) continue;
+        if (pieces[j].color !== color) continue;
+        const { r: rr, c: cc } = pieces[j];
+
+        const defending = this.detectMutualOrReachableDefense(
+          board,
+          pieces[i],
+          pieces[j],
+          dist,
+          color
+        );
+        if (defending < best) best = defending;
+      }
+
+      cost.push({
+        piece: pieces[i],
+        cost: best,
+      });
+    }
+
+    return cost;
+  }
+
+  detectMutualOrReachableDefense(board, A, B, distA, color) {
+    const immediateA = this.squareAttackedBy(board, B.r, B.c, color).some(
+      ([rr, cc]) => rr === A.r && cc === A.c
+    );
+    if (immediateA) return 0;
+
+    const attackSquares = this.squareAttackedBy(board, B.r, B.c, color);
+    let best = Infinity;
+    for (const [rr, cc] of attackSquares) {
+      if (distA[rr][cc] < best) best = distA[rr][cc];
+    }
+    return best;
+  }
+
+  computeConnectivityScoreCapped(fen) {
+    const board = this.parseFEN(fen);
+
+    const whitePieces = [];
+    const blackPieces = [];
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        if (board[r][c] && board[r][c].type !== "p") {
+          const entry = { r, c };
+          (board[r][c].color === "w" ? whitePieces : blackPieces).push(entry);
+        }
+      }
+    }
+
+    const controlW = this.computeControlMap(board, "w");
+    const controlB = this.computeControlMap(board, "b");
+
+    const scoreWhiteSum = this.computeSideScoreCapped(
+      board,
+      whitePieces,
+      controlW,
+      "w"
+    );
+    const scoreBlackSum = this.computeSideScoreCapped(
+      board,
+      blackPieces,
+      controlB,
+      "b"
+    );
+
+    const scoreWhiteAvg = whitePieces.length
+      ? scoreWhiteSum / whitePieces.length
+      : 0;
+    const scoreBlackAvg = blackPieces.length
+      ? scoreBlackSum / blackPieces.length
+      : 0;
+
+    return {
+      white: {
+        sum: scoreWhiteSum,
+        avg: scoreWhiteAvg,
+        pieces: whitePieces.length,
+      },
+      black: {
+        sum: scoreBlackSum,
+        avg: scoreBlackAvg,
+        pieces: blackPieces.length,
+      },
+    };
+  }
+
+  computeSideScoreCapped(board, pieces, control, color) {
+    let sum = 0;
+
+    for (let i = 0; i < pieces.length; i++) {
+      const A = pieces[i];
+
+      const dist = this.bfsDistances(board, A.r, A.c, control);
+
+      let best = Infinity;
+
+      for (let j = 0; j < pieces.length; j++) {
+        if (i === j) continue;
+        const B = pieces[j];
+        if (board[B.r][B.c] && board[B.r][B.c].color !== color) continue;
+
+        const cost = this.detectMutualOrReachableDefense(
+          board,
+          A,
+          B,
+          dist,
+          color
+        );
+
+        if (cost < best) best = cost;
+      }
+
+      if (best === Infinity || best > this.MOVE_CAP)
+        sum += this.ISOLATED_PENALTY;
+      else sum += best;
+    }
+
+    return sum;
+  }
+
+  getCoordination(fen) {
+    const result = this.computeConnectivityScoreCapped(fen);
+    const whiteVal = (5 - result.white.avg) * result.white.pieces;
+    const blackVal = (5 - result.black.avg) * result.black.pieces;
+    const coordination = (Math.min(50, whiteVal) - Math.min(50, blackVal))*2;
+    return coordination;
+  }
+}
+
   LiChessTools.Tools.ExtraChart = ExtraChartTool;
 })();

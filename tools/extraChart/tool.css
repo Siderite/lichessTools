@@ -276,6 +276,14 @@ html.dark body.lichessTools .lichessTools-chartLegend button[data-option="sharpn
   );
 }
 
+body.lichessTools .lichessTools-chartLegend button[data-option="coord"]::before {
+  background-image: linear-gradient(90deg,
+    #60A0A0 0 1px,
+    transparent 1px 5px
+  );
+  background-size: 5px 2px;
+}
+
 body.lichessTools .lichessTools-chartLegend button[data-option="tension"]::before {
   background-image: linear-gradient(90deg,
     #FF0000 0 4px,
