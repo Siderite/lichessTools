@@ -194,7 +194,7 @@
               .appendTo(container);
           }
           $('<a class="moreGames">')
-            .attr('href',`/games/search?players.a=${userId}&sort.field=d&sort.order=desc#results`)
+            .attr('href',`https://lichess.org/@/${userId}/search#games`)
             .text(trans.noarg('moreGamesText'))
             .appendTo(container);
         }
