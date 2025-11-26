@@ -316,7 +316,6 @@ body.lichessTools-prettier div.lichessTools-preferences table.lichessTools-globa
   background-color: #434548 !important;
 }
 
-
 body.lichessTools-prettier.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-advancedPreference h2:after {
   background: gray !important;
   opacity: 1;
@@ -324,4 +323,8 @@ body.lichessTools-prettier.lichessTools-advancedPreferences div.lichessTools-pre
 
 body.lichessTools-prettier div.lichessTools-preferences .actionButtons button {
   text-transform: capitalize !important;
+}
+
+body.lichessTools-prettier div.lichessTools-preferences p.saved {
+  background: var(--m-secondary_bg--mix-10) !important;
 }

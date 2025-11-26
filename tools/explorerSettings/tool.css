@@ -2,6 +2,10 @@ body.lichessTools section.lichessTools-explorerSettings button[disabled] {
   opacity: 0.3;
 }
 
+body.lichessTools .lichessTools-explorerSettings .choices {
+  flex-wrap: wrap;
+}
+
 /* fix too many things in the Explorer table */
 
 body.lichessTools section.explorer-box .data {
@@ -16,4 +20,8 @@ body.lichessTools section.explorer-box td.lichessTools-evalRow {
 
 body.lichessTools.lichessTools-prettier .explorer-box td {
   padding: 5px !important;
+}
+
+body.lichessTools.lichessTools-prettier .explorer__config .choices button {
+  padding: 0 5px !important;
 }

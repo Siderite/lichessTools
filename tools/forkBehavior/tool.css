@@ -27,6 +27,7 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase .lichessTools-infoI
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase select {
   min-width: 20em;
+  background: var(--c-bg-box);
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase option {
@@ -103,5 +104,5 @@ body.lichessTools .analyse__tools.lichessTools-forkBehavior-hidden .analyse__for
 
 
 body.lichessTools.lichessTools-prettier dialog.lichessTools-forkBehavior-chessbase select {
-  background: initial !important;
+  background: var(--c-bg-box) !important;
 }

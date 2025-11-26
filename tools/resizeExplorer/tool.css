@@ -5,7 +5,7 @@ body.lichessTools div.analyse__tools:not(:has(.explorer-box)) div.lichessTools-r
 body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer {
   height: 5px;
   background-color: #80808080;
-  cursor: ns-resize;
+  cursor: row-resize;
 }
 
 body.lichessTools div.analyse__tools div.lichessTools-resizeExplorer div {
