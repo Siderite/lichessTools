@@ -138,7 +138,7 @@
     handleCliEvents = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const elem = $('#clinput .link')[0];
+      const elem = $('#clinput')[0];
       if (!elem) return;
       const handler = lt.getEventHandlers(elem,'mouseover')[0];
       if (this.options.disableMouseOver) {
