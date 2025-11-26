@@ -9,10 +9,19 @@
 a.lichessTools-preferences span.lichessTools-toggleExtension {
   position: absolute;
   right: 1em;
+  opacity: 0;
+  transition: opacity 1s;
 }
+
+
+a.lichessTools-preferences:not(:has(input:checked)) span.lichessTools-toggleExtension {
+  opacity: 1;
+}
+
 
 a.lichessTools-preferences:hover span.lichessTools-toggleExtension {
   filter: hue-rotate(45deg);
+  opacity: 1;
 }
 
 
