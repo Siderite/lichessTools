@@ -496,13 +496,6 @@ body.lichessTools.dynamicContentShown section.lichessTools-onlineFriends .user-l
 
 /* Prettier Lichess CSS */
 
-body.lichessTools.lichessTools-prettier #topnav.hover section div[role="group"] {
-  -overflow-y: auto !important;
-  opacity: 1 !important;
-  margin-top: 0 !important;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%) !important;
-}
-
 body.lichessTools.lichessTools-prettier #topnav section.lichessTools-onlineFriends>a.lichessTools-somePlaying {
   color: #1b78d0 !important;
 }

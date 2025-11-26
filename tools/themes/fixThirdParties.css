@@ -36,3 +36,9 @@ html:has(body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdPart
   background: var(--board-background) !important;
   background-size: 100% 100% !important;
 }
+
+body.lichessTools.lichessTools-prettier #topnav.hover section div[role="group"] {
+  opacity: 1 !important;
+  margin-top: 0 !important;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%) !important;
+}
