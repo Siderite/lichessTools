@@ -14,7 +14,8 @@ a.lichessTools-preferences span.lichessTools-toggleExtension {
 }
 
 
-a.lichessTools-preferences:not(:has(input:checked)) span.lichessTools-toggleExtension {
+a.lichessTools-preferences:not(:has(input:checked)) span.lichessTools-toggleExtension,
+body.mobile .dasher.shown a.lichessTools-preferences span.lichessTools-toggleExtension {
   opacity: 1;
 }
 
