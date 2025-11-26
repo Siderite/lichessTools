@@ -183,6 +183,7 @@
             ev.preventDefault();
             setVolume($(ev.target).val());
           })
+          .val(sound.getVolume())
           .prependTo(container);
       }
       volumeBar.toggleClassSafe('silent',sound.theme=='silent');
