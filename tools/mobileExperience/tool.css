@@ -236,7 +236,7 @@ body.lichessTools.lichessTools-prettier main.analyse.lichessTools-hideOctopus .g
 
 @media (max-width: 799.3px) {
   body.lichessTools.lichessTools-prettier main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge {
-    left: -1.2em;
+    left: -0.6em;
     width: 1em !important;
   }
 }

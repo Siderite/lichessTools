@@ -561,3 +561,8 @@ html.transp body.lichessTools.lichessTools-prettier .site-buttons div.lichessToo
 body.lichessTools.lichessTools-prettier main.lichessTools-friendsPage table.slist tbody {
   background-image: repeating-linear-gradient(var(--backgroundColor) 0 5rem, transparent 5rem 10rem);
 }
+
+
+body.lichessTools.lichessTools-prettier #main-wrap main.lichessTools-friendsPage {
+  overflow: auto !important;
+}

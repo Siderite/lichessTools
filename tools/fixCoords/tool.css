@@ -90,3 +90,11 @@ body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger.coords-out
 body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) div.study__player-bot {
   margin-top: 1em !important;
 }
+
+body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out coords.files {
+  bottom: 0 !important;
+}
+
+body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out coords.ranks {
+  right: 0 !important;
+}
