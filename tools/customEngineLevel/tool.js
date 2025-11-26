@@ -166,7 +166,7 @@
       if (!$('.abset-engine-depth', container).length) {
         const html = `<div class="setting abset-engine-depth">
           <label for="abset-engine-depth"></label>
-          <input id="abset-engine-depth" type="range" min="0" max="50">
+          <input id="abset-engine-depth" type="range" class="range" min="0" max="50">
         </div>`;
         $(html).insertAfter($('div.abset-noCloudExternal', container).eq(0));
         $('div.abset-engine-depth',container)
@@ -222,7 +222,7 @@
       if (!$('.abset-practice-depth', container).length) {
         const html = `<div class="setting abset-practice-depth">
           <label for="abset-practice-depth"></label>
-          <input id="abset-practice-depth" type="range" min="0" max="15"><!-- Lichess limitation -->
+          <input id="abset-practice-depth" type="range" class="range" min="0" max="15"><!-- Lichess limitation -->
         </div>`;
         $(html).insertAfter($('div.abset-practice', container).eq(0));
         $('div.abset-practice-depth',container)
