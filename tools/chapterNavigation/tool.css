@@ -59,6 +59,10 @@ body.lichessTools .lichessTools-hideNextButton .feedback.end button.next {
   display:none;
 }
 
+body.lichessTools .lichessTools-hideNextButton .analyse__moves button.next {
+  display:none;
+}
+
 body.lichessTools .study__chapters button.lichessTools-collapsedChapter {
   display:none;
 }
