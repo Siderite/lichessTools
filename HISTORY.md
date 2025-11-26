@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 Nov
+
+- tested with Prettier Lichess and fixed issues
+
 25 Nov
 
 - added Piece coordination chart line
