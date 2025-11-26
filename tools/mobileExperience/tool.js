@@ -471,16 +471,18 @@
           const container = $('div.analyse__controls:not(.lichessTools-liveStatus)');
           if (!container.find('button.lichessTools-shapeDrawing').length) {
             const anchor = container.children('button[data-act]:not([data-act="menu"])').last();
-            const button = $('<button class="fbt">')
-              .attr('data-icon', lt.icon.NorthEastDoubleArrow)
-              .attr('title', trans.noarg('shapeDrawingTitle'))
-              .addClass('lichessTools-shapeDrawing')
-              .insertAfter(anchor);
-            addHandler = true;
-            let tooltip = $('.lichessTools-shapeDrawing-tooltip');
-            if (!tooltip.length) {
-              tooltip = $('<div class="lichessTools-shapeDrawing-tooltip">')
-                .insertAfter(button);
+            if (anchor.length) {
+              const button = $('<button class="fbt">')
+                .attr('data-icon', lt.icon.NorthEastDoubleArrow)
+                .attr('title', trans.noarg('shapeDrawingTitle'))
+                .addClass('lichessTools-shapeDrawing')
+                .insertAfter(anchor);
+              addHandler = true;
+              let tooltip = $('.lichessTools-shapeDrawing-tooltip');
+              if (!tooltip.length) {
+                tooltip = $('<div class="lichessTools-shapeDrawing-tooltip">')
+                  .insertAfter(button);
+              }
             }
           }
           this.populateTooltip();
