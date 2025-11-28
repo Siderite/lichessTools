@@ -2199,7 +2199,7 @@
             : (options.keyPrefix||'') + funcName + JSON.stringify(args);
           await cache.waitRelease(key);
           const cached = cache.getCached(key);
-          if (cached && !cached.isExpired) {
+          if (cached?.value !== undefined && !cached.isExpired) {
             if (options.sliding) {
               cache.setCached(key, cached.value, options);
             }
