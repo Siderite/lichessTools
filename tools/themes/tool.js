@@ -47,7 +47,7 @@
         'themes.gameMoveList': 'Flexible game move list',
         'themes.fatGauge': 'Thick analysis gauge',
         'themes.fatMove': 'Larger analysis move font',
-        'themes.slimmerArrows': '... slimmer',
+        'themes.slimmerArrows': 'Slimmer arrows',
         'themes.gridBoard': 'Grid board squares',
         'themes.adamisko': 'Vintage Adamisko',
         'themes.arcade': 'Arcade',
@@ -79,7 +79,7 @@
         'themes.gameMoveList': 'List\u0103 mut\u0103ri flexibil\u0103 \u00een joc',
         'themes.fatGauge': 'Bar\u0103 analiz\u0103 groas\u0103',
         'themes.fatMove': 'Text mai mare la mut\u0103ri',
-        'themes.slimmerArrows': '... \u015fi mai sub\u0163iri',
+        'themes.slimmerArrows': 'S\u0103ge\u0163i \u015fi mai sub\u0163iri',
         'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei',
         'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i',
         'themes.timeControls': 'Controale timp la hover',
@@ -246,14 +246,20 @@
       const selector = container.find('.selector')
         .empty();
       const { possibleValues: themes, defaultValue: defaultThemes } = this.preferences.find(p=>p.name=='themes');
+      const themeItems = themes.map(t=>({
+        key: t,
+        text: trans.noarg(`themes.${t}`)
+      }));
+      themeItems.sort((a,b)=>a.text.localeCompare(b.text));
       const isSet = (theme) => `,${this.themes},`.includes(`,${theme},`);
-      for (const theme of themes) {
+      for (const item of themeItems) {
+        const theme = item.key;
         const isDefault = `,${defaultThemes},`.includes(`,${theme},`);
         $('<button type="button" class="text">')
           .toggleClass('active',isSet(theme))
           .toggleClass('default',isDefault)
           .attr('data-icon',lt.icon.Checkmark)
-          .text(trans.noarg(`themes.${theme}`))
+          .text(item.text)
           .on('click',async ev=>{
             ev.preventDefault();
             const isThemeSet = isSet(theme);
