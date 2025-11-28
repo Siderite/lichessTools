@@ -223,7 +223,8 @@ body.lichessTools div.lichessTools-shapeDrawing-tooltip button {
 body.lichessTools button.lichessTools-redBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-redBrush,
 body.lichessTools button.lichessTools-blueBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-blueBrush,
 body.lichessTools button.lichessTools-greenBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-greenBrush,
-body.lichessTools button.lichessTools-yellowBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-yellowBrush {
+body.lichessTools button.lichessTools-yellowBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-yellowBrush,
+body.lichessTools button.lichessTools-shapeDrawing:not(.lichessTools-redBrush,.lichessTools-blueBrush,.lichessTools-greenBrush,.lichessTools-yellowBrush) + div.lichessTools-shapeDrawing-tooltip button.lichessTools-emptyBrush {
   border: 1px solid white;
 }
 

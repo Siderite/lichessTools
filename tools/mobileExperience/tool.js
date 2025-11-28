@@ -336,17 +336,20 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const tooltip = $('.lichessTools-shapeDrawing-tooltip');
-      if (this.options.colorCount<1) {
+      if (this.options.colorCount<=1) {
         tooltip.empty();
         return;
       }
 
       const addButton = (brush, index)=>{
         const className = 'lichessTools-'+brush+'Brush';
-        const shouldBeRemoved = this.options.colorCount<2 || index>=this.options.colorCount;
+        const shouldBeRemoved = index>=this.options.colorCount;
         const button = tooltip.find('.'+className);
         if (button.length) {
           if (shouldBeRemoved) button.remove();
+          return;
+        } else
+        if (shouldBeRemoved) {
           return;
         }
         $('<button class="fbt">')
