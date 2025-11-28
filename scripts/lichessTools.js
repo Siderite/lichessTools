@@ -2692,8 +2692,9 @@
           const ids = allIds.slice((startPage-1)*30,(startPage-1+count)*30);
           const users = await lt.api.user.getUsers(ids.map(i=>i.id));
           const result = users.map(u=>({ user: { id:u.id, name: (u.title?u.title+' ':'')+u.username }, time: ids.find(i=>i.id==u.id).time }));
+          //const result = ids.map(u=>({ user: { id:u.id, name: u.id }, time: u.time }));
           result.nbResults = allIds.length;
-          result.nextPage = (startPage-1+count)*30 < ids.length ? undefined : startPage+count;
+          result.nextPage = (startPage-1+count)*30 >= allIds.length ? undefined : startPage+count;
           return result;
         },
         blockPlayer: async function(userId) {
