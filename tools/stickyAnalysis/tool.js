@@ -21,7 +21,7 @@
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.stickyAnalysis': 'Salveaz\u0103 automat analiza pentru re\u00eencarcare'
+        'options.stickyAnalysis': 'Salveaz\u0103 automat analiza pentru re\u00eenc\u0103rcare'
       }
     }
 

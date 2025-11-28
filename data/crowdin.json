@@ -14964,7 +14964,7 @@
     "options.chapterNavigation": "Butoane navigare pentru capitole de studiu",
     "chapterControlsTitle": "LiChess Tools - navigare capitole",
     "options.stickyPreview": "Mod Preview persistent",
-    "options.stickyAnalysis": "Salvează automat analiza pentru reîncarcare",
+    "options.stickyAnalysis": "Salvează automat analiza pentru reîncărcare",
     "options.chapterNameFromTags": "Schimbă numele capitolului din taguri PGN",
     "options.enhancedImport": "Import PGN extins",
     "mergeSuccess": "LiChess Tools - am combinat %s PGNuri",
