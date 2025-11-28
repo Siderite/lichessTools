@@ -2407,10 +2407,13 @@
         lichessTools: this,
         getUsers: async function (userIds) {
           const lt = this.lichessTools;
-          const users = await lt.net.json('/api/users', {
-            method: 'POST',
-            body: userIds.join(',')
-          });
+          let users = null;
+          if (userIds?.length) {
+            users = await lt.net.json('/api/users', {
+              method: 'POST',
+              body: userIds.join(',')
+            });
+          }
           return users || [];
         },
         getUserStatus: async function (userIds, options) {
@@ -2649,6 +2652,48 @@
               ? await lt.net.json({ url: '/@/{userId}/followers?page={page}', args: { userId: userId, page: page.paginator.nextPage } })
               : null;
           }
+          return result;
+        },
+        refreshFollowers: async function() {
+          const lt = this.lichessTools;
+          let result = [];
+          const userId = lt.getUserId();
+          if (!userId) return result;
+          const data = lt.storage.get('LiChessTools.followersData') || { lastActivity: 0, follows:[] };
+          const now = Date.now();
+          if (now-data.lastActivity > 86400000) {
+            data.lastActivity = now;
+            lt.storage.set('LiChessTools.followersData',data);
+            const activity = await lt.api.user.getActivity(userId);
+            for (let i=activity.length-1; i>=0; i--) {
+              const ac = activity[i];
+              if (!ac?.follows?.in?.ids?.length) continue;
+              const item = { interval: ac.interval, ids: ac?.follows?.in?.ids };
+              const index = data.follows.findIndex(it=>it.interval.start==item.interval.start);
+              if (index>=0) {
+                data.follows[index]=item;
+                continue;
+              }
+              data.follows.unshift(item);
+            }
+            lt.storage.set('LiChessTools.followersData',data);
+          }
+          return data;
+        },
+        getFollowersNew: async function (startPage = 1, count = 1000) {
+          const lt = this.lichessTools;
+          try {
+            return await this.getFollowers(startPage, count);
+          } catch(e) {
+            lt.global.console.log('Old Followers API not responding, using the new one');
+          }
+          const data = await this.refreshFollowers();
+          const allIds = data.follows.flatMap(f=>f.ids.map(id=>({ time: f.interval.start+(f.interval.end-f.interval.start)/2, id: id })));
+          const ids = allIds.slice((startPage-1)*30,(startPage-1+count)*30);
+          const users = await lt.api.user.getUsers(ids.map(i=>i.id));
+          const result = users.map(u=>({ user: { id:u.id, name: (u.title?u.title+' ':'')+u.username }, time: ids.find(i=>i.id==u.id).time }));
+          result.nbResults = allIds.length;
+          result.nextPage = (startPage-1+count)*30 < ids.length ? undefined : startPage+count;
           return result;
         },
         blockPlayer: async function(userId) {

@@ -698,7 +698,13 @@
           const f = (followers)=>{
             if (followers.length) {
               for (const follower of followers) {
-                $(`<tr class="paginated"><td><a class="user-link ulpt" href="/@/${follower.user.id}"><i class="line"></i>${follower.user.name}</a></td></tr>`)
+                const timeText = follower.time
+                   ? lt.getTimeText(Date.now()-follower.time)
+                   : '';
+                $(`<tr class="paginated">
+                     <td><a class="user-link ulpt" href="/@/${follower.user.id}"><i class="line"></i>${follower.user.name}</a></td>
+                     <td>${timeText}</td>
+                   </tr>`)
                   .appendTo(tbody);
               }
               if (followers.nextPage) {
@@ -710,13 +716,13 @@
                   .on('click',async (ev)=>{
                     ev.preventDefault();
                     $('.lichessTools-pager',tbody).remove();
-                    followers = await lt.api.relations.getFollowers(followers.nextPage,1);
+                    followers = await lt.api.relations.getFollowersNew(followers.nextPage,1);
                     await f(followers);
                   });
               };
             }
           };
-          const followers = await lt.api.relations.getFollowers(1,1);
+          const followers = await lt.api.relations.getFollowersNew(1,1);
           $('.box__top h1')
             .replaceText(trans.pluralSame('followersNumberTitle',followers?.nbResults || 0));
           $('.box__top h1 a')
@@ -765,6 +771,11 @@
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
+
+      if (lt.currentOptions.enableLichessTools) {
+        lt.api.relations.refreshFollowers(); // this runs in the background and should update the followers local db even when no options are selected
+      }
+
       const setInterval = lt.global.setInterval;
       const clearInterval = lt.global.clearInterval;
       this.isFriendsPage = lt.isFriendsPage() && !this.isFollowersPage();

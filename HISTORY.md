@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 28 Nov
 
 - added No chess variants theme
+- use Activity API for followers
 
 26 Nov
 
