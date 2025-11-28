@@ -156,6 +156,10 @@
           const games = parsePgn(text);
           for (const game of games) {
             const site = game.headers.get('Site');
+            const variant = game.headers.get('Variant');
+            const variantClass = variant
+              ? variant.toLowerCase()
+              : 'standard';
             const timeControl = game.headers.get('TimeControl');
             let timeControlClass =  lt.getGameTime(timeControl);
             if (timeControlClass == '-') timeControlClass = 'correspondence';
@@ -171,6 +175,7 @@
             if (result === '0-1') resultClass = userWhite?'loss':'win';
             results.push({
              href,
+             variantClass,
              timeControlClass,
              opponentId,
              opponentRating,
@@ -186,6 +191,7 @@
             }
             const name = result.opponentName || result.opponentId;
             $('<a class="game">')
+              .addClass(result.variantClass)
               .addClass(result.resultClass)
               .addClass(result.timeControlClass)
               .toggleClass('white',result.userWhite)

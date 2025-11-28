@@ -176,6 +176,39 @@ body.lichessTools .lobby__table .lichessTools-recentGames a.game.correspondence:
   content: var(--icon-PaperAirplane);
 }
 
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.chess960:before {
+  content: var(--icon-DieSix);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.kingofthehill:before {
+  content: var(--icon-FlagKingHill);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.threecheck:before {
+  content: var(--icon-ThreeCheckStack);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.antichess:before {
+  content: var(--icon-Antichess);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.atomic:before {
+  content: var(--icon-Atom);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.horde:before {
+  content: var(--icon-Keypad);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.racingkings:before {
+  content: var(--icon-FlagRacingKings);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.crazyhouse:before {
+  content: var(--icon-Crazyhouse);
+}
+
+
 body.lichessTools .lobby__table .lichessTools-recentGames a.moreGames {
   align-self: end;
   margin-right: 3em;
