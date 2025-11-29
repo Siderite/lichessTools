@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+29 Nov
+
+- game analysis layout
+
 28 Nov
 
 - added No chess variants theme

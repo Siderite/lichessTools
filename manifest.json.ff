@@ -63,6 +63,7 @@
         "tools/addNotifications/tool.js",
         "tools/additionalGlyphs/tool.js",
         "tools/boardStyle/tool.js",
+        "tools/gameAnalysisLayout/tool.js",
 
         "tools/extraChart/raccoon.js",
 
@@ -245,6 +246,7 @@
         "tools/explorerPractice/tool.css",
         "tools/additionalGlyphs/tool.css",
         "tools/boardStyle/tool.css",
+        "tools/gameAnalysisLayout/tool.css",
 
         "tools/extraChart/tool.css",
         "tools/keyboardHelp/tool.css",

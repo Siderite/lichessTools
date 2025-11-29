@@ -34,6 +34,7 @@ lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
 lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);
 lichessTools.loadTool(LiChessTools.Tools.BoardStyle);
+lichessTools.loadTool(LiChessTools.Tools.GameAnalysisLayout);
 lichessTools.loadTool(LiChessTools.Tools.CustomBoardImage);
 lichessTools.loadTool(LiChessTools.Tools.ExtraPieceSets);
 
