@@ -985,7 +985,11 @@
     "extraChart.coord": "التنسيق",
     "coordLegendText": "التنسيق",
     "coordLegendTitle": "تنسيق القطع",
-    "themes.noVariants": "لا توجد متغيرات الشطرنج"
+    "themes.noVariants": "لا توجد متغيرات الشطرنج",
+    "options.gameAnalysisLayout": "تخطيط لتحليل اللعبة",
+    "gameAnalysisLayout.fitPage": "صفحة مناسبة",
+    "reviewTabText": "مراجعة",
+    "reviewTabTitle": "أدوات شطرنج الحياة - مراجعة اللعبة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1973,7 +1977,11 @@
     "extraChart.coord": "协 调",
     "coordLegendText": "协 调",
     "coordLegendTitle": "部门协调",
-    "themes.noVariants": "没有象棋变体"
+    "themes.noVariants": "没有象棋变体",
+    "options.gameAnalysisLayout": "游戏分析布局",
+    "gameAnalysisLayout.fitPage": "适合页面",
+    "reviewTabText": "审查",
+    "reviewTabTitle": "LiChess工具 - 游戏审核"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2961,7 +2969,11 @@
     "extraChart.coord": "Coordination",
     "coordLegendText": "Coordination",
     "coordLegendTitle": "Piece coordination",
-    "themes.noVariants": "No chess variants"
+    "themes.noVariants": "No chess variants",
+    "options.gameAnalysisLayout": "Layout for game analysis",
+    "gameAnalysisLayout.fitPage": "Fit page",
+    "reviewTabText": "Review",
+    "reviewTabTitle": "LiChess Tools - game review"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3949,7 +3961,11 @@
     "extraChart.coord": "Koordinace",
     "coordLegendText": "Koordinace",
     "coordLegendTitle": "Koordinace částí",
-    "themes.noVariants": "Žádné varianty šachu"
+    "themes.noVariants": "Žádné varianty šachu",
+    "options.gameAnalysisLayout": "Rozložení pro analýzu hry",
+    "gameAnalysisLayout.fitPage": "Přizpůsobit stránku",
+    "reviewTabText": "Přezkum",
+    "reviewTabTitle": "Nástroje LiChess - recenze hry"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4937,7 +4953,11 @@
     "extraChart.coord": "Coördinatie",
     "coordLegendText": "Coördinatie",
     "coordLegendTitle": "Coördinatie van stukken",
-    "themes.noVariants": "Geen schaakvarianten"
+    "themes.noVariants": "Geen schaakvarianten",
+    "options.gameAnalysisLayout": "Lay-out voor spel analyse",
+    "gameAnalysisLayout.fitPage": "Pagina passend maken",
+    "reviewTabText": "Beoordelen",
+    "reviewTabTitle": "LiChess Tools - game-review"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5925,7 +5945,11 @@
     "extraChart.coord": "Coordination",
     "coordLegendText": "Coordination",
     "coordLegendTitle": "Piece coordination",
-    "themes.noVariants": "No chess variants"
+    "themes.noVariants": "No chess variants",
+    "options.gameAnalysisLayout": "Layout for game analysis",
+    "gameAnalysisLayout.fitPage": "Fit page",
+    "reviewTabText": "Review",
+    "reviewTabTitle": "LiChess Tools - game review"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6913,7 +6937,11 @@
     "extraChart.coord": "Coordonnées",
     "coordLegendText": "Coordonnées",
     "coordLegendTitle": "Coordonnées des pièces",
-    "themes.noVariants": "Aucune variante d'échecs"
+    "themes.noVariants": "Aucune variante d'échecs",
+    "options.gameAnalysisLayout": "Mise en page pour l'analyse du jeu",
+    "gameAnalysisLayout.fitPage": "Ajuster la page",
+    "reviewTabText": "Évaluer",
+    "reviewTabTitle": "Outils LiChess - évaluation du jeu"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7901,7 +7929,11 @@
     "extraChart.coord": "Koordination",
     "coordLegendText": "Koordination",
     "coordLegendTitle": "Stückkoordination",
-    "themes.noVariants": "Keine Schachvarianten"
+    "themes.noVariants": "Keine Schachvarianten",
+    "options.gameAnalysisLayout": "Layout für Spielanalyse",
+    "gameAnalysisLayout.fitPage": "Seite anpassen",
+    "reviewTabText": "Überprüfen",
+    "reviewTabTitle": "LiChess Tools - Spiel Review"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -8889,7 +8921,11 @@
     "extraChart.coord": "Συντονισμός",
     "coordLegendText": "Συντονισμός",
     "coordLegendTitle": "Συντονισμός κομματιών",
-    "themes.noVariants": "Καμία παραλλαγή σκακιού"
+    "themes.noVariants": "Καμία παραλλαγή σκακιού",
+    "options.gameAnalysisLayout": "Διάταξη για ανάλυση παιχνιδιού",
+    "gameAnalysisLayout.fitPage": "Προσαρμογή σελίδας",
+    "reviewTabText": "Επανεξέταση",
+    "reviewTabTitle": "LiChess Tools - αναθεώρηση του παιχνιδιού"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -9877,7 +9913,11 @@
     "extraChart.coord": "Coordination",
     "coordLegendText": "Coordination",
     "coordLegendTitle": "Piece coordination",
-    "themes.noVariants": "No chess variants"
+    "themes.noVariants": "No chess variants",
+    "options.gameAnalysisLayout": "Layout for game analysis",
+    "gameAnalysisLayout.fitPage": "Fit page",
+    "reviewTabText": "Review",
+    "reviewTabTitle": "LiChess Tools - game review"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -10865,7 +10905,11 @@
     "extraChart.coord": "Coordinamento",
     "coordLegendText": "Coordinamento",
     "coordLegendTitle": "Coordinamento dei pezzi",
-    "themes.noVariants": "Nessuna variante di scacchi"
+    "themes.noVariants": "Nessuna variante di scacchi",
+    "options.gameAnalysisLayout": "Layout per l'analisi del gioco",
+    "gameAnalysisLayout.fitPage": "Adatta alla pagina",
+    "reviewTabText": "Riesame",
+    "reviewTabTitle": "LiChess Tools - recensione del gioco"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -11853,7 +11897,11 @@
     "extraChart.coord": "Coordination",
     "coordLegendText": "Coordination",
     "coordLegendTitle": "Piece coordination",
-    "themes.noVariants": "No chess variants"
+    "themes.noVariants": "No chess variants",
+    "options.gameAnalysisLayout": "Layout for game analysis",
+    "gameAnalysisLayout.fitPage": "Fit page",
+    "reviewTabText": "Review",
+    "reviewTabTitle": "LiChess Tools - game review"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -12841,7 +12889,11 @@
     "extraChart.coord": "Koordynacja",
     "coordLegendText": "Koordynacja",
     "coordLegendTitle": "Częściowa koordynacja",
-    "themes.noVariants": "Brak wariantów szachów"
+    "themes.noVariants": "Brak wariantów szachów",
+    "options.gameAnalysisLayout": "Układ do analizy gry",
+    "gameAnalysisLayout.fitPage": "Dopasuj stronę",
+    "reviewTabText": "Artykuł 3",
+    "reviewTabTitle": "Narzędzia LiChess - przegląd gry"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -13829,7 +13881,11 @@
     "extraChart.coord": "Coordenada",
     "coordLegendText": "Coordenada",
     "coordLegendTitle": "Coordenação dos pedaços",
-    "themes.noVariants": "Sem variantes de xadrez"
+    "themes.noVariants": "Sem variantes de xadrez",
+    "options.gameAnalysisLayout": "Layout para análise do jogo",
+    "gameAnalysisLayout.fitPage": "Ajustar à página",
+    "reviewTabText": "Avaliar",
+    "reviewTabTitle": "Ferramentas LiChess - revisão do jogo"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -14817,7 +14873,11 @@
     "extraChart.coord": "Coordenada",
     "coordLegendText": "Coordenada",
     "coordLegendTitle": "Coordenação dos pedaços",
-    "themes.noVariants": "Sem variantes de xadrez"
+    "themes.noVariants": "Sem variantes de xadrez",
+    "options.gameAnalysisLayout": "Layout para análise do jogo",
+    "gameAnalysisLayout.fitPage": "Ajustar à página",
+    "reviewTabText": "Avaliar",
+    "reviewTabTitle": "Ferramentas LiChess - revisão do jogo"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -15805,7 +15865,11 @@
     "extraChart.coord": "Coordonare",
     "coordLegendText": "Coordonare",
     "coordLegendTitle": "Coordonarea pieselor",
-    "themes.noVariants": "Fără variante de șah"
+    "themes.noVariants": "Fără variante de șah",
+    "options.gameAnalysisLayout": "Aspectul analizei partidei",
+    "gameAnalysisLayout.fitPage": "Acoperă pagina",
+    "reviewTabText": "Revizuire",
+    "reviewTabTitle": "LiChess Tools - revizuire partidă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -16793,7 +16857,11 @@
     "extraChart.coord": "Координация",
     "coordLegendText": "Координация",
     "coordLegendTitle": "Координация фигур",
-    "themes.noVariants": "Нет вариантов шахмат"
+    "themes.noVariants": "Нет вариантов шахмат",
+    "options.gameAnalysisLayout": "Макет для анализа игры",
+    "gameAnalysisLayout.fitPage": "По размеру страницы",
+    "reviewTabText": "Обзор",
+    "reviewTabTitle": "Lichess Tools - обзор игры"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -17781,7 +17849,11 @@
     "extraChart.coord": "Coordinación",
     "coordLegendText": "Coordinación",
     "coordLegendTitle": "Coordenada de piezas",
-    "themes.noVariants": "Sin variantes de ajedrez"
+    "themes.noVariants": "Sin variantes de ajedrez",
+    "options.gameAnalysisLayout": "Diseño para el análisis del juego",
+    "gameAnalysisLayout.fitPage": "Ajustar página",
+    "reviewTabText": "Revisión",
+    "reviewTabTitle": "Herramientas de LiChess - revisión del juego"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -18769,7 +18841,11 @@
     "extraChart.coord": "Coordination",
     "coordLegendText": "Coordination",
     "coordLegendTitle": "Piece coordination",
-    "themes.noVariants": "No chess variants"
+    "themes.noVariants": "No chess variants",
+    "options.gameAnalysisLayout": "Layout for game analysis",
+    "gameAnalysisLayout.fitPage": "Fit page",
+    "reviewTabText": "Review",
+    "reviewTabTitle": "LiChess Tools - game review"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -19757,7 +19833,11 @@
     "extraChart.coord": "Coordination",
     "coordLegendText": "Coordination",
     "coordLegendTitle": "Piece coordination",
-    "themes.noVariants": "No chess variants"
+    "themes.noVariants": "No chess variants",
+    "options.gameAnalysisLayout": "Layout for game analysis",
+    "gameAnalysisLayout.fitPage": "Fit page",
+    "reviewTabText": "Review",
+    "reviewTabTitle": "LiChess Tools - game review"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -20745,6 +20825,10 @@
     "extraChart.coord": "Coordination",
     "coordLegendText": "Coordination",
     "coordLegendTitle": "Piece coordination",
-    "themes.noVariants": "No chess variants"
+    "themes.noVariants": "No chess variants",
+    "options.gameAnalysisLayout": "Layout for game analysis",
+    "gameAnalysisLayout.fitPage": "Fit page",
+    "reviewTabText": "Review",
+    "reviewTabTitle": "LiChess Tools - game review"
   }
 }

@@ -22,7 +22,7 @@
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
-        'options.gameAnalysisLayout': 'Aspect pentru analiza partidei',
+        'options.gameAnalysisLayout': 'Aspectul analizei partidei',
         'gameAnalysisLayout.fitPage': 'Acoper\u0103 pagina',
         'reviewTabText': 'Revizuire',
         'reviewTabTitle': 'LiChess Tools - revizuire partid\u0103'
