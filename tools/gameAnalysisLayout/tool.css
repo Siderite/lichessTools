@@ -42,10 +42,10 @@
     margin: 0;
   }
 
-  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide):has(.review.mchat__tab-active) .analyse__round-training .analyse__puzzle {
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide,:has(.future-game-analysis)):has(.review.mchat__tab-active) .analyse__round-training .analyse__puzzle {
     grid-area: board;
     position: absolute;
-    bottom: min(0px, calc((100vh - 4em) - (var(--board-size) + var(---site-header-height))));
+    bottom: min(0px, calc((100vh - 6em) - (var(--board-size) + var(---site-header-height))));
     left: 50%;
     transform: translateX(-50%);
   }
