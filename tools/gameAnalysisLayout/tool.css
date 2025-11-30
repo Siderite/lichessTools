@@ -42,14 +42,6 @@
     margin: 0;
   }
 
-  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide,.lichessTools-compOff,:has(.future-game-analysis)):has(.review.mchat__tab-active) .analyse__round-training .analyse__puzzle {
-    grid-area: board;
-    position: absolute;
-    bottom: min(0px, calc((100vh - 6em) - (var(--board-size) + var(---site-header-height))));
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide):has(.discussion.mchat__tab-active) .mchat__content {
     padding-bottom: 5em;
   }
@@ -108,7 +100,7 @@
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .computer-analysis #acpl-chart-container {
     margin-top: 100px;
-    height: 200px;
+    height: 150px;
     background: var(--c-bg-box);
   }
 
@@ -126,7 +118,7 @@
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .analyse__acpl .advice-summary {
-    margin-top: 300px;
+    margin-top: 250px;
     position: relative;
     background: var(--c-bg-box);
   }
@@ -183,6 +175,50 @@
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable.lichessTools-reverse .crosstable__users,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable.lichessTools-reverse .crosstable__score {
     flex-direction: column-reverse;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary {
+    flex-direction: row;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary > a.button {
+    display: none;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__player {
+    flex-direction: row-reverse;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .symbol,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__acpl,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__accuracy {
+    pointer-events: none;
+    height: 1rem;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .symbol strong,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__acpl strong,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__accuracy strong {
+    pointer-events: auto;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .symbol,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__acpl,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__accuracy {
+    height: 1rem;
+    font-size: 0px;
+    justify-content: end;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .symbol strong,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__acpl strong,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__accuracy strong {
+    font-size: 1rem;
+    flex-basis: 2rem;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .lichessTools-extraChart-tooltip {
+    transform: translateX(2em);
   }
 
   body.lichessTools.lichessTools-hideLeftSide .mchat__tab.review {

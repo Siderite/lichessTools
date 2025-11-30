@@ -93,6 +93,7 @@
           .on('click',this.toggleCrossTable);
         body.addEventListener('pointerup',this.clearCrossTable, { capture: true });
         $('.computer-analysis form').on('submit',this.setReviewTab);
+        $('.analyse__puzzle br').replaceWith('<span>&nbsp;</span>');
       } else {
         this.tracker?.stop();
         lt.arrayRemoveAll(chat.allTabs,t=>t.key=='review');
