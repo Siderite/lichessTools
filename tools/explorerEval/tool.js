@@ -417,9 +417,10 @@
       }
       $('table.moves tr.sum td.lichessTools-explorerEval').remove();
       const fen = analysis.node.fen;
+      const path = analysis.path;
       const whosMove = analysis.node.ply % 2 ? -1 : 1;
       let result = this.cache[fen] || { moves: [] };
-      if (this.getCached404(analysis.path)) {
+      if (this.getCached404(path)) {
         result = { moves: [] };
       }
       let newMoves = [];
@@ -441,7 +442,7 @@
           result.dbLoaded = true;
         }
         if (this.options.lichess && !result.lichessLoaded) {
-          let obj = await lt.api.evaluation.getLichess(fen, 5);
+          let obj = await lt.api.evaluation.getLichess(fen, 5, path||'-=');
           if (obj) {
             const moves = obj?.pvs?.map(m => {
               return {
@@ -456,7 +457,7 @@
               newMoves.push(...moves);
             }
             if (newMoves?.length && !lt.net.slowMode) {
-              obj = await lt.api.evaluation.getLichess(fen, 10);
+              obj = await lt.api.evaluation.getLichess(fen, 10, path||'-=');
               if (obj) {
                 obj.pvs?.forEach(m => {
                   const uci = m.moves?.split(' ')[0];
@@ -489,7 +490,7 @@
             }
           });
         } else {
-          this.setCached404(analysis.path);
+          this.setCached404(path);
         }
       }
       result = result || { moves: [] };

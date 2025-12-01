@@ -2564,15 +2564,31 @@
             return null;
           }
         },
-        getLichess: async function (fen, multiPv) {
+        getLichess: async function (fen, multiPv, path) {
           const lt = this.lichessTools;
           const analysis = lt.lichess.analysis;
           let data = null;
           let cachedByLichess = null;
-          if (analysis) {
-            cachedByLichess = analysis.evalCache?.fetchedByFen?.get(fen);
-            if (cachedByLichess?.pvs?.length == multiPv) {
+          const evalCache = analysis?.evalCache;
+          if (evalCache) {
+            cachedByLichess = evalCache.fetchedByFen?.get(fen);
+            if (cachedByLichess?.pvs?.length === multiPv) {
               data = cachedByLichess;
+            }
+            if (!data && path) {
+              evalCache.fetchThrottled({
+                fen: fen,
+                mpv: multiPv,
+                path: path
+              });
+              for (let i=0; i<40; i++) {
+                await lt.timeout(50);
+                cachedByLichess = evalCache.fetchedByFen?.get(fen);
+                if (cachedByLichess?.pvs?.length === multiPv) {
+                  data = cachedByLichess;
+                  break;
+                }
+              }
             }
           }
           if (!data) {
