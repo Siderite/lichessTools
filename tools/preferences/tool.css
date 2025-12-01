@@ -113,6 +113,7 @@ div.lichessTools-preferences form > div:not(.feedback,.prefTools) {
 }
 
 body.lichessTools-advancedPreferences div.lichessTools-preferences form > div:not(.feedback,.prefTools):has(section:not(.filteredOut)),
+div.lichessTools-preferences form > div:not(.feedback,.prefTools):has(.filteredIn),
 div.lichessTools-preferences form > div:not(.feedback,.prefTools):has(.lichessTools-normalPreference:not(.filteredOut)) {
   display: block;
 }
