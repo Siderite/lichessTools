@@ -42,6 +42,14 @@
     margin: 0;
   }
 
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .analyse__round-training .analyse__puzzle .button-link br {
+    display: none;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .analyse__round-training .analyse__puzzle .button-link span {
+    display: inline;
+  }
+
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide):has(.discussion.mchat__tab-active) .mchat__content {
     padding-bottom: 5em;
   }
@@ -78,6 +86,10 @@
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .move-times #movetimes-chart-container {
     height: 100px;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .fen-pgn {
+    height: auto;
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .computer-analysis:has(.future-game-analysis) {
@@ -189,6 +201,10 @@
     transform: translateX(-50%);
   }
 
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side {
+    flex-grow: 1;
+  }
+
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__player {
     flex-direction: row-reverse;
   }
@@ -198,6 +214,7 @@
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .symbol,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__error,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__acpl,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__accuracy {
     pointer-events: none;
@@ -211,6 +228,7 @@
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .symbol strong,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__error strong,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__acpl strong,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__accuracy strong,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .advice-summary__accuracy a[data-icon] {
@@ -220,6 +238,7 @@
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .symbol,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__error,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__acpl,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__accuracy {
     height: 1.5rem;
@@ -229,6 +248,7 @@
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .symbol strong,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__error strong,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__acpl strong,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__accuracy strong {
     font-size: 1rem;
@@ -247,5 +267,9 @@
 @media (max-width: 1259.2px) {
   body.lichessTools .mchat__tab.review {
     display:none;
+  }
+
+  body.lichessTools .analyse__round-training .analyse__puzzle .button-link span {
+    display: none;
   }
 }
