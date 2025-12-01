@@ -2568,11 +2568,15 @@
           const lt = this.lichessTools;
           const analysis = lt.lichess.analysis;
           let data = null;
-          let cachedByLichess = null;
+          let cachedByLichess = undefined;
           const evalCache = analysis?.evalCache;
           if (evalCache) {
             cachedByLichess = evalCache.fetchedByFen?.get(fen);
-            if (cachedByLichess?.pvs?.length === multiPv) {
+            if (cachedByLichess?.pvs && cachedByLichess?.pvs?.length !== multiPv) {
+              evalCache.fetchedByFen?.delete(fen);
+              cachedByLichess = undefined;
+            }
+            if (cachedByLichess) {
               data = cachedByLichess;
             }
             if (!data && path) {
@@ -2584,14 +2588,19 @@
               for (let i=0; i<40; i++) {
                 await lt.timeout(50);
                 cachedByLichess = evalCache.fetchedByFen?.get(fen);
-                if (cachedByLichess?.pvs?.length === multiPv) {
+                if (cachedByLichess?.pvs && cachedByLichess?.pvs?.length !== multiPv) {
+                  evalCache.fetchedByFen?.delete(fen);
+                  cachedByLichess = undefined;
+                }
+                if (cachedByLichess) {
                   data = cachedByLichess;
                   break;
                 }
+                if (cachedByLichess === null) break;
               }
             }
           }
-          if (!data) {
+          if (!data && cachedByLichess !== null) {
             try {
               data = await lt.net.json({
                 url: '/api/cloud-eval?fen={fen}&multiPv={multiPv}',
