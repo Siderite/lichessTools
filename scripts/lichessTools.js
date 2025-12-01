@@ -2572,7 +2572,7 @@
           const evalCache = analysis?.evalCache;
           if (evalCache) {
             cachedByLichess = evalCache.fetchedByFen?.get(fen);
-            if (cachedByLichess?.pvs && cachedByLichess?.pvs?.length !== multiPv) {
+            if (cachedByLichess?.pvs?.length !== multiPv) {
               evalCache.fetchedByFen?.delete(fen);
               cachedByLichess = undefined;
             }
