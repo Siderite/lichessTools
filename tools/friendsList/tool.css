@@ -216,6 +216,11 @@ body.lichessTools main:not(.lichessTools-alerts) table.slist div.relation-action
   display: none;
 }
 
+body.lichessTools div.relation-actions a.lichessTools-unblock.disabled {
+  opacity:0.2;
+  pointer-events: none;
+}
+
 body.lichessTools div.lichessTools-liveButtons i[data-role="hideMuted"]:before {
   transform: rotate(45deg);
 }

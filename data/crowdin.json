@@ -989,7 +989,8 @@
     "options.gameAnalysisLayout": "تخطيط لتحليل اللعبة",
     "gameAnalysisLayout.fitPage": "صفحة مناسبة",
     "reviewTabText": "مراجعة",
-    "reviewTabTitle": "أدوات شطرنج الحياة - مراجعة اللعبة"
+    "reviewTabTitle": "أدوات شطرنج الحياة - مراجعة اللعبة",
+    "unblockPlayerTitle": "إلغاء الحظر"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1981,7 +1982,8 @@
     "options.gameAnalysisLayout": "游戏分析布局",
     "gameAnalysisLayout.fitPage": "适合页面",
     "reviewTabText": "审查",
-    "reviewTabTitle": "LiChess工具 - 游戏审核"
+    "reviewTabTitle": "LiChess工具 - 游戏审核",
+    "unblockPlayerTitle": "取消屏蔽"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2973,7 +2975,8 @@
     "options.gameAnalysisLayout": "Layout for game analysis",
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
-    "reviewTabTitle": "LiChess Tools - game review"
+    "reviewTabTitle": "LiChess Tools - game review",
+    "unblockPlayerTitle": "Unblock"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3965,7 +3968,8 @@
     "options.gameAnalysisLayout": "Rozložení pro analýzu hry",
     "gameAnalysisLayout.fitPage": "Přizpůsobit stránku",
     "reviewTabText": "Přezkum",
-    "reviewTabTitle": "Nástroje LiChess - recenze hry"
+    "reviewTabTitle": "Nástroje LiChess - recenze hry",
+    "unblockPlayerTitle": "Odblokovat"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4957,7 +4961,8 @@
     "options.gameAnalysisLayout": "Lay-out voor spel analyse",
     "gameAnalysisLayout.fitPage": "Pagina passend maken",
     "reviewTabText": "Beoordelen",
-    "reviewTabTitle": "LiChess Tools - game-review"
+    "reviewTabTitle": "LiChess Tools - game-review",
+    "unblockPlayerTitle": "Deblokkeer"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5949,7 +5954,8 @@
     "options.gameAnalysisLayout": "Layout for game analysis",
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
-    "reviewTabTitle": "LiChess Tools - game review"
+    "reviewTabTitle": "LiChess Tools - game review",
+    "unblockPlayerTitle": "Unblock"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6941,7 +6947,8 @@
     "options.gameAnalysisLayout": "Mise en page pour l'analyse de partie",
     "gameAnalysisLayout.fitPage": "Ajuster à la page",
     "reviewTabText": "Examiner",
-    "reviewTabTitle": "LiChess Tools - examiner la partie"
+    "reviewTabTitle": "LiChess Tools - examiner la partie",
+    "unblockPlayerTitle": "Débloquer"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7933,7 +7940,8 @@
     "options.gameAnalysisLayout": "Layout für Spielanalyse",
     "gameAnalysisLayout.fitPage": "Seite anpassen",
     "reviewTabText": "Überprüfen",
-    "reviewTabTitle": "LiChess Tools - Spiel Review"
+    "reviewTabTitle": "LiChess Tools - Spiel Review",
+    "unblockPlayerTitle": "Entsperren"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -8925,7 +8933,8 @@
     "options.gameAnalysisLayout": "Διάταξη για ανάλυση παιχνιδιού",
     "gameAnalysisLayout.fitPage": "Προσαρμογή σελίδας",
     "reviewTabText": "Επανεξέταση",
-    "reviewTabTitle": "LiChess Tools - αναθεώρηση του παιχνιδιού"
+    "reviewTabTitle": "LiChess Tools - αναθεώρηση του παιχνιδιού",
+    "unblockPlayerTitle": "Ξεμπλοκή"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -9917,7 +9926,8 @@
     "options.gameAnalysisLayout": "Layout for game analysis",
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
-    "reviewTabTitle": "LiChess Tools - game review"
+    "reviewTabTitle": "LiChess Tools - game review",
+    "unblockPlayerTitle": "Unblock"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -10909,7 +10919,8 @@
     "options.gameAnalysisLayout": "Layout per l'analisi del gioco",
     "gameAnalysisLayout.fitPage": "Adatta alla pagina",
     "reviewTabText": "Riesame",
-    "reviewTabTitle": "LiChess Tools - recensione del gioco"
+    "reviewTabTitle": "LiChess Tools - recensione del gioco",
+    "unblockPlayerTitle": "Sblocca"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -11901,7 +11912,8 @@
     "options.gameAnalysisLayout": "Layout for game analysis",
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
-    "reviewTabTitle": "LiChess Tools - game review"
+    "reviewTabTitle": "LiChess Tools - game review",
+    "unblockPlayerTitle": "Unblock"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -12893,7 +12905,8 @@
     "options.gameAnalysisLayout": "Układ do analizy gry",
     "gameAnalysisLayout.fitPage": "Dopasuj stronę",
     "reviewTabText": "Artykuł 3",
-    "reviewTabTitle": "Narzędzia LiChess - przegląd gry"
+    "reviewTabTitle": "Narzędzia LiChess - przegląd gry",
+    "unblockPlayerTitle": "Odblokuj"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -13885,7 +13898,8 @@
     "options.gameAnalysisLayout": "Layout para análise do jogo",
     "gameAnalysisLayout.fitPage": "Ajustar à página",
     "reviewTabText": "Avaliar",
-    "reviewTabTitle": "Ferramentas LiChess - revisão do jogo"
+    "reviewTabTitle": "Ferramentas LiChess - revisão do jogo",
+    "unblockPlayerTitle": "Desbloquear"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -14877,7 +14891,8 @@
     "options.gameAnalysisLayout": "Layout para análise do jogo",
     "gameAnalysisLayout.fitPage": "Ajustar à página",
     "reviewTabText": "Avaliar",
-    "reviewTabTitle": "Ferramentas LiChess - revisão do jogo"
+    "reviewTabTitle": "Ferramentas LiChess - revisão do jogo",
+    "unblockPlayerTitle": "Desbloquear"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -15869,7 +15884,8 @@
     "options.gameAnalysisLayout": "Aspectul analizei partidei",
     "gameAnalysisLayout.fitPage": "Acoperă pagina",
     "reviewTabText": "Revizuire",
-    "reviewTabTitle": "LiChess Tools - revizuire partidă"
+    "reviewTabTitle": "LiChess Tools - revizuire partidă",
+    "unblockPlayerTitle": "Deblochează"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -16861,7 +16877,8 @@
     "options.gameAnalysisLayout": "Макет для анализа игры",
     "gameAnalysisLayout.fitPage": "По размеру страницы",
     "reviewTabText": "Обзор",
-    "reviewTabTitle": "Lichess Tools - обзор игры"
+    "reviewTabTitle": "Lichess Tools - обзор игры",
+    "unblockPlayerTitle": "Разблокировать"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -17853,7 +17870,8 @@
     "options.gameAnalysisLayout": "Diseño para el análisis del juego",
     "gameAnalysisLayout.fitPage": "Ajustar página",
     "reviewTabText": "Revisión",
-    "reviewTabTitle": "Herramientas de LiChess - revisión del juego"
+    "reviewTabTitle": "Herramientas de LiChess - revisión del juego",
+    "unblockPlayerTitle": "Desbloquear"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -18845,7 +18863,8 @@
     "options.gameAnalysisLayout": "Layout for game analysis",
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
-    "reviewTabTitle": "LiChess Tools - game review"
+    "reviewTabTitle": "LiChess Tools - game review",
+    "unblockPlayerTitle": "Unblock"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -19837,7 +19856,8 @@
     "options.gameAnalysisLayout": "Layout for game analysis",
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
-    "reviewTabTitle": "LiChess Tools - game review"
+    "reviewTabTitle": "LiChess Tools - game review",
+    "unblockPlayerTitle": "Unblock"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -20829,6 +20849,7 @@
     "options.gameAnalysisLayout": "Layout for game analysis",
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
-    "reviewTabTitle": "LiChess Tools - game review"
+    "reviewTabTitle": "LiChess Tools - game review",
+    "unblockPlayerTitle": "Unblock"
   }
 }

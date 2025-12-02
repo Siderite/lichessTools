@@ -2724,7 +2724,11 @@
         },
         blockPlayer: async function(userId) {
           const lt = this.lichessTools;
-          await lt.net.fetch({ url: 'api/rel/block/{userId}', args: { userId: userId } },{ method: 'POST' });
+          await lt.net.fetch({ url: '/api/rel/block/{userId}', args: { userId: userId } },{ method: 'POST' });
+        },
+        unblockPlayer: async function(userId) {
+          const lt = this.lichessTools;
+          await lt.net.fetch({ url: '/api/rel/unblock/{userId}', args: { userId: userId } },{ method: 'POST' });
         }
       },
       tournament: {

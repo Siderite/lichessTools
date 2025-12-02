@@ -1174,7 +1174,8 @@
 
         let act = container.children('i.act');
         if (!act.length) {
-          act = $(`<i class="act lichessTools-reset" data-icon="${lt.icon.toEntity(lt.icon.Reload)}">`)
+          act = $(`<i class="act lichessTools-reset">`)
+            .attr('data-icon',lt.icon.Reload)
             .attr('title', trans.noarg('resetVariationsButtonTitle'))
             .on('click', async (ev) => {
               ev.preventDefault();
