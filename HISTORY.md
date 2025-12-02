@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 02 Dec
 
 - unblock action in the blocked player page
+- generate challenge link
 
 29 Nov
 

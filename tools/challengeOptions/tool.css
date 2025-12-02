@@ -45,3 +45,7 @@ body.lichessTools #challenge-app .lichessTools-randomChallenge button {
   padding: 0.5em;
   color: var(--c-font-clear);
 }
+
+body.lichessTools div.footer:has(.lichessTools-generateLink) {
+  flex-direction: column;
+}

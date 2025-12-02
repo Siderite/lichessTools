@@ -8,11 +8,15 @@
         name: 'challengeOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['latestGames', 'randomChallenge'],
-        defaultValue: '',
+        possibleValues: ['latestGames', 'randomChallenge', 'generateLink'],
+        defaultValue: 'generateLink',
         advanced: true,
         needsLogin: true
       }
+    ];
+
+    upgrades = [
+      { name:'challengeOptions', value:'generateLink', version: '2.4.129', type: 'new' }
     ];
 
     intl = {
@@ -21,16 +25,22 @@
         'options.challengeOptions': 'Challenge options',
         'challengeOptions.latestGames': 'Show latest games',
         'challengeOptions.randomChallenge': 'Random challenge button',
+        'challengeOptions.generateLink': 'Generate link in popup',
         'randomChallengeButtonText': 'Accept random challenge',
-        'randomChallengeButtonTitle': 'LiChess Tools - accept random challenge'
+        'randomChallengeButtonTitle': 'LiChess Tools - accept random challenge',
+        'generateChallengeLinkText': 'Generate link',
+        'generateChallengeLinkTitle': 'LiChess Tools - generate link to open this popup'
       },
       'ro-RO': {
         'options.general': 'General',
         'options.challengeOptions': 'Op\u0163iuni provoc\u0103ri',
         'challengeOptions.latestGames': 'Arat\u0103 ultimele jocuri',
         'challengeOptions.randomChallenge': 'Buton provocare aleatorie',
+        'challengeOptions.generateLink': 'Genereaz\u0103 link \u00een popup',
         'randomChallengeButtonText': 'Accept\u0103 o provocare aleatorie',
-        'randomChallengeButtonTitle': 'LiChess Tools - accept\u0103 o provocare aleatorie'
+        'randomChallengeButtonTitle': 'LiChess Tools - accept\u0103 o provocare aleatorie',
+        'generateChallengeLinkText': 'Genereaz\u0103 link',
+        'generateChallengeLinkTitle': 'LiChess Tools - genereaz\u0103 link care deschide acest popup'
       }
     }
 
@@ -110,6 +120,76 @@
     };
     processChallengeMenu = lichessTools.debounce(this.processChallengeMenuDirect,1000);
 
+    sliderTimes = (val) => {
+      const n = +val;
+      if (val !==0 && !n) return 0;
+      if (n >= 0 && n <= 4) {
+        return 0.25 * n;
+      }
+      if (n === 5) {
+        return 1.5;
+      }
+      if (n >= 6 && n <= 24) {
+        return n - 4;
+      }
+      if (n >= 25 && n <= 29) {
+        return 5 * n - 100;
+      }
+      if (n >= 30 && n <= 38) {
+        return 15 * n - 390;
+      }
+    };
+
+    extractUserId = (text) => {
+      const lt = this.lichessTools;
+      const challengeX = lt.global.i18n?.site?.challengeX;
+      if (!challengeX) return;
+      const pattern = lt.escapeRegex(challengeX('XXX')).replace('XXX','(?<userId>[^\\s]+)');
+      const match = new RegExp(pattern).exec(text);
+      return match?.groups?.userId;
+    };
+
+    processSetupPopup = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const gameSetup = $('dialog .game-setup');
+      if (!gameSetup.length) return;
+      let link = gameSetup.find('a.lichessTools-generateLink');
+      if (!link.length) {
+        link = $('<a class="lichessTools-generateLink">')
+                 .attr('title',trans.noarg('generateChallengeLinkTitle'))
+                 .text(trans.noarg('generateChallengeLinkText'))
+                 .appendTo(gameSetup.find('.footer'));
+      }
+      const params = {
+        user: this.extractUserId($('.lobby__start__button--friend-user').text()),
+        variant: $('#sf_variant').val(),
+        fen: $('#fen-input').val(),
+        time: $('#sf_timeMode').val(),
+        minutesPerSide: this.sliderTimes($('.time-choice input.range').val()),
+        increment: $('.increment-choice input.range').val(),
+        rated: $('#sf_mode_casual:checked,#sf_mode_rated:checked').val(),
+        color: $('#color-picker-white:checked,#color-picker-random:checked,#color-picker-black:checked').val(),
+        sfLevel: $('input[id^="sf_level_"]:checked').val(),
+        ratingMin: $('input.rating-range__min').val(),
+        ratingMax: $('input.rating-range__max').val(),
+      };
+      const hash = (()=>{
+        if (params.user) return 'friend';
+        if (params.sfLevel) return 'ai';
+        if (params.ratingMin || params.ratingMax) return 'hook';
+      })();
+      const query = Object.entries(params)
+        .filter(e=>e[1] !== undefined)
+        .map(e=>`${e[0]}=${encodeURIComponent(e[1])}`)
+        .join('&');
+      let href='/';
+      if (query) href+='?'+query;
+      if (hash) href+='#'+hash;
+      link.attr('href',href);
+    };
+
     pickRandomChallenge = (ev)=>{
       ev.preventDefault();
       const lt = this.lichessTools;
@@ -133,15 +213,33 @@
       }
       this.options = {
         latestGames: lt.isOptionSet(value, 'latestGames'),
-        randomChallenge: lt.isOptionSet(value, 'randomChallenge')
+        randomChallenge: lt.isOptionSet(value, 'randomChallenge'),
+        generateLink: lt.isOptionSet(value, 'generateLink')
       };
 
       this.processChallengeMenu();
       $('body').observer()
         .off('#challenge-app',this.processChallengeMenu);
+      $('body').observer()
+        .off(':has(.game-setup)',this.processSetupPopup);
+      $('body')
+        .off('input',this.processSetupPopup);
       if (this.options.latestGames || this.options.randomChallenge) {
         $('body').observer()
           .on('#challenge-app',this.processChallengeMenu);
+      }
+      if (this.options.generateLink) {
+        $('body').observer()
+          .on(':has(.game-setup)',this.processSetupPopup,{
+            subtree: true,
+            attributes: true,
+            attributeFilter: ["open"]
+          });
+        $('body')
+          .on('input',this.processSetupPopup);
+        this.processSetupPopup(true);
+      } else {
+        $('.lichessTools-generateLink').remove();
       }
     }
 

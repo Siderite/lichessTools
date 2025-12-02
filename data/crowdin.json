@@ -990,7 +990,10 @@
     "gameAnalysisLayout.fitPage": "صفحة مناسبة",
     "reviewTabText": "مراجعة",
     "reviewTabTitle": "أدوات شطرنج الحياة - مراجعة اللعبة",
-    "unblockPlayerTitle": "إلغاء الحظر"
+    "unblockPlayerTitle": "إلغاء الحظر",
+    "generateChallengeLinkText": "إنشاء رابط",
+    "generateChallengeLinkTitle": "أدوات شطرنج الحياة - إنشاء رابط لفتح هذا المنبثق",
+    "challengeOptions.generateLink": "إنشاء رابط في نافذة منبثقة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1983,7 +1986,10 @@
     "gameAnalysisLayout.fitPage": "适合页面",
     "reviewTabText": "审查",
     "reviewTabTitle": "LiChess工具 - 游戏审核",
-    "unblockPlayerTitle": "取消屏蔽"
+    "unblockPlayerTitle": "取消屏蔽",
+    "generateChallengeLinkText": "生成链接",
+    "generateChallengeLinkTitle": "LiChess工具 - 生成链接以打开此弹出窗口",
+    "challengeOptions.generateLink": "在弹出窗口中生成链接"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2976,7 +2982,10 @@
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
     "reviewTabTitle": "LiChess Tools - game review",
-    "unblockPlayerTitle": "Unblock"
+    "unblockPlayerTitle": "Unblock",
+    "generateChallengeLinkText": "Generate link",
+    "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
+    "challengeOptions.generateLink": "Generate link in popup"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3969,7 +3978,10 @@
     "gameAnalysisLayout.fitPage": "Přizpůsobit stránku",
     "reviewTabText": "Přezkum",
     "reviewTabTitle": "Nástroje LiChess - recenze hry",
-    "unblockPlayerTitle": "Odblokovat"
+    "unblockPlayerTitle": "Odblokovat",
+    "generateChallengeLinkText": "Vygenerovat odkaz",
+    "generateChallengeLinkTitle": "Nástroje LiChess - vygenerovat odkaz pro otevření tohoto vyskakovacího okna",
+    "challengeOptions.generateLink": "Vygenerovat odkaz ve vyskakovacím okně"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4962,7 +4974,10 @@
     "gameAnalysisLayout.fitPage": "Pagina passend maken",
     "reviewTabText": "Beoordelen",
     "reviewTabTitle": "LiChess Tools - game-review",
-    "unblockPlayerTitle": "Deblokkeer"
+    "unblockPlayerTitle": "Deblokkeer",
+    "generateChallengeLinkText": "Koppeling genereren",
+    "generateChallengeLinkTitle": "LiChess Tools - link genereren om deze popup te openen",
+    "challengeOptions.generateLink": "Link in popup genereren"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5955,7 +5970,10 @@
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
     "reviewTabTitle": "LiChess Tools - game review",
-    "unblockPlayerTitle": "Unblock"
+    "unblockPlayerTitle": "Unblock",
+    "generateChallengeLinkText": "Generate link",
+    "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
+    "challengeOptions.generateLink": "Generate link in popup"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6948,7 +6966,10 @@
     "gameAnalysisLayout.fitPage": "Ajuster à la page",
     "reviewTabText": "Examiner",
     "reviewTabTitle": "LiChess Tools - examiner la partie",
-    "unblockPlayerTitle": "Débloquer"
+    "unblockPlayerTitle": "Débloquer",
+    "generateChallengeLinkText": "Générer un lien",
+    "generateChallengeLinkTitle": "LiChess Tools - Générer un lien pour ouvrir cette popup",
+    "challengeOptions.generateLink": "Générer un lien dans la popup"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7941,7 +7962,10 @@
     "gameAnalysisLayout.fitPage": "Seite anpassen",
     "reviewTabText": "Überprüfen",
     "reviewTabTitle": "LiChess Tools - Spiel Review",
-    "unblockPlayerTitle": "Entsperren"
+    "unblockPlayerTitle": "Entsperren",
+    "generateChallengeLinkText": "Link generieren",
+    "generateChallengeLinkTitle": "LiChess Tools - Generiere Link um dieses Popup zu öffnen",
+    "challengeOptions.generateLink": "Link in Popup generieren"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -8934,7 +8958,10 @@
     "gameAnalysisLayout.fitPage": "Προσαρμογή σελίδας",
     "reviewTabText": "Επανεξέταση",
     "reviewTabTitle": "LiChess Tools - αναθεώρηση του παιχνιδιού",
-    "unblockPlayerTitle": "Ξεμπλοκή"
+    "unblockPlayerTitle": "Ξεμπλοκή",
+    "generateChallengeLinkText": "Δημιουργία συνδέσμου",
+    "generateChallengeLinkTitle": "Εργαλεία LiChess - δημιουργία συνδέσμου για να ανοίξετε αυτό το αναδυόμενο παράθυρο",
+    "challengeOptions.generateLink": "Δημιουργία συνδέσμου στο αναδυόμενο παράθυρο"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -9927,7 +9954,10 @@
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
     "reviewTabTitle": "LiChess Tools - game review",
-    "unblockPlayerTitle": "Unblock"
+    "unblockPlayerTitle": "Unblock",
+    "generateChallengeLinkText": "Generate link",
+    "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
+    "challengeOptions.generateLink": "Generate link in popup"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -10920,7 +10950,10 @@
     "gameAnalysisLayout.fitPage": "Adatta alla pagina",
     "reviewTabText": "Riesame",
     "reviewTabTitle": "LiChess Tools - recensione del gioco",
-    "unblockPlayerTitle": "Sblocca"
+    "unblockPlayerTitle": "Sblocca",
+    "generateChallengeLinkText": "Genera link",
+    "generateChallengeLinkTitle": "Strumenti LiChess - genera link per aprire questo popup",
+    "challengeOptions.generateLink": "Genera collegamento in popup"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -11913,7 +11946,10 @@
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
     "reviewTabTitle": "LiChess Tools - game review",
-    "unblockPlayerTitle": "Unblock"
+    "unblockPlayerTitle": "Unblock",
+    "generateChallengeLinkText": "Generate link",
+    "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
+    "challengeOptions.generateLink": "Generate link in popup"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -12906,7 +12942,10 @@
     "gameAnalysisLayout.fitPage": "Dopasuj stronę",
     "reviewTabText": "Artykuł 3",
     "reviewTabTitle": "Narzędzia LiChess - przegląd gry",
-    "unblockPlayerTitle": "Odblokuj"
+    "unblockPlayerTitle": "Odblokuj",
+    "generateChallengeLinkText": "Wygeneruj link",
+    "generateChallengeLinkTitle": "Narzędzia LiChess - generuj link, aby otworzyć to wyskakujące okienko",
+    "challengeOptions.generateLink": "Wygeneruj link w wyskakującym oknie"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -13899,7 +13938,10 @@
     "gameAnalysisLayout.fitPage": "Ajustar à página",
     "reviewTabText": "Avaliar",
     "reviewTabTitle": "Ferramentas LiChess - revisão do jogo",
-    "unblockPlayerTitle": "Desbloquear"
+    "unblockPlayerTitle": "Desbloquear",
+    "generateChallengeLinkText": "Gerar link",
+    "generateChallengeLinkTitle": "Ferramentas do LiChess - gerar link para abrir este popup",
+    "challengeOptions.generateLink": "Gerar link em popup"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -14892,7 +14934,10 @@
     "gameAnalysisLayout.fitPage": "Ajustar à página",
     "reviewTabText": "Avaliar",
     "reviewTabTitle": "Ferramentas LiChess - revisão do jogo",
-    "unblockPlayerTitle": "Desbloquear"
+    "unblockPlayerTitle": "Desbloquear",
+    "generateChallengeLinkText": "Gerar link",
+    "generateChallengeLinkTitle": "Ferramentas do LiChess - gerar link para abrir este popup",
+    "challengeOptions.generateLink": "Gerar link em popup"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -15885,7 +15930,10 @@
     "gameAnalysisLayout.fitPage": "Acoperă pagina",
     "reviewTabText": "Revizuire",
     "reviewTabTitle": "LiChess Tools - revizuire partidă",
-    "unblockPlayerTitle": "Deblochează"
+    "unblockPlayerTitle": "Deblochează",
+    "generateChallengeLinkText": "Generează link",
+    "generateChallengeLinkTitle": "LiChess Tools - generează link care deschide acest popup",
+    "challengeOptions.generateLink": "Generează link în popup"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -16878,7 +16926,10 @@
     "gameAnalysisLayout.fitPage": "По размеру страницы",
     "reviewTabText": "Обзор",
     "reviewTabTitle": "Lichess Tools - обзор игры",
-    "unblockPlayerTitle": "Разблокировать"
+    "unblockPlayerTitle": "Разблокировать",
+    "generateChallengeLinkText": "Сгенерировать ссылку",
+    "generateChallengeLinkTitle": "Инструменты Жизни - генерировать ссылку, чтобы открыть это всплывающее окно",
+    "challengeOptions.generateLink": "Генерировать ссылку во всплывающем окне"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -17871,7 +17922,10 @@
     "gameAnalysisLayout.fitPage": "Ajustar página",
     "reviewTabText": "Revisión",
     "reviewTabTitle": "Herramientas de LiChess - revisión del juego",
-    "unblockPlayerTitle": "Desbloquear"
+    "unblockPlayerTitle": "Desbloquear",
+    "generateChallengeLinkText": "Generar enlace",
+    "generateChallengeLinkTitle": "Herramientas de LiChess - generar enlace para abrir esta ventana emergente",
+    "challengeOptions.generateLink": "Generar enlace en la ventana emergente"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -18864,7 +18918,10 @@
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
     "reviewTabTitle": "LiChess Tools - game review",
-    "unblockPlayerTitle": "Unblock"
+    "unblockPlayerTitle": "Unblock",
+    "generateChallengeLinkText": "Generate link",
+    "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
+    "challengeOptions.generateLink": "Generate link in popup"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -19857,7 +19914,10 @@
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
     "reviewTabTitle": "LiChess Tools - game review",
-    "unblockPlayerTitle": "Unblock"
+    "unblockPlayerTitle": "Unblock",
+    "generateChallengeLinkText": "Generate link",
+    "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
+    "challengeOptions.generateLink": "Generate link in popup"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -20850,6 +20910,9 @@
     "gameAnalysisLayout.fitPage": "Fit page",
     "reviewTabText": "Review",
     "reviewTabTitle": "LiChess Tools - game review",
-    "unblockPlayerTitle": "Unblock"
+    "unblockPlayerTitle": "Unblock",
+    "generateChallengeLinkText": "Generate link",
+    "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
+    "challengeOptions.generateLink": "Generate link in popup"
   }
 }
