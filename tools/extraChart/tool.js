@@ -73,7 +73,8 @@
         'potentialLegendText': 'Potential',
         'potentialLegendTitle': 'Maximum potential point',
         'moveTypesLegendText': 'Moves',
-        'moveTypesLegendTitle': 'Interesting, good, best and brilliant moves'
+        'moveTypesLegendTitle': 'Interesting, good, best and brilliant moves',
+        'disableLocalHidesChartQuestion': 'Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -117,7 +118,8 @@
         'potentialLegendText': 'Poten\u0163ial',
         'potentialLegendTitle': 'Punctul de poten\u0163ial maxim',
         'moveTypesLegendText': 'Mut\u0103ri',
-        'moveTypesLegendTitle': 'Mut\u0103ri interesante, bune, cele mai bune \u015fi briliante'
+        'moveTypesLegendTitle': 'Mut\u0103ri interesante, bune, cele mai bune \u015fi briliante',
+        'disableLocalHidesChartQuestion': 'Dezactivarea Local pe aceast\u0103 pagin\u0103 va elimina graficul \u015fi legenda acestuia. O vei putea reactiva doar din Preferin\u0163e. Continui?'
       }
     }
 
@@ -1379,9 +1381,14 @@
         }
         if (!this.options.hideLegend && !$('div.lichessTools-chartLegend', container).length) {
 
-          const clickHandler = async (ev)=>{
+          const clickHandler = async (ev, msg)=>{
             ev.preventDefault();
             const key = $(ev.target).attr('data-option');
+            if (msg && this.options[key]) {
+              if (!await lt.uiApi.dialog.confirm(msg)) {
+                return;
+              }
+            }
             this.options[key] = !this.options[key];
             $(ev.currentTarget).toggleClass('enabled',this.options[key]);
             const options = lt.currentOptions;
@@ -1391,6 +1398,10 @@
           let isDown = false;
           let startX;
           let scrollLeft;
+
+          const localMsg = $('#acpl-chart-container.lichessTools-extraChart').length
+            ? trans.noarg('disableLocalHidesChartQuestion')
+            : null;
 
           const legend = $('<div class="lichessTools-chartLegend">')
             .append($('<button type="button">')
@@ -1405,7 +1416,7 @@
                       .text(trans.noarg('localLegendText'))
                       .attr('title',trans.noarg('localLegendTitle'))
                       .toggleClass('enabled',this.options.local)
-                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+                      .each((i,e)=>e.addEventListener('click',(ev)=>clickHandler(ev,localMsg),{ capture: true }))
             )
             .append($('<button type="button">')
                       .attr('data-option','material')
