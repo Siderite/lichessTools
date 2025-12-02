@@ -993,7 +993,8 @@
     "unblockPlayerTitle": "إلغاء الحظر",
     "generateChallengeLinkText": "إنشاء رابط",
     "generateChallengeLinkTitle": "أدوات شطرنج الحياة - إنشاء رابط لفتح هذا المنبثق",
-    "challengeOptions.generateLink": "إنشاء رابط في نافذة منبثقة"
+    "challengeOptions.generateLink": "إنشاء رابط في نافذة منبثقة",
+    "searchMoves": "البحث في قائمة النقل"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1989,7 +1990,8 @@
     "unblockPlayerTitle": "取消屏蔽",
     "generateChallengeLinkText": "生成链接",
     "generateChallengeLinkTitle": "LiChess工具 - 生成链接以打开此弹出窗口",
-    "challengeOptions.generateLink": "在弹出窗口中生成链接"
+    "challengeOptions.generateLink": "在弹出窗口中生成链接",
+    "searchMoves": "在移动列表中搜索"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2985,7 +2987,8 @@
     "unblockPlayerTitle": "Unblock",
     "generateChallengeLinkText": "Generate link",
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
-    "challengeOptions.generateLink": "Generate link in popup"
+    "challengeOptions.generateLink": "Generate link in popup",
+    "searchMoves": "Search in move list"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3981,7 +3984,8 @@
     "unblockPlayerTitle": "Odblokovat",
     "generateChallengeLinkText": "Vygenerovat odkaz",
     "generateChallengeLinkTitle": "Nástroje LiChess - vygenerovat odkaz pro otevření tohoto vyskakovacího okna",
-    "challengeOptions.generateLink": "Vygenerovat odkaz ve vyskakovacím okně"
+    "challengeOptions.generateLink": "Vygenerovat odkaz ve vyskakovacím okně",
+    "searchMoves": "Hledat v seznamu přesunů"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4977,7 +4981,8 @@
     "unblockPlayerTitle": "Deblokkeer",
     "generateChallengeLinkText": "Koppeling genereren",
     "generateChallengeLinkTitle": "LiChess Tools - link genereren om deze popup te openen",
-    "challengeOptions.generateLink": "Link in popup genereren"
+    "challengeOptions.generateLink": "Link in popup genereren",
+    "searchMoves": "Zoeken in verplaats lijst"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5973,7 +5978,8 @@
     "unblockPlayerTitle": "Unblock",
     "generateChallengeLinkText": "Generate link",
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
-    "challengeOptions.generateLink": "Generate link in popup"
+    "challengeOptions.generateLink": "Generate link in popup",
+    "searchMoves": "Search in move list"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6969,7 +6975,8 @@
     "unblockPlayerTitle": "Débloquer",
     "generateChallengeLinkText": "Générer un lien",
     "generateChallengeLinkTitle": "LiChess Tools - Générer un lien pour ouvrir cette popup",
-    "challengeOptions.generateLink": "Générer un lien dans la popup"
+    "challengeOptions.generateLink": "Générer un lien dans la popup",
+    "searchMoves": "Rechercher dans la liste de coups"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7965,7 +7972,8 @@
     "unblockPlayerTitle": "Entsperren",
     "generateChallengeLinkText": "Link generieren",
     "generateChallengeLinkTitle": "LiChess Tools - Generiere Link um dieses Popup zu öffnen",
-    "challengeOptions.generateLink": "Link in Popup generieren"
+    "challengeOptions.generateLink": "Link in Popup generieren",
+    "searchMoves": "Suche in Bewehriste"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -8961,7 +8969,8 @@
     "unblockPlayerTitle": "Ξεμπλοκή",
     "generateChallengeLinkText": "Δημιουργία συνδέσμου",
     "generateChallengeLinkTitle": "Εργαλεία LiChess - δημιουργία συνδέσμου για να ανοίξετε αυτό το αναδυόμενο παράθυρο",
-    "challengeOptions.generateLink": "Δημιουργία συνδέσμου στο αναδυόμενο παράθυρο"
+    "challengeOptions.generateLink": "Δημιουργία συνδέσμου στο αναδυόμενο παράθυρο",
+    "searchMoves": "Αναζήτηση στη λίστα μετακίνησης"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -9957,7 +9966,8 @@
     "unblockPlayerTitle": "Unblock",
     "generateChallengeLinkText": "Generate link",
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
-    "challengeOptions.generateLink": "Generate link in popup"
+    "challengeOptions.generateLink": "Generate link in popup",
+    "searchMoves": "Search in move list"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -10953,7 +10963,8 @@
     "unblockPlayerTitle": "Sblocca",
     "generateChallengeLinkText": "Genera link",
     "generateChallengeLinkTitle": "Strumenti LiChess - genera link per aprire questo popup",
-    "challengeOptions.generateLink": "Genera collegamento in popup"
+    "challengeOptions.generateLink": "Genera collegamento in popup",
+    "searchMoves": "Cerca nella lista delle mosse"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -11949,7 +11960,8 @@
     "unblockPlayerTitle": "Unblock",
     "generateChallengeLinkText": "Generate link",
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
-    "challengeOptions.generateLink": "Generate link in popup"
+    "challengeOptions.generateLink": "Generate link in popup",
+    "searchMoves": "Search in move list"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -12945,7 +12957,8 @@
     "unblockPlayerTitle": "Odblokuj",
     "generateChallengeLinkText": "Wygeneruj link",
     "generateChallengeLinkTitle": "Narzędzia LiChess - generuj link, aby otworzyć to wyskakujące okienko",
-    "challengeOptions.generateLink": "Wygeneruj link w wyskakującym oknie"
+    "challengeOptions.generateLink": "Wygeneruj link w wyskakującym oknie",
+    "searchMoves": "Szukaj w liście ruchów"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -13941,7 +13954,8 @@
     "unblockPlayerTitle": "Desbloquear",
     "generateChallengeLinkText": "Gerar link",
     "generateChallengeLinkTitle": "Ferramentas do LiChess - gerar link para abrir este popup",
-    "challengeOptions.generateLink": "Gerar link em popup"
+    "challengeOptions.generateLink": "Gerar link em popup",
+    "searchMoves": "Pesquisar na lista de movimentos"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -14937,7 +14951,8 @@
     "unblockPlayerTitle": "Desbloquear",
     "generateChallengeLinkText": "Gerar link",
     "generateChallengeLinkTitle": "Ferramentas do LiChess - gerar link para abrir este popup",
-    "challengeOptions.generateLink": "Gerar link em popup"
+    "challengeOptions.generateLink": "Gerar link em popup",
+    "searchMoves": "Pesquisar na lista de movimentos"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -15933,7 +15948,8 @@
     "unblockPlayerTitle": "Deblochează",
     "generateChallengeLinkText": "Generează link",
     "generateChallengeLinkTitle": "LiChess Tools - generează link care deschide acest popup",
-    "challengeOptions.generateLink": "Generează link în popup"
+    "challengeOptions.generateLink": "Generează link în popup",
+    "searchMoves": "Căutare în lista de mutări"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -16929,7 +16945,8 @@
     "unblockPlayerTitle": "Разблокировать",
     "generateChallengeLinkText": "Сгенерировать ссылку",
     "generateChallengeLinkTitle": "Инструменты Жизни - генерировать ссылку, чтобы открыть это всплывающее окно",
-    "challengeOptions.generateLink": "Генерировать ссылку во всплывающем окне"
+    "challengeOptions.generateLink": "Генерировать ссылку во всплывающем окне",
+    "searchMoves": "Поиск в списке перемещений"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -17925,7 +17942,8 @@
     "unblockPlayerTitle": "Desbloquear",
     "generateChallengeLinkText": "Generar enlace",
     "generateChallengeLinkTitle": "Herramientas de LiChess - generar enlace para abrir esta ventana emergente",
-    "challengeOptions.generateLink": "Generar enlace en la ventana emergente"
+    "challengeOptions.generateLink": "Generar enlace en la ventana emergente",
+    "searchMoves": "Buscar en la lista de movimientos"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -18921,7 +18939,8 @@
     "unblockPlayerTitle": "Unblock",
     "generateChallengeLinkText": "Generate link",
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
-    "challengeOptions.generateLink": "Generate link in popup"
+    "challengeOptions.generateLink": "Generate link in popup",
+    "searchMoves": "Search in move list"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -19917,7 +19936,8 @@
     "unblockPlayerTitle": "Unblock",
     "generateChallengeLinkText": "Generate link",
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
-    "challengeOptions.generateLink": "Generate link in popup"
+    "challengeOptions.generateLink": "Generate link in popup",
+    "searchMoves": "Search in move list"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -20913,6 +20933,7 @@
     "unblockPlayerTitle": "Unblock",
     "generateChallengeLinkText": "Generate link",
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
-    "challengeOptions.generateLink": "Generate link in popup"
+    "challengeOptions.generateLink": "Generate link in popup",
+    "searchMoves": "Search in move list"
   }
 }
