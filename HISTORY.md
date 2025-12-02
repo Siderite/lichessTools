@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - unblock action in the blocked player page
 - generate challenge link
+- Ctrl-F to search move list
 
 29 Nov
 

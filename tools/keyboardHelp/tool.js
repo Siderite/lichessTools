@@ -41,7 +41,8 @@
         'obsIntegration': 'Toggle OBS integration for this broadcast',
         'toggleSiteHeader': 'Toggle site header (works everywhere)',
         'switchExplorerTabs': 'Explorer cycle Lichess/Masters',
-        'copyFenToClipboard': 'Copy FEN to clipboard'
+        'copyFenToClipboard': 'Copy FEN to clipboard',
+        'searchMoves': 'Search in move list'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -69,7 +70,8 @@
         'obsIntegration': 'Comut\u0103 integrarea OBS pentru acest broadcast',
         'toggleSiteHeader': 'Ascunde header-ul paginii',
         'switchExplorerTabs': 'Cicleaz\u0103 Lichess/Masters \u00een Explorator',
-        'copyFenToClipboard': 'Copiaz\u0103 FEN \u00een clipboard'
+        'copyFenToClipboard': 'Copiaz\u0103 FEN \u00een clipboard',
+        'searchMoves': 'Caut\u0103 \u00een lista de mut\u0103ri'
       }
     }
 
@@ -158,6 +160,10 @@
       }
       if (lt.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
         row(['0'], 'obsIntegration');
+      }
+      const tool = lt.tools.SearchMovesCommandTool;
+      if (tool?.canSearch()) {
+        row(['ctrl', 'f'], 'searchMoves');
       }
     };
 

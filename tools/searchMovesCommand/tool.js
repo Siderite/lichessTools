@@ -61,6 +61,73 @@
       }
     };
 
+    hideBar = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+
+      $('.lichessTools-searchMovesCommand').remove();
+    };
+
+    showBar = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+
+      let bar = $('.lichessTools-searchMovesCommand + .analyse__moves').prev();
+      if (bar.length) {
+        bar.find('input.search:not(:focus)')
+          .each((i,e)=>e.select());
+        return bar;
+      }
+
+      bar = $('<div class="lichessTools-searchMovesCommand">')
+        .append($('<input type="text" class="search">')
+          .on('input',ev=>{
+            this.searchMoveList($(ev.target).val());
+          })
+          .on('keypress',ev=>{
+            if (ev.key=='Enter' && this.nodes?.length>1) {
+              ev.preventDefault();
+              let index = this.index+1;
+              if (index>=this.nodes.length) index = 0;
+              this.goToNode(index);
+            }
+          })
+          .on('keydown',ev=>{
+            if (ev.key=='Escape') {
+              ev.preventDefault();
+              this.hideBar();
+            }
+          })
+        )
+        .append($('<button type="button" class="button prev">')
+                   .attr('data-icon',lt.icon.LessThan)
+                   .on('click',ev=>{
+                     ev.preventDefault();
+                     this.goToNode(this.index-1);
+                   })
+        )
+        .append($('<button type="button" class="button next">')
+                   .attr('data-icon',lt.icon.GreaterThan)
+                   .on('click',ev=>{
+                     ev.preventDefault();
+                     this.goToNode(this.index+1);
+                   })
+        )
+        .append($('<span class="position">'))
+        .append($('<button type="button" class="button close">')
+                   .attr('data-icon',lt.icon.Cancel)
+                   .on('click',ev=>{
+                     ev.preventDefault();
+                     this.hideBar();
+                   })
+        )
+        .insertBefore('.analyse__moves');
+
+      bar.find('input.search:not(:focus)')
+        .each((i,e)=>e.select());
+      return bar;
+    };
+
     showResults = (pattern, nodes) => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -71,38 +138,7 @@
       this.nodes = nodes;
       this.index = 0;
 
-      let bar = $('.lichessTools-searchMovesCommand + .analyse__moves').prev();
-      if (!bar.length) {
-        bar = $('<div class="lichessTools-searchMovesCommand">')
-          .append($('<input type="text" class="search">')
-            .on('input',ev=>{
-              this.searchMoveList($(ev.target).val());
-            })
-          )
-          .append($('<button type="button" class="button prev">')
-                     .attr('data-icon',lt.icon.LessThan)
-                     .on('click',ev=>{
-                       ev.preventDefault();
-                       this.goToNode(this.index-1);
-                     })
-          )
-          .append($('<button type="button" class="button next">')
-                     .attr('data-icon',lt.icon.GreaterThan)
-                     .on('click',ev=>{
-                       ev.preventDefault();
-                       this.goToNode(this.index+1);
-                     })
-          )
-          .append($('<span class="position">'))
-          .append($('<button type="button" class="button close">')
-                     .attr('data-icon',lt.icon.Cancel)
-                     .on('click',ev=>{
-                       ev.preventDefault();
-                       bar.remove();
-                     })
-          )
-          .insertBefore('.analyse__moves');
-      }
+      const bar = this.showBar();
       bar.find('input.search')
         .val(pattern);
       bar.find('input.search:not(:focus)')
@@ -111,6 +147,10 @@
     };
 
     searchMoveListDirect = async (pattern) => {
+      if (!pattern) {
+        this.showResults('',[]);
+        return;
+      }
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
@@ -129,6 +169,15 @@
     };
     searchMoveList = this.lichessTools.debounce(this.searchMoveListDirect,500);
 
+    canSearch = () => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      if (lt.isGamePlaying()) return;
+      if (analysis.gamebookPlay()) return;
+      return true;
+    };
+
     async start() {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -142,8 +191,7 @@
       if (value) {
         lt.registerCommand && lt.registerCommand('searchMovesCommand', {
           handle: (val) => {
-            if (lt.isGamePlaying()) return;
-            if (analysis.gamebookPlay()) return;
+            if (!this.canSearch()) return;
             const m = /^\s*s(\s+(?<pattern>.*))?/.exec(val);
             if (!m) return;
             const pattern = m?.groups?.pattern;
