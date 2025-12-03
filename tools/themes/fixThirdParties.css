@@ -1,5 +1,11 @@
 /* Fix third parties */
 
+/** Browsers in general **/
+
+body.lichessTools {
+  transform: translateZ(0);
+}
+
 
 /** Prettier **/
 

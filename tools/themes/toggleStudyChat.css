@@ -4,9 +4,7 @@
 
   body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .chat__members {
     height: 8em;
-    bottom: 0;
-    position: fixed;
-    width: var(--left-side-width);
+    max-width: var(--left-side-width);
   }
 
   body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat {
@@ -35,8 +33,8 @@
   }
 
   body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):has(.study__chapters):not(.is-relay) aside.analyse__side {
-    position: absolute;
-    width: var(--left-side-width);
+    max-width: var(--left-side-width);
+    position: relative;
   }
 
 }
