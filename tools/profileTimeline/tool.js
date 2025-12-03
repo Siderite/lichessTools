@@ -56,6 +56,10 @@
       const value = lt.currentOptions.getValue('profileTimeline');
       this.options = { enabled: value };
       this.logOption('Profile timeline', value);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       if (!this.isMyProfilePage()) return;
       const tabs=$('div.angles');
       if (!tabs.length) return;

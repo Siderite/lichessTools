@@ -216,8 +216,10 @@
       const value = lt.currentOptions.getValue('profilePuzzleTab');
       this.options = { enabled: value };
       this.logOption('Puzzle perf tab', value);
-      const userId = lt.getUserId();
-      if (!userId) return;
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
 
       $('.lichessTools-profilePuzzleTab, .lichessTools-chart-container').remove();
       if (value) {

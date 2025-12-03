@@ -8,7 +8,8 @@
         type: 'multiple',
         possibleValues: ['loss', 'draw', 'win', 'showRequestAnalysis'],
         defaultValue: false,
-        advanced: true
+        advanced: true,
+        needsLogin: true
       }
     ];
 
@@ -100,7 +101,10 @@
       this.logOption('Auto analyse game', value);
       lt.uiApi.socket.events.off('endData', this.checkEndGame);
       this.retries = 0;
-      if (!lt.getUserId()) return;
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       if (!$('main').is('.round')) return;
       this.options = {
         loss: lt.isOptionSet(value, 'loss'),

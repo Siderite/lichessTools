@@ -104,8 +104,6 @@
       if (!myName) return;
       let container = $('div.lichessTools-onlineFriends', $('.site-buttons'));
       if (!container.length) {
-        const myName = lt.getUserId();
-        if (!myName) return;
         const friendsUrl = '/@/' + myName + '/following';
         const title = trans.noarg('friendsMenu');
         container = $('<div class="lichessTools-onlineFriends"/>')
