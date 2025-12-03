@@ -1422,7 +1422,7 @@
       }
       let x = 0;
       let y = 0;
-      for (let i = 0; i < fen.length; i++) {
+      for (let i = 0; i < 8; i++) {
         const ch = fen[i];
         if ('kqrbnp'.indexOf(ch.toLowerCase()) >= 0) {
           result[y][x] = ch;
@@ -2709,7 +2709,7 @@
           const lt = this.lichessTools;
           const now = Date.now();
           const data = await this.refreshFollowers();
-          const allIds = data.follows.flatMap(f=>f.ids.map(id=>({ time: f.interval.end>now ? now : f.interval.start, id: id })));
+          const allIds = data.follows.flatMap(f=>f.ids.map(id=>({ time: f.interval.start, id: id })));
           const ids = allIds.slice((startPage-1)*30,(startPage-1+count)*30);
           const users = await lt.api.user.getUsers(ids.map(i=>i.id));
           const result = users.map(u=>({ user: { id:u.id, name: (u.title?u.title+' ':'')+u.username }, time: ids.find(i=>i.id==u.id).time }));

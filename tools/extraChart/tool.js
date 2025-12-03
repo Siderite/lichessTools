@@ -719,6 +719,8 @@
 
       if (this.inCheck(prevNode.fen)) return 0;
 
+      if (/@/.test(node.uci)) return 0; // Crazyhouse placements
+      
       let bonus = 0;
       if (this.isPromotion(node)) {
         if (/q$/i.test(node.uci)) return 0;
