@@ -6981,9 +6981,9 @@
     "unblockPlayerTitle": "Débloquer",
     "generateChallengeLinkText": "Générer un lien",
     "generateChallengeLinkTitle": "LiChess Tools - Générer un lien pour ouvrir cette popup",
-    "challengeOptions.generateLink": "Générer un lien dans la popup",
+    "challengeOptions.generateLink": "Générer un lien dans une popup",
     "searchMoves": "Rechercher dans la liste de coups",
-    "disableLocalHidesChartQuestion": "Désactiver la locale sur cette page supprimera le graphique et sa légende. Vous ne pourrez l'activer qu'à partir des préférences. Continuer ?"
+    "disableLocalHidesChartQuestion": "La désactivation de l'option « Local » sur cette page supprimera le graphique et sa légende. Vous ne pourrez la réactiver qu'à partir des préférences. Continuer ?"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
