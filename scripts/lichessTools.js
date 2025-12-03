@@ -2707,13 +2707,9 @@
         },
         getFollowersNew: async function (startPage = 1, count = 1000) {
           const lt = this.lichessTools;
-          try {
-            return await this.getFollowers(startPage, count);
-          } catch(e) {
-            lt.global.console.log('Old Followers API not responding, using the new one');
-          }
+          const now = Date.now();
           const data = await this.refreshFollowers();
-          const allIds = data.follows.flatMap(f=>f.ids.map(id=>({ time: f.interval.start+(f.interval.end-f.interval.start)/2, id: id })));
+          const allIds = data.follows.flatMap(f=>f.ids.map(id=>({ time: f.interval.end>now ? now : f.interval.start, id: id })));
           const ids = allIds.slice((startPage-1)*30,(startPage-1+count)*30);
           const users = await lt.api.user.getUsers(ids.map(i=>i.id));
           const result = users.map(u=>({ user: { id:u.id, name: (u.title?u.title+' ':'')+u.username }, time: ids.find(i=>i.id==u.id).time }));
