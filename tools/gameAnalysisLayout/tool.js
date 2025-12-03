@@ -18,14 +18,18 @@
         'options.gameAnalysisLayout': 'Layout for game analysis',
         'gameAnalysisLayout.fitPage': 'Fit page',
         'reviewTabText': 'Review',
-        'reviewTabTitle': 'LiChess Tools - game review'
+        'reviewTabTitle': 'LiChess Tools - game review',
+        'layoutToggleButtonText': 'Toggle layout',
+        'layoutToggleButtonTitle': 'LiChess Tools - toggle game analysis layout'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.gameAnalysisLayout': 'Aspectul analizei partidei',
         'gameAnalysisLayout.fitPage': 'Acoper\u0103 pagina',
         'reviewTabText': 'Revizuire',
-        'reviewTabTitle': 'LiChess Tools - revizuire partid\u0103'
+        'reviewTabTitle': 'LiChess Tools - revizuire partid\u0103',
+        'layoutToggleButtonText': 'Comutare aspect',
+        'layoutToggleButtonTitle': 'LiChess Tools - comutare aspect analiz\u0103 partid\u0103'
       }
     }
 
@@ -94,7 +98,19 @@
         body.addEventListener('pointerup',this.clearCrossTable, { capture: true });
         $('.computer-analysis form').on('submit',this.setReviewTab);
         $('.analyse__puzzle br').replaceWith('<span>&nbsp;</span><br>');
+        if (!$('a.lichessTools-gameAnalysisLayout-toggle').length) {
+          $('<a class="lichessTools-gameAnalysisLayout-toggle">')
+            .text(trans.noarg('layoutToggleButtonText'))
+            .attr('title',trans.noarg('layoutToggleButtonTitle'))
+            .on('click',ev=>{
+              ev.preventDefault();
+              $('body').toggleClass('lichessTools-gameAnalysisLayout');
+              $(ev.currentTarget).toggleClass('button');
+            })
+            .appendTo('main.analyse');
+        }
       } else {
+        $('a.lichessTools-gameAnalysisLayout-toggle').remove();
         this.tracker?.stop();
         lt.arrayRemoveAll(chat.allTabs,t=>t.key=='review');
         chat.redraw();

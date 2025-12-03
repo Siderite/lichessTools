@@ -262,6 +262,12 @@
   body.lichessTools.lichessTools-hideLeftSide .mchat__tab.review {
     display:none;
   }
+
+  body.lichessTools .lichessTools-gameAnalysisLayout-toggle {
+    grid-area: uchat;
+    align-self: end;
+    justify-self: center;
+  }
 }
 
 @media (max-width: 1259.2px) {
@@ -270,6 +276,10 @@
   }
 
   body.lichessTools .analyse__round-training .analyse__puzzle .button-link span {
+    display: none;
+  }
+
+  body.lichessTools .lichessTools-gameAnalysisLayout-toggle {
     display: none;
   }
 }
