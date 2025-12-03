@@ -30,11 +30,23 @@
       }
     }
 
-    setupButtonsDirect = async (studyId, chapterId) => {
+    getPgn = async (studyId, chapterId) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      let pgn;
+      const study = lichess.analysis?.study;
+      if (lt.exportPgn && study && study.data.id==studyId && study.data.chapter.id==chapterId) {
+        pgn = await lt.exportPgn('');
+      }
+      pgn = await lt.api.study.getChapterPgn(studyId, chapterId);
+      return pgn;
+    };
+
+    setupButtons = async (studyId, chapterId) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
-      let pgn = await lt.api.study.getChapterPgn(studyId, chapterId);
+      let pgn = await this.getPgn(studyId, chapterId);
       if (!pgn) return;
       const trans = lt.translator;
       const event = lt.getPgnTag(pgn, 'Event');
@@ -116,7 +128,6 @@
         target.append(namesButton);
       }
     };
-    setupButtons = lichessTools.debounce(this.setupButtonsDirect,3000);
 
     async start() {
       const lt = this.lichessTools;
