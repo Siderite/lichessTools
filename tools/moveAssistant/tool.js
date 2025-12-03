@@ -382,7 +382,7 @@
         let max = 0.25;
 
         for (const item of arr) {
-          if (item.piece.toLowerCase()=='p') continue;
+          if (['p','k'].includes(item.piece.toLowerCase())) continue;
           const value = item.score;
           if (value < min) min = value;
           if (value > max) max = value;
@@ -391,7 +391,7 @@
         const result = { happy: [], unhappy: [] };
 
         for (const item of arr) {
-          if (item.piece.toLowerCase()=='p') continue;
+          if (['p','k'].includes(item.piece.toLowerCase())) continue;
           const value = item.score;
           if (value == min) result.unhappy.push(this.getCgKey(item.x,item.y));
           if (value == max) result.happy.push(this.getCgKey(item.x,item.y));
@@ -687,6 +687,10 @@ class ChessActivityEvaluator {
     };
   }
 
+  SECONDARY = 0.2;
+  CONTROLLED_BY_OPPONENT = 0.1;
+  FREE = 1;
+
   inBounds(x, y) {
     return x >= 0 && x < 8 && y >= 0 && y < 8;
   }
@@ -761,19 +765,19 @@ class ChessActivityEvaluator {
     let score = 0;
     for (const [mx, my] of moves) {
       const control = controlMap[my][mx];
-      score += control * color > 0 ? 1 : 0.3;
+      score += control * color < 0 ? this.CONTROLLED_BY_OPPONENT : this.FREE;
     }
 
     // second-level mobility
     for (const [mx, my] of moves) {
-      if (controlMap[my][mx] * color <= 0) continue;
+      if (controlMap[my][mx] * color < 0) continue;
       const clone = this.cloneBoard();
       clone[my][mx] = piece;
       clone[y][x] = undefined;
       const sub = new ChessActivityEvaluator(clone);
       const subMoves = sub.generateMoves(mx, my);
       for (const [sx, sy] of subMoves) {
-        if (controlMap[sy][sx] * color > 0) score += 0.3;
+        if (controlMap[sy][sx] * color > 0) score += this.SECONDARY;
       }
     }
 
