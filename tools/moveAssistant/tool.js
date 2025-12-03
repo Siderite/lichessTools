@@ -378,14 +378,14 @@
       const pieces = $('.cg-wrap cg-board piece:not(.pawn)');
 
       const getHappiness = (arr) => {
-        let min = 0.75;
-        let max = 0.25;
+        let min = Infinity;
+        let max = -Infinity;
 
         for (const item of arr) {
           if (['p','k'].includes(item.piece.toLowerCase())) continue;
           const value = item.score;
-          if (value < min) min = value;
-          if (value > max) max = value;
+          if (value < min && value < 0.2) min = value;
+          if (value > max && value > 0.7) max = value;
         }
 
         const result = { happy: [], unhappy: [] };
