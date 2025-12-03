@@ -178,6 +178,7 @@
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable:not(.lichessTools-show) povs:not(.current),
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable:not(.lichessTools-show) .crosstable__users,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable:not(.lichessTools-show) .crosstable__matchup,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable:not(.lichessTools-show) .crosstable__score,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable:not(.lichessTools-show) .lichessTools-commonTeams {
     display: none;
@@ -185,6 +186,7 @@
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable.lichessTools-reverse povs,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable.lichessTools-reverse .crosstable__users,
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable.lichessTools-reverse .crosstable__matchup,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable.lichessTools-reverse .crosstable__score {
     flex-direction: column-reverse;
   }
