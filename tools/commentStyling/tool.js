@@ -181,9 +181,11 @@
         lt.pubsub.on('lichessTools.commentChange', this.debouncedAddCommentClasses);
         $('.study__chapters').observer()
           .on('button h3',this.debouncedAddCommentClasses);
+        this.addCommentClasses();
+        lt.analysisRedraw();
+      } else {
+        this.addCommentClasses();
       }
-      this.addCommentClasses();
-      lt.analysisRedraw();
     }
 
   }

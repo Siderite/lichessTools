@@ -195,7 +195,7 @@
           el.maxPly = Math.max(ply, +el.maxPly || 0);
         }
         const timeString = (lt.getPgnTag(pgn, 'UTCDate')||'') +' '+ (lt.getPgnTag(pgn, 'UTCTime')||'');
-        const gameTime = Date.parse(timeString);
+        const gameTime = lt.dateParseUTC(timeString);
         if (gameTime) {
           el.gameTime = lt.getTimeText(time-gameTime);
         }

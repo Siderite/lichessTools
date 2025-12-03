@@ -6,12 +6,12 @@ body.lichessTools nav.subnav__inner > a .lichessTools-topicExpander {
 }
 
 body.lichessTools nav.subnav__inner > a .lichessTools-topicExpander:before {
-  content:'\e02d';
+  content: var(--icon-PlusButton);
   font-family: lichess;
 }
 
 body.lichessTools nav.subnav__inner > a.lichessTools-expandedTopic .lichessTools-topicExpander:before {
-  content:'\e02e';
+  content: var(--icon-MinusButton);
 }
 
 body.lichessTools nav.subnav__inner > a .lichessTools-topicStudies {

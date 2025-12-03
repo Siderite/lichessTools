@@ -8,11 +8,8 @@
       if (oldFunc.__initErrorCatch) return;
       const newFunc = function() {
         if (lt.currentOptions?.enableLichessTools !== false && this.id === 'page-init-data') {
-          try {
-            lt.pageInitData = JSON.parse(this.innerHTML);
-          } catch(e) {
-            console.warn('Error parsing round data:',e);
-          }
+          const html = this.innerHTML;
+          lt.lazyLoad(lt, 'pageInitData',()=>JSON.parse(html));
         }
         return oldFunc.apply(this,arguments);
       };

@@ -9,10 +9,20 @@
 a.lichessTools-preferences span.lichessTools-toggleExtension {
   position: absolute;
   right: 1em;
+  opacity: 0;
+  transition: opacity 1s;
 }
+
+
+a.lichessTools-preferences:not(:has(input:checked)) span.lichessTools-toggleExtension,
+body.mobile .dasher.shown a.lichessTools-preferences span.lichessTools-toggleExtension {
+  opacity: 1;
+}
+
 
 a.lichessTools-preferences:hover span.lichessTools-toggleExtension {
   filter: hue-rotate(45deg);
+  opacity: 1;
 }
 
 
@@ -103,6 +113,7 @@ div.lichessTools-preferences form > div:not(.feedback,.prefTools) {
 }
 
 body.lichessTools-advancedPreferences div.lichessTools-preferences form > div:not(.feedback,.prefTools):has(section:not(.filteredOut)),
+div.lichessTools-preferences form > div:not(.feedback,.prefTools):has(.filteredIn),
 div.lichessTools-preferences form > div:not(.feedback,.prefTools):has(.lichessTools-normalPreference:not(.filteredOut)) {
   display: block;
 }
@@ -191,7 +202,7 @@ div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3 label
 }
 
 div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3 label:after {
-  content: '\E030'; /* DownTriangle */
+  content: var(--icon-BlackRightPointingSmallTriangle);
   font-family: "lichess";
   margin-left: 0.25em;
 }
@@ -316,7 +327,6 @@ body.lichessTools-prettier div.lichessTools-preferences table.lichessTools-globa
   background-color: #434548 !important;
 }
 
-
 body.lichessTools-prettier.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-advancedPreference h2:after {
   background: gray !important;
   opacity: 1;
@@ -324,4 +334,8 @@ body.lichessTools-prettier.lichessTools-advancedPreferences div.lichessTools-pre
 
 body.lichessTools-prettier div.lichessTools-preferences .actionButtons button {
   text-transform: capitalize !important;
+}
+
+body.lichessTools-prettier div.lichessTools-preferences p.saved {
+  background: var(--m-secondary_bg--mix-10) !important;
 }

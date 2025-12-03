@@ -9,7 +9,8 @@
         category: 'appearance',
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
-                         'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls'],
+                         'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls',
+                         'firstInteraction','noVariants'],
         defaultValue: 'fixThirdParties',
         advanced: true
       },
@@ -46,12 +47,14 @@
         'themes.gameMoveList': 'Flexible game move list',
         'themes.fatGauge': 'Thick analysis gauge',
         'themes.fatMove': 'Larger analysis move font',
-        'themes.slimmerArrows': '... slimmer',
+        'themes.slimmerArrows': 'Slimmer arrows',
         'themes.gridBoard': 'Grid board squares',
         'themes.adamisko': 'Vintage Adamisko',
         'themes.arcade': 'Arcade',
         'themes.fixThirdParties': 'Fix third parties',
         'themes.timeControls': 'Hover time controls',
+        'themes.firstInteraction': 'First interaction',
+        'themes.noVariants': 'No chess variants',
         'enableBoardStyleQuestion': 'This theme requires Board Styling for full functionality, which may add a little overhead. Should I enable it?'
       },
       'ro-RO': {
@@ -76,11 +79,13 @@
         'themes.gameMoveList': 'List\u0103 mut\u0103ri flexibil\u0103 \u00een joc',
         'themes.fatGauge': 'Bar\u0103 analiz\u0103 groas\u0103',
         'themes.fatMove': 'Text mai mare la mut\u0103ri',
-        'themes.slimmerArrows': '... \u015fi mai sub\u0163iri',
+        'themes.slimmerArrows': 'S\u0103ge\u0163i \u015fi mai sub\u0163iri',
         'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei',
         'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i',
         'themes.timeControls': 'Controale timp la hover',
-        'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 are nevoie de Stilare Tabl\u0103 pentru func\u01063ionalitate complet\u0103. O pornesc?'
+        'themes.firstInteraction': 'Prima interac\u016fiune',
+        'themes.noVariants': 'F\u0103r\u0103 variante de \u015fah',
+        'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 necesit\u0103 Stilare Tabl\u0103 pentru func\u0163ionalitate complet\u0103. O activez?'
       }
     }
 
@@ -98,50 +103,100 @@
     };
     checkBody = lichessTools.debounce(this.checkBodyDirect,1000);
 
+    getImageSizeFromUrl = (url, element = document.documentElement) => {
+      const img = new Image();
+
+      return new Promise((resolve, reject) => {
+        img.onload = () => {
+          resolve({
+            width: img.naturalWidth,
+            height: img.naturalHeight
+          });
+        };
+        img.onerror = () => {
+          resolve(null);
+        };
+        img.src = url;
+      });
+    }
+
+    getBoardBackground = async (boardChanged)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const is3d = $('#main-wrap').is('.is3d');
+      const boardImage = lt.currentOptions.getValue('customBoardImage');
+      if (boardImage && !is3d) {
+        return boardImage;
+      }
+
+      let container;
+      if (boardChanged) {
+        const html = await lt.net.fetch('/dgt');
+        container = $('<div>'+html+'</div>');
+      } else {
+        container = $('html');
+      }
+      const preloadedImages = $('link[rel=preload][as=image]',container)
+                                .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
+                                .get();
+      const boardUrls = [];
+      for (const image of preloadedImages) {
+        const url = $(image).attr('href');
+        const size = await this.getImageSizeFromUrl(url);
+        if (size?.width>100) boardUrls.push(url);
+      }
+
+      const index = is3d ? Math.min(1,boardUrls.length-1) : 0;
+      return boardUrls[index];
+    }
+
     setBoardVariables = async (boardChanged)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const board = $('body #main-wrap div.cg-wrap cg-board');
       const is3d = $('#main-wrap').is('.is3d');
+      let backgroundImage = null;
       if (board.length) {
-        let container = $('html');
-        if (boardChanged) {
-          const html = await lt.net.fetch('/dgt');
-          container = $('<div>'+html+'</div>');
-        }
-        const boardImage = lt.currentOptions.getValue('customBoardImage');
-        let backgroundImage = boardImage && !is3d
-          ? boardImage
-          : $('link[rel=preload][as=image]',container)
-            .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
-            .eq(is3d?1:0)
-            .attr('href');
-
+        backgroundImage = await this.getBoardBackground(boardChanged);
         if (backgroundImage) {
           backgroundImage = 'url('+backgroundImage+')';
         } else {
+          const body = $('body');
+          const className = body.attr('class');
+          const newClassName = className.split(/\s+/)
+            .filter(c => !c.startsWith('lichessTools-theme_'));
+
+          if (newClassName != className) {
+            body.attr('class',newClassName);
+          }
           const styles = lt.global.getComputedStyle(board[0], '::before');
           backgroundImage = styles.getPropertyValue('background-image');
         }
         $('html').css('--board-background', backgroundImage||'unset');
       }
-      $('body').toggleClassSafe('lichessTools-hasBoardBackground', !!board.length);
+      $('body').toggleClassSafe('lichessTools-hasBoardBackground', !!backgroundImage);
     }
 
     applyThemes = async (boardChanged)=>{
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      const existingThemes = [...$('body').prop('classList')]
-        .filter(c => c.startsWith('lichessTools-theme_'));
-      const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
-      if (!boardChanged) {
-        $('body')
-          .removeClass(existingThemes.join(' '));
-      }
-      await this.setBoardVariables(boardChanged);
-      if (!boardChanged) {
-        $('body')
-          .addClass(configuredThemes.join(' '));
+      if (this._inApplyThemes) return;
+      try {
+        this._inApplyThemes = true;
+        const lt = this.lichessTools;
+        const $ = lt.$;
+        await this.setBoardVariables(boardChanged);
+
+        const body = $('body');
+        const className = body.attr('class');
+        const configuredThemes = (this.themes || '').split(',').map(t => 'lichessTools-theme_' + t);
+        const newClassName = className.split(/\s+/)
+          .filter(c => !c.startsWith('lichessTools-theme_'))
+          .concat(configuredThemes)
+          .join(' ');
+        if (newClassName != className) {
+          body.attr('class',newClassName);
+        }
+      } finally {
+        this._inApplyThemes = false;
       }
     };
 
@@ -191,14 +246,20 @@
       const selector = container.find('.selector')
         .empty();
       const { possibleValues: themes, defaultValue: defaultThemes } = this.preferences.find(p=>p.name=='themes');
+      const themeItems = themes.map(t=>({
+        key: t,
+        text: trans.noarg(`themes.${t}`)
+      }));
+      themeItems.sort((a,b)=>a.text.localeCompare(b.text));
       const isSet = (theme) => `,${this.themes},`.includes(`,${theme},`);
-      for (const theme of themes) {
+      for (const item of themeItems) {
+        const theme = item.key;
         const isDefault = `,${defaultThemes},`.includes(`,${theme},`);
         $('<button type="button" class="text">')
           .toggleClass('active',isSet(theme))
           .toggleClass('default',isDefault)
           .attr('data-icon',lt.icon.Checkmark)
-          .text(trans.noarg(`themes.${theme}`))
+          .text(item.text)
           .on('click',async ev=>{
             ev.preventDefault();
             const isThemeSet = isSet(theme);
@@ -249,6 +310,17 @@
       }
     };
 
+    addFirstInteractionClass = (ev) => {
+      const lt = this.lichessTools;
+
+      if (!ev.isTrusted) return;
+      if (lt.global?.navigator?.userActivation && !lt.global.navigator.userActivation.hasBeenActive) return;
+
+      const $ = lt.$;
+      $('body').addClass('lichessTools-userInteraction');
+      $(document).off('click keydown touchstart pointerdown',this.addFirstInteractionClass);
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('themes');
@@ -259,7 +331,11 @@
       $(lt.global).off('hashchange', this.applyThemes);
       $('body').observer()
         .off('body, #main-wrap, .main-board cg-board',this.checkBody);
+      if (!value && !this.ranStart) {
+        return;
+      }
       if (!lt.currentOptions.enableLichessTools) return;
+
       if (value) {
         $(lt.global).on('hashchange', this.applyThemes);
         $('body').observer()
@@ -269,6 +345,7 @@
             attributes: true,
             attributeFilter: ['data-board','data-board3d','class']
           });
+        $(document).on('click keydown touchstart pointerdown',this.addFirstInteractionClass);
       }
       await this.applyThemes();
       $('#dasher_app')

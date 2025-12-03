@@ -117,7 +117,7 @@
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
           return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
-        $(html).insertAfter($('div.abset-gauge', container).eq(0));
+        $(html).insertAfter($('div.abset-gauge, .setting', container).last());
         $('#abset-noCloud')
           .on('change', async () => {
             const options = lt.currentOptions;
@@ -166,7 +166,7 @@
       if (!$('.abset-engine-depth', container).length) {
         const html = `<div class="setting abset-engine-depth">
           <label for="abset-engine-depth"></label>
-          <input id="abset-engine-depth" type="range" min="0" max="50">
+          <input id="abset-engine-depth" type="range" class="range" min="0" max="50">
         </div>`;
         $(html).insertAfter($('div.abset-noCloudExternal', container).eq(0));
         $('div.abset-engine-depth',container)
@@ -222,7 +222,7 @@
       if (!$('.abset-practice-depth', container).length) {
         const html = `<div class="setting abset-practice-depth">
           <label for="abset-practice-depth"></label>
-          <input id="abset-practice-depth" type="range" min="0" max="15"><!-- Lichess limitation -->
+          <input id="abset-practice-depth" type="range" class="range" min="0" max="15"><!-- Lichess limitation -->
         </div>`;
         $(html).insertAfter($('div.abset-practice', container).eq(0));
         $('div.abset-practice-depth',container)
@@ -285,7 +285,7 @@
         if ((analysis.ceval.showingCloud && noCloud) || (targetDepth && curDepth < (node.autoDeeper || targetDepth)) || (this.options.infiniteExternal && isExternalEngine)) {
           node.autoDeeper = targetDepth;
           analysis.ceval.goDeeper();
-          analysis.redraw();
+          lt.analysisRedraw();
           return;
         }
       }
@@ -308,7 +308,7 @@
           }
           lt.global.setTimeout(()=>{
             if (!$('div.ceval a.deeper').length) {
-              analysis.redraw();
+              lt.analysisRedraw();
             }
           },100);
         }

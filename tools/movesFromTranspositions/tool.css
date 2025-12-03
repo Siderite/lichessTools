@@ -8,7 +8,7 @@ body.lichessTools .analyse .tview2 move.lichessTools-highlight {
 }
 
 body.lichessTools.mobile move.lichessTools-transposition san:after {
-  content: '\1D40'; /* SuperscriptCapitalT */
+  content: var(--icon-SuperscriptCapitalT);
   line-height: 1;
   vertical-align: super;
   display: inline-block;

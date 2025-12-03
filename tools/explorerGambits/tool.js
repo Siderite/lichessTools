@@ -49,6 +49,7 @@
     computeFen = (fen, uci) => {
       const lt = this.lichessTools;
       const co = lt.chessops;
+      if (!co) return;
       fen = co.fen.parseFen(fen).unwrap();
       const ch = co.Chess.fromSetup(fen).unwrap();
       ch.play(co.parseUci(uci));
@@ -66,7 +67,7 @@
       if (!$('th.lichessTools-explorerGambits', container).length) {
         $('<th>')
           .addClass('lichessTools-explorerGambits')
-          .text(lt.icon.Comet)
+          .text(lt.icon.ExclamationQuestionMark)
           .attr('title', trans.noarg('gambitTitle'))
           .appendTo($('thead tr', container));
       }
@@ -126,14 +127,16 @@
         let move = null;
         if (uci) {
           const moveFen = this.computeFen(fen, uci);
-          const pos = lt.getPositionFromFen(moveFen);
-          const moveResult = gambits[side].get(pos);
-          move = moveResult
-            ? {
-              uci: uci,
-              nr: moveResult.total || 1
-            }
-            : moves?.find(m => m.uci == uci);
+          if (moveFen) {
+            const pos = lt.getPositionFromFen(moveFen);
+            const moveResult = gambits[side].get(pos);
+            move = moveResult
+              ? {
+                uci: uci,
+                nr: moveResult.total || 1
+              }
+              : moves?.find(m => m.uci == uci);
+          }
         }
         const explorerItem = (analysis.explorer.current()?.moves || []).find(i => i.uci == uci);
         let text = '';

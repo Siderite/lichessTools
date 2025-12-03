@@ -37,7 +37,7 @@ body.lichessTools div.lichessTools-themes .selector:before {
 
 body.lichessTools div.lichessTools-themes .selector:before {
   top: 0;
-  content: '\e031'; /* UpTriangle */
+  content: var(--icon-UpTriangle);
   background: linear-gradient(
     to bottom,
     rgba(128, 128, 128, 0.5),
@@ -47,7 +47,7 @@ body.lichessTools div.lichessTools-themes .selector:before {
 
 body.lichessTools div.lichessTools-themes .selector:after {
   bottom: 0;
-  content: '\e030'; /* DownTriangle */
+  content: var(--icon-DownTriangle);
   background: linear-gradient(
     to top,
     rgba(128, 128, 128, 0.5),

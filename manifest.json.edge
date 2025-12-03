@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChessTools",
-  "version": "2.4.116",
+  "version": "2.4.131",
   "description": "Turbocharge lichess.org with a ton of features",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
   "minimum_chrome_version": "111",
@@ -68,6 +68,7 @@
         "tools/addNotifications/tool.js",
         "tools/additionalGlyphs/tool.js",
         "tools/boardStyle/tool.js",
+        "tools/gameAnalysisLayout/tool.js",
 
         "tools/extraChart/raccoon.js",
 
@@ -137,7 +138,6 @@
         "tools/resizeExplorer/tool.js",
         "tools/soundOptions/tool.js",
         "tools/playLayout/tool.js",
-        "tools/playLayout/game.js",
         "tools/obsIntegration/tool.js",
         "tools/forkBehavior/tool.js",
         "tools/blogAutosave/tool.js",
@@ -176,6 +176,8 @@
         "tools/explorerMoreGames/tool.js",
         "tools/customBoardImage/tool.js",
         "tools/studyTopics/tool.js",
+        "tools/chessPursuit/game.js",
+        "tools/chessPursuit/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -184,6 +186,7 @@
         "tools/readGameCommand/tool.js",
         "tools/readPositionCommand/tool.js",
         "tools/skipMoveCommand/tool.js",
+        "tools/searchMovesCommand/tool.js",
 
         "tools/localDatabase/tool.js",
         "tools/puzzleIndex/tool.js",
@@ -191,9 +194,12 @@
         "tools/addToTeam/tool.js",
         "tools/preferences/tool.js",
 
+        "tools/fixMoveListLoad/tool.js",
         "scripts/lichessTools-init.js"
       ],
       "css": [
+        "styles/icons.css",
+        "tools/fixMoveListLoad/tool.css",
         "tools/themes/tool.css",
 
         "tools/themes/performance.css",
@@ -215,6 +221,8 @@
         "tools/themes/arcade.css",
         "tools/themes/fixThirdParties.css",
         "tools/themes/timeControls.css",
+        "tools/themes/firstInteraction.css",
+        "tools/themes/noVariants.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
@@ -243,6 +251,7 @@
         "tools/explorerPractice/tool.css",
         "tools/additionalGlyphs/tool.css",
         "tools/boardStyle/tool.css",
+        "tools/gameAnalysisLayout/tool.css",
 
         "tools/extraChart/tool.css",
         "tools/keyboardHelp/tool.css",
@@ -308,11 +317,13 @@
         "tools/explorerMoreGames/tool.css",
         "tools/customBoardImage/tool.css",
         "tools/studyTopics/tool.css",
+        "tools/chessPursuit/tool.css",
 
         "tools/tvOptions/tool.css",
 
         "tools/hideBoardCommand/tool.css",
         "tools/pieceValueCommand/tool.css",
+        "tools/searchMovesCommand/tool.css",
 
         "tools/puzzleIndex/tool.css",
 

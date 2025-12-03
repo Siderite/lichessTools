@@ -1,5 +1,66 @@
 History of features added to LiChess Tools in time (reversed order)
 
+03 Dec
+
+- Move Assistant piece highlights
+
+02 Dec
+
+- unblock action in the blocked player page
+- generate challenge link
+- Ctrl-F to search move list
+
+29 Nov
+
+- game analysis layout
+
+28 Nov
+
+- added No chess variants theme
+- use Activity API for followers
+
+26 Nov
+
+- tested with Prettier Lichess and fixed issues
+
+25 Nov
+
+- added Piece coordination chart line
+
+23 Nov
+
+- Move Assistant pawn breaks
+- First interaction theme
+- Mobile shape drawing popup
+
+21 Nov
+
+- Move Assistant square and pawn highlight
+- Show computer eval depth of maximum deviation
+
+20 Nov
+
+- Extra chart legend
+- Option to show "Request analysis" right after the game ends
+- Recent games lobby section
+
+19 Nov
+
+- Search move list tool
+
+15 Nov
+
+- video links open in a window on Firefox, but not alwaysOnTop
+- CrownVictoria sounds and pieces have vanished, as well as his user
+- APIs semaphore
+- more Chess Pursuit refactoring
+- PGN Editor ignores accents in Search
+
+14 Nov
+
+- Chess Pursuit sound theme
+- Chess Pursuit piece set
+
 12 Nov
 
 - Chess Pursuit menu item

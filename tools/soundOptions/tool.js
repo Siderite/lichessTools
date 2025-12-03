@@ -14,8 +14,8 @@
         name: 'soundThemes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['mortalKombat'],
-        defaultValue: 'mortalKombat',
+        possibleValues: ['chessPursuit'],
+        defaultValue: 'chessPursuit',
         advanced: true
       },
       {
@@ -62,7 +62,7 @@
         'timeAlert.beep': 'Sound alert',
         'timeAlert.speak5': 'Read seconds when less than 6',
         'timeAlert.behind': 'Alert when behind on time',
-        'soundThemes.mortalKombat': 'Mortal Kombat'
+        'soundThemes.chessPursuit': 'Chess Pursuit'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -84,7 +84,7 @@
         'timeAlert.beep': 'Alert\u0103 sonor\u0103',
         'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd mai pu\u0163ine de 6',
         'timeAlert.behind': 'Alert\u0103 c\u00e2nd \u00een urm\u0103 la timp',
-        'soundThemes.mortalKombat': 'Mortal Kombat'
+        'soundThemes.chessPursuit': 'Urm\u0103rire \u00een \u015fah'
       }
     }
 
@@ -183,6 +183,7 @@
             ev.preventDefault();
             setVolume($(ev.target).val());
           })
+          .val(sound.getVolume())
           .prependTo(container);
       }
       volumeBar.toggleClassSafe('silent',sound.theme=='silent');
@@ -230,10 +231,10 @@
     allSoundNames = [
       'berserk', 'capture', 'check', 'checkmate', 'confirmation', 'countdown0', 'countdown1', 'countdown10', 'countdown2', 'countdown3',
       'countdown4', 'countdown5', 'countdown6', 'countdown7', 'countdown8', 'countdown9', 'defeat', 'draw', 'error', 'explosion',
-      'genericnotify', 'lowtime', 'move', 'newchallenge', 'newpm', 'outofbound', 'tournament1st', 'tournament2nd', 'tournament3rd',
-      'tournamentother', 'victory' ];
+      'genericNotify', 'lowtime', 'move', 'newChallenge', 'newPM', 'outofbound', 'practiceComplete', 'tournament1st', 'tournament2nd', 'tournament3rd',
+      'tournamentOther', 'victory' ];
     themeUrls = new Map([
-      ['mortalKombat','https://fordcrownvictoria1234-art.github.io/MK1SFX/']
+      ['chessPursuit','https://siderite.github.io/ChessPursuit/sound/']
     ]);
     soundUrls = new Map();
     loadSound = async (e) => {

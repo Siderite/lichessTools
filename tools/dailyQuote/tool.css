@@ -49,7 +49,7 @@ body.lichessTools .lichessTools-dailyQuote button.close:hover {
 }
 
 body.lichessTools .lichessTools-dailyQuote button.close:after {
-  content: '\E02A'; /* X */
+  content: var(--icon-X);
 
   vertical-align: middle;
   font-family: "lichess";

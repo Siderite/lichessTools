@@ -77,6 +77,7 @@
                 dialog
                   .addClass('dragged')
                   .css({
+                    transform: 'none',
                     left: left,
                     top: top
                   });

@@ -264,7 +264,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       if (node.path === undefined) return;
       this._analysedNode = node;
       analysis.userJumpIfCan(node.path);
-      analysis.redraw();
+      lt.analysisRedraw();
     };
 
     evaluateTerminations = async (ev) => {

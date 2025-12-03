@@ -74,7 +74,7 @@
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
           .toggleClass('lichessTools-explorerEval')
-          .text(lt.icon.NorthEastArrowWithHook)
+          .text(lt.icon.BarChart)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
       }
@@ -98,6 +98,7 @@
       $('section.explorer-box table.moves.lichessTools-evalTable').remove();
       if (lt.isGamePlaying()) return;
       let container = $('section.explorer-box table.moves');
+      const tablebase = $('section.explorer-box table.tablebase');
       if (!container.length) {
         if (this.options.evalRows && moves?.length) {
           const dataElem = $('section.explorer-box div.data');
@@ -132,8 +133,8 @@
           .insertAfter($('th:nth-child(1)', container));
       }
       $('tr:has(.lichessTools-evalRow)', container).remove();
-      if (this.options.evalRows && moves?.length) {
-        const co = lt.chessops;
+      const co = lt.chessops;
+      if (co && this.options.evalRows && moves?.length) {
         const newRows = moves.filter(m => !$('tr[data-uci="' + m.uci + '"]', container).length);
         const fen = co.fen.parseFen(analysis.node.fen).unwrap();
         const ch = co.Chess.fromSetup(fen).unwrap();
@@ -144,7 +145,10 @@
           const move = co.parseUci(uci);
           const san = co.san.makeSan(ch, move);
           //castling can be identified by multiple ucis (i.e. e1g1, e1h1)
-          const existingCell = $('td', container).filter((i, e) => $(e).text() == san);
+          let existingCell = container.find('td').filter((i, e) => $(e).text() == san);
+          if (!existingCell.length) {
+            existingCell = tablebase.find('td').filter((i, e) => $(e).text() == san);
+          }
           if (existingCell.length) {
             const fixedUci = existingCell.closest('tr[data-uci]').attr('data-uci');
             if (fixedUci) {
@@ -413,9 +417,10 @@
       }
       $('table.moves tr.sum td.lichessTools-explorerEval').remove();
       const fen = analysis.node.fen;
+      const path = analysis.path;
       const whosMove = analysis.node.ply % 2 ? -1 : 1;
       let result = this.cache[fen] || { moves: [] };
-      if (this.getCached404(analysis.path)) {
+      if (this.getCached404(path)) {
         result = { moves: [] };
       }
       let newMoves = [];
@@ -437,7 +442,7 @@
           result.dbLoaded = true;
         }
         if (this.options.lichess && !result.lichessLoaded) {
-          let obj = await lt.api.evaluation.getLichess(fen, 5);
+          let obj = await lt.api.evaluation.getLichess(fen, 5, path||'-=');
           if (obj) {
             const moves = obj?.pvs?.map(m => {
               return {
@@ -452,7 +457,7 @@
               newMoves.push(...moves);
             }
             if (newMoves?.length && !lt.net.slowMode) {
-              obj = await lt.api.evaluation.getLichess(fen, 10);
+              obj = await lt.api.evaluation.getLichess(fen, 10, path||'-=');
               if (obj) {
                 obj.pvs?.forEach(m => {
                   const uci = m.moves?.split(' ')[0];
@@ -485,7 +490,7 @@
             }
           });
         } else {
-          this.setCached404(analysis.path);
+          this.setCached404(path);
         }
       }
       result = result || { moves: [] };

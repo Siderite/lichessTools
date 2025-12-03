@@ -19,7 +19,13 @@ body.lichessTools #dasher_app .selector button.lichessTools-extraThemes {
 
 body.lichessTools .dasher.shown #dasher_app:has(.lichessTools-volumeBar:not(.silent)) {
   display: flex;
-  width: 250px;
+  width: 260px;
+}
+
+body.lichessTools .dasher.shown #dasher_app:has(.lichessTools-volumeBar:not(.silent)) .links a,
+body.lichessTools .dasher.shown #dasher_app:has(.lichessTools-volumeBar:not(.silent)) .links button,
+body.lichessTools .dasher.shown #dasher_app:has(.lichessTools-volumeBar:not(.silent)) .subs .sub {
+  box-sizing: border-box;
 }
 
 body.lichessTools #dasher_app:has(.lichessTools-volumeBar) .sound input[type=range] {
@@ -32,6 +38,17 @@ body.lichessTools .lichessTools-volumeBar {
   max-height: min(100vh, 650px);
   padding: 0em;
   margin: 0.5em;
+  width: 0.75em;
+}
+
+body.lichessTools .lichessTools-volumeBar.range::-webkit-slider-thumb,
+body.lichessTools .lichessTools-volumeBar.range::-moz-range-thumb {
+  width: 100%;
+}
+
+body.lichessTools .lichessTools-volumeBar.range::-moz-range-track {
+  background: transparent;
+  border: none;
 }
 
 body.lichessTools .lichessTools-volumeBar.silent {

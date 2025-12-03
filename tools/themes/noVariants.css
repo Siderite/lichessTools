@@ -1,0 +1,182 @@
+/* No chess variants */
+
+body.lichessTools.lichessTools-theme_noVariants table.hooks__list tr.variants,
+body.lichessTools.lichessTools-theme_noVariants table.hooks__list tr.variants ~ tr,
+-body.lichessTools.lichessTools-theme_noVariants table.hooks__list tr:has(.varicon[data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants table.hooks__list tr:has(.varicon[data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants table.hooks__list tr:has(.varicon[data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants table.hooks__list tr:has(.varicon[data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants table.hooks__list tr:has(.varicon[data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants table.hooks__list tr:has(.varicon[data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants table.hooks__list tr:has(.varicon[data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants table.hooks__list tr:has(.varicon[data-icon="\E066"])  /* Crazyhouse */ {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .lichessTools-recentGames a.game.chess960,
+body.lichessTools.lichessTools-theme_noVariants .lichessTools-recentGames a.game.kingofthehill,
+body.lichessTools.lichessTools-theme_noVariants .lichessTools-recentGames a.game.threecheck,
+body.lichessTools.lichessTools-theme_noVariants .lichessTools-recentGames a.game.antichess,
+body.lichessTools.lichessTools-theme_noVariants .lichessTools-recentGames a.game.atomic,
+body.lichessTools.lichessTools-theme_noVariants .lichessTools-recentGames a.game.horde,
+body.lichessTools.lichessTools-theme_noVariants .lichessTools-recentGames a.game.racingkings,
+body.lichessTools.lichessTools-theme_noVariants .lichessTools-recentGames a.game.crazyhouse {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .scheduled a[data-icon="\E006"], /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .scheduled a[data-icon="\E007"], /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .scheduled a[data-icon="\E00D"], /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .scheduled a[data-icon="\E01E"], /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .scheduled a[data-icon="\E01C"], /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .scheduled a[data-icon="\E03D"], /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .scheduled a[data-icon="\E065"], /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .scheduled a[data-icon="\E066"]  /* Crazyhouse */ {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E066"])  /* Crazyhouse */ {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E066"])  /* Crazyhouse */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noVariants .tournamentline:has(a.tsht-variant):not(:has(span[data-icon="\E006"])) { /* Chess 960 */
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E066"])  /* Crazyhouse */ {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .tv-channel.chess960,      
+body.lichessTools.lichessTools-theme_noVariants .tv-channel.kingOfTheHill, 
+body.lichessTools.lichessTools-theme_noVariants .tv-channel.threeCheck,    
+body.lichessTools.lichessTools-theme_noVariants .tv-channel.antichess,     
+body.lichessTools.lichessTools-theme_noVariants .tv-channel.atomic,        
+body.lichessTools.lichessTools-theme_noVariants .tv-channel.horde,         
+body.lichessTools.lichessTools-theme_noVariants .tv-channel.racingKings,   
+body.lichessTools.lichessTools-theme_noVariants .tv-channel.crazyhouse {   
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .leaderboards section:has(h2[data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .leaderboards section:has(h2[data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .leaderboards section:has(h2[data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .leaderboards section:has(h2[data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .leaderboards section:has(h2[data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .leaderboards section:has(h2[data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .leaderboards section:has(h2[data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .leaderboards section:has(h2[data-icon="\E066"])  /* Crazyhouse */ {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .rating-stats .mselect__list a[data-icon="\E006"], /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .rating-stats .mselect__list a[data-icon="\E007"], /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .rating-stats .mselect__list a[data-icon="\E00D"], /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .rating-stats .mselect__list a[data-icon="\E01E"], /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .rating-stats .mselect__list a[data-icon="\E01C"], /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .rating-stats .mselect__list a[data-icon="\E03D"], /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .rating-stats .mselect__list a[data-icon="\E065"], /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .rating-stats .mselect__list a[data-icon="\E066"]  /* Crazyhouse */ {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .tournament-leaderboards section:has(h2[data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .tournament-leaderboards section:has(h2[data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .tournament-leaderboards section:has(h2[data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .tournament-leaderboards section:has(h2[data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .tournament-leaderboards section:has(h2[data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .tournament-leaderboards section:has(h2[data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .tournament-leaderboards section:has(h2[data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .tournament-leaderboards section:has(h2[data-icon="\E066"])  /* Crazyhouse */ {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .tournament-shields section:has(a[href$="chess960"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .tournament-shields section:has(a[href$="kingOfTheHill"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .tournament-shields section:has(a[href$="threeCheck"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .tournament-shields section:has(a[href$="antichess"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .tournament-shields section:has(a[href$="atomic"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .tournament-shields section:has(a[href$="horde"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .tournament-shields section:has(a[href$="racingKings"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .tournament-shields section:has(a[href$="crazyhouse"])  /* Crazyhouse */ {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants fieldset.types input[data-icon="\E006"], /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants fieldset.types input[data-icon="\E007"], /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants fieldset.types input[data-icon="\E00D"], /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants fieldset.types input[data-icon="\E01E"], /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants fieldset.types input[data-icon="\E01C"], /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants fieldset.types input[data-icon="\E03D"], /* Horde */
+body.lichessTools.lichessTools-theme_noVariants fieldset.types input[data-icon="\E065"], /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants fieldset.types input[data-icon="\E066"]  /* Crazyhouse */ {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E066"])  /* Crazyhouse */ {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .analyse__side .mselect__list a[data-icon="\E006"], /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .analyse__side .mselect__list a[data-icon="\E007"], /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .analyse__side .mselect__list a[data-icon="\E00D"], /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .analyse__side .mselect__list a[data-icon="\E01E"], /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .analyse__side .mselect__list a[data-icon="\E01C"], /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .analyse__side .mselect__list a[data-icon="\E03D"], /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .analyse__side .mselect__list a[data-icon="\E065"], /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .analyse__side .mselect__list a[data-icon="\E066"]  /* Crazyhouse */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noVariants select#variants option[value="antichess"],
+body.lichessTools.lichessTools-theme_noVariants select#variants option[value="atomic"],
+body.lichessTools.lichessTools-theme_noVariants select#variants option[value="crazyhouse"],
+body.lichessTools.lichessTools-theme_noVariants select#variants option[value="horde"],
+body.lichessTools.lichessTools-theme_noVariants select#variants option[value="kingofthehill"],
+body.lichessTools.lichessTools-theme_noVariants select#variants option[value="racingkings"],
+body.lichessTools.lichessTools-theme_noVariants select#variants option[value="3check"] {
+  display: none;
+}
+
+-body.lichessTools.lichessTools-theme_noVariants .sub-ratings a[href$="chess960"], /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .sub-ratings a[href$="kingOfTheHill"], /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .sub-ratings a[href$="threeCheck"], /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .sub-ratings a[href$="antichess"], /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .sub-ratings a[href$="atomic"], /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .sub-ratings a[href$="horde"], /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .sub-ratings a[href$="racingKings"], /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .sub-ratings a[href$="crazyhouse"]  /* Crazyhouse */ {
+  display: none;
+}

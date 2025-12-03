@@ -51,7 +51,8 @@
         'friendsNumberTitle:zero': 'Friends',
         'friendFilterTitle': 'Name filter',
         'opponentsText': 'Opponents',
-        'opponentsTitle': 'LiChess Tools - players you\'ve played against most'
+        'opponentsTitle': 'LiChess Tools - players you\'ve played against most',
+        'unblockPlayerTitle': 'Unblock'
       },
       'ro-RO': {
         'onlineFriends': '%s prieteni online',
@@ -81,7 +82,8 @@
         'friendsNumberTitle:zero': 'Prieteni',
         'friendFilterTitle': 'Filtru nume',
         'opponentsText': 'Adversari',
-        'opponentsTitle': 'LiChess Tools - juc\u0103tori \u00eempotriva c\u0103rora ai jucat mai mult'
+        'opponentsTitle': 'LiChess Tools - juc\u0103tori \u00eempotriva c\u0103rora ai jucat mai mult',
+        'unblockPlayerTitle': 'Deblocare'
       }
     }
 
@@ -102,8 +104,6 @@
       if (!myName) return;
       let container = $('div.lichessTools-onlineFriends', $('.site-buttons'));
       if (!container.length) {
-        const myName = lt.getUserId();
-        if (!myName) return;
         const friendsUrl = '/@/' + myName + '/following';
         const title = trans.noarg('friendsMenu');
         container = $('<div class="lichessTools-onlineFriends"/>')
@@ -366,6 +366,7 @@
       if (!this.options.liveFriendsPage) return;
       if (!this.isLivePage) return;
       const isFavoritesOrBlocksOrFollowers = !this.isFriendsPage;
+      const isBlocks = lt.isBlockedPlayersPage();
       if (lt.global.document.hidden) {
         lt.global.requestAnimationFrame(this.updateFriendsPage);
         return;
@@ -402,33 +403,37 @@
                     .attr('placeholder',trans.noarg('friendFilterTitle'))
                     .on('input',this.filterFriends)
                  )
-          .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.Antichess)}" data-role="hideInactive">`)
+          .append($(`<i data-role="hideInactive">`)
+            .attr('data-icon',lt.icon.Antichess)
             .attr('title', trans.noarg('hideInactiveTitle'))
             .on('click', () => {
               $('main').toggleClass('lichessTools-hideInactive');
               this.scrollIfNeeded();
             }))
-          .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.DiscOutline)}" data-role="hideOffline">`)
+          .append($(`<i data-role="hideOffline">`)
+            .attr('data-icon',lt.icon.DiscOutline)
             .attr('title', trans.noarg('hideOfflineTitle'))
             .on('click', () => {
               $('main').toggleClass('lichessTools-hideOffline');
               this.scrollIfNeeded();
             }))
-          .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}" data-role="hideNotPlaying">`)
+          .append($(`<i data-role="hideNotPlaying">`)
+            .attr('data-icon',lt.icon.AnalogTv)
             .attr('title', trans.noarg('hideNotPlayingTitle'))
             .on('click', () => {
               $('main').toggleClass('lichessTools-hideNotPlaying');
               this.scrollIfNeeded();
-            }));
+            }))
+          .appendTo(header);
         if (!isFavoritesOrBlocksOrFollowers) {
           liveButtons
-            .append($(`<i data-icon="${lt.icon.toEntity(lt.icon.BellOutline)}" data-role="hideMuted">`)
+            .append($(`<i data-role="hideMuted">`)
+              .attr('data-icon',lt.icon.BellOutline)
               .attr('title', trans.noarg('hideMutedTitle'))
               .on('click', () => {
                 $('main').toggleClass('lichessTools-hideMuted');
                 this.scrollIfNeeded();
-              }))
-          .appendTo(header);
+              }));
         }
       }
       const watchGamesTitle = trans.noarg('watchGames');
@@ -454,14 +459,16 @@
         const user = this.getUserId(m && m[1]);
         if (!user) return;
         this.rows[user] = row;
-        if (!actions.find('a.lichessTools-tv')[0]) {
-          $(`<a class="text lichessTools-tv" data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}"></a>`)
+        if (!isBlocks && !actions.find('a.lichessTools-tv')[0]) {
+          $(`<a class="text lichessTools-tv">`)
+            .attr('data-icon',lt.icon.AnalogTv)
             .attr('href', '/@/' + user + '/tv')
             .attr('title', watchGamesTitle)
             .prependTo(actions);
         }
         if (!isFavoritesOrBlocksOrFollowers && hasAlerts && !actions.find('a.lichessTools-mute')[0]) {
-          $(`<a class="text lichessTools-mute" data-icon="${lt.icon.toEntity(lt.icon.BellOutline)}"></a>`)
+          $(`<a class="text lichessTools-mute">`)
+            .attr('data-icon',lt.icon.BellOutline)
             .attr('title', mutePlayingAlertTitle)
             .on('click', ev => {
               ev.preventDefault();
@@ -470,9 +477,27 @@
             })
             .appendTo(actions);
         }
+        if (isBlocks && !actions.find('a.lichessTools-unblock')[0]) {
+          $(`<a class="text lichessTools-unblock">`)
+            .attr('data-icon',lt.icon.NotAllowed)
+            .attr('title', trans.noarg('unblockPlayerTitle'))
+            .attr('href','#')
+            .on('click', async (ev) => {
+              ev.preventDefault();
+              const link = $(ev.currentTarget);
+              if (link.prop('disabled')) {
+                return;
+              }
+              lt.api.relations.unblockPlayer(user);
+              $(ev.currentTarget)
+                .addClass('disabled')
+                .prop('disabled',true);
+            })
+            .appendTo(actions);
+        }
         const lastAt = $('time.set',row).attr('datetime');
         if (lastAt) {
-          const time = Date.now()-Date.parse(lastAt);
+          const time = Date.now()-lt.dateParseUTC(lastAt);
           const inactive = time>1*86400*365.25*1000;
           row.toggleClass('lichessTools-inactive',inactive);
         }
@@ -698,7 +723,13 @@
           const f = (followers)=>{
             if (followers.length) {
               for (const follower of followers) {
-                $(`<tr class="paginated"><td><a class="user-link ulpt" href="/@/${follower.user.id}"><i class="line"></i>${follower.user.name}</a></td></tr>`)
+                const timeText = follower.time
+                   ? lt.getTimeText(Date.now()-follower.time)
+                   : '';
+                $(`<tr class="paginated">
+                     <td><a class="user-link ulpt" href="/@/${follower.user.id}"><i class="line"></i>${follower.user.name}</a></td>
+                     <td>${timeText}</td>
+                   </tr>`)
                   .appendTo(tbody);
               }
               if (followers.nextPage) {
@@ -710,13 +741,13 @@
                   .on('click',async (ev)=>{
                     ev.preventDefault();
                     $('.lichessTools-pager',tbody).remove();
-                    followers = await lt.api.relations.getFollowers(followers.nextPage,1);
+                    followers = await lt.api.relations.getFollowersNew(followers.nextPage,1);
                     await f(followers);
                   });
               };
             }
           };
-          const followers = await lt.api.relations.getFollowers(1,1);
+          const followers = await lt.api.relations.getFollowersNew(1,1);
           $('.box__top h1')
             .replaceText(trans.pluralSame('followersNumberTitle',followers?.nbResults || 0));
           $('.box__top h1 a')
@@ -765,6 +796,11 @@
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
+
+      if (lt.currentOptions.enableLichessTools) {
+        lt.api.relations.refreshFollowers(); // this runs in the background and should update the followers local db even when no options are selected
+      }
+
       const setInterval = lt.global.setInterval;
       const clearInterval = lt.global.clearInterval;
       this.isFriendsPage = lt.isFriendsPage() && !this.isFollowersPage();

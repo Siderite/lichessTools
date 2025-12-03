@@ -8,6 +8,11 @@ body.lichessTools div.form-actions-secondary.destructive select.lichessTools-rem
   color: inherit;
 }
 
+body.lichessTools table.study__tags th:has(button.lichessTools-deleteTag) {
+  white-space: nowrap;
+  width: 20%;
+}
+
 body.lichessTools table.study__tags button.lichessTools-deleteTag {
   font-family: lichess;
   color: #A08080;
@@ -15,10 +20,6 @@ body.lichessTools table.study__tags button.lichessTools-deleteTag {
   border: none;
   vertical-align: top;
   margin-right: 0.5em;
-}
-
-body.lichessTools table.study__tags th {
-  width: 20%;
 }
 
 body.lichessTools a.lichessTools-bulkPgnTagsEdit {

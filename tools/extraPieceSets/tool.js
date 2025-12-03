@@ -6,8 +6,8 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper'],
-        defaultValue: false,
+        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper'],
+        defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
     ];
@@ -18,9 +18,9 @@
         'options.extraPieceSets': 'Extra piece sets',
         'pieceSetTitle': 'LiChess Tools - %s',
 
-        'extraPieceSets.chesscom': 'chess.com', // don't translate these
+        'extraPieceSets.siderite': 'Siderite', // don't translate these
+        'extraPieceSets.chesscom': 'chess.com',
         'extraPieceSets.hollowleaf': 'HollowLeaf',
-        'extraPieceSets.fordCrownVictoria': 'FordCrownVictoria',
         'extraPieceSets.bend-n': 'bend-n',
         'extraPieceSets.comfysage': 'comfysage',
         'extraPieceSets.tage64': 'tage64',
@@ -95,6 +95,11 @@
 
     getUrl = (pieceSet,piece,color) => {
       switch(pieceSet.category) {
+        case 'siderite':
+        {
+          const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
+          return pieceSet.url+color[0]+pieceLetter+'.svg';
+        }
         case 'chesscom':
         case 'tage64':
         case 'OwOHamper':
@@ -102,7 +107,6 @@
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           return pieceSet.url+color[0]+pieceLetter+'.png';
         }
-        case 'fordCrownVictoria':
         case 'hollowleaf':
         case 'bend-n':
         {

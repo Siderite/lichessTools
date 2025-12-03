@@ -89,7 +89,7 @@
           }).on('click', function (ev) {
             ev.preventDefault();
             analysis.userJumpIfCan(path);
-            analysis.redraw();
+            lt.analysisRedraw();
           });
         const glyph = child.glyphs?.at(0);
         if (glyph) {

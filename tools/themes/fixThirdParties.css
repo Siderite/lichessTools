@@ -1,5 +1,11 @@
 /* Fix third parties */
 
+/** Browsers in general **/
+
+body.lichessTools {
+  transform: translateZ(0);
+}
+
 
 /** Prettier **/
 
@@ -35,4 +41,10 @@ body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties .anal
 html:has(body.lichessTools.lichessTools-prettier.lichessTools-theme_fixThirdParties.lichessTools-hasBoardBackground)[style*="#FFFFFF00"] main cg-board::before {
   background: var(--board-background) !important;
   background-size: 100% 100% !important;
+}
+
+body.lichessTools.lichessTools-prettier #topnav.hover section div[role="group"] {
+  opacity: 1 !important;
+  margin-top: 0 !important;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%) !important;
 }

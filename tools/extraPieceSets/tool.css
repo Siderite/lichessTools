@@ -3,14 +3,14 @@ body.lichessTools #dasher_app button.lichessTools-extraPieceSets.chesscom {
   border: 1px solid #5d9948;
 }
 
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.siderite {
+  border-radius:0%;
+  border: 1px dashed violet;
+}
+
 body.lichessTools #dasher_app button.lichessTools-extraPieceSets.hollowleaf {
   border-radius:33%;
   border: 1px solid black;
-}
-
-body.lichessTools #dasher_app button.lichessTools-extraPieceSets.fordCrownVictoria {
-  border-radius:33%;
-  border: 1px solid white;
 }
 
 body.lichessTools #dasher_app button.lichessTools-extraPieceSets.bend-n {

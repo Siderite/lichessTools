@@ -31,6 +31,7 @@
       const value = lt.currentOptions.getValue('fixChessvision');
       this.logOption('Fix Chessvision', value);
       if (!value) return;
+      if (!lichess.analysis?.study) return; // only in studies
 
       lt.global.clearInterval(this.interval);
       this.interval = lt.global.setInterval(()=>{

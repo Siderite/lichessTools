@@ -23,7 +23,8 @@
         'cevalLineOptions.depthChart': 'Depth chart',
         'cevalLineOptions.downloadCeval': 'Download engine analysis',
         'moreLinesTitle': 'LiChess Tools - more lines',
-        'downloadCevalButtonTitle': 'LiChess Tools - download analysis'
+        'downloadCevalButtonTitle': 'LiChess Tools - download analysis',
+        'pearlDeviationTitle': 'LiChess Tools - evaluation deviates at $depth ($deviation)'
       },
       'ro-RO': {
         'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
@@ -35,7 +36,8 @@
         'cevalLineOptions.depthChart': 'Grafic ad\u00e2ncime',
         'cevalLineOptions.downloadCeval': 'Desc\u0103rcare analiz\u0103 computer',
         'moreLinesTitle': 'LiChess Tools - mai multe linii',
-        'downloadCevalButtonTitle': 'LiChess Tools - download analysis'
+        'downloadCevalButtonTitle': 'LiChess Tools - download analysis',
+        'pearlDeviationTitle': 'LiChess Tools - evaluarea deviaz\u0103 la $depth ($deviation)'
       }
     }
 
@@ -224,14 +226,22 @@
     db = new Map();
     drawChart = () => {
       const lt = this.lichessTools;
+      const trans = lt.translator;
       const analysis = lt.lichess.analysis;
       if (!analysis) return;
       const $ = lt.$;
-      const db = this.db.get(analysis.path);
-      if (!db) return;
-
       const pearl = $('.ceval pearl');
       if (!pearl.length) return;
+
+      const db = this.db.get(analysis.path);
+      if (!db) {
+        pearl
+          .removeAttr('data-deviation')
+          .removeAttr('data-depth')
+          .removeAttr('title')
+          .css('--data-color', null);
+        return;
+      }
 
       const depths = [...db.keys()];
       depths.sort((a,b)=>a-b);
@@ -246,12 +256,44 @@
       ctx.strokeStyle = '#FFFFFF80';
       ctx.beginPath();
       ctx.moveTo(0, 10);
-      for (let i of depths) {
+      for (const i of depths) {
         const cp = lt.getCentipawns(db.get(i));
         const v = lt.sigmoidClamp(-cp,0,20,2000);
         ctx.lineTo(i, v);
       }
       ctx.stroke();
+
+      const data = [...db.entries()
+                     .filter(([k,v])=>k>2)
+                     .map(([k,v])=>({ depth: k, cp: lt.getCentipawns(v) }))];
+
+      let sumBefore = 0;
+      let sumAfter = data.reduce((a,v)=>a+v.cp,0);
+      const s = { depth: 0, deviation: 0, total: data.length };
+      if (data.length) {
+        let n=0;
+        for (const v of data) {
+          sumBefore+=v.cp;
+          sumAfter-=v.cp;
+          n++;
+          if (n<3 || n>data.length-3) continue;
+          const a = sumAfter/(data.length-n);
+          const b = sumBefore/n;
+          const deviation = a-b;
+          if (Math.abs(deviation) > Math.abs(s.deviation)) {
+            s.deviation = deviation;
+            s.depth = v.depth;
+          }
+        }
+      }
+      const displayDeviation = Math.abs(s.deviation)>50;
+      const side = analysis.getOrientation() != 'black' ? 1 : -1;
+      const color = lt.getGradientColor(side * s.deviation, [{ q: -300, color: '#FF2020FF' }, { q: -50, color: '#FF202080' }, { q: 0, color: '#808080FF' }, { q: 50, color: '#20FF2080' }, { q: 300, color: '#20FF20FF' }]);
+      pearl
+        .attr('data-deviation',displayDeviation?s.deviation.toFixed(2):null)
+        .attr('data-depth', displayDeviation?s.depth:null)
+        .attr('title', trans.noarg('pearlDeviationTitle').replace('$deviation',(s.deviation/100).toFixed(2)).replace('$depth',s.depth))
+        .css('--data-color', displayDeviation?color:null);
     };
 
     getCevalPanelText = ()=>{

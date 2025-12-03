@@ -149,7 +149,7 @@
                       if (!doReset) return;
                       this.resetDone();
                       analysis.userJump('');
-                      analysis.redraw();
+                      lt.analysisRedraw();
                     })
                     .finally(doReset=>{
                       this._inConfirm = false;
@@ -869,7 +869,7 @@
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
       analysis.userJump(this.options.returnToPreview && this._previewPath || '');
-      analysis.redraw();
+      lt.analysisRedraw();
     };
 
     collapseGamebookEdit = (ev) => {
@@ -1040,16 +1040,14 @@
         $('#abset-extendedInteractive,#abset-showScore,#abset-alwaysShowScore,#abset-returnToPreview,#abset-fastInteractive')
           .on('change', async () => {
             const arr = [];
-            const options = lt.currentOptions
+            const options = lt.currentOptions;
             if ($('#abset-extendedInteractive').is(':checked')) arr.push('extendedInteractive');
             if ($('#abset-showScore').is(':checked')) arr.push('showFinalScore');
-            if ($('#abset-alwaysShowScore').is(':checked')) arr.push('alwaysShowFinalScore');
+            if ($('#abset-alwaysShowScore').is(':checked')) arr.push('alwaysShowScore');
             if ($('#abset-returnToPreview').is(':checked')) arr.push('returnToPreview');
             if ($('#abset-fastInteractive').is(':checked')) arr.push('fastInteractive');
             options.extendedInteractiveLesson = arr.join(',');
-            await lt.applyOptions(options)
-            await lt.saveOptions(options)
-            lt.fireReloadOptions();
+            await lt.applyOptions(options);
           });
       }
       $('#abset-extendedInteractive')
@@ -1176,7 +1174,8 @@
 
         let act = container.children('i.act');
         if (!act.length) {
-          act = $(`<i class="act lichessTools-reset" data-icon="${lt.icon.toEntity(lt.icon.Reload)}">`)
+          act = $(`<i class="act lichessTools-reset">`)
+            .attr('data-icon',lt.icon.Reload)
             .attr('title', trans.noarg('resetVariationsButtonTitle'))
             .on('click', async (ev) => {
               ev.preventDefault();
@@ -1271,7 +1270,8 @@
         }
       };
       lt.isPermanentNode = this.isPermanentNode.bind(this);
-      if (this.options.extendedInteractive && !lt.isWrappedFunction(study.setGamebookOverride, 'extendedInteractive')) {
+      study.setGamebookOverride = lt.unwrapFunction(study.setGamebookOverride, 'extendedInteractive');
+      if (this.options.extendedInteractive) {
         study.setGamebookOverride = lt.wrapFunction(study.setGamebookOverride, {
           id: 'extendedInteractive',
           before: ($this, o) => {
@@ -1303,14 +1303,12 @@
             this.patchGamebook();
             const gp = analysis.gamebookPlay();
             gp?.makeState();
-            analysis.redraw();
+            lt.analysisRedraw();
             if (o == 'play') {
               analysis.userJump(analysis.path);
             }
           }
         });
-      } else {
-        study.setGamebookOverride = lt.unwrapFunction(study.setGamebookOverride, 'extendedInteractive');
       }
       if (this.options.extendedInteractive && !this.currentVersion) {
         this.refreshNodeVersion();

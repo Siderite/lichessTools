@@ -174,7 +174,7 @@
       const analysis = lichess.analysis;
       if (!analysis?.ongoing || !(analysis.data.game.turns > 0)) return false;
       analysis.jumpToIndex(analysis.data.game.turns - 1);
-      analysis.redraw();
+      lt.analysisRedraw();
     };
 
     switchExplorerTabs = () => {
@@ -222,6 +222,7 @@
       lt.unbindKeyHandler('h', true);
       lt.unbindKeyHandler('r');
       lt.unbindKeyHandler('backspace', true);
+      lt.unbindKeyHandler('ctrl+f', true);
 
       for (let i = 1; i <= 9; i++) {
         const combo = i.toString();
@@ -256,6 +257,7 @@
           lt.bindKeyHandler('backspace', this.jumpToCurrentMove);
         }
         lt.bindKeyHandler('shift+t', this.switchExplorerTabs);
+        lt.bindKeyHandler('ctrl+f',this.search);
       } else {
         if (this.oldHandlers) {
           lt.bindKeyHandler('i', this.oldHandlers['i'], true);
@@ -277,6 +279,23 @@
       const container = $('div.board-editor__tools .actions');
       container.children().eq(index).trigger('click');
     }
+
+    search = ()=>{
+      const lt = this.lichessTools;
+      const tool = lt.tools.SearchMovesCommandTool;
+      if (!tool?.canSearch()) return;
+      const bar = tool.showBar();
+      if (bar.prop('_restrictCtrlF')) return;
+      bar
+        .prop('_restrictCtrlF', true)
+        .find('input.search')
+        .on('keydown',ev=>{
+          if (ev.key==='f' && (ev.ctrlKey || ev.metaKey)) {
+            ev.preventDefault();
+            ev.currentTarget.select();
+          }
+        });
+    };
 
     handleEditorDigit = (index, mySide) => {
       const lt = this.lichessTools;

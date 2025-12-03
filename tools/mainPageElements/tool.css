@@ -59,8 +59,169 @@ body.lichessTools main.lobby .lobby__side {
   }
 }
 
+body.lichessTools .lobby__counters:has(.lichessTools-extraCounters) {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 body.lichessTools .lichessTools-extraCounters {
   display:contents;
+}
+
+body.lichessTools .lichessTools-extraCounters > span {
+  flex-basis: 100%;
+}
+
+body.lichessTools .lobby__table:has(.lichessTools-recentGames) .lobby__start {
+  margin-top: 3em;
+  flex-direction: row;
+  flex-grow: 0;
+}
+
+body.lichessTools .lobby__table:has(.lichessTools-recentGames) .lobby__start .lobby__start__button {
+  padding: 1rem;
+  width: 5rem;
+  height: 5rem;
+  font-size: 0;
+}
+
+body.lichessTools .lobby__table:has(.lichessTools-recentGames) .lobby__start .lobby__start__button:before {
+  margin: auto;
+  font-size: 3rem;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 1em;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames div.header {
+  margin-left: 1.5em;
+  margin-bottom: 0.5em;
+  font-size: large;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game {
+  margin-left: 1em;
+  margin-top: 0.5em;
+  font-size: 1.2em;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game:before {
+  content: var(--icon-DiscOutline);
+  color: var(--c-font-clearer);
+  font-size: 1.2em;
+  vertical-align: middle;
+  font-family: "lichess";
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  speak: none;
+  opacity: .9;
+  unicode-bidi: isolate;
+  margin:0 0.5em;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game:after {
+  content: var(--icon-DiscBigOutline);
+  background: radial-gradient(circle at center, #00000040, #00000040, #000000FF);
+  border: none;
+  border-radius: 5px;
+  padding: 0.2em;
+  font-size: 1em;
+  vertical-align: middle;
+  font-family: "lichess";
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  speak: none;
+  opacity: .9;
+  unicode-bidi: isolate;
+  margin:0 0.5em;
+  float: right;
+  margin-right: 1em;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.white:after {
+  background: radial-gradient(circle at center, #FFFFFF40, #FFFFFF40, #FFFFFFFF);
+  border: none;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.ultrabullet:before {
+  content: var(--icon-UltraBullet);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.bullet:before {
+  content: var(--icon-Bullet);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.blitz:before {
+  content: var(--icon-FlameBlitz);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.rapid:before {
+  content: var(--icon-Rabbit);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.classical:before {
+  content: var(--icon-Turtle);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.correspondence:before {
+  content: var(--icon-PaperAirplane);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.chess960:before {
+  content: var(--icon-DieSix);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.kingofthehill:before {
+  content: var(--icon-FlagKingHill);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.threecheck:before {
+  content: var(--icon-ThreeCheckStack);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.antichess:before {
+  content: var(--icon-Antichess);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.atomic:before {
+  content: var(--icon-Atom);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.horde:before {
+  content: var(--icon-Keypad);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.racingkings:before {
+  content: var(--icon-FlagRacingKings);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.crazyhouse:before {
+  content: var(--icon-Crazyhouse);
+}
+
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.moreGames {
+  align-self: end;
+  margin-right: 3em;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.win:after {
+  content: var(--icon-Checkmark);
+  color: var(--c-good);
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game.loss:after {
+  content: var(--icon-X);
+  color: var(--c-bad);
 }
 
 /* Prettier Lichess CSS */
@@ -73,3 +234,25 @@ body.lichessTools main.lobby .lobby__table.lichessTools-hideElement:not(:has(dia
 body.lichessTools.lichessTools-prettier main.lobby .lobby__support.lichessTools-hideElement {
   display: none !important;
 }
+
+body.lichessTools.lichessTools-prettier .lobby__table:has(.lichessTools-recentGames) .lobby__start {
+  margin-top: 2em !important;
+  flex-direction: row !important;
+  flex-grow: 0 !important;
+  gap: 0.5em !important;
+}
+
+body.lichessTools.lichessTools-prettier .lobby__table:has(.lichessTools-recentGames) .lobby__start .lobby__start__button {
+  padding: 1rem !important;
+  width: 6rem !important;
+  height: 6rem !important;
+  font-size: 0 !important;
+  flex-grow: 0 !important;
+  flex-basis: auto !important;
+}
+
+body.lichessTools.lichessTools-prettier .lobby__table:has(.lichessTools-recentGames) .lobby__start .lobby__start__button:before {
+  margin: auto !important;
+  font-size: 3rem !important;
+}
+

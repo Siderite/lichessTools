@@ -262,7 +262,7 @@
               const chapter = study.chapters.list.get(chapterId);
               if (chapter) {
                 chapter.status=undefined;
-                study.redraw();
+                lt.analysisRedraw();
               }
             }
           })

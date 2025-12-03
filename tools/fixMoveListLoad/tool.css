@@ -1,0 +1,3 @@
+.analyse__moves .tview2:not(.redrawn) {
+  display:none;
+}

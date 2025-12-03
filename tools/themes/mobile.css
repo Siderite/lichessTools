@@ -107,7 +107,7 @@ body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"] span {
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"]:after {
-  content: "\2630";
+  content: var(--icon-TrigramForHeaven);
   height: 100%;
   display: flex;
   align-items: center;
@@ -219,6 +219,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools .lichessTools
   order: 6;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools .lichessTools-searchMovesCommand {
+  order: 7;
+}
+
 body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools .analyse__moves {
   order: 7;
 }
@@ -230,6 +234,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile main.forum:has(.slist.topics)
 body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist.topics {
   table-layout: auto;
   min-width: 45em;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist td.subject {
+  min-width: 20em;
 }
 
 /*body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist th.right,*/

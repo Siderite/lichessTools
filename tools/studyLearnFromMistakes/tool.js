@@ -36,7 +36,7 @@
       let retro = analysis.retro;
       if (retro) {
         analysis.toggleRetro();
-        analysis.redraw();
+        lt.analysisRedraw();
         return;
       }
       const firstNode = analysis.mainline[0];
@@ -50,7 +50,7 @@
         if (compChild) compChild.comp = true;
       });
       analysis.toggleRetro();
-      analysis.redraw();
+      lt.analysisRedraw();
     };
 
     handleButton = () => {
@@ -80,7 +80,7 @@
       const analysis = lichess.analysis;
       if (analysis.retro) {
         analysis.toggleRetro();
-        analysis.redraw();
+        lt.analysisRedraw();
       }
     };
 

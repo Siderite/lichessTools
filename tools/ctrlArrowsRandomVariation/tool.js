@@ -39,7 +39,7 @@
           position: lt.getNodePosition(node)
         });
         lichess.analysis.userJump(child.path || (path + child.id));
-        lichess.analysis.redraw();
+        lt.analysisRedraw();
       }
     };
 
@@ -56,13 +56,13 @@
         if (lt.getNodePosition(prevNode) == pos.position) {
           this.prevPositions.splice(-1, 1);
           lichess.analysis.userJump(pos.path);
-          lichess.analysis.redraw();
+          lt.analysisRedraw();
           return;
         }
         this.prevPositions = [];
       }
       lichess.analysis.userJumpIfCan(prevPath);
-      lichess.analysis.redraw();
+      lt.analysisRedraw();
     };
 
     async start() {

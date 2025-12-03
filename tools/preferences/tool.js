@@ -126,7 +126,6 @@
         $.cached('body').toggleClassSafe('lichessTools-advancedPreferences', this.options.advanced);
       };
 
-      //TODO add link to translation project
       let html = `<div class="account box box-pad">
             <h1 class="box__top">$trans(lichessToolsPreferences)</h1>
             <div class="links">
@@ -329,7 +328,7 @@
           for (const key in categs) {
             const categ = categs[key];
             const items = categ
-                            .filter(pref=>(this.options.advanced||!pref.advanced) && !pref.hidden && (isLoggedIn || !pref.needsLogin))
+                            .filter(pref=>/*(this.options.advanced||!pref.advanced) && */!pref.hidden && (isLoggedIn || !pref.needsLogin))
                             .map(pref=>({ 
                                name: pref.name,
                                text: [pref.name, pref.category, trans.noarg('options.'+pref.name),trans.noarg('options.'+pref.category)]

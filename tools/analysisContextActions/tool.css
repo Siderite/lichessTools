@@ -4,7 +4,7 @@ body.lichessTools *[data-icon].lichessTools-icon-rotate:before {
 
 body.lichessTools.lichessTools-evaluationStarted #analyse-cm a[data-role="evaluateTerminations"]:before,
 body.lichessTools.lichessTools-evaluationStarted #analyse-cm a[data-role="evaluateLine"]:before {
-  content: '\E02A'; /* X */
+  content: var(--icon-X);
   color: red;
 }
 
@@ -69,6 +69,7 @@ body.lichessTools dialog.lichessTools-dialog.lichessTools-positionInfo .dialog-c
   min-width:26em;
 }
 
+/* icon-Trash */
 body.lichessTools #analyse-cm.lichessTools-removeSuperfluous a[data-icon="\E04F"]:before {
   color: var(--c-accent);
 }

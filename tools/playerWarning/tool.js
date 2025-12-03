@@ -140,7 +140,7 @@
             const data = await lt.api.user.getUsers([hrefUserId]);
             if (data) {
               const tcs = this.timeControlSuspicion(data?.[0]?.perfs);
-              if (tcs.score >= 100)  {
+              if (tcs.score >= 200)  {
                 warnings.push(trans.pluralSame('timeControlSuspicionTitle', tcs.score.toFixed(1)));
               }
             }

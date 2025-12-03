@@ -85,7 +85,7 @@ Inaccuracies / mistakes / blunders
         'removeBookmarksQuestion': 'Sigur vrei sa elimini %s bookmarkuri selectate?',
         'removeBookmarksQuestion:one': 'Sigur vrei sa elimini bookmarkul selectat?',
         'extraInfoButtonTitle': 'Informa\u0163ii \u00een plus despre jocuri',
-        'extraInfoTitle': `Acurate\u01063e: $accuracy
+        'extraInfoTitle': `Acurate\u0163e: $accuracy
 ACPL: $acpl
 Inexactit\u0103\u0163i/gre\u015feli/gafe
   Alb: $whiteMoves

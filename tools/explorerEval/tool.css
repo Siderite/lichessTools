@@ -1,4 +1,5 @@
 body.lichessTools th.lichessTools-explorerEval {
+  font-family: 'lichess';
   text-align: center;
   max-width:6em;
 }
@@ -86,7 +87,7 @@ body.lichessTools tr.lichessTools-explorerEval-inList td:first-child {
 body.lichessTools tr.lichessTools-warning-red:after,
 body.lichessTools tr.lichessTools-warning-green:after,
 body.lichessTools tr.lichessTools-warning-blue:after {
-  content: '\26A0'; /* WarningSign */
+  content: var(--icon-WarningSign);
   position: relative;
   font-size: smaller;
   margin-left: -1em;
@@ -106,6 +107,10 @@ body.lichessTools tr.lichessTools-warning-blue:after {
 
 body.lichessTools section.explorer-box {
   overflow-x: auto;
+}
+
+body.lichessTools section.explorer-box div.title {
+  contain: inline-size;
 }
 
 body.lichessTools section.explorer-box table.moves:has(.lichessTools-explorerEval) td:nth-child(4):last-child {

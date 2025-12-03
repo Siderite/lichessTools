@@ -7,9 +7,9 @@
       {
         name: 'moveAssistant',
         category: 'analysis',
-        type: 'single',
-        possibleValues: [false, true],
-        defaultValue: true
+        type: 'multiple',
+        possibleValues: ['dests', 'squares', 'pawns', 'moves','pieces'],
+        defaultValue: 'dests,squares,pawns,moves,pieces'
       }
     ];
 
@@ -17,12 +17,22 @@
       'en-US': {
         'options.analysis': 'Analysis',
         'options.moveAssistant': 'Move assistant',
-        'assistantButtonTitle': 'LiChess Tools - selected piece move evaluation'
+        'assistantButtonTitle': 'LiChess Tools - move evaluation',
+        'moveAssistant.dests': 'Move destinations',
+        'moveAssistant.squares': 'Squares',
+        'moveAssistant.pawns': 'Pawns',
+        'moveAssistant.moves': 'Moves',
+        'moveAssistant.pieces': 'Pieces'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.moveAssistant': 'Asistent mut\u0103ri',
-        'assistantButtonTitle': 'LiChess Tools - evaluarea mut\u0103rilor piesei selectate'
+        'assistantButtonTitle': 'LiChess Tools - evaluarea mut\u0103rilor',
+        'moveAssistant.dests': 'Destina\u0163ii mut\u0103ri',
+        'moveAssistant.squares': 'P\u0103trate tabl\u0103',
+        'moveAssistant.pawns': 'Pioni',
+        'moveAssistant.moves': 'Mut\u0103ri',
+        'moveAssistant.pieces': 'Piese'
       }
     }
 
@@ -30,25 +40,388 @@
       if (this.inEvaluate) return;
       try {
         this.inEvaluate=true;
-        await this.evaluateDirect();
+        await this.evaluateDests();
+        await this.evaluatePawns();
+        await this.evaluateSquares();
+        await this.evaluateMoves();
+        await this.evaluatePieces();
       } finally {
         this.inEvaluate=false;
       };
-    }
+    };
 
-    evaluateDirect = async () => {
+    getWeakSquares = (board,isWhite) => {
+      const lt = this.lichessTools;
+      const result = [];
+      const pawn = isWhite ? 'P' : 'p';
+      const opponentPawn = isWhite ? 'p' : 'P';
+      const dy = isWhite ? -1 : 1;
+      for (let x=0; x<8; x++) {
+        const candidates = [];
+        for (let y=0; y<8; y++) {
+          const p = board[y][x];
+          if (!p) {
+            if ((isWhite || y>1) && (!isWhite || y<6) && board[y-dy][x] == pawn) {
+              candidates.push(y);
+            } else
+            if ((isWhite || y<4) && (!isWhite || y>3) && (board[y+dy]?.[x+1] == opponentPawn || board[y+dy]?.[x-1] == opponentPawn)) {
+              candidates.push(y);
+            }
+          }
+        }
+        for (const c of candidates) {
+          let weak = true;
+          const ys = isWhite ? lt.range(c+1,6) : lt.range(c-1,1);
+          for (const y of ys) {
+            if (board[y][x-1] == pawn || board[y][x+1] == pawn) {
+              weak = false;
+              break;
+            }
+          }
+          if (weak) result.push({ x:x, y:c });
+        }
+      }
+      return result;
+    };
+
+    getPawns = (board,isWhite) => {
+      const lt = this.lichessTools;
+      const pawn = isWhite ? 'P' : 'p';
+      const myPawns = [];
+      const theirPawns = [];
+      for (let x=0; x<8; x++) {
+        let empty = true;
+        for (let y=0; y<8; y++) {
+          const p = board[y][x];
+          if (p?.toLowerCase() == 'p') {
+            if (p == pawn) {
+              myPawns.push({x,y});
+            } else {
+              theirPawns.push({x,y});
+            }
+          }
+        }
+      }
+      let files = lt.range(0,7).filter(x=>myPawns.find(p=>p.x==x));
+      files.filter(f=>!files.includes(f-1) && !files.includes(f+1))
+           .forEach(f=>myPawns.filter(p=>p.x==f).forEach(p=>p.isolated=true));
+
+      myPawns
+        .filter(p=>p.x>1 && p.x<6&& (isWhite||p.y>1) && (!isWhite||p.y<6))
+        .forEach(p=>{
+          let surroundingPawns=[];
+          if (!files.includes(p.x-1) && !files.includes(p.x+2)) {
+            surroundingPawns = myPawns.filter(mp=>mp!=p && mp.x==p.x+1);
+          } else
+          if (!files.includes(p.x+1) && !files.includes(p.x-2)) {
+            surroundingPawns = myPawns.filter(mp=>mp!=p && mp.x==p.x-1);
+          }
+          if (surroundingPawns.length!=1) return;
+          const op = surroundingPawns[0];
+          if (op.x<=1 || op.x>=6 || op.y!=p.y) return;
+          p.hanging = true;
+        });
+
+      myPawns.forEach(p=>{
+        const dy = isWhite ? -1 : 1;
+        if (board[p.y+dy][p.x]) return;
+        const ys = isWhite ? lt.range(p.y,7) : lt.range(p.y,1);
+        if (myPawns.find(mp=>ys.includes(mp.y) && ((mp.x==p.x+1)||(mp.x==p.x-1)))) return;
+        if (theirPawns.find(mp=>mp.y==p.y+dy*2 && ((mp.x==p.x+1)||(mp.x==p.x-1)))) p.backward = true;
+      });
+
+      return myPawns;
+    };
+
+    getPawnBreaks = (board,isWhite) => {
+      const lt = this.lichessTools;
+      const pawn = isWhite ? 'P' : 'p';
+      const myPawns = [];
+      const theirPawns = [];
+      for (let x=0; x<8; x++) {
+        let empty = true;
+        for (let y=0; y<8; y++) {
+          const p = board[y][x];
+          if (p?.toLowerCase() == 'p') {
+            if (p == pawn) {
+              myPawns.push({x,y});
+            } else {
+              theirPawns.push({x,y});
+            }
+          }
+        }
+      }
+      myPawns.forEach(p=>{
+        const dests = [];
+        const dy = isWhite ? -1 : 1;
+        if (!board[p.y+dy][p.x]) {
+          dests.push({x:p.x, y:p.y+dy});
+          if (p.y==(isWhite?6:1) && !board[p.y+dy*2][p.x]) dests.push({x:p.x, y:p.y+dy*2});
+        }
+        for (const dest of dests) {
+          if ([-1,1].find(dx=>myPawns.find(mp=>mp.x==dest.x+dx && mp.y==dest.y) && theirPawns.find(tp=>tp.x==dest.x+dx && tp.y==dest.y+dy))) {
+            (p.breaks||=[]).push(dest);
+          }
+        }
+      });
+
+      return myPawns.filter(p=>p.breaks?.length);
+    };
+
+    addArrow = (x1,y1,x2,y2, options) => {
+      const lt = this.lichessTools;
+      const cg = lt.lichess?.analysis?.chessground;
+      if (!cg) return;
+
+      const orig = this.getCgKey(x1,y1);
+      const dest = this.getCgKey(x2,y2);
+      const drawable = cg.state?.drawable;
+      if (drawable?.shapes?.find(s=>s.orig==orig && s.dest == dest)) return;
+
+      const shape = {
+        orig: orig,
+        dest: dest,
+        brush: 'white',
+        ...options
+      };
+      const shapes = (drawable.shapes ||= []);
+      shapes.push(shape);
+      this.processHighlights();
+    };
+
+    clearArrows = (source) => {
+      const lt = this.lichessTools;
+      const cg = lt.lichess?.analysis?.chessground;
+      const shapes = cg?.state?.drawable?.shapes;
+      if (!shapes?.length) return;
+      lt.arrayRemoveAll(shapes,s=>s.source == source);
+    };
+
+    highlight = (x,y, className) => {
+      const lt = this.lichessTools;
+      const cg = lt.lichess?.analysis?.chessground;
+      if (!cg) return;
+      const squareMap = (cg.state.highlight.custom ||= new Map());
+      const cgKey = this.getCgKey(x,y);
+      if (className) {
+        squareMap.set(cgKey,className);
+      } else {
+        squareMap.delete(cgKey);
+      }
+      this.processHighlights();
+    };
+
+    clearHighlight = (className) => {
+      const lt = this.lichessTools;
+      const cg = lt.lichess?.analysis?.chessground;
+      if (!cg) return;
+      const squareMap = (cg.state.highlight.custom ||= new Map());
+      for (const [k,v] of squareMap.entries()) {
+        if (v == className) squareMap.delete(k);
+      }
+      this.processHighlights();
+    };
+
+    processHighlightsDirect = ()=>{
+      const lt = this.lichessTools;
+      const analysis = lt.lichess?.analysis;
+      const cg = analysis?.chessground;
+      if (!cg) return;
+
+      const checkSquares = ()=>{
+        const squareMap = cg.state?.highlight?.custom;
+        if (!squareMap) return;
+        let json = null;
+        if (analysis.node.fen == this._lastFen && squareMap.size == this._lastSize) {
+          json = lt.global.JSON.stringify([...squareMap]);
+          if (json == this._lastJson) return;
+        }
+        json ||= lt.global.JSON.stringify([...squareMap]);
+        this._lastJson = json;
+        this._lastSize = squareMap.size;
+        this._lastFen = analysis.node.fen;
+        return true;
+      };
+
+      const checkShapes = ()=>{
+        const shapes = cg.state?.drawable?.shapes;
+        if (!shapes) return;
+        let json = null;
+        if (analysis.node.fen == this._lastShapeFen && shapes.length == this._lastShapeSize) {
+          json = lt.global.JSON.stringify(shapes);
+          if (json == this._lastShapeJson) return;
+        }
+        json ||= lt.global.JSON.stringify(shapes);
+        this._lastShapeJson = json;
+        this._lastShapeSize = shapes.length;
+        this._lastShapeFen = analysis.node.fen;
+        return true;
+      };
+
+      if (checkSquares() || checkShapes()) {
+        cg.redrawAll();
+        this.evaluatePawns(); // remove the flicker
+      }
+    };
+    processHighlights = this.lichessTools.debounce(this.processHighlightsDirect,50);
+
+    getCgKey = (x,y) => String.fromCharCode(97 + x) + String.fromCharCode(56 - y);
+
+    evaluateSquares = () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
+      if (!this.isEnabled) return;
+      if (!this.options.squares) return;
+      const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
+      if (isInteractiveOrPractice) return;
       if (!analysis.isCevalAllowed()) return;
       if (lt.isGamePlaying()) return;
+
+      const board = lt.getBoardFromFen(analysis.node.fen);
+      const isWhite = analysis.getOrientation() != 'black';
+
+      this.clearHighlight('lichessTools-weakSquare');
+      this.getWeakSquares(board,isWhite)
+        .forEach(r=>this.highlight(r.x,r.y,'lichessTools-weakSquare'));
+      this.clearHighlight('lichessTools-weakSquareOpponent');
+      this.getWeakSquares(board,!isWhite)
+        .forEach(r=>this.highlight(r.x,r.y,'lichessTools-weakSquareOpponent'));
+    };
+
+    evaluatePawns = async () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const analysis = lichess?.analysis;
+
+      if (!this.isEnabled) return;
+      if (!this.options.pawns) return;
+      const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
+      if (isInteractiveOrPractice) return;
+      if (!analysis.isCevalAllowed()) return;
+      if (lt.isGamePlaying()) return;
+
+      const board = lt.getBoardFromFen(analysis.node.fen);
+      let isWhite = analysis.getOrientation() != 'black';
+
+      const pieces = $('.cg-wrap cg-board piece.pawn');
+      this.getPawns(board,isWhite)
+        .forEach(r=>{
+          const cgKey = this.getCgKey(r.x,r.y);
+          pieces
+            .filter((i,e)=>e.cgKey == cgKey)
+            .toggleClassSafe('lichessTools-backwardPawn',!!r.backward)
+            .toggleClassSafe('lichessTools-isolatedPawn',!!r.isolated)
+            .toggleClassSafe('lichessTools-hangingPawn',!!r.hanging);
+        });
+      this.getPawns(board,!isWhite)
+        .forEach(r=>{
+          const cgKey = this.getCgKey(r.x,r.y);
+          pieces
+            .filter((i,e)=>e.cgKey == cgKey)
+            .toggleClassSafe('lichessTools-backwardPawnOpponent',!!r.backward)
+            .toggleClassSafe('lichessTools-isolatedPawnOpponent',!!r.isolated)
+            .toggleClassSafe('lichessTools-hangingPawnOpponent',!!r.hanging);
+        });
+    };
+
+    evaluateMoves = async () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const analysis = lichess?.analysis;
+
+      if (!this.isEnabled) return;
+      if (!this.options.moves) return;
+      const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
+      if (isInteractiveOrPractice) return;
+      if (!analysis.isCevalAllowed()) return;
+      if (lt.isGamePlaying()) return;
+
+      const board = lt.getBoardFromFen(analysis.node.fen);
+
+      this.clearArrows('moveAssistant');
+      this.getPawnBreaks(board,true)
+        .concat(this.getPawnBreaks(board,false))
+        .forEach(r=>{
+          r.breaks.forEach(b=>{
+            this.addArrow(r.x,r.y,b.x,b.y,{
+              brush: 'purple',
+              modifiers: { lineWidth:5, hilite: '#ffff00' },
+              below: true,
+              source: 'moveAssistant'
+            });
+          });
+        });
+    };
+
+    evaluatePieces = async () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const analysis = lichess?.analysis;
+
+      if (!this.isEnabled) return;
+      if (!this.options.moves) return;
+      const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
+      if (isInteractiveOrPractice) return;
+      if (!analysis.isCevalAllowed()) return;
+      if (lt.isGamePlaying()) return;
+
+      const board = lt.getBoardFromFen(analysis.node.fen);
+
+      const evaluator = new ChessActivityEvaluator(board);
+      const evaluation = evaluator.evaluateAll();
+
+      const pieces = $('.cg-wrap cg-board piece:not(.pawn)');
+
+      const getHappiness = (arr) => {
+        let min = 0.75;
+        let max = 0.25;
+
+        for (const item of arr) {
+          if (item.piece.toLowerCase()=='p') continue;
+          const value = item.score;
+          if (value < min) min = value;
+          if (value > max) max = value;
+        }
+
+        const result = { happy: [], unhappy: [] };
+
+        for (const item of arr) {
+          if (item.piece.toLowerCase()=='p') continue;
+          const value = item.score;
+          if (value == min) result.unhappy.push(this.getCgKey(item.x,item.y));
+          if (value == max) result.happy.push(this.getCgKey(item.x,item.y));
+        }
+        return result;
+      };
+
+      const whiteHappiness = getHappiness(evaluation.white);
+      const blackHappiness = getHappiness(evaluation.black);
+
+      pieces.each((i,e)=>{
+        $(e)
+          .toggleClassSafe('lichessTools-happy',whiteHappiness.happy.includes(e.cgKey) || blackHappiness.happy.includes(e.cgKey))
+          .toggleClassSafe('lichessTools-unhappy',whiteHappiness.unhappy.includes(e.cgKey) || blackHappiness.unhappy.includes(e.cgKey));
+      });
+    };
+
+    evaluateDests = async () => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const analysis = lichess?.analysis;
+
       const selected = analysis.chessground?.state?.selected;
       const dests = selected
         ? analysis.chessground?.state?.movable?.dests?.get(selected)
         : null;
       const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
-      const isActive = !!(this.options.enabled
+      const isActive = !!(this.options.dests
+        && lt.global.SharedArrayBuffer
         && this.isEnabled
         && selected
         && dests?.length
@@ -62,7 +435,7 @@
         if (this._evaluating) {
           this._evaluating = false;
           this._fen = null;
-          this.clearSquares();
+          this.clearAll(true);
           await this._sf?.stop();
         }
         return;
@@ -111,7 +484,7 @@
       dest = String.fromCharCode('a'.charCodeAt(0) + file) + (rank + 1);
       this._squares[key] = dest;
       return dest;
-    }
+    };
 
     refreshSquares = () => {
       const lt = this.lichessTools;
@@ -160,7 +533,7 @@
             .css('--l', Math.round(100 * wdl.l / wdl.total) + '%');
         }
       });
-    }
+    };
 
     _eval = {};
     _wdl = {};
@@ -185,9 +558,9 @@
         wdl.total = wdl.w + wdl.d + wdl.l;
         this._wdl[uci] = wdl;
       }
-    }
+    };
 
-    clearSquares = () => {
+    clearAll = (onlyStockfish) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       $('main.analyse div.cg-wrap').removeClass('lichessTools-moveAssistant');
@@ -195,6 +568,21 @@
         .css('background', '')
         .css('border-color', '');
       $('div.lichessTools-wdl').remove();
+      if (!onlyStockfish) {
+        this._lastJson = null;
+        this._lastSize = null;
+        this._lastShapeJson = null;
+        this._lastShapeSize = null;
+        this.clearArrows('moveAssistant');
+        this.clearHighlight('lichessTools-weakSquare');
+        this.clearHighlight('lichessTools-weakSquareOpponent');
+        this.processHighlights();
+        ['weakSquare','backwardPawn','isolatedPawn','hangingPawn'].forEach(c=>{
+          [c,c+'Opponent'].forEach(c2=>{
+            $('.lichessTools-'+c2).removeClass('lichessTools-'+c2);
+          });
+        });
+      }
     };
 
     setControls = () => {
@@ -212,7 +600,7 @@
         }
       }
       let button = $('button.lichessTools-moveAssistant');
-      if (!this.options.enabled || lt.isGamePlaying()) {
+      if (!this.options.isSet || lt.isGamePlaying()) {
         button.remove();
         return;
       }
@@ -224,6 +612,7 @@
             ev.preventDefault();
             this.isEnabled = !this.isEnabled;
             button.toggleClass('lichessTools-enabled', !!this.isEnabled);
+            if (!this.isEnabled) this.clearAll();
           });
         const anchor = $('div.ceval button.settings-gear')[0];
         if (anchor) {
@@ -232,7 +621,7 @@
           container.prepend(button);
         }
       }
-    }
+    };
 
     get isEnabled() {
       if (this._isEnabled !== undefined) return this._isEnabled;
@@ -252,13 +641,19 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('moveAssistant');
       this.logOption('Move assistant', value);
-      this.options = { enabled: value };
+      this.options = { 
+        dests: lt.isOptionSet(value,'dests'),
+        squares: lt.isOptionSet(value,'squares'),
+        pawns: lt.isOptionSet(value,'pawns'),
+        moves: lt.isOptionSet(value,'moves'),
+        pieces: lt.isOptionSet(value,'pieces'),
+        get isSet() { return this.dests || this.squares || this.pawns || this.moves || this.pieces }
+      };
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      if (!lt.global.SharedArrayBuffer) return;
-      this.clearSquares();
+      this.clearAll();
       lt.global.clearInterval(this.interval);
       this.setControls();
       lt.pubsub.off('lichessTools.redraw', this.setControls);
@@ -268,5 +663,147 @@
     }
 
   }
+
+class ChessActivityEvaluator {
+  constructor(board) {
+    this.board = board;
+    this.directions = {
+      p: [], // handled separately
+      n: [
+        [1,2],[2,1],[-1,2],[-2,1],[1,-2],[2,-1],[-1,-2],[-2,-1]
+      ],
+      b: [[1,1],[1,-1],[-1,1],[-1,-1]],
+      r: [[1,0],[-1,0],[0,1],[0,-1]],
+      q: [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]],
+      k: [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]
+    };
+    this.pieceBaseMobility = {
+      p: 3,
+      n: 8,
+      b: 13,
+      r: 14,
+      q: 27,
+      k: 8
+    };
+  }
+
+  inBounds(x, y) {
+    return x >= 0 && x < 8 && y >= 0 && y < 8;
+  }
+
+  getColor(piece) { 
+    if (!piece) return 0;
+    if (piece >= 'A' && piece <= 'Z') return 1;
+    if (piece >= 'a' && piece <= 'z') return -1;
+    throw new Error('piece '+piece+' not recognized');
+  }
+
+  getPieceType(piece) { return piece.toLowerCase(); }
+
+  generateMoves(x, y) {
+    const piece = this.board[y][x];
+    if (!piece) return [];
+    const color = this.getColor(piece);
+    const type = this.getPieceType(piece);
+    const moves = [];
+
+    if (type === 'p') {
+      const dir = -color;
+      const ny = y + dir;
+      if (this.inBounds(x, ny) && !this.board[ny][x]) {
+        moves.push([x, ny]);
+      }
+      for (const dx of [-1, 1]) {
+        const cx = x + dx;
+        if (this.inBounds(cx, ny) && this.getColor(this.board[ny][cx])==-color) moves.push([cx, ny]);
+      }
+      return moves;
+    }
+
+    const dirs = this.directions[type];
+    for (const [dx, dy] of dirs) {
+      let nx = x + dx, ny = y + dy;
+      if (['n', 'k'].includes(type)) {
+        if (this.inBounds(nx, ny) && this.getColor(this.board[ny][nx])!=color) moves.push([nx, ny]);
+      } else {
+        while (this.inBounds(nx, ny) && this.getColor(this.board[ny][nx])!=color) {
+          moves.push([nx, ny]);
+          if (this.board[ny][nx]) break;
+          nx += dx; ny += dy;
+        }
+      }
+    }
+    return moves;
+  }
+
+  computeControlMap() {
+    const control = Array.from({ length: 8 }, () => Array(8).fill(0));
+    for (let x = 0; x < 8; x++) {
+      for (let y = 0; y < 8; y++) {
+        const piece = this.board[y][x];
+        if (!piece) continue;
+        const color = this.getColor(piece);
+        const moves = this.generateMoves(x, y);
+        for (const [mx, my] of moves) {
+          control[my][mx] += color;
+        }
+      }
+    }
+    return control;
+  }
+
+  evaluatePieceActivity(x, y, controlMap) {
+    const piece = this.board[y][x];
+    const type = this.getPieceType(piece);
+    const color = this.getColor(piece);
+    const moves = this.generateMoves(x, y);
+
+    let score = 0;
+    for (const [mx, my] of moves) {
+      const control = controlMap[my][mx];
+      score += control * color > 0 ? 1 : 0.3;
+    }
+
+    // second-level mobility
+    for (const [mx, my] of moves) {
+      if (controlMap[my][mx] * color <= 0) continue;
+      const clone = this.cloneBoard();
+      clone[my][mx] = piece;
+      clone[y][x] = undefined;
+      const sub = new ChessActivityEvaluator(clone);
+      const subMoves = sub.generateMoves(mx, my);
+      for (const [sx, sy] of subMoves) {
+        if (controlMap[sy][sx] * color > 0) score += 0.3;
+      }
+    }
+
+    return score / this.pieceBaseMobility[type];
+  }
+
+  cloneBoard() {
+    return this.board.map(r => r.slice());
+  }
+
+  evaluateAll() {
+    const control = this.computeControlMap();
+    const result = { white: [], black: [] };
+
+    for (let x = 0; x < 8; x++) {
+      for (let y = 0; y < 8; y++) {
+        const piece = this.board[y][x];
+        if (!piece) continue;
+        const score = this.evaluatePieceActivity(x, y, control);
+        const arr = this.getColor(piece)==1 ? result.white : result.black;
+        arr.push({ piece, x, y, score });
+      }
+    }
+    result.white.sort((a,b)=>a.score-b.score);
+    result.black.sort((a,b)=>a.score-b.score);
+
+    return result;
+  }
+}
+
+
   LiChessTools.Tools.MoveAssistant = MoveAssistantTool;
 })();

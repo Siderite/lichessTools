@@ -48,7 +48,10 @@
       const $ = lt.$;
       const value = lt.currentOptions.getValue('tournamentTopBoard');
       this.logOption('Tournament top board', value);
-      if (!lt.getUserId()) return;
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       lt.global.clearTimeout(this.timeout);
       lt.uiApi.socket.events.off('endData', this.findNextBoard);
       if (!value) return;

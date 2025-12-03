@@ -59,10 +59,16 @@
           const logs = [];
           if (missingKeys.size) logs.push(missingKeys.size+' missing keys for '+this.lang+': '+[...missingKeys].join(', '));
           if (orphanKeys.size) logs.push(orphanKeys.size+' orphan keys in '+this.lang+': '+[...orphanKeys].join(', '));
+          if  (this[this.lang+'-crowdin']) {
+            const crowdinKeys = Object.keys(this[this.lang+'-crowdin']);
+            const missingCrowdinKeys = new Set(allKeys);
+            for (const key of crowdinKeys) missingCrowdinKeys.delete(key);
+            if (missingCrowdinKeys.size) logs.push(missingCrowdinKeys.size+' missing Crowdin keys for '+this.lang+': '+[...missingCrowdinKeys].join(', '));
+          }
           if (logs.length) {
             const text = logs.join('\r\n');
             if (this._lastLoggedText != text) {
-              lt.global.setTimeout(()=>lt.global.console.debug(text),100);
+              lt.global.setTimeout(()=>lt.global.console.warn(text),100);
               this._lastLoggedText = text;
             }
           }
@@ -256,6 +262,12 @@
       RedX: '\u2716',
       Print: '\uD83D\uDDB6',
       LightVerticalAndBottomRight: '\u23BF',
+      ExclamationQuestionMark: '\u2049',
+      BlackDownPointingSmallTriangle: '\u25B8',
+      BlackRightPointingSmallTriangle: '\u25BE',
+      TrigramForHeaven: '\u2630',
+      WhiteSmilingFace: '\u263A',
+      WhiteFrowningFace: '\u2639',
 
       toEntity: function(s) {
         let result='';
@@ -286,7 +298,7 @@
     };
 
     getCentipawns = (info) => {
-      if (!info) return;
+      if (!info || info.depth === 0) return;
       let cp = undefined;
       const mate = Array.isArray(info.mate) ? info.mate[0] : info.mate;
       if (mate !== undefined) {
@@ -355,7 +367,7 @@
         const dict = lt.intl.siteI18n;
         const result =  dict[key] || lt.global?.i18n(key);
         if (result) return result;
-        lt.global.console.debug('Translation not found for key ',key);
+        lt.global.console.warn('Translation not found for key ',key);
         return key;
       },
       plural: function (key, count, ...args) {
@@ -444,6 +456,28 @@
       }
     }
 
+    lazyLoad = (obj, key, func) => {
+      Object.defineProperty(obj, key, {
+        get() {
+          let value = null;
+          try {
+            value = func();
+          } catch(e) {
+            console.warn('Error lazy loading data:',e);
+          }
+          Object.defineProperty(obj, key, {
+            value: value,
+            writable: true,
+            enumerable: true,
+            configurable: true
+          });
+          return value;
+        },
+        enumerable: true,
+        configurable: true
+      });
+    };
+
     async arrayRemoveAllAsync(arr,asyncPredicate) {
       let result = [];
       if (!arr?.length) return result;
@@ -492,6 +526,17 @@
 
       return false;
     }
+
+
+    normalizeString = (text)=>{
+      if (!text) return '';
+      return text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, '');
+    };
+
 
     sigmoidClamp(x, min = 0, max = 100, expectedRange = 1000) {
       const k = expectedRange / 5; // Adjust transition steepness based on expected range
@@ -799,10 +844,10 @@
 
     isOptionSet = (optionValues, searchValue, defaultValue) => {
       if (optionValues === undefined || optionValues === null) return false;
-      if (new RegExp(',' + this.escapeRegex(searchValue.toString()) + ',', 'i').test(',' + optionValues + ',')) return true;
+      if (new RegExp(',\\s*' + this.escapeRegex(searchValue.toString()) + '\\s*,', 'i').test(',' + optionValues + ',')) return true;
       if (optionValues === true || optionValues === 'true') {
         if (searchValue === false || searchValue === 'false') return false;
-        if (defaultValue) return new RegExp(',' + this.escapeRegex(searchValue.toString()) + ',', 'i').test(',' + defaultValue + ',');
+        if (defaultValue) return new RegExp(',\\s*' + this.escapeRegex(searchValue.toString()) + '\\s*,', 'i').test(',' + defaultValue + ',');
         return true;
       }
       return false;
@@ -1166,12 +1211,33 @@
       const analysis = this.lichess?.analysis;
       if (!analysis) return;
       const state = this.traverse();
+      if (!state) return;
       const arr = [].concat.apply([], symbols.map(s => state.glyphs[s]).filter(a => !!a?.length));
       if (!arr.length) return;
       arr.sort((n1, n2) => n1.nodeIndex - n2.nodeIndex);
       const index = analysis.node.nodeIndex;
       const plyColor = color === 'white' ? 1 : 0;
       return arr.find(n => n.ply % 2 === plyColor && n.nodeIndex > index) || arr.find(n => n.ply % 2 === plyColor);
+    };
+
+    analysisRedraw = ()=>{
+      const lt = this;
+      const analysis = lt.lichess.analysis;
+      if (!analysis) return;
+
+      if (lt._inAnalysisRedrawTimeout || lt._inApplyOptions) {
+        lt.global.clearTimeout(lt._analysisRedrawTimeout);
+        lt._inAnalysisRedrawTimeout = lt.global.setTimeout(()=>{
+          lt.debug && lt.global.console.debug('Delayed analysis redraw');
+          analysis.redraw();
+          lt._analysisRedrawTimeout = 0;
+        },100);
+        return;
+      }
+      lt._analysisRedrawTimeout = -1;
+      lt.debug && lt.global.console.debug('Direct analysis redraw');
+      analysis.redraw();
+      lt._analysisRedrawTimeout = 0;
     };
 
     jumpToGlyphSymbols = (symbols, side) => {
@@ -1189,7 +1255,7 @@
       const node = this.findGlyphNode(color, symbols);
       if (!node?.path) return;
       analysis.userJumpIfCan(node.path);
-      analysis.redraw();
+      this.analysisRedraw();
     };
 
     getPositionFromFen = (fen, deep) => {
@@ -1359,6 +1425,7 @@
       let x = 0;
       let y = 0;
       for (let i = 0; i < fen.length; i++) {
+        if (y>7) break;
         const ch = fen[i];
         if ('kqrbnp'.indexOf(ch.toLowerCase()) >= 0) {
           result[y][x] = ch;
@@ -1519,6 +1586,15 @@
       return m * 2.220446049250313e-16; // 1 / 2^52
     };
 
+    range = (start, end, step) => {
+      if (start == end) return [start];
+      if (!step) step = end>start ? 1 : -1;
+      return Array.from(
+        { length: this.global.Math.floor((end - start) / step) + 1 },
+        (_, i) => start + i * step
+      );
+    };
+
     hash = (text) => {
       let hval = 0x811c9dc5;
       if (!text) return hval;
@@ -1578,6 +1654,22 @@
         console.warn('Error parsing JSON: ', json, ex);
         return defaultValue;
       }
+    };
+
+    dateParseUTC = (text) => {
+      if (!text) return 0;
+      const isUtc = text.endsWith('Z');
+      const localDate = new this.global.Date(text);
+      if (isUtc) return localDate;
+      return +this.global.Date.UTC(
+        localDate.getFullYear(),
+        localDate.getMonth(),
+        localDate.getDate(),
+        localDate.getHours(),
+        localDate.getMinutes(),
+        localDate.getSeconds(),
+        localDate.getMilliseconds()
+      );
     };
 
     getColor = (text) => {
@@ -1971,7 +2063,18 @@
         if (error) lt.global.console.error(error);
         return data;
       },
-
+      openWindow: async function(url, options) {
+        options = { retries: 3, url: url, ...options };
+        const lt = this.lichessTools;
+        let error = null;
+        let data = null;
+        for (let i=0; i<options.retries && !data; i++) {
+          data = await lt.comm.send({ type: 'openWindow', options: options })
+                                             .catch(e => { error = e; });
+        }
+        if (error) lt.global.console.error(error);
+        return data;
+      }
     };
 
     cache = {
@@ -1982,6 +2085,7 @@
         const sessionData = lt.storage.get('LichessTools.GeneralCache', { session: true }) || [];
         const localData = lt.storage.get('LichessTools.GeneralCache', { session: false }) || [];
         this._cache = new Map(sessionData.concat(localData));
+        this._semaphore = new APISemaphore(lt);
       },
       save: function() {
         const lt = this.lichessTools;
@@ -2088,14 +2192,17 @@
         if (!options) throw new Error('No options provided to memoizeAsyncFunction');
         const cache = this;
         const lt = cache.lichessTools;
+
         const original = obj[funcName];
+        if (!original) throw new Error('Could not find function '+funcName);
         obj[funcName] = async function (...args) {
+          const funcKey = 'sema_'+ (options.keyPrefix||'') + funcName;
           const key = options.keyFunction
             ? options.keyFunction(obj, funcName, args)
             : (options.keyPrefix||'') + funcName + JSON.stringify(args);
           await cache.waitRelease(key);
           const cached = cache.getCached(key);
-          if (cached && !cached.isExpired) {
+          if (cached?.value !== undefined && !cached.isExpired) {
             if (options.sliding) {
               cache.setCached(key, cached.value, options);
             }
@@ -2104,7 +2211,9 @@
           lt.$('body').toggleClassSafe('lichessTools-apiLoading',true);
           try {
             cache.lock(key);
-            const immediateResult = original.apply(obj, args);
+            const immediateResult = options.minTime
+              ? cache._semaphore.execute(()=>original.apply(obj, args),funcKey,options.minTime)
+              : original.apply(obj, args);
             if (!options.knownSyncFunction) {
               if (!immediateResult?.then) throw new Error('Memoize only works on async functions or known sync functions!');
             }
@@ -2123,13 +2232,15 @@
       lichessTools: this,
       init: function () {
         const lt = this.lichessTools;
-        lt.cache.memoizeAsyncFunction(lt.api.team, 'getUserTeams', { persist: 'session', interval: 10 * 86400 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.game, 'getUserPgns', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.team, 'getUserTeams', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
+        lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_' });
-        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserPgns', { persist: 'session', interval: 10 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000, minTime: 1 });
+        lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_', minTime: 1 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserStatus', { persist: 'session', interval: 5 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.study, 'getChapterPgn', { persist: 'session', interval: 1000, minTime: 1000 });
         lt.api.puzzle.getPuzzlesOfPlayerPageMemoized = async (...args)=>{
           const result = await lt.api.puzzle.getPuzzlesOfPlayerPage(...args);
           await lt.timeout(500);
@@ -2299,10 +2410,13 @@
         lichessTools: this,
         getUsers: async function (userIds) {
           const lt = this.lichessTools;
-          const users = await lt.net.json('/api/users', {
-            method: 'POST',
-            body: userIds.join(',')
-          });
+          let users = null;
+          if (userIds?.length) {
+            users = await lt.net.json('/api/users', {
+              method: 'POST',
+              body: userIds.join(',')
+            });
+          }
           return users || [];
         },
         getUserStatus: async function (userIds, options) {
@@ -2453,18 +2567,43 @@
             return null;
           }
         },
-        getLichess: async function (fen, multiPv) {
+        getLichess: async function (fen, multiPv, path) {
           const lt = this.lichessTools;
           const analysis = lt.lichess.analysis;
           let data = null;
-          let cachedByLichess = null;
-          if (analysis) {
-            cachedByLichess = analysis.evalCache?.fetchedByFen?.get(fen);
-            if (cachedByLichess?.pvs?.length == multiPv) {
+          let cachedByLichess = undefined;
+          const evalCache = analysis?.evalCache;
+          if (evalCache) {
+            cachedByLichess = evalCache.fetchedByFen?.get(fen);
+            if (cachedByLichess?.pvs?.length !== multiPv) {
+              evalCache.fetchedByFen?.delete(fen);
+              cachedByLichess = undefined;
+            }
+            if (cachedByLichess) {
               data = cachedByLichess;
             }
+            if (!data && path) {
+              evalCache.fetchThrottled({
+                fen: fen,
+                mpv: multiPv,
+                path: path
+              });
+              for (let i=0; i<40; i++) {
+                await lt.timeout(50);
+                cachedByLichess = evalCache.fetchedByFen?.get(fen);
+                if (cachedByLichess?.pvs && cachedByLichess?.pvs?.length !== multiPv) {
+                  evalCache.fetchedByFen?.delete(fen);
+                  cachedByLichess = undefined;
+                }
+                if (cachedByLichess) {
+                  data = cachedByLichess;
+                  break;
+                }
+                if (cachedByLichess === null) break;
+              }
+            }
           }
-          if (!data) {
+          if (!data && cachedByLichess !== null) {
             try {
               data = await lt.net.json({
                 url: '/api/cloud-eval?fen={fen}&multiPv={multiPv}',
@@ -2543,9 +2682,52 @@
           }
           return result;
         },
+        refreshFollowers: async function() {
+          const lt = this.lichessTools;
+          let result = [];
+          const userId = lt.getUserId();
+          if (!userId) return result;
+          const data = lt.storage.get('LiChessTools.followersData') || { lastActivity: 0, follows:[] };
+          const now = Date.now();
+          if (now-data.lastActivity > 86400000) {
+            data.lastActivity = now;
+            lt.storage.set('LiChessTools.followersData',data);
+            const activity = await lt.api.user.getActivity(userId);
+            for (let i=activity.length-1; i>=0; i--) {
+              const ac = activity[i];
+              if (!ac?.follows?.in?.ids?.length) continue;
+              const item = { interval: ac.interval, ids: ac?.follows?.in?.ids };
+              const index = data.follows.findIndex(it=>it.interval.start==item.interval.start);
+              if (index>=0) {
+                data.follows[index]=item;
+                continue;
+              }
+              data.follows.unshift(item);
+            }
+            lt.storage.set('LiChessTools.followersData',data);
+          }
+          return data;
+        },
+        getFollowersNew: async function (startPage = 1, count = 1000) {
+          const lt = this.lichessTools;
+          const now = Date.now();
+          const data = await this.refreshFollowers();
+          const allIds = data.follows.flatMap(f=>f.ids.map(id=>({ time: f.interval.start, id: id })));
+          const ids = allIds.slice((startPage-1)*30,(startPage-1+count)*30);
+          const users = await lt.api.user.getUsers(ids.map(i=>i.id));
+          const result = users.map(u=>({ user: { id:u.id, name: (u.title?u.title+' ':'')+u.username }, time: ids.find(i=>i.id==u.id).time }));
+          //const result = ids.map(u=>({ user: { id:u.id, name: u.id }, time: u.time }));
+          result.nbResults = allIds.length;
+          result.nextPage = (startPage-1+count)*30 >= allIds.length ? undefined : startPage+count;
+          return result;
+        },
         blockPlayer: async function(userId) {
           const lt = this.lichessTools;
-          await lt.net.fetch({ url: 'api/rel/block/{userId}', args: { userId: userId } },{ method: 'POST' });
+          await lt.net.fetch({ url: '/api/rel/block/{userId}', args: { userId: userId } },{ method: 'POST' });
+        },
+        unblockPlayer: async function(userId) {
+          const lt = this.lichessTools;
+          await lt.net.fetch({ url: '/api/rel/unblock/{userId}', args: { userId: userId } },{ method: 'POST' });
         }
       },
       tournament: {
@@ -2664,7 +2846,10 @@
       const arr2 = v2.split('.');
       const l = Math.max(arr1.length, arr2.length);
       for (let i=0; i<l; i++) {
-        if ((+arr1[i]||0)>(+arr2[i]||0)) return true;
+        const sv1 = +arr1[i]||0;
+        const sv2 = +arr2[i]||0;
+        if (sv1<sv2) return false;
+        if (sv1>sv2) return true;
       }
       return false;
     }
@@ -2773,6 +2958,7 @@
       group('Applying LiChess Tools options...');
       const totStart = performance.getEntriesByName('LiChessTools.start')[0].startTime;
       const perfData = [];
+      this._inApplyOptions = true;
       for (const tool of this.tools) {
         if (!tool?.start) continue;
         try {
@@ -2792,6 +2978,7 @@
           setTimeout(() => { throw e; }, 100);
         }
       }
+      this._inApplyOptions = false;
       perfData.sort((a,b)=>a.startDuration-b.startDuration);
       if (!this.debug) this.arrayRemoveAll(perfData,p=>p.startDuration<100);
       if (perfData.length) {
@@ -2992,6 +3179,46 @@
       versionCheckRequest.onerror = (event) => {
         globalThis.console.error("Database version check failed:", event.target.errorCode);
       };
+    }
+  }
+
+  class APISemaphore {
+
+    constructor(lichessTools) {
+      this.lichessTools = lichessTools;
+    }
+
+    get(key) {
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+
+      try {
+        const { expiresAt } = JSON.parse(raw);
+        const remainingTime = expiresAt - Date.now();
+        return remainingTime > 0 ? { expiresAt, remainingTime } : null;
+      } catch {
+        return null;
+      }
+    }
+
+    createLock(key, ms) {
+      const lock = { expiresAt: Date.now() + ms };
+      localStorage.setItem(key, JSON.stringify(lock));
+    }
+
+    async execute(fn, key, ms) {
+      const lt = this.lichessTools;
+      let lock = this.get(key);
+
+      while (lock?.remainingTime > 0) {
+        await lt.timeout(lock.remainingTime);
+        lock = this.get(key);
+      }
+
+      this.createLock(key, ms);
+
+      return await fn();
+      this.createLock(key, ms);
     }
   }
 

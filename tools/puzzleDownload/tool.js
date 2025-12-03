@@ -37,6 +37,10 @@
       const $ = lt.$;
       const trans = lt.translator;
       const co = lt.chessops;
+      if (!co) {
+        lt.global.console.warn('ChessOps not loaded');
+        return;
+      }
       const { makePgn, parsePgn, startingPosition } = co.pgn;
       const { makeFen } = co.fen;
       const { parseSan, makeSanAndPlay } = co.san;

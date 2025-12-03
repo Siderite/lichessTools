@@ -56,6 +56,7 @@
       analysis.setAutoShapes = lt.wrapFunction(analysis.setAutoShapes,{
         id: 'betterBestArrow',
         before: ($this, ...args) => {
+          if (analysis.outcome()) return;
           const node = analysis.node;
           const isBadMove = !!node.glyphs?.find(g=>['?!','?','??'].includes(g.symbol));
           if (!isBadMove && !this.options.allMoves) return;
