@@ -8,8 +8,8 @@
         name: 'moveAssistant',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['dests', 'squares', 'pawns', 'moves'],
-        defaultValue: 'dests,squares,pawns,moves'
+        possibleValues: ['dests', 'squares', 'pawns', 'moves','pieces'],
+        defaultValue: 'dests,squares,pawns,moves,pieces'
       }
     ];
 
@@ -21,7 +21,8 @@
         'moveAssistant.dests': 'Move destinations',
         'moveAssistant.squares': 'Squares',
         'moveAssistant.pawns': 'Pawns',
-        'moveAssistant.moves': 'Moves'
+        'moveAssistant.moves': 'Moves',
+        'moveAssistant.pieces': 'Pieces'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -30,7 +31,8 @@
         'moveAssistant.dests': 'Destina\u0163ii mut\u0103ri',
         'moveAssistant.squares': 'P\u0103trate tabl\u0103',
         'moveAssistant.pawns': 'Pioni',
-        'moveAssistant.moves': 'Mut\u0103ri'
+        'moveAssistant.moves': 'Mut\u0103ri',
+        'moveAssistant.pieces': 'Piese'
       }
     }
 
@@ -42,6 +44,7 @@
         await this.evaluatePawns();
         await this.evaluateSquares();
         await this.evaluateMoves();
+        await this.evaluatePieces();
       } finally {
         this.inEvaluate=false;
       };
@@ -354,6 +357,58 @@
         });
     };
 
+    evaluatePieces = async () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const analysis = lichess?.analysis;
+
+      if (!this.isEnabled) return;
+      if (!this.options.moves) return;
+      const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
+      if (isInteractiveOrPractice) return;
+      if (!analysis.isCevalAllowed()) return;
+      if (lt.isGamePlaying()) return;
+
+      const board = lt.getBoardFromFen(analysis.node.fen);
+
+      const evaluator = new ChessActivityEvaluator(board);
+      const evaluation = evaluator.evaluateAll();
+
+      const pieces = $('.cg-wrap cg-board piece:not(.pawn)');
+
+      const getHappiness = (arr) => {
+        let min = 0.75;
+        let max = 0.25;
+
+        for (const item of arr) {
+          if (item.piece.toLowerCase()=='p') continue;
+          const value = item.score;
+          if (value < min) min = value;
+          if (value > max) max = value;
+        }
+
+        const result = { happy: [], unhappy: [] };
+
+        for (const item of arr) {
+          if (item.piece.toLowerCase()=='p') continue;
+          const value = item.score;
+          if (value == min) result.unhappy.push(this.getCgKey(item.x,item.y));
+          if (value == max) result.happy.push(this.getCgKey(item.x,item.y));
+        }
+        return result;
+      };
+
+      const whiteHappiness = getHappiness(evaluation.white);
+      const blackHappiness = getHappiness(evaluation.black);
+
+      pieces.each((i,e)=>{
+        $(e)
+          .toggleClassSafe('lichessTools-happy',whiteHappiness.happy.includes(e.cgKey) || blackHappiness.happy.includes(e.cgKey))
+          .toggleClassSafe('lichessTools-unhappy',whiteHappiness.unhappy.includes(e.cgKey) || blackHappiness.unhappy.includes(e.cgKey));
+      });
+    };
+
     evaluateDests = async () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -591,7 +646,8 @@
         squares: lt.isOptionSet(value,'squares'),
         pawns: lt.isOptionSet(value,'pawns'),
         moves: lt.isOptionSet(value,'moves'),
-        get isSet() { return this.dests || this.squares || this.pawns || this.moves }
+        pieces: lt.isOptionSet(value,'pieces'),
+        get isSet() { return this.dests || this.squares || this.pawns || this.moves || this.pieces }
       };
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -607,5 +663,147 @@
     }
 
   }
+
+class ChessActivityEvaluator {
+  constructor(board) {
+    this.board = board;
+    this.directions = {
+      p: [], // handled separately
+      n: [
+        [1,2],[2,1],[-1,2],[-2,1],[1,-2],[2,-1],[-1,-2],[-2,-1]
+      ],
+      b: [[1,1],[1,-1],[-1,1],[-1,-1]],
+      r: [[1,0],[-1,0],[0,1],[0,-1]],
+      q: [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]],
+      k: [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]
+    };
+    this.pieceBaseMobility = {
+      p: 3,
+      n: 8,
+      b: 13,
+      r: 14,
+      q: 27,
+      k: 8
+    };
+  }
+
+  inBounds(x, y) {
+    return x >= 0 && x < 8 && y >= 0 && y < 8;
+  }
+
+  getColor(piece) { 
+    if (!piece) return 0;
+    if (piece >= 'A' && piece <= 'Z') return 1;
+    if (piece >= 'a' && piece <= 'z') return -1;
+    throw new Error('piece '+piece+' not recognized');
+  }
+
+  getPieceType(piece) { return piece.toLowerCase(); }
+
+  generateMoves(x, y) {
+    const piece = this.board[y][x];
+    if (!piece) return [];
+    const color = this.getColor(piece);
+    const type = this.getPieceType(piece);
+    const moves = [];
+
+    if (type === 'p') {
+      const dir = -color;
+      const ny = y + dir;
+      if (this.inBounds(x, ny) && !this.board[ny][x]) {
+        moves.push([x, ny]);
+      }
+      for (const dx of [-1, 1]) {
+        const cx = x + dx;
+        if (this.inBounds(cx, ny) && this.getColor(this.board[ny][cx])==-color) moves.push([cx, ny]);
+      }
+      return moves;
+    }
+
+    const dirs = this.directions[type];
+    for (const [dx, dy] of dirs) {
+      let nx = x + dx, ny = y + dy;
+      if (['n', 'k'].includes(type)) {
+        if (this.inBounds(nx, ny) && this.getColor(this.board[ny][nx])!=color) moves.push([nx, ny]);
+      } else {
+        while (this.inBounds(nx, ny) && this.getColor(this.board[ny][nx])!=color) {
+          moves.push([nx, ny]);
+          if (this.board[ny][nx]) break;
+          nx += dx; ny += dy;
+        }
+      }
+    }
+    return moves;
+  }
+
+  computeControlMap() {
+    const control = Array.from({ length: 8 }, () => Array(8).fill(0));
+    for (let x = 0; x < 8; x++) {
+      for (let y = 0; y < 8; y++) {
+        const piece = this.board[y][x];
+        if (!piece) continue;
+        const color = this.getColor(piece);
+        const moves = this.generateMoves(x, y);
+        for (const [mx, my] of moves) {
+          control[my][mx] += color;
+        }
+      }
+    }
+    return control;
+  }
+
+  evaluatePieceActivity(x, y, controlMap) {
+    const piece = this.board[y][x];
+    const type = this.getPieceType(piece);
+    const color = this.getColor(piece);
+    const moves = this.generateMoves(x, y);
+
+    let score = 0;
+    for (const [mx, my] of moves) {
+      const control = controlMap[my][mx];
+      score += control * color > 0 ? 1 : 0.3;
+    }
+
+    // second-level mobility
+    for (const [mx, my] of moves) {
+      if (controlMap[my][mx] * color <= 0) continue;
+      const clone = this.cloneBoard();
+      clone[my][mx] = piece;
+      clone[y][x] = undefined;
+      const sub = new ChessActivityEvaluator(clone);
+      const subMoves = sub.generateMoves(mx, my);
+      for (const [sx, sy] of subMoves) {
+        if (controlMap[sy][sx] * color > 0) score += 0.3;
+      }
+    }
+
+    return score / this.pieceBaseMobility[type];
+  }
+
+  cloneBoard() {
+    return this.board.map(r => r.slice());
+  }
+
+  evaluateAll() {
+    const control = this.computeControlMap();
+    const result = { white: [], black: [] };
+
+    for (let x = 0; x < 8; x++) {
+      for (let y = 0; y < 8; y++) {
+        const piece = this.board[y][x];
+        if (!piece) continue;
+        const score = this.evaluatePieceActivity(x, y, control);
+        const arr = this.getColor(piece)==1 ? result.white : result.black;
+        arr.push({ piece, x, y, score });
+      }
+    }
+    result.white.sort((a,b)=>a.score-b.score);
+    result.black.sort((a,b)=>a.score-b.score);
+
+    return result;
+  }
+}
+
+
   LiChessTools.Tools.MoveAssistant = MoveAssistantTool;
 })();

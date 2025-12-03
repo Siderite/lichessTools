@@ -80,6 +80,35 @@ body.lichessTools piece.lichessTools-isolatedPawnOpponent {
   filter: drop-shadow(2px 4px 8px #ff0000);
 }
 
+piece.lichessTools-happy::before {
+  content: var(--icon-WhiteSmilingFace);
+  color: green;
+  position: absolute;
+  left: 3%;
+  top: 7%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: large;
+  text-shadow:
+    0 0 2px white,
+    0 0 3px rgba(0,0,0,0.6),
+    1px 1px 1px rgba(0,0,0,0.45);
+}
+
+piece.lichessTools-unhappy::before {
+  content: var(--icon-WhiteFrowningFace);
+  color: red;
+  position: absolute;
+  left: 5%;
+  top: 10%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  text-shadow:
+    0 0 2px white,
+    0 0 3px rgba(0,0,0,0.6),
+    1px 1px 1px rgba(0,0,0,0.45);
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier button.lichessTools-moveAssistant.lichessTools-enabled {

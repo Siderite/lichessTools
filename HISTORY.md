@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+03 Dec
+
+- Move Assistant piece highlights
+
 02 Dec
 
 - unblock action in the blocked player page

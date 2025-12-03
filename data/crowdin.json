@@ -995,12 +995,13 @@
     "generateChallengeLinkTitle": "أدوات شطرنج الحياة - إنشاء رابط لفتح هذا المنبثق",
     "challengeOptions.generateLink": "إنشاء رابط في نافذة منبثقة",
     "searchMoves": "البحث في قائمة النقل",
-    "disableLocalHidesChartQuestion": "سيؤدي تعطيل المحلي في هذه الصفحة إلى إزالة الرسم البياني وأسطوره. ستتمكن فقط من تمكينه من العودة من التفضيلات. هل تريد المتابعة؟"
+    "disableLocalHidesChartQuestion": "سيؤدي تعطيل المحلي في هذه الصفحة إلى إزالة الرسم البياني وأسطوره. ستتمكن فقط من تمكينه من العودة من التفضيلات. هل تريد المتابعة؟",
+    "moveAssistant.pieces": "قطع"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
     "serverOverload": "Lichess 认为我们正在使他们的系统过载！",
-    "options.general": "通用",
+    "options.general": "常规",
     "options.addNotifications": "添加通知",
     "options.community": "社区",
     "options.addToTeam": "LiChess Tools 团队",
@@ -1024,7 +1025,7 @@
     "transpositionBehavior.groupSameMove": "不添加相同的下一步棋",
     "options.randomVariationDepth": "下一着出现概率深度",
     "randomVariationDepth.0": "相等",
-    "randomVariationDepth.2": "一步",
+    "randomVariationDepth.2": "一着",
     "randomVariationDepth.4": "两着",
     "randomVariationDepth.6": "三着",
     "randomVariationDepth.8": "四着",
@@ -1923,77 +1924,78 @@
     "options.yourPuzzleIndex": "从您的对局中查找对应谜题",
     "positionReversedText": "棋盘颜色互换",
     "yourPuzzleText": "来自您的对局",
-    "deleteImageButtonTitle": "LiChess工具 - 删除图像",
-    "deleteImageQuestion": "您确定要删除此图像给每个人吗？",
-    "imageDeletedSuccessfully": "图像已删除",
+    "deleteImageButtonTitle": "LiChess Tools - 删除图片",
+    "deleteImageQuestion": "您确定要为所有人删除这张图片吗？",
+    "imageDeletedSuccessfully": "图片已删除",
     "cevalLineOptions.downloadCeval": "下载引擎分析",
-    "downloadCevalButtonTitle": "LiChess工具 - 下载分析",
-    "soundOptions.volumeBar": "主菜单音量栏",
+    "downloadCevalButtonTitle": "LiChess Tools - 下载分析",
+    "soundOptions.volumeBar": "主菜单音量条",
     "options.boardStyle": "棋盘样式",
     "options.themesMenu": "主题菜单",
     "themesMenuText": "主题",
-    "themesMenuTitle": "LiChess Tools-视觉主题",
+    "themesMenuTitle": "LiChess Tools - 视觉主题",
     "themesMenuHeaderText": "主题",
-    "nextChapterButtonTitle": "下一章节",
-    "puzzleIndexUpdateText": "更新您的 NIF 文件！",
-    "puzzleIndexUpdateTitle": "服务器版本的 NIF 文件比您本地版本更新",
-    "gamePhasesText": "相位精度： %s",
-    "timeControlSuspicionTitle": "- 时间控制怀疑得分： %s",
-    "timeAlert.behind": "按时提醒",
-    "chessPursuitText": "国际象棋追求中",
-    "chessPursuitTitle": "Lichess工具 - 播放国际象棋。",
-    "chessPursuitHeader": "国际象棋追求中",
-    "options.chessPursuit": "国际象棋在菜单中继续关注",
-    "soundThemes.chessPursuit": "国际象棋追求中",
-    "options.searchMovesCommand": "命令：搜索移动列表",
-    "searchMovesCommand.helpText": "/s <FEN | PGN | text>\r\n * 和 ? 通配符支持\r\n在移动列表中搜索",
-    "materialLegendText": "材料",
-    "materialLegendTitle": "实质性差异",
-    "principledLegendText": "原理",
-    "principledLegendTitle": "定位质量差异",
-    "accuracyLegendText": "精度",
-    "accuracyLegendTitle": "方向播放器的精确度",
-    "sharpnessLegendText": "锐度",
-    "sharpnessLegendTitle": "锋利需要开启资源管理器",
-    "localLegendText": "本地的",
-    "localLegendTitle": "当地发动机评价",
-    "tensionLegendText": "紧张关系",
+    "nextChapterButtonTitle": "下一章",
+    "puzzleIndexUpdateText": "请更新您的 NIF 文件！",
+    "puzzleIndexUpdateTitle": "服务器上的 NIF 文件版本比您本地的新",
+    "gamePhasesText": "各阶段准确率：%s",
+    "timeControlSuspicionTitle": "- 时间控制可疑评分：%s",
+    "timeAlert.behind": "时间落后时发出警报",
+    "chessPursuitText": "棋力闯关",
+    "chessPursuitTitle": "LiChess Tools - 玩棋力闯关",
+    "chessPursuitHeader": "棋力闯关",
+    "options.chessPursuit": "菜单中的棋力闯关",
+    "soundThemes.chessPursuit": "棋力闯关",
+    "options.searchMovesCommand": "命令：搜索招法列表",
+    "searchMovesCommand.helpText": "/s <FEN | PGN | 纯文本>\n 支持通配符 * 和 ?\n在招法列表中搜索",
+    "materialLegendText": "子力",
+    "materialLegendTitle": "子力差距",
+    "principledLegendText": "原则性",
+    "principledLegendTitle": "局面质量差距",
+    "accuracyLegendText": "准确度",
+    "accuracyLegendTitle": "执棋方的准确度",
+    "sharpnessLegendText": "尖锐度",
+    "sharpnessLegendTitle": "查看尖锐度需要打开开局浏览器",
+    "localLegendText": "本地引擎",
+    "localLegendTitle": "本地引擎评估",
+    "tensionLegendText": "紧张度",
     "tensionLegendTitle": "最大紧张点",
-    "potentialLegendText": "D. 潜力",
-    "potentialLegendTitle": "最大潜在点",
-    "moveTypesLegendText": "移动",
-    "moveTypesLegendTitle": "有趣、良好、优秀和优秀的动作",
+    "potentialLegendText": "潜力",
+    "potentialLegendTitle": "最大潜力点",
+    "moveTypesLegendText": "招法",
+    "moveTypesLegendTitle": "有趣的、好的、最佳的以及精彩的招法",
     "extraChart.hideLegend": "隐藏图例",
     "autoAnalyseGame.showRequestAnalysis": "请求分析按钮",
-    "requestAComputerAnalysis": "请求计算机分析",
-    "recentGamesHeaderText": "最近的游戏",
-    "moreGamesText": "更多>",
-    "mainPageElements.recentGames": "最近的游戏",
-    "moveAssistant.dests": "移动目标",
-    "moveAssistant.squares": "正方形",
+    "requestAComputerAnalysis": "请求电脑分析",
+    "recentGamesHeaderText": "近期对局",
+    "moreGamesText": "更多 >",
+    "mainPageElements.recentGames": "近期对局",
+    "moveAssistant.dests": "落子目标格",
+    "moveAssistant.squares": "方格",
     "moveAssistant.pawns": "爪子",
-    "pearlDeviationTitle": "LiChess Tools - evaluation deviates at $depth ($deviation)",
-    "moveAssistant.moves": "移动",
-    "themes.firstInteraction": "第一次互动",
-    "enableBoardStyleQuestion": "这个主题需要理事会样式的完整功能，这可能会增加一些间接费用。我是否应该启用它？",
-    "stockfishError": "运行Stockfish时出错！",
-    "playerWarning.disconnect": "断开连接率",
+    "pearlDeviationTitle": "LiChess Tools - 评估在 $depth 层时出现偏差 ($deviation)",
+    "moveAssistant.moves": "招法",
+    "themes.firstInteraction": "首次交互",
+    "enableBoardStyleQuestion": "此主题需要“棋盘样式”功能以获得完整体验，这可能会轻微增加负荷。您确定要启用它吗？",
+    "stockfishError": "运行 Stockfish 出错！",
+    "playerWarning.disconnect": "断开率",
     "playerWarning.timecontrol": "时间控制差异",
-    "options.readPositionCommand": "命令：读取要设置棋盘的位置",
-    "extraChart.coord": "协 调",
-    "coordLegendText": "协 调",
-    "coordLegendTitle": "部门协调",
-    "themes.noVariants": "没有象棋变体",
-    "options.gameAnalysisLayout": "游戏分析布局",
-    "gameAnalysisLayout.fitPage": "适合页面",
-    "reviewTabText": "审查",
-    "reviewTabTitle": "LiChess工具 - 游戏审核",
-    "unblockPlayerTitle": "取消屏蔽",
+    "options.readPositionCommand": "命令：读取局面以设置棋盘",
+    "extraChart.coord": "协调性",
+    "coordLegendText": "协调性",
+    "coordLegendTitle": "棋子协调性",
+    "themes.noVariants": "非变体象棋",
+    "options.gameAnalysisLayout": "对局分析布局",
+    "gameAnalysisLayout.fitPage": "适应页面",
+    "reviewTabText": "复盘",
+    "reviewTabTitle": "LiChess Tools - 对局复盘",
+    "unblockPlayerTitle": "解除屏蔽",
     "generateChallengeLinkText": "生成链接",
-    "generateChallengeLinkTitle": "LiChess工具 - 生成链接以打开此弹出窗口",
-    "challengeOptions.generateLink": "在弹出窗口中生成链接",
-    "searchMoves": "在移动列表中搜索",
-    "disableLocalHidesChartQuestion": "在这个页面禁用本地将会删除图表及其传说。您只能从偏好设置中启用它。继续吗？"
+    "generateChallengeLinkTitle": "LiChess Tools - 生成链接以打开此弹窗",
+    "challengeOptions.generateLink": "在弹窗中生成链接",
+    "searchMoves": "在招法列表中搜索",
+    "disableLocalHidesChartQuestion": "在此页面禁用“本地引擎”将移除图表及其图例。你将只能从“偏好设置”中重新启用它。您确定要继续吗？",
+    "moveAssistant.pieces": "块数"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2991,7 +2993,8 @@
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
-    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?"
+    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
+    "moveAssistant.pieces": "Pieces"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3989,7 +3992,8 @@
     "generateChallengeLinkTitle": "Nástroje LiChess - vygenerovat odkaz pro otevření tohoto vyskakovacího okna",
     "challengeOptions.generateLink": "Vygenerovat odkaz ve vyskakovacím okně",
     "searchMoves": "Hledat v seznamu přesunů",
-    "disableLocalHidesChartQuestion": "Vypnutí lokality na této stránce odstraní graf a jeho legend. Budete jej moci povolit pouze z nastavení. Pokračovat?"
+    "disableLocalHidesChartQuestion": "Vypnutí lokality na této stránce odstraní graf a jeho legend. Budete jej moci povolit pouze z nastavení. Pokračovat?",
+    "moveAssistant.pieces": "Části"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4987,7 +4991,8 @@
     "generateChallengeLinkTitle": "LiChess Tools - link genereren om deze popup te openen",
     "challengeOptions.generateLink": "Link in popup genereren",
     "searchMoves": "Zoeken in verplaats lijst",
-    "disableLocalHidesChartQuestion": "Lokaal uitschakelen op deze pagina zal de grafiek en de legende verwijderen. Je kunt deze alleen terug inschakelen vanuit Voorkeuren. Doorgaan?"
+    "disableLocalHidesChartQuestion": "Lokaal uitschakelen op deze pagina zal de grafiek en de legende verwijderen. Je kunt deze alleen terug inschakelen vanuit Voorkeuren. Doorgaan?",
+    "moveAssistant.pieces": "Stuks"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5985,7 +5990,8 @@
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
-    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?"
+    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
+    "moveAssistant.pieces": "Pieces"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6983,7 +6989,8 @@
     "generateChallengeLinkTitle": "LiChess Tools - Générer un lien pour ouvrir cette popup",
     "challengeOptions.generateLink": "Générer un lien dans une popup",
     "searchMoves": "Rechercher dans la liste de coups",
-    "disableLocalHidesChartQuestion": "La désactivation de l'option « Local » sur cette page supprimera le graphique et sa légende. Vous ne pourrez la réactiver qu'à partir des préférences. Continuer ?"
+    "disableLocalHidesChartQuestion": "La désactivation de l'option « Local » sur cette page supprimera le graphique et sa légende. Vous ne pourrez la réactiver qu'à partir des préférences. Continuer ?",
+    "moveAssistant.pieces": "Pièces"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7981,7 +7988,8 @@
     "generateChallengeLinkTitle": "LiChess Tools - Generiere Link um dieses Popup zu öffnen",
     "challengeOptions.generateLink": "Link in Popup generieren",
     "searchMoves": "Suche in Bewehriste",
-    "disableLocalHidesChartQuestion": "Das Deaktivieren von Lokal auf dieser Seite entfernt das Diagramm und seine Legende. Sie können es nur in den Einstellungen wieder aktivieren. Fortfahren?"
+    "disableLocalHidesChartQuestion": "Das Deaktivieren von Lokal auf dieser Seite entfernt das Diagramm und seine Legende. Sie können es nur in den Einstellungen wieder aktivieren. Fortfahren?",
+    "moveAssistant.pieces": "Stücke"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -8979,7 +8987,8 @@
     "generateChallengeLinkTitle": "Εργαλεία LiChess - δημιουργία συνδέσμου για να ανοίξετε αυτό το αναδυόμενο παράθυρο",
     "challengeOptions.generateLink": "Δημιουργία συνδέσμου στο αναδυόμενο παράθυρο",
     "searchMoves": "Αναζήτηση στη λίστα μετακίνησης",
-    "disableLocalHidesChartQuestion": "Απενεργοποίηση Τοπική σε αυτή τη σελίδα θα αφαιρέσει το γράφημα και το υπόμνημά του. Θα είστε σε θέση να το ενεργοποιήσετε μόνο από τις Προτιμήσεις. Συνέχεια?"
+    "disableLocalHidesChartQuestion": "Απενεργοποίηση Τοπική σε αυτή τη σελίδα θα αφαιρέσει το γράφημα και το υπόμνημά του. Θα είστε σε θέση να το ενεργοποιήσετε μόνο από τις Προτιμήσεις. Συνέχεια?",
+    "moveAssistant.pieces": "Κομμάτια"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -9977,7 +9986,8 @@
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
-    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?"
+    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
+    "moveAssistant.pieces": "Pieces"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -10975,7 +10985,8 @@
     "generateChallengeLinkTitle": "Strumenti LiChess - genera link per aprire questo popup",
     "challengeOptions.generateLink": "Genera collegamento in popup",
     "searchMoves": "Cerca nella lista delle mosse",
-    "disableLocalHidesChartQuestion": "Disabilitare Locale in questa pagina rimuoverà il grafico e la sua leggenda. Potrai solo abilitarlo dalle Preferenze. Continuare?"
+    "disableLocalHidesChartQuestion": "Disabilitare Locale in questa pagina rimuoverà il grafico e la sua leggenda. Potrai solo abilitarlo dalle Preferenze. Continuare?",
+    "moveAssistant.pieces": "Pezzi"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -11973,7 +11984,8 @@
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
-    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?"
+    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
+    "moveAssistant.pieces": "Pieces"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -12971,7 +12983,8 @@
     "generateChallengeLinkTitle": "Narzędzia LiChess - generuj link, aby otworzyć to wyskakujące okienko",
     "challengeOptions.generateLink": "Wygeneruj link w wyskakującym oknie",
     "searchMoves": "Szukaj w liście ruchów",
-    "disableLocalHidesChartQuestion": "Wyłączenie lokalnego na tej stronie spowoduje usunięcie wykresu i jego legendy. Będziesz mógł włączyć go tylko w Preferencjach. Kontynuować?"
+    "disableLocalHidesChartQuestion": "Wyłączenie lokalnego na tej stronie spowoduje usunięcie wykresu i jego legendy. Będziesz mógł włączyć go tylko w Preferencjach. Kontynuować?",
+    "moveAssistant.pieces": "Części"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -13969,7 +13982,8 @@
     "generateChallengeLinkTitle": "Ferramentas do LiChess - gerar link para abrir este popup",
     "challengeOptions.generateLink": "Gerar link em popup",
     "searchMoves": "Pesquisar na lista de movimentos",
-    "disableLocalHidesChartQuestion": "Desabilitar os locais nesta página removerá a tabela e sua legenda. Você só poderá habilitá-la de volta a partir das preferências. Continuar?"
+    "disableLocalHidesChartQuestion": "Desabilitar os locais nesta página removerá a tabela e sua legenda. Você só poderá habilitá-la de volta a partir das preferências. Continuar?",
+    "moveAssistant.pieces": "Pedaços"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -14967,7 +14981,8 @@
     "generateChallengeLinkTitle": "Ferramentas do LiChess - gerar link para abrir este popup",
     "challengeOptions.generateLink": "Gerar link em popup",
     "searchMoves": "Pesquisar na lista de movimentos",
-    "disableLocalHidesChartQuestion": "Desabilitar os locais nesta página removerá a tabela e sua legenda. Você só poderá habilitá-la de volta a partir das preferências. Continuar?"
+    "disableLocalHidesChartQuestion": "Desabilitar os locais nesta página removerá a tabela e sua legenda. Você só poderá habilitá-la de volta a partir das preferências. Continuar?",
+    "moveAssistant.pieces": "Pedaços"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -15965,7 +15980,8 @@
     "generateChallengeLinkTitle": "LiChess Tools - generează link care deschide acest popup",
     "challengeOptions.generateLink": "Generează link în popup",
     "searchMoves": "Căutare în lista de mutări",
-    "disableLocalHidesChartQuestion": "Dezactivarea Local pe această pagină va elimina graficul și legenda acestuia. O veți putea reactiva doar din Preferințe. Continui?"
+    "disableLocalHidesChartQuestion": "Dezactivarea Local pe această pagină va elimina graficul și legenda acestuia. O veți putea reactiva doar din Preferințe. Continui?",
+    "moveAssistant.pieces": "Piese"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -16963,7 +16979,8 @@
     "generateChallengeLinkTitle": "Инструменты Жизни - генерировать ссылку, чтобы открыть это всплывающее окно",
     "challengeOptions.generateLink": "Генерировать ссылку во всплывающем окне",
     "searchMoves": "Поиск в списке перемещений",
-    "disableLocalHidesChartQuestion": "Отключение локального на этой странице удалит график и его легенду. Вы сможете включить его только обратно из настроек. Продолжить?"
+    "disableLocalHidesChartQuestion": "Отключение локального на этой странице удалит график и его легенду. Вы сможете включить его только обратно из настроек. Продолжить?",
+    "moveAssistant.pieces": "Части"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -17961,7 +17978,8 @@
     "generateChallengeLinkTitle": "Herramientas de LiChess - generar enlace para abrir esta ventana emergente",
     "challengeOptions.generateLink": "Generar enlace en la ventana emergente",
     "searchMoves": "Buscar en la lista de movimientos",
-    "disableLocalHidesChartQuestion": "Desactivar Local en esta página eliminará el gráfico y su leyenda. Sólo podrá activarlo desde Preferencias. ¿Continuar?"
+    "disableLocalHidesChartQuestion": "Desactivar Local en esta página eliminará el gráfico y su leyenda. Sólo podrá activarlo desde Preferencias. ¿Continuar?",
+    "moveAssistant.pieces": "Piezas"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -18959,7 +18977,8 @@
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
-    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?"
+    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
+    "moveAssistant.pieces": "Pieces"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -19957,7 +19976,8 @@
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
-    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?"
+    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
+    "moveAssistant.pieces": "Pieces"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -20955,6 +20975,7 @@
     "generateChallengeLinkTitle": "LiChess Tools - generate link to open this popup",
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
-    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?"
+    "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
+    "moveAssistant.pieces": "Pieces"
   }
 }

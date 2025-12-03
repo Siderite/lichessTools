@@ -266,6 +266,8 @@
       BlackDownPointingSmallTriangle: '\u25B8',
       BlackRightPointingSmallTriangle: '\u25BE',
       TrigramForHeaven: '\u2630',
+      WhiteSmilingFace: '\u263A',
+      WhiteFrowningFace: '\u2639',
 
       toEntity: function(s) {
         let result='';
@@ -1422,7 +1424,8 @@
       }
       let x = 0;
       let y = 0;
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < fen.length; i++) {
+        if (y>7) break;
         const ch = fen[i];
         if ('kqrbnp'.indexOf(ch.toLowerCase()) >= 0) {
           result[y][x] = ch;
