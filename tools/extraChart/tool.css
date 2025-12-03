@@ -60,6 +60,7 @@ body.lichessTools span.lichessTools-christmas {
 
 body.lichessTools .lichessTools-extraChart-tooltip {
   position: absolute;
+  z-index: 3;
   display: flex;
   font-size:1.5em;
   height: auto;
@@ -68,7 +69,7 @@ body.lichessTools .lichessTools-extraChart-tooltip {
   flex-direction: row;
   pointer-events: none;
   font-weight: bold;
-  border-radius: 1em;
+  border-radius: 0.5em;
   overflow: hidden;
   transform: translateY(-100%);
   flex-wrap: wrap;
