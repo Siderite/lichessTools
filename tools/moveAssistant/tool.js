@@ -833,7 +833,7 @@ class ChessActivityEvaluator {
       const sub = new ChessActivityEvaluator(clone);
       const subMoves = sub.generateMoves(mx, my);
       for (const [sx, sy] of subMoves) {
-        if (controlMap[sy][sx] * color > 0) score += this.SECONDARY;
+        if (controlMap[sy][sx] * color >= 0) score += this.SECONDARY;
       }
     }
 
