@@ -80,7 +80,7 @@ body.lichessTools piece.lichessTools-isolatedPawnOpponent {
   filter: drop-shadow(2px 4px 8px #ff0000);
 }
 
-piece.lichessTools-happy::before {
+body.lichessTools piece.lichessTools-happy::before {
   content: var(--icon-WhiteSmilingFace);
   color: green;
   position: absolute;
@@ -95,7 +95,7 @@ piece.lichessTools-happy::before {
     1px 1px 1px rgba(0,0,0,0.45);
 }
 
-piece.lichessTools-unhappy::before {
+body.lichessTools piece.lichessTools-unhappy::before {
   content: var(--icon-WhiteFrowningFace);
   color: red;
   position: absolute;
@@ -107,6 +107,54 @@ piece.lichessTools-unhappy::before {
     0 0 2px white,
     0 0 3px rgba(0,0,0,0.6),
     1px 1px 1px rgba(0,0,0,0.45);
+}
+
+body.lichessTools .ceval:has(.lichessTools-moveAssistant-popup.open),
+body.lichessTools .lichessTools-moveListOptions-header:has(.lichessTools-moveAssistant-popup.open) {
+  position: relative;
+}
+
+body.lichessTools .lichessTools-moveAssistant-popup {
+  position: absolute;
+  display: none;
+  z-index: 999;
+  top: 3em;
+  right: 0;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--c-bg-popup);
+}
+
+body.lichessTools .lichessTools-moveAssistant-popup.open {
+  display: flex;
+}
+
+body.lichessTools .lichessTools-moveAssistant-popup button {
+  text-align: left;
+  opacity: 0.7;
+  padding: 0.25em;
+  border-radius: 0;
+  border: none;
+  background: var(--c-bg-popup);
+  color: var(--c-header-dropdown);
+  font-size: 1.3em;
+}
+
+body.lichessTools .lichessTools-moveAssistant-popup button:hover {
+  background: var(--c-primary);
+  color: var(--c-over);
+}
+
+body.lichessTools .lichessTools-moveAssistant-popup button.enabled {
+  opacity: 1;
+}
+
+body.lichessTools .lichessTools-moveAssistant-popup button:before {
+  margin-right: 0.5em;
+}
+
+body.lichessTools .lichessTools-moveAssistant-popup button.enabled:before {
+  font-weight: 1000;
 }
 
 /* Prettier Lichess CSS */

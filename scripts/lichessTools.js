@@ -268,6 +268,7 @@
       TrigramForHeaven: '\u2630',
       WhiteSmilingFace: '\u263A',
       WhiteFrowningFace: '\u2639',
+      BlackSquare: '\u25A0',
 
       toEntity: function(s) {
         let result='';
