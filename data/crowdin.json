@@ -996,7 +996,9 @@
     "challengeOptions.generateLink": "إنشاء رابط في نافذة منبثقة",
     "searchMoves": "البحث في قائمة النقل",
     "disableLocalHidesChartQuestion": "سيؤدي تعطيل المحلي في هذه الصفحة إلى إزالة الرسم البياني وأسطوره. ستتمكن فقط من تمكينه من العودة من التفضيلات. هل تريد المتابعة؟",
-    "moveAssistant.pieces": "قطع"
+    "moveAssistant.pieces": "قطع",
+    "layoutToggleButtonText": "تبديل التخطيط",
+    "layoutToggleButtonTitle": "أدوات شطرنج الحياة - تبديل تخطيط تحليل اللعبة"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1033,7 +1035,7 @@
     "options.themes": "应用样式主题",
     "themes.default": "无",
     "themes.performance": "性能主题",
-    "themes.justExplorer": "仅 Explorer",
+    "themes.justExplorer": "仅探索器",
     "themes.mobile": "移动主题",
     "themes.slimArrows": "细箭头",
     "themes.flairX": "更精美的徽章",
@@ -1131,12 +1133,12 @@
     "openingNameTitle": "LiChess Tools - 开局名称",
     "showOpening.showInBoard": "适用于大棋盘",
     "showOpening.showInMinigames": "适用于小游戏",
-    "showOpening.showInExplorer": "在 Explorer 中",
+    "showOpening.showInExplorer": "在探索器中",
     "options.TV": "TV",
     "options.previousGameMenu": "最近查看的对局菜单项",
     "lastViewedGame": "上次查看的对局",
     "lastViewedGameTitle": "LiChess Tools - 打开上次查看的 TV 对局",
-    "options.openingExplorerUsers": "开局 Explorer 玩家功能",
+    "options.openingExplorerUsers": "开局探索器玩家功能",
     "switchWithMe": "我",
     "switchWithMeTitle": "LiChess Tools - 与您自己的账号切换玩家",
     "openingExplorerUsers.switchWithMe": "\"我\"按钮用于切换至您的玩家",
@@ -1206,15 +1208,15 @@
     "giveUpButtonText": "认输",
     "giveUpButtonTitle": "放弃本次交互式运行",
     "giveUpConfirmation": "您确定要放弃本次交互式运行吗？",
-    "options.explorerPractice": "根据开局 Explorer 的着法进行练习",
-    "options.explorerPracticeOptions": "Explorer 练习选项",
-    "explorerPracticeTitle": "LiChess Tools - 根据 Explorer 着法进行练习",
-    "outOfMoves": "Explorer 着法已用尽",
+    "options.explorerPractice": "根据开局探索器的着法进行练习",
+    "options.explorerPracticeOptions": "探索器练习选项",
+    "explorerPracticeTitle": "LiChess Tools - 根据探索器着法进行练习",
+    "outOfMoves": "探索器着法已用尽",
     "explorerPracticeOptions.showSmileys": "无着法可选时显示表情符号",
-    "explorerPracticeOptions.sumClick": "点击 Explorer 中的 Σ 来走子",
+    "explorerPracticeOptions.sumClick": "点击探索器中的 Σ 来走子",
     "explorerPracticeOptions.showNames": "显示对手名称",
-    "explorerPracticeOptions.showInfoStudy": "研习中的 Explorer 数据",
-    "explorerPracticeOptions.showInfoAnalysis": "分析中的 Explorer 数据",
+    "explorerPracticeOptions.showInfoStudy": "研习中的探索器数据",
+    "explorerPracticeOptions.showInfoAnalysis": "分析中的探索器数据",
     "sumClickTitle": "LiChess Tools - 点击此处走子",
     "options.chapterClearArtifacts": "清理章节冗余内容",
     "removeAllText": "移除...",
@@ -1265,11 +1267,11 @@
     "nextOpponentGood": "对手下一个好棋/妙手/趣味着法",
     "variationLine": "第 N 个变体",
     "cevalLine": "第 N 条引擎评估线路",
-    "explorerLine": "第 N 条 Explorer 线路",
+    "explorerLine": "第 N 条探索器线路",
     "randomMove": "随机变体着法",
     "previousPosition": "回到上一位置",
     "bestCevalLine": "引擎最佳线路",
-    "explorerPractice": "Explorer 练习",
+    "explorerPractice": "探索器练习",
     "seeLichessTools": "请参阅下方的 LiChess Tools 章节",
     "freezeBoard": "冻结棋盘",
     "randomChapter": "随机研习章节",
@@ -1295,7 +1297,7 @@
     "timelineNotify.game-end": "对局结束",
     "timelineNotify.plan-start": "成为赞助者",
     "timelineNotify.plan-renew": "续费赞助者",
-    "options.explorerEval": "显示 Explorer 着法的评估",
+    "options.explorerEval": "显示探索器着法的评估",
     "explorerEval.ceval": "来自计算机评估",
     "explorerEval.stats": "来自胜场统计",
     "explorerEval.db": "基于 ChessDb",
@@ -1309,7 +1311,7 @@
     "evaluationTitle": "LiChess Tools - 着法评估",
     "evalWarning": "LiChess Tools - 请注意",
     "sharpnessTitle": "尖锐度：%s",
-    "options.explorerGambits": "显示导致弃兵局的开局 Explorer 着法",
+    "options.explorerGambits": "显示导致弃兵局的开局探索器着法",
     "gambitTitle": "LiChessTools - 可能的弃兵开局数",
     "gambitRowTitle": "%s 个弃兵局",
     "moveEvaluationSettingText": "评估",
@@ -1317,10 +1319,10 @@
     "gambitsSettingText": "弃兵局",
     "gambitsSettingTitle": "弃兵局数量列",
     "explorerPracticeSettingText": "练习",
-    "explorerPracticeSettingTitle": "根据 Explorer 着法进行练习的按钮",
+    "explorerPracticeSettingTitle": "根据探索器着法进行练习的按钮",
     "meButtonSettingText": "\"我\"按钮",
     "meButtonSettingTitle": "切换至您自己账号的按钮",
-    "options.explorerSettings": "在 Explorer 设置中添加一些偏好设置",
+    "options.explorerSettings": "在探索器设置中添加一些偏好设置",
     "options.stickyStudySettings": "持久化研习设置",
     "stickyStudySettings.chapterForm": "新建/编辑章节设置",
     "stickyStudySettings.savePosition": "研习中的位置/着法",
@@ -1378,10 +1380,10 @@
     "showPawnStructure.onlyNamed": "仅显示命名结构",
     "showPawnStructure.fuzzy": "模糊搜索",
     "structureNameTitle": "LiChess Tools - 兵形结构 - %s",
-    "options.explorerSnaps": "切换 Explorer 设置的快照",
+    "options.explorerSnaps": "切换探索器设置的快照",
     "addSnapPrompt": "新快照的标题",
     "snapSettingsButtonText": "快照！",
-    "snapSettingsButtonTitle": "LiChess Tools - 创建当前 Explorer 设置的快照",
+    "snapSettingsButtonTitle": "LiChess Tools - 创建当前探索器设置的快照",
     "allText": "全部",
     "sinceText": "自 %s 起",
     "untilText": "至 %s 止",
@@ -1510,7 +1512,7 @@
     "mainPageElements.feed": "动态",
     "mainPageElements.tours": "锦标赛",
     "mainPageElements.about": "关于",
-    "options.resizeExplorer": "调整 Explorer 大小",
+    "options.resizeExplorer": "调整探索器大小",
     "options.soundOptions": "声音选项",
     "soundOptions.noMove": "无走子音",
     "options.playLayout": "对弈布局",
@@ -1581,7 +1583,7 @@
     "hideBoardCommand.helpText": "/board\n显示/隐藏棋盘",
     "options.trapValueCommand": "命令：显示局面的陷阱值",
     "trapValueCommand.helpText": "/trapvalue\n显示局面的陷阱值",
-    "noExplorerMoves": "无 Explorer 数据可用",
+    "noExplorerMoves": "无探索器数据可用",
     "trapValueCommand.valueText": "陷阱值：%s",
     "options.copyPgnCommand": "命令：复制着法到剪贴板",
     "options.readGameCommand": "命令：从此处朗读对局着法",
@@ -1668,7 +1670,7 @@
     "randomChapterTitle": "随机章节",
     "nextChapterTitle": "下一章",
     "lastChapterTitle": "最后一章",
-    "switchExplorerTabs": "Explorer 循环切换 Lichess/大师对局",
+    "switchExplorerTabs": "探索器循环切换 Lichess/大师对局",
     "options.timeAlert": "时间提醒（分钟）",
     "timeAlert.s30": "0:30",
     "timeAlert.s60": "1:00",
@@ -1881,8 +1883,8 @@
     "friendFilterTitle": "名称筛选器",
     "moreGamesButtonText": "更多对局",
     "moreGamesButtonTitle": "在最近对局中显示更多对局",
-    "options.explorerMoreGames": "显示更多 Explorer 对局",
-    "explorerMoreGamesTitle": "LiChess Tools - 更多 Explorer 对局",
+    "options.explorerMoreGames": "显示更多探索器对局",
+    "explorerMoreGamesTitle": "LiChess Tools - 更多探索器对局",
     "options.soundThemes": "声音主题",
     "mainPageElements.extraCounters": "额外计数器",
     "totalGamesPlayed": "总对局数：%s",
@@ -1955,7 +1957,7 @@
     "accuracyLegendText": "准确度",
     "accuracyLegendTitle": "执棋方的准确度",
     "sharpnessLegendText": "尖锐度",
-    "sharpnessLegendTitle": "查看尖锐度需要打开开局浏览器",
+    "sharpnessLegendTitle": "查看尖锐度需要打开开局探索器",
     "localLegendText": "本地引擎",
     "localLegendTitle": "本地引擎评估",
     "tensionLegendText": "紧张度",
@@ -1995,7 +1997,9 @@
     "challengeOptions.generateLink": "在弹窗中生成链接",
     "searchMoves": "在招法列表中搜索",
     "disableLocalHidesChartQuestion": "在此页面禁用“本地引擎”将移除图表及其图例。你将只能从“偏好设置”中重新启用它。您确定要继续吗？",
-    "moveAssistant.pieces": "块数"
+    "moveAssistant.pieces": "块数",
+    "layoutToggleButtonText": "切换布局",
+    "layoutToggleButtonTitle": "Lichess 工具 - 切换游戏分析布局"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2994,7 +2998,9 @@
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
-    "moveAssistant.pieces": "Pieces"
+    "moveAssistant.pieces": "Pieces",
+    "layoutToggleButtonText": "Toggle layout",
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3993,7 +3999,9 @@
     "challengeOptions.generateLink": "Vygenerovat odkaz ve vyskakovacím okně",
     "searchMoves": "Hledat v seznamu přesunů",
     "disableLocalHidesChartQuestion": "Vypnutí lokality na této stránce odstraní graf a jeho legend. Budete jej moci povolit pouze z nastavení. Pokračovat?",
-    "moveAssistant.pieces": "Části"
+    "moveAssistant.pieces": "Části",
+    "layoutToggleButtonText": "Přepnout rozložení",
+    "layoutToggleButtonTitle": "Nástroje LiChess - přepnout rozvržení analýzy hry"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4992,7 +5000,9 @@
     "challengeOptions.generateLink": "Link in popup genereren",
     "searchMoves": "Zoeken in verplaats lijst",
     "disableLocalHidesChartQuestion": "Lokaal uitschakelen op deze pagina zal de grafiek en de legende verwijderen. Je kunt deze alleen terug inschakelen vanuit Voorkeuren. Doorgaan?",
-    "moveAssistant.pieces": "Stuks"
+    "moveAssistant.pieces": "Stuks",
+    "layoutToggleButtonText": "Schakel lay-out",
+    "layoutToggleButtonTitle": "LiChess Tools - schakel spelanalyse lay-out in"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5991,7 +6001,9 @@
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
-    "moveAssistant.pieces": "Pieces"
+    "moveAssistant.pieces": "Pieces",
+    "layoutToggleButtonText": "Toggle layout",
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6990,7 +7002,9 @@
     "challengeOptions.generateLink": "Générer un lien dans une popup",
     "searchMoves": "Rechercher dans la liste de coups",
     "disableLocalHidesChartQuestion": "La désactivation de l'option « Local » sur cette page supprimera le graphique et sa légende. Vous ne pourrez la réactiver qu'à partir des préférences. Continuer ?",
-    "moveAssistant.pieces": "Pièces"
+    "moveAssistant.pieces": "Pièces",
+    "layoutToggleButtonText": "Basculer la mise en page",
+    "layoutToggleButtonTitle": "Outils LiChess - basculer la disposition de l'analyse de jeu"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7989,7 +8003,9 @@
     "challengeOptions.generateLink": "Link in Popup generieren",
     "searchMoves": "Suche in Bewehriste",
     "disableLocalHidesChartQuestion": "Das Deaktivieren von Lokal auf dieser Seite entfernt das Diagramm und seine Legende. Sie können es nur in den Einstellungen wieder aktivieren. Fortfahren?",
-    "moveAssistant.pieces": "Stücke"
+    "moveAssistant.pieces": "Stücke",
+    "layoutToggleButtonText": "Layout umschalten",
+    "layoutToggleButtonTitle": "LiChess Tools - Spielanalyse Layout umschalten"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -8988,7 +9004,9 @@
     "challengeOptions.generateLink": "Δημιουργία συνδέσμου στο αναδυόμενο παράθυρο",
     "searchMoves": "Αναζήτηση στη λίστα μετακίνησης",
     "disableLocalHidesChartQuestion": "Απενεργοποίηση Τοπική σε αυτή τη σελίδα θα αφαιρέσει το γράφημα και το υπόμνημά του. Θα είστε σε θέση να το ενεργοποιήσετε μόνο από τις Προτιμήσεις. Συνέχεια?",
-    "moveAssistant.pieces": "Κομμάτια"
+    "moveAssistant.pieces": "Κομμάτια",
+    "layoutToggleButtonText": "Εναλλαγή διάταξης",
+    "layoutToggleButtonTitle": "LiChess Tools - εναλλαγή διάταξης ανάλυσης παιχνιδιών"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -9987,7 +10005,9 @@
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
-    "moveAssistant.pieces": "Pieces"
+    "moveAssistant.pieces": "Pieces",
+    "layoutToggleButtonText": "Toggle layout",
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -10986,7 +11006,9 @@
     "challengeOptions.generateLink": "Genera collegamento in popup",
     "searchMoves": "Cerca nella lista delle mosse",
     "disableLocalHidesChartQuestion": "Disabilitare Locale in questa pagina rimuoverà il grafico e la sua leggenda. Potrai solo abilitarlo dalle Preferenze. Continuare?",
-    "moveAssistant.pieces": "Pezzi"
+    "moveAssistant.pieces": "Pezzi",
+    "layoutToggleButtonText": "Attiva/disattiva disposizione",
+    "layoutToggleButtonTitle": "LiChess Tools - attiva/disattiva il layout di analisi del gioco"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -11985,7 +12007,9 @@
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
-    "moveAssistant.pieces": "Pieces"
+    "moveAssistant.pieces": "Pieces",
+    "layoutToggleButtonText": "Toggle layout",
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -12984,7 +13008,9 @@
     "challengeOptions.generateLink": "Wygeneruj link w wyskakującym oknie",
     "searchMoves": "Szukaj w liście ruchów",
     "disableLocalHidesChartQuestion": "Wyłączenie lokalnego na tej stronie spowoduje usunięcie wykresu i jego legendy. Będziesz mógł włączyć go tylko w Preferencjach. Kontynuować?",
-    "moveAssistant.pieces": "Części"
+    "moveAssistant.pieces": "Części",
+    "layoutToggleButtonText": "Przełącz układ",
+    "layoutToggleButtonTitle": "Narzędzia LiChess - przełącz układ analizy gier"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -13983,7 +14009,9 @@
     "challengeOptions.generateLink": "Gerar link em popup",
     "searchMoves": "Pesquisar na lista de movimentos",
     "disableLocalHidesChartQuestion": "Desabilitar os locais nesta página removerá a tabela e sua legenda. Você só poderá habilitá-la de volta a partir das preferências. Continuar?",
-    "moveAssistant.pieces": "Pedaços"
+    "moveAssistant.pieces": "Pedaços",
+    "layoutToggleButtonText": "Alternar layout",
+    "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -14982,7 +15010,9 @@
     "challengeOptions.generateLink": "Gerar link em popup",
     "searchMoves": "Pesquisar na lista de movimentos",
     "disableLocalHidesChartQuestion": "Desabilitar os locais nesta página removerá a tabela e sua legenda. Você só poderá habilitá-la de volta a partir das preferências. Continuar?",
-    "moveAssistant.pieces": "Pedaços"
+    "moveAssistant.pieces": "Pedaços",
+    "layoutToggleButtonText": "Alternar layout",
+    "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -15981,7 +16011,9 @@
     "challengeOptions.generateLink": "Generează link în popup",
     "searchMoves": "Căutare în lista de mutări",
     "disableLocalHidesChartQuestion": "Dezactivarea Local pe această pagină va elimina graficul și legenda acestuia. O veți putea reactiva doar din Preferințe. Continui?",
-    "moveAssistant.pieces": "Piese"
+    "moveAssistant.pieces": "Piese",
+    "layoutToggleButtonText": "Comutare aspect",
+    "layoutToggleButtonTitle": "LiChess Tools - comutare aspect analiză partidă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -16980,7 +17012,9 @@
     "challengeOptions.generateLink": "Генерировать ссылку во всплывающем окне",
     "searchMoves": "Поиск в списке перемещений",
     "disableLocalHidesChartQuestion": "Отключение локального на этой странице удалит график и его легенду. Вы сможете включить его только обратно из настроек. Продолжить?",
-    "moveAssistant.pieces": "Части"
+    "moveAssistant.pieces": "Части",
+    "layoutToggleButtonText": "Переключить раскладку",
+    "layoutToggleButtonTitle": "Инструменты Lichess - переключение структуры анализа игр"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -17979,7 +18013,9 @@
     "challengeOptions.generateLink": "Generar enlace en la ventana emergente",
     "searchMoves": "Buscar en la lista de movimientos",
     "disableLocalHidesChartQuestion": "Desactivar Local en esta página eliminará el gráfico y su leyenda. Sólo podrá activarlo desde Preferencias. ¿Continuar?",
-    "moveAssistant.pieces": "Piezas"
+    "moveAssistant.pieces": "Piezas",
+    "layoutToggleButtonText": "Cambiar diseño",
+    "layoutToggleButtonTitle": "Herramientas de LiChess - cambia el diseño de análisis del juego"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -18978,7 +19014,9 @@
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
-    "moveAssistant.pieces": "Pieces"
+    "moveAssistant.pieces": "Pieces",
+    "layoutToggleButtonText": "Toggle layout",
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -19977,7 +20015,9 @@
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
-    "moveAssistant.pieces": "Pieces"
+    "moveAssistant.pieces": "Pieces",
+    "layoutToggleButtonText": "Toggle layout",
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -20976,6 +21016,8 @@
     "challengeOptions.generateLink": "Generate link in popup",
     "searchMoves": "Search in move list",
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
-    "moveAssistant.pieces": "Pieces"
+    "moveAssistant.pieces": "Pieces",
+    "layoutToggleButtonText": "Toggle layout",
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
   }
 }
