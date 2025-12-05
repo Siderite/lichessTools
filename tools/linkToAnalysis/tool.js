@@ -44,21 +44,25 @@
         button.hide();
         return;
       }
-      let pgn = $('.copyables .pgn textarea.copyable').val()?.trim() || ' *';
-      pgn = pgn.replaceAll(/\[\w+\s+"[^"]*"\]\s+/g,'');
-      if (!lt.isStartFen(analysis.tree.root.fen)) {
-        pgn = '[FEN "'+analysis.tree.root.fen+'"]\r\n'+pgn;
+      const initialPgn = $('.copyables .pgn textarea.copyable').val()?.trim() || ' *';
+      let url = (this._links||=new Map()).get(initialPgn);
+      if (!url) {
+        let pgn = initialPgn.replaceAll(/\[\w+\s+"[^"]*"\]\s+/g,'');
+        if (!lt.isStartFen(analysis.tree.root.fen)) {
+          pgn = '[FEN "'+analysis.tree.root.fen+'"]\r\n'+pgn;
+        }
+        pgn = pgn.replaceAll(/(\d+\.(?:\.\.)?)\s+/g,'$1');
+        url = lt.global.location.origin+'/analysis/pgn/'+lt.global.encodeURIComponent(pgn);
+        url+=' '; // Lichess removes trailing closing parentheses (https://github.com/lichess-org/lila/issues/17508)
+        if (analysis.getOrientation()=='black') url+='?color=black';
+        if (analysis.onMainline) {
+          url += '#'+analysis.node.ply;
+        } else {
+          url += '#'+lt.global.encodeURIComponent(analysis.path);
+        }
+        url = url.replaceAll('%20','+');
+        this._links.set(initialPgn,url);
       }
-      pgn = pgn.replaceAll(/(\d+\.(?:\.\.)?)\s+/g,'$1');
-      let url = lt.global.location.origin+'/analysis/pgn/'+lt.global.encodeURIComponent(pgn);
-      url+=' '; // Lichess removes trailing closing parentheses (https://github.com/lichess-org/lila/issues/17508)
-      if (analysis.getOrientation()=='black') url+='?color=black';
-      if (analysis.onMainline) {
-        url += '#'+analysis.node.ply;
-      } else {
-        url += '#'+lt.global.encodeURIComponent(analysis.path);
-      }
-      url = url.replaceAll('%20','+');
       if (url.length>2048) {
         button.hide();
         return;
