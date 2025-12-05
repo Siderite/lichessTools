@@ -7003,8 +7003,8 @@
     "searchMoves": "Rechercher dans la liste de coups",
     "disableLocalHidesChartQuestion": "La désactivation de l'option « Local » sur cette page supprimera le graphique et sa légende. Vous ne pourrez la réactiver qu'à partir des préférences. Continuer ?",
     "moveAssistant.pieces": "Pièces",
-    "layoutToggleButtonText": "Basculer la mise en page",
-    "layoutToggleButtonTitle": "Outils LiChess - basculer la disposition de l'analyse de jeu"
+    "layoutToggleButtonText": "Activer/désactiver la mise en page",
+    "layoutToggleButtonTitle": "LiChess Tools - Activer/désactiver la disposition de l'analyse de partie"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
