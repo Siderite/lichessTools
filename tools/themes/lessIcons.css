@@ -4,8 +4,12 @@ body.lichessTools.lichessTools-theme_lessIcons #user_tag:after {
   display: none;
 }
 
-body.lichessTools.lichessTools-theme_lessIcons .site-title .site-icon {
-  display: none;
+@media (min-width: 1019.3px) {
+
+  body.lichessTools.lichessTools-theme_lessIcons .site-title .site-icon {
+    display: none;
+  }
+
 }
 
 @media (max-width: 799.3px) {
