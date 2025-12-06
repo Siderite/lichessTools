@@ -116,7 +116,31 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       switch (e.targetTouches?.length) {
-        case 1: {
+        case 2: {
+            if (this.options.tapDrag && !this.drawingBrush && this.holdingFinger) {
+              const others = e.targetTouches?.filter(t=>t.identifier != this.holdingFinger.id);
+              if (others.length==1 && others[0].identifier) {
+                e.preventDefault();
+                e.stopPropagation();
+                const ev = others[0];
+                this.drawingFinger = {
+                  id: ev.identifier
+                };
+                $('button.lichessTools-shapeDrawing').toggleClassSafe('lichessTools-mobileExperience-tapDrag',true);
+                const pos = [ev.clientX, ev.clientY];
+                const square = this.chessground.getKeyAtDomPos(pos);
+                this.chessground.state.drawable.current = {
+                  orig: square,
+                  brush: this.brushes[0],
+                  snapToValidMove: this.chessground.state.drawable.defaultSnapToValidMove,
+                  pos: pos
+                };
+                this.chessground.state.dom.redraw();
+              }
+            }
+          }
+          break;
+        default: {
             const ev = e.targetTouches?.[0] || e;
             const pos = [ev.clientX, ev.clientY];
             const square = this.chessground.getKeyAtDomPos(pos);
@@ -139,30 +163,6 @@
                 startX: ev.clientX,
                 startY: ev.clientY
               };
-            }
-          }
-          break;
-        case 2: {
-            if (this.options.tapDrag && !this.drawingBrush && this.holdingFinger) {
-              const others = e.targetTouches?.filter(t=>t.identifier != this.holdingFinger.id);
-              if (others.length==1 && others[0].identifier) {
-                e.preventDefault();
-                e.stopPropagation();
-                const ev = others[0];
-                this.drawingFinger = {
-                  id: ev.identifier
-                };
-                $('button.lichessTools-shapeDrawing').toggleClassSafe('lichessTools-mobileExperience-tapDrag',true);
-                const pos = [ev.clientX, ev.clientY];
-                const square = this.chessground.getKeyAtDomPos(pos);
-                this.chessground.state.drawable.current = {
-                  orig: square,
-                  brush: this.brushes[0],
-                  snapToValidMove: this.chessground.state.drawable.defaultSnapToValidMove,
-                  pos: pos
-                };
-                this.chessground.state.dom.redraw();
-              }
             }
           }
           break;
@@ -418,17 +418,17 @@
         if (wrap && !wrap.is('.lichessTools-shapeDrawing')) {
           wrap
           .addClass('lichessTools-shapeDrawing')
-          .on('touchstart mousedown ', this.touchStart)
-          .on('touchmove mousemove', this.touchMove)
-          .on('touchend mouseup', this.touchEnd);
+          .on('touchstart mousedown pointerdown', this.touchStart)
+          .on('touchmove mousemove pointermove', this.touchMove)
+          .on('touchend mouseup pointerup pointercancel', this.touchEnd);
         }
       } else {
         if (wrap) {
           wrap
           .removeClass('lichessTools-shapeDrawing')
-          .off('touchstart mousedown', this.touchStart)
-          .off('touchmove mousemove', this.touchMove)
-          .off('touchend mouseup', this.touchEnd);
+          .off('touchstart mousedown pointerdown', this.touchStart)
+          .off('touchmove mousemove pointermove', this.touchMove)
+          .off('touchend mouseup pointerup pointercancel', this.touchEnd);
         }
       }
       if (isAnalyse) {
