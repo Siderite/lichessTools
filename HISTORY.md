@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Dec
+
+- Explorer compact numbers
+
 03 Dec
 
 - Move Assistant piece highlights

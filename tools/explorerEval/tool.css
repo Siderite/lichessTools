@@ -122,3 +122,8 @@ body.lichessTools section.explorer-box div.lichessTools-spoa {
   display: flex;
   justify-content: space-between;
 }
+
+body.lichessTools section.explorer-box table.moves:has(.lichessTools-explorerEval) td:nth-child(4) {
+  font-size: .75em;
+  text-align: right;
+}

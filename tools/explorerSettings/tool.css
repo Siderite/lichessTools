@@ -6,6 +6,14 @@ body.lichessTools .lichessTools-explorerSettings .choices {
   flex-wrap: wrap;
 }
 
+body.lichessTools td.lichessTools-notCompact {
+  display: none;
+}
+
+body.lichessTools td.lichessTools-compact {
+  font-size: 0.75em;
+}
+
 /* fix too many things in the Explorer table */
 
 body.lichessTools section.explorer-box .data {
