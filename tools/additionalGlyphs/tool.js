@@ -192,7 +192,7 @@
           }
           if (!same) {
             this.prevAutoShapes = [ ...drawable.autoShapes ];
-            this.drawGlyphsDirect();
+            this.drawGlyphs();
           }
         }, 250);
       }

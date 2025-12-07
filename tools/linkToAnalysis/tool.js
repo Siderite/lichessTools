@@ -41,7 +41,7 @@
           .appendTo('.copyables .pgn .pair');
       }
       if (analysis.tree.root.children?.length == 0 && lt.isStartFen(analysis.node.fen)) {
-        button.hide();
+        button.remove();
         return;
       }
       const initialPgn = $('.copyables .pgn textarea.copyable').val()?.trim() || ' *';
@@ -64,11 +64,10 @@
         this._links.set(initialPgn,url);
       }
       if (url.length>2048) {
-        button.hide();
+        button.remove();
         return;
       }
       button.attrSafe('href',url);
-      button.show();
     };
     generateLink = lichessTools.debounce(this.generateLinkDirect,500);
 
