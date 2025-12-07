@@ -7036,10 +7036,10 @@
     "layoutToggleButtonText": "Activer/désactiver la mise en page",
     "layoutToggleButtonTitle": "LiChess Tools - Activer/désactiver la disposition de l'analyse de partie",
     "compactButtonText": "Compact",
-    "compactGamesButtonTitle": "Conception compacte",
-    "compactBillionsText": "%sB",
+    "compactGamesButtonTitle": "Design compact",
+    "compactBillionsText": "%sG",
     "compactMillionsText": "%sM",
-    "compactThousandsText": "%sK"
+    "compactThousandsText": "%sk"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -8660,7 +8660,7 @@
     "restoreButtonText": "Επαναφορά",
     "restoreButtonTitle": "LiChess Tools - επαναφορά προτιμήσεων από ένα αρχείο",
     "defaultValueLegend": "*Blue οι ρυθμίσεις είναι αυτές που είναι ενεργοποιημένες από προεπιλογή",
-    "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: from current position\n separate: separate branches\n tohere: to current position\n unicode: unicode piece characters\nCopy moves to clipboard",
+    "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: από την τρέχουσα θέση\n separate: ξεχωριστούς κλάδους\n tohere: στην τρέχουσα θέση\n unicode: unicode χαρακτήρες κομματιών \nΑντιγραφή στο πρόχειρο",
     "extractPrompt": "\"fen\"",
     "extractingFens": "Εξαγωγή FENs",
     "options.profileTimeline": "Χρονολόγιο στο προφίλ",
@@ -9050,7 +9050,7 @@
     "compactButtonText": "Συμπαγής",
     "compactGamesButtonTitle": "Συμπαγής σχεδιασμός",
     "compactBillionsText": "%sB",
-    "compactMillionsText": "%sM",
+    "compactMillionsText": "%sΜ",
     "compactThousandsText": "%sK"
   },
   "hi-IN": {
@@ -17387,8 +17387,8 @@
     "timelineNotify.forum-post": "Mensaje del foro",
     "timelineNotify.ublog-post": "Entrada del blog",
     "timelineNotify.stream-start": "Inicio de la secuencia",
-    "timelineNotify.simul-create": "Crear Simul",
-    "timelineNotify.simul-join": "Simul unirse",
+    "timelineNotify.simul-create": "Crear Simulación",
+    "timelineNotify.simul-join": "Unirse a la simulación",
     "timelineNotify.team-create": "Crear equipo",
     "timelineNotify.team-join": "Unirse al equipo",
     "timelineNotify.tour-join": "Unirse al torneo",
