@@ -596,6 +596,12 @@
       "category": "OwOHamper",
       "name": "Neo_wood",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/neo_wood/"
+    },
+
+    {
+      "category": "DragurKnight",
+      "name": "Future",
+      "url": "https://raw.githubusercontent.com/nebulajet24-png/NewChessPieces/refs/heads/main/Future/"
     }
   ]
 }

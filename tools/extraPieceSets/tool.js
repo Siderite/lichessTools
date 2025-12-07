@@ -6,7 +6,7 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper'],
+        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight'],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
@@ -24,7 +24,8 @@
         'extraPieceSets.bend-n': 'bend-n',
         'extraPieceSets.comfysage': 'comfysage',
         'extraPieceSets.tage64': 'tage64',
-        'extraPieceSets.OwOHamper': 'OwOHamper'
+        'extraPieceSets.OwOHamper': 'OwOHamper',
+        'extraPieceSets.DragurKnight': 'DragurKnight'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -117,6 +118,10 @@
         {
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.png';
+        }
+        case 'DragurKnight':
+        {
+          return pieceSet.url+color[0]+'_'+piece+'.svg';
         }
         default:
           throw new Error('Unknown piece set type' + type);
