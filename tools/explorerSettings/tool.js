@@ -189,13 +189,19 @@
         .each((i,e)=>{
           const td = $(e);
           if (isSet) {
-            if (td.is('.lichessTools-compact')) return;
-            td.toggleClassSafe('lichessTools-notCompact',true);
-            const val = +(td.text().replaceAll(',',''));
-            $('<td class="lichessTools-compact">')
-              .attr('title',td.text())
-              .text(this.compactNumber(val))
-              .insertAfter(td);
+            if (td.is('.lichessTools-compact')) {
+              const text = td.prev('.lichessTools-notCompact').text();
+              td
+                .attr('title',text)
+                .text(this.compactNumber(text));
+            } else {
+              td.toggleClassSafe('lichessTools-notCompact',true);
+              const text = td.text();
+              $('<td class="lichessTools-compact">')
+                .attr('title',text)
+                .text(this.compactNumber(text))
+                .insertAfter(td);
+            }
           } else {
             if (td.is('.lichessTools-compact')) {
               td.prev().toggleClassSafe('lichessTools-notCompact',false);
@@ -205,7 +211,9 @@
         });
     };
 
-    compactNumber = (nr) => {
+    compactNumber = (text) => {
+      const nr = +(text.replaceAll(/[^\d]+/g,''));
+      if (!nr) return text;
       const lt = this.lichessTools;
       const trans = lt.translator;
       for (const x of [
