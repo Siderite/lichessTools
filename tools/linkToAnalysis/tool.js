@@ -54,14 +54,14 @@
         pgn = pgn.replaceAll(/(\d+\.(?:\.\.)?)\s+/g,'$1');
         url = lt.global.location.origin+'/analysis/pgn/'+lt.global.encodeURIComponent(pgn);
         url+=' '; // Lichess removes trailing closing parentheses (https://github.com/lichess-org/lila/issues/17508)
-        if (analysis.getOrientation()=='black') url+='?color=black';
-        if (analysis.onMainline) {
-          url += '#'+analysis.node.ply;
-        } else {
-          url += '#'+lt.global.encodeURIComponent(analysis.path);
-        }
         url = url.replaceAll('%20','+');
         this._links.set(initialPgn,url);
+      }
+      if (analysis.getOrientation()=='black') url+='?color=black';
+      if (analysis.onMainline) {
+        url += '#'+analysis.node.ply;
+      } else {
+        url += '#'+lt.global.encodeURIComponent(analysis.path);
       }
       if (url.length>2048) {
         button.remove();
