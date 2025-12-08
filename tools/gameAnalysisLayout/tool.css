@@ -176,6 +176,13 @@
     pointer-events: none;
   }
 
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable:not(.lichessTools-show) povs.current {
+    font-size: 90%;
+    margin-left: 0;
+    line-height: 1.33;
+    cursor: pointer;
+  }
+
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable:not(.lichessTools-show) povs:not(.current),
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable:not(.lichessTools-show) .crosstable__users,
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .ctable:not(.lichessTools-show) .crosstable__matchup,

@@ -43,8 +43,9 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const mainOffset = $('main').offset();
-      $('body').css('--crosstable-x',(pos.x+pos.width-mainOffset.left)+'px');
-      $('body').css('--crosstable-y',(pos.y+pos.height/2-mainOffset.top)+'px');
+      $('body')
+        .css('--crosstable-x',(pos.x+pos.width-mainOffset.left)+'px')
+        .css('--crosstable-y',(pos.y+pos.height/2-mainOffset.top)+'px');
       const reverse = $('.game__meta__players .player.white a.user-link').attr('href')!=$('.ctable .crosstable__users a.user-link').eq(0).attr('href');
       $('.analyse__underboard .ctable').toggleClass('lichessTools-reverse',reverse);
     };
