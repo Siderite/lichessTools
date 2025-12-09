@@ -84,9 +84,10 @@
         lt.debug && lt.global.console.debug('Firing board resize event');
         $('html').css('--board-size', boardSize);
         $('body')
-          .toggleClassSafe('lichessTools-hasBoardSize', true)
-          .trigger('resize');
+          .toggleClassSafe('lichessTools-hasBoardSize', true);
       }
+      $('body')
+        .trigger('resize');
     };
     fireResize = lichessTools.debounce(this.fireResizeDirect,200);
 
