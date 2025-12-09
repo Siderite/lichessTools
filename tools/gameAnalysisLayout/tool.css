@@ -274,7 +274,8 @@
     transform: translateX(2em);
   }
 
-  body.lichessTools.lichessTools-hideLeftSide .mchat__tab.review {
+  body.lichessTools.lichessTools-hideLeftSide .mchat__tab.review,
+  body:not(.lichessTools.lichessTools-gameAnalysisLayout) .mchat__tab.review {
     display:none;
   }
 

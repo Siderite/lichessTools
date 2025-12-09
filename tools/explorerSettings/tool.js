@@ -185,30 +185,27 @@
       let isSet = lt.storage.get('LiChessTools.compactExplorer');
       if (isSet === null) isSet = true;
 
-      $('table.moves td+td:has(div.bar)').prev()
-        .each((i,e)=>{
-          const td = $(e);
-          if (isSet) {
+      if (!isSet) {
+        $('td.lichessTools-compact').remove();
+        $('td.lichessTools-notCompact').removeClass('lichessTools-notCompact');
+      } else {
+        $('table.moves td+td:has(div.bar)').prev()
+          .each((i,e)=>{
+            let text = null;
+            let td = $(e);
             if (td.is('.lichessTools-compact')) {
-              const text = td.prev('.lichessTools-notCompact').text();
-              td
-                .attr('title',text)
-                .text(this.compactNumber(text));
+              text = td.prev('.lichessTools-notCompact').text();
             } else {
               td.toggleClassSafe('lichessTools-notCompact',true);
-              const text = td.text();
-              $('<td class="lichessTools-compact">')
-                .attr('title',text)
-                .text(this.compactNumber(text))
+              text = td.text();
+              td = $('<td class="lichessTools-compact">')
                 .insertAfter(td);
             }
-          } else {
-            if (td.is('.lichessTools-compact')) {
-              td.prev().toggleClassSafe('lichessTools-notCompact',false);
-              td.remove();
-            }
-          }
-        });
+            td
+              .attr('title',text)
+              .text(this.compactNumber(text));
+          });
+      }
     };
 
     compactNumber = (text) => {
@@ -237,6 +234,7 @@
       explorer.config.toggleOpen = lt.unwrapFunction(explorer.config.toggleOpen, 'explorerSettings');
       $('section.explorer-box section.lichessTools-explorerSettings').remove();
       lt.pubsub.off('lichessTools.redraw', this.showSettings);
+      lt.pubsub.off('lichessTools.redraw', this.compactExplorer);
       if (!value) return;
       explorer.config.toggleOpen = lt.wrapFunction(explorer.config.toggleOpen, {
         id: 'explorerSettings',
@@ -245,6 +243,7 @@
         }
       });
       lt.pubsub.on('lichessTools.redraw', this.showSettings);
+      lt.pubsub.on('lichessTools.redraw', this.compactExplorer);
       this.showSettings();
       if (!lt.isWrappedFunction(explorer.setNode, 'explorerSettings-compact')) {
         explorer.setNode = lt.wrapFunction(explorer.setNode, {
