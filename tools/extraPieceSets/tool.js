@@ -6,7 +6,7 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight'],
+        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper'],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
@@ -25,7 +25,8 @@
         'extraPieceSets.comfysage': 'comfysage',
         'extraPieceSets.tage64': 'tage64',
         'extraPieceSets.OwOHamper': 'OwOHamper',
-        'extraPieceSets.DragurKnight': 'DragurKnight'
+        'extraPieceSets.DragurKnight': 'DragurKnight',
+        'extraPieceSets.LichessHelper': 'LichessHelper'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -97,31 +98,28 @@
     getUrl = (pieceSet,piece,color) => {
       switch(pieceSet.category) {
         case 'siderite':
-        {
-          const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
-          return pieceSet.url+color[0]+pieceLetter+'.svg';
-        }
-        case 'chesscom':
-        case 'tage64':
-        case 'OwOHamper':
-        {
-          const pieceLetter = piece == 'knight' ? 'n' : piece[0];
-          return pieceSet.url+color[0]+pieceLetter+'.png';
-        }
         case 'hollowleaf':
         case 'bend-n':
         {
           const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
-          return pieceSet.url+color[0]+pieceLetter+'.png';
+          return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type;
+        }
+        case 'chesscom':
+        case 'tage64':
+        case 'OwOHamper':
+        case 'LichessHelper':
+        {
+          const pieceLetter = piece == 'knight' ? 'n' : piece[0];
+          return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type
         }
         case 'comfysage':
         {
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
-          return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.png';
+          return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.'+pieceSet.type
         }
         case 'DragurKnight':
         {
-          return pieceSet.url+color[0]+'_'+piece+'.svg';
+          return pieceSet.url+color[0]+'_'+piece+'.'+pieceSet.type
         }
         default:
           throw new Error('Unknown piece set type' + type);

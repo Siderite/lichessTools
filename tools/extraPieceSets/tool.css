@@ -35,5 +35,10 @@ body.lichessTools #dasher_app button.lichessTools-extraPieceSets.OwOHamper {
 
 body.lichessTools #dasher_app button.lichessTools-extraPieceSets.DragurKnight {
   border-radius:33%;
-  border: 1px solid green;
+  border: 1px dashed green;
+}
+
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.LichessHelper {
+  border-radius:33%;
+  border: 1px dotted darkviolet;
 }

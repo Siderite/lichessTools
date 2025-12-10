@@ -3,605 +3,878 @@
     {
       "category": "siderite",
       "name": "Chess Pursuit",
-      "url": "https://siderite.github.io/ChessPursuit/pieces/"
+      "url": "https://siderite.github.io/ChessPursuit/pieces/",
+      "type": "svg"
     },
 
     {
       "category": "chesscom",
       "name": "Neo",
-      "url": "https://assets-themes.chess.com/image/ejgfv/150/"
+      "url": "https://assets-themes.chess.com/image/ejgfv/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Game Room",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/game_room/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/game_room/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Wood",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/wood/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/wood/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Glass",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/glass/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/glass/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Gothic",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/gothic/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/gothic/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Classic",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/classic/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/classic/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Metal",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/metal/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/metal/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Bases",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/bases/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/bases/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Neo-Wood",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo_wood/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo_wood/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Icy Sea",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/icy_sea/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/icy_sea/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Club",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/club/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/club/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Ocean",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/ocean/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/ocean/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Newspaper",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/newspaper/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/newspaper/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Space",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/space/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/space/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Cases",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/cases/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/cases/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Condal",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/condal/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/condal/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "8-Bit",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/8_bit/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/8_bit/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Marble",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/marble/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/marble/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Book",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/book/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/book/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Alpha",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Bubblegum",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/bubblegum/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/bubblegum/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Dash",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/dash/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/dash/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Graffiti",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/graffiti/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/graffiti/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Light",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/light/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/light/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Lolz",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/lolz/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/lolz/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Luca",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/luca/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/luca/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Maya",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/maya/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/maya/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Modern",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/modern/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/modern/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Nature",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/nature/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/nature/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Neon",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/neon/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/neon/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Sky",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/sky/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/sky/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Tigers",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/tigers/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/tigers/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Tournament",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/tournament/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/tournament/150/",
+      "type": "png"
     }, {
       "category": "chesscom",
       "name": "Vintage",
-      "url": "https://images.chesscomfiles.com/chess-themes/pieces/vintage/150/"
+      "url": "https://images.chesscomfiles.com/chess-themes/pieces/vintage/150/",
+      "type": "png"
     },
 
 
     {
       "category": "hollowleaf",
       "name": "Anime",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Anime/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Anime/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Apollo",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Apollo/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Apollo/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Artemis",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Artemis/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Artemis/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Attack",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Attack/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Attack/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Clash",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Clash/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Clash/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Hades",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Hades/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Hades/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Halloween",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Halloween/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Halloween/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Hera",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Hera/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Hera/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Juno",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Juno/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Juno/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Jupiter",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Jupiter/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Jupiter/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Mars",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Mars/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Mars/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Minerva",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Minerva/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Minerva/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Stone",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Stone/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Stone/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Venus",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Venus/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Venus/",
+      "type": "png"
     }, {
       "category": "hollowleaf",
       "name": "Cyborg",
-      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Cyborg/"
+      "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Cyborg/",
+      "type": "png"
     },
 
     {
       "category": "bend-n",
       "name": "Alpha",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/alpha/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/alpha/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "California",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/california/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/california/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "CBurnett",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/cburnett/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/cburnett/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Fresca",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/fresca/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/fresca/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Gioco",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/gioco/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/gioco/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Governor",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/governor/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/governor/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Horsey",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/horsey/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/horsey/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "ICPieces",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/icpieces/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/icpieces/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Kosal",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/kosal/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/kosal/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Libra",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/libra/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/libra/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Maestro",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/maestro/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/maestro/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Pirouetti",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/pirouetti/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/pirouetti/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Pixel",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/pixel/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/pixel/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Riohacha",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/riohacha/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/riohacha/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Staunty",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/staunty/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/staunty/",
+      "type": "png"
     }, {
       "category": "bend-n",
       "name": "Tatiana",
-      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/tatiana/"
+      "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/tatiana/",
+      "type": "png"
     },
 
 
     {
       "category": "comfysage",
       "name": "Base",
-      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/base/"
+      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/base/",
+      "type": "png"
     }, {
       "category": "comfysage",
       "name": "Frappe",
-      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/frappe/"
+      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/frappe/",
+      "type": "png"
     }, {
       "category": "comfysage",
       "name": "Latte",
-      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/latte/"
+      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/latte/",
+      "type": "png"
     }, {
       "category": "comfysage",
       "name": "Macchiato",
-      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/macchiato/"
+      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/macchiato/",
+      "type": "png"
     }, {
       "category": "comfysage",
       "name": "Mocha",
-      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/mocha/"
+      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/mocha/",
+      "type": "png"
     },
 
 
     {
       "category": "tage64",
       "name": "8_bit",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/8_bit/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/8_bit/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Alpha",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/alpha/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/alpha/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Bases",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/bases/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/bases/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Beyer",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/beyer/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/beyer/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Book",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/book/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/book/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Bubblegum",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/bubblegum/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/bubblegum/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Case",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/case/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/case/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Cases",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/cases/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/cases/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Chesscom",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/chesscom/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/chesscom/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Classic",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/classic/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/classic/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Club",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/club/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/club/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Condal",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/condal/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/condal/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Dash",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/dash/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/dash/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Game_room",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/game_room/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/game_room/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Glass",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/glass/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/glass/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Gothic",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/gothic/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/gothic/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Graffiti",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/graffiti/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/graffiti/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Icy_sea",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/icy_sea/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/icy_sea/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Leipzig",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/leipzig/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/leipzig/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Light",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/light/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/light/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Lolz",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/lolz/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/lolz/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Luca",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/luca/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/luca/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Marble",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/marble/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/marble/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Maya",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/maya/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/maya/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Merida",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/merida/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/merida/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Metal",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/metal/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/metal/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Modern",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/modern/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/modern/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Nature",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/nature/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/nature/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Neo",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neo/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neo/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Neo_wood",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neo_wood/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neo_wood/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Neon",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neon/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neon/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Newspaper",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/newspaper/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/newspaper/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Ocean",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/ocean/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/ocean/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Sky",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/sky/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/sky/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Space",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/space/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/space/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Tigers",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/tigers/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/tigers/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Tournament",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/tournament/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/tournament/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Uscf",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/uscf/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/uscf/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Vintage",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/vintage/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/vintage/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Wikipedia",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/wikipedia/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/wikipedia/",
+      "type": "png"
     }, {
       "category": "tage64",
       "name": "Wood",
-      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/wood/"
+      "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/wood/",
+      "type": "png"
     },
 
 
     {
       "category": "OwOHamper",
       "name": "8_bit",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/8_bit/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/8_bit/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Alpha",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Alpha/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Alpha/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Bases",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Bases/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Bases/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Book",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Book/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Book/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Condal",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Condal/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Condal/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Dash",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Dash/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Dash/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Glass",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Glass/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Glass/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Gothic",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Gothic/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Gothic/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Graffiti",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Graffiti/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Graffiti/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Light",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Light/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Light/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Lolz",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Lolz/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Lolz/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Maya",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Maya/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Maya/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Modern",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Modern/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Modern/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Nature",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Nature/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Nature/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Neo",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Neo/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Neo/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Neon",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Neon/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Neon/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Newspaper",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Newspaper/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Newspaper/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Ocean",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Ocean/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Ocean/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Sky",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Sky/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Sky/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Space",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Space/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Space/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Tigers",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Tigers/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Tigers/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Tournament",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Tournament/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Tournament/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Vintage",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Vintage/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Vintage/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Wood",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Wood/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Wood/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Bubblegum",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/bubblegum/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/bubblegum/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Cases",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/cases/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/cases/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Classic",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/classic/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/classic/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Club",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/club/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/club/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Game_room",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/game_room/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/game_room/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Icy_sea",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/icy_sea/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/icy_sea/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Marble",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/marble/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/marble/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Metal",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/metal/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/metal/",
+      "type": "png"
     }, {
       "category": "OwOHamper",
       "name": "Neo_wood",
-      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/neo_wood/"
+      "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/neo_wood/",
+      "type": "png"
     },
 
     {
       "category": "DragurKnight",
       "name": "Future",
-      "url": "https://raw.githubusercontent.com/nebulajet24-png/NewChessPieces/refs/heads/main/Future/"
+      "url": "https://raw.githubusercontent.com/nebulajet24-png/NewChessPieces/refs/heads/main/Future/",
+      "type": "svg"
+    },
+
+    {
+      "category": "LichessHelper",
+      "name": "32bit",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/32bit/",
+      "type": "svg"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "cburnett",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/cburnett/",
+      "type": "svg"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "cburnett_jp",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/cburnett_jp/",
+      "type": "svg"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "dani_maccari",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/dani_maccari/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "darklama_pd",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/darklama_pd/",
+      "type": "svg"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "kiwen_suwi",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/kiwen_suwi/",
+      "type": "svg"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "letters",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/letters/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "mom_still_loves_them",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/mom_still_loves_them/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "new_metropol",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/new_metropol/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworski",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworski_bluelake",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_bluelake/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworski_bluelake2",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_bluelake2/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworski_forest",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_forest/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworski_ice",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_ice/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworski_metal",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_metal/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworski_muesli",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_muesli/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworski_pink",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_pink/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworski_purple",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_purple/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworskim_blue",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworskim_blue/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworskim_metal",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworskim_metal/",
+      "type": "png"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "pjaworskim_mramor",
+      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworskim_mramor/",
+      "type": "png"
     }
   ]
 }
