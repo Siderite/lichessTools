@@ -29,12 +29,7 @@
         'meButtonSettingText': 'Me button',
         'meButtonSettingTitle': 'Button to switch player with your user',
         'moreGamesButtonText': 'More games',
-        'moreGamesButtonTitle': 'Show more games in Recent Games',
-        'compactButtonText': 'Compact',
-        'compactGamesButtonTitle': 'Compact design',
-        'compactBillionsText': '%sB',
-        'compactMillionsText': '%sM',
-        'compactThousandsText': '%sK'
+        'moreGamesButtonTitle': 'Show more games in Recent Games'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -48,12 +43,7 @@
         'meButtonSettingText': 'Button Eu',
         'meButtonSettingTitle': 'Buton care schimb\u0103 juc\u0103torul cu tine',
         'moreGamesButtonText': 'Mai multe jocuri',
-        'moreGamesButtonTitle': 'Arat\u0103 mai multe jocuri \u00een Jocuri Recente',
-        'compactButtonText': 'Compact',
-        'compactGamesButtonTitle': 'Design compact',
-        'compactBillionsText': '%sB',
-        'compactMillionsText': '%sM',
-        'compactThousandsText': '%sK'
+        'moreGamesButtonTitle': 'Arat\u0103 mai multe jocuri \u00een Jocuri Recente'
       }
     };
 
@@ -127,21 +117,6 @@
                 this.showSettingsDirect();
               }));
         }
-        if (true) {
-          choices
-            .append($('<button class="lichessTools-compact">').text(trans.noarg('compactButtonText')).attr('title', trans.noarg('compactButtonTitle'))
-              .on('click', ev => {
-                ev.preventDefault();
-                let isSet = lt.storage.get('LiChessTools.compactExplorer');
-                if (isSet === null) isSet = true;
-                lt.storage.set('LiChessTools.compactExplorer',!isSet);
-                this.showSettingsDirect();
-              }));
-          const explorer = lichess.analysis?.explorer;
-          if (explorer) {
-            this.compactExplorer();
-          }
-        }
 
         section = $('<section class="lichessTools-explorerSettings">')
           .append($('<label>').text(trans.noarg('lichessTools')))
@@ -166,62 +141,12 @@
       $('button.lichessTools-moreGames', section)
         .attr('aria-pressed', value.toString());
 
-      value = lt.storage.get('LiChessTools.compactExplorer');
-      if (value === null) value = true;
-      $('button.lichessTools-compact', section)
-        .attr('aria-pressed', value.toString());
-
       value = lt.currentOptions.getValue('openingExplorerUsers');
       value = lt.isOptionSet(value, 'switchWithMe');
       $('button.lichessTools-meButton', section)
         .attr('aria-pressed', value.toString());
     };
     showSettings = this.lichessTools.debounce(this.showSettingsDirect, 100);
-
-    compactExplorer = () => {
-      const lt = this.lichessTools;
-      const $ = lt.$;
-
-      let isSet = lt.storage.get('LiChessTools.compactExplorer');
-      if (isSet === null) isSet = true;
-
-      if (!isSet) {
-        $('td.lichessTools-compact').remove();
-        $('td.lichessTools-notCompact').removeClass('lichessTools-notCompact');
-      } else {
-        $('table.moves td+td:has(div.bar)').prev()
-          .each((i,e)=>{
-            let text = null;
-            let td = $(e);
-            if (td.is('.lichessTools-compact')) {
-              text = td.prev('.lichessTools-notCompact').text();
-            } else {
-              td.toggleClassSafe('lichessTools-notCompact',true);
-              text = td.text();
-              td = $('<td class="lichessTools-compact">')
-                .insertAfter(td);
-            }
-            td
-              .attr('title',text)
-              .text(this.compactNumber(text));
-          });
-      }
-    };
-
-    compactNumber = (text) => {
-      const nr = +(text.replaceAll(/[^\d]+/g,''));
-      if (!nr) return text;
-      const lt = this.lichessTools;
-      const trans = lt.translator;
-      for (const x of [
-        { d:1e+9,k:'compactBillionsText' },
-        { d:1e+6,k:'compactMillionsText' },
-        { d:1e+3,k:'compactThousandsText' }
-      ]) {
-        if (nr>=x.d) return trans.pluralSame(x.k,(nr/x.d).toFixed(1));
-      }
-      return nr;
-    };
 
     async start() {
       const lt = this.lichessTools;
@@ -234,7 +159,6 @@
       explorer.config.toggleOpen = lt.unwrapFunction(explorer.config.toggleOpen, 'explorerSettings');
       $('section.explorer-box section.lichessTools-explorerSettings').remove();
       lt.pubsub.off('lichessTools.redraw', this.showSettings);
-      lt.pubsub.off('lichessTools.redraw', this.compactExplorer);
       if (!value) return;
       explorer.config.toggleOpen = lt.wrapFunction(explorer.config.toggleOpen, {
         id: 'explorerSettings',
@@ -243,19 +167,7 @@
         }
       });
       lt.pubsub.on('lichessTools.redraw', this.showSettings);
-      lt.pubsub.on('lichessTools.redraw', this.compactExplorer);
       this.showSettings();
-      if (!lt.isWrappedFunction(explorer.setNode, 'explorerSettings-compact')) {
-        explorer.setNode = lt.wrapFunction(explorer.setNode, {
-          id: 'explorerSettings-compact',
-          after: async ($this, result, ...args) => {
-            if (!explorer.lastStream) return;
-            await explorer.lastStream.promise;
-            this.compactExplorer();
-          }
-        });
-      }
-      this.compactExplorer();
     }
 
   }
