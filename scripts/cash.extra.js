@@ -235,4 +235,147 @@ cash.fn.replaceText = function(replacement, onlyIfExisting) {
   return this;
 }
 
+cash.fn.makeCombo = function (options) {
+
+  const $ = cash;
+  return this.each(function () {
+
+    const input = $(this);
+    input.prop('combo',options);
+    let open = false;
+
+    let wrapper = $('<div class="lichessTools-combo">');
+    input.wrap(wrapper);
+    wrapper = input.parent();
+
+    const list = $('<div class="combo-list">').insertAfter(input);
+
+    const updateList = (e) => {
+      const query = input.val().toLowerCase();
+      list.empty();
+
+      const data = input.prop('combo').data;
+      const filtered = data.filter(o => {
+        if (options.noFilter) return true;
+        return (o?.text || o?.value || o?.toString() || '').toLowerCase().includes(query);
+      });
+
+      filtered.forEach(o => {
+        $('<div class="combo-item">')
+          .text(o?.text || o?.value || o || '')
+          .toggleClass('highlight',(o?.value || o) == input.val())
+          .appendTo(list)
+          .on('click', () => {
+            input.val(o?.value || o);
+            list.toggleDisplay(false);
+            open = false;
+          });
+        });
+      list.find('.combo-item.highlight')
+          .each((i,el)=>{
+            const s = (el.scrollIntoViewIfNeeded || el.scrollIntoView).bind(el);
+            s && s();
+          });
+
+      open = filtered.length > 0;
+      list.toggleDisplay(open);
+    };
+
+    input.on('focus input', updateList);
+
+    input[0].addEventListener('keydown', (e) => {
+      const items = list.children('.combo-item');
+      let index = items.index(list.find('.highlight'));
+
+      switch (e.key) {
+        case 'ArrowDown':
+          if (!open) {
+            updateList();
+          } else {
+            index = (index + 1) % items.length;
+            items.removeClass('highlight').eq(index).addClass('highlight')
+              .each((i,el)=>{
+                const s = (el.scrollIntoViewIfNeeded || el.scrollIntoView).bind(el);
+                s && s();
+              });
+            const o = input.prop('combo')?.data[index];
+            input.prop('comboSelected',o);
+            input.trigger('comboSelect');
+          }
+          e.preventDefault();
+          break;
+        case 'ArrowUp':
+          if (!open) {
+            updateList();
+          } else {
+            index = (index - 1 + items.length) % items.length;
+            items.removeClass('highlight').eq(index).addClass('highlight')
+              .each((i,el)=>{
+                const s = (el.scrollIntoViewIfNeeded || el.scrollIntoView).bind(el);
+                s && s();
+              });
+            const o = input.prop('combo')?.data[index];
+            input.prop('comboSelected',o);
+            input.trigger('comboSelect');
+          }
+          e.preventDefault();
+          break;
+        case 'Enter':
+          if (open && index>=0) {
+            const o = input.prop('combo')?.data[index];
+            const value = o?.value || o || '';
+            input.val(value);
+            input.trigger('change');
+            list.toggleDisplay(false);
+            open = false;
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          break;
+      }
+    }, { capture: true });
+
+    $(document).on('click', e => {
+      if (!$(e.target).closest(wrapper).length) {
+        list.toggleDisplay(false);
+        open = false;
+      }
+    });
+
+    if (!$('#lichessTools-combo').length) {
+      $(`<style id="lichessTools-combo">
+.lichessTools-combo {
+  position: relative;
+}
+
+.lichessTools-combo .combo-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--c-bg-box);
+  border: 1px solid var(--c-border);
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  z-index: 999;
+  text-align: left;
+}
+
+.lichessTools-combo .combo-item {
+  padding: .6em 1em;
+  cursor: pointer;
+  color: var(--c-font-clear);
+}
+
+.lichessTools-combo .combo-item:hover,
+.lichessTools-combo .combo-item.highlight {
+  background-color: color-mix(in lab, currentcolor 10%, transparent);
+}
+</style>`).appendTo('head');
+        
+    }
+  });
+};
+
 })(cash);

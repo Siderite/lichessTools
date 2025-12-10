@@ -14,3 +14,12 @@ body.lichessTools #dasher_app .board .list button.lichessTools-customBoardImage 
   padding: 0.5em;
   white-space:nowrap;
 }
+
+dialog[open] .lichessTools-combo .combo-list {
+  width: min(40ch, 90%);
+  justify-self: center;
+}
+
+dialog[open]:has(.lichessTools-combo) div.scrollable {
+  overflow: visible;
+}

@@ -1,0 +1,156 @@
+{
+  "data": [
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/26brown.png",
+      "text": "26brown"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/26dmblue.png",
+      "text": "26dmblue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/arcade.png",
+      "text": "arcade"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/autumn.png",
+      "text": "autumn"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/blackwhite.png",
+      "text": "blackwhite"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/bluenblack.png",
+      "text": "bluenblack"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/darkblue.png",
+      "text": "darkblue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/dbhc.png",
+      "text": "dbhc"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/deepblue.png",
+      "text": "deepblue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/disa_board.png",
+      "text": "disa_board"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/disa_night.png",
+      "text": "disa_night"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/dmblue2.png",
+      "text": "dmblue2"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/emerald.png",
+      "text": "emerald"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/field.png",
+      "text": "field"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/glass.png",
+      "text": "glass"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/gray_eyes.png",
+      "text": "gray_eyes"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/green2.png",
+      "text": "green2"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/iceberg.png",
+      "text": "iceberg"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/industrial.png",
+      "text": "industrial"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/jelly.png",
+      "text": "jelly"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/losangeles.png",
+      "text": "losangeles"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/midblue.png",
+      "text": "midblue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/middaysun.png",
+      "text": "middaysun"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/nightindesert.png",
+      "text": "nightindesert"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/overheated_stain.png",
+      "text": "overheated_stain"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/paperice.png",
+      "text": "paperice"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/peppermint.png",
+      "text": "peppermint"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/polarizer.png",
+      "text": "polarizer"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/purple.png",
+      "text": "purple"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/revo.png",
+      "text": "revo"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/softbrown.png",
+      "text": "softbrown"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/softlightblue.png",
+      "text": "softlightblue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/softpurple.png",
+      "text": "softpurple"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/someunix.png",
+      "text": "someunix"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/teal.png",
+      "text": "teal"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/twilight.png",
+      "text": "twilight"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/webpunk.png",
+      "text": "webpunk"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/wood.png",
+      "text": "wood"
+    }
+  ]
+}

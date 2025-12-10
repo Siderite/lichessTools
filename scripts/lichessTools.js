@@ -974,14 +974,14 @@
       return minArea ? intersection / minArea : 0;
     };
 
-    inViewport = (element) => {
+    inViewport = (element, forced) => {
       if (!element) return 0;
       if ('length' in element) element = element[0];
       if (!element) return 0;
       if (this.global.document.readyState != 'complete') return 1;
       if (this.global.document.visibilityState == 'hidden') return 0;
 
-      return 1; // this is too expensive
+      if (!forced) return 1; // this is too expensive
 
       if (Date.now() - element.__inViewport?.time < 5000) {
         return element.__inViewport.value;
@@ -1015,7 +1015,7 @@
         if (elem.scrollIntoViewIfNeeded) {
           elem.scrollIntoViewIfNeeded();
         } else {
-          if (!this.inViewport(elem)) {
+          if (!this.inViewport(elem, true)) {
             elem.scrollIntoView();
           }
         }
