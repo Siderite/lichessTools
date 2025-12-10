@@ -17,6 +17,7 @@
         'options.appearance': 'Appearance',
         'options.extraPieceSets': 'Extra piece sets',
         'pieceSetTitle': 'LiChess Tools - %s',
+        'userManualLinkTitle': 'User manual (EN)',
 
         'extraPieceSets.siderite': 'Siderite', // don't translate these
         'extraPieceSets.chesscom': 'chess.com',
@@ -31,7 +32,8 @@
       'ro-RO': {
         'options.appearance': 'Aspect',
         'options.extraPieceSets': 'Seturi suplimentare de piese',
-        'pieceSetTitle': 'LiChess Tools - %s'
+        'pieceSetTitle': 'LiChess Tools - %s',
+        'userManualLinkTitle': 'Manual utilizator (EN)'
       }
     }
 
@@ -126,6 +128,7 @@
       }
     };
 
+
     addPieces = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -152,6 +155,14 @@
         });
       const template = list.find('button').eq(0).clone().removeClass('active');
       if (!this.pieceSets) return;
+      const head = $('#dasher_app .sub.piece.d2 button.head');
+      if (!head.find('.lichessTools-infoIcon').length) {
+        head.append($('<a class="lichessTools-infoIcon" target="_blank">')
+          .attr('title',trans.noarg('userManualLinkTitle'))
+          .attr('data-icon',lt.icon.InfoCircle)
+          .attr('href','https://siderite.dev/blog/lichess-tools---user-manual/#extraPieceSets')
+        );
+      }
       const currentSetName = lt.storage.get('extraPieceSets-set');
       const categories = Object.keys(this.options);
       for (const category of categories) {

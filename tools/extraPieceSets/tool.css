@@ -1,3 +1,7 @@
+body.lichessTools #dasher_app .piece .head .lichessTools-infoIcon {
+  float: right;
+}
+
 body.lichessTools #dasher_app button.lichessTools-extraPieceSets.chesscom {
   border-radius:33%;
   border: 1px solid #5d9948;
