@@ -3,6 +3,8 @@ History of features added to LiChess Tools in time (reversed order)
 10 Dec
 
 - Removed compact numbers after native implementation
+- Added custom board dropdown
+- More piece sets
 
 07 Dec
 
