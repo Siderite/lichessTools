@@ -1,5 +1,14 @@
 /* Fix third parties */
 
+/** Lichess **/
+
+@media (min-width: 1259.3px) {
+
+  body.lichessTools.lichessTools-hasBoardSize div.eval-gauge {
+    max-height: min(calc(100vh - var(---site-header-height)), max(488px, var(--board-size)));
+  }
+
+}
 
 /** Prettier **/
 

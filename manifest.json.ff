@@ -195,7 +195,6 @@
       "css": [
         "styles/icons.css",
         "tools/fixMoveListLoad/tool.css",
-        "tools/fixChessgroundResize/tool.css",
         "tools/themes/tool.css",
 
         "tools/themes/performance.css",
