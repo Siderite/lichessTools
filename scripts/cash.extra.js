@@ -267,6 +267,7 @@ cash.fn.makeCombo = function (options) {
           .appendTo(list)
           .on('click', () => {
             input.val(o?.value || o);
+            input.trigger('change');
             list.toggleDisplay(false);
             open = false;
           });

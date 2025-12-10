@@ -15,11 +15,16 @@ body.lichessTools #dasher_app .board .list button.lichessTools-customBoardImage 
   white-space:nowrap;
 }
 
-dialog[open] .lichessTools-combo .combo-list {
+body.lichessTools dialog[open] .lichessTools-combo .combo-list {
   width: min(40ch, 90%);
   justify-self: center;
 }
 
-dialog[open]:has(.lichessTools-combo) div.scrollable {
+body.lichessTools dialog[open]:has(.lichessTools-combo),
+body.lichessTools dialog[open]:has(.lichessTools-combo) div.scrollable {
   overflow: visible;
+}
+
+body.lichessTools.mobile:has(dialog[open]):has(.lichessTools-combo) #dasher_app {
+  opacity:0.2;
 }

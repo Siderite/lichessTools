@@ -614,6 +614,7 @@
             .prependTo('div.analyse__tools');
         }
       }
+      if (!container.length) return;
       let button = $('button.lichessTools-moveAssistant');
       if (!this.options.isSet || lt.isGamePlaying()) {
         button.remove();

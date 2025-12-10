@@ -83,11 +83,16 @@ body .is2d cg-board::before {
             await lt.timeout(50);
             continue;
           }
-          input.makeCombo({ noFilter: true, ... data});
-          input.on('comboSelect',ev=>{
-            const o = input.prop('comboSelected');
-            $('body').css('--board-background',`url("${o.value}")`);
-          });
+          input
+            .makeCombo({ noFilter: true, ... data})
+            .on('comboSelect',ev=>{
+              const o = input.prop('comboSelected');
+              $('body').css('--board-background',`url("${o.value}")`);
+            })
+            .on('change',ev=>{
+              const val = input.val();
+              $('body').css('--board-background',`url("${val}")`);
+            });
           break;
         }
       });

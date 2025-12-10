@@ -129,6 +129,10 @@ body.lichessTools .lichessTools-moveAssistant-popup.open {
   display: flex;
 }
 
+body.lichessTools .analyse__tools:has(.lichessTools-moveAssistant-popup.open) {
+  overflow: visible;
+}
+
 body.lichessTools .lichessTools-moveAssistant-popup button {
   text-align: left;
   opacity: 0.7;
