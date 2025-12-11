@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Dec
+
+- Squares theme
+
 10 Dec
 
 - Removed compact numbers after native implementation

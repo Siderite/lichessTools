@@ -998,7 +998,8 @@
     "disableLocalHidesChartQuestion": "سيؤدي تعطيل المحلي في هذه الصفحة إلى إزالة الرسم البياني وأسطوره. ستتمكن فقط من تمكينه من العودة من التفضيلات. هل تريد المتابعة؟",
     "moveAssistant.pieces": "قطع",
     "layoutToggleButtonText": "تبديل التخطيط",
-    "layoutToggleButtonTitle": "أدوات شطرنج الحياة - تبديل تخطيط تحليل اللعبة"
+    "layoutToggleButtonTitle": "أدوات شطرنج الحياة - تبديل تخطيط تحليل اللعبة",
+    "themes.squares": "مربعات للدوائر"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1999,7 +2000,8 @@
     "disableLocalHidesChartQuestion": "在此页面禁用“本地引擎”将移除图表及其图例。你将只能从“偏好设置”中重新启用它。您确定要继续吗？",
     "moveAssistant.pieces": "棋子",
     "layoutToggleButtonText": "切换布局",
-    "layoutToggleButtonTitle": "LiChess Tools - 切换对局分析布局"
+    "layoutToggleButtonTitle": "LiChess Tools - 切换对局分析布局",
+    "themes.squares": "圆形的方形"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2458,7 +2460,7 @@
     "searchPattern": "Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, \"Index\"=Value, \"Invalid\", \"Ply\"(>,=,<)Value, \"Eval\"(>,=,<)Value\", \"Clock\", \"Shapes\"",
     "foundGames": "找到了%s盤棋局",
     "foundGames:one": "找到了一盤棋局",
-    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value,\"Junk\",\"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value, \"Junk\", \"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN 編輯器",
     "sendToPgnEditorTitle": "LiChess Tools - 傳送至PGN 編輯器",
     "evaluateNeedsAnalysis": "Evaluate can only be used on the analysis or study pages - Lichess limitation",
@@ -3000,7 +3002,8 @@
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
-    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
+    "themes.squares": "Squares for circles"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4001,7 +4004,8 @@
     "disableLocalHidesChartQuestion": "Vypnutí lokality na této stránce odstraní graf a jeho legend. Budete jej moci povolit pouze z nastavení. Pokračovat?",
     "moveAssistant.pieces": "Části",
     "layoutToggleButtonText": "Přepnout rozložení",
-    "layoutToggleButtonTitle": "Nástroje LiChess - přepnout rozvržení analýzy hry"
+    "layoutToggleButtonTitle": "Nástroje LiChess - přepnout rozvržení analýzy hry",
+    "themes.squares": "Čtverce pro kruhy"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5002,7 +5006,8 @@
     "disableLocalHidesChartQuestion": "Lokaal uitschakelen op deze pagina zal de grafiek en de legende verwijderen. Je kunt deze alleen terug inschakelen vanuit Voorkeuren. Doorgaan?",
     "moveAssistant.pieces": "Stuks",
     "layoutToggleButtonText": "Schakel lay-out",
-    "layoutToggleButtonTitle": "LiChess Tools - schakel spelanalyse lay-out in"
+    "layoutToggleButtonTitle": "LiChess Tools - schakel spelanalyse lay-out in",
+    "themes.squares": "Vierkanten voor cirkels"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5461,7 +5466,7 @@
     "searchPattern": "Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, \"Index\"=Value, \"Invalid\", \"Ply\"(>,=,<)Value, \"Eval\"(>,=,<)Value\", \"Clock\", \"Shapes\"",
     "foundGames": "%s games found",
     "foundGames:one": "One game found",
-    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value,\"Junk\",\"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value, \"Junk\", \"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN Editor",
     "sendToPgnEditorTitle": "LiChess Tools - send to PGN Editor",
     "evaluateNeedsAnalysis": "Evaluate can only be used on the analysis or study pages - Lichess limitation",
@@ -6003,7 +6008,8 @@
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
-    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
+    "themes.squares": "Squares for circles"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -7004,7 +7010,8 @@
     "disableLocalHidesChartQuestion": "La désactivation de l'option « Local » sur cette page supprimera le graphique et sa légende. Vous ne pourrez la réactiver qu'à partir des préférences. Continuer ?",
     "moveAssistant.pieces": "Pièces",
     "layoutToggleButtonText": "Activer/désactiver la mise en page",
-    "layoutToggleButtonTitle": "LiChess Tools - Activer/désactiver la disposition de l'analyse de partie"
+    "layoutToggleButtonTitle": "LiChess Tools - Activer/désactiver la disposition de l'analyse de partie",
+    "themes.squares": "Carrés pour cercles"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -8005,10 +8012,11 @@
     "disableLocalHidesChartQuestion": "Das Deaktivieren von Lokal auf dieser Seite entfernt das Diagramm und seine Legende. Sie können es nur in den Einstellungen wieder aktivieren. Fortfahren?",
     "moveAssistant.pieces": "Stücke",
     "layoutToggleButtonText": "Layout umschalten",
-    "layoutToggleButtonTitle": "LiChess Tools - Spielanalyse Layout umschalten"
+    "layoutToggleButtonTitle": "LiChess Tools - Spielanalyse Layout umschalten",
+    "themes.squares": "Quadrate für Kreise"
   },
   "el-GR": {
-    "LiChess Tools": "Ομάδα LiChess Tools",
+    "LiChess Tools": "LiChess Tools",
     "serverOverload": "Ο Lichess πιστεύει ότι υπερφορτώνουμε το σύστημά τους!",
     "options.general": "Γενικά",
     "options.addNotifications": "Προσθήκη ειδοποιήσεων",
@@ -8105,8 +8113,8 @@
     "hoursText:one": "an hr",
     "minutesText:one": "ένα λεπτό",
     "daysText": "%sημέρες",
-    "hoursText": "%s hrs",
-    "minutesText": "%s mins",
+    "hoursText": "%s ώρες",
+    "minutesText": "%s λεπτά",
     "timeText": "%s πριν",
     "playing": "Αναπαραγωγή %s",
     "gameType-classical": "Κλασική",
@@ -8210,7 +8218,7 @@
     "resetQuestion": "Επαναφορά προόδου παραλλαγής?",
     "resetSettingsButtonText": "Reset",
     "resetSettingsButtonTitle": "LiChess Tools - επαναφορά ρυθμίσεων",
-    "progressTitle": "LiChess Tools - %s variations",
+    "progressTitle": "LiChess Tools - %s παραλλαγές",
     "extendedInteractiveOptionsTitle": "LiChess Tools - διαδραστικές προτιμήσεις μαθήματος",
     "giveUpButtonText": "Δώσε επάνω",
     "giveUpButtonTitle": "Εγκαταλείπει την διαδραστική εκτέλεση",
@@ -8359,7 +8367,7 @@
     "bookmarkSplitConfirmationText": "Σίγουρα θέλετε να χωρίσετε το κεφάλαιο σε αυτόν τον σελιδοδείκτη;",
     "bookmarkSplitConfirmationDeleteText": "Είστε σίγουροι ότι επιθυμείτε να χωρίστε το κεφάλαιο από αυτό τον σελιδοδείκτη;",
     "bookmarkSplitText": "Διαχωρισμός κεφαλαίου εδώ",
-    "bookmarkSplitTitle": "LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here",
+    "bookmarkSplitTitle": "LiChess Tools - δημιουργήστε ένα νέο κεφάλαιο με τις παρακάτω κινήσεις από εδώ\nΠατήστε Shift για να τα διαγράψετε από εδώ",
     "chapterLink": "Συνέχεια εδώ: %s",
     "analysisPopupButtonTitle": "LiChess Tools - μετακίνηση λίστας σε άλλο παράθυρο (χρήση πλήκτρου SYNC)",
     "bookmarkLabelForInteractive": "Σελιδοδείκτης: ",
@@ -8464,7 +8472,7 @@
     "searchPattern": "Εισάγετε μερική FEN ή PGN συμβολοσειρά (*,? μπαλαντέρ υποστηρίζονται) ή ετικέτα (=,*=)Τιμή ή \"Index=Value ή \"Invalid\" ή \"Ply\"(>",
     "foundGames": "Βρέθηκαν παιχνίδια %s",
     "foundGames:one": "Βρέθηκε ένα παιχνίδι",
-    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value,\"Junk\",\"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Αξία,, \"Junk\", \"Eval\"(>,=,<)Αξία, \"Eval\", \"Clock\" σε οποιονδήποτε συνδυασμό (δηλ. eval, junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN Editor",
     "sendToPgnEditorTitle": "LiChess Tools - αποστολή στον επεξεργαστή PGN",
     "evaluateNeedsAnalysis": "Η αξιολόγηση μπορεί να χρησιμοποιηθεί μόνο στις σελίδες ανάλυσης ή μελέτης - Περιορισμός Lichess",
@@ -8486,7 +8494,7 @@
     "options.downloadAllStudies": "Σύνδεσμος για λήψη όλων των μελετών ενός παίκτη",
     "downloadAllText": "Λήψη όλων των μελετών",
     "downloadAllTitle": "LiChess Tools - όλες οι μελέτες για αυτόν τον παίκτη",
-    "options.profilePuzzleTab": "Ενισχυμένος Πίνακας Παζλ",
+    "options.profilePuzzleTab": "Ενισχυμένος Πίνακας Γρίφων",
     "options.mayTenth": "LiChess Tools ημέρα!",
     "mayTenthTitle": "Ευτυχισμένα LiChess Tools ημέρα!",
     "options.moveAssistant": "Μετακίνηση βοηθού",
@@ -8587,7 +8595,7 @@
     "options.cevalLineOptions": "Επιλογές γραμμής αξιολόγησης υπολογιστή",
     "cevalLineOptions.highlight": "Επισήμανση ίδιων κινήσεων",
     "options.hideBoardCommand": "Εντολή: εμφάνιση/απόκρυψη πίνακα",
-    "hideBoardCommand.helpText": "/board\r\nShow/Hide board",
+    "hideBoardCommand.helpText": "/board\nΕμφάνιση/Απόκρυψη πίνακα",
     "options.trapValueCommand": "Εντολή: εμφάνιση τιμής παγίδας για θέση",
     "trapValueCommand.helpText": "/trapvalue\r\nΕμφάνιση τιμής παγίδας για τη θέση",
     "noExplorerMoves": "Δεν υπάρχουν διαθέσιμα δεδομένα εξερευνητή",
@@ -8714,7 +8722,7 @@
     "pieceSetTitle": "LiChess Tools - %s",
     "followersText": "Ακόλουθοι",
     "followersTitle": "LiChess Tools - Οι παίκτες σε ακολουθούν",
-    "followersNumberTitle": "%s followers",
+    "followersNumberTitle": "%s ακόλουθοι",
     "themes.gridBoard": "Πλέγμα τετράγωνα",
     "daysStatsText": "Οι τελευταίες %s ημέρες",
     "puzzleRatingWeekText": "Κέρδος βαθμολογίας παζλ: %s",
@@ -8730,7 +8738,7 @@
     "mainPageElements.side_streams": "Πλευρά:ροές",
     "mainPageElements.side_spotlights": "Πλευρά:προβολείς",
     "mainPageElements.side_timeline": "Πόλη:χρονολόγιο",
-    "mainPageElements.app_bullet": "Παιχνίδι:κουκκίδα",
+    "mainPageElements.app_bullet": "Παιχνίδι:bullet",
     "mainPageElements.app_blitz": "Παιχνίδι:blitz",
     "mainPageElements.app_rapid": "Αναπαραγωγή: γρήγορη",
     "mainPageElements.app_classical": "Παιχνίδι:κλασικό",
@@ -8745,7 +8753,7 @@
     "userManualLinkTitle": "Εγχειρίδιο χρήσης (EN)",
     "options.puzzleHistory": "Ιστορικό παζλ",
     "showHistoryText": "Ιστορικό γρίφων",
-    "showHistoryTitle": "LiChess Tools - παζλ που ξεκινήσατε σε αυτή τη συσκευή",
+    "showHistoryTitle": "LiChess Tools - γρίφοι που ξεκινήσατε σε αυτή τη συσκευή",
     "panelHeader-today": "Σήμερα",
     "panelHeader-yesterday": "Χθες",
     "panelHeader-week": "Αυτή την εβδομάδα",
@@ -8833,7 +8841,7 @@
     "deleteSelectedQuestion": "Είστε βέβαιοι ότι θέλετε να διαγράψετε τα παιχνίδια %s?",
     "deleteSelectedQuestion:one": "Είστε βέβαιοι ότι θέλετε να διαγράψετε ένα παιχνίδι?",
     "predictedRatingChangeText": "Προβλεπόμενες αλλαγές βαθμολογίας: %s",
-    "kmapsTitle": "LiChess Tools - K-MAPS\r\n  King safety: $K\r\n  Material: $M\r\n  Activity: $A\r\n  Pawn structure: $P\r\n  Space: $S",
+    "kmapsTitle": "LiChess Tools - K-MAPS\nΑσφάλεια βασιλιά: $K\nΥλικό: $M\nΔραστηριότητα: $A\nΔομή πιονιών: $P\nΧώρος: $S",
     "estimatedRating": "Εκτιμώμενη βαθμολογία: %s",
     "gameListOptions.extraInfo": "Πλήκτρο περισσότερες πληροφορίες",
     "extraInfoButtonTitle": "Περισσότερες πληροφορίες παιχνιδιού",
@@ -8970,7 +8978,7 @@
     "tensionLegendText": "Ένταση",
     "tensionLegendTitle": "Μέγιστη ένταση",
     "potentialLegendText": "Πιθανό",
-    "potentialLegendTitle": "Μέγιστο δυνητικό σημείο",
+    "potentialLegendTitle": "Μέγιστο σημείο δυνατοτήτων",
     "moveTypesLegendText": "Μετακινήσεις",
     "moveTypesLegendTitle": "Ενδιαφέρουσες, καλές, καλύτερες και εξαιρετική κινήσεις",
     "extraChart.hideLegend": "Απόκρυψη υπομνήματος",
@@ -9006,7 +9014,8 @@
     "disableLocalHidesChartQuestion": "Απενεργοποίηση Τοπική σε αυτή τη σελίδα θα αφαιρέσει το γράφημα και το υπόμνημά του. Θα είστε σε θέση να το ενεργοποιήσετε μόνο από τις Προτιμήσεις. Συνέχεια?",
     "moveAssistant.pieces": "Κομμάτια",
     "layoutToggleButtonText": "Εναλλαγή διάταξης",
-    "layoutToggleButtonTitle": "LiChess Tools - εναλλαγή διάταξης ανάλυσης παιχνιδιών"
+    "layoutToggleButtonTitle": "LiChess Tools - εναλλαγή διάταξης ανάλυσης παιχνιδιών",
+    "themes.squares": "Τετράγωνα για κύκλους"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -9465,7 +9474,7 @@
     "searchPattern": "Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, \"Index\"=Value, \"Invalid\", \"Ply\"(>,=,<)Value, \"Eval\"(>,=,<)Value\", \"Clock\", \"Shapes\"",
     "foundGames": "%s games found",
     "foundGames:one": "One game found",
-    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value,\"Junk\",\"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value, \"Junk\", \"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN Editor",
     "sendToPgnEditorTitle": "LiChess Tools - send to PGN Editor",
     "evaluateNeedsAnalysis": "Evaluate can only be used on the analysis or study pages - Lichess limitation",
@@ -10007,7 +10016,8 @@
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
-    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
+    "themes.squares": "Squares for circles"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -11008,7 +11018,8 @@
     "disableLocalHidesChartQuestion": "Disabilitare Locale in questa pagina rimuoverà il grafico e la sua leggenda. Potrai solo abilitarlo dalle Preferenze. Continuare?",
     "moveAssistant.pieces": "Pezzi",
     "layoutToggleButtonText": "Attiva/disattiva disposizione",
-    "layoutToggleButtonTitle": "LiChess Tools - attiva/disattiva il layout di analisi del gioco"
+    "layoutToggleButtonTitle": "LiChess Tools - attiva/disattiva il layout di analisi del gioco",
+    "themes.squares": "Quadrati per cerchi"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -11467,7 +11478,7 @@
     "searchPattern": "Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, \"Index\"=Value, \"Invalid\", \"Ply\"(>,=,<)Value, \"Eval\"(>,=,<)Value\", \"Clock\", \"Shapes\"",
     "foundGames": "%s games found",
     "foundGames:one": "One game found",
-    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value,\"Junk\",\"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value, \"Junk\", \"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN Editor",
     "sendToPgnEditorTitle": "LiChess Tools - send to PGN Editor",
     "evaluateNeedsAnalysis": "Evaluate can only be used on the analysis or study pages - Lichess limitation",
@@ -12009,7 +12020,8 @@
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
-    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
+    "themes.squares": "Squares for circles"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -13010,7 +13022,8 @@
     "disableLocalHidesChartQuestion": "Wyłączenie lokalnego na tej stronie spowoduje usunięcie wykresu i jego legendy. Będziesz mógł włączyć go tylko w Preferencjach. Kontynuować?",
     "moveAssistant.pieces": "Części",
     "layoutToggleButtonText": "Przełącz układ",
-    "layoutToggleButtonTitle": "Narzędzia LiChess - przełącz układ analizy gier"
+    "layoutToggleButtonTitle": "Narzędzia LiChess - przełącz układ analizy gier",
+    "themes.squares": "Kwadraty dla okręgów"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -14011,7 +14024,8 @@
     "disableLocalHidesChartQuestion": "Desabilitar os locais nesta página removerá a tabela e sua legenda. Você só poderá habilitá-la de volta a partir das preferências. Continuar?",
     "moveAssistant.pieces": "Pedaços",
     "layoutToggleButtonText": "Alternar layout",
-    "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo"
+    "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo",
+    "themes.squares": "Quadrados para círculos"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -15012,7 +15026,8 @@
     "disableLocalHidesChartQuestion": "Desabilitar os locais nesta página removerá a tabela e sua legenda. Você só poderá habilitá-la de volta a partir das preferências. Continuar?",
     "moveAssistant.pieces": "Pedaços",
     "layoutToggleButtonText": "Alternar layout",
-    "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo"
+    "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo",
+    "themes.squares": "Quadrados para círculos"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -16013,7 +16028,8 @@
     "disableLocalHidesChartQuestion": "Dezactivarea Local pe această pagină va elimina graficul și legenda acestuia. O veți putea reactiva doar din Preferințe. Continui?",
     "moveAssistant.pieces": "Piese",
     "layoutToggleButtonText": "Comutare aspect",
-    "layoutToggleButtonTitle": "LiChess Tools - comutare aspect analiză partidă"
+    "layoutToggleButtonTitle": "LiChess Tools - comutare aspect analiză partidă",
+    "themes.squares": "Pătrate în loc de cercuri"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -17014,7 +17030,8 @@
     "disableLocalHidesChartQuestion": "Отключение локального на этой странице удалит график и его легенду. Вы сможете включить его только обратно из настроек. Продолжить?",
     "moveAssistant.pieces": "Части",
     "layoutToggleButtonText": "Переключить раскладку",
-    "layoutToggleButtonTitle": "Инструменты Lichess - переключение структуры анализа игр"
+    "layoutToggleButtonTitle": "Инструменты Lichess - переключение структуры анализа игр",
+    "themes.squares": "Квадраты для кругов"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -18015,7 +18032,8 @@
     "disableLocalHidesChartQuestion": "Desactivar Local en esta página eliminará el gráfico y su leyenda. Sólo podrá activarlo desde Preferencias. ¿Continuar?",
     "moveAssistant.pieces": "Piezas",
     "layoutToggleButtonText": "Cambiar diseño",
-    "layoutToggleButtonTitle": "LiChess Tools - cambia el diseño de análisis del juego"
+    "layoutToggleButtonTitle": "LiChess Tools - cambia el diseño de análisis del juego",
+    "themes.squares": "Cuadrados para círculos"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -18474,7 +18492,7 @@
     "searchPattern": "Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, \"Index\"=Value, \"Invalid\", \"Ply\"(>,=,<)Value, \"Eval\"(>,=,<)Value\", \"Clock\", \"Shapes\"",
     "foundGames": "%s games found",
     "foundGames:one": "One game found",
-    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value,\"Junk\",\"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value, \"Junk\", \"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN Editor",
     "sendToPgnEditorTitle": "LiChess Tools - send to PGN Editor",
     "evaluateNeedsAnalysis": "மதிப்பீடு என்பதை பகுப்பாய்வு அல்லது ஆய்வுப் பக்கங்களில் மட்டுமே பயன்படுத்த முடியும் - Lichess வரையறை",
@@ -19016,7 +19034,8 @@
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
-    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
+    "themes.squares": "Squares for circles"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -19475,7 +19494,7 @@
     "searchPattern": "Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, \"Index\"=Value, \"Invalid\", \"Ply\"(>,=,<)Value, \"Eval\"(>,=,<)Value\", \"Clock\", \"Shapes\"",
     "foundGames": "%s games found",
     "foundGames:one": "One game found",
-    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value,\"Junk\",\"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value, \"Junk\", \"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN Editor",
     "sendToPgnEditorTitle": "LiChess Tools - send to PGN Editor",
     "evaluateNeedsAnalysis": "Evaluate can only be used on the analysis or study pages - Lichess limitation",
@@ -20017,7 +20036,8 @@
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
-    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
+    "themes.squares": "Squares for circles"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -20476,7 +20496,7 @@
     "searchPattern": "Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, \"Index\"=Value, \"Invalid\", \"Ply\"(>,=,<)Value, \"Eval\"(>,=,<)Value\", \"Clock\", \"Shapes\"",
     "foundGames": "%s games found",
     "foundGames:one": "One game found",
-    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value,\"Junk\",\"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
+    "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value, \"Junk\", \"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN Editor",
     "sendToPgnEditorTitle": "LiChess Tools - send to PGN Editor",
     "evaluateNeedsAnalysis": "Evaluate can only be used on the analysis or study pages - Lichess limitation",
@@ -21018,6 +21038,7 @@
     "disableLocalHidesChartQuestion": "Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?",
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
-    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout"
+    "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
+    "themes.squares": "Squares for circles"
   }
 }

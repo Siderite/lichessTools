@@ -10,7 +10,7 @@
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
                          'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls',
-                         'firstInteraction','noVariants'],
+                         'firstInteraction','noVariants','squares'],
         defaultValue: 'fixThirdParties',
         advanced: true
       },
@@ -55,6 +55,7 @@
         'themes.timeControls': 'Hover time controls',
         'themes.firstInteraction': 'First interaction',
         'themes.noVariants': 'No chess variants',
+        'themes.squares': 'Squares for circles',
         'enableBoardStyleQuestion': 'This theme requires Board Styling for full functionality, which may add a little overhead. Should I enable it?'
       },
       'ro-RO': {
@@ -85,6 +86,7 @@
         'themes.timeControls': 'Controale timp la hover',
         'themes.firstInteraction': 'Prima interac\u016fiune',
         'themes.noVariants': 'F\u0103r\u0103 variante de \u015fah',
+        'themes.squares': 'P\u0103trate \u00een loc de cercuri',
         'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 necesit\u0103 Stilare Tabl\u0103 pentru func\u0163ionalitate complet\u0103. O activez?'
       }
     }
