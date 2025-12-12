@@ -142,6 +142,8 @@
         $('.lichessTools-recentGames').remove();
         const userId = lt.getUserId();
         if (userId && this.options.recentGames) {
+          const playAgainstComputerTitle = lt.global.i18n?.site?.playAgainstComputer || null;
+          $('button.lobby__start__button--ai').attr('title',playAgainstComputerTitle);
           const container = $('<div class="lichessTools-recentGames">')
             .append($('<div class="header">').text(trans.noarg('recentGamesHeaderText')))
             .insertAfter('.lobby__start');
