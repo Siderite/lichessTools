@@ -51,3 +51,9 @@ body.lichessTools.lichessTools-prettier #topnav.hover section div[role="group"] 
   margin-top: 0 !important;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%) !important;
 }
+
+@media (max-width: 1019.29px) {
+  body.lichessTools.lichessTools-prettier #topnav {
+    top: var(---site-header-height) !important;
+  }
+}
