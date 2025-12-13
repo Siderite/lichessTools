@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+13 Dec
+
+- Shift-click to get the puzzle PGN with previous move
+
 11 Dec
 
 - Squares theme

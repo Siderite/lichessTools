@@ -32,7 +32,7 @@
       }
     }
 
-    showPuzzlePgn=async (puzzleId)=>{
+    showPuzzlePgn=async (puzzleId, withPreviousMove)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
@@ -49,7 +49,10 @@
       const sans = puzzle.game.pgn.split(' ');
       const game = parsePgn('*')[0];
       let pos = startingPosition(game.headers).unwrap();
-      for (let i=0; i<=puzzle.puzzle.initialPly; i++) {
+      const initialPly = withPreviousMove
+        ? puzzle.puzzle.initialPly-1
+        : puzzle.puzzle.initialPly;
+      for (let i=0; i<=initialPly; i++) {
         const move = parseSan(pos, sans[i]);
         pos.play(move);
       }
@@ -58,18 +61,32 @@
       game.headers.set('SetUp','1');
       let node = game.moves;
       pos = startingPosition(game.headers).unwrap();
+      if (withPreviousMove) {
+        const move = parseSan(pos,sans[initialPly+1]);
+        const san = makeSanAndPlay(pos, move);
+        const child = {
+          data: {
+            san: san,
+            comments: [ 'Previous move' ]
+          },
+          children: []
+        };
+        node.children.push(child);
+        node = node.children[0];
+      }
       for (const uci of puzzle.puzzle.solution) {
         const move = parseUci(uci);
         const san = makeSanAndPlay(pos, move);
-        node.children.push({
+        const child = {
           data: { san: san },
           children: []
-        });
+        };
+        node.children.push(child);
         node = node.children[0];
       }
-      game.headers.set('Event','Puzzle #'+puzzleId);
+      game.headers.set('Event','Puzzle #'+puzzleId+' from game '+puzzle.game?.id);
       game.headers.set('Themes',puzzle.puzzle.themes.join(', '));
-      game.headers.delete('Site');
+      game.headers.set('Site','https://lichess.org/training/'+puzzleId);
       game.headers.delete('Date');
       game.headers.delete('Round');
       game.headers.delete('White');
@@ -115,7 +132,7 @@
               href = $(ev.target).prev('a[href^="/training/"]').attr('href');
               m = /^\/training\/(?<id>\w+)$/.exec(href);
               puzzleId = m.groups.id;
-              this.showPuzzlePgn(puzzleId);
+              this.showPuzzlePgn(puzzleId, ev.shiftKey);
             })
             .insertAfter(e);
         });
