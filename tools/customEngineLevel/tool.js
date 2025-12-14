@@ -86,7 +86,7 @@
           : this.options.depth;
         const customDepth = analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)
           ? 99
-          : targetDepth;
+          : (analysis.node.autoDeeper || targetDepth);
         if (customDepth && analysis.cevalEnabled() && !analysis.ceval.showingCloud) {
           const elem = $('div.ceval div.engine span.info');
           const pattern = lt.global.i18n?.site?.depthX('\\d+');
@@ -296,7 +296,7 @@
         }
       }
       if (!analysis.ceval.showingCloud && (node.autoDeeper || !analysis.ceval.isDeeper())
-        && targetDepth && curDepth >= targetDepth && (!this.options.infiniteExternal || !isExternalEngine)) {
+        && targetDepth && curDepth >= (node.autoDeeper || targetDepth) && (!this.options.infiniteExternal || !isExternalEngine)) {
         node.autoDeeper = undefined;
         if (analysis.ceval.state == 3) {
           analysis.ceval.stop();
@@ -418,9 +418,11 @@
     goDeeper = ()=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
-      const ceval = lichess.analysis?.ceval;
-      if (!ceval?.canGoDeeper) return;
-      ceval.goDeeper();
+      const analysis = lichess.analysis;
+      const ceval = analysis?.ceval;
+      if (!ceval?.lastStarted) return;
+      ceval.isDeeper(true);
+      analysis.node.autoDeeper = 99;
     };
 
     async start() {
