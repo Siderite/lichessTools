@@ -999,7 +999,8 @@
     "moveAssistant.pieces": "قطع",
     "layoutToggleButtonText": "تبديل التخطيط",
     "layoutToggleButtonTitle": "أدوات شطرنج الحياة - تبديل تخطيط تحليل اللعبة",
-    "themes.squares": "مربعات للدوائر"
+    "themes.squares": "مربعات للدوائر",
+    "customEngineOptions.plus": "+ اختصار لوحة المفاتيح"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2001,7 +2002,8 @@
     "moveAssistant.pieces": "棋子",
     "layoutToggleButtonText": "切换布局",
     "layoutToggleButtonTitle": "LiChess Tools - 切换对局分析布局",
-    "themes.squares": "方形替代圆形"
+    "themes.squares": "方形替代圆形",
+    "customEngineOptions.plus": "+ 快捷键"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3003,7 +3005,8 @@
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
-    "themes.squares": "Squares for circles"
+    "themes.squares": "Squares for circles",
+    "customEngineOptions.plus": "+ keyboard shortcut"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4005,7 +4008,8 @@
     "moveAssistant.pieces": "Části",
     "layoutToggleButtonText": "Přepnout rozložení",
     "layoutToggleButtonTitle": "Nástroje LiChess - přepnout rozvržení analýzy hry",
-    "themes.squares": "Čtverce pro kruhy"
+    "themes.squares": "Čtverce pro kruhy",
+    "customEngineOptions.plus": "+ klávesová zkratka"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5007,7 +5011,8 @@
     "moveAssistant.pieces": "Stuks",
     "layoutToggleButtonText": "Schakel lay-out",
     "layoutToggleButtonTitle": "LiChess Tools - schakel spelanalyse lay-out in",
-    "themes.squares": "Vierkanten voor cirkels"
+    "themes.squares": "Vierkanten voor cirkels",
+    "customEngineOptions.plus": "+ sneltoets"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -6009,7 +6014,8 @@
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
-    "themes.squares": "Squares for circles"
+    "themes.squares": "Squares for circles",
+    "customEngineOptions.plus": "+ keyboard shortcut"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -7011,7 +7017,8 @@
     "moveAssistant.pieces": "Pièces",
     "layoutToggleButtonText": "Activer/désactiver la mise en page",
     "layoutToggleButtonTitle": "LiChess Tools - Activer/désactiver la disposition de l'analyse de partie",
-    "themes.squares": "Des carrés à la place des cercles"
+    "themes.squares": "Des carrés à la place des cercles",
+    "customEngineOptions.plus": "+ raccourci clavier"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -8013,7 +8020,8 @@
     "moveAssistant.pieces": "Stücke",
     "layoutToggleButtonText": "Layout umschalten",
     "layoutToggleButtonTitle": "LiChess Tools - Spielanalyse Layout umschalten",
-    "themes.squares": "Quadrate für Kreise"
+    "themes.squares": "Quadrate für Kreise",
+    "customEngineOptions.plus": "+ Tastaturkürzel"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -9015,7 +9023,8 @@
     "moveAssistant.pieces": "Κομμάτια",
     "layoutToggleButtonText": "Εναλλαγή διάταξης",
     "layoutToggleButtonTitle": "LiChess Tools - εναλλαγή διάταξης ανάλυσης παιχνιδιών",
-    "themes.squares": "Τετράγωνα για κύκλους"
+    "themes.squares": "Τετράγωνα για κύκλους",
+    "customEngineOptions.plus": "+ συντόμευση πληκτρολογίου"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -10017,7 +10026,8 @@
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
-    "themes.squares": "Squares for circles"
+    "themes.squares": "Squares for circles",
+    "customEngineOptions.plus": "+ keyboard shortcut"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -11019,7 +11029,8 @@
     "moveAssistant.pieces": "Pezzi",
     "layoutToggleButtonText": "Attiva/disattiva disposizione",
     "layoutToggleButtonTitle": "LiChess Tools - attiva/disattiva il layout di analisi del gioco",
-    "themes.squares": "Quadrati per cerchi"
+    "themes.squares": "Quadrati per cerchi",
+    "customEngineOptions.plus": "+ scorciatoia da tastiera"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -12021,7 +12032,8 @@
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
-    "themes.squares": "Squares for circles"
+    "themes.squares": "Squares for circles",
+    "customEngineOptions.plus": "+ keyboard shortcut"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -13023,7 +13035,8 @@
     "moveAssistant.pieces": "Części",
     "layoutToggleButtonText": "Przełącz układ",
     "layoutToggleButtonTitle": "Narzędzia LiChess - przełącz układ analizy gier",
-    "themes.squares": "Kwadraty dla okręgów"
+    "themes.squares": "Kwadraty dla okręgów",
+    "customEngineOptions.plus": "+ skrót klawiaturowy"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -14025,7 +14038,8 @@
     "moveAssistant.pieces": "Pedaços",
     "layoutToggleButtonText": "Alternar layout",
     "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo",
-    "themes.squares": "Quadrados para círculos"
+    "themes.squares": "Quadrados para círculos",
+    "customEngineOptions.plus": "+ atalho de teclado"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -15027,7 +15041,8 @@
     "moveAssistant.pieces": "Pedaços",
     "layoutToggleButtonText": "Alternar layout",
     "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo",
-    "themes.squares": "Quadrados para círculos"
+    "themes.squares": "Quadrados para círculos",
+    "customEngineOptions.plus": "+ atalho de teclado"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -16029,7 +16044,8 @@
     "moveAssistant.pieces": "Piese",
     "layoutToggleButtonText": "Comutare aspect",
     "layoutToggleButtonTitle": "LiChess Tools - comutare aspect analiză partidă",
-    "themes.squares": "Pătrate în loc de cercuri"
+    "themes.squares": "Pătrate în loc de cercuri",
+    "customEngineOptions.plus": "Scurtătură taste +"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -17031,7 +17047,8 @@
     "moveAssistant.pieces": "Части",
     "layoutToggleButtonText": "Переключить раскладку",
     "layoutToggleButtonTitle": "Инструменты Lichess - переключение структуры анализа игр",
-    "themes.squares": "Квадраты для кругов"
+    "themes.squares": "Квадраты для кругов",
+    "customEngineOptions.plus": "+ Горячие клавиши"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -18033,7 +18050,8 @@
     "moveAssistant.pieces": "Piezas",
     "layoutToggleButtonText": "Cambiar diseño",
     "layoutToggleButtonTitle": "LiChess Tools - cambia el diseño de análisis del juego",
-    "themes.squares": "Cuadrados para círculos"
+    "themes.squares": "Cuadrados para círculos",
+    "customEngineOptions.plus": "+ atajo de teclado"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -19035,7 +19053,8 @@
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
-    "themes.squares": "Squares for circles"
+    "themes.squares": "Squares for circles",
+    "customEngineOptions.plus": "+ keyboard shortcut"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -20037,7 +20056,8 @@
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
-    "themes.squares": "Squares for circles"
+    "themes.squares": "Squares for circles",
+    "customEngineOptions.plus": "+ keyboard shortcut"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -21039,6 +21059,7 @@
     "moveAssistant.pieces": "Pieces",
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
-    "themes.squares": "Squares for circles"
+    "themes.squares": "Squares for circles",
+    "customEngineOptions.plus": "+ keyboard shortcut"
   }
 }

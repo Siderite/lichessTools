@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Dev
+
+- Plus keyboard shortcut for going deeper
+
 13 Dec
 
 - Shift-click to get the puzzle PGN with previous move
