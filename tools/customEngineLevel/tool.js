@@ -420,7 +420,7 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const ceval = analysis?.ceval;
-      if (!ceval?.lastStarted) return;
+      if (!ceval?.lastStarted || !analysis.cevalEnabled()) return;
       ceval.isDeeper(true);
       analysis.node.autoDeeper = 99;
     };
