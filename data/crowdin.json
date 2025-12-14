@@ -1000,7 +1000,8 @@
     "layoutToggleButtonText": "تبديل التخطيط",
     "layoutToggleButtonTitle": "أدوات شطرنج الحياة - تبديل تخطيط تحليل اللعبة",
     "themes.squares": "مربعات للدوائر",
-    "customEngineOptions.plus": "+ اختصار لوحة المفاتيح"
+    "customEngineOptions.plus": "بالإضافة إلى تحليل أعمق",
+    "deeperPlus": "تحليل أعمق"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2003,7 +2004,8 @@
     "layoutToggleButtonText": "切换布局",
     "layoutToggleButtonTitle": "LiChess Tools - 切换对局分析布局",
     "themes.squares": "方形替代圆形",
-    "customEngineOptions.plus": "+ 快捷键"
+    "customEngineOptions.plus": "加更深入分析",
+    "deeperPlus": "深入分析"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3006,7 +3008,8 @@
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
-    "customEngineOptions.plus": "+ keyboard shortcut"
+    "customEngineOptions.plus": "Plus to analyse deeper",
+    "deeperPlus": "Analyse deeper"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4009,7 +4012,8 @@
     "layoutToggleButtonText": "Přepnout rozložení",
     "layoutToggleButtonTitle": "Nástroje LiChess - přepnout rozvržení analýzy hry",
     "themes.squares": "Čtverce pro kruhy",
-    "customEngineOptions.plus": "+ klávesová zkratka"
+    "customEngineOptions.plus": "Plus pro hlubší analýzu",
+    "deeperPlus": "Analyzovat hlouběji"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5012,7 +5016,8 @@
     "layoutToggleButtonText": "Schakel lay-out",
     "layoutToggleButtonTitle": "LiChess Tools - schakel spelanalyse lay-out in",
     "themes.squares": "Vierkanten voor cirkels",
-    "customEngineOptions.plus": "+ sneltoets"
+    "customEngineOptions.plus": "Plus om dieper te analyseren",
+    "deeperPlus": "dieper analyseren"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -6015,7 +6020,8 @@
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
-    "customEngineOptions.plus": "+ keyboard shortcut"
+    "customEngineOptions.plus": "Plus to analyse deeper",
+    "deeperPlus": "Analyse deeper"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -7018,7 +7024,8 @@
     "layoutToggleButtonText": "Activer/désactiver la mise en page",
     "layoutToggleButtonTitle": "LiChess Tools - Activer/désactiver la disposition de l'analyse de partie",
     "themes.squares": "Des carrés à la place des cercles",
-    "customEngineOptions.plus": "+ raccourci clavier"
+    "customEngineOptions.plus": "Plus pour analyser plus en profondeur",
+    "deeperPlus": "Analyser plus en profondeur"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -8021,7 +8028,8 @@
     "layoutToggleButtonText": "Layout umschalten",
     "layoutToggleButtonTitle": "LiChess Tools - Spielanalyse Layout umschalten",
     "themes.squares": "Quadrate für Kreise",
-    "customEngineOptions.plus": "+ Tastaturkürzel"
+    "customEngineOptions.plus": "Plus um tiefer zu analysieren",
+    "deeperPlus": "Vertiefende Analyse"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -9024,7 +9032,8 @@
     "layoutToggleButtonText": "Εναλλαγή διάταξης",
     "layoutToggleButtonTitle": "LiChess Tools - εναλλαγή διάταξης ανάλυσης παιχνιδιών",
     "themes.squares": "Τετράγωνα για κύκλους",
-    "customEngineOptions.plus": "+ συντόμευση πληκτρολογίου"
+    "customEngineOptions.plus": "Πλέον να αναλύσουμε βαθύτερα",
+    "deeperPlus": "Αναλύστε βαθύτερα"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -10027,7 +10036,8 @@
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
-    "customEngineOptions.plus": "+ keyboard shortcut"
+    "customEngineOptions.plus": "Plus to analyse deeper",
+    "deeperPlus": "Analyse deeper"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -11030,7 +11040,8 @@
     "layoutToggleButtonText": "Attiva/disattiva disposizione",
     "layoutToggleButtonTitle": "LiChess Tools - attiva/disattiva il layout di analisi del gioco",
     "themes.squares": "Quadrati per cerchi",
-    "customEngineOptions.plus": "+ scorciatoia da tastiera"
+    "customEngineOptions.plus": "Più per analizzare più in profondità",
+    "deeperPlus": "Analizza più a fondo"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -12033,7 +12044,8 @@
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
-    "customEngineOptions.plus": "+ keyboard shortcut"
+    "customEngineOptions.plus": "Plus to analyse deeper",
+    "deeperPlus": "Analyse deeper"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -13036,7 +13048,8 @@
     "layoutToggleButtonText": "Przełącz układ",
     "layoutToggleButtonTitle": "Narzędzia LiChess - przełącz układ analizy gier",
     "themes.squares": "Kwadraty dla okręgów",
-    "customEngineOptions.plus": "+ skrót klawiaturowy"
+    "customEngineOptions.plus": "Plus do głębszej analizy",
+    "deeperPlus": "Analiza głębiej"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -14039,7 +14052,8 @@
     "layoutToggleButtonText": "Alternar layout",
     "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo",
     "themes.squares": "Quadrados para círculos",
-    "customEngineOptions.plus": "+ atalho de teclado"
+    "customEngineOptions.plus": "Além de analisar mais fundo",
+    "deeperPlus": "Analise mais fundo"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -15042,7 +15056,8 @@
     "layoutToggleButtonText": "Alternar layout",
     "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo",
     "themes.squares": "Quadrados para círculos",
-    "customEngineOptions.plus": "+ atalho de teclado"
+    "customEngineOptions.plus": "Além de analisar mais fundo",
+    "deeperPlus": "Analise mais fundo"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -16045,7 +16060,8 @@
     "layoutToggleButtonText": "Comutare aspect",
     "layoutToggleButtonTitle": "LiChess Tools - comutare aspect analiză partidă",
     "themes.squares": "Pătrate în loc de cercuri",
-    "customEngineOptions.plus": "Scurtătură taste +"
+    "customEngineOptions.plus": "Plus pentru analiză mai adâncă",
+    "deeperPlus": "Analiză mai adâncă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -17048,7 +17064,8 @@
     "layoutToggleButtonText": "Переключить раскладку",
     "layoutToggleButtonTitle": "Инструменты Lichess - переключение структуры анализа игр",
     "themes.squares": "Квадраты для кругов",
-    "customEngineOptions.plus": "+ Горячие клавиши"
+    "customEngineOptions.plus": "Плюс для углубленного анализа",
+    "deeperPlus": "Проанализировать глубже"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -18051,7 +18068,8 @@
     "layoutToggleButtonText": "Cambiar diseño",
     "layoutToggleButtonTitle": "LiChess Tools - cambia el diseño de análisis del juego",
     "themes.squares": "Cuadrados para círculos",
-    "customEngineOptions.plus": "+ atajo de teclado"
+    "customEngineOptions.plus": "Más para analizar más a fondo",
+    "deeperPlus": "Analizar más profundo"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -19054,7 +19072,8 @@
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
-    "customEngineOptions.plus": "+ keyboard shortcut"
+    "customEngineOptions.plus": "Plus to analyse deeper",
+    "deeperPlus": "Analyse deeper"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -20057,7 +20076,8 @@
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
-    "customEngineOptions.plus": "+ keyboard shortcut"
+    "customEngineOptions.plus": "Plus to analyse deeper",
+    "deeperPlus": "Analyse deeper"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -21060,6 +21080,7 @@
     "layoutToggleButtonText": "Toggle layout",
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
-    "customEngineOptions.plus": "+ keyboard shortcut"
+    "customEngineOptions.plus": "Plus to analyse deeper",
+    "deeperPlus": "Analyse deeper"
   }
 }
