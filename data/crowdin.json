@@ -7024,8 +7024,8 @@
     "layoutToggleButtonText": "Activer/désactiver la mise en page",
     "layoutToggleButtonTitle": "LiChess Tools - Activer/désactiver la disposition de l'analyse de partie",
     "themes.squares": "Des carrés à la place des cercles",
-    "customEngineOptions.plus": "Plus pour analyser plus en profondeur",
-    "deeperPlus": "Analyser plus en profondeur"
+    "customEngineOptions.plus": "Plus (+) pour approfondir l'analyse",
+    "deeperPlus": "Approfondir l'analyse"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
