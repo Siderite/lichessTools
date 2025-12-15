@@ -450,7 +450,9 @@
         study.commentForm.delete(chapterId, node.path, comment.id)
       }
       lt.saveComment(commentText, path);
-      $('#comment-text').val(commentText);
+      if (node === analysis.node) {
+        $('#comment-text').val(commentText);
+      }
     };
 
     getBookmarkUrl = async (bookmark) => {
