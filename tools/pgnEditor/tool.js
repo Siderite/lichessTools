@@ -2033,14 +2033,14 @@ https://www.chessable.com/course/${courseId}/ } *`)
                 found = true;
                 break;
               }
-              normalizedPgn = normalizedPgn.replaceAll(/\d+\.+/g, '');
+              normalizedPgn = lt.normalizeString(pgn.replaceAll(/\d+\.(\.\.)?/g, ''));
               if (reg.test(normalizedPgn)) {
                 found = true;
                 break;
               }
               this.enhanceGameWithFens(game);
               this.enhanceGameWithFenDict(game);
-              found = Array.from(game.fenDict).find(pair => reg.test(pair[0]));
+              found = Array.from(game.fenDict).find(pair => reg.test(lt.normalizeString(pair[0])));
               break;
             case 'tag':
               const val = tagName.toLowerCase() == 'index'
