@@ -875,6 +875,157 @@
       "name": "pjaworskim_mramor",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworskim_mramor/",
       "type": "png"
+    },
+
+    {
+      "category": "basedpolymer",
+      "name": "amogus_1",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/amogus_1/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "amogus_2",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/amogus_2/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "celtic",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/celtic/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "chessvision",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/chessvision/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "chicago",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/chicago/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "christmas",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/christmas/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "doge",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/doge/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "eyes",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/eyes/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "falcon",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/falcon/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "fantasy",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/fantasy/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "fantasy_alt",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/fantasy_alt/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "freak",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/freak/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "ichess",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/ichess/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "iowa",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/iowa/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "nyc",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/nyc/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "oslo",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/oslo/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "penguin",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/penguin/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "pokemon",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/pokemon/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "pony",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/pony/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "prmi",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/prmi/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "random",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/random/",
+      "type": "gif"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "royale",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/royale/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "sea",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/sea/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "skulls",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/skulls/",
+      "type": "png"
+    },
+    {
+      "category": "basedpolymer",
+      "name": "wehrmacht_soviet",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/wehrmacht_soviet/",
+      "type": "png"
     }
   ]
 }

@@ -1,6 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
-14 Dev
+15 Dec
+
+- basedpolymer piece sets
+
+14 Dec
 
 - Plus keyboard shortcut for going deeper
 

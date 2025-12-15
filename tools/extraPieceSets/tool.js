@@ -6,7 +6,7 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper'],
+        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer'],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
@@ -27,7 +27,8 @@
         'extraPieceSets.tage64': 'tage64',
         'extraPieceSets.OwOHamper': 'OwOHamper',
         'extraPieceSets.DragurKnight': 'DragurKnight',
-        'extraPieceSets.LichessHelper': 'LichessHelper'
+        'extraPieceSets.LichessHelper': 'LichessHelper',
+        'extraPieceSets.basedpolymer': 'basedpolymer'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -113,6 +114,29 @@
         {
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type
+        }
+        case 'basedpolymer':
+        {
+          const pieceLetter = piece == 'knight' ? 'n' : piece[0];
+          let key = color[0]+pieceLetter;
+          if (pieceSet.name == 'ichess_basedpolymer') {
+            const ring = {
+              'bp':'j2WrNG',
+              'br':'fzAmF1',
+              'bn':'JAq5BZ',
+              'bb':'ZxcpUI',
+              'bq':'tgDj55',
+              'bk':'Eu0v0L',
+              'wp':'snAUn',
+              'wr':'ZB0EnP',
+              'wn':'AKcFJe',
+              'wb':'IzedLx',
+              'wq':'qfWM82',
+              'wk':'3H6DG9'
+            };
+            key = ring[key];
+          }
+          return pieceSet.url+key+'.'+pieceSet.type
         }
         case 'comfysage':
         {
