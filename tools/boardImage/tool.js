@@ -31,10 +31,17 @@
 
     getImage = (url) => {
       return new Promise((resolve, reject) => {
-        setTimeout(()=>resolve(null),5000);
+        const timeout = setTimeout(()=>resolve(null),5000);
         const img = new Image();
         img.crossOrigin = "anonymous";
-        img.onload = () => resolve(img);
+        img.onload = () => {
+          clearTimeout(timeout);
+          resolve(img);
+        }
+        img.onerror = () => {
+          clearTimeout(timeout);
+          resolve(null);
+        }
         img.src = url;
       });
     };
@@ -108,7 +115,7 @@
         const theme = lt.global.document.dataset?.board || 'maple';
         url = lt.assetUrl('images/board/' + theme + '.jpg');
       }
-      let img = await this.getImage(url) || (assetsUrl && await this.getImage(assetsUrl));
+      let img = (await this.getImage(url)) || (assetsUrl && await this.getImage(assetsUrl));
       
       ctx.drawImage(img, 0, 0, 800, 800);
       const q = 800 / board.width();
@@ -182,19 +189,23 @@
           ctx.roundRect(x, y, 100, 100, css.borderRadius);
           ctx.stroke();
         });
-      board.find('piece')
-        .each(async (i, e) => {
-          url = $(e).css('background-image')?.replace(/url\(["']?|["']?\)/g, '');
-          if (!url) return;
-          const style = $(e).attr('style') || '';
-          const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)?/.exec(style);
-          if (!m) return;
-          img = await this.getImage(url);
+      for (const e of board.find('piece').get()) {
+        url = $(e).css('background-image')?.replace(/url\(["']?|["']?\)/g, '');
+        if (!url) continue;
+        const style = $(e).attr('style') || '';
+        const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)?/.exec(style);
+        if (!m) continue;
+        img = await this.getImage(url);
+        if (img) {
           const x = +m[1] * q;
           const y = (+m[2]||0) * q;
           ctx.drawImage(img, x, y, 100, 100);
-        });
-      
+        } else {
+          lt.global.open($(ev.target).attr('href'),'_blank');
+          return;
+        }
+      }
+
       const svgs = board.parent().children('svg').get();
       svgs.forEach(async (e) => {
         const img = await this.drawSvg(e);
