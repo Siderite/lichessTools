@@ -139,23 +139,9 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const elem = $('#clinput')[0];
-      if (!elem) return;
-      const handler = lt.getEventHandlers(elem,'mouseover')[0];
-      if (this.options.disableMouseOver) {
-        if (!handler && !this.mouseOverHandler) {
-          lt.global.setTimeout(this.handleCliEvents,100);
-          return;
-        }
-        this.mouseOverHandler ||= handler;
-        if (handler) {
-          $(elem).off('mouseover',handler);
-        }
-      } else {
-        if (!handler && this.mouseOverHandler) {
-          $(elem).on('mouseover',this.mouseOverHandler);
-          this.mouseOverHandler = null;
-        }
-      }
+      if (!elem || elem.__blockMouseOver) return;
+      elem.__blockMouseOver = true;
+      elem.addEventListener('mouseover',(ev) => this.options.disableMouseOver && ev.stopPropagation(),{ capture: true });
     };
 
     commands = {};
