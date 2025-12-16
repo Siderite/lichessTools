@@ -60,6 +60,7 @@
 
     puzzleStart = (puzzleId)=>{
       if (!this._history) return;
+      if (!puzzleId) return;
       const lt = this.lichessTools;
       const last = this._history.at(-1);
       if (last?.puzzleId == puzzleId && !last.end) {
