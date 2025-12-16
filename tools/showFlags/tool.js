@@ -216,7 +216,7 @@
               .attr('loading', 'lazy')
               .attr('title', item.countryName)
               .attr('src', flagUrl)
-              .css('animation-duration', Math.round(5 + lt.random() * 15) + 's')
+              //.css('animation-duration', Math.round(5 + lt.random() * 15) + 's')
             );
             lt.net.logNetwork(flagUrl, 1000, 0); //approximate flag size in bytes
           }
