@@ -1,5 +1,11 @@
 History of features added to LiChess Tools in time (reversed order)
 
+18 Dec
+
+- a lot more piece sets
+- two more boards
+- better fallback for board image
+
 15 Dec
 
 - basedpolymer piece sets
