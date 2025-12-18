@@ -151,6 +151,15 @@
     {
       "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/wood.png",
       "text": "Wood"
+    },
+
+    {
+      "value": "https://user-images.githubusercontent.com/82961525/139945880-c349d1e8-91fe-4001-a703-02d3a28a43d6.jpg",
+      "text": "PeterZuecherWood"
+    },
+    {
+      "value": "https://user-images.githubusercontent.com/82961525/139945885-dfe4f1dd-cb46-4516-b2f8-a195eb61932a.jpg",
+      "text": "PeterZuecherMarble"
     }
   ]
 }

@@ -116,6 +116,10 @@
         url = lt.assetUrl('images/board/' + theme + '.jpg');
       }
       let img = (await this.getImage(url)) || (assetsUrl && await this.getImage(assetsUrl));
+      if (!img) {
+        lt.global.open($(ev.target).attr('href'),'_blank');
+        return;
+      }
       
       ctx.drawImage(img, 0, 0, 800, 800);
       const q = 800 / board.width();
