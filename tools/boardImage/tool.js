@@ -82,6 +82,22 @@
       ctx.fill();
     };
 
+    defaultPieceUrl = (e)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      e = $(e);
+      let key='';
+      if (e.is('.black')) key+='b';
+      if (e.is('.white')) key+='w';
+      if (e.is('.pawn')) key+='P';
+      if (e.is('.rook')) key+='R';
+      if (e.is('.knight')) key+='N';
+      if (e.is('.bishop')) key+='B';
+      if (e.is('.queen')) key+='Q';
+      if (e.is('.king')) key+='K';
+      return lt.assetUrl('piece/cburnett/'+key+'.svg');
+    };
+
     getBoardImage = async (ev) => {
       if (ev.ctrlKey || ev.shiftKey) return;
       ev.preventDefault();
@@ -115,11 +131,7 @@
         const theme = lt.global.document.dataset?.board || 'maple';
         url = lt.assetUrl('images/board/' + theme + '.jpg');
       }
-      let img = (await this.getImage(url)) || (assetsUrl && await this.getImage(assetsUrl));
-      if (!img) {
-        lt.global.open($(ev.target).attr('href'),'_blank');
-        return;
-      }
+      let img = (await this.getImage(url)) || (assetsUrl && await this.getImage(assetsUrl)) || (await this.getImage(lt.assetUrl('images/board/maple.jpg')));
       
       ctx.drawImage(img, 0, 0, 800, 800);
       const q = 800 / board.width();
@@ -199,15 +211,10 @@
         const style = $(e).attr('style') || '';
         const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)?/.exec(style);
         if (!m) continue;
-        img = await this.getImage(url);
-        if (img) {
-          const x = +m[1] * q;
-          const y = (+m[2]||0) * q;
-          ctx.drawImage(img, x, y, 100, 100);
-        } else {
-          lt.global.open($(ev.target).attr('href'),'_blank');
-          return;
-        }
+        img = (await this.getImage(url)) || (await this.getImage(this.defaultPieceUrl(e)));
+        const x = +m[1] * q;
+        const y = (+m[2]||0) * q;
+        ctx.drawImage(img, x, y, 100, 100);
       }
 
       const svgs = board.parent().children('svg').get();
