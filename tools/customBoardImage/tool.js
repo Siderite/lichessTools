@@ -93,6 +93,17 @@ body .is2d cg-board::before {
               const val = input.val();
               $('body').css('--board-background',`url("${val}")`);
             });
+
+          input.on('focus input', ()=>{
+            input.next('.combo-list')
+              .addClass('lichessTools-customBoard')
+              .find('.combo-item')
+              .each((i,e)=>{
+                const o = data.data[i];
+                $(e).css('--background',`url("${o.value}")`);
+              });
+          });
+
           break;
         }
       });

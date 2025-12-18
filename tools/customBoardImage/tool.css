@@ -15,9 +15,16 @@ body.lichessTools #dasher_app .board .list button.lichessTools-customBoardImage 
   white-space:nowrap;
 }
 
-body.lichessTools dialog[open] .lichessTools-combo .combo-list {
+body.lichessTools dialog[open] .combo-list.lichessTools-customBoard {
   width: min(40ch, 90%);
   justify-self: center;
+}
+
+body.lichessTools dialog[open] .combo-list.lichessTools-customBoard .combo-item {
+  background-image: 
+    linear-gradient(color-mix(in srgb, var(--c-bg-box) 50%, transparent), color-mix(in srgb, var(--c-bg-box) 50%, transparent)),
+    var(--background);
+  background-size: 100%;
 }
 
 body.lichessTools dialog[open]:has(.lichessTools-combo),

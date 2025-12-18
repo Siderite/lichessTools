@@ -273,10 +273,10 @@ cash.fn.makeCombo = function (options) {
           });
         });
       list.find('.combo-item.highlight')
-          .each((i,el)=>{
-            const s = (el.scrollIntoViewIfNeeded || el.scrollIntoView).bind(el);
-            s && s();
-          });
+        .each((i,el)=>{
+          const s = (el.scrollIntoViewIfNeeded || el.scrollIntoView).bind(el);
+          s && s();
+        });
 
       open = filtered.length > 0;
       list.toggleDisplay(open);
