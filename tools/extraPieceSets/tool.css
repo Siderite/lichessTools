@@ -52,3 +52,18 @@ body.lichessTools #dasher_app button.lichessTools-extraPieceSets.basedpolymer {
     inset 0 0 0 1px white,
     inset 0 0 0 2px black
 }
+
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.FelixKling {
+  border-radius:15%;
+  border: 1px solid indigo;
+}
+
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.Moldenke1 {
+  border-radius:40%;
+  border: 1px solid limegreen;
+}
+
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.sharechess {
+  border-radius:15%;
+  border: 1px dotted red;
+}

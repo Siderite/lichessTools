@@ -1026,6 +1026,1707 @@
       "name": "wehrmacht_soviet",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/wehrmacht_soviet/",
       "type": "png"
+    },
+
+    {
+      "category": "FelixKling",
+      "name": "Julius",
+      "url": "https://codeberg.org/FelixKling/chess_pieces/raw/branch/main/Julius/",
+      "type": "svg"
+    },
+    {
+      "category": "FelixKling",
+      "name": "Merida_shaded",
+      "url": "https://codeberg.org/FelixKling/chess_pieces/raw/branch/main/Merida_shaded/",
+      "type": "svg"
+    },
+
+    {
+      "category": "Moldenke1",
+      "name": "Moldenke",
+      "url": "https://raw.githubusercontent.com/Moldenke1/Moldenke/refs/heads/main/",
+      "type": "svg"
+    },
+    {
+      "category": "Moldenke1",
+      "name": "Horsey-too-Late",
+      "url": "https://raw.githubusercontent.com/Moldenke1/Horsey-too-Late/refs/heads/main/",
+      "type": "svg"
+    },
+
+    {
+      "category": "sharechess",
+      "name": "adventurer",
+      "url": "https://sharechess.github.io/pieces/adventurer/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "adventurer_berry",
+      "url": "https://sharechess.github.io/pieces/adventurer_berry/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "adventurer_brown",
+      "url": "https://sharechess.github.io/pieces/adventurer_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "adventurer_grass",
+      "url": "https://sharechess.github.io/pieces/adventurer_grass/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alfarishy",
+      "url": "https://sharechess.github.io/pieces/alfarishy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alfarishy_berry",
+      "url": "https://sharechess.github.io/pieces/alfarishy_berry/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alfarishy_blue",
+      "url": "https://sharechess.github.io/pieces/alfarishy_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alfarishy_pink",
+      "url": "https://sharechess.github.io/pieces/alfarishy_pink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alfonso-x",
+      "url": "https://sharechess.github.io/pieces/alfonso-x/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alfonso-x_brown",
+      "url": "https://sharechess.github.io/pieces/alfonso-x_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alfonso-x_grape",
+      "url": "https://sharechess.github.io/pieces/alfonso-x_grape/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alfonso-x_toy",
+      "url": "https://sharechess.github.io/pieces/alfonso-x_toy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alpha",
+      "url": "https://sharechess.github.io/pieces/alpha/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alpha_ink",
+      "url": "https://sharechess.github.io/pieces/alpha_ink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alpha_mint",
+      "url": "https://sharechess.github.io/pieces/alpha_mint/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "alpha_wood",
+      "url": "https://sharechess.github.io/pieces/alpha_wood/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "anarchy-plug",
+      "url": "https://sharechess.github.io/pieces/anarchy-plug/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "anarchy-plug_candy",
+      "url": "https://sharechess.github.io/pieces/anarchy-plug_candy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "anarchy-plug_fresh",
+      "url": "https://sharechess.github.io/pieces/anarchy-plug_fresh/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "anarchy-plug_sepia",
+      "url": "https://sharechess.github.io/pieces/anarchy-plug_sepia/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "anarchy",
+      "url": "https://sharechess.github.io/pieces/anarchy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "anarchy_candy",
+      "url": "https://sharechess.github.io/pieces/anarchy_candy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "anarchy_fresh",
+      "url": "https://sharechess.github.io/pieces/anarchy_fresh/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "anarchy_halloween",
+      "url": "https://sharechess.github.io/pieces/anarchy_halloween/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "anarchy_sepia",
+      "url": "https://sharechess.github.io/pieces/anarchy_sepia/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "berlin",
+      "url": "https://sharechess.github.io/pieces/berlin/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "berlin_blue",
+      "url": "https://sharechess.github.io/pieces/berlin_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "berlin_loulou",
+      "url": "https://sharechess.github.io/pieces/berlin_loulou/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "berlin_maroon",
+      "url": "https://sharechess.github.io/pieces/berlin_maroon/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "caliente",
+      "url": "https://sharechess.github.io/pieces/caliente/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "caliente_blue",
+      "url": "https://sharechess.github.io/pieces/caliente_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "caliente_pink",
+      "url": "https://sharechess.github.io/pieces/caliente_pink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "caliente_wood",
+      "url": "https://sharechess.github.io/pieces/caliente_wood/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "california",
+      "url": "https://sharechess.github.io/pieces/california/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "california_brown",
+      "url": "https://sharechess.github.io/pieces/california_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "california_green",
+      "url": "https://sharechess.github.io/pieces/california_green/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "california_red",
+      "url": "https://sharechess.github.io/pieces/california_red/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cardinal",
+      "url": "https://sharechess.github.io/pieces/cardinal/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cardinal_blue",
+      "url": "https://sharechess.github.io/pieces/cardinal_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cardinal_brown",
+      "url": "https://sharechess.github.io/pieces/cardinal_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cardinal_green",
+      "url": "https://sharechess.github.io/pieces/cardinal_green/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cases",
+      "url": "https://sharechess.github.io/pieces/cases/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cases_cocoa",
+      "url": "https://sharechess.github.io/pieces/cases_cocoa/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cases_forest",
+      "url": "https://sharechess.github.io/pieces/cases_forest/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cases_gray",
+      "url": "https://sharechess.github.io/pieces/cases_gray/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cburnett",
+      "url": "https://sharechess.github.io/pieces/cburnett/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cburnett_blue",
+      "url": "https://sharechess.github.io/pieces/cburnett_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cburnett_brown",
+      "url": "https://sharechess.github.io/pieces/cburnett_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "cburnett_purple",
+      "url": "https://sharechess.github.io/pieces/cburnett_purple/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "checkers",
+      "url": "https://sharechess.github.io/pieces/checkers/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "checkers_cute",
+      "url": "https://sharechess.github.io/pieces/checkers_cute/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "checkers_grape",
+      "url": "https://sharechess.github.io/pieces/checkers_grape/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "checkers_wood",
+      "url": "https://sharechess.github.io/pieces/checkers_wood/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "chess7",
+      "url": "https://sharechess.github.io/pieces/chess7/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "chess7_calm",
+      "url": "https://sharechess.github.io/pieces/chess7_calm/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "chess7_pink",
+      "url": "https://sharechess.github.io/pieces/chess7_pink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "chess7_yellow",
+      "url": "https://sharechess.github.io/pieces/chess7_yellow/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "chessnut",
+      "url": "https://sharechess.github.io/pieces/chessnut/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "chessnut_blue",
+      "url": "https://sharechess.github.io/pieces/chessnut_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "chessnut_brown",
+      "url": "https://sharechess.github.io/pieces/chessnut_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "chessnut_burgundy",
+      "url": "https://sharechess.github.io/pieces/chessnut_burgundy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "companion",
+      "url": "https://sharechess.github.io/pieces/companion/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "companion_cyan",
+      "url": "https://sharechess.github.io/pieces/companion_cyan/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "companion_eggplant",
+      "url": "https://sharechess.github.io/pieces/companion_eggplant/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "companion_red",
+      "url": "https://sharechess.github.io/pieces/companion_red/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "condal",
+      "url": "https://sharechess.github.io/pieces/condal/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "condal_cold",
+      "url": "https://sharechess.github.io/pieces/condal_cold/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "condal_halloween",
+      "url": "https://sharechess.github.io/pieces/condal_halloween/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "condal_mustard",
+      "url": "https://sharechess.github.io/pieces/condal_mustard/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "condal_warm",
+      "url": "https://sharechess.github.io/pieces/condal_warm/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "dmuysi",
+      "url": "https://sharechess.github.io/pieces/dmuysi/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "dmuysi_cotton",
+      "url": "https://sharechess.github.io/pieces/dmuysi_cotton/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "dmuysi_kournikova",
+      "url": "https://sharechess.github.io/pieces/dmuysi_kournikova/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "dmuysi_marzipan",
+      "url": "https://sharechess.github.io/pieces/dmuysi_marzipan/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "dubrovny",
+      "url": "https://sharechess.github.io/pieces/dubrovny/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "dubrovny_brown",
+      "url": "https://sharechess.github.io/pieces/dubrovny_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "dubrovny_bw",
+      "url": "https://sharechess.github.io/pieces/dubrovny_bw/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "dubrovny_green",
+      "url": "https://sharechess.github.io/pieces/dubrovny_green/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "echiquier",
+      "url": "https://sharechess.github.io/pieces/echiquier/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "Updated echiquier set",
+      "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "echiquier_flesh",
+      "url": "https://sharechess.github.io/pieces/echiquier_flesh/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "Updated echiquier set",
+      "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "echiquier_grape",
+      "url": "https://sharechess.github.io/pieces/echiquier_grape/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "Updated echiquier set",
+      "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "echiquier_ink",
+      "url": "https://sharechess.github.io/pieces/echiquier_ink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "Updated echiquier set",
+      "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fantasy",
+      "url": "https://sharechess.github.io/pieces/fantasy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fantasy_calm",
+      "url": "https://sharechess.github.io/pieces/fantasy_calm/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fantasy_cold",
+      "url": "https://sharechess.github.io/pieces/fantasy_cold/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fantasy_warm",
+      "url": "https://sharechess.github.io/pieces/fantasy_warm/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fly-or-dream",
+      "url": "https://sharechess.github.io/pieces/fly-or-dream/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fly-or-dream_fire",
+      "url": "https://sharechess.github.io/pieces/fly-or-dream_fire/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fly-or-dream_magic",
+      "url": "https://sharechess.github.io/pieces/fly-or-dream_magic/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fly-or-dream_rainbow",
+      "url": "https://sharechess.github.io/pieces/fly-or-dream_rainbow/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fresca",
+      "url": "https://sharechess.github.io/pieces/fresca/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fresca_camelot",
+      "url": "https://sharechess.github.io/pieces/fresca_camelot/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fresca_matisse",
+      "url": "https://sharechess.github.io/pieces/fresca_matisse/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "fresca_zucchini",
+      "url": "https://sharechess.github.io/pieces/fresca_zucchini/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "gioco",
+      "url": "https://sharechess.github.io/pieces/gioco/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "gioco_metal",
+      "url": "https://sharechess.github.io/pieces/gioco_metal/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "gioco_purple",
+      "url": "https://sharechess.github.io/pieces/gioco_purple/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "gioco_wood",
+      "url": "https://sharechess.github.io/pieces/gioco_wood/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "governor",
+      "url": "https://sharechess.github.io/pieces/governor/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "governor_bw",
+      "url": "https://sharechess.github.io/pieces/governor_bw/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "governor_patina",
+      "url": "https://sharechess.github.io/pieces/governor_patina/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "governor_purple",
+      "url": "https://sharechess.github.io/pieces/governor_purple/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "harlequin",
+      "url": "https://sharechess.github.io/pieces/harlequin/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "harlequin_gold",
+      "url": "https://sharechess.github.io/pieces/harlequin_gold/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "harlequin_neon",
+      "url": "https://sharechess.github.io/pieces/harlequin_neon/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "harlequin_peach",
+      "url": "https://sharechess.github.io/pieces/harlequin_peach/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "horsey",
+      "url": "https://sharechess.github.io/pieces/horsey/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "horsey_blue",
+      "url": "https://sharechess.github.io/pieces/horsey_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "horsey_pink",
+      "url": "https://sharechess.github.io/pieces/horsey_pink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "horsey_purple",
+      "url": "https://sharechess.github.io/pieces/horsey_purple/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "icon54",
+      "url": "https://sharechess.github.io/pieces/icon54/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "icon54_brown",
+      "url": "https://sharechess.github.io/pieces/icon54_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "icon54_gray",
+      "url": "https://sharechess.github.io/pieces/icon54_gray/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "icon54_neon",
+      "url": "https://sharechess.github.io/pieces/icon54_neon/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "icpieces",
+      "url": "https://sharechess.github.io/pieces/icpieces/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "icpieces_blue",
+      "url": "https://sharechess.github.io/pieces/icpieces_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "icpieces_brown",
+      "url": "https://sharechess.github.io/pieces/icpieces_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "icpieces_maroon",
+      "url": "https://sharechess.github.io/pieces/icpieces_maroon/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "kingdom",
+      "url": "https://sharechess.github.io/pieces/kingdom/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "kingdom_blue",
+      "url": "https://sharechess.github.io/pieces/kingdom_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "kingdom_brown",
+      "url": "https://sharechess.github.io/pieces/kingdom_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "kingdom_sulu",
+      "url": "https://sharechess.github.io/pieces/kingdom_sulu/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "kosal",
+      "url": "https://sharechess.github.io/pieces/kosal/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "kosal_blue",
+      "url": "https://sharechess.github.io/pieces/kosal_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "kosal_red",
+      "url": "https://sharechess.github.io/pieces/kosal_red/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "kosal_violet",
+      "url": "https://sharechess.github.io/pieces/kosal_violet/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "leipzig",
+      "url": "https://sharechess.github.io/pieces/leipzig/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "leipzig_berry",
+      "url": "https://sharechess.github.io/pieces/leipzig_berry/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "leipzig_nature",
+      "url": "https://sharechess.github.io/pieces/leipzig_nature/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "leipzig_niagara",
+      "url": "https://sharechess.github.io/pieces/leipzig_niagara/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "letters",
+      "url": "https://sharechess.github.io/pieces/letters/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "letters_cold",
+      "url": "https://sharechess.github.io/pieces/letters_cold/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "letters_dim",
+      "url": "https://sharechess.github.io/pieces/letters_dim/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "letters_warm",
+      "url": "https://sharechess.github.io/pieces/letters_warm/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "libra",
+      "url": "https://sharechess.github.io/pieces/libra/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "libra_plum",
+      "url": "https://sharechess.github.io/pieces/libra_plum/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "libra_sea",
+      "url": "https://sharechess.github.io/pieces/libra_sea/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "libra_wood",
+      "url": "https://sharechess.github.io/pieces/libra_wood/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "line",
+      "url": "https://sharechess.github.io/pieces/line/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "line_berry",
+      "url": "https://sharechess.github.io/pieces/line_berry/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "line_purple",
+      "url": "https://sharechess.github.io/pieces/line_purple/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "line_toy",
+      "url": "https://sharechess.github.io/pieces/line_toy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "lucena",
+      "url": "https://sharechess.github.io/pieces/lucena/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "lucena_blue",
+      "url": "https://sharechess.github.io/pieces/lucena_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "lucena_brown",
+      "url": "https://sharechess.github.io/pieces/lucena_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "lucena_pink",
+      "url": "https://sharechess.github.io/pieces/lucena_pink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "maestro",
+      "url": "https://sharechess.github.io/pieces/maestro/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "maestro_blue",
+      "url": "https://sharechess.github.io/pieces/maestro_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "maestro_brown",
+      "url": "https://sharechess.github.io/pieces/maestro_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "maestro_pink",
+      "url": "https://sharechess.github.io/pieces/maestro_pink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "magnetic",
+      "url": "https://sharechess.github.io/pieces/magnetic/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "magnetic_brown",
+      "url": "https://sharechess.github.io/pieces/magnetic_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "magnetic_lila",
+      "url": "https://sharechess.github.io/pieces/magnetic_lila/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "magnetic_orange",
+      "url": "https://sharechess.github.io/pieces/magnetic_orange/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "mark",
+      "url": "https://sharechess.github.io/pieces/mark/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "mark_brown",
+      "url": "https://sharechess.github.io/pieces/mark_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "mark_grape",
+      "url": "https://sharechess.github.io/pieces/mark_grape/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "mark_green",
+      "url": "https://sharechess.github.io/pieces/mark_green/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "marroquin",
+      "url": "https://sharechess.github.io/pieces/marroquin/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "marroquin_eggplant",
+      "url": "https://sharechess.github.io/pieces/marroquin_eggplant/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "marroquin_rajah",
+      "url": "https://sharechess.github.io/pieces/marroquin_rajah/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "marroquin_toy",
+      "url": "https://sharechess.github.io/pieces/marroquin_toy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "maya",
+      "url": "https://sharechess.github.io/pieces/maya/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "maya_brown",
+      "url": "https://sharechess.github.io/pieces/maya_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "maya_cold",
+      "url": "https://sharechess.github.io/pieces/maya_cold/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "maya_warm",
+      "url": "https://sharechess.github.io/pieces/maya_warm/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "mediaeval",
+      "url": "https://sharechess.github.io/pieces/mediaeval/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "mediaeval_brown",
+      "url": "https://sharechess.github.io/pieces/mediaeval_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "mediaeval_green",
+      "url": "https://sharechess.github.io/pieces/mediaeval_green/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "mediaeval_orange",
+      "url": "https://sharechess.github.io/pieces/mediaeval_orange/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "merida",
+      "url": "https://sharechess.github.io/pieces/merida/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "merida_cyan",
+      "url": "https://sharechess.github.io/pieces/merida_cyan/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "merida_ink",
+      "url": "https://sharechess.github.io/pieces/merida_ink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "merida_traffic",
+      "url": "https://sharechess.github.io/pieces/merida_traffic/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "millennia",
+      "url": "https://sharechess.github.io/pieces/millennia/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "millennia_blue",
+      "url": "https://sharechess.github.io/pieces/millennia_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "millennia_green",
+      "url": "https://sharechess.github.io/pieces/millennia_green/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "millennia_sand",
+      "url": "https://sharechess.github.io/pieces/millennia_sand/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "motif",
+      "url": "https://sharechess.github.io/pieces/motif/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "motif_green",
+      "url": "https://sharechess.github.io/pieces/motif_green/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "motif_maroon",
+      "url": "https://sharechess.github.io/pieces/motif_maroon/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "motif_purple",
+      "url": "https://sharechess.github.io/pieces/motif_purple/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "oldstyle",
+      "url": "https://sharechess.github.io/pieces/oldstyle/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "Renamed piece set from dmuys to dmuysi",
+      "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "oldstyle_bondi",
+      "url": "https://sharechess.github.io/pieces/oldstyle_bondi/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "Renamed piece set from dmuys to dmuysi",
+      "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "oldstyle_brown",
+      "url": "https://sharechess.github.io/pieces/oldstyle_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "Renamed piece set from dmuys to dmuysi",
+      "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "oldstyle_gossip",
+      "url": "https://sharechess.github.io/pieces/oldstyle_gossip/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "Renamed piece set from dmuys to dmuysi",
+      "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirat",
+      "url": "https://sharechess.github.io/pieces/pirat/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirat_maroon",
+      "url": "https://sharechess.github.io/pieces/pirat_maroon/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirat_peach",
+      "url": "https://sharechess.github.io/pieces/pirat_peach/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirat_sea",
+      "url": "https://sharechess.github.io/pieces/pirat_sea/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirouetti",
+      "url": "https://sharechess.github.io/pieces/pirouetti/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirouetti_border",
+      "url": "https://sharechess.github.io/pieces/pirouetti_border/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirouetti_border_coral",
+      "url": "https://sharechess.github.io/pieces/pirouetti_border_coral/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirouetti_border_grass",
+      "url": "https://sharechess.github.io/pieces/pirouetti_border_grass/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirouetti_border_winter",
+      "url": "https://sharechess.github.io/pieces/pirouetti_border_winter/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirouetti_dream",
+      "url": "https://sharechess.github.io/pieces/pirouetti_dream/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirouetti_mint",
+      "url": "https://sharechess.github.io/pieces/pirouetti_mint/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pirouetti_summer",
+      "url": "https://sharechess.github.io/pieces/pirouetti_summer/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pixel",
+      "url": "https://sharechess.github.io/pieces/pixel/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pixel_juicy",
+      "url": "https://sharechess.github.io/pieces/pixel_juicy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pixel_neon",
+      "url": "https://sharechess.github.io/pieces/pixel_neon/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "pixel_spring",
+      "url": "https://sharechess.github.io/pieces/pixel_spring/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "qootee",
+      "url": "https://sharechess.github.io/pieces/qootee/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "qootee_grape",
+      "url": "https://sharechess.github.io/pieces/qootee_grape/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "qootee_pink",
+      "url": "https://sharechess.github.io/pieces/qootee_pink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "qootee_summer",
+      "url": "https://sharechess.github.io/pieces/qootee_summer/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "regular",
+      "url": "https://sharechess.github.io/pieces/regular/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "regular_green",
+      "url": "https://sharechess.github.io/pieces/regular_green/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "regular_ink",
+      "url": "https://sharechess.github.io/pieces/regular_ink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "regular_purple",
+      "url": "https://sharechess.github.io/pieces/regular_purple/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "reillycraig",
+      "url": "https://sharechess.github.io/pieces/reillycraig/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "reillycraig_dixie",
+      "url": "https://sharechess.github.io/pieces/reillycraig_dixie/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "reillycraig_lawn",
+      "url": "https://sharechess.github.io/pieces/reillycraig_lawn/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "reillycraig_tamarind",
+      "url": "https://sharechess.github.io/pieces/reillycraig_tamarind/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "riohacha",
+      "url": "https://sharechess.github.io/pieces/riohacha/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "riohacha_cute",
+      "url": "https://sharechess.github.io/pieces/riohacha_cute/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "riohacha_spring",
+      "url": "https://sharechess.github.io/pieces/riohacha_spring/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "riohacha_winter",
+      "url": "https://sharechess.github.io/pieces/riohacha_winter/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "saakyan",
+      "url": "https://sharechess.github.io/pieces/saakyan/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "saakyan_blue",
+      "url": "https://sharechess.github.io/pieces/saakyan_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "saakyan_coco",
+      "url": "https://sharechess.github.io/pieces/saakyan_coco/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "saakyan_grape",
+      "url": "https://sharechess.github.io/pieces/saakyan_grape/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "shapes",
+      "url": "https://sharechess.github.io/pieces/shapes/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "shapes_blue",
+      "url": "https://sharechess.github.io/pieces/shapes_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "shapes_brown",
+      "url": "https://sharechess.github.io/pieces/shapes_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "shapes_cute",
+      "url": "https://sharechess.github.io/pieces/shapes_cute/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "smart",
+      "url": "https://sharechess.github.io/pieces/smart/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "smart_apricot",
+      "url": "https://sharechess.github.io/pieces/smart_apricot/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "smart_blue",
+      "url": "https://sharechess.github.io/pieces/smart_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "smart_cocoa",
+      "url": "https://sharechess.github.io/pieces/smart_cocoa/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "spatial",
+      "url": "https://sharechess.github.io/pieces/spatial/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "spatial_blue",
+      "url": "https://sharechess.github.io/pieces/spatial_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "spatial_salmon",
+      "url": "https://sharechess.github.io/pieces/spatial_salmon/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "spatial_summer",
+      "url": "https://sharechess.github.io/pieces/spatial_summer/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "staunty",
+      "url": "https://sharechess.github.io/pieces/staunty/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "staunty_blue",
+      "url": "https://sharechess.github.io/pieces/staunty_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "staunty_lila",
+      "url": "https://sharechess.github.io/pieces/staunty_lila/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "staunty_wood",
+      "url": "https://sharechess.github.io/pieces/staunty_wood/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "symmetric",
+      "url": "https://sharechess.github.io/pieces/symmetric/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "symmetric_blue",
+      "url": "https://sharechess.github.io/pieces/symmetric_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "symmetric_brown",
+      "url": "https://sharechess.github.io/pieces/symmetric_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "symmetric_purple",
+      "url": "https://sharechess.github.io/pieces/symmetric_purple/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "tagged",
+      "url": "https://sharechess.github.io/pieces/tagged/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "tatiana",
+      "url": "https://sharechess.github.io/pieces/tatiana/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "tatiana_calm",
+      "url": "https://sharechess.github.io/pieces/tatiana_calm/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "tatiana_sweet",
+      "url": "https://sharechess.github.io/pieces/tatiana_sweet/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "tatiana_wood",
+      "url": "https://sharechess.github.io/pieces/tatiana_wood/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "tfb",
+      "url": "https://sharechess.github.io/pieces/tfb/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "tfb_brown",
+      "url": "https://sharechess.github.io/pieces/tfb_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "tfb_green",
+      "url": "https://sharechess.github.io/pieces/tfb_green/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "tfb_purple",
+      "url": "https://sharechess.github.io/pieces/tfb_purple/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "traveller",
+      "url": "https://sharechess.github.io/pieces/traveller/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "traveller_blue",
+      "url": "https://sharechess.github.io/pieces/traveller_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "traveller_brown",
+      "url": "https://sharechess.github.io/pieces/traveller_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "traveller_green",
+      "url": "https://sharechess.github.io/pieces/traveller_green/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "trendy",
+      "url": "https://sharechess.github.io/pieces/trendy/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "trendy_brown",
+      "url": "https://sharechess.github.io/pieces/trendy_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "trendy_fresh",
+      "url": "https://sharechess.github.io/pieces/trendy_fresh/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "trendy_ink",
+      "url": "https://sharechess.github.io/pieces/trendy_ink/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "utrecht",
+      "url": "https://sharechess.github.io/pieces/utrecht/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "utrecht_crimson",
+      "url": "https://sharechess.github.io/pieces/utrecht_crimson/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "utrecht_mirage",
+      "url": "https://sharechess.github.io/pieces/utrecht_mirage/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "utrecht_violet",
+      "url": "https://sharechess.github.io/pieces/utrecht_violet/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "vecon",
+      "url": "https://sharechess.github.io/pieces/vecon/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "vecon_baltic",
+      "url": "https://sharechess.github.io/pieces/vecon_baltic/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "vecon_cute",
+      "url": "https://sharechess.github.io/pieces/vecon_cute/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "vecon_hemlock",
+      "url": "https://sharechess.github.io/pieces/vecon_hemlock/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "wisdom",
+      "url": "https://sharechess.github.io/pieces/wisdom/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "wisdom_blue",
+      "url": "https://sharechess.github.io/pieces/wisdom_blue/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "wisdom_brown",
+      "url": "https://sharechess.github.io/pieces/wisdom_brown/",
+      "type": "svg"
+    },
+    {
+      "category": "sharechess",
+      "name": "wisdom_grape",
+      "url": "https://sharechess.github.io/pieces/wisdom_grape/",
+      "type": "svg"
     }
   ]
 }

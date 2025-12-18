@@ -6,7 +6,7 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer'],
+        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1','sharechess'],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
@@ -28,7 +28,10 @@
         'extraPieceSets.OwOHamper': 'OwOHamper',
         'extraPieceSets.DragurKnight': 'DragurKnight',
         'extraPieceSets.LichessHelper': 'LichessHelper',
-        'extraPieceSets.basedpolymer': 'basedpolymer'
+        'extraPieceSets.basedpolymer': 'basedpolymer',
+        'extraPieceSets.FelixKling': 'FelixKling',
+        'extraPieceSets.Moldenke1': 'Moldenke1',
+        'extraPieceSets.sharechess': 'sharechess'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -103,6 +106,7 @@
         case 'siderite':
         case 'hollowleaf':
         case 'bend-n':
+        case 'Moldenke1':
         {
           const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
           return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type;
@@ -111,9 +115,15 @@
         case 'tage64':
         case 'OwOHamper':
         case 'LichessHelper':
+        case 'FelixKling':
         {
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type
+        }
+        case 'sharechess':
+        {
+          const pieceLetter = piece == 'knight' ? 'n' : piece[0];
+          return pieceSet.url+pieceLetter+color[0]+'.'+pieceSet.type
         }
         case 'basedpolymer':
         {
