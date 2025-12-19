@@ -52,7 +52,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       let total = null;
-      $('.puzzle__session a').each((i,e)=>{
+      $('.puzzle__session a:not(.result-empty)').each((i,e)=>{
         const text = $(e).text();
         if (text && !$(e).is('.lichessTools-puzzleTotal')) {
           const points = +text;
