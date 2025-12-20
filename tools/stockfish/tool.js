@@ -96,14 +96,14 @@
         engineId = '__sf17_1nnue79';
         engineRoot = 'sf171-79.js';
       } else {
-        engineId = '__sf17_1nnue7';
+        engineId = '__sf17_1nnue7v2';
         engineRoot = 'sf171-7.js';
       }
       try {
         if (!this._module) {
           this.lt.debug && this.lt.global.console.debug('SF', 'loading module...');
           const engines = lichess?.analysis?.ceval?.engines;
-          const engine = engines?.localEngines?.find(e => e.id == engineId) || engines?.[0];
+          const engine = engines?.localEngines?.find(e => e.id == engineId) || engines?.localEngines?.[0];
           const assetUrl = engine?.assets?.js
             ? engine.assets.root + '/' + engine.assets.js
             : 'npm/lila-stockfish-web/' + engineRoot;
