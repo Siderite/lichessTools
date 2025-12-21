@@ -629,7 +629,7 @@
           path += node.id;
           if (!node.ceval?.pvs?.length || node.ceval.pvs.length==1) return null;
           const cps = node.ceval.pvs.slice(1).map(pv=>this.getCp(pv));
-          const cp = cps.reduce((v,a)=>a+v,0)/cps.length;
+          const cp = cps.reduce((a,v)=>a+v,0)/cps.length;
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             x: node.ply,
@@ -1627,10 +1627,6 @@
             pointHoverRadius: 3,
             borderColor: this.colors.localChart,
             hoverBackgroundColor: this.colors.localChartHover,
-            fill: {
-              target: 'start',
-              above: this.colors.localChart().substr(0, 7) + '18'
-            },
             yAxisID: 'y',
             order: 1,
             datalabels: { display: false }
