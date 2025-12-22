@@ -256,3 +256,39 @@ body.lichessTools .lichessTools-downloadCeval {
 body.lichessTools .lichessTools-downloadCeval.hasAnalysis {
   display: initial;
 }
+
+body.lichessTools .analyse__tools div.ceval:has(> .lichessTools-drawPvs),
+body.lichessTools .analyse__controls:has(> .lichessTools-drawPvs) {
+  position: relative;
+}
+
+body.lichessTools .lichessTools-drawPvs {
+  position: relative;
+  overflow: visible;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+body.lichessTools .lichessTools-drawPvs div {
+  position: absolute;
+  z-index:1;
+  left: calc(var(--x) - 0.5em);
+  bottom: -0.25em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: #80808080;
+}
+
+body.lichessTools .lichessTools-drawPvs div.bad {
+  background: var(--c-bad);
+}
+
+body.lichessTools .lichessTools-drawPvs div.warn {
+  background: var(--c-warn);
+}
+
+body.lichessTools .lichessTools-drawPvs div.good {
+  background: var(--c-good);
+}

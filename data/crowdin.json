@@ -1001,7 +1001,8 @@
     "layoutToggleButtonTitle": "أدوات شطرنج الحياة - تبديل تخطيط تحليل اللعبة",
     "themes.squares": "مربعات للدوائر",
     "customEngineOptions.plus": "بالإضافة إلى تحليل أعمق",
-    "deeperPlus": "تحليل أعمق"
+    "deeperPlus": "تحليل أعمق",
+    "cevalLineOptions.pvs": "رسم PVs"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2005,7 +2006,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - 切换对局分析布局",
     "themes.squares": "方形替代圆形",
     "customEngineOptions.plus": "加更深入分析",
-    "deeperPlus": "深入分析"
+    "deeperPlus": "深入分析",
+    "cevalLineOptions.pvs": "绘制PVs"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3009,7 +3011,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
-    "deeperPlus": "Analyse deeper"
+    "deeperPlus": "Analyse deeper",
+    "cevalLineOptions.pvs": "Plot PVs"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4013,7 +4016,8 @@
     "layoutToggleButtonTitle": "Nástroje LiChess - přepnout rozvržení analýzy hry",
     "themes.squares": "Čtverce pro kruhy",
     "customEngineOptions.plus": "Plus pro hlubší analýzu",
-    "deeperPlus": "Analyzovat hlouběji"
+    "deeperPlus": "Analyzovat hlouběji",
+    "cevalLineOptions.pvs": "Vykreslovat PV"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5017,7 +5021,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - schakel spelanalyse lay-out in",
     "themes.squares": "Vierkanten voor cirkels",
     "customEngineOptions.plus": "Plus om dieper te analyseren",
-    "deeperPlus": "dieper analyseren"
+    "deeperPlus": "dieper analyseren",
+    "cevalLineOptions.pvs": "Plot PV's"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -6021,7 +6026,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
-    "deeperPlus": "Analyse deeper"
+    "deeperPlus": "Analyse deeper",
+    "cevalLineOptions.pvs": "Plot PVs"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -7025,7 +7031,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - Activer/désactiver la disposition de l'analyse de partie",
     "themes.squares": "Des carrés à la place des cercles",
     "customEngineOptions.plus": "Plus (+) pour approfondir l'analyse",
-    "deeperPlus": "Approfondir l'analyse"
+    "deeperPlus": "Approfondir l'analyse",
+    "cevalLineOptions.pvs": "Tracer les PVs"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -8029,11 +8036,12 @@
     "layoutToggleButtonTitle": "LiChess Tools - Spielanalyse Layout umschalten",
     "themes.squares": "Quadrate für Kreise",
     "customEngineOptions.plus": "Plus um tiefer zu analysieren",
-    "deeperPlus": "Vertiefende Analyse"
+    "deeperPlus": "Vertiefende Analyse",
+    "cevalLineOptions.pvs": "PVs zeichnen"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
-    "serverOverload": "Ο Lichess πιστεύει ότι υπερφορτώνουμε το σύστημά τους!",
+    "serverOverload": "Το LiChess πιστεύει ότι υπερφορτώνουμε το σύστημά τους!",
     "options.general": "Γενικά",
     "options.addNotifications": "Προσθήκη ειδοποιήσεων",
     "options.community": "Κοινότητα",
@@ -9033,7 +9041,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - εναλλαγή διάταξης ανάλυσης παιχνιδιών",
     "themes.squares": "Τετράγωνα για κύκλους",
     "customEngineOptions.plus": "Πλέον να αναλύσουμε βαθύτερα",
-    "deeperPlus": "Αναλύστε βαθύτερα"
+    "deeperPlus": "Αναλύστε βαθύτερα",
+    "cevalLineOptions.pvs": "Σχεδίαση Pvs"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -10037,7 +10046,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
-    "deeperPlus": "Analyse deeper"
+    "deeperPlus": "Analyse deeper",
+    "cevalLineOptions.pvs": "Plot PVs"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -11041,7 +11051,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - attiva/disattiva il layout di analisi del gioco",
     "themes.squares": "Quadrati per cerchi",
     "customEngineOptions.plus": "Più per analizzare più in profondità",
-    "deeperPlus": "Analizza più a fondo"
+    "deeperPlus": "Analizza più a fondo",
+    "cevalLineOptions.pvs": "Grafico PVs"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -12045,7 +12056,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
-    "deeperPlus": "Analyse deeper"
+    "deeperPlus": "Analyse deeper",
+    "cevalLineOptions.pvs": "Plot PVs"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -13049,7 +13061,8 @@
     "layoutToggleButtonTitle": "Narzędzia LiChess - przełącz układ analizy gier",
     "themes.squares": "Kwadraty dla okręgów",
     "customEngineOptions.plus": "Plus do głębszej analizy",
-    "deeperPlus": "Analiza głębiej"
+    "deeperPlus": "Analiza głębiej",
+    "cevalLineOptions.pvs": "Rysuj PVC"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -14053,7 +14066,8 @@
     "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo",
     "themes.squares": "Quadrados para círculos",
     "customEngineOptions.plus": "Além de analisar mais fundo",
-    "deeperPlus": "Analise mais fundo"
+    "deeperPlus": "Analise mais fundo",
+    "cevalLineOptions.pvs": "Plota PVs"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -15057,7 +15071,8 @@
     "layoutToggleButtonTitle": "Ferramentas LiChess - alternar layout de análise do jogo",
     "themes.squares": "Quadrados para círculos",
     "customEngineOptions.plus": "Além de analisar mais fundo",
-    "deeperPlus": "Analise mais fundo"
+    "deeperPlus": "Analise mais fundo",
+    "cevalLineOptions.pvs": "Plota PVs"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -16061,7 +16076,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - comutare aspect analiză partidă",
     "themes.squares": "Pătrate în loc de cercuri",
     "customEngineOptions.plus": "Plus pentru analiză mai adâncă",
-    "deeperPlus": "Analiză mai adâncă"
+    "deeperPlus": "Analiză mai adâncă",
+    "cevalLineOptions.pvs": "Desenează PVurile"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -17065,7 +17081,8 @@
     "layoutToggleButtonTitle": "Инструменты Lichess - переключение структуры анализа игр",
     "themes.squares": "Квадраты для кругов",
     "customEngineOptions.plus": "Плюс для углубленного анализа",
-    "deeperPlus": "Проанализировать глубже"
+    "deeperPlus": "Проанализировать глубже",
+    "cevalLineOptions.pvs": "Диаграмма PVs"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -18069,7 +18086,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - cambia el diseño de análisis del juego",
     "themes.squares": "Cuadrados por círculos",
     "customEngineOptions.plus": "Extra para analizar más a fondo",
-    "deeperPlus": "Analizar más a fondo"
+    "deeperPlus": "Analizar más a fondo",
+    "cevalLineOptions.pvs": "Trazar VP"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -19073,7 +19091,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
-    "deeperPlus": "Analyse deeper"
+    "deeperPlus": "Analyse deeper",
+    "cevalLineOptions.pvs": "Plot PVs"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -20077,7 +20096,8 @@
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
-    "deeperPlus": "Analyse deeper"
+    "deeperPlus": "Analyse deeper",
+    "cevalLineOptions.pvs": "Plot PVs"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -21081,6 +21101,7 @@
     "layoutToggleButtonTitle": "LiChess Tools - toggle game analysis layout",
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
-    "deeperPlus": "Analyse deeper"
+    "deeperPlus": "Analyse deeper",
+    "cevalLineOptions.pvs": "Plot PVs"
   }
 }

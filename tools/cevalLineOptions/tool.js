@@ -6,7 +6,7 @@
         name: 'cevalLineOptions',
         category: 'analysis2',
         type: 'multiple',
-        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart', 'downloadCeval'],
+        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart', 'downloadCeval', 'pvs'],
         defaultValue: 'moreLines',
         advanced: true
       }
@@ -22,6 +22,7 @@
         'cevalLineOptions.colorEvaluation': 'Color evaluation',
         'cevalLineOptions.depthChart': 'Depth chart',
         'cevalLineOptions.downloadCeval': 'Download engine analysis',
+        'cevalLineOptions.pvs': 'Plot PVs',
         'moreLinesTitle': 'LiChess Tools - more lines',
         'downloadCevalButtonTitle': 'LiChess Tools - download analysis',
         'pearlDeviationTitle': 'LiChess Tools - evaluation deviates at $depth ($deviation)'
@@ -35,6 +36,7 @@
         'cevalLineOptions.colorEvaluation': 'Coloreaz\u0103 evaluarea',
         'cevalLineOptions.depthChart': 'Grafic ad\u00e2ncime',
         'cevalLineOptions.downloadCeval': 'Desc\u0103rcare analiz\u0103 computer',
+        'cevalLineOptions.pvs': 'Deseneaz\u0103 PVurile',
         'moreLinesTitle': 'LiChess Tools - mai multe linii',
         'downloadCevalButtonTitle': 'LiChess Tools - download analysis',
         'pearlDeviationTitle': 'LiChess Tools - evaluarea deviaz\u0103 la $depth ($deviation)'
@@ -357,6 +359,63 @@
     };
     setupDownloadButton = lichessTools.debounce(this.setupDownloadButtonDirect,500);
 
+    drawPvs = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      const $ = lt.$;
+      const prevPath = analysis.path.slice(0,-2);
+      const prevNode = analysis.tree.nodeAtPath(prevPath);
+      const currCeval = analysis.node.ceval;
+      const ceval = prevNode.ceval;
+      let container = $('.lichessTools-drawPvs').empty();
+      if (!ceval?.pvs?.length) {
+        container.remove();
+        return;
+      }
+      const side = analysis.turnColor()=='white'?-1:1;
+      const maxCp = lt.getCentipawns(ceval.pvs[0])*side;
+      const minCp = maxCp-300;
+      if (!container.length) {
+        container = $('<div class="lichessTools-drawPvs">')
+          .appendTo($('.analyse__tools div.ceval,.analyse__controls').eq(0));
+      }
+      const data = new Map();
+      for (const cp of ceval.pvs.map(pv=>lt.getCentipawns(pv)*side)) {
+        const rcp = lt.global.Math.min(maxCp,lt.global.Math.max(minCp,cp));
+        let item = data.get(rcp);
+        if (!item) {
+          item = {
+            count: 1
+          };
+          data.set(rcp,item);
+        } else {
+          item.count++;
+        }
+      }
+      const currCp = lt.getCentipawns(currCeval)*side;
+      if (currCp) {
+        const rcp = lt.global.Math.min(maxCp,lt.global.Math.max(minCp,currCp));
+        let item = data.get(rcp);
+        if (!item) {
+          item = {
+            count: 1
+          };
+          data.set(rcp,item);
+        } else {
+          item.count++;
+        }
+        item.cls=currCp>=maxCp-50 ? 'good' : currCp>=maxCp-150 ? 'warn' : 'bad';
+        for (const [k,v] of data) {
+          $('<div>')
+            .addClass(v.cls)
+            .attr('data-count',v.count)
+            .css('--x',100*(k-minCp)/300+'%')
+            .appendTo(container);
+        }
+      }
+    };
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -370,7 +429,8 @@
         moreLines: lt.isOptionSet(value, 'moreLines'),
         colorEvaluation: lt.isOptionSet(value, 'colorEvaluation'),
         depthChart: lt.isOptionSet(value, 'depthChart'),
-        downloadCeval: lt.isOptionSet(value, 'downloadCeval')
+        downloadCeval: lt.isOptionSet(value, 'downloadCeval'),
+        pvs: lt.isOptionSet(value, 'pvs')
       }
       const main = $('main.analyse, main.puzzle');
       main
@@ -429,6 +489,13 @@
           lt.pubsub.on('lichessTools.redraw',this.setupDownloadButton);
         }
         this.setupDownloadButton();
+
+        lt.pubsub.off('lichessTools.redraw',this.drawPvs);
+        if (this.options.pvs) {
+          lt.pubsub.on('lichessTools.redraw',this.drawPvs);
+          this.drawPvs();
+        }
+
       }
     }
 

@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 Dec
+
+- Plot PVs option
+- Add average pv evaluation chart line
+
 18 Dec
 
 - a lot more piece sets
