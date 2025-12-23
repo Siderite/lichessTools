@@ -50,12 +50,12 @@
         if (this.options.customBoardUrl) {
           const styleStr = `<style id="lichessTools-customBoardImage">
 body.lichessTools .is2d cg-board::before {
-  background-image: url(${url});
+  background-image: url("${url}");
 }
 </style>`;
           const initStyleStr = `<style id="lichessTools-customBoardImage">
 body .is2d cg-board::before {
-  background-image: url(${url}) !important;
+  background-image: url("${url}") !important;
 }
 </style>`;
           $(styleStr).appendTo('head');
@@ -83,6 +83,8 @@ body .is2d cg-board::before {
             await lt.timeout(50);
             continue;
           }
+          $('dialog[open]')
+            .addClass('lichessTools-customBoard');
           input
             .makeCombo({ noFilter: true, ... data})
             .on('comboSelect',ev=>{
@@ -91,12 +93,17 @@ body .is2d cg-board::before {
             })
             .on('change',ev=>{
               const val = input.val();
+              if (!val || !URL.canParse(val)) return;
+              $('body').css('--board-background',`url("${val}")`);
+            })
+            .on('paste',ev=>{
+              const val = ev.clipboardData?.getData('text');
+              if (!val || !URL.canParse(val)) return;
               $('body').css('--board-background',`url("${val}")`);
             });
 
           input.on('focus input', ()=>{
             input.next('.combo-list')
-              .addClass('lichessTools-customBoard')
               .find('.combo-item')
               .each((i,e)=>{
                 const o = data.data[i];

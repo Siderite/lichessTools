@@ -161,7 +161,7 @@
       if (board.length) {
         backgroundImage = await this.getBoardBackground(boardChanged);
         if (backgroundImage) {
-          backgroundImage = 'url('+backgroundImage+')';
+          backgroundImage = 'url("'+backgroundImage+'")';
         } else {
           const body = $('body');
           const className = body.attr('class');

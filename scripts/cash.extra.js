@@ -272,16 +272,30 @@ cash.fn.makeCombo = function (options) {
             open = false;
           });
         });
-      list.find('.combo-item.highlight')
+      const highlighted = list.find('.combo-item.highlight');
+      highlighted
         .each((i,el)=>{
           const s = (el.scrollIntoViewIfNeeded || el.scrollIntoView).bind(el);
-          s && s();
+          s && requestAnimationFrame(s);
         });
+      if (!highlighted.length) {
+        list.each((i,el)=>{
+          el.scrollTop = 0;
+        });
+      }
 
       open = filtered.length > 0;
       list.toggleDisplay(open);
     };
 
+    input.on('pointerdown',()=>{
+      if (open) {
+        list.toggleDisplay(false);
+        open = false;
+      } else {
+        updateList();
+      }
+    });
     input.on('focus input', updateList);
 
     input[0].addEventListener('keydown', (e) => {
@@ -333,15 +347,24 @@ cash.fn.makeCombo = function (options) {
             e.stopPropagation();
           }
           break;
+        case 'Escape':
+          if (open) {
+            list.toggleDisplay(false);
+            open = false;
+            e.preventDefault();
+            e.stopPropagation();
+            input.each((i,e)=>e.blur());
+          }
+          break;
       }
     }, { capture: true });
 
-    $(document).on('click', e => {
+    document.addEventListener('click', e => {
       if (!$(e.target).closest(wrapper).length) {
         list.toggleDisplay(false);
         open = false;
       }
-    });
+    },{ capture: true });
 
     if (!$('#lichessTools-combo').length) {
       $(`<style id="lichessTools-combo">
