@@ -413,8 +413,6 @@
     "btnSearchTitle": "البحث في FEN، العلامات، الفهرس، غير صالح، الرد",
     "btnKeepFoundText": "النتيجة",
     "btnKeepFoundTitle": "الحفاظ فقط على النتائج التي تم العثور عليها",
-    "btnExtractText": "استخراج",
-    "btnExtractTitle": "استخراج المعلومات",
     "btnCutStuffText": "قطع",
     "btnCutStuffTitle": "قُم بخفض الرقم، إزالة الشروح، التعليقات، العلامات، النتائج التي تم العثور عليها أو الفروع",
     "btnCancelText": "إلغاء",
@@ -613,7 +611,6 @@
     "restoreButtonTitle": "أدوات الشطرنج -استعادة التفضيلات من ملف",
     "defaultValueLegend": "* التفضيلات المتبلورة باللون الأزرق هي التفضيلات التي تم تفعيلها بشكل افتراضي",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: من الوضع الحالي\n separate: فروع منفصلة\n tohere: إلى الموقع الحالي\n unicode: unicode أحرف القطع\nنسخ إلى الحافظة",
-    "extractPrompt": "\"زين\"",
     "extractingFens": "استخراج FENs",
     "options.profileTimeline": "الخط الزمني في الملف الشخصي",
     "timelineText": "الخط",
@@ -1004,7 +1001,10 @@
     "deeperPlus": "تحليل أعمق",
     "cevalLineOptions.pvs": "رسم PVs",
     "options.lobbyRatingDiff": "اختلاف تصنيف الردهة",
-    "lobbyRatingDiffTitle": "أدوات شطرنج الحياة - فرق التقييم"
+    "lobbyRatingDiffTitle": "أدوات شطرنج الحياة - فرق التقييم",
+    "btnCommandText": "الأوامر",
+    "btnCommandTitle": "تنفيذ الأوامر",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1420,8 +1420,6 @@
     "btnSearchTitle": "根据部分 FEN、标签、索引、无效内容、步数进行搜索",
     "btnKeepFoundText": "结果",
     "btnKeepFoundTitle": "仅保留找到的结果",
-    "btnExtractText": "提取",
-    "btnExtractTitle": "提取信息",
     "btnCutStuffText": "裁剪",
     "btnCutStuffTitle": "裁剪至指定步数，移除垃圾信息、注解、评论、标签、找到的结果或分支",
     "btnCancelText": "取消",
@@ -1620,7 +1618,6 @@
     "restoreButtonTitle": "LiChess Tools - 从文件恢复偏好设置",
     "defaultValueLegend": "*蓝色边框的偏好设置是默认启用的",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: 从当前位置\n separate: 分离分支\n tohere: 至当前位置\n unicode: 使用 Unicode 棋子字符\n复制着法到剪贴板",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "正在提取 FEN",
     "options.profileTimeline": "档案中的时间线",
     "timelineText": "时间线",
@@ -2011,7 +2008,10 @@
     "deeperPlus": "深入分析",
     "cevalLineOptions.pvs": "绘制PVs",
     "options.lobbyRatingDiff": "大厅评分差异",
-    "lobbyRatingDiffTitle": "LiChess工具 - 评分差异"
+    "lobbyRatingDiffTitle": "LiChess工具 - 评分差异",
+    "btnCommandText": "命令",
+    "btnCommandTitle": "执行命令",
+    "commandPrompt": "“提取风扇\",\"分割ForStudy\""
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -2427,8 +2427,6 @@
     "btnSearchTitle": "基於部分 FEN、標籤、索引、無效或棋步數進行搜尋",
     "btnKeepFoundText": "結果",
     "btnKeepFoundTitle": "僅保留找到的結果",
-    "btnExtractText": "提取",
-    "btnExtractTitle": "提取訊息",
     "btnCutStuffText": "剪切",
     "btnCutStuffTitle": "按棋步數剪切，移除垃圾數據、註解、評論、標籤、找到的結果或分支",
     "btnCancelText": "取消",
@@ -2627,7 +2625,6 @@
     "restoreButtonTitle": "LiChess Tools - restore preferences from a file",
     "defaultValueLegend": "*Blue bordered preferences are the ones enabled by default",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: from current position\n separate: separate branches\n tohere: to current position\n unicode: unicode piece characters\nCopy moves to clipboard",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Extracting FENs",
     "options.profileTimeline": "Timeline in Profile",
     "timelineText": "時間軸",
@@ -3018,7 +3015,10 @@
     "deeperPlus": "Analyse deeper",
     "cevalLineOptions.pvs": "Plot PVs",
     "options.lobbyRatingDiff": "Lobby rating difference",
-    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
+    "btnCommandText": "Commands",
+    "btnCommandTitle": "Execute commands",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -3434,8 +3434,6 @@
     "btnSearchTitle": "Hledat částečně FEN, štítky, index, neplatný, vršek",
     "btnKeepFoundText": "Výsledek",
     "btnKeepFoundTitle": "Ponechat pouze nalezené výsledky",
-    "btnExtractText": "Extrakt",
-    "btnExtractTitle": "Výňatky",
     "btnCutStuffText": "Vyjmout",
     "btnCutStuffTitle": "Vyjmout číslo, odstranit nevyžádanou poštu, poznámky, komentáře, značky, nalezené výsledky nebo větve",
     "btnCancelText": "Zrušit",
@@ -3634,7 +3632,6 @@
     "restoreButtonTitle": "LiChess Tools - obnovit předvolby ze souboru",
     "defaultValueLegend": "*Modrá nastavení ohraničení jsou ve výchozím nastavení povolena",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: z aktuální pozice\n oddělte: oddělené větve\n toze: do aktuální pozice\n jednoznačné od: unicode piece znaků\nKopírovat se do schránky",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Extrahování FEN",
     "options.profileTimeline": "Časová osa v profilu",
     "timelineText": "Časová osa",
@@ -4025,7 +4022,10 @@
     "deeperPlus": "Analyzovat hlouběji",
     "cevalLineOptions.pvs": "Vykreslovat PV",
     "options.lobbyRatingDiff": "Kolaterál úrovně 1 bez krytých dluhopisů mimořádně vysoké kvality",
-    "lobbyRatingDiffTitle": "Nástroje Lichess - rozdíl v ratingu"
+    "lobbyRatingDiffTitle": "Nástroje Lichess - rozdíl v ratingu",
+    "btnCommandText": "Příkazy",
+    "btnCommandTitle": "Provést příkazy",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -4441,8 +4441,6 @@
     "btnSearchTitle": "Zoek op gedeeltelijke FEN, tags, index, ongeldig, ply",
     "btnKeepFoundText": "Resultaat",
     "btnKeepFoundTitle": "Behoud alleen de gevonden resultaten",
-    "btnExtractText": "Afvoer",
-    "btnExtractTitle": "Extraction informatie",
     "btnCutStuffText": "Knippen",
     "btnCutStuffTitle": "Knip naar nummer, verwijder junk, aantekeningen, opmerkingen, tags, gevonden resultaten of branches",
     "btnCancelText": "annuleren",
@@ -4641,7 +4639,6 @@
     "restoreButtonTitle": "LiChess Tools - herstel voorkeuren vanuit een bestand",
     "defaultValueLegend": "*Blauwe grensvoorkeuren zijn degene die standaard zijn ingeschakeld",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"scheiden\"] [\"tohere\"] [\"unicode\"]\n fen: uit huidige positie\n scheiden: scheid branches\n tohere: tot de huidige positie\n unicode: unicode stuk tekens\nKopieer verplaatsen naar klembord",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "FENTEN uitpakken",
     "options.profileTimeline": "Tijdlijn in Profiel",
     "timelineText": "Tijdlijn",
@@ -5032,7 +5029,10 @@
     "deeperPlus": "dieper analyseren",
     "cevalLineOptions.pvs": "Plot PV's",
     "options.lobbyRatingDiff": "Lobby beoordelingsverschil",
-    "lobbyRatingDiffTitle": "LiChess gereedschappen - waardering verschil"
+    "lobbyRatingDiffTitle": "LiChess gereedschappen - waardering verschil",
+    "btnCommandText": "Opdrachten",
+    "btnCommandTitle": "Opdrachten uitvoeren",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "en-US": {
     "LiChess Tools": null,
@@ -5448,8 +5448,6 @@
     "btnSearchTitle": "Search on partial FEN, tags, index, invalid, ply",
     "btnKeepFoundText": "Result",
     "btnKeepFoundTitle": "Keep only the found results",
-    "btnExtractText": "Extract",
-    "btnExtractTitle": "Extract information",
     "btnCutStuffText": "Cut",
     "btnCutStuffTitle": "Cut to ply number, remove junk, annotations, comments, tags, found results or branches",
     "btnCancelText": "Cancel",
@@ -5648,7 +5646,6 @@
     "restoreButtonTitle": "LiChess Tools - restore preferences from a file",
     "defaultValueLegend": "*Blue bordered preferences are the ones enabled by default",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: from current position\n separate: separate branches\n tohere: to current position\n unicode: unicode piece characters\nCopy moves to clipboard",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Extracting FENs",
     "options.profileTimeline": "Timeline in Profile",
     "timelineText": "Timeline",
@@ -6039,7 +6036,10 @@
     "deeperPlus": "Analyse deeper",
     "cevalLineOptions.pvs": "Plot PVs",
     "options.lobbyRatingDiff": "Lobby rating difference",
-    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
+    "btnCommandText": "Commands",
+    "btnCommandTitle": "Execute commands",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -6455,8 +6455,6 @@
     "btnSearchTitle": "Recherche dans FEN partiel, tags, index, invalide, ply",
     "btnKeepFoundText": "Résultat",
     "btnKeepFoundTitle": "Ne conserver que les résultats trouvés",
-    "btnExtractText": "Extraire",
-    "btnExtractTitle": "Extraire des informations",
     "btnCutStuffText": "Couper",
     "btnCutStuffTitle": "Effacer le nombre de ply, les éléments inutiles, les annotations, les commentaires, les tags, les résultats trouvés ou les variantes",
     "btnCancelText": "Annuler",
@@ -6655,7 +6653,6 @@
     "restoreButtonTitle": "LiChess Tools - restaurer les préférences à partir d'un fichier",
     "defaultValueLegend": "*Les préférences avec des bordures bleues sont celles activées par défaut",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen : à partir de la position actuelle\n separate : diviser les variantes\n tohere : à la position actuelle\n unicode : caractère de pièce unicode\nCopier les coups dans le presse-papiers",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Extraire les FENs",
     "options.profileTimeline": "Chronologie dans le profil",
     "timelineText": "Chronologie",
@@ -7045,8 +7042,11 @@
     "customEngineOptions.plus": "Plus (+) pour approfondir l'analyse",
     "deeperPlus": "Approfondir l'analyse",
     "cevalLineOptions.pvs": "Tracer les PVs",
-    "options.lobbyRatingDiff": "Différence de notation du lobby",
-    "lobbyRatingDiffTitle": "Outils LiChess - différence d'évaluation"
+    "options.lobbyRatingDiff": "Diff. de classement par rapport au salon",
+    "lobbyRatingDiffTitle": "LiChess Tools - différence de classement",
+    "btnCommandText": "Commandes",
+    "btnCommandTitle": "Exécuter des commandes",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -7462,8 +7462,6 @@
     "btnSearchTitle": "Suche nach Teil-FEN, Tags, Index, ungültig, ply",
     "btnKeepFoundText": "Ergebnis",
     "btnKeepFoundTitle": "Nur die gefundenen Ergebnisse behalten",
-    "btnExtractText": "Entpacken",
-    "btnExtractTitle": "Informationen extrahieren",
     "btnCutStuffText": "Ausschneiden",
     "btnCutStuffTitle": "Schneiden Sie die feine Zahl, entfernen Sie Junk, Anmerkungen, Kommentare, Tags, gefundene Ergebnisse oder Zweige",
     "btnCancelText": "Abbrechen",
@@ -7662,7 +7660,6 @@
     "restoreButtonTitle": "LiChess Tools - Einstellungen aus einer Datei wiederherstellen",
     "defaultValueLegend": "*Voreingestellte Einstellungen sind standardmäßig aktiviert",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: von der aktuellen Position\n separate: separate Zweige\n tohere: zur aktuellen Position\n unicode: Unicode-Zeichenzeichen\nKopieren in die Zwischenablage",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "FEN extrahieren",
     "options.profileTimeline": "Zeitleiste im Profil",
     "timelineText": "Zeitleiste",
@@ -8053,7 +8050,10 @@
     "deeperPlus": "Vertiefende Analyse",
     "cevalLineOptions.pvs": "PVs zeichnen",
     "options.lobbyRatingDiff": "Lobby-Bewertungsunterschied",
-    "lobbyRatingDiffTitle": "LiChess Tools - Bewertungsunterschied"
+    "lobbyRatingDiffTitle": "LiChess Tools - Bewertungsunterschied",
+    "btnCommandText": "Befehle",
+    "btnCommandTitle": "Befehle ausführen",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -8469,8 +8469,6 @@
     "btnSearchTitle": "Αναζήτηση σε μερική FEN, ετικέτες, δείκτη, άκυρο, ply",
     "btnKeepFoundText": "Αποτέλεσμα",
     "btnKeepFoundTitle": "Διατήρηση μόνο των αποτελεσμάτων που βρέθηκαν",
-    "btnExtractText": "Εξαγωγή",
-    "btnExtractTitle": "Εξαγωγή πληροφοριών",
     "btnCutStuffText": "Αποκοπή",
     "btnCutStuffTitle": "Κόψτε τον αριθμό, αφαιρέστε σκουπίδια, σχολιασμούς, σχόλια, ετικέτες, αποτελέσματα που βρέθηκαν ή κλάδους",
     "btnCancelText": "Ακύρωση",
@@ -8669,7 +8667,6 @@
     "restoreButtonTitle": "LiChess Tools - επαναφορά προτιμήσεων από ένα αρχείο",
     "defaultValueLegend": "*Blue οι ρυθμίσεις είναι αυτές που είναι ενεργοποιημένες από προεπιλογή",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: από την τρέχουσα θέση\n separate: ξεχωριστούς κλάδους\n tohere: στην τρέχουσα θέση\n unicode: unicode χαρακτήρες κομματιών \nΑντιγραφή στο πρόχειρο",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Εξαγωγή FENs",
     "options.profileTimeline": "Χρονοδιάγραμμα στο προφίλ",
     "timelineText": "Χρονοδιάγραμμα",
@@ -9060,7 +9057,10 @@
     "deeperPlus": "Αναλύστε βαθύτερα",
     "cevalLineOptions.pvs": "Σχεδίαση Pvs",
     "options.lobbyRatingDiff": "Διαφορά αξιολόγησης Lobby",
-    "lobbyRatingDiffTitle": "Εργαλεία LiChess - διαφορά βαθμολογίας"
+    "lobbyRatingDiffTitle": "Εργαλεία LiChess - διαφορά βαθμολογίας",
+    "btnCommandText": "Εντολές",
+    "btnCommandTitle": "Εκτέλεση εντολών",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -9476,8 +9476,6 @@
     "btnSearchTitle": "Search on partial FEN, tags, index, invalid, ply",
     "btnKeepFoundText": "Result",
     "btnKeepFoundTitle": "Keep only the found results",
-    "btnExtractText": "Extract",
-    "btnExtractTitle": "Extract information",
     "btnCutStuffText": "Cut",
     "btnCutStuffTitle": "Cut to ply number, remove junk, annotations, comments, tags, found results or branches",
     "btnCancelText": "Cancel",
@@ -9676,7 +9674,6 @@
     "restoreButtonTitle": "LiChess Tools - restore preferences from a file",
     "defaultValueLegend": "*Blue bordered preferences are the ones enabled by default",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: from current position\n separate: separate branches\n tohere: to current position\n unicode: unicode piece characters\nCopy moves to clipboard",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Extracting FENs",
     "options.profileTimeline": "Timeline in Profile",
     "timelineText": "Timeline",
@@ -10067,7 +10064,10 @@
     "deeperPlus": "Analyse deeper",
     "cevalLineOptions.pvs": "Plot PVs",
     "options.lobbyRatingDiff": "Lobby rating difference",
-    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
+    "btnCommandText": "Commands",
+    "btnCommandTitle": "Execute commands",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -10483,8 +10483,6 @@
     "btnSearchTitle": "Cerca su FEN parziale, tags, index, invalid, ply",
     "btnKeepFoundText": "Risultato",
     "btnKeepFoundTitle": "Mantieni solo i risultati trovati",
-    "btnExtractText": "Estrai",
-    "btnExtractTitle": "Estrai informazioni",
     "btnCutStuffText": "Taglia",
     "btnCutStuffTitle": "Taglia il numero ply, rimuovi spazzatura, annotazioni, commenti, tag, risultati trovati o varianti",
     "btnCancelText": "Annulla",
@@ -10683,7 +10681,6 @@
     "restoreButtonTitle": "LiChess Tools - ripristinare le preferenze da un file",
     "defaultValueLegend": "*Le preferenze bordate blu sono quelle abilitate di default",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: dalla posizione corrente\n separate: varianti separati\n tohere: alla posizione corrente\n unicode: caratteri unicode pezzo\nCopia mosse negli appunti",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Estrazione FEN",
     "options.profileTimeline": "Timeline nel profilo",
     "timelineText": "Timeline",
@@ -11074,7 +11071,10 @@
     "deeperPlus": "Analizza più a fondo",
     "cevalLineOptions.pvs": "Grafico PVs",
     "options.lobbyRatingDiff": "Differenza di valutazione della lobby",
-    "lobbyRatingDiffTitle": "Strumenti di LiChess - differenza di rating"
+    "lobbyRatingDiffTitle": "Strumenti di LiChess - differenza di rating",
+    "btnCommandText": "Comandi",
+    "btnCommandTitle": "Esegui comandi",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -11490,8 +11490,6 @@
     "btnSearchTitle": "Search on partial FEN, tags, index, invalid, ply",
     "btnKeepFoundText": "Result",
     "btnKeepFoundTitle": "Keep only the found results",
-    "btnExtractText": "Extract",
-    "btnExtractTitle": "Extract information",
     "btnCutStuffText": "Cut",
     "btnCutStuffTitle": "Cut to ply number, remove junk, annotations, comments, tags, found results or branches",
     "btnCancelText": "Cancel",
@@ -11690,7 +11688,6 @@
     "restoreButtonTitle": "LiChess Tools - restore preferences from a file",
     "defaultValueLegend": "*Blue bordered preferences are the ones enabled by default",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: from current position\n separate: separate branches\n tohere: to current position\n unicode: unicode piece characters\nCopy moves to clipboard",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Extracting FENs",
     "options.profileTimeline": "Timeline in Profile",
     "timelineText": "Timeline",
@@ -12081,7 +12078,10 @@
     "deeperPlus": "Analyse deeper",
     "cevalLineOptions.pvs": "Plot PVs",
     "options.lobbyRatingDiff": "Lobby rating difference",
-    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
+    "btnCommandText": "Commands",
+    "btnCommandTitle": "Execute commands",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -12497,8 +12497,6 @@
     "btnSearchTitle": "Szukaj według częściowych FEN, tagów, indeksu, poprawności, numeru posunięcia",
     "btnKeepFoundText": "Wynik",
     "btnKeepFoundTitle": "Zachowaj tylko znalezione wyniki",
-    "btnExtractText": "Wyodrębnij",
-    "btnExtractTitle": "Wyodrębnij informacje",
     "btnCutStuffText": "Wytnij",
     "btnCutStuffTitle": "Wytnij do oznaczonego numeru posunięcia, usuń śmieci, adnotacje, komentarze, tagi, znalezione wyniki i odgałęzienia",
     "btnCancelText": "Anuluj",
@@ -12697,7 +12695,6 @@
     "restoreButtonTitle": "LiChess Tools — przywróć ustawienia z pliku",
     "defaultValueLegend": "*Preferencje z niebieską ramką to te, które są domyślnie włączone",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: od bieżącej pozycji\n separate: rozdzielone odgałęzienia\n tohere: do bieżącej pozycji\n unicode: znaki unicode bierek\nSkopiuj posunięcia do schowka",
-    "extractPrompt": "„fen”",
     "extractingFens": "Rozpakowywanie FENów",
     "options.profileTimeline": "Historia aktywności w profilu",
     "timelineText": "Historia aktywności",
@@ -13088,7 +13085,10 @@
     "deeperPlus": "Analiza głębiej",
     "cevalLineOptions.pvs": "Rysuj PVC",
     "options.lobbyRatingDiff": "Różnica rankingu lobby",
-    "lobbyRatingDiffTitle": "Narzędzia LiChess - różnica ocen"
+    "lobbyRatingDiffTitle": "Narzędzia LiChess - różnica ocen",
+    "btnCommandText": "Polecenia",
+    "btnCommandTitle": "Wykonaj polecenia",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -13504,8 +13504,6 @@
     "btnSearchTitle": "Pesquisar em parcialmente FEN, etiquetas, índice, inválido, amplamente",
     "btnKeepFoundText": "Resultado",
     "btnKeepFoundTitle": "Manter apenas os resultados encontrados",
-    "btnExtractText": "Extrair",
-    "btnExtractTitle": "Extrair informações",
     "btnCutStuffText": "Recortar",
     "btnCutStuffTitle": "Recortar para numeral, remover lixo, anotações, comentários, tags, resultados ou ramificações encontrados",
     "btnCancelText": "cancelar",
@@ -13704,7 +13702,6 @@
     "restoreButtonTitle": "LiChess Tools - restaurar preferências a partir de um arquivo",
     "defaultValueLegend": "*Preferências de bordas azuis são as ativadas por padrão",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: da posição atual\n separate: branches\n tohere: para a posição atual\n unicode: caracteres unicode\nCopiar movimentos para área de transferência",
-    "extractPrompt": "\"f\"",
     "extractingFens": "Extraindo FENs",
     "options.profileTimeline": "Linha do tempo no perfil",
     "timelineText": "Cronograma",
@@ -14095,7 +14092,10 @@
     "deeperPlus": "Analise mais fundo",
     "cevalLineOptions.pvs": "Traçar PVs",
     "options.lobbyRatingDiff": "Diferença de classificação",
-    "lobbyRatingDiffTitle": "Ferramentas de LiChess - diferença de classificação"
+    "lobbyRatingDiffTitle": "Ferramentas de LiChess - diferença de classificação",
+    "btnCommandText": "Comandos",
+    "btnCommandTitle": "Executar comandos",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -14511,8 +14511,6 @@
     "btnSearchTitle": "Pesquisar em parcialmente FEN, etiquetas, índice, inválido, amplamente",
     "btnKeepFoundText": "Resultado",
     "btnKeepFoundTitle": "Manter apenas os resultados encontrados",
-    "btnExtractText": "Extrair",
-    "btnExtractTitle": "Extrair informações",
     "btnCutStuffText": "Recortar",
     "btnCutStuffTitle": "Recortar para numeral, remover lixo, anotações, comentários, tags, resultados ou ramificações encontrados",
     "btnCancelText": "cancelar",
@@ -14711,7 +14709,6 @@
     "restoreButtonTitle": "LiChess Tools - restaurar preferências a partir de um arquivo",
     "defaultValueLegend": "*Preferências de bordas azuis são as ativadas por padrão",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separado\"] [\"tohere\"] [\"unicode\"]\r\n fen: da posição atual\r\n separada: branches\r\n separados aqui: para a posição atual\r\n unicode: caracteres unicode\r\nCopiar movimentos para área de transferência",
-    "extractPrompt": "\"f\"",
     "extractingFens": "Extraindo FENs",
     "options.profileTimeline": "Linha do tempo no perfil",
     "timelineText": "Cronograma",
@@ -15102,7 +15099,10 @@
     "deeperPlus": "Analise mais fundo",
     "cevalLineOptions.pvs": "Plota PVs",
     "options.lobbyRatingDiff": "Diferença de classificação",
-    "lobbyRatingDiffTitle": "Ferramentas de LiChess - diferença de classificação"
+    "lobbyRatingDiffTitle": "Ferramentas de LiChess - diferença de classificação",
+    "btnCommandText": "Comandos",
+    "btnCommandTitle": "Executar comandos",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -15518,8 +15518,6 @@
     "btnSearchTitle": "Caută cu FEN parţial, etichete, index, invalid, jumătăţi de mutare",
     "btnKeepFoundText": "Rezultat",
     "btnKeepFoundTitle": "Păstrează doar rezultatele găsite",
-    "btnExtractText": "Extrage",
-    "btnExtractTitle": "Extrage informaţie",
     "btnCutStuffText": "Taie",
     "btnCutStuffTitle": "Taie la un număr de jumătăţi de mutare, elimină gunoi, adnotări, comentarii, etichete sau rezultatele găsite",
     "btnCancelText": "Anulează",
@@ -15718,7 +15716,6 @@
     "restoreButtonTitle": "LiChess Tools - Încarcă preferinţele dintr-un fişier",
     "defaultValueLegend": "*Preferinţele cu margine albăstrie sunt cele implicite",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: de la poziţia curentă\n separate: separă variaţiunile\n tohere: până la poziţia curentă\n unicode: caractere unicod ca piese\nCopiază mutări în clipboard",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Extrag FEN-uri",
     "options.profileTimeline": "Activitate recentă in profil",
     "timelineText": "Activitate recentă",
@@ -16109,7 +16106,10 @@
     "deeperPlus": "Analiză mai adâncă",
     "cevalLineOptions.pvs": "Desenează PVurile",
     "options.lobbyRatingDiff": "Diferență rating în pagina principală",
-    "lobbyRatingDiffTitle": "LiChess Tools - diferență rating"
+    "lobbyRatingDiffTitle": "LiChess Tools - diferență rating",
+    "btnCommandText": "Comenzi",
+    "btnCommandTitle": "Execută comenzi",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -16525,8 +16525,6 @@
     "btnSearchTitle": "Поиск по фрагменту FEN, тегам, индексу, ошибкам и количеству полуходов (ply)",
     "btnKeepFoundText": "Результат",
     "btnKeepFoundTitle": "Сохраняет только найденные результаты в поиске",
-    "btnExtractText": "Извлечь",
-    "btnExtractTitle": "Извлечь информацию",
     "btnCutStuffText": "Вырезать",
     "btnCutStuffTitle": "Обрезать всё после заданного номера полухода, убрать ненужное, удалить аннотации, комментарии, теги, найденные результаты и ветки вариантов",
     "btnCancelText": "Отмена",
@@ -16725,7 +16723,6 @@
     "restoreButtonTitle": "LiChess Tools - восстановление настроек из файла",
     "defaultValueLegend": "*Синие настройки включены по умолчанию",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: от текущей позиции\n отдельно: разделить ветви\n tohere: на текущую позицию\n unicode: unicode piece characters\nКопировать ходы в буфер обмена",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Извлечение FENs",
     "options.profileTimeline": "Лента времени в профиле",
     "timelineText": "Шкала времени",
@@ -17116,7 +17113,10 @@
     "deeperPlus": "Проанализировать глубже",
     "cevalLineOptions.pvs": "Диаграмма PVs",
     "options.lobbyRatingDiff": "Рейтинг лобби",
-    "lobbyRatingDiffTitle": "Инструменты Жизни - рейтинг разницы"
+    "lobbyRatingDiffTitle": "Инструменты Жизни - рейтинг разницы",
+    "btnCommandText": "Команды",
+    "btnCommandTitle": "Выполнить команды",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -17532,8 +17532,6 @@
     "btnSearchTitle": "Buscar en FEN parcial, etiquetas, índice, inválido, plegado",
     "btnKeepFoundText": "Resultado",
     "btnKeepFoundTitle": "Mantener solo los resultados encontrados",
-    "btnExtractText": "Extraer",
-    "btnExtractTitle": "Extraer información",
     "btnCutStuffText": "Cortar",
     "btnCutStuffTitle": "Cortar para mostrar número, eliminar basura, anotaciones, comentarios, etiquetas, resultados encontrados o ramas",
     "btnCancelText": "Cancelar",
@@ -17732,7 +17730,6 @@
     "restoreButtonTitle": "LiChess Tools - restaurar preferencias desde un archivo",
     "defaultValueLegend": "*Las preferencias de bordes azules son las habilitadas por defecto",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: de la posición actual\n separate: separar ramas\n tohere: a la posición actual\n unicode: caracteres unicode de la pieza\nCopiar movimientos al portapapeles",
-    "extractPrompt": "\"Fen\"",
     "extractingFens": "Extrayendo FENs",
     "options.profileTimeline": "Línea temporal en el perfil",
     "timelineText": "Línea de tiempo",
@@ -18123,7 +18120,10 @@
     "deeperPlus": "Analizar más a fondo",
     "cevalLineOptions.pvs": "Trazar VP",
     "options.lobbyRatingDiff": "Diferencia de valoración del lobby",
-    "lobbyRatingDiffTitle": "Herramientas de LiChess - diferencia de valoración"
+    "lobbyRatingDiffTitle": "Herramientas de LiChess - diferencia de valoración",
+    "btnCommandText": "Comandos",
+    "btnCommandTitle": "Ejecutar comandos",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -18539,8 +18539,6 @@
     "btnSearchTitle": "Search on partial FEN, tags, index, invalid, ply",
     "btnKeepFoundText": "Result",
     "btnKeepFoundTitle": "Keep only the found results",
-    "btnExtractText": "Extract",
-    "btnExtractTitle": "Extract information",
     "btnCutStuffText": "Cut",
     "btnCutStuffTitle": "Cut to ply number, remove junk, annotations, comments, tags, found results or branches",
     "btnCancelText": "Cancel",
@@ -18739,7 +18737,6 @@
     "restoreButtonTitle": "LiChess Tools - restore preferences from a file",
     "defaultValueLegend": "*Blue bordered preferences are the ones enabled by default",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: from current position\n separate: separate branches\n tohere: to current position\n unicode: unicode piece characters\nCopy moves to clipboard",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Extracting FENs",
     "options.profileTimeline": "Timeline in Profile",
     "timelineText": "Timeline",
@@ -19130,7 +19127,10 @@
     "deeperPlus": "Analyse deeper",
     "cevalLineOptions.pvs": "Plot PVs",
     "options.lobbyRatingDiff": "Lobby rating difference",
-    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
+    "btnCommandText": "Commands",
+    "btnCommandTitle": "Execute commands",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -19546,8 +19546,6 @@
     "btnSearchTitle": "Search on partial FEN, tags, index, invalid, ply",
     "btnKeepFoundText": "Sonuç",
     "btnKeepFoundTitle": "Keep only the found results",
-    "btnExtractText": "Extract",
-    "btnExtractTitle": "Extract information",
     "btnCutStuffText": "Cut",
     "btnCutStuffTitle": "Cut to ply number, remove junk, annotations, comments, tags, found results or branches",
     "btnCancelText": "Cancel",
@@ -19746,7 +19744,6 @@
     "restoreButtonTitle": "LiChess Tools - restore preferences from a file",
     "defaultValueLegend": "*Blue bordered preferences are the ones enabled by default",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: from current position\n separate: separate branches\n tohere: to current position\n unicode: unicode piece characters\nCopy moves to clipboard",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Extracting FENs",
     "options.profileTimeline": "Timeline in Profile",
     "timelineText": "Timeline",
@@ -20137,7 +20134,10 @@
     "deeperPlus": "Analyse deeper",
     "cevalLineOptions.pvs": "Plot PVs",
     "options.lobbyRatingDiff": "Lobby rating difference",
-    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
+    "btnCommandText": "Commands",
+    "btnCommandTitle": "Execute commands",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -20553,8 +20553,6 @@
     "btnSearchTitle": "Search on partial FEN, tags, index, invalid, ply",
     "btnKeepFoundText": "Result",
     "btnKeepFoundTitle": "Keep only the found results",
-    "btnExtractText": "Extract",
-    "btnExtractTitle": "Extract information",
     "btnCutStuffText": "Cut",
     "btnCutStuffTitle": "Cut to ply number, remove junk, annotations, comments, tags, found results or branches",
     "btnCancelText": "Cancel",
@@ -20753,7 +20751,6 @@
     "restoreButtonTitle": "LiChess Tools - restore preferences from a file",
     "defaultValueLegend": "*Blue bordered preferences are the ones enabled by default",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: from current position\n separate: separate branches\n tohere: to current position\n unicode: unicode piece characters\nCopy moves to clipboard",
-    "extractPrompt": "\"fen\"",
     "extractingFens": "Extracting FENs",
     "options.profileTimeline": "Timeline in Profile",
     "timelineText": "Timeline",
@@ -21144,6 +21141,9 @@
     "deeperPlus": "Analyse deeper",
     "cevalLineOptions.pvs": "Plot PVs",
     "options.lobbyRatingDiff": "Lobby rating difference",
-    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
+    "btnCommandText": "Commands",
+    "btnCommandTitle": "Execute commands",
+    "commandPrompt": "\"extractFen\",\"splitForStudy\""
   }
 }
