@@ -179,6 +179,7 @@
         "tools/studyTopics/tool.js",
         "tools/chessPursuit/game.js",
         "tools/chessPursuit/tool.js",
+        "tools/lobbyRatingDiff/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -320,6 +321,7 @@
         "tools/customBoardImage/tool.css",
         "tools/studyTopics/tool.css",
         "tools/chessPursuit/tool.css",
+        "tools/lobbyRatingDiff/tool.css",
 
         "tools/tvOptions/tool.css",
 

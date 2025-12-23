@@ -1002,7 +1002,9 @@
     "themes.squares": "مربعات للدوائر",
     "customEngineOptions.plus": "بالإضافة إلى تحليل أعمق",
     "deeperPlus": "تحليل أعمق",
-    "cevalLineOptions.pvs": "رسم PVs"
+    "cevalLineOptions.pvs": "رسم PVs",
+    "options.lobbyRatingDiff": "اختلاف تصنيف الردهة",
+    "lobbyRatingDiffTitle": "أدوات شطرنج الحياة - فرق التقييم"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2007,7 +2009,9 @@
     "themes.squares": "方形替代圆形",
     "customEngineOptions.plus": "加更深入分析",
     "deeperPlus": "深入分析",
-    "cevalLineOptions.pvs": "绘制PVs"
+    "cevalLineOptions.pvs": "绘制PVs",
+    "options.lobbyRatingDiff": "大厅评分差异",
+    "lobbyRatingDiffTitle": "LiChess工具 - 评分差异"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3012,7 +3016,9 @@
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
     "deeperPlus": "Analyse deeper",
-    "cevalLineOptions.pvs": "Plot PVs"
+    "cevalLineOptions.pvs": "Plot PVs",
+    "options.lobbyRatingDiff": "Lobby rating difference",
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4017,7 +4023,9 @@
     "themes.squares": "Čtverce pro kruhy",
     "customEngineOptions.plus": "Plus pro hlubší analýzu",
     "deeperPlus": "Analyzovat hlouběji",
-    "cevalLineOptions.pvs": "Vykreslovat PV"
+    "cevalLineOptions.pvs": "Vykreslovat PV",
+    "options.lobbyRatingDiff": "Kolaterál úrovně 1 bez krytých dluhopisů mimořádně vysoké kvality",
+    "lobbyRatingDiffTitle": "Nástroje Lichess - rozdíl v ratingu"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5022,7 +5030,9 @@
     "themes.squares": "Vierkanten voor cirkels",
     "customEngineOptions.plus": "Plus om dieper te analyseren",
     "deeperPlus": "dieper analyseren",
-    "cevalLineOptions.pvs": "Plot PV's"
+    "cevalLineOptions.pvs": "Plot PV's",
+    "options.lobbyRatingDiff": "Lobby beoordelingsverschil",
+    "lobbyRatingDiffTitle": "LiChess gereedschappen - waardering verschil"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -6027,7 +6037,9 @@
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
     "deeperPlus": "Analyse deeper",
-    "cevalLineOptions.pvs": "Plot PVs"
+    "cevalLineOptions.pvs": "Plot PVs",
+    "options.lobbyRatingDiff": "Lobby rating difference",
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -7032,7 +7044,9 @@
     "themes.squares": "Des carrés à la place des cercles",
     "customEngineOptions.plus": "Plus (+) pour approfondir l'analyse",
     "deeperPlus": "Approfondir l'analyse",
-    "cevalLineOptions.pvs": "Tracer les PVs"
+    "cevalLineOptions.pvs": "Tracer les PVs",
+    "options.lobbyRatingDiff": "Différence de notation du lobby",
+    "lobbyRatingDiffTitle": "Outils LiChess - différence d'évaluation"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -8037,7 +8051,9 @@
     "themes.squares": "Quadrate für Kreise",
     "customEngineOptions.plus": "Plus um tiefer zu analysieren",
     "deeperPlus": "Vertiefende Analyse",
-    "cevalLineOptions.pvs": "PVs zeichnen"
+    "cevalLineOptions.pvs": "PVs zeichnen",
+    "options.lobbyRatingDiff": "Lobby-Bewertungsunterschied",
+    "lobbyRatingDiffTitle": "LiChess Tools - Bewertungsunterschied"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -9042,7 +9058,9 @@
     "themes.squares": "Τετράγωνα για κύκλους",
     "customEngineOptions.plus": "Πλέον να αναλύσουμε βαθύτερα",
     "deeperPlus": "Αναλύστε βαθύτερα",
-    "cevalLineOptions.pvs": "Σχεδίαση Pvs"
+    "cevalLineOptions.pvs": "Σχεδίαση Pvs",
+    "options.lobbyRatingDiff": "Διαφορά αξιολόγησης Lobby",
+    "lobbyRatingDiffTitle": "Εργαλεία LiChess - διαφορά βαθμολογίας"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -10047,7 +10065,9 @@
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
     "deeperPlus": "Analyse deeper",
-    "cevalLineOptions.pvs": "Plot PVs"
+    "cevalLineOptions.pvs": "Plot PVs",
+    "options.lobbyRatingDiff": "Lobby rating difference",
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -11052,7 +11072,9 @@
     "themes.squares": "Quadrati per cerchi",
     "customEngineOptions.plus": "Più per analizzare più in profondità",
     "deeperPlus": "Analizza più a fondo",
-    "cevalLineOptions.pvs": "Grafico PVs"
+    "cevalLineOptions.pvs": "Grafico PVs",
+    "options.lobbyRatingDiff": "Differenza di valutazione della lobby",
+    "lobbyRatingDiffTitle": "Strumenti di LiChess - differenza di rating"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -12057,7 +12079,9 @@
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
     "deeperPlus": "Analyse deeper",
-    "cevalLineOptions.pvs": "Plot PVs"
+    "cevalLineOptions.pvs": "Plot PVs",
+    "options.lobbyRatingDiff": "Lobby rating difference",
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -13062,7 +13086,9 @@
     "themes.squares": "Kwadraty dla okręgów",
     "customEngineOptions.plus": "Plus do głębszej analizy",
     "deeperPlus": "Analiza głębiej",
-    "cevalLineOptions.pvs": "Rysuj PVC"
+    "cevalLineOptions.pvs": "Rysuj PVC",
+    "options.lobbyRatingDiff": "Różnica rankingu lobby",
+    "lobbyRatingDiffTitle": "Narzędzia LiChess - różnica ocen"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -14067,7 +14093,9 @@
     "themes.squares": "Quadrados para círculos",
     "customEngineOptions.plus": "Além de analisar mais fundo",
     "deeperPlus": "Analise mais fundo",
-    "cevalLineOptions.pvs": "Traçar PVs"
+    "cevalLineOptions.pvs": "Traçar PVs",
+    "options.lobbyRatingDiff": "Diferença de classificação",
+    "lobbyRatingDiffTitle": "Ferramentas de LiChess - diferença de classificação"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -15072,7 +15100,9 @@
     "themes.squares": "Quadrados para círculos",
     "customEngineOptions.plus": "Além de analisar mais fundo",
     "deeperPlus": "Analise mais fundo",
-    "cevalLineOptions.pvs": "Plota PVs"
+    "cevalLineOptions.pvs": "Plota PVs",
+    "options.lobbyRatingDiff": "Diferença de classificação",
+    "lobbyRatingDiffTitle": "Ferramentas de LiChess - diferença de classificação"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -16077,7 +16107,9 @@
     "themes.squares": "Pătrate în loc de cercuri",
     "customEngineOptions.plus": "Plus pentru analiză mai adâncă",
     "deeperPlus": "Analiză mai adâncă",
-    "cevalLineOptions.pvs": "Desenează PVurile"
+    "cevalLineOptions.pvs": "Desenează PVurile",
+    "options.lobbyRatingDiff": "Diferență rating în pagina principală",
+    "lobbyRatingDiffTitle": "LiChess Tools - diferență rating"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -17082,7 +17114,9 @@
     "themes.squares": "Квадраты для кругов",
     "customEngineOptions.plus": "Плюс для углубленного анализа",
     "deeperPlus": "Проанализировать глубже",
-    "cevalLineOptions.pvs": "Диаграмма PVs"
+    "cevalLineOptions.pvs": "Диаграмма PVs",
+    "options.lobbyRatingDiff": "Рейтинг лобби",
+    "lobbyRatingDiffTitle": "Инструменты Жизни - рейтинг разницы"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -18087,7 +18121,9 @@
     "themes.squares": "Cuadrados por círculos",
     "customEngineOptions.plus": "Extra para analizar más a fondo",
     "deeperPlus": "Analizar más a fondo",
-    "cevalLineOptions.pvs": "Trazar VP"
+    "cevalLineOptions.pvs": "Trazar VP",
+    "options.lobbyRatingDiff": "Diferencia de valoración del lobby",
+    "lobbyRatingDiffTitle": "Herramientas de LiChess - diferencia de valoración"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -19092,7 +19128,9 @@
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
     "deeperPlus": "Analyse deeper",
-    "cevalLineOptions.pvs": "Plot PVs"
+    "cevalLineOptions.pvs": "Plot PVs",
+    "options.lobbyRatingDiff": "Lobby rating difference",
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -20097,7 +20135,9 @@
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
     "deeperPlus": "Analyse deeper",
-    "cevalLineOptions.pvs": "Plot PVs"
+    "cevalLineOptions.pvs": "Plot PVs",
+    "options.lobbyRatingDiff": "Lobby rating difference",
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -21102,6 +21142,8 @@
     "themes.squares": "Squares for circles",
     "customEngineOptions.plus": "Plus to analyse deeper",
     "deeperPlus": "Analyse deeper",
-    "cevalLineOptions.pvs": "Plot PVs"
+    "cevalLineOptions.pvs": "Plot PVs",
+    "options.lobbyRatingDiff": "Lobby rating difference",
+    "lobbyRatingDiffTitle": "LiChess Tools - rating difference"
   }
 }

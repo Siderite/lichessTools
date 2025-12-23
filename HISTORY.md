@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+23 Dec
+
+- Lobby rating difference
+
 22 Dec
 
 - Plot PVs option
