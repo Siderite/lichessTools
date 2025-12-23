@@ -37,9 +37,9 @@
         'btnSearchTitle': 'Search on partial FEN, tags, index, invalid, ply',
         'btnKeepFoundText': 'Result',
         'btnKeepFoundTitle': 'Keep only the found results',
-        'btnExtractText': 'Extract',
-        'btnExtractTitle': 'Extract information',
-        'extractPrompt': '"fen"',
+        'btnCommandText': 'Commands',
+        'btnCommandTitle': 'Execute commands',
+        'commandPrompt': '"extractFen","splitForStudy"',
         'extractingFens': 'Extracting FENs',
         'btnCutStuffText': 'Cut',
         'btnCutStuffTitle': 'Cut to ply number, remove junk, annotations, comments, tags, found results or branches',
@@ -111,9 +111,9 @@
         'btnSearchTitle': 'Caut\u0103 cu FEN par\u0163ial, etichete, index, invalid, jum\u0103t\u0103\u0163i de mutare',
         'btnKeepFoundText': 'Rezultat',
         'btnKeepFoundTitle': 'P\u0103streaz\u0103 doar rezultatele g\u0103site',
-        'btnExtractText': 'Extrage',
-        'btnExtractTitle': 'Extrage informa\u0163ie',
-        'extractPrompt': '"fen"',
+        'btnCommandText': 'Comenzi',
+        'btnCommandTitle': 'Execut\u0103 comenzi',
+        'commandPrompt': '"extractFen","splitForStudy"',
         'extractingFens': 'Extrag FENuri',
         'btnCutStuffText': 'Taie',
         'btnCutStuffTitle': 'Taie la un num\u0103r de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 gunoi, adnot\u0103ri, comentarii, etichete sau rezultatele g\u0103site',
@@ -271,7 +271,7 @@
                 <button class="button" type="button" data-role="keepFound" data-icon="${lt.icon.toEntity(lt.icon.Target)}"><span></span></button>
                 <button class="button" type="button" data-role="cutStuff" data-icon="${lt.icon.toEntity(lt.icon.BlackScissors)}"><span></span></button>
                 <button class="button" type="button" data-role="evaluate" data-icon="${lt.icon.toEntity(lt.icon.LineGraph)}"><span></span></button>
-                <button class="button" type="button" data-role="extract" data-icon="${lt.icon.toEntity(lt.icon.List)}"><span></span></button>
+                <button class="button" type="button" data-role="command" data-icon="${lt.icon.toEntity(lt.icon.List)}"><span></span></button>
                 <button class="button" type="button" data-role="count" data-icon="${lt.icon.toEntity(lt.icon.BarChart)}"><span></span></button>
                 <button class="button" type="button" data-role="cancel" data-icon="${lt.icon.toEntity(lt.icon.Cancel)}"><span></span></button>
                 <hr></hr>
@@ -412,15 +412,15 @@
         })
         .find('span')
         .text(trans.noarg('btnEvaluateText'));
-      $('[data-role="extract"]', dialog)
-        .attr('title', trans.noarg('btnExtractTitle'))
+      $('[data-role="command"]', dialog)
+        .attr('title', trans.noarg('btnCommandTitle'))
         .on('click', ev => {
           ev.preventDefault();
           if (this.mobileFirstTap(ev.currentTarget)) return;
-          this.runOperation('extract', () => this.extract(textarea));
+          this.runOperation('command', () => this.executeCommand(textarea));
         })
         .find('span')
-        .text(trans.noarg('btnExtractText'));
+        .text(trans.noarg('btnCommandText'));
       $('[data-role="cancel"]', dialog)
         .attr('title', trans.noarg('btnCancelTitle'))
         .on('click', ev => {
@@ -1154,15 +1154,18 @@ https://www.chessable.com/course/${courseId}/ } *`)
       this.countPgn();
     };
 
-    extract = async (textarea) => {
+    executeCommand = async (textarea) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
 
-      const text = await lt.uiApi.dialog.prompt(trans.noarg('extractPrompt'));
-      if (/\bfen\b/i.test(text)) {
+      const text = await lt.uiApi.dialog.prompt(trans.noarg('commandPrompt'));
+      if (/\bextractFen\b/i.test(text)) {
         await this.extractFen(textarea);
+      } else
+      if (/\bsplitForStudy\b/i.test(text)) {
+        await this.splitForStudy(textarea);
       }
     };
 
@@ -1471,6 +1474,84 @@ https://www.chessable.com/course/${courseId}/ } *`)
       if (this._cancelRequested) {
         return;
       }
+
+      this.writeNote(trans.pluralSame('preparingGames', games.length));
+      await lt.timeout(0);
+      for (const game of games) {
+        this.cleanGame(game);
+      }
+
+      this.writeGames(textarea, games);
+
+      this.countPgn();
+    };
+
+    splitForStudy = async (textarea) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+
+      const co = lt.chessops;
+      const { parsePgn } = co.pgn;
+      const text = textarea.val();
+      let games = parsePgn(text);
+      this.writeNote(trans.pluralSame('splittingGames', games.length));
+      await lt.timeout(0);
+
+      const clone = (node) => {
+        const result = {
+          ...node,
+          children: node.children.map(clone)
+        };
+        return result;
+      };
+
+      const data=[];
+      const countMoves = (game)=>{
+        let moveCount = 0;
+        const traverse = (node) => {
+          const startCount = moveCount;
+          if (node.data?.san) moveCount++;
+          if (node.children?.length) {
+            for (const child of node.children) {
+              traverse(child);
+          }
+          data.push({node,moveCount:moveCount-startCount});
+         }
+        };
+        traverse(game.moves);
+        return moveCount;
+      }
+      let again;
+      do {
+        again = false;
+        for (const game of games) {
+          data.length = 0;
+          const count = countMoves(game);
+          if (count<3000) continue;
+          if (this._cancelRequested) {
+            return;
+          }
+          this.enhanceGameWithFens(game);
+          data.sort((a,b)=>b.moveCount-a.moveCount);
+          const splitNode = data.find(x=>x.moveCount<3000)?.node;
+          if (!splitNode) continue;
+
+          const cloned = clone(splitNode);
+          splitNode.children = [];
+          splitNode.data = { ...splitNode.data, comments:[...splitNode.data?.comments].concat(['Split here.']) };
+
+          const newGame = { headers: new Map(game.headers.entries()), moves: cloned };
+          newGame.headers.set('FEN', cloned.data.fen);
+          newGame.headers.set('SetUp', '1');
+          games.push(newGame);
+          this.writeNote(trans.pluralSame('splittingGames', games.length));
+          await lt.timeout(0);
+
+          again = true;
+        }
+      } while (again);
 
       this.writeNote(trans.pluralSame('preparingGames', games.length));
       await lt.timeout(0);

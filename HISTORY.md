@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 23 Dec
 
 - Lobby rating difference
+- split PGN for study chapters
 
 22 Dec
 
