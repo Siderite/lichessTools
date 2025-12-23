@@ -1,6 +1,6 @@
 @media (min-width: 1259.3px) {
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) main.analyse {
-    grid-template-columns: minmax(var(---col3-uniboard-side-min, 270px), 330px) var(---block-gap) var(---col3-uniboard-width) var(---block-gap) minmax(240px, 400px);
+    grid-template-columns: minmax(var(---col3-uniboard-side-min, 285px), 330px) var(---block-gap) var(---col3-uniboard-width) var(---block-gap) minmax(240px, 400px);
     grid-template-rows: auto var(---chat-height) auto 2.5em 1fr;
     grid-template-areas:
     "side  .    board gauge tools"
@@ -85,6 +85,7 @@
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .move-times #movetimes-chart-container {
+    margin-top: 150px;
     height: 100px;
   }
 
@@ -113,7 +114,6 @@
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .computer-analysis #acpl-chart-container {
-    margin-top: 100px;
     height: 150px;
     background: var(--c-bg-box);
   }
@@ -236,7 +236,6 @@
     height: 1.5rem;
     max-width: 12em;
     white-space: nowrap;
-    overflow: hidden;
     align-items: center;
     justify-content: start;
     margin-left: 1em;
