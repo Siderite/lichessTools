@@ -239,6 +239,7 @@ body.lichessTools pearl[data-depth]:after {
 
 body.lichessTools .engine:has(.lichessTools-downloadCeval) {
   position: relative;
+  padding-right:1em;
 }
 
 body.lichessTools .lichessTools-downloadCeval {
@@ -249,7 +250,7 @@ body.lichessTools .lichessTools-downloadCeval {
   font-family: lichess;
   position: absolute;
   top: 0;
-  right: 1em;
+  right: 0.1em;
   z-index: auto;
 }
 

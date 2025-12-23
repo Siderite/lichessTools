@@ -369,7 +369,7 @@
       const currCeval = analysis.node.ceval;
       const ceval = prevNode.ceval;
       let container = $('.lichessTools-drawPvs').empty();
-      if (!ceval?.pvs?.length) {
+      if (!ceval || !currCeval) {
         container.remove();
         return;
       }
@@ -381,7 +381,8 @@
           .appendTo($('.analyse__tools div.ceval,.analyse__controls').eq(0));
       }
       const data = new Map();
-      for (const cp of ceval.pvs.map(pv=>lt.getCentipawns(pv)*side)) {
+      const pvs = [ceval].concat(ceval.pvs?.slice(1));
+      for (const cp of pvs.map(pv=>lt.getCentipawns(pv)*side)) {
         const rcp = lt.global.Math.min(maxCp,lt.global.Math.max(minCp,cp));
         let item = data.get(rcp);
         if (!item) {
