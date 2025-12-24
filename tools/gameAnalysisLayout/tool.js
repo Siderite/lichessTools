@@ -106,6 +106,7 @@
             .on('click',ev=>{
               ev.preventDefault();
               $('body').toggleClass('lichessTools-gameAnalysisLayout');
+              this.toggleLayout = !$('body').is('.lichessTools-gameAnalysisLayout');
               $(ev.currentTarget).toggleClass('button');
             })
             .appendTo('main.analyse');
@@ -129,7 +130,7 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis || !this.isGame()) return;
-      $('body').toggleClassSafe('lichessTools-gameAnalysisLayout',this.options.fitPage);
+      $('body').toggleClassSafe('lichessTools-gameAnalysisLayout',this.options.fitPage && !this.toggleLayout);
       this.applyLayout();
     }
 
