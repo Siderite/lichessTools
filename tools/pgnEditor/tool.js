@@ -603,7 +603,7 @@
         const list = json.list;
         return this.translateChessableList(list);
       }
-      if (json.lesson.chapter) {
+      if (json.lesson?.chapter) {
         const lesson = json.lesson;
         return this.translateChessableLesson(lesson);
       }
