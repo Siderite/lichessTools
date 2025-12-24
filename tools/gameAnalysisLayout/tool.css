@@ -283,6 +283,10 @@
     align-self: end;
     justify-self: center;
   }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .lichessTools-liveStatus {
+    grid-area: utools;
+  }
 }
 
 @media (max-width: 1259.2px) {
