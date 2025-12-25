@@ -116,6 +116,14 @@
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .computer-analysis #acpl-chart-container {
     height: 150px;
     background: var(--c-bg-box);
+    transform-origin: 0;
+    transition: transform 0.5s;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .computer-analysis #acpl-chart-container:hover {
+    z-index: 999999;
+    transform: scale(1.5);
+    background: var(--c-bg-opaque);
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .computer-analysis #acpl-chart-container.lichessTools-extraChart {
