@@ -1,3 +1,7 @@
 .analyse__moves .tview2:not(.redrawn) {
   display:none;
 }
+
+body.lichessTools .analyse__moves .tview2.redrawn {
+  display:flex;
+}
