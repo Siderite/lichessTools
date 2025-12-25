@@ -1180,7 +1180,7 @@
               ev.preventDefault();
               lt.jumpToGlyphSymbols(this.options.moreBrilliant ? ['!?', '!!'] : ['!', '!?', '!!', lt.icon.WhiteStar], color);
             })
-            .on('mouseenter', (ev) => {
+            .on('pointermove', (ev) => {
               const chart = this._chart;
               if (!chart) return;
               const dataset = chart.data.datasets.at(0);
@@ -1192,7 +1192,7 @@
               this.safeSetActiveElements(chart,elems,dataset);
               chart.update('none');
             })
-            .on('mouseleave', (ev) => {
+            .on('pointerleave', (ev) => {
               const chart = this._chart;
               if (!chart) return;
               const dataset = chart.data.datasets.at(0);

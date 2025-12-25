@@ -51,7 +51,7 @@ html.transp body.lichessTools div.symbol.lichessTools-goodMoves {
 body.lichessTools span.lichessTools-christmas {
   z-index: 100;
   position: absolute;
-  bottom: 1em;
+  bottom: 5em;
   display: block;
   width: 100%;
   text-align: center;
