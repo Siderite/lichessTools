@@ -2,6 +2,10 @@
   display:none;
 }
 
-body.lichessTools .analyse__moves .tview2.redrawn {
+body.lichessTools .analyse__moves .tview2-column.redrawn {
   display:flex;
+}
+
+body.lichessTools .analyse__moves .tview2-inline.redrawn {
+  display:block;
 }
