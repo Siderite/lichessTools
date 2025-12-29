@@ -48,6 +48,7 @@ lichessTools.loadTool(LiChessTools.Tools.CtrlArrowsRandomVariation);
 lichessTools.loadTool(LiChessTools.Tools.CustomEngineLevel);
 lichessTools.loadTool(LiChessTools.Tools.KeyShortcuts);
 lichessTools.loadTool(LiChessTools.Tools.ShowFlags);
+lichessTools.loadTool(LiChessTools.Tools.ShowGameCount);
 lichessTools.loadTool(LiChessTools.Tools.ShapeRank);
 lichessTools.loadTool(LiChessTools.Tools.ShowOpening);
 lichessTools.loadTool(LiChessTools.Tools.PreviousGameMenu);
