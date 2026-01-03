@@ -1,0 +1,61 @@
+/* Game count badge styling */
+body.lichessTools .lichessTools-gameCountBadge {
+  color: #888;
+  font-size: 0.85em;
+  margin-left: 4px;
+  white-space: nowrap;
+  vertical-align: baseline;
+  display: inline-block;
+  position: relative;
+}
+
+/* Dark theme adjustments */
+body.lichessTools.dark .lichessTools-gameCountBadge,
+body.lichessTools.transp .lichessTools-gameCountBadge {
+  color: #999;
+}
+
+/* Adjust spacing when both flag and game count are present */
+body.lichessTools .lichessTools-flag + img.flag + .lichessTools-gameCountBadge {
+  margin-left: 4px;
+}
+
+body.lichessTools img.flag + .lichessTools-gameCountBadge {
+  margin-left: 4px;
+}
+
+/* For game room player meta section */
+body.lichessTools div.player .lichessTools-gameCountBadge {
+  position: relative;
+  margin-left: 4px;
+  font-size: 0.8em;
+}
+
+/* For lobby hooks list */
+body.lichessTools .hooks__list .lichessTools-gameCountBadge {
+  font-size: 0.85em;
+}
+
+/* For mini games on homepage */
+body.lichessTools span.mini-game__user .lichessTools-gameCountBadge {
+  font-size: 0.75em;
+  margin-left: 2px;
+}
+
+/* Tournament player lists */
+body.lichessTools td.player .lichessTools-gameCountBadge {
+  margin-left: 4px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 799.29px) and (orientation: portrait) {
+  body.lichessTools .lichessTools-gameCountBadge {
+    font-size: 0.75em;
+  }
+}
+
+@media (max-width: 499.29px) {
+  body.lichessTools .lichessTools-gameCountBadge {
+    font-size: 0.7em;
+  }
+}
