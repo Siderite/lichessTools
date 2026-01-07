@@ -27,7 +27,7 @@
       'ro-RO': {
         'options.general': 'General',
         'options.showGameCount': 'Arat\u0103 totalul de partide al juc\u0103torului',
-        'gamesPlayedTitle': '%s jocuri jucate'
+        'gamesPlayedTitle': '%s partide jucate'
       }
     }
 
