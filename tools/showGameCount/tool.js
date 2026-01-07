@@ -12,7 +12,8 @@
         category: 'general',
         type: 'single',
         possibleValues: [false, true],
-        defaultValue: true
+        defaultValue: false,
+        author: 'Mitchellpkt'
       }
     ];
 
@@ -20,11 +21,13 @@
     intl = {
       'en-US': {
         'options.general': 'General',
-        'options.showGameCount': 'Show player total game count'
+        'options.showGameCount': 'Show player total game count',
+        'gamesPlayedTitle': '%s games played'
       },
       'ro-RO': {
         'options.general': 'General',
-        'options.showGameCount': 'Arat\u0103 totalul de partide al juc\u0103torului'
+        'options.showGameCount': 'Arat\u0103 totalul de partide al juc\u0103torului',
+        'gamesPlayedTitle': '%s jocuri jucate'
       }
     }
 
@@ -147,6 +150,7 @@
     processGameCounts = async () => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const trans = lt.translator;
       if (!this.options.enabled) return;
       if (lt.global.document.hidden) return;
 
@@ -213,7 +217,7 @@
             if (formattedCount !== null) {
               elem.after($('<span>')
                 .addClass('lichessTools-gameCountBadge')
-                .attr('title', item.gameCount + ' games played')
+                .attr('title', trans.pluralSame('gamesPlayedTitle',item.gameCount))
                 .text('[' + formattedCount + ']')
               );
             }
