@@ -1004,7 +1004,9 @@
     "lobbyRatingDiffTitle": "أدوات شطرنج الحياة - فرق التقييم",
     "btnCommandText": "الأوامر",
     "btnCommandTitle": "تنفيذ الأوامر",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "إظهار مجموع عدد اللاعبين",
+    "gamesPlayedTitle": "ألعاب %s لعبت"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2011,7 +2013,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Show player total game count",
+    "gamesPlayedTitle": "%s games played"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3018,7 +3022,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - 等级分差距",
     "btnCommandText": "命令",
     "btnCommandTitle": "执行命令",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "显示玩家总游戏计数",
+    "gamesPlayedTitle": "%s 棋局已播放"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4025,7 +4031,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Show player total game count",
+    "gamesPlayedTitle": "%s games played"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5032,7 +5040,9 @@
     "lobbyRatingDiffTitle": "Nástroje Lichess - rozdíl v ratingu",
     "btnCommandText": "Příkazy",
     "btnCommandTitle": "Provést příkazy",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Zobrazit celkový počet her hráče",
+    "gamesPlayedTitle": "%s odehraných her"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6039,7 +6049,9 @@
     "lobbyRatingDiffTitle": "LiChess gereedschappen - waardering verschil",
     "btnCommandText": "Opdrachten",
     "btnCommandTitle": "Opdrachten uitvoeren",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Toon totale spelaantal van speler",
+    "gamesPlayedTitle": "%s gespeelde partijen"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -7046,7 +7058,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Show player total game count",
+    "gamesPlayedTitle": "%s games played"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8053,7 +8067,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - différence de classement",
     "btnCommandText": "Commandes",
     "btnCommandTitle": "Exécuter des commandes",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Afficher le nombre total de joueurs",
+    "gamesPlayedTitle": "%s games played"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9060,7 +9076,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - Bewertungsunterschied",
     "btnCommandText": "Befehle",
     "btnCommandTitle": "Befehle ausführen",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Gesamtzahl der Spieler anzeigen",
+    "gamesPlayedTitle": "%s Spiele gespielt"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10067,7 +10085,9 @@
     "lobbyRatingDiffTitle": "Εργαλεία LiChess - διαφορά βαθμολογίας",
     "btnCommandText": "Εντολές",
     "btnCommandTitle": "Εκτέλεση εντολών",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Εμφάνιση συνολικού αριθμού παιχνιδιών παίκτη",
+    "gamesPlayedTitle": "%s games played"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11074,7 +11094,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Show player total game count",
+    "gamesPlayedTitle": "%s games played"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12081,7 +12103,9 @@
     "lobbyRatingDiffTitle": "Strumenti di LiChess - differenza di rating",
     "btnCommandText": "Comandi",
     "btnCommandTitle": "Esegui comandi",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Mostra il conteggio totale delle partite",
+    "gamesPlayedTitle": "%s partite giocate"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -13088,7 +13112,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Show player total game count",
+    "gamesPlayedTitle": "%s games played"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -14095,7 +14121,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools ‒ różnica rankingów",
     "btnCommandText": "Polecenia",
     "btnCommandTitle": "Wykonaj polecenia",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Pokaż całkowitą liczbę gier gracza",
+    "gamesPlayedTitle": "%s games played"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -15102,7 +15130,9 @@
     "lobbyRatingDiffTitle": "Ferramentas de LiChess - diferença de classificação",
     "btnCommandText": "Comandos",
     "btnCommandTitle": "Executar comandos",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Mostrar contagem total de partidas do jogador",
+    "gamesPlayedTitle": "%s partidas jogadas"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -16109,7 +16139,9 @@
     "lobbyRatingDiffTitle": "Ferramentas de LiChess - diferença de classificação",
     "btnCommandText": "Comandos",
     "btnCommandTitle": "Executar comandos",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Mostrar contagem total de partidas do jogador",
+    "gamesPlayedTitle": "%s partidas jogadas"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -17116,7 +17148,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - diferență rating",
     "btnCommandText": "Comenzi",
     "btnCommandTitle": "Execută comenzi",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Arată totalul de partide al jucătorului",
+    "gamesPlayedTitle": "%s partide jucate"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -18123,7 +18157,9 @@
     "lobbyRatingDiffTitle": "Инструменты Жизни - рейтинг разницы",
     "btnCommandText": "Команды",
     "btnCommandTitle": "Выполнить команды",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Показать общее количество игр",
+    "gamesPlayedTitle": "Сыграно %s игр"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -19130,7 +19166,9 @@
     "lobbyRatingDiffTitle": "Herramientas de LiChess - diferencia de valoración",
     "btnCommandText": "Comandos",
     "btnCommandTitle": "Ejecutar comandos",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Mostrar número total de partidas del jugador",
+    "gamesPlayedTitle": "Partidas %s jugadas"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -20137,7 +20175,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Show player total game count",
+    "gamesPlayedTitle": "%s games played"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -21144,7 +21184,9 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Show player total game count",
+    "gamesPlayedTitle": "%s games played"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -22151,6 +22193,8 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\""
+    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "options.showGameCount": "Show player total game count",
+    "gamesPlayedTitle": "%s games played"
   }
 }
