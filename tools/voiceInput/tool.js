@@ -14,11 +14,13 @@
 
     intl = {
       'en-US': {
+        'options.general': 'General',
         'options.voiceInput': 'Voice input',
         'voiceInput.studyComments': 'Study comments',
         'voiceInputTitle': 'Voice input'
       },
       'ro-RO': {
+        'options.general': 'General',
         'options.voiceInput': 'Dictare',
         'voiceInput.studyComments': 'Comentarii studiu',
         'voiceInputTitle': 'Dictare'

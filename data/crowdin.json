@@ -1006,7 +1006,10 @@
     "btnCommandTitle": "تنفيذ الأوامر",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "إظهار مجموع عدد اللاعبين",
-    "gamesPlayedTitle": "ألعاب %s لعبت"
+    "gamesPlayedTitle": "ألعاب %s لعبت",
+    "options.voiceInput": "الإدخال الصوتي",
+    "voiceInput.studyComments": "تعليقات الدراسة",
+    "voiceInputTitle": "الإدخال الصوتي"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2015,7 +2018,10 @@
     "btnCommandTitle": "Execute commands",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Show player total game count",
-    "gamesPlayedTitle": "%s games played"
+    "gamesPlayedTitle": "%s games played",
+    "options.voiceInput": "Voice input",
+    "voiceInput.studyComments": "Study comments",
+    "voiceInputTitle": "Voice input"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3024,7 +3030,10 @@
     "btnCommandTitle": "执行命令",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "显示玩家总游戏计数",
-    "gamesPlayedTitle": "%s 棋局已播放"
+    "gamesPlayedTitle": "%s 棋局已播放",
+    "options.voiceInput": "语音输入",
+    "voiceInput.studyComments": "研究评论",
+    "voiceInputTitle": "语音输入"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4033,7 +4042,10 @@
     "btnCommandTitle": "Execute commands",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Show player total game count",
-    "gamesPlayedTitle": "%s games played"
+    "gamesPlayedTitle": "%s games played",
+    "options.voiceInput": "Voice input",
+    "voiceInput.studyComments": "Study comments",
+    "voiceInputTitle": "Voice input"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5042,7 +5054,10 @@
     "btnCommandTitle": "Provést příkazy",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Zobrazit celkový počet her hráče",
-    "gamesPlayedTitle": "%s odehraných her"
+    "gamesPlayedTitle": "%s odehraných her",
+    "options.voiceInput": "Hlasový vstup",
+    "voiceInput.studyComments": "Studijní komentáře",
+    "voiceInputTitle": "Hlasový vstup"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6051,7 +6066,10 @@
     "btnCommandTitle": "Opdrachten uitvoeren",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Toon totale spelaantal van speler",
-    "gamesPlayedTitle": "%s gespeelde partijen"
+    "gamesPlayedTitle": "%s gespeelde partijen",
+    "options.voiceInput": "Spraak-invoer",
+    "voiceInput.studyComments": "Reacties bestuderen",
+    "voiceInputTitle": "Spraak-invoer"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -7060,7 +7078,10 @@
     "btnCommandTitle": "Execute commands",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Show player total game count",
-    "gamesPlayedTitle": "%s games played"
+    "gamesPlayedTitle": "%s games played",
+    "options.voiceInput": "Voice input",
+    "voiceInput.studyComments": "Study comments",
+    "voiceInputTitle": "Voice input"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8068,8 +8089,11 @@
     "btnCommandText": "Commandes",
     "btnCommandTitle": "Exécuter des commandes",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
-    "options.showGameCount": "Afficher le nombre total de joueurs",
-    "gamesPlayedTitle": "%s games played"
+    "options.showGameCount": "Afficher nbre tot parties jouées par le joueur",
+    "gamesPlayedTitle": "%s parties jouées",
+    "options.voiceInput": "Saisie vocale",
+    "voiceInput.studyComments": "Commentaires de l'étude",
+    "voiceInputTitle": "Saisie vocale"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9078,7 +9102,10 @@
     "btnCommandTitle": "Befehle ausführen",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Gesamtzahl der Spieler anzeigen",
-    "gamesPlayedTitle": "%s Spiele gespielt"
+    "gamesPlayedTitle": "%s Spiele gespielt",
+    "options.voiceInput": "Spracheingabe",
+    "voiceInput.studyComments": "Kommentare studieren",
+    "voiceInputTitle": "Spracheingabe"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10087,7 +10114,10 @@
     "btnCommandTitle": "Εκτέλεση εντολών",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Εμφάνιση συνολικού αριθμού παιχνιδιών παίκτη",
-    "gamesPlayedTitle": "%s games played"
+    "gamesPlayedTitle": "%s Παιχνίδια που παίχτηκαν ",
+    "options.voiceInput": "Φωνητική είσοδος",
+    "voiceInput.studyComments": "Μελέτη σχολίων",
+    "voiceInputTitle": "Φωνητική είσοδος"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11096,7 +11126,10 @@
     "btnCommandTitle": "Execute commands",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Show player total game count",
-    "gamesPlayedTitle": "%s games played"
+    "gamesPlayedTitle": "%s games played",
+    "options.voiceInput": "Voice input",
+    "voiceInput.studyComments": "Study comments",
+    "voiceInputTitle": "Voice input"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12105,7 +12138,10 @@
     "btnCommandTitle": "Esegui comandi",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Mostra il conteggio totale delle partite",
-    "gamesPlayedTitle": "%s partite giocate"
+    "gamesPlayedTitle": "%s partite giocate",
+    "options.voiceInput": "Ingresso vocale",
+    "voiceInput.studyComments": "Osservazioni di studio",
+    "voiceInputTitle": "Ingresso vocale"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -13114,7 +13150,10 @@
     "btnCommandTitle": "Execute commands",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Show player total game count",
-    "gamesPlayedTitle": "%s games played"
+    "gamesPlayedTitle": "%s games played",
+    "options.voiceInput": "Voice input",
+    "voiceInput.studyComments": "Study comments",
+    "voiceInputTitle": "Voice input"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -14123,7 +14162,10 @@
     "btnCommandTitle": "Wykonaj polecenia",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Pokaż całkowitą liczbę gier gracza",
-    "gamesPlayedTitle": "%s games played"
+    "gamesPlayedTitle": "%s games played",
+    "options.voiceInput": "Wprowadzanie głosu",
+    "voiceInput.studyComments": "Uwagi do badania",
+    "voiceInputTitle": "Wprowadzanie głosu"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -15132,7 +15174,10 @@
     "btnCommandTitle": "Executar comandos",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Mostrar contagem total de partidas do jogador",
-    "gamesPlayedTitle": "%s partidas jogadas"
+    "gamesPlayedTitle": "%s partidas jogadas",
+    "options.voiceInput": "Entrada por voz",
+    "voiceInput.studyComments": "Comentários do estudo",
+    "voiceInputTitle": "Entrada por voz"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -16141,7 +16186,10 @@
     "btnCommandTitle": "Executar comandos",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Mostrar contagem total de partidas do jogador",
-    "gamesPlayedTitle": "%s partidas jogadas"
+    "gamesPlayedTitle": "%s partidas jogadas",
+    "options.voiceInput": "Entrada por voz",
+    "voiceInput.studyComments": "Comentários do estudo",
+    "voiceInputTitle": "Entrada por voz"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -17150,7 +17198,10 @@
     "btnCommandTitle": "Execută comenzi",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Arată totalul de partide al jucătorului",
-    "gamesPlayedTitle": "%s partide jucate"
+    "gamesPlayedTitle": "%s partide jucate",
+    "options.voiceInput": "Dictare",
+    "voiceInput.studyComments": "Comentarii studiu",
+    "voiceInputTitle": "Dictare"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -18159,7 +18210,10 @@
     "btnCommandTitle": "Выполнить команды",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Показать общее количество игр",
-    "gamesPlayedTitle": "Сыграно %s игр"
+    "gamesPlayedTitle": "Сыграно %s игр",
+    "options.voiceInput": "Голосовой ввод",
+    "voiceInput.studyComments": "Комментарии исследования",
+    "voiceInputTitle": "Голосовой ввод"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -19168,7 +19222,10 @@
     "btnCommandTitle": "Ejecutar comandos",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Mostrar número total de partidas del jugador",
-    "gamesPlayedTitle": "Partidas %s jugadas"
+    "gamesPlayedTitle": "Partidas %s jugadas",
+    "options.voiceInput": "Entrada de voz",
+    "voiceInput.studyComments": "Comentarios de estudio",
+    "voiceInputTitle": "Entrada de voz"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -20177,7 +20234,10 @@
     "btnCommandTitle": "Execute commands",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Show player total game count",
-    "gamesPlayedTitle": "%s games played"
+    "gamesPlayedTitle": "%s games played",
+    "options.voiceInput": "Voice input",
+    "voiceInput.studyComments": "Study comments",
+    "voiceInputTitle": "Voice input"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -21186,7 +21246,10 @@
     "btnCommandTitle": "Execute commands",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Show player total game count",
-    "gamesPlayedTitle": "%s games played"
+    "gamesPlayedTitle": "%s games played",
+    "options.voiceInput": "Voice input",
+    "voiceInput.studyComments": "Study comments",
+    "voiceInputTitle": "Voice input"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -22195,6 +22258,9 @@
     "btnCommandTitle": "Execute commands",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "Show player total game count",
-    "gamesPlayedTitle": "%s games played"
+    "gamesPlayedTitle": "%s games played",
+    "options.voiceInput": "Voice input",
+    "voiceInput.studyComments": "Study comments",
+    "voiceInputTitle": "Voice input"
   }
 }

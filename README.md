@@ -147,8 +147,19 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - Ctrl-C to copy current position
 - extra lobby counters
 - sortable and expandable study topics
-- Bulk edit study chapter PGN tags
-- Quick LiChess Tools toggle in the user menu
+- bulk edit study chapter PGN tags
+- quick LiChess Tools toggle in the user menu
+- auto whisper and prepend move buttons in game chat
+- find position in puzzles (and puzzles from your games)
+- download local engine analysis
+- accuracy calculation per phase of the game
+- search moves/positions in move list (Ctrl-F)
+- recent games section in the lobby
+- game analysis layout requiring no scrolling
+- fast unblock button in the blocked players page
+- lobby games rating difference
+- show total game count for players
+- Voice input support
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:
