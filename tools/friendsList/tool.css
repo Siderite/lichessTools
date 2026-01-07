@@ -366,7 +366,7 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown .hideNotPlaying
   right: 0;
   padding: 0.5rem;
   box-shadow: none;
-  z-index:2;
+  z-index:109;
   color: var(--c-header-dropdown);
 }
 
@@ -392,7 +392,7 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown .lichessTools-f
   left: 0;
   padding: 0.5rem;
   box-shadow: none;
-  z-index:2;
+  z-index:109;
 }
 
 body.lichessTools .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying>button.toggle {
