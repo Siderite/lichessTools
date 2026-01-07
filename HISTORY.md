@@ -1,5 +1,11 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Jan
+
+- show player game count tool
+- show completed puzzle count, not just points
+- voice input tool
+
 23 Dec
 
 - Lobby rating difference

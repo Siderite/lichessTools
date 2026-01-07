@@ -13,6 +13,7 @@
         type: 'single',
         possibleValues: [false, true],
         defaultValue: false,
+        advanced: true,
         author: 'Mitchellpkt'
       }
     ];

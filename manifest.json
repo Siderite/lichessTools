@@ -181,6 +181,7 @@
         "tools/chessPursuit/game.js",
         "tools/chessPursuit/tool.js",
         "tools/lobbyRatingDiff/tool.js",
+        "tools/voiceInput/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -324,6 +325,7 @@
         "tools/studyTopics/tool.css",
         "tools/chessPursuit/tool.css",
         "tools/lobbyRatingDiff/tool.css",
+        "tools/voiceInput/tool.css",
 
         "tools/tvOptions/tool.css",
 
