@@ -52,22 +52,34 @@
       const $ = lt.$;
       const trans = lt.translator;
       let total = null;
-      $('.puzzle__session a:not(.result-empty)').each((i,e)=>{
-        const text = $(e).text();
-        if (text && !$(e).is('.lichessTools-puzzleTotal')) {
-          const points = +text;
-          if (points) {
-            total = total ? total+points : points;
-          }
+      let count = 0;
+      let good = 0;
+      $('.puzzle__session a:not(.result-cursor)').each((i,e)=>{
+        if ($(e).is('.result-false')) {
+          count++;
         } else 
-          if (total !== null) {
-            const totalText = (total>0 ? '+' : '') + total;
-            $(e)
-              .addClass('lichessTools-puzzleTotal')
-              .attr('title',trans.noarg('puzzleSessionTotalTitle'))
-              .text(totalText);
+        if ($(e).is('.result-true')) {
+          count++;
+          good++;
+        }
+        if (!$(e).is('.result-empty')) {
+          const text = $(e).text();
+          if (text && !$(e).is('.lichessTools-puzzleTotal')) {
+            const points = +text;
+            if (points) {
+              total = total ? total+points : points;
+            }
           }
-        });
+        }
+      });
+      if (count) {
+        let text = good+'/'+count;
+        if (total) text += ' ('+(total>0 ? '+' : '') + total + ')';
+        $('.puzzle__session a.result-cursor')
+          .addClass('lichessTools-puzzleTotal')
+          .attr('title',trans.noarg('puzzleSessionTotalTitle'))
+          .text(text);
+      }
     };
 
     startTimer = (puzzleId)=>{
