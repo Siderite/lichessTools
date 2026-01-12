@@ -121,9 +121,14 @@
           if (oldHandler) {
             lt.removeEventHandlers(input[0], 'keydown');
 
-            const splitLength = (s, l) => {
+            const splitLength = (s, l, prefix) => {
               const result = [];
               if (!s) return result;
+              const hasPrefix = prefix?.length && s.startsWith(prefix);
+              if (hasPrefix) {
+                l -= prefix.length;
+                s = s.substr(prefix.length);
+              }
               let p = 0;
               const ellipsis = lt.icon.Ellipsis;
               while (p + l < s.length) {
@@ -134,11 +139,11 @@
                 } else {
                   frag = s.substr(p, l-1);
                 }
-                result.push((p > 0 ? ellipsis : '') + frag + ellipsis);
+                result.push((hasPrefix ? prefix : '') + (p > 0 ? ellipsis : '') + frag + ellipsis);
                 p += frag.length;
               }
               if (p < s.length) {
-                result.push((p > 0 ? ellipsis : '') + s.substr(p));
+                result.push((hasPrefix ? prefix : '') + (p > 0 ? ellipsis : '') + s.substr(p));
               }
               return result;
             };
@@ -166,7 +171,7 @@
                 if (!sendText || sendText.length + newText.length <= maxLength) {
                   sendText += newText;
                 } else {
-                  const splits = splitLength(sendText, maxLength);
+                  const splits = splitLength(sendText, maxLength, '/w ');
                   for (const splitText of splits) {
                     lt.uiApi.chat.post(splitText);
                     await lt.timeout(500);
@@ -175,7 +180,7 @@
                 }
               }
               if (sendText) {
-                const splits = splitLength(sendText, maxLength);
+                const splits = splitLength(sendText, maxLength, '/w ');
                 for (const splitText of splits) {
                   lt.uiApi.chat.post(splitText);
                   await lt.timeout(100);
@@ -533,6 +538,7 @@
     };
 
     doPrependMove = (value)=>{
+      if (!this.canPrependMove()) return value;
       const moveString = this.getMoveString(false);
       const m = /^(?<whisper>\s*\/w\s+)?(?<text>.*)$/i.exec(value);
       if (!/^\(\d+\.{1,3}.{2,7}\)/.test(m.groups.text)) {
@@ -542,6 +548,7 @@
     };
 
     doAutoWhisper = (value)=>{
+      if (!this.canWhisper()) return value;
       const m = /^(?<whisper>\s*\/w\s+)?(?<text>.*)$/i.exec(value);
       value = '/w '+m.groups.text;
       return value;
@@ -631,11 +638,13 @@
 
       $('body').observer()
         .off('.mchat__content,.result-wrap',this.refreshChatButtons);
+      lt.uiApi.events.off('ply', this.refreshChatButtons);
       $('.lichessTools-mchatOptions-extraButtons').remove();
 
       if (this.options.autoWhisper || this.options.prependMove) {
         $('body').observer()
           .on('.mchat__content,.result-wrap',this.refreshChatButtons);
+        lt.uiApi.events.on('ply', this.refreshChatButtons);
         this.refreshChatButtons();
       }
     }

@@ -526,7 +526,7 @@
           lt.arrayRemoveAll(result.moves, m=>m.depth<12);
         }
       }
-      lt.global.requestAnimationFrame(async ()=>{
+      lt.global.requestAnimationFrame(()=>{
         this.showEvaluations(result);
       });
     };

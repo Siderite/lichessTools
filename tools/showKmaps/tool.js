@@ -43,10 +43,7 @@
 
     getKmaps = async (fen, isBlack) => {
       const lt = this.lichessTools;
-      const useHollowLeaf = !!lt.storage.get('LiChessTools.showKmaps.useHollowLeaf');
-      const evaluator = useHollowLeaf
-        ? new HollowLeafEvaluator(fen, lt)
-        : new ChessPositionEvaluator(fen, lt);
+      const evaluator = new ChessPositionEvaluator(fen, lt);
       const kmaps = await evaluator.evaluate();
       const q = isBlack ? -1 : 1;
       return { 
@@ -227,6 +224,8 @@
           notInViewport = true;
           continue;
         }
+        if ($(el).closest('.now-playing').length) continue;
+
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
           //lt.global.console.warn('Could not get fen for element', el);
@@ -308,28 +307,6 @@
       }
     }
 
-  }
-
-  class HollowLeafEvaluator {
-    constructor(fen, lt) {
-      this.fen = fen;
-      this.lichessTools = lt;
-    }
-
-    async evaluate() {
-      const lt = this.lichessTools;
-      if (!HollowLeafEvaluator.computeKMAPS) {
-        const url = await lt.comm.getChromeUrl('tools/showKmaps/kmaps.js');
-        const { computeKMAPS } = await import(url);
-        HollowLeafEvaluator.computeKMAPS = computeKMAPS;
-      }
-      const kmaps = HollowLeafEvaluator.computeKMAPS(this.fen);
-      const result = {};
-      for (const itm of kmaps) {
-        result[itm.metric[0]]=(itm.White-itm.Black)||0;
-      }
-      return result;
-    }
   }
 
   class ChessPositionEvaluator {

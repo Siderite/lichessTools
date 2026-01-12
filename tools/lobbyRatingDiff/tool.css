@@ -1,0 +1,14 @@
+body.lichessTools td[data-diff]:after {
+  content: attr(data-diff);
+  font-size: 0.7em;
+  margin-left:0.5em;
+}
+
+body.lichessTools td[data-diff].lichessTools-plus:after {
+  color: var(--c-good);
+}
+
+
+body.lichessTools td[data-diff].lichessTools-minus:after {
+  color: var(--c-bad);
+}

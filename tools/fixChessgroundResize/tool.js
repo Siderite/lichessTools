@@ -78,11 +78,15 @@
     fireResizeDirect = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      lt.debug && lt.global.console.debug('Firing board resize event');
       const boardSize = $('.main-board cg-container').css('width') || $('.main-board cg-container').width()+'px';
-      $('html').css('--board-size', boardSize);
+      const prevSize = $('html').css('--board-size');
+      if (prevSize != boardSize) {
+        lt.debug && lt.global.console.debug('Firing board resize event');
+        $('html').css('--board-size', boardSize);
+        $('body')
+          .toggleClassSafe('lichessTools-hasBoardSize', true);
+      }
       $('body')
-        .toggleClassSafe('lichessTools-hasBoardSize', true)
         .trigger('resize');
     };
     fireResize = lichessTools.debounce(this.fireResizeDirect,200);

@@ -71,7 +71,7 @@
         }
         for (const c of candidates) {
           let weak = true;
-          const ys = isWhite ? lt.range(c+1,6) : lt.range(c-1,1);
+          const ys = isWhite ? (c<6?lt.range(c+1,6):[]) : (c>1?lt.range(c-1,1):[]);
           for (const y of ys) {
             if (board[y][x-1] == pawn || board[y][x+1] == pawn) {
               weak = false;
@@ -125,7 +125,7 @@
       myPawns.forEach(p=>{
         const dy = isWhite ? -1 : 1;
         if (board[p.y+dy][p.x]) return;
-        const ys = isWhite ? lt.range(p.y,7) : lt.range(p.y,1);
+        const ys = isWhite ? (p.y<7?lt.range(p.y,7):[]) : (p.y>1?lt.range(p.y,1):[]);
         if (myPawns.find(mp=>ys.includes(mp.y) && ((mp.x==p.x+1)||(mp.x==p.x-1)))) return;
         if (theirPawns.find(mp=>mp.y==p.y+dy*2 && ((mp.x==p.x+1)||(mp.x==p.x-1)))) p.backward = true;
       });
@@ -364,7 +364,7 @@
       const analysis = lichess?.analysis;
 
       if (!this.isEnabled) return;
-      if (!this.options.moves) return;
+      if (!this.options.pieces) return;
       const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
       if (isInteractiveOrPractice) return;
       if (!analysis.isCevalAllowed()) return;
@@ -378,20 +378,20 @@
       const pieces = $('.cg-wrap cg-board piece:not(.pawn)');
 
       const getHappiness = (arr) => {
-        let min = 0.75;
-        let max = 0.25;
+        let min = Infinity;
+        let max = -Infinity;
 
         for (const item of arr) {
-          if (item.piece.toLowerCase()=='p') continue;
+          if (['p','k'].includes(item.piece.toLowerCase())) continue;
           const value = item.score;
-          if (value < min) min = value;
-          if (value > max) max = value;
+          if (value < min && value < 0.2) min = value;
+          if (value > max && value > 0.7) max = value;
         }
 
         const result = { happy: [], unhappy: [] };
 
         for (const item of arr) {
-          if (item.piece.toLowerCase()=='p') continue;
+          if (['p','k'].includes(item.piece.toLowerCase())) continue;
           const value = item.score;
           if (value == min) result.unhappy.push(this.getCgKey(item.x,item.y));
           if (value == max) result.happy.push(this.getCgKey(item.x,item.y));
@@ -585,6 +585,21 @@
       }
     };
 
+    toggleSetting = (key) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      return async (ev) => {
+        const button = $(ev.target);
+        ev.preventDefault();
+        const isSet = !this.options[key];
+        this.options[key] = isSet;
+        button.toggleClassSafe('enabled', isSet);
+        const options = lt.currentOptions;
+        options.moveAssistant = this.options.toString();
+        await lt.applyOptions(options);
+      }
+    };
+
     setControls = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -599,6 +614,7 @@
             .prependTo('div.analyse__tools');
         }
       }
+      if (!container.length) return;
       let button = $('button.lichessTools-moveAssistant');
       if (!this.options.isSet || lt.isGamePlaying()) {
         button.remove();
@@ -620,6 +636,46 @@
         } else {
           container.prepend(button);
         }
+        const popup = $('<div class="lichessTools-moveAssistant-popup">')
+          .insertAfter(button);
+        button
+          .on('contextmenu', ev => {
+            ev.preventDefault();
+            popup.toggleClassSafe('open',true);
+          });
+        lt.global.document.addEventListener("click", e => {
+          if (!popup[0].contains(e.target)) popup.toggleClassSafe('open',false);
+        }, { capture: true });
+        $('<button type="button">')
+          .text(trans.noarg('moveAssistant.dests'))
+          .attr('data-icon',lt.icon.SquareFourCorners)
+          .on('click',this.toggleSetting('dests'))
+          .toggleClass('enabled',this.options.dests)
+          .appendTo(popup);
+        $('<button type="button">')
+          .text(trans.noarg('moveAssistant.squares'))
+          .attr('data-icon',lt.icon.BlackSquare)
+          .toggleClass('enabled',this.options.squares)
+          .on('click',this.toggleSetting('squares'))
+          .appendTo(popup);
+        $('<button type="button">')
+          .text(trans.noarg('moveAssistant.moves'))
+          .attr('data-icon',lt.icon.ArrowUpRight)
+          .toggleClass('enabled',this.options.moves)
+          .on('click',this.toggleSetting('moves'))
+          .appendTo(popup);
+        $('<button type="button">')
+          .text(trans.noarg('moveAssistant.pawns'))
+          .attr('data-icon',lt.icon.WhiteChessPawn)
+          .toggleClass('enabled',this.options.pawns)
+          .on('click',this.toggleSetting('pawns'))
+          .appendTo(popup);
+        $('<button type="button">')
+          .text(trans.noarg('moveAssistant.pieces'))
+          .attr('data-icon',lt.icon.WhiteChessKnight)
+          .toggleClass('enabled',this.options.pieces)
+          .on('click',this.toggleSetting('pieces'))
+          .appendTo(popup);
       }
     };
 
@@ -647,7 +703,8 @@
         pawns: lt.isOptionSet(value,'pawns'),
         moves: lt.isOptionSet(value,'moves'),
         pieces: lt.isOptionSet(value,'pieces'),
-        get isSet() { return this.dests || this.squares || this.pawns || this.moves || this.pieces }
+        get isSet() { return this.dests || this.squares || this.pawns || this.moves || this.pieces },
+        toString: function() { return Object.keys(this).filter(k=>!['isSet','toString'].includes(k) && this[k]).join(','); }
       };
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -686,6 +743,10 @@ class ChessActivityEvaluator {
       k: 8
     };
   }
+
+  SECONDARY = 0.2;
+  CONTROLLED_BY_OPPONENT = 0.1;
+  FREE = 1;
 
   inBounds(x, y) {
     return x >= 0 && x < 8 && y >= 0 && y < 8;
@@ -761,19 +822,19 @@ class ChessActivityEvaluator {
     let score = 0;
     for (const [mx, my] of moves) {
       const control = controlMap[my][mx];
-      score += control * color > 0 ? 1 : 0.3;
+      score += control * color < 0 ? this.CONTROLLED_BY_OPPONENT : this.FREE;
     }
 
     // second-level mobility
     for (const [mx, my] of moves) {
-      if (controlMap[my][mx] * color <= 0) continue;
+      if (controlMap[my][mx] * color < 0) continue;
       const clone = this.cloneBoard();
       clone[my][mx] = piece;
       clone[y][x] = undefined;
       const sub = new ChessActivityEvaluator(clone);
       const subMoves = sub.generateMoves(mx, my);
       for (const [sx, sy] of subMoves) {
-        if (controlMap[sy][sx] * color > 0) score += 0.3;
+        if (controlMap[sy][sx] * color >= 0) score += this.SECONDARY;
       }
     }
 

@@ -77,6 +77,7 @@
 
     setAllRead = () => {
       const lt = this.lichessTools;
+      this.prevRead = +(lt.storage.get('LiChessTools.lastRead'));
       this.lastRead = Date.now();
       lt.storage.set('LiChessTools.lastRead', this.lastRead);
       lt.notifications.refresh();
@@ -100,7 +101,18 @@
       }
       if (!value) return;
 
-      if (/^\/timeline/i.test(lt.global.location.pathname)) this.setAllRead();
+      if (/^\/timeline/i.test(lt.global.location.pathname)) {
+        this.setAllRead();
+        let nr=0;
+        if (this.prevRead) {
+          const timeline = await lt.api.timeline.get(this.prevRead);
+          nr = timeline.entries?.length || 0;
+          if (nr) {
+            $('table.slist tr:nth-child(-n+' + (nr + 1) + ')').toggleClass('lichessTools-unread');
+          }
+        }
+      }
+
       const notification = {
         id: 'timelineNotify',
         getEntries: async () => {

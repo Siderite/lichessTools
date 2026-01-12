@@ -66,6 +66,8 @@
           notInViewport = true;
           continue;
         }
+        if ($(el).closest('.now-playing').length) continue;
+
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
           //lt.global.console.warn('Could not get fen for element', el);

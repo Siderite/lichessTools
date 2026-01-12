@@ -1,0 +1,13 @@
+body.lichessTools .form3:has(.lichessTools-voiceInput) {
+  display:flex;
+}
+
+body.lichessTools .form3 .lichessTools-voiceInput {
+  background: #00000040;
+  height: max-content;
+  font-size: 1.5em;
+}
+
+body.lichessTools .form3 .lichessTools-voiceInput.lichessTools-error {
+  background: #ff000080;
+}

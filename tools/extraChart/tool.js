@@ -619,6 +619,26 @@
         .filter(r => !!r);
     };
 
+    getLocalAverageData = (mainline) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const Math = lt.global.Math;
+      let path = '';
+      return mainline
+        .map((node, x) => {
+          path += node.id;
+          if (!node.ceval?.pvs?.length || node.ceval.pvs.length==1) return null;
+          const cps = node.ceval.pvs.slice(1).map(pv=>this.getCp(pv));
+          const cp = cps.reduce((a,v)=>a+v,0)/cps.length;
+          return {
+            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            x: node.ply,
+            path: path
+          };
+        })
+        .filter(r => !!r);
+    };
+
     getNodeCeval = (node) => {
       if (!this.options.local) return node.eval;
       const ceval = node.ceval;
@@ -1160,7 +1180,7 @@
               ev.preventDefault();
               lt.jumpToGlyphSymbols(this.options.moreBrilliant ? ['!?', '!!'] : ['!', '!?', '!!', lt.icon.WhiteStar], color);
             })
-            .on('mouseenter', (ev) => {
+            .on('pointermove', (ev) => {
               const chart = this._chart;
               if (!chart) return;
               const dataset = chart.data.datasets.at(0);
@@ -1172,7 +1192,7 @@
               this.safeSetActiveElements(chart,elems,dataset);
               chart.update('none');
             })
-            .on('mouseleave', (ev) => {
+            .on('pointerleave', (ev) => {
               const chart = this._chart;
               if (!chart) return;
               const dataset = chart.data.datasets.at(0);
@@ -1532,6 +1552,7 @@
             pointHitRadius: 0,
             pointHoverRadius: 0,
             borderColor: this.colors.materialChart,
+            yAxisID: 'y',
             order: 1,
             datalabels: { display: false }
           });
@@ -1566,6 +1587,7 @@
             pointHitRadius: 0,
             pointHoverRadius: 0,
             borderColor: this.colors.principledChart,
+            yAxisID: 'y',
             order: 1,
             datalabels: { display: false }
           });
@@ -1589,6 +1611,10 @@
       if (this.options.local) {
         const mainline = localLine;
         if (existingLocal < 0) {
+          const existingAverageLocal = chart.data.datasets.findIndex(s => s.label === 'AverageLocal');
+          if (existingAverageLocal >= 0) {
+            chart.data.datasets.splice(existingAverageLocal, 1);
+          }
           chart.data.datasets.push({
             label: 'Local',
             type: 'line',
@@ -1601,10 +1627,7 @@
             pointHoverRadius: 3,
             borderColor: this.colors.localChart,
             hoverBackgroundColor: this.colors.localChartHover,
-            fill: {
-              target: 'start',
-              above: this.colors.localChart().substr(0, 7) + '18'
-            },
+            yAxisID: 'y',
             order: 1,
             datalabels: { display: false }
           });
@@ -1613,6 +1636,41 @@
           const dataset = chart.data.datasets[existingLocal];
           const existingData = dataset.data;
           const newData = this.smooth(this.getLocalData(mainline));
+          updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
+          if (updateChart) dataset.data = newData;
+        }
+      }
+
+      let existingAverageLocal = chart.data.datasets.findIndex(s => s.label === 'AverageLocal');
+      if (existingAverageLocal >= 0 && (this.prevSmooth != this.options.smooth || !this.options.local)) {
+        chart.data.datasets.splice(existingAverageLocal, 1);
+        existingAverageLocal = -1;
+        updateChart = true;
+      }
+      if (this.options.local) {
+        const mainline = localLine;
+        if (existingAverageLocal < 0) {
+          chart.data.datasets.push({
+            label: 'AverageLocal',
+            type: 'line',
+            data: this.smooth(this.getLocalAverageData(mainline)),
+            borderWidth: 1,
+            cubicInterpolationMode: this.options.smooth ? 'monotone' : 'default',
+            tension: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.localChart,
+            fill: false,
+            yAxisID: 'y',
+            order: 2,
+            datalabels: { display: false }
+          });
+          updateChart = true;
+        } else {
+          const dataset = chart.data.datasets[existingAverageLocal];
+          const existingData = dataset.data;
+          const newData = this.smooth(this.getLocalAverageData(mainline));
           updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
           if (updateChart) dataset.data = newData;
         }
@@ -1639,6 +1697,7 @@
             pointHitRadius: 0,
             pointHoverRadius: 0,
             borderColor: this.colors.accuracyChart,
+            yAxisID: 'y',
             order: 1,
             datalabels: { display: false }
           });
@@ -1673,6 +1732,7 @@
             pointHitRadius: 0,
             pointHoverRadius: 0,
             borderColor: this.colors.sharpnessChart,
+            yAxisID: 'y',
             order: 1,
             datalabels: { display: false }
           });
@@ -1707,6 +1767,7 @@
             pointHitRadius: 0,
             pointHoverRadius: 0,
             borderColor: this.colors.coordChart,
+            yAxisID: 'y',
             order: 1,
             datalabels: { display: false }
           });
@@ -1842,16 +1903,16 @@
             }
           });
           } else {
-          if (existingMiddleGame>=0) {
-            chart.data.datasets.splice(existingMiddleGame, 1);
-            existingMiddleGame = -1;
-          }
+            if (existingMiddleGame>=0) {
+              chart.data.datasets.splice(existingMiddleGame, 1);
+              existingMiddleGame = -1;
+            }
           }
           updateChart = true;
         } else {
           const dataset = chart.data.datasets[existingMiddleGame];
           if (this.prevMainlineLength != lichess.analysis.mainline.length) {
-          const x = this.getGamePhases(lichess.analysis.mainline).middleGame;
+            const x = this.getGamePhases(lichess.analysis.mainline).middleGame;
             dataset.data = [
               { x: x, y: -1.05 },
               { x: x, y: 1.05 }
@@ -1894,16 +1955,16 @@
             }
           });
           } else {
-          if (existingEndGame>=0) {
-            chart.data.datasets.splice(existingEndGame, 1);
-            existingEndGame = -1;
-          }
+            if (existingEndGame>=0) {
+              chart.data.datasets.splice(existingEndGame, 1);
+              existingEndGame = -1;
+            }
           }
           updateChart = true;
         } else {
           const dataset = chart.data.datasets[existingEndGame];
           if (this.prevMainlineLength != lichess.analysis.mainline.length) {
-          const x = this.getGamePhases(lichess.analysis.mainline).endGame;
+            const x = this.getGamePhases(lichess.analysis.mainline).endGame;
             dataset.data = [
               { x: x, y: -1.05 },
               { x: x, y: 1.05 }

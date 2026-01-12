@@ -148,6 +148,8 @@
         $('lichessTools-touchFriendsLink', container)
           .attr('title', title);
       }
+      $('button.hideNotPlaying', container)
+        .toggleClassSafe('lichessTools-active',this.hideNotPlaying);
       const items = this.hideNotPlaying
         ? this.user_data.playing
         : this.user_data.online;

@@ -1,0 +1,29 @@
+/** Squares for circles **/
+
+body.lichessTools.lichessTools-theme_squares svg.cg-shapes circle {
+  mask-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'>\
+  <rect x='0.0625' y='0.0625' width='0.875' height='0.875' rx='0' fill='none' stroke='white' stroke-width='0.0625'/>\
+</svg>");
+  mask-size: 70%;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  stroke: none;
+  r:0.7;
+}
+
+body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash$=",green"] circle {
+  fill: #15781B;
+}
+
+body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash$=",red"] circle {
+  fill: #882020;
+}
+
+body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash$=",blue"] circle {
+  fill: #003088;
+}
+
+body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash$=",yellow"] circle {
+  fill: #e68f00;
+}

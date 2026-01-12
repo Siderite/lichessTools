@@ -1,11 +1,14 @@
 /* Fix third parties */
 
-/** Browsers in general **/
+/** Lichess **/
 
-body.lichessTools {
-  transform: translateZ(0);
+@media (min-width: 1259.3px) {
+
+  body.lichessTools.lichessTools-hasBoardSize div.eval-gauge {
+    max-height: min(calc(100vh - var(---site-header-height)), max(488px, var(--board-size)));
+  }
+
 }
-
 
 /** Prettier **/
 
@@ -47,4 +50,10 @@ body.lichessTools.lichessTools-prettier #topnav.hover section div[role="group"] 
   opacity: 1 !important;
   margin-top: 0 !important;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%) !important;
+}
+
+@media (max-width: 1019.29px) {
+  body.lichessTools.lichessTools-prettier #topnav {
+    top: var(---site-header-height) !important;
+  }
 }

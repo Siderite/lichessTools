@@ -1,5 +1,5 @@
 /* First Interaction */
 
 body.lichessTools.lichessTools-theme_firstInteraction:not(.lichessTools-userInteraction) {
-  filter: grayscale(0.20);
+  opacity: 0.85;
 }

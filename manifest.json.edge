@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChessTools",
-  "version": "2.4.131",
+  "version": "2.4.146",
   "description": "Turbocharge lichess.org with a ton of features",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
   "minimum_chrome_version": "111",
@@ -85,6 +85,7 @@
         "tools/customEngineLevel/tool.js",
         "tools/keyShortcuts/tool.js",
         "tools/showFlags/tool.js",
+        "tools/showGameCount/tool.js",
         "tools/shapeRank/tool.js",
         "tools/showOpening/tool.js",
         "tools/previousGameMenu/tool.js",
@@ -178,6 +179,8 @@
         "tools/studyTopics/tool.js",
         "tools/chessPursuit/game.js",
         "tools/chessPursuit/tool.js",
+        "tools/lobbyRatingDiff/tool.js",
+        "tools/voiceInput/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -223,6 +226,7 @@
         "tools/themes/timeControls.css",
         "tools/themes/firstInteraction.css",
         "tools/themes/noVariants.css",
+        "tools/themes/squares.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
@@ -236,6 +240,7 @@
         "tools/customEngineLevel/tool.css",
         "tools/keyShortcuts/tool.css",
         "tools/showFlags/tool.css",
+        "tools/showGameCount/tool.css",
         "tools/showOpening/tool.css",
         "tools/previousGameMenu/tool.css",
         "tools/openingExplorerUsers/tool.css",
@@ -256,6 +261,7 @@
         "tools/extraChart/tool.css",
         "tools/keyboardHelp/tool.css",
         "tools/previousStudyMenu/tool.css",
+        "tools/timelineNotify/tool.css",
         "tools/explorerEval/tool.css",
         "tools/explorerGambits/tool.css",
         "tools/explorerSettings/tool.css",
@@ -318,6 +324,8 @@
         "tools/customBoardImage/tool.css",
         "tools/studyTopics/tool.css",
         "tools/chessPursuit/tool.css",
+        "tools/lobbyRatingDiff/tool.css",
+        "tools/voiceInput/tool.css",
 
         "tools/tvOptions/tool.css",
 
@@ -386,10 +394,7 @@
         "tools/chessops/transform.js",
         "tools/chessops/types.js",
         "tools/chessops/util.js",
-        "tools/chessops/variant.js",
-
-        "tools/showKmaps/chess.js",
-        "tools/showKmaps/kmaps.js"
+        "tools/chessops/variant.js"
       ],
       "matches": [
         "*://lichess.org/*",

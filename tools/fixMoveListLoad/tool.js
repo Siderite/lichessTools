@@ -6,7 +6,7 @@
         name: 'fixMoveListLoad',
         category: 'general',
         type: 'single',
-        possibleValues: [false, true],
+        possibleValues: [true],
         defaultValue: true,
         advanced: true,
         hidden: true
@@ -33,6 +33,7 @@
       const lt = this.lichessTools;
       const value = $('body').css('display')=='none';
       this.logOption('Fix move list load', value);
+      this.showTree();
       const analysis = lt.lichess.analysis;
       if (!analysis) return;
       if (!lt.isWrappedFunction(analysis.redraw,'fixMoveListLoad')) {
@@ -41,7 +42,6 @@
           after: this.showTree
         });
       }
-      this.showTree();
     }
   }
   LiChessTools.Tools.FixMoveListLoad = FixMoveListLoadTool;

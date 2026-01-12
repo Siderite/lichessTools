@@ -35,7 +35,8 @@
       const $ = lt.$;
       try {
         const existingStyle = $('style#lichessTools-customBoardImage');
-        if (!this.options.customBoardUrl) {
+        const url = this.options.customBoardUrl;
+        if (!url) {
           existingStyle.remove();
           lt.storage.remove('customBoardImage-lastStyle');
           return;
@@ -49,12 +50,12 @@
         if (this.options.customBoardUrl) {
           const styleStr = `<style id="lichessTools-customBoardImage">
 body.lichessTools .is2d cg-board::before {
-  background-image: url(${this.options.customBoardUrl});
+  background-image: url("${url}");
 }
 </style>`;
           const initStyleStr = `<style id="lichessTools-customBoardImage">
 body .is2d cg-board::before {
-  background-image: url(${this.options.customBoardUrl}) !important;
+  background-image: url("${url}") !important;
 }
 </style>`;
           $(styleStr).appendTo('head');
@@ -73,7 +74,49 @@ body .is2d cg-board::before {
       const trans = lt.translator;
       const list = $('#dasher_app .sub.board.d2 .list');
       if (!list.length) return;
-      const url = await lt.uiApi.dialog.prompt(trans.noarg('customBoardUrlPrompt'),this.options.customBoardUrl||'');
+      const promise = lt.uiApi.dialog.prompt(trans.noarg('customBoardUrlPrompt'),this.options.customBoardUrl||'');
+      lt.comm.getData('boards.json').then(async (data)=>{
+        if (!data?.data?.length) return;
+        for (let i=0; i<100; i++) {
+          const input = $('dialog[open] input[type="text"]');
+          if (!input.length) {
+            await lt.timeout(50);
+            continue;
+          }
+          $('dialog[open]')
+            .addClass('lichessTools-customBoard');
+          input
+            .makeCombo({ noFilter: true, ... data})
+            .on('comboSelect',ev=>{
+              const o = input.prop('comboSelected');
+              $('body').css('--board-background',`url("${o.value}")`);
+            })
+            .on('change',ev=>{
+              const val = input.val();
+              if (!val || !URL.canParse(val)) return;
+              $('body').css('--board-background',`url("${val}")`);
+            })
+            .on('paste',ev=>{
+              const val = ev.clipboardData?.getData('text');
+              if (!val || !URL.canParse(val)) return;
+              $('body').css('--board-background',`url("${val}")`);
+            });
+
+          input.on('focus input', ()=>{
+            input.next('.combo-list')
+              .find('.combo-item')
+              .each((i,e)=>{
+                const o = data.data[i];
+                $(e).css('--background',`url("${o.value}")`);
+              });
+          });
+
+          break;
+        }
+      });
+      const url = await promise;
+      $('body').css('--board-background',null);
+      if (url === null) return;
       if (url && !URL.canParse(url)) {
         lt.announce(trans.noarg('invalidUrl'));
         return;

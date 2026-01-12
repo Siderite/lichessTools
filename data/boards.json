@@ -1,0 +1,286 @@
+{
+  "data": [
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/26brown.png",
+      "text": "26 Brown"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/26dmblue.png",
+      "text": "26 DmBlue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/arcade.png",
+      "text": "Arcade"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/autumn.png",
+      "text": "Autumn"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/blackwhite.png",
+      "text": "BlackWhite"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/bluenblack.png",
+      "text": "Blue'n'Black"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/darkblue.png",
+      "text": "Darkblue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/dbhc.png",
+      "text": "dbhc"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/deepblue.png",
+      "text": "Deepblue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/disa_board.png",
+      "text": "Disa"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/disa_night.png",
+      "text": "Disa Night"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/dmblue2.png",
+      "text": "DmBlue2"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/emerald.png",
+      "text": "Emerald"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/field.png",
+      "text": "Field"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/glass.png",
+      "text": "Glass"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/gray_eyes.png",
+      "text": "Gray Eyes"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/green2.png",
+      "text": "Green2"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/iceberg.png",
+      "text": "Iceberg"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/industrial.png",
+      "text": "Industrial"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/jelly.png",
+      "text": "Jelly"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/losangeles.png",
+      "text": "Los Angeles"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/midblue.png",
+      "text": "Midblue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/middaysun.png",
+      "text": "Midday Sun"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/nightindesert.png",
+      "text": "Night in Desert"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/overheated_stain.png",
+      "text": "Overheated Stain"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/paperice.png",
+      "text": "Paper Ice"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/peppermint.png",
+      "text": "Peppermint"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/polarizer.png",
+      "text": "Polarizer"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/purple.png",
+      "text": "Purple"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/revo.png",
+      "text": "Revo"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/softbrown.png",
+      "text": "Soft Brown"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/softlightblue.png",
+      "text": "Soft Lightblue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/softpurple.png",
+      "text": "Soft Purple"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/someunix.png",
+      "text": "Some Unix"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/teal.png",
+      "text": "Teal"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/twilight.png",
+      "text": "Twilight"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/webpunk.png",
+      "text": "Webpunk"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/wood.png",
+      "text": "Wood"
+    },
+
+    {
+      "value": "https://user-images.githubusercontent.com/82961525/139945880-c349d1e8-91fe-4001-a703-02d3a28a43d6.jpg",
+      "text": "PeterZuecherWood"
+    },
+    {
+      "value": "https://user-images.githubusercontent.com/82961525/139945885-dfe4f1dd-cb46-4516-b2f8-a195eb61932a.jpg",
+      "text": "PeterZuecherMarble"
+    },
+
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/8_bit.png",
+      "text": "Chess.com 8_bit"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/bases.png",
+      "text": "Chess.com bases"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/blue.png",
+      "text": "Chess.com blue"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/brown.png",
+      "text": "Chess.com brown"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/bubblegum.png",
+      "text": "Chess.com bubblegum"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/burled_wood.png",
+      "text": "Chess.com burled_wood"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/dark_wood.png",
+      "text": "Chess.com dark_wood"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/dash.png",
+      "text": "Chess.com dash"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/glass.png",
+      "text": "Chess.com glass"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/graffiti.png",
+      "text": "Chess.com graffiti"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/green.png",
+      "text": "Chess.com green"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/icy_sea.png",
+      "text": "Chess.com icy_sea"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/light.png",
+      "text": "Chess.com light"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/lolz.png",
+      "text": "Chess.com lolz"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/marble.png",
+      "text": "Chess.com marble"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/metal.png",
+      "text": "Chess.com metal"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/neon.png",
+      "text": "Chess.com neon"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/newspaper.png",
+      "text": "Chess.com newspaper"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/orange.png",
+      "text": "Chess.com orange"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/overlay.png",
+      "text": "Chess.com overlay"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/parchment.png",
+      "text": "Chess.com parchment"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/purple.png",
+      "text": "Chess.com purple"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/red.png",
+      "text": "Chess.com red"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/sand.png",
+      "text": "Chess.com sand"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/sky.png",
+      "text": "Chess.com sky"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/stone.png",
+      "text": "Chess.com stone"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/tan.png",
+      "text": "Chess.com tan"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/tournament.png",
+      "text": "Chess.com tournament"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/translucent.png",
+      "text": "Chess.com translucent"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/walnut.png",
+      "text": "Chess.com walnut"
+    }
+  ]
+}

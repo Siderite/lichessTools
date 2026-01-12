@@ -14,3 +14,39 @@ body.lichessTools #dasher_app .board .list button.lichessTools-customBoardImage 
   padding: 0.5em;
   white-space:nowrap;
 }
+
+body.lichessTools dialog[open].lichessTools-customBoard .combo-list {
+  width: min(40ch, 90%);
+  justify-self: center;
+  overflow-x:visible;
+}
+
+body.lichessTools dialog[open].lichessTools-customBoard .combo-list .combo-item {
+  background-image: 
+    linear-gradient(color-mix(in srgb, var(--c-bg-box) 50%, transparent), color-mix(in srgb, var(--c-bg-box) 50%, transparent)),
+    var(--background);
+  text-shadow: 0px 0px 5px var(--c-bg-box);
+  background-size: 100%;
+}
+
+body.lichessTools dialog[open].lichessTools-customBoard .combo-list .combo-item:hover,
+body.lichessTools dialog[open].lichessTools-customBoard .combo-list .combo-item.highlight {
+  filter: drop-shadow(2px 4px 6px var(--c-bg-box));
+  position: relative;
+  z-index: auto;
+  top: -5px;
+  left: -5px;
+}
+
+body.lichessTools dialog[open].lichessTools-customBoard,
+body.lichessTools dialog[open].lichessTools-customBoard div.scrollable {
+  overflow: visible;
+}
+
+body.lichessTools.mobile:has(dialog[open].lichessTools-customBoard) #dasher_app {
+  opacity:0.2;
+}
+
+body.lichessTools.lichessTools-hasBoardBackground:not(.lichessTools-theme_gridBoard):has(dialog[open].lichessTools-customBoard) .is2d cg-board::before {
+  background-image:var(--board-background);
+}

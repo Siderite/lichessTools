@@ -81,6 +81,7 @@ body.lichessTools article.lichessTools-gameListOptions-select input[type="checkb
 
 body.lichessTools article.lichessTools-gameListOptions-select .game-row__overlay {
   left: 3em;
+  width: -webkit-fill-available;
 }
 
 body.lichessTools .lichessTools-gameListOptions-analysis article:not(:has(.metadata)) {

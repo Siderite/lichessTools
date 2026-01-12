@@ -1,5 +1,53 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Jan
+
+- show player game count tool
+- show completed puzzle count, not just points
+- voice input tool
+
+23 Dec
+
+- Lobby rating difference
+- split PGN for study chapters
+
+22 Dec
+
+- Plot PVs option
+- Add average pv evaluation chart line
+
+18 Dec
+
+- a lot more piece sets
+- two more boards
+- better fallback for board image
+
+15 Dec
+
+- basedpolymer piece sets
+
+14 Dec
+
+- Plus keyboard shortcut for going deeper
+
+13 Dec
+
+- Shift-click to get the puzzle PGN with previous move
+
+11 Dec
+
+- Squares theme
+
+10 Dec
+
+- Removed compact numbers after native implementation
+- Added custom board dropdown
+- More piece sets
+
+07 Dec
+
+- Explorer compact numbers
+
 03 Dec
 
 - Move Assistant piece highlights

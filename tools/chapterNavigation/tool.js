@@ -142,7 +142,7 @@
         if (hasButton && !button.length) {
           button = $('<a class="lichessTools-nextChapter">')
             .attr('title',trans.noarg('nextChapterButtonTitle'))
-            .attr('data-icon',lt.icon.PlayTriangle)
+            .attr('data-icon',lt.icon.Forward)
             .on('click',ev=>{
               const chapterId = button.attr('data-chapter-id');
               if (!chapterId) return;

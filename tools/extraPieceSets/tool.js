@@ -6,7 +6,7 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper'],
+        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1','sharechess'],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
@@ -17,6 +17,7 @@
         'options.appearance': 'Appearance',
         'options.extraPieceSets': 'Extra piece sets',
         'pieceSetTitle': 'LiChess Tools - %s',
+        'userManualLinkTitle': 'User manual (EN)',
 
         'extraPieceSets.siderite': 'Siderite', // don't translate these
         'extraPieceSets.chesscom': 'chess.com',
@@ -24,12 +25,19 @@
         'extraPieceSets.bend-n': 'bend-n',
         'extraPieceSets.comfysage': 'comfysage',
         'extraPieceSets.tage64': 'tage64',
-        'extraPieceSets.OwOHamper': 'OwOHamper'
+        'extraPieceSets.OwOHamper': 'OwOHamper',
+        'extraPieceSets.DragurKnight': 'DragurKnight',
+        'extraPieceSets.LichessHelper': 'LichessHelper',
+        'extraPieceSets.basedpolymer': 'basedpolymer',
+        'extraPieceSets.FelixKling': 'FelixKling',
+        'extraPieceSets.Moldenke1': 'Moldenke1',
+        'extraPieceSets.sharechess': 'sharechess'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
         'options.extraPieceSets': 'Seturi suplimentare de piese',
-        'pieceSetTitle': 'LiChess Tools - %s'
+        'pieceSetTitle': 'LiChess Tools - %s',
+        'userManualLinkTitle': 'Manual utilizator (EN)'
       }
     }
 
@@ -96,32 +104,64 @@
     getUrl = (pieceSet,piece,color) => {
       switch(pieceSet.category) {
         case 'siderite':
+        case 'hollowleaf':
+        case 'bend-n':
+        case 'Moldenke1':
         {
           const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
-          return pieceSet.url+color[0]+pieceLetter+'.svg';
+          return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type;
         }
         case 'chesscom':
         case 'tage64':
         case 'OwOHamper':
+        case 'LichessHelper':
+        case 'FelixKling':
         {
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
-          return pieceSet.url+color[0]+pieceLetter+'.png';
+          return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type
         }
-        case 'hollowleaf':
-        case 'bend-n':
+        case 'sharechess':
         {
-          const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
-          return pieceSet.url+color[0]+pieceLetter+'.png';
+          const pieceLetter = piece == 'knight' ? 'n' : piece[0];
+          return pieceSet.url+pieceLetter+color[0]+'.'+pieceSet.type
+        }
+        case 'basedpolymer':
+        {
+          const pieceLetter = piece == 'knight' ? 'n' : piece[0];
+          let key = color[0]+pieceLetter;
+          if (pieceSet.name == 'ichess_basedpolymer') {
+            const ring = {
+              'bp':'j2WrNG',
+              'br':'fzAmF1',
+              'bn':'JAq5BZ',
+              'bb':'ZxcpUI',
+              'bq':'tgDj55',
+              'bk':'Eu0v0L',
+              'wp':'snAUn',
+              'wr':'ZB0EnP',
+              'wn':'AKcFJe',
+              'wb':'IzedLx',
+              'wq':'qfWM82',
+              'wk':'3H6DG9'
+            };
+            key = ring[key];
+          }
+          return pieceSet.url+key+'.'+pieceSet.type
         }
         case 'comfysage':
         {
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
-          return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.png';
+          return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.'+pieceSet.type
+        }
+        case 'DragurKnight':
+        {
+          return pieceSet.url+color[0]+'_'+piece+'.'+pieceSet.type
         }
         default:
           throw new Error('Unknown piece set type' + type);
       }
     };
+
 
     addPieces = ()=>{
       const lt = this.lichessTools;
@@ -149,6 +189,14 @@
         });
       const template = list.find('button').eq(0).clone().removeClass('active');
       if (!this.pieceSets) return;
+      const head = $('#dasher_app .sub.piece.d2 button.head');
+      if (!head.find('.lichessTools-infoIcon').length) {
+        head.append($('<a class="lichessTools-infoIcon" target="_blank">')
+          .attr('title',trans.noarg('userManualLinkTitle'))
+          .attr('data-icon',lt.icon.InfoCircle)
+          .attr('href','https://siderite.dev/blog/lichess-tools---user-manual/#extraPieceSets')
+        );
+      }
       const currentSetName = lt.storage.get('extraPieceSets-set');
       const categories = Object.keys(this.options);
       for (const category of categories) {

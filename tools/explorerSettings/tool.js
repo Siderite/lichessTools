@@ -117,6 +117,7 @@
                 this.showSettingsDirect();
               }));
         }
+
         section = $('<section class="lichessTools-explorerSettings">')
           .append($('<label>').text(trans.noarg('lichessTools')))
           .append(choices)

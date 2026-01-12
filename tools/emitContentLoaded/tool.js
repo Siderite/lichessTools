@@ -15,7 +15,7 @@
     detectNew = (records)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const selector = '#powerTip .infinite-scroll, .paginated, .dropdown, .notifications, #notify-toggle > span, .challenge-page, .upt__info, .game__meta, .timeline, .lobby__tv, .announce, .simul-list__content, .angle-content';
+      const selector = '#powerTip, .infinite-scroll, .paginated, .dropdown, .notifications, #notify-toggle > span, .challenge-page, .upt__info, .game__meta, .timeline, .lobby__tv, .announce, .simul-list__content, .angle-content';
       const found = records.find(r=>$(r.target).is(selector) || [...r.addedNodes].find(n=>$(n).is(selector)));
       if (found) {
         this.emit(found.target);

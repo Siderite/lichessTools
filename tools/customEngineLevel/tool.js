@@ -22,10 +22,14 @@
         name: 'customEngineOptions',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['noCloud', 'noCloudExternal', 'infiniteExternal', 'practice', 'fix503'],
-        defaultValue: false,
+        possibleValues: ['noCloud', 'noCloudExternal', 'infiniteExternal', 'practice', 'fix503', 'plus'],
+        defaultValue: 'plus',
         advanced: true
       }
+    ];
+
+    upgrades = [
+      { name:'customEngineOptions', value:'plus', version: '2.4.138', type: 'new' }
     ];
 
     intl = {
@@ -39,6 +43,7 @@
         'customEngineOptions.infiniteExternal': 'Infinite analysis for external engines',
         'customEngineOptions.practice': 'Apply in Practice mode',
         'customEngineOptions.fix503': 'Fix external engine 503 errors',
+        'customEngineOptions.plus': 'Plus to analyse deeper',
         'applyInPractice': 'Custom engine settings in Practice mode',
         'practiceDepthTitle': 'LiChess Tools - custom practice engine depth',
         'practiceDepthText': 'Practice engine depth: %s',
@@ -55,6 +60,7 @@
         'customEngineOptions.infiniteExternal': 'Analiz\u0103 infinit\u0103 pentru motoare externe',
         'customEngineOptions.practice': 'Aplic\u0103 \u00een mod Practic\u0103',
         'customEngineOptions.fix503': 'Repar\u0103 erori 503 la motoare analiz\u0103 externe',
+        'customEngineOptions.plus': 'Plus pentru analiz\u0103 mai ad\u00e2nc\u0103',
         'applyInPractice': 'Set\u0103ri motor personalizat \u00een mod Practic\u0103',
         'practiceDepthTitle': 'LiChess Tools - nivel pentru motorul de analiz\u0103 \u00een mod Practic\u0103',
         'practiceDepthText': 'Nivel motor \u00een mod Practic\u0103: %s',
@@ -80,7 +86,7 @@
           : this.options.depth;
         const customDepth = analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)
           ? 99
-          : targetDepth;
+          : (analysis.node.autoDeeper || targetDepth);
         if (customDepth && analysis.cevalEnabled() && !analysis.ceval.showingCloud) {
           const elem = $('div.ceval div.engine span.info');
           const pattern = lt.global.i18n?.site?.depthX('\\d+');
@@ -290,7 +296,7 @@
         }
       }
       if (!analysis.ceval.showingCloud && (node.autoDeeper || !analysis.ceval.isDeeper())
-        && targetDepth && curDepth >= targetDepth && (!this.options.infiniteExternal || !isExternalEngine)) {
+        && targetDepth && curDepth >= (node.autoDeeper || targetDepth) && (!this.options.infiniteExternal || !isExternalEngine)) {
         node.autoDeeper = undefined;
         if (analysis.ceval.state == 3) {
           analysis.ceval.stop();
@@ -409,6 +415,16 @@
       }
     };
 
+    goDeeper = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      const ceval = analysis?.ceval;
+      if (!ceval?.lastStarted || !analysis.cevalEnabled()) return;
+      ceval.isDeeper(true);
+      analysis.node.autoDeeper = 99;
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = +(lt.currentOptions.getValue('customEngineLevel')) || 0;
@@ -426,12 +442,17 @@
         infiniteExternal: lt.isOptionSet(customEngineOptions, 'infiniteExternal'),
         practice: lt.isOptionSet(customEngineOptions, 'practice'),
         fix503: lt.isOptionSet(customEngineOptions, 'fix503'),
-        get isSet() { return this.depth || this.noCloud || this.noCloudExternal || this.practice || this.fix503; }
+        plus: lt.isOptionSet(customEngineOptions, 'plus'),
+        get isSet() { return this.depth || this.noCloud || this.noCloudExternal || this.practice || this.fix503 || this.plus; }
       };
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
 
+      lt.unbindKeyHandler('plus', true);
+      if (this.options.plus) {
+        lt.bindKeyHandler('plus', this.goDeeper);
+      }
       lt.pubsub.off('lichessTools.redraw', this.analysisControls);
       lt.pubsub.off('lichessTools.redraw', this.determineCevalState);
       lt.global.clearInterval(this.interval);

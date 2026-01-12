@@ -31,10 +31,17 @@
 
     getImage = (url) => {
       return new Promise((resolve, reject) => {
-        setTimeout(()=>resolve(null),5000);
+        const timeout = setTimeout(()=>resolve(null),5000);
         const img = new Image();
         img.crossOrigin = "anonymous";
-        img.onload = () => resolve(img);
+        img.onload = () => {
+          clearTimeout(timeout);
+          resolve(img);
+        }
+        img.onerror = () => {
+          clearTimeout(timeout);
+          resolve(null);
+        }
         img.src = url;
       });
     };
@@ -75,6 +82,22 @@
       ctx.fill();
     };
 
+    defaultPieceUrl = (e)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      e = $(e);
+      let key='';
+      if (e.is('.black')) key+='b';
+      if (e.is('.white')) key+='w';
+      if (e.is('.pawn')) key+='P';
+      if (e.is('.rook')) key+='R';
+      if (e.is('.knight')) key+='N';
+      if (e.is('.bishop')) key+='B';
+      if (e.is('.queen')) key+='Q';
+      if (e.is('.king')) key+='K';
+      return lt.assetUrl('piece/cburnett/'+key+'.svg');
+    };
+
     getBoardImage = async (ev) => {
       if (ev.ctrlKey || ev.shiftKey) return;
       ev.preventDefault();
@@ -108,7 +131,7 @@
         const theme = lt.global.document.dataset?.board || 'maple';
         url = lt.assetUrl('images/board/' + theme + '.jpg');
       }
-      let img = await this.getImage(url) || (assetsUrl && await this.getImage(assetsUrl));
+      let img = (await this.getImage(url)) || (assetsUrl && await this.getImage(assetsUrl)) || (await this.getImage(lt.assetUrl('images/board/maple.jpg')));
       
       ctx.drawImage(img, 0, 0, 800, 800);
       const q = 800 / board.width();
@@ -182,19 +205,18 @@
           ctx.roundRect(x, y, 100, 100, css.borderRadius);
           ctx.stroke();
         });
-      board.find('piece')
-        .each(async (i, e) => {
-          url = $(e).css('background-image')?.replace(/url\(["']?|["']?\)/g, '');
-          if (!url) return;
-          const style = $(e).attr('style') || '';
-          const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)?/.exec(style);
-          if (!m) return;
-          img = await this.getImage(url);
-          const x = +m[1] * q;
-          const y = (+m[2]||0) * q;
-          ctx.drawImage(img, x, y, 100, 100);
-        });
-      
+      for (const e of board.find('piece').get()) {
+        url = $(e).css('background-image')?.replace(/url\(["']?|["']?\)/g, '');
+        if (!url) continue;
+        const style = $(e).attr('style') || '';
+        const m = /translate\((\d+(?:\.\d+)?)[^\d]+(\d+(?:\.\d+)?)?/.exec(style);
+        if (!m) continue;
+        img = (await this.getImage(url)) || (await this.getImage(this.defaultPieceUrl(e)));
+        const x = +m[1] * q;
+        const y = (+m[2]||0) * q;
+        ctx.drawImage(img, x, y, 100, 100);
+      }
+
       const svgs = board.parent().children('svg').get();
       svgs.forEach(async (e) => {
         const img = await this.drawSvg(e);
