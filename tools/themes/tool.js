@@ -262,6 +262,7 @@
           .toggleClass('default',isDefault)
           .attr('data-icon',lt.icon.Checkmark)
           .text(item.text)
+          .attr('title',item.text)
           .on('click',async ev=>{
             ev.preventDefault();
             const isThemeSet = isSet(theme);

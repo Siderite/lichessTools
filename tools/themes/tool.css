@@ -1,11 +1,22 @@
+body.lichessTools #dasher_app:has(.lichessTools-themes) { 
+  width: 18em;
+}
+
 body.lichessTools #dasher_app .lichessTools-themes .head .lichessTools-infoIcon { 
   float: right;
 }
 
 body.lichessTools #dasher_app .lichessTools-themes .selector { 
+  overflow-x: hidden;
   overflow-y: auto;
-  overscroll-behavior: contain;
+  overscroll-behavior-x: contain;
   max-height: min(calc(11 * (1em + 1.7rem)), 90vh);
+}
+
+body.lichessTools #dasher_app .lichessTools-themes .selector button {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 body.lichessTools #dasher_app .lichessTools-themes .selector button.default:before {
