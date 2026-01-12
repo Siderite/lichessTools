@@ -262,6 +262,7 @@
         "tools/extraChart/tool.css",
         "tools/keyboardHelp/tool.css",
         "tools/previousStudyMenu/tool.css",
+        "tools/timelineNotify/tool.css",
         "tools/explorerEval/tool.css",
         "tools/explorerGambits/tool.css",
         "tools/explorerSettings/tool.css",
