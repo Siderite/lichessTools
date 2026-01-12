@@ -75,7 +75,7 @@
       if (count) {
         let text = good+'/'+count;
         if (total) text += ' ('+(total>0 ? '+' : '') + total + ')';
-        $('.puzzle__session a.result-cursor')
+        $('.puzzle__session a.result-cursor, .puzzle__session a.session-new')
           .addClass('lichessTools-puzzleTotal')
           .attr('title',trans.noarg('puzzleSessionTotalTitle'))
           .text(text);
