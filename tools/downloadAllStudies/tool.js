@@ -44,7 +44,7 @@
       if (!m) return;
       const userId = m[1].toLowerCase();
       $('<a class="lichessTools-downloadAllStudies">')
-        .attr('href', '/study/by/' + userId + '/export.pgn')
+        .attr('href', '/api/study/by/' + userId + '/export.pgn')
         .attr('title', trans.noarg('downloadAllTitle'))
         .text(trans.noarg('downloadAllText'))
         .appendTo('div.box__top');

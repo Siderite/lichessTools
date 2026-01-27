@@ -668,7 +668,7 @@
               return $this.showGauge()
                      && $this.showAnalysis()
                      && $this.isCevalAllowed()
-                     && !$this.outcome();
+                     && !$this.node.outcome();
             }
           });
           if (!$('body.mobile .eval-gauge').length) lt.analysisRedraw();

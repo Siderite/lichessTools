@@ -1153,11 +1153,11 @@
         state.nodeIndex++;
 
         node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
-        node.position = this.getNodePosition(node);
-        let pos = state.positions[node.position];
+        node.lt_position = this.getNodePosition(node);
+        let pos = state.positions[node.lt_position];
         if (!pos) {
           pos = [];
-          state.positions[node.position] = pos;
+          state.positions[node.lt_position] = pos;
         }
         pos.push(node);
         if (pos.length > 1) {

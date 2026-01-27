@@ -417,7 +417,7 @@
 
       const selected = analysis.chessground?.state?.selected;
       const dests = selected
-        ? analysis.chessground?.state?.movable?.dests?.get(selected)
+        ? (analysis.node.dests() || analysis.chessground?.state?.movable?.dests)?.get(selected)
         : null;
       const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
       const isActive = !!(this.options.dests
