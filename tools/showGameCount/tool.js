@@ -22,13 +22,13 @@
     intl = {
       'en-US': {
         'options.general': 'General',
-        'options.showGameCount': 'Show player total game count',
-        'gamesPlayedTitle': '%s games played'
+        'options.showGameCount': 'Show player rated game count',
+        'gamesPlayedTitle': '%s rated games played'
       },
       'ro-RO': {
         'options.general': 'General',
-        'options.showGameCount': 'Arat\u0103 totalul de partide al juc\u0103torului',
-        'gamesPlayedTitle': '%s partide jucate'
+        'options.showGameCount': 'Arat\u0103 totalul de partide oficiale al juc\u0103torului',
+        'gamesPlayedTitle': '%s partide oficiale jucate'
       }
     }
 
