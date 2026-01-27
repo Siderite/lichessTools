@@ -178,7 +178,8 @@
           if (item) {
             let totalGames = 0;
             if (user.perfs) {
-              for (const perf of Object.values(user.perfs)) {
+              for (const [perfName, perf] of Object.entries(user.perfs)) {
+                if (perfName === 'puzzle') continue;
                 totalGames += perf.games || 0;
               }
             }
