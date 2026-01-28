@@ -48,7 +48,7 @@
     clearTooltipClass = () =>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      $('button.fbt[data-act="menu"], button.board-menu-toggle, button.msg-app__convo__post__submit')
+      $('button.fbt[data-act="menu"], button.board-menu-toggle-btn, button.msg-app__convo__post__submit')
         .removeClass('lichessTools-quickActions');
     };
 
@@ -56,7 +56,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      const button = $('button.fbt[data-act="menu"],button.board-menu-toggle,.msg-app__convo__post__submit')[0];
+      const button = $('button.fbt[data-act="menu"],button.board-menu-toggle-btn,.msg-app__convo__post__submit')[0];
       if (!button) return;
       const tooltip = $('.lichessTools-quickActions-tooltip');
       tooltip.css({ left: button.offsetLeft, top: button.offsetTop });
@@ -215,7 +215,7 @@
     initQuickActions = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      let button = $('button.fbt[data-act="menu"], button.board-menu-toggle, button.msg-app__convo__post__submit');
+      let button = $('button.fbt[data-act="menu"], button.board-menu-toggle-btn, button.msg-app__convo__post__submit');
       if (!button.length) return;
       this.clearTooltipClass();
       button.off('mouseenter',this.refreshTooltip);
@@ -250,7 +250,7 @@
       $('main').toggleClassSafe('lichessTools-quickActions-practice',!!this.options.practice);
       $('body')
        .observer()
-       .off('button.fbt[data-act="menu"],button.board-menu-toggle,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
+       .off('button.fbt[data-act="menu"],button.board-menu-toggle-btn,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
       lt.pubsub.off('lichessTools.chapterChange',this.initQuickActions);
       this.initQuickActions();
       lt.global.setTimeout(this.refreshTooltip,1000);
@@ -258,7 +258,7 @@
       lt.pubsub.on('lichessTools.chapterChange',this.initQuickActions);
       $('body')
        .observer()
-       .on('button.fbt[data-act="menu"],button.board-menu-toggle,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
+       .on('button.fbt[data-act="menu"],button.board-menu-toggle-btn,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
     }
 
   }
