@@ -2688,11 +2688,24 @@
           let result = [];
           const userId = lt.getUserId();
           if (!userId) return result;
-          const data = lt.storage.get('LiChessTools.followersData') || { lastActivity: 0, follows:[] };
+          let saveData = false;
+          let entries = lt.storage.get('LiChessTools.followersData') || [];
+          if (!Array.isArray(entries)) {
+            entries = entries.lastActivity !== undefined
+                        ? [ [userId, entries] ]
+                        : [];
+            saveData = true;
+          }
+          const map = new Map(entries);
+          let data = map.get(userId);
+          if (!data) {
+            data = { lastActivity: 0, follows:[] };
+            map.set(userId, data);
+          }
           const now = Date.now();
           if (now-data.lastActivity > 86400000) {
+            saveData = true;
             data.lastActivity = now;
-            lt.storage.set('LiChessTools.followersData',data);
             const activity = await lt.api.user.getActivity(userId);
             for (let i=activity.length-1; i>=0; i--) {
               const ac = activity[i];
@@ -2705,7 +2718,9 @@
               }
               data.follows.unshift(item);
             }
-            lt.storage.set('LiChessTools.followersData',data);
+          }
+          if (saveData) {
+            lt.storage.set('LiChessTools.followersData',[...map.entries()]);
           }
           return data;
         },
