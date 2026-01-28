@@ -22,13 +22,13 @@
     intl = {
       'en-US': {
         'options.general': 'General',
-        'options.showGameCount': 'Show player total game count',
-        'gamesPlayedTitle': '%s games played'
+        'options.showGameCount': 'Show player rated game count',
+        'gamesPlayedTitle': '%s rated games played'
       },
       'ro-RO': {
         'options.general': 'General',
-        'options.showGameCount': 'Arat\u0103 totalul de partide al juc\u0103torului',
-        'gamesPlayedTitle': '%s partide jucate'
+        'options.showGameCount': 'Arat\u0103 totalul de partide oficiale al juc\u0103torului',
+        'gamesPlayedTitle': '%s partide oficiale jucate'
       }
     }
 
@@ -41,7 +41,7 @@
       // Process user links
       $.cached('.user-link,a[href^="/@/"]', 2000).each((i, e) => {
         // Skip elements in excluded areas (friend list, chat, nav, etc.)
-        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app,.lichessTools-challengeOptions,#topnav,.ublog-post__meta').length) return;
+        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app,.lichessTools-challengeOptions,#topnav,.ublog-post__meta,.mchat__messages').length) return;
 
         // Find the text element within the link
         let textEl = $('.text', e);
@@ -178,7 +178,8 @@
           if (item) {
             let totalGames = 0;
             if (user.perfs) {
-              for (const perf of Object.values(user.perfs)) {
+              for (const [perfName, perf] of Object.entries(user.perfs)) {
+                if (perfName === 'puzzle') continue;
                 totalGames += perf.games || 0;
               }
             }
