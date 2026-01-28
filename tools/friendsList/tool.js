@@ -327,7 +327,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const needsScroll = !!$('.pager').filter((i, e) => {
-        return !!lt.inViewport(e);
+        return !!lt.inViewport(e, true);
       }).length;
       if (needsScroll) {
         $('html').trigger('scroll');
@@ -769,7 +769,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const pager = $('.lichessTools-pager');
-      if (lt.inViewport(pager)) {
+      if (lt.inViewport(pager, true)) {
         pager.find('a').trigger('click');
       }
       this.filterFriends();

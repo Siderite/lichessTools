@@ -45,7 +45,7 @@
       if (!this.options.topicFlairs) return;
       if (lichess.analysis?.gamebookPlay()) return;
       const container = $('.study-topics');
-      if (lt.inViewport(container)) {
+      if (lt.inViewport(container, true)) {
         const tagify = $('tags+textarea', container)[0]?.__tagify;
         if (tagify) {
           if (!$('button.lichessTools-studyFlairs', container).length) {
