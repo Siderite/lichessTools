@@ -8089,8 +8089,8 @@
     "btnCommandText": "Commandes",
     "btnCommandTitle": "Exécuter des commandes",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
-    "options.showGameCount": "Afficher le nombre de parties évaluées par le joueur",
-    "gamesPlayedTitle": "%s rated games played",
+    "options.showGameCount": "Afficher le nombre de parties classées par le joueur",
+    "gamesPlayedTitle": "%s parties classées jouées",
     "options.voiceInput": "Saisie vocale",
     "voiceInput.studyComments": "Commentaires de l'étude",
     "voiceInputTitle": "Saisie vocale"
