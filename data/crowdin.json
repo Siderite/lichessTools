@@ -3030,7 +3030,7 @@
     "btnCommandTitle": "执行命令",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
     "options.showGameCount": "显示玩家评级的游戏计数",
-    "gamesPlayedTitle": "%s rated games played",
+    "gamesPlayedTitle": "已进行 %s 场排位对局",
     "options.voiceInput": "语音输入",
     "voiceInput.studyComments": "研习注释",
     "voiceInputTitle": "语音输入"
