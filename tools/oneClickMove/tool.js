@@ -89,7 +89,7 @@
       if (!ev.x && !ev.y) return;
       const board = $('div.main-board cg-board');
       if (!board.length) return;
-      if ($('square.selected', board).length) return;
+      if ($('square.selected:not([style*="hidden"])', board).length) return;
       const rect = board[0].getBoundingClientRect();
       const [x, y] = [ev.x - rect.x, ev.y - rect.y];
       const variant = this.getVariant(board.closest('div.round__app, main'));
@@ -179,7 +179,7 @@
       mousedown(fauxEv);
       board.trigger('mouseup');
       await lt.timeout(50);
-      if ($('square.selected', board).length) {
+      if ($('square.selected:not([style*="hidden"])', board).length) {
         coords = this.getCoords(uci.slice(-2), board, orientation);
         fauxEv.clientX = coords.x;
         fauxEv.clientY = coords.y;

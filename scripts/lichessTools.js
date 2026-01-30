@@ -1293,7 +1293,7 @@
       const lastMove = {};
       let width = null;
       let parentOffset = null;
-      $('square.last-move', container).each((i, s) => {
+      $('square.last-move:not([style*="hidden"])', container).each((i, s) => {
         let res;
         let key;
         if (s.cgKey) {
