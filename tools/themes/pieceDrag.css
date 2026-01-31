@@ -21,13 +21,13 @@ body.lichessTools.lichessTools-theme_pieceDrag piece.black.dragging {
   filter: drop-shadow(10px 5px 10px #404040);
 }
 
-body.lichessTools.lichessTools-theme_pieceDrag square.move-dest:hover {
+body.lichessTools.lichessTools-theme_pieceDrag square.move-dest:not([style*="hidden"]):hover {
   background: unset;
   box-shadow: inset 0px 0px 7px 7px #FFFFFF80;
   backdrop-filter: brightness(90%);
 }
 
-body.lichessTools.lichessTools-theme_pieceDrag .is3d square.move-dest {
+body.lichessTools.lichessTools-theme_pieceDrag .is3d square.move-dest:not([style*="hidden"]) {
   z-index: 300;
 }
 

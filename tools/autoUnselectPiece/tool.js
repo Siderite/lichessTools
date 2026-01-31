@@ -46,7 +46,7 @@
       const $ = lt.$;
       if (!this.options.seconds) return;
       if (!$.cached('body').is('.playing')) return;
-      const selectedSquare = $('square.selected')[0]?.cgKey;
+      const selectedSquare = $('square.selected:not([style*="hidden"])')[0]?.cgKey;
       this.select(selectedSquare);
     };
 

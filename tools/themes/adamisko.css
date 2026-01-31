@@ -1,6 +1,6 @@
 /* Vintage Adamisko */
 
-body.lichessTools.lichessTools-theme_adamisko .last-move {
+body.lichessTools.lichessTools-theme_adamisko .last-move:not([style*="hidden"]) {
    background-color: transparent;
    border: solid 3px #530A0E;
 }
@@ -25,7 +25,7 @@ body.lichessTools.lichessTools-theme_adamisko .eval-gauge tick {
    opacity: 1;
 }
 
-body.lichessTools.lichessTools-theme_adamisko cg-board square.selected {
+body.lichessTools.lichessTools-theme_adamisko cg-board square.selected:not([style*="hidden"]) {
    background-color: transparent;
 }
 

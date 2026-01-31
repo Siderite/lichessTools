@@ -3,11 +3,11 @@
 body.lichessTools.lichessTools-theme_arcade cg-board:before {
 }
 
-body.lichessTools.lichessTools-theme_arcade square.last-move {
+body.lichessTools.lichessTools-theme_arcade square.last-move:not([style*="hidden"]) {
   background: none;
 }
 
-body.lichessTools.lichessTools-theme_arcade square.last-move:after {
+body.lichessTools.lichessTools-theme_arcade square.last-move:not([style*="hidden"]):after {
   content:'';
   box-shadow: inset 0px 0px 1px 3px #38DCFF;
   position: absolute;
@@ -15,15 +15,15 @@ body.lichessTools.lichessTools-theme_arcade square.last-move:after {
   pointer-events:none;
 }
 
-body.lichessTools.lichessTools-theme_arcade square.selected {
+body.lichessTools.lichessTools-theme_arcade square.selected:not([style*="hidden"]) {
   background: #FFFFFF10;
 }
 
-body.lichessTools.lichessTools-theme_arcade square.move-dest.oc {
+body.lichessTools.lichessTools-theme_arcade square.move-dest.oc:not([style*="hidden"]) {
   background: none;
 }
 
-body.lichessTools.lichessTools-theme_arcade square.move-dest.oc:before {
+body.lichessTools.lichessTools-theme_arcade square.move-dest.oc:not([style*="hidden"]):before {
   content:'';
   inset: 3px;
   position:absolute;
@@ -33,50 +33,50 @@ body.lichessTools.lichessTools-theme_arcade square.move-dest.oc:before {
   pointer-events:none;
 }
 
-body.lichessTools.lichessTools-theme_arcade square.move-dest:not(:hover,.oc) {
+body.lichessTools.lichessTools-theme_arcade square.move-dest:not(:hover,.oc,[style*="hidden"]) {
   background: radial-gradient(#FFFFFF80 19%, #00000000 20%);
   filter: drop-shadow(0px 0px 3px #4040FF) drop-shadow(0px 0px 8px #FFFFFF);
 }
 
 
-body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] square.last-move:after {
+body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] square.last-move:not([style*="hidden"]):after {
   box-shadow: inset 0px 0px 1px 3px #C34B32;
 }
 
-body.lichessTools.lichessTools-theme_arcade square.move-dest:hover {
+body.lichessTools.lichessTools-theme_arcade square.move-dest:not([style*="hidden"]):hover {
   background: unset;
   box-shadow: inset 0px 0px 4px 4px #C34B32A0;
   backdrop-filter: brightness(90%);
 }
 
-body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] square.move-dest:hover {
+body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] square.move-dest:not([style*="hidden"]):hover {
   box-shadow: inset 0px 0px 4px 4px #38DCFFA0;
 }
 
 
 
-body.lichessTools.lichessTools-theme_arcade .mini-game square.last-move:after {
+body.lichessTools.lichessTools-theme_arcade .mini-game square.last-move:not([style*="hidden"]):after {
   box-shadow: inset 0px 0px 1px 2px #38DCFF;
 }
 
-body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest.oc:before {
+body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest.oc:not([style*="hidden"]):before {
   inset: 1px;
   box-shadow: inset 0px 0px 3px 1px #D33B22;
 }
 
-body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest:not(:hover,.oc) {
+body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest:not(:hover,.oc,[style*="hidden"]) {
   filter: drop-shadow(0px 0px 1px #4040FF) drop-shadow(0px 0px 4px #FFFFFF);
 }
 
 
-body.lichessTools.lichessTools-theme_arcade .mini-game cg-container[sideToPlay="white"] square.last-move:after {
+body.lichessTools.lichessTools-theme_arcade .mini-game cg-container[sideToPlay="white"] square.last-move:not([style*="hidden"]):after {
   box-shadow: inset 0px 0px 1px 3px #C34B32;
 }
 
-body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest:hover {
+body.lichessTools.lichessTools-theme_arcade .mini-game square.move-dest:not([style*="hidden"]):hover {
   box-shadow: inset 0px 0px 2px 2px #C34B32A0;
 }
 
-body.lichessTools.lichessTools-theme_arcade .mini-game cg-container[sideToPlay="white"] square.move-dest:hover {
+body.lichessTools.lichessTools-theme_arcade .mini-game cg-container[sideToPlay="white"] square.move-dest:not([style*="hidden"]):hover {
   box-shadow: inset 0px 0px 2px 2px #38DCFFA0;
 }

@@ -505,6 +505,7 @@
       const side = $('main.analyse div.main-board cg-board').width();
       const isBlack = lichess.analysis.getOrientation() == 'black';
       $('square.move-dest').each((i, e) => {
+        if ($(e).css('visibility')=='hidden') return; //https://github.com/lichess-org/lila/issues/19260
         const dest = this.getSquare(e, side, isBlack);
         const uci = selected + dest;
         const cp = this._eval[uci];
