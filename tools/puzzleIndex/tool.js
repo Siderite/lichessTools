@@ -81,6 +81,15 @@
         if (!this.indexFile && lt.file) {
           const dbKey = 'lichessTools/LT/puzzleIndex-file';
           const fileHandle = await lt.storage.get(dbKey,{ db: true, raw: true });
+          if (!lt.global.navigator?.userActivation?.hasBeenActive) {
+            return;
+          }
+          if (fileHandle.queryPermission && fileHandle.requestPermission) {
+            const perm = await fileHandle.queryPermission({ mode: "read" });
+            if (perm !== "granted") {
+              await fileHandle.requestPermission({ mode: "read" });
+            }
+          }
           const file = await fileHandle.getFile();
           const lastModified = file.lastModified;
           const onServer = await lt.comm.getHeadData('https://siderite.dev/puzzle.nif.zip');
