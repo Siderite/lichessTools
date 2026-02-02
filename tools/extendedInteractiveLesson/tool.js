@@ -996,6 +996,13 @@
       if (!analysis?.study?.data?.chapter?.gamebook) return;
       const container = $('div.analyse__tools div.action-menu');
       if (!container.length) return;
+
+      if (!$('h2.lichessTools-separator', container).length) {
+        $('<h2 class="lichessTools-separator">')
+          .text(trans.noarg('LiChess Tools'))
+          .appendTo(container);
+      }
+
       if (!$('.lichessTools-actionMenu').length) {
         const html = `<h2 class="lichessTools-actionMenu">$trans(interactiveLessonsText)</h2>
     <div class="setting abset-extendedInteractive" title="LiChess Tools - $trans(extendedInteractiveLesson.extendedInteractive)">
@@ -1036,7 +1043,7 @@
 `.replace(/\$trans\(([^\)]+)\)/g, m => {
           return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
-        $(html).insertBefore($('h2', container).eq(0));
+        $(html).insertBefore($('h2.lichessTools-separator', container));
         $('#abset-extendedInteractive,#abset-showScore,#abset-alwaysShowScore,#abset-returnToPreview,#abset-fastInteractive')
           .on('change', async () => {
             const arr = [];

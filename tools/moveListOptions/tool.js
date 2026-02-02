@@ -312,6 +312,13 @@
       const container = $('div.analyse__tools div.action-menu');
       if (!container.length) return;
 
+
+      if (!$('h2.lichessTools-separator', container).length) {
+        $('<h2 class="lichessTools-separator">')
+          .text(trans.noarg('LiChess Tools'))
+          .appendTo(container);
+      }
+
       if (!$('.abset-indentedVariations', container).length) {
         const html = `<div class="setting abset-indentedVariations" title="LiChess Tools - $trans(moveListOptions.indentedVariations)">
       <div class="switch">
@@ -322,7 +329,7 @@
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
           return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
-        $(html).insertAfter($('div.abset-inline', container).eq(0));
+        $(html).insertAfter($('h2.lichessTools-separator', container));
         $('#abset-indentedVariations')
           .on('change', async () => {
             this.options.indentedVariations = $('#abset-indentedVariations').is(':checked');

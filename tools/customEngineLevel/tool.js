@@ -113,6 +113,12 @@
       const container = $('div.analyse__tools div.action-menu');
       if (!container.length) return;
 
+      if (!$('h2.lichessTools-separator', container).length) {
+        $('<h2 class="lichessTools-separator">')
+          .text(trans.noarg('LiChess Tools'))
+          .appendTo(container);
+      }
+
       if (!$('.abset-noCloud', container).length) {
         const html = `<div class="setting abset-noCloud" title="LiChess Tools - $trans(customEngineOptions.noCloud)">
       <div class="switch">
@@ -123,7 +129,7 @@
     </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
           return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
         });
-        $(html).insertAfter($('div.abset-gauge, .setting', container).last());
+        $(html).insertAfter($('.lichessTools-separator', container).last());
         $('#abset-noCloud')
           .on('change', async () => {
             const options = lt.currentOptions;
