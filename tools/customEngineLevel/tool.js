@@ -295,7 +295,9 @@
 
       if (analysis.ceval.canGoDeeper && isIdle) {
         if ((analysis.ceval.showingCloud && noCloud) || (targetDepth && curDepth < (node.autoDeeper || targetDepth)) || (this.options.infiniteExternal && isExternalEngine)) {
-          node.autoDeeper = targetDepth;
+          if (!(node.autoDeeper > targetDepth)) {
+            node.autoDeeper = targetDepth;
+          }
           analysis.ceval.goDeeper();
           lt.analysisRedraw();
           return;
@@ -427,7 +429,11 @@
       const analysis = lichess.analysis;
       const ceval = analysis?.ceval;
       if (!ceval?.lastStarted || !analysis.cevalEnabled()) return;
-      ceval.isDeeper(true);
+      if (ceval.canGoDeeper) {
+        ceval.goDeeper();
+      } else {
+        ceval.isDeeper(true);
+      }
       analysis.node.autoDeeper = 99;
     };
 
