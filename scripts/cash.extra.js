@@ -112,6 +112,20 @@ cash.fn.appendSpan = function(text) {
   return this;
 }
 
+cash.createToggle = function(id,text,title,name) {
+  const result = $(`<label class="cmn-toggle-wrap" title="${cash('<div>').attr('title',title)[0].getAttribute('title')}">
+	<span class="cmn-toggle" role="button">
+		<input id="${id}" type="checkbox"/>
+		<label for="${id}"></label>
+	</span>
+	${cash('<div>').text(text).html()}
+</label>`)
+  .addClass(id);
+  if (name===true) name=id;
+  if (name) result.find('#'+id).attr('name',id);
+  return result;
+}
+
 class Observer {
   constructor(context) {
     this.context = context;

@@ -1004,46 +1004,15 @@
       }
 
       if (!$('.lichessTools-actionMenu').length) {
-        const html = `<h2 class="lichessTools-actionMenu">$trans(interactiveLessonsText)</h2>
-    <div class="setting abset-extendedInteractive" title="LiChess Tools - $trans(extendedInteractiveLesson.extendedInteractive)">
-      <div class="switch">
-        <input id="abset-extendedInteractive" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-extendedInteractive"></label>
-      </div>
-      <label for="abset-extendedInteractive">$trans(extendedInteractiveLesson.extendedInteractive)</label>
-    </div>
-    <div class="setting abset-showScore" title="LiChess Tools - $trans(extendedInteractiveLesson.showFinalScore)">
-      <div class="switch">
-        <input id="abset-showScore" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-showScore"></label>
-      </div>
-      <label for="abset-showScore">$trans(extendedInteractiveLesson.showFinalScore)</label>
-    </div>
-    <div class="setting abset-alwaysShowScore" title="LiChess Tools - $trans(extendedInteractiveLesson.alwaysShowScore)">
-      <div class="switch">
-        <input id="abset-alwaysShowScore" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-alwaysShowScore"></label>
-      </div>
-      <label for="abset-alwaysShowScore">$trans(extendedInteractiveLesson.alwaysShowScore)</label>
-    </div>
-    <div class="setting abset-returnToPreview" title="LiChess Tools - $trans(extendedInteractiveLesson.returnToPreview)">
-      <div class="switch">
-        <input id="abset-returnToPreview" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-returnToPreview"></label>
-      </div>
-      <label for="abset-returnToPreview">$trans(extendedInteractiveLesson.returnToPreview)</label>
-    </div>
-    <div class="setting abset-fastInteractive" title="LiChess Tools - $trans(extendedInteractiveLesson.fastInteractive)">
-      <div class="switch">
-        <input id="abset-fastInteractive" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-fastInteractive"></label>
-      </div>
-      <label for="abset-fastInteractive">$trans(extendedInteractiveLesson.fastInteractive)</label>
-    </div>
-`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
-        });
-        $(html).insertBefore($('h2.lichessTools-separator', container));
+        const html = $('<div>')
+          .append($('<h2 class="lichessTools-actionMenu">').text(trans.noarg('interactiveLessonsText')))
+          .append($.createToggle('abset-extendedInteractive',trans.noarg('extendedInteractiveLesson.extendedInteractive'),'LiChess Tools - '+trans.noarg('extendedInteractiveLesson.extendedInteractive')))
+          .append($.createToggle('abset-showScore',trans.noarg('extendedInteractiveLesson.showFinalScore'),'LiChess Tools - '+trans.noarg('extendedInteractiveLesson.showFinalScore')))
+          .append($.createToggle('abset-alwaysShowScore',trans.noarg('extendedInteractiveLesson.alwaysShowScore'),'LiChess Tools - '+trans.noarg('extendedInteractiveLesson.alwaysShowScore')))
+          .append($.createToggle('abset-returnToPreview',trans.noarg('extendedInteractiveLesson.returnToPreview'),'LiChess Tools - '+trans.noarg('extendedInteractiveLesson.returnToPreview')))
+          .append($.createToggle('abset-fastInteractive',trans.noarg('extendedInteractiveLesson.fastInteractive'),'LiChess Tools - '+trans.noarg('extendedInteractiveLesson.fastInteractive')))
+          .html();
+        container.append(html);
         $('#abset-extendedInteractive,#abset-showScore,#abset-alwaysShowScore,#abset-returnToPreview,#abset-fastInteractive')
           .on('change', async () => {
             const arr = [];

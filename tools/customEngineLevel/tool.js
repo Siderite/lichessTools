@@ -120,16 +120,8 @@
       }
 
       if (!$('.abset-noCloud', container).length) {
-        const html = `<div class="setting abset-noCloud" title="LiChess Tools - $trans(customEngineOptions.noCloud)">
-      <div class="switch">
-        <input id="abset-noCloud" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-noCloud"></label>
-      </div>
-      <label for="abset-noCloud">$trans(customEngineOptions.noCloud)</label>
-    </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
-        });
-        $(html).insertAfter($('.lichessTools-separator', container).last());
+        $.createToggle('abset-noCloud',trans.noarg('customEngineOptions.noCloud'),'LiChess Tools - '+trans.noarg('customEngineOptions.noCloud'))
+          .insertAfter($('.lichessTools-separator', container).last());
         $('#abset-noCloud')
           .on('change', async () => {
             const options = lt.currentOptions;
@@ -147,16 +139,8 @@
 
 
       if (!$('.abset-noCloudExternal', container).length) {
-        const html = `<div class="setting abset-noCloudExternal" title="LiChess Tools - $trans(customEngineOptions.noCloudExternal)">
-      <div class="switch">
-        <input id="abset-noCloudExternal" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-noCloudExternal"></label>
-      </div>
-      <label for="abset-noCloudExternal">$trans(customEngineOptions.noCloudExternal)</label>
-    </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
-        });
-        $(html).insertAfter($('div.abset-noCloud', container).eq(0));
+        $.createToggle('abset-noCloudExternal',trans.noarg('customEngineOptions.noCloudExternal'),'LiChess Tools - '+trans.noarg('customEngineOptions.noCloudExternal'))
+          .insertAfter($('.abset-noCloud', container).eq(0));
         $('#abset-noCloudExternal')
           .on('change', async () => {
             const options = lt.currentOptions;
@@ -176,11 +160,11 @@
 
 
       if (!$('.abset-engine-depth', container).length) {
-        const html = `<div class="setting abset-engine-depth">
+        const html = `<div class="cmn-toggle-wrap abset-engine-depth">
           <label for="abset-engine-depth"></label>
           <input id="abset-engine-depth" type="range" class="range" min="0" max="50">
         </div>`;
-        $(html).insertAfter($('div.abset-noCloudExternal', container).eq(0));
+        $(html).insertAfter($('.abset-noCloudExternal', container).eq(0));
         $('div.abset-engine-depth',container)
           .attr('title',trans.noarg('engineDepthTitle'));
         const input = $('#abset-engine-depth');
@@ -206,16 +190,8 @@
 
 
       if (!$('.abset-practice', container).length) {
-        const html = `<div class="setting abset-practice" title="LiChess Tools - $trans(applyInPractice)">
-      <div class="switch">
-        <input id="abset-practice" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-practice"></label>
-      </div>
-      <label for="abset-practice">$trans(applyInPractice)</label>
-    </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
-        });
-        $(html).insertAfter($('div.abset-engine-depth', container).eq(0));
+        $.createToggle('abset-practice',trans.noarg('applyInPractice'),'LiChess Tools - '+trans.noarg('applyInPractice'))
+          .insertAfter($('.abset-engine-depth', container).eq(0));
         $('#abset-practice')
           .on('change', async () => {
             const options = lt.currentOptions;
@@ -232,11 +208,11 @@
         .prop('checked', this.options.practice);
 
       if (!$('.abset-practice-depth', container).length) {
-        const html = `<div class="setting abset-practice-depth">
+        const html = `<div class="cmn-toggle-wrap abset-practice-depth">
           <label for="abset-practice-depth"></label>
           <input id="abset-practice-depth" type="range" class="range" min="0" max="15"><!-- Lichess limitation -->
         </div>`;
-        $(html).insertAfter($('div.abset-practice', container).eq(0));
+        $(html).insertAfter($('.abset-practice', container).eq(0));
         $('div.abset-practice-depth',container)
           .attr('title',trans.noarg('practiceDepthTitle'));
         const input = $('#abset-practice-depth');

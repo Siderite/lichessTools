@@ -140,25 +140,20 @@
   <a class="user-link" href="/inbox/TotalNoob69" data-href="/@/TotalNoob69">$trans(feedbackTitle)</a>
 </div>`;
       }
+      const emptyToggle=(id)=>{
+        const toggle = $.createToggle(id,null,null,true);
+        toggle.find('#'+id).attr('value','true');
+        return $('<div>').append(toggle).html();
+      };
       html += `<table class="allows lichessTools-globalSwitch">
     <tbody>
         <tr>
             <td>$trans(enableExtension)</td>
-            <td>
-                <div class="toggle">
-                    <input id="enableLichessTools" name="enableLichessTools" value="true" type="checkbox" class="form-control cmn-toggle"/>
-                    <label for="enableLichessTools"/>
-                </div>
-            </td>
+            <td>${emptyToggle('enableLichessTools')}</td>
         </tr>
         <tr>
             <td>$trans(advancedPreferences)</td>
-            <td>
-                <div class="toggle">
-                    <input id="advancedPreferences" name="advancedPreferences" value="true" type="checkbox" class="form-control cmn-toggle"/>
-                    <label for="advancedPreferences"/>
-                </div>
-            </td>
+            <td>${emptyToggle('advancedPreferences')}</td>
         </tr>
     </tbody>
 </table>
