@@ -7,5 +7,5 @@ body.lichessTools .lichessTools-cevalDecimals-toggled .pv_box .pv strong {
 }
 
 body.lichessTools:has(.lichessTools-cevalDecimals-toggled) .analyse__controls button[data-mode] {
-  max-width: 6em;
+  max-width: fit-content;
 }
