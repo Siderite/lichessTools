@@ -110,7 +110,8 @@
       const $ = lt.$;
 
       const topicAnchors = $('nav.subnav__inner a[href^="/study/topic/"]');
-      this.sortables?.forEach(s=>s.destroy());
+      this.sortables?.values().filter(s=>s.el).forEach(s=>s.destroy());
+      this.sortables?.clear();
       $('body').observer()
         .off('tags.tagify',this.handleTopicsDialog);
       if (this.options.sortable) {
@@ -160,6 +161,11 @@
               .append($('<span>').text(topic))
               .append($('<div class="lichessTools-topicStudies">'));
         });
+      } else {
+        topicAnchors
+          .removeClass('lichessTools-expandedTopic')
+          .prop('__initExpandable',false);
+        $('.lichessTools-topicExpander,.lichessTools-topicStudies').remove();
       }
     }
 

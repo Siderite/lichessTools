@@ -989,6 +989,7 @@
 
     analysisControls = () => {
       const lt = this.lichessTools;
+      if (lt.currentOptions?.enableLichessTools === false) return;
       const $ = lt.$;
       const trans = lt.translator;
       const lichess = lt.lichess;
@@ -1000,7 +1001,8 @@
       if (!$('h2.lichessTools-separator', container).length) {
         $('<h2 class="lichessTools-separator">')
           .text(trans.noarg('LiChess Tools'))
-          .appendTo(container);
+          .appendTo(container)
+          .insertBefore('.lichessTools-actionMenu');
       }
 
       if (!$('.lichessTools-actionMenu').length) {
@@ -1224,9 +1226,12 @@
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('extendedInteractiveLesson');
       const flow = lt.currentOptions.getValue('extendedInteractiveLessonFlow');
-      if (lt.currentOptions.enableLichessTools === false) return;
-      this.logOption('Extended interactive lessons', value, 'flow', flow);
+
       const $ = lt.$;
+      $('.lichessTools-actionMenu,.abset-extendedInteractive,.abset-showScore,.abset-alwaysShowScore,.abset-returnToPreview,.abset-fastInteractive').remove();
+      if (lt.currentOptions.enableLichessTools === false) return;
+
+      this.logOption('Extended interactive lessons', value, 'flow', flow);
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
@@ -1336,6 +1341,7 @@
       $('main.analyse').observer()
         .off('.feedback.good',this.updateFeedbackText)
         .off('.gamebook .comment',this.updateGiveUpButton);
+
       if (this.options.extendedInteractive) {
         lt.uiApi.events.on('chat.resize', this.refreshChapterProgress);
         this.refreshChapterProgress();

@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-a.lichessTools-preferences span.lichessTools-toggleExtension {
+a.lichessTools-preferences .lichessTools-toggleExtension {
   position: absolute;
   right: 1em;
   opacity: 0;
@@ -14,13 +14,13 @@ a.lichessTools-preferences span.lichessTools-toggleExtension {
 }
 
 
-a.lichessTools-preferences:not(:has(input:checked)) span.lichessTools-toggleExtension,
-body.mobile .dasher.shown a.lichessTools-preferences span.lichessTools-toggleExtension {
+a.lichessTools-preferences:not(:has(input:checked)) .lichessTools-toggleExtension,
+body.mobile .dasher.shown a.lichessTools-preferences .lichessTools-toggleExtension {
   opacity: 1;
 }
 
 
-a.lichessTools-preferences:hover span.lichessTools-toggleExtension {
+a.lichessTools-preferences:hover .lichessTools-toggleExtension {
   filter: hue-rotate(45deg);
   opacity: 1;
 }

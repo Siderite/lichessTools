@@ -304,6 +304,10 @@
     analysisControls = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      if (lt.currentOptions.enableLichessTools === false) {
+        $('.lichessTools-separator,.abset-indentedVariations,.abset-fullWidthAnalysis,.abset-hideLeftSide').remove();
+        return;
+      }
       const trans = lt.translator;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
@@ -316,7 +320,8 @@
       if (!$('h2.lichessTools-separator', container).length) {
         $('<h2 class="lichessTools-separator">')
           .text(trans.noarg('LiChess Tools'))
-          .appendTo(container);
+          .appendTo(container)
+          .insertBefore('.lichessTools-actionMenu');
       }
 
       if (!$('.abset-indentedVariations', container).length) {

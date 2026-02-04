@@ -71,6 +71,7 @@
 
     analysisControls = () => {
       const lt = this.lichessTools;
+      if (lt.currentOptions?.enableLichessTools === false) return;
       const $ = lt.$;
       const trans = lt.translator;
       const lichess = lt.lichess;
@@ -116,7 +117,8 @@
       if (!$('h2.lichessTools-separator', container).length) {
         $('<h2 class="lichessTools-separator">')
           .text(trans.noarg('LiChess Tools'))
-          .appendTo(container);
+          .appendTo(container)
+          .insertBefore('.lichessTools-actionMenu');
       }
 
       if (!$('.abset-noCloud', container).length) {
@@ -245,6 +247,7 @@
 
     determineCevalState = (evl, work) => {
       const lt = this.lichessTools;
+      if (lt.currentOptions?.enableLichessTools === false) return;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
@@ -308,6 +311,7 @@
 
     wrapEval = () => {
       const lt = this.lichessTools;
+      if (lt.currentOptions?.enableLichessTools === false) return;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
@@ -421,7 +425,10 @@
       this.logOption('Custom engine level', value || 'Not set');
       this.logOption('Custom practice engine level', practiceValue || 'Not set');
       this.logOption('Custom engine options', customEngineOptions || 'Not set');
+
+      $('.lichessTools-separator,.abset-noCloud,.abset-noCloudExternal,.abset-engine-depth,.abset-practice,.abset-practice-depth').remove();
       if (lt.currentOptions?.enableLichessTools === false) return;
+
       this.options = {
         depth: value,
         practiceDepth: practiceValue,
@@ -445,6 +452,7 @@
       lt.pubsub.off('lichessTools.redraw', this.determineCevalState);
       lt.global.clearInterval(this.interval);
       analysis.actionMenu.toggle = lt.unwrapFunction(analysis.actionMenu.toggle, 'customEngineOptions');
+
       lt.pubsub.on('lichessTools.redraw', this.analysisControls);
       lt.pubsub.on('lichessTools.redraw', this.determineCevalState);
       this.interval = lt.global.setInterval(this.determineCevalState, 5000);

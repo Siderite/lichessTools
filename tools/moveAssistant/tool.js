@@ -715,6 +715,7 @@
       lt.global.clearInterval(this.interval);
       this.setControls();
       lt.pubsub.off('lichessTools.redraw', this.setControls);
+      $('.lichessTools-moveAssistant-popup').remove();
       if (!value) return;
       this.interval = lt.global.setInterval(this.evaluate, 1000);
       lt.pubsub.on('lichessTools.redraw', this.setControls);

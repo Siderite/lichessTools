@@ -78,8 +78,10 @@
               const m = /^flair\.([^\)]+)/.exec(span.text());
               if (m) {
                 const url = lichess.asset.flairSrc(m[1]);
-                span.replaceWith($('<img>')
-                  .attr('src', url));
+                span
+                  .attr('data-lt-text', m[0])
+                  .text('')
+                  .append($('<img>').attr('src', url));
                 $(tag).addClass('lichessTools-studyFlairs');
               }
             };
@@ -113,8 +115,10 @@
                     if (m) {
                       const url = lichess.asset.flairSrc(m[1]);
                       $(e)
+                        .attr('data-lt-text', m[0])
                         .text('')
-                        .append($('<img>').attr('src', url))
+                        .append($('<img>')
+                                  .attr('src', url))
                         .addClass('lichessTools-studyFlairs');
                     }
                   });
@@ -136,9 +140,11 @@
         if (m) {
           const url = lichess.asset.flairSrc(m[1]);
           $(e)
+            .attr('data-lt-text', m[0])
             .text('')
             .attr('title', 'flair.' + m[1])
-            .append($('<img>').attr('src', url))
+            .append($('<img>')
+                      .attr('src', url))
             .addClass('lichessTools-studyFlairs');
         }
       });
@@ -274,8 +280,10 @@
           if (m) {
             const url = lichess.asset.flairSrc(m[1]);
             $(e)
+              .attr('data-lt-text', m[0])
               .text('')
-              .append($('<img>').attr('src', url))
+              .append($('<img>')
+                        .attr('src', url))
               .addClass('lichessTools-studyFlairs');
           }
         });
@@ -297,8 +305,13 @@
       };
       lt.pubsub.off('content-loaded', this.processStudyListDebounced);
       lt.global.clearInterval(this.interval);
-      $('div.lichessTools-studyFlairs').removeClass('lichessTools-studyFlairs');
+      $('div.lichessTools-studyFlairs').removeClass('lichessTools-studyFlairs')
       $('img.lichessTools-studyFlair,.lichessTools-bottomFlairs').remove();
+      $('[data-lt-text]')
+        .each((i,e)=>{
+          $(e).text($(e).attr('data-lt-text'))
+              .removeAttr('data-lt-text');
+        });
       if (!value) {
         return;
       }
