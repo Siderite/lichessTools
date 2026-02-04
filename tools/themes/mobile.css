@@ -175,6 +175,21 @@ body.lichessTools.lichessTools-theme_mobile.mobile .analyse__controls .jumps i.s
   padding: 1em;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__controls .cmn-toggle {
+  transform: rotate(90deg);
+  position: relative;
+  left: -0.3em;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__controls [data-mode=ceval]:after  {
+  padding-inline-start: 0.5em;
+  padding-inline-end: 0.5em;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .analyse__controls .cmn-toggle label[for="cmn-tg-analyse-toggle-ceval"]:before {
+  transform: rotate(-90deg);
+}
+
 body.lichessTools.lichessTools-theme_mobile.mobile .analyse__tools div.analyse__fork {
   order: 0;
 }
