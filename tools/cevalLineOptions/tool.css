@@ -252,6 +252,12 @@ body.lichessTools .lichessTools-downloadCeval {
   top: 0;
   right: 0.1em;
   z-index: auto;
+  opacity: 0.5;
+}
+
+body.lichessTools.mobile .lichessTools-downloadCeval,
+body.lichessTools .lichessTools-downloadCeval:hover {
+  opacity:1;
 }
 
 body.lichessTools .lichessTools-downloadCeval.hasAnalysis {
