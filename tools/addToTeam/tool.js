@@ -60,7 +60,7 @@
       if (!user) return;
       const r = await fetch('/team/' + this.teamId + '/join', { method: 'POST' });
       if (r.ok) {
-        this.options.inTeam = true;
+        this.inTeam = true;
         lt.global.localStorage.setItem('LiChessTools.joinedTeam', Date.now());
         lt.announce(trans.noarg('welcomeToTeam'));
         this.clearJoinState();
@@ -77,7 +77,7 @@
         ? { ok: true }
         : await fetch('/team/' + this.teamId + '/quit', { method: 'POST' });
       if (r.ok) {
-        this.options.inTeam = false;
+        this.inTeam = false;
         lt.global.localStorage.removeItem('LiChessTools.joinedTeam');
         lt.announce(trans.noarg('byeFromTeam'));
         this.clearJoinState();
