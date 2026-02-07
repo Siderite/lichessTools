@@ -2519,13 +2519,28 @@
       },
       team: {
         lichessTools: this,
-        getUserTeams: async function (userId) {
+        getUserTeamsApi: async function (userId) { // needs OAuth token for some reason
           const lt = this.lichessTools;
           const teams = await lt.net.json({
             url: '/api/team/of/{userId}',
             args: { userId }
           });
           return teams;
+        },
+        getUserTeams: async function(userId) {
+          const lt = this.lichessTools;
+          const html = await lt.net.fetch({
+            url: '/@/{userId}',
+            args: { userId }
+          });
+          const result = $(html)
+                          .find('div.teams a[href^="/team/"]')
+                          .get()
+                          .map(e=>({
+                            id: /\/team\/(?<team>[^\/?#\s]*)/.exec($(e).attr('href'))?.groups?.team,
+                            name: $(e).text()
+                          }));
+          return result;
         },
         getTeamPlayers: async function (teamId) {
           const lt = this.lichessTools;
