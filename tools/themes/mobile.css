@@ -1,17 +1,5 @@
 /* Mobile */
 
-/* temp fix for some Lichess issues */
-
-body.lichessTools.lichessTools-theme_mobile.mobile .analyse__controls button[data-mode] {
-  max-width: fit-content;
-}
-
-body.lichessTools.lichessTools-theme_mobile.mobile .analyse__controls [data-mode] .cmn-toggle {
-  width: auto;
-}
-
-/* end fix */
-
 body.lichessTools.lichessTools-theme_mobile.mobile {
   ---site-header-height: 30px;
   ---site-header-margin: 4px;
