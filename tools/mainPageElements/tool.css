@@ -98,6 +98,13 @@ body.lichessTools .lobby__table .lichessTools-recentGames {
   flex-direction: column;
   align-items: stretch;
   margin-top: 1em;
+  max-width: 100%;
+}
+
+@media (min-width: 799.3px) {
+  body.lichessTools .lobby__table .lichessTools-recentGames {
+    max-width: 25vw;
+  }
 }
 
 body.lichessTools .lobby__table .lichessTools-recentGames div.header {
@@ -110,6 +117,15 @@ body.lichessTools .lobby__table .lichessTools-recentGames a.game {
   margin-left: 1em;
   margin-top: 0.5em;
   font-size: 1.2em;
+  display: flex;
+}
+
+body.lichessTools .lobby__table .lichessTools-recentGames a.game span {
+  flex-grow: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 body.lichessTools .lobby__table .lichessTools-recentGames a.game:before {

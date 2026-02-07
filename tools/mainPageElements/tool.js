@@ -198,7 +198,7 @@
               .addClass(result.timeControlClass)
               .toggleClass('white',result.userWhite)
               .attr('href',result.href)
-              .text(name+' '+result.opponentRating)
+              .append($('<span>').text(name+' '+result.opponentRating))
               .appendTo(container);
           }
           $('<a class="moreGames">')
