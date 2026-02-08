@@ -6,7 +6,7 @@
         name: 'cevalLineOptions',
         category: 'analysis2',
         type: 'multiple',
-        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart', 'downloadCeval', 'pvs'],
+        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart', 'downloadCeval', 'pvs', 'cost'],
         defaultValue: 'moreLines',
         advanced: true
       }
@@ -23,6 +23,7 @@
         'cevalLineOptions.depthChart': 'Depth chart',
         'cevalLineOptions.downloadCeval': 'Download engine analysis',
         'cevalLineOptions.pvs': 'Plot PVs',
+        'cevalLineOptions.cost': 'Move cost',
         'moreLinesTitle': 'LiChess Tools - more lines',
         'downloadCevalButtonTitle': 'LiChess Tools - download analysis',
         'pearlDeviationTitle': 'LiChess Tools - evaluation deviates at $depth ($deviation)'
@@ -37,6 +38,7 @@
         'cevalLineOptions.depthChart': 'Grafic ad\u00e2ncime',
         'cevalLineOptions.downloadCeval': 'Desc\u0103rcare analiz\u0103 computer',
         'cevalLineOptions.pvs': 'Deseneaz\u0103 PVurile',
+        'cevalLineOptions.cost': 'Costul mut\u0103rii',
         'moreLinesTitle': 'LiChess Tools - mai multe linii',
         'downloadCevalButtonTitle': 'LiChess Tools - download analysis',
         'pearlDeviationTitle': 'LiChess Tools - evaluarea deviaz\u0103 la $depth ($deviation)'
@@ -63,12 +65,13 @@
         const lt = this.lichessTools;
         const $ = lt.$;
         const lichess = lt.lichess;
+        const analysis = lichess.analysis;
         const analysisTools = $('main .analyse__tools, main .puzzle__tools');
         if (!analysisTools.length) return;
         this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
         [...this.dict.values()].forEach(v => v.count = 0);
-        const fen = lichess.analysis
-          ? lichess.analysis.node.fen
+        const fen = analysis
+          ? analysis.node.fen
           : lt.getPositionFromBoard($('.main-board')[0],true);
         if (!fen) return;
         const side = $('.main-board .cg-wrap').is('.orientation-black') ? 1 : 0;
@@ -115,25 +118,47 @@
               : 'pv-san';
             if (e.className != cls) e.className = cls;
           });
+        let db = null;
         let first = null;
-        $('div.pv_box div.pv > strong')
-          .each((i, e) => {
-            if (e.className) e.className='';
-            if (!this.options.colorEvaluation) return;
-            const text = $(e).text();
-            const info = text.startsWith('#')
-              ? { mate: +text.slice(1) }
-              : { cp: (+text) * 100 };
-            const val = lt.winPerc(lt.getCentipawns(info));
-            if (first === null) {
-              first = val;
-              $(e).toggleClassSafe('best',true);
-              return;
+        $('div.pv_box div.pv')
+          .each((i, pve) => {
+            const e = $(pve).children('strong');
+            if (this.options.colorEvaluation) {
+              const text = $(e).text();
+              const info = text.startsWith('#')
+                ? { mate: +text.slice(1) }
+                : { cp: (+text) * 100 };
+              const val = lt.winPerc(lt.getCentipawns(info));
+              if (first === null) {
+                first = val;
+                $(e).toggleClassSafe('best',true);
+              } else {
+                const diff = Math.abs(val - first);
+                $(e).toggleClassSafe('good',diff<1)
+                    .toggleClassSafe('blunder',diff>20)
+                    .toggleClassSafe('mistake',diff>10 && diff<=20);
+              }
+            } else {
+              if (e.className) e.className='';
             }
-            const diff = Math.abs(val - first);
-            if (diff<1) $(e).toggleClassSafe('good',true)
-            else if (diff>20) $(e).toggleClassSafe('blunder',true);
-            else if (diff>10) $(e).toggleClassSafe('mistake',true);
+            let cost = null;
+            if (this.options.cost) {
+              if (db == null) {
+                db = this.db.get(analysis.path);
+              }
+              if (db?.discoverDepth) {
+                const uci = $(pve).attr('data-uci');
+                cost = uci && db.discoverDepth.get(uci)?.depth;
+              }
+            }
+            const color = lt.getGradientColor(cost, [{ q: 0, color: '#00FF00' }, { q: 5, color: '#FFFF00' }, { q: 10, color: '#FF8000' }, { q: 15, color: '#FF0000' }]);
+            if (cost) {
+              $(pve).attrSafe('data-cost',cost)
+                    .css('--cost-color',color);
+            } else {
+              $(pve).removeAttr('data-cost')
+                    .css('--cost-color',null);
+            }
           });
       } finally {
         this._inHandlePvs=false;
@@ -210,7 +235,7 @@
       };
     };
 
-    setupHighlightSameMoves = ()=>{
+    setupPvProcessing = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
       const main = $('main.analyse, main.puzzle');
@@ -431,7 +456,8 @@
         colorEvaluation: lt.isOptionSet(value, 'colorEvaluation'),
         depthChart: lt.isOptionSet(value, 'depthChart'),
         downloadCeval: lt.isOptionSet(value, 'downloadCeval'),
-        pvs: lt.isOptionSet(value, 'pvs')
+        pvs: lt.isOptionSet(value, 'pvs'),
+        cost: lt.isOptionSet(value, 'cost')
       }
       const main = $('main.analyse, main.puzzle');
       main
@@ -440,10 +466,11 @@
       main
         .observer()
         .off('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
-      lt.pubsub.off('lichessTools.redraw',this.setupHighlightSameMoves);
-      if (this.options.highlight || this.options.colorEvaluation) {
-        lt.pubsub.on('lichessTools.redraw',this.setupHighlightSameMoves);
-        this.setupHighlightSameMoves();
+      $('div.pv[data-cost]').removeAttr('data-cost');
+      lt.pubsub.off('lichessTools.redraw',this.setupPvProcessing);
+      if (this.options.highlight || this.options.colorEvaluation || this.options.cost) {
+        lt.pubsub.on('lichessTools.redraw',this.setupPvProcessing);
+        this.setupPvProcessing();
       }
       const analysis = lichess.analysis;
       if (analysis?.ceval) {
@@ -473,7 +500,25 @@
                 let db = this.db.get(meta.path);
                 if (!db) {
                   db = new Map();
+                  db.discoverDepth = new Map();
                   this.db.set(meta.path,db);
+                }
+                if (data?.pvs?.length) {
+                  const side = analysis.turnColor()=='white'?-1:1;
+                  const cp = lt.getCentipawns(data)*side;
+                  if (cp) {
+                    const best = lt.winPerc(cp);
+                    for (const pv of data.pvs) {
+                      const wp = lt.winPerc(lt.getCentipawns(pv)*side);
+                      const uci = pv?.moves?.[0];
+                      if (!uci) continue;
+                      const obj = db.discoverDepth.get(uci);
+                      const isCandidate = Math.abs(best-wp)<3;
+                      if (!obj || (isCandidate && !obj.candidate)) {
+                        db.discoverDepth.set(uci,{ depth: data.depth, candidate: isCandidate });
+                      }
+                    }
+                  }
                 }
                 db.set(data.depth,data);
                 if (this.options.depthChart) {

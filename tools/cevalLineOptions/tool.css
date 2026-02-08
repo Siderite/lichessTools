@@ -299,3 +299,10 @@ body.lichessTools .lichessTools-drawPvs div.warn {
 body.lichessTools .lichessTools-drawPvs div.good {
   background: var(--c-good);
 }
+
+body.lichessTools div.pv[data-cost] > strong:after {
+  margin-left: 2px;
+  font-size: smaller;
+  content: "$";
+  color: var(--cost-color);
+}

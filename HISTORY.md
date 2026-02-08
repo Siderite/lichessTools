@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+08 Feb
+
+- show computer engine move cost
+
 07 Jan
 
 - show player game count tool
