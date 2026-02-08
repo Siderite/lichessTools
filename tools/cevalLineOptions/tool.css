@@ -306,3 +306,7 @@ body.lichessTools div.pv[data-cost] > strong:after {
   content: "$";
   color: var(--cost-color);
 }
+
+body.lichessTools div.pv[data-cost="1"] > strong:after {
+  color: var(--c-font);
+}

@@ -151,7 +151,7 @@
                 cost = uci && db.discoverDepth.get(uci)?.depth;
               }
             }
-            const color = lt.getGradientColor(cost, [{ q: 0, color: '#00FF00' }, { q: 5, color: '#FFFF00' }, { q: 10, color: '#FF8000' }, { q: 15, color: '#FF0000' }]);
+            const color = lt.getGradientColor(cost, [{ q: 2, color: '#00FF00' }, { q: 5, color: '#FFFF00' }, { q: 15, color: '#FF0000' }]);
             if (cost) {
               $(pve).attrSafe('data-cost',cost)
                     .css('--cost-color',color);
