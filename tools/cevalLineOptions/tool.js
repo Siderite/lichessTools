@@ -26,7 +26,8 @@
         'cevalLineOptions.cost': 'Move cost',
         'moreLinesTitle': 'LiChess Tools - more lines',
         'downloadCevalButtonTitle': 'LiChess Tools - download analysis',
-        'pearlDeviationTitle': 'LiChess Tools - evaluation deviates at $depth ($deviation)'
+        'pearlDeviationTitle': 'LiChess Tools - evaluation deviates at $depth ($deviation)',
+        'moveCostTitle': 'LiChess Tools - cost: %s'
       },
       'ro-RO': {
         'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
@@ -41,7 +42,8 @@
         'cevalLineOptions.cost': 'Costul mut\u0103rii',
         'moreLinesTitle': 'LiChess Tools - mai multe linii',
         'downloadCevalButtonTitle': 'LiChess Tools - download analysis',
-        'pearlDeviationTitle': 'LiChess Tools - evaluarea deviaz\u0103 la $depth ($deviation)'
+        'pearlDeviationTitle': 'LiChess Tools - evaluarea deviaz\u0103 la $depth ($deviation)',
+        'moveCostTitle': 'LiChess Tools - cost: %s'
       }
     }
 
@@ -64,6 +66,7 @@
         this._inHandlePvs=true;
         const lt = this.lichessTools;
         const $ = lt.$;
+        const trans = lt.translator;
         const lichess = lt.lichess;
         const analysis = lichess.analysis;
         const analysisTools = $('main .analyse__tools, main .puzzle__tools');
@@ -155,9 +158,11 @@
             if (cost) {
               $(pve).attrSafe('data-cost',cost)
                     .css('--cost-color',color);
+              e.attr('title',trans.pluralSame('moveCostTitle',cost));
             } else {
               $(pve).removeAttr('data-cost')
                     .css('--cost-color',null);
+              e.removeAttr('title');
             }
           });
       } finally {
@@ -466,7 +471,11 @@
       main
         .observer()
         .off('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
-      $('div.pv[data-cost]').removeAttr('data-cost');
+      $('div.pv[data-cost]')
+        .removeAttr('data-cost')
+        .removeAttr('data-cost-color')
+        .children('strong')
+        .removeAttr('title');
       lt.pubsub.off('lichessTools.redraw',this.setupPvProcessing);
       if (this.options.highlight || this.options.colorEvaluation || this.options.cost) {
         lt.pubsub.on('lichessTools.redraw',this.setupPvProcessing);
