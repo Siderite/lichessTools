@@ -149,11 +149,12 @@
       }
       if (uci) {
         ev.preventDefault();
-        if (analysis) {
+        // use the manual playUci, because of promotions
+        /*if (analysis) {
           lt.global.setTimeout(() => analysis.playUci(uci), 50);
-        } else {
+        } else {*/
           this.playUci(uci, board, orientation);
-        }
+        /*}*/
       }
     };
 
