@@ -26,20 +26,23 @@
       }
     }
 
-    storeGameId = (gameId) => {
+    storeGameId = (gameId, orientation) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const prevGames = lt.currentOptions.getValue('prevGames') || [];
-      if (prevGames.find(g => g == gameId)) return;
-      lt.debug && lt.global.console.debug('Putting /' + gameId + ' in history');
+      const index = prevGames.findIndex(g => g.id == gameId);
+      if (prevGames.length && index==prevGames.length-1) return;
+      lt.arrayRemoveAll(prevGames, g => !g.id || g.id == gameId);
 
-      prevGames.push(gameId);
+      lt.debug && lt.global.console.debug('Putting /' + gameId + '/' + orientation + ' in history');
+
+      prevGames.push({ id: gameId, orientation: orientation });
       if (prevGames.length > 10) {
         prevGames.shift();
       }
       lt.currentOptions.prevGames = prevGames;
       lt.saveOptions(lt.currentOptions);
-      $('a.lichessTools-previousGame').attr('href', '/' + gameId);
+      $('a.lichessTools-previousGame').attr('href', '/' + gameId + '/' + orientation);
     };
 
     async start() {
@@ -56,7 +59,7 @@
 
       const tvOptions = lt.getTvOptions();
       if (tvOptions.isTv && tvOptions.gameId) {
-        this.storeGameId(tvOptions.gameId);
+        this.storeGameId(tvOptions.gameId,tvOptions.orientation);
       }
 
       const translatedText = trans.noarg('lastViewedGame');
@@ -69,11 +72,11 @@
 
       const m = /^\/([^\/]+)/.exec(location.pathname);
       const possibleGameId = m && m[1];
-      let index = games.findIndex(g => g == possibleGameId);
+      let index = games.findIndex(g => g.id == possibleGameId);
       if (index <= 0) index = games.length;
-      const gameId = games[index - 1];
-      if (gameId) {
-        item.attr('href', '/' + gameId);
+      const game = games[index - 1];
+      if (game) {
+        item.attr('href', '/' + game.id + '/' + game.orientation);
         const f = ()=>{
           lichess.powertip?.manualGame(item[0]);
           item

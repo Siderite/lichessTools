@@ -892,12 +892,14 @@
       const mUser = /\/@\/([^\/]+)/.exec(this.global.location.pathname);
       const analysisUrl = $('div.buttons a.analysis,rb1 a.analysis').attr('href') || '';
       const mAnalysis = /^\/([^\/]+)\/?(black)?/.exec(analysisUrl);
+      const orientation = $('.main-board > .cg-wrap').is('.orientation-black') ? 'black' : 'white';
       return {
         isTv: !!mTv,
         isUserTv: !!mTv && !!mUser,
         user: !!mTv && mUser && mUser[1],
         channel: mTv && !mUser && (mTv[2] || 'best'),
         gameId: !!mAnalysis && mAnalysis[1],
+        orientation: orientation,
         isBlack: !!mAnalysis && mAnalysis[2]
       };
     };
