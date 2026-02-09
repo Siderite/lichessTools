@@ -183,7 +183,7 @@
         }
         if (fen != lichess.analysis.node.fen?.split(' ').slice(0,2).join(' ')) return;
         if (table.length) {
-          if (table.next('table').length) {
+          if (table.next('table,.lichessTools-evalRow').length) {
             table.appendTo(container);
           }
         } else {
