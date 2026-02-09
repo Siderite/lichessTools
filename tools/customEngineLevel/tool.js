@@ -426,8 +426,10 @@
       this.logOption('Custom practice engine level', practiceValue || 'Not set');
       this.logOption('Custom engine options', customEngineOptions || 'Not set');
 
-      $('.lichessTools-separator,.abset-noCloud,.abset-noCloudExternal,.abset-engine-depth,.abset-practice,.abset-practice-depth').remove();
-      if (lt.currentOptions?.enableLichessTools === false) return;
+      if (lt.currentOptions?.enableLichessTools === false) {
+        $('.lichessTools-separator,.abset-noCloud,.abset-noCloudExternal,.abset-engine-depth,.abset-practice,.abset-practice-depth').remove();
+        return;
+      }
 
       this.options = {
         depth: value,
