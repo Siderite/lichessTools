@@ -1010,7 +1010,8 @@
     "options.voiceInput": "الإدخال الصوتي",
     "voiceInput.studyComments": "تعليقات الدراسة",
     "voiceInputTitle": "الإدخال الصوتي",
-    "cevalLineOptions.cost": "نقل التكلفة"
+    "cevalLineOptions.cost": "نقل التكلفة",
+    "moveCostTitle": "أدوات شطرنج الحياة - التكلفة: %s"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2023,7 +2024,8 @@
     "options.voiceInput": "Voice input",
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
-    "cevalLineOptions.cost": "Move cost"
+    "cevalLineOptions.cost": "Move cost",
+    "moveCostTitle": "LiChess Tools - cost: %s"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3036,7 +3038,8 @@
     "options.voiceInput": "语音输入",
     "voiceInput.studyComments": "研习注释",
     "voiceInputTitle": "语音输入",
-    "cevalLineOptions.cost": "移动成本"
+    "cevalLineOptions.cost": "移动成本",
+    "moveCostTitle": "Lichess工具 - 成本: %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4049,7 +4052,8 @@
     "options.voiceInput": "Voice input",
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
-    "cevalLineOptions.cost": "Move cost"
+    "cevalLineOptions.cost": "Move cost",
+    "moveCostTitle": "LiChess Tools - cost: %s"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5062,7 +5066,8 @@
     "options.voiceInput": "Hlasový vstup",
     "voiceInput.studyComments": "Studijní komentáře",
     "voiceInputTitle": "Hlasový vstup",
-    "cevalLineOptions.cost": "Náklady na přesun"
+    "cevalLineOptions.cost": "Náklady na přesun",
+    "moveCostTitle": "Nástroje LiChess - cena: %s"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6075,7 +6080,8 @@
     "options.voiceInput": "Spraak-invoer",
     "voiceInput.studyComments": "Reacties bestuderen",
     "voiceInputTitle": "Spraak-invoer",
-    "cevalLineOptions.cost": "Kosten verplaatsen"
+    "cevalLineOptions.cost": "Kosten verplaatsen",
+    "moveCostTitle": "LiChess gereedschappen - kost: %s"
   },
   "en-US": {
     "LiChess Tools": null,
@@ -7088,7 +7094,8 @@
     "options.voiceInput": "Voice input",
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
-    "cevalLineOptions.cost": "Move cost"
+    "cevalLineOptions.cost": "Move cost",
+    "moveCostTitle": "LiChess Tools - cost: %s"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8101,7 +8108,8 @@
     "options.voiceInput": "Saisie vocale",
     "voiceInput.studyComments": "Commentaires de l'étude",
     "voiceInputTitle": "Saisie vocale",
-    "cevalLineOptions.cost": "Coût du déplacement"
+    "cevalLineOptions.cost": "Coût d'un coup",
+    "moveCostTitle": "Outils LiChess - Coût: %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9114,7 +9122,8 @@
     "options.voiceInput": "Spracheingabe",
     "voiceInput.studyComments": "Kommentare studieren",
     "voiceInputTitle": "Spracheingabe",
-    "cevalLineOptions.cost": "Kosten verschieben"
+    "cevalLineOptions.cost": "Kosten verschieben",
+    "moveCostTitle": "LiChess Werkzeuge - Kosten: %s"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10127,7 +10136,8 @@
     "options.voiceInput": "Φωνητική είσοδος",
     "voiceInput.studyComments": "Μελέτη σχολίων",
     "voiceInputTitle": "Φωνητική είσοδος",
-    "cevalLineOptions.cost": "Κόστος μετακίνησης"
+    "cevalLineOptions.cost": "Κόστος μετακίνησης",
+    "moveCostTitle": "Εργαλεία LiChess - κόστος: %s"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11140,7 +11150,8 @@
     "options.voiceInput": "Voice input",
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
-    "cevalLineOptions.cost": "Move cost"
+    "cevalLineOptions.cost": "Move cost",
+    "moveCostTitle": "LiChess Tools - cost: %s"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12153,7 +12164,8 @@
     "options.voiceInput": "Ingresso vocale",
     "voiceInput.studyComments": "Osservazioni di studio",
     "voiceInputTitle": "Ingresso vocale",
-    "cevalLineOptions.cost": "Costo spostamento"
+    "cevalLineOptions.cost": "Costo spostamento",
+    "moveCostTitle": "Strumenti LiChess - costo: %s"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -13166,7 +13178,8 @@
     "options.voiceInput": "Voice input",
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
-    "cevalLineOptions.cost": "Move cost"
+    "cevalLineOptions.cost": "Move cost",
+    "moveCostTitle": "LiChess Tools - cost: %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -14179,7 +14192,8 @@
     "options.voiceInput": "Wprowadzanie głosu",
     "voiceInput.studyComments": "Uwagi do badania",
     "voiceInputTitle": "Wprowadzanie głosu",
-    "cevalLineOptions.cost": "Koszt przeniesienia"
+    "cevalLineOptions.cost": "Koszt przeniesienia",
+    "moveCostTitle": "Narzędzia Lichess - koszt: %s"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -15192,7 +15206,8 @@
     "options.voiceInput": "Entrada por voz",
     "voiceInput.studyComments": "Comentários do estudo",
     "voiceInputTitle": "Entrada por voz",
-    "cevalLineOptions.cost": "Custo de transferência"
+    "cevalLineOptions.cost": "Custo de transferência",
+    "moveCostTitle": "Ferramentas de LiChess - custo: %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -16205,7 +16220,8 @@
     "options.voiceInput": "Entrada por voz",
     "voiceInput.studyComments": "Comentários do estudo",
     "voiceInputTitle": "Entrada por voz",
-    "cevalLineOptions.cost": "Custo de transferência"
+    "cevalLineOptions.cost": "Custo de transferência",
+    "moveCostTitle": "Ferramentas de LiChess - custo: %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -17218,7 +17234,8 @@
     "options.voiceInput": "Dictare",
     "voiceInput.studyComments": "Comentarii studiu",
     "voiceInputTitle": "Dictare",
-    "cevalLineOptions.cost": "Costul mutării"
+    "cevalLineOptions.cost": "Costul mutării",
+    "moveCostTitle": "LiChess Tools - cost: %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -18231,7 +18248,8 @@
     "options.voiceInput": "Голосовой ввод",
     "voiceInput.studyComments": "Комментарии исследования",
     "voiceInputTitle": "Голосовой ввод",
-    "cevalLineOptions.cost": "Стоимость перемещения"
+    "cevalLineOptions.cost": "Стоимость перемещения",
+    "moveCostTitle": "Инструменты Жизни - стоимость: %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -19244,7 +19262,8 @@
     "options.voiceInput": "Entrada de voz",
     "voiceInput.studyComments": "Comentarios de estudio",
     "voiceInputTitle": "Entrada de voz",
-    "cevalLineOptions.cost": "Mover coste"
+    "cevalLineOptions.cost": "Mover coste",
+    "moveCostTitle": "Herramientas de LiChess - costo: %s"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -20257,7 +20276,8 @@
     "options.voiceInput": "Voice input",
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
-    "cevalLineOptions.cost": "Move cost"
+    "cevalLineOptions.cost": "Move cost",
+    "moveCostTitle": "LiChess Tools - cost: %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -21270,7 +21290,8 @@
     "options.voiceInput": "Sesli giriş",
     "voiceInput.studyComments": "Çalışma yorumları",
     "voiceInputTitle": "Sesli giriş",
-    "cevalLineOptions.cost": "Move cost"
+    "cevalLineOptions.cost": "Hamle değeri",
+    "moveCostTitle": "LiChess Tools - cost: %s"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -22283,6 +22304,7 @@
     "options.voiceInput": "Voice input",
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
-    "cevalLineOptions.cost": "Move cost"
+    "cevalLineOptions.cost": "Move cost",
+    "moveCostTitle": "LiChess Tools - cost: %s"
   }
 }
