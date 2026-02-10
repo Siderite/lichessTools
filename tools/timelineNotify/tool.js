@@ -101,7 +101,7 @@
         this.setAllRead();
         let nr=0;
         if (this.prevRead) {
-          const timeline = await lt.api.timeline.get(this.prevRead+1);
+          const timeline = await lt.api.timeline.get(this.prevRead);
           nr = timeline.entries?.length || 0;
           if (nr) {
             $('table.slist tr:nth-child(-n+' + (nr + 1) + ')').toggleClass('lichessTools-unread');

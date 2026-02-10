@@ -247,9 +247,9 @@
         const e = $(elem);
         const href = e.attr('href');
         if (href && e.is('.lichessTools-noflag')) {
-          e.removeAttr('lichessTools-noflag');
+          e.removeClass('lichessTools-noflag');
           updated = true;
-          return;
+          continue;
         }
         const img = e.siblings('img.flag').add(e.children('img.flag'));
         if (img.length && img.attr('data-ref')!=href) {
