@@ -34,7 +34,8 @@
         let textEl = $('.text', e);
         if (!textEl.length) textEl = $(e);
         if (textEl.is('.lichessTools-noflag,.lichessTools-flag')) return;
-        const next = textEl.next();
+        let next = textEl.next();
+        next=next.add(next.next());
         if (next.is('img.flag')) return;
         if (next.has('img.flag').length) return;
         if (textEl.attr('data-icon')) return;
@@ -203,7 +204,8 @@
         if (!item.countryName) continue;
         const elems = dict[item.id];
         for (const elem of elems.filter(e=>!!e[0].parentNode && !!e[0].offsetParent)) {
-          const next = elem.next();
+          let next = elem.next();
+          next=next.add(next.next());
           if (next.is('img.flag')) return;
           if (next.has('img.flag').length) return;
           if (item.countryName == 'noflag') {
