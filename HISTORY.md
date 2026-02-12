@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+12 Feb
+
+- button to toggle Explorer moves during Explorer Practice
+
 08 Feb
 
 - show computer engine move cost

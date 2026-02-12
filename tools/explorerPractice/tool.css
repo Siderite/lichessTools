@@ -54,6 +54,26 @@ body.lichessTools main:has(.analyse__tools .lichessTools-explorerPractice.active
   display: none;
 }
 
+body.lichessTools button.lichessTools-hideButton {
+  display:none;
+  position: sticky;
+  bottom: 2px;
+  border:none;
+  border-radius: 5px;
+  background: var(--c-bg-zebra2);
+  padding: 0.5em;
+  opacity: 0.5;
+}
+
+body.lichessTools.mobile button.lichessTools-hideButton,
+body.lichessTools section.explorer-box:hover button.lichessTools-hideButton {
+  opacity:1;
+}
+
+body.lichessTools section.explorer-box:has(.lichessTools-explorerPractice.active) button.lichessTools-hideButton {
+  display:block;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier section.explorer-box span.lichessTools-explorerPractice.active:before {

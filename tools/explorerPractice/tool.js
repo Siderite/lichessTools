@@ -33,7 +33,8 @@
         'explorerPracticeOptions.showNames': 'Show opponent name',
         'explorerPracticeOptions.showInfoStudy': 'Explorer data in Study',
         'explorerPracticeOptions.showInfoAnalysis': 'Explorer data in Analysis',
-        'sumClickTitle': 'LiChess Tools - click to make a move'
+        'sumClickTitle': 'LiChess Tools - click to make a move',
+        'explorerPracticeHideTitle': 'LiChess Tools - toggle Explorer move stats'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -46,7 +47,8 @@
         'explorerPracticeOptions.showNames': 'Arat\u0103 numele adversarului',
         'explorerPracticeOptions.showInfoStudy': 'Date Explorer \u00een Studii',
         'explorerPracticeOptions.showInfoAnalysis': 'Date Explorer \u00een Analiz\u0103',
-        'sumClickTitle': 'LiChess Tools - click pentru a muta'
+        'sumClickTitle': 'LiChess Tools - click pentru a muta',
+        'explorerPracticeHideTitle': 'LiChess Tools - comut\u0103 statistici mut\u0103ri \u00een Explorator'
       }
     }
 
@@ -298,10 +300,30 @@
         this.setRunning(false);
       }
       button.toggleClass('active', !!this.isRunning);
+
+      let hideButton = $('section.explorer-box .lichessTools-hideButton');
+      if (!hideButton.length) {
+        $('<button type="button" class="lichessTools-hideButton">')
+          .attr('title',trans.noarg('explorerPracticeHideTitle'))
+          .attr('data-icon',lt.icon.Eye)
+          .on('click',(ev)=>{
+            ev.preventDefault();
+            if (analysis.study) {
+              this.options.showInfoStudy = !this.options.showInfoStudy;
+            } else {
+              this.options.showInfoAnalysis = !this.options.showInfoAnalysis;
+            }
+            lt.currentOptions.explorerPracticeOptions = this.options.toString();
+            lt.saveOptions(lt.currentOptions);
+            this.process();
+          })
+          .appendTo('section.explorer-box');
+      }
+
       const hideData = analysis.study
         ? !this.options.showInfoStudy
         : !this.options.showInfoAnalysis;
-      explorerContainer.toggleClass('lichessTools-hideExplorerData', !!this.isRunning && hideData);
+      explorerContainer.toggleClassSafe('lichessTools-hideExplorerData', !!this.isRunning && hideData);
       if (this.isRunning) lt.global.setTimeout(this.playMove, 500);
     };
     processDebounced = this.lichessTools.debounce(this.process, 500);
@@ -317,7 +339,8 @@
         showNames: lt.isOptionSet(options, 'showNames'),
         showInfoStudy: lt.isOptionSet(options, 'showInfoStudy'),
         showInfoAnalysis: lt.isOptionSet(options, 'showInfoAnalysis'),
-        sumClick: lt.isOptionSet(options, 'sumClick')
+        sumClick: lt.isOptionSet(options, 'sumClick'),
+        toString: function() { return Object.keys(this).filter(k=>!['toString'].includes(k) && this[k]).join(','); }
       };
       this.logOption('Explorer practice', value);
       this.logOption(' ... options', options);
