@@ -54,7 +54,7 @@ body.lichessTools main:has(.analyse__tools .lichessTools-explorerPractice.active
   display: none;
 }
 
-body.lichessTools button.lichessTools-hideButton {
+body.lichessTools button.lichessTools-hideExplorerMovesButton {
   display:none;
   position: sticky;
   bottom: 2px;
@@ -65,12 +65,12 @@ body.lichessTools button.lichessTools-hideButton {
   opacity: 0.5;
 }
 
-body.lichessTools.mobile button.lichessTools-hideButton,
-body.lichessTools section.explorer-box:hover button.lichessTools-hideButton {
+body.lichessTools.mobile button.lichessTools-hideExplorerMovesButton,
+body.lichessTools section.explorer-box:hover button.lichessTools-hideExplorerMovesButton {
   opacity:1;
 }
 
-body.lichessTools section.explorer-box:has(.lichessTools-explorerPractice.active) button.lichessTools-hideButton {
+body.lichessTools section.explorer-box:has(.lichessTools-explorerPractice.active) button.lichessTools-hideExplorerMovesButton {
   display:block;
 }
 

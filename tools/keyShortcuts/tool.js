@@ -146,12 +146,15 @@
     };
 
     toggleSiteHeader = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
       if (this.makeMoveMode != 'general') {
+        if (lt.tools.ExplorerPracticeTool.isRunning) {
+          $('.lichessTools-hideExplorerMovesButton').trigger('click');
+        }
         return;
       }
       this.clearMoveMode();
-      const lt = this.lichessTools;
-      const $ = lt.$;
       $('body')
         .toggleClass('lichessTools-hideSiteHeader');
     };

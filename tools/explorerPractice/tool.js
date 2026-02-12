@@ -301,9 +301,9 @@
       }
       button.toggleClass('active', !!this.isRunning);
 
-      let hideButton = $('section.explorer-box .lichessTools-hideButton');
+      let hideButton = $('section.explorer-box .lichessTools-hideExplorerMovesButton');
       if (!hideButton.length) {
-        $('<button type="button" class="lichessTools-hideButton">')
+        $('<button type="button" class="lichessTools-hideExplorerMovesButton">')
           .attr('title',trans.noarg('explorerPracticeHideTitle'))
           .attr('data-icon',lt.icon.Eye)
           .on('click',(ev)=>{
