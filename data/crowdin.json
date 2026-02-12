@@ -3033,13 +3033,13 @@
     "btnCommandText": "命令",
     "btnCommandTitle": "执行命令",
     "commandPrompt": "\"extractFen\",\"splitForStudy\"",
-    "options.showGameCount": "显示玩家评级的游戏计数",
+    "options.showGameCount": "显示棋手排位对局数",
     "gamesPlayedTitle": "已进行 %s 场排位对局",
     "options.voiceInput": "语音输入",
     "voiceInput.studyComments": "研习注释",
     "voiceInputTitle": "语音输入",
-    "cevalLineOptions.cost": "移动成本",
-    "moveCostTitle": "Lichess工具 - 成本: %s"
+    "cevalLineOptions.cost": "着法深度",
+    "moveCostTitle": "LiChess Tools - 深度：%s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -8109,7 +8109,7 @@
     "voiceInput.studyComments": "Commentaires de l'étude",
     "voiceInputTitle": "Saisie vocale",
     "cevalLineOptions.cost": "Coût d'un coup",
-    "moveCostTitle": "Outils LiChess - Coût: %s"
+    "moveCostTitle": "LiChess Tools - Coût: %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -20388,7 +20388,7 @@
     "gameType-ultrabullet": "UltraBullet",
     "gameType-standard": "Sadece Standart",
     "options.friendsPlaying": "Sound and voice alert when friends start playing",
-    "audioNotAllowedTitle": "LiChess Tools - Audio allowed only after user action",
+    "audioNotAllowedTitle": "LiChess Tools - Ses sadece kullanıcının eylemiyle etkinleştirilir",
     "options.highlight": "Analizde hamleleri vurgula",
     "highlight.lastMove": "Last move in each variation",
     "highlight.notCommented": "Not commented last moves",
@@ -21291,7 +21291,7 @@
     "voiceInput.studyComments": "Çalışma yorumları",
     "voiceInputTitle": "Sesli giriş",
     "cevalLineOptions.cost": "Hamle değeri",
-    "moveCostTitle": "LiChess Tools - cost: %s"
+    "moveCostTitle": "LiChess Tools - değer: %s"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
