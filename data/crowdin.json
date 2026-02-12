@@ -1011,7 +1011,8 @@
     "voiceInput.studyComments": "تعليقات الدراسة",
     "voiceInputTitle": "الإدخال الصوتي",
     "cevalLineOptions.cost": "نقل التكلفة",
-    "moveCostTitle": "أدوات شطرنج الحياة - التكلفة: %s"
+    "moveCostTitle": "أدوات شطرنج الحياة - التكلفة: %s",
+    "explorerPracticeHideTitle": "أدوات شطرنج LiChess-تبديل إحصائيات حركة المستكشف"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2025,7 +2026,8 @@
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
     "cevalLineOptions.cost": "Move cost",
-    "moveCostTitle": "LiChess Tools - cost: %s"
+    "moveCostTitle": "LiChess Tools - cost: %s",
+    "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3039,7 +3041,8 @@
     "voiceInput.studyComments": "研习注释",
     "voiceInputTitle": "语音输入",
     "cevalLineOptions.cost": "着法深度",
-    "moveCostTitle": "LiChess Tools - 深度：%s"
+    "moveCostTitle": "LiChess Tools - 深度：%s",
+    "explorerPracticeHideTitle": "LiChess工具 - 切换资源管理器移动状态"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4053,7 +4056,8 @@
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
     "cevalLineOptions.cost": "Move cost",
-    "moveCostTitle": "LiChess Tools - cost: %s"
+    "moveCostTitle": "LiChess Tools - cost: %s",
+    "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5067,7 +5071,8 @@
     "voiceInput.studyComments": "Studijní komentáře",
     "voiceInputTitle": "Hlasový vstup",
     "cevalLineOptions.cost": "Náklady na přesun",
-    "moveCostTitle": "Nástroje LiChess - cena: %s"
+    "moveCostTitle": "Nástroje LiChess - cena: %s",
+    "explorerPracticeHideTitle": "Nástroje LiChess - přepnout statistiky pohybu Průzkumníka"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6081,11 +6086,12 @@
     "voiceInput.studyComments": "Reacties bestuderen",
     "voiceInputTitle": "Spraak-invoer",
     "cevalLineOptions.cost": "Kosten verplaatsen",
-    "moveCostTitle": "LiChess gereedschappen - kost: %s"
+    "moveCostTitle": "LiChess gereedschappen - kost: %s",
+    "explorerPracticeHideTitle": "LiChess Tools - wissel Explorer statistieken verplaatsen"
   },
   "en-US": {
-    "LiChess Tools": null,
-    "serverOverload": "2",
+    "LiChess Tools": "LiChess Tools",
+    "serverOverload": "Lichess thinks we are overloading their system!",
     "options.general": "General",
     "options.addNotifications": "Add notifications",
     "options.community": "Community",
@@ -7095,7 +7101,8 @@
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
     "cevalLineOptions.cost": "Move cost",
-    "moveCostTitle": "LiChess Tools - cost: %s"
+    "moveCostTitle": "LiChess Tools - cost: %s",
+    "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8109,7 +8116,8 @@
     "voiceInput.studyComments": "Commentaires de l'étude",
     "voiceInputTitle": "Saisie vocale",
     "cevalLineOptions.cost": "Coût d'un coup",
-    "moveCostTitle": "LiChess Tools - Coût: %s"
+    "moveCostTitle": "LiChess Tools - Coût: %s",
+    "explorerPracticeHideTitle": "Outils LiChess - activer/désactiver les statistiques de déplacement des explorateurs"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9123,7 +9131,8 @@
     "voiceInput.studyComments": "Kommentare studieren",
     "voiceInputTitle": "Spracheingabe",
     "cevalLineOptions.cost": "Kosten verschieben",
-    "moveCostTitle": "LiChess Werkzeuge - Kosten: %s"
+    "moveCostTitle": "LiChess Werkzeuge - Kosten: %s",
+    "explorerPracticeHideTitle": "LiChess-Tools - Schalter Explorer Bewegungsstatistiken"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10137,7 +10146,8 @@
     "voiceInput.studyComments": "Μελέτη σχολίων",
     "voiceInputTitle": "Φωνητική είσοδος",
     "cevalLineOptions.cost": "Κόστος μετακίνησης",
-    "moveCostTitle": "Εργαλεία LiChess - κόστος: %s"
+    "moveCostTitle": "Εργαλεία LiChess - κόστος: %s",
+    "explorerPracticeHideTitle": "Εργαλεία LiChess - εναλλαγή στατιστικών κίνησης του Εξερευνητή"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11151,7 +11161,8 @@
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
     "cevalLineOptions.cost": "Move cost",
-    "moveCostTitle": "LiChess Tools - cost: %s"
+    "moveCostTitle": "LiChess Tools - cost: %s",
+    "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12165,7 +12176,8 @@
     "voiceInput.studyComments": "Osservazioni di studio",
     "voiceInputTitle": "Ingresso vocale",
     "cevalLineOptions.cost": "Costo spostamento",
-    "moveCostTitle": "Strumenti LiChess - costo: %s"
+    "moveCostTitle": "Strumenti LiChess - costo: %s",
+    "explorerPracticeHideTitle": "Strumenti LiChess - attiva/disattiva le statistiche di spostamento dell'esploratore"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -13179,7 +13191,8 @@
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
     "cevalLineOptions.cost": "Move cost",
-    "moveCostTitle": "LiChess Tools - cost: %s"
+    "moveCostTitle": "LiChess Tools - cost: %s",
+    "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -14193,7 +14206,8 @@
     "voiceInput.studyComments": "Uwagi do badania",
     "voiceInputTitle": "Wprowadzanie głosu",
     "cevalLineOptions.cost": "Koszt przeniesienia",
-    "moveCostTitle": "Narzędzia Lichess - koszt: %s"
+    "moveCostTitle": "Narzędzia Lichess - koszt: %s",
+    "explorerPracticeHideTitle": "Narzędzia LiChess - przełącz statystyki odkrywcy"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -15207,7 +15221,8 @@
     "voiceInput.studyComments": "Comentários do estudo",
     "voiceInputTitle": "Entrada por voz",
     "cevalLineOptions.cost": "Custo de transferência",
-    "moveCostTitle": "Ferramentas de LiChess - custo: %s"
+    "moveCostTitle": "Ferramentas de LiChess - custo: %s",
+    "explorerPracticeHideTitle": "Ferramentas do LiChess - alternar estatísticas de movimento do Explorador"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -16221,7 +16236,8 @@
     "voiceInput.studyComments": "Comentários do estudo",
     "voiceInputTitle": "Entrada por voz",
     "cevalLineOptions.cost": "Custo de transferência",
-    "moveCostTitle": "Ferramentas de LiChess - custo: %s"
+    "moveCostTitle": "Ferramentas de LiChess - custo: %s",
+    "explorerPracticeHideTitle": "Ferramentas do LiChess - alternar estatísticas de movimento do Explorador"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -17235,7 +17251,8 @@
     "voiceInput.studyComments": "Comentarii studiu",
     "voiceInputTitle": "Dictare",
     "cevalLineOptions.cost": "Costul mutării",
-    "moveCostTitle": "LiChess Tools - cost: %s"
+    "moveCostTitle": "LiChess Tools - cost: %s",
+    "explorerPracticeHideTitle": "LiChess Tools - comută statistici mutări în Explorator"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -18249,7 +18266,8 @@
     "voiceInput.studyComments": "Комментарии исследования",
     "voiceInputTitle": "Голосовой ввод",
     "cevalLineOptions.cost": "Стоимость перемещения",
-    "moveCostTitle": "Инструменты Жизни - стоимость: %s"
+    "moveCostTitle": "Инструменты Жизни - стоимость: %s",
+    "explorerPracticeHideTitle": "Инструменты Жизни - переключение перемещения статистики проводника"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -19263,7 +19281,8 @@
     "voiceInput.studyComments": "Comentarios de estudio",
     "voiceInputTitle": "Entrada de voz",
     "cevalLineOptions.cost": "Mover coste",
-    "moveCostTitle": "Herramientas de LiChess - costo: %s"
+    "moveCostTitle": "Herramientas de LiChess - costo: %s",
+    "explorerPracticeHideTitle": "Herramientas de LiChess - activa las estadísticas del Explorador"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -20277,7 +20296,8 @@
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
     "cevalLineOptions.cost": "Move cost",
-    "moveCostTitle": "LiChess Tools - cost: %s"
+    "moveCostTitle": "LiChess Tools - cost: %s",
+    "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -21291,7 +21311,8 @@
     "voiceInput.studyComments": "Çalışma yorumları",
     "voiceInputTitle": "Sesli giriş",
     "cevalLineOptions.cost": "Hamle değeri",
-    "moveCostTitle": "LiChess Tools - değer: %s"
+    "moveCostTitle": "LiChess Tools - değer: %s",
+    "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -22305,6 +22326,7 @@
     "voiceInput.studyComments": "Study comments",
     "voiceInputTitle": "Voice input",
     "cevalLineOptions.cost": "Move cost",
-    "moveCostTitle": "LiChess Tools - cost: %s"
+    "moveCostTitle": "LiChess Tools - cost: %s",
+    "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats"
   }
 }
