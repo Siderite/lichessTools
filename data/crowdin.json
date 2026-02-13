@@ -3044,8 +3044,8 @@
     "voiceInputTitle": "语音输入",
     "cevalLineOptions.cost": "着法深度",
     "moveCostTitle": "LiChess Tools - 深度：%s",
-    "explorerPracticeHideTitle": "LiChess工具 - 切换资源管理器移动状态",
-    "explorerPracticeHideMoves": "切换资源管理器移动列表"
+    "explorerPracticeHideTitle": "LiChess Tools - 切换探索器着法统计",
+    "explorerPracticeHideMoves": "切换探索器着法列表"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -8124,8 +8124,8 @@
     "voiceInputTitle": "Saisie vocale",
     "cevalLineOptions.cost": "Coût d'un coup",
     "moveCostTitle": "LiChess Tools - Coût: %s",
-    "explorerPracticeHideTitle": "Outils LiChess - activer/désactiver les statistiques de déplacement des explorateurs",
-    "explorerPracticeHideMoves": "Activer/désactiver la liste de déplacement des explorateurs"
+    "explorerPracticeHideTitle": "LiChess Tools - activer/désactiver les statistiques des coups de l'explorateur",
+    "explorerPracticeHideMoves": "Activer/désactiver la liste des coups de l'explorateur"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
