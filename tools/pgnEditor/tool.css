@@ -22,6 +22,7 @@ body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper textarea {
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
   display: flex;
   flex-direction: column;
+  min-width: 12em;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button {
@@ -72,6 +73,7 @@ body.lichessTools dialog.lichessTools-pgnEditor a.help-button:hover {
 @media screen and (max-width: 820px) {
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
     width: 3.5em;
+    min-width: auto;
   }
 
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button {
