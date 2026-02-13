@@ -248,7 +248,7 @@
                 $('<span>')
                   .addClass(className)
                   .append($('<a rel="noopener nofollow" target="_blank">')
-                    .attr('href', '/streamer/' + data.id + '/redirect')
+                    .attr('href', '/streamer/' + data.id + '?redirect=1')
                     .text(trans.noarg('streamerLink')))
                   .appendTo(html);
               }
