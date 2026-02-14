@@ -6,7 +6,7 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1','sharechess'],
+        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1','sharechess','NayukiMafuyu'],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
@@ -31,7 +31,8 @@
         'extraPieceSets.basedpolymer': 'basedpolymer',
         'extraPieceSets.FelixKling': 'FelixKling',
         'extraPieceSets.Moldenke1': 'Moldenke1',
-        'extraPieceSets.sharechess': 'sharechess'
+        'extraPieceSets.sharechess': 'sharechess',
+        'extraPieceSets.NayukiMafuyu': 'NayukiMafuyu'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -107,6 +108,7 @@
         case 'hollowleaf':
         case 'bend-n':
         case 'Moldenke1':
+        case 'NayukiMafuyu':
         {
           const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
           return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type;

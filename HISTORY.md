@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Feb
+
+- Added NayukiMafuyu's Mockou piece set
+
 12 Feb
 
 - button to toggle Explorer moves during Explorer Practice
