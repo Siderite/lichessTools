@@ -41,7 +41,7 @@
       // Process user links
       $.cached('.user-link,a[href^="/@/"]', 2000).each((i, e) => {
         // Skip elements in excluded areas (friend list, chat, nav, etc.)
-        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app,.lichessTools-challengeOptions,#topnav,.ublog-post__meta,.mchat__messages').length) return;
+        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app,.lichessTools-challengeOptions,#topnav,.ublog-post__meta,.mchat__messages,.ublog-post-card').length) return;
 
         // Find the text element within the link
         let textEl = $('.text', e);
