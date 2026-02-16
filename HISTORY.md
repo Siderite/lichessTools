@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Feb
+
+- game scores in game lists
+
 14 Feb
 
 - Added NayukiMafuyu's Mockou piece set

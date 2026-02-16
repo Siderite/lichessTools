@@ -1804,6 +1804,9 @@
         const console = lt.global.console;
         try {
           let args = null;
+          if (url instanceof URL) {
+            url = url.href;
+          }
           if (typeof url != 'string') {
             args = url.args;
             url = url.url;
