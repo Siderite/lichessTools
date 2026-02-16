@@ -272,7 +272,7 @@
       const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
       const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
 
-      if (analysis.ceval.canGoDeeper && isIdle) {
+      if (analysis.ceval?.canGoDeeper && isIdle && analysis.ceval?.curEval) {
         if ((analysis.ceval.showingCloud && noCloud) || (targetDepth && curDepth < (node.autoDeeper || targetDepth)) || (this.options.infiniteExternal && isExternalEngine)) {
           if (!(node.autoDeeper > targetDepth)) {
             node.autoDeeper = targetDepth;
