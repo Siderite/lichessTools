@@ -17,6 +17,9 @@ body.lichessTools button.msg-app__convo__post__submit:not(.active) + div.lichess
   height: 2.5em;
   border: none;
   min-width: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body.lichessTools div.lichessTools-quickActions-tooltip button.fbt:hover {
