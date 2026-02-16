@@ -1013,7 +1013,11 @@
     "cevalLineOptions.cost": "نقل التكلفة",
     "moveCostTitle": "أدوات شطرنج الحياة - التكلفة: %s",
     "explorerPracticeHideTitle": "أدوات شطرنج LiChess-تبديل إحصائيات حركة المستكشف",
-    "explorerPracticeHideMoves": "تبديل قائمة نقل المستكشف"
+    "explorerPracticeHideMoves": "تبديل قائمة نقل المستكشف",
+    "searchScoreText": "$wins <unk> $draws <unk> $losses",
+    "searchScoreTitle": "أدوات شطرنج الحياة - نقاط للألعاب المصنفة %s",
+    "computeScoreText": "نقاط اللعبة",
+    "computeScoreTitle": "أدوات شطرنج LiChess-حوسبة نقاط الألعاب المقيمة\r\nتحذير! إذا كانت هناك ألعاب كثيرة، قد تقرر Lichess أنك تسيء استخدام النظام الخاص بها"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2029,7 +2033,11 @@
     "cevalLineOptions.cost": "Move cost",
     "moveCostTitle": "LiChess Tools - cost: %s",
     "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats",
-    "explorerPracticeHideMoves": "Toggle Explorer move list"
+    "explorerPracticeHideMoves": "Toggle Explorer move list",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - scores for %s rated games",
+    "computeScoreText": "Game scores",
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3045,7 +3053,11 @@
     "cevalLineOptions.cost": "着法深度",
     "moveCostTitle": "LiChess Tools - 深度：%s",
     "explorerPracticeHideTitle": "LiChess Tools - 切换探索器着法统计",
-    "explorerPracticeHideMoves": "切换探索器着法列表"
+    "explorerPracticeHideMoves": "切换探索器着法列表",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "Lichess工具 - 为 %s 评分的游戏",
+    "computeScoreText": "游戏分数",
+    "computeScoreTitle": "LiChess工具 - 为已评分的游戏计算得分\r\n警告！如果有许多游戏，Lichess可能决定您滥用他们的系统"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4061,7 +4073,11 @@
     "cevalLineOptions.cost": "Move cost",
     "moveCostTitle": "LiChess Tools - cost: %s",
     "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats",
-    "explorerPracticeHideMoves": "Toggle Explorer move list"
+    "explorerPracticeHideMoves": "Toggle Explorer move list",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - scores for %s rated games",
+    "computeScoreText": "Game scores",
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5077,7 +5093,11 @@
     "cevalLineOptions.cost": "Náklady na přesun",
     "moveCostTitle": "Nástroje LiChess - cena: %s",
     "explorerPracticeHideTitle": "Nástroje LiChess - přepnout statistiky pohybu Průzkumníka",
-    "explorerPracticeHideMoves": "Přepnout seznam přesunů Průzkumníka"
+    "explorerPracticeHideMoves": "Přepnout seznam přesunů Průzkumníka",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "Nástroje LiChess - skóre pro %s hodnocené hry",
+    "computeScoreText": "Skóre her",
+    "computeScoreTitle": "Lišess Tools - vypočítejte skóre pro hodnocené hry\r\nVarování! Pokud existuje mnoho her, Lichess může rozhodnout, že zneužíváte jejich systém"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6093,7 +6113,11 @@
     "cevalLineOptions.cost": "Kosten verplaatsen",
     "moveCostTitle": "LiChess gereedschappen - kost: %s",
     "explorerPracticeHideTitle": "LiChess Tools - wissel Explorer statistieken verplaatsen",
-    "explorerPracticeHideMoves": "Verkenner verplaatsen lijst in-/uitschakelen"
+    "explorerPracticeHideMoves": "Verkenner verplaatsen lijst in-/uitschakelen",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - scores voor %s partijen met rating",
+    "computeScoreText": "Spel scores",
+    "computeScoreTitle": "LiChess Tools - berekent score voor de beoordeelde spellen\r\nWaarschuwing! Als er veel partijen zijn, kan Lichess bepalen dat je hun systeem misbruikt."
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7109,7 +7133,11 @@
     "cevalLineOptions.cost": "Move cost",
     "moveCostTitle": "LiChess Tools - cost: %s",
     "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats",
-    "explorerPracticeHideMoves": "Toggle Explorer move list"
+    "explorerPracticeHideMoves": "Toggle Explorer move list",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - scores for %s rated games",
+    "computeScoreText": "Game scores",
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8125,7 +8153,11 @@
     "cevalLineOptions.cost": "Coût d'un coup",
     "moveCostTitle": "LiChess Tools - Coût: %s",
     "explorerPracticeHideTitle": "LiChess Tools - activer/désactiver les statistiques des coups de l'explorateur",
-    "explorerPracticeHideMoves": "Activer/désactiver la liste des coups de l'explorateur"
+    "explorerPracticeHideMoves": "Activer/désactiver la liste des coups de l'explorateur",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "Outils LiChess - scores pour les parties %s notées",
+    "computeScoreText": "Score du jeu",
+    "computeScoreTitle": "Outils LiChess - calculer le score pour les parties évaluées\r\nAttention ! S'il y a beaucoup de jeux, Lichess pourrait décider que vous abusez de leur système"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9141,7 +9173,11 @@
     "cevalLineOptions.cost": "Kosten verschieben",
     "moveCostTitle": "LiChess Werkzeuge - Kosten: %s",
     "explorerPracticeHideTitle": "LiChess-Tools - Schalter Explorer Bewegungsstatistiken",
-    "explorerPracticeHideMoves": "Umschalten der Verschiebungsliste"
+    "explorerPracticeHideMoves": "Umschalten der Verschiebungsliste",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - Punkte für %s bewertete Spiele",
+    "computeScoreText": "Partiturpunkte",
+    "computeScoreTitle": "LiChess Tools - Berechne Punktzahl für die bewerteten Spiele\r\nWarnung! Wenn es viele Spiele gibt, könnte Lichess entscheiden, dass du ihr System missbrauchst"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10157,7 +10193,11 @@
     "cevalLineOptions.cost": "Κόστος μετακίνησης",
     "moveCostTitle": "Εργαλεία LiChess - κόστος: %s",
     "explorerPracticeHideTitle": "Εργαλεία LiChess - εναλλαγή στατιστικών κίνησης του Εξερευνητή",
-    "explorerPracticeHideMoves": "Εναλλαγή λίστας μετακίνησης Explorer"
+    "explorerPracticeHideMoves": "Εναλλαγή λίστας μετακίνησης Explorer",
+    "searchScoreText": "$wins $draws \" $losses",
+    "searchScoreTitle": "Εργαλεία LiChess - σκορ για παιχνίδια με βαθμολογία %s",
+    "computeScoreText": "Βαθμολογία παιχνιδιού",
+    "computeScoreTitle": "LiChess Tools - υπολογίστε βαθμολογία για τα βαθμολογημένα παιχνίδια\r\nΠροειδοποίηση! Αν υπάρχουν πολλά παιχνίδια, Lichess μπορεί να αποφασίσει ότι κάνετε κατάχρηση του συστήματός τους"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11173,7 +11213,11 @@
     "cevalLineOptions.cost": "Move cost",
     "moveCostTitle": "LiChess Tools - cost: %s",
     "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats",
-    "explorerPracticeHideMoves": "Toggle Explorer move list"
+    "explorerPracticeHideMoves": "Toggle Explorer move list",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - scores for %s rated games",
+    "computeScoreText": "Game scores",
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12189,7 +12233,11 @@
     "cevalLineOptions.cost": "Costo spostamento",
     "moveCostTitle": "Strumenti LiChess - costo: %s",
     "explorerPracticeHideTitle": "Strumenti LiChess - attiva/disattiva le statistiche di spostamento dell'esploratore",
-    "explorerPracticeHideMoves": "Attiva/Disattiva elenco spostamenti esploratore"
+    "explorerPracticeHideMoves": "Attiva/Disattiva elenco spostamenti esploratore",
+    "searchScoreText": "$wins $draws <unk> $losses",
+    "searchScoreTitle": "LiChess Tools - punteggi per le partite con punteggio %s",
+    "computeScoreText": "Punteggi del gioco",
+    "computeScoreTitle": "LiChess Tools - calcolare il punteggio per le partite valutate\r\nAttenzione! Se ci sono molti giochi, Lichess potrebbe decidere che stai abusando del loro sistema"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -13205,7 +13253,11 @@
     "cevalLineOptions.cost": "Move cost",
     "moveCostTitle": "LiChess Tools - cost: %s",
     "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats",
-    "explorerPracticeHideMoves": "Toggle Explorer move list"
+    "explorerPracticeHideMoves": "Toggle Explorer move list",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - scores for %s rated games",
+    "computeScoreText": "Game scores",
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -14221,7 +14273,11 @@
     "cevalLineOptions.cost": "Koszt przeniesienia",
     "moveCostTitle": "Narzędzia Lichess - koszt: %s",
     "explorerPracticeHideTitle": "Narzędzia LiChess - przełącz statystyki odkrywcy",
-    "explorerPracticeHideMoves": "Przełącz listę przenoszenia Eksploratora"
+    "explorerPracticeHideMoves": "Przełącz listę przenoszenia Eksploratora",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "Narzędzia LiChess - wyniki dla gier rankingowych %s",
+    "computeScoreText": "Wyniki gry",
+    "computeScoreTitle": "Narzędzia LiChess - wynik obliczeń dla gier ocenianych\r\nOstrzeżenie! Jeśli jest wiele gier, Lichess może zdecydować, że nadużywasz ich systemu"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -15237,7 +15293,11 @@
     "cevalLineOptions.cost": "Custo de transferência",
     "moveCostTitle": "Ferramentas de LiChess - custo: %s",
     "explorerPracticeHideTitle": "Ferramentas do LiChess - alternar estatísticas de movimento do Explorador",
-    "explorerPracticeHideMoves": "Alternar lista de movimentos do Explorer"
+    "explorerPracticeHideMoves": "Alternar lista de movimentos do Explorer",
+    "searchScoreText": "$wins ➲ $draws $losses",
+    "searchScoreTitle": "Ferramentas de LiChess - resultados para jogos avaliados em %s",
+    "computeScoreText": "Pontuações do jogo",
+    "computeScoreTitle": "Ferramentas LiChess - Pontuação computacional para os jogos classificados\r\nAviso! Se houver muitos jogos, o Lichess pode decidir que você está abusando do sistema deles"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -16253,7 +16313,11 @@
     "cevalLineOptions.cost": "Custo de transferência",
     "moveCostTitle": "Ferramentas de LiChess - custo: %s",
     "explorerPracticeHideTitle": "Ferramentas do LiChess - alternar estatísticas de movimento do Explorador",
-    "explorerPracticeHideMoves": "Alternar lista de movimentos do Explorer"
+    "explorerPracticeHideMoves": "Alternar lista de movimentos do Explorer",
+    "searchScoreText": "$wins ➲ $draws $losses",
+    "searchScoreTitle": "Ferramentas de LiChess - resultados para jogos avaliados em %s",
+    "computeScoreText": "Pontuações do jogo",
+    "computeScoreTitle": "Ferramentas LiChess - Pontuação computacional para os jogos classificados\r\nAviso! Se houver muitos jogos, o Lichess pode decidir que você está abusando do sistema deles"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -17269,7 +17333,11 @@
     "cevalLineOptions.cost": "Costul mutării",
     "moveCostTitle": "LiChess Tools - cost: %s",
     "explorerPracticeHideTitle": "LiChess Tools - comută statistici mutări în Explorator",
-    "explorerPracticeHideMoves": "Comută lista mutărilor din Explorator"
+    "explorerPracticeHideMoves": "Comută lista mutărilor din Explorator",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - scor pentru %s partide oficiale",
+    "computeScoreText": "Scor partide",
+    "computeScoreTitle": "LiChess Tools - calculeaz\\u0103 scorul partidelor oficiale\nAtenție! Dacă sunt multe partide, Lichess ar putea considera asta un abuz al sistemului lor"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -18285,7 +18353,11 @@
     "cevalLineOptions.cost": "Стоимость перемещения",
     "moveCostTitle": "Инструменты Жизни - стоимость: %s",
     "explorerPracticeHideTitle": "Инструменты Жизни - переключение перемещения статистики проводника",
-    "explorerPracticeHideMoves": "Переключить список перемещений проводника"
+    "explorerPracticeHideMoves": "Переключить список перемещений проводника",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "Инструменты Жизни - результаты за %s рейтинговых игр",
+    "computeScoreText": "Игровые очки",
+    "computeScoreTitle": "LiChess Tools - вычислить счет для рейтинговых игр\r\nПредупреждение! Если есть много игр, Lichess может решить, что вы злоупотребляете их системой"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -19301,7 +19373,11 @@
     "cevalLineOptions.cost": "Mover coste",
     "moveCostTitle": "Herramientas de LiChess - costo: %s",
     "explorerPracticeHideTitle": "Herramientas de LiChess - activa las estadísticas del Explorador",
-    "explorerPracticeHideMoves": "Cambiar lista de movimientos del explorador"
+    "explorerPracticeHideMoves": "Cambiar lista de movimientos del explorador",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "Herramientas de LiChess - puntuaciones para partidas por puntos %s",
+    "computeScoreText": "Puntuación del juego",
+    "computeScoreTitle": "Herramientas de LiChess - calcula la puntuación de los juegos calificados\r\n¡Atención! Si hay muchos juegos, el Lichess puede decidir que está abusando de su sistema"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -20317,7 +20393,11 @@
     "cevalLineOptions.cost": "Move cost",
     "moveCostTitle": "LiChess Tools - cost: %s",
     "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats",
-    "explorerPracticeHideMoves": "Toggle Explorer move list"
+    "explorerPracticeHideMoves": "Toggle Explorer move list",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - scores for %s rated games",
+    "computeScoreText": "Game scores",
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -21333,7 +21413,11 @@
     "cevalLineOptions.cost": "Hamle değeri",
     "moveCostTitle": "LiChess Tools - değer: %s",
     "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats",
-    "explorerPracticeHideMoves": "Toggle Explorer move list"
+    "explorerPracticeHideMoves": "Toggle Explorer move list",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - scores for %s rated games",
+    "computeScoreText": "Game scores",
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -22349,6 +22433,10 @@
     "cevalLineOptions.cost": "Move cost",
     "moveCostTitle": "LiChess Tools - cost: %s",
     "explorerPracticeHideTitle": "LiChess Tools - toggle Explorer move stats",
-    "explorerPracticeHideMoves": "Toggle Explorer move list"
+    "explorerPracticeHideMoves": "Toggle Explorer move list",
+    "searchScoreText": "$wins | $draws | $losses",
+    "searchScoreTitle": "LiChess Tools - scores for %s rated games",
+    "computeScoreText": "Game scores",
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
   }
 }
