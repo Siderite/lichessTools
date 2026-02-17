@@ -3055,9 +3055,9 @@
     "explorerPracticeHideTitle": "LiChess Tools - 切换探索器着法统计",
     "explorerPracticeHideMoves": "切换探索器着法列表",
     "searchScoreText": "$wins | $draws | $losses",
-    "searchScoreTitle": "Lichess工具 - 为 %s 评分的游戏",
-    "computeScoreText": "游戏分数",
-    "computeScoreTitle": "LiChess工具 - 为已评分的游戏计算得分\r\n警告！如果有许多游戏，Lichess可能决定您滥用他们的系统"
+    "searchScoreTitle": "LiChess Tools - %s 个排位对局得分",
+    "computeScoreText": "对局得分",
+    "computeScoreTitle": "LiChess Tools - 计算排位对局得分\n警告：如果对局数量过多，Lichess 可能会判定您滥用其系统！"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -8155,9 +8155,9 @@
     "explorerPracticeHideTitle": "LiChess Tools - activer/désactiver les statistiques des coups de l'explorateur",
     "explorerPracticeHideMoves": "Activer/désactiver la liste des coups de l'explorateur",
     "searchScoreText": "$wins | $draws | $losses",
-    "searchScoreTitle": "Outils LiChess - scores pour les parties %s notées",
-    "computeScoreText": "Score du jeu",
-    "computeScoreTitle": "Outils LiChess - calculer le score pour les parties évaluées\r\nAttention ! S'il y a beaucoup de jeux, Lichess pourrait décider que vous abusez de leur système"
+    "searchScoreTitle": "LiChess Tools - score pour les %s parties classées",
+    "computeScoreText": "Score des parties",
+    "computeScoreTitle": "LiChess Tools - calculer le score pour les parties classées\nAttention ! S'il y a beaucoup de parties, Lichess pourrait considérer que vous abusez de leurs ressources"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -17820,9 +17820,9 @@
     "options.mayTenth": "День LiChess Tools!",
     "mayTenthTitle": "С Днём LiChess Tools!",
     "options.moveAssistant": "Ассистент ходов",
-    "assistantButtonTitle": "LiChess Tools - оценка перемещения",
+    "assistantButtonTitle": "LiChess Tools - оценка хода",
     "options.playerWarning": "Предупреждение об игроке",
-    "percentageTitle": "- %s% скорость отключения",
+    "percentageTitle": "- %s% частота отключения",
     "options.boardImage": "Лучшее изображение для экспорта доски",
     "screenshotButtonText": "СКРИНШОТ",
     "screenshotButtonTitle": "LiChess Tools - получите скриншот доски",
