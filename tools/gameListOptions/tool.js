@@ -555,9 +555,9 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
         this.refreshActions();
       }
       if (this.options.showScore) {
-        const match = /games\/search\b(?:.*?)players.a=(?<userId>[^\/\?&#]+)|@\/(?<userId>[^\/\?&#]+)\/search\b/.exec(lt.global.location.href);
-        const userId = match.groups.userId.toLowerCase();
+        const match = /games\/search\b(?:.*?)players.a=(?<userId1>[^\/\?&#]+)|@\/(?<userId2>[^\/\?&#]+)\/search\b/.exec(lt.global.location.href);
         if (match) {
+          const userId = (match.groups.userId1||match.groups.userId2).toLowerCase();
           const gameTitle = $('.search__status > strong:first-child');
           if (gameTitle.length && !gameTitle.siblings('.lichessTools-showScore').length) {
             const span=$('<span class="lichessTools-showScore">')
