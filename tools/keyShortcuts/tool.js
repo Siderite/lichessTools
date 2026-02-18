@@ -237,7 +237,14 @@
 
       if (this.options.enabled) {
         lt.bindKeyHandler('i', () => lt.jumpToGlyphSymbols('?!'));
-        lt.bindKeyHandler('m', () => lt.jumpToGlyphSymbols('?'));
+        lt.bindKeyHandler('m', () => {
+          if (analysis.retro) {
+            const oldHandler = this.oldHandlers.m;
+            if (oldHandler) oldHandler();
+            return;
+          }
+          lt.jumpToGlyphSymbols('?');
+        });
         lt.bindKeyHandler('b', () => lt.jumpToGlyphSymbols('??'));
         lt.bindKeyHandler('g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', lt.icon.WhiteStar]));
         lt.bindKeyHandler('alt+i', () => lt.jumpToGlyphSymbols('?!', true));

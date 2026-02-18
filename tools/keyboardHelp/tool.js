@@ -121,7 +121,9 @@
           .attr('title', trans.noarg('seeLichessTools'));
 
         row(['b'], 'nextBlunder');
-        row(['m'], 'nextMistake');
+        if (!analysis?.retro) {
+          row(['m'], 'nextMistake');
+        }
         row(['i'], 'nextInaccuracy');
         row(['g'], 'nextGood');
         row(['alt', 'b'], 'nextOpponentBlunder');
