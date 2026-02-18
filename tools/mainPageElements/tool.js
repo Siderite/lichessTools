@@ -103,7 +103,7 @@
           const ft = t === 'timeline' ? 'side' : t;
           const res = this.options[ft] || (ft == 'side' && $('.lichessTools-pins *,.lichessTools-dailyQuote.side').length)
             ? t
-            : '.'.padEnd(t.length, ' ');
+            : (ft == 'tv' && !this.options.tv ? 'side' :  '.').padEnd(t.length, ' ');
           return res;
         });
         $('main').css('grid-template-areas', grid);
