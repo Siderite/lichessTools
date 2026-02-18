@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
-  "short_name": "LiChessTools",
-  "version": "2.4.160",
+  "short_name": "LiChess Tools",
+  "version": "2.4.161",
   "description": "Turbocharge lichess.org with a ton of features",
+  "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
   "minimum_chrome_version": "111",
   "icons": {
