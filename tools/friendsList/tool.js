@@ -45,6 +45,7 @@
         'hideInactiveTitle': 'Active players',
         'followersText': 'Followers',
         'followersTitle': 'LiChess Tools - players following you',
+        'followersPageTitle': 'LiChess Tools - Followers',
         'followersNumberTitle': '%s followers',
         'friendsNumberTitle': '%s friends',
         'friendsNumberTitle:one': 'One friend',
@@ -76,6 +77,7 @@
         'hideInactiveTitle': 'Juc\u0103tori activi',
         'followersText': 'Urm\u0103ritori',
         'followersTitle': 'LiChess Tools - juc\u0103tori care te urm\u0103resc',
+        'followersPageTitle': 'LiChess Tools - Urm\u0103ritori',
         'followersNumberTitle': '%s urm\u0103ritori',
         'friendsNumberTitle': '%s prieteni',
         'friendsNumberTitle:one': 'Un prieten',
@@ -752,6 +754,7 @@
           const followers = await lt.api.relations.getFollowersNew(1,1);
           $('.box__top h1')
             .replaceText(trans.pluralSame('followersNumberTitle',followers?.nbResults || 0));
+          lt.global.document.title = trans.noarg('followersPageTitle');
           $('.box__top h1 a')
             .attr('href','/@/'+userId+'/following');
           f(followers);
