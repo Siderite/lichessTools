@@ -985,10 +985,6 @@
 
       if (!forced) return 1; // this is too expensive
 
-      if (Date.now() - element.__inViewport?.time < 5000) {
-        return element.__inViewport.value;
-      }
-
       const calculateViewport = ()=>{
         if (this.traverseState?.nodeIndex > 1000) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
 

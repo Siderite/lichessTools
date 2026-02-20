@@ -738,7 +738,7 @@
               }
               if (followers.nextPage) {
                 table[0]._followersPage = followers.nextPage;
-                $('<tr class="lichessTools-pager"><th><a>&#x2398;</a></th></tr>')
+                $('<tr class="lichessTools-pager"><th><a>&#x2398;</a></th><td></td></tr>')
                   .appendTo(tbody)
                   .find('a')
                   .attr('href','/@/TotalNoob69/followers?page='+followers.nextPage)
@@ -779,6 +779,12 @@
     }
 
     menuParent = '#topnav';
+
+    async init() {
+      if (this.isFollowersPage()) {
+        history.scrollRestoration = "manual";
+      }
+    }
 
     followingOnlinesRequests = 0;
     async start() {
@@ -825,7 +831,7 @@
       }
       
       $(lt.global).off('hashchange', this.hashchange);
-      $(lt.global).off('scroll',this.onScroll);
+      $(lt.global).off('scroll scrollend',this.onScroll);
       if (this.isLivePage) {
         lt.pubsub.off('content-loaded', this.updateFriendsPage);
         if (liveFriendsPage) {
@@ -843,7 +849,7 @@
         }
         $(lt.global).on('hashchange', this.hashchange);
         this.hashchange();
-        $(lt.global).on('scroll',this.onScroll);
+        $(lt.global).on('scroll scrollend',this.onScroll);
       }
 
       this.followingOnlinesRequests = 0;
