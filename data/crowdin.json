@@ -1017,7 +1017,8 @@
     "searchScoreText": "$wins <unk> $draws <unk> $losses",
     "searchScoreTitle": "أدوات شطرنج الحياة - نقاط للألعاب المصنفة %s",
     "computeScoreText": "نقاط اللعبة",
-    "computeScoreTitle": "أدوات شطرنج LiChess-حوسبة نقاط الألعاب المقيمة\r\nتحذير! إذا كانت هناك ألعاب كثيرة، قد تقرر Lichess أنك تسيء استخدام النظام الخاص بها"
+    "computeScoreTitle": "أدوات شطرنج LiChess-حوسبة نقاط الألعاب المقيمة\r\nتحذير! إذا كانت هناك ألعاب كثيرة، قد تقرر Lichess أنك تسيء استخدام النظام الخاص بها",
+    "followersPageTitle": "أدوات شطرنج الحياة - متابعين"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2037,7 +2038,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - scores for %s rated games",
     "computeScoreText": "Game scores",
-    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system",
+    "followersPageTitle": "LiChess Tools - Followers"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3057,7 +3059,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - %s 个排位对局得分",
     "computeScoreText": "对局得分",
-    "computeScoreTitle": "LiChess Tools - 计算排位对局得分\n警告：如果对局数量过多，Lichess 可能会判定您滥用其系统！"
+    "computeScoreTitle": "LiChess Tools - 计算排位对局得分\n警告：如果对局数量过多，Lichess 可能会判定您滥用其系统！",
+    "followersPageTitle": "生活工具 - 关注者"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4077,7 +4080,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - scores for %s rated games",
     "computeScoreText": "Game scores",
-    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system",
+    "followersPageTitle": "LiChess Tools - Followers"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5097,7 +5101,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "Nástroje LiChess - skóre pro %s hodnocené hry",
     "computeScoreText": "Skóre her",
-    "computeScoreTitle": "Lišess Tools - vypočítejte skóre pro hodnocené hry\r\nVarování! Pokud existuje mnoho her, Lichess může rozhodnout, že zneužíváte jejich systém"
+    "computeScoreTitle": "Lišess Tools - vypočítejte skóre pro hodnocené hry\r\nVarování! Pokud existuje mnoho her, Lichess může rozhodnout, že zneužíváte jejich systém",
+    "followersPageTitle": "Nástroje Lišess - následovníci"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6117,7 +6122,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - scores voor %s partijen met rating",
     "computeScoreText": "Spel scores",
-    "computeScoreTitle": "LiChess Tools - berekent score voor de beoordeelde spellen\r\nWaarschuwing! Als er veel partijen zijn, kan Lichess bepalen dat je hun systeem misbruikt."
+    "computeScoreTitle": "LiChess Tools - berekent score voor de beoordeelde spellen\r\nWaarschuwing! Als er veel partijen zijn, kan Lichess bepalen dat je hun systeem misbruikt.",
+    "followersPageTitle": "LiChess Tools - volgers"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7137,7 +7143,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - scores for %s rated games",
     "computeScoreText": "Game scores",
-    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system",
+    "followersPageTitle": "LiChess Tools - Followers"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8157,7 +8164,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - score pour les %s parties classées",
     "computeScoreText": "Score des parties",
-    "computeScoreTitle": "LiChess Tools - calculer le score pour les parties classées\nAttention ! S'il y a beaucoup de parties, Lichess pourrait considérer que vous abusez de leurs ressources"
+    "computeScoreTitle": "LiChess Tools - calculer le score pour les parties classées\nAttention ! S'il y a beaucoup de parties, Lichess pourrait considérer que vous abusez de leurs ressources",
+    "followersPageTitle": "Outils LiChess - Abonnés"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9177,7 +9185,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - Punkte für %s bewertete Spiele",
     "computeScoreText": "Partiturpunkte",
-    "computeScoreTitle": "LiChess Tools - Berechne Punktzahl für die bewerteten Spiele\r\nWarnung! Wenn es viele Spiele gibt, könnte Lichess entscheiden, dass du ihr System missbrauchst"
+    "computeScoreTitle": "LiChess Tools - Berechne Punktzahl für die bewerteten Spiele\r\nWarnung! Wenn es viele Spiele gibt, könnte Lichess entscheiden, dass du ihr System missbrauchst",
+    "followersPageTitle": "LiChess-Werkzeuge - Follower"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10197,7 +10206,8 @@
     "searchScoreText": "$wins $draws \" $losses",
     "searchScoreTitle": "Εργαλεία LiChess - σκορ για παιχνίδια με βαθμολογία %s",
     "computeScoreText": "Βαθμολογία παιχνιδιού",
-    "computeScoreTitle": "LiChess Tools - υπολογίστε βαθμολογία για τα βαθμολογημένα παιχνίδια\r\nΠροειδοποίηση! Αν υπάρχουν πολλά παιχνίδια, Lichess μπορεί να αποφασίσει ότι κάνετε κατάχρηση του συστήματός τους"
+    "computeScoreTitle": "LiChess Tools - υπολογίστε βαθμολογία για τα βαθμολογημένα παιχνίδια\r\nΠροειδοποίηση! Αν υπάρχουν πολλά παιχνίδια, Lichess μπορεί να αποφασίσει ότι κάνετε κατάχρηση του συστήματός τους",
+    "followersPageTitle": "Εργαλεία LiChess - Ακόλουθοι"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11217,7 +11227,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - scores for %s rated games",
     "computeScoreText": "Game scores",
-    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system",
+    "followersPageTitle": "LiChess Tools - Followers"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12237,7 +12248,8 @@
     "searchScoreText": "$wins $draws <unk> $losses",
     "searchScoreTitle": "LiChess Tools - punteggi per le partite con punteggio %s",
     "computeScoreText": "Punteggi del gioco",
-    "computeScoreTitle": "LiChess Tools - calcolare il punteggio per le partite valutate\r\nAttenzione! Se ci sono molti giochi, Lichess potrebbe decidere che stai abusando del loro sistema"
+    "computeScoreTitle": "LiChess Tools - calcolare il punteggio per le partite valutate\r\nAttenzione! Se ci sono molti giochi, Lichess potrebbe decidere che stai abusando del loro sistema",
+    "followersPageTitle": "Strumenti LiChess - Followers"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -13257,7 +13269,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - scores for %s rated games",
     "computeScoreText": "Game scores",
-    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system",
+    "followersPageTitle": "LiChess Tools - Followers"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -14277,7 +14290,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "Narzędzia LiChess - wyniki dla gier rankingowych %s",
     "computeScoreText": "Wyniki gry",
-    "computeScoreTitle": "Narzędzia LiChess - wynik obliczeń dla gier ocenianych\r\nOstrzeżenie! Jeśli jest wiele gier, Lichess może zdecydować, że nadużywasz ich systemu"
+    "computeScoreTitle": "Narzędzia LiChess - wynik obliczeń dla gier ocenianych\r\nOstrzeżenie! Jeśli jest wiele gier, Lichess może zdecydować, że nadużywasz ich systemu",
+    "followersPageTitle": "Narzędzia LiChess - Obserwujący"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -15297,7 +15311,8 @@
     "searchScoreText": "$wins ➲ $draws $losses",
     "searchScoreTitle": "Ferramentas de LiChess - resultados para jogos avaliados em %s",
     "computeScoreText": "Pontuações do jogo",
-    "computeScoreTitle": "Ferramentas LiChess - Pontuação computacional para os jogos classificados\r\nAviso! Se houver muitos jogos, o Lichess pode decidir que você está abusando do sistema deles"
+    "computeScoreTitle": "Ferramentas LiChess - Pontuação computacional para os jogos classificados\r\nAviso! Se houver muitos jogos, o Lichess pode decidir que você está abusando do sistema deles",
+    "followersPageTitle": "Ferramentas de LiChess - Seguidores"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -16317,7 +16332,8 @@
     "searchScoreText": "$wins ➲ $draws $losses",
     "searchScoreTitle": "Ferramentas de LiChess - resultados para jogos avaliados em %s",
     "computeScoreText": "Pontuações do jogo",
-    "computeScoreTitle": "Ferramentas LiChess - Pontuação computacional para os jogos classificados\r\nAviso! Se houver muitos jogos, o Lichess pode decidir que você está abusando do sistema deles"
+    "computeScoreTitle": "Ferramentas LiChess - Pontuação computacional para os jogos classificados\r\nAviso! Se houver muitos jogos, o Lichess pode decidir que você está abusando do sistema deles",
+    "followersPageTitle": "Ferramentas de LiChess - Seguidores"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -17337,7 +17353,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - scor pentru %s partide oficiale",
     "computeScoreText": "Scor partide",
-    "computeScoreTitle": "LiChess Tools - calculeaz\\u0103 scorul partidelor oficiale\nAtenție! Dacă sunt multe partide, Lichess ar putea considera asta un abuz al sistemului lor"
+    "computeScoreTitle": "LiChess Tools - calculeaz\\u0103 scorul partidelor oficiale\nAtenție! Dacă sunt multe partide, Lichess ar putea considera asta un abuz al sistemului lor",
+    "followersPageTitle": "LiChess Tools - Urmăritori"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -18357,7 +18374,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "Инструменты Жизни - результаты за %s рейтинговых игр",
     "computeScoreText": "Игровые очки",
-    "computeScoreTitle": "LiChess Tools - вычислить счет для рейтинговых игр\nПредупреждение! Если есть много игр, Lichess может решить, что вы злоупотребляете их системой"
+    "computeScoreTitle": "LiChess Tools - вычислить счет для рейтинговых игр\nПредупреждение! Если есть много игр, Lichess может решить, что вы злоупотребляете их системой",
+    "followersPageTitle": "Инструменты Жизни - Подписчики"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -19377,7 +19395,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "Herramientas de LiChess - puntuaciones para partidas por puntos %s",
     "computeScoreText": "Puntuación del juego",
-    "computeScoreTitle": "Herramientas de LiChess - calcula la puntuación de los juegos calificados\r\n¡Atención! Si hay muchos juegos, el Lichess puede decidir que está abusando de su sistema"
+    "computeScoreTitle": "Herramientas de LiChess - calcula la puntuación de los juegos calificados\r\n¡Atención! Si hay muchos juegos, el Lichess puede decidir que está abusando de su sistema",
+    "followersPageTitle": "Herramientas de LiChess - Seguidores"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -20397,7 +20416,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - scores for %s rated games",
     "computeScoreText": "Game scores",
-    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system",
+    "followersPageTitle": "LiChess Tools - Followers"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -21417,7 +21437,8 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - scores for %s rated games",
     "computeScoreText": "Game scores",
-    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system",
+    "followersPageTitle": "LiChess Tools - Followers"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -22437,6 +22458,7 @@
     "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - scores for %s rated games",
     "computeScoreText": "Game scores",
-    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system"
+    "computeScoreTitle": "LiChess Tools - compute score for the rated games\r\nWarning! If there are many games, Lichess might decide you are abusing their system",
+    "followersPageTitle": "LiChess Tools - Followers"
   }
 }
