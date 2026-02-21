@@ -8165,7 +8165,7 @@
     "searchScoreTitle": "LiChess Tools - score pour les %s parties classées",
     "computeScoreText": "Score des parties",
     "computeScoreTitle": "LiChess Tools - calculer le score pour les parties classées\nAttention ! S'il y a beaucoup de parties, Lichess pourrait considérer que vous abusez de leurs ressources",
-    "followersPageTitle": "Outils LiChess - Abonnés"
+    "followersPageTitle": "LiChess Tools - suiveurs"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
