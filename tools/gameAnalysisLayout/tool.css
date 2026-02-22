@@ -70,6 +70,9 @@
     display:none;
   }
 
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide):has(.review.mchat__tab-active) section.mchat {
+    backdrop-filter: none;
+  }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide):has(.review.mchat__tab-active) .move-times {
     display: block;
@@ -289,8 +292,13 @@
 
   body.lichessTools .lichessTools-gameAnalysisLayout-toggle {
     grid-area: uchat;
-    align-self: end;
+    align-self: center;
     justify-self: center;
+  }
+
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .lichessTools-gameAnalysisLayout-toggle {
+    grid-area: rest;
+    align-self: start;
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .lichessTools-liveStatus {
