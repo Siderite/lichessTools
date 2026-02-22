@@ -11,6 +11,7 @@
     visibility: hidden;
     max-height: 0px;
     min-height: 0px;
+    backdrop-filter: none;
   }
 
   body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat + .vertical-resize,
