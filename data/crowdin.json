@@ -3060,7 +3060,7 @@
     "searchScoreTitle": "LiChess Tools - %s 个排位对局得分",
     "computeScoreText": "对局得分",
     "computeScoreTitle": "LiChess Tools - 计算排位对局得分\n警告：如果对局数量过多，Lichess 可能会判定您滥用其系统！",
-    "followersPageTitle": "生活工具 - 关注者"
+    "followersPageTitle": "LiChess Tools - 关注者"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
