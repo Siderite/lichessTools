@@ -29,7 +29,7 @@
       const $ = lt.$;
       const dict = {};
       $.cached('.user-link,a[href^="/@/"]', 2000).each((i, e) => {
-        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app,.lichessTools-challengeOptions,#topnav').length) return;
+        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app,.lichessTools-challengeOptions,#topnav,.advice-summary__player').length) return;
 
         let textEl = $('.text', e);
         if (!textEl.length) textEl = $(e);
