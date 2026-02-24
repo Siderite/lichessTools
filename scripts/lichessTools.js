@@ -2532,7 +2532,8 @@
           const lt = this.lichessTools;
           const html = await lt.net.fetch({
             url: '/@/{userId}',
-            args: { userId },
+            args: { userId }
+          },{
             ignoreStatuses: [ 404 ]
           });
           if (!html) return [];
