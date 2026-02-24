@@ -165,6 +165,13 @@
         row(['shift', 'l'], 'explorerPractice');
         if (lt.tools.ExplorerPracticeTool.isRunning) {
           row(['h'], 'explorerPracticeHideMoves');
+          $('td.keys kbd', table)
+            .filter((i, e) => $(e).text() == 'h')
+            .parent()
+            .filter((i, e) => $('kbd', e).length == 1)
+            .closest('tr')
+            .addClass('lichessTools-disabled')
+            .attr('title', trans.noarg('seeLichessTools'));
         }
       }
       if (lt.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
