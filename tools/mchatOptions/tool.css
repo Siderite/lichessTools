@@ -17,6 +17,7 @@ body.lichessTools div.lichessTools-mchatOptions-extraButtons button {
   background:none;
   border: var(--c-link) 1px solid;
   border-radius: 33%;
+  text-align: center;
 }
 
 body.lichessTools div.lichessTools-mchatOptions-extraButtons button.lichessTools-buttonOn {
