@@ -2520,7 +2520,7 @@
         getLichessGameData: async function() {
           const lt = this.lichessTools;
           const startFen = encodeURIComponent('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
-          let data = await lt.net.json(`https://explorer.lichess.ovh/lichess?fen=${startFen}`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
+          let data = await lt.net.json(`https://explorer.lichess.ovh/lichess?fen=${startFen}&source=analysis`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
           if (!data) return;
           const explorerInfo = {};
           explorerInfo.totalGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
@@ -2538,7 +2538,7 @@
             explorerInfo.dbMonth = month;
             explorerInfo.monthText = `${year}-${month.padStart(2, '0')}`;
           }
-          data = await lt.net.json(`https://explorer.lichess.ovh/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
+          data = await lt.net.json(`https://explorer.lichess.ovh/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
           if (!data) return;
           explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
           return explorerInfo;
