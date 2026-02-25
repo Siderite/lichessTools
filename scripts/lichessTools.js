@@ -2516,6 +2516,32 @@
         toggleBookmark: async function(gameId) {
           const lt = this.lichessTools;
           await lt.net.fetch({ url: '/bookmark/{id}', args: { id: gameId } },{ method: 'POST' });
+        },
+        getLichessGameData: async function() {
+          const lt = this.lichessTools;
+          const startFen = encodeURIComponent('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
+          let data = await lt.net.json(`https://explorer.lichess.ovh/lichess?fen=${startFen}`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
+          if (!data) return;
+          const explorerInfo = {};
+          explorerInfo.totalGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+          const monthText = data.recentGames?.[0]?.month;
+          if (monthText) {
+            const m = /^(?<year>\d+)-(?<month>\d+)$/.exec(monthText)
+            explorerInfo.dbYear = +m.groups.year;
+            explorerInfo.dbMonth = +m.groups.month;
+            explorerInfo.monthText = monthText;
+          } else {
+            const date = new Date();
+            date.setMonth(date.getMonth() - 1);
+            const month = date.getMonth() + 1;
+            explorerInfo.dbYear = year;
+            explorerInfo.dbMonth = month;
+            explorerInfo.monthText = `${year}-${month.padStart(2, '0')}`;
+          }
+          data = await lt.net.json(`https://explorer.lichess.ovh/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
+          if (!data) return;
+          explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+          return explorerInfo;
         }
       },
       team: {
