@@ -2542,6 +2542,10 @@
           if (!data) return;
           explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
           return explorerInfo;
+        },
+        requestAnalysis: async function(gameId) {
+          const lt = this.lichessTools;
+          await lt.net.fetch({ url: '/{gameId}/request-analysis', args: { id: gameId } },{ method: 'POST' });
         }
       },
       team: {

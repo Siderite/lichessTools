@@ -79,7 +79,7 @@
                 if (!href) return;
                 const m = /^\/(?<id>[^\/?#\s]+)/.exec(href);
                 if (m) {
-                  await lt.net.fetch(`/${m.groups.id}/request-analysis`,{ method: 'POST' });
+                  await lt.api.game.requestAnalysis(m.groups.id);
                 }
                 lt.storage.set('analysis.panel','computer-analysis', { raw: true });
                 lt.global.location.href = href;
