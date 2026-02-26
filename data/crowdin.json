@@ -3063,7 +3063,7 @@
     "computeScoreText": "对局得分",
     "computeScoreTitle": "LiChess Tools - 计算排位对局得分\n警告：如果对局数量过多，Lichess 可能会判定您滥用其系统！",
     "followersPageTitle": "LiChess Tools - 关注者",
-    "gameListOptions.showScore": "显示游戏结果"
+    "gameListOptions.showScore": "显示对局结果"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",

@@ -12,6 +12,7 @@ body.lichessTools div.lichessTools-mchatOptions-extraButtons {
 
 body.lichessTools div.lichessTools-mchatOptions-extraButtons button {
   display: none;
+  margin-top: 2px;
   padding: 3px;
   min-width: 2em;
   background:none;
