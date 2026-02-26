@@ -145,12 +145,14 @@
       }
     };
 
-    toggleSiteHeader = () => {
+    handleHKey = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
       if (this.makeMoveMode != 'general') {
         if (lt.tools.ExplorerPracticeTool.isRunning) {
           $('.lichessTools-hideExplorerMovesButton').trigger('click');
+        } else {
+          this.oldHandlers['h']();
         }
         return;
       }
@@ -199,15 +201,6 @@
     bindKeysForAnalysis = () => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
-      if (!this.oldHandlers) {
-        this.oldHandlers = {
-          i: lt.getKeyHandler('i'),
-          m: lt.getKeyHandler('m'),
-          b: lt.getKeyHandler('b'),
-          f: lt.getKeyHandler('f'),
-          r: lt.getKeyHandler('r')
-        };
-      }
       lt.unbindKeyHandler('i');
       lt.unbindKeyHandler('m');
       lt.unbindKeyHandler('b');
@@ -222,7 +215,6 @@
       lt.unbindKeyHandler('shift+.', true);
       lt.unbindKeyHandler('`', true);
       lt.unbindKeyHandler('f');
-      lt.unbindKeyHandler('h', true);
       lt.unbindKeyHandler('r');
       lt.unbindKeyHandler('backspace', true);
       lt.unbindKeyHandler('ctrl+f', true);
@@ -260,7 +252,6 @@
           lt.bindKeyHandler(combo, () => this.handleDigitKey(combo));
         }
         lt.bindKeyHandler('`', () => this.prepareMove('general'));
-        lt.bindKeyHandler('h', this.toggleSiteHeader);
         lt.bindKeyHandler('f', this.freezeBoard);
         lt.bindKeyHandler('r', this.randomChapter);
         if (analysis.ongoing) {
@@ -374,13 +365,28 @@
     bindKeysForGeneral = () => {
       const lt = this.lichessTools;
       lt.unbindKeyHandler('`', true);
-      lt.unbindKeyHandler('h', true);
+      lt.unbindKeyHandler('h');
       const document = lt.global.document;
       $(document).off('copy', this.copyFenOrImage);
       if (this.options.enabled) {
         lt.bindKeyHandler('`', () => this.prepareMove('general'));
-        lt.bindKeyHandler('h', this.toggleSiteHeader);
+        lt.bindKeyHandler('h', this.handleHKey);
         $(document).on('copy', this.copyFenOrImage);
+      } else {
+      }
+    };
+
+    preserveOriginalHandlers = () => {
+      const lt = this.lichessTools;
+      if (!this.oldHandlers) {
+        this.oldHandlers = {
+          i: lt.getKeyHandler('i'),
+          m: lt.getKeyHandler('m'),
+          b: lt.getKeyHandler('b'),
+          f: lt.getKeyHandler('f'),
+          r: lt.getKeyHandler('r'),
+          h: lt.getKeyHandler('h')
+        };
       }
     };
 
@@ -395,6 +401,7 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const isEditorBoard = $('main').is('#board-editor');
+      this.preserveOriginalHandlers();
       if (analysis) {
         this.bindKeysForAnalysis();
       } else if (isEditorBoard) {
