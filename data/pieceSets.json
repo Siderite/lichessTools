@@ -6,12 +6,6 @@
       "url": "https://siderite.github.io/ChessPursuit/pieces/",
       "type": "svg"
     },
-    {
-      "category": "siderite",
-      "name": "Neon",
-      "url": "https://github.com/Siderite/lichessTools/raw/refs/heads/master/images/neon/",
-      "type": "svg"
-    },
 
     {
       "category": "chesscom",
