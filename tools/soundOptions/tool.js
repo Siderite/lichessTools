@@ -234,7 +234,7 @@
       'genericNotify', 'lowtime', 'move', 'newChallenge', 'newPM', 'outofbound', 'practiceComplete', 'tournament1st', 'tournament2nd', 'tournament3rd',
       'tournamentOther', 'victory' ];
     themeUrls = new Map([
-      ['chessPursuit','https://siderite.github.io/ChessPursuit/sound/']
+      ['chessPursuit','https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/sound/']
     ]);
     soundUrls = new Map();
     loadSound = async (e) => {

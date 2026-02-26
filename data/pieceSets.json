@@ -3,7 +3,13 @@
     {
       "category": "siderite",
       "name": "Chess Pursuit",
-      "url": "https://siderite.github.io/ChessPursuit/pieces/",
+      "url": "https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/pieces/",
+      "type": "svg"
+    },
+    {
+      "category": "siderite",
+      "name": "Neonate",
+      "url": "https://siderite.github.io/lichessToolsAdjacent/Neonate/pieces/",
       "type": "svg"
     },
 
