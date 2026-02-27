@@ -1,6 +1,10 @@
 {
   "data": [
     {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Neonate/board/Neonate.jpg",
+      "text": "Neonate"
+    },
+    {
       "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/26brown.png",
       "text": "26 Brown"
     },

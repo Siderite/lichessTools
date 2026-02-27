@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Feb
+
+- Neonate piece set and board
+
 16 Feb
 
 - game scores in game lists
