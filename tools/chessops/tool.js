@@ -33,7 +33,7 @@
         return;
       }
       if (!lt.chessops) {
-        lt.comm.getChromeUrl('tools/chessops/index.js').then(async (url)=>{
+        lt.comm.getChromeUrl('tools/chessops/chessops.bundle.mjs').then(async (url)=>{
           lt.chessops = await import(url);
         });
       }
