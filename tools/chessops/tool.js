@@ -33,6 +33,7 @@
         return;
       }
       if (!lt.chessops) {
+        // generate this with the BundleChessops project from LiChessToolsAdjacent
         lt.comm.getChromeUrl('tools/chessops/chessops.bundle.mjs').then(async (url)=>{
           lt.chessops = await import(url);
         });
