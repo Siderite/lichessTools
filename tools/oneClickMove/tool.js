@@ -40,8 +40,8 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       const key = fen + '/' + variant;
-      let destMan = analysis?.chessground.state?.movable?.dests || this._cache.get(key);
-      if (!destMan && analysis?.socket) {
+      let destMan = analysis.node.dests() || analysis?.chessground.state?.movable?.dests || this._cache.get(key);
+      if (!destMan && analysis?.socket?.sendAnaDests) { // TODO sendAnaDests has been removed by Lichess, so should be removed from here
         analysis.socket.sendAnaDests({
           variant: variant,
           fen: fen,
@@ -89,7 +89,7 @@
       if (!ev.x && !ev.y) return;
       const board = $('div.main-board cg-board');
       if (!board.length) return;
-      if ($('square.selected', board).length) return;
+      if ($('square.selected:not([style*="hidden"])', board).length) return;
       const rect = board[0].getBoundingClientRect();
       const [x, y] = [ev.x - rect.x, ev.y - rect.y];
       const variant = this.getVariant(board.closest('div.round__app, main'));
@@ -149,11 +149,12 @@
       }
       if (uci) {
         ev.preventDefault();
-        if (analysis) {
+        // use the manual playUci, because of promotions
+        /*if (analysis) {
           lt.global.setTimeout(() => analysis.playUci(uci), 50);
-        } else {
+        } else {*/
           this.playUci(uci, board, orientation);
-        }
+        /*}*/
       }
     };
 
@@ -179,7 +180,7 @@
       mousedown(fauxEv);
       board.trigger('mouseup');
       await lt.timeout(50);
-      if ($('square.selected', board).length) {
+      if ($('square.selected:not([style*="hidden"])', board).length) {
         coords = this.getCoords(uci.slice(-2), board, orientation);
         fauxEv.clientX = coords.x;
         fauxEv.clientY = coords.y;

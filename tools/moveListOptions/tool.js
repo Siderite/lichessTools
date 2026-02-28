@@ -304,6 +304,10 @@
     analysisControls = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      if (lt.currentOptions.enableLichessTools === false) {
+        $('.lichessTools-separator,.abset-indentedVariations,.abset-fullWidthAnalysis,.abset-hideLeftSide').remove();
+        return;
+      }
       const trans = lt.translator;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
@@ -312,17 +316,17 @@
       const container = $('div.analyse__tools div.action-menu');
       if (!container.length) return;
 
+
+      if (!$('h2.lichessTools-separator', container).length) {
+        $('<h2 class="lichessTools-separator">')
+          .text(trans.noarg('LiChess Tools'))
+          .appendTo(container)
+          .insertBefore('.lichessTools-actionMenu');
+      }
+
       if (!$('.abset-indentedVariations', container).length) {
-        const html = `<div class="setting abset-indentedVariations" title="LiChess Tools - $trans(moveListOptions.indentedVariations)">
-      <div class="switch">
-        <input id="abset-indentedVariations" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-indentedVariations"></label>
-      </div>
-      <label for="abset-indentedVariations">$trans(moveListOptions.indentedVariations)</label>
-    </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
-        });
-        $(html).insertAfter($('div.abset-inline', container).eq(0));
+        $.createToggle('abset-indentedVariations',trans.noarg('moveListOptions.indentedVariations'),'LiChess Tools - '+trans.noarg('moveListOptions.indentedVariations'))
+          .insertAfter($('h2.lichessTools-separator', container));
         $('#abset-indentedVariations')
           .on('change', async () => {
             this.options.indentedVariations = $('#abset-indentedVariations').is(':checked');
@@ -336,16 +340,8 @@
         .prop('checked', this.options.indentedVariations);
 
       if (!$('.abset-fullWidthAnalysis', container).length) {
-        const html = `<div class="setting abset-fullWidthAnalysis" title="LiChess Tools - $trans(moveListOptions.fullWidthAnalysis)">
-      <div class="switch">
-        <input id="abset-fullWidthAnalysis" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-fullWidthAnalysis"></label>
-      </div>
-      <label for="abset-fullWidthAnalysis">$trans(moveListOptions.fullWidthAnalysis)</label>
-    </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
-        });
-        $(html).insertAfter($('div.abset-indentedVariations', container).eq(0));
+        $.createToggle('abset-fullWidthAnalysis',trans.noarg('moveListOptions.fullWidthAnalysis'),'LiChess Tools - '+trans.noarg('moveListOptions.fullWidthAnalysis'))
+          .insertAfter($('.abset-indentedVariations', container).eq(0));
         $('#abset-fullWidthAnalysis')
           .on('change', async () => {
             this.options.fullWidthAnalysis = $('#abset-fullWidthAnalysis').is(':checked');
@@ -359,16 +355,8 @@
         .prop('checked', this.options.fullWidthAnalysis);
 
       if (!$('.abset-hideLeftSide', container).length) {
-        const html = `<div class="setting abset-hideLeftSide" title="LiChess Tools - $trans(moveListOptions.hideLeftSide)">
-      <div class="switch">
-        <input id="abset-hideLeftSide" class="cmn-toggle" type="checkbox" checked="">
-        <label for="abset-hideLeftSide"></label>
-      </div>
-      <label for="abset-hideLeftSide">$trans(moveListOptions.hideLeftSide)</label>
-    </div>`.replace(/\$trans\(([^\)]+)\)/g, m => {
-          return lt.htmlEncode(trans.noarg(m.slice(7, -1)));
-        });
-        $(html).insertAfter($('div.abset-fullWidthAnalysis', container).eq(0));
+        $.createToggle('abset-hideLeftSide',trans.noarg('moveListOptions.hideLeftSide'),'LiChess Tools - '+trans.noarg('moveListOptions.hideLeftSide'))
+          .insertAfter($('.abset-fullWidthAnalysis', container).eq(0));
         $('#abset-hideLeftSide')
           .on('change', async () => {
             this.options.hideLeftSide = $('#abset-hideLeftSide').is(':checked');

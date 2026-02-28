@@ -1,0 +1,1 @@
+# Generate the puzzle.nif file with AssetGenerator from LiChessToolsAdjacent

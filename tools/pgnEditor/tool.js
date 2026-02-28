@@ -247,6 +247,7 @@
       lt.global.document.title = trans.noarg('pgnEditorTitle');
 
       $('dialog.lichessTools-pgnEditor').trigger('close').remove();
+      lichess.asset.loadCssPath('bits.dialog');
       const dialog = $('<dialog class="lichessTools-pgnEditor">')
         .on('close',()=>{
           lt.global.document.title = this._prevTitle;

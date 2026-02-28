@@ -136,6 +136,7 @@
       ctx.drawImage(img, 0, 0, 800, 800);
       const q = 800 / board.width();
       board.find('square.selected,square.last-move').each((i, e) => {
+        if ($(e).css('visibility')=='hidden') return; //https://github.com/lichess-org/lila/issues/19260
         const css = {
           background: $(e).css('background-color'),
         };
@@ -180,6 +181,7 @@
       }
       board.find('square.move-dest')
         .each((i, e) => {
+          if ($(e).css('visibility')=='hidden') return; //https://github.com/lichess-org/lila/issues/19260
           const css = {
             background: '#14551e80',
             borderColor: $(e).css('border-color'),
@@ -223,6 +225,7 @@
         ctx.drawImage(img, 0, 0, $(e).width()*q, $(e).height()*q);
       });
       $('dialog.lichessTools-boardImage').remove();
+      lichess.asset.loadCssPath('bits.dialog');
       const dialog = $('<dialog class="lichessTools-boardImage">')
         .append(`<form>
     <div class="close-button-anchor">

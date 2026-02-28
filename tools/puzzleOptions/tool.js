@@ -120,21 +120,18 @@
         lt.pubsub.on('lichessTools.puzzleEnd',this.endTimer);
       }
       if (this.isTrainingPage()) {
-        const session = $('.puzzle__session');
-        session
+        $('body')
           .observer()
-          .off('.puzzle__session a',this.showTotal);
+          .off('.puzzle__session',this.showTotal);
         if (this.options.showSessionTotal) {
-          if (session.length) {
-            session
-              .observer()
-              .on('.puzzle__session a',this.showTotal, {
-                childList: true,
-                subtree: false,
-                attributes: true
-              });
-            this.showTotal();
-          }
+          $('body')
+            .observer()
+            .on('.puzzle__session',this.showTotal, {
+              childList: true,
+              subtree: true,
+              attributes: true
+            });
+          this.showTotal();
         }
       }
     }

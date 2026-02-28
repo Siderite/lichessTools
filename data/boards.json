@@ -1,6 +1,10 @@
 {
   "data": [
     {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Neonate/board/Neonate.jpg",
+      "text": "Neonate"
+    },
+    {
       "value": "https://raw.githubusercontent.com/chesshelper/lichesshelper/refs/heads/main/chrome/assets/img/br_main/26brown.png",
       "text": "26 Brown"
     },
@@ -281,6 +285,10 @@
     {
       "value": "https://raw.githubusercontent.com/GiorgioMegrelli/chess.com-boards-and-pieces/refs/heads/master/boards/walnut.png",
       "text": "Chess.com walnut"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/marcenwasser/custom-chess-board/refs/heads/main/yellowgold.png",
+      "text": "Marcen Wasser yellow gold"
     }
   ]
 }

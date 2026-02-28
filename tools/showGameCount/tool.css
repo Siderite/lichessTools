@@ -3,6 +3,8 @@ body.lichessTools .lichessTools-gameCountBadge {
   color: #888;
   font-size: 0.85em;
   margin-left: 4px;
+  margin-top: auto;
+  margin-bottom: auto;
   white-space: nowrap;
   vertical-align: baseline;
   display: inline-block;

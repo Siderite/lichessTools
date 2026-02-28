@@ -103,7 +103,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const dialog = $('dialog.lichessTools-video');
-      if (lt.inViewport($('.dialog-header', dialog)) < 0.5) {
+      if (lt.inViewport($('.dialog-header', dialog), true) < 0.5) {
         $(dialog).css({ left: '', top: '', right: '', bottom: '' });
         $('.dialog-content', dialog).css({ width: '', height: '' });
       }

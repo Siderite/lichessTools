@@ -74,7 +74,7 @@ body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disab
     height: 3em;
   }
 
-  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button {
+  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button:not[data-act="engine-mode"] {
     min-width: 2.5em;
     min-height: 2.5em;
     margin: 0;
@@ -130,7 +130,7 @@ body.lichessTools.mobile main div.rcontrols .fbt {
   padding: 0.1em 1.2em;
 }
 
-body.lichessTools.mobile main div.rcontrols .board-menu-toggle {
+body.lichessTools.mobile main div.rcontrols .board-menu-toggle-btn {
   margin-left: 1.2em;
 }
 

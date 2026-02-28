@@ -93,11 +93,11 @@
         useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) >= 4;
       }
       if (useBetterEngine) {
-        engineId = '__sf17_1nnue79';
-        engineRoot = 'sf171-79.js';
+        engineId = '__sf18_smallnet';
+        engineRoot = 'sf_18_smallnet.js';
       } else {
-        engineId = '__sf17_1nnue7v2';
-        engineRoot = 'sf171-7.js';
+        engineId = '__sf18';
+        engineRoot = 'sf_18.js';
       }
       try {
         if (!this._module) {

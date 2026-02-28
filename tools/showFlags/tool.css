@@ -33,7 +33,7 @@ body.lichessTools td.player {
 }
 
 /* for blog */
-body.lichessTools span.ublog-post-card__content img.flag {
+body.lichessTools .ublog-post-card img.flag {
   right: 0px;
   position: absolute;
   z-index: 10;
@@ -47,6 +47,13 @@ body.lichessTools .ublog-post__meta img.flag {
 body.lichessTools .ublog-post__markup img.flag {
   display: inline-block;
   max-height: 1.25em;
+}
+
+body.lichessTools .ublog-post__markup img.flag+em,
+body.lichessTools .ublog-post__markup img.flag+br+em {
+  display: inline;
+  font-size: unset;
+  color: unset;
 }
 
 /* for berserk mode overlapping the flag */

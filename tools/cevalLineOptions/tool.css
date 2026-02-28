@@ -252,6 +252,12 @@ body.lichessTools .lichessTools-downloadCeval {
   top: 0;
   right: 0.1em;
   z-index: auto;
+  opacity: 0.5;
+}
+
+body.lichessTools.mobile .lichessTools-downloadCeval,
+body.lichessTools .lichessTools-downloadCeval:hover {
+  opacity:1;
 }
 
 body.lichessTools .lichessTools-downloadCeval.hasAnalysis {
@@ -292,4 +298,26 @@ body.lichessTools .lichessTools-drawPvs div.warn {
 
 body.lichessTools .lichessTools-drawPvs div.good {
   background: var(--c-good);
+}
+
+body.lichessTools div.pv[data-cost] > strong:after,
+body.lichessTools div.pv[data-cost]:not(:has(strong)):after {
+  margin-left: 2px;
+  font-size: smaller;
+  content: "$";
+  color: var(--cost-color);
+}
+
+body.lichessTools div.pv[data-cost="1"] > strong:after,
+body.lichessTools div.pv[data-cost="1"]:not(:has(strong)):after {
+  color: var(--c-font);
+}
+
+body.lichessTools div.pv[data-cost]:not(:has(strong)) {
+  padding-left: 0.33em;
+}
+
+body.lichessTools div.pv[data-cost]:not(:has(strong)):after {
+  position:absolute;
+  left:0;
 }

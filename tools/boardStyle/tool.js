@@ -41,13 +41,13 @@
         const q = 800/containerWidth;
         container.toggleClassSafe('lichessTools-boardStyle',true);
 
-        const selectedKey = container.find('square.selected').prop('cgKey');
+        const selectedKey = container.find('square.selected:not([style*="hidden"])').prop('cgKey');
         container.find('piece')
           .each((i,e)=>{
             $(e).toggleClassSafe('selected',!!(selectedKey && e.cgKey==selectedKey));
           });
 
-        const lastMoves = container.find('.last-move').get();
+        const lastMoves = container.find('.last-move:not([style*="hidden"])').get();
         let arrow = container.find('.lichessTools-lastMoveArrow');
         if (lastMoves.length==2) {
           $(lastMoves[0])

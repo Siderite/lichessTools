@@ -8,7 +8,7 @@
         name: 'gameListOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['aborted', 'analysis', 'titledOpponents', 'select', 'analysisLink', 'color', 'extraInfo', 'remove', 'textFilter'],
+        possibleValues: ['aborted', 'analysis', 'titledOpponents', 'select', 'analysisLink', 'color', 'extraInfo', 'remove', 'textFilter','showScore'],
         defaultValue: 'select,analysis,analysisLink,color,aborted,extraInfo,remove',
         advanced: true
       }
@@ -32,6 +32,7 @@
         'gameListOptions.extraInfo': 'More info button',
         'gameListOptions.remove': 'Remove games',
         'gameListOptions.textFilter': 'Text filter',
+        'gameListOptions.showScore': 'Show game results',
         'abortedGamesLabel': 'Show aborted:',
         'colorGamesLabel': 'Color by players:',
         'analysedGamesLabel': 'Only analysed:',
@@ -54,7 +55,12 @@ Average centipawn loss: $acpl
 Inaccuracies / mistakes / blunders
   White: $whiteMoves
   Black: $blackMoves`,
-        'textFilterPlaceholder': 'filter words'
+        'textFilterPlaceholder': 'filter words',
+        'searchScoreText': '$wins | $draws | $losses',
+        'searchScoreTitle': 'LiChess Tools - scores for %s rated games',
+        'computeScoreText': 'Game scores',
+        'computeScoreTitle': `LiChess Tools - compute score for the rated games
+Warning! If there are many games, Lichess might decide you are abusing their system`
       },
       'ro-RO': {
         'options.general': 'General',
@@ -68,6 +74,7 @@ Inaccuracies / mistakes / blunders
         'gameListOptions.extraInfo': 'Buton informa\u0163ii \u00een plus',
         'gameListOptions.remove': 'Elimin\u0103 jocuri',
         'gameListOptions.textFilter': 'Filtru text',
+        'gameListOptions.showScore': 'Arat\u0103 scorul partidelor',
         'abortedGamesLabel': 'Arat\u0103 anulate:',
         'colorGamesLabel': 'Culoare dup\u0103 juc\u0103tori:',
         'analysedGamesLabel': 'Doar analizate:',
@@ -90,7 +97,12 @@ ACPL: $acpl
 Inexactit\u0103\u0163i/gre\u015feli/gafe
   Alb: $whiteMoves
   Negru: $blackMoves`,
-        'textFilterPlaceholder': 'cuvinte filtru'
+        'textFilterPlaceholder': 'cuvinte filtru',
+        'searchScoreText': '$wins | $draws | $losses',
+        'searchScoreTitle': 'LiChess Tools - scor pentru %s partide oficiale',
+        'computeScoreText': 'Scor partide',
+        'computeScoreTitle': `LiChess Tools - calculeaz\u0103 scorul partidelor oficiale
+Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un abuz al sistemului lor`
       }
     }
 
@@ -346,11 +358,68 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
     rightClickGame = ev=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-       const href = $(ev.currentTarget).closest('article.game-row').attr('data-orig-href');
-       if (href) {
-         ev.preventDefault();
-         lt.global.open(href, '_blank');
-       }
+      const href = $(ev.currentTarget).closest('article.game-row').attr('data-orig-href');
+      if (href) {
+        ev.preventDefault();
+        lt.global.open(href, '_blank');
+      }
+    };
+
+    computeScore = async (span, userId)=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      if (!this.options.showScore || this.inShowScore) return;
+      const url = new URL(lt.global.location.href);
+      url.searchParams.set('page',1);
+      try {
+        this.inShowScore = true;
+        span.addClass('computing');
+
+        let page = await lt.net.json(url);
+        let count = page?.paginator?.nbPages || 0;
+        if (count>18) count=18;
+        let [w,d,l] = [0,0,0];
+        while (page) {
+          for (const game of page.paginator.currentPageResults) {
+            if (!game.rated) continue;
+            const isWhite = (game.players?.white?.userId && game.players.white.userId.toLowerCase()==userId)
+                            || (game.players?.black?.userId && game.players.black.userId.toLowerCase()!=userId);
+            if (game.winner=='white') {
+              if (isWhite) w++; else l++;
+            } else
+            if (game.winner=='black') {
+              if (isWhite) l++; else w++;
+            } else {
+              d++;
+            }
+          }
+          const text = trans.noarg('searchScoreText')
+                       .replace('$wins',w)
+                       .replace('$draws',d)
+                       .replace('$losses',l);
+          span.text(text)
+            .attr('title',trans.pluralSame('searchScoreTitle',w+d+l));
+          
+          count--;
+          const pageIndex = page.paginator.nextPage;
+          url.searchParams.set('page',pageIndex);
+          try {
+            await lt.timeout(2000);
+            page = count && pageIndex
+              ? await lt.net.json(url)
+              : null;
+          } catch(e) {
+            if (e.response?.status==429) {
+              await lt.timeout(20000);
+            }
+          }
+        }
+
+      } finally {
+        this.inShowScore = false;
+        span.removeClass('computing');
+      }
     };
 
     processListsDirect = ()=>{
@@ -485,6 +554,32 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
         });
         this.refreshActions();
       }
+      if (this.options.showScore) {
+        const match = /games\/search\b(?:.*?)players.a=(?<userId1>[^\/\?&#]+)|@\/(?<userId2>[^\/\?&#]+)\/search\b/.exec(lt.global.location.href);
+        if (match) {
+          const userId = (match.groups.userId1||match.groups.userId2).toLowerCase();
+          const gameTitle = $('.search__status > strong:first-child');
+          if (gameTitle.length && !gameTitle.siblings('.lichessTools-showScore').length) {
+            const span=$('<span class="lichessTools-showScore">')
+                         .insertAfter(gameTitle);
+            const games = +(/\d+/.exec(gameTitle.text().replaceAll(',',''))?.[0]);
+            if (games && games<50) {
+              this.computeScore(span,userId);
+            } else {
+              $('<a href="#">')
+                .text(trans.noarg('computeScoreText'))
+                .attr('title',trans.noarg('computeScoreTitle'))
+                .on('click',ev=>{
+                  ev.preventDefault();
+                  this.computeScore(span,userId);
+                })
+                .appendTo(span);
+            }
+          }
+        }
+      } else {
+        $('.search__status .lichessTools-showScore').remove();
+      }
       $('article.game-row',container).each((i,e)=>{
         const playerElems = $('.versus div.player>span:first-child, .versus div.player a.user-link',e)
                           .get();
@@ -555,6 +650,7 @@ Inexactit\u0103\u0163i/gre\u015feli/gafe
         extraInfo: lt.isOptionSet(value, 'extraInfo'),
         remove: lt.isOptionSet(value, 'remove'),
         textFilter: lt.isOptionSet(value, 'textFilter'),
+        showScore: lt.isOptionSet(value, 'showScore'),
         get isSet() { return this.aborted || this.color || this.select || this.analysis || this.analysisLink || this.titledOpponents || this.extraInfo || this.remove || this.textFilter; }
       };
       $('div.search__result .lichessTools-gameListOptions').remove();

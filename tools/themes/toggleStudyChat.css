@@ -11,6 +11,7 @@
     visibility: hidden;
     max-height: 0px;
     min-height: 0px;
+    backdrop-filter: none;
   }
 
   body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat + .vertical-resize,
@@ -18,14 +19,14 @@
     display: none;
   }
 
-  body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat__tab .switch {
+  body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat__tab .cmn-toggle {
     visibility: visible;
     position: absolute;
     bottom: -2em;
     left: 1em;
   }
 
-  body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat__tab .switch label:before {
+  body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat__tab .cmn-toggle label:before {
     content: var(--icon-BubbleSpeech);
   }
 
@@ -44,7 +45,7 @@
 
 @media (min-width: 1259.3px) {
 
-  body.lichessTools.lichessTools-prettier.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat__tab .switch {
+  body.lichessTools.lichessTools-prettier.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat__tab .cmn-toggle {
     position: absolute !important;
   }
 

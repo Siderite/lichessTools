@@ -81,6 +81,15 @@
         if (!this.indexFile && lt.file) {
           const dbKey = 'lichessTools/LT/puzzleIndex-file';
           const fileHandle = await lt.storage.get(dbKey,{ db: true, raw: true });
+          if (!lt.global.navigator?.userActivation?.hasBeenActive) {
+            return;
+          }
+          if (fileHandle.queryPermission && fileHandle.requestPermission) {
+            const perm = await fileHandle.queryPermission({ mode: "read" });
+            if (perm !== "granted") {
+              await fileHandle.requestPermission({ mode: "read" });
+            }
+          }
           const file = await fileHandle.getFile();
           const lastModified = file.lastModified;
           const onServer = await lt.comm.getHeadData('https://siderite.dev/puzzle.nif.zip');
@@ -174,7 +183,7 @@
         }
         if (fen != lichess.analysis.node.fen?.split(' ').slice(0,2).join(' ')) return;
         if (table.length) {
-          if (table.next('table').length) {
+          if (table.next('table,.lichessTools-evalRow').length) {
             table.appendTo(container);
           }
         } else {

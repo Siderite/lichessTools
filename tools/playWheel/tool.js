@@ -36,8 +36,8 @@
         const button = $.cached('.round__app .buttons button.fbt[data-icon="'+icon+'"], .round__app rb1 button.fbt[data-icon="'+icon+'"]');
         if (!button.prop('disabled')) {
           button
-            .trigger('mousedown')
-            .trigger('mouseup');
+            .trigger('pointerdown')
+            .trigger('pointerup');
             //.prop('disabled',true);
         }
         this.scrollTotal = 0;
@@ -56,7 +56,12 @@
       const isRound = !!$('main.round,main.puzzle').length;
       if (!isRound) return;
       $('body').off('wheel',this.wheel);
+      this._oldReleasePC |= Element.prototype.releasePointerCapture;
       if (this.options.enabled) {
+        Element.prototype.releasePointerCapture = function(pointerId) {
+          if (!pointerId) return;
+          return this._oldReleasePC.call(this,pointerId);
+        };
         $('body').on('wheel',this.wheel);
       }
     }

@@ -18,11 +18,7 @@
           'tour-join',
           'follow',
           'study-like',
-          'ublog-post-like'/*,
-          'stream-start',
-          'game-end',
-          'plan-start',
-          'plan-renew'*/
+          'ublog-post-like'
         ],
         defaultValue: 'forum-post,ublog-post',
         advanced: true,

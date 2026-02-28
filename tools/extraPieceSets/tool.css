@@ -67,3 +67,8 @@ body.lichessTools #dasher_app button.lichessTools-extraPieceSets.sharechess {
   border-radius:15%;
   border: 1px dotted red;
 }
+
+body.lichessTools #dasher_app button.lichessTools-extraPieceSets.NayukiMafuyu {
+  border-radius:25%;
+  border: 1px solid yellow;
+}

@@ -6,6 +6,7 @@
       this.global = global;
       this.comm.init();
       this.sri = this.randomToken();
+      delete this.global.lichessIcons;
     }
 
     $ = null;
@@ -81,135 +82,7 @@
     };
 
     icon = {
-      // see https://github.com/lichess-org/lila/blob/master/modules/ui/src/main/Icon.scala
-      // and https://lichess1.org/assets/oops/font.html
-      CautionTriangle: '\ue000',
-      Link: '\ue001',
-      Rabbit: '\ue002',
-      ShareIos: '\ue003',
-      ShareAndroid: '\ue004',
-      Gear: '\ue005',
-      DieSix: '\ue006',
-      FlagKingHill: '\ue007',
-      FlameBlitz: '\ue008',
-      Feather: '\ue009',
-      Turtle: '\ue00a',
-      FlagChessboard: '\ue00b',
-      ArcheryTarget: '\ue00c',
-      ThreeCheckStack: '\ue00d',
-      UploadCloud: '\ue00e',
-      ExternalArrow: '\ue00f',
-      AnalogTv: '\ue010',
-      RssFeed: '\ue011',
-      StudyBoard: '\ue012',
-      Shield: '\ue013',
-      InkQuill: '\ue014',
-      Target: '\ue015',
-      Crown: '\ue016',
-      LineGraph: '\ue017',
-      GraduateCap: '\ue018',
-      PaperAirplane: '\ue019',
-      ZoomIn: '\ue01a',
-      Expand: '\ue01b',
-      Atom: '\ue01c',
-      List: '\ue01d',
-      Antichess: '\ue01e',
-      Microscope: '\ue01f',
-      ChasingArrows: '\ue020',
-      CrownElite: '\ue021',
-      Funnel: '\ue022',
-      Checkmark: '\ue023',
-      InternalArrow: '\ue024',
-      PlayTriangle: '\ue025',
-      GreaterThan: '\ue026',
-      LessThan: '\ue027',
-      DiscBig: '\ue028',
-      DiscBigOutline: '\ue029',
-      X: '\ue02a',
-      ArrowDownRight: '\ue02b',
-      ArrowUpRight: '\ue02c',
-      PlusButton: '\ue02d',
-      MinusButton: '\ue02e',
-      Fire: '\ue02f',
-      DownTriangle: '\ue030',
-      UpTriangle: '\ue031',
-      Bullet: '\ue032',
-      Swords: '\ue033',
-      JumpLast: '\ue034',
-      JumpFirst: '\ue035',
-      JumpNext: '\ue036',
-      JumpPrev: '\ue037',
-      Pause: '\ue038',
-      Hamburger: '\ue039',
-      Globe: '\ue03a',
-      Book: '\ue03b',
-      BarGraph: '\ue03c',
-      Keypad: '\ue03d',
-      Berserk: '\ue03e',
-      Padlock: '\ue03f',
-      FlagOutline: '\ue040',
-      BubbleSpeech: '\ue041',
-      BubbleConvo: '\ue042',
-      Envelope: '\ue043',
-      Group: '\ue044',
-      Trophy: '\ue045',
-      ThumbsUp: '\ue046',
-      Back: '\ue047',
-      CautionCircle: '\ue048',
-      NotAllowed: '\ue049',
-      RandomColor: '\ue04a',
-      Pencil: '\ue04b',
-      Cogs: '\ue04c',
-      Tag: '\ue04d',
-      Clock: '\ue04e',
-      Trash: '\ue04f',
-      User: '\ue050',
-      StarOutline: '\ue051',
-      Star: '\ue052',
-      MoreTriangle: '\ue053',
-      Eye: '\ue054',
-      Power: '\ue055',
-      Download: '\ue056',
-      Search: '\ue057',
-      Forward: '\ue058',
-      UltraBullet: '\ue059',
-      Storm: '\ue05a',
-      Tools: '\ue05b',
-      Bullseye: '\ue05c',
-      Agent: '\ue05d',
-      Mic: '\ue05e',
-      BarChart: '\ue05f',
-      InfoCircle: '\ue060',
-      ScreenDesktop: '\ue061',
-      PhoneMobile: '\ue062',
-      Multiboard: '\ue063',
-      HeartOutline: '\ue064',
-      FlagRacingKings: '\ue065',
-      Crazyhouse: '\ue066',
-      Tshirt: '\ue067',
-      Heart: '\ue068',
-      RadioTower: '\ue069',
-      BellOutline: '\ue06a',
-      Disc: '\ue06b',
-      Wings: '\ue06c',
-      DiscOutline: '\ue06d',
-      Handset: '\ue06e',
-      ArrowThruApple: '\ue06f',
-      Clipboard: '\ue070',
-      Move: '\ue071',
-      Ibeam: '\ue072',
-      Cancel: '\ue073',
-      Voice: '\ue074',
-      Mask: '\ue075',
-      OneHalf: '\ue076',
-      Mute: '\ue077',
-      Reload: '\ue078',
-      AccountCircle: '\ue079',
-      Logo: '\ue07a',
-      Switch: '\ue07b',
-      Blindfold: '\ue07c',
-      NextLine: '\ue07d',
-      Cpu: '\ue07e',
+      ...lichessIcons,
 
       // LiChess Tools icons
       ShowTranspositions: 'T',
@@ -892,12 +765,14 @@
       const mUser = /\/@\/([^\/]+)/.exec(this.global.location.pathname);
       const analysisUrl = $('div.buttons a.analysis,rb1 a.analysis').attr('href') || '';
       const mAnalysis = /^\/([^\/]+)\/?(black)?/.exec(analysisUrl);
+      const orientation = $('.main-board > .cg-wrap').is('.orientation-black') ? 'black' : 'white';
       return {
         isTv: !!mTv,
         isUserTv: !!mTv && !!mUser,
         user: !!mTv && mUser && mUser[1],
         channel: mTv && !mUser && (mTv[2] || 'best'),
         gameId: !!mAnalysis && mAnalysis[1],
+        orientation: orientation,
         isBlack: !!mAnalysis && mAnalysis[2]
       };
     };
@@ -982,10 +857,6 @@
       if (this.global.document.visibilityState == 'hidden') return 0;
 
       if (!forced) return 1; // this is too expensive
-
-      if (Date.now() - element.__inViewport?.time < 5000) {
-        return element.__inViewport.value;
-      }
 
       const calculateViewport = ()=>{
         if (this.traverseState?.nodeIndex > 1000) return element.parentNode ? 1 : 0; // for large studies, stop caring about this
@@ -1153,11 +1024,11 @@
         state.nodeIndex++;
 
         node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
-        node.position = this.getNodePosition(node);
-        let pos = state.positions[node.position];
+        node.lt_position = this.getNodePosition(node);
+        let pos = state.positions[node.lt_position];
         if (!pos) {
           pos = [];
-          state.positions[node.position] = pos;
+          state.positions[node.lt_position] = pos;
         }
         pos.push(node);
         if (pos.length > 1) {
@@ -1293,7 +1164,7 @@
       const lastMove = {};
       let width = null;
       let parentOffset = null;
-      $('square.last-move', container).each((i, s) => {
+      $('square.last-move:not([style*="hidden"])', container).each((i, s) => {
         let res;
         let key;
         if (s.cgKey) {
@@ -1802,6 +1673,9 @@
         const console = lt.global.console;
         try {
           let args = null;
+          if (url instanceof URL) {
+            url = url.href;
+          }
           if (typeof url != 'string') {
             args = url.args;
             url = url.url;
@@ -2515,17 +2389,65 @@
         toggleBookmark: async function(gameId) {
           const lt = this.lichessTools;
           await lt.net.fetch({ url: '/bookmark/{id}', args: { id: gameId } },{ method: 'POST' });
+        },
+        getLichessGameData: async function() {
+          const lt = this.lichessTools;
+          const startFen = encodeURIComponent('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
+          let data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&source=analysis`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
+          if (!data) return;
+          const explorerInfo = {};
+          explorerInfo.totalGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+          const monthText = data.recentGames?.[0]?.month;
+          if (monthText) {
+            const m = /^(?<year>\d+)-(?<month>\d+)$/.exec(monthText)
+            explorerInfo.dbYear = +m.groups.year;
+            explorerInfo.dbMonth = +m.groups.month;
+            explorerInfo.monthText = monthText;
+          } else {
+            const date = new Date();
+            date.setMonth(date.getMonth() - 1);
+            const month = date.getMonth() + 1;
+            explorerInfo.dbYear = year;
+            explorerInfo.dbMonth = month;
+            explorerInfo.monthText = `${year}-${month.padStart(2, '0')}`;
+          }
+          data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
+          if (!data) return;
+          explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+          return explorerInfo;
+        },
+        requestAnalysis: async function(gameId) {
+          const lt = this.lichessTools;
+          await lt.net.fetch({ url: '/{gameId}/request-analysis', args: { id: gameId } },{ method: 'POST' });
         }
       },
       team: {
         lichessTools: this,
-        getUserTeams: async function (userId) {
+        getUserTeamsApi: async function (userId) { // needs OAuth token for some reason
           const lt = this.lichessTools;
           const teams = await lt.net.json({
             url: '/api/team/of/{userId}',
             args: { userId }
           });
           return teams;
+        },
+        getUserTeams: async function(userId) {
+          const lt = this.lichessTools;
+          const html = await lt.net.fetch({
+            url: '/@/{userId}',
+            args: { userId }
+          },{
+            ignoreStatuses: [ 404 ]
+          });
+          if (!html) return [];
+          const result = $(html)
+                          .find('div.teams a[href^="/team/"]')
+                          .get()
+                          .map(e=>({
+                            id: /\/team\/(?<team>[^\/?#\s]*)/.exec($(e).attr('href'))?.groups?.team,
+                            name: $(e).text()
+                          }));
+          return result;
         },
         getTeamPlayers: async function (teamId) {
           const lt = this.lichessTools;
@@ -2688,11 +2610,24 @@
           let result = [];
           const userId = lt.getUserId();
           if (!userId) return result;
-          const data = lt.storage.get('LiChessTools.followersData') || { lastActivity: 0, follows:[] };
+          let saveData = false;
+          let entries = lt.storage.get('LiChessTools.followersData') || [];
+          if (!Array.isArray(entries)) {
+            entries = entries.lastActivity !== undefined
+                        ? [ [userId, entries] ]
+                        : [];
+            saveData = true;
+          }
+          const map = new Map(entries);
+          let data = map.get(userId);
+          if (!data) {
+            data = { lastActivity: 0, follows:[] };
+            map.set(userId, data);
+          }
           const now = Date.now();
           if (now-data.lastActivity > 86400000) {
+            saveData = true;
             data.lastActivity = now;
-            lt.storage.set('LiChessTools.followersData',data);
             const activity = await lt.api.user.getActivity(userId);
             for (let i=activity.length-1; i>=0; i--) {
               const ac = activity[i];
@@ -2705,7 +2640,9 @@
               }
               data.follows.unshift(item);
             }
-            lt.storage.set('LiChessTools.followersData',data);
+          }
+          if (saveData) {
+            lt.storage.set('LiChessTools.followersData',[...map.entries()]);
           }
           return data;
         },

@@ -1,5 +1,25 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Feb
+
+- Neonate piece set and board
+
+16 Feb
+
+- game scores in game lists
+
+14 Feb
+
+- Added NayukiMafuyu's Mockou piece set
+
+12 Feb
+
+- button to toggle Explorer moves during Explorer Practice
+
+08 Feb
+
+- show computer engine move cost
+
 07 Jan
 
 - show player game count tool

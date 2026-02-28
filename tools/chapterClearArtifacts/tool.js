@@ -403,7 +403,7 @@
       study.vm.toolTab = lt.unwrapFunction(study.vm.toolTab, 'chapterClearArtifacts');
       study.chapters.editForm.toggle = lt.unwrapFunction(study.chapters.editForm.toggle, 'chapterClearArtifacts');
       if (!value) {
-        $('table.study__tags button.lichessTools-deleteTag').remove();
+        $('table.study__tags button.lichessTools-deleteTag,.lichessTools-bulkPgnTagsEdit').remove();
         return;
       }
       study.vm.toolTab = lt.wrapFunction(study.vm.toolTab, {

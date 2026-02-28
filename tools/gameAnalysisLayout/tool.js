@@ -90,8 +90,8 @@
           $('.mchat__tab.review')
             .attr('title',trans.noarg('reviewTabTitle'))
             .text(trans.noarg('reviewTabText'));
-          $('span[data-panel="move-times"]').trigger('mousedown');
-          $('span[data-panel="computer-analysis"]').trigger('mousedown');
+          $('button[data-panel="move-times"]').trigger('click');
+          $('button[data-panel="computer-analysis"]').trigger('click');
           this.tracker ||= new ElementPositionTracker($('.analyse__side .game__meta__players')[0],this.handleGamePlayers);
         }
         $('.analyse__underboard .ctable .current,.analyse__underboard .ctable .current a')

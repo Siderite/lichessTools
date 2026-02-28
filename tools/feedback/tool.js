@@ -86,7 +86,7 @@
         } else
         if (this.options.opponentMove && board.is('.last-move') && m.attributeName=='style') {
           const opponentPieceClass = $('.main-board .cg-wrap').is('.orientation-black') ? '.white' : '.black';
-          for (const lastMove of $('.main-board .last-move').get()) {
+          for (const lastMove of $('.main-board .last-move:not([style*="hidden"])').get()) {
             const cgKey = lastMove.cgKey;
             if (!cgKey) continue;
             let piece = $('.main-board piece.anim').filter((i,e)=>e.cgKey==cgKey);

@@ -95,12 +95,12 @@
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
-      study.form.open = lt.unwrapFunction(study.form.open, 'stickyStudySettings');
+      study.form.open.toggle = lt.unwrapFunction(study.form.open.toggle, 'stickyStudySettings');
       study.form.save = lt.unwrapFunction(study.form.save, 'stickyStudySettings');
       study.setPath = lt.unwrapFunction(study.setPath, 'stickyStudySettings');
       lt.global.removeEventListener('beforeunload', this.saveStudyPositions);
       if (this.options.chapterForm) {
-        study.form.open = lt.wrapFunction(study.form.open, {
+        study.form.open.toggle = lt.wrapFunction(study.form.open.toggle, {
           id: 'stickyStudySettings',
           after: ($this, result, data) => {
             if (result) this.fillEditForm();

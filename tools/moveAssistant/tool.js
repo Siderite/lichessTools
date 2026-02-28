@@ -417,7 +417,7 @@
 
       const selected = analysis.chessground?.state?.selected;
       const dests = selected
-        ? analysis.chessground?.state?.movable?.dests?.get(selected)
+        ? (analysis.node.dests() || analysis.chessground?.state?.movable?.dests)?.get(selected)
         : null;
       const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
       const isActive = !!(this.options.dests
@@ -505,6 +505,7 @@
       const side = $('main.analyse div.main-board cg-board').width();
       const isBlack = lichess.analysis.getOrientation() == 'black';
       $('square.move-dest').each((i, e) => {
+        if ($(e).css('visibility')=='hidden') return; //https://github.com/lichess-org/lila/issues/19260
         const dest = this.getSquare(e, side, isBlack);
         const uci = selected + dest;
         const cp = this._eval[uci];
@@ -714,6 +715,7 @@
       lt.global.clearInterval(this.interval);
       this.setControls();
       lt.pubsub.off('lichessTools.redraw', this.setControls);
+      $('.lichessTools-moveAssistant-popup').remove();
       if (!value) return;
       this.interval = lt.global.setInterval(this.evaluate, 1000);
       lt.pubsub.on('lichessTools.redraw', this.setControls);

@@ -12,11 +12,13 @@ body.lichessTools div.lichessTools-mchatOptions-extraButtons {
 
 body.lichessTools div.lichessTools-mchatOptions-extraButtons button {
   display: none;
+  margin-top: 2px;
   padding: 3px;
   min-width: 2em;
   background:none;
   border: var(--c-link) 1px solid;
   border-radius: 33%;
+  text-align: center;
 }
 
 body.lichessTools div.lichessTools-mchatOptions-extraButtons button.lichessTools-buttonOn {

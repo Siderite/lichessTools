@@ -8,16 +8,16 @@
         name: 'challengeOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['latestGames', 'randomChallenge', 'generateLink'],
-        defaultValue: 'generateLink',
+        possibleValues: ['latestGames', 'randomChallenge'/*, 'generateLink'*/],
+        defaultValue: '', // 'generateLink'
         advanced: true,
         needsLogin: true
       }
     ];
 
-    upgrades = [
+    /*upgrades = [
       { name:'challengeOptions', value:'generateLink', version: '2.4.129', type: 'new' }
-    ];
+    ];*/
 
     intl = {
       'en-US': {
@@ -164,7 +164,7 @@
       }
       const params = {
         user: this.extractUserId($('.lobby__start__button--friend-user').text()),
-        variant: $('#sf_variant').val(),
+        variant: this.getVariant($('.mselect div.text span.name').text()),
         fen: $('#fen-input').val(),
         time: $('#sf_timeMode').val(),
         minutesPerSide: this.sliderTimes($('.time-choice input.range').val()),
@@ -213,8 +213,8 @@
       }
       this.options = {
         latestGames: lt.isOptionSet(value, 'latestGames'),
-        randomChallenge: lt.isOptionSet(value, 'randomChallenge'),
-        generateLink: lt.isOptionSet(value, 'generateLink')
+        randomChallenge: lt.isOptionSet(value, 'randomChallenge')
+        //,generateLink: lt.isOptionSet(value, 'generateLink')
       };
 
       this.processChallengeMenu();
@@ -228,7 +228,7 @@
         $('body').observer()
           .on('#challenge-app',this.processChallengeMenu);
       }
-      if (this.options.generateLink) {
+      /*if (this.options.generateLink) {
         $('body').observer()
           .on(':has(.game-setup)',this.processSetupPopup,{
             subtree: true,
@@ -240,7 +240,7 @@
         this.processSetupPopup(true);
       } else {
         $('.lichessTools-generateLink').remove();
-      }
+      }*/
     }
 
   }

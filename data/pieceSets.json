@@ -3,7 +3,13 @@
     {
       "category": "siderite",
       "name": "Chess Pursuit",
-      "url": "https://siderite.github.io/ChessPursuit/pieces/",
+      "url": "https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/pieces/",
+      "type": "svg"
+    },
+    {
+      "category": "siderite",
+      "name": "Neonate",
+      "url": "https://siderite.github.io/lichessToolsAdjacent/Neonate/pieces/",
       "type": "svg"
     },
 
@@ -2726,6 +2732,13 @@
       "category": "sharechess",
       "name": "wisdom_grape",
       "url": "https://sharechess.github.io/pieces/wisdom_grape/",
+      "type": "svg"
+    },
+
+    {
+      "category": "NayukiMafuyu",
+      "name": "Mockou",
+      "url": "https://raw.githubusercontent.com/NayukiMafuyu/mockou/refs/heads/main/versions/v0.2/",
       "type": "svg"
     }
   ]

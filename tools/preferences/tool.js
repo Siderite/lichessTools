@@ -104,7 +104,13 @@
       const tools = lt.tools;
       const htmlEncode = lt.htmlEncode;
       const currentOptions = lt.currentOptions;
-      const saveOptions = lt.saveOptions.bind(lt);
+      const saveOptions = (options,optionName) => {
+        if (['enableLichessTools','advancedPreferences'].includes(optionName)) {
+          lt.applyOptions(options);
+        } else {
+          lt.saveOptions(options);
+        }
+      };
       const lichess = lt.lichess;
       const isOptionSet = lt.isOptionSet;
       const isLoggedIn = !!lt.getUserId();
@@ -140,25 +146,20 @@
   <a class="user-link" href="/inbox/TotalNoob69" data-href="/@/TotalNoob69">$trans(feedbackTitle)</a>
 </div>`;
       }
+      const emptyToggle=(id)=>{
+        const toggle = $.createToggle(id,'','',true);
+        toggle.find('#'+id).attr('value','true');
+        return $('<div>').append(toggle).html();
+      };
       html += `<table class="allows lichessTools-globalSwitch">
     <tbody>
         <tr>
             <td>$trans(enableExtension)</td>
-            <td>
-                <div class="toggle">
-                    <input id="enableLichessTools" name="enableLichessTools" value="true" type="checkbox" class="form-control cmn-toggle"/>
-                    <label for="enableLichessTools"/>
-                </div>
-            </td>
+            <td>${emptyToggle('enableLichessTools')}</td>
         </tr>
         <tr>
             <td>$trans(advancedPreferences)</td>
-            <td>
-                <div class="toggle">
-                    <input id="advancedPreferences" name="advancedPreferences" value="true" type="checkbox" class="form-control cmn-toggle"/>
-                    <label for="advancedPreferences"/>
-                </div>
-            </td>
+            <td>${emptyToggle('advancedPreferences')}</td>
         </tr>
     </tbody>
 </table>
@@ -414,7 +415,7 @@
             case 'false': value = false; break;
           }
           currentOptions[optionName] = value;
-          await saveOptions(currentOptions);
+          await saveOptions(currentOptions,optionName);
           lt.fireReloadOptions();
           self.checkGlobalSwitch();
           checkAdvanced();
@@ -668,30 +669,27 @@
           .attr('href', '/team/all#lichessTools')
           .attr('title', trans.noarg('lichessToolsPreferences'))
           .append($('<span>').text(trans.noarg('lichessTools')))
-          .append($(`<span class="lichessTools-toggleExtension">
-                      <input id="toggleLiChessTools" name="toggleLiChessTools" type="checkbox" class="form-control cmn-toggle"/>
-                      <label for="toggleLiChessTools"/>
-                     </span>`)
-                   .attr('title',trans.noarg('toggleLiChessToolsTitle'))
-                   .on('change',async (ev)=>{
-                     const enabled = $(ev.target).prop('checked');
-                     if (!enabled) {
-                       const answer = await lt.uiApi.dialog.confirm(trans.noarg('disableLiChessToolsForTodayQuestion'));
-                       if (!answer) {
-                         this.checkGlobalSwitch();
-                         return;
-                       }
-                     }
-                     lt.currentOptions.enableLichessTools = enabled;
-                     if (!enabled) {
-                       const tomorrow = new Date();
-                       tomorrow.setDate(tomorrow.getDate() + 1);
-                       tomorrow.setHours(0, 0, 0, 0);
-                       lt.currentOptions['enableLichessTools.enableTime'] = +tomorrow;
-                     }
-                     await lt.applyOptions(lt.currentOptions);
-                     this.checkGlobalSwitch();
-                   })
+          .append($.createToggle('toggleLiChessTools','',trans.noarg('toggleLiChessToolsTitle'),true)
+                    .addClass('lichessTools-toggleExtension')
+                    .on('change',async (ev)=>{
+                      const enabled = $(ev.target).prop('checked');
+                      if (!enabled) {
+                        const answer = await lt.uiApi.dialog.confirm(trans.noarg('disableLiChessToolsForTodayQuestion'));
+                        if (!answer) {
+                          this.checkGlobalSwitch();
+                          return;
+                        }
+                      }
+                      lt.currentOptions.enableLichessTools = enabled;
+                      if (!enabled) {
+                        const tomorrow = new Date();
+                        tomorrow.setDate(tomorrow.getDate() + 1);
+                        tomorrow.setHours(0, 0, 0, 0);
+                        lt.currentOptions['enableLichessTools.enableTime'] = +tomorrow;
+                      }
+                      await lt.applyOptions(lt.currentOptions);
+                      this.checkGlobalSwitch();
+                    })
                  );
         let links = $('#dasher_app div.links');
         if (!links.length) {

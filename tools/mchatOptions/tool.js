@@ -73,7 +73,7 @@
       const createTextNode = lt.global.document.createTextNode.bind(lt.global.document);
       if (this.options.urlify) {
         $('li>t', container).each((i, e) => {
-          if (!lt.inViewport(e)) return;
+          if (!lt.inViewport(e, true)) return;
           const textNodes = Array.from(e.childNodes).filter(n => n.nodeType == 3);
           for (const textNode of textNodes) {
             const lineText = textNode.textContent;

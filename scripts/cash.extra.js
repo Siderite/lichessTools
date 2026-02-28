@@ -112,6 +112,20 @@ cash.fn.appendSpan = function(text) {
   return this;
 }
 
+cash.createToggle = function(id,text,title,name) {
+  const result = $(`<label class="cmn-toggle-wrap" title="${cash('<div>').attr('title',title)[0].getAttribute('title')}">
+	<span class="cmn-toggle" role="button">
+		<input id="${id}" type="checkbox"/>
+		<label for="${id}"></label>
+	</span>
+	${cash('<div>').text(text).html()}
+</label>`)
+  .addClass(id);
+  if (name===true) name=id;
+  if (name) result.find('#'+id).attr('name',id);
+  return result;
+}
+
 class Observer {
   constructor(context) {
     this.context = context;
@@ -255,10 +269,14 @@ cash.fn.makeCombo = function (options) {
       list.empty();
 
       const data = input.prop('combo').data;
-      const filtered = data.filter(o => {
+      let filtered = data.filter(o => {
         if (options.noFilter) return true;
         return (o?.text || o?.value || o?.toString() || '').toLowerCase().includes(query);
       });
+      if (options.showAllOnEmpty && !filtered.length) {
+        filtered = [...data];
+      }
+      input.prop('comboFiltered',filtered);
 
       filtered.forEach(o => {
         $('<div class="combo-item">')
@@ -301,6 +319,7 @@ cash.fn.makeCombo = function (options) {
     input[0].addEventListener('keydown', (e) => {
       const items = list.children('.combo-item');
       let index = items.index(list.find('.highlight'));
+      const data = input.prop('comboFiltered') || input.prop('combo')?.data;
 
       switch (e.key) {
         case 'ArrowDown':
@@ -313,7 +332,7 @@ cash.fn.makeCombo = function (options) {
                 const s = (el.scrollIntoViewIfNeeded || el.scrollIntoView).bind(el);
                 s && s();
               });
-            const o = input.prop('combo')?.data[index];
+            const o = data[index];
             input.prop('comboSelected',o);
             input.trigger('comboSelect');
           }
@@ -329,7 +348,7 @@ cash.fn.makeCombo = function (options) {
                 const s = (el.scrollIntoViewIfNeeded || el.scrollIntoView).bind(el);
                 s && s();
               });
-            const o = input.prop('combo')?.data[index];
+            const o = data[index];
             input.prop('comboSelected',o);
             input.trigger('comboSelect');
           }
@@ -337,7 +356,7 @@ cash.fn.makeCombo = function (options) {
           break;
         case 'Enter':
           if (open && index>=0) {
-            const o = input.prop('combo')?.data[index];
+            const o = data[index];
             const value = o?.value || o || '';
             input.val(value);
             input.trigger('change');

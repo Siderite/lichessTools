@@ -22,13 +22,13 @@
     intl = {
       'en-US': {
         'options.general': 'General',
-        'options.showGameCount': 'Show player total game count',
-        'gamesPlayedTitle': '%s games played'
+        'options.showGameCount': 'Show player rated game count',
+        'gamesPlayedTitle': '%s rated games played'
       },
       'ro-RO': {
         'options.general': 'General',
-        'options.showGameCount': 'Arat\u0103 totalul de partide al juc\u0103torului',
-        'gamesPlayedTitle': '%s partide jucate'
+        'options.showGameCount': 'Arat\u0103 totalul de partide oficiale al juc\u0103torului',
+        'gamesPlayedTitle': '%s partide oficiale jucate'
       }
     }
 
@@ -41,7 +41,7 @@
       // Process user links
       $.cached('.user-link,a[href^="/@/"]', 2000).each((i, e) => {
         // Skip elements in excluded areas (friend list, chat, nav, etc.)
-        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app,.lichessTools-challengeOptions,#topnav,.ublog-post__meta').length) return;
+        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app,.lichessTools-challengeOptions,#topnav,.ublog-post__meta,.mchat__messages,.ublog-post-card,.advice-summary__player').length) return;
 
         // Find the text element within the link
         let textEl = $('.text', e);
@@ -49,7 +49,8 @@
 
         // Skip if already processed or has a badge
         if (textEl.is('.lichessTools-nogamecount,.lichessTools-gamecount')) return;
-        const next = textEl.next();
+        let next = textEl.next();
+        next=next.add(next.next());
         if (next.is('.lichessTools-gameCountBadge')) return;
 
         // Skip icon-only or tab elements
@@ -72,7 +73,7 @@
 
       // Process mini-game user elements
       $.cached('span.mini-game__user', 2000).each((i, e) => {
-        if ($(e).is('.lichessTools-nogamecount,.lichessTools-gamecount')) return;
+        if ($(e).is('.lichessTools-gamecount')) return;
 
         // Find or create a wrapper for the username text
         let textEl = $(e).find('.lichessTools-userText');
@@ -178,7 +179,8 @@
           if (item) {
             let totalGames = 0;
             if (user.perfs) {
-              for (const perf of Object.values(user.perfs)) {
+              for (const [perfName, perf] of Object.entries(user.perfs)) {
+                if (perfName === 'puzzle') continue;
                 totalGames += perf.games || 0;
               }
             }
@@ -211,7 +213,8 @@
           const elems = dict[item.id];
           // Only process visible elements still in DOM
           for (const elem of elems.filter(e => !!e[0].parentNode && !!e[0].offsetParent)) {
-            const next = elem.next();
+            let next = elem.next();
+            next=next.add(next.next());
             if (next.is('.lichessTools-gameCountBadge')) continue;
             elem.addClass('lichessTools-gamecount');
             const formattedCount = this.formatGameCount(item.gameCount);
@@ -219,6 +222,7 @@
               elem.after($('<span>')
                 .addClass('lichessTools-gameCountBadge')
                 .attr('title', trans.pluralSame('gamesPlayedTitle',item.gameCount))
+                .attr('data-ref', $(elem).attr('href'))
                 .text('[' + formattedCount + ']')
               );
             }
@@ -235,8 +239,27 @@
       const $ = lt.$;
       $('.lichessTools-gameCountBadge').remove();
       $('.lichessTools-gamecount').removeClass('lichessTools-gamecount');
-      $('.lichessTools-nogamecount').removeClass('lichessTools-nogamecount');
       this.processGameCounts();
+    };
+
+    refreshGameCounts = (m) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const elems = $('.user-link').get();
+      let updated = false;
+      for (const elem of elems) {
+        const e = $(elem);
+        const href = e.attr('href');
+        const span = e.siblings('span.lichessTools-gameCountBadge');
+        if (span.length && span.attr('data-ref')!=href) {
+          e.removeClass('lichessTools-gamecount');
+          span.remove();
+          updated = true;
+        }
+      }
+      if (updated) {
+        this.processGameCounts();
+      }
     };
 
     // Clears both in-memory and persisted cache
@@ -259,17 +282,20 @@
       // Clean up existing event listeners
       lt.pubsub.off('content-loaded', this.debouncedProcessGameCounts);
       lt.pubsub.off('lichessTools.puzzleStart', this.resetGameCounts);
+      $('body').observer()
+        .off('.user-link',this.refreshGameCounts,{attributes:true,attributeFilter:['href']});
 
       if (value) {
         // Enable: start processing and bind event listeners
         this.debouncedProcessGameCounts();
         lt.pubsub.on('content-loaded', this.debouncedProcessGameCounts);
         lt.pubsub.on('lichessTools.puzzleStart', this.resetGameCounts);
+        $('body').observer()
+          .on('.user-link',this.refreshGameCounts,{attributes:true,attributeFilter:['href']});
       } else {
         // Disable: remove badges and clear cache
         $('.lichessTools-gameCountBadge').remove();
         $('.lichessTools-gamecount').removeClass('lichessTools-gamecount');
-        $('.lichessTools-nogamecount').removeClass('lichessTools-nogamecount');
         this.clearCache();
       }
     }

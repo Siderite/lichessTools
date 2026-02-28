@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChess Tools",
-  "version": "2.4.146",
+  "version": "2.4.167",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
@@ -25,6 +25,7 @@
       "js": [
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
+        "scripts/lichess-icons.js",
         "scripts/lichessTools.js"
       ],
       "matches": [
@@ -202,6 +203,7 @@
         "scripts/lichessTools-init.js"
       ],
       "css": [
+        "styles/lichess-icons.css",
         "styles/icons.css",
         "tools/fixMoveListLoad/tool.css",
         "tools/themes/tool.css",
@@ -380,22 +382,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "tools/chessops/attacks.js",
-        "tools/chessops/badrap.result.js",
-        "tools/chessops/board.js",
-        "tools/chessops/chess.js",
-        "tools/chessops/compat.js",
-        "tools/chessops/debug.js",
-        "tools/chessops/fen.js",
-        "tools/chessops/index.js",
-        "tools/chessops/pgn.js",
-        "tools/chessops/san.js",
-        "tools/chessops/setup.js",
-        "tools/chessops/squareSet.js",
-        "tools/chessops/transform.js",
-        "tools/chessops/types.js",
-        "tools/chessops/util.js",
-        "tools/chessops/variant.js"
+        "tools/chessops/chessops.bundle.mjs"
       ],
       "matches": [
         "*://lichess.org/*",

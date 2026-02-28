@@ -45,6 +45,7 @@
         'hideInactiveTitle': 'Active players',
         'followersText': 'Followers',
         'followersTitle': 'LiChess Tools - players following you',
+        'followersPageTitle': 'LiChess Tools - Followers',
         'followersNumberTitle': '%s followers',
         'friendsNumberTitle': '%s friends',
         'friendsNumberTitle:one': 'One friend',
@@ -76,6 +77,7 @@
         'hideInactiveTitle': 'Juc\u0103tori activi',
         'followersText': 'Urm\u0103ritori',
         'followersTitle': 'LiChess Tools - juc\u0103tori care te urm\u0103resc',
+        'followersPageTitle': 'LiChess Tools - Urm\u0103ritori',
         'followersNumberTitle': '%s urm\u0103ritori',
         'friendsNumberTitle': '%s prieteni',
         'friendsNumberTitle:one': 'Un prieten',
@@ -327,7 +329,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const needsScroll = !!$('.pager').filter((i, e) => {
-        return !!lt.inViewport(e);
+        return !!lt.inViewport(e, true);
       }).length;
       if (needsScroll) {
         $('html').trigger('scroll');
@@ -736,7 +738,7 @@
               }
               if (followers.nextPage) {
                 table[0]._followersPage = followers.nextPage;
-                $('<tr class="lichessTools-pager"><th><a>&#x2398;</a></th></tr>')
+                $('<tr class="lichessTools-pager"><th><a>&#x2398;</a></th><td></td></tr>')
                   .appendTo(tbody)
                   .find('a')
                   .attr('href','/@/TotalNoob69/followers?page='+followers.nextPage)
@@ -752,6 +754,7 @@
           const followers = await lt.api.relations.getFollowersNew(1,1);
           $('.box__top h1')
             .replaceText(trans.pluralSame('followersNumberTitle',followers?.nbResults || 0));
+          lt.global.document.title = trans.noarg('followersPageTitle');
           $('.box__top h1 a')
             .attr('href','/@/'+userId+'/following');
           f(followers);
@@ -769,13 +772,19 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const pager = $('.lichessTools-pager');
-      if (lt.inViewport(pager)) {
+      if (lt.inViewport(pager, true)) {
         pager.find('a').trigger('click');
       }
       this.filterFriends();
     }
 
     menuParent = '#topnav';
+
+    async init() {
+      if (this.isFollowersPage()) {
+        history.scrollRestoration = "manual";
+      }
+    }
 
     followingOnlinesRequests = 0;
     async start() {
@@ -822,7 +831,7 @@
       }
       
       $(lt.global).off('hashchange', this.hashchange);
-      $(lt.global).off('scroll',this.onScroll);
+      $(lt.global).off('scroll scrollend',this.onScroll);
       if (this.isLivePage) {
         lt.pubsub.off('content-loaded', this.updateFriendsPage);
         if (liveFriendsPage) {
@@ -840,7 +849,7 @@
         }
         $(lt.global).on('hashchange', this.hashchange);
         this.hashchange();
-        $(lt.global).on('scroll',this.onScroll);
+        $(lt.global).on('scroll scrollend',this.onScroll);
       }
 
       this.followingOnlinesRequests = 0;

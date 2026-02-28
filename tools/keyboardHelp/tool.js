@@ -34,6 +34,7 @@
         'previousPosition': 'Back to previous position',
         'bestCevalLine': 'Best computer line',
         'explorerPractice': 'Explorer practice',
+        'explorerPracticeHideMoves': 'Toggle Explorer move list',
         'seeLichessTools': 'see LiChess Tools section below',
         'freezeBoard': 'Freeze board',
         'randomChapter': 'Random study chapter',
@@ -64,6 +65,7 @@
         'previousPosition': '\u00CEnapoi la pozi\u0163ia precedent\u0103',
         'bestCevalLine': 'Cea mai bun\u0103 mutare din evaluarea calculatorului',
         'explorerPractice': 'Practic\u0103 contra mut\u0103ri din Explorator',
+        'explorerPracticeHideMoves': 'Comut\u0103 lista mut\u0103rilor din Explorator',
         'seeLichessTools': 'vezi sec\u0163iunea LiChess Tools de mai jos',
         'freezeBoard': '\u00CEnghea\u0163\u0103 tabla',
         'randomChapter': 'Capitol de studiu aleatoriu',
@@ -119,7 +121,9 @@
           .attr('title', trans.noarg('seeLichessTools'));
 
         row(['b'], 'nextBlunder');
-        row(['m'], 'nextMistake');
+        if (!analysis?.retro) {
+          row(['m'], 'nextMistake');
+        }
         row(['i'], 'nextInaccuracy');
         row(['g'], 'nextGood');
         row(['alt', 'b'], 'nextOpponentBlunder');
@@ -159,6 +163,16 @@
       }
       if (lt.currentOptions.getValue('explorerPractice') && analysis.explorer.enabled()) {
         row(['shift', 'l'], 'explorerPractice');
+        if (lt.tools.ExplorerPracticeTool.isRunning) {
+          row(['h'], 'explorerPracticeHideMoves');
+          $('td.keys kbd', table)
+            .filter((i, e) => $(e).text() == 'h')
+            .parent()
+            .filter((i, e) => $('kbd', e).length == 1)
+            .closest('tr')
+            .addClass('lichessTools-disabled')
+            .attr('title', trans.noarg('seeLichessTools'));
+        }
       }
       if (lt.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
         row(['0'], 'obsIntegration');

@@ -86,7 +86,10 @@ body .is2d cg-board::before {
           $('dialog[open]')
             .addClass('lichessTools-customBoard');
           input
-            .makeCombo({ noFilter: true, ... data})
+            .makeCombo({ 
+               noFilter: false,
+               showAllOnEmpty: true,
+               ... data})
             .on('comboSelect',ev=>{
               const o = input.prop('comboSelected');
               $('body').css('--board-background',`url("${o.value}")`);
@@ -103,10 +106,11 @@ body .is2d cg-board::before {
             });
 
           input.on('focus input', ()=>{
+            const filtered = input.prop('comboFiltered') || data.data;
             input.next('.combo-list')
               .find('.combo-item')
               .each((i,e)=>{
-                const o = data.data[i];
+                const o = filtered[i];
                 $(e).css('--background',`url("${o.value}")`);
               });
           });

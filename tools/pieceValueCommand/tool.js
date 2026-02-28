@@ -126,7 +126,7 @@
         }
         this.lastProcessedFen = fen;
         const board = lt.getBoardFromFen(fen);
-        const pieces = $('cg-container piece:not([data-eval])').get();
+        const pieces = $('cg-container piece:not([data-eval]):not(.ghost)').get();
         if (!pieces.length) {
           clearValues = false;
           return;
@@ -144,9 +144,14 @@
             const x = key.charCodeAt(0)-97;
             const y = 56-key.charCodeAt(1);
             const ch = board[y][x];
-            if ([undefined,'k','K'].includes(ch)) continue;
+            if ([undefined,'k','K'].includes(ch)) {
+              continue;
+            }
             board[y][x]=undefined;
-            if (this.invalidBecauseCheck(board,fen.split(' ')[1]=='b')) continue;
+            if (this.invalidBecauseCheck(board,fen.split(' ')[1]=='b')) {
+              board[y][x]=ch;
+              continue;
+            }
             const psplits = lt.getFenFromBoard(board).split(/\s+/);
             const fenSplits = [];
             for (let i=0; i<splits.length; i++) {
@@ -186,6 +191,7 @@
         }
         clearValues = false;
       } finally {
+        $('.cg-wrap .spinner').remove();
         if (clearValues) {
           this.clearValues();
         }

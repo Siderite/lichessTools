@@ -541,7 +541,7 @@
               const button = $('<button class="fbt lichessTools-shapeDrawing">')
                 .attr('data-icon', lt.icon.NorthEastDoubleArrow)
                 .attr('title', trans.noarg('shapeDrawingTitle'))
-                .insertBefore($('button.board-menu-toggle', container))
+                .insertBefore($('button.board-menu-toggle-btn', container))
                 .on('touchstart mousedown ', ev => {
                   this.toggleBrush(ev);
                   wrap?.toggleClassSafe('lichessTools-passthrough', !this.drawingBrush);
@@ -668,7 +668,7 @@
               return $this.showGauge()
                      && $this.showAnalysis()
                      && $this.isCevalAllowed()
-                     && !$this.outcome();
+                     && !$this.node.outcome();
             }
           });
           if (!$('body.mobile .eval-gauge').length) lt.analysisRedraw();

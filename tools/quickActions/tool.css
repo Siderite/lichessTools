@@ -11,12 +11,15 @@ body.lichessTools div.lichessTools-quickActions-tooltip {
 }
 
 body.lichessTools button.fbt[data-act="menu"]:not(.active) + div.lichessTools-quickActions-tooltip button.fbt,
-body.lichessTools button.board-menu-toggle:not(.active) + div.lichessTools-quickActions-tooltip button.fbt,
+body.lichessTools button.board-menu-toggle-btn:not(.active) + div.lichessTools-quickActions-tooltip button.fbt,
 body.lichessTools button.msg-app__convo__post__submit:not(.active) + div.lichessTools-quickActions-tooltip button.fbt {
   font-size: 1.3rem;
   height: 2.5em;
   border: none;
   min-width: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body.lichessTools div.lichessTools-quickActions-tooltip button.fbt:hover {
@@ -26,9 +29,9 @@ body.lichessTools div.lichessTools-quickActions-tooltip button.fbt:hover {
 body.lichessTools:not(.mobile) button.fbt[data-act="menu"]:not(.active):hover + div.lichessTools-quickActions-tooltip:has(button),
 body.lichessTools button.fbt[data-act="menu"].lichessTools-quickActions + div.lichessTools-quickActions-tooltip:has(button),
 body.lichessTools:not(.mobile) button.fbt[data-act="menu"]:not(.active) + div.lichessTools-quickActions-tooltip:has(button):hover,
-body.lichessTools:not(.mobile) button.board-menu-toggle.lichessTools-quickActions + div.lichessTools-quickActions-tooltip:has(button),
-body.lichessTools button.board-menu-toggle:not(.active):hover + div.lichessTools-quickActions-tooltip:has(button),
-body.lichessTools:not(.mobile) button.board-menu-toggle:not(.active) + div.lichessTools-quickActions-tooltip:has(button):hover,
+body.lichessTools:not(.mobile) button.board-menu-toggle-btn.lichessTools-quickActions + div.lichessTools-quickActions-tooltip:has(button),
+body.lichessTools button.board-menu-toggle-btn:not(.active):hover + div.lichessTools-quickActions-tooltip:has(button),
+body.lichessTools:not(.mobile) button.board-menu-toggle-btn:not(.active) + div.lichessTools-quickActions-tooltip:has(button):hover,
 body.lichessTools:not(.mobile) button.msg-app__convo__post__submit:not(.active):hover + div.lichessTools-quickActions-tooltip:has(button),
 body.lichessTools button.msg-app__convo__post__submit.lichessTools-quickActions + div.lichessTools-quickActions-tooltip:has(button),
 body.lichessTools:not(.mobile) button.msg-app__convo__post__submit:not(.active) + div.lichessTools-quickActions-tooltip:has(button):hover {
@@ -46,7 +49,7 @@ body.lichessTools main.lichessTools-quickActions-practice button[data-mode="prac
 /* LichessHelper CSS */
 
 body.lichessTools.lichessTools-lichessHelper button.fbt[data-act="menu"]:not(.active) + div.lichessTools-quickActions-tooltip button.fbt,
-body.lichessTools.lichessTools-lichessHelper button.board-menu-toggle:not(.active) + div.lichessTools-quickActions-tooltip button.fbt,
+body.lichessTools.lichessTools-lichessHelper button.board-menu-toggle-btn:not(.active) + div.lichessTools-quickActions-tooltip button.fbt,
 body.lichessTools.lichessTools-lichessHelper button.msg-app__convo__post__submit:not(.active) + div.lichessTools-quickActions-tooltip button.fbt {
   height: 3em !important;
 }

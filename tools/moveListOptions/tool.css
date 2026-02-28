@@ -330,23 +330,24 @@ html.transp body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-r
 }
 
 
-body.lichessTools main.lichessTools-fixCevalToggle div.ceval div.switch {
+body.lichessTools main.lichessTools-fixCevalToggle div.ceval span.cmn-toggle {
   order: 1;
   margin-left: 0;
+  margin-right: 0.5em;
 }
 
 body.lichessTools main.lichessTools-fixCevalToggle div.ceval button.settings-gear {
   margin-right: 0;
 }
 
-body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="analyse-toggle-ceval"] {
+body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="cmn-tg-analyse-toggle-ceval"] {
   --analyse-toggle-size: 18px;
   height: var(--analyse-toggle-size);
   border-radius: var(--analyse-toggle-size);
   width: calc(var(--analyse-toggle-size) * 1.66)
 }
 
-body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="analyse-toggle-ceval"]:before {
+body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="cmn-tg-analyse-toggle-ceval"]:before {
   font-size: calc(var(--analyse-toggle-size) * 0.75);
   line-height: calc(var(--analyse-toggle-size) - 2px);
   width: calc(var(--analyse-toggle-size) - 2px);
@@ -354,7 +355,7 @@ body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="analyse-
 }
 
 
-body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="analyse-toggle-ceval"]:after {
+body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="cmn-tg-analyse-toggle-ceval"]:after {
   width: calc(var(--analyse-toggle-size) - 2px);
   height: calc(var(--analyse-toggle-size) - 2px);
 }
