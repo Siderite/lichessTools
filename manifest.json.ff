@@ -20,6 +20,7 @@
       "js": [
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
+        "scripts/lichess-icons.js",
         "scripts/lichessTools.js"
       ],
       "matches": [
@@ -196,6 +197,7 @@
         "scripts/lichessTools-init.js"
       ],
       "css": [
+        "styles/lichess-icons.css",
         "styles/icons.css",
         "tools/fixMoveListLoad/tool.css",
         "tools/themes/tool.css",
