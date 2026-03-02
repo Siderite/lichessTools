@@ -214,7 +214,7 @@ body.lichessTools div.lichessTools-shapeDrawing-tooltip.show {
 
 body.lichessTools div.lichessTools-shapeDrawing-tooltip button {
   font-size: 1.3rem;
-  height: 2.5em;
+  min-height: 2.5em;
   border: none;
   min-width: 2.5em;
   border-radius:50%;
