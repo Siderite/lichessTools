@@ -1277,6 +1277,7 @@
       return pos;
     };
 
+
     isStartFen = (fen) => {
       return fen?.startsWith('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
     };
@@ -1643,7 +1644,9 @@
         options.headers.Accept ||= (options.ndjson
                             ? 'application/x-ndjson'
                             : 'application/json');
-        options.headers['x-requested-with'] ||= 'XMLHttpRequest';
+        if (!options?.noRequestedWithHeader) {
+          options.headers['x-requested-with'] ||= 'XMLHttpRequest';
+        }
         const json = await this.fetch(url, options);
         if (!json) return null;
         if (options.ndjson) {
@@ -2122,6 +2125,7 @@
           return result;
         };
         lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
       },
       blog: {
         lichessTools: this,
@@ -2393,27 +2397,38 @@
         getLichessGameData: async function() {
           const lt = this.lichessTools;
           const startFen = encodeURIComponent('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
-          let data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&source=analysis`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
-          if (!data) return;
-          const explorerInfo = {};
-          explorerInfo.totalGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
-          const monthText = data.recentGames?.[0]?.month;
-          if (monthText) {
-            const m = /^(?<year>\d+)-(?<month>\d+)$/.exec(monthText)
-            explorerInfo.dbYear = +m.groups.year;
-            explorerInfo.dbMonth = +m.groups.month;
-            explorerInfo.monthText = monthText;
-          } else {
-            const date = new Date();
-            date.setMonth(date.getMonth() - 1);
-            const month = date.getMonth() + 1;
-            explorerInfo.dbYear = year;
-            explorerInfo.dbMonth = month;
-            explorerInfo.monthText = `${year}-${month.padStart(2, '0')}`;
+          let explorerInfo = {};
+          try {
+            let data = await lt.net.json(`https://explorer.lichess.org/li/lichess?fen=${startFen}&source=analysis`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
+            if (!data) throw new Error('could not get Explorer total games');
+            explorerInfo.totalGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+            const monthText = data.recentGames?.[0]?.month;
+            if (monthText) {
+              const m = /^(?<year>\d+)-(?<month>\d+)$/.exec(monthText)
+              explorerInfo.dbYear = +m.groups.year;
+              explorerInfo.dbMonth = +m.groups.month;
+              explorerInfo.monthText = monthText;
+            } else {
+              const date = new Date();
+              date.setMonth(date.getMonth() - 1);
+              const month = date.getMonth() + 1;
+              explorerInfo.dbYear = year;
+              explorerInfo.dbMonth = month;
+              explorerInfo.monthText = `${year}-${month.padStart(2, '0')}`;
+            }
+            data = await lt.net.json(`https://explorer.lichess.org/li/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
+            if (!data) throw new Error('could not get Explorer last month games');
+            explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+          } catch(e) {
+            lt.global.console.warn('Error getting Lichess game data... estimating it anyway');
+            explorerInfo = {
+              "totalGames": 7473850577,
+              "dbYear": 2026,
+              "dbMonth": 1,
+              "monthText": "2026-01",
+              "monthGames": 93569988
+            };
           }
-          data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
-          if (!data) return;
-          explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
           return explorerInfo;
         },
         requestAnalysis: async function(gameId) {
