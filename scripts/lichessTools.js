@@ -2418,7 +2418,7 @@
         },
         requestAnalysis: async function(gameId) {
           const lt = this.lichessTools;
-          await lt.net.fetch({ url: '/{gameId}/request-analysis', args: { id: gameId } },{ method: 'POST' });
+          await lt.net.fetch({ url: '/{id}/request-analysis', args: { id: gameId } },{ method: 'POST' });
         }
       },
       team: {
