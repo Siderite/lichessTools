@@ -161,6 +161,11 @@ body.lichessTools .lichessTools-moveAssistant-popup button.enabled:before {
   font-weight: 1000;
 }
 
+body.lichessTools piece.lichessTools-mostAdvanced {
+  border-bottom: 3px #FF000030 groove;
+  border-radius: 50%;
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier button.lichessTools-moveAssistant.lichessTools-enabled {

@@ -407,6 +407,24 @@
           .toggleClassSafe('lichessTools-happy',whiteHappiness.happy.includes(e.cgKey) || blackHappiness.happy.includes(e.cgKey))
           .toggleClassSafe('lichessTools-unhappy',whiteHappiness.unhappy.includes(e.cgKey) || blackHappiness.unhappy.includes(e.cgKey));
       });
+
+      const [direction,opponentColor,minRank] = analysis.getOrientation()=='white'? [-1,'black',-7] : [1,'white',2];
+      let max = null;
+      let mostAdvanced;
+      $('.cg-wrap cg-board piece.'+opponentColor)
+        .each((i,e)=>{
+          const rank = +(e.cgKey?.at(-1));
+          if (Number.isNaN(rank)) return;
+          if (max===null || rank*direction>max) {
+            max = rank*direction;
+            mostAdvanced = rank;
+          }
+        })
+        .each((i,e)=>{
+          const rank = +(e.cgKey?.at(-1));
+          if (Number.isNaN(rank)) return;
+          $(e).toggleClassSafe('lichessTools-mostAdvanced',rank==mostAdvanced && rank*direction>minRank);
+        });
     };
 
     evaluateDests = async () => {
@@ -715,8 +733,10 @@
       lt.global.clearInterval(this.interval);
       this.setControls();
       lt.pubsub.off('lichessTools.redraw', this.setControls);
-      $('.lichessTools-moveAssistant-popup').remove();
-      if (!value) return;
+      if (!value) {
+        $('.lichessTools-moveAssistant-popup').remove();
+        return;
+      }
       this.interval = lt.global.setInterval(this.evaluate, 1000);
       lt.pubsub.on('lichessTools.redraw', this.setControls);
     }
