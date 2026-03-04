@@ -1187,8 +1187,9 @@
       });
 
       const positionKey = this.global.JSON.stringify(lastMove);
-      if (container.prop('__lastPositionKey')===positionKey) {
-        return container.prop('__lastPosition');
+      const cacheKey = '__lastPositionKey'+(asFen?'_f':'');
+      if (container.prop(cacheKey)===positionKey) {
+        return container.prop(cacheKey);
       }
 
       let turn = '';
