@@ -8196,8 +8196,8 @@
     "followersPageTitle": "LiChess Tools - suiveurs",
     "gameListOptions.showScore": "Afficher les résultats des parties",
     "pieceFilterPlaceholder": "... filtre",
-    "pieceFilterTitle": "Outils LiChess - filtrer les pièces par nom",
-    "themes.noBullet": "Échecs en cuir"
+    "pieceFilterTitle": "LiChess Tools - filtrer les pièces par nom",
+    "themes.noBullet": "Masquer les échecs Bullet"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
