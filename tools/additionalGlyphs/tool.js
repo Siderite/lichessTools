@@ -85,8 +85,9 @@
       const firstGlyph = analysis.node.glyphs?.at(0);
       let glyph = firstGlyph?.symbol;
       let fill = firstGlyph?.fill || '#557766B0';
+      const isMate = lt.isMate(analysis.node);
       if (!glyph) {
-        if (this.options.mate && lt.isMate(analysis.node)) {
+        if (this.options.mate && isMate) {
           glyph = lt.icon.Mate;
           fill = '#557766B0';
         } else
@@ -110,7 +111,9 @@
         setShape();
         return;
       }
-      let orig = analysis.node.uci?.slice(2, 4);
+      let orig = isMate
+                   ? $('square.check').prop('cgKey')
+                   : analysis.node.uci?.slice(2, 4);
       if (!orig) return;
       if (analysis.node.san?.startsWith('O-O')) {
         switch (orig) {
@@ -132,6 +135,17 @@
       existing.find('circle').attrSafe('fill',fill);
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);
+
+    getSquareOfCheckedKing = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const analysis = lichess.analysis;
+      if (!analysis) return;
+      const turnColor = analysis.turnColor();
+      const square = $('square.king.'+turnColor+',square.check').prop('cgKey');
+      return square;
+    };
 
     async start() {
       const lt = this.lichessTools;
