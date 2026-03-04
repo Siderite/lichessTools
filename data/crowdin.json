@@ -1021,7 +1021,8 @@
     "followersPageTitle": "أدوات شطرنج الحياة - متابعين",
     "gameListOptions.showScore": "إظهار نتائج اللعبة",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2045,7 +2046,8 @@
     "followersPageTitle": "LiChess Tools - Followers",
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3069,7 +3071,8 @@
     "followersPageTitle": "LiChess Tools - 关注者",
     "gameListOptions.showScore": "显示对局结果",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4093,7 +4096,8 @@
     "followersPageTitle": "LiChess Tools - Followers",
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5117,7 +5121,8 @@
     "followersPageTitle": "Nástroje Lišess - následovníci",
     "gameListOptions.showScore": "Zobrazit výsledky hry",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6141,7 +6146,8 @@
     "followersPageTitle": "LiChess Tools - volgers",
     "gameListOptions.showScore": "Toon spel resultaten",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7165,7 +7171,8 @@
     "followersPageTitle": "LiChess Tools - Followers",
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8189,7 +8196,8 @@
     "followersPageTitle": "LiChess Tools - suiveurs",
     "gameListOptions.showScore": "Afficher les résultats des parties",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9213,7 +9221,8 @@
     "followersPageTitle": "LiChess-Werkzeuge - Follower",
     "gameListOptions.showScore": "Ergebnisse des Spiels anzeigen",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10237,7 +10246,8 @@
     "followersPageTitle": "Εργαλεία LiChess - Ακόλουθοι",
     "gameListOptions.showScore": "Εμφάνιση αποτελεσμάτων παιχνιδιού",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11261,7 +11271,8 @@
     "followersPageTitle": "LiChess Tools - Followers",
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12285,7 +12296,8 @@
     "followersPageTitle": "LiChess Tools - Followers",
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13309,7 +13321,8 @@
     "followersPageTitle": "Strumenti LiChess - Followers",
     "gameListOptions.showScore": "Mostra i risultati del gioco",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14333,7 +14346,8 @@
     "followersPageTitle": "LiChess Tools - Followers",
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15357,7 +15371,8 @@
     "followersPageTitle": "Narzędzia LiChess - Obserwujący",
     "gameListOptions.showScore": "Pokaż wyniki gry",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16381,7 +16396,8 @@
     "followersPageTitle": "Ferramentas de LiChess - Seguidores",
     "gameListOptions.showScore": "Mostrar resultados do jogo",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17405,7 +17421,8 @@
     "followersPageTitle": "Ferramentas de LiChess - Seguidores",
     "gameListOptions.showScore": "Mostrar resultados do jogo",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18429,7 +18446,8 @@
     "followersPageTitle": "LiChess Tools - Urmăritori",
     "gameListOptions.showScore": "Arată scorul partidelor",
     "pieceFilterPlaceholder": "... filtru",
-    "pieceFilterTitle": "LiChess Tools - filtrează seturile de piese după nume"
+    "pieceFilterTitle": "LiChess Tools - filtrează seturile de piese după nume",
+    "themes.noBullet": "Ascunde șah Bullet"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19453,7 +19471,8 @@
     "followersPageTitle": "Инструменты Жизни - Подписчики",
     "gameListOptions.showScore": "Показать результаты игры",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20477,7 +20496,8 @@
     "followersPageTitle": "Herramientas de LiChess - Seguidores",
     "gameListOptions.showScore": "Mostrar resultados del juego",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -21501,7 +21521,8 @@
     "followersPageTitle": "LiChess Tools - Followers",
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -22525,7 +22546,8 @@
     "followersPageTitle": "LiChess Tools - Followers",
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -23549,6 +23571,7 @@
     "followersPageTitle": "LiChess Tools - Followers",
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
-    "pieceFilterTitle": "LiChess Tools - filter piece sets by name"
+    "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
+    "themes.noBullet": "Hide Bullet chess"
   }
 }

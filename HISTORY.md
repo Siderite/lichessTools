@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 04 Mar
 
 - text filter for piece sets
+- no bullet theme
 
 27 Feb
 
