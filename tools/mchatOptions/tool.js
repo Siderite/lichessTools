@@ -1,7 +1,7 @@
 (() => {
   class MchatOptionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['AddNotifications', 'EmitContentLoaded'];
+    dependencies = ['AddNotifications', 'EmitContentLoaded','InterceptEventHandlers'];
 
     preferences = [
       {

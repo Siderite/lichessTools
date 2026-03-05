@@ -1,7 +1,7 @@
 (() => {
   class ExplorerSnapsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'DetectThirdParties'];
+    dependencies = ['EmitRedraw', 'DetectThirdParties','InterceptEventHandlers'];
 
     preferences = [
       {

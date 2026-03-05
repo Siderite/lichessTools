@@ -1,6 +1,8 @@
 (() => {
   class CommentEditingTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['InterceptEventHandlers'];
+
     preferences = [
       {
         name: 'commentEditing',

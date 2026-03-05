@@ -1,7 +1,7 @@
 (() => {
   class OneClickMoveTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['ExtendedInteractiveLesson'];
+    dependencies = ['ExtendedInteractiveLesson','InterceptEventHandlers'];
 
     preferences = [
       {

@@ -1,7 +1,7 @@
 (() => {
   class ChatForumBlogsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['Dialog'];
+    dependencies = ['Dialog','InterceptEventHandlers'];
 
     preferences = [
       {
