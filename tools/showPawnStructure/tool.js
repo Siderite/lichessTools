@@ -104,46 +104,36 @@
 
       const me = blackOrientation ? 'b' : 'w';
       const they = blackOrientation ? 'w' : 'b';
-      let structureText = '';
-      structureText += result.pawns[me][3] < 0 ? 'X' : result.pawns[me][3];
-      structureText += result.pawns[me][4] < 0 ? 'X' : result.pawns[me][4];
-      structureText += result.pawns[me][2] < 0 ? 'X' : result.pawns[me][2];
-      structureText += result.pawns[they][3] < 0 ? 'X' : result.pawns[they][3];
-      structureText += result.pawns[they][4] < 0 ? 'X' : result.pawns[they][4];
-      structureText += result.pawns[they][2] < 0 ? 'X' : result.pawns[they][2];
-      structureText += result.qSide[me] > result.qSide[they] ? 'M' : result.qSide[me] < result.qSide[they] ? 'T' : 'X';
-      structureText += result.kSide[me] > result.kSide[they] ? 'M' : result.kSide[me] < result.kSide[they] ? 'T' : 'X';
-      structureText += ' ';
-      structureText += result.pawns[me][5] < 0 ? 'X' : result.pawns[me][5];
-      structureText += result.pawns[me][1] < 0 ? 'X' : result.pawns[me][1];
-      structureText += result.pawns[me][6] < 0 ? 'X' : result.pawns[me][6];
-      structureText += result.pawns[they][5] < 0 ? 'X' : result.pawns[they][5];
-      structureText += result.pawns[they][1] < 0 ? 'X' : result.pawns[they][1];
-      structureText += result.pawns[they][6] < 0 ? 'X' : result.pawns[they][6];
-      structureText += ' ';
-      structureText += result.pawns[me][0] < 0 ? 'X' : result.pawns[me][0];
-      structureText += result.pawns[me][7] < 0 ? 'X' : result.pawns[me][7];
-      structureText += result.pawns[they][0] < 0 ? 'X' : result.pawns[they][0];
-      structureText += result.pawns[they][7] < 0 ? 'X' : result.pawns[they][7];
-      structureText += ' ';
-      structureText += result.led[me][3] ? 'L' : 'X';
-      structureText += result.led[me][4] ? 'L' : 'X';
-      structureText += result.led[me][2] ? 'L' : 'X';
-      structureText += result.led[they][3] ? 'L' : 'X';
-      structureText += result.led[they][4] ? 'L' : 'X';
-      structureText += result.led[they][2] ? 'L' : 'X';
-      structureText += ' ';
-      structureText += result.led[me][5] ? 'L' : 'X';
-      structureText += result.led[me][1] ? 'L' : 'X';
-      structureText += result.led[me][6] ? 'L' : 'X';
-      structureText += result.led[they][5] ? 'L' : 'X';
-      structureText += result.led[they][1] ? 'L' : 'X';
-      structureText += result.led[they][6] ? 'L' : 'X';
-      structureText += ' ';
-      structureText += result.led[me][0] ? 'L' : 'X';
-      structureText += result.led[me][7] ? 'L' : 'X';
-      structureText += result.led[they][0] ? 'L' : 'X';
-      structureText += result.led[they][7] ? 'L' : 'X';
+      const toChar = (s)=>{
+        if (s==' ') return s;
+        if (s=='Q') {
+          const mv=result.qSide[me];
+          const mt=result.qSide[they];
+          return mv>mt ? 'M' : mv<mt ? 'T' : 'X';
+        }
+        if (s=='K') {
+          const mv=result.kSide[me];
+          const mt=result.kSide[they];
+          return mv>mt ? 'M' : mv<mt ? 'T' : 'X';
+        }
+        if (s.startsWith('P')) {
+          const v=result.pawns[s[1]=='M'?me:they][+s[2]];
+          return v<0 ? 'X' : v;
+        }
+        if (s.startsWith('L')) {
+          const v=result.led[s[1]=='M'?me:they][+s[2]];
+          return v ? 'L' : 'X';
+        }
+        throw new Error('Unknown primitive: '+s);
+      };
+      const structureText = [
+        'PM3','PM4','PM2','PT3','PT4','PT2','Q','K',' ',
+        'PM5','PM1','PM6','PT5','PT1','PT6',' ',
+        'PM0','PM7','PT0','PT7',' ',
+        'LM3','LM4','LM2','LT3','LT4','LT2',' ',
+        'LM5','LM1','LM6','LT5','LT1','LT6',' ',
+        'LM0','LM7','LT0','LT7',
+      ].map(toChar).join('');
       return structureText;
     };
 
