@@ -148,6 +148,8 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - extra lobby counters
 - sortable and expandable study topics
 - bulk edit study chapter PGN tags
+- bulk edit/delete study chapters
+- selective removal of artefacts from current chapter
 - quick LiChess Tools toggle in the user menu
 - auto whisper and prepend move buttons in game chat
 - find position in puzzles (and puzzles from your games)

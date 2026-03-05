@@ -1,0 +1,75 @@
+
+body.lichessTools a.lichessTools-bulkPgnTagsEdit {
+  margin-left: auto;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-radius: 5px;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+}
+
+body.lichessTools dialog.lichessTools-bulkPgnTagsEdit {
+  width: auto;
+}
+
+body.lichessTools dialog.lichessTools-bulkPgnTagsEdit textarea {
+  display: block;
+  min-height: 20em;
+  width: 100%;
+}
+
+body.lichessTools dialog.lichessTools-bulkPgnTagsEdit textarea.lichessTools-error {
+  border:1px solid red;
+}
+
+body.lichessTools dialog.lichessTools-bulkPgnTagsEdit .lichessTools-errorText {
+  display: block;
+  color: var(--c-mistake);
+}
+
+body.lichessTools .lichessTools-bulkEditButtons {
+  display:none;
+  justify-content: space-evenly;
+}
+
+body.lichessTools .lichessTools-bulkEditButtons button {
+  padding: 0.3em 0.7em;
+}
+
+body.lichessTools .lichessTools-bulkEditButtons button[data-act="cancelEditChapters"] {
+  background: none;
+}
+
+body.lichessTools .lichessTools-selectChapter {
+  display:none;
+  margin-right: 0.5em;
+  margin-left: 0.25em;
+}
+
+body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .lichessTools-bulkEditButtons {
+  display: flex;
+}
+
+body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .lichessTools-selectChapter {
+  display: inline;
+}
+
+body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .lichessTools-selectChapter+span {
+  display: none;
+}
+
+body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .study-list > button i.act {
+  display: none;
+}
+
+body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .dialog-content #chapter-name {
+  pointer-events:none;
+  background: var(--c-accent-faint);
+  user-select: none;
+  cursor: default;
+}
+
+body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .dialog-content .form-group:has(#chapter-description),
+body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .dialog-content .form-actions-secondary {
+  display:none;
+}

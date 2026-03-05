@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 05 Mar
 
 - PGN Editor search for pawn structures
+- Bulk chapter editing/deleting
 
 04 Mar
 

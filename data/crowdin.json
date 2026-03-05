@@ -1022,7 +1022,17 @@
     "gameListOptions.showScore": "إظهار نتائج اللعبة",
     "pieceFilterPlaceholder": "... فلتر",
     "pieceFilterTitle": "أدوات شطرنج الحياة - مجموعات قطع الفلتر حسب الاسم",
-    "themes.noBullet": "إخفاء الشطرنج الرصاص"
+    "themes.noBullet": "إخفاء الشطرنج الرصاص",
+    "deletedNChaptersMessage": "فصول %s المحذوفة",
+    "errorDeletingChaptersMessage": "خطأ في حذف الفصول!",
+    "editedNChaptersMessage": "تعديل فصول %s",
+    "errorEditingChaptersMessage": "خطأ في تحرير الفصول!",
+    "editChaptersButtonText": "تحرير",
+    "editChaptersButtonTitle": "أدوات شطرنج الحياة - تحرير الفصول المحددة",
+    "cancelEditChaptersButtonText": "إلغاء",
+    "cancelEditChaptersButtonTitle": "أدوات شطرنج الحياة - إلغاء اختيار الفصل",
+    "chapterEditing.tags": "علامات الفصل",
+    "chapterEditing.bulk": "فصول متعددة"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2047,7 +2057,17 @@
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
     "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
-    "themes.noBullet": "Hide Bullet chess"
+    "themes.noBullet": "Hide Bullet chess",
+    "deletedNChaptersMessage": "Deleted %s chapters",
+    "errorDeletingChaptersMessage": "Error deleting chapters!",
+    "editedNChaptersMessage": "Edited %s chapters",
+    "errorEditingChaptersMessage": "Error editing chapters!",
+    "editChaptersButtonText": "Edit",
+    "editChaptersButtonTitle": "LiChess Tools - edit selected chapters",
+    "cancelEditChaptersButtonText": "Cancel",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
+    "chapterEditing.tags": "Chapter tags",
+    "chapterEditing.bulk": "Multiple chapters"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3072,7 +3092,17 @@
     "gameListOptions.showScore": "显示对局结果",
     "pieceFilterPlaceholder": "... 过滤器",
     "pieceFilterTitle": "LiChess工具 - 按名称过滤块集",
-    "themes.noBullet": "隐藏子棋子"
+    "themes.noBullet": "隐藏子棋子",
+    "deletedNChaptersMessage": "已删除 %s 章节",
+    "errorDeletingChaptersMessage": "删除章节时发生错误！",
+    "editedNChaptersMessage": "编辑的 %s 章节",
+    "errorEditingChaptersMessage": "编辑章节时发生错误！",
+    "editChaptersButtonText": "编辑",
+    "editChaptersButtonTitle": "Lichess工具 - 编辑选定章节",
+    "cancelEditChaptersButtonText": "取消",
+    "cancelEditChaptersButtonTitle": "LiChess工具 - 取消章节选择",
+    "chapterEditing.tags": "章节标签",
+    "chapterEditing.bulk": "多个章节"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4097,7 +4127,17 @@
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
     "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
-    "themes.noBullet": "Hide Bullet chess"
+    "themes.noBullet": "Hide Bullet chess",
+    "deletedNChaptersMessage": "Deleted %s chapters",
+    "errorDeletingChaptersMessage": "Error deleting chapters!",
+    "editedNChaptersMessage": "Edited %s chapters",
+    "errorEditingChaptersMessage": "Error editing chapters!",
+    "editChaptersButtonText": "Edit",
+    "editChaptersButtonTitle": "LiChess Tools - edit selected chapters",
+    "cancelEditChaptersButtonText": "Cancel",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
+    "chapterEditing.tags": "Chapter tags",
+    "chapterEditing.bulk": "Multiple chapters"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5122,7 +5162,17 @@
     "gameListOptions.showScore": "Zobrazit výsledky hry",
     "pieceFilterPlaceholder": "... filtr",
     "pieceFilterTitle": "Nástroje LiChess - filtrovat sady dílů podle jména",
-    "themes.noBullet": "Skrýt šachy odrážky"
+    "themes.noBullet": "Skrýt šachy odrážky",
+    "deletedNChaptersMessage": "Smazáno %s kapitol",
+    "errorDeletingChaptersMessage": "Chyba při odstraňování kapitol!",
+    "editedNChaptersMessage": "Upraveno %s kapitol",
+    "errorEditingChaptersMessage": "Chyba při úpravě kapitol!",
+    "editChaptersButtonText": "Upravit",
+    "editChaptersButtonTitle": "Nástroje LiChess - upravit vybrané kapitoly",
+    "cancelEditChaptersButtonText": "Zrušit",
+    "cancelEditChaptersButtonTitle": "Nástroje LiChess - zrušit výběr kapitoly",
+    "chapterEditing.tags": "Značky kapitoly",
+    "chapterEditing.bulk": "Více kapitol"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6147,7 +6197,17 @@
     "gameListOptions.showScore": "Toon spel resultaten",
     "pieceFilterPlaceholder": "... filter",
     "pieceFilterTitle": "LiChess Tools - filter stukken met naam",
-    "themes.noBullet": "Bullet schaak verbergen"
+    "themes.noBullet": "Bullet schaak verbergen",
+    "deletedNChaptersMessage": "Verwijderde %s hoofdstukken",
+    "errorDeletingChaptersMessage": "Fout bij verwijderen hoofdstukken!",
+    "editedNChaptersMessage": "Bewerkte %s hoofdstukken",
+    "errorEditingChaptersMessage": "Fout bij bewerken hoofdstukken!",
+    "editChaptersButtonText": "Bewerken",
+    "editChaptersButtonTitle": "LiChess Tools - bewerken van geselecteerde hoofdstukken",
+    "cancelEditChaptersButtonText": "annuleren",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - selectie hoofdstuk annuleren",
+    "chapterEditing.tags": "Hoofdstuk labels",
+    "chapterEditing.bulk": "Meerdere hoofdstukken"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7172,7 +7232,17 @@
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
     "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
-    "themes.noBullet": "Hide Bullet chess"
+    "themes.noBullet": "Hide Bullet chess",
+    "deletedNChaptersMessage": "Deleted %s chapters",
+    "errorDeletingChaptersMessage": "Error deleting chapters!",
+    "editedNChaptersMessage": "Edited %s chapters",
+    "errorEditingChaptersMessage": "Error editing chapters!",
+    "editChaptersButtonText": "Edit",
+    "editChaptersButtonTitle": "LiChess Tools - edit selected chapters",
+    "cancelEditChaptersButtonText": "Cancel",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
+    "chapterEditing.tags": "Chapter tags",
+    "chapterEditing.bulk": "Multiple chapters"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8197,7 +8267,17 @@
     "gameListOptions.showScore": "Afficher les résultats des parties",
     "pieceFilterPlaceholder": "... filtre",
     "pieceFilterTitle": "LiChess Tools - filtrer les pièces par nom",
-    "themes.noBullet": "Masquer les échecs Bullet"
+    "themes.noBullet": "Masquer les échecs Bullet",
+    "deletedNChaptersMessage": "Chapitres %s supprimés",
+    "errorDeletingChaptersMessage": "Erreur lors de la suppression des chapitres!",
+    "editedNChaptersMessage": "Modification des chapitres %s",
+    "errorEditingChaptersMessage": "Erreur lors de la modification des chapitres!",
+    "editChaptersButtonText": "Editer",
+    "editChaptersButtonTitle": "Outils LiChess - éditer les chapitres sélectionnés",
+    "cancelEditChaptersButtonText": "Abandonner",
+    "cancelEditChaptersButtonTitle": "Outils LiChess - annuler la sélection du chapitre",
+    "chapterEditing.tags": "Étiquettes de chapitre",
+    "chapterEditing.bulk": "Plusieurs chapitres"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9222,7 +9302,17 @@
     "gameListOptions.showScore": "Ergebnisse des Spiels anzeigen",
     "pieceFilterPlaceholder": "... Filter",
     "pieceFilterTitle": "LiChess Werkzeuge - Filtern Sie Stücksätze nach Namen",
-    "themes.noBullet": "Kugelschach ausblenden"
+    "themes.noBullet": "Kugelschach ausblenden",
+    "deletedNChaptersMessage": "Gelöschte %s Kapitel",
+    "errorDeletingChaptersMessage": "Fehler beim Löschen der Kapitel!",
+    "editedNChaptersMessage": "Bearbeitet %s Kapitel",
+    "errorEditingChaptersMessage": "Fehler beim Bearbeiten der Kapitel!",
+    "editChaptersButtonText": "Bearbeiten",
+    "editChaptersButtonTitle": "LiChess-Tools - Ausgewählte Kapitel bearbeiten",
+    "cancelEditChaptersButtonText": "Abbrechen",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - Abbrechen der Kapitelauswahl",
+    "chapterEditing.tags": "Kapitel Tags",
+    "chapterEditing.bulk": "Mehrere Kapitel"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10247,7 +10337,17 @@
     "gameListOptions.showScore": "Εμφάνιση αποτελεσμάτων παιχνιδιού",
     "pieceFilterPlaceholder": "... φίλτρο",
     "pieceFilterTitle": "LiChess Tools - φιλτράρισμα κομματιών σετ με όνομα",
-    "themes.noBullet": "Απόκρυψη σκάκι σφαίρας"
+    "themes.noBullet": "Απόκρυψη σκάκι σφαίρας",
+    "deletedNChaptersMessage": "Διαγράφηκαν κεφάλαια %s",
+    "errorDeletingChaptersMessage": "Σφάλμα κατά τη διαγραφή κεφαλαίων!",
+    "editedNChaptersMessage": "Επεξεργασία κεφαλαίων %s",
+    "errorEditingChaptersMessage": "Σφάλμα επεξεργασίας κεφαλαίων!",
+    "editChaptersButtonText": "Επεξεργασία",
+    "editChaptersButtonTitle": "LiChess Tools - επεξεργασία επιλεγμένων κεφαλαίων",
+    "cancelEditChaptersButtonText": "Ακύρωση",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - ακύρωση επιλογής κεφαλαίου",
+    "chapterEditing.tags": "Ετικέτες κεφαλαίου",
+    "chapterEditing.bulk": "Πολλαπλά κεφάλαια"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11272,7 +11372,17 @@
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
     "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
-    "themes.noBullet": "Hide Bullet chess"
+    "themes.noBullet": "Hide Bullet chess",
+    "deletedNChaptersMessage": "Deleted %s chapters",
+    "errorDeletingChaptersMessage": "Error deleting chapters!",
+    "editedNChaptersMessage": "Edited %s chapters",
+    "errorEditingChaptersMessage": "Error editing chapters!",
+    "editChaptersButtonText": "Edit",
+    "editChaptersButtonTitle": "LiChess Tools - edit selected chapters",
+    "cancelEditChaptersButtonText": "Cancel",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
+    "chapterEditing.tags": "Chapter tags",
+    "chapterEditing.bulk": "Multiple chapters"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12297,7 +12407,17 @@
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
     "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
-    "themes.noBullet": "Hide Bullet chess"
+    "themes.noBullet": "Hide Bullet chess",
+    "deletedNChaptersMessage": "Deleted %s chapters",
+    "errorDeletingChaptersMessage": "Error deleting chapters!",
+    "editedNChaptersMessage": "Edited %s chapters",
+    "errorEditingChaptersMessage": "Error editing chapters!",
+    "editChaptersButtonText": "Edit",
+    "editChaptersButtonTitle": "LiChess Tools - edit selected chapters",
+    "cancelEditChaptersButtonText": "Cancel",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
+    "chapterEditing.tags": "Chapter tags",
+    "chapterEditing.bulk": "Multiple chapters"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13322,7 +13442,17 @@
     "gameListOptions.showScore": "Mostra i risultati del gioco",
     "pieceFilterPlaceholder": "... filtro",
     "pieceFilterTitle": "LiChess Tools - filtri set pezzi per nome",
-    "themes.noBullet": "Nascondi scacchi proiettile"
+    "themes.noBullet": "Nascondi scacchi proiettile",
+    "deletedNChaptersMessage": "Eliminati capitoli %s",
+    "errorDeletingChaptersMessage": "Errore nell'eliminare i capitoli!",
+    "editedNChaptersMessage": "Modificato capitoli %s",
+    "errorEditingChaptersMessage": "Errore nella modifica dei capitoli!",
+    "editChaptersButtonText": "Modifica",
+    "editChaptersButtonTitle": "Strumenti LiChess - modifica i capitoli selezionati",
+    "cancelEditChaptersButtonText": "Annulla",
+    "cancelEditChaptersButtonTitle": "Strumenti LiChess - annulla la selezione dei capitoli",
+    "chapterEditing.tags": "Etichette del capitolo",
+    "chapterEditing.bulk": "Capitoli multipli"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14347,7 +14477,17 @@
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
     "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
-    "themes.noBullet": "Hide Bullet chess"
+    "themes.noBullet": "Hide Bullet chess",
+    "deletedNChaptersMessage": "Deleted %s chapters",
+    "errorDeletingChaptersMessage": "Error deleting chapters!",
+    "editedNChaptersMessage": "Edited %s chapters",
+    "errorEditingChaptersMessage": "Error editing chapters!",
+    "editChaptersButtonText": "Edit",
+    "editChaptersButtonTitle": "LiChess Tools - edit selected chapters",
+    "cancelEditChaptersButtonText": "Cancel",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
+    "chapterEditing.tags": "Chapter tags",
+    "chapterEditing.bulk": "Multiple chapters"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15372,7 +15512,17 @@
     "gameListOptions.showScore": "Pokaż wyniki gry",
     "pieceFilterPlaceholder": "... filtr",
     "pieceFilterTitle": "Narzędzia LiChess - filtruj fragmenty według nazwy",
-    "themes.noBullet": "Ukryj szachy wypunktowane"
+    "themes.noBullet": "Ukryj szachy wypunktowane",
+    "deletedNChaptersMessage": "Usunięto rozdziały %s",
+    "errorDeletingChaptersMessage": "Błąd podczas usuwania rozdziałów!",
+    "editedNChaptersMessage": "Edytowano rozdziały %s",
+    "errorEditingChaptersMessage": "Błąd podczas edycji rozdziałów!",
+    "editChaptersButtonText": "Edytuj",
+    "editChaptersButtonTitle": "Narzędzia LiChess - edytuj wybrane rozdziały",
+    "cancelEditChaptersButtonText": "Anuluj",
+    "cancelEditChaptersButtonTitle": "Narzędzia LiChess - anuluj wybór rozdziału",
+    "chapterEditing.tags": "Znaczniki rozdziału",
+    "chapterEditing.bulk": "Wiele rozdziałów"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16397,7 +16547,17 @@
     "gameListOptions.showScore": "Mostrar resultados do jogo",
     "pieceFilterPlaceholder": "... filtro",
     "pieceFilterTitle": "Ferramentas LiChess - filtro de conjuntos por nome",
-    "themes.noBullet": "Esconder xadrez com balas"
+    "themes.noBullet": "Esconder xadrez com balas",
+    "deletedNChaptersMessage": "Capítulos %s excluídos",
+    "errorDeletingChaptersMessage": "Erro ao excluir capítulos!",
+    "editedNChaptersMessage": "Capítulos %s editados",
+    "errorEditingChaptersMessage": "Erro ao editar capítulos!",
+    "editChaptersButtonText": "Alterar",
+    "editChaptersButtonTitle": "Ferramentas LiChess - editar os capítulos selecionados",
+    "cancelEditChaptersButtonText": "cancelar",
+    "cancelEditChaptersButtonTitle": "Ferramentas LiChess - cancelar a seleção de capítulo",
+    "chapterEditing.tags": "Tags de capítulos",
+    "chapterEditing.bulk": "Vários capítulos"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17422,7 +17582,17 @@
     "gameListOptions.showScore": "Mostrar resultados do jogo",
     "pieceFilterPlaceholder": "... filtro",
     "pieceFilterTitle": "Ferramentas LiChess - filtro de conjuntos por nome",
-    "themes.noBullet": "Esconder xadrez com balas"
+    "themes.noBullet": "Esconder xadrez com balas",
+    "deletedNChaptersMessage": "Capítulos %s excluídos",
+    "errorDeletingChaptersMessage": "Erro ao excluir capítulos!",
+    "editedNChaptersMessage": "Capítulos %s editados",
+    "errorEditingChaptersMessage": "Erro ao editar capítulos!",
+    "editChaptersButtonText": "Alterar",
+    "editChaptersButtonTitle": "Ferramentas LiChess - editar os capítulos selecionados",
+    "cancelEditChaptersButtonText": "cancelar",
+    "cancelEditChaptersButtonTitle": "Ferramentas LiChess - cancelar a seleção de capítulo",
+    "chapterEditing.tags": "Tags de capítulos",
+    "chapterEditing.bulk": "Vários capítulos"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18447,7 +18617,17 @@
     "gameListOptions.showScore": "Arată scorul partidelor",
     "pieceFilterPlaceholder": "... filtru",
     "pieceFilterTitle": "LiChess Tools - filtrează seturile de piese după nume",
-    "themes.noBullet": "Ascunde șah Bullet"
+    "themes.noBullet": "Ascunde șah Bullet",
+    "deletedNChaptersMessage": "Am șters %s capitole",
+    "errorDeletingChaptersMessage": "Eroare la ștergerea capitolelor!",
+    "editedNChaptersMessage": "Am modificat %s capitole",
+    "errorEditingChaptersMessage": "Eroare la modificarea capitolelor!",
+    "editChaptersButtonText": "Modifică",
+    "editChaptersButtonTitle": "LiChess Tools - modifică capitolele selectate",
+    "cancelEditChaptersButtonText": "Anulează",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - anulează selecția de capitole",
+    "chapterEditing.tags": "Etichete capitol",
+    "chapterEditing.bulk": "Mai multe capitole"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19472,7 +19652,17 @@
     "gameListOptions.showScore": "Показать результаты игры",
     "pieceFilterPlaceholder": "... фильтр",
     "pieceFilterTitle": "Инструменты Lichess - набор фигур по имени",
-    "themes.noBullet": "Скрыть шахматы"
+    "themes.noBullet": "Скрыть шахматы",
+    "deletedNChaptersMessage": "Удаленные главы %s",
+    "errorDeletingChaptersMessage": "Ошибка удаления главы!",
+    "editedNChaptersMessage": "Изменены главы %s",
+    "errorEditingChaptersMessage": "Ошибка редактирования главы!",
+    "editChaptersButtonText": "Редактирование",
+    "editChaptersButtonTitle": "Инструменты Жизни - редактировать выбранные главы",
+    "cancelEditChaptersButtonText": "Отмена",
+    "cancelEditChaptersButtonTitle": "Инструменты Жизни - отменить выбор главы",
+    "chapterEditing.tags": "Теги главы",
+    "chapterEditing.bulk": "Несколько глав"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20497,7 +20687,17 @@
     "gameListOptions.showScore": "Mostrar resultados del juego",
     "pieceFilterPlaceholder": "... filtro",
     "pieceFilterTitle": "Herramientas de LiChess - piezas de filtro por nombre",
-    "themes.noBullet": "Ocultar ajedrez de bala"
+    "themes.noBullet": "Ocultar ajedrez de bala",
+    "deletedNChaptersMessage": "Eliminados capítulos %s",
+    "errorDeletingChaptersMessage": "Error al eliminar los capítulos!",
+    "editedNChaptersMessage": "capítulos %s editados",
+    "errorEditingChaptersMessage": "Error editando capítulos!",
+    "editChaptersButtonText": "Editar",
+    "editChaptersButtonTitle": "Herramientas de LiChess - edita los capítulos seleccionados",
+    "cancelEditChaptersButtonText": "Cancelar",
+    "cancelEditChaptersButtonTitle": "Herramientas de LiChess - Cancela la selección de capítulos",
+    "chapterEditing.tags": "Etiquetas de capítulo",
+    "chapterEditing.bulk": "Varios capítulos"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -21522,7 +21722,17 @@
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
     "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
-    "themes.noBullet": "Hide Bullet chess"
+    "themes.noBullet": "Hide Bullet chess",
+    "deletedNChaptersMessage": "Deleted %s chapters",
+    "errorDeletingChaptersMessage": "Error deleting chapters!",
+    "editedNChaptersMessage": "Edited %s chapters",
+    "errorEditingChaptersMessage": "Error editing chapters!",
+    "editChaptersButtonText": "Edit",
+    "editChaptersButtonTitle": "LiChess Tools - edit selected chapters",
+    "cancelEditChaptersButtonText": "Cancel",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
+    "chapterEditing.tags": "Chapter tags",
+    "chapterEditing.bulk": "Multiple chapters"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Araçları",
@@ -22547,7 +22757,17 @@
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
     "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
-    "themes.noBullet": "Hide Bullet chess"
+    "themes.noBullet": "Hide Bullet chess",
+    "deletedNChaptersMessage": "Deleted %s chapters",
+    "errorDeletingChaptersMessage": "Error deleting chapters!",
+    "editedNChaptersMessage": "Edited %s chapters",
+    "errorEditingChaptersMessage": "Error editing chapters!",
+    "editChaptersButtonText": "Edit",
+    "editChaptersButtonTitle": "LiChess Tools - edit selected chapters",
+    "cancelEditChaptersButtonText": "Cancel",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
+    "chapterEditing.tags": "Chapter tags",
+    "chapterEditing.bulk": "Multiple chapters"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -23572,6 +23792,16 @@
     "gameListOptions.showScore": "Show game results",
     "pieceFilterPlaceholder": "... filter",
     "pieceFilterTitle": "LiChess Tools - filter piece sets by name",
-    "themes.noBullet": "Hide Bullet chess"
+    "themes.noBullet": "Hide Bullet chess",
+    "deletedNChaptersMessage": "Deleted %s chapters",
+    "errorDeletingChaptersMessage": "Error deleting chapters!",
+    "editedNChaptersMessage": "Edited %s chapters",
+    "errorEditingChaptersMessage": "Error editing chapters!",
+    "editChaptersButtonText": "Edit",
+    "editChaptersButtonTitle": "LiChess Tools - edit selected chapters",
+    "cancelEditChaptersButtonText": "Cancel",
+    "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
+    "chapterEditing.tags": "Chapter tags",
+    "chapterEditing.bulk": "Multiple chapters"
   }
 }
