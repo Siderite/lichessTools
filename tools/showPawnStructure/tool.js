@@ -42,21 +42,21 @@
       const lt = this.lichessTools;
       const result = {
         pawns: {
-          'w': [-1, -1, -1, -1, -1, -1, -1, -1],
-          'b': [-1, -1, -1, -1, -1, -1, -1, -1]
+          'w': new Array(8).fill(-1),
+          'b': new Array(8).fill(-1)
         },
         led: {
-          'w': [false, false, false, false, false, false, false, false],
-          'b': [false, false, false, false, false, false, false, false]
+          'w': new Array(8).fill(false),
+          'b': new Array(8).fill(false)
         },
         islands: { w: [], b: [] },
         qSide: { 'w': 0, 'b': 0 },
         kSide: { 'w': 0, 'b': 0 }
       };
-      for (let x = 0; x < 8; x++) {
-        for (let y = 0; y < 8; y++) {
-          const ch = board[y][x];
-          switch (ch) {
+      for (let y = 0; y < 8; y++) {
+        const rank = board[y];
+        for (let x = 0; x < 8; x++) {
+          switch (rank[x]) {
             case 'p':
               if (y <= 4) {
                 if (result.pawns.b[x] > -1) result.led.b[x] = true;
@@ -72,38 +72,47 @@
           }
         }
       }
-      for (let x = 0; x < 8; x++) {
-        if (result.pawns.w[x] == -1) continue;
-        let island = result.islands.w.at(-1);
-        if (island?.end === x - 1) {
-          island.end++;
-        } else {
-          island = { start: x, end: x };
-          result.islands.w.push(island);
-        }
-      }
-      for (let x = 0; x < 8; x++) {
-        if (result.pawns.b[x] == -1) continue;
-        let island = result.islands.b.at(-1);
-        if (island?.end === x - 1) {
-          island.end++;
-        } else {
-          island = { start: x, end: x };
-          result.islands.b.push(island);
-        }
-      }
 
-      let isle = result.islands.w.at(0);
-      if (isle?.start < 2) result.qSide.w = Math.min(3, isle.end) - isle.start + 1;
-      isle = result.islands.b.at(0);
-      if (isle?.start < 2) result.qSide.b = Math.min(3, isle.end) - isle.start + 1;
-      isle = result.islands.w.at(-1);
-      if (isle?.end > 5) result.kSide.w = isle.end - Math.max(4, isle.start) + 1;
-      isle = result.islands.b.at(-1);
-      if (isle?.end > 5) result.kSide.b = isle.end - Math.max(4, isle.start) + 1;
+      const buildIslands = (color) => {
+        const ps = result.pawns[color];
+        const list = result.islands[color];
+        let current = null;
+        for (let x = 0; x < 8; x++) {
+          if (ps[x] === -1) {
+            current = null;
+            continue;
+          }
+          if (current && current.end === x - 1) {
+            current.end = x;
+          } else {
+            current = { start: x, end: x };
+            list.push(current);
+          }
+        }
+      };
 
-      const me = blackOrientation ? 'b' : 'w';
-      const they = blackOrientation ? 'w' : 'b';
+      buildIslands('w');
+      buildIslands('b');
+
+      const calcSide = (color) => {
+        const list = result.islands[color];
+        if (list.length === 0) return;
+
+        const first = list[0];
+        if (first.start < 2) {
+          result.qSide[color] = Math.min(3, first.end) - first.start + 1;
+        }
+
+        const last = list[list.length - 1];
+        if (last.end > 5) {
+          result.kSide[color] = last.end - Math.max(4, last.start) + 1;
+        }
+      };
+
+      calcSide('w');
+      calcSide('b');
+
+      const [ me, they ] = blackOrientation ? ['b','w'] : ['w','b'];
       const toChar = (s)=>{
         if (s==' ') return s;
         if (s=='Q') {
