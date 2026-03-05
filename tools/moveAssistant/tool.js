@@ -438,12 +438,15 @@
         ? (analysis.node.dests() || analysis.chessground?.state?.movable?.dests)?.get(selected)
         : null;
       const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
+
       const isActive = !!(this.options.dests
         && lt.global.SharedArrayBuffer
         && this.isEnabled
         && selected
         && dests?.length
         && !isInteractiveOrPractice
+        && analysis.isCevalAllowed()
+        && !lt.isGamePlaying()
       );
       $('main.analyse div.cg-wrap').toggleClassSafe('lichessTools-moveAssistant', isActive);
       $('div.ceval button.lichessTools-moveAssistant')
