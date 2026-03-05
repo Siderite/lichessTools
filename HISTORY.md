@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+05 Mar
+
+- PGN Editor search for pawn structures
+
 04 Mar
 
 - text filter for piece sets

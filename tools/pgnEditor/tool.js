@@ -861,6 +861,40 @@ https://www.chessable.com/course/${courseId}/ } *`)
       traverse(node);
     };
 
+    enhanceGameWithPawnStructureDict = game => {
+      const lt = this.lichessTools;
+
+      game.pawnStructureDict = new Map();
+      const { getStructure, getOpposingStructure } = lt.tools.ShowPawnStructureTool;
+
+      const traverse = (node, ply = 0) => {
+        const fen = node.data?.fen;
+        if (!fen) {
+          const err = Error('Cannot find FEN for node ' + node.data?.san + ' at ply ' + ply + '!');
+          err.san = node?.data?.san;
+          err.ply = ply + 1;
+          throw err;
+        }
+        let structure;
+        const board = lt.getBoardFromFen(fen);
+        structure = getStructure(board,false);
+        for (const key of [structure, getOpposingStructure(structure)]) {
+          let arr = game.pawnStructureDict.get(key);
+          if (!arr) {
+            arr = [];
+            game.pawnStructureDict.set(key, arr);
+          }
+          arr.push(node);
+        }
+        if (!node.children?.length) return;
+        for (const child of node.children) {
+          traverse(child, ply + 1);
+        }
+      };
+
+      const node = game.moves;
+      traverse(node);
+    };
 
     mergeNodes = (n1, n2) => {
       n1.children = [...n1.children, ...n2.children];
@@ -2123,6 +2157,13 @@ https://www.chessable.com/course/${courseId}/ } *`)
               this.enhanceGameWithFens(game);
               this.enhanceGameWithFenDict(game);
               found = Array.from(game.fenDict).find(pair => reg.test(lt.normalizeString(pair[0])));
+              if (found) {
+                break;
+              }
+              if (lt.tools.ShowPawnStructureTool) {
+                this.enhanceGameWithPawnStructureDict(game);
+                found = Array.from(game.pawnStructureDict).find(pair => reg.test(lt.normalizeString(pair[0])));
+              }
               break;
             case 'tag':
               const val = tagName.toLowerCase() == 'index'
