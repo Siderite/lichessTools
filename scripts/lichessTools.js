@@ -2400,7 +2400,7 @@
           const startFen = encodeURIComponent('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
           let explorerInfo = {};
           try {
-            let data = await lt.net.json(`https://explorer.lichess.org/li/lichess?fen=${startFen}&source=analysis`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
+            let data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&source=analysis`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
             if (!data) throw new Error('could not get Explorer total games');
             explorerInfo.totalGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
             const monthText = data.recentGames?.[0]?.month;
@@ -2417,7 +2417,7 @@
               explorerInfo.dbMonth = month;
               explorerInfo.monthText = `${year}-${month.padStart(2, '0')}`;
             }
-            data = await lt.net.json(`https://explorer.lichess.org/li/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
+            data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
             if (!data) throw new Error('could not get Explorer last month games');
             explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
           } catch(e) {
