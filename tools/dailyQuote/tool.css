@@ -36,12 +36,15 @@ body.lichessTools .lichessTools-dailyQuote button.close {
   top: 0;
   right: 0em;
 
-  margin-inline-start: -1.75em;
-  width: 1.75em;
-  height: 1.75em;
   background-color: var(--c-bg-popup);
   border-radius: 50%;
   border: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.3em;
+  height: 1.3em;
 }
 
 body.lichessTools .lichessTools-dailyQuote button.close:hover {
