@@ -141,6 +141,10 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('resizeExplorer');
       this.logOption('Resize Explorer', value);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;

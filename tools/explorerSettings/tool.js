@@ -152,6 +152,10 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('explorerSettings');
       this.logOption('Explorer settings', value);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const lichess = lt.lichess;
       const $ = lt.$;
       const explorer = lichess?.analysis?.explorer;

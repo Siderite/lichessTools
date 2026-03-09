@@ -221,6 +221,10 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('explorerGambits');
       this.logOption('Explorer gambits', value);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       this.options = { enabled: value };
       const lichess = lt.lichess;
       const $ = lt.$;

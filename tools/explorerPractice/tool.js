@@ -344,6 +344,10 @@
       };
       this.logOption('Explorer practice', value);
       this.logOption(' ... options', options);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;

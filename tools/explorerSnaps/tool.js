@@ -329,6 +329,10 @@
       if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('explorerSnaps');
       this.logOption('Explorer snaps', value);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const $ = lt.$;
       const explorer = lichess?.analysis?.explorer;
       if (!explorer) return;

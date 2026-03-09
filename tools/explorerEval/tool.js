@@ -572,6 +572,10 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('explorerEval');
       this.logOption('Explorer eval', value);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const prevBardp = this.options?.bardp;
       this.options = {
         ceval: lt.isOptionSet(value, 'ceval'),

@@ -256,6 +256,10 @@
       this.logOption('Puzzle index', puzzleIndex);
       const yourPuzzleIndex = lt.currentOptions.getValue('yourPuzzleIndex');
       this.logOption('Your puzzle index', yourPuzzleIndex);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       this.options = {
         puzzleIndex: puzzleIndex,
         yourPuzzleIndex: yourPuzzleIndex
