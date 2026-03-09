@@ -193,6 +193,10 @@
         } else if (!nextMoves.length) {
           state.feedback = 'end';
           this.markPathFinished(analysis.path, gp.goodMoves + (gp.isMyMove() ? 0 : 1), gp.badMoves, gp.askedForSolution);
+        } else if (!node.children?.length) {
+          // paths don't contain transpositions, but interactive uses them
+          state.feedback = 'play';
+          this.markPathFinished(analysis.path, gp.goodMoves + (gp.isMyMove() ? 0 : 1), gp.badMoves, gp.askedForSolution);
         } else if (gp.isMyMove()) {
           state.feedback = 'play';
           state.hint = node.gamebook?.hint;
