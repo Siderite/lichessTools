@@ -17,8 +17,7 @@
         type: 'multiple',
         possibleValues: ['sequential', 'spacedRepetition', 'ignoreBadGlyphs', 'negativeHint','spaceRetry'],
         defaultValue: 'ignoreBadGlyphs',
-        advanced: true,
-        wip: true
+        advanced: true
       }
     ];
 
