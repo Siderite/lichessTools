@@ -140,7 +140,7 @@
   credentialless=""
 />`
         });
-$(dialog).find('iframe').each((i,e)=>console.log(e.sandbox));
+
         $(dialog)
           .addClass('lichessTools-video')
           .on('close', (ev) => $(ev.target).remove());

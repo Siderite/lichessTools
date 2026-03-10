@@ -1575,7 +1575,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
 
           const cloned = clone(splitNode);
           splitNode.children = [];
-          splitNode.data = { ...splitNode.data, comments:[...splitNode.data?.comments].concat(['Split here.']) };
+          splitNode.data = { ...splitNode.data, comments:[...splitNode.data?.comments ||[]].concat(['Split here.']) };
 
           const newGame = { headers: new Map(game.headers.entries()), moves: cloned };
           newGame.headers.set('FEN', cloned.data.fen);
