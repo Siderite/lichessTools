@@ -1870,7 +1870,11 @@
         }
       }
 
-      const middleGameText = lt.global.i18n?.site?.middlegame || 'Middlegame';
+      let middleGameText = lt.global.i18n?.site?.middlegame;
+      if (!middleGameText) {
+        lt.global.console.warn('Could not determine middlegame translation string!');
+        middleGameText = 'Middlegame';
+      }
       let existingMiddleGame = chart.data.datasets.findIndex(s => s.label === middleGameText);
       if (existingMiddleGame >= 0 && !this.options.local) {
         chart.data.datasets.splice(existingMiddleGame, 1);
@@ -1922,7 +1926,12 @@
         }
       }
 
-      const endGameText = lt.global.i18n?.site?.endgame || 'Endgame';
+      let endGameText = lt.global.i18n?.site?.endgame
+      if (!endGameText) {
+        lt.global.console.warn('Could not determine endgame translation string!');
+        endGameText = 'Endgame';
+      }
+
       let existingEndGame = chart.data.datasets.findIndex(s => s.label === endGameText);
       if (existingEndGame >= 0 && !this.options.local) {
         chart.data.datasets.splice(existingEndGame, 1);

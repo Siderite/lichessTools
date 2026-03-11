@@ -143,7 +143,10 @@
     extractUserId = (text) => {
       const lt = this.lichessTools;
       const challengeX = lt.global.i18n?.site?.challengeX;
-      if (!challengeX) return;
+      if (!challengeX) {
+        lt.global.console.warn('Could not determine the challengeX translation string');
+        return;
+      }
       const pattern = lt.escapeRegex(challengeX('XXX')).replace('XXX','(?<userId>[^\\s]+)');
       const match = new RegExp(pattern).exec(text);
       return match?.groups?.userId;
