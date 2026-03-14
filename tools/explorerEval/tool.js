@@ -207,7 +207,19 @@
           const q = 1000 / total;
           const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
           const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+
           const winMargin = Math.round(10000*(explorerItem.white-explorerItem.black)/total)/100;
+          const wilson = (x,n)=>{
+            const z = 1.96;
+            const center = (x+z*z/2)/(n+z*z);
+            const halfWidth = z/(total+z*z)*Math.sqrt(x*(n-x)/n+z*z/4);
+            return [center-halfWidth,center+halfWidth];
+          };
+          const whiteWilly = wilson(explorerItem.white,total);
+          const blackWilly = wilson(explorerItem.black,total);
+          const willy = [whiteWilly[0]-blackWilly[1],whiteWilly[1]-blackWilly[0]]
+                                      .map(x=>(100*x).toFixed(0));
+          const winMarginInterval = willy[0]==willy[1] ? willy[0] : willy.join('/');
 
           const tdBar = $('td:has(div.bar)', e);
           if (tdBar.length) {
@@ -217,7 +229,7 @@
               arr[1] = sharpnessTitle;
             }
             if (Number.isFinite(winMargin)) {
-              const winMarginTitle = trans.pluralSame('winMarginTitle', winMargin);
+              const winMarginTitle = trans.pluralSame('winMarginTitle', winMarginInterval);
               arr[2] = winMarginTitle;
             }
             const tdTitle = arr.join(' / ');
