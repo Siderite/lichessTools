@@ -211,15 +211,22 @@
           const winMargin = Math.round(10000*(explorerItem.white-explorerItem.black)/total)/100;
           const wilson = (x,n)=>{
             const z = 1.96;
-            const center = (x+z*z/2)/(n+z*z);
-            const halfWidth = z/(total+z*z)*Math.sqrt(x*(n-x)/n+z*z/4);
-            return [center-halfWidth,center+halfWidth];
+            return {
+                     center: (x+z*z/2)/(n+z*z),
+                     halfWidth: z/(total+z*z)*Math.sqrt(x*(n-x)/n+z*z/4)
+                   };
           };
           const whiteWilly = wilson(explorerItem.white,total);
           const blackWilly = wilson(explorerItem.black,total);
-          const willy = [whiteWilly[0]-blackWilly[1],whiteWilly[1]-blackWilly[0]]
-                                      .map(x=>(100*x).toFixed(0));
-          const winMarginInterval = willy[0]==willy[1] ? willy[0] : willy.join('/');
+          const willy = {
+            center: whiteWilly.center-blackWilly.center,
+            halfWidth: whiteWilly.halfWidth+blackWilly.halfWidth
+          };
+          const winMarginInterval = (willy.halfWidth<0.02 
+            ? [willy.center]
+            : [willy.center-willy.halfWidth,willy.center+willy.halfWidth])
+                .map(x=>(100*x).toFixed(0))
+                .join('/');
 
           const tdBar = $('td:has(div.bar)', e);
           if (tdBar.length) {
