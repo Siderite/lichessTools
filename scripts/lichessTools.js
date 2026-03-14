@@ -2761,7 +2761,13 @@
       const age = lichess.info?.date
         ? (Date.now() - new Date(lichess.info.date).getTime()) / 86400000
         : 0;
-      this.global.console.debug('%c site code age: ' + Math.round(age * 10) / 10 + ' days', age < 7 ? 'background: red; color:white;' : '');
+      let style = '';
+      if (age<7) {
+        const background = this.getGradientColor(age, [{ q: 2, color: '#FF0000' }, { q: 5, color: '#FFFF00' }, { q: 8, color: '#808080' }]);
+        const text = this.getGradientColor(age, [{ q: 2, color: '#FFFFFF' }, { q: 5, color: '#000000' }]);
+        style = 'background:'+background+'; color:'+text+';';
+      }
+      this.global.console.debug('%c site code age: ' + Math.round(age * 10) / 10 + ' days', style);
       await this.applyOptions();
       const debouncedApplyOptions = this.debounce(this.applyOptions, 250, true);
       this.storage?.listen('lichessTools.reloadOptions', () => {
