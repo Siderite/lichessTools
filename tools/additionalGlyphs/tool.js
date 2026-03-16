@@ -65,10 +65,23 @@
           const customSvg = analysis.chessground?.state?.drawable?.autoShapes?.at(0)?.customSvg;
           let html = customSvg?.html;
           if (html) {
-            // keep in sync with https://github.com/lichess-org/lila/blob/270b724f02f78cdd0a1908c9359b294503d2899e/ui/lib/src/game/glyphs.ts#L80C27-L80C372
+            // keep in sync with https://github.com/lichess-org/lila/blob/1cce0f57a5c91182dba3a8808da081277d6c9c2c/ui/lib/src/game/glyphs.ts#L119
             const missPath = 'M79.4 68q0 1.8-1.4 3.2l-6.7 6.7q-1.4 1.4-3.5 1.4-1.9 0-3.3-1.4L50 63.4 35.5 78q-1.4 1.4-3.3 1.4-2 0-3.5-1.4L22 71.2q-1.4-1.4-1.4-3.3 0-1.7 1.4-3.5L36.5 50 22 35.4Q20.6 34 20.6 32q0-1.7 1.4-3.5l6.7-6.5q1.2-1.4 3.5-1.4 2 0 3.3 1.4L50 36.6 64.5 22q1.2-1.4 3.3-1.4 2.3 0 3.5 1.4l6.7 6.5q1.4 1.8 1.4 3.5 0 2-1.4 3.3L63.5 49.9 78 64.4q1.4 1.8 1.4 3.5z';
             html = html.replace(/\bd="[^"]+"/,'d="'+missPath+'"');
             customSvg.html = html;
+          }
+        }
+      }
+      // fix overlapping glyphs/motifs
+      const autoShapes = analysis.chessground?.state?.drawable?.autoShapes || [];
+      const groups = [...new Set(autoShapes.map(s=>s.orig))].map(k=>autoShapes.filter(s=>s.orig==k)).filter(g=>g.length>1);
+      for (const group of groups) {
+        for (let i=0; i<group.length; i++) {
+          const shape = group[i];
+          const m = /matrix\(.4 0 0 .4 (?<x>\d+) -12\)/.exec(shape.customSvg?.html);
+          const expected = 71-28*i;
+          if (m && +m.groups.x != expected) {
+            shape.customSvg.html = shape.customSvg.html.substr(0,m.index)+`matrix(.4 0 0 .4 ${expected} -12)`+shape.customSvg.html.substr(m.index+m[0].length);
           }
         }
       }
