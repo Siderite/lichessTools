@@ -1,7 +1,7 @@
 (() => {
   class ShowOpeningTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw','EmitContentLoaded'];
+    dependencies = ['EmitContentLoaded'];
 
     preferences = [
       {
@@ -123,9 +123,10 @@
     openingTime = 0;
     withOpening = async (gameId, el, ply, fen, isMini) => {
       const lt = this.lichessTools;
-      if (!lt.inViewport(el)) return;
+      if (!lt.inViewport(el,true)) return;
+      const analysis = lt.lichess?.analysis;
       const Math = lt.global.Math;
-      const node = (fen && lt.lichess?.analysis?.node?.fen == fen && lt.lichess.analysis.node);
+      const node = (fen && analysis?.node?.fen == fen && lt.lichess.analysis.node);
       if (!fen) fen = lt.getPositionFromBoard(el, true);
       const pos = lt.getPositionFromFen(fen);
       if (pos) {
@@ -147,7 +148,7 @@
         if (opening) {
           if (node && !node.opening) {
             node.opening = { name: opening };
-            lt.emitRedraw();
+            analysis?.redraw();
           }
           el.openingData = { time: Date.now(), opening, el };
           return el.openingData;

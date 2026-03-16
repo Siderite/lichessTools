@@ -157,6 +157,7 @@
           fill: fill,
           type: 'nonStandard'
         });
+        analysis.redraw();
       }
       const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
       existing.find('circle').attrSafe('fill',fill);
