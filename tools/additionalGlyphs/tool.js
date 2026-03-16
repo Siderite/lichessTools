@@ -112,7 +112,7 @@
         return;
       }
       let orig = isMate
-                   ? $('square.check').prop('cgKey')
+                   ? this.getSquareOfCheckedKing()
                    : analysis.node.uci?.slice(2, 4);
       if (!orig) return;
       if (analysis.node.san?.startsWith('O-O')) {
