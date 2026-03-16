@@ -49,13 +49,32 @@
       '?!':'inaccuracy',
       '!?':'interesting'
     };
+    unicode = {
+      '\u2654': 'white king',
+      '\u2655': 'white queen',
+      '\u2656': 'white rook',
+      '\u2657': 'white bishop',
+      '\u2658': 'white knight',
+      '\u2659': 'white pawn',
+      '\u265A': 'black king',
+      '\u265B': 'black queen',
+      '\u265C': 'black rook',
+      '\u265D': 'black bishop',
+      '\u265E': 'black knight',
+      '\u265F': 'black pawn'
+    };
     getSpeakableText = (text)=>{
       if (!text) return;
       text = text.replaceAll(/(cls|bkm|prc|rnd):([^\s]*)\s*/gi,'');
+      for (const ch in this.unicode) {
+        text = text.replaceAll(ch, this.unicode[ch]+', ');
+      }
       if (this.options.stripEmoji) {
         text = text.replaceAll(/\p{Extended_Pictographic}+/ugi,' ');
       }
       text = text.replaceAll(/e\.\s*p\./gi,'un phsaant');
+      text = text.replaceAll(/(\d+)-(\d+)/gi,'$1,$2');
+      text = text.replaceAll(/(\d+)\s+-\s+(\d+)/gi,'$1,$2');
       text = text.replaceAll(this.urlRegex,(m)=>{
         const url = new URL(m);
         const host = url.host
@@ -91,7 +110,7 @@
           result.push(sanWords);
         }
         if (g.glyph) {
-          const ann = this.annotations[g.glyph];
+          const ann = g.name || this.annotations[g.glyph];
           if (ann) result.push(', '+ann);
         }
         return result.join(' ')

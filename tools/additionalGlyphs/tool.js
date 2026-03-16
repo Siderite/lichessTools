@@ -49,6 +49,7 @@
       const analysis = lichess?.analysis;
       const firstGlyph = analysis.node.glyphs?.at(0);
       let orig = analysis.node.uci?.slice(2, 4);
+      let redraw = false;
       if (firstGlyph?.type && orig) {
         lt.global.requestAnimationFrame(()=>{
           const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
@@ -56,7 +57,7 @@
         });
       }
       let glyph = firstGlyph?.symbol;
-      if (glyph == '??' && this.options.miss && analysis.nodeList.length>2) {
+      if (this.options.miss && glyph == '??' && analysis.nodeList.length>2) {
         const [cp2,cp1,cp]=analysis.nodeList.slice(-3).map(n=>lt.getCentipawns(n.ceval || n.eval));
         const d1=cp-cp1;
         const d2=cp2-cp1;
@@ -69,6 +70,8 @@
             const missPath = 'M79.4 68q0 1.8-1.4 3.2l-6.7 6.7q-1.4 1.4-3.5 1.4-1.9 0-3.3-1.4L50 63.4 35.5 78q-1.4 1.4-3.3 1.4-2 0-3.5-1.4L22 71.2q-1.4-1.4-1.4-3.3 0-1.7 1.4-3.5L36.5 50 22 35.4Q20.6 34 20.6 32q0-1.7 1.4-3.5l6.7-6.5q1.2-1.4 3.5-1.4 2 0 3.3 1.4L50 36.6 64.5 22q1.2-1.4 3.3-1.4 2.3 0 3.5 1.4l6.7 6.5q1.4 1.8 1.4 3.5 0 2-1.4 3.3L63.5 49.9 78 64.4q1.4 1.8 1.4 3.5z';
             html = html.replace(/\bd="[^"]+"/,'d="'+missPath+'"');
             customSvg.html = html;
+            firstGlyph.name='miss';
+            redraw = true;
           }
         }
       }
@@ -82,8 +85,13 @@
           const expected = 71-28*i;
           if (m && +m.groups.x != expected) {
             shape.customSvg.html = shape.customSvg.html.substr(0,m.index)+`matrix(.4 0 0 .4 ${expected} -12)`+shape.customSvg.html.substr(m.index+m[0].length);
+            redraw = true;
           }
         }
+      }
+      if (redraw) {
+        analysis.chessground?.state?.dom?.redrawNow();
+        analysis.redraw();
       }
     };
 

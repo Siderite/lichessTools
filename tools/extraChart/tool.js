@@ -640,11 +640,9 @@
     };
 
     getNodeCeval = (node) => {
+      const lt = this.lichessTools;
       if (!this.options.local) return node.eval;
-      const ceval = node.ceval;
-      return !ceval || (node.eval && (node.eval?.depth || 16) > ceval.depth)
-        ? node.eval
-        : ceval;
+      return lt.getNodeCeval(node);
     };
 
     getAccuracyData = (mainline) => {
@@ -919,11 +917,13 @@
       const initValue = this.options.moreBrilliant ? 2 : 1;
       if (!forced && mainline.at(-1)?.brilliantInit === initValue) return;
       const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       const isLocalChart = $('#acpl-chart-container').is('.lichessTools-extraChart');
       const Math = lt.global.Math;
       const showBad = this.options.moreBrilliant && isLocalChart;
       let p2;
       let p3;
+      let resetShapes = false;
       mainline
         .map((node, x) => {
           try {
@@ -935,7 +935,6 @@
                            ? 0
                            : this.computeBrilliant(m, node, p2, p3);
             result = {
-              //book: node.opening,
               blunder: showBad && good < -20,
               mistake: showBad && good < -10,
               inaccuracy: showBad && good < -5,
@@ -954,10 +953,6 @@
           let symbol = null;
           let name = null;
           if (v.good) {
-            if (v.book) {
-              symbol = lt.icon.Book;
-              name = 'Book';
-            } else
             if (v.bril) {
               symbol = '!!';
               name = 'Brilliant';
@@ -996,9 +991,14 @@
               name: name,
               type: 'nonStandard'
             });
+            resetShapes = true;
           }
           mainline[x].glyphs = glyphs;
         });
+      if (resetShapes) {
+        analysis.resetAutoShapes();
+         
+      }
       if (mainline.length) {
         mainline.at(-1).brilliantInit = initValue;
       }
@@ -1323,7 +1323,7 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      if (!forced && lt.random() > 0.95) forced = true; // hack to sometimes update this anyway
+      if (!forced && lt.random() > 0.9) forced = true; // hack to sometimes update this anyway
 
       if (!lichess.analysis) return;
       const currentBrilliant = [this.options.brilliant, this.options.moreBrilliant].join(',');

@@ -171,6 +171,13 @@
       return result;
     };
 
+    getNodeCeval = (node) => {
+      const ceval = node.ceval;
+      return !ceval || (node.eval && node.eval._originator!='lichessTools' && (node.eval?.depth || 16) > ceval.depth)
+        ? node.eval
+        : ceval;
+    };
+
     getCentipawns = (info) => {
       if (!info || info.depth === 0) return;
       let cp = undefined;

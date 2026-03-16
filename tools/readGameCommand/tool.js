@@ -113,7 +113,7 @@
         analysis.userJump(path);
         lt.analysisRedraw();
         const text = this.getReadText(node);
-        const evl = node.eval || node.ceval;
+        const evl = lt.getNodeCeval(node);
         if (instrument && evl) {
           const side = analysis.getOrientation() == 'black' ? -1 : 1;
           const cp = lt.getCentipawns(evl);

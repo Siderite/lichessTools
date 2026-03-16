@@ -78,6 +78,7 @@
                   node.eval.best = best;
                 }
               } else {
+                // TODO this is dangerous, should be replaced with something better
                 node.eval = {
                                _originator: 'lichessTools',
                                cp:newCeval?.cp,
