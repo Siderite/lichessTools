@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Mar
+
+- persistent subchapter collapse
+
 05 Mar
 
 - PGN Editor search for pawn structures
