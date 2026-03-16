@@ -66,7 +66,7 @@
       return this.getChapterElements(chapterId, false);
     };
 
-    refreshChapterControls = () => {
+    refreshChapterControlsDirect = () => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
       const $ = lt.$;
@@ -184,6 +184,7 @@
                              this.expandChapter(chapter.id);
                            })
                            .insertBefore($('h3',chapterElem));
+              if (this.collapsedChapters.includes(chapter.id)) expander.trigger('click');
             }
           } else {
             expander.remove();
@@ -191,7 +192,7 @@
         } 
       }
     };
-    debouncedRefreshChapterControls = this.lichessTools.debounce(this.refreshChapterControls, 100);
+    refreshChapterControls = this.lichessTools.debounce(this.refreshChapterControlsDirect, 100);
 
     isSubChapter = (chapterOrName)=>{
       const name = chapterOrName?.name || chapterOrName?.toString();
@@ -210,6 +211,12 @@
       const expander = $('.lichessTools-expander',chapterElem);
       const isCollapsed = !expander.is('.collapsed');
       expander.toggleClass('collapsed',isCollapsed);
+      if (isCollapsed) {
+        this.collapsedChapters.push(chapterId);
+      } else {
+        lt.arrayRemoveAll(this.collapsedChapters,x=>x=chapterId);
+      }
+      lt.storage.set('LiChessTools.collapsedChapters',this.collapsedChapters);
       for (let i = index+1; i<chapterElems.length; i++) {
         const next = chapterElems[i];
         if (!this.isSubChapter($('h3',next).text())) break;
@@ -288,28 +295,31 @@
       const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      lt.pubsub.off('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
-      lt.pubsub.off('lichessTools.redraw', this.debouncedRefreshChapterControls);
-      lt.uiApi.events.off('chat.resize', this.debouncedRefreshChapterControls);
+      lt.pubsub.off('lichessTools.chapterChange', this.refreshChapterControls);
+      lt.pubsub.off('lichessTools.redraw', this.refreshChapterControls);
+      lt.uiApi.events.off('chat.resize', this.refreshChapterControls);
       $('.study__chapters').observer()
-        .off('button[data-id]',this.debouncedRefreshChapterControls);
+        .off('button[data-id]',this.refreshChapterControls);
       $('div.study__side.lichessTools-chapterControls,aside.relay-tour__side.lichessTools-chapterControls')
         .removeClass('lichessTools-chapterControls')
         .find('div[role="footer"]')
         .remove();
 
-      if (this.options.controls || this.options.subChapters) {
-        lt.pubsub.on('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
-        lt.pubsub.on('lichessTools.redraw', this.debouncedRefreshChapterControls);
-        lt.uiApi.events.on('chat.resize', this.debouncedRefreshChapterControls);
-        $('.study__chapters').observer()
-          .on('button[data-id], button[data-id] h3',this.debouncedRefreshChapterControls);
-        this.refreshChapterControls();
-      }
-
       $('.lichessTools-expander').remove();
       $('.lichessTools-collapsedChapter').removeClass('lichessTools-collapsedChapter');
       $('button[data-id].collapsed').removeClass('collapsed');
+
+      if (this.options.controls || this.options.subChapters) {
+        lt.pubsub.on('lichessTools.chapterChange', this.refreshChapterControls);
+        lt.pubsub.on('lichessTools.redraw', this.refreshChapterControls);
+        lt.uiApi.events.on('chat.resize', this.refreshChapterControls);
+        $('.study__chapters').observer()
+          .on('button[data-id], button[data-id] h3',this.refreshChapterControls);
+
+        this.collapsedChapters = lt.storage.get('LiChessTools.collapsedChapters')||[];
+        this.refreshChapterControlsDirect();
+      }
+
       study.chapters.sort = lt.unwrapFunction(study.chapters.sort,'chapterNavigation');
 
       if (this.options.subChapters) {
