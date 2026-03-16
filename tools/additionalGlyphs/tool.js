@@ -95,17 +95,21 @@
       $('body').toggleClassSafe('lichessTools-compOff',!analysis?.showFishnetAnalysis() && !analysis?.cevalEnabled());
       const chessground = analysis?.chessground;
       if (!chessground) return;
-      const firstGlyph = analysis.node.glyphs?.at(0);
+      const glyphs = analysis.node.glyphs || (analysis.node.glyphs = []);
+      const firstGlyph = glyphs[0];
       let glyph = firstGlyph?.symbol;
       let fill = firstGlyph?.fill || '#557766B0';
       const isMate = lt.isMate(analysis.node);
+      let name = undefined;
       if (!glyph) {
         if (this.options.mate && isMate) {
           glyph = lt.icon.Mate;
+          //name='mate';
           fill = '#557766B0';
         } else
         if (this.options.book && analysis.node.opening) {
           glyph = lt.icon.OpenBook;
+          name='book';
           fill = '#999900BB';
         }
       }
@@ -117,6 +121,7 @@
         if (shape) shapes.push(shape);
         if (lt.global.JSON.stringify(autoShapes)!=lt.global.JSON.stringify(shapes)) {
           chessground.setAutoShapes(shapes);
+          chessground.state.dom.redrawNow();
         }
       };
 
@@ -144,6 +149,15 @@
           text: glyph
         }
       });
+      // mate is a special one, no ceval running and already on the move list
+      if (name && !glyphs.find(g=>g.symbol==glyph)) {
+        glyphs.push({
+          symbol: glyph,
+          name: name,
+          fill: fill,
+          type: 'nonStandard'
+        });
+      }
       const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
       existing.find('circle').attrSafe('fill',fill);
     };
@@ -200,6 +214,7 @@
           this.drawGlyphsDirect();
         },
         after: ($this, result, ...args)=>{
+          this.drawGlyphsDirect();
           this.updateGlyphs();
         }
       });
