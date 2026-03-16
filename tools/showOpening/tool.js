@@ -1,7 +1,7 @@
 (() => {
   class ShowOpeningTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitContentLoaded'];
+    dependencies = ['EmitRedraw','EmitContentLoaded'];
 
     preferences = [
       {
@@ -147,6 +147,7 @@
         if (opening) {
           if (node && !node.opening) {
             node.opening = { name: opening };
+            lt.emitRedraw();
           }
           el.openingData = { time: Date.now(), opening, el };
           return el.openingData;
