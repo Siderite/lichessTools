@@ -8,7 +8,7 @@
         name: 'highlight',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['lastMove', 'notCommented', 'transposition', 'mainLine', 'mainLinePieces', 'variationDepth', 'checks'],
+        possibleValues: ['lastMove', 'notCommented', 'transposition', 'mainLine', 'mainLinePieces', 'variationDepth', 'checks', 'currentLine'],
         defaultValue: 'lastMove,notCommented,transposition',
         advanced: true
       }
@@ -24,6 +24,7 @@
         'highlight.mainLinePieces': 'Highlight pieces when out of main line',
         'highlight.variationDepth': 'Highlight variation depth',
         'highlight.checks': 'Highlight checks to kings',
+        'highlight.currentLine': 'Highlight current line'
       },
       'ro-RO': {
         'options.highlight': 'Eviden\u0163iaz\u0103 mut\u0103ri \u00een analiz\u0103',
@@ -34,6 +35,7 @@
         'highlight.mainLinePieces': 'Eviden\u0163iaz\u0103 piese c\u00e2nd nu pe linia principal\u0103',
         'highlight.variationDepth': 'Eviden\u0163iaz\u0103 ad\u00e2ncimea varia\u0163iilor',
         'highlight.checks': 'Eviden\u0163iaz\u0103 regi \u00een \u015fah',
+        'highlight.currentLine': 'Eviden\u0163iaz\u0103 linia curent\u0103'
       }
     }
 
@@ -100,6 +102,23 @@
         $(elem).toggleClassSafe('lichessTools-uncommented',true);
       }
     };
+
+    highlightCurrentLine = () => {
+      const lt = this.lichessTools;
+      const analysis = lt.lichess?.analysis;
+      if (!analysis || !this.options.currentLine) return;
+      const $ = lt.$;
+      const nodeList = site.analysis.tree.getNodeList(site.analysis.contextMenuPath || site.analysis.path);
+      const toHighlight = nodeList.map(n=>lt.getElementForNode(n));
+
+      $('div.analyse__moves move.lichessTools-currentLine')
+         .filter((i, e) => !toHighlight.includes(e))
+         .toggleClassSafe('lichessTools-currentLine',false);
+      for (const elem of toHighlight) {
+        $(elem).toggleClassSafe('lichessTools-currentLine',true);
+      }
+    };
+
 
     highlightTranspositions = () => {
       const lt = this.lichessTools;
@@ -229,6 +248,7 @@
       this.highlightTranspositions();
       this.highlightVariationDepth();
       this.highlightChecks();
+      this.highlightCurrentLine();
     };
 
     debouncedTraverseTree = this.lichessTools.debounce(this.traverseTree, 800, { defer:true });
@@ -246,8 +266,9 @@
         mainLine: lt.isOptionSet(value, 'mainLine'),
         variationDepth: lt.isOptionSet(value, 'variationDepth'),
         checks: lt.isOptionSet(value, 'checks'),
+        currentLine: lt.isOptionSet(value, 'currentLine'),
         mainLinePieces: lt.isOptionSet(value, 'mainLinePieces'),
-        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth || this.checks || this.mainLinePieces; }
+        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth || this.checks || this.mainLinePieces || this.currentLine; }
       };
       lt.pubsub.off('lichessTools.redraw', this.highlightMainLine);
       lt.pubsub.off('lichessTools.redraw', this.highlightMainLinePieces);

@@ -156,6 +156,15 @@ body.lichessTools.lichessTools-variationDepth main.analyse move {
   vertical-align: middle
 }
 
+body.lichessTools .analyse__moves:has(.context-menu) .lichessTools-currentLine {
+  background-color: var(--c-accent-faint);
+}
+
+body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine {
+  filter: drop-shadow(0 0 2px var(--c-accent));
+  color: var(--c-font-clearer);
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier main.analyse .tview2 move.lichessTools-transposition {

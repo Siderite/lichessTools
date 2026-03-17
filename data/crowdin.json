@@ -1032,7 +1032,8 @@
     "cancelEditChaptersButtonText": "إلغاء",
     "cancelEditChaptersButtonTitle": "أدوات شطرنج الحياة - إلغاء اختيار الفصل",
     "chapterEditing.tags": "علامات الفصل",
-    "chapterEditing.bulk": "فصول متعددة"
+    "chapterEditing.bulk": "فصول متعددة",
+    "highlight.currentLine": "تسليط الضوء على السطر الحالي"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2067,7 +2068,8 @@
     "cancelEditChaptersButtonText": "Cancel",
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
-    "chapterEditing.bulk": "Multiple chapters"
+    "chapterEditing.bulk": "Multiple chapters",
+    "highlight.currentLine": "Highlight current line"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3102,7 +3104,8 @@
     "cancelEditChaptersButtonText": "取消",
     "cancelEditChaptersButtonTitle": "LiChess Tools - 取消章节选择",
     "chapterEditing.tags": "章节标签",
-    "chapterEditing.bulk": "多个章节"
+    "chapterEditing.bulk": "多个章节",
+    "highlight.currentLine": "突出显示当前行"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4137,7 +4140,8 @@
     "cancelEditChaptersButtonText": "Cancel",
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
-    "chapterEditing.bulk": "Multiple chapters"
+    "chapterEditing.bulk": "Multiple chapters",
+    "highlight.currentLine": "Highlight current line"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5172,7 +5176,8 @@
     "cancelEditChaptersButtonText": "Zrušit",
     "cancelEditChaptersButtonTitle": "Nástroje LiChess - zrušit výběr kapitoly",
     "chapterEditing.tags": "Značky kapitoly",
-    "chapterEditing.bulk": "Více kapitol"
+    "chapterEditing.bulk": "Více kapitol",
+    "highlight.currentLine": "Zvýraznit aktuální řádek"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6207,7 +6212,8 @@
     "cancelEditChaptersButtonText": "annuleren",
     "cancelEditChaptersButtonTitle": "LiChess Tools - selectie hoofdstuk annuleren",
     "chapterEditing.tags": "Hoofdstuk labels",
-    "chapterEditing.bulk": "Meerdere hoofdstukken"
+    "chapterEditing.bulk": "Meerdere hoofdstukken",
+    "highlight.currentLine": "Huidige lijn markeren"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7242,7 +7248,8 @@
     "cancelEditChaptersButtonText": "Cancel",
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
-    "chapterEditing.bulk": "Multiple chapters"
+    "chapterEditing.bulk": "Multiple chapters",
+    "highlight.currentLine": "Highlight current line"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8277,7 +8284,8 @@
     "cancelEditChaptersButtonText": "Annuler",
     "cancelEditChaptersButtonTitle": "LiChess Tools - annuler la sélection du chapitre",
     "chapterEditing.tags": "Étiquettes de chapitre",
-    "chapterEditing.bulk": "Plusieurs chapitres"
+    "chapterEditing.bulk": "Plusieurs chapitres",
+    "highlight.currentLine": "Surligner la ligne actuelle"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9312,7 +9320,8 @@
     "cancelEditChaptersButtonText": "Abbrechen",
     "cancelEditChaptersButtonTitle": "LiChess Tools - Abbrechen der Kapitelauswahl",
     "chapterEditing.tags": "Kapitel Tags",
-    "chapterEditing.bulk": "Mehrere Kapitel"
+    "chapterEditing.bulk": "Mehrere Kapitel",
+    "highlight.currentLine": "Aktuelle Zeile hervorheben"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10347,7 +10356,8 @@
     "cancelEditChaptersButtonText": "Ακύρωση",
     "cancelEditChaptersButtonTitle": "LiChess Tools - ακύρωση επιλογής κεφαλαίου",
     "chapterEditing.tags": "Ετικέτες κεφαλαίου",
-    "chapterEditing.bulk": "Πολλαπλά κεφάλαια"
+    "chapterEditing.bulk": "Πολλαπλά κεφάλαια",
+    "highlight.currentLine": "Επισήμανση τρέχουσας γραμμής"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11382,7 +11392,8 @@
     "cancelEditChaptersButtonText": "Cancel",
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
-    "chapterEditing.bulk": "Multiple chapters"
+    "chapterEditing.bulk": "Multiple chapters",
+    "highlight.currentLine": "Highlight current line"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12417,7 +12428,8 @@
     "cancelEditChaptersButtonText": "Cancel",
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
-    "chapterEditing.bulk": "Multiple chapters"
+    "chapterEditing.bulk": "Multiple chapters",
+    "highlight.currentLine": "Highlight current line"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13452,7 +13464,8 @@
     "cancelEditChaptersButtonText": "Annulla",
     "cancelEditChaptersButtonTitle": "Strumenti LiChess - annulla la selezione dei capitoli",
     "chapterEditing.tags": "Etichette del capitolo",
-    "chapterEditing.bulk": "Capitoli multipli"
+    "chapterEditing.bulk": "Capitoli multipli",
+    "highlight.currentLine": "Evidenzia riga corrente"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14487,7 +14500,8 @@
     "cancelEditChaptersButtonText": "Cancel",
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
-    "chapterEditing.bulk": "Multiple chapters"
+    "chapterEditing.bulk": "Multiple chapters",
+    "highlight.currentLine": "Highlight current line"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15522,7 +15536,8 @@
     "cancelEditChaptersButtonText": "Anuluj",
     "cancelEditChaptersButtonTitle": "Narzędzia LiChess - anuluj wybór rozdziału",
     "chapterEditing.tags": "Znaczniki rozdziału",
-    "chapterEditing.bulk": "Wiele rozdziałów"
+    "chapterEditing.bulk": "Wiele rozdziałów",
+    "highlight.currentLine": "Podświetl bieżącą linię"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16557,7 +16572,8 @@
     "cancelEditChaptersButtonText": "cancelar",
     "cancelEditChaptersButtonTitle": "Ferramentas LiChess - cancelar a seleção de capítulo",
     "chapterEditing.tags": "Tags de capítulos",
-    "chapterEditing.bulk": "Vários capítulos"
+    "chapterEditing.bulk": "Vários capítulos",
+    "highlight.currentLine": "Destacar linha atual"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17592,7 +17608,8 @@
     "cancelEditChaptersButtonText": "cancelar",
     "cancelEditChaptersButtonTitle": "Ferramentas LiChess - cancelar a seleção de capítulo",
     "chapterEditing.tags": "Tags de capítulos",
-    "chapterEditing.bulk": "Vários capítulos"
+    "chapterEditing.bulk": "Vários capítulos",
+    "highlight.currentLine": "Destacar linha atual"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18627,7 +18644,8 @@
     "cancelEditChaptersButtonText": "Anulează",
     "cancelEditChaptersButtonTitle": "LiChess Tools - anulează selecția de capitole",
     "chapterEditing.tags": "Etichete capitol",
-    "chapterEditing.bulk": "Mai multe capitole"
+    "chapterEditing.bulk": "Mai multe capitole",
+    "highlight.currentLine": "Evidențiază linia curentă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19662,7 +19680,8 @@
     "cancelEditChaptersButtonText": "Отмена",
     "cancelEditChaptersButtonTitle": "LiChess Tools - отменить выбор главы",
     "chapterEditing.tags": "Теги главы",
-    "chapterEditing.bulk": "Несколько глав"
+    "chapterEditing.bulk": "Несколько глав",
+    "highlight.currentLine": "Выделить текущую строку"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20697,7 +20716,8 @@
     "cancelEditChaptersButtonText": "Cancelar",
     "cancelEditChaptersButtonTitle": "Herramientas de LiChess - Cancela la selección de capítulos",
     "chapterEditing.tags": "Etiquetas de capítulo",
-    "chapterEditing.bulk": "Varios capítulos"
+    "chapterEditing.bulk": "Varios capítulos",
+    "highlight.currentLine": "Resaltar línea actual"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -21732,7 +21752,8 @@
     "cancelEditChaptersButtonText": "Cancel",
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
-    "chapterEditing.bulk": "Multiple chapters"
+    "chapterEditing.bulk": "Multiple chapters",
+    "highlight.currentLine": "Highlight current line"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -22767,7 +22788,8 @@
     "cancelEditChaptersButtonText": "İptal",
     "cancelEditChaptersButtonTitle": "LiChess Tools - bölüm seçimini iptal et",
     "chapterEditing.tags": "Bölüm etiketleri",
-    "chapterEditing.bulk": "Birden fazla bölüm"
+    "chapterEditing.bulk": "Birden fazla bölüm",
+    "highlight.currentLine": "Highlight current line"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -23802,6 +23824,7 @@
     "cancelEditChaptersButtonText": "Cancel",
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
-    "chapterEditing.bulk": "Multiple chapters"
+    "chapterEditing.bulk": "Multiple chapters",
+    "highlight.currentLine": "Highlight current line"
   }
 }

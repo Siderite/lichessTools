@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+17 Mar
+
+- higlight current line nodes
+
 16 Mar
 
 - persistent subchapter collapse
