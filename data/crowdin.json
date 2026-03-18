@@ -2924,7 +2924,7 @@
     "mobileExperience.tapDrag": "点击并拖动",
     "mobileExperienceRound.tapDragRound": "点击并拖动",
     "options.pieceValueCommand": "命令：显示局面的棋子价值",
-    "pieceValueCommand.helpText": "/zit evalue [depth=20] [c] ...ontinlight\n/停止执行\n显示位置的块值",
+    "pieceValueCommand.helpText": "/piecevalue [depth=20] [\"c\"]（c 表示连续）\n/stop 停止执行\n显示局面棋子价值",
     "analysisContextActions.lineEval": "为先前着法提供引擎评估",
     "evaluateLineText": "评估先前着法",
     "evaluateLineTitle": "LiChess Tools - 评估所有先前着法",
@@ -2940,7 +2940,7 @@
     "copyFenToClipboard": "复制 FEN 到剪贴板",
     "explorerEval.highlightList": "高亮列表着法",
     "forkBehavior.hidden": "隐藏",
-    "notAnalysedGamesLabel": "仅未分析的",
+    "notAnalysedGamesLabel": "仅未分析",
     "options.feedback": "反馈",
     "feedback.piecePick": "拾取或选择棋子",
     "feedback.pieceDrop": "棋子移动",
@@ -3105,7 +3105,7 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - 取消章节选择",
     "chapterEditing.tags": "章节标签",
     "chapterEditing.bulk": "多个章节",
-    "highlight.currentLine": "突出显示当前行"
+    "highlight.currentLine": "高亮显示当前行"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -8285,7 +8285,7 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - annuler la sélection du chapitre",
     "chapterEditing.tags": "Étiquettes de chapitre",
     "chapterEditing.bulk": "Plusieurs chapitres",
-    "highlight.currentLine": "Surligner la ligne actuelle"
+    "highlight.currentLine": "Mettre en surbrillance la ligne actuelle"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
