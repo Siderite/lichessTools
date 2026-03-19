@@ -56,18 +56,18 @@
       const study = analysis?.study;
       if (!study) return;
       const isWritableStudy = study?.isWriting();
-      const showStylingButton = isWritableStudy && lt.getNodeCommentsText(analysis.node);
+      const showStylingButton = isWritableStudy && !!lt.getNodeCommentsText(analysis.node);
       if (!this.options.enabled || !showStylingButton) {
-        $('.study__buttons span.lichessTools-colors').remove();
+        $('.study__buttons .lichessTools-colors').remove();
       }
       if (!this.options.enabled) return;
-      if (showStylingButton && !$('.study__buttons span.lichessTools-colors').length) {
-        const button = $('<span>')
+      if (showStylingButton && !$('.study__buttons .lichessTools-colors').length) {
+        const button = $('<button type="button">')
           .attr('title', trans.noarg('commentStyleCycle'))
           .attr('data-icon', lt.icon.InkQuill)
           .addClass('lichessTools-colors')
           .on('click', this.cycleCommentColor)
-          .insertAfter('.study__buttons span.comments');
+          .insertAfter('.study__buttons .comments');
       }
 
       const commentNodes = this.getCommentNodes($('div.analyse__moves comment, div.gamebook .comment .content'));
