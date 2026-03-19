@@ -1,26 +1,26 @@
-body.lichessTools section.explorer-box span.lichessTools-explorerPractice {
+body.lichessTools section.explorer-box button.lichessTools-explorerPractice {
   padding: 0 7px;
   cursor: pointer;
 }
 
-body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
+body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before {
   color: black;
   transform: scale(1.2);
 }
 
-body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active.lichessTools-outOfMoves {
+body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active.lichessTools-outOfMoves {
   filter: contrast(0.5);
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
+  html:not(.dark, .darkBoard, .light) body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before {
     color: white;
   }
 }
 
-html.dark body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before,
-html.darkBoard body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before,
-html.transp body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
+html.dark body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before,
+html.darkBoard body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before,
+html.transp body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before {
   color: white;
 }
 
@@ -76,6 +76,6 @@ body.lichessTools section.explorer-box:has(.lichessTools-explorerPractice.active
 
 /* Prettier Lichess CSS */
 
-body.lichessTools.lichessTools-prettier section.explorer-box span.lichessTools-explorerPractice.active:before {
+body.lichessTools.lichessTools-prettier section.explorer-box button.lichessTools-explorerPractice.active:before {
   color: black;
 }

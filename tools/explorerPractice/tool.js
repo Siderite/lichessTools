@@ -142,7 +142,7 @@
       }
       if (!this.isRunning) return;
       if (this.inPlayMove) return;
-      $('span.lichessTools-explorerPractice')
+      $('button.lichessTools-explorerPractice')
          .toggleClassSafe('lichessTools-outOfMoves',true);
       lt.announce(trans.noarg('outOfMoves'));
       this.evaluatePosition();
@@ -282,9 +282,9 @@
         this.setRunning(false);
         return;
       };
-      let button = $('span.lichessTools-explorerPractice', container);
+      let button = $('button.lichessTools-explorerPractice', container);
       if (!button.length) {
-        button = $('<span>')
+        button = $('<button>')
           .addClass('lichessTools-explorerPractice')
           .attr('title', trans.noarg('explorerPracticeTitle'))
           .attr('data-icon', lt.icon.ArcheryTarget)
@@ -358,7 +358,7 @@
       lt.unbindKeyHandler('shift+l');
       analysis.userJump = lt.unwrapFunction(analysis.userJump, 'explorerPractice');
       if (!value) {
-        $('section.explorer-box span.lichessTools-explorerPractice').remove();
+        $('section.explorer-box button.lichessTools-explorerPractice').remove();
         return;
       }
       lt.bindKeyHandler('shift+l', () => {
@@ -372,7 +372,7 @@
       analysis.userJump = lt.wrapFunction(analysis.userJump, {
         id: 'explorerPractice',
         after: ($this, result, ...args) => {
-          $('span.lichessTools-explorerPractice')
+          $('button.lichessTools-explorerPractice')
             .toggleClassSafe('lichessTools-outOfMoves',false);
           this.inPlayMove = false;
         }
