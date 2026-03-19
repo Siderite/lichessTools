@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Mar
+
+- previous study menu items count
+
 17 Mar
 
 - higlight current line nodes

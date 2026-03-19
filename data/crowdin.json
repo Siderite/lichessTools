@@ -1033,7 +1033,13 @@
     "cancelEditChaptersButtonTitle": "أدوات شطرنج الحياة - إلغاء اختيار الفصل",
     "chapterEditing.tags": "علامات الفصل",
     "chapterEditing.bulk": "فصول متعددة",
-    "highlight.currentLine": "تسليط الضوء على السطر الحالي"
+    "highlight.currentLine": "تسليط الضوء على السطر الحالي",
+    "previousStudyMenu.0": "معطل",
+    "previousStudyMenu.1": "عنصر واحد",
+    "previousStudyMenu.2": "بندان",
+    "previousStudyMenu.3": "ثلاثة بنود",
+    "previousStudyMenu.4": "أربعة بنود",
+    "previousStudyMenu.5": "خمسة بنود"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2069,7 +2075,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
     "chapterEditing.bulk": "Multiple chapters",
-    "highlight.currentLine": "Highlight current line"
+    "highlight.currentLine": "Highlight current line",
+    "previousStudyMenu.0": "disabled",
+    "previousStudyMenu.1": "one item",
+    "previousStudyMenu.2": "two items",
+    "previousStudyMenu.3": "three items",
+    "previousStudyMenu.4": "four items",
+    "previousStudyMenu.5": "five items"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3105,7 +3117,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - 取消章节选择",
     "chapterEditing.tags": "章节标签",
     "chapterEditing.bulk": "多个章节",
-    "highlight.currentLine": "高亮显示当前行"
+    "highlight.currentLine": "高亮显示当前行",
+    "previousStudyMenu.0": "已禁用",
+    "previousStudyMenu.1": "一个项目",
+    "previousStudyMenu.2": "两个项目",
+    "previousStudyMenu.3": "三个项目",
+    "previousStudyMenu.4": "四个项目",
+    "previousStudyMenu.5": "五个项目"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4141,7 +4159,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
     "chapterEditing.bulk": "Multiple chapters",
-    "highlight.currentLine": "Highlight current line"
+    "highlight.currentLine": "Highlight current line",
+    "previousStudyMenu.0": "disabled",
+    "previousStudyMenu.1": "one item",
+    "previousStudyMenu.2": "two items",
+    "previousStudyMenu.3": "three items",
+    "previousStudyMenu.4": "four items",
+    "previousStudyMenu.5": "five items"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5177,7 +5201,13 @@
     "cancelEditChaptersButtonTitle": "Nástroje LiChess - zrušit výběr kapitoly",
     "chapterEditing.tags": "Značky kapitoly",
     "chapterEditing.bulk": "Více kapitol",
-    "highlight.currentLine": "Zvýraznit aktuální řádek"
+    "highlight.currentLine": "Zvýraznit aktuální řádek",
+    "previousStudyMenu.0": "vypnuto",
+    "previousStudyMenu.1": "jedna položka",
+    "previousStudyMenu.2": "dvě položky",
+    "previousStudyMenu.3": "tři položky",
+    "previousStudyMenu.4": "čtyři položky",
+    "previousStudyMenu.5": "pět položek"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6213,7 +6243,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - selectie hoofdstuk annuleren",
     "chapterEditing.tags": "Hoofdstuk labels",
     "chapterEditing.bulk": "Meerdere hoofdstukken",
-    "highlight.currentLine": "Huidige lijn markeren"
+    "highlight.currentLine": "Huidige lijn markeren",
+    "previousStudyMenu.0": "uitgeschakeld",
+    "previousStudyMenu.1": "één item",
+    "previousStudyMenu.2": "twee artikelen",
+    "previousStudyMenu.3": "drie artikelen",
+    "previousStudyMenu.4": "vier artikelen",
+    "previousStudyMenu.5": "vijf artikelen"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7249,7 +7285,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
     "chapterEditing.bulk": "Multiple chapters",
-    "highlight.currentLine": "Highlight current line"
+    "highlight.currentLine": "Highlight current line",
+    "previousStudyMenu.0": "disabled",
+    "previousStudyMenu.1": "one item",
+    "previousStudyMenu.2": "two items",
+    "previousStudyMenu.3": "three items",
+    "previousStudyMenu.4": "four items",
+    "previousStudyMenu.5": "five items"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8285,7 +8327,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - annuler la sélection du chapitre",
     "chapterEditing.tags": "Étiquettes de chapitre",
     "chapterEditing.bulk": "Plusieurs chapitres",
-    "highlight.currentLine": "Mettre en surbrillance la ligne actuelle"
+    "highlight.currentLine": "Mettre en surbrillance la ligne actuelle",
+    "previousStudyMenu.0": "désactivée",
+    "previousStudyMenu.1": "un élément",
+    "previousStudyMenu.2": "deux éléments",
+    "previousStudyMenu.3": "trois éléments",
+    "previousStudyMenu.4": "quatre éléments",
+    "previousStudyMenu.5": "cinq éléments"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9321,7 +9369,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - Abbrechen der Kapitelauswahl",
     "chapterEditing.tags": "Kapitel Tags",
     "chapterEditing.bulk": "Mehrere Kapitel",
-    "highlight.currentLine": "Aktuelle Zeile hervorheben"
+    "highlight.currentLine": "Aktuelle Zeile hervorheben",
+    "previousStudyMenu.0": "deaktiviert",
+    "previousStudyMenu.1": "ein Element",
+    "previousStudyMenu.2": "zwei Elemente",
+    "previousStudyMenu.3": "drei Elemente",
+    "previousStudyMenu.4": "vier Elemente",
+    "previousStudyMenu.5": "fünf Elemente"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10357,7 +10411,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - ακύρωση επιλογής κεφαλαίου",
     "chapterEditing.tags": "Ετικέτες κεφαλαίου",
     "chapterEditing.bulk": "Πολλαπλά κεφάλαια",
-    "highlight.currentLine": "Επισήμανση τρέχουσας γραμμής"
+    "highlight.currentLine": "Επισήμανση τρέχουσας γραμμής",
+    "previousStudyMenu.0": "απενεργοποιημένο",
+    "previousStudyMenu.1": "ένα στοιχείο",
+    "previousStudyMenu.2": "δύο στοιχεία",
+    "previousStudyMenu.3": "τρία στοιχεία",
+    "previousStudyMenu.4": "τέσσερα στοιχεία",
+    "previousStudyMenu.5": "πέντε στοιχεία"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11393,7 +11453,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
     "chapterEditing.bulk": "Multiple chapters",
-    "highlight.currentLine": "Highlight current line"
+    "highlight.currentLine": "Highlight current line",
+    "previousStudyMenu.0": "disabled",
+    "previousStudyMenu.1": "one item",
+    "previousStudyMenu.2": "two items",
+    "previousStudyMenu.3": "three items",
+    "previousStudyMenu.4": "four items",
+    "previousStudyMenu.5": "five items"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12429,7 +12495,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
     "chapterEditing.bulk": "Multiple chapters",
-    "highlight.currentLine": "Highlight current line"
+    "highlight.currentLine": "Highlight current line",
+    "previousStudyMenu.0": "disabled",
+    "previousStudyMenu.1": "one item",
+    "previousStudyMenu.2": "two items",
+    "previousStudyMenu.3": "three items",
+    "previousStudyMenu.4": "four items",
+    "previousStudyMenu.5": "five items"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13465,7 +13537,13 @@
     "cancelEditChaptersButtonTitle": "Strumenti LiChess - annulla la selezione dei capitoli",
     "chapterEditing.tags": "Etichette del capitolo",
     "chapterEditing.bulk": "Capitoli multipli",
-    "highlight.currentLine": "Evidenzia riga corrente"
+    "highlight.currentLine": "Evidenzia riga corrente",
+    "previousStudyMenu.0": "disabilitato",
+    "previousStudyMenu.1": "un elemento",
+    "previousStudyMenu.2": "due elementi",
+    "previousStudyMenu.3": "tre elementi",
+    "previousStudyMenu.4": "quattro elementi",
+    "previousStudyMenu.5": "cinque elementi"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14501,7 +14579,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
     "chapterEditing.bulk": "Multiple chapters",
-    "highlight.currentLine": "Highlight current line"
+    "highlight.currentLine": "Highlight current line",
+    "previousStudyMenu.0": "disabled",
+    "previousStudyMenu.1": "one item",
+    "previousStudyMenu.2": "two items",
+    "previousStudyMenu.3": "three items",
+    "previousStudyMenu.4": "four items",
+    "previousStudyMenu.5": "five items"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15537,7 +15621,13 @@
     "cancelEditChaptersButtonTitle": "Narzędzia LiChess - anuluj wybór rozdziału",
     "chapterEditing.tags": "Znaczniki rozdziału",
     "chapterEditing.bulk": "Wiele rozdziałów",
-    "highlight.currentLine": "Podświetl bieżącą linię"
+    "highlight.currentLine": "Podświetl bieżącą linię",
+    "previousStudyMenu.0": "wyłączone",
+    "previousStudyMenu.1": "jeden element",
+    "previousStudyMenu.2": "dwa elementy",
+    "previousStudyMenu.3": "trzy elementy",
+    "previousStudyMenu.4": "cztery elementy",
+    "previousStudyMenu.5": "pięć elementów"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16573,7 +16663,13 @@
     "cancelEditChaptersButtonTitle": "Ferramentas LiChess - cancelar a seleção de capítulo",
     "chapterEditing.tags": "Tags de capítulos",
     "chapterEditing.bulk": "Vários capítulos",
-    "highlight.currentLine": "Destacar linha atual"
+    "highlight.currentLine": "Destacar linha atual",
+    "previousStudyMenu.0": "desabilitado",
+    "previousStudyMenu.1": "um item",
+    "previousStudyMenu.2": "dois itens",
+    "previousStudyMenu.3": "três itens",
+    "previousStudyMenu.4": "quatro itens",
+    "previousStudyMenu.5": "cinco itens"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17609,7 +17705,13 @@
     "cancelEditChaptersButtonTitle": "Ferramentas LiChess - cancelar a seleção de capítulo",
     "chapterEditing.tags": "Tags de capítulos",
     "chapterEditing.bulk": "Vários capítulos",
-    "highlight.currentLine": "Destacar linha atual"
+    "highlight.currentLine": "Destacar linha atual",
+    "previousStudyMenu.0": "desabilitado",
+    "previousStudyMenu.1": "um item",
+    "previousStudyMenu.2": "dois itens",
+    "previousStudyMenu.3": "três itens",
+    "previousStudyMenu.4": "quatro itens",
+    "previousStudyMenu.5": "cinco itens"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18645,7 +18747,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - anulează selecția de capitole",
     "chapterEditing.tags": "Etichete capitol",
     "chapterEditing.bulk": "Mai multe capitole",
-    "highlight.currentLine": "Evidențiază linia curentă"
+    "highlight.currentLine": "Evidențiază linia curentă",
+    "previousStudyMenu.0": "dezactivat",
+    "previousStudyMenu.1": "un articol",
+    "previousStudyMenu.2": "două articole",
+    "previousStudyMenu.3": "trei articole",
+    "previousStudyMenu.4": "patru articole",
+    "previousStudyMenu.5": "cinci articole"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19681,7 +19789,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - отменить выбор главы",
     "chapterEditing.tags": "Теги главы",
     "chapterEditing.bulk": "Несколько глав",
-    "highlight.currentLine": "Выделить текущую строку"
+    "highlight.currentLine": "Выделить текущую строку",
+    "previousStudyMenu.0": "отключено",
+    "previousStudyMenu.1": "один элемент",
+    "previousStudyMenu.2": "два элемента",
+    "previousStudyMenu.3": "три элемента",
+    "previousStudyMenu.4": "четыре элемента",
+    "previousStudyMenu.5": "пять элементов"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20717,7 +20831,13 @@
     "cancelEditChaptersButtonTitle": "Herramientas de LiChess - Cancela la selección de capítulos",
     "chapterEditing.tags": "Etiquetas de capítulo",
     "chapterEditing.bulk": "Varios capítulos",
-    "highlight.currentLine": "Resaltar línea actual"
+    "highlight.currentLine": "Resaltar línea actual",
+    "previousStudyMenu.0": "deshabilitado",
+    "previousStudyMenu.1": "un elemento",
+    "previousStudyMenu.2": "dos elementos",
+    "previousStudyMenu.3": "tres elementos",
+    "previousStudyMenu.4": "cuatro elementos",
+    "previousStudyMenu.5": "cinco elementos"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -21753,7 +21873,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
     "chapterEditing.bulk": "Multiple chapters",
-    "highlight.currentLine": "Highlight current line"
+    "highlight.currentLine": "Highlight current line",
+    "previousStudyMenu.0": "disabled",
+    "previousStudyMenu.1": "one item",
+    "previousStudyMenu.2": "two items",
+    "previousStudyMenu.3": "three items",
+    "previousStudyMenu.4": "four items",
+    "previousStudyMenu.5": "five items"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -22789,7 +22915,13 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - bölüm seçimini iptal et",
     "chapterEditing.tags": "Bölüm etiketleri",
     "chapterEditing.bulk": "Birden fazla bölüm",
-    "highlight.currentLine": "Mevcut satırı vurgula"
+    "highlight.currentLine": "Mevcut satırı vurgula",
+    "previousStudyMenu.0": "disabled",
+    "previousStudyMenu.1": "one item",
+    "previousStudyMenu.2": "two items",
+    "previousStudyMenu.3": "three items",
+    "previousStudyMenu.4": "four items",
+    "previousStudyMenu.5": "five items"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -23825,6 +23957,12 @@
     "cancelEditChaptersButtonTitle": "LiChess Tools - cancel chapter selection",
     "chapterEditing.tags": "Chapter tags",
     "chapterEditing.bulk": "Multiple chapters",
-    "highlight.currentLine": "Highlight current line"
+    "highlight.currentLine": "Highlight current line",
+    "previousStudyMenu.0": "disabled",
+    "previousStudyMenu.1": "one item",
+    "previousStudyMenu.2": "two items",
+    "previousStudyMenu.3": "three items",
+    "previousStudyMenu.4": "four items",
+    "previousStudyMenu.5": "five items"
   }
 }

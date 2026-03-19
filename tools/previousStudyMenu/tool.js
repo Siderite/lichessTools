@@ -8,8 +8,8 @@
         name: 'previousStudyMenu',
         category: 'study',
         type: 'single',
-        possibleValues: [false, true],
-        defaultValue: true,
+        possibleValues: [0,1,2,3,4,5],
+        defaultValue: 5,
         advanced: true
       }
     ];
@@ -18,12 +18,24 @@
       'en-US': {
         'options.study': 'Study',
         'options.previousStudyMenu': 'Last visited study menu',
+        'previousStudyMenu.0': 'disabled',
+        'previousStudyMenu.1': 'one item',
+        'previousStudyMenu.2': 'two items',
+        'previousStudyMenu.3': 'three items',
+        'previousStudyMenu.4': 'four items',
+        'previousStudyMenu.5': 'five items',
         'previousStudyText': 'Previous study',
         'previousStudyTitle': 'LiChess Tools - "%s"'
       },
       'ro-RO': {
         'options.study': 'Studiu',
         'options.previousStudyMenu': 'Meniu pentru ultimul studiu vizitat',
+        'previousStudyMenu.0': 'dezactivat',
+        'previousStudyMenu.1': 'un articol',
+        'previousStudyMenu.2': 'dou\u0103 articole',
+        'previousStudyMenu.3': 'trei articole',
+        'previousStudyMenu.4': 'patru articole',
+        'previousStudyMenu.5': 'cinci articole',
         'previousStudyText': 'Studiul anterior',
         'previousStudyTitle': 'LiChess Tools - "%s"'
       }
@@ -60,7 +72,8 @@
       }
       const container = $('#topnav section a[href="/learn"]+div[role="group"]');
       let elem = $('a.lichessTools-previousStudy', container);
-      if (this.options.enabled && studyData?.length) {
+      const itemCount = Math.min(studyData?.length||0,this.options.itemCount);
+      if (itemCount) {
         if (!elem.length) {
           elem = $('<a/>')
             .addClass('lichessTools-previousStudy')
@@ -82,11 +95,11 @@
           elem.find('span').text(data.name);
         }
         const group = elem.find('div[role="group"]');
-        if (studyData.length < 2) {
+        if (itemCount < 2) {
           group.remove();
         } else {
           let refresh = false;
-          for (let i = 1; i < studyData.length; i++) {
+          for (let i = 1; i < itemCount; i++) {
             const el = group.children('a').eq(i - 1);
             if (!el.length) {
               refresh = true;
@@ -100,7 +113,7 @@
           }
           if (refresh) {
             group.empty();
-            for (let i = 1; i < studyData.length; i++) {
+            for (let i = 1; i < itemCount; i++) {
               const sd = studyData[i];
               const u = sd.url || '/study/' + sd.id;
               $('<a>')
@@ -118,9 +131,10 @@
 
     async start() {
       const lt = this.lichessTools;
-      const value = lt.currentOptions.getValue('previousStudyMenu');
+      let value = lt.currentOptions.getValue('previousStudyMenu');
+      if (value===true)  value=5;
       this.logOption('Last study menu', value);
-      this.options = { enabled: value };
+      this.options = { itemCount: +value };
       const lichess = lt.lichess;
       $('a.lichessTools-previousStudy').remove();
       lt.pubsub.off('lichessTools.redraw', this.updateStudy);
