@@ -2134,6 +2134,7 @@
         };
         lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 86400 * 10000, minTime: 5000 });
       },
       blog: {
         lichessTools: this,
@@ -2343,6 +2344,20 @@
           const lt = this.lichessTools;
           const data = await lt.net.json({ url: '/api/user/{userId}/activity', args: { userId } });
           return data;
+        },
+        getCrosstable: async function(userId1, userId2) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({ url: '/api/crosstable/{userId1}/{userId2}', args: { userId1, userId2 } });
+          return data;
+        },
+        getCrosstableBulk: async function(userPairs) {
+          const lt = this.lichessTools;
+          const result = [];
+          for (const [userId1, userId2] of userPairs) {
+            const data = await lt.api.user.getCrosstable(userId1,userId2);
+            result.push(data);
+          }
+          return result;
         }
       },
       game: {
@@ -3168,6 +3183,20 @@
       }
     }
 
+    tryCreateLock(key, ms) {
+      try {
+        if (this._inTryCreateLock) return false;
+        this._inTryCreateLock = true;
+        let lock = this.get(key);
+        if (lock) return false;
+        lock = { expiresAt: Date.now() + ms };
+        localStorage.setItem(key, JSON.stringify(lock));
+        return true;
+      } finally {
+        this._inTryCreateLock = false;
+      }
+    }
+
     createLock(key, ms) {
       const lock = { expiresAt: Date.now() + ms };
       localStorage.setItem(key, JSON.stringify(lock));
@@ -3182,10 +3211,12 @@
         lock = this.get(key);
       }
 
+      if (!this.tryCreateLock(key, ms)) {
+        return await execute(fn,key,ms);
+      }
+      const result = await fn();
       this.createLock(key, ms);
-
-      return await fn();
-      this.createLock(key, ms);
+      return result;
     }
   }
 

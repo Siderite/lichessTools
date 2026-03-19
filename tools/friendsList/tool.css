@@ -509,6 +509,18 @@ body.lichessTools #topnav section .lichessTools-touchFriendsLink:before {
   color: var(--c-link);
 }
 
+body.lichessTools .lichessTools-crossTable {
+  margin-left:1em;
+}
+
+body.lichessTools .lichessTools-crossTable.bad {
+  color: var(--c-bad);
+}
+
+body.lichessTools .lichessTools-crossTable.good {
+  color: var(--c-good);
+}
+
 /* Unrated CSS */
 body.lichessTools.dynamicContentShown section.lichessTools-onlineFriends .user-link {
   visibility: inherit;

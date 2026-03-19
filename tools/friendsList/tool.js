@@ -550,9 +550,70 @@
           .toggleClass('online', isOnline)
           .toggleClass('offline', !isOnline);
       }
+      if (!this._opponentsInit && lt.isFavoriteOpponentsPage()) {
+        this._opponentsInit = true;
+        lt.api.user.getCrosstableBulk(Object.keys(this.rows).map(opp=>[myName,opp]))
+          .then(crossTables=>{
+             for (const crossTable of crossTables) {
+               const me = Object.keys(crossTable.users).find(u=>u.toLowerCase()==myName.toLowerCase());
+               const user = Object.keys(crossTable.users).find(u=>u!=me);
+               if (!user||!me) continue;
+               const row = this.rows[user.toLowerCase()];
+               if (!row) continue;
+               const winrate=100*crossTable.users[me]/crossTable.nbGames;
+               row.find('a[href*="players.b"]').each((i,e)=>{
+                 $('<span class="lichessTools-crossTable">')
+                   .text('('+crossTable.users[me]+'/'+crossTable.users[user]+')')
+                   .toggleClassSafe('bad',winrate<34 && crossTable.nbGames>1)
+                   .toggleClassSafe('good',winrate>66 && crossTable.nbGames>1)
+                   .insertAfter(e);
+               });
+             }
+          });
+      }
       this.filterFriends();
     };
     updateFriendsPage=this.lichessTools.debounce(this.updateFriendsPageDirect,100);
+
+    parseCrosstable = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const container = $('div.crosstable');
+      if (!container.length) return;
+      const users = container.find('.crosstable__users a.user-link')
+                      .map((i,e)=>{
+                        const href = $(e).attr('href');
+                        const m = /@\/(?<user>[^\?&#\s\/]+)/.exec(href);
+                        return m?.groups?.user?.toLowerCase();
+                      })
+                      .get();
+      const scores =  container.find('.crosstable__score > span')
+                      .map((i,e)=>{
+                        const score = +($(e).text().replace('\u00bd','.5'));
+                        return score;
+                      })
+                      .get();
+      const total = scores.reduce((a,v)=>a+v,0);
+      if (!total) return;
+      const data = {
+        users: {},
+        nbGames: total
+      };
+      data.users[users[0]]=scores[0];
+      data.users[users[1]]=scores[1];
+      lt.cache.setCached(`getCrosstable["${users[0]}","${users[1]}"]`,data,{
+        'persist': 'local',
+        'interval': 86400000
+      });
+      lt.cache.setCached(`getCrosstable["${users[1]}","${users[0]}"]`,data,{
+        'persist': 'local',
+        'interval': 86400000
+      });
+    };
+    delayedParseCrosstable = ()=>{
+      const lt = this.lichessTools;
+      lt.global.setTimeout(this.parseCrosstable,500);
+    };
 
     getUserId = (user) => user?.toLowerCase().replace(/^\w+\s/, '');
 
@@ -914,6 +975,12 @@
       }
       this.updateFriendsMenu();
       this.updateFriendsButton();
+
+      lt.uiApi.socket.events.off('endData', this.delayedParseCrosstable);
+      if (this.options.liveFriendsPage) {
+        lt.uiApi.socket.events.on('endData', this.delayedParseCrosstable);
+        this.parseCrosstable();
+      }
     }
   }
   LiChessTools.Tools.FriendsList = FriendsListTool;
