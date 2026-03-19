@@ -2387,7 +2387,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
           .addClass('lichessTools-pgnEditor')
           .text(trans.noarg('pgnEditorText'))
           .attr('title', trans.noarg('pgnEditorTitle'))
+          .attr('href', '/analysis#pgnEditor')
           .on('click', ev => {
+            if (ev.shiftKey || ev.ctrlKey) return;
             ev.preventDefault();
             this.showPgnEditor();
             $('nav#topnav').trigger('mouseout');
