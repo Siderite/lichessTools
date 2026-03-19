@@ -1,0 +1,11 @@
+body.lichessTools .lichessTools-crossTable {
+  margin-left:1em;
+}
+
+body.lichessTools .lichessTools-crossTable.bad {
+  color: var(--c-bad);
+}
+
+body.lichessTools .lichessTools-crossTable.good {
+  color: var(--c-good);
+}
