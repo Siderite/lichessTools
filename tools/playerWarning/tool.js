@@ -8,7 +8,7 @@
         name: 'playerWarning',
         category: 'play',
         type: 'multiple',
-        possibleValues: ['disconnect', 'timecontrol'],
+        possibleValues: ['disconnect', 'timecontrol', 'sandbag'],
         defaultValue: false,
         advanced: true,
         needsLogin: true
@@ -21,16 +21,20 @@
         'options.playerWarning': 'Player warning alert',
         'playerWarning.disconnect': 'Disconnect rate',
         'playerWarning.timecontrol': 'Time control discrepancies',
+        'playerWarning.sandbag': 'Highest rating',
         'percentageTitle': '- %s% disconnect rate',
-        'timeControlSuspicionTitle': '- time control suspicion score: %s'
+        'timeControlSuspicionTitle': '- time control suspicion score: %s',
+        'sandbagSuspicionTitle': '- used to be higher rated: %s'
       },
       'ro-RO': {
         'options.play': 'Joc',
         'options.playerWarning': 'Alert\u0103 avertizare juc\u0103tori',
         'playerWarning.disconnect': 'Rat\u0103 deconectare',
         'playerWarning.timecontrol': 'Discrepan\u0163e control timp',
+        'playerWarning.sandbag': 'Rating maxim',
         'percentageTitle': '- rat\u0103 de deconectare %s%',
-        'timeControlSuspicionTitle': '- scorul suspiciunii pe controale de timp: %s'
+        'timeControlSuspicionTitle': '- scorul suspiciunii pe controale de timp: %s',
+        'sandbagSuspicionTitle': '- era cotat mai sus \u00een trecut: %s'
       }
     }
 
@@ -124,15 +128,24 @@
           if (isPlayer) return;
 
           const warnings = [];
-          if (this.options.disconnect) {
+          if (this.options.disconnect || this.options.sandbag) {
             let timeControl = this.getTimeControl();
             if (!timeControl || timeControl == 'ultrabullet') timeControl = 'blitz';
             const data = await lt.api.user.getUserPerfStats(hrefUserId, timeControl);
+
             const statCount = data?.stat?.count;
-            if (statCount) {
+            if (statCount && this.options.disconnect) {
               const disconnectPercentage = +(statCount.disconnects) * 100 / +(statCount.all);
               if (disconnectPercentage >= 3) {
                 warnings.push(trans.pluralSame('percentageTitle', disconnectPercentage.toFixed(1)));
+              }
+            }
+
+            const rating = data?.perf?.glicko?.rating;
+            const highest = data?.stat?.highest?.int;
+            if (highest && rating && this.options.sandbag) {
+              if (highest-rating>150) {
+                warnings.push(trans.pluralSame('sandbagSuspicionTitle', highest));
               }
             }
           }
@@ -170,9 +183,10 @@
       this.options = {
         disconnect: lt.isOptionSet(value,'disconnect'),
         timecontrol: lt.isOptionSet(value,'timecontrol'),
+        sandbag: lt.isOptionSet(value,'sandbag'),
       };
 
-      if (this.options.disconnect || this.options.timecontrol) {
+      if (this.options.disconnect || this.options.timecontrol || this.options.sandbag) {
         lt.pubsub.on('lichessTools.redraw', this.refreshWarning);
         this.refreshWarning();
       }

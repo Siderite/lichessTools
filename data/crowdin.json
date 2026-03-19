@@ -1039,7 +1039,9 @@
     "previousStudyMenu.2": "بندان",
     "previousStudyMenu.3": "ثلاثة بنود",
     "previousStudyMenu.4": "أربعة بنود",
-    "previousStudyMenu.5": "خمسة بنود"
+    "previousStudyMenu.5": "خمسة بنود",
+    "playerWarning.sandbag": "أعلى تقييم",
+    "sandbagSuspicionTitle": "- كانت أعلى تقييم: %s"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2081,7 +2083,9 @@
     "previousStudyMenu.2": "two items",
     "previousStudyMenu.3": "three items",
     "previousStudyMenu.4": "four items",
-    "previousStudyMenu.5": "five items"
+    "previousStudyMenu.5": "five items",
+    "playerWarning.sandbag": "Highest rating",
+    "sandbagSuspicionTitle": "- used to be higher rated: %s"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3123,7 +3127,9 @@
     "previousStudyMenu.2": "两个项目",
     "previousStudyMenu.3": "三个项目",
     "previousStudyMenu.4": "四个项目",
-    "previousStudyMenu.5": "五个项目"
+    "previousStudyMenu.5": "五个项目",
+    "playerWarning.sandbag": "最高评分",
+    "sandbagSuspicionTitle": "- 曾经高费率: %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4165,7 +4171,9 @@
     "previousStudyMenu.2": "two items",
     "previousStudyMenu.3": "three items",
     "previousStudyMenu.4": "four items",
-    "previousStudyMenu.5": "five items"
+    "previousStudyMenu.5": "five items",
+    "playerWarning.sandbag": "Highest rating",
+    "sandbagSuspicionTitle": "- used to be higher rated: %s"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5207,7 +5215,9 @@
     "previousStudyMenu.2": "dvě položky",
     "previousStudyMenu.3": "tři položky",
     "previousStudyMenu.4": "čtyři položky",
-    "previousStudyMenu.5": "pět položek"
+    "previousStudyMenu.5": "pět položek",
+    "playerWarning.sandbag": "Nejvyšší hodnocení",
+    "sandbagSuspicionTitle": "- používal se k vyššímu hodnocení: %s"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6249,7 +6259,9 @@
     "previousStudyMenu.2": "twee artikelen",
     "previousStudyMenu.3": "drie artikelen",
     "previousStudyMenu.4": "vier artikelen",
-    "previousStudyMenu.5": "vijf artikelen"
+    "previousStudyMenu.5": "vijf artikelen",
+    "playerWarning.sandbag": "Hoogste beoordeling",
+    "sandbagSuspicionTitle": "- vroeger werd de rating hoger: %s"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7291,7 +7303,9 @@
     "previousStudyMenu.2": "two items",
     "previousStudyMenu.3": "three items",
     "previousStudyMenu.4": "four items",
-    "previousStudyMenu.5": "five items"
+    "previousStudyMenu.5": "five items",
+    "playerWarning.sandbag": "Highest rating",
+    "sandbagSuspicionTitle": "- used to be higher rated: %s"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8333,7 +8347,9 @@
     "previousStudyMenu.2": "deux éléments",
     "previousStudyMenu.3": "trois éléments",
     "previousStudyMenu.4": "quatre éléments",
-    "previousStudyMenu.5": "cinq éléments"
+    "previousStudyMenu.5": "cinq éléments",
+    "playerWarning.sandbag": "Note la plus élevée",
+    "sandbagSuspicionTitle": "- utilisé pour un taux plus élevé : %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9375,7 +9391,9 @@
     "previousStudyMenu.2": "zwei Elemente",
     "previousStudyMenu.3": "drei Elemente",
     "previousStudyMenu.4": "vier Elemente",
-    "previousStudyMenu.5": "fünf Elemente"
+    "previousStudyMenu.5": "fünf Elemente",
+    "playerWarning.sandbag": "Höchste Bewertung",
+    "sandbagSuspicionTitle": "- höher bewertet: %s"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10417,7 +10435,9 @@
     "previousStudyMenu.2": "δύο στοιχεία",
     "previousStudyMenu.3": "τρία στοιχεία",
     "previousStudyMenu.4": "τέσσερα στοιχεία",
-    "previousStudyMenu.5": "πέντε στοιχεία"
+    "previousStudyMenu.5": "πέντε στοιχεία",
+    "playerWarning.sandbag": "Υψηλότερη βαθμολογία",
+    "sandbagSuspicionTitle": "- χρησιμοποιείται για υψηλότερη βαθμολογία: %s"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11459,7 +11479,9 @@
     "previousStudyMenu.2": "two items",
     "previousStudyMenu.3": "three items",
     "previousStudyMenu.4": "four items",
-    "previousStudyMenu.5": "five items"
+    "previousStudyMenu.5": "five items",
+    "playerWarning.sandbag": "Highest rating",
+    "sandbagSuspicionTitle": "- used to be higher rated: %s"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12501,7 +12523,9 @@
     "previousStudyMenu.2": "two items",
     "previousStudyMenu.3": "three items",
     "previousStudyMenu.4": "four items",
-    "previousStudyMenu.5": "five items"
+    "previousStudyMenu.5": "five items",
+    "playerWarning.sandbag": "Highest rating",
+    "sandbagSuspicionTitle": "- used to be higher rated: %s"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13543,7 +13567,9 @@
     "previousStudyMenu.2": "due elementi",
     "previousStudyMenu.3": "tre elementi",
     "previousStudyMenu.4": "quattro elementi",
-    "previousStudyMenu.5": "cinque elementi"
+    "previousStudyMenu.5": "cinque elementi",
+    "playerWarning.sandbag": "Classificazione più alta",
+    "sandbagSuspicionTitle": "- usato per essere più alto voto: %s"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14585,7 +14611,9 @@
     "previousStudyMenu.2": "two items",
     "previousStudyMenu.3": "three items",
     "previousStudyMenu.4": "four items",
-    "previousStudyMenu.5": "five items"
+    "previousStudyMenu.5": "five items",
+    "playerWarning.sandbag": "Highest rating",
+    "sandbagSuspicionTitle": "- used to be higher rated: %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15627,7 +15655,9 @@
     "previousStudyMenu.2": "dwa elementy",
     "previousStudyMenu.3": "trzy elementy",
     "previousStudyMenu.4": "cztery elementy",
-    "previousStudyMenu.5": "pięć elementów"
+    "previousStudyMenu.5": "pięć elementów",
+    "playerWarning.sandbag": "Najwyższa ocena",
+    "sandbagSuspicionTitle": "- używana do wyższej oceny: %s"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16669,7 +16699,9 @@
     "previousStudyMenu.2": "dois itens",
     "previousStudyMenu.3": "três itens",
     "previousStudyMenu.4": "quatro itens",
-    "previousStudyMenu.5": "cinco itens"
+    "previousStudyMenu.5": "cinco itens",
+    "playerWarning.sandbag": "Mais alta avaliação",
+    "sandbagSuspicionTitle": "- costumava ser mais alto: %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17711,7 +17743,9 @@
     "previousStudyMenu.2": "dois itens",
     "previousStudyMenu.3": "três itens",
     "previousStudyMenu.4": "quatro itens",
-    "previousStudyMenu.5": "cinco itens"
+    "previousStudyMenu.5": "cinco itens",
+    "playerWarning.sandbag": "Mais alta avaliação",
+    "sandbagSuspicionTitle": "- costumava ser mais alto: %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18753,7 +18787,9 @@
     "previousStudyMenu.2": "două articole",
     "previousStudyMenu.3": "trei articole",
     "previousStudyMenu.4": "patru articole",
-    "previousStudyMenu.5": "cinci articole"
+    "previousStudyMenu.5": "cinci articole",
+    "playerWarning.sandbag": "Rating maxim",
+    "sandbagSuspicionTitle": "- era cotat mai sus în trecut: %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19795,7 +19831,9 @@
     "previousStudyMenu.2": "два элемента",
     "previousStudyMenu.3": "три элемента",
     "previousStudyMenu.4": "четыре элемента",
-    "previousStudyMenu.5": "пять элементов"
+    "previousStudyMenu.5": "пять элементов",
+    "playerWarning.sandbag": "Наивысший рейтинг",
+    "sandbagSuspicionTitle": "- выше по курсу: %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20837,7 +20875,9 @@
     "previousStudyMenu.2": "dos elementos",
     "previousStudyMenu.3": "tres elementos",
     "previousStudyMenu.4": "cuatro elementos",
-    "previousStudyMenu.5": "cinco elementos"
+    "previousStudyMenu.5": "cinco elementos",
+    "playerWarning.sandbag": "Calificación más alta",
+    "sandbagSuspicionTitle": "- solía ser más valorado: %s"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -21879,7 +21919,9 @@
     "previousStudyMenu.2": "two items",
     "previousStudyMenu.3": "three items",
     "previousStudyMenu.4": "four items",
-    "previousStudyMenu.5": "five items"
+    "previousStudyMenu.5": "five items",
+    "playerWarning.sandbag": "Highest rating",
+    "sandbagSuspicionTitle": "- used to be higher rated: %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -22921,7 +22963,9 @@
     "previousStudyMenu.2": "two items",
     "previousStudyMenu.3": "three items",
     "previousStudyMenu.4": "four items",
-    "previousStudyMenu.5": "five items"
+    "previousStudyMenu.5": "five items",
+    "playerWarning.sandbag": "Highest rating",
+    "sandbagSuspicionTitle": "- used to be higher rated: %s"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -23963,6 +24007,8 @@
     "previousStudyMenu.2": "two items",
     "previousStudyMenu.3": "three items",
     "previousStudyMenu.4": "four items",
-    "previousStudyMenu.5": "five items"
+    "previousStudyMenu.5": "five items",
+    "playerWarning.sandbag": "Highest rating",
+    "sandbagSuspicionTitle": "- used to be higher rated: %s"
   }
 }

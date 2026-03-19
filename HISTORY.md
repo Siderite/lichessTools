@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 19 Mar
 
 - previous study menu items count
+- highest rating/sandbagging warning
 
 17 Mar
 
