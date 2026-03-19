@@ -1041,7 +1041,8 @@
     "previousStudyMenu.4": "أربعة بنود",
     "previousStudyMenu.5": "خمسة بنود",
     "playerWarning.sandbag": "أعلى تقييم",
-    "sandbagSuspicionTitle": "- كانت أعلى تقييم: %s"
+    "sandbagSuspicionTitle": "- كانت أعلى تقييم: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2085,7 +2086,8 @@
     "previousStudyMenu.4": "four items",
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
-    "sandbagSuspicionTitle": "- used to be higher rated: %s"
+    "sandbagSuspicionTitle": "- used to be higher rated: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3129,7 +3131,8 @@
     "previousStudyMenu.4": "四个项目",
     "previousStudyMenu.5": "五个项目",
     "playerWarning.sandbag": "最高评分",
-    "sandbagSuspicionTitle": "- 曾经高费率: %s"
+    "sandbagSuspicionTitle": "- 曾经高费率: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4173,7 +4176,8 @@
     "previousStudyMenu.4": "four items",
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
-    "sandbagSuspicionTitle": "- used to be higher rated: %s"
+    "sandbagSuspicionTitle": "- used to be higher rated: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5217,7 +5221,8 @@
     "previousStudyMenu.4": "čtyři položky",
     "previousStudyMenu.5": "pět položek",
     "playerWarning.sandbag": "Nejvyšší hodnocení",
-    "sandbagSuspicionTitle": "- používal se k vyššímu hodnocení: %s"
+    "sandbagSuspicionTitle": "- používal se k vyššímu hodnocení: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6261,7 +6266,8 @@
     "previousStudyMenu.4": "vier artikelen",
     "previousStudyMenu.5": "vijf artikelen",
     "playerWarning.sandbag": "Hoogste beoordeling",
-    "sandbagSuspicionTitle": "- vroeger werd de rating hoger: %s"
+    "sandbagSuspicionTitle": "- vroeger werd de rating hoger: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7305,7 +7311,8 @@
     "previousStudyMenu.4": "four items",
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
-    "sandbagSuspicionTitle": "- used to be higher rated: %s"
+    "sandbagSuspicionTitle": "- used to be higher rated: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8349,7 +8356,8 @@
     "previousStudyMenu.4": "quatre éléments",
     "previousStudyMenu.5": "cinq éléments",
     "playerWarning.sandbag": "Note la plus élevée",
-    "sandbagSuspicionTitle": "- utilisé pour un taux plus élevé : %s"
+    "sandbagSuspicionTitle": "- utilisé pour un taux plus élevé : %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9393,7 +9401,8 @@
     "previousStudyMenu.4": "vier Elemente",
     "previousStudyMenu.5": "fünf Elemente",
     "playerWarning.sandbag": "Höchste Bewertung",
-    "sandbagSuspicionTitle": "- höher bewertet: %s"
+    "sandbagSuspicionTitle": "- höher bewertet: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10437,7 +10446,8 @@
     "previousStudyMenu.4": "τέσσερα στοιχεία",
     "previousStudyMenu.5": "πέντε στοιχεία",
     "playerWarning.sandbag": "Υψηλότερη βαθμολογία",
-    "sandbagSuspicionTitle": "- χρησιμοποιείται για υψηλότερη βαθμολογία: %s"
+    "sandbagSuspicionTitle": "- χρησιμοποιείται για υψηλότερη βαθμολογία: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11481,7 +11491,8 @@
     "previousStudyMenu.4": "four items",
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
-    "sandbagSuspicionTitle": "- used to be higher rated: %s"
+    "sandbagSuspicionTitle": "- used to be higher rated: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12525,7 +12536,8 @@
     "previousStudyMenu.4": "four items",
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
-    "sandbagSuspicionTitle": "- used to be higher rated: %s"
+    "sandbagSuspicionTitle": "- used to be higher rated: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13569,7 +13581,8 @@
     "previousStudyMenu.4": "quattro elementi",
     "previousStudyMenu.5": "cinque elementi",
     "playerWarning.sandbag": "Classificazione più alta",
-    "sandbagSuspicionTitle": "- usato per essere più alto voto: %s"
+    "sandbagSuspicionTitle": "- usato per essere più alto voto: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14613,7 +14626,8 @@
     "previousStudyMenu.4": "four items",
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
-    "sandbagSuspicionTitle": "- used to be higher rated: %s"
+    "sandbagSuspicionTitle": "- used to be higher rated: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15657,7 +15671,8 @@
     "previousStudyMenu.4": "cztery elementy",
     "previousStudyMenu.5": "pięć elementów",
     "playerWarning.sandbag": "Najwyższa ocena",
-    "sandbagSuspicionTitle": "- używana do wyższej oceny: %s"
+    "sandbagSuspicionTitle": "- używana do wyższej oceny: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16701,7 +16716,8 @@
     "previousStudyMenu.4": "quatro itens",
     "previousStudyMenu.5": "cinco itens",
     "playerWarning.sandbag": "Mais alta avaliação",
-    "sandbagSuspicionTitle": "- costumava ser mais alto: %s"
+    "sandbagSuspicionTitle": "- costumava ser mais alto: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17745,7 +17761,8 @@
     "previousStudyMenu.4": "quatro itens",
     "previousStudyMenu.5": "cinco itens",
     "playerWarning.sandbag": "Mais alta avaliação",
-    "sandbagSuspicionTitle": "- costumava ser mais alto: %s"
+    "sandbagSuspicionTitle": "- costumava ser mais alto: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18789,7 +18806,8 @@
     "previousStudyMenu.4": "patru articole",
     "previousStudyMenu.5": "cinci articole",
     "playerWarning.sandbag": "Rating maxim",
-    "sandbagSuspicionTitle": "- era cotat mai sus în trecut: %s"
+    "sandbagSuspicionTitle": "- era cotat mai sus în trecut: %s",
+    "bulkEditUnchanged": "-- Neschimbat --"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19833,7 +19851,8 @@
     "previousStudyMenu.4": "четыре элемента",
     "previousStudyMenu.5": "пять элементов",
     "playerWarning.sandbag": "Наивысший рейтинг",
-    "sandbagSuspicionTitle": "- выше по курсу: %s"
+    "sandbagSuspicionTitle": "- выше по курсу: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20877,7 +20896,8 @@
     "previousStudyMenu.4": "cuatro elementos",
     "previousStudyMenu.5": "cinco elementos",
     "playerWarning.sandbag": "Calificación más alta",
-    "sandbagSuspicionTitle": "- solía ser más valorado: %s"
+    "sandbagSuspicionTitle": "- solía ser más valorado: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -21921,7 +21941,8 @@
     "previousStudyMenu.4": "four items",
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
-    "sandbagSuspicionTitle": "- used to be higher rated: %s"
+    "sandbagSuspicionTitle": "- used to be higher rated: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -22965,7 +22986,8 @@
     "previousStudyMenu.4": "four items",
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
-    "sandbagSuspicionTitle": "- used to be higher rated: %s"
+    "sandbagSuspicionTitle": "- used to be higher rated: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -24009,6 +24031,7 @@
     "previousStudyMenu.4": "four items",
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
-    "sandbagSuspicionTitle": "- used to be higher rated: %s"
+    "sandbagSuspicionTitle": "- used to be higher rated: %s",
+    "bulkEditUnchanged": "-- Unchanged --"
   }
 }

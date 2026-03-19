@@ -108,7 +108,7 @@
       const analysis = lt.lichess?.analysis;
       if (!analysis || !this.options.currentLine) return;
       const $ = lt.$;
-      const nodeList = site.analysis.tree.getNodeList(site.analysis.contextMenuPath || site.analysis.path);
+      const nodeList = analysis.tree.getNodeList(analysis.contextMenuPath || analysis.path);
       const toHighlight = nodeList.map(n=>lt.getElementForNode(n));
 
       $('div.analyse__moves move.lichessTools-currentLine')

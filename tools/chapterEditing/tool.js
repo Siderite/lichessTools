@@ -30,7 +30,8 @@
         'editChaptersButtonText': 'Edit',
         'editChaptersButtonTitle': 'LiChess Tools - edit selected chapters',
         'cancelEditChaptersButtonText': 'Cancel',
-        'cancelEditChaptersButtonTitle': 'LiChess Tools - cancel chapter selection'
+        'cancelEditChaptersButtonTitle': 'LiChess Tools - cancel chapter selection',
+        'bulkEditUnchanged': '-- Unchanged --'
       },
       'ro-RO': {
         'options.study': 'Studiu',
@@ -48,7 +49,8 @@
         'editChaptersButtonText': 'Modific\u0103',
         'editChaptersButtonTitle': 'LiChess Tools - modific\u0103 capitolele selectate',
         'cancelEditChaptersButtonText': 'Anuleaz\u0103',
-        'cancelEditChaptersButtonTitle': 'LiChess Tools - anuleaz\u0103 selec\u0163ia de capitole'
+        'cancelEditChaptersButtonTitle': 'LiChess Tools - anuleaz\u0103 selec\u0163ia de capitole',
+        'bulkEditUnchanged': '-- Neschimbat --'
       }
     }
 
@@ -171,6 +173,7 @@
     editSelectedChapters = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
+      const trans = lt.translator;
       const ids = $('button[data-id]:has(.lichessTools-selectChapter:checked)').map((i,e)=>$(e).attr('data-id')).get();
       if (!ids?.length) return;
    
@@ -186,6 +189,14 @@
           .prop('readonly',true)
           .each((i,e)=>e.blur());
         lt.global.document.getSelection  && lt.global.document.getSelection().empty();
+        
+        $('<option value="" selected>')
+          .text(trans.noarg('bulkEditUnchanged'))
+          .prependTo('#chapter-orientation');
+
+        $('<option value="" selected>')
+          .text(trans.noarg('bulkEditUnchanged'))
+          .prependTo('#chapter-mode');
       },50);
     };
 
@@ -193,7 +204,8 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      const editForm = lt.lichess.analysis.study.chapters.editForm;
+      const studyChapters = lt.lichess.analysis.study.chapters;
+      const editForm = studyChapters.editForm;
       switch(ev) {
         case 'deleteChapter':
           try {
@@ -213,17 +225,20 @@
           break;
         case 'editChapter':
           try {
-            const chapters = lt.lichess.analysis.study.chapters.list.all();
+            const chapters = studyChapters.list.all();
             const ids=rest.id;
             for (const id of ids) {
               const existingData = await editForm.chapterConfig(id);
               if (!existingData) continue;
+              existingData.mode = 'normal';
+              ['gamebook','practice','conceal']
+                .forEach(p=>{ if (p in existingData) existingData.mode=p });
               const data = { 
                 id: existingData.id,
                 name: existingData.name,
-                orientation: rest.orientation||'white',
-                mode: rest.mode||'normal',
-                description: existingData.description||''
+                orientation: rest.orientation || existingData.orientation,
+                mode: rest.mode || existingData.mode,
+                description: existingData.description || ''
               };
               await editForm.send(ev,data);
               await lt.timeout(500);
@@ -233,7 +248,7 @@
             lt.global.console.warn('Error editing chapters',e);
             lt.announce(trans.noarg('errorEditingChaptersMessage'));
           } finally {
-            site.analysis.study.chapters.sort([]);
+            studyChapters.sort([]);
             this.cancelEditChapters();
           }
           break;

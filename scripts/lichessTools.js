@@ -2110,7 +2110,8 @@
             cache.release(key);
             lt.$('body').toggleClassSafe('lichessTools-apiLoading',false);
           }
-        }
+        };
+        obj[funcName].__originalFunction = original;
       }
     };
 
