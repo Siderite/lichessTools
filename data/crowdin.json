@@ -1042,7 +1042,10 @@
     "previousStudyMenu.5": "خمسة بنود",
     "playerWarning.sandbag": "أعلى تقييم",
     "sandbagSuspicionTitle": "- كانت أعلى تقييم: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "جدول المحتويات في المدونة",
+    "tableOfContentsText": "جدول المحتويات",
+    "tableOfContentsTitle": "أدوات شطرنج الحياة - جدول المحتويات"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2087,7 +2090,10 @@
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
     "sandbagSuspicionTitle": "- used to be higher rated: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Blog table of contents",
+    "tableOfContentsText": "Table of contents",
+    "tableOfContentsTitle": "LiChess Tools - table of contents"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3132,7 +3138,10 @@
     "previousStudyMenu.5": "五个项目",
     "playerWarning.sandbag": "最高评分",
     "sandbagSuspicionTitle": "- 曾经高费率: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "博客目录",
+    "tableOfContentsText": "目录",
+    "tableOfContentsTitle": "Lichess 工具 - 目录"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4177,7 +4186,10 @@
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
     "sandbagSuspicionTitle": "- used to be higher rated: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Blog table of contents",
+    "tableOfContentsText": "Table of contents",
+    "tableOfContentsTitle": "LiChess Tools - table of contents"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5222,7 +5234,10 @@
     "previousStudyMenu.5": "pět položek",
     "playerWarning.sandbag": "Nejvyšší hodnocení",
     "sandbagSuspicionTitle": "- používal se k vyššímu hodnocení: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Obsah blogu",
+    "tableOfContentsText": "Tabulka obsahu",
+    "tableOfContentsTitle": "Nástroje Lišess - obsah"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6267,7 +6282,10 @@
     "previousStudyMenu.5": "vijf artikelen",
     "playerWarning.sandbag": "Hoogste beoordeling",
     "sandbagSuspicionTitle": "- vroeger werd de rating hoger: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Blog tabel met inhoud",
+    "tableOfContentsText": "Lijst met inhoud",
+    "tableOfContentsTitle": "LiChess Tools - inhoudsopgave"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7312,7 +7330,10 @@
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
     "sandbagSuspicionTitle": "- used to be higher rated: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Blog table of contents",
+    "tableOfContentsText": "Table of contents",
+    "tableOfContentsTitle": "LiChess Tools - table of contents"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8357,7 +8378,10 @@
     "previousStudyMenu.5": "cinq éléments",
     "playerWarning.sandbag": "Note la plus élevée",
     "sandbagSuspicionTitle": "- utilisé pour un taux plus élevé : %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Tableau des matières du blog",
+    "tableOfContentsText": "Table des matières",
+    "tableOfContentsTitle": "Outils LiChess - table des matières"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9402,7 +9426,10 @@
     "previousStudyMenu.5": "fünf Elemente",
     "playerWarning.sandbag": "Höchste Bewertung",
     "sandbagSuspicionTitle": "- höher bewertet: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Inhaltsverzeichnis des Blogs",
+    "tableOfContentsText": "Inhaltsverzeichnis",
+    "tableOfContentsTitle": "LiChess Tools - Inhaltsverzeichnis"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10447,7 +10474,10 @@
     "previousStudyMenu.5": "πέντε στοιχεία",
     "playerWarning.sandbag": "Υψηλότερη βαθμολογία",
     "sandbagSuspicionTitle": "- χρησιμοποιείται για υψηλότερη βαθμολογία: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Πίνακας ιστολογίου περιεχομένων",
+    "tableOfContentsText": "Πίνακας περιεχομένων",
+    "tableOfContentsTitle": "LiChess Tools - πίνακας περιεχομένων"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11492,7 +11522,10 @@
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
     "sandbagSuspicionTitle": "- used to be higher rated: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Blog table of contents",
+    "tableOfContentsText": "Table of contents",
+    "tableOfContentsTitle": "LiChess Tools - table of contents"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12537,7 +12570,10 @@
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
     "sandbagSuspicionTitle": "- used to be higher rated: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Blog table of contents",
+    "tableOfContentsText": "Table of contents",
+    "tableOfContentsTitle": "LiChess Tools - table of contents"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13582,7 +13618,10 @@
     "previousStudyMenu.5": "cinque elementi",
     "playerWarning.sandbag": "Classificazione più alta",
     "sandbagSuspicionTitle": "- usato per essere più alto voto: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Tabella dei contenuti del blog",
+    "tableOfContentsText": "Tabella dei contenuti",
+    "tableOfContentsTitle": "Strumenti LiChess - tabella dei contenuti"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14627,7 +14666,10 @@
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
     "sandbagSuspicionTitle": "- used to be higher rated: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Blog table of contents",
+    "tableOfContentsText": "Table of contents",
+    "tableOfContentsTitle": "LiChess Tools - table of contents"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15672,7 +15714,10 @@
     "previousStudyMenu.5": "pięć elementów",
     "playerWarning.sandbag": "Najwyższa ocena",
     "sandbagSuspicionTitle": "- używana do wyższej oceny: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Lista blogów zawartości",
+    "tableOfContentsText": "Spis treści",
+    "tableOfContentsTitle": "Narzędzia LiChess - spis treści"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16717,7 +16762,10 @@
     "previousStudyMenu.5": "cinco itens",
     "playerWarning.sandbag": "Mais alta avaliação",
     "sandbagSuspicionTitle": "- costumava ser mais alto: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Tabela de conteúdo do blog",
+    "tableOfContentsText": "Tabela de conteúdos",
+    "tableOfContentsTitle": "Ferramentas LiChess - Tabela de conteúdo"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17762,7 +17810,10 @@
     "previousStudyMenu.5": "cinco itens",
     "playerWarning.sandbag": "Mais alta avaliação",
     "sandbagSuspicionTitle": "- costumava ser mais alto: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Tabela de conteúdo do blog",
+    "tableOfContentsText": "Tabela de conteúdos",
+    "tableOfContentsTitle": "Ferramentas LiChess - Tabela de conteúdo"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18807,7 +18858,10 @@
     "previousStudyMenu.5": "cinci articole",
     "playerWarning.sandbag": "Rating maxim",
     "sandbagSuspicionTitle": "- era cotat mai sus în trecut: %s",
-    "bulkEditUnchanged": "-- Neschimbat --"
+    "bulkEditUnchanged": "-- Neschimbat --",
+    "options.blogTableOfContents": "Cuprins pentru blog-uri",
+    "tableOfContentsText": "Cuprins",
+    "tableOfContentsTitle": "LiChess Tools - cuprins"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19852,7 +19906,10 @@
     "previousStudyMenu.5": "пять элементов",
     "playerWarning.sandbag": "Наивысший рейтинг",
     "sandbagSuspicionTitle": "- выше по курсу: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Содержимое таблицы блога",
+    "tableOfContentsText": "Содержание",
+    "tableOfContentsTitle": "Инструменты Жизни - таблица содержания"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20897,7 +20954,10 @@
     "previousStudyMenu.5": "cinco elementos",
     "playerWarning.sandbag": "Calificación más alta",
     "sandbagSuspicionTitle": "- solía ser más valorado: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Tabla de contenido del blog",
+    "tableOfContentsText": "Tabla de contenidos",
+    "tableOfContentsTitle": "Herramientas de LiChess - tabla de contenidos"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -21942,7 +22002,10 @@
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
     "sandbagSuspicionTitle": "- used to be higher rated: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Blog table of contents",
+    "tableOfContentsText": "Table of contents",
+    "tableOfContentsTitle": "LiChess Tools - table of contents"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -22987,7 +23050,10 @@
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
     "sandbagSuspicionTitle": "- used to be higher rated: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Blog table of contents",
+    "tableOfContentsText": "Table of contents",
+    "tableOfContentsTitle": "LiChess Tools - table of contents"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -24032,6 +24098,9 @@
     "previousStudyMenu.5": "five items",
     "playerWarning.sandbag": "Highest rating",
     "sandbagSuspicionTitle": "- used to be higher rated: %s",
-    "bulkEditUnchanged": "-- Unchanged --"
+    "bulkEditUnchanged": "-- Unchanged --",
+    "options.blogTableOfContents": "Blog table of contents",
+    "tableOfContentsText": "Table of contents",
+    "tableOfContentsTitle": "LiChess Tools - table of contents"
   }
 }

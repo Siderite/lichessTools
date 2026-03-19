@@ -124,6 +124,7 @@ lichessTools.loadTool(LiChessTools.Tools.ShowDeviation);
 lichessTools.loadTool(LiChessTools.Tools.LinkToAnalysis);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleOptions);
 lichessTools.loadTool(LiChessTools.Tools.BlogHistory);
+lichessTools.loadTool(LiChessTools.Tools.BlogTableOfContents);
 lichessTools.loadTool(LiChessTools.Tools.QuickActions);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleHistory);
 lichessTools.loadTool(LiChessTools.Tools.TournamentTopBoard);

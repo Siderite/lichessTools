@@ -6,6 +6,7 @@ History of features added to LiChess Tools in time (reversed order)
 - highest rating/sandbagging warning
 - opponents page scores
 - choose which properties to change in bulk chapter edit
+- blog table of content
 
 17 Mar
 
