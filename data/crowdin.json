@@ -1004,7 +1004,7 @@
     "lobbyRatingDiffTitle": "أدوات شطرنج الحياة - فرق التقييم",
     "btnCommandText": "الأوامر",
     "btnCommandTitle": "تنفيذ الأوامر",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "إظهار عدد اللاعبين المقيمة للعبة",
     "gamesPlayedTitle": "%s rated games played",
     "options.voiceInput": "الإدخال الصوتي",
@@ -1047,7 +1047,9 @@
     "tableOfContentsText": "جدول المحتويات",
     "tableOfContentsTitle": "أدوات شطرنج الحياة - جدول المحتويات",
     "options.lobbyCrosstable": "الردهة المتقطعة",
-    "lobbyCrosstableTitle": "أدوات شطرنج الحياة - متقطع"
+    "lobbyCrosstableTitle": "أدوات شطرنج الحياة - متقطع",
+    "selectGamesSyntaxText": "الاستخدام: اختر <start> [count]",
+    "downloadedText": "تم التحميل"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2054,7 +2056,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Show player rated game count",
     "gamesPlayedTitle": "%s rated games played",
     "options.voiceInput": "Voice input",
@@ -2097,7 +2099,9 @@
     "tableOfContentsText": "Table of contents",
     "tableOfContentsTitle": "LiChess Tools - table of contents",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable",
+    "selectGamesSyntaxText": "Usage: select <start> [count]",
+    "downloadedText": "Downloaded"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3104,7 +3108,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - 等级分差距",
     "btnCommandText": "命令",
     "btnCommandTitle": "执行命令",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "显示棋手排位对局数",
     "gamesPlayedTitle": "已进行 %s 场排位对局",
     "options.voiceInput": "语音输入",
@@ -3147,7 +3151,9 @@
     "tableOfContentsText": "目录",
     "tableOfContentsTitle": "Lichess 工具 - 目录",
     "options.lobbyCrosstable": "大厅转动物品栏",
-    "lobbyCrosstableTitle": "LiChess工具 - crossstability"
+    "lobbyCrosstableTitle": "LiChess工具 - crossstability",
+    "selectGamesSyntaxText": "Usage: select <start> [count]",
+    "downloadedText": "已下载"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4154,7 +4160,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Show player rated game count",
     "gamesPlayedTitle": "%s rated games played",
     "options.voiceInput": "Voice input",
@@ -4197,7 +4203,9 @@
     "tableOfContentsText": "Table of contents",
     "tableOfContentsTitle": "LiChess Tools - table of contents",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable",
+    "selectGamesSyntaxText": "Usage: select <start> [count]",
+    "downloadedText": "Downloaded"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5204,7 +5212,7 @@
     "lobbyRatingDiffTitle": "Nástroje Lichess - rozdíl v ratingu",
     "btnCommandText": "Příkazy",
     "btnCommandTitle": "Provést příkazy",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Zobrazit počet hodnocených her hráče",
     "gamesPlayedTitle": "%s hodnocené hry",
     "options.voiceInput": "Hlasový vstup",
@@ -5247,7 +5255,9 @@
     "tableOfContentsText": "Tabulka obsahu",
     "tableOfContentsTitle": "Nástroje Lišess - obsah",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "Nástroje LiChess - crosstable"
+    "lobbyCrosstableTitle": "Nástroje LiChess - crosstable",
+    "selectGamesSyntaxText": "Použití: vyberte <start> [count]",
+    "downloadedText": "Staženo"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6254,7 +6264,7 @@
     "lobbyRatingDiffTitle": "LiChess gereedschappen - waardering verschil",
     "btnCommandText": "Opdrachten",
     "btnCommandTitle": "Opdrachten uitvoeren",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Toon speler met rating aantal partijen",
     "gamesPlayedTitle": "%s gespeelde partijen met rating",
     "options.voiceInput": "Spraak-invoer",
@@ -6297,7 +6307,9 @@
     "tableOfContentsText": "Lijst met inhoud",
     "tableOfContentsTitle": "LiChess Tools - inhoudsopgave",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "LiChess Gereedschappen - crosstable"
+    "lobbyCrosstableTitle": "LiChess Gereedschappen - crosstable",
+    "selectGamesSyntaxText": "Gebruik: select <start> [count]",
+    "downloadedText": "Gedownload"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7304,7 +7316,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Show player rated game count",
     "gamesPlayedTitle": "%s rated games played",
     "options.voiceInput": "Voice input",
@@ -7347,7 +7359,9 @@
     "tableOfContentsText": "Table of contents",
     "tableOfContentsTitle": "LiChess Tools - table of contents",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable",
+    "selectGamesSyntaxText": "Usage: select <start> [count]",
+    "downloadedText": "Downloaded"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8354,7 +8368,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - différence de classement",
     "btnCommandText": "Commandes",
     "btnCommandTitle": "Exécuter des commandes",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Afficher le nombre de parties classées par le joueur",
     "gamesPlayedTitle": "%s parties classées jouées",
     "options.voiceInput": "Saisie vocale",
@@ -8397,7 +8411,9 @@
     "tableOfContentsText": "Sommaire",
     "tableOfContentsTitle": "LiChess Tools - sommaire",
     "options.lobbyCrosstable": "Lobby croisé",
-    "lobbyCrosstableTitle": "Outils LiChess - crosstable"
+    "lobbyCrosstableTitle": "Outils LiChess - crosstable",
+    "selectGamesSyntaxText": "Utilisation: select <start> [count]",
+    "downloadedText": "Téléchargé"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9404,7 +9420,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - Bewertungsunterschied",
     "btnCommandText": "Befehle",
     "btnCommandTitle": "Befehle ausführen",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Zeige Spieler bewertete Spielanzahl",
     "gamesPlayedTitle": "%s bewertete Spiele gespielt",
     "options.voiceInput": "Spracheingabe",
@@ -9447,7 +9463,9 @@
     "tableOfContentsText": "Inhaltsverzeichnis",
     "tableOfContentsTitle": "LiChess Tools - Inhaltsverzeichnis",
     "options.lobbyCrosstable": "Lobby-Kreuzweg",
-    "lobbyCrosstableTitle": "LiChess Werkzeuge - Überstabil"
+    "lobbyCrosstableTitle": "LiChess Werkzeuge - Überstabil",
+    "selectGamesSyntaxText": "Verwendung: Wählen Sie <start> [count]",
+    "downloadedText": "Heruntergeladen"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -9945,7 +9963,7 @@
     "studyFlairs.authorFlair": "Μορφή συγγραφέα",
     "studyFlairs.memberFlairs": "Νιφάδες μελών",
     "studyFlairs.topicFlairs": "Αποφάσια από θέματα μελέτης",
-    "flairButtonText": "Νιφάδες",
+    "flairButtonText": "Flairs",
     "flairButtonTitle": "LiChess Tools - προσθέστε μια διερευνητική διέγερση",
     "studyFlairTitle": "Φάρμακο μελέτης",
     "options.mainPageElements": "Στοιχεία σελίδων Lobby",
@@ -10081,7 +10099,7 @@
     "puzzleHeaderText": "Γρίφοι",
     "fileButtonTitle": "Επιλέξτε ένα αρχείο",
     "themes.noPractice": "Δεν υπάρχει κουμπί εξάσκησης",
-    "options.dailyQuote": "Ημερήσια προσφορά",
+    "options.dailyQuote": "Ημερήσια φράση",
     "dailyQuoteTitle": "LiChess Tools - καθημερινή προσφορά",
     "quoteCloseButtonTitle": "Απόκρυψη σημερινής προσφοράς",
     "options.puzzleDownload": "Κατεβάστε PGN για παζλ",
@@ -10454,7 +10472,7 @@
     "lobbyRatingDiffTitle": "Εργαλεία LiChess - διαφορά βαθμολογίας",
     "btnCommandText": "Εντολές",
     "btnCommandTitle": "Εκτέλεση εντολών",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Εμφάνιση βαθμολογημένου αριθμού παιχνιδιών",
     "gamesPlayedTitle": "%s Βαθμολογημένα παιχνίδια που παίχτηκαν",
     "options.voiceInput": "Φωνητική είσοδος",
@@ -10492,12 +10510,14 @@
     "previousStudyMenu.5": "πέντε στοιχεία",
     "playerWarning.sandbag": "Υψηλότερη βαθμολογία",
     "sandbagSuspicionTitle": "- χρησιμοποιείται για υψηλότερη βαθμολογία: %s",
-    "bulkEditUnchanged": "-- Unchanged --",
+    "bulkEditUnchanged": "-- Μη αλλαγμένο --",
     "options.blogTableOfContents": "Πίνακας ιστολογίου περιεχομένων",
     "tableOfContentsText": "Πίνακας περιεχομένων",
     "tableOfContentsTitle": "LiChess Tools - πίνακας περιεχομένων",
     "options.lobbyCrosstable": "Λόμπι σταυρό",
-    "lobbyCrosstableTitle": "Εργαλεία LiChess - crosstable"
+    "lobbyCrosstableTitle": "Εργαλεία LiChess - crosstable",
+    "selectGamesSyntaxText": "Χρήση: επιλέξτε <start> [count]",
+    "downloadedText": "Λήφθηκε"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11504,7 +11524,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Show player rated game count",
     "gamesPlayedTitle": "%s rated games played",
     "options.voiceInput": "Voice input",
@@ -11547,7 +11567,9 @@
     "tableOfContentsText": "Table of contents",
     "tableOfContentsTitle": "LiChess Tools - table of contents",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable",
+    "selectGamesSyntaxText": "Usage: select <start> [count]",
+    "downloadedText": "Downloaded"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12554,7 +12576,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Show player rated game count",
     "gamesPlayedTitle": "%s rated games played",
     "options.voiceInput": "Voice input",
@@ -12597,7 +12619,9 @@
     "tableOfContentsText": "Table of contents",
     "tableOfContentsTitle": "LiChess Tools - table of contents",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable",
+    "selectGamesSyntaxText": "Usage: select <start> [count]",
+    "downloadedText": "Downloaded"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13604,7 +13628,7 @@
     "lobbyRatingDiffTitle": "Strumenti di LiChess - differenza di rating",
     "btnCommandText": "Comandi",
     "btnCommandTitle": "Esegui comandi",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Mostra il numero di partite valutato dal giocatore",
     "gamesPlayedTitle": "%s partite valutate giocate",
     "options.voiceInput": "Ingresso vocale",
@@ -13647,7 +13671,9 @@
     "tableOfContentsText": "Tabella dei contenuti",
     "tableOfContentsTitle": "Strumenti LiChess - tabella dei contenuti",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "Strumenti LiChess - crosstable"
+    "lobbyCrosstableTitle": "Strumenti LiChess - crosstable",
+    "selectGamesSyntaxText": "Uso: seleziona <start> [count]",
+    "downloadedText": "Scaricato"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14654,7 +14680,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Show player rated game count",
     "gamesPlayedTitle": "%s rated games played",
     "options.voiceInput": "Voice input",
@@ -14697,7 +14723,9 @@
     "tableOfContentsText": "Table of contents",
     "tableOfContentsTitle": "LiChess Tools - table of contents",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable",
+    "selectGamesSyntaxText": "Usage: select <start> [count]",
+    "downloadedText": "Downloaded"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15704,7 +15732,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools ‒ różnica rankingów",
     "btnCommandText": "Polecenia",
     "btnCommandTitle": "Wykonaj polecenia",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Pokaż liczbę gier rankingowych graczy",
     "gamesPlayedTitle": "Gra rankingowa %s",
     "options.voiceInput": "Wprowadzanie głosu",
@@ -15747,7 +15775,9 @@
     "tableOfContentsText": "Spis treści",
     "tableOfContentsTitle": "Narzędzia LiChess - spis treści",
     "options.lobbyCrosstable": "Lobby skrzyżowane",
-    "lobbyCrosstableTitle": "Narzędzia LiChess - skrzyżowanie"
+    "lobbyCrosstableTitle": "Narzędzia LiChess - skrzyżowanie",
+    "selectGamesSyntaxText": "Użycie: wybierz <start> [count]",
+    "downloadedText": "Pobrano"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16754,7 +16784,7 @@
     "lobbyRatingDiffTitle": "Ferramentas de LiChess - diferença de classificação",
     "btnCommandText": "Comandos",
     "btnCommandTitle": "Executar comandos",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Mostrar contagem de partidas valendo pontos",
     "gamesPlayedTitle": "Jogos com rating %s jogados",
     "options.voiceInput": "Entrada por voz",
@@ -16797,7 +16827,9 @@
     "tableOfContentsText": "Tabela de conteúdos",
     "tableOfContentsTitle": "Ferramentas LiChess - Tabela de conteúdo",
     "options.lobbyCrosstable": "Salão de cruzeiro",
-    "lobbyCrosstableTitle": "Ferramentas de LiChess - crustável"
+    "lobbyCrosstableTitle": "Ferramentas de LiChess - crustável",
+    "selectGamesSyntaxText": "Uso: selecione <start> [count]",
+    "downloadedText": "Baixado"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17804,7 +17836,7 @@
     "lobbyRatingDiffTitle": "Ferramentas de LiChess - diferença de classificação",
     "btnCommandText": "Comandos",
     "btnCommandTitle": "Executar comandos",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Mostrar contagem de partidas valendo pontos",
     "gamesPlayedTitle": "Jogos com rating %s jogados",
     "options.voiceInput": "Entrada por voz",
@@ -17847,7 +17879,9 @@
     "tableOfContentsText": "Tabela de conteúdos",
     "tableOfContentsTitle": "Ferramentas LiChess - Tabela de conteúdo",
     "options.lobbyCrosstable": "Salão de cruzeiro",
-    "lobbyCrosstableTitle": "Ferramentas de LiChess - crustável"
+    "lobbyCrosstableTitle": "Ferramentas de LiChess - crustável",
+    "selectGamesSyntaxText": "Uso: selecione <start> [count]",
+    "downloadedText": "Baixado"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18854,7 +18888,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - diferență rating",
     "btnCommandText": "Comenzi",
     "btnCommandTitle": "Execută comenzi",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "\"extractFen\", \"splitForStudy\", \"select\" <start> [număr]",
     "options.showGameCount": "Arată numărul de partide oficiale al jucătorului",
     "gamesPlayedTitle": "%s partide oficiale jucate",
     "options.voiceInput": "Dictare",
@@ -18897,7 +18931,9 @@
     "tableOfContentsText": "Cuprins",
     "tableOfContentsTitle": "LiChess Tools - cuprins",
     "options.lobbyCrosstable": "Scor între jucători pe pagina principală",
-    "lobbyCrosstableTitle": "LiChess Tools - scor între jucători"
+    "lobbyCrosstableTitle": "LiChess Tools - scor între jucători",
+    "selectGamesSyntaxText": "Utilizare: select <start> [număr]",
+    "downloadedText": "Descărcat"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19904,7 +19940,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - разница рейтингов",
     "btnCommandText": "Команды",
     "btnCommandTitle": "Выполнить команды",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'extractFen', \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Показать количество рейтинговых партий игрока",
     "gamesPlayedTitle": "%s рейтинг сыгранных игр",
     "options.voiceInput": "Голосовой ввод",
@@ -19947,7 +19983,9 @@
     "tableOfContentsText": "Содержание",
     "tableOfContentsTitle": "Инструменты Жизни - таблица содержания",
     "options.lobbyCrosstable": "Лобби кросстабильный",
-    "lobbyCrosstableTitle": "Инструменты Жизни - кросспостойкие"
+    "lobbyCrosstableTitle": "Инструменты Жизни - кросспостойкие",
+    "selectGamesSyntaxText": "Использование: выберите <start> [count]",
+    "downloadedText": "Загружено"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20954,7 +20992,7 @@
     "lobbyRatingDiffTitle": "Herramientas de LiChess - diferencia de valoración",
     "btnCommandText": "Comandos",
     "btnCommandTitle": "Ejecutar comandos",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Mostrar número de partidas por jugador",
     "gamesPlayedTitle": "Partidas por puntos %s jugadas",
     "options.voiceInput": "Entrada de voz",
@@ -20997,7 +21035,9 @@
     "tableOfContentsText": "Tabla de contenidos",
     "tableOfContentsTitle": "Herramientas de LiChess - tabla de contenidos",
     "options.lobbyCrosstable": "Tabla cruzada de lobby",
-    "lobbyCrosstableTitle": "Herramientas de LiChess - Cruzable"
+    "lobbyCrosstableTitle": "Herramientas de LiChess - Cruzable",
+    "selectGamesSyntaxText": "Uso: select <start> [count]",
+    "downloadedText": "Descargado"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -22004,7 +22044,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Show player rated game count",
     "gamesPlayedTitle": "%s rated games played",
     "options.voiceInput": "Voice input",
@@ -22047,7 +22087,9 @@
     "tableOfContentsText": "Table of contents",
     "tableOfContentsTitle": "LiChess Tools - table of contents",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable",
+    "selectGamesSyntaxText": "Usage: select <start> [count]",
+    "downloadedText": "Downloaded"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -23054,7 +23096,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - puan farkı",
     "btnCommandText": "Komutlar",
     "btnCommandTitle": "Komutu çalıştır",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Oyuncunun puanlı oyun sayısını göster",
     "gamesPlayedTitle": "%s puanlı oyun oynandı",
     "options.voiceInput": "Sesli giriş",
@@ -23097,7 +23139,9 @@
     "tableOfContentsText": "Table of contents",
     "tableOfContentsTitle": "LiChess Tools - table of contents",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable",
+    "selectGamesSyntaxText": "Usage: select <start> [count]",
+    "downloadedText": "Downloaded"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -24104,7 +24148,7 @@
     "lobbyRatingDiffTitle": "LiChess Tools - rating difference",
     "btnCommandText": "Commands",
     "btnCommandTitle": "Execute commands",
-    "commandPrompt": "\"extractFen\",\"splitForStudy\"",
+    "commandPrompt": "'\"extractFen\", \"splitForStudy\", \"select\" <start> [count]",
     "options.showGameCount": "Show player rated game count",
     "gamesPlayedTitle": "%s rated games played",
     "options.voiceInput": "Voice input",
@@ -24147,6 +24191,8 @@
     "tableOfContentsText": "Table of contents",
     "tableOfContentsTitle": "LiChess Tools - table of contents",
     "options.lobbyCrosstable": "Lobby crosstable",
-    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable",
+    "selectGamesSyntaxText": "Usage: select <start> [count]",
+    "downloadedText": "Downloaded"
   }
 }

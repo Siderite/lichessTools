@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 20 Mar
 
 - lobby page crosstable scores
+- select game text in PGN Editor by start and count
 
 19 Mar
 

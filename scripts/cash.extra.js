@@ -67,6 +67,23 @@ cash.fn.textSafe = function(value) {
   return this;
 }
 
+cash.fn.selectText = function(start,length) {
+  start ||= 0;
+  this.each((i,e)=>{
+    const text = e.value;
+    if (!text) return;
+    e.focus();
+    e.value = text.substring(0,start);
+    const scrollY = e.scrollHeight;
+    e.value = text;
+    e.scrollTop = scrollY - 40;
+
+    const end = start+(length||text.length||0);
+    e.setSelectionRange(start, end);
+  });
+  return this;
+}
+
 cash.fn.insertText = function(value, focus) {
   if (!value) return;
   this.each((i,e)=>{

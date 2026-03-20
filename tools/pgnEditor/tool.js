@@ -39,7 +39,7 @@
         'btnKeepFoundTitle': 'Keep only the found results',
         'btnCommandText': 'Commands',
         'btnCommandTitle': 'Execute commands',
-        'commandPrompt': '"extractFen","splitForStudy"',
+        'commandPrompt': '"extractFen", "splitForStudy", "select" <start> [count]',
         'extractingFens': 'Extracting FENs',
         'btnCutStuffText': 'Cut',
         'btnCutStuffTitle': 'Cut to ply number, remove junk, annotations, comments, tags, found results or branches',
@@ -87,7 +87,9 @@
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply" Value, "Junk", "Eval"(>,=,<)Value, "Eval", "Clock", "Shapes" in any combination (i.e. eval, junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText': 'PGN Editor',
         'sendToPgnEditorTitle': 'LiChess Tools - send to PGN Editor',
-        'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation'
+        'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation',
+        'selectGamesSyntaxText': 'Usage: select <start> [count]',
+        'downloadedText': 'Downloaded'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -113,7 +115,7 @@
         'btnKeepFoundTitle': 'P\u0103streaz\u0103 doar rezultatele g\u0103site',
         'btnCommandText': 'Comenzi',
         'btnCommandTitle': 'Execut\u0103 comenzi',
-        'commandPrompt': '"extractFen","splitForStudy"',
+        'commandPrompt': '"extractFen", "splitForStudy", "select" <start> [num\u0103r]',
         'extractingFens': 'Extrag FENuri',
         'btnCutStuffText': 'Taie',
         'btnCutStuffTitle': 'Taie la un num\u0103r de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 gunoi, adnot\u0103ri, comentarii, etichete sau rezultatele g\u0103site',
@@ -161,7 +163,9 @@
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply" Valoare, "Junk", "Eval"(>,=,<)Valoare, "Eval", "Clock", "Shapes" \u00een orice combina\u0163ie (ex: eval, junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText': 'Editor PGN',
         'sendToPgnEditorTitle': 'LiChess Tools - trimite la Editor PGN',
-        'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess'
+        'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess',
+        'selectGamesSyntaxText': 'Utilizare: select <start> [num\u0103r]',
+        'downloadedText': 'Desc\u0103rcat'
       }
     }
 
@@ -497,6 +501,7 @@
           if (!text) return;
           this.runOperation('download', () => {
             lt.download(text,'pgnEditor_' + lt.toTimeString(new Date()) + '.pgn','application/x-chess-pgn');
+            lt.announce(trans.noarg('downloadedText'));
           });
         })
         .find('span')
@@ -1202,6 +1207,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
       if (/\bsplitForStudy\b/i.test(text)) {
         await this.splitForStudy(textarea);
       }
+      if (/\bselect\b/i.test(text)) {
+        await this.selectGames(textarea,text);
+      }
     };
 
     extractFen = async (textarea) => {
@@ -1268,6 +1276,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         fenText += gameIndex + '\r\n' + [...fenSet].join('\r\n') + '\r\n\r\n';
       }
       lt.download(fenText,'pgnEditor_fens_' + lt.toTimeString(new Date()) + '.txt');
+      lt.announce(trans.noarg('downloadedText'));
     };
 
     normalizePgn = async (textarea) => {
@@ -1518,6 +1527,46 @@ https://www.chessable.com/course/${courseId}/ } *`)
 
       this.writeGames(textarea, games);
 
+      this.countPgn();
+    };
+
+    selectGames = async (textarea,commandText) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+
+      let m = /^\s*select\s+(?<start>\d+)(?:\s+(?<count>\d+))?\s*/.exec(commandText);
+      if (!m) {
+        lt.announce(trans.noarg('selectGamesSyntaxText'));
+        return;
+      }
+      let start = +m.groups.start-1;
+      if (!start || start<0) start = 0;
+      const count = +m.groups.count || 1000000;
+
+      const text = textarea.val();
+
+      const regex = /((?:^\[[^\]\r\n]*\]\s*)+[\s\S]*?)(?=^\[|$)/gm;
+      let gameIndex = 0;
+      let rangeStartIndex = -1;
+      let rangeEndIndex = -1;
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        if (gameIndex == start) {
+          rangeStartIndex = match.index;
+        }
+        if (gameIndex >= start && gameIndex <= start + count - 1) {
+          rangeEndIndex = match.index+match[0].length;
+        }
+        if (gameIndex == start + count - 1) {
+          break;
+        }
+        gameIndex++;
+      }
+
+      const result = { start: rangeStartIndex, count: rangeEndIndex-rangeStartIndex+1 };
+      textarea.selectText(result.start,result.count);
       this.countPgn();
     };
 
