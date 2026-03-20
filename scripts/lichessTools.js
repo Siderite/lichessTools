@@ -2351,6 +2351,13 @@
           const data = await lt.net.json({ url: '/api/crosstable/{userId1}/{userId2}', args: { userId1, userId2 } });
           return data;
         },
+        getCrosstableJustCache: async function(...args) {
+          const lt = this.lichessTools;
+          const cache = lt.cache;
+          const key = 'getCrosstable' + JSON.stringify(args);
+          const cached = cache.getCached(key);
+          return cached?.value;
+        },
         getCrosstableBulk: async function(userPairs) {
           const lt = this.lichessTools;
           const result = [];
@@ -2943,6 +2950,14 @@
       const perfData = [];
       this._inApplyOptions = true;
       for (const tool of this.tools) {
+        if (tool.dependencies) {
+          for (const name of tool.dependencies) {
+            const toolName = LiChessTools.Tools[name]?.name;
+            const dep = this.tools[toolName];
+            if (!dep) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not found');
+            if (dep.start && !dep.ranStart) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not started before it');
+          }
+        }
         if (!tool?.start) continue;
         try {
           const start = performance.now();

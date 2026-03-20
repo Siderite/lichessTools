@@ -73,13 +73,16 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('lobbyRatingDiff');
       this.logOption('Lobby rating diff', value);
+      const userId = lt.getUserId();
+      if (!userId) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const $ = lt.$;
       $('body').observer()
         .off('.lobby__app,.hooks__list tbody',this.showDiff);
       $('[data-diff]').removeAttr('data-diff').removeAttr('title');
       if (!value) return;
-      const userId = lt.getUserId();
-      if (!userId) return;
       lt.api.user.getUsers([userId]).then((data)=>{
         this.perf = data[0];
         $('body').observer()

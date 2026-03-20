@@ -1,7 +1,7 @@
 (() => {
   class SearchMovesCommandTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['CliCommands','ExportPgn'];
+    dependencies = ['CliCommands','ExportPGN'];
 
     preferences = [
       {

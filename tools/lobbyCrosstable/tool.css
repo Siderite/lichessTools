@@ -1,5 +1,6 @@
 body.lichessTools .lichessTools-crossTable {
-  margin-left:1em;
+  font-size: 0.7em;
+  margin-left:0.5em;
 }
 
 body.lichessTools .lichessTools-crossTable.bad {

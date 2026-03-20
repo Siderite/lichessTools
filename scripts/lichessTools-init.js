@@ -41,6 +41,7 @@ lichessTools.loadTool(LiChessTools.Tools.ExtraPieceSets);
 lichessTools.loadTool(LiChessTools.Tools.QuietModeAllTabs);
 lichessTools.loadTool(LiChessTools.Tools.MobileExperience);
 lichessTools.loadTool(LiChessTools.Tools.CtrlSpaceForBestComputerMove);
+lichessTools.loadTool(LiChessTools.Tools.LobbyCrosstable);
 lichessTools.loadTool(LiChessTools.Tools.FriendsList);
 lichessTools.loadTool(LiChessTools.Tools.FriendsPlaying);
 lichessTools.loadTool(LiChessTools.Tools.Highlight);

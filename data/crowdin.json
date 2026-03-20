@@ -1045,7 +1045,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "جدول المحتويات في المدونة",
     "tableOfContentsText": "جدول المحتويات",
-    "tableOfContentsTitle": "أدوات شطرنج الحياة - جدول المحتويات"
+    "tableOfContentsTitle": "أدوات شطرنج الحياة - جدول المحتويات",
+    "options.lobbyCrosstable": "الردهة المتقطعة",
+    "lobbyCrosstableTitle": "أدوات شطرنج الحياة - متقطع"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2093,7 +2095,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Blog table of contents",
     "tableOfContentsText": "Table of contents",
-    "tableOfContentsTitle": "LiChess Tools - table of contents"
+    "tableOfContentsTitle": "LiChess Tools - table of contents",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3141,7 +3145,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "博客目录",
     "tableOfContentsText": "目录",
-    "tableOfContentsTitle": "Lichess 工具 - 目录"
+    "tableOfContentsTitle": "Lichess 工具 - 目录",
+    "options.lobbyCrosstable": "大厅转动物品栏",
+    "lobbyCrosstableTitle": "LiChess工具 - crossstability"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4189,7 +4195,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Blog table of contents",
     "tableOfContentsText": "Table of contents",
-    "tableOfContentsTitle": "LiChess Tools - table of contents"
+    "tableOfContentsTitle": "LiChess Tools - table of contents",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5237,7 +5245,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Obsah blogu",
     "tableOfContentsText": "Tabulka obsahu",
-    "tableOfContentsTitle": "Nástroje Lišess - obsah"
+    "tableOfContentsTitle": "Nástroje Lišess - obsah",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "Nástroje LiChess - crosstable"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6285,7 +6295,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Blog tabel met inhoud",
     "tableOfContentsText": "Lijst met inhoud",
-    "tableOfContentsTitle": "LiChess Tools - inhoudsopgave"
+    "tableOfContentsTitle": "LiChess Tools - inhoudsopgave",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "LiChess Gereedschappen - crosstable"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7333,7 +7345,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Blog table of contents",
     "tableOfContentsText": "Table of contents",
-    "tableOfContentsTitle": "LiChess Tools - table of contents"
+    "tableOfContentsTitle": "LiChess Tools - table of contents",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8381,7 +8395,9 @@
     "bulkEditUnchanged": "-- Inchangé --",
     "options.blogTableOfContents": "Sommaire du blogue",
     "tableOfContentsText": "Sommaire",
-    "tableOfContentsTitle": "LiChess Tools - sommaire"
+    "tableOfContentsTitle": "LiChess Tools - sommaire",
+    "options.lobbyCrosstable": "Lobby croisé",
+    "lobbyCrosstableTitle": "Outils LiChess - crosstable"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9429,7 +9445,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Inhaltsverzeichnis des Blogs",
     "tableOfContentsText": "Inhaltsverzeichnis",
-    "tableOfContentsTitle": "LiChess Tools - Inhaltsverzeichnis"
+    "tableOfContentsTitle": "LiChess Tools - Inhaltsverzeichnis",
+    "options.lobbyCrosstable": "Lobby-Kreuzweg",
+    "lobbyCrosstableTitle": "LiChess Werkzeuge - Überstabil"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10477,7 +10495,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Πίνακας ιστολογίου περιεχομένων",
     "tableOfContentsText": "Πίνακας περιεχομένων",
-    "tableOfContentsTitle": "LiChess Tools - πίνακας περιεχομένων"
+    "tableOfContentsTitle": "LiChess Tools - πίνακας περιεχομένων",
+    "options.lobbyCrosstable": "Λόμπι σταυρό",
+    "lobbyCrosstableTitle": "Εργαλεία LiChess - crosstable"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11525,7 +11545,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Blog table of contents",
     "tableOfContentsText": "Table of contents",
-    "tableOfContentsTitle": "LiChess Tools - table of contents"
+    "tableOfContentsTitle": "LiChess Tools - table of contents",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12573,7 +12595,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Blog table of contents",
     "tableOfContentsText": "Table of contents",
-    "tableOfContentsTitle": "LiChess Tools - table of contents"
+    "tableOfContentsTitle": "LiChess Tools - table of contents",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13621,7 +13645,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Tabella dei contenuti del blog",
     "tableOfContentsText": "Tabella dei contenuti",
-    "tableOfContentsTitle": "Strumenti LiChess - tabella dei contenuti"
+    "tableOfContentsTitle": "Strumenti LiChess - tabella dei contenuti",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "Strumenti LiChess - crosstable"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14669,7 +14695,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Blog table of contents",
     "tableOfContentsText": "Table of contents",
-    "tableOfContentsTitle": "LiChess Tools - table of contents"
+    "tableOfContentsTitle": "LiChess Tools - table of contents",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15717,7 +15745,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Lista blogów zawartości",
     "tableOfContentsText": "Spis treści",
-    "tableOfContentsTitle": "Narzędzia LiChess - spis treści"
+    "tableOfContentsTitle": "Narzędzia LiChess - spis treści",
+    "options.lobbyCrosstable": "Lobby skrzyżowane",
+    "lobbyCrosstableTitle": "Narzędzia LiChess - skrzyżowanie"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16765,7 +16795,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Tabela de conteúdo do blog",
     "tableOfContentsText": "Tabela de conteúdos",
-    "tableOfContentsTitle": "Ferramentas LiChess - Tabela de conteúdo"
+    "tableOfContentsTitle": "Ferramentas LiChess - Tabela de conteúdo",
+    "options.lobbyCrosstable": "Salão de cruzeiro",
+    "lobbyCrosstableTitle": "Ferramentas de LiChess - crustável"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17813,7 +17845,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Tabela de conteúdo do blog",
     "tableOfContentsText": "Tabela de conteúdos",
-    "tableOfContentsTitle": "Ferramentas LiChess - Tabela de conteúdo"
+    "tableOfContentsTitle": "Ferramentas LiChess - Tabela de conteúdo",
+    "options.lobbyCrosstable": "Salão de cruzeiro",
+    "lobbyCrosstableTitle": "Ferramentas de LiChess - crustável"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18861,7 +18895,9 @@
     "bulkEditUnchanged": "-- Neschimbat --",
     "options.blogTableOfContents": "Cuprins pentru blog-uri",
     "tableOfContentsText": "Cuprins",
-    "tableOfContentsTitle": "LiChess Tools - cuprins"
+    "tableOfContentsTitle": "LiChess Tools - cuprins",
+    "options.lobbyCrosstable": "Scor între jucători pe pagina principală",
+    "lobbyCrosstableTitle": "LiChess Tools - scor între jucători"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19909,7 +19945,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Содержимое таблицы блога",
     "tableOfContentsText": "Содержание",
-    "tableOfContentsTitle": "Инструменты Жизни - таблица содержания"
+    "tableOfContentsTitle": "Инструменты Жизни - таблица содержания",
+    "options.lobbyCrosstable": "Лобби кросстабильный",
+    "lobbyCrosstableTitle": "Инструменты Жизни - кросспостойкие"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20957,7 +20995,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Tabla de contenido del blog",
     "tableOfContentsText": "Tabla de contenidos",
-    "tableOfContentsTitle": "Herramientas de LiChess - tabla de contenidos"
+    "tableOfContentsTitle": "Herramientas de LiChess - tabla de contenidos",
+    "options.lobbyCrosstable": "Tabla cruzada de lobby",
+    "lobbyCrosstableTitle": "Herramientas de LiChess - Cruzable"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -22005,7 +22045,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Blog table of contents",
     "tableOfContentsText": "Table of contents",
-    "tableOfContentsTitle": "LiChess Tools - table of contents"
+    "tableOfContentsTitle": "LiChess Tools - table of contents",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -23053,7 +23095,9 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Blog table of contents",
     "tableOfContentsText": "Table of contents",
-    "tableOfContentsTitle": "LiChess Tools - table of contents"
+    "tableOfContentsTitle": "LiChess Tools - table of contents",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -24101,6 +24145,8 @@
     "bulkEditUnchanged": "-- Unchanged --",
     "options.blogTableOfContents": "Blog table of contents",
     "tableOfContentsText": "Table of contents",
-    "tableOfContentsTitle": "LiChess Tools - table of contents"
+    "tableOfContentsTitle": "LiChess Tools - table of contents",
+    "options.lobbyCrosstable": "Lobby crosstable",
+    "lobbyCrosstableTitle": "LiChess Tools - crosstable"
   }
 }

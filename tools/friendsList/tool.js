@@ -1,7 +1,7 @@
 (() => {
   class FriendsListTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['DetectThirdParties', 'InterceptEventHandlers', 'EmitContentLoaded'];
+    dependencies = ['DetectThirdParties', 'InterceptEventHandlers', 'EmitContentLoaded', 'LobbyCrosstable']; // ugly hack dependency to lobby crosstable
 
     preferences = [
       {
@@ -977,7 +977,7 @@
       this.updateFriendsButton();
 
       lt.uiApi.socket.events.off('endData', this.delayedParseCrosstable);
-      if (this.options.liveFriendsPage) {
+      if (this.options.liveFriendsPage || lt.tools.LobbyCrosstableTool?.options?.enabled) { // lazy hack, I don't want to duplicate this code in the lobby crosstable tool or make another
         lt.uiApi.socket.events.on('endData', this.delayedParseCrosstable);
         this.parseCrosstable();
       }

@@ -20,7 +20,7 @@
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
-        'options.lobbyCrosstable': 'Scor \u00eentre juc\u0103tori \u00een pagina principal\u0103',
+        'options.lobbyCrosstable': 'Scor \u00eentre juc\u0103tori pe pagina principal\u0103',
         'lobbyCrosstableTitle': 'LiChess Tools - scor \u00eentre juc\u0103tori'
       }
     }
@@ -34,12 +34,13 @@
           const href = $('span[data-href]',e).attr('data-href');
           const userId = /@\/(?<user>[^\?\/&#]+)/.exec(href)?.groups?.user?.toLowerCase();
           if (!userId) return;
-          const crossTable = await lt.api.user.getCrosstable(this.userId,userId);
+          const crossTable = await lt.api.user.getCrosstableJustCache(this.userId,userId);
           if (!crossTable?.nbGames) return;
           const winrate=100*crossTable.users[this.userId]/crossTable.nbGames;
           $(e).attr('data-crosstable',winrate);
           $('<span class="lichessTools-crossTable">')
             .text('('+crossTable.users[this.userId]+'/'+crossTable.users[userId]+')')
+            .title(trans.noarg('lobbyCrosstableTitle'))
             .toggleClassSafe('bad',winrate<34 && crossTable.nbGames>1)
             .toggleClassSafe('good',winrate>66 && crossTable.nbGames>1)
             .appendTo(e);
@@ -50,13 +51,17 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('lobbyCrosstable');
       this.logOption('Lobby crosstable', value);
+      this.userId = lt.getUserId();
+      if (!this.userId) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
+      this.options = { enabled: !!value };
       const $ = lt.$;
       $('body').observer()
         .off('.lobby__app,.hooks__list tbody',this.showCrosstable);
-      $('[data-diff]').removeAttr('data-diff').removeAttr('title');
+      $('table.hooks__list .lichessTools-crossTable').remove();
       if (!value) return;
-      this.userId = lt.getUserId();
-      if (!this.userId) return;
       $('body').observer()
         .on('.lobby__app,.hooks__list tbody',this.showCrosstable);
     }

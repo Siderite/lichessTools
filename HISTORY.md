@@ -1,10 +1,14 @@
 History of features added to LiChess Tools in time (reversed order)
 
+20 Mar
+
+- lobby page crosstable scores
+
 19 Mar
 
 - previous study menu items count
 - highest rating/sandbagging warning
-- opponents page scores
+- opponents page crosttable scores
 - choose which properties to change in bulk chapter edit
 - blog table of content
 
