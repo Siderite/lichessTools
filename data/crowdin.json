@@ -8376,12 +8376,12 @@
     "previousStudyMenu.3": "trois éléments",
     "previousStudyMenu.4": "quatre éléments",
     "previousStudyMenu.5": "cinq éléments",
-    "playerWarning.sandbag": "Note la plus élevée",
-    "sandbagSuspicionTitle": "- utilisé pour un taux plus élevé : %s",
-    "bulkEditUnchanged": "-- Unchanged --",
-    "options.blogTableOfContents": "Tableau des matières du blog",
-    "tableOfContentsText": "Table des matières",
-    "tableOfContentsTitle": "Outils LiChess - table des matières"
+    "playerWarning.sandbag": "Classement le plus élevé",
+    "sandbagSuspicionTitle": "- était auparvant mieux classé : %s",
+    "bulkEditUnchanged": "-- Inchangé --",
+    "options.blogTableOfContents": "Sommaire du blogue",
+    "tableOfContentsText": "Sommaire",
+    "tableOfContentsTitle": "LiChess Tools - sommaire"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
