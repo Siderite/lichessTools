@@ -22,7 +22,8 @@
         'gamesLabelText': 'Games min/max', 
         'gamesLabelTitle': 'LiChess Tools - min/max games', 
         'gameTypesLabelText': 'Game types', 
-        'gameTypesLabelTitle': 'LiChess Tools - game types'
+        'gameTypesLabelTitle': 'LiChess Tools - game types',
+        'allTypesTitle': 'LiChess Tools - toggle all'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -33,7 +34,8 @@
         'gamesLabelText': 'Meciuri min/max', 
         'gamesLabelTitle': 'LiChess Tools - meciuri min/max', 
         'gameTypesLabelText': 'Tipuri de joc', 
-        'gameTypesLabelTitle': 'LiChess Tools - tipuri de joc'
+        'gameTypesLabelTitle': 'LiChess Tools - tipuri de joc',
+        'allTypesTitle': 'LiChess Tools - comut\u0103 toate'
       }
     }
 
@@ -64,6 +66,18 @@
             });
           $(e).toggleClass('filteredOut',!found.length);
         });
+      this.refreshAllTypesButton();
+    };
+
+    refreshAllTypesButton = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const container = $('div.lichessTools-botFilters');
+      const button = $('.lichessTools-allTypes',container);
+      const types = $('.types input[data-icon]',container);
+      const activeTypes = $('.types input[data-icon]:checked',container);
+      const checked = activeTypes.length<types.length/2;
+      button.attr('data-icon',checked ? lt.icon.DiscBig : lt.icon.DiscBigOutline);
     };
 
     async start() {
@@ -89,6 +103,7 @@
            </fieldset>
            <fieldset class="types">
              <legend></legend>
+             <button type="button" class="lichessTools-allTypes"></button>
            </fieldset>
          </div>`)
         .prependTo('.bots.page-menu__content');
@@ -104,6 +119,16 @@
       $('.types legend',container)
         .text(trans.noarg('gameTypesLabelText'))
         .attr('title',trans.noarg('gameTypesLabelTitle'));
+      $('.lichessTools-allTypes',container)
+        .attr('title',trans.noarg('allTypesTitle'))
+        .on('click',()=>{
+          const types = $('.types input[data-icon]',container);
+          const activeTypes = $('.types input[data-icon]:checked',container);
+          const checked = activeTypes.length<types.length/2;
+          types.prop('checked',checked);
+          this.filterBots();
+        });
+      this.refreshAllTypesButton();
       const order = [
         lt.icon.UltraBullet,
         lt.icon.Bullet,

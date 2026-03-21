@@ -1049,7 +1049,8 @@
     "options.lobbyCrosstable": "الردهة المتقطعة",
     "lobbyCrosstableTitle": "أدوات شطرنج الحياة - متقطع",
     "selectGamesSyntaxText": "الاستخدام: اختر <start> [count]",
-    "downloadedText": "تم التحميل"
+    "downloadedText": "تم التحميل",
+    "allTypesTitle": "أدوات شطرنج الحياة - تبديل الكل"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2101,7 +2102,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
-    "downloadedText": "Downloaded"
+    "downloadedText": "Downloaded",
+    "allTypesTitle": "LiChess Tools - toggle all"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3153,7 +3155,8 @@
     "options.lobbyCrosstable": "大厅转动物品栏",
     "lobbyCrosstableTitle": "LiChess工具 - crossstability",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
-    "downloadedText": "已下载"
+    "downloadedText": "已下载",
+    "allTypesTitle": "Lichess工具 - 切换所有"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4205,7 +4208,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
-    "downloadedText": "Downloaded"
+    "downloadedText": "Downloaded",
+    "allTypesTitle": "LiChess Tools - toggle all"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5257,7 +5261,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "Nástroje LiChess - crosstable",
     "selectGamesSyntaxText": "Použití: vyberte <start> [count]",
-    "downloadedText": "Staženo"
+    "downloadedText": "Staženo",
+    "allTypesTitle": "Nástroje Lišess - přepnout vše"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6309,7 +6314,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "LiChess Gereedschappen - crosstable",
     "selectGamesSyntaxText": "Gebruik: select <start> [count]",
-    "downloadedText": "Gedownload"
+    "downloadedText": "Gedownload",
+    "allTypesTitle": "LiChess Tools - schakel alles uit"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7361,7 +7367,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
-    "downloadedText": "Downloaded"
+    "downloadedText": "Downloaded",
+    "allTypesTitle": "LiChess Tools - toggle all"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8413,7 +8420,8 @@
     "options.lobbyCrosstable": "Tableau croisé du salon",
     "lobbyCrosstableTitle": "LiChess Tools - tableau croisé",
     "selectGamesSyntaxText": "Utilisation: select <start> [count]",
-    "downloadedText": "Téléchargé"
+    "downloadedText": "Téléchargé",
+    "allTypesTitle": "Outils LiChess - activer/désactiver tout"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9465,7 +9473,8 @@
     "options.lobbyCrosstable": "Lobby-Kreuzweg",
     "lobbyCrosstableTitle": "LiChess Werkzeuge - Überstabil",
     "selectGamesSyntaxText": "Verwendung: Wählen Sie <start> [count]",
-    "downloadedText": "Heruntergeladen"
+    "downloadedText": "Heruntergeladen",
+    "allTypesTitle": "LiChess Werkzeuge - Alle umschalten"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10517,7 +10526,8 @@
     "options.lobbyCrosstable": "Λόμπι σταυρό",
     "lobbyCrosstableTitle": "Εργαλεία LiChess - crosstable",
     "selectGamesSyntaxText": "Χρήση: επιλέξτε <start> [count]",
-    "downloadedText": "Λήφθηκε"
+    "downloadedText": "Λήφθηκε",
+    "allTypesTitle": "Εργαλεία LiChess - εναλλαγή όλων"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11569,7 +11579,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
-    "downloadedText": "Downloaded"
+    "downloadedText": "Downloaded",
+    "allTypesTitle": "LiChess Tools - toggle all"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12621,7 +12632,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
-    "downloadedText": "Downloaded"
+    "downloadedText": "Downloaded",
+    "allTypesTitle": "LiChess Tools - toggle all"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13673,7 +13685,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "Strumenti LiChess - crosstable",
     "selectGamesSyntaxText": "Uso: seleziona <start> [count]",
-    "downloadedText": "Scaricato"
+    "downloadedText": "Scaricato",
+    "allTypesTitle": "Strumenti LiChess - attiva/disattiva tutto"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14725,7 +14738,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
-    "downloadedText": "Downloaded"
+    "downloadedText": "Downloaded",
+    "allTypesTitle": "LiChess Tools - toggle all"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15777,7 +15791,8 @@
     "options.lobbyCrosstable": "Lobby skrzyżowane",
     "lobbyCrosstableTitle": "Narzędzia LiChess - skrzyżowanie",
     "selectGamesSyntaxText": "Użycie: wybierz <start> [count]",
-    "downloadedText": "Pobrano"
+    "downloadedText": "Pobrano",
+    "allTypesTitle": "Narzędzia LiChess - włącz wszystkie"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16829,7 +16844,8 @@
     "options.lobbyCrosstable": "Salão de cruzeiro",
     "lobbyCrosstableTitle": "Ferramentas de LiChess - crustável",
     "selectGamesSyntaxText": "Uso: selecione <start> [count]",
-    "downloadedText": "Baixado"
+    "downloadedText": "Baixado",
+    "allTypesTitle": "Ferramentas LiChess - alternar tudo"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17881,7 +17897,8 @@
     "options.lobbyCrosstable": "Salão de cruzeiro",
     "lobbyCrosstableTitle": "Ferramentas de LiChess - crustável",
     "selectGamesSyntaxText": "Uso: selecione <start> [count]",
-    "downloadedText": "Baixado"
+    "downloadedText": "Baixado",
+    "allTypesTitle": "Ferramentas LiChess - alternar tudo"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18933,7 +18950,8 @@
     "options.lobbyCrosstable": "Scor între jucători pe pagina principală",
     "lobbyCrosstableTitle": "LiChess Tools - scor între jucători",
     "selectGamesSyntaxText": "Utilizare: select <start> [număr]",
-    "downloadedText": "Descărcat"
+    "downloadedText": "Descărcat",
+    "allTypesTitle": "LiChess Tools - comută toate"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19985,7 +20003,8 @@
     "options.lobbyCrosstable": "Лобби кросстабильный",
     "lobbyCrosstableTitle": "Инструменты Жизни - кросспостойкие",
     "selectGamesSyntaxText": "Использование: выберите <start> [count]",
-    "downloadedText": "Загружено"
+    "downloadedText": "Загружено",
+    "allTypesTitle": "Инструменты Жизни - переключение всех"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -21037,7 +21056,8 @@
     "options.lobbyCrosstable": "Tabla cruzada de lobby",
     "lobbyCrosstableTitle": "Herramientas de LiChess - Cruzable",
     "selectGamesSyntaxText": "Uso: select <start> [count]",
-    "downloadedText": "Descargado"
+    "downloadedText": "Descargado",
+    "allTypesTitle": "Herramientas de LiChess - alterna todas"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -22089,7 +22109,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
-    "downloadedText": "Downloaded"
+    "downloadedText": "Downloaded",
+    "allTypesTitle": "LiChess Tools - toggle all"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -23141,7 +23162,8 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
-    "downloadedText": "Downloaded"
+    "downloadedText": "Downloaded",
+    "allTypesTitle": "LiChess Tools - toggle all"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -24193,6 +24215,7 @@
     "options.lobbyCrosstable": "Lobby crosstable",
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
-    "downloadedText": "Downloaded"
+    "downloadedText": "Downloaded",
+    "allTypesTitle": "LiChess Tools - toggle all"
   }
 }

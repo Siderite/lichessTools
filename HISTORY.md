@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+21 Mar
+
+- all bot filters toggle button
+
 20 Mar
 
 - lobby page crosstable scores
