@@ -36,7 +36,7 @@
       container = $('<div class="lichessTools-blogTableOfContents">')
         .appendTo('body');
       let showToc = false;
-      $('.ublog-post__markup').find('h2,h3,h4')
+      const headings = $('.ublog-post__markup').find('h2,h3,h4')
         .each((i,e)=>{
           const text = $(e).text();
           const href = $(e).children('a[id][href]').attr('href') || '#';
@@ -53,6 +53,27 @@
           .text(trans.noarg('tableOfContentsText'))
           .attr('title',trans.noarg('tableOfContentsTitle'))
           .prependTo(container);
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              $('a[class^="lichessTools-toc_"]')
+                .toggleClassSafe('active',false);
+              const href = $(entry.target)
+                             .children('a[id][href]')
+                             .attr('href');
+              $('a[class^="lichessTools-toc_"][href="'+href+'"]')
+                .toggleClassSafe('active',true);
+            });
+          },
+          {
+            rootMargin: "-20% 0px -20% 0px",
+            threshold: 0
+          }
+        );
+
+        headings.each((i,heading) => observer.observe(heading));
       }
     };
 

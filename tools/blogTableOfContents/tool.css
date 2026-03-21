@@ -42,3 +42,9 @@ body.lichessTools a.lichessTools-toc_h4 {
   padding-left: 2.4rem;
   font-size: 0.8em;
 }
+
+body.lichessTools a.lichessTools-toc_h2.active,
+body.lichessTools a.lichessTools-toc_h3.active,
+body.lichessTools a.lichessTools-toc_h4.active {
+  text-decoration: underline;
+}
