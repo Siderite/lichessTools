@@ -34,8 +34,14 @@
       let container = $('nav.subnav__inner .lichessTools-blogTableOfContents');
       if (container.length) return;
       container = $('<div class="lichessTools-blogTableOfContents">')
-        .appendTo('body');
+        .append($('<a class="lichessTools-toc">')
+          .attr('href','#')
+          .text(trans.noarg('tableOfContentsText'))
+          .attr('title',trans.noarg('tableOfContentsTitle'))
+        )
+        .append($('<div class="entries">'));
       let showToc = false;
+      const entryContainer = container.find('.entries');
       const headings = $('.ublog-post__markup').find('h2,h3,h4')
         .each((i,e)=>{
           const text = $(e).text();
@@ -44,15 +50,11 @@
             .addClass('lichessTools-toc_'+e.tagName.toLowerCase())
             .text(text)
             .attr('href',href)
-            .appendTo(container);
+            .appendTo(entryContainer);
           showToc = true;
         });
       if (showToc) {
-        $('<a class="lichessTools-toc">')
-          .attr('href','#')
-          .text(trans.noarg('tableOfContentsText'))
-          .attr('title',trans.noarg('tableOfContentsTitle'))
-          .prependTo(container);
+        container.appendTo('body');
 
         const observer = new IntersectionObserver(
           (entries) => {
@@ -63,7 +65,12 @@
                              .attr('href');
               $('a[class^="lichessTools-toc_"]')
                 .each((i,e)=>{
-                  $(e).toggleClassSafe('active',$(e).attr('href')==href);
+                  const isActive = $(e).attr('href')==href;
+                  if (isActive) {
+                    const s = (e.scrollIntoViewIfNeeded || e.scrollIntoView).bind(e);
+                    s && requestAnimationFrame(s);
+                  }
+                  $(e).toggleClassSafe('active',isActive);
                 });
             });
           },

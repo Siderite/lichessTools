@@ -7,9 +7,16 @@
 body.lichessTools div.lichessTools-blogTableOfContents {
   padding: .7rem 2vw .7rem .8rem;
   position: fixed;
+  z-index: 2;
   top: 30em;
   left: 2em;
   width: calc(50vw - 400px);
+  height: calc(90vh - 30em);
+}
+
+body.lichessTools div.lichessTools-blogTableOfContents .entries {
+  height: 100%;
+  overflow-y: auto;
 }
 
 body.lichessTools div.lichessTools-blogTableOfContents .lichessTools-toc {
@@ -30,19 +37,19 @@ body.lichessTools div.lichessTools-blogTableOfContents a:hover {
 
 body.lichessTools a.lichessTools-toc_h2 {
   position: relative;
-  padding-left: 0.8rem;
+  margin-left: 0;
   font-size: 1em;
 }
 
 body.lichessTools a.lichessTools-toc_h3 {
   position: relative;
-  padding-left: 1.6rem;
+  margin-left: 0.8em;
   font-size: 0.9em;
 }
 
 body.lichessTools a.lichessTools-toc_h4 {
   position: relative;
-  padding-left: 2.4rem;
+  margin-left: 1.6em;
   font-size: 0.8em;
 }
 
