@@ -22,7 +22,9 @@
         'gamesLabelText': 'Games min/max', 
         'gamesLabelTitle': 'LiChess Tools - min/max games', 
         'gameTypesLabelText': 'Game types', 
-        'gameTypesLabelTitle': 'LiChess Tools - game types'
+        'gameTypesLabelTitle': 'LiChess Tools - game types',
+        'allTypesText': 'all',
+        'noneTypesText': 'none'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -33,7 +35,9 @@
         'gamesLabelText': 'Meciuri min/max', 
         'gamesLabelTitle': 'LiChess Tools - meciuri min/max', 
         'gameTypesLabelText': 'Tipuri de joc', 
-        'gameTypesLabelTitle': 'LiChess Tools - tipuri de joc'
+        'gameTypesLabelTitle': 'LiChess Tools - tipuri de joc',
+        'allTypesText': 'toate',
+        'noneTypesText': 'nimic'
       }
     }
 
@@ -89,6 +93,8 @@
            </fieldset>
            <fieldset class="types">
              <legend></legend>
+             <button type="button" class="lichessTools-botTypesAll"></button>
+             <button type="button" class="lichessTools-botTypesNone"></button>
            </fieldset>
          </div>`)
         .prependTo('.bots.page-menu__content');
@@ -104,6 +110,18 @@
       $('.types legend',container)
         .text(trans.noarg('gameTypesLabelText'))
         .attr('title',trans.noarg('gameTypesLabelTitle'));
+      $('.lichessTools-botTypesAll',container)
+        .text(trans.noarg('allTypesText'))
+        .on('click',()=>{
+          $('.types input[data-icon]',container).prop('checked',true);
+          this.filterBots();
+        });
+      $('.lichessTools-botTypesNone',container)
+        .text(trans.noarg('noneTypesText'))
+        .on('click',()=>{
+          $('.types input[data-icon]',container).prop('checked',false);
+          this.filterBots();
+        });
       const order = [
         lt.icon.UltraBullet,
         lt.icon.Bullet,
