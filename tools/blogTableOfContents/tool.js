@@ -58,13 +58,13 @@
           (entries) => {
             entries.forEach((entry) => {
               if (!entry.isIntersecting) return;
-              $('a[class^="lichessTools-toc_"]')
-                .toggleClassSafe('active',false);
               const href = $(entry.target)
                              .children('a[id][href]')
                              .attr('href');
-              $('a[class^="lichessTools-toc_"][href="'+href+'"]')
-                .toggleClassSafe('active',true);
+              $('a[class^="lichessTools-toc_"]')
+                .each((i,e)=>{
+                  $(e).toggleClassSafe('active',$(e).attr('href')==href);
+                });
             });
           },
           {
