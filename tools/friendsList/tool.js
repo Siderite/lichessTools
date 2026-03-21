@@ -400,6 +400,14 @@
                     .text(trans.noarg('opponentsText')))
           .prependTo(header);
       }
+      if (lt.isFavoriteOpponentsPage()) {
+        const backLink = $('.box__top h1 a');
+        const referrer = lt.global.document.referrer;
+        if (backLink.attr('href')!=referrer) {
+          backLink.attr('href', referrer);
+        }
+      }
+
       if (!$('.lichessTools-liveButtons',header).length) {
         const liveButtons = $('<div>')
           .addClass('lichessTools-liveButtons')
