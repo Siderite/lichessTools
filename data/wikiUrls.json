@@ -2448,6 +2448,30 @@
     "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...Nc6",
     "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6"
   ],
+  "r1bqkb1rpp2pppp2np1n282BNP32N5PPP2PPPR1BQK2Rb": [
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...Nc6/6. Bc4",
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bc4"
+  ],
+  "r1bqkb1rpp2pppp2np1n26B13NP32N5PPP2PPPR2QKB1Rb": [
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...Nc6/6. Bg5",
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bg5"
+  ],
+  "r1bqkb1rpp3ppp2nppn26B13NP32N5PPP2PPPR2QKB1Rw": [
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...Nc6/6. Bg5/6...e6",
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bg5/6...e6"
+  ],
+  "r1bqkb1rpp3ppp2nppn26B13NP32N5PPPQ1PPPR3KB1Rb": [
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...Nc6/6. Bg5/6...e6/7. Qd2",
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bg5/6...e6/7. Qd2"
+  ],
+  "r1bqkb1r1p3pppp1nppn26B13NP32N5PPPQ1PPPR3KB1Rw": [
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...Nc6/6. Bg5/6...e6/7. Qd2/7...a6",
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bg5/6...e6/7. Qd2/7...a6"
+  ],
+  "r1bqkb1r1p3pppp1nppn26B13NP32N5PPPQ1PPP2KR1B1Rb": [
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...Nc6/6. Bg5/6...e6/7. Qd2/7...a6/8. O-O-O",
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bg5/6...e6/7. Qd2/7...a6/8. O-O-O"
+  ],
   "rnbqkbnrpp2pppp3p483QP35N2PPP2PPPRNB1KB1Rb": [
     "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Qxd4"
   ],
@@ -2642,24 +2666,6 @@
   ],
   "r1bqkb1rpp1ppppp2n2n283NP32N5PPP2PPPR1BQKB1Rb": [
     "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3"
-  ],
-  "r1bqkb1rpp2pppp2np1n282BNP32N5PPP2PPPR1BQK2Rb": [
-    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bc4"
-  ],
-  "r1bqkb1rpp2pppp2np1n26B13NP32N5PPP2PPPR2QKB1Rb": [
-    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bg5"
-  ],
-  "r1bqkb1rpp3ppp2nppn26B13NP32N5PPP2PPPR2QKB1Rw": [
-    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bg5/6...e6"
-  ],
-  "r1bqkb1rpp3ppp2nppn26B13NP32N5PPPQ1PPPR3KB1Rb": [
-    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bg5/6...e6/7. Qd2"
-  ],
-  "r1bqkb1r1p3pppp1nppn26B13NP32N5PPPQ1PPPR3KB1Rw": [
-    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bg5/6...e6/7. Qd2/7...a6"
-  ],
-  "r1bqkb1r1p3pppp1nppn26B13NP32N5PPPQ1PPP2KR1B1Rb": [
-    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...d6/6. Bg5/6...e6/7. Qd2/7...a6/8. O-O-O"
   ],
   "r1bqkb1rpp1p1ppp2n2n24p33NP32N5PPP2PPPR1BQKB1Rw": [
     "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...Nc6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...e5"
@@ -3773,6 +3779,9 @@
   ],
   "rnb1kbnrpppp1p1p84N32B1Pppq8PPPP2PPRNBQ1K1Rb": [
     "Chess Opening Theory/1. e4/1...e5/2. f4/2...exf4/3. Nf3/3...g5/4. Bc4/4...g4/5. Ne5/5...Qh4/6. Kf1"
+  ],
+  "rnb1kb1rpppp1p1p7n4N32B1Pppq8PPPP2PPRNBQ1K1Rw": [
+    "Chess Opening Theory/1. e4/1...e5/2. f4/2...exf4/3. Nf3/3...g5/4. Bc4/4...g4/5. Ne5/5...Qh4/6. Kf1/6...Nh6"
   ],
   "rnbqkbnrpppp1p1p882B1Ppp15N2PPPP2PPRNBQ1RK1b": [
     "Chess Opening Theory/1. e4/1...e5/2. f4/2...exf4/3. Nf3/3...g5/4. Bc4/4...g4/5. O-O"
