@@ -1614,7 +1614,7 @@
       lichessTools: this,
       slowMode: false,
       slowModeTimeout: null,
-      logNetwork: function (url, size, status) {
+      logNetwork: function (url, size, status, duration) {
         const lt = this.lichessTools;
         const now = Date.now();
         if (!this.networkLog) {
@@ -1626,8 +1626,10 @@
           time: now,
           url: url,
           size: size,
-          status: status
+          status: status,
+          duration: duration
         });
+        lt.debug > 1 && lt.global.console.debug(url,now,duration);
         if (this.networkLog.arr.length > 20000) {
           this.networkLog.arr.splice(0, 2000);
           this.storeLog();
@@ -1702,7 +1704,9 @@
           if (!options?.noUserAgent) {
             options = {...options,headers: { ...options?.headers,'X-UA': ltHeader } };
           }
+          const startTime = performance.now();
           const response = await lt.global.fetch(url, options);
+          const endTime = performance.now();
           const status = +(response.status);
           if (options?.ignoreStatuses?.includes(status)) {
             this.logNetwork(url, (options?.body?.length || 0), status);
@@ -1728,7 +1732,7 @@
             throw err;
           }
           const text = await response.text();
-          this.logNetwork(url, (options?.body?.length || 0) + (text?.length || 0), status);
+          this.logNetwork(url, (options?.body?.length || 0) + (text?.length || 0), status, endTime - startTime);
           return text;
         } catch (e) {
           if (e.toString().includes('Failed to fetch')) {
