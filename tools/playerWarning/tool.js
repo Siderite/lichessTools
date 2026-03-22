@@ -114,7 +114,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      if (!this.isPlayingGame()) return;
+      //if (!this.isPlayingGame()) return;
       const userId = lt.getUserId();
       $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')
         .each(async (i, e) => {
@@ -137,15 +137,21 @@
             if (statCount && this.options.disconnect) {
               const disconnectPercentage = +(statCount.disconnects) * 100 / +(statCount.all);
               if (disconnectPercentage >= 3) {
-                warnings.push(trans.pluralSame('percentageTitle', disconnectPercentage.toFixed(1)));
+                warnings.push({
+                  text: trans.pluralSame('percentageTitle', disconnectPercentage.toFixed(1)),
+                  score: disconnectPercentage*15
+                });
               }
             }
 
             const rating = data?.perf?.glicko?.rating;
             const highest = data?.stat?.highest?.int;
             if (highest && rating && this.options.sandbag) {
-              if (highest-rating>150) {
-                warnings.push(trans.pluralSame('sandbagSuspicionTitle', highest));
+              if (highest-rating>200) {
+                warnings.push({
+                  text: trans.pluralSame('sandbagSuspicionTitle', highest),
+                  score: (highest-rating)/4
+                });
               }
             }
           }
@@ -154,14 +160,25 @@
             if (data) {
               const tcs = this.timeControlSuspicion(data?.[0]?.perfs);
               if (tcs.score >= 200)  {
-                warnings.push(trans.pluralSame('timeControlSuspicionTitle', tcs.score.toFixed(1)));
+                warnings.push({
+                  text: trans.pluralSame('timeControlSuspicionTitle', tcs.score.toFixed(1)),
+                  score: tcs.score/2-50
+                });
               }
             }
           }
           if (warnings.length) {
+            const maxScore = Math.min(100,Math.max.apply(null,warnings.map(w=>w.score)));
+            const color = lt.getGradientColor(maxScore, [
+              { q: 0, color: '#808000' },
+              { q: 50, color: '#CCCC00' }, 
+              { q: 75, color: '#FFA500' },
+              { q: 100, color: '#FF4040' }
+            ]);
             $('<span class="lichessTools-playerWarning">')
               .attr('data-icon', lt.icon.WarningSign)
-              .attr('title', [trans.noarg('lichessTools'),...warnings].join('\r\n '))
+              .css('--lt-color', color)
+              .attr('title', [trans.noarg('lichessTools'),...warnings.map(w=>w.text)].join('\r\n '))
               .appendTo(e);
           }
         });
