@@ -161,7 +161,11 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - fast unblock button in the blocked players page
 - lobby games rating difference
 - show total game count for players
-- Voice input support
+- voice input support
+- computer engine move cost
+- game scores in game lists
+- blog table of contents
+- Lobby/Favorite opponents crosstable scores
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:

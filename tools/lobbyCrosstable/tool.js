@@ -40,7 +40,7 @@
           $(e).attr('data-crosstable',winrate);
           $('<span class="lichessTools-crossTable">')
             .text('('+crossTable.users[this.userId]+'/'+crossTable.users[userId]+')')
-            .title(trans.noarg('lobbyCrosstableTitle'))
+            .attr('title',trans.noarg('lobbyCrosstableTitle'))
             .toggleClassSafe('bad',winrate<34 && crossTable.nbGames>1)
             .toggleClassSafe('good',winrate>66 && crossTable.nbGames>1)
             .appendTo(e);
