@@ -59,7 +59,8 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const arr = [
-        'textarea.msg-app__convo__post__text', // inbox chat
+        'textarea.msg-app__convo__post__text', // inbox chat input box
+        '.msg-app__convo__msgs__content', // inbox chat content
         //'main.forum textarea#form3-text', // forum reply (Lichess native has it)
         //'main.forum textarea#form3-post_text', // forum new post (Lichess native has it)
         //'main.forum textarea.edit-post-box', // forum edit post (Lichess native has it)
@@ -98,17 +99,20 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      const el = $(ev.target);
+      const el = $(ev.currentTarget);
+      const insertElem = el.is('.msg-app__convo__msgs__content') // special case for drop over inbox content
+        ? $('textarea.msg-app__convo__post__text')
+        : el;
       let loader = null;
       try {
         el.addClass('lichessTools-imagePasting');
         loader = $('<div class="ddloader"></div>').insertAfter(el);
         const url = await this.getImageUrl(ev);
         if (!url) return;
-        const text = el.closest('.markdown-textarea').length
+        const text = insertElem.closest('.markdown-textarea').length
           ? `![${url}](${url})`
           : url;
-        el.insertText(text);
+        insertElem.insertText(text);
       } catch (e) {
         lt.announce(trans.noarg('pastingError'));
       } finally {
@@ -127,6 +131,7 @@
             if (e.imagePastingInit) return;
             e.imagePastingInit = true;
             $(e).on('paste drop', this.pasteImage);
+            $(e).on('dragover', ev=>ev.preventDefault());
           });
 
         let imageData = null;
@@ -228,6 +233,7 @@
       this.getImagePastingElements()
         .each((i, e) => {
           $(e).off('paste drop', this.pasteImage);
+          $(e).off('dragover', ev=>ev.preventDefault());
           e.imagePastingInit = false;
         });
       $('lichessTools-bigEmoji').removeClass('lichessTools-bigEmoji');
