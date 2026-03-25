@@ -49,6 +49,13 @@
     getChapterElements = (chapterId, forced)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
+
+      const recreateCache = ()=>{
+        this.elemCache.map.clear();
+        this.elemCache.all = $('.study__chapters button[data-id]').get();
+        for (const elem of this.elemCache.all) this.elemCache.map.set($(elem).attr('data-id'),elem);
+      };
+
       if (forced===undefined) forced = !this.elemCache.all.length;
       if (forced===false) {
         for (const elem of this.elemCache.all) {
@@ -56,13 +63,18 @@
             return this.getChapterElements(chapterId, true);
           }
         }
-        return chapterId 
-          ? this.elemCache.map.get(chapterId)
-          : this.elemCache.all;
+        if (chapterId) {
+          let elem = this.elemCache.map.get(chapterId);
+          if (!elem) {
+            recreateCache();
+            elem = this.elemCache.map.get(chapterId);
+          }
+          return elem;
+        } else {
+          return this.elemCache.all;
+        }
       }
-      this.elemCache.map.clear();
-      this.elemCache.all = $('.study__chapters button[data-id]').get();
-      for (const elem of this.elemCache.all) this.elemCache.map.set($(elem).attr('data-id'),elem);
+      recreateCache();
       return this.getChapterElements(chapterId, false);
     };
 
@@ -172,7 +184,7 @@
           const chapter = list[i];
           const next = list[i+1];
           const hasSubchapters = this.isSubChapter(next) && !this.isSubChapter(chapter);
-          const chapterElem = this.getChapterElements(chapter.id,true);
+          const chapterElem = this.getChapterElements(chapter.id);
           if (!chapterElem) continue;
           let expander = $('.lichessTools-expander',chapterElem);
           if (hasSubchapters) {
