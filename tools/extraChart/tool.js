@@ -1342,6 +1342,7 @@
       }
       if (!lichess.analysis.mainline.find(n => this.getNodeCeval(n))) {
         if (!localLine || !localLine.find(n => this.getNodeCeval(n))) {
+          $('#acpl-chart-container.lichessTools-extraChart').remove();
           this.clearCharts();
           return;
         }
@@ -1349,7 +1350,8 @@
       let container = $('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
       let chart = this._chart;
       if (!chart) {
-        chart = lichess.analysis.study?.serverEval?.chart;
+        const serverEval = lichess.analysis.study?.serverEval;
+        chart = serverEval?.requested && serverEval?.chart;
         if (!chart) {
           const canvas = $('canvas#acpl-chart', container)[0];
           if (canvas) {
@@ -1362,7 +1364,7 @@
             }
           }
         }
-        if (!chart && this.options.local && !lichess.analysis.study) {
+        if (!chart && this.options.local) {
           const underboard = $('.analyse__underboard div.computer-analysis')[0] || $('.analyse__underboard')[0];
           if (underboard) {
             container = $('<div id="acpl-chart-container" class="lichessTools-extraChart"><canvas id="acpl-chart"></canvas></div>');
@@ -1370,11 +1372,18 @@
             if (message.length) {
               container.insertBefore(message);
             } else {
-              container.appendTo(underboard);
+              if (lichess.analysis.study) {
+               $('.study__message')
+                 .append(container)
+                 .find('p')
+                 .remove();
+              } else {
+                container.appendTo(underboard);
+              }
             }
             const mod = await this.getChartModule();
             const mainline = lichess.analysis.mainline;
-            chart = await mod.acpl($("#acpl-chart")[0], lichess.analysis.data, mainline, lichess.analysis.trans);
+            chart = await mod.acpl(container.find("#acpl-chart")[0], lichess.analysis.data, mainline, lichess.analysis.trans);
           }
         }
         if (chart && !this._chart) {
@@ -1385,7 +1394,11 @@
       if (chart.options.onClick != this.chartClick) {
         chart.options.onClick = this.chartClick;
       }
-      if (!lt.inViewport(container)) return;
+      if (!lt.inViewport(container)) {
+        this.clearCharts();
+        this._chart=null;
+        return;
+      }
       if (!this.options.needsChart) {
         $('div.lichessTools-chartInfo', container).remove();
         $('div.lichessTools-chartLegend', container).remove();
