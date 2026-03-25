@@ -172,7 +172,7 @@
           const chapter = list[i];
           const next = list[i+1];
           const hasSubchapters = this.isSubChapter(next) && !this.isSubChapter(chapter);
-          const chapterElem = this.getChapterElements(chapter.id);
+          const chapterElem = this.getChapterElements(chapter.id,true);
           if (!chapterElem) continue;
           let expander = $('.lichessTools-expander',chapterElem);
           if (hasSubchapters) {
