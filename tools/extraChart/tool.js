@@ -608,8 +608,12 @@
       return mainline
         .map((node, x) => {
           path += node.id;
-          if (!node.ceval) return null;
-          const cp = this.getCp(node.ceval);
+          let ceval = node.ceval;
+          if (!ceval) {
+            ceval = this.getCommentCeval(node);
+          }
+          if (!ceval) return null;
+          const cp = this.getCp(ceval);
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             x: node.ply,
@@ -639,10 +643,23 @@
         .filter(r => !!r);
     };
 
+    getCommentCeval = (node) => {
+      const lt = this.lichessTools;
+      const commentText = lt.getNodeCommentsText(node);
+      const m = /eval[:]?\s+(?:#(?<mate>[+-]?\d+)|(?<cp>[+-]?\d+(?:\.\d+)?))/.exec(commentText);
+      if (m) {
+        return {
+          cp: m.groups.cp!==undefined ? +m.groups.cp*100 : undefined,
+          mate: m.groups.mate!==undefined ? +m.groups.mate : undefined
+        };
+      }
+    };
+
     getNodeCeval = (node) => {
       const lt = this.lichessTools;
       if (!this.options.local) return node.eval;
-      return lt.getNodeCeval(node);
+      const result = lt.getNodeCeval(node) || this.getCommentCeval(node);
+      return result;
     };
 
     getAccuracyData = (mainline) => {
