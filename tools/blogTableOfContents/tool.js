@@ -45,7 +45,8 @@
       const headings = $('.ublog-post__markup').find('h2,h3,h4')
         .each((i,e)=>{
           const text = $(e).text();
-          const href = $(e).children('a[id][href]').attr('href') || '#';
+          const href = $(e).children('a[id][href]').attr('href');
+          if (!text || !href) return;
           $('<a>')
             .addClass('lichessTools-toc_'+e.tagName.toLowerCase())
             .text(text)
