@@ -350,7 +350,7 @@
     "expandAllBookmarksText": "توسيع جميع الإشارات المرجعية",
     "bookmarkSplitConfirmationText": "هل أنت متأكد من أنك تريد تقسيم الفصل على هذه العلامة المرجعية؟",
     "bookmarkSplitConfirmationDeleteText": "Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW",
-    "bookmarkSplitText": "تقسيم الفصل هنا",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "أدوات شطرنج الحياة - إنشاء فصل جديد مع التحركات التالية من هنا\r\nاضغط Shift لحذفها أيضًا من هنا",
     "chapterLink": "المتابعة هنا: %s",
     "analysisPopupButtonTitle": "أدوات شطرنج الحياة - قائمة النقل في نافذة أخرى (استخدم زر SYNC)",
@@ -1050,7 +1050,8 @@
     "lobbyCrosstableTitle": "أدوات شطرنج الحياة - متقطع",
     "selectGamesSyntaxText": "الاستخدام: اختر <start> [count]",
     "downloadedText": "تم التحميل",
-    "allTypesTitle": "أدوات شطرنج الحياة - تبديل الكل"
+    "allTypesTitle": "أدوات شطرنج الحياة - تبديل الكل",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -1403,7 +1404,7 @@
     "expandAllBookmarksText": "Expand all bookmarks",
     "bookmarkSplitConfirmationText": "Sure you want to split the chapter on this bookmark?",
     "bookmarkSplitConfirmationDeleteText": "Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW",
-    "bookmarkSplitText": "Split chapter here",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here",
     "chapterLink": "Continue here: %s",
     "analysisPopupButtonTitle": "LiChess Tools - move list in another window (use SYNC button)",
@@ -2103,7 +2104,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
-    "allTypesTitle": "LiChess Tools - toggle all"
+    "allTypesTitle": "LiChess Tools - toggle all",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2456,7 +2458,7 @@
     "expandAllBookmarksText": "展开所有书签",
     "bookmarkSplitConfirmationText": "确定要在此书签处拆分章节吗？",
     "bookmarkSplitConfirmationDeleteText": "确定要在此书签处拆分章节吗？\n这将会删除本章节中此后的着法",
-    "bookmarkSplitText": "在此处拆分章节",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - 从此处创建一个包含后续着法的新章节\n按住 Shift 键可同时从此处删除它们",
     "chapterLink": "在此继续：%s",
     "analysisPopupButtonTitle": "LiChess Tools - 在另一个窗口中显示着法列表（使用 SYNC 按钮）",
@@ -3156,7 +3158,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - 对战表",
     "selectGamesSyntaxText": "用法：select <开始> [数量]",
     "downloadedText": "已下载",
-    "allTypesTitle": "LiChess Tools - 全选切换"
+    "allTypesTitle": "LiChess Tools - 全选切换",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3509,7 +3512,7 @@
     "expandAllBookmarksText": "展開所有書籤",
     "bookmarkSplitConfirmationText": "確定要在此書籤處分割章節嗎？",
     "bookmarkSplitConfirmationDeleteText": "確定要在此書籤處分割章節嗎？\n這將從該章節中刪除後續棋步",
-    "bookmarkSplitText": "在此處分割章節",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - 從此處開始用後續棋步創建新章節\n按 Shift 鍵以同時從此處刪除棋步",
     "chapterLink": "從這裡繼續：%s",
     "analysisPopupButtonTitle": "LiChess Tools - 在另一個窗口顯示棋步列表(使用同步按鈕)",
@@ -4209,7 +4212,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
-    "allTypesTitle": "LiChess Tools - toggle all"
+    "allTypesTitle": "LiChess Tools - toggle all",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4562,7 +4566,7 @@
     "expandAllBookmarksText": "Rozbalit všechny záložky",
     "bookmarkSplitConfirmationText": "Určitě chcete rozdělit kapitolu do této záložky?",
     "bookmarkSplitConfirmationDeleteText": "Určitě chcete rozdělit kapitolu do této záložky?\nTÍMTO VYMAŽETE NÁSLEDUJÍCÍ TAHY Z KAPITOLY",
-    "bookmarkSplitText": "Rozdělit kapitolu",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - vytvořte novou kapitolu s následujícími tahy odkudkoliv\nStiskněte Shift pro jejich odstranění",
     "chapterLink": "Pokračovat zde: %s",
     "analysisPopupButtonTitle": "LiChess Tools - přesunout seznam v jiném okně (použijte tlačítko SYNC)",
@@ -5262,7 +5266,8 @@
     "lobbyCrosstableTitle": "Nástroje LiChess - crosstable",
     "selectGamesSyntaxText": "Použití: vyberte <start> [count]",
     "downloadedText": "Staženo",
-    "allTypesTitle": "Nástroje Lišess - přepnout vše"
+    "allTypesTitle": "Nástroje Lišess - přepnout vše",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5615,7 +5620,7 @@
     "expandAllBookmarksText": "Alle bladwijzers uitklappen",
     "bookmarkSplitConfirmationText": "Weet je zeker dat je het hoofdstuk over deze bladwijzer wilt opsplitsen?",
     "bookmarkSplitConfirmationDeleteText": "Weet je zeker dat je het hoofdstuk op deze bladwijzer wilt opsplitsen?\r\nDIT VERWIJDEREN VAN DEZE KAPTER DE MOVES THAT VOLG VERWIJDEREN",
-    "bookmarkSplitText": "Splits hoofdstuk hier",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here",
     "chapterLink": "Ga hier verder: %s",
     "analysisPopupButtonTitle": "LiChess Tools - verplaats de lijst in een ander venster (gebruik de SYNC knop)",
@@ -6315,7 +6320,8 @@
     "lobbyCrosstableTitle": "LiChess Gereedschappen - crosstable",
     "selectGamesSyntaxText": "Gebruik: select <start> [count]",
     "downloadedText": "Gedownload",
-    "allTypesTitle": "LiChess Tools - schakel alles uit"
+    "allTypesTitle": "LiChess Tools - schakel alles uit",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -6668,7 +6674,7 @@
     "expandAllBookmarksText": "Expand all bookmarks",
     "bookmarkSplitConfirmationText": "Sure you want to split the chapter on this bookmark?",
     "bookmarkSplitConfirmationDeleteText": "Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW",
-    "bookmarkSplitText": "Split chapter here",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here",
     "chapterLink": "Continue here: %s",
     "analysisPopupButtonTitle": "LiChess Tools - move list in another window (use SYNC button)",
@@ -7368,7 +7374,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
-    "allTypesTitle": "LiChess Tools - toggle all"
+    "allTypesTitle": "LiChess Tools - toggle all",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -7721,7 +7728,7 @@
     "expandAllBookmarksText": "Développer tous les signets",
     "bookmarkSplitConfirmationText": "Êtes-vous sûr de vouloir diviser le chapitre à l'endroit de ce signet ?",
     "bookmarkSplitConfirmationDeleteText": "Êtes-vous sûr de vouloir diviser le chapitre à l'endroit de ce signet ?\nCELA SUPPRIMERA LES COUPS QUI SUIVENT DANS CE CHAPITRE",
-    "bookmarkSplitText": "Diviser le chapitre ici",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - créer un nouveau chapitre avec les coups suivants à partir d'ici\nAppuyer sur Shift pour les supprimer également à partir d'ici",
     "chapterLink": "Continuer ici : %s",
     "analysisPopupButtonTitle": "LiChess Tools - déplacer la liste dans une autre fenêtre (utiliser le bouton SYNC)",
@@ -8421,7 +8428,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - tableau croisé",
     "selectGamesSyntaxText": "Utilisation: select <start> [count]",
     "downloadedText": "Téléchargé",
-    "allTypesTitle": "LiChess Tools - activer/désactiver tout"
+    "allTypesTitle": "LiChess Tools - activer/désactiver tout",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -8774,7 +8782,7 @@
     "expandAllBookmarksText": "Alle Lesezeichen erweitern",
     "bookmarkSplitConfirmationText": "Sicher, dass Sie das Kapitel auf diesem Lesezeichen teilen möchten?",
     "bookmarkSplitConfirmationDeleteText": "Sicher, dass Sie das Kapitel auf diesem Lesezeichen aufteilen möchten?\nDAS WIRD DIE NOCH FOLGENDEN ZÜGE IN DIESEM KAPITEL LÖSCHEN",
-    "bookmarkSplitText": "Kapitel hier aufteilen",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - Erstellen Sie ein neues Kapitel mit folgenden Zügen von hier\r\nDrücken Sie Umschaltung, um diese von hier aus zu löschen",
     "chapterLink": "Hier fortfahren: %s",
     "analysisPopupButtonTitle": "LiChess-Tools - Verschieben der Liste in einem anderen Fenster (Benutze SYNC-Taste)",
@@ -9474,7 +9482,8 @@
     "lobbyCrosstableTitle": "LiChess Werkzeuge - Überstabil",
     "selectGamesSyntaxText": "Verwendung: Wählen Sie <start> [count]",
     "downloadedText": "Heruntergeladen",
-    "allTypesTitle": "LiChess Werkzeuge - Alle umschalten"
+    "allTypesTitle": "LiChess Werkzeuge - Alle umschalten",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -9827,7 +9836,7 @@
     "expandAllBookmarksText": "Ανάπτυξη όλων των σελιδοδεικτών",
     "bookmarkSplitConfirmationText": "Σίγουρα θέλετε να χωρίσετε το κεφάλαιο σε αυτόν τον σελιδοδείκτη;",
     "bookmarkSplitConfirmationDeleteText": "Είστε σίγουροι ότι επιθυμείτε να χωρίστε το κεφάλαιο από αυτό τον σελιδοδείκτη;",
-    "bookmarkSplitText": "Διαχωρισμός κεφαλαίου εδώ",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - δημιουργήστε ένα νέο κεφάλαιο με τις παρακάτω κινήσεις από εδώ\nΠατήστε Shift για να τα διαγράψετε από εδώ",
     "chapterLink": "Συνέχεια εδώ: %s",
     "analysisPopupButtonTitle": "LiChess Tools - μετακίνηση λίστας σε άλλο παράθυρο (χρήση πλήκτρου SYNC)",
@@ -10527,7 +10536,8 @@
     "lobbyCrosstableTitle": "Εργαλεία LiChess - crosstable",
     "selectGamesSyntaxText": "Χρήση: επιλέξτε <start> [count]",
     "downloadedText": "Λήφθηκε",
-    "allTypesTitle": "Εργαλεία LiChess - εναλλαγή όλων"
+    "allTypesTitle": "Εργαλεία LiChess - εναλλαγή όλων",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -10880,7 +10890,7 @@
     "expandAllBookmarksText": "Expand all bookmarks",
     "bookmarkSplitConfirmationText": "Sure you want to split the chapter on this bookmark?",
     "bookmarkSplitConfirmationDeleteText": "Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW",
-    "bookmarkSplitText": "Split chapter here",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here",
     "chapterLink": "Continue here: %s",
     "analysisPopupButtonTitle": "LiChess Tools - move list in another window (use SYNC button)",
@@ -11580,7 +11590,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
-    "allTypesTitle": "LiChess Tools - toggle all"
+    "allTypesTitle": "LiChess Tools - toggle all",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -11933,7 +11944,7 @@
     "expandAllBookmarksText": "Expand all bookmarks",
     "bookmarkSplitConfirmationText": "Sure you want to split the chapter on this bookmark?",
     "bookmarkSplitConfirmationDeleteText": "Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW",
-    "bookmarkSplitText": "Split chapter here",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here",
     "chapterLink": "Continue here: %s",
     "analysisPopupButtonTitle": "LiChess Tools - move list in another window (use SYNC button)",
@@ -12633,7 +12644,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
-    "allTypesTitle": "LiChess Tools - toggle all"
+    "allTypesTitle": "LiChess Tools - toggle all",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12986,7 +12998,7 @@
     "expandAllBookmarksText": "Espandi tutti i segnalibri",
     "bookmarkSplitConfirmationText": "Sei sicuro di voler dividere il capitolo su questo segnalibro?",
     "bookmarkSplitConfirmationDeleteText": "Sicuro di voler dividere il capitolo in questo punto?\nQUESTO CANCELLERÀ LE MOSSE SEGUENTI DA QUESTO CAPITOLO ",
-    "bookmarkSplitText": "Dividi il capitolo qui",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - crea un nuovo capitolo con le seguenti mosse da qui\nPremi anche Maiusc per eliminarle da qui",
     "chapterLink": "Continua qui: %s",
     "analysisPopupButtonTitle": "LiChess Tools - sposta la lista in un'altra finestra (usa il pulsante SYNC)",
@@ -13686,7 +13698,8 @@
     "lobbyCrosstableTitle": "Strumenti LiChess - crosstable",
     "selectGamesSyntaxText": "Uso: seleziona <start> [count]",
     "downloadedText": "Scaricato",
-    "allTypesTitle": "Strumenti LiChess - attiva/disattiva tutto"
+    "allTypesTitle": "Strumenti LiChess - attiva/disattiva tutto",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14039,7 +14052,7 @@
     "expandAllBookmarksText": "Expand all bookmarks",
     "bookmarkSplitConfirmationText": "Sure you want to split the chapter on this bookmark?",
     "bookmarkSplitConfirmationDeleteText": "Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW",
-    "bookmarkSplitText": "Split chapter here",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here",
     "chapterLink": "Continue here: %s",
     "analysisPopupButtonTitle": "LiChess Tools - move list in another window (use SYNC button)",
@@ -14739,7 +14752,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
-    "allTypesTitle": "LiChess Tools - toggle all"
+    "allTypesTitle": "LiChess Tools - toggle all",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15092,7 +15106,7 @@
     "expandAllBookmarksText": "Rozwiń wszystkie zakładki",
     "bookmarkSplitConfirmationText": "Na pewno chcesz podzielić rozdział w miejscu tej zakładki?",
     "bookmarkSplitConfirmationDeleteText": "Jesteś pewien, że chcesz podzielić rozdział na tej zakładce? TO USUNIE RUCHY OD TEGO MIEJSCA Z BIEŻĄCEGO ROZDZIAŁU",
-    "bookmarkSplitText": "Podziel rozdział w tym miejscu",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools — utwórz nowy rozdział z posunięciami od tego miejsca\nPrzytrzymaj Shift, aby dodatkowo usunąć je z obecnego miejsca",
     "chapterLink": "Kontynuuj tutaj: %s",
     "analysisPopupButtonTitle": "LiChess Tools — lista posunięć w oddzielnym oknie (użyj przycisku SYNC)",
@@ -15792,7 +15806,8 @@
     "lobbyCrosstableTitle": "Narzędzia LiChess - skrzyżowanie",
     "selectGamesSyntaxText": "Użycie: wybierz <start> [count]",
     "downloadedText": "Pobrano",
-    "allTypesTitle": "Narzędzia LiChess - włącz wszystkie"
+    "allTypesTitle": "Narzędzia LiChess - włącz wszystkie",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16145,7 +16160,7 @@
     "expandAllBookmarksText": "Expandir todos os favoritos",
     "bookmarkSplitConfirmationText": "Certeza que deseja dividir o capítulo deste favorito?",
     "bookmarkSplitConfirmationDeleteText": "Tens a certeza de que pretendes dividir o capítulo neste marcador?\nISTO EXCLUIRÁ DESTE CAPÍTULO OS MOVIMENTOS SEGUINTES",
-    "bookmarkSplitText": "Dividir capítulo aqui",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - cria um capítulo com os seguintes movimentos a partir daqui\nPressiona Shift para também os apagar daqui",
     "chapterLink": "Continuar aqui: %s",
     "analysisPopupButtonTitle": "LiChess Tools - lista de movimentos em outra janela (use o botão SYNC)",
@@ -16845,7 +16860,8 @@
     "lobbyCrosstableTitle": "Ferramentas de LiChess - crustável",
     "selectGamesSyntaxText": "Uso: selecione <start> [count]",
     "downloadedText": "Baixado",
-    "allTypesTitle": "Ferramentas LiChess - alternar tudo"
+    "allTypesTitle": "Ferramentas LiChess - alternar tudo",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17198,7 +17214,7 @@
     "expandAllBookmarksText": "Expandir todos os favoritos",
     "bookmarkSplitConfirmationText": "Certeza que deseja dividir o capítulo deste favorito?",
     "bookmarkSplitConfirmationDeleteText": "Você tem certeza que quer dividir este capítulo neste favoritado?\nISSO EXCLUIRÁ DESSE CAPÍTULO OS PASSOS QUE VOCÊ SEGUIR",
-    "bookmarkSplitText": "Dividir capítulo aqui",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - crie um capítulo com os seguintes passos daqui\nPressione Shift para excluí-los daqui",
     "chapterLink": "Continuar aqui: %s",
     "analysisPopupButtonTitle": "LiChess Tools - lista de movimentos em outra janela (use o botão SYNC)",
@@ -17898,7 +17914,8 @@
     "lobbyCrosstableTitle": "Ferramentas de LiChess - crustável",
     "selectGamesSyntaxText": "Uso: selecione <start> [count]",
     "downloadedText": "Baixado",
-    "allTypesTitle": "Ferramentas LiChess - alternar tudo"
+    "allTypesTitle": "Ferramentas LiChess - alternar tudo",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18251,7 +18268,7 @@
     "expandAllBookmarksText": "Expandează toate bookmarkurile",
     "bookmarkSplitConfirmationText": "Sigur vrei să tai un nou capitol de la acest bookmark?",
     "bookmarkSplitConfirmationDeleteText": "Sigur vrei să tai un nou capitol de la acest bookmark?\r\nASTA VA ŞTERGE MUTĂRILE URMĂTOARE DIN ACEST CAPITOL",
-    "bookmarkSplitText": "Taie un nou capitol de aici",
+    "bookmarkSplitText": "Crează un capitol de aici",
     "bookmarkSplitTitle": "LiChess Tools - creează un nou capitol din mutările următoare\nApasă Shift ca să le ştergi de aici",
     "chapterLink": "Continuă aici: %s",
     "analysisPopupButtonTitle": "LiChess Tools - listă mutări în altă fereastră (foloseşte butonul SYNC)",
@@ -18951,7 +18968,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - scor între jucători",
     "selectGamesSyntaxText": "Utilizare: select <start> [număr]",
     "downloadedText": "Descărcat",
-    "allTypesTitle": "LiChess Tools - comută toate"
+    "allTypesTitle": "LiChess Tools - comută toate",
+    "bookmarkSplitText_f": "Taie un capitol de aici"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19304,7 +19322,7 @@
     "expandAllBookmarksText": "Развернуть все закладки",
     "bookmarkSplitConfirmationText": "Вы уверены, что хотите разделить главу на этой закладке?",
     "bookmarkSplitConfirmationDeleteText": "Вы уверены, что хотите разделить главу на этой закладке? \nЭТО УДАЛИТ ИЗ ГЛАВЫ, ПОСЛЕДУЮЩИЕ ХОДЫ",
-    "bookmarkSplitText": "Разделить главу здесь",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - Создать новую главу с последующими ходами отсюда\nНажмите Shift, чтобы также удалить их отсюда",
     "chapterLink": "Продолжить здесь: %s",
     "analysisPopupButtonTitle": "LiChess Tools - список ходов в другом окне (используйте кнопку SYNC)",
@@ -20004,7 +20022,8 @@
     "lobbyCrosstableTitle": "Инструменты Жизни - кросспостойкие",
     "selectGamesSyntaxText": "Использование: выберите <start> [count]",
     "downloadedText": "Загружено",
-    "allTypesTitle": "Инструменты Жизни - переключение всех"
+    "allTypesTitle": "Инструменты Жизни - переключение всех",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20357,7 +20376,7 @@
     "expandAllBookmarksText": "Expandir todos los marcadores",
     "bookmarkSplitConfirmationText": "¿Seguro que desea dividir el capítulo en este marcador?",
     "bookmarkSplitConfirmationDeleteText": "¿Seguro que quieres dividir el capítulo en este marcador?\nESTO ELIMINARÁ DEL CAPÍTULO LOS MOVIMIENTOS SIGUIENTES",
-    "bookmarkSplitText": "Dividir capítulo aquí",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - crea un nuevo capítulo con los siguientes movimientos desde aquí\nPresiona Mayús para también eliminarlos desde aquí",
     "chapterLink": "Continuar aquí: %s",
     "analysisPopupButtonTitle": "LiChess Tools - mueve la lista en otra ventana (usa el botón SYNC)",
@@ -21057,7 +21076,8 @@
     "lobbyCrosstableTitle": "Herramientas de LiChess - Cruzable",
     "selectGamesSyntaxText": "Uso: select <start> [count]",
     "downloadedText": "Descargado",
-    "allTypesTitle": "Herramientas de LiChess - alterna todas"
+    "allTypesTitle": "Herramientas de LiChess - alterna todas",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -21410,7 +21430,7 @@
     "expandAllBookmarksText": "Expand all bookmarks",
     "bookmarkSplitConfirmationText": "Sure you want to split the chapter on this bookmark?",
     "bookmarkSplitConfirmationDeleteText": "Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW",
-    "bookmarkSplitText": "Split chapter here",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here",
     "chapterLink": "Continue here: %s",
     "analysisPopupButtonTitle": "LiChess Tools - move list in another window (use SYNC button)",
@@ -22110,7 +22130,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
-    "allTypesTitle": "LiChess Tools - toggle all"
+    "allTypesTitle": "LiChess Tools - toggle all",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -22463,7 +22484,7 @@
     "expandAllBookmarksText": "Tüm yer işaretlerini genişlet",
     "bookmarkSplitConfirmationText": "Bu yer işaretiyle bölümü ikiye bölmek istediğinizden emin misiniz?",
     "bookmarkSplitConfirmationDeleteText": "Bu yer işaretiyle bölümü ikiye bölmek istediğinizden emin misiniz?\nBU İŞLEM, BU BÖLÜMDEN SONRAKİ HAMLELERİ SİLECEKTİR",
-    "bookmarkSplitText": "Bölümü burdan böl",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - Buradan itibaren aşağıdaki adımları izleyerek yeni bir bölüm oluşturun\nShift tuşuna basarak da bu adımları buradan silebilirsiniz",
     "chapterLink": "Burdan devam et: %s",
     "analysisPopupButtonTitle": "LiChess Tools - başka pencerede hamle listesi (SENKRON butonunu kullanın)",
@@ -23163,7 +23184,8 @@
     "lobbyCrosstableTitle": "LiChess Tools - çapraz tablo",
     "selectGamesSyntaxText": "Kullanım: select <başlangıç> [sayı]",
     "downloadedText": "İndirildi",
-    "allTypesTitle": "LiChess Tools - tümünü aç/kapat"
+    "allTypesTitle": "LiChess Tools - tümünü aç/kapat",
+    "bookmarkSplitText_f": "Split off chapter here"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -23516,7 +23538,7 @@
     "expandAllBookmarksText": "Expand all bookmarks",
     "bookmarkSplitConfirmationText": "Sure you want to split the chapter on this bookmark?",
     "bookmarkSplitConfirmationDeleteText": "Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW",
-    "bookmarkSplitText": "Split chapter here",
+    "bookmarkSplitText": "Create chapter from here",
     "bookmarkSplitTitle": "LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here",
     "chapterLink": "Continue here: %s",
     "analysisPopupButtonTitle": "LiChess Tools - move list in another window (use SYNC button)",
@@ -24216,6 +24238,7 @@
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
-    "allTypesTitle": "LiChess Tools - toggle all"
+    "allTypesTitle": "LiChess Tools - toggle all",
+    "bookmarkSplitText_f": "Split off chapter here"
   }
 }

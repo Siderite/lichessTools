@@ -544,7 +544,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       }
 
       if (this.options.positionInfo && !menu.has('a[data-role="positionInfo"]').length) {
-        const text = trans.noarg('positionInfoText' + (this.suffix || ''));
+        const text = trans.noarg('positionInfoText');
         const title = trans.noarg('positionInfoTitle');
         $('<a>')
           .attr('data-icon', lt.icon.StudyBoard)

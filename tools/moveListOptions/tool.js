@@ -37,7 +37,8 @@
         'expandAllBookmarksTitle': 'LiChess Tools - Expand all bookmarks',
         'bookmarkSplitConfirmationText': 'Sure you want to split the chapter on this bookmark?',
         'bookmarkSplitConfirmationDeleteText': 'Sure you want to split the chapter on this bookmark?\r\nTHIS WILL DELETE FROM THIS CHAPTER THE MOVES THAT FOLLOW',
-        'bookmarkSplitText': 'Split chapter here',
+        'bookmarkSplitText': 'Create chapter from here',
+        'bookmarkSplitText_f': 'Split off chapter here',
         'bookmarkSplitTitle': 'LiChess Tools - create a new chapter with following moves from here\r\nPress Shift to also delete them from here',
         'chapterLink': 'Continue here: %s',
         'analysisPopupButtonTitle': 'LiChess Tools - move list in another window (use SYNC button)',
@@ -66,7 +67,8 @@
         'expandAllBookmarksTitle': 'LiChess Tools - Expandeaz\u0103 toate bookmarkurile',
         'bookmarkSplitConfirmationText': 'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?',
         'bookmarkSplitConfirmationDeleteText': 'Sigur vrei s\u0103 tai un nou capitol de la acest bookmark?\r\nASTA VA \u015ETERGE MUT\u0102RILE URM\u0102TOARE DIN ACEST CAPITOL',
-        'bookmarkSplitText': 'Taie un nou capitol de aici',
+        'bookmarkSplitText': 'Creaz\u0103 un capitol de aici',
+        'bookmarkSplitText_f': 'Taie un capitol de aici',
         'bookmarkSplitTitle': 'LiChess Tools - creeaz\u0103 un nou capitol din mut\u0103rile urm\u0103toare\r\nApas\u0103 Shift ca s\u0103 le \u015Ftergi de aici',
         'chapterLink': 'Continu\u0103 aici: %s',
         'analysisPopupButtonTitle': 'LiChess Tools - list\u0103 mut\u0103ri \u00een alt\u0103 fereastr\u0103 (folose\u015Fte butonul SYNC)',
@@ -688,6 +690,23 @@
       });
     };
 
+    alterModifierText = (ev) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+
+      this.suffix = ev.shiftKey ? '_f' : '';
+
+      if (this.options.bookmarks) {
+        const menuItem = $('#analyse-cm a[data-role="bookmarkSplit"]');
+        if (menuItem.length) {
+          const text = trans.noarg('bookmarkSplitText' + this.suffix);
+          menuItem.text(text);
+        }
+      }
+    }
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -696,7 +715,6 @@
       this.logOption('Move list options', value);
       const $ = lt.$;
       const analysis = lichess?.analysis;
-      //if (!analysis) return;
       this.options = {
         indentedVariations: lt.isOptionSet(value, 'indentedVariations'),
         bookmarks: lt.isOptionSet(value, 'bookmarks'),
@@ -715,6 +733,7 @@
           return arr.join(',');
         }
       };
+
       if (analysis) {
         lt.pubsub.off('lichessTools.redraw', this.analysisControls);
         lt.pubsub.on('lichessTools.redraw', this.analysisControls);
@@ -732,6 +751,7 @@
         lt.pubsub.off('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
         lt.pubsub.off('lichessTools.commentChange', this.debouncedAddCommentBookmarks);
         $(lt.global).off('hashchange', this.hashChange);
+        $.cached('body').off('keydown keyup', this.alterModifierText);
         if (this.options.bookmarks) {
           lt.pubsub.on('lichessTools.redraw', this.debouncedAddCommentBookmarks);
           lt.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentBookmarks);
@@ -739,6 +759,7 @@
           this.addCommentBookmarks();
           $(lt.global).on('hashchange', this.hashChange);
           lt.global.setTimeout(this.hashChange, 100);
+          $.cached('body').on('keydown keyup', this.alterModifierText);
         }
 
         lt.pubsub.off('lichessTools.redraw', this.setupAnalysisPopup);
@@ -747,6 +768,7 @@
         }
         this.setupAnalysisPopup();
       }
+
       $.cached('body')
         .toggleClass('lichessTools-fullWidthAnalysis', this.options.fullWidthAnalysis)
         .toggleClass('lichessTools-hideLeftSide', this.options.hideLeftSide);
