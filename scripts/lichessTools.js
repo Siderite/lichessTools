@@ -862,7 +862,7 @@
       if (!element) return 0;
       if (this.global.document.readyState != 'complete') return 1;
       if (this.global.document.visibilityState == 'hidden') return 0;
-      if (!element.offsetParent) return 0; // this too causes reflow, TODO test this doesn't break big chapters
+      if (!element.isConnected) return 0;
 
       if (!forced) return 1; // this is too expensive
 

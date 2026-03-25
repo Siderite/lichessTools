@@ -203,7 +203,7 @@
       for (const item of data) {
         if (!item.countryName) continue;
         const elems = dict[item.id];
-        for (const elem of elems.filter(e=>!!e[0].parentNode && !!e[0].offsetParent)) {
+        for (const elem of elems.filter(e=>!!e[0].parentNode && !!e[0].isConnected)) {
           let next = elem.next();
           next=next.add(next.next());
           if (next.is('img.flag')) return;

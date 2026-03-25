@@ -212,7 +212,7 @@
           if (item.gameCount === undefined) continue;
           const elems = dict[item.id];
           // Only process visible elements still in DOM
-          for (const elem of elems.filter(e => !!e[0].parentNode && !!e[0].offsetParent)) {
+          for (const elem of elems.filter(e => !!e[0].parentNode && !!e[0].isConnected)) {
             let next = elem.next();
             next=next.add(next.next());
             if (next.is('.lichessTools-gameCountBadge')) continue;
