@@ -8,6 +8,12 @@ body.lichessTools.lichessTools-theme_mobile.mobile {
 
 @media (max-width: 799.3px) and (orientation: portrait) {
 
+  body.lichessTools.lichessTools-theme_mobile.mobile main {
+    max-width: 98vw;
+    margin: auto;
+  }
+
+
   body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) {
     grid-template-areas:
       "board"
