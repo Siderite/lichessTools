@@ -907,10 +907,15 @@ https://www.chessable.com/course/${courseId}/ } *`)
       if (comments.length) {
         n1.data.comments = [...new Set(comments)];
       }
+      const startingComments = [...new Set((n1.data?.startingComments || []).concat((n2.data?.startingComments || [])))];
+      if (startingComments.length) {
+        n1.data.startingComments = [...new Set(startingComments)];
+      }
       const nags = (n1.data?.nags || []).concat((n2.data?.nags || []));
       if (nags.length) {
         n1.data.nags = [...new Set(nags)];
       }
+      n1.count=(n1.count || 1)+(n2.count || 1);
     };
 
     cleanGame = game => {
@@ -932,6 +937,10 @@ https://www.chessable.com/course/${courseId}/ } *`)
             } else j++;
           }
         };
+        if (node.children.length>1 && node.children.find(n=>n.count)) {
+          lt.debug && lt.global.console.debug('Sorting children: '+node.children.map(n=>n.count || 1).join(', '));
+          node.children.sort((n1,n2)=>(n2.count||1)-(n1.count||1));
+        }
         for (const child of node.children) {
           traverse(game, child);
         }
@@ -981,6 +990,10 @@ https://www.chessable.com/course/${courseId}/ } *`)
         const comments = [... new Set((dest.comments||[]).concat(src.comments||[]))];
         if (comments.length) {
           dest.comments = comments;
+        }
+        const startingComments = [... new Set((dest.startingComments||[]).concat(src.startingComments||[]))];
+        if (startingComments.length) {
+          dest.startingComments = startingComments;
         }
         node.children = [...node.children, ...src.moves.children];
         if (dest.fenDict || src.fenDict) {
@@ -1759,6 +1772,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
         if (node.data?.comments?.length) {
           cleanComments(node.data.comments);
         }
+        if (node.data?.startingComments?.length) {
+          cleanComments(node.data.startingComments);
+        }
         if (!node.children?.length) return;
         for (const child of node.children) {
           traverse(child, ply + 1);
@@ -1766,6 +1782,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
       };
       if (game.comments?.length) {
         cleanComments(game.comments);
+      }
+      if (game.startingComments?.length) {
+        cleanComments(game.startingComments);
       }
       traverse(game.moves);
     };
@@ -1817,6 +1836,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
         if (node.data?.comments?.length) {
           node.data.comments.length = 0;
         }
+        if (node.data?.startingComments?.length) {
+          node.data.startingComments.length = 0;
+        }
         if (!node.children?.length) return;
         for (const child of node.children) {
           traverse(child, ply + 1);
@@ -1824,6 +1846,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
       };
       if (game.comments) {
         game.comments.length = 0;
+      }
+      if (game.startingComments) {
+        game.startingComments.length = 0;
       }
       traverse(game.moves);
     };
@@ -1997,6 +2022,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             if (!san) {
               node.children = [];
               node.comments = null;
+              node.startingComments = null;
             } else {
               const index = node.children?.findIndex(c => c.data?.san == san);
               if (index < 0) throw new Error('This should not happen. San ' + san + ' not found in node ' + node.path);
