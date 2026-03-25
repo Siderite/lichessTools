@@ -98,7 +98,7 @@
 
     getMoveElements = (elem, list) => {
       if (!list) list = [];
-      const isMainline = $(elem).is('.mainline');
+      const isMainline = !$(elem).siblings('branch').length;
       let next = $(elem).next();
       if (next.is('move.empty')) next = next.next();
       if (next.is('comment')) {
