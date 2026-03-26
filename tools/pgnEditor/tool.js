@@ -341,7 +341,8 @@
         .on('click', ev => {
           ev.preventDefault();
           if (this.mobileFirstTap(ev.currentTarget)) return;
-          this.runOperation('merge', () => this.mergePgn(textarea));
+          const options = { sortByCount: !ev.shiftKey };
+          this.runOperation('merge', () => this.mergePgn(textarea, options));
         })
         .find('span')
         .text(trans.noarg('btnMergeText'));
@@ -918,7 +919,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       n1.count=(n1.count || 1)+(n2.count || 1);
     };
 
-    cleanGame = game => {
+    cleanGame = (game,options) => {
       const lt = this.lichessTools;
       const traverse = (game, node) => {
         if (!node.children?.length) return;
@@ -937,7 +938,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             } else j++;
           }
         };
-        if (node.children.length>1 && node.children.find(n=>n.count)) {
+        if (options?.sortByCount && node.children.length>1 && node.children.find(n=>n.count)) {
           lt.debug && lt.global.console.debug('Sorting children: '+node.children.map(n=>n.count || 1).join(', '));
           node.children.sort((n1,n2)=>(n2.count||1)-(n1.count||1));
         }
@@ -949,7 +950,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       traverse(game, game.moves);
     };
 
-    mergePgn = async (textarea) => {
+    mergePgn = async (textarea, options) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -1092,7 +1093,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         if (!game.fenDict) {
           throw new Error('Something went wrong! game doesn\'t have fenDict!');
         }
-        this.cleanGame(game);
+        this.cleanGame(game, options);
       }
 
       this.writeGames(textarea, games);
