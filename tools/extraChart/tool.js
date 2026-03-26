@@ -646,7 +646,7 @@
     getCommentCeval = (node) => {
       const lt = this.lichessTools;
       const commentText = lt.getNodeCommentsText(node);
-      const m = /eval[:]?\s+(?:#(?<mate>[+-]?\d+)|(?<cp>[+-]?\d+(?:\.\d+)?))/.exec(commentText);
+      const m = /eval[:]?\s+(?:[#M](?<mate>[+-]?\d+)|(?<cp>[+-]?\d+(?:\.\d+)?))/.exec(commentText);
       if (m) {
         return {
           cp: m.groups.cp!==undefined ? +m.groups.cp*100 : undefined,
