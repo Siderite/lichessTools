@@ -73,8 +73,8 @@
         text = text.replaceAll(/\p{Extended_Pictographic}+/ugi,' ');
       }
       text = text.replaceAll(/e\.\s*p\./gi,'un phsaant');
-      text = text.replaceAll(/(\d+)-(\d+)/gi,'$1,$2');
-      text = text.replaceAll(/(\d+)\s+-\s+(\d+)/gi,'$1,$2');
+      text = text.replaceAll(/(\d+)-(\d+)/gi,'$1, $2');
+      text = text.replaceAll(/(\d+)\s+-\s+(\d+)/gi,'$1, $2');
       text = text.replaceAll(this.urlRegex,(m)=>{
         const url = new URL(m);
         const host = url.host
