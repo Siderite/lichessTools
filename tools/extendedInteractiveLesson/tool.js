@@ -890,7 +890,7 @@
       const trans = lt.translator;
       const analysis = lt.lichess.analysis;
 
-      $.cached('body').toggleClass('lichessTools-extendedInteractiveLesson', this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
+      $.cached('body').toggleClassSafe('lichessTools-extendedInteractiveLesson', this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
       let translation = trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attr('title', translation); //.attr('data-label',translation);
 
