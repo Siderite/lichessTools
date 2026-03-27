@@ -1412,7 +1412,6 @@
         chart.options.onClick = this.chartClick;
       }
       if (!lt.inViewport(container)) {
-        this.clearCharts();
         this._chart=null;
         return;
       }
