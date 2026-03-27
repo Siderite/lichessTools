@@ -2458,7 +2458,7 @@
     "expandAllBookmarksText": "展开所有书签",
     "bookmarkSplitConfirmationText": "确定要在此书签处拆分章节吗？",
     "bookmarkSplitConfirmationDeleteText": "确定要在此书签处拆分章节吗？\n这将会删除本章节中此后的着法",
-    "bookmarkSplitText": "从这里创建章节",
+    "bookmarkSplitText": "从此处创建章节",
     "bookmarkSplitTitle": "LiChess Tools - 从此处创建一个包含后续着法的新章节\n按住 Shift 键可同时从此处删除它们",
     "chapterLink": "在此继续：%s",
     "analysisPopupButtonTitle": "LiChess Tools - 在另一个窗口中显示着法列表（使用 SYNC 按钮）",
@@ -3159,7 +3159,7 @@
     "selectGamesSyntaxText": "用法：select <开始> [数量]",
     "downloadedText": "已下载",
     "allTypesTitle": "LiChess Tools - 全选切换",
-    "bookmarkSplitText_f": "在这里拆分章节"
+    "bookmarkSplitText_f": "从此处拆分章节"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
