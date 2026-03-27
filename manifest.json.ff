@@ -4,7 +4,7 @@
   "version": "2.4.174",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
-  "homepage_url": "https://siderite.dev/blog/new-chrome-extension-lichess-tools/",
+  "homepage_url": "https://siderite.dev/LiChessTools/",
   "icons": {
     "16": "images/icon-16.png",
     "48": "images/icon-48.png",
