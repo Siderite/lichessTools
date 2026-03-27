@@ -77,6 +77,10 @@
       lt.storage.set('LichessTools.studyPositions', data);
     };
 
+    async init() {
+      this._lastHashTime = location.hash ? Date.now() : 0;
+    }
+
     _pageLoaded = false;
     async start() {
       const lt = this.lichessTools;
@@ -124,8 +128,8 @@
           }
         });
         lt.global.addEventListener('beforeunload', this.saveStudyPositions);
-        if (!this._pageLoaded && !lichess.analysis.study.gamebookPlay && !lt.isGamePlaying()) {
-          this._pageLoaded = true;
+        const fromHash = lt.global.location.hash || Date.now()-this._lastHashTime<1000;
+        if (!this._pageLoaded && !lichess.analysis.study.gamebookPlay && !lt.isGamePlaying() && !fromHash) {
           const studyId = study.data.id;
           const chapterId = study.vm.chapterId;
           const data = lt.storage.get('LichessTools.studyPositions') || {};
@@ -137,6 +141,7 @@
             }, 100); // give time to other tools to set Preview mode
           }
         }
+        this._pageLoaded = true;
       }
     }
 
