@@ -1432,7 +1432,7 @@
           }
         });
       } catch (e) {
-        if (this.debug) console.debug('Speech error:', e);
+        console.debug('Speech error:', e);
       }
     };
     stopSpeaking = ()=>{

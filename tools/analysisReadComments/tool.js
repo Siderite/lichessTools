@@ -137,9 +137,8 @@
       const node = lichess.analysis.node;
       if (!node) return;
       const comments = lt.getNodeCommentsText(node);
-      this.prevComments = comments;
       let speakable = this.getSpeakableText(comments);
-      let shouldSpeak = speakable != this.prevSpeakable;
+      let shouldSpeak = speakable != this.prev?.speakable && (node.fen != this.prev?.fen || Date.now()-this.prev?.time > 2000);
       const isCheck = node.san?.endsWith('+');
       const isMate = node.san?.endsWith('#');
       if (this.options.readAnnotations && (node.glyphs?.length || isCheck || isMate)) {
@@ -162,13 +161,16 @@
             speakable = `${additional}, ${speakable}`;
           }
         }
-        shouldSpeak = node.fen != this.prevFen;
+        shouldSpeak = node.fen != this.prev?.fen;
+      }
+      this.prev = {
+        speakable: speakable,
+        fen: node.fen
       }
       if (shouldSpeak && speakable?.trim()) {
         lt.speak(speakable, { rate: 1.25 });
+        this.prev.time = Date.now();
       }
-      this.prevSpeakable = speakable;
-      this.prevFen = node.fen;
     }
 
     showInteractiveButton = () => {
@@ -193,7 +195,6 @@
       const lt = this.lichessTools;
       const val = !lt.storage.get('LiChessTools.dontReadComments');
       lt.storage.set('LiChessTools.dontReadComments',val);
-      this.prevComments = false;
       if (val) {
         lt.stopSpeaking();
       } else {
