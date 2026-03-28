@@ -178,7 +178,9 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (!analysis) return;
-      const turnColor = analysis.turnColor();
+      const turnColor = analysis.turnColor() == 'white'
+        ? 'black'
+        : 'white';
       const square = $('square.king.'+turnColor+',square.check').prop('cgKey');
       return square;
     };
