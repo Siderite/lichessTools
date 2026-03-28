@@ -38,6 +38,9 @@
           .attr('href','#')
           .text(trans.noarg('tableOfContentsText'))
           .attr('title',trans.noarg('tableOfContentsTitle'))
+          .on('click',()=>{
+            $('a.active[class^="lichessTools-toc_"]').removeClass('active');
+          })
         )
         .append($('<div class="entries">'));
       let showToc = false;
@@ -76,7 +79,7 @@
             });
           },
           {
-            rootMargin: "-20% 0px -20% 0px",
+            rootMargin: "0px 0px -90% 0px",
             threshold: 0
           }
         );
