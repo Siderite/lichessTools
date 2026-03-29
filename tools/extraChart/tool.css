@@ -341,3 +341,6 @@ body.lichessTools .lichessTools-chartLegend::-webkit-scrollbar {
   display: none;
 }
 
+body.lichessTools .study__message:has(.lichessTools-extraChart) {
+  padding: 0;
+}

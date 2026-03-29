@@ -1384,6 +1384,7 @@
         if (!chart && this.options.local) {
           const underboard = $('.analyse__underboard div.computer-analysis')[0] || $('.analyse__underboard')[0];
           if (underboard) {
+            $('#acpl-chart-container.lichessTools-extraChart').remove();
             container = $('<div id="acpl-chart-container" class="lichessTools-extraChart"><canvas id="acpl-chart"></canvas></div>');
             const message = $('.future-game-analysis', underboard);
             if (message.length) {
@@ -2089,14 +2090,14 @@
       const lichess = lt.lichess;
       if (!m?.acpl) return;
       if (lt.isWrappedFunction(m.acpl, 'extraChart')) return;
-      m.acpl = lt.wrapFunction(m.acpl, {
+      m.acpl = lt.debounce(lt.wrapFunction(m.acpl, {
         id: 'extraChart',
         after: ($this, res) => {
           res?.then(chart => {
             this.setChart(chart);
           });
         }
-      });
+      }),100);
     };
 
     forceGenerateCharts = () => this.generateCharts(true);
