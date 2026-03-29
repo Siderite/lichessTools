@@ -2090,14 +2090,14 @@
       const lichess = lt.lichess;
       if (!m?.acpl) return;
       if (lt.isWrappedFunction(m.acpl, 'extraChart')) return;
-      m.acpl = lt.debounce(lt.wrapFunction(m.acpl, {
+      m.acpl = lt.wrapFunction(m.acpl, {
         id: 'extraChart',
         after: ($this, res) => {
           res?.then(chart => {
             this.setChart(chart);
           });
         }
-      }),100);
+      });
     };
 
     forceGenerateCharts = () => this.generateCharts(true);
