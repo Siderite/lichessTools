@@ -165,7 +165,7 @@
         lt.global.console.debug('Could not find click handler!');
         return;
       }
-      button.after($('<select class="lichessTools-removeAll">').attr('title', trans.noarg('removeAll_title'))
+      $('<select class="lichessTools-removeAll">').attr('title', trans.noarg('removeAll_title'))
         .append($('<option>').text(trans.noarg('removeAllText')))
         .append($('<option value="comments">').text(trans.noarg('removeAll_commentsText')))
         .append($('<option value="glyphs">').text(trans.noarg('removeAll_glyphsText')))
@@ -211,8 +211,8 @@
           study.chapters.editForm.current(null);
           study.chapters.editForm.redraw();
         })
-      )
-        .remove();
+        .insertAfter(button);
+      button.remove();
     };
 
     setupTagDelete = () => {
