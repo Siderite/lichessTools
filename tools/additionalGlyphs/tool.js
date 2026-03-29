@@ -242,6 +242,9 @@
                 break;
               }
             }
+            if (!same) {
+              same = lt.global.JSON.stringify(drawable.autoShapes) == lt.global.JSON.stringify(this.prevAutoShapes);
+            }
           }
           if (!same) {
             this.prevAutoShapes = [ ...drawable.autoShapes ];
