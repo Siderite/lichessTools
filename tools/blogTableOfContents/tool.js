@@ -96,6 +96,7 @@
       this.options = {
         enabled: !!value
       };
+      $('.lichessTools-blogTableOfContents').remove();
       if (this.options.enabled) {
         const isBlogUrl = /^\/@\/[^\/]+\/blog\/[^\/]+\/[^\/]+/i.test(lt.global.location.pathname);
         if (isBlogUrl) {
