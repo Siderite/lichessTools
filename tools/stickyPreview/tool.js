@@ -78,10 +78,17 @@
       const lichess = lt.lichess;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      lt.pubsub.off('lichessTools.redraw', this.bindButtons);
+      //lt.pubsub.off('lichessTools.redraw', this.bindButtons);
+      study.setGamebookOverride = lt.unwrapFunction(study.setGamebookOverride,'stickyPreview');
       lt.pubsub.off('lichessTools.chapterChange', this.keepPreviewOn);
       if (value) {
-        lt.pubsub.on('lichessTools.redraw', this.bindButtons);
+        //lt.pubsub.on('lichessTools.redraw', this.bindButtons);
+        study.setGamebookOverride = lt.wrapFunction(study.setGamebookOverride,{
+          id: 'stickyPreview',
+          after: ($this, result, ...args)=>{
+            this.previousOverride = study?.vm?.gamebookOverride;
+          }
+        });
         lt.pubsub.on('lichessTools.chapterChange', this.keepPreviewOn);
         this.keepPreviewOn();
       }
