@@ -170,7 +170,7 @@
 
     addArrow = (x1,y1,x2,y2, options) => {
       const lt = this.lichessTools;
-      const cg = lt.lichess?.analysis?.chessground || lt.uiApi.chessground;
+      const cg = lt.getChessground();
       if (!cg) return;
 
       const orig = this.getCgKey(x1,y1);
@@ -191,7 +191,7 @@
 
     clearArrows = (source) => {
       const lt = this.lichessTools;
-      const cg = lt.lichess?.analysis?.chessground || lt.uiApi.chessground;
+      const cg = lt.getChessground();
       const shapes = cg?.state?.drawable?.shapes;
       if (!shapes?.length) return;
       lt.arrayRemoveAll(shapes,s=>s.source == source);
@@ -199,7 +199,7 @@
 
     highlight = (x,y, className) => {
       const lt = this.lichessTools;
-      const cg = lt.lichess?.analysis?.chessground || lt.uiApi.chessground;
+      const cg = lt.getChessground();
       if (!cg) return;
       const squareMap = (cg.state.highlight.custom ||= new Map());
       const cgKey = this.getCgKey(x,y);
@@ -213,7 +213,7 @@
 
     clearHighlight = (className) => {
       const lt = this.lichessTools;
-      const cg = lt.lichess?.analysis?.chessground || lt.uiApi.chessground;
+      const cg = lt.getChessground();
       if (!cg) return;
       const squareMap = (cg.state.highlight.custom ||= new Map());
       for (const [k,v] of squareMap.entries()) {
@@ -225,7 +225,7 @@
     processHighlightsDirect = ()=>{
       const lt = this.lichessTools;
       const analysis = lt.lichess?.analysis;
-      const cg = analysis?.chessground || lt.uiApi.chessground;
+      const cg = lt.getChessground();
       if (!cg) return;
 
       const checkSquares = ()=>{
@@ -432,10 +432,11 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
+      const cg = lt.getChessground();
 
-      const selected = (analysis.chessground || lt.uiApi.chessground)?.state?.selected;
+      const selected = cg?.state?.selected;
       const dests = selected
-        ? (analysis.node.dests() || (analysis.chessground || lt.uiApi.chessground)?.state?.movable?.dests)?.get(selected)
+        ? (analysis.node.dests() || cg?.state?.movable?.dests)?.get(selected)
         : null;
       const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
 
@@ -511,9 +512,10 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
+      const cg = lt.getChessground();
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      const selected = (analysis.chessground || lt.uiApi.chessground)?.state?.selected;
+      const selected = cg?.state?.selected;
 
       let minCp = 100000;
       let maxCp = -100000;

@@ -1339,6 +1339,11 @@
       };
     }
 
+    getChessground = ()=>{
+      const lt = this;
+      return lt.lichess?.analysis?.chessground;// || lt.uiApi.chessground();
+    };
+
     isIOS = () => {
       return /iPhone|iPod|iPad|Macintosh/.test(navigator.userAgent);
     };

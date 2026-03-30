@@ -39,8 +39,9 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess.analysis;
+      const cg = lt.getChessground();
       const key = fen + '/' + variant;
-      let destMan = analysis.node.dests() || (analysis?.chessground || lt.uiApi.chessground)?.state?.movable?.dests || this._cache.get(key);
+      let destMan = analysis.node.dests() || cg?.state?.movable?.dests || this._cache.get(key);
       return destMan;
     };
 

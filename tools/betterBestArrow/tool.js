@@ -93,7 +93,8 @@
         after: ($this, result, ...args)=>{
           if (!this.options.justOrientation) return;
           if (analysis.getOrientation()!=analysis.turnColor()) return;
-          lt.arrayRemoveAll((analysis.chessground || lt.uiApi.chessground)?.state?.drawable?.autoShapes,s=>s.brush=='paleGreen' && s.orig+s.dest==currBest)
+          const chessground = lt.getChessground();
+          lt.arrayRemoveAll(chessground?.state?.drawable?.autoShapes,s=>s.brush=='paleGreen' && s.orig+s.dest==currBest)
         }
       });
     }

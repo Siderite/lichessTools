@@ -398,7 +398,7 @@
         .toggleClassSafe('lichessTools-hideOctopus', this.options.hideOctopus);
         wrap = $('main.analyse div.cg-wrap');
         if (this.options.shapeDrawing) {
-          this.chessground = lt.lichess.analysis?.chessground || lt.uiApi.chessground;
+          this.chessground = lt.getChessground();
         }
       } else {
         if (isRound) {
