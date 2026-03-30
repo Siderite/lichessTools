@@ -116,7 +116,7 @@
       }
       this.refreshHeight();
     };
-    addDivider = this.lichessTools.debounce(this.addDividerDirect, 300, { defer:true });
+    addDivider = this.lichessTools.debounce(this.addDividerDirect, 300);
 
     controlCursor = (ev) => {
       ev.preventDefault();

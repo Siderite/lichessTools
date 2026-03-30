@@ -130,7 +130,7 @@
       lt.storage.set('LiChessTools.countryCache', [...countryCache]);
       lt.storage.set('LiChessTools.flagCache', [...this.flagCache]);
     };
-    debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100, { defer:true });
+    debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100);
 
     processFlags = async () => {
       const lt = this.lichessTools;
@@ -199,7 +199,7 @@
       if (toSaveCache) {
         this.debouncedSaveCache();
       }
-      lt.global.requestAnimationFrame(()=>{
+      const operations = [];
       for (const item of data) {
         if (!item.countryName) continue;
         const elems = dict[item.id];
@@ -209,26 +209,32 @@
           if (next.is('img.flag')) return;
           if (next.has('img.flag').length) return;
           if (item.countryName == 'noflag') {
-            elem.addClass('lichessTools-noflag');
+            operations.push({elem: elem, cls:'lichessTools-noflag',afterElem:null});
           } else {
-            elem.addClass('lichessTools-flag');
             const flagUrl = lt.assetUrl('flags/' + item.country + '.png');
-            elem.after($('<img>')
+            operations.push({elem: elem, cls:'lichessTools-flag',afterElem:$('<img>')
               .addClass('flag')
               .attr('loading', 'lazy')
               .attr('title', item.countryName)
               .attr('src', flagUrl)
               .attr('data-ref', $(elem).attr('href'))
               //.css('animation-duration', Math.round(5 + lt.random() * 15) + 's')
-            );
+            });
             lt.net.logNetwork(flagUrl, 1000, 0); //approximate flag size in bytes
           }
         }
       }
-      });
-      this.debouncedProcessFlags();
+      if (operations.length) {
+        lt.global.requestAnimationFrame(()=>{
+          for (const op of operations) {
+            op.elem.addClass(op.cls);
+            op.afterElem?.insertAfter(op.elem); 
+          }
+        });
+      }
+      //this.debouncedProcessFlags();
     };
-    debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500, { defer:true });
+    debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500);
 
     resetFlags = () => {
       const lt = this.lichessTools;

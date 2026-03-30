@@ -595,7 +595,7 @@
       return this.global.navigator?.deviceMemory || (await this.global.navigator?.storage?.estimate())?.quota/(1024*1024*1024);
     }
 
-  debounce(fn, wait) {
+    debounce(fn, wait) {
       let timeout = null;
       let isRunning = false;
       const c = () => {
@@ -625,56 +625,6 @@
           ? c() || t(f)
           : t(f);
       };
-    }
-
-    debounceNew(fn, wait, options) {
-      let timeout = null;
-      let isRunning = false;
-      let lastExecution = 0;
-      let averageTime = wait;
-
-      const adaptTime = (start,end)=>{
-        if (options?.noAdapt) return;
-        const executionTime = Math.max(wait, +(end-start)||0);
-        averageTime += (executionTime-averageTime)*0.2;
-        if (options?.debugName) this.global.console.debug(options.debugName+': '+Math.round(averageTime));
-      };
-
-      const debouncedFunction = function() {
-        const context = this;
-        const args = arguments;
-        const startTime = Date.now();
-
-        const f = ()=>{
-          isRunning = true;
-          lastExecution = Date.now();
-          const result = fn.apply(context, args);
-          if (result?.then) {
-            result.then(() => {
-              isRunning = false;
-              lastExecution = Date.now();
-              adaptTime(startTime, lastExecution);
-            });
-          } else {
-            isRunning = false;
-            lastExecution = Date.now();
-            adaptTime(startTime, lastExecution);
-          }
-        };
-
-        clearTimeout(timeout);
-        if (!options?.defer && !isRunning && Date.now() - lastExecution > averageTime) {
-          timeout = setTimeout(f,1);
-        } else {
-          timeout = setTimeout(()=>{
-            f();
-          }, averageTime);
-        }
-      };
-
-      debouncedFunction.__debounced = true;
-
-      return debouncedFunction;
     }
 
     getPgnTag(text, tagName) {
@@ -968,7 +918,7 @@
             return;
           }
         }
-        if (!this.global.document.body.contains(elem)) {
+        if (!elem?.isConnected) {
           this.resetCache();
           elem = this.elementCache.get(path);
         }
@@ -2804,7 +2754,7 @@
       }
       this.global.console.debug('%c site code age: ' + Math.round(age * 10) / 10 + ' days', style);
       await this.applyOptions();
-      const debouncedApplyOptions = this.debounce(this.applyOptions, 250, true);
+      const debouncedApplyOptions = this.debounce(this.applyOptions, 250);
       this.storage?.listen('lichessTools.reloadOptions', () => {
         debouncedApplyOptions();
       });

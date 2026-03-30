@@ -1387,21 +1387,28 @@
             $('#acpl-chart-container.lichessTools-extraChart').remove();
             container = $('<div id="acpl-chart-container" class="lichessTools-extraChart"><canvas id="acpl-chart"></canvas></div>');
             const message = $('.future-game-analysis', underboard);
+            let loadChartModule = false;
             if (message.length) {
               container.insertBefore(message);
-            } else {
-              if (lichess.analysis.study) {
-               $('.study__message')
-                 .append(container)
-                 .find('p')
-                 .remove();
-              } else {
-                container.appendTo(underboard);
+              loadChartModule = true;
+            } else
+            if (lichess.analysis.study) {
+              const elem = $('.study__message');
+              if (elem.length) {
+                elem.append(container)
+                  .find('p')
+                  .remove();
+                loadChartModule = true;
               }
+            } else {
+              container.appendTo(underboard);
+              loadChartModule = true;
             }
-            const mod = await this.getChartModule();
-            const mainline = lichess.analysis.mainline;
-            chart = await mod.acpl(container.find("#acpl-chart")[0], lichess.analysis.data, mainline, lichess.analysis.trans);
+            if (loadChartModule) {
+              const mod = await this.getChartModule();
+              const mainline = lichess.analysis.mainline;
+              chart = await mod.acpl(container.find("#acpl-chart")[0], lichess.analysis.data, mainline, lichess.analysis.trans);
+            }
           }
         }
         if (chart && !this._chart) {

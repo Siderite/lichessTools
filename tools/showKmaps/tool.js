@@ -237,7 +237,7 @@
       }
       if (notInViewport) this.miniGameKmapsDebounced();
     };
-    miniGameKmapsDebounced = this.lichessTools.debounce(this.miniGameKmaps, 500, { defer:true });
+    miniGameKmapsDebounced = this.lichessTools.debounce(this.miniGameKmaps, 500);
 
     refreshKmaps = async (ply) => {
       const lt = this.lichessTools;
@@ -262,7 +262,7 @@
         await this.miniGameKmaps();
       }
     };
-    refreshKmapsDebounced = this.lichessTools.debounce(this.refreshKmaps, 500, { defer:true });
+    refreshKmapsDebounced = this.lichessTools.debounce(this.refreshKmaps, 500);
 
     async start() {
       const lt = this.lichessTools;

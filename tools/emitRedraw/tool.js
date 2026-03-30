@@ -51,7 +51,7 @@
             if (this.__analysisRedraw) return this.__analysisRedraw;
             const analysis = this.lichess.analysis;
             this.__analysisRedraw = analysis
-              ? this.debounce(analysis.redraw,100,{ defer: true })
+              ? this.debounce(analysis.redraw,100)
               : ()=>{};
             return this.__analysisRedraw;
           }
@@ -59,14 +59,16 @@
       }
 
       let emit = null;
-      emit = lt.debounce(() => {
+      let emitTimeout = null;
+      emit = () => {
         if (lt.global.document.hidden) {
-          emit();
+          lt.global.clearTimeout(emitTimeout);
+          emitTimeout = lt.global.setTimeout(emitTimeout, 250);
           return;
         }
         lt.debug && lt.global.console.debug('redraw');
         lt.pubsub.emit('lichessTools.redraw');
-      }, 250, { defer: true });
+      };
       lt.emitRedraw = emit;
       this.analysisStart();
       if (lt.uiApi) {

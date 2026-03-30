@@ -77,7 +77,7 @@
       const elem = $('link[rel=icon][source=lichessTools]');
       elem.attrSafe('href', icon);
     };
-    setIcon = lichessTools.debounce(this.setIconDirect,300,{ defer:true });
+    setIcon = lichessTools.debounce(this.setIconDirect,300);
 
     handlePly = (ply) => {
       this.setIcon(ply % 2 == 1, true);

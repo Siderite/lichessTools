@@ -191,7 +191,7 @@
         await this.showGambits(result);
       });
     };
-    findGambitsDebounced = this.lichessTools.debounce(this.findGambits, 100, { defer:true });
+    findGambitsDebounced = this.lichessTools.debounce(this.findGambits, 100);
 
     checkGambits = () => {
       const lt = this.lichessTools;

@@ -97,7 +97,8 @@
       const value = this.options.openFriends;
       if (value !== 'menu' && value !== 'button') return;
       if (lt.global.document.hidden) {
-        lt.global.requestAnimationFrame(lt.debounce(this.updateFriendsButton, 500));
+        lt.global.clearTimeout(this._updateFriendsButtonTimeout);
+        this._updateFriendsButtonTimeout = lt.global.setTimeout(this.updateFriendsButton, 500);
         return;
       }
       const $ = lt.$;
@@ -198,7 +199,8 @@
       const value = this.options.openFriends;
       if (value !== 'menu') return;
       if (lt.global.document.hidden) {
-        lt.global.requestAnimationFrame(lt.debounce(this.updateFriendsMenu, 500));
+        lt.global.clearTimeout(this._updateFriendsMenuTimeout);
+        this._updateFriendsMenuTimeout = lt.global.setTimeout(this.updateFriendsMenu, 500);
         return;
       }
       const $ = lt.$;
@@ -372,7 +374,8 @@
       const isFavoritesOrBlocksOrFollowers = !this.isFriendsPage;
       const isBlocks = lt.isBlockedPlayersPage();
       if (lt.global.document.hidden) {
-        lt.global.requestAnimationFrame(this.updateFriendsPage);
+        lt.global.clearTimeout(this._updateFriendsPageTimeout);
+        this._updateFriendsPageTimeout = lt.global.setTimeout(this.updateFriendsPageDirect, 500);
         return;
       }
       let header = $('.lichessTools-livePageHeader');

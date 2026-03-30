@@ -334,7 +334,7 @@
       }
       if (notInViewport) this.miniGameStructureDebounced();
     };
-    miniGameStructureDebounced = this.lichessTools.debounce(this.miniGameStructure, 500, { defer:true });
+    miniGameStructureDebounced = this.lichessTools.debounce(this.miniGameStructure, 500);
 
     refreshStructure = async (ply) => {
       const lt = this.lichessTools;
@@ -364,7 +364,7 @@
         await this.miniGameStructure();
       }
     };
-    refreshStructureDebounced = this.lichessTools.debounce(this.refreshStructure, 500, { defer:true });
+    refreshStructureDebounced = this.lichessTools.debounce(this.refreshStructure, 500);
 
     async start() {
       const lt = this.lichessTools;

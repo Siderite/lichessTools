@@ -46,7 +46,7 @@
       }
       this.prevPgn = pgn;
     }
-    saveAnalysisPgnLong = this.lichessTools.debounce(this.saveAnalysisPgn, 10000, { defer:true });
+    saveAnalysisPgnLong = this.lichessTools.debounce(this.saveAnalysisPgn, 10000);
 
     retrievePgn = () => {
       const lt = this.lichessTools;

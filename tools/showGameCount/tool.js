@@ -140,7 +140,7 @@
       }
       lt.storage.set('LiChessTools.gameCountCache', [...this.gameCountCache]);
     };
-    debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100, { defer: true });
+    debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100);
 
     // Formats game count with locale-aware number separators
     formatGameCount = (count) => {
@@ -207,31 +207,37 @@
       }
 
       // Render badges next to usernames
-      lt.global.requestAnimationFrame(() => {
-        for (const item of data) {
-          if (item.gameCount === undefined) continue;
-          const elems = dict[item.id];
-          // Only process visible elements still in DOM
-          for (const elem of elems.filter(e => !!e[0].parentNode && !!e[0].isConnected)) {
-            let next = elem.next();
-            next=next.add(next.next());
-            if (next.is('.lichessTools-gameCountBadge')) continue;
-            elem.addClass('lichessTools-gamecount');
-            const formattedCount = this.formatGameCount(item.gameCount);
-            if (formattedCount !== null) {
-              elem.after($('<span>')
-                .addClass('lichessTools-gameCountBadge')
-                .attr('title', trans.pluralSame('gamesPlayedTitle',item.gameCount))
-                .attr('data-ref', $(elem).attr('href'))
-                .text('[' + formattedCount + ']')
-              );
-            }
-          }
+      const operations = [];
+      for (const item of data) {
+        if (item.gameCount === undefined) continue;
+        const elems = dict[item.id];
+        // Only process visible elements still in DOM
+        for (const elem of elems.filter(e => !!e[0].parentNode && !!e[0].isConnected)) {
+          let next = elem.next();
+          next=next.add(next.next());
+          if (next.is('.lichessTools-gameCountBadge')) continue;
+          const formattedCount = this.formatGameCount(item.gameCount);
+          operations.push({elem:elem,cls:'lichessTools-gamecount',afterElem:formattedCount === null
+            ? null
+            : $('<span>')
+              .addClass('lichessTools-gameCountBadge')
+              .attr('title', trans.pluralSame('gamesPlayedTitle',item.gameCount))
+              .attr('data-ref', $(elem).attr('href'))
+              .text('[' + formattedCount + ']')
+          });
         }
-      });
-      this.debouncedProcessGameCounts();
+      }
+      if (operations.length) {
+        lt.global.requestAnimationFrame(()=>{
+          for (const op of operations) {
+            op.elem.addClass(op.cls);
+            op.afterElem?.insertAfter(op.elem); 
+          }
+        });
+      }
+      //this.debouncedProcessGameCounts();
     };
-    debouncedProcessGameCounts = this.lichessTools.debounce(this.processGameCounts, 500, { defer: true });
+    debouncedProcessGameCounts = this.lichessTools.debounce(this.processGameCounts, 500);
 
     // Removes all badges and re-processes
     resetGameCounts = () => {

@@ -51,8 +51,8 @@
       let orig = analysis.node.uci?.slice(2, 4);
       let redraw = false;
       if (firstGlyph?.type && orig) {
+        const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
         lt.global.requestAnimationFrame(()=>{
-          const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
           existing.toggleClassSafe('lichessTools-glyphType-'+firstGlyph.type, true);
         });
       }

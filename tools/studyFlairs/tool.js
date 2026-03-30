@@ -290,7 +290,7 @@
       }
       this.processGeneral();
     };
-    processStudyListDebounced = this.lichessTools.debounce(this.processStudyList, 1000, { defer:true });
+    processStudyListDebounced = this.lichessTools.debounce(this.processStudyList, 1000);
 
     async start() {
       const lt = this.lichessTools;
