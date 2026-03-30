@@ -35,7 +35,7 @@
     ensureShapeRank = () => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
-      this.chessground = analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
+      this.chessground = analysis?.chessground || lt.uiApi.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
       const drawable = this.chessground?.state.drawable;
       if (!drawable || !this.options.enabled) return;
 
@@ -81,7 +81,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess?.analysis;
-      this.chessground = analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
+      this.chessground = analysis?.chessground || lt.uiApi.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
       if (!this.chessground) {
         lt.global.setTimeout(this.waitForChessground, 500);
         return;

@@ -63,7 +63,7 @@
         const d2=cp2-cp1;
         const q = Math.abs(d1-d2)/Math.abs(d1);
         if (q<0.2) {
-          const customSvg = analysis.chessground?.state?.drawable?.autoShapes?.at(0)?.customSvg;
+          const customSvg = (analysis.chessground || lt.uiApi.chessground)?.state?.drawable?.autoShapes?.at(0)?.customSvg;
           let html = customSvg?.html;
           if (html) {
             // keep in sync with https://github.com/lichess-org/lila/blob/1cce0f57a5c91182dba3a8808da081277d6c9c2c/ui/lib/src/game/glyphs.ts#L119
@@ -76,7 +76,7 @@
         }
       }
       // fix overlapping glyphs/motifs
-      const autoShapes = analysis.chessground?.state?.drawable?.autoShapes || [];
+      const autoShapes = (analysis.chessground || lt.uiApi.chessground)?.state?.drawable?.autoShapes || [];
       const groups = [...new Set(autoShapes.map(s=>s.orig))].map(k=>autoShapes.filter(s=>s.orig==k)).filter(g=>g.length>1);
       for (const group of groups) {
         for (let i=0; i<group.length; i++) {
@@ -90,7 +90,7 @@
         }
       }
       if (redraw) {
-        analysis.chessground?.state?.dom?.redrawNow();
+        (analysis.chessground || lt.uiApi.chessground)?.state?.dom?.redrawNow();
         analysis.redraw();
       }
     };
@@ -101,7 +101,7 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       $('body').toggleClassSafe('lichessTools-compOff',!analysis?.showFishnetAnalysis() && !analysis?.cevalEnabled());
-      const chessground = analysis?.chessground;
+      const chessground = analysis?.chessground || lt.uiApi.chessground;
       if (!chessground) return;
       const glyphs = analysis.node.glyphs || (analysis.node.glyphs = []);
       const firstGlyph = glyphs[0];
@@ -205,7 +205,7 @@
       analysis.setAutoShapes = lt.unwrapFunction(analysis.setAutoShapes,'additionalGlyphs');
 
       const clearShapes = ()=>{
-        const chessground = analysis.chessground;
+        const chessground = analysis.chessground || lt.uiApi.chessground;
         if (!chessground) return;
         const autoShapes = chessground.state?.drawable?.autoShapes;
         const shapes = autoShapes?.filter(s => s.type !== 'glyph') || [];
@@ -231,9 +231,9 @@
       });
 
       lt.pubsub.on('lichessTools.redraw', this.drawGlyphs);
-      if (analysis.chessground?.state.drawable) {
+      if ((analysis.chessground || lt.uiApi.chessground)?.state.drawable) {
         this.interval = lt.global.setInterval(() => {
-          const drawable = analysis.chessground?.state.drawable;
+          const drawable = (analysis.chessground || lt.uiApi.chessground)?.state.drawable;
           let same = drawable.autoShapes?.length === this.prevAutoShapes?.length;
           if (same && this.prevAutoShapes?.length) {
             for (let i=0; i<this.prevAutoShapes?.length; i++) {
