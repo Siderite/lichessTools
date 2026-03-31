@@ -2318,12 +2318,13 @@
           const cached = cache.getCached(key);
           return cached?.value;
         },
-        getCrosstableBulk: async function(userPairs) {
+        getCrosstableBulk: async function(userPairs,processCrosstable) {
           const lt = this.lichessTools;
           const result = [];
           for (const [userId1, userId2] of userPairs) {
             const data = await lt.api.user.getCrosstable(userId1,userId2);
             result.push(data);
+            processCrosstable(data);
           }
           return result;
         }
