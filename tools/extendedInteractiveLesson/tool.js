@@ -123,11 +123,12 @@
         const gp = analysis.gamebookPlay();
         const node = analysis.node;
         const nodeComment = (node.comments || [])[0];
-        const state = gp.state || {};
-        state.init = analysis.path === '';
-        state.comment = nodeComment?.text;
-        state.showHint = false;
-        state.isNavigateBack = gp.path?.length > analysis.path?.length && gp.path.startsWith(analysis.path);
+        const state = {
+          init: analysis.path === '',
+          comment: nodeComment?.text,
+          showHint: false,
+          isNavigateBack: gp.path?.length > analysis.path?.length && gp.path.startsWith(analysis.path)
+        };
         gp.path = analysis.path;
 
         $('.lichessTools-extendedInteractiveLesson-info').remove();
@@ -270,6 +271,7 @@
         const lt = this.lichessTools;
         const analysis = lt.lichess.analysis;
         const gp = analysis.gamebookPlay();
+        if (!gp) return;
         if (analysis.path === '') {
           gp.makeState();
         } else {
@@ -691,20 +693,12 @@
         gp.resetStats = this.extendedGamebook.resetStats;
         // stop the original setTimeout gp.next()
         if (!this.originalUserJump) this.originalUserJump = analysis.userJump;
-        if (analysis.node.id === '' && !gp.state.comment /*&& ['good','bad'].includes(gp.state?.feedback)*/) {
-          let hasJumped = false;
-          analysis.userJump = function () { hasJumped = true; };
-          const f = () => {
-            if (hasJumped) {
-              analysis.userJump = this.originalUserJump;
-              if (!gp.state.comment) gp.next();
-            } else {
-              lt.global.setTimeout(f,100);
-            }
-          };
-          f();
-        } else {
-          if (!gp.state.comment) gp.next();
+        if (analysis.node.id === '') {
+          analysis.userJump = function () { };
+          lt.global.setTimeout(() => {
+            analysis.userJump = this.originalUserJump;
+            if (!gp.state.comment) gp.next();
+          }, analysis.path == '' ? 1100 : 400);
         }
       } else if (!this.options.extendedInteractive && gp.isExtendedInteractiveLessons) {
         gp.makeState = lt.unwrapFunction(gp.makeState, 'extendedInteractiveLessons');
@@ -1328,7 +1322,7 @@
         study.instantiateGamebookPlay = lt.wrapFunction(study.instantiateGamebookPlay,{
           id: 'extendedInteractiveLesson',
           after: ($this, result, ...args) => {
-            this.patchGamebook();
+            setTimeout(()=>this.patchGamebook(),100);
           }
         });
       }
