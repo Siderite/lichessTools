@@ -1312,17 +1312,17 @@
       });
       this.analysisControls();
       lt.pubsub.off('lichessTools.redraw', this.alterUI);
-      lt.pubsub.off('lichessTools.chapterChange', this.patchGamebook);
+      //lt.pubsub.off('lichessTools.chapterChange', this.patchGamebook);
       if (this.options.extendedInteractive) {
         lt.pubsub.on('lichessTools.redraw', this.alterUI);
       }
       study.instantiateGamebookPlay = lt.unwrapFunction(study.instantiateGamebookPlay,'extendedInteractiveLesson');
       if (this.options.extendedInteractive || this.options.showFinalScore || this.options.alwaysShowScore) {
-        lt.pubsub.on('lichessTools.chapterChange', this.patchGamebook);
+        //lt.pubsub.on('lichessTools.chapterChange', this.patchGamebook);
         study.instantiateGamebookPlay = lt.wrapFunction(study.instantiateGamebookPlay,{
           id: 'extendedInteractiveLesson',
           after: ($this, result, ...args) => {
-            setTimeout(()=>this.patchGamebook(),100);
+            lt.global.setTimeout(this.patchGamebook,1); // refresh node version has to run
           }
         });
       }
