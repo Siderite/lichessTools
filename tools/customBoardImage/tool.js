@@ -202,7 +202,6 @@ body .is2d cg-board::before {
       const $ = lt.$;
       const value = lt.currentOptions.getValue('customBoardImage');
       this.logOption('Custom board image', value);
-      if (lt.currentOptions?.enableLichessTools === false) return;
       this.options = { customBoardUrl : value };
 
       $('#dasher_app')
@@ -210,6 +209,11 @@ body .is2d cg-board::before {
         .off('.sub.board.d2',this.addCustomBoard);
 
       this.updateBoardImage();
+
+      if (lt.currentOptions?.enableLichessTools === false) {
+        $('.lichessTools-customBoardImage').remove();
+        return;
+      }
       $('#dasher_app')
         .observer()
         .on('.sub.board.d2',this.addCustomBoard);

@@ -566,9 +566,9 @@
         lt.api.user.getCrosstableBulk(Object.keys(this.rows).map(opp=>[myName,opp]),crossTable=> {
           const me = Object.keys(crossTable.users).find(u=>u.toLowerCase()==myName.toLowerCase());
           const user = Object.keys(crossTable.users).find(u=>u!=me);
-          if (!user||!me) continue;
+          if (!user||!me) return;
           const row = this.rows[user.toLowerCase()];
-          if (!row) continue;
+          if (!row) return;
           const winrate=100*crossTable.users[me]/crossTable.nbGames;
           row.find('a[href*="players.b"]').each((i,e)=>{
             $('<span class="lichessTools-crossTable">')

@@ -119,6 +119,7 @@
       $('.ublog-post__meta')
         .observer()
         .off('.ublog-post__like',this.processVisited);
+      $('.lichessTools-visited').remove();
       if (this.options.showVisited) {
         const meta = $('.ublog-post__meta');
         if (meta.length) {

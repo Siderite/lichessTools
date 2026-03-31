@@ -339,7 +339,6 @@
       if (!value && !this.ranStart) {
         return;
       }
-      if (!lt.currentOptions.enableLichessTools) return;
 
       if (value) {
         $(lt.global).on('hashchange', this.applyThemes);
@@ -355,11 +354,13 @@
       await this.applyThemes();
       $('#dasher_app')
         .observer()
-        .on('div',this.addThemesMenu);
+        .off('div',this.addThemesMenu);
+      $('.lichessTools-themesMenu').remove();
       if (themesMenu) {
         $('#dasher_app')
           .observer()
-          .on('div',this.addThemesMenu);
+          .on('div',this.addThemesMenu,{executeDirect:true});
+        this.addThemesMenu();
       }
     }
 

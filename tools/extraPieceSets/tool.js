@@ -197,6 +197,8 @@
               .each((i,e)=>$(e).toggleClassSafe('lichessTools-filteredPieces',!$(e).attr('title').toLowerCase().includes(text)));
           })
           .insertBefore(list);
+        const maxHeight = parseInt(list.css('max-height'));
+        if (maxHeight) list.css('max-height',maxHeight-searchInput.height());
       }
       list.find('button:not(.lichessTools-extraPieceSets)')
         .each((i,e)=>{
@@ -305,7 +307,6 @@
       const $ = lt.$;
       const value = lt.currentOptions.getValue('extraPieceSets');
       this.logOption('Extra piece sets', value);
-      if (lt.currentOptions?.enableLichessTools === false) return;
       this.options = {}
       const categories = this.preferences.find(p=>p.name=='extraPieceSets').possibleValues;
       for (const category of categories) {
@@ -315,6 +316,9 @@
       $('#dasher_app')
         .observer()
         .off('.sub.piece.d2',this.addPieces);
+      $('#dasher_app .sub.piece.d2 .list button.more')
+        .off('click',this.addPieces);
+
       $('style#lichessTools-extraPieceSets,button.lichessTools-extraPieceSets,input.lichessTools-extraPieceSets').remove();
       if (!value) return;
 

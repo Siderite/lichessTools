@@ -509,6 +509,10 @@ body.lichessTools #topnav section .lichessTools-touchFriendsLink:before {
   color: var(--c-link);
 }
 
+body:not(.lichessTools) .lichessTools-crossTable {
+  display:none;
+}
+
 body.lichessTools .lichessTools-crossTable {
   margin-left:1em;
 }
