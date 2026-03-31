@@ -604,7 +604,6 @@
           lt.global.setTimeout(async () => {
             if (!await lt.uiApi.dialog.confirm(trans.noarg('giveUpConfirmation'))) return;
             const gp = lt.lichess.analysis.gamebookPlay();
-            gp.state.feedback = 'end';
             gp.badMoves++;
             gp.redraw();
             gp.state.feedback = undefined;
@@ -620,6 +619,7 @@
       const analysis = lt.lichess.analysis;
       const trans = lt.translator;
       $('div.gamebook .comment .content .lichessTools-score').remove();
+      lt.global.clearTimeout(this._showScoreTimeout);
       const gp = analysis.gamebookPlay();
       if (!gp) return;
       if (this.options.showFinalScore || this.options.alwaysShowScore) {
@@ -637,7 +637,8 @@
           const f = () => {
             const container = $('div.gamebook .comment .content');
             if (!container.length) {
-              lt.global.setTimeout(f, 100);
+              lt.global.clearTimeout(this._showScoreTimeout);
+              this._showScoreTimeout = lt.global.setTimeout(f, 100);
               return;
             }
             container.find('.lichessTools-score').remove();
