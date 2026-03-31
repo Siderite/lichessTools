@@ -190,6 +190,7 @@
           }
         } else if (!nextMoves.length) {
           state.feedback = 'end';
+          state.hint = null;
           this.markPathFinished(analysis.path, gp.goodMoves + (gp.isMyMove() ? 0 : 1), gp.badMoves, gp.askedForSolution);
         } else if (!node.children?.length) {
           // paths don't contain transpositions, but interactive uses them
@@ -618,6 +619,7 @@
       const Math = lt.global.Math;
       const analysis = lt.lichess.analysis;
       const trans = lt.translator;
+      $('div.gamebook .comment .content .lichessTools-score').remove();
       const gp = analysis.gamebookPlay();
       if (!gp) return;
       if (this.options.showFinalScore || this.options.alwaysShowScore) {
@@ -631,7 +633,7 @@
             .addClass('lichessTools-score')
             .addClass('lichessTools-score' + scoreRating)
             .text(scoreText)
-            .attr('title', gp.goodMoves + ' | ' + gp.badMoves);
+            .attr('title', `${gp.goodMoves} ${lt.icon.Checked} | ${gp.badMoves} ${lt.icon.RedX}`);
           const f = () => {
             const container = $('div.gamebook .comment .content');
             if (!container.length) {
@@ -688,7 +690,7 @@
         gp.resetStats = this.extendedGamebook.resetStats;
         // stop the original setTimeout gp.next()
         if (!this.originalUserJump) this.originalUserJump = analysis.userJump;
-        if (analysis.node.id === '' && !gp.state.comment && ['good','bad'].includes(gp.state?.feedback)) {
+        if (analysis.node.id === '' && !gp.state.comment /*&& ['good','bad'].includes(gp.state?.feedback)*/) {
           let hasJumped = false;
           analysis.userJump = function () { hasJumped = true; };
           const f = () => {
@@ -1319,8 +1321,15 @@
       if (this.options.extendedInteractive) {
         lt.pubsub.on('lichessTools.redraw', this.alterUI);
       }
+      study.instantiateGamebookPlay = lt.unwrapFunction(study.instantiateGamebookPlay,'extendedInteractiveLesson');
       if (this.options.extendedInteractive || this.options.showFinalScore || this.options.alwaysShowScore) {
         lt.pubsub.on('lichessTools.chapterChange', this.patchGamebook);
+        study.instantiateGamebookPlay = lt.wrapFunction(study.instantiateGamebookPlay,{
+          id: 'extendedInteractiveLesson',
+          after: ($this, result, ...args) => {
+            this.patchGamebook();
+          }
+        });
       }
       lt.pubsub.off('lichessTools.redraw', this.showScore);
       if (this.options.showFinalScore || this.options.alwaysShowScore) {
