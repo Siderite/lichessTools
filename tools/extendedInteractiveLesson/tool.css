@@ -256,10 +256,14 @@ body.lichessTools.lichessTools-extendedInteractiveLesson div.gamebook .comment.b
   background-color: red;
 }
 
+/* hide study chapter metadata during interactive play */
+/*
 body.lichessTools.lichessTools-extendedInteractiveLesson main.gamebook-play div.study__topics,
 body.lichessTools.lichessTools-extendedInteractiveLesson main.gamebook-play table.study__tags {
   display:none;
 }
+*/
+
 
 body.lichessTools.lichessTools-extendedInteractiveLesson main.gamebook-play .study__metadata > h2 > span.name {
   text-wrap: auto;
