@@ -107,7 +107,12 @@ body.lichessTools .analyse .gamebook button.hint {
   padding-top: 0;
 }
 
+.analyse .gamebook button.hint.data-count::after {
+  display: none;
+}
+
 body.lichessTools .analyse .gamebook button.hint.data-count::after {
+  display: block;
   background: transparent;
   color: var(--c-primary);
   border-radius: 25%;
@@ -118,7 +123,12 @@ body.lichessTools .analyse .gamebook button.hint.data-count[data-count='1']::aft
   display: none;
 }
 
+button.lichessTools-giveUp {
+  display: none;
+}
+
 body.lichessTools .analyse .gamebook button.lichessTools-giveUp {
+  display: block;
   position: absolute;
   z-index: 2;
   right: 1em;
@@ -227,6 +237,14 @@ body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow
 
 body.lichessTools div.study__chapters.lichesstools-extendedInteractiveLessonFlow button[data-id]:not(:hover)>i.act:not(:hover) {
   opacity: 0.3;
+}
+
+.lichessTools-extendedInteractiveLesson-options {
+  display:none;
+}
+
+body.lichessTools .lichessTools-extendedInteractiveLesson-options {
+  display:block;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.lichessTools-extendedInteractiveLesson-options span {

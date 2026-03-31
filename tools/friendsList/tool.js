@@ -563,24 +563,21 @@
       }
       if (!this._opponentsInit && lt.isFavoriteOpponentsPage()) {
         this._opponentsInit = true;
-        lt.api.user.getCrosstableBulk(Object.keys(this.rows).map(opp=>[myName,opp]))
-          .then(crossTables=>{
-             for (const crossTable of crossTables) {
-               const me = Object.keys(crossTable.users).find(u=>u.toLowerCase()==myName.toLowerCase());
-               const user = Object.keys(crossTable.users).find(u=>u!=me);
-               if (!user||!me) continue;
-               const row = this.rows[user.toLowerCase()];
-               if (!row) continue;
-               const winrate=100*crossTable.users[me]/crossTable.nbGames;
-               row.find('a[href*="players.b"]').each((i,e)=>{
-                 $('<span class="lichessTools-crossTable">')
-                   .text('('+crossTable.users[me]+'/'+crossTable.users[user]+')')
-                   .toggleClassSafe('bad',winrate<34 && crossTable.nbGames>1)
-                   .toggleClassSafe('good',winrate>66 && crossTable.nbGames>1)
-                   .insertAfter(e);
-               });
-             }
+        lt.api.user.getCrosstableBulk(Object.keys(this.rows).map(opp=>[myName,opp]),crossTable=> {
+          const me = Object.keys(crossTable.users).find(u=>u.toLowerCase()==myName.toLowerCase());
+          const user = Object.keys(crossTable.users).find(u=>u!=me);
+          if (!user||!me) continue;
+          const row = this.rows[user.toLowerCase()];
+          if (!row) continue;
+          const winrate=100*crossTable.users[me]/crossTable.nbGames;
+          row.find('a[href*="players.b"]').each((i,e)=>{
+            $('<span class="lichessTools-crossTable">')
+              .text('('+crossTable.users[me]+'/'+crossTable.users[user]+')')
+              .toggleClassSafe('bad',winrate<34 && crossTable.nbGames>1)
+              .toggleClassSafe('good',winrate>66 && crossTable.nbGames>1)
+              .insertAfter(e);
           });
+        });
       }
       this.filterFriends();
     };

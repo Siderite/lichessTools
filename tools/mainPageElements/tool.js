@@ -239,6 +239,10 @@
         return;
       }
       let container = countersElem.find('.lichessTools-extraCounters');
+      if (!this.options.extraCounters) {
+        container.remove();
+        return;
+      }
       if (!container.length) {
         container = $('<span class="lichessTools-extraCounters">')
           .append('<span class="total">')
@@ -344,6 +348,9 @@
             .css('grid-template-areas', '');
           $('main.lobby .lichessTools-hideElement')
             .removeClass('lichessTools-hideElement');
+        }
+        if (!$('.lobby__side .lobby__feed').parent().is('main.lobby')) {
+          $('.lobby__side .lobby__feed').appendTo('main.lobby');
         }
         return;
       }

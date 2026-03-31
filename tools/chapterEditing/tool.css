@@ -27,8 +27,11 @@ body.lichessTools dialog.lichessTools-bulkPgnTagsEdit .lichessTools-errorText {
   color: var(--c-mistake);
 }
 
-body.lichessTools .lichessTools-bulkEditButtons {
+body .lichessTools-bulkEditButtons {
   display:none;
+}
+
+body.lichessTools .lichessTools-bulkEditButtons {
   justify-content: space-evenly;
 }
 
@@ -40,8 +43,11 @@ body.lichessTools .lichessTools-bulkEditButtons button[data-act="cancelEditChapt
   background: none;
 }
 
-body.lichessTools .lichessTools-selectChapter {
+body .lichessTools-selectChapter {
   display:none;
+}
+
+body.lichessTools .lichessTools-selectChapter {
   margin-right: 0.5em;
   margin-left: 0.25em;
 }

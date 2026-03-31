@@ -227,6 +227,7 @@
           });
         }
       }
+      if (!this.options.enabled) return;
       if (operations.length) {
         lt.global.requestAnimationFrame(()=>{
           for (const op of operations) {

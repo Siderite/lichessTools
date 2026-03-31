@@ -93,6 +93,10 @@ body.lichessTools .lobby__table:has(.lichessTools-recentGames) .lobby__start .lo
   font-size: 3rem;
 }
 
+.lobby__table .lichessTools-recentGames {
+  display:none;
+}
+
 body.lichessTools .lobby__table .lichessTools-recentGames {
   display: flex;
   flex-direction: column;

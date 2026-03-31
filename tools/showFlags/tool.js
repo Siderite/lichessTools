@@ -224,6 +224,7 @@
           }
         }
       }
+      if (!this.options.enabled) return;
       if (operations.length) {
         lt.global.requestAnimationFrame(()=>{
           for (const op of operations) {
@@ -301,7 +302,7 @@
 
         $('#form3-flag').on('change', this.clearCache);
       } else {
-        $('.lichessTools-flag+img.flag').remove();
+        $('.lichessTools-flag+img.flag,.user-link+img.flag').remove();
         $('.lichessTools-flag').removeClass('lichessTools-flag');
         $('.lichessTools-noflag').removeClass('lichessTools-noflag');
         this.clearCache();
