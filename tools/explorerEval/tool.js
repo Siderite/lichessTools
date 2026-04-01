@@ -73,7 +73,7 @@
       if (lt.isGamePlaying()) return;
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
-          .toggleClassSafe('lichessTools-explorerEval')
+          .addClass('lichessTools-explorerEval')
           .text(lt.icon.BarChart)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
@@ -127,7 +127,7 @@
       }
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
-          .toggleClassSafe('lichessTools-explorerEval')
+          .addClass('lichessTools-explorerEval')
           .text(lt.icon.NorthEastArrowWithHook)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
