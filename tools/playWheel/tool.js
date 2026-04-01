@@ -56,11 +56,12 @@
       const isRound = !!$('main.round,main.puzzle').length;
       if (!isRound) return;
       $('body').off('wheel',this.wheel);
-      this._oldReleasePC |= Element.prototype.releasePointerCapture;
+      this._oldReleasePC ||= Element.prototype.releasePointerCapture;
       if (this.options.enabled) {
+        const self = this;
         Element.prototype.releasePointerCapture = function(pointerId) {
           if (!pointerId) return;
-          return this._oldReleasePC.call(this,pointerId);
+          return self._oldReleasePC.call(this,pointerId);
         };
         $('body').on('wheel',this.wheel);
       }
