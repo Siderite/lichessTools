@@ -146,10 +146,10 @@
         bookmark.collapsed = collapse;
       }
 
-      $(elem).toggleClass('lichessTools-collapsed', collapse);
+      $(elem).toggleClassSafe('lichessTools-collapsed', collapse);
       const elems = this.getMoveElements(elem);
       for (const child of elems) {
-        child.toggleClass('lichessTools-childCollapsed', collapse);
+        child.toggleClassSafe('lichessTools-childCollapsed', collapse);
       }
       if (bookmark) {
         const studyId = lichess.analysis.study.data.id;
@@ -191,7 +191,7 @@
           $(elem).addClass('lichessTools-bookmark');
         }
         $('button', bookmarkElem)
-          .toggleClass('lichessTools-noChildren', !node.children?.length);
+          .toggleClassSafe('lichessTools-noChildren', !node.children?.length);
         $('label', bookmarkElem)
           .text(this.fromBookmarkName(bookmark.label))
           .attr('title', this.fromBookmarkName(bookmark.label));
@@ -203,7 +203,7 @@
       }
     }
 
-    setBookmarks = () => {
+    setBookmarks = (forced) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
@@ -243,7 +243,7 @@
             }
           }
         }
-      }, true);
+      }, forced);
     };
 
     getCollapsed = (label) => {
@@ -284,7 +284,7 @@
           const isEmpty = !Array.from(comment[0].childNodes || [])
                              .filter(n => (n.nodeType == 3) || (n.tagName?.toLowerCase() == 'span'))
                              .find(n => !!n.textContent?.trim());
-          comment.toggleClass('lichessTools-empty', isEmpty);
+          comment.toggleClassSafe('lichessTools-empty', isEmpty);
         } else if (divComment.length) {
           node.textContent = text.replace(r, trans.noarg('bookmarkLabelForInteractive') + this.fromBookmarkName(m[1]));
         }
@@ -672,7 +672,7 @@
     setupCevalToggle = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      $('main.puzzle, main.analyse').toggleClass('lichessTools-fixCevalToggle', this.options.fixCevalToggle);
+      $('main.puzzle, main.analyse').toggleClassSafe('lichessTools-fixCevalToggle', this.options.fixCevalToggle);
     };
 
     addMissingIndexes = () => {

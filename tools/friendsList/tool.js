@@ -243,7 +243,7 @@
       const friends = $('#friend_box a.user-link');
       const text = trans.pluralSame('onlineFriends', this.user_data.online.length);
       menu.text(text);
-      menu.toggleClass('lichessTools-somePlaying', !!this.user_data.playing.length);
+      menu.toggleClassSafe('lichessTools-somePlaying', !!this.user_data.playing.length);
       $('section.lichessTools-onlineFriends > a')
         .attr('data-count', this.user_data.playing.length);
       const items = new Set($('a.user-link', group).get());
@@ -455,8 +455,9 @@
       const enablePlayingAlertTitle = trans.noarg('enablePlayAlert');
       const mutePlayingAlertTitle = trans.noarg('mutePlayAlert');
       const hasAlerts = this.options.friendsPlaying;
-      $('main').addClass('lichessTools-friendsPage');
-      $('main').toggleClass('lichessTools-alerts', hasAlerts);
+      $('main')
+        .addClass('lichessTools-friendsPage')
+        .toggleClass('lichessTools-alerts', hasAlerts);
       this.rows = {};
       const table = $('table.slist div.relation-actions').closest('table');
       $('tr', table).each((i, tr) => {
@@ -514,7 +515,7 @@
         if (lastAt) {
           const time = Date.now()-lt.dateParseUTC(lastAt);
           const inactive = time>1*86400*365.25*1000;
-          row.toggleClass('lichessTools-inactive',inactive);
+          row.toggleClassSafe('lichessTools-inactive',inactive);
         }
       });
       let secondUpdate = false;
@@ -550,16 +551,16 @@
         const row = this.rows[user];
         if (!row) continue;
         const isMuted = mutedPlayers.includes(user);
-        row.toggleClass('lichessTools-muted', isMuted);
+        row.toggleClassSafe('lichessTools-muted', isMuted);
         $('a.lichessTools-mute', row)
           .attr('title', isMuted ? enablePlayingAlertTitle : mutePlayingAlertTitle);
         const isOnline = this.user_data.online.includes(user);
         const isPlaying = this.user_data.playing.includes(user);
-        row.toggleClass('lichessTools-online', isOnline)
-          .toggleClass('lichessTools-playing', isPlaying);
+        row.toggleClassSafe('lichessTools-online', isOnline)
+          .toggleClassSafe('lichessTools-playing', isPlaying);
         $('td:first-child>a', row)
-          .toggleClass('online', isOnline)
-          .toggleClass('offline', !isOnline);
+          .toggleClassSafe('online', isOnline)
+          .toggleClassSafe('offline', !isOnline);
       }
       if (!this._opponentsInit && lt.isFavoriteOpponentsPage()) {
         this._opponentsInit = true;
@@ -926,7 +927,7 @@
       if (this.options.openFriends || (this.options.liveFriendsPage && this.isFriendsPage) || this.options.friendsPlaying) {
         const checkOnlineFriends = () => {
           if (!this.onlinesInterval) return;
-          if (lt.global.document.visibilityState == 'hidden') return;
+          if (lt.global.document.hidden) return;
           this.requestOnlines();
           this.followingOnlinesRequests++;
           if (this.followingOnlinesRequests > 5) {

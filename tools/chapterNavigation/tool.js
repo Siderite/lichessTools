@@ -129,19 +129,19 @@
           : 0;
         $('button[data-act="first"]', container)
           .attr('title', trans.noarg('firstChapterTitle'))
-          .toggleClass('disabled', index == 0);
+          .toggleClassSafe('disabled', index == 0);
         $('button[data-act="prev"]', container)
           .attr('title', trans.noarg('prevChapterTitle'))
-          .toggleClass('disabled', index == 0);
+          .toggleClassSafe('disabled', index == 0);
         $('button[data-act="random"]', container)
           .attr('title', trans.noarg('randomChapterTitle'))
-          .toggleClass('disabled', list.length == 1);
+          .toggleClassSafe('disabled', list.length == 1);
         $('button[data-act="next"]', container)
           .attr('title', trans.noarg('nextChapterTitle'))
-          .toggleClass('disabled', index == list.length - 1);
+          .toggleClassSafe('disabled', index == list.length - 1);
         $('button[data-act="last"]', container)
           .attr('title', trans.noarg('lastChapterTitle'))
-          .toggleClass('disabled', index == list.length - 1);
+          .toggleClassSafe('disabled', index == list.length - 1);
       }
 
       const hasButton = !!$('.feedback.end button.next').length;
@@ -222,7 +222,7 @@
       if (index<0) return;
       const expander = $('.lichessTools-expander',chapterElem);
       const isCollapsed = !expander.is('.collapsed');
-      expander.toggleClass('collapsed',isCollapsed);
+      expander.toggleClassSafe('collapsed',isCollapsed);
       if (isCollapsed) {
         this.collapsedChapters.push(chapterId);
       } else {

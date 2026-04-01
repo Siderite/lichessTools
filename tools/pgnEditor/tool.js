@@ -211,11 +211,11 @@
       if (!this.history) this.history = [];
       const undo = val >= 0;
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="undo"]')
-        .toggleClass('disabled', !undo)
+        .toggleClassSafe('disabled', !undo)
         .prop('disabled', !undo);
       const redo = val + 1 < this.history.length;
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="redo"]')
-        .toggleClass('disabled', !redo)
+        .toggleClassSafe('disabled', !redo)
         .prop('disabled', !redo);
       lt.storage.set('LichessTools.pgnEditor.historyIndex', this.historyIndex, { session: true });
     };
@@ -758,10 +758,10 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const lt = this.lichessTools;
       const $ = lt.$;
       $('dialog.lichessTools-pgnEditor button:not([data-role="cancel"])')
-        .toggleClass('disabled', !!value)
+        .toggleClassSafe('disabled', !!value)
         .prop('disabled', !!value);
       $('dialog.lichessTools-pgnEditor button[data-role="cancel"]')
-        .toggleClass('disabled', !value)
+        .toggleClassSafe('disabled', !value)
         .prop('disabled', !value);
     };
 

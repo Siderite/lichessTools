@@ -603,7 +603,7 @@
 
     requestWakeLock = async () => {
       const lt = this.lichessTools;
-      if (lt.global.document.visibilityState !== 'visible') return;
+      if (lt.global.document.hidden) return;
       if (this.wakelock?.released === false) return;
       try {
         this.wakelock = await lt.global.navigator.wakeLock?.request('screen');

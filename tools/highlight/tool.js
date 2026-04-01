@@ -43,24 +43,36 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
-      const toHighlight = [];
+      const toHighlight = new Set();
+      const toInvert = new Set();
       if (this.options.lastMove && this.state?.lastMoves?.length) {
         const orientation = analysis.getOrientation() == 'white' ? 0 : 1;
         for (const node of this.state.lastMoves) {
           const elem = lt.getElementForNode(node);
           if (!elem) continue;
           const inverted = (node.ply%2 == 0) != orientation;
-          toHighlight.push([elem,inverted]);
+          toHighlight.add(elem);
+          if (inverted) toInvert.add(elem);
         }
       }
-      $('div.analyse__moves move.lichessTools-lastInLine')
-        .filter((i, e) => !toHighlight.find(arr=>arr[0]==e))
-        .toggleClassSafe('lichessTools-lastInLine',false);
-      for (const [elem,inverted] of toHighlight) {
-        $(elem)
-          .toggleClassSafe('lichessTools-lastInLine',true)
-          .toggleClassSafe('inverted',inverted);
-      }
+      const toRemoveLIL = [];
+      const toRemoveInv = [];
+        $('div.analyse__moves move.lichessTools-lastInLine')
+          .each((i,e)=>{
+            if (!toHighlight.has(e)) {
+              toRemoveLIL.push(e);
+              return;
+            }
+            if (!toInvert.has(e)) {
+              toRemoveInv.push(e);
+            }
+          });
+      lt.requestAF(()=>{
+        $(toRemoveLIL).removeClass('lichessTools-lastInLine');
+        $(toRemoveInv).removeClass('inverted');
+        $([...toHighlight]).addClass('lichessTools-lastInLine');
+        $([...toInvert]).addClass('inverted');
+      },'highlightLastMoves');
     };
 
     highlightChecks = () => {
@@ -74,12 +86,13 @@
           toHighlight.push(elem);
         }
       }
-      $('div.analyse__moves move.lichessTools-inCheck')
-        .filter((i, e) => !toHighlight.includes(e))
-        .toggleClassSafe('lichessTools-inCheck',false);
-      for (const elem of toHighlight) {
-        $(elem).toggleClassSafe('lichessTools-inCheck',true);
-      }
+      const toRemove = $('div.analyse__moves move.lichessTools-inCheck')
+        .filter((i, e) => !toHighlight.includes(e));
+      const toAdd = $(toHighlight);
+      lt.requestAF(()=>{
+        toRemove.removeClass('lichessTools-inCheck');
+        toAdd.addClass('lichessTools-inCheck');
+      },'highlightChecks');
     };
 
     highlightUncommented = () => {
@@ -95,12 +108,13 @@
           toHighlight.push(elem);
         }
       }
-      $('div.analyse__moves move.lichessTools-uncommented')
-         .filter((i, e) => !toHighlight.includes(e))
-         .toggleClassSafe('lichessTools-uncommented',false);
-      for (const elem of toHighlight) {
-        $(elem).toggleClassSafe('lichessTools-uncommented',true);
-      }
+      const toRemove = $('div.analyse__moves move.lichessTools-uncommented')
+         .filter((i, e) => !toHighlight.includes(e));
+      const toAdd = $(toHighlight);
+      lt.requestAF(()=>{
+        toRemove.removeClass('lichessTools-uncommented');
+        toAdd.addClass('lichessTools-uncommented');
+      },'highlightUncommented');
     };
 
     highlightCurrentLine = () => {
@@ -111,12 +125,13 @@
       const nodeList = analysis.tree.getNodeList(analysis.contextMenuPath || analysis.path);
       const toHighlight = nodeList.map(n=>lt.getElementForNode(n));
 
-      $('div.analyse__moves move.lichessTools-currentLine')
-         .filter((i, e) => !toHighlight.includes(e))
-         .toggleClassSafe('lichessTools-currentLine',false);
-      for (const elem of toHighlight) {
-        $(elem).toggleClassSafe('lichessTools-currentLine',true);
-      }
+      const toRemove = $('div.analyse__moves move.lichessTools-currentLine')
+         .filter((i, e) => !toHighlight.includes(e));
+      const toAdd = $(toHighlight);
+      lt.requestAF(()=>{
+        toRemove.removeClass('lichessTools-currentLine');
+        toAdd.addClass('lichessTools-currentLine');
+      },'highlightCurrentLine');
     };
 
 
@@ -142,12 +157,13 @@
           }
         }
       }
-      $('div.analyse__moves move.lichessTools-transposition')
-        .filter((i, e) => !toHighlight.includes(e))
-        .toggleClassSafe('lichessTools-transposition',false);
-      for (const elem of toHighlight) {
-        $(elem).toggleClassSafe('lichessTools-transposition',true);
-      }
+      const toRemove = $('div.analyse__moves move.lichessTools-transposition')
+        .filter((i, e) => !toHighlight.includes(e));
+      const toAdd = $(toHighlight);
+      lt.requestAF(()=>{
+        toRemove.removeClass('lichessTools-transposition');
+        toAdd.addClass('lichessTools-transposition');
+      },'highlightTranspositions');
     };
 
     highlightMainLine = () => {
@@ -157,7 +173,7 @@
       if (!analysis) return;
       const onMainline = analysis.node == analysis.mainline[analysis.node.ply];
       const $ = lt.$;
-      $.cached('body').toggleClass('lichessTools-notOnMainline', !onMainline);
+      $.cached('body').toggleClassSafe('lichessTools-notOnMainline', !onMainline);
     };
 
     highlightMainLinePieces = () => {
@@ -183,10 +199,20 @@
           }
         }
         if (squares.length) {
+          const toRemove = [];
+          const toAdd = [];
           $('div.main-board cg-board piece').each((i, e) => {
             const notOnMainline = squares.includes(e.cgKey);
-            $(e).toggleClass('lichessTools-notOnMainline', notOnMainline);
+            if (notOnMainline) {
+              if ($(e).is('.lichessTools-notOnMainline')) toRemove.push(e);
+            } else {
+              if (!$(e).is('.lichessTools-notOnMainline')) toAdd.push(e);
+            }
           });
+          lt.requestAF(()=>{
+            toRemove.removeClass('lichessTools-notOnMainline');
+            toAdd.addClass('lichessTools-notOnMainline');
+          },'highlightMainLinePieces');
         }
       }
     };
@@ -218,24 +244,19 @@
           depth++;
         }
       }
-      $('div.tview2 move').each((i, e) => {
-        e = $(e);
-        const path = e.attr('p');
-        if (!path) return;
-        const cls = dict[path];
-        if (!cls) {
-          //lt.global.console.warn('Could not find variation depth for node with path:',path);
-        } else {
-          ['vdm1', 'vdm2', 'vdm3', 'vdm4', 'vdm5', 'vdm6', 'vdm7', 'vd1', 'vd2', 'vd3', 'vd4', 'vd5', 'vd6', 'vd7']
-            .forEach(c => {
-              if (cls.includes(c)) {
-                if (!e.is('.' + c)) e.addClass(c);
-              } else {
-                if (e.is('.' + c)) e.removeClass(c);
-              }
-            });
-        }
-      });
+      lt.requestAF(()=>{
+        $('div.tview2 move').each((i, e) => {
+          const path = e.getAttribute('p');
+          if (!path) return;
+          const cls = dict[path];
+          if (cls) {
+            ['vdm1', 'vdm2', 'vdm3', 'vdm4', 'vdm5', 'vdm6', 'vdm7', 'vd1', 'vd2', 'vd3', 'vd4', 'vd5', 'vd6', 'vd7']
+              .forEach(c => {
+                e.classList.toggle(c,cls.includes(c));
+              });
+          }
+        });
+      },'highlightVariationDepth');
     };
 
     traverseTree = () => {

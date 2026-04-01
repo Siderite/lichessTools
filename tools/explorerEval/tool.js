@@ -73,7 +73,7 @@
       if (lt.isGamePlaying()) return;
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
-          .toggleClass('lichessTools-explorerEval')
+          .toggleClassSafe('lichessTools-explorerEval')
           .text(lt.icon.BarChart)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
@@ -127,7 +127,7 @@
       }
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
-          .toggleClass('lichessTools-explorerEval')
+          .toggleClassSafe('lichessTools-explorerEval')
           .text(lt.icon.NorthEastArrowWithHook)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
@@ -545,9 +545,9 @@
           lt.arrayRemoveAll(result.moves, m=>m.depth<12);
         }
       }
-      lt.global.requestAnimationFrame(()=>{
+      lt.requestAF(()=>{
         this.showEvaluations(result);
-      });
+      },'explorerEval_showEvaluations');
     };
     doEvaluationDebounced = this.lichessTools.debounce(this.doEvaluation, 100);
 

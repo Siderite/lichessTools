@@ -885,7 +885,7 @@
       const $ = lt.$;
       const gamebookEdit = $('div.gamebook-edit');
       this._collapsed = !this._collapsed;
-      gamebookEdit.toggleClass('lichessTools-collapsed', this._collapsed);
+      gamebookEdit.toggleClassSafe('lichessTools-collapsed', this._collapsed);
     };
 
     alterUI = () => {

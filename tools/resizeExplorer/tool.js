@@ -37,12 +37,12 @@
         explorerBox.css({ minHeight: '', maxHeight: '' });
         return;
       }
-      lt.global.requestAnimationFrame(() => {
+      lt.requestAF(() => {
         explorerBox.css({
           maxHeight: h,
           minHeight: h
         });
-      });
+      },'resizeExplorer');
     };
 
     dragover = (ev) => {

@@ -424,6 +424,18 @@
       return min + (max - min) / (1 + Math.exp(-x / k));
     }
 
+    rafIds=new Map();
+    requestAF = (func,id) => {
+      if (!id) throw new Error('You need to specify an id in requestAF!');
+      let rafId = this.rafIds.get(id);
+      if (rafId!==undefined) this.global.cancelAnimationFrame(rafId);
+      rafId = this.global.requestAnimationFrame(()=>{
+        func();
+        this.rafIds.delete(rafId);
+      });
+      this.rafIds.set(id,rafId);
+    };
+
     isWrappedFunction(func, id) {
       if (!func) return false;
       if (!id || func.__wrapId === id) {
@@ -792,10 +804,14 @@
       value: true
     };
     isTreeviewVisible = (forced) => {
+      const $ = this.$;
+      const document = this.global.document;
       const now = Date.now();
       if (forced || now - this.treeviewVisibleCache.time > 100) {
-        this.treeviewVisibleCache.value = (this.$('div.tview2').length > 0);
-        this.treeviewVisibleCache.time = now;
+        this.treeviewVisibleCache={
+          time: now,
+          value: !!document.querySelector('div.tview2')
+        };
       }
       return this.treeviewVisibleCache.value;
     };
@@ -811,7 +827,7 @@
       if ('length' in element) element = element[0];
       if (!element) return 0;
       if (this.global.document.readyState != 'complete') return 1;
-      if (this.global.document.visibilityState == 'hidden') return 0;
+      if (this.global.document.hidden) return 0;
       if (!element.isConnected) return 0;
 
       if (!forced) return 1; // this is too expensive

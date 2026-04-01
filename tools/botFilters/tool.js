@@ -64,7 +64,7 @@
                                                   ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
                                                   : showUnrated);
             });
-          $(e).toggleClass('filteredOut',!found.length);
+          $(e).toggleClassSafe('filteredOut',!found.length);
         });
       this.refreshAllTypesButton();
     };

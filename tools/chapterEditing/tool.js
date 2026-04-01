@@ -260,22 +260,24 @@
       const $ = lt.$;
       $('.lichessTools-selectChapter').prop('checked',false);
       this.inBulkEdit = false;
-      this.refreshChapterControls();
+      this.refreshChapterEditControls();
     };
 
-    refreshChapterControls = () => {
+    refreshChapterEditControls = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
       const study = lt.lichess.analysis?.study;
       if (!study) return;
-      $('.study__chapters').toggleClassSafe('lichessTools-bulkEdit',!!this.options.bulk && !!this.inBulkEdit);
+      const chaptersElem = $('.study__chapters');
+      if (!chaptersElem.length) return;
+      chaptersElem.toggleClassSafe('lichessTools-bulkEdit',!!this.options.bulk && !!this.inBulkEdit);
       if (this.options.bulk) {
 
-        let container = $('.lichessTools-bulkEditButtons');
+        let container = $('div.lichessTools-bulkEditButtons');
         if (!container.length) {
           container = $('<div class="lichessTools-bulkEditButtons">')
-                        .insertBefore('.study__chapters');
+                        .insertBefore(chaptersElem);
           $('<button type="button" data-act="editChapters" class="button text">')
             .text(trans.noarg('editChaptersButtonText'))
             .attr('title',trans.noarg('editChaptersButtonTitle'))
@@ -296,8 +298,9 @@
             .appendTo(container);
         }
 
-        $('.study__chapters button[data-id]').each((i,e)=>{
+        chaptersElem.find('button[data-id]').each((i,e)=>{
           if (e.__initChapterEditing) return;
+          e.__initChapterEditing=true;
 
           $('<input type="checkbox" class="lichessTools-selectChapter">')
             .on('click',ev=>{
@@ -307,16 +310,15 @@
 
           $(e).on('contextmenu',(ev)=>{
               this.inBulkEdit = true;
-              this.refreshChapterControls();
+              this.refreshChapterEditControls();
               $('.lichessTools-selectChapter',e).prop('checked',true);
               ev.preventDefault();
             });
 
-          e.__initChapterEditing=true;
         });
       }
     };
-    debouncedRefreshChapterControls = this.lichessTools.debounce(this.refreshChapterControls, 100);
+    debouncedRefreshChapterEditControls = this.lichessTools.debounce(this.refreshChapterEditControls, 100);
 
 
     async start() {
@@ -338,11 +340,11 @@
       if (!study) return;
       this.setupExtraControls();
 
-      lt.pubsub.off('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
-      lt.pubsub.off('lichessTools.redraw', this.debouncedRefreshChapterControls);
-      lt.uiApi.events.off('chat.resize', this.debouncedRefreshChapterControls);
+      lt.pubsub.off('lichessTools.chapterChange', this.debouncedRefreshChapterEditControls);
+      lt.pubsub.off('lichessTools.redraw', this.debouncedRefreshChapterEditControls);
+      lt.uiApi.events.off('chat.resize', this.debouncedRefreshChapterEditControls);
       $('.study__chapters').observer()
-        .off('button[data-id]',this.debouncedRefreshChapterControls);
+        .off('button[data-id]',this.debouncedRefreshChapterEditControls);
       $('div.study__side.lichessTools-chapterControls,aside.relay-tour__side.lichessTools-chapterControls')
         .removeClass('lichessTools-chapterControls')
         .find('div[role="footer"]')
@@ -370,12 +372,12 @@
             }
           }
         });
-        lt.pubsub.on('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
-        lt.pubsub.on('lichessTools.redraw', this.debouncedRefreshChapterControls);
-        lt.uiApi.events.on('chat.resize', this.debouncedRefreshChapterControls);
+        lt.pubsub.on('lichessTools.chapterChange', this.debouncedRefreshChapterEditControls);
+        lt.pubsub.on('lichessTools.redraw', this.debouncedRefreshChapterEditControls);
+        lt.uiApi.events.on('chat.resize', this.debouncedRefreshChapterEditControls);
         $('.study__chapters').observer()
-          .on('button[data-id], button[data-id] h3',this.debouncedRefreshChapterControls);
-        this.refreshChapterControls();
+          .on('button[data-id], button[data-id] h3',this.debouncedRefreshChapterEditControls);
+        this.refreshChapterEditControls();
       }
     }
 

@@ -229,12 +229,12 @@
       }
       if (!this.options.enabled) return;
       if (operations.length) {
-        lt.global.requestAnimationFrame(()=>{
+        lt.requestAF(()=>{
           for (const op of operations) {
             op.elem.addClass(op.cls);
             op.afterElem?.insertAfter(op.elem); 
           }
-        });
+        },'showGameCount');
       }
       //this.debouncedProcessGameCounts();
     };

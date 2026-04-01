@@ -184,8 +184,8 @@
       const chat = $('section.mchat');
       const chatInput = $('input.mchat__say', chat);
       this.editMode = mode;
-      chat.toggleClass('lichessTools-editButtons', this.editMode == 'edit');
-      chat.toggleClass('lichessTools-deleteButtons', this.editMode == 'delete');
+      chat.toggleClassSafe('lichessTools-editButtons', this.editMode == 'edit');
+      chat.toggleClassSafe('lichessTools-deleteButtons', this.editMode == 'delete');
       if (!this.oldPlaceholder) this.oldPlaceholder = chatInput.attr('placeholder');
       if (this.editMode == 'edit') {
         chatInput.attr('placeholder', trans.noarg('editButtonsPlaceholder'));
@@ -270,7 +270,7 @@
         chatInput.on('change keyup paste', () => {
           const chatText = chatInput.val();
           const m = this.getButtonRegex().exec(chatText);
-          addButton.toggleClass('lichessTools-disabled', !m || !m[1]);
+          addButton.toggleClassSafe('lichessTools-disabled', !m || !m[1]);
         })
         chatInput.trigger('change');
       }

@@ -181,7 +181,7 @@
           if (e.bigEmojied) return;
           e.bigEmojied = true;
           const text = $(e).text().replace(/[\uFE00-\uFE0F\u200D\s]/g, '');
-          $(e).toggleClass('lichessTools-bigEmoji', [...text].length <= 5 && /^\p{Extended_Pictographic}+$/u.test(text) );
+          $(e).toggleClassSafe('lichessTools-bigEmoji', [...text].length <= 5 && /^\p{Extended_Pictographic}+$/u.test(text) );
         });
       }
       if (this.options.refreshOnMessage) {

@@ -70,14 +70,10 @@
           text = $('<div>').html(html).text();
         }
       }
-      lt.global.requestAnimationFrame(async ()=>{
+      lt.requestAF(async ()=>{
         const title = $('.explorer-box .data div.title');
-        if (text) { 
-          title.attrSafe('title',text);
-        } else {
-          title.removeAttrSafe('title');
-        }
-      });
+        title.attrSafe('title',text || null);
+      },'wikiFen');
     };
 
     updateOpeningWiki = async ()=>{

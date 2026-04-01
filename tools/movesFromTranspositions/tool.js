@@ -27,7 +27,7 @@
       }
     }
 
-    findTranspositions = () => {
+    findTranspositionsDirect = () => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
       const lichess = lt.lichess;
@@ -131,6 +131,7 @@
           }
       };
     };
+    findTranspositions = lichessTools.debounce(this.findTranspositionsDirect,100);
 
     async start() {
       const lt = this.lichessTools;

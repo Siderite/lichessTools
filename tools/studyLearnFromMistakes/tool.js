@@ -97,15 +97,17 @@
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
-      lt.global.clearInterval(this.interval);
+      //lt.global.clearInterval(this.interval);
       lt.pubsub.off('lichessTools.chapterChange', this.closeRetro);
+      lt.pubsub.off('lichessTools.redraw', this.handleButton);
       if (!value) {
         $('div.advice-summary a.button').remove();
         this.closeRetro();
         return;
       }
-      this.interval = lt.global.setInterval(this.handleButton, 1000);
+      //this.interval = lt.global.setInterval(this.handleButton, 1000);
       lt.pubsub.on('lichessTools.chapterChange', this.closeRetro);
+      lt.pubsub.on('lichessTools.redraw', this.handleButton);
     }
 
   }

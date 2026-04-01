@@ -110,16 +110,22 @@ cash.fn.removeAttrSafe = function(attr) {
 }
 
 cash.fn.toggleClassSafe = function(className, value) {
-  if (value === undefined && this.length>2)  {
-    throw new Error('Cannot use toggleClassSafe with undefined value for multiple elements');
+  if (value === undefined)  {
+    throw new Error('Cannot use toggleClassSafe with undefined value');
   }
-  this.each((i,e)=>{
-    const existing = cash(e).hasClass(className);
-    if (value === undefined) value = !existing;
-    if (existing !== value) {
-      cash(e).toggleClass(className, value);
-    }
-  });
+  const cls = className.split(/\s+/);
+  const isFunction = typeof value == 'function';
+  const f =()=>{
+    this.each((i,e)=>{
+      const v = isFunction ? value(e) : !!value;
+      cls.forEach(c=>e.classList.toggle(c,v));
+    });
+  };
+  if (this.length>100) {
+    requestAnimationFrame(f);
+  } else {
+    f();
+  }
   return this;
 }
 

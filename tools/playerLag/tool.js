@@ -69,7 +69,7 @@
     refreshPlayers = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      if (lt.global.document.visibilityState !== 'visible') return;
+      if (lt.global.document.hidden) return;
       if (!this.isPlayingGame()) return;
       const userId = lt.getUserId();
       $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')

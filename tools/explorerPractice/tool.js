@@ -92,7 +92,7 @@
         .css({ left: coords.x * q, top: (7 - coords.y) * q })
         .find('span')
         .text(playerName);
-      label.toggleClass('black', turn == 'black')
+      label.toggleClassSafe('black', turn == 'black')
     };
 
     removePlayerName = () => {
@@ -299,7 +299,7 @@
       if (!analysis.explorer?.enabled()) {
         this.setRunning(false);
       }
-      button.toggleClass('active', !!this.isRunning);
+      button.toggleClassSafe('active', !!this.isRunning);
 
       let hideButton = $('section.explorer-box .lichessTools-hideExplorerMovesButton');
       if (!hideButton.length) {

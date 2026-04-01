@@ -72,7 +72,7 @@
                   const isActive = $(e).attr('href')==href;
                   if (isActive) {
                     const s = (e.scrollIntoViewIfNeeded || e.scrollIntoView).bind(e);
-                    s && requestAnimationFrame(s);
+                    s && lt.requestAF(s,'TOCscroll');
                   }
                   $(e).toggleClassSafe('active',isActive);
                 });
