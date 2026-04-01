@@ -32,6 +32,12 @@
       return !!removed.length;
     };
 
+    shouldNotBeRanked = (shape)=>{
+      const circles = shape.customSvg?.html?.matchAll(/circle/g);
+      const isGooglyHorsey = circles && [...circles].length==6;
+      return !isGooglyHorsey;
+    };
+
     ensureShapeRank = () => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
@@ -53,7 +59,7 @@
               const dict = {}
               const drawnShapes = [];
               let rank = 0;
-              for (const shape of shapes) {
+              for (const shape of shapes.filter(tool.shouldNotBeRanked)) {
                 if (dict[shape.orig]) continue;
                 rank++;
                 const rankShape = {
