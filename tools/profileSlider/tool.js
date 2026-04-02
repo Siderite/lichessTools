@@ -73,7 +73,7 @@
       }
       $(uiSlider.target)
         .toggleClassSafe('lichessTools-moreToTheLeft', uiSlider.options.range.min > this.rangeStart)
-        .toggleClassSage('lichessTools-moreToTheRight', uiSlider.options.range.max < this.rangeEnd);
+        .toggleClassSafe('lichessTools-moreToTheRight', uiSlider.options.range.max < this.rangeEnd);
     };
 
     restoreFullRange = (ev) => {
