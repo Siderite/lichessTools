@@ -1215,7 +1215,7 @@
       const translation = this.allGlyphs.get(glyph.id);
       if (translation) {
         const html = translation+'<br/>'+trans.noarg('continueFromHere');
-        const text = $('<div>').html(html).text();
+        const text = lt.htmlDecode(html);
         if (el.text()!=text) {
           el
             .html(html)

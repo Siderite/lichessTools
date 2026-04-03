@@ -67,7 +67,7 @@
         const pos = lt.getPositionFromFen(fen);
         const html = await this.getWikiHtml(pos);
         if (html) {
-          text = $('<div>').html(html).text();
+          text = lt.htmlDecode(html);
         }
       }
       lt.requestAF(async ()=>{
