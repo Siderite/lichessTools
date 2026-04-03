@@ -580,7 +580,11 @@
           ev.preventDefault();
           if (!await lt.uiApi.dialog.confirm(trans.noarg('minimalButtonWarning'))) return;
           const options = await lt.getOptions();
-          const keys = lt.tools.map(t => t.preferences).flat().filter(p => p && (!p.hidden || p.offValue !== undefined)).map(p => ({ key: p.name, offValue: p.offValue || false }));
+          const keys = lt.tools
+            .map(t => t.preferences)
+            .flat()
+            .filter(p => p && (!p.hidden || p.offValue !== undefined))
+            .map(p => ({ key: p.name, offValue: p.offValue || false }));
           for (const { key, offValue } of keys) options[key] = offValue;
           await lt.applyOptions(options);
           lt.fireReloadOptions();

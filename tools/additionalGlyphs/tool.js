@@ -85,7 +85,10 @@
           const m = /matrix\(.4 0 0 .4 (?<x>\d+) -12\)/.exec(shape.customSvg?.html);
           const expected = 71-28*i;
           if (m && +m.groups.x != expected) {
-            shape.customSvg.html = shape.customSvg.html.substr(0,m.index)+`matrix(.4 0 0 .4 ${expected} -12)`+shape.customSvg.html.substr(m.index+m[0].length);
+            shape.customSvg.html = shape.customSvg.html.replace(
+              m[0],
+              `matrix(.4 0 0 .4 ${expected} -12)`
+            );
             redraw = true;
           }
         }

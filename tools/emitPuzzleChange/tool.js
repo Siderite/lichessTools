@@ -9,10 +9,11 @@
         this.puzzleId = puzzleId;
         lt.pubsub.emit('lichessTools.puzzleStart', puzzleId);
       }
-      if (records?.find(r=>r.addedNodes && Array.from(r.addedNodes).find(n=>$(n).is('.puzzle__feedback.after')))) {
+      const addedNodes = $(records?.flatMap(r=>Array.from(r.addedNodes)));
+      if (addedNodes.is('.puzzle__feedback.after')) {
         lt.pubsub.emit('lichessTools.puzzleEnd', puzzleId);
       }
-      if (records?.find(r=>r.addedNodes && Array.from(r.addedNodes).find(n=>$(n).is('.puzzle__feedback.fail')))) {
+      if (addedNodes.is('.puzzle__feedback.fail')) {
         lt.pubsub.emit('lichessTools.puzzleFail', puzzleId);
       }
     };
