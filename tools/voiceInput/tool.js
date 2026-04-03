@@ -165,7 +165,7 @@
               let transcript = "";
 
               for (let i = ev.resultIndex; i < ev.results.length; i++) {
-                transcript += event.results[i][0].transcript;
+                transcript += ev.results[i][0].transcript;
               }
 
               this.transcript = transcript;
