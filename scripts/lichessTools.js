@@ -1262,9 +1262,12 @@
       return fen?.startsWith('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
     };
 
+    fenToBoard = new LiChessTools.MaxSizedMap(10000);
     getBoardFromFen = fen => {
       if (!fen) return null;
-      const result = [];
+      let result = this.fenToBoard.get(fen);
+      if (result) return result.map(r => r.slice()); //clone
+      result = [];
       for (let i = 0; i < 8; i++) result.push(Array(8));
       const splits = fen.split(' ');
       fen = splits[0];
@@ -1292,6 +1295,8 @@
         }
         x += (+ch);
       }
+      result.fen = fen;
+      this.fenToBoard.set(fen,result);
       return result;
     };
 
@@ -3230,6 +3235,38 @@
       return result;
     }
   }
+
+  class MaxSizedMap extends Map {
+    constructor(...args) {
+      const maxSize = +args.at(-1);
+      if (!maxSize) throw new Error('No size was specified');
+      super(...args.slice(0,-1));
+      this._maxSize = maxSize;
+    }
+
+    set(key, value) {
+      const result = super.set(key, value);
+      if (this.size >= this._maxSize) {
+        this._halveSize();
+      }
+      return result;
+    }
+
+    _halveSize() {
+      const keys = Array.from(this.keys());
+      for (let i = keys.length - 1; i > 0; i--) {
+        const j = Math.floor(this.random() * (i + 1));
+        [keys[i], keys[j]] = [keys[j], keys[i]];
+      }
+
+      const half = Math.floor((this._maxSize+1) / 2);
+      for (let i = 0; i < half; i++) {
+        this.delete(keys[i]);
+      }
+    }
+  }
+
+  LiChessTools.MaxSizedMap = MaxSizedMap;
 
   LiChessTools.Tools = {
     ToolBase: ToolBase

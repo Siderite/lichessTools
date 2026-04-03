@@ -457,7 +457,7 @@
       return underAttack;
     };
 
-    tensionCache = new Map();
+    tensionCache = new LiChessTools.MaxSizedMap(10000);
     tension = node => {
       const fen = node.fen;
       let result = this.tensionCache.get(fen);
@@ -473,14 +473,15 @@
       }
       result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))].map(i => i.split('=')[1].toLowerCase()).reduce((acc, val) => this.pieceMaterial[val] + acc, 0);
       this.tensionCache.set(fen,result);
-      const half = 10000;
-      if (this.tensionCache.size>half*2) {
-        lt.arrayShuffle([...m.keys()]).slice(0,half).forEach(k=>this.tensionCache.delete(k));
-      }
       return result;
     };
 
+    capturingMoveCache = new LiChessTools.MaxSizedMap(10000);
     getAllCapturingMoves = (board) => {
+      const lt = this.lichessTools;
+      const fen = lt.getFenFromBoard(board);
+      let result = this.capturingMoveCache.get(fen);
+      if (result) return result;
       const underAttack = [];
       for (let y = 0; y < 8; y++) {
         for (let x = 0; x < 8; x++) {
@@ -488,6 +489,7 @@
           underAttack.push.apply(underAttack, ua);
         }
       }
+      this.capturingMoveCache.set(fen,result);
       return underAttack;
     };
 
@@ -2422,9 +2424,12 @@
   MOVE_CAP = 3; // treat up to 3 moves as their real cost
   ISOLATED_PENALTY = 5; // anything >MOVE_CAP or unreachable => this penalty
 
+  fenToBoardCache = new LiChessTools.MaxSizedMap(10000);
   parseFEN(fen) {
+    let board = this.fenToBoardCache.get(fen);
+    if (board) return board.map(r => r.slice()); // clone
     const rows = fen.split(" ")[0].split("/");
-    const board = Array.from({ length: 8 }, () => Array(8).fill(null));
+    board = Array.from({ length: 8 }, () => Array(8).fill(null));
     for (let r = 0; r < 8; r++) {
       let c = 0;
       for (const ch of rows[r]) {
@@ -2439,6 +2444,7 @@
         }
       }
     }
+    this.fenToBoardCache.set(fen,board);
     return board;
   }
 
