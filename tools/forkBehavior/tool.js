@@ -124,10 +124,13 @@
           htmlText: selectElem[0].outerHTML + '<span class="dialog-actions"><button class="button submit">' + trans.noarg('OK') + '</button></span>'
         });
       }
-      $('dialog.lichessTools-forkBehavior-chessbase').remove();
+      $('dialog.lichessTools-forkBehavior-chessbase')
+        .each((i,e)=>e.close())
+        .remove();
       dlg.showModal();
       let f;
       f=()=>{
+        dlg.close();
         dlg.remove();
         lt.uiApi.events.off('ply',f);
       };
