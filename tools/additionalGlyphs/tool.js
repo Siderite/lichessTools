@@ -189,7 +189,7 @@
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('additionalGlyphs');
-      this.logOption('Aditional glyphs', value);
+      this.logOption('Additional glyphs', value);
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
