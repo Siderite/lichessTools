@@ -457,7 +457,11 @@
       return underAttack;
     };
 
+    tensionCache = new Map();
     tension = node => {
+      const fen = node.fen;
+      let result = this.tensionCache.get(fen);
+      if (result) return result;
       const lt = this.lichessTools;
       const board = lt.getBoardFromFen(node.fen);
       const underAttack = [];
@@ -467,7 +471,12 @@
           underAttack.push.apply(underAttack, ua);
         }
       }
-      const result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))].map(i => i.split('=')[1].toLowerCase()).reduce((acc, val) => this.pieceMaterial[val] + acc, 0);
+      result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))].map(i => i.split('=')[1].toLowerCase()).reduce((acc, val) => this.pieceMaterial[val] + acc, 0);
+      this.tensionCache.set(fen,result);
+      const half = 10000;
+      if (this.tensionCache.size>half*2) {
+        lt.arrayShuffle([...m.keys()]).slice(0,half).forEach(k=>this.tensionCache.delete(k));
+      }
       return result;
     };
 
