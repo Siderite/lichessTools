@@ -2734,7 +2734,8 @@
         }
         if (tool.dependencies) {
           for (const name of tool.dependencies) {
-            if (!this.tools[toolClass.name]) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not loaded');
+            const toolName = LiChessTools.Tools[name]?.name;
+            if (!toolName || !this.tools[toolName]) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not loaded');
           }
         }
       } catch (e) {
@@ -3005,7 +3006,7 @@
       const db = await this.dbConnect(dbInfo);
       const store = db.transaction([dbInfo.storeName],'readonly').objectStore(dbInfo.storeName);
       const result = store.get(dbInfo.itemName);
-      return await this.actionPromise(result);
+      return await this.actionPromise(result,true);
     }
 
     async setItem(key, value) {
@@ -3013,7 +3014,7 @@
       const db = await this.dbConnect(dbInfo);
       const store = db.transaction([dbInfo.storeName],'readwrite').objectStore(dbInfo.storeName);
       const result = store.put(value, dbInfo.itemName);
-      return await this.actionPromise(result);
+      return await this.actionPromise(result,true);
     }
 
     async removeItem(key) {
@@ -3021,7 +3022,7 @@
       const db = await this.dbConnect(dbInfo);
       const store = db.transaction([dbInfo.storeName],'readwrite').objectStore(dbInfo.storeName);
       const result = store.delete(dbInfo.itemName);
-      return await this.actionPromise(result);
+      return await this.actionPromise(result,true);
     }
 
     async clearStore(key) {
@@ -3029,7 +3030,7 @@
       const db = await this.dbConnect(dbInfo);
       const store = db.transaction([dbInfo.storeName],'readwrite').objectStore(dbInfo.storeName);
       const result = store.clear();
-      return await this.actionPromise(result);
+      return await this.actionPromise(result,true);
     }
 
     getDbInfo(key) {
@@ -3070,7 +3071,10 @@
           } else {
             Promise.all(deletions)
               .then(() => resolve({ length: deletions.length }))
-              .catch(reject);
+              .catch(reject)
+              .finally(()=>{
+                db.close();
+              });
           }
         };
 
@@ -3083,7 +3087,6 @@
     async upgradeDbWithIndex(dbInfo, fieldName) {
       return new Promise((resolve, reject) => {
         const request = indexedDB.open(dbInfo.dbName, dbInfo.version + 1);
-
         request.onupgradeneeded = (event) => {
           const db = event.target.result;
           const txn = event.target.transaction;
@@ -3101,15 +3104,25 @@
       });
     }
 
-    actionPromise(res) {
+    actionPromise(res,closeAtEnd) {
       return new Promise((resolve, reject) => {
-        res.onsuccess = (e) => resolve(e.target.result);
+        res.onsuccess = (e) => {
+          if (closeAtEnd) {
+            const db = e.target.transaction?.db;
+            db?.close();
+          }
+          resolve(e.target.result);
+        };
         res.onerror = (e) => {
           if (e.target.error.name === "QuotaExceededError") {
             globalThis.console.warn("Storage limit reached!");
           }
+          if (closeAtEnd) {
+            const db = e.target.transaction?.db;
+            db?.close();
+          }
           reject(e.target.error);
-        }
+        };
       });
     }
 
