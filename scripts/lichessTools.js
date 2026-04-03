@@ -591,16 +591,18 @@
 
     htmlEncode = (text) => {
       const document = this.global.document;
-      return document.createElement('a')
+      return document.createElement('div')
         .appendChild(document.createTextNode(text))
         .parentNode.innerHTML;
     };
 
     htmlDecode = (html) => {
-      const document = this.global.document;
-      const e = document.createElement('a');
-      e.innerHTML = html;
-      return e.textContent;
+      if (!html) return '';
+      const doc = this.global.document;
+      return new DOMParser()
+        .parseFromString(html, "text/html")
+        .documentElement
+        .textContent;
     };
 
     async getMemorySize() {
@@ -610,32 +612,35 @@
     debounce(fn, wait) {
       let timeout = null;
       let isRunning = false;
-      const c = () => {
-        this.global.clearTimeout(timeout);
-        timeout = null;
-      };
-      const t = (f) => {
-        timeout = this.global.setTimeout(f, wait);
-      };
-      return function () {
+      const self = this;
+
+      return function() {
         const context = this;
         const args = arguments;
-        const f = function () {
-          if (isRunning) {
-            t(f);
-            return;
-          };
+
+        const execute = () => {
+          if (isRunning) return;
+
           isRunning = true;
-          const result = fn.apply(context, args);
-          if (result?.then) {
-            result.then(() => isRunning = false);
-          } else {
+          timeout = null;
+
+          try {
+            const result = fn.apply(context, args);
+
+            if (result?.finally) {
+              result.finally(() => isRunning = false);
+            } else {
+              isRunning = false;
+            }
+          } catch (err) {
             isRunning = false;
+            throw err;
           }
         };
-        timeout
-          ? c() || t(f)
-          : t(f);
+
+        const { clearTimeout, setTimeout } = self.global;
+        clearTimeout(timeout);
+        timeout = setTimeout(execute, wait);
       };
     }
 
