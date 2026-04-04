@@ -994,14 +994,13 @@
       }];
       while (nodes.length) {
         let { node, path } = { ...nodes.shift() };
-        if (!forced && !this.isTreeviewVisible()) return;
         if (!node) continue;
         path = (path || '') + node.id;
         node.path = path;
         node.nodeIndex = state.nodeIndex;
         state.nodeIndex++;
         if (node.comp) node.ltComp = true;
-        if (!node.ltComp) {
+        if (!node.ltComp && (forced || this.isTreeviewVisible())) {
           node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
           node.lt_position = this.getNodePosition(node);
           let pos = state.positions[node.lt_position];
