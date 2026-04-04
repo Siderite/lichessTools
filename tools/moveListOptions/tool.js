@@ -191,8 +191,8 @@
         $('button', bookmarkElem)
           .toggleClassSafe('lichessTools-noChildren', !node.children?.length);
         $('label', bookmarkElem)
-          .text(this.fromBookmarkName(bookmark.label))
-          .attr('title', this.fromBookmarkName(bookmark.label));
+          .textSafe(this.fromBookmarkName(bookmark.label))
+          .attrSafe('title', this.fromBookmarkName(bookmark.label));
         this.collapseMove(elem, !!bookmark.collapsed);
       } else {
         this.collapseMove(elem, false);
@@ -219,19 +219,24 @@
             break;
           }
         }
+        let changed = false;
         if (bookmark) {
           if (node.bookmark) {
             if (node.bookmark.label != bookmark) {
               node.bookmark.label = bookmark;
+              changed = true;
             }
           } else {
             node.bookmark = {
               label: bookmark,
               collapsed: node.children?.length && this.getCollapsed(bookmark)
             };
+            changed = true;
           }
-          const elem = lt.getElementForNode(node);
-          this.setBookmark(elem, node, node.bookmark);
+          if (changed) {
+            const elem = lt.getElementForNode(node);
+            this.setBookmark(elem, node, node.bookmark);
+          }
         } else {
           if (node.bookmark) {
             node.bookmark = null;

@@ -108,9 +108,10 @@
       if (lt.global.document.readyState != 'complete') return;
       const $ = lt.$;
       const element = $('.main-board cg-board')[0];
-      if (element!=this.board) {
-        this.board = element;
+      if (element!==this.board) {
+        lt.global.console.debug('Resetting board element');
         if (this.cleanup) this.cleanup();
+        this.board = element;
         if (element) {
           this.cleanup = this.monitorElement(element,this.fireResize);
         }

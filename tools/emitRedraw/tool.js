@@ -58,17 +58,18 @@
         });
       }
 
-      let emit = null;
+      let emitDirect = null;
       let emitTimeout = null;
-      emit = () => {
+      emitDirect = () => {
         if (lt.global.document.hidden) {
           lt.global.clearTimeout(emitTimeout);
-          emitTimeout = lt.global.setTimeout(emitTimeout, 250);
+          emitTimeout = lt.global.setTimeout(emitDirect, 250);
           return;
         }
         lt.debug && lt.global.console.debug('redraw');
         lt.pubsub.emit('lichessTools.redraw');
       };
+      const emit = lt.debounce(emitDirect,10); 
       lt.emitRedraw = emit;
       this.analysisStart();
       if (lt.uiApi) {

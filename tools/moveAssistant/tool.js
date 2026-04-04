@@ -666,10 +666,13 @@
           .on('contextmenu', ev => {
             ev.preventDefault();
             popup.toggleClassSafe('open',true);
+            const f = (e) => {
+              if (popup[0].contains(e.target)) return;
+              popup.toggleClassSafe('open',false);
+              lt.global.document.removeEventListener("click", f , { capture: true });
+            };
+            lt.global.document.addEventListener("click", f , { capture: true });
           });
-        lt.global.document.addEventListener("click", e => {
-          if (!popup[0].contains(e.target)) popup.toggleClassSafe('open',false);
-        }, { capture: true });
         $('<button type="button">')
           .text(trans.noarg('moveAssistant.dests'))
           .attr('data-icon',lt.icon.SquareFourCorners)

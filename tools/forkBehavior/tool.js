@@ -104,7 +104,7 @@
         let index = 0;
         for (const move of nextMoves) {
           $('<option>')
-            .attr('value', move.uci+' '+move.path)
+            .attr('value', move.uci+' '+(move.path||''))
             .attr('fen', move.fen)
             .text(this.getMoveText(move, false))
             .appendTo(container);
@@ -130,9 +130,9 @@
       dlg.showModal();
       let f;
       f=()=>{
-        dlg.close();
-        dlg.remove();
         lt.uiApi.events.off('ply',f);
+        dlg.close();
+        lt.global.requestAnimationFrame(()=>dlg.remove());
       };
       lt.uiApi.events.on('ply',f);
       $('<a class="lichessTools-infoIcon">')
@@ -230,7 +230,7 @@
           e.selectedIndex = selectedIndex;
         }
         if (lt.global.document.activeElement != e) {
-          lt.global.requestAnimationFrame(()=>e.focus());
+          lt.global.setTimeout(()=>e.focus(),1);
         }
         e.addEventListener('keydown', keyHandler, { capture: true });
       });

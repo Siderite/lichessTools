@@ -627,6 +627,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       if (!lichess || !lt.uiApi) return;
+      const isMobile = lt.isMobile() || lt.isTouchDevice();
       const mobileExperience = lt.currentOptions.getValue('mobileExperience');
       const mobileExperienceRound = lt.currentOptions.getValue('mobileExperienceRound');
       const colorCount = lt.currentOptions.getValue('colorCount');
@@ -683,9 +684,9 @@
       const isRoundPlay = !!$('main.round').length;
       const isRoundPuzzle = !!$('main.puzzle').length;
       const isTv = /\/tv\b/i.test(lt.global.location.pathname);
-      if (isRoundPlay || isRoundPuzzle) {
+      if (isMobile && (isRoundPlay || isRoundPuzzle)) {
         const lockBoardElem = $('#top div.site-buttons div.lichessTools-lockBoard');
-        if (lt.isMobile() && $.cached('body').is('playing') && ((this.options.lockBoardPlay && isRoundPlay) || (this.options.lockBoardPuzzle && isRoundPuzzle)) ) {
+        if ($.cached('body').is('playing') && ((this.options.lockBoardPlay && isRoundPlay) || (this.options.lockBoardPuzzle && isRoundPuzzle)) ) {
           $.cached('body').toggleClassSafe('lichessTools-lockBoard',true);
           if (this.isBoardLocked === undefined) {
             this.isBoardLocked = lt.storage.get('LiChessTools.boardLocked');
@@ -709,9 +710,8 @@
           $.cached('body').toggleClassSafe('lichessTools-lockBoard',false);
           lockBoardElem.remove();
         }
-      }
 
-      if (isRoundPlay || isRoundPuzzle) {
+
         lt.uiApi.events.off('ply', this.clearShapes);
         $('body').off('mouseup',this.clearTooltipShow);
         $('main div.cg-wrap:not(.lichessTools-boardOverlay)').off('click', this.clearShapes);
@@ -727,12 +727,14 @@
       if ((analysis && this.options.shapeDrawing)
           ||
           ((isRoundPlay || isRoundPuzzle) && this.options.shapeDrawingRound)) {
-        body.addEventListener('pointerup',this.clearTooltipShow, { capture: true });
+        if (isMobile) {
+          body.addEventListener('pointerup',this.clearTooltipShow, { capture: true });
+        }
       }
 
       lt.pubsub.off('lichessTools.redraw',this.handleWakeLock);
       lt.pubsub.off('lichessTools.puzzleStart',this.handleWakeLock);
-      if (this.options.wakeLockPuzzle && this.isTrainingPage()) {
+      if (isMobile && this.options.wakeLockPuzzle && this.isTrainingPage()) {
         lt.pubsub.on('lichessTools.redraw',this.handleWakeLock);
         lt.pubsub.on('lichessTools.puzzleStart',this.handleWakeLock);
         await this.handleWakeLock();
@@ -742,7 +744,7 @@
         this.wakelock=null;
       }
 
-      if (this.options.wakelockTv && this.isTvPage()) {
+      if (isMobile && this.options.wakelockTv && this.isTvPage()) {
         this.requestWakeLock();
       } else {
         lt.global.clearTimeout(this.wakeLockTimeout);

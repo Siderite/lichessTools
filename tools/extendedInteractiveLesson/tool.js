@@ -899,7 +899,7 @@
 
       $.cached('body').toggleClassSafe('lichessTools-extendedInteractiveLesson', this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
       let translation = trans.noarg('extendedInteractiveLessonLong')
-      $('button.preview').attr('title', translation); //.attr('data-label',translation);
+      $('button.preview').attrSafe('title', translation); //.attr('data-label',translation);
 
       if (this.options.returnToPreview) {
         $('button.retry, button.fbt.text.back').each((i, e) => {
@@ -917,7 +917,7 @@
       const gamebookEdit = $('div.gamebook-edit');
       const header = $('.lichessTools-gamebookHeader', gamebookEdit);
       if (!this.options.extendedInteractive) {
-        gamebookEdit.removeClass('lichessTools-collapsed');
+        gamebookEdit.toggleClassSafe('lichessTools-collapsed',false);
         header.remove();
         return;
       }
@@ -933,25 +933,27 @@
 
       const menu = $('#analyse-cm');
       const isWritableStudy = analysis?.study?.isWriting();
-      if (isWritableStudy && menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addDeviation"]').length) {
-        const text = trans.noarg('addDeviationText');
-        const title = trans.noarg('addDeviationTitle');
-        $('<a>')
-          .attr('data-icon', lt.icon.NotAllowed)
-          .attr('data-role', 'addDeviation')
-          .text(text).attr('title', title)
-          .on('click', this.addDeviation)
-          .appendTo(menu);
-      }
-      if (isWritableStudy && menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addHint"]').length) {
-        const text = trans.noarg('addHintText');
-        const title = trans.noarg('addHintTitle');
-        $('<a>')
-          .attr('data-icon', lt.icon.InfoCircle)
-          .attr('data-role', 'addHint')
-          .text(text).attr('title', title)
-          .on('click', this.addHint)
-          .appendTo(menu);
+      if (isWritableStudy && menu.length && analysis?.study?.data?.chapter?.gamebook) {
+        if (!menu.has('a[data-role="addDeviation"]').length) {
+          const text = trans.noarg('addDeviationText');
+          const title = trans.noarg('addDeviationTitle');
+          $('<a>')
+            .attr('data-icon', lt.icon.NotAllowed)
+            .attr('data-role', 'addDeviation')
+            .text(text).attr('title', title)
+            .on('click', this.addDeviation)
+            .appendTo(menu);
+        }
+        if (!menu.has('a[data-role="addHint"]').length) {
+          const text = trans.noarg('addHintText');
+          const title = trans.noarg('addHintTitle');
+          $('<a>')
+            .attr('data-icon', lt.icon.InfoCircle)
+            .attr('data-role', 'addHint')
+            .text(text).attr('title', title)
+            .on('click', this.addHint)
+            .appendTo(menu);
+        }
       }
 
       if (!analysis.study?.practice) {
@@ -981,7 +983,7 @@
             optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.negativeHint'));
           }
         }
-        optionsElem.find('span').text(optionsArr.join(', '));
+        optionsElem.find('span').textSafe(optionsArr.join(', '));
       }
     };
 
