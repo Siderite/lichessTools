@@ -231,7 +231,7 @@
       while (nodes.length) {
         const node = nodes.shift();
         if (!lt.isTreeviewVisible()) break;
-        if (!node || node?.comp) {
+        if (!node || node?.comp || node?.ltComp) {
           continue;
         }
         lt.assertPathSet(node);

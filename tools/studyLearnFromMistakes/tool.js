@@ -44,10 +44,17 @@
       if (!firstNode.eval) firstNode.eval = { cp: 20 };
       analysis.mainline.forEach(n => {
         if (!n.children?.length) return;
-        const comment = n.children.flatMap(ch => ch.comments || []).find(c => c.by == 'lichess')?.text;
-        if (!comment) return;
-        const compChild = n.children.find(ch => comment.includes(ch.san));
-        if (compChild) compChild.comp = true;
+        lt.assertPathSet(n);
+        let compChild = n.comp || n.ltComp;
+        if (!compChild) {
+          const comment = n.children.flatMap(ch => ch.comments || []).find(c => c.by == 'lichess')?.text;
+          if (!comment) return;
+          compChild = n.children.find(ch => comment.includes(ch.san));
+        }
+        if (compChild) {
+          compChild.comp = true;
+          compChild.ltComp = true;
+        }
       });
       analysis.toggleRetro();
       lt.analysisRedraw();

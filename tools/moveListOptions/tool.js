@@ -102,26 +102,26 @@
       let next = $(elem).next();
       if (next.is('move.empty')) next = next.next();
       if (next.is('comment')) {
-        list.push(next);
+        list.push(next[0]);
         next = next.next();
       }
       if (next.is('lines')) {
-        list.push(next);
+        list.push(next[0]);
         return list;
       }
       if (next.is('interrupt')) {
         if (isMainline) {
           const child = next.children().eq(0);
           if (child.is('comment')) {
-            list.push(child);
+            list.push(child[0]);
           }
         } else {
-          list.push(next);
+          list.push(next[0]);
         }
         next = next.next();
       }
       while (next.length) {
-        list.push(next);
+        list.push(next[0]);
         next = next.next();
       }
       return list;
@@ -148,9 +148,7 @@
 
       $(elem).toggleClassSafe('lichessTools-collapsed', collapse);
       const elems = this.getMoveElements(elem);
-      for (const child of elems) {
-        child.toggleClassSafe('lichessTools-childCollapsed', collapse);
-      }
+      $(elems).toggleClassSafe('lichessTools-childCollapsed', collapse);
       if (bookmark) {
         const studyId = lichess.analysis.study.data.id;
         if (!this.bookmarks) {

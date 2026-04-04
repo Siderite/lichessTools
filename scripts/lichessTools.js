@@ -987,9 +987,7 @@
         nodeIndex: +(snode?.nodeIndex) || 0
       };
       lt.traverseState = state;
-      if (!snode || snode.comp) {
-        return state;
-      }
+      if (!snode) return;
       const nodes = [{
         node: snode,
         path: ''
@@ -997,46 +995,48 @@
       while (nodes.length) {
         let { node, path } = { ...nodes.shift() };
         if (!forced && !this.isTreeviewVisible()) return;
-        if (!node || node.comp) {
-          continue;
-        }
+        if (!node) continue;
         path = (path || '') + node.id;
         node.path = path;
         node.nodeIndex = state.nodeIndex;
         state.nodeIndex++;
+        if (node.comp) node.ltComp = true;
+        if (!node.ltComp) {
+          node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
+          node.lt_position = this.getNodePosition(node);
+          let pos = state.positions[node.lt_position];
+          if (!pos) {
+            pos = [];
+            state.positions[node.lt_position] = pos;
+          }
+          pos.push(node);
+          if (pos.length > 1) {
+            for (const transpoNode of pos) {
+              transpoNode.transposition = pos;
+            }
+          } else {
+            node.transposition = null;
+          }
+          if (node.glyphs) {
+            for (const glyph of node.glyphs) {
+              const arr = state.glyphs[glyph.symbol] || [];
+              arr.push(node);
+              state.glyphs[glyph.symbol] = arr;
+            }
+          }
+          if (this.isLastInLine(node)) {
+            state.lastMoves.push(node);
+          }
+          if (this.isCheck(node)) {
+            state.checks.push(node);
+          }
+        }
 
-        node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
-        node.lt_position = this.getNodePosition(node);
-        let pos = state.positions[node.lt_position];
-        if (!pos) {
-          pos = [];
-          state.positions[node.lt_position] = pos;
-        }
-        pos.push(node);
-        if (pos.length > 1) {
-          for (const transpoNode of pos) {
-            transpoNode.transposition = pos;
-          }
-        } else {
-          node.transposition = null;
-        }
-        if (node.glyphs) {
-          for (const glyph of node.glyphs) {
-            const arr = state.glyphs[glyph.symbol] || [];
-            arr.push(node);
-            state.glyphs[glyph.symbol] = arr;
-          }
-        }
-        if (this.isLastInLine(node)) {
-          state.lastMoves.push(node);
-        }
-        if (this.isCheck(node)) {
-          state.checks.push(node);
-        }
         if (func) func(node, state);
         let first = true;
         for (const child of node.children) {
           child.depth = first ? node.depth : node.depth + 1;
+          child.ltComp = node.ltComp;
           first = false;
           nodes.push({ node: child, path: path });
         }
