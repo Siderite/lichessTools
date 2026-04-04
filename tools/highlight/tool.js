@@ -142,7 +142,7 @@
       const toHighlight = [];
       if (this.options.transposition) {
         const currentNode = lichess.analysis.node;
-        if (currentNode.path === undefined) return;
+        lt.assertPathSet(currentNode);
         let transpositions = currentNode.transposition;
         if (lt.transpositionBehavior?.excludeSameLine) {
           transpositions = transpositions?.filter(n => n === currentNode || (n.path && !n.path.startsWith(currentNode.path) && !currentNode.path.startsWith(n.path)));
@@ -234,6 +234,7 @@
         if (!node || node?.comp) {
           continue;
         }
+        lt.assertPathSet(node);
         if (node.path) {
           dict[node.path] = 'vd' + (Math.min(7, node.variationDepth + 1)) + ' vdm' + (node.variationDepth % 7 + 1);
         }

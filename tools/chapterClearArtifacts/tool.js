@@ -63,7 +63,7 @@
       const study = analysis.study;
       if (!study) return;
       if (!node) node = analysis.tree.root;
-      if (node.path === undefined) return;
+      lt.assertPathSet(node);
       if (!chapterId) chapterId = study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       for (const comment of node.comments || []) {

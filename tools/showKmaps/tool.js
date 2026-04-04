@@ -728,7 +728,7 @@
       };
   
       if (type === 'p') {
-        if (control) throw 'Should not use control=true for pawns';
+        if (control) throw new Error('Should not use control=true for pawns');
         const dir = isWhite ? -1 : 1;
         const startRank = isWhite ? 6 : 1;
         // Forward move

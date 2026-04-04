@@ -139,7 +139,7 @@
           this._lastClick = 0;
           // enforce singleton pattern
           if (DragDropTouch._instance) {
-            throw 'DragDropTouch instance already created.';
+            throw new Error('DragDropTouch instance already created.');
           }
           // detect passive event support
           // https://github.com/Modernizr/Modernizr/issues/1894

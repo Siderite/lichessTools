@@ -902,7 +902,7 @@
       }
 
       // Check for Discovered Attack
-      if (!prevNode) throw 'Need previous position';
+      if (!prevNode) throw new Error('Need previous position');
       const prevBoard = lt.getBoardFromFen(prevNode.fen);
       const fromX = 104 - uci.charCodeAt(0);
       const fromY = uci.charCodeAt(1) - 49;

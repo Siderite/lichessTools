@@ -960,7 +960,10 @@
 
     assertPathSet(node) {
       if (!node) return;
-      if (node.path === undefined) throw 'Path for node ' + node.ply + ' ' + node.id + '( ' + node.san + ') not set!';
+      if (node.path === undefined) {
+        this.traverse();
+      }
+      if (node.path === undefined) throw new Error('Path for node ' + node.ply + ' ' + node.id + '( ' + node.san + ') not set!');
     }
 
     getElementForNode(node) {
@@ -1104,7 +1107,7 @@
         color = side;
       }
       const node = this.findGlyphNode(color, symbols);
-      if (!node?.path) return;
+      this.assertPathSet(node);
       analysis.userJumpIfCan(node.path);
       this.analysisRedraw();
     };

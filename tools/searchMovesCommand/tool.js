@@ -179,7 +179,8 @@
 
         const traverse = (node, ply = 0) => {
           const fen = node.fen;
-          if ((node.path||node.path==="") && !set.has(node.path)) {
+          lt.assertPathSet(node);
+          if (!set.has(node.path)) {
             const board = lt.getBoardFromFen(fen);
             const structure = getStructure(board,false);
             for (const key of [structure, getOpposingStructure(structure)]) {

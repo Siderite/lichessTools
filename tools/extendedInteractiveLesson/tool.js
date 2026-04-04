@@ -296,7 +296,10 @@
             gp.currentPath = this.getCurrentPath();
             if (!gp.currentPath) return;
             const childPath = gp.currentPath.slice(0, analysis.path.length + 2);
-            if (childPath.length == analysis.path.length + 2) child = analysis.tree.nodeAtPath(childPath);
+            if (childPath.length == analysis.path.length + 2) {
+              child = analysis.tree.nodeAtPath(childPath);
+              child.path = childPath;
+            }
           } else {
             child = lt.getRandomVariation(analysis.node, gp.threeFoldRepetition);
           }

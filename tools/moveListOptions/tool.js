@@ -411,6 +411,7 @@
       if (!path) return;
       const node = analysis.tree.nodeAtPath(path);
       if (!node) return;
+      if (node.path === undefined) node.path = path;
       const elem = lt.getElementForNode(node);
       if (!elem) return;
       const oldLabel = this.fromBookmarkName(node.bookmark?.label) || '';
@@ -492,7 +493,7 @@
       const label = node?.bookmark?.label;
       if (!label) return;
       const parentChapterId = study.currentChapter()?.id;
-      if (!parentChapterId) throw 'Cannot find chapter id!';
+      if (!parentChapterId) throw new Error('Cannot find chapter id!');
       if (!await lt.uiApi.dialog.confirm(trans.noarg(deleteMoves ? 'bookmarkSplitConfirmationDeleteText' : 'bookmarkSplitConfirmationText'))) return;
       const setup = study.data?.chapter?.setup;
       study.chapters.newForm.submit({
