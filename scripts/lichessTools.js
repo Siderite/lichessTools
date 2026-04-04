@@ -1106,6 +1106,7 @@
         color = side;
       }
       const node = this.findGlyphNode(color, symbols);
+      if (!node) return;
       this.assertPathSet(node);
       analysis.userJumpIfCan(node.path);
       this.analysisRedraw();
