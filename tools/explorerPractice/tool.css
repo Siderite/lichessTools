@@ -61,7 +61,7 @@ body.lichessTools button.lichessTools-hideExplorerMovesButton {
   border:none;
   border-radius: 5px;
   background: var(--c-bg-zebra2);
-  padding: 0.5em;
+  padding: 0.4em;
   opacity: 0.5;
 }
 
@@ -72,6 +72,10 @@ body.lichessTools section.explorer-box:hover button.lichessTools-hideExplorerMov
 
 body.lichessTools section.explorer-box:has(.lichessTools-explorerPractice.active) button.lichessTools-hideExplorerMovesButton {
   display:block;
+}
+
+body.lichessTools section.explorer-box:has(.lichessTools-explorerPractice.active) tr.sum td:first-child {
+  padding-left: 2em;
 }
 
 /* Prettier Lichess CSS */
