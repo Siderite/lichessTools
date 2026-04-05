@@ -1,7 +1,6 @@
-html:has(body.lichessTools dialog.lichessTools-obsSetup) {
+html:has(body.lichessTools > dialog.lichessTools-obsSetup) {
   overflow-y: hidden;
 }
-
 
 body.lichessTools nav.relay-tour__tabs span.lichessTools-obsSetup {
   border-radius: 5px;

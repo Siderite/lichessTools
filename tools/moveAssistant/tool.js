@@ -237,10 +237,11 @@
           if (json == this._lastJson) return;
         }
         json ||= lt.global.JSON.stringify([...squareMap]);
+        const isInit = !this._lastJson;
         this._lastJson = json;
         this._lastSize = squareMap.size;
         this._lastFen = analysis.node.fen;
-        return true;
+        return !isInit;
       };
 
       const checkShapes = ()=>{
@@ -252,10 +253,11 @@
           if (json == this._lastShapeJson) return;
         }
         json ||= lt.global.JSON.stringify(shapes);
+        const isInit = !this._lastShapeJson;
         this._lastShapeJson = json;
         this._lastShapeSize = shapes.length;
         this._lastShapeFen = analysis.node.fen;
-        return true;
+        return !isInit;
       };
 
       if (checkSquares() || checkShapes()) {

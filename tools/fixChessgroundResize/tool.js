@@ -86,12 +86,12 @@
         $('html').css('--board-size', boardSize);
         $('body')
           .toggleClassSafe('lichessTools-hasBoardSize', true);
-        fireEvent = true;
+        fireEvent = !!prevSize;
       }
       if (!fireEvent && ev?.type=='position') {
         const position = JSON.stringify(container.offset());
         if (position != this._prevPos) {
-          fireEvent = true;
+          fireEvent = !!this._prevPos;
           this._prevPos = position;
         }
       }
