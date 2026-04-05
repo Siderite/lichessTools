@@ -199,6 +199,8 @@
         if (newClassName != className) {
           body.attr('class',newClassName);
         }
+
+        this.toggleFlairX();
       } finally {
         this._inApplyThemes = false;
       }
@@ -317,13 +319,38 @@
 
     addFirstInteractionClass = (ev) => {
       const lt = this.lichessTools;
+      const document = lt.global.document;
+      const navigator = lt.global.navigator;
 
       if (!ev.isTrusted) return;
-      if (lt.global?.navigator?.userActivation && !lt.global.navigator.userActivation.hasBeenActive) return;
+      if (navigator?.userActivation && !navigator.userActivation.hasBeenActive) return;
 
       const $ = lt.$;
       $('body').addClass('lichessTools-userInteraction');
       $(document).off('click keydown touchstart pointerdown',this.addFirstInteractionClass);
+    };
+
+    flairEnter = (e) => {
+      const flairClass = "lichessTools-flair-ancestor";
+
+      if (e.target.nodeType===1 && !e.target.matches("img.uflair")) return;
+      let el = e.target.parentElement;
+      let depth = 0;
+      while (el && el !== document.documentElement && depth < 3) {
+        el.classList.add(flairClass);
+        el = el.parentElement;
+        depth++;
+      }
+    };
+
+    toggleFlairX = () => {
+      const lt = this.lichessTools;
+      const document = lt.global.document;
+      document.removeEventListener("pointerenter",this.flairEnter , true);
+      const enabled = this.themes.includes('flairX');
+      if (enabled) {
+        document.addEventListener("pointerenter",this.flairEnter , true);
+      }
     };
 
     async start() {

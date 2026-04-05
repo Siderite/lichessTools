@@ -79,7 +79,9 @@
             this._shapes = shapes;
           }
         });
-        this.chessground?.redrawAll();
+        if (drawable.shapes?.length) {
+          this.chessground?.redrawAll();
+        }
       }
     };
 
