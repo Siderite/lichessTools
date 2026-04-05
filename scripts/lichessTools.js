@@ -2767,7 +2767,8 @@
       for (const tool of this.tools) {
         if (!tool?.init) continue;
         try {
-          await tool.init().catch(e => { setTimeout(() => { throw e; }, 100); });
+          // init all tools at the same time, don't await
+          tool.init().catch(e => { setTimeout(() => { throw e; }, 100); });
         } catch (e) {
           setTimeout(() => { throw e; }, 100);
         }
