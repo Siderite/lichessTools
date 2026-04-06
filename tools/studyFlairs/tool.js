@@ -135,7 +135,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
-      $('div.study__topics a.topic, nav.page-menu__menu a[href^="/study/topic/flair."]:not(:has(span)), nav.page-menu__menu a[href^="/study/topic/flair."] > span, .topic-list a[href^="/study/topic/flair."]').each((i, e) => {
+      $.cached('div.study__topics a.topic, nav.page-menu__menu a[href^="/study/topic/flair."]:not(:has(span)), nav.page-menu__menu a[href^="/study/topic/flair."] > span, .topic-list a[href^="/study/topic/flair."]',2000).each((i, e) => {
         const m = /^flair\.([^\)]+)/.exec($(e).text());
         if (m) {
           const url = lichess.asset.flairSrc(m[1]);

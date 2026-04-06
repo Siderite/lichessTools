@@ -1354,6 +1354,7 @@
       if (!forced && lt.random() > 0.9) forced = true; // hack to sometimes update this anyway
 
       if (!lichess.analysis) return;
+
       const currentBrilliant = [this.options.brilliant, this.options.moreBrilliant].join(',');
       if (!forced && this.prevBrilliant != currentBrilliant) {
         this.prevBrilliant = currentBrilliant;
@@ -1375,8 +1376,10 @@
           return;
         }
       }
-      let container = $('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
+
       let chart = this._chart;
+
+      let container = $.cached('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready',3000);
       if (!chart) {
         const serverEval = lichess.analysis.study?.serverEval;
         chart = serverEval?.requested && serverEval?.chart;
@@ -1426,6 +1429,7 @@
           this.setChart(chart);
         }
       }
+
       if (!chart) return;
       if (chart.options.onClick != this.chartClick) {
         chart.options.onClick = this.chartClick;
