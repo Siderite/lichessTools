@@ -36,12 +36,15 @@
       lt.global.clearInterval(this.interval);
       this.interval = lt.global.setInterval(()=>{
         if (!$('#chessvision-videos-root').length) return;
-        $('.study__buttons span.share').each((i,e)=>{
+        $('.study__buttons button.share').each((i,e)=>{
           if (e.__dispatchPatch) return;
           e.__dispatchPatch = true;
           e.dispatchEvent = ()=> {
             const fen = lt.lichess.analysis?.node?.fen
-            let input = $('.study__share .form-label').filter((i,e)=>$(e).text()=='FEN').next().find('input');
+            let input = $('.study__share .form-label')
+                          .filter((i,e)=>$(e).text()=='FEN')
+                          .next()
+                          .find('input');
             if (!input.length) {
               input = $('<div class="study__share" style="display:none"><label class="form-label">FEN</label><div><input></div></div>')
               .appendTo('body')
@@ -50,7 +53,7 @@
             input.val(fen);
           };
         });
-        $('.study__buttons .left-buttons > span:not(.share)').each((i,e)=>{
+        $('.study__buttons .left-buttons > button:not(.share)').each((i,e)=>{
           if (e.__dispatchPatch) return;
           e.__dispatchPatch = true;
           e.dispatchEvent = ()=> {
