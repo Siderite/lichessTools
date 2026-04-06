@@ -609,6 +609,7 @@
           lt.global.setTimeout(async () => {
             if (!await lt.uiApi.dialog.confirm(trans.noarg('giveUpConfirmation'))) return;
             const gp = lt.lichess.analysis.gamebookPlay();
+            gp.state.feedback = 'end';
             gp.badMoves++;
             gp.redraw();
             gp.state.feedback = undefined;
