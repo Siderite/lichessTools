@@ -7,6 +7,10 @@
     display: block;
     z-index: 1;
   }
+
+  body.lichessTools main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge.empty {
+    display: none;
+  }
 }
 
 body.lichessTools main.analyse.lichessTools-hideOctopus img.mascot {

@@ -392,7 +392,7 @@
 
       let wrap = null;
       this.chessground = null;
-      if (isAnalyse) {
+      if (isAnalyse && lt.isMobile()) {
         $('main.analyse')
         .toggleClassSafe('lichessTools-gaugeOnMobile', this.options.showGauge)
         .toggleClassSafe('lichessTools-hideOctopus', this.options.hideOctopus);
@@ -662,7 +662,7 @@
       lt.pubsub.off('lichessTools.chapterChange', this.handleRedraw);
       if (analysis) {
         analysis.showEvalGauge = lt.unwrapFunction(analysis.showEvalGauge, 'mobileExperience');
-        if (this.options.showGauge) {
+        if (this.options.showGauge && lt.isMobile()) {
           analysis.showEvalGauge = lt.wrapFunction(analysis.showEvalGauge, {
             id: 'mobileExperience',
             after: ($this, result, ...args) => {
