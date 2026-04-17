@@ -33,7 +33,7 @@
         'extendedInteractiveLesson.giveUpButton': 'Give up button',
         'extendedInteractiveLesson': 'Extended Interactive lesson',
         'extendedInteractiveLessonLong': 'Extended Interactive lesson - LiChess Tools',
-        'finalScore': 'Score final: %s%',
+        'finalScore': 'Final score: %s%',
         'currentScore': 'Score so far: %s%',
         'nextMovesCount': 'Make one of %s accepted moves',
         'nextMovesCount:one': 'Only one accepted move to make',
