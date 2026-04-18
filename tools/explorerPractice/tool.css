@@ -3,6 +3,11 @@ body.lichessTools section.explorer-box button.lichessTools-explorerPractice {
   cursor: pointer;
 }
 
+body.lichessTools.mobile section.explorer-box button.lichessTools-explorerPractice:not(.active):hover {
+  color: initial;
+  background: initial;
+}
+
 body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before {
   color: black;
   transform: scale(1.2);
