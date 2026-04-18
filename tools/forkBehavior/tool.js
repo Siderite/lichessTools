@@ -75,7 +75,7 @@
         let index = 0;
         for (const move of nextMoves) {
           $('<li>')
-            .attr('value', move.uci)
+            .attr('value', move.uci+' '+(move.path||''))
             .attr('fen', move.fen)
             .toggleClass('selected',selectedIndex == index)
             .text(this.getMoveText(move, false))
