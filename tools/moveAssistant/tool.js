@@ -17,7 +17,7 @@
       'en-US': {
         'options.analysis': 'Analysis',
         'options.moveAssistant': 'Move assistant',
-        'assistantButtonTitle': 'LiChess Tools - move evaluation',
+        'assistantButtonTitle': 'LiChess Tools - qualify moves and position attributes\r\nRight-click for options.',
         'moveAssistant.dests': 'Move destinations',
         'moveAssistant.squares': 'Squares',
         'moveAssistant.pawns': 'Pawns',
@@ -27,7 +27,7 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.moveAssistant': 'Asistent mut\u0103ri',
-        'assistantButtonTitle': 'LiChess Tools - evaluarea mut\u0103rilor',
+        'assistantButtonTitle': 'LiChess Tools - caracterizeaz\u0103 mut\u0103ri \u015fi atribute ale pozi\u0163iei\r\nClic dreapta pentru op\u0163iuni.',
         'moveAssistant.dests': 'Destina\u0163ii mut\u0103ri',
         'moveAssistant.squares': 'P\u0103trate tabl\u0103',
         'moveAssistant.pawns': 'Pioni',
@@ -649,7 +649,7 @@
       if (!button.length) {
         button = $('<button type="button" class="lichessTools-moveAssistant">')
           .attr('title', trans.noarg('assistantButtonTitle'))
-          .attr('data-icon', lt.icon.Eye)
+          .attr('data-icon', lt.icon.WhiteChessKing)
           .on('click', ev => {
             ev.preventDefault();
             this.isEnabled = !this.isEnabled;
