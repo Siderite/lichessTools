@@ -493,19 +493,20 @@
           $('div.analyse__controls button.lichessTools-shapeDrawing').remove();
           $('div.analyse__controls button.lichessTools-shapeDrawing-tooltip').remove();
         }
+        let button = $('div.analyse__controls div.jumps button.lichessTools-randomNextMove');
         if (this.options.randomNextMove) {
-          if (!$('div.analyse__controls div.jumps button.lichessTools-randomNextMove').length) {
-            $('<button class="fbt">')
-            .attr('data-icon', lt.icon.RightwardsPairedArrows)
-            .attr('title', trans.noarg('randomNextMoveTitle'))
-            .addClass('lichessTools-randomNextMove')
-            .insertBefore($('div.analyse__controls div.jumps button[data-act="next"]'));
+          if (!button.length) {
+            button = $('<button class="fbt">')
+              .attr('data-icon', lt.icon.RightwardsPairedArrows)
+              .attr('title', trans.noarg('randomNextMoveTitle'))
+              .addClass('lichessTools-randomNextMove')
+              .insertBefore($('div.analyse__controls div.jumps button[data-act="next"]'));
             addHandler = true;
           }
           const hasVariations = !this.options.selectiveRandom || lt.getNextMoves(lichess.analysis.node).length > 1;
-          $('div.analyse__controls div.jumps button.lichessTools-randomNextMove').toggle(hasVariations);
+          button.toggleClassSafe('hide',!hasVariations);
         } else {
-          $('div.analyse__controls div.jumps button.lichessTools-randomNextMove').remove();
+          button.remove();
         }
         if (addHandler) {
           const elem = $('.analyse__controls')[0];

@@ -63,6 +63,10 @@ body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
   line-height: normal;
 }
 
+body.lichessTools div.analyse__controls button.lichessTools-randomNextMove.hide {
+  display:none;
+}
+
 body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disabled) .lichessTools-randomNextMove {
   opacity: .5;
   cursor: default;
