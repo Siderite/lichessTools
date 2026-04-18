@@ -89,9 +89,14 @@ body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disab
     grid-column: 9/span 2;
   }
 
+  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button[data-act="opening-explorer"] {
+    grid-row: 1;
+    grid-column: 7/span 2;
+  }
+
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls div.jumps {
     grid-row: 2;
-    grid-column: 2/span 8;
+    grid-column: 1/span 10;
   }
 
   body.lichessTools.mobile.lichessTools-evaluationStarted.lichessTools-mobileExperience .lichessTools-liveStatus {
