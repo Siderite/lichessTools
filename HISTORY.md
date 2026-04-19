@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Apr
+
+- Online bots menu item
+
 21 Mar
 
 - all bot filters toggle button
