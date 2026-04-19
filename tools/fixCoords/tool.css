@@ -11,7 +11,7 @@ body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile,:has(.lpv
 }
 
 @media (min-width: 1259.3px) {
-  body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) main.gauge-on div.analyse__board {
+  body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) main div.analyse__board {
     left: -1.2em;
   }
 }
