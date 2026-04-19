@@ -1,7 +1,7 @@
 (() => {
   class OneClickMoveTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['ExtendedInteractiveLesson'];
+    dependencies = ['ExtendedInteractiveLesson','InterceptEventHandlers'];
 
     preferences = [
       {
@@ -39,19 +39,9 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess.analysis;
+      const cg = lt.getChessground();
       const key = fen + '/' + variant;
-      let destMan = analysis.node.dests() || analysis?.chessground.state?.movable?.dests || this._cache.get(key);
-      if (!destMan && analysis?.socket?.sendAnaDests) { // TODO sendAnaDests has been removed by Lichess, so should be removed from here
-        analysis.socket.sendAnaDests({
-          variant: variant,
-          fen: fen,
-          path: key
-        });
-        while (!destMan) {
-          await lt.timeout(10);
-          destMan = this._cache.get(key);
-        }
-      }
+      let destMan = analysis.node.dests() || cg?.state?.movable?.dests || this._cache.get(key);
       return destMan;
     };
 

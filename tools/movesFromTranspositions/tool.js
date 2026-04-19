@@ -27,7 +27,7 @@
       }
     }
 
-    findTranspositions = () => {
+    findTranspositionsDirect = () => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
       const lichess = lt.lichess;
@@ -38,6 +38,7 @@
       const currNode = analysis.node;
       if (!currNode) return;
       const nodePath = analysis.path;
+      if (currNode.path === undefined) currNode.path = nodePath;
       const tools = $('div.analyse__tools');
       let fork = $('div.lichessTools-transpositions', tools);
       if (analysis.disclosureMode && analysis.disclosureMode()) {
@@ -105,9 +106,6 @@
 
       const sans = analysis.visibleChildren(currNode).map(c => c.san);
       for (const node of transpositions) {
-        if (node.path === undefined) {
-          continue;
-        }
         for (const child of analysis.visibleChildren(node)) {
           const path = node.path + child.id;
           const forkMove = $('move', fork).filter((i, e) => $(e).attr('p') == path);
@@ -131,6 +129,7 @@
           }
       };
     };
+    findTranspositions = lichessTools.debounce(this.findTranspositionsDirect,100);
 
     async start() {
       const lt = this.lichessTools;

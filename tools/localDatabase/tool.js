@@ -99,27 +99,18 @@
     seek(length) {
       this.position = length;
     }
-    splitToNumbers(bytes, byteCount) {
-      let f;
-      switch(byteCount) {
-        case 1: f = (i) => bytes.getUint8(i); break;
-        case 2: f = (i) => bytes.getUint16(i,true); break;
-        case 3: f = (i) => bytes.getUint16(i,true) | (bytes.getUint8(i+2) << 16); break;
-        case 4: f = (i) => bytes.getUint32(i,true); break;
-        default:
-          f = (i) => {
-            let val = 0;
-            for (var k=0; k<byteCount; k++) {
-              val|=(bytes.getUint8(i+k) << (8*k));
-            }
-            return val;
-          };
-          break;
-      }
+    splitToNumbers(u8, byteCount) {
+      const byteLength = u8.byteLength;
+      const numElements = Math.floor(byteLength / byteCount);
+      const result = new Array(numElements);
 
-      const result = [];
-      for (var i=0; i<bytes.byteLength; i+=byteCount) {
-        result.push(f(i));
+      let j = 0;
+      for (let i = 0; i < byteLength; i += byteCount) {
+        let val = 0;
+        for (let k = 0; k < byteCount; k++) {
+          val |= (u8[i + k] << (8 * k));
+        }
+        result[j++] = val;
       }
       return result;
     }
@@ -152,30 +143,22 @@
       const blob = this.file.slice(this.position,this.position+length);
       this.position+=length;
       const buffer = await blob.arrayBuffer();
-      return new DataView(buffer);
+      return new Uint8Array(buffer);
     }
     async readByte() {
-      const bytes = await this.readBytes(1);
-      return bytes.getUint8(0);
+      return await this.readNumber(1);
     }
     async readUshort() {
-      const bytes = await this.readBytes(2);
-      return bytes.getUint16(0,true);
+      return await this.readNumber(2);
     }
     async readUint() {
-      const bytes = await this.readBytes(4);
-      return bytes.getUint32(0,true);
+      return await this.readNumber(4);
     }
     async readNumber(byteCount) {
-      const bytes = await this.readBytes(byteCount);
-      switch(byteCount) {
-        case 1: return bytes.getUint8(0);
-        case 2: return bytes.getUint16(0,true);
-        case 4: return bytes.getUint32(0,true);
-      }
+      const u8 = await this.readBytes(byteCount);
       let result = 0;
       for (var i=0; i<byteCount; i++) {
-        result|=(bytes.getUint8(i) << (8*i));
+        result|=(u8[i] << (i*8));
       }
       return result;
     }
@@ -224,26 +207,35 @@
       this.idStartPosition = this.position;
       this.jump(idCount * idSize);
       const ngramDict = new Map();
-      const ngramBytes = await this.readBytes((ngramStringSize-ngramSize+1)*(4 + idCountSize));
+      let stride = 4 + idCountSize;
+      const ngramBytes = await this.readBytes((ngramStringSize-ngramSize+1)*stride);
       for (let i=0; i<ngramStringSize-ngramSize+1; i++) {
         const ngram = ngramString.substr(i,ngramSize);
+        const offset = i * stride;
         const data = { 
-          pos: ngramBytes.getUint32(i*(4+idCountSize),true),
+          pos: ngramBytes[offset] | (ngramBytes[offset+1] << 8) | (ngramBytes[offset+2] << 16) | (ngramBytes[offset+3] << 24),
           idCount: 0
         }
         for (let k=0; k<idCountSize; k++) {
-          data.idCount |= (ngramBytes.getUint8(i*(4+idCountSize)+4+k) << (k*8));
+          data.idCount |= (ngramBytes[offset + 4 + k] << (k*8));
         }
         ngramDict.set(ngram,data);
       }
-      const idBytes = await this.readBytes(idCount*(4+1));
-      const idDict = [];
-      for (let i=0; i<idCount; i++) {
+
+      stride = 4+1;
+      const idBytes = await this.readBytes(idCount*stride);
+      const idDict = new Array(idCount);
+
+      for (let i = 0; i < idCount; i++) {
+        const offset = i * stride;
         const data = {
-          pos: idBytes.getUint32(i*(4+1),true), 
-          crcCount: idBytes.getUint8(i*(4+1)+4)
-        }
-        idDict.push(data);
+          pos: idBytes[offset] |
+               (idBytes[offset + 1] << 8) |
+               (idBytes[offset + 2] << 16) |
+               (idBytes[offset + 3] << 24),
+          crcCount: idBytes[offset + 4]
+        };
+        idDict[i] = data;
       }
 
       this.idSize = idSize;
@@ -270,8 +262,8 @@
         if (!info.idCount) continue;
         hits++;
         this.seek(info.pos);
-        const bytes = await this.readBytes(info.idCount * this.idIndexSize);
-        const indexes = this.splitToNumbers(bytes, this.idIndexSize);
+        const u8 = await this.readBytes(info.idCount * this.idIndexSize);
+        const indexes = this.splitToNumbers(u8, this.idIndexSize);
         data = data ? this.intersect(indexes,data) : indexes;
         if (data.length == 0) break;
       }
@@ -287,8 +279,8 @@
             const info = this.idDict[index];
             if (info.crcCount) {
               this.seek(info.pos);
-              const bytes = await this.readBytes(info.crcCount * this.crcSize);
-              const crcs = this.splitToNumbers(bytes, this.crcSize);
+              const u8 = await this.readBytes(info.crcCount * this.crcSize);
+              const crcs = this.splitToNumbers(u8, this.crcSize);
               if (crcs.includes(crc)) {
                 idxs.push(index);
               }

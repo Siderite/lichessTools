@@ -72,8 +72,8 @@
         }
       }
       $(uiSlider.target)
-        .toggleClass('lichessTools-moreToTheLeft', uiSlider.options.range.min > this.rangeStart)
-        .toggleClass('lichessTools-moreToTheRight', uiSlider.options.range.max < this.rangeEnd);
+        .toggleClassSafe('lichessTools-moreToTheLeft', uiSlider.options.range.min > this.rangeStart)
+        .toggleClassSafe('lichessTools-moreToTheRight', uiSlider.options.range.max < this.rangeEnd);
     };
 
     restoreFullRange = (ev) => {
@@ -96,7 +96,7 @@
       const current = uiSlider.get();
       const isActive = (newValues[0] == current[0] && newValues[1] == current[1]);
       $('.time-selector-buttons button.lichessTools-1w')
-        .toggleClass('active', isActive);
+        .toggleClassSafe('active', isActive);
     };
 
     async start() {

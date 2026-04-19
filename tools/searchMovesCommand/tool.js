@@ -1,7 +1,7 @@
 (() => {
   class SearchMovesCommandTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['CliCommands','ExportPgn'];
+    dependencies = ['CliCommands','ExportPGN'];
 
     preferences = [
       {
@@ -165,7 +165,39 @@
       await lt.exportPgn('',{ searchObj, separateLines: true });
       await lt.exportPgn('',{ searchObj, separateLines: true, exportComments: false, exportGlyphs: false });
       await lt.exportPgn('',{ searchObj, separateLines: true, exportComments: false, exportGlyphs: false, exportPly: false });
-      this.showResults(pattern, [...new Set(searchObj.nodes)]);
+      const set = new Set(searchObj.nodes);
+      const spTool = lt.tools.ShowPawnStructureTool;
+      if (spTool) {
+        const { getStructure, getOpposingStructure } = spTool;
+        const reg = new RegExp(Array.from(pattern).map(c => {
+          switch (c) {
+            case '*': return '.*';
+            case '?': return '.';
+            default: return c;
+          }
+        }).join(''),'gi');
+
+        const traverse = (node, ply = 0) => {
+          const fen = node.fen;
+          lt.assertPathSet(node);
+          if (!set.has(node.path)) {
+            const board = lt.getBoardFromFen(fen);
+            const structure = getStructure(board,false);
+            for (const key of [structure, getOpposingStructure(structure)]) {
+              if (reg.test(key)) {
+                set.add(node.path);
+                break;
+              }
+            }
+          }
+          if (!node.children?.length) return;
+          for (const child of node.children) {
+            traverse(child, ply + 1);
+          }
+        };
+        traverse(analysis.tree.root);
+      }  
+      this.showResults(pattern, [...set]);
     };
     searchMoveList = this.lichessTools.debounce(this.searchMoveListDirect,500);
 

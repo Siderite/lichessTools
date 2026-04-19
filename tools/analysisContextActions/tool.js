@@ -173,7 +173,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
       const evalText = "eval: " + (ceval.mate ? '#' + ceval.mate : (ceval.cp > 0 ? '+' : '') + (ceval.cp / 100).toFixed(decimals));
       const cur = analysis.study.currentChapter();
-      if (node.path === undefined) return;
+      lt.assertPathSet(node);
       lt.saveComment(evalText, node.path);
     };
 
@@ -261,7 +261,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         }
         return;
       }
-      if (node.path === undefined) return;
+      lt.assertPathSet(node);
       this._analysedNode = node;
       analysis.userJumpIfCan(node.path);
       lt.analysisRedraw();
@@ -384,7 +384,6 @@ Varia\u0163ii urm\u0103toare: $branches`
         }
       }
       for (const node of transpositions) {
-        if (node.path === undefined) continue;
         if (!node.path) continue;
         const elem = lt.getElementForNode(node);
         $(elem).addClass('lichessTools-transpositionAll');
@@ -544,7 +543,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       }
 
       if (this.options.positionInfo && !menu.has('a[data-role="positionInfo"]').length) {
-        const text = trans.noarg('positionInfoText' + (this.suffix || ''));
+        const text = trans.noarg('positionInfoText');
         const title = trans.noarg('positionInfoTitle');
         $('<a>')
           .attr('data-icon', lt.icon.StudyBoard)

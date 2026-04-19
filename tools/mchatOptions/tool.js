@@ -1,7 +1,7 @@
 (() => {
   class MchatOptionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['AddNotifications', 'EmitContentLoaded'];
+    dependencies = ['AddNotifications', 'EmitContentLoaded','InterceptEventHandlers'];
 
     preferences = [
       {
@@ -313,7 +313,7 @@
         this.saveTeamsData();
       }
     };
-    handleNotifications = this.lichessTools.debounce(this.handleNotificationsDirect, 5000, { defer:true });
+    handleNotifications = this.lichessTools.debounce(this.handleNotificationsDirect, 5000);
 
     isTeamsListPage = () => {
       const lt = this.lichessTools;
@@ -397,7 +397,7 @@
         }
       });
     };
-    notificationButtonInTeams = this.lichessTools.debounce(this.notificationButtonInTeamsDirect,100,{ defer:true });
+    notificationButtonInTeams = this.lichessTools.debounce(this.notificationButtonInTeamsDirect,100);
 
     destroySockets = (sockets)=>{
       if (!sockets?.length) return;
@@ -438,24 +438,21 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      this._autoWhisper = this.options.autoWhisper
-                            ? !!lt.storage.get('LiChessTools.autoWhisper')
-                            : false;
-      this._prependMove = this.options.prependMove
-                            ? !!lt.storage.get('LiChessTools.prependMove')
-                            : false;
-
       const container = $('.lichessTools-mchatOptions-extraButtons');
       if (!this.options.autoWhisper && !this.options.prependMove && !this.options.insertSelectedMove) {
         container.remove();
         return;
       }
+
       if (!container.length) {
         $('<div class="lichessTools-mchatOptions-extraButtons">')
           .insertBefore('.mchat__messages');
       }
       let autoWhisperButton = container.find('.lichessTools-autoWhisper');
       if (!autoWhisperButton.length) {
+        this._autoWhisper = this.options.autoWhisper
+                              ? !!lt.storage.get('LiChessTools.autoWhisper')
+                              : false;
         autoWhisperButton = $('<button type="button" class="lichessTools-autoWhisper">')
           .text(trans.noarg('autoWhisperButtonText'))
           .attr('title',trans.noarg('autoWhisperButtonTitle'))
@@ -473,6 +470,9 @@
 
       let autoMoveButton = container.find('.lichessTools-prependMove');
       if (!autoMoveButton.length) {
+        this._prependMove = this.options.prependMove
+                              ? !!lt.storage.get('LiChessTools.prependMove')
+                              : false;
         autoMoveButton = $('<button type="button" class="lichessTools-prependMove">')
           .text(trans.noarg('autoMoveButtonText'))
           .attr('title',trans.noarg('autoMoveButtonTitle'))
@@ -495,8 +495,18 @@
           .attr('title',trans.noarg('insertSelectedMoveButtonTitle'))
           .on('click',(ev)=>{
             ev.preventDefault();
-            const moveString = this.getMoveString(true);
+            let moveString = this.getMoveString(true);
             $('.mchat__content .mchat__say')
+              .each((i,e)=>{
+                if (e.selectionStart == e.selectionEnd && e.selectionStart<2) {
+                  const m = /^(?<whisper>\s*\/w\s+)?(?<text>.*)$/i.exec(e.value);
+                  if (!m.groups.whisper) return;
+                  e.selectionStart = e.selectionEnd = m.groups.whisper.length;
+                  if (!/\s$/.test(m.groups.whisper)) {
+                    moveString = ' '+moveString;
+                  }
+                }
+              })
               .insertText(moveString,true);
           })
           .appendTo(container);
@@ -595,6 +605,7 @@
         this.processChat();
       }
       lt.pubsub.off('content-loaded', this.notificationButtonInTeams);
+      $('.lichessTools-notify').remove();
       if (this.options.teamChatNotifications) {
         lt.storage?.listen('lichessTools.refreshNotifications', ()=>{
           this.loadTeamsData();

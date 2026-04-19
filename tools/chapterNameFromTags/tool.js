@@ -103,14 +103,16 @@
         pgn+=child.data.san;
         for (let i=1; i<node.children.length && i<10; i++) {
           child = node.children[i];
-          pgn+=' (';
+          let childPgn =' (';
           if (ply%2==1) {
-            pgn+=' '+Math.ceil(ply/2)+'.';
+            childPgn+=' '+Math.ceil(ply/2)+'.';
           } else {
-            pgn+=' '+Math.ceil(ply/2)+'... ';
+            childPgn+=' '+Math.ceil(ply/2)+'... ';
           }
-          pgn+=child.data.san;
-          pgn+=')';
+          childPgn+=child.data.san;
+          childPgn+=')';
+          if ((pgn+childPgn).length>80) break;
+          pgn+=childPgn;
         }
       }
       names.push(pgn);

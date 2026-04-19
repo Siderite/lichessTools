@@ -1,0 +1,87 @@
+/* No bullet and ultrabullet */
+
+body.lichessTools.lichessTools-theme_noBullet .lpool[data-id="1+0"],
+body.lichessTools.lichessTools-theme_noBullet .lpool[data-id="2+1"] {
+  display: none;
+}
+
+
+body.lichessTools.lichessTools-theme_noBullet table.hooks__list tr:has(*[data-icon="\E032"]), /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet table.hooks__list tr:has(*[data-icon="\E059"]) { /* Ultrabullet */
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .lichessTools-recentGames a.game.bullet,
+body.lichessTools.lichessTools-theme_noBullet .lichessTools-recentGames a.game.ultrabullet {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .scheduled a[data-icon="\E032"], /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .scheduled a[data-icon="\E059"]  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .arena-list tr.paginated:has(i[data-icon="\E032"]), /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .arena-list tr.paginated:has(i[data-icon="\E059"])  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .tournamentline a:has(span[data-icon="\E032"]), /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .tournamentline a:has(span[data-icon="\E059"])  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .slist.swisses tr:has(i[data-icon="\E032"]), /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .slist.swisses tr:has(i[data-icon="\E059"])  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .tv-channel.bullet,   
+body.lichessTools.lichessTools-theme_noBullet .tv-channel.ultrabullet {   
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .leaderboards section:has(h2[data-icon="\E032"]), /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .leaderboards section:has(h2[data-icon="\E059"])  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .rating-stats .mselect__list a[data-icon="\E032"], /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .rating-stats .mselect__list a[data-icon="\E059"]  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .tournament-leaderboards section:has(h2[data-icon="\E032"]), /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .tournament-leaderboards section:has(h2[data-icon="\E059"])  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .tournament-shields section:has(a[href$="bullet"]), /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .tournament-shields section:has(a[href$="ultrabullet"])  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet fieldset.types input[data-icon="\E032"], /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet fieldset.types input[data-icon="\E059"]  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .bots__list__entry:has(span[data-icon="\E032"]), /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .bots__list__entry:has(span[data-icon="\E059"])  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .analyse__side .mselect__list a[data-icon="\E032"], /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .analyse__side .mselect__list a[data-icon="\E059"]  /* Ultrabullet */ {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet select#variants option[value="bullet"],
+body.lichessTools.lichessTools-theme_noBullet select#variants option[value="ultrabullet"] {
+  display: none;
+}
+
+body.lichessTools.lichessTools-theme_noBullet .sub-ratings a[href$="bullet"], /* Bullet */
+body.lichessTools.lichessTools-theme_noBullet .sub-ratings a[href$="ultrabullet"]  /* Ultrabullet */ {
+  display: none;
+}

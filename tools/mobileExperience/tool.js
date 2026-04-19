@@ -1,7 +1,7 @@
 (() => {
   class MobileExperienceTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'EmitChapterChange', 'RandomVariation', 'DetectThirdParties'];
+    dependencies = ['EmitRedraw', 'EmitChapterChange', 'RandomVariation', 'DetectThirdParties','InterceptEventHandlers'];
 
     preferences = [{
         name: 'mobileExperience',
@@ -392,13 +392,13 @@
 
       let wrap = null;
       this.chessground = null;
-      if (isAnalyse) {
+      if (isAnalyse && lt.isMobile()) {
         $('main.analyse')
         .toggleClassSafe('lichessTools-gaugeOnMobile', this.options.showGauge)
         .toggleClassSafe('lichessTools-hideOctopus', this.options.hideOctopus);
         wrap = $('main.analyse div.cg-wrap');
         if (this.options.shapeDrawing) {
-          this.chessground = lt.lichess.analysis?.chessground;
+          this.chessground = lt.getChessground();
         }
       } else {
         if (isRound) {
@@ -493,19 +493,20 @@
           $('div.analyse__controls button.lichessTools-shapeDrawing').remove();
           $('div.analyse__controls button.lichessTools-shapeDrawing-tooltip').remove();
         }
+        let button = $('div.analyse__controls div.jumps button.lichessTools-randomNextMove');
         if (this.options.randomNextMove) {
-          if (!$('div.analyse__controls div.jumps button.lichessTools-randomNextMove').length) {
-            $('<button class="fbt">')
-            .attr('data-icon', lt.icon.RightwardsPairedArrows)
-            .attr('title', trans.noarg('randomNextMoveTitle'))
-            .addClass('lichessTools-randomNextMove')
-            .insertBefore($('div.analyse__controls div.jumps button[data-act="next"]'));
+          if (!button.length) {
+            button = $('<button class="fbt">')
+              .attr('data-icon', lt.icon.RightwardsPairedArrows)
+              .attr('title', trans.noarg('randomNextMoveTitle'))
+              .addClass('lichessTools-randomNextMove')
+              .insertBefore($('div.analyse__controls div.jumps button[data-act="next"]'));
             addHandler = true;
           }
           const hasVariations = !this.options.selectiveRandom || lt.getNextMoves(lichess.analysis.node).length > 1;
-          $('div.analyse__controls div.jumps button.lichessTools-randomNextMove').toggle(hasVariations);
+          button.toggleClassSafe('hide',!hasVariations);
         } else {
-          $('div.analyse__controls div.jumps button.lichessTools-randomNextMove').remove();
+          button.remove();
         }
         if (addHandler) {
           const elem = $('.analyse__controls')[0];
@@ -603,7 +604,7 @@
 
     requestWakeLock = async () => {
       const lt = this.lichessTools;
-      if (lt.global.document.visibilityState !== 'visible') return;
+      if (lt.global.document.hidden) return;
       if (this.wakelock?.released === false) return;
       try {
         this.wakelock = await lt.global.navigator.wakeLock?.request('screen');
@@ -627,6 +628,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       if (!lichess || !lt.uiApi) return;
+      const isMobile = lt.isMobile() || lt.isTouchDevice();
       const mobileExperience = lt.currentOptions.getValue('mobileExperience');
       const mobileExperienceRound = lt.currentOptions.getValue('mobileExperienceRound');
       const colorCount = lt.currentOptions.getValue('colorCount');
@@ -661,7 +663,7 @@
       lt.pubsub.off('lichessTools.chapterChange', this.handleRedraw);
       if (analysis) {
         analysis.showEvalGauge = lt.unwrapFunction(analysis.showEvalGauge, 'mobileExperience');
-        if (this.options.showGauge) {
+        if (this.options.showGauge && lt.isMobile()) {
           analysis.showEvalGauge = lt.wrapFunction(analysis.showEvalGauge, {
             id: 'mobileExperience',
             after: ($this, result, ...args) => {
@@ -683,9 +685,9 @@
       const isRoundPlay = !!$('main.round').length;
       const isRoundPuzzle = !!$('main.puzzle').length;
       const isTv = /\/tv\b/i.test(lt.global.location.pathname);
-      if (isRoundPlay || isRoundPuzzle) {
+      if (isMobile && (isRoundPlay || isRoundPuzzle)) {
         const lockBoardElem = $('#top div.site-buttons div.lichessTools-lockBoard');
-        if (lt.isMobile() && $.cached('body').is('playing') && ((this.options.lockBoardPlay && isRoundPlay) || (this.options.lockBoardPuzzle && isRoundPuzzle)) ) {
+        if ($.cached('body').is('playing') && ((this.options.lockBoardPlay && isRoundPlay) || (this.options.lockBoardPuzzle && isRoundPuzzle)) ) {
           $.cached('body').toggleClassSafe('lichessTools-lockBoard',true);
           if (this.isBoardLocked === undefined) {
             this.isBoardLocked = lt.storage.get('LiChessTools.boardLocked');
@@ -709,9 +711,8 @@
           $.cached('body').toggleClassSafe('lichessTools-lockBoard',false);
           lockBoardElem.remove();
         }
-      }
 
-      if (isRoundPlay || isRoundPuzzle) {
+
         lt.uiApi.events.off('ply', this.clearShapes);
         $('body').off('mouseup',this.clearTooltipShow);
         $('main div.cg-wrap:not(.lichessTools-boardOverlay)').off('click', this.clearShapes);
@@ -727,12 +728,14 @@
       if ((analysis && this.options.shapeDrawing)
           ||
           ((isRoundPlay || isRoundPuzzle) && this.options.shapeDrawingRound)) {
-        body.addEventListener('pointerup',this.clearTooltipShow, { capture: true });
+        if (isMobile) {
+          body.addEventListener('pointerup',this.clearTooltipShow, { capture: true });
+        }
       }
 
       lt.pubsub.off('lichessTools.redraw',this.handleWakeLock);
       lt.pubsub.off('lichessTools.puzzleStart',this.handleWakeLock);
-      if (this.options.wakeLockPuzzle && this.isTrainingPage()) {
+      if (isMobile && this.options.wakeLockPuzzle && this.isTrainingPage()) {
         lt.pubsub.on('lichessTools.redraw',this.handleWakeLock);
         lt.pubsub.on('lichessTools.puzzleStart',this.handleWakeLock);
         await this.handleWakeLock();
@@ -742,7 +745,7 @@
         this.wakelock=null;
       }
 
-      if (this.options.wakelockTv && this.isTvPage()) {
+      if (isMobile && this.options.wakelockTv && this.isTvPage()) {
         this.requestWakeLock();
       } else {
         lt.global.clearTimeout(this.wakeLockTimeout);

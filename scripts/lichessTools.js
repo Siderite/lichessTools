@@ -171,6 +171,13 @@
       return result;
     };
 
+    getNodeCeval = (node) => {
+      const ceval = node.ceval;
+      return !ceval || (node.eval && node.eval._originator!='lichessTools' && (node.eval?.depth || 16) > ceval.depth)
+        ? node.eval
+        : ceval;
+    };
+
     getCentipawns = (info) => {
       if (!info || info.depth === 0) return;
       let cp = undefined;
@@ -417,6 +424,18 @@
       return min + (max - min) / (1 + Math.exp(-x / k));
     }
 
+    rafIds=new Map();
+    requestAF = (func,id) => {
+      if (!id) throw new Error('You need to specify an id in requestAF!');
+      let rafId = this.rafIds.get(id);
+      if (rafId!==undefined) this.global.cancelAnimationFrame(rafId);
+      rafId = this.global.requestAnimationFrame(()=>{
+        func();
+        this.rafIds.delete(rafId);
+      });
+      this.rafIds.set(id,rafId);
+    };
+
     isWrappedFunction(func, id) {
       if (!func) return false;
       if (!id || func.__wrapId === id) {
@@ -572,102 +591,57 @@
 
     htmlEncode = (text) => {
       const document = this.global.document;
-      return document.createElement('a')
+      return document.createElement('div')
         .appendChild(document.createTextNode(text))
         .parentNode.innerHTML;
     };
 
     htmlDecode = (html) => {
-      const document = this.global.document;
-      const e = document.createElement('a');
-      e.innerHTML = html;
-      return e.textContent;
+      if (!html) return '';
+      const doc = this.global.document;
+      return new DOMParser()
+        .parseFromString(html, "text/html")
+        .documentElement
+        .textContent;
     };
 
     async getMemorySize() {
       return this.global.navigator?.deviceMemory || (await this.global.navigator?.storage?.estimate())?.quota/(1024*1024*1024);
     }
 
-  debounce(fn, wait) {
+    debounce(fn, wait) {
       let timeout = null;
       let isRunning = false;
-      const c = () => {
-        this.global.clearTimeout(timeout);
-        timeout = null;
-      };
-      const t = (f) => {
-        timeout = this.global.setTimeout(f, wait);
-      };
-      return function () {
+      const self = this;
+
+      return function() {
         const context = this;
         const args = arguments;
-        const f = function () {
-          if (isRunning) {
-            t(f);
-            return;
-          };
+
+        const execute = () => {
+          if (isRunning) return;
+
           isRunning = true;
-          const result = fn.apply(context, args);
-          if (result?.then) {
-            result.then(() => isRunning = false);
-          } else {
-            isRunning = false;
-          }
-        };
-        timeout
-          ? c() || t(f)
-          : t(f);
-      };
-    }
+          timeout = null;
 
-    debounceNew(fn, wait, options) {
-      let timeout = null;
-      let isRunning = false;
-      let lastExecution = 0;
-      let averageTime = wait;
+          try {
+            const result = fn.apply(context, args);
 
-      const adaptTime = (start,end)=>{
-        if (options?.noAdapt) return;
-        const executionTime = Math.max(wait, +(end-start)||0);
-        averageTime += (executionTime-averageTime)*0.2;
-        if (options?.debugName) this.global.console.debug(options.debugName+': '+Math.round(averageTime));
-      };
-
-      const debouncedFunction = function() {
-        const context = this;
-        const args = arguments;
-        const startTime = Date.now();
-
-        const f = ()=>{
-          isRunning = true;
-          lastExecution = Date.now();
-          const result = fn.apply(context, args);
-          if (result?.then) {
-            result.then(() => {
+            if (result?.finally) {
+              result.finally(() => isRunning = false);
+            } else {
               isRunning = false;
-              lastExecution = Date.now();
-              adaptTime(startTime, lastExecution);
-            });
-          } else {
+            }
+          } catch (err) {
             isRunning = false;
-            lastExecution = Date.now();
-            adaptTime(startTime, lastExecution);
+            throw err;
           }
         };
 
+        const { clearTimeout, setTimeout } = self.global;
         clearTimeout(timeout);
-        if (!options?.defer && !isRunning && Date.now() - lastExecution > averageTime) {
-          timeout = setTimeout(f,1);
-        } else {
-          timeout = setTimeout(()=>{
-            f();
-          }, averageTime);
-        }
+        timeout = setTimeout(execute, wait);
       };
-
-      debouncedFunction.__debounced = true;
-
-      return debouncedFunction;
     }
 
     getPgnTag(text, tagName) {
@@ -835,10 +809,14 @@
       value: true
     };
     isTreeviewVisible = (forced) => {
+      const $ = this.$;
+      const document = this.global.document;
       const now = Date.now();
       if (forced || now - this.treeviewVisibleCache.time > 100) {
-        this.treeviewVisibleCache.value = (this.$('div.tview2').length > 0);
-        this.treeviewVisibleCache.time = now;
+        this.treeviewVisibleCache={
+          time: now,
+          value: !!document.querySelector('div.tview2')
+        };
       }
       return this.treeviewVisibleCache.value;
     };
@@ -854,7 +832,8 @@
       if ('length' in element) element = element[0];
       if (!element) return 0;
       if (this.global.document.readyState != 'complete') return 1;
-      if (this.global.document.visibilityState == 'hidden') return 0;
+      if (this.global.document.hidden) return 0;
+      if (!element.isConnected) return 0;
 
       if (!forced) return 1; // this is too expensive
 
@@ -960,7 +939,7 @@
             return;
           }
         }
-        if (!this.global.document.body.contains(elem)) {
+        if (!elem?.isConnected) {
           this.resetCache();
           elem = this.elementCache.get(path);
         }
@@ -981,7 +960,10 @@
 
     assertPathSet(node) {
       if (!node) return;
-      if (node.path === undefined) throw 'Path for node ' + node.ply + ' ' + node.id + '( ' + node.san + ') not set!';
+      if (node.path === undefined) {
+        this.traverse();
+      }
+      if (node.path === undefined) throw new Error('Path for node ' + node.ply + ' ' + node.id + '( ' + node.san + ') not set!');
     }
 
     getElementForNode(node) {
@@ -1005,56 +987,55 @@
         nodeIndex: +(snode?.nodeIndex) || 0
       };
       lt.traverseState = state;
-      if (!snode || snode.comp) {
-        return state;
-      }
+      if (!snode) return;
       const nodes = [{
         node: snode,
         path: ''
       }];
       while (nodes.length) {
         let { node, path } = { ...nodes.shift() };
-        if (!forced && !this.isTreeviewVisible()) return;
-        if (!node || node.comp) {
-          continue;
-        }
+        if (!node) continue;
         path = (path || '') + node.id;
         node.path = path;
         node.nodeIndex = state.nodeIndex;
         state.nodeIndex++;
+        if (node.comp) node.ltComp = true;
+        if (!node.ltComp && (forced || this.isTreeviewVisible())) {
+          node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
+          node.lt_position = this.getNodePosition(node);
+          let pos = state.positions[node.lt_position];
+          if (!pos) {
+            pos = [];
+            state.positions[node.lt_position] = pos;
+          }
+          pos.push(node);
+          if (pos.length > 1) {
+            for (const transpoNode of pos) {
+              transpoNode.transposition = pos;
+            }
+          } else {
+            node.transposition = null;
+          }
+          if (node.glyphs) {
+            for (const glyph of node.glyphs) {
+              const arr = state.glyphs[glyph.symbol] || [];
+              arr.push(node);
+              state.glyphs[glyph.symbol] = arr;
+            }
+          }
+          if (this.isLastInLine(node)) {
+            state.lastMoves.push(node);
+          }
+          if (this.isCheck(node)) {
+            state.checks.push(node);
+          }
+        }
 
-        node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
-        node.lt_position = this.getNodePosition(node);
-        let pos = state.positions[node.lt_position];
-        if (!pos) {
-          pos = [];
-          state.positions[node.lt_position] = pos;
-        }
-        pos.push(node);
-        if (pos.length > 1) {
-          for (const transpoNode of pos) {
-            transpoNode.transposition = pos;
-          }
-        } else {
-          node.transposition = null;
-        }
-        if (node.glyphs) {
-          for (const glyph of node.glyphs) {
-            const arr = state.glyphs[glyph.symbol] || [];
-            arr.push(node);
-            state.glyphs[glyph.symbol] = arr;
-          }
-        }
-        if (this.isLastInLine(node)) {
-          state.lastMoves.push(node);
-        }
-        if (this.isCheck(node)) {
-          state.checks.push(node);
-        }
         if (func) func(node, state);
         let first = true;
         for (const child of node.children) {
           child.depth = first ? node.depth : node.depth + 1;
+          child.ltComp = node.ltComp;
           first = false;
           nodes.push({ node: child, path: path });
         }
@@ -1125,7 +1106,8 @@
         color = side;
       }
       const node = this.findGlyphNode(color, symbols);
-      if (!node?.path) return;
+      if (!node) return;
+      this.assertPathSet(node);
       analysis.userJumpIfCan(node.path);
       this.analysisRedraw();
     };
@@ -1187,8 +1169,9 @@
       });
 
       const positionKey = this.global.JSON.stringify(lastMove);
-      if (container.prop('__lastPositionKey')===positionKey) {
-        return container.prop('__lastPosition');
+      const cacheKey = '__lastPositionKey'+(asFen?'_f':'');
+      if (container.prop(cacheKey)===positionKey) {
+        return container.prop(cacheKey);
       }
 
       let turn = '';
@@ -1277,13 +1260,17 @@
       return pos;
     };
 
+
     isStartFen = (fen) => {
       return fen?.startsWith('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
     };
 
+    fenToBoard = new LiChessTools.MaxSizedMap(10000);
     getBoardFromFen = fen => {
       if (!fen) return null;
-      const result = [];
+      let result = this.fenToBoard.get(fen);
+      if (result) return result.map(r => r.slice()); //clone
+      result = [];
       for (let i = 0; i < 8; i++) result.push(Array(8));
       const splits = fen.split(' ');
       fen = splits[0];
@@ -1311,6 +1298,8 @@
         }
         x += (+ch);
       }
+      result.fen = fen;
+      this.fenToBoard.set(fen,result);
       return result;
     };
 
@@ -1379,6 +1368,11 @@
       };
     }
 
+    getChessground = ()=>{
+      const lt = this;
+      return lt.lichess?.analysis?.chessground;// || lt.uiApi.chessground();
+    };
+
     isIOS = () => {
       return /iPhone|iPod|iPad|Macintosh/.test(navigator.userAgent);
     };
@@ -1422,7 +1416,7 @@
           }
         });
       } catch (e) {
-        if (this.debug) console.debug('Speech error:', e);
+        console.debug('Speech error:', e);
       }
     };
     stopSpeaking = ()=>{
@@ -1605,7 +1599,7 @@
       lichessTools: this,
       slowMode: false,
       slowModeTimeout: null,
-      logNetwork: function (url, size, status) {
+      logNetwork: function (url, size, status, duration) {
         const lt = this.lichessTools;
         const now = Date.now();
         if (!this.networkLog) {
@@ -1617,8 +1611,10 @@
           time: now,
           url: url,
           size: size,
-          status: status
+          status: status,
+          duration: duration
         });
+        lt.debug > 1 && lt.global.console.debug(url,now,duration);
         if (this.networkLog.arr.length > 20000) {
           this.networkLog.arr.splice(0, 2000);
           this.storeLog();
@@ -1643,7 +1639,9 @@
         options.headers.Accept ||= (options.ndjson
                             ? 'application/x-ndjson'
                             : 'application/json');
-        options.headers['x-requested-with'] ||= 'XMLHttpRequest';
+        if (!options?.noRequestedWithHeader) {
+          options.headers['x-requested-with'] ||= 'XMLHttpRequest';
+        }
         const json = await this.fetch(url, options);
         if (!json) return null;
         if (options.ndjson) {
@@ -1691,7 +1689,9 @@
           if (!options?.noUserAgent) {
             options = {...options,headers: { ...options?.headers,'X-UA': ltHeader } };
           }
+          const startTime = performance.now();
           const response = await lt.global.fetch(url, options);
+          const endTime = performance.now();
           const status = +(response.status);
           if (options?.ignoreStatuses?.includes(status)) {
             this.logNetwork(url, (options?.body?.length || 0), status);
@@ -1717,7 +1717,7 @@
             throw err;
           }
           const text = await response.text();
-          this.logNetwork(url, (options?.body?.length || 0) + (text?.length || 0), status);
+          this.logNetwork(url, (options?.body?.length || 0) + (text?.length || 0), status, endTime - startTime);
           return text;
         } catch (e) {
           if (e.toString().includes('Failed to fetch')) {
@@ -2099,7 +2099,8 @@
             cache.release(key);
             lt.$('body').toggleClassSafe('lichessTools-apiLoading',false);
           }
-        }
+        };
+        obj[funcName].__originalFunction = original;
       }
     };
 
@@ -2122,6 +2123,8 @@
           return result;
         };
         lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 86400 * 10000, minTime: 5000 });
       },
       blog: {
         lichessTools: this,
@@ -2331,6 +2334,28 @@
           const lt = this.lichessTools;
           const data = await lt.net.json({ url: '/api/user/{userId}/activity', args: { userId } });
           return data;
+        },
+        getCrosstable: async function(userId1, userId2) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({ url: '/api/crosstable/{userId1}/{userId2}', args: { userId1, userId2 } });
+          return data;
+        },
+        getCrosstableJustCache: async function(...args) {
+          const lt = this.lichessTools;
+          const cache = lt.cache;
+          const key = 'getCrosstable' + JSON.stringify(args);
+          const cached = cache.getCached(key);
+          return cached?.value;
+        },
+        getCrosstableBulk: async function(userPairs,processCrosstable) {
+          const lt = this.lichessTools;
+          const result = [];
+          for (const [userId1, userId2] of userPairs) {
+            const data = await lt.api.user.getCrosstable(userId1,userId2);
+            result.push(data);
+            processCrosstable(data);
+          }
+          return result;
         }
       },
       game: {
@@ -2393,27 +2418,38 @@
         getLichessGameData: async function() {
           const lt = this.lichessTools;
           const startFen = encodeURIComponent('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
-          let data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&source=analysis`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
-          if (!data) return;
-          const explorerInfo = {};
-          explorerInfo.totalGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
-          const monthText = data.recentGames?.[0]?.month;
-          if (monthText) {
-            const m = /^(?<year>\d+)-(?<month>\d+)$/.exec(monthText)
-            explorerInfo.dbYear = +m.groups.year;
-            explorerInfo.dbMonth = +m.groups.month;
-            explorerInfo.monthText = monthText;
-          } else {
-            const date = new Date();
-            date.setMonth(date.getMonth() - 1);
-            const month = date.getMonth() + 1;
-            explorerInfo.dbYear = year;
-            explorerInfo.dbMonth = month;
-            explorerInfo.monthText = `${year}-${month.padStart(2, '0')}`;
+          let explorerInfo = {};
+          try {
+            let data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&source=analysis`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
+            if (!data) throw new Error('could not get Explorer total games');
+            explorerInfo.totalGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+            const monthText = data.recentGames?.[0]?.month;
+            if (monthText) {
+              const m = /^(?<year>\d+)-(?<month>\d+)$/.exec(monthText)
+              explorerInfo.dbYear = +m.groups.year;
+              explorerInfo.dbMonth = +m.groups.month;
+              explorerInfo.monthText = monthText;
+            } else {
+              const date = new Date();
+              date.setMonth(date.getMonth() - 1);
+              const month = date.getMonth() + 1;
+              explorerInfo.dbYear = year;
+              explorerInfo.dbMonth = month;
+              explorerInfo.monthText = `${year}-${month.padStart(2, '0')}`;
+            }
+            data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
+            if (!data) throw new Error('could not get Explorer last month games');
+            explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+          } catch(e) {
+            lt.global.console.warn('Error getting Lichess game data... estimating it anyway');
+            explorerInfo = {
+              "totalGames": 7473850577,
+              "dbYear": 2026,
+              "dbMonth": 1,
+              "monthText": "2026-01",
+              "monthGames": 93569988
+            };
           }
-          data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis`,{ noUserAgent:true, ignoreStatuses: [429] }); // see https://github.com/lichess-org/lila/issues/19610
-          if (!data) return;
-          explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
           return explorerInfo;
         },
         requestAnalysis: async function(gameId) {
@@ -2711,7 +2747,8 @@
         }
         if (tool.dependencies) {
           for (const name of tool.dependencies) {
-            if (!this.tools[toolClass.name]) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not loaded');
+            const toolName = LiChessTools.Tools[name]?.name;
+            if (!toolName || !this.tools[toolName]) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not loaded');
           }
         }
       } catch (e) {
@@ -2730,7 +2767,8 @@
       for (const tool of this.tools) {
         if (!tool?.init) continue;
         try {
-          await tool.init().catch(e => { setTimeout(() => { throw e; }, 100); });
+          // init all tools at the same time, don't await
+          tool.init().catch(e => { setTimeout(() => { throw e; }, 100); });
         } catch (e) {
           setTimeout(() => { throw e; }, 100);
         }
@@ -2745,9 +2783,15 @@
       const age = lichess.info?.date
         ? (Date.now() - new Date(lichess.info.date).getTime()) / 86400000
         : 0;
-      this.global.console.debug('%c site code age: ' + Math.round(age * 10) / 10 + ' days', age < 7 ? 'background: red; color:white;' : '');
+      let style = '';
+      if (age<7) {
+        const background = this.getGradientColor(age, [{ q: 0, color: '#FF0000' }, { q: 2, color: '#FF8000' }, { q: 5, color: '#FFFF00' }, { q: 8, color: '#808080' }]);
+        const text = this.getGradientColor(age, [{ q: 0, color: '#FFFFFF' }, { q: 1.99, color: '#FFFFFF' }, { q: 2, color: '#000000' }]);
+        style = 'background:'+background+'; color:'+text+';';
+      }
+      this.global.console.debug('%c site code age: ' + Math.round(age * 10) / 10 + ' days', style);
       await this.applyOptions();
-      const debouncedApplyOptions = this.debounce(this.applyOptions, 250, true);
+      const debouncedApplyOptions = this.debounce(this.applyOptions, 250);
       this.storage?.listen('lichessTools.reloadOptions', () => {
         debouncedApplyOptions();
       });
@@ -2898,6 +2942,14 @@
       const perfData = [];
       this._inApplyOptions = true;
       for (const tool of this.tools) {
+        if (tool.dependencies) {
+          for (const name of tool.dependencies) {
+            const toolName = LiChessTools.Tools[name]?.name;
+            const dep = this.tools[toolName];
+            if (!dep) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not found');
+            if (dep.start && !dep.ranStart) throw new Error('Tool ' + tool.name + ' has a dependency on ' + name + ' which was not started before it');
+          }
+        }
         if (!tool?.start) continue;
         try {
           const start = performance.now();
@@ -2968,7 +3020,7 @@
       const db = await this.dbConnect(dbInfo);
       const store = db.transaction([dbInfo.storeName],'readonly').objectStore(dbInfo.storeName);
       const result = store.get(dbInfo.itemName);
-      return await this.actionPromise(result);
+      return await this.actionPromise(result,true);
     }
 
     async setItem(key, value) {
@@ -2976,7 +3028,7 @@
       const db = await this.dbConnect(dbInfo);
       const store = db.transaction([dbInfo.storeName],'readwrite').objectStore(dbInfo.storeName);
       const result = store.put(value, dbInfo.itemName);
-      return await this.actionPromise(result);
+      return await this.actionPromise(result,true);
     }
 
     async removeItem(key) {
@@ -2984,7 +3036,7 @@
       const db = await this.dbConnect(dbInfo);
       const store = db.transaction([dbInfo.storeName],'readwrite').objectStore(dbInfo.storeName);
       const result = store.delete(dbInfo.itemName);
-      return await this.actionPromise(result);
+      return await this.actionPromise(result,true);
     }
 
     async clearStore(key) {
@@ -2992,7 +3044,7 @@
       const db = await this.dbConnect(dbInfo);
       const store = db.transaction([dbInfo.storeName],'readwrite').objectStore(dbInfo.storeName);
       const result = store.clear();
-      return await this.actionPromise(result);
+      return await this.actionPromise(result,true);
     }
 
     getDbInfo(key) {
@@ -3033,7 +3085,10 @@
           } else {
             Promise.all(deletions)
               .then(() => resolve({ length: deletions.length }))
-              .catch(reject);
+              .catch(reject)
+              .finally(()=>{
+                db.close();
+              });
           }
         };
 
@@ -3046,7 +3101,6 @@
     async upgradeDbWithIndex(dbInfo, fieldName) {
       return new Promise((resolve, reject) => {
         const request = indexedDB.open(dbInfo.dbName, dbInfo.version + 1);
-
         request.onupgradeneeded = (event) => {
           const db = event.target.result;
           const txn = event.target.transaction;
@@ -3064,15 +3118,25 @@
       });
     }
 
-    actionPromise(res) {
+    actionPromise(res,closeAtEnd) {
       return new Promise((resolve, reject) => {
-        res.onsuccess = (e) => resolve(e.target.result);
+        res.onsuccess = (e) => {
+          if (closeAtEnd) {
+            const db = e.target.transaction?.db;
+            db?.close();
+          }
+          resolve(e.target.result);
+        };
         res.onerror = (e) => {
           if (e.target.error.name === "QuotaExceededError") {
             globalThis.console.warn("Storage limit reached!");
           }
+          if (closeAtEnd) {
+            const db = e.target.transaction?.db;
+            db?.close();
+          }
           reject(e.target.error);
-        }
+        };
       });
     }
 
@@ -3139,6 +3203,20 @@
       }
     }
 
+    tryCreateLock(key, ms) {
+      try {
+        if (this._inTryCreateLock) return false;
+        this._inTryCreateLock = true;
+        let lock = this.get(key);
+        if (lock) return false;
+        lock = { expiresAt: Date.now() + ms };
+        localStorage.setItem(key, JSON.stringify(lock));
+        return true;
+      } finally {
+        this._inTryCreateLock = false;
+      }
+    }
+
     createLock(key, ms) {
       const lock = { expiresAt: Date.now() + ms };
       localStorage.setItem(key, JSON.stringify(lock));
@@ -3153,12 +3231,46 @@
         lock = this.get(key);
       }
 
+      if (!this.tryCreateLock(key, ms)) {
+        return await execute(fn,key,ms);
+      }
+      const result = await fn();
       this.createLock(key, ms);
-
-      return await fn();
-      this.createLock(key, ms);
+      return result;
     }
   }
+
+  class MaxSizedMap extends Map {
+    constructor(...args) {
+      const maxSize = +args.at(-1);
+      if (!maxSize) throw new Error('No size was specified');
+      super(...args.slice(0,-1));
+      this._maxSize = maxSize;
+    }
+
+    set(key, value) {
+      const result = super.set(key, value);
+      if (this.size >= this._maxSize) {
+        this._halveSize();
+      }
+      return result;
+    }
+
+    _halveSize() {
+      const keys = Array.from(this.keys());
+      for (let i = keys.length - 1; i > 0; i--) {
+        const j = Math.floor(this.random() * (i + 1));
+        [keys[i], keys[j]] = [keys[j], keys[i]];
+      }
+
+      const half = Math.floor((this._maxSize+1) / 2);
+      for (let i = 0; i < half; i++) {
+        this.delete(keys[i]);
+      }
+    }
+  }
+
+  LiChessTools.MaxSizedMap = MaxSizedMap;
 
   LiChessTools.Tools = {
     ToolBase: ToolBase

@@ -140,7 +140,7 @@
   credentialless=""
 />`
         });
-$(dialog).find('iframe').each((i,e)=>console.log(e.sandbox));
+
         $(dialog)
           .addClass('lichessTools-video')
           .on('close', (ev) => $(ev.target).remove());
@@ -263,8 +263,12 @@ $(dialog).find('iframe').each((i,e)=>console.log(e.sandbox));
       if (this.options.commentTab) {
         const anchorElem = $('span.tags:not(:has(+span.comments))');
         if (anchorElem.length) {
+          const commentThisPositionText = lt.global.i18n?.study?.commentThisPosition;
+          if (!commentThisPositionText) {
+            lt.global.console.warn('Could not determine commentThisPosition translation string!');
+          }
           $('<span class="lichessTools-comments comments" role="tab">')
-            .attr('title',lt.global.i18n?.study?.commentThisPosition)
+            .attr('title',commentThisPositionText)
             .append('<count class="data-count">')
             .append($('<i>').attr('data-icon',lt.icon.BubbleSpeech))
             .on('click',()=>{

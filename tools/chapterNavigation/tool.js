@@ -49,6 +49,13 @@
     getChapterElements = (chapterId, forced)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
+
+      const recreateCache = ()=>{
+        this.elemCache.map.clear();
+        this.elemCache.all = $('.study__chapters button[data-id]').get();
+        for (const elem of this.elemCache.all) this.elemCache.map.set($(elem).attr('data-id'),elem);
+      };
+
       if (forced===undefined) forced = !this.elemCache.all.length;
       if (forced===false) {
         for (const elem of this.elemCache.all) {
@@ -56,17 +63,22 @@
             return this.getChapterElements(chapterId, true);
           }
         }
-        return chapterId 
-          ? this.elemCache.map.get(chapterId)
-          : this.elemCache.all;
+        if (chapterId) {
+          let elem = this.elemCache.map.get(chapterId);
+          if (!elem) {
+            recreateCache();
+            elem = this.elemCache.map.get(chapterId);
+          }
+          return elem;
+        } else {
+          return this.elemCache.all;
+        }
       }
-      this.elemCache.map.clear();
-      this.elemCache.all = $('.study__chapters button[data-id]').get();
-      for (const elem of this.elemCache.all) this.elemCache.map.set($(elem).attr('data-id'),elem);
+      recreateCache();
       return this.getChapterElements(chapterId, false);
     };
 
-    refreshChapterControls = () => {
+    refreshChapterControlsDirect = () => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
       const $ = lt.$;
@@ -96,7 +108,6 @@
           anchor = $('aside.relay-tour__side .relay-games');
         }
         if (!anchor.length) return;
-        const trans = lt.translator;
         list = study.chapters.list.all();
         let container = $('div.study__side div[role="footer"],aside.relay-tour__side div[role="footer"]');
         if (!container.length && list.length > 1) {
@@ -118,19 +129,19 @@
           : 0;
         $('button[data-act="first"]', container)
           .attr('title', trans.noarg('firstChapterTitle'))
-          .toggleClass('disabled', index == 0);
+          .toggleClassSafe('disabled', index == 0);
         $('button[data-act="prev"]', container)
           .attr('title', trans.noarg('prevChapterTitle'))
-          .toggleClass('disabled', index == 0);
+          .toggleClassSafe('disabled', index == 0);
         $('button[data-act="random"]', container)
           .attr('title', trans.noarg('randomChapterTitle'))
-          .toggleClass('disabled', list.length == 1);
+          .toggleClassSafe('disabled', list.length == 1);
         $('button[data-act="next"]', container)
           .attr('title', trans.noarg('nextChapterTitle'))
-          .toggleClass('disabled', index == list.length - 1);
+          .toggleClassSafe('disabled', index == list.length - 1);
         $('button[data-act="last"]', container)
           .attr('title', trans.noarg('lastChapterTitle'))
-          .toggleClass('disabled', index == list.length - 1);
+          .toggleClassSafe('disabled', index == list.length - 1);
       }
 
       const hasButton = !!$('.feedback.end button.next').length;
@@ -185,6 +196,7 @@
                              this.expandChapter(chapter.id);
                            })
                            .insertBefore($('h3',chapterElem));
+              if (this.collapsedChapters.includes(chapter.id)) expander.trigger('click');
             }
           } else {
             expander.remove();
@@ -192,7 +204,7 @@
         } 
       }
     };
-    debouncedRefreshChapterControls = this.lichessTools.debounce(this.refreshChapterControls, 100);
+    refreshChapterControls = this.lichessTools.debounce(this.refreshChapterControlsDirect, 100);
 
     isSubChapter = (chapterOrName)=>{
       const name = chapterOrName?.name || chapterOrName?.toString();
@@ -210,7 +222,13 @@
       if (index<0) return;
       const expander = $('.lichessTools-expander',chapterElem);
       const isCollapsed = !expander.is('.collapsed');
-      expander.toggleClass('collapsed',isCollapsed);
+      expander.toggleClassSafe('collapsed',isCollapsed);
+      if (isCollapsed) {
+        this.collapsedChapters.push(chapterId);
+      } else {
+        lt.arrayRemoveAll(this.collapsedChapters,x=>x=chapterId);
+      }
+      lt.storage.set('LiChessTools.collapsedChapters',this.collapsedChapters);
       for (let i = index+1; i<chapterElems.length; i++) {
         const next = chapterElems[i];
         if (!this.isSubChapter($('h3',next).text())) break;
@@ -289,28 +307,31 @@
       const $ = lt.$;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      lt.pubsub.off('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
-      lt.pubsub.off('lichessTools.redraw', this.debouncedRefreshChapterControls);
-      lt.uiApi.events.off('chat.resize', this.debouncedRefreshChapterControls);
+      lt.pubsub.off('lichessTools.chapterChange', this.refreshChapterControls);
+      lt.pubsub.off('lichessTools.redraw', this.refreshChapterControls);
+      lt.uiApi.events.off('chat.resize', this.refreshChapterControls);
       $('.study__chapters').observer()
-        .off('button[data-id]',this.debouncedRefreshChapterControls);
+        .off('button[data-id]',this.refreshChapterControls);
       $('div.study__side.lichessTools-chapterControls,aside.relay-tour__side.lichessTools-chapterControls')
         .removeClass('lichessTools-chapterControls')
         .find('div[role="footer"]')
         .remove();
 
-      if (this.options.controls || this.options.subChapters) {
-        lt.pubsub.on('lichessTools.chapterChange', this.debouncedRefreshChapterControls);
-        lt.pubsub.on('lichessTools.redraw', this.debouncedRefreshChapterControls);
-        lt.uiApi.events.on('chat.resize', this.debouncedRefreshChapterControls);
-        $('.study__chapters').observer()
-          .on('button[data-id], button[data-id] h3',this.debouncedRefreshChapterControls);
-        this.refreshChapterControls();
-      }
-
       $('.lichessTools-expander').remove();
       $('.lichessTools-collapsedChapter').removeClass('lichessTools-collapsedChapter');
       $('button[data-id].collapsed').removeClass('collapsed');
+
+      if (this.options.controls || this.options.subChapters) {
+        lt.pubsub.on('lichessTools.chapterChange', this.refreshChapterControls);
+        lt.pubsub.on('lichessTools.redraw', this.refreshChapterControls);
+        lt.uiApi.events.on('chat.resize', this.refreshChapterControls);
+        $('.study__chapters').observer()
+          .on('button[data-id], button[data-id] h3',this.refreshChapterControls);
+
+        this.collapsedChapters = lt.storage.get('LiChessTools.collapsedChapters')||[];
+        this.refreshChapterControlsDirect();
+      }
+
       study.chapters.sort = lt.unwrapFunction(study.chapters.sort,'chapterNavigation');
 
       if (this.options.subChapters) {

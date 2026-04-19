@@ -146,7 +146,7 @@
             }
             let cost = null;
             if (this.options.cost) {
-              if (db == null) {
+              if (db == null && analysis?.path) {
                 db = this.db.get(analysis.path);
               }
               if (db?.discoverDepth) {

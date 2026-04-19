@@ -45,32 +45,57 @@
     updateGlyphs = ()=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const chessground = lt.getChessground();
       const $ = lt.$;
       const analysis = lichess?.analysis;
       const firstGlyph = analysis.node.glyphs?.at(0);
       let orig = analysis.node.uci?.slice(2, 4);
+      let redraw = false;
       if (firstGlyph?.type && orig) {
+        const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
         lt.global.requestAnimationFrame(()=>{
-          const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
           existing.toggleClassSafe('lichessTools-glyphType-'+firstGlyph.type, true);
         });
       }
       let glyph = firstGlyph?.symbol;
-      if (glyph == '??' && this.options.miss && analysis.nodeList.length>2) {
+      if (this.options.miss && glyph == '??' && analysis.nodeList.length>2) {
         const [cp2,cp1,cp]=analysis.nodeList.slice(-3).map(n=>lt.getCentipawns(n.ceval || n.eval));
         const d1=cp-cp1;
         const d2=cp2-cp1;
         const q = Math.abs(d1-d2)/Math.abs(d1);
         if (q<0.2) {
-          const customSvg = analysis.chessground?.state?.drawable?.autoShapes?.at(0)?.customSvg;
+          const customSvg = chessground?.state?.drawable?.autoShapes?.at(0)?.customSvg;
           let html = customSvg?.html;
           if (html) {
-            // keep in sync with https://github.com/lichess-org/lila/blob/270b724f02f78cdd0a1908c9359b294503d2899e/ui/lib/src/game/glyphs.ts#L80C27-L80C372
+            // keep in sync with https://github.com/lichess-org/lila/blob/1cce0f57a5c91182dba3a8808da081277d6c9c2c/ui/lib/src/game/glyphs.ts#L119
             const missPath = 'M79.4 68q0 1.8-1.4 3.2l-6.7 6.7q-1.4 1.4-3.5 1.4-1.9 0-3.3-1.4L50 63.4 35.5 78q-1.4 1.4-3.3 1.4-2 0-3.5-1.4L22 71.2q-1.4-1.4-1.4-3.3 0-1.7 1.4-3.5L36.5 50 22 35.4Q20.6 34 20.6 32q0-1.7 1.4-3.5l6.7-6.5q1.2-1.4 3.5-1.4 2 0 3.3 1.4L50 36.6 64.5 22q1.2-1.4 3.3-1.4 2.3 0 3.5 1.4l6.7 6.5q1.4 1.8 1.4 3.5 0 2-1.4 3.3L63.5 49.9 78 64.4q1.4 1.8 1.4 3.5z';
             html = html.replace(/\bd="[^"]+"/,'d="'+missPath+'"');
             customSvg.html = html;
+            firstGlyph.name='miss';
+            redraw = true;
           }
         }
+      }
+      // fix overlapping glyphs/motifs
+      const autoShapes = chessground?.state?.drawable?.autoShapes || [];
+      const groups = [...new Set(autoShapes.map(s=>s.orig))].map(k=>autoShapes.filter(s=>s.orig==k)).filter(g=>g.length>1);
+      for (const group of groups) {
+        for (let i=0; i<group.length; i++) {
+          const shape = group[i];
+          const m = /matrix\(.4 0 0 .4 (?<x>\d+) -12\)/.exec(shape.customSvg?.html);
+          const expected = 71-28*i;
+          if (m && +m.groups.x != expected) {
+            shape.customSvg.html = shape.customSvg.html.replace(
+              m[0],
+              `matrix(.4 0 0 .4 ${expected} -12)`
+            );
+            redraw = true;
+          }
+        }
+      }
+      if (redraw) {
+        chessground?.state?.dom?.redrawNow();
+        analysis.redraw();
       }
     };
 
@@ -80,18 +105,23 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       $('body').toggleClassSafe('lichessTools-compOff',!analysis?.showFishnetAnalysis() && !analysis?.cevalEnabled());
-      const chessground = analysis?.chessground;
+      const chessground = lt.getChessground();
       if (!chessground) return;
-      const firstGlyph = analysis.node.glyphs?.at(0);
+      const glyphs = analysis.node.glyphs || (analysis.node.glyphs = []);
+      const firstGlyph = glyphs[0];
       let glyph = firstGlyph?.symbol;
       let fill = firstGlyph?.fill || '#557766B0';
+      const isMate = lt.isMate(analysis.node);
+      let name = undefined;
       if (!glyph) {
-        if (this.options.mate && lt.isMate(analysis.node)) {
+        if (this.options.mate && isMate) {
           glyph = lt.icon.Mate;
+          //name='mate';
           fill = '#557766B0';
         } else
         if (this.options.book && analysis.node.opening) {
           glyph = lt.icon.OpenBook;
+          name='book';
           fill = '#999900BB';
         }
       }
@@ -103,6 +133,7 @@
         if (shape) shapes.push(shape);
         if (lt.global.JSON.stringify(autoShapes)!=lt.global.JSON.stringify(shapes)) {
           chessground.setAutoShapes(shapes);
+          chessground.state.dom.redrawNow();
         }
       };
 
@@ -110,7 +141,9 @@
         setShape();
         return;
       }
-      let orig = analysis.node.uci?.slice(2, 4);
+      let orig = isMate
+                   ? this.getSquareOfCheckedKing()
+                   : analysis.node.uci?.slice(2, 4);
       if (!orig) return;
       if (analysis.node.san?.startsWith('O-O')) {
         switch (orig) {
@@ -128,15 +161,38 @@
           text: glyph
         }
       });
-      const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
-      existing.find('circle').attrSafe('fill',fill);
+      // mate is a special one, no ceval running and already on the move list
+      if (name && !glyphs.find(g=>g.symbol==glyph)) {
+        glyphs.push({
+          symbol: glyph,
+          name: name,
+          fill: fill,
+          type: 'nonStandard'
+        });
+        analysis.redraw();
+      }
+      //const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
+      //existing.find('circle').attrSafe('fill',fill);
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);
+
+    getSquareOfCheckedKing = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const analysis = lichess.analysis;
+      if (!analysis) return;
+      const turnColor = analysis.turnColor() == 'white'
+        ? 'black'
+        : 'white';
+      const square = $('square.king.'+turnColor+',square.check').prop('cgKey');
+      return square;
+    };
 
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('additionalGlyphs');
-      this.logOption('Aditional glyphs', value);
+      this.logOption('Additional glyphs', value);
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
@@ -153,7 +209,7 @@
       analysis.setAutoShapes = lt.unwrapFunction(analysis.setAutoShapes,'additionalGlyphs');
 
       const clearShapes = ()=>{
-        const chessground = analysis.chessground;
+        const chessground = lt.getChessground();
         if (!chessground) return;
         const autoShapes = chessground.state?.drawable?.autoShapes;
         const shapes = autoShapes?.filter(s => s.type !== 'glyph') || [];
@@ -173,14 +229,16 @@
           this.drawGlyphsDirect();
         },
         after: ($this, result, ...args)=>{
+          this.drawGlyphsDirect();
           this.updateGlyphs();
         }
       });
 
       lt.pubsub.on('lichessTools.redraw', this.drawGlyphs);
-      if (analysis.chessground?.state.drawable) {
+      if (lt.getChessground()?.state.drawable) {
         this.interval = lt.global.setInterval(() => {
-          const drawable = analysis.chessground?.state.drawable;
+          const chessground = lt.getChessground();
+          const drawable = chessground?.state.drawable;
           let same = drawable.autoShapes?.length === this.prevAutoShapes?.length;
           if (same && this.prevAutoShapes?.length) {
             for (let i=0; i<this.prevAutoShapes?.length; i++) {
@@ -188,6 +246,9 @@
                 same = false;
                 break;
               }
+            }
+            if (!same) {
+              same = lt.global.JSON.stringify(drawable.autoShapes) == lt.global.JSON.stringify(this.prevAutoShapes);
             }
           }
           if (!same) {

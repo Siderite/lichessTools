@@ -1,7 +1,7 @@
 (() => {
   class ExplorerSnapsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'DetectThirdParties'];
+    dependencies = ['EmitRedraw', 'DetectThirdParties','InterceptEventHandlers'];
 
     preferences = [
       {
@@ -64,7 +64,7 @@
       data.byDb().since(snap.settings.since);
       data.byDb().until(snap.settings.until);
       analysis.explorer?.reload();
-      this.showSnaps();
+      this.showSnapsDirect();
     };
 
     getSnapElement = (snap) => {
@@ -244,13 +244,14 @@
           this._originalTitle = titleElem.attr('title');
         }
         titleElem
-          .text(snap?.text || this._originalText)
-          .attr('title', this.getTitle(snap?.settings) || this._originalTitle)
-          .off('click', this.toggleSnaps)
-          .on('click', this.toggleSnaps);
-        if (!titleElem.is('lichessTools-explorerSnaps')) {
-          titleElem.addClass('lichessTools-explorerSnaps')
-        }
+          .textSafe(snap?.text || this._originalText)
+          .attrSafe('title', this.getTitle(snap?.settings) || this._originalTitle)
+          .each((i,e)=>{
+            if (e._initToggleSnaps) return;
+            e._initToggleSnaps = true;
+            $(e).on('click', this.toggleSnaps);
+          });
+        titleElem.toggleClassSafe('lichessTools-explorerSnaps',true);
       }
 
       const playerElem = $('.explorer-title button.player');
@@ -329,6 +330,10 @@
       if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('explorerSnaps');
       this.logOption('Explorer snaps', value);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const $ = lt.$;
       const explorer = lichess?.analysis?.explorer;
       if (!explorer) return;
@@ -349,6 +354,7 @@
       lt.pubsub.off('lichessTools.redraw', this.showSnaps);
       $('.explorer-title span.lichess')
         .removeClass('lichessTools-explorerSnaps')
+        .prop('_initToggleSnaps',false)
         .off('click', this.toggleSnaps);
       if (!value) {
         if (this._originalText) {

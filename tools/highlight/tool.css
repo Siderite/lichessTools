@@ -156,6 +156,27 @@ body.lichessTools.lichessTools-variationDepth main.analyse move {
   vertical-align: middle
 }
 
+body.lichessTools .analyse__moves:has(.context-menu):not(:has(.pending-deletion,.pending-copy)) .lichessTools-currentLine san {
+  background-color: var(--c-accent-faint);
+}
+
+body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san {
+  filter: drop-shadow(0 0 2px var(--c-accent-faint));
+  color: var(--c-font-clearer);
+}
+
+@media not print and (prefers-color-scheme: dark) {
+  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san {
+    filter: drop-shadow(0 0 2px var(--c-accent));
+  }
+}
+
+html.dark body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san,
+html.darkBoard body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san,
+html.transp body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san {
+  filter: drop-shadow(0 0 2px var(--c-accent));
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier main.analyse .tview2 move.lichessTools-transposition {

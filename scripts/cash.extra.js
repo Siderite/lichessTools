@@ -9,7 +9,7 @@ cash.cached = function (selector, duration = 10000) {
   if (!item?.time || Date.now() - item.time > item.duration) {
     item = { value: cash(selector), time: Date.now(), duration: duration }
     cache.set(selector, item);
-  } else if (window.lichessTools?.debug > 1) {
+  } else if (window.lichessTools?.debug > 2) {
     console.debug('Getting ' + selector + ' from $ cache');
   }
   return item.value;
@@ -67,6 +67,23 @@ cash.fn.textSafe = function(value) {
   return this;
 }
 
+cash.fn.selectText = function(start,length) {
+  start ||= 0;
+  this.each((i,e)=>{
+    const text = e.value;
+    if (!text) return;
+    e.focus();
+    e.value = text.substring(0,start);
+    const scrollY = e.scrollHeight;
+    e.value = text;
+    e.scrollTop = scrollY - 40;
+
+    const end = start+(length||text.length||0);
+    e.setSelectionRange(start, end);
+  });
+  return this;
+}
+
 cash.fn.insertText = function(value, focus) {
   if (!value) return;
   this.each((i,e)=>{
@@ -93,16 +110,22 @@ cash.fn.removeAttrSafe = function(attr) {
 }
 
 cash.fn.toggleClassSafe = function(className, value) {
-  if (value === undefined && this.length>2)  {
-    throw new Error('Cannot use toggleClassSafe with undefined value for multiple elements');
+  if (value === undefined)  {
+    throw new Error('Cannot use toggleClassSafe with undefined value');
   }
-  this.each((i,e)=>{
-    const existing = cash(e).hasClass(className);
-    if (value === undefined) value = !existing;
-    if (existing !== value) {
-      cash(e).toggleClass(className, value);
-    }
-  });
+  const cls = className.split(/\s+/);
+  const isFunction = typeof value == 'function';
+  const f =()=>{
+    this.each((i,e)=>{
+      const v = isFunction ? value(e) : !!value;
+      cls.forEach(c=>e.classList.toggle(c,v));
+    });
+  };
+  if (this.length>100) {
+    requestAnimationFrame(f);
+  } else {
+    f();
+  }
   return this;
 }
 

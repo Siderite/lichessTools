@@ -152,7 +152,8 @@
         if (lt.tools.ExplorerPracticeTool.isRunning) {
           $('.lichessTools-hideExplorerMovesButton').trigger('click');
         } else {
-          this.oldHandlers['h']();
+          const f = this.oldHandlers['h'];
+          if (f) f();
         }
         return;
       }

@@ -187,11 +187,11 @@
       const pos = lt.getPositionFromFen(analysis.node.fen);
       const gambits = await this.gambit_dict();
       const result = gambits[side].get(pos);
-      lt.global.requestAnimationFrame(async ()=>{
+      lt.requestAF(async ()=>{
         await this.showGambits(result);
-      });
+      },'explorerEval_showGambits');
     };
-    findGambitsDebounced = this.lichessTools.debounce(this.findGambits, 100, { defer:true });
+    findGambitsDebounced = this.lichessTools.debounce(this.findGambits, 100);
 
     checkGambits = () => {
       const lt = this.lichessTools;
@@ -221,6 +221,10 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('explorerGambits');
       this.logOption('Explorer gambits', value);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       this.options = { enabled: value };
       const lichess = lt.lichess;
       const $ = lt.$;

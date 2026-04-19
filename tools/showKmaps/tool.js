@@ -237,7 +237,7 @@
       }
       if (notInViewport) this.miniGameKmapsDebounced();
     };
-    miniGameKmapsDebounced = this.lichessTools.debounce(this.miniGameKmaps, 500, { defer:true });
+    miniGameKmapsDebounced = this.lichessTools.debounce(this.miniGameKmaps, 500);
 
     refreshKmaps = async (ply) => {
       const lt = this.lichessTools;
@@ -262,7 +262,7 @@
         await this.miniGameKmaps();
       }
     };
-    refreshKmapsDebounced = this.lichessTools.debounce(this.refreshKmaps, 500, { defer:true });
+    refreshKmapsDebounced = this.lichessTools.debounce(this.refreshKmaps, 500);
 
     async start() {
       const lt = this.lichessTools;
@@ -338,15 +338,12 @@
     // Normalize a score to [-1, 1]
     normalize(score, min, max, area) {
       if (score >= max) {
-        //console.log(area,score+' larger than max '+max);
         return 1;
       }
       if (score <= min) {
-        //console.log(area,score+' smaller than min '+min);
         return -1;
       }
       const normalized = (2 * (score - min)) / (max - min) - 1;
-      //console.log(area,score+' normalized to '+normalized);
       return normalized;
     }
   
@@ -731,7 +728,7 @@
       };
   
       if (type === 'p') {
-        if (control) throw 'Should not use control=true for pawns';
+        if (control) throw new Error('Should not use control=true for pawns');
         const dir = isWhite ? -1 : 1;
         const startRank = isWhite ? 6 : 1;
         // Forward move

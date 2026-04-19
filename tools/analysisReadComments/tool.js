@@ -49,13 +49,32 @@
       '?!':'inaccuracy',
       '!?':'interesting'
     };
+    unicode = {
+      '\u2654': 'white king',
+      '\u2655': 'white queen',
+      '\u2656': 'white rook',
+      '\u2657': 'white bishop',
+      '\u2658': 'white knight',
+      '\u2659': 'white pawn',
+      '\u265A': 'black king',
+      '\u265B': 'black queen',
+      '\u265C': 'black rook',
+      '\u265D': 'black bishop',
+      '\u265E': 'black knight',
+      '\u265F': 'black pawn'
+    };
     getSpeakableText = (text)=>{
       if (!text) return;
       text = text.replaceAll(/(cls|bkm|prc|rnd):([^\s]*)\s*/gi,'');
+      for (const ch in this.unicode) {
+        text = text.replaceAll(ch, this.unicode[ch]+', ');
+      }
       if (this.options.stripEmoji) {
         text = text.replaceAll(/\p{Extended_Pictographic}+/ugi,' ');
       }
       text = text.replaceAll(/e\.\s*p\./gi,'un phsaant');
+      text = text.replaceAll(/(\d+)-(\d+)/gi,'$1, $2');
+      text = text.replaceAll(/(\d+)\s+-\s+(\d+)/gi,'$1, $2');
       text = text.replaceAll(this.urlRegex,(m)=>{
         const url = new URL(m);
         const host = url.host
@@ -91,7 +110,7 @@
           result.push(sanWords);
         }
         if (g.glyph) {
-          const ann = this.annotations[g.glyph];
+          const ann = g.name || this.annotations[g.glyph];
           if (ann) result.push(', '+ann);
         }
         return result.join(' ')
@@ -118,9 +137,8 @@
       const node = lichess.analysis.node;
       if (!node) return;
       const comments = lt.getNodeCommentsText(node);
-      this.prevComments = comments;
       let speakable = this.getSpeakableText(comments);
-      let shouldSpeak = speakable != this.prevSpeakable;
+      let shouldSpeak = speakable != this.prev?.speakable && (node.fen != this.prev?.fen || Date.now()-this.prev?.time > 2000);
       const isCheck = node.san?.endsWith('+');
       const isMate = node.san?.endsWith('#');
       if (this.options.readAnnotations && (node.glyphs?.length || isCheck || isMate)) {
@@ -143,13 +161,16 @@
             speakable = `${additional}, ${speakable}`;
           }
         }
-        shouldSpeak = node.fen != this.prevFen;
+        shouldSpeak = node.fen != this.prev?.fen;
+      }
+      this.prev = {
+        speakable: speakable,
+        fen: node.fen
       }
       if (shouldSpeak && speakable?.trim()) {
         lt.speak(speakable, { rate: 1.25 });
+        this.prev.time = Date.now();
       }
-      this.prevSpeakable = speakable;
-      this.prevFen = node.fen;
     }
 
     showInteractiveButton = () => {
@@ -174,7 +195,6 @@
       const lt = this.lichessTools;
       const val = !lt.storage.get('LiChessTools.dontReadComments');
       lt.storage.set('LiChessTools.dontReadComments',val);
-      this.prevComments = false;
       if (val) {
         lt.stopSpeaking();
       } else {

@@ -78,6 +78,7 @@
                   node.eval.best = best;
                 }
               } else {
+                // TODO this is dangerous, should be replaced with something better
                 node.eval = {
                                _originator: 'lichessTools',
                                cp:newCeval?.cp,
@@ -92,7 +93,8 @@
         after: ($this, result, ...args)=>{
           if (!this.options.justOrientation) return;
           if (analysis.getOrientation()!=analysis.turnColor()) return;
-          lt.arrayRemoveAll(analysis.chessground?.state?.drawable?.autoShapes,s=>s.brush=='paleGreen' && s.orig+s.dest==currBest)
+          const chessground = lt.getChessground();
+          lt.arrayRemoveAll(chessground?.state?.drawable?.autoShapes,s=>s.brush=='paleGreen' && s.orig+s.dest==currBest)
         }
       });
     }

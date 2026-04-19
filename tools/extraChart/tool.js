@@ -457,7 +457,11 @@
       return underAttack;
     };
 
+    tensionCache = new LiChessTools.MaxSizedMap(10000);
     tension = node => {
+      const fen = node.fen;
+      let result = this.tensionCache.get(fen);
+      if (result) return result;
       const lt = this.lichessTools;
       const board = lt.getBoardFromFen(node.fen);
       const underAttack = [];
@@ -467,11 +471,17 @@
           underAttack.push.apply(underAttack, ua);
         }
       }
-      const result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))].map(i => i.split('=')[1].toLowerCase()).reduce((acc, val) => this.pieceMaterial[val] + acc, 0);
+      result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))].map(i => i.split('=')[1].toLowerCase()).reduce((acc, val) => this.pieceMaterial[val] + acc, 0);
+      this.tensionCache.set(fen,result);
       return result;
     };
 
+    capturingMoveCache = new LiChessTools.MaxSizedMap(10000);
     getAllCapturingMoves = (board) => {
+      const lt = this.lichessTools;
+      const fen = lt.getFenFromBoard(board);
+      let result = this.capturingMoveCache.get(fen);
+      if (result) return result;
       const underAttack = [];
       for (let y = 0; y < 8; y++) {
         for (let x = 0; x < 8; x++) {
@@ -479,6 +489,7 @@
           underAttack.push.apply(underAttack, ua);
         }
       }
+      this.capturingMoveCache.set(fen,result);
       return underAttack;
     };
 
@@ -608,8 +619,12 @@
       return mainline
         .map((node, x) => {
           path += node.id;
-          if (!node.ceval) return null;
-          const cp = this.getCp(node.ceval);
+          let ceval = node.ceval;
+          if (!ceval) {
+            ceval = this.getCommentCeval(node);
+          }
+          if (!ceval) return null;
+          const cp = this.getCp(ceval);
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             x: node.ply,
@@ -639,12 +654,23 @@
         .filter(r => !!r);
     };
 
+    getCommentCeval = (node) => {
+      const lt = this.lichessTools;
+      const commentText = lt.getNodeCommentsText(node);
+      const m = /eval[:]?\s+(?:[#M](?<mate>[+-]?\d+)|(?<cp>[+-]?\d+(?:\.\d+)?))/.exec(commentText);
+      if (m) {
+        return {
+          cp: m.groups.cp!==undefined ? +m.groups.cp*100 : undefined,
+          mate: m.groups.mate!==undefined ? +m.groups.mate : undefined
+        };
+      }
+    };
+
     getNodeCeval = (node) => {
+      const lt = this.lichessTools;
       if (!this.options.local) return node.eval;
-      const ceval = node.ceval;
-      return !ceval || (node.eval && (node.eval?.depth || 16) > ceval.depth)
-        ? node.eval
-        : ceval;
+      const result = lt.getNodeCeval(node) || this.getCommentCeval(node);
+      return result;
     };
 
     getAccuracyData = (mainline) => {
@@ -876,7 +902,7 @@
       }
 
       // Check for Discovered Attack
-      if (!prevNode) throw 'Need previous position';
+      if (!prevNode) throw new Error('Need previous position');
       const prevBoard = lt.getBoardFromFen(prevNode.fen);
       const fromX = 104 - uci.charCodeAt(0);
       const fromY = uci.charCodeAt(1) - 49;
@@ -919,11 +945,13 @@
       const initValue = this.options.moreBrilliant ? 2 : 1;
       if (!forced && mainline.at(-1)?.brilliantInit === initValue) return;
       const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
       const isLocalChart = $('#acpl-chart-container').is('.lichessTools-extraChart');
       const Math = lt.global.Math;
       const showBad = this.options.moreBrilliant && isLocalChart;
       let p2;
       let p3;
+      let resetShapes = false;
       mainline
         .map((node, x) => {
           try {
@@ -935,7 +963,6 @@
                            ? 0
                            : this.computeBrilliant(m, node, p2, p3);
             result = {
-              //book: node.opening,
               blunder: showBad && good < -20,
               mistake: showBad && good < -10,
               inaccuracy: showBad && good < -5,
@@ -954,10 +981,6 @@
           let symbol = null;
           let name = null;
           if (v.good) {
-            if (v.book) {
-              symbol = lt.icon.Book;
-              name = 'Book';
-            } else
             if (v.bril) {
               symbol = '!!';
               name = 'Brilliant';
@@ -996,9 +1019,14 @@
               name: name,
               type: 'nonStandard'
             });
+            resetShapes = true;
           }
           mainline[x].glyphs = glyphs;
         });
+      if (resetShapes) {
+        analysis.resetAutoShapes();
+         
+      }
       if (mainline.length) {
         mainline.at(-1).brilliantInit = initValue;
       }
@@ -1323,9 +1351,10 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      if (!forced && lt.random() > 0.95) forced = true; // hack to sometimes update this anyway
+      if (!forced && lt.random() > 0.9) forced = true; // hack to sometimes update this anyway
 
       if (!lichess.analysis) return;
+
       const currentBrilliant = [this.options.brilliant, this.options.moreBrilliant].join(',');
       if (!forced && this.prevBrilliant != currentBrilliant) {
         this.prevBrilliant = currentBrilliant;
@@ -1342,14 +1371,18 @@
       }
       if (!lichess.analysis.mainline.find(n => this.getNodeCeval(n))) {
         if (!localLine || !localLine.find(n => this.getNodeCeval(n))) {
+          $('#acpl-chart-container.lichessTools-extraChart').remove();
           this.clearCharts();
           return;
         }
       }
-      let container = $('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready');
+
       let chart = this._chart;
+
+      let container = $.cached('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready',3000);
       if (!chart) {
-        chart = lichess.analysis.study?.serverEval?.chart;
+        const serverEval = lichess.analysis.study?.serverEval;
+        chart = serverEval?.requested && serverEval?.chart;
         if (!chart) {
           const canvas = $('canvas#acpl-chart', container)[0];
           if (canvas) {
@@ -1362,30 +1395,49 @@
             }
           }
         }
-        if (!chart && this.options.local && !lichess.analysis.study) {
+        if (!chart && this.options.local) {
           const underboard = $('.analyse__underboard div.computer-analysis')[0] || $('.analyse__underboard')[0];
           if (underboard) {
+            $('#acpl-chart-container.lichessTools-extraChart').remove();
             container = $('<div id="acpl-chart-container" class="lichessTools-extraChart"><canvas id="acpl-chart"></canvas></div>');
             const message = $('.future-game-analysis', underboard);
+            let loadChartModule = false;
             if (message.length) {
               container.insertBefore(message);
+              loadChartModule = true;
+            } else
+            if (lichess.analysis.study) {
+              const elem = $('.study__message');
+              if (elem.length) {
+                elem.append(container)
+                  .find('p')
+                  .remove();
+                loadChartModule = true;
+              }
             } else {
               container.appendTo(underboard);
+              loadChartModule = true;
             }
-            const mod = await this.getChartModule();
-            const mainline = lichess.analysis.mainline;
-            chart = await mod.acpl($("#acpl-chart")[0], lichess.analysis.data, mainline, lichess.analysis.trans);
+            if (loadChartModule) {
+              const mod = await this.getChartModule();
+              const mainline = lichess.analysis.mainline;
+              chart = await mod.acpl(container.find("#acpl-chart")[0], lichess.analysis.data, mainline, lichess.analysis.trans);
+            }
           }
         }
         if (chart && !this._chart) {
           this.setChart(chart);
         }
       }
+
       if (!chart) return;
       if (chart.options.onClick != this.chartClick) {
         chart.options.onClick = this.chartClick;
       }
-      if (!lt.inViewport(container)) return;
+      if (!lt.inViewport(container)) {
+        this._chart=null;
+        return;
+      }
       if (!this.options.needsChart) {
         $('div.lichessTools-chartInfo', container).remove();
         $('div.lichessTools-chartLegend', container).remove();
@@ -1870,7 +1922,11 @@
         }
       }
 
-      const middleGameText = lt.global.i18n?.site?.middlegame || 'Middlegame';
+      let middleGameText = lt.global.i18n?.site?.middlegame;
+      if (!middleGameText) {
+        lt.global.console.warn('Could not determine middlegame translation string!');
+        middleGameText = 'Middlegame';
+      }
       let existingMiddleGame = chart.data.datasets.findIndex(s => s.label === middleGameText);
       if (existingMiddleGame >= 0 && !this.options.local) {
         chart.data.datasets.splice(existingMiddleGame, 1);
@@ -1922,7 +1978,12 @@
         }
       }
 
-      const endGameText = lt.global.i18n?.site?.endgame || 'Endgame';
+      let endGameText = lt.global.i18n?.site?.endgame
+      if (!endGameText) {
+        lt.global.console.warn('Could not determine endgame translation string!');
+        endGameText = 'Endgame';
+      }
+
       let existingEndGame = chart.data.datasets.findIndex(s => s.label === endGameText);
       if (existingEndGame >= 0 && !this.options.local) {
         chart.data.datasets.splice(existingEndGame, 1);
@@ -2367,9 +2428,12 @@
   MOVE_CAP = 3; // treat up to 3 moves as their real cost
   ISOLATED_PENALTY = 5; // anything >MOVE_CAP or unreachable => this penalty
 
+  fenToBoardCache = new LiChessTools.MaxSizedMap(10000);
   parseFEN(fen) {
+    let board = this.fenToBoardCache.get(fen);
+    if (board) return board.map(r => r.slice()); // clone
     const rows = fen.split(" ")[0].split("/");
-    const board = Array.from({ length: 8 }, () => Array(8).fill(null));
+    board = Array.from({ length: 8 }, () => Array(8).fill(null));
     for (let r = 0; r < 8; r++) {
       let c = 0;
       for (const ch of rows[r]) {
@@ -2384,6 +2448,7 @@
         }
       }
     }
+    this.fenToBoardCache.set(fen,board);
     return board;
   }
 

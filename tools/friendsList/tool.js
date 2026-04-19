@@ -1,7 +1,7 @@
 (() => {
   class FriendsListTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['DetectThirdParties', 'InterceptEventHandlers', 'EmitContentLoaded'];
+    dependencies = ['DetectThirdParties', 'InterceptEventHandlers', 'EmitContentLoaded', 'LobbyCrosstable']; // ugly hack dependency to lobby crosstable
 
     preferences = [
       {
@@ -47,6 +47,8 @@
         'followersTitle': 'LiChess Tools - players following you',
         'followersPageTitle': 'LiChess Tools - Followers',
         'followersNumberTitle': '%s followers',
+        'followersNumberTitle:one': 'One follower',
+        'followersNumberTitle:zero': 'Followers',
         'friendsNumberTitle': '%s friends',
         'friendsNumberTitle:one': 'One friend',
         'friendsNumberTitle:zero': 'Friends',
@@ -79,6 +81,8 @@
         'followersTitle': 'LiChess Tools - juc\u0103tori care te urm\u0103resc',
         'followersPageTitle': 'LiChess Tools - Urm\u0103ritori',
         'followersNumberTitle': '%s urm\u0103ritori',
+        'followersNumberTitle:one': 'Un urm\u0103ritor',
+        'followersNumberTitle:zero': 'Urm\u0103ritori',
         'friendsNumberTitle': '%s prieteni',
         'friendsNumberTitle:one': 'Un prieten',
         'friendsNumberTitle:zero': 'Prieteni',
@@ -97,7 +101,8 @@
       const value = this.options.openFriends;
       if (value !== 'menu' && value !== 'button') return;
       if (lt.global.document.hidden) {
-        lt.global.requestAnimationFrame(lt.debounce(this.updateFriendsButton, 500));
+        lt.global.clearTimeout(this._updateFriendsButtonTimeout);
+        this._updateFriendsButtonTimeout = lt.global.setTimeout(this.updateFriendsButton, 500);
         return;
       }
       const $ = lt.$;
@@ -198,7 +203,8 @@
       const value = this.options.openFriends;
       if (value !== 'menu') return;
       if (lt.global.document.hidden) {
-        lt.global.requestAnimationFrame(lt.debounce(this.updateFriendsMenu, 500));
+        lt.global.clearTimeout(this._updateFriendsMenuTimeout);
+        this._updateFriendsMenuTimeout = lt.global.setTimeout(this.updateFriendsMenu, 500);
         return;
       }
       const $ = lt.$;
@@ -241,7 +247,7 @@
       const friends = $('#friend_box a.user-link');
       const text = trans.pluralSame('onlineFriends', this.user_data.online.length);
       menu.text(text);
-      menu.toggleClass('lichessTools-somePlaying', !!this.user_data.playing.length);
+      menu.toggleClassSafe('lichessTools-somePlaying', !!this.user_data.playing.length);
       $('section.lichessTools-onlineFriends > a')
         .attr('data-count', this.user_data.playing.length);
       const items = new Set($('a.user-link', group).get());
@@ -372,7 +378,8 @@
       const isFavoritesOrBlocksOrFollowers = !this.isFriendsPage;
       const isBlocks = lt.isBlockedPlayersPage();
       if (lt.global.document.hidden) {
-        lt.global.requestAnimationFrame(this.updateFriendsPage);
+        lt.global.clearTimeout(this._updateFriendsPageTimeout);
+        this._updateFriendsPageTimeout = lt.global.setTimeout(this.updateFriendsPageDirect, 500);
         return;
       }
       let header = $('.lichessTools-livePageHeader');
@@ -400,6 +407,14 @@
                     .text(trans.noarg('opponentsText')))
           .prependTo(header);
       }
+      if (lt.isFavoriteOpponentsPage()) {
+        const backLink = $('.box__top h1 a');
+        const referrer = lt.global.document.referrer;
+        if (backLink.attr('href')!=referrer) {
+          backLink.attr('href', referrer);
+        }
+      }
+
       if (!$('.lichessTools-liveButtons',header).length) {
         const liveButtons = $('<div>')
           .addClass('lichessTools-liveButtons')
@@ -444,8 +459,9 @@
       const enablePlayingAlertTitle = trans.noarg('enablePlayAlert');
       const mutePlayingAlertTitle = trans.noarg('mutePlayAlert');
       const hasAlerts = this.options.friendsPlaying;
-      $('main').addClass('lichessTools-friendsPage');
-      $('main').toggleClass('lichessTools-alerts', hasAlerts);
+      $('main')
+        .addClass('lichessTools-friendsPage')
+        .toggleClass('lichessTools-alerts', hasAlerts);
       this.rows = {};
       const table = $('table.slist div.relation-actions').closest('table');
       $('tr', table).each((i, tr) => {
@@ -503,7 +519,7 @@
         if (lastAt) {
           const time = Date.now()-lt.dateParseUTC(lastAt);
           const inactive = time>1*86400*365.25*1000;
-          row.toggleClass('lichessTools-inactive',inactive);
+          row.toggleClassSafe('lichessTools-inactive',inactive);
         }
       });
       let secondUpdate = false;
@@ -539,20 +555,78 @@
         const row = this.rows[user];
         if (!row) continue;
         const isMuted = mutedPlayers.includes(user);
-        row.toggleClass('lichessTools-muted', isMuted);
+        row.toggleClassSafe('lichessTools-muted', isMuted);
         $('a.lichessTools-mute', row)
           .attr('title', isMuted ? enablePlayingAlertTitle : mutePlayingAlertTitle);
         const isOnline = this.user_data.online.includes(user);
         const isPlaying = this.user_data.playing.includes(user);
-        row.toggleClass('lichessTools-online', isOnline)
-          .toggleClass('lichessTools-playing', isPlaying);
+        row.toggleClassSafe('lichessTools-online', isOnline)
+          .toggleClassSafe('lichessTools-playing', isPlaying);
         $('td:first-child>a', row)
-          .toggleClass('online', isOnline)
-          .toggleClass('offline', !isOnline);
+          .toggleClassSafe('online', isOnline)
+          .toggleClassSafe('offline', !isOnline);
+      }
+      if (!this._opponentsInit && lt.isFavoriteOpponentsPage()) {
+        this._opponentsInit = true;
+        lt.api.user.getCrosstableBulk(Object.keys(this.rows).map(opp=>[myName,opp]),crossTable=> {
+          const me = Object.keys(crossTable.users).find(u=>u.toLowerCase()==myName.toLowerCase());
+          const user = Object.keys(crossTable.users).find(u=>u!=me);
+          if (!user||!me) return;
+          const row = this.rows[user.toLowerCase()];
+          if (!row) return;
+          const winrate=100*crossTable.users[me]/crossTable.nbGames;
+          row.find('a[href*="players.b"]').each((i,e)=>{
+            $('<span class="lichessTools-crossTable">')
+              .text('('+crossTable.users[me]+'/'+crossTable.users[user]+')')
+              .toggleClassSafe('bad',winrate<34 && crossTable.nbGames>1)
+              .toggleClassSafe('good',winrate>66 && crossTable.nbGames>1)
+              .insertAfter(e);
+          });
+        });
       }
       this.filterFriends();
     };
     updateFriendsPage=this.lichessTools.debounce(this.updateFriendsPageDirect,100);
+
+    parseCrosstable = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const container = $('div.crosstable');
+      if (!container.length) return;
+      const users = container.find('.crosstable__users a.user-link')
+                      .map((i,e)=>{
+                        const href = $(e).attr('href');
+                        const m = /@\/(?<user>[^\?&#\s\/]+)/.exec(href);
+                        return m?.groups?.user?.toLowerCase();
+                      })
+                      .get();
+      const scores =  container.find('.crosstable__score > span')
+                      .map((i,e)=>{
+                        const score = +($(e).text().replace('\u00bd','.5'));
+                        return score;
+                      })
+                      .get();
+      const total = scores.reduce((a,v)=>a+v,0);
+      if (!total) return;
+      const data = {
+        users: {},
+        nbGames: total
+      };
+      data.users[users[0]]=scores[0];
+      data.users[users[1]]=scores[1];
+      lt.cache.setCached(`getCrosstable["${users[0]}","${users[1]}"]`,data,{
+        'persist': 'local',
+        'interval': 86400000
+      });
+      lt.cache.setCached(`getCrosstable["${users[1]}","${users[0]}"]`,data,{
+        'persist': 'local',
+        'interval': 86400000
+      });
+    };
+    delayedParseCrosstable = ()=>{
+      const lt = this.lichessTools;
+      lt.global.setTimeout(this.parseCrosstable,500);
+    };
 
     getUserId = (user) => user?.toLowerCase().replace(/^\w+\s/, '');
 
@@ -857,7 +931,7 @@
       if (this.options.openFriends || (this.options.liveFriendsPage && this.isFriendsPage) || this.options.friendsPlaying) {
         const checkOnlineFriends = () => {
           if (!this.onlinesInterval) return;
-          if (lt.global.document.visibilityState == 'hidden') return;
+          if (lt.global.document.hidden) return;
           this.requestOnlines();
           this.followingOnlinesRequests++;
           if (this.followingOnlinesRequests > 5) {
@@ -914,6 +988,12 @@
       }
       this.updateFriendsMenu();
       this.updateFriendsButton();
+
+      lt.uiApi.socket.events.off('endData', this.delayedParseCrosstable);
+      if (this.options.liveFriendsPage || lt.tools.LobbyCrosstableTool?.options?.enabled) { // lazy hack, I don't want to duplicate this code in the lobby crosstable tool or make another
+        lt.uiApi.socket.events.on('endData', this.delayedParseCrosstable);
+        this.parseCrosstable();
+      }
     }
   }
   LiChessTools.Tools.FriendsList = FriendsListTool;

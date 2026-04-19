@@ -67,7 +67,6 @@
               const key = analysis.ceval.storedPv()+'|'+analysis.ceval.engines.activeEngine.id+'|'+meta.variant+'|'+lt.getPositionFromFen(data.fen, true);
               const dbKey = 'lichessTools/evalCache/'+key;
               let value = await lt.storage.get(dbKey,{ db: true, raw: true });
-              const node = analysis.tree.nodeAtPath(meta.path);
               if (data.depth <= 20 || data.depth <= value?.depth) return;
               value = { time: Date.now(), ...data };
               try {

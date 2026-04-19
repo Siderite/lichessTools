@@ -30,11 +30,7 @@
         'removeAll_title': 'LiChess Tools - selective removal of artifacts',
         'removeAll_tagsText': '... PGN tags',
         'removeAll_tagsQuestion': 'Clear all PGN tags for this chapter?',
-        'deleteTagTitle': 'LiChess Tools - Delete %s tag',
-        'bulkPgnTagEditHeader': 'PGN tags editor',
-        'updatePgnTagsText': 'Update PGN tags',
-        'bulkPgnTagsEditText': 'Edit PGN tags',
-        'bulkPgnTagsEditTitle': 'LiChess Tools - Edit PGN tags'
+        'deleteTagTitle': 'LiChess Tools - Delete %s tag'
       },
       'ro-RO': {
         'options.study': 'Studiu',
@@ -50,11 +46,7 @@
         'removeAll_title': 'LiChess Tools - \u015Ftergere selectiv\u0103 de artifacte',
         'removeAll_tagsText': '... etichete PGN',
         'removeAll_tagsQuestion': '\u015Eterge toate etichetele PGN din acest capitol?',
-        'deleteTagTitle': 'LiChess Tools - \u015Eterge eticheta %s',
-        'bulkPgnTagEditHeader': 'Editor etichete PGN',
-        'updatePgnTagsText': 'Salveaz\u0103 etichete PGN',
-        'bulkPgnTagsEditText': 'Modific\u0103 etichetele PGN',
-        'bulkPgnTagsEditTitle': 'LiChess Tools - modific\u0103 etichete PGN'
+        'deleteTagTitle': 'LiChess Tools - \u015Eterge eticheta %s'
       }
     }
 
@@ -71,7 +63,7 @@
       const study = analysis.study;
       if (!study) return;
       if (!node) node = analysis.tree.root;
-      if (node.path === undefined) return;
+      lt.assertPathSet(node);
       if (!chapterId) chapterId = study.chapters.editForm.current()?.id;
       if (!chapterId) return;
       for (const comment of node.comments || []) {
@@ -173,7 +165,7 @@
         lt.global.console.debug('Could not find click handler!');
         return;
       }
-      button.after($('<select class="lichessTools-removeAll">').attr('title', trans.noarg('removeAll_title'))
+      $('<select class="lichessTools-removeAll">').attr('title', trans.noarg('removeAll_title'))
         .append($('<option>').text(trans.noarg('removeAllText')))
         .append($('<option value="comments">').text(trans.noarg('removeAll_commentsText')))
         .append($('<option value="glyphs">').text(trans.noarg('removeAll_glyphsText')))
@@ -219,8 +211,8 @@
           study.chapters.editForm.current(null);
           study.chapters.editForm.redraw();
         })
-      )
-        .remove();
+        .insertAfter(button);
+      button.remove();
     };
 
     setupTagDelete = () => {
@@ -270,120 +262,8 @@
       });
     };
 
-    popupPgnTagsEdit = async (studyId, chapterId, tags)=>{
-      const lt = this.lichessTools;
-      const trans = lt.translator;
-      const lichess = lt.lichess;
-      const $ = lt.$;
-      const dialog = await lt.dialog({
-        header: trans.noarg('bulkPgnTagEditHeader')
-      });
-      $(dialog).addClass('lichessTools-bulkPgnTagsEdit');
-      $('.dialog-content',dialog)
-        .append('<textarea autofocus>')
-        .append($('<button type="button" class="button">')
-                  .text(trans.noarg('updatePgnTagsText'))
-                  .on('click',async ()=>{
-                    const textarea = $(dialog).find('textarea');
-                    textarea.removeClass('lichessTools-error');
-                    $(dialog).find('.lichessTools-errorText').text('');
-                    const pgn = textarea.val();
-
-                    const useApi = false;
-
-                    try {
-                      if (!/^\s*(\[\s*[^\s]+\s+\"[^\"]*\"\s*\][\s\r\n]*)*\s*$/.test(pgn)) {
-                        throw new Error('Restrict your input to PGN tags only');
-                      }
-                      const tagsArray = [];
-                      const tagsMap = new Map();
-                      const newTagsMap = new Map();
-                      tags.forEach(t=>{
-                        tagsMap.set(t[0],t[1]);
-                        newTagsMap.set(t[0],'');
-                      });
-                      const study = lichess.analysis.study;
-                      const types = new Map(study.tags.types.map(t=>[t.toLowerCase(),t]));
-                      const regex = /\[\s*(?<tagName>[^\s]+)\s+\"(?<tagValue>[^\"]*)\"\s*\]/g;
-                      pgn.matchAll(regex)
-                        .forEach(t=>{
-                          const name = types.get(t.groups.tagName.toLowerCase());
-                          if (!name) {
-                            throw new Error(`Tag name ${t.groups.tagName} is not valid`);
-                          }
-                          const value = t.groups.tagValue;
-                          newTagsMap.set(name, value);
-                        });
-                      for (const entry of newTagsMap) {
-                        const name = entry[0];
-                        const value = entry[1];
-                        const existing = tagsMap.get(name);
-                        if (value !== existing) {
-                          if (useApi) {
-                            tagsArray.push(`[${name} "${value}"]`);
-                          } else {
-                            study.makeChange('setTag',
-                            {
-                              chapterId: chapterId,
-                              name: name,
-                              value: value
-                            });
-                            await lt.timeout(50);
-                          }
-                        }
-                      }    
-                      if (tagsArray.length) {
-                        await lt.api.study.updatePgnTags(studyId, chapterId, tagsArray.join('\r\n'));
-                      }
-                      dialog.close();
-                    } catch(e) {
-                      textarea.addClass('lichessTools-error');
-                      $(dialog).find('.lichessTools-errorText').text(e.message);
-                      return;
-                    }
-                  })
-        )
-        .append('<span class="lichessTools-errorText">');
-      $(dialog).find('textarea')
-        .removeClass('lichessTools-error')
-        .val(tags.map(t=>`[${t[0]} "${t[1]}"]`).join('\r\n'));
-      dialog.showModal();
-    };
-
-    setupBulkPgnTagEdit = () => {
-      const lt = this.lichessTools;
-      const trans = lt.translator;
-      const lichess = lt.lichess;
-      const $ = lt.$;
-      const analysis = lichess.analysis;
-      if (!analysis) return;
-      const study = analysis.study;
-      if (!study) return;
-      const isWritableStudy = study?.isWriting();
-      const button = $('.study__topics a.lichessTools-bulkPgnTagsEdit');
-      if (!isWritableStudy) {
-        button.remove();
-        return;
-      }
-      const studyId = study.data?.id;
-      const chapterId = study.data?.chapter?.id;
-      if (!studyId || !chapterId) return;
-      if (!button.length) {
-        $('<a class="lichessTools-bulkPgnTagsEdit">')
-          .text(trans.noarg('bulkPgnTagsEditText'))
-          .attr('title',trans.noarg('bulkPgnTagsEditTitle'))
-          .on('click',async (ev)=>{
-            ev.preventDefault();
-            const tags = lichess.analysis.study.data?.chapter?.tags;
-            this.popupPgnTagsEdit(studyId, chapterId, tags);
-          })
-          .appendTo('.study__topics');
-      }
-    };
-
     setupExtraControlsDirect = ()=>{
       this.setupTagDelete();
-      this.setupBulkPgnTagEdit();
     };
     setupExtraControls = this.lichessTools.debounce(this.setupExtraControlsDirect, 100);
 

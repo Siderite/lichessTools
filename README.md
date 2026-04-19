@@ -148,6 +148,8 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - extra lobby counters
 - sortable and expandable study topics
 - bulk edit study chapter PGN tags
+- bulk edit/delete study chapters
+- selective removal of artefacts from current chapter
 - quick LiChess Tools toggle in the user menu
 - auto whisper and prepend move buttons in game chat
 - find position in puzzles (and puzzles from your games)
@@ -159,7 +161,11 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - fast unblock button in the blocked players page
 - lobby games rating difference
 - show total game count for players
-- Voice input support
+- voice input support
+- computer engine move cost
+- game scores in game lists
+- blog table of contents
+- Lobby/Favorite opponents crosstable scores
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:
@@ -185,7 +191,7 @@ Version 2 breaking changes:
 
 URLs:
 
-- extension page: https://siderite.dev/blog/new-chrome-extension-lichess-tools/
+- extension page: https://siderite.dev/LiChessTools/
 - GitHub page: https://github.com/Siderite/lichessTools
 - Chrome/Edge/Chromium store: https://chromewebstore.google.com/detail/langlhlcknngldkeliapahbhbcmlcbcj
 - Firefox store: https://addons.mozilla.org/en-US/firefox/addon/lichess-tools-by-siderite/

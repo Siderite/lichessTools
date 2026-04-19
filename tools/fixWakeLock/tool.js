@@ -34,7 +34,7 @@
       navigator.wakeLock.request = lt.wrapFunction(navigator.wakeLock.request, {
         id: 'fixWakeLock',
         before: ($this) => {
-          return document.visibilityState === 'visible';
+          return !document.hidden;
         },
         after: ($this, result) => {
           return result || Promise.resolve({

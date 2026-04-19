@@ -1,5 +1,9 @@
 /* Mobile */
 
+body.lichessTools.lichessTools-theme_mobile.mobile main.lobby > * {
+  max-width: calc(100vw - 4px);
+}
+
 body.lichessTools.lichessTools-theme_mobile.mobile {
   ---site-header-height: 30px;
   ---site-header-margin: 4px;
@@ -7,6 +11,12 @@ body.lichessTools.lichessTools-theme_mobile.mobile {
 }
 
 @media (max-width: 799.3px) and (orientation: portrait) {
+
+  body.lichessTools.lichessTools-theme_mobile.mobile main {
+    max-width: 98vw;
+    margin-left: 1vw;
+  }
+
 
   body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour) {
     grid-template-areas:
@@ -231,6 +241,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist td.right {
 
 body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist td:last-child {
   display: table-cell;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile .studies.list .study {
+  max-width:100vw;
 }
 
 /** Prettier **/

@@ -1,5 +1,46 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Apr
+
+- Online bots menu item
+
+21 Mar
+
+- all bot filters toggle button
+
+20 Mar
+
+- lobby page crosstable scores
+- select game text in PGN Editor by start and count
+
+19 Mar
+
+- previous study menu items count
+- highest rating/sandbagging warning
+- opponents page crosttable scores
+- choose which properties to change in bulk chapter edit
+- blog table of content
+
+17 Mar
+
+- higlight current line nodes
+
+16 Mar
+
+- persistent subchapter collapse
+
+05 Mar
+
+- PGN Editor search for pawn structures
+- Search command support for pawn structures
+- Bulk chapter editing/deleting
+
+04 Mar
+
+- text filter for piece sets
+- no bullet theme
+- Move Assistant most advanced pieces
+
 27 Feb
 
 - Neonate piece set and board

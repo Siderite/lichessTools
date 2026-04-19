@@ -1,26 +1,31 @@
-body.lichessTools section.explorer-box span.lichessTools-explorerPractice {
+body.lichessTools section.explorer-box button.lichessTools-explorerPractice {
   padding: 0 7px;
   cursor: pointer;
 }
 
-body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
+body.lichessTools.mobile section.explorer-box button.lichessTools-explorerPractice:not(.active):hover {
+  color: initial;
+  background: initial;
+}
+
+body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before {
   color: black;
   transform: scale(1.2);
 }
 
-body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active.lichessTools-outOfMoves {
+body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active.lichessTools-outOfMoves {
   filter: contrast(0.5);
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
+  html:not(.dark, .darkBoard, .light) body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before {
     color: white;
   }
 }
 
-html.dark body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before,
-html.darkBoard body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before,
-html.transp body.lichessTools section.explorer-box span.lichessTools-explorerPractice.active:before {
+html.dark body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before,
+html.darkBoard body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before,
+html.transp body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before {
   color: white;
 }
 
@@ -61,8 +66,9 @@ body.lichessTools button.lichessTools-hideExplorerMovesButton {
   border:none;
   border-radius: 5px;
   background: var(--c-bg-zebra2);
-  padding: 0.5em;
-  opacity: 0.5;
+  padding: 0.4em;
+  opacity: 0.7;
+  font-size: 1.25em;
 }
 
 body.lichessTools.mobile button.lichessTools-hideExplorerMovesButton,
@@ -74,8 +80,12 @@ body.lichessTools section.explorer-box:has(.lichessTools-explorerPractice.active
   display:block;
 }
 
+body.lichessTools section.explorer-box:has(.lichessTools-explorerPractice.active) tr.sum td:first-child {
+  padding-left: 3em;
+}
+
 /* Prettier Lichess CSS */
 
-body.lichessTools.lichessTools-prettier section.explorer-box span.lichessTools-explorerPractice.active:before {
+body.lichessTools.lichessTools-prettier section.explorer-box button.lichessTools-explorerPractice.active:before {
   color: black;
 }

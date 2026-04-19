@@ -89,6 +89,7 @@
 
     applyLobbyElements = async ()=>{
       const lt = this.lichessTools;
+      const lichess = lt.lichess;
       const trans = lt.translator;
       const $ = lt.$;
       if (!this.initialGrid) {
@@ -143,6 +144,9 @@
         const userId = lt.getUserId();
         if (userId && this.options.recentGames) {
           const playAgainstComputerTitle = lt.global.i18n?.site?.playAgainstComputer || null;
+          if (!playAgainstComputerTitle) {
+            lt.global.console.warn('Could not determine playAgainstComputer translation string!');
+          }
           $('button.lobby__start__button--ai').attr('title',playAgainstComputerTitle);
           const container = $('<div class="lichessTools-recentGames">')
             .append($('<div class="header">').text(trans.noarg('recentGamesHeaderText')))
@@ -169,7 +173,9 @@
             const black = game.headers.get('Black');
             const userWhite = white?.toLowerCase() == userId;
             const opponentId = userWhite ? black : white;
-            const opponentRating = userWhite ? +game.headers.get('BlackElo') : game.headers.get('WhiteElo');
+            const [opponentRating, yourRating, deltaRating] = userWhite 
+              ? [+game.headers.get('BlackElo'),+game.headers.get('WhiteElo'),+game.headers.get('WhiteRatingDiff')]
+              : [+game.headers.get('WhiteElo'),+game.headers.get('BlackElo'),+game.headers.get('BlackRatingDiff')];
             const href = site + (userWhite?'':'/black');
             const result = game.headers.get('Result') || '*';
             let resultClass = '';
@@ -182,7 +188,9 @@
              opponentId,
              opponentRating,
              resultClass,
-             userWhite
+             userWhite,
+             yourRating,
+             deltaRating
             });
           }
           const users = await lt.api.user.getUsers([...new Set(results.map(r=>r.opponentId).filter(id=>id))]);
@@ -192,14 +200,21 @@
               result.opponentName = (user.title?user.title+' ':'') + user.username;
             }
             const name = result.opponentName || result.opponentId;
+            let titleText='';
+            if (result.yourRating) titleText+=result.yourRating;
+            if (result.deltaRating) {
+              titleText+=' ('+(result.deltaRating>0?'+':'')+result.deltaRating+')';
+            }
             $('<a class="game">')
+              .attr('title',titleText)
               .addClass(result.variantClass)
               .addClass(result.resultClass)
               .addClass(result.timeControlClass)
               .toggleClass('white',result.userWhite)
               .attr('href',result.href)
               .append($('<span>').text(name+' '+result.opponentRating))
-              .appendTo(container);
+              .appendTo(container)
+              .each((i,e)=>lichess.powertip?.manualGame(e));
           }
           $('<a class="moreGames">')
             .attr('href',`https://lichess.org/@/${userId}/search#games`)
@@ -224,6 +239,10 @@
         return;
       }
       let container = countersElem.find('.lichessTools-extraCounters');
+      if (!this.options.extraCounters) {
+        container.remove();
+        return;
+      }
       if (!container.length) {
         container = $('<span class="lichessTools-extraCounters">')
           .append('<span class="total">')
@@ -329,6 +348,9 @@
             .css('grid-template-areas', '');
           $('main.lobby .lichessTools-hideElement')
             .removeClass('lichessTools-hideElement');
+        }
+        if (!$('.lobby__side .lobby__feed').parent().is('main.lobby')) {
+          $('.lobby__side .lobby__feed').appendTo('main.lobby');
         }
         return;
       }

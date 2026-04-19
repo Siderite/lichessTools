@@ -37,12 +37,12 @@
         explorerBox.css({ minHeight: '', maxHeight: '' });
         return;
       }
-      lt.global.requestAnimationFrame(() => {
+      lt.requestAF(() => {
         explorerBox.css({
           maxHeight: h,
           minHeight: h
         });
-      });
+      },'resizeExplorer');
     };
 
     dragover = (ev) => {
@@ -116,7 +116,7 @@
       }
       this.refreshHeight();
     };
-    addDivider = this.lichessTools.debounce(this.addDividerDirect, 300, { defer:true });
+    addDivider = this.lichessTools.debounce(this.addDividerDirect, 300);
 
     controlCursor = (ev) => {
       ev.preventDefault();
@@ -141,6 +141,10 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('resizeExplorer');
       this.logOption('Resize Explorer', value);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;

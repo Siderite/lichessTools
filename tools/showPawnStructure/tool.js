@@ -42,21 +42,21 @@
       const lt = this.lichessTools;
       const result = {
         pawns: {
-          'w': [-1, -1, -1, -1, -1, -1, -1, -1],
-          'b': [-1, -1, -1, -1, -1, -1, -1, -1]
+          'w': new Array(8).fill(-1),
+          'b': new Array(8).fill(-1)
         },
         led: {
-          'w': [false, false, false, false, false, false, false, false],
-          'b': [false, false, false, false, false, false, false, false]
+          'w': new Array(8).fill(false),
+          'b': new Array(8).fill(false)
         },
         islands: { w: [], b: [] },
         qSide: { 'w': 0, 'b': 0 },
         kSide: { 'w': 0, 'b': 0 }
       };
-      for (let x = 0; x < 8; x++) {
-        for (let y = 0; y < 8; y++) {
-          const ch = board[y][x];
-          switch (ch) {
+      for (let y = 0; y < 8; y++) {
+        const rank = board[y];
+        for (let x = 0; x < 8; x++) {
+          switch (rank[x]) {
             case 'p':
               if (y <= 4) {
                 if (result.pawns.b[x] > -1) result.led.b[x] = true;
@@ -72,78 +72,77 @@
           }
         }
       }
-      for (let x = 0; x < 8; x++) {
-        if (result.pawns.w[x] == -1) continue;
-        let island = result.islands.w.at(-1);
-        if (island?.end === x - 1) {
-          island.end++;
-        } else {
-          island = { start: x, end: x };
-          result.islands.w.push(island);
-        }
-      }
-      for (let x = 0; x < 8; x++) {
-        if (result.pawns.b[x] == -1) continue;
-        let island = result.islands.b.at(-1);
-        if (island?.end === x - 1) {
-          island.end++;
-        } else {
-          island = { start: x, end: x };
-          result.islands.b.push(island);
-        }
-      }
 
-      let isle = result.islands.w.at(0);
-      if (isle?.start < 2) result.qSide.w = Math.min(3, isle.end) - isle.start + 1;
-      isle = result.islands.b.at(0);
-      if (isle?.start < 2) result.qSide.b = Math.min(3, isle.end) - isle.start + 1;
-      isle = result.islands.w.at(-1);
-      if (isle?.end > 5) result.kSide.w = isle.end - Math.max(4, isle.start) + 1;
-      isle = result.islands.b.at(-1);
-      if (isle?.end > 5) result.kSide.b = isle.end - Math.max(4, isle.start) + 1;
+      const buildIslands = (color) => {
+        const ps = result.pawns[color];
+        const list = result.islands[color];
+        let current = null;
+        for (let x = 0; x < 8; x++) {
+          if (ps[x] === -1) {
+            current = null;
+            continue;
+          }
+          if (current && current.end === x - 1) {
+            current.end = x;
+          } else {
+            current = { start: x, end: x };
+            list.push(current);
+          }
+        }
+      };
 
-      const me = blackOrientation ? 'b' : 'w';
-      const they = blackOrientation ? 'w' : 'b';
-      let structureText = '';
-      structureText += result.pawns[me][3] < 0 ? 'X' : result.pawns[me][3];
-      structureText += result.pawns[me][4] < 0 ? 'X' : result.pawns[me][4];
-      structureText += result.pawns[me][2] < 0 ? 'X' : result.pawns[me][2];
-      structureText += result.pawns[they][3] < 0 ? 'X' : result.pawns[they][3];
-      structureText += result.pawns[they][4] < 0 ? 'X' : result.pawns[they][4];
-      structureText += result.pawns[they][2] < 0 ? 'X' : result.pawns[they][2];
-      structureText += result.qSide[me] > result.qSide[they] ? 'M' : result.qSide[me] < result.qSide[they] ? 'T' : 'X';
-      structureText += result.kSide[me] > result.kSide[they] ? 'M' : result.kSide[me] < result.kSide[they] ? 'T' : 'X';
-      structureText += ' ';
-      structureText += result.pawns[me][5] < 0 ? 'X' : result.pawns[me][5];
-      structureText += result.pawns[me][1] < 0 ? 'X' : result.pawns[me][1];
-      structureText += result.pawns[me][6] < 0 ? 'X' : result.pawns[me][6];
-      structureText += result.pawns[they][5] < 0 ? 'X' : result.pawns[they][5];
-      structureText += result.pawns[they][1] < 0 ? 'X' : result.pawns[they][1];
-      structureText += result.pawns[they][6] < 0 ? 'X' : result.pawns[they][6];
-      structureText += ' ';
-      structureText += result.pawns[me][0] < 0 ? 'X' : result.pawns[me][0];
-      structureText += result.pawns[me][7] < 0 ? 'X' : result.pawns[me][7];
-      structureText += result.pawns[they][0] < 0 ? 'X' : result.pawns[they][0];
-      structureText += result.pawns[they][7] < 0 ? 'X' : result.pawns[they][7];
-      structureText += ' ';
-      structureText += result.led[me][3] ? 'L' : 'X';
-      structureText += result.led[me][4] ? 'L' : 'X';
-      structureText += result.led[me][2] ? 'L' : 'X';
-      structureText += result.led[they][3] ? 'L' : 'X';
-      structureText += result.led[they][4] ? 'L' : 'X';
-      structureText += result.led[they][2] ? 'L' : 'X';
-      structureText += ' ';
-      structureText += result.led[me][5] ? 'L' : 'X';
-      structureText += result.led[me][1] ? 'L' : 'X';
-      structureText += result.led[me][6] ? 'L' : 'X';
-      structureText += result.led[they][5] ? 'L' : 'X';
-      structureText += result.led[they][1] ? 'L' : 'X';
-      structureText += result.led[they][6] ? 'L' : 'X';
-      structureText += ' ';
-      structureText += result.led[me][0] ? 'L' : 'X';
-      structureText += result.led[me][7] ? 'L' : 'X';
-      structureText += result.led[they][0] ? 'L' : 'X';
-      structureText += result.led[they][7] ? 'L' : 'X';
+      buildIslands('w');
+      buildIslands('b');
+
+      const calcSide = (color) => {
+        const list = result.islands[color];
+        if (list.length === 0) return;
+
+        const first = list[0];
+        if (first.start < 2) {
+          result.qSide[color] = Math.min(3, first.end) - first.start + 1;
+        }
+
+        const last = list[list.length - 1];
+        if (last.end > 5) {
+          result.kSide[color] = last.end - Math.max(4, last.start) + 1;
+        }
+      };
+
+      calcSide('w');
+      calcSide('b');
+
+      const [ me, they ] = blackOrientation ? ['b','w'] : ['w','b'];
+      const toChar = (s)=>{
+        if (s==' ') return s;
+        if (s=='Q') {
+          const mv=result.qSide[me];
+          const mt=result.qSide[they];
+          return mv>mt ? 'M' : mv<mt ? 'T' : 'X';
+        }
+        if (s=='K') {
+          const mv=result.kSide[me];
+          const mt=result.kSide[they];
+          return mv>mt ? 'M' : mv<mt ? 'T' : 'X';
+        }
+        if (s.startsWith('P')) {
+          const v=result.pawns[s[1]=='M'?me:they][+s[2]];
+          return v<0 ? 'X' : v;
+        }
+        if (s.startsWith('L')) {
+          const v=result.led[s[1]=='M'?me:they][+s[2]];
+          return v ? 'L' : 'X';
+        }
+        throw new Error('Unknown primitive: '+s);
+      };
+      const structureText = [
+        'PM3','PM4','PM2','PT3','PT4','PT2','Q','K',' ',
+        'PM5','PM1','PM6','PT5','PT1','PT6',' ',
+        'PM0','PM7','PT0','PT7',' ',
+        'LM3','LM4','LM2','LT3','LT4','LT2',' ',
+        'LM5','LM1','LM6','LT5','LT1','LT6',' ',
+        'LM0','LM7','LT0','LT7',
+      ].map(toChar).join('');
       return structureText;
     };
 
@@ -335,7 +334,7 @@
       }
       if (notInViewport) this.miniGameStructureDebounced();
     };
-    miniGameStructureDebounced = this.lichessTools.debounce(this.miniGameStructure, 500, { defer:true });
+    miniGameStructureDebounced = this.lichessTools.debounce(this.miniGameStructure, 500);
 
     refreshStructure = async (ply) => {
       const lt = this.lichessTools;
@@ -365,7 +364,7 @@
         await this.miniGameStructure();
       }
     };
-    refreshStructureDebounced = this.lichessTools.debounce(this.refreshStructure, 500, { defer:true });
+    refreshStructureDebounced = this.lichessTools.debounce(this.refreshStructure, 500);
 
     async start() {
       const lt = this.lichessTools;

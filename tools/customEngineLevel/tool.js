@@ -256,7 +256,7 @@
       if (isPractice && !this.options.practice) return;
       if (!analysis.cevalEnabled()) return;
 
-      const node = work
+      const node = work?.path
         ? analysis.tree.nodeAtPath(work.path)
         : analysis.ceval.lastStarted?.steps?.at(-1);
       if (!node) return;

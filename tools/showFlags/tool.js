@@ -29,7 +29,7 @@
       const $ = lt.$;
       const dict = {};
       $.cached('.user-link,a[href^="/@/"]', 2000).each((i, e) => {
-        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app,.lichessTools-challengeOptions,#topnav,.advice-summary__player').length) return;
+        if ($(e).closest('#friend_box,.lichessTools-onlineFriends,div.complete-list,.crosstable__users,div.chat__members,#dasher_app,.lichessTools-challengeOptions,#topnav,.advice-summary__player,.simul-list__content,.bots__list').length) return;
 
         let textEl = $('.text', e);
         if (!textEl.length) textEl = $(e);
@@ -130,7 +130,7 @@
       lt.storage.set('LiChessTools.countryCache', [...countryCache]);
       lt.storage.set('LiChessTools.flagCache', [...this.flagCache]);
     };
-    debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100, { defer:true });
+    debouncedSaveCache = this.lichessTools.debounce(this.saveCache, 100);
 
     processFlags = async () => {
       const lt = this.lichessTools;
@@ -199,36 +199,43 @@
       if (toSaveCache) {
         this.debouncedSaveCache();
       }
-      lt.global.requestAnimationFrame(()=>{
+      const operations = [];
       for (const item of data) {
         if (!item.countryName) continue;
         const elems = dict[item.id];
-        for (const elem of elems.filter(e=>!!e[0].parentNode && !!e[0].offsetParent)) {
+        for (const elem of elems.filter(e=>!!e[0].parentNode && !!e[0].isConnected)) {
           let next = elem.next();
           next=next.add(next.next());
           if (next.is('img.flag')) return;
           if (next.has('img.flag').length) return;
           if (item.countryName == 'noflag') {
-            elem.addClass('lichessTools-noflag');
+            operations.push({elem: elem, cls:'lichessTools-noflag',afterElem:null});
           } else {
-            elem.addClass('lichessTools-flag');
             const flagUrl = lt.assetUrl('flags/' + item.country + '.png');
-            elem.after($('<img>')
+            operations.push({elem: elem, cls:'lichessTools-flag',afterElem:$('<img>')
               .addClass('flag')
               .attr('loading', 'lazy')
               .attr('title', item.countryName)
               .attr('src', flagUrl)
               .attr('data-ref', $(elem).attr('href'))
               //.css('animation-duration', Math.round(5 + lt.random() * 15) + 's')
-            );
+            });
             lt.net.logNetwork(flagUrl, 1000, 0); //approximate flag size in bytes
           }
         }
       }
-      });
-      this.debouncedProcessFlags();
+      if (!this.options.enabled) return;
+      if (operations.length) {
+        lt.requestAF(()=>{
+          for (const op of operations) {
+            op.elem.addClass(op.cls);
+            op.afterElem?.insertAfter(op.elem); 
+          }
+        },'showFlags');
+      }
+      //this.debouncedProcessFlags();
     };
-    debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500, { defer:true });
+    debouncedProcessFlags = this.lichessTools.debounce(this.processFlags, 500);
 
     resetFlags = () => {
       const lt = this.lichessTools;
@@ -295,7 +302,7 @@
 
         $('#form3-flag').on('change', this.clearCache);
       } else {
-        $('.lichessTools-flag+img.flag').remove();
+        $('.lichessTools-flag+img.flag,.user-link+img.flag').remove();
         $('.lichessTools-flag').removeClass('lichessTools-flag');
         $('.lichessTools-noflag').removeClass('lichessTools-noflag');
         this.clearCache();

@@ -39,7 +39,7 @@
         'btnKeepFoundTitle': 'Keep only the found results',
         'btnCommandText': 'Commands',
         'btnCommandTitle': 'Execute commands',
-        'commandPrompt': '"extractFen","splitForStudy"',
+        'commandPrompt': '"extractFen", "splitForStudy", "select" <start> [count]',
         'extractingFens': 'Extracting FENs',
         'btnCutStuffText': 'Cut',
         'btnCutStuffTitle': 'Cut to ply number, remove junk, annotations, comments, tags, found results or branches',
@@ -87,7 +87,9 @@
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply" Value, "Junk", "Eval"(>,=,<)Value, "Eval", "Clock", "Shapes" in any combination (i.e. eval, junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText': 'PGN Editor',
         'sendToPgnEditorTitle': 'LiChess Tools - send to PGN Editor',
-        'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation'
+        'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation',
+        'selectGamesSyntaxText': 'Usage: select <start> [count]',
+        'downloadedText': 'Downloaded'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -113,7 +115,7 @@
         'btnKeepFoundTitle': 'P\u0103streaz\u0103 doar rezultatele g\u0103site',
         'btnCommandText': 'Comenzi',
         'btnCommandTitle': 'Execut\u0103 comenzi',
-        'commandPrompt': '"extractFen","splitForStudy"',
+        'commandPrompt': '"extractFen", "splitForStudy", "select" <start> [num\u0103r]',
         'extractingFens': 'Extrag FENuri',
         'btnCutStuffText': 'Taie',
         'btnCutStuffTitle': 'Taie la un num\u0103r de jum\u0103t\u0103\u0163i de mutare, elimin\u0103 gunoi, adnot\u0103ri, comentarii, etichete sau rezultatele g\u0103site',
@@ -161,7 +163,9 @@
         'cutStuffPrompt': '"Tags", "Annotations", "Comments", "Result", "Ply" Valoare, "Junk", "Eval"(>,=,<)Valoare, "Eval", "Clock", "Shapes" \u00een orice combina\u0163ie (ex: eval, junk, tags, ply 10, eval<0)',
         'sendToPgnEditorText': 'Editor PGN',
         'sendToPgnEditorTitle': 'LiChess Tools - trimite la Editor PGN',
-        'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess'
+        'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess',
+        'selectGamesSyntaxText': 'Utilizare: select <start> [num\u0103r]',
+        'downloadedText': 'Desc\u0103rcat'
       }
     }
 
@@ -207,11 +211,11 @@
       if (!this.history) this.history = [];
       const undo = val >= 0;
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="undo"]')
-        .toggleClass('disabled', !undo)
+        .toggleClassSafe('disabled', !undo)
         .prop('disabled', !undo);
       const redo = val + 1 < this.history.length;
       $('dialog.lichessTools-pgnEditor .buttons button[data-role="redo"]')
-        .toggleClass('disabled', !redo)
+        .toggleClassSafe('disabled', !redo)
         .prop('disabled', !redo);
       lt.storage.set('LichessTools.pgnEditor.historyIndex', this.historyIndex, { session: true });
     };
@@ -337,7 +341,8 @@
         .on('click', ev => {
           ev.preventDefault();
           if (this.mobileFirstTap(ev.currentTarget)) return;
-          this.runOperation('merge', () => this.mergePgn(textarea));
+          const options = { sortByCount: !ev.shiftKey };
+          this.runOperation('merge', () => this.mergePgn(textarea, options));
         })
         .find('span')
         .text(trans.noarg('btnMergeText'));
@@ -497,6 +502,7 @@
           if (!text) return;
           this.runOperation('download', () => {
             lt.download(text,'pgnEditor_' + lt.toTimeString(new Date()) + '.pgn','application/x-chess-pgn');
+            lt.announce(trans.noarg('downloadedText'));
           });
         })
         .find('span')
@@ -752,10 +758,10 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const lt = this.lichessTools;
       const $ = lt.$;
       $('dialog.lichessTools-pgnEditor button:not([data-role="cancel"])')
-        .toggleClass('disabled', !!value)
+        .toggleClassSafe('disabled', !!value)
         .prop('disabled', !!value);
       $('dialog.lichessTools-pgnEditor button[data-role="cancel"]')
-        .toggleClass('disabled', !value)
+        .toggleClassSafe('disabled', !value)
         .prop('disabled', !value);
     };
 
@@ -861,6 +867,40 @@ https://www.chessable.com/course/${courseId}/ } *`)
       traverse(node);
     };
 
+    enhanceGameWithPawnStructureDict = game => {
+      const lt = this.lichessTools;
+
+      game.pawnStructureDict = new Map();
+      const { getStructure, getOpposingStructure } = lt.tools.ShowPawnStructureTool;
+
+      const traverse = (node, ply = 0) => {
+        const fen = node.data?.fen;
+        if (!fen) {
+          const err = Error('Cannot find FEN for node ' + node.data?.san + ' at ply ' + ply + '!');
+          err.san = node?.data?.san;
+          err.ply = ply + 1;
+          throw err;
+        }
+        let structure;
+        const board = lt.getBoardFromFen(fen);
+        structure = getStructure(board,false);
+        for (const key of [structure, getOpposingStructure(structure)]) {
+          let arr = game.pawnStructureDict.get(key);
+          if (!arr) {
+            arr = [];
+            game.pawnStructureDict.set(key, arr);
+          }
+          arr.push(node);
+        }
+        if (!node.children?.length) return;
+        for (const child of node.children) {
+          traverse(child, ply + 1);
+        }
+      };
+
+      const node = game.moves;
+      traverse(node);
+    };
 
     mergeNodes = (n1, n2) => {
       n1.children = [...n1.children, ...n2.children];
@@ -868,13 +908,18 @@ https://www.chessable.com/course/${courseId}/ } *`)
       if (comments.length) {
         n1.data.comments = [...new Set(comments)];
       }
+      const startingComments = [...new Set((n1.data?.startingComments || []).concat((n2.data?.startingComments || [])))];
+      if (startingComments.length) {
+        n1.data.startingComments = [...new Set(startingComments)];
+      }
       const nags = (n1.data?.nags || []).concat((n2.data?.nags || []));
       if (nags.length) {
         n1.data.nags = [...new Set(nags)];
       }
+      n1.count=(n1.count || 1)+(n2.count || 1);
     };
 
-    cleanGame = game => {
+    cleanGame = (game,options) => {
       const lt = this.lichessTools;
       const traverse = (game, node) => {
         if (!node.children?.length) return;
@@ -893,6 +938,10 @@ https://www.chessable.com/course/${courseId}/ } *`)
             } else j++;
           }
         };
+        if (options?.sortByCount && node.children.length>1 && node.children.find(n=>n.count)) {
+          lt.debug && lt.global.console.debug('Sorting children: '+node.children.map(n=>n.count || 1).join(', '));
+          node.children.sort((n1,n2)=>(n2.count||1)-(n1.count||1));
+        }
         for (const child of node.children) {
           traverse(game, child);
         }
@@ -901,7 +950,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       traverse(game, game.moves);
     };
 
-    mergePgn = async (textarea) => {
+    mergePgn = async (textarea, options) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -942,6 +991,10 @@ https://www.chessable.com/course/${courseId}/ } *`)
         const comments = [... new Set((dest.comments||[]).concat(src.comments||[]))];
         if (comments.length) {
           dest.comments = comments;
+        }
+        const startingComments = [... new Set((dest.startingComments||[]).concat(src.startingComments||[]))];
+        if (startingComments.length) {
+          dest.startingComments = startingComments;
         }
         node.children = [...node.children, ...src.moves.children];
         if (dest.fenDict || src.fenDict) {
@@ -1040,7 +1093,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         if (!game.fenDict) {
           throw new Error('Something went wrong! game doesn\'t have fenDict!');
         }
-        this.cleanGame(game);
+        this.cleanGame(game, options);
       }
 
       this.writeGames(textarea, games);
@@ -1168,6 +1221,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
       if (/\bsplitForStudy\b/i.test(text)) {
         await this.splitForStudy(textarea);
       }
+      if (/\bselect\b/i.test(text)) {
+        await this.selectGames(textarea,text);
+      }
     };
 
     extractFen = async (textarea) => {
@@ -1234,6 +1290,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         fenText += gameIndex + '\r\n' + [...fenSet].join('\r\n') + '\r\n\r\n';
       }
       lt.download(fenText,'pgnEditor_fens_' + lt.toTimeString(new Date()) + '.txt');
+      lt.announce(trans.noarg('downloadedText'));
     };
 
     normalizePgn = async (textarea) => {
@@ -1487,6 +1544,46 @@ https://www.chessable.com/course/${courseId}/ } *`)
       this.countPgn();
     };
 
+    selectGames = async (textarea,commandText) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+
+      let m = /^\s*select\s+(?<start>\d+)(?:\s+(?<count>\d+))?\s*/.exec(commandText);
+      if (!m) {
+        lt.announce(trans.noarg('selectGamesSyntaxText'));
+        return;
+      }
+      let start = +m.groups.start-1;
+      if (!start || start<0) start = 0;
+      const count = +m.groups.count || 1000000;
+
+      const text = textarea.val();
+
+      const regex = /((?:^\[[^\]\r\n]*\]\s*)+[\s\S]*?)(?=^\[|$)/gm;
+      let gameIndex = 0;
+      let rangeStartIndex = -1;
+      let rangeEndIndex = -1;
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        if (gameIndex == start) {
+          rangeStartIndex = match.index;
+        }
+        if (gameIndex >= start && gameIndex <= start + count - 1) {
+          rangeEndIndex = match.index+match[0].length;
+        }
+        if (gameIndex == start + count - 1) {
+          break;
+        }
+        gameIndex++;
+      }
+
+      const result = { start: rangeStartIndex, count: rangeEndIndex-rangeStartIndex+1 };
+      textarea.selectText(result.start,result.count);
+      this.countPgn();
+    };
+
     splitForStudy = async (textarea) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -1541,7 +1638,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
 
           const cloned = clone(splitNode);
           splitNode.children = [];
-          splitNode.data = { ...splitNode.data, comments:[...splitNode.data?.comments].concat(['Split here.']) };
+          splitNode.data = { ...splitNode.data, comments:[...splitNode.data?.comments ||[]].concat(['Split here.']) };
 
           const newGame = { headers: new Map(game.headers.entries()), moves: cloned };
           newGame.headers.set('FEN', cloned.data.fen);
@@ -1676,6 +1773,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
         if (node.data?.comments?.length) {
           cleanComments(node.data.comments);
         }
+        if (node.data?.startingComments?.length) {
+          cleanComments(node.data.startingComments);
+        }
         if (!node.children?.length) return;
         for (const child of node.children) {
           traverse(child, ply + 1);
@@ -1683,6 +1783,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
       };
       if (game.comments?.length) {
         cleanComments(game.comments);
+      }
+      if (game.startingComments?.length) {
+        cleanComments(game.startingComments);
       }
       traverse(game.moves);
     };
@@ -1734,6 +1837,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
         if (node.data?.comments?.length) {
           node.data.comments.length = 0;
         }
+        if (node.data?.startingComments?.length) {
+          node.data.startingComments.length = 0;
+        }
         if (!node.children?.length) return;
         for (const child of node.children) {
           traverse(child, ply + 1);
@@ -1741,6 +1847,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
       };
       if (game.comments) {
         game.comments.length = 0;
+      }
+      if (game.startingComments) {
+        game.startingComments.length = 0;
       }
       traverse(game.moves);
     };
@@ -1914,6 +2023,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             if (!san) {
               node.children = [];
               node.comments = null;
+              node.startingComments = null;
             } else {
               const index = node.children?.findIndex(c => c.data?.san == san);
               if (index < 0) throw new Error('This should not happen. San ' + san + ' not found in node ' + node.path);
@@ -2123,6 +2233,13 @@ https://www.chessable.com/course/${courseId}/ } *`)
               this.enhanceGameWithFens(game);
               this.enhanceGameWithFenDict(game);
               found = Array.from(game.fenDict).find(pair => reg.test(lt.normalizeString(pair[0])));
+              if (found) {
+                break;
+              }
+              if (lt.tools.ShowPawnStructureTool) {
+                this.enhanceGameWithPawnStructureDict(game);
+                found = Array.from(game.pawnStructureDict).find(pair => reg.test(lt.normalizeString(pair[0])));
+              }
               break;
             case 'tag':
               const val = tagName.toLowerCase() == 'index'
@@ -2346,7 +2463,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
           .addClass('lichessTools-pgnEditor')
           .text(trans.noarg('pgnEditorText'))
           .attr('title', trans.noarg('pgnEditorTitle'))
+          .attr('href', '/analysis#pgnEditor')
           .on('click', ev => {
+            if (ev.shiftKey || ev.ctrlKey) return;
             ev.preventDefault();
             this.showPgnEditor();
             $('nav#topnav').trigger('mouseout');

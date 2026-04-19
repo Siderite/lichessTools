@@ -75,19 +75,31 @@
       };
     }
 
-    fireResizeDirect = ()=>{
+    fireResizeDirect = (ev)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const boardSize = $('.main-board cg-container').css('width') || $('.main-board cg-container').width()+'px';
+      const container = $('.main-board cg-container');
+      const boardSize = container.css('width') || container.width()+'px';
       const prevSize = $('html').css('--board-size');
+      let fireEvent = false;
       if (prevSize != boardSize) {
-        lt.debug && lt.global.console.debug('Firing board resize event');
         $('html').css('--board-size', boardSize);
         $('body')
           .toggleClassSafe('lichessTools-hasBoardSize', true);
+        fireEvent = !!prevSize;
       }
-      $('body')
-        .trigger('resize');
+      if (!fireEvent && ev?.type=='position') {
+        const position = JSON.stringify(container.offset());
+        if (position != this._prevPos) {
+          fireEvent = !!this._prevPos;
+          this._prevPos = position;
+        }
+      }
+      if (fireEvent) {
+        lt.debug && lt.global.console.debug('Firing board resize event');
+        $('body')
+          .trigger('resize');
+      }
     };
     fireResize = lichessTools.debounce(this.fireResizeDirect,200);
 
@@ -96,9 +108,10 @@
       if (lt.global.document.readyState != 'complete') return;
       const $ = lt.$;
       const element = $('.main-board cg-board')[0];
-      if (element!=this.board) {
-        this.board = element;
+      if (element!==this.board) {
+        lt.global.console.debug('Resetting board element');
         if (this.cleanup) this.cleanup();
+        this.board = element;
         if (element) {
           this.cleanup = this.monitorElement(element,this.fireResize);
         }

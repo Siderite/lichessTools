@@ -7,6 +7,10 @@
     display: block;
     z-index: 1;
   }
+
+  body.lichessTools main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge.empty {
+    display: none;
+  }
 }
 
 body.lichessTools main.analyse.lichessTools-hideOctopus img.mascot {
@@ -59,6 +63,10 @@ body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
   line-height: normal;
 }
 
+body.lichessTools div.analyse__controls button.lichessTools-randomNextMove.hide {
+  display:none;
+}
+
 body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disabled) .lichessTools-randomNextMove {
   opacity: .5;
   cursor: default;
@@ -85,9 +93,14 @@ body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disab
     grid-column: 9/span 2;
   }
 
+  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button[data-act="opening-explorer"] {
+    grid-row: 1;
+    grid-column: 7/span 2;
+  }
+
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls div.jumps {
     grid-row: 2;
-    grid-column: 2/span 8;
+    grid-column: 1/span 10;
   }
 
   body.lichessTools.mobile.lichessTools-evaluationStarted.lichessTools-mobileExperience .lichessTools-liveStatus {
@@ -214,7 +227,7 @@ body.lichessTools div.lichessTools-shapeDrawing-tooltip.show {
 
 body.lichessTools div.lichessTools-shapeDrawing-tooltip button {
   font-size: 1.3rem;
-  height: 2.5em;
+  min-height: 2.5em;
   border: none;
   min-width: 2.5em;
   border-radius:50%;

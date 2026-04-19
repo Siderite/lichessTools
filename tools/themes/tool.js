@@ -1,7 +1,7 @@
 (() => {
   class ThemesTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['DetectThirdParties'];
+    dependencies = ['DetectThirdParties','InterceptEventHandlers'];
 
     preferences = [
       {
@@ -10,7 +10,7 @@
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
                          'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls',
-                         'firstInteraction','noVariants','squares'],
+                         'firstInteraction','noVariants','noBullet','squares'],
         defaultValue: 'fixThirdParties',
         advanced: true
       },
@@ -55,6 +55,7 @@
         'themes.timeControls': 'Hover time controls',
         'themes.firstInteraction': 'First interaction',
         'themes.noVariants': 'No chess variants',
+        'themes.noBullet': 'Hide Bullet chess',
         'themes.squares': 'Squares for circles',
         'enableBoardStyleQuestion': 'This theme requires Board Styling for full functionality, which may add a little overhead. Should I enable it?'
       },
@@ -86,6 +87,7 @@
         'themes.timeControls': 'Controale timp la hover',
         'themes.firstInteraction': 'Prima interac\u016fiune',
         'themes.noVariants': 'F\u0103r\u0103 variante de \u015fah',
+        'themes.noBullet': 'Ascunde \u015fah Bullet',
         'themes.squares': 'P\u0103trate \u00een loc de cercuri',
         'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 necesit\u0103 Stilare Tabl\u0103 pentru func\u0163ionalitate complet\u0103. O activez?'
       }
@@ -197,6 +199,8 @@
         if (newClassName != className) {
           body.attr('class',newClassName);
         }
+
+        this.toggleFlairX();
       } finally {
         this._inApplyThemes = false;
       }
@@ -315,13 +319,38 @@
 
     addFirstInteractionClass = (ev) => {
       const lt = this.lichessTools;
+      const document = lt.global.document;
+      const navigator = lt.global.navigator;
 
       if (!ev.isTrusted) return;
-      if (lt.global?.navigator?.userActivation && !lt.global.navigator.userActivation.hasBeenActive) return;
+      if (navigator?.userActivation && !navigator.userActivation.hasBeenActive) return;
 
       const $ = lt.$;
       $('body').addClass('lichessTools-userInteraction');
       $(document).off('click keydown touchstart pointerdown',this.addFirstInteractionClass);
+    };
+
+    flairEnter = (e) => {
+      const flairClass = "lichessTools-flair-ancestor";
+
+      if (e.target.nodeType===1 && !e.target.matches("img.uflair")) return;
+      let el = e.target.parentElement;
+      let depth = 0;
+      while (el && el !== document.documentElement && depth < 3) {
+        el.classList.add(flairClass);
+        el = el.parentElement;
+        depth++;
+      }
+    };
+
+    toggleFlairX = () => {
+      const lt = this.lichessTools;
+      const document = lt.global.document;
+      document.removeEventListener("pointerenter",this.flairEnter , true);
+      const enabled = this.themes.includes('flairX');
+      if (enabled) {
+        document.addEventListener("pointerenter",this.flairEnter , true);
+      }
     };
 
     async start() {
@@ -337,7 +366,6 @@
       if (!value && !this.ranStart) {
         return;
       }
-      if (!lt.currentOptions.enableLichessTools) return;
 
       if (value) {
         $(lt.global).on('hashchange', this.applyThemes);
@@ -353,11 +381,13 @@
       await this.applyThemes();
       $('#dasher_app')
         .observer()
-        .on('div',this.addThemesMenu);
+        .off('div',this.addThemesMenu);
+      $('.lichessTools-themesMenu').remove();
       if (themesMenu) {
         $('#dasher_app')
           .observer()
-          .on('div',this.addThemesMenu);
+          .on('div',this.addThemesMenu,{executeDirect:true});
+        this.addThemesMenu();
       }
     }
 

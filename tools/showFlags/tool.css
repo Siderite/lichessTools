@@ -21,10 +21,10 @@ body.lichessTools .fide-federations img.flag {
 
 body.lichessTools div.player img.flag {
   max-height: 1.5em;
-  position: relative;
+  /*position: relative;
   margin-left: -24px;
   left: 29px;
-  top: 0.5em;
+  top: 0.5em;*/
 }
 
 /* for list of tournament players */

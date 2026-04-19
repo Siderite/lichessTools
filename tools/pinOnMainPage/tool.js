@@ -78,7 +78,7 @@
           .insertAfter($('a.lichessTools-downloadBroadcastPgn,button.search,.relay-tour__side__name', container));
       }
       const isPinned = !!this.options.pinned.find(p => p.studyId == studyId);
-      pin.toggleClass('lichessTools-pinned', isPinned);
+      pin.toggleClassSafe('lichessTools-pinned', isPinned);
     };
 
     addToHomepage = () => {

@@ -96,9 +96,9 @@
       this._control = $('main.round .game__meta__infos')[0];
       if (this._control) {
         $('body')
-          .toggleClass('lichessTools-noSide', this.options.playLayout == 'noSide')
-          .toggleClass('lichessTools-smallSide', this.options.playLayout == 'smallSide')
-          .toggleClass('lichessTools-deadCrosstable', this.options.deadCrosstable);
+          .toggleClassSafe('lichessTools-noSide', this.options.playLayout == 'noSide')
+          .toggleClassSafe('lichessTools-smallSide', this.options.playLayout == 'smallSide')
+          .toggleClassSafe('lichessTools-deadCrosstable', this.options.deadCrosstable);
         lt.global.clearInterval(this.interval);
         if (this.options.playLayout != 'normal') {
           this.interval = lt.global.setInterval(() => {

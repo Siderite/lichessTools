@@ -10,7 +10,7 @@
       lt.debug && lt.global.console.debug('content-loaded',el);
       lt.pubsub.emit('content-loaded',el);
     };
-    emit = lichessTools.debounce(this.emitDirect,250,{ defer: true });
+    emit = lichessTools.debounce(this.emitDirect,250);
 
     detectNew = (records)=>{
       const lt = this.lichessTools;

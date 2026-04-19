@@ -58,26 +58,22 @@
     };
 
 
-    handlePly = ()=>{
+    handlePly = async ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      lt.global.requestAnimationFrame(async ()=>{
-        const fen = lt.lichess?.analysis?.node?.fen;
-        let text = null;
-        if (fen) {
-          const pos = lt.getPositionFromFen(fen);
-          const html = await this.getWikiHtml(pos);
-          if (html) {
-            text = $('<div>').html(html).text();
-          }
+      const fen = lt.lichess?.analysis?.node?.fen;
+      let text = null;
+      if (fen) {
+        const pos = lt.getPositionFromFen(fen);
+        const html = await this.getWikiHtml(pos);
+        if (html) {
+          text = lt.htmlDecode(html);
         }
+      }
+      lt.requestAF(async ()=>{
         const title = $('.explorer-box .data div.title');
-        if (text) { 
-          title.attrSafe('title',text);
-        } else {
-          title.removeAttrSafe('title');
-        }
-      });
+        title.attrSafe('title',text || null);
+      },'wikiFen');
     };
 
     updateOpeningWiki = async ()=>{

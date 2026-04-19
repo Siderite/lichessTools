@@ -81,6 +81,7 @@
       const isProperty = descriptor?.get && descriptor?.set;
       lt.global.clearInterval(this.interval);
       if (!value) {
+        $('.lichessTools-quietMode').remove();
         if (isProperty) {
           delete lichess.quietMode;
           delete lichess.forcedQuietMode;

@@ -17,7 +17,7 @@
       'en-US': {
         'options.analysis': 'Analysis',
         'options.moveAssistant': 'Move assistant',
-        'assistantButtonTitle': 'LiChess Tools - move evaluation',
+        'assistantButtonTitle': 'LiChess Tools - qualify moves and position attributes\r\nRight-click for options.',
         'moveAssistant.dests': 'Move destinations',
         'moveAssistant.squares': 'Squares',
         'moveAssistant.pawns': 'Pawns',
@@ -27,7 +27,7 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.moveAssistant': 'Asistent mut\u0103ri',
-        'assistantButtonTitle': 'LiChess Tools - evaluarea mut\u0103rilor',
+        'assistantButtonTitle': 'LiChess Tools - caracterizeaz\u0103 mut\u0103ri \u015fi atribute ale pozi\u0163iei\r\nClic dreapta pentru op\u0163iuni.',
         'moveAssistant.dests': 'Destina\u0163ii mut\u0103ri',
         'moveAssistant.squares': 'P\u0103trate tabl\u0103',
         'moveAssistant.pawns': 'Pioni',
@@ -170,7 +170,7 @@
 
     addArrow = (x1,y1,x2,y2, options) => {
       const lt = this.lichessTools;
-      const cg = lt.lichess?.analysis?.chessground;
+      const cg = lt.getChessground();
       if (!cg) return;
 
       const orig = this.getCgKey(x1,y1);
@@ -191,7 +191,7 @@
 
     clearArrows = (source) => {
       const lt = this.lichessTools;
-      const cg = lt.lichess?.analysis?.chessground;
+      const cg = lt.getChessground();
       const shapes = cg?.state?.drawable?.shapes;
       if (!shapes?.length) return;
       lt.arrayRemoveAll(shapes,s=>s.source == source);
@@ -199,7 +199,7 @@
 
     highlight = (x,y, className) => {
       const lt = this.lichessTools;
-      const cg = lt.lichess?.analysis?.chessground;
+      const cg = lt.getChessground();
       if (!cg) return;
       const squareMap = (cg.state.highlight.custom ||= new Map());
       const cgKey = this.getCgKey(x,y);
@@ -213,7 +213,7 @@
 
     clearHighlight = (className) => {
       const lt = this.lichessTools;
-      const cg = lt.lichess?.analysis?.chessground;
+      const cg = lt.getChessground();
       if (!cg) return;
       const squareMap = (cg.state.highlight.custom ||= new Map());
       for (const [k,v] of squareMap.entries()) {
@@ -225,7 +225,7 @@
     processHighlightsDirect = ()=>{
       const lt = this.lichessTools;
       const analysis = lt.lichess?.analysis;
-      const cg = analysis?.chessground;
+      const cg = lt.getChessground();
       if (!cg) return;
 
       const checkSquares = ()=>{
@@ -237,10 +237,11 @@
           if (json == this._lastJson) return;
         }
         json ||= lt.global.JSON.stringify([...squareMap]);
+        const isInit = !this._lastJson;
         this._lastJson = json;
         this._lastSize = squareMap.size;
         this._lastFen = analysis.node.fen;
-        return true;
+        return !isInit;
       };
 
       const checkShapes = ()=>{
@@ -252,10 +253,11 @@
           if (json == this._lastShapeJson) return;
         }
         json ||= lt.global.JSON.stringify(shapes);
+        const isInit = !this._lastShapeJson;
         this._lastShapeJson = json;
         this._lastShapeSize = shapes.length;
         this._lastShapeFen = analysis.node.fen;
-        return true;
+        return !isInit;
       };
 
       if (checkSquares() || checkShapes()) {
@@ -407,6 +409,24 @@
           .toggleClassSafe('lichessTools-happy',whiteHappiness.happy.includes(e.cgKey) || blackHappiness.happy.includes(e.cgKey))
           .toggleClassSafe('lichessTools-unhappy',whiteHappiness.unhappy.includes(e.cgKey) || blackHappiness.unhappy.includes(e.cgKey));
       });
+
+      const [direction,opponentColor,minRank] = analysis.getOrientation()=='white'? [-1,'black',-7] : [1,'white',2];
+      let max = null;
+      let mostAdvanced;
+      $('.cg-wrap cg-board piece.'+opponentColor)
+        .each((i,e)=>{
+          const rank = +(e.cgKey?.at(-1));
+          if (Number.isNaN(rank)) return;
+          if (max===null || rank*direction>max) {
+            max = rank*direction;
+            mostAdvanced = rank;
+          }
+        })
+        .each((i,e)=>{
+          const rank = +(e.cgKey?.at(-1));
+          if (Number.isNaN(rank)) return;
+          $(e).toggleClassSafe('lichessTools-mostAdvanced',rank==mostAdvanced && rank*direction>minRank);
+        });
     };
 
     evaluateDests = async () => {
@@ -414,18 +434,22 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
+      const cg = lt.getChessground();
 
-      const selected = analysis.chessground?.state?.selected;
+      const selected = cg?.state?.selected;
       const dests = selected
-        ? (analysis.node.dests() || analysis.chessground?.state?.movable?.dests)?.get(selected)
+        ? (analysis.node.dests() || cg?.state?.movable?.dests)?.get(selected)
         : null;
       const isInteractiveOrPractice = !!(analysis.study?.gamebookPlay || analysis.practice?.running() || analysis.study?.practice);
+
       const isActive = !!(this.options.dests
         && lt.global.SharedArrayBuffer
         && this.isEnabled
         && selected
         && dests?.length
         && !isInteractiveOrPractice
+        && analysis.isCevalAllowed()
+        && !lt.isGamePlaying()
       );
       $('main.analyse div.cg-wrap').toggleClassSafe('lichessTools-moveAssistant', isActive);
       $('div.ceval button.lichessTools-moveAssistant')
@@ -490,9 +514,10 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
+      const cg = lt.getChessground();
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      const selected = analysis.chessground?.state?.selected;
+      const selected = cg?.state?.selected;
 
       let minCp = 100000;
       let maxCp = -100000;
@@ -624,7 +649,7 @@
       if (!button.length) {
         button = $('<button type="button" class="lichessTools-moveAssistant">')
           .attr('title', trans.noarg('assistantButtonTitle'))
-          .attr('data-icon', lt.icon.Eye)
+          .attr('data-icon', lt.icon.WhiteChessKing)
           .on('click', ev => {
             ev.preventDefault();
             this.isEnabled = !this.isEnabled;
@@ -643,10 +668,13 @@
           .on('contextmenu', ev => {
             ev.preventDefault();
             popup.toggleClassSafe('open',true);
+            const f = (e) => {
+              if (popup[0].contains(e.target)) return;
+              popup.toggleClassSafe('open',false);
+              lt.global.document.removeEventListener("click", f , { capture: true });
+            };
+            lt.global.document.addEventListener("click", f , { capture: true });
           });
-        lt.global.document.addEventListener("click", e => {
-          if (!popup[0].contains(e.target)) popup.toggleClassSafe('open',false);
-        }, { capture: true });
         $('<button type="button">')
           .text(trans.noarg('moveAssistant.dests'))
           .attr('data-icon',lt.icon.SquareFourCorners)
@@ -715,8 +743,10 @@
       lt.global.clearInterval(this.interval);
       this.setControls();
       lt.pubsub.off('lichessTools.redraw', this.setControls);
-      $('.lichessTools-moveAssistant-popup').remove();
-      if (!value) return;
+      if (!value) {
+        $('.lichessTools-moveAssistant-popup').remove();
+        return;
+      }
       this.interval = lt.global.setInterval(this.evaluate, 1000);
       lt.pubsub.on('lichessTools.redraw', this.setControls);
     }

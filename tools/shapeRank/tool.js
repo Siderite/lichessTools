@@ -32,10 +32,16 @@
       return !!removed.length;
     };
 
+    shouldNotBeRanked = (shape)=>{
+      const circles = shape.customSvg?.html?.matchAll(/circle/g);
+      const isGooglyHorsey = circles && [...circles].length==6;
+      return !isGooglyHorsey;
+    };
+
     ensureShapeRank = () => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
-      this.chessground = analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
+      this.chessground = lt.getChessground() || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
       const drawable = this.chessground?.state.drawable;
       if (!drawable || !this.options.enabled) return;
 
@@ -53,7 +59,7 @@
               const dict = {}
               const drawnShapes = [];
               let rank = 0;
-              for (const shape of shapes) {
+              for (const shape of shapes.filter(tool.shouldNotBeRanked)) {
                 if (dict[shape.orig]) continue;
                 rank++;
                 const rankShape = {
@@ -73,7 +79,9 @@
             this._shapes = shapes;
           }
         });
-        this.chessground?.redrawAll();
+        if (drawable.shapes?.length) {
+          this.chessground?.redrawAll();
+        }
       }
     };
 
@@ -81,7 +89,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess?.analysis;
-      this.chessground = analysis?.chessground || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
+      this.chessground = lt.getChessground() || $('div.cg-wrap.lichessTools-boardOverlay')[0]?.chessground;
       if (!this.chessground) {
         lt.global.setTimeout(this.waitForChessground, 500);
         return;

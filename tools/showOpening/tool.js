@@ -118,14 +118,15 @@
       }
       if (notInViewport) this.miniGameOpeningDebounced();
     };
-    miniGameOpeningDebounced = this.lichessTools.debounce(this.miniGameOpening, 500,{ defer:true });
+    miniGameOpeningDebounced = this.lichessTools.debounce(this.miniGameOpening, 500);
 
     openingTime = 0;
     withOpening = async (gameId, el, ply, fen, isMini) => {
       const lt = this.lichessTools;
-      if (!lt.inViewport(el)) return;
+      if (!lt.inViewport(el,true)) return;
+      const analysis = lt.lichess?.analysis;
       const Math = lt.global.Math;
-      const node = (fen && lt.lichess?.analysis?.node?.fen == fen && lt.lichess.analysis.node);
+      const node = (fen && analysis?.node?.fen == fen && lt.lichess.analysis.node);
       if (!fen) fen = lt.getPositionFromBoard(el, true);
       const pos = lt.getPositionFromFen(fen);
       if (pos) {
@@ -147,6 +148,7 @@
         if (opening) {
           if (node && !node.opening) {
             node.opening = { name: opening };
+            analysis?.redraw();
           }
           el.openingData = { time: Date.now(), opening, el };
           return el.openingData;
@@ -296,7 +298,7 @@
         await this.miniGameOpening();
       }
     };
-    refreshOpeningDebounced = this.lichessTools.debounce(this.refreshOpening, 500, { defer:true });
+    refreshOpeningDebounced = this.lichessTools.debounce(this.refreshOpening, 500);
 
     async start() {
       const lt = this.lichessTools;

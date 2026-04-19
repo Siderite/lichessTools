@@ -51,22 +51,25 @@
             if (this.__analysisRedraw) return this.__analysisRedraw;
             const analysis = this.lichess.analysis;
             this.__analysisRedraw = analysis
-              ? this.debounce(analysis.redraw,100,{ defer: true })
+              ? this.debounce(analysis.redraw,100)
               : ()=>{};
             return this.__analysisRedraw;
           }
         });
       }
 
-      let emit = null;
-      emit = lt.debounce(() => {
+      let emitDirect = null;
+      let emitTimeout = null;
+      emitDirect = () => {
         if (lt.global.document.hidden) {
-          emit();
+          lt.global.clearTimeout(emitTimeout);
+          emitTimeout = lt.global.setTimeout(emitDirect, 250);
           return;
         }
         lt.debug && lt.global.console.debug('redraw');
         lt.pubsub.emit('lichessTools.redraw');
-      }, 250, { defer: true });
+      };
+      const emit = lt.debounce(emitDirect,10); 
       lt.emitRedraw = emit;
       this.analysisStart();
       if (lt.uiApi) {

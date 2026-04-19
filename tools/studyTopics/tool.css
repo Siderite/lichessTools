@@ -1,3 +1,7 @@
+body.lichessTools nav.subnav__inner > a:has(.lichessTools-topicExpander) {
+  align-items: baseline;
+}
+
 body.lichessTools nav.subnav__inner > a .lichessTools-topicExpander {
   width: 1em;
   background: transparent;

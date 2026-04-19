@@ -3,7 +3,7 @@ body.lichessTools div.study__server-eval.ready {
 }
 
 body.lichessTools #acpl-chart-container.lichessTools-extraChart {
-  max-height:265px;
+  max-height:15em;
 }
 
 body.lichessTools #acpl-chart-container {
@@ -341,3 +341,6 @@ body.lichessTools .lichessTools-chartLegend::-webkit-scrollbar {
   display: none;
 }
 
+body.lichessTools .study__message:has(.lichessTools-extraChart) {
+  padding: 0;
+}

@@ -138,7 +138,7 @@
               <a class="rate" title="$trans(rateThisTitle)"
                  href="https://chromewebstore.google.com/detail/lichess-tools-by-siderite/langlhlcknngldkeliapahbhbcmlcbcj/reviews" target="_blank">$trans(rateThisText)</a>
               <a class="blog" title="$trans(blogLinkTitle)"
-                 href="https://siderite.dev/blog/new-chrome-extension-lichess-tools" target="_blank">siderite.dev</a>
+                 href="https://siderite.dev/LiChessTools" target="_blank">siderite.dev</a>
             </div>
             <form>`;
       if (isLoggedIn) {
@@ -580,7 +580,11 @@
           ev.preventDefault();
           if (!await lt.uiApi.dialog.confirm(trans.noarg('minimalButtonWarning'))) return;
           const options = await lt.getOptions();
-          const keys = lt.tools.map(t => t.preferences).flat().filter(p => p && (!p.hidden || p.offValue !== undefined)).map(p => ({ key: p.name, offValue: p.offValue || false }));
+          const keys = lt.tools
+            .map(t => t.preferences)
+            .flat()
+            .filter(p => p && (!p.hidden || p.offValue !== undefined))
+            .map(p => ({ key: p.name, offValue: p.offValue || false }));
           for (const { key, offValue } of keys) options[key] = offValue;
           await lt.applyOptions(options);
           lt.fireReloadOptions();

@@ -38,6 +38,11 @@ body.lichessTools .lichessTools-botFilters input[type="number"] {
   max-width: 7em;
 }
 
+body.lichessTools .lichessTools-allTypes {
+  font-family: 'lichess';
+  margin-right: 0.5em;
+}
+
 /* Lichess Helper CSS */
 
 

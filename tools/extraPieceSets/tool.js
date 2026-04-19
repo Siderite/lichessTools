@@ -18,6 +18,8 @@
         'options.extraPieceSets': 'Extra piece sets',
         'pieceSetTitle': 'LiChess Tools - %s',
         'userManualLinkTitle': 'User manual (EN)',
+        'pieceFilterPlaceholder': '... filter',
+        'pieceFilterTitle': 'LiChess Tools - filter piece sets by name',
 
         'extraPieceSets.siderite': 'Siderite', // don't translate these
         'extraPieceSets.chesscom': 'chess.com',
@@ -38,7 +40,9 @@
         'options.appearance': 'Aspect',
         'options.extraPieceSets': 'Seturi suplimentare de piese',
         'pieceSetTitle': 'LiChess Tools - %s',
-        'userManualLinkTitle': 'Manual utilizator (EN)'
+        'userManualLinkTitle': 'Manual utilizator (EN)',
+        'pieceFilterPlaceholder': '... filtru',
+        'pieceFilterTitle': 'LiChess Tools - filtreaz\u0103 seturile de piese dup\u0103 nume'
       }
     }
 
@@ -176,8 +180,25 @@
         .off('click',this.addPieces)
         .on('click',this.addPieces);
       const isCollapsed = moreButton.text() != '-';
+      let searchInput = list.parent().find('input.lichessTools-extraPieceSets')
       if (isCollapsed) {
         list.find('button.lichessTools-extraPieceSets').remove();
+        searchInput.remove();
+      } else
+      if (!searchInput.length)
+      {
+        searchInput = $('<input type="text" class="lichessTools-extraPieceSets">')
+          .attr('placeholder',trans.noarg('pieceFilterPlaceholder'))
+          .attr('title',trans.noarg('pieceFilterTitle'))
+          .on('input',()=>{
+            const text = searchInput.val().toLowerCase();
+            list
+              .find('button')
+              .each((i,e)=>$(e).toggleClassSafe('lichessTools-filteredPieces',!$(e).attr('title').toLowerCase().includes(text)));
+          })
+          .insertBefore(list);
+        const maxHeight = parseInt(list.css('max-height'));
+        if (maxHeight) list.css('max-height',maxHeight-searchInput.height());
       }
       list.find('button:not(.lichessTools-extraPieceSets)')
         .each((i,e)=>{
@@ -286,7 +307,6 @@
       const $ = lt.$;
       const value = lt.currentOptions.getValue('extraPieceSets');
       this.logOption('Extra piece sets', value);
-      if (lt.currentOptions?.enableLichessTools === false) return;
       this.options = {}
       const categories = this.preferences.find(p=>p.name=='extraPieceSets').possibleValues;
       for (const category of categories) {
@@ -296,7 +316,10 @@
       $('#dasher_app')
         .observer()
         .off('.sub.piece.d2',this.addPieces);
-      $('style#lichessTools-extraPieceSets,button.lichessTools-extraPieceSets').remove();
+      $('#dasher_app .sub.piece.d2 .list button.more')
+        .off('click',this.addPieces);
+
+      $('style#lichessTools-extraPieceSets,button.lichessTools-extraPieceSets,input.lichessTools-extraPieceSets').remove();
       if (!value) return;
 
       if (!this.pieceSets) {

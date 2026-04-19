@@ -73,7 +73,7 @@
       if (lt.isGamePlaying()) return;
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
-          .toggleClass('lichessTools-explorerEval')
+          .addClass('lichessTools-explorerEval')
           .text(lt.icon.BarChart)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
@@ -127,7 +127,7 @@
       }
       if (!$('th.lichessTools-explorerEval', container).length) {
         $('<th>')
-          .toggleClass('lichessTools-explorerEval')
+          .addClass('lichessTools-explorerEval')
           .text(lt.icon.NorthEastArrowWithHook)
           .attr('title', trans.noarg('evaluationTitle'))
           .insertAfter($('th:nth-child(1)', container));
@@ -207,7 +207,26 @@
           const q = 1000 / total;
           const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
           const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+
           const winMargin = Math.round(10000*(explorerItem.white-explorerItem.black)/total)/100;
+          const wilson = (x,n)=>{
+            const z = 1.96;
+            return {
+                     center: (x+z*z/2)/(n+z*z),
+                     halfWidth: z/(total+z*z)*Math.sqrt(x*(n-x)/n+z*z/4)
+                   };
+          };
+          const whiteWilly = wilson(explorerItem.white,total);
+          const blackWilly = wilson(explorerItem.black,total);
+          const willy = {
+            center: whiteWilly.center-blackWilly.center,
+            halfWidth: whiteWilly.halfWidth+blackWilly.halfWidth
+          };
+          const winMarginInterval = (willy.halfWidth<0.02 
+            ? [willy.center]
+            : [willy.center-willy.halfWidth,willy.center+willy.halfWidth])
+                .map(x=>(100*x).toFixed(0))
+                .join('/');
 
           const tdBar = $('td:has(div.bar)', e);
           if (tdBar.length) {
@@ -217,7 +236,7 @@
               arr[1] = sharpnessTitle;
             }
             if (Number.isFinite(winMargin)) {
-              const winMarginTitle = trans.pluralSame('winMarginTitle', winMargin);
+              const winMarginTitle = trans.pluralSame('winMarginTitle', winMarginInterval);
               arr[2] = winMarginTitle;
             }
             const tdTitle = arr.join(' / ');
@@ -526,9 +545,9 @@
           lt.arrayRemoveAll(result.moves, m=>m.depth<12);
         }
       }
-      lt.global.requestAnimationFrame(()=>{
+      lt.requestAF(()=>{
         this.showEvaluations(result);
-      });
+      },'explorerEval_showEvaluations');
     };
     doEvaluationDebounced = this.lichessTools.debounce(this.doEvaluation, 100);
 
@@ -572,6 +591,10 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('explorerEval');
       this.logOption('Explorer eval', value);
+      if (!lt.getUserId()) {
+        lt.global.console.debug(' ... Disabled (not logged in)');
+        return;
+      }
       const prevBardp = this.options?.bardp;
       this.options = {
         ceval: lt.isOptionSet(value, 'ceval'),

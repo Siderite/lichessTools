@@ -1,7 +1,7 @@
 (() => {
   class ExtendedInteractiveLessonTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'EmitChapterChange', 'RandomVariation', 'DetectThirdParties'];
+    dependencies = ['EmitRedraw', 'EmitChapterChange', 'RandomVariation', 'DetectThirdParties','InterceptEventHandlers'];
 
     preferences = [
       {
@@ -17,8 +17,7 @@
         type: 'multiple',
         possibleValues: ['sequential', 'spacedRepetition', 'ignoreBadGlyphs', 'negativeHint','spaceRetry'],
         defaultValue: 'ignoreBadGlyphs',
-        advanced: true,
-        wip: true
+        advanced: true
       }
     ];
 
@@ -34,7 +33,7 @@
         'extendedInteractiveLesson.giveUpButton': 'Give up button',
         'extendedInteractiveLesson': 'Extended Interactive lesson',
         'extendedInteractiveLessonLong': 'Extended Interactive lesson - LiChess Tools',
-        'finalScore': 'Score final: %s%',
+        'finalScore': 'Final score: %s%',
         'currentScore': 'Score so far: %s%',
         'nextMovesCount': 'Make one of %s accepted moves',
         'nextMovesCount:one': 'Only one accepted move to make',
@@ -135,7 +134,7 @@
         $('.lichessTools-extendedInteractiveLesson-info').remove();
 
         if (state.init || gp.state?.init) {
-          gp.resetStats();
+          gp.resetStats?.();
           if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
             gp.currentPath = this.getCurrentPath();
             if (!gp.currentPath) {
@@ -192,6 +191,11 @@
           }
         } else if (!nextMoves.length) {
           state.feedback = 'end';
+          state.hint = null;
+          this.markPathFinished(analysis.path, gp.goodMoves + (gp.isMyMove() ? 0 : 1), gp.badMoves, gp.askedForSolution);
+        } else if (!node.children?.length) {
+          // paths don't contain transpositions, but interactive uses them
+          state.feedback = 'play';
           this.markPathFinished(analysis.path, gp.goodMoves + (gp.isMyMove() ? 0 : 1), gp.badMoves, gp.askedForSolution);
         } else if (gp.isMyMove()) {
           state.feedback = 'play';
@@ -267,6 +271,7 @@
         const lt = this.lichessTools;
         const analysis = lt.lichess.analysis;
         const gp = analysis.gamebookPlay();
+        if (!gp) return;
         if (analysis.path === '') {
           gp.makeState();
         } else {
@@ -291,7 +296,10 @@
             gp.currentPath = this.getCurrentPath();
             if (!gp.currentPath) return;
             const childPath = gp.currentPath.slice(0, analysis.path.length + 2);
-            if (childPath.length == analysis.path.length + 2) child = analysis.tree.nodeAtPath(childPath);
+            if (childPath.length == analysis.path.length + 2) {
+              child = analysis.tree.nodeAtPath(childPath);
+              child.path = childPath;
+            }
           } else {
             child = lt.getRandomVariation(analysis.node, gp.threeFoldRepetition);
           }
@@ -616,6 +624,8 @@
       const Math = lt.global.Math;
       const analysis = lt.lichess.analysis;
       const trans = lt.translator;
+      $('div.gamebook .comment .content .lichessTools-score').remove();
+      lt.global.clearTimeout(this._showScoreTimeout);
       const gp = analysis.gamebookPlay();
       if (!gp) return;
       if (this.options.showFinalScore || this.options.alwaysShowScore) {
@@ -629,11 +639,12 @@
             .addClass('lichessTools-score')
             .addClass('lichessTools-score' + scoreRating)
             .text(scoreText)
-            .attr('title', gp.goodMoves + ' | ' + gp.badMoves);
+            .attr('title', `${gp.goodMoves} ${lt.icon.Checked} | ${gp.badMoves} ${lt.icon.RedX}`);
           const f = () => {
             const container = $('div.gamebook .comment .content');
             if (!container.length) {
-              lt.global.setTimeout(f, 100);
+              lt.global.clearTimeout(this._showScoreTimeout);
+              this._showScoreTimeout = lt.global.setTimeout(f, 100);
               return;
             }
             container.find('.lichessTools-score').remove();
@@ -642,7 +653,7 @@
           f();
         }
       }
-      if (isFinal) gp.resetStats();
+      if (isFinal) gp.resetStats?.();
     };
 
     replaceFunction = (func, newFunc, id) => {
@@ -758,7 +769,7 @@
           id: 'showScore',
           before: ($this, ...args) => {
             if (gp.root.node.id == '') {
-              gp.resetStats();
+              gp.resetStats?.();
             }
             if (this.options.alwaysShowScore) {
               this.showScore();
@@ -769,7 +780,7 @@
           id: 'showScore',
           after: ($this, result, ...args) => {
             if (gp.root.node.id == '') {
-              gp.resetStats();
+              gp.resetStats?.();
             }
             if (this.options.alwaysShowScore) {
               this.showScore();
@@ -878,7 +889,7 @@
       const $ = lt.$;
       const gamebookEdit = $('div.gamebook-edit');
       this._collapsed = !this._collapsed;
-      gamebookEdit.toggleClass('lichessTools-collapsed', this._collapsed);
+      gamebookEdit.toggleClassSafe('lichessTools-collapsed', this._collapsed);
     };
 
     alterUI = () => {
@@ -887,9 +898,9 @@
       const trans = lt.translator;
       const analysis = lt.lichess.analysis;
 
-      $.cached('body').toggleClass('lichessTools-extendedInteractiveLesson', this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
+      $.cached('body').toggleClassSafe('lichessTools-extendedInteractiveLesson', this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
       let translation = trans.noarg('extendedInteractiveLessonLong')
-      $('button.preview').attr('title', translation); //.attr('data-label',translation);
+      $('button.preview').attrSafe('title', translation); //.attr('data-label',translation);
 
       if (this.options.returnToPreview) {
         $('button.retry, button.fbt.text.back').each((i, e) => {
@@ -907,11 +918,11 @@
       const gamebookEdit = $('div.gamebook-edit');
       const header = $('.lichessTools-gamebookHeader', gamebookEdit);
       if (!this.options.extendedInteractive) {
-        gamebookEdit.removeClass('lichessTools-collapsed');
+        gamebookEdit.toggleClassSafe('lichessTools-collapsed',false);
         header.remove();
         return;
       }
-      gamebookEdit.toggleClass('lichessTools-collapsed', !!this._collapsed);
+      gamebookEdit.toggleClassSafe('lichessTools-collapsed', !!this._collapsed);
 
       if (!header.length) {
         $('<div class="lichessTools-gamebookHeader">')
@@ -923,25 +934,27 @@
 
       const menu = $('#analyse-cm');
       const isWritableStudy = analysis?.study?.isWriting();
-      if (isWritableStudy && menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addDeviation"]').length) {
-        const text = trans.noarg('addDeviationText');
-        const title = trans.noarg('addDeviationTitle');
-        $('<a>')
-          .attr('data-icon', lt.icon.NotAllowed)
-          .attr('data-role', 'addDeviation')
-          .text(text).attr('title', title)
-          .on('click', this.addDeviation)
-          .appendTo(menu);
-      }
-      if (isWritableStudy && menu.length && analysis?.study?.data?.chapter?.gamebook && !menu.has('a[data-role="addHint"]').length) {
-        const text = trans.noarg('addHintText');
-        const title = trans.noarg('addHintTitle');
-        $('<a>')
-          .attr('data-icon', lt.icon.InfoCircle)
-          .attr('data-role', 'addHint')
-          .text(text).attr('title', title)
-          .on('click', this.addHint)
-          .appendTo(menu);
+      if (isWritableStudy && menu.length && analysis?.study?.data?.chapter?.gamebook) {
+        if (!menu.has('a[data-role="addDeviation"]').length) {
+          const text = trans.noarg('addDeviationText');
+          const title = trans.noarg('addDeviationTitle');
+          $('<a>')
+            .attr('data-icon', lt.icon.NotAllowed)
+            .attr('data-role', 'addDeviation')
+            .text(text).attr('title', title)
+            .on('click', this.addDeviation)
+            .appendTo(menu);
+        }
+        if (!menu.has('a[data-role="addHint"]').length) {
+          const text = trans.noarg('addHintText');
+          const title = trans.noarg('addHintTitle');
+          $('<a>')
+            .attr('data-icon', lt.icon.InfoCircle)
+            .attr('data-role', 'addHint')
+            .text(text).attr('title', title)
+            .on('click', this.addHint)
+            .appendTo(menu);
+        }
       }
 
       if (!analysis.study?.practice) {
@@ -971,7 +984,7 @@
             optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.negativeHint'));
           }
         }
-        optionsElem.find('span').text(optionsArr.join(', '));
+        optionsElem.find('span').textSafe(optionsArr.join(', '));
       }
     };
 
@@ -1208,7 +1221,7 @@
       const translation = this.allGlyphs.get(glyph.id);
       if (translation) {
         const html = translation+'<br/>'+trans.noarg('continueFromHere');
-        const text = $('<div>').html(html).text();
+        const text = lt.htmlDecode(html);
         if (el.text()!=text) {
           el
             .html(html)
@@ -1305,12 +1318,19 @@
       });
       this.analysisControls();
       lt.pubsub.off('lichessTools.redraw', this.alterUI);
-      lt.pubsub.off('lichessTools.chapterChange', this.patchGamebook);
+      //lt.pubsub.off('lichessTools.chapterChange', this.patchGamebook);
       if (this.options.extendedInteractive) {
         lt.pubsub.on('lichessTools.redraw', this.alterUI);
       }
+      study.instantiateGamebookPlay = lt.unwrapFunction(study.instantiateGamebookPlay,'extendedInteractiveLesson');
       if (this.options.extendedInteractive || this.options.showFinalScore || this.options.alwaysShowScore) {
-        lt.pubsub.on('lichessTools.chapterChange', this.patchGamebook);
+        //lt.pubsub.on('lichessTools.chapterChange', this.patchGamebook);
+        study.instantiateGamebookPlay = lt.wrapFunction(study.instantiateGamebookPlay,{
+          id: 'extendedInteractiveLesson',
+          after: ($this, result, ...args) => {
+            lt.global.setTimeout(this.patchGamebook,1); // refresh node version has to run
+          }
+        });
       }
       lt.pubsub.off('lichessTools.redraw', this.showScore);
       if (this.options.showFinalScore || this.options.alwaysShowScore) {
