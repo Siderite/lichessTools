@@ -480,7 +480,7 @@
     "options.mayTenth": "يوم أدوات الشطرنج الحياة!",
     "mayTenthTitle": "يوم أدوات شطرنج الحياة السعيدة!",
     "options.moveAssistant": "نقل المساعد",
-    "assistantButtonTitle": "أدوات شطرنج الحياة - نقل التقييم",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "تحذير اللاعب",
     "percentageTitle": "- %s% معدل قطع الاتصال",
     "options.boardImage": "صورة لوحة تصديرية أفضل",
@@ -1051,7 +1051,12 @@
     "selectGamesSyntaxText": "الاستخدام: اختر <start> [count]",
     "downloadedText": "تم التحميل",
     "allTypesTitle": "أدوات شطرنج الحياة - تبديل الكل",
-    "bookmarkSplitText_f": "تقسيم الفصل إلى هنا"
+    "bookmarkSplitText_f": "تقسيم الفصل إلى هنا",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -1534,7 +1539,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - move evaluation",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -2105,7 +2110,12 @@
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
     "allTypesTitle": "LiChess Tools - toggle all",
-    "bookmarkSplitText_f": "Split off chapter here"
+    "bookmarkSplitText_f": "Split off chapter here",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2588,7 +2598,7 @@
     "options.mayTenth": "LiChess Tools 日！",
     "mayTenthTitle": "LiChess Tools 日快乐！",
     "options.moveAssistant": "着法助手",
-    "assistantButtonTitle": "LiChess工具 - 移动评价",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "玩家警告提示",
     "percentageTitle": "- %s%断开连接",
     "options.boardImage": "更好的棋盘导出图片",
@@ -3159,7 +3169,12 @@
     "selectGamesSyntaxText": "用法：select <开始> [数量]",
     "downloadedText": "已下载",
     "allTypesTitle": "LiChess Tools - 全选切换",
-    "bookmarkSplitText_f": "从此处拆分章节"
+    "bookmarkSplitText_f": "从此处拆分章节",
+    "followersNumberTitle:zero": "关注者",
+    "followersNumberTitle:one": "一位关注者",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3642,7 +3657,7 @@
     "options.mayTenth": "LiChess Tools 節日！",
     "mayTenthTitle": "LiChess Tools 節快樂！",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - move evaluation",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "更好的截圖畫質",
@@ -4213,7 +4228,12 @@
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
     "allTypesTitle": "LiChess Tools - toggle all",
-    "bookmarkSplitText_f": "Split off chapter here"
+    "bookmarkSplitText_f": "Split off chapter here",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4696,7 +4716,7 @@
     "options.mayTenth": "LiChess Tools den!",
     "mayTenthTitle": "Šťastný den LiChess Tools!",
     "options.moveAssistant": "Přesunout asistenta",
-    "assistantButtonTitle": "Nástroje Lišek - posunout hodnocení",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Upozornění hráče",
     "percentageTitle": "- %s% rychlost odpojení",
     "options.boardImage": "Lepší exportovaný obrázek fóra",
@@ -5267,7 +5287,12 @@
     "selectGamesSyntaxText": "Použití: vyberte <start> [count]",
     "downloadedText": "Staženo",
     "allTypesTitle": "Nástroje Lišess - přepnout vše",
-    "bookmarkSplitText_f": "Rozdělit kapitolu"
+    "bookmarkSplitText_f": "Rozdělit kapitolu",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5750,7 +5775,7 @@
     "options.mayTenth": "LiChess Gereedschap Dag!",
     "mayTenthTitle": "Gelukkige LiChess Gereedschapsdag!",
     "options.moveAssistant": "Assistent verplaatsen",
-    "assistantButtonTitle": "Lischass Tools - evaluatie verplaatsen",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Speler waarschuwing waarschuwing",
     "percentageTitle": "- %s% verbinding verbreken",
     "options.boardImage": "Betere geëxporteerde board afbeelding",
@@ -6321,7 +6346,12 @@
     "selectGamesSyntaxText": "Gebruik: select <start> [count]",
     "downloadedText": "Gedownload",
     "allTypesTitle": "LiChess Tools - schakel alles uit",
-    "bookmarkSplitText_f": "Hier opsplitsen van hoofdstuk"
+    "bookmarkSplitText_f": "Hier opsplitsen van hoofdstuk",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -6804,7 +6834,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - move evaluation",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -7375,7 +7405,12 @@
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
     "allTypesTitle": "LiChess Tools - toggle all",
-    "bookmarkSplitText_f": "Split off chapter here"
+    "bookmarkSplitText_f": "Split off chapter here",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -7858,7 +7893,7 @@
     "options.mayTenth": "Journée de LiChess Tools!",
     "mayTenthTitle": "Joyeuse journée de LiChess Tools!",
     "options.moveAssistant": "Assistant de coup",
-    "assistantButtonTitle": "LiChess Tools - évaluation du coup",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Alerte d'avertissement pour les joueurs",
     "percentageTitle": "- Taux de déconnexion : %s%",
     "options.boardImage": "Mieux exporter l'image de l'échiquier",
@@ -8429,7 +8464,12 @@
     "selectGamesSyntaxText": "Utilisation: select <start> [count]",
     "downloadedText": "Téléchargé",
     "allTypesTitle": "LiChess Tools - activer/désactiver tout",
-    "bookmarkSplitText_f": "Insérer un nouveau chapitre ici"
+    "bookmarkSplitText_f": "Insérer un nouveau chapitre ici",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -8912,7 +8952,7 @@
     "options.mayTenth": "LiChess-Tools-Tag!",
     "mayTenthTitle": "Einen frohen LiChess-Tools-Tag!",
     "options.moveAssistant": "Assistent verschieben",
-    "assistantButtonTitle": "LiChess Werkzeuge - Verschiebung",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Warnung des Spielers",
     "percentageTitle": "- %s% Trennungsrate",
     "options.boardImage": "Bessere exportierte Brettbild",
@@ -9483,7 +9523,12 @@
     "selectGamesSyntaxText": "Verwendung: Wählen Sie <start> [count]",
     "downloadedText": "Heruntergeladen",
     "allTypesTitle": "LiChess Werkzeuge - Alle umschalten",
-    "bookmarkSplitText_f": "Kapitel hier aufteilen"
+    "bookmarkSplitText_f": "Kapitel hier aufteilen",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -9966,7 +10011,7 @@
     "options.mayTenth": "LiChess Tools ημέρα!",
     "mayTenthTitle": "Ευτυχισμένα LiChess Tools ημέρα!",
     "options.moveAssistant": "Μετακίνηση βοηθού",
-    "assistantButtonTitle": "LiChess Tools - αξιολόγηση κινήσεων",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Προειδοποίηση παίκτη",
     "percentageTitle": "- %s% ποσοστό αποσύνδεσης",
     "options.boardImage": "Καλύτερη εξαγόμενη εικόνα πίνακα",
@@ -10537,7 +10582,12 @@
     "selectGamesSyntaxText": "Χρήση: επιλέξτε <start> [count]",
     "downloadedText": "Λήφθηκε",
     "allTypesTitle": "Εργαλεία LiChess - εναλλαγή όλων",
-    "bookmarkSplitText_f": "Διαχωρισμός εκτός κεφαλαίου εδώ"
+    "bookmarkSplitText_f": "Διαχωρισμός εκτός κεφαλαίου εδώ",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -11020,7 +11070,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - move evaluation",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -11591,7 +11641,12 @@
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
     "allTypesTitle": "LiChess Tools - toggle all",
-    "bookmarkSplitText_f": "Split off chapter here"
+    "bookmarkSplitText_f": "Split off chapter here",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -12074,7 +12129,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - move evaluation",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -12645,7 +12700,12 @@
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
     "allTypesTitle": "LiChess Tools - toggle all",
-    "bookmarkSplitText_f": "Split off chapter here"
+    "bookmarkSplitText_f": "Split off chapter here",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13128,7 +13188,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Felice LiChess Tools day!",
     "options.moveAssistant": "Assistenza mossa",
-    "assistantButtonTitle": "Strumenti LiChess - spostare la valutazione",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Avviso giocatore",
     "percentageTitle": "- %s% tasso di disconnessione",
     "options.boardImage": "Migliore immagine di esportazione scacchiera ",
@@ -13699,7 +13759,12 @@
     "selectGamesSyntaxText": "Uso: seleziona <start> [count]",
     "downloadedText": "Scaricato",
     "allTypesTitle": "Strumenti LiChess - attiva/disattiva tutto",
-    "bookmarkSplitText_f": "Dividi il capitolo qui"
+    "bookmarkSplitText_f": "Dividi il capitolo qui",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -14182,7 +14247,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - move evaluation",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -14753,7 +14818,12 @@
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
     "allTypesTitle": "LiChess Tools - toggle all",
-    "bookmarkSplitText_f": "Split off chapter here"
+    "bookmarkSplitText_f": "Split off chapter here",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -15236,7 +15306,7 @@
     "options.mayTenth": "Dzień LiChess Tools!",
     "mayTenthTitle": "Szczęśliwego Dnia LiChess Tools!",
     "options.moveAssistant": "Asystent posunięć",
-    "assistantButtonTitle": "LiChess Tools ‒ ocena posunięć",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Ikona ostrzeżenia o przeciwniku",
     "percentageTitle": "częstotliwość utraty połączenia %s%",
     "options.boardImage": "Lepszy eksportowany obraz szachownicy",
@@ -15807,7 +15877,12 @@
     "selectGamesSyntaxText": "Użycie: wybierz <start> [count]",
     "downloadedText": "Pobrano",
     "allTypesTitle": "Narzędzia LiChess - włącz wszystkie",
-    "bookmarkSplitText_f": "Podziel tutaj rozdział"
+    "bookmarkSplitText_f": "Podziel tutaj rozdział",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -16290,7 +16365,7 @@
     "options.mayTenth": "Dia de LiChess Tools!",
     "mayTenthTitle": "Feliz dia de LiChess Tools!",
     "options.moveAssistant": "Mover assistente",
-    "assistantButtonTitle": "LiChess Tools - avaliação de movimentos",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Alerta de jogador",
     "percentageTitle": "- Taxa de desconexão %s%",
     "options.boardImage": "Imagem do board exportada melhor",
@@ -16861,7 +16936,12 @@
     "selectGamesSyntaxText": "Uso: selecione <start> [count]",
     "downloadedText": "Baixado",
     "allTypesTitle": "Ferramentas LiChess - alternar tudo",
-    "bookmarkSplitText_f": "Dividir capítulo aqui"
+    "bookmarkSplitText_f": "Dividir capítulo aqui",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -17344,7 +17424,7 @@
     "options.mayTenth": "Dia de LiChess Tools!",
     "mayTenthTitle": "Feliz dia de LiChess Tools!",
     "options.moveAssistant": "Mover assistente",
-    "assistantButtonTitle": "Ferramentas de LiChess - avaliação de movimentos",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Alerta de jogador",
     "percentageTitle": "- Taxa de desconexão %s%",
     "options.boardImage": "Imagem do board exportada melhor",
@@ -17915,7 +17995,12 @@
     "selectGamesSyntaxText": "Uso: selecione <start> [count]",
     "downloadedText": "Baixado",
     "allTypesTitle": "Ferramentas LiChess - alternar tudo",
-    "bookmarkSplitText_f": "Dividir capítulo aqui"
+    "bookmarkSplitText_f": "Dividir capítulo aqui",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -18398,7 +18483,7 @@
     "options.mayTenth": "Ziua LiChess Tools!",
     "mayTenthTitle": "La mulţi ani, LiChess Tools!",
     "options.moveAssistant": "Asistent mutări",
-    "assistantButtonTitle": "LiChess Tools - evaluarea mutărilor",
+    "assistantButtonTitle": "LiChess Tools - caracterizează mutări și atribute ale poziției\nClic dreapta pentru optiuni.",
     "options.playerWarning": "Alertă avertizare jucători",
     "percentageTitle": "- rată de deconectare %s%",
     "options.boardImage": "O imagine exportată a tablei mai bună",
@@ -18969,7 +19054,12 @@
     "selectGamesSyntaxText": "Utilizare: select <start> [număr]",
     "downloadedText": "Descărcat",
     "allTypesTitle": "LiChess Tools - comută toate",
-    "bookmarkSplitText_f": "Taie un capitol de aici"
+    "bookmarkSplitText_f": "Taie un capitol de aici",
+    "followersNumberTitle:zero": "Urmăritori",
+    "followersNumberTitle:one": "Un urmăritor",
+    "options.botsMenuItem": "Boți în meniu",
+    "botsMenuItemText": "Boți online",
+    "botsMenuItemTitle": "Lichess Tools - joacă contra unor boți"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -19452,7 +19542,7 @@
     "options.mayTenth": "День LiChess Tools!",
     "mayTenthTitle": "С Днём LiChess Tools!",
     "options.moveAssistant": "Ассистент ходов",
-    "assistantButtonTitle": "LiChess Tools - оценка хода",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Предупреждение об игроке",
     "percentageTitle": "- %s% частота отключения",
     "options.boardImage": "Лучшее изображение для экспорта доски",
@@ -20023,7 +20113,12 @@
     "selectGamesSyntaxText": "Использование: выберите <start> [count]",
     "downloadedText": "Загружено",
     "allTypesTitle": "Инструменты Жизни - переключение всех",
-    "bookmarkSplitText_f": "Разделить главу здесь"
+    "bookmarkSplitText_f": "Разделить главу здесь",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -20506,7 +20601,7 @@
     "options.mayTenth": "¡Día de Lichess Tools!",
     "mayTenthTitle": "¡Feliz día de Lichess Tools!",
     "options.moveAssistant": "Asistente de movimiento",
-    "assistantButtonTitle": "LiChess Tools - mueve la evaluación",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Alerta del jugador",
     "percentageTitle": "- %s% tasa de desconexión",
     "options.boardImage": "Mejor imagen de tablero exportada",
@@ -21077,7 +21172,12 @@
     "selectGamesSyntaxText": "Uso: select <start> [count]",
     "downloadedText": "Descargado",
     "allTypesTitle": "Herramientas de LiChess - alterna todas",
-    "bookmarkSplitText_f": "Dividir el capítulo aquí"
+    "bookmarkSplitText_f": "Dividir el capítulo aquí",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -21560,7 +21660,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - move evaluation",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -22131,7 +22231,12 @@
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
     "allTypesTitle": "LiChess Tools - toggle all",
-    "bookmarkSplitText_f": "Split off chapter here"
+    "bookmarkSplitText_f": "Split off chapter here",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -22614,7 +22719,7 @@
     "options.mayTenth": "LiChess Tools günü!",
     "mayTenthTitle": "Mutlu LiChess Tools günü!",
     "options.moveAssistant": "Hamle asistanı",
-    "assistantButtonTitle": "LiChess Tools - hamle değerlendirmesi",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Oyuncu uyarısı",
     "percentageTitle": "- %s% bağlantı kesilme oranı",
     "options.boardImage": "Daha iyi dışa aktarılmış tahta resmi",
@@ -23185,7 +23290,12 @@
     "selectGamesSyntaxText": "Kullanım: select <başlangıç> [sayı]",
     "downloadedText": "İndirildi",
     "allTypesTitle": "LiChess Tools - tümünü aç/kapat",
-    "bookmarkSplitText_f": "Bölümü buradan ayır"
+    "bookmarkSplitText_f": "Bölümü buradan ayır",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -23668,7 +23778,7 @@
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
-    "assistantButtonTitle": "LiChess Tools - move evaluation",
+    "assistantButtonTitle": "LiChess Tools - qualify moves and position attributes\nRight click for options.",
     "options.playerWarning": "Player warning alert",
     "percentageTitle": "- %s% disconnect rate",
     "options.boardImage": "Better exported board image",
@@ -24239,6 +24349,11 @@
     "selectGamesSyntaxText": "Usage: select <start> [count]",
     "downloadedText": "Downloaded",
     "allTypesTitle": "LiChess Tools - toggle all",
-    "bookmarkSplitText_f": "Split off chapter here"
+    "bookmarkSplitText_f": "Split off chapter here",
+    "followersNumberTitle:zero": "Followers",
+    "followersNumberTitle:one": "One follower",
+    "options.botsMenuItem": "Bots in menu",
+    "botsMenuItemText": "Online bots",
+    "botsMenuItemTitle": "Lichess Tools - play against bots"
   }
 }

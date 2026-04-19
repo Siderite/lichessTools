@@ -143,6 +143,7 @@ lichessTools.loadTool(LiChessTools.Tools.StudyTopics);
 lichessTools.loadTool(LiChessTools.Tools.ChessPursuit);
 lichessTools.loadTool(LiChessTools.Tools.LobbyRatingDiff);
 lichessTools.loadTool(LiChessTools.Tools.VoiceInput);
+lichessTools.loadTool(LiChessTools.Tools.BotsMenuItem);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
