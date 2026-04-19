@@ -2352,6 +2352,9 @@
   "rnbqkb1r1p2ppppp2p1n283NP32N1B3PPP2PPPR2QKB1Rb": [
     "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...a6/6. Be3"
   ],
+  "rnbqkb1r4ppppp2p1n21p63NP32N1B3PPP2PPPR2QKB1Rw": [
+    "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...a6/6. Be3/6...b5"
+  ],
   "rnbqkb1r1p3pppp2p1n24p33NP32N1B3PPP2PPPR2QKB1Rw": [
     "Chess Opening Theory/1. e4/1...c5/2. Nf3/2...d6/3. d4/3...cxd4/4. Nxd4/4...Nf6/5. Nc3/5...a6/6. Be3/6...e5"
   ],
