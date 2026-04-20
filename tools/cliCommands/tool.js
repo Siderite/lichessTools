@@ -115,7 +115,9 @@
       const $ = lt.$;
       const input = $('#clinput input');
       if (!input.length) {
-        lt.global.console.warn('Could not find element ', input);
+        if ($('header').length) {
+          lt.global.console.warn('Could not find #cliinput although I found a header');
+        }
         return;
       }
       input.off('keydown', this.keydown);
