@@ -607,7 +607,8 @@
       lt.pubsub.off('content-loaded', this.notificationButtonInTeams);
       $('.lichessTools-notify').remove();
       if (this.options.teamChatNotifications) {
-        lt.storage?.listen('lichessTools.refreshNotifications', ()=>{
+        this._refreshNotificationsClean?.();
+        this._refreshNotificationsClean=lt.storage?.listen('lichessTools.refreshNotifications', ()=>{
           this.loadTeamsData();
           lt.notifications.refresh();
         });

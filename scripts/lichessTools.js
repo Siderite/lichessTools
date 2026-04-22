@@ -1804,12 +1804,14 @@
         const lt = this.lichessTools;
         if (options?.session) throw new Error('You cannot listen to events on session storage, only local');
         const $ = lt.$;
-        $(lt.global).on('storage', e => {
+        const handler = e => {
           const store = this.getStore(options);
           if (e.key !== key || e.storageArea !== store || e.newValue === null) return;
           const parsed = lt.jsonParse(e.newValue);
           if (parsed?.sri && parsed.sri !== lt.sri) func(parsed);
-        });
+        };
+        $(lt.global).on('storage', handler);
+        return ()=>$(lt.global).off('storage', handler);
       },
       fire: function (key, value, options) {
         const lt = this.lichessTools;
@@ -1841,9 +1843,13 @@
         const lt = this.lichessTools;
         const uid = crypto.randomUUID();
         return new Promise((resolve, reject) => {
-          const pointer = setTimeout(() => reject(new Error('Send timeout')), timeout || this.timeout);
+          const pointer = setTimeout(() => {
+            delete this.sendResponses[uid];
+            reject(new Error('Send timeout'));
+          }, timeout || this.timeout);
           const f = (data) => {
             clearTimeout(pointer);
+            delete this.sendResponses[uid];
             if (sendResponse) sendResponse(data);
             resolve(data);
           };
@@ -2792,7 +2798,8 @@
       this.global.console.debug('%c site code age: ' + Math.round(age * 10) / 10 + ' days', style);
       await this.applyOptions();
       const debouncedApplyOptions = this.debounce(this.applyOptions, 250);
-      this.storage?.listen('lichessTools.reloadOptions', () => {
+      this._reloadOptionsClean?.();
+      this._reloadOptionsClean=this.storage?.listen('lichessTools.reloadOptions', () => {
         debouncedApplyOptions();
       });
       performance.mark('LiChessTools.end');
