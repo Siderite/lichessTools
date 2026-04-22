@@ -3145,7 +3145,7 @@
         const versionCheckRequest = globalThis.indexedDB.open(dbInfo.dbName);
 
         versionCheckRequest.onsuccess = (ev) => {
-          let result = event.target.result;
+          let result = ev.target.result;
           const currentVersion = result.version;
           const needsUpgrade = !result.objectStoreNames.contains(dbInfo.storeName);
           result.close();

@@ -226,7 +226,7 @@
       if (isCollapsed) {
         this.collapsedChapters.push(chapterId);
       } else {
-        lt.arrayRemoveAll(this.collapsedChapters,x=>x=chapterId);
+        lt.arrayRemoveAll(this.collapsedChapters,x=>x==chapterId);
       }
       lt.storage.set('LiChessTools.collapsedChapters',this.collapsedChapters);
       for (let i = index+1; i<chapterElems.length; i++) {

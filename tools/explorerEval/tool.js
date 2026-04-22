@@ -494,6 +494,13 @@
             result.lichessLoaded = true;
           }
         }
+        if (!newMoves?.length) {
+          this.setCached404(path);
+        }
+        if (fen!=analysis.node.fen) {
+          this.doEvaluation();
+          return;
+        }
         if (newMoves?.length) {
           newMoves.forEach(nm => {
             const uci = nm.moves?.at(0);
@@ -508,8 +515,6 @@
               result.moves.push(nm);
             }
           });
-        } else {
-          this.setCached404(path);
         }
       }
       result = result || { moves: [] };

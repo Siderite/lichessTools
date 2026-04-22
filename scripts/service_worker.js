@@ -217,16 +217,20 @@ const handlers = {
 
     const { left, top } = await getCenteredPosition(width, height);
 
-    const win = chrome.windows.create({
-      url: url,
-      type: 'popup',
-      width,
-      height,
-      left,
-      top,
-      focused: true
-    });
-    return { ok: true };
+    try {
+      const win = await chrome.windows.create({
+        url: url,
+        type: 'popup',
+        width,
+        height,
+         left,
+        top,
+        focused: true
+      });
+      return { ok: true };
+    } catch(e) {
+      return { ok: false, error: e.message };
+    }
   }
 };
 
