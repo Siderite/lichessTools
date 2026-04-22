@@ -3239,7 +3239,8 @@
       }
 
       if (!this.tryCreateLock(key, ms)) {
-        return await execute(fn,key,ms);
+        await lt.timeout(100);
+        return await this.execute(fn,key,ms);
       }
       const result = await fn();
       this.createLock(key, ms);
