@@ -88,7 +88,7 @@
           .toggleClassSafe('lichessTools-hasBoardSize', true);
         fireEvent = !!prevSize;
       }
-      if (!fireEvent && ev?.type=='position') {
+      if ((!fireEvent || !this._prevPos) && ev?.type=='position') {
         const position = JSON.stringify(container.offset());
         if (position != this._prevPos) {
           fireEvent = !!this._prevPos;
@@ -97,7 +97,7 @@
       }
       if (fireEvent) {
         lt.debug && lt.global.console.debug('Firing board resize event');
-        $('body')
+        container
           .trigger('resize');
       }
     };
@@ -109,7 +109,7 @@
       const $ = lt.$;
       const element = $('.main-board cg-board')[0];
       if (element!==this.board) {
-        lt.global.console.debug('Resetting board element');
+        lt.debug && lt.global.console.debug('Resetting board element');
         if (this.cleanup) this.cleanup();
         this.board = element;
         if (element) {
@@ -125,6 +125,7 @@
       this.logOption('Fix Chessground resize', value);
       lt.global.clearInterval(this.interval);
       if (!value) return;
+      this.fireResizeDirect({ type:'position' });
       this.interval = lt.global.setInterval(this.checkBoardPosition, 500);
     }
   }
