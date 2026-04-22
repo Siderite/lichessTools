@@ -7,6 +7,10 @@
     max-width: var(--left-side-width);
   }
 
+  body.lichessTools.lichessTools-theme_toggleStudyChat.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play):not(:has(main.has-relay-tour)) main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .chat__members {
+    max-width: unset;
+  }
+
   body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat {
     visibility: hidden;
     max-height: 0px;
@@ -39,6 +43,9 @@
     position: relative;
   }
 
+  body.lichessTools.lichessTools-theme_toggleStudyChat.lichessTools-hideLeftSide:not(.lichessTools-gamebook-play):not(:has(main.has-relay-tour)) main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):has(.study__chapters):not(.is-relay) aside.analyse__side {
+    max-width: unset;
+  }
 }
 
 /** Prettier **/
