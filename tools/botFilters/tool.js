@@ -55,11 +55,13 @@
       const icons = $('.types input[data-icon]:checked').get().map(e=>$(e).attr('data-icon'));
       $('.bots__list__entry')
         .each((i,e)=>{
-          const found = $('.bots__list__entry__rating',e).find('span')
+          const found = $('.bots__list__entry__rating',e)
             .filter((i2,e2)=>{
-              const games = +($(e2).attr('title').replace(/[^\d]/g,''));
-              const icon = $(e2).attr('data-icon');
-              const rating = +($(e2).text().replace(/[^\d]/g,''));
+              const span = $(e2).find('span');
+              if (!span.length) return showUnrated;
+              const games = +(span.attr('title').replace(/[^\d]/g,''));
+              const icon = span.attr('data-icon');
+              const rating = +(span.text().replace(/[^\d]/g,''));
               return icons.indexOf(icon)>=0 && (rating 
                                                   ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
                                                   : showUnrated);

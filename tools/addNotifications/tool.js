@@ -148,7 +148,8 @@
         }
       }, 1000);
 
-      lt.storage?.listen('notify-read-all',this.forcedProcessNotifications);
+      this._notifyReadAllClean?.();
+      this._notifyReadAllClean=lt.storage?.listen('notify-read-all',this.forcedProcessNotifications);
 
       lt.uiApi.socket.events.on('notifications', this.updateNotificationCount);
       if (this._unreadNotifications === undefined) {
