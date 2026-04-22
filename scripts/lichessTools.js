@@ -3152,14 +3152,14 @@
         const versionCheckRequest = globalThis.indexedDB.open(dbInfo.dbName);
 
         versionCheckRequest.onsuccess = (ev) => {
-          let result = ev.target.result;
-          const currentVersion = result.version;
-          const needsUpgrade = !result.objectStoreNames.contains(dbInfo.storeName);
-          result.close();
+          const db = ev.target.result;
+          const currentVersion = db.version;
+          const needsUpgrade = !db.objectStoreNames.contains(dbInfo.storeName);
+          db.close();
 
           const finalVersion = needsUpgrade ? currentVersion+1 : currentVersion;
           dbInfo.version = finalVersion;
-          result = globalThis.indexedDB.open(dbInfo.dbName, finalVersion);
+          const result = globalThis.indexedDB.open(dbInfo.dbName, finalVersion);
 
           result.onsuccess = (e) => {
             const result = e.target.result;
