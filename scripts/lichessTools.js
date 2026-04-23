@@ -360,30 +360,28 @@
     };
 
     async arrayRemoveAllAsync(arr,asyncPredicate) {
-      let result = [];
+      const result = [];
       if (!arr?.length) return result;
-      let i = 0;
-      while (i < arr.length) {
-        if (await asyncPredicate(arr[i])) {
-          result = result.concat(arr.splice(i, 1));
-        } else {
-          i++;
-        }
+      const kept = [];
+      for (const item of arr) {
+        const arr = await asyncPredicate(item) ? result : kept;
+        arr.push(item);
       }
+      arr.length = 0;
+      arr.push(...kept);
       return result;
     }
 
     arrayRemoveAll(arr, predicate) {
-      let result = [];
+      const result = [];
       if (!arr?.length) return result;
-      let i = 0;
-      while (i < arr.length) {
-        if (predicate(arr[i])) {
-          result = result.concat(arr.splice(i, 1));
-        } else {
-          i++;
-        }
+      const kept = [];
+      for (const item of arr) {
+        const arr = predicate(item) ? result : kept;
+        arr.push(item);
       }
+      arr.length = 0;
+      arr.push(...kept);
       return result;
     }
 

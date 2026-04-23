@@ -2866,15 +2866,15 @@
 
     /** Build the "d" attribute string from a list of commands/coords */
     makePathString(list, ox = 5, oy = 8) {
-      let path = "";
+      const path = [];
       for (let i = 0; i < list.length; i++) {
         let e = list[i];
         if (typeof e == "object") {
           e = this.svgFloat(e[0] - ox) + "," + this.svgFloat(e[1] - oy);
         }
-        path += e + " ";
+        path.push(e);
       }
-      return path;
+      return path.join(' ');
     }
 
     /** <use> element that references a definition */

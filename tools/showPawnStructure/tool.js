@@ -342,18 +342,18 @@
       const analysis = lichess.analysis;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
       if (this.isGamesPage()) {
         return;
       }
+      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
       const trans = lt.translator;
-      const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;
       const board = lt.getBoardFromFen(fen);
       const analysisOrientation = analysis?.getOrientation();
       const isBlackOrientation = (analysisOrientation && analysisOrientation == 'black') || $('.cg-wrap').eq(0).is('.orientation-black');
       const structure = await this.getStructure(board, isBlackOrientation);
+      const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       if (!structure) {
         metaSection.find('.lichessTools-structure').remove();
         return;

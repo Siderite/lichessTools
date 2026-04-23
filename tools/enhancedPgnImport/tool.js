@@ -175,23 +175,23 @@
             let pgns = this.splitPgn(input);
             if (andReload) {
               lt.global.console.debug('...merging ' + pgns.length + ' PGNs');
-              const pgnsByFen = [];
+              const pgnsByFen = new Map();
               let maxItem = { count: -1 };
               for (const pgn of pgns) {
                 const fen = pgn?.game?.fen;
                 if (!fen) continue;
-                let item = pgnsByFen.find(i => i.fen == fen);
+                let item = pgnsByFen.get(fen);
                 if (item) {
                   item.count++;
                 } else {
                   item = { fen: fen, count: 1 };
-                  pgnsByFen.push(item);
+                  pgnsByFen.set(fen,item);
                 }
                 if (item.count > maxItem.count) {
                   maxItem = item;
                 }
               }
-              if (pgnsByFen.length > 1) {
+              if (pgnsByFen.size > 1) {
                 lastError = trans.noarg('differentFensError');
                 console.warn('Error loading PGN', lastError);
                 pgns = pgns.filter(pgn => pgn?.game?.fen == maxItem.fen);
