@@ -217,7 +217,7 @@
           }
           const lastFind = options.searchObj.lastFind||0;
           reg.lastIndex = 0;
-          let match = reg.exec(first.fen||'');
+          let match = reg.exec(lt.normalizeString(first.fen));
           if (match) {
             options.searchObj.nodes.push(first.path);
           } else {
