@@ -199,6 +199,7 @@
               let merge = false;
               for (let i = pgns.length - 1; i >= 0; i--) {
                 const pgn = pgns[i];
+                if (!pgn) continue;
                 try {
                   if (i > 0) {
                     $this.initialize(pgn, merge);
@@ -220,7 +221,7 @@
               const newPgn = $('div.pgn textarea').val();
               data = oldChangePgn(newPgn, false);
               $this.explorer.reload()
-              $this.redraw();
+              lt.global.requestAnimationFrame(()=>$this.redraw());
             } else {
               data = pgns[0];
             }
