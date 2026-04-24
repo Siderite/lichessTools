@@ -32,12 +32,11 @@
       }
     }
 
-    regPgn = /(?:((?:\s*\[\s*\w+\s+"[^"]*"\s*\])+)|((?:^|\r?\n)\s*(?:\{[^\}]*\}\s*)?1\.[^\.]))/g;
+    regPgn = /(?:((?:\s*\[\s*\w+\s+"[^"]*"\s*\])+)|((?:^|\r?\n)\s*(?:\{[^\}]*\}\s*)?\d+\.+[^\.]))/g;
 
     isEmpty = (data) => {
       const lt = this.lichessTools;
       if (!data) return true;
-      if (data.game?.fen && !lt.isStartFen(data.game?.fen)) return false;
       if (!data.treeParts?.length) return true;
       if (data.treeParts.length == 1 && data.treeParts[0].id == '') return true;
       return false;
@@ -89,9 +88,16 @@
       for (const item of items) {
         if (item.type == 1) {
           if (prevItem) {
-            console.log('Empty PGN ignored', prevItem.value);
+            const hasSetupFen = prevItem.type == 1 && prevItem.result?.game?.fen && !lt.isStartFen(prevItem.result.game.fen);
+            if (hasSetupFen) {
+              pgns.push(prevItem.result);
+              prevItem = null;
+            } else {
+              console.log('Empty PGN ignored', prevItem.value);
+            }
           }
           const result = importPgn(item.value, false);
+          item.result = result;
           if (!this.isEmpty(result)) {
             pgns.push(result);
             prevItem = null;
@@ -123,7 +129,12 @@
         if (!this.isEmpty(result)) {
           pgns.push(result);
         } else {
-          console.warn('3: Error parsing PGN', prevItem.value);
+          const hasSetupFen = prevItem.type == 1 && prevItem.result?.game?.fen && !lt.isStartFen(prevItem.result.game.fen);
+          if (hasSetupFen) {
+            pgns.push(prevItem.result);
+          } else {
+            console.warn('3: Error parsing PGN', prevItem.value);
+          }
         }
       }
       return pgns;
