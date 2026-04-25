@@ -598,7 +598,9 @@
           ev.preventDefault();
           const options = await lt.getOptions();
           const text = lt.global.JSON.stringify({...options, userId: lt.getUserId()}, null, 2);
-          lt.download(text,'lichesToolsOptions_' + lt.toTimeString(new Date()) + '.json','application/json');
+          const userId = lt.getUserId();
+          const filename = (userId?userId+'_':'')+'lichessToolsOptions_' + lt.toTimeString(new Date()) + '.json';
+          lt.download(text,filename,'application/json');
         });
       $('div.actionButtons #btnRestore', container)
         .on('click', async ev => {
