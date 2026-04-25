@@ -347,7 +347,7 @@
       const lt = this.lichessTools;
       const document = lt.global.document;
       document.removeEventListener("pointerenter",this.flairEnter , true);
-      const enabled = this.themes.includes('flairX');
+      const enabled = this.themes?.includes('flairX');
       if (enabled) {
         document.addEventListener("pointerenter",this.flairEnter , true);
       }
