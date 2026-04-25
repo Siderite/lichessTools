@@ -5,7 +5,7 @@ body.lichessTools.lichessTools-theme_pieceDrag:not(.lichessTools-hasBoardSize) p
   background-position: center;
 }
 
-body.lichessTools.lichessTools-theme_pieceDrag.lichessTools-hasBoardSize piece.dragging {
+body.lichessTools.lichessTools-theme_pieceDrag.lichessTools-hasBoardSize .cg-wrap piece.dragging {
   --drag-scale: 1.25;
   width: calc(var(--board-size) / 8 * var(--drag-scale));
   height: calc(var(--board-size) / 8 * var(--drag-scale));
