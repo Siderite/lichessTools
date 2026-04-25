@@ -6,7 +6,7 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1','sharechess','NayukiMafuyu'],
+        possibleValues: ['siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1','sharechess','NayukiMafuyu'],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
@@ -24,6 +24,7 @@
         'extraPieceSets.siderite': 'Siderite', // don't translate these
         'extraPieceSets.chesscom': 'chess.com',
         'extraPieceSets.hollowleaf': 'HollowLeaf',
+        'extraPieceSets.fordCrownVictoria': 'FordCrownVictoria',
         'extraPieceSets.bend-n': 'bend-n',
         'extraPieceSets.comfysage': 'comfysage',
         'extraPieceSets.tage64': 'tage64',
@@ -110,6 +111,7 @@
       switch(pieceSet.category) {
         case 'siderite':
         case 'hollowleaf':
+        case 'fordCrownVictoria':
         case 'bend-n':
         case 'Moldenke1':
         case 'NayukiMafuyu':

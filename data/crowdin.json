@@ -1094,7 +1094,8 @@
     "followersNumberTitle:many": "%s followers",
     "options.botsMenuItem": "البوت في القائمة",
     "botsMenuItemText": "بوت متصل",
-    "botsMenuItemTitle": "أدوات Lichess - اللعب ضد البوت"
+    "botsMenuItemTitle": "أدوات Lichess - اللعب ضد البوت",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2191,7 +2192,8 @@
     "followersNumberTitle:many": "%s followers",
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
-    "botsMenuItemTitle": "Lichess Tools - play against bots"
+    "botsMenuItemTitle": "Lichess Tools - play against bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3288,7 +3290,8 @@
     "followersNumberTitle:many": "%s 位关注者",
     "options.botsMenuItem": "菜单中的机器人",
     "botsMenuItemText": "在线机器人",
-    "botsMenuItemTitle": "Lichess Tools - 与机器人对弈"
+    "botsMenuItemTitle": "Lichess Tools - 与机器人对弈",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4385,7 +4388,8 @@
     "followersNumberTitle:many": "%s followers",
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
-    "botsMenuItemTitle": "Lichess Tools - play against bots"
+    "botsMenuItemTitle": "Lichess Tools - play against bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5482,7 +5486,8 @@
     "followersNumberTitle:many": "%s následovníci",
     "options.botsMenuItem": "Boty v menu",
     "botsMenuItemText": "Online boti",
-    "botsMenuItemTitle": "Lichess Nástroje - hrát proti botům"
+    "botsMenuItemTitle": "Lichess Nástroje - hrát proti botům",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6579,7 +6584,8 @@
     "followersNumberTitle:many": "%s volgers",
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
-    "botsMenuItemTitle": "Lichess Tools - spelen tegen bots"
+    "botsMenuItemTitle": "Lichess Tools - spelen tegen bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7676,7 +7682,8 @@
     "followersNumberTitle:many": "%s followers",
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
-    "botsMenuItemTitle": "Lichess Tools - play against bots"
+    "botsMenuItemTitle": "Lichess Tools - play against bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8773,7 +8780,8 @@
     "followersNumberTitle:many": "%s suiveurs",
     "options.botsMenuItem": "Bots dans le menu",
     "botsMenuItemText": "Bots en ligne",
-    "botsMenuItemTitle": "Lichess Tools - jouer contre les bots"
+    "botsMenuItemTitle": "Lichess Tools - jouer contre les bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9870,7 +9878,8 @@
     "followersNumberTitle:many": "%s Follower",
     "options.botsMenuItem": "Bots im Menü",
     "botsMenuItemText": "Online-Bots",
-    "botsMenuItemTitle": "Lichess Tools - gegen Bots spielen"
+    "botsMenuItemTitle": "Lichess Tools - gegen Bots spielen",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10967,7 +10976,8 @@
     "followersNumberTitle:many": "%s followers",
     "options.botsMenuItem": "Bots στο μενού",
     "botsMenuItemText": "Online bots",
-    "botsMenuItemTitle": "Lichess Tools - παιχνίδι ενάντια bots"
+    "botsMenuItemTitle": "Lichess Tools - παιχνίδι ενάντια bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12064,7 +12074,8 @@
     "followersNumberTitle:many": "%s followers",
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
-    "botsMenuItemTitle": "Lichess Tools - play against bots"
+    "botsMenuItemTitle": "Lichess Tools - play against bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13161,7 +13172,8 @@
     "followersNumberTitle:many": "%s followers",
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
-    "botsMenuItemTitle": "Lichess Tools - play against bots"
+    "botsMenuItemTitle": "Lichess Tools - play against bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14258,7 +14270,8 @@
     "followersNumberTitle:many": "%s seguaci",
     "options.botsMenuItem": "Bot nel menu",
     "botsMenuItemText": "Bot online",
-    "botsMenuItemTitle": "Lichess Tools - giocare contro i bot"
+    "botsMenuItemTitle": "Lichess Tools - giocare contro i bot",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15355,7 +15368,8 @@
     "followersNumberTitle:many": "%s followers",
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
-    "botsMenuItemTitle": "Lichess Tools - play against bots"
+    "botsMenuItemTitle": "Lichess Tools - play against bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16452,7 +16466,8 @@
     "followersNumberTitle:many": "%s obserwujących",
     "options.botsMenuItem": "Boty w menu",
     "botsMenuItemText": "Roboty online",
-    "botsMenuItemTitle": "Lichess Tools - graj przeciwko botom"
+    "botsMenuItemTitle": "Lichess Tools - graj przeciwko botom",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -17549,7 +17564,8 @@
     "followersNumberTitle:many": "%s seguidores",
     "options.botsMenuItem": "Bots no menu",
     "botsMenuItemText": "Bots online",
-    "botsMenuItemTitle": "Ferramentas Lichess - jogue contra bots"
+    "botsMenuItemTitle": "Ferramentas Lichess - jogue contra bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -18646,7 +18662,8 @@
     "followersNumberTitle:many": "%s seguidores",
     "options.botsMenuItem": "Bots no menu",
     "botsMenuItemText": "Bots online",
-    "botsMenuItemTitle": "Ferramentas Lichess - jogue contra bots"
+    "botsMenuItemTitle": "Ferramentas Lichess - jogue contra bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -19743,7 +19760,8 @@
     "followersNumberTitle:many": "%s urmăritori",
     "options.botsMenuItem": "Boți în meniu",
     "botsMenuItemText": "Boți online",
-    "botsMenuItemTitle": "Lichess Tools - joacă contra unor boți"
+    "botsMenuItemTitle": "Lichess Tools - joacă contra unor boți",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -20840,7 +20858,8 @@
     "followersNumberTitle:many": "%s подписчиков",
     "options.botsMenuItem": "Бот в меню",
     "botsMenuItemText": "Онлайн боты",
-    "botsMenuItemTitle": "Lichess Tools - играть против ботов"
+    "botsMenuItemTitle": "Lichess Tools - играть против ботов",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -21937,7 +21956,8 @@
     "followersNumberTitle:many": "%s seguidores",
     "options.botsMenuItem": "Botes en el menú",
     "botsMenuItemText": "Bots en línea",
-    "botsMenuItemTitle": "Herramientas de Lichess - jugar contra bots"
+    "botsMenuItemTitle": "Herramientas de Lichess - jugar contra bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23034,7 +23054,8 @@
     "followersNumberTitle:many": "%s followers",
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
-    "botsMenuItemTitle": "Lichess Tools - play against bots"
+    "botsMenuItemTitle": "Lichess Tools - play against bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24131,7 +24152,8 @@
     "followersNumberTitle:many": "%s takipçi",
     "options.botsMenuItem": "Menüde botlar",
     "botsMenuItemText": "Çevrimiçi botlar",
-    "botsMenuItemTitle": "LiChess Tools - botlara karşı oyna"
+    "botsMenuItemTitle": "LiChess Tools - botlara karşı oyna",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -25228,6 +25250,7 @@
     "followersNumberTitle:many": "%s followers",
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
-    "botsMenuItemTitle": "Lichess Tools - play against bots"
+    "botsMenuItemTitle": "Lichess Tools - play against bots",
+    "soundThemes.mortalKombat": "Mortal Kombat"
   }
 }

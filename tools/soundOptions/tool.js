@@ -14,8 +14,8 @@
         name: 'soundThemes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['chessPursuit'],
-        defaultValue: 'chessPursuit',
+        possibleValues: ['mortalKombat','chessPursuit'],
+        defaultValue: 'mortalKombat,chessPursuit',
         advanced: true
       },
       {
@@ -62,7 +62,8 @@
         'timeAlert.beep': 'Sound alert',
         'timeAlert.speak5': 'Read seconds when less than 6',
         'timeAlert.behind': 'Alert when behind on time',
-        'soundThemes.chessPursuit': 'Chess Pursuit'
+        'soundThemes.chessPursuit': 'Chess Pursuit',
+        'soundThemes.mortalKombat': 'Mortal Kombat'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -84,7 +85,8 @@
         'timeAlert.beep': 'Alert\u0103 sonor\u0103',
         'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd mai pu\u0163ine de 6',
         'timeAlert.behind': 'Alert\u0103 c\u00e2nd \u00een urm\u0103 la timp',
-        'soundThemes.chessPursuit': 'Urm\u0103rire \u00een \u015fah'
+        'soundThemes.chessPursuit': 'Urm\u0103rire \u00een \u015fah',
+        'soundThemes.mortalKombat': 'Mortal Kombat'
       }
     }
 
@@ -234,6 +236,7 @@
       'genericNotify', 'lowtime', 'move', 'newChallenge', 'newPM', 'outofbound', 'practiceComplete', 'tournament1st', 'tournament2nd', 'tournament3rd',
       'tournamentOther', 'victory' ];
     themeUrls = new Map([
+      ['mortalKombat','https://fordcrownvictoria1234-art.github.io/MK1SFX/'],
       ['chessPursuit','https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/sound/']
     ]);
     soundUrls = new Map();

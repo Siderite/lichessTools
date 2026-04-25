@@ -264,6 +264,85 @@
     },
 
     {
+      "category": "fordCrownVictoria",
+      "name": "Chess_Masters_BBC",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Chess_Masters_BBC/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Chess_Squid",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Chess_Squid/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Elvis",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Elvis/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Game_Of_Thrones",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Game_Of_Thrones/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Gargoyles",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Gargoyles/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Gothic",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Gothic/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Greek",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Greek/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "James_Bond",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_James_Bond/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Joan_Of_Arc",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Joan_Of-Arc/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "TMNT",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_TMNT/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Terminator",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Terminator/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Twin_Peaks",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Twin_Peaks/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Compressed_Bonus_Mortal_Kombat",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Bonus_Mortal_Kombat/",
+      "type": "png"
+    },
+
+    {
       "category": "bend-n",
       "name": "Alpha",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/alpha/",
