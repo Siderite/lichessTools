@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+26 Apr
+
+- Added Ford Crown Victoria piece sets and sound themes again
+
 19 Apr
 
 - Online bots menu item

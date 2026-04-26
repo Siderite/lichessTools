@@ -337,8 +337,56 @@
     },
     {
       "category": "fordCrownVictoria",
-      "name": "Compressed_Bonus_Mortal_Kombat",
+      "name": "Mortal_Kombat",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Bonus_Mortal_Kombat/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Belarus",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Belarus-Compressed/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Byzantine",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Byzantine-Compressed/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Film-Noir",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Film-Noir-Compressed/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Gothic",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Gothic-Compressed/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Roman",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Roman-Compressed/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Mongolian",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Mongolian-Compressed/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Merlin",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Merlin-Compressed/",
+      "type": "png"
+    },
+    {
+      "category": "fordCrownVictoria",
+      "name": "Retro",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Retro_Compressed/",
       "type": "png"
     },
 

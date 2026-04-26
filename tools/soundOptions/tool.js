@@ -14,8 +14,8 @@
         name: 'soundThemes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['mortalKombat','chessPursuit'],
-        defaultValue: 'mortalKombat,chessPursuit',
+        possibleValues: ['mortalKombat','chessPursuit','starWars'],
+        defaultValue: 'mortalKombat,chessPursuit,starWars',
         advanced: true
       },
       {
@@ -63,7 +63,8 @@
         'timeAlert.speak5': 'Read seconds when less than 6',
         'timeAlert.behind': 'Alert when behind on time',
         'soundThemes.chessPursuit': 'Chess Pursuit',
-        'soundThemes.mortalKombat': 'Mortal Kombat'
+        'soundThemes.mortalKombat': 'Mortal Kombat',
+        'soundThemes.starWars': 'Star Wars'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -86,7 +87,8 @@
         'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd mai pu\u0163ine de 6',
         'timeAlert.behind': 'Alert\u0103 c\u00e2nd \u00een urm\u0103 la timp',
         'soundThemes.chessPursuit': 'Urm\u0103rire \u00een \u015fah',
-        'soundThemes.mortalKombat': 'Mortal Kombat'
+        'soundThemes.mortalKombat': 'Mortal Kombat',
+        'soundThemes.starWars': 'R\u0103zboiul Stelelor'
       }
     }
 
@@ -237,7 +239,8 @@
       'tournamentOther', 'victory' ];
     themeUrls = new Map([
       ['mortalKombat','https://fordcrownvictoria1234-art.github.io/MK1SFX/'],
-      ['chessPursuit','https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/sound/']
+      ['chessPursuit','https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/sound/'],
+      ['starWars','https://fordcrownvictoria1234-art.github.io/Star_Wars_SFX_Lichess_Fixed/Star_Wars_SFX/']
     ]);
     soundUrls = new Map();
     loadSound = async (e) => {
