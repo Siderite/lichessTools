@@ -1095,7 +1095,8 @@
     "options.botsMenuItem": "البوت في القائمة",
     "botsMenuItemText": "بوت متصل",
     "botsMenuItemTitle": "أدوات Lichess - اللعب ضد البوت",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "حرب النجوم"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2193,7 +2194,8 @@
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
     "botsMenuItemTitle": "Lichess Tools - play against bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3291,7 +3293,8 @@
     "options.botsMenuItem": "菜单中的机器人",
     "botsMenuItemText": "在线机器人",
     "botsMenuItemTitle": "Lichess Tools - 与机器人对弈",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "星星"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4389,7 +4392,8 @@
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
     "botsMenuItemTitle": "Lichess Tools - play against bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5487,7 +5491,8 @@
     "options.botsMenuItem": "Boty v menu",
     "botsMenuItemText": "Online boti",
     "botsMenuItemTitle": "Lichess Nástroje - hrát proti botům",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Hvězdné války"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6585,7 +6590,8 @@
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
     "botsMenuItemTitle": "Lichess Tools - spelen tegen bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7683,7 +7689,8 @@
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
     "botsMenuItemTitle": "Lichess Tools - play against bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8781,7 +8788,8 @@
     "options.botsMenuItem": "Bots dans le menu",
     "botsMenuItemText": "Bots en ligne",
     "botsMenuItemTitle": "Lichess Tools - jouer contre les bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Guerre des Étoiles"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9879,7 +9887,8 @@
     "options.botsMenuItem": "Bots im Menü",
     "botsMenuItemText": "Online-Bots",
     "botsMenuItemTitle": "Lichess Tools - gegen Bots spielen",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Kriege"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10977,7 +10986,8 @@
     "options.botsMenuItem": "Bots στο μενού",
     "botsMenuItemText": "Online bots",
     "botsMenuItemTitle": "Lichess Tools - παιχνίδι ενάντια bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Πόλεμος Των Αστέρων"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12075,7 +12085,8 @@
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
     "botsMenuItemTitle": "Lichess Tools - play against bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13173,7 +13184,8 @@
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
     "botsMenuItemTitle": "Lichess Tools - play against bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14271,7 +14283,8 @@
     "options.botsMenuItem": "Bot nel menu",
     "botsMenuItemText": "Bot online",
     "botsMenuItemTitle": "Lichess Tools - giocare contro i bot",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15369,7 +15382,8 @@
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
     "botsMenuItemTitle": "Lichess Tools - play against bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16467,7 +16481,8 @@
     "options.botsMenuItem": "Boty w menu",
     "botsMenuItemText": "Roboty online",
     "botsMenuItemTitle": "Lichess Tools - graj przeciwko botom",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Gwiezdne Wojny"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -17565,7 +17580,8 @@
     "options.botsMenuItem": "Bots no menu",
     "botsMenuItemText": "Bots online",
     "botsMenuItemTitle": "Ferramentas Lichess - jogue contra bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -18663,7 +18679,8 @@
     "options.botsMenuItem": "Bots no menu",
     "botsMenuItemText": "Bots online",
     "botsMenuItemTitle": "Ferramentas Lichess - jogue contra bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -19761,7 +19778,8 @@
     "options.botsMenuItem": "Boți în meniu",
     "botsMenuItemText": "Boți online",
     "botsMenuItemTitle": "Lichess Tools - joacă contra unor boți",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Războiul stelelor"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -20859,7 +20877,8 @@
     "options.botsMenuItem": "Бот в меню",
     "botsMenuItemText": "Онлайн боты",
     "botsMenuItemTitle": "Lichess Tools - играть против ботов",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Звездные войны"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -21957,7 +21976,8 @@
     "options.botsMenuItem": "Botes en el menú",
     "botsMenuItemText": "Bots en línea",
     "botsMenuItemTitle": "Herramientas de Lichess - jugar contra bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Guerras Estrellas"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23055,7 +23075,8 @@
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
     "botsMenuItemTitle": "Lichess Tools - play against bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24153,7 +24174,8 @@
     "options.botsMenuItem": "Menüde botlar",
     "botsMenuItemText": "Çevrimiçi botlar",
     "botsMenuItemTitle": "LiChess Tools - botlara karşı oyna",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -25251,6 +25273,7 @@
     "options.botsMenuItem": "Bots in menu",
     "botsMenuItemText": "Online bots",
     "botsMenuItemTitle": "Lichess Tools - play against bots",
-    "soundThemes.mortalKombat": "Mortal Kombat"
+    "soundThemes.mortalKombat": "Mortal Kombat",
+    "soundThemes.starWars": "Star Wars"
   }
 }
