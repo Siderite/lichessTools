@@ -1759,7 +1759,7 @@
             lt.global.console.warn('Cannot unzip text. Using raw', ex);
           }
         }
-        if (text === undefined || options?.raw) return text;
+        if (text === undefined || options?.raw || text?.then) return text;
         try {
           return JSON.parse(text);
         } catch (e) {
@@ -2496,6 +2496,15 @@
             args: { teamId }
           }, { ndjson: true });
           return players;
+        },
+        getTeam: async function (teamId) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({
+            url: '/api/team/{teamId}',
+            args: { teamId },
+            ignoreStatuses: [ 404 ]
+          });
+          return data;
         }
       },
       streamer: {

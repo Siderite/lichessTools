@@ -166,6 +166,7 @@ Chrome/Firefox extension adds extra functionalities to the https://lichess.org w
 - game scores in game lists
 - blog table of contents
 - Lobby/Favorite opponents crosstable scores
+- team member count chart
 - commands! type /help to get a list
 
 Version 2.3 breaking changes:
