@@ -1097,9 +1097,9 @@
     "botsMenuItemTitle": "أدوات Lichess - اللعب ضد البوت",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "حرب النجوم",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "إحصاءات الفريق",
+    "teamStats.memberCount": "عدد الأعضاء",
+    "teamMemberCountTitle": "أدوات شطرنج الحياة - مخطط عدد الأعضاء"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -3301,9 +3301,9 @@
     "botsMenuItemTitle": "Lichess Tools - 与机器人对弈",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "星球大战",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "团队统计",
+    "teamStats.memberCount": "会员数量",
+    "teamMemberCountTitle": "Lichess 工具 - 成员计数表"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -5505,9 +5505,9 @@
     "botsMenuItemTitle": "Lichess Nástroje - hrát proti botům",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Hvězdné války",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Statistika týmu",
+    "teamStats.memberCount": "Počet členů",
+    "teamMemberCountTitle": "Nástroje LiChess - počet členů"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6607,9 +6607,9 @@
     "botsMenuItemTitle": "Lichess Tools - spelen tegen bots",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Star Wars",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Team statistieken",
+    "teamStats.memberCount": "Aantal leden",
+    "teamMemberCountTitle": "LiChess Tools - ledenteldiagram"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8811,9 +8811,9 @@
     "botsMenuItemTitle": "Lichess Tools - jouer contre les bots",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Guerre des Étoiles",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Statistiques d'équipe",
+    "teamStats.memberCount": "Nombre de membres",
+    "teamMemberCountTitle": "LiChess Tools - graphique du nombre de membres"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9913,9 +9913,9 @@
     "botsMenuItemTitle": "Lichess Tools - gegen Bots spielen",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Star Kriege",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Teamstatistik",
+    "teamStats.memberCount": "Mitgliederanzahl",
+    "teamMemberCountTitle": "LiChess-Tools - Mitgliederanzahl"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11015,9 +11015,9 @@
     "botsMenuItemTitle": "Lichess Tools - παιχνίδι ενάντια bots",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Πόλεμος Των Αστέρων",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Στατιστικά ομάδας",
+    "teamStats.memberCount": "Αριθμός μελών",
+    "teamMemberCountTitle": "LiChess Tools - διάγραμμα καταμέτρησης μελών"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -14321,9 +14321,9 @@
     "botsMenuItemTitle": "Lichess Tools - giocare contro i bot",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Star Wars",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Statistiche di squadra",
+    "teamStats.memberCount": "Numero membri",
+    "teamMemberCountTitle": "Strumenti LiChess - grafico conteggio membri"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -16525,9 +16525,9 @@
     "botsMenuItemTitle": "Lichess Tools - graj przeciwko botom",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Gwiezdne Wojny",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Statystyki zespołu",
+    "teamStats.memberCount": "Liczba członków",
+    "teamMemberCountTitle": "Narzędzia LiChess - wykres liczników użytkowników"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -17627,9 +17627,9 @@
     "botsMenuItemTitle": "Ferramentas Lichess - jogue contra bots",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Star Wars",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Estatísticas da equipe",
+    "teamStats.memberCount": "Contagem de membros",
+    "teamMemberCountTitle": "LiChess Tools - gráfico de contagem de membros"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -18729,9 +18729,9 @@
     "botsMenuItemTitle": "Ferramentas Lichess - jogue contra bots",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Star Wars",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Estatísticas da equipe",
+    "teamStats.memberCount": "Contagem de membros",
+    "teamMemberCountTitle": "LiChess Tools - gráfico de contagem de membros"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20933,9 +20933,9 @@
     "botsMenuItemTitle": "Lichess Tools - играть против ботов",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Звездные войны",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Статистика команды",
+    "teamStats.memberCount": "Количество участников",
+    "teamMemberCountTitle": "Инструменты Жизни - количество участников"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22035,9 +22035,9 @@
     "botsMenuItemTitle": "Herramientas de Lichess - jugar contra bots",
     "soundThemes.mortalKombat": "Mortal Kombat",
     "soundThemes.starWars": "Guerras Estrellas",
-    "options.teamStats": "Team statistics",
-    "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "options.teamStats": "Estadísticas del equipo",
+    "teamStats.memberCount": "Número de miembros",
+    "teamMemberCountTitle": "Herramientas de LiChess - gráfico de conteo de miembros"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
