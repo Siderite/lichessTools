@@ -631,6 +631,7 @@
       this.progressPerSec = 1; //1
       this.checkBoard = null;
       this.checkPoints = null;
+      this.checkpointKillCounts = [];
       this.topRowDisplayed = -1;
       this.raf = true;
       this.isDocumentActive = true;
@@ -651,6 +652,7 @@
       this.dialogSpeakerText = null;
       this.dialogText = null;
       this.checkText = null;
+      this.captureCounterText = null;
 
       this.loadAudio();
       this.createCanvases();
@@ -1330,6 +1332,22 @@
         this.PIECE_STROKE_COLOR,
         0
       );
+      this.makeKillCounter();
+    }
+
+    makeKillCounter() {
+      const xmlns = "http://www.w3.org/2000/svg";
+      this.captureCounterText = document.createElementNS(xmlns, "text");
+      this.svgAttrs(this.captureCounterText, {
+        x: "10",
+        y: "30",
+        "font-size": "24px",
+        fill: "#5f7",
+        stroke: "black",
+        "stroke-width": "1px",
+        "font-family": "Impact",
+      });
+      this.svgElem.appendChild(this.captureCounterText);
     }
 
     initShadowCanvas() {
@@ -2104,6 +2122,8 @@
             if (cell.piece) {
               this.destroyPiece(cell.piece);
               this.killCount++;
+              const checkpointIndex = this.checkPoints.findIndex(cp => row < cp);
+              this.checkpointKillCounts[checkpointIndex]=this.killCount;
               this.audio.play("capture");
             } else {
               this.audio.play("move");
@@ -2384,6 +2404,7 @@
           break;
         }
       }
+      this.killCount = this.checkpointKillCounts[checkPointIndex] || 0;
 
       // Reinitialize game
       this.initCheckBoard(checkPointIndex);
@@ -2543,6 +2564,7 @@
           }
         }
       }
+      this.svgInnerHtml(this.captureCounterText, this.intro ? '' : 'Captures: ' + this.killCount);
 
       // Update player animation
       let playerAnimProgress;

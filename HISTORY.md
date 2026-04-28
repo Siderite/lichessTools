@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 28 Apr
 
 - team member count chart
+- capture count in Chess Pursuit
 
 26 Apr
 
