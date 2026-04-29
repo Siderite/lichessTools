@@ -352,7 +352,7 @@
     {
       "category": "fordCrownVictoria",
       "name": "Gothic_FCV",
-      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Gothic/",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Gothic_FCV_Compressed/",
       "type": "png",
       "cap":"wN"
     },
@@ -467,55 +467,64 @@
       "name": "Alpha",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/alpha/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "California",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/california/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "CBurnett",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/cburnett/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "Fresca",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/fresca/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "Gioco",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/gioco/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "Governor",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/governor/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "Horsey",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/horsey/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "ICPieces",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/icpieces/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "Kosal",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/kosal/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "Libra",
@@ -533,13 +542,15 @@
       "name": "Pirouetti",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/pirouetti/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "Pixel",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/pixel/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "Riohacha",
@@ -551,13 +562,15 @@
       "name": "Staunty",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/staunty/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     }, {
       "category": "bend-n",
       "name": "Tatiana",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/tatiana/",
       "type": "png",
-      "cap":"wN"
+      "cap":"wN",
+      "duplicate": true
     },
 
 
@@ -606,7 +619,8 @@
       "name": "Bases",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/bases/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Beyer",
@@ -618,13 +632,15 @@
       "name": "Book",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/book/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Bubblegum",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/bubblegum/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Case",
@@ -636,25 +652,29 @@
       "name": "Cases",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/cases/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Chesscom",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/chesscom/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Classic",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/classic/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Club",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/club/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Condal",
@@ -666,37 +686,43 @@
       "name": "Dash",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/dash/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Game_room",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/game_room/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Glass",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/glass/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Gothic",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/gothic/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Graffiti",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/graffiti/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Icy_sea",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/icy_sea/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Leipzig",
@@ -708,25 +734,29 @@
       "name": "Light",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/light/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Lolz",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/lolz/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Luca",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/luca/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Marble",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/marble/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Maya",
@@ -744,73 +774,85 @@
       "name": "Metal",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/metal/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Modern",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/modern/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Nature",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/nature/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Neo",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neo/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Neo_wood",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neo_wood/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Neon",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neon/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Newspaper",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/newspaper/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Ocean",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/ocean/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Sky",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/sky/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Space",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/space/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Tigers",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/tigers/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Tournament",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/tournament/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Uscf",
@@ -822,7 +864,8 @@
       "name": "Vintage",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/vintage/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "tage64",
       "name": "Wikipedia",
@@ -834,7 +877,8 @@
       "name": "Wood",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/wood/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     },
 
 
@@ -843,199 +887,232 @@
       "name": "8_bit",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/8_bit/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Alpha",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Alpha/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Bases",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Bases/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Book",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Book/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Condal",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Condal/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Dash",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Dash/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Glass",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Glass/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Gothic",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Gothic/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Graffiti",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Graffiti/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Light",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Light/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Lolz",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Lolz/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Maya",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Maya/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Modern",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Modern/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Nature",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Nature/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Neo",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Neo/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Neon",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Neon/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Newspaper",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Newspaper/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Ocean",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Ocean/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Sky",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Sky/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Space",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Space/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Tigers",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Tigers/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Tournament",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Tournament/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Vintage",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Vintage/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Wood",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Wood/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Bubblegum",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/bubblegum/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Cases",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/cases/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Classic",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/classic/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Club",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/club/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Game_room",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/game_room/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Icy_sea",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/icy_sea/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Marble",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/marble/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Metal",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/metal/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     }, {
       "category": "OwOHamper",
       "name": "Neo_wood",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/neo_wood/",
       "type": "png",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     },
 
     {
@@ -1057,7 +1134,8 @@
       "name": "cburnett",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/cburnett/",
       "type": "svg",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     },
     {
       "category": "LichessHelper",
@@ -1085,7 +1163,8 @@
       "name": "kiwen_suwi",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/kiwen_suwi/",
       "type": "svg",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     },
     {
       "category": "LichessHelper",
@@ -1929,22 +2008,8 @@
     },
     {
       "category": "sharechess",
-      "name": "Updated echiquier set",
-      "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
-      "type": "svg",
-      "cap":"nw"
-    },
-    {
-      "category": "sharechess",
       "name": "echiquier_flesh",
       "url": "https://sharechess.github.io/pieces/echiquier_flesh/",
-      "type": "svg",
-      "cap":"nw"
-    },
-    {
-      "category": "sharechess",
-      "name": "Updated echiquier set",
-      "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
       "type": "svg",
       "cap":"nw"
     },
@@ -1957,22 +2022,8 @@
     },
     {
       "category": "sharechess",
-      "name": "Updated echiquier set",
-      "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
-      "type": "svg",
-      "cap":"nw"
-    },
-    {
-      "category": "sharechess",
       "name": "echiquier_ink",
       "url": "https://sharechess.github.io/pieces/echiquier_ink/",
-      "type": "svg",
-      "cap":"nw"
-    },
-    {
-      "category": "sharechess",
-      "name": "Updated echiquier set",
-      "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
       "type": "svg",
       "cap":"nw"
     },
