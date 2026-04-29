@@ -4,185 +4,221 @@
       "category": "siderite",
       "name": "Chess Pursuit",
       "url": "https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/pieces/",
-      "type": "svg"
+      "type": "svg",
+      "cap": "wN"
     },
     {
       "category": "siderite",
       "name": "Neonate",
       "url": "https://siderite.github.io/lichessToolsAdjacent/Neonate/pieces/",
-      "type": "svg"
+      "type": "svg",
+      "cap": "wN"
     },
 
     {
       "category": "chesscom",
       "name": "Neo",
       "url": "https://assets-themes.chess.com/image/ejgfv/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Game Room",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/game_room/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Wood",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/wood/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Glass",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/glass/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Gothic",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/gothic/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Classic",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/classic/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Metal",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/metal/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Bases",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/bases/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Neo-Wood",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/neo_wood/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Icy Sea",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/icy_sea/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Club",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/club/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Ocean",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/ocean/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Newspaper",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/newspaper/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Space",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/space/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Cases",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/cases/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Condal",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/condal/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "8-Bit",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/8_bit/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Marble",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/marble/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Book",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/book/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Alpha",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/alpha/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Bubblegum",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/bubblegum/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Dash",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/dash/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Graffiti",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/graffiti/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Light",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/light/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Lolz",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/lolz/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Luca",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/luca/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Maya",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/maya/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Modern",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/modern/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Nature",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/nature/150/",
-      "type": "png"
+      "type": "png",
+      "cap": "wn"
     }, {
       "category": "chesscom",
       "name": "Neon",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/neon/150/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "chesscom",
       "name": "Sky",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/sky/150/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "chesscom",
       "name": "Tigers",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/tigers/150/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "chesscom",
       "name": "Tournament",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/tournament/150/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "chesscom",
       "name": "Vintage",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/vintage/150/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
 
 
@@ -190,286 +226,338 @@
       "category": "hollowleaf",
       "name": "Anime",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Anime/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Apollo",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Apollo/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Artemis",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Artemis/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Attack",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Attack/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Clash",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Clash/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Hades",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Hades/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Halloween",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Halloween/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Hera",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Hera/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Juno",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Juno/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Jupiter",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Jupiter/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Mars",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Mars/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Minerva",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Minerva/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Stone",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Stone/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Venus",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Venus/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "hollowleaf",
       "name": "Cyborg",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Cyborg/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
 
     {
       "category": "fordCrownVictoria",
       "name": "Chess_Masters_BBC",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Chess_Masters_BBC/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Chess_Squid",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Chess_Squid/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Elvis",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Elvis/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Game_Of_Thrones",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Game_Of_Thrones/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Gargoyles",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Gargoyles/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
-      "name": "Gothic",
+      "name": "Gothic_FCV",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Gothic/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Greek",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Greek/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "James_Bond",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_James_Bond/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Joan_Of_Arc",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Joan_Of-Arc/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "TMNT",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_TMNT/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Terminator",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Terminator/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Twin_Peaks",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Twin_Peaks/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Mortal_Kombat",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Compressed_Bonus_Mortal_Kombat/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Belarus",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Belarus-Compressed/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Byzantine",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Byzantine-Compressed/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Film-Noir",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Film-Noir-Compressed/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Gothic",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Gothic-Compressed/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Roman",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Roman-Compressed/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Mongolian",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Mongolian-Compressed/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Merlin",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Merlin-Compressed/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
     {
       "category": "fordCrownVictoria",
       "name": "Retro",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Retro_Compressed/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
 
     {
       "category": "bend-n",
       "name": "Alpha",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/alpha/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "California",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/california/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "CBurnett",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/cburnett/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Fresca",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/fresca/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Gioco",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/gioco/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Governor",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/governor/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Horsey",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/horsey/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "ICPieces",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/icpieces/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Kosal",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/kosal/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Libra",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/libra/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Maestro",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/maestro/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Pirouetti",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/pirouetti/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Pixel",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/pixel/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Riohacha",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/riohacha/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Staunty",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/staunty/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     }, {
       "category": "bend-n",
       "name": "Tatiana",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/tatiana/",
-      "type": "png"
+      "type": "png",
+      "cap":"wN"
     },
 
 
@@ -505,207 +593,248 @@
       "category": "tage64",
       "name": "8_bit",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/8_bit/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Alpha",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/alpha/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Bases",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/bases/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Beyer",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/beyer/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Book",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/book/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Bubblegum",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/bubblegum/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Case",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/case/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Cases",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/cases/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Chesscom",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/chesscom/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Classic",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/classic/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Club",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/club/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Condal",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/condal/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Dash",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/dash/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Game_room",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/game_room/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Glass",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/glass/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Gothic",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/gothic/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Graffiti",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/graffiti/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Icy_sea",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/icy_sea/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Leipzig",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/leipzig/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Light",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/light/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Lolz",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/lolz/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Luca",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/luca/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Marble",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/marble/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Maya",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/maya/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Merida",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/merida/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Metal",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/metal/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Modern",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/modern/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Nature",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/nature/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Neo",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neo/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Neo_wood",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neo_wood/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Neon",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/neon/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Newspaper",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/newspaper/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Ocean",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/ocean/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Sky",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/sky/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Space",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/space/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Tigers",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/tigers/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Tournament",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/tournament/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Uscf",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/uscf/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Vintage",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/vintage/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Wikipedia",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/wikipedia/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "tage64",
       "name": "Wood",
       "url": "https://media.githubusercontent.com/media/tage64/cbdetect/master/data/piece_styles/wood/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
 
 
@@ -713,167 +842,200 @@
       "category": "OwOHamper",
       "name": "8_bit",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/8_bit/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Alpha",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Alpha/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Bases",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Bases/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Book",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Book/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Condal",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Condal/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Dash",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Dash/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Glass",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Glass/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Gothic",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Gothic/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Graffiti",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Graffiti/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Light",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Light/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Lolz",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Lolz/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Maya",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Maya/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Modern",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Modern/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Nature",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Nature/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Neo",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Neo/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Neon",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Neon/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Newspaper",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Newspaper/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Ocean",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Ocean/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Sky",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Sky/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Space",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Space/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Tigers",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Tigers/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Tournament",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Tournament/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Vintage",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Vintage/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Wood",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/Wood/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Bubblegum",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/bubblegum/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Cases",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/cases/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Classic",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/classic/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Club",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/club/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Game_room",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/game_room/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Icy_sea",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/icy_sea/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Marble",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/marble/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Metal",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/metal/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     }, {
       "category": "OwOHamper",
       "name": "Neo_wood",
       "url": "https://raw.githubusercontent.com/OwOHamper/Chess/main/assets/pieces/neo_wood/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
 
     {
@@ -887,127 +1049,148 @@
       "category": "LichessHelper",
       "name": "32bit",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/32bit/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "cburnett",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/cburnett/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "cburnett_jp",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/cburnett_jp/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "dani_maccari",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/dani_maccari/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "darklama_pd",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/darklama_pd/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "kiwen_suwi",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/kiwen_suwi/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "letters",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/letters/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "mom_still_loves_them",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/mom_still_loves_them/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "new_metropol",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/new_metropol/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_bluelake",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_bluelake/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_bluelake2",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_bluelake2/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_forest",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_forest/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_ice",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_ice/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_metal",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_metal/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_muesli",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_muesli/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_pink",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_pink/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_purple",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_purple/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworskim_blue",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworskim_blue/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworskim_metal",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworskim_metal/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworskim_mramor",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworskim_mramor/",
-      "type": "png"
+      "type": "png",
+      "cap":"wn"
     },
 
     {
@@ -1165,1708 +1348,2581 @@
       "category": "FelixKling",
       "name": "Julius",
       "url": "https://codeberg.org/FelixKling/chess_pieces/raw/branch/main/Julius/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"wn"
     },
     {
       "category": "FelixKling",
       "name": "Merida_shaded",
       "url": "https://codeberg.org/FelixKling/chess_pieces/raw/branch/main/Merida_shaded/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"wn"
     },
 
     {
       "category": "Moldenke1",
       "name": "Moldenke",
       "url": "https://raw.githubusercontent.com/Moldenke1/Moldenke/refs/heads/main/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"wN"
     },
     {
       "category": "Moldenke1",
       "name": "Horsey-too-Late",
       "url": "https://raw.githubusercontent.com/Moldenke1/Horsey-too-Late/refs/heads/main/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"wN"
     },
 
     {
       "category": "sharechess",
       "name": "adventurer",
       "url": "https://sharechess.github.io/pieces/adventurer/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "adventurer_berry",
       "url": "https://sharechess.github.io/pieces/adventurer_berry/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "adventurer_brown",
       "url": "https://sharechess.github.io/pieces/adventurer_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "adventurer_grass",
       "url": "https://sharechess.github.io/pieces/adventurer_grass/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alfarishy",
       "url": "https://sharechess.github.io/pieces/alfarishy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alfarishy_berry",
       "url": "https://sharechess.github.io/pieces/alfarishy_berry/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alfarishy_blue",
       "url": "https://sharechess.github.io/pieces/alfarishy_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alfarishy_pink",
       "url": "https://sharechess.github.io/pieces/alfarishy_pink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alfonso-x",
       "url": "https://sharechess.github.io/pieces/alfonso-x/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alfonso-x_brown",
       "url": "https://sharechess.github.io/pieces/alfonso-x_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alfonso-x_grape",
       "url": "https://sharechess.github.io/pieces/alfonso-x_grape/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alfonso-x_toy",
       "url": "https://sharechess.github.io/pieces/alfonso-x_toy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alpha",
       "url": "https://sharechess.github.io/pieces/alpha/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alpha_ink",
       "url": "https://sharechess.github.io/pieces/alpha_ink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alpha_mint",
       "url": "https://sharechess.github.io/pieces/alpha_mint/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "alpha_wood",
       "url": "https://sharechess.github.io/pieces/alpha_wood/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "anarchy-plug",
       "url": "https://sharechess.github.io/pieces/anarchy-plug/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "anarchy-plug_candy",
       "url": "https://sharechess.github.io/pieces/anarchy-plug_candy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "anarchy-plug_fresh",
       "url": "https://sharechess.github.io/pieces/anarchy-plug_fresh/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "anarchy-plug_sepia",
       "url": "https://sharechess.github.io/pieces/anarchy-plug_sepia/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "anarchy",
       "url": "https://sharechess.github.io/pieces/anarchy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "anarchy_candy",
       "url": "https://sharechess.github.io/pieces/anarchy_candy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "anarchy_fresh",
       "url": "https://sharechess.github.io/pieces/anarchy_fresh/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "anarchy_halloween",
       "url": "https://sharechess.github.io/pieces/anarchy_halloween/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "anarchy_sepia",
       "url": "https://sharechess.github.io/pieces/anarchy_sepia/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "berlin",
       "url": "https://sharechess.github.io/pieces/berlin/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "berlin_blue",
       "url": "https://sharechess.github.io/pieces/berlin_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "berlin_loulou",
       "url": "https://sharechess.github.io/pieces/berlin_loulou/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "berlin_maroon",
       "url": "https://sharechess.github.io/pieces/berlin_maroon/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "caliente",
       "url": "https://sharechess.github.io/pieces/caliente/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "caliente_blue",
       "url": "https://sharechess.github.io/pieces/caliente_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "caliente_pink",
       "url": "https://sharechess.github.io/pieces/caliente_pink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "caliente_wood",
       "url": "https://sharechess.github.io/pieces/caliente_wood/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "california",
       "url": "https://sharechess.github.io/pieces/california/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "california_brown",
       "url": "https://sharechess.github.io/pieces/california_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "california_green",
       "url": "https://sharechess.github.io/pieces/california_green/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "california_red",
       "url": "https://sharechess.github.io/pieces/california_red/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cardinal",
       "url": "https://sharechess.github.io/pieces/cardinal/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cardinal_blue",
       "url": "https://sharechess.github.io/pieces/cardinal_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cardinal_brown",
       "url": "https://sharechess.github.io/pieces/cardinal_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cardinal_green",
       "url": "https://sharechess.github.io/pieces/cardinal_green/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cases",
       "url": "https://sharechess.github.io/pieces/cases/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cases_cocoa",
       "url": "https://sharechess.github.io/pieces/cases_cocoa/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cases_forest",
       "url": "https://sharechess.github.io/pieces/cases_forest/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cases_gray",
       "url": "https://sharechess.github.io/pieces/cases_gray/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cburnett",
       "url": "https://sharechess.github.io/pieces/cburnett/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cburnett_blue",
       "url": "https://sharechess.github.io/pieces/cburnett_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cburnett_brown",
       "url": "https://sharechess.github.io/pieces/cburnett_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "cburnett_purple",
       "url": "https://sharechess.github.io/pieces/cburnett_purple/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "checkers",
       "url": "https://sharechess.github.io/pieces/checkers/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "checkers_cute",
       "url": "https://sharechess.github.io/pieces/checkers_cute/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "checkers_grape",
       "url": "https://sharechess.github.io/pieces/checkers_grape/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "checkers_wood",
       "url": "https://sharechess.github.io/pieces/checkers_wood/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "chess7",
       "url": "https://sharechess.github.io/pieces/chess7/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "chess7_calm",
       "url": "https://sharechess.github.io/pieces/chess7_calm/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "chess7_pink",
       "url": "https://sharechess.github.io/pieces/chess7_pink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "chess7_yellow",
       "url": "https://sharechess.github.io/pieces/chess7_yellow/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "chessnut",
       "url": "https://sharechess.github.io/pieces/chessnut/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "chessnut_blue",
       "url": "https://sharechess.github.io/pieces/chessnut_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "chessnut_brown",
       "url": "https://sharechess.github.io/pieces/chessnut_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "chessnut_burgundy",
       "url": "https://sharechess.github.io/pieces/chessnut_burgundy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "companion",
       "url": "https://sharechess.github.io/pieces/companion/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "companion_cyan",
       "url": "https://sharechess.github.io/pieces/companion_cyan/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "companion_eggplant",
       "url": "https://sharechess.github.io/pieces/companion_eggplant/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "companion_red",
       "url": "https://sharechess.github.io/pieces/companion_red/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "condal",
       "url": "https://sharechess.github.io/pieces/condal/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "condal_cold",
       "url": "https://sharechess.github.io/pieces/condal_cold/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "condal_halloween",
       "url": "https://sharechess.github.io/pieces/condal_halloween/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "condal_mustard",
       "url": "https://sharechess.github.io/pieces/condal_mustard/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "condal_warm",
       "url": "https://sharechess.github.io/pieces/condal_warm/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "dmuysi",
       "url": "https://sharechess.github.io/pieces/dmuysi/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "dmuysi_cotton",
       "url": "https://sharechess.github.io/pieces/dmuysi_cotton/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "dmuysi_kournikova",
       "url": "https://sharechess.github.io/pieces/dmuysi_kournikova/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "dmuysi_marzipan",
       "url": "https://sharechess.github.io/pieces/dmuysi_marzipan/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "dubrovny",
       "url": "https://sharechess.github.io/pieces/dubrovny/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "dubrovny_brown",
       "url": "https://sharechess.github.io/pieces/dubrovny_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "dubrovny_bw",
       "url": "https://sharechess.github.io/pieces/dubrovny_bw/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "dubrovny_green",
       "url": "https://sharechess.github.io/pieces/dubrovny_green/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "echiquier",
       "url": "https://sharechess.github.io/pieces/echiquier/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "Updated echiquier set",
       "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "echiquier_flesh",
       "url": "https://sharechess.github.io/pieces/echiquier_flesh/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "Updated echiquier set",
       "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "echiquier_grape",
       "url": "https://sharechess.github.io/pieces/echiquier_grape/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "Updated echiquier set",
       "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "echiquier_ink",
       "url": "https://sharechess.github.io/pieces/echiquier_ink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "Updated echiquier set",
       "url": "https://sharechess.github.io/pieces/Updated echiquier set/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fantasy",
       "url": "https://sharechess.github.io/pieces/fantasy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fantasy_calm",
       "url": "https://sharechess.github.io/pieces/fantasy_calm/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fantasy_cold",
       "url": "https://sharechess.github.io/pieces/fantasy_cold/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fantasy_warm",
       "url": "https://sharechess.github.io/pieces/fantasy_warm/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fly-or-dream",
       "url": "https://sharechess.github.io/pieces/fly-or-dream/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fly-or-dream_fire",
       "url": "https://sharechess.github.io/pieces/fly-or-dream_fire/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fly-or-dream_magic",
       "url": "https://sharechess.github.io/pieces/fly-or-dream_magic/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fly-or-dream_rainbow",
       "url": "https://sharechess.github.io/pieces/fly-or-dream_rainbow/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fresca",
       "url": "https://sharechess.github.io/pieces/fresca/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fresca_camelot",
       "url": "https://sharechess.github.io/pieces/fresca_camelot/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fresca_matisse",
       "url": "https://sharechess.github.io/pieces/fresca_matisse/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "fresca_zucchini",
       "url": "https://sharechess.github.io/pieces/fresca_zucchini/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "gioco",
       "url": "https://sharechess.github.io/pieces/gioco/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "gioco_metal",
       "url": "https://sharechess.github.io/pieces/gioco_metal/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "gioco_purple",
       "url": "https://sharechess.github.io/pieces/gioco_purple/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "gioco_wood",
       "url": "https://sharechess.github.io/pieces/gioco_wood/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "governor",
       "url": "https://sharechess.github.io/pieces/governor/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "governor_bw",
       "url": "https://sharechess.github.io/pieces/governor_bw/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "governor_patina",
       "url": "https://sharechess.github.io/pieces/governor_patina/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "governor_purple",
       "url": "https://sharechess.github.io/pieces/governor_purple/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "harlequin",
       "url": "https://sharechess.github.io/pieces/harlequin/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "harlequin_gold",
       "url": "https://sharechess.github.io/pieces/harlequin_gold/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "harlequin_neon",
       "url": "https://sharechess.github.io/pieces/harlequin_neon/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "harlequin_peach",
       "url": "https://sharechess.github.io/pieces/harlequin_peach/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "horsey",
       "url": "https://sharechess.github.io/pieces/horsey/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "horsey_blue",
       "url": "https://sharechess.github.io/pieces/horsey_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "horsey_pink",
       "url": "https://sharechess.github.io/pieces/horsey_pink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "horsey_purple",
       "url": "https://sharechess.github.io/pieces/horsey_purple/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "icon54",
       "url": "https://sharechess.github.io/pieces/icon54/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "icon54_brown",
       "url": "https://sharechess.github.io/pieces/icon54_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "icon54_gray",
       "url": "https://sharechess.github.io/pieces/icon54_gray/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "icon54_neon",
       "url": "https://sharechess.github.io/pieces/icon54_neon/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "icpieces",
       "url": "https://sharechess.github.io/pieces/icpieces/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "icpieces_blue",
       "url": "https://sharechess.github.io/pieces/icpieces_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "icpieces_brown",
       "url": "https://sharechess.github.io/pieces/icpieces_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "icpieces_maroon",
       "url": "https://sharechess.github.io/pieces/icpieces_maroon/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "kingdom",
       "url": "https://sharechess.github.io/pieces/kingdom/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "kingdom_blue",
       "url": "https://sharechess.github.io/pieces/kingdom_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "kingdom_brown",
       "url": "https://sharechess.github.io/pieces/kingdom_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "kingdom_sulu",
       "url": "https://sharechess.github.io/pieces/kingdom_sulu/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "kosal",
       "url": "https://sharechess.github.io/pieces/kosal/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "kosal_blue",
       "url": "https://sharechess.github.io/pieces/kosal_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "kosal_red",
       "url": "https://sharechess.github.io/pieces/kosal_red/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "kosal_violet",
       "url": "https://sharechess.github.io/pieces/kosal_violet/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "leipzig",
       "url": "https://sharechess.github.io/pieces/leipzig/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "leipzig_berry",
       "url": "https://sharechess.github.io/pieces/leipzig_berry/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "leipzig_nature",
       "url": "https://sharechess.github.io/pieces/leipzig_nature/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "leipzig_niagara",
       "url": "https://sharechess.github.io/pieces/leipzig_niagara/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "letters",
       "url": "https://sharechess.github.io/pieces/letters/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "letters_cold",
       "url": "https://sharechess.github.io/pieces/letters_cold/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "letters_dim",
       "url": "https://sharechess.github.io/pieces/letters_dim/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "letters_warm",
       "url": "https://sharechess.github.io/pieces/letters_warm/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "libra",
       "url": "https://sharechess.github.io/pieces/libra/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "libra_plum",
       "url": "https://sharechess.github.io/pieces/libra_plum/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "libra_sea",
       "url": "https://sharechess.github.io/pieces/libra_sea/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "libra_wood",
       "url": "https://sharechess.github.io/pieces/libra_wood/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "line",
       "url": "https://sharechess.github.io/pieces/line/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "line_berry",
       "url": "https://sharechess.github.io/pieces/line_berry/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "line_purple",
       "url": "https://sharechess.github.io/pieces/line_purple/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "line_toy",
       "url": "https://sharechess.github.io/pieces/line_toy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "lucena",
       "url": "https://sharechess.github.io/pieces/lucena/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "lucena_blue",
       "url": "https://sharechess.github.io/pieces/lucena_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "lucena_brown",
       "url": "https://sharechess.github.io/pieces/lucena_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "lucena_pink",
       "url": "https://sharechess.github.io/pieces/lucena_pink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "maestro",
       "url": "https://sharechess.github.io/pieces/maestro/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "maestro_blue",
       "url": "https://sharechess.github.io/pieces/maestro_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "maestro_brown",
       "url": "https://sharechess.github.io/pieces/maestro_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "maestro_pink",
       "url": "https://sharechess.github.io/pieces/maestro_pink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "magnetic",
       "url": "https://sharechess.github.io/pieces/magnetic/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "magnetic_brown",
       "url": "https://sharechess.github.io/pieces/magnetic_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "magnetic_lila",
       "url": "https://sharechess.github.io/pieces/magnetic_lila/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "magnetic_orange",
       "url": "https://sharechess.github.io/pieces/magnetic_orange/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "mark",
       "url": "https://sharechess.github.io/pieces/mark/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "mark_brown",
       "url": "https://sharechess.github.io/pieces/mark_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "mark_grape",
       "url": "https://sharechess.github.io/pieces/mark_grape/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "mark_green",
       "url": "https://sharechess.github.io/pieces/mark_green/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "marroquin",
       "url": "https://sharechess.github.io/pieces/marroquin/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "marroquin_eggplant",
       "url": "https://sharechess.github.io/pieces/marroquin_eggplant/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "marroquin_rajah",
       "url": "https://sharechess.github.io/pieces/marroquin_rajah/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "marroquin_toy",
       "url": "https://sharechess.github.io/pieces/marroquin_toy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "maya",
       "url": "https://sharechess.github.io/pieces/maya/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "maya_brown",
       "url": "https://sharechess.github.io/pieces/maya_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "maya_cold",
       "url": "https://sharechess.github.io/pieces/maya_cold/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "maya_warm",
       "url": "https://sharechess.github.io/pieces/maya_warm/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "mediaeval",
       "url": "https://sharechess.github.io/pieces/mediaeval/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "mediaeval_brown",
       "url": "https://sharechess.github.io/pieces/mediaeval_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "mediaeval_green",
       "url": "https://sharechess.github.io/pieces/mediaeval_green/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "mediaeval_orange",
       "url": "https://sharechess.github.io/pieces/mediaeval_orange/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "merida",
       "url": "https://sharechess.github.io/pieces/merida/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "merida_cyan",
       "url": "https://sharechess.github.io/pieces/merida_cyan/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "merida_ink",
       "url": "https://sharechess.github.io/pieces/merida_ink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "merida_traffic",
       "url": "https://sharechess.github.io/pieces/merida_traffic/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "millennia",
       "url": "https://sharechess.github.io/pieces/millennia/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "millennia_blue",
       "url": "https://sharechess.github.io/pieces/millennia_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "millennia_green",
       "url": "https://sharechess.github.io/pieces/millennia_green/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "millennia_sand",
       "url": "https://sharechess.github.io/pieces/millennia_sand/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "motif",
       "url": "https://sharechess.github.io/pieces/motif/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "motif_green",
       "url": "https://sharechess.github.io/pieces/motif_green/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "motif_maroon",
       "url": "https://sharechess.github.io/pieces/motif_maroon/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "motif_purple",
       "url": "https://sharechess.github.io/pieces/motif_purple/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "oldstyle",
       "url": "https://sharechess.github.io/pieces/oldstyle/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "Renamed piece set from dmuys to dmuysi",
       "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "oldstyle_bondi",
       "url": "https://sharechess.github.io/pieces/oldstyle_bondi/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "Renamed piece set from dmuys to dmuysi",
       "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "oldstyle_brown",
       "url": "https://sharechess.github.io/pieces/oldstyle_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "Renamed piece set from dmuys to dmuysi",
       "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "oldstyle_gossip",
       "url": "https://sharechess.github.io/pieces/oldstyle_gossip/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "Renamed piece set from dmuys to dmuysi",
       "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirat",
       "url": "https://sharechess.github.io/pieces/pirat/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirat_maroon",
       "url": "https://sharechess.github.io/pieces/pirat_maroon/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirat_peach",
       "url": "https://sharechess.github.io/pieces/pirat_peach/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirat_sea",
       "url": "https://sharechess.github.io/pieces/pirat_sea/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirouetti",
       "url": "https://sharechess.github.io/pieces/pirouetti/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirouetti_border",
       "url": "https://sharechess.github.io/pieces/pirouetti_border/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirouetti_border_coral",
       "url": "https://sharechess.github.io/pieces/pirouetti_border_coral/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirouetti_border_grass",
       "url": "https://sharechess.github.io/pieces/pirouetti_border_grass/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirouetti_border_winter",
       "url": "https://sharechess.github.io/pieces/pirouetti_border_winter/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirouetti_dream",
       "url": "https://sharechess.github.io/pieces/pirouetti_dream/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirouetti_mint",
       "url": "https://sharechess.github.io/pieces/pirouetti_mint/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pirouetti_summer",
       "url": "https://sharechess.github.io/pieces/pirouetti_summer/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pixel",
       "url": "https://sharechess.github.io/pieces/pixel/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pixel_juicy",
       "url": "https://sharechess.github.io/pieces/pixel_juicy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pixel_neon",
       "url": "https://sharechess.github.io/pieces/pixel_neon/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "pixel_spring",
       "url": "https://sharechess.github.io/pieces/pixel_spring/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "qootee",
       "url": "https://sharechess.github.io/pieces/qootee/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "qootee_grape",
       "url": "https://sharechess.github.io/pieces/qootee_grape/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "qootee_pink",
       "url": "https://sharechess.github.io/pieces/qootee_pink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "qootee_summer",
       "url": "https://sharechess.github.io/pieces/qootee_summer/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "regular",
       "url": "https://sharechess.github.io/pieces/regular/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "regular_green",
       "url": "https://sharechess.github.io/pieces/regular_green/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "regular_ink",
       "url": "https://sharechess.github.io/pieces/regular_ink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "regular_purple",
       "url": "https://sharechess.github.io/pieces/regular_purple/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "reillycraig",
       "url": "https://sharechess.github.io/pieces/reillycraig/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "reillycraig_dixie",
       "url": "https://sharechess.github.io/pieces/reillycraig_dixie/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "reillycraig_lawn",
       "url": "https://sharechess.github.io/pieces/reillycraig_lawn/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "reillycraig_tamarind",
       "url": "https://sharechess.github.io/pieces/reillycraig_tamarind/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "riohacha",
       "url": "https://sharechess.github.io/pieces/riohacha/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "riohacha_cute",
       "url": "https://sharechess.github.io/pieces/riohacha_cute/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "riohacha_spring",
       "url": "https://sharechess.github.io/pieces/riohacha_spring/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "riohacha_winter",
       "url": "https://sharechess.github.io/pieces/riohacha_winter/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "saakyan",
       "url": "https://sharechess.github.io/pieces/saakyan/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "saakyan_blue",
       "url": "https://sharechess.github.io/pieces/saakyan_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "saakyan_coco",
       "url": "https://sharechess.github.io/pieces/saakyan_coco/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "saakyan_grape",
       "url": "https://sharechess.github.io/pieces/saakyan_grape/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "shapes",
       "url": "https://sharechess.github.io/pieces/shapes/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "shapes_blue",
       "url": "https://sharechess.github.io/pieces/shapes_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "shapes_brown",
       "url": "https://sharechess.github.io/pieces/shapes_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "shapes_cute",
       "url": "https://sharechess.github.io/pieces/shapes_cute/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "smart",
       "url": "https://sharechess.github.io/pieces/smart/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "smart_apricot",
       "url": "https://sharechess.github.io/pieces/smart_apricot/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "smart_blue",
       "url": "https://sharechess.github.io/pieces/smart_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "smart_cocoa",
       "url": "https://sharechess.github.io/pieces/smart_cocoa/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "spatial",
       "url": "https://sharechess.github.io/pieces/spatial/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "spatial_blue",
       "url": "https://sharechess.github.io/pieces/spatial_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "spatial_salmon",
       "url": "https://sharechess.github.io/pieces/spatial_salmon/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "spatial_summer",
       "url": "https://sharechess.github.io/pieces/spatial_summer/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "staunty",
       "url": "https://sharechess.github.io/pieces/staunty/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "staunty_blue",
       "url": "https://sharechess.github.io/pieces/staunty_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "staunty_lila",
       "url": "https://sharechess.github.io/pieces/staunty_lila/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "staunty_wood",
       "url": "https://sharechess.github.io/pieces/staunty_wood/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "symmetric",
       "url": "https://sharechess.github.io/pieces/symmetric/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "symmetric_blue",
       "url": "https://sharechess.github.io/pieces/symmetric_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "symmetric_brown",
       "url": "https://sharechess.github.io/pieces/symmetric_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "symmetric_purple",
       "url": "https://sharechess.github.io/pieces/symmetric_purple/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "tagged",
       "url": "https://sharechess.github.io/pieces/tagged/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "tatiana",
       "url": "https://sharechess.github.io/pieces/tatiana/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "tatiana_calm",
       "url": "https://sharechess.github.io/pieces/tatiana_calm/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "tatiana_sweet",
       "url": "https://sharechess.github.io/pieces/tatiana_sweet/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "tatiana_wood",
       "url": "https://sharechess.github.io/pieces/tatiana_wood/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "tfb",
       "url": "https://sharechess.github.io/pieces/tfb/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "tfb_brown",
       "url": "https://sharechess.github.io/pieces/tfb_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "tfb_green",
       "url": "https://sharechess.github.io/pieces/tfb_green/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "tfb_purple",
       "url": "https://sharechess.github.io/pieces/tfb_purple/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "traveller",
       "url": "https://sharechess.github.io/pieces/traveller/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "traveller_blue",
       "url": "https://sharechess.github.io/pieces/traveller_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "traveller_brown",
       "url": "https://sharechess.github.io/pieces/traveller_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "traveller_green",
       "url": "https://sharechess.github.io/pieces/traveller_green/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "trendy",
       "url": "https://sharechess.github.io/pieces/trendy/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "trendy_brown",
       "url": "https://sharechess.github.io/pieces/trendy_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "trendy_fresh",
       "url": "https://sharechess.github.io/pieces/trendy_fresh/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "trendy_ink",
       "url": "https://sharechess.github.io/pieces/trendy_ink/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "utrecht",
       "url": "https://sharechess.github.io/pieces/utrecht/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "utrecht_crimson",
       "url": "https://sharechess.github.io/pieces/utrecht_crimson/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "utrecht_mirage",
       "url": "https://sharechess.github.io/pieces/utrecht_mirage/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "utrecht_violet",
       "url": "https://sharechess.github.io/pieces/utrecht_violet/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "vecon",
       "url": "https://sharechess.github.io/pieces/vecon/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "vecon_baltic",
       "url": "https://sharechess.github.io/pieces/vecon_baltic/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "vecon_cute",
       "url": "https://sharechess.github.io/pieces/vecon_cute/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "vecon_hemlock",
       "url": "https://sharechess.github.io/pieces/vecon_hemlock/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "wisdom",
       "url": "https://sharechess.github.io/pieces/wisdom/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "wisdom_blue",
       "url": "https://sharechess.github.io/pieces/wisdom_blue/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "wisdom_brown",
       "url": "https://sharechess.github.io/pieces/wisdom_brown/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
     {
       "category": "sharechess",
       "name": "wisdom_grape",
       "url": "https://sharechess.github.io/pieces/wisdom_grape/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"nw"
     },
 
     {
       "category": "NayukiMafuyu",
       "name": "Mockou",
       "url": "https://raw.githubusercontent.com/NayukiMafuyu/mockou/refs/heads/main/versions/v0.2/",
-      "type": "svg"
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "tsoj",
+      "name": "custom a",
+      "url": "https://raw.githubusercontent.com/tsoj/Chess_diagram_to_FEN/refs/heads/main/resources/pieces/chess/custom/a/",
+      "type": "png",
+      "cap":"wn"
+    },
+    {
+      "category": "tsoj",
+      "name": "custom b",
+      "url": "https://raw.githubusercontent.com/tsoj/Chess_diagram_to_FEN/refs/heads/main/resources/pieces/chess/custom/b/",
+      "type": "png",
+      "cap":"wn"
+    },
+    {
+      "category": "tsoj",
+      "name": "custom c",
+      "url": "https://raw.githubusercontent.com/tsoj/Chess_diagram_to_FEN/refs/heads/main/resources/pieces/chess/custom/c/",
+      "type": "png",
+      "cap":"wn"
+    },
+    {
+      "category": "tsoj",
+      "name": "custom d",
+      "url": "https://raw.githubusercontent.com/tsoj/Chess_diagram_to_FEN/refs/heads/main/resources/pieces/chess/custom/d/",
+      "type": "png",
+      "cap":"wn"
+    },
+    {
+      "category": "tsoj",
+      "name": "custom e",
+      "url": "https://raw.githubusercontent.com/tsoj/Chess_diagram_to_FEN/refs/heads/main/resources/pieces/chess/custom/e/",
+      "type": "png",
+      "cap":"wn"
+    },
+
+    {
+      "category": "tsoj",
+      "name": "chess_1Kbyte_gambit",
+      "url": "https://raw.githubusercontent.com/tsoj/Chess_diagram_to_FEN/refs/heads/main/resources/pieces/chess/other/chess_1Kbyte_gambit/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "tsoj",
+      "name": "chess_kaneo",
+      "url": "https://raw.githubusercontent.com/tsoj/Chess_diagram_to_FEN/refs/heads/main/resources/pieces/chess/other/chess_kaneo/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "tsoj",
+      "name": "chess_kaneo_midnight",
+      "url": "https://raw.githubusercontent.com/tsoj/Chess_diagram_to_FEN/refs/heads/main/resources/pieces/chess/other/chess_kaneo_midnight/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "tsoj",
+      "name": "chess_maestro_bw",
+      "url": "https://raw.githubusercontent.com/tsoj/Chess_diagram_to_FEN/refs/heads/main/resources/pieces/chess/other/chess_maestro_bw/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "tsoj",
+      "name": "xboard",
+      "url": "https://raw.githubusercontent.com/tsoj/Chess_diagram_to_FEN/refs/heads/main/resources/pieces/chess/xboard/",
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "js13kGames",
+      "name": "king thirteen",
+      "url": "https://raw.githubusercontent.com/js13kGames/king-thirteen/refs/heads/master/pieces/",
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "davidssmith",
+      "name": "meridashade",
+      "url": "https://raw.githubusercontent.com/davidssmith/svgboard/refs/heads/main/pieces/meridashade/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "davidssmith",
+      "name": "sketch",
+      "url": "https://raw.githubusercontent.com/davidssmith/svgboard/refs/heads/main/pieces/sketch/",
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "uros-5",
+      "name": "kaneo",
+      "url": "https://raw.githubusercontent.com/uros-5/lishuuro/0f7e36fd08e76b5fc536123a6051c3ab0effe7c4/ui/public/pieces/kaneo/",
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "Djapec",
+      "name": "merida2",
+      "url": "https://raw.githubusercontent.com/Djapec/ChessCraft/refs/heads/main/src/assets/style/pieces/merida2/",
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "olliecampbell",
+      "name": "chessbook_monochrome",
+      "url": "https://raw.githubusercontent.com/olliecampbell/chessmadra-frontend/refs/heads/main/public/pieces/chessbook_monochrome/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "olliecampbell",
+      "name": "monochrome",
+      "url": "https://raw.githubusercontent.com/olliecampbell/chessmadra-frontend/refs/heads/main/public/pieces/monochrome/",
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "mowi12",
+      "name": "holywarriors",
+      "url": "https://raw.githubusercontent.com/mowi12/chess/refs/heads/main/src/main/resources/art/pieces/black_widow/holywarriors/",
+      "type": "gif",
+      "cap":"WN"
+    },
+    {
+      "category": "mowi12",
+      "name": "simple",
+      "url": "https://raw.githubusercontent.com/mowi12/chess/refs/heads/main/src/main/resources/art/pieces/black_widow/simple/",
+      "type": "gif",
+      "cap":"WN"
+    },
+
+    {
+      "category": "swapnilvasave24-web",
+      "name": "ADSA",
+      "url": "https://raw.githubusercontent.com/swapnilvasave24-web/ADSA/refs/heads/main/web/assets/pieces/",
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "mfro",
+      "name": "set1",
+      "url": "https://raw.githubusercontent.com/mfro/chess/refs/heads/master/web/src/assets/set1/",
+      "type": "png",
+      "cap":"wn"
+    },
+
+    {
+      "category": "withmy27",
+      "name": "mychess",
+      "url": "https://raw.githubusercontent.com/withmy27/mychess/refs/heads/main/assets/assets/chess_pieces/",
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "BrayanGuti",
+      "name": "ChessGuti",
+      "url": "https://raw.githubusercontent.com/BrayanGuti/ChessGuti/refs/heads/master/Pieces/",
+      "type": "svg",
+      "cap":"WN"
+    },
+
+    {
+      "category": "code-and-chill",
+      "name": "glass",
+      "url": "https://raw.githubusercontent.com/code-and-chill/chessmate/refs/heads/main/app/assets/pieces/glass/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "code-and-chill",
+      "name": "minimal",
+      "url": "https://raw.githubusercontent.com/code-and-chill/chessmate/refs/heads/main/app/assets/pieces/minimal/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "code-and-chill",
+      "name": "neon",
+      "url": "https://raw.githubusercontent.com/code-and-chill/chessmate/refs/heads/main/app/assets/pieces/neon/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "code-and-chill",
+      "name": "outline",
+      "url": "https://raw.githubusercontent.com/code-and-chill/chessmate/refs/heads/main/app/assets/pieces/outline/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "code-and-chill",
+      "name": "pixel",
+      "url": "https://raw.githubusercontent.com/code-and-chill/chessmate/refs/heads/main/app/assets/pieces/pixel/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "code-and-chill",
+      "name": "sketch",
+      "url": "https://raw.githubusercontent.com/code-and-chill/chessmate/refs/heads/main/app/assets/pieces/sketch/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "code-and-chill",
+      "name": "solid",
+      "url": "https://raw.githubusercontent.com/code-and-chill/chessmate/refs/heads/main/app/assets/pieces/solid/",
+      "type": "svg",
+      "cap":"wN"
+    },
+    {
+      "category": "code-and-chill",
+      "name": "wood",
+      "url": "https://raw.githubusercontent.com/code-and-chill/chessmate/refs/heads/main/app/assets/pieces/wood/",
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "mannubhai1",
+      "name": "fapieces",
+      "url": "https://raw.githubusercontent.com/mannubhai1/ChessAI/refs/heads/main/img/chesspieces/fapieces/",
+      "type": "svg",
+      "cap":"wN"
+    },
+
+    {
+      "category": "lukasmonk",
+      "name": "Abxtadt",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Abxtadt/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "AlfonsoX",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/AlfonsoX/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Alpha",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Alpha/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Balestegui",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Balestegui/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Balestegui2",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Balestegui2/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Berlin",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Berlin/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Book%20Classic%20B",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Book%20Classic%20B/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Book%20Classic",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Book%20Classic/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Book%20Diagram%20B",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Book%20Diagram%20B/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Book%20Diagram",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Book%20Diagram/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Book%20Strategie%20B",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Book%20Strategie%20B/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Book%20Strategie",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Book%20Strategie/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Caballo-R-M",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Caballo-R-M/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Caballo-R-MM",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Caballo-R-MM/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Caballo-R-P",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Caballo-R-P/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Caballo-R-RC-C",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Caballo-R-RC-C/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Caballo-R",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Caballo-R/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Cardinalv1",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Cardinalv1/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Cartoon",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Cartoon/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Cburnett",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Cburnett/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "CburnettDark",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/CburnettDark/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "CburnettSize",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/CburnettSize/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Celtic",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Celtic/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Chessicons",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Chessicons/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Condal",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Condal/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Etruscan-clear",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Etruscan-clear/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Etruscan",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Etruscan/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Eyes",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Eyes/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Fantasy",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Fantasy/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "FantasyAlt",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/FantasyAlt/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Freak",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Freak/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Internet",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Internet/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "JinAlpha",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/JinAlpha/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Kidsdraw",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Kidsdraw/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Kilfiger",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Kilfiger/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Kilfiger2",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Kilfiger2/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Leipzig",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Leipzig/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Magnetic",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Magnetic/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Maya",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Maya/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Merida",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Merida/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Montreal",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Montreal/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Pirat",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Pirat/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Prmi",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Prmi/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "QwertyXP20000",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/QwertyXP20000/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Regular",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Regular/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Regular2",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Regular2/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Shahi-Ivory-Brown",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Shahi-Ivory-Brown/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Shahi-White-Gray",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Shahi-White-Gray/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Skulls",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Skulls/",
+      "type": "svg",
+      "cap":"wn"
+    },
+    {
+      "category": "lukasmonk",
+      "name": "Spatial",
+      "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Spatial/",
+      "type": "svg",
+      "cap":"wn"
     }
   ]
 }

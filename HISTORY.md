@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+29 Apr
+
+- more piece sets and cleaning the old ones
+
 28 Apr
 
 - team member count chart

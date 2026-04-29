@@ -6,7 +6,11 @@
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1','sharechess','NayukiMafuyu'],
+        possibleValues: [
+          'siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1',
+          'sharechess','NayukiMafuyu','tsoj','js13kGames','davidssmith','uros-5','Djapec','olliecampbell','mowi12','swapnilvasave24-web','mfro','withmy27','BrayanGuti',
+          'code-and-chill','mannubhai1','lukasmonk'
+        ],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
@@ -35,7 +39,21 @@
         'extraPieceSets.FelixKling': 'FelixKling',
         'extraPieceSets.Moldenke1': 'Moldenke1',
         'extraPieceSets.sharechess': 'sharechess',
-        'extraPieceSets.NayukiMafuyu': 'NayukiMafuyu'
+        'extraPieceSets.NayukiMafuyu': 'NayukiMafuyu',
+        'extraPieceSets.tsoj': 'tsoj',
+        'extraPieceSets.js13kGames': 'js13kGames',
+        'extraPieceSets.davidssmith': 'davidssmith',
+        'extraPieceSets.uros-5': 'uros-5',
+        'extraPieceSets.Djapec': 'Djapec',
+        'extraPieceSets.olliecampbell': 'olliecampbell',
+        'extraPieceSets.mowi12': 'mowi12',
+        'extraPieceSets.swapnilvasave24-web': 'swapnilvasave24-web',
+        'extraPieceSets.mfro': 'mfro',
+        'extraPieceSets.withmy27': 'withmy27',
+        'extraPieceSets.BrayanGuti': 'BrayanGuti',
+        'extraPieceSets.code-and-chill': 'code-and-chill',
+        'extraPieceSets.mannubhai1': 'mannubhai1',
+        'extraPieceSets.lukasmonk': 'lukasmonk'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -108,33 +126,29 @@
     };
 
     getUrl = (pieceSet,piece,color) => {
-      switch(pieceSet.category) {
-        case 'siderite':
-        case 'hollowleaf':
-        case 'fordCrownVictoria':
-        case 'bend-n':
-        case 'Moldenke1':
-        case 'NayukiMafuyu':
-        {
+      switch(pieceSet.cap || pieceSet.category) {
+        case 'wN':
+        { // wN
           const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
           return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type;
         }
-        case 'chesscom':
-        case 'tage64':
-        case 'OwOHamper':
-        case 'LichessHelper':
-        case 'FelixKling':
-        {
+        case 'wn':
+        { // wn
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type
         }
-        case 'sharechess':
-        {
+        case 'nw':
+        { // nw
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           return pieceSet.url+pieceLetter+color[0]+'.'+pieceSet.type
         }
+        case 'WN':
+        { // WN
+          const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
+          return pieceSet.url+color[0].toUpperCase()+pieceLetter+'.'+pieceSet.type
+        }
         case 'basedpolymer':
-        {
+        { // weird
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           let key = color[0]+pieceLetter;
           if (pieceSet.name == 'ichess_basedpolymer') {
@@ -157,12 +171,12 @@
           return pieceSet.url+key+'.'+pieceSet.type
         }
         case 'comfysage':
-        {
+        { // w/wn
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.'+pieceSet.type
         }
         case 'DragurKnight':
-        {
+        { // w_knight
           return pieceSet.url+color[0]+'_'+piece+'.'+pieceSet.type
         }
         default:

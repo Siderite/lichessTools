@@ -289,6 +289,35 @@
     {
       "value": "https://raw.githubusercontent.com/marcenwasser/custom-chess-board/refs/heads/main/yellowgold.png",
       "text": "Marcen Wasser yellow gold"
+    },
+
+    {
+      "value": "https://github.com/Kadagaden/chess-pieces/raw/refs/heads/master/boards/8x8_brown_sand.svg",
+      "text": "Kadagaden brown sand"
+    },
+    {
+      "value": "https://github.com/Kadagaden/chess-pieces/raw/refs/heads/master/boards/8x8_brown_yellow.svg",
+      "text": "Kadagaden brown yellow"
+    },
+    {
+      "value": "https://github.com/Kadagaden/chess-pieces/raw/refs/heads/master/boards/8x8_gray.svg",
+      "text": "Kadagaden gray"
+    },
+    {
+      "value": "https://github.com/Kadagaden/chess-pieces/raw/refs/heads/master/boards/8x8_green.svg",
+      "text": "Kadagaden green"
+    },
+    {
+      "value": "https://github.com/Kadagaden/chess-pieces/raw/refs/heads/master/boards/8x8_pink_1Kbyte_gambit.svg",
+      "text": "Kadagaden gambit"
+    },
+    {
+      "value": "https://github.com/Kadagaden/chess-pieces/raw/refs/heads/master/boards/8x8_pinkish_brown_yellow.svg",
+      "text": "Kadagaden pinkish brown yellow"
+    },
+    {
+      "value": "https://github.com/Kadagaden/chess-pieces/raw/refs/heads/master/boards/8x8_wood.svg",
+      "text": "Kadagaden wood"
     }
   ]
 }
