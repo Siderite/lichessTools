@@ -428,13 +428,6 @@
     },
     {
       "category": "fordCrownVictoria",
-      "name": "Gothic",
-      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Gothic-Compressed/",
-      "type": "png",
-      "cap":"wN"
-    },
-    {
-      "category": "fordCrownVictoria",
       "name": "Roman",
       "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/Roman-Compressed/",
       "type": "png",
@@ -1378,12 +1371,6 @@
       "category": "basedpolymer",
       "name": "pokemon",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/pokemon/",
-      "type": "png"
-    },
-    {
-      "category": "basedpolymer",
-      "name": "pony",
-      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/pony/",
       "type": "png"
     },
     {
@@ -2736,22 +2723,8 @@
     },
     {
       "category": "sharechess",
-      "name": "Renamed piece set from dmuys to dmuysi",
-      "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
-      "type": "svg",
-      "cap":"nw"
-    },
-    {
-      "category": "sharechess",
       "name": "oldstyle_bondi",
       "url": "https://sharechess.github.io/pieces/oldstyle_bondi/",
-      "type": "svg",
-      "cap":"nw"
-    },
-    {
-      "category": "sharechess",
-      "name": "Renamed piece set from dmuys to dmuysi",
-      "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
       "type": "svg",
       "cap":"nw"
     },
@@ -2764,22 +2737,8 @@
     },
     {
       "category": "sharechess",
-      "name": "Renamed piece set from dmuys to dmuysi",
-      "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
-      "type": "svg",
-      "cap":"nw"
-    },
-    {
-      "category": "sharechess",
       "name": "oldstyle_gossip",
       "url": "https://sharechess.github.io/pieces/oldstyle_gossip/",
-      "type": "svg",
-      "cap":"nw"
-    },
-    {
-      "category": "sharechess",
-      "name": "Renamed piece set from dmuys to dmuysi",
-      "url": "https://sharechess.github.io/pieces/Renamed piece set from dmuys to dmuysi/",
       "type": "svg",
       "cap":"nw"
     },

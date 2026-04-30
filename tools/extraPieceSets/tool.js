@@ -135,17 +135,17 @@
         case 'wn':
         { // wn
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
-          return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type
+          return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type;
         }
         case 'nw':
         { // nw
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
-          return pieceSet.url+pieceLetter+color[0]+'.'+pieceSet.type
+          return pieceSet.url+pieceLetter+color[0]+'.'+pieceSet.type;
         }
         case 'WN':
         { // WN
           const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
-          return pieceSet.url+color[0].toUpperCase()+pieceLetter+'.'+pieceSet.type
+          return pieceSet.url+color[0].toUpperCase()+pieceLetter+'.'+pieceSet.type;
         }
         case 'basedpolymer':
         { // weird
@@ -168,16 +168,16 @@
             };
             key = ring[key];
           }
-          return pieceSet.url+key+'.'+pieceSet.type
+          return pieceSet.url+key+'.'+pieceSet.type;
         }
         case 'comfysage':
         { // w/wn
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
-          return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.'+pieceSet.type
+          return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.'+pieceSet.type;
         }
         case 'DragurKnight':
         { // w_knight
-          return pieceSet.url+color[0]+'_'+piece+'.'+pieceSet.type
+          return pieceSet.url+color[0]+'_'+piece+'.'+pieceSet.type;
         }
         default:
           throw new Error('Unknown piece set type' + type);
@@ -344,7 +344,7 @@
           if (!data) {
             lt.global.console.warn('Could not load piece sets!');
           }
-          self.pieceSets = data?.pieceSets || [];
+          self.pieceSets = (data?.pieceSets || []).filter(ps=>!ps.duplicate);
           for (const pieceSet of self.pieceSets) {
             if (pieceSet.category == 'chesscom') continue;
             pieceSet.name+='_'+pieceSet.category;
