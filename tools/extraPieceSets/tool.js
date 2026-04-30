@@ -8,7 +8,7 @@
         type: 'multiple',
         possibleValues: [
           'siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1',
-          'sharechess','NayukiMafuyu','tsoj','js13kGames','davidssmith','uros-5','Djapec','olliecampbell','mowi12','swapnilvasave24-web','mfro','withmy27','BrayanGuti',
+          'sharechess','NayukiMafuyu','tsoj','davidssmith','Djapec','olliecampbell','mowi12','swapnilvasave24-web','withmy27','BrayanGuti',
           'code-and-chill','mannubhai1','lukasmonk'
         ],
         defaultValue: 'siderite,chesscom,hollowleaf',
@@ -41,14 +41,11 @@
         'extraPieceSets.sharechess': 'sharechess',
         'extraPieceSets.NayukiMafuyu': 'NayukiMafuyu',
         'extraPieceSets.tsoj': 'tsoj',
-        'extraPieceSets.js13kGames': 'js13kGames',
         'extraPieceSets.davidssmith': 'davidssmith',
-        'extraPieceSets.uros-5': 'uros-5',
         'extraPieceSets.Djapec': 'Djapec',
         'extraPieceSets.olliecampbell': 'olliecampbell',
         'extraPieceSets.mowi12': 'mowi12',
         'extraPieceSets.swapnilvasave24-web': 'swapnilvasave24-web',
-        'extraPieceSets.mfro': 'mfro',
         'extraPieceSets.withmy27': 'withmy27',
         'extraPieceSets.BrayanGuti': 'BrayanGuti',
         'extraPieceSets.code-and-chill': 'code-and-chill',

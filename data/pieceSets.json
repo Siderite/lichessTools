@@ -569,27 +569,22 @@
 
     {
       "category": "comfysage",
-      "name": "Base",
-      "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/base/",
-      "type": "png"
-    }, {
-      "category": "comfysage",
-      "name": "Frappe",
+      "name": "Neo Frappe",
       "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/frappe/",
       "type": "png"
     }, {
       "category": "comfysage",
-      "name": "Latte",
+      "name": "Neo Latte",
       "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/latte/",
       "type": "png"
     }, {
       "category": "comfysage",
-      "name": "Macchiato",
+      "name": "Neo Macchiato",
       "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/macchiato/",
       "type": "png"
     }, {
       "category": "comfysage",
-      "name": "Mocha",
+      "name": "Neo Mocha",
       "url": "https://media.githubusercontent.com/media/comfysage/userstyles/main/styles/chess.com/assets/mocha/",
       "type": "png"
     },
@@ -3419,14 +3414,6 @@
     },
 
     {
-      "category": "js13kGames",
-      "name": "king thirteen",
-      "url": "https://raw.githubusercontent.com/js13kGames/king-thirteen/refs/heads/master/pieces/",
-      "type": "svg",
-      "cap":"wN"
-    },
-
-    {
       "category": "davidssmith",
       "name": "meridashade",
       "url": "https://raw.githubusercontent.com/davidssmith/svgboard/refs/heads/main/pieces/meridashade/",
@@ -3437,14 +3424,6 @@
       "category": "davidssmith",
       "name": "sketch",
       "url": "https://raw.githubusercontent.com/davidssmith/svgboard/refs/heads/main/pieces/sketch/",
-      "type": "svg",
-      "cap":"wN"
-    },
-
-    {
-      "category": "uros-5",
-      "name": "kaneo",
-      "url": "https://raw.githubusercontent.com/uros-5/lishuuro/0f7e36fd08e76b5fc536123a6051c3ab0effe7c4/ui/public/pieces/kaneo/",
       "type": "svg",
       "cap":"wN"
     },
@@ -3493,14 +3472,6 @@
       "url": "https://raw.githubusercontent.com/swapnilvasave24-web/ADSA/refs/heads/main/web/assets/pieces/",
       "type": "svg",
       "cap":"wN"
-    },
-
-    {
-      "category": "mfro",
-      "name": "set1",
-      "url": "https://raw.githubusercontent.com/mfro/chess/refs/heads/master/web/src/assets/set1/",
-      "type": "png",
-      "cap":"wn"
     },
 
     {
@@ -3778,7 +3749,8 @@
       "name": "Eyes",
       "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Eyes/",
       "type": "svg",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     },
     {
       "category": "lukasmonk",
@@ -3792,7 +3764,8 @@
       "name": "FantasyAlt",
       "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/FantasyAlt/",
       "type": "svg",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     },
     {
       "category": "lukasmonk",
@@ -3841,7 +3814,8 @@
       "name": "Leipzig",
       "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Leipzig/",
       "type": "svg",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     },
     {
       "category": "lukasmonk",
@@ -3862,7 +3836,8 @@
       "name": "Merida",
       "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Merida/",
       "type": "svg",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     },
     {
       "category": "lukasmonk",
@@ -3911,7 +3886,8 @@
       "name": "Shahi-Ivory-Brown",
       "url": "https://raw.githubusercontent.com/lukasmonk/lucaschessR2/refs/heads/main/Resources/Pieces/Shahi-Ivory-Brown/",
       "type": "svg",
-      "cap":"wn"
+      "cap":"wn",
+      "duplicate": true
     },
     {
       "category": "lukasmonk",
