@@ -731,7 +731,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const lt = this.lichessTools;
       const trans = lt.translator;
       if (this._runningOperation) return;
-      const co = lt.chessops;
+      const co = await lt.chessops();
       if (!co) {
         lt.global.console.warn('ChessOps not loaded');
         return;
@@ -776,7 +776,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
       const text = $('dialog.lichessTools-pgnEditor textarea').val();
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const games = co.pgn.parsePgn(text).filter(g => g.headers.get('FEN') || g.moves?.children?.length);
       this.writeNote(trans.pluralSame('gameCount', games.length).replace(/%2/g, '...'));
       let moveCount = 0;
@@ -793,10 +793,10 @@ https://www.chessable.com/course/${courseId}/ } *`)
       this.writeNote(trans.pluralSame('gameCount', games.length).replace(/%2/g, moveCount));
     };
 
-    enhanceGameWithFens = game => {
+    enhanceGameWithFens = async (game) => {
       const lt = this.lichessTools;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { startingPosition } = co.pgn;
       const { makeFen } = co.fen;
       const { parseSan, makeSanAndPlay } = co.san;
@@ -956,7 +956,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       const games = parsePgn(text);
@@ -969,7 +969,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       for (const game of games) {
         gameIndex++;
         try {
-          this.enhanceGameWithFens(game);
+          await this.enhanceGameWithFens(game);
         } catch (ex) {
           withErrors = true;
           if (ex.ply !== undefined) {
@@ -1096,7 +1096,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         this.cleanGame(game, options);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       if (games.length < initialNumberOfGames) {
         this.countPgn();
@@ -1116,7 +1116,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         return;
       }
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       const games = parsePgn(text);
@@ -1146,7 +1146,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       for (const game of games) {
         gameIndex++;
         try {
-          this.enhanceGameWithFens(game);
+          await this.enhanceGameWithFens(game);
           totalMoves += game.lastMoves?.length || 0;
         } catch (ex) {
           withErrors = true;
@@ -1203,7 +1203,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         return;
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1232,7 +1232,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       const games = parsePgn(text);
@@ -1245,7 +1245,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       for (const game of games) {
         gameIndex++;
         try {
-          this.enhanceGameWithFens(game);
+          await this.enhanceGameWithFens(game);
         } catch (ex) {
           withErrors = true;
           if (ex.ply !== undefined) {
@@ -1299,7 +1299,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       const games = parsePgn(text);
@@ -1312,7 +1312,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       for (const game of games) {
         gameIndex++;
         try {
-          this.enhanceGameWithFens(game);
+          await this.enhanceGameWithFens(game);
           this.enhanceGameWithFenDict(game);
         } catch (ex) {
           withErrors = true;
@@ -1379,7 +1379,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         this.cleanGame(game);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1390,7 +1390,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       const games = parsePgn(text);
@@ -1403,7 +1403,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       for (const game of games) {
         gameIndex++;
         try {
-          this.enhanceGameWithFens(game);
+          await this.enhanceGameWithFens(game);
           this.enhanceGameWithFenDict(game);
         } catch (ex) {
           withErrors = true;
@@ -1481,7 +1481,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         this.cleanGame(game);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1492,7 +1492,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -1539,7 +1539,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         this.cleanGame(game);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1590,7 +1590,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -1631,7 +1631,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
           if (this._cancelRequested) {
             return;
           }
-          this.enhanceGameWithFens(game);
+          await this.enhanceGameWithFens(game);
           data.sort((a,b)=>b.moveCount-a.moveCount);
           const splitNode = data.find(x=>x.moveCount<3000)?.node;
           if (!splitNode) continue;
@@ -1657,7 +1657,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         this.cleanGame(game);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1710,7 +1710,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -1719,7 +1719,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
 
       lt.arrayRemoveAll(games, g => g.headers.has('Found'));
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1730,7 +1730,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -1741,7 +1741,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         this.cutMetaFromGame(game, cutClock, cutEval, cutShapes);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1815,7 +1815,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -1827,7 +1827,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         for (const key of keys) game.headers.delete(key);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1860,7 +1860,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -1872,7 +1872,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         this.cutCommentsFromGame(game);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1896,7 +1896,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -1917,7 +1917,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         this.cutAnnotationsFromGame(game);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1929,7 +1929,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const trans = lt.translator;
       if (!plyNumber && plyNumber !== 0) return;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -1953,7 +1953,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         traverse(game, game.moves);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -1966,7 +1966,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const trans = lt.translator;
       if (!operator || Number.isNaN(value)) return;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -2034,7 +2034,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       }
       games = games.filter(g => g.moves.children.length);
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
@@ -2088,7 +2088,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         }
       }
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn, makePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -2192,7 +2192,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
           switch (searchMode) {
             case 'invalid':
               try {
-                this.enhanceGameWithFens(game);
+                await this.enhanceGameWithFens(game);
               } catch (ex) {
                 if (ex.ply !== undefined) {
                   found = true;
@@ -2230,7 +2230,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
                 found = true;
                 break;
               }
-              this.enhanceGameWithFens(game);
+              await this.enhanceGameWithFens(game);
               this.enhanceGameWithFenDict(game);
               found = Array.from(game.fenDict).find(pair => reg.test(lt.normalizeString(pair[0])));
               if (found) {
@@ -2296,7 +2296,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         this.cleanGame(game);
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.writeNote(trans.pluralSame('foundGames', foundGames.length));
     };
@@ -2308,7 +2308,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const $ = lt.$;
       const trans = lt.translator;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { parsePgn } = co.pgn;
       const text = textarea.val();
       let games = parsePgn(text);
@@ -2320,14 +2320,14 @@ https://www.chessable.com/course/${courseId}/ } *`)
         game.headers.delete('Found');
       }
 
-      this.writeGames(textarea, games);
+      await this.writeGames(textarea, games);
 
       this.countPgn();
     };
 
-    writeGames = (textarea, games) => {
+    writeGames = async (textarea, games) => {
       const lt = this.lichessTools;
-      const co = lt.chessops;
+      const co = await lt.chessops();
       const { makePgn } = co.pgn;
 
       games = games.filter(g => g.moves?.children?.length || g.headers?.size);

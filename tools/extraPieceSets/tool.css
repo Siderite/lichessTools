@@ -80,13 +80,26 @@ body.lichessTools dialog.lichessTools-extraPieceSets svg path {
 }
 
 body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
-  fill: #222;
+  fill: #ddd;
   stroke: #666;
   stroke-width: 1.5;
 }
 
+
+@media not print and (prefers-color-scheme: dark) {
+  html:not(.dark, .darkBoard, .light) body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
+    fill: #444;
+  }
+}
+
+html.dark body.lichessTools dialog.lichessTools-extraPieceSets svg circle,
+html.darkBoard body.lichessTools dialog.lichessTools-extraPieceSets svg circle,
+html.transp body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
+  fill: #444;
+}
+
+
 body.lichessTools dialog.lichessTools-extraPieceSets svg circle.selected {
-  fill: #0a2a33;
   stroke: #00d4ff;
   stroke-width: 4;
 }

@@ -308,7 +308,7 @@
       const graph = new PieceSetGraph(
         this.pieceSets.filter(ps=>!ps.duplicate),
         ps => this.getUrl(ps, 'knight', 'white'),
-        lt.d3,
+        await lt.d3(),
         ps=>{
           this.setPieceSet(ps.name);
           const dlg = $('dialog.lichessTools-extraPieceSets');

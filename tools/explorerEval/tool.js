@@ -87,7 +87,7 @@
       });
     }
 
-    showEvaluations(result) {
+    async showEvaluations(result) {
       const moves = result?.moves;
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -133,7 +133,7 @@
           .insertAfter($('th:nth-child(1)', container));
       }
       $('tr:has(.lichessTools-evalRow)', container).remove();
-      const co = lt.chessops;
+      const co = await lt.chessops();
       if (co && this.options.evalRows && moves?.length) {
         const newRows = moves.filter(m => !$('tr[data-uci="' + m.uci + '"]', container).length);
         const fen = co.fen.parseFen(analysis.node.fen).unwrap();

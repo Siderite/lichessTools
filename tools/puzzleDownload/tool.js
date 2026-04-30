@@ -36,7 +36,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      const co = lt.chessops;
+      const co = await lt.chessops();
       if (!co) {
         lt.global.console.warn('ChessOps not loaded');
         return;

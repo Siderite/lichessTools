@@ -31,9 +31,17 @@
         return;
       }
       if (!lt.d3) {
-        // generate this with the BundleJsLibraries project from LiChessToolsAdjacent
-        lt.comm.getChromeUrl('tools/d3/d3.bundle.mjs').then(async (url)=>{
-          lt.d3 = await import(url);
+        let d3 = null;
+        lt.d3=()=>new Promise((resolve)=>{
+          if (d3) {
+            resolve(d3);
+            return;
+          }
+          // generate this with the BundleJsLibraries project from LiChessToolsAdjacent
+          lt.comm.getChromeUrl('tools/d3/d3.bundle.mjs').then(async (url)=>{
+            d3 = await import(url);
+            resolve(d3);
+          });
         });
       }
     }
