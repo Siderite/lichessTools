@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+30 Apr
+
+- piece set similarity tree
+
 29 Apr
 
 - more boards and piece sets and cleaning the old ones

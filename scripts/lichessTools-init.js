@@ -30,6 +30,7 @@ lichessTools.loadTool(LiChessTools.Tools.DetectThirdParties);
 lichessTools.loadTool(LiChessTools.Tools.Themes);
 lichessTools.loadTool(LiChessTools.Tools.CliCommands);
 lichessTools.loadTool(LiChessTools.Tools.ChessOps);
+lichessTools.loadTool(LiChessTools.Tools.D3);
 lichessTools.loadTool(LiChessTools.Tools.ExportPGN);
 lichessTools.loadTool(LiChessTools.Tools.Stockfish);
 lichessTools.loadTool(LiChessTools.Tools.AdditionalGlyphs);

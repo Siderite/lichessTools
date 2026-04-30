@@ -1,8 +1,6 @@
 (() => {
   class ChessOpsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw'];
-
     preferences = [{
       name: 'chessOps',
       category: 'study',

@@ -1,6 +1,8 @@
 (() => {
   class ExtraPieceSetsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['D3'];
+
     preferences = [
       {
         name: 'extraPieceSets',
@@ -24,6 +26,8 @@
         'userManualLinkTitle': 'User manual (EN)',
         'pieceFilterPlaceholder': '... filter',
         'pieceFilterTitle': 'LiChess Tools - filter piece sets by name',
+        'pieceSetTreeTitle': 'LiChess Tools - show tree of piece sets',
+        'pieceSetTreeHeader': 'Piece sets',
 
         'extraPieceSets.siderite': 'Siderite', // don't translate these
         'extraPieceSets.chesscom': 'chess.com',
@@ -58,7 +62,9 @@
         'pieceSetTitle': 'LiChess Tools - %s',
         'userManualLinkTitle': 'Manual utilizator (EN)',
         'pieceFilterPlaceholder': '... filtru',
-        'pieceFilterTitle': 'LiChess Tools - filtreaz\u0103 seturile de piese dup\u0103 nume'
+        'pieceFilterTitle': 'LiChess Tools - filtreaz\u0103 seturile de piese dup\u0103 nume',
+        'pieceSetTreeTitle': 'LiChess Tools - arat\u0103 arborele seturilor de piese',
+        'pieceSetTreeHeader': 'Seturi de piese'
       }
     }
 
@@ -193,14 +199,16 @@
         .off('click',this.addPieces)
         .on('click',this.addPieces);
       const isCollapsed = moreButton.text() != '-';
-      let searchInput = list.parent().find('input.lichessTools-extraPieceSets')
+      let searchContainer = list.parent().find('div.lichessTools-extraPieceSets')
       if (isCollapsed) {
         list.find('button.lichessTools-extraPieceSets').remove();
-        searchInput.remove();
+        searchContainer.remove();
       } else
-      if (!searchInput.length)
+      if (!searchContainer.length)
       {
-        searchInput = $('<input type="text" class="lichessTools-extraPieceSets">')
+        searchContainer = $('<div class="lichessTools-extraPieceSets">')
+          .insertBefore(list);
+        const searchInput = $('<input type="text" class="search">')
           .attr('placeholder',trans.noarg('pieceFilterPlaceholder'))
           .attr('title',trans.noarg('pieceFilterTitle'))
           .on('input',()=>{
@@ -209,9 +217,17 @@
               .find('button')
               .each((i,e)=>$(e).toggleClassSafe('lichessTools-filteredPieces',!$(e).attr('title').toLowerCase().includes(text)));
           })
-          .insertBefore(list);
+          .appendTo(searchContainer);
+        $('<button type="button" class="button graph">')
+          .text(lt.icon.PalmBranch)
+          .attr('title',trans.noarg('pieceSetTreeTitle'))
+          .on('click',ev=>{
+            ev.preventDefault();
+            this.buildPieceSetTree();
+          })
+          .appendTo(searchContainer);
         const maxHeight = parseInt(list.css('max-height'));
-        if (maxHeight) list.css('max-height',maxHeight-searchInput.height());
+        if (maxHeight) list.css('max-height',maxHeight-searchContainer.height());
       }
       list.find('button:not(.lichessTools-extraPieceSets)')
         .each((i,e)=>{
@@ -235,7 +251,9 @@
       }
       const currentSetName = lt.storage.get('extraPieceSets-set');
       const categories = Object.keys(this.options);
+      let index=0;
       for (const category of categories) {
+        if (category == 'lichess') continue; // don't duplicate lichess pieces
         if (!this.options[category]) {
           list.find('button.lichessTools-extraPieceSets.'+category).remove();
           continue;
@@ -253,11 +271,13 @@
             .attr('data-setName',pieceSet.name)
             .addClass('lichessTools-extraPieceSets')
             .addClass(category)
+            .addClass('i'+(index%5+1))
             .on('click',()=>this.setPieceSet(pieceSet.name))
             .appendTo(list)
             .find('piece')
             .css('background-image','url('+url+')');
         }
+        index++;
       }
       if (currentSetName) {
         const activeElems = list.find('button.active');
@@ -269,6 +289,40 @@
         }
       }
       lt.scrollIntoViewIfNeeded(list.find('button.active'));
+    };
+
+    buildPieceSetTree = async ()=>{
+      if (!this.pieceSets) return;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+
+      const dialog = await lt.dialog({
+        header: trans.noarg('pieceSetTreeHeader')
+      });
+      $(dialog).addClass('lichessTools-extraPieceSets');
+      dialog.showModal();
+
+      await lt.timeout(100);
+
+      const graph = new PieceSetGraph(
+        this.pieceSets.filter(ps=>!ps.duplicate),
+        ps => this.getUrl(ps, 'knight', 'white'),
+        lt.d3,
+        ps=>{
+          this.setPieceSet(ps.name);
+          const dlg = $('dialog.lichessTools-extraPieceSets');
+          dlg.addClass('changed');
+          lt.global.clearTimeout(this._clearChanged);
+          this._clearChanged = lt.global.setTimeout(()=>dlg.removeClass('changed'),1000);
+        },
+        ()=>lt.storage.get('extraPieceSets-set')
+      );
+      const container = graph.getContainer();
+      $('.dialog-content',dialog)
+        .append(container);
+
+      requestAnimationFrame(()=>graph.fillContainer());
     };
 
     async init() {
@@ -358,5 +412,243 @@
     }
 
   }
+
+class PieceSetGraph {
+    constructor(pieceSets, getPieceUrl, d3, onSelect, getSelected) {
+        this.pieceSets = pieceSets;
+        this.getPieceUrl = getPieceUrl;
+        this.d3 = d3;
+        this.onSelect = onSelect;
+        this.getSelected = getSelected;
+
+        this.width = 1400;
+        this.height = 900;
+
+        this.nodes = pieceSets.map((set, i) => {
+          const title = set.category + ' ' + set.name.replace('_'+set.category,'');
+          return {
+            id: i,
+            set,
+            name: title
+          };
+        });
+
+        this.distanceMatrix = this.buildDistanceMatrix();
+        this.parent = this.buildMST(this.distanceMatrix);
+        this.root = this.buildHierarchy();
+
+        this.container = this.render();
+    }
+
+    // -----------------------
+    // Distance
+    // -----------------------
+    buildDistanceMatrix() {
+        const n = this.nodes.length;
+        const D = Array.from({ length: n }, () => Array(n).fill(0));
+
+        for (let i = 0; i < n; i++) {
+            for (let j = i + 1; j < n; j++) {
+                const d = this.getDistance(this.nodes[i].set, this.nodes[j].set);
+                D[i][j] = D[j][i] = d;
+            }
+        }
+
+        return D;
+    }
+
+    getDistance(a, b) {
+        let total = 0, count = 0;
+
+        for (let p in a.hashes) {
+            if (b.hashes[p] !== undefined) {
+                total += this.hammingDistance(a.hashes[p], b.hashes[p]);
+                count++;
+            }
+        }
+
+        return count ? total / count : 999;
+    }
+
+    hammingDistance(a, b) {
+        let x = BigInt(a) ^ BigInt(b);
+        let d = 0;
+        while (x) {
+            d += Number(x & 1n);
+            x >>= 1n;
+        }
+        return d;
+    }
+
+    // -----------------------
+    // MST (Prim)
+    // -----------------------
+    buildMST(D) {
+        const n = D.length;
+        const parent = Array(n).fill(-1);
+        const key = Array(n).fill(Infinity);
+        const inTree = Array(n).fill(false);
+
+        key[0] = 0;
+
+        for (let _ = 0; _ < n; _++) {
+            let u = -1;
+
+            for (let i = 0; i < n; i++) {
+                if (!inTree[i] && (u === -1 || key[i] < key[u])) {
+                    u = i;
+                }
+            }
+
+            inTree[u] = true;
+
+            for (let v = 0; v < n; v++) {
+                if (inTree[v]) continue;
+
+                const adjusted = D[u][v] + v * 1e-9;
+
+                if (adjusted < key[v]) {
+                    key[v] = adjusted;
+                    parent[v] = u;
+                }
+            }
+        }
+
+        return parent;
+    }
+
+    // -----------------------
+    // Build hierarchy
+    // -----------------------
+    buildHierarchy() {
+        const nodes = this.nodes.map(n => ({
+            id: n.id,
+            name: n.name,
+            set: n.set,
+            children: []
+        }));
+
+        const root = nodes[0];
+
+        for (let i = 1; i < nodes.length; i++) {
+            const p = this.parent[i];
+            if (p >= 0) {
+                nodes[p].children.push(nodes[i]);
+            } else {
+                root.children.push(nodes[i]);
+            }
+        }
+
+        return root;
+    }
+
+    // -----------------------
+    // Render with D3
+    // -----------------------
+    render() {
+        const container = document.createElement("div");
+
+        const svg = this.d3.select(container)
+            .append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%");
+        const g = svg.append("g");
+
+        svg.call(
+            this.d3.zoom()
+                .scaleExtent([0.2, 1e6])
+                .on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                })
+        );
+
+        const root = this.d3.hierarchy(this.root);
+
+        const tree = this.d3.tree().size([4000, 4000]);
+        tree(root);
+
+        // LINKS
+        g.selectAll("path.link")
+            .data(root.links())
+            .enter()
+            .append("path")
+            .attr("d", this.d3.linkVertical()
+                .x(d => d.x + 100)
+                .y(d => d.y + 50)
+            );
+
+        // NODES
+        this.nodes = g.selectAll("g.node")
+            .data(root.descendants())
+            .enter()
+            .append("g")
+            .attr("transform", d => `translate(${d.x + 100},${d.y + 50})`);
+
+        // CIRCLE
+        this.nodes.append("circle")
+            .attr("r", 30);
+
+        // IMAGE
+        this.nodes.append("image")
+            .attr("href", d => this.getPieceUrl(d.data.set))
+            .attr("width", 48)
+            .attr("height", 48)
+            .attr("x", -24)
+            .attr("y", -24)
+            .on("click", (event, d) => {
+              this.onSelect(d.data.set);
+              this.updateSelection();
+            })
+            .append("title")
+            .text(d => d.data.name);
+
+        const simulation = this.d3.forceSimulation(root.descendants())
+            .force("x", this.d3.forceX(d => d.x + 100).strength(1))
+            .force("y", this.d3.forceY(d => d.y + 50).strength(1))
+            .force("collide", this.d3.forceCollide(36)) // radius + padding
+            .stop();
+
+        for (let i = 0; i < 60; i++) {
+          simulation.tick();
+        }
+
+        this.nodes.attr("transform", d =>
+            `translate(${d.x},${d.y})`
+        );
+
+        this.rendered = {
+          g:g,
+          svg:svg
+        };
+        this.updateSelection();
+        return container;
+    }
+
+    updateSelection() {
+      const setName = this.getSelected();
+      this.nodes.select("circle")
+        .attr("class", d =>
+            d.data.set.name === setName ? "selected" : ""
+        );
+    }
+    // -----------------------
+    // Public API
+    // -----------------------
+    getContainer() {
+        return this.container;
+    }
+
+    fillContainer() {
+        const bounds = this.rendered?.g.node().getBBox();
+
+        this.rendered?.svg.attr("viewBox", [
+          bounds.x,
+          bounds.y,
+          bounds.width,
+          bounds.height
+        ].join(" "));
+    }
+}
+
   LiChessTools.Tools.ExtraPieceSets = ExtraPieceSetsTool;
 })();

@@ -1099,7 +1099,9 @@
     "soundThemes.starWars": "حرب النجوم",
     "options.teamStats": "إحصاءات الفريق",
     "teamStats.memberCount": "عدد الأعضاء",
-    "teamMemberCountTitle": "أدوات شطرنج الحياة - مخطط عدد الأعضاء"
+    "teamMemberCountTitle": "أدوات شطرنج الحياة - مخطط عدد الأعضاء",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2201,7 +2203,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Team statistics",
     "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "teamMemberCountTitle": "LiChess Tools - member count chart",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3303,7 +3307,9 @@
     "soundThemes.starWars": "星球大战",
     "options.teamStats": "团队统计",
     "teamStats.memberCount": "会员数量",
-    "teamMemberCountTitle": "Lichess 工具 - 成员计数表"
+    "teamMemberCountTitle": "Lichess 工具 - 成员计数表",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4405,7 +4411,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Team statistics",
     "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "teamMemberCountTitle": "LiChess Tools - member count chart",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5507,7 +5515,9 @@
     "soundThemes.starWars": "Hvězdné války",
     "options.teamStats": "Statistika týmu",
     "teamStats.memberCount": "Počet členů",
-    "teamMemberCountTitle": "Nástroje LiChess - počet členů"
+    "teamMemberCountTitle": "Nástroje LiChess - počet členů",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6609,7 +6619,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Team statistieken",
     "teamStats.memberCount": "Aantal leden",
-    "teamMemberCountTitle": "LiChess Tools - ledenteldiagram"
+    "teamMemberCountTitle": "LiChess Tools - ledenteldiagram",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7711,7 +7723,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Team statistics",
     "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "teamMemberCountTitle": "LiChess Tools - member count chart",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8813,7 +8827,9 @@
     "soundThemes.starWars": "Guerre des Étoiles",
     "options.teamStats": "Statistiques d'équipe",
     "teamStats.memberCount": "Nombre de membres",
-    "teamMemberCountTitle": "LiChess Tools - graphique du nombre de membres"
+    "teamMemberCountTitle": "LiChess Tools - graphique du nombre de membres",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9915,7 +9931,9 @@
     "soundThemes.starWars": "Star Kriege",
     "options.teamStats": "Teamstatistik",
     "teamStats.memberCount": "Mitgliederanzahl",
-    "teamMemberCountTitle": "LiChess-Tools - Mitgliederanzahl"
+    "teamMemberCountTitle": "LiChess-Tools - Mitgliederanzahl",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11017,7 +11035,9 @@
     "soundThemes.starWars": "Πόλεμος Των Αστέρων",
     "options.teamStats": "Στατιστικά ομάδας",
     "teamStats.memberCount": "Αριθμός μελών",
-    "teamMemberCountTitle": "LiChess Tools - διάγραμμα καταμέτρησης μελών"
+    "teamMemberCountTitle": "LiChess Tools - διάγραμμα καταμέτρησης μελών",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12119,7 +12139,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Team statistics",
     "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "teamMemberCountTitle": "LiChess Tools - member count chart",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13221,7 +13243,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Team statistics",
     "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "teamMemberCountTitle": "LiChess Tools - member count chart",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14323,7 +14347,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Statistiche di squadra",
     "teamStats.memberCount": "Numero membri",
-    "teamMemberCountTitle": "Strumenti LiChess - grafico conteggio membri"
+    "teamMemberCountTitle": "Strumenti LiChess - grafico conteggio membri",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15425,7 +15451,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Team statistics",
     "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "teamMemberCountTitle": "LiChess Tools - member count chart",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16527,7 +16555,9 @@
     "soundThemes.starWars": "Gwiezdne Wojny",
     "options.teamStats": "Statystyki zespołu",
     "teamStats.memberCount": "Liczba członków",
-    "teamMemberCountTitle": "Narzędzia LiChess - wykres liczników użytkowników"
+    "teamMemberCountTitle": "Narzędzia LiChess - wykres liczników użytkowników",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -17629,7 +17659,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Estatísticas da equipe",
     "teamStats.memberCount": "Contagem de membros",
-    "teamMemberCountTitle": "LiChess Tools - gráfico de contagem de membros"
+    "teamMemberCountTitle": "LiChess Tools - gráfico de contagem de membros",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -18731,7 +18763,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Estatísticas da equipe",
     "teamStats.memberCount": "Contagem de membros",
-    "teamMemberCountTitle": "LiChess Tools - gráfico de contagem de membros"
+    "teamMemberCountTitle": "LiChess Tools - gráfico de contagem de membros",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -19833,7 +19867,9 @@
     "soundThemes.starWars": "Războiul stelelor",
     "options.teamStats": "Statistici echipe",
     "teamStats.memberCount": "Număr de membri",
-    "teamMemberCountTitle": "LiChess Tools - grafic cu numărul de membri"
+    "teamMemberCountTitle": "LiChess Tools - grafic cu numărul de membri",
+    "pieceSetTreeTitle": "LiChess Tools - arată arborele seturilor de piese",
+    "pieceSetTreeHeader": "Seturi de piese"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -20935,7 +20971,9 @@
     "soundThemes.starWars": "Звездные войны",
     "options.teamStats": "Статистика команды",
     "teamStats.memberCount": "Количество участников",
-    "teamMemberCountTitle": "Инструменты Жизни - количество участников"
+    "teamMemberCountTitle": "Инструменты Жизни - количество участников",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22037,7 +22075,9 @@
     "soundThemes.starWars": "Guerras Estrellas",
     "options.teamStats": "Estadísticas del equipo",
     "teamStats.memberCount": "Número de miembros",
-    "teamMemberCountTitle": "Herramientas de LiChess - gráfico de conteo de miembros"
+    "teamMemberCountTitle": "Herramientas de LiChess - gráfico de conteo de miembros",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23139,7 +23179,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Team statistics",
     "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "teamMemberCountTitle": "LiChess Tools - member count chart",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24241,7 +24283,9 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Team statistics",
     "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "teamMemberCountTitle": "LiChess Tools - member count chart",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -25343,6 +25387,8 @@
     "soundThemes.starWars": "Star Wars",
     "options.teamStats": "Team statistics",
     "teamStats.memberCount": "Member count",
-    "teamMemberCountTitle": "LiChess Tools - member count chart"
+    "teamMemberCountTitle": "LiChess Tools - member count chart",
+    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
+    "pieceSetTreeHeader": "Piece sets"
   }
 }
