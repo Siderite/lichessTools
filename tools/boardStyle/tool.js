@@ -67,7 +67,7 @@
                           .filter((i,e)=>e.cgKey===destKey)
                           .toggleClassSafe('moved',true)
                           .get()[0];
-          const cgPiece = piece
+          const cgPiece = piece?.cgPiece
             ? piece.cgPiece.split(' ')
             : [destKey?.endsWith('1')?'white':'black','king'];
           const isBlackTurn = cgPiece[0]=='white';
@@ -98,7 +98,7 @@
       </svg>`).appendTo(container);
             }
             const dist = Math.sqrt(Math.pow(dest.x-orig.x,2)+Math.pow(dest.y-orig.y,2));
-            const shortener = dist==0 ? 1 : (dist - 25*q)/dist;
+            const shortener = dist==0 ? 1 : (dist - 50/q)/dist;
             const shorterDest = {
               x: Math.round(orig.x+(dest.x-orig.x)*shortener),
               y: Math.round(orig.y+(dest.y-orig.y)*shortener)
@@ -159,9 +159,11 @@
         .off('square.last-move,square.selected',this.processBoards);
       $('.lichessTools-lastMoveArrow').remove();
       $('cg-container').toggleClassSafe('lichessTools-boardStyle',false);
+      lt.uiApi.events.off('ply', this.processBoards);
       if (value) {
         $('body').observer()
           .on('square.last-move,square.selected',this.processBoards, { attributes: true });
+        lt.uiApi.events.on('ply', this.processBoards);
         this.processBoards();
       }
     }
