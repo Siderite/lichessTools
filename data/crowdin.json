@@ -8828,8 +8828,8 @@
     "options.teamStats": "Statistiques d'équipe",
     "teamStats.memberCount": "Nombre de membres",
     "teamMemberCountTitle": "LiChess Tools - graphique du nombre de membres",
-    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeTitle": "LiChess Tools - afficher l'arborescence des jeux de pièces",
+    "pieceSetTreeHeader": "Jeux de pièces"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11036,8 +11036,8 @@
     "options.teamStats": "Στατιστικά ομάδας",
     "teamStats.memberCount": "Αριθμός μελών",
     "teamMemberCountTitle": "LiChess Tools - διάγραμμα καταμέτρησης μελών",
-    "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeTitle": "LiChess Tools - ανάδειξη το δέντρο των σετ κομματιών",
+    "pieceSetTreeHeader": "Σετ κομματιών"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
