@@ -32,7 +32,7 @@
     }
 
     urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    regChessMove = /(?<number>\d+\.\s?(\.\.)?\s*)?(?<move>\b((?<castle>[0O]-[0O](-[0O])?)|(?<piece>[NBRQK])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK]))?)(?<p2>\+|#)?)(?<glyph>[!\?]{1,2})?/g;
+    regChessMove = /(?<number>\d+\.\s?(\.\.)?\s*)?(?<move>\b((?<castle>[0O]-[0O](-[0O])?)|(?<piece>[NBRQK\u2654\u2655\u2656\u2657\u2658])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK\u2654\u2655\u2656\u2657\u2658]))?)(?<p2>\+|#)?)(?<glyph>[!\?]{1,2})?/g;
     pieces = {
       'p':'pawn',
       'n':'knight',
