@@ -58,6 +58,7 @@
             .toggleClassSafe('orig',true);
 
           const destKey = lastMoves[0]?.cgKey;
+          const origKey = lastMoves[1]?.cgKey;
           container.find('piece.moved')
             .each((i,e)=>{
               $(e).toggleClassSafe('moved',e.cgKey==destKey);
@@ -89,7 +90,7 @@
             <stop offset="0%" class="stop-0" />
             <stop offset="100%" class="stop-100" />
           </linearGradient>
-          <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="3" refY="1.75" orient="auto" markerUnits="strokeWidth">
+          <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="3" refY="1.75" orient="auto-start-reverse" markerUnits="strokeWidth">
             <polygon points="0 0, 5 1.75, 0 3.5" class="arrowhead" />
           </marker>
         </defs>
@@ -112,6 +113,8 @@
               .attrSafe('y1',orig.y)
               .attrSafe('x2',shorterDest.x)
              .attrSafe('y2',shorterDest.y);
+            const isCastle = cgPiece[1] == 'king' && Math.abs(destKey[0].charCodeAt(0)-origKey[0].charCodeAt(0))>1; //TODO not perfect, breaks in certain positions in Chess960
+            arrow.toggleClassSafe('castle',isCastle);
           }
           if (e.usesArrow === undefined) {
             e.usesArrow = arrow.css('display') != 'none';

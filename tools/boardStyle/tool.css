@@ -19,6 +19,10 @@ body.lichessTools .lichessTools-lastMoveArrow .arrow-line {
   marker-end: url(#arrowhead);
 }
 
+body.lichessTools .lichessTools-lastMoveArrow.castle .arrow-line {
+  marker-start: url(#arrowhead);
+}
+
 body.lichessTools .lichessTools-lastMoveArrow .arrowhead {
   fill: var(--lt-end-color);
 }
