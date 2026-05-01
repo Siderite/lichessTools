@@ -144,6 +144,8 @@
             .removeAttrSafe('lastMoveSquare')
             .removeAttrSafe('lastPieceCaptured');
         }
+        const opening = container.closest('.lichessTools-withOpening').prop('openingData');
+        container.attrSafe('opening',opening?.opening || null);
       });
     };
     processBoards = this.lichessTools.debounce(this.processBoardsDirect,100);

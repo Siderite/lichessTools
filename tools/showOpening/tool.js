@@ -123,6 +123,7 @@
     openingTime = 0;
     withOpening = async (gameId, el, ply, fen, isMini) => {
       const lt = this.lichessTools;
+      const $ = lt.$;
       if (!lt.inViewport(el,true)) return;
       const analysis = lt.lichess?.analysis;
       const Math = lt.global.Math;
@@ -151,7 +152,11 @@
             analysis?.redraw();
           }
           el.openingData = { time: Date.now(), opening, el };
+          $(el).toggleClassSafe('lichessTools-withOpening',true);
           return el.openingData;
+        } else {
+          delete el.openingData;
+          $(el).toggleClassSafe('lichessTools-withOpening',false);
         }
       }
       
