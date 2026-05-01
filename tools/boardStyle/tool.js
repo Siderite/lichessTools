@@ -96,19 +96,26 @@
         <line class="arrow-line" />
       </svg>`).appendTo(container);
             }
+            const dist = Math.sqrt(Math.pow(dest.x-orig.x,2)+Math.pow(dest.y-orig.y,2));
+            const shortener = dist==0 ? 1 : (dist - 25*q)/dist;
+            const shorterDest = {
+              x: Math.round(orig.x+(dest.x-orig.x)*shortener),
+              y: Math.round(orig.y+(dest.y-orig.y)*shortener)
+            };
             arrow.find('.arrow-line')
               .attrSafe('x1',orig.x)
               .attrSafe('y1',orig.y)
-              .attrSafe('x2',dest.x)
-              .attrSafe('y2',dest.y);
+              .attrSafe('x2',shorterDest.x)
+              .attrSafe('y2',shorterDest.y);
             arrow.find('#arrowGradient')
               .attrSafe('x1',orig.x)
               .attrSafe('y1',orig.y)
-              .attrSafe('x2',dest.x)
-             .attrSafe('y2',dest.y);
+              .attrSafe('x2',shorterDest.x)
+             .attrSafe('y2',shorterDest.y);
           }
           if (e.usesArrow === undefined) {
             e.usesArrow = arrow.css('display') != 'none';
+            if (!e.usesArrow) arrow.remove();
           }
           const side = isBlackTurn ? 'black' : 'white';
           const prevSide = container.attr('sideToPlay');
