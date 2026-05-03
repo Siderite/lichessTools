@@ -28,6 +28,13 @@
   --icon-WhiteChessRook: "\2656";
   --icon-WhiteChessQueen: "\2655";
   --icon-WhiteChessKing: "\2654";
+  --icon-WhiteChessPawn: "\2659";
+  --icon-BlackChessKnight: "\265E";
+  --icon-BlackChessBishop: "\265D";
+  --icon-BlackChessRook: "\265C";
+  --icon-BlackChessQueen: "\265B";
+  --icon-BlackChessKing: "\265A";
+  --icon-BlackChessPawn: "\265F";
   --icon-WhiteStar: "\2606";
   --icon-BulletPoint: "\2022";
   --icon-Ellipsis: "\2026";

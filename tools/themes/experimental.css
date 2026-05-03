@@ -10,28 +10,296 @@ body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle .lich
   marker-start: url(#arrowhead);
 }
 
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Italian"] .last-move.orig {
-  background: linear-gradient(
-    to right,
-    #00924680 0%,
-    #00924680 33.33%,
-    #ffffff80 33.33%,
-    #ffffff80 66.66%,
-    #ce2b3780 66.66%,
-    #ce2b3780 100%
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay][lastMovedPiece]:before {
+  font-family: lichess;
+  position: absolute;
+  left: -1.5em;
+  bottom: 0;
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][lastMovedPiece]:before {
+  color: white;
+  text-shadow:
+    0 0 5px #000;
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][lastMovedPiece]:before {
+  color: black;
+  text-shadow:
+    0 0 5px #fff;
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][lastMovedPiece="pawn"]:before {
+  content: var(--icon-WhiteChessPawn);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][lastMovedPiece="knight"]:before {
+  content: var(--icon-WhiteChessKnight);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][lastMovedPiece="bishop"]:before {
+  content: var(--icon-WhiteChessBishop);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][lastMovedPiece="rook"]:before {
+  content: var(--icon-WhiteChessRook);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][lastMovedPiece="queen"]:before {
+  content: var(--icon-WhiteChessQueen);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][lastMovedPiece="king"]:before {
+  content: var(--icon-WhiteChessKing);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][lastMovedPiece="pawn"]:before {
+  content: var(--icon-BlackChessPawn);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][lastMovedPiece="knight"]:before {
+  content: var(--icon-BlackChessKnight);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][lastMovedPiece="bishop"]:before {
+  content: var(--icon-BlackChessBishop);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][lastMovedPiece="rook"]:before {
+  content: var(--icon-BlackChessRook);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][lastMovedPiece="queen"]:before {
+  content: var(--icon-BlackChessQueen);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][lastMovedPiece="king"]:before {
+  content: var(--icon-BlackChessKing);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"] square.move-dest {
+  background: linear-gradient(#54A56e80, #74C58e80);
+  clip-path: polygon(
+    50% 35%,
+    65% 65%,
+    35% 65%
   );
 }
 
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"] square.move-dest {
+  background: linear-gradient(#04350e80, #04150e80);
 
+  clip-path: polygon(
+    42% 35%, 58% 35%,
+    65% 50%,
+    58% 65%, 42% 65%,
+    35% 50%
+  );
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay]:after {
+  content: var(--icon-DiscBig);
+  font-family: lichess;
+  position: absolute;
+  right: -1.5em;
+  top: 0;
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"]:after {
+  color: black;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff;
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"]:after {
+  color: white;
+  text-shadow:
+    0 0 5px #000,
+    0 0 10px #000;
+}
+
+/* Italy */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Italian"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/IT.png") no-repeat center / cover;
+}
+
+/* Spain */
 body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Spanish"] .last-move.orig,
 body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Ruy Lopez"] .last-move.orig {
-  background: linear-gradient(
-    to bottom,
-    #aa151b80 0%,
-    #aa151b80 25%,
-    #f1bf0080 25%,
-    #f1bf0080 75%,
-    #aa151b80 75%,
-    #aa151b80 100%
-  );
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/ES.png") no-repeat center / cover;
+}
+
+/* France */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="French"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/FR.png") no-repeat center / cover;
+}
+
+/* England */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="English"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/GB.png") no-repeat center / cover;
+}
+
+/* Scotland (Scotch Game) */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Scotch"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/GB-SCT.png") no-repeat center / cover;
+}
+
+/* Ireland */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Irish"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/IE.png") no-repeat center / cover;
+}
+
+/* Germany */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="German"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/DE.png") no-repeat center / cover;
+}
+
+/* Austria */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Austrian"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/AT.png") no-repeat center / cover;
+}
+
+/* Hungary */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Hungarian"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/HU.png") no-repeat center / cover;
+}
+
+/* Poland */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Polish"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/PL.png") no-repeat center / cover;
+}
+
+/* Netherlands */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Dutch"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/NL.png") no-repeat center / cover;
+}
+
+/* Denmark */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Danish"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/DK.png") no-repeat center / cover;
+}
+
+/* Sweden */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Swedish"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/SE.png") no-repeat center / cover;
+}
+
+/* Norway */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Norwegian"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/NO.png") no-repeat center / cover;
+}
+
+/* Finland */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Finnish"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/FI.png") no-repeat center / cover;
+}
+
+/* Russia */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Russian"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/RU.png") no-repeat center / cover;
+}
+
+/* Ukraine */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Ukrainian"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/UA.png") no-repeat center / cover;
+}
+
+/* Czech */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Czech"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/CZ.png") no-repeat center / cover;
+}
+
+/* Slovakia */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Slovak"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/SK.png") no-repeat center / cover;
+}
+
+/* Romania */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Romanian"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/RO.png") no-repeat center / cover;
+}
+
+/* Bulgaria */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Bulgarian"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/BG.png") no-repeat center / cover;
+}
+
+/* Greece */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Greek"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/GR.png") no-repeat center / cover;
+}
+
+/* Turkey */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Turkish"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/TR.png") no-repeat center / cover;
+}
+
+/* India (covers: King's Indian, Queen's Indian, Indian Defense) */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[opening*="Indian"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/IN.png") no-repeat center / cover;
+}
+
+/* China */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Chinese"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/CN.png") no-repeat center / cover;
+}
+
+/* Japan */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Japanese"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/JP.png") no-repeat center / cover;
+}
+
+/* Argentina */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Argentine"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/AR.png") no-repeat center / cover;
+}
+
+/* Mexico */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Mexican"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/MX.png") no-repeat center / cover;
+}
+
+/* Brazil */
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Brazilian"] .last-move.orig {
+  opacity: 0.5; background: url("https://lichess1.org/assets/flags/BR.png") no-repeat center / cover;
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[lastPieceCaptured] square.last-move.dest::after {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    pointer-events: none;
+
+    /* rough splatter look using radial gradients */
+    background:
+        radial-gradient(circle at 30% 40%, rgba(180, 0, 0, 0.5) 0 18%, transparent 19%),
+        radial-gradient(circle at 60% 30%, rgba(180, 0, 0, 0.4) 0 12%, transparent 13%),
+        radial-gradient(circle at 50% 70%, rgba(140, 0, 0, 0.45) 0 20%, transparent 21%),
+        radial-gradient(circle at 70% 60%, rgba(160, 0, 0, 0.35) 0 10%, transparent 11%);
+
+    opacity: 0;
+    transform: scale(0.3);
+    filter: blur(0.2px);
+
+    animation: bloodBurst 700ms ease-out forwards;
+}
+
+@keyframes bloodBurst {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    15% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
 }
