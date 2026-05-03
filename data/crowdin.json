@@ -1101,7 +1101,8 @@
     "teamStats.memberCount": "عدد الأعضاء",
     "teamMemberCountTitle": "أدوات شطرنج الحياة - مخطط عدد الأعضاء",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2205,7 +2206,8 @@
     "teamStats.memberCount": "Member count",
     "teamMemberCountTitle": "LiChess Tools - member count chart",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3309,7 +3311,8 @@
     "teamStats.memberCount": "成员数量",
     "teamMemberCountTitle": "LiChess Tools - 成员数量图表",
     "pieceSetTreeTitle": "LiChess Tools - 显示棋子样式树状图",
-    "pieceSetTreeHeader": "棋子样式"
+    "pieceSetTreeHeader": "棋子样式",
+    "themes.experimental": "Experimental"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4413,7 +4416,8 @@
     "teamStats.memberCount": "Member count",
     "teamMemberCountTitle": "LiChess Tools - member count chart",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5517,7 +5521,8 @@
     "teamStats.memberCount": "Počet členů",
     "teamMemberCountTitle": "Nástroje LiChess - počet členů",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6621,7 +6626,8 @@
     "teamStats.memberCount": "Aantal leden",
     "teamMemberCountTitle": "LiChess Tools - ledenteldiagram",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7725,7 +7731,8 @@
     "teamStats.memberCount": "Member count",
     "teamMemberCountTitle": "LiChess Tools - member count chart",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8829,7 +8836,8 @@
     "teamStats.memberCount": "Nombre de membres",
     "teamMemberCountTitle": "LiChess Tools - graphique du nombre de membres",
     "pieceSetTreeTitle": "LiChess Tools - afficher l'arborescence des jeux de pièces",
-    "pieceSetTreeHeader": "Jeux de pièces"
+    "pieceSetTreeHeader": "Jeux de pièces",
+    "themes.experimental": "Experimental"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9933,7 +9941,8 @@
     "teamStats.memberCount": "Mitgliederanzahl",
     "teamMemberCountTitle": "LiChess-Tools - Mitgliederanzahl",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11037,7 +11046,8 @@
     "teamStats.memberCount": "Αριθμός μελών",
     "teamMemberCountTitle": "LiChess Tools - διάγραμμα καταμέτρησης μελών",
     "pieceSetTreeTitle": "LiChess Tools - ανάδειξη το δέντρο των σετ κομματιών",
-    "pieceSetTreeHeader": "Σετ κομματιών"
+    "pieceSetTreeHeader": "Σετ κομματιών",
+    "themes.experimental": "Experimental"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12141,7 +12151,8 @@
     "teamStats.memberCount": "Member count",
     "teamMemberCountTitle": "LiChess Tools - member count chart",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13245,7 +13256,8 @@
     "teamStats.memberCount": "Member count",
     "teamMemberCountTitle": "LiChess Tools - member count chart",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14349,7 +14361,8 @@
     "teamStats.memberCount": "Numero membri",
     "teamMemberCountTitle": "Strumenti LiChess - grafico conteggio membri",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15453,7 +15466,8 @@
     "teamStats.memberCount": "Member count",
     "teamMemberCountTitle": "LiChess Tools - member count chart",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16557,7 +16571,8 @@
     "teamStats.memberCount": "Liczba członków",
     "teamMemberCountTitle": "Narzędzia LiChess - wykres liczników użytkowników",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -17661,7 +17676,8 @@
     "teamStats.memberCount": "Contagem de membros",
     "teamMemberCountTitle": "LiChess Tools - gráfico de contagem de membros",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -18765,7 +18781,8 @@
     "teamStats.memberCount": "Contagem de membros",
     "teamMemberCountTitle": "LiChess Tools - gráfico de contagem de membros",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -19869,7 +19886,8 @@
     "teamStats.memberCount": "Număr de membri",
     "teamMemberCountTitle": "LiChess Tools - grafic cu numărul de membri",
     "pieceSetTreeTitle": "LiChess Tools - arată arborele seturilor de piese",
-    "pieceSetTreeHeader": "Seturi de piese"
+    "pieceSetTreeHeader": "Seturi de piese",
+    "themes.experimental": "Experimentală"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -20973,7 +20991,8 @@
     "teamStats.memberCount": "Количество участников",
     "teamMemberCountTitle": "Инструменты Жизни - количество участников",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22077,7 +22096,8 @@
     "teamStats.memberCount": "Número de miembros",
     "teamMemberCountTitle": "LiChess Tools - gráfico de conteo de miembros",
     "pieceSetTreeTitle": "LiChess Tools - mostrar árbol de estilos de piezas",
-    "pieceSetTreeHeader": "Estilos de piezas"
+    "pieceSetTreeHeader": "Estilos de piezas",
+    "themes.experimental": "Experimental"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23181,7 +23201,8 @@
     "teamStats.memberCount": "Member count",
     "teamMemberCountTitle": "LiChess Tools - member count chart",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24285,7 +24306,8 @@
     "teamStats.memberCount": "Üye sayısı",
     "teamMemberCountTitle": "LiChess Tools - üye sayısı çizelgesi",
     "pieceSetTreeTitle": "LiChess Tools - taş setleri ağacını göster",
-    "pieceSetTreeHeader": "Taş setleri"
+    "pieceSetTreeHeader": "Taş setleri",
+    "themes.experimental": "Experimental"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -25389,6 +25411,7 @@
     "teamStats.memberCount": "Member count",
     "teamMemberCountTitle": "LiChess Tools - member count chart",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets"
+    "pieceSetTreeHeader": "Piece sets",
+    "themes.experimental": "Experimental"
   }
 }
