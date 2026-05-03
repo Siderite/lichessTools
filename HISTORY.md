@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+03 May
+
+- Experimental theme added
+
 30 Apr
 
 - piece set similarity tree
