@@ -318,7 +318,7 @@
       this.populateTooltip();
       $('.lichessTools-shapeDrawing-tooltip')
                         .toggleClassSafe('show', !isTooltip)
-                        .css('left',mainButton.offset().left+'px');
+                        .css('left',(mainButton.offset().left+mainButton.width()/2)+'px');
       this._tappedBrush = true;
     };
 
