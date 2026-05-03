@@ -1,0 +1,37 @@
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle .lichessTools-lastMoveArrow {
+  display: block !important;
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle square.last-move {
+  background: none;
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle .lichessTools-lastMoveArrow.castle .arrow-line {
+  marker-start: url(#arrowhead);
+}
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Italian"] .last-move.orig {
+  background: linear-gradient(
+    to right,
+    #00924680 0%,
+    #00924680 33.33%,
+    #ffffff80 33.33%,
+    #ffffff80 66.66%,
+    #ce2b3780 66.66%,
+    #ce2b3780 100%
+  );
+}
+
+
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Spanish"] .last-move.orig,
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Ruy Lopez"] .last-move.orig {
+  background: linear-gradient(
+    to bottom,
+    #aa151b80 0%,
+    #aa151b80 25%,
+    #f1bf0080 25%,
+    #f1bf0080 75%,
+    #aa151b80 75%,
+    #aa151b80 100%
+  );
+}
