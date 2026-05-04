@@ -3312,7 +3312,7 @@
     "teamMemberCountTitle": "LiChess Tools - 成员数量图表",
     "pieceSetTreeTitle": "LiChess Tools - 显示棋子样式树状图",
     "pieceSetTreeHeader": "棋子样式",
-    "themes.experimental": "Experimental"
+    "themes.experimental": "实验性功能"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -6626,8 +6626,8 @@
     "teamStats.memberCount": "Aantal leden",
     "teamMemberCountTitle": "LiChess Tools - ledenteldiagram",
     "pieceSetTreeTitle": "LiChess Tools - show tree of piece sets",
-    "pieceSetTreeHeader": "Piece sets",
-    "themes.experimental": "Experimental"
+    "pieceSetTreeHeader": "Schaakstukken",
+    "themes.experimental": "Experimenteel"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
