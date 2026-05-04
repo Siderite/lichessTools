@@ -745,8 +745,16 @@
           lichess.asset.loadCssPath('user.account');
           openPreferences();
           const fc = () => {
-            const m = /#lichessTools\/(?<pref>.*)$/.exec(location.hash);
+            const m = /#lichessTools(\/(?<pref>[^\/\?&#]*))?(#(?<filter>.+))?$/.exec(location.hash);
             const pref = m?.groups?.pref;
+            const filter = m?.groups?.filter;
+            if (filter) {
+              const elem = $('input.prefFilter');
+              if (elem.val() != filter) {
+                elem.val(filter);
+                elem.trigger('input');
+              }
+            }
             if (pref && pref != $this._lastScrolled) {
               const elem = $('[data-pref="' + pref + '"]');
               if (!elem.length) {
