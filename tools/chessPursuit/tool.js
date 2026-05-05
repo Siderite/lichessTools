@@ -68,6 +68,9 @@
           .attr('title', trans.noarg('chessPursuitTitle'))
           .on('click',async (ev)=>{
             ev.preventDefault();
+
+            $('#tn-tg').prop('checked',false); // close the mobile menu if opened
+
             const dlg = await lt.dialog({
               header: trans.noarg('chessPursuitHeader')
             });

@@ -245,6 +245,8 @@
       const $ = lt.$;
       const trans = lt.translator;
 
+      $('#tn-tg').prop('checked',false); // close the mobile menu if opened
+
       $('body').toggleClassSafe('lichessTools-page',true);
 
       this._prevTitle ||= lt.global.document.title;
