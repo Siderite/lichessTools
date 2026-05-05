@@ -78,7 +78,6 @@
                 dialog
                   .addClass('dragged')
                   .css({
-                    transform: 'none',
                     left: left,
                     top: top
                   });
@@ -106,7 +105,6 @@
             let rect = dialog[0].getBoundingClientRect();
             dialog
               .css({
-                transform: 'none',
                 left: rect.x,
                 top: rect.y,
                 right: 'unset',
