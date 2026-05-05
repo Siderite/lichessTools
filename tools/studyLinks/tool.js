@@ -160,6 +160,8 @@
 
     setDialogPlacement = (data) => {
       const lt = this.lichessTools;
+      const $ = lt.$;
+      if (!$('dialog.lichessTools-video').length) return;
       lt.storage.set('LichessTools.dialogPlacement', data);
       this.ensureInViewport();
     };

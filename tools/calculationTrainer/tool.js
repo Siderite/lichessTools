@@ -58,6 +58,8 @@
       const trans = lt.translator;
       const analysis = lichess.analysis;
 
+      $('#tn-tg').prop('checked',false); // close the mobile menu if opened
+
       container = $(container);
       container.html(lt.spinnerHtml);
 
@@ -172,9 +174,21 @@
 
     updatePlacement = (data) => {
       const lt = this.lichessTools;
+      const $ = lt.$;
+      if (!$('dialog.lichessTools-calculationTrainer').length) return;
       this.options.placement = data;
       lt.storage.set('LiChessTools.calculationTrainer',this.options);
     };
+
+    ensureInViewport = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const dialog = $('dialog.lichessTools-calculationTrainer');
+      if (lt.inViewport($('.dialog-header', dialog), true) < 0.5) {
+        $(dialog).css({ left: '', top: '', right: '', bottom: '' });
+        $('.dialog-content', dialog).css({ width: '', height: '' });
+      }
+    }
 
     async start() {
       const lt = this.lichessTools;
@@ -231,6 +245,7 @@
             dlg.focus();
             const container = $(dlg).find('.dialog-content')[0];
             await this.trainPosition(container, analysis.node.fen,sfOptions);
+            this.ensureInViewport();
           },100);
           dlg.showModal();          
         })
