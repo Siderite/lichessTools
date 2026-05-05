@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+05 May
+
+- Calculation trainer
+
 03 May
 
 - Experimental theme added

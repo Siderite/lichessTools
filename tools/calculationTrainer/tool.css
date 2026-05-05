@@ -1,0 +1,45 @@
+body.lichessTools dialog.lichessTools-calculationTrainer .dialog-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  min-width: 25em;
+  min-height: 13em;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.score {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.score .good {
+  color: var(--c-good);
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.score .bad {
+  color: var(--c-bad);
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.choices {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  gap: 1em;
+  padding: 1em;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.choices button {
+  flex: 0 0 calc(50% - 1em);
+  text-transform: none;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer span.empty {
+  display: flex;
+  padding: 2em 4em;
+  font-size: 1.5em;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.toggles {
+  display: flex;
+  gap: 0.5em;
+  justify-content: space-between;
+}

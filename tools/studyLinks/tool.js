@@ -152,7 +152,7 @@
           $(dialog).css('bottom', dialogPlacement.bottom || 'unset');
           $('.dialog-content', dialog).css('width', dialogPlacement.width);
           $('.dialog-content', dialog).css('height', dialogPlacement.height);
-        };
+        }
         dialog.show();
         this.ensureInViewport();
       }
