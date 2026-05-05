@@ -202,7 +202,7 @@
           ev.preventDefault();
           const dlg = await lt.dialog({
             header: trans.noarg('calculationTrainerHeader'),
-            resizeable: true
+            resizable: true
           });
 
           const sfOptions = {

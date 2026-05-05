@@ -97,7 +97,7 @@
         }
       }
 
-      if (options.resizeable) {
+      if (options.resizable) {
         const resize = $('<div class="dialog-resize">')
           .appendTo(dialog);
         resize
