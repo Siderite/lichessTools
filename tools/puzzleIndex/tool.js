@@ -136,15 +136,23 @@
         if (!lichess.analysis.explorer.enabled()) return;
         if (lichess.analysis.explorer.loading()) {
           lt.global.setTimeout(this.searchPosition,50);
+          return;
         }
         const fen = lichess.analysis.node.fen?.split(' ').slice(0,2).join(' ');
         if (lt.isStartFen(fen)) return;
         this.searching=fen;
+        let retry = false;
         if (this.options.puzzleIndex && !this.indexFile) {
           this.loadData();
+          retry = true;
         }
         if (this.options.yourPuzzleIndex && !this.yourPuzzles) {
           this.loadYourData();
+          retry = true;
+        }
+        if (retry) {
+          lt.global.setTimeout(this.searchPosition,50);
+          return;
         }
 
         const $ = lt.$;
@@ -203,7 +211,9 @@
             .attr('title',trans.noarg('puzzleHeaderText'))
             .on('click',ev=>{
               ev.preventDefault();
-              $('.explorer-box table.lichessTools-puzzles').each((i,e)=>e.scrollIntoView());
+              $('.explorer-box table.lichessTools-puzzles').each((i,e)=>e.scrollIntoView({
+                container: 'nearest'
+              }));
             })
             .appendTo($('.explorer-title',container));
         }

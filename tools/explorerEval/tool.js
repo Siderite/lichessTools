@@ -118,8 +118,13 @@
                   const uci = $(ev.target).parents("tr").attr("data-uci");
                   analysis.explorerMove(uci);
                 })
-            )
-            .appendTo(dataElem);
+            );
+            const puzzles = $('section.explorer-box table.lichessTools-puzzles');
+            if (puzzles.length) {
+              container.insertBefore(puzzles);
+            } else {
+              container.appendTo(dataElem);
+            }
           dataElem.toggleClassSafe('empty',false);
         } else {
           return;
