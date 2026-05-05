@@ -1174,7 +1174,8 @@ https://www.chessable.com/course/${courseId}/ } *`)
             if (comments.find(c => /^eval: /.test(c))) continue;
             lastInfo = null;
             info = null;
-            sf.setPosition(node.data.fen);
+            const fen = node.data.fen;
+            sf.setPosition(fen);
             sf.start();
             while (!info && !this._cancelRequested) {
               await lt.timeout(100);
@@ -1183,7 +1184,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
               break;
             }
             await sf.stop();
-            const side = node.data.fen.split(' ')[1] == 'b' ? -1 : 1;
+            const side = fen.split(' ')[1] == 'b' ? -1 : 1;
             const evalText = "eval: " + (info.mate!==undefined ? '#' + (side * info.mate) : ((side * info.cp) > 0 ? '+' : '') + (side * info.cp / 100).toFixed(decimals));
             node.data.comments = [...comments, evalText];
             this.writeNote(trans.pluralSame('evaluatingMoves', totalMoves));
