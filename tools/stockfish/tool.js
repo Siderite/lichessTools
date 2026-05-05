@@ -164,6 +164,43 @@
       }
     }
 
+    async evaluate(fen,options) {
+      try {
+        const lt = this.lt;
+
+        let info = null;
+        let lastInfo = [];
+
+        const sf = await this.load();
+        if (!sf) throw new Error('Could not load Stockfish!');
+        const pv = options.pv || 1;
+        const depth = options.depth || 16;
+        sf.setMultiPv(pv);
+        sf.setDepth(depth);
+        sf.on('info', i => { 
+          if (i.cp === undefined && i.mate === undefined) return;
+          const ipv = i.multipv?.[0] || 1;
+          lastInfo[ipv-1] = i;
+        });
+        sf.on('bestmove', i => {
+          info = lastInfo;
+        });
+        sf.setPosition(fen);
+        sf.start();
+        while (!info && !options.cancelRequested) {
+          await lt.timeout(100);
+        }
+        if (options.cancelRequested) {
+          return;
+        }
+        await sf.stop();
+        return info;
+      } catch (e) {
+        this.lt.announce(this.lt.translator.noarg('couldNotLoadStockfish'));
+        console.log('Error instantiating Stockfish:', e);
+      }
+    };
+
     postMessage(message) {
       const sf = this._instance;
       if (!sf) throw new Error('await .load() to finish instantiating!');
