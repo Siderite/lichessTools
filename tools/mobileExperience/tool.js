@@ -22,6 +22,7 @@
         type: 'single',
         possibleValues: [1, 2, 3, 4],
         defaultValue: 1,
+        offValue: 1,
         advanced: true
       }, {
         name: 'screenLock',
