@@ -64,7 +64,7 @@ body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .lichessTools-sele
   display: none;
 }
 
-body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .study-list > button i.act {
+body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .study-list > button icon.act {
   display: none;
 }
 

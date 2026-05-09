@@ -1163,9 +1163,9 @@
           }
         }
 
-        let act = container.children('i.act');
+        let act = container.children('icon.act');
         if (!act.length) {
-          act = $(`<i class="act lichessTools-reset">`)
+          act = $(`<icon class="act lichessTools-reset">`)
             .attr('data-icon',lt.icon.Reload)
             .attr('title', trans.noarg('resetVariationsButtonTitle'))
             .on('click', async (ev) => {
