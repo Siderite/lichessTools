@@ -34,7 +34,7 @@ body.lichessTools main.analyse .tview2 move.lichessTools-inCheck {
 
   html:not(.dark, .darkBoard, .light) body.lichessTools main.analyse .tview2 move.lichessTools-lastInLine,
   html:not(.dark, .darkBoard, .light) body.lichessTools main.analyse .tview2 move.lichessTools-inCheck {
-    filter: brightness(200%);
+    filter: brightness(150%);
   }
 
 }
@@ -51,7 +51,7 @@ html.darkBoard body.lichessTools main.analyse .tview2 move.lichessTools-lastInLi
 html.darkBoard body.lichessTools main.analyse .tview2 move.lichessTools-inCheck,
 html.transp body.lichessTools main.analyse .tview2 move.lichessTools-lastInLine,
 html.transp body.lichessTools main.analyse .tview2 move.lichessTools-inCheck {
-  filter: brightness(200%);
+  filter: brightness(150%);
 }
 
 body.lichessTools.lichessTools-notOnMainline main.analyse div.main-board cg-board {

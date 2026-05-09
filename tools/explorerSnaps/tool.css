@@ -20,14 +20,22 @@ body.lichessTools section.lichessTools-explorerSnaps>div button.button {
 }
 
 body.lichessTools section.lichessTools-explorerSnaps button.remove {
-  margin-left: -1.75em;
   width: 1.75em;
   height: 1.75em;
-  top: -1.5em;
-  right: -0.65em;
+  top: -1em;
+  right: 1em;
   background-color: rgba(0, 0, 0, .6);
   position: relative;
   border-radius: 50%;
+}
+
+body.lichessTools section.lichessTools-explorerSnaps button.remove:hover {
+  background-color: var(--c-bad);
+}
+
+body.lichessTools section.lichessTools-explorerSnaps button.remove:before {
+  display: flex;
+  justify-content: center;
 }
 
 body.lichessTools .explorer-title span.lichess.lichessTools-explorerSnaps {
