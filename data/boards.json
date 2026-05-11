@@ -287,6 +287,11 @@
       "text": "Chess.com walnut"
     },
     {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Chesscom/board/shuiq.png",
+      "text": "Chess.com shuiq"
+    },
+
+    {
       "value": "https://raw.githubusercontent.com/marcenwasser/custom-chess-board/refs/heads/main/yellowgold.png",
       "text": "Marcen Wasser yellow gold"
     },
