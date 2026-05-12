@@ -114,7 +114,7 @@
           .addClass('id_' + p.studyId)
           .attr('href', '/study/' + p.studyId)
           .attr('title', 'LiChess Tools - ' + p.studyName)
-          .append($('<i class="img">').attr('data-icon', lt.icon.PushPin))
+          .append($('<icon class="img">').attr('data-icon', lt.icon.PushPin))
           .append(innerElem)
           .appendTo(container);
         elem.find('.content .name').text(p.studyName);

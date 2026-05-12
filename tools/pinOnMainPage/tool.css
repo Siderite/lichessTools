@@ -48,7 +48,7 @@ body.lichessTools a.lichessTools-pin span.name {
   white-space: break-spaces;
 }
 
-body.lichessTools a.lichessTools-pin i.img:before {
+body.lichessTools a.lichessTools-pin icon.img:before {
   filter: grayscale(1);
   font-size: 2em;
 }
