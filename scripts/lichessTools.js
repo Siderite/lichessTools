@@ -464,6 +464,7 @@
         if (options?.before) {
           const execute = options.before(this, ...args);
           if (execute === false) executeOriginal = false;
+          if (Array.isArray(execute)) args = execute;
         }
         let result = null;
         const func = wrappedFunc.__originalFunction;
@@ -496,9 +497,39 @@
       return func;
     }
 
+    patchMousetrap = (mt)=>{
+      if (mt._ltPatched) return;
+      mt._ltPatched = true;
+      mt.getMatches = this.wrapFunction(mt.getMatches,{
+        id: 'lichessTools',
+        before: ($this,e)=>{
+          const codeToKey = [
+            ['Period','.']
+          ];
+
+          for (const [code, key] of codeToKey) {
+            if (e?.code!=code) continue;
+            e = new KeyboardEvent(e.type, {
+                  key: key,
+                  code: e.code,
+                  shiftKey: e.shiftKey,
+                  ctrlKey: e.ctrlKey,
+                  altKey: e.altKey,
+                  metaKey: e.metaKey,
+                  bubbles: e.bubbles,
+                  cancelable: e.cancelable,
+                  composed: e.composed
+                });
+            return [e];
+          }
+        }
+      });
+    };
+
     getKeyHandler(combo, onlyMine) {
       const mousetrap = this.lichess.mousetrap;
       if (!mousetrap) return null;
+      this.patchMousetrap(mousetrap);
       for (const key in mousetrap.bindings) {
         const arr = mousetrap.bindings[key];
         const index = arr.findIndex(b => b.combination == combo);
@@ -522,6 +553,7 @@
     unbindKeyHandler(combo, onlyMine) {
       const mousetrap = this.lichess.mousetrap;
       if (!mousetrap) return null;
+      this.patchMousetrap(mousetrap);
       for (const key in mousetrap.bindings) {
         const arr = mousetrap.bindings[key];
         this.arrayRemoveAll(arr, b => (!onlyMine || b.lichessTools) && b.combination === combo);
@@ -531,6 +563,7 @@
     bindKeyHandler(combo, func, notMine) {
       const mousetrap = this.lichess.mousetrap;
       if (!mousetrap) return null;
+      this.patchMousetrap(mousetrap);
       const handler = this.getKeyHandler(combo);
       if (handler) {
         this.global.console.warn('Key handler for ' + combo + ' already bound!');
