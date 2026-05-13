@@ -1591,10 +1591,14 @@
     getGradientColor = (q, gradient) => {
       let prev = null;
       for (const gr of gradient) {
-        if (q >= prev?.q && q <= gr.q) {
+        if (!prev) {
+          prev = gr;
+          if (q<prev.q) break;
+        }
+        if (q >= prev.q && q <= gr.q) {
           const c1 = this.getColor(prev.color);
           const c2 = this.getColor(gr.color);
-          const localQ = (q - prev.q) / (gr.q - prev.q);
+          const localQ = gr.q == prev.q ? 0.5 : (q - prev.q) / (gr.q - prev.q);
           const color = '#' + Math.round(c1.R + (c2.R - c1.R) * localQ).toString(16).padStart(2, '0')
             + Math.round(c1.G + (c2.G - c1.G) * localQ).toString(16).padStart(2, '0')
             + Math.round(c1.B + (c2.B - c1.B) * localQ).toString(16).padStart(2, '0')
@@ -1603,7 +1607,7 @@
         }
         prev = gr;
       }
-      return prev?.color || '#808080';
+      return prev?.color;
     };
 
     clone = (obj) => {
@@ -2841,7 +2845,7 @@
       if (age<7) {
         const background = this.getGradientColor(age, [{ q: 0, color: '#FF0000' }, { q: 2, color: '#FF8000' }, { q: 5, color: '#FFFF00' }, { q: 8, color: '#808080' }]);
         const text = this.getGradientColor(age, [{ q: 0, color: '#FFFFFF' }, { q: 1.99, color: '#FFFFFF' }, { q: 2, color: '#000000' }]);
-        style = 'background:'+background+'; color:'+text+';';
+        style = background&&text ? 'background:'+background+'; color:'+text+';':'';
       }
       this.global.console.debug('%c site code age: ' + Math.round(age * 10) / 10 + ' days', style);
       await this.applyOptions();
