@@ -192,7 +192,44 @@
         } else if (!nextMoves.length) {
           state.feedback = 'end';
           state.hint = null;
-          this.markPathFinished(analysis.path, gp.goodMoves + (gp.isMyMove() ? 0 : 1), gp.badMoves, gp.askedForSolution);
+          const goodMoves = gp.goodMoves + (gp.isMyMove() ? 0 : 1);
+          const badMoves = gp.badMoves;
+          const { previousInterval, interval, successRate } = this.markPathFinished(analysis.path, goodMoves, badMoves, gp.askedForSolution);
+
+          const colorCodeSuccessRate = (rate) => {
+            const cls = rate > 0.9 ? 'green'
+                         : rate >= 0.7 ? 'yellow'
+                         : rate >= 0.5 ? 'orange'
+                         : 'red';
+            const elem = $('<span>')
+                     .addClass('lichessTools-rate-'+cls)
+                     .text((rate*100).toFixed(0)+'%');
+            return elem;
+          };
+
+          const infoElem = $('<div class="lichessTools-extendedInteractiveLesson-info">');
+          $('<div>')
+           .appendSpan(`${goodMoves} ${lt.icon.Checked} | ${badMoves} ${lt.icon.RedX} (`)
+           .append(colorCodeSuccessRate(successRate))
+           .appendSpan(')')
+           .appendTo(infoElem);
+
+          if (this.options.flow.spacedRepetition) {
+            $('<div>')
+              .text(trans.pluralSame('daysText',`${previousInterval.toFixed(1)} ${lt.icon.RightwardsArrow} ${interval.toFixed(1)}`))
+              .appendTo(infoElem);
+          }
+          const attach = ()=>{
+            const container = $('.gamebook .comment');
+            if (!container.length) {
+              lt.global.setTimeout(attach,100);
+              return;
+            }
+            $('.lichessTools-extendedInteractiveLesson-info',container).remove();
+            infoElem.appendTo(container);
+          };
+          attach();
+
         } else if (!node.children?.length) {
           // paths don't contain transpositions, but interactive uses them
           state.feedback = 'play';
@@ -200,6 +237,10 @@
         } else if (gp.isMyMove()) {
           state.feedback = 'play';
           state.hint = node.gamebook?.hint;
+        } else {
+          state.feedback = 'good';
+        }
+        if (gp.isMyMove() && state.feedback == 'play') {
           const nextMovesCount = new Set(nextMoves.map(c => c.uci)).size;
           if (!state.hint) {
             state.hint = trans.pluralSame('nextMovesCount', nextMovesCount);
@@ -221,8 +262,6 @@
               .attr('data-count', nextMovesCount)
               .addClass('data-count');
             }, 100);
-        } else {
-          state.feedback = 'good';
         }
         gp.state = state;
         let func = null;
@@ -471,7 +510,6 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const trans = lt.translator;
-      const $ = lt.$;
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
@@ -489,47 +527,16 @@
       item.success = success;
       item.successRate = successRate;
       if (!item.interval) item.interval = 1;
-
-      const colorCodeSuccessRate = (rate) => {
-        const cls = rate > 0.9 ? 'green'
-                     : rate >= 0.7 ? 'yellow'
-                     : rate >= 0.5 ? 'orange'
-                     : 'red';
-        const elem = $('<span>')
-                 .addClass('lichessTools-rate-'+cls)
-                 .text((rate*100).toFixed(0)+'%');
-        return elem;
-      };
+       paths[path] = item;
 
       const previousInterval = item.interval;
-      const infoElem = $('<div class="lichessTools-extendedInteractiveLesson-info">');
-      $('<div>')
-       .appendSpan(`${goodMoves} ${lt.icon.Checked} | ${badMoves} ${lt.icon.RedX} (`)
-       .append(colorCodeSuccessRate(successRate))
-       .appendSpan(')')
-       .appendTo(infoElem);
 
       if (this.options.flow.spacedRepetition) {
         const factor = successRate >= 0.7
           ? 1 + ((successRate - 0.7) / 0.3) * 0.5
           : 0.5 + 0.5 * (successRate / 0.7);
         item.interval = Math.max(1/144, item.interval * factor);
-        $('<div>')
-          .text(trans.pluralSame('daysText',`${previousInterval.toFixed(1)} ${lt.icon.RightwardsArrow} ${item.interval.toFixed(1)}`))
-          .appendTo(infoElem);
       }
-      const attach = ()=>{
-        const container = $('.gamebook .comment');
-        if (!container.length) {
-          lt.global.setTimeout(attach,100);
-          return;
-        }
-        $('.lichessTools-extendedInteractiveLesson-info',container).remove();
-        infoElem.appendTo(container);
-      };
-      attach();
-
-      paths[path] = item;
 
       const traverse = (node, nodeList) => {
         const nextMoves = analysis.visibleChildren(node)
@@ -550,6 +557,7 @@
       this._paths[key] = paths;
       this.saveChapterPaths();
       this.refreshChapterProgress();
+      return { previousInterval, interval: item.interval, successRate };
     };
 
     isDonePath = (path) => {
