@@ -1,9 +1,19 @@
+body.lichessTools dialog.lichessTools-calculationTrainer::backdrop {
+  background:#00000020;
+  transition: background 0.5s ease;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer.clicked::backdrop {
+  background:#00000080;
+}
+
 body.lichessTools dialog.lichessTools-calculationTrainer .dialog-content {
   display: flex;
   flex-direction: column;
   padding: 1em;
   min-width: 25em;
-  min-height: 13em;
+  height: 15em;
+  min-height: fit-content;
 }
 
 body.lichessTools dialog.lichessTools-calculationTrainer div.score {
@@ -11,29 +21,35 @@ body.lichessTools dialog.lichessTools-calculationTrainer div.score {
   justify-content: space-evenly;
 }
 
-body.lichessTools dialog.lichessTools-calculationTrainer div.score .good {
-  color: var(--c-good);
-}
-
-body.lichessTools dialog.lichessTools-calculationTrainer div.score .bad {
-  color: var(--c-bad);
+body.lichessTools dialog.lichessTools-calculationTrainer div.score .points {
+  color: var(--accuracy-color);
 }
 
 body.lichessTools dialog.lichessTools-calculationTrainer div.choices {
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
-  gap: 1em;
+  gap: 1em 0;
   padding: 1em;
+  justify-content: space-evenly;
 }
 
 body.lichessTools dialog.lichessTools-calculationTrainer div.choices button {
   flex: 0 0 calc(50% - 1em);
   text-transform: none;
+  font-size: 1.5em;
+  position: relative;
 }
 
 body.lichessTools:not(.piece-letter) dialog.lichessTools-calculationTrainer div.choices button {
   font-family: "Noto Chess", "Noto Sans";
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.choices button:after {
+  content: attr(data-accuracy);
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 body.lichessTools dialog.lichessTools-calculationTrainer span.empty {
@@ -46,4 +62,32 @@ body.lichessTools dialog.lichessTools-calculationTrainer div.toggles {
   display: flex;
   gap: 0.5em;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.depth {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer #abset-depth {
+  flex-grow: 1;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer .spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  opacity: 0.5;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer button.back {
+  font-size: smaller;
+  color: var(--c-font-dimmer);
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer button.back:hover {
+  color: var(--c-font-dim);
 }

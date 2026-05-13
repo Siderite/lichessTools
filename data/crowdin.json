@@ -1115,7 +1115,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2233,7 +2241,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3351,7 +3367,15 @@
     "showBoardText": "棋盘",
     "showBoardTitle": "更新棋盘 - 不推荐",
     "showEvalText": "评估",
-    "showEvalTitle": "显示电脑评估 - 不推荐"
+    "showEvalTitle": "显示电脑评估 - 不推荐",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4469,7 +4493,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5587,7 +5619,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6705,7 +6745,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7823,7 +7871,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8941,7 +8997,15 @@
     "showBoardText": "Échiquier",
     "showBoardTitle": "Actualiser l'échiquier - pas recommandé",
     "showEvalText": "Évaluation",
-    "showEvalTitle": "Afficher l'évaluation de l'ordinateur - pas recommandé"
+    "showEvalTitle": "Afficher l'évaluation de l'ordinateur - pas recommandé",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10059,7 +10123,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10215,8 +10287,8 @@
     "options.enhancedImport": "Βελτιωμένη εισαγωγή PGN",
     "mergeSuccess": "LiChess Tools - συγχωνευμένα %sPGNs",
     "mergeSuccess:one": "LiChess Tools - εισάγεται ένα PGN",
-    "mergeSuccess:few": "Εργαλεία LiChess - συγχωνευμένα %s PGNs",
-    "mergeSuccess:many": "Εργαλεία LiChess - συγχωνευμένα %s PGNs",
+    "mergeSuccess:few": "LiChess Tools - συγχωνευμένα %s PGNs",
+    "mergeSuccess:many": "LiChess Tools - συγχωνευμένα %s PGNs",
     "mergeError": "LiChess Tools - συγχωνεύτηκαν %s PGNs. Σφάλμα: ",
     "differentFensError": "δεν μπορεί να συγχωνεύσει PGNs με διαφορετικές αρχικές θέσεις",
     "options.commentStyling": "Στυλ για σχόλια μελέτης",
@@ -10386,12 +10458,12 @@
     "moveEvaluationSettingText": "Αξιολόγηση",
     "moveEvaluationSettingTitle": "Μετακίνηση της στήλης αξιολόγησης",
     "gambitsSettingText": "Gambits",
-    "gambitsSettingTitle": "Αριθμός της στήλης gambits",
+    "gambitsSettingTitle": "Number of gambits column",
     "explorerPracticeSettingText": "Εξάσκηση",
     "explorerPracticeSettingTitle": "Κουμπί για εξάσκηση ενάντια στις κινήσεις Εξερευνητή",
     "meButtonSettingText": "Πλήκτρο μου",
     "meButtonSettingTitle": "Κουμπί για εναλλαγή παίκτη με το χρήστη σας",
-    "options.explorerSettings": "Προσθέστε κάποιες προτιμήσεις στις ρυθμίσεις του Explorer",
+    "options.explorerSettings": "Προσθέστε κάποιες προτιμήσεις στις ρυθμίσεις του Εξερευνητή",
     "options.stickyStudySettings": "Ρυθμίσεις επίμονης μελέτης",
     "stickyStudySettings.chapterForm": "Ρυθμίσεις νέου/επεξεργασίας κεφαλαίου",
     "stickyStudySettings.savePosition": "Θέση/μετακίνηση στη μελέτη",
@@ -10539,7 +10611,7 @@
     "operationFailed": "Η λειτουργία απέτυχε!\r\n(μη έγκυρη είσοδος)",
     "operationCancelled": "Η λειτουργία ακυρώθηκε",
     "pastePGNs": "σύρετε/επικολλήστε τα PGNs σας εδώ",
-    "searchPattern": "Εισάγετε μερική FEN ή PGN συμβολοσειρά (*,? μπαλαντέρ υποστηρίζονται) ή ετικέτα (=,*=)Τιμή ή \"Index=Value ή \"Invalid\" ή \"Ply\"(>",
+    "searchPattern": "Εισάγετε μερική FEN ή PGN συμβολοσειρά (*,? μπαλαντέρ υποστηρίζονται) ή ετικέτα (=,*=)Τιμή ή \"Index=Τιμή ή \"Invalid\" ή \"Ply\"(>,=,<)Τιμή ή \"Eval\"(>,=,<)Τιμή ή \"Clock\" ή \"Shapes\"",
     "foundGames": "Βρέθηκαν παιχνίδια %s",
     "foundGames:one": "Βρέθηκε ένα παιχνίδι",
     "foundGames:few": "Βρέθηκαν παιχνίδια %s",
@@ -10570,7 +10642,7 @@
     "options.mayTenth": "LiChess Tools ημέρα!",
     "mayTenthTitle": "Ευτυχισμένα LiChess Tools ημέρα!",
     "options.moveAssistant": "Μετακίνηση βοηθού",
-    "assistantButtonTitle": "Εργαλεία LiChess - κατάλληλες κινήσεις και χαρακτηριστικά θέσης\nΚάντε δεξί κλικ για επιλογές.",
+    "assistantButtonTitle": "LiChess Tools - κατάλληλες κινήσεις και χαρακτηριστικά θέσης\nΚάντε δεξί κλικ για επιλογές.",
     "options.playerWarning": "Προειδοποίηση παίκτη",
     "percentageTitle": "- %s% ποσοστό αποσύνδεσης",
     "options.boardImage": "Καλύτερη εξαγόμενη εικόνα πίνακα",
@@ -10611,7 +10683,7 @@
     "options.integration": "Ενσωμάτωση",
     "options.obsIntegration": "Open Broadcaster Software (OBS)",
     "OBSText": "OBS",
-    "OBSTitle": "LiChess Tools - Λογισμικό Ανοιχτού Αναμεταδότη",
+    "OBSTitle": "LiChess Tools - Open Broadcaster Software",
     "OBSTitleDisabled": "Απενεργοποιημένο - δεξί κλικ ή πληκτρολογήστε O για ενεργοποίηση",
     "obsSetupText": "Ρύθμιση OBS",
     "defaultSceneText": "Προεπιλεγμένο σκηνικό",
@@ -10659,8 +10731,8 @@
     "options.commonTeams": "Εμφάνιση κοινών ομάδων",
     "commonTeamsTitlePrefix:one": "LiChess Tools - μία κοινή ομάδα",
     "commonTeamsTitlePrefix": "LiChess Tools - Κοινές ομάδες %s",
-    "commonTeamsTitlePrefix:few": "Εργαλεία LiChess - Κοινές ομάδες %s",
-    "commonTeamsTitlePrefix:many": "Εργαλεία LiChess - Κοινές ομάδες %s",
+    "commonTeamsTitlePrefix:few": "LiChess Tools - Κοινές ομάδες %s",
+    "commonTeamsTitlePrefix:many": "LiChess Tools - Κοινές ομάδες %s",
     "options.studyLinks": "Επιλογές συνδέσμου μελέτης",
     "studyLinks.video": "Αναδυόμενο βίντεο",
     "studyLinks.studyLinksSameWindow": "Άνοιγμα συνδέσμων για μελέτες στο ίδιο παράθυρο",
@@ -10701,7 +10773,7 @@
     "backupButtonTitle": "LiChess Tools - προτιμήσεις δημιουργίας αντιγράφων ασφαλείας σε ένα αρχείο",
     "restoreButtonText": "Επαναφορά",
     "restoreButtonTitle": "LiChess Tools - επαναφορά προτιμήσεων από ένα αρχείο",
-    "defaultValueLegend": "*Blue οι ρυθμίσεις είναι αυτές που είναι ενεργοποιημένες από προεπιλογή",
+    "defaultValueLegend": "*Οι ρυθμίσεις με μπλε περίγραμμα είναι αυτές που είναι ενεργοποιημένες από προεπιλογή",
     "copyPgnCommand.helpText": "/copypgn [\"fen\"] [\"separate\"] [\"tohere\"] [\"unicode\"]\n fen: από την τρέχουσα θέση\n separate: ξεχωριστούς κλάδους\n tohere: στην τρέχουσα θέση\n unicode: unicode χαρακτήρες κομματιών \nΑντιγραφή στο πρόχειρο",
     "extractingFens": "Εξαγωγή FENs",
     "options.profileTimeline": "Χρονοδιάγραμμα στο προφίλ",
@@ -11112,7 +11184,7 @@
     "moveCostTitle": "LiChess Tools - κόστος: %s",
     "explorerPracticeHideTitle": "LiChess Tools - εναλλαγή στατιστικών κίνησης του Εξερευνητή",
     "explorerPracticeHideMoves": "Εναλλαγή λίστας μετακίνησης Explorer",
-    "searchScoreText": "$wins $draws \" $losses",
+    "searchScoreText": "$wins | $draws | $losses",
     "searchScoreTitle": "LiChess Tools - σκορ για παιχνίδια με βαθμολογία %s",
     "computeScoreText": "Σκορ παιχνιδιών",
     "computeScoreTitle": "LiChess Tools - υπολογίστε βαθμολογία για τα βαθμολογημένα παιχνίδια\r\nΠροειδοποίηση! Αν υπάρχουν πολλά παιχνίδια, Lichess μπορεί να αποφασίσει ότι κάνετε κατάχρηση του συστήματός τους",
@@ -11148,7 +11220,7 @@
     "lobbyCrosstableTitle": "LiChess Tools - crosstable",
     "selectGamesSyntaxText": "Χρήση: επιλέξτε <start> [count]",
     "downloadedText": "Λήφθηκε",
-    "allTypesTitle": "Εργαλεία LiChess - εναλλαγή όλων",
+    "allTypesTitle": "LiChess Tools - εναλλαγή όλων",
     "bookmarkSplitText_f": "Διαχωρισμός εκτός κεφαλαίου εδώ",
     "followersNumberTitle:zero": "Ακόλουθοι",
     "followersNumberTitle:one": "Ένας ακόλουθος",
@@ -11177,7 +11249,15 @@
     "showBoardText": "Σκακιέρα",
     "showBoardTitle": "Ενημέρωση σκακιέρας - δεν προτείνεται",
     "showEvalText": "Εκτίμηση",
-    "showEvalTitle": "Εμφάνιση αξιολόγησης υπολογιστή - δεν συνιστάται"
+    "showEvalTitle": "Εμφάνιση αξιολόγησης υπολογιστή - δεν συνιστάται",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12295,7 +12375,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13413,7 +13501,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14531,7 +14627,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15649,7 +15753,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16767,7 +16879,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -17885,7 +18005,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19003,7 +19131,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20121,7 +20257,15 @@
     "showBoardText": "Tablă",
     "showBoardTitle": "Actualizează tabla - nerecomandat",
     "showEvalText": "Evaluare",
-    "showEvalTitle": "Arată evaluarea computerului - nerecomandat"
+    "showEvalTitle": "Arată evaluarea computerului - nerecomandat",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21239,7 +21383,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22357,7 +22509,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23475,7 +23635,15 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24593,7 +24761,15 @@
     "showBoardText": "Tahta",
     "showBoardTitle": "Tahtayı güncelle - önerilmez",
     "showEvalText": "Değerlendirme",
-    "showEvalTitle": "Bilgisayar değerlendirmesini göster - önerilmez"
+    "showEvalTitle": "Bilgisayar değerlendirmesini göster - önerilmez",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -25711,6 +25887,14 @@
     "showBoardText": "Board",
     "showBoardTitle": "Update board - not recommended",
     "showEvalText": "Evaluation",
-    "showEvalTitle": "Show computer evaluation - not recommended"
+    "showEvalTitle": "Show computer evaluation - not recommended",
+    "calculationDepthText": "Depth: %s",
+    "calculationDepthTitle": "LiChess Tools - engine depth",
+    "calculationClickShowText": "Accuracy",
+    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
+    "calculationReadAloudText": "Speak",
+    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
+    "calculationBackText": "Back",
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
   }
 }
