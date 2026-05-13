@@ -59,16 +59,24 @@ body.lichessTools dialog.lichessTools-calculationTrainer span.empty {
 }
 
 body.lichessTools dialog.lichessTools-calculationTrainer div.toggles {
-  display: flex;
+  display: none;
   gap: 0.5em;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-body.lichessTools dialog.lichessTools-calculationTrainer div.depth {
+body.lichessTools dialog.lichessTools-calculationTrainer .showSettings div.toggles {
   display: flex;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.depth {
+  display: none;
   flex-direction: row;
   align-items: center;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer .showSettings div.depth {
+  display: flex;
 }
 
 body.lichessTools dialog.lichessTools-calculationTrainer #abset-depth {
@@ -90,4 +98,9 @@ body.lichessTools dialog.lichessTools-calculationTrainer button.back {
 
 body.lichessTools dialog.lichessTools-calculationTrainer button.back:hover {
   color: var(--c-font-dim);
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.actions {
+  display: flex;
+  justify-content: space-between;
 }

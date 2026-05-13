@@ -1123,7 +1123,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2249,7 +2250,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3375,7 +3377,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4501,7 +4504,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5627,7 +5631,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6753,7 +6758,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7879,7 +7885,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9005,7 +9012,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10131,7 +10139,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11257,7 +11266,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12383,7 +12393,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13509,7 +13520,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14635,7 +14647,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15761,7 +15774,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16887,7 +16901,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18013,7 +18028,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19139,7 +19155,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20258,14 +20275,15 @@
     "showBoardTitle": "Actualizează tabla - nerecomandat",
     "showEvalText": "Evaluare",
     "showEvalTitle": "Arată evaluarea computerului - nerecomandat",
-    "calculationDepthText": "Depth: %s",
-    "calculationDepthTitle": "LiChess Tools - engine depth",
-    "calculationClickShowText": "Accuracy",
-    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
-    "calculationReadAloudText": "Speak",
-    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
-    "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationDepthText": "Nivel: %s",
+    "calculationDepthTitle": "LiChess Tools - nivel pentru motorul de analiză",
+    "calculationClickShowText": "Acurateţe",
+    "calculationClickShowTitle": "LiChess Tools - arată acuratețea la clic",
+    "calculationReadAloudText": "Vorbește",
+    "calculationReadAloudTitle": "LiChess Tools - citește mutarea cu voce tare la clic",
+    "calculationBackText": "Înapoi",
+    "calculationBackTitle": "LiChess Tools - anulează ultima mutare\\r\\nEvită să abuzezi de asta",
+    "calculationConfigTitle": "LiChess Tools - configurează Antrenorul de calcul"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21391,7 +21409,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22517,7 +22536,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23643,7 +23663,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24769,7 +24790,8 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -25895,6 +25917,7 @@
     "calculationReadAloudText": "Speak",
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it"
+    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
   }
 }

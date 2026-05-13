@@ -38,7 +38,8 @@
         'calculationReadAloudText': 'Speak',
         'calculationReadAloudTitle': 'LiChess Tools - read the move aloud on click',
         'calculationBackText': 'Back',
-        'calculationBackTitle': 'LiChess Tools - undo last move\r\nAvoid abusing it'
+        'calculationBackTitle': 'LiChess Tools - undo last move\r\nAvoid abusing it',
+        'calculationConfigTitle': 'LiChess Tools - configure Calculation Trainer'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -61,9 +62,10 @@
         'calculationClickShowText': 'Acurate\u0163e',
         'calculationClickShowTitle': 'LiChess Tools - arat\u0103 acurate\u0163ea la clic',
         'calculationReadAloudText': 'Vorbe\u015fte',
-        'calculationReadAloudTitle': 'LiChess Tools - cite\u015fte mutarea cu voce tare',
+        'calculationReadAloudTitle': 'LiChess Tools - cite\u015fte mutarea cu voce tare la clic',
         'calculationBackText': '\u00CEnapoi',
-        'calculationBackTitle': 'LiChess Tools - anuleaz\u0103 ultima mutare\r\nEvit\u0103 s\u0103 abuzezi de asta'
+        'calculationBackTitle': 'LiChess Tools - anuleaz\u0103 ultima mutare\r\nEvit\u0103 s\u0103 abuzezi de asta',
+        'calculationConfigTitle': 'LiChess Tools - configureaz\u0103 Antrenor de calcul'
       }
     }
 
@@ -264,19 +266,6 @@
         .find('input')
         .prop('checked',this.options.readAloud);
 
-      if (settings.history.length>1) {
-        $('<button type="button" class="back">')
-          .text(trans.noarg('calculationBackText'))
-          .attr('title',trans.noarg('calculationBackTitle'))
-          .on('click',ev=>{
-            ev.preventDefault();
-            settings.history.length--;
-            const { fen, uci } = settings.history.at(-1);
-            this.trainPosition(container, fen, uci, sfOptions, settings);
-          })
-          .appendTo(toggleContainer);
-      }
-
       const depthContainer = $('<div class="depth">')
         .attr('title',trans.noarg('calculationDepthTitle'))
         .appendTo(container);
@@ -294,6 +283,32 @@
         .val(sfOptions.depth)
         .trigger('input')
         .appendTo(depthContainer);
+
+      const actionsContainer = $('<div class="actions">')
+        .appendTo(container);
+
+      $('<button type="button">')
+        .attr('data-icon',lt.icon.Gear)
+        .attr('title',trans.noarg('calculationConfigTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          container.toggleClass('showSettings');
+        })
+        .appendTo(actionsContainer);
+
+      if (settings.history.length>1) {
+        $('<button type="button" class="back">')
+          .text(trans.noarg('calculationBackText'))
+          .attr('title',trans.noarg('calculationBackTitle'))
+          .on('click',ev=>{
+            ev.preventDefault();
+            settings.history.length--;
+            const { fen, uci } = settings.history.at(-1);
+            this.trainPosition(container, fen, uci, sfOptions, settings);
+          })
+          .appendTo(actionsContainer);
+      }
+
     }
 
     updatePlacement = (data) => {
