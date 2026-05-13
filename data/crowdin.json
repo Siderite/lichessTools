@@ -1124,7 +1124,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2251,7 +2253,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3378,7 +3382,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4505,7 +4511,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5632,7 +5640,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6759,7 +6769,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7886,7 +7898,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9013,7 +9027,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10140,7 +10156,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11267,7 +11285,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12394,7 +12414,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13521,7 +13543,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14648,7 +14672,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15775,7 +15801,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16902,7 +16930,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18029,7 +18059,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19156,7 +19188,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20283,7 +20317,9 @@
     "calculationReadAloudTitle": "LiChess Tools - citește mutarea cu voce tare la clic",
     "calculationBackText": "Înapoi",
     "calculationBackTitle": "LiChess Tools - anulează ultima mutare\\r\\nEvită să abuzezi de asta",
-    "calculationConfigTitle": "LiChess Tools - configurează Antrenorul de calcul"
+    "calculationConfigTitle": "LiChess Tools - configurează Antrenorul de calcul",
+    "calculationTrainerDescription": "Antrenează-ți abilitățile de calcul și vizualizare din poziția curentă. Găsește cea mai bună mișcare candidat pentru fiecare parte. Configurează și apoi apasă Pornește.",
+    "calculationGoText": "Pornește"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21410,7 +21446,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22537,7 +22575,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23664,7 +23704,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24791,7 +24833,9 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -25918,6 +25962,8 @@
     "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
     "calculationBackText": "Back",
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer"
+    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
+    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
+    "calculationGoText": "Go"
   }
 }

@@ -39,7 +39,9 @@
         'calculationReadAloudTitle': 'LiChess Tools - read the move aloud on click',
         'calculationBackText': 'Back',
         'calculationBackTitle': 'LiChess Tools - undo last move\r\nAvoid abusing it',
-        'calculationConfigTitle': 'LiChess Tools - configure Calculation Trainer'
+        'calculationConfigTitle': 'LiChess Tools - configure Calculation Trainer',
+        'calculationTrainerDescription': 'Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.',
+        'calculationGoText': 'Go'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -65,7 +67,9 @@
         'calculationReadAloudTitle': 'LiChess Tools - cite\u015fte mutarea cu voce tare la clic',
         'calculationBackText': '\u00CEnapoi',
         'calculationBackTitle': 'LiChess Tools - anuleaz\u0103 ultima mutare\r\nEvit\u0103 s\u0103 abuzezi de asta',
-        'calculationConfigTitle': 'LiChess Tools - configureaz\u0103 Antrenor de calcul'
+        'calculationConfigTitle': 'LiChess Tools - configureaz\u0103 Antrenor de calcul',
+        'calculationTrainerDescription': 'Antreneaz\u0103-\u0163i abilit\u0103\u0163ile de calcul \u015Fi vizualizare din pozi\u0163ia curent\u0103. G\u0103se\u015Fte cea mai bun\u0103 mi\u015Fcare candidat pentru fiecare parte. Configureaz\u0103 \u015Fi apoi apas\u0103 Porne\u015fte.',
+        'calculationGoText': 'Porne\u015fte'
       }
     }
 
@@ -79,6 +83,7 @@
       const analysis = lichess.analysis;
 
       let historyItem = settings.history.at(-1);
+      const isStart = !historyItem;
       if (fen != historyItem?.fen) {
         historyItem = {
           fen: fen,
@@ -96,11 +101,15 @@
 
       $('#tn-tg').prop('checked',false); // close the mobile menu if opened
 
-      container = $(container);
+      container = $(container)
+        .toggleClassSafe('isStart showSettings',isStart);
 
       let info = historyItem.info;
-      if (!info) {
-        container.append(lt.spinnerHtml);
+      if (!info && !isStart) {
+        container
+          .append(lt.spinnerHtml)
+          .find('.empty')
+          .css('visibility','hidden');
         const start = lt.global.performance.now();
         info = await lt.stockfish.evaluate(fen,sfOptions);
         const order = info.map((_,idx)=>idx);
@@ -114,6 +123,17 @@
         }
       }
       container.empty();
+
+      const startContainer = $('<div class="start">')
+        .append($('<span>').text(trans.noarg('calculationTrainerDescription')))
+        .append($('<button type="button" class="button">')
+           .text(trans.noarg('calculationGoText'))
+           .on('click',ev=>{
+             ev.preventDefault();
+             this.trainPosition(container, fen, uci, sfOptions, settings);
+           })
+        )
+        .appendTo(container);
 
       const points = settings.history.slice(0,-1).map(h=>h.score).reduce((a, b) => a + b, 0);
       const lastScore = settings.history.at(-2)?.score || 0;

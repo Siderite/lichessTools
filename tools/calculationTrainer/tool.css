@@ -25,6 +25,7 @@ body.lichessTools dialog.lichessTools-calculationTrainer div.score .points {
   color: var(--accuracy-color);
 }
 
+body.lichessTools dialog.lichessTools-calculationTrainer span.empty,
 body.lichessTools dialog.lichessTools-calculationTrainer div.choices {
   display: flex;
   flex-wrap: wrap;
@@ -103,4 +104,25 @@ body.lichessTools dialog.lichessTools-calculationTrainer button.back:hover {
 body.lichessTools dialog.lichessTools-calculationTrainer div.actions {
   display: flex;
   justify-content: space-between;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer div.start {
+  display: none;
+  flex-direction: column;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer .isStart div.start {
+  display: flex;
+  margin-bottom: 2em;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer .isStart div.start button {
+  align-self: center;
+  padding: 1em 3em;
+}
+
+body.lichessTools dialog.lichessTools-calculationTrainer .isStart div.score,
+body.lichessTools dialog.lichessTools-calculationTrainer .isStart span.empty,
+body.lichessTools dialog.lichessTools-calculationTrainer .isStart div.choices {
+  display: none;
 }
