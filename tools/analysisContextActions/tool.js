@@ -135,12 +135,12 @@ Varia\u0163ii urm\u0103toare: $branches`
         .replace('$branches',`${branches}`);
       const moveNumber = Math.floor((ply + 1) / 2);
       let header = moveNumber + (ply % 2 == 1 ? '. ' : '...');
-      header += node.san;
+      header += '<san>'+node.san+'</san>';
       if (node.glyphs?.length) {
         header += node.glyphs.map(g=>g.symbol).join('');
       }
       const dialog = await lt.dialog({
-        header: header,
+        header: $(header),
         noDrag: true
       });
       for (const line of text.split(/[\r\n]+/)) {

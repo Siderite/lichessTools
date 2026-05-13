@@ -60,8 +60,15 @@
 
       if (options.header !== undefined) {
         const header = $('<div class="dialog-header">')
-          .text(options.header)
           .insertBefore(dialog.find('.scrollable,.not-scrollable'));
+        if (typeof(options.header) == 'string') {
+          header.text(options.header);
+        } else 
+        if (options.header){
+          header
+            .empty()
+            .append($(options.header));
+        }
         if (!options.noDrag) {
           header
             .addClass('draggable')

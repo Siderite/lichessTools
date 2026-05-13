@@ -32,6 +32,10 @@ body.lichessTools dialog.lichessTools-calculationTrainer div.choices button {
   text-transform: none;
 }
 
+body.lichessTools:not(.piece-letter) dialog.lichessTools-calculationTrainer div.choices button {
+  font-family: "Noto Chess", "Noto Sans";
+}
+
 body.lichessTools dialog.lichessTools-calculationTrainer span.empty {
   display: flex;
   padding: 2em 4em;
