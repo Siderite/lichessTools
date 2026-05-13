@@ -5,6 +5,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const lichess = lt.lichess;
+      const document = lt.global.document;
 
       let dialog;
       let view;
@@ -72,7 +73,7 @@
         if (!options.noDrag) {
           header
             .addClass('draggable')
-            .on('mousedown pointerdown', ev => {
+            .on('pointerdown', ev => {
               const rect = dialog[0].getBoundingClientRect();
               const shiftX = ev.pageX - rect.x - rect.width/2;
               const shiftY = ev.pageY - rect.y - rect.height/2;
@@ -90,10 +91,10 @@
                   });
               };
 
-              $(lt.global.document).on('mousemove', onMouseMove);
+              $(document).on('pointermove', onMouseMove);
 
-              $(lt.global.document).one('mouseup pointerup', () => {
-                $(lt.global.document).off('mousemove', onMouseMove);
+              $(document).one('pointerup', () => {
+                $(document).off('pointermove', onMouseMove);
                 dialog
                   .removeClass('dragged');
                 emitPlacement();
@@ -108,7 +109,7 @@
         const resize = $('<div class="dialog-resize">')
           .appendTo(dialog);
         resize
-          .on('mousedown pointerdown', ev => {
+          .on('pointerdown', ev => {
             let rect = dialog[0].getBoundingClientRect();
             dialog
               .css({
@@ -131,10 +132,18 @@
                 });
             };
 
-            $(lt.global.document).on('mousemove', onMouseMove);
+            $(document).on('pointermove', onMouseMove);
 
-            $(lt.global.document).one('mouseup pointerup', () => {
-              $(lt.global.document).off('mousemove', onMouseMove);
+            $(document).one('pointerup', () => {
+              // Consume the next click
+              const consumeClick = (ev) => {
+                ev.stopImmediatePropagation();
+                ev.preventDefault();
+                document.removeEventListener("click", consumeClick, true);
+              };
+              document.addEventListener("click", consumeClick, true);
+
+              $(document).off('pointermove', onMouseMove);
               dialog
                 .removeClass('resizing');
               emitPlacement();

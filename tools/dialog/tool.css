@@ -53,6 +53,10 @@ body.lichessTools dialog.lichessTools-dialog .dialog-resize {
   bottom: 0;
   cursor: nw-resize;
   touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 body.lichessTools dialog.lichessTools-dialog .dialog-resize:hover {
