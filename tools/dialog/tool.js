@@ -39,24 +39,24 @@
           .appendTo(dialog);
       }
 
-      const emitPlacement = () => {
+      const emitPlacement = lt.debounce(() => {
         const { left, top, width, height } = dialog[0].getBoundingClientRect();
         const windowHeight = $(window).height();
         const windowWidth = $(window).width();
         const content = dialog.find('.dialog-content');
         const data = { height: content.height(), width: content.width() };
         if (left + width / 2 < windowWidth / 2) {
-          data.left = left;
+          data.left = left + width / 2;
         } else {
-          data.right = windowWidth - left - width;
+          data.right = windowWidth - left - width - width / 2;
         }
         if (top + height / 2 < windowHeight / 2) {
-          data.top = top;
+          data.top = top + height / 2;
         } else {
-          data.bottom = windowHeight - top - height;
+          data.bottom = windowHeight - top - height - height / 2;
         }
         lt.pubsub.emit('lichessTools.setDialogPlacement', data);
-      };
+      },50);
 
       if (options.header !== undefined) {
         const header = $('<div class="dialog-header">')
