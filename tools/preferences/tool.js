@@ -133,7 +133,7 @@
       };
 
       let html = `<div class="account box box-pad">
-            <h1 class="box__top">$trans(lichessToolsPreferences)</h1>
+            <h1 class="box__top">$trans(lichessToolsPreferences)<span>v${lt.currentOptions.version}</span></h1>
             <div class="links">
               <a class="rate" title="$trans(rateThisTitle)"
                  href="https://chromewebstore.google.com/detail/lichess-tools-by-siderite/langlhlcknngldkeliapahbhbcmlcbcj/reviews" target="_blank">$trans(rateThisText)</a>
