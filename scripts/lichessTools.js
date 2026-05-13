@@ -1462,6 +1462,131 @@
       this.global.speechSynthesis.cancel();
     };
 
+    getSpeakableText = (text,options)=>{
+      options ||= {};
+
+      const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+      const regChessMove = /(?<number>\d+\.\s?(\.\.)?\s*)?(?<move>\b((?<castle>[0O]-[0O](-[0O])?)|(?<piece>[NBRQK\u2654\u2655\u2656\u2657\u2658])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK\u2654\u2655\u2656\u2657\u2658]))?)(?<p2>\+|#)?)(?<glyph>[!\?]{1,2})?/g;
+      const pieces = {
+        'p':'pawn',
+        'n':'knight',
+        'b':'bishop',
+        'r':'rook',
+        'q':'queen',
+        'k':'king'
+      };
+      const annotations = {
+        '!':'good move',
+        '?':'mistake',
+        '!!':'brilliant',
+        '??':'blunder',
+        '?!':'inaccuracy',
+        '!?':'interesting'
+      };
+      const unicode = {
+        '\u2654': 'white king',
+        '\u2655': 'white queen',
+        '\u2656': 'white rook',
+        '\u2657': 'white bishop',
+        '\u2658': 'white knight',
+        '\u2659': 'white pawn',
+        '\u265A': 'black king',
+        '\u265B': 'black queen',
+        '\u265C': 'black rook',
+        '\u265D': 'black bishop',
+        '\u265E': 'black knight',
+        '\u265F': 'black pawn'
+      };
+
+      text = (text||'').replaceAll(/(cls|bkm|prc|rnd):([^\s]*)\s*/gi,'');
+      for (const ch in unicode) {
+        text = text.replaceAll(ch, unicode[ch]+', ');
+      }
+      if (options?.stripEmoji) {
+        text = text.replaceAll(/\p{Extended_Pictographic}+/ugi,' ');
+      }
+      text = text.replaceAll(/e\.\s*p\./gi,'un phsaant');
+      text = text.replaceAll(/(\d+)-(\d+)/gi,'$1, $2');
+      text = text.replaceAll(/(\d+)\s+-\s+(\d+)/gi,'$1, $2');
+      text = text.replaceAll(urlRegex,(m)=>{
+        const url = new URL(m);
+        const host = url.host
+                        .replaceAll(/youtu.be/gi,'youtube')
+                        .replaceAll(/(^www\.|\.com$|\.org|\.net$|\.co\.\w+$)/gi,'');
+        return host+' URL ';
+      });
+      text = text.replaceAll(/#(?<black>-)?(?<moves>\d+)/gi,(...args)=>{
+        const m = args.at(-1);
+        return 'mate in '+m.moves+' for '+(m.black?'black':'white');
+      });
+      text = text.replaceAll(regChessMove,(...arr)=>{
+        const result = [];
+        const g = arr.at(-1);
+        let m;
+        if (g.number) {
+          const num = /\d+/.exec(g.number)[0];
+          result.push(num);
+          if ([...g.number.matchAll(/\./g)].length==3) result.push(', black moves');
+        }
+        if (g.move) {
+          const sanWords = g.move
+            .split('')
+            .map(c => {
+              if (c === 'x') return 'takes';
+              if (c === '+') return 'check';
+              if (c === '#') return 'checkmate';
+              if (c === '=') return 'promotes to';
+              if (c === '@') return 'at';
+              if (c === '0') return 'O';
+              const code = c.charCodeAt(0);
+              if (code > 48 && code < 58) return c; // 1-8
+              if (code > 96 && code < 105) return c.toUpperCase(); // a-h
+              return pieces[c.toLowerCase()] ?? c;
+            })
+            .join(' ')
+          result.push(sanWords);
+        }
+        if (g.glyph) {
+          const ann = g.name || annotations[g.glyph];
+          if (ann) result.push(', '+ann);
+        }
+        return result.join(' ')
+            .replace('O - O - O', 'long castle')
+            .replace('O - O', 'short castle')
+            .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
+            .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
+            .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
+            .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
+            .replace(/(\d) H (\d)/, '$1H$2') // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
+            .replace(/(\d) H (\d)/, '$1H$2')
+            +', ';
+      });
+      if (options.readAnnotations && (options.glyphs?.length || options.isCheck || options.isMate)) {
+        const additional = (options.glyphs || [])
+          .map(g=>{
+            let name = g.name;
+            if (name?.toLowerCase() == 'dubious move') name='inaccuracy';
+            return name || annotations[g.symbol]
+          })
+          .concat([
+            options.isCheck?'check':'',
+            options.isMate?'checkmate':''
+          ])
+          .filter(g=>g)
+          .join(', ');
+        if (!text) {
+          text = additional;
+        } else {
+          if (additional && !text.toLowerCase().includes(additional.toLowerCase())) {
+            text = `${additional}, ${text}`;
+          }
+        }
+      }
+
+      text = text.replaceAll(/lichess/gi,'lee chess');
+      return text;
+    };
+
     play = async (path, volume) => {
       const sound = await this.lichess.sound.load(path, this.lichess.sound.url(path));
       volume = +volume;
