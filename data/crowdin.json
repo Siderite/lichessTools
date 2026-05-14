@@ -1126,7 +1126,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2255,7 +2260,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3374,17 +3384,22 @@
     "showBoardTitle": "更新棋盘 - 不推荐",
     "showEvalText": "评估",
     "showEvalTitle": "显示电脑评估 - 不推荐",
-    "calculationDepthText": "Depth: %s",
-    "calculationDepthTitle": "LiChess Tools - engine depth",
-    "calculationClickShowText": "Accuracy",
-    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
-    "calculationReadAloudText": "Speak",
-    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
-    "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
-    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationDepthText": "深度：%s",
+    "calculationDepthTitle": "LiChess Tools - 引擎深度",
+    "calculationClickShowText": "准确度",
+    "calculationClickShowTitle": "LiChess Tools - 点击时显示每一步棋的准确度",
+    "calculationReadAloudText": "朗读",
+    "calculationReadAloudTitle": "LiChess Tools - 点击时朗读所走的棋",
+    "calculationBackText": "撤销",
+    "calculationBackTitle": "LiChess Tools - 撤销上一步棋\\r\\n请勿滥用",
+    "calculationConfigTitle": "LiChess Tools - 配置计算训练器",
+    "calculationTrainerDescription": "从当前局面训练您的计算与局面预判能力，为双方寻找最佳着法。完成配置后，请点击“开始”。",
+    "calculationGoText": "开始",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4513,7 +4528,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5642,7 +5662,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6771,7 +6796,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7900,7 +7930,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9011,25 +9046,30 @@
     "noAvailableMoves": "Plus de coups",
     "calculationEval": "Éval: %s",
     "calculationTrainerText": "Calculer",
-    "calculationTrainerTitle": "LiChess Tools - entraîneur de calcul à partir de la position en cours",
-    "calculationTrainerHeader": "Entraîneur de calcul",
+    "calculationTrainerTitle": "LiChess Tools - entraîneur au calcul à partir de la position en cours",
+    "calculationTrainerHeader": "Entraîneur au calcul",
     "showArrowsText": "Flèches",
     "showArrowsTitle": "Afficher les flèches au survol",
     "showBoardText": "Échiquier",
     "showBoardTitle": "Actualiser l'échiquier - pas recommandé",
     "showEvalText": "Évaluation",
     "showEvalTitle": "Afficher l'évaluation de l'ordinateur - pas recommandé",
-    "calculationDepthText": "Depth: %s",
-    "calculationDepthTitle": "LiChess Tools - engine depth",
-    "calculationClickShowText": "Accuracy",
-    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
-    "calculationReadAloudText": "Speak",
-    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
-    "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
-    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationDepthText": "Profondeur: %s",
+    "calculationDepthTitle": "LiChess Tools - profondeur du moteur",
+    "calculationClickShowText": "Précision",
+    "calculationClickShowTitle": "LiChess Tools - afficher la précision de chaque choix après clic",
+    "calculationReadAloudText": "Énoncer",
+    "calculationReadAloudTitle": "LiChess Tools - lire le coup à haute voix lors du clic",
+    "calculationBackText": "Précédent",
+    "calculationBackTitle": "LiChess Tools - annuler le dernier coup\\r\\nÉviter d'en abuser",
+    "calculationConfigTitle": "LiChess Tools - configurer l'entraîneur au calcul",
+    "calculationTrainerDescription": "Entraînez-vous à calculer et à visualiser à partir de la position actuelle. Trouvez le meilleur coup candidat pour chaque camp. Configurez puis appuyez sur Go.",
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10158,7 +10198,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10257,7 +10302,7 @@
     "hideNotPlayingTitle": "Παίζοντας παίκτες",
     "hideMutedTitle": "Σίγαση παικτών",
     "daysText:one": "μια ημέρα",
-    "hoursText:one": "an hr",
+    "hoursText:one": "μια ώρα",
     "minutesText:one": "ένα λεπτό",
     "daysText": "%sημέρες",
     "daysText:few": "%s μέρες",
@@ -10369,7 +10414,7 @@
     "extendedInteractiveLessonFlow.spacedRepetition": "Επανάληψη Σε Απόσταση",
     "resetQuestionNoVariations": "Δεν υπάρχουν άλλες παραλλαγές. Επαναφορά;",
     "resetQuestion": "Επαναφορά προόδου παραλλαγής?",
-    "resetSettingsButtonText": "Reset",
+    "resetSettingsButtonText": "Επαναφορά",
     "resetSettingsButtonTitle": "LiChess Tools - επαναφορά ρυθμίσεων",
     "progressTitle": "LiChess Tools - %s παραλλαγές",
     "extendedInteractiveOptionsTitle": "LiChess Tools - διαδραστικές προτιμήσεις μαθήματος",
@@ -10454,8 +10499,8 @@
     "timelineNotify.forum-post": "Ανάρτηση φόρουμ",
     "timelineNotify.ublog-post": "Ανάρτηση ιστολογίου",
     "timelineNotify.stream-start": "Έναρξη ροής",
-    "timelineNotify.simul-create": "Simul create",
-    "timelineNotify.simul-join": "Simul join",
+    "timelineNotify.simul-create": "Δημιουργία σιμουλτανέ",
+    "timelineNotify.simul-join": "Συμμετοχή στο σιμουλτανέ",
     "timelineNotify.team-create": "Δημιουργία ομάδας",
     "timelineNotify.team-join": "Συμμετοχή ομάδας",
     "timelineNotify.tour-join": "Συμμετοχή τουρνουά",
@@ -10485,7 +10530,7 @@
     "moveEvaluationSettingText": "Αξιολόγηση",
     "moveEvaluationSettingTitle": "Μετακίνηση της στήλης αξιολόγησης",
     "gambitsSettingText": "Gambits",
-    "gambitsSettingTitle": "Number of gambits column",
+    "gambitsSettingTitle": "Αριθμός της στήλης gambits",
     "explorerPracticeSettingText": "Εξάσκηση",
     "explorerPracticeSettingTitle": "Κουμπί για εξάσκηση ενάντια στις κινήσεις Εξερευνητή",
     "meButtonSettingText": "Πλήκτρο μου",
@@ -10644,7 +10689,7 @@
     "foundGames:few": "Βρέθηκαν παιχνίδια %s",
     "foundGames:many": "Βρέθηκαν παιχνίδια %s",
     "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Αξία,, \"Junk\", \"Eval\"(>,=,<)Αξία, \"Eval\", \"Clock\" σε οποιονδήποτε συνδυασμό (δηλ. eval, junk, tags, ply 10, eval<0)",
-    "sendToPgnEditorText": "PGN Editor",
+    "sendToPgnEditorText": "Επεξεργαστής PGN",
     "sendToPgnEditorTitle": "LiChess Tools - αποστολή στον επεξεργαστή PGN",
     "evaluateNeedsAnalysis": "Η αξιολόγηση μπορεί να χρησιμοποιηθεί μόνο στις σελίδες ανάλυσης ή μελέτης - Περιορισμός Lichess",
     "options.playerLag": "Δείκτες καθυστέρησης του παίκτη",
@@ -10673,7 +10718,7 @@
     "options.playerWarning": "Προειδοποίηση παίκτη",
     "percentageTitle": "- %s% ποσοστό αποσύνδεσης",
     "options.boardImage": "Καλύτερη εξαγόμενη εικόνα πίνακα",
-    "screenshotButtonText": "SCREENSHOT",
+    "screenshotButtonText": "ΑΠΑΘΑΝΑΤΙΣΗ ΟΘΩΝΗΣ",
     "screenshotButtonTitle": "LiChess Tools - λήψη στιγμιότυπου του ταμπλό",
     "options.mirrorBoard": "Κουμπί καθρέφτη στον Επεξεργαστή Πίνακα",
     "mirrorButtonText": "Καθρέφτης",
@@ -10777,7 +10822,7 @@
     "options.readGameCommand": "Εντολή: διαβάστε το παιχνίδι κινείται από εδώ",
     "readGameCommand.helpText": "/readgame [speed] [voice] [instrument]\r\n προεπιλεγμένη ταχύτητα = 100, voice=0, instrument=0\r\n Esc για να σταματήσει το\r\nΔιαβάστε το παιχνίδι από εδώ",
     "options.skipMoveCommand": "Εντολή: μετακινήστε να αλλάξετε την πλευρά παιχνιδιού",
-    "skipMoveCommand.helpText": "/skipmove\r\nMove for both players to \"skip the move\"",
+    "skipMoveCommand.helpText": "/skipmove\nΜετακίνησε και τους δύο παίκτες για να \"παραλείψεις την κίνηση\"",
     "cannotSkipMove": "Δεν είναι δυνατή η παράλειψη μετακίνησης από αυτή τη θέση!",
     "yes": "Ναι",
     "no": "Όχι",
@@ -10914,7 +10959,7 @@
     "mainPageElements.app_blitz": "Παιχνίδι:blitz",
     "mainPageElements.app_rapid": "Αναπαραγωγή: γρήγορη",
     "mainPageElements.app_classical": "Παιχνίδι:κλασικό",
-    "activeIcon.pawn": "Pawn",
+    "activeIcon.pawn": "Πιόνι",
     "activeIcon.knight": "Ιππότης",
     "activeIcon.king": "Βασιλιάς",
     "activeIcon.circle": "Κύκλος",
@@ -11000,7 +11045,7 @@
     "analysisContextActions.positionInfo": "Πληροφορίες θέσης",
     "positionInfoText": "Πληροφορίες θέσης",
     "positionInfoTitle": "LiChess Tools - εμφάνιση πληροφοριών σχετικά με την επιλεγμένη θέση",
-    "positionInfoOutputText": "Ply: $ply\r\nMoves so far: $movesSoFar\r\nFollowing main moves: $movesMain\r\nFollowing total moves: $movesTotal\r\nFollowing branches: $branches",
+    "positionInfoOutputText": "Παιχνίδι: $ply\nΚινήσεις μέχρι στιγμής: $movesSoFar\nΑκόλουθες κύριες κινήσεις: $movesMain\nΑκόλουθες κινήσεις συνολικά: $movesTotal\nΑκόλουθες υποπεριπτώσεις:$branches",
     "themes.fixThirdParties": "Διόρθωση τρίτων",
     "allQuotesByAuthorText": "Όλα τα εισαγωγικά από %s",
     "options.cevalCache": "Απομνημόνευση αξιολόγησης τοπικού υπολογιστή",
@@ -11059,7 +11104,7 @@
     "options.downloadBroadcastPgn": "Λήψη PGN εκπομπής",
     "downloadBroadcastTitle": "LiChess Tools - λήψη PGN αναμετάδοσης",
     "expandAllBookmarksTitle": "LiChess Tools - επέκταση όλων των σελιδοδεικτών",
-    "resetVariationsButtonText": "Reset",
+    "resetVariationsButtonText": "Επαναφορά",
     "resetVariationsButtonTitle": "LiChess Tools - επαναφορά προόδου παραλλαγής",
     "FENCopiedToClipboard": "FEN αντιγράφηκε στο πρόχειρο",
     "copyFenToClipboard": "Αντιγραφή FEN στο πρόχειρο",
@@ -11277,17 +11322,22 @@
     "showBoardTitle": "Ενημέρωση σκακιέρας - δεν προτείνεται",
     "showEvalText": "Εκτίμηση",
     "showEvalTitle": "Εμφάνιση αξιολόγησης υπολογιστή - δεν συνιστάται",
-    "calculationDepthText": "Depth: %s",
-    "calculationDepthTitle": "LiChess Tools - engine depth",
-    "calculationClickShowText": "Accuracy",
-    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
-    "calculationReadAloudText": "Speak",
-    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
-    "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
-    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationDepthText": "Βάθος: %s",
+    "calculationDepthTitle": "LiChess Tools - βάθος μηχανής",
+    "calculationClickShowText": "Ακρίβεια",
+    "calculationClickShowTitle": "LiChess Tools - εμφάνιση της ακρίβειας κάθε επιλογής με κλικ",
+    "calculationReadAloudText": "Μιλήστε",
+    "calculationReadAloudTitle": "LiChess Tools - διαβάστε δυνατά την κίνηση με κλικ",
+    "calculationBackText": "Πίσω",
+    "calculationBackTitle": "LiChess Tools - διαγραφή τελευταίας κίνησης\\r\\nΑποφύγετε την κατάχρηση",
+    "calculationConfigTitle": "LiChess Tools - διαμόρφωση Εκπαιδευτή Υπολογισμού",
+    "calculationTrainerDescription": "Εκπαιδεύστε τον υπολογισμό και τις δεξιότητες οπτικοποίησης από την τρέχουσα θέση. Βρείτε την καλύτερη υποψήφια κίνηση για κάθε πλευρά. Βρείτε την και, στη συνέχεια, πιέστε το πλήκτρο Έναρξη.",
+    "calculationGoText": "Εκκίνηση",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12416,7 +12466,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13545,7 +13600,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14674,7 +14734,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15803,7 +15868,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16932,7 +17002,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18061,7 +18136,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19190,7 +19270,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20319,7 +20404,12 @@
     "calculationBackTitle": "LiChess Tools - anulează ultima mutare\\r\\nEvită să abuzezi de asta",
     "calculationConfigTitle": "LiChess Tools - configurează Antrenorul de calcul",
     "calculationTrainerDescription": "Antrenează-ți abilitățile de calcul și vizualizare din poziția curentă. Găsește cea mai bună mișcare candidat pentru fiecare parte. Configurează și apoi apasă Pornește.",
-    "calculationGoText": "Pornește"
+    "calculationGoText": "Pornește",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - introducere manuală a mutărilor",
+    "calculationManualChoicePrompt": "Introdu mutări candidat în format UCI sau SAN",
+    "calculationManualChoiceError": "Introducere greșită: %s",
+    "noMovesEntered": "nicio mutare introdusă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21448,7 +21538,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22577,7 +22672,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23706,7 +23806,12 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24825,17 +24930,22 @@
     "showBoardTitle": "Tahtayı güncelle - önerilmez",
     "showEvalText": "Değerlendirme",
     "showEvalTitle": "Bilgisayar değerlendirmesini göster - önerilmez",
-    "calculationDepthText": "Depth: %s",
-    "calculationDepthTitle": "LiChess Tools - engine depth",
-    "calculationClickShowText": "Accuracy",
-    "calculationClickShowTitle": "LiChess Tools - show the accuracy of each choice on click",
-    "calculationReadAloudText": "Speak",
-    "calculationReadAloudTitle": "LiChess Tools - read the move aloud on click",
-    "calculationBackText": "Back",
-    "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
-    "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
-    "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationDepthText": "Derinlik: %s",
+    "calculationDepthTitle": "LiChess Tools - motor derinliği",
+    "calculationClickShowText": "Doğruluk",
+    "calculationClickShowTitle": "LiChess Tools - tıklamada her bir seçeneğin doğruluğunu göster",
+    "calculationReadAloudText": "Konuş",
+    "calculationReadAloudTitle": "LiChess Tools - tıklamada hamleyi yüksek sesle oku",
+    "calculationBackText": "Geri",
+    "calculationBackTitle": "LiChess Tools - son hamleyi geri al\\r\\nKötüye kullanmaktan kaçının",
+    "calculationConfigTitle": "LiChess Tools - Hesaplama Eğitmenini yapılandır",
+    "calculationTrainerDescription": "Mevcut konumdan hesaplama ve görselleştirme becerilerinizi geliştirin. Her iki taraf için de en uygun hamleyi bulun. Yapılandırın ve ardından Başlat düğmesine basın.",
+    "calculationGoText": "Başlat",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -25964,6 +26074,11 @@
     "calculationBackTitle": "LiChess Tools - undo last move\\r\\nAvoid abusing it",
     "calculationConfigTitle": "LiChess Tools - configure Calculation Trainer",
     "calculationTrainerDescription": "Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.",
-    "calculationGoText": "Go"
+    "calculationGoText": "Go",
+    "calculationManualChoiceText": "Manual",
+    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
+    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
+    "calculationManualChoiceError": "Bad input: %s",
+    "noMovesEntered": "no moves entered"
   }
 }

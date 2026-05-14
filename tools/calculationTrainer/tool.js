@@ -41,7 +41,12 @@
         'calculationBackTitle': 'LiChess Tools - undo last move\r\nAvoid abusing it',
         'calculationConfigTitle': 'LiChess Tools - configure Calculation Trainer',
         'calculationTrainerDescription': 'Train your calculation and visualization skills from the current position. Find the best candidate move for each side. Configure and then press Go.',
-        'calculationGoText': 'Go'
+        'calculationGoText': 'Go',
+        'calculationManualChoiceText': 'Manual',
+        'calculationManualChoiceTitle': 'LiChess Tools - manual move entry',
+        'calculationManualChoicePrompt': 'Enter candidate moves in UCI or SAN format',
+        'calculationManualChoiceError': 'Bad input: %s',
+        'noMovesEntered': 'no moves entered'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -69,13 +74,18 @@
         'calculationBackTitle': 'LiChess Tools - anuleaz\u0103 ultima mutare\r\nEvit\u0103 s\u0103 abuzezi de asta',
         'calculationConfigTitle': 'LiChess Tools - configureaz\u0103 Antrenor de calcul',
         'calculationTrainerDescription': 'Antreneaz\u0103-\u0163i abilit\u0103\u0163ile de calcul \u015Fi vizualizare din pozi\u0163ia curent\u0103. G\u0103se\u015Fte cea mai bun\u0103 mi\u015Fcare candidat pentru fiecare parte. Configureaz\u0103 \u015Fi apoi apas\u0103 Porne\u015fte.',
-        'calculationGoText': 'Porne\u015fte'
+        'calculationGoText': 'Porne\u015fte',
+        'calculationManualChoiceText': 'Manual',
+        'calculationManualChoiceTitle': 'LiChess Tools - introducere manual\u0103 a mut\u0103rilor',
+        'calculationManualChoicePrompt': 'Introdu mut\u0103ri candidat \u00een format UCI sau SAN',
+        'calculationManualChoiceError': 'Introducere gre\u015fit\u0103: %s',
+        'noMovesEntered': 'nicio mutare introdus\u0103'
       }
     }
 
-    uciToMove = (uci)=>[uci.slice(0,2), uci.slice(2,4)];
+    uciToMove = (uci)=>uci?.length==4?[uci.slice(0,2), uci.slice(2,4)]:undefined;
 
-    trainPosition = async (container, fen, uci, sfOptions, settings={ history:[] }) => {
+    trainPosition = async (container, fen, uci, settings={ history:[] }) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -83,7 +93,6 @@
       const analysis = lichess.analysis;
 
       let historyItem = settings.history.at(-1);
-      const isStart = !historyItem;
       if (fen != historyItem?.fen) {
         historyItem = {
           fen: fen,
@@ -100,18 +109,64 @@
       }
 
       $('#tn-tg').prop('checked',false); // close the mobile menu if opened
+      const co = await lt.chessops();
 
       container = $(container)
-        .toggleClassSafe('isStart showSettings',isStart);
+        .toggleClassSafe('isStart showSettings',!settings.started);
 
       let info = historyItem.info;
-      if (!info && !isStart) {
+      if (!info && settings.started) {
+        const start = lt.global.performance.now();
+        await lt.timeout(10);
+        let moves;
+        if (this.options.manualChoice) {
+          let invalid = [];
+          do {
+            moves=[];
+            const text = lt.global.prompt(invalid.length
+              ? trans.pluralSame('calculationManualChoiceError',invalid.join(', '))
+              : trans.noarg('calculationManualChoicePrompt')
+            );
+            invalid = [];
+            const frags = text?.split(/[,\s+]/) || [];
+            const fenInfo = co.fen.parseFen(fen).unwrap();
+            const ch = co.Chess.fromSetup(fenInfo).unwrap();
+            for (const frag of frags) {
+              if (!frag) continue;
+              let move = co.san.parseSan(ch,frag);
+              if (move) {
+                const uci = co.makeUci(move);
+                moves.push(uci);
+                continue;
+              }
+              move = co.parseUci(frag);
+              if (move) {
+                const uci = co.makeUci(move);
+                moves.push(uci);
+                continue;
+              }
+              invalid.push(frag);
+            }
+            if (!moves.length && !invalid.length) {
+              invalid.push(trans.noarg('noMovesEntered'));
+            }
+          } while (invalid.length);
+        }
+
         container
           .append(lt.spinnerHtml)
           .find('.empty')
           .css('visibility','hidden');
-        const start = lt.global.performance.now();
-        info = await lt.stockfish.evaluate(fen,sfOptions);
+        if (this.options.manualChoice) {
+          info = await lt.stockfish.evaluate(fen,{ depth: this.options.depth, pv: 1 });
+          historyItem.best = info[0];
+        }
+        settings.sfOptions = {
+          depth: this.options.depth,
+          pv: moves?.length || 4,
+          moves: moves?.length ? moves : undefined
+        };
+        info = await lt.stockfish.evaluate(fen,settings.sfOptions);
         const order = info.map((_,idx)=>idx);
         lt.arrayShuffle(order);
         for (let i=0; i<info.length; i++) info[i].order=order[i];
@@ -129,8 +184,9 @@
         .append($('<button type="button" class="button">')
            .text(trans.noarg('calculationGoText'))
            .on('click',ev=>{
+             settings.started = true;
              ev.preventDefault();
-             this.trainPosition(container, fen, uci, sfOptions, settings);
+             this.trainPosition(container, fen, uci, settings);
            })
         )
         .appendTo(container);
@@ -173,10 +229,12 @@
           hash: lt.hash(lt.global.JSON.stringify(i)),
           order: i.order
         }));
-        const best = lt.winPerc(data[0].cp);
+        const best = lt.winPerc(this.options.manualChoice && historyItem.best
+          ? lt.getCentipawns(historyItem.best)
+          : data[0].cp
+        );
 
         data.sort((a,b)=>a.order-b.order);
-        const co = await lt.chessops();
         const fenInfo = co.fen.parseFen(fen).unwrap();
         const ch = co.Chess.fromSetup(fenInfo).unwrap();
 
@@ -224,7 +282,7 @@
                   });
                 settings.delay = 2000;
               }
-              this.trainPosition(container, newFen, uci, sfOptions, settings);
+              this.trainPosition(container, newFen, uci, settings);
             })
             .appendTo(buttonContainer);
         }
@@ -236,7 +294,7 @@
         .on('change', async () => {
             this.options.arrows = !this.options.arrows;
             lt.storage.set('LiChessTools.calculationTrainer',this.options);
-            this.trainPosition(container, fen, uci, sfOptions, settings);
+            this.trainPosition(container, fen, uci, settings);
           })
         .appendTo(toggleContainer)
         .find('input')
@@ -246,7 +304,7 @@
         .on('change', async () => {
             this.options.board = !this.options.board;
             lt.storage.set('LiChessTools.calculationTrainer',this.options);
-            this.trainPosition(container, fen, uci, sfOptions, settings);
+            this.trainPosition(container, fen, uci, settings);
             analysis.chessground.set({
               fen: this.options.board ? fen : analysis.node.fen,
               lastMove: this.uciToMove(this.options.board ? uci : analysis.node.uci)
@@ -260,7 +318,7 @@
         .on('change', async () => {
             this.options.eval = !this.options.eval;
             lt.storage.set('LiChessTools.calculationTrainer',this.options);
-            this.trainPosition(container, fen, uci, sfOptions, settings);
+            this.trainPosition(container, fen, uci, settings);
           })
         .appendTo(toggleContainer)
         .find('input')
@@ -270,7 +328,7 @@
         .on('change', async () => {
             this.options.clickShow = !this.options.clickShow;
             lt.storage.set('LiChessTools.calculationTrainer',this.options);
-            this.trainPosition(container, fen, uci, sfOptions, settings);
+            this.trainPosition(container, fen, uci, settings);
           })
         .appendTo(toggleContainer)
         .find('input')
@@ -280,11 +338,21 @@
         .on('change', async () => {
             this.options.readAloud = !this.options.readAloud;
             lt.storage.set('LiChessTools.calculationTrainer',this.options);
-            this.trainPosition(container, fen, uci, sfOptions, settings);
+            this.trainPosition(container, fen, uci, settings);
           })
         .appendTo(toggleContainer)
         .find('input')
         .prop('checked',this.options.readAloud);
+      
+      $.createToggle('abset-manualChoice',trans.noarg('calculationManualChoiceText'),trans.noarg('calculationManualChoiceTitle'))
+        .on('change', async () => {
+            this.options.manualChoice = !this.options.manualChoice;
+            lt.storage.set('LiChessTools.calculationTrainer',this.options);
+            this.trainPosition(container, fen, uci, settings);
+          })
+        .appendTo(toggleContainer)
+        .find('input')
+        .prop('checked',this.options.manualChoice);
 
       const depthContainer = $('<div class="depth">')
         .attr('title',trans.noarg('calculationDepthTitle'))
@@ -294,13 +362,12 @@
       const input = $('<input id="abset-depth" type="range" class="range" min="1" max="30">');
       input
         .on('input',()=>{
-          sfOptions.depth = +input.val() || sfOptions.depth || '';
+          this.options.depth = +input.val() || 16;
           label
-            .text(trans.pluralSame('calculationDepthText',sfOptions.depth));
-          this.options.depth = sfOptions.depth;
+            .text(trans.pluralSame('calculationDepthText',this.options.depth));
           lt.storage.set('LiChessTools.calculationTrainer',this.options);
         })
-        .val(sfOptions.depth)
+        .val(this.options.depth)
         .trigger('input')
         .appendTo(depthContainer);
 
@@ -316,19 +383,20 @@
         })
         .appendTo(actionsContainer);
 
-      if (settings.history.length>1) {
-        $('<button type="button" class="back">')
-          .text(trans.noarg('calculationBackText'))
-          .attr('title',trans.noarg('calculationBackTitle'))
-          .on('click',ev=>{
-            ev.preventDefault();
-            settings.history.length--;
-            const { fen, uci } = settings.history.at(-1);
-            this.trainPosition(container, fen, uci, sfOptions, settings);
-          })
-          .appendTo(actionsContainer);
-      }
-
+      $('<button type="button" class="back">')
+        .text(trans.noarg('calculationBackText'))
+        .attr('title',trans.noarg('calculationBackTitle'))
+        .on('click',ev=>{
+          ev.preventDefault();
+          settings.history.length--;
+          const { fen, uci } = settings.history.length
+            ? settings.history.at(-1)
+            : analysis.node;
+          if (!settings.history.length) settings.started = false;
+          this.trainPosition(container, fen, uci, settings);
+        })
+        .appendTo(actionsContainer);
+      return settings;
     }
 
     updatePlacement = (data) => {
@@ -379,13 +447,12 @@
             noScrollable: true
           });
 
-          const sfOptions = {
-            depth: this.options.depth,
-            pv: 4
-          };
+          let settings = {};
           $(dlg)
             .on('close',()=>{ 
-              sfOptions.cancelRequested = true;
+              if (settings.sfOptions) {
+                settings.sfOptions.cancelRequested = true;
+              }
               analysis.chessground.set({
                 fen: analysis.node.fen,
                 lastMove: this.uciToMove(analysis.node.uci)
@@ -412,7 +479,7 @@
           lt.global.setTimeout(async ()=>{
             dlg.focus();
             const container = $(dlg).find('.dialog-content')[0];
-            await this.trainPosition(container, analysis.node.fen, analysis.node.uci, sfOptions);
+            settings = await this.trainPosition(container, analysis.node.fen, analysis.node.uci);
             this.ensureInViewport();
           },100);
           dlg.showModal();          

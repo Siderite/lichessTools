@@ -175,8 +175,10 @@
         if (!sf) throw new Error('Could not load Stockfish!');
         const pv = options.pv || 1;
         const depth = options.depth || 16;
+        const moves = options.moves;
         sf.setMultiPv(pv);
         sf.setDepth(depth);
+        if (moves) sf.setSearchMoves(moves);
         sf.on('info', i => { 
           if (i.cp === undefined && i.mate === undefined) return;
           const ipv = i.multipv?.[0] || 1;

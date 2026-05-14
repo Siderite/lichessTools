@@ -1,8 +1,11 @@
 History of features added to LiChess Tools in time (reversed order)
 
-13 May
+14 May
 
-- More Calculation Trainer features
+- Finalize Calculation Trainer features
+
+11 May
+
 - chess.com shuiq board
 
 05 May
