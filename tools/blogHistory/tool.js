@@ -69,7 +69,7 @@
       const viewsEl = $('.ublog-post__views');
       const views = +viewsEl.text().replaceAll(/[^\d]+/g,'') || 0;
       const likes = +$('.ublog-post__like').text().replaceAll(/[^\d]+/g,'') || 0;
-      if (views>100) viewsEl.attr('title',lt.global.Math.round(likes*10000/views)/100 + '%');
+      if (views>100) viewsEl.attrSafe('title',lt.global.Math.round(likes*10000/views)/100 + '%');
     };
 
     processBlogCards = ()=>{

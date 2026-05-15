@@ -111,8 +111,8 @@
             .appendTo(container);
         }
         openingEl
-          .text(opening)
-          .attr('title', opening);
+          .textSafe(opening)
+          .attrSafe('title', opening);
         fen = '';
         gameId = '';
       }
@@ -287,7 +287,7 @@
           visibleEl
             .append($('<span/>').addClass('lichessTools-opening').attr('title', trans.noarg('openingNameTitle')));
         }
-        metaSection.find('span.lichessTools-opening').text(result.opening);
+        metaSection.find('span.lichessTools-opening').textSafe(result.opening);
       }
       if (this.options.showInAnalysisTitle || lt.global.location.pathname=='/analysis') {
         if (!this.originalTitle) {

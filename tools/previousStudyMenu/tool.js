@@ -84,16 +84,12 @@
         }
         const data = studyData[0];
         const url = data.url || '/study/' + data.id;
-        if (elem.attr('href') != url) {
-          elem.attr('href', url)
-        }
         const title = trans.pluralSame('previousStudyTitle', data.name);
-        if (elem.attr('title') != title) {
-          elem.attr('title', title);
-        }
-        if (elem.find('span').text() != data.name) {
-          elem.find('span').text(data.name);
-        }
+        elem
+          .attrSafe('href', url)
+          .attrSafe('title', title)
+        elem.find('span')
+          .textSafe(data.name);
         const group = elem.find('div[role="group"]');
         if (itemCount < 2) {
           group.remove();

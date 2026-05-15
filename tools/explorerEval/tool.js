@@ -357,7 +357,7 @@
       const populateSpoa = (spoa, el) => {
         if (!el.length) return;
         if (el.find('div.lichessTools-spoa').length) {
-          el.find('span.spoa').text(spoa);
+          el.find('span.spoa').textSafe(spoa);
         } else {
           const text = el.text();
           el.empty()

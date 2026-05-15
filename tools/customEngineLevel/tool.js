@@ -180,13 +180,13 @@
           .on('input',()=>{
             const depth = +input.val() || '';
             $('label[for="abset-engine-depth"]',container)
-              .text(trans.pluralSame('engineDepthText',depth));
+              .textSafe(trans.pluralSame('engineDepthText',depth));
             saveEngineDepth();
           });
       }
       const engineDepth = this.options.depth || '';
       $('label[for="abset-engine-depth"]',container)
-        .text(trans.pluralSame('engineDepthText',engineDepth));
+        .textSafe(trans.pluralSame('engineDepthText',engineDepth));
       $('#abset-engine-depth')
         .val(this.options.depth || 0);
 
@@ -229,14 +229,14 @@
             let depth = +input.val() || this.options.depth || '';
             if (depth>15) depth = 15; // Lichess limitation
             $('label[for="abset-practice-depth"]',container)
-              .text(trans.pluralSame('practiceDepthText',depth));
+              .textSafe(trans.pluralSame('practiceDepthText',depth));
             savePracticeDepth();
           });
       }
       let practiceDepth = (this.options.practice && (this.options.practiceDepth || this.options.depth)) || '';
       if (practiceDepth>15) practiceDepth = 15; // Lichess limitation
       $('label[for="abset-practice-depth"]',container)
-        .text(trans.pluralSame('practiceDepthText',practiceDepth));
+        .textSafe(trans.pluralSame('practiceDepthText',practiceDepth));
       $('#abset-practice-depth')
         .val(this.options.practiceDepth || 0);
       $('div.abset-practice-depth',container)

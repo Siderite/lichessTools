@@ -246,7 +246,7 @@
       const menu = section.children('a').eq(0);
       const friends = $('#friend_box a.user-link');
       const text = trans.pluralSame('onlineFriends', this.user_data.online.length);
-      menu.text(text);
+      menu.textSafe(text);
       menu.toggleClassSafe('lichessTools-somePlaying', !!this.user_data.playing.length);
       $('section.lichessTools-onlineFriends > a')
         .attr('data-count', this.user_data.playing.length);

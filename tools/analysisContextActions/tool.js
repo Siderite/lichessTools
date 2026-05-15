@@ -194,7 +194,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       $.cached('body').toggleClass('lichessTools-evaluationStarted', !!value);
       if (!value) {
         this.evaluatedNodesTotal = 0;
-        $('.lichessTools-liveStatus label').text('');
+        $('.lichessTools-liveStatus label').textSafe('');
         this._analysedNode = null;
       }
     };
@@ -217,7 +217,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       $.cached('body').toggleClass('lichessTools-evaluationStarted', !!value);
       if (!value) {
         this.evaluatedNodesTotal = 0;
-        $('.lichessTools-liveStatus label').text('');
+        $('.lichessTools-liveStatus label').textSafe('');
         this._analysedNode = null;
       }
     };
@@ -251,7 +251,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         $('main.analyse div.analyse__controls.analyse-controls')
           .after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
       }
-      $('.lichessTools-liveStatus label').text(liveStatus);
+      $('.lichessTools-liveStatus label').textSafe(liveStatus);
       const node = nodes[0];
       if (!node) {
         this.setTerminationsEvaluation(false);
@@ -630,7 +630,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         if (menuItem.length) {
           if (ev.altKey) ev.preventDefault();
           const text = trans.noarg('extractVariationText' + this.suffix);
-          menuItem.text(text);
+          menuItem.textSafe(text);
         }
       }
     }

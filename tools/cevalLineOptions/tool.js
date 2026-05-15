@@ -177,7 +177,7 @@
       const input = $('div.setting #analyse-multipv');
       if (!input.length) return;
       $('div.setting:has(#analyse-multipv) .range_value')
-        .text(input.val()+' / '+input.attr('max'));
+        .textSafe(input.val()+' / '+input.attr('max'));
     };
 
     //Lichess API limitation: https://github.com/lichess-org/lila/issues/17127
