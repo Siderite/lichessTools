@@ -276,7 +276,7 @@
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables', 10000);
       const result = await this.withOpening(gameId, $.cached('main.round, main.analyse, main#board-editor', 10000)[0], ply, fen, false);
       if (!result) {
-        metaSection.find('.lichessTools-opening').remove();
+        metaSection.find('.lichessTools-opening').textSafe('');
         this.showOpeningInExplorer(null);
         return;
       }
