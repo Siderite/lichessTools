@@ -43,6 +43,7 @@
 
     updateStudy = async () => {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const lichess = lt.lichess;
       const trans = lt.translator;
       const study = lichess?.analysis?.study;
