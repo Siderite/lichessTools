@@ -3395,11 +3395,11 @@
     "calculationConfigTitle": "LiChess Tools - 配置计算训练器",
     "calculationTrainerDescription": "从当前局面训练您的计算与局面预判能力，为双方寻找最佳着法。完成配置后，请点击“开始”。",
     "calculationGoText": "开始",
-    "calculationManualChoiceText": "Manual",
-    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
-    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
-    "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "calculationManualChoiceText": "手动",
+    "calculationManualChoiceTitle": "LiChess Tools - 手动输入着法",
+    "calculationManualChoicePrompt": "以 UCI 或 SAN 格式输入候选着法",
+    "calculationManualChoiceError": "输入错误：%s",
+    "noMovesEntered": "未输入任何着法"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -11333,11 +11333,11 @@
     "calculationConfigTitle": "LiChess Tools - διαμόρφωση Εκπαιδευτή Υπολογισμού",
     "calculationTrainerDescription": "Εκπαιδεύστε τον υπολογισμό και τις δεξιότητες οπτικοποίησης από την τρέχουσα θέση. Βρείτε την καλύτερη υποψήφια κίνηση για κάθε πλευρά. Βρείτε την και, στη συνέχεια, πιέστε το πλήκτρο Έναρξη.",
     "calculationGoText": "Εκκίνηση",
-    "calculationManualChoiceText": "Manual",
-    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
-    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
-    "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "calculationManualChoiceText": "Χειροκίνητο",
+    "calculationManualChoiceTitle": "LiChess Tools - εισαγωγή χειροκίνητης κίνησης",
+    "calculationManualChoicePrompt": "Εισάγετε υποψήφιες κινήσεις σε μορφή UCI ή SAN",
+    "calculationManualChoiceError": "Κακή εισαγωγή: %s",
+    "noMovesEntered": "δεν έχουν εισαχθεί κινήσεις"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
