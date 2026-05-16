@@ -133,9 +133,11 @@
 
         $('.lichessTools-extendedInteractiveLesson-info').remove();
 
-        if (state.init || gp.state?.init) {
+        const inFlow = this.options.flow.sequential || this.options.flow.spacedRepetition;
+
+        if (state.init || gp.state?.init || (inFlow && !gp.currentPath)) {
           gp.resetStats?.();
-          if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
+          if (inFlow) {
             gp.currentPath = this.getCurrentPath();
             if (!gp.currentPath) {
               const nextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
@@ -164,12 +166,12 @@
         }
         const parPath = analysis.path.slice(0, -2);
         const parNode = analysis.tree.nodeAtPath(parPath);
-        const isAcceptedMove = this.isPermanentNode(node) && (!(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(analysis.path));
+        const isAcceptedMove = this.isPermanentNode(node) && (!inFlow || this.inCurrentPath(analysis.path));
         if (!isAcceptedMove) {
           const position = lt.getNodePosition(node);
           const candidate = lt.getNextMoves(parNode, gp.threeFoldRepetition)
             .filter(c => this.isPermanentNode(c))
-            .filter(c => !(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(c.path))
+            .filter(c => !inFlow || this.inCurrentPath(c.path))
             .find(c => lt.getNodePosition(c) == position);
           if (candidate) {
             if (candidate.path !== undefined) {
@@ -183,7 +185,7 @@
         const allNextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
           .filter(c => this.isPermanentNode(c) && !this.areBadGlyphNodes([c]))
         const nextMoves = allNextMoves
-          .filter(c => !(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(c.path));
+          .filter(c => !inFlow || this.inCurrentPath(c.path));
         if (!isAcceptedMove) {
           state.feedback = 'bad';
           if (!state.comment) {
@@ -244,7 +246,7 @@
           const nextMovesCount = new Set(nextMoves.map(c => c.uci)).size;
           if (!state.hint) {
             state.hint = trans.pluralSame('nextMovesCount', nextMovesCount);
-            if ((this.options.flow.sequential || this.options.flow.spacedRepetition) && this.options.flow.negativeHint) {
+            if (inFlow && this.options.flow.negativeHint) {
               const avoidText = allNextMoves
                 .filter(c=>!this.inCurrentPath(c.path))
                 .map(c=>c.san)
