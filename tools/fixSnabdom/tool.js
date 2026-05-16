@@ -37,7 +37,7 @@
         } catch(e) {
           const args = [...arguments];
           const text = args.map(a=>a?`${a.tagName} #${a.id} .${a.className}`:a).join('\r\n');
-          console.warn('LiChess Tools: error with '+key+':',args,text);
+          lt.global.console.warn('LiChess Tools: error with '+key+':',args,text);
         }
       };
       newFunc.__initErrorCatch=true;

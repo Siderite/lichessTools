@@ -51,11 +51,11 @@
         let arrow = container.find('.lichessTools-lastMoveArrow');
         if (lastMoves.length==2) {
           $(lastMoves[0])
-            .toggleClassSafe('dest',true)
-            .toggleClassSafe('orig',false);
+            .attrSafe('dest',true)
+            .attrSafe('orig',null);
           $(lastMoves[1])
-            .toggleClassSafe('dest',false)
-            .toggleClassSafe('orig',true);
+            .attrSafe('dest',null)
+            .attrSafe('orig',true);
 
           const destKey = lastMoves[0]?.cgKey;
           const origKey = lastMoves[1]?.cgKey;

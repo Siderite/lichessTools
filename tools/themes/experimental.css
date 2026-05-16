@@ -120,152 +120,152 @@ body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideT
 }
 
 /* Italy */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Italian"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Italian"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/IT.png") no-repeat center / cover;
 }
 
 /* Spain */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Spanish"] .last-move.orig,
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Ruy Lopez"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Spanish"] .last-move[orig],
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Ruy Lopez"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/ES.png") no-repeat center / cover;
 }
 
 /* France */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="French"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="French"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/FR.png") no-repeat center / cover;
 }
 
 /* England */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="English"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="English"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/GB.png") no-repeat center / cover;
 }
 
 /* Scotland (Scotch Game) */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Scotch"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Scotch"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/GB-SCT.png") no-repeat center / cover;
 }
 
 /* Ireland */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Irish"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Irish"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/IE.png") no-repeat center / cover;
 }
 
 /* Germany */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="German"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="German"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/DE.png") no-repeat center / cover;
 }
 
 /* Austria */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Austrian"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Austrian"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/AT.png") no-repeat center / cover;
 }
 
 /* Hungary */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Hungarian"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Hungarian"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/HU.png") no-repeat center / cover;
 }
 
 /* Poland */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Polish"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Polish"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/PL.png") no-repeat center / cover;
 }
 
 /* Netherlands */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Dutch"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Dutch"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/NL.png") no-repeat center / cover;
 }
 
 /* Denmark */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Danish"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Danish"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/DK.png") no-repeat center / cover;
 }
 
 /* Sweden */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Swedish"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Swedish"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/SE.png") no-repeat center / cover;
 }
 
 /* Norway */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Norwegian"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Norwegian"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/NO.png") no-repeat center / cover;
 }
 
 /* Finland */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Finnish"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Finnish"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/FI.png") no-repeat center / cover;
 }
 
 /* Russia */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Russian"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Russian"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/RU.png") no-repeat center / cover;
 }
 
 /* Ukraine */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Ukrainian"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Ukrainian"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/UA.png") no-repeat center / cover;
 }
 
 /* Czech */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Czech"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Czech"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/CZ.png") no-repeat center / cover;
 }
 
 /* Slovakia */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Slovak"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Slovak"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/SK.png") no-repeat center / cover;
 }
 
 /* Romania */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Romanian"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Romanian"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/RO.png") no-repeat center / cover;
 }
 
 /* Bulgaria */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Bulgarian"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Bulgarian"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/BG.png") no-repeat center / cover;
 }
 
 /* Greece */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Greek"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Greek"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/GR.png") no-repeat center / cover;
 }
 
 /* Turkey */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Turkish"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Turkish"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/TR.png") no-repeat center / cover;
 }
 
 /* India (covers: King's Indian, Queen's Indian, Indian Defense) */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[opening*="Indian"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[opening*="Indian"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/IN.png") no-repeat center / cover;
 }
 
 /* China */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Chinese"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Chinese"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/CN.png") no-repeat center / cover;
 }
 
 /* Japan */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Japanese"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Japanese"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/JP.png") no-repeat center / cover;
 }
 
 /* Argentina */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Argentine"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Argentine"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/AR.png") no-repeat center / cover;
 }
 
 /* Mexico */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Mexican"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="white"][opening*="Mexican"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/MX.png") no-repeat center / cover;
 }
 
 /* Brazil */
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Brazilian"] .last-move.orig {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[sideToPlay="black"][opening*="Brazilian"] .last-move[orig] {
   opacity: 0.5; background: url("https://lichess1.org/assets/flags/BR.png") no-repeat center / cover;
 }
 
-body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[lastPieceCaptured] square.last-move.dest::after {
+body.lichessTools.lichessTools-theme_experimental .lichessTools-boardStyle[lastPieceCaptured] square.last-move[dest]::after {
     content: "";
     position: absolute;
     inset: -40%;
