@@ -27527,12 +27527,32 @@
         }
       ]
     },
+    "rnbqkbnrp2ppppp1p62P588PPP1PPPPRNBQKBNRw": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "c5b6",
+          "san": "cxb6",
+          "nr": 1
+        }
+      ]
+    },
     "rnbqkbnrp2ppppp1p62pP42P58PP2PPPPRNBQKBNRb": {
       "total": 1,
       "moves": [
         {
           "uci": "e7e6",
           "san": "e6",
+          "nr": 1
+        }
+      ]
+    },
+    "rnbqkbnrp2ppppp1P6888PPP1PPPPRNBQKBNRb": {
+      "total": 1,
+      "moves": [
+        {
+          "uci": "c8b7",
+          "san": "Bb7",
           "nr": 1
         }
       ]
@@ -27723,16 +27743,16 @@
       ]
     },
     "rnbqkbnrpp1ppppp82p53P48PPP1PPPPRNBQKBNRw": {
-      "total": 2,
+      "total": 3,
       "moves": [
-        {
-          "uci": "g1f3",
-          "san": "Nf3",
-          "nr": 1
-        },
         {
           "uci": "d4c5",
           "san": "dxc5",
+          "nr": 2
+        },
+        {
+          "uci": "g1f3",
+          "san": "Nf3",
           "nr": 1
         }
       ]
@@ -27838,12 +27858,12 @@
       ]
     },
     "rnbqkbnrpp1ppppp82P588PPP1PPPPRNBQKBNRb": {
-      "total": 1,
+      "total": 2,
       "moves": [
         {
           "uci": "b7b6",
           "san": "b6",
-          "nr": 1
+          "nr": 2
         }
       ]
     },
@@ -31243,8 +31263,13 @@
       ]
     },
     "rnbqkbnrpppppppp883P48PPP1PPPPRNBQKBNRb": {
-      "total": 112,
+      "total": 113,
       "moves": [
+        {
+          "uci": "c7c5",
+          "san": "c5",
+          "nr": 4
+        },
         {
           "uci": "g8f6",
           "san": "Nf6",
@@ -31289,11 +31314,6 @@
           "uci": "b7b6",
           "san": "b6",
           "nr": 2
-        },
-        {
-          "uci": "c7c5",
-          "san": "c5",
-          "nr": 3
         },
         {
           "uci": "d7d6",
@@ -31538,17 +31558,17 @@
       ]
     },
     "rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNRw": {
-      "total": 402,
+      "total": 403,
       "moves": [
+        {
+          "uci": "d2d4",
+          "san": "d4",
+          "nr": 113
+        },
         {
           "uci": "e2e4",
           "san": "e4",
           "nr": 224
-        },
-        {
-          "uci": "d2d4",
-          "san": "d4",
-          "nr": 112
         },
         {
           "uci": "c2c4",

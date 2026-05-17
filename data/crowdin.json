@@ -9065,11 +9065,11 @@
     "calculationConfigTitle": "LiChess Tools - configurer l'entraîneur au calcul",
     "calculationTrainerDescription": "Entraînez-vous à calculer et à visualiser à partir de la position actuelle. Trouvez le meilleur coup candidat pour chaque camp. Configurez puis appuyez sur Go.",
     "calculationGoText": "Go",
-    "calculationManualChoiceText": "Manual",
-    "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
-    "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
-    "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "calculationManualChoiceText": "Manuel",
+    "calculationManualChoiceTitle": "LiChess Tools - entrée manuelle des coups",
+    "calculationManualChoicePrompt": "Entrez les coups candidats au format UCI ou SAN",
+    "calculationManualChoiceError": "Entrée incorrecte : %s",
+    "noMovesEntered": "aucun coup entré"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
