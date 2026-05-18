@@ -1,13 +1,15 @@
 (() => {
   class TeamStatsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['AddNotifications'];
+
     preferences = [
       {
         name: 'teamStats',
         category: 'community',
         type: 'multiple',
-        possibleValues: ['memberCount'],
-        defaultValue: true,
+        possibleValues: ['memberCount','notification'],
+        defaultValue: 'memberCount',
         needsLogin: true
       }
     ];
@@ -17,13 +19,17 @@
         'options.community': 'Community',
         'options.teamStats': 'Team statistics',
         'teamStats.memberCount': 'Member count',
-        'teamMemberCountTitle': 'LiChess Tools - member count chart'
+        'teamStats.notification': 'New members notification',
+        'teamMemberCountTitle': 'LiChess Tools - member count chart',
+        'newMembersText': '%s new members joined the team'
       },
       'ro-RO': {
         'options.community': 'Comunitate',
         'options.teamStats': 'Statistici echipe',
         'teamStats.memberCount': 'Num\u0103r membri',
-        'teamMemberCountTitle': 'LiChess Tools - grafic cu num\u0103rul de membri'
+        'teamStats.notification': 'Notificare membri noi',
+        'teamMemberCountTitle': 'LiChess Tools - grafic cu num\u0103rul de membri',
+        'newMembersText': '%s membri noi au intrat \u00een echip\u0103'
       }
     }
 
@@ -180,6 +186,7 @@
     updateStats = async ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
+      const trans = lt.translator;
       await this.ensureLeaderTeams();
       if (!this.leaderTeams.size) return;
 
@@ -187,10 +194,42 @@
       let save = false;
       for (const team of this.leaderTeams.keys()) {
         const existingData = this.leaderTeams.get(team);
-        if (existingData.get(timeKey)) continue;
-        const teamData = await lt.api.team.getTeam(team);
-        existingData.set(timeKey,{ nbMembers: teamData.nbMembers });
-        save = true;
+        if (!existingData.get(timeKey)) {
+          const teamData = await lt.api.team.getTeam(team);
+          if (!teamData) continue;
+          existingData.set(timeKey,{ nbMembers: teamData.nbMembers });
+          save = true;
+        }
+        if (this.options.notification) {
+          const [prev, curr] = [...existingData].slice(-2).map(a=>a[1]);
+          if (prev && curr && !curr.notifSeen) {
+            const currMembers = curr.nbMembers || 0;
+            const prevMembers = prev.nbMembers || 0;
+            if (currMembers>prevMembers) {
+              const teamData = await lt.api.team.getTeam(team);
+              const notification = {
+                getEntries: async () => {
+                  const entry = {
+                    id: 'teamStats_'+team,
+                    isNew: true,
+                    icon: lt.icon.Group,
+                    href: '/team/' + lt.global.encodeURIComponent(team),
+                    content: $('<div>')
+                      .append($('<strong>').text(teamData.name))
+                      .append($('<span>').text(trans.pluralSame('newMembersText',currMembers - prevMembers)))
+                      .html(),
+                    handler: ()=> {
+                      curr.notifSeen = true;
+                      this.saveLeaderTeams();
+                    }
+                  };
+                  return [entry];
+                }
+              };
+              lt.notifications.add(notification);
+            }
+          }
+        }
       }
       if (save) {
         await this.saveLeaderTeams();
@@ -238,7 +277,8 @@
       }
       if (lt.currentOptions.enableLichessTools === false) return;
       this.options = {
-        memberCount: lt.isOptionSet(value, 'memberCount')
+        memberCount: lt.isOptionSet(value, 'memberCount'),
+        notification: lt.isOptionSet(value, 'notification')
       };
       if (this.options.memberCount) {
         await this.handleTeamPage();

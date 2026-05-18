@@ -1132,7 +1132,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2267,7 +2269,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3402,7 +3406,9 @@
     "calculationManualChoicePrompt": "以 UCI 或 SAN 格式输入候选着法",
     "calculationManualChoiceError": "输入错误：%s",
     "noMovesEntered": "未输入任何着法",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4537,7 +4543,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5672,7 +5680,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6807,7 +6817,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7942,7 +7954,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9077,7 +9091,9 @@
     "calculationManualChoicePrompt": "Entrez les coups candidats au format UCI ou SAN",
     "calculationManualChoiceError": "Entrée incorrecte : %s",
     "noMovesEntered": "aucun coup entré",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10212,7 +10228,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11347,7 +11365,9 @@
     "calculationManualChoicePrompt": "Εισάγετε υποψήφιες κινήσεις σε μορφή UCI ή SAN",
     "calculationManualChoiceError": "Κακή εισαγωγή: %s",
     "noMovesEntered": "δεν έχουν εισαχθεί κινήσεις",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12482,7 +12502,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13617,7 +13639,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14752,7 +14776,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15887,7 +15913,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -17022,7 +17050,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18157,7 +18187,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19292,7 +19324,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20427,7 +20461,9 @@
     "calculationManualChoicePrompt": "Introdu mutări candidat în format UCI sau SAN",
     "calculationManualChoiceError": "Introducere greșită: %s",
     "noMovesEntered": "nicio mutare introdusă",
-    "variationsCountText": "%s variații"
+    "variationsCountText": "%s variații",
+    "teamStats.notification": "Notificare membri noi",
+    "newMembersText": "%s membri noi au intrat în echipă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21562,7 +21598,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22697,7 +22735,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23832,7 +23872,9 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24967,7 +25009,9 @@
     "calculationManualChoicePrompt": "Aday hamlelerini UCI veya SAN formatında girin",
     "calculationManualChoiceError": "Hatalı girdi: %s",
     "noMovesEntered": "hamle girilmedi",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -26102,6 +26146,8 @@
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
     "noMovesEntered": "no moves entered",
-    "variationsCountText": "%s variations"
+    "variationsCountText": "%s variations",
+    "teamStats.notification": "New members notification",
+    "newMembersText": "%s new members joined the team"
   }
 }

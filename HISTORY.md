@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 18 May
 
 - show number of variations in interactive lesson info panel
+- notification of new members in teams you lead
 
 14 May
 
