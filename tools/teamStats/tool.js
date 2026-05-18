@@ -207,6 +207,12 @@
         for (const [k,v] of data) {
           this.leaderTeams.set(k,new Map(v));
         }
+        if (!this.leaderTeams.size) {
+          const leaderTeams = await lt.api.team.getLeaderTeams();
+          for (const team of leaderTeams) {
+            this.leaderTeams.set(team.id,new Map());
+          }
+        }
       }
     };
 

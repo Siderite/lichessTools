@@ -2671,10 +2671,31 @@
           const lt = this.lichessTools;
           const data = await lt.net.json({
             url: '/api/team/{teamId}',
-            args: { teamId },
+            args: { teamId }
+          },{
             ignoreStatuses: [ 404 ]
           });
           return data;
+        },
+        getLeaderTeams: async function() {
+          const lt = this.lichessTools;
+          let html='';
+          let page=1;
+          let url = '/team/leader';
+          while (url) {
+            const page = await lt.net.fetch(url);
+            html += page;
+            url = $(page).find('a[rel="next"]').attr('href');
+            if (url) await lt.timeout(1000);
+          }
+          const result = $(html)
+                          .find('td.subject a[href^="/team/"]')
+                          .get()
+                          .map(e=>({
+                            id: /\/team\/(?<team>[^\/?#\s]*)/.exec($(e).attr('href'))?.groups?.team,
+                            name: [...e.childNodes].find(n=>n.nodeType===3)?.textContent
+                          }));
+          return result;
         }
       },
       streamer: {
