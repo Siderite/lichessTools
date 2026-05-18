@@ -64,7 +64,8 @@
         'daysText': '%s days',
         'hoursText': '%s hrs',
         'minutesText': '%s mins',
-        'continueFromHere': 'Go on!'
+        'continueFromHere': 'Go on!',
+        'variationsCountText': '%s variations'
       },
       'ro-RO': {
         'options.study': 'Studiu',
@@ -108,7 +109,8 @@
         'daysText': '%s zile',
         'hoursText': '%s ore',
         'minutesText': '%s minute',
-        'continueFromHere': 'Continu\u0103!'
+        'continueFromHere': 'Continu\u0103!',
+        'variationsCountText': '%s varia\u0163ii'
       }
     }
 
@@ -907,8 +909,10 @@
       const $ = lt.$;
       const trans = lt.translator;
       const analysis = lt.lichess.analysis;
+      const study = analysis?.study;
+      if (!study) return;
 
-      $.cached('body').toggleClassSafe('lichessTools-extendedInteractiveLesson', this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
+      $.cached('body').toggleClassSafe('lichessTools-extendedInteractiveLesson', this.options.extendedInteractive && !!study.data.chapter.gamebook);
       let translation = trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attrSafe('title', translation); //.attr('data-label',translation);
 
@@ -943,8 +947,8 @@
       }
 
       const menu = $('#analyse-cm');
-      const isWritableStudy = analysis?.study?.isWriting();
-      if (isWritableStudy && menu.length && analysis?.study?.data?.chapter?.gamebook) {
+      const isWritableStudy = study.isWriting();
+      if (isWritableStudy && menu.length && study.data.chapter.gamebook) {
         if (!menu.has('a[data-role="addDeviation"]').length) {
           const text = trans.noarg('addDeviationText');
           const title = trans.noarg('addDeviationTitle');
@@ -967,7 +971,7 @@
         }
       }
 
-      if (!analysis.study?.practice) {
+      if (!study.practice) {
         const gamebookElem = $('div.gamebook');
         let optionsElem = gamebookElem.find('.lichessTools-extendedInteractiveLesson-options');
         if (!optionsElem.length) {
@@ -993,6 +997,12 @@
           if (this.options.flow.negativeHint) {
             optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.negativeHint'));
           }
+        }
+        const key = study.data.id + '/' + study.data.chapter.id;
+        const paths = this._paths[key];
+        const total = paths && Object.keys(paths).filter(k=>k!='currentPath').length;
+        if (total) {
+          optionsArr.push(trans.pluralSame('variationsCountText',total));
         }
         optionsElem.find('span').textSafe(optionsArr.join(', '));
       }

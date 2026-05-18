@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+18 May
+
+- show number of variations in interactive lesson info panel
+
 14 May
 
 - Finalize Calculation Trainer features

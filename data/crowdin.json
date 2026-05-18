@@ -1131,7 +1131,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2265,7 +2266,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3399,7 +3401,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - 手动输入着法",
     "calculationManualChoicePrompt": "以 UCI 或 SAN 格式输入候选着法",
     "calculationManualChoiceError": "输入错误：%s",
-    "noMovesEntered": "未输入任何着法"
+    "noMovesEntered": "未输入任何着法",
+    "variationsCountText": "%s variations"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4533,7 +4536,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5667,7 +5671,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6801,7 +6806,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7935,7 +7941,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9069,7 +9076,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - entrée manuelle des coups",
     "calculationManualChoicePrompt": "Entrez les coups candidats au format UCI ou SAN",
     "calculationManualChoiceError": "Entrée incorrecte : %s",
-    "noMovesEntered": "aucun coup entré"
+    "noMovesEntered": "aucun coup entré",
+    "variationsCountText": "%s variations"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10203,7 +10211,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11337,7 +11346,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - εισαγωγή χειροκίνητης κίνησης",
     "calculationManualChoicePrompt": "Εισάγετε υποψήφιες κινήσεις σε μορφή UCI ή SAN",
     "calculationManualChoiceError": "Κακή εισαγωγή: %s",
-    "noMovesEntered": "δεν έχουν εισαχθεί κινήσεις"
+    "noMovesEntered": "δεν έχουν εισαχθεί κινήσεις",
+    "variationsCountText": "%s variations"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12471,7 +12481,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13605,7 +13616,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14739,7 +14751,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15873,7 +15886,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -17007,7 +17021,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18141,7 +18156,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19275,7 +19291,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20409,7 +20426,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - introducere manuală a mutărilor",
     "calculationManualChoicePrompt": "Introdu mutări candidat în format UCI sau SAN",
     "calculationManualChoiceError": "Introducere greșită: %s",
-    "noMovesEntered": "nicio mutare introdusă"
+    "noMovesEntered": "nicio mutare introdusă",
+    "variationsCountText": "%s variații"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21543,7 +21561,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22677,7 +22696,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23811,7 +23831,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24945,7 +24966,8 @@
     "calculationManualChoiceTitle": "LiChess Tools - manuel hamle girişi",
     "calculationManualChoicePrompt": "Aday hamlelerini UCI veya SAN formatında girin",
     "calculationManualChoiceError": "Hatalı girdi: %s",
-    "noMovesEntered": "hamle girilmedi"
+    "noMovesEntered": "hamle girilmedi",
+    "variationsCountText": "%s variations"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -26079,6 +26101,7 @@
     "calculationManualChoiceTitle": "LiChess Tools - manual move entry",
     "calculationManualChoicePrompt": "Enter candidate moves in UCI or SAN format",
     "calculationManualChoiceError": "Bad input: %s",
-    "noMovesEntered": "no moves entered"
+    "noMovesEntered": "no moves entered",
+    "variationsCountText": "%s variations"
   }
 }
