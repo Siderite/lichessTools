@@ -8,6 +8,7 @@
         type: 'single',
         possibleValues: ['none', 'bars', 'chart'],
         defaultValue: 'none',
+        offValue: 'none',
         needsLogin: true
       }
     ];

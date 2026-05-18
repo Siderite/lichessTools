@@ -584,7 +584,7 @@
             .map(t => t.preferences)
             .flat()
             .filter(p => p && (!p.hidden || p.offValue !== undefined))
-            .map(p => ({ key: p.name, offValue: p.offValue || false }));
+            .map(p => ({ key: p.name, offValue: p.offValue===undefined ? false : p.offValue }));
           for (const { key, offValue } of keys) options[key] = offValue;
           await lt.applyOptions(options);
           lt.fireReloadOptions();

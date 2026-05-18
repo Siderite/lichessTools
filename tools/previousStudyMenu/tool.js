@@ -10,6 +10,7 @@
         type: 'single',
         possibleValues: [0,1,2,3,4,5],
         defaultValue: 5,
+        offValue: 0,
         advanced: true
       }
     ];

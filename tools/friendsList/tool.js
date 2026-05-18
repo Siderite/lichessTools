@@ -10,6 +10,7 @@
         type: 'single',
         possibleValues: ['default', 'open', 'menu', 'button', 'hidden'],
         defaultValue: 'menu',
+        offValue: 'default',
         needsLogin: true
       },
       {

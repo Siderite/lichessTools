@@ -7,6 +7,7 @@
         category: 'appearance',
         type: 'text',
         defaultValue: '',
+        offValue: '',
         advanced: true
       }
     ];

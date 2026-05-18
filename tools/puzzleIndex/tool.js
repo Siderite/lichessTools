@@ -11,6 +11,7 @@
         fileDescription: 'Ngram Index Files (NIF)',
         fileExtension: '.nif',
         defaultValue: '',
+        offValue: '',
         advanced: true
       },
       {
