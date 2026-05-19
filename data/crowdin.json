@@ -3406,9 +3406,9 @@
     "calculationManualChoicePrompt": "以 UCI 或 SAN 格式输入候选着法",
     "calculationManualChoiceError": "输入错误：%s",
     "noMovesEntered": "未输入任何着法",
-    "variationsCountText": "%s variations",
-    "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "variationsCountText": "%s 种变着",
+    "teamStats.notification": "新成员通知",
+    "newMembersText": "%s 位新成员加入了团队"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -11365,9 +11365,9 @@
     "calculationManualChoicePrompt": "Εισάγετε υποψήφιες κινήσεις σε μορφή UCI ή SAN",
     "calculationManualChoiceError": "Κακή εισαγωγή: %s",
     "noMovesEntered": "δεν έχουν εισαχθεί κινήσεις",
-    "variationsCountText": "%s variations",
-    "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "variationsCountText": "%s παραλλαγές",
+    "teamStats.notification": "Ειδοποίηση νέων μελών",
+    "newMembersText": "%s νέα μέλη εντάχθηκαν στην ομάδα"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
