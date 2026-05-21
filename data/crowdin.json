@@ -9091,9 +9091,9 @@
     "calculationManualChoicePrompt": "Entrez les coups candidats au format UCI ou SAN",
     "calculationManualChoiceError": "Entrée incorrecte : %s",
     "noMovesEntered": "aucun coup entré",
-    "variationsCountText": "%s variations",
-    "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "variationsCountText": "%s variantes",
+    "teamStats.notification": "Notification nouveaux membres",
+    "newMembersText": "%s nouveaux membres ont rejoint l'équipe"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -25009,9 +25009,9 @@
     "calculationManualChoicePrompt": "Aday hamlelerini UCI veya SAN formatında girin",
     "calculationManualChoiceError": "Hatalı girdi: %s",
     "noMovesEntered": "hamle girilmedi",
-    "variationsCountText": "%s variations",
-    "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "variationsCountText": "%s varyasyon",
+    "teamStats.notification": "Yeni üyeler bildirimi",
+    "newMembersText": "Takıma %s yeni üye katıldı"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
