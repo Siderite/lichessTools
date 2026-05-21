@@ -757,6 +757,13 @@
     },
     {
       "category": "lichess",
+      "name": "totoy",
+      "url": "https://github.com/lichess-org/lila/raw/refs/heads/master/public/piece/totoy/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "lichess",
       "name": "xkcd",
       "url": "https://github.com/lichess-org/lila/raw/refs/heads/master/public/piece/xkcd/",
       "type": "svg",
