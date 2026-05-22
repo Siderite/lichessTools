@@ -212,7 +212,7 @@
               .addClass(result.timeControlClass)
               .toggleClass('white',result.userWhite)
               .attr('href',result.href)
-              .append($('<span>').text(name+' '+result.opponentRating))
+              .append($('<span>').text(name+(result.opponentRating?' '+result.opponentRating:'')))
               .appendTo(container)
               .each((i,e)=>lichess.powertip?.manualGame(e));
           }
