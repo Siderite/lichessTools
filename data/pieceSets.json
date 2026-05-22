@@ -2699,6 +2699,13 @@
       }
     },
     {
+      "category": "fordCrownVictoria",
+      "name": "Elite Retro",
+      "url": "https://fordcrownvictoria1234-art.github.io/Chess-Pieces-Originals/elite_retro/",
+      "type": "png",
+      "cap": "wN"
+    },
+    {
       "category": "bend-n",
       "name": "Alpha",
       "url": "https://raw.githubusercontent.com/bend-n/chess/main/assets/pieces/alpha/",
