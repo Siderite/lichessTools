@@ -722,6 +722,7 @@ class PieceSetGrid {
 
             // Background circle
             const circle = g.append("circle")
+                .attr("data-key", ps.name)
                 .attr("cx", cellX + this.cellSize / 2)
                 .attr("cy", cellY + this.cellSize / 2)
                 .attr("r", this.cellSize / 2 - 5);
@@ -739,7 +740,8 @@ class PieceSetGrid {
                 .attr("preserveAspectRatio", "xMidYMid meet")
                 .attr("cursor", "pointer")
                 .on("click", () => {
-                    if (this.onSelect) this.onSelect(ps);
+                    this.onSelect(ps);
+                    this.updateSelection();
                 })
                 .append("title")
                 .text(title);
@@ -756,14 +758,13 @@ class PieceSetGrid {
     updateSelection() {
         if (!this.getSelected || !this.g) return;
 
-        const selectedName = this.getSelected();
-        if (!selectedName) return;
+        const setName = this.getSelected();
 
-        // Optional: highlight selected piece
-        this.g.selectAll("image")
-            .classed("selected", d => false); // d3 data not bound, simple approach below
+        this.g.node().querySelectorAll('circle[data-key]')
+            .forEach(e=>{
+              e.classList.toggle('selected',e.getAttribute('data-key')==setName);
+            });
 
-        // Alternative simple highlight using title or data attribute if needed
     }
 
     getContainer() {
