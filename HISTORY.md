@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 May
+
+- Elite Retro piece set
+- Piece sets grid
+
 18 May
 
 - show number of variations in interactive lesson info panel

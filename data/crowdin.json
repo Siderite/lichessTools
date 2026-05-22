@@ -1134,7 +1134,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2271,7 +2272,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3408,7 +3410,8 @@
     "noMovesEntered": "未输入任何着法",
     "variationsCountText": "%s 种变着",
     "teamStats.notification": "新成员通知",
-    "newMembersText": "%s 位新成员加入了团队"
+    "newMembersText": "%s 位新成员加入了团队",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4545,7 +4548,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5682,7 +5686,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6819,7 +6824,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7956,7 +7962,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9093,7 +9100,8 @@
     "noMovesEntered": "aucun coup entré",
     "variationsCountText": "%s variantes",
     "teamStats.notification": "Notification nouveaux membres",
-    "newMembersText": "%s nouveaux membres ont rejoint l'équipe"
+    "newMembersText": "%s nouveaux membres ont rejoint l'équipe",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10230,7 +10238,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11367,7 +11376,8 @@
     "noMovesEntered": "δεν έχουν εισαχθεί κινήσεις",
     "variationsCountText": "%s παραλλαγές",
     "teamStats.notification": "Ειδοποίηση νέων μελών",
-    "newMembersText": "%s νέα μέλη εντάχθηκαν στην ομάδα"
+    "newMembersText": "%s νέα μέλη εντάχθηκαν στην ομάδα",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12504,7 +12514,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13641,7 +13652,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14778,7 +14790,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15915,7 +15928,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -17052,7 +17066,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18189,7 +18204,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19326,7 +19342,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20463,7 +20480,8 @@
     "noMovesEntered": "nicio mutare introdusă",
     "variationsCountText": "%s variații",
     "teamStats.notification": "Notificare membri noi",
-    "newMembersText": "%s membri noi au intrat în echipă"
+    "newMembersText": "%s membri noi au intrat în echipă",
+    "pieceSetGridTitle": "LiChess Tools - arată grila seturilor de piese"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21600,7 +21618,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22737,7 +22756,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23874,7 +23894,8 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -25011,7 +25032,8 @@
     "noMovesEntered": "hamle girilmedi",
     "variationsCountText": "%s varyasyon",
     "teamStats.notification": "Yeni üyeler bildirimi",
-    "newMembersText": "Takıma %s yeni üye katıldı"
+    "newMembersText": "Takıma %s yeni üye katıldı",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -26148,6 +26170,7 @@
     "noMovesEntered": "no moves entered",
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
-    "newMembersText": "%s new members joined the team"
+    "newMembersText": "%s new members joined the team",
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
   }
 }

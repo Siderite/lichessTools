@@ -27,6 +27,7 @@
         'pieceFilterPlaceholder': '... filter',
         'pieceFilterTitle': 'LiChess Tools - filter piece sets by name',
         'pieceSetTreeTitle': 'LiChess Tools - show tree of piece sets',
+        'pieceSetGridTitle': 'LiChess Tools - show piece sets grid',
         'pieceSetTreeHeader': 'Piece sets',
 
         'extraPieceSets.siderite': 'Siderite', // don't translate these
@@ -64,6 +65,7 @@
         'pieceFilterPlaceholder': '... filtru',
         'pieceFilterTitle': 'LiChess Tools - filtreaz\u0103 seturile de piese dup\u0103 nume',
         'pieceSetTreeTitle': 'LiChess Tools - arat\u0103 arborele seturilor de piese',
+        'pieceSetGridTitle': 'LiChess Tools - arat\u0103 grila seturilor de piese',
         'pieceSetTreeHeader': 'Seturi de piese'
       }
     }
@@ -218,12 +220,20 @@
               .each((i,e)=>$(e).toggleClassSafe('lichessTools-filteredPieces',!$(e).attr('title').toLowerCase().includes(text)));
           })
           .appendTo(searchContainer);
-        $('<button type="button" class="button graph">')
+        $('<button type="button" class="button grid">')
+          .text(lt.icon.Keypad)
+          .attr('title',trans.noarg('pieceSetGridTitle'))
+          .on('click',ev=>{
+            ev.preventDefault();
+            this.buildPieceSetVisual('grid');
+          })
+          .appendTo(searchContainer);
+        $('<button type="button" class="button tree">')
           .text(lt.icon.PalmBranch)
           .attr('title',trans.noarg('pieceSetTreeTitle'))
           .on('click',ev=>{
             ev.preventDefault();
-            this.buildPieceSetTree();
+            this.buildPieceSetVisual('tree');
           })
           .appendTo(searchContainer);
         const maxHeight = parseInt(list.css('max-height'));
@@ -291,7 +301,7 @@
       lt.scrollIntoViewIfNeeded(list.find('button.active'));
     };
 
-    buildPieceSetTree = async ()=>{
+    buildPieceSetVisual = async (mode)=>{
       if (!this.pieceSets) return;
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -305,7 +315,8 @@
 
       await lt.timeout(100);
 
-      const graph = new PieceSetGraph(
+      const impl = mode == 'grid' ? PieceSetGrid : PieceSetTree;
+      const graph = new impl(
         this.pieceSets.filter(ps=>!ps.duplicate),
         ps => this.getUrl(ps, 'knight', 'white'),
         await lt.d3(),
@@ -413,7 +424,7 @@
 
   }
 
-class PieceSetGraph {
+class PieceSetTree {
     constructor(pieceSets, getPieceUrl, d3, onSelect, getSelected) {
         this.pieceSets = pieceSets;
         this.getPieceUrl = getPieceUrl;
@@ -647,6 +658,136 @@ class PieceSetGraph {
           bounds.width,
           bounds.height
         ].join(" "));
+    }
+}
+
+class PieceSetGrid {
+    constructor(pieceSets, getPieceUrl, d3, onSelect, getSelected) {
+        this.pieceSets = pieceSets || [];
+        this.getPieceUrl = getPieceUrl;
+        this.d3 = d3;
+        this.onSelect = typeof onSelect === "function" ? onSelect : null;
+        this.getSelected = typeof getSelected === "function" ? getSelected : null;
+
+        this.width = 1400;
+        this.height = 900;
+        this.cellSize = 90;
+
+        // Determine grid dimensions
+        this.Nx = 0;
+        this.Ny = 0;
+        for (const ps of this.pieceSets) {
+            if (ps.coordinates) {
+                this.Nx = Math.max(this.Nx, (ps.coordinates.x || 0) + 1);
+                this.Ny = Math.max(this.Ny, (ps.coordinates.y || 0) + 1);
+            }
+        }
+        if (this.Nx < 1) this.Nx = 1;
+        if (this.Ny < 1) this.Ny = 1;
+
+        this.container = this.render();
+    }
+
+    render() {
+        const container = document.createElement("div");
+        container.style.width = "100%";
+        container.style.height = "100%";
+        container.style.overflow = "hidden";
+
+        const totalWidth = this.Nx * this.cellSize;
+        const totalHeight = this.Ny * this.cellSize;
+
+        const svg = this.d3.select(container)
+            .append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("viewBox", `0 0 ${totalWidth} ${totalHeight}`);
+
+        const g = svg.append("g");
+
+        // Zoom behavior
+        const zoom = this.d3.zoom()
+            .scaleExtent([0.1, 8])           // wide zoom range: zoom out a lot + zoom in
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        // Build grid
+        for (const ps of this.pieceSets) {
+            if (!ps.coordinates) continue;
+            const cellX = Math.floor(ps.coordinates.x) * this.cellSize;
+            const cellY = Math.floor(ps.coordinates.y) * this.cellSize;
+
+            // Background circle
+            const circle = g.append("circle")
+                .attr("cx", cellX + this.cellSize / 2)
+                .attr("cy", cellY + this.cellSize / 2)
+                .attr("r", this.cellSize / 2 - 5);
+            circle.attr("cursor", "pointer");
+
+            const title = ps.category + ' ' + ps.name.replace('_'+ps.category,'');
+
+            // Image
+            g.append("image")
+                .attr("x", cellX + 6)
+                .attr("y", cellY + 6)
+                .attr("width", this.cellSize - 12)
+                .attr("height", this.cellSize - 12)
+                .attr("href", this.getPieceUrl(ps))
+                .attr("preserveAspectRatio", "xMidYMid meet")
+                .attr("cursor", "pointer")
+                .on("click", () => {
+                    if (this.onSelect) this.onSelect(ps);
+                })
+                .append("title")
+                .text(title);
+        }
+
+        this.svg = svg;
+        this.g = g;
+        this.rendered = { svg, g, container, zoom };
+
+        this.updateSelection();
+        return container;
+    }
+
+    updateSelection() {
+        if (!this.getSelected || !this.g) return;
+
+        const selectedName = this.getSelected();
+        if (!selectedName) return;
+
+        // Optional: highlight selected piece
+        this.g.selectAll("image")
+            .classed("selected", d => false); // d3 data not bound, simple approach below
+
+        // Alternative simple highlight using title or data attribute if needed
+    }
+
+    getContainer() {
+        return this.container;
+    }
+
+    setCellSize(newSize) {
+        this.cellSize = newSize || 90;
+        if (this.rendered && this.rendered.container) {
+            const newContainer = this.render();
+            const parent = this.rendered.container.parentNode;
+            if (parent) {
+                parent.replaceChild(newContainer, this.rendered.container);
+            }
+            this.container = newContainer;
+        }
+    }
+
+    fillContainer() {
+        if (this.rendered && this.rendered.svg) {
+            const totalWidth = this.Nx * this.cellSize;
+            const totalHeight = this.Ny * this.cellSize;
+            this.rendered.svg.attr("viewBox", `0 0 ${totalWidth} ${totalHeight}`);
+        }
     }
 }
 
