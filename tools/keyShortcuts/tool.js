@@ -164,7 +164,7 @@
 
     randomChapter = () => {
       if (this.makeMoveMode != 'general') {
-        this.oldHandlers['r']();
+        this.oldHandlers['r']?.();
         return;
       }
       this.clearMoveMode();
