@@ -2064,8 +2064,8 @@
         }
         return data;
       },
-      getDataUrl: async function(url, useProxy) {
-        const options = { url: url, useProxy: !!useProxy };
+      getDataUrl: async function(url, options) {
+        options = { url: url, ...options };
         const lt = this.lichessTools;
         let error = null;
         const data = await lt.comm.send({ type: 'getDataUrl', options: options })
@@ -2916,6 +2916,23 @@
           if (!userId) return null;
           const data = await lt.net.json({ url: '/tournament/{tourId}?page=1&partial=true&me={userId}', args: { tourId: tourId, userId:userId } });
           return data;
+        }
+      },
+      chessagine: {
+        lichessTools: this,
+        analyseFEN: async function(fen,engine,rating) {
+          const lt = this.lichessTools;
+          const data = await lichessTools.comm.getDataUrl('https://www.chessagine.com/api/nn',{
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                endpoint: "analyze",
+                fen: fen,
+                engine: engine,
+                rating: rating
+              })
+            });
+          return lt.net.json(data.dataUrl);
         }
       }
     }
