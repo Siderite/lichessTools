@@ -2299,6 +2299,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 86400 * 10000, minTime: 5000 });
+        lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFEN', { persist: 'local', interval: 86400 * 10000, minTime: 500 });
       },
       blog: {
         lichessTools: this,
@@ -2932,6 +2933,9 @@
                 rating: rating
               })
             });
+          if (!data.dataUrl) {
+            throw new Error('Could not get the data URL for '+fen+' '+engine+' rating:'+rating);
+          }
           return lt.net.json(data.dataUrl);
         }
       }
