@@ -97,10 +97,11 @@
       const orientation = analysis.getOrientation() == 'black' ? -1 : 1;
       $('section.explorer-box table.moves.lichessTools-evalTable').remove();
       if (lt.isGamePlaying()) return;
+      const isError = $('section.explorer-box .data.empty .message .explanation').length;
       let container = $('section.explorer-box table.moves');
       const tablebase = $('section.explorer-box table.tablebase');
       if (!container.length) {
-        if (this.options.evalRows && moves?.length) {
+        if (this.options.evalRows && moves?.length && !isError) {
           const dataElem = $('section.explorer-box div.data');
           $('div.message', dataElem).remove();
           container = $('<table class="moves lichessTools-evalTable">')
