@@ -2257,7 +2257,11 @@
             }
             return cached.value;
           }
-          lt.$('body').toggleClassSafe('lichessTools-apiLoading',true);
+          let apiElem = lt.$('body > .lichessTools-api');
+          if (!apiElem.length) {
+            apiElem = lt.$('<div class="lichessTools-api">').appendTo('body');
+          }
+          apiElem.toggleClassSafe('lichessTools-apiLoading',true);
           try {
             cache.lock(key);
             const immediateResult = options.minTime
@@ -2271,7 +2275,7 @@
             return result;
           } finally {
             cache.release(key);
-            lt.$('body').toggleClassSafe('lichessTools-apiLoading',false);
+            apiElem.toggleClassSafe('lichessTools-apiLoading',false);
           }
         };
         obj[funcName].__originalFunction = original;
@@ -2299,7 +2303,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 86400 * 10000, minTime: 5000 });
-        lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFEN', { persist: 'local', interval: 86400 * 10000, minTime: 500 });
+        lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFEN', { persist: 'local', interval: 86400 * 10000, minTime: 1100 });
       },
       blog: {
         lichessTools: this,
@@ -2930,7 +2934,8 @@
                 endpoint: "analyze",
                 fen: fen,
                 engine: engine,
-                rating: rating
+                rating: rating,
+                rawWDL: true
               })
             });
           if (!data.dataUrl) {
