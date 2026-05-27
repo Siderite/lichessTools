@@ -3421,12 +3421,12 @@
     "variationsCountText": "%s 种变着",
     "teamStats.notification": "新成员通知",
     "newMembersText": "%s 位新成员加入了团队",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
-    "options.explorerChessagine": "Chessagine integration in Explorer",
-    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
-    "chessagineNoEngineText": "None",
-    "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "pieceSetGridTitle": "LiChess Tools - 显示棋子样式网格",
+    "options.explorerChessagine": "集成至探索器的 Chessagine",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API 集成",
+    "chessagineNoEngineText": "无",
+    "chessagineEngineText": "Chessagine 引擎",
+    "chessagineRatingText": "等级分"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
