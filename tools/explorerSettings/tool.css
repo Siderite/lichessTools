@@ -16,7 +16,28 @@ body.lichessTools section.explorer-box td.lichessTools-evalRow {
   text-align: center;
 }
 
-/* Prettie Lichess fixes */
+body.lichessTools .lichessTools-chessagineActive .player-db .name,
+body.lichessTools .lichessTools-chessagineActive .player-db .speed,
+body.lichessTools .lichessTools-chessagineActive .player-db .mode,
+body.lichessTools .lichessTools-chessagineActive .player-db .date {
+  display: none;
+}
+
+body.lichessTools .explorer-box:not(.lichessTools-chessagineEnabled) .lichessTools-explorerSettings .lichessTools-engines,
+body.lichessTools .explorer-box:not(.lichessTools-chessagineEnabled) .lichessTools-explorerSettings .lichessTools-ratings {
+  display: none;
+}
+
+body.lichessTools .explorer-box .lichessTools-explorerSettings:not(:has([data-engine="maia3"][aria-pressed="true"])) .lichessTools-ratings {
+  display: none;
+}
+
+body.lichessTools .lichessTools-explorerSettings .lichessTools-engines label,
+body.lichessTools .lichessTools-explorerSettings .lichessTools-ratings label {
+  width: stretch;
+}
+
+/* Pretty Lichess fixes */
 
 body.lichessTools.lichessTools-prettier .explorer-box td {
   padding: 5px !important;

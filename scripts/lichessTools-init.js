@@ -147,6 +147,7 @@ lichessTools.loadTool(LiChessTools.Tools.VoiceInput);
 lichessTools.loadTool(LiChessTools.Tools.BotsMenuItem);
 lichessTools.loadTool(LiChessTools.Tools.TeamStats);
 lichessTools.loadTool(LiChessTools.Tools.CalculationTrainer);
+lichessTools.loadTool(LiChessTools.Tools.ExplorerChessagine);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

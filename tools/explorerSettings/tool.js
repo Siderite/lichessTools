@@ -29,7 +29,10 @@
         'meButtonSettingText': 'Me button',
         'meButtonSettingTitle': 'Button to switch player with your user',
         'moreGamesButtonText': 'More games',
-        'moreGamesButtonTitle': 'Show more games in Recent Games'
+        'moreGamesButtonTitle': 'Show more games in Recent Games',
+        'chessagineNoEngineText':'None',
+        'chessagineEngineText': 'Chessagine engine',
+        'chessagineRatingText': 'Rating'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -43,7 +46,10 @@
         'meButtonSettingText': 'Button Eu',
         'meButtonSettingTitle': 'Buton care schimb\u0103 juc\u0103torul cu tine',
         'moreGamesButtonText': 'Mai multe jocuri',
-        'moreGamesButtonTitle': 'Arat\u0103 mai multe jocuri \u00een Jocuri Recente'
+        'moreGamesButtonTitle': 'Arat\u0103 mai multe jocuri \u00een Jocuri Recente',
+        'chessagineNoEngineText':'Nici unul',
+        'chessagineEngineText': 'Motor Chessagine',
+        'chessagineRatingText': 'Rating'
       }
     };
 
@@ -60,6 +66,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       if (!lichess.analysis?.explorer?.config?.data?.open()) return;
+      const analysis = lichess.analysis;
       const container = $('section.explorer-box div.config >div:has(section.date)');
       if (!container.length) return;
       let section = $('section.lichessTools-explorerSettings', container);
@@ -145,6 +152,95 @@
       value = lt.isOptionSet(value, 'switchWithMe');
       $('button.lichessTools-meButton', section)
         .attr('aria-pressed', value.toString());
+
+      const explorer = analysis.explorer;
+      const player = explorer.config.data.playerName.value();
+      const m = /^!lt_(?<engine>.*?)(?:_(?<rating>\d+))?$/.exec(player);
+
+      value = lt.tools.ExplorerChessagineTool?.options?.enabled && explorer.db()=='player';
+      $('.explorer-box').toggleClassSafe('lichessTools-chessagineEnabled',value);
+      $('.explorer-box').toggleClassSafe('lichessTools-chessagineActive',m && value);
+      if (value) {
+
+        if (!($('.lichessTools-engines').length)) {
+           const engines = $('<div class="lichessTools-engines choices">')
+             .append($('<label>')
+               .text(trans.noarg('chessagineEngineText')))
+             .appendTo(section);
+           for (const engine of ['','leela','elite-leela','maia3']) {
+             const engineName = lt.tools.ExplorerChessagineTool?.ENGINES?.find(e=>e.id==engine)?.label;
+             $('<button class="engine">')
+                 .attr('data-engine',engine)
+                 .text(engineName || trans.noarg('chessagineNoEngineText'))
+                 .on('click', ev => {
+                   ev.preventDefault();
+                   const existing = explorer.config.data.playerName.value();
+                   if (existing?.startsWith('!lt_')) {
+                     explorer.config.removePlayer(existing);
+                     const userId = lt.getUserId();
+                     if (userId) {
+                       explorer.config.selectPlayer(userId);
+                       explorer.config.toggleOpen();
+                       explorer.config.toggleOpen();
+                     }
+                   }
+                   if (engine) {
+                     let playerName = '!lt_'+engine;
+                     if (engine=='maia3') {
+                       const rating = $('.lichessTools-ratings .active').attr('data-rating') || lt.storage.get('LiChessTools.chessagineRating') || '2000';
+                       playerName +='_'+rating;
+                     }
+                     explorer.config.selectPlayer(playerName);
+                   }
+                   this.showSettingsDirect();
+                   analysis.redraw();
+                 })
+                 .appendTo(engines);
+           }
+           const ratings = $('<div class="lichessTools-ratings choices">')
+             .append($('<label>')
+               .text(trans.noarg('chessagineRatingText')))
+             .appendTo(section);
+           for (let rating = 600; rating<=2600; rating+=100) {
+             $('<button class="rating">')
+                 .attr('data-rating',rating)
+                 .text(rating)
+                 .on('click', ev => {
+                   ev.preventDefault();
+                   const engine = $('.lichessTools-engines .active').attr('data-engine');
+                   if (engine!='maia3') {
+                     return;
+                   }
+                   const existing = explorer.config.data.playerName.value();
+                   if (existing?.startsWith('!lt_')) {
+                     explorer.config.removePlayer(existing);
+                   }
+                   lt.storage.set('LiChessTools.chessagineRating',rating);
+                   const playerName = '!lt_'+engine+'_'+rating;
+                   explorer.config.selectPlayer(playerName);
+                   analysis.redraw();
+                 })
+                 .appendTo(ratings);
+           }
+        }
+
+        let { engine, rating } = m?.groups || {};
+        engine ||= '';
+        rating ||= (+lt.storage.get('LiChessTools.chessagineRating') || 2000);
+        $('.lichessTools-engines button[data-engine]')
+          .each((i,e)=>{
+            const isActive = $(e).attr('data-engine')==engine;
+            $(e).toggleClassSafe('active',isActive)
+              .attr('aria-pressed', isActive.toString());
+          });
+        $('.lichessTools-ratings button[data-rating]')
+          .each((i,e)=>{
+            const isActive = $(e).attr('data-rating')==rating;
+            $(e).toggleClassSafe('active',isActive)
+              .attr('aria-pressed', isActive.toString())
+              .prop('disabled', engine!='maia3');
+          });
+      }
     };
     showSettings = this.lichessTools.debounce(this.showSettingsDirect, 100);
 

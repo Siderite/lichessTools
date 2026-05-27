@@ -97,7 +97,7 @@
       const orientation = analysis.getOrientation() == 'black' ? -1 : 1;
       $('section.explorer-box table.moves.lichessTools-evalTable').remove();
       if (lt.isGamePlaying()) return;
-      const isError = $('section.explorer-box .data.empty .message .explanation').length;
+      const isError = analysis.explorer.failing();
       let container = $('section.explorer-box table.moves');
       const tablebase = $('section.explorer-box table.tablebase');
       if (!container.length) {
