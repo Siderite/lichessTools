@@ -185,7 +185,7 @@
       const turnColor = analysis.turnColor() == 'white'
         ? 'black'
         : 'white';
-      const square = $('square.king.'+turnColor+',square.check').prop('cgKey');
+      const square = $('square.check,square.king.'+turnColor).prop('cgKey');
       return square;
     };
 
