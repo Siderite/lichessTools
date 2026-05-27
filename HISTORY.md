@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 May
+
+- Chessagine integration in Explorer
+
 22 May
 
 - Elite Retro piece set

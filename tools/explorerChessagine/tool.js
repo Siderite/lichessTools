@@ -23,7 +23,7 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.explorerChessagine': 'Integrare Chessagine \u00een Explorator',
-        'chessagineTabTitle': 'LiChess Tools - integrate API Chessagine',
+        'chessagineTabTitle': 'LiChess Tools - integrare API Chessagine',
         'chessagineTabText': '%engine%rating'
       }
     };
@@ -34,7 +34,7 @@
       { id: 'maia3',       label: 'Maia 3'       },
     ];
 
-    populateExplorerCache = async (fen, engine, rating, background) => {
+    populateExplorerCache = async (fen, engine, rating) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -44,7 +44,7 @@
 
       if (!explorer.enabled()) return;
 
-      const result = await lt.api.chessagine.analyseFEN(fen, engine, rating);
+      const result = await lt.api.chessagine.analyseFen(fen, engine, rating);
       if (!result.success) return;
 
       const SCALE = 1000000;
@@ -52,11 +52,10 @@
       const explorerItem = {
         fen:fen, 
         isOpening: true, 
-        moves:[],
-        background: background
+        moves:[]
       };
       const wdl = result.data?.uciEval?.rawWdl || { win:0, draw:1, loss:0 };
-      const turnColor = analysis.turnColor();
+      const turnColor = fen.includes(' w') ? 'black' : 'white';
       explorerItem.white = Math.round(SCALE * (turnColor=='white' ? wdl.win : wdl.loss));
       explorerItem.draws = Math.round(SCALE * wdl.draw);
       explorerItem.black = Math.round(SCALE * (turnColor=='white' ? wdl.loss : wdl.win));
@@ -68,31 +67,12 @@
         topMoves.forEach(move=>{
           const mv = co.san.parseSan(ch,move.move);
           const uci = co.makeUci(mv);
-          const ch2 = ch.clone();
-          ch2.play(mv);
-          const newFen = co.fen.makeFen(ch2.toSetup());
-          let moveExplorerItem = explorer.cache[newFen];
-          if (!moveExplorerItem?.hasData && !background) {
-            this.populateExplorerCache(newFen, engine, rating, true).then(()=>{
-              moveExplorerItem = explorer.cache[newFen];
-              if (moveExplorerItem) {
-                item.white = moveExplorerItem.white * move.probability;
-                item.draws = moveExplorerItem.draws * move.probability;
-                item.black = moveExplorerItem.black * move.probability;
-                item.hasData = true;
-                if ([fen,newFen].includes(explorer.current()?.fen)) {
-                  analysis.redraw();
-                }
-              }
-            });
-          }
           const item = {
             san: move.move,
             uci: uci,
-            white: moveExplorerItem ? moveExplorerItem.white : 0,
-            draws: moveExplorerItem ? moveExplorerItem.draws : Math.round(move.probability * SCALE),
-            black: moveExplorerItem ? moveExplorerItem.black : 0,
-            hasData: !!moveExplorerItem
+            white: move.wdl ? Math.round(move.probability * SCALE * (turnColor=='black' ? move.wdl.win : move.wdl.loss)) : 0,
+            draws: Math.round(move.probability * SCALE * (move.wdl ? move.wdl.draw : 1)),
+            black: move.wdl ? Math.round(move.probability * SCALE * (turnColor=='black' ? move.wdl.loss : move.wdl.win)) : 0
           };
           explorerItem.moves.push(item);
         });
@@ -184,17 +164,6 @@
       }
     };
 
-    refreshExplorerIfBackground = ()=>{
-      const lt = this.lichessTools;
-      const lichess = lt.lichess;
-      const explorer = lichess?.analysis?.explorer;
-      if (explorer?.current()?.background) {
-        this.refreshExplorer();
-      } else {
-        this.refreshUi();
-      }
-    };
-
     setupChessagine = ()=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -258,6 +227,7 @@
         this.refreshExplorer();
         lt.global.setTimeout(()=>explorer.reload(),1000);
       }
+      this.refreshUi();
     };
 
     async start() {
@@ -274,7 +244,6 @@
       explorer.enabled = lt.unwrapFunction(explorer.enabled, 'explorerChessagine');
       explorer.fetch = lt.unwrapFunction(explorer.fetch,'explorerChessagine');
       explorer.setNode = lt.unwrapFunction(explorer.setNode,'explorerChessagine');
-      lt.pubsub.off('lichessTools.redraw', this.refreshExplorerIfBackground);
       lt.pubsub.off('lichessTools.redraw', this.setupChessagine);
 
       this.options = { enabled: value };
@@ -294,7 +263,6 @@
         return;
       }
 
-      lt.pubsub.on('lichessTools.redraw', this.refreshExplorerIfBackground);
       lt.pubsub.on('lichessTools.redraw', this.setupChessagine);
       this.setupChessagine();
     }

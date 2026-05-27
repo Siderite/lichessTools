@@ -1135,7 +1135,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2273,7 +2278,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3411,7 +3421,12 @@
     "variationsCountText": "%s 种变着",
     "teamStats.notification": "新成员通知",
     "newMembersText": "%s 位新成员加入了团队",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4549,7 +4564,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5687,7 +5707,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6825,7 +6850,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7963,7 +7993,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9101,7 +9136,12 @@
     "variationsCountText": "%s variantes",
     "teamStats.notification": "Notification nouveaux membres",
     "newMembersText": "%s nouveaux membres ont rejoint l'équipe",
-    "pieceSetGridTitle": "LiChess Tools - afficher les ensembles de pièces sous la forme d'une grille"
+    "pieceSetGridTitle": "LiChess Tools - afficher les ensembles de pièces sous la forme d'une grille",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10239,7 +10279,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11377,7 +11422,12 @@
     "variationsCountText": "%s παραλλαγές",
     "teamStats.notification": "Ειδοποίηση νέων μελών",
     "newMembersText": "%s νέα μέλη εντάχθηκαν στην ομάδα",
-    "pieceSetGridTitle": "LiChess Tools - εμφάνιση σετ κομματιών στο πλέγμα"
+    "pieceSetGridTitle": "LiChess Tools - εμφάνιση σετ κομματιών στο πλέγμα",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12515,7 +12565,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13653,7 +13708,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14791,7 +14851,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15929,7 +15994,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -17067,7 +17137,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18205,7 +18280,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19343,7 +19423,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20481,7 +20566,12 @@
     "variationsCountText": "%s variații",
     "teamStats.notification": "Notificare membri noi",
     "newMembersText": "%s membri noi au intrat în echipă",
-    "pieceSetGridTitle": "LiChess Tools - arată grila seturilor de piese"
+    "pieceSetGridTitle": "LiChess Tools - arată grila seturilor de piese",
+    "options.explorerChessagine": "Integrare Chessagine în Explorator",
+    "chessagineTabTitle": "LiChess Tools - integrare API Chessagine",
+    "chessagineNoEngineText": "Niciunul",
+    "chessagineEngineText": "Motor Chessagine",
+    "chessagineRatingText": "Rating"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21619,7 +21709,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22757,7 +22852,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23895,7 +23995,12 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -25033,7 +25138,12 @@
     "variationsCountText": "%s varyasyon",
     "teamStats.notification": "Yeni üyeler bildirimi",
     "newMembersText": "Takıma %s yeni üye katıldı",
-    "pieceSetGridTitle": "LiChess Tools - taş setlerini ızgarada göster"
+    "pieceSetGridTitle": "LiChess Tools - taş setlerini ızgarada göster",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -26171,6 +26281,11 @@
     "variationsCountText": "%s variations",
     "teamStats.notification": "New members notification",
     "newMembersText": "%s new members joined the team",
-    "pieceSetGridTitle": "LiChess Tools - show piece sets grid"
+    "pieceSetGridTitle": "LiChess Tools - show piece sets grid",
+    "options.explorerChessagine": "Chessagine integration in Explorer",
+    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
+    "chessagineNoEngineText": "None",
+    "chessagineEngineText": "Chessagine engine",
+    "chessagineRatingText": "Rating"
   }
 }

@@ -2303,7 +2303,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 86400 * 10000, minTime: 5000 });
-        lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFEN', { persist: 'local', interval: 86400 * 10000, minTime: 1100 });
+        lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFen', { persist: 'local', interval: 86400 * 10000, minTime: 1100 });
       },
       blog: {
         lichessTools: this,
@@ -2925,7 +2925,7 @@
       },
       chessagine: {
         lichessTools: this,
-        analyseFEN: async function(fen,engine,rating) {
+        analyseFen: async function(fen,engine,rating) {
           const lt = this.lichessTools;
           const data = await lichessTools.comm.getDataUrl('https://www.chessagine.com/api/nn',{
               method: "POST",

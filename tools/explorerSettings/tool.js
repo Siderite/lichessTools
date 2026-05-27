@@ -47,7 +47,7 @@
         'meButtonSettingTitle': 'Buton care schimb\u0103 juc\u0103torul cu tine',
         'moreGamesButtonText': 'Mai multe jocuri',
         'moreGamesButtonTitle': 'Arat\u0103 mai multe jocuri \u00een Jocuri Recente',
-        'chessagineNoEngineText':'Nici unul',
+        'chessagineNoEngineText':'Niciunul',
         'chessagineEngineText': 'Motor Chessagine',
         'chessagineRatingText': 'Rating'
       }
@@ -182,6 +182,7 @@
                        explorer.config.selectPlayer(userId);
                        explorer.config.toggleOpen();
                        explorer.config.toggleOpen();
+                       lt.emitRedraw();
                      }
                    }
                    if (engine) {
