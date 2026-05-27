@@ -9137,11 +9137,11 @@
     "teamStats.notification": "Notification nouveaux membres",
     "newMembersText": "%s nouveaux membres ont rejoint l'équipe",
     "pieceSetGridTitle": "LiChess Tools - afficher les ensembles de pièces sous la forme d'une grille",
-    "options.explorerChessagine": "Chessagine integration in Explorer",
-    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
-    "chessagineNoEngineText": "None",
-    "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "options.explorerChessagine": "Inclure Chessagine dans l'explorateur",
+    "chessagineTabTitle": "LiChess Tools - inclusion de l'API Chessagine",
+    "chessagineNoEngineText": "Aucun",
+    "chessagineEngineText": "Moteur Chessagine",
+    "chessagineRatingText": "Classement"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11423,11 +11423,11 @@
     "teamStats.notification": "Ειδοποίηση νέων μελών",
     "newMembersText": "%s νέα μέλη εντάχθηκαν στην ομάδα",
     "pieceSetGridTitle": "LiChess Tools - εμφάνιση σετ κομματιών στο πλέγμα",
-    "options.explorerChessagine": "Chessagine integration in Explorer",
-    "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
-    "chessagineNoEngineText": "None",
-    "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "options.explorerChessagine": "Ενσωμάτωση Chessagine στον Εξερευνητή",
+    "chessagineTabTitle": "LiChess Tools - Ενσωμάτωση API στο Chessagine",
+    "chessagineNoEngineText": "Κανένα",
+    "chessagineEngineText": "Μηχανή Chessagine",
+    "chessagineRatingText": "Βαθμολογία"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
