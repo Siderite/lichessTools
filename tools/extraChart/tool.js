@@ -482,15 +482,15 @@
       const fen = lt.getFenFromBoard(board);
       let result = this.capturingMoveCache.get(fen);
       if (result) return result;
-      const underAttack = [];
+      result = [];
       for (let y = 0; y < 8; y++) {
         for (let x = 0; x < 8; x++) {
           const ua = this.pieceTension(x, y, board, false);
-          underAttack.push.apply(underAttack, ua);
+          result.push.apply(result, ua);
         }
       }
       this.capturingMoveCache.set(fen,result);
-      return underAttack;
+      return result;
     };
 
     findPieces = (board, piece) => {
@@ -511,7 +511,7 @@
       const lt = this.lichessTools;
       const side = fen.split(' ')[1] == 'w' ? 1 : -1;
       const board = lt.getBoardFromFen(fen);
-      const king = this.findPieces(board, side == 1 ? 'K' : 'k')[0];
+      const king = this.findPieces(board, side == -1 ? 'K' : 'k')[0];
       const moves = this.getAllCapturingMoves(board)
         .filter(m => m.m != side && m.x == king.x && m.y == king.y);
       return !!moves.length;
@@ -790,13 +790,13 @@
       const mat3 = this.simpleMaterial(prev2Node, true, side) / 100;
       const mat1 = this.simpleMaterial(node, true, side) / 100;
       const delta = (mat3 - mat1);
-      if (mwStartUci * side + 1 + delta < mwEndUci * side) {
+      if (mwEndUci > mwStartUci + 1 - delta) {
         return 1 + bonus;
       }
       const mmw1 = this.maxMaterialWon(board, side) / 100;
       board = lt.getBoardFromFen(prev2Node.fen);
       const mmw3 = this.maxMaterialWon(board, side) / 100;
-      const bril = ((mmw3 - mmw1) * side - delta)*0.7; // TODO thesis: brilliant if there is a lot of material loss but still a good move
+      const bril = (mmw3 - mmw1 - delta); //*0.7; // TODO thesis: brilliant if there is a lot of material loss but still a good move
       return bril + bonus;
     };
 
