@@ -182,10 +182,8 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (!analysis) return;
-      const turnColor = analysis.turnColor() == 'white'
-        ? 'black'
-        : 'white';
-      const square = $('square.check,square.king.'+turnColor).prop('cgKey');
+      const turnColor = analysis.turnColor();
+      const square = $('square.check').prop('cgKey') || $('square.king.'+turnColor).prop('cgKey');
       return square;
     };
 
