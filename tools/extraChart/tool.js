@@ -791,13 +791,63 @@
       const mat1 = this.simpleMaterial(node, true, side) / 100;
       const delta = (mat3 - mat1);
       if (mwEndUci > mwStartUci + 1 - delta) {
-        return 1 + bonus;
+        // WintrCat spectacle score replaces the flat 1
+        const spectacle = this.computeSpectacle(board, move.x, move.y, side);
+        return spectacle + bonus;
       }
       const mmw1 = this.maxMaterialWon(board, side) / 100;
       board = lt.getBoardFromFen(prev2Node.fen);
       const mmw3 = this.maxMaterialWon(board, side) / 100;
-      const bril = (mmw3 - mmw1 - delta); //*0.7; // TODO thesis: brilliant if there is a lot of material loss but still a good move
+      const bril = (mmw3 - mmw1 - delta);
       return bril + bonus;
+    };
+
+    computeSpectacle = (board, x, y, side) => {
+      const Math = this.lichessTools.global.Math;
+
+      // The sacrificed piece
+      const piece = board[y][x];
+      if (!piece) return 1;
+      const sacrificedValue = this.pieceMaterial[piece.toLowerCase()] || 0;
+      if (!sacrificedValue) return 1;
+
+      // All opponent pieces that can capture on this square
+      const capturingMoves = this.getAllCapturingMoves(board)
+        .filter(m => m.x === x && m.y === y && m.m !== side);
+
+      // No captures possible — piece is not actually en prise, treat as trivial
+      if (!capturingMoves.length) return 1;
+
+      // Factor A: sacrificed piece value in pawn units
+      const sacPawns = sacrificedValue / 100;
+
+      // Factor B: number of distinct pieces that can capture (capture count)
+      const captureCount = capturingMoves.length;
+
+      // Factor D: inverse attacker sum — lower-value attackers score higher.
+      // A queen attacked by a pawn (ratio 9) is more spectacular than one
+      // attacked by a rook (ratio 1.8).
+      let inverseAttackerSum = 0;
+      for (const cm of capturingMoves) {
+        const attackerValue = this.pieceMaterial[cm.spc.toLowerCase()] || 100;
+        inverseAttackerSum += sacPawns / (attackerValue / 100);
+      }
+
+      // Raw WintrCat score:
+      //   sacPawns * captureCount * inverseAttackerSum
+      // Examples:
+      //   Pawn sac to 1 pawn attacker:   1 * 1 * (1/1) = 1
+      //   Knight sac to 1 pawn attacker: 3 * 1 * (3/1) = 9
+      //   Rook sac to 2 attackers (P+N): 5 * 2 * (5/1 + 5/3) = 72
+      //   Queen sac to 1 pawn attacker:  9 * 1 * (9/1) = 81
+      const raw = sacPawns * captureCount * inverseAttackerSum;
+
+      // Map to the extraChart score range via log2, calibrated so that:
+      //   raw=1  (pawn sac to pawn)  -> score ~= 1.0
+      //   raw=9  (knight sac to pawn) -> score ~= 2.1
+      //   raw=81 (queen sac to pawn)  -> score ~= 4.2
+      // log2(1+raw) / log2(2) = 1, /log2(10)~=2.1, /log2(82)~=4.2 with divisor ~1.5
+      return Math.log2(1 + raw) / 1.5;
     };
 
     getAttacks = (board, x, y, pieceType) => {
