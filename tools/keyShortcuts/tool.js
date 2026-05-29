@@ -162,6 +162,27 @@
         .toggleClass('lichessTools-hideSiteHeader');
     };
 
+    handleRKey = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const study = lt.lichess.analysis?.study;
+      if (study) {
+        this.randomChapter();
+      } else {
+        this.requestAnalysis();
+      }
+    };
+
+    requestAnalysis = () => {
+      if (this.makeMoveMode) {
+        return;
+      }
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const button = $('.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button');
+      button.trigger('click');
+    };
+
     randomChapter = () => {
       if (this.makeMoveMode != 'general') {
         this.oldHandlers['r']?.();
@@ -254,7 +275,7 @@
         }
         lt.bindKeyHandler('`', () => this.prepareMove('general'));
         lt.bindKeyHandler('f', this.freezeBoard);
-        lt.bindKeyHandler('r', this.randomChapter);
+        lt.bindKeyHandler('r', this.handleRKey);
         if (analysis.ongoing) {
           lt.bindKeyHandler('backspace', this.jumpToCurrentMove);
         }

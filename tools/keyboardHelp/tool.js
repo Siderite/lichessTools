@@ -44,7 +44,8 @@
         'switchExplorerTabs': 'Explorer cycle Lichess/Masters',
         'copyFenToClipboard': 'Copy FEN to clipboard',
         'searchMoves': 'Search in move list',
-        'deeperPlus': 'Analyse deeper'
+        'deeperPlus': 'Analyse deeper',
+        'keyRequestComputerAnalysis': 'Request computer analysis, Learn from your mistakes'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -75,7 +76,8 @@
         'switchExplorerTabs': 'Cicleaz\u0103 Lichess/Masters \u00een Explorator',
         'copyFenToClipboard': 'Copiaz\u0103 FEN \u00een clipboard',
         'searchMoves': 'Caut\u0103 \u00een lista de mut\u0103ri',
-        'deeperPlus': 'Analiz\u0103 mai ad\u00e2nc\u0103'
+        'deeperPlus': 'Analiz\u0103 mai ad\u00e2nc\u0103',
+        'keyRequestComputerAnalysis': 'Solicit\u0103 analiza calculatorului, \u00CEnva\u0163\u0103 din gre\u015felile tale'
       }
     }
 
@@ -84,6 +86,7 @@
       await lt.timeout(500);
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
+      const study = analysis?.study;
       const trans = lt.translator;
       const $ = lt.$;
       const table = $('div.keyboard-help > table tbody');
@@ -134,6 +137,9 @@
         row(['ctrl', '.', '!then', '1-9'], 'cevalLine');
         row(['shift', '.', '!then', '1-9'], 'explorerLine');
         row(['`', '!then', 'f'], 'freezeBoard');
+        if ($('.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button').length) {
+          row(['r'], 'keyRequestComputerAnalysis');
+        }
         if (lt.currentOptions.getValue('chapterNavigation') && $('div.lichessTools-chapterControls button[data-act="random"]').length) {
           row(['`', '!then', 'r'], 'randomChapter');
         }

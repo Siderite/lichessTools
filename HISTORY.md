@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 29 May
 
 - Study chapter coverage
+- 'r' for request analysis/learn from mistakes
 
 27 May
 
