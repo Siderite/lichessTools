@@ -1140,7 +1140,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2283,7 +2284,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3426,7 +3428,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API 集成",
     "chessagineNoEngineText": "无",
     "chessagineEngineText": "Chessagine 引擎",
-    "chessagineRatingText": "等级分"
+    "chessagineRatingText": "等级分",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4569,7 +4572,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5712,7 +5716,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6855,7 +6860,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7998,7 +8004,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9141,7 +9148,8 @@
     "chessagineTabTitle": "LiChess Tools - inclusion de l'API Chessagine",
     "chessagineNoEngineText": "Aucun",
     "chessagineEngineText": "Moteur Chessagine",
-    "chessagineRatingText": "Classement"
+    "chessagineRatingText": "Classement",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10284,7 +10292,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11427,7 +11436,8 @@
     "chessagineTabTitle": "LiChess Tools - Ενσωμάτωση API στο Chessagine",
     "chessagineNoEngineText": "Κανένα",
     "chessagineEngineText": "Μηχανή Chessagine",
-    "chessagineRatingText": "Βαθμολογία"
+    "chessagineRatingText": "Βαθμολογία",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12570,7 +12580,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13713,7 +13724,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14856,7 +14868,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -15999,7 +16012,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -17142,7 +17156,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18285,7 +18300,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19428,7 +19444,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20571,7 +20588,8 @@
     "chessagineTabTitle": "LiChess Tools - integrare API Chessagine",
     "chessagineNoEngineText": "Niciunul",
     "chessagineEngineText": "Motor Chessagine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Antrenor de calcul"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21714,7 +21732,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22857,7 +22876,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -24000,7 +24020,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -25143,7 +25164,8 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -26286,6 +26308,7 @@
     "chessagineTabTitle": "LiChess Tools - Chessagine API integration",
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
-    "chessagineRatingText": "Rating"
+    "chessagineRatingText": "Rating",
+    "options.calculationTrainer": "Calculation trainer"
   }
 }
