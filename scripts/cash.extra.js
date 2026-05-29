@@ -50,7 +50,7 @@ cash.single = function (selector, context) {
 cash.fn.attrSafe = function(attr,value) {
   this.each((i,e)=>{
     const $e = cash(e);
-    if ($e.attr(attr)!==value) {
+    if ($e.attr(attr)!==value?.toString()) {
       $e.attr(attr,value);
     }
   });
@@ -60,7 +60,7 @@ cash.fn.attrSafe = function(attr,value) {
 cash.fn.textSafe = function(value) {
   this.each((i,e)=>{
     const $e = cash(e);
-    if ($e.text()!==value) {
+    if ($e.text()!==value?.toString()) {
       $e.text(value);
     }
   });

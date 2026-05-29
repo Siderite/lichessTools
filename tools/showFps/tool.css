@@ -1,0 +1,10 @@
+body.lichessTools .lichessTools-showFps {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  font-size: 1.2em;
+  text-shadow: 0 0 2px var(--c-dimmer);
+  pointer-events: none;
+  user-select: none;
+  contain: layout;
+}
