@@ -1141,7 +1141,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2285,7 +2293,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3429,7 +3445,15 @@
     "chessagineNoEngineText": "无",
     "chessagineEngineText": "Chessagine 引擎",
     "chessagineRatingText": "等级分",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4573,7 +4597,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5717,7 +5749,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6861,7 +6901,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8005,7 +8053,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9149,7 +9205,15 @@
     "chessagineNoEngineText": "Aucun",
     "chessagineEngineText": "Moteur Chessagine",
     "chessagineRatingText": "Classement",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Entraîneur au calcul",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10293,7 +10357,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11437,7 +11509,15 @@
     "chessagineNoEngineText": "Κανένα",
     "chessagineEngineText": "Μηχανή Chessagine",
     "chessagineRatingText": "Βαθμολογία",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12581,7 +12661,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13725,7 +13813,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14869,7 +14965,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -16013,7 +16117,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -17157,7 +17269,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18301,7 +18421,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19445,7 +19573,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20589,7 +20725,15 @@
     "chessagineNoEngineText": "Niciunul",
     "chessagineEngineText": "Motor Chessagine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Antrenor de calcul"
+    "options.calculationTrainer": "Antrenor de calcul",
+    "options.analysisContextActionsCoverage": "Adâncime acoperire capitole studiu pentru informații poziție",
+    "treeCoverageText": "Acoperire: %s%",
+    "analysisContextActionsCoverage.0": "dezactivat",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21733,7 +21877,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22877,7 +23029,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -24021,7 +24181,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -25165,7 +25333,15 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -26309,6 +26485,14 @@
     "chessagineNoEngineText": "None",
     "chessagineEngineText": "Chessagine engine",
     "chessagineRatingText": "Rating",
-    "options.calculationTrainer": "Calculation trainer"
+    "options.calculationTrainer": "Calculation trainer",
+    "options.analysisContextActionsCoverage": "Study chapter coverage depth for position info",
+    "treeCoverageText": "Coverage: %s%",
+    "analysisContextActionsCoverage.0": "disabled",
+    "analysisContextActionsCoverage.1": "1",
+    "analysisContextActionsCoverage.2": "2",
+    "analysisContextActionsCoverage.3": "3",
+    "analysisContextActionsCoverage.4": "4",
+    "analysisContextActionsCoverage.5": "5"
   }
 }
