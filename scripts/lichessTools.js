@@ -150,6 +150,7 @@
       WhiteFrowningFace: '\u2639',
       BlackSquare: '\u25A0',
       PalmBranch: '\u2E19',
+      Hourglass: '\u231B',
 
       toEntity: function(s) {
         let result='';

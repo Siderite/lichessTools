@@ -1,6 +1,8 @@
 (() => {
   class KeyboardHelpTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['KeyShortcuts','AdditionalGlyphs','ExplorerPractice','SearchMovesCommand'];
+
     preferences = [
       {
         name: 'keyboardHelp',
@@ -27,6 +29,8 @@
         'nextOpponentMistake': 'Next opponent mistake',
         'nextOpponentInaccuracy': 'Next opponent inaccuracy',
         'nextOpponentGood': 'Next opponent good/brilliant/interesting',
+        'nextSlow': 'Next slow move',
+        'nextOpponentSlow': 'Next opponent slow move',
         'variationLine': 'N-th variation',
         'cevalLine': 'N-th computer evaluation line',
         'explorerLine': 'N-th Explorer line',
@@ -59,6 +63,8 @@
         'nextOpponentMistake': 'Urm\u0103toarea gre\u015Feal\u0103 a adversarului',
         'nextOpponentInaccuracy': 'Urm\u0103toarea inexactitate a adversarului',
         'nextOpponentGood': 'Urm\u0103toarea bun\u0103/briliant\u0103/interesant\u0103 a adversarului',
+        'nextSlow': 'Urm\u0103toarea mi\u015fcare lent\u0103',
+        'nextOpponentSlow': 'Urm\u0103toarea mi\u015fcare lent\u0103 a adversarului',
         'variationLine': 'A N-a varia\u0163ie',
         'cevalLine': 'A N-a mutare din evaluarea calculatorului',
         'explorerLine': 'A N-a mutare din Explorator',
@@ -133,6 +139,12 @@
         row(['alt', 'm'], 'nextOpponentMistake');
         row(['alt', 'i'], 'nextOpponentInaccuracy');
         row(['alt', 'g'], 'nextOpponentGood');
+
+        if (lt.tools.AdditionalGlyphsTool?.options?.slow && !$('span.lichessTools-obsSetup').length && analysis.data?.game?.moveCentis) {
+          row(['o'], 'nextSlow');
+          row(['alt', 'o'], 'nextOpponentSlow');
+        }
+
         row(['.', '!then', '1-9'], 'variationLine');
         row(['ctrl', '.', '!then', '1-9'], 'cevalLine');
         row(['shift', '.', '!then', '1-9'], 'explorerLine');
@@ -181,7 +193,7 @@
         }
       }
       if (lt.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
-        row(['0'], 'obsIntegration');
+        row(['o'], 'obsIntegration');
       }
       const tool = lt.tools.SearchMovesCommandTool;
       if (tool?.canSearch()) {

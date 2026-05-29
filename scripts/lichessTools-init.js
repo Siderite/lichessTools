@@ -48,7 +48,6 @@ lichessTools.loadTool(LiChessTools.Tools.FriendsPlaying);
 lichessTools.loadTool(LiChessTools.Tools.Highlight);
 lichessTools.loadTool(LiChessTools.Tools.CtrlArrowsRandomVariation);
 lichessTools.loadTool(LiChessTools.Tools.CustomEngineLevel);
-lichessTools.loadTool(LiChessTools.Tools.KeyShortcuts);
 lichessTools.loadTool(LiChessTools.Tools.ShowFlags);
 lichessTools.loadTool(LiChessTools.Tools.ShowGameCount);
 lichessTools.loadTool(LiChessTools.Tools.ShapeRank);
@@ -69,7 +68,6 @@ lichessTools.loadTool(LiChessTools.Tools.ChapterClearArtifacts);
 lichessTools.loadTool(LiChessTools.Tools.ChapterEditing);
 lichessTools.loadTool(LiChessTools.Tools.CustomChatButtons);
 lichessTools.loadTool(LiChessTools.Tools.ExtraChart);
-lichessTools.loadTool(LiChessTools.Tools.KeyboardHelp);
 lichessTools.loadTool(LiChessTools.Tools.PreviousStudyMenu);
 lichessTools.loadTool(LiChessTools.Tools.TimelineNotify);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerEval);
@@ -148,6 +146,7 @@ lichessTools.loadTool(LiChessTools.Tools.BotsMenuItem);
 lichessTools.loadTool(LiChessTools.Tools.TeamStats);
 lichessTools.loadTool(LiChessTools.Tools.CalculationTrainer);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerChessagine);
+lichessTools.loadTool(LiChessTools.Tools.ShowFps);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
@@ -164,5 +163,7 @@ lichessTools.loadTool(LiChessTools.Tools.PuzzleIndex);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);
 lichessTools.loadTool(LiChessTools.Tools.FixMoveListLoad);
+lichessTools.loadTool(LiChessTools.Tools.KeyShortcuts);
+lichessTools.loadTool(LiChessTools.Tools.KeyboardHelp);
 
 lichessTools.init();

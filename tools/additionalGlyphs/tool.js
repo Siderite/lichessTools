@@ -8,14 +8,15 @@
         name: 'additionalGlyphs',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['enabled','mate', 'book', 'miss'],
-        defaultValue: 'enabled,mate,book,miss',
+        possibleValues: ['enabled', 'mate', 'book', 'miss', 'slow'],
+        defaultValue: 'enabled,mate,book,miss,slow',
         advanced: true
       }
     ];
 
     upgrades = [
-      { name:'additionalGlyphs', value:'miss', version: '2.4.44', type: 'new' }
+      { name:'additionalGlyphs', value:'miss', version: '2.4.44', type: 'new' },
+      { name:'additionalGlyphs', value:'slow', version: '2.4.202', type: 'new' }
     ];
 
     intl = {
@@ -25,7 +26,8 @@
         'additionalGlyphs.enabled': 'Enabled',
         'additionalGlyphs.mate': 'Mate',
         'additionalGlyphs.book': 'Book',
-        'additionalGlyphs.miss': 'Miss'
+        'additionalGlyphs.miss': 'Miss',
+        'additionalGlyphs.slow': 'Slow'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -33,13 +35,17 @@
         'additionalGlyphs.enabled': 'Activate',
         'additionalGlyphs.mate': 'Mat',
         'additionalGlyphs.book': 'Deschidere',
-        'additionalGlyphs.miss': 'Rateu'
+        'additionalGlyphs.miss': 'Rateu',
+        'additionalGlyphs.slow': 'Lent'
       }
     }
 
     isStandardGlyph = (glyph) => {
       const lt = this.lichessTools;
-      return ![lt.icon.Mate, lt.icon.OpenBook, lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes].includes(glyph);
+      return ![
+        lt.icon.Mate, lt.icon.OpenBook, lt.icon.Hourglass,
+        lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes
+      ].includes(glyph);
     }
 
     updateGlyphs = ()=>{
@@ -99,19 +105,59 @@
       }
     };
 
+    findLongMoves = (times) => {
+      if (!times?.length) return [];
+
+      // Copy and sort to calculate quartiles
+      const sorted = [...times].sort((a, b) => a - b);
+      const n = sorted.length;
+
+      // Q1 (25th percentile) and Q3 (75th percentile)
+      const q1Index = Math.floor(n * 0.25);
+      const q3Index = Math.floor(n * 0.75);
+      const q1 = sorted[q1Index];
+      const q3 = sorted[q3Index];
+
+      const iqr = q3 - q1;
+      if (iqr === 0) {
+        // All values nearly identical, no outliers
+        return [];
+      }
+
+      // Upper fence for outliers
+      const upperFence = q3 + 1.5 * iqr;
+
+      // Find moves above the upper fence
+      const longMoves = [];
+      for (let i = 0; i < times.length; i++) {
+        if (times[i] > upperFence) {
+          longMoves.push({
+            index: i,
+            time: times[i],
+            player: i % 2 === 0 ? "white" : "black"
+          });
+        }
+      }
+
+      return longMoves;
+    };
+
     drawGlyphsDirect = () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
+      const node = analysis?.node;
+      if (!node) return;
+
       $('body').toggleClassSafe('lichessTools-compOff',!analysis?.showFishnetAnalysis() && !analysis?.cevalEnabled());
       const chessground = lt.getChessground();
       if (!chessground) return;
-      const glyphs = analysis.node.glyphs || (analysis.node.glyphs = []);
+      const glyphs = node.glyphs || (node.glyphs = []);
       const firstGlyph = glyphs[0];
       let glyph = firstGlyph?.symbol;
       let fill = firstGlyph?.fill || '#557766B0';
-      const isMate = lt.isMate(analysis.node);
+      const isMate = lt.isMate(node);
       let name = undefined;
       if (!glyph) {
         if (this.options.mate && isMate) {
@@ -119,10 +165,16 @@
           //name='mate';
           fill = '#557766B0';
         } else
-        if (this.options.book && analysis.node.opening) {
+        if (this.options.book && node.opening) {
           glyph = lt.icon.OpenBook;
           name='book';
           fill = '#999900BB';
+        }
+        this.processSlow(node);
+        if (node.isSlow) {
+          glyph = lt.icon.Hourglass;
+          name='slow';
+          fill = '#AA882099';
         }
       }
       if (!glyph) return;
@@ -143,9 +195,9 @@
       }
       let orig = isMate
                    ? this.getSquareOfCheckedKing()
-                   : analysis.node.uci?.slice(2, 4);
+                   : node.uci?.slice(2, 4);
       if (!orig) return;
-      if (analysis.node.san?.startsWith('O-O')) {
+      if (node.san?.startsWith('O-O')) {
         switch (orig) {
           case 'a1': orig='c1'; break;
           case 'h1': orig='g1'; break;
@@ -176,6 +228,22 @@
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);
 
+    processSlow = (node)=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      if (!analysis) return;
+      if (!this.options.slow) return;
+      const centi = analysis.data?.game?.moveCentis;
+      if (!this.slowMoves && centi) {
+        const longMoves = this.findLongMoves(centi);
+        this.slowMoves = new Map(longMoves.map(m=>[m.index,m.time]));
+      }
+      if (node.isSlow === undefined) {
+        node.isSlow = analysis.mainline.includes(node) && this.slowMoves?.get(node.ply-1);
+      }      
+    };
+
     getSquareOfCheckedKing = ()=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -199,7 +267,8 @@
         enabled: lt.isOptionSet(value, 'enabled'),
         mate: lt.isOptionSet(value, 'mate'),
         book: lt.isOptionSet(value, 'book'),
-        miss: lt.isOptionSet(value, 'miss')
+        miss: lt.isOptionSet(value, 'miss'),
+        slow: lt.isOptionSet(value, 'slow')
       };
       const study = analysis.study;
       lt.pubsub.off('lichessTools.redraw', this.drawGlyphs);

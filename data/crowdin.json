@@ -1153,7 +1153,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2309,7 +2313,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3465,7 +3473,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4621,7 +4633,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5777,7 +5793,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6933,7 +6953,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8089,7 +8113,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9245,7 +9273,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10401,7 +10433,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11557,7 +11593,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12713,7 +12753,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13869,7 +13913,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -15025,7 +15073,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -16181,7 +16233,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -17337,7 +17393,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18493,7 +18553,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19649,7 +19713,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20805,7 +20873,11 @@
     "keyRequestComputerAnalysis": "Solicită analiza calculatorului, Învață din greșelile tale",
     "mayTenth.mayTenth": "Pe 10 mai",
     "mayTenth.never": "Niciodată",
-    "mayTenth.always": "Întotdeauna"
+    "mayTenth.always": "Întotdeauna",
+    "options.showFps": "Afișează FPS",
+    "additionalGlyphs.slow": "Lent",
+    "nextSlow": "Următoarea mișcare lentă",
+    "nextOpponentSlow": "Următoarea mișcare lentă a adversarului"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21961,7 +22033,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -23117,7 +23193,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -24273,7 +24353,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -25429,7 +25513,11 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -26585,6 +26673,10 @@
     "keyRequestComputerAnalysis": "Request computer analysis, Learn from your mistakes",
     "mayTenth.mayTenth": "On May 10th",
     "mayTenth.never": "Never",
-    "mayTenth.always": "Always"
+    "mayTenth.always": "Always",
+    "options.showFps": "Show FPS",
+    "additionalGlyphs.slow": "Slow",
+    "nextSlow": "Next slow move",
+    "nextOpponentSlow": "Next opponent slow move"
   }
 }

@@ -5,6 +5,8 @@ History of features added to LiChess Tools in time (reversed order)
 - Study chapter coverage
 - 'r' for request analysis/learn from mistakes
 - option to configure LiChess Tools day behavior
+- show FPS tool
+- slow glyphs and keyboard shortcuts
 
 27 May
 
