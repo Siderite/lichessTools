@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+29 May
+
+- Study chapter coverage
+
 27 May
 
 - Chessagine integration in Explorer
