@@ -1432,7 +1432,7 @@
       let container = $.cached('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready',3000);
       if (!chart) {
         const serverEval = lichess.analysis.study?.serverEval;
-        chart = serverEval?.requested && serverEval?.chart;
+        chart = /*serverEval?.requested && */serverEval?.chart;
         if (!chart) {
           const canvas = $('canvas#acpl-chart', container)[0];
           if (canvas) {
@@ -1458,7 +1458,7 @@
             } else
             if (lichess.analysis.study) {
               const elem = $('.study__message');
-              if (elem.length) {
+              if (elem.length && !elem.closest('.study__glyphs').length) {
                 elem.append(container)
                   .find('p')
                   .remove();
