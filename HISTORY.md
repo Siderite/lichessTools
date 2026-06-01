@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 01 Jun
 
 - Show opponent legal moves
+- Novelty auto glyph
 
 29 May
 

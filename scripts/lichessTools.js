@@ -151,6 +151,7 @@
       BlackSquare: '\u25A0',
       PalmBranch: '\u2E19',
       Hourglass: '\u231B',
+      CyrillicCapitalLetterI: '\u0418',
 
       toEntity: function(s) {
         let result='';

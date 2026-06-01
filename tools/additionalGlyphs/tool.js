@@ -8,7 +8,7 @@
         name: 'additionalGlyphs',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['enabled', 'mate', 'book', 'miss', 'slow'],
+        possibleValues: ['enabled', 'mate', 'book', 'miss', 'slow', 'novelty'],
         defaultValue: 'enabled,mate,book,miss,slow',
         advanced: true
       }
@@ -27,7 +27,8 @@
         'additionalGlyphs.mate': 'Mate',
         'additionalGlyphs.book': 'Book',
         'additionalGlyphs.miss': 'Miss',
-        'additionalGlyphs.slow': 'Slow'
+        'additionalGlyphs.slow': 'Slow',
+        'additionalGlyphs.novelty': 'Novelty'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -36,14 +37,15 @@
         'additionalGlyphs.mate': 'Mat',
         'additionalGlyphs.book': 'Deschidere',
         'additionalGlyphs.miss': 'Rateu',
-        'additionalGlyphs.slow': 'Lent'
+        'additionalGlyphs.slow': 'Lent',
+        'additionalGlyphs.novelty': 'Noutate'
       }
     }
 
     isStandardGlyph = (glyph) => {
       const lt = this.lichessTools;
       return ![
-        lt.icon.Mate, lt.icon.OpenBook, lt.icon.Hourglass,
+        lt.icon.Mate, lt.icon.OpenBook, lt.icon.Hourglass, lt.icon.CyrillicCapitalLetterI,
         lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes
       ].includes(glyph);
     }
@@ -159,22 +161,30 @@
       let fill = firstGlyph?.fill || '#557766B0';
       const isMate = lt.isMate(node);
       let name = undefined;
-      if (!glyph) {
-        if (this.options.mate && isMate) {
+      if (!glyph && this.options.mate && isMate) {
           glyph = lt.icon.Mate;
           //name='mate';
           fill = '#557766B0';
-        } else
-        if (this.options.book && node.opening) {
-          glyph = lt.icon.OpenBook;
-          name='book';
-          fill = '#999900BB';
-        }
+      }
+      if (!glyph && this.options.book && node.opening) {
+        glyph = lt.icon.OpenBook;
+        name='book';
+        fill = '#999900BB';
+      }
+      if (!glyph) {
         this.processSlow(node);
         if (node.isSlow) {
           glyph = lt.icon.Hourglass;
           name='slow';
           fill = '#AA882099';
+        }
+      }
+      if (!glyph) {
+        this.processNovelty(node);
+        if (node.novelty>0.4) {
+          glyph = lt.icon.CyrillicCapitalLetterI;
+          name='novelty';
+          fill = '#90c290';
         }
       }
       if (!glyph) return;
@@ -223,8 +233,6 @@
         });
         analysis.redraw();
       }
-      //const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
-      //existing.find('circle').attrSafe('fill',fill);
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);
 
@@ -242,6 +250,57 @@
       if (node.isSlow === undefined) {
         node.isSlow = analysis.mainline.includes(node) && this.slowMoves?.get(node.ply-1);
       }      
+    };
+
+    processNovelty = (node)=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      if (!analysis) return;
+      if (!this.options.novelty) return;
+
+      const index = analysis.nodeList.findIndex(n=>n==node);
+      if (index<=0) return;
+      const prevNode = analysis.nodeList[index-1];
+
+      const ply = node.ply;
+      const explorerItem = analysis.explorer?.cache[prevNode.fen];
+      if (!explorerItem) return;
+
+      const moveItem = explorerItem.moves.find(m=>m.uci==node.uci);
+      const topItem = explorerItem.moves[0];
+      if (!moveItem || !topItem) return;
+
+      const sigmoid = x => 1 / (1 + Math.exp(-x));
+      const total = item => (item.white||0) + (item.draws||0) + (item.black||0);
+      const getSide = n => (n.fen ? n.fen.includes(' w') : n.ply%2 == 0) ? 1 : -1;
+      const getCp = (evl,side) => lt.getCentipawns(evl) * side;
+
+      const explorerTotal = total(explorerItem);
+      const moveTotal = total(moveItem);
+      const topTotal = total(topItem);
+      const rarity = 1 - moveTotal/explorerTotal;
+      const divergence = 1 - moveTotal/topTotal;
+      const depthDiscount = Math.min(1, 1.5-ply/20);
+      const moveScore = ((moveItem.white||0) + (moveItem.draws/2||0))/moveTotal;
+      const explorerScore = ((explorerItem.white||0) + (explorerItem.draws/2||0))/explorerTotal;
+
+      const side = getSide(node);
+      const viability_WDL = sigmoid((moveScore - explorerScore) * 10 * side);
+      const cp1 = getCp(lt.getNodeCeval(node),side);
+      const cp2 = getCp(lt.getNodeCeval(prevNode),-side);
+
+      let viability;
+      if ([cp1,cp2].findIndex(cp=>!cp && cp!==0)>=0) {
+        viability = viability_WDL;
+      } else {
+        const viability_cp = 0.50 * sigmoid(-Math.abs(cp2) / 50)
+                           + 0.35 * sigmoid(-Math.abs(cp1) / 75)
+                           + 0.15 * sigmoid(-Math.abs(cp1-cp2) / 50);
+        viability = 0.7 * viability_cp + 0.3 * viability_WDL;
+      }
+      const noveltyScore = rarity * divergence * depthDiscount * viability;
+      node.novelty = noveltyScore;
     };
 
     getSquareOfCheckedKing = ()=>{
@@ -268,7 +327,8 @@
         mate: lt.isOptionSet(value, 'mate'),
         book: lt.isOptionSet(value, 'book'),
         miss: lt.isOptionSet(value, 'miss'),
-        slow: lt.isOptionSet(value, 'slow')
+        slow: lt.isOptionSet(value, 'slow'),
+        novelty: lt.isOptionSet(value, 'novelty')
       };
       const study = analysis.study;
       lt.pubsub.off('lichessTools.redraw', this.drawGlyphs);

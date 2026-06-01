@@ -1158,7 +1158,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2319,7 +2320,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3480,7 +3482,8 @@
     "additionalGlyphs.slow": "慢速",
     "nextSlow": "下一步慢速走子",
     "nextOpponentSlow": "下一步对手慢速走子",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4641,7 +4644,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5802,7 +5806,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6963,7 +6968,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8124,7 +8130,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9285,7 +9292,8 @@
     "additionalGlyphs.slow": "Faible",
     "nextSlow": "Prochain coup faible",
     "nextOpponentSlow": "Prochain coup faible de l'adversaire",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10446,7 +10454,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11607,7 +11616,8 @@
     "additionalGlyphs.slow": "Αργά",
     "nextSlow": "Επόμενη αργή κίνηση",
     "nextOpponentSlow": "Επόμενη αργή κίνηση του αντιπάλου",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Εμφάνιση νόμιμων κινήσεων κομματιών εκτός σειράς",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12768,7 +12778,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13929,7 +13940,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -15090,7 +15102,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -16251,7 +16264,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -17412,7 +17426,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18573,7 +18588,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -19734,7 +19750,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -20895,7 +20912,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22056,7 +22074,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -23217,7 +23236,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -24378,7 +24398,8 @@
     "additionalGlyphs.slow": "Lent",
     "nextSlow": "Următoarea mișcare lentă",
     "nextOpponentSlow": "Următoarea mișcare lentă a adversarului",
-    "options.showOpponentMoves": "Arată mutările legale ale pieselor care nu sunt la mutare"
+    "options.showOpponentMoves": "Arată mutările legale ale pieselor care nu sunt la mutare",
+    "additionalGlyphs.novelty": "Noutate"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -25539,7 +25560,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -26700,7 +26722,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -27861,7 +27884,8 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -29022,7 +29046,8 @@
     "additionalGlyphs.slow": "Yavaş",
     "nextSlow": "Sonraki yavaş hamle",
     "nextOpponentSlow": "Sonraki rakip yavaş hamlesi",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -30183,6 +30208,7 @@
     "additionalGlyphs.slow": "Slow",
     "nextSlow": "Next slow move",
     "nextOpponentSlow": "Next opponent slow move",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn"
+    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
+    "additionalGlyphs.novelty": "Novelty"
   }
 }

@@ -756,7 +756,7 @@
       const Math = lt.global.Math;
       const cp1 = this.getCp(this.getNodeCeval(node));
       const cp2 = this.getCp(this.getNodeCeval(prevNode));
-      if (cp1 === undefined || cp2 === undefined) return 0;
+      if ([cp1,cp2].findIndex(cp=>!cp && cp!==0)>=0) return 0;
 
       const threshold = Math.abs(cp1) > 200 || this.hasTacticalMotif(node, side, prevNode) ? -50 : -25;
       if ((cp1 - cp2) * side < threshold) return 0;
