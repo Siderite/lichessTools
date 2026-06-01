@@ -188,11 +188,12 @@ Varia\u0163ii urm\u0103toare: $branches`,
       const explorer = analysis?.explorer;
       const explorerCache = explorer?.cache;
       if (!explorerCache) return null;
+      const side = analysis.getOrientation() == 'black' ? 1 : 0;
 
       const recurse = async (n, depth) => {
         if (depth <= 0) return 1.0;
 
-        if (!n.children?.length) return 0.0;
+        if (!n.children?.length) return 1.0;
 
         let expl = explorerCache[n.fen];
         if (!expl) {
@@ -211,15 +212,16 @@ Varia\u0163ii urm\u0103toare: $branches`,
           return 1.0;
         }
 
-        const total = (expl.white || 0) + (expl.draws || 0) + (expl.black || 0);
-        if (total <= 0) {
-          return 1.0;
-        }
+        let total = 0;
 
         const byUci = new Map();
         for (const m of expl.moves) {
+          if ((n.ply % 2 == side) && !n.children.find(c=>c.uci==m.uci)) continue;
           const games = (m.white || 0) + (m.draws || 0) + (m.black || 0);
-          if (games > 0) byUci.set(m.uci, games);
+          if (games > 0) {
+            byUci.set(m.uci, games);
+            total += games;
+          }
         }
 
         let coverage = 0.0;
@@ -228,7 +230,8 @@ Varia\u0163ii urm\u0103toare: $branches`,
           if (!games) continue;
     
           const childCoverage = await recurse(child, depth - 1);
-          coverage += (games / total) * childCoverage;
+          const q = total ? games / total : 1;
+          coverage += q * childCoverage;
         }
 
         return coverage;
