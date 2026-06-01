@@ -162,10 +162,15 @@ Varia\u0163ii urm\u0103toare: $branches`,
         text+='\r\n'+trans.pluralSame('treeCoverageText',Math.round(coverage*100));
       }
       const moveNumber = Math.floor((ply + 1) / 2);
-      let header = moveNumber + (ply % 2 == 1 ? '. ' : '...');
-      header += '<san>'+node.san+'</san>';
-      if (node.glyphs?.length) {
-        header += node.glyphs.map(g=>g.symbol).join('');
+      let header;
+      if (moveNumber>0 && node.san) {
+        header = moveNumber + (ply % 2 == 1 ? '. ' : '...');
+        header += '<san>'+node.san+'</san>';
+        if (node.glyphs?.length) {
+          header += node.glyphs.map(g=>g.symbol).join('');
+        }
+      } else {
+        header = '<span>'+trans.noarg('positionInfoText')+'</span>';
       }
       const dialog = await lt.dialog({
         header: $(header),
