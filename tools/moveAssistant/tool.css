@@ -135,13 +135,13 @@ body.lichessTools .analyse__tools:has(.lichessTools-moveAssistant-popup.open) {
 
 body.lichessTools .lichessTools-moveAssistant-popup button {
   text-align: left;
-  opacity: 0.7;
   padding: 0.25em;
   border-radius: 0;
   border: none;
   background: var(--c-bg-popup);
   color: var(--c-header-dropdown);
   font-size: 1.3em;
+  opacity: 0.75;
 }
 
 body.lichessTools .lichessTools-moveAssistant-popup button:hover {
@@ -153,8 +153,13 @@ body.lichessTools .lichessTools-moveAssistant-popup button.enabled {
   opacity: 1;
 }
 
+body.lichessTools .lichessTools-moveAssistant-popup button.enabled:before {
+  opacity: 1;
+}
+
 body.lichessTools .lichessTools-moveAssistant-popup button:before {
   margin-right: 0.5em;
+  opacity: 0.2;
 }
 
 body.lichessTools .lichessTools-moveAssistant-popup button.enabled:before {
