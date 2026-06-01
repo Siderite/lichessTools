@@ -2,8 +2,9 @@ History of features added to LiChess Tools in time (reversed order)
 
 01 Jun
 
-- Show opponent legal moves
+- show opponent legal moves
 - Novelty auto glyph
+- collapsible blog TOC
 
 29 May
 
