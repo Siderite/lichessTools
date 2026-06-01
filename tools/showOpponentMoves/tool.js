@@ -6,22 +6,22 @@
     preferences = [
       {
         name: 'showOpponentMoves',
-        category: 'analysis',
+        category: 'analysis2',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: false,
-        advanced: false
+        advanced: true
       }
     ];
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
-        'options.showOpponentMoves': 'Show legal moves of opponent pieces on click'
+        'options.analysis2': 'Analysis - minor',
+        'options.showOpponentMoves': 'Show legal moves of pieces out of turn'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
-        'options.showOpponentMoves': 'Arat\u0103 mut\u0103rile legale ale pieselor adverse la clic'
+        'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
+        'options.showOpponentMoves': 'Arat\u0103 mut\u0103rile legale ale pieselor care nu sunt la mutare'
       }
     };
 
