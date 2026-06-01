@@ -19,6 +19,16 @@ body.lichessTools div.lichessTools-blogTableOfContents .entries {
   overflow-y: auto;
 }
 
+body.lichessTools div.lichessTools-blogTableOfContents.collapsed .entries {
+  height: 0;
+  width: 0;
+}
+
+body.lichessTools div.lichessTools-blogTableOfContents.collapsed > a {
+  display: inline;
+  font-size: smaller;
+}
+
 body.lichessTools div.lichessTools-blogTableOfContents .lichessTools-toc {
   font-size: 1.2em;
 }
