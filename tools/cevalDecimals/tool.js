@@ -88,6 +88,8 @@
               let evalElem = $('eval', elem);
               if (!evalElem?.length) {
                 evalElem = $('<eval class="lichessTools-cevalDecimals">').appendTo(elem);
+              } else if (evalElem.length>1) {
+                $('.lichessTools-cevalDecimals',elem).remove();
               }
               const text = this.renderEval(evl.cp, evl.mate);
               evalElem.replaceText(text);
