@@ -41,3 +41,7 @@ body.lichessTools button.lichessTools-deleteImage:before {
   content: var(--icon-X);
   color: red;
 }
+
+body.lichessTools.mobile .reactions:not(:focus-within) div.lichessTools-reactionsTooltip {
+  display:none;
+}

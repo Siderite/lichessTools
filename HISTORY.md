@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+02 Jun
+
+- show forum reaction tooltips on mobile
+
 01 Jun
 
 - show opponent legal moves
