@@ -32,7 +32,9 @@ body .lichessTools-bulkEditButtons {
 }
 
 body.lichessTools .lichessTools-bulkEditButtons {
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  gap: 10%;
+  padding-left: 0.3em;
 }
 
 body.lichessTools .lichessTools-bulkEditButtons button {

@@ -282,6 +282,13 @@
         if (!container.length) {
           container = $('<div class="lichessTools-bulkEditButtons">')
                         .insertBefore(chaptersElem);
+          $('<input type="checkbox" class="lichessTools-selectAllChapters">')
+            .on('input',ev=>{
+              ev.stopPropagation();
+              $('.study-list input.lichessTools-selectChapter')
+                .prop('checked',ev.currentTarget.checked);
+            })
+            .appendTo(container);
           $('<button type="button" data-act="editChapters" class="button text">')
             .text(trans.noarg('editChaptersButtonText'))
             .attr('title',trans.noarg('editChaptersButtonTitle'))
