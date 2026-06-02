@@ -1160,7 +1160,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2323,7 +2327,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3484,9 +3492,13 @@
     "additionalGlyphs.slow": "慢速",
     "nextSlow": "下一步慢速走子",
     "nextOpponentSlow": "下一步对手慢速走子",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
-    "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "options.showOpponentMoves": "非轮次时显示棋子的合法着法",
+    "additionalGlyphs.novelty": "创新着法",
+    "chatForumBlogs.reactionsTooltip": "移动端反应工具提示",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4649,7 +4661,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5812,7 +5828,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6975,7 +6995,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8138,7 +8162,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9301,7 +9329,11 @@
     "nextOpponentSlow": "Prochain coup faible de l'adversaire",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10464,7 +10496,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11627,7 +11663,11 @@
     "nextOpponentSlow": "Επόμενη αργή κίνηση του αντιπάλου",
     "options.showOpponentMoves": "Εμφάνιση νόμιμων κινήσεων κομματιών εκτός σειράς",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12790,7 +12830,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -13953,7 +13997,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -15116,7 +15164,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -16279,7 +16331,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -17442,7 +17498,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -17824,74 +17884,74 @@
     "friends": "Venner",
     "noGames": "Ingen tilgjengelige spill",
     "streamerLink": "Se direktesendingen",
-    "bookmarkGame": "LiChess Tools - Bookmark this game",
-    "fromLiChessTools": "from LiChess Tools",
-    "previouslyOnTV": "Previously on %s TV",
-    "options.showPawnStructure": "Show pawn structures",
-    "showPawnStructure.enabled": "Enabled",
-    "showPawnStructure.onlyNamed": "Only named structures",
-    "showPawnStructure.fuzzy": "Fuzzy search",
-    "structureNameTitle": "LiChess Tools - pawn structure - %s",
+    "bookmarkGame": "LiChess Tools - Bokmerk dette spillet",
+    "fromLiChessTools": "fra Lichess Tools",
+    "previouslyOnTV": "Tidligere på %s TV",
+    "options.showPawnStructure": "Vis bondestruktur",
+    "showPawnStructure.enabled": "Påskrudd",
+    "showPawnStructure.onlyNamed": "Kun navngitte strukturer",
+    "showPawnStructure.fuzzy": "Skumsøk",
+    "structureNameTitle": "LiChess Tools - bondestruktur - %s",
     "options.explorerSnaps": "Toggle snapshots of Explorer settings",
     "addSnapPrompt": "Title of new snap",
     "snapSettingsButtonText": "Snap!",
     "snapSettingsButtonTitle": "LiChess Tools - create a snap of current Explorer settings",
     "allText": "all",
-    "sinceText": "since %s",
-    "untilText": "until %s",
-    "snapTitle": "Rating: %rating\r\nTime controls: %control\r\n%since\r\n%until",
-    "options.miniGameSize": "Custom mini-game size",
-    "options.studyLearnFromMistakes": "Learn from your mistakes in Studies",
-    "learnFromYourMistakes": "Learn from your mistakes",
-    "options.pinOnMainPage": "Pin broadcasts and studies to home page",
-    "pinTitle": "LiChess Tools - pin on home page",
-    "unpinTitle": "LiChess Tools - unpin from home page",
+    "sinceText": "siden %s",
+    "untilText": "til %s",
+    "snapTitle": "Rating: %rating\nTidskontroll: %control\n%since\n%until",
+    "options.miniGameSize": "Anpasset minispillstørrelse",
+    "options.studyLearnFromMistakes": "Lær av dine feil i Studier",
+    "learnFromYourMistakes": "Lær av dine feil",
+    "options.pinOnMainPage": "Fest sendinger og studier til hjemmesiden",
+    "pinTitle": "LiChess Tools - fest på hjemmesiden",
+    "unpinTitle": "LiChess Tools - frafest fra hjemmesiden",
     "options.pgnEditor": "PGN Editor",
     "illegalMove": "Illegal move in game %1, ply %3 (%2)",
     "pgnEditorText": "PGN Editor",
     "pgnEditorTitle": "LiChess Tools - PGN Editor",
     "btnMergeText": "Merge",
     "btnMergeTitle": "Merge PGNs (where possible)",
-    "btnNormalizeText": "Normalize",
-    "btnNormalizeTitle": "Group moves from the same board position",
-    "btnDenormalizeText": "Denormalize",
-    "btnDenormalizeTitle": "Expand transpositions into moves",
-    "btnSplitText": "Split",
-    "btnSplitTitle": "Split into multiple one path PGNs",
+    "btnNormalizeText": "Normaliser",
+    "btnNormalizeTitle": "Omgrupper trekk fra samme brettstilling",
+    "btnDenormalizeText": "Franormaliser",
+    "btnDenormalizeTitle": "Utvid transposisjoner uttil trekk",
+    "btnSplitText": "Adskill",
+    "btnSplitTitle": "Del opp i flere enveis-PGN",
     "btnCountText": "Count",
-    "btnCountTitle": "PGN statistics",
-    "btnEvaluateText": "Evaluate",
-    "btnEvaluateTitle": "Evaluate end positions",
-    "btnSearchText": "Search",
+    "btnCountTitle": "PGN-statistikk",
+    "btnEvaluateText": "Evaluer",
+    "btnEvaluateTitle": "Evaluer sluttposisjon",
+    "btnSearchText": "Søk",
     "btnSearchTitle": "Search on partial FEN, tags, index, invalid, ply",
-    "btnKeepFoundText": "Result",
-    "btnKeepFoundTitle": "Keep only the found results",
-    "btnCutStuffText": "Cut",
+    "btnKeepFoundText": "Resultat",
+    "btnKeepFoundTitle": "Behold bare de funne resultatene",
+    "btnCutStuffText": "Klipp",
     "btnCutStuffTitle": "Cut to ply number, remove junk, annotations, comments, tags, found results or branches",
-    "btnCancelText": "Cancel",
-    "btnCancelTitle": "Cancel currently running operation",
-    "btnUploadText": "Upload",
-    "btnUploadTitle": "Upload PGN",
-    "btnDownloadText": "Download",
-    "btnDownloadTitle": "Download PGN",
-    "btnCopyText": "Copy",
-    "btnCopyTitle": "Copy to clipboard",
+    "btnCancelText": "Avbryt",
+    "btnCancelTitle": "Stopp den kjørende operasjonen",
+    "btnUploadText": "Last opp",
+    "btnUploadTitle": "Last opp PGN",
+    "btnDownloadText": "Last ned",
+    "btnDownloadTitle": "Last ned PGN",
+    "btnCopyText": "Kopier",
+    "btnCopyTitle": "Kopier til utklippstavlen",
     "btnUndoText": "Undo",
     "btnUndoTitle": "Undo text changes",
     "btnRedoText": "Redo",
     "btnRedoTitle": "Redo text changes",
-    "btnClearText": "Clear",
-    "btnClearTitle": "Clear text and history!",
-    "gameCount": "%s PGNs, %2 moves",
-    "gameCount:one": "one PGN, %2 moves",
-    "gameCount:few": "%s PGNs, %2 moves",
-    "gameCount:many": "%s PGNs, %2 moves",
+    "btnClearText": "Tøm",
+    "btnClearTitle": "Tøm tekst og logg!",
+    "gameCount": "%s PGN, %2 trekk",
+    "gameCount:one": "en PGN, %2 trekk",
+    "gameCount:few": "%s PGN, %2 trekk",
+    "gameCount:many": "%s PGN, %2 trekk",
     "mergingGames": "Merging %s PGNs",
     "mergingGames:one": "Merging one PGN",
     "mergingGames:few": "Merging %s PGNs",
     "mergingGames:many": "Merging %s PGNs",
-    "normalizingGames": "Normalizing %s PGNs",
-    "normalizingGames:one": "Normalizing one PGN",
+    "normalizingGames": "Normaliserer %s PGN",
+    "normalizingGames:one": "Normaliserer en PGN",
     "normalizingGames:many": "Normalizing %s PGNs",
     "normalizingGames:few": "Normalizing %s PGNs",
     "denormalizingGames": "Denormalizing %s PGNs",
@@ -17915,41 +17975,41 @@
     "evaluatingMoves:few": "Evaluating %s moves",
     "evaluatingMoves:many": "Evaluating %s moves",
     "preparingGames": "Preparing %s PGNs",
-    "preparingGames:one": "Preparing one PGN",
-    "preparingGames:few": "Preparing %s PGNs",
-    "preparingGames:many": "Preparing %s PGNs",
+    "preparingGames:one": "Forbereder en PGN",
+    "preparingGames:few": "Forbereder %s PGN",
+    "preparingGames:many": "Forbereder %s PGN",
     "cannotMerge": "Cannot merge!\r\n(no common board positions)",
-    "operationFailed": "Operation failed!\r\n(invalid input)",
-    "operationCancelled": "Operation cancelled",
-    "pastePGNs": "drag/paste your PGNs here",
+    "operationFailed": "Operasjonsfeil!\n(ugyldig inndata)",
+    "operationCancelled": "Operasjon avbrutt",
+    "pastePGNs": "dra/lim inn dine PGN her",
     "searchPattern": "Enter partial FEN or PGN string (*,? wildcards supported) or Tag(=,*=)Value, \"Index\"=Value, \"Invalid\", \"Ply\"(>,=,<)Value, \"Eval\"(>,=,<)Value\", \"Clock\", \"Shapes\"",
-    "foundGames": "%s games found",
-    "foundGames:one": "One game found",
-    "foundGames:few": "%s games found",
-    "foundGames:many": "%s games found",
+    "foundGames": "%s funne spill",
+    "foundGames:one": "Et spill funnet",
+    "foundGames:few": "%s funne spill",
+    "foundGames:many": "%s funne spill",
     "cutStuffPrompt": "\"Tags\", \"Annotations\", \"Comments\", \"Result\", \"Ply\" Value, \"Junk\", \"Eval\"(>,=,<)Value in any combination (i.e. junk, tags, ply 10, eval<0)",
     "sendToPgnEditorText": "PGN Editor",
-    "sendToPgnEditorTitle": "LiChess Tools - send to PGN Editor",
-    "evaluateNeedsAnalysis": "Evaluate can only be used on the analysis or study pages - Lichess limitation",
-    "options.playerLag": "Player lag indicators",
-    "playerLagTitle": "LiChess Tools - ping %1ms/latency %2ms",
-    "playerLag.none": "None",
+    "sendToPgnEditorTitle": "LiChess Tools - send til PGN Editor",
+    "evaluateNeedsAnalysis": "Evaluer kan bare brukes på analysen eller studiesidene - begrensning fra Lichess",
+    "options.playerLag": "Spillerlatensindikatorer",
+    "playerLagTitle": "LiChess Tools - ping %1ms/latens %2ms",
+    "playerLag.none": "Ingen",
     "playerLag.bars": "Bars",
-    "playerLag.chart": "Chart",
+    "playerLag.chart": "Graf",
     "options.profileSlider": "Profile slider options",
-    "profileSlider.showText": "Show dates",
-    "profileSlider.add1w": "Add 1W filter",
-    "profileSlider.fixSize": "Fix small intervals",
+    "profileSlider.showText": "Vis datoer",
+    "profileSlider.add1w": "Legg til 1W-filter",
+    "profileSlider.fixSize": "Fiks små intervall",
     "sliderLabelTitle": "LiChess Tools - Profile slider options",
-    "button1wTitle": "LiChess Tools - one week",
-    "options.fixCoords": "Fix board coordinate position",
-    "fixCoords.fix": "Fix outside coordinates",
-    "fixCoords.larger": "Larger coordinate font",
-    "fixCoords.square": "On each square",
-    "options.downloadAllStudies": "Link to download all studies of a player",
-    "downloadAllText": "Download all studies",
-    "downloadAllTitle": "LiChess Tools - all studies for this player",
-    "options.profilePuzzleTab": "Enhanced Puzzle Dashboard",
+    "button1wTitle": "LiChess Tools - en uke",
+    "options.fixCoords": "Fiks brettkoordinatposisjon",
+    "fixCoords.fix": "Fiks utekoordinater",
+    "fixCoords.larger": "Større koordinattype",
+    "fixCoords.square": "På hvert felt",
+    "options.downloadAllStudies": "Nedlastingslenke for alle studier til en spiller",
+    "downloadAllText": "Last ned alle studier",
+    "downloadAllTitle": "LiChess Tools - alle studier til denne spilleren",
+    "options.profilePuzzleTab": "Forbedret Sjakknøttpanel",
     "options.mayTenth": "LiChess Tools day!",
     "mayTenthTitle": "Happy LiChess Tools day!",
     "options.moveAssistant": "Move assistant",
@@ -18605,7 +18665,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -19768,7 +19832,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -20931,7 +20999,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22094,7 +22166,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -23257,7 +23333,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -24420,7 +24500,11 @@
     "nextOpponentSlow": "Următoarea mișcare lentă a adversarului",
     "options.showOpponentMoves": "Arată mutările legale ale pieselor care nu sunt la mutare",
     "additionalGlyphs.novelty": "Noutate",
-    "chatForumBlogs.reactionsTooltip": "Tooltip la reacții pe mobil"
+    "chatForumBlogs.reactionsTooltip": "Tooltip la reacții pe mobil",
+    "mergePgnButtonTitle": "LiChess Tools - adaugă PGN în acest capitol",
+    "mergeButtonText": "Combină",
+    "mergePgnHeader": "PGN de fuzionat în acest capitol",
+    "errorMergingPgnText": "Eroare la fuzionarea PGN"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -25583,7 +25667,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -26746,7 +26834,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -27909,7 +28001,11 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -29072,7 +29168,11 @@
     "nextOpponentSlow": "Sonraki rakip yavaş hamlesi",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -30235,6 +30335,10 @@
     "nextOpponentSlow": "Next opponent slow move",
     "options.showOpponentMoves": "Show legal moves of pieces out of turn",
     "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile"
+    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
+    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
+    "mergeButtonText": "Merge",
+    "mergePgnHeader": "PGN to merge in this chapter",
+    "errorMergingPgnText": "Error merging PGN"
   }
 }

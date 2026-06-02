@@ -81,3 +81,39 @@ body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .dialog-content .f
 body.lichessTools:has(.study__chapters.lichessTools-bulkEdit) .dialog-content .form-actions-secondary {
   display:none;
 }
+
+body.lichessTools button.lichessTools-mergePgn {
+  float: right;
+}
+
+body.lichessTools dialog.lichessTools-mergePgn {
+  width: 60%;
+  height: 60%;
+}
+
+@media (max-width: 799.3px) {
+  body.lichessTools dialog.lichessTools-mergePgn {
+    width: 90%;
+    height: 90%;
+  }
+}
+
+body.lichessTools dialog.lichessTools-mergePgn :is(.scrollable,.dialog-content) {
+  height: stretch;
+}
+
+body.lichessTools dialog.lichessTools-mergePgn .dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+body.lichessTools dialog.lichessTools-mergePgn textarea {
+  flex-grow: 1;
+  margin: 1em;
+  height: 346px;
+  resize: none;
+}
+
+body.lichessTools .lichessTools-errorText {
+  color: var(--c-error);
+}

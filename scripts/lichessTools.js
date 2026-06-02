@@ -2352,6 +2352,18 @@
           const json = await lt.net.json(url.toString());
           return json;
         },
+        updateChapterPgn: async function(studyId, chapterId, pgn) {
+          const lt = this.lichessTools;
+          await lt.net.postForm({
+              url: '/api/study/{studyId}/{chapterId}/moves',
+              args: { studyId, chapterId }
+            },
+            { pgn: pgn },
+            {
+              mode: 'cors',
+              credentials: 'include'
+            });
+        },
         updatePgnTags: async function(studyId, chapterId, pgn) {
           const lt = this.lichessTools;
           await lt.net.postForm({

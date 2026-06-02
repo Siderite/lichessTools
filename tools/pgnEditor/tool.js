@@ -954,13 +954,31 @@ https://www.chessable.com/course/${courseId}/ } *`)
 
     mergePgn = async (textarea, options) => {
       const lt = this.lichessTools;
-      const lichess = lt.lichess;
-      const $ = lt.$;
+      const text = textarea.val();
       const trans = lt.translator;
 
       const co = await lt.chessops();
       const { parsePgn } = co.pgn;
-      const text = textarea.val();
+      let games = parsePgn(text);
+      const initialNumberOfGames = games.length;
+      games = await this.mergePgnText(text, options);
+
+      await this.writeGames(textarea, games);
+
+      if (initialNumberOfGames == 1 || games.length < initialNumberOfGames) {
+        this.countPgn();
+      } else {
+        this.writeNote(trans.noarg('cannotMerge'));
+      }
+    };
+
+    mergePgnText = async (text, options) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const trans = lt.translator;
+
+      const co = await lt.chessops();
+      const { parsePgn } = co.pgn;
       const games = parsePgn(text);
       this.writeNote(trans.pluralSame('mergingGames', games.length));
       await lt.timeout(0);
@@ -1008,7 +1026,6 @@ https://www.chessable.com/course/${courseId}/ } *`)
         }
       };
 
-      const initialNumberOfGames = games.length;
       let i = games.length - 1;
       let lastWrite = Date.now();
       while (i >= 0 && !this._cancelRequested) {
@@ -1098,13 +1115,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         this.cleanGame(game, options);
       }
 
-      await this.writeGames(textarea, games);
-
-      if (games.length < initialNumberOfGames) {
-        this.countPgn();
-      } else {
-        this.writeNote(trans.noarg('cannotMerge'));
-      }
+      return games;
     };
 
     evaluatePosition = async (textarea) => {
@@ -2330,6 +2341,12 @@ https://www.chessable.com/course/${courseId}/ } *`)
 
     writeGames = async (textarea, games) => {
       const lt = this.lichessTools;
+      const newText = await this.gamesToPgn(games);
+      this.setText(textarea, newText);
+    };
+
+    gamesToPgn = async (games) => {
+      const lt = this.lichessTools;
       const co = await lt.chessops();
       const { makePgn } = co.pgn;
 
@@ -2358,8 +2375,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
           }
           return m[0];
         });
-
-      this.setText(textarea, newText);
+      return newText;
     };
 
     undo = async (textarea) => {

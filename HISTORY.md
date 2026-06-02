@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 02 Jun
 
 - show forum reaction tooltips on mobile
+- merge PGN in existing study chapters
 
 01 Jun
 
