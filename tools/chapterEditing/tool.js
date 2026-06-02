@@ -204,7 +204,8 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      const studyChapters = lt.lichess.analysis.study.chapters;
+      const study = lt.lichess.analysis.study;
+      const studyChapters = study.chapters;
       const editForm = studyChapters.editForm;
       switch(ev) {
         case 'deleteChapter':
@@ -219,7 +220,7 @@
             lt.global.console.warn('Error deleting chapters',e);
             lt.announce(trans.noarg('errorDeletingChaptersMessage'));
           } finally {
-            site.analysis.study.chapters.sort([]);
+            study.chapters.sort([]);
             this.cancelEditChapters();
           }
           break;
@@ -240,6 +241,9 @@
                 mode: rest.mode || existingData.mode,
                 description: existingData.description || ''
               };
+              if (rest.orientation) {
+                study.chapterFlipMapProp(id,null);
+              }
               await editForm.send(ev,data);
               await lt.timeout(500);
             }
