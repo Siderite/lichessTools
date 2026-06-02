@@ -181,7 +181,7 @@
       }
       if (!glyph) {
         this.processNovelty(node);
-        if (node.novelty>0.4) {
+        if (node.novelty>0.2) {
           glyph = lt.icon.CyrillicCapitalLetterI;
           name='novelty';
           fill = '#90c290';
@@ -263,21 +263,24 @@
       if (index<=0) return;
       const prevNode = analysis.nodeList[index-1];
 
+      const total = item => (item.white||0) + (item.draws||0) + (item.black||0);
+
       const ply = node.ply;
       const explorerItem = analysis.explorer?.cache[prevNode.fen];
       if (!explorerItem) return;
+      const explorerTotal = total(explorerItem);
+      if (explorerTotal <= 10) return; // the position has to have more than 10 games
 
       const moveItem = explorerItem.moves.find(m=>m.uci==node.uci);
       const topItem = explorerItem.moves[0];
       if (!moveItem || !topItem) return;
+      const moveTotal = total(moveItem);
+      if (moveTotal > 1000) return; // if there are more than 1000 games this is pretty common
 
       const sigmoid = x => 1 / (1 + Math.exp(-x));
-      const total = item => (item.white||0) + (item.draws||0) + (item.black||0);
       const getSide = n => (n.fen ? n.fen.includes(' w') : n.ply%2 == 0) ? 1 : -1;
       const getCp = (evl,side) => lt.getCentipawns(evl) * side;
 
-      const explorerTotal = total(explorerItem);
-      const moveTotal = total(moveItem);
       const topTotal = total(topItem);
       const rarity = 1 - moveTotal/explorerTotal;
       const divergence = 1 - moveTotal/topTotal;
