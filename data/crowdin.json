@@ -29166,13 +29166,13 @@
     "additionalGlyphs.slow": "Yavaş",
     "nextSlow": "Sonraki yavaş hamle",
     "nextOpponentSlow": "Sonraki rakip yavaş hamlesi",
-    "options.showOpponentMoves": "Show legal moves of pieces out of turn",
-    "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
-    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
-    "mergeButtonText": "Merge",
-    "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "options.showOpponentMoves": "Yapılabilir ön hamleleri göster",
+    "additionalGlyphs.novelty": "Farklı açılış",
+    "chatForumBlogs.reactionsTooltip": "Mobilde tepkiler ipucu",
+    "mergePgnButtonTitle": "LiChess Tools - bu bölümde PGN birleştir",
+    "mergeButtonText": "Birleştir",
+    "mergePgnHeader": "Bu bölümde birleştirilecek PGN",
+    "errorMergingPgnText": "PGN birleştirilirken hata oluştu"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
