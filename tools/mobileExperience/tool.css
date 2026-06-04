@@ -31,6 +31,11 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   flex: 0 0 2em;
   min-width:2em;
   background: var(--m-bg_bg-page--mix-50);
+  display: none;
+}
+
+body.lichessTools.mobile div.analyse__controls button.lichessTools-shapeDrawing {
+  display: block;
 }
 
 /* fix for Kiwi mobile hover bug */
