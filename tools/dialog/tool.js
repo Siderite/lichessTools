@@ -156,6 +156,24 @@
         .on('close',()=>{
           lt.global.setTimeout(()=>dialog.remove(),100)
         });
+      // FIX get around the Firefox fit-content problem
+      let resizeInterval;
+      dialog
+        .on('toggle',(ev)=>{
+          lt.global.clearInterval(resizeInterval);
+          if (ev.newState=='open') {
+            resizeInterval = lt.global.setInterval(()=>{
+              if (dialog.is('.resizing')) return;
+              const scrollHeight = view.prop('scrollHeight')||0;
+              if (scrollHeight) {
+                const diff = scrollHeight-view.outerHeight();
+                if (diff > 5) {
+                  view.height(scrollHeight);
+                }
+              }
+            },100);
+          }
+        });
 
       if (options.useLT) {
         dialog.appendTo(options.parent || 'body');
