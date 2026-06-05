@@ -218,7 +218,7 @@ body.lichessTools .lichessTools-shapeDrawing.lichessTools-mobileExperience-tapDr
   color: white;
 }
 
-body.lichessTools .analyse__controls:has(div.lichessTools-shapeDrawing-tooltip) {
+body.lichessTools :is(.analyse__controls,.rcontrols):has(div.lichessTools-shapeDrawing-tooltip) {
   z-index:2;
 }
 
@@ -253,6 +253,10 @@ body.lichessTools button.lichessTools-greenBrush + div.lichessTools-shapeDrawing
 body.lichessTools button.lichessTools-yellowBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-yellowBrush,
 body.lichessTools button.lichessTools-shapeDrawing:not(.lichessTools-redBrush,.lichessTools-blueBrush,.lichessTools-greenBrush,.lichessTools-yellowBrush) + div.lichessTools-shapeDrawing-tooltip button.lichessTools-emptyBrush {
   border: 1px solid white;
+}
+
+body.lichessTools div.lichessTools-shapeDrawing-tooltip button.lichessTools-emptyBrush {
+  border: 1px solid gray;
 }
 
 
