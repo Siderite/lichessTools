@@ -181,7 +181,7 @@
       }
       if (!glyph) {
         this.processNovelty(node);
-        if (node.novelty>0.2) {
+        if (node.novelty>0.25) {
           glyph = lt.icon.CyrillicCapitalLetterI;
           name='novelty';
           fill = '#90c290';
@@ -275,7 +275,7 @@
       const topItem = explorerItem.moves[0];
       if (!moveItem || !topItem) return;
       const moveTotal = total(moveItem);
-      if (moveTotal > 1000) return; // if there are more than 1000 games this is pretty common
+      if (moveTotal > 100) return; // if there are more than 100 games this is pretty common
 
       const sigmoid = x => 1 / (1 + Math.exp(-x));
       const getSide = n => (n.fen ? n.fen.includes(' w') : n.ply%2 == 0) ? 1 : -1;
