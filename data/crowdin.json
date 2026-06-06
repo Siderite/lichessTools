@@ -11662,12 +11662,12 @@
     "nextSlow": "Επόμενη αργή κίνηση",
     "nextOpponentSlow": "Επόμενη αργή κίνηση του αντιπάλου",
     "options.showOpponentMoves": "Εμφάνιση νόμιμων κινήσεων κομματιών εκτός σειράς",
-    "additionalGlyphs.novelty": "Novelty",
-    "chatForumBlogs.reactionsTooltip": "Reactions tooltip on mobile",
-    "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
-    "mergeButtonText": "Merge",
-    "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "additionalGlyphs.novelty": "Πρωτοτυπία",
+    "chatForumBlogs.reactionsTooltip": "Συμβουλή αντιδράσεων στο κινητό",
+    "mergePgnButtonTitle": "LiChess Tools - συγχώνευση PGN σε αυτό το κεφάλαιο",
+    "mergeButtonText": "Συγχώνευση",
+    "mergePgnHeader": "PGN για συγχώνευση σε αυτό το κεφάλαιο",
+    "errorMergingPgnText": "Σφάλμα συγχώνευσης PGN"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
