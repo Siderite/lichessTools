@@ -323,6 +323,43 @@
     {
       "value": "https://github.com/Kadagaden/chess-pieces/raw/refs/heads/master/boards/8x8_wood.svg",
       "text": "Kadagaden wood"
+    },
+
+    {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Gameknot/board/Cedar.jpg",
+      "text": "Gameknot Cedar"
+    },
+    {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Gameknot/board/Redwood.jpg",
+      "text": "Gameknot Redwood"
+    },
+    {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Gameknot/board/Walnut.jpg",
+      "text": "Gameknot Walnut"
+    },
+    {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Gameknot/board/Elm.jpg",
+      "text": "Gameknot Elm"
+    },
+    {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Gameknot/board/Green Marble.jpg",
+      "text": "Gameknot Green Marble"
+    },
+    {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Gameknot/board/Blue Marble.jpg",
+      "text": "Gameknot Blue Marble"
+    },
+    {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Gameknot/board/Tan Marble.jpg",
+      "text": "Gameknot Tan Marble"
+    },
+    {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Gameknot/board/Granite.jpg",
+      "text": "Gameknot Granite"
+    },
+    {
+      "value": "https://siderite.github.io/lichessToolsAdjacent/Gameknot/board/Rusted Metal.jpg",
+      "text": "Gameknot Rusted Metal"
     }
   ]
 }
