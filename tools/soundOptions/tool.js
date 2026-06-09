@@ -14,7 +14,7 @@
         name: 'soundThemes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['mortalKombat','chessPursuit','starWars','superMario'],
+        possibleValues: ['mortalKombat','chessPursuit','starWars','superMario','chesscom'],
         defaultValue: true,
         advanced: true
       },
@@ -65,7 +65,8 @@
         'soundThemes.chessPursuit': 'Chess Pursuit',
         'soundThemes.mortalKombat': 'Mortal Kombat',
         'soundThemes.starWars': 'Star Wars',
-        'soundThemes.superMario': 'Super Mario World'
+        'soundThemes.superMario': 'Super Mario World',
+        'soundThemes.chesscom': 'Chess.com'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -90,7 +91,8 @@
         'soundThemes.chessPursuit': 'Urm\u0103rire \u00een \u015fah',
         'soundThemes.mortalKombat': 'Mortal Kombat',
         'soundThemes.starWars': 'R\u0103zboiul Stelelor',
-        'soundThemes.superMario': 'Lumea Super Mario'
+        'soundThemes.superMario': 'Lumea Super Mario',
+        'soundThemes.chesscom': 'Chess.com'
       }
     }
 
@@ -243,7 +245,8 @@
       ['mortalKombat','https://fordcrownvictoria1234-art.github.io/MK1SFX/'],
       ['chessPursuit','https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/sound/'],
       ['starWars','https://fordcrownvictoria1234-art.github.io/Star_Wars_SFX_Lichess_Fixed/Star_Wars_SFX/'],
-      ['superMario','https://fordcrownvictoria1234-art.github.io/Super_Mario_World_SFX_Lichess/Super_Mario_World_SFX_Lichess/']
+      ['superMario','https://fordcrownvictoria1234-art.github.io/Super_Mario_World_SFX_Lichess/Super_Mario_World_SFX_Lichess/'],
+      ['chesscom','https://ferodos.github.io/chesscom-sounds-lichess/chesscom-sounds-lichess/']
     ]);
     soundUrls = new Map();
     loadSound = async (e) => {
