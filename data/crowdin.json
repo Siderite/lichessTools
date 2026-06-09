@@ -11677,7 +11677,7 @@
     "mergeButtonText": "Συγχώνευση",
     "mergePgnHeader": "PGN για συγχώνευση σε αυτό το κεφάλαιο",
     "errorMergingPgnText": "Σφάλμα συγχώνευσης PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Απενεργοποίηση Ζωντανής Σημείωσης"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",

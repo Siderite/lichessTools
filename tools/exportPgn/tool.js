@@ -197,18 +197,27 @@
           s += renderComments(node);
         }
         if (s) s += '\r\n'
-        if (node.children.length === 0) return s;
+
+        const reg = options.searchObj?.reg;
+        if (node.children.length === 0) {
+          return s;
+        }
 
 
         const first = node.children[0];
         first.path = node.path + first.id;
-        if (forcePly || first.ply % 2 === 1) s += plyPrefix(first);
+        const isBlackTurn = first.ply % 2 === 1;
+        if (forcePly || isBlackTurn) s += plyPrefix(first);
         s += fixCrazySan(first.san);
 
         s += renderGlyphs(first);
         s += renderComments(first);
 
-        const reg = options.searchObj?.reg;
+        s+=isBlackTurn?'$white':'$black';
+        if (!first.children?.length) {
+          s += '$leaf';
+        }
+
         if (reg) {
           let output = options.searchObj.output;
           if (s) {

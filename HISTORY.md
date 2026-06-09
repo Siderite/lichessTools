@@ -5,6 +5,7 @@ History of features added to LiChess Tools in time (reversed order)
 - support for multiple glyphs on the same move
 - disable Live Annotate option
 - Chess.com sound theme
+- $leaf,$white,$black,| move search
 
 02 Jun
 

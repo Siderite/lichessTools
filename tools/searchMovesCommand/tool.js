@@ -158,6 +158,7 @@
         switch (c) {
           case '*': return '.*';
           case '?': return '.';
+          case '|': return '|';
           default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
         }
       }).join(''),'g');
