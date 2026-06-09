@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+09 Jun
+
+- support for multiple glyphs on the same move
+- disable Live Annotate option
+
 02 Jun
 
 - show forum reaction tooltips on mobile

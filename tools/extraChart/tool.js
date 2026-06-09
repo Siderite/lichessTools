@@ -1063,7 +1063,7 @@
           }
           const glyphs = mainline[x].glyphs || [];
           lt.arrayRemoveAll(glyphs, g => g.type == 'nonStandard' && (this.options.moreBrilliant || ['!', '!?', '!!', lt.icon.WhiteStar, lt.icon.OpenBook].includes(g.symbol)));
-          if (symbol && !glyphs.length) {
+          if (symbol && !glyphs.find(g=>g.symbol==symbol)) {
             glyphs.push({
               symbol: symbol,
               name: name,
@@ -1220,10 +1220,10 @@
         const move = mainline[i];
         const turn = this.getNodeTurn(move);
         if (-turn != side) continue;
-        const glyph = move?.glyphs?.at(0);
-        if (!glyph) continue;
-        if (!['!', '!!', '!?', lt.icon.WhiteStar].includes(glyph.symbol)) continue;
-        result.push({ datasetIndex: 0, index: i - 1 });
+        const glyph = move?.glyphs?.find(g=>['!', '!!', '!?', lt.icon.WhiteStar].includes(g.symbol));
+        if (glyph) {
+          result.push({ datasetIndex: 0, index: i - 1 });
+        }
       }
       return result;
     };

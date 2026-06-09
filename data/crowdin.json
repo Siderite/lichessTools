@@ -1164,7 +1164,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2331,7 +2332,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3498,7 +3500,8 @@
     "mergePgnButtonTitle": "LiChess Tools - 合并本章中的 PGN",
     "mergeButtonText": "合并",
     "mergePgnHeader": "待合并到本章的 PGN",
-    "errorMergingPgnText": "合并 PGN 时出错"
+    "errorMergingPgnText": "合并 PGN 时出错",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4665,7 +4668,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5832,7 +5836,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6999,7 +7004,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8166,7 +8172,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9333,7 +9340,8 @@
     "mergePgnButtonTitle": "LiChess Tools - fusionner le PGN dans ce chapitre",
     "mergeButtonText": "Fusionner",
     "mergePgnHeader": "Fichier PGN à fusionner dans ce chapitre",
-    "errorMergingPgnText": "Erreur lors de la fusion du PGN"
+    "errorMergingPgnText": "Erreur lors de la fusion du PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10500,7 +10508,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11667,7 +11676,8 @@
     "mergePgnButtonTitle": "LiChess Tools - συγχώνευση PGN σε αυτό το κεφάλαιο",
     "mergeButtonText": "Συγχώνευση",
     "mergePgnHeader": "PGN για συγχώνευση σε αυτό το κεφάλαιο",
-    "errorMergingPgnText": "Σφάλμα συγχώνευσης PGN"
+    "errorMergingPgnText": "Σφάλμα συγχώνευσης PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12834,7 +12844,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -14001,7 +14012,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -15168,7 +15180,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -16335,7 +16348,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -17502,7 +17516,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18669,7 +18684,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -19836,7 +19852,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21003,7 +21020,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22170,7 +22188,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -23337,7 +23356,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -24504,7 +24524,8 @@
     "mergePgnButtonTitle": "LiChess Tools - adaugă PGN în acest capitol",
     "mergeButtonText": "Combină",
     "mergePgnHeader": "PGN de fuzionat în acest capitol",
-    "errorMergingPgnText": "Eroare la fuzionarea PGN"
+    "errorMergingPgnText": "Eroare la fuzionarea PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Dezactivează Live Annotate"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -25671,7 +25692,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -26838,7 +26860,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -28005,7 +28028,8 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -29172,7 +29196,8 @@
     "mergePgnButtonTitle": "LiChess Tools - bu bölümde PGN birleştir",
     "mergeButtonText": "Birleştir",
     "mergePgnHeader": "Bu bölümde birleştirilecek PGN",
-    "errorMergingPgnText": "PGN birleştirilirken hata oluştu"
+    "errorMergingPgnText": "PGN birleştirilirken hata oluştu",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -30339,6 +30364,7 @@
     "mergePgnButtonTitle": "LiChess Tools - merge PGN in this chapter",
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
-    "errorMergingPgnText": "Error merging PGN"
+    "errorMergingPgnText": "Error merging PGN",
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
   }
 }

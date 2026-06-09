@@ -8,15 +8,16 @@
         name: 'additionalGlyphs',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['enabled', 'mate', 'book', 'miss', 'slow', 'novelty'],
-        defaultValue: 'enabled,mate,book,miss,slow',
+        possibleValues: ['enabled', 'mate', 'book', 'miss', 'slow', 'novelty','disableLiveAnnotate'],
+        defaultValue: 'enabled,mate,book,miss,slow,disableLiveAnnotate',
         advanced: true
       }
     ];
 
     upgrades = [
       { name:'additionalGlyphs', value:'miss', version: '2.4.44', type: 'new' },
-      { name:'additionalGlyphs', value:'slow', version: '2.4.202', type: 'new' }
+      { name:'additionalGlyphs', value:'slow', version: '2.4.202', type: 'new' },
+      { name:'additionalGlyphs', value:'disableLiveAnnotate', version: '2.4.205', type: 'new' }
     ];
 
     intl = {
@@ -28,7 +29,8 @@
         'additionalGlyphs.book': 'Book',
         'additionalGlyphs.miss': 'Miss',
         'additionalGlyphs.slow': 'Slow',
-        'additionalGlyphs.novelty': 'Novelty'
+        'additionalGlyphs.novelty': 'Novelty',
+        'additionalGlyphs.disableLiveAnnotate': 'Disable Live Annotate'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -38,7 +40,8 @@
         'additionalGlyphs.book': 'Deschidere',
         'additionalGlyphs.miss': 'Rateu',
         'additionalGlyphs.slow': 'Lent',
-        'additionalGlyphs.novelty': 'Noutate'
+        'additionalGlyphs.novelty': 'Noutate',
+        'additionalGlyphs.disableLiveAnnotate': 'Dezactiveaz\u0103 Live Annotate'
       }
     }
 
@@ -56,30 +59,24 @@
       const chessground = lt.getChessground();
       const $ = lt.$;
       const analysis = lichess?.analysis;
-      const firstGlyph = analysis.node.glyphs?.at(0);
-      let orig = analysis.node.uci?.slice(2, 4);
       let redraw = false;
-      if (firstGlyph?.type && orig) {
-        const existing = $('svg.cg-custom-svgs g').filter((i,g)=>$(g).attr('cgHash')?.includes(','+orig));
-        lt.global.requestAnimationFrame(()=>{
-          existing.toggleClassSafe('lichessTools-glyphType-'+firstGlyph.type, true);
-        });
-      }
-      let glyph = firstGlyph?.symbol;
-      if (this.options.miss && glyph == '??' && analysis.nodeList.length>2) {
+      const index = analysis.node.glyphs?.findIndex(g=>g.symbol=='??');
+      if (this.options.miss && index>=0 && analysis.nodeList.length>2 && !chessground?.state?.drawable?.autoShapes?.find(s=>s.customSvg?.miss)) {
+        const blunderGlyph = analysis.node.glyphs[index];
         const [cp2,cp1,cp]=analysis.nodeList.slice(-3).map(n=>lt.getCentipawns(n.ceval || n.eval));
         const d1=cp-cp1;
         const d2=cp2-cp1;
         const q = Math.abs(d1-d2)/Math.abs(d1);
         if (q<0.2) {
-          const customSvg = chessground?.state?.drawable?.autoShapes?.at(0)?.customSvg;
+          const customSvg = chessground?.state?.drawable?.autoShapes?.at(-index-1)?.customSvg;
           let html = customSvg?.html;
           if (html) {
             // keep in sync with https://github.com/lichess-org/lila/blob/1cce0f57a5c91182dba3a8808da081277d6c9c2c/ui/lib/src/game/glyphs.ts#L119
             const missPath = 'M79.4 68q0 1.8-1.4 3.2l-6.7 6.7q-1.4 1.4-3.5 1.4-1.9 0-3.3-1.4L50 63.4 35.5 78q-1.4 1.4-3.3 1.4-2 0-3.5-1.4L22 71.2q-1.4-1.4-1.4-3.3 0-1.7 1.4-3.5L36.5 50 22 35.4Q20.6 34 20.6 32q0-1.7 1.4-3.5l6.7-6.5q1.2-1.4 3.5-1.4 2 0 3.3 1.4L50 36.6 64.5 22q1.2-1.4 3.3-1.4 2.3 0 3.5 1.4l6.7 6.5q1.4 1.8 1.4 3.5 0 2-1.4 3.3L63.5 49.9 78 64.4q1.4 1.8 1.4 3.5z';
             html = html.replace(/\bd="[^"]+"/,'d="'+missPath+'"');
             customSvg.html = html;
-            firstGlyph.name='miss';
+            customSvg.miss = true;
+            blunderGlyph.name='miss';
             redraw = true;
           }
         }
@@ -106,6 +103,66 @@
         analysis.redraw();
       }
     };
+
+    restackGlyphs = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const glyphs = $('svg.cg-custom-svgs g[transform^="translate"]');
+      this.processElements(glyphs.get(),(el)=>{
+        let transform = el.getAttribute('transform');
+        const m = /translate\((?<x>[-]?\d+(?:\.\d+)?),(?<y>[-]?\d+(?:\.\d+)?)\)/.exec(transform);
+        if (!m) return false;
+        const x = +m.groups.x + 0.3;
+        transform = transform.slice(0,m.index)+'translate('+x+','+m.groups.y+')'+transform.slice(m.index+m[0].length);
+        el.setAttribute('transform',transform);
+      });
+    };
+
+    processElements = (elements, adjustFn) => {
+
+      function rectsOverlapPercentage(rectA, rectB) {
+        const interLeft = Math.max(rectA.left, rectB.left);
+        const interTop = Math.max(rectA.top, rectB.top);
+        const interRight = Math.min(rectA.right, rectB.right);
+        const interBottom = Math.min(rectA.bottom, rectB.bottom);
+      
+        if (interLeft >= interRight || interTop >= interBottom) {
+          return 0;
+        }
+      
+        const interArea = (interRight - interLeft) * (interBottom - interTop);
+        const areaB = rectB.width * rectB.height;
+      
+        return interArea / areaB;
+      }
+
+      const rects = [];
+
+      for (const element of elements) {
+        let attempts = 0;
+        const maxAttempts = 50;
+    
+        while (attempts < maxAttempts) {
+          const elementRect = element.getBoundingClientRect();
+    
+          const overlap = rects.find(r=>rectsOverlapPercentage(r, elementRect)>0.8);
+
+          if (overlap) {
+            const result = adjustFn(element);
+            if (result === false) break;
+            attempts++;
+          } else {
+            rects.push(elementRect);
+            break;
+          }
+        }
+
+        if (attempts >= maxAttempts) {
+          console.warn("Max adjustment attempts reached for element");
+        }
+      }
+    }
 
     findLongMoves = (times) => {
       if (!times?.length) return [];
@@ -156,82 +213,97 @@
       const chessground = lt.getChessground();
       if (!chessground) return;
       const glyphs = node.glyphs || (node.glyphs = []);
-      const firstGlyph = glyphs[0];
-      let glyph = firstGlyph?.symbol;
-      let fill = firstGlyph?.fill || '#557766B0';
+      const symbols = glyphs.map(g=>g.symbol).filter(s=>!!s);
+      const newGlyphs = [];
       const isMate = lt.isMate(node);
       let name = undefined;
-      if (!glyph && this.options.mate && isMate) {
-          glyph = lt.icon.Mate;
-          //name='mate';
-          fill = '#557766B0';
+      if (this.options.mate && isMate && !symbols.find(s=>s==lt.icon.Mate)) {
+        newGlyphs.push({
+          glyph: lt.icon.Mate,
+          fill: '#557766B0'
+        });
       }
-      if (!glyph && this.options.book && node.opening) {
-        glyph = lt.icon.OpenBook;
-        name='book';
-        fill = '#999900BB';
+      if (this.options.book && node.opening && !symbols.find(s=>s==lt.icon.OpenBook)) {
+        newGlyphs.push({
+          glyph: lt.icon.OpenBook,
+          name: 'book',
+          fill: '#999900BB'
+        });
       }
-      if (!glyph && this.options.slow) {
+      if (this.options.slow && !symbols.find(s=>s==lt.icon.HourGlass)) {
         this.processSlow(node);
         if (node.isSlow) {
-          glyph = lt.icon.Hourglass;
-          name='slow';
-          fill = '#AA882099';
+          newGlyphs.push({
+            glyph: lt.icon.Hourglass,
+            name: 'slow',
+            fill: '#AA882099'
+          });
         }
       }
-      if (!glyph && this.options.novelty) {
+      if (this.options.novelty && !symbols.find(s=>s==lt.icon.CyrillicCapitalLetterI)) {
         this.processNovelty(node);
         if (node.novelty>0.25) {
-          glyph = lt.icon.CyrillicCapitalLetterI;
-          name='novelty';
-          fill = '#90c290';
+          newGlyphs.push({
+            glyph: lt.icon.CyrillicCapitalLetterI,
+            name: 'novelty',
+            fill: '#90c290'
+          });
         }
       }
-      if (!glyph) return;
+      if (!newGlyphs.length) return;
 
-      const setShape = (shape) => {
+      const setShapes = (shapes) => {
         const autoShapes = chessground.state?.drawable?.autoShapes;
-        const shapes = autoShapes?.filter(s => s.type !== 'glyph') || [];
-        if (shape) shapes.push(shape);
-        if (lt.global.JSON.stringify(autoShapes)!=lt.global.JSON.stringify(shapes)) {
-          chessground.setAutoShapes(shapes);
+        const existing = autoShapes?.filter(s => s.type !== 'glyph') || [];
+        if (shapes?.length) existing.push(...shapes);
+        if (lt.global.JSON.stringify(autoShapes)!=lt.global.JSON.stringify(existing)) {
+          chessground.setAutoShapes(existing);
           chessground.state.dom.redrawNow();
         }
       };
 
-      if (this.isStandardGlyph(glyph) || lt.storage.get('analyse.show-move-annotation') === false) {
-        setShape();
+      if (!symbols.find(g=>this.isStandardGlyph(g)) || lt.storage.get('analyse.show-move-annotation') === false) {
+        setShapes();
         return;
       }
-      let orig = isMate
+      const shapes = [];
+      let redraw = false;
+      for (const newGlyph of newGlyphs) {
+        let orig = newGlyph.glyph == lt.icon.Mate
                    ? this.getSquareOfCheckedKing()
                    : node.uci?.slice(2, 4);
-      if (!orig) return;
-      if (node.san?.startsWith('O-O')) {
-        switch (orig) {
-          case 'a1': orig='c1'; break;
-          case 'h1': orig='g1'; break;
-          case 'a8': orig='c8'; break;
-          case 'h8': orig='g8'; break;
+        if (!orig) continue;
+        if (node.san?.startsWith('O-O')) {
+          switch (orig) {
+            case 'a1': orig='c1'; break;
+            case 'h1': orig='g1'; break;
+            case 'a8': orig='c8'; break;
+            case 'h8': orig='g8'; break;
+          }
+        }
+        shapes.push({
+          type: 'glyph',
+          orig: orig,
+          label: {
+            fill: newGlyph.fill,
+            text: newGlyph.glyph
+          }
+        });
+ 
+        // mate is a special one, no ceval running and already on the move list
+        if (newGlyph.name) {
+          glyphs.push({
+            symbol: newGlyph.glyph,
+            name: newGlyph.name,
+            fill: newGlyph.fill,
+            type: 'nonStandard'
+          });
+          redraw = true;
         }
       }
-      setShape({
-        type: 'glyph',
-        orig: orig,
-        label: {
-          fill: fill,
-          text: glyph
-        }
-      });
-      // mate is a special one, no ceval running and already on the move list
-      if (name && !glyphs.find(g=>g.symbol==glyph)) {
-        glyphs.push({
-          symbol: glyph,
-          name: name,
-          fill: fill,
-          type: 'nonStandard'
-        });
-        analysis.redraw();
+      setShapes(shapes);
+      if (redraw) {
+        lt.analysisRedraw();
       }
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);
@@ -331,8 +403,17 @@
         book: lt.isOptionSet(value, 'book'),
         miss: lt.isOptionSet(value, 'miss'),
         slow: lt.isOptionSet(value, 'slow'),
-        novelty: lt.isOptionSet(value, 'novelty')
+        novelty: lt.isOptionSet(value, 'novelty'),
+        disableLiveAnnotate: lt.isOptionSet(value, 'disableLiveAnnotate')
       };
+      if (this.options.disableLiveAnnotate && analysis.liveAnnotate) {
+        analysis._liveAnnotate = analysis.liveAnnotate;
+        analysis.liveAnnotate = null;
+      }
+      if (!this.options.disableLiveAnnotate && analysis._liveAnnotate) {
+        analysis.liveAnnotate = analysis._liveAnnotate;
+        analysis._liveAnnotate = null;
+      }
       const study = analysis.study;
       lt.pubsub.off('lichessTools.redraw', this.drawGlyphs);
       lt.global.clearInterval(this.interval);
@@ -384,6 +465,7 @@
           if (!same) {
             this.prevAutoShapes = [ ...drawable.autoShapes ];
             this.drawGlyphs();
+            this.restackGlyphs();
           }
         }, 250);
       }
