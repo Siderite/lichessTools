@@ -1165,7 +1165,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "bn-BD": {
     "LiChess Tools": "LiChess Tools",
@@ -2333,7 +2336,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3501,7 +3507,10 @@
     "mergeButtonText": "合并",
     "mergePgnHeader": "待合并到本章的 PGN",
     "errorMergingPgnText": "合并 PGN 时出错",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4669,7 +4678,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5837,7 +5849,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7005,7 +7020,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8173,7 +8191,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9341,7 +9362,10 @@
     "mergeButtonText": "Fusionner",
     "mergePgnHeader": "Fichier PGN à fusionner dans ce chapitre",
     "errorMergingPgnText": "Erreur lors de la fusion du PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Désactiver les annotations en direct",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10509,7 +10533,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11677,7 +11704,10 @@
     "mergeButtonText": "Συγχώνευση",
     "mergePgnHeader": "PGN για συγχώνευση σε αυτό το κεφάλαιο",
     "errorMergingPgnText": "Σφάλμα συγχώνευσης PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Απενεργοποίηση Ζωντανής Σημείωσης"
+    "additionalGlyphs.disableLiveAnnotate": "Απενεργοποίηση Ζωντανής Σημείωσης",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
@@ -12845,7 +12875,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "id-ID": {
     "LiChess Tools": "LiChess Tools",
@@ -14013,7 +14046,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -15181,7 +15217,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "ko-KR": {
     "LiChess Tools": "LiChess Tools",
@@ -16349,7 +16388,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -17517,7 +17559,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18685,7 +18730,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -19853,7 +19901,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21021,7 +21072,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22189,7 +22243,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -23357,7 +23414,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -24525,7 +24585,10 @@
     "mergeButtonText": "Combină",
     "mergePgnHeader": "PGN de fuzionat în acest capitol",
     "errorMergingPgnText": "Eroare la fuzionarea PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Dezactivează Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Dezactivează Live Annotate",
+    "extraChart.critical": "Critice",
+    "criticalLegendText": "Critice",
+    "criticalLegendTitle": "Mutări critice"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -25693,7 +25756,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -26861,7 +26927,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -28029,7 +28098,10 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -29197,7 +29269,10 @@
     "mergeButtonText": "Birleştir",
     "mergePgnHeader": "Bu bölümde birleştirilecek PGN",
     "errorMergingPgnText": "PGN birleştirilirken hata oluştu",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -30365,6 +30440,9 @@
     "mergeButtonText": "Merge",
     "mergePgnHeader": "PGN to merge in this chapter",
     "errorMergingPgnText": "Error merging PGN",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate"
+    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
+    "extraChart.critical": "Critical",
+    "criticalLegendText": "Critical",
+    "criticalLegendTitle": "Critical moves"
   }
 }

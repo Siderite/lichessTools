@@ -8,7 +8,7 @@
         name: 'extraChart',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'coord',
+        possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'coord', 'critical',
                          'smooth', 'gauge', 'accuracyPlus','hideLegend'],
         defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,accuracyPlus',
         defaultNotLoggedInValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,local,moreBrilliant,accuracyPlus',
@@ -41,6 +41,7 @@
         'extraChart.accuracy': 'Accuracy',
         'extraChart.sharpness': 'Sharpness',
         'extraChart.coord': 'Coordination',
+        'extraChart.critical': 'Critical',
         'extraChart.brilliant': 'Find interesting moves',
         'extraChart.moreBrilliant': '... more moves',
         'extraChart.smooth': 'Chart smoothing',
@@ -66,6 +67,8 @@
         'sharpnessLegendTitle': 'Sharpness requires Explorer open',
         'coordLegendText': 'Coordination',
         'coordLegendTitle': 'Piece coordination',
+        'criticalLegendText': 'Critical',
+        'criticalLegendTitle': 'Critical moves',
         'localLegendText': 'Local',
         'localLegendTitle': 'Local engine evaluation',
         'tensionLegendText': 'Tension',
@@ -87,6 +90,7 @@
         'extraChart.accuracy': 'Acurate\u0163e',
         'extraChart.sharpness': 'Periculozitate',
         'extraChart.coord': 'Coordinare',
+        'extraChart.critical': 'Critice',
         'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
         'extraChart.moreBrilliant': '... mai multe mut\u0103ri',
         'extraChart.smooth': 'Netezire grafice',
@@ -111,6 +115,8 @@
         'sharpnessLegendTitle': 'Periculozitatea necesit\u0103 Exploratorul deschis',
         'coordLegendText': 'Coordinare',
         'coordLegendTitle': 'Coordonarea pieselor',
+        'criticalLegendText': 'Critice',
+        'criticalLegendTitle': 'Mut\u0103ri critice',
         'localLegendText': 'Local',
         'localLegendTitle': 'Evaluare motorului local',
         'tensionLegendText': 'Tensiune',
@@ -137,6 +143,7 @@
       accuracyChart: this.thematic('#FF00FF','#700058'),
       sharpnessChart: this.thematic('#FFA0A0','#B09090'),
       coordChart: '#60A0A0',
+      criticalChart: '#A00000',
       maxTensionLine: '#FF0000',
       maxPotentialLine: '#008000',
       interestingMoves: this.thematic('#168226','#009914'),
@@ -739,6 +746,69 @@
           };
         })
         .filter(r => !!r);
+    };
+
+    getCriticalData = (mainline) => {
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
+
+      const minSegmentLength = 3;
+
+      const evalData = mainline
+        .map((node, x) => {
+          let ceval = node.ceval;
+          if (!ceval) {
+            ceval = node.eval;
+          }
+          if (!ceval) {
+            ceval = this.getCommentCeval(node);
+          }
+          return {
+            x: x,
+            cp: ceval ? this.getCp(ceval) : null
+          };
+        })
+        .filter(i=>i.cp!==null);
+
+      const n = evalData.length;
+      if (mainline.length < 2 * minSegmentLength + 1) {
+        return null;
+      }
+    
+      const prefixSum   = new Float64Array(n + 1);
+      const prefixSumSq = new Float64Array(n + 1);
+
+      for (let i = 0; i < n; i++) {
+        const cp = evalData[i].cp;
+        prefixSum[i + 1]   = prefixSum[i]   + cp;
+        prefixSumSq[i + 1] = prefixSumSq[i] + cp*cp;
+      }
+
+      function segmentLogLik(start, end) {
+        const m    = end - start;
+        const sum  = prefixSum[end]   - prefixSum[start];
+        const sumSq= prefixSumSq[end] - prefixSumSq[start];
+        const mean = sum / m;
+        const ss   = Math.max(sumSq - m * mean * mean, 1e-10);
+        return -(m / 2) * Math.log(ss);
+      }
+
+      const nullLogLik = segmentLogLik(0, n);
+
+      const allScores = new Float64Array(n).fill(0);
+      for (let tau = minSegmentLength; tau < n - minSegmentLength; tau++) {
+        const score = segmentLogLik(0, tau) + segmentLogLik(tau, n) - nullLogLik;
+        allScores[tau] = score;
+      }
+      const result = mainline
+        .map((node, x) => {
+          const index = evalData.findIndex(i=>i.x==x);
+          return {
+            y: index>=0 ? allScores[index]/200 : 0,
+            x: x
+          };
+        });
+      return result;
     };
 
     computeGood = (side, node, prevNode) => {
@@ -1355,7 +1425,7 @@
       const chart = this._chart;
       if (!chart) return;
       const lt = this.lichessTools;
-      const removed = lt.arrayRemoveAll(chart.data.datasets, d => [ 'Material', 'Principled', 'Local', 'Accuracy', 'Sharpness', 'Coordination', 'Max tension', 'Max potential'].includes(d.label));
+      const removed = lt.arrayRemoveAll(chart.data.datasets, d => [ 'Material', 'Principled', 'Local', 'Accuracy', 'Sharpness', 'Coordination', 'Critical', 'Max tension', 'Max potential'].includes(d.label));
       if (removed.length) {
         chart.options.scales.x.max = Math.max.apply(null, chart.data.datasets.map(ds => ds.data.map(p => p.x)).flat());
         chart.update('none');
@@ -1582,6 +1652,13 @@
                       .text(trans.noarg('coordLegendText'))
                       .attr('title',trans.noarg('coordLegendTitle'))
                       .toggleClass('enabled',this.options.coord)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','critical')
+                      .text(trans.noarg('criticalLegendText'))
+                      .attr('title',trans.noarg('criticalLegendTitle'))
+                      .toggleClass('enabled',this.options.critical)
                       .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
             )
             .append($('<button type="button">')
@@ -1878,6 +1955,40 @@
           const dataset = chart.data.datasets[existingCoord];
           const existingData = dataset.data;
           const newData = this.smooth(this.getCoordData(mainline));
+          updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
+          if (updateChart) dataset.data = newData;
+        }
+      }
+
+      let existingCritical = chart.data.datasets.findIndex(s => s.label === 'Critical');
+      if (existingCritical >= 0 && (this.prevSmooth != this.options.smooth || !this.options.critical)) {
+        chart.data.datasets.splice(existingCritical, 1);
+        existingCritical = -1;
+        updateChart = true;
+      }
+      if (this.options.critical) {
+        const mainline = localLine;
+        if (existingCritical < 0) {
+          chart.data.datasets.push({
+            label: 'Critical',
+            type: 'line',
+            data: this.smooth(this.getCriticalData(mainline)),
+            borderWidth: 1,
+            cubicInterpolationMode: this.options.smooth ? 'monotone' : 'default',
+            tension: 1,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.criticalChart,
+            yAxisID: 'y',
+            order: 1,
+            datalabels: { display: false }
+          });
+          updateChart = true;
+        } else {
+          const dataset = chart.data.datasets[existingCritical];
+          const existingData = dataset.data;
+          const newData = this.smooth(this.getCriticalData(mainline));
           updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
           if (updateChart) dataset.data = newData;
         }
@@ -2426,8 +2537,9 @@
         accuracy: lt.isOptionSet(value, 'accuracy'),
         sharpness: lt.isOptionSet(value, 'sharpness'),
         coord: lt.isOptionSet(value, 'coord'),
+        critical: lt.isOptionSet(value, 'critical'),
         smooth: lt.isOptionSet(value, 'smooth'),
-        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness || this.coord; },
+        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness || this.coord || this.critical; },
         accuracyPlus: lt.isOptionSet(value, 'accuracyPlus'),
         gauge: lt.isOptionSet(value, 'gauge'),
         hideLegend: lt.isOptionSet(value, 'hideLegend'),

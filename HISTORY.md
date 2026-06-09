@@ -6,6 +6,7 @@ History of features added to LiChess Tools in time (reversed order)
 - disable Live Annotate option
 - Chess.com sound theme
 - $leaf,$white,$black,| move search
+- critical moves chart line
 
 02 Jun
 
