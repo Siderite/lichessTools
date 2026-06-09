@@ -171,7 +171,7 @@
         name='book';
         fill = '#999900BB';
       }
-      if (!glyph) {
+      if (!glyph && this.options.slow) {
         this.processSlow(node);
         if (node.isSlow) {
           glyph = lt.icon.Hourglass;
@@ -179,7 +179,7 @@
           fill = '#AA882099';
         }
       }
-      if (!glyph) {
+      if (!glyph && this.options.novelty) {
         this.processNovelty(node);
         if (node.novelty>0.25) {
           glyph = lt.icon.CyrillicCapitalLetterI;
