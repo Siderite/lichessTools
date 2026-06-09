@@ -213,9 +213,10 @@
         s += renderGlyphs(first);
         s += renderComments(first);
 
-        s+=isBlackTurn?'$white':'$black';
+        const metaTokens = [];
+        metaTokens.push(isBlackTurn?'$white':'$black');
         if (!first.children?.length) {
-          s += '$leaf';
+          metaTokens.push('$leaf');
         }
 
         if (reg) {
@@ -231,7 +232,7 @@
             options.searchObj.nodes.push(first.path);
           } else {
             reg.lastIndex = lastFind;
-            match = reg.exec(output);
+            match = reg.exec(output+metaTokens.join(','));
             if (match) {
               options.searchObj.nodes.push(first.path);
               options.searchObj.lastFind = output.length;
