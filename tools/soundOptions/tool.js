@@ -241,13 +241,7 @@
       'countdown4', 'countdown5', 'countdown6', 'countdown7', 'countdown8', 'countdown9', 'defeat', 'draw', 'error', 'explosion',
       'genericNotify', 'lowtime', 'move', 'newChallenge', 'newPM', 'outofbound', 'practiceComplete', 'tournament1st', 'tournament2nd', 'tournament3rd',
       'tournamentOther', 'victory' ];
-    themeUrls = new Map([
-      ['mortalKombat','https://fordcrownvictoria1234-art.github.io/MK1SFX/'],
-      ['chessPursuit','https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/sound/'],
-      ['starWars','https://fordcrownvictoria1234-art.github.io/Star_Wars_SFX_Lichess_Fixed/Star_Wars_SFX/'],
-      ['superMario','https://fordcrownvictoria1234-art.github.io/Super_Mario_World_SFX_Lichess/Super_Mario_World_SFX_Lichess/'],
-      ['chesscom','https://ferodos.github.io/chesscom-sounds-lichess/chesscom-sounds-lichess/']
-    ]);
+
     soundUrls = new Map();
     loadSound = async (e) => {
       const lt = this.lichessTools;
@@ -322,6 +316,15 @@
         speak5: lt.isOptionSet(timeAlert, 'speak5'),
         behind: lt.isOptionSet(timeAlert, 'behind') 
       };
+      if (!this.themeUrls) {
+        const self = this;
+        lt.comm.getData('soundThemeUrls.json').then(data=>{
+          if (!data) {
+            lt.global.console.warn('Could not load sound themes!');
+          }
+          self.themeUrls = new Map(data?.themeUrls || []);
+        });
+      }
       if (lichess.sound?.move) {
         lichess.sound.move = lt.unwrapFunction(lichess.sound.move, 'soundOptions');
         if (this.options.noMove) {
@@ -354,7 +357,16 @@
       if (soundThemes) {
         lichess.sound.changeSet = lt.wrapFunction(lichess.sound.changeSet,{
           id: 'soundOptions',
+          before: ($this,e)=>{
+            if (!this.themeUrls) {
+              lt.global.setTimeout(()=>lichess.sound.changeSet(e),100);
+              return false;
+            }
+          },
           after: ($this,result,e)=>{
+            if (!this.themeUrls) {
+              return;
+            }
             this.soundUrls.clear();
             let customThemeUrl = this.themeUrls.get(e);
             if (customThemeUrl) {
