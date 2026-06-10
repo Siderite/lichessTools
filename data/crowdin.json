@@ -11705,9 +11705,9 @@
     "mergePgnHeader": "PGN για συγχώνευση σε αυτό το κεφάλαιο",
     "errorMergingPgnText": "Σφάλμα συγχώνευσης PGN",
     "additionalGlyphs.disableLiveAnnotate": "Απενεργοποίηση Ζωντανής Σημείωσης",
-    "extraChart.critical": "Critical",
-    "criticalLegendText": "Critical",
-    "criticalLegendTitle": "Critical moves"
+    "extraChart.critical": "Κρίσιμο",
+    "criticalLegendText": "Κρίσιμο",
+    "criticalLegendTitle": "Κρίσιμες κινήσεις"
   },
   "hi-IN": {
     "LiChess Tools": "LiChess Tools",
