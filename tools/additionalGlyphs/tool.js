@@ -230,7 +230,7 @@
           fill: '#999900BB'
         });
       }
-      if (this.options.slow && !symbols.find(s=>s==lt.icon.HourGlass)) {
+      if (this.options.slow && !symbols.find(s=>s==lt.icon.Hourglass)) {
         this.processSlow(node);
         if (node.isSlow) {
           newGlyphs.push({
