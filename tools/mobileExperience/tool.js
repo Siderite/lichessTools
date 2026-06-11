@@ -669,7 +669,7 @@
             id: 'mobileExperience',
             after: ($this, result, ...args) => {
               return $this.showGauge()
-                     && $this.showAnalysis()
+                     && $this.showEvaluation()
                      && $this.isCevalAllowed()
                      && !$this.node.outcome();
             }

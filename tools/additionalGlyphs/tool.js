@@ -209,7 +209,7 @@
       const node = analysis?.node;
       if (!node) return;
 
-      $('body').toggleClassSafe('lichessTools-compOff',!analysis?.showFishnetAnalysis() && !analysis?.cevalEnabled());
+      $('body').toggleClassSafe('lichessTools-compOff',!analysis?.showStaticAnalysis() && !analysis?.cevalEnabled());
       const chessground = lt.getChessground();
       if (!chessground) return;
       const glyphs = node.glyphs || (node.glyphs = []);
