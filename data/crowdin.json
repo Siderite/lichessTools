@@ -9363,9 +9363,9 @@
     "mergePgnHeader": "Fichier PGN à fusionner dans ce chapitre",
     "errorMergingPgnText": "Erreur lors de la fusion du PGN",
     "additionalGlyphs.disableLiveAnnotate": "Désactiver les annotations en direct",
-    "extraChart.critical": "Critical",
-    "criticalLegendText": "Critical",
-    "criticalLegendTitle": "Critical moves"
+    "extraChart.critical": "Critique",
+    "criticalLegendText": "Critique",
+    "criticalLegendTitle": "Coups critiques"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -29269,10 +29269,10 @@
     "mergeButtonText": "Birleştir",
     "mergePgnHeader": "Bu bölümde birleştirilecek PGN",
     "errorMergingPgnText": "PGN birleştirilirken hata oluştu",
-    "additionalGlyphs.disableLiveAnnotate": "Disable Live Annotate",
-    "extraChart.critical": "Critical",
-    "criticalLegendText": "Critical",
-    "criticalLegendTitle": "Critical moves"
+    "additionalGlyphs.disableLiveAnnotate": "Canlı Açıklamayı Kapat",
+    "extraChart.critical": "Kritik",
+    "criticalLegendText": "Kritik",
+    "criticalLegendTitle": "Kritik hamleler"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
