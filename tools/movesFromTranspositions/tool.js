@@ -41,7 +41,10 @@
       if (currNode.path === undefined) currNode.path = nodePath;
       const tools = $('div.analyse__tools');
       let fork = $('div.lichessTools-transpositions', tools);
-      if (analysis.disclosureMode && analysis.disclosureMode()) {
+      const disclosureMode = analysis.disclosureMode //TODO remove this when Lichess code stabilizes
+        ? analysis.disclosureMode()
+        : analysis.settings?.disclosureMode;
+      if (disclosureMode) {
         fork.remove();
         return;
       }

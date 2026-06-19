@@ -294,7 +294,10 @@
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || (analysis?.showStaticAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const showStaticAnalysis = analysis?.showStaticAnalysis //TODO remove this when Lichess code stabilizes
+        ? analysis.showStaticAnalysis()
+        : analysis?.settings?.showStaticAnalysis;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
       const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
       if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
 
@@ -345,7 +348,10 @@
       if (this.isGamesPage()) {
         return;
       }
-      if ($.cached('body').is('.playing') || (analysis?.showStaticAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const showStaticAnalysis = analysis?.showStaticAnalysis //TODO remove this when Lichess code stabilizes
+        ? analysis.showStaticAnalysis()
+        : analysis?.settings?.showStaticAnalysis;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
       const trans = lt.translator;
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;

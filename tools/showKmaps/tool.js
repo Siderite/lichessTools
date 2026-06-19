@@ -245,7 +245,10 @@
       const analysis = lichess.analysis;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || (analysis?.showStaticAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const showStaticAnalysis = analysis?.showStaticAnalysis //TODO remove this when Lichess code stabilizes
+        ? analysis.showStaticAnalysis()
+        : analysis?.settings?.showStaticAnalysis;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
 
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);

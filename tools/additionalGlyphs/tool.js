@@ -3,6 +3,7 @@
 
     dependencies = ['EmitRedraw'];
 
+    // TODO remove disableLiveAnnotate and use analysis.settings.showLiveGlyphs when available
     preferences = [
       {
         name: 'additionalGlyphs',
@@ -209,7 +210,10 @@
       const node = analysis?.node;
       if (!node) return;
 
-      $('body').toggleClassSafe('lichessTools-compOff',!analysis?.showStaticAnalysis() && !analysis?.cevalEnabled());
+      const showStaticAnalysis = analysis?.showStaticAnalysis //TODO remove this when Lichess code stabilizes
+        ? analysis.showStaticAnalysis()
+        : analysis?.settings?.showStaticAnalysis;
+      $('body').toggleClassSafe('lichessTools-compOff',!showStaticAnalysis && !analysis?.cevalEnabled());
       const chessground = lt.getChessground();
       if (!chessground) return;
       const glyphs = node.glyphs || (node.glyphs = []);
