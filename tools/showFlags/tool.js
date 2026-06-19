@@ -211,7 +211,7 @@
           if (item.countryName == 'noflag') {
             operations.push({elem: elem, cls:'lichessTools-noflag',afterElem:null});
           } else {
-            const flagUrl = lt.assetUrl('flags/' + item.country + '.png');
+            const flagUrl = lt.assetUrl('flags/' + item.country + '.webp');
             operations.push({elem: elem, cls:'lichessTools-flag',afterElem:$('<img>')
               .addClass('flag')
               .attr('loading', 'lazy')
